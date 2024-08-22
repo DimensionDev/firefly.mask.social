@@ -457,8 +457,13 @@ body.not-support .fixed.inset-y-0 {
     display: none;
 }
 
+.mini-video {
+    width: 100%;
+    height: 100%;
+}
+
 .mini-video > div > div {
-    max-height: 138px;
+    height: 100%;
     width: 100%;
 }
 

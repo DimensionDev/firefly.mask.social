@@ -48,7 +48,6 @@ const getClass = (size: number) => {
 
 interface AttachmentsProps {
     post: Post;
-    asset?: Attachment;
     attachments: Attachment[];
     isQuote?: boolean;
     isDetail?: boolean;
@@ -56,16 +55,20 @@ interface AttachmentsProps {
 
 export const Attachments = memo<AttachmentsProps>(function Attachments({
     attachments,
-    asset,
     post,
     isQuote = false,
     isDetail = false,
 }) {
-    const videoAndImageAttachments = attachments.filter((x) => ['Video', 'Image', 'AnimatedGif'].includes(x.type));
-    const attachmentsSnapshot = isDetail
-        ? videoAndImageAttachments
-        : videoAndImageAttachments.slice(0, isQuote ? 4 : 9);
-    const moreImageCount = videoAndImageAttachments.length - attachmentsSnapshot.length; // If it is 0 or below, there are no more images
+    const video: Attachment | undefined = attachments.find((a) => a.type === 'Video');
+    const gifAttachments = attachments.filter((a) => a.type === 'AnimatedGif');
+    const imageAttachments = attachments.filter((x) => {
+        if (video || gifAttachments.length > 1) return ['Image', 'AnimatedGif'].includes(x.type);
+        return x.type === 'Image';
+    });
+    const asset = imageAttachments[0];
+
+    const attachmentsSnapshot = isDetail ? imageAttachments : imageAttachments.slice(0, isQuote ? 4 : 9);
+    const moreImageCount = imageAttachments.length - attachmentsSnapshot.length; // If it is 0 or below, there are no more images
 
     const handleImageError = useCallback(
         (event: SyntheticEvent<HTMLImageElement>) => {
@@ -109,7 +112,7 @@ export const Attachments = memo<AttachmentsProps>(function Attachments({
         !post?.metadata.content?.content && attachmentsSnapshot.length === 1 && attachmentsSnapshot[0].type === 'Image';
 
     return (
-        <div className={isQuote ? '' : 'mt-3'}>
+        <div className={classNames('flex flex-col gap-3', isQuote ? '' : 'mt-3')}>
             {attachmentsSnapshot.length === 1 && asset ? (
                 <WithPreviewLink
                     post={post}
@@ -199,10 +202,10 @@ export const Attachments = memo<AttachmentsProps>(function Attachments({
                                             alt={formatImageUrl(uri, ATTACHMENT)}
                                         />
                                     ) : (
-                                        <div className="h-full w-full">
+                                        <div className="flex h-full w-full flex-col">
                                             <VideoAsset
                                                 videoClassName={
-                                                    attachmentsSnapshot.length >= 2 ? 'mini-video' : undefined
+                                                    attachmentsSnapshot.length >= 2 ? 'mini-video flex-1' : undefined
                                                 }
                                                 asset={attachment}
                                                 isQuote={isQuote}
@@ -248,6 +251,16 @@ export const Attachments = memo<AttachmentsProps>(function Attachments({
                             <Trans>View Source</Trans>
                         </Link>
                     </div>
+                </div>
+            ) : null}
+            {video ? (
+                <div className="w-full">
+                    <VideoAsset asset={video} isQuote={isQuote} source={post.source} />
+                </div>
+            ) : null}
+            {!video && gifAttachments.length === 1 ? (
+                <div className="w-full">
+                    <VideoAsset asset={gifAttachments[0]} isQuote={isQuote} source={post.source} />
                 </div>
             ) : null}
         </div>
