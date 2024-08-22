@@ -77,6 +77,11 @@ export type SocialSource = Source.Farcaster | Source.Lens | Source.Twitter;
 export type ProfileSource = Source.Farcaster | Source.Lens | Source.Twitter | Source.Firefly;
 export type SocialSourceInURL = SourceInURL.Farcaster | SourceInURL.Lens | SourceInURL.Twitter;
 
+export enum WalletProviderType {
+    AppKit = 'app_kit',
+    RainbowKit = 'rainbow_kit',
+}
+
 export enum DiscoverType {
     ForYou = 'for-you',
     Recent = 'recent',
@@ -92,17 +97,17 @@ export enum SearchType {
 }
 
 export enum KeyType {
-    DigestOpenGraphLink = 'digestOpenGraphLink',
-    DigestFrameLink = 'digestFrameLink',
-    GetPostOGById = 'getPostOGById',
-    GetArticleOGById = 'getArticleOGById',
-    GetProfileOGById = 'getProfileOGById',
-    GetChannelOGById = 'getChannelOGById',
-    GetLensThreadByPostId = 'getLensThreadByPostId',
-    RefreshLensThreadLock = 'RefreshLensThreadLock',
-    GetFollowings = 'getFollowings',
-    ConsumerSecret = 'consumerSecret',
-    GetBlink = 'getBlink',
+    DigestOpenGraphLink = '/v2/digestOpenGraphLink',
+    DigestFrameLink = '/v2/digestFrameLink',
+    GetPostOGById = '/v2/getPostOGById',
+    GetArticleOGById = '/v2/getArticleOGById',
+    GetProfileOGById = '/v2/getProfileOGById',
+    GetChannelOGById = '/v2/getChannelOGById',
+    GetLensThreadByPostId = '/v2/getLensThreadByPostId',
+    RefreshLensThreadLock = '/v2/RefreshLensThreadLock',
+    GetFollowings = '/v2/getFollowings',
+    ConsumerSecret = '/v2/consumerSecret',
+    GetBlink = '/v2/getBlink',
 }
 
 export enum ProfileTabType {

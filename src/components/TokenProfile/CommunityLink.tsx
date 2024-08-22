@@ -8,9 +8,9 @@ import Instagram from '@/assets/instagram.svg';
 import Medium from '@/assets/medium.svg';
 import RedditRound from '@/assets/reddit-round.svg';
 import TelegramRound from '@/assets/telegram-round.svg';
-import XRound from '@/assets/x-round.svg';
 import YouTube from '@/assets/youtube.svg';
 import { Tooltip } from '@/components/Tooltip.js';
+import { XIcon } from '@/components/XIcon.js';
 import { SourceInURL } from '@/constants/enum.js';
 import { Link } from '@/esm/Link.js';
 import { TwitterSocialMediaProvider } from '@/providers/twitter/SocialMedia.js';
@@ -28,7 +28,7 @@ const brands: Record<CommunityType, React.ReactNode> = {
     medium: <Medium width={16} height={16} />,
     reddit: <RedditRound width={16} height={16} />,
     telegram: <TelegramRound width={16} height={16} />,
-    twitter: <XRound width={16} height={16} />,
+    twitter: <XIcon width={16} height={16} />,
     youtube: <YouTube width={16} height={16} />,
     linkedin: <LinkIcon width={16} height={16} />,
     other: <LinkIcon width={16} height={16} />,

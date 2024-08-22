@@ -4,7 +4,7 @@ import { getWalletClient, type GetWalletClientParameters, type GetWalletClientRe
 import { chains } from '@/configs/wagmiClient.js';
 import { SwitchChainError } from '@/constants/error.js';
 import { switchEthereumChain } from '@/helpers/switchEthereumChain.js';
-import { RainbowKitModalRef } from '@/modals/controls.js';
+import { ConnectModalRef } from '@/modals/controls.js';
 
 export async function getWalletClientRequired(
     config: Config,
@@ -16,7 +16,7 @@ export async function getWalletClientRequired(
         const errorWithName = error as { name: string };
         const errorName = errorWithName.name;
         // cannot use `instanceof` because the package does not export the class
-        if (errorName === 'ConnectorNotConnectedError') await RainbowKitModalRef.openAndWaitForClose();
+        if (errorName === 'ConnectorNotConnectedError') await ConnectModalRef.openAndWaitForClose();
         throw error;
     }
 

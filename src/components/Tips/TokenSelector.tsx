@@ -1,10 +1,11 @@
-import { t } from '@lingui/macro';
+import { t, Trans } from '@lingui/macro';
 import { isSameAddress } from '@masknet/web3-shared-base';
 import { findIndex } from 'lodash-es';
 import { memo, useEffect, useMemo, useRef, useState } from 'react';
 import { useDebounce } from 'usehooks-ts';
 
 import ArrowDown from '@/assets/arrow-down.svg';
+import LineArrowUp from '@/assets/line-arrow-up.svg';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { Loading } from '@/components/Loading.js';
 import { NoResultsFallback } from '@/components/NoResultsFallback.js';
@@ -14,11 +15,13 @@ import { router, TipsRoutePath } from '@/components/Tips/TipsModalRouter.js';
 import { TokenIcon } from '@/components/Tips/TokenIcon.js';
 import { TokenItem } from '@/components/Tips/TokenItem.js';
 import { classNames } from '@/helpers/classNames.js';
+import { isGreaterThan, isLessThan } from '@/helpers/number.js';
 import { TipsContext } from '@/hooks/useTipsContext.js';
 import { useTipsTokens } from '@/hooks/useTipsTokens.js';
 
 export const TokenSelector = memo(function TokenSelector() {
     const [search, setSearch] = useState('');
+    const [showSmall, setShowSmall] = useState(false);
     const listRef = useRef<HTMLDivElement>(null);
     const { tokens, isLoading } = useTipsTokens();
     const { token } = TipsContext.useContainer();
@@ -41,6 +44,19 @@ export const TokenSelector = memo(function TokenSelector() {
         });
     }, [tokens, debouncedSearch]);
 
+    const showMore = useMemo(() => {
+        if (!filteredTokens.length) return false;
+        return (
+            filteredTokens.some((token) => isGreaterThan(token.usdValue, 1)) &&
+            filteredTokens.some((token) => isLessThan(token.usdValue, 1))
+        );
+    }, [filteredTokens]);
+
+    const displayedTokens = useMemo(() => {
+        if (!showMore) return filteredTokens;
+        return showSmall ? filteredTokens : filteredTokens.filter((token) => isGreaterThan(token.usdValue, 1));
+    }, [filteredTokens, showSmall, showMore]);
+
     return (
         <>
             <TipsModalHeader back title={t`Select Token`} />
@@ -56,8 +72,25 @@ export const TokenSelector = memo(function TokenSelector() {
                         />
                     </div>
                     <div className="no-scrollbar mt-3 h-80 overflow-y-auto" ref={listRef}>
-                        {filteredTokens?.map((token) => <TokenItem key={`${token.id}.${token.chain}`} token={token} />)}
+                        {displayedTokens?.map((token) => (
+                            <TokenItem key={`${token.id}.${token.chain}`} token={token} />
+                        ))}
                         {!filteredTokens?.length && !isLoading && <NoResultsFallback message={t`No available token`} />}
+                        {showMore ? (
+                            <ClickableButton
+                                className="mt-2 flex w-full items-center justify-center gap-0.5 rounded-lg py-2 text-sm font-bold text-lightHighlight hover:bg-lightBg"
+                                onClick={() => setShowSmall((prev) => !prev)}
+                            >
+                                <span>
+                                    {showSmall ? (
+                                        <Trans>Hide tokens with small balances</Trans>
+                                    ) : (
+                                        <Trans>Show more tokens with small balances</Trans>
+                                    )}
+                                </span>
+                                <LineArrowUp width={20} height={20} className={showSmall ? '' : 'rotate-180'} />
+                            </ClickableButton>
+                        ) : null}
                     </div>
                 </div>
             )}

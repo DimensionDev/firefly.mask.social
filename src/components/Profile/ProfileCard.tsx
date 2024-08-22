@@ -1,4 +1,4 @@
-import { plural, Trans } from '@lingui/macro';
+import { Trans } from '@lingui/macro';
 import { useQuery } from '@tanstack/react-query';
 import { memo } from 'react';
 
@@ -6,6 +6,7 @@ import { Avatar } from '@/components/Avatar.js';
 import { ClickableArea } from '@/components/ClickableArea.js';
 import { BioMarkup } from '@/components/Markup/BioMarkup.js';
 import { FollowButton } from '@/components/Profile/FollowButton.js';
+import { FollowersLink } from '@/components/Profile/FollowersLink.js';
 import { SocialSourceIcon } from '@/components/SocialSourceIcon.js';
 import { Source } from '@/constants/enum.js';
 import { Link } from '@/esm/Link.js';
@@ -93,24 +94,7 @@ export const ProfileCard = memo<ProfileCardProps>(function ProfileCard({ identit
                     </Link>
 
                     <div className="flex gap-3 text-[15px]">
-                        <Link
-                            href={{
-                                pathname: `/profile/${profile?.profileId}/followers`,
-                                query: { source: resolveSourceInURL(profile.source) },
-                            }}
-                            className={classNames('gap-1 leading-[22px] hover:underline', {
-                                'pointer-events-none':
-                                    profile.source !== Source.Farcaster && profile.source !== Source.Lens,
-                            })}
-                        >
-                            <span className="font-bold text-lightMain">{nFormatter(profile.followerCount)} </span>
-                            <span className="text-secondary">
-                                {plural(profile.followerCount, {
-                                    one: 'Follower',
-                                    other: 'Followers',
-                                })}
-                            </span>
-                        </Link>
+                        <FollowersLink profile={profile} className="leading-[22px]" />
 
                         <Link
                             href={{

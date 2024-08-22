@@ -54,7 +54,7 @@ function setFollowStatus(source: Source, profileId: string, status: boolean) {
         profilesPatcher,
     );
     queryClient.setQueriesData<PagesData>({ queryKey: ['suggested-follows', source], type: 'active' }, profilesPatcher);
-    queryClient.setQueriesData<Profile[]>({ queryKey: ['suggested-follows-lite', source] }, (profiles) => {
+    queryClient.setQueriesData<Profile[]>({ queryKey: ['suggested-follows-lite'] }, (profiles) => {
         if (!profiles) return profiles;
         for (const profile of profiles) {
             if (profile.profileId === profileId) {

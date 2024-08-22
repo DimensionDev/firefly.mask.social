@@ -20,7 +20,7 @@ export function NFTList(props: { address: string; chainId?: ChainId }) {
                 pageParam ? { index: 1, id: pageParam, __type__: 'PageIndicator' } : undefined,
                 pageParam,
             );
-            return SimpleHashWalletProfileProvider.getNFTs(address, { indicator, chainId });
+            return SimpleHashWalletProfileProvider.getNFTs(address, { indicator, chainId }, true);
         },
         getNextPageParam: (lastPage) => lastPage?.nextIndicator?.id,
         select: (data) => data.pages.flatMap((page) => page.data ?? EMPTY_LIST),

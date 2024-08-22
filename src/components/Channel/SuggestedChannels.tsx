@@ -35,26 +35,28 @@ export function SuggestedChannels({ source }: SuggestedChannelsProps) {
     if (!suggestedChannels.length) return null;
 
     return (
-        <div className="rounded-lg border border-line dark:border-0 dark:bg-lightBg">
-            <AsideTitle>
-                <Trans>Suggested Channels</Trans>
+        <div>
+            <AsideTitle className="flex items-center justify-between !px-3">
+                <span className="text-xl">
+                    <Trans>Trending Channels</Trans>
+                </span>
+                {showMore ? (
+                    <Link
+                        className="text-[15px] text-lightHighlight"
+                        href={urlcat(PageRoute.Home, {
+                            discover: DiscoverType.TopChannels,
+                            source: resolveSocialSourceInURL(Source.Farcaster),
+                        })}
+                    >
+                        <Trans>More</Trans>
+                    </Link>
+                ) : null}
             </AsideTitle>
-            <div className="flex flex-col">
+            <div className="flex flex-col rounded-xl bg-lightBg py-[18px]">
                 {suggestedChannels.map((channel) => (
                     <ChannelInList key={channel.id} channel={channel} noFollowButton dense />
                 ))}
             </div>
-            {showMore ? (
-                <Link
-                    href={urlcat(PageRoute.Home, {
-                        discover: DiscoverType.TopChannels,
-                        source: resolveSocialSourceInURL(Source.Farcaster),
-                    })}
-                    className="flex px-4 py-2 text-[15px] font-bold leading-[24px] text-lightHighlight"
-                >
-                    <Trans>Show More</Trans>
-                </Link>
-            ) : null}
         </div>
     );
 }

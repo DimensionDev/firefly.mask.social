@@ -81,6 +81,9 @@ msgstr "取消隐藏成功。"
 msgid "Mute /{0}"
 msgstr "隐藏 /{0}"
 
+msgid "Failed to collect article."
+msgstr ""
+
 msgid "Communities"
 msgstr "社区"
 
@@ -177,6 +180,9 @@ msgstr "更多"
 msgid "Translate post"
 msgstr "翻译帖子"
 
+msgid "Free"
+msgstr ""
+
 msgid "Searching users"
 msgstr "查找用户中"
 
@@ -261,6 +267,9 @@ msgstr "您的账号已连接。"
 msgid "Report submitted on {0}"
 msgstr "举报已提交 {0}"
 
+msgid "Trending Channels"
+msgstr ""
+
 msgid "Debug Console"
 msgstr "诊断命令行"
 
@@ -281,9 +290,6 @@ msgstr "未找到个人资料"
 
 msgid "NFT Standard"
 msgstr "NFT 标准"
-
-msgid "<0>{0}</0> reposted"
-msgstr "<0>{0}</0> 已转发"
 
 msgid "Failed to like the comment."
 msgstr "点赞失败。"
@@ -333,8 +339,14 @@ msgstr "收起"
 msgid "The video \"{0}\" exceeds the size limit."
 msgstr ""
 
+msgid "Switch between the app kit and rainbow kit wallet providers."
+msgstr ""
+
 msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} {1, select, Lens {mirrored your} Farcaster {recasted your} other {mirrored your}} <4>{2, select, Post {post} Comment {comment} Quote {quote} Mirror {mirror} other {post}}</4>"
 msgstr "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} {1, select, Lens {转帖了你的} Farcaster {转帖了你的} other {转帖了你的}} <4>{2, select, Post {帖子} Comment {评论} Quote {引用} Mirror {转帖} other {帖子}}</4>"
+
+msgid "<0>{0}</0><1>mirrored</1>"
+msgstr ""
 
 msgid "True Token"
 msgstr "真实的通证"
@@ -633,6 +645,9 @@ msgstr ""
 msgid "Update"
 msgstr "更新"
 
+msgid "You might like"
+msgstr ""
+
 msgid "Remove from Bookmarks"
 msgstr "取消收藏"
 
@@ -744,6 +759,9 @@ msgstr "天"
 msgid "<0/> mentioned you in a <1>{0, select, Post {post} Comment {comment} Quote {quote} Mirror {mirror} other {post}}</1>"
 msgstr "<0/>提到了你的 <1>{0, select, Post {帖子} Comment {评论} Quote {引用} Mirror {引用} other {帖子}}</1>"
 
+msgid "Cost"
+msgstr ""
+
 msgid "Insufficient Gas"
 msgstr "燃油费不足"
 
@@ -831,6 +849,9 @@ msgstr "打开 Firefly App"
 msgid "Privacy Policy"
 msgstr "隐私条款"
 
+msgid "Rainbow Kit"
+msgstr ""
+
 msgid "Forbidden. Please check your permissions."
 msgstr "禁止！请检查您的权限。"
 
@@ -866,6 +887,9 @@ msgstr "{0} 评论"
 
 msgid "Schedule Post"
 msgstr "定时任务"
+
+msgid "Sold Out"
+msgstr ""
 
 msgid "Proxy contract"
 msgstr "代理合约"
@@ -945,6 +969,9 @@ msgstr ""
 msgid "Failed to login."
 msgstr "登录失败。"
 
+msgid "Network"
+msgstr ""
+
 msgid "Unlike"
 msgstr "取消点赞"
 
@@ -959,6 +986,9 @@ msgstr "网站"
 
 msgid "Failed to report @{0}."
 msgstr "举报 @{0} 失败。"
+
+msgid "Post with link"
+msgstr ""
 
 msgid "Your post has published successfully."
 msgstr "发布成功。"
@@ -1020,14 +1050,14 @@ msgstr "<0>{0}</0> 点赞"
 msgid "Fully Diluted Valuation"
 msgstr "完全稀释估值"
 
-msgid "Suggested Channels"
-msgstr "推荐频道"
-
 msgid "Email (optional)"
 msgstr "邮箱（可选）"
 
 msgid "NFT Contract"
 msgstr "NFT 合约"
+
+msgid "Show more tokens with small balances"
+msgstr ""
 
 msgid "Share Now"
 msgstr "分享"
@@ -1086,6 +1116,9 @@ msgstr "无法对帖子进行投票。"
 msgid "<0>Acquired</0> an NFT"
 msgstr "<0>获取</0> 一个 NFT"
 
+msgid "App Kit"
+msgstr ""
+
 msgid "liked"
 msgstr "点赞"
 
@@ -1104,6 +1137,9 @@ msgstr "无效的 URL。"
 msgid "{shares, plural, one {Mirror or Quote} other {Mirrors or Quotes}}"
 msgstr "{shares, plural, one {转帖或引用} other {转帖或引用}}"
 
+msgid "Standard"
+msgstr ""
+
 msgid "<0>Revised</0>an article"
 msgstr "<0>修改了</0>文章"
 
@@ -1112,9 +1148,6 @@ msgstr "您需要连接您的 {0} 账号来使用此功能。"
 
 msgid "Bad Request. Please check your request."
 msgstr "请求错误。请检查你的请求。"
-
-msgid "Suggested Follows"
-msgstr "推荐关注"
 
 msgid "Login required to schedule post on {sourceName}"
 msgstr "需要先登录 {sourceName} 才能发送定时任务。"
@@ -1422,6 +1455,9 @@ msgstr "执行中"
 msgid "Community"
 msgstr "社区"
 
+msgid "Free Collect"
+msgstr ""
+
 msgid "Delete"
 msgstr "删除"
 
@@ -1590,6 +1626,9 @@ msgstr "复制"
 msgid "No available wallet."
 msgstr "没有可用的钱包。"
 
+msgid "<0>{0}</0><1>reposted</1>"
+msgstr ""
+
 msgid "Login to enable all features"
 msgstr "登录以启用所有功能"
 
@@ -1605,6 +1644,9 @@ msgstr "通知"
 msgid "Back"
 msgstr "返回"
 
+msgid "Article collected successfully!"
+msgstr ""
+
 msgid "Posting..."
 msgstr "发帖中..."
 
@@ -1618,7 +1660,7 @@ msgid "View transaction on explorer"
 msgstr "查看交易详情"
 
 msgid "<0>You</0> reposted"
-msgstr "<0>你</0> 已转帖"
+msgstr ""
 
 msgid "The contract may contain additional issuance functions, which could maybe generate a large number of tokens, resulting in significant fluctuations in token prices. It is recommended to confirm with the project team whether it complies with the token issuance instructions."
 msgstr "合约可能含有额外的发行功能，这可能会产生大量的通证，导致通证价格的重大波动。建议向项目组确认它是否遵守通证发行准则。"
@@ -1691,6 +1733,9 @@ msgstr "刷新"
 
 msgid "Followed by {0} , {1}, and {2}"
 msgstr "被 {0} 和 {1} 和 {2} 关注"
+
+msgid "Collect Article"
+msgstr ""
 
 msgid "Channels"
 msgstr "频道"
@@ -1848,6 +1893,9 @@ msgstr "已关联的钱包"
 msgid "The whitelist function is included. Some addresses may not be able to trade normally (honeypot risk)."
 msgstr "白名单功能已启用。有些地址可能无法正常交易（欺诈风险）。"
 
+msgid "Hide tokens with small balances"
+msgstr ""
+
 msgid "NFT ID"
 msgstr "NFT ID"
 
@@ -1992,6 +2040,9 @@ msgstr "个人信息"
 msgid "QUOTE"
 msgstr "引用"
 
+msgid "Wallet Provider"
+msgstr ""
+
 msgid "Collect"
 msgstr "收藏"
 
@@ -2045,6 +2096,9 @@ msgstr "这不是空投欺诈。许多欺诈通过空投吸引用户。"
 
 msgid "GIF"
 msgstr "GIF"
+
+msgid "Collect for {0} {1}"
+msgstr ""
 
 msgid "Recast"
 msgstr "转推"

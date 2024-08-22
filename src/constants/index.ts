@@ -19,7 +19,7 @@ import { MediaSource } from '@/types/compose.js';
 export const EMPTY_LIST = Object.freeze([]) as never[];
 export const EMPTY_OBJECT = Object.freeze({}) as Record<string, never>;
 
-export const SITE_NAME = 'Firefly: App for Web3 Natives';
+export const SITE_NAME = 'Firefly ✨ Everything App for Web3 Natives';
 export const SITE_DESCRIPTION = "Firefly is a social app for exploring what's happening onchain.";
 export const SITE_URL = env.external.NEXT_PUBLIC_SITE_URL;
 export const SITE_HOSTNAME = 'firefly.mask.social';
@@ -125,6 +125,11 @@ export const MAX_IMAGE_SIZE_PER_POST: Record<SocialSource, number> = {
     [Source.Lens]: 20,
     [Source.Twitter]: 4,
 };
+export const MAX_VIDEO_SIZE_PER_POST: Record<SocialSource, number> = {
+    [Source.Farcaster]: 400 * 1024 * 1024, // 400MB
+    [Source.Lens]: 400 * 1024 * 1024, // 400MB
+    [Source.Twitter]: 75 * 1024 * 1024, // 75MB
+};
 
 // HTTP Cache headers
 export const CACHE_AGE_INDEFINITE_ON_DISK = 'public, s-maxage=31536000, max-age=31536000, must-revalidate';
@@ -172,7 +177,6 @@ export const SUFFIX_NAMES: Record<(typeof ALLOWED_MEDIA_MIMES)[number], string> 
 };
 
 export const FILE_MAX_SIZE = 4 * 1024 * 1024; // 4MB
-export const VIDEO_MAX_SIZE = 400 * 1024 * 1024; // 400MB
 
 export const TWITTER_TIMELINE_OPTIONS: TweetV2UserTimelineParams = {
     expansions: [
@@ -214,9 +218,10 @@ export const TWITTER_USER_OPTIONS: Partial<UsersV2Params> = {
 
 export const SOLANA_WALLET_CACHE_KEY = 'walletName';
 
+// update profile
 export const MAX_PROFILE_BIO_SIZE: Record<SocialSource, number> = {
     [Source.Farcaster]: 160,
-    [Source.Lens]: 320,
+    [Source.Lens]: 260,
     [Source.Twitter]: 160,
 };
 
@@ -237,3 +242,15 @@ export const MAX_PROFILE_WEBSITE_SIZE: Record<SocialSource, number> = {
     [Source.Lens]: 100,
     [Source.Twitter]: 100,
 };
+
+// https://support.mirror.xyz/hc/en-us/articles/13729399363220-Platform-fees
+// 0.00069 ETH
+export const MIRROR_COLLECT_FEE = 690000000000000n;
+// 1 matic
+export const MIRROR_COLLECT_FEE_IN_POLYGON = 1000000000000000000n;
+
+// https://docs.paragraph.xyz/docs/advanced/referral-program
+// 0.000777 ETH
+export const PARAGRAPH_COLLECT_FEE = 777000000000000n;
+// 2 matic
+export const PARAGRAPH_COLLECT_FEE_IN_POLYGON = 2000000000000000000n;
