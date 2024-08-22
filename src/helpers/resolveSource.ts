@@ -42,6 +42,7 @@ export const resolveSourceFromSessionType = createLookupTableResolver<SessionTyp
         [SessionType.Farcaster]: Source.Farcaster,
         [SessionType.Lens]: Source.Lens,
         [SessionType.Twitter]: Source.Twitter,
+        [SessionType.Wallet]: Source.Wallet,
         [SessionType.Firefly]: Source.Firefly,
     },
     (sessionType) => {
@@ -54,6 +55,7 @@ export const resolveSocialSourceFromSessionType = createLookupTableResolver<Sess
         [SessionType.Farcaster]: Source.Farcaster,
         [SessionType.Lens]: Source.Lens,
         [SessionType.Twitter]: Source.Twitter,
+        [SessionType.Wallet]: Source.Farcaster,
         // not correct in some situations
         [SessionType.Firefly]: Source.Farcaster,
     },

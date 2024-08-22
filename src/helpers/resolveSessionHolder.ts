@@ -8,6 +8,7 @@ import { lensSessionHolder } from '@/providers/lens/SessionHolder.js';
 import { twitterSessionHolder } from '@/providers/twitter/SessionHolder.js';
 import type { Session } from '@/providers/types/Session.js';
 import { SessionType } from '@/providers/types/SocialMedia.js';
+import { walletSessionHolder } from '@/providers/wallet/SessionHolder.js';
 
 export const resolveSessionHolder = createLookupTableResolver<SocialSource, SessionHolder<Session>>(
     {
@@ -25,6 +26,7 @@ export const resolveSessionHolderFromSessionType = createLookupTableResolver<Ses
         [SessionType.Farcaster]: farcasterSessionHolder,
         [SessionType.Lens]: lensSessionHolder,
         [SessionType.Firefly]: fireflySessionHolder,
+        [SessionType.Wallet]: walletSessionHolder,
         [SessionType.Twitter]: twitterSessionHolder,
     },
     (sessionType) => {

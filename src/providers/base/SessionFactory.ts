@@ -10,6 +10,7 @@ import { LensSession } from '@/providers/lens/Session.js';
 import { TwitterSession } from '@/providers/twitter/Session.js';
 import type { Session } from '@/providers/types/Session.js';
 import { SessionType } from '@/providers/types/SocialMedia.js';
+import { WalletSession } from '@/providers/wallet/Session.js';
 
 const SessionSchema = z.object({
     profileId: z.string(),
@@ -97,6 +98,8 @@ export class SessionFactory {
                         session.token,
                         secondPart ? SessionFactory.createSession(atob(secondPart)) : null, // parent session
                     );
+                case SessionType.Wallet:
+                    return new WalletSession('', '');
                 default:
                     safeUnreachable(type);
                     throw new UnreachableError('session type', type);
