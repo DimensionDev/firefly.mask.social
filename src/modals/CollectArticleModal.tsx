@@ -117,7 +117,7 @@ export const CollectArticleModal = forwardRef<SingletonModalRefCreator<CollectAr
         return (
             <Modal onClose={() => dispatch?.close()} open={open}>
                 <div
-                    className="relative w-[432px] max-w-[90vw] rounded-xl bg-lightBottom shadow-popover transition-all dark:text-gray-950"
+                    className="relative w-[432px] max-w-[90vw] rounded-xl bg-lightBottom shadow-popover transition-all dark:bg-darkBottom dark:text-gray-950"
                     onClick={(event) => {
                         event.stopPropagation();
                         event.preventDefault();
@@ -138,7 +138,7 @@ export const CollectArticleModal = forwardRef<SingletonModalRefCreator<CollectAr
 
                     {queryDetailLoading ? (
                         <div className="flex h-[198px] w-full items-center justify-center">
-                            <LoadingIcon className="animate-spin" width={24} height={24} />
+                            <LoadingIcon className="animate-spin text-main" width={24} height={24} />
                         </div>
                     ) : (
                         <div className="px-6 pb-6">

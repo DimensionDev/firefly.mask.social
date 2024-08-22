@@ -245,7 +245,7 @@ export const MAX_PROFILE_WEBSITE_SIZE: Record<SocialSource, number> = {
 
 // https://support.mirror.xyz/hc/en-us/articles/13729399363220-Platform-fees
 export const MIRROR_COLLECT_FEE = 690000000000000n;
-export const MIRROR_COLLECT_FEE_IN_POLYGON = 100000000000000000n;
+export const MIRROR_COLLECT_FEE_IN_POLYGON = 1000000000000000000n;
 
 // https://docs.paragraph.xyz/docs/advanced/referral-program
 export const PARAGRAPH_COLLECT_FEE = 777000000000000n;
