@@ -31,6 +31,9 @@ msgstr ""
 msgid "Onchain Activities"
 msgstr ""
 
+msgid "Tip transaction completed!"
+msgstr ""
+
 msgid "Muted"
 msgstr ""
 
@@ -65,9 +68,6 @@ msgid "Failed to translate post. Please retry later."
 msgstr ""
 
 msgid "Failed to fetch as Blob."
-msgstr ""
-
-msgid "You just sent <0>{amount} {0}{1}</0> tips to <1>{2}</1>!<2/>Share this news by mentioning and posting."
 msgstr ""
 
 msgid "Unmute successfully."
@@ -125,9 +125,6 @@ msgid "Already logged in?<0/><1>Approve the existing Farcaster signer</1> to Fir
 msgstr ""
 
 msgid "The post you quoted/replied has already deleted"
-msgstr ""
-
-msgid "Send tips to @{0}"
 msgstr ""
 
 msgid "Display Name"
@@ -661,6 +658,9 @@ msgstr ""
 msgid "Anti_whale(Limited number of transactions)"
 msgstr ""
 
+msgid "Send a tip to {0}"
+msgstr ""
+
 msgid "The number of token transactions is limited. The number of scam token transactions may be limited (honeypot risk)."
 msgstr ""
 
@@ -764,9 +764,6 @@ msgid "Blacklist function"
 msgstr ""
 
 msgid "AUTHOR ADDRESS"
-msgstr ""
-
-msgid "Failed to send tips."
 msgstr ""
 
 msgid "Enable development API version"
@@ -1054,9 +1051,6 @@ msgstr ""
 msgid "Show more tokens with small balances"
 msgstr ""
 
-msgid "Share Now"
-msgstr ""
-
 msgid "{riskyFactors, plural, one {# Risky item} other {# Risky items}}"
 msgstr ""
 
@@ -1112,6 +1106,9 @@ msgid "<0>Acquired</0> an NFT"
 msgstr ""
 
 msgid "App Kit"
+msgstr ""
+
+msgid "Tag {0} in a post to let them know you’ve sent an onchain tip to their wallet."
 msgstr ""
 
 msgid "liked"
@@ -1250,6 +1247,9 @@ msgid "Like"
 msgstr ""
 
 msgid "Contract Address"
+msgstr ""
+
+msgid "Send a tip to @{0}"
 msgstr ""
 
 msgid "The whitelist function is not included. If there is a whitelist, some addresses may not be able to trade normally (honeypot risk)."
@@ -1520,6 +1520,9 @@ msgid "The user rejected the request."
 msgstr ""
 
 msgid "Recast or Quote"
+msgstr ""
+
+msgid "Sorry, we are not able to find a wallet for {0}."
 msgstr ""
 
 msgid "Unwatch"
@@ -1828,6 +1831,9 @@ msgstr ""
 msgid "Article added to your Bookmarks"
 msgstr ""
 
+msgid "Create a Post"
+msgstr ""
+
 msgid "{type, select, comment {Comments} mirror {{0}} reaction {Likes} act {Collects} other {Other}}"
 msgstr ""
 
@@ -1862,6 +1868,9 @@ msgid "Display Name should not exceed {maxDisplayNameSize} characters"
 msgstr ""
 
 msgid "<0/> quoted your <1>{0, select, Post {post} Comment {comment} Quote {quote} Mirror {mirror} other {post}}</1>"
+msgstr ""
+
+msgid "Failed to send tip."
 msgstr ""
 
 msgid "Connecting Wallet"
@@ -1931,9 +1940,6 @@ msgid "Unmute"
 msgstr ""
 
 msgid "No available token"
-msgstr ""
-
-msgid "Send tips to {0}"
 msgstr ""
 
 msgid "View on explorer"
