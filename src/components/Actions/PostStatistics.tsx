@@ -19,6 +19,7 @@ interface Props extends HTMLProps<HTMLDivElement> {
     post: Post;
     showChannelTag?: boolean;
     isComment?: boolean;
+    hideDate?: boolean;
 
     onSetScrollIndex?: () => void;
 }
@@ -57,6 +58,7 @@ export const PostStatistics = memo<Props>(function PostStatistics({
     post,
     showChannelTag = true,
     isComment = false,
+    hideDate = false,
     onSetScrollIndex,
 }: Props) {
     const pathname = usePathname();
@@ -155,7 +157,7 @@ export const PostStatistics = memo<Props>(function PostStatistics({
                           ) : null,
                       ])
                     : compact([
-                          post.timestamp ? (
+                          post.timestamp && !hideDate ? (
                               <>
                                   <span>{dayjs(post.timestamp).format('hh:mm A')}</span>
                                   <span>{' · '}</span>

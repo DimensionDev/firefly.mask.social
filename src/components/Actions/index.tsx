@@ -117,6 +117,7 @@ interface PostActionsProps extends React.HTMLAttributes<HTMLDivElement> {
     post: Post;
     disabled?: boolean;
     disablePadding?: boolean;
+    hideDate?: boolean;
     onSetScrollIndex?: () => void;
 }
 
@@ -126,6 +127,7 @@ export const PostActions = memo<PostActionsProps>(function PostActions({
     disabled = false,
     disablePadding = false,
     showChannelTag,
+    hideDate,
     onSetScrollIndex,
     ...rest
 }) {
@@ -204,6 +206,7 @@ export const PostActions = memo<PostActionsProps>(function PostActions({
                 </div>
             </ClickableArea>
             <PostStatistics
+                hideDate={hideDate}
                 isComment={isComment}
                 post={post}
                 showChannelTag={showChannelTag}
