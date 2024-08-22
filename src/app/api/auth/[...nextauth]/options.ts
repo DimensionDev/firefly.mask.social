@@ -16,7 +16,7 @@ const providers: Provider[] = [
         clientSecret: env.internal.TWITTER_CLIENT_SECRET,
         authorization: {
             params: {
-                scope: 'tweet.read users.read tweet.write bookmark.read bookmark.write like.write like.read follows.read block.write mute.read list.read list.write space.read',
+                scope: 'tweet.read users.read tweet.write bookmark.read bookmark.write like.write like.read follows.read block.read block.write mute.read mute.write list.read list.write space.read',
             },
         },
     }),
