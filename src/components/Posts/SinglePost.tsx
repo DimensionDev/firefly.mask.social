@@ -88,7 +88,7 @@ export const SinglePost = memo<SinglePostProps>(function SinglePost({
                 return;
             }}
         >
-            {!isComment ? <FeedActionType post={post} listKey={listKey} index={index} /> : null}
+            {!isComment ? <FeedActionType isDetail={isDetail} post={post} listKey={listKey} index={index} /> : null}
 
             <PostHeader
                 isComment={isComment}

@@ -24,9 +24,16 @@ export interface FeedActionType {
     isThread?: boolean;
     listKey?: string;
     index?: number;
+    isDetail?: boolean;
 }
 
-export const FeedActionType = memo<FeedActionType>(function FeedActionType({ post, isThread, listKey, index }) {
+export const FeedActionType = memo<FeedActionType>(function FeedActionType({
+    post,
+    isThread,
+    listKey,
+    index,
+    isDetail,
+}) {
     const currentProfile = useCurrentProfile(post.source);
 
     const isComment = post.type === 'Comment';
@@ -181,10 +188,10 @@ export const FeedActionType = memo<FeedActionType>(function FeedActionType({ pos
             ) : null}
 
             {!post.mirrors?.length && showThread && post.root && !isThread ? (
-                <ThreadBody post={post.root} listKey={listKey} index={index} />
+                <ThreadBody isDetail={isDetail} post={post.root} listKey={listKey} index={index} />
             ) : null}
             {!post.mirrors?.length && showThread && post.commentOn && !isThread ? (
-                <ThreadBody post={post.commentOn} listKey={listKey} index={index} />
+                <ThreadBody isDetail={isDetail} post={post.commentOn} listKey={listKey} index={index} />
             ) : null}
         </ClickableArea>
     );
