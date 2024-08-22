@@ -4,6 +4,7 @@ import { createContainer } from 'unstated-next';
 
 import { type NetworkType, Source } from '@/constants/enum.js';
 import type { FireflyIdentity, FireflyProfile, Profile } from '@/providers/types/Firefly.js';
+import type { Post } from '@/providers/types/SocialMedia.js';
 import type { Token } from '@/providers/types/Transfer.js';
 
 export type TipsProfile = FireflyProfile & { address: string; networkType: NetworkType };
@@ -19,6 +20,7 @@ interface TipsContext {
     socialProfiles: Profile[];
     isSending: boolean;
     identity: FireflyIdentity;
+    post: Post | null;
 }
 
 function createEmptyContext(): TipsContext {
@@ -36,6 +38,7 @@ function createEmptyContext(): TipsContext {
             id: ZERO_ADDRESS,
             source: Source.Wallet,
         },
+        post: null,
     };
 }
 

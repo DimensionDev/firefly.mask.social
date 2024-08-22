@@ -86,7 +86,7 @@ export function NFTMoreAction({ address, contractAddress, tokenId, chainId }: Pr
                             identity={identity}
                             handle={ens}
                             tooltipDisabled
-                            label={t`Send tips`}
+                            label={t`Send a tip`}
                             onClick={close}
                             pureWallet
                         />

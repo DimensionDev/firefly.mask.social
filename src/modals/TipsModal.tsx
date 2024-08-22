@@ -6,20 +6,24 @@ import { RouterProvider } from '@tanstack/react-router';
 import { forwardRef, useCallback } from 'react';
 
 import { Modal } from '@/components/Modal.js';
+import { Popover } from '@/components/Popover.js';
 import { router, TipsRoutePath } from '@/components/Tips/TipsModalRouter.js';
 import { Source } from '@/constants/enum.js';
 import { TIPS_SUPPORT_NETWORKS } from '@/constants/index.js';
 import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
 import { getSnackbarMessageFromError } from '@/helpers/getSnackbarMessageFromError.js';
 import { isSameAddress } from '@/helpers/isSameAddress.js';
+import { useIsSmall } from '@/hooks/useMediaQuery.js';
 import { TipsContext, type TipsProfile } from '@/hooks/useTipsContext.js';
 import type { FireflyIdentity, FireflyProfile, Profile, WalletProfile } from '@/providers/types/Firefly.js';
+import type { Post } from '@/providers/types/SocialMedia.js';
 
 export interface TipsModalOpenProps {
     identity: FireflyIdentity;
     profiles: FireflyProfile[];
     handle: string | null;
     pureWallet?: boolean;
+    post?: Post;
 }
 
 export type TipsModalCloseProps = {} | void;
@@ -58,9 +62,10 @@ function formatWalletHandle(profiles: TipsProfile[], address: string) {
 
 const TipsModalUI = forwardRef<SingletonModalRefCreator<TipsModalOpenProps, TipsModalCloseProps>>(
     function TipsModalUI(_, ref) {
+        const isSmall = useIsSmall('max');
         const { reset, update } = TipsContext.useContainer();
         const [open, dispatch] = useSingletonModal(ref, {
-            onOpen: async ({ identity, handle, profiles, pureWallet = false }) => {
+            onOpen: async ({ identity, handle, profiles, post, pureWallet = false }) => {
                 try {
                     const { walletProfiles, socialProfiles } = formatTipsProfiles(profiles);
 
@@ -77,6 +82,7 @@ const TipsModalUI = forwardRef<SingletonModalRefCreator<TipsModalOpenProps, Tips
                             recipientList: walletProfiles,
                             recipient: walletProfiles[0],
                             identity,
+                            post: post ?? null,
                             handle:
                                 identity.source === Source.Wallet && !handle
                                     ? formatWalletHandle(walletProfiles, identity.id)
@@ -88,7 +94,7 @@ const TipsModalUI = forwardRef<SingletonModalRefCreator<TipsModalOpenProps, Tips
                     }
                 } catch (error) {
                     enqueueErrorMessage(
-                        getSnackbarMessageFromError(error, t`Failed to send tips, please try again later.`),
+                        getSnackbarMessageFromError(error, t`Failed to send tip. Please try again later.`),
                         { error },
                     );
                     throw error;
@@ -102,12 +108,22 @@ const TipsModalUI = forwardRef<SingletonModalRefCreator<TipsModalOpenProps, Tips
             dispatch?.close({});
         }, [dispatch]);
 
+        if (!isSmall) {
+            return (
+                <Modal open={open} onClose={onClose} disableScrollLock={false} disableDialogClose>
+                    <div className="z-10 w-4/5 rounded-md bg-lightBottom px-3 py-6 text-[15px] text-lightMain shadow-popover transition-all dark:bg-darkBottom md:w-[485px] md:rounded-xl md:px-6">
+                        <RouterProvider router={router} context={{ onClose }} />
+                    </div>
+                </Modal>
+            );
+        }
+
         return (
-            <Modal open={open} onClose={onClose} disableScrollLock={false} disableDialogClose>
-                <div className="z-10 w-4/5 rounded-md bg-lightBottom px-3 py-6 text-[15px] text-lightMain shadow-popover transition-all dark:bg-darkBottom md:w-[485px] md:rounded-xl md:px-6">
+            <Popover open={open} onClose={onClose} DialogPanelProps={{ className: '!p-0 !pt-6' }}>
+                <div className="px-3 pb-6 text-[15px] text-lightMain">
                     <RouterProvider router={router} context={{ onClose }} />
                 </div>
-            </Modal>
+            </Popover>
         );
     },
 );
