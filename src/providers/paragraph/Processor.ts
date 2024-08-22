@@ -42,6 +42,8 @@ interface State {
                         user: {
                             referrerWalletAddress?: string;
                         };
+                        highlightsCost?: number;
+                        highlightsChain?: string;
                     };
                 };
             };
@@ -73,10 +75,10 @@ class Processor {
                 });
 
             const result = {
-                chain: target.highlightsChain,
+                chain: target.highlightsChain ?? data?.props.pageProps.initialState.blog.blog.highlightsChain,
                 noteId: target.id,
                 supply: target.highlightsSupply,
-                costEth: target.highlightsCost,
+                costEth: target.highlightsCost ?? data?.props.pageProps.initialState.blog.blog.highlightsCost,
                 text: target.post_preview,
                 collectorWallet: target.collectibleWalletAddress,
                 position: {
