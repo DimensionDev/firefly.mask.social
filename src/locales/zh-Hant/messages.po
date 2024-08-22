@@ -36,6 +36,9 @@ msgstr ""
 msgid "Onchain Activities"
 msgstr "鏈上活動"
 
+msgid "Tip transaction completed!"
+msgstr ""
+
 msgid "Muted"
 msgstr "已靜音"
 
@@ -72,11 +75,11 @@ msgstr "無法翻譯貼文。請稍候再嘗試"
 msgid "Failed to fetch as Blob."
 msgstr ""
 
-msgid "You just sent <0>{amount} {0}{1}</0> tips to <1>{2}</1>!<2/>Share this news by mentioning and posting."
-msgstr ""
-
 msgid "Unmute successfully."
 msgstr "已成功取消靜音"
+
+msgid "Send a tip"
+msgstr ""
 
 msgid "Mute /{0}"
 msgstr "將 @{0} 靜音"
@@ -132,9 +135,6 @@ msgstr ""
 msgid "The post you quoted/replied has already deleted"
 msgstr "您引用/回覆的貼文已經被刪除"
 
-msgid "Send tips to @{0}"
-msgstr ""
-
 msgid "Display Name"
 msgstr ""
 
@@ -185,9 +185,6 @@ msgstr ""
 
 msgid "Searching users"
 msgstr "搜尋用戶"
-
-msgid "Cannot send tips to yourself"
-msgstr ""
 
 msgid "Airdrop Scam"
 msgstr "空投騙局"
@@ -669,6 +666,9 @@ msgstr "加入我們的 Telegram 社群"
 msgid "Anti_whale(Limited number of transactions)"
 msgstr ""
 
+msgid "Send a tip to {0}"
+msgstr ""
+
 msgid "The number of token transactions is limited. The number of scam token transactions may be limited (honeypot risk)."
 msgstr ""
 
@@ -677,9 +677,6 @@ msgstr "登出"
 
 msgid "Unmuting..."
 msgstr "正在靜音中"
-
-msgid "Send Tips"
-msgstr "發送小費"
 
 msgid "{0, plural, one {Your post failed to publish on {firstPlatform} due to an error. Click 'Retry' to attempt posting again.} two {Your post failed to publish on {firstPlatform} and {secondPlatform} due to an error. Click 'Retry' to attempt posting again.} other {Your post failed to publish due to an error. Click 'Retry' to attempt posting again.}}"
 msgstr ""
@@ -777,9 +774,6 @@ msgstr "黑名單功能"
 msgid "AUTHOR ADDRESS"
 msgstr "作者地址"
 
-msgid "Failed to send tips."
-msgstr "發送小費失敗"
-
 msgid "Enable development API version"
 msgstr "開啟開發API版本"
 
@@ -842,9 +836,6 @@ msgstr "發送反饋"
 
 msgid "Your draft was saved."
 msgstr "你的草稿已被保存"
-
-msgid "Send tips"
-msgstr "發送小費"
 
 msgid "The chainId mismatch."
 msgstr ""
@@ -1065,9 +1056,6 @@ msgstr "NFT合約"
 msgid "Show more tokens with small balances"
 msgstr ""
 
-msgid "Share Now"
-msgstr ""
-
 msgid "{riskyFactors, plural, one {# Risky item} other {# Risky items}}"
 msgstr ""
 
@@ -1123,6 +1111,9 @@ msgid "<0>Acquired</0> an NFT"
 msgstr ""
 
 msgid "App Kit"
+msgstr ""
+
+msgid "Tag {0} in a post to let them know you’ve sent an onchain tip to their wallet."
 msgstr ""
 
 msgid "liked"
@@ -1218,6 +1209,9 @@ msgstr ""
 msgid "Contract source code not verified"
 msgstr ""
 
+msgid "Cannot send tip to yourself"
+msgstr ""
+
 msgid "Unwatch {handleOrEnsOrAddress}"
 msgstr ""
 
@@ -1262,6 +1256,9 @@ msgstr "喜歡"
 
 msgid "Contract Address"
 msgstr "合約地址"
+
+msgid "Send a tip to @{0}"
+msgstr ""
 
 msgid "The whitelist function is not included. If there is a whitelist, some addresses may not be able to trade normally (honeypot risk)."
 msgstr ""
@@ -1537,6 +1534,9 @@ msgid "The user rejected the request."
 msgstr ""
 
 msgid "Recast or Quote"
+msgstr ""
+
+msgid "Sorry, we are not able to find a wallet for {0}."
 msgstr ""
 
 msgid "Unwatch"
@@ -1845,6 +1845,9 @@ msgstr "深色模式"
 msgid "Article added to your Bookmarks"
 msgstr "文章已加入你的書籤"
 
+msgid "Create a Post"
+msgstr ""
+
 msgid "{type, select, comment {Comments} mirror {{0}} reaction {Likes} act {Collects} other {Other}}"
 msgstr ""
 
@@ -1879,6 +1882,9 @@ msgid "Display Name should not exceed {maxDisplayNameSize} characters"
 msgstr ""
 
 msgid "<0/> quoted your <1>{0, select, Post {post} Comment {comment} Quote {quote} Mirror {mirror} other {post}}</1>"
+msgstr ""
+
+msgid "Failed to send tip."
 msgstr ""
 
 msgid "Connecting Wallet"
@@ -1917,6 +1923,9 @@ msgstr "Farcaster 頻道"
 msgid "Completed"
 msgstr "已完成"
 
+msgid "Failed to send tip. Please try again later."
+msgstr ""
+
 msgid "Failed to unmirror post."
 msgstr "取消鏡像貼文失敗"
 
@@ -1948,9 +1957,6 @@ msgid "Unmute"
 msgstr "取消靜音"
 
 msgid "No available token"
-msgstr ""
-
-msgid "Send tips to {0}"
 msgstr ""
 
 msgid "View on explorer"
@@ -2032,9 +2038,6 @@ msgid "Failed to parse transaction."
 msgstr ""
 
 msgid "No anti_whale(Unlimited number of transactions)"
-msgstr ""
-
-msgid "Failed to send tips, please try again later."
 msgstr ""
 
 msgid "<0>Burned</0> an NFT"

@@ -31,6 +31,9 @@ msgstr "Failed to mute all wallets and accounts."
 msgid "Onchain Activities"
 msgstr "Onchain Activities"
 
+msgid "Tip transaction completed!"
+msgstr "Tip transaction completed!"
+
 msgid "Muted"
 msgstr "Muted"
 
@@ -67,11 +70,11 @@ msgstr "Failed to translate post. Please retry later."
 msgid "Failed to fetch as Blob."
 msgstr "Failed to fetch as Blob."
 
-msgid "You just sent <0>{amount} {0}{1}</0> tips to <1>{2}</1>!<2/>Share this news by mentioning and posting."
-msgstr "You just sent <0>{amount} {0}{1}</0> tips to <1>{2}</1>!<2/>Share this news by mentioning and posting."
-
 msgid "Unmute successfully."
 msgstr "Unmute successfully."
+
+msgid "Send a tip"
+msgstr "Send a tip"
 
 msgid "Mute /{0}"
 msgstr "Mute /{0}"
@@ -127,9 +130,6 @@ msgstr "Already logged in?<0/><1>Approve the existing Farcaster signer</1> to Fi
 msgid "The post you quoted/replied has already deleted"
 msgstr "The post you quoted/replied has already deleted"
 
-msgid "Send tips to @{0}"
-msgstr "Send tips to @{0}"
-
 msgid "Display Name"
 msgstr "Display Name"
 
@@ -180,9 +180,6 @@ msgstr "Free"
 
 msgid "Searching users"
 msgstr "Searching users"
-
-msgid "Cannot send tips to yourself"
-msgstr "Cannot send tips to yourself"
 
 msgid "Airdrop Scam"
 msgstr "Airdrop Scam"
@@ -664,6 +661,9 @@ msgstr "Join our Telegram"
 msgid "Anti_whale(Limited number of transactions)"
 msgstr "Anti_whale(Limited number of transactions)"
 
+msgid "Send a tip to {0}"
+msgstr "Send a tip to {0}"
+
 msgid "The number of token transactions is limited. The number of scam token transactions may be limited (honeypot risk)."
 msgstr "The number of token transactions is limited. The number of scam token transactions may be limited (honeypot risk)."
 
@@ -672,9 +672,6 @@ msgstr "Log out"
 
 msgid "Unmuting..."
 msgstr "Unmuting..."
-
-msgid "Send Tips"
-msgstr "Send Tips"
 
 msgid "{0, plural, one {Your post failed to publish on {firstPlatform} due to an error. Click 'Retry' to attempt posting again.} two {Your post failed to publish on {firstPlatform} and {secondPlatform} due to an error. Click 'Retry' to attempt posting again.} other {Your post failed to publish due to an error. Click 'Retry' to attempt posting again.}}"
 msgstr "{0, plural, one {Your post failed to publish on {firstPlatform} due to an error. Click 'Retry' to attempt posting again.} two {Your post failed to publish on {firstPlatform} and {secondPlatform} due to an error. Click 'Retry' to attempt posting again.} other {Your post failed to publish due to an error. Click 'Retry' to attempt posting again.}}"
@@ -772,9 +769,6 @@ msgstr "Blacklist function"
 msgid "AUTHOR ADDRESS"
 msgstr "AUTHOR ADDRESS"
 
-msgid "Failed to send tips."
-msgstr "Failed to send tips."
-
 msgid "Enable development API version"
 msgstr "Enable development API version"
 
@@ -837,9 +831,6 @@ msgstr "Send Feedback"
 
 msgid "Your draft was saved."
 msgstr "Your draft was saved."
-
-msgid "Send tips"
-msgstr "Send tips"
 
 msgid "The chainId mismatch."
 msgstr "The chainId mismatch."
@@ -1060,9 +1051,6 @@ msgstr "NFT Contract"
 msgid "Show more tokens with small balances"
 msgstr "Show more tokens with small balances"
 
-msgid "Share Now"
-msgstr "Share Now"
-
 msgid "{riskyFactors, plural, one {# Risky item} other {# Risky items}}"
 msgstr "{riskyFactors, plural, one {# Risky item} other {# Risky items}}"
 
@@ -1119,6 +1107,9 @@ msgstr "<0>Acquired</0> an NFT"
 
 msgid "App Kit"
 msgstr "App Kit"
+
+msgid "Tag {0} in a post to let them know you’ve sent an onchain tip to their wallet."
+msgstr "Tag {0} in a post to let them know you’ve sent an onchain tip to their wallet."
 
 msgid "liked"
 msgstr "liked"
@@ -1213,6 +1204,9 @@ msgstr "All wallets and social accounts associated with {handleOrEnsOrAddress} w
 msgid "Contract source code not verified"
 msgstr "Contract source code not verified"
 
+msgid "Cannot send tip to yourself"
+msgstr "Cannot send tip to yourself"
+
 msgid "Unwatch {handleOrEnsOrAddress}"
 msgstr "Unwatch {handleOrEnsOrAddress}"
 
@@ -1257,6 +1251,9 @@ msgstr "Like"
 
 msgid "Contract Address"
 msgstr "Contract Address"
+
+msgid "Send a tip to @{0}"
+msgstr "Send a tip to @{0}"
 
 msgid "The whitelist function is not included. If there is a whitelist, some addresses may not be able to trade normally (honeypot risk)."
 msgstr "The whitelist function is not included. If there is a whitelist, some addresses may not be able to trade normally (honeypot risk)."
@@ -1533,6 +1530,9 @@ msgstr "The user rejected the request."
 
 msgid "Recast or Quote"
 msgstr "Recast or Quote"
+
+msgid "Sorry, we are not able to find a wallet for {0}."
+msgstr "Sorry, we are not able to find a wallet for {0}."
 
 msgid "Unwatch"
 msgstr "Unwatch"
@@ -1840,6 +1840,9 @@ msgstr "Dark Mode"
 msgid "Article added to your Bookmarks"
 msgstr "Article added to your Bookmarks"
 
+msgid "Create a Post"
+msgstr "Create a Post"
+
 msgid "{type, select, comment {Comments} mirror {{0}} reaction {Likes} act {Collects} other {Other}}"
 msgstr "{type, select, comment {Comments} mirror {{0}} reaction {Likes} act {Collects} other {Other}}"
 
@@ -1875,6 +1878,9 @@ msgstr "Display Name should not exceed {maxDisplayNameSize} characters"
 
 msgid "<0/> quoted your <1>{0, select, Post {post} Comment {comment} Quote {quote} Mirror {mirror} other {post}}</1>"
 msgstr "<0/> quoted your <1>{0, select, Post {post} Comment {comment} Quote {quote} Mirror {mirror} other {post}}</1>"
+
+msgid "Failed to send tip."
+msgstr "Failed to send tip."
 
 msgid "Connecting Wallet"
 msgstr "Connecting Wallet"
@@ -1912,6 +1918,9 @@ msgstr "Farcaster channel"
 msgid "Completed"
 msgstr "Completed"
 
+msgid "Failed to send tip. Please try again later."
+msgstr "Failed to send tip. Please try again later."
+
 msgid "Failed to unmirror post."
 msgstr "Failed to unmirror post."
 
@@ -1944,9 +1953,6 @@ msgstr "Unmute"
 
 msgid "No available token"
 msgstr "No available token"
-
-msgid "Send tips to {0}"
-msgstr "Send tips to {0}"
 
 msgid "View on explorer"
 msgstr "View on explorer"
@@ -2028,9 +2034,6 @@ msgstr "Failed to parse transaction."
 
 msgid "No anti_whale(Unlimited number of transactions)"
 msgstr "No anti_whale(Unlimited number of transactions)"
-
-msgid "Failed to send tips, please try again later."
-msgstr "Failed to send tips, please try again later."
 
 msgid "<0>Burned</0> an NFT"
 msgstr "<0>Burned</0> an NFT"
