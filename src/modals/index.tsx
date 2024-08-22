@@ -14,6 +14,7 @@ import { ConnectWalletModal } from '@/modals/ConnectWalletModal.js';
 import * as controls from '@/modals/controls.js';
 import { DraggablePopover } from '@/modals/DraggablePopover.js';
 import { EditProfileModal } from '@/modals/EditProfileModal.js';
+import { EnableSignlessModal } from '@/modals/EnableSignlessModal.js';
 import { LoginModal } from '@/modals/LoginModal/index.js';
 import { LogoutModal } from '@/modals/LogoutModal.js';
 import { PreviewMediaModal } from '@/modals/PreviewMediaModal.js';
@@ -41,6 +42,7 @@ export const Modals = memo(function Modals() {
             <SchedulePostModal ref={controls.SchedulePostModalRef.register} />
             <EditProfileModal ref={controls.EditProfileModalRef.register} />
             <CollectArticleModal ref={controls.CollectArticleModalRef.register} />
+            <EnableSignlessModal ref={controls.EnableSignlessModalRef.register} />
         </>
     );
 });

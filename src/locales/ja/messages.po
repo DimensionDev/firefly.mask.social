@@ -240,6 +240,9 @@ msgstr ""
 msgid "Please confirm the login with Firefly."
 msgstr ""
 
+msgid "Wrong wallet"
+msgstr ""
+
 msgid "Failed to un-bookmark article."
 msgstr ""
 
@@ -745,6 +748,9 @@ msgid "and"
 msgstr ""
 
 msgid "Channel"
+msgstr ""
+
+msgid "Failed to enable signless"
 msgstr ""
 
 msgid "Connect another account"
@@ -1275,6 +1281,9 @@ msgstr ""
 msgid "Page not found. Please try again."
 msgstr ""
 
+msgid "Delegate Signing"
+msgstr ""
+
 msgid "This can’t be undone and you’ll lose your draft."
 msgstr ""
 
@@ -1399,6 +1408,9 @@ msgid "Unfollow @{0}"
 msgstr ""
 
 msgid "Not my wallet address."
+msgstr ""
+
+msgid "Please switch to the wallet consistent with this action"
 msgstr ""
 
 msgid "Upload to S3"
@@ -1713,6 +1725,9 @@ msgstr ""
 msgid "Will send on <0>{0} at <1>{1}</1></0>"
 msgstr ""
 
+msgid "Failed to continue. Please allow Lens Manager for performing actions without the need to sign each transaction."
+msgstr ""
+
 msgid "Properties"
 msgstr ""
 
@@ -1810,9 +1825,6 @@ msgid "Cannot find your signer key, please connect again"
 msgstr ""
 
 msgid "No codes found to suspend trading."
-msgstr ""
-
-msgid "Please enable Momoka to support sending posts on Lens."
 msgstr ""
 
 msgid "First time connecting to Firefly?<0/><1>Approve a new connection</1> with Warpcast"
@@ -2062,6 +2074,9 @@ msgid "Address on Watching Lists"
 msgstr ""
 
 msgid "FREE"
+msgstr ""
+
+msgid "Sign to enable signless"
 msgstr ""
 
 msgid "Profiles"

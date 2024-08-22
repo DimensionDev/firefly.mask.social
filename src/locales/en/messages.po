@@ -235,6 +235,9 @@ msgstr "You can save the failed parts of posts and send them later from your Dra
 msgid "Please confirm the login with Firefly."
 msgstr "Please confirm the login with Firefly."
 
+msgid "Wrong wallet"
+msgstr "Wrong wallet"
+
 msgid "Failed to un-bookmark article."
 msgstr "Failed to un-bookmark article."
 
@@ -741,6 +744,9 @@ msgstr "and"
 
 msgid "Channel"
 msgstr "Channel"
+
+msgid "Failed to enable signless"
+msgstr "Failed to enable signless"
 
 msgid "Connect another account"
 msgstr "Connect another account"
@@ -1270,6 +1276,9 @@ msgstr "General"
 msgid "Page not found. Please try again."
 msgstr "Page not found. Please try again."
 
+msgid "Delegate Signing"
+msgstr "Delegate Signing"
+
 msgid "This can’t be undone and you’ll lose your draft."
 msgstr "This can’t be undone and you’ll lose your draft."
 
@@ -1395,6 +1404,9 @@ msgstr "Unfollow @{0}"
 
 msgid "Not my wallet address."
 msgstr "Not my wallet address."
+
+msgid "Please switch to the wallet consistent with this action"
+msgstr "Please switch to the wallet consistent with this action"
 
 msgid "Upload to S3"
 msgstr "Upload to S3"
@@ -1708,6 +1720,9 @@ msgstr "<0>Minted</0> an NFT for free"
 msgid "Will send on <0>{0} at <1>{1}</1></0>"
 msgstr "Will send on <0>{0} at <1>{1}</1></0>"
 
+msgid "Failed to continue. Please allow Lens Manager for performing actions without the need to sign each transaction."
+msgstr "Failed to continue. Please allow Lens Manager for performing actions without the need to sign each transaction."
+
 msgid "Properties"
 msgstr "Properties"
 
@@ -1806,9 +1821,6 @@ msgstr "Cannot find your signer key, please connect again"
 
 msgid "No codes found to suspend trading."
 msgstr "No codes found to suspend trading."
-
-msgid "Please enable Momoka to support sending posts on Lens."
-msgstr "Please enable Momoka to support sending posts on Lens."
 
 msgid "First time connecting to Firefly?<0/><1>Approve a new connection</1> with Warpcast"
 msgstr "First time connecting to Firefly?<0/><1>Approve a new connection</1> with Warpcast"
@@ -2058,6 +2070,9 @@ msgstr "Address on Watching Lists"
 
 msgid "FREE"
 msgstr "FREE"
+
+msgid "Sign to enable signless"
+msgstr "Sign to enable signless"
 
 msgid "Profiles"
 msgstr "Profiles"

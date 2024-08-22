@@ -240,6 +240,9 @@ msgstr "您可以將發送失敗的部分貼文保存，並在之後從草稿箱
 msgid "Please confirm the login with Firefly."
 msgstr ""
 
+msgid "Wrong wallet"
+msgstr ""
+
 msgid "Failed to un-bookmark article."
 msgstr "從書籤中移除文章失敗。"
 
@@ -746,6 +749,9 @@ msgstr "以及"
 
 msgid "Channel"
 msgstr "頻道"
+
+msgid "Failed to enable signless"
+msgstr ""
 
 msgid "Connect another account"
 msgstr ""
@@ -1275,6 +1281,9 @@ msgstr "一般"
 msgid "Page not found. Please try again."
 msgstr "未找到頁面。請重試"
 
+msgid "Delegate Signing"
+msgstr ""
+
 msgid "This can’t be undone and you’ll lose your draft."
 msgstr "該行為無法撤銷，您會失去這份草稿"
 
@@ -1399,6 +1408,9 @@ msgid "Unfollow @{0}"
 msgstr "取消追蹤 @{0}"
 
 msgid "Not my wallet address."
+msgstr ""
+
+msgid "Please switch to the wallet consistent with this action"
 msgstr ""
 
 msgid "Upload to S3"
@@ -1713,6 +1725,9 @@ msgstr ""
 msgid "Will send on <0>{0} at <1>{1}</1></0>"
 msgstr ""
 
+msgid "Failed to continue. Please allow Lens Manager for performing actions without the need to sign each transaction."
+msgstr ""
+
 msgid "Properties"
 msgstr "屬性"
 
@@ -1810,9 +1825,6 @@ msgid "Cannot find your signer key, please connect again"
 msgstr ""
 
 msgid "No codes found to suspend trading."
-msgstr ""
-
-msgid "Please enable Momoka to support sending posts on Lens."
 msgstr ""
 
 msgid "First time connecting to Firefly?<0/><1>Approve a new connection</1> with Warpcast"
@@ -2063,6 +2075,9 @@ msgstr "在觀察列表上的地址"
 
 msgid "FREE"
 msgstr "免費"
+
+msgid "Sign to enable signless"
+msgstr ""
 
 msgid "Profiles"
 msgstr "個人資料"
