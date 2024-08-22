@@ -36,10 +36,9 @@ export interface MarkupLinkProps {
 }
 
 export const MarkupLink = memo<MarkupLinkProps>(function MarkupLink({ title, post, source, supportTweet }) {
-    // We only have handle in user bio.
-    const enabled = !post && source === Source.Farcaster && title?.startsWith('@');
     const { data: fallbackProfile } = useQuery({
-        enabled,
+        // We only have handle in user bio.
+        enabled: !post && source === Source.Farcaster && title?.startsWith('@'),
         queryKey: ['profile-by-handle', source, title],
         queryFn: async () => {
             if (!title) return null;
@@ -48,7 +47,6 @@ export const MarkupLink = memo<MarkupLinkProps>(function MarkupLink({ title, pos
         },
     });
 
-    console.log(title);
     if (!title) return null;
 
     if (title.startsWith('@')) {
