@@ -240,6 +240,9 @@ msgstr "您可以先保存发送的帖子并稍后发送。"
 msgid "Please confirm the login with Firefly."
 msgstr "请在 Firefly 上确认登录。"
 
+msgid "Wrong wallet"
+msgstr ""
+
 msgid "Failed to un-bookmark article."
 msgstr "取消收藏文章失败。"
 
@@ -746,6 +749,9 @@ msgstr "和"
 
 msgid "Channel"
 msgstr "频道"
+
+msgid "Failed to enable signless"
+msgstr ""
 
 msgid "Connect another account"
 msgstr "登录另一个账号"
@@ -1275,6 +1281,9 @@ msgstr "通用"
 msgid "Page not found. Please try again."
 msgstr "未找到页面。请重试。"
 
+msgid "Delegate Signing"
+msgstr ""
+
 msgid "This can’t be undone and you’ll lose your draft."
 msgstr "此操作无法撤销，您将丢失您的草稿。"
 
@@ -1400,6 +1409,9 @@ msgstr "取消关注 @{0}"
 
 msgid "Not my wallet address."
 msgstr "不是我的钱包地址。"
+
+msgid "Please switch to the wallet consistent with this action"
+msgstr ""
 
 msgid "Upload to S3"
 msgstr ""
@@ -1713,6 +1725,9 @@ msgstr "免费<0>铸造</0> 了一个 NFT"
 msgid "Will send on <0>{0} at <1>{1}</1></0>"
 msgstr "将在 <0>{0} <1>{1}</1></0> 发送"
 
+msgid "Failed to continue. Please allow Lens Manager for performing actions without the need to sign each transaction."
+msgstr ""
+
 msgid "Properties"
 msgstr "属性"
 
@@ -1811,9 +1826,6 @@ msgstr "未能找到你的 signer key，请重新链接"
 
 msgid "No codes found to suspend trading."
 msgstr "没有发现可以暂停交易的代码。"
-
-msgid "Please enable Momoka to support sending posts on Lens."
-msgstr "请启用 Momoka 以支持在 Lens 上发送帖子。"
 
 msgid "First time connecting to Firefly?<0/><1>Approve a new connection</1> with Warpcast"
 msgstr ""
@@ -2063,6 +2075,9 @@ msgstr "已关注地址列表"
 
 msgid "FREE"
 msgstr "免费"
+
+msgid "Sign to enable signless"
+msgstr ""
 
 msgid "Profiles"
 msgstr "个人信息"
