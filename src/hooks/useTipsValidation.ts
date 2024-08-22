@@ -39,7 +39,7 @@ export function useTipsValidation() {
         if (!isGasValid) {
             return { label: t`Insufficient Gas`, disabled: true };
         }
-        return { label: t`Send Tips`, disabled: false };
+        return { label: t`Send`, disabled: false };
     }, [recipient, token, amount]);
 
     return { value, loading, error };

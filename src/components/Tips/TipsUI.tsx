@@ -51,8 +51,8 @@ export const TipsUI = memo(function TipsUI() {
 
     const tipTitle = recipient
         ? pureWallet
-            ? t`Send tips to ${handle || recipient.displayName}`
-            : t`Send tips to @${handle || recipient.displayName}`
+            ? t`Send a tip to ${handle || recipient.displayName}`
+            : t`Send a tip to @${handle || recipient.displayName}`
         : '';
 
     return (
