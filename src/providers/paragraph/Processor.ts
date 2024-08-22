@@ -44,6 +44,7 @@ interface State {
                         };
                         highlightsCost?: number;
                         highlightsChain?: string;
+                        collectibleWalletAddress?: string;
                     };
                 };
             };
@@ -80,7 +81,9 @@ class Processor {
                 supply: target.highlightsSupply,
                 costEth: target.highlightsCost ?? data?.props.pageProps.initialState.blog.blog.highlightsCost,
                 text: target.post_preview,
-                collectorWallet: target.collectibleWalletAddress,
+                collectorWallet:
+                    target.collectibleWalletAddress ??
+                    data?.props.pageProps.initialState.blog.blog.collectibleWalletAddress,
                 position: {
                     from: 0,
                     to: 0,
