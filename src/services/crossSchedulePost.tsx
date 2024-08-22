@@ -3,10 +3,10 @@ import dayjs from 'dayjs';
 import urlcat from 'urlcat';
 
 import { DraftPageTab } from '@/components/Compose/DraftPage.js';
-import { UnauthorizedError } from '@/constants/error.js';
+import { CreateScheduleError, SignlessRequireError, UnauthorizedError } from '@/constants/error.js';
 import { SUPPORTED_FRAME_SOURCES } from '@/constants/index.js';
 import { CHAR_TAG, readChars } from '@/helpers/chars.js';
-import { checkScheduleTime, CreateScheduleError } from '@/helpers/checkScheduleTime.js';
+import { checkScheduleTime } from '@/helpers/checkScheduleTime.js';
 import { enqueueErrorMessage, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { getCurrentProfileAll } from '@/helpers/getCurrentProfile.js';
 import { getProfileSessionsAll } from '@/helpers/getProfileState.js';
@@ -14,7 +14,7 @@ import { getScheduleTaskContent } from '@/helpers/getScheduleTaskContent.js';
 import { getSnackbarMessageFromError } from '@/helpers/getSnackbarMessageFromError.js';
 import { resolveCreateSchedulePostPayload } from '@/helpers/resolveCreateSchedulePostPayload.js';
 import { resolveSocialSourceInURL } from '@/helpers/resolveSourceInURL.js';
-import { ComposeModalRef } from '@/modals/controls.js';
+import { ComposeModalRef, EnableSignlessModalRef } from '@/modals/controls.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
 import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
 import { uploadSessions } from '@/services/metrics.js';
@@ -103,6 +103,8 @@ export async function crossSchedulePost(type: ComposeType, compositePost: Compos
     } catch (error) {
         if (error instanceof CreateScheduleError) {
             enqueueErrorMessage(error.message);
+        } else if (error instanceof SignlessRequireError) {
+            EnableSignlessModalRef.open();
         } else {
             enqueueErrorMessage(getSnackbarMessageFromError(error, t`Failed to create schedule post.`), {
                 error,

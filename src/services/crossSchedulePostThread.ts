@@ -3,12 +3,14 @@ import { delay } from '@masknet/kit';
 import { first } from 'lodash-es';
 
 import type { SocialSourceInURL } from '@/constants/enum.js';
-import { checkScheduleTime, CreateScheduleError } from '@/helpers/checkScheduleTime.js';
+import { CreateScheduleError, SignlessRequireError } from '@/constants/error.js';
+import { checkScheduleTime } from '@/helpers/checkScheduleTime.js';
 import { enqueueErrorMessage, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { getProfileSessionsAll } from '@/helpers/getProfileState.js';
 import { getScheduleTaskContent } from '@/helpers/getScheduleTaskContent.js';
 import { getSnackbarMessageFromError } from '@/helpers/getSnackbarMessageFromError.js';
 import type { SchedulePayload } from '@/helpers/resolveCreateSchedulePostPayload.js';
+import { EnableSignlessModalRef } from '@/modals/controls.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
 import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
 import { createSchedulePostsPayload } from '@/services/crossSchedulePost.js';
@@ -63,6 +65,8 @@ export async function crossPostScheduleThread(scheduleTime: Date) {
     } catch (error) {
         if (error instanceof CreateScheduleError) {
             enqueueErrorMessage(error.message);
+        } else if (error instanceof SignlessRequireError) {
+            EnableSignlessModalRef.open();
         } else {
             enqueueErrorMessage(getSnackbarMessageFromError(error, t`Failed to create schedule thread posts.`), {
                 error,

@@ -134,3 +134,15 @@ export class SwitchChainError extends Error {
         );
     }
 }
+
+export class CreateScheduleError extends Error {
+    constructor(public override message: string) {
+        super(message);
+    }
+}
+
+export class SignlessRequireError extends Error {
+    constructor(public override message: string) {
+        super(message);
+    }
+}

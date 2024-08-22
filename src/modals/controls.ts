@@ -30,3 +30,4 @@ export const PreviewMediaModalRef = new SingletonModal<PreviewMediaModalOpenProp
 export const SchedulePostModalRef = new SingletonModal<SchedulePostModalOpenProps>();
 export const EditProfileModalRef = new SingletonModal<EditProfileModalOpenProps>();
 export const CollectArticleModalRef = new SingletonModal<CollectArticleModalOpenProps>();
+export const EnableSignlessModalRef = new SingletonModal<void, boolean>();
