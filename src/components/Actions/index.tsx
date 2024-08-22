@@ -85,7 +85,9 @@ export const PostActionsWithGrid = memo<PostActionsWithGridProps>(function PostA
                 />
             </div>
         ) : null,
-        identity.id ? <Tips key="tips" identity={identity} disabled={disabled} handle={post.author.handle} /> : null,
+        identity.id ? (
+            <Tips key="tips" post={post} identity={identity} disabled={disabled} handle={post.author.handle} />
+        ) : null,
         post.source !== Source.Twitter ? (
             <Bookmark
                 key="bookmark"
@@ -201,7 +203,9 @@ export const PostActions = memo<PostActionsProps>(function PostActions({
                             hiddenCount
                         />
                     ) : null}
-                    {identity.id ? <Tips identity={identity} disabled={disabled} handle={post.author.handle} /> : null}
+                    {identity.id ? (
+                        <Tips post={post} identity={identity} disabled={disabled} handle={post.author.handle} />
+                    ) : null}
                     <Share key="share" url={urlcat(SITE_URL, getPostUrl(post))} disabled={disabled} />
                 </div>
             </ClickableArea>

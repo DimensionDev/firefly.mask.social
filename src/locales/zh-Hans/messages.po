@@ -36,6 +36,9 @@ msgstr "未能隐藏所有的钱包和账号。"
 msgid "Onchain Activities"
 msgstr "链上活动"
 
+msgid "Tip transaction completed!"
+msgstr ""
+
 msgid "Muted"
 msgstr "已隐藏"
 
@@ -72,11 +75,11 @@ msgstr "翻译失败。请稍后重试。"
 msgid "Failed to fetch as Blob."
 msgstr "获取 Blob 失败。"
 
-msgid "You just sent <0>{amount} {0}{1}</0> tips to <1>{2}</1>!<2/>Share this news by mentioning and posting."
-msgstr "你刚刚发送了 <0>{amount} {0}{1}</0> 的打赏给 <1>{2}</1>！<2/>转发或者引用来分享这个消息。"
-
 msgid "Unmute successfully."
 msgstr "取消隐藏成功。"
+
+msgid "Send a tip"
+msgstr ""
 
 msgid "Mute /{0}"
 msgstr "隐藏 /{0}"
@@ -132,9 +135,6 @@ msgstr ""
 msgid "The post you quoted/replied has already deleted"
 msgstr "您引用/回复的帖子已经被删除了。"
 
-msgid "Send tips to @{0}"
-msgstr "发送打赏给 {0}"
-
 msgid "Display Name"
 msgstr ""
 
@@ -185,9 +185,6 @@ msgstr ""
 
 msgid "Searching users"
 msgstr "查找用户中"
-
-msgid "Cannot send tips to yourself"
-msgstr "不能打赏给自己"
 
 msgid "Airdrop Scam"
 msgstr "空投骗局"
@@ -669,6 +666,9 @@ msgstr "加入我们的 Telegram"
 msgid "Anti_whale(Limited number of transactions)"
 msgstr "反鲸鱼（有限的交易次数）"
 
+msgid "Send a tip to {0}"
+msgstr ""
+
 msgid "The number of token transactions is limited. The number of scam token transactions may be limited (honeypot risk)."
 msgstr "通证的交易次数是有限的。可疑通证的交易次数可能会被限制（欺诈风险）。"
 
@@ -677,9 +677,6 @@ msgstr "登出"
 
 msgid "Unmuting..."
 msgstr "取消屏蔽中..."
-
-msgid "Send Tips"
-msgstr "发送打赏"
 
 msgid "{0, plural, one {Your post failed to publish on {firstPlatform} due to an error. Click 'Retry' to attempt posting again.} two {Your post failed to publish on {firstPlatform} and {secondPlatform} due to an error. Click 'Retry' to attempt posting again.} other {Your post failed to publish due to an error. Click 'Retry' to attempt posting again.}}"
 msgstr "{0, plural, one {由于某些错误您的帖子在 {firstPlatform} 发布失败。请点击重试。} two {由于某些错误您的帖子在 {firstPlatform} 和{secondPlatform} 发布失败。请点击重试。} other {您的帖子发布失败。请点击重试。}}"
@@ -777,9 +774,6 @@ msgstr "黑名单功能"
 msgid "AUTHOR ADDRESS"
 msgstr "作者地址"
 
-msgid "Failed to send tips."
-msgstr "发送打赏失败。"
-
 msgid "Enable development API version"
 msgstr "启用开发环境接口"
 
@@ -842,9 +836,6 @@ msgstr "提交反馈"
 
 msgid "Your draft was saved."
 msgstr "草稿已被保存"
-
-msgid "Send tips"
-msgstr "发送打赏"
 
 msgid "The chainId mismatch."
 msgstr "chainId 不匹配"
@@ -1065,9 +1056,6 @@ msgstr "NFT 合约"
 msgid "Show more tokens with small balances"
 msgstr ""
 
-msgid "Share Now"
-msgstr "分享"
-
 msgid "{riskyFactors, plural, one {# Risky item} other {# Risky items}}"
 msgstr "{riskyFactors, plural, one {# 风险条目} other {# 风险条目}}"
 
@@ -1123,6 +1111,9 @@ msgid "<0>Acquired</0> an NFT"
 msgstr "<0>获取</0> 一个 NFT"
 
 msgid "App Kit"
+msgstr ""
+
+msgid "Tag {0} in a post to let them know you’ve sent an onchain tip to their wallet."
 msgstr ""
 
 msgid "liked"
@@ -1218,6 +1209,9 @@ msgstr ""
 msgid "Contract source code not verified"
 msgstr "合约源代码未验证"
 
+msgid "Cannot send tip to yourself"
+msgstr ""
+
 msgid "Unwatch {handleOrEnsOrAddress}"
 msgstr ""
 
@@ -1262,6 +1256,9 @@ msgstr "点赞"
 
 msgid "Contract Address"
 msgstr "合约地址"
+
+msgid "Send a tip to @{0}"
+msgstr ""
 
 msgid "The whitelist function is not included. If there is a whitelist, some addresses may not be able to trade normally (honeypot risk)."
 msgstr "白名单功能未启用。如果启用，有些地址可能无法正常交易（欺诈风险）。"
@@ -1538,6 +1535,9 @@ msgstr "用户取消了请求。"
 
 msgid "Recast or Quote"
 msgstr "转发或者引用"
+
+msgid "Sorry, we are not able to find a wallet for {0}."
+msgstr ""
 
 msgid "Unwatch"
 msgstr "取消关注"
@@ -1845,6 +1845,9 @@ msgstr "深色模式"
 msgid "Article added to your Bookmarks"
 msgstr "文章已经添加到您的收藏中"
 
+msgid "Create a Post"
+msgstr ""
+
 msgid "{type, select, comment {Comments} mirror {{0}} reaction {Likes} act {Collects} other {Other}}"
 msgstr "{type, select, comment {评论} mirror {{0}} reaction {点赞} act {收藏} other {其他}}"
 
@@ -1880,6 +1883,9 @@ msgstr ""
 
 msgid "<0/> quoted your <1>{0, select, Post {post} Comment {comment} Quote {quote} Mirror {mirror} other {post}}</1>"
 msgstr "<0/> 引用了你的 <1>{0, select, Post {帖子} Comment {评论} Quote {引用} Mirror {引用} other {帖子}}</1>"
+
+msgid "Failed to send tip."
+msgstr ""
 
 msgid "Connecting Wallet"
 msgstr "正在连接钱包"
@@ -1917,6 +1923,9 @@ msgstr "Farcaster 频道"
 msgid "Completed"
 msgstr "已完成"
 
+msgid "Failed to send tip. Please try again later."
+msgstr ""
+
 msgid "Failed to unmirror post."
 msgstr "未能取消转帖。"
 
@@ -1949,9 +1958,6 @@ msgstr "取消隐藏"
 
 msgid "No available token"
 msgstr "没有适合的代币"
-
-msgid "Send tips to {0}"
-msgstr "发送打赏给 {0}"
 
 msgid "View on explorer"
 msgstr "在区块链浏览器查看"
@@ -2033,9 +2039,6 @@ msgstr "未能解析交易。"
 
 msgid "No anti_whale(Unlimited number of transactions)"
 msgstr "没有反鲸鱼（无限的交易次数）"
-
-msgid "Failed to send tips, please try again later."
-msgstr "打赏失败，请稍后重试。"
 
 msgid "<0>Burned</0> an NFT"
 msgstr "<0>销毁</0> 一个 NFT"

@@ -36,7 +36,7 @@ const WalletSelector = memo<{ onSelected: () => void }>(function WalletSelector(
                 static
                 className="absolute left-2/4 top-full z-50 flex w-full -translate-x-1/2 translate-y-3 flex-col gap-2 rounded-lg bg-bgModal p-3 text-[15px] text-main shadow-popover"
             >
-                <div className="no-scrollbar max-h-[175px] overflow-y-auto">
+                <div className="no-scrollbar max-h-[80px] overflow-y-auto sm:max-h-[175px]">
                     {recipientList.map((recipient) => {
                         const walletProfile = recipient.__origin__ as WalletProfile;
                         return (
