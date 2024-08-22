@@ -244,9 +244,13 @@ export const MAX_PROFILE_WEBSITE_SIZE: Record<SocialSource, number> = {
 };
 
 // https://support.mirror.xyz/hc/en-us/articles/13729399363220-Platform-fees
+// 0.00069 ETH
 export const MIRROR_COLLECT_FEE = 690000000000000n;
-export const MIRROR_COLLECT_FEE_IN_POLYGON = 100000000000000000n;
+// 1 matic
+export const MIRROR_COLLECT_FEE_IN_POLYGON = 1000000000000000000n;
 
 // https://docs.paragraph.xyz/docs/advanced/referral-program
+// 0.000777 ETH
 export const PARAGRAPH_COLLECT_FEE = 777000000000000n;
+// 2 matic
 export const PARAGRAPH_COLLECT_FEE_IN_POLYGON = 2000000000000000000n;
