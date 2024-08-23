@@ -20,6 +20,7 @@ interface Props extends HTMLProps<HTMLDivElement> {
     showChannelTag?: boolean;
     isComment?: boolean;
     hideDate?: boolean;
+    hideSource?: boolean;
 
     onSetScrollIndex?: () => void;
 }
@@ -59,6 +60,7 @@ export const PostStatistics = memo<Props>(function PostStatistics({
     showChannelTag = true,
     isComment = false,
     hideDate = false,
+    hideSource = false,
     onSetScrollIndex,
 }: Props) {
     const pathname = usePathname();
@@ -141,45 +143,49 @@ export const PostStatistics = memo<Props>(function PostStatistics({
 
     const isDetailPage = isRoutePathname(pathname, '/post/:detail', true);
 
+    const statisticsItems =
+        !isDetailPage || isComment
+            ? compact([
+                  comments,
+                  likes,
+                  !isDetailPage && showChannelTag && post.channel ? (
+                      <ChannelAnchor
+                          className="!inline-flex translate-y-1"
+                          channel={post.channel}
+                          onClick={onSetScrollIndex}
+                      />
+                  ) : null,
+              ])
+            : compact([
+                  post.timestamp && !hideDate ? (
+                      <>
+                          <span>{dayjs(post.timestamp).format('hh:mm A')}</span>
+                          <span>{' · '}</span>
+                          <span>{dayjs(post.timestamp).format('MMM DD, YYYY')}</span>
+                      </>
+                  ) : null,
+                  likes,
+                  collects,
+                  mirrors,
+                  quotes,
+                  views,
+                  sendFrom && !hideSource ? (
+                      <Trans>
+                          Posted via{' '}
+                          {isSendFromFirefly(post) ? (
+                              <FireflyAvatarIcon fontSize={15} width={15} height={15} className="inline" />
+                          ) : null}{' '}
+                          <span className="capitalize">{sendFrom}</span>
+                      </Trans>
+                  ) : null,
+              ]);
+
+    if (!statisticsItems.length) return null;
+
     return (
         <div className={classNames('flex min-h-6 w-full justify-between text-xs leading-6 text-second', className)}>
             <div>
-                {(!isDetailPage || isComment
-                    ? compact([
-                          comments,
-                          likes,
-                          !isDetailPage && showChannelTag && post.channel ? (
-                              <ChannelAnchor
-                                  className="!inline-flex translate-y-1"
-                                  channel={post.channel}
-                                  onClick={onSetScrollIndex}
-                              />
-                          ) : null,
-                      ])
-                    : compact([
-                          post.timestamp && !hideDate ? (
-                              <>
-                                  <span>{dayjs(post.timestamp).format('hh:mm A')}</span>
-                                  <span>{' · '}</span>
-                                  <span>{dayjs(post.timestamp).format('MMM DD, YYYY')}</span>
-                              </>
-                          ) : null,
-                          likes,
-                          collects,
-                          mirrors,
-                          quotes,
-                          views,
-                          sendFrom ? (
-                              <Trans>
-                                  Posted via{' '}
-                                  {isSendFromFirefly(post) ? (
-                                      <FireflyAvatarIcon fontSize={15} width={15} height={15} className="inline" />
-                                  ) : null}{' '}
-                                  <span className="capitalize">{sendFrom}</span>
-                              </Trans>
-                          ) : null,
-                      ])
-                ).map((item, i, arr) => {
+                {statisticsItems.map((item, i, arr) => {
                     const isLast = arr.length - 1 === i;
                     return (
                         <Fragment key={i}>
