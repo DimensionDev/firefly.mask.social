@@ -5,7 +5,7 @@ import z from 'zod';
 import { UnreachableError } from '@/constants/error.js';
 import { parseJSON } from '@/helpers/parseJSON.js';
 import { FarcasterSession } from '@/providers/farcaster/Session.js';
-import { FireflySession } from '@/providers/firefly/Session.js';
+import { FireflySession, type FireflySessionSignature } from '@/providers/firefly/Session.js';
 import { LensSession } from '@/providers/lens/Session.js';
 import { TwitterSession } from '@/providers/twitter/Session.js';
 import type { Session } from '@/providers/types/Session.js';
@@ -44,6 +44,7 @@ export class SessionFactory {
         const secondPart = fragments[2] ?? '';
         // for lens session, the third part is the wallet address
         // for farcaster session, the third part is the channel token
+        // for firefly session, the third part is the signature in base64 encoded
         const thirdPart = fragments[3] ?? '';
 
         const session = parseJSON<{
@@ -96,6 +97,7 @@ export class SessionFactory {
                         session.profileId,
                         session.token,
                         secondPart ? SessionFactory.createSession(atob(secondPart)) : null, // parent session
+                        thirdPart ? parseJSON<FireflySessionSignature>(atob(thirdPart)) : undefined, // signature
                     );
                 default:
                     safeUnreachable(type);
