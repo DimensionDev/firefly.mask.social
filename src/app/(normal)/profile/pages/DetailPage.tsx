@@ -6,8 +6,8 @@ import { useEffect } from 'react';
 
 import { ProfilePage } from '@/app/(normal)/pages/Profile.js';
 import { Loading } from '@/components/Loading.js';
+import { LoginRequiredGuard } from '@/components/LoginRequiredGuard.js';
 import { ProfileSourceTabs } from '@/components/Profile/ProfileSourceTabs.js';
-import { RequireLogin } from '@/components/RequireLogin.js';
 import { EMPTY_LIST } from '@/constants/index.js';
 import { isSameFireflyIdentity } from '@/helpers/isSameFireflyIdentity.js';
 import { useCurrentFireflyProfilesAll } from '@/hooks/useCurrentFireflyProfiles.js';
@@ -49,9 +49,9 @@ export function ProfileDetailPage({ identity }: Props) {
     return (
         <>
             <ProfileSourceTabs profiles={profiles} />
-            <RequireLogin source={identity.source}>
+            <LoginRequiredGuard source={identity.source}>
                 <ProfilePage profiles={profiles} />;
-            </RequireLogin>
+            </LoginRequiredGuard>
         </>
     );
 }
