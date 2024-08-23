@@ -984,19 +984,28 @@ export class FireflySocialMedia implements Provider {
         });
     }
 
-    async isProfileMuted(platform: FireflyPlatform, profileId: string): Promise<boolean> {
+    async getBlockRelation(conditions: Array<{ snsPlatform: FireflyPlatform; snsId: string }>) {
         return farcasterSessionHolder.withSession(async (session) => {
-            if (!session) return false;
+            if (!session) return [];
             const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/user/blockRelation');
             const response = await fireflySessionHolder.fetch<BlockRelationResponse>(url, {
                 method: 'POST',
                 body: JSON.stringify({
-                    conditions: [{ snsPlatform: platform, snsId: profileId }],
+                    conditions,
                 }),
             });
-            const blocked = !!response.data?.find((x) => x.snsId === profileId)?.blocked;
-            return blocked;
+            return response.data ?? [];
         });
+    }
+
+    async isProfileMuted(platform: FireflyPlatform, profileId: string): Promise<boolean> {
+        const blockRelationList = await this.getBlockRelation([
+            {
+                snsPlatform: platform,
+                snsId: profileId,
+            },
+        ]);
+        return !!blockRelationList.find((x) => x.snsId === profileId)?.blocked;
     }
 
     async blockWallet(address: string) {

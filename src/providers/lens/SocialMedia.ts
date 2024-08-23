@@ -23,7 +23,7 @@ import { v4 as uuid } from 'uuid';
 import type { TypedDataDomain } from 'viem';
 
 import { config } from '@/configs/wagmiClient.js';
-import { FireflyPlatform, Source } from '@/constants/enum.js';
+import { FireflyPlatform, Source, SourceInURL } from '@/constants/enum.js';
 import { InvalidResultError, NotImplementedError } from '@/constants/error.js';
 import { EMPTY_LIST } from '@/constants/index.js';
 import { SetQueryDataForBlockProfile } from '@/decorators/SetQueryDataForBlockProfile.js';
@@ -1044,8 +1044,62 @@ class LensSocialMedia implements Provider {
             return null;
         });
 
+        // filter muted/blocked items
+        const profileIds = compact(
+            data.flatMap((x) => {
+                if (!x) return null;
+                if ('followers' in x) return x.followers.map((follower) => follower.profileId);
+                return x?.post?.author.profileId;
+            }),
+        );
+        const blockList = await FireflySocialMediaProvider.getBlockRelation(
+            profileIds.map((snsId) => ({ snsId, snsPlatform: SourceInURL.Lens })),
+        );
+        const blockProfileIdSet = new Set(blockList.filter((x) => x.blocked).map((x) => x.snsId));
+
         return createPageable(
-            compact(data),
+            compact(data)
+                .map((item) => {
+                    if (!item) return item;
+                    if ('followers' in item) {
+                        item.followers = item.followers.filter((x) => !blockProfileIdSet.has(x.profileId));
+                    }
+                    if ('mirrors' in item) {
+                        item.mirrors = item.mirrors.filter((x) => !blockProfileIdSet.has(x.profileId));
+                    }
+                    if ('reactors' in item) {
+                        item.reactors = item.reactors.filter((x) => !blockProfileIdSet.has(x.profileId));
+                    }
+                    return item;
+                })
+                .filter((item) => {
+                    if (!item) return false;
+                    if ('followers' in item && item.followers.length <= 0) return false;
+                    if ('mirrors' in item && item.mirrors.length <= 0) return false;
+                    if ('reactors' in item && item.reactors.length <= 0) return false;
+                    if (
+                        'post' in item &&
+                        item.post?.author.profileId &&
+                        blockProfileIdSet.has(item.post.author.profileId)
+                    ) {
+                        return false;
+                    }
+                    if (
+                        'comment' in item &&
+                        item.comment?.author.profileId &&
+                        blockProfileIdSet.has(item.comment.author.profileId)
+                    ) {
+                        return false;
+                    }
+                    if (
+                        'quote' in item &&
+                        item.quote?.author.profileId &&
+                        blockProfileIdSet.has(item.quote.author.profileId)
+                    ) {
+                        return false;
+                    }
+                    return true;
+                }),
             createIndicator(indicator),
             result.pageInfo.next ? createNextIndicator(indicator, result.pageInfo.next) : undefined,
         );
