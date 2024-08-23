@@ -211,6 +211,7 @@ export const PostActions = memo<PostActionsProps>(function PostActions({
             </ClickableArea>
             <PostStatistics
                 hideDate={hideDate}
+                hideSource={hideDate}
                 isComment={isComment}
                 post={post}
                 showChannelTag={showChannelTag}
