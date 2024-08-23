@@ -13,7 +13,7 @@ import type { Pageable, PageIndicator } from '@/helpers/pageable.js';
 import { resolveRPCUrl } from '@/helpers/resolveRPCUrl.js';
 import { WritingNFTQuery } from '@/providers/mirror/query.js';
 import { type MirrorArticleDetail } from '@/providers/mirror/type.js';
-import type { Article, ArticleCollectDetail, Provider } from '@/providers/types/Article.js';
+import type { Article, ArticleCollectable, Provider } from '@/providers/types/Article.js';
 
 class Mirror implements Provider {
     async discoverArticles(indicator?: PageIndicator): Promise<Pageable<Article, PageIndicator>> {
@@ -28,7 +28,7 @@ class Mirror implements Provider {
         throw new NotImplementedError();
     }
 
-    async getArticleCollectDetail(digest: string): Promise<ArticleCollectDetail> {
+    async getArticleCollectableByDigest(digest: string): Promise<ArticleCollectable> {
         const response = await fetchJSON<MirrorArticleDetail>(urlcat(location.origin, '/api/mirror'), {
             method: 'POST',
             body: JSON.stringify({
@@ -74,9 +74,9 @@ class Mirror implements Provider {
         };
     }
 
-    async estimateCollectGas(detail: ArticleCollectDetail) {
+    async estimateCollectGas(article: ArticleCollectable) {
         const account = getAccount(config);
-        const chain = chains.find((x) => x.id === detail.chainId);
+        const chain = chains.find((x) => x.id === article.chainId);
         if (!chain) throw new Error('Unsupported chain');
 
         const client = createPublicClient({
@@ -84,27 +84,27 @@ class Mirror implements Provider {
             transport: http(resolveRPCUrl(chain.id), { batch: true }),
         });
 
-        const price = detail.price ? BigInt(rightShift(detail.price, 18).toString()) : 0n;
+        const price = article.price ? BigInt(rightShift(article.price, 18).toString()) : 0n;
 
         return client.estimateContractGas({
-            address: detail.contractAddress as `0x${string}`,
+            address: article.contractAddress as `0x${string}`,
             abi: MirrorABI,
             functionName: 'purchase',
             args: [account.address, '', zeroAddress],
-            value: detail.fee + price,
+            value: article.fee + price,
         });
     }
 
-    async collect(detail: ArticleCollectDetail) {
+    async collect(article: ArticleCollectable) {
         const account = getAccount(config);
-        const price = detail.price ? BigInt(rightShift(detail.price, 18).toString()) : 0n;
+        const price = article.price ? BigInt(rightShift(article.price, 18).toString()) : 0n;
 
         const hash = await writeContract(config, {
             abi: MirrorABI,
-            address: detail.contractAddress as `0x${string}`,
+            address: article.contractAddress as `0x${string}`,
             functionName: 'purchase',
             args: [account.address, '', zeroAddress],
-            value: detail.fee + price,
+            value: article.fee + price,
         });
 
         return getTransactionConfirmations(config, {

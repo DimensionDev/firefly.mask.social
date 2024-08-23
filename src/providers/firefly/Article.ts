@@ -14,7 +14,7 @@ import {
 } from '@/helpers/pageable.js';
 import { resolveFireflyResponseData } from '@/helpers/resolveFireflyResponseData.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
-import { type Article, type ArticleCollectDetail, ArticlePlatform, type Provider } from '@/providers/types/Article.js';
+import { type Article, type ArticleCollectable, ArticlePlatform, type Provider } from '@/providers/types/Article.js';
 import {
     type Article as FFArticle,
     type BookmarkResponse,
@@ -25,15 +25,15 @@ import {
 import { settings } from '@/settings/index.js';
 
 class FireflyArticle implements Provider {
-    getArticleCollectDetail(digest: string): Promise<ArticleCollectDetail> {
+    getArticleCollectableByDigest(digest: string): Promise<ArticleCollectable> {
         throw new NotImplementedError();
     }
 
-    estimateCollectGas(detail: ArticleCollectDetail): Promise<bigint> {
+    estimateCollectGas(article: ArticleCollectable): Promise<bigint> {
         throw new NotImplementedError();
     }
 
-    collect(detail: ArticleCollectDetail): Promise<bigint> {
+    collect(article: ArticleCollectable): Promise<bigint> {
         throw new NotImplementedError();
     }
 

@@ -14,7 +14,7 @@ import type { Pageable, PageIndicator } from '@/helpers/pageable.js';
 import { resolveParagraphMintContract } from '@/helpers/resolveParagraphMintContract.js';
 import { resolveRPCUrl } from '@/helpers/resolveRPCUrl.js';
 import { type ParagraphArticleDetail, ParagraphChain } from '@/providers/paragraph/type.js';
-import type { Article, ArticleCollectDetail, Provider } from '@/providers/types/Article.js';
+import type { Article, ArticleCollectable, Provider } from '@/providers/types/Article.js';
 
 const MAX_SUPPLY = '115792089237316195423570985008687907853269984665640564039457584007913129639935';
 
@@ -43,7 +43,7 @@ class Paragraph implements Provider {
         throw new NotImplementedError();
     }
 
-    async getArticleCollectDetail(digestLink: string): Promise<ArticleCollectDetail> {
+    async getArticleCollectableByDigest(digestLink: string): Promise<ArticleCollectable> {
         const response = await fetchJSON<{ data: ParagraphArticleDetail }>(
             urlcat(location.origin, '/api/paragraph', { link: digestLink }),
             {
@@ -108,32 +108,32 @@ class Paragraph implements Provider {
         };
     }
 
-    async estimateCollectGas(detail: ArticleCollectDetail) {
+    async estimateCollectGas(article: ArticleCollectable) {
         const account = getAccount(config);
-        const chain = chains.find((x) => x.id === detail.chainId);
-        if (!chain) throw new Error(`Unsupported chain: ${detail.chainId}`);
+        const chain = chains.find((x) => x.id === article.chainId);
+        if (!chain) throw new Error(`Unsupported chain: ${article.chainId}`);
 
         const client = createPublicClient({
             chain,
             transport: http(resolveRPCUrl(chain.id), { batch: true }),
         });
 
-        const price = detail.price ? BigInt(rightShift(detail.price, chain.nativeCurrency.decimals).toString()) : 0n;
+        const price = article.price ? BigInt(rightShift(article.price, chain.nativeCurrency.decimals).toString()) : 0n;
 
-        const value = price + detail.fee;
+        const value = price + article.fee;
 
-        if (detail.contractAddress) {
+        if (article.contractAddress) {
             return client.estimateContractGas({
-                address: detail.contractAddress as `0x${string}`,
+                address: article.contractAddress as `0x${string}`,
                 abi: ParagraphABI,
                 functionName: 'mintWithReferrer',
-                args: [account.address, detail.referrerAddress ?? zeroAddress],
+                args: [account.address, article.referrerAddress ?? zeroAddress],
                 value,
             });
         }
 
-        const address = resolveParagraphMintContract(detail.chainId);
-        if (!address) throw new Error(`Unsupported network: ${detail.chainId}`);
+        const address = resolveParagraphMintContract(article.chainId);
+        if (!address) throw new Error(`Unsupported network: ${article.chainId}`);
 
         return client.estimateContractGas({
             address: address as `0x${string}`,
@@ -141,41 +141,41 @@ class Paragraph implements Provider {
             functionName: 'createAndMint',
             args: [
                 [
-                    detail.name,
-                    detail.symbol,
-                    detail.ownerAddress,
+                    article.name,
+                    article.symbol,
+                    article.ownerAddress,
                     account.address,
-                    detail.referrerAddress ?? zeroAddress,
-                    BigInt(detail.quantity ?? MAX_SUPPLY),
-                    BigInt(rightShift(detail.price ?? 0, chain.nativeCurrency.decimals).toString()),
+                    article.referrerAddress ?? zeroAddress,
+                    BigInt(article.quantity ?? MAX_SUPPLY),
+                    BigInt(rightShift(article.price ?? 0, chain.nativeCurrency.decimals).toString()),
                 ],
                 zeroAddress,
-                detail.postId,
-                detail.position?.from,
-                detail.position?.to,
+                article.postId,
+                article.position?.from,
+                article.position?.to,
             ],
             value,
         });
     }
 
-    async collect(detail: ArticleCollectDetail) {
+    async collect(article: ArticleCollectable) {
         const account = getAccount(config);
-        const chain = chains.find((x) => x.id === detail.chainId);
-        if (!chain) throw new Error(`Unsupported chain: ${detail.chainId}`);
+        const chain = chains.find((x) => x.id === article.chainId);
+        if (!chain) throw new Error(`Unsupported chain: ${article.chainId}`);
 
-        const address = resolveParagraphMintContract(detail.chainId);
-        if (!address) throw new Error(`Unsupported network: ${detail.chainId}`);
+        const address = resolveParagraphMintContract(article.chainId);
+        if (!address) throw new Error(`Unsupported network: ${article.chainId}`);
 
-        const price = detail.price ? BigInt(rightShift(detail.price, chain.nativeCurrency.decimals).toString()) : 0n;
-        const value = detail.fee + price;
+        const price = article.price ? BigInt(rightShift(article.price, chain.nativeCurrency.decimals).toString()) : 0n;
+        const value = article.fee + price;
 
         // factory contract has been deployed
-        if (detail.contractAddress) {
+        if (article.contractAddress) {
             const hash = await writeContract(config, {
-                address: detail.contractAddress as `0x${string}`,
+                address: article.contractAddress as `0x${string}`,
                 abi: ParagraphABI,
                 functionName: 'mintWithReferrer',
-                args: [account.address, detail.referrerAddress ?? zeroAddress],
+                args: [account.address, article.referrerAddress ?? zeroAddress],
                 value,
             });
 
@@ -188,18 +188,18 @@ class Paragraph implements Provider {
             functionName: 'createAndMint',
             args: [
                 [
-                    detail.name,
-                    detail.symbol,
-                    detail.ownerAddress,
+                    article.name,
+                    article.symbol,
+                    article.ownerAddress,
                     account,
-                    detail.referrerAddress ?? zeroAddress,
-                    BigInt(detail.quantity ?? MAX_SUPPLY),
+                    article.referrerAddress ?? zeroAddress,
+                    BigInt(article.quantity ?? MAX_SUPPLY),
                     price,
                 ],
                 zeroAddress,
-                detail.postId,
-                detail.position?.from,
-                detail.position?.to,
+                article.postId,
+                article.position?.from,
+                article.position?.to,
             ],
             value,
         });
