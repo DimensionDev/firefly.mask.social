@@ -191,7 +191,7 @@ class Paragraph implements Provider {
                     article.name,
                     article.symbol,
                     article.ownerAddress,
-                    account,
+                    account.address,
                     article.referrerAddress ?? zeroAddress,
                     BigInt(article.quantity ?? MAX_SUPPLY),
                     price,
