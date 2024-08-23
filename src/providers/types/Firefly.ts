@@ -952,3 +952,12 @@ export type AllConnections = {
 };
 
 export type GetAllConnectionsResponse = Response<AllConnections>;
+
+export type MessageToSignResponse = Response<{
+    message: string;
+}>;
+
+export type WalletLoginResponse = Response<{
+    accessToken: string;
+    accountId: string;
+}>;
