@@ -34,7 +34,7 @@ export function ActionInput({
                 autoComplete="off"
                 spellCheck="false"
                 onChange={extendedChange}
-                className="ml-2.5 flex-1 truncate border-none bg-transparent p-0 text-[15px] placeholder:text-second focus:ring-0 disabled:text-third"
+                className="ml-2.5 flex-1 truncate border-none bg-transparent p-0 text-medium placeholder:text-second focus:ring-0 disabled:text-third"
             />
             {button ? (
                 <div>

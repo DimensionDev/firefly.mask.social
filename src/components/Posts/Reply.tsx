@@ -35,7 +35,7 @@ export const Reply = memo<ReplyProps>(function Reply({ post, compositePost }) {
                 <div className="flex-1 overflow-hidden">
                     <div className="w-full text-left">
                         <PostBody post={post} isReply disablePadding={post.isHidden || post.isEncrypted} />
-                        <div className="pt-3 text-[15px] text-placeholder">
+                        <div className="pt-3 text-medium text-placeholder">
                             <Trans>
                                 Replying to <span className="text-link">@{post.author.handle}</span> on{' '}
                                 {resolveSourceName(post.source)}

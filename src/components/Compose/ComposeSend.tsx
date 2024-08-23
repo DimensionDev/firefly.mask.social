@@ -116,7 +116,7 @@ export function ComposeSend(props: ComposeSendProps) {
         <div className="flex-1 shadow-send">
             <div className="flex h-[68px] items-center justify-end gap-4 px-4">
                 {usedLength && post.availableSources.length ? (
-                    <div className="flex items-center gap-[10px] whitespace-nowrap text-[15px] text-main">
+                    <div className="flex items-center gap-[10px] whitespace-nowrap text-medium text-main">
                         <CountdownCircle width={24} height={24} className="flex-shrink-0" />
                         <span className={usedLength > availableLength ? 'text-danger' : ''}>
                             {usedLength} / {availableLength}
@@ -170,7 +170,7 @@ export function ComposeSend(props: ComposeSendProps) {
                     <ClickableButton
                         disabled={disabled}
                         className={classNames(
-                            'relative flex h-10 w-[120px] items-center justify-center gap-1 overflow-hidden rounded-full bg-black text-[15px] font-bold text-white dark:bg-white dark:text-black',
+                            'relative flex h-10 w-[120px] items-center justify-center gap-1 overflow-hidden rounded-full bg-black text-medium font-bold text-white dark:bg-white dark:text-black',
                             {
                                 'bg-commonDanger': !!hasError,
                                 'w-[187px]': !!scheduleTime,

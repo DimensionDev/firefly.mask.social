@@ -36,7 +36,7 @@ export function ReplyRestriction({ restriction, setRestriction }: ReplyRestricti
             leaveFrom="opacity-100"
             leaveTo="opacity-0 translate-y-1"
         >
-            <Popover.Panel className="absolute bottom-full right-0 z-10 flex w-[320px] -translate-y-3 flex-col gap-2 rounded-lg bg-bgModal p-3 text-[15px] shadow-popover dark:border dark:border-line dark:shadow-none">
+            <Popover.Panel className="absolute bottom-full right-0 z-10 flex w-[320px] -translate-y-3 flex-col gap-2 rounded-lg bg-bgModal p-3 text-medium shadow-popover dark:border dark:border-line dark:shadow-none">
                 {items.map(({ type, disabled }) => (
                     <Fragment key={type}>
                         <div

@@ -77,14 +77,14 @@ export function Info({ profile }: InfoProps) {
                         </TextOverflowTooltip>
                         {showAction ? <ProfileAction profile={profile} /> : null}
                     </div>
-                    <span className="text-[15px] text-secondary">@{profile.handle}</span>
+                    <span className="text-medium text-secondary">@{profile.handle}</span>
                 </div>
 
-                <BioMarkup className="break-word text-[15px]" source={profile.source}>
+                <BioMarkup className="break-word text-medium" source={profile.source}>
                     {profile.bio ?? '-'}
                 </BioMarkup>
 
-                <div className="flex gap-3 text-[15px] leading-[22px]">
+                <div className="flex gap-3 text-medium leading-[22px]">
                     <Link
                         href={{
                             pathname: `/profile/${profileId}/following`,

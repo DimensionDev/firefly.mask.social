@@ -26,7 +26,7 @@ export function EditProfileButton({ profile, variant = 'text', className, ...pro
                 {...props}
                 onClick={() => setOpen(true)}
                 className={classNames(
-                    'flex h-8 flex-shrink-0 items-center justify-center whitespace-nowrap rounded-full border border-lightMain px-4 text-[15px] font-bold leading-5 text-lightMain',
+                    'flex h-8 flex-shrink-0 items-center justify-center whitespace-nowrap rounded-full border border-lightMain px-4 text-medium font-bold leading-5 text-lightMain',
                     className,
                 )}
             >

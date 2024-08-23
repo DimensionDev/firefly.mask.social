@@ -28,7 +28,7 @@ export const MutedProfileItem = memo<MutedProfileItemProps>(function MutedProfil
                 alt={profile.profileId}
                 fallbackUrl={profile.source === Source.Lens ? getLennyURL(profile.pfp) : undefined}
             />
-            <div className="leading-5.5 flex flex-col text-[15px]">
+            <div className="leading-5.5 flex flex-col text-medium">
                 <div className="flex w-full items-center">
                     <div className="max-w-[calc(100% - 32px)] mr-2 truncate text-lg leading-6">
                         {profile.displayName}

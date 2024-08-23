@@ -18,7 +18,7 @@ export function FeedFollowSource({ source }: { source?: FollowingSource }) {
     };
 
     return (
-        <div className="mb-3 flex items-center text-[15px] leading-6 text-second">
+        <div className="mb-3 flex items-center text-medium leading-6 text-second">
             <StarIcon className="mr-2 h-4 w-4" />
             {[WatchType.Farcaster, WatchType.Lens, WatchType.Twitter].includes(source.type) ? (
                 <>

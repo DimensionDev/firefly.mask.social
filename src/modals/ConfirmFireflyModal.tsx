@@ -28,7 +28,7 @@ export const ConfirmFireflyModal = forwardRef<
                 title: t`Accounts Connected`,
                 content: (
                     <div>
-                        <p className="mb-2 mt-[-8px] text-[15px] font-medium leading-normal text-second">
+                        <p className="mb-2 mt-[-8px] text-medium font-medium leading-normal text-second">
                             {belongsTo ? (
                                 <Trans>Confirm to sync accounts</Trans>
                             ) : (
@@ -59,7 +59,7 @@ export const ConfirmFireflyModal = forwardRef<
                         </ul>
                         <div className="flex gap-2">
                             <ClickableButton
-                                className="box-border flex h-10 flex-1 items-center justify-center rounded-full border border-main text-[15px] font-bold text-main"
+                                className="box-border flex h-10 flex-1 items-center justify-center rounded-full border border-main text-medium font-bold text-main"
                                 onClick={() => {
                                     ConfirmModalRef.close(false);
                                     ConfirmFireflyModalRef.close(false);
@@ -68,7 +68,7 @@ export const ConfirmFireflyModal = forwardRef<
                                 <Trans>Skip</Trans>
                             </ClickableButton>
                             <ClickableButton
-                                className="box-border flex h-10 flex-1 items-center justify-center rounded-full bg-main text-[15px] font-bold text-primaryBottom"
+                                className="box-border flex h-10 flex-1 items-center justify-center rounded-full bg-main text-medium font-bold text-primaryBottom"
                                 disabled={compact(Object.values(accounts)).length === 0}
                                 onClick={() => {
                                     ConfirmModalRef.close(true);

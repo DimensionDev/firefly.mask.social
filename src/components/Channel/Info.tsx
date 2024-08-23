@@ -50,7 +50,7 @@ export function Info({ channel, source, isChannelPage = false, ...rest }: InfoPr
                         <SocialSourceIcon source={source} size={20} />
                     </div>
                     <div className="flex flex-row gap-1">
-                        <span className="text-[15px] text-secondary">/{channel.id}</span>
+                        <span className="text-medium text-secondary">/{channel.id}</span>
                         <div className="flex items-center gap-1">
                             <UserIcon width={18} height={18} />
                             <span className="text-lightMain">{nFormatter(followerCount)}</span>
@@ -65,7 +65,7 @@ export function Info({ channel, source, isChannelPage = false, ...rest }: InfoPr
                 </div>
 
                 <BioMarkup
-                    className={classNames('text-[15px]', {
+                    className={classNames('text-medium', {
                         '-ml-[60px]': !isMedium,
                     })}
                     source={Source.Farcaster}

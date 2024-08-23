@@ -118,7 +118,7 @@ export const SinglePost = memo<SinglePostProps>(function SinglePost({
             ) : null}
 
             {show ? (
-                <div className="mt-2 w-full cursor-pointer text-center text-[15px] font-bold text-lightHighlight">
+                <div className="mt-2 w-full cursor-pointer text-center text-medium font-bold text-lightHighlight">
                     <div>
                         <Trans>Show More</Trans>
                     </div>

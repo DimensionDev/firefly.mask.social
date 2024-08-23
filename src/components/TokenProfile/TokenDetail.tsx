@@ -39,7 +39,7 @@ interface InfoRowProps {
 
 function InfoRow({ title, description, amount, asInfinite, value, extra }: InfoRowProps) {
     return (
-        <div className="flex items-center text-[15px]">
+        <div className="flex items-center text-medium">
             <span className="text-second">{title}</span>
             {description ? (
                 <Tooltip placement="top" content={description}>
@@ -49,7 +49,7 @@ function InfoRow({ title, description, amount, asInfinite, value, extra }: InfoR
             {extra ? (
                 <div className="ml-auto">{extra}</div>
             ) : (
-                <div className="ml-auto font-inter text-[15px] font-bold text-main">
+                <div className="ml-auto font-inter text-medium font-bold text-main">
                     {asInfinite ? '∞' : isNumber(value) ? `$${formatPrice(+value)}` : formatPrice(amount) ?? '-'}
                 </div>
             )}
@@ -126,8 +126,8 @@ export const TokenDetail = memo<Props>(function TokenDetail({ symbol, children, 
                     width={24}
                     height={24}
                 />
-                <strong className="ml-0.5 text-[15px] font-bold text-main">{token.name}</strong>
-                <span className="font-inter text-[15px] font-bold uppercase">{token.symbol}</span>
+                <strong className="ml-0.5 text-medium font-bold text-main">{token.name}</strong>
+                <span className="font-inter text-medium font-bold uppercase">{token.symbol}</span>
                 <span className="inline-flex h-[14px] items-center rounded bg-[#8E96FF] px-1 py-0.5 text-[10px] text-white">
                     <Trans>Rank #{token.rank}</Trans>
                 </span>
@@ -140,7 +140,7 @@ export const TokenDetail = memo<Props>(function TokenDetail({ symbol, children, 
                     className={classNames(isUp ? 'text-success' : 'rotate-180 text-fail')}
                 />
                 {market?.price_change_percentage_24h_in_currency !== undefined ? (
-                    <span className={isUp ? 'text-[15px] text-success' : 'text-[15px] text-fail'}>
+                    <span className={isUp ? 'text-medium text-success' : 'text-medium text-fail'}>
                         {market.price_change_percentage_24h_in_currency.toFixed(2)}%
                     </span>
                 ) : null}
@@ -287,7 +287,7 @@ export const TokenDetail = memo<Props>(function TokenDetail({ symbol, children, 
                                         />
                                     ) : null}
                                     <Tooltip content={contracts[0].address} placement="top">
-                                        <span className="overflow-hidden text-ellipsis text-[15px] font-bold text-main">
+                                        <span className="overflow-hidden text-ellipsis text-medium font-bold text-main">
                                             {formatContractAddress(contracts[0])}
                                         </span>
                                     </Tooltip>

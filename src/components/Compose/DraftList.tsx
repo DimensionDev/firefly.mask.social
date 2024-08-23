@@ -115,7 +115,7 @@ const DraftListItem = memo<DraftListItemProps>(function DraftListItem({ draft, h
                     handleApply(draft);
                 }}
             >
-                <div className="line-clamp-5 min-h-[24px] break-words text-left text-[15px] leading-[24px]">
+                <div className="line-clamp-5 min-h-[24px] break-words text-left text-medium leading-[24px]">
                     {content}
                 </div>
                 <div className="text-left">

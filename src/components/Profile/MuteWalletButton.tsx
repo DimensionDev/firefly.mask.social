@@ -41,7 +41,7 @@ export const ToggleMuteWalletButton = memo(function ToggleMuteWalletButton({
     return (
         <ClickableButton
             className={classNames(
-                'flex h-8 min-w-[100px] items-center justify-center rounded-full border-danger px-2 text-[15px] font-semibold transition-all',
+                'flex h-8 min-w-[100px] items-center justify-center rounded-full border-danger px-2 text-medium font-semibold transition-all',
                 className,
                 buttonState === State.Muted ? 'border' : '',
                 buttonState === State.Unmute ? 'border border-danger border-opacity-50' : '',

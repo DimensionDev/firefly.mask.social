@@ -45,7 +45,7 @@ export function AccountCard({ source }: AccountCardProps) {
                     <ProfileName profile={account.profile} />
                     {isSameProfile(account.profile, profile) && account.session ? (
                         <ClickableButton
-                            className="text-[15px] font-bold leading-none text-red-500"
+                            className="text-medium font-bold leading-none text-red-500"
                             onClick={() => {
                                 LogoutModalRef.open({ account: { ...account, session: account.session! } });
                             }}
@@ -54,7 +54,7 @@ export function AccountCard({ source }: AccountCardProps) {
                         </ClickableButton>
                     ) : account.session ? (
                         <ClickableButton
-                            className="text-right text-[15px] font-bold leading-none text-main"
+                            className="text-right text-medium font-bold leading-none text-main"
                             disabled={loading}
                             onClick={() => {
                                 login({ ...account, session: account.session! });
@@ -64,7 +64,7 @@ export function AccountCard({ source }: AccountCardProps) {
                         </ClickableButton>
                     ) : (
                         <ClickableButton
-                            className="text-right text-[15px] font-bold leading-none text-main"
+                            className="text-right text-medium font-bold leading-none text-main"
                             disabled={loading}
                             onClick={() => {
                                 LoginModalRef.open({

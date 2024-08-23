@@ -216,7 +216,7 @@ export const Attachments = memo<AttachmentsProps>(function Attachments({
                                 </WithPreviewLink>
                                 {isLast && moreImageCount > 0 ? (
                                     <div className="absolute right-0 top-0 flex h-full w-full items-center justify-center rounded-lg bg-mainLight/50 text-white">
-                                        <div className={classNames('font-bold', isQuote ? 'text-[15px]' : 'text-2xl')}>
+                                        <div className={classNames('font-bold', isQuote ? 'text-medium' : 'text-2xl')}>
                                             +{moreImageCount + 1}
                                         </div>
                                     </div>
@@ -233,7 +233,7 @@ export const Attachments = memo<AttachmentsProps>(function Attachments({
                 <div className={classNames('my-2')}>
                     <div
                         className={classNames(
-                            'flex items-center justify-between gap-1 rounded-lg border-primaryMain px-3 py-[6px] text-[15px]',
+                            'flex items-center justify-between gap-1 rounded-lg border-primaryMain px-3 py-[6px] text-medium',
                             {
                                 border: !isQuote,
                             },

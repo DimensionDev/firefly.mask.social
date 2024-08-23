@@ -189,7 +189,7 @@ export function EditProfileForm() {
                     enablePropagate
                     type="submit"
                     disabled={!isDirty || !isValid || isSubmitting}
-                    className="flex h-10 w-[84px] items-center justify-center rounded-full bg-main text-[15px] font-bold leading-10 text-primaryBottom"
+                    className="flex h-10 w-[84px] items-center justify-center rounded-full bg-main text-medium font-bold leading-10 text-primaryBottom"
                 >
                     {isSubmitting ? (
                         <LoadingIcon width={16} height={16} className="animate-spin" />

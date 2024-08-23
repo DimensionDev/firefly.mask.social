@@ -86,7 +86,7 @@ export function Media({ close }: MediaProps) {
         >
             <Popover.Panel
                 static
-                className="absolute bottom-full left-0 z-50 flex w-[280px] -translate-y-3 flex-col gap-2 rounded-lg bg-bgModal p-3 text-[15px] text-main shadow-popover"
+                className="absolute bottom-full left-0 z-50 flex w-[280px] -translate-y-3 flex-col gap-2 rounded-lg bg-bgModal p-3 text-medium text-main shadow-popover"
             >
                 <div
                     className={classNames(

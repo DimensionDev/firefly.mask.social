@@ -22,7 +22,7 @@ function ReportReason({ onSelected }: ReportReasonProps) {
             {reasons.map((reason) => (
                 <div
                     key={reason}
-                    className="flex w-full cursor-pointer items-center rounded-lg bg-white bg-bottom py-2 pl-3 text-[15px] text-lightMain shadow-primary backdrop-blur dark:bg-bg"
+                    className="flex w-full cursor-pointer items-center rounded-lg bg-white bg-bottom py-2 pl-3 text-medium text-lightMain shadow-primary backdrop-blur dark:bg-bg"
                     onClick={() => {
                         setReason(reason);
                         onSelected(reason);

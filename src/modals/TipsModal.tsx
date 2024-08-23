@@ -111,7 +111,7 @@ const TipsModalUI = forwardRef<SingletonModalRefCreator<TipsModalOpenProps, Tips
         if (!isSmall) {
             return (
                 <Modal open={open} onClose={onClose} disableScrollLock={false} disableDialogClose>
-                    <div className="z-10 w-4/5 rounded-md bg-lightBottom px-3 py-6 text-[15px] text-lightMain shadow-popover transition-all dark:bg-darkBottom md:w-[485px] md:rounded-xl md:px-6">
+                    <div className="z-10 w-4/5 rounded-md bg-lightBottom px-3 py-6 text-medium text-lightMain shadow-popover transition-all dark:bg-darkBottom md:w-[485px] md:rounded-xl md:px-6">
                         <RouterProvider router={router} context={{ onClose }} />
                     </div>
                 </Modal>
@@ -120,7 +120,7 @@ const TipsModalUI = forwardRef<SingletonModalRefCreator<TipsModalOpenProps, Tips
 
         return (
             <Popover open={open} onClose={onClose} DialogPanelProps={{ className: '!p-0 !pt-6' }}>
-                <div className="px-3 pb-6 text-[15px] text-lightMain">
+                <div className="px-3 pb-6 text-medium text-lightMain">
                     <RouterProvider router={router} context={{ onClose }} />
                 </div>
             </Popover>

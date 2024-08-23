@@ -89,11 +89,11 @@ export const ProfileCard = memo<ProfileCardProps>(function ProfileCard({ identit
                         <SocialSourceIcon source={profile.source} className="flex-shrink-0" size={18} />
                     </div>
 
-                    <Link href={url} className="cursor-pointer text-[15px] leading-6 text-secondary">
+                    <Link href={url} className="cursor-pointer text-medium leading-6 text-secondary">
                         @{profile.handle}
                     </Link>
 
-                    <div className="flex gap-3 text-[15px]">
+                    <div className="flex gap-3 text-medium">
                         <FollowersLink profile={profile} className="leading-[22px]" />
 
                         <Link
@@ -115,7 +115,7 @@ export const ProfileCard = memo<ProfileCardProps>(function ProfileCard({ identit
                 </div>
             </div>
 
-            <BioMarkup className="mt-3 line-clamp-2 text-[15px] leading-[22px] text-lightMain" source={profile.source}>
+            <BioMarkup className="mt-3 line-clamp-2 text-medium leading-[22px] text-lightMain" source={profile.source}>
                 {profile.bio ?? '-'}
             </BioMarkup>
 

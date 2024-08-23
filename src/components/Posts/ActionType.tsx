@@ -87,7 +87,7 @@ export const FeedActionType = memo<FeedActionType>(function FeedActionType({
     return (
         <ClickableArea className="w-full">
             {combined && !isPostPage ? (
-                <div className="mb-3 flex items-center space-x-2 text-[15px] text-secondary">
+                <div className="mb-3 flex items-center space-x-2 text-medium text-secondary">
                     <SparkIcon width={16} height={16} className="flex-shrink-0" />
                     <span className="flex min-w-0 items-center space-x-1">
                         <strong className="truncate">{profilesDescription}</strong>
@@ -96,7 +96,7 @@ export const FeedActionType = memo<FeedActionType>(function FeedActionType({
                 </div>
             ) : null}
             {post.type === 'Mirror' && post.reporter && post.source !== Source.Twitter && !isPostPage ? (
-                <div className="mb-3 flex items-center space-x-2 text-[15px] text-secondary">
+                <div className="mb-3 flex items-center space-x-2 text-medium text-secondary">
                     <MirrorIcon width={16} height={16} className="flex-shrink-0" />
                     <Link href={getProfileUrl(post.reporter)} className="flex min-w-0 space-x-1">
                         {isSameProfile(post.reporter, currentProfile) ? (
@@ -113,7 +113,7 @@ export const FeedActionType = memo<FeedActionType>(function FeedActionType({
                 </div>
             ) : null}
             {post.type === 'Mirror' && post.reporter && post.source === Source.Twitter && !isPostPage ? (
-                <div className="mb-3 flex items-center space-x-2 text-[15px] text-secondary">
+                <div className="mb-3 flex items-center space-x-2 text-medium text-secondary">
                     <MirrorIcon width={16} height={16} className="flex-shrink-0" />
                     <Link href={getProfileUrl(post.reporter)} className="flex min-w-0 space-x-1">
                         {isSameProfile(post.reporter, currentProfile) ? (
@@ -130,7 +130,7 @@ export const FeedActionType = memo<FeedActionType>(function FeedActionType({
                 </div>
             ) : null}
             {post.mirrors?.length && !isPostPage ? (
-                <div className="mb-3 flex items-center space-x-2 text-[15px] text-secondary">
+                <div className="mb-3 flex items-center space-x-2 text-medium text-secondary">
                     <MirrorIcon width={16} height={16} />
                     <Link href={getProfileUrl(first(post.mirrors)!)}>
                         {post.mirrors.some((profile) => isSameProfile(profile, currentProfile)) ? (
@@ -171,7 +171,7 @@ export const FeedActionType = memo<FeedActionType>(function FeedActionType({
                 </div>
             ) : null}
             {post.reactions?.length && !isComment && !isPostPage ? (
-                <div className="mb-3 flex items-center space-x-2 text-[15px] text-secondary">
+                <div className="mb-3 flex items-center space-x-2 text-medium text-secondary">
                     {post.hasLiked ? <LikedIcon width={17} height={16} /> : <LikeIcon width={17} height={16} />}
                     <Link href={getProfileUrl(first(post.reactions)!)}>
                         {post.reactions.some((profile) => isSameProfile(profile, currentProfile)) ? (
