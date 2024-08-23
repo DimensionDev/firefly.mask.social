@@ -94,8 +94,10 @@ export function ProfilePage({ profiles }: ProfilePageProps) {
     const profileNotFound = isFinalized && profileMissing;
 
     const showFallback =
-        identity.source !== Source.Wallet &&
-        ((!isOthersProfile && (!isLogin || profileNotFound)) || (profileNotFound && pathname === PageRoute.Profile));
+        (!isLogin && resolvedSource === Source.Twitter) ||
+        (identity.source !== Source.Wallet &&
+            ((!isOthersProfile && (!isLogin || profileNotFound)) ||
+                (profileNotFound && pathname === PageRoute.Profile)));
 
     const header = (
         <>
@@ -117,10 +119,10 @@ export function ProfilePage({ profiles }: ProfilePageProps) {
 
     if (showFallback) {
         return (
-            <>
+            <div>
                 {header}
                 <NotLoginFallback source={resolvedSource} />
-            </>
+            </div>
         );
     }
 
