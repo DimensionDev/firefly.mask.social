@@ -1384,6 +1384,9 @@ msgstr "Minutes"
 msgid "Floor Price"
 msgstr "Floor Price"
 
+msgid "Failed to fetch profiles."
+msgstr "Failed to fetch profiles."
+
 msgid "Unliked"
 msgstr "Unliked"
 

@@ -1,6 +1,6 @@
-import { Trans } from '@lingui/macro';
-import { skipToken, useQuery } from '@tanstack/react-query';
-import { Navigate, useLocation } from '@tanstack/react-router';
+import { t, Trans } from '@lingui/macro';
+import { useQuery } from '@tanstack/react-query';
+import { useLocation,useRouter  } from '@tanstack/react-router';
 import { memo } from 'react';
 import { useAccount } from 'wagmi';
 
@@ -9,7 +9,9 @@ import { LoginLens } from '@/components/Login/LoginLens.js';
 import { config } from '@/configs/wagmiClient.js';
 import { Source } from '@/constants/enum.js';
 import { EMPTY_LIST } from '@/constants/index.js';
+import { enqueueErrorMessage } from '@/helpers/enqueueMessage.jsx';
 import { getProfileState } from '@/helpers/getProfileState.js';
+import { getSnackbarMessageFromError } from '@/helpers/getSnackbarMessageFromError.js';
 import { getWalletClientRequired } from '@/helpers/getWalletClientRequired.js';
 import { isSameProfile } from '@/helpers/isSameProfile.js';
 import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
@@ -27,15 +29,25 @@ function Title() {
 }
 
 export const LensView = memo(function LensView() {
+    const router = useRouter();
+    const { history } = router;
+
     const account = useAccount();
     const { expectedProfile } = useLocation().search as { expectedProfile?: string };
 
     const { data: profiles = EMPTY_LIST, isLoading } = useQuery({
+        retry: false,
         queryKey: ['lens', 'profiles', account.address],
         queryFn: async () => {
-            const { account } = await getWalletClientRequired(config);
-            const profiles = await LensSocialMediaProvider.getProfilesByAddress(account.address);
-            return profiles ?? EMPTY_LIST;
+            try {
+                const { account } = await getWalletClientRequired(config);
+                const profiles = await LensSocialMediaProvider.getProfilesByAddress(account.address);
+                return profiles ?? EMPTY_LIST;
+            } catch (error) {
+                enqueueErrorMessage(getSnackbarMessageFromError(error, t`Failed to fetch profiles.`));
+                history.replace('/main');
+                throw error;
+            }
         },
         select: (profiles) => {
             if (!profiles) return EMPTY_LIST;
