@@ -23,6 +23,7 @@ interface ThreadBodyProps {
     listKey?: string;
     index?: number;
     showTranslate?: boolean;
+    isDetail?: boolean;
 }
 
 export const ThreadBody = memo<ThreadBodyProps>(function ThreadBody({
@@ -30,6 +31,7 @@ export const ThreadBody = memo<ThreadBodyProps>(function ThreadBody({
     disableAnimate,
     isLast = false,
     showTranslate = false,
+    isDetail,
     listKey,
     index,
 }) {
@@ -58,8 +60,9 @@ export const ThreadBody = memo<ThreadBodyProps>(function ThreadBody({
                 router.push(link);
             }}
         >
-            <FeedActionType post={post} isThread />
+            <FeedActionType isDetail={isDetail} post={post} isThread />
             <PostHeader
+                showDate={!!isDetail && !isLast}
                 post={post}
                 onClickProfileLink={() => {
                     if (listKey && !isUndefined(index)) setScrollIndex(listKey, index);
@@ -76,12 +79,13 @@ export const ThreadBody = memo<ThreadBodyProps>(function ThreadBody({
                 <div
                     className={classNames('w-full max-w-[calc(100%_-_53px)]', {
                         'pb-5': !isLast,
-                        '-mt-[14px]': !isSmall && !isDetailPage,
+                        '-mt-[14px]': !isSmall && (!isDetailPage || !isLast),
                     })}
                 >
                     <PostBody post={post} disablePadding showTranslate={showTranslate} />
                     {!post.isHidden && !muted ? (
                         <PostActions
+                            hideDate={!!isDetail && !isLast}
                             post={post}
                             disabled={post.isHidden}
                             disablePadding

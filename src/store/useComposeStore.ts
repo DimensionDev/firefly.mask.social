@@ -536,7 +536,7 @@ const useComposeStateBase = create<ComposeState, [['zustand/immer', unknown]]>(
             set((state) => {
                 const id = uuid();
                 const nextState = {
-                    type: 'compose',
+                    type: state.type,
                     cursor: id,
                     draftId: undefined,
                     posts: [createInitSinglePostState(id)],

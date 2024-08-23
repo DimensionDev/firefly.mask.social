@@ -170,7 +170,8 @@
         "SYSVAR",
         "Debank",
         "ampm",
-        "crowdsourced"
+        "crowdsourced",
+        "Coverflow"
     ],
     "flagWords": [],
     "ignorePaths": [

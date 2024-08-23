@@ -7,6 +7,7 @@ import { ClickableButton } from '@/components/ClickableButton.js';
 import { CloseButton } from '@/components/CloseButton.js';
 import { router, TipsRoutePath } from '@/components/Tips/TipsModalRouter.js';
 import { Tooltip } from '@/components/Tooltip.js';
+import { useIsSmall } from '@/hooks/useMediaQuery.js';
 
 interface TipsModalHeaderProps {
     title?: string;
@@ -15,9 +16,10 @@ interface TipsModalHeaderProps {
 
 export function TipsModalHeader({ title, back = false }: TipsModalHeaderProps) {
     const { context } = useMatch({ from: rootRouteId });
+    const isSmall = useIsSmall('max');
 
     return (
-        <Dialog.Title as="h3" className="relative mb-6 shrink-0 pt-safe">
+        <Dialog.Title as="h3" className="relative mb-6 flex shrink-0 justify-center text-center pt-safe">
             <span className="absolute left-0 top-1/2 -translate-y-1/2 text-fourMain">
                 {back ? (
                     <Tooltip placement="top" content={t`Back`}>
@@ -25,11 +27,13 @@ export function TipsModalHeader({ title, back = false }: TipsModalHeaderProps) {
                             <LeftArrowIcon width={24} height={24} />
                         </ClickableButton>
                     </Tooltip>
-                ) : (
+                ) : !isSmall ? (
                     <CloseButton onClick={context.onClose} />
-                )}
+                ) : null}
             </span>
-            <span className="text-lg font-bold leading-[22px]">{title || t`Tips`}</span>
+            <span className="max-w-full truncate text-lg font-bold leading-[22px] sm:max-w-[calc(100%-70px)]">
+                {title || t`Tips`}
+            </span>
         </Dialog.Title>
     );
 }

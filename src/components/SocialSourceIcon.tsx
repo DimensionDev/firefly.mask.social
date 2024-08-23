@@ -3,7 +3,7 @@ import { safeUnreachable } from '@masknet/kit';
 
 import FarcasterIcon from '@/assets/farcaster.svg';
 import LensIcon from '@/assets/lens.svg';
-import XIcon from '@/assets/x.svg';
+import { XIcon } from '@/components/XIcon.js';
 import { type SocialSource, Source } from '@/constants/enum.js';
 import { useSizeStyle } from '@/hooks/useSizeStyle.js';
 

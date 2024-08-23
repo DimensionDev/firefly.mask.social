@@ -1,11 +1,7 @@
 import { t } from '@lingui/macro';
 import dayjs from 'dayjs';
 
-export class CreateScheduleError extends Error {
-    constructor(public override message: string) {
-        super(message);
-    }
-}
+import { CreateScheduleError } from '@/constants/error.js';
 
 export function checkScheduleTime(scheduleTime: Date) {
     if (dayjs().add(7, 'day').isBefore(scheduleTime)) {

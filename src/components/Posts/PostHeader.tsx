@@ -23,6 +23,7 @@ interface PostHeaderProps {
     post: Post;
     isQuote?: boolean;
     isComment?: boolean;
+    showDate?: boolean;
     onClickProfileLink?: () => void;
 }
 
@@ -30,6 +31,7 @@ export const PostHeader = memo<PostHeaderProps>(function PostHeader({
     post,
     isQuote = false,
     isComment = false,
+    showDate = false,
     onClickProfileLink,
 }) {
     const profileLink = getProfileUrl(post.author);
@@ -39,7 +41,7 @@ export const PostHeader = memo<PostHeaderProps>(function PostHeader({
     const isDetailPage = isRoutePathname(pathname, '/post/:detail', true);
 
     const identity = useFireflyIdentity(post.source, post.author.profileId);
-    const newLine = !isQuote && (isSmall || (isDetailPage && !isComment));
+    const newLine = !isQuote && (isSmall || (isDetailPage && !isComment && !showDate));
 
     const handle = (
         <ProfileTippy identity={identity}>
@@ -97,7 +99,7 @@ export const PostHeader = memo<PostHeaderProps>(function PostHeader({
                         <PowerUserIcon className="mr-2 shrink-0" width={16} height={16} />
                     ) : null}
                     {newLine ? null : handle}
-                    {post.timestamp && (isComment || isQuote || !isDetailPage) ? (
+                    {post.timestamp && (isComment || isQuote || !isDetailPage || showDate) ? (
                         <>
                             <span className="mx-1 leading-5 text-secondary">·</span>
                             <span className="whitespace-nowrap text-[15px] leading-5 text-secondary">

@@ -33,6 +33,14 @@ export class FetchError extends Error {
         super(message);
     }
 
+    toThrow(): never {
+        // for sentry will truncate the message if it's too long
+        console.error(
+            `[fetch error]: ${this.url} ${this.status} ${this.statusText} ${[this.message, this.text].join('\n')}`,
+        );
+        throw this;
+    }
+
     static async from(input: RequestInfo | URL | string, response: Response, message?: string) {
         const text = await resolveValue(async () => {
             try {
@@ -124,5 +132,17 @@ export class SwitchChainError extends Error {
                 ? `Please switch to the ${chainName} network in your wallet.`
                 : `Please switch to the correct network in your wallet.`,
         );
+    }
+}
+
+export class CreateScheduleError extends Error {
+    constructor(public override message: string) {
+        super(message);
+    }
+}
+
+export class SignlessRequireError extends Error {
+    constructor(public override message: string) {
+        super(message);
     }
 }

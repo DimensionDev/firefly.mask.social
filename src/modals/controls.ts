@@ -1,4 +1,5 @@
 import { SingletonModal } from '@/libs/SingletonModal.js';
+import type { CollectArticleModalOpenProps } from '@/modals/CollectArticleModal.js';
 import type { ComposeModalCloseProps, ComposeModalOpenProps } from '@/modals/ComposeModal.js';
 import type { ConfirmFireflyModalCloseProps, ConfirmFireflyModalOpenProps } from '@/modals/ConfirmFireflyModal.js';
 import type { ConfirmLeavingModalCloseProps, ConfirmLeavingModalOpenProps } from '@/modals/ConfirmLeavingModal.js';
@@ -13,9 +14,8 @@ import type { SnackbarCloseProps, SnackbarOpenProps } from '@/modals/Snackbar.js
 import type { TipsModalCloseProps, TipsModalOpenProps } from '@/modals/TipsModal.js';
 
 export const AccountModalRef = new SingletonModal();
-export const RainbowKitModalRef = new SingletonModal();
+export const ConnectModalRef = new SingletonModal();
 export const ConnectWalletModalRef = new SingletonModal();
-export const ChainModalRef = new SingletonModal();
 export const LoginModalRef = new SingletonModal<LoginModalOpenProps | void>();
 export const LogoutModalRef = new SingletonModal<LogoutModalProps | void>();
 export const ComposeModalRef = new SingletonModal<ComposeModalOpenProps, ComposeModalCloseProps>();
@@ -29,3 +29,5 @@ export const SolanaAccountModalRef = new SingletonModal();
 export const PreviewMediaModalRef = new SingletonModal<PreviewMediaModalOpenProps>();
 export const SchedulePostModalRef = new SingletonModal<SchedulePostModalOpenProps>();
 export const EditProfileModalRef = new SingletonModal<EditProfileModalOpenProps>();
+export const CollectArticleModalRef = new SingletonModal<CollectArticleModalOpenProps>();
+export const EnableSignlessModalRef = new SingletonModal<void, boolean>();

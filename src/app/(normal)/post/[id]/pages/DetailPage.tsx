@@ -148,6 +148,7 @@ export function PostDetailPage({ params: { id: postId }, searchParams: { source 
                         <div className="border-b border-line px-4 py-3">
                             {allPosts.map((post, index) => (
                                 <ThreadBody
+                                    isDetail
                                     post={post}
                                     disableAnimate
                                     showTranslate

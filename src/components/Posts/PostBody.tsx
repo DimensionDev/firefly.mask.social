@@ -105,10 +105,6 @@ export const PostBody = forwardRef<HTMLDivElement, PostBodyProps>(function PostB
     }, [attachments, payloadImageUrl]);
 
     const showAttachments = availableAttachments.length > 0 || !!metadata.content?.asset;
-    const asset =
-        metadata.content?.asset?.uri === payloadImageUrl && availableAttachments.length
-            ? availableAttachments[0]
-            : metadata.content?.asset;
 
     const noLeftPadding = isDetail || isSmall || disablePadding;
 
@@ -169,7 +165,6 @@ export const PostBody = forwardRef<HTMLDivElement, PostBodyProps>(function PostB
                 {showAttachments ? (
                     <Attachments
                         post={post}
-                        asset={asset}
                         attachments={availableAttachments}
                         isQuote={!!metadata.content?.content?.length}
                     />
@@ -254,7 +249,7 @@ export const PostBody = forwardRef<HTMLDivElement, PostBodyProps>(function PostB
             ) : null}
 
             {showAttachments ? (
-                <Attachments post={post} asset={asset} attachments={availableAttachments} isDetail={isDetail} />
+                <Attachments post={post} attachments={availableAttachments} isDetail={isDetail} />
             ) : null}
 
             {!hasEncryptedPayload && !pollId ? <PostLinks post={post} setContent={setPostContent} /> : null}

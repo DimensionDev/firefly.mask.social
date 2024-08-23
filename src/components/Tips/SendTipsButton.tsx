@@ -62,7 +62,8 @@ const SendTipsButton = memo<SendTipsButtonProps>(function SendTipsButton({ conne
             });
             router.navigate({ to: TipsRoutePath.SUCCESS });
         } catch (error) {
-            enqueueErrorMessage(getSnackbarMessageFromError(error, t`Failed to send tips.`), { error });
+            enqueueErrorMessage(getSnackbarMessageFromError(error, t`Failed to send tip.`), { error });
+            throw error;
         } finally {
             update((prev) => ({ ...prev, isSending: false }));
         }

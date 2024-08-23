@@ -29,5 +29,6 @@ export function formatArticleFromFirefly(article: FireflyArticle): Article {
         coverUrl: article.cover_img_url,
         hasBookmarked: article.has_bookmarked,
         followingSources: article.followingSources,
+        slug: article.paragraph_raw_data?.slug,
     };
 }

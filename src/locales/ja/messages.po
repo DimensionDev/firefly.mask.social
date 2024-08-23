@@ -36,6 +36,9 @@ msgstr ""
 msgid "Onchain Activities"
 msgstr ""
 
+msgid "Tip transaction completed!"
+msgstr ""
+
 msgid "Muted"
 msgstr ""
 
@@ -72,13 +75,16 @@ msgstr ""
 msgid "Failed to fetch as Blob."
 msgstr ""
 
-msgid "You just sent <0>{amount} {0}{1}</0> tips to <1>{2}</1>!<2/>Share this news by mentioning and posting."
-msgstr ""
-
 msgid "Unmute successfully."
 msgstr ""
 
+msgid "Send a tip"
+msgstr ""
+
 msgid "Mute /{0}"
+msgstr ""
+
+msgid "Failed to collect article."
 msgstr ""
 
 msgid "Communities"
@@ -129,9 +135,6 @@ msgstr ""
 msgid "The post you quoted/replied has already deleted"
 msgstr ""
 
-msgid "Send tips to @{0}"
-msgstr ""
-
 msgid "Display Name"
 msgstr ""
 
@@ -177,10 +180,10 @@ msgstr ""
 msgid "Translate post"
 msgstr ""
 
-msgid "Searching users"
+msgid "Free"
 msgstr ""
 
-msgid "Cannot send tips to yourself"
+msgid "Searching users"
 msgstr ""
 
 msgid "Airdrop Scam"
@@ -234,6 +237,9 @@ msgstr ""
 msgid "Please confirm the login with Firefly."
 msgstr ""
 
+msgid "Wrong wallet"
+msgstr ""
+
 msgid "Failed to un-bookmark article."
 msgstr ""
 
@@ -261,6 +267,9 @@ msgstr ""
 msgid "Report submitted on {0}"
 msgstr ""
 
+msgid "Trending Channels"
+msgstr ""
+
 msgid "Debug Console"
 msgstr ""
 
@@ -280,9 +289,6 @@ msgid "Profile not found"
 msgstr ""
 
 msgid "NFT Standard"
-msgstr ""
-
-msgid "<0>{0}</0> reposted"
 msgstr ""
 
 msgid "Failed to like the comment."
@@ -333,7 +339,13 @@ msgstr ""
 msgid "The video \"{0}\" exceeds the size limit."
 msgstr ""
 
+msgid "Switch between the app kit and rainbow kit wallet providers."
+msgstr ""
+
 msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} {1, select, Lens {mirrored your} Farcaster {recasted your} other {mirrored your}} <4>{2, select, Post {post} Comment {comment} Quote {quote} Mirror {mirror} other {post}}</4>"
+msgstr ""
+
+msgid "<0>{0}</0><1>mirrored</1>"
 msgstr ""
 
 msgid "True Token"
@@ -633,6 +645,9 @@ msgstr ""
 msgid "Update"
 msgstr ""
 
+msgid "You might like"
+msgstr ""
+
 msgid "Remove from Bookmarks"
 msgstr ""
 
@@ -651,6 +666,9 @@ msgstr ""
 msgid "Anti_whale(Limited number of transactions)"
 msgstr ""
 
+msgid "Send a tip to {0}"
+msgstr ""
+
 msgid "The number of token transactions is limited. The number of scam token transactions may be limited (honeypot risk)."
 msgstr ""
 
@@ -658,9 +676,6 @@ msgid "Log out"
 msgstr ""
 
 msgid "Unmuting..."
-msgstr ""
-
-msgid "Send Tips"
 msgstr ""
 
 msgid "{0, plural, one {Your post failed to publish on {firstPlatform} due to an error. Click 'Retry' to attempt posting again.} two {Your post failed to publish on {firstPlatform} and {secondPlatform} due to an error. Click 'Retry' to attempt posting again.} other {Your post failed to publish due to an error. Click 'Retry' to attempt posting again.}}"
@@ -732,6 +747,9 @@ msgstr ""
 msgid "Channel"
 msgstr ""
 
+msgid "Failed to enable signless"
+msgstr ""
+
 msgid "Connect another account"
 msgstr ""
 
@@ -744,6 +762,9 @@ msgstr ""
 msgid "<0/> mentioned you in a <1>{0, select, Post {post} Comment {comment} Quote {quote} Mirror {mirror} other {post}}</1>"
 msgstr ""
 
+msgid "Cost"
+msgstr ""
+
 msgid "Insufficient Gas"
 msgstr ""
 
@@ -751,9 +772,6 @@ msgid "Blacklist function"
 msgstr ""
 
 msgid "AUTHOR ADDRESS"
-msgstr ""
-
-msgid "Failed to send tips."
 msgstr ""
 
 msgid "Enable development API version"
@@ -819,9 +837,6 @@ msgstr ""
 msgid "Your draft was saved."
 msgstr ""
 
-msgid "Send tips"
-msgstr ""
-
 msgid "The chainId mismatch."
 msgstr ""
 
@@ -829,6 +844,9 @@ msgid "Open in Firefly App"
 msgstr ""
 
 msgid "Privacy Policy"
+msgstr ""
+
+msgid "Rainbow Kit"
 msgstr ""
 
 msgid "Forbidden. Please check your permissions."
@@ -865,6 +883,9 @@ msgid "{0} Comments"
 msgstr ""
 
 msgid "Schedule Post"
+msgstr ""
+
+msgid "Sold Out"
 msgstr ""
 
 msgid "Proxy contract"
@@ -945,6 +966,9 @@ msgstr ""
 msgid "Failed to login."
 msgstr ""
 
+msgid "Network"
+msgstr ""
+
 msgid "Unlike"
 msgstr ""
 
@@ -958,6 +982,9 @@ msgid "Website"
 msgstr ""
 
 msgid "Failed to report @{0}."
+msgstr ""
+
+msgid "Post with link"
 msgstr ""
 
 msgid "Your post has published successfully."
@@ -1020,16 +1047,13 @@ msgstr ""
 msgid "Fully Diluted Valuation"
 msgstr ""
 
-msgid "Suggested Channels"
-msgstr ""
-
 msgid "Email (optional)"
 msgstr ""
 
 msgid "NFT Contract"
 msgstr ""
 
-msgid "Share Now"
+msgid "Show more tokens with small balances"
 msgstr ""
 
 msgid "{riskyFactors, plural, one {# Risky item} other {# Risky items}}"
@@ -1086,6 +1110,12 @@ msgstr ""
 msgid "<0>Acquired</0> an NFT"
 msgstr ""
 
+msgid "App Kit"
+msgstr ""
+
+msgid "Tag {0} in a post to let them know you’ve sent an onchain tip to their wallet."
+msgstr ""
+
 msgid "liked"
 msgstr ""
 
@@ -1104,6 +1134,9 @@ msgstr ""
 msgid "{shares, plural, one {Mirror or Quote} other {Mirrors or Quotes}}"
 msgstr ""
 
+msgid "Standard"
+msgstr ""
+
 msgid "<0>Revised</0>an article"
 msgstr ""
 
@@ -1111,9 +1144,6 @@ msgid "You need to connect your {0} account to use this feature."
 msgstr ""
 
 msgid "Bad Request. Please check your request."
-msgstr ""
-
-msgid "Suggested Follows"
 msgstr ""
 
 msgid "Login required to schedule post on {sourceName}"
@@ -1179,6 +1209,9 @@ msgstr ""
 msgid "Contract source code not verified"
 msgstr ""
 
+msgid "Cannot send tip to yourself"
+msgstr ""
+
 msgid "Unwatch {handleOrEnsOrAddress}"
 msgstr ""
 
@@ -1224,6 +1257,9 @@ msgstr ""
 msgid "Contract Address"
 msgstr ""
 
+msgid "Send a tip to @{0}"
+msgstr ""
+
 msgid "The whitelist function is not included. If there is a whitelist, some addresses may not be able to trade normally (honeypot risk)."
 msgstr ""
 
@@ -1240,6 +1276,9 @@ msgid "General"
 msgstr ""
 
 msgid "Page not found. Please try again."
+msgstr ""
+
+msgid "Delegate Signing"
 msgstr ""
 
 msgid "This can’t be undone and you’ll lose your draft."
@@ -1368,6 +1407,9 @@ msgstr ""
 msgid "Not my wallet address."
 msgstr ""
 
+msgid "Please switch to the wallet consistent with this action"
+msgstr ""
+
 msgid "Upload to S3"
 msgstr ""
 
@@ -1420,6 +1462,9 @@ msgid "Executing"
 msgstr ""
 
 msgid "Community"
+msgstr ""
+
+msgid "Free Collect"
 msgstr ""
 
 msgid "Delete"
@@ -1489,6 +1534,9 @@ msgid "The user rejected the request."
 msgstr ""
 
 msgid "Recast or Quote"
+msgstr ""
+
+msgid "Sorry, we are not able to find a wallet for {0}."
 msgstr ""
 
 msgid "Unwatch"
@@ -1590,6 +1638,9 @@ msgstr ""
 msgid "No available wallet."
 msgstr ""
 
+msgid "<0>{0}</0><1>reposted</1>"
+msgstr ""
+
 msgid "Login to enable all features"
 msgstr ""
 
@@ -1603,6 +1654,9 @@ msgid "Notifications"
 msgstr ""
 
 msgid "Back"
+msgstr ""
+
+msgid "Article collected successfully!"
 msgstr ""
 
 msgid "Posting..."
@@ -1671,6 +1725,9 @@ msgstr ""
 msgid "Will send on <0>{0} at <1>{1}</1></0>"
 msgstr ""
 
+msgid "Failed to continue. Please allow Lens Manager for performing actions without the need to sign each transaction."
+msgstr ""
+
 msgid "Properties"
 msgstr ""
 
@@ -1690,6 +1747,9 @@ msgid "Refresh"
 msgstr ""
 
 msgid "Followed by {0} , {1}, and {2}"
+msgstr ""
+
+msgid "Collect Article"
 msgstr ""
 
 msgid "Channels"
@@ -1767,9 +1827,6 @@ msgstr ""
 msgid "No codes found to suspend trading."
 msgstr ""
 
-msgid "Please enable Momoka to support sending posts on Lens."
-msgstr ""
-
 msgid "First time connecting to Firefly?<0/><1>Approve a new connection</1> with Warpcast"
 msgstr ""
 
@@ -1786,6 +1843,9 @@ msgid "Dark Mode"
 msgstr ""
 
 msgid "Article added to your Bookmarks"
+msgstr ""
+
+msgid "Create a Post"
 msgstr ""
 
 msgid "{type, select, comment {Comments} mirror {{0}} reaction {Likes} act {Collects} other {Other}}"
@@ -1824,6 +1884,9 @@ msgstr ""
 msgid "<0/> quoted your <1>{0, select, Post {post} Comment {comment} Quote {quote} Mirror {mirror} other {post}}</1>"
 msgstr ""
 
+msgid "Failed to send tip."
+msgstr ""
+
 msgid "Connecting Wallet"
 msgstr ""
 
@@ -1848,6 +1911,9 @@ msgstr ""
 msgid "The whitelist function is included. Some addresses may not be able to trade normally (honeypot risk)."
 msgstr ""
 
+msgid "Hide tokens with small balances"
+msgstr ""
+
 msgid "NFT ID"
 msgstr ""
 
@@ -1855,6 +1921,9 @@ msgid "Farcaster channel"
 msgstr ""
 
 msgid "Completed"
+msgstr ""
+
+msgid "Failed to send tip. Please try again later."
 msgstr ""
 
 msgid "Failed to unmirror post."
@@ -1888,9 +1957,6 @@ msgid "Unmute"
 msgstr ""
 
 msgid "No available token"
-msgstr ""
-
-msgid "Send tips to {0}"
 msgstr ""
 
 msgid "View on explorer"
@@ -1974,9 +2040,6 @@ msgstr ""
 msgid "No anti_whale(Unlimited number of transactions)"
 msgstr ""
 
-msgid "Failed to send tips, please try again later."
-msgstr ""
-
 msgid "<0>Burned</0> an NFT"
 msgstr ""
 
@@ -1990,6 +2053,9 @@ msgid "Profile"
 msgstr ""
 
 msgid "QUOTE"
+msgstr ""
+
+msgid "Wallet Provider"
 msgstr ""
 
 msgid "Collect"
@@ -2011,6 +2077,9 @@ msgid "Address on Watching Lists"
 msgstr ""
 
 msgid "FREE"
+msgstr ""
+
+msgid "Sign to enable signless"
 msgstr ""
 
 msgid "Profiles"
@@ -2044,6 +2113,9 @@ msgid "This is not an airdrop scam. Many scams attract users through airdrops."
 msgstr ""
 
 msgid "GIF"
+msgstr ""
+
+msgid "Collect for {0} {1}"
 msgstr ""
 
 msgid "Recast"

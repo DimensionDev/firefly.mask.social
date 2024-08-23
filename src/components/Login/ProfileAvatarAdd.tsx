@@ -39,7 +39,7 @@ export function ProfileAvatarAdd({ source, ...props }: ProfileAvatarAddProps) {
             </div>
             {isLoading ? (
                 <div className="absolute left-0 top-0">
-                    <LoadingIcon className="animate-spin" width={size} height={size} />
+                    <LoadingIcon className="animate-spin text-primaryBottom" width={size} height={size} />
                 </div>
             ) : null}
             <PlusIcon

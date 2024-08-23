@@ -19,10 +19,7 @@ export function WalletItem({ connection, noAction = false }: WalletItemProps) {
     const isDark = useIsDarkMode();
 
     return (
-        <div
-            className="mb-3 inline-flex h-[63px] w-full items-center justify-start gap-3 rounded-lg bg-white bg-bottom px-3 py-2 text-[15px] text-lightMain dark:bg-bg"
-            style={{ boxShadow: '0px 0px 20px 0px rgba(0, 0, 0, 0.05)', backdropFilter: 'blur(8px)' }}
-        >
+        <div className="mb-3 inline-flex h-[63px] w-full items-center justify-start gap-3 rounded-lg bg-white bg-bottom px-3 py-2 text-[15px] text-lightMain shadow-primary backdrop-blur dark:bg-bg">
             {!connection.canReport ? (
                 isDark ? (
                     <VerifiedDarkIcon width={24} height={24} />

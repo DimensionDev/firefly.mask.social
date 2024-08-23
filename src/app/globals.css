@@ -69,7 +69,7 @@
     --color-light-main: #181818;
     --color-bottom-bg: rgba(0, 0, 0, 0.05);
     --color-tab-line: rgba(29, 155, 240, 1);
-    --color-success: rgba(61, 194, 51, 1);
+    --color-success: rgb(13, 48, 11);
     --color-firefly-brand: rgba(146, 80, 255, 1);
     --m-common-danger: #ff3545;
     --m-common-warn: #ffb100;
@@ -457,7 +457,17 @@ body.not-support .fixed.inset-y-0 {
     display: none;
 }
 
-.mini-video > div > div {
-    max-height: 138px;
+.mini-video {
     width: 100%;
+    height: 100%;
+}
+
+.mini-video > div > div {
+    height: 100%;
+    width: 100%;
+}
+
+/* add class that tailwindcss does not have https://tailwindcss.com/docs/word-break */
+.break-word {
+    word-break: break-word;
 }

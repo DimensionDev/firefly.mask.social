@@ -12,6 +12,7 @@ import { ExternalLink } from '@/components/Markup/MarkupLink/ExternalLink.js';
 import { Hashtag } from '@/components/Markup/MarkupLink/Hashtag.js';
 import { MentionLink } from '@/components/Markup/MarkupLink/MentionLink.js';
 import { SymbolTag } from '@/components/Markup/MarkupLink/SymbolTag.js';
+import { TcoLink } from '@/components/Markup/MarkupLink/TcoLink.js';
 import { ProfileTippy } from '@/components/Profile/ProfileTippy.js';
 import { components } from '@/components/Tweet/index.js';
 import { type SocialSource, Source } from '@/constants/enum.js';
@@ -23,6 +24,7 @@ import { getLensHandleFromMentionTitle } from '@/helpers/getLensHandleFromMentio
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { getTwitterProfileUrl } from '@/helpers/getTwitterProfileUrl.js';
 import { isValidDomain } from '@/helpers/isValidDomain.js';
+import { isTCOLink } from '@/helpers/resolveTCOLink.js';
 import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
 import { type Post } from '@/providers/types/SocialMedia.js';
 
@@ -34,10 +36,9 @@ export interface MarkupLinkProps {
 }
 
 export const MarkupLink = memo<MarkupLinkProps>(function MarkupLink({ title, post, source, supportTweet }) {
-    // We only have handle in user bio.
-    const enabled = !post && source === Source.Farcaster && title?.startsWith('@');
     const { data: fallbackProfile } = useQuery({
-        enabled,
+        // We only have handle in user bio.
+        enabled: !post && source === Source.Farcaster && title?.startsWith('@'),
         queryKey: ['profile-by-handle', source, title],
         queryFn: async () => {
             if (!title) return null;
@@ -173,6 +174,10 @@ export const MarkupLink = memo<MarkupLinkProps>(function MarkupLink({ title, pos
         const id = last(title.match(TWEET_REGEX));
         if (!id) return <ExternalLink title={title} />;
         return <Tweet id={id} components={components} />;
+    }
+
+    if (isTCOLink(title)) {
+        return <TcoLink title={title} post={post} />;
     }
 
     return <ExternalLink title={title} />;
