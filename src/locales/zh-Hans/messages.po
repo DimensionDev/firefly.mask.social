@@ -129,9 +129,6 @@ msgstr "合约所有者无权修改其他地址的通证余额。"
 msgid "Select token"
 msgstr "选择代币"
 
-msgid "Already logged in?<0/><1>Approve the existing Farcaster signer</1> to Firefly"
-msgstr ""
-
 msgid "The post you quoted/replied has already deleted"
 msgstr "您引用/回复的帖子已经被删除了。"
 
@@ -1961,6 +1958,9 @@ msgstr "没有适合的代币"
 
 msgid "View on explorer"
 msgstr "在区块链浏览器查看"
+
+msgid "Already logged in?<0/>Approve the <1>existing Farcaster signer</1> to Firefly or <2>sync</2> through the app"
+msgstr ""
 
 msgid "Unmute @{0}"
 msgstr "取消屏蔽 @{0}"
