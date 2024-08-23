@@ -40,6 +40,7 @@ interface State {
                     blog: {
                         url?: string;
                         user: {
+                            wallet_address?: string;
                             referrerWalletAddress?: string;
                         };
                         highlightsCost?: number;
@@ -83,7 +84,8 @@ class Processor {
                 text: target.post_preview,
                 collectorWallet:
                     target.collectibleWalletAddress ??
-                    data?.props.pageProps.initialState.blog.blog.collectibleWalletAddress,
+                    data?.props.pageProps.initialState.blog.blog.collectibleWalletAddress ??
+                    data?.props.pageProps.initialState.blog.blog.user.wallet_address,
                 position: {
                     from: 0,
                     to: 0,

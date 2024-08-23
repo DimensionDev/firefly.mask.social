@@ -45,9 +45,20 @@ export interface ArticleCollectable {
     price: number | null;
     isCollected: boolean;
     fee: bigint;
-
-    // paragraph only
     symbol?: string;
+
+    // mirror only
+    factorAddress?: string;
+    renderer?: string;
+    nonce?: number;
+    owner?: string;
+    description?: string;
+    title?: string;
+    imageURI?: string;
+    contentURI?: string;
+    deploymentSignature?: string;
+    // paragraph only
+
     name?: string;
     ownerAddress?: string;
     referrerAddress?: string;

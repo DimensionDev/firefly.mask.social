@@ -152,7 +152,7 @@ export function ArticleCollect(props: ArticleCollectProps) {
             <ChainGuardButton
                 targetChainId={data?.chainId}
                 className="mt-6 w-full max-md:mt-4"
-                disabled={data?.isCollected || isSoldOut || !hasSufficientBalance}
+                disabled={data?.isCollected || isSoldOut || (account.isConnected && !hasSufficientBalance)}
                 loading={collectLoading || queryDetailLoading || queryBalanceLoading}
                 onClick={handleCollect}
             >

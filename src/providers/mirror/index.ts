@@ -1,13 +1,14 @@
 import { getAccount, getTransactionConfirmations, readContract, writeContract } from '@wagmi/core';
 import urlcat from 'urlcat';
-import { createPublicClient, http, zeroAddress } from 'viem';
+import { createPublicClient, http, parseSignature, zeroAddress } from 'viem';
 import { polygon } from 'viem/chains';
 
-import { MirrorABI } from '@/abis/Mirror.js';
+import { MirrorABI, MirrorFactoryABI } from '@/abis/Mirror.js';
 import { chains, config } from '@/configs/wagmiClient.js';
 import { NotImplementedError } from '@/constants/error.js';
 import { MIRROR_COLLECT_FEE, MIRROR_COLLECT_FEE_IN_POLYGON } from '@/constants/index.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
+import { isSameAddress } from '@/helpers/isSameAddress.js';
 import { rightShift } from '@/helpers/number.js';
 import type { Pageable, PageIndicator } from '@/helpers/pageable.js';
 import { resolveRPCUrl } from '@/helpers/resolveRPCUrl.js';
@@ -69,7 +70,16 @@ class Mirror implements Provider {
             contractAddress: result.proxyAddress ?? result.factoryAddress,
             isCollected,
             price: result.price,
-
+            factorAddress: result.factoryAddress,
+            nonce: result.nonce,
+            renderer: result.renderer,
+            symbol: result.symbol,
+            description: result.description,
+            title: result.title,
+            imageURI: result.imageURI,
+            contentURI: result.contentURI,
+            deploymentSignature: result.deploymentSignature,
+            owner: result.owner,
             fee: result.network.chainId !== polygon.id ? MIRROR_COLLECT_FEE : MIRROR_COLLECT_FEE_IN_POLYGON,
         };
     }
@@ -86,6 +96,37 @@ class Mirror implements Provider {
 
         const price = article.price ? BigInt(rightShift(article.price, 18).toString()) : 0n;
 
+        if (isSameAddress(article.contractAddress, article.factorAddress) && article.deploymentSignature) {
+            const { r, s, v } = parseSignature(article.deploymentSignature as `0x${string}`);
+            return client.estimateContractGas({
+                address: article.factorAddress as `0x${string}`,
+                abi: MirrorFactoryABI,
+                functionName: 'createWithSignature',
+                args: [
+                    article.owner,
+                    [
+                        article.title,
+                        article.symbol,
+                        article.description,
+                        article.imageURI,
+                        article.contentURI,
+                        price,
+                        article.quantity,
+                        account.address,
+                        article.renderer,
+                        article.nonce,
+                    ],
+                    v,
+                    r,
+                    s,
+                    account.address,
+                    '',
+                    zeroAddress,
+                ],
+                value: article.fee + price,
+            });
+        }
+
         return client.estimateContractGas({
             address: article.contractAddress as `0x${string}`,
             abi: MirrorABI,
@@ -98,6 +139,39 @@ class Mirror implements Provider {
     async collect(article: ArticleCollectable) {
         const account = getAccount(config);
         const price = article.price ? BigInt(rightShift(article.price, 18).toString()) : 0n;
+
+        if (isSameAddress(article.contractAddress, article.factorAddress) && article.deploymentSignature) {
+            const { r, s, v } = parseSignature(article.deploymentSignature as `0x${string}`);
+            const hash = await writeContract(config, {
+                address: article.factorAddress as `0x${string}`,
+                abi: MirrorFactoryABI,
+                functionName: 'createWithSignature',
+                args: [
+                    article.owner,
+                    [
+                        article.title,
+                        article.symbol,
+                        article.description,
+                        article.imageURI,
+                        article.contentURI,
+                        price,
+                        article.quantity,
+                        account.address,
+                        article.renderer,
+                        article.nonce,
+                    ],
+                    v,
+                    r,
+                    s,
+                    account.address,
+                    '',
+                    zeroAddress,
+                ],
+                value: article.fee + price,
+            });
+
+            return getTransactionConfirmations(config, { hash });
+        }
 
         const hash = await writeContract(config, {
             abi: MirrorABI,
