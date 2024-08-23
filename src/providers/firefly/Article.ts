@@ -28,10 +28,12 @@ class FireflyArticle implements Provider {
     getArticleCollectDetail(digest: string): Promise<ArticleCollectDetail> {
         throw new NotImplementedError();
     }
-    estimateCollectGas(detail: ArticleCollectDetail, account: string): Promise<bigint> {
+
+    estimateCollectGas(detail: ArticleCollectDetail): Promise<bigint> {
         throw new NotImplementedError();
     }
-    collect(detail: ArticleCollectDetail, account: string): Promise<bigint> {
+
+    collect(detail: ArticleCollectDetail): Promise<bigint> {
         throw new NotImplementedError();
     }
 
