@@ -37,7 +37,7 @@ export interface Article {
     followingSources: FollowingSource[];
 }
 
-export interface ArticleCollectDetail {
+export interface ArticleCollectable {
     quantity?: number;
     soldCount: number;
     chainId: number;
@@ -86,21 +86,21 @@ export interface Provider {
      * @param digest query id
      * @returns
      */
-    getArticleCollectDetail: (digest: string) => Promise<ArticleCollectDetail>;
+    getArticleCollectableByDigest: (digest: string) => Promise<ArticleCollectable>;
 
     /**
      * Retrieves the estimated gas fee for collecting an article.
-     * @param detail article detail
+     * @param article collectable article
      * @param account user account
      * @returns
      */
-    estimateCollectGas: (detail: ArticleCollectDetail) => Promise<bigint>;
+    estimateCollectGas: (article: ArticleCollectable) => Promise<bigint>;
 
     /**
      * Collect an article
-     * @param detail article detail
+     * @param article collectable article
      * @param account user account
      * @returns
      */
-    collect: (detail: ArticleCollectDetail) => Promise<bigint>;
+    collect: (article: ArticleCollectable) => Promise<bigint>;
 }

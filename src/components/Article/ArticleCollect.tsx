@@ -35,7 +35,7 @@ export function ArticleCollect(props: ArticleCollectProps) {
             if (!digest) return;
             const provider = resolveArticleCollectProvider(props.article.platform);
 
-            return provider.getArticleCollectDetail(digest);
+            return provider.getArticleCollectableByDigest(digest);
         },
     });
 
