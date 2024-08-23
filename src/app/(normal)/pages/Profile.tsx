@@ -11,7 +11,6 @@ import { Loading } from '@/components/Loading.js';
 import { NotLoginFallback } from '@/components/NotLoginFallback.js';
 import { ProfileContent } from '@/components/Profile/ProfileContent.js';
 import { ProfileNotFound } from '@/components/Profile/ProfileNotFound.js';
-import { ProfileSourceTabs } from '@/components/Profile/ProfileSourceTabs.js';
 import { Title } from '@/components/Profile/Title.js';
 import { PageRoute, Source } from '@/constants/enum.js';
 import { FetchError } from '@/constants/error.js';
@@ -94,41 +93,22 @@ export function ProfilePage({ profiles }: ProfilePageProps) {
     const profileNotFound = isFinalized && profileMissing;
 
     const showFallback =
-        (!isLogin && resolvedSource === Source.Twitter) ||
-        (identity.source !== Source.Wallet &&
-            ((!isOthersProfile && (!isLogin || profileNotFound)) ||
-                (profileNotFound && pathname === PageRoute.Profile)));
-
-    const header = (
-        <>
-            {!isSuspended && (profile || walletProfile) && !showFallback ? (
-                <Title profile={profile} profiles={profiles} isOthersProfile={isOthersProfile} />
-            ) : null}
-            <ProfileSourceTabs profiles={profiles} />
-        </>
-    );
+        identity.source !== Source.Wallet &&
+        ((!isOthersProfile && (!isLogin || profileNotFound)) || (profileNotFound && pathname === PageRoute.Profile));
 
     if (isLoading && source !== Source.Twitter) {
-        return (
-            <>
-                {header}
-                <Loading />
-            </>
-        );
+        return <Loading />;
     }
 
     if (showFallback) {
-        return (
-            <div>
-                {header}
-                <NotLoginFallback source={resolvedSource} />
-            </div>
-        );
+        return <NotLoginFallback source={resolvedSource} className="!pt-0" />;
     }
 
     return (
         <div>
-            {header}
+            {!isSuspended && (profile || walletProfile) && !showFallback ? (
+                <Title profile={profile} profiles={profiles} isOthersProfile={isOthersProfile} />
+            ) : null}
             {profileNotFound ? (
                 <ProfileNotFound />
             ) : (

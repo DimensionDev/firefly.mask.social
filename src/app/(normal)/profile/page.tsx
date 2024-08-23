@@ -5,6 +5,7 @@ import { redirect, RedirectType, useSearchParams } from 'next/navigation.js';
 import { useEffect, useMemo } from 'react';
 
 import { ProfilePage } from '@/app/(normal)/pages/Profile.js';
+import { ProfileSourceTabs } from '@/components/Profile/ProfileSourceTabs.js';
 import type { SocialSourceInURL } from '@/constants/enum.js';
 import { narrowToSocialSource } from '@/helpers/narrowToSocialSource.js';
 import { resolveFireflyIdentity } from '@/helpers/resolveFireflyProfileId.js';
@@ -47,5 +48,10 @@ export default function Page() {
         redirect(`/profile/${profile.id}?source=${resolveSourceInURL(profile.source)}`, RedirectType.replace);
     }
 
-    return <ProfilePage profiles={profiles} />;
+    return (
+        <>
+            <ProfileSourceTabs profiles={profiles} />
+            <ProfilePage profiles={profiles} />;
+        </>
+    );
 }
