@@ -1389,9 +1389,6 @@ msgstr "分钟"
 msgid "Floor Price"
 msgstr "地板价"
 
-msgid "Failed to fetch profiles."
-msgstr ""
-
 msgid "Unliked"
 msgstr "已取消点赞"
 
