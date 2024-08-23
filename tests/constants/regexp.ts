@@ -6,8 +6,8 @@ import {
     HASHTAG_REGEX,
     MENTION_REGEX,
     SYMBOL_REGEX,
+    URL_INPUT_REGEX,
     URL_REGEX,
-    URL_SINGLE_REGEX,
 } from '@/constants/regexp.js';
 
 describe('MENTION_REGEXP', () => {
@@ -264,13 +264,15 @@ describe('URL_SINGLE_REGEX', () => {
             'https://example.com/path/to/resource?query=param&key=value&key2=value2', // Multiple query parameters
             'https://example.com/path/to/resource#fragment?query=param', // Fragment before query
         ].forEach((url) => {
-            expect(URL_SINGLE_REGEX.test(url)).toBe(true);
+            expect(URL_INPUT_REGEX.test(url)).toBe(true);
         });
     });
 
     it('should not match invalid URLs', () => {
         [
             ' https://example.com',
+            ' https://example.com ',
+            'example.com',
             'http://example.com', // Wrong protocol
             'https://example', // Missing TLD
             'https://.com', // Invalid domain
@@ -287,7 +289,7 @@ describe('URL_SINGLE_REGEX', () => {
             'https://localhost/path/to/resource?query=param', // Localhost with path and query
             'https://user:password@example.com', // User info in URL
         ].forEach((url) => {
-            expect(URL_SINGLE_REGEX.test(url)).toBe(false);
+            expect(URL_INPUT_REGEX.test(url)).toBe(false);
         });
     });
 });

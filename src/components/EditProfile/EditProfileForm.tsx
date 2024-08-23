@@ -18,7 +18,7 @@ import {
     MAX_PROFILE_LOCATION_SIZE,
     MAX_PROFILE_WEBSITE_SIZE,
 } from '@/constants/index.js';
-import { URL_SINGLE_REGEX } from '@/constants/regexp.js';
+import { URL_INPUT_REGEX } from '@/constants/regexp.js';
 import { enqueueErrorMessage, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { getSnackbarMessageFromError } from '@/helpers/getSnackbarMessageFromError.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
@@ -121,7 +121,7 @@ export function EditProfileForm() {
                                     name="website"
                                     options={{
                                         pattern: {
-                                            value: URL_SINGLE_REGEX,
+                                            value: URL_INPUT_REGEX,
                                             message: t`Invalid website format`,
                                         },
                                         maxLength: {

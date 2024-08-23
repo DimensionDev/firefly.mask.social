@@ -1,7 +1,7 @@
 export const URL_REGEX =
     /((https?:\/\/)?[a-zA-Z0-9]+([-.]{1}[a-zA-Z0-9]+)*\.[a-zA-Z]{2,}(:[0-9]{1,5})?(\/[^ \n,)>]*)?)/gi;
 
-export const URL_SINGLE_REGEX = /^https:\/\/[a-zA-Z0-9]+([-.][a-zA-Z0-9]+)*\.[a-zA-Z]{2,}(:[0-9]{1,5})?(\/[^ \n,]*)?$/;
+export const URL_INPUT_REGEX = new RegExp(`^${URL_REGEX.source.replace('(https?:\\/\\/)?', 'https://')}$`);
 
 export const EMAIL_REGEX =
     /(([^\s"(),.:;<>@[\\\]]+(\.[^\s"(),.:;<>@[\\\]]+)*)|(".+"))@((\[(?:\d{1,3}\.){3}\d{1,3}])|(([\dA-Za-z-]+\.)+[A-Za-z]{2,}))/;
