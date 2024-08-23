@@ -46,7 +46,7 @@ export class FireflySession extends BaseSession implements Session {
         return fireflySession;
     }
 
-    static isCutodyWallet(session: Session | null): session is FireflySession & { signature: FireflySessionSignature } {
+    static isCustodyWallet(session: Session | null): session is FireflySession & { signature: FireflySessionSignature } {
         if (!session) return false;
         const fireflySession = session as FireflySession;
         return (
