@@ -1,5 +1,5 @@
 import { t } from '@lingui/macro';
-import { memo } from 'react';
+import { type HTMLProps, memo } from 'react';
 
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { config } from '@/configs/wagmiClient.js';
@@ -25,16 +25,18 @@ const resolveConnectButtonClass = createLookupTableResolver<SocialSource | Sourc
     '',
 );
 
-interface NotLoginFallbackProps {
+interface NotLoginFallbackProps extends HTMLProps<HTMLDivElement> {
     source: SocialSource | Source.Article;
 }
 
-export const NotLoginFallback = memo<NotLoginFallbackProps>(function NotLoginFallback({ source }) {
+export const NotLoginFallback = memo<NotLoginFallbackProps>(function NotLoginFallback({ source, className }) {
     const fallbackImageUrl = resolveFallbackImageUrl(source);
     const isArticle = source === Source.Article;
 
     return (
-        <div className="flex flex-grow flex-col items-center justify-center space-y-9 pt-[15vh]">
+        <div
+            className={classNames('flex flex-grow flex-col items-center justify-center space-y-9 pt-[15vh]', className)}
+        >
             <Image
                 src={fallbackImageUrl}
                 width={isArticle ? 302 : 200}
