@@ -305,6 +305,9 @@ body {
 .swiper-pagination-bullet-active {
     background: var(--color-firefly-brand) !important;
 }
+.ff-advertisement .swiper-pagination {
+    pointer-events: none;
+}
 
 .tippy-card {
     background: none !important;

@@ -33,6 +33,7 @@ export function Advertisement() {
     return (
         <div>
             <Swiper
+                className="ff-advertisement"
                 pagination
                 loop
                 modules={[Autoplay, Pagination, Navigation]}
