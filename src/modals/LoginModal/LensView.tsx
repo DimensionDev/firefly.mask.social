@@ -1,6 +1,6 @@
 import { Trans } from '@lingui/macro';
-import { skipToken, useQuery } from '@tanstack/react-query';
-import { Navigate, useLocation } from '@tanstack/react-router';
+import { useQuery } from '@tanstack/react-query';
+import { useLocation } from '@tanstack/react-router';
 import { memo } from 'react';
 import { useAccount } from 'wagmi';
 
