@@ -18,9 +18,8 @@ import { Link } from '@/esm/Link.js';
 import { isSocialSource } from '@/helpers/isSocialSource.js';
 import { resolveSourceInURL } from '@/helpers/resolveSourceInURL.js';
 import { useCurrentProfileAll } from '@/hooks/useCurrentProfile.js';
-import { FarcasterSocialMediaProvider } from '@/providers/farcaster/SocialMedia.js';
-import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
+import { getSuggestedFollows } from '@/services/getSuggestedFollows.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
 
 function filterProfiles(profiles: Profile[]) {
@@ -52,9 +51,11 @@ export function SuggestedFollowsCard() {
         queryKey: ['suggested-follows-lite'],
         staleTime: 1000 * 60 * 2,
         queryFn: async () => {
-            const farcasterData = (await FarcasterSocialMediaProvider.getSuggestedFollows())?.data;
-            const lensData = (await LensSocialMediaProvider.getSuggestedFollows())?.data;
-            return sortProfiles(filterProfiles(farcasterData ?? []), filterProfiles(lensData ?? []));
+            const [farcasterData, lensData] = await Promise.all([
+                getSuggestedFollows(Source.Farcaster),
+                getSuggestedFollows(Source.Lens),
+            ]);
+            return sortProfiles(filterProfiles(farcasterData?.data ?? []), filterProfiles(lensData?.data ?? []));
         },
     });
 
@@ -92,7 +93,7 @@ export function SuggestedFollowsCard() {
     if (!suggestedFollows?.length) return null;
 
     return (
-        <div>
+        <div className="-mb-3">
             <AsideTitle className="flex items-center justify-between !pb-1">
                 <span className="text-xl">
                     <Trans>You might like</Trans>
