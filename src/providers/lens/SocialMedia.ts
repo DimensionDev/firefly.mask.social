@@ -23,7 +23,7 @@ import { v4 as uuid } from 'uuid';
 import type { TypedDataDomain } from 'viem';
 
 import { config } from '@/configs/wagmiClient.js';
-import { FireflyPlatform, Source } from '@/constants/enum.js';
+import { FireflyPlatform, Source, SourceInURL } from '@/constants/enum.js';
 import { InvalidResultError, NotImplementedError } from '@/constants/error.js';
 import { EMPTY_LIST } from '@/constants/index.js';
 import { SetQueryDataForBlockProfile } from '@/decorators/SetQueryDataForBlockProfile.js';
@@ -36,6 +36,7 @@ import { SetQueryDataForMirrorPost } from '@/decorators/SetQueryDataForMirrorPos
 import { SetQueryDataForPosts } from '@/decorators/SetQueryDataForPosts.js';
 import { assertLensAccountOwner } from '@/helpers/assertLensAccountOwner.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
+import { filterNotificationsByProfileId } from '@/helpers/filterNotificationsByProfileId.js';
 import {
     filterFeeds,
     formatLensPost,
@@ -1044,8 +1045,25 @@ class LensSocialMedia implements Provider {
             return null;
         });
 
+        // filter muted/blocked items
+        const profileIds = compact(
+            data.flatMap((x) => {
+                if (!x) return null;
+                if ('followers' in x) return x.followers.map((follower) => follower.profileId);
+                if ('mirrors' in x) return x.mirrors.map((mirror) => mirror.profileId);
+                if ('reactors' in x) return x.reactors.map((reactor) => reactor.profileId);
+                return x?.post?.author.profileId;
+            }),
+        );
+        const blockList = await FireflySocialMediaProvider.getBlockRelation(
+            profileIds.map((snsId) => ({ snsId, snsPlatform: SourceInURL.Lens })),
+        );
+
         return createPageable(
-            compact(data),
+            filterNotificationsByProfileId(
+                compact(data),
+                blockList.filter((x) => x.blocked).map((x) => x.snsId),
+            ),
             createIndicator(indicator),
             result.pageInfo.next ? createNextIndicator(indicator, result.pageInfo.next) : undefined,
         );
