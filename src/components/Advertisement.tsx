@@ -36,7 +36,7 @@ export function Advertisement() {
                 pagination
                 loop
                 modules={[Autoplay, Pagination, Navigation]}
-                autoplay={{ delay: 5000 }}
+                autoplay={{ delay: 8000 }}
                 spaceBetween={50}
             >
                 {data.map((ad, index) => (

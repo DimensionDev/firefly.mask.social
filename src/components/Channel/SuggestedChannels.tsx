@@ -35,8 +35,8 @@ export function SuggestedChannels({ source }: SuggestedChannelsProps) {
     if (!suggestedChannels.length) return null;
 
     return (
-        <div>
-            <AsideTitle className="flex items-center justify-between !px-3">
+        <div className='-mt-3'>
+            <AsideTitle className="flex items-center justify-between">
                 <span className="text-xl">
                     <Trans>Trending Channels</Trans>
                 </span>
