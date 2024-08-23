@@ -7,7 +7,7 @@ import { Source } from '@/constants/enum.js';
 import { isSocialSource } from '@/helpers/isSocialSource.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
 
-export function RequireLogin({
+export function LoginRequiredGuard({
     source,
     children,
     fallback,

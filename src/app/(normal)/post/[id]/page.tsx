@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import type React from 'react';
 
 import { PostDetailPage } from '@/app/(normal)/post/[id]/pages/DetailPage.js';
-import { RequireLogin } from '@/components/RequireLogin.js';
+import { LoginRequiredGuard } from '@/components/LoginRequiredGuard.js';
 import { KeyType, type SocialSourceInURL } from '@/constants/enum.js';
 import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
 import { isBotRequest } from '@/helpers/isBotRequest.js';
@@ -32,8 +32,8 @@ export async function generateMetadata({ params, searchParams }: Props): Promise
 export default function Page(props: Props) {
     if (isBotRequest()) return null;
     return (
-        <RequireLogin source={resolveSocialSource(props.searchParams.source)}>
+        <LoginRequiredGuard source={resolveSocialSource(props.searchParams.source)}>
             <PostDetailPage {...props} />;
-        </RequireLogin>
+        </LoginRequiredGuard>
     );
 }
