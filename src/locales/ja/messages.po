@@ -129,9 +129,6 @@ msgstr ""
 msgid "Select token"
 msgstr ""
 
-msgid "Already logged in?<0/><1>Approve the existing Farcaster signer</1> to Firefly"
-msgstr ""
-
 msgid "The post you quoted/replied has already deleted"
 msgstr ""
 
@@ -1960,6 +1957,9 @@ msgid "No available token"
 msgstr ""
 
 msgid "View on explorer"
+msgstr ""
+
+msgid "Already logged in?<0/>Approve the <1>existing Farcaster signer</1> to Firefly or <2>sync</2> through the app"
 msgstr ""
 
 msgid "Unmute @{0}"

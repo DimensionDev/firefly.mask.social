@@ -260,13 +260,18 @@ export function LoginFarcaster({ signType }: LoginFarcasterProps) {
                                     <Trans>
                                         Already logged in?
                                         <br />
+                                        Approve the{' '}
                                         <Link
                                             to={`/farcaster?signType=${SignType.RelayService}`}
                                             className="font-bold hover:underline"
                                         >
-                                            Approve the existing Farcaster signer
+                                            existing Farcaster signer
                                         </Link>{' '}
-                                        to Firefly
+                                        to Firefly or{' '}
+                                        <Link to={'/main'} className="font-bold hover:underline">
+                                            sync
+                                        </Link>{' '}
+                                        through the app
                                     </Trans>
                                 ) : signType === SignType.RelayService ? (
                                     <Trans>

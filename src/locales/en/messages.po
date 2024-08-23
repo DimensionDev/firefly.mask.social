@@ -124,9 +124,6 @@ msgstr "The contract owner is not found to have the authority to modify the bala
 msgid "Select token"
 msgstr "Select token"
 
-msgid "Already logged in?<0/><1>Approve the existing Farcaster signer</1> to Firefly"
-msgstr "Already logged in?<0/><1>Approve the existing Farcaster signer</1> to Firefly"
-
 msgid "The post you quoted/replied has already deleted"
 msgstr "The post you quoted/replied has already deleted"
 
@@ -1956,6 +1953,9 @@ msgstr "No available token"
 
 msgid "View on explorer"
 msgstr "View on explorer"
+
+msgid "Already logged in?<0/>Approve the <1>existing Farcaster signer</1> to Firefly or <2>sync</2> through the app"
+msgstr "Already logged in?<0/>Approve the <1>existing Farcaster signer</1> to Firefly or <2>sync</2> through the app"
 
 msgid "Unmute @{0}"
 msgstr "Unmute @{0}"
