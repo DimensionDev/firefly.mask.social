@@ -30,18 +30,12 @@ export const LensView = memo(function LensView() {
     const account = useAccount();
     const { expectedProfile } = useLocation().search as { expectedProfile?: string };
 
-    const { error } = useQuery({
-        queryKey: ['wallet-account'],
-        retry: 0,
-        queryFn: async () => {
-            const { account } = await getWalletClientRequired(config);
-            return account.address;
-        },
-    });
-
     const { data: profiles = EMPTY_LIST, isLoading } = useQuery({
         queryKey: ['lens', 'profiles', account.address],
-        queryFn: account.address ? () => LensSocialMediaProvider.getProfilesByAddress(account.address!) : skipToken,
+        queryFn: async () => {
+            const { account } = await getWalletClientRequired(config);
+            return (await LensSocialMediaProvider.getProfilesByAddress(account.address)) ?? [];
+        },
         select: (profiles) => {
             if (!profiles) return EMPTY_LIST;
             const { accounts } = getProfileState(Source.Lens);
@@ -50,10 +44,6 @@ export const LensView = memo(function LensView() {
             return list;
         },
     });
-
-    if ((error as Error | undefined)?.name === 'ConnectorNotConnectedError') {
-        return <Navigate to="/main" replace />;
-    }
 
     if (isLoading || !account.address)
         return (
