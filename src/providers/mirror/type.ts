@@ -3,6 +3,16 @@ export interface MirrorArticleDetail {
         data: {
             entry: {
                 writingNFT: {
+                    depolymentSignature: string;
+                    imageURI: string;
+                    contentURI: string;
+                    title: string;
+                    description: string;
+                    owner: string;
+                    nonce: number;
+                    symbol: string;
+                    renderer: string;
+                    deploymentSignature: string;
                     canMint: boolean;
                     optimisticNumSold: number;
                     price: number | null;
