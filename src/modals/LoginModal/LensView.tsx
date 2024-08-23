@@ -1,6 +1,6 @@
 import { Trans } from '@lingui/macro';
-import { useQuery } from '@tanstack/react-query';
-import { useLocation } from '@tanstack/react-router';
+import { skipToken, useQuery } from '@tanstack/react-query';
+import { Navigate, useLocation } from '@tanstack/react-router';
 import { memo } from 'react';
 import { useAccount } from 'wagmi';
 
@@ -34,7 +34,8 @@ export const LensView = memo(function LensView() {
         queryKey: ['lens', 'profiles', account.address],
         queryFn: async () => {
             const { account } = await getWalletClientRequired(config);
-            return (await LensSocialMediaProvider.getProfilesByAddress(account.address)) ?? [];
+            const profiles = await LensSocialMediaProvider.getProfilesByAddress(account.address);
+            return profiles ?? EMPTY_LIST;
         },
         select: (profiles) => {
             if (!profiles) return EMPTY_LIST;
