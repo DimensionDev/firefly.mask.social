@@ -119,7 +119,7 @@ const ScheduleTaskItem = memo(function ScheduleTaskItem({ task, index }: { task:
                     }
                 }}
             >
-                <div className="line-clamp-5 min-h-[24px] break-words text-left text-[15px] leading-[24px]">
+                <div className="line-clamp-5 min-h-[24px] break-words text-left text-medium leading-[24px]">
                     {content}
                 </div>
             </div>

@@ -169,7 +169,7 @@ export function ComposeAction(props: ComposeActionProps) {
                 ) : null}
 
                 {usedLength && !isMedium ? (
-                    <div className="ml-auto flex items-center gap-[10px] whitespace-nowrap text-[15px] text-main">
+                    <div className="ml-auto flex items-center gap-[10px] whitespace-nowrap text-medium text-main">
                         <span className={classNames(usedLength > availableLength ? 'text-danger' : '')}>
                             {usedLength} / {availableLength}
                         </span>
@@ -191,7 +191,7 @@ export function ComposeAction(props: ComposeActionProps) {
             </div>
 
             <div className="flex h-9 items-center justify-between">
-                <span className="text-[15px] text-secondary">
+                <span className="text-medium text-secondary">
                     <Trans>Share to</Trans>
                 </span>
                 <Popover as="div" className="relative">
@@ -219,7 +219,7 @@ export function ComposeAction(props: ComposeActionProps) {
             </div>
 
             <div className="flex h-9 items-center justify-between pb-safe">
-                <span className="text-[15px] text-secondary">
+                <span className="text-medium text-secondary">
                     <Trans>Allow replies from</Trans>
                 </span>
                 <Popover as="div" className="relative">
@@ -229,7 +229,7 @@ export function ComposeAction(props: ComposeActionProps) {
                                 className="flex cursor-pointer gap-1 text-main focus:outline-none disabled:cursor-not-allowed disabled:opacity-50"
                                 disabled={hasError}
                             >
-                                <span className="text-[15px] font-bold">
+                                <span className="text-medium font-bold">
                                     <ReplyRestrictionText type={restriction} />
                                 </span>
                                 {!hasError ? <ChevronRightIcon className="h-5 w-5" aria-hidden="true" /> : null}
@@ -250,7 +250,7 @@ export function ComposeAction(props: ComposeActionProps) {
                             : 'hidden',
                 }}
             >
-                <span className="text-[15px] text-secondary">
+                <span className="text-medium text-secondary">
                     <Trans>Farcaster channel</Trans>
                 </span>
                 <Popover as="div" className="relative">
@@ -260,7 +260,7 @@ export function ComposeAction(props: ComposeActionProps) {
                                 className="flex cursor-pointer gap-1 text-main focus:outline-none disabled:cursor-not-allowed disabled:opacity-50"
                                 disabled={hasError}
                             >
-                                <span className="text-[15px] font-bold">
+                                <span className="text-medium font-bold">
                                     {compact(
                                         SORTED_SOCIAL_SOURCES.filter((source) => !!channel[source]).map(
                                             (source) => channel[source]?.name,

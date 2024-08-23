@@ -67,7 +67,7 @@ export const SchedulePostSettings = memo<SchedulePostSettingsProps>(function Sch
 
     return (
         <div className="flex-col px-4 py-2 pb-6 text-main max-md:px-0 max-md:pb-2">
-            <div className="text-center text-[15px] leading-[18px]">
+            <div className="text-center text-medium leading-[18px]">
                 <Trans>The scheduled time to send this post can be set up to 7 days in advance.</Trans>
             </div>
             <div className="flex gap-2 pt-3 md:gap-4">

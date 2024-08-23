@@ -72,7 +72,7 @@ export function ActionLayout({ action, type, disclaimer, buttons, inputs, form, 
                         <Link
                             href={websiteUrl}
                             target="_blank"
-                            className="inline-flex cursor-pointer items-center truncate text-[15px] text-second hover:underline"
+                            className="inline-flex cursor-pointer items-center truncate text-medium text-second hover:underline"
                             rel="noopener noreferrer"
                         >
                             <LinkIcon className="mr-2 h-4 w-4" />
@@ -98,8 +98,8 @@ export function ActionLayout({ action, type, disclaimer, buttons, inputs, form, 
                         )}
                     </Link>
                 </div>
-                <div className="text-left text-[15px] font-semibold text-main">{title}</div>
-                <div className="whitespace-pre-wrap text-left text-[15px] text-sm text-main">{description}</div>
+                <div className="text-left text-medium font-semibold text-main">{title}</div>
+                <div className="whitespace-pre-wrap text-left text-medium text-sm text-main">{description}</div>
                 {disclaimer ? <div>{disclaimer}</div> : null}
                 <ActionContent form={form} inputs={inputs} buttons={buttons} />
                 {successMessage ? (

@@ -41,7 +41,7 @@ export function ShowMoreComments(props: ShowMoreCommentsProps) {
                         ))}
                     </div>
                 ) : null}
-                <div className="mx-3 text-[15px] font-bold leading-6">
+                <div className="mx-3 text-medium font-bold leading-6">
                     {isOpen ? <Trans>Hide more comments</Trans> : <Trans>Show more comments</Trans>}
                 </div>
                 <LineArrowUpSVG

@@ -42,7 +42,7 @@ export function SuggestedChannels({ source }: SuggestedChannelsProps) {
                 </span>
                 {showMore ? (
                     <Link
-                        className="text-[15px] text-lightHighlight"
+                        className="text-medium text-lightHighlight"
                         href={urlcat(PageRoute.Home, {
                             discover: DiscoverType.TopChannels,
                             source: resolveSocialSourceInURL(Source.Farcaster),

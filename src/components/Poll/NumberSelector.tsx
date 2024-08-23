@@ -62,7 +62,7 @@ export function NumberSelector({ value, label, numbers, onChange, className, dis
                             leaveTo="opacity-0 translate-y-1"
                         >
                             <Popover.Panel
-                                className="absolute bottom-full right-0 flex max-h-[200px] w-full -translate-y-2 flex-col gap-2 overflow-y-auto rounded-lg bg-lightBottom py-3 text-[15px] shadow-popover dark:border dark:border-line dark:bg-darkBottom dark:shadow-none md:max-h-[300px]"
+                                className="absolute bottom-full right-0 flex max-h-[200px] w-full -translate-y-2 flex-col gap-2 overflow-y-auto rounded-lg bg-lightBottom py-3 text-medium shadow-popover dark:border dark:border-line dark:bg-darkBottom dark:shadow-none md:max-h-[300px]"
                                 ref={panelRef}
                             >
                                 {options.map((option) => (

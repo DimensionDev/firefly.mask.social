@@ -83,6 +83,9 @@ module.exports = {
             fontWeight: {
                 inherit: 'inherit',
             },
+            fontSize: {
+                medium: '0.9375rem',
+            },
         },
         screens: {
             sm: '640px',

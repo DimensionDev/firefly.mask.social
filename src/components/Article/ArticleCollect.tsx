@@ -112,7 +112,7 @@ export function ArticleCollect(props: ArticleCollectProps) {
                 {props?.article.author ? (
                     <div className="mt-[6px] flex items-center gap-2">
                         <Avatar src={props.article.author.avatar} size={20} alt={props.article.author.handle} />
-                        <span className="text-[15px] leading-[24px] text-lightSecond">
+                        <span className="text-medium leading-[24px] text-lightSecond">
                             {props.article.author.handle ?? formatEthereumAddress(props.article.author.id, 4)}
                         </span>
                     </div>

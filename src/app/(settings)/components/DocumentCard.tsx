@@ -16,7 +16,7 @@ export function DocumentCard({ title, href, icon }: DocumentCardProps) {
         >
             {icon}
             <div className="inline-flex shrink grow basis-0 flex-col items-start justify-center gap-1">
-                <div className="text-[15px] font-bold leading-[18px] text-main">{title}</div>
+                <div className="text-medium font-bold leading-[18px] text-main">{title}</div>
             </div>
             <LinkIcon width={20} height={20} />
         </Link>

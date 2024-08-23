@@ -270,13 +270,13 @@ export function ActionContainer({
     const disclaimer = useMemo(() => {
         if (actionState === 'malicious' && executionState.status === 'blocked') {
             return (
-                <div className="rounded-2xl border border-danger bg-danger/10 p-4 text-[15px] leading-5 text-danger">
+                <div className="rounded-2xl border border-danger bg-danger/10 p-4 text-medium leading-5 text-danger">
                     <Trans>This Action has been flagged as an unsafe action, & has been blocked.</Trans>
                     {isPassingSecurityCheck ? (
                         <Trans>
                             If you believe this action has been blocked in error, please <br />
                             <ClickableButton
-                                className="mt-3 text-[15px] font-bold leading-5 text-danger"
+                                className="mt-3 text-medium font-bold leading-5 text-danger"
                                 onClick={() => dispatch({ type: ExecutionType.UNBLOCK })}
                             >
                                 Ignore warning and proceed
@@ -289,7 +289,7 @@ export function ActionContainer({
         }
         if (actionState === 'unknown') {
             return (
-                <div className="rounded-2xl border border-warn bg-warn/10 p-4 text-[15px] leading-5 text-warn">
+                <div className="rounded-2xl border border-warn bg-warn/10 p-4 text-medium leading-5 text-warn">
                     <p>
                         <Trans>This Action has not yet been registered. Only use it if you trust the source.</Trans>
                         {!isPassingSecurityCheck ? (

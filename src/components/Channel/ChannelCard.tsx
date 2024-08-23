@@ -80,12 +80,12 @@ export const ChannelCard = memo<ChannelCardProps>(function ChannelCard({ channel
                     </div>
                     <div
                         onClick={handleNavigateToDetail}
-                        className="flex cursor-pointer items-center gap-2 text-[15px] text-secondary"
+                        className="flex cursor-pointer items-center gap-2 text-medium text-secondary"
                     >
                         <span className="min-w-0 truncate whitespace-nowrap"> /{channel?.id}</span>
                         <div className="flex items-center gap-2">
                             <UserIcon width={18} height={18} />
-                            <span className="text-[15px] leading-6 text-lightMain">{nFormatter(followerCount)}</span>
+                            <span className="text-medium leading-6 text-lightMain">{nFormatter(followerCount)}</span>
                         </div>
                     </div>
 
@@ -102,7 +102,7 @@ export const ChannelCard = memo<ChannelCardProps>(function ChannelCard({ channel
 
             <div onClick={handleNavigateToDetail}>
                 <BioMarkup
-                    className="mt-3 line-clamp-2 text-[15px] leading-[22px] text-lightMain"
+                    className="mt-3 line-clamp-2 text-medium leading-[22px] text-lightMain"
                     source={channel.source}
                 >
                     {channel.description ?? '-'}

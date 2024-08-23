@@ -10,7 +10,7 @@ export function ProfileName({ profile }: ProfileNameProps) {
             <div className="w-full truncate break-all text-left text-[16px] font-bold text-main">
                 {profile.displayName}
             </div>
-            <div className="break-all text-left text-[15px] font-normal text-second">@{profile.handle}</div>
+            <div className="break-all text-left text-medium font-normal text-second">@{profile.handle}</div>
         </div>
     );
 }

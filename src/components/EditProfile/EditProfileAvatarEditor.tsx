@@ -92,7 +92,7 @@ export function EditProfileAvatarEditor() {
                 <ClickableButton
                     enableDefault
                     enablePropagate
-                    className="flex h-10 w-full items-center justify-center rounded-lg bg-main text-[15px] font-bold leading-10 text-primaryBottom"
+                    className="flex h-10 w-full items-center justify-center rounded-lg bg-main text-medium font-bold leading-10 text-primaryBottom"
                     onClick={onConfirm}
                 >
                     <Trans>Confirm</Trans>

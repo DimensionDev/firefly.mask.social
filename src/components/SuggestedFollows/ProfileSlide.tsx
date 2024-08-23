@@ -29,7 +29,7 @@ export const ProfileSlide = memo<ProfileSlideProps>(function ProfileSlide({ prof
             </div>
             <div className="flex-start flex items-center truncate text-sm font-bold leading-6">
                 <ProfileTippy identity={identity}>
-                    <div className="mr-0.5 max-w-full cursor-pointer truncate text-[15px] text-main">
+                    <div className="mr-0.5 max-w-full cursor-pointer truncate text-medium text-main">
                         {profile.displayName}
                     </div>
                 </ProfileTippy>

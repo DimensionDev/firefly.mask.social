@@ -47,7 +47,7 @@ export default function Connected() {
                     }}
                 >
                     <div className="inline-flex h-10 items-center justify-center gap-2 self-stretch rounded-2xl bg-lightMain py-[11px]">
-                        <div className="w-full text-[15px] font-bold leading-[18px] text-primaryBottom">
+                        <div className="w-full text-medium font-bold leading-[18px] text-primaryBottom">
                             <Trans>Add account</Trans>
                         </div>
                     </div>
@@ -61,7 +61,7 @@ export default function Connected() {
                         }}
                     >
                         <div className="inline-flex h-10 items-center justify-center gap-2 self-stretch rounded-2xl bg-danger px-[18px] py-[11px]">
-                            <div className="text-[15px] font-bold leading-[18px] text-white dark:text-lightMain">
+                            <div className="text-medium font-bold leading-[18px] text-white dark:text-lightMain">
                                 <Trans>Log out all</Trans>
                             </div>
                         </div>

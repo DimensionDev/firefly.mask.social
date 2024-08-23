@@ -107,7 +107,7 @@ export function TopCollectors(props: TopCollectorsProps) {
                 // eslint-disable-next-line react/no-unstable-nested-components
                 fixedHeaderContent: () => {
                     return (
-                        <tr className="text-[15px] font-bold leading-6">
+                        <tr className="text-medium font-bold leading-6">
                             <th className="w-10 pb-2 pr-2 text-left">#</th>
                             <th className="px-2 pb-2 text-left">
                                 <Trans>Address</Trans>

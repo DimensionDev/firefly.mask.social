@@ -121,7 +121,7 @@ export const PostBody = forwardRef<HTMLDivElement, PostBodyProps>(function PostB
             >
                 <div
                     className={classNames(
-                        'flex items-center gap-1 rounded-lg border-primaryMain px-3 py-[6px] text-[15px]',
+                        'flex items-center gap-1 rounded-lg border-primaryMain px-3 py-[6px] text-medium',
                         {
                             border: !isQuote,
                         },
@@ -154,7 +154,7 @@ export const PostBody = forwardRef<HTMLDivElement, PostBodyProps>(function PostB
                 <NakedMarkup
                     post={post}
                     className={classNames(
-                        'linkify line-clamp-5 w-full self-stretch break-words text-left text-[15px] opacity-75',
+                        'linkify line-clamp-5 w-full self-stretch break-words text-left text-medium opacity-75',
                         {
                             'max-h-[7.8rem]': IS_SAFARI && IS_APPLE,
                         },
@@ -228,7 +228,7 @@ export const PostBody = forwardRef<HTMLDivElement, PostBodyProps>(function PostB
             ) : null}
 
             {canShowMore ? (
-                <div className="text-[15px] font-bold text-lightHighlight">
+                <div className="text-medium font-bold text-lightHighlight">
                     <div
                         onClick={() => {
                             router.push(getPostUrl(post));

@@ -43,11 +43,11 @@ export const ArticleHeader = memo<ArticleHeaderProps>(function ArticleHeader({ a
                 <Link
                     href={authorUrl}
                     onClick={(event) => event.stopPropagation()}
-                    className="block truncate text-clip text-[15px] font-bold leading-5 text-main"
+                    className="block truncate text-clip text-medium font-bold leading-5 text-main"
                 >
                     {article.author.handle || ens}
                 </Link>
-                <Link href={authorUrl} className="truncate text-clip text-[15px] leading-6 text-secondary">
+                <Link href={authorUrl} className="truncate text-clip text-medium leading-6 text-secondary">
                     {formatEthereumAddress(article.author.id, 4)}
                 </Link>
             </div>

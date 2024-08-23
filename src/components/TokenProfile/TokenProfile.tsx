@@ -63,11 +63,11 @@ export const TokenProfile = memo<Props>(function TokenProfile({ symbol, children
                     height={40}
                 />
                 <strong className="text-lg font-bold uppercase text-main">{token.symbol}</strong>
-                <span className="overflow-hidden text-ellipsis whitespace-nowrap font-inter text-[15px] font-bold">
+                <span className="overflow-hidden text-ellipsis whitespace-nowrap font-inter text-medium font-bold">
                     {token.name}
                 </span>
             </div>
-            <div className="line-height-[22px] flex items-center gap-1 text-[15px]">
+            <div className="line-height-[22px] flex items-center gap-1 text-medium">
                 <Trans>
                     <span className="text-secondary">Price</span>
                     <strong className="font-bold">${renderShrankPrice(formatPrice(price) ?? '-')}</strong>
@@ -81,8 +81,8 @@ export const TokenProfile = memo<Props>(function TokenProfile({ symbol, children
             </div>
             <div className="line-height-[22px] flex items-center gap-1">
                 <Trans>
-                    <span className="text-[15px] text-secondary">Market Cap</span>
-                    <strong className="text-[15px] font-bold">
+                    <span className="text-medium text-secondary">Market Cap</span>
+                    <strong className="text-medium font-bold">
                         {market?.market_cap !== undefined ? `$${formatMarketCap(market.market_cap)}` : '-'}
                     </strong>
                     <span className="inline-flex h-[14px] items-center rounded bg-[#8E96FF] px-1 py-0.5 text-[10px] text-white">
@@ -94,7 +94,7 @@ export const TokenProfile = memo<Props>(function TokenProfile({ symbol, children
                 <svg ref={chartRef} width={267} height={100} viewBox="0 0 317 100" />
             </div>
             <ClickableButton
-                className="flex h-8 w-full items-center justify-center rounded-full bg-main text-[15px] font-semibold text-primaryBottom transition-all hover:opacity-80"
+                className="flex h-8 w-full items-center justify-center rounded-full bg-main text-medium font-semibold text-primaryBottom transition-all hover:opacity-80"
                 onClick={() => {
                     router.push(`/token/${symbol}`);
                 }}

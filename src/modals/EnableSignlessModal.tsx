@@ -59,7 +59,7 @@ export const EnableSignlessModal = forwardRef<SingletonModalRefCreator<void, boo
                     </div>
 
                     <div className="flex flex-col gap-6 p-6">
-                        <div className="text-center text-[15px] leading-[18px]">
+                        <div className="text-center text-medium leading-[18px]">
                             <Trans>
                                 Failed to continue. Please allow Lens Manager for performing actions without the need to
                                 sign each transaction.

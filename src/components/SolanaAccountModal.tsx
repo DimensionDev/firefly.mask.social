@@ -61,7 +61,7 @@ export const SolanaAccountModal = forwardRef<SingletonModalRefCreator>(function 
                     </div>
                     <div className="flex h-[58px] flex-col items-start justify-start gap-3 self-stretch">
                         <div className="inline-flex h-6 items-center justify-center gap-1.5 self-stretch">
-                            <div className="text-center text-[15px] font-bold leading-tight text-main">
+                            <div className="text-center text-medium font-bold leading-tight text-main">
                                 {publicKeyStr ? formatSolanaAddress(publicKeyStr, 10) : '-'}
                             </div>
                             {publicKeyStr ? <CopyButton value={publicKeyStr} /> : null}
@@ -69,7 +69,7 @@ export const SolanaAccountModal = forwardRef<SingletonModalRefCreator>(function 
                         <div className="inline-flex h-[23px] items-center justify-start gap-3 self-stretch">
                             <div
                                 className={classNames(
-                                    'shrink grow basis-0 text-center text-[15px] font-bold leading-tight text-second',
+                                    'shrink grow basis-0 text-center text-medium font-bold leading-tight text-second',
                                     {
                                         'animate-pulse': isLoadingBalanceLamports,
                                     },
@@ -87,7 +87,7 @@ export const SolanaAccountModal = forwardRef<SingletonModalRefCreator>(function 
                             }}
                             className="flex h-10 shrink grow basis-0 items-center justify-center gap-1 rounded-[99px] border border-neutral-900 px-[18px] py-[11px]"
                         >
-                            <div className="text-[15px] font-bold leading-tight text-main">
+                            <div className="text-medium font-bold leading-tight text-main">
                                 <Trans>Change Wallet</Trans>
                             </div>
                         </ClickableButton>
@@ -98,7 +98,7 @@ export const SolanaAccountModal = forwardRef<SingletonModalRefCreator>(function 
                             }}
                             className="flex h-10 shrink grow basis-0 items-center justify-center gap-1 rounded-[99px] border border-neutral-900 px-[18px] py-[11px]"
                         >
-                            <div className="text-[15px] font-bold leading-tight text-main">
+                            <div className="text-medium font-bold leading-tight text-main">
                                 <Trans>Disconnect</Trans>
                             </div>
                         </ClickableButton>

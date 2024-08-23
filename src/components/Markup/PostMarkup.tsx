@@ -15,7 +15,7 @@ export function PostMarkup({ post, content, canShowMore }: PostMarkupProps) {
             post={post}
             className={classNames(
                 { 'line-clamp-5': canShowMore, 'max-h-[8rem]': canShowMore && IS_SAFARI && IS_APPLE },
-                'markup linkify break-words text-[15px]',
+                'markup linkify break-words text-medium',
             )}
         >
             {content}
