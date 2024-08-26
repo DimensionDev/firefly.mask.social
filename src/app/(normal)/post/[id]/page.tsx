@@ -33,7 +33,7 @@ export default function Page(props: Props) {
     if (isBotRequest()) return null;
     return (
         <LoginRequiredGuard source={resolveSocialSource(props.searchParams.source)}>
-            <PostDetailPage {...props} />;
+            <PostDetailPage {...props} />
         </LoginRequiredGuard>
     );
 }

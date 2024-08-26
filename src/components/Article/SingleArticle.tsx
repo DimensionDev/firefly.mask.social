@@ -109,7 +109,7 @@ export const SingleArticle = memo<SingleArticleProps>(function SingleArticleProp
                             )}
                         </span>
                     </div>
-                    <div className="relative mt-[6px] flex flex-col gap-2 overflow-hidden rounded-2xl border border-secondaryLine bg-bg p-3">
+                    <div className="relative mt-[6px] flex flex-col gap-2 overflow-hidden rounded-2xl border border-line bg-bg p-3">
                         {cover.data ? (
                             <ImageAsset
                                 disableLoadHandler

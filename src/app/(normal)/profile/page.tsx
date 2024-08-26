@@ -51,7 +51,7 @@ export default function Page() {
     return (
         <>
             <ProfileSourceTabs profiles={profiles} />
-            <ProfilePage profiles={profiles} />;
+            <ProfilePage profiles={profiles} />
         </>
     );
 }

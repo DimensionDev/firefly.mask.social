@@ -15,7 +15,7 @@ export function LoginRequiredGuard({
     const isLogin = useIsLogin(isSocialSource(source) ? source : undefined);
 
     if (isSocialSource(source) && !isLogin && source === Source.Twitter) {
-        return fallback ?? <NotLoginFallback source={source} className="!pt-0" />;
+        return fallback ?? <NotLoginFallback source={source} />;
     }
 
     return children;
