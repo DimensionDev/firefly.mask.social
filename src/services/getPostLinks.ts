@@ -9,6 +9,7 @@ import { parseURL } from '@/helpers/parseURL.js';
 import { isValidPollFrameUrl } from '@/helpers/resolveEmbedMediaType.js';
 import { resolveTCOLink } from '@/helpers/resolveTCOLink.js';
 import { BlinkLoader } from '@/providers/blink/Loader.js';
+import { getPostIFrame } from '@/providers/og/readers/iframe.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 import type { Action } from '@/types/blink.js';
 import type { Frame, LinkDigestedResponse } from '@/types/frame.js';
@@ -62,8 +63,14 @@ export async function getPostLinks(url: string, post?: Pick<Post, 'quoteOn'>) {
         oembed?: LinkDigested;
         frame?: Frame;
         action?: Action;
+        html?: string;
     } | null>(
         [
+            async () => {
+                // try iframe first. As we don't have to call other services if matched
+                const html = getPostIFrame(null, url);
+                return html ? { html } : null;
+            },
             async () => {
                 const frame = await getPostFrame(url);
                 return frame ? { frame } : null;
