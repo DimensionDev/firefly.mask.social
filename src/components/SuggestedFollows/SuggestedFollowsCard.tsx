@@ -20,7 +20,7 @@ import { resolveSourceInURL } from '@/helpers/resolveSourceInURL.js';
 import { runInSafe } from '@/helpers/runInSafe.js';
 import { useCurrentProfileAll } from '@/hooks/useCurrentProfile.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
-import { getSuggestedFollows } from '@/services/getSuggestedFollows.js';
+import { getSuggestedFollowsInCard } from '@/services/getSuggestedFollows.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
 
 function sortProfiles(farcasterProfiles: Profile[], lensProfiles: Profile[]) {
@@ -49,8 +49,8 @@ export function SuggestedFollowsCard() {
         staleTime: 1000 * 60 * 2,
         queryFn: async () => {
             const [farcasterData, lensData] = await Promise.all([
-                runInSafe(() => getSuggestedFollows(Source.Farcaster)),
-                runInSafe(() => getSuggestedFollows(Source.Lens)),
+                runInSafe(() => getSuggestedFollowsInCard(Source.Farcaster)),
+                runInSafe(() => getSuggestedFollowsInCard(Source.Lens)),
             ]);
             return sortProfiles(farcasterData ?? [], lensData ?? []);
         },
