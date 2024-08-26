@@ -1819,6 +1819,9 @@ msgstr "Cannot find your signer key, please connect again"
 msgid "No codes found to suspend trading."
 msgstr "No codes found to suspend trading."
 
+msgid "Please enable Momoka to support sending posts on Lens."
+msgstr "Please enable Momoka to support sending posts on Lens."
+
 msgid "First time connecting to Firefly?<0/><1>Approve a new connection</1> with Warpcast"
 msgstr "First time connecting to Firefly?<0/><1>Approve a new connection</1> with Warpcast"
 
