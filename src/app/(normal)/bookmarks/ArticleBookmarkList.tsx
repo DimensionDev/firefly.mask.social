@@ -7,10 +7,12 @@ import { compact } from 'lodash-es';
 import { ListInPage } from '@/components/ListInPage.js';
 import { getArticleItemContent } from '@/components/VirtualList/getArticleItemContent.js';
 import { ScrollListKey, Source } from '@/constants/enum.js';
+import { SORTED_SOCIAL_SOURCES } from '@/constants/index.js';
 import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
 import { getSnackbarMessageFromError } from '@/helpers/getSnackbarMessageFromError.js';
 import { narrowToSocialSource } from '@/helpers/narrowToSocialSource.js';
 import { createIndicator } from '@/helpers/pageable.js';
+import { useCurrentProfileAll } from '@/hooks/useCurrentProfile.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
 import { FireflyArticleProvider } from '@/providers/firefly/Article.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
@@ -18,9 +20,15 @@ import { useGlobalState } from '@/store/useGlobalStore.js';
 export function ArticleBookmarkList() {
     const currentSource = useGlobalState.use.currentSource();
     const currentSocialSource = narrowToSocialSource(currentSource);
+    const currentProfileAll = useCurrentProfileAll();
     const isLogin = useIsLogin(currentSocialSource);
     const query = useSuspenseInfiniteQuery({
-        queryKey: ['posts', Source.Article, 'bookmark'],
+        queryKey: [
+            'posts',
+            Source.Article,
+            'bookmark',
+            SORTED_SOCIAL_SOURCES.map((x) => currentProfileAll[x]?.profileId),
+        ],
         queryFn: async ({ pageParam }) => {
             if (!isLogin) return;
             try {

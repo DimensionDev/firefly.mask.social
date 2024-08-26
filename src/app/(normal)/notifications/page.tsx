@@ -12,6 +12,7 @@ import { ScrollListKey, type SocialSource, Source } from '@/constants/enum.js';
 import { narrowToSocialSource } from '@/helpers/narrowToSocialSource.js';
 import { createIndicator } from '@/helpers/pageable.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
+import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
 import { useNavigatorTitle } from '@/hooks/useNavigatorTitle.js';
 import { type Notification as NotificationObject, NotificationType } from '@/providers/types/SocialMedia.js';
@@ -46,12 +47,13 @@ const getNotificationItemContent = (index: number, notification: NotificationObj
 export default function Notification() {
     const currentSource = useGlobalState.use.currentSource();
     const currentSocialSource = narrowToSocialSource(currentSource);
+    const profile = useCurrentProfile(currentSocialSource);
     const isLogin = useIsLogin(currentSocialSource);
 
     const [types, setTypes] = useNotificationTypes(currentSocialSource);
 
     const queryResult = useSuspenseInfiniteQuery({
-        queryKey: ['notifications', currentSource, isLogin],
+        queryKey: ['notifications', currentSource, isLogin, profile?.profileId],
         queryFn: async ({ pageParam }) => {
             if (!isLogin) return;
             const provider = resolveSocialMediaProvider(currentSocialSource);
