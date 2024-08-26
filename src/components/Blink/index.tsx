@@ -1,12 +1,13 @@
 'use client';
 
+import { Action, ActionContainer } from '@dialectlabs/blinks';
 import { useQuery } from '@tanstack/react-query';
 import { memo, useEffect } from 'react';
 
-import { ActionContainer } from '@/components/Blink/ActionContainer.js';
+import { parseURL } from '@/helpers/parseURL.js';
+import { useActionAdapter } from '@/hooks/useActionAdapter.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 import { getPostBlinkAction } from '@/services/getPostLinks.js';
-import type { Action } from '@/types/blink.js';
 
 interface Props {
     post: Post;
@@ -17,18 +18,27 @@ interface Props {
 
 export const Blink = memo<Props>(function Blink({ post, onData, onFailed, children }) {
     const url = post.metadata.content?.oembedUrl;
+    const actionAdapter = useActionAdapter();
     const {
         data: action,
         error,
         isLoading,
     } = useQuery({
-        queryKey: ['action', url],
-        queryFn: () => getPostBlinkAction(url!),
+        queryKey: ['action2', url],
+        queryFn() {
+            return getPostBlinkAction(url!);
+        },
         retry: false,
         refetchOnMount: false,
         refetchOnWindowFocus: false,
         enabled: !!url,
     });
+
+    useEffect(() => {
+        if (action) {
+            action.setAdapter(actionAdapter);
+        }
+    }, [actionAdapter, action]);
 
     useEffect(() => {
         if (action) onData?.(action);
@@ -41,5 +51,15 @@ export const Blink = memo<Props>(function Blink({ post, onData, onFailed, childr
     if (isLoading) return null;
     if (error || !action) return children;
 
-    return <ActionContainer action={action} />;
+    return (
+        <>
+            {action ? (
+                <ActionContainer
+                    action={action}
+                    websiteUrl={parseURL(url!)?.origin}
+                    websiteText={parseURL(url!)?.host}
+                />
+            ) : null}
+        </>
+    );
 });

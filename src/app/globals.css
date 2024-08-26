@@ -474,3 +474,32 @@ body.not-support .fixed.inset-y-0 {
 .break-word {
     word-break: break-word;
 }
+
+.blink.dial-light {
+    --blink-text-primary: rgb(var(--color-main));
+    --blink-text-secondary: var(--color-second);
+    --blink-bg-primary: var(--color-bg);
+    --blink-text-link: var(--color-second);
+    --blink-icon-primary: var(--color-second);
+    --blink-stroke-primary: var(--color-line);
+
+    --blink-button: rgb(var(--color-main));
+    --blink-button-hover: rgb(var(--color-main));
+    --blink-text-button: rgb(var(--color-bottom));
+    --blink-button-disabled: rgb(var(--color-main) / 0.5);
+    --blink-text-button-disabled: rgb(var(--color-bottom));
+
+    --blink-text-input: rgb(var(--color-main));
+    --blink-input-bg: transparent;
+    --blink-input-stroke: var(--color-line2);
+    --blink-input-stroke-selected: rgb(var(--color-farcaster-primary));
+    --blink-input-bg-selected: rgb(var(--color-farcaster-primary));
+
+    --blink-shadow-container: none;
+
+    input, textarea, input:focus, textarea:focus {
+        outline: none !important;
+        border-color: transparent !important;
+        box-shadow: none;
+    }
+}

@@ -1,3 +1,4 @@
+import { Action, setProxyUrl } from '@dialectlabs/blinks';
 import urlcat from 'urlcat';
 
 import { STATUS } from '@/constants/enum.js';
@@ -10,7 +11,6 @@ import { isValidPollFrameUrl } from '@/helpers/resolveEmbedMediaType.js';
 import { resolveTCOLink } from '@/helpers/resolveTCOLink.js';
 import { BlinkLoader } from '@/providers/blink/Loader.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
-import type { Action } from '@/types/blink.js';
 import type { Frame, LinkDigestedResponse } from '@/types/frame.js';
 import type { ResponseJSON } from '@/types/index.js';
 import type { LinkDigested } from '@/types/og.js';
@@ -42,7 +42,10 @@ export async function getPostFrame(url: string): Promise<Frame | null> {
 export async function getPostBlinkAction(url: string): Promise<Action | null> {
     if (env.external.NEXT_PUBLIC_BLINK !== STATUS.Enabled) return null;
     if (!url || !isValidPostLink(url)) return null;
-    return BlinkLoader.fetchAction((await resolveTCOLink(url)) ?? url);
+    const action = await BlinkLoader.fetchAction((await resolveTCOLink(url)) ?? url);
+    if (!action) return null;
+    setProxyUrl(urlcat(location.origin, '/api/blink/proxy'));
+    return Action.fetch(action.actionApiUrl!);
 }
 
 export async function getPostOembed(url: string, post?: Pick<Post, 'quoteOn'>): Promise<LinkDigested | null> {
