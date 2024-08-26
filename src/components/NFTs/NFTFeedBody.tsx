@@ -134,7 +134,7 @@ function NFTItem({
                     alt={address}
                 />
             )}
-            <div className="w-full space-y-2 rounded-xl text-sm leading-[18px] sm:h-auto sm:w-[calc(100%-120px-8px)] sm:border sm:border-secondaryLine sm:bg-lightBg sm:p-3">
+            <div className="w-full space-y-2 rounded-xl text-sm leading-[18px] sm:h-auto sm:w-[calc(100%-120px-8px)] sm:border sm:border-line sm:bg-lightBg sm:p-3">
                 <NFTFeedFieldGroup
                     field={t`Name`}
                     value={
