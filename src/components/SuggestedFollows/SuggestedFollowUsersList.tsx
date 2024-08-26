@@ -4,11 +4,10 @@ import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
 
 import { ListInPage } from '@/components/ListInPage.js';
 import { ProfileInList } from '@/components/ProfileInList.js';
-import { ScrollListKey, type SocialSource, Source } from '@/constants/enum.js';
-import { EMPTY_LIST } from '@/constants/index.js';
-import { createIndicator, createPageable, type Pageable, type PageIndicator } from '@/helpers/pageable.js';
-import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
+import { ScrollListKey, type SocialSource } from '@/constants/enum.js';
+import { createIndicator, type Pageable, type PageIndicator } from '@/helpers/pageable.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
+import { getSuggestedFollowsInPage } from '@/services/getSuggestedFollows.js';
 
 interface Props {
     source: SocialSource;
@@ -22,9 +21,7 @@ export default function SuggestedFollowUsersList({ source }: Props) {
     const queryResult = useSuspenseInfiniteQuery({
         queryKey: ['suggested-follows', source],
         queryFn({ pageParam }) {
-            if (source === Source.Twitter) return createPageable<Profile>(EMPTY_LIST, createIndicator(undefined));
-            const provider = resolveSocialMediaProvider(source);
-            return provider.getSuggestedFollows(createIndicator(undefined, pageParam));
+            return getSuggestedFollowsInPage(source, createIndicator(undefined, pageParam));
         },
         initialPageParam: '',
         getNextPageParam: (lastPage) => (lastPage as Pageable<Profile, PageIndicator>)?.nextIndicator?.id,
