@@ -17,7 +17,7 @@ export function LoginButton(props: LoginButtonProps) {
             disabled={loading}
             onClick={() => onClick?.(source)}
         >
-            {loading ? <LoadingIcon className="animate-spin" width={24} height={24} /> : null}
+            {loading ? <LoadingIcon className="absolute animate-spin" width={24} height={24} /> : null}
             <div className="inline-flex w-full cursor-pointer flex-col items-center justify-start gap-2 rounded-lg px-4 py-6">
                 <div className="relative h-[48px] w-[48px]">
                     <ProfileSourceIcon className="left-0 top-0 rounded-full" size={48} source={source} />
