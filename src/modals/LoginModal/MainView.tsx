@@ -88,7 +88,7 @@ export function MainView() {
                         <LoginButton
                             key={source}
                             source={source}
-                            loading={loading && source === selectedSource}
+                            loading={loading ? source === selectedSource : null}
                             onClick={() => onClick(source)}
                         />
                     ))}
