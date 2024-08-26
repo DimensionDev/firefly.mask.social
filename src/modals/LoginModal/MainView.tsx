@@ -30,46 +30,43 @@ export function MainView() {
         if (fireflySession) {
             setSelectedSource(source);
 
-            const accountsSynced = await downloadAccounts(fireflySession);
-            const accountsFiltered = accountsSynced.filter((x) => {
-                const state = getProfileState(x.profile.source);
-                return !state.accounts.find((y) => isSameAccount(x, y));
-            });
-
-            if (accountsFiltered.length) {
-                LoginModalRef.close();
-
-                const confirmed = await ConfirmFireflyModalRef.openAndWaitForClose({
-                    belongsTo: true,
-                    accounts: accountsFiltered,
+            try {
+                const accountsSynced = await downloadAccounts(fireflySession);
+                const accountsFiltered = accountsSynced.filter((x) => {
+                    const state = getProfileState(x.profile.source);
+                    return !state.accounts.find((y) => isSameAccount(x, y));
                 });
 
-                if (confirmed) {
-                    await updateAccountState(accountsFiltered, false);
-                    return;
+                if (accountsFiltered.length) {
+                    LoginModalRef.close();
+
+                    const confirmed = await ConfirmFireflyModalRef.openAndWaitForClose({
+                        belongsTo: true,
+                        accounts: accountsFiltered,
+                    });
+
+                    if (confirmed) {
+                        await updateAccountState(accountsFiltered, false);
+                        return;
+                    }
                 }
+            } catch (error) {
+                // ignore errors
             }
-
-            LoginModalRef.open({
-                source,
-                options: {
-                    expectedSignType: signType,
-                },
-            });
-        } else {
-            const path = urlcat(
-                '/',
-                resolveSourceInURL(source),
-                signType
-                    ? {
-                          signType,
-                      }
-                    : {},
-            );
-
-            // history.back() is buggy, use .replace() instead.
-            history.replace(path);
         }
+
+        const path = urlcat(
+            '/',
+            resolveSourceInURL(source),
+            signType
+                ? {
+                      signType,
+                  }
+                : {},
+        );
+
+        // history.back() is buggy, use .replace() instead.
+        history.replace(path);
     }, []);
 
     return (
