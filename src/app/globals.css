@@ -497,7 +497,10 @@ body.not-support .fixed.inset-y-0 {
 
     --blink-shadow-container: none;
 
-    input, textarea, input:focus, textarea:focus {
+    input,
+    textarea,
+    input:focus,
+    textarea:focus {
         outline: none !important;
         border-color: transparent !important;
         box-shadow: none;
