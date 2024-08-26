@@ -8,7 +8,7 @@ import { readChars } from '@/helpers/chars.js';
 import { getAllMentionsForFarcaster } from '@/helpers/getAllMentionsForFarcaster.js';
 import { getPollFrameUrl } from '@/helpers/getPollFrameUrl.js';
 import { isHomeChannel } from '@/helpers/isSameChannel.js';
-import { createS3MediaObject, resolveImageUrl } from '@/helpers/resolveMediaObjectUrl.js';
+import { createS3MediaObject, resolveImageUrl, resolveVideoUrl } from '@/helpers/resolveMediaObjectUrl.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { FarcasterPollProvider } from '@/providers/farcaster/Poll.js';
 import { uploadToS3 } from '@/services/uploadToS3.js';
@@ -31,7 +31,7 @@ export async function createFarcasterSchedulePostPayload(
     compositePost: CompositePost,
     isThread = false,
 ): Promise<FarcasterSchedulePostPayload> {
-    const { chars, parentPost, images, frames, openGraphs, postId, channel, poll } = compositePost;
+    const { chars, parentPost, images, frames, openGraphs, video, channel, poll } = compositePost;
 
     const sourceName = resolveSourceName(Source.Farcaster);
     const farcasterParentPost = parentPost.Farcaster;
@@ -43,6 +43,12 @@ export async function createFarcasterSchedulePostPayload(
     const imageResults = await Promise.all(
         images.map(async (media) => {
             if (resolveImageUrl(Source.Farcaster, media)) return media;
+            return createS3MediaObject(await uploadToS3(media.file, SourceInURL.Farcaster), media);
+        }),
+    );
+
+    const videoResults = await Promise.all(
+        (video?.file ? [video] : []).map(async (media) => {
             return createS3MediaObject(await uploadToS3(media.file, SourceInURL.Farcaster), media);
         }),
     );
@@ -60,6 +66,10 @@ export async function createFarcasterSchedulePostPayload(
         [
             ...imageResults.map((media) => ({
                 url: resolveImageUrl(Source.Farcaster, media),
+                mimeType: media.mimeType,
+            })),
+            ...videoResults.map((media) => ({
+                url: resolveVideoUrl(Source.Farcaster, media),
                 mimeType: media.mimeType,
             })),
             ...frames.map((frame) => ({ title: frame.title, url: frame.url })),
