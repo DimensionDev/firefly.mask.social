@@ -7,7 +7,7 @@ import { parseURL } from '@/helpers/parseURL.js';
 // URLs that are manually picked to be embedded that dont have embed metatags
 const pickUrlSites = ['open.spotify.com', 'kick.com', 'tiktok.com'];
 
-const skipClean = true;
+const needClean = ['tiktok.com'];
 
 const spotifyTrackUrlRegex = /^ht{2}ps?:\/{2}open\.spotify\.com\/track\/[\dA-Za-z]+(\?si=[\dA-Za-z]+)?$/;
 const spotifyPlaylistUrlRegex = /^ht{2}ps?:\/{2}open\.spotify\.com\/playlist\/[\dA-Za-z]+(\?si=[\dA-Za-z]+)?$/;
@@ -17,7 +17,7 @@ const youtubeRegex = /^https?:\/\/(?:www\.)?youtu(?:be\.com\/watch\?v=|\.be\/)([
 const tapeRegex = /^https?:\/\/tape\.xyz\/watch\/[\dA-Za-z-]+(\?si=[\dA-Za-z]+)?$/;
 const twitchRegex = /^https?:\/\/www\.twitch\.tv\/videos\/[\dA-Za-z-]+$/;
 const kickRegex = /^https?:\/\/kick\.com\/[\dA-Za-z-]+$/;
-const tiktokUserVideoRegex = /^https?:\/\/(?:www\.)?tiktok\.com\/@[\dA-Za-z-]+\/video\/[\dA-Za-z-]+$/;
+const tiktokUserVideoRegex = /^https?:\/\/(?:www\.)?tiktok\.com\/@.+\/video\/[\dA-Za-z-]+$/;
 const tiktokApiRegex = /^https?:\/\/(?:www\.)?tiktok\.com\/player\/v1\/[\dA-Za-z-]+/;
 
 const universalSize = `width="100%" height="415"`;
@@ -30,7 +30,7 @@ export const getPostIFrame = (embedUrl: string | null, url: string): string | nu
     const hostname = parsedUrl.hostname.replace('www.', '');
     const pickedUrl = pickUrlSites.includes(hostname) ? url : embedUrl;
     // Remove query params from url
-    const cleanedUrl = skipClean ? url : (pickedUrl?.split('?')[0] as string);
+    const cleanedUrl = needClean.includes(hostname) ? (pickedUrl?.split('?')[0] as string) : url;
 
     if (!pickedUrl) {
         return null;
