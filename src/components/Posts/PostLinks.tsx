@@ -8,12 +8,14 @@ import { useEffect, useMemo } from 'react';
 import { ClickableArea } from '@/components/ClickableArea.js';
 import { FrameLayout } from '@/components/Frame/index.js';
 import { OembedLayout } from '@/components/Oembed/index.js';
+import { Player } from '@/components/Oembed/Player.js';
 import { type SocialSource } from '@/constants/enum.js';
 import { URL_REGEX } from '@/constants/regexp.js';
 import type { Chars } from '@/helpers/chars.js';
 import { readChars } from '@/helpers/chars.js';
 import { createDummyPost } from '@/helpers/createDummyPost.js';
 import { parseURL } from '@/helpers/parseURL.js';
+import { isLinkMatchingHost } from '@/helpers/isLinkMatchingHost.js';
 import { removeAtEnd } from '@/helpers/removeAtEnd.js';
 import { resolveOembedUrl } from '@/helpers/resolveOembedUrl.js';
 import { useActionAdapter } from '@/hooks/useActionAdapter.js';
@@ -51,10 +53,13 @@ export function PostLinks({ post, setContent }: Props) {
         }
     }, [data, setContent, post, url]);
 
-    if (isLoading || error || !data) return null;
+    if (!url || isLoading || error || !data) return null;
 
     return (
         <>
+            {data.html ? (
+                <Player html={data.html} isSpotify={isLinkMatchingHost(url, 'open.spotify.com', false)} />
+            ) : null}
             {data.frame ? <FrameLayout frame={data.frame} post={post} /> : null}
             {data.action ? (
                 <ClickableArea>

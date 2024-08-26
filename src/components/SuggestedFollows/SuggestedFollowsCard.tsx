@@ -17,6 +17,7 @@ import { DiscoverType, PageRoute, Source, SourceInURL } from '@/constants/enum.j
 import { Link } from '@/esm/Link.js';
 import { isSocialSource } from '@/helpers/isSocialSource.js';
 import { resolveSourceInURL } from '@/helpers/resolveSourceInURL.js';
+import { runInSafe } from '@/helpers/runInSafe.js';
 import { useCurrentProfileAll } from '@/hooks/useCurrentProfile.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 import { getSuggestedFollows } from '@/services/getSuggestedFollows.js';
@@ -52,8 +53,8 @@ export function SuggestedFollowsCard() {
         staleTime: 1000 * 60 * 2,
         queryFn: async () => {
             const [farcasterData, lensData] = await Promise.all([
-                getSuggestedFollows(Source.Farcaster),
-                getSuggestedFollows(Source.Lens),
+                runInSafe(() => getSuggestedFollows(Source.Farcaster)),
+                runInSafe(() => getSuggestedFollows(Source.Lens)),
             ]);
             return sortProfiles(filterProfiles(farcasterData?.data ?? []), filterProfiles(lensData?.data ?? []));
         },
