@@ -1,5 +1,4 @@
 import { t, Trans } from '@lingui/macro';
-import { formatEthereumAddress } from '@masknet/web3-shared-evm';
 import { rootRouteId, useMatch } from '@tanstack/react-router';
 import { useMemo } from 'react';
 
@@ -7,6 +6,7 @@ import { ClickableButton } from '@/components/ClickableButton.js';
 import { TipsModalHeader } from '@/components/Tips/TipsModalHeader.js';
 import { Link } from '@/esm/Link.js';
 import { CHAR_TAG } from '@/helpers/chars.js';
+import { formatEthereumAddress } from '@/helpers/formatEthereumAddress.js';
 import { getCurrentAvailableSources } from '@/helpers/getCurrentAvailableSources.js';
 import { resolveSocialSource } from '@/helpers/resolveSource.js';
 import { useCurrentVisitingChannel } from '@/hooks/useCurrentVisitingChannel.js';
@@ -24,7 +24,7 @@ export function TipSuccess() {
         if (!handle || !__origin__?.verifiedSources?.length || !socialProfiles.length) return { canShare: false };
         return {
             canShare: true,
-            walletName: __origin__.primary_ens || formatEthereumAddress(__origin__.address, 4),
+            walletName: __origin__.primary_ens || formatEthereumAddress(__origin__.address, 8),
         };
     }, [recipient, handle, socialProfiles]);
 
