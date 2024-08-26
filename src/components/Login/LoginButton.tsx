@@ -13,7 +13,7 @@ export function LoginButton(props: LoginButtonProps) {
     const { source, loading = false, onClick } = props;
     return (
         <ClickableButton
-            className="relative group flex w-full flex-col rounded-lg outline-none hover:bg-lightBg"
+            className="group relative flex w-full flex-col rounded-lg outline-none hover:bg-lightBg"
             disabled={loading}
             onClick={() => onClick?.(source)}
         >
