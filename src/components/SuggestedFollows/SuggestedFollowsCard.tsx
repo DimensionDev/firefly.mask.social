@@ -23,10 +23,6 @@ import type { Profile } from '@/providers/types/SocialMedia.js';
 import { getSuggestedFollows } from '@/services/getSuggestedFollows.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
 
-function filterProfiles(profiles: Profile[]) {
-    return profiles.filter((item) => !item.viewerContext?.blocking && !item.viewerContext?.following);
-}
-
 function sortProfiles(farcasterProfiles: Profile[], lensProfiles: Profile[]) {
     const results: Profile[] = [];
     let farcasterIndex = 0;
@@ -56,7 +52,7 @@ export function SuggestedFollowsCard() {
                 runInSafe(() => getSuggestedFollows(Source.Farcaster)),
                 runInSafe(() => getSuggestedFollows(Source.Lens)),
             ]);
-            return sortProfiles(filterProfiles(farcasterData?.data ?? []), filterProfiles(lensData?.data ?? []));
+            return sortProfiles(farcasterData ?? [], lensData ?? []);
         },
     });
 
