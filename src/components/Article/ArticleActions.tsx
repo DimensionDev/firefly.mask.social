@@ -38,7 +38,10 @@ export const ArticleActions = memo<ArticleActionsProps>(function ArticleActions(
                 {article.slug ? (
                     <div
                         className="cursor-pointer text-second hover:underline"
-                        onClick={() => {
+                        onClick={(event) => {
+                            event.stopPropagation();
+                            event.preventDefault();
+
                             scrollTo(0, 0);
                             router.push(
                                 urlcat(PageRoute.Search, {

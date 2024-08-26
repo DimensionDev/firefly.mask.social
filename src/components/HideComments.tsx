@@ -6,22 +6,25 @@ import React, { type PropsWithChildren, useState } from 'react';
 import { ListInPage } from '@/components/ListInPage.js';
 import { ShowMoreComments } from '@/components/ShowMoreComments.js';
 import { getPostItemContent } from '@/components/VirtualList/getPostItemContent.js';
-import { ScrollListKey } from '@/constants/enum.js';
-import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
+import { ScrollListKey, type SocialSource } from '@/constants/enum.js';
+import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 
-interface LensShowMoreCommentsProps {
+interface ShowMoreCommentsProps {
     postId: string;
     fallback?: PropsWithChildren['children'];
     className?: string;
     excludePostIds?: string[];
+    source: SocialSource;
 }
 
-export function LensHideComments(props: LensShowMoreCommentsProps) {
-    const { postId, fallback = null, className, excludePostIds = [] } = props;
+export function HideComments(props: ShowMoreCommentsProps) {
+    const { postId, fallback = null, className, excludePostIds = [], source } = props;
     const queryResult = useSuspenseInfiniteQuery({
-        queryKey: ['lens-hidden-comments', postId],
+        queryKey: ['hidden-comments', source, postId],
         async queryFn() {
-            return await LensSocialMediaProvider.getHiddenComments(postId);
+            const provider = resolveSocialMediaProvider(source);
+
+            return await provider.getHiddenComments(postId);
         },
         initialPageParam: '',
         getNextPageParam: (lastPage) => lastPage.nextIndicator?.id,
