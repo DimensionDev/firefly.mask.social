@@ -4,7 +4,7 @@ export const URL_REGEX =
 export const URL_INPUT_REGEX = new RegExp(`^${URL_REGEX.source.replace('(https?:\\/\\/)?', 'https://')}$`);
 
 export const EMAIL_REGEX =
-    /(([^\s"(),.:;<>@[\\\]\/]+(\.[^\s"(),.:;<>@[\\\]\/]+)*)|(".+"))@((\[(?:\d{1,3}\.){3}\d{1,3}])|(([\dA-Za-z-]+\.)+[A-Za-z]{2,}))$/;
+    /(([^\s"(),.:;<>@[\\\]/]+(\.[^\s"(),.:;<>@[\\\]/]+)*)|(".+"))@((\[(?:\d{1,3}\.){3}\d{1,3}])|(([\dA-Za-z-]+\.)+[A-Za-z]{2,}))$/;
 
 export const MENTION_REGEX = /@[^\s()@:%+~#?&=,!?']+/g;
 

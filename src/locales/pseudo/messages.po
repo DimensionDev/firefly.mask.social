@@ -1819,6 +1819,9 @@ msgstr ""
 msgid "No codes found to suspend trading."
 msgstr ""
 
+msgid "Please enable Momoka to support sending posts on Lens."
+msgstr ""
+
 msgid "First time connecting to Firefly?<0/><1>Approve a new connection</1> with Warpcast"
 msgstr ""
 
