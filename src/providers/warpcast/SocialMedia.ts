@@ -112,6 +112,10 @@ class WarpcastSocialMedia implements Provider {
         throw new NotImplementedError();
     }
 
+    getHiddenComments(postId: string, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
+        throw new NotImplementedError();
+    }
+
     get type() {
         return SessionType.Farcaster;
     }
