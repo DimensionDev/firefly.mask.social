@@ -38,7 +38,7 @@ function hasFireflySession() {
     return SORTED_SOCIAL_SOURCES.some((x) => !!getProfileState(x).currentProfile);
 }
 
-async function updateState(accounts: Account[], overwrite = false) {
+export async function updateAccountState(accounts: Account[], overwrite = false) {
     // remove all accounts if overwrite is true
     if (overwrite) {
         SORTED_SOCIAL_SOURCES.forEach((source) => {
@@ -178,7 +178,7 @@ export async function addAccount(account: Account, options?: AccountOptions) {
                 accounts,
             });
             if (confirmed) {
-                await updateState(accounts, !belongsTo);
+                await updateAccountState(accounts, !belongsTo);
             } else {
                 // sign out tw from server if needed
                 if (TwitterSession.isNextAuth(account.session)) {
@@ -273,8 +273,6 @@ export async function removeCurrentAccount(source: SocialSource) {
 }
 
 export async function removeAllAccounts() {
-    const sessions = getProfileSessionsAll();
-
     SORTED_SOCIAL_SOURCES.forEach(async (x) => {
         const state = getProfileState(x);
         if (!state.accounts.length) return;
