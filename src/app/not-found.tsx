@@ -29,11 +29,11 @@ export default function NotFound() {
                     <Trans>Back to home</Trans>
                 </Link>
             </BaseNotFound>
-            <aside className="top-0 z-[1] hidden h-full w-96 flex-shrink-0 px-4 md:sticky lg:block">
+            <aside className="sticky top-0 z-[1] hidden h-screen w-96 flex-col gap-4 px-4 md:min-w-[384px] lg:flex">
                 <IfPathname isNotOneOf={['/settings']}>
                     <AsideSearchBar />
                 </IfPathname>
-                <div className="no-scrollbar flex flex-1 flex-col gap-6 overflow-auto">
+                <div className="no-scrollbar flex flex-1 flex-col gap-4 overflow-auto">
                     <IfPathname isOneOf={['/search']}>
                         <SearchFilter />
                     </IfPathname>
