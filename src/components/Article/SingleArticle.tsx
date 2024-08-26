@@ -93,7 +93,7 @@ export const SingleArticle = memo<SingleArticleProps>(function SingleArticleProp
                 <CollapsedContent className="mt-2 pl-[52px]" authorMuted isQuote={false} />
             ) : (
                 <div className="-mt-2 pl-[52px]">
-                    <div className="flex items-center gap-1 text-medium">
+                    <div className="text-medium flex items-center gap-1">
                         <ArticleAnchorIcon width={18} height={18} />
                         <span className="flex items-center gap-1 text-secondary">
                             {article.type === ArticleType.Revise ? (
@@ -109,7 +109,7 @@ export const SingleArticle = memo<SingleArticleProps>(function SingleArticleProp
                             )}
                         </span>
                     </div>
-                    <div className="relative mt-[6px] flex flex-col gap-2 overflow-hidden rounded-2xl border border-secondaryLine bg-bg p-3">
+                    <div className="relative mt-[6px] flex flex-col gap-2 overflow-hidden rounded-2xl border border-line bg-bg p-3">
                         {cover.data ? (
                             <ImageAsset
                                 disableLoadHandler

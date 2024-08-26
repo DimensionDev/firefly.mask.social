@@ -121,7 +121,7 @@ function NFTItem({
     const collectionName = data?.collection?.name;
 
     return (
-        <div className="mt-auto flex w-full flex-col rounded-xl border border-secondaryLine bg-lightBg p-3 sm:h-[120px] sm:flex-row sm:space-x-2 sm:rounded-none sm:border-none sm:bg-transparent sm:p-0">
+        <div className="mt-auto flex w-full flex-col rounded-xl border border-line bg-lightBg p-3 sm:h-[120px] sm:flex-row sm:space-x-2 sm:rounded-none sm:border-none sm:bg-transparent sm:p-0">
             {isLoading ? (
                 <div className="mb-2 aspect-square h-full w-full animate-pulse rounded-xl bg-main/40 sm:mb-0 sm:w-auto" />
             ) : (
