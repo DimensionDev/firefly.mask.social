@@ -46,7 +46,13 @@ export async function getPostBlinkAction(url: string): Promise<Action | null> {
     const action = await BlinkLoader.fetchAction((await resolveTCOLink(url)) ?? url);
     if (!action) return null;
     setProxyUrl(urlcat(location.origin, '/api/blink/proxy'));
-    return Action.fetch(action.actionApiUrl!);
+    return new Proxy(await Action.fetch(action.actionApiUrl!), {
+        get(target, prop, receiver) {
+            // @ts-ignore _data is private, action using a proxy image, it is necessary to remove the proxy here https://github.com/dialectlabs/blinks/blob/f470e5815732f7efb6359c871598cc3ad059b26c/src/api/Action/Action.ts#L118
+            if (prop === 'icon') return target._data.icon;
+            return Reflect.get(target, prop, receiver);
+        },
+    });
 }
 
 export async function getPostOembed(url: string, post?: Pick<Post, 'quoteOn'>): Promise<LinkDigested | null> {
