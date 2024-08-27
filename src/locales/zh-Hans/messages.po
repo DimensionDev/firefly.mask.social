@@ -168,9 +168,6 @@ msgstr "可以暂停交易的功能"
 msgid "<0>The maximum number of coins coded to exist in the lifetime of the cryptocurrency. It is comparable to the maximum number of issuable shares in the stock market.</0><1>Max Supply = Theoretical maximum as coded</1>"
 msgstr "<0>加密货币生命周期存在的最大发行数量。它与股票市场中可发行股票的最大数量相当。</0><1>最大供应量 = 理论最大值</1>"
 
-msgid "Unknown error"
-msgstr "未知错误"
-
 msgid "More"
 msgstr "更多"
 
@@ -344,9 +341,6 @@ msgstr ""
 
 msgid "True Token"
 msgstr "真实的通证"
-
-msgid "Failed"
-msgstr "失败"
 
 msgid "Bookmarks"
 msgstr "收藏"
@@ -575,9 +569,6 @@ msgstr "转帖"
 
 msgid "Market Cap / FDV"
 msgstr "完全稀释估值"
-
-msgid "Your action provider blocks execution of this action."
-msgstr "操作被限制。"
 
 msgid "Confirmation"
 msgstr "确认"
@@ -852,9 +843,6 @@ msgstr "图片上传失败。"
 msgid "No mint function"
 msgstr "没有铸造功能"
 
-msgid "Transaction sent successfully"
-msgstr "交易发送成功"
-
 msgid "Please choose issue to report this wallet:"
 msgstr "请选择举报这个钱包的原因："
 
@@ -1085,9 +1073,6 @@ msgstr ""
 
 msgid "This can’t be undone, and the scheduled send will be canceled."
 msgstr "操作无法回滚，并且定时任务将会被取消。"
-
-msgid "If you believe this action has been blocked in error, please <0/><1>Ignore warning and proceed</1>."
-msgstr "如果您认为此操作警告是误报，请<0/><1>忽略警告并继续</1>。"
 
 msgid "This contract is an Admin Upgradeability Proxy. The proxy contract means the contract owner can modify the function of the token and could possibly effect the price.There is possibly a way for the team to Rug or Scam. Please confirm the details with the project team before buying."
 msgstr "此合约是一个管理升级代理合约。代理合约意味着合同所有者可以修改通证的功能，并且可能影响价格。这可能是团队跑路或者诈骗的一种方式。请在购买之前与项目团队确认细节。"
@@ -1458,9 +1443,6 @@ msgstr "浅色模式"
 msgid "Failed to submit report on {0}."
 msgstr "在 {0} 上提交报告失败。"
 
-msgid "Executing"
-msgstr "执行中"
-
 msgid "Community"
 msgstr "社区"
 
@@ -1662,9 +1644,6 @@ msgstr ""
 msgid "Posting..."
 msgstr "发帖中..."
 
-msgid "This Action has been flagged as an unsafe action, & has been blocked."
-msgstr "操作被认定为风险行为，已经被阻止。"
-
 msgid "Connect"
 msgstr "连接"
 
@@ -1854,9 +1833,6 @@ msgstr ""
 msgid "{type, select, comment {Comments} mirror {{0}} reaction {Likes} act {Collects} other {Other}}"
 msgstr "{type, select, comment {评论} mirror {{0}} reaction {点赞} act {收藏} other {其他}}"
 
-msgid "This Action has not yet been registered. Only use it if you trust the source."
-msgstr "这个操作还未被注册。请确认风险。"
-
 msgid "You may lose your assets if giving approval to the website of this token."
 msgstr "如果您授权此通证给这个网站，您可能会丢失您的资产。"
 
@@ -1922,9 +1898,6 @@ msgstr "NFT ID"
 
 msgid "Farcaster channel"
 msgstr "Farcaster 频道"
-
-msgid "Completed"
-msgstr "已完成"
 
 msgid "Failed to send tip. Please try again later."
 msgstr ""
