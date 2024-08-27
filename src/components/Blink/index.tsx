@@ -1,10 +1,10 @@
 'use client';
 
-import { Action, ActionContainer } from '@dialectlabs/blinks';
+import { Action } from '@dialectlabs/blinks';
 import { useQuery } from '@tanstack/react-query';
 import { memo, useEffect } from 'react';
 
-import { parseURL } from '@/helpers/parseURL.js';
+import { ActionContainer } from '@/components/Blink/ActionContainer.js';
 import { useActionAdapter } from '@/hooks/useActionAdapter.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 import { getPostBlinkAction } from '@/services/getPostLinks.js';
@@ -24,7 +24,7 @@ export const Blink = memo<Props>(function Blink({ post, onData, onFailed, childr
         error,
         isLoading,
     } = useQuery({
-        queryKey: ['action2', url],
+        queryKey: ['action', url],
         queryFn() {
             return getPostBlinkAction(url!);
         },
@@ -51,15 +51,5 @@ export const Blink = memo<Props>(function Blink({ post, onData, onFailed, childr
     if (isLoading) return null;
     if (error || !action) return children;
 
-    return (
-        <>
-            {action ? (
-                <ActionContainer
-                    action={action}
-                    websiteUrl={parseURL(url!)?.origin}
-                    websiteText={parseURL(url!)?.host}
-                />
-            ) : null}
-        </>
-    );
+    return <>{action ? <ActionContainer action={action} url={url!} /> : null}</>;
 });

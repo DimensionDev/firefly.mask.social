@@ -1,11 +1,10 @@
 'use client';
 
-import { ActionContainer } from '@dialectlabs/blinks';
 import { useQuery } from '@tanstack/react-query';
 import { last } from 'lodash-es';
 import { useEffect, useMemo } from 'react';
 
-import { ClickableArea } from '@/components/ClickableArea.js';
+import { ActionContainer } from '@/components/Blink/ActionContainer.js';
 import { FrameLayout } from '@/components/Frame/index.js';
 import { OembedLayout } from '@/components/Oembed/index.js';
 import { Player } from '@/components/Oembed/Player.js';
@@ -15,7 +14,6 @@ import type { Chars } from '@/helpers/chars.js';
 import { readChars } from '@/helpers/chars.js';
 import { createDummyPost } from '@/helpers/createDummyPost.js';
 import { isLinkMatchingHost } from '@/helpers/isLinkMatchingHost.js';
-import { parseURL } from '@/helpers/parseURL.js';
 import { removeAtEnd } from '@/helpers/removeAtEnd.js';
 import { resolveOembedUrl } from '@/helpers/resolveOembedUrl.js';
 import { useActionAdapter } from '@/hooks/useActionAdapter.js';
@@ -61,15 +59,7 @@ export function PostLinks({ post, setContent }: Props) {
                 <Player html={data.html} isSpotify={isLinkMatchingHost(url, 'open.spotify.com', false)} />
             ) : null}
             {data.frame ? <FrameLayout frame={data.frame} post={post} /> : null}
-            {data.action ? (
-                <ClickableArea>
-                    <ActionContainer
-                        action={data.action}
-                        websiteUrl={parseURL(url!)?.origin}
-                        websiteText={parseURL(url!)?.host}
-                    />
-                </ClickableArea>
-            ) : null}
+            {data.action ? <ActionContainer action={data.action} url={url!} /> : null}
             {data.oembed ? <OembedLayout data={data.oembed} post={post} /> : null}
         </>
     );
