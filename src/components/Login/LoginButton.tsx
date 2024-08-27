@@ -26,7 +26,11 @@ export function LoginButton(props: LoginButtonProps) {
                 </div>
             </div>
             {loading ? (
-                <LoadingIcon className="absolute inset-0 m-auto h-6 w-6 animate-spin" width={24} height={24} />
+                <LoadingIcon
+                    className="absolute inset-0 m-auto h-6 w-6 animate-spin text-primaryBottom"
+                    width={24}
+                    height={24}
+                />
             ) : null}
         </ClickableButton>
     );
