@@ -59,9 +59,7 @@ export interface ProfileStatePersisted {
 function createState(
     provider: {
         getUpdatedProfile?: (profile: Profile) => Promise<Profile | null>;
-        getAccessToken?: () => Promise<string>;
-        getRefreshToken?: () => Promise<string>;
-        getWalletAddress?: () => Promise<string | null>;
+        refreshCurrentAccountSession?: (profileId: string) => Promise<Session | null>;
     },
     options: PersistOptions<ProfileState, ProfileStatePersisted>,
 ) {
@@ -158,22 +156,7 @@ function createState(
                     const updatedProfile = await provider.getUpdatedProfile?.(profile);
                     if (!updatedProfile) return;
 
-                    const accessToken = await provider.getAccessToken?.();
-                    const refreshToken = await provider.getRefreshToken?.();
-                    const address = await provider.getWalletAddress?.();
-
-                    const now = Date.now();
-                    const session =
-                        accessToken && refreshToken && address
-                            ? new LensSession(
-                                  updatedProfile.profileId,
-                                  accessToken,
-                                  now,
-                                  now + THIRTY_DAYS,
-                                  refreshToken,
-                                  address ?? ZERO_ADDRESS,
-                              )
-                            : null;
+                    const session = await provider.refreshCurrentAccountSession?.(updatedProfile.profileId);
 
                     set((state) => {
                         state.currentProfile = updatedProfile;
@@ -239,15 +222,25 @@ const useFarcasterStateBase = createState(
 const useLensStateBase = createState(
     {
         getUpdatedProfile: (profile: Profile) => LensSocialMediaProvider.getProfileByHandle(profile.handle),
-        getAccessToken: async () => {
-            const result = await lensSessionHolder.sdk.authentication.getAccessToken();
-            return result.unwrap();
+        refreshCurrentAccountSession: async (profileId: string) => {
+            const accessToken = await lensSessionHolder.sdk.authentication.getAccessToken();
+            const refreshToken = await lensSessionHolder.sdk.authentication.getRefreshToken();
+            const walletAddress = await lensSessionHolder.sdk.authentication.getWalletAddress();
+
+            const now = Date.now();
+            const session =
+                accessToken && refreshToken && walletAddress
+                    ? new LensSession(
+                          profileId,
+                          accessToken.unwrap(),
+                          now,
+                          now + THIRTY_DAYS,
+                          refreshToken.unwrap(),
+                          walletAddress ?? ZERO_ADDRESS,
+                      )
+                    : null;
+            return session;
         },
-        getRefreshToken: async () => {
-            const result = await lensSessionHolder.sdk.authentication.getRefreshToken();
-            return result.unwrap();
-        },
-        getWalletAddress: () => lensSessionHolder.sdk.authentication.getWalletAddress(),
     },
     {
         name: 'lens-state',

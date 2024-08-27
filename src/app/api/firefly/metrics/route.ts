@@ -8,6 +8,7 @@ import { z } from 'zod';
 
 import { CryptoUsage } from '@/constants/enum.js';
 import { NotAllowedError, UnreachableError } from '@/constants/error.js';
+import { THIRTY_DAYS } from '@/constants/index.js';
 import { createErrorResponseJSON } from '@/helpers/createErrorResponseJSON.js';
 import { createSuccessResponseJSON } from '@/helpers/createSuccessResponseJSON.js';
 import { getPublicKeyInHex } from '@/helpers/ed25519.js';
