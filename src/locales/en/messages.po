@@ -1333,6 +1333,9 @@ msgstr "GIFs"
 msgid "%Of supply owned"
 msgstr "%Of supply owned"
 
+msgid "Signing failed."
+msgstr "Signing failed."
+
 msgid "Share"
 msgstr "Share"
 
