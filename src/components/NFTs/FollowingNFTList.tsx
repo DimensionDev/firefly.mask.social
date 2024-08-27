@@ -5,16 +5,21 @@ import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
 import { ListInPage } from '@/components/ListInPage.js';
 import { getSingleFollowingNFTItemContent } from '@/components/NFTs/VirtualListHelper.js';
 import { ScrollListKey, Source } from '@/constants/enum.js';
-import { EMPTY_LIST } from '@/constants/index.js';
+import { EMPTY_LIST, SORTED_SOCIAL_SOURCES } from '@/constants/index.js';
 import { createIndicator, createPageable } from '@/helpers/pageable.js';
+import { useCurrentProfileAll } from '@/hooks/useCurrentProfile.js';
 import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
 import type { FollowingNFT } from '@/providers/types/NFTs.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
 
 export function FollowingNFTList({ walletAddress }: { walletAddress?: string }) {
     const currentSource = walletAddress ? Source.NFTs : useGlobalState.use.currentSource();
+    const currentProfileAll = useCurrentProfileAll();
+    const profileKey = SORTED_SOCIAL_SOURCES.map((x) => currentProfileAll[x]?.profileId);
 
-    const queryKey = walletAddress ? ['nfts-of', walletAddress] : ['nfts', 'following', currentSource];
+    const queryKey = walletAddress
+        ? ['nfts-of', walletAddress, profileKey]
+        : ['nfts', 'following', currentSource, profileKey];
     const nftQueryResult = useSuspenseInfiniteQuery({
         queryKey,
         networkMode: 'always',

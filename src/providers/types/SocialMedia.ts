@@ -832,4 +832,9 @@ export interface Provider {
      * Update profile
      */
     updateProfile: (profile: ProfileEditable) => Promise<boolean>;
+
+    /**
+     * Get hidden comments
+     */
+    getHiddenComments: (postId: string, indicator?: PageIndicator) => Promise<Pageable<Post, PageIndicator>>;
 }

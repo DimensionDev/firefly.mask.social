@@ -81,6 +81,10 @@ class TwitterSocialMedia implements Provider {
         throw new NotImplementedError();
     }
 
+    getHiddenComments(postId: string, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
+        throw new NotImplementedError();
+    }
+
     async getProfilesByIds(ids: string[]): Promise<Profile[]> {
         const response = await twitterSessionHolder.fetch<ResponseJSON<UserV2[]>>('/api/twitter/users', {
             method: 'POST',

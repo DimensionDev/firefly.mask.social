@@ -11,6 +11,7 @@ import { getSnackbarMessageFromError } from '@/helpers/getSnackbarMessageFromErr
 import { narrowToSocialSource } from '@/helpers/narrowToSocialSource.js';
 import { createIndicator } from '@/helpers/pageable.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
+import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
@@ -23,8 +24,9 @@ export function BookmarkList({ source }: Props) {
     const currentSource = useGlobalState.use.currentSource();
     const currentSocialSource = narrowToSocialSource(currentSource);
     const isLogin = useIsLogin(currentSocialSource);
+    const profile = useCurrentProfile(currentSocialSource);
     const query = useSuspenseInfiniteQuery({
-        queryKey: ['posts', source, 'bookmark'],
+        queryKey: ['posts', source, 'bookmark', profile?.profileId],
         queryFn: async ({ pageParam }) => {
             if (!isLogin) return;
             if (source === Source.Farcaster && !fireflySessionHolder.session) {

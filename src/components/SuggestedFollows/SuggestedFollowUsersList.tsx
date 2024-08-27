@@ -7,7 +7,7 @@ import { ProfileInList } from '@/components/ProfileInList.js';
 import { ScrollListKey, type SocialSource } from '@/constants/enum.js';
 import { createIndicator, type Pageable, type PageIndicator } from '@/helpers/pageable.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
-import { getSuggestedFollows } from '@/services/getSuggestedFollows.js';
+import { getSuggestedFollowsInPage } from '@/services/getSuggestedFollows.js';
 
 interface Props {
     source: SocialSource;
@@ -21,7 +21,7 @@ export default function SuggestedFollowUsersList({ source }: Props) {
     const queryResult = useSuspenseInfiniteQuery({
         queryKey: ['suggested-follows', source],
         queryFn({ pageParam }) {
-            return getSuggestedFollows(source, createIndicator(undefined, pageParam));
+            return getSuggestedFollowsInPage(source, createIndicator(undefined, pageParam));
         },
         initialPageParam: '',
         getNextPageParam: (lastPage) => (lastPage as Pageable<Profile, PageIndicator>)?.nextIndicator?.id,

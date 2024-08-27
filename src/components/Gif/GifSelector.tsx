@@ -1,5 +1,6 @@
 import { SearchBar, SearchContextManager } from '@giphy/react-components';
 import { t, Trans } from '@lingui/macro';
+import { formatFileSize } from '@masknet/kit';
 import { useCallback, useMemo, useState } from 'react';
 import { useSize } from 'react-use';
 
@@ -60,7 +61,7 @@ export function GifSelector({ onSelected }: GifSelectorProps) {
         (gif: IGif) => {
             const gifSize = gif.images.original.size;
             if (gifSize && parseFloat(gifSize) > FILE_MAX_SIZE) {
-                enqueueErrorMessage(t`The file exceeds the size limit.`);
+                enqueueErrorMessage(t`The file exceeds the size limit (${formatFileSize(FILE_MAX_SIZE, false)}).`);
                 return;
             }
             updateImages((images) => {

@@ -19,13 +19,10 @@ import { isSocialSource } from '@/helpers/isSocialSource.js';
 import { resolveSourceInURL } from '@/helpers/resolveSourceInURL.js';
 import { runInSafe } from '@/helpers/runInSafe.js';
 import { useCurrentProfileAll } from '@/hooks/useCurrentProfile.js';
+import { useIsLarge } from '@/hooks/useMediaQuery.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
-import { getSuggestedFollows } from '@/services/getSuggestedFollows.js';
+import { getSuggestedFollowsInCard } from '@/services/getSuggestedFollows.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
-
-function filterProfiles(profiles: Profile[]) {
-    return profiles.filter((item) => !item.viewerContext?.blocking && !item.viewerContext?.following);
-}
 
 function sortProfiles(farcasterProfiles: Profile[], lensProfiles: Profile[]) {
     const results: Profile[] = [];
@@ -46,6 +43,7 @@ function sortProfiles(farcasterProfiles: Profile[], lensProfiles: Profile[]) {
 }
 
 export function SuggestedFollowsCard() {
+    const isLarge = useIsLarge('min');
     const currentSource = useGlobalState.use.currentSource();
     const profileAll = useCurrentProfileAll();
     const { data: suggestedFollows, isLoading } = useQuery({
@@ -53,10 +51,10 @@ export function SuggestedFollowsCard() {
         staleTime: 1000 * 60 * 2,
         queryFn: async () => {
             const [farcasterData, lensData] = await Promise.all([
-                runInSafe(() => getSuggestedFollows(Source.Farcaster)),
-                runInSafe(() => getSuggestedFollows(Source.Lens)),
+                runInSafe(() => getSuggestedFollowsInCard(Source.Farcaster)),
+                runInSafe(() => getSuggestedFollowsInCard(Source.Lens)),
             ]);
-            return sortProfiles(filterProfiles(farcasterData?.data ?? []), filterProfiles(lensData?.data ?? []));
+            return sortProfiles(farcasterData ?? [], lensData ?? []);
         },
     });
 
@@ -91,7 +89,7 @@ export function SuggestedFollowsCard() {
         );
     }
 
-    if (!suggestedFollows?.length) return null;
+    if (!suggestedFollows?.length || !isLarge) return null;
 
     return (
         <div className="-mb-3">
@@ -119,6 +117,8 @@ export function SuggestedFollowsCard() {
                     }}
                     pagination
                     loop
+                    updateOnWindowResize={false}
+                    resizeObserver={false}
                     wrapperClass="!box-border"
                     autoplay={{ delay: 5000 }}
                     modules={[Autoplay, EffectCoverflow]}

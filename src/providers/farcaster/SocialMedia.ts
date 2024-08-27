@@ -378,6 +378,10 @@ class FarcasterSocialMedia implements Provider {
     async findLocation(query: string) {
         return WarpcastSocialMediaProvider.findLocation(query);
     }
+
+    async getHiddenComments(postId: string, indicator?: PageIndicator) {
+        return FireflySocialMediaProvider.getHiddenComments(postId, indicator);
+    }
 }
 
 export const FarcasterSocialMediaProvider = new FarcasterSocialMedia();

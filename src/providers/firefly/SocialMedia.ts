@@ -143,6 +143,11 @@ async function unblock(field: BlockFields, profileId: string): Promise<boolean> 
 @SetQueryDataForMuteAllProfiles()
 @SetQueryDataForMuteAllWallets()
 export class FireflySocialMedia implements Provider {
+    getChannelsByIds?: ((ids: string[]) => Promise<Channel[]>) | undefined;
+    getBlockedWallets?: ((indicator?: PageIndicator) => Promise<Pageable<Profile, PageIndicator>>) | undefined;
+    reportChannel?: ((channelId: string) => Promise<boolean>) | undefined;
+    getForYouPosts?: ((indicator?: PageIndicator) => Promise<Pageable<Post, PageIndicator>>) | undefined;
+    getRecentPosts?: ((indicator?: PageIndicator) => Promise<Pageable<Post, PageIndicator>>) | undefined;
     getChannelById(channelId: string): Promise<Channel> {
         return this.getChannelByHandle(channelId);
     }
@@ -530,6 +535,29 @@ export class FireflySocialMedia implements Provider {
                 size: 25,
                 fid: session?.profileId,
                 cursor: indicator?.id && !isZero(indicator.id) ? indicator.id : undefined,
+                priority: 'high',
+            });
+            const response = await fireflySessionHolder.fetch<CommentsResponse>(url, {
+                method: 'GET',
+            });
+            const { comments, cursor } = resolveFireflyResponseData(response);
+
+            return createPageable(
+                comments.map((item) => formatFarcasterPostFromFirefly(item)),
+                createIndicator(indicator),
+                cursor ? createNextIndicator(indicator, cursor) : undefined,
+            );
+        });
+    }
+
+    async getHiddenComments(postId: string, indicator?: PageIndicator) {
+        return farcasterSessionHolder.withSession(async (session) => {
+            const url = urlcat(settings.FIREFLY_ROOT_URL, '/v2/farcaster-hub/cast/comments', {
+                hash: postId,
+                size: 25,
+                fid: session?.profileId,
+                cursor: indicator?.id && !isZero(indicator.id) ? indicator.id : undefined,
+                priority: 'low',
             });
             const response = await fireflySessionHolder.fetch<CommentsResponse>(url, {
                 method: 'GET',

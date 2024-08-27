@@ -50,7 +50,7 @@ export function ProfileDetailPage({ identity }: Props) {
         <>
             <ProfileSourceTabs profiles={profiles} />
             <LoginRequiredGuard source={identity.source}>
-                <ProfilePage profiles={profiles} />;
+                <ProfilePage profiles={profiles} />
             </LoginRequiredGuard>
         </>
     );

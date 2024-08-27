@@ -114,8 +114,9 @@ export const PostBody = forwardRef<HTMLDivElement, PostBodyProps>(function PostB
     if (post.isEncrypted) {
         return (
             <div
-                className={classNames('my-2', {
-                    'pl-[52px]': !noLeftPadding,
+                className={classNames({
+                    '-mt-3 pl-[52px]': !noLeftPadding,
+                    'my-2': !isQuote,
                 })}
                 ref={ref}
             >
