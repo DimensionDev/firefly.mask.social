@@ -51,7 +51,7 @@ export function MainView() {
                     }
                 }
             } catch (error) {
-                // ignore errors
+                // if an errors occurs, we will just proceed with the login
             }
         }
 
