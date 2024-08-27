@@ -16,6 +16,7 @@ import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
 import { createSchedulePostsPayload } from '@/services/crossSchedulePost.js';
 import { uploadSessions } from '@/services/metrics.js';
 import { useComposeStateStore } from '@/store/useComposeStore.js';
+import { useLensStateStore } from '@/store/useProfileStore.js';
 
 export async function crossPostScheduleThread(scheduleTime: Date) {
     try {
@@ -46,6 +47,7 @@ export async function crossPostScheduleThread(scheduleTime: Date) {
         const post = first(posts);
         const content = getScheduleTaskContent(post);
 
+        await useLensStateStore.getState().refreshCurrentAccount();
         await uploadSessions('merge', fireflySessionHolder.sessionRequired, getProfileSessionsAll());
 
         const result = await FireflySocialMediaProvider.schedulePost(

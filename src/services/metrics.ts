@@ -108,7 +108,7 @@ async function uploadSessionsByMerge(session: FireflySession, sessions: Session[
             // TODO: merge the same sessions
             if (group.length === 2) {
                 const [a, b] = group;
-                return a;
+                return b;
             }
             throw new Error('Not available group length.');
         })
