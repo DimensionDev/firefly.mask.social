@@ -36,7 +36,9 @@ export function Media({ close }: MediaProps) {
             if (files && files.length > 0) {
                 const shouldUploadFiles = [...files].filter((file) => {
                     if (file.size > FILE_MAX_SIZE) {
-                        enqueueErrorMessage(t`The file "${file.name}" (${formatFileSize(file.size)}) exceeds the size limit (${formatFileSize(FILE_MAX_SIZE)}).`);
+                        enqueueErrorMessage(
+                            t`The file "${file.name}" (${formatFileSize(file.size, false)}) exceeds the size limit (${formatFileSize(FILE_MAX_SIZE, false)}).`,
+                        );
                         return false;
                     }
                     return isValidFileType(file.type);
@@ -62,7 +64,7 @@ export function Media({ close }: MediaProps) {
                 const file = files[0];
                 if (file.size > maxVideoSize) {
                     enqueueErrorMessage(
-                        t`The video "${file.name}" (${formatFileSize(file.size)}) exceeds the size limit (${formatFileSize(maxVideoSize)}).`,
+                        t`The video "${file.name}" (${formatFileSize(file.size, false)}) exceeds the size limit (${formatFileSize(maxVideoSize, false)}).`,
                     );
                     return false;
                 }

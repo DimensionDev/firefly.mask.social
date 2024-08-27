@@ -61,7 +61,7 @@ export function GifSelector({ onSelected }: GifSelectorProps) {
         (gif: IGif) => {
             const gifSize = gif.images.original.size;
             if (gifSize && parseFloat(gifSize) > FILE_MAX_SIZE) {
-                enqueueErrorMessage(t`The file exceeds the size limit (${formatFileSize(FILE_MAX_SIZE)}).`);
+                enqueueErrorMessage(t`The file exceeds the size limit (${formatFileSize(FILE_MAX_SIZE, false)}).`);
                 return;
             }
             updateImages((images) => {
