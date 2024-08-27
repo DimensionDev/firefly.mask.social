@@ -9,6 +9,7 @@ import { Section } from '@/app/(settings)/components/Section.js';
 import { CircleCheckboxIcon } from '@/components/CircleCheckboxIcon.js';
 import { ClickableArea } from '@/components/ClickableArea.js';
 import { WalletProviderType } from '@/constants/enum.js';
+import { classNames } from '@/helpers/classNames.js';
 import { useDeveloperSettingsState } from '@/store/useDeveloperSettingsStore.js';
 
 type Item =
@@ -71,7 +72,10 @@ export default function General() {
                 return <CircleCheckboxIcon checked={item.value} />;
             case 'select':
                 return (
-                    <select className="rounded-md border-line bg-bg px-2 py-1.5" onChange={item.onChange}>
+                    <select
+                        className="cursor-pointer rounded-md border-line bg-bg px-2 py-1.5"
+                        onChange={item.onChange}
+                    >
                         {item.items.map((x, i) => (
                             <option key={i} value={x.value}>
                                 {x.label}
@@ -97,7 +101,12 @@ export default function General() {
                         return (
                             <ClickableArea
                                 as="li"
-                                className="mb-6 flex cursor-pointer items-center justify-between border-b border-line pb-1 text-[18px] leading-[24px] text-main"
+                                className={classNames(
+                                    'mb-6 flex items-center justify-between border-b border-line pb-1 text-[18px] leading-[24px] text-main',
+                                    {
+                                        'cursor-pointer': x.type === 'checkbox',
+                                    },
+                                )}
                                 key={i}
                                 onClick={x.type === 'checkbox' ? x.onClick : undefined}
                             >
