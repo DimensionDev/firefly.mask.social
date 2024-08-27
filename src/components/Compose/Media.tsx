@@ -1,5 +1,6 @@
 import { Popover, Transition } from '@headlessui/react';
 import { t, Trans } from '@lingui/macro';
+import { formatFileSize } from '@masknet/kit';
 import { type ChangeEvent, Fragment, useRef } from 'react';
 import { useAsyncFn } from 'react-use';
 
@@ -35,7 +36,9 @@ export function Media({ close }: MediaProps) {
             if (files && files.length > 0) {
                 const shouldUploadFiles = [...files].filter((file) => {
                     if (file.size > FILE_MAX_SIZE) {
-                        enqueueErrorMessage(t`The file "${file.name}" exceeds the size limit.`);
+                        enqueueErrorMessage(
+                            t`The file "${file.name}" (${formatFileSize(file.size, false)}) exceeds the size limit (${formatFileSize(FILE_MAX_SIZE, false)}).`,
+                        );
                         return false;
                     }
                     return isValidFileType(file.type);
@@ -60,7 +63,9 @@ export function Media({ close }: MediaProps) {
             if (files && files.length > 0) {
                 const file = files[0];
                 if (file.size > maxVideoSize) {
-                    enqueueErrorMessage(t`The video "${file.name}" exceeds the size limit.`);
+                    enqueueErrorMessage(
+                        t`The video "${file.name}" (${formatFileSize(file.size, false)}) exceeds the size limit (${formatFileSize(maxVideoSize, false)}).`,
+                    );
                     return false;
                 }
                 updateVideo(createLocalMediaObject(file));
