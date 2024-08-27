@@ -166,6 +166,13 @@ export async function downloadAccounts(session: FireflySession, signal?: AbortSi
     // check if the request is aborted
     if (signal?.aborted) throw new AbortError();
 
+    // failed to get profile due to invalid session
+    allSettled.forEach((x, i) => {
+        if (x.status === 'rejected') {
+            console.warn(`[downloadAccounts] Failed to get profile for session ${sessions[i].serialize()}.`);
+        }
+    });
+
     return compact<Account>(
         allSettled.map((x, i) =>
             x.status === 'fulfilled' && x.value
