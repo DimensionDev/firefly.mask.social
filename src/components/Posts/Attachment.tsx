@@ -112,7 +112,7 @@ export const Attachments = memo<AttachmentsProps>(function Attachments({
         !post?.metadata.content?.content && attachmentsSnapshot.length === 1 && attachmentsSnapshot[0].type === 'Image';
 
     return (
-        <div className={classNames('flex flex-col gap-3', isQuote ? '' : 'mt-3')}>
+        <div className={classNames('flex flex-col gap-3', isQuote ? 'w-[120px]' : 'mt-3')}>
             {attachmentsSnapshot.length === 1 && asset ? (
                 <WithPreviewLink
                     post={post}
@@ -233,7 +233,7 @@ export const Attachments = memo<AttachmentsProps>(function Attachments({
                 <div className={classNames('my-2')}>
                     <div
                         className={classNames(
-                            'flex items-center justify-between gap-1 rounded-lg border-primaryMain px-3 py-[6px] text-medium',
+                            'text-medium flex items-center justify-between gap-1 rounded-lg border-primaryMain px-3 py-[6px]',
                             {
                                 border: !isQuote,
                             },
