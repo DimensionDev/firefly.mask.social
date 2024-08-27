@@ -13,17 +13,9 @@ export const GET = compose(withRequestErrorHandler(), async (request) => {
     );
 
     const response = await fetch(url);
-    if (!response.ok) {
-        throw new Error('Failed to fetch image');
-    }
-    const buffer = await response.arrayBuffer();
-    const contentType = response.headers.get('Content-Type');
-    return new Response(
-        buffer,
-        contentType
-            ? {
-                  headers: { 'Content-Type': contentType },
-              }
-            : undefined,
-    );
+    const headers = new Headers(response.headers);
+    const cacheControl = response.headers.get('cache-control');
+    headers.set('Content-Type', response.headers.get('content-type') || 'application/octet-stream');
+    if (cacheControl) headers.set('Cache-Control', cacheControl);
+    return new Response(response.body, { headers });
 });
