@@ -1338,6 +1338,9 @@ msgstr ""
 msgid "%Of supply owned"
 msgstr "% 总的拥有人"
 
+msgid "Signing failed."
+msgstr ""
+
 msgid "Share"
 msgstr "分享"
 
