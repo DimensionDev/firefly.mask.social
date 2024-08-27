@@ -233,7 +233,7 @@ export const Attachments = memo<AttachmentsProps>(function Attachments({
                 <div className={classNames('my-2')}>
                     <div
                         className={classNames(
-                            'text-medium flex items-center justify-between gap-1 rounded-lg border-primaryMain px-3 py-[6px]',
+                            'flex items-center justify-between gap-1 rounded-lg border-primaryMain px-3 py-[6px] text-medium',
                             {
                                 border: !isQuote,
                             },
