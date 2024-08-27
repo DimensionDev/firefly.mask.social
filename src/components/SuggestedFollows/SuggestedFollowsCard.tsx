@@ -19,6 +19,7 @@ import { isSocialSource } from '@/helpers/isSocialSource.js';
 import { resolveSourceInURL } from '@/helpers/resolveSourceInURL.js';
 import { runInSafe } from '@/helpers/runInSafe.js';
 import { useCurrentProfileAll } from '@/hooks/useCurrentProfile.js';
+import { useIsLarge } from '@/hooks/useMediaQuery.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 import { getSuggestedFollowsInCard } from '@/services/getSuggestedFollows.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
@@ -42,6 +43,7 @@ function sortProfiles(farcasterProfiles: Profile[], lensProfiles: Profile[]) {
 }
 
 export function SuggestedFollowsCard() {
+    const isLarge = useIsLarge('min');
     const currentSource = useGlobalState.use.currentSource();
     const profileAll = useCurrentProfileAll();
     const { data: suggestedFollows, isLoading } = useQuery({
@@ -87,7 +89,7 @@ export function SuggestedFollowsCard() {
         );
     }
 
-    if (!suggestedFollows?.length) return null;
+    if (!suggestedFollows?.length || !isLarge) return null;
 
     return (
         <div className="-mb-3">
@@ -115,6 +117,8 @@ export function SuggestedFollowsCard() {
                     }}
                     pagination
                     loop
+                    updateOnWindowResize={false}
+                    resizeObserver={false}
                     wrapperClass="!box-border"
                     autoplay={{ delay: 5000 }}
                     modules={[Autoplay, EffectCoverflow]}
