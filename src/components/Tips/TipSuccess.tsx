@@ -29,12 +29,14 @@ export function TipSuccess() {
     }, [recipient, handle, socialProfiles]);
 
     const onShare = () => {
-        const expectedSources = getCurrentAvailableSources().filter((source) => {
-            return socialProfiles.some((profile) => resolveSocialSource(profile.platform) === source);
-        });
+        const expectedSources = getCurrentAvailableSources().filter((source) =>
+            post
+                ? post.source === source
+                : socialProfiles.some((profile) => resolveSocialSource(profile.platform) === source),
+        );
         if (!expectedSources.length) {
             LoginModalRef.open({
-                source: resolveSocialSource(socialProfiles[0].platform),
+                source: post ? post.source : resolveSocialSource(socialProfiles[0].platform),
             });
             return;
         }
@@ -53,7 +55,7 @@ export function TipSuccess() {
                     profiles: socialProfiles,
                 },
                 ' ! Try it now on ',
-                ' https://firefly.mask.social',
+                ' https://firefly.social/.',
             ],
         });
     };

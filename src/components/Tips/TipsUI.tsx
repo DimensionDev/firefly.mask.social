@@ -1,5 +1,5 @@
 import { t, Trans } from '@lingui/macro';
-import { memo, useMemo } from 'react';
+import { memo, useMemo, useState } from 'react';
 import { useAsyncFn } from 'react-use';
 
 import LoadingIcon from '@/assets/loading.svg';
@@ -14,6 +14,7 @@ import { resolveNetworkProvider, resolveTransferProvider } from '@/helpers/resol
 import { TipsContext } from '@/hooks/useTipsContext.js';
 
 export const TipsUI = memo(function TipsUI() {
+    const [focus, setFocus] = useState(false);
     const { token, recipient, amount, handle, isSending, pureWallet, update } = TipsContext.useContainer();
 
     const { RE_MATCH_WHOLE_AMOUNT, RE_MATCH_FRACTION_AMOUNT } = useMemo(
@@ -64,12 +65,14 @@ export const TipsUI = memo(function TipsUI() {
                     <div className="flex h-10 flex-1 items-center rounded-2xl bg-lightBg pr-3">
                         <input
                             className="h-full w-full border-none bg-transparent text-center outline-none focus:outline-none focus:ring-0 disabled:cursor-not-allowed disabled:opacity-50"
-                            placeholder={t`Enter amount`}
+                            placeholder={focus ? '' : t`Enter amount`}
                             value={amount}
                             autoComplete="off"
                             autoCorrect="off"
                             spellCheck="false"
                             onChange={handleAmountChange}
+                            onFocus={() => setFocus(true)}
+                            onBlur={() => setFocus(false)}
                             disabled={isSending}
                             inputMode="decimal"
                             pattern={NUMERIC_INPUT_REGEXP_PATTERN}
