@@ -198,9 +198,6 @@ msgstr "加入我們的 Discord 社群"
 msgid "Found arweaveTxId is empty."
 msgstr ""
 
-msgid "Blocked"
-msgstr "已封鎖"
-
 msgid "<0>You</0> and {0} others recasted"
 msgstr ""
 
