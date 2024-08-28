@@ -18,22 +18,20 @@ interface Props {
 
 export const Blink = memo<Props>(function Blink({ post, onData, onFailed, children }) {
     const url = post.metadata.content?.oembedUrl;
-    const actionAdapter = useActionAdapter();
     const {
         data: action,
         error,
         isLoading,
     } = useQuery({
         queryKey: ['action', url],
-        queryFn() {
-            return getPostBlinkAction(url!);
-        },
+        queryFn: () => getPostBlinkAction(url!),
         retry: false,
         refetchOnMount: false,
         refetchOnWindowFocus: false,
         enabled: !!url,
     });
 
+    const actionAdapter = useActionAdapter();
     useEffect(() => {
         if (action) {
             action.setAdapter(actionAdapter);
