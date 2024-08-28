@@ -12,13 +12,16 @@ import { Tooltip } from '@/components/Tooltip.js';
 import { useCopyText } from '@/hooks/useCopyText.js';
 import { ComposeModalRef } from '@/modals/controls.js';
 import type { Article } from '@/providers/types/Article.js';
+import { getArticleUrl } from '@/helpers/getArticleUrl.js';
+import urlcat from 'urlcat';
 
 interface ArticleShareProps {
     article: Article;
 }
 
 export const ArticleShare = memo(function ArticleShare({ article }: ArticleShareProps) {
-    const [, handleCopy] = useCopyText(article.origin ?? '');
+    const url = urlcat(location.origin, getArticleUrl(article));
+    const [, handleCopy] = useCopyText(url ?? '');
     return (
         <MoreActionMenu
             button={
@@ -44,7 +47,7 @@ export const ArticleShare = memo(function ArticleShare({ article }: ArticleShare
                         <MenuButton
                             onClick={() => {
                                 ComposeModalRef.open({
-                                    chars: article.origin,
+                                    chars: url,
                                 });
                                 close();
                             }}
