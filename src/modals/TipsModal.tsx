@@ -28,9 +28,9 @@ export interface TipsModalOpenProps {
 
 export type TipsModalCloseProps = {} | void;
 
-function formatTipsProfiles(profiles: FireflyProfile[], source: Source) {
+function formatTipsProfiles(profiles: FireflyProfile[]) {
     const socialProfiles = profiles
-        .filter(({ identity }) => identity.source !== Source.Wallet && identity.source === source)
+        .filter(({ identity }) => identity.source !== Source.Wallet)
         .map(
             (p) =>
                 ({
@@ -67,7 +67,7 @@ const TipsModalUI = forwardRef<SingletonModalRefCreator<TipsModalOpenProps, Tips
         const [open, dispatch] = useSingletonModal(ref, {
             onOpen: async ({ identity, handle, profiles, post, pureWallet = false }) => {
                 try {
-                    const { walletProfiles, socialProfiles } = formatTipsProfiles(profiles, identity.source);
+                    const { walletProfiles, socialProfiles } = formatTipsProfiles(profiles);
 
                     walletProfiles.sort((a) => {
                         const { primary_ens } = a.__origin__ as WalletProfile;
