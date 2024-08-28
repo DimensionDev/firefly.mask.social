@@ -34,11 +34,13 @@ async function login(createAccount: () => Promise<Account>, options?: Omit<Accou
     try {
         const account = await createAccount();
 
-        // report signer to Firefly
-        await runInSafe(() => reportFarcasterSigner(account.session as FarcasterSession));
-
         const done = await addAccount(account, options);
-        if (done) enqueueSuccessMessage(t`Your ${resolveSourceName(Source.Farcaster)} account is now connected.`);
+        if (done) {
+            enqueueSuccessMessage(t`Your ${resolveSourceName(Source.Farcaster)} account is now connected.`);
+
+            // report signer to Firefly (no-blocking) after the account is added
+            runInSafe(() => reportFarcasterSigner(account.session as FarcasterSession));
+        }
         LoginModalRef.close();
     } catch (error) {
         // skip if the error is abort error
