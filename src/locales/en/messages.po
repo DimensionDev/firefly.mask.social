@@ -1003,6 +1003,9 @@ msgstr "Circulating Supply"
 msgid "Post has been deleted"
 msgstr "Post has been deleted"
 
+msgid "This article is no longer available"
+msgstr "This article is no longer available"
+
 msgid "Report article"
 msgstr "Report article"
 
