@@ -30,7 +30,6 @@ function createAction(url: string, res: NonNullable<FireflyBlinkParserBlinkRespo
         disabled: action.disabled ?? false,
         actions: [],
         state,
-        actionApiUrl,
     };
     if (action.links?.actions) {
         const u = parseURL(actionApiUrl);
