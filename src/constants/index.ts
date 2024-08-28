@@ -4,6 +4,7 @@ import type { TweetV2UserTimelineParams, UsersV2Params } from 'twitter-api-v2';
 
 import {
     EngagementType,
+    FileMimeType,
     NetworkType,
     NODE_ENV,
     ProfileTabType,
@@ -169,32 +170,39 @@ export const MIN_POST_SIZE_PER_THREAD = 3;
 export const LENS_HUB_PROXY_ADDRESS = '0xDb46d1Dc155634FbC732f92E853b10B288AD5a1d';
 export const POAP_CONTRACT_ADDRESS = '0x22C1f6050E56d2876009903609a2cC3fEf83B415';
 
-export const ALLOWED_IMAGES_MIMES = ['image/png', 'image/jpeg', 'image/gif', 'image/webp', 'image/bmp'];
+export const ALLOWED_IMAGES_MIMES = [
+    FileMimeType.Png,
+    FileMimeType.Jpeg,
+    FileMimeType.Gif,
+    FileMimeType.Webp,
+    FileMimeType.Bmp,
+] as const;
 
 export const ALLOWED_MEDIA_MIMES = [
     ...ALLOWED_IMAGES_MIMES,
-    'video/mp4',
-    'video/mpeg',
-    'video/x-msvideo',
-    'video/ogg',
-    'video/webm',
-    'video/3gpp',
-    'video/3gpp2',
+    FileMimeType.Mp4,
+    FileMimeType.Mpeg,
+    FileMimeType.MsVideo,
+    FileMimeType.Ogg,
+    FileMimeType.Webm,
+    FileMimeType.Gpp,
+    FileMimeType.Gpp2,
 ] as const;
 
-export const SUFFIX_NAMES: Record<(typeof ALLOWED_MEDIA_MIMES)[number], string> = {
-    'image/png': 'png',
-    'image/jpeg': 'jpg',
-    'image/gif': 'gif',
-    'image/bmp': 'bmp',
-    'image/webp': 'webp',
-    'video/mp4': 'mp4',
-    'video/mpeg': 'mpeg',
-    'video/x-msvideo': 'avi',
-    'video/ogg': 'ogv',
-    'video/3gpp': '3gp',
-    'video/3gpp2': '3g2',
-    'video/webm': 'webm',
+export const SUFFIX_NAMES: Record<FileMimeType, string> = {
+    [FileMimeType.Png]: 'png',
+    [FileMimeType.Jpeg]: 'jpg',
+    [FileMimeType.Gif]: 'gif',
+    [FileMimeType.Bmp]: 'bmp',
+    [FileMimeType.Webp]: 'webp',
+    [FileMimeType.Mp4]: 'mp4',
+    [FileMimeType.Mpeg]: 'mpeg',
+    [FileMimeType.MsVideo]: 'avi',
+    [FileMimeType.Ogg]: 'ogv',
+    [FileMimeType.Gpp]: '3gp',
+    [FileMimeType.Gpp2]: '3g2',
+    [FileMimeType.Webm]: 'webm',
+    [FileMimeType.Mov]: 'mov',
 };
 
 export const TWITTER_TIMELINE_OPTIONS: TweetV2UserTimelineParams = {

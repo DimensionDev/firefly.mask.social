@@ -32,7 +32,9 @@ export const POST = compose<(request: NextRequest) => Promise<Response>>(
                 ...queryParams,
                 command: 'APPEND',
             }),
-            formData,
+            {
+                media: file,
+            },
         );
 
         return createSuccessResponseJSON({ media_id: queryParams.media_id, index: queryParams.segment_index });
