@@ -1,16 +1,14 @@
-import { NobleEd25519Signer } from '@farcaster/core';
 import { safeUnreachable } from '@masknet/kit';
 import { ZERO_ADDRESS } from '@masknet/web3-shared-evm';
 import { StatusCodes } from 'http-status-codes';
 import { compact, groupBy } from 'lodash-es';
-import { toBytes } from 'viem';
 import { z } from 'zod';
 
 import { CryptoUsage } from '@/constants/enum.js';
 import { NotAllowedError, UnreachableError } from '@/constants/error.js';
 import { createErrorResponseJSON } from '@/helpers/createErrorResponseJSON.js';
 import { createSuccessResponseJSON } from '@/helpers/createSuccessResponseJSON.js';
-import { getPublicKeyInHex } from '@/helpers/ed25519.js';
+import { getPublicKeyInHexFromSession } from '@/helpers/ed25519.js';
 import { parseJSON } from '@/helpers/parseJSON.js';
 import { resolveSocialSourceFromSessionType } from '@/helpers/resolveSource.js';
 import { resolveSocialSourceInURL } from '@/helpers/resolveSourceInURL.js';
@@ -154,8 +152,7 @@ async function convertSessionToMetadata(session: Session): Promise<Metrics[0]['l
             };
         case SessionType.Farcaster:
             const farcasterSession = session as FarcasterSession;
-            const signer = new NobleEd25519Signer(toBytes(farcasterSession.token));
-            const publicKey = await getPublicKeyInHex(signer);
+            const publicKey = await getPublicKeyInHexFromSession(farcasterSession);
             if (!publicKey) {
                 console.error('[metrics] farcaster found session w/ invalid signer token.');
                 return null;
