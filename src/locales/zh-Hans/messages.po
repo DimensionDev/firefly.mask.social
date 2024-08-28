@@ -8,7 +8,7 @@ msgstr ""
 "Language: zh\n"
 "Project-Id-Version: masksocial\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-08-13 12:01\n"
+"PO-Revision-Date: 2024-08-28 16:03\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
@@ -1654,7 +1654,7 @@ msgid "View transaction on explorer"
 msgstr "查看交易详情"
 
 msgid "<0>You</0> reposted"
-msgstr ""
+msgstr "<0>你</0> 已转帖"
 
 msgid "The contract may contain additional issuance functions, which could maybe generate a large number of tokens, resulting in significant fluctuations in token prices. It is recommended to confirm with the project team whether it complies with the token issuance instructions."
 msgstr "合约可能含有额外的发行功能，这可能会产生大量的通证，导致通证价格的重大波动。建议向项目组确认它是否遵守通证发行准则。"
@@ -2195,3 +2195,4 @@ msgstr ""
 
 msgid "Blink Validator"
 msgstr "Blink 验证器"
+
