@@ -20,16 +20,24 @@ import { enqueueErrorMessage, enqueueSuccessMessage } from '@/helpers/enqueueMes
 import { getMobileDevice } from '@/helpers/getMobileDevice.js';
 import { getSnackbarMessageFromError } from '@/helpers/getSnackbarMessageFromError.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
+import { runInSafe } from '@/helpers/runInSafe.js';
 import { useAbortController } from '@/hooks/useAbortController.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import { LoginModalRef } from '@/modals/controls.js';
+import type { FarcasterSession } from '@/providers/farcaster/Session.js';
 import type { Account } from '@/providers/types/Account.js';
 import { createAccountByGrantPermission } from '@/providers/warpcast/createAccountByGrantPermission.js';
 import { createAccountByRelayService } from '@/providers/warpcast/createAccountByRelayService.js';
+import { reportFarcasterSigner } from '@/services/reportFarcasterSigner.js';
 
 async function login(createAccount: () => Promise<Account>, options?: Omit<AccountOptions, 'source'>) {
     try {
-        const done = await addAccount(await createAccount(), options);
+        const account = await createAccount();
+
+        // report signer to Firefly
+        await runInSafe(() => reportFarcasterSigner(account.session as FarcasterSession));
+
+        const done = await addAccount(account, options);
         if (done) enqueueSuccessMessage(t`Your ${resolveSourceName(Source.Farcaster)} account is now connected.`);
         LoginModalRef.close();
     } catch (error) {
