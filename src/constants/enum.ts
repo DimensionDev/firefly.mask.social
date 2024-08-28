@@ -238,3 +238,10 @@ export enum AdvertisementType {
 export enum AdFunctionType {
     OpenScan = 'openScan',
 }
+
+export enum UploadMediaStatus {
+    Pending = 'pending',
+    Uploading = 'in_progress',
+    Success = 'succeeded',
+    Failed = 'failed',
+}
