@@ -7,7 +7,10 @@ import { ListInPage } from '@/components/ListInPage.js';
 import { ShowMoreComments } from '@/components/ShowMoreComments.js';
 import { getPostItemContent } from '@/components/VirtualList/getPostItemContent.js';
 import { ScrollListKey, type SocialSource } from '@/constants/enum.js';
+import { EMPTY_LIST } from '@/constants/index.js';
+import { createIndicator, createPageable } from '@/helpers/pageable.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
+import type { Post } from '@/providers/types/SocialMedia.js';
 
 interface ShowMoreCommentsProps {
     postId: string;
@@ -21,10 +24,11 @@ export function HideComments(props: ShowMoreCommentsProps) {
     const { postId, fallback = null, className, excludePostIds = [], source } = props;
     const queryResult = useSuspenseInfiniteQuery({
         queryKey: ['hidden-comments', source, postId],
-        async queryFn() {
+        async queryFn({ pageParam }) {
+            if (!postId) return createPageable<Post>(EMPTY_LIST, createIndicator());
             const provider = resolveSocialMediaProvider(source);
 
-            return await provider.getHiddenComments(postId);
+            return await provider.getHiddenComments(postId, createIndicator(undefined, pageParam));
         },
         initialPageParam: '',
         getNextPageParam: (lastPage) => lastPage.nextIndicator?.id,
