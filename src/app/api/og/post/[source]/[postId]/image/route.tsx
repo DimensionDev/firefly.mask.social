@@ -1,3 +1,5 @@
+/* eslint-disable @next/next/no-img-element */
+
 import dayjs from 'dayjs';
 import { ImageResponse } from 'next/og.js';
 import type { NextRequest } from 'next/server.js';
@@ -101,8 +103,12 @@ export const GET = compose<(request: NextRequest, context: NextRequestContext) =
                                 }}
                             >
                                 {post.author.displayName}
-                                <img src={FireflyAvatarSVG} style={{ width: '28px', height: '28px' }} />
-                                <img src={resolveSourceIcon(post.source)} style={{ width: '28px', height: '28px' }} />
+                                <img src={FireflyAvatarSVG} style={{ width: '28px', height: '28px' }} alt="firefly" />
+                                <img
+                                    src={resolveSourceIcon(post.source)}
+                                    style={{ width: '28px', height: '28px' }}
+                                    alt="source"
+                                />
                             </div>
                             <div style={{ fontSize: '28px', fontWeight: 400, color: '#767676' }}>
                                 {`@${post.author.handle} · ${dayjs(post.timestamp).format('hh:mm A · MMM D YYYY')}`}
