@@ -1,4 +1,5 @@
 import { safeUnreachable } from '@masknet/kit';
+import { isBefore } from 'date-fns';
 import { compact, groupBy } from 'lodash-es';
 import urlcat from 'urlcat';
 
@@ -108,7 +109,8 @@ async function uploadSessionsByMerge(session: FireflySession, sessions: Session[
             // TODO: merge the same sessions
             if (group.length === 2) {
                 const [a, b] = group;
-                return a;
+                if (isBefore(b.createdAt, a.createdAt)) return a;
+                return b;
             }
             throw new Error('Not available group length.');
         })

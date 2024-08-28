@@ -238,3 +238,5 @@ export const TWITTER_USER_OPTIONS: Partial<UsersV2Params> = {
 };
 
 export const SOLANA_WALLET_CACHE_KEY = 'walletName';
+
+export const THIRTY_DAYS = 1000 * 60 * 60 * 24 * 30;
