@@ -1008,6 +1008,9 @@ msgstr ""
 msgid "Post has been deleted"
 msgstr ""
 
+msgid "This article is no longer available"
+msgstr ""
+
 msgid "Report article"
 msgstr ""
 

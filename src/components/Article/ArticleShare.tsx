@@ -2,6 +2,7 @@ import { Menu } from '@headlessui/react';
 import { t, Trans } from '@lingui/macro';
 import { motion } from 'framer-motion';
 import { memo } from 'react';
+import urlcat from 'urlcat';
 
 import LinkIcon from '@/assets/link.svg';
 import SendIcon from '@/assets/send.svg';
@@ -9,6 +10,7 @@ import ShareIcon from '@/assets/share.svg';
 import { MenuButton } from '@/components/Actions/MenuButton.js';
 import { MoreActionMenu } from '@/components/MoreActionMenu.js';
 import { Tooltip } from '@/components/Tooltip.js';
+import { getArticleUrl } from '@/helpers/getArticleUrl.js';
 import { useCopyText } from '@/hooks/useCopyText.js';
 import { ComposeModalRef } from '@/modals/controls.js';
 import type { Article } from '@/providers/types/Article.js';
@@ -18,14 +20,15 @@ interface ArticleShareProps {
 }
 
 export const ArticleShare = memo(function ArticleShare({ article }: ArticleShareProps) {
-    const [, handleCopy] = useCopyText(article.origin ?? '');
+    const url = urlcat(location.origin, getArticleUrl(article));
+    const [, handleCopy] = useCopyText(url ?? '');
     return (
         <MoreActionMenu
             button={
                 <Tooltip content={t`Share`} placement="top">
                     <motion.button
                         whileTap={{ scale: 0.9 }}
-                        className="inline-flex h-7 w-7 items-center justify-center rounded-full hover:bg-link/[0.2] hover:text-link"
+                        className="inline-flex h-7 w-7 items-center justify-center rounded-full text-lightSecond hover:bg-link/[0.2] hover:text-link"
                     >
                         <ShareIcon width={17} height={16} />
                     </motion.button>
@@ -44,7 +47,7 @@ export const ArticleShare = memo(function ArticleShare({ article }: ArticleShare
                         <MenuButton
                             onClick={() => {
                                 ComposeModalRef.open({
-                                    chars: article.origin,
+                                    chars: url,
                                 });
                                 close();
                             }}
