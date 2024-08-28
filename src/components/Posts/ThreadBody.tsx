@@ -48,17 +48,21 @@ export const ThreadBody = memo<ThreadBodyProps>(function ThreadBody({
     const isDetailPage = isRoutePathname(pathname, '/post/:detail', true);
     const showAction = !post.isHidden && !muted;
 
+    const isSamePost = isDetailPage && link.includes(pathname);
+
     return (
         <motion.article
             initial={!disableAnimate ? { opacity: 0 } : false}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="cursor-pointer bg-bottom"
+            className={classNames('bg-bottom', {
+                'cursor-pointer': !isSamePost,
+            })}
             onClick={() => {
                 if (post.source === Source.Twitter) return;
                 const selection = window.getSelection();
                 if (selection && selection.toString().length !== 0) return;
-                if (link.includes(pathname)) return;
+                if (isSamePost) return;
                 router.push(link);
             }}
         >
