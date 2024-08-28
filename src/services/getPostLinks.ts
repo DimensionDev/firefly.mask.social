@@ -9,7 +9,6 @@ import { isValidDomain } from '@/helpers/isValidDomain.js';
 import { parseURL } from '@/helpers/parseURL.js';
 import { isValidPollFrameUrl } from '@/helpers/resolveEmbedMediaType.js';
 import { resolveTCOLink } from '@/helpers/resolveTCOLink.js';
-import { BlinkLoader } from '@/providers/blink/Loader.js';
 import { getPostIFrame } from '@/providers/og/readers/iframe.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 import type { Frame, LinkDigestedResponse } from '@/types/frame.js';
@@ -43,13 +42,14 @@ export async function getPostFrame(url: string): Promise<Frame | null> {
 export async function getPostBlinkAction(url: string): Promise<Action | null> {
     if (env.external.NEXT_PUBLIC_BLINK !== STATUS.Enabled) return null;
     if (!url || !isValidPostLink(url)) return null;
-    const action = await BlinkLoader.fetchAction((await resolveTCOLink(url)) ?? url);
-    if (!action) return null;
+    const actionUrl = (await resolveTCOLink(url)) ?? url;
     setProxyUrl(urlcat(location.origin, '/api/blink/proxy'));
-    return new Proxy(await Action.fetch(action.actionApiUrl!), {
+    return new Proxy(await Action.fetch(actionUrl), {
         get(target, prop, receiver) {
             // @ts-ignore _data is private, action using a proxy image, it is necessary to remove the proxy here https://github.com/dialectlabs/blinks/blob/f470e5815732f7efb6359c871598cc3ad059b26c/src/api/Action/Action.ts#L118
             if (prop === 'icon') return target._data.icon;
+            // @ts-ignore _data is private, fix the URL after proxy
+            if (prop === 'url' && target._data.url) return target._data.url;
             return Reflect.get(target, prop, receiver);
         },
     });
