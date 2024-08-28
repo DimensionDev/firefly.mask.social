@@ -99,6 +99,16 @@ export function ArticleCollect(props: ArticleCollectProps) {
         return t`Collect for ${data.price} ${chain?.nativeCurrency.symbol}`;
     }, [data, chain, isSoldOut, hasSufficientBalance]);
 
+    if (!queryDetailLoading && !data) {
+        return (
+            <div className="flex h-[198px] w-full items-center justify-center">
+                <div className="text-[14px] leading-[24px] text-secondary">
+                    <Trans>This article is no longer available</Trans>
+                </div>
+            </div>
+        );
+    }
+
     return queryDetailLoading ? (
         <div className="flex h-[198px] w-full items-center justify-center">
             <LoadingIcon className="animate-spin text-main" width={24} height={24} />

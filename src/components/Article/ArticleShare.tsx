@@ -25,7 +25,7 @@ export const ArticleShare = memo(function ArticleShare({ article }: ArticleShare
                 <Tooltip content={t`Share`} placement="top">
                     <motion.button
                         whileTap={{ scale: 0.9 }}
-                        className="inline-flex h-7 w-7 items-center justify-center rounded-full hover:bg-link/[0.2] hover:text-link"
+                        className="inline-flex h-7 w-7 items-center justify-center rounded-full text-lightSecond hover:bg-link/[0.2] hover:text-link"
                     >
                         <ShareIcon width={17} height={16} />
                     </motion.button>
