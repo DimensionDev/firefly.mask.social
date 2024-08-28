@@ -8,6 +8,9 @@ import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
 import { settings } from '@/settings/index.js';
 
 export async function reportFarcasterSigner(session: FarcasterSession) {
+    // ensure session is available
+    await fireflySessionHolder.assertSession('[reportFarcasterSigner] session required');
+
     const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/farcaster_account/upSignerConfig');
 
     await fireflySessionHolder.fetch(url, {
