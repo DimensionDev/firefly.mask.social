@@ -12,14 +12,16 @@ export interface ImageProps extends NextImageProps {
 }
 
 export const Image = forwardRef<HTMLImageElement, ImageProps>(function Image(
-    { onError, fallback, fallbackClassName, ...props },
+    { onError, onLoad, fallback, fallbackClassName, ...props },
     ref,
 ) {
     const [imageLoadFailed, setImageLoadFailed] = useState(false);
     const { isDarkMode } = useDarkMode();
+    const [loading, setLoading] = useState(true);
 
     const handleError = useCallback(
         (e: SyntheticEvent<HTMLImageElement>) => {
+            setLoading(false);
             if (imageLoadFailed) {
                 return;
             }
@@ -29,6 +31,14 @@ export const Image = forwardRef<HTMLImageElement, ImageProps>(function Image(
             }
         },
         [imageLoadFailed, setImageLoadFailed, onError],
+    );
+
+    const handleLoad = useCallback(
+        (e: SyntheticEvent<HTMLImageElement>) => {
+            setLoading(false);
+            onLoad?.(e);
+        },
+        [onLoad],
     );
 
     useEffect(() => {
@@ -47,12 +57,17 @@ export const Image = forwardRef<HTMLImageElement, ImageProps>(function Image(
             unoptimized
             loading="lazy"
             priority={false}
+            onLoad={handleLoad}
             src={
                 isFailed
                     ? fallback || (isDarkMode ? '/image/fallback-dark.png' : '/image/fallback-light.png')
                     : props.src
             }
-            className={classNames(props.className, isFailed ? fallbackClassName : undefined)}
+            className={classNames(
+                props.className,
+                isFailed ? fallbackClassName : undefined,
+                loading ? 'animate-pulse bg-bg' : '',
+            )}
             onError={handleError}
             alt={props.alt || ''}
             ref={ref}

@@ -1,6 +1,6 @@
 'use client';
 
-import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
+import { useInfiniteQuery } from '@tanstack/react-query';
 import React, { type PropsWithChildren, useState } from 'react';
 
 import { ListInPage } from '@/components/ListInPage.js';
@@ -19,7 +19,7 @@ interface ShowMoreCommentsProps {
 
 export function HideComments(props: ShowMoreCommentsProps) {
     const { postId, fallback = null, className, excludePostIds = [], source } = props;
-    const queryResult = useSuspenseInfiniteQuery({
+    const queryResult = useInfiniteQuery({
         queryKey: ['hidden-comments', source, postId],
         async queryFn() {
             const provider = resolveSocialMediaProvider(source);
