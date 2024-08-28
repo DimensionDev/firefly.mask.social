@@ -245,3 +245,20 @@ export enum UploadMediaStatus {
     Success = 'succeeded',
     Failed = 'failed',
 }
+
+export enum FileMimeType {
+    JPEG = 'image/jpeg',
+    MP4 = 'video/mp4',
+    MOV = 'video/quicktime',
+    GIF = 'image/gif',
+    PNG = 'image/png',
+    WEBP = 'image/webp',
+    BMP = 'image/bmp',
+    MPEG = 'video/mpeg',
+    // cspell: disable-next-line
+    MS_VIDEO = 'video/x-msvideo',
+    OGG = 'video/ogg',
+    WEBM = 'video/webm',
+    GPP = 'video/3gpp',
+    GPP2 = 'video/3gpp2',
+}

@@ -1,11 +1,36 @@
-import { delay } from '@masknet/kit';
+import { delay, safeUnreachable } from '@masknet/kit';
 import urlcat from 'urlcat';
 
-import { UploadMediaStatus } from '@/constants/enum.js';
+import { FileMimeType, UploadMediaStatus } from '@/constants/enum.js';
 import { TimeoutError, UnreachableError } from '@/constants/error.js';
 import { MAX_SIZE_PER_CHUNK } from '@/constants/index.js';
 import { twitterSessionHolder } from '@/providers/twitter/SessionHolder.js';
 import type { GetUploadStatusResponse, UploadMediaResponse } from '@/types/twitter.js';
+
+function getMediaCategoryByMime(type: FileMimeType, target: 'tweet' | 'dm') {
+    switch (type) {
+        case FileMimeType.MP4:
+        case FileMimeType.MOV:
+            return target === 'tweet' ? 'TweetVideo' : 'DmVideo';
+        case FileMimeType.GIF:
+            return target === 'tweet' ? 'TweetGif' : 'DmGif';
+        case FileMimeType.JPEG:
+        case FileMimeType.PNG:
+        case FileMimeType.WEBP:
+            return target === 'tweet' ? 'TweetImage' : 'DmImage';
+        case FileMimeType.BMP:
+        case FileMimeType.GPP:
+        case FileMimeType.MPEG:
+        case FileMimeType.MS_VIDEO:
+        case FileMimeType.OGG:
+        case FileMimeType.WEBM:
+        case FileMimeType.GPP2:
+            return;
+        default:
+            safeUnreachable(type);
+            return;
+    }
+}
 
 async function waitForUpload(media_id: string, retry = 10) {
     const { data } = await twitterSessionHolder.fetch<{ data: GetUploadStatusResponse }>(
@@ -40,7 +65,7 @@ export async function uploadToTwitterWithChunks(file: File, chunkSize = MAX_SIZE
         urlcat('/api/twitter/uploadMedia/chunk/init', {
             total_bytes: file.size,
             media_type: file.type,
-            media_category: file.type === 'video/mp4' ? 'tweet_video' : undefined,
+            media_category: getMediaCategoryByMime(file.type as FileMimeType, 'tweet'),
         }),
         { method: 'POST' },
     );
