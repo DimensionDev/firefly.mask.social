@@ -185,8 +185,14 @@ export default {
         config.module.rules.push(
             {
                 test: /\.svg$/i,
+                type: 'asset',
+                resourceQuery: /url/, // *.svg?url
+            },
+            {
+                test: /\.svg$/i,
                 exclude: /src\/maskbook/,
                 loader: '@svgr/webpack',
+                resourceQuery: { not: [/url/] }, // exclude react component if *.svg?url
                 options: {
                     ref: true,
                     svgoConfig: {
