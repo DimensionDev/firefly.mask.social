@@ -247,17 +247,18 @@ export enum UploadMediaStatus {
 }
 
 export enum FileMimeType {
-    Jpeg = 'image/jpeg',
-    Mp4 = 'video/mp4',
-    Mov = 'video/quicktime',
-    Gif = 'image/gif',
-    Png = 'image/png',
-    Webp = 'image/webp',
-    Bmp = 'image/bmp',
-    Mpeg = 'video/mpeg',
-    MsVideo = 'video/x-msvideo',
-    Ogg = 'video/ogg',
-    Webm = 'video/webm',
-    Gpp = 'video/3gpp',
-    Gpp2 = 'video/3gpp2',
+    JPEG = 'image/jpeg',
+    MP4 = 'video/mp4',
+    MOV = 'video/quicktime',
+    GIF = 'image/gif',
+    PNG = 'image/png',
+    WEBP = 'image/webp',
+    BMP = 'image/bmp',
+    MPEG = 'video/mpeg',
+    // cspell: disable-next-line
+    MS_VIDEO = 'video/x-msvideo',
+    OGG = 'video/ogg',
+    WEBM = 'video/webm',
+    GPP = 'video/3gpp',
+    GPP2 = 'video/3gpp2',
 }

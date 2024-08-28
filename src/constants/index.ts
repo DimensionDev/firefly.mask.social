@@ -171,38 +171,38 @@ export const LENS_HUB_PROXY_ADDRESS = '0xDb46d1Dc155634FbC732f92E853b10B288AD5a1
 export const POAP_CONTRACT_ADDRESS = '0x22C1f6050E56d2876009903609a2cC3fEf83B415';
 
 export const ALLOWED_IMAGES_MIMES = [
-    FileMimeType.Png,
-    FileMimeType.Jpeg,
-    FileMimeType.Gif,
-    FileMimeType.Webp,
-    FileMimeType.Bmp,
+    FileMimeType.PNG,
+    FileMimeType.JPEG,
+    FileMimeType.GIF,
+    FileMimeType.WEBP,
+    FileMimeType.BMP,
 ] as const;
 
 export const ALLOWED_MEDIA_MIMES = [
     ...ALLOWED_IMAGES_MIMES,
-    FileMimeType.Mp4,
-    FileMimeType.Mpeg,
-    FileMimeType.MsVideo,
-    FileMimeType.Ogg,
-    FileMimeType.Webm,
-    FileMimeType.Gpp,
-    FileMimeType.Gpp2,
+    FileMimeType.MP4,
+    FileMimeType.MPEG,
+    FileMimeType.MS_VIDEO,
+    FileMimeType.OGG,
+    FileMimeType.WEBM,
+    FileMimeType.GPP,
+    FileMimeType.GPP2,
 ] as const;
 
 export const SUFFIX_NAMES: Record<FileMimeType, string> = {
-    [FileMimeType.Png]: 'png',
-    [FileMimeType.Jpeg]: 'jpg',
-    [FileMimeType.Gif]: 'gif',
-    [FileMimeType.Bmp]: 'bmp',
-    [FileMimeType.Webp]: 'webp',
-    [FileMimeType.Mp4]: 'mp4',
-    [FileMimeType.Mpeg]: 'mpeg',
-    [FileMimeType.MsVideo]: 'avi',
-    [FileMimeType.Ogg]: 'ogv',
-    [FileMimeType.Gpp]: '3gp',
-    [FileMimeType.Gpp2]: '3g2',
-    [FileMimeType.Webm]: 'webm',
-    [FileMimeType.Mov]: 'mov',
+    [FileMimeType.PNG]: 'png',
+    [FileMimeType.JPEG]: 'jpg',
+    [FileMimeType.GIF]: 'gif',
+    [FileMimeType.BMP]: 'bmp',
+    [FileMimeType.WEBP]: 'webp',
+    [FileMimeType.MP4]: 'mp4',
+    [FileMimeType.MPEG]: 'mpeg',
+    [FileMimeType.MS_VIDEO]: 'avi',
+    [FileMimeType.OGG]: 'ogv',
+    [FileMimeType.GPP]: '3gp',
+    [FileMimeType.GPP2]: '3g2',
+    [FileMimeType.WEBM]: 'webm',
+    [FileMimeType.MOV]: 'mov',
 };
 
 export const TWITTER_TIMELINE_OPTIONS: TweetV2UserTimelineParams = {

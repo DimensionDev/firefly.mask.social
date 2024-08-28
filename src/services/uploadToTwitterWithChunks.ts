@@ -9,22 +9,22 @@ import type { GetUploadStatusResponse, UploadMediaResponse } from '@/types/twitt
 
 function getMediaCategoryByMime(type: FileMimeType, target: 'tweet' | 'dm') {
     switch (type) {
-        case FileMimeType.Mp4:
-        case FileMimeType.Mov:
+        case FileMimeType.MP4:
+        case FileMimeType.MOV:
             return target === 'tweet' ? 'TweetVideo' : 'DmVideo';
-        case FileMimeType.Gif:
+        case FileMimeType.GIF:
             return target === 'tweet' ? 'TweetGif' : 'DmGif';
-        case FileMimeType.Jpeg:
-        case FileMimeType.Png:
-        case FileMimeType.Webp:
+        case FileMimeType.JPEG:
+        case FileMimeType.PNG:
+        case FileMimeType.WEBP:
             return target === 'tweet' ? 'TweetImage' : 'DmImage';
-        case FileMimeType.Bmp:
-        case FileMimeType.Gpp:
-        case FileMimeType.Mpeg:
-        case FileMimeType.MsVideo:
-        case FileMimeType.Ogg:
-        case FileMimeType.Webm:
-        case FileMimeType.Gpp2:
+        case FileMimeType.BMP:
+        case FileMimeType.GPP:
+        case FileMimeType.MPEG:
+        case FileMimeType.MS_VIDEO:
+        case FileMimeType.OGG:
+        case FileMimeType.WEBM:
+        case FileMimeType.GPP2:
             return;
         default:
             safeUnreachable(type);
