@@ -28,6 +28,7 @@ export const GET = compose<(request: NextRequest) => Promise<Response>>(withRequ
         },
     );
     if (!response.data?.action) return createErrorResponseJSON('Action not found');
+
     const actionApiUrl = response.data.actionApiUrl;
     return createResponseJSON(
         produce(response.data.action, (action) => {

@@ -14,10 +14,13 @@ export const GET = compose(withRequestErrorHandler(), async (request) => {
     );
 
     const response = await fetch(url);
-    if (!response.ok) return createErrorResponseJSON('Unable to access the image');
+    if (!response.ok) return createErrorResponseJSON('Unable to access the image', response);
+
     const headers = new Headers(response.headers);
-    const cacheControl = response.headers.get('cache-control');
     headers.set('Content-Type', response.headers.get('content-type') || 'application/octet-stream');
+
+    const cacheControl = response.headers.get('cache-control');
     if (cacheControl) headers.set('Cache-Control', cacheControl);
+
     return new Response(response.body, { headers });
 });

@@ -13,7 +13,6 @@ import { chains } from '@/configs/wagmiClient.js';
 import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
 import { getSnackbarMessageFromError } from '@/helpers/getSnackbarMessageFromError.js';
 import { parseJSON } from '@/helpers/parseJSON.js';
-import { resolveEvmCAIP2 } from '@/helpers/resolveEvmCAIP2.js';
 import { switchEthereumChain } from '@/helpers/switchEthereumChain.js';
 import { waitForEthereumTransaction } from '@/helpers/waitForEthereumTransaction.js';
 import { ConnectModalRef } from '@/modals/controls.js';
@@ -84,7 +83,8 @@ export function useActionAdapter() {
                     BlockchainIds.SOLANA_MAINNET,
                     BlockchainIds.SOLANA_TESTNET,
                     BlockchainIds.SOLANA_DEVNET,
-                    ...chains.map((x) => resolveEvmCAIP2(x.id as ChainId)),
+                    // EVM CAIP2
+                    ...chains.map((x) => `eip155:${x.id}`),
                 ],
             },
             connect: async () => {
