@@ -793,6 +793,7 @@ export type LinkInfoResponse = Response<LinkInfo>;
 export type SessionStatus =
     | {
           status: 'confirm';
+          accountId: string;
           accessToken: string;
       }
     | {
