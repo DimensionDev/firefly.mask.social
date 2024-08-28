@@ -10,6 +10,8 @@ import { type Hex, isHex, parseTransaction } from 'viem';
 import { useAccount, useSendTransaction } from 'wagmi';
 
 import { chains } from '@/configs/wagmiClient.js';
+import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
+import { getSnackbarMessageFromError } from '@/helpers/getSnackbarMessageFromError.js';
 import { parseJSON } from '@/helpers/parseJSON.js';
 import { resolveEvmCAIP2 } from '@/helpers/resolveEvmCAIP2.js';
 import { switchEthereumChain } from '@/helpers/switchEthereumChain.js';
@@ -20,7 +22,7 @@ import { EthereumNetwork } from '@/providers/ethereum/Network.js';
 class ActionConfig extends RawActionConfig {
     override async confirmTransaction(signature: string) {
         const signatureJSON = parseJSON(signature) as { txHash: string; chainId: ChainId } | null;
-        if (signatureJSON && isHex(signatureJSON.txHash)) {
+        if (signatureJSON && signatureJSON.chainId && isHex(signatureJSON.txHash)) {
             await waitForEthereumTransaction(signatureJSON.chainId, signatureJSON.txHash);
             return;
         }
@@ -50,7 +52,8 @@ export function useActionAdapter() {
                 return {
                     signature: JSON.stringify({ txHash, chainId }),
                 };
-            } catch {
+            } catch (error) {
+                enqueueErrorMessage(getSnackbarMessageFromError(error, t`Signing failed.`));
                 return { error: t`Signing failed.` };
             }
         },
@@ -65,7 +68,8 @@ export function useActionAdapter() {
                     connection,
                 );
                 return { signature: tx };
-            } catch {
+            } catch (error) {
+                enqueueErrorMessage(getSnackbarMessageFromError(error, t`Signing failed.`));
                 return { error: t`Signing failed.` };
             }
         },

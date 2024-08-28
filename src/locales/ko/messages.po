@@ -1443,6 +1443,9 @@ msgstr ""
 msgid "Failed to submit report on {0}."
 msgstr ""
 
+msgid "Insufficient funds"
+msgstr ""
+
 msgid "Community"
 msgstr ""
 

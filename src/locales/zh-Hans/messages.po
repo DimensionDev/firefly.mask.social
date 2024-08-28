@@ -1443,6 +1443,9 @@ msgstr "浅色模式"
 msgid "Failed to submit report on {0}."
 msgstr "在 {0} 上提交报告失败。"
 
+msgid "Insufficient funds"
+msgstr ""
+
 msgid "Community"
 msgstr "社区"
 
