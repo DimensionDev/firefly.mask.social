@@ -2,7 +2,7 @@
 
 import urlcat from 'urlcat';
 
-import type { FarcasterSession } from "@/providers/farcaster/Session.js";
+import type { FarcasterSession } from '@/providers/farcaster/Session.js';
 import { settings } from '@/settings/index.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
 
@@ -14,7 +14,6 @@ export async function reportFarcasterSigner(session: FarcasterSession) {
             fid: session.profileId,
             signerPublickey: '',
             signerPrivatekey: session.token,
-        })
-    })
+        }),
+    });
 }
-
