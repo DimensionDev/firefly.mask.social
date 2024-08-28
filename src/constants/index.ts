@@ -128,13 +128,15 @@ export const MAX_IMAGE_SIZE_PER_POST: Record<SocialSource, number> = {
 };
 
 export const MAX_FILE_SIZE_PER_IMAGE: Record<SocialSource, number> = {
-    [Source.Twitter]: 5 * 1024 * 1024, // 5MB
+    // TODO: https://vercel.com/docs/functions/runtimes#request-body-size
+    [Source.Twitter]: 4 * 1024 * 1024, // expected: 5MB
     [Source.Lens]: 100 * 1024 * 1024, // 100MB
     [Source.Farcaster]: 100 * 1024 * 1024, // 100MB
 };
 
 export const MAX_FILE_SIZE_PER_GIF: Record<SocialSource, number> = {
-    [Source.Twitter]: 15 * 1024 * 1024, // 15MB
+    // TODO: https://vercel.com/docs/functions/runtimes#request-body-size
+    [Source.Twitter]: 4 * 1024 * 1024, // expected: 15MB
     [Source.Lens]: 15 * 1024 * 1024, // 15MB
     [Source.Farcaster]: 15 * 1024 * 1024, // 15MB
 };

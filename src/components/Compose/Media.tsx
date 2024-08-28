@@ -55,7 +55,7 @@ export function Media({ close }: MediaProps) {
             }
             close();
         },
-        [maxImageCount, close, updateImages],
+        [maxImageCount, maxImageSize, close, updateImages],
     );
 
     const [, handleVideoChange] = useAsyncFn(
@@ -75,7 +75,7 @@ export function Media({ close }: MediaProps) {
             close();
             return;
         },
-        [close, updateVideo],
+        [maxVideoSize, close, updateVideo],
     );
 
     const disabledVideo =
