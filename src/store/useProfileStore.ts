@@ -223,10 +223,11 @@ const useLensStateBase = createState(
     {
         getUpdatedProfile: (profile: Profile) => LensSocialMediaProvider.getProfileByHandle(profile.handle),
         refreshCurrentAccountSession: async (profileId: string) => {
-            const accessToken = await lensSessionHolder.sdk.authentication.getAccessToken();
-            const refreshToken = await lensSessionHolder.sdk.authentication.getRefreshToken();
-            const walletAddress = await lensSessionHolder.sdk.authentication.getWalletAddress();
-
+            const [accessToken, refreshToken, walletAddress] = await Promise.all([
+                lensSessionHolder.sdk.authentication.getAccessToken(),
+                lensSessionHolder.sdk.authentication.getRefreshToken(),
+                lensSessionHolder.sdk.authentication.getWalletAddress(),
+            ]);
             const now = Date.now();
             const session =
                 accessToken && refreshToken && walletAddress
