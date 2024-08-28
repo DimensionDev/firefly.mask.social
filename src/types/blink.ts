@@ -36,7 +36,6 @@ export interface Action {
     error?: ActionError;
     websiteUrl: string;
     state: ActionType;
-    actionApiUrl: string;
 }
 
 export interface ActionComponent {
