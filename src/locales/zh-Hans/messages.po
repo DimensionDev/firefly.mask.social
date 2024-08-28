@@ -198,9 +198,6 @@ msgstr "加入我们的 Discord"
 msgid "Found arweaveTxId is empty."
 msgstr "ArweaveTxId 为空。"
 
-msgid "Blocked"
-msgstr "被屏蔽"
-
 msgid "<0>You</0> and {0} others recasted"
 msgstr "<0> 你 </0> 和 {0} 人都转发了"
 

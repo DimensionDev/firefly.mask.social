@@ -193,9 +193,6 @@ msgstr ""
 msgid "Found arweaveTxId is empty."
 msgstr ""
 
-msgid "Blocked"
-msgstr ""
-
 msgid "<0>You</0> and {0} others recasted"
 msgstr ""
 
