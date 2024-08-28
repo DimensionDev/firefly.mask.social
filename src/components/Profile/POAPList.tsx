@@ -80,7 +80,7 @@ export function getNFTItemContent(
                     <Owner address={item.owner.address as `0x${string}`} />
                 ) : null}
                 {options?.ownerCount ? (
-                    <div className="absolute left-2 top-2 z-10 h-5 rounded-lg bg-lightBg px-1 text-xs font-bold leading-5">
+                    <div className="absolute left-2 top-2 z-10 h-5 rounded-lg bg-primaryBottom px-1 text-xs font-bold leading-5">
                         <Trans>× {nFormatter(options.ownerCount)}</Trans>
                     </div>
                 ) : null}
