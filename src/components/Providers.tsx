@@ -1,5 +1,6 @@
 'use client';
 
+import { useActionsRegistryInterval } from '@dialectlabs/blinks';
 import { i18n } from '@lingui/core';
 import { I18nProvider } from '@lingui/react';
 import { LivepeerConfig } from '@livepeer/react';
@@ -31,6 +32,7 @@ import { useLeafwatchPersistStore } from '@/store/useLeafwatchPersistStore.js';
 export const Providers = memo(function Providers(props: { children: React.ReactNode }) {
     const isDarkMode = useIsDarkMode();
     const isMedium = useIsMedium();
+    useActionsRegistryInterval();
 
     const darkModeContext = useMemo(() => {
         return {

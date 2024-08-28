@@ -163,9 +163,6 @@ msgstr "Functions that can suspend trading"
 msgid "<0>The maximum number of coins coded to exist in the lifetime of the cryptocurrency. It is comparable to the maximum number of issuable shares in the stock market.</0><1>Max Supply = Theoretical maximum as coded</1>"
 msgstr "<0>The maximum number of coins coded to exist in the lifetime of the cryptocurrency. It is comparable to the maximum number of issuable shares in the stock market.</0><1>Max Supply = Theoretical maximum as coded</1>"
 
-msgid "Unknown error"
-msgstr "Unknown error"
-
 msgid "More"
 msgstr "More"
 
@@ -195,9 +192,6 @@ msgstr "Join our Discord"
 
 msgid "Found arweaveTxId is empty."
 msgstr "Found arweaveTxId is empty."
-
-msgid "Blocked"
-msgstr "Blocked"
 
 msgid "<0>You</0> and {0} others recasted"
 msgstr "<0>You</0> and {0} others recasted"
@@ -339,9 +333,6 @@ msgstr "<0>{0}</0><1>mirrored</1>"
 
 msgid "True Token"
 msgstr "True Token"
-
-msgid "Failed"
-msgstr "Failed"
 
 msgid "Bookmarks"
 msgstr "Bookmarks"
@@ -570,9 +561,6 @@ msgstr "Recasts"
 
 msgid "Market Cap / FDV"
 msgstr "Market Cap / FDV"
-
-msgid "Your action provider blocks execution of this action."
-msgstr "Your action provider blocks execution of this action."
 
 msgid "Confirmation"
 msgstr "Confirmation"
@@ -847,9 +835,6 @@ msgstr "There are images that were not uploaded successfully."
 msgid "No mint function"
 msgstr "No mint function"
 
-msgid "Transaction sent successfully"
-msgstr "Transaction sent successfully"
-
 msgid "Please choose issue to report this wallet:"
 msgstr "Please choose issue to report this wallet:"
 
@@ -1083,9 +1068,6 @@ msgstr "There are videos that were not uploaded successfully."
 
 msgid "This can’t be undone, and the scheduled send will be canceled."
 msgstr "This can’t be undone, and the scheduled send will be canceled."
-
-msgid "If you believe this action has been blocked in error, please <0/><1>Ignore warning and proceed</1>."
-msgstr "If you believe this action has been blocked in error, please <0/><1>Ignore warning and proceed</1>."
 
 msgid "This contract is an Admin Upgradeability Proxy. The proxy contract means the contract owner can modify the function of the token and could possibly effect the price.There is possibly a way for the team to Rug or Scam. Please confirm the details with the project team before buying."
 msgstr "This contract is an Admin Upgradeability Proxy. The proxy contract means the contract owner can modify the function of the token and could possibly effect the price.There is possibly a way for the team to Rug or Scam. Please confirm the details with the project team before buying."
@@ -1336,6 +1318,9 @@ msgstr "GIFs"
 msgid "%Of supply owned"
 msgstr "%Of supply owned"
 
+msgid "Signing failed."
+msgstr "Signing failed."
+
 msgid "Share"
 msgstr "Share"
 
@@ -1453,8 +1438,8 @@ msgstr "Light Mode"
 msgid "Failed to submit report on {0}."
 msgstr "Failed to submit report on {0}."
 
-msgid "Executing"
-msgstr "Executing"
+msgid "Insufficient funds"
+msgstr "Insufficient funds"
 
 msgid "Community"
 msgstr "Community"
@@ -1657,9 +1642,6 @@ msgstr "Article collected successfully!"
 msgid "Posting..."
 msgstr "Posting..."
 
-msgid "This Action has been flagged as an unsafe action, & has been blocked."
-msgstr "This Action has been flagged as an unsafe action, & has been blocked."
-
 msgid "Connect"
 msgstr "Connect"
 
@@ -1849,9 +1831,6 @@ msgstr "Create a Post"
 msgid "{type, select, comment {Comments} mirror {{0}} reaction {Likes} act {Collects} other {Other}}"
 msgstr "{type, select, comment {Comments} mirror {{0}} reaction {Likes} act {Collects} other {Other}}"
 
-msgid "This Action has not yet been registered. Only use it if you trust the source."
-msgstr "This Action has not yet been registered. Only use it if you trust the source."
-
 msgid "You may lose your assets if giving approval to the website of this token."
 msgstr "You may lose your assets if giving approval to the website of this token."
 
@@ -1917,9 +1896,6 @@ msgstr "NFT ID"
 
 msgid "Farcaster channel"
 msgstr "Farcaster channel"
-
-msgid "Completed"
-msgstr "Completed"
 
 msgid "Failed to send tip. Please try again later."
 msgstr "Failed to send tip. Please try again later."

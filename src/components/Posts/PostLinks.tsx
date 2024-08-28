@@ -16,6 +16,7 @@ import { createDummyPost } from '@/helpers/createDummyPost.js';
 import { isLinkMatchingHost } from '@/helpers/isLinkMatchingHost.js';
 import { removeAtEnd } from '@/helpers/removeAtEnd.js';
 import { resolveOembedUrl } from '@/helpers/resolveOembedUrl.js';
+import { useActionAdapter } from '@/hooks/useActionAdapter.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 import { getPostLinks } from '@/services/getPostLinks.js';
 import type { ComposeType } from '@/types/compose.js';
@@ -36,6 +37,13 @@ export function PostLinks({ post, setContent }: Props) {
         enabled: !!url,
     });
 
+    const actionAdapter = useActionAdapter();
+    useEffect(() => {
+        if (data?.action) {
+            data.action.setAdapter(actionAdapter);
+        }
+    }, [actionAdapter, data?.action]);
+
     useEffect(() => {
         const content = post.metadata.content?.content;
         if (data && url && content) {
@@ -51,7 +59,7 @@ export function PostLinks({ post, setContent }: Props) {
                 <Player html={data.html} isSpotify={isLinkMatchingHost(url, 'open.spotify.com', false)} />
             ) : null}
             {data.frame ? <FrameLayout frame={data.frame} post={post} /> : null}
-            {data.action ? <ActionContainer action={data.action} /> : null}
+            {data.action ? <ActionContainer action={data.action} url={url!} /> : null}
             {data.oembed ? <OembedLayout data={data.oembed} post={post} /> : null}
         </>
     );

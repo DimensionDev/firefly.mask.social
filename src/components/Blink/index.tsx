@@ -1,12 +1,13 @@
 'use client';
 
+import { Action } from '@dialectlabs/blinks';
 import { useQuery } from '@tanstack/react-query';
 import { memo, useEffect } from 'react';
 
 import { ActionContainer } from '@/components/Blink/ActionContainer.js';
+import { useActionAdapter } from '@/hooks/useActionAdapter.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 import { getPostBlinkAction } from '@/services/getPostLinks.js';
-import type { Action } from '@/types/blink.js';
 
 interface Props {
     post: Post;
@@ -30,6 +31,13 @@ export const Blink = memo<Props>(function Blink({ post, onData, onFailed, childr
         enabled: !!url,
     });
 
+    const actionAdapter = useActionAdapter();
+    useEffect(() => {
+        if (action) {
+            action.setAdapter(actionAdapter);
+        }
+    }, [actionAdapter, action]);
+
     useEffect(() => {
         if (action) onData?.(action);
     }, [onData, action]);
@@ -41,5 +49,5 @@ export const Blink = memo<Props>(function Blink({ post, onData, onFailed, childr
     if (isLoading) return null;
     if (error || !action) return children;
 
-    return <ActionContainer action={action} />;
+    return <>{action ? <ActionContainer action={action} url={url!} /> : null}</>;
 });

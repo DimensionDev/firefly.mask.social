@@ -66,6 +66,9 @@ importers:
       '@aws-sdk/lib-storage':
         specifier: ^3.629.0
         version: 3.629.0(@aws-sdk/client-s3@3.629.0)
+      '@dialectlabs/blinks':
+        specifier: ^0.8.0
+        version: 0.8.0(@solana/wallet-adapter-react-ui@0.9.35)(@solana/wallet-adapter-react@0.15.35)(@solana/web3.js@1.95.2)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026)
       '@dimensiondev/holoflows-kit':
         specifier: 0.9.0-20240322092738-f9180f3
         version: 0.9.0-20240322092738-f9180f3
@@ -6055,6 +6058,28 @@ packages:
       - supports-color
     dev: true
 
+  /@dialectlabs/blinks@0.8.0(@solana/wallet-adapter-react-ui@0.9.35)(@solana/wallet-adapter-react@0.15.35)(@solana/web3.js@1.95.2)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026):
+    resolution: {integrity: sha512-aA0qetB1U6BRUj0RHWIHYn3INw09svNHFSyS23iMwRfBL2Nvtp/FVjPU8s5KF+BqA5gOYof+6VC7zby4RUaDIQ==}
+    peerDependencies:
+      '@solana/wallet-adapter-react': ^0.15.0
+      '@solana/wallet-adapter-react-ui': ^0.9.0
+      '@solana/web3.js': ^1.95.1
+      react: 0.0.0-experimental-8039e6d0b-20231026 || 0.0.0-experimental-0a360642d-20230711
+      react-dom: 0.0.0-experimental-8039e6d0b-20231026 || 0.0.0-experimental-0a360642d-20230711
+    peerDependenciesMeta:
+      react:
+        optional: true
+      react-dom:
+        optional: true
+    dependencies:
+      '@solana/wallet-adapter-react': 0.15.35(@solana/web3.js@1.95.2)(bs58@5.0.0)(react-native@0.74.1)(react@0.0.0-experimental-8039e6d0b-20231026)
+      '@solana/wallet-adapter-react-ui': 0.9.35(@solana/web3.js@1.95.2)(bs58@5.0.0)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react-native@0.74.1)(react@0.0.0-experimental-8039e6d0b-20231026)
+      '@solana/web3.js': 1.95.2
+      clsx: 2.1.1
+      react: 0.0.0-experimental-8039e6d0b-20231026
+      react-dom: 0.0.0-experimental-8039e6d0b-20231026(react@0.0.0-experimental-8039e6d0b-20231026)
+    dev: false
+
   /@dimensiondev/holoflows-kit@0.9.0-20240322092738-f9180f3:
     resolution: {integrity: sha512-VRnXRqsYNXq1jzNf6piJnUamtgVGuL5/8dVXl/Qy7xGyHBqLaHbQ6QKDCc/qf9Z3gFzFSjIZZle+pNPJ925psA==, tarball: https://npm.pkg.github.com/download/@DimensionDev/holoflows-kit/0.9.0-20240322092738-f9180f3/1d2e9df5c5cd2a733c547ceafed4860973f10836}
     peerDependencies:
@@ -8995,7 +9020,7 @@ packages:
       '@mui/utils': 5.15.14(@types/react@18.2.48)(react@0.0.0-experimental-8039e6d0b-20231026)
       '@popperjs/core': 2.11.8
       '@types/react': 18.2.48
-      clsx: 2.1.0
+      clsx: 2.1.1
       prop-types: 15.8.1
       react: 0.0.0-experimental-8039e6d0b-20231026
       react-dom: 0.0.0-experimental-8039e6d0b-20231026(react@0.0.0-experimental-8039e6d0b-20231026)
@@ -20126,7 +20151,7 @@ packages:
     resolution: {integrity: sha512-bfttrr3/7gG4E02HoWTDUcDDslN003OlOoBxk9virpAZQ1ja/jDgwkWB8QfJF7ojuEowrqy+lzp9VcJG7/k5bQ==}
     dependencies:
       bn.js: 4.12.0
-      elliptic: 6.5.5
+      elliptic: 6.5.7
       nano-json-stream-parser: 0.1.2
       servify: 0.1.12
       ws: 3.3.3
@@ -32919,6 +32944,7 @@ time:
   /@aws-sdk/client-s3@3.629.0: '2024-08-12T19:54:45.219Z'
   /@aws-sdk/lib-storage@3.629.0: '2024-08-12T19:56:21.720Z'
   /@crowdin/cli@4.1.1: '2024-07-26T07:17:49.529Z'
+  /@dialectlabs/blinks@0.8.0: '2024-08-13T12:46:18.889Z'
   /@emotion/styled@11.11.0: '2023-05-06T08:49:15.982Z'
   /@farcaster/core@0.14.19: '2024-07-18T21:36:27.939Z'
   /@giphy/js-fetch-api@5.6.0: '2024-05-28T16:39:28.633Z'

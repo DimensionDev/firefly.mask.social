@@ -168,9 +168,6 @@ msgstr ""
 msgid "<0>The maximum number of coins coded to exist in the lifetime of the cryptocurrency. It is comparable to the maximum number of issuable shares in the stock market.</0><1>Max Supply = Theoretical maximum as coded</1>"
 msgstr ""
 
-msgid "Unknown error"
-msgstr "未知的錯誤"
-
 msgid "More"
 msgstr "更多"
 
@@ -200,9 +197,6 @@ msgstr "加入我們的 Discord 社群"
 
 msgid "Found arweaveTxId is empty."
 msgstr ""
-
-msgid "Blocked"
-msgstr "已封鎖"
 
 msgid "<0>You</0> and {0} others recasted"
 msgstr ""
@@ -344,9 +338,6 @@ msgstr ""
 
 msgid "True Token"
 msgstr ""
-
-msgid "Failed"
-msgstr "失敗"
 
 msgid "Bookmarks"
 msgstr "書籤"
@@ -574,9 +565,6 @@ msgid "Recasts"
 msgstr ""
 
 msgid "Market Cap / FDV"
-msgstr ""
-
-msgid "Your action provider blocks execution of this action."
 msgstr ""
 
 msgid "Confirmation"
@@ -852,9 +840,6 @@ msgstr ""
 msgid "No mint function"
 msgstr ""
 
-msgid "Transaction sent successfully"
-msgstr ""
-
 msgid "Please choose issue to report this wallet:"
 msgstr ""
 
@@ -1087,9 +1072,6 @@ msgid "There are videos that were not uploaded successfully."
 msgstr ""
 
 msgid "This can’t be undone, and the scheduled send will be canceled."
-msgstr ""
-
-msgid "If you believe this action has been blocked in error, please <0/><1>Ignore warning and proceed</1>."
 msgstr ""
 
 msgid "This contract is an Admin Upgradeability Proxy. The proxy contract means the contract owner can modify the function of the token and could possibly effect the price.There is possibly a way for the team to Rug or Scam. Please confirm the details with the project team before buying."
@@ -1341,6 +1323,9 @@ msgstr ""
 msgid "%Of supply owned"
 msgstr ""
 
+msgid "Signing failed."
+msgstr ""
+
 msgid "Share"
 msgstr "分享"
 
@@ -1458,7 +1443,7 @@ msgstr "淺色模式"
 msgid "Failed to submit report on {0}."
 msgstr ""
 
-msgid "Executing"
+msgid "Insufficient funds"
 msgstr ""
 
 msgid "Community"
@@ -1662,9 +1647,6 @@ msgstr ""
 msgid "Posting..."
 msgstr "正在發布"
 
-msgid "This Action has been flagged as an unsafe action, & has been blocked."
-msgstr ""
-
 msgid "Connect"
 msgstr "連接"
 
@@ -1854,9 +1836,6 @@ msgstr ""
 msgid "{type, select, comment {Comments} mirror {{0}} reaction {Likes} act {Collects} other {Other}}"
 msgstr ""
 
-msgid "This Action has not yet been registered. Only use it if you trust the source."
-msgstr ""
-
 msgid "You may lose your assets if giving approval to the website of this token."
 msgstr ""
 
@@ -1922,9 +1901,6 @@ msgstr "NFT ID"
 
 msgid "Farcaster channel"
 msgstr "Farcaster 頻道"
-
-msgid "Completed"
-msgstr "已完成"
 
 msgid "Failed to send tip. Please try again later."
 msgstr ""
