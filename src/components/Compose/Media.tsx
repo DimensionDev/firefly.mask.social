@@ -6,11 +6,11 @@ import { useAsyncFn } from 'react-use';
 
 import ImageIcon from '@/assets/image.svg';
 import VideoIcon from '@/assets/video.svg';
-import { ALLOWED_MEDIA_MIMES, FILE_MAX_SIZE, SUPPORTED_VIDEO_SOURCES } from '@/constants/index.js';
+import { ALLOWED_MEDIA_MIMES, SUPPORTED_VIDEO_SOURCES } from '@/constants/index.js';
 import { classNames } from '@/helpers/classNames.js';
 import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
 import { getCurrentPostImageLimits } from '@/helpers/getCurrentPostImageLimits.js';
-import { getCurrentPostVideoLimits } from '@/helpers/getCurrentPostVideoLimits.js';
+import { getPostImageSizeLimit, getPostVideoSizeLimit } from '@/helpers/getPostFileSizeLimit.js';
 import { isValidFileType } from '@/helpers/isValidFileType.js';
 import { createLocalMediaObject } from '@/helpers/resolveMediaObjectUrl.js';
 import { useCompositePost } from '@/hooks/useCompositePost.js';
@@ -27,7 +27,8 @@ export function Media({ close }: MediaProps) {
     const { availableSources, video, images } = useCompositePost();
 
     const maxImageCount = getCurrentPostImageLimits(type, availableSources);
-    const maxVideoSize = getCurrentPostVideoLimits(type, availableSources);
+    const maxImageSize = getPostImageSizeLimit(availableSources);
+    const maxVideoSize = getPostVideoSizeLimit(availableSources);
 
     const [, handleImageChange] = useAsyncFn(
         async (event: ChangeEvent<HTMLInputElement>) => {
@@ -35,9 +36,9 @@ export function Media({ close }: MediaProps) {
 
             if (files && files.length > 0) {
                 const shouldUploadFiles = [...files].filter((file) => {
-                    if (file.size > FILE_MAX_SIZE) {
+                    if (file.size > maxImageSize) {
                         enqueueErrorMessage(
-                            t`The file "${file.name}" (${formatFileSize(file.size, false)}) exceeds the size limit (${formatFileSize(FILE_MAX_SIZE, false)}).`,
+                            t`The file "${file.name}" (${formatFileSize(file.size, false)}) exceeds the size limit (${formatFileSize(maxImageSize, false)}).`,
                         );
                         return false;
                     }
@@ -53,7 +54,7 @@ export function Media({ close }: MediaProps) {
             }
             close();
         },
-        [maxImageCount, close, updateImages],
+        [maxImageCount, maxImageSize, close, updateImages],
     );
 
     const [, handleVideoChange] = useAsyncFn(
@@ -73,7 +74,7 @@ export function Media({ close }: MediaProps) {
             close();
             return;
         },
-        [close, updateVideo],
+        [maxVideoSize, close, updateVideo],
     );
 
     const disabledVideo =

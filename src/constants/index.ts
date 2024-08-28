@@ -36,6 +36,7 @@ export const CORS_HOST = 'https://cors-next.r2d2.to';
 export const COINGECKO_URL_BASE = 'https://coingecko-agent.r2d2.to/api/v3';
 export const GO_PLUS_LABS_ROOT_URL = 'https://gopluslabs.r2d2.to';
 export const ADVERTISEMENT_JSON_URL = 'https://media.firefly.land/advertisement/web.json';
+export const TWITTER_UPLOAD_MEDIA_URL = 'https://upload.twitter.com/1.1/media/upload.json';
 
 export const FARCASTER_REPLY_COUNTDOWN = 50; // in seconds
 export const FIREFLY_SCAN_QR_CODE_COUNTDOWN = 5 * 60; // in seconds
@@ -134,6 +135,26 @@ export const MAX_VIDEO_SIZE_PER_POST: Record<SocialSource, number> = {
 // HTTP Cache headers
 export const CACHE_AGE_INDEFINITE_ON_DISK = 'public, s-maxage=31536000, max-age=31536000, must-revalidate';
 
+export const MAX_FILE_SIZE_PER_IMAGE: Record<SocialSource, number> = {
+    [Source.Twitter]: 5 * 1024 * 1024, // 5MB
+    [Source.Lens]: 100 * 1024 * 1024, // 100MB
+    [Source.Farcaster]: 100 * 1024 * 1024, // 100MB
+};
+
+export const MAX_FILE_SIZE_PER_GIF: Record<SocialSource, number> = {
+    [Source.Twitter]: 15 * 1024 * 1024, // 15MB
+    [Source.Lens]: 15 * 1024 * 1024, // 15MB
+    [Source.Farcaster]: 15 * 1024 * 1024, // 15MB
+};
+
+// https://mask.atlassian.net/browse/FW-2212
+// TODO: Our upload is not strong enough to handle 1GB videos. So we limit 400MB here.
+export const MAX_FILE_SIZE_PER_VIDEO: Record<SocialSource, number> = {
+    [Source.Twitter]: 400 * 1024 * 1024, // 400MB
+    [Source.Lens]: 400 * 1024 * 1024, // 400MB
+    [Source.Farcaster]: 400 * 1024 * 1024, // 400MB
+};
+
 // Search Bar
 export const MAX_SEARCH_RECORD_SIZE = 5;
 export const MAX_RECOMMEND_PROFILE_SIZE = 10;
@@ -175,8 +196,6 @@ export const SUFFIX_NAMES: Record<(typeof ALLOWED_MEDIA_MIMES)[number], string> 
     'video/3gpp2': '3g2',
     'video/webm': 'webm',
 };
-
-export const FILE_MAX_SIZE = 4 * 1024 * 1024; // 4MB
 
 export const TWITTER_TIMELINE_OPTIONS: TweetV2UserTimelineParams = {
     expansions: [
@@ -256,3 +275,5 @@ export const PARAGRAPH_COLLECT_FEE = 777000000000000n;
 export const PARAGRAPH_COLLECT_FEE_IN_POLYGON = 2000000000000000000n;
 
 export const THIRTY_DAYS = 1000 * 60 * 60 * 24 * 30;
+
+export const MAX_SIZE_PER_CHUNK = 4 * 1024 * 1024; // 4MB
