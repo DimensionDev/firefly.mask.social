@@ -25,13 +25,13 @@ export const POST = compose<(request: NextRequest) => Promise<Response>>(
         const queryParams = getSearchParamsFromRequestWithZodObject(request, InitMediaSchema);
 
         const client = await createTwitterClientV2(request);
-        const { media_id, media_id_string } = await client.post<UploadMediaResponse>(
+        const { media_id_string } = await client.post<UploadMediaResponse>(
             urlcat(TWITTER_UPLOAD_MEDIA_URL, {
                 ...queryParams,
                 command: 'INIT',
             }),
         );
 
-        return createSuccessResponseJSON({ media_id, media_id_string });
+        return createSuccessResponseJSON({ media_id: media_id_string, media_id_string });
     },
 );
