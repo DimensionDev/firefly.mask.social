@@ -23,7 +23,7 @@ import LoadingIcon from '@/assets/loading.svg';
 import { router } from '@/components/Compose/ComposeRouter.js';
 import { MentionNode } from '@/components/Lexical/nodes/MentionsNode.js';
 import { Modal } from '@/components/Modal.js';
-import { type SocialSource } from '@/constants/enum.js';
+import { FileMimeType, type SocialSource } from '@/constants/enum.js';
 import { UnreachableError } from '@/constants/error.js';
 import { EMPTY_LIST, RP_HASH_TAG, SITE_HOSTNAME, SITE_URL, SORTED_SOCIAL_SOURCES } from '@/constants/index.js';
 import { CHAR_TAG, type Chars } from '@/helpers/chars.js';
@@ -267,7 +267,7 @@ export const ComposeModalUI = forwardRef<SingletonModalRefCreator<ComposeModalOp
                 updateChars(chars);
                 setEditorContent(chars);
 
-                addImage(createLocalMediaObject(new File([secretImage], 'image.png', { type: 'image/png' })));
+                addImage(createLocalMediaObject(new File([secretImage], 'image.png', { type: FileMimeType.PNG })));
 
                 updateTypedMessage(updateRpEncrypted(typedMessage));
             } catch (error) {

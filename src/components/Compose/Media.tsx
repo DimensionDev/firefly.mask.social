@@ -6,11 +6,12 @@ import { useAsyncFn } from 'react-use';
 
 import ImageIcon from '@/assets/image.svg';
 import VideoIcon from '@/assets/video.svg';
+import { FileMimeType } from '@/constants/enum.js';
 import { ALLOWED_MEDIA_MIMES, SUPPORTED_VIDEO_SOURCES } from '@/constants/index.js';
 import { classNames } from '@/helpers/classNames.js';
 import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
 import { getCurrentPostImageLimits } from '@/helpers/getCurrentPostImageLimits.js';
-import { getPostImageSizeLimit, getPostVideoSizeLimit } from '@/helpers/getPostFileSizeLimit.js';
+import { getPostGifSizeLimit, getPostImageSizeLimit, getPostVideoSizeLimit } from '@/helpers/getPostFileSizeLimit.js';
 import { isValidFileType } from '@/helpers/isValidFileType.js';
 import { createLocalMediaObject } from '@/helpers/resolveMediaObjectUrl.js';
 import { useCompositePost } from '@/hooks/useCompositePost.js';
@@ -29,6 +30,7 @@ export function Media({ close }: MediaProps) {
     const maxImageCount = getCurrentPostImageLimits(type, availableSources);
     const maxImageSize = getPostImageSizeLimit(availableSources);
     const maxVideoSize = getPostVideoSizeLimit(availableSources);
+    const maxGifSize = getPostGifSizeLimit(availableSources);
 
     const [, handleImageChange] = useAsyncFn(
         async (event: ChangeEvent<HTMLInputElement>) => {
@@ -36,9 +38,10 @@ export function Media({ close }: MediaProps) {
 
             if (files && files.length > 0) {
                 const shouldUploadFiles = [...files].filter((file) => {
-                    if (file.size > maxImageSize) {
+                    const sizeLimit = file.type === FileMimeType.GIF ? maxGifSize : maxImageSize;
+                    if (file.size > sizeLimit) {
                         enqueueErrorMessage(
-                            t`The file "${file.name}" (${formatFileSize(file.size, false)}) exceeds the size limit (${formatFileSize(maxImageSize, false)}).`,
+                            t`The file "${file.name}" (${formatFileSize(file.size, false)}) exceeds the size limit (${formatFileSize(sizeLimit, false)}).`,
                         );
                         return false;
                     }
@@ -54,7 +57,7 @@ export function Media({ close }: MediaProps) {
             }
             close();
         },
-        [maxImageCount, maxImageSize, close, updateImages],
+        [maxImageCount, maxImageSize, maxGifSize, close, updateImages],
     );
 
     const [, handleVideoChange] = useAsyncFn(
@@ -141,7 +144,7 @@ export function Media({ close }: MediaProps) {
 
                 <input
                     type="file"
-                    accept="video/mp4"
+                    accept={FileMimeType.MP4}
                     ref={videoInputRef}
                     className="hidden"
                     onChange={handleVideoChange}

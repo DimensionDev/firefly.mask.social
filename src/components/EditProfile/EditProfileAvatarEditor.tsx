@@ -7,6 +7,7 @@ import { useFormContext } from 'react-hook-form';
 
 import { BaseNotFound } from '@/components/BaseNotFound.js';
 import { ClickableButton } from '@/components/ClickableButton.js';
+import { FileMimeType } from '@/constants/enum.js';
 
 export function EditProfileAvatarEditor() {
     const { history } = useRouter();
@@ -43,7 +44,7 @@ export function EditProfileAvatarEditor() {
             if (!blob || !file) return;
             setValue('pfp', new File([blob], 'pfp.png', { type: blob.type }), { shouldDirty: true });
             history.replace('/');
-        }, 'image/png');
+        }, FileMimeType.PNG);
     };
 
     return (

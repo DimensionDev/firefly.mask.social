@@ -1,7 +1,7 @@
 import { t } from '@lingui/macro';
 import { useCallback } from 'react';
 
-import { Source } from '@/constants/enum.js';
+import { FileMimeType, Source } from '@/constants/enum.js';
 import { SUPPORTED_VIDEO_SOURCES } from '@/constants/index.js';
 import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
 import { getCurrentPostImageLimits } from '@/helpers/getCurrentPostImageLimits.js';
@@ -19,7 +19,7 @@ export function useCheckPostMedias() {
             return true;
         }
 
-        if (availableSources.includes(Source.Twitter) && images.some((x) => x.mimeType === 'image/webp')) {
+        if (availableSources.includes(Source.Twitter) && images.some((x) => x.mimeType === FileMimeType.WEBP)) {
             enqueueErrorMessage(t`Failed to upload. File type is not supported on X.`);
             return true;
         }
