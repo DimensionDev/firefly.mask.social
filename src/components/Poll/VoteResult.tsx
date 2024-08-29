@@ -23,14 +23,14 @@ export function VoteResult({ option, totalVotes, maxPercent }: VoteResultProps) 
             />
             <div className="absolute z-10 flex h-full w-full items-center justify-between pl-5 text-base font-bold text-lightMain">
                 <span
-                    className={classNames('flex items-center gap-2', {
+                    className={classNames('mr-2 flex items-center gap-2 truncate', {
                         'text-lightHighlight': isUserVoted,
                         'text-lightMain': !isUserVoted && isMaxPercent,
                         'text-lightSecond': !isUserVoted && !isMaxPercent,
                     })}
                 >
-                    <span>{label}</span>
-                    {isUserVoted ? <RightAnswerIcon className="mr-2" width={20} height={20} /> : null}
+                    <span className="overflow-hidden">{label}</span>
+                    {isUserVoted ? <RightAnswerIcon className="mr-2 shrink-0" width={20} height={20} /> : null}
                 </span>
                 <span className={isMaxPercent ? 'text-lightMain' : 'text-third'}>{currentRate}%</span>
             </div>

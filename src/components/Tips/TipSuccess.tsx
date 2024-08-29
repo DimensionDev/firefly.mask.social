@@ -24,7 +24,7 @@ export function TipSuccess() {
         if (!handle || !__origin__?.verifiedSources?.length || !socialProfiles.length) return { canShare: false };
         return {
             canShare: true,
-            walletName: __origin__.primary_ens || formatEthereumAddress(__origin__.address, 8),
+            walletName: __origin__.primary_ens || formatEthereumAddress(__origin__.address, 4),
         };
     }, [recipient, handle, socialProfiles]);
 
