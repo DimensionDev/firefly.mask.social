@@ -1779,6 +1779,9 @@ msgstr "确认登出这些账号？"
 msgid "Repost"
 msgstr "转帖"
 
+msgid "Wrong Wallet"
+msgstr ""
+
 msgid "Please input the blink url to be revalidated. <0>URL Scheme</0>"
 msgstr "请输入 blink 链接来验证。 <0>URL格式</0>"
 
@@ -1814,9 +1817,6 @@ msgstr "未能找到你的 signer key，请重新链接"
 
 msgid "No codes found to suspend trading."
 msgstr "没有发现可以暂停交易的代码。"
-
-msgid "Please enable Momoka to support sending posts on Lens."
-msgstr ""
 
 msgid "First time connecting to Firefly?<0/><1>Approve a new connection</1> with Warpcast"
 msgstr ""
