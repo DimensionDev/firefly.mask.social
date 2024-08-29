@@ -1101,6 +1101,9 @@ msgstr ""
 msgid "Tag {0} in a post to let them know you’ve sent an onchain tip to their wallet."
 msgstr ""
 
+msgid "Articles from {handleOrEnsOrAddress} will now be hidden in your home timeline"
+msgstr ""
+
 msgid "liked"
 msgstr "点赞"
 
@@ -1881,9 +1884,6 @@ msgstr "NFT 系列"
 msgid "Your name"
 msgstr "您的名字"
 
-msgid "Articles from @{handleOrEnsOrAddress} will now be hidden in your home timeline"
-msgstr ""
-
 msgid "Owned"
 msgstr "拥有"
 
@@ -2195,4 +2195,3 @@ msgstr ""
 
 msgid "Blink Validator"
 msgstr "Blink 验证器"
-
