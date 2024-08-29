@@ -1308,7 +1308,7 @@ export class FireflySocialMedia implements Provider {
                 twitterId: connection.twitterId,
                 walletAddress: connection.address,
                 reportReason: reason,
-                sources: connection.sources.join(','),
+                sources: connection.sources.map((x) => x.source).join(','),
             }),
         });
     }

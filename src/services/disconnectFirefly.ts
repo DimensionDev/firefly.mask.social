@@ -32,10 +32,13 @@ function getIdentity(connection: FireflyWalletConnection): FireflyIdentity | nul
 
 export async function disconnectFirefly(connection: FireflyWalletConnection) {
     const identity = getIdentity(connection);
-    if (!identity) throw new Error('No profile identity found for disconnecting wallet');
+    if (identity) {
+        await FireflySocialMediaProvider.disconnectAccount(identity);
+    }
 
-    await FireflySocialMediaProvider.disconnectAccount(identity);
     await FireflySocialMediaProvider.disconnectWallet(connection.address);
+
+    if (!identity) return;
 
     const source = identity.source as SocialSource;
 
