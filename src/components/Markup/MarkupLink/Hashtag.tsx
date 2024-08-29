@@ -6,7 +6,8 @@ import urlcat from 'urlcat';
 
 import { ClickableArea } from '@/components/ClickableArea.js';
 import type { MarkupLinkProps } from '@/components/Markup/MarkupLink/index.js';
-import { PageRoute, SearchType } from '@/constants/enum.js';
+import { PageRoute, SearchType, Source } from '@/constants/enum.js';
+import { classNames } from '@/helpers/classNames.js';
 import { resolveSourceInURL } from '@/helpers/resolveSourceInURL.js';
 
 export const Hashtag = memo<Omit<MarkupLinkProps, 'post'>>(function Hashtag({ title, source }) {
@@ -18,10 +19,16 @@ export const Hashtag = memo<Omit<MarkupLinkProps, 'post'>>(function Hashtag({ ti
 
     if (!title) return null;
 
+    // Twitter hashtags are not supported in search.
+    const disabled = source === Source.Twitter;
+
     return (
         <ClickableArea
-            className="cursor-pointer text-lightHighlight hover:underline"
+            className={classNames({
+                'cursor-pointer text-lightHighlight hover:underline': !disabled,
+            })}
             as="span"
+            disabled={disabled}
             onClick={() => {
                 scrollTo(0, 0);
                 router.push(
