@@ -54,7 +54,7 @@ export const WatchButton = memo(function WatchButton({
 
     const { data: isMuted } = useIsWalletMuted(address);
 
-    if (isMuted) return <ToggleMuteWalletButton address={address} className={className} />;
+    if (isMuted) return <ToggleMuteWalletButton isMuted={isMuted} address={address} className={className} />;
 
     return (
         <ClickableButton

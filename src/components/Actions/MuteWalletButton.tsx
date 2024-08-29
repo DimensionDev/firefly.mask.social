@@ -43,7 +43,7 @@ export const MuteWalletButton = forwardRef<HTMLButtonElement, Props>(function Mu
                         content: (
                             <div className="text-main">
                                 <Trans>
-                                    Articles from @{handleOrEnsOrAddress} will now be hidden in your home timeline
+                                    Articles from {handleOrEnsOrAddress} will now be hidden in your home timeline
                                 </Trans>
                             </div>
                         ),
