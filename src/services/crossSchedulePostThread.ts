@@ -66,10 +66,15 @@ export async function crossPostScheduleThread(scheduleTime: Date) {
         enqueueSuccessMessage(t`Your schedule thread has created successfully.`);
     } catch (error) {
         if (error instanceof CreateScheduleError) {
-            enqueueErrorMessage(error.message);
+            enqueueErrorMessage(error.message, {
+                description: error.description,
+            });
         } else if (error instanceof SignlessRequireError) {
             EnableSignlessModalRef.open();
         } else {
+            const errorWithName = error as { name: string };
+            const errorName = errorWithName.name;
+            if (errorName === 'ConnectorNotConnectedError') throw error;
             enqueueErrorMessage(getSnackbarMessageFromError(error, t`Failed to create schedule thread posts.`), {
                 error,
             });

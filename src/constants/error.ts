@@ -136,7 +136,10 @@ export class SwitchChainError extends Error {
 }
 
 export class CreateScheduleError extends Error {
-    constructor(public override message: string) {
+    constructor(
+        public override message: string,
+        public description?: string,
+    ) {
         super(message);
     }
 }
