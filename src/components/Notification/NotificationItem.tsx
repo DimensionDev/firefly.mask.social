@@ -214,7 +214,7 @@ export const NotificationItem = memo<NotificationItemProps>(function Notificatio
                             }
                             other={<ExtraProfiles profiles={notification.actions} />}
                         />{' '}
-                        <span>acted on your </span>
+                        <span>collected your </span>
                         <strong>
                             <Select
                                 value={notification.post.type}
