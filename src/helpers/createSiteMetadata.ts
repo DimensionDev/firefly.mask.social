@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 
+import { FileMimeType } from '@/constants/enum.js';
 import { SITE_DESCRIPTION, SITE_NAME, SITE_URL } from '@/constants/index.js';
 
 export function createSiteMetadata(metadata?: Partial<Metadata>) {
@@ -28,12 +29,12 @@ export function createSiteMetadata(metadata?: Partial<Metadata>) {
             {
                 url: '/android-chrome-192x192.png',
                 sizes: '192x192',
-                type: 'image/png',
+                type: FileMimeType.PNG,
             },
             {
                 url: '/android-chrome-384x384.png',
                 sizes: '384x384',
-                type: 'image/png',
+                type: FileMimeType.PNG,
             },
             {
                 rel: 'icon',

@@ -1,6 +1,6 @@
 import { v4 as uuid } from 'uuid';
 
-import { type SocialSource, Source } from '@/constants/enum.js';
+import { FileMimeType, type SocialSource, Source } from '@/constants/enum.js';
 import { UnreachableError } from '@/constants/error.js';
 import { SORTED_MEDIA_SOURCES } from '@/constants/index.js';
 import { createLookupTableResolver } from '@/helpers/createLookupTableResolver.js';
@@ -23,8 +23,8 @@ export function createLocalMediaObject(file: File): MediaObject {
 export function createGiphyMediaObject(gif: IGif): MediaObject {
     return {
         id: gif.id.toString(),
-        file: new File([], gif.title, { type: 'image/gif' }),
-        mimeType: 'image/gif',
+        file: new File([], gif.title, { type: FileMimeType.GIF }),
+        mimeType: FileMimeType.GIF,
         urls: {
             [MediaSource.Giphy]: gif.images.original.url,
         },
