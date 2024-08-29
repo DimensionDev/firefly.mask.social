@@ -1,5 +1,6 @@
 import { t } from '@lingui/macro';
 import { delay } from '@masknet/kit';
+import { ConnectorNotConnectedError } from '@wagmi/core';
 import { first } from 'lodash-es';
 
 import type { SocialSourceInURL } from '@/constants/enum.js';
@@ -66,10 +67,13 @@ export async function crossPostScheduleThread(scheduleTime: Date) {
         enqueueSuccessMessage(t`Your schedule thread has created successfully.`);
     } catch (error) {
         if (error instanceof CreateScheduleError) {
-            enqueueErrorMessage(error.message);
+            enqueueErrorMessage(error.message, {
+                description: error.description,
+            });
         } else if (error instanceof SignlessRequireError) {
             EnableSignlessModalRef.open();
         } else {
+            if (error instanceof ConnectorNotConnectedError) throw error;
             enqueueErrorMessage(getSnackbarMessageFromError(error, t`Failed to create schedule thread posts.`), {
                 error,
             });

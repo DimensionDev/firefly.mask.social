@@ -41,7 +41,7 @@ export const EnableSignlessModal = forwardRef<SingletonModalRefCreator<void, boo
                 enqueueErrorsMessage(getSnackbarMessageFromError(error, t`Failed to enable signless`));
                 throw error;
             }
-        }, [currentProfileSession, currentProfile?.ownedBy?.address, account.address]);
+        }, [currentProfileSession, currentProfile?.ownedBy?.address, account.address, dispatch?.close]);
 
         return (
             <Modal open={open} onClose={() => dispatch?.close(false)}>

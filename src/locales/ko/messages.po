@@ -1779,6 +1779,9 @@ msgstr ""
 msgid "Repost"
 msgstr ""
 
+msgid "Wrong Wallet"
+msgstr ""
+
 msgid "Please input the blink url to be revalidated. <0>URL Scheme</0>"
 msgstr ""
 
@@ -1813,9 +1816,6 @@ msgid "Cannot find your signer key, please connect again"
 msgstr ""
 
 msgid "No codes found to suspend trading."
-msgstr ""
-
-msgid "Please enable Momoka to support sending posts on Lens."
 msgstr ""
 
 msgid "First time connecting to Firefly?<0/><1>Approve a new connection</1> with Warpcast"
@@ -2195,4 +2195,3 @@ msgstr ""
 
 msgid "Blink Validator"
 msgstr ""
-

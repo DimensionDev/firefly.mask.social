@@ -9,7 +9,7 @@ import { settings } from '@/settings/index.js';
 
 export async function reportFarcasterSigner(session: FarcasterSession) {
     // ensure session is available
-    await fireflySessionHolder.assertSession('[reportFarcasterSigner] firefly session required');
+    fireflySessionHolder.assertSession('[reportFarcasterSigner] firefly session required');
 
     const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/farcaster_account/upSignerConfig');
 
