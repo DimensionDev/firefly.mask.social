@@ -1,4 +1,5 @@
 import { t, Trans } from '@lingui/macro';
+import { ConnectorNotConnectedError } from '@wagmi/core';
 import dayjs from 'dayjs';
 import urlcat from 'urlcat';
 
@@ -110,9 +111,7 @@ export async function crossSchedulePost(type: ComposeType, compositePost: Compos
         } else if (error instanceof SignlessRequireError) {
             EnableSignlessModalRef.open();
         } else {
-            const errorWithName = error as { name: string };
-            const errorName = errorWithName.name;
-            if (errorName === 'ConnectorNotConnectedError') throw error;
+            if (error instanceof ConnectorNotConnectedError) throw error;
             enqueueErrorMessage(getSnackbarMessageFromError(error, t`Failed to create schedule post.`), {
                 error,
             });

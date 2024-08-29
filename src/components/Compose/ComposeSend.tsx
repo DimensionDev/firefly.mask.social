@@ -1,5 +1,6 @@
 import { Plural, t, Trans } from '@lingui/macro';
 import { delay } from '@masknet/kit';
+import { ConnectorNotConnectedError } from '@wagmi/core';
 import { compact, values } from 'lodash-es';
 import { useMemo, useState } from 'react';
 import { useAsyncFn } from 'react-use';
@@ -70,10 +71,7 @@ export function ComposeSend(props: ComposeSendProps) {
                 if (draftId) removeDraft(draftId);
                 ComposeModalRef.close();
             } catch (error) {
-                const errorWithName = error as { name: string };
-                const errorName = errorWithName.name;
-
-                if (errorName === 'ConnectorNotConnectedError') return;
+                if (error instanceof ConnectorNotConnectedError) return;
                 throw error;
             }
         },
