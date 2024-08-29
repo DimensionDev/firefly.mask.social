@@ -5,7 +5,6 @@ import { memo, useState } from 'react';
 import LoadingIcon from '@/assets/loading.svg';
 import { ClickableButton, type ClickableButtonProps } from '@/components/ClickableButton.js';
 import { classNames } from '@/helpers/classNames.js';
-import { useIsWalletMuted } from '@/hooks/useIsWalletMuted.js';
 import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
 
 enum State {
@@ -16,16 +15,16 @@ enum State {
 
 interface ToggleMuteWalletButtonProps extends Omit<ClickableButtonProps, 'children'> {
     address: string;
+    isMuted: boolean;
 }
 
 export const ToggleMuteWalletButton = memo(function ToggleMuteWalletButton({
     address,
     className,
+    isMuted,
     ...rest
 }: ToggleMuteWalletButtonProps) {
     const [hovering, setHovering] = useState(false);
-
-    const { data: isMuted } = useIsWalletMuted(address);
 
     const mutation = useMutation({
         mutationFn: () => {

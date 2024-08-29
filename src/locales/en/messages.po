@@ -1096,6 +1096,9 @@ msgstr "App Kit"
 msgid "Tag {0} in a post to let them know you’ve sent an onchain tip to their wallet."
 msgstr "Tag {0} in a post to let them know you’ve sent an onchain tip to their wallet."
 
+msgid "Articles from {handleOrEnsOrAddress} will now be hidden in your home timeline"
+msgstr "Articles from {handleOrEnsOrAddress} will now be hidden in your home timeline"
+
 msgid "liked"
 msgstr "liked"
 
@@ -1875,9 +1878,6 @@ msgstr "Collection"
 
 msgid "Your name"
 msgstr "Your name"
-
-msgid "Articles from @{handleOrEnsOrAddress} will now be hidden in your home timeline"
-msgstr "Articles from @{handleOrEnsOrAddress} will now be hidden in your home timeline"
 
 msgid "Owned"
 msgstr "Owned"
