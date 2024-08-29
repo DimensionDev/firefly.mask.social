@@ -93,7 +93,7 @@ export const ComposeModalUI = forwardRef<SingletonModalRefCreator<ComposeModalOp
 
         const {
             posts,
-            addImage,
+            insertImage,
             updateType,
             updateAvailableSources,
             updateParentPost,
@@ -266,9 +266,7 @@ export const ComposeModalUI = forwardRef<SingletonModalRefCreator<ComposeModalOp
 
                 updateChars(chars);
                 setEditorContent(chars);
-
-                addImage(createLocalMediaObject(new File([secretImage], 'image.png', { type: FileMimeType.PNG })));
-
+                insertImage(createLocalMediaObject(new File([secretImage], 'image.png', { type: FileMimeType.PNG })), 0);
                 updateTypedMessage(updateRpEncrypted(typedMessage));
             } catch (error) {
                 enqueueErrorMessage(getSnackbarMessageFromError(error, t`Failed to create image payload.`), {

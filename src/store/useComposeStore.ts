@@ -109,6 +109,7 @@ interface ComposeState extends ComposeBaseState {
     updateVideo: (video: MediaObject | null, cursor?: Cursor) => void;
     updateImages: (imagesOrUpdater: SetStateAction<MediaObject[]>, cursor?: Cursor) => void;
     addImage: (image: MediaObject, cursor?: Cursor) => void;
+    insertImage: (image: MediaObject, index: number, cursor?: Cursor) => void;
     removeImage: (image: MediaObject, cursor?: Cursor) => void;
     addFrame: (frame: Frame, cursor?: Cursor) => void;
     removeFrame: (frame: Frame, cursor?: Cursor) => void;
@@ -373,6 +374,21 @@ const useComposeStateBase = create<ComposeState, [['zustand/immer', unknown]]>(
                         ...post,
                         video,
                     }),
+                    cursor,
+                ),
+            ),
+        insertImage: (image, index: number, cursor) =>
+            set((state) =>
+                next(
+                    state,
+                    (post) => {
+                        const images = [...post.images];
+                        images.splice(index, 0, image);
+                        return {
+                            ...post,
+                            images,
+                        };
+                    },
                     cursor,
                 ),
             ),
