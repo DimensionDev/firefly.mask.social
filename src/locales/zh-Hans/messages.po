@@ -1518,6 +1518,9 @@ msgstr "引用"
 msgid "The user rejected the request."
 msgstr "用户取消了请求。"
 
+msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} <4>collected your </4><5>{1, select, Post {post} Comment {comment} Quote {quote} Mirror {mirror} other {post}}</5>"
+msgstr ""
+
 msgid "Recast or Quote"
 msgstr "转发或者引用"
 
@@ -1841,9 +1844,6 @@ msgstr "如果您授权此通证给这个网站，您可能会丢失您的资产
 
 msgid "Unfollow"
 msgstr "取消关注"
-
-msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} <4>acted on your </4><5>{1, select, Post {post} Comment {comment} Quote {quote} Mirror {mirror} other {post}}</5>"
-msgstr "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} <4>回应于您的 </4><5>{1, select, Post {帖子} Comment {评论} Quote {quote} Mirror {转帖} other {帖子}}</5>"
 
 msgid "Your {0} account is now connected."
 msgstr "您的 {0} 账号已连接。"
@@ -2195,4 +2195,3 @@ msgstr ""
 
 msgid "Blink Validator"
 msgstr "Blink 验证器"
-

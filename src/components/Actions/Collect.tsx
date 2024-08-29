@@ -23,13 +23,13 @@ export const Collect = memo<CollectProps>(function Collect({
 }) {
     return (
         <ClickableArea
-            className={classNames('flex w-min items-center text-lightSecond hover:text-primaryPink md:space-x-2', {
+            className={classNames('flex w-min items-center text-lightSecond hover:text-collected md:space-x-2', {
                 'opacity-50': disabled,
             })}
         >
             <Tooltip content={t`Collect`} placement="top" disabled={disabled}>
                 <motion.button
-                    className="inline-flex h-7 w-7 items-center justify-center rounded-full hover:bg-primaryPink/[.20]"
+                    className="inline-flex h-7 w-7 items-center justify-center rounded-full hover:bg-collected/[.20]"
                     whileTap={{ scale: 0.9 }}
                     disabled={disabled}
                     onClick={(ev) => {
