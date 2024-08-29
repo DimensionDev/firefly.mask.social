@@ -64,6 +64,7 @@ export const ErrorReportSnackbar = forwardRef<HTMLDivElement, ErrorReportSnackba
                                 <XCircleIcon className="h-[20px] w-[20px] text-white" />
                             </div>
                             <div
+                                className="break-word"
                                 ref={(node) => {
                                     // convert jsx to string is too complicated, but in favor of DOM api, it's simple
                                     if (typeof message !== 'object' || !node) return;
