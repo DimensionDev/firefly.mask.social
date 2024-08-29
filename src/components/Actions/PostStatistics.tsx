@@ -1,6 +1,6 @@
-import { plural, Trans } from '@lingui/macro';
+import { Plural, plural, t, Trans } from '@lingui/macro';
 import dayjs from 'dayjs';
-import { compact } from 'lodash-es';
+import { compact, sumBy } from 'lodash-es';
 import { usePathname } from 'next/navigation.js';
 import { Fragment, type HTMLProps, memo, type ReactNode, useMemo } from 'react';
 
@@ -9,9 +9,11 @@ import { ChannelAnchor } from '@/components/Posts/ChannelAnchor.js';
 import { EngagementType, Source } from '@/constants/enum.js';
 import { Link } from '@/esm/Link.js';
 import { classNames } from '@/helpers/classNames.js';
+import { getPollTimeLeft } from '@/helpers/getPollTimeLeft.js';
 import { isRoutePathname } from '@/helpers/isRoutePathname.js';
 import { isSendFromFirefly } from '@/helpers/isSendFromFirefly.js';
 import { resolveEngagementLink } from '@/helpers/resolveEngagementLink.js';
+import type { Poll } from '@/providers/types/Poll.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 import { useImpressionsStore } from '@/store/useImpressionsStore.js';
 
@@ -51,6 +53,28 @@ function EngagementLink({
         >
             {children}
         </Link>
+    );
+}
+
+function PollVotes({ poll }: { poll: Poll }) {
+    const { timeLeft, totalVotes } = useMemo(
+        () => ({
+            timeLeft:
+                poll.votingStatus === 'closed' || (poll.endDatetime && dayjs(poll.endDatetime).isBefore(new Date()))
+                    ? t`Final results`
+                    : poll.endDatetime
+                      ? getPollTimeLeft(poll.endDatetime)
+                      : '',
+            totalVotes: sumBy(poll.options, (option) => option.votes ?? 0),
+        }),
+        [poll.votingStatus, poll.endDatetime, poll.options],
+    );
+
+    return (
+        <>
+            <Plural value={totalVotes} one={`${totalVotes} Vote`} other={`${totalVotes} Votes`} />
+            {timeLeft ? ` · ${timeLeft}` : ''}
+        </>
     );
 }
 
@@ -138,6 +162,7 @@ export const PostStatistics = memo<Props>(function PostStatistics({
             })}
         </>
     ) : null;
+    const pollVotes = post.poll ? <PollVotes poll={post.poll} /> : null;
 
     const sendFrom = post.sendFrom?.displayName === 'Firefly App' ? 'Firefly' : post.sendFrom?.displayName;
 
@@ -148,6 +173,7 @@ export const PostStatistics = memo<Props>(function PostStatistics({
             ? compact([
                   comments,
                   likes,
+                  pollVotes,
                   !isDetailPage && showChannelTag && post.channel ? (
                       <ChannelAnchor
                           className="!inline-flex translate-y-1"
@@ -169,6 +195,7 @@ export const PostStatistics = memo<Props>(function PostStatistics({
                   mirrors,
                   quotes,
                   views,
+                  pollVotes,
                   sendFrom && !hideSource ? (
                       <Trans>
                           Posted via{' '}
