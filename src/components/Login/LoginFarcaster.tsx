@@ -20,27 +20,19 @@ import { enqueueErrorMessage, enqueueSuccessMessage } from '@/helpers/enqueueMes
 import { getMobileDevice } from '@/helpers/getMobileDevice.js';
 import { getSnackbarMessageFromError } from '@/helpers/getSnackbarMessageFromError.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
-import { runInSafe } from '@/helpers/runInSafe.js';
 import { useAbortController } from '@/hooks/useAbortController.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import { LoginModalRef } from '@/modals/controls.js';
-import type { FarcasterSession } from '@/providers/farcaster/Session.js';
 import type { Account } from '@/providers/types/Account.js';
 import { createAccountByGrantPermission } from '@/providers/warpcast/createAccountByGrantPermission.js';
 import { createAccountByRelayService } from '@/providers/warpcast/createAccountByRelayService.js';
-import { reportFarcasterSigner } from '@/services/reportFarcasterSigner.js';
 
 async function login(createAccount: () => Promise<Account>, options?: Omit<AccountOptions, 'source'>) {
     try {
         const account = await createAccount();
 
         const done = await addAccount(account, options);
-        if (done) {
-            enqueueSuccessMessage(t`Your ${resolveSourceName(Source.Farcaster)} account is now connected.`);
-
-            // report signer to Firefly (no-blocking) after the account is added
-            runInSafe(() => reportFarcasterSigner(account.session as FarcasterSession));
-        }
+        if (done) enqueueSuccessMessage(t`Your ${resolveSourceName(Source.Farcaster)} account is now connected.`);
         LoginModalRef.close();
     } catch (error) {
         // skip if the error is abort error
@@ -95,7 +87,7 @@ export function LoginFarcaster({ signType }: LoginFarcasterProps) {
                         resetCountdown();
                         startCountdown();
                     }, controller.current.signal),
-                { signal: controller.current.signal },
+                { skipReportFarcasterSigner: false, signal: controller.current.signal },
             );
         } catch (error) {
             enqueueErrorMessage(getSnackbarMessageFromError(error, t`Failed to login.`), {
