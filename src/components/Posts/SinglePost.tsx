@@ -66,12 +66,7 @@ export const SinglePost = memo<SinglePostProps>(function SinglePost({
         return true;
     }, [post, isPostPage]);
 
-    const showPostAction = useMemo(() => {
-        if (isProfilePage) return true;
-        if (isDetail) return false;
-        if (!post.isHidden) return false;
-        return !muted;
-    }, [isDetail, isProfilePage, muted, post.isHidden]);
+    const showPostAction = isProfilePage || isDetail ? false : !post.isHidden || !muted;
 
     return (
         <motion.article
