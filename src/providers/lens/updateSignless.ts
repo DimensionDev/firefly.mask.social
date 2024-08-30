@@ -32,5 +32,11 @@ export async function updateSignless(enable: boolean, session: LensSession): Pro
         console.warn("Couldn't update signless", onchainRelayResult);
         throw new Error("Couldn't update signless");
     }
+
+    if (onchainRelayResult.txHash)
+        await sdk.transaction.waitUntilComplete({
+            forTxHash: onchainRelayResult.txHash,
+        });
+
     return;
 }
