@@ -19,7 +19,7 @@ export function formatTwitterProfile(data: UserV2): Profile {
         followerCount: data.public_metrics?.followers_count ?? 0,
         followingCount: data.public_metrics?.following_count ?? 0,
         status: ProfileStatus.Active,
-        verified: true,
+        verified: data.verified || false,
         source: Source.Twitter,
         viewerContext: {
             following,

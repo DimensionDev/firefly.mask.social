@@ -122,6 +122,11 @@ export const MAX_CHAR_SIZE_PER_POST: Record<SocialSource, number> = {
     [Source.Lens]: 5000,
     [Source.Twitter]: 280,
 };
+export const MAX_CHAR_SIZE_VERIFY_PER_POST: Record<SocialSource, number> = {
+    [Source.Farcaster]: 1024,
+    [Source.Lens]: 5000,
+    [Source.Twitter]: 5000,
+};
 export const MAX_IMAGE_SIZE_PER_POST: Record<SocialSource, number> = {
     [Source.Farcaster]: 2,
     [Source.Lens]: 20,
@@ -241,6 +246,8 @@ export const TWITTER_USER_OPTIONS: Partial<UsersV2Params> = {
         'connection_status',
         'url',
         'location',
+        'verified',
+        'verified_type',
     ],
 };
 
