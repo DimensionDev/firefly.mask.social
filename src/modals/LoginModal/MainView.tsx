@@ -12,31 +12,26 @@ import { restoreCurrentAccounts } from '@/helpers/account.js';
 import { resolveSourceInURL } from '@/helpers/resolveSourceInURL.js';
 import { useAbortController } from '@/hooks/useAbortController.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
-import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
 
 export function MainView() {
     const router = useRouter();
     const { history } = router;
     const isMedium = useIsMedium();
-    const [selectedSource, setSelectedSource] = useState<SocialSource>();
 
     const controller = useAbortController();
+    const [selectedSource, setSelectedSource] = useState<SocialSource>();
 
     const [{ loading }, onClick] = useAsyncFn(async (source: SocialSource) => {
-        const fireflySession = fireflySessionHolder.session;
-        const signType = source === Source.Farcaster && isMedium ? FarcasterSignType.RelayService : undefined;
+        setSelectedSource(source);
 
-        if (fireflySession) {
-            setSelectedSource(source);
-
-            try {
-                const confirmed = await restoreCurrentAccounts(controller.current.signal);
-                if (confirmed) return;
-            } catch (error) {
-                // if any error occurs, we will just proceed with the login
-            }
+        try {
+            const confirmed = await restoreCurrentAccounts(controller.current.signal);
+            if (confirmed) return;
+        } catch (error) {
+            // if any error occurs, we will just proceed with the login
         }
 
+        const signType = source === Source.Farcaster && isMedium ? FarcasterSignType.RelayService : undefined;
         const path = urlcat(
             '/',
             resolveSourceInURL(source),

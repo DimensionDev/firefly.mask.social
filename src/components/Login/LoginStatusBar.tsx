@@ -1,6 +1,7 @@
 'use client';
 
 import { delay } from '@masknet/kit';
+import { useState } from 'react';
 import { useAsyncFn } from 'react-use';
 
 import { ProfileAvatarAdd } from '@/components/Login/ProfileAvatarAdd.js';
@@ -24,9 +25,13 @@ export function LoginStatusBar({ collapsed = false }: LoginStatusBarProps) {
     const { updateSidebarOpen } = useNavigatorState();
 
     const currentProfileAll = useCurrentProfileAll();
+
     const controller = useAbortController();
+    const [selectedSource, setSelectedSource] = useState<SocialSource>();
 
     const [{ loading }, onLogin] = useAsyncFn(async (source: SocialSource) => {
+        setSelectedSource(source);
+
         try {
             const confirmed = await restoreCurrentAccounts(controller.current.signal);
             if (confirmed) return;
@@ -54,7 +59,12 @@ export function LoginStatusBar({ collapsed = false }: LoginStatusBarProps) {
 
             {SORTED_SOCIAL_SOURCES.map((x) =>
                 !currentProfileAll[x] ? (
-                    <ProfileAvatarAdd key={x} source={x} loading={loading} onClick={() => onLogin(x)} />
+                    <ProfileAvatarAdd
+                        key={x}
+                        source={x}
+                        loading={loading ? x === selectedSource : false}
+                        onClick={() => onLogin(x)}
+                    />
                 ) : null,
             )}
         </div>

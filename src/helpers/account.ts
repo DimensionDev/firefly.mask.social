@@ -225,7 +225,7 @@ export async function addAccount(account: Account, options?: AccountOptions) {
  */
 export async function restoreCurrentAccounts(signal?: AbortSignal) {
     const session = fireflySessionHolder.session;
-    if (!session) throw new Error('[restoreCurrentAccounts] Firefly session is not found');
+    if (!session) return false;
 
     const accountsSynced = await downloadAccounts(session, signal);
     const accountsFiltered = accountsSynced.filter((x) => {
