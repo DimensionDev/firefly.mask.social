@@ -12,6 +12,8 @@ import { getWalletClientRequired } from '@/helpers/getWalletClientRequired.js';
 import { useCurrentProfileAll } from '@/hooks/useCurrentProfile.js';
 import { LoginModalRef } from '@/modals/controls.js';
 import { useNavigatorState } from '@/store/useNavigatorStore.js';
+import { restoreCurrentAccounts } from '@/helpers/account.js';
+import { useAbortController } from '@/hooks/useAbortController.js';
 
 interface LoginStatusBarProps {
     collapsed?: boolean;
@@ -21,6 +23,7 @@ export function LoginStatusBar({ collapsed = false }: LoginStatusBarProps) {
     const { updateSidebarOpen } = useNavigatorState();
 
     const currentProfileAll = useCurrentProfileAll();
+    const controller = useAbortController();
 
     return (
         <div
@@ -40,6 +43,13 @@ export function LoginStatusBar({ collapsed = false }: LoginStatusBarProps) {
                         key={x}
                         source={x}
                         onClick={async () => {
+                            try {
+                                const confimred = await restoreCurrentAccounts(controller.current.signal);
+                                if (confimred) return;
+                            } catch {
+                                // if any error occurs, we will just proceed with the login
+                            }
+
                             updateSidebarOpen(false);
                             await delay(300);
                             if (x === Source.Lens) await getWalletClientRequired(config);

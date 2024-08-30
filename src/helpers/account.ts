@@ -218,6 +218,11 @@ export async function addAccount(account: Account, options?: AccountOptions) {
     return true;
 }
 
+/**
+ * Restore accounts from the currently logined firefly session
+ * @param signal
+ * @returns
+ */
 export async function restoreCurrentAccounts(signal?: AbortSignal) {
     const session = fireflySessionHolder.session;
     if (!session) throw new Error('[restoreCurrentAccounts] Firefly session is not found');
@@ -238,9 +243,10 @@ export async function restoreCurrentAccounts(signal?: AbortSignal) {
 
         if (confirmed) {
             await updateState(accountsFiltered, false);
-            return;
+            return true;
         }
     }
+    return false;
 }
 
 export async function switchAccount(account: Account, signal?: AbortSignal) {

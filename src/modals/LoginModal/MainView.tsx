@@ -30,7 +30,8 @@ export function MainView() {
             setSelectedSource(source);
 
             try {
-                await restoreCurrentAccounts(controller.current.signal);
+                const confirmed = await restoreCurrentAccounts(controller.current.signal);
+                if (confirmed) return;
             } catch (error) {
                 // if any error occurs, we will just proceed with the login
             }
