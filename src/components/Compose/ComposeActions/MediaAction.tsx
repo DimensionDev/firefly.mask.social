@@ -3,6 +3,7 @@ import { t } from '@lingui/macro';
 import { memo, useState } from 'react';
 
 import GalleryIcon from '@/assets/gallery.svg';
+import { ClickableButton } from '@/components/ClickableButton.js';
 import { Media } from '@/components/Compose/Media.js';
 import { Popover as PopoverModal } from '@/components/Popover.js';
 import { Tooltip } from '@/components/Tooltip.js';
@@ -46,7 +47,7 @@ export const MediaAction = memo(function MediaAction() {
         );
     return (
         <>
-            <button onClick={() => setOpen(true)}>{buttonContent}</button>
+            <ClickableButton onClick={() => setOpen(true)}>{buttonContent}</ClickableButton>
             <PopoverModal open={open} onClose={() => setOpen(false)} DialogPanelProps={{ className: 'px-0' }}>
                 {!mediaDisabled ? <Media close={() => setOpen(false)} /> : null}
             </PopoverModal>

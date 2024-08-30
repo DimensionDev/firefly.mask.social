@@ -37,6 +37,7 @@ export function useAddImages() {
                     maxImageCount,
                 );
             });
+            return true;
         },
         [availableSources, type, updateImages],
     );

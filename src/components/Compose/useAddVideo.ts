@@ -22,7 +22,7 @@ export function useAddVideo() {
                 return false;
             }
             updateVideo(createLocalMediaObject(file));
-            return;
+            return true;
         },
         [availableSources, updateVideo],
     );

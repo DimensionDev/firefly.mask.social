@@ -2,7 +2,7 @@ import { Popover } from '@headlessui/react';
 import { ChevronRightIcon } from '@heroicons/react/24/outline';
 import { memo, useState } from 'react';
 
-import type { ActionProps } from '@/components/Compose/ComposeActions/types.js';
+import { ClickableButton } from '@/components/ClickableButton.js';
 import { ReplyRestriction } from '@/components/Compose/ReplyRestriction.js';
 import { ReplyRestrictionText } from '@/components/Compose/ReplyRestrictionText.js';
 import { Popover as PopoverModal } from '@/components/Popover.js';
@@ -10,6 +10,9 @@ import { useCompositePost } from '@/hooks/useCompositePost.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import { useComposeStateStore } from '@/store/useComposeStore.js';
 
+interface ActionProps {
+    hasError: boolean;
+}
 export const ReplyRestrictionAction = memo(function ReplyRestrictionAction({ hasError }: ActionProps) {
     const isMedium = useIsMedium();
 
@@ -44,13 +47,13 @@ export const ReplyRestrictionAction = memo(function ReplyRestrictionAction({ has
     }
     return (
         <>
-            <button
-                className="flex cursor-pointer gap-1 text-main focus:outline-none disabled:cursor-not-allowed disabled:opacity-50"
+            <ClickableButton
+                className="flex gap-1 text-main focus:outline-none disabled:cursor-not-allowed disabled:opacity-50"
                 onClick={() => setOpen(true)}
                 disabled={disabled}
             >
                 {buttonContent}
-            </button>
+            </ClickableButton>
             <PopoverModal open={open} onClose={() => setOpen(false)}>
                 <ReplyRestriction restriction={restriction} setRestriction={updateRestriction} />
             </PopoverModal>

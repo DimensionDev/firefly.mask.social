@@ -25,8 +25,8 @@ export function ComposeButtonForMobile() {
     const currentPost = useCurrentVisitingPost();
     const currentChannel = useCurrentVisitingChannel();
 
-    // if (!isLogin) return null;
-    // if (isPostPage && !isCurrentLogin) return null;
+    if (!isLogin) return null;
+    if (isPostPage && !isCurrentLogin) return null;
     if (isArticlePage || currentSource === Source.NFTs || currentSource === Source.Article || isNFTPage) return null;
 
     return (

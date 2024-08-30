@@ -2,7 +2,7 @@ import { Popover } from '@headlessui/react';
 import { ChevronRightIcon } from '@heroicons/react/24/outline';
 import { memo, useState } from 'react';
 
-import type { ActionProps } from '@/components/Compose/ComposeActions/types.js';
+import { ClickableButton } from '@/components/ClickableButton.js';
 import { PostBy } from '@/components/Compose/PostBy.js';
 import { Popover as PopoverModal } from '@/components/Popover.js';
 import { SocialSourceIcon } from '@/components/SocialSourceIcon.js';
@@ -11,6 +11,10 @@ import { useCompositePost } from '@/hooks/useCompositePost.js';
 import { useCurrentProfileAll } from '@/hooks/useCurrentProfile.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import { useComposeStateStore } from '@/store/useComposeStore.js';
+
+interface ActionProps {
+    hasError: boolean;
+}
 
 export const PlatformAction = memo(function PlatformAction({ hasError }: ActionProps) {
     const post = useCompositePost();
@@ -51,13 +55,13 @@ export const PlatformAction = memo(function PlatformAction({ hasError }: ActionP
 
     return (
         <>
-            <button
-                className="flex cursor-pointer gap-1 text-main focus:outline-none disabled:cursor-not-allowed disabled:opacity-50"
+            <ClickableButton
+                className="flex gap-1 text-main focus:outline-none disabled:cursor-not-allowed disabled:opacity-50"
                 onClick={() => setOpen(true)}
                 disabled={disabled}
             >
                 {buttonContent}
-            </button>
+            </ClickableButton>
             <PopoverModal open={open} onClose={() => setOpen(false)} DialogPanelProps={{ className: 'px-0' }}>
                 <PostBy />
             </PopoverModal>

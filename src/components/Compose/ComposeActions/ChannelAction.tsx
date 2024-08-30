@@ -3,13 +3,16 @@ import { ChevronRightIcon } from '@heroicons/react/24/outline';
 import { compact } from 'lodash-es';
 import { memo, useState } from 'react';
 
+import { ClickableButton } from '@/components/ClickableButton.js';
 import { ChannelSearchPanel } from '@/components/Compose/ChannelSearchPanel.js';
-import type { ActionProps } from '@/components/Compose/ComposeActions/types.js';
 import { Popover as PopoverModal } from '@/components/Popover.js';
 import { SORTED_SOCIAL_SOURCES } from '@/constants/index.js';
 import { useCompositePost } from '@/hooks/useCompositePost.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
 
+interface ActionProps {
+    hasError: boolean;
+}
 export const ChooseChannelAction = memo(function ChooseChannelAction({ hasError }: ActionProps) {
     const isMedium = useIsMedium();
     const { channel } = useCompositePost();
@@ -45,12 +48,12 @@ export const ChooseChannelAction = memo(function ChooseChannelAction({ hasError 
 
     return (
         <>
-            <button
-                className="flex cursor-pointer gap-1 text-main focus:outline-none disabled:cursor-not-allowed disabled:opacity-50"
+            <ClickableButton
+                className="flex gap-1 text-main focus:outline-none disabled:cursor-not-allowed disabled:opacity-50"
                 onClick={() => setOpen(true)}
             >
                 {buttonContent}
-            </button>
+            </ClickableButton>
             <PopoverModal open={open} onClose={() => setOpen(false)}>
                 <ChannelSearchPanel onSelected={() => setOpen(false)} className="max-h-[192px]" />
             </PopoverModal>
