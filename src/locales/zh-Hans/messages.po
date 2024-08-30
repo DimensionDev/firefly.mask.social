@@ -1779,9 +1779,6 @@ msgstr "确认登出这些账号？"
 msgid "Repost"
 msgstr "转帖"
 
-msgid "Wrong Wallet"
-msgstr ""
-
 msgid "Please input the blink url to be revalidated. <0>URL Scheme</0>"
 msgstr "请输入 blink 链接来验证。 <0>URL格式</0>"
 
