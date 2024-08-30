@@ -38,7 +38,7 @@ function hasFireflySession() {
     return SORTED_SOCIAL_SOURCES.some((x) => !!getProfileState(x).currentProfile);
 }
 
-export async function updateState(accounts: Account[], overwrite = false) {
+async function updateState(accounts: Account[], overwrite = false) {
     // remove all accounts if overwrite is true
     if (overwrite) {
         SORTED_SOCIAL_SOURCES.forEach((source) => {
