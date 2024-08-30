@@ -8,15 +8,11 @@ import { LoginButton } from '@/components/Login/LoginButton.js';
 import { LoginFirefly } from '@/components/Login/LoginFirefly.js';
 import { FarcasterSignType, type SocialSource, Source } from '@/constants/enum.js';
 import { SORTED_SOCIAL_SOURCES } from '@/constants/index.js';
-import { updateAccountState } from '@/helpers/account.js';
-import { getProfileState } from '@/helpers/getProfileState.js';
-import { isSameAccount } from '@/helpers/isSameAccount.js';
+import { restoreAccounts } from '@/helpers/account.js';
 import { resolveSourceInURL } from '@/helpers/resolveSourceInURL.js';
-import { useIsMedium } from '@/hooks/useMediaQuery.js';
-import { ConfirmFireflyModalRef, LoginModalRef } from '@/modals/controls.js';
-import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
-import { downloadAccounts } from '@/services/metrics.js';
 import { useAbortController } from '@/hooks/useAbortController.js';
+import { useIsMedium } from '@/hooks/useMediaQuery.js';
+import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
 
 export function MainView() {
     const router = useRouter();
@@ -34,25 +30,7 @@ export function MainView() {
             setSelectedSource(source);
 
             try {
-                const accountsSynced = await downloadAccounts(fireflySession, controller.current.signal);
-                const accountsFiltered = accountsSynced.filter((x) => {
-                    const state = getProfileState(x.profile.source);
-                    return !state.accounts.find((y) => isSameAccount(x, y));
-                });
-
-                if (accountsFiltered.length) {
-                    LoginModalRef.close();
-
-                    const confirmed = await ConfirmFireflyModalRef.openAndWaitForClose({
-                        belongsTo: true,
-                        accounts: accountsFiltered,
-                    });
-
-                    if (confirmed) {
-                        await updateAccountState(accountsFiltered, false);
-                        return;
-                    }
-                }
+                await restoreAccounts(fireflySession, controller.current.signal);
             } catch (error) {
                 // if any error occurs, we will just proceed with the login
             }
