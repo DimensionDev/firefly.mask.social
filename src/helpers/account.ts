@@ -219,7 +219,7 @@ export async function addAccount(account: Account, options?: AccountOptions) {
 }
 
 /**
- * Restore accounts from the currently logined firefly session
+ * Restore accounts from the currently logged-in Firefly session.
  * @param signal
  * @returns
  */

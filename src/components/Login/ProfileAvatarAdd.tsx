@@ -10,16 +10,17 @@ import { useTwitterStateStore } from '@/store/useProfileStore.js';
 
 interface ProfileAvatarAddProps extends React.HTMLAttributes<HTMLDivElement> {
     source: SocialSource;
+    loading?: boolean;
 }
 
-export function ProfileAvatarAdd({ source, ...props }: ProfileAvatarAddProps) {
+export function ProfileAvatarAdd({ source, loading, ...props }: ProfileAvatarAddProps) {
     const isLarge = useIsLarge();
     const status = useTwitterStateStore.use.status();
 
     const size = isLarge ? 40 : 36;
     const style = useSizeStyle(size, props.style);
 
-    const isLoading = source === Source.Twitter && status === AsyncStoreStatus.Pending;
+    const isLoading = loading || (source === Source.Twitter && status === AsyncStoreStatus.Pending);
 
     return (
         <div
