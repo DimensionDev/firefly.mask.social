@@ -1774,9 +1774,6 @@ msgstr "Confirm to log out all accounts?"
 msgid "Repost"
 msgstr "Repost"
 
-msgid "Wrong Wallet"
-msgstr "Wrong Wallet"
-
 msgid "Please input the blink url to be revalidated. <0>URL Scheme</0>"
 msgstr "Please input the blink url to be revalidated. <0>URL Scheme</0>"
 

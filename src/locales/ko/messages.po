@@ -1779,9 +1779,6 @@ msgstr ""
 msgid "Repost"
 msgstr ""
 
-msgid "Wrong Wallet"
-msgstr ""
-
 msgid "Please input the blink url to be revalidated. <0>URL Scheme</0>"
 msgstr ""
 
