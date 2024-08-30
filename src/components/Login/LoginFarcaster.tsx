@@ -30,7 +30,10 @@ import { createAccountByGrantPermission } from '@/providers/warpcast/createAccou
 import { createAccountByRelayService } from '@/providers/warpcast/createAccountByRelayService.js';
 import { reportFarcasterSigner } from '@/services/reportFarcasterSigner.js';
 
-async function login(createAccount: () => Promise<Account>, options?: Omit<AccountOptions, 'source'>) {
+async function login(
+    createAccount: () => Promise<Account>,
+    options?: Omit<AccountOptions, 'source'> & { reportSigner?: boolean },
+) {
     try {
         const account = await createAccount();
 
@@ -39,7 +42,9 @@ async function login(createAccount: () => Promise<Account>, options?: Omit<Accou
             enqueueSuccessMessage(t`Your ${resolveSourceName(Source.Farcaster)} account is now connected.`);
 
             // report signer to Firefly (no-blocking) after the account is added
-            runInSafe(() => reportFarcasterSigner(account.session as FarcasterSession));
+            if (options?.reportSigner) {
+                runInSafe(() => reportFarcasterSigner(account.session as FarcasterSession));
+            }
         }
         LoginModalRef.close();
     } catch (error) {
@@ -95,7 +100,7 @@ export function LoginFarcaster({ signType }: LoginFarcasterProps) {
                         resetCountdown();
                         startCountdown();
                     }, controller.current.signal),
-                { signal: controller.current.signal },
+                { reportSigner: true, signal: controller.current.signal },
             );
         } catch (error) {
             enqueueErrorMessage(getSnackbarMessageFromError(error, t`Failed to login.`), {
