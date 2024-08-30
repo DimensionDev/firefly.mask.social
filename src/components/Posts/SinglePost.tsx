@@ -52,6 +52,7 @@ export const SinglePost = memo<SinglePostProps>(function SinglePost({
     const pathname = usePathname();
 
     const isPostPage = isRoutePathname(pathname, '/post/:detail', true);
+    const isProfilePage = isRoutePathname(pathname, '/profile/:id', true);
     const isChannelPage = isRoutePathname(pathname, '/channel/:detail', true);
     const postLink = getPostUrl(post);
     const muted = useIsProfileMuted(post.author);
@@ -61,12 +62,11 @@ export const SinglePost = memo<SinglePostProps>(function SinglePost({
     const show = useMemo(() => {
         if (post.source === Source.Twitter) return false;
         if (!post.isThread || isPostPage) return false;
-
         if (post.source === Source.Farcaster && post.stats?.comments === 0) return false;
         return true;
     }, [post, isPostPage]);
 
-    if (muted) return null;
+    const showPostAction = isProfilePage || isDetail ? false : !post.isHidden || !muted;
 
     return (
         <motion.article
@@ -107,7 +107,7 @@ export const SinglePost = memo<SinglePostProps>(function SinglePost({
                 isDetail={isDetail}
                 isComment={isComment}
             />
-            {!post.isHidden && !isDetail ? (
+            {showPostAction ? (
                 <PostActions
                     className={isComment && !isSmall ? '!ml-[52px]' : ''}
                     post={post}
