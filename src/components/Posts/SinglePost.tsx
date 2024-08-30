@@ -66,6 +66,8 @@ export const SinglePost = memo<SinglePostProps>(function SinglePost({
         return true;
     }, [post, isPostPage]);
 
+    if (muted) return null;
+
     return (
         <motion.article
             initial={!disableAnimate ? { opacity: 0 } : false}
@@ -105,7 +107,7 @@ export const SinglePost = memo<SinglePostProps>(function SinglePost({
                 isDetail={isDetail}
                 isComment={isComment}
             />
-            {!post.isHidden && !muted && !isDetail ? (
+            {!post.isHidden && !isDetail ? (
                 <PostActions
                     className={isComment && !isSmall ? '!ml-[52px]' : ''}
                     post={post}
