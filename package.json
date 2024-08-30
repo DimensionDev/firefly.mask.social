@@ -1,7 +1,7 @@
 {
     "name": "mask.social",
     "type": "module",
-    "version": "6.0.5",
+    "version": "6.0.6",
     "private": true,
     "packageManager": "pnpm@8.15.8",
     "scripts": {
@@ -30,7 +30,7 @@
         "@giphy/react-components": "^9.5.0",
         "@headlessui/react": "1.7.17",
         "@heroicons/react": "^2.0.18",
-        "@lens-protocol/client": "^2.2.0",
+        "@lens-protocol/client": "^2.3.1",
         "@lens-protocol/metadata": "^1.1.5",
         "@lexical/hashtag": "^0.12.5",
         "@lexical/link": "^0.12.5",

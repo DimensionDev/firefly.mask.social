@@ -1,5 +1,6 @@
 import { SearchBar, SearchContextManager } from '@giphy/react-components';
 import { t, Trans } from '@lingui/macro';
+import { formatFileSize } from '@masknet/kit';
 import { useCallback, useMemo, useState } from 'react';
 import { useSize } from 'react-use';
 
@@ -9,11 +10,11 @@ import { EmojiList } from '@/components/Gif/EmojiList.js';
 import { GifList } from '@/components/Gif/GifList.js';
 import { GiphyTabType } from '@/constants/enum.js';
 import { env } from '@/constants/env.js';
-import { FILE_MAX_SIZE } from '@/constants/index.js';
 import { Image } from '@/esm/Image.js';
 import { classNames } from '@/helpers/classNames.js';
 import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
 import { getCurrentPostImageLimits } from '@/helpers/getCurrentPostImageLimits.js';
+import { getPostGifSizeLimit } from '@/helpers/getPostFileSizeLimit.js';
 import { createGiphyMediaObject } from '@/helpers/resolveMediaObjectUrl.js';
 import { useCompositePost } from '@/hooks/useCompositePost.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
@@ -48,6 +49,7 @@ export function GifSelector({ onSelected }: GifSelectorProps) {
     const isMedium = useIsMedium('max');
 
     const maxImageCount = getCurrentPostImageLimits(type, availableSources);
+    const maxGifSize = getPostGifSizeLimit(availableSources);
 
     const searchOptions = useMemo(
         () => ({
@@ -59,8 +61,8 @@ export function GifSelector({ onSelected }: GifSelectorProps) {
     const onGifSelected = useCallback(
         (gif: IGif) => {
             const gifSize = gif.images.original.size;
-            if (gifSize && parseFloat(gifSize) > FILE_MAX_SIZE) {
-                enqueueErrorMessage(t`The file exceeds the size limit.`);
+            if (gifSize && parseFloat(gifSize) > maxGifSize) {
+                enqueueErrorMessage(t`The file exceeds the size limit (${formatFileSize(maxGifSize, false)}).`);
                 return;
             }
             updateImages((images) => {
@@ -69,7 +71,7 @@ export function GifSelector({ onSelected }: GifSelectorProps) {
             });
             onSelected();
         },
-        [maxImageCount, onSelected, updateImages],
+        [maxImageCount, maxGifSize, onSelected, updateImages],
     );
 
     return (

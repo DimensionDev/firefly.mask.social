@@ -127,6 +127,28 @@ export const MAX_IMAGE_SIZE_PER_POST: Record<SocialSource, number> = {
     [Source.Twitter]: 4,
 };
 
+export const MAX_FILE_SIZE_PER_IMAGE: Record<SocialSource, number> = {
+    // TODO: https://vercel.com/docs/functions/runtimes#request-body-size
+    [Source.Twitter]: 4 * 1024 * 1024, // expected: 5MB
+    [Source.Lens]: 100 * 1024 * 1024, // 100MB
+    [Source.Farcaster]: 100 * 1024 * 1024, // 100MB
+};
+
+export const MAX_FILE_SIZE_PER_GIF: Record<SocialSource, number> = {
+    // TODO: https://vercel.com/docs/functions/runtimes#request-body-size
+    [Source.Twitter]: 4 * 1024 * 1024, // expected: 15MB
+    [Source.Lens]: 15 * 1024 * 1024, // 15MB
+    [Source.Farcaster]: 15 * 1024 * 1024, // 15MB
+};
+
+// https://mask.atlassian.net/browse/FW-2212
+// TODO: Our upload is not strong enough to handle 1GB videos. So we limit 400MB here.
+export const MAX_FILE_SIZE_PER_VIDEO: Record<SocialSource, number> = {
+    [Source.Twitter]: 400 * 1024 * 1024, // 400MB
+    [Source.Lens]: 400 * 1024 * 1024, // 400MB
+    [Source.Farcaster]: 400 * 1024 * 1024, // 400MB
+};
+
 // Search Bar
 export const MAX_SEARCH_RECORD_SIZE = 5;
 export const MAX_RECOMMEND_PROFILE_SIZE = 10;
@@ -186,9 +208,6 @@ export const SUFFIX_NAMES: Record<(typeof ALLOWED_MEDIA_MIMES)[number], string> 
     'video/webm': 'webm',
 };
 
-export const FILE_MAX_SIZE = 4 * 1024 * 1024; // 4MB
-export const VIDEO_MAX_SIZE = 400 * 1024 * 1024; // 400MB
-
 export const TWITTER_TIMELINE_OPTIONS: TweetV2UserTimelineParams = {
     expansions: [
         'attachments.media_keys',
@@ -219,3 +238,5 @@ export const TWITTER_USER_OPTIONS: Partial<UsersV2Params> = {
 };
 
 export const SOLANA_WALLET_CACHE_KEY = 'walletName';
+
+export const THIRTY_DAYS = 1000 * 60 * 60 * 24 * 30;

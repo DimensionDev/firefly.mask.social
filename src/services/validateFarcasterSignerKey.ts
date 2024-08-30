@@ -1,11 +1,11 @@
-import { keyRegistryABI, NobleEd25519Signer } from '@farcaster/core';
+import { keyRegistryABI } from '@farcaster/core';
 import { ChainId } from '@masknet/web3-shared-evm';
 import { readContract } from '@wagmi/core';
-import { parseUnits, toBytes } from 'viem';
+import { parseUnits } from 'viem';
 
 import { config } from '@/configs/wagmiClient.js';
 import { FarcasterInvalidSignerKey, MalformedError } from '@/constants/error.js';
-import { getPublicKeyInHex } from '@/helpers/ed25519.js';
+import { getPublicKeyInHexFromSession } from '@/helpers/ed25519.js';
 import type { FarcasterSession } from '@/providers/farcaster/Session.js';
 
 enum KeyState {
@@ -14,8 +14,7 @@ enum KeyState {
 }
 
 export async function validateFarcasterSession(session: FarcasterSession): Promise<true> {
-    const signer = new NobleEd25519Signer(toBytes(session.token));
-    const publicKey = await getPublicKeyInHex(signer);
+    const publicKey = await getPublicKeyInHexFromSession(session);
     if (!publicKey) throw new MalformedError('Invalid signer key.');
 
     try {

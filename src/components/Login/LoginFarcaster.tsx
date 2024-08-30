@@ -29,7 +29,9 @@ import { createAccountByRelayService } from '@/providers/warpcast/createAccountB
 
 async function login(createAccount: () => Promise<Account>, options?: Omit<AccountOptions, 'source'>) {
     try {
-        const done = await addAccount(await createAccount(), options);
+        const account = await createAccount();
+
+        const done = await addAccount(account, options);
         if (done) enqueueSuccessMessage(t`Your ${resolveSourceName(Source.Farcaster)} account is now connected.`);
         LoginModalRef.close();
     } catch (error) {
@@ -85,7 +87,7 @@ export function LoginFarcaster({ signType }: LoginFarcasterProps) {
                         resetCountdown();
                         startCountdown();
                     }, controller.current.signal),
-                { signal: controller.current.signal },
+                { skipReportFarcasterSigner: false, signal: controller.current.signal },
             );
         } catch (error) {
             enqueueErrorMessage(getSnackbarMessageFromError(error, t`Failed to login.`), {

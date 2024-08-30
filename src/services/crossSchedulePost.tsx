@@ -20,6 +20,7 @@ import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
 import { commitPoll } from '@/services/commitPoll.js';
 import { uploadSessions } from '@/services/metrics.js';
 import type { CompositePost } from '@/store/useComposeStore.js';
+import { useLensStateStore } from '@/store/useProfileStore.js';
 import type { ComposeType } from '@/types/compose.js';
 
 export async function createSchedulePostsPayload(type: ComposeType, compositePost: CompositePost, isThread = false) {
@@ -66,6 +67,7 @@ export async function crossSchedulePost(type: ComposeType, compositePost: Compos
 
         const content = getScheduleTaskContent(compositePost);
 
+        await useLensStateStore.getState().refreshCurrentAccount();
         await uploadSessions('merge', fireflySessionHolder.sessionRequired, getProfileSessionsAll());
 
         const result = await FireflySocialMediaProvider.schedulePost(
