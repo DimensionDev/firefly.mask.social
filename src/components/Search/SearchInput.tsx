@@ -19,7 +19,6 @@ export function SearchInput({ onClear, ...rest }: SearchInputProps) {
                 autoComplete="off"
                 spellCheck="false"
                 placeholder={t`Search...`}
-                autoFocus
                 ref={inputRef}
                 {...rest}
                 className={classNames(
