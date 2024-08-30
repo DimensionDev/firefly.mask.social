@@ -8,7 +8,7 @@ import { LoginButton } from '@/components/Login/LoginButton.js';
 import { LoginFirefly } from '@/components/Login/LoginFirefly.js';
 import { FarcasterSignType, type SocialSource, Source } from '@/constants/enum.js';
 import { SORTED_SOCIAL_SOURCES } from '@/constants/index.js';
-import { restoreAccounts } from '@/helpers/account.js';
+import { restoreCurrentAccounts } from '@/helpers/account.js';
 import { resolveSourceInURL } from '@/helpers/resolveSourceInURL.js';
 import { useAbortController } from '@/hooks/useAbortController.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
@@ -30,7 +30,7 @@ export function MainView() {
             setSelectedSource(source);
 
             try {
-                await restoreAccounts(fireflySession, controller.current.signal);
+                await restoreCurrentAccounts(controller.current.signal);
             } catch (error) {
                 // if any error occurs, we will just proceed with the login
             }
