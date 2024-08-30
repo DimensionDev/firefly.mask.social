@@ -57,7 +57,7 @@ export async function createLensSchedulePostPayload(
 
     const { account } = await getWalletClientRequired(config);
     if (!isSameAddress(currentProfile?.ownedBy?.address, account.address)) {
-        throw new CreateScheduleError(t`Wrong Wallet`, t`Please switch to the wallet consistent with this action`);
+        throw new CreateScheduleError(t`Please switch to the wallet consistent with this action`);
     }
 
     if (!signless) throw new SignlessRequireError('Signless required');
@@ -74,7 +74,7 @@ export async function createLensSchedulePostPayload(
                 external_url: SITE_URL,
             },
         },
-        createPayloadAttachments(imageResults, videoResult),
+        await createPayloadAttachments(imageResults, videoResult),
     );
 
     const tokenRes = await LensSocialMediaProvider.getAccessToken();
