@@ -219,7 +219,7 @@ export async function addAccount(account: Account, options?: AccountOptions) {
         await uploadSessions('merge', fireflySessionHolder.sessionRequired, getProfileSessionsAll(), signal);
     }
 
-    // reprot farcaster signer
+    // report farcaster signer
     if (!skipReportFarcasterSigner && account.session.type === SessionType.Farcaster && fireflySessionHolder.session) {
         console.warn('[addAccount] report farcaster signer');
         runInSafe(() => reportFarcasterSigner(account.session as FireflySession));
