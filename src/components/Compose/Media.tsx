@@ -1,20 +1,18 @@
 import { Popover, Transition } from '@headlessui/react';
-import { t, Trans } from '@lingui/macro';
-import { formatFileSize } from '@masknet/kit';
+import { Trans } from '@lingui/macro';
 import { type ChangeEvent, Fragment, useRef } from 'react';
 import { useAsyncFn } from 'react-use';
 
 import ImageIcon from '@/assets/image.svg';
 import VideoIcon from '@/assets/video.svg';
+import { useAddImages } from '@/components/Compose/useAddImages.js';
+import { useAddVideo } from '@/components/Compose/useAddVideo.js';
 import { FileMimeType } from '@/constants/enum.js';
 import { ALLOWED_MEDIA_MIMES, SUPPORTED_VIDEO_SOURCES } from '@/constants/index.js';
 import { classNames } from '@/helpers/classNames.js';
-import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
 import { getCurrentPostImageLimits } from '@/helpers/getCurrentPostImageLimits.js';
-import { getPostGifSizeLimit, getPostImageSizeLimit, getPostVideoSizeLimit } from '@/helpers/getPostFileSizeLimit.js';
-import { isValidFileType } from '@/helpers/isValidFileType.js';
-import { createLocalMediaObject } from '@/helpers/resolveMediaObjectUrl.js';
 import { useCompositePost } from '@/hooks/useCompositePost.js';
+import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import { useComposeStateStore } from '@/store/useComposeStore.js';
 
 interface MediaProps {
@@ -24,82 +22,50 @@ export function Media({ close }: MediaProps) {
     const imageInputRef = useRef<HTMLInputElement>(null);
     const videoInputRef = useRef<HTMLInputElement>(null);
 
-    const { type, updateVideo, updateImages } = useComposeStateStore();
+    const { type } = useComposeStateStore();
     const { availableSources, video, images } = useCompositePost();
 
     const maxImageCount = getCurrentPostImageLimits(type, availableSources);
-    const maxImageSize = getPostImageSizeLimit(availableSources);
-    const maxVideoSize = getPostVideoSizeLimit(availableSources);
-    const maxGifSize = getPostGifSizeLimit(availableSources);
 
+    const addImages = useAddImages();
     const [, handleImageChange] = useAsyncFn(
         async (event: ChangeEvent<HTMLInputElement>) => {
             const files = event.target.files;
 
-            if (files && files.length > 0) {
-                const shouldUploadFiles = [...files].filter((file) => {
-                    const sizeLimit = file.type === FileMimeType.GIF ? maxGifSize : maxImageSize;
-                    if (file.size > sizeLimit) {
-                        enqueueErrorMessage(
-                            t`The file "${file.name}" (${formatFileSize(file.size, false)}) exceeds the size limit (${formatFileSize(sizeLimit, false)}).`,
-                        );
-                        return false;
-                    }
-                    return isValidFileType(file.type);
-                });
-                updateImages((images) => {
-                    if (images.length === maxImageCount) return images;
-                    return [...images, ...shouldUploadFiles.map((file) => createLocalMediaObject(file))].slice(
-                        0,
-                        maxImageCount,
-                    );
-                });
+            if (files?.length) {
+                addImages([...files]);
             }
             close();
         },
-        [maxImageCount, maxImageSize, maxGifSize, close, updateImages],
+        [close, addImages],
     );
 
+    const isMedium = useIsMedium();
+
+    const addVideo = useAddVideo();
     const [, handleVideoChange] = useAsyncFn(
         async (event: ChangeEvent<HTMLInputElement>) => {
             const files = event.target.files;
 
-            if (files && files.length > 0) {
+            if (files?.length) {
                 const file = files[0];
-                if (file.size > maxVideoSize) {
-                    enqueueErrorMessage(
-                        t`The video "${file.name}" (${formatFileSize(file.size, false)}) exceeds the size limit (${formatFileSize(maxVideoSize, false)}).`,
-                    );
-                    return false;
-                }
-                updateVideo(createLocalMediaObject(file));
+                addVideo(file);
             }
             close();
             return;
         },
-        [maxVideoSize, close, updateVideo],
+        [close, addVideo],
     );
 
     const disabledVideo =
         !!video || images.length > 0 || availableSources.some((source) => !SUPPORTED_VIDEO_SOURCES.includes(source));
 
-    return (
-        <Transition
-            as={Fragment}
-            enter="transition ease-out duration-200"
-            enterFrom="opacity-0 translate-y-1"
-            enterTo="opacity-100"
-            leave="transition ease-in duration-150"
-            leaveFrom="opacity-100"
-            leaveTo="opacity-0 translate-y-1"
-        >
-            <Popover.Panel
-                static
-                className="absolute bottom-full left-0 z-50 flex w-[280px] -translate-y-3 flex-col gap-2 rounded-lg bg-bgModal p-3 text-medium text-main shadow-popover"
-            >
+    const content = (
+        <div>
+            <div className="pb-2">
                 <div
                     className={classNames(
-                        'flex h-8 items-center gap-2',
+                        'flex h-[30px] items-center gap-2 p-3',
                         images.length >= maxImageCount ? 'cursor-not-allowed opacity-50' : 'cursor-pointer hover:bg-bg',
                     )}
                     onClick={() => {
@@ -122,12 +88,11 @@ export function Media({ close }: MediaProps) {
                     className="hidden"
                     onChange={handleImageChange}
                 />
-
-                <div className="h-px bg-line" />
-
+            </div>
+            <div className="pt-2">
                 <div
                     className={classNames(
-                        'flex h-8 items-center gap-2',
+                        'flex h-[30px] items-center gap-2 p-3',
                         disabledVideo ? 'cursor-not-allowed opacity-50' : 'cursor-pointer hover:bg-bg',
                     )}
                     onClick={() => {
@@ -149,7 +114,29 @@ export function Media({ close }: MediaProps) {
                     className="hidden"
                     onChange={handleVideoChange}
                 />
-            </Popover.Panel>
-        </Transition>
+            </div>
+        </div>
     );
+
+    if (isMedium)
+        return (
+            <Transition
+                as={Fragment}
+                enter="transition ease-out duration-200"
+                enterFrom="opacity-0 translate-y-1"
+                enterTo="opacity-100"
+                leave="transition ease-in duration-150"
+                leaveFrom="opacity-100"
+                leaveTo="opacity-0 translate-y-1"
+            >
+                <Popover.Panel
+                    static
+                    className="absolute bottom-full left-0 z-50 w-[280px] -translate-y-3 rounded-lg bg-lightBottom py-3 text-medium text-main shadow-popover dark:bg-darkBottom"
+                >
+                    {content}
+                </Popover.Panel>
+            </Transition>
+        );
+
+    return <>{content}</>;
 }
