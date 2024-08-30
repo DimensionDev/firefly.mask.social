@@ -16,12 +16,15 @@ import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import { ConfirmFireflyModalRef, LoginModalRef } from '@/modals/controls.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
 import { downloadAccounts } from '@/services/metrics.js';
+import { useAbortController } from '@/hooks/useAbortController.js';
 
 export function MainView() {
     const router = useRouter();
     const { history } = router;
     const isMedium = useIsMedium();
     const [selectedSource, setSelectedSource] = useState<SocialSource>();
+
+    const controller = useAbortController();
 
     const [{ loading }, onClick] = useAsyncFn(async (source: SocialSource) => {
         const fireflySession = fireflySessionHolder.session;
@@ -31,7 +34,7 @@ export function MainView() {
             setSelectedSource(source);
 
             try {
-                const accountsSynced = await downloadAccounts(fireflySession);
+                const accountsSynced = await downloadAccounts(fireflySession, controller.current.signal);
                 const accountsFiltered = accountsSynced.filter((x) => {
                     const state = getProfileState(x.profile.source);
                     return !state.accounts.find((y) => isSameAccount(x, y));
@@ -51,7 +54,7 @@ export function MainView() {
                     }
                 }
             } catch (error) {
-                // if an errors occurs, we will just proceed with the login
+                // if any error occurs, we will just proceed with the login
             }
         }
 
