@@ -8,7 +8,7 @@ msgstr ""
 "Language: ja\n"
 "Project-Id-Version: masksocial\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-08-28 16:03\n"
+"PO-Revision-Date: 2024-08-30 00:05\n"
 "Last-Translator: \n"
 "Language-Team: Japanese\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
@@ -1779,6 +1779,9 @@ msgstr ""
 msgid "Repost"
 msgstr ""
 
+msgid "Wrong Wallet"
+msgstr ""
+
 msgid "Please input the blink url to be revalidated. <0>URL Scheme</0>"
 msgstr ""
 
@@ -1813,9 +1816,6 @@ msgid "Cannot find your signer key, please connect again"
 msgstr ""
 
 msgid "No codes found to suspend trading."
-msgstr ""
-
-msgid "Please enable Momoka to support sending posts on Lens."
 msgstr ""
 
 msgid "First time connecting to Firefly?<0/><1>Approve a new connection</1> with Warpcast"

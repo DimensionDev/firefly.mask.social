@@ -1,5 +1,6 @@
 import { Plural, t, Trans } from '@lingui/macro';
 import { delay } from '@masknet/kit';
+import { ConnectorNotConnectedError } from '@wagmi/core';
 import { compact, values } from 'lodash-es';
 import { useMemo, useState } from 'react';
 import { useAsyncFn } from 'react-use';
@@ -50,24 +51,29 @@ export function ComposeSend(props: ComposeSendProps) {
     const [{ loading }, handlePost] = useAsyncFn(
         async (isRetry = false) => {
             if (checkPostMedias()) return;
-            if (posts.length > 1) {
-                scheduleTime
-                    ? await crossPostScheduleThread(scheduleTime)
-                    : await crossPostThread({
-                          isRetry,
-                          progressCallback: setPercentage,
-                      });
-            } else {
-                scheduleTime
-                    ? await crossSchedulePost(type, post, scheduleTime)
-                    : await crossPost(type, post, {
-                          isRetry,
-                      });
+            try {
+                if (posts.length > 1) {
+                    scheduleTime
+                        ? await crossPostScheduleThread(scheduleTime)
+                        : await crossPostThread({
+                              isRetry,
+                              progressCallback: setPercentage,
+                          });
+                } else {
+                    scheduleTime
+                        ? await crossSchedulePost(type, post, scheduleTime)
+                        : await crossPost(type, post, {
+                              isRetry,
+                          });
+                }
+                await delay(300);
+                // If the draft is applied and sent successfully, remove the draft.
+                if (draftId) removeDraft(draftId);
+                ComposeModalRef.close();
+            } catch (error) {
+                if (error instanceof ConnectorNotConnectedError) return;
+                throw error;
             }
-            await delay(300);
-            // If the draft is applied and sent successfully, remove the draft.
-            if (draftId) removeDraft(draftId);
-            ComposeModalRef.close();
         },
         [type, post, posts.length > 1, checkPostMedias, draftId, removeDraft, scheduleTime],
     );

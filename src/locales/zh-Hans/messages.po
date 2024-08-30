@@ -8,7 +8,7 @@ msgstr ""
 "Language: zh\n"
 "Project-Id-Version: masksocial\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-08-28 16:03\n"
+"PO-Revision-Date: 2024-08-30 00:05\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
@@ -58,7 +58,7 @@ msgid "New connect with Warpcast"
 msgstr "使用 Warpcast 连接"
 
 msgid "Edit Image"
-msgstr ""
+msgstr "修改图片"
 
 msgid "Failed to upload. File type is not supported on X."
 msgstr ""
@@ -79,7 +79,7 @@ msgid "Unmute successfully."
 msgstr "取消隐藏成功。"
 
 msgid "Send a tip"
-msgstr ""
+msgstr "发送打赏"
 
 msgid "Mute /{0}"
 msgstr "隐藏 /{0}"
@@ -133,7 +133,7 @@ msgid "The post you quoted/replied has already deleted"
 msgstr "您引用/回复的帖子已经被删除了。"
 
 msgid "Display Name"
-msgstr ""
+msgstr "显示名称"
 
 msgid "Debug Connection"
 msgstr "诊断网络"
@@ -175,7 +175,7 @@ msgid "Translate post"
 msgstr "翻译帖子"
 
 msgid "Free"
-msgstr ""
+msgstr "免费"
 
 msgid "Searching users"
 msgstr "查找用户中"
@@ -187,7 +187,7 @@ msgid "Collect Action is not supported yet."
 msgstr "还未支持收藏。"
 
 msgid "Overwrite"
-msgstr ""
+msgstr "覆盖"
 
 msgid "Tax can be modified"
 msgstr "税率可以被修改"
@@ -211,7 +211,7 @@ msgid "Location should not exceed {maxLocationSize} characters"
 msgstr ""
 
 msgid "FAILED POST"
-msgstr ""
+msgstr "发帖失败"
 
 msgid "OpenGraph"
 msgstr "OpenGraph"
@@ -229,7 +229,7 @@ msgid "Please confirm the login with Firefly."
 msgstr "请在 Firefly 上确认登录。"
 
 msgid "Wrong wallet"
-msgstr ""
+msgstr "错误的钱包"
 
 msgid "Failed to un-bookmark article."
 msgstr "取消收藏文章失败。"
@@ -259,7 +259,7 @@ msgid "Report submitted on {0}"
 msgstr "举报已提交 {0}"
 
 msgid "Trending Channels"
-msgstr ""
+msgstr "流行频道"
 
 msgid "Debug Console"
 msgstr "诊断命令行"
@@ -316,7 +316,7 @@ msgid "Name"
 msgstr "名称"
 
 msgid "Failed to vote."
-msgstr ""
+msgstr "投票失败。"
 
 msgid "Your posts have published successfully."
 msgstr "发布成功。"
@@ -586,7 +586,7 @@ msgid "Address"
 msgstr "地址"
 
 msgid "Bio"
-msgstr ""
+msgstr "个人简介"
 
 msgid "[Photo]"
 msgstr "[照片]"
@@ -601,7 +601,7 @@ msgid "This entry has been permanently stored on-chain and signed by its creator
 msgstr "这个入口已经被其创建者签名并永久存储上链"
 
 msgid "Failed to avatar."
-msgstr ""
+msgstr "上传头像失败。"
 
 msgid "Frame Validator"
 msgstr "Frame 验证器"
@@ -631,7 +631,7 @@ msgid "Update"
 msgstr "更新"
 
 msgid "You might like"
-msgstr ""
+msgstr "你也许感兴趣"
 
 msgid "Remove from Bookmarks"
 msgstr "取消收藏"
@@ -652,7 +652,7 @@ msgid "Anti_whale(Limited number of transactions)"
 msgstr "反鲸鱼（有限的交易次数）"
 
 msgid "Send a tip to {0}"
-msgstr ""
+msgstr "发送打赏给 {0}"
 
 msgid "The number of token transactions is limited. The number of scam token transactions may be limited (honeypot risk)."
 msgstr "通证的交易次数是有限的。可疑通证的交易次数可能会被限制（欺诈风险）。"
@@ -682,7 +682,7 @@ msgid "Frame"
 msgstr "Frame"
 
 msgid "Directory"
-msgstr ""
+msgstr "目录"
 
 msgid "Cannot choose due to account mismatch."
 msgstr "账号不匹配导致选择失败。"
@@ -730,7 +730,7 @@ msgid "Channel"
 msgstr "频道"
 
 msgid "Failed to enable signless"
-msgstr ""
+msgstr "未能启用无签名功能"
 
 msgid "Connect another account"
 msgstr "登录另一个账号"
@@ -745,7 +745,7 @@ msgid "<0/> mentioned you in a <1>{0, select, Post {post} Comment {comment} Quot
 msgstr "<0/>提到了你的 <1>{0, select, Post {帖子} Comment {评论} Quote {引用} Mirror {引用} other {帖子}}</1>"
 
 msgid "Cost"
-msgstr ""
+msgstr "成本"
 
 msgid "Insufficient Gas"
 msgstr "燃油费不足"
@@ -829,7 +829,7 @@ msgid "Privacy Policy"
 msgstr "隐私条款"
 
 msgid "Rainbow Kit"
-msgstr ""
+msgstr "Rainbow 套件"
 
 msgid "Forbidden. Please check your permissions."
 msgstr "禁止！请检查您的权限。"
@@ -865,7 +865,7 @@ msgid "Schedule Post"
 msgstr "定时任务"
 
 msgid "Sold Out"
-msgstr ""
+msgstr "售罄"
 
 msgid "Proxy contract"
 msgstr "代理合约"
@@ -901,7 +901,7 @@ msgid "This token is not issued by its declared team. Some scams will create a w
 msgstr "此通证不是由其声明的团队发布的。某些骗子将创建一个相同名称的通证来欺诈用户。"
 
 msgid "The file exceeds the size limit ({0})."
-msgstr ""
+msgstr "文件超过了大小限制 ({0})。"
 
 msgid "Set"
 msgstr "设置"
@@ -919,7 +919,7 @@ msgid "Your posts have published successfully on {0}."
 msgstr "您已在 {0} 发布成功。"
 
 msgid "Sync"
-msgstr ""
+msgstr "同步"
 
 msgid "Description"
 msgstr "介绍"
@@ -931,7 +931,7 @@ msgid "Disconnected from your social graph"
 msgstr "从您的社交图谱中断开"
 
 msgid "Failed to upload."
-msgstr ""
+msgstr "上传文件失败。"
 
 msgid "{attentionFactors, plural, one {# Attention item} other {# Attention items}}"
 msgstr "{attentionFactors, plural, one {# 风险条目} other {# 风险条目}}"
@@ -943,13 +943,13 @@ msgid "Malformed session."
 msgstr "会话格式错误。"
 
 msgid "Upload"
-msgstr ""
+msgstr "上传"
 
 msgid "Failed to login."
 msgstr "登录失败。"
 
 msgid "Network"
-msgstr ""
+msgstr "网络"
 
 msgid "Unlike"
 msgstr "取消点赞"
@@ -1018,7 +1018,7 @@ msgid "Log in with recovery phrase"
 msgstr "使用助记词登录"
 
 msgid "Edit Profile"
-msgstr ""
+msgstr "编辑个人资料"
 
 msgid "Confirm you want to mute @{0}?"
 msgstr "您确定要隐藏 @{0} 吗？"
@@ -1063,7 +1063,7 @@ msgid "No post found"
 msgstr "未找到帖子"
 
 msgid "Display Name should not be blank"
-msgstr ""
+msgstr "显示名称不可以为空"
 
 msgid "Clear All"
 msgstr "全部清除"
@@ -1096,7 +1096,7 @@ msgid "<0>Acquired</0> an NFT"
 msgstr "<0>获取</0> 一个 NFT"
 
 msgid "App Kit"
-msgstr ""
+msgstr "应用套件"
 
 msgid "Tag {0} in a post to let them know you’ve sent an onchain tip to their wallet."
 msgstr ""
@@ -1120,7 +1120,7 @@ msgid "{shares, plural, one {Mirror or Quote} other {Mirrors or Quotes}}"
 msgstr "{shares, plural, one {转帖或引用} other {转帖或引用}}"
 
 msgid "Standard"
-msgstr ""
+msgstr "标准"
 
 msgid "<0>Revised</0>an article"
 msgstr "<0>修改了</0>文章"
@@ -1195,7 +1195,7 @@ msgid "Contract source code not verified"
 msgstr "合约源代码未验证"
 
 msgid "Cannot send tip to yourself"
-msgstr ""
+msgstr "不能打赏给自己"
 
 msgid "Unwatch {handleOrEnsOrAddress}"
 msgstr ""
@@ -1243,7 +1243,7 @@ msgid "Contract Address"
 msgstr "合约地址"
 
 msgid "Send a tip to @{0}"
-msgstr ""
+msgstr "发送打赏给 @{0}"
 
 msgid "The whitelist function is not included. If there is a whitelist, some addresses may not be able to trade normally (honeypot risk)."
 msgstr "白名单功能未启用。如果启用，有些地址可能无法正常交易（欺诈风险）。"
@@ -1264,7 +1264,7 @@ msgid "Page not found. Please try again."
 msgstr "未找到页面。请重试。"
 
 msgid "Delegate Signing"
-msgstr ""
+msgstr "代理签名"
 
 msgid "This can’t be undone and you’ll lose your draft."
 msgstr "此操作无法撤销，您将丢失您的草稿。"
@@ -1276,7 +1276,7 @@ msgid "Publications"
 msgstr "帖子"
 
 msgid "Unable to read image."
-msgstr ""
+msgstr "获取图片失败。"
 
 msgid "Your website URL."
 msgstr "您网站的 URL。"
@@ -1321,13 +1321,13 @@ msgid "Feedback"
 msgstr "问题反馈"
 
 msgid "GIFs"
-msgstr ""
+msgstr "动图"
 
 msgid "%Of supply owned"
 msgstr "% 总的拥有人"
 
 msgid "Signing failed."
-msgstr ""
+msgstr "签名失败。"
 
 msgid "Share"
 msgstr "分享"
@@ -1399,13 +1399,13 @@ msgid "Please switch to the wallet consistent with this action"
 msgstr ""
 
 msgid "Upload to S3"
-msgstr ""
+msgstr "上传到 S3"
 
 msgid "{shares, plural, one {Recast or Quote} other {Recasts or Quotes}}"
 msgstr "{shares, plural, one {转帖或引用} other {转帖或引用}}"
 
 msgid "Failed to update profile."
-msgstr ""
+msgstr "更新个人资料失败。"
 
 msgid "Connected in Firefly"
 msgstr "已在 Firefly 中"
@@ -1447,13 +1447,13 @@ msgid "Failed to submit report on {0}."
 msgstr "在 {0} 上提交报告失败。"
 
 msgid "Insufficient funds"
-msgstr ""
+msgstr "金额不足"
 
 msgid "Community"
 msgstr "社区"
 
 msgid "Free Collect"
-msgstr ""
+msgstr "免费收集"
 
 msgid "Delete"
 msgstr "删除"
@@ -1510,7 +1510,7 @@ msgid "Failed to publish post."
 msgstr "发布帖子失败"
 
 msgid "Voted successfully."
-msgstr ""
+msgstr "投票成功。"
 
 msgid "Muted @{0} on {sourceName}."
 msgstr "在 {sourceName} 上隐藏 @{0}"
@@ -1591,13 +1591,13 @@ msgid "Mobile App"
 msgstr "手机应用"
 
 msgid "Upload photo"
-msgstr ""
+msgstr "上传照片"
 
 msgid "You can save this to send later from your drafts."
 msgstr "您可以先保存至草稿后再发送。"
 
 msgid "Click to upload"
-msgstr ""
+msgstr "点击上传"
 
 msgid "Internal Server Error. Please try again later."
 msgstr "内部服务错误。请稍后重试。"
@@ -1648,7 +1648,7 @@ msgid "Back"
 msgstr "返回"
 
 msgid "Article collected successfully!"
-msgstr ""
+msgstr "成功收集文章！"
 
 msgid "Posting..."
 msgstr "发帖中..."
@@ -1738,7 +1738,7 @@ msgid "Followed by {0} , {1}, and {2}"
 msgstr "被 {0} 和 {1} 和 {2} 关注"
 
 msgid "Collect Article"
-msgstr ""
+msgstr "收集文章"
 
 msgid "Channels"
 msgstr "频道"
@@ -1747,7 +1747,7 @@ msgid "Firefly"
 msgstr "Firefly"
 
 msgid "Invalid website format"
-msgstr ""
+msgstr "无效的网站格式"
 
 msgid "Switching..."
 msgstr "切换中..."
@@ -1778,6 +1778,9 @@ msgstr "确认登出这些账号？"
 
 msgid "Repost"
 msgstr "转帖"
+
+msgid "Wrong Wallet"
+msgstr ""
 
 msgid "Please input the blink url to be revalidated. <0>URL Scheme</0>"
 msgstr "请输入 blink 链接来验证。 <0>URL格式</0>"
@@ -1815,9 +1818,6 @@ msgstr "未能找到你的 signer key，请重新链接"
 msgid "No codes found to suspend trading."
 msgstr "没有发现可以暂停交易的代码。"
 
-msgid "Please enable Momoka to support sending posts on Lens."
-msgstr ""
-
 msgid "First time connecting to Firefly?<0/><1>Approve a new connection</1> with Warpcast"
 msgstr ""
 
@@ -1828,7 +1828,7 @@ msgid "<0>You</0> and {0} recasted"
 msgstr "<0> 你 </0> 和 {0} 人都转发了"
 
 msgid "Stickers"
-msgstr ""
+msgstr "贴纸"
 
 msgid "Dark Mode"
 msgstr "深色模式"
@@ -1837,7 +1837,7 @@ msgid "Article added to your Bookmarks"
 msgstr "文章已经添加到您的收藏中"
 
 msgid "Create a Post"
-msgstr ""
+msgstr "创建帖子"
 
 msgid "{type, select, comment {Comments} mirror {{0}} reaction {Likes} act {Collects} other {Other}}"
 msgstr "{type, select, comment {评论} mirror {{0}} reaction {点赞} act {收藏} other {其他}}"
@@ -1870,7 +1870,7 @@ msgid "<0/> quoted your <1>{0, select, Post {post} Comment {comment} Quote {quot
 msgstr "<0/> 引用了你的 <1>{0, select, Post {帖子} Comment {评论} Quote {引用} Mirror {引用} other {帖子}}</1>"
 
 msgid "Failed to send tip."
-msgstr ""
+msgstr "发送打赏失败。"
 
 msgid "Connecting Wallet"
 msgstr "正在连接钱包"
@@ -1975,7 +1975,7 @@ msgid "The connection has timed out. Please try again later."
 msgstr "连接已经超时。请稍后重试。"
 
 msgid "Emoji"
-msgstr ""
+msgstr "表情符号"
 
 msgid "Failed to report spam NFT."
 msgstr "举报垃圾 NFT 失败。"
@@ -2038,7 +2038,7 @@ msgid "QUOTE"
 msgstr "引用"
 
 msgid "Wallet Provider"
-msgstr ""
+msgstr "钱包提供方"
 
 msgid "Collect"
 msgstr "收藏"
@@ -2062,7 +2062,7 @@ msgid "FREE"
 msgstr "免费"
 
 msgid "Sign to enable signless"
-msgstr ""
+msgstr "签名以启用无签名功能"
 
 msgid "Profiles"
 msgstr "个人信息"
@@ -2131,7 +2131,7 @@ msgid "No content to publish."
 msgstr "没有发布的内容。"
 
 msgid "Text"
-msgstr ""
+msgstr "文本"
 
 msgid "Mirror"
 msgstr "转发"
@@ -2191,7 +2191,7 @@ msgid "Likes"
 msgstr "点赞"
 
 msgid "× {0}"
-msgstr ""
+msgstr "× {0}"
 
 msgid "Blink Validator"
 msgstr "Blink 验证器"

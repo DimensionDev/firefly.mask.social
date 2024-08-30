@@ -242,10 +242,10 @@ export const PostBody = forwardRef<HTMLDivElement, PostBodyProps>(function PostB
 
             {/* Poll */}
             {!hasEncryptedPayload ? (
-                post.poll ? (
-                    <PollCard post={post} frameUrl="" />
-                ) : pollId && oembedUrl ? (
+                pollId && oembedUrl ? (
                     <FramePoll post={post} pollId={pollId} frameUrl={oembedUrl} />
+                ) : post.poll ? (
+                    <PollCard post={post} frameUrl={''} />
                 ) : null
             ) : null}
 

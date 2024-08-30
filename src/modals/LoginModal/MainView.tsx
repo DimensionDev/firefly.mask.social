@@ -8,53 +8,30 @@ import { LoginButton } from '@/components/Login/LoginButton.js';
 import { LoginFirefly } from '@/components/Login/LoginFirefly.js';
 import { FarcasterSignType, type SocialSource, Source } from '@/constants/enum.js';
 import { SORTED_SOCIAL_SOURCES } from '@/constants/index.js';
-import { updateAccountState } from '@/helpers/account.js';
-import { getProfileState } from '@/helpers/getProfileState.js';
-import { isSameAccount } from '@/helpers/isSameAccount.js';
+import { restoreCurrentAccounts } from '@/helpers/account.js';
 import { resolveSourceInURL } from '@/helpers/resolveSourceInURL.js';
+import { useAbortController } from '@/hooks/useAbortController.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
-import { ConfirmFireflyModalRef, LoginModalRef } from '@/modals/controls.js';
-import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
-import { downloadAccounts } from '@/services/metrics.js';
 
 export function MainView() {
     const router = useRouter();
     const { history } = router;
     const isMedium = useIsMedium();
+
+    const controller = useAbortController();
     const [selectedSource, setSelectedSource] = useState<SocialSource>();
 
     const [{ loading }, onClick] = useAsyncFn(async (source: SocialSource) => {
-        const fireflySession = fireflySessionHolder.session;
-        const signType = source === Source.Farcaster && isMedium ? FarcasterSignType.RelayService : undefined;
+        setSelectedSource(source);
 
-        if (fireflySession) {
-            setSelectedSource(source);
-
-            try {
-                const accountsSynced = await downloadAccounts(fireflySession);
-                const accountsFiltered = accountsSynced.filter((x) => {
-                    const state = getProfileState(x.profile.source);
-                    return !state.accounts.find((y) => isSameAccount(x, y));
-                });
-
-                if (accountsFiltered.length) {
-                    LoginModalRef.close();
-
-                    const confirmed = await ConfirmFireflyModalRef.openAndWaitForClose({
-                        belongsTo: true,
-                        accounts: accountsFiltered,
-                    });
-
-                    if (confirmed) {
-                        await updateAccountState(accountsFiltered, false);
-                        return;
-                    }
-                }
-            } catch (error) {
-                // if an errors occurs, we will just proceed with the login
-            }
+        try {
+            const confirmed = await restoreCurrentAccounts(controller.current.signal);
+            if (confirmed) return;
+        } catch (error) {
+            // if any error occurs, we will just proceed with the login
         }
 
+        const signType = source === Source.Farcaster && isMedium ? FarcasterSignType.RelayService : undefined;
         const path = urlcat('/:source', {
             source: resolveSourceInURL(source),
             signType: signType || undefined,

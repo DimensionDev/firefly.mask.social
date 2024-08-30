@@ -2,10 +2,9 @@ import { t } from '@lingui/macro';
 
 import { config } from '@/configs/wagmiClient.js';
 import { Source, SourceInURL } from '@/constants/enum.js';
-import { SignlessRequireError } from '@/constants/error.js';
+import { CreateScheduleError, SignlessRequireError } from '@/constants/error.js';
 import { SITE_URL } from '@/constants/index.js';
 import { readChars } from '@/helpers/chars.js';
-import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
 import { getWalletClientRequired } from '@/helpers/getWalletClientRequired.js';
 import { isSameAddress } from '@/helpers/isSameAddress.js';
 import { resolveLensOperationName, resolveLensQuery } from '@/helpers/resolveLensQuery.js';
@@ -58,9 +57,7 @@ export async function createLensSchedulePostPayload(
 
     const { account } = await getWalletClientRequired(config);
     if (!isSameAddress(currentProfile?.ownedBy?.address, account.address)) {
-        const message = t`Please enable Momoka to support sending posts on Lens.`;
-        enqueueErrorMessage(message);
-        throw new Error(message);
+        throw new CreateScheduleError(t`Wrong Wallet`, t`Please switch to the wallet consistent with this action`);
     }
 
     if (!signless) throw new SignlessRequireError('Signless required');

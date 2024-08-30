@@ -1,4 +1,5 @@
 import { t, Trans } from '@lingui/macro';
+import { ConnectorNotConnectedError } from '@wagmi/core';
 import dayjs from 'dayjs';
 import urlcat from 'urlcat';
 
@@ -104,10 +105,13 @@ export async function crossSchedulePost(type: ComposeType, compositePost: Compos
         );
     } catch (error) {
         if (error instanceof CreateScheduleError) {
-            enqueueErrorMessage(error.message);
+            enqueueErrorMessage(error.message, {
+                description: error.description,
+            });
         } else if (error instanceof SignlessRequireError) {
             EnableSignlessModalRef.open();
         } else {
+            if (error instanceof ConnectorNotConnectedError) throw error;
             enqueueErrorMessage(getSnackbarMessageFromError(error, t`Failed to create schedule post.`), {
                 error,
             });

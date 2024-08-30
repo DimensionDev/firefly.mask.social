@@ -38,7 +38,7 @@ function hasFireflySession() {
     return SORTED_SOCIAL_SOURCES.some((x) => !!getProfileState(x).currentProfile);
 }
 
-export async function updateAccountState(accounts: Account[], overwrite = false) {
+async function updateState(accounts: Account[], overwrite = false) {
     // remove all accounts if overwrite is true
     if (overwrite) {
         SORTED_SOCIAL_SOURCES.forEach((source) => {
@@ -178,7 +178,7 @@ export async function addAccount(account: Account, options?: AccountOptions) {
                 accounts,
             });
             if (confirmed) {
-                await updateAccountState(accounts, !belongsTo);
+                await updateState(accounts, !belongsTo);
             } else {
                 // sign out tw from server if needed
                 if (TwitterSession.isNextAuth(account.session)) {
@@ -216,6 +216,37 @@ export async function addAccount(account: Account, options?: AccountOptions) {
 
     // account has been added to the store
     return true;
+}
+
+/**
+ * Restore accounts from the currently logged-in Firefly session.
+ * @param signal
+ * @returns
+ */
+export async function restoreCurrentAccounts(signal?: AbortSignal) {
+    const session = fireflySessionHolder.session;
+    if (!session) return false;
+
+    const accountsSynced = await downloadAccounts(session, signal);
+    const accountsFiltered = accountsSynced.filter((x) => {
+        const state = getProfileState(x.profile.source);
+        return !state.accounts.find((y) => isSameAccount(x, y));
+    });
+
+    if (accountsFiltered.length) {
+        LoginModalRef.close();
+
+        const confirmed = await ConfirmFireflyModalRef.openAndWaitForClose({
+            belongsTo: true,
+            accounts: accountsFiltered,
+        });
+
+        if (confirmed) {
+            await updateState(accountsFiltered, false);
+            return true;
+        }
+    }
+    return false;
 }
 
 export async function switchAccount(account: Account, signal?: AbortSignal) {
