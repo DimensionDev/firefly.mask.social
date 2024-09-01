@@ -28,7 +28,7 @@ export function SuggestedChannels({ source }: SuggestedChannelsProps) {
 
     if (isError || isLoading) return null;
 
-    const channels = data?.data ?? EMPTY_LIST;
+    const channels = data?.data?.filter((channel) => !channel.blocked) ?? EMPTY_LIST;
     const showMore = channels.length > SHOW_LENGTH;
     const suggestedChannels = channels.slice(0, SHOW_LENGTH);
 
