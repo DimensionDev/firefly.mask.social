@@ -292,4 +292,4 @@ export const PARAGRAPH_COLLECT_FEE_IN_POLYGON = 2000000000000000000n;
 
 export const THIRTY_DAYS = 1000 * 60 * 60 * 24 * 30;
 
-export const MAX_SIZE_PER_CHUNK = 4 * 1024 * 1024; // 4MB
+export const MAX_SIZE_PER_CHUNK = 2 * 1024 * 1024; // 2MB
