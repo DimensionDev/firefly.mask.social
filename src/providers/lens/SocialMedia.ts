@@ -21,6 +21,7 @@ import { compact, first, flatMap, uniq, uniqWith } from 'lodash-es';
 import urlcat from 'urlcat';
 import { v4 as uuid } from 'uuid';
 import type { TypedDataDomain } from 'viem';
+import { polygon } from 'viem/chains';
 
 import { config } from '@/configs/wagmiClient.js';
 import { FireflyPlatform, Source, SourceInURL } from '@/constants/enum.js';
@@ -828,7 +829,7 @@ class LensSocialMedia implements Provider {
             });
 
             const data = result.unwrap();
-            const walletClient = await getWalletClientRequired(config);
+            const walletClient = await getWalletClientRequired(config, { chainId: polygon.id });
 
             const signedTypedData = await walletClient.signTypedData({
                 domain: data.typedData.domain as TypedDataDomain,
@@ -868,7 +869,7 @@ class LensSocialMedia implements Provider {
             });
 
             const data = followTypedDataResult.unwrap();
-            const client = await getWalletClientRequired(config);
+            const client = await getWalletClientRequired(config, { chainId: polygon.id });
 
             const signedTypedData = await client.signTypedData({
                 domain: data.typedData.domain as TypedDataDomain,
