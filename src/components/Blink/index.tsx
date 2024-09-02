@@ -49,5 +49,5 @@ export const Blink = memo<Props>(function Blink({ post, onData, onFailed, childr
     if (isLoading) return null;
     if (error || !action) return children;
 
-    return <>{action ? <ActionContainer action={action} url={url!} /> : null}</>;
+    return <>{action ? <ActionContainer action={action} /> : null}</>;
 });

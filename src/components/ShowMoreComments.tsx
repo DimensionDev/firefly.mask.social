@@ -1,4 +1,5 @@
 import { Trans } from '@lingui/macro';
+import { uniq } from 'lodash-es';
 import type { HTMLProps } from 'react';
 
 import LineArrowUpSVG from '@/assets/line-arrow-up.svg';
@@ -13,7 +14,7 @@ interface ShowMoreCommentsProps extends HTMLProps<HTMLDivElement> {
 
 export function ShowMoreComments(props: ShowMoreCommentsProps) {
     const { isOpen = false, maxAvatarCount = 5, onClick, className } = props;
-    const avatarUrls = maxAvatarCount ? props.avatarUrls?.slice(0, maxAvatarCount) : props.avatarUrls;
+    const avatarUrls = uniq(props.avatarUrls).slice(0, maxAvatarCount);
     return (
         <div
             className={classNames('w-full', {

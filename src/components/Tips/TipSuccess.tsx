@@ -51,11 +51,11 @@ export function TipSuccess() {
                 {
                     tag: CHAR_TAG.MENTION,
                     visible: true,
-                    content: handle!,
+                    content: `@${handle}`,
                     profiles: socialProfiles,
                 },
                 ' ! Try it now on ',
-                ' https://firefly.social/.',
+                ' https://firefly.social/ .',
             ],
         });
     };
