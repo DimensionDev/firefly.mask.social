@@ -59,7 +59,7 @@ export function PostLinks({ post, setContent }: Props) {
                 <Player html={data.html} isSpotify={isLinkMatchingHost(url, 'open.spotify.com', false)} />
             ) : null}
             {data.frame ? <FrameLayout frame={data.frame} post={post} /> : null}
-            {data.action ? <ActionContainer action={data.action} url={url!} /> : null}
+            {data.action ? <ActionContainer action={data.action} /> : null}
             {data.oembed ? <OembedLayout data={data.oembed} post={post} /> : null}
         </>
     );

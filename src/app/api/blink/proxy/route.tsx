@@ -13,7 +13,7 @@ import { withRequestErrorHandler } from '@/helpers/withRequestErrorHandler.js';
 import { settings } from '@/settings/index.js';
 import type { FireflyBlinkParserBlinkResponse } from '@/types/blink.js';
 
-export const GET = compose<(request: NextRequest) => Promise<Response>>(withRequestErrorHandler(), async (request) => {
+export const GET = compose(withRequestErrorHandler(), async (request: NextRequest) => {
     const { url } = getSearchParamsFromRequestWithZodObject(
         request,
         z.object({
@@ -27,22 +27,23 @@ export const GET = compose<(request: NextRequest) => Promise<Response>>(withRequ
             body: JSON.stringify({ url }),
         },
     );
-    if (!response.data?.action) return createErrorResponseJSON('Action not found');
+    if (!response.data) return createErrorResponseJSON('Action not found');
 
-    const actionApiUrl = response.data.actionApiUrl;
     return createResponseJSON(
         produce(response.data.action, (action) => {
-            action.url = actionApiUrl;
+            action.url = response.data!.actionUrl;
             if (action.links?.actions) {
                 for (const x of action.links.actions) {
-                    x.href = x.href.startsWith('http') ? x.href : urlcat(parseURL(actionApiUrl)!.origin, x.href);
+                    x.href = x.href.startsWith('http')
+                        ? x.href
+                        : urlcat(parseURL(response.data!.actionApiUrl)!.origin, x.href);
                 }
             }
         }),
     );
 });
 
-export const POST = compose<(request: NextRequest) => Promise<Response>>(withRequestErrorHandler(), async (request) => {
+export const POST = compose(withRequestErrorHandler(), async (request: NextRequest) => {
     const { url } = getSearchParamsFromRequestWithZodObject(
         request,
         z.object({

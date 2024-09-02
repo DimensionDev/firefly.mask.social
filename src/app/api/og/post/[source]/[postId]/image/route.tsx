@@ -136,6 +136,7 @@ export const GET = compose<(request: NextRequest, context: NextRequestContext) =
                                     width: '556px',
                                     height: '455px',
                                     objectFit: 'cover',
+                                    marginLeft: 'auto',
                                 }}
                             />
                         ) : null}
