@@ -95,7 +95,7 @@ export function readChars(chars: Chars, strategy: 'both' | 'visible' | 'invisibl
                 case CHAR_TAG.MENTION:
                     if (source) {
                         const target = x.profiles.find((profile) => source === resolveSource(profile.platform));
-                        return target ? `${source === Source.Lens ? '@lens/' : '@'}${target.handle}` : x.content;
+                        return target?.handle ? `${source === Source.Lens ? '@lens/' : '@'}${target.handle}` : x.content;
                     }
                     return x.content;
                 case CHAR_TAG.FRAME:
