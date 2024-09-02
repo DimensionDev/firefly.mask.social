@@ -1,6 +1,6 @@
 import { t } from '@lingui/macro';
 import { compact } from 'lodash-es';
-import type { TweetV2PaginableTimelineResult, UserV2, UserV2MuteResult } from 'twitter-api-v2';
+import type { TweetV2PaginableTimelineResult, Tweetv2TimelineResult, UserV2, UserV2MuteResult } from 'twitter-api-v2';
 import urlcat from 'urlcat';
 
 import { FireflyPlatform, Source } from '@/constants/enum.js';
@@ -288,8 +288,15 @@ class TwitterSocialMedia implements Provider {
         if (!response.success) throw new Error(response.error.message);
     }
 
-    searchPosts(q: string, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
-        throw new NotImplementedError();
+    async searchPosts(q: string, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
+        const url = urlcat(`/api/twitter/search/recent`, {
+            limit: 25,
+            cursor: indicator?.id,
+            query: q,
+        });
+        const response = await twitterSessionHolder.fetch<ResponseJSON<Tweetv2TimelineResult>>(url, {}, true);
+        if (!response.success) throw new Error(response.error.message);
+        return formatTweetsPage(response.data, indicator);
     }
 
     searchProfiles(q: string, indicator?: PageIndicator): Promise<Pageable<Profile, PageIndicator>> {
