@@ -58,6 +58,11 @@ export const chains = [
     zora,
 ] as const satisfies Chain[];
 
+// find the wallet id at https://explorer.walletconnect.com/
+enum WalletId {
+    Phantom = 'a797aa35c0fadbfc1a53e7f675162ed5226968b44a19ee3d24385c64d1d3c393',
+}
+
 function createWagmiConfig(): Config {
     const type = settings.WALLET_PROVIDER_TYPE;
 
@@ -83,6 +88,9 @@ function createWagmiConfig(): Config {
                 metadata,
                 wagmiConfig: config,
                 projectId: env.external.NEXT_PUBLIC_W3M_PROJECT_ID,
+                excludeWalletIds: [WalletId.Phantom],
+                enableSwaps: false,
+                enableOnramp: false,
                 enableAnalytics: false, // Optional - defaults to your Cloud configuration
             });
             return config;
