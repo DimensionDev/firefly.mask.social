@@ -4,13 +4,15 @@ import { type ChangeEvent, Fragment, useRef } from 'react';
 import { useAsyncFn } from 'react-use';
 
 import ImageIcon from '@/assets/image.svg';
+import LoadingIcon from '@/assets/loading.svg';
 import VideoIcon from '@/assets/video.svg';
-import { useAddImages } from '@/components/Compose/useAddImages.js';
-import { useAddVideo } from '@/components/Compose/useAddVideo.js';
 import { FileMimeType } from '@/constants/enum.js';
 import { ALLOWED_MEDIA_MIMES, SUPPORTED_VIDEO_SOURCES } from '@/constants/index.js';
 import { classNames } from '@/helpers/classNames.js';
+import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
 import { getCurrentPostImageLimits } from '@/helpers/getCurrentPostImageLimits.js';
+import { createLocalMediaObject } from '@/helpers/resolveMediaObjectUrl.js';
+import { isValidPostImage, isValidPostVideo } from '@/helpers/validatePostFile.js';
 import { useCompositePost } from '@/hooks/useCompositePost.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import { useComposeStateStore } from '@/store/useComposeStore.js';
@@ -22,39 +24,54 @@ export function Media({ close }: MediaProps) {
     const imageInputRef = useRef<HTMLInputElement>(null);
     const videoInputRef = useRef<HTMLInputElement>(null);
 
-    const { type } = useComposeStateStore();
+    const { type, updateVideo, updateImages } = useComposeStateStore();
     const { availableSources, video, images } = useCompositePost();
 
     const maxImageCount = getCurrentPostImageLimits(type, availableSources);
 
-    const addImages = useAddImages();
     const [, handleImageChange] = useAsyncFn(
         async (event: ChangeEvent<HTMLInputElement>) => {
             const files = event.target.files;
 
             if (files?.length) {
-                addImages([...files]);
+                const validFiles = [...files].filter((file) => {
+                    const message = isValidPostImage(availableSources, file);
+                    if (message) {
+                        enqueueErrorMessage(message);
+                        return false;
+                    }
+                    return true;
+                });
+                updateImages((images) => {
+                    if (images.length === maxImageCount) return images;
+                    return [...images, ...validFiles.map((file) => createLocalMediaObject(file))].slice(
+                        0,
+                        maxImageCount,
+                    );
+                });
             }
             close();
         },
-        [close, addImages],
+        [maxImageCount, availableSources, close, updateImages],
     );
 
     const isMedium = useIsMedium();
 
-    const addVideo = useAddVideo();
-    const [, handleVideoChange] = useAsyncFn(
+    const [{ loading }, handleVideoChange] = useAsyncFn(
         async (event: ChangeEvent<HTMLInputElement>) => {
             const files = event.target.files;
 
             if (files?.length) {
                 const file = files[0];
-                addVideo(file);
+                const message = await isValidPostVideo(availableSources, file);
+                if (message) {
+                    return enqueueErrorMessage(message);
+                }
+                updateVideo(createLocalMediaObject(file));
             }
             close();
-            return;
         },
-        [close, addVideo],
+        [availableSources, close, updateVideo],
     );
 
     const disabledVideo =
@@ -101,7 +118,11 @@ export function Media({ close }: MediaProps) {
                         videoInputRef.current?.click();
                     }}
                 >
-                    <VideoIcon width={24} height={24} />
+                    {loading ? (
+                        <LoadingIcon className="animate-spin" width={24} height={24} />
+                    ) : (
+                        <VideoIcon width={24} height={24} />
+                    )}
                     <span className="font-bold">
                         <Trans>Video</Trans>
                     </span>
