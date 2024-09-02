@@ -33,7 +33,7 @@ export const POST = compose<(request: NextRequest) => Promise<Response>>(
                 command: 'APPEND',
             }),
             {
-                media: file,
+                media: Buffer.from(await file.arrayBuffer()),
             },
         );
 

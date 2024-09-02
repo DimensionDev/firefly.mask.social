@@ -56,14 +56,15 @@ async function waitForUpload(media_id: string, retry = 10) {
 
 export async function uploadToTwitterWithChunks(file: File, chunkSize = MAX_SIZE_PER_CHUNK) {
     const chunks = [];
-    for (let i = 0; i < file.size; i += chunkSize) {
-        chunks.push(file.slice(i, i + chunkSize));
+    const fileSize = file.size;
+    for (let i = 0; i < fileSize; i += chunkSize) {
+        chunks.push(file.slice(i, Math.min(i + chunkSize, fileSize)));
     }
 
     // Init upload
     const mediaInfo = await twitterSessionHolder.fetch<{ data: UploadMediaResponse }>(
         urlcat('/api/twitter/uploadMedia/chunk/init', {
-            total_bytes: file.size,
+            total_bytes: fileSize,
             media_type: file.type,
             media_category: getMediaCategoryByMime(file.type as FileMimeType, 'tweet'),
         }),
