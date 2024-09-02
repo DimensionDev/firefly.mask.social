@@ -26,7 +26,7 @@ export const UploadDropArea = memo(
         const { type } = useComposeStateStore();
         const { availableSources, video, images } = useCompositePost();
         const maxImageCount = getCurrentPostImageLimits(type, availableSources);
-        const disabledVideo =
+        const disableVideo =
             !!video ||
             images.length > 0 ||
             availableSources.some((source) => !SUPPORTED_VIDEO_SOURCES.includes(source));
@@ -42,7 +42,7 @@ export const UploadDropArea = memo(
                 setIsDragging(true);
                 if (!e.dataTransfer) return;
                 const files = [...e.dataTransfer.files];
-                const canDropVideo = disabledVideo ? false : files.some((file) => isValidFileType(file.type));
+                const canDropVideo = disableVideo ? false : files.some((file) => isValidFileType(file.type));
                 const canDropImage = disableImage ? false : files.some((file) => isImageFileType(file.type));
                 const canDrop = canDropVideo || canDropImage;
                 setCanDrop(canDrop);
@@ -59,7 +59,7 @@ export const UploadDropArea = memo(
             ele.addEventListener('drop', handleDrop, { signal: controller.signal });
             ele.addEventListener('dragleave', handleDragLeave, { signal: controller.signal });
             return () => controller.abort();
-        }, [onDropFiles, disabledVideo, disableImage]);
+        }, [onDropFiles, disableVideo, disableImage]);
 
         useEffect(() => {
             const ele = containerRef.current;

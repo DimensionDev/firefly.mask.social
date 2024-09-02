@@ -57,7 +57,7 @@ export function Media({ close }: MediaProps) {
         [close, addVideo],
     );
 
-    const disabledVideo =
+    const disableVideo =
         !!video || images.length > 0 || availableSources.some((source) => !SUPPORTED_VIDEO_SOURCES.includes(source));
     const disableImage = images.length >= maxImageCount;
 
@@ -70,7 +70,7 @@ export function Media({ close }: MediaProps) {
                         disableImage ? 'cursor-not-allowed opacity-50' : 'cursor-pointer hover:bg-bg',
                     )}
                     onClick={() => {
-                        if (!disabledVideo) {
+                        if (!disableVideo) {
                             imageInputRef.current?.click();
                         }
                     }}
@@ -94,10 +94,10 @@ export function Media({ close }: MediaProps) {
                 <div
                     className={classNames(
                         'flex h-[30px] items-center gap-2 p-3',
-                        disabledVideo ? 'cursor-not-allowed opacity-50' : 'cursor-pointer hover:bg-bg',
+                        disableVideo ? 'cursor-not-allowed opacity-50' : 'cursor-pointer hover:bg-bg',
                     )}
                     onClick={() => {
-                        if (disabledVideo) return;
+                        if (disableVideo) return;
 
                         videoInputRef.current?.click();
                     }}
