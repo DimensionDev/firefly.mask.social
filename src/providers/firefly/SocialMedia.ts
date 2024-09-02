@@ -372,7 +372,6 @@ export class FireflySocialMedia implements Provider {
         throw new NotImplementedError();
     }
 
-
     get type() {
         return SessionType.Farcaster;
     }
