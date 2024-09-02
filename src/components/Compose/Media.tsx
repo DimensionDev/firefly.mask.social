@@ -59,6 +59,7 @@ export function Media({ close }: MediaProps) {
 
     const disabledVideo =
         !!video || images.length > 0 || availableSources.some((source) => !SUPPORTED_VIDEO_SOURCES.includes(source));
+    const disableImage = images.length >= maxImageCount;
 
     const content = (
         <div>
@@ -66,10 +67,10 @@ export function Media({ close }: MediaProps) {
                 <div
                     className={classNames(
                         'flex h-[30px] items-center gap-2 p-3',
-                        images.length >= maxImageCount ? 'cursor-not-allowed opacity-50' : 'cursor-pointer hover:bg-bg',
+                        disableImage ? 'cursor-not-allowed opacity-50' : 'cursor-pointer hover:bg-bg',
                     )}
                     onClick={() => {
-                        if (images.length < maxImageCount) {
+                        if (!disabledVideo) {
                             imageInputRef.current?.click();
                         }
                     }}
