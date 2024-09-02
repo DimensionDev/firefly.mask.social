@@ -4,6 +4,7 @@ import { uniq } from 'lodash-es';
 
 import { BookmarkType, FireflyPlatform, Source, SourceInURL } from '@/constants/enum.js';
 import { NotImplementedError } from '@/constants/error.js';
+import { SetQueryDataForActPost } from '@/decorators/setQueryDataForActPost.js';
 import { SetQueryDataForBlockChannel } from '@/decorators/SetQueryDataForBlockChannel.js';
 import { SetQueryDataForBlockProfile } from '@/decorators/SetQueryDataForBlockProfile.js';
 import { SetQueryDataForBookmarkPost } from '@/decorators/SetQueryDataForBookmarkPost.js';
@@ -46,6 +47,7 @@ import { getFarcasterSuggestFollows } from '@/services/getFarcasterSuggestFollow
 @SetQueryDataForBlockProfile(Source.Farcaster)
 @SetQueryDataForFollowProfile(Source.Farcaster)
 @SetQueryDataForBlockChannel(Source.Farcaster)
+@SetQueryDataForActPost(Source.Farcaster)
 @SetQueryDataForPosts
 class FarcasterSocialMedia implements Provider {
     quotePost(postId: string, post: Post, profileId?: string): Promise<string> {
@@ -73,6 +75,10 @@ class FarcasterSocialMedia implements Provider {
     }
 
     getReactors(postId: string, indicator?: PageIndicator): Promise<Pageable<Profile, PageIndicator>> {
+        throw new NotImplementedError();
+    }
+
+    actPost(postId: string, options: unknown): Promise<void> {
         throw new NotImplementedError();
     }
 

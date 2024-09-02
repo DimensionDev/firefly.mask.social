@@ -54,6 +54,9 @@ msgstr ""
 msgid "Confirm to disconnect this wallet and related accounts from Firefly’s social graph?"
 msgstr ""
 
+msgid "Allow Collect Module"
+msgstr ""
+
 msgid "New connect with Warpcast"
 msgstr "通過 Warpcast 的新連接"
 
@@ -185,9 +188,6 @@ msgstr "搜尋用戶"
 
 msgid "Airdrop Scam"
 msgstr "空投騙局"
-
-msgid "Collect Action is not supported yet."
-msgstr "暫未接受收集功能。"
 
 msgid "Overwrite"
 msgstr "覆寫"
@@ -429,6 +429,9 @@ msgstr "通過 Firefly 重新連接"
 msgid "Only up to 2 images can be chosen."
 msgstr "最多只能選擇 2 張圖片"
 
+msgid "Follow to Collect"
+msgstr ""
+
 msgid "{0, select, Image {[Image]} Video {[Video]} Audio {[Audio]} Poll {[Poll]} other {}}"
 msgstr ""
 
@@ -455,6 +458,9 @@ msgstr "在 {sourceName} 上取消追蹤 @{0} 失敗。"
 
 msgid "Watch"
 msgstr "觀察"
+
+msgid "Time Out"
+msgstr ""
 
 msgid "24 Hour Trading Vol"
 msgstr "24 小時交易量"
@@ -503,6 +509,9 @@ msgstr "已轉發"
 
 msgid "Add another post..."
 msgstr "加入另一則貼文..."
+
+msgid "1m left"
+msgstr ""
 
 msgid "Items"
 msgstr "物品"
@@ -835,6 +844,9 @@ msgid "Privacy Policy"
 msgstr "隱私政策"
 
 msgid "Rainbow Kit"
+msgstr ""
+
+msgid "{0}h left"
 msgstr ""
 
 msgid "Forbidden. Please check your permissions."
@@ -1320,6 +1332,9 @@ msgstr "顯示更多評論"
 msgid "Failed to parse session."
 msgstr ""
 
+msgid "Exclusivity"
+msgstr ""
+
 msgid "Feedback"
 msgstr "反饋"
 
@@ -1515,6 +1530,9 @@ msgstr "發布貼文失敗"
 msgid "Voted successfully."
 msgstr "已成功投票"
 
+msgid "{0}m left"
+msgstr ""
+
 msgid "Muted @{0} on {sourceName}."
 msgstr "已在 {sourceName} 上靜音 @{0}"
 
@@ -1544,6 +1562,9 @@ msgstr ""
 
 msgid "Show more"
 msgstr "顯示更多"
+
+msgid "Time Limit"
+msgstr ""
 
 msgid "Post removed from your Bookmarks"
 msgstr "貼文已從你的書籤中移除"
@@ -1920,6 +1941,9 @@ msgstr ""
 msgid "Statistic"
 msgstr "統計數據"
 
+msgid "Post collected successfully!"
+msgstr ""
+
 msgid "Your post have published successfully on {0}."
 msgstr "你的貼文已成功發布在 {0} 上。"
 
@@ -1949,6 +1973,9 @@ msgstr ""
 
 msgid "Unmute @{0}"
 msgstr "取消對 @{0} 的靜音"
+
+msgid "{0}d left"
+msgstr ""
 
 msgid "Unauthorized. Please check your login."
 msgstr ""
@@ -2023,6 +2050,9 @@ msgid "Failed to parse transaction."
 msgstr ""
 
 msgid "No anti_whale(Unlimited number of transactions)"
+msgstr ""
+
+msgid "Failed to collect post."
 msgstr ""
 
 msgid "<0>Burned</0> an NFT"

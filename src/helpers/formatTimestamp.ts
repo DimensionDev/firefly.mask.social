@@ -1,5 +1,7 @@
 import { i18n } from '@lingui/core';
+import { t } from '@lingui/macro';
 import dayjs from 'dayjs';
+import duration from 'dayjs/plugin/duration.js';
 import relativeTime from 'dayjs/plugin/relativeTime.js';
 import utc from 'dayjs/plugin/utc.js';
 import dayjsTwitter from 'dayjs-twitter';
@@ -7,6 +9,7 @@ import dayjsTwitter from 'dayjs-twitter';
 dayjs.extend(relativeTime);
 dayjs.extend(utc);
 dayjs.extend(dayjsTwitter);
+dayjs.extend(duration);
 
 /**
  * Formats a date as a string in the format used by the application.
@@ -56,4 +59,28 @@ export function getTimeToNow(date: Date) {
  */
 export function getTwitterFormat(date: Date | string | number) {
     return dayjs(new Date(date)).twitter();
+}
+
+/**
+ * Formats a date as a string representing the time left until the date.
+ * @param endTime
+ * @returns A string representing the time left until the date.
+ */
+export function formatTimeLeft(endTime: Date | string | number) {
+    const diff = dayjs(endTime).diff(dayjs());
+
+    if (diff <= 0) {
+        return;
+    } else {
+        const duration = dayjs.duration(diff);
+        if (duration.asDays() >= 1) {
+            return t`${Math.floor(duration.asDays())}d left`;
+        } else if (duration.asHours() >= 1) {
+            return t`${Math.floor(duration.asHours())}h left`;
+        } else if (duration.asMinutes() >= 1) {
+            return t`${Math.floor(duration.asMinutes())}m left`;
+        } else {
+            return t`1m left`;
+        }
+    }
 }

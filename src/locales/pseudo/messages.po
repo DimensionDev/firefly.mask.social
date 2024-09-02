@@ -49,6 +49,9 @@ msgstr ""
 msgid "Confirm to disconnect this wallet and related accounts from Firefly’s social graph?"
 msgstr ""
 
+msgid "Allow Collect Module"
+msgstr ""
+
 msgid "New connect with Warpcast"
 msgstr ""
 
@@ -179,9 +182,6 @@ msgid "Searching users"
 msgstr ""
 
 msgid "Airdrop Scam"
-msgstr ""
-
-msgid "Collect Action is not supported yet."
 msgstr ""
 
 msgid "Overwrite"
@@ -424,6 +424,9 @@ msgstr ""
 msgid "Only up to 2 images can be chosen."
 msgstr ""
 
+msgid "Follow to Collect"
+msgstr ""
+
 msgid "{0, select, Image {[Image]} Video {[Video]} Audio {[Audio]} Poll {[Poll]} other {}}"
 msgstr ""
 
@@ -449,6 +452,9 @@ msgid "Failed to unfollow @{0} on {sourceName}."
 msgstr ""
 
 msgid "Watch"
+msgstr ""
+
+msgid "Time Out"
 msgstr ""
 
 msgid "24 Hour Trading Vol"
@@ -497,6 +503,9 @@ msgid "Reposted"
 msgstr ""
 
 msgid "Add another post..."
+msgstr ""
+
+msgid "1m left"
 msgstr ""
 
 msgid "Items"
@@ -830,6 +839,9 @@ msgid "Privacy Policy"
 msgstr ""
 
 msgid "Rainbow Kit"
+msgstr ""
+
+msgid "{0}h left"
 msgstr ""
 
 msgid "Forbidden. Please check your permissions."
@@ -1315,6 +1327,9 @@ msgstr ""
 msgid "Failed to parse session."
 msgstr ""
 
+msgid "Exclusivity"
+msgstr ""
+
 msgid "Feedback"
 msgstr ""
 
@@ -1510,6 +1525,9 @@ msgstr ""
 msgid "Voted successfully."
 msgstr ""
 
+msgid "{0}m left"
+msgstr ""
+
 msgid "Muted @{0} on {sourceName}."
 msgstr ""
 
@@ -1538,6 +1556,9 @@ msgid "Attendance"
 msgstr ""
 
 msgid "Show more"
+msgstr ""
+
+msgid "Time Limit"
 msgstr ""
 
 msgid "Post removed from your Bookmarks"
@@ -1915,6 +1936,9 @@ msgstr ""
 msgid "Statistic"
 msgstr ""
 
+msgid "Post collected successfully!"
+msgstr ""
+
 msgid "Your post have published successfully on {0}."
 msgstr ""
 
@@ -1943,6 +1967,9 @@ msgid "Already logged in?<0/>Approve the <1>existing Farcaster signer</1> to Fir
 msgstr ""
 
 msgid "Unmute @{0}"
+msgstr ""
+
+msgid "{0}d left"
 msgstr ""
 
 msgid "Unauthorized. Please check your login."
@@ -2018,6 +2045,9 @@ msgid "Failed to parse transaction."
 msgstr ""
 
 msgid "No anti_whale(Unlimited number of transactions)"
+msgstr ""
+
+msgid "Failed to collect post."
 msgstr ""
 
 msgid "<0>Burned</0> an NFT"

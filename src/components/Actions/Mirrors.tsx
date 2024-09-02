@@ -1,9 +1,7 @@
 import { plural, t, Trans } from '@lingui/macro';
 import { safeUnreachable } from '@masknet/kit';
-import { useQueryClient } from '@tanstack/react-query';
 import { motion } from 'framer-motion';
 import { memo, useMemo, useState } from 'react';
-import { useAsyncFn } from 'react-use';
 
 import MirrorIcon from '@/assets/mirror.svg';
 import MirrorLargeIcon from '@/assets/mirror-large.svg';
@@ -12,17 +10,12 @@ import { Tooltip } from '@/components/Tooltip.js';
 import { config } from '@/configs/wagmiClient.js';
 import { type SocialSource, Source } from '@/constants/enum.js';
 import { Tippy } from '@/esm/Tippy.js';
-import { checkFarcasterInvalidSignerKey } from '@/helpers/checkers.js';
 import { classNames } from '@/helpers/classNames.js';
-import { enqueueErrorMessage, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { humanize, nFormatter } from '@/helpers/formatCommentCounts.js';
-import { getSnackbarMessageFromError } from '@/helpers/getSnackbarMessageFromError.js';
 import { getWalletClientRequired } from '@/helpers/getWalletClientRequired.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
+import { useMirror } from '@/hooks/useMirror.js';
 import { ComposeModalRef, LoginModalRef } from '@/modals/controls.js';
-import { FarcasterSocialMediaProvider } from '@/providers/farcaster/SocialMedia.js';
-import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
-import { TwitterSocialMediaProvider } from '@/providers/twitter/SocialMedia.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 
 interface MirrorProps {
@@ -44,7 +37,6 @@ export const Mirror = memo<MirrorProps>(function Mirror({
 }) {
     const [open, setOpen] = useState(false);
     const isLogin = useIsLogin(source);
-    const queryClient = useQueryClient();
     const mirrored = !!post.hasMirrored;
 
     const content = useMemo(() => {
@@ -95,65 +87,7 @@ export const Mirror = memo<MirrorProps>(function Mirror({
         }
     }, [source, mirrored]);
 
-    const [{ loading }, handleMirror] = useAsyncFn(async () => {
-        if (!postId) return;
-
-        const mirrorOrUnmirror = async () => {
-            switch (source) {
-                case Source.Farcaster: {
-                    const result = await (mirrored
-                        ? FarcasterSocialMediaProvider.unmirrorPost(postId, Number(post.author.profileId))
-                        : FarcasterSocialMediaProvider.mirrorPost(postId, { authorId: Number(post.author.profileId) }));
-                    enqueueSuccessMessage(mirrored ? t`Cancel recast successfully` : t`Recasted`);
-                    return result;
-                }
-                case Source.Lens: {
-                    const result = await LensSocialMediaProvider.mirrorPost(postId);
-                    // lens only supports mirroring
-                    enqueueSuccessMessage(t`Mirrored`);
-                    return result;
-                }
-                case Source.Twitter:
-                    const result = await (mirrored
-                        ? TwitterSocialMediaProvider.unmirrorPost(postId)
-                        : TwitterSocialMediaProvider.mirrorPost(postId));
-                    enqueueSuccessMessage(mirrored ? t`Cancel repost successfully` : t`Reposted`);
-                    return result;
-                default:
-                    safeUnreachable(source);
-                    return;
-            }
-        };
-
-        try {
-            await mirrorOrUnmirror();
-        } catch (error) {
-            switch (source) {
-                case Source.Farcaster:
-                    enqueueErrorMessage(getSnackbarMessageFromError(error, t`Failed to recast.`), {
-                        error,
-                    });
-                    break;
-                case Source.Lens:
-                    enqueueErrorMessage(getSnackbarMessageFromError(error, t`Failed to mirror.`), {
-                        error,
-                    });
-                    break;
-                case Source.Twitter:
-                    enqueueErrorMessage(getSnackbarMessageFromError(error, t`Failed to repost.`), {
-                        error,
-                    });
-                    break;
-                default:
-                    safeUnreachable(source);
-                    break;
-            }
-
-            checkFarcasterInvalidSignerKey(error);
-
-            throw error;
-        }
-    }, [postId, source, mirrored, queryClient, post.author.profileId]);
+    const [{ loading }, handleMirror] = useMirror(post);
 
     return (
         <Tippy

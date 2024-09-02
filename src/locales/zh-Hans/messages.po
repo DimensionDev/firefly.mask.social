@@ -54,6 +54,9 @@ msgstr "发送 thread 失败"
 msgid "Confirm to disconnect this wallet and related accounts from Firefly’s social graph?"
 msgstr "确认从 Firefly 的社交图谱中断链这个钱包和相关账户？"
 
+msgid "Allow Collect Module"
+msgstr ""
+
 msgid "New connect with Warpcast"
 msgstr "使用 Warpcast 连接"
 
@@ -185,9 +188,6 @@ msgstr "查找用户中"
 
 msgid "Airdrop Scam"
 msgstr "空投骗局"
-
-msgid "Collect Action is not supported yet."
-msgstr "还未支持收藏。"
 
 msgid "Overwrite"
 msgstr "覆盖"
@@ -429,6 +429,9 @@ msgstr "使用 Firefly 重连"
 msgid "Only up to 2 images can be chosen."
 msgstr "至多可以选择 2 张图片。"
 
+msgid "Follow to Collect"
+msgstr ""
+
 msgid "{0, select, Image {[Image]} Video {[Video]} Audio {[Audio]} Poll {[Poll]} other {}}"
 msgstr "{0, select, Image {[图片]} Video {[视频]} Audio {[音频]} Poll {[投票]} other {}}"
 
@@ -455,6 +458,9 @@ msgstr "在 {sourceName} 上取消关注 @{0} 失败。"
 
 msgid "Watch"
 msgstr "关注"
+
+msgid "Time Out"
+msgstr ""
 
 msgid "24 Hour Trading Vol"
 msgstr "24h 交易总额"
@@ -503,6 +509,9 @@ msgstr "转帖"
 
 msgid "Add another post..."
 msgstr "添加另一个帖子..."
+
+msgid "1m left"
+msgstr ""
 
 msgid "Items"
 msgstr "条目"
@@ -836,6 +845,9 @@ msgstr "隐私条款"
 
 msgid "Rainbow Kit"
 msgstr "Rainbow 套件"
+
+msgid "{0}h left"
+msgstr ""
 
 msgid "Forbidden. Please check your permissions."
 msgstr "禁止！请检查您的权限。"
@@ -1320,6 +1332,9 @@ msgstr "展示更多评论"
 msgid "Failed to parse session."
 msgstr "未能解析会话"
 
+msgid "Exclusivity"
+msgstr ""
+
 msgid "Feedback"
 msgstr "问题反馈"
 
@@ -1515,6 +1530,9 @@ msgstr "发布帖子失败"
 msgid "Voted successfully."
 msgstr "投票成功。"
 
+msgid "{0}m left"
+msgstr ""
+
 msgid "Muted @{0} on {sourceName}."
 msgstr "在 {sourceName} 上隐藏 @{0}"
 
@@ -1544,6 +1562,9 @@ msgstr "出席"
 
 msgid "Show more"
 msgstr "显示更多"
+
+msgid "Time Limit"
+msgstr ""
 
 msgid "Post removed from your Bookmarks"
 msgstr "帖子已经从您的收藏中移除"
@@ -1920,6 +1941,9 @@ msgstr "Failed to fetch as ArrayBuffer."
 msgid "Statistic"
 msgstr "统计"
 
+msgid "Post collected successfully!"
+msgstr ""
+
 msgid "Your post have published successfully on {0}."
 msgstr "您已在 {0} 发布成功。"
 
@@ -1949,6 +1973,9 @@ msgstr "已经登录？<0/>授权 <1>已经存在的 Farcaster signer</1> 给 Fi
 
 msgid "Unmute @{0}"
 msgstr "取消隐藏 @{0}"
+
+msgid "{0}d left"
+msgstr ""
 
 msgid "Unauthorized. Please check your login."
 msgstr "未授权认证。请重新登录。"
@@ -2024,6 +2051,9 @@ msgstr "未能解析交易。"
 
 msgid "No anti_whale(Unlimited number of transactions)"
 msgstr "没有反鲸鱼（无限的交易次数）"
+
+msgid "Failed to collect post."
+msgstr ""
 
 msgid "<0>Burned</0> an NFT"
 msgstr "<0>销毁</0> 一个 NFT"

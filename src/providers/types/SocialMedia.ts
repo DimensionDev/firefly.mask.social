@@ -217,6 +217,24 @@ export interface Post {
         displayName?: string;
         name?: string;
     };
+
+    collectModule?: {
+        collectedCount: number;
+        collectLimit?: number;
+        assetAddress?: string;
+        currency?: string;
+        usdPrice?: string;
+        amount?: number;
+        referralFee?: number;
+        followerOnly?: boolean;
+        contract: {
+            address?: string;
+            chainId?: number;
+        };
+        endsAt?: string | null;
+        // Lens Only
+        type?: string;
+    };
     __original__?: unknown;
 }
 
@@ -374,6 +392,11 @@ export interface Provider {
      * @returns A promise that resolves to void.
      */
     collectPost?: (postId: string, collectionId?: string) => Promise<void>;
+
+    /**
+     * Act a post with the specified post ID.
+     */
+    actPost: (postId: string, options: any) => Promise<void>;
 
     /**
      * Upvotes a post with the specified post ID.

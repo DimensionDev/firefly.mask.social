@@ -49,6 +49,9 @@ msgstr "FAILED THREAD POST"
 msgid "Confirm to disconnect this wallet and related accounts from Firefly’s social graph?"
 msgstr "Confirm to disconnect this wallet and related accounts from Firefly’s social graph?"
 
+msgid "Allow Collect Module"
+msgstr "Allow Collect Module"
+
 msgid "New connect with Warpcast"
 msgstr "New connect with Warpcast"
 
@@ -180,9 +183,6 @@ msgstr "Searching users"
 
 msgid "Airdrop Scam"
 msgstr "Airdrop Scam"
-
-msgid "Collect Action is not supported yet."
-msgstr "Collect Action is not supported yet."
 
 msgid "Overwrite"
 msgstr "Overwrite"
@@ -424,6 +424,9 @@ msgstr "Reconnect with Firefly"
 msgid "Only up to 2 images can be chosen."
 msgstr "Only up to 2 images can be chosen."
 
+msgid "Follow to Collect"
+msgstr "Follow to Collect"
+
 msgid "{0, select, Image {[Image]} Video {[Video]} Audio {[Audio]} Poll {[Poll]} other {}}"
 msgstr "{0, select, Image {[Image]} Video {[Video]} Audio {[Audio]} Poll {[Poll]} other {}}"
 
@@ -450,6 +453,9 @@ msgstr "Failed to unfollow @{0} on {sourceName}."
 
 msgid "Watch"
 msgstr "Watch"
+
+msgid "Time Out"
+msgstr "Time Out"
 
 msgid "24 Hour Trading Vol"
 msgstr "24 Hour Trading Vol"
@@ -498,6 +504,9 @@ msgstr "Reposted"
 
 msgid "Add another post..."
 msgstr "Add another post..."
+
+msgid "1m left"
+msgstr "1m left"
 
 msgid "Items"
 msgstr "Items"
@@ -831,6 +840,9 @@ msgstr "Privacy Policy"
 
 msgid "Rainbow Kit"
 msgstr "Rainbow Kit"
+
+msgid "{0}h left"
+msgstr "{0}h left"
 
 msgid "Forbidden. Please check your permissions."
 msgstr "Forbidden. Please check your permissions."
@@ -1315,6 +1327,9 @@ msgstr "Show more comments"
 msgid "Failed to parse session."
 msgstr "Failed to parse session."
 
+msgid "Exclusivity"
+msgstr "Exclusivity"
+
 msgid "Feedback"
 msgstr "Feedback"
 
@@ -1510,6 +1525,9 @@ msgstr "Failed to publish post."
 msgid "Voted successfully."
 msgstr "Voted successfully."
 
+msgid "{0}m left"
+msgstr "{0}m left"
+
 msgid "Muted @{0} on {sourceName}."
 msgstr "Muted @{0} on {sourceName}."
 
@@ -1539,6 +1557,9 @@ msgstr "Attendance"
 
 msgid "Show more"
 msgstr "Show more"
+
+msgid "Time Limit"
+msgstr "Time Limit"
 
 msgid "Post removed from your Bookmarks"
 msgstr "Post removed from your Bookmarks"
@@ -1915,6 +1936,9 @@ msgstr "Failed to fetch as ArrayBuffer."
 msgid "Statistic"
 msgstr "Statistic"
 
+msgid "Post collected successfully!"
+msgstr "Post collected successfully!"
+
 msgid "Your post have published successfully on {0}."
 msgstr "Your post have published successfully on {0}."
 
@@ -1944,6 +1968,9 @@ msgstr "Already logged in?<0/>Approve the <1>existing Farcaster signer</1> to Fi
 
 msgid "Unmute @{0}"
 msgstr "Unmute @{0}"
+
+msgid "{0}d left"
+msgstr "{0}d left"
 
 msgid "Unauthorized. Please check your login."
 msgstr "Unauthorized. Please check your login."
@@ -2019,6 +2046,9 @@ msgstr "Failed to parse transaction."
 
 msgid "No anti_whale(Unlimited number of transactions)"
 msgstr "No anti_whale(Unlimited number of transactions)"
+
+msgid "Failed to collect post."
+msgstr "Failed to collect post."
 
 msgid "<0>Burned</0> an NFT"
 msgstr "<0>Burned</0> an NFT"
