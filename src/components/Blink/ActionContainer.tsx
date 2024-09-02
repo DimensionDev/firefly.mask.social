@@ -5,9 +5,8 @@ import { parseURL } from '@/helpers/parseURL.js';
 
 export const ActionContainer = memo<{
     action: Action;
-    url: string;
-}>(function ActionContainer({ action, url }) {
-    const urlObj = parseURL(url);
+}>(function ActionContainer({ action }) {
+    const urlObj = parseURL(action.url);
 
     return (
         <div
