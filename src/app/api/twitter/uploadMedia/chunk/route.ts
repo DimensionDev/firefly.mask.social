@@ -9,7 +9,7 @@ import { createTwitterClientV2 } from '@/helpers/createTwitterClientV2.js';
 import { getSearchParamsFromRequestWithZodObject } from '@/helpers/getSearchParamsFromRequestWithZodObject.js';
 import { withRequestErrorHandler } from '@/helpers/withRequestErrorHandler.js';
 import { withTwitterRequestErrorHandler } from '@/helpers/withTwitterRequestErrorHandler.js';
-import type { GetUploadStatusResponse, UploadMediaResponse } from '@/types/twitter.js';
+import type { GetUploadStatusResponse } from '@/types/twitter.js';
 
 const FinishUploadSchema = z.object({
     media_id: z.string(),
@@ -23,11 +23,11 @@ export const POST = compose<(request: NextRequest) => Promise<Response>>(
         const queryParams = getSearchParamsFromRequestWithZodObject(request, FinishUploadSchema);
 
         const client = await createTwitterClientV2(request);
-        const { media_id, media_id_string } = await client.post<UploadMediaResponse>(
+        const data = await client.post<GetUploadStatusResponse>(
             urlcat(TWITTER_UPLOAD_MEDIA_URL, { ...queryParams, command: 'FINALIZE' }),
         );
 
-        return createSuccessResponseJSON({ media_id, media_id_string });
+        return createSuccessResponseJSON(data);
     },
 );
 

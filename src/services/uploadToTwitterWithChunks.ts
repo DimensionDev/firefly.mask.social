@@ -32,7 +32,7 @@ function getMediaCategoryByMime(type: FileMimeType, target: 'tweet' | 'dm') {
     }
 }
 
-async function waitForUpload(media_id: string, retry = 10) {
+async function waitForUpload(media_id: string, retry = 30) {
     const { data } = await twitterSessionHolder.fetch<{ data: GetUploadStatusResponse }>(
         urlcat('/api/twitter/uploadMedia/chunk', { media_id }),
     );
@@ -91,12 +91,17 @@ export async function uploadToTwitterWithChunks(file: File, chunkSize = MAX_SIZE
     );
 
     // Finish upload
-    await twitterSessionHolder.fetch(
+    const { data } = await twitterSessionHolder.fetch<{ data: GetUploadStatusResponse }>(
         urlcat('/api/twitter/uploadMedia/chunk', {
             media_id: mediaInfo.data.media_id,
         }),
         { method: 'POST' },
     );
+
+    // small size media will be success immediately, no need to wait
+    if (data?.processing_info?.state === UploadMediaStatus.Success) {
+        return mediaInfo;
+    }
 
     // Confirm upload
     await waitForUpload(mediaInfo.data.media_id);
