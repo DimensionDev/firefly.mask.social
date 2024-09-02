@@ -26,7 +26,7 @@ export async function getPostOGById(source: SocialSourceInURL, postId: string) {
         }),
     );
 
-    const ogImage = urlcat(SITE_URL, '/api/og/:source/:postId/image', {
+    const ogImage = urlcat(SITE_URL, '/api/og/post/:source/:postId/image', {
         source,
         postId,
     });
