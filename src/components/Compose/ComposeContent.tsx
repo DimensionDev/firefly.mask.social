@@ -1,4 +1,4 @@
-import { ComposeImage } from '@/components/Compose/ComposeImage.js';
+import { ComposeImages } from '@/components/Compose/ComposeImages.js';
 import { ComposeVideo } from '@/components/Compose/ComposeVideo.js';
 import { Editor } from '@/components/Compose/Editor.js';
 import { Placeholder } from '@/components/Compose/Placeholder.js';
@@ -6,7 +6,6 @@ import { PollCreatorCard } from '@/components/Poll/PollCreatorCard.js';
 import { PostLinksInCompose } from '@/components/Posts/PostLinks.js';
 import { Quote } from '@/components/Posts/Quote.js';
 import { Reply } from '@/components/Posts/Reply.js';
-import { classNames } from '@/helpers/classNames.js';
 import { type CompositePost, useComposeStateStore } from '@/store/useComposeStore.js';
 
 interface ComposeContentProps {
@@ -38,25 +37,7 @@ export function ComposeContent(props: ComposeContentProps) {
             {poll ? <PollCreatorCard post={props.post} readonly={cursor !== props.post.id} /> : null}
 
             {/* image */}
-            {images.length > 0 && (
-                <div
-                    className={classNames(
-                        'relative grid gap-2 py-3',
-                        images.length <= 4 ? 'grid-cols-2' : 'grid-cols-5',
-                        replying ? 'pl-[52px]' : '',
-                    )}
-                >
-                    {images.map((image, index) => (
-                        <ComposeImage
-                            key={`${image.file.name}_${index}`}
-                            index={index}
-                            image={image}
-                            size={images.length}
-                            readonly={cursor !== props.post.id}
-                        />
-                    ))}
-                </div>
-            )}
+            {images.length > 0 ? <ComposeImages className="flex-grow" images={images} /> : null}
 
             {/* video */}
             {video ? (

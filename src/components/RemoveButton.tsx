@@ -13,14 +13,14 @@ interface RemoveButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement
 
 export function RemoveButton({ size = 18, tooltip = t`Remove`, ...props }: RemoveButtonProps) {
     return (
-        <ClickableButton
-            {...props}
-            className={classNames(
-                props.className,
-                'inline-flex h-7 w-7 items-center justify-center rounded-full bg-gray-500 md:group-hover:inline-flex',
-            )}
-        >
-            <Tooltip content={tooltip} placement="top">
+        <Tooltip content={tooltip} placement="top">
+            <ClickableButton
+                {...props}
+                className={classNames(
+                    props.className,
+                    'inline-flex h-7 w-7 items-center justify-center rounded-full bg-gray-500 md:group-hover:inline-flex',
+                )}
+            >
                 <CloseIcon
                     className={classNames('text-white', {
                         'cursor-pointer': !props.disabled,
@@ -28,7 +28,7 @@ export function RemoveButton({ size = 18, tooltip = t`Remove`, ...props }: Remov
                     width={size}
                     height={size}
                 />
-            </Tooltip>
-        </ClickableButton>
+            </ClickableButton>
+        </Tooltip>
     );
 }
