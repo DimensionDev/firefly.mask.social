@@ -46,7 +46,6 @@ export const UploadDropArea = memo(
                 const canDropImage = disableImage ? false : files.some((file) => isImageFileType(file.type));
                 const canDrop = canDropVideo || canDropImage;
                 setCanDrop(canDrop);
-                if (!canDrop) e.dataTransfer.dropEffect = 'none';
             };
             const handleDrop = (e: DragEvent) => {
                 e.preventDefault();
