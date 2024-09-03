@@ -34,6 +34,9 @@ import { restoreFireflySessionAll } from '@/services/restoreFireflySession.js';
 export interface ProfileState {
     // indicate the store is ready or not
     status: AsyncStatus;
+    // internally used in this store
+    __setStatus__: (status: AsyncStatus) => void;
+
     accounts: Account[];
     currentProfile: Profile | null;
     currentProfileSession: Session | null;
@@ -45,7 +48,6 @@ export interface ProfileState {
     refreshAccounts: () => void;
     refreshCurrentAccount: () => Promise<void>;
     updateCurrentProfile: (profile: ProfileEditable) => void;
-    transit: (status: AsyncStatus) => void;
     upgrade: () => void;
     clear: () => void;
 }
@@ -164,7 +166,7 @@ function createState(
                         if (session) state.currentProfileSession = session;
                     });
                 },
-                transit: (status) =>
+                __setStatus__: (status) =>
                     set((state) => {
                         state.status = status;
                     }),
@@ -300,7 +302,7 @@ const useTwitterStateBase = createState(
                 const isSessionFromServer = session === null && sessionFromServer !== null;
 
                 // show indicator if the session is from the server
-                if (isSessionFromServer) state.transit(AsyncStatus.Pending);
+                if (isSessionFromServer) state.__setStatus__(AsyncStatus.Pending);
 
                 const payload = session?.payload ?? sessionFromServer;
                 const profile = payload ? await TwitterSocialMediaProvider.getProfileById(payload.clientId) : null;
@@ -334,7 +336,7 @@ const useTwitterStateBase = createState(
                 state.clear();
                 twitterSessionHolder.removeSession();
             } finally {
-                state.transit(AsyncStatus.Idle);
+                state.__setStatus__(AsyncStatus.Idle);
             }
         },
     },
