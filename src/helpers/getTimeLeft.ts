@@ -5,7 +5,7 @@ dayjs.extend(duration);
 
 export function getTimeLeft(endDatetime: string, startDatetime = new Date().toISOString()) {
     const timeLeft = dayjs(endDatetime).diff(dayjs(startDatetime));
-    if(timeLeft < 0) return
+    if (timeLeft < 0) return;
 
     const duration = dayjs.duration(timeLeft);
 
@@ -13,6 +13,6 @@ export function getTimeLeft(endDatetime: string, startDatetime = new Date().toIS
         days: duration.days(),
         hours: duration.hours(),
         minutes: duration.minutes(),
-        seconds: duration.seconds()
+        seconds: duration.seconds(),
     };
 }
