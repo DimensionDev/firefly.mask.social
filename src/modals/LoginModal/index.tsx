@@ -37,6 +37,7 @@ export interface LoginModalOpenProps {
         expectedSignType?: FarcasterSignType;
     };
 }
+
 export const LoginModal = forwardRef<SingletonModalRefCreator<LoginModalOpenProps | void>>(function LoginModal(_, ref) {
     const isMedium = useIsMedium();
     const routerRef = useRef(createLoginRouter());

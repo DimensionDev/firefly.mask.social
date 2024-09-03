@@ -76,7 +76,8 @@ export const WatchButton = memo(function WatchButton({
             onMouseLeave={() => setHovering(false)}
             onClick={() => {
                 if (!isLogin) {
-                    return LoginModalRef.open();
+                    LoginModalRef.open();
+                    return;
                 }
                 mutation.mutate();
             }}
