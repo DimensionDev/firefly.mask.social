@@ -23,6 +23,7 @@ export async function getProfileOGById(sourceInUrl: SocialSourceInURL, profileId
     const description = profile.bio ?? SITE_DESCRIPTION;
 
     return createSiteMetadata({
+        description,
         openGraph: {
             type: 'profile',
             url: urlcat(SITE_URL, getProfileUrl(profile)),
