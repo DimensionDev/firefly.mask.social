@@ -1,16 +1,13 @@
 'use client';
 
 import { delay } from '@masknet/kit';
-import { useState } from 'react';
 import { useAsyncFn } from 'react-use';
 
 import { ProfileAvatarAdd } from '@/components/Login/ProfileAvatarAdd.js';
 import { ProfileAvatarInteractive } from '@/components/Login/ProfileAvatarInteractive.js';
 import { type SocialSource } from '@/constants/enum.js';
 import { SORTED_SOCIAL_SOURCES } from '@/constants/index.js';
-import { restoreCurrentAccounts } from '@/helpers/account.js';
 import { classNames } from '@/helpers/classNames.js';
-import { useAbortController } from '@/hooks/useAbortController.js';
 import { useCurrentProfileAll } from '@/hooks/useCurrentProfile.js';
 import { LoginModalRef } from '@/modals/controls.js';
 import { useNavigatorState } from '@/store/useNavigatorStore.js';
@@ -24,19 +21,7 @@ export function LoginStatusBar({ collapsed = false }: LoginStatusBarProps) {
 
     const currentProfileAll = useCurrentProfileAll();
 
-    const controller = useAbortController();
-    const [selectedSource, setSelectedSource] = useState<SocialSource>();
-
     const [{ loading }, onLogin] = useAsyncFn(async (source: SocialSource) => {
-        setSelectedSource(source);
-
-        try {
-            const confirmed = await restoreCurrentAccounts(controller.current.signal);
-            if (confirmed) return;
-        } catch {
-            // if any error occurs, we will just proceed with the login
-        }
-
         updateSidebarOpen(false);
         await delay(300);
         LoginModalRef.open({ source });
@@ -56,12 +41,7 @@ export function LoginStatusBar({ collapsed = false }: LoginStatusBarProps) {
 
             {SORTED_SOCIAL_SOURCES.map((x) =>
                 !currentProfileAll[x] ? (
-                    <ProfileAvatarAdd
-                        key={x}
-                        source={x}
-                        loading={loading ? x === selectedSource : false}
-                        onClick={() => onLogin(x)}
-                    />
+                    <ProfileAvatarAdd key={x} source={x} loading={loading} onClick={() => onLogin(x)} />
                 ) : null,
             )}
         </div>

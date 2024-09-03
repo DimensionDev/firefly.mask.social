@@ -24,7 +24,8 @@ export function VoteButton({ option, post, frameUrl }: VoteButtonProps) {
     const [{ loading }, handleVote] = useAsyncFn(async () => {
         try {
             if (!isLogin) {
-                return LoginModalRef.open({ source: post.source });
+                LoginModalRef.open({ source: post.source });
+                return;
             }
             if (!pollId) throw new Error('Poll ID not found');
             const pollProvider = resolvePollProvider(post.source);
