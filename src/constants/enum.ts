@@ -207,7 +207,7 @@ export enum ChannelTabType {
 }
 
 // async store needs to sync data from the server
-export enum AsyncStoreStatus {
+export enum AsyncStatus {
     Idle = 'idle',
     Pending = 'pending',
 }

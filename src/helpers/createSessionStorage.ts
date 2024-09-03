@@ -1,7 +1,7 @@
 import { z } from 'zod';
 import type { PersistStorage } from 'zustand/middleware';
 
-import { AsyncStoreStatus } from '@/constants/enum.js';
+import { AsyncStatus } from '@/constants/enum.js';
 import { parseJSON } from '@/helpers/parseJSON.js';
 import { SessionFactory } from '@/providers/base/SessionFactory.js';
 import type { Account } from '@/providers/types/Account.js';
@@ -9,7 +9,7 @@ import type { Session } from '@/providers/types/Session.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 
 interface SessionState {
-    status: AsyncStoreStatus;
+    status: AsyncStatus;
     accounts: Account[];
     currentProfile: Profile | null;
     currentProfileSession: Session | null;
@@ -23,7 +23,7 @@ export function createSessionStorage(): PersistStorage<SessionState> {
 
             const parsedState = parseJSON<{
                 state: {
-                    status?: AsyncStoreStatus;
+                    status?: AsyncStatus;
                     // for legacy version don't have accounts field
                     accounts?: Array<{
                         profile: Profile;
@@ -38,7 +38,7 @@ export function createSessionStorage(): PersistStorage<SessionState> {
 
             const schema = z.object({
                 state: z.object({
-                    status: z.nativeEnum(AsyncStoreStatus),
+                    status: z.nativeEnum(AsyncStatus),
                     accounts: z.array(
                         z.object({
                             session: z.string().nullable(),
@@ -55,7 +55,7 @@ export function createSessionStorage(): PersistStorage<SessionState> {
                     ...parsedState.state,
                     // for legacy version don't have status field
                     // so we need to provide a default value to bypass the schema validation
-                    status: parsedState.state.status ?? AsyncStoreStatus.Idle,
+                    status: parsedState.state.status ?? AsyncStatus.Idle,
                     // for legacy version don't have accounts field
                     // so we need to provide a default value to bypass the schema validation
                     accounts: parsedState.state.accounts ?? [],
@@ -70,7 +70,7 @@ export function createSessionStorage(): PersistStorage<SessionState> {
                 ...parsedState,
                 state: {
                     ...parsedState.state,
-                    status: parsedState.state.status ?? AsyncStoreStatus.Idle,
+                    status: parsedState.state.status ?? AsyncStatus.Idle,
                     accounts:
                         parsedState.state.accounts?.map((account) => ({
                             ...account,

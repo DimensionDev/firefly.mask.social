@@ -41,7 +41,7 @@ export function ConnectWallet({ collapsed: sideBarCollapsed = false }: ConnectWa
 
     const { data: ensName } = useEnsName({ address: evmAccount.address, chainId: mainnet.id });
 
-    const collapsed = useGlobalState((state) => state.collapsedConnectWallet);
+    const collapsed = useGlobalState.use.collapsedConnectWallet();
     const setCollapsed = useGlobalState.use.updateCollapsedConnectWallet();
 
     const chainTypes = [
