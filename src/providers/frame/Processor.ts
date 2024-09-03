@@ -2,6 +2,7 @@ import { parseHTML } from 'linkedom';
 
 import { FetchError } from '@/constants/error.js';
 import { anySignal } from '@/helpers/anySignal.js';
+import { getFrameClientProtocol } from '@/helpers/getFrameClientProtocol.js';
 import { parseURL } from '@/helpers/parseURL.js';
 import {
     getAspectRatio,
@@ -51,6 +52,7 @@ class Processor {
             buttons: [],
             // never refresh by default
             refreshPeriod: Number.MAX_SAFE_INTEGER,
+            protocol: getFrameClientProtocol(document),
         };
 
         const postUrl = getPostUrl(document);

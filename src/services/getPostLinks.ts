@@ -1,7 +1,8 @@
 import { Action, setProxyUrl } from '@dialectlabs/blinks';
+import { safeUnreachable } from '@masknet/kit';
 import urlcat from 'urlcat';
 
-import { STATUS } from '@/constants/enum.js';
+import { FrameProtocol, Source, STATUS } from '@/constants/enum.js';
 import { env } from '@/constants/env.js';
 import { attemptUntil } from '@/helpers/attemptUntil.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
@@ -67,7 +68,7 @@ export async function getPostOembed(url: string, post?: Pick<Post, 'quoteOn'>): 
     return linkDigested.success ? linkDigested.data : null;
 }
 
-export async function getPostLinks(url: string, post?: Pick<Post, 'quoteOn'>) {
+export async function getPostLinks(url: string, post: Post) {
     return attemptUntil<{
         oembed?: LinkDigested;
         frame?: Frame;
@@ -82,7 +83,20 @@ export async function getPostLinks(url: string, post?: Pick<Post, 'quoteOn'>) {
             },
             async () => {
                 const frame = await getPostFrame(url);
-                return frame ? { frame } : null;
+
+                if (!frame) return null;
+
+                switch (post.source) {
+                    case Source.Farcaster:
+                        return { frame };
+                    case Source.Lens:
+                        return frame.protocol === FrameProtocol.OpenFrame ? { frame } : null;
+                    case Source.Twitter:
+                        return null;
+                    default:
+                        safeUnreachable(post.source);
+                        return null;
+                }
             },
             async () => {
                 const action = await getPostBlinkAction(url);
