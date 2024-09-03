@@ -24,10 +24,11 @@ interface ChannelSearchPanelProps extends HTMLProps<HTMLDivElement> {
 }
 
 export function ChannelSearchPanel({ onSelected, className, ...rest }: ChannelSearchPanelProps) {
+    const isMedium = useIsMedium();
+
     const [inputText, setInputText] = useState('');
     const { updateChannel } = useComposeStateStore();
     const { channel: selectedChannel, typedMessage } = useCompositePost();
-    const isMedium = useIsMedium();
 
     const { data, isLoading, isError } = useSearchChannels(inputText, hasRpPayload(typedMessage) ?? false);
 
