@@ -5,12 +5,10 @@ import { memo, useCallback, useMemo } from 'react';
 import ReplyIcon from '@/assets/reply.svg';
 import { ClickableArea } from '@/components/ClickableArea.js';
 import { Tooltip } from '@/components/Tooltip.js';
-import { config } from '@/configs/wagmiClient.js';
-import { type SocialSource, Source } from '@/constants/enum.js';
+import { type SocialSource } from '@/constants/enum.js';
 import { classNames } from '@/helpers/classNames.js';
 import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
 import { humanize, nFormatter } from '@/helpers/formatCommentCounts.js';
-import { getWalletClientRequired } from '@/helpers/getWalletClientRequired.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
 import { ComposeModalRef, LoginModalRef } from '@/modals/controls.js';
@@ -46,7 +44,6 @@ export const Comment = memo<CommentProps>(function Comment({
 
     const handleClick = useCallback(async () => {
         if (!isLogin) {
-            if (source === Source.Lens) await getWalletClientRequired(config);
             LoginModalRef.open({ source });
             return;
         }
