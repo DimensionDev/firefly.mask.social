@@ -1,16 +1,12 @@
 import { Trans } from '@lingui/macro';
 import { useRouter } from '@tanstack/react-router';
-import { useState } from 'react';
-import { useAsyncFn } from 'react-use';
 import urlcat from 'urlcat';
 
 import { LoginButton } from '@/components/Login/LoginButton.js';
 import { LoginFirefly } from '@/components/Login/LoginFirefly.js';
 import { FarcasterSignType, type SocialSource, Source } from '@/constants/enum.js';
 import { SORTED_SOCIAL_SOURCES } from '@/constants/index.js';
-import { restoreCurrentAccounts } from '@/helpers/account.js';
 import { resolveSourceInURL } from '@/helpers/resolveSourceInURL.js';
-import { useAbortController } from '@/hooks/useAbortController.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
 
 export function MainView() {
@@ -18,19 +14,7 @@ export function MainView() {
     const { history } = router;
     const isMedium = useIsMedium();
 
-    const controller = useAbortController();
-    const [selectedSource, setSelectedSource] = useState<SocialSource>();
-
-    const [{ loading }, onClick] = useAsyncFn(async (source: SocialSource) => {
-        setSelectedSource(source);
-
-        try {
-            const confirmed = await restoreCurrentAccounts(controller.current.signal);
-            if (confirmed) return;
-        } catch (error) {
-            // if any error occurs, we will just proceed with the login
-        }
-
+    const onClick = (source: SocialSource) => {
         const signType = source === Source.Farcaster && isMedium ? FarcasterSignType.RelayService : undefined;
         const path = urlcat('/:source', {
             source: resolveSourceInURL(source),
@@ -39,7 +23,7 @@ export function MainView() {
 
         // history.back() is buggy, use .replace() instead.
         history.replace(path);
-    }, []);
+    };
 
     return (
         <div className="flex flex-col rounded-[12px] bg-primaryBottom md:w-[500px]">
@@ -54,12 +38,7 @@ export function MainView() {
                 ) : null}
                 <div className="flex w-full flex-col md:flex-row md:gap-3">
                     {SORTED_SOCIAL_SOURCES.map((source) => (
-                        <LoginButton
-                            key={source}
-                            source={source}
-                            loading={loading ? source === selectedSource : false}
-                            onClick={() => onClick(source)}
-                        />
+                        <LoginButton key={source} source={source} onClick={() => onClick(source)} />
                     ))}
                 </div>
             </div>
