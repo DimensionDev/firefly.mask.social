@@ -262,3 +262,8 @@ export enum FileMimeType {
     GPP = 'video/3gpp',
     GPP2 = 'video/3gpp2',
 }
+
+export enum FrameProtocol {
+    OpenFrame = 'of',
+    Farcaster = 'fc',
+}

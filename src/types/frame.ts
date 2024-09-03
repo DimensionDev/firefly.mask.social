@@ -1,5 +1,7 @@
 /* cspell:disable */
 
+import type { FrameProtocol } from "@/constants/enum.js";
+
 export type Index = 1 | 2 | 3 | 4;
 
 export enum ActionType {
@@ -52,6 +54,8 @@ export interface Frame {
     aspectRatio?: '1.91:1' | '1:1';
     // fc:frame:state
     state?: string;
+    // frame client protocol
+    protocol?: FrameProtocol;
 }
 
 /**
