@@ -2,12 +2,10 @@ import { t } from '@lingui/macro';
 import { type HTMLProps, memo } from 'react';
 
 import { ClickableButton } from '@/components/ClickableButton.js';
-import { config } from '@/configs/wagmiClient.js';
 import { type SocialSource, Source } from '@/constants/enum.js';
 import { Image } from '@/esm/Image.js';
 import { classNames } from '@/helpers/classNames.js';
 import { createLookupTableResolver } from '@/helpers/createLookupTableResolver.js';
-import { getWalletClientRequired } from '@/helpers/getWalletClientRequired.js';
 import { resolveFallbackImageUrl } from '@/helpers/resolveFallbackImageUrl.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { LoginModalRef } from '@/modals/controls.js';
@@ -53,8 +51,7 @@ export const NotLoginFallback = memo<NotLoginFallbackProps>(function NotLoginFal
                     'rounded-[10px] bg-transparent px-5 py-3.5 text-sm font-bold shadow-sm ring-1 ring-inset',
                     source ? resolveConnectButtonClass(source) : undefined,
                 )}
-                onClick={async () => {
-                    if (source === Source.Lens) await getWalletClientRequired(config);
+                onClick={() => {
                     LoginModalRef.open({ source: isArticle ? undefined : source });
                 }}
             >

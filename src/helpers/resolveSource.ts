@@ -1,4 +1,11 @@
-import { type SocialSource, type SocialSourceInURL, Source, SourceInURL, WalletSource } from '@/constants/enum.js';
+import {
+    type ProfileSource,
+    type SocialSource,
+    type SocialSourceInURL,
+    Source,
+    SourceInURL,
+    WalletSource,
+} from '@/constants/enum.js';
 import { UnreachableError } from '@/constants/error.js';
 import { createLookupTableResolver } from '@/helpers/createLookupTableResolver.js';
 import { SessionType } from '@/providers/types/SocialMedia.js';
@@ -34,6 +41,18 @@ export const resolveSocialSource = createLookupTableResolver<SocialSourceInURL, 
     },
     (sourceInUrl) => {
         throw new UnreachableError('sourceInUrl', sourceInUrl);
+    },
+);
+
+export const resolveSocialSourceFromProfileSource = createLookupTableResolver<ProfileSource, SocialSource>(
+    {
+        [Source.Farcaster]: Source.Farcaster,
+        [Source.Lens]: Source.Lens,
+        [Source.Twitter]: Source.Twitter,
+        [Source.Firefly]: Source.Farcaster,
+    },
+    (source) => {
+        throw new UnreachableError('profile source', source);
     },
 );
 

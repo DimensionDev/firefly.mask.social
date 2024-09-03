@@ -1,7 +1,7 @@
 import urlcat from 'urlcat';
 
 import { type SocialSourceInURL } from '@/constants/enum.js';
-import { SITE_URL } from '@/constants/index.js';
+import { SITE_DESCRIPTION, SITE_URL } from '@/constants/index.js';
 import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { getStampAvatarByProfileId } from '@/helpers/getStampAvatarByProfileId.js';
@@ -20,7 +20,7 @@ export async function getProfileOGById(sourceInUrl: SocialSourceInURL, profileId
     ];
 
     const title = `@${profile.handle} in Firefly`;
-    const description = profile.bio ?? '';
+    const description = profile.bio ?? SITE_DESCRIPTION;
 
     return createSiteMetadata({
         openGraph: {

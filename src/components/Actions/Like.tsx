@@ -6,13 +6,11 @@ import LikeIcon from '@/assets/like.svg';
 import LikedIcon from '@/assets/liked.svg';
 import { ClickableArea } from '@/components/ClickableArea.js';
 import { Tooltip } from '@/components/Tooltip.js';
-import { config } from '@/configs/wagmiClient.js';
-import { type SocialSource, Source } from '@/constants/enum.js';
+import { type SocialSource } from '@/constants/enum.js';
 import { classNames } from '@/helpers/classNames.js';
 import { enqueueErrorMessage, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { nFormatter } from '@/helpers/formatCommentCounts.js';
 import { getSnackbarMessageFromError } from '@/helpers/getSnackbarMessageFromError.js';
-import { getWalletClientRequired } from '@/helpers/getWalletClientRequired.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
 import { LoginModalRef } from '@/modals/controls.js';
@@ -44,7 +42,6 @@ export const Like = memo<LikeProps>(function Like({
         if (!postId) return null;
 
         if (!isLogin) {
-            if (source === Source.Lens) await getWalletClientRequired(config);
             LoginModalRef.open({ source });
             return;
         }

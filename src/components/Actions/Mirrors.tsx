@@ -7,12 +7,10 @@ import MirrorIcon from '@/assets/mirror.svg';
 import MirrorLargeIcon from '@/assets/mirror-large.svg';
 import QuoteDownIcon from '@/assets/quote-down.svg';
 import { Tooltip } from '@/components/Tooltip.js';
-import { config } from '@/configs/wagmiClient.js';
 import { type SocialSource, Source } from '@/constants/enum.js';
 import { Tippy } from '@/esm/Tippy.js';
 import { classNames } from '@/helpers/classNames.js';
 import { humanize, nFormatter } from '@/helpers/formatCommentCounts.js';
-import { getWalletClientRequired } from '@/helpers/getWalletClientRequired.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
 import { useMirror } from '@/hooks/useMirror.js';
 import { ComposeModalRef, LoginModalRef } from '@/modals/controls.js';
@@ -142,7 +140,6 @@ export const Mirror = memo<MirrorProps>(function Mirror({
                     event.stopPropagation();
 
                     if (!isLogin && !loading) {
-                        if (source === Source.Lens) await getWalletClientRequired(config);
                         LoginModalRef.open({ source: post.source });
                         return;
                     }

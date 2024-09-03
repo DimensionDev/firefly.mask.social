@@ -10,7 +10,7 @@ import FireflyAvatarSVG from '@/assets/firefly-avatar.svg?url';
 import LensSVG from '@/assets/lens.svg?url';
 import TwitterSVG from '@/assets/x-circle-light.svg?url';
 import { type SocialSource, Source, SourceInURL } from '@/constants/enum.js';
-import { SITE_URL } from '@/constants/index.js';
+import { CACHE_AGE_INDEFINITE_ON_DISK, SITE_URL } from '@/constants/index.js';
 import { compose } from '@/helpers/compose.js';
 import { createErrorResponseJSON } from '@/helpers/createErrorResponseJSON.js';
 import { narrowToSocialSourceInURL } from '@/helpers/narrowToSocialSource.js';
@@ -44,24 +44,23 @@ function resolveAttachmentsSrc(asset?: Attachment) {
 export const GET = compose<(request: NextRequest, context: NextRequestContext) => Promise<Response>>(
     withRequestErrorHandler({ throwError: true }),
     async (request, context) => {
+        const postId = context.params.postId;
         const source = narrowToSocialSourceInURL(context.params.source as SourceInURL);
-        const postId = context.params.postId!;
         const provider = resolveSocialMediaProvider(resolveSocialSource(source));
-        const post = await provider.getPostById(postId).catch(() => null);
+        const post = postId ? await provider.getPostById(postId).catch(() => null) : null;
 
         if (!post) {
             const response = await fetch(urlcat(SITE_URL, '/image/og.png'));
             if (!response.ok) return createErrorResponseJSON('Unable to access the image');
-            const headers = new Headers(response.headers);
-            const cacheControl = response.headers.get('cache-control');
-            headers.set('Content-Type', response.headers.get('content-type') || 'application/octet-stream');
-            if (cacheControl) headers.set('Cache-Control', cacheControl);
-            return new Response(response.body, { headers });
+            return new Response(response.body, {
+                headers: {
+                    'Content-Type': response.headers.get('content-type') || 'application/octet-stream',
+                    'Cache-Control': response.headers.get('cache-control') || CACHE_AGE_INDEFINITE_ON_DISK,
+                },
+            });
         }
 
         const src = resolveAttachmentsSrc(post.metadata.content?.asset);
-        const headers = new Headers();
-        headers.set('Cache-Control', 'max-age=604800');
         return new ImageResponse(
             (
                 <div
@@ -146,7 +145,9 @@ export const GET = compose<(request: NextRequest, context: NextRequestContext) =
             {
                 width: 1200,
                 height: 600,
-                headers,
+                headers: {
+                    'Cache-Control': CACHE_AGE_INDEFINITE_ON_DISK,
+                },
             },
         );
     },

@@ -4,12 +4,16 @@ import urlcat from 'urlcat';
 
 import { Modal } from '@/components/Modal.js';
 import { Popover } from '@/components/Popover.js';
-import type { FarcasterSignType, ProfileSource } from '@/constants/enum.js';
+import { AsyncStatus, type FarcasterSignType, type ProfileSource, Source } from '@/constants/enum.js';
+import { restoreCurrentAccounts } from '@/helpers/account.js';
+import { resolveSocialSourceFromProfileSource } from '@/helpers/resolveSource.js';
 import { resolveSourceInURL } from '@/helpers/resolveSourceInURL.js';
+import { useAbortController } from '@/hooks/useAbortController.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import { useSingletonModal } from '@/hooks/useSingletonModal.js';
 import type { SingletonModalRefCreator } from '@/libs/SingletonModal.js';
 import { routeTree } from '@/modals/LoginModal/routes.js';
+import { useGlobalState } from '@/store/useGlobalStore.js';
 
 function createLoginRouter() {
     const memoryHistory = createMemoryHistory({
@@ -37,12 +41,40 @@ export interface LoginModalOpenProps {
         expectedSignType?: FarcasterSignType;
     };
 }
+
 export const LoginModal = forwardRef<SingletonModalRefCreator<LoginModalOpenProps | void>>(function LoginModal(_, ref) {
     const isMedium = useIsMedium();
     const routerRef = useRef(createLoginRouter());
 
+    const controller = useAbortController();
+    const { setAsyncStatus } = useGlobalState();
+
     const [open, dispatch] = useSingletonModal(ref, {
-        onOpen: (props) => {
+        // open the modal in async way breaks the singleton modal logic.
+        // it requires that the login modal always open at the end of the process.
+        onOpen: async (props) => {
+            // abort previous login process
+            controller.current.abort();
+
+            const profileSource = props ? props.source : null;
+
+            if (profileSource && profileSource !== Source.Firefly) {
+                const source = resolveSocialSourceFromProfileSource(profileSource);
+
+                try {
+                    setAsyncStatus(source, AsyncStatus.Pending);
+
+                    const confirmed = await restoreCurrentAccounts(controller.current.signal);
+                    if (confirmed) return;
+                } catch (error) {
+                    console.error(`[LoginModal] failed to restore current accounts`, error);
+
+                    // if any error occurs, we will just proceed with the login
+                } finally {
+                    setAsyncStatus(source, AsyncStatus.Idle);
+                }
+            }
+
             routerRef.current = createLoginRouter();
 
             if (!props?.source) {

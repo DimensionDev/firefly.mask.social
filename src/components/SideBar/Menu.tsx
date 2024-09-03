@@ -27,13 +27,14 @@ import { OpenFireflyAppButton } from '@/components/OpenFireflyAppButton.js';
 import { ConnectWallet } from '@/components/SideBar/ConnectWallet.js';
 import { Tooltip } from '@/components/Tooltip.js';
 import { IS_IOS } from '@/constants/bowser.js';
-import { AsyncStoreStatus, PageRoute } from '@/constants/enum.js';
+import { PageRoute } from '@/constants/enum.js';
 import { Link } from '@/esm/Link.js';
 import { classNames } from '@/helpers/classNames.js';
 import { getCurrentSourceFromParams } from '@/helpers/getCurrentSourceFromUrl.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { isRoutePathname } from '@/helpers/isRoutePathname.js';
 import { isSameFireflyIdentity } from '@/helpers/isSameFireflyIdentity.js';
+import { useAsyncStatusAll } from '@/hooks/useAsyncStatus.js';
 import { useCurrentFireflyProfilesAll } from '@/hooks/useCurrentFireflyProfiles.js';
 import { useCurrentProfileFirstAvailable } from '@/hooks/useCurrentProfile.js';
 import { useCurrentVisitingChannel } from '@/hooks/useCurrentVisitingChannel.js';
@@ -41,7 +42,6 @@ import { useIsLogin } from '@/hooks/useIsLogin.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import { ComposeModalRef, LoginModalRef } from '@/modals/controls.js';
 import { useNavigatorState } from '@/store/useNavigatorStore.js';
-import { useTwitterStateStore } from '@/store/useProfileStore.js';
 
 interface MenuProps {
     collapsed?: boolean;
@@ -59,8 +59,7 @@ export const Menu = memo(function Menu({ collapsed = false }: MenuProps) {
     const isLogin = useIsLogin();
     const pathname = usePathname();
 
-    const status = useTwitterStateStore.use.status();
-    const isLoading = status === AsyncStoreStatus.Pending;
+    const isLoading = useAsyncStatusAll();
 
     const checkIsSelected = (href: `/${string}`) => {
         if (isRoutePathname(href, '/profile')) {

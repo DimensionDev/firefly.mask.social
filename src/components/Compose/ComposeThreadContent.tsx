@@ -18,10 +18,9 @@ export function ComposeThreadContent(props: ComposeThreadContentProps) {
     const currentSource = useGlobalState.use.currentSource();
     const currentSocialSource = narrowToSocialSource(currentSource);
 
-    const currentProfile = useCurrentAvailableProfile(currentSocialSource);
-
     const setEditorContent = useSetEditorContent();
 
+    const currentProfile = useCurrentAvailableProfile(currentSocialSource);
     const { posts, cursor, computed, updateCursor, removePostInThread } = useComposeStateStore();
 
     return (

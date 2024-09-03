@@ -68,10 +68,11 @@ export function ProfileSettings({ source, onClose }: ProfileSettingsProps) {
                                 if (!account.session) {
                                     onClose?.();
                                     await delay(300);
-                                    return LoginModalRef.open({
+                                    LoginModalRef.open({
                                         source,
                                         options: { expectedProfile: account.profile.profileId },
                                     });
+                                    return;
                                 }
                                 await switchAccount({ ...account, session: account.session });
                                 if (
