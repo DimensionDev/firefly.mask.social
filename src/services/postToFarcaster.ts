@@ -8,6 +8,7 @@ import { getPollFrameUrl } from '@/helpers/getPollFrameUrl.js';
 import { isHomeChannel } from '@/helpers/isSameChannel.js';
 import { createS3MediaObject, resolveImageUrl, resolveVideoUrl } from '@/helpers/resolveMediaObjectUrl.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
+import { uploadM3u8ToS3 } from '@/helpers/uploadM3u8ToS3.js';
 import { FarcasterPollProvider } from '@/providers/farcaster/Poll.js';
 import { farcasterSessionHolder } from '@/providers/farcaster/SessionHolder.js';
 import { FarcasterSocialMediaProvider } from '@/providers/farcaster/SocialMedia.js';
@@ -96,7 +97,7 @@ export async function postToFarcaster(type: ComposeType, compositePost: Composit
         uploadVideos: () => {
             return Promise.all(
                 (video?.file ? [video] : []).map(async (media) => {
-                    return createS3MediaObject(await uploadToS3(media.file, SourceInURL.Farcaster), media);
+                    return createS3MediaObject(await uploadM3u8ToS3(media.file, SourceInURL.Farcaster), media);
                 }),
             );
         },

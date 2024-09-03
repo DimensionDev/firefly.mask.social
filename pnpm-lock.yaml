@@ -75,6 +75,12 @@ importers:
       '@farcaster/core':
         specifier: ^0.14.19
         version: 0.14.19(typescript@5.5.4)(zod@3.23.8)
+      '@ffmpeg/ffmpeg':
+        specifier: ^0.12.10
+        version: 0.12.10
+      '@ffmpeg/util':
+        specifier: ^0.12.1
+        version: 0.12.1
       '@giphy/js-fetch-api':
         specifier: ^5.6.0
         version: 5.6.0
@@ -7427,6 +7433,23 @@ packages:
   /@fastify/deepmerge@1.3.0:
     resolution: {integrity: sha512-J8TOSBq3SoZbDhM9+R/u77hP93gz/rajSA+K2kGyijPpORPWUXHUpTaleoj+92As0S9uPRP7Oi8IqMf0u+ro6A==}
     dev: true
+
+  /@ffmpeg/ffmpeg@0.12.10:
+    resolution: {integrity: sha512-lVtk8PW8e+NUzGZhPTWj2P1J4/NyuCrbDD3O9IGpSeLYtUZKBqZO8CNj1WYGghep/MXoM8e1qVY1GztTkf8YYQ==}
+    engines: {node: '>=18.x'}
+    dependencies:
+      '@ffmpeg/types': 0.12.2
+    dev: false
+
+  /@ffmpeg/types@0.12.2:
+    resolution: {integrity: sha512-NJtxwPoLb60/z1Klv0ueshguWQ/7mNm106qdHkB4HL49LXszjhjCCiL+ldHJGQ9ai2Igx0s4F24ghigy//ERdA==}
+    engines: {node: '>=16.x'}
+    dev: false
+
+  /@ffmpeg/util@0.12.1:
+    resolution: {integrity: sha512-10jjfAKWaDyb8+nAkijcsi9wgz/y26LOc1NKJradNMyCIl6usQcBbhkjX5qhALrSBcOy6TOeksunTYa+a03qNQ==}
+    engines: {node: '>=18.x'}
+    dev: false
 
   /@floating-ui/core@1.6.0:
     resolution: {integrity: sha512-PcF++MykgmTj3CIyOQbKA/hDzOAiqI3mhuoN44WRCopIs1sgoDoU4oty4Jtqaj/y3oDU6fnVSm4QG0a3t5i0+g==}
@@ -32947,6 +32970,8 @@ time:
   /@dialectlabs/blinks@0.8.0: '2024-08-13T12:46:18.889Z'
   /@emotion/styled@11.11.0: '2023-05-06T08:49:15.982Z'
   /@farcaster/core@0.14.19: '2024-07-18T21:36:27.939Z'
+  /@ffmpeg/ffmpeg@0.12.10: '2023-12-25T07:26:14.255Z'
+  /@ffmpeg/util@0.12.1: '2023-08-29T11:10:00.925Z'
   /@giphy/js-fetch-api@5.6.0: '2024-05-28T16:39:28.633Z'
   /@lens-protocol/client@2.3.1: '2024-06-27T16:34:51.781Z'
   /@solana/web3.js@1.95.2: '2024-07-26T13:49:00.799Z'
