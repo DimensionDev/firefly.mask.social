@@ -208,7 +208,7 @@ export function LoginFarcaster({ signType }: LoginFarcasterProps) {
     }
 
     return (
-        <div className="box-border flex flex-col rounded-xl p-6 md:w-[500px]">
+        <div className="box-border flex flex-col rounded-xl p-6 pt-0 md:w-[500px]">
             {IS_MOBILE_DEVICE ? (
                 <div className="flex min-h-[200px] w-full flex-col items-center justify-center gap-4">
                     {count !== 0 ? <LoadingIcon className="animate-spin" width={24} height={24} /> : null}
