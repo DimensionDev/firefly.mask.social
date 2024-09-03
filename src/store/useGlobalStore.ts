@@ -9,13 +9,13 @@ import { getCurrentSourceFromUrl } from '@/helpers/getCurrentSourceFromUrl.js';
 
 interface GlobalState {
     routeChanged: boolean;
-    collapsedConnectWallet: boolean;
     scrollIndex: Record<string, number>;
     setScrollIndex: (key: string, value: number) => void;
     virtuosoState: Record<'temporary' | 'cached', Record<string, StateSnapshot | undefined>>;
     setVirtuosoState: (key: 'temporary' | 'cached', listKey: string, snapshot: StateSnapshot) => void;
     currentSource: Source;
     updateCurrentSource: (source: Source) => void;
+    collapsedConnectWallet: boolean;
     updateCollapsedConnectWallet: (collapsed: boolean) => void;
 }
 
@@ -23,7 +23,6 @@ const useGlobalStateBase = create<GlobalState, [['zustand/persist', unknown], ['
     persist(
         immer((set) => ({
             routeChanged: false,
-            collapsedConnectWallet: false,
             currentSource: getCurrentSourceFromUrl(),
             updateCurrentSource: (source: Source) =>
                 set((state) => {
@@ -49,6 +48,7 @@ const useGlobalStateBase = create<GlobalState, [['zustand/persist', unknown], ['
                     state.virtuosoState[key][listKey] = snapshot;
                 });
             },
+            collapsedConnectWallet: false,
             updateCollapsedConnectWallet(collapsed) {
                 set((state) => {
                     state.collapsedConnectWallet = collapsed;
