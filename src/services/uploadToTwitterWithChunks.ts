@@ -99,12 +99,9 @@ export async function uploadToTwitterWithChunks(file: File, chunkSize = MAX_SIZE
     );
 
     // small size media will be success immediately, no need to wait
-    if (data?.processing_info?.state === UploadMediaStatus.Success) {
-        return mediaInfo;
+    if (data?.processing_info && data.processing_info.state !== UploadMediaStatus.Success) {
+        await waitForUpload(mediaInfo.data.media_id);
     }
-
-    // Confirm upload
-    await waitForUpload(mediaInfo.data.media_id);
 
     return mediaInfo;
 }
