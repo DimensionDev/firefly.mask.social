@@ -44,7 +44,7 @@ export const resolveSocialSource = createLookupTableResolver<SocialSourceInURL, 
     },
 );
 
-export const resolveSourceFromProfileSource = createLookupTableResolver<ProfileSource, SocialSource>(
+export const resolveSocialSourceFromProfileSource = createLookupTableResolver<ProfileSource, SocialSource>(
     {
         [Source.Farcaster]: Source.Farcaster,
         [Source.Lens]: Source.Lens,

@@ -4,9 +4,9 @@ import urlcat from 'urlcat';
 
 import { Modal } from '@/components/Modal.js';
 import { Popover } from '@/components/Popover.js';
-import { AsyncStatus, type FarcasterSignType, type ProfileSource } from '@/constants/enum.js';
+import { AsyncStatus, type FarcasterSignType, type ProfileSource, Source } from '@/constants/enum.js';
 import { restoreCurrentAccounts } from '@/helpers/account.js';
-import { resolveSourceFromProfileSource } from '@/helpers/resolveSource.js';
+import { resolveSocialSourceFromProfileSource } from '@/helpers/resolveSource.js';
 import { resolveSourceInURL } from '@/helpers/resolveSourceInURL.js';
 import { useAbortController } from '@/hooks/useAbortController.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
@@ -58,8 +58,8 @@ export const LoginModal = forwardRef<SingletonModalRefCreator<LoginModalOpenProp
 
             const profileSource = props ? props.source : null;
 
-            if (profileSource) {
-                const source = resolveSourceFromProfileSource(profileSource);
+            if (profileSource && profileSource !== Source.Firefly) {
+                const source = resolveSocialSourceFromProfileSource(profileSource);
 
                 try {
                     setAsyncStatus(source, AsyncStatus.Pending);
