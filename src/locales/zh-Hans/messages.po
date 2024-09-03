@@ -846,9 +846,6 @@ msgstr "隐私条款"
 msgid "Rainbow Kit"
 msgstr "Rainbow 套件"
 
-msgid "{0}h left"
-msgstr ""
-
 msgid "Forbidden. Please check your permissions."
 msgstr "禁止！请检查您的权限。"
 
@@ -1530,9 +1527,6 @@ msgstr "发布帖子失败"
 msgid "Voted successfully."
 msgstr "投票成功。"
 
-msgid "{0}m left"
-msgstr ""
-
 msgid "Muted @{0} on {sourceName}."
 msgstr "在 {sourceName} 上隐藏 @{0}"
 
@@ -1788,6 +1782,9 @@ msgstr "添加"
 msgid "Failed to upload. Gif size exceeds {0}"
 msgstr ""
 
+msgid "{days}d left"
+msgstr ""
+
 msgid "Log out all"
 msgstr "登出所有"
 
@@ -1899,6 +1896,9 @@ msgstr "发送打赏失败。"
 msgid "Connecting Wallet"
 msgstr "正在连接钱包"
 
+msgid "{minutes}m left"
+msgstr ""
+
 msgid "Total Supply"
 msgstr "总供应量"
 
@@ -1974,9 +1974,6 @@ msgstr "已经登录？<0/>授权 <1>已经存在的 Farcaster signer</1> 给 Fi
 msgid "Unmute @{0}"
 msgstr "取消隐藏 @{0}"
 
-msgid "{0}d left"
-msgstr ""
-
 msgid "Unauthorized. Please check your login."
 msgstr "未授权认证。请重新登录。"
 
@@ -2030,6 +2027,9 @@ msgstr "<0/> 和 <1>{0} 其他的</1>"
 
 msgid "<0>since </0> <1>{0}</1>"
 msgstr "<0>从 </0> <1>{0}</1>"
+
+msgid "{hours}h left"
+msgstr ""
 
 msgid "{0} Users"
 msgstr "{0} 用户"

@@ -841,9 +841,6 @@ msgstr ""
 msgid "Rainbow Kit"
 msgstr ""
 
-msgid "{0}h left"
-msgstr ""
-
 msgid "Forbidden. Please check your permissions."
 msgstr ""
 
@@ -1525,9 +1522,6 @@ msgstr ""
 msgid "Voted successfully."
 msgstr ""
 
-msgid "{0}m left"
-msgstr ""
-
 msgid "Muted @{0} on {sourceName}."
 msgstr ""
 
@@ -1783,6 +1777,9 @@ msgstr ""
 msgid "Failed to upload. Gif size exceeds {0}"
 msgstr ""
 
+msgid "{days}d left"
+msgstr ""
+
 msgid "Log out all"
 msgstr ""
 
@@ -1894,6 +1891,9 @@ msgstr ""
 msgid "Connecting Wallet"
 msgstr ""
 
+msgid "{minutes}m left"
+msgstr ""
+
 msgid "Total Supply"
 msgstr ""
 
@@ -1969,9 +1969,6 @@ msgstr ""
 msgid "Unmute @{0}"
 msgstr ""
 
-msgid "{0}d left"
-msgstr ""
-
 msgid "Unauthorized. Please check your login."
 msgstr ""
 
@@ -2024,6 +2021,9 @@ msgid "<0/> and <1>{0} others</1>"
 msgstr ""
 
 msgid "<0>since </0> <1>{0}</1>"
+msgstr ""
+
+msgid "{hours}h left"
 msgstr ""
 
 msgid "{0} Users"

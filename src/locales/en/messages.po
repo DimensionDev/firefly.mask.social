@@ -841,9 +841,6 @@ msgstr "Privacy Policy"
 msgid "Rainbow Kit"
 msgstr "Rainbow Kit"
 
-msgid "{0}h left"
-msgstr "{0}h left"
-
 msgid "Forbidden. Please check your permissions."
 msgstr "Forbidden. Please check your permissions."
 
@@ -1525,9 +1522,6 @@ msgstr "Failed to publish post."
 msgid "Voted successfully."
 msgstr "Voted successfully."
 
-msgid "{0}m left"
-msgstr "{0}m left"
-
 msgid "Muted @{0} on {sourceName}."
 msgstr "Muted @{0} on {sourceName}."
 
@@ -1783,6 +1777,9 @@ msgstr "Add"
 msgid "Failed to upload. Gif size exceeds {0}"
 msgstr "Failed to upload. Gif size exceeds {0}"
 
+msgid "{days}d left"
+msgstr "{days}d left"
+
 msgid "Log out all"
 msgstr "Log out all"
 
@@ -1894,6 +1891,9 @@ msgstr "Failed to send tip."
 msgid "Connecting Wallet"
 msgstr "Connecting Wallet"
 
+msgid "{minutes}m left"
+msgstr "{minutes}m left"
+
 msgid "Total Supply"
 msgstr "Total Supply"
 
@@ -1969,9 +1969,6 @@ msgstr "Already logged in?<0/>Approve the <1>existing Farcaster signer</1> to Fi
 msgid "Unmute @{0}"
 msgstr "Unmute @{0}"
 
-msgid "{0}d left"
-msgstr "{0}d left"
-
 msgid "Unauthorized. Please check your login."
 msgstr "Unauthorized. Please check your login."
 
@@ -2025,6 +2022,9 @@ msgstr "<0/> and <1>{0} others</1>"
 
 msgid "<0>since </0> <1>{0}</1>"
 msgstr "<0>since </0> <1>{0}</1>"
+
+msgid "{hours}h left"
+msgstr "{hours}h left"
 
 msgid "{0} Users"
 msgstr "{0} Users"

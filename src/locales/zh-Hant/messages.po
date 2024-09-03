@@ -846,9 +846,6 @@ msgstr "隱私政策"
 msgid "Rainbow Kit"
 msgstr ""
 
-msgid "{0}h left"
-msgstr ""
-
 msgid "Forbidden. Please check your permissions."
 msgstr "禁止。請檢查您的權限"
 
@@ -1530,9 +1527,6 @@ msgstr "發布貼文失敗"
 msgid "Voted successfully."
 msgstr "已成功投票"
 
-msgid "{0}m left"
-msgstr ""
-
 msgid "Muted @{0} on {sourceName}."
 msgstr "已在 {sourceName} 上靜音 @{0}"
 
@@ -1788,6 +1782,9 @@ msgstr "新增"
 msgid "Failed to upload. Gif size exceeds {0}"
 msgstr ""
 
+msgid "{days}d left"
+msgstr ""
+
 msgid "Log out all"
 msgstr "退出所有登錄"
 
@@ -1899,6 +1896,9 @@ msgstr ""
 msgid "Connecting Wallet"
 msgstr ""
 
+msgid "{minutes}m left"
+msgstr ""
+
 msgid "Total Supply"
 msgstr ""
 
@@ -1974,9 +1974,6 @@ msgstr ""
 msgid "Unmute @{0}"
 msgstr "取消對 @{0} 的靜音"
 
-msgid "{0}d left"
-msgstr ""
-
 msgid "Unauthorized. Please check your login."
 msgstr ""
 
@@ -2029,6 +2026,9 @@ msgid "<0/> and <1>{0} others</1>"
 msgstr ""
 
 msgid "<0>since </0> <1>{0}</1>"
+msgstr ""
+
+msgid "{hours}h left"
 msgstr ""
 
 msgid "{0} Users"
