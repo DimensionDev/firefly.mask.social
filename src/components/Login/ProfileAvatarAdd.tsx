@@ -2,11 +2,12 @@ import { PlusIcon } from '@heroicons/react/24/outline';
 
 import LoadingIcon from '@/assets/loading.svg';
 import { SocialSourceIcon } from '@/components/SocialSourceIcon.js';
-import { AsyncStatus, type SocialSource, Source } from '@/constants/enum.js';
+import { AsyncStatus, type SocialSource } from '@/constants/enum.js';
 import { classNames } from '@/helpers/classNames.js';
 import { useIsLarge } from '@/hooks/useMediaQuery.js';
+import { useProfileStore } from '@/hooks/useProfileStore.js';
 import { useSizeStyle } from '@/hooks/useSizeStyle.js';
-import { useTwitterStateStore } from '@/store/useProfileStore.js';
+import { useGlobalState } from '@/store/useGlobalStore.js';
 
 interface ProfileAvatarAddProps extends React.HTMLAttributes<HTMLDivElement> {
     source: SocialSource;
@@ -15,12 +16,16 @@ interface ProfileAvatarAddProps extends React.HTMLAttributes<HTMLDivElement> {
 
 export function ProfileAvatarAdd({ source, loading, ...props }: ProfileAvatarAddProps) {
     const isLarge = useIsLarge();
-    const status = useTwitterStateStore.use.status();
+    const { status } = useProfileStore(source);
+    const asyncStatus = useGlobalState.use.asyncStatus();
 
     const size = isLarge ? 40 : 36;
     const style = useSizeStyle(size, props.style);
 
-    const isLoading = loading || (source === Source.Twitter && status === AsyncStatus.Pending);
+    const isLoading =
+        loading ||
+        status === AsyncStatus.Pending || // the profile store is loading
+        asyncStatus[source] === AsyncStatus.Pending; // any social source specific async operation is undergoing;
 
     return (
         <div
