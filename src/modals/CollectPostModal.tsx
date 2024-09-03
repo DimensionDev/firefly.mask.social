@@ -1,7 +1,7 @@
 import { Trans } from '@lingui/macro';
 import { forwardRef, useState } from 'react';
 
-import { ClickableArea } from '@/components/ClickableArea.jsx';
+import { ClickableArea } from '@/components/ClickableArea.js';
 import { CloseButton } from '@/components/CloseButton.js';
 import { Modal } from '@/components/Modal.js';
 import { PostCollect } from '@/components/Posts/PostCollect.js';
