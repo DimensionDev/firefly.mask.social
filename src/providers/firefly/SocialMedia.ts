@@ -185,7 +185,7 @@ export class FireflySocialMedia implements Provider {
             size: 20,
             cursor: indicator?.id,
         });
-        const response = await fetchJSON<DiscoverChannelsResponse>(url, {
+        const response = await fireflySessionHolder.fetch<DiscoverChannelsResponse>(url, {
             method: 'GET',
         });
         const data = resolveFireflyResponseData(response);
