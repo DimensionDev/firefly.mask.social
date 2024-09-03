@@ -8,6 +8,7 @@ import type {
     EventMetadataV3Fragment,
     FeedItemFragment,
     ImageMetadataV3Fragment,
+    // cspell: disable-next-line
     LegacyAaveFeeCollectModuleSettingsFragment,
     LegacyErc4626FeeCollectModuleSettingsFragment,
     LegacyFeeCollectModuleSettingsFragment,
@@ -55,6 +56,7 @@ const allowedTypes = ['SimpleCollectOpenActionModule', 'MultirecipientFeeCollect
 
 function formatCollectModule(
     openActions: Array<
+        // cspell: disable-next-line
         | LegacyAaveFeeCollectModuleSettingsFragment
         | LegacyErc4626FeeCollectModuleSettingsFragment
         | LegacyFeeCollectModuleSettingsFragment
