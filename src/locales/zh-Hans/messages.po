@@ -1389,6 +1389,9 @@ msgstr "已取消点赞"
 msgid "Visit mask.io"
 msgstr "访问 mask.io"
 
+msgid "First time connecting to Firefly?<0/>Approve a <1>new connection with Warpcast</1> or <2>sync</2> through the app"
+msgstr ""
+
 msgid "No comments found"
 msgstr "未发现评论"
 
@@ -1820,9 +1823,6 @@ msgstr "未能找到你的 signer key，请重新链接"
 
 msgid "No codes found to suspend trading."
 msgstr "没有发现可以暂停交易的代码。"
-
-msgid "First time connecting to Firefly?<0/><1>Approve a new connection</1> with Warpcast"
-msgstr "第一次连接 Firefly? 使用 Warpcast<0/><1>授权一个链接</1>"
 
 msgid "Buy Tax: {0}%"
 msgstr "购买税率: {0}%"
