@@ -22,7 +22,7 @@ export function ProfileAction({ profile, ProfileMoreActionProps }: ProfileAction
     const identity = resolveFireflyIdentity(profile);
     const isRelatedProfile = identity
         ? profiles.some((x) => {
-              isSameFireflyIdentity(x.identity, identity);
+              return isSameFireflyIdentity(x.identity, identity);
           })
         : false;
     const myProfile = useCurrentProfile(profile.source);
