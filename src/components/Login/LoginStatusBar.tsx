@@ -5,11 +5,10 @@ import { useAsyncFn } from 'react-use';
 
 import { ProfileAvatarAdd } from '@/components/Login/ProfileAvatarAdd.js';
 import { ProfileAvatarInteractive } from '@/components/Login/ProfileAvatarInteractive.js';
-import { config } from '@/configs/wagmiClient.js';
-import { type SocialSource, Source } from '@/constants/enum.js';
+import { type SocialSource } from '@/constants/enum.js';
 import { SORTED_SOCIAL_SOURCES } from '@/constants/index.js';
 import { classNames } from '@/helpers/classNames.js';
-import { getWalletClientRequired } from '@/helpers/getWalletClientRequired.js';
+import { useAbortController } from '@/hooks/useAbortController.js';
 import { useCurrentProfileAll } from '@/hooks/useCurrentProfile.js';
 import { LoginModalRef } from '@/modals/controls.js';
 import { useNavigatorState } from '@/store/useNavigatorStore.js';
@@ -26,7 +25,6 @@ export function LoginStatusBar({ collapsed = false }: LoginStatusBarProps) {
     const [{ loading }, onLogin] = useAsyncFn(async (source: SocialSource) => {
         updateSidebarOpen(false);
         await delay(300);
-        if (source === Source.Lens) await getWalletClientRequired(config);
         LoginModalRef.open({ source });
     }, []);
 
