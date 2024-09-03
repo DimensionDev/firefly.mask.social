@@ -1,5 +1,4 @@
 import { i18n } from '@lingui/core';
-import { t } from '@lingui/macro';
 import dayjs from 'dayjs';
 import duration from 'dayjs/plugin/duration.js';
 import relativeTime from 'dayjs/plugin/relativeTime.js';
