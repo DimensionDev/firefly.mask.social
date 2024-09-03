@@ -50,7 +50,7 @@ export const LoginModal = forwardRef<SingletonModalRefCreator<LoginModalOpenProp
     const { setAsyncStatus } = useGlobalState();
 
     const [open, dispatch] = useSingletonModal(ref, {
-        // async open breaks the singleton modal logic.
+        // open the modal in async way breaks the singleton modal logic.
         // it requires that the login modal always open at the end of the process.
         onOpen: async (props) => {
             // abort previous login process
