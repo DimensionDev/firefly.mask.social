@@ -4,7 +4,7 @@ import urlcat from 'urlcat';
 
 import { Modal } from '@/components/Modal.js';
 import { Popover } from '@/components/Popover.js';
-import { AsyncStatus, type FarcasterSignType, type ProfileSource, Source } from '@/constants/enum.js';
+import { AsyncStatus, type FarcasterSignType, type ProfileSource } from '@/constants/enum.js';
 import { restoreCurrentAccounts } from '@/helpers/account.js';
 import { resolveSourceFromProfileSource } from '@/helpers/resolveSource.js';
 import { resolveSourceInURL } from '@/helpers/resolveSourceInURL.js';
@@ -56,19 +56,23 @@ export const LoginModal = forwardRef<SingletonModalRefCreator<LoginModalOpenProp
             // abort previous login process
             controller.current.abort();
 
-            const source = resolveSourceFromProfileSource((props ? props.source : null) ?? Source.Farcaster);
+            const profileSource = props ? props.source : null;
 
-            try {
-                setAsyncStatus(source, AsyncStatus.Pending);
+            if (profileSource) {
+                const source = resolveSourceFromProfileSource(profileSource);
 
-                const confirmed = await restoreCurrentAccounts(controller.current.signal);
-                if (confirmed) return;
-            } catch (error) {
-                console.error(`[LoginModal] failed to restore current accounts`, error);
+                try {
+                    setAsyncStatus(source, AsyncStatus.Pending);
 
-                // if any error occurs, we will just proceed with the login
-            } finally {
-                setAsyncStatus(source, AsyncStatus.Idle);
+                    const confirmed = await restoreCurrentAccounts(controller.current.signal);
+                    if (confirmed) return;
+                } catch (error) {
+                    console.error(`[LoginModal] failed to restore current accounts`, error);
+
+                    // if any error occurs, we will just proceed with the login
+                } finally {
+                    setAsyncStatus(source, AsyncStatus.Idle);
+                }
             }
 
             routerRef.current = createLoginRouter();
