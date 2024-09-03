@@ -157,8 +157,8 @@ export const MAX_FILE_SIZE_PER_GIF: Record<SocialSource, number> = {
 // TODO: Our upload is not strong enough to handle 1GB videos. So we limit 400MB here.
 export const MAX_FILE_SIZE_PER_VIDEO: Record<SocialSource, number> = {
     [Source.Twitter]: 400 * 1024 * 1024, // 400MB
-    [Source.Lens]: 400 * 1024 * 1024, // 400MB
-    [Source.Farcaster]: 400 * 1024 * 1024, // 400MB
+    [Source.Lens]: 1024 * 1024 * 1024, // 1GB
+    [Source.Farcaster]: 1024 * 1024 * 1024, // 1GB
 };
 
 // Search Bar
