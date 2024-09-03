@@ -83,7 +83,6 @@ export async function getPostLinks(url: string, post: Post) {
             },
             async () => {
                 const frame = await getPostFrame(url);
-
                 if (!frame) return null;
 
                 switch (post.source) {
