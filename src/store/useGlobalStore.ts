@@ -3,12 +3,14 @@ import { create } from 'zustand';
 import { createJSONStorage, persist } from 'zustand/middleware';
 import { immer } from 'zustand/middleware/immer';
 
-import { Source } from '@/constants/enum.js';
+import { AsyncStatus, type SocialSource, Source } from '@/constants/enum.js';
 import { createSelectors } from '@/helpers/createSelector.js';
 import { getCurrentSourceFromUrl } from '@/helpers/getCurrentSourceFromUrl.js';
 
 interface GlobalState {
     routeChanged: boolean;
+    asyncStatus: Record<SocialSource, AsyncStatus>;
+    setAsyncStatus: (source: SocialSource, status: AsyncStatus) => void;
     scrollIndex: Record<string, number>;
     setScrollIndex: (key: string, value: number) => void;
     virtuosoState: Record<'temporary' | 'cached', Record<string, StateSnapshot | undefined>>;
@@ -23,6 +25,15 @@ const useGlobalStateBase = create<GlobalState, [['zustand/persist', unknown], ['
     persist(
         immer((set) => ({
             routeChanged: false,
+            asyncStatus: {
+                [Source.Farcaster]: AsyncStatus.Idle,
+                [Source.Lens]: AsyncStatus.Idle,
+                [Source.Twitter]: AsyncStatus.Idle,
+            },
+            setAsyncStatus: (source: SocialSource, status: AsyncStatus) =>
+                set((state) => {
+                    state.asyncStatus[source] = status;
+                }),
             currentSource: getCurrentSourceFromUrl(),
             updateCurrentSource: (source: Source) =>
                 set((state) => {
@@ -59,6 +70,7 @@ const useGlobalStateBase = create<GlobalState, [['zustand/persist', unknown], ['
             name: 'global-state',
             storage: createJSONStorage(() => sessionStorage),
             partialize: (state) => ({
+                status: state.asyncStatus,
                 routeChanged: state.routeChanged,
             }),
         },

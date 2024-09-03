@@ -4,7 +4,7 @@ import { persist, type PersistOptions } from 'zustand/middleware';
 import { immer } from 'zustand/middleware/immer';
 
 import { queryClient } from '@/configs/queryClient.js';
-import { AsyncStoreStatus, Source } from '@/constants/enum.js';
+import { AsyncStatus, Source } from '@/constants/enum.js';
 import { FetchError } from '@/constants/error.js';
 import { EMPTY_LIST, HIDDEN_SECRET, THIRTY_DAYS } from '@/constants/index.js';
 import { addAccount } from '@/helpers/account.js';
@@ -32,7 +32,8 @@ import { bindOrRestoreFireflySession } from '@/services/bindOrRestoreFireflySess
 import { restoreFireflySessionAll } from '@/services/restoreFireflySession.js';
 
 export interface ProfileState {
-    status: AsyncStoreStatus;
+    // indicate the store is ready or not
+    status: AsyncStatus;
     accounts: Account[];
     currentProfile: Profile | null;
     currentProfileSession: Session | null;
@@ -44,13 +45,13 @@ export interface ProfileState {
     refreshAccounts: () => void;
     refreshCurrentAccount: () => Promise<void>;
     updateCurrentProfile: (profile: ProfileEditable) => void;
-    transit: (status: AsyncStoreStatus) => void;
+    transit: (status: AsyncStatus) => void;
     upgrade: () => void;
     clear: () => void;
 }
 
 export interface ProfileStatePersisted {
-    status: AsyncStoreStatus;
+    status: AsyncStatus;
     accounts: Account[];
     currentProfile: Profile | null;
     currentProfileSession: Session | null;
@@ -66,7 +67,7 @@ function createState(
     return create<ProfileState, [['zustand/persist', unknown], ['zustand/immer', unknown]]>(
         persist(
             immer<ProfileState>((set, get) => ({
-                status: AsyncStoreStatus.Idle,
+                status: AsyncStatus.Idle,
                 accounts: EMPTY_LIST,
                 currentProfile: null,
                 currentProfileSession: null,
@@ -189,7 +190,7 @@ function createState(
             {
                 storage: createSessionStorage(),
                 partialize: (state) => ({
-                    status: state?.status ?? AsyncStoreStatus.Idle,
+                    status: state?.status ?? AsyncStatus.Idle,
                     accounts: state.accounts,
                     currentProfile: state.currentProfile,
                     currentProfileSession: state.currentProfileSession,
@@ -299,7 +300,7 @@ const useTwitterStateBase = createState(
                 const isSessionFromServer = session === null && sessionFromServer !== null;
 
                 // show indicator if the session is from the server
-                if (isSessionFromServer) state.transit(AsyncStoreStatus.Pending);
+                if (isSessionFromServer) state.transit(AsyncStatus.Pending);
 
                 const payload = session?.payload ?? sessionFromServer;
                 const profile = payload ? await TwitterSocialMediaProvider.getProfileById(payload.clientId) : null;
@@ -333,7 +334,7 @@ const useTwitterStateBase = createState(
                 state.clear();
                 twitterSessionHolder.removeSession();
             } finally {
-                state.transit(AsyncStoreStatus.Idle);
+                state.transit(AsyncStatus.Idle);
             }
         },
     },

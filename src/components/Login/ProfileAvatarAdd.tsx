@@ -2,7 +2,7 @@ import { PlusIcon } from '@heroicons/react/24/outline';
 
 import LoadingIcon from '@/assets/loading.svg';
 import { SocialSourceIcon } from '@/components/SocialSourceIcon.js';
-import { AsyncStoreStatus, type SocialSource, Source } from '@/constants/enum.js';
+import { AsyncStatus, type SocialSource, Source } from '@/constants/enum.js';
 import { classNames } from '@/helpers/classNames.js';
 import { useIsLarge } from '@/hooks/useMediaQuery.js';
 import { useSizeStyle } from '@/hooks/useSizeStyle.js';
@@ -20,7 +20,7 @@ export function ProfileAvatarAdd({ source, loading, ...props }: ProfileAvatarAdd
     const size = isLarge ? 40 : 36;
     const style = useSizeStyle(size, props.style);
 
-    const isLoading = loading || (source === Source.Twitter && status === AsyncStoreStatus.Pending);
+    const isLoading = loading || (source === Source.Twitter && status === AsyncStatus.Pending);
 
     return (
         <div

@@ -27,7 +27,7 @@ import { OpenFireflyAppButton } from '@/components/OpenFireflyAppButton.js';
 import { ConnectWallet } from '@/components/SideBar/ConnectWallet.js';
 import { Tooltip } from '@/components/Tooltip.js';
 import { IS_IOS } from '@/constants/bowser.js';
-import { AsyncStoreStatus, PageRoute } from '@/constants/enum.js';
+import { AsyncStatus, PageRoute } from '@/constants/enum.js';
 import { Link } from '@/esm/Link.js';
 import { classNames } from '@/helpers/classNames.js';
 import { getCurrentSourceFromParams } from '@/helpers/getCurrentSourceFromUrl.js';
@@ -60,7 +60,7 @@ export const Menu = memo(function Menu({ collapsed = false }: MenuProps) {
     const pathname = usePathname();
 
     const status = useTwitterStateStore.use.status();
-    const isLoading = status === AsyncStoreStatus.Pending;
+    const isLoading = status === AsyncStatus.Pending;
 
     const checkIsSelected = (href: `/${string}`) => {
         if (isRoutePathname(href, '/profile')) {
