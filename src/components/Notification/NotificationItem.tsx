@@ -376,7 +376,9 @@ export const NotificationItem = memo<NotificationItemProps>(function Notificatio
                                 {moreAction}
                             </div>
                         </div>
-                        <div className="mt-2 text-medium">{title}</div>
+                        <div className="mt-2 flex min-w-0 items-center gap-[0.2em] whitespace-nowrap text-medium">
+                            {title}
+                        </div>
                         {content}
                         {actions}
                     </div>
