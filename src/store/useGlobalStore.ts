@@ -70,7 +70,6 @@ const useGlobalStateBase = create<GlobalState, [['zustand/persist', unknown], ['
             name: 'global-state',
             storage: createJSONStorage(() => sessionStorage),
             partialize: (state) => ({
-                status: state.asyncStatus,
                 routeChanged: state.routeChanged,
             }),
         },
