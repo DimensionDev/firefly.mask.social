@@ -1,6 +1,6 @@
 /* cspell:disable */
 
-import type { FrameProtocol } from "@/constants/enum.js";
+import type { FrameProtocol } from '@/constants/enum.js';
 
 export type Index = 1 | 2 | 3 | 4;
 
