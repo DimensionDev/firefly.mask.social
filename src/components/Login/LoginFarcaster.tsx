@@ -279,13 +279,18 @@ export function LoginFarcaster({ signType }: LoginFarcasterProps) {
                                     <Trans>
                                         First time connecting to Firefly?
                                         <br />
+                                        Approve a{' '}
                                         <Link
                                             to={`/farcaster?signType=${SignType.GrantPermission}`}
                                             className="font-bold hover:underline"
                                         >
-                                            Approve a new connection
+                                            new connection with Warpcast
                                         </Link>{' '}
-                                        with Warpcast
+                                        or{' '}
+                                        <Link to={'/main'} className="font-bold hover:underline">
+                                            sync
+                                        </Link>{' '}
+                                        through the app
                                     </Trans>
                                 ) : null}
                             </div>
