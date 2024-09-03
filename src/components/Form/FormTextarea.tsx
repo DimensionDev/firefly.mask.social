@@ -22,7 +22,7 @@ export function FormTextarea<
         <textarea
             className={classNames(
                 'w-full rounded-2xl border-none bg-bg text-main !outline-offset-0 ring-0 duration-100 focus:bg-transparent focus:outline-1',
-                error ? 'focus:ring-fail/50 focus:shadow-inputDanger' : 'focus:ring-lightHighlight/50',
+                error ? 'focus:shadow-inputDanger focus:ring-fail/50' : 'focus:ring-lightHighlight/50',
                 className,
             )}
             autoComplete="off"
