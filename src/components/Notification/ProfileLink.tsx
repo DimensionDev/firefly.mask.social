@@ -14,8 +14,8 @@ export function ProfileLink({ profile }: Props) {
 
     return (
         <ProfileTippy identity={identity} profile={profile}>
-            <Link href={getProfileUrl(profile)} className="font-bold hover:underline">
-                <strong>{profile.displayName.trim()}</strong>
+            <Link href={getProfileUrl(profile)} className="truncate font-bold hover:underline">
+                {profile.displayName.trim()}
             </Link>
         </ProfileTippy>
     );

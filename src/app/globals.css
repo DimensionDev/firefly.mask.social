@@ -82,9 +82,9 @@
     --plyr-audio-progress-buffered-background: rgba(207, 207, 207, 1);
     --plyr-control-icon-size: 16px;
     --color-success: #3dc233;
-    --color-fail: #ff3545;
+    --color-fail: 255 53 69;
     --color-light-warn: 255 122 85;
-    --color-light-highlight: #4c4aa9;
+    --color-light-highlight: 76 74 169;
     --color-highlight: 76 74 169;
 }
 
@@ -134,7 +134,7 @@
     --plyr-control-icon-size: 16px;
     --color-card: white;
     --color-light-warn: 255 122 85;
-    --color-light-highlight: #ac9df6;
+    --color-light-highlight: 172 157 246;
     --color-highlight: 172 157 246;
 }
 
@@ -179,7 +179,7 @@
     --plyr-audio-progress-buffered-background: rgba(255, 255, 255, 0.13);
     --plyr-control-icon-size: 16px;
     --color-light-warn: 255 122 85;
-    --color-light-highlight: #4c4aa9;
+    --color-light-highlight: 76 74 169;
 }
 
 html,
