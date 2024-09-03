@@ -54,6 +54,39 @@ async function waitForUpload(media_id: string, retry = 30) {
     }
 }
 
+async function uploadChunks(chunks: Blob[], mediaId: string) {
+    const copied = chunks.slice();
+    const pendingUploads = new Set<Promise<void>>();
+    let index = 0;
+
+    while (copied.length) {
+        const formData = new FormData();
+        formData.append('media', copied.shift()!);
+
+        const upload = twitterSessionHolder.fetch<void>(
+            urlcat('/api/twitter/uploadMedia/chunk/append', {
+                media_id: mediaId,
+                segment_index: index,
+            }),
+            {
+                method: 'POST',
+                body: formData,
+            },
+        );
+
+        pendingUploads.add(upload);
+        upload.then(() => pendingUploads.delete(upload));
+
+        index += 1;
+
+        if (pendingUploads.size >= 4) {
+            await Promise.race([...pendingUploads]);
+        }
+    }
+
+    await Promise.all([...pendingUploads]);
+}
+
 export async function uploadToTwitterWithChunks(file: File, chunkSize = MAX_SIZE_PER_CHUNK) {
     const chunks = [];
     const fileSize = file.size;
@@ -72,23 +105,7 @@ export async function uploadToTwitterWithChunks(file: File, chunkSize = MAX_SIZE
     );
 
     // upload chunks
-    await Promise.all(
-        chunks.map(async (chunk, index) => {
-            const formData = new FormData();
-            formData.append('media', chunk);
-
-            return twitterSessionHolder.fetch(
-                urlcat('/api/twitter/uploadMedia/chunk/append', {
-                    media_id: mediaInfo.data.media_id,
-                    segment_index: index,
-                }),
-                {
-                    method: 'POST',
-                    body: formData,
-                },
-            );
-        }),
-    );
+    await uploadChunks(chunks, mediaInfo.data.media_id);
 
     // Finish upload
     const { data } = await twitterSessionHolder.fetch<{ data: GetUploadStatusResponse }>(
