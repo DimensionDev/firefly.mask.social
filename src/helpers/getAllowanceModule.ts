@@ -1,4 +1,4 @@
-import { OpenActionModuleType, FollowModuleType } from '@lens-protocol/client';
+import { FollowModuleType, OpenActionModuleType } from '@lens-protocol/client';
 /**
  * Returns the name and field of the specified module.
  *
@@ -20,7 +20,6 @@ export const getAllowanceModule = (
         // Follow modules
         case FollowModuleType.FeeFollowModule:
             return { field: 'followModule', name: 'Fee follow' };
-
         default:
             return { field: 'collectModule', name };
     }

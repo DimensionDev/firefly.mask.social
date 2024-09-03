@@ -1,3 +1,5 @@
+import type { OpenActionModuleType } from '@lens-protocol/client';
+
 import type { BookmarkType, FireflyPlatform, RestrictionType, SocialSource } from '@/constants/enum.js';
 import type { Pageable, PageIndicator } from '@/helpers/pageable.js';
 import type { Poll } from '@/providers/types/Poll.js';
@@ -218,6 +220,10 @@ export interface Post {
         name?: string;
     };
 
+    /**
+     * Lens Only
+     * Used to act a post
+     */
     collectModule?: {
         collectedCount: number;
         collectLimit?: number;
@@ -396,7 +402,7 @@ export interface Provider {
     /**
      * Act a post with the specified post ID.
      */
-    actPost: (postId: string, options: any) => Promise<void>;
+    actPost: (postId: string, options: { type: OpenActionModuleType; signRequire?: boolean }) => Promise<void>;
 
     /**
      * Upvotes a post with the specified post ID.

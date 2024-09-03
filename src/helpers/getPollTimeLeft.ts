@@ -3,7 +3,11 @@ import { plural, t } from '@lingui/macro';
 import { getTimeLeft } from '@/helpers/getTimeLeft.js';
 
 export function getPollTimeLeft(endDatetime: string) {
-    const { days, hours, minutes, seconds } = getTimeLeft(endDatetime);
+    const timeLeft = getTimeLeft(endDatetime);
+
+    if (!timeLeft) return t`Final results`;
+
+    const { days, hours, minutes, seconds } = timeLeft;
 
     if (days >= 1) return plural(days, { one: '1 day left', other: `${days} days left` });
     if (hours >= 1) return plural(hours, { one: '1 hour left', other: `${hours} hours left` });

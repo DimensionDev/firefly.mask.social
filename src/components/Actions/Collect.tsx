@@ -52,7 +52,7 @@ export const Collect = memo<CollectProps>(function Collect({
                                 content: (
                                     <PostCollect
                                         post={post}
-                                        callback={() => {
+                                        onClose={() => {
                                             DraggablePopoverRef.close();
                                         }}
                                     />

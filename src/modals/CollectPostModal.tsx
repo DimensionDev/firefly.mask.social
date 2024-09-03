@@ -1,6 +1,7 @@
 import { Trans } from '@lingui/macro';
 import { forwardRef, useState } from 'react';
 
+import { ClickableArea } from '@/components/ClickableArea.jsx';
 import { CloseButton } from '@/components/CloseButton.js';
 import { Modal } from '@/components/Modal.js';
 import { PostCollect } from '@/components/Posts/PostCollect.js';
@@ -26,13 +27,7 @@ export const CollectPostModal = forwardRef<SingletonModalRefCreator<CollectPostM
 
         return (
             <Modal onClose={() => dispatch?.close()} open={open}>
-                <div
-                    className="relative w-[432px] max-w-[90vw] rounded-xl bg-lightBottom shadow-popover transition-all dark:bg-darkBottom dark:text-gray-950"
-                    onClick={(event) => {
-                        event.stopPropagation();
-                        event.preventDefault();
-                    }}
-                >
+                <ClickableArea className="relative w-[432px] max-w-[90vw] rounded-xl bg-lightBottom shadow-popover transition-all dark:bg-darkBottom dark:text-gray-950">
                     <div className="inline-flex h-14 w-full items-center justify-center gap-2 rounded-t-[12px] p-4">
                         <div className="relative h-6 w-6" />
                         <div className="shrink grow basis-0 text-center text-lg font-bold leading-snug text-main">
@@ -45,8 +40,8 @@ export const CollectPostModal = forwardRef<SingletonModalRefCreator<CollectPostM
                             }}
                         />
                     </div>
-                    {props?.post ? <PostCollect post={props?.post} callback={() => dispatch?.close()} /> : null}
-                </div>
+                    {props?.post ? <PostCollect post={props?.post} onClose={() => dispatch?.close()} /> : null}
+                </ClickableArea>
             </Modal>
         );
     },

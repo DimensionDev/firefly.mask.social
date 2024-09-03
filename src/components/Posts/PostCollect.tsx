@@ -7,7 +7,7 @@ import { sendTransaction } from '@wagmi/core';
 import dayjs from 'dayjs';
 import { StatusCodes } from 'http-status-codes';
 import { first, multiply } from 'lodash-es';
-import { useCallback, useMemo } from 'react';
+import { useMemo } from 'react';
 import { useAsyncFn } from 'react-use';
 import { polygon } from 'viem/chains';
 import { useAccount, useBalance } from 'wagmi';
@@ -23,12 +23,11 @@ import { Source } from '@/constants/enum.js';
 import { FetchError } from '@/constants/error.js';
 import { Link } from '@/esm/Link.js';
 import { enqueueErrorMessage, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
-import { formatTimeLeft } from '@/helpers/formatTimestamp.js';
 import { getAllowanceModule } from '@/helpers/getAllowanceModule.js';
 import { getSnackbarMessageFromError } from '@/helpers/getSnackbarMessageFromError.js';
+import { getTimeLeft } from '@/helpers/getTimeLeft.js';
 import { getWalletClientRequired } from '@/helpers/getWalletClientRequired.js';
 import { isSameAddress } from '@/helpers/isSameAddress.js';
-import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
 import { useMirror } from '@/hooks/useMirror.js';
 import { useToggleFollow } from '@/hooks/useToggleFollow.js';
@@ -39,10 +38,10 @@ import { getProfileById } from '@/services/getProfileById.js';
 
 interface PostCollectProps {
     post: Post;
-    callback?: () => void;
+    onClose?: () => void;
 }
 
-export function PostCollect({ post, callback }: PostCollectProps) {
+export function PostCollect({ post, onClose }: PostCollectProps) {
     const account = useAccount();
     const collectModule = post.collectModule;
     const timeLeft = collectModule?.endsAt ? formatTimeLeft(collectModule?.endsAt) : undefined;
@@ -54,9 +53,10 @@ export function PostCollect({ post, callback }: PostCollectProps) {
         ? post.collectModule?.collectedCount >= post.collectModule?.collectLimit
         : false;
 
-    const isTimeOut = collectModule?.endsAt ? dayjs(collectModule?.endsAt).isBefore(dayjs()) : false;
+    const isTimeout = collectModule?.endsAt ? dayjs(collectModule?.endsAt).isBefore(dayjs()) : false;
 
-    const verifiedAssetAddress = !isSameAddress(post.collectModule?.assetAddress, ZERO_ADDRESS);
+    const verifiedAssetAddress =
+        !!post.collectModule?.assetAddress && !isSameAddress(post.collectModule.assetAddress, ZERO_ADDRESS);
 
     const [followLoading, toggleFollow] = useToggleFollow(post.author);
 
@@ -140,31 +140,21 @@ export function PostCollect({ post, callback }: PostCollectProps) {
     const [{ loading: collectLoading }, handleCollect] = useAsyncFn(async () => {
         try {
             if (!post.collectModule?.type) return;
-            const provider = resolveSocialMediaProvider(post.source);
 
-            await provider.actPost(post.postId, {
+            await LensSocialMediaProvider.actPost(post.postId, {
                 type: post.collectModule.type as OpenActionModuleType,
                 signRequire: !!post.collectModule.amount || post.collectModule.followerOnly,
             });
             enqueueSuccessMessage(t`Post collected successfully!`);
 
-            callback?.();
+            onClose?.();
         } catch (error) {
             enqueueErrorMessage(getSnackbarMessageFromError(error, t`Failed to collect post.`), { error });
             throw error;
         }
-    }, [post, callback]);
+    }, [post, onClose]);
 
     const [{ loading: mirrorLoading }, handleMirror] = useMirror(post);
-
-    const loading =
-        followLoading ||
-        allowanceLoading ||
-        approveLoading ||
-        collectLoading ||
-        queryBalanceLoading ||
-        queryProfileLoading;
-    const disabled = post.hasActed || isSoldOut || isTimeOut || !hasEnoughBalance;
 
     const action = useMemo(() => {
         const contractExploreUrl = post.collectModule?.contract.address
@@ -207,7 +197,7 @@ export function PostCollect({ post, callback }: PostCollectProps) {
                 </>
             );
 
-        if (isTimeOut)
+        if (isTimeout)
             return (
                 <>
                     <Trans>Time Out</Trans>
@@ -252,14 +242,13 @@ export function PostCollect({ post, callback }: PostCollectProps) {
         post.hasActed,
         isLogin,
         isSoldOut,
-        isTimeOut,
+        isTimeout,
         allowed,
         hasEnoughBalance,
         profile?.viewerContext?.following,
     ]);
 
-    const handleClick = useCallback(async () => {
-        if (disabled) return;
+    const [{ loading: clickLoading }, handleClick] = useAsyncFn(async () => {
         if (!isLogin) {
             if (post.source === Source.Lens) {
                 getWalletClientRequired(config);
@@ -280,7 +269,6 @@ export function PostCollect({ post, callback }: PostCollectProps) {
 
         handleCollect();
     }, [
-        disabled,
         isLogin,
         allowed,
         post.collectModule?.followerOnly,
@@ -290,6 +278,17 @@ export function PostCollect({ post, callback }: PostCollectProps) {
         handleApprove,
         toggleFollow,
     ]);
+
+    const loading =
+        followLoading ||
+        allowanceLoading ||
+        approveLoading ||
+        collectLoading ||
+        queryBalanceLoading ||
+        queryProfileLoading ||
+        clickLoading;
+
+    const disabled = post.hasActed || isSoldOut || isTimeout || !hasEnoughBalance;
 
     return (
         <div className="overflow-x-hidden px-6 pb-6 max-md:px-0 max-md:pb-4">
@@ -314,7 +313,7 @@ export function PostCollect({ post, callback }: PostCollectProps) {
                     </div>
                 </div>
 
-                {timeLeft && !isTimeOut ? (
+                {timeLeft && !isTimeout ? (
                     <div className="flex flex-col items-center">
                         <div className="font-bold text-main">{timeLeft}</div>
                         <div className="text-second">
@@ -356,7 +355,7 @@ export function PostCollect({ post, callback }: PostCollectProps) {
                         className="flex w-[86px] items-center justify-center gap-1 rounded-full border border-highlight py-2 text-[15px] font-bold leading-[20px] text-highlight"
                         onClick={async () => {
                             await handleMirror();
-                            callback?.();
+                            onClose?.();
                         }}
                     >
                         {!mirrorLoading ? (
@@ -370,4 +369,14 @@ export function PostCollect({ post, callback }: PostCollectProps) {
             </div>
         </div>
     );
+}
+
+function formatTimeLeft(endTime: string) {
+    const timeLeft = getTimeLeft(endTime);
+    if (!timeLeft) return;
+    const { days, hours, minutes, seconds } = timeLeft;
+    if (days >= 1) return t`${days}d left`;
+    if (hours >= 1) return t`${hours}h left`;
+    if (minutes >= 1) return t`${minutes}m left`;
+    return t`1m left`;
 }
