@@ -43,8 +43,6 @@ export const LoginModal = forwardRef<SingletonModalRefCreator<LoginModalOpenProp
     const routerRef = useRef(createLoginRouter());
 
     const [open, dispatch] = useSingletonModal(ref, {
-        // open the modal in async way breaks the singleton modal logic.
-        // it requires that the login modal always open at the end of the process.
         onOpen: async (props) => {
             routerRef.current = createLoginRouter();
 
