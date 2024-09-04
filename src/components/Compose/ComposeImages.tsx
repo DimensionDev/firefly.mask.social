@@ -75,8 +75,7 @@ export const ComposeImages = memo(function ComposeImages({ images, readonly = fa
                         key={index}
                         className={classNames('relative flex items-center justify-center', getClass(showSize).aspect, {
                             'max-h-[288px]': size === 2 || showSize === 4,
-                            'max-h-[284px]': size === 3 && index === 2,
-                            'row-span-2': size === 3 && index === 2,
+                            'row-span-2 max-h-[284px]': size === 3 && index === 2,
                             'max-h-[138px]': size === 3 && index !== 2,
                             relative: isLast && moreImageCount > 0,
                         })}
