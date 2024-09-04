@@ -168,7 +168,7 @@ export function EditProfileForm() {
                         <FormInputContainer name="bio" className="h-[100px] flex-1">
                             <FormTextarea
                                 name="bio"
-                                className="h-[100px] resize-none"
+                                className="no-scrollbar h-[100px] resize-none"
                                 options={{
                                     validate(value: string) {
                                         if (resolveLengthCalculatorFn(value) > maxBioSize) {
