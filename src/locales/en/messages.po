@@ -898,9 +898,6 @@ msgstr "Only people you mention"
 msgid "You successfully sent <0>{amount} {0}{1}</0> tips to <1>{2}</1>!"
 msgstr "You successfully sent <0>{amount} {0}{1}</0> tips to <1>{2}</1>!"
 
-msgid "Failed to upload. Video length exceeds {maxDuration}s"
-msgstr "Failed to upload. Video length exceeds {maxDuration}s"
-
 msgid "This token is not issued by its declared team. Some scams will create a well-known token with the same name to defraud their users of their assets."
 msgstr "This token is not issued by its declared team. Some scams will create a well-known token with the same name to defraud their users of their assets."
 
@@ -1915,6 +1912,9 @@ msgstr "Failed to fetch as ArrayBuffer."
 msgid "Statistic"
 msgstr "Statistic"
 
+msgid "Failed to upload. Video length exceeds {minDuration}s ~ {maxDuration}s"
+msgstr "Failed to upload. Video length exceeds {minDuration}s ~ {maxDuration}s"
+
 msgid "Your post have published successfully on {0}."
 msgstr "Your post have published successfully on {0}."
 
@@ -1947,6 +1947,9 @@ msgstr "Unmute @{0}"
 
 msgid "Unauthorized. Please check your login."
 msgstr "Unauthorized. Please check your login."
+
+msgid "Failed to upload. Video size exceeds {minWidth}x{minHeight} ~ {maxWidth}x{maxHeight}"
+msgstr "Failed to upload. Video size exceeds {minWidth}x{minHeight} ~ {maxWidth}x{maxHeight}"
 
 msgid "Mask Network"
 msgstr "Mask Network"
