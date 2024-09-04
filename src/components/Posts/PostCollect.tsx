@@ -36,6 +36,16 @@ import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 import { getProfileById } from '@/services/getProfileById.js';
 
+function formatTimeLeft(endTime: string) {
+    const timeLeft = getTimeLeft(endTime);
+    if (!timeLeft) return;
+    const { days, hours, minutes, seconds } = timeLeft;
+    if (days >= 1) return t`${days}d left`;
+    if (hours >= 1) return t`${hours}h left`;
+    if (minutes >= 1) return t`${minutes}m left`;
+    return t`1m left`;
+}
+
 interface PostCollectProps {
     post: Post;
     onClose?: () => void;
@@ -369,14 +379,4 @@ export function PostCollect({ post, onClose }: PostCollectProps) {
             </div>
         </div>
     );
-}
-
-function formatTimeLeft(endTime: string) {
-    const timeLeft = getTimeLeft(endTime);
-    if (!timeLeft) return;
-    const { days, hours, minutes, seconds } = timeLeft;
-    if (days >= 1) return t`${days}d left`;
-    if (hours >= 1) return t`${hours}h left`;
-    if (minutes >= 1) return t`${minutes}m left`;
-    return t`1m left`;
 }
