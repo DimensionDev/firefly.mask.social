@@ -11,13 +11,13 @@ import { FormInput } from '@/components/Form/FormInput.js';
 import { FormInputContainer } from '@/components/Form/FormInputContainer.js';
 import { FormTextarea } from '@/components/Form/FormTextarea.js';
 import { Source } from '@/constants/enum.js';
+import { ALLOWED_IMAGES_MIMES } from '@/constants/index.js';
 import {
-    ALLOWED_IMAGES_MIMES,
     MAX_PROFILE_BIO_SIZE,
     MAX_PROFILE_DISPLAY_NAME_SIZE,
     MAX_PROFILE_LOCATION_SIZE,
     MAX_PROFILE_WEBSITE_SIZE,
-} from '@/constants/index.js';
+} from '@/constants/limitation.js';
 import { URL_INPUT_REGEX } from '@/constants/regexp.js';
 import { enqueueErrorMessage, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { getSnackbarMessageFromError } from '@/helpers/getSnackbarMessageFromError.js';

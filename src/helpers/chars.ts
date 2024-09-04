@@ -3,7 +3,8 @@ import urlcat from 'urlcat';
 import { v4 as uuid } from 'uuid';
 
 import { type SocialSource, Source } from '@/constants/enum.js';
-import { MAX_CHAR_SIZE_PER_POST, MAX_CHAR_SIZE_VERIFY_PER_POST, type RP_HASH_TAG } from '@/constants/index.js';
+import { type RP_HASH_TAG } from '@/constants/index.js';
+import { MAX_CHAR_SIZE_PER_POST, MAX_CHAR_SIZE_VERIFY_PER_POST } from '@/constants/limitation.js';
 import { getCurrentProfile } from '@/helpers/getCurrentProfile.js';
 import { getPollFrameUrl } from '@/helpers/getPollFrameUrl.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';

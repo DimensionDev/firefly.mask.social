@@ -17,7 +17,7 @@ export function ComposeVideo({ post }: ComposeVideoProps) {
 
     return (
         <div className="relative mt-3 overflow-hidden rounded-2xl">
-            <video controls src={blobURL} />
+            <video className="w-full" controls src={blobURL} />
 
             <RemoveButton className="absolute right-1 top-1 z-10" size={18} onClick={() => updateVideo(null)} />
         </div>

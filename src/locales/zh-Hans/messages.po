@@ -903,9 +903,6 @@ msgstr "只有你提及的人"
 msgid "You successfully sent <0>{amount} {0}{1}</0> tips to <1>{2}</1>!"
 msgstr "你成功发送了 <0>{amount} {0}{1}</0> 的打赏给 <1>{2}</1>！"
 
-msgid "Failed to upload. Video length exceeds {maxDuration}s"
-msgstr "上传失败。视频时间超过最大限制 {maxDuration}秒"
-
 msgid "This token is not issued by its declared team. Some scams will create a well-known token with the same name to defraud their users of their assets."
 msgstr "此通证不是由其声明的团队发布的。某些骗子将创建一个相同名称的通证来欺诈用户。"
 
@@ -1920,6 +1917,9 @@ msgstr "Failed to fetch as ArrayBuffer."
 msgid "Statistic"
 msgstr "统计"
 
+msgid "Failed to upload. Video length exceeds {minDuration}s ~ {maxDuration}s"
+msgstr ""
+
 msgid "Your post have published successfully on {0}."
 msgstr "您已在 {0} 发布成功。"
 
@@ -1952,6 +1952,9 @@ msgstr "取消隐藏 @{0}"
 
 msgid "Unauthorized. Please check your login."
 msgstr "未授权认证。请重新登录。"
+
+msgid "Failed to upload. Video size exceeds {minWidth}x{minHeight} ~ {maxWidth}x{maxHeight}"
+msgstr ""
 
 msgid "Mask Network"
 msgstr "Mask Network"
