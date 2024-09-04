@@ -1,6 +1,5 @@
 import { SingletonModal } from '@/libs/SingletonModal.js';
 import type { CollectArticleModalOpenProps } from '@/modals/CollectArticleModal.js';
-import type { CollectPostModalOpenProps } from '@/modals/CollectPostModal.jsx';
 import type { ComposeModalCloseProps, ComposeModalOpenProps } from '@/modals/ComposeModal.js';
 import type { ConfirmFireflyModalCloseProps, ConfirmFireflyModalOpenProps } from '@/modals/ConfirmFireflyModal.js';
 import type { ConfirmLeavingModalCloseProps, ConfirmLeavingModalOpenProps } from '@/modals/ConfirmLeavingModal.js';
@@ -32,4 +31,3 @@ export const SchedulePostModalRef = new SingletonModal<SchedulePostModalOpenProp
 export const EditProfileModalRef = new SingletonModal<EditProfileModalOpenProps>();
 export const CollectArticleModalRef = new SingletonModal<CollectArticleModalOpenProps>();
 export const EnableSignlessModalRef = new SingletonModal<void, boolean>();
-export const CollectPostModalRef = new SingletonModal<CollectPostModalOpenProps>();

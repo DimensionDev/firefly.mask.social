@@ -8,33 +8,19 @@ import type {
     EventMetadataV3Fragment,
     FeedItemFragment,
     ImageMetadataV3Fragment,
-    // cspell: disable-next-line
-    LegacyAaveFeeCollectModuleSettingsFragment,
-    LegacyErc4626FeeCollectModuleSettingsFragment,
-    LegacyFeeCollectModuleSettingsFragment,
-    LegacyFreeCollectModuleSettingsFragment,
-    LegacyLimitedFeeCollectModuleSettingsFragment,
-    LegacyLimitedTimedFeeCollectModuleSettingsFragment,
-    LegacyMultirecipientFeeCollectModuleSettingsFragment,
-    LegacyRevertCollectModuleSettingsFragment,
-    LegacySimpleCollectModuleSettingsFragment,
-    LegacyTimedFeeCollectModuleSettingsFragment,
     LinkMetadataV3Fragment,
     LiveStreamMetadataV3Fragment,
     MintMetadataV3Fragment,
-    MultirecipientFeeCollectOpenActionSettingsFragment,
     PostFragment,
     ProfileFragment,
     PublicationMetadataFragment,
     PublicationMetadataMediaFragment,
     QuoteBaseFragment,
-    SimpleCollectOpenActionSettingsFragment,
     SpaceMetadataV3Fragment,
     StoryMetadataV3Fragment,
     TextOnlyMetadataV3Fragment,
     ThreeDMetadataV3Fragment,
     TransactionMetadataV3Fragment,
-    UnknownOpenActionModuleSettingsFragment,
     VideoMetadataV3Fragment,
 } from '@lens-protocol/client';
 import { safeUnreachable } from '@masknet/kit';
@@ -52,49 +38,13 @@ import { LensMetadataAttributeKey } from '@/providers/types/Lens.js';
 import type { Attachment, Post, Profile } from '@/providers/types/SocialMedia.js';
 
 const PLACEHOLDER_IMAGE = 'https://static-assets.hey.xyz/images/placeholder.webp';
-const allowedTypes = ['SimpleCollectOpenActionModule', 'MultirecipientFeeCollectOpenActionModule'];
-
-function formatCollectModule(
-    openActions: Array<
-        // cspell: disable-next-line
-        | LegacyAaveFeeCollectModuleSettingsFragment
-        | LegacyErc4626FeeCollectModuleSettingsFragment
-        | LegacyFeeCollectModuleSettingsFragment
-        | LegacyFreeCollectModuleSettingsFragment
-        | LegacyLimitedFeeCollectModuleSettingsFragment
-        | LegacyLimitedTimedFeeCollectModuleSettingsFragment
-        | LegacyMultirecipientFeeCollectModuleSettingsFragment
-        | LegacyRevertCollectModuleSettingsFragment
-        | LegacySimpleCollectModuleSettingsFragment
-        | LegacyTimedFeeCollectModuleSettingsFragment
-        | MultirecipientFeeCollectOpenActionSettingsFragment
-        | SimpleCollectOpenActionSettingsFragment
-        | UnknownOpenActionModuleSettingsFragment
-    >,
-    count: number,
-) {
-    const openAction = first(openActions) as
-        | MultirecipientFeeCollectOpenActionSettingsFragment
-        | SimpleCollectOpenActionSettingsFragment
-        | undefined;
-
-    return {
-        collectedCount: count,
-        collectLimit: parseInt(openAction?.collectLimit || '0', 10),
-        currency: openAction?.amount.asset.symbol,
-        assetAddress: openAction?.amount.asset.contract.address,
-        usdPrice: openAction?.amount.asFiat?.value,
-        amount: parseInt(openAction?.amount.value || '0', 10),
-        referralFee: openAction?.referralFee,
-        followerOnly: openAction?.followerOnly,
-        contract: {
-            address: openAction?.contract.address,
-            chainId: openAction?.contract.chainId,
-        },
-        endsAt: openAction?.endsAt,
-        type: openAction?.type,
-    };
-}
+const allowedTypes = [
+    'LegacySimpleCollectModule',
+    'LegacyMultirecipientFeeCollectModule',
+    'SimpleCollectOpenActionModule',
+    'MultirecipientFeeCollectOpenActionModule',
+    'UnknownOpenActionModule',
+];
 
 function getAttachments(attachments?: PublicationMetadataMediaFragment[] | null): Attachment[] {
     if (!attachments) return EMPTY_LIST;
@@ -376,7 +326,6 @@ export function formatLensPost(result: AnyPublicationFragment): Post {
         const canAct =
             !!result.mirrorOn.openActionModules?.length &&
             result.mirrorOn.openActionModules?.some((openAction) => allowedTypes.includes(openAction.type));
-
         return {
             publicationId: result.id,
             type: result.__typename,
@@ -414,9 +363,6 @@ export function formatLensPost(result: AnyPublicationFragment): Post {
                 formatLensProfileByHandleInfo(x.snapshotHandleMentioned),
             ),
             canAct,
-            collectModule: canAct
-                ? formatCollectModule(result.mirrorOn.openActionModules, result.mirrorOn.stats.countOpenActions)
-                : undefined,
             __original__: result,
             sendFrom: result.publishedOn?.id
                 ? {
@@ -477,9 +423,6 @@ export function formatLensPost(result: AnyPublicationFragment): Post {
             quoteOn: formatLensQuoteOrComment(result.quoteOn),
             mentions: result.profilesMentioned.map((x) => formatLensProfileByHandleInfo(x.snapshotHandleMentioned)),
             canAct,
-            collectModule: canAct
-                ? formatCollectModule(result.openActionModules, result.stats.countOpenActions)
-                : undefined,
             momoka: result.momoka || undefined,
             sendFrom: result.publishedOn?.id
                 ? {
@@ -531,9 +474,6 @@ export function formatLensPost(result: AnyPublicationFragment): Post {
                     ? formatLensPost(result.root as PostFragment)
                     : undefined,
             canAct,
-            collectModule: canAct
-                ? formatCollectModule(result.openActionModules, result.stats.countOpenActions)
-                : undefined,
             momoka: result.momoka || undefined,
             sendFrom: result.publishedOn?.id
                 ? {
@@ -572,9 +512,6 @@ export function formatLensPost(result: AnyPublicationFragment): Post {
             canComment: result.operations.canComment === 'YES',
             canMirror: result.operations.canMirror === 'YES',
             canAct,
-            collectModule: canAct
-                ? formatCollectModule(result.openActionModules, result.stats.countOpenActions)
-                : undefined,
             hasActed: result.operations.hasActed.value,
             hasMirrored: result.operations.hasMirrored,
             hasQuoted: result.operations.hasQuoted,

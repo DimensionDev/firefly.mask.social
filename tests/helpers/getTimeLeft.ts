@@ -6,11 +6,7 @@ function getDurationTextAt(intervalMinutes: number) {
     const now = new Date().getTime();
     const startDate = new Date(now).toISOString();
     const endDate = new Date(now + intervalMinutes * 60000).toISOString();
-
-    const timeLeft = getTimeLeft(endDate, startDate);
-    if (!timeLeft) return `Final results`;
-
-    const { days, hours, minutes, seconds } = timeLeft;
+    const { days, hours, minutes, seconds } = getTimeLeft(endDate, startDate);
 
     if (days >= 1) return `${days} days left`;
     if (hours >= 1) return `${hours} hours left`;

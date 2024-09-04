@@ -49,9 +49,6 @@ msgstr "FAILED THREAD POST"
 msgid "Confirm to disconnect this wallet and related accounts from Firefly’s social graph?"
 msgstr "Confirm to disconnect this wallet and related accounts from Firefly’s social graph?"
 
-msgid "Allow Collect Module"
-msgstr "Allow Collect Module"
-
 msgid "New connect with Warpcast"
 msgstr "New connect with Warpcast"
 
@@ -183,6 +180,9 @@ msgstr "Searching users"
 
 msgid "Airdrop Scam"
 msgstr "Airdrop Scam"
+
+msgid "Collect Action is not supported yet."
+msgstr "Collect Action is not supported yet."
 
 msgid "Overwrite"
 msgstr "Overwrite"
@@ -424,9 +424,6 @@ msgstr "Reconnect with Firefly"
 msgid "Only up to 2 images can be chosen."
 msgstr "Only up to 2 images can be chosen."
 
-msgid "Follow to Collect"
-msgstr "Follow to Collect"
-
 msgid "{0, select, Image {[Image]} Video {[Video]} Audio {[Audio]} Poll {[Poll]} other {}}"
 msgstr "{0, select, Image {[Image]} Video {[Video]} Audio {[Audio]} Poll {[Poll]} other {}}"
 
@@ -453,9 +450,6 @@ msgstr "Failed to unfollow @{0} on {sourceName}."
 
 msgid "Watch"
 msgstr "Watch"
-
-msgid "Time Out"
-msgstr "Time Out"
 
 msgid "24 Hour Trading Vol"
 msgstr "24 Hour Trading Vol"
@@ -504,9 +498,6 @@ msgstr "Reposted"
 
 msgid "Add another post..."
 msgstr "Add another post..."
-
-msgid "1m left"
-msgstr "1m left"
 
 msgid "Items"
 msgstr "Items"
@@ -1321,9 +1312,6 @@ msgstr "Show more comments"
 msgid "Failed to parse session."
 msgstr "Failed to parse session."
 
-msgid "Exclusivity"
-msgstr "Exclusivity"
-
 msgid "Feedback"
 msgstr "Feedback"
 
@@ -1552,9 +1540,6 @@ msgstr "Attendance"
 msgid "Show more"
 msgstr "Show more"
 
-msgid "Time Limit"
-msgstr "Time Limit"
-
 msgid "Post removed from your Bookmarks"
 msgstr "Post removed from your Bookmarks"
 
@@ -1777,9 +1762,6 @@ msgstr "Add"
 msgid "Failed to upload. Gif size exceeds {0}"
 msgstr "Failed to upload. Gif size exceeds {0}"
 
-msgid "{days}d left"
-msgstr "{days}d left"
-
 msgid "Log out all"
 msgstr "Log out all"
 
@@ -1888,9 +1870,6 @@ msgstr "Failed to send tip."
 msgid "Connecting Wallet"
 msgstr "Connecting Wallet"
 
-msgid "{minutes}m left"
-msgstr "{minutes}m left"
-
 msgid "Total Supply"
 msgstr "Total Supply"
 
@@ -1935,9 +1914,6 @@ msgstr "Statistic"
 
 msgid "Failed to upload. Video length exceeds {minDuration}s ~ {maxDuration}s"
 msgstr "Failed to upload. Video length exceeds {minDuration}s ~ {maxDuration}s"
-
-msgid "Post collected successfully!"
-msgstr "Post collected successfully!"
 
 msgid "Your post have published successfully on {0}."
 msgstr "Your post have published successfully on {0}."
@@ -2026,9 +2002,6 @@ msgstr "<0/> and <1>{0} others</1>"
 msgid "<0>since </0> <1>{0}</1>"
 msgstr "<0>since </0> <1>{0}</1>"
 
-msgid "{hours}h left"
-msgstr "{hours}h left"
-
 msgid "{0} Users"
 msgstr "{0} Users"
 
@@ -2049,9 +2022,6 @@ msgstr "Failed to parse transaction."
 
 msgid "No anti_whale(Unlimited number of transactions)"
 msgstr "No anti_whale(Unlimited number of transactions)"
-
-msgid "Failed to collect post."
-msgstr "Failed to collect post."
 
 msgid "<0>Burned</0> an NFT"
 msgstr "<0>Burned</0> an NFT"

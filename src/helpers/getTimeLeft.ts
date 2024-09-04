@@ -1,18 +1,11 @@
-import dayjs from 'dayjs';
-import duration from 'dayjs/plugin/duration.js';
-
-dayjs.extend(duration);
-
 export function getTimeLeft(endDatetime: string, startDatetime = new Date().toISOString()) {
-    const timeLeft = dayjs(endDatetime).diff(dayjs(startDatetime));
-    if (timeLeft < 0) return;
-
-    const duration = dayjs.duration(timeLeft);
+    const now = new Date(startDatetime).getTime();
+    const timeLeft = new Date(endDatetime).getTime() - now;
 
     return {
-        days: duration.days(),
-        hours: duration.hours(),
-        minutes: duration.minutes(),
-        seconds: duration.seconds(),
+        days: Math.floor(timeLeft / (1000 * 60 * 60 * 24)),
+        hours: Math.floor(timeLeft / (1000 * 60 * 60)),
+        minutes: Math.floor(timeLeft / (1000 * 60)),
+        seconds: Math.floor(timeLeft / 1000),
     };
 }

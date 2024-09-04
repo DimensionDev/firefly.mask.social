@@ -116,10 +116,6 @@ class WarpcastSocialMedia implements Provider {
         throw new NotImplementedError();
     }
 
-    actPost(postId: string, options: unknown): Promise<void> {
-        throw new NotImplementedError();
-    }
-
     get type() {
         return SessionType.Farcaster;
     }
