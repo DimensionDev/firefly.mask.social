@@ -40,6 +40,42 @@ export const MAX_FILE_SIZE_PER_VIDEO: Limitation = {
     [Source.Farcaster]: 1024 * 1024 * 1024, // 1GB
 };
 
+export const MIN_DURATION_PER_VIDEO: Limitation = {
+    [Source.Twitter]: 0.5,
+    [Source.Lens]: 0,
+    [Source.Farcaster]: 0,
+};
+
+export const MAX_DURATION_PER_VIDEO: Limitation = {
+    [Source.Twitter]: 140,
+    [Source.Lens]: Infinity,
+    [Source.Farcaster]: Infinity,
+};
+
+export const MIN_WIDTH_PER_VIDEO: Limitation = {
+    [Source.Twitter]: 32,
+    [Source.Lens]: 32,
+    [Source.Farcaster]: 32,
+};
+
+export const MAX_WIDTH_PER_VIDEO: Limitation = {
+    [Source.Twitter]: 1280,
+    [Source.Lens]: 4096,
+    [Source.Farcaster]: 4096,
+};
+
+export const MIN_HEIGHT_PER_VIDEO: Limitation = {
+    [Source.Twitter]: 32,
+    [Source.Lens]: 32,
+    [Source.Farcaster]: 32,
+};
+
+export const MAX_HEIGHT_PER_VIDEO: Limitation = {
+    [Source.Twitter]: 1280,
+    [Source.Lens]: 4096,
+    [Source.Farcaster]: 4096,
+};
+
 // update profile
 export const MAX_PROFILE_BIO_SIZE: Limitation = {
     [Source.Farcaster]: 160,
