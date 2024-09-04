@@ -1,10 +1,6 @@
 import { Action, setProxyUrl } from '@dialectlabs/blinks';
-<<<<<<< Updated upstream
 import { safeUnreachable } from '@masknet/kit';
-||||||| constructed merge base
-=======
 import Crypto from 'crypto-js';
->>>>>>> Stashed changes
 import urlcat from 'urlcat';
 
 import { FrameProtocol, Source, STATUS } from '@/constants/enum.js';
