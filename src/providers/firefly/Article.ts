@@ -3,7 +3,9 @@ import urlcat from 'urlcat';
 
 import { BookmarkType, FireflyPlatform } from '@/constants/enum.js';
 import { NotImplementedError } from '@/constants/error.js';
+import { VITALIK_ADDRESS } from '@/constants/index.js';
 import { formatArticleFromFirefly } from '@/helpers/formatArticleFromFirefly.js';
+import { isSameAddress } from '@/helpers/isSameAddress.js';
 import { isZero } from '@/helpers/number.js';
 import {
     createIndicator,
@@ -63,7 +65,11 @@ class FireflyArticle implements Provider {
         const response = await fireflySessionHolder.fetch<DiscoverArticlesResponse>(url, {
             method: 'POST',
             body: JSON.stringify({
-                platform: [ArticlePlatform.Paragraph, ArticlePlatform.Mirror].join(','),
+                platform: compact([
+                    ArticlePlatform.Paragraph,
+                    ArticlePlatform.Mirror,
+                    isSameAddress(VITALIK_ADDRESS, address) ? ArticlePlatform.Limo : undefined,
+                ]).join(','),
                 walletAddresses: [address],
                 size: 20,
                 cursor: indicator?.id && !isZero(indicator.id) ? indicator.id : undefined,

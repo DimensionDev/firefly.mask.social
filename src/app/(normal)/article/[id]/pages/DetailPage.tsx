@@ -117,6 +117,10 @@ export function ArticleDetailPage({ params: { id: articleId } }: PageProps) {
                 </div>
                 {isMuted ? (
                     <CollapsedContent className="mt-2" authorMuted isQuote={false} />
+                ) : article.platform === ArticlePlatform.Limo ? (
+                    // The content returned by limo is html.
+                    // eslint-disable-next-line react/no-danger
+                    <div dangerouslySetInnerHTML={{ __html: article.content }} />
                 ) : (
                     <ArticleMarkup
                         className="markup linkify break-words text-medium"

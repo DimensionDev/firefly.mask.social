@@ -12,6 +12,7 @@ export const resolveArticlePlatformIcon = createLookupTableResolver<
     {
         [ArticlePlatform.Mirror]: MirrorIon,
         [ArticlePlatform.Paragraph]: ParagraphIcon,
+        [ArticlePlatform.Limo]: null,
     },
     null,
 );

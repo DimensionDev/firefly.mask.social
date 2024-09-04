@@ -6,6 +6,7 @@ import type { FollowingSource } from '@/providers/types/Firefly.js';
 export enum ArticlePlatform {
     Mirror = 'mirror',
     Paragraph = 'paragraph',
+    Limo = 'limo',
 }
 
 export enum ArticleType {

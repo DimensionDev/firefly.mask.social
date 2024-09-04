@@ -198,6 +198,9 @@ importers:
       '@tippyjs/react':
         specifier: ^4.2.6
         version: 4.2.6(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026)
+      '@types/crypto-js':
+        specifier: ^4.2.2
+        version: 4.2.2
       '@vercel/kv':
         specifier: ^1.0.1
         version: 1.0.1
@@ -225,6 +228,9 @@ importers:
       canonicalize:
         specifier: ^2.0.0
         version: 2.0.0
+      crypto-js:
+        specifier: ^4.2.0
+        version: 4.2.0
       d3:
         specifier: ^5.16.0
         version: 5.16.0
@@ -13412,6 +13418,10 @@ packages:
   /@types/cookie@0.4.1:
     resolution: {integrity: sha512-XW/Aa8APYr6jSVVA1y/DEIZX0/GMKLEVekNG727R8cs56ahETkRAy/3DR7+fJyh7oUgGwNQaRfXCun0+KbWY7Q==}
     dev: true
+
+  /@types/crypto-js@4.2.2:
+    resolution: {integrity: sha512-sDOLlVbHhXpAUAL0YHDUUwDZf3iN4Bwi4W6a0W0b+QcAezUbRtH4FVb+9J4h+XFPW7l/gQ9F8qC7P+Ec4k8QVQ==}
+    dev: false
 
   /@types/d3-array@1.2.12:
     resolution: {integrity: sha512-zIq9wCg/JO7MGC6vq3HRDaVYkqgSPIDjpo3JhAQxl7PHYVPA5D9SMiBfjW/ZoAvPd2a+rkovqBg0nS0QOChsJQ==}
@@ -32957,10 +32967,12 @@ time:
   /@solana/web3.js@1.95.2: '2024-07-26T13:49:00.799Z'
   /@tailwindcss/forms@0.5.7: '2023-11-10T19:42:19.349Z'
   /@tanstack/react-ranger@0.0.4: '2023-11-24T09:24:06.987Z'
+  /@types/crypto-js@4.2.2: '2024-01-22T06:37:12.244Z'
   /@types/react-avatar-editor@13.0.2: '2023-11-07T13:56:07.308Z'
   /@wagmi/core@2.13.4: '2024-08-09T00:57:30.856Z'
   /@web3modal/wagmi@5.1.0: '2024-08-16T15:44:38.031Z'
   /anchorme@3.0.8: '2024-04-08T09:26:57.773Z'
+  /crypto-js@4.2.0: '2023-10-24T22:20:29.229Z'
   /immer@10.0.3: '2023-10-02T06:36:31.915Z'
   /jsdom@24.1.1: '2024-07-21T05:09:13.175Z'
   /postcss@8.4.41: '2024-08-05T23:08:39.503Z'

@@ -62,7 +62,8 @@ export const ArticleActions = memo<ArticleActionsProps>(function ArticleActions(
                         'flex w-min items-center text-lightSecond hover:text-secondarySuccess md:space-x-2',
                     )}
                 >
-                    {!(article.platform === ArticlePlatform.Paragraph && !article.origin) ? (
+                    {!(article.platform === ArticlePlatform.Paragraph && !article.origin) &&
+                    article.platform !== ArticlePlatform.Limo ? (
                         <Tooltip content={t`Collect`} placement="top">
                             <motion.button
                                 onClick={() => {
