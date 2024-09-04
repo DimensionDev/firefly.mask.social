@@ -17,7 +17,13 @@ export async function isValidPostVideo(availableSources: SocialSource[], file: F
         return t`Failed to upload. Video length exceeds ${minDuration}s ~ ${maxDuration}s`;
     }
 
-    const { isValid: isSizeValid, minWidth, minHeight, maxWidth, maxHeight } = await validateVideoSize(availableSources, file);
+    const {
+        isValid: isSizeValid,
+        minWidth,
+        minHeight,
+        maxWidth,
+        maxHeight,
+    } = await validateVideoSize(availableSources, file);
     if (!isSizeValid) {
         return t`Failed to upload. Video size exceeds ${minWidth}x${minHeight} ~ ${maxWidth}x${maxHeight}`;
     }
