@@ -19,6 +19,7 @@ import { getCurrentProfile } from '@/helpers/getCurrentProfile.js';
 import { getSnackbarMessageFromError } from '@/helpers/getSnackbarMessageFromError.js';
 import { getWalletClientRequired } from '@/helpers/getWalletClientRequired.js';
 import { openIntentUrl } from '@/helpers/openIntentUrl.js';
+import { openLoginModal } from '@/helpers/openLoginModal.js';
 import { openWindow } from '@/helpers/openWindow.js';
 import { parseCAIP10 } from '@/helpers/parseCAIP10.js';
 import { untilImageUrlLoaded } from '@/helpers/untilImageLoaded.js';
@@ -39,7 +40,6 @@ import {
     type RedirectUrlResponse,
 } from '@/types/frame.js';
 import type { ResponseJSON } from '@/types/index.js';
-import { openLoginModal } from '@/helpers/openLoginModal.js';
 
 const TransactionSchema = z.object({
     // a CAIP-2 chain ID to identify the tx network

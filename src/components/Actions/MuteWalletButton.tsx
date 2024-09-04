@@ -8,10 +8,10 @@ import MuteIcon from '@/assets/mute.svg';
 import UnmuteIcon from '@/assets/unmute.svg';
 import { MenuButton } from '@/components/Actions/MenuButton.js';
 import { type ClickableButtonProps } from '@/components/ClickableButton.js';
+import { openLoginModal } from '@/helpers/openLoginModal.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
 import { ConfirmModalRef } from '@/modals/controls.js';
 import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
-import { openLoginModal } from '@/helpers/openLoginModal.js';
 
 interface Props extends Omit<ClickableButtonProps, 'children'> {
     handleOrEnsOrAddress: string;
