@@ -29,6 +29,7 @@ function getRelatedFireflyIdentities(
         case WalletSource.Twitter:
         case WalletSource.Firefly:
         case WalletSource.NFTs:
+        case WalletSource.Particle:
             return [];
         default:
             safeUnreachable(source);
