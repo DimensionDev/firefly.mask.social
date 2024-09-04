@@ -1,13 +1,13 @@
 import { z, ZodError, ZodIssueCode } from 'zod';
 
 import { Source } from '@/constants/enum.js';
+import { ALLOWED_MEDIA_MIMES } from '@/constants/index.js';
 import {
-    ALLOWED_MEDIA_MIMES,
     MAX_PROFILE_BIO_SIZE,
     MAX_PROFILE_DISPLAY_NAME_SIZE,
     MAX_PROFILE_LOCATION_SIZE,
     MAX_PROFILE_WEBSITE_SIZE,
-} from '@/constants/index.js';
+} from '@/constants/limitation.js';
 import { isValidFileType } from '@/helpers/isValidFileType.js';
 
 export const Pageable = z.object({

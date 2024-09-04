@@ -1,10 +1,6 @@
 import type { SocialSource } from '@/constants/enum.js';
-import {
-    MAX_FILE_SIZE_PER_GIF,
-    MAX_FILE_SIZE_PER_IMAGE,
-    MAX_FILE_SIZE_PER_VIDEO,
-    SORTED_SOCIAL_SOURCES,
-} from '@/constants/index.js';
+import { SORTED_SOCIAL_SOURCES } from '@/constants/index.js';
+import { MAX_FILE_SIZE_PER_GIF, MAX_FILE_SIZE_PER_IMAGE, MAX_FILE_SIZE_PER_VIDEO } from '@/constants/limitation.js';
 
 function createPostFileSizeLimitGetter(limits: Record<SocialSource, number>) {
     return function (availableSources: SocialSource[]) {

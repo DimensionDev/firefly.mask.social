@@ -1,5 +1,5 @@
 import { type SocialSource, Source } from '@/constants/enum.js';
-import { MAX_IMAGE_SIZE_PER_POST } from '@/constants/index.js';
+import { MAX_IMAGE_SIZE_PER_POST } from '@/constants/limitation.js';
 import type { ComposeType } from '@/types/compose.js';
 
 export function getCurrentPostImageLimits(type: ComposeType, availableSources: SocialSource[]) {
