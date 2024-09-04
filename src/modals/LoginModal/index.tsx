@@ -54,9 +54,11 @@ export const LoginModal = forwardRef<SingletonModalRefCreator<LoginModalOpenProp
         // it requires that the login modal always open at the end of the process.
         onOpen: async (props) => {
             // abort previous login process
-            controller.current.abort();
+            controller.current.renew();
 
-            const profileSource = props ? props.source : null;
+            const profileSource = props ? props.source : Source.Farcaster;
+
+            console.log(`[LoginModal] open with source: ${profileSource}`);
 
             if (profileSource && profileSource !== Source.Firefly) {
                 const source = resolveSocialSourceFromProfileSource(profileSource);
