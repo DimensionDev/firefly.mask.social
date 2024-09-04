@@ -4,6 +4,7 @@ import WalletIcon from '@/assets/wallet-circle.svg';
 import VerifiedDarkIcon from '@/assets/wallet-circle-verified.dark.svg';
 import VerifiedLightIcon from '@/assets/wallet-circle-verified.light.svg';
 import { CopyButton } from '@/components/CopyButton.js';
+import { WalletSource } from '@/constants/enum.js';
 import { classNames } from '@/helpers/classNames.js';
 import { formatEthereumAddress } from '@/helpers/formatEthereumAddress.js';
 import { formatSolanaAddress } from '@/helpers/formatSolanaAddress.js';
@@ -48,7 +49,9 @@ export function WalletItem({ connection, noAction = false }: WalletItemProps) {
                 </div>
             </div>
             {noAction ? null : !connection.canReport ? (
-                <DisconnectButton connection={connection} />
+                [WalletSource.Particle].includes(connection.source) ? null : (
+                    <DisconnectButton connection={connection} />
+                )
             ) : (
                 <ReportButton connection={connection} />
             )}

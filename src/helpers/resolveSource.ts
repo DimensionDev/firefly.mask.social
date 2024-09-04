@@ -91,6 +91,7 @@ export const resolveSourceFromWalletSource = createLookupTableResolver<WalletSou
         [WalletSource.Article]: Source.Article,
         [WalletSource.Wallet]: Source.Wallet,
         [WalletSource.NFTs]: Source.NFTs,
+        [WalletSource.Particle]: Source.Farcaster,
     },
     (walletSource) => {
         throw new UnreachableError('WalletSource', walletSource);

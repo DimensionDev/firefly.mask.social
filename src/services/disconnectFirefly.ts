@@ -20,6 +20,7 @@ function getIdentity(connection: FireflyWalletConnection): FireflyIdentity | nul
             return { source: resolveSourceFromWalletSource(connection.source), id: connection.twitterId };
         case WalletSource.Article:
         case WalletSource.NFTs:
+        case WalletSource.Particle:
             return null;
         case WalletSource.Firefly:
         case WalletSource.Wallet:
