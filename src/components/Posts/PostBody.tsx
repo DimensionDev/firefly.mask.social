@@ -8,6 +8,7 @@ import { forwardRef, type HTMLProps, useMemo, useState } from 'react';
 import { useAsync } from 'react-use';
 
 import Lock from '@/assets/lock.svg';
+import { ArticleBody } from '@/components/Article/ArticleBody.js';
 import { NakedMarkup } from '@/components/Markup/NakedMarkup.js';
 import { PostMarkup } from '@/components/Markup/PostMarkup.js';
 import { FramePoll } from '@/components/Poll/FramePoll.js';
@@ -21,6 +22,7 @@ import { IS_APPLE, IS_SAFARI } from '@/constants/bowser.js';
 import { PageRoute, STATUS } from '@/constants/enum.js';
 import { env } from '@/constants/env.js';
 import { EMPTY_LIST } from '@/constants/index.js';
+import { Link } from '@/esm/Link.js';
 import { classNames } from '@/helpers/classNames.js';
 import { formatUrl } from '@/helpers/formatUrl.js';
 import { getEncryptedPayloadFromImageAttachment, getEncryptedPayloadFromText } from '@/helpers/getEncryptedPayload.js';
@@ -28,6 +30,7 @@ import { getPostUrl } from '@/helpers/getPostUrl.js';
 import { isRoutePathname } from '@/helpers/isRoutePathname.js';
 import { isValidUrl } from '@/helpers/isValidUrl.js';
 import { resolveOembedUrl } from '@/helpers/resolveOembedUrl.js';
+import { resolvePostArticleUrl } from '@/helpers/resolvePostArticleUrl.js';
 import { trimify } from '@/helpers/trimify.js';
 import { useEverSeen } from '@/hooks/useEverSeen.js';
 import { useIsProfileMuted } from '@/hooks/useIsProfileMuted.js';
@@ -211,6 +214,12 @@ export const PostBody = forwardRef<HTMLDivElement, PostBodyProps>(function PostB
             ref={mergedRef}
         >
             <PostMarkup post={post} canShowMore={canShowMore} content={postContent} />
+
+            {post.metadata.article ? (
+                <Link href={resolvePostArticleUrl(post)} target="_blank" onClick={(e) => e.stopPropagation()}>
+                    <ArticleBody {...post.metadata.article} />
+                </Link>
+            ) : null}
 
             {showTranslate && trimify(postContent) ? (
                 <ContentTranslator content={trimify(postContent)} canShowMore={canShowMore} post={post} />

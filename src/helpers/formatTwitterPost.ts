@@ -1,7 +1,9 @@
 import { compact, find, first, last } from 'lodash-es';
 import type { ApiV2Includes, TweetV2, TweetV2PaginableTimelineResult } from 'twitter-api-v2';
+import urlcat from 'urlcat';
 
 import { Source } from '@/constants/enum.js';
+import { SITE_URL } from '@/constants/index.js';
 import { POLL_CHOICE_TYPE, POLL_STRATEGIES } from '@/constants/poll.js';
 import { formatTwitterMedia } from '@/helpers/formatTwitterMedia.js';
 import { convertTwitterAvatar } from '@/helpers/formatTwitterProfile.js';
@@ -17,6 +19,7 @@ export function tweetV2ToPost(item: TweetV2, includes?: ApiV2Includes): Post {
     const quotedTweetId = item.referenced_tweets?.find((tweet) => tweet.type === 'quoted')?.id;
     const quotedTweet = quotedTweetId ? includes?.tweets?.find((tweet) => tweet.id === quotedTweetId) : undefined;
     const retweeted = item.referenced_tweets?.find((tweet) => tweet.type === 'retweeted');
+    const retweetedTweet = retweeted ? includes?.tweets?.find((tweet) => tweet.id === retweeted.id) : undefined;
     const oembedUrls = getEmbedUrls(item.text ?? '', []);
     const attachments = compact(
         item.attachments?.media_keys?.map((key) => {
@@ -80,7 +83,18 @@ export function tweetV2ToPost(item: TweetV2, includes?: ApiV2Includes): Post {
                 oembedUrl: last(oembedUrls),
                 oembedUrls,
             },
+            // @ts-ignore twitter-api-v2 doesn't have `tweet.article` yet
+            article: item.article
+                ? {
+                      cover: urlcat(SITE_URL, '/api/twitter/article/:id/image', {
+                          id: item.id,
+                      }),
+                      // @ts-ignore twitter-api-v2 doesn't have `tweet.article` yet
+                      title: item.article.title,
+                  }
+                : undefined,
         },
+        __original__: item,
     };
     if (repliedTweet) {
         ret.type = 'Comment';
@@ -108,6 +122,20 @@ export function tweetV2ToPost(item: TweetV2, includes?: ApiV2Includes): Post {
     }
     if (retweeted) {
         ret.type = 'Mirror';
+        if (retweetedTweet) {
+            ret.mirrorOn = tweetV2ToPost(retweetedTweet, includes);
+            ret.postId = retweetedTweet.id;
+            // @ts-ignore twitter-api-v2 doesn't have `tweet.article` yet
+            ret.metadata.article = retweetedTweet.article
+                ? {
+                      cover: urlcat(SITE_URL, '/api/twitter/article/:id/image', {
+                          id: retweetedTweet.id,
+                      }),
+                      // @ts-ignore twitter-api-v2 doesn't have `tweet.article` yet
+                      title: retweetedTweet.article.title,
+                  }
+                : undefined;
+        }
         const content = ret.metadata.content?.content ?? '';
         const mention = item.entities?.mentions.sort((a, b) => a.start - b.start)?.[0];
         if (mention) {
