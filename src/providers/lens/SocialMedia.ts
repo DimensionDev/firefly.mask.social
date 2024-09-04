@@ -7,6 +7,8 @@ import {
     isCreateMomokaPublicationResult,
     isRelaySuccess,
     LimitType,
+    type ModuleCurrencyApproval,
+    OpenActionModuleType,
     ProfileReportingReason,
     ProfileReportingSpamSubreason,
     PublicationMetadataMainFocusType,
@@ -27,6 +29,7 @@ import { config } from '@/configs/wagmiClient.js';
 import { FireflyPlatform, Source, SourceInURL } from '@/constants/enum.js';
 import { InvalidResultError, NotImplementedError } from '@/constants/error.js';
 import { EMPTY_LIST } from '@/constants/index.js';
+import { SetQueryDataForActPost } from '@/decorators/setQueryDataForActPost.js';
 import { SetQueryDataForBlockProfile } from '@/decorators/SetQueryDataForBlockProfile.js';
 import { SetQueryDataForBookmarkPost } from '@/decorators/SetQueryDataForBookmarkPost.js';
 import { SetQueryDataForCommentPost } from '@/decorators/SetQueryDataForCommentPost.js';
@@ -45,6 +48,7 @@ import {
     formatLensQuoteOrComment,
 } from '@/helpers/formatLensPost.js';
 import { formatLensProfile } from '@/helpers/formatLensProfile.js';
+import { getOpenActionActOnKey } from '@/helpers/getOpenActionActOnKey.js';
 import { getWalletClientRequired } from '@/helpers/getWalletClientRequired.js';
 import { isSamePost } from '@/helpers/isSamePost.js';
 import { isZero } from '@/helpers/number.js';
@@ -90,6 +94,7 @@ const MOMOKA_ERROR_MSG = 'momoka publication is not allowed';
 @SetQueryDataForDeletePost(Source.Lens)
 @SetQueryDataForBlockProfile(Source.Lens)
 @SetQueryDataForFollowProfile(Source.Lens)
+@SetQueryDataForActPost(Source.Lens)
 @SetQueryDataForPosts
 class LensSocialMedia implements Provider {
     getChannelById(channelId: string): Promise<Channel> {
@@ -383,6 +388,61 @@ class LensSocialMedia implements Provider {
         });
 
         if (result.isFailure()) throw new Error(`Something went wrong: ${JSON.stringify(result.isFailure())}`);
+    }
+
+    async actPost(
+        postId: string,
+        options: {
+            type: OpenActionModuleType;
+            signRequire?: boolean;
+        },
+    ) {
+        const actWithSign = async () => {
+            await assertLensAccountOwner();
+            const walletClient = await getWalletClientRequired(config);
+
+            const resultTypedData = await lensSessionHolder.sdk.publication.actions.createActOnTypedData({
+                actOn: { [getOpenActionActOnKey(options.type)]: true },
+                for: postId,
+            });
+
+            const { id, typedData } = resultTypedData.unwrap();
+
+            const signedTypedData = await walletClient.signTypedData({
+                domain: typedData.domain as TypedDataDomain,
+                types: typedData.types,
+                primaryType: 'Act',
+                message: typedData.value,
+            });
+
+            const broadcastResult = await lensSessionHolder.sdk.transaction.broadcastOnchain({
+                id,
+                signature: signedTypedData,
+            });
+
+            const broadcastValue = broadcastResult.unwrap();
+
+            if (broadcastResult.isFailure() || broadcastValue.__typename === 'RelayError' || !broadcastValue.txHash) {
+                throw new Error(`Something went wrong: ${JSON.stringify(broadcastValue)}`);
+            }
+
+            return waitUntilComplete(lensSessionHolder.sdk, broadcastValue.txHash);
+        };
+
+        if (!options.signRequire) {
+            const result = await lensSessionHolder.sdk.publication.actions.actOn({
+                actOn: { [getOpenActionActOnKey(options.type)]: true },
+                for: postId,
+            });
+
+            const resultValue = result.unwrap();
+
+            if (!isRelaySuccess(resultValue) || !resultValue.txHash) return actWithSign();
+
+            return waitUntilComplete(lensSessionHolder.sdk, resultValue.txHash);
+        }
+
+        return actWithSign();
     }
 
     async commentPostOnMomoka(postId: string, comment: string, signless?: boolean) {
@@ -1341,6 +1401,29 @@ class LensSocialMedia implements Provider {
             metadataURI,
         });
         return result.isSuccess();
+    }
+
+    async queryApprovedModuleAllowanceData(module: OpenActionModuleType, spender: string) {
+        const result = await lensSessionHolder.sdk.modules.approvedAllowanceAmount({
+            currencies: [spender],
+            followModules: [],
+            openActionModules: [module],
+            referenceModules: [],
+        });
+
+        return result.unwrap();
+    }
+
+    async generateModuleAllowanceRequest(
+        allowance: { currency: string; value: string },
+        module: ModuleCurrencyApproval,
+    ) {
+        const result = await lensSessionHolder.sdk.modules.generateCurrencyApprovalData({
+            allowance,
+            module,
+        });
+
+        return result.unwrap();
     }
 }
 

@@ -368,6 +368,10 @@ export class FireflySocialMedia implements Provider {
         throw new NotImplementedError();
     }
 
+    async actPost(postId: string, options: unknown): Promise<void> {
+        throw new NotImplementedError();
+    }
+
     get type() {
         return SessionType.Farcaster;
     }
