@@ -37,7 +37,7 @@ export async function uploadToDirectory(
             const task = new Upload({
                 client,
                 params,
-                partSize: 1024 * 1024 * 400,
+                partSize: 1024 * 1024 * 5, // part upload
                 queueSize: 3,
             });
 

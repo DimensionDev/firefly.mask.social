@@ -58,9 +58,9 @@ module.exports = {
                 tooltipBg: 'var(--color-tooltip-bg)',
                 fireflyBrand: 'var(--color-firefly-brand)',
                 success: 'var(--color-success, #3DC233)',
-                fail: 'var(--color-fail, #FF3545)',
+                fail: 'rgb(var(--color-fail) / <alpha-value>)',
                 lightWarn: 'rgb(var(--color-light-warn) / <alpha-value>)',
-                lightHighlight: 'var(--color-light-highlight)',
+                lightHighlight: 'rgb(var(--color-light-highlight) / <alpha-value>)',
                 highlight: 'rgb(var(--color-highlight) / <alpha-value>)',
             },
             backgroundImage: {

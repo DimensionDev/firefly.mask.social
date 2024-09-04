@@ -907,9 +907,6 @@ msgstr ""
 msgid "You successfully sent <0>{amount} {0}{1}</0> tips to <1>{2}</1>!"
 msgstr ""
 
-msgid "Failed to upload. Video length exceeds {maxDuration}s"
-msgstr ""
-
 msgid "This token is not issued by its declared team. Some scams will create a well-known token with the same name to defraud their users of their assets."
 msgstr ""
 
@@ -1396,6 +1393,9 @@ msgstr ""
 msgid "Visit mask.io"
 msgstr ""
 
+msgid "First time connecting to Firefly?<0/>Approve a <1>new connection with Warpcast</1> or <2>sync</2> through the app"
+msgstr ""
+
 msgid "No comments found"
 msgstr ""
 
@@ -1834,9 +1834,6 @@ msgstr ""
 msgid "No codes found to suspend trading."
 msgstr ""
 
-msgid "First time connecting to Firefly?<0/><1>Approve a new connection</1> with Warpcast"
-msgstr ""
-
 msgid "Buy Tax: {0}%"
 msgstr ""
 
@@ -1936,6 +1933,9 @@ msgstr ""
 msgid "Statistic"
 msgstr ""
 
+msgid "Failed to upload. Video length exceeds {minDuration}s ~ {maxDuration}s"
+msgstr ""
+
 msgid "Post collected successfully!"
 msgstr ""
 
@@ -1970,6 +1970,9 @@ msgid "Unmute @{0}"
 msgstr ""
 
 msgid "Unauthorized. Please check your login."
+msgstr ""
+
+msgid "Failed to upload. Video size exceeds {minWidth}x{minHeight} ~ {maxWidth}x{maxHeight}"
 msgstr ""
 
 msgid "Mask Network"

@@ -8,7 +8,7 @@ msgstr ""
 "Language: zh\n"
 "Project-Id-Version: masksocial\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-09-02 12:58\n"
+"PO-Revision-Date: 2024-09-03 09:47\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Traditional\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
@@ -912,9 +912,6 @@ msgstr "僅限你提及的帳戶"
 msgid "You successfully sent <0>{amount} {0}{1}</0> tips to <1>{2}</1>!"
 msgstr "你成功給 <1>{2}</1> 發送了 <0>{amount} {0}{1}</0> 的小費！"
 
-msgid "Failed to upload. Video length exceeds {maxDuration}s"
-msgstr ""
-
 msgid "This token is not issued by its declared team. Some scams will create a well-known token with the same name to defraud their users of their assets."
 msgstr ""
 
@@ -1401,6 +1398,9 @@ msgstr "已取消喜歡"
 msgid "Visit mask.io"
 msgstr "訪問 mask.io"
 
+msgid "First time connecting to Firefly?<0/>Approve a <1>new connection with Warpcast</1> or <2>sync</2> through the app"
+msgstr ""
+
 msgid "No comments found"
 msgstr "未找到評論"
 
@@ -1839,9 +1839,6 @@ msgstr ""
 msgid "No codes found to suspend trading."
 msgstr ""
 
-msgid "First time connecting to Firefly?<0/><1>Approve a new connection</1> with Warpcast"
-msgstr ""
-
 msgid "Buy Tax: {0}%"
 msgstr ""
 
@@ -1941,6 +1938,9 @@ msgstr ""
 msgid "Statistic"
 msgstr "統計數據"
 
+msgid "Failed to upload. Video length exceeds {minDuration}s ~ {maxDuration}s"
+msgstr ""
+
 msgid "Post collected successfully!"
 msgstr ""
 
@@ -1975,6 +1975,9 @@ msgid "Unmute @{0}"
 msgstr "取消對 @{0} 的靜音"
 
 msgid "Unauthorized. Please check your login."
+msgstr ""
+
+msgid "Failed to upload. Video size exceeds {minWidth}x{minHeight} ~ {maxWidth}x{maxHeight}"
 msgstr ""
 
 msgid "Mask Network"

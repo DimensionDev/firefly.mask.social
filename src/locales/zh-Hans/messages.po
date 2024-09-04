@@ -8,7 +8,7 @@ msgstr ""
 "Language: zh\n"
 "Project-Id-Version: masksocial\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-09-02 12:58\n"
+"PO-Revision-Date: 2024-09-03 09:47\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
@@ -127,7 +127,7 @@ msgid "Mute @{0}"
 msgstr "隐藏 @{0}"
 
 msgid "Failed to upload. Video size exceeds {0}"
-msgstr ""
+msgstr "上传失败。视频超过最大限制 {0}"
 
 msgid "The contract owner is not found to have the authority to modify the balance of tokens at other addresses."
 msgstr "合约所有者无权修改其他地址的通证余额。"
@@ -271,7 +271,7 @@ msgid "Adding..."
 msgstr "添加中..."
 
 msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} <4>liked your </4><5>{1, select, Post {post} Comment {comment} Quote {quote} Mirror {mirror} other {post}}</5>"
-msgstr "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} <4>点赞了你的 </4><5>{1, select, Post {帖子} Comment {转帖} Quote {引用} Mirror {转帖} other {帖子}}</5>"
+msgstr "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} <4>点赞了你的 </4><5>{1, select, Post {帖子} Comment {评论} Quote {引用} Mirror {转帖} other {帖子}}</5>"
 
 msgid "Market Cap"
 msgstr "市值"
@@ -280,7 +280,7 @@ msgid "Contract source code verified"
 msgstr "已验证合约源代码"
 
 msgid "Profile not found"
-msgstr "未找到个人资料"
+msgstr "未找到个人信息"
 
 msgid "NFT Standard"
 msgstr "NFT 标准"
@@ -346,7 +346,7 @@ msgid "Bookmarks"
 msgstr "收藏"
 
 msgid "Followed by {0} , {1}, and {2} others you follow"
-msgstr "被 {0} , {1}, 和 {2} 以及其他一些您正在关注的人关注"
+msgstr "被 {0} , {1}, 和 {2} 个其他的你正在关注的人关注"
 
 msgid "Confirm to disconnect this wallet from Firefly’s social graph?"
 msgstr "确认从 Firefly 的社交图谱中断链这个钱包？"
@@ -442,7 +442,7 @@ msgid "Attendees"
 msgstr "出席人数"
 
 msgid "Connected accounts"
-msgstr "已链接的账户"
+msgstr "已连接的账户"
 
 msgid "Functions with retrievable ownership"
 msgstr "具有可检索所有权的功能"
@@ -571,10 +571,10 @@ msgid "Feed"
 msgstr "信息流"
 
 msgid "Failed to upload. Not a valid image type"
-msgstr ""
+msgstr "上传失败。图片格式不支持"
 
 msgid "Failed to upload. Image size exceeds {0}"
-msgstr ""
+msgstr "上传失败。图片超过最大限制 {0}"
 
 msgid "Recasts"
 msgstr "转帖"
@@ -592,7 +592,7 @@ msgid "Whitelist function"
 msgstr "白名单功能"
 
 msgid "Profile could not be found."
-msgstr "未找到相关个人资料。"
+msgstr "未找到相关个人信息。"
 
 msgid "Failed to mute /{0}."
 msgstr "隐藏 /{0} 失败。"
@@ -912,9 +912,6 @@ msgstr "只有你提及的人"
 msgid "You successfully sent <0>{amount} {0}{1}</0> tips to <1>{2}</1>!"
 msgstr "你成功发送了 <0>{amount} {0}{1}</0> 的打赏给 <1>{2}</1>！"
 
-msgid "Failed to upload. Video length exceeds {maxDuration}s"
-msgstr ""
-
 msgid "This token is not issued by its declared team. Some scams will create a well-known token with the same name to defraud their users of their assets."
 msgstr "此通证不是由其声明的团队发布的。某些骗子将创建一个相同名称的通证来欺诈用户。"
 
@@ -1033,7 +1030,7 @@ msgid "Log in with recovery phrase"
 msgstr "使用助记词登录"
 
 msgid "Edit Profile"
-msgstr "编辑个人资料"
+msgstr "编辑个人信息"
 
 msgid "Confirm you want to mute @{0}?"
 msgstr "您确定要隐藏 @{0} 吗？"
@@ -1401,6 +1398,9 @@ msgstr "已取消点赞"
 msgid "Visit mask.io"
 msgstr "访问 mask.io"
 
+msgid "First time connecting to Firefly?<0/>Approve a <1>new connection with Warpcast</1> or <2>sync</2> through the app"
+msgstr ""
+
 msgid "No comments found"
 msgstr "未发现评论"
 
@@ -1423,7 +1423,7 @@ msgid "Failed to update profile."
 msgstr "更新个人资料失败。"
 
 msgid "Connected in Firefly"
-msgstr "已在 Firefly 中"
+msgstr "通过Firefly连接的"
 
 msgid "Mute {handleOrEnsOrAddress}"
 msgstr "隐藏 @{handleOrEnsOrAddress}"
@@ -1453,10 +1453,10 @@ msgid "Follow @thefireflyapp on X"
 msgstr "在 X 上关注 @thefireflyapp"
 
 msgid "Wallets retrieved from public verifiable data registries or our entity algorithm can be reported for disconnection."
-msgstr "从公开可验证数据注册表中或我们的实体算法中检索到的钱包可能会被举报断开连接。"
+msgstr "从公开可验证数据注册表中或我们的实体算法中检索到的钱包可以被举报从而断开连接。"
 
 msgid "Light Mode"
-msgstr "浅色模式"
+msgstr "明亮模式"
 
 msgid "Failed to submit report on {0}."
 msgstr "在 {0} 上提交报告失败。"
@@ -1657,7 +1657,7 @@ msgid "Owner can change balance"
 msgstr "所有者可以更改余额"
 
 msgid "Accounts Connected"
-msgstr "已链接账户"
+msgstr "已连接账户"
 
 msgid "Notifications"
 msgstr "通知"
@@ -1780,7 +1780,7 @@ msgid "Add"
 msgstr "添加"
 
 msgid "Failed to upload. Gif size exceeds {0}"
-msgstr ""
+msgstr "上传失败。动图超过最大限制 {0}"
 
 msgid "{days}d left"
 msgstr ""
@@ -1838,9 +1838,6 @@ msgstr "未能找到你的 signer key，请重新链接"
 
 msgid "No codes found to suspend trading."
 msgstr "没有发现可以暂停交易的代码。"
-
-msgid "First time connecting to Firefly?<0/><1>Approve a new connection</1> with Warpcast"
-msgstr "第一次连接 Firefly? 使用 Warpcast<0/><1>授权一个链接</1>"
 
 msgid "Buy Tax: {0}%"
 msgstr "购买税率: {0}%"
@@ -1941,6 +1938,9 @@ msgstr "Failed to fetch as ArrayBuffer."
 msgid "Statistic"
 msgstr "统计"
 
+msgid "Failed to upload. Video length exceeds {minDuration}s ~ {maxDuration}s"
+msgstr ""
+
 msgid "Post collected successfully!"
 msgstr ""
 
@@ -1976,6 +1976,9 @@ msgstr "取消隐藏 @{0}"
 
 msgid "Unauthorized. Please check your login."
 msgstr "未授权认证。请重新登录。"
+
+msgid "Failed to upload. Video size exceeds {minWidth}x{minHeight} ~ {maxWidth}x{maxHeight}"
+msgstr ""
 
 msgid "Mask Network"
 msgstr "Mask Network"
