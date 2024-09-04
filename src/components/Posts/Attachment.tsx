@@ -175,8 +175,7 @@ export const Attachments = memo<AttachmentsProps>(function Attachments({
                                     'max-h-[288px]':
                                         (attachmentsSnapshot.length === 2 || attachmentsSnapshot.length === 4) &&
                                         !isQuote,
-                                    'max-h-[284px]': attachmentsSnapshot.length === 3 && index === 2,
-                                    'row-span-2': attachmentsSnapshot.length === 3 && index === 2,
+                                    'row-span-2 max-h-[284px]': attachmentsSnapshot.length === 3 && index === 2,
                                     'max-h-[138px]': attachmentsSnapshot.length === 3 && index !== 2 && !isQuote,
                                     relative: isLast && moreImageCount > 0,
                                 })}
