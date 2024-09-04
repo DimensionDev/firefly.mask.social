@@ -9,8 +9,9 @@ import UnmuteIcon from '@/assets/unmute.svg';
 import { MenuButton } from '@/components/Actions/MenuButton.js';
 import { type ClickableButtonProps } from '@/components/ClickableButton.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
-import { ConfirmModalRef, LoginModalRef } from '@/modals/controls.js';
+import { ConfirmModalRef } from '@/modals/controls.js';
 import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
+import { openLoginModal } from '@/helpers/openLoginModal.js';
 
 interface Props extends Omit<ClickableButtonProps, 'children'> {
     handleOrEnsOrAddress: string;
@@ -36,7 +37,7 @@ export const MuteWalletButton = forwardRef<HTMLButtonElement, Props>(function Mu
             onClick={async () => {
                 rest.onClick?.();
                 if (!isLogin) {
-                    LoginModalRef.open();
+                    openLoginModal();
                     return;
                 }
                 if (!isMuted) {

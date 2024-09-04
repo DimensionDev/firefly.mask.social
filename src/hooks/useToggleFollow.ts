@@ -4,10 +4,10 @@ import { useIsMutating, useMutation } from '@tanstack/react-query';
 import { checkFarcasterInvalidSignerKey } from '@/helpers/checkers.js';
 import { enqueueErrorMessage, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { getSnackbarMessageFromError } from '@/helpers/getSnackbarMessageFromError.js';
+import { openLoginModal } from '@/helpers/openLoginModal.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
-import { LoginModalRef } from '@/modals/controls.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 
 export function useToggleFollow(profile: Profile) {
@@ -22,7 +22,7 @@ export function useToggleFollow(profile: Profile) {
             if (!profile.profileId) return;
 
             if (!isLogin) {
-                LoginModalRef.open({ source });
+                openLoginModal({ source });
                 return;
             }
 

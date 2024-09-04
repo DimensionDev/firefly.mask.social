@@ -22,7 +22,7 @@ import { openIntentUrl } from '@/helpers/openIntentUrl.js';
 import { openWindow } from '@/helpers/openWindow.js';
 import { parseCAIP10 } from '@/helpers/parseCAIP10.js';
 import { untilImageUrlLoaded } from '@/helpers/untilImageLoaded.js';
-import { ConfirmLeavingModalRef, LoginModalRef } from '@/modals/controls.js';
+import { ConfirmLeavingModalRef } from '@/modals/controls.js';
 import { HubbleFrameProvider } from '@/providers/hubble/Frame.js';
 import { LensFrameProvider } from '@/providers/lens/Frame.js';
 import type { Additional } from '@/providers/types/Frame.js';
@@ -39,6 +39,7 @@ import {
     type RedirectUrlResponse,
 } from '@/types/frame.js';
 import type { ResponseJSON } from '@/types/index.js';
+import { openLoginModal } from '@/helpers/openLoginModal.js';
 
 const TransactionSchema = z.object({
     // a CAIP-2 chain ID to identify the tx network
@@ -265,7 +266,7 @@ export const FrameLayout = memo<FrameLayoutProps>(function FrameLayout({ childre
             if (!frame) return;
 
             if (![ActionType.Link, ActionType.Mint].includes(button.action) && !getCurrentProfile(source)) {
-                LoginModalRef.open({
+                openLoginModal({
                     source,
                 });
                 return;

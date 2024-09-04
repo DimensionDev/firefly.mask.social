@@ -8,10 +8,11 @@ import { Link } from '@/esm/Link.js';
 import { CHAR_TAG } from '@/helpers/chars.js';
 import { formatEthereumAddress } from '@/helpers/formatEthereumAddress.js';
 import { getCurrentAvailableSources } from '@/helpers/getCurrentAvailableSources.js';
+import { openLoginModal } from '@/helpers/openLoginModal.js';
 import { resolveSocialSource } from '@/helpers/resolveSource.js';
 import { useCurrentVisitingChannel } from '@/hooks/useCurrentVisitingChannel.js';
 import { TipsContext } from '@/hooks/useTipsContext.js';
-import { ComposeModalRef, LoginModalRef } from '@/modals/controls.js';
+import { ComposeModalRef } from '@/modals/controls.js';
 import type { WalletProfile } from '@/providers/types/Firefly.js';
 
 export function TipSuccess() {
@@ -35,7 +36,7 @@ export function TipSuccess() {
                 : socialProfiles.some((profile) => resolveSocialSource(profile.platform) === source),
         );
         if (!expectedSources.length) {
-            LoginModalRef.open({
+            openLoginModal({
                 source: post ? post.source : resolveSocialSource(socialProfiles[0].platform),
             });
             return;

@@ -17,13 +17,14 @@ import { switchAccount } from '@/helpers/account.js';
 import { getProfileState } from '@/helpers/getProfileState.js';
 import { isRoutePathname } from '@/helpers/isRoutePathname.js';
 import { isSameProfile } from '@/helpers/isSameProfile.js';
+import { openLoginModal } from '@/helpers/openLoginModal.js';
 import { resolveFireflyProfileId } from '@/helpers/resolveFireflyProfileId.js';
 import { resolveSourceInURL } from '@/helpers/resolveSourceInURL.js';
 import { useConnectedAccounts } from '@/hooks/useConnectedAccounts.js';
 import { useIsMyRelatedProfile } from '@/hooks/useIsMyRelatedProfile.js';
 import { useProfileStore } from '@/hooks/useProfileStore.js';
 import { useUpdateParams } from '@/hooks/useUpdateParams.js';
-import { LoginModalRef, LogoutModalRef } from '@/modals/controls.js';
+import { LogoutModalRef } from '@/modals/controls.js';
 import { useFireflyIdentityState } from '@/store/useFireflyIdentityStore.js';
 
 interface ProfileSettingsProps {
@@ -68,7 +69,7 @@ export function ProfileSettings({ source, onClose }: ProfileSettingsProps) {
                                 if (!account.session) {
                                     onClose?.();
                                     await delay(300);
-                                    LoginModalRef.open({
+                                    openLoginModal({
                                         source,
                                         options: { expectedProfile: account.profile.profileId },
                                     });
@@ -108,7 +109,7 @@ export function ProfileSettings({ source, onClose }: ProfileSettingsProps) {
                     <ClickableButton
                         className="flex w-full items-center rounded px-2 py-3 text-main hover:bg-bg"
                         onClick={async () => {
-                            LoginModalRef.open({ source });
+                            openLoginModal({ source });
                             onClose?.();
                         }}
                     >

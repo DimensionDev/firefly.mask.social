@@ -16,8 +16,9 @@ import { classNames } from '@/helpers/classNames.js';
 import { enqueueErrorMessage, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { humanize, nFormatter } from '@/helpers/formatCommentCounts.js';
 import { getSnackbarMessageFromError } from '@/helpers/getSnackbarMessageFromError.js';
+import { openLoginModal } from '@/helpers/openLoginModal.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
-import { ComposeModalRef, LoginModalRef } from '@/modals/controls.js';
+import { ComposeModalRef } from '@/modals/controls.js';
 import { FarcasterSocialMediaProvider } from '@/providers/farcaster/SocialMedia.js';
 import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
 import { TwitterSocialMediaProvider } from '@/providers/twitter/SocialMedia.js';
@@ -206,7 +207,7 @@ export const Mirror = memo<MirrorProps>(function Mirror({
                     event.stopPropagation();
 
                     if (!isLogin && !loading) {
-                        LoginModalRef.open({ source: post.source });
+                        openLoginModal({ source: post.source });
                         return;
                     }
                     setOpen(true);

@@ -34,13 +34,14 @@ import { getCurrentSourceFromParams } from '@/helpers/getCurrentSourceFromUrl.js
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { isRoutePathname } from '@/helpers/isRoutePathname.js';
 import { isSameFireflyIdentity } from '@/helpers/isSameFireflyIdentity.js';
+import { openLoginModal } from '@/helpers/openLoginModal.js';
 import { useAsyncStatusAll } from '@/hooks/useAsyncStatus.js';
 import { useCurrentFireflyProfilesAll } from '@/hooks/useCurrentFireflyProfiles.js';
 import { useCurrentProfileFirstAvailable } from '@/hooks/useCurrentProfile.js';
 import { useCurrentVisitingChannel } from '@/hooks/useCurrentVisitingChannel.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
-import { ComposeModalRef, LoginModalRef } from '@/modals/controls.js';
+import { ComposeModalRef } from '@/modals/controls.js';
 import { useNavigatorState } from '@/store/useNavigatorStore.js';
 
 interface MenuProps {
@@ -212,7 +213,7 @@ export const Menu = memo(function Menu({ collapsed = false }: MenuProps) {
                 ) : collapsed ? (
                     <ClickableButton
                         onClick={() => {
-                            LoginModalRef.open();
+                            openLoginModal();
                         }}
                         className="rounded-full bg-main p-1 text-primaryBottom"
                     >
@@ -224,7 +225,7 @@ export const Menu = memo(function Menu({ collapsed = false }: MenuProps) {
                         onClick={async () => {
                             updateSidebarOpen(false);
                             await delay(300);
-                            LoginModalRef.open();
+                            openLoginModal();
                         }}
                         className="flex w-[200px] items-center justify-center rounded-2xl bg-main p-2 text-xl font-bold leading-6 text-primaryBottom"
                     >

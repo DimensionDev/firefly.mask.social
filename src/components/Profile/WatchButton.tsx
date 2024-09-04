@@ -9,12 +9,12 @@ import { ClickableButton, type ClickableButtonProps } from '@/components/Clickab
 import { ToggleMuteWalletButton } from '@/components/Profile/MuteWalletButton.js';
 import { classNames } from '@/helpers/classNames.js';
 import { formatEthereumAddress } from '@/helpers/formatEthereumAddress.js';
+import { openLoginModal } from '@/helpers/openLoginModal.js';
 import { useEverSeen } from '@/hooks/useEverSeen.js';
 import { useIsFollowingWallet } from '@/hooks/useIsFollowingWallet.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
 import { useIsWalletMuted } from '@/hooks/useIsWalletMuted.js';
 import { useToggleWatchWallet } from '@/hooks/useToggleWatchWallet.js';
-import { LoginModalRef } from '@/modals/controls.js';
 
 enum State {
     Watch = 'Watch',
@@ -76,7 +76,7 @@ export const WatchButton = memo(function WatchButton({
             onMouseLeave={() => setHovering(false)}
             onClick={() => {
                 if (!isLogin) {
-                    LoginModalRef.open();
+                    openLoginModal();
                     return;
                 }
                 mutation.mutate();

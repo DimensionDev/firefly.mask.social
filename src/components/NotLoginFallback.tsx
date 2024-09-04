@@ -6,9 +6,9 @@ import { type SocialSource, Source } from '@/constants/enum.js';
 import { Image } from '@/esm/Image.js';
 import { classNames } from '@/helpers/classNames.js';
 import { createLookupTableResolver } from '@/helpers/createLookupTableResolver.js';
+import { openLoginModal } from '@/helpers/openLoginModal.js';
 import { resolveFallbackImageUrl } from '@/helpers/resolveFallbackImageUrl.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
-import { LoginModalRef } from '@/modals/controls.js';
 
 const resolveConnectButtonClass = createLookupTableResolver<SocialSource | Source.Article, string>(
     {
@@ -52,7 +52,7 @@ export const NotLoginFallback = memo<NotLoginFallbackProps>(function NotLoginFal
                     source ? resolveConnectButtonClass(source) : undefined,
                 )}
                 onClick={() => {
-                    LoginModalRef.open({ source: isArticle ? undefined : source });
+                    openLoginModal({ source: isArticle ? undefined : source });
                 }}
             >
                 {isArticle ? t`Login` : t`Connect to ${resolveSourceName(source)}`}

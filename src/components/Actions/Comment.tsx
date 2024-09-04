@@ -9,9 +9,10 @@ import { type SocialSource } from '@/constants/enum.js';
 import { classNames } from '@/helpers/classNames.js';
 import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
 import { humanize, nFormatter } from '@/helpers/formatCommentCounts.js';
+import { openLoginModal } from '@/helpers/openLoginModal.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
-import { ComposeModalRef, LoginModalRef } from '@/modals/controls.js';
+import { ComposeModalRef } from '@/modals/controls.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 
 interface CommentProps {
@@ -44,7 +45,7 @@ export const Comment = memo<CommentProps>(function Comment({
 
     const handleClick = useCallback(async () => {
         if (!isLogin) {
-            LoginModalRef.open({ source });
+            openLoginModal({ source });
             return;
         }
         if (canComment) {

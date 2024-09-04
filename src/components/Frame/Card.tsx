@@ -6,8 +6,8 @@ import { Image } from '@/components/Image.js';
 import { type SocialSource } from '@/constants/enum.js';
 import { Link } from '@/esm/Link.js';
 import { getCurrentProfile } from '@/helpers/getCurrentProfile.js';
+import { openLoginModal } from '@/helpers/openLoginModal.js';
 import { parseURL } from '@/helpers/parseURL.js';
-import { LoginModalRef } from '@/modals/controls.js';
 import { ActionType, type Frame, type FrameButton } from '@/types/frame.js';
 
 interface CardProps {
@@ -63,7 +63,7 @@ export function Card({ frame, source, readonly = false, loading = false, onButto
                                     if (button.action === ActionType.Post) {
                                         const profile = getCurrentProfile(source);
                                         if (!profile) {
-                                            LoginModalRef.open({ source });
+                                            openLoginModal({ source });
                                             return;
                                         }
                                     }

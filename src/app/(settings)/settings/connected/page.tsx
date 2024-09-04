@@ -8,11 +8,12 @@ import { Headline } from '@/app/(settings)/components/Headline.js';
 import { Section } from '@/app/(settings)/components/Section.js';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { SORTED_SOCIAL_SOURCES } from '@/constants/index.js';
+import { openLoginModal } from '@/helpers/openLoginModal.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { useAccountsAll } from '@/hooks/useAccounts.js';
 import { useCurrentProfileAll } from '@/hooks/useCurrentProfile.js';
 import { useNavigatorTitle } from '@/hooks/useNavigatorTitle.js';
-import { LoginModalRef, LogoutModalRef } from '@/modals/controls.js';
+import { LogoutModalRef } from '@/modals/controls.js';
 
 export default function Connected() {
     const accountsAll = useAccountsAll();
@@ -43,7 +44,7 @@ export default function Connected() {
                 <ClickableButton
                     className="inline-flex h-10 w-full flex-col items-center justify-center md:w-[200px]"
                     onClick={() => {
-                        LoginModalRef.open();
+                        openLoginModal();
                     }}
                 >
                     <div className="inline-flex h-10 items-center justify-center gap-2 self-stretch rounded-2xl bg-lightMain py-[11px]">

@@ -15,7 +15,7 @@ import { ADVERTISEMENT_JSON_URL } from '@/constants/index.js';
 import { Image } from '@/esm/Image.js';
 import { Link } from '@/esm/Link.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
-import { LoginModalRef } from '@/modals/controls.js';
+import { openLoginModal } from '@/helpers/openLoginModal.js';
 import type { Advertisement } from '@/types/advertisement.js';
 
 export function Advertisement() {
@@ -57,7 +57,7 @@ export function Advertisement() {
                                 onClick={() => {
                                     switch (ad.function) {
                                         case AdFunctionType.OpenScan:
-                                            LoginModalRef.open();
+                                            openLoginModal();
                                             break;
                                         default:
                                             safeUnreachable(ad.function);

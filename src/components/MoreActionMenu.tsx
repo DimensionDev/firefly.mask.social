@@ -4,8 +4,8 @@ import { Fragment } from 'react';
 
 import { type SocialSource } from '@/constants/enum.js';
 import { classNames } from '@/helpers/classNames.js';
+import { openLoginModal } from '@/helpers/openLoginModal.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
-import { LoginModalRef } from '@/modals/controls.js';
 
 interface MoreActionMenuProps extends MenuProps<'div'> {
     button: React.ReactNode;
@@ -44,7 +44,7 @@ export function MoreActionMenu({
                     event.stopPropagation();
                     if (!isLogin && loginRequired) {
                         event.preventDefault();
-                        LoginModalRef.open({ source });
+                        openLoginModal({ source });
                         return;
                     }
                 }}

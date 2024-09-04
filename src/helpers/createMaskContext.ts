@@ -9,9 +9,10 @@ import { SITE_URL } from '@/constants/index.js';
 import { EMPTY_ARRAY, UNDEFINED } from '@/constants/subscription.js';
 import { createRejectCallback } from '@/helpers/createRejectCallback.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
+import { openLoginModal } from '@/helpers/openLoginModal.js';
 import { createSubscriptionFromValueRef } from '@/helpers/subscription.js';
 import { ValueRef } from '@/libs/ValueRef.js';
-import { ComposeModalRef, LoginModalRef } from '@/modals/controls.js';
+import { ComposeModalRef } from '@/modals/controls.js';
 
 export function createMaskUIContext(context?: Partial<__UIContext__>): __UIContext__ {
     return {
@@ -72,7 +73,7 @@ export function createMaskSiteAdaptorContext(context?: Partial<__SiteAdaptorCont
         postMessage: undefined,
         publishPost: undefined,
         requestLogin: (source: SocialSource) => {
-            LoginModalRef.open({ source });
+            openLoginModal({ source });
         },
         ...context,
     };

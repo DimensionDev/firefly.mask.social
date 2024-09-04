@@ -9,10 +9,11 @@ import { switchAccount } from '@/helpers/account.js';
 import { enqueueErrorMessage, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { getSnackbarMessageFromError } from '@/helpers/getSnackbarMessageFromError.js';
 import { isSameProfile } from '@/helpers/isSameProfile.js';
+import { openLoginModal } from '@/helpers/openLoginModal.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { useConnectedAccounts } from '@/hooks/useConnectedAccounts.js';
 import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
-import { LoginModalRef, LogoutModalRef } from '@/modals/controls.js';
+import { LogoutModalRef } from '@/modals/controls.js';
 import type { Account } from '@/providers/types/Account.js';
 
 interface AccountCardProps {
@@ -22,6 +23,7 @@ interface AccountCardProps {
 export function AccountCard({ source }: AccountCardProps) {
     const profile = useCurrentProfile(source);
     const accounts = useConnectedAccounts(source);
+
     const [{ loading }, login] = useAsyncFn(async (nextAccount: Account) => {
         try {
             await switchAccount(nextAccount);
@@ -67,7 +69,7 @@ export function AccountCard({ source }: AccountCardProps) {
                             className="text-right text-medium font-bold leading-none text-main"
                             disabled={loading}
                             onClick={() => {
-                                LoginModalRef.open({
+                                openLoginModal({
                                     source,
                                     options: { expectedProfile: account.profile.profileId },
                                 });

@@ -5,8 +5,8 @@ import { ClickableButton } from '@/components/ClickableButton.js';
 import { switchAccount } from '@/helpers/account.js';
 import { classNames } from '@/helpers/classNames.js';
 import { isSameProfile } from '@/helpers/isSameProfile.js';
+import { openLoginModal } from '@/helpers/openLoginModal.js';
 import { useProfileStore } from '@/hooks/useProfileStore.js';
-import { LoginModalRef } from '@/modals/controls.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 
 interface ProfileLoginStatusProps extends HTMLProps<HTMLDivElement> {
@@ -42,7 +42,7 @@ export function ProfileLoginStatus({ profile, className = '' }: ProfileLoginStat
         <ClickableButton
             className={getButtonClassName('bg-main text-primaryBottom', className)}
             onClick={() =>
-                LoginModalRef.open({
+                openLoginModal({
                     source: profile.source,
                     options: {
                         expectedProfile: profile.profileId,

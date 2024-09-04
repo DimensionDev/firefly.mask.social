@@ -3,11 +3,11 @@ import { useAsyncFn } from 'react-use';
 
 import { enqueueErrorMessage, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { getSnackbarMessageFromError } from '@/helpers/getSnackbarMessageFromError.js';
+import { openLoginModal } from '@/helpers/openLoginModal.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
 import { isProfileMuted } from '@/hooks/useIsProfileMuted.js';
-import { LoginModalRef } from '@/modals/controls.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 
 /**
@@ -18,7 +18,7 @@ export function useToggleMutedProfile(operator: Profile | null) {
     return useAsyncFn(
         async (profile: Profile, overrideMuted?: boolean) => {
             if (!isLogin) {
-                LoginModalRef.open({ source: profile.source });
+                openLoginModal({ source: profile.source });
                 return false;
             }
             const muted = overrideMuted ?? isProfileMuted(profile);
