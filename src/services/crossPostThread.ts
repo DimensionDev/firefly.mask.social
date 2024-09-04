@@ -81,9 +81,11 @@ async function recompositePost(index: number, post: CompositePost, posts: Compos
 }
 
 export async function crossPostThread({
+    signal,
     isRetry = false,
     progressCallback,
 }: {
+    signal?: AbortSignal;
     isRetry?: boolean;
     progressCallback?: (progress: number) => void;
 }) {
@@ -106,6 +108,7 @@ export async function crossPostThread({
             skipRefreshFeeds: index !== posts.length - 1,
             skipCheckPublished: true,
             skipReportCrossedPost: true,
+            signal,
         });
         progressCallback?.((index + 1) / posts.length);
     }

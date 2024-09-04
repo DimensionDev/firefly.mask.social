@@ -17,7 +17,7 @@ import { type CompositePost } from '@/store/useComposeStore.js';
 import { useTwitterStateStore } from '@/store/useProfileStore.js';
 import { type ComposeType, type MediaObject } from '@/types/compose.js';
 
-export async function postToTwitter(type: ComposeType, compositePost: CompositePost) {
+export async function postToTwitter(type: ComposeType, compositePost: CompositePost, signal?: AbortSignal) {
     const { chars, images, video, postId, parentPost, restriction, poll } = compositePost;
 
     const twitterPostId = postId.Twitter;
