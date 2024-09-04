@@ -18,6 +18,7 @@ import { measureChars } from '@/helpers/chars.js';
 import { classNames } from '@/helpers/classNames.js';
 import { isValidPost } from '@/helpers/isValidPost.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
+import { useAbortController } from '@/hooks/useAbortController.js';
 import { useCheckPostMedias } from '@/hooks/useCheckPostMedias.js';
 import { useCompositePost } from '@/hooks/useCompositePost.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
@@ -34,6 +35,8 @@ import { useComposeStateStore } from '@/store/useComposeStore.js';
 interface ComposeSendProps extends React.HTMLAttributes<HTMLDivElement> {}
 
 export function ComposeSend(props: ComposeSendProps) {
+    const controller = useAbortController();
+
     const post = useCompositePost();
     const { type, posts, addPostInThread, draftId } = useComposeStateStore();
     const { scheduleTime } = useComposeScheduleStateStore();
@@ -52,10 +55,12 @@ export function ComposeSend(props: ComposeSendProps) {
         async (isRetry = false) => {
             if (checkPostMedias()) return;
             try {
+                controller.current.renew();
                 if (posts.length > 1) {
                     scheduleTime
                         ? await crossPostScheduleThread(scheduleTime)
                         : await crossPostThread({
+                              signal: controller.current.signal,
                               isRetry,
                               progressCallback: setPercentage,
                           });
@@ -64,6 +69,7 @@ export function ComposeSend(props: ComposeSendProps) {
                         ? await crossSchedulePost(type, post, scheduleTime)
                         : await crossPost(type, post, {
                               isRetry,
+                              signal: controller.current.signal,
                           });
                 }
                 await delay(300);
