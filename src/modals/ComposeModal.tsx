@@ -169,7 +169,7 @@ export const ComposeModalUI = forwardRef<SingletonModalRefCreator<ComposeModalOp
                 const confirmed = await ConfirmModalRef.openAndWaitForClose({
                     title: hasError ? t`Save failed post?` : t`Save Post?`,
                     content: (
-                        <div className="text-main">
+                        <div className="text-[15px] text-main md:text-base">
                             {hasError ? (
                                 <Trans>
                                     You can save the failed parts of posts and send them later from your Drafts.
@@ -179,13 +179,13 @@ export const ComposeModalUI = forwardRef<SingletonModalRefCreator<ComposeModalOp
                             )}
                         </div>
                     ),
-                    enableCloseButton: true,
+                    enableCloseButton: false,
                     enableCancelButton: true,
-                    disableBackdropClose: true,
                     cancelButtonText: t`Discard`,
                     confirmButtonText: t`Save`,
                     variant: 'normal',
                 });
+                if (confirmed === null) return;
 
                 if (confirmed) {
                     addDraft({

@@ -3,7 +3,7 @@ import type { CollectArticleModalOpenProps } from '@/modals/CollectArticleModal.
 import type { ComposeModalCloseProps, ComposeModalOpenProps } from '@/modals/ComposeModal.js';
 import type { ConfirmFireflyModalCloseProps, ConfirmFireflyModalOpenProps } from '@/modals/ConfirmFireflyModal.js';
 import type { ConfirmLeavingModalCloseProps, ConfirmLeavingModalOpenProps } from '@/modals/ConfirmLeavingModal.js';
-import type { ConfirmModalCloseProps, ConfirmModalOpenProps } from '@/modals/ConfirmModal.js';
+import type { ConfirmModalCloseResult, ConfirmModalOpenProps } from '@/modals/ConfirmModal.js';
 import type { DraggablePopoverProps } from '@/modals/DraggablePopover.js';
 import type { EditProfileModalOpenProps } from '@/modals/EditProfileModal.js';
 import type { LoginModalOpenProps } from '@/modals/LoginModal/index.js';
@@ -19,7 +19,7 @@ export const ConnectWalletModalRef = new SingletonModal();
 export const LoginModalRef = new SingletonModal<LoginModalOpenProps | void>();
 export const LogoutModalRef = new SingletonModal<LogoutModalProps | void>();
 export const ComposeModalRef = new SingletonModal<ComposeModalOpenProps, ComposeModalCloseProps>();
-export const ConfirmModalRef = new SingletonModal<ConfirmModalOpenProps, ConfirmModalCloseProps>();
+export const ConfirmModalRef = new SingletonModal<ConfirmModalOpenProps, ConfirmModalCloseResult>();
 export const ConfirmFireflyModalRef = new SingletonModal<ConfirmFireflyModalOpenProps, ConfirmFireflyModalCloseProps>();
 export const ConfirmLeavingModalRef = new SingletonModal<ConfirmLeavingModalOpenProps, ConfirmLeavingModalCloseProps>();
 export const DraggablePopoverRef = new SingletonModal<DraggablePopoverProps>();
