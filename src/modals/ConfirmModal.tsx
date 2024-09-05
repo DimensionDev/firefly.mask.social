@@ -66,7 +66,7 @@ export const ConfirmModal = forwardRef<SingletonModalRefCreator<ConfirmModalOpen
                             <CloseButton
                                 onClick={() => {
                                     props.onCancel?.();
-                                    dispatch?.close(false);
+                                    dispatch?.close(null);
                                 }}
                             />
                         ) : null}
