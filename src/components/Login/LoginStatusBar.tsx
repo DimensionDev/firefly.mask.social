@@ -1,7 +1,6 @@
 'use client';
 
 import { delay } from '@masknet/kit';
-import { useAsyncFn } from 'react-use';
 
 import { ProfileAvatarAdd } from '@/components/Login/ProfileAvatarAdd.js';
 import { ProfileAvatarInteractive } from '@/components/Login/ProfileAvatarInteractive.js';
@@ -21,11 +20,11 @@ export function LoginStatusBar({ collapsed = false }: LoginStatusBarProps) {
 
     const currentProfileAll = useCurrentProfileAll();
 
-    const [{ loading }, onLogin] = useAsyncFn(async (source: SocialSource) => {
+    const onLogin = async (source: SocialSource) => {
         updateSidebarOpen(false);
         await delay(300);
         LoginModalRef.open({ source });
-    }, []);
+    };
 
     return (
         <div
@@ -40,9 +39,7 @@ export function LoginStatusBar({ collapsed = false }: LoginStatusBarProps) {
             })}
 
             {SORTED_SOCIAL_SOURCES.map((x) =>
-                !currentProfileAll[x] ? (
-                    <ProfileAvatarAdd key={x} source={x} loading={loading} onClick={() => onLogin(x)} />
-                ) : null,
+                !currentProfileAll[x] ? <ProfileAvatarAdd key={x} source={x} onClick={() => onLogin(x)} /> : null,
             )}
         </div>
     );
