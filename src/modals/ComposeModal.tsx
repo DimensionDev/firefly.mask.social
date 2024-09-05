@@ -144,7 +144,7 @@ export const ComposeModalUI = forwardRef<SingletonModalRefCreator<ComposeModalOp
             },
         });
 
-        const isSmall = useIsSmall();
+        const isSmall = useIsSmall('max');
         const onClose = useCallback(async () => {
             const { addDraft } = useComposeDraftStateStore.getState();
             const { posts, cursor, draftId, type } = useComposeStateStore.getState();
