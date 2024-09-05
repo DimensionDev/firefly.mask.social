@@ -39,6 +39,7 @@ import { createLocalMediaObject } from '@/helpers/resolveMediaObjectUrl.js';
 import { hasRpPayload, isRpEncrypted, updateRpEncrypted } from '@/helpers/rpPayload.js';
 import { useCompositePost } from '@/hooks/useCompositePost.js';
 import { useCurrentProfile, useCurrentProfileAll } from '@/hooks/useCurrentProfile.js';
+import { useIsSmall } from '@/hooks/useMediaQuery.js';
 import { useSetEditorContent } from '@/hooks/useSetEditorContent.js';
 import { useSingletonModal } from '@/hooks/useSingletonModal.js';
 import type { SingletonModalRefCreator } from '@/libs/SingletonModal.js';
@@ -143,6 +144,7 @@ export const ComposeModalUI = forwardRef<SingletonModalRefCreator<ComposeModalOp
             },
         });
 
+        const isSmall = useIsSmall();
         const onClose = useCallback(async () => {
             const { addDraft } = useComposeDraftStateStore.getState();
             const { posts, cursor, draftId, type } = useComposeStateStore.getState();
@@ -179,7 +181,7 @@ export const ComposeModalUI = forwardRef<SingletonModalRefCreator<ComposeModalOp
                             )}
                         </div>
                     ),
-                    enableCloseButton: false,
+                    enableCloseButton: !isSmall,
                     enableCancelButton: true,
                     cancelButtonText: t`Discard`,
                     confirmButtonText: t`Save`,
@@ -205,7 +207,7 @@ export const ComposeModalUI = forwardRef<SingletonModalRefCreator<ComposeModalOp
             } else {
                 dispatch?.close();
             }
-        }, [dispatch, currentProfileAll]);
+        }, [isSmall, currentProfileAll, dispatch]);
 
         const promoteLink = useMemo(() => {
             const preferSource = SORTED_SOCIAL_SOURCES.find(
