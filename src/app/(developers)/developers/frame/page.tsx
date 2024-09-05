@@ -21,7 +21,7 @@ export default function Frame() {
     const post = useMemo(() => createDummyPost(Source.Farcaster, '', url, [url]), [url]);
 
     const [{ error, loading }, onSubmit] = useAsyncFn(async () => {
-        if (!isValidUrl(url)) throw new Error(t`Invalid URL.`);
+        if (!isValidUrl(url)) throw new Error(t`Invalid URL`);
 
         await fetchJSON(
             urlcat('/api/frame', {
@@ -49,7 +49,7 @@ export default function Frame() {
                     type="text"
                     autoComplete="off"
                     spellCheck="false"
-                    placeholder={t`Your frame URL.`}
+                    placeholder={t`Your frame URL`}
                     onChange={(e) => setUrl(e.target.value)}
                 />
                 <ClickableButton

@@ -81,6 +81,9 @@ msgstr "获取 Blob 失败。"
 msgid "Unmute successfully."
 msgstr "取消隐藏成功。"
 
+msgid "Your frame URL"
+msgstr "您 Frame 的 URL"
+
 msgid "Send a tip"
 msgstr "发送打赏"
 
@@ -1122,9 +1125,6 @@ msgstr "用户"
 msgid "Describe a bug or suggest an improvement"
 msgstr "描述问题或者提出建议"
 
-msgid "Invalid URL."
-msgstr "无效的 URL。"
-
 msgid "{shares, plural, one {Mirror or Quote} other {Mirrors or Quotes}}"
 msgstr "{shares, plural, one {转帖或引用} other {转帖或引用}}"
 
@@ -1287,9 +1287,6 @@ msgstr "帖子"
 msgid "Unable to read image."
 msgstr "获取图片失败。"
 
-msgid "Your website URL."
-msgstr "您网站的 URL。"
-
 msgid "Visit firefly.social"
 msgstr "访问 firefly.social"
 
@@ -1307,9 +1304,6 @@ msgstr "如果存在此功能，项目所有者即使在放弃后也可以重新
 
 msgid "Add wallet"
 msgstr "添加钱包"
-
-msgid "Your Blink URL."
-msgstr "您的 Blink URL。"
 
 msgid "Watch {handleOrEnsOrAddress}"
 msgstr "关注 {handleOrEnsOrAddress}"
@@ -1343,9 +1337,6 @@ msgstr "签名失败。"
 
 msgid "Share"
 msgstr "分享"
-
-msgid "Your frame URL."
-msgstr "您 Frame 的 URL。"
 
 msgid "Scan the QR code with the <0>Firefly mobile app</0> or <1>Camera app</1> to log in instantly."
 msgstr "使用 <0>Firefly 移动应用</0> 或 <1>相机应用</1> 扫描二维码即可即时登录。"
@@ -1400,6 +1391,9 @@ msgstr "访问 mask.io"
 
 msgid "First time connecting to Firefly?<0/>Approve a <1>new connection with Warpcast</1> or <2>sync</2> through the app"
 msgstr ""
+
+msgid "Your website URL"
+msgstr "您网站的 URL"
 
 msgid "No comments found"
 msgstr "未发现评论"
@@ -1529,6 +1523,9 @@ msgstr "投票成功。"
 
 msgid "Muted @{0} on {sourceName}."
 msgstr "在 {sourceName} 上隐藏 @{0}"
+
+msgid "Your Blink URL"
+msgstr "您的 Blink URL"
 
 msgid "Quotes"
 msgstr "引用"
@@ -1964,6 +1961,9 @@ msgstr "取消隐藏"
 
 msgid "No available token"
 msgstr "没有适合的代币"
+
+msgid "Invalid URL"
+msgstr "无效的 URL"
 
 msgid "View on explorer"
 msgstr "在区块链浏览器查看"

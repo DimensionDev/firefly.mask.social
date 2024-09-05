@@ -39,7 +39,7 @@ export default function BlinkPage() {
                     type="text"
                     autoComplete="off"
                     spellCheck="false"
-                    placeholder={t`Your Blink URL.`}
+                    placeholder={t`Your Blink URL`}
                     onChange={(e) => setUrl(e.target.value)}
                 />
             </div>
