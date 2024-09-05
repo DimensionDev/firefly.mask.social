@@ -3,7 +3,7 @@ import { EVMChainResolver } from '@masknet/web3-providers';
 import { useQuery } from '@tanstack/react-query';
 import { estimateFeesPerGas, getBalance } from '@wagmi/core';
 import { useMemo } from 'react';
-import { useAsync, useAsyncFn } from 'react-use';
+import { useAsyncFn } from 'react-use';
 import { useAccount, useChains } from 'wagmi';
 
 import LoadingIcon from '@/assets/loading.svg';
@@ -26,18 +26,62 @@ export function ArticleCollect(props: ArticleCollectProps) {
     const account = useAccount();
     const chains = useChains();
 
-    const { data, isLoading: queryDetailLoading } = useQuery({
+    const { data: result, isLoading: queryDetailLoading } = useQuery({
         enabled: !!props.article,
-        queryKey: ['article', props?.article.platform, props?.article.id, props?.article.origin],
+        queryKey: ['article', props?.article.platform, props?.article.id, props?.article.origin, account.address],
         queryFn: async () => {
             if (!props) return;
             const digest = getArticleDigest(props?.article);
             if (!digest) return;
             const provider = resolveArticleCollectProvider(props.article.platform);
 
-            return provider.getArticleCollectableByDigest(digest);
+            const data = await provider.getArticleCollectableByDigest(digest);
+
+            if (!account.address)
+                return {
+                    data,
+                    hasSufficientBalance: false,
+                };
+
+            const isEIP1559 = EVMChainResolver.isFeatureSupported(data.chainId, 'EIP1559');
+            const { gasPrice, maxFeePerGas } = await estimateFeesPerGas(config, {
+                chainId: data.chainId,
+                type: isEIP1559 ? 'eip1559' : 'legacy',
+            });
+
+            const gasLimit = await provider.estimateCollectGas(data);
+
+            const balance = await getBalance(config, {
+                address: account.address,
+                chainId: data.chainId,
+            });
+
+            const gasFee = isEIP1559
+                ? !maxFeePerGas
+                    ? ZERO
+                    : multipliedBy(maxFeePerGas.toString(), gasLimit.toString())
+                : !gasPrice
+                  ? ZERO
+                  : multipliedBy(gasPrice.toString(), gasLimit.toString());
+
+            const price = data.price ? BigInt(rightShift(data.price, 18).toString()) : 0n;
+
+            const total = price + data.fee + BigInt(gasFee.toString());
+
+            if (total > balance.value) {
+                return {
+                    data,
+                    hasSufficientBalance: false,
+                };
+            }
+            return {
+                data,
+                hasSufficientBalance: true,
+            };
         },
     });
+
+    const { data, hasSufficientBalance } = result ?? {};
 
     const [{ loading: collectLoading }, handleCollect] = useAsyncFn(async () => {
         if (!data || !props?.article.platform) return;
@@ -52,40 +96,6 @@ export function ArticleCollect(props: ArticleCollectProps) {
             throw error;
         }
     }, [account, data, props?.article.platform]);
-
-    const { value: hasSufficientBalance, loading: queryBalanceLoading } = useAsync(async () => {
-        if (!data || !props?.article.platform || !account.isConnected || !account?.address) return false;
-
-        const provider = resolveArticleCollectProvider(props?.article.platform);
-
-        const isEIP1559 = EVMChainResolver.isFeatureSupported(data.chainId, 'EIP1559');
-        const { gasPrice, maxFeePerGas } = await estimateFeesPerGas(config, {
-            chainId: data.chainId,
-            type: isEIP1559 ? 'eip1559' : 'legacy',
-        });
-        const gasLimit = await provider.estimateCollectGas(data);
-        const balance = await getBalance(config, {
-            address: account.address,
-            chainId: data.chainId,
-        });
-
-        const gasFee = isEIP1559
-            ? !maxFeePerGas
-                ? ZERO
-                : multipliedBy(maxFeePerGas.toString(), gasLimit.toString())
-            : !gasPrice
-              ? ZERO
-              : multipliedBy(gasPrice.toString(), gasLimit.toString());
-
-        const price = data.price ? BigInt(rightShift(data.price, 18).toString()) : 0n;
-
-        const total = price + data.fee + BigInt(gasFee.toString());
-
-        if (total > balance.value) {
-            return false;
-        }
-        return true;
-    }, [data, account.isConnected, account.address, props?.article.platform]);
 
     const chain = chains.find((x) => x.id === data?.chainId);
     const isSoldOut = !!data?.quantity && data.soldCount >= data.quantity;
@@ -163,7 +173,7 @@ export function ArticleCollect(props: ArticleCollectProps) {
                 targetChainId={data?.chainId}
                 className="mt-6 w-full max-md:mt-4"
                 disabled={data?.isCollected || isSoldOut || (account.isConnected && !hasSufficientBalance)}
-                loading={collectLoading || queryDetailLoading || queryBalanceLoading}
+                loading={collectLoading || queryDetailLoading}
                 onClick={handleCollect}
             >
                 {buttonText}

@@ -3,10 +3,10 @@ import urlcat from 'urlcat';
 import { createPublicClient, http, parseSignature, zeroAddress } from 'viem';
 import { polygon } from 'viem/chains';
 
-import { MirrorABI, MirrorFactoryABI } from '@/abis/Mirror.js';
+import { MirrorABI, MirrorFactoryABI, OldMirrorABI } from '@/abis/Mirror.js';
 import { chains, config } from '@/configs/wagmiClient.js';
 import { NotImplementedError } from '@/constants/error.js';
-import { MIRROR_COLLECT_FEE, MIRROR_COLLECT_FEE_IN_POLYGON } from '@/constants/index.js';
+import { MIRROR_COLLECT_FEE, MIRROR_COLLECT_FEE_IN_POLYGON, MIRROR_OLD_FACTOR_ADDRESSES } from '@/constants/index.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
 import { isSameAddress } from '@/helpers/isSameAddress.js';
 import { rightShift } from '@/helpers/number.js';
@@ -127,11 +127,14 @@ class Mirror implements Provider {
             });
         }
 
+        const isOld = MIRROR_OLD_FACTOR_ADDRESSES.some((x) => isSameAddress(x, article.factorAddress));
+        const ABI = isOld ? OldMirrorABI : MirrorABI;
+
         return client.estimateContractGas({
             address: article.contractAddress as `0x${string}`,
-            abi: MirrorABI,
+            abi: ABI,
             functionName: 'purchase',
-            args: [account.address, '', zeroAddress],
+            args: isOld ? [account.address, ''] : [account.address, '', zeroAddress],
             value: article.fee + price,
         });
     }
@@ -173,11 +176,14 @@ class Mirror implements Provider {
             return getTransactionConfirmations(config, { hash });
         }
 
+        const isOld = MIRROR_OLD_FACTOR_ADDRESSES.some((x) => isSameAddress(x, article.factorAddress));
+        const ABI = isOld ? OldMirrorABI : MirrorABI;
+
         const hash = await writeContract(config, {
-            abi: MirrorABI,
+            abi: ABI,
             address: article.contractAddress as `0x${string}`,
             functionName: 'purchase',
-            args: [account.address, '', zeroAddress],
+            args: isOld ? [account.address, ''] : [account.address, '', zeroAddress],
             value: article.fee + price,
         });
 
