@@ -81,6 +81,9 @@ msgstr ""
 msgid "Unmute successfully."
 msgstr ""
 
+msgid "Your frame URL"
+msgstr ""
+
 msgid "Send a tip"
 msgstr ""
 
@@ -1122,9 +1125,6 @@ msgstr ""
 msgid "Describe a bug or suggest an improvement"
 msgstr ""
 
-msgid "Invalid URL."
-msgstr ""
-
 msgid "{shares, plural, one {Mirror or Quote} other {Mirrors or Quotes}}"
 msgstr ""
 
@@ -1287,9 +1287,6 @@ msgstr ""
 msgid "Unable to read image."
 msgstr ""
 
-msgid "Your website URL."
-msgstr ""
-
 msgid "Visit firefly.social"
 msgstr ""
 
@@ -1306,9 +1303,6 @@ msgid "If this function exists, it is possible for the project owner to regain o
 msgstr ""
 
 msgid "Add wallet"
-msgstr ""
-
-msgid "Your Blink URL."
 msgstr ""
 
 msgid "Watch {handleOrEnsOrAddress}"
@@ -1342,9 +1336,6 @@ msgid "Signing failed."
 msgstr ""
 
 msgid "Share"
-msgstr ""
-
-msgid "Your frame URL."
 msgstr ""
 
 msgid "Scan the QR code with the <0>Firefly mobile app</0> or <1>Camera app</1> to log in instantly."
@@ -1399,6 +1390,9 @@ msgid "Visit mask.io"
 msgstr ""
 
 msgid "First time connecting to Firefly?<0/>Approve a <1>new connection with Warpcast</1> or <2>sync</2> through the app"
+msgstr ""
+
+msgid "Your website URL"
 msgstr ""
 
 msgid "No comments found"
@@ -1528,6 +1522,9 @@ msgid "Voted successfully."
 msgstr ""
 
 msgid "Muted @{0} on {sourceName}."
+msgstr ""
+
+msgid "Your Blink URL"
 msgstr ""
 
 msgid "Quotes"
@@ -1963,6 +1960,9 @@ msgid "Unmute"
 msgstr ""
 
 msgid "No available token"
+msgstr ""
+
+msgid "Invalid URL"
 msgstr ""
 
 msgid "View on explorer"

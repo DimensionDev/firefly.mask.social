@@ -81,6 +81,9 @@ msgstr ""
 msgid "Unmute successfully."
 msgstr "已成功取消靜音"
 
+msgid "Your frame URL"
+msgstr ""
+
 msgid "Send a tip"
 msgstr "發送小費"
 
@@ -1122,9 +1125,6 @@ msgstr "用戶"
 msgid "Describe a bug or suggest an improvement"
 msgstr "描述錯誤或提供改進建議"
 
-msgid "Invalid URL."
-msgstr "無效的 URL"
-
 msgid "{shares, plural, one {Mirror or Quote} other {Mirrors or Quotes}}"
 msgstr ""
 
@@ -1287,9 +1287,6 @@ msgstr "發表"
 msgid "Unable to read image."
 msgstr ""
 
-msgid "Your website URL."
-msgstr "你的網站連結"
-
 msgid "Visit firefly.social"
 msgstr "訪問 firefly.social"
 
@@ -1307,9 +1304,6 @@ msgstr ""
 
 msgid "Add wallet"
 msgstr "新增錢包"
-
-msgid "Your Blink URL."
-msgstr ""
 
 msgid "Watch {handleOrEnsOrAddress}"
 msgstr ""
@@ -1343,9 +1337,6 @@ msgstr ""
 
 msgid "Share"
 msgstr "分享"
-
-msgid "Your frame URL."
-msgstr ""
 
 msgid "Scan the QR code with the <0>Firefly mobile app</0> or <1>Camera app</1> to log in instantly."
 msgstr ""
@@ -1400,6 +1391,9 @@ msgstr "訪問 mask.io"
 
 msgid "First time connecting to Firefly?<0/>Approve a <1>new connection with Warpcast</1> or <2>sync</2> through the app"
 msgstr ""
+
+msgid "Your website URL"
+msgstr "你的網站連結"
 
 msgid "No comments found"
 msgstr "未找到評論"
@@ -1529,6 +1523,9 @@ msgstr "已成功投票"
 
 msgid "Muted @{0} on {sourceName}."
 msgstr "已在 {sourceName} 上靜音 @{0}"
+
+msgid "Your Blink URL"
+msgstr ""
 
 msgid "Quotes"
 msgstr "引用"
@@ -1964,6 +1961,9 @@ msgstr "取消靜音"
 
 msgid "No available token"
 msgstr ""
+
+msgid "Invalid URL"
+msgstr "無效的 URL"
 
 msgid "View on explorer"
 msgstr ""
