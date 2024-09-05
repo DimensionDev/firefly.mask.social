@@ -31,12 +31,12 @@ export const GET = compose(withRequestErrorHandler(), async (request: NextReques
 
     return createResponseJSON(
         produce(response.data.action, (action) => {
+            const actionApiUrl = response.data!.actionApiUrl;
             action.url = response.data!.actionUrl;
+            action.apiUrl = actionApiUrl;
             if (action.links?.actions) {
                 for (const x of action.links.actions) {
-                    x.href = x.href.startsWith('http')
-                        ? x.href
-                        : urlcat(parseURL(response.data!.actionApiUrl)!.origin, x.href);
+                    x.href = x.href.startsWith('http') ? x.href : urlcat(parseURL(actionApiUrl)!.origin, x.href);
                 }
             }
         }),
@@ -51,9 +51,14 @@ export const POST = compose(withRequestErrorHandler(), async (request: NextReque
         }),
     );
     const body = await request.json();
-    const response = await fetchJSON(url, {
+    const res = await fetch(url, {
         method: 'POST',
         body: JSON.stringify(body),
+        headers: {
+            'Content-Type': 'application/json',
+        },
     });
-    return createResponseJSON(response);
+    return createResponseJSON(await res.json(), {
+        status: res.status,
+    });
 });

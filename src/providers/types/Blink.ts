@@ -17,6 +17,7 @@ export interface ActionGetResponse {
     // e.g. can be used together with 'disabled' to display the reason: business constraints, authorization
     error?: ActionError;
     url?: string;
+    apiUrl?: string;
 }
 
 export interface ActionPostResponse {
