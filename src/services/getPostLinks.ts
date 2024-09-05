@@ -11,6 +11,7 @@ import { parseURL } from '@/helpers/parseURL.js';
 import { isValidPollFrameUrl } from '@/helpers/resolveEmbedMediaType.js';
 import { resolveTCOLink } from '@/helpers/resolveTCOLink.js';
 import { getPostIFrame } from '@/providers/og/readers/iframe.js';
+import type { ActionGetResponse } from '@/providers/types/Blink.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 import type { Frame, LinkDigestedResponse } from '@/types/frame.js';
 import type { ResponseJSON } from '@/types/index.js';
@@ -45,12 +46,25 @@ export async function getPostBlinkAction(url: string): Promise<Action | null> {
     if (!url || !isValidPostLink(url)) return null;
     const actionUrl = (await resolveTCOLink(url)) ?? url;
     setProxyUrl(urlcat(location.origin, '/api/blink/proxy'));
+    const action = await Action.fetch(actionUrl);
+    // @ts-ignore _data is private, fix the URL after proxy
+    const data = action._data as ActionGetResponse;
+    const actions = !data.links?.actions
+        ? action.actions.map(
+              (x) =>
+                  new Proxy(x, {
+                      get(tg, p, r) {
+                          if (p === 'href' && data.apiUrl) return data.apiUrl;
+                          return Reflect.get(tg, p, r);
+                      },
+                  }),
+          )
+        : action.actions;
     return new Proxy(await Action.fetch(actionUrl), {
         get(target, prop, receiver) {
-            // @ts-ignore _data is private, action using a proxy image, it is necessary to remove the proxy here https://github.com/dialectlabs/blinks/blob/f470e5815732f7efb6359c871598cc3ad059b26c/src/api/Action/Action.ts#L118
-            if (prop === 'icon') return target._data.icon;
-            // @ts-ignore _data is private, fix the URL after proxy
-            if (prop === 'url' && target._data.url) return target._data.url;
+            if (prop === 'icon') return data.icon;
+            if (prop === 'url' && data.url) return data.url;
+            if (prop === 'actions') return actions;
             return Reflect.get(target, prop, receiver);
         },
     });
