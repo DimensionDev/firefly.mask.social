@@ -179,13 +179,13 @@ export const ComposeModalUI = forwardRef<SingletonModalRefCreator<ComposeModalOp
                             )}
                         </div>
                     ),
-                    enableCloseButton: true,
+                    enableCloseButton: false,
                     enableCancelButton: true,
-                    disableBackdropClose: true,
                     cancelButtonText: t`Discard`,
                     confirmButtonText: t`Save`,
                     variant: 'normal',
                 });
+                if (confirmed === null) return;
 
                 if (confirmed) {
                     addDraft({

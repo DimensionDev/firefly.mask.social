@@ -22,9 +22,10 @@ export interface ConfirmModalOpenProps {
     variant?: 'normal' | 'danger';
 }
 
-export type ConfirmModalCloseProps = boolean;
+/** Dismissing dialog returns null */
+export type ConfirmModalCloseResult = boolean | null;
 
-export const ConfirmModal = forwardRef<SingletonModalRefCreator<ConfirmModalOpenProps, ConfirmModalCloseProps>>(
+export const ConfirmModal = forwardRef<SingletonModalRefCreator<ConfirmModalOpenProps, ConfirmModalCloseResult>>(
     function ConfirmModal(_, ref) {
         const [props, setProps] = useState<ConfirmModalOpenProps>();
 
@@ -50,7 +51,7 @@ export const ConfirmModal = forwardRef<SingletonModalRefCreator<ConfirmModalOpen
                 open={open}
                 onClose={() => {
                     props.onCancel?.();
-                    dispatch?.close(false);
+                    dispatch?.close(null);
                 }}
             >
                 <div
