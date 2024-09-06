@@ -94,6 +94,10 @@ class NeynarSocialMedia implements Provider {
         throw new NotImplementedError();
     }
 
+    actPost(postId: string, options: unknown): Promise<void> {
+        throw new NotImplementedError();
+    }
+
     async getLikedPostsByProfileId(
         profileId: string,
         indicator?: PageIndicator,

@@ -8,6 +8,7 @@ import { classNames } from '@/helpers/classNames.js';
 import { getCurrentPostImageLimits } from '@/helpers/getCurrentPostImageLimits.js';
 import { isImageFileType } from '@/helpers/isImageFileType.js';
 import { isValidFileType } from '@/helpers/isValidFileType.js';
+import { isVideoFileType } from '@/helpers/isVideoFileType.js';
 import { useCompositePost } from '@/hooks/useCompositePost.js';
 import { useComposeStateStore } from '@/store/useComposeStore.js';
 
@@ -43,9 +44,9 @@ export const UploadDropArea = memo(
                 e.preventDefault();
                 setIsDragging(true);
                 if (!e.dataTransfer) return;
-                const files = [...e.dataTransfer.files];
-                const canDropVideo = disableVideo ? false : files.some((file) => isValidFileType(file.type));
-                const canDropImage = disableImage ? false : files.some((file) => isImageFileType(file.type));
+                const items = [...e.dataTransfer.items].filter((item) => item.kind === 'file');
+                const canDropVideo = disableVideo ? false : items.some((item) => isVideoFileType(item.type));
+                const canDropImage = disableImage ? false : items.some((file) => isImageFileType(file.type));
                 const canDrop = canDropVideo || canDropImage;
                 setCanDrop(canDrop);
             };

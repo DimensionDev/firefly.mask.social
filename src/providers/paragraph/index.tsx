@@ -54,7 +54,6 @@ class Paragraph implements Provider {
         const data = response.data;
         if (!data) throw new Error('Failed to fetch article detail.');
 
-        let isCollected = false;
         let soldCount = 0;
 
         const chainId = resolveParagraphChain(data.chain);
@@ -62,15 +61,6 @@ class Paragraph implements Provider {
 
         if (data.contractAddress) {
             try {
-                const account = getAccount(config);
-                const balance = await readContract(config, {
-                    abi: ParagraphABI,
-                    address: data.contractAddress as `0x${string}`,
-                    functionName: 'balanceOf',
-                    args: [account.address],
-                    chainId,
-                });
-
                 const totalSupply = await readContract(config, {
                     abi: ParagraphABI,
                     address: data.contractAddress as `0x${string}`,
@@ -81,12 +71,7 @@ class Paragraph implements Provider {
                 if (totalSupply) {
                     soldCount = Number(totalSupply);
                 }
-
-                if (BigInt(balance as bigint) >= 1) {
-                    isCollected = true;
-                }
             } catch {
-                isCollected = false;
                 soldCount = 0;
             }
         }
@@ -96,7 +81,7 @@ class Paragraph implements Provider {
             soldCount,
             chainId,
             contractAddress: data.contractAddress,
-            isCollected,
+            isCollected: false,
             price: data.costEth ? Number(data.costEth) : null,
             fee: chainId !== polygon.id ? PARAGRAPH_COLLECT_FEE : PARAGRAPH_COLLECT_FEE_IN_POLYGON,
             symbol: data.symbol,

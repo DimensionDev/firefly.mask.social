@@ -54,6 +54,9 @@ msgstr ""
 msgid "Confirm to disconnect this wallet and related accounts from Firefly’s social graph?"
 msgstr ""
 
+msgid "Allow Collect Module"
+msgstr ""
+
 msgid "New connect with Warpcast"
 msgstr "通過 Warpcast 的新連接"
 
@@ -77,6 +80,9 @@ msgstr ""
 
 msgid "Unmute successfully."
 msgstr "已成功取消靜音"
+
+msgid "Your frame URL"
+msgstr ""
 
 msgid "Send a tip"
 msgstr "發送小費"
@@ -185,9 +191,6 @@ msgstr "搜尋用戶"
 
 msgid "Airdrop Scam"
 msgstr "空投騙局"
-
-msgid "Collect Action is not supported yet."
-msgstr "暫未接受收集功能。"
 
 msgid "Overwrite"
 msgstr "覆寫"
@@ -429,6 +432,9 @@ msgstr "通過 Firefly 重新連接"
 msgid "Only up to 2 images can be chosen."
 msgstr "最多只能選擇 2 張圖片"
 
+msgid "Follow to Collect"
+msgstr ""
+
 msgid "{0, select, Image {[Image]} Video {[Video]} Audio {[Audio]} Poll {[Poll]} other {}}"
 msgstr ""
 
@@ -455,6 +461,9 @@ msgstr "在 {sourceName} 上取消追蹤 @{0} 失敗。"
 
 msgid "Watch"
 msgstr "觀察"
+
+msgid "Time Out"
+msgstr ""
 
 msgid "24 Hour Trading Vol"
 msgstr "24 小時交易量"
@@ -503,6 +512,9 @@ msgstr "已轉發"
 
 msgid "Add another post..."
 msgstr "加入另一則貼文..."
+
+msgid "1m left"
+msgstr ""
 
 msgid "Items"
 msgstr "物品"
@@ -1116,9 +1128,6 @@ msgstr "用戶"
 msgid "Describe a bug or suggest an improvement"
 msgstr "描述錯誤或提供改進建議"
 
-msgid "Invalid URL."
-msgstr "無效的 URL"
-
 msgid "{shares, plural, one {Mirror or Quote} other {Mirrors or Quotes}}"
 msgstr ""
 
@@ -1281,9 +1290,6 @@ msgstr "發表"
 msgid "Unable to read image."
 msgstr ""
 
-msgid "Your website URL."
-msgstr "你的網站連結"
-
 msgid "Visit firefly.social"
 msgstr "訪問 firefly.social"
 
@@ -1302,9 +1308,6 @@ msgstr ""
 msgid "Add wallet"
 msgstr "新增錢包"
 
-msgid "Your Blink URL."
-msgstr ""
-
 msgid "Watch {handleOrEnsOrAddress}"
 msgstr ""
 
@@ -1318,6 +1321,9 @@ msgid "Show more comments"
 msgstr "顯示更多評論"
 
 msgid "Failed to parse session."
+msgstr ""
+
+msgid "Exclusivity"
 msgstr ""
 
 msgid "Feedback"
@@ -1334,9 +1340,6 @@ msgstr ""
 
 msgid "Share"
 msgstr "分享"
-
-msgid "Your frame URL."
-msgstr ""
 
 msgid "Scan the QR code with the <0>Firefly mobile app</0> or <1>Camera app</1> to log in instantly."
 msgstr ""
@@ -1391,6 +1394,9 @@ msgstr "訪問 mask.io"
 
 msgid "First time connecting to Firefly?<0/>Approve a <1>new connection with Warpcast</1> or <2>sync</2> through the app"
 msgstr ""
+
+msgid "Your website URL"
+msgstr "你的網站連結"
 
 msgid "No comments found"
 msgstr "未找到評論"
@@ -1521,6 +1527,9 @@ msgstr "已成功投票"
 msgid "Muted @{0} on {sourceName}."
 msgstr "已在 {sourceName} 上靜音 @{0}"
 
+msgid "Your Blink URL"
+msgstr ""
+
 msgid "Quotes"
 msgstr "引用"
 
@@ -1547,6 +1556,9 @@ msgstr ""
 
 msgid "Show more"
 msgstr "顯示更多"
+
+msgid "Time Limit"
+msgstr ""
 
 msgid "Post removed from your Bookmarks"
 msgstr "貼文已從你的書籤中移除"
@@ -1770,6 +1782,9 @@ msgstr "新增"
 msgid "Failed to upload. Gif size exceeds {0}"
 msgstr ""
 
+msgid "{days}d left"
+msgstr ""
+
 msgid "Log out all"
 msgstr "退出所有登錄"
 
@@ -1878,6 +1893,9 @@ msgstr ""
 msgid "Connecting Wallet"
 msgstr ""
 
+msgid "{minutes}m left"
+msgstr ""
+
 msgid "Total Supply"
 msgstr ""
 
@@ -1923,6 +1941,9 @@ msgstr "統計數據"
 msgid "Failed to upload. Video length exceeds {minDuration}s ~ {maxDuration}s"
 msgstr ""
 
+msgid "Post collected successfully!"
+msgstr ""
+
 msgid "Your post have published successfully on {0}."
 msgstr "你的貼文已成功發布在 {0} 上。"
 
@@ -1943,6 +1964,9 @@ msgstr "取消靜音"
 
 msgid "No available token"
 msgstr ""
+
+msgid "Invalid URL"
+msgstr "無效的 URL"
 
 msgid "View on explorer"
 msgstr ""
@@ -2010,6 +2034,9 @@ msgstr ""
 msgid "<0>since </0> <1>{0}</1>"
 msgstr ""
 
+msgid "{hours}h left"
+msgstr ""
+
 msgid "{0} Users"
 msgstr ""
 
@@ -2029,6 +2056,9 @@ msgid "Failed to parse transaction."
 msgstr ""
 
 msgid "No anti_whale(Unlimited number of transactions)"
+msgstr ""
+
+msgid "Failed to collect post."
 msgstr ""
 
 msgid "<0>Burned</0> an NFT"

@@ -1,18 +1,23 @@
-import { Action, setProxyUrl } from '@dialectlabs/blinks';
+import { Action, type ActionGetResponse, setProxyUrl } from '@dialectlabs/blinks';
 import { safeUnreachable } from '@masknet/kit';
 import urlcat from 'urlcat';
 
 import { FrameProtocol, Source, STATUS } from '@/constants/enum.js';
 import { env } from '@/constants/env.js';
+import { LIMO_REGEXP } from '@/constants/regexp.js';
 import { attemptUntil } from '@/helpers/attemptUntil.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
 import { isValidDomain } from '@/helpers/isValidDomain.js';
+import { Md5 } from '@/helpers/md5.js';
 import { parseURL } from '@/helpers/parseURL.js';
 import { isValidPollFrameUrl } from '@/helpers/resolveEmbedMediaType.js';
 import { resolveTCOLink } from '@/helpers/resolveTCOLink.js';
+import { FireflyArticleProvider } from '@/providers/firefly/Article.js';
 import { getPostIFrame } from '@/providers/og/readers/iframe.js';
-import type { ActionGetResponse } from '@/providers/types/Blink.js';
+import type { Article } from '@/providers/types/Article.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
+import { settings } from '@/settings/index.js';
+import type { FireflyBlinkParserBlinkResponse } from '@/types/blink.js';
 import type { Frame, LinkDigestedResponse } from '@/types/frame.js';
 import type { ResponseJSON } from '@/types/index.js';
 import type { LinkDigested } from '@/types/og.js';
@@ -45,26 +50,21 @@ export async function getPostBlinkAction(url: string): Promise<Action | null> {
     if (env.external.NEXT_PUBLIC_BLINK !== STATUS.Enabled) return null;
     if (!url || !isValidPostLink(url)) return null;
     const actionUrl = (await resolveTCOLink(url)) ?? url;
+    const response = await fetchJSON<FireflyBlinkParserBlinkResponse>(
+        urlcat(settings.FIREFLY_ROOT_URL, '/v1/solana/blinks/parse'),
+        {
+            method: 'POST',
+            body: JSON.stringify({ url: actionUrl }),
+        },
+    );
+    if (!response.data) return null;
     setProxyUrl(urlcat(location.origin, '/api/blink/proxy'));
-    const action = await Action.fetch(actionUrl);
+    const action = await Action.fetch(response.data.actionApiUrl);
     // @ts-ignore _data is private, fix the URL after proxy
     const data = action._data as ActionGetResponse;
-    const actions = !data.links?.actions
-        ? action.actions.map(
-              (x) =>
-                  new Proxy(x, {
-                      get(tg, p, r) {
-                          if (p === 'href' && data.apiUrl) return data.apiUrl;
-                          return Reflect.get(tg, p, r);
-                      },
-                  }),
-          )
-        : action.actions;
-    return new Proxy(await Action.fetch(actionUrl), {
+    return new Proxy(action, {
         get(target, prop, receiver) {
             if (prop === 'icon') return data.icon;
-            if (prop === 'url' && data.url) return data.url;
-            if (prop === 'actions') return actions;
             return Reflect.get(target, prop, receiver);
         },
     });
@@ -88,8 +88,15 @@ export async function getPostLinks(url: string, post: Post) {
         frame?: Frame;
         action?: Action;
         html?: string;
+        article?: Article;
     } | null>(
         [
+            async () => {
+                if (!LIMO_REGEXP.test(url)) return null;
+                const id = Md5.hashStr(url);
+                const article = await FireflyArticleProvider.getArticleById(id);
+                return article ? { article } : null;
+            },
             async () => {
                 // try iframe first. As we don't have to call other services if matched
                 const html = getPostIFrame(null, url);

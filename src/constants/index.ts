@@ -29,7 +29,7 @@ export const FARCASTER_REPLY_URL = 'https://relay.farcaster.xyz';
 export const WARPCAST_ROOT_URL = 'https://api.warpcast.com/v2';
 export const WARPCAST_CLIENT_URL = 'https://client.warpcast.com/v2';
 export const FIREFLY_ROOT_URL = env.external.NEXT_PUBLIC_FIREFLY_API_URL;
-export const FIREFLY_DEV_ROOT_URL = 'https://api-dev.firefly.land';
+export const FIREFLY_DEV_ROOT_URL = 'https://api.firefly.land';
 export const FIREFLY_STAMP_URL = 'https://stamp.firefly.land/avatar';
 export const HEY_IPFS_GW_URL = 'https://gw.ipfs-lens.dev/ipfs';
 export const DSEARCH_BASE_URL = 'https://dsearch.mask.r2d2.to';
@@ -227,6 +227,8 @@ export const PARAGRAPH_COLLECT_FEE_IN_POLYGON = 2000000000000000000n;
 export const THIRTY_DAYS = 1000 * 60 * 60 * 24 * 30;
 
 export const MAX_SIZE_PER_CHUNK = 2 * 1024 * 1024; // 2MB
+
+export const VITALIK_ADDRESS = '0xd8da6bf26964af9d7eed9e03e53415d37aa96045';
 
 export const MIRROR_OLD_FACTOR_ADDRESSES = [
     '0x302f746eE2fDC10DDff63188f71639094717a766',

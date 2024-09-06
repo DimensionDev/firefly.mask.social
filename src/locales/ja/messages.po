@@ -54,6 +54,9 @@ msgstr ""
 msgid "Confirm to disconnect this wallet and related accounts from Firefly’s social graph?"
 msgstr ""
 
+msgid "Allow Collect Module"
+msgstr ""
+
 msgid "New connect with Warpcast"
 msgstr ""
 
@@ -76,6 +79,9 @@ msgid "Failed to fetch as Blob."
 msgstr ""
 
 msgid "Unmute successfully."
+msgstr ""
+
+msgid "Your frame URL"
 msgstr ""
 
 msgid "Send a tip"
@@ -184,9 +190,6 @@ msgid "Searching users"
 msgstr ""
 
 msgid "Airdrop Scam"
-msgstr ""
-
-msgid "Collect Action is not supported yet."
 msgstr ""
 
 msgid "Overwrite"
@@ -429,6 +432,9 @@ msgstr ""
 msgid "Only up to 2 images can be chosen."
 msgstr ""
 
+msgid "Follow to Collect"
+msgstr ""
+
 msgid "{0, select, Image {[Image]} Video {[Video]} Audio {[Audio]} Poll {[Poll]} other {}}"
 msgstr ""
 
@@ -454,6 +460,9 @@ msgid "Failed to unfollow @{0} on {sourceName}."
 msgstr ""
 
 msgid "Watch"
+msgstr ""
+
+msgid "Time Out"
 msgstr ""
 
 msgid "24 Hour Trading Vol"
@@ -502,6 +511,9 @@ msgid "Reposted"
 msgstr ""
 
 msgid "Add another post..."
+msgstr ""
+
+msgid "1m left"
 msgstr ""
 
 msgid "Items"
@@ -1116,9 +1128,6 @@ msgstr ""
 msgid "Describe a bug or suggest an improvement"
 msgstr ""
 
-msgid "Invalid URL."
-msgstr ""
-
 msgid "{shares, plural, one {Mirror or Quote} other {Mirrors or Quotes}}"
 msgstr ""
 
@@ -1281,9 +1290,6 @@ msgstr ""
 msgid "Unable to read image."
 msgstr ""
 
-msgid "Your website URL."
-msgstr ""
-
 msgid "Visit firefly.social"
 msgstr ""
 
@@ -1302,9 +1308,6 @@ msgstr ""
 msgid "Add wallet"
 msgstr ""
 
-msgid "Your Blink URL."
-msgstr ""
-
 msgid "Watch {handleOrEnsOrAddress}"
 msgstr ""
 
@@ -1320,6 +1323,9 @@ msgstr ""
 msgid "Failed to parse session."
 msgstr ""
 
+msgid "Exclusivity"
+msgstr ""
+
 msgid "Feedback"
 msgstr ""
 
@@ -1333,9 +1339,6 @@ msgid "Signing failed."
 msgstr ""
 
 msgid "Share"
-msgstr ""
-
-msgid "Your frame URL."
 msgstr ""
 
 msgid "Scan the QR code with the <0>Firefly mobile app</0> or <1>Camera app</1> to log in instantly."
@@ -1390,6 +1393,9 @@ msgid "Visit mask.io"
 msgstr ""
 
 msgid "First time connecting to Firefly?<0/>Approve a <1>new connection with Warpcast</1> or <2>sync</2> through the app"
+msgstr ""
+
+msgid "Your website URL"
 msgstr ""
 
 msgid "No comments found"
@@ -1521,6 +1527,9 @@ msgstr ""
 msgid "Muted @{0} on {sourceName}."
 msgstr ""
 
+msgid "Your Blink URL"
+msgstr ""
+
 msgid "Quotes"
 msgstr ""
 
@@ -1546,6 +1555,9 @@ msgid "Attendance"
 msgstr ""
 
 msgid "Show more"
+msgstr ""
+
+msgid "Time Limit"
 msgstr ""
 
 msgid "Post removed from your Bookmarks"
@@ -1770,6 +1782,9 @@ msgstr ""
 msgid "Failed to upload. Gif size exceeds {0}"
 msgstr ""
 
+msgid "{days}d left"
+msgstr ""
+
 msgid "Log out all"
 msgstr ""
 
@@ -1878,6 +1893,9 @@ msgstr ""
 msgid "Connecting Wallet"
 msgstr ""
 
+msgid "{minutes}m left"
+msgstr ""
+
 msgid "Total Supply"
 msgstr ""
 
@@ -1923,6 +1941,9 @@ msgstr ""
 msgid "Failed to upload. Video length exceeds {minDuration}s ~ {maxDuration}s"
 msgstr ""
 
+msgid "Post collected successfully!"
+msgstr ""
+
 msgid "Your post have published successfully on {0}."
 msgstr ""
 
@@ -1942,6 +1963,9 @@ msgid "Unmute"
 msgstr ""
 
 msgid "No available token"
+msgstr ""
+
+msgid "Invalid URL"
 msgstr ""
 
 msgid "View on explorer"
@@ -2010,6 +2034,9 @@ msgstr ""
 msgid "<0>since </0> <1>{0}</1>"
 msgstr ""
 
+msgid "{hours}h left"
+msgstr ""
+
 msgid "{0} Users"
 msgstr ""
 
@@ -2029,6 +2056,9 @@ msgid "Failed to parse transaction."
 msgstr ""
 
 msgid "No anti_whale(Unlimited number of transactions)"
+msgstr ""
+
+msgid "Failed to collect post."
 msgstr ""
 
 msgid "<0>Burned</0> an NFT"

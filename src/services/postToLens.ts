@@ -14,6 +14,7 @@ import { uploadVideoCover } from '@/helpers/uploadVideoCover.js';
 import { LensPollProvider } from '@/providers/lens/Poll.js';
 import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
 import { createPostTo } from '@/services/createPostTo.js';
+import { uploadAndConvertToM3u8 } from '@/services/uploadAndConvertToM3u8.js';
 import { uploadToArweave } from '@/services/uploadToArweave.js';
 import { uploadToS3 } from '@/services/uploadToS3.js';
 import { type CompositePost } from '@/store/useComposeStore.js';
@@ -258,7 +259,7 @@ async function quotePostForLens(
     return post;
 }
 
-export async function postToLens(type: ComposeType, compositePost: CompositePost) {
+export async function postToLens(type: ComposeType, compositePost: CompositePost, signal?: AbortSignal) {
     const { chars, images, postId, parentPost, video, poll } = compositePost;
 
     const lensPostId = postId.Lens;
@@ -285,7 +286,10 @@ export async function postToLens(type: ComposeType, compositePost: CompositePost
             return Promise.all(
                 (video?.file ? [video] : []).map(async (media) => {
                     if (resolveVideoUrl(Source.Lens, media)) return media;
-                    return createS3MediaObject(await uploadToS3(media.file, SourceInURL.Lens), media);
+                    return createS3MediaObject(
+                        await uploadAndConvertToM3u8(media.file, SourceInURL.Lens, signal),
+                        media,
+                    );
                 }),
             );
         },

@@ -68,6 +68,7 @@ export const PostActionsWithGrid = memo<PostActionsWithGridProps>(function PostA
                     disabled={disabled}
                     collected={post.hasActed}
                     hiddenCount
+                    post={post}
                 />
             </div>
         ) : null,
@@ -186,6 +187,7 @@ export const PostActions = memo<PostActionsProps>(function PostActions({
                 <div className="flex translate-x-1.5 items-center space-x-2">
                     {post.source !== Source.Farcaster && post.canAct ? (
                         <Collect
+                            post={post}
                             count={post.stats?.countOpenActions}
                             disabled={disabled}
                             collected={post.hasActed}

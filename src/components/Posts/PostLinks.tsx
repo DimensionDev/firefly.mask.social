@@ -4,6 +4,7 @@ import { useQuery } from '@tanstack/react-query';
 import { last } from 'lodash-es';
 import { useEffect, useMemo } from 'react';
 
+import { ArticleLayout } from '@/components/Article/ArticleLayout.js';
 import { ActionContainer } from '@/components/Blink/ActionContainer.js';
 import { FrameLayout } from '@/components/Frame/index.js';
 import { OembedLayout } from '@/components/Oembed/index.js';
@@ -55,6 +56,7 @@ export function PostLinks({ post, setContent }: Props) {
 
     return (
         <>
+            {data.article ? <ArticleLayout article={data.article} /> : null}
             {data.html ? (
                 <Player html={data.html} isSpotify={isLinkMatchingHost(url, 'open.spotify.com', false)} />
             ) : null}

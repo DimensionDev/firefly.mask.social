@@ -5,6 +5,7 @@ import urlcat from 'urlcat';
 
 import { FireflyPlatform, Source } from '@/constants/enum.js';
 import { NotImplementedError } from '@/constants/error.js';
+import { SetQueryDataForActPost } from '@/decorators/setQueryDataForActPost.js';
 import { SetQueryDataForBlockProfile } from '@/decorators/SetQueryDataForBlockProfile.js';
 import { SetQueryDataForBookmarkPost } from '@/decorators/SetQueryDataForBookmarkPost.js';
 import { SetQueryDataForCommentPost } from '@/decorators/SetQueryDataForCommentPost.js';
@@ -41,6 +42,7 @@ import type { ResponseJSON } from '@/types/index.js';
 @SetQueryDataForDeletePost(Source.Twitter)
 @SetQueryDataForFollowProfile(Source.Twitter)
 @SetQueryDataForBlockProfile(Source.Twitter)
+@SetQueryDataForActPost(Source.Twitter)
 class TwitterSocialMedia implements Provider {
     async unmirrorPost(postId: string, authorId?: number | undefined): Promise<void> {
         const response = await twitterSessionHolder.fetch<ResponseJSON<void>>(`/api/twitter/unretweet/${postId}`, {
@@ -82,6 +84,10 @@ class TwitterSocialMedia implements Provider {
     }
 
     getHiddenComments(postId: string, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
+        throw new NotImplementedError();
+    }
+
+    actPost(postId: string, options: unknown): Promise<void> {
         throw new NotImplementedError();
     }
 

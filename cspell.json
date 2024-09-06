@@ -173,7 +173,10 @@
         "crowdsourced",
         "Coverflow",
         "dialectlabs",
-        "Tweetv"
+        "Tweetv",
+        "dompurify",
+        "Tweetv",
+        "getconvert"
     ],
     "flagWords": [],
     "ignorePaths": [

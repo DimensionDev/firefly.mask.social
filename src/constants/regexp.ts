@@ -43,3 +43,5 @@ export const TWEET_WEB_REGEX = /https:\/\/(x\.com|twitter\.com)\/i\/web\/status\
 export const LENS_HANDLE_REGEXP = /^[a-zA-Z0-9_]*\.lens$/;
 
 export const NUMERIC_INPUT_REGEXP_PATTERN = '^[1-9]|^0(?![0-9])[.,。]?[0-9]*$';
+
+export const LIMO_REGEXP = /^https:\/\/vitalik\.eth\.limo\/general\//;
