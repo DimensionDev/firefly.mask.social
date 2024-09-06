@@ -7,7 +7,7 @@ import ImageIcon from '@/assets/image.svg';
 import LoadingIcon from '@/assets/loading.svg';
 import VideoIcon from '@/assets/video.svg';
 import { FileMimeType } from '@/constants/enum.js';
-import { ALLOWED_MEDIA_MIMES, SUPPORTED_VIDEO_SOURCES } from '@/constants/index.js';
+import { ALLOWED_IMAGES_MIMES, SUPPORTED_VIDEO_SOURCES } from '@/constants/index.js';
 import { classNames } from '@/helpers/classNames.js';
 import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
 import { getCurrentPostImageLimits } from '@/helpers/getCurrentPostImageLimits.js';
@@ -100,7 +100,7 @@ export function Media({ close }: MediaProps) {
 
                 <input
                     type="file"
-                    accept={ALLOWED_MEDIA_MIMES.join(', ')}
+                    accept={ALLOWED_IMAGES_MIMES.join(', ')}
                     multiple
                     ref={imageInputRef}
                     className="hidden"

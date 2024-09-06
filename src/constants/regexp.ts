@@ -36,7 +36,7 @@ export const TWITTER_NORMAL_AVATAR = /^https:\/\/pbs\.twimg\.com.*_normal(\.\w+)
 
 export const NUMBER_STRING_REGEX = /^[0-9\s+-,]+$/m;
 
-export const TWEET_REGEX = /https:\/\/(x\.com|twitter\.com)\/([a-zA-Z_][a-zA-Z0-9_]*)\/status\/(\d+)/;
+export const TWEET_REGEX = /https:\/\/(x\.com|twitter\.com)\/([a-zA-Z0-9_]*)\/status\/(\d+)/;
 
 export const TWEET_WEB_REGEX = /https:\/\/(x\.com|twitter\.com)\/i\/web\/status\/(\d+)/;
 

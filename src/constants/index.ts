@@ -229,3 +229,8 @@ export const THIRTY_DAYS = 1000 * 60 * 60 * 24 * 30;
 export const MAX_SIZE_PER_CHUNK = 2 * 1024 * 1024; // 2MB
 
 export const VITALIK_ADDRESS = '0xd8da6bf26964af9d7eed9e03e53415d37aa96045';
+
+export const MIRROR_OLD_FACTOR_ADDRESSES = [
+    '0x302f746eE2fDC10DDff63188f71639094717a766',
+    '0x2d4b7Ec9923b9cf22d87Ced721e69E1f8eD96a0A',
+];
