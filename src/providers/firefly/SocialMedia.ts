@@ -1279,6 +1279,35 @@ export class FireflySocialMedia implements Provider {
         return data;
     }
 
+    async getMessageToSignMessageForBindSolanaWallet(address: string) {
+        const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/solana/solana/signMessage', {
+            address,
+        });
+
+        const response = await fireflySessionHolder.fetch<Response<Hex>>(url, {
+            method: 'GET',
+        });
+
+        const data = resolveFireflyResponseData(response);
+        if (!data) throw new Error('Failed to get message to sign');
+
+        return data;
+    }
+
+    async verifyAndBindSolanaWallet(address: string, messageToSign: string, signature: string) {
+        const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/solana/solana/verify');
+        const response = await fireflySessionHolder.fetch<BindWalletResponse>(url, {
+            method: 'POST',
+            body: JSON.stringify({
+                address,
+                messageToSign,
+                signature,
+            }),
+        });
+
+        return resolveFireflyResponseData(response);
+    }
+
     async disconnectAccount(identity: FireflyIdentity) {
         const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/accountConnection', {
             connectionPlatform: resolveSourceInURL(identity.source),

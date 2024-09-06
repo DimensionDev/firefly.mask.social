@@ -1,10 +1,15 @@
+import { useNetworkDescriptor } from '@masknet/web3-hooks-base';
+import { ChainId as EVMChainId } from '@masknet/web3-shared-evm';
+import { ChainId as SolanaChainId } from '@masknet/web3-shared-solana';
+
 import { DisconnectButton } from '@/app/(settings)/components/DisconnectButton.js';
 import { ReportButton } from '@/app/(settings)/components/ReportButton.js';
 import WalletIcon from '@/assets/wallet-circle.svg';
 import VerifiedDarkIcon from '@/assets/wallet-circle-verified.dark.svg';
 import VerifiedLightIcon from '@/assets/wallet-circle-verified.light.svg';
 import { CopyButton } from '@/components/CopyButton.js';
-import { WalletSource } from '@/constants/enum.js';
+import { Image } from '@/components/Image.js';
+import { NetworkPluginID, WalletSource } from '@/constants/enum.js';
 import { classNames } from '@/helpers/classNames.js';
 import { formatEthereumAddress } from '@/helpers/formatEthereumAddress.js';
 import { formatSolanaAddress } from '@/helpers/formatSolanaAddress.js';
@@ -18,6 +23,17 @@ interface WalletItemProps {
 
 export function WalletItem({ connection, noAction = false }: WalletItemProps) {
     const isDark = useIsDarkMode();
+    const evmNetworkDescriptor = useNetworkDescriptor(NetworkPluginID.PLUGIN_EVM, EVMChainId.Mainnet);
+    const solanaNetworkDescriptor = useNetworkDescriptor(NetworkPluginID.PLUGIN_SOLANA, SolanaChainId.Mainnet);
+
+    const chainIcon = {
+        eth: evmNetworkDescriptor?.icon,
+        solana: solanaNetworkDescriptor?.icon,
+    }[connection.platform];
+
+    const chainIconImage = chainIcon ? (
+        <Image src={chainIcon} width={16} height={16} alt={connection.platform} className="mr-1 inline-block h-4 w-4" />
+    ) : null;
 
     return (
         <div className="mb-3 inline-flex h-[63px] w-full items-center justify-start gap-3 rounded-lg bg-white bg-bottom px-3 py-2 text-medium text-lightMain shadow-primary backdrop-blur dark:bg-bg">
@@ -31,14 +47,20 @@ export function WalletItem({ connection, noAction = false }: WalletItemProps) {
                 <WalletIcon width={24} height={24} />
             )}
             <div className="flex flex-1 flex-col text-left">
-                {connection.ens?.[0] ? <span className="text-base font-bold">{connection.ens[0]}</span> : null}
+                {connection.ens?.[0] ? (
+                    <span className="flex items-center text-base font-bold">
+                        {chainIconImage}
+                        {connection.ens[0]}
+                    </span>
+                ) : null}
                 <div
                     className={classNames(
                         'flex items-center',
                         connection.ens?.[0] ? 'text-lightSecond' : 'font-semibold text-lightMain',
                     )}
                 >
-                    <span>
+                    <span className="flex items-center">
+                        {!connection.ens?.[0] ? chainIconImage : null}
                         {connection.platform === 'eth'
                             ? formatEthereumAddress(connection.address, 8)
                             : connection.platform === 'solana'
