@@ -11,8 +11,7 @@ import { CopyButton } from '@/components/CopyButton.js';
 import { Image } from '@/components/Image.js';
 import { NetworkPluginID, WalletSource } from '@/constants/enum.js';
 import { classNames } from '@/helpers/classNames.js';
-import { formatEthereumAddress } from '@/helpers/formatEthereumAddress.js';
-import { formatSolanaAddress } from '@/helpers/formatSolanaAddress.js';
+import { formatEthereumAddress, formatSolanaAddress } from '@/helpers/formatAddress.js';
 import { useIsDarkMode } from '@/hooks/useIsDarkMode.js';
 import type { FireflyWalletConnection } from '@/providers/types/Firefly.js';
 

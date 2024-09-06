@@ -11,10 +11,9 @@ import { useAccount, useSignMessage } from 'wagmi';
 
 import { EMPTY_LIST } from '@/constants/index.js';
 import { enqueueErrorMessage, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
-import { formatEthereumAddress } from '@/helpers/formatEthereumAddress.js';
-import { formatSolanaAddress } from '@/helpers/formatSolanaAddress.js';
+import { formatEthereumAddress, formatSolanaAddress } from '@/helpers/formatAddress.js';
 import { getSnackbarMessageFromError } from '@/helpers/getSnackbarMessageFromError.js';
-import { isSameAddress, isSameSolanaAddress } from '@/helpers/isSameAddress.js';
+import { isSameEthereumAddress, isSameSolanaAddress } from '@/helpers/isSameAddress.js';
 import type { SingletonModalRefCreator } from '@/libs/SingletonModal.js';
 import { ConnectWalletModalUI } from '@/modals/ConnectWalletModal.js';
 import { AccountModalRef, ConnectModalRef } from '@/modals/controls.js';
@@ -44,7 +43,9 @@ export const AddWalletModal = forwardRef<SingletonModalRefCreator<AddWalletModal
             if (!account.isConnected || !address) {
                 return ConnectModalRef.open();
             }
-            const existedConnection = connections.find((connection) => isSameAddress(connection.address, address));
+            const existedConnection = connections.find((connection) =>
+                isSameEthereumAddress(connection.address, address),
+            );
             if (existedConnection) {
                 const addressName = existedConnection.ens?.[0] || formatSolanaAddress(address, 8);
                 AccountModalRef.open();

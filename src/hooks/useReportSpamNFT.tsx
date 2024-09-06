@@ -8,7 +8,7 @@ import { queryClient } from '@/configs/queryClient.js';
 import { Source } from '@/constants/enum.js';
 import { enqueueErrorMessage, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { getSnackbarMessageFromError } from '@/helpers/getSnackbarMessageFromError.js';
-import { isSameAddress } from '@/helpers/isSameAddress.js';
+import { isSameEthereumAddress } from '@/helpers/isSameAddress.js';
 import { resolveSimpleHashChainId } from '@/helpers/resolveSimpleHashChain.js';
 import { ConfirmModalRef } from '@/modals/controls.js';
 import type { FollowingNFT, NFTFeed } from '@/providers/types/NFTs.js';
@@ -46,9 +46,11 @@ function filterOutActivities(collectionId: string) {
                     if ('network' in nft) {
                         const chainId = resolveSimpleHashChainId(nft.network);
                         const action = nft.actions[0];
-                        return !isSameAddress(action.contract_address, contractAddress) || chainId !== nftChainId;
+                        return (
+                            !isSameEthereumAddress(action.contract_address, contractAddress) || chainId !== nftChainId
+                        );
                     } else {
-                        return !isSameAddress(nft.trans.token_address, nftDetail.address);
+                        return !isSameEthereumAddress(nft.trans.token_address, nftDetail.address);
                     }
                 }) as FollowingNFT[] | NFTFeed[];
             }

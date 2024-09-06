@@ -6,7 +6,7 @@ import { NotImplementedError } from '@/constants/error.js';
 /* cspell:disable-next-line */
 import { VITALIK_ADDRESS } from '@/constants/index.js';
 import { formatArticleFromFirefly } from '@/helpers/formatArticleFromFirefly.js';
-import { isSameAddress } from '@/helpers/isSameAddress.js';
+import { isSameEthereumAddress } from '@/helpers/isSameAddress.js';
 import { isZero } from '@/helpers/number.js';
 import {
     createIndicator,
@@ -70,7 +70,7 @@ class FireflyArticle implements Provider {
                     ArticlePlatform.Paragraph,
                     ArticlePlatform.Mirror,
                     /* cspell:disable-next-line */
-                    isSameAddress(VITALIK_ADDRESS, address) ? ArticlePlatform.Limo : undefined,
+                    isSameEthereumAddress(VITALIK_ADDRESS, address) ? ArticlePlatform.Limo : undefined,
                 ]).join(','),
                 walletAddresses: [address],
                 size: 20,

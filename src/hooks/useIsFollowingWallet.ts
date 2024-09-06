@@ -1,7 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
 import urlcat from 'urlcat';
 
-import { isSameAddress } from '@/helpers/isSameAddress.js';
+import { isSameEthereumAddress } from '@/helpers/isSameAddress.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
 import type { WalletsFollowStatusResponse } from '@/providers/types/Firefly.js';
 import { settings } from '@/settings/index.js';
@@ -19,7 +19,7 @@ export function useIsFollowingWallet(address: string, enabled = true) {
                 }),
             });
             if (!res.data) return false;
-            return res.data.some((x) => x.is_followed && isSameAddress(x.address, address));
+            return res.data.some((x) => x.is_followed && isSameEthereumAddress(x.address, address));
         },
     });
 }

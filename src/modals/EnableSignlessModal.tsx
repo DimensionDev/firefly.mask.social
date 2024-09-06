@@ -9,7 +9,7 @@ import { CloseButton } from '@/components/CloseButton.js';
 import { Modal } from '@/components/Modal.js';
 import { enqueueErrorMessage, enqueueErrorsMessage } from '@/helpers/enqueueMessage.js';
 import { getSnackbarMessageFromError } from '@/helpers/getSnackbarMessageFromError.js';
-import { isSameAddress } from '@/helpers/isSameAddress.js';
+import { isSameEthereumAddress } from '@/helpers/isSameAddress.js';
 import { useSingletonModal } from '@/hooks/useSingletonModal.js';
 import type { SingletonModalRefCreator } from '@/libs/SingletonModal.js';
 import type { LensSession } from '@/providers/lens/Session.js';
@@ -27,7 +27,7 @@ export const EnableSignlessModal = forwardRef<SingletonModalRefCreator<void, boo
         const [{ loading }, handleUpdateSignless] = useAsyncFn(async () => {
             try {
                 if (!currentProfileSession) return;
-                if (!isSameAddress(currentProfile?.ownedBy?.address, account.address)) {
+                if (!isSameEthereumAddress(currentProfile?.ownedBy?.address, account.address)) {
                     enqueueErrorMessage(t`Wrong wallet`, {
                         description: t`Please switch to the wallet consistent with this action`,
                     });

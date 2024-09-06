@@ -4,7 +4,7 @@ import { hexToBigInt, hexToNumber, numberToHex } from 'viem';
 import { getAccount, sendTransaction, signMessage, switchNetwork } from 'wagmi/actions';
 
 import { config } from '@/configs/wagmiClient.js';
-import { isSameAddress } from '@/helpers/isSameAddress.js';
+import { isSameEthereumAddress } from '@/helpers/isSameAddress.js';
 import { ConnectWalletModalRef } from '@/modals/controls.js';
 
 // @ts-expect-error TODO: define the custom event
@@ -126,7 +126,7 @@ config.subscribe(
             previousAccount &&
             chainId &&
             previousChainId &&
-            isSameAddress(account, previousAccount) &&
+            isSameEthereumAddress(account, previousAccount) &&
             chainId !== previousChainId
         ) {
             dispatchEvent('chainChanged', numberToHex(chainId));
@@ -139,7 +139,7 @@ config.subscribe(
             previousAccount &&
             chainId &&
             previousChainId &&
-            !isSameAddress(account, previousAccount) &&
+            !isSameEthereumAddress(account, previousAccount) &&
             chainId === previousChainId
         ) {
             dispatchEvent('accountsChanged', [account]);

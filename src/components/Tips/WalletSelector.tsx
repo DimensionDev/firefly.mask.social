@@ -7,7 +7,7 @@ import { ClickableButton } from '@/components/ClickableButton.js';
 import { AddressLink } from '@/components/Tips/AddressLink.js';
 import { router, TipsRoutePath } from '@/components/Tips/TipsModalRouter.js';
 import { classNames } from '@/helpers/classNames.js';
-import { formatEthereumAddress } from '@/helpers/formatEthereumAddress.js';
+import { formatEthereumAddress } from '@/helpers/formatAddress.js';
 import { TipsContext, type TipsProfile } from '@/hooks/useTipsContext.js';
 import type { WalletProfile } from '@/providers/types/Firefly.js';
 
