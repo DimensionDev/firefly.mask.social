@@ -711,6 +711,9 @@ msgstr "查询规则"
 msgid "Resend full or remaining?"
 msgstr "重新完整发送或者发送剩余部分？"
 
+msgid "Add Wallet"
+msgstr ""
+
 msgid "Followed by {0} and {1}"
 msgstr "被 {0} 和 {1} 关注"
 

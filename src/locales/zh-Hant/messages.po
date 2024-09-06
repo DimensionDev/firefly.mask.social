@@ -711,6 +711,9 @@ msgstr "進階搜尋"
 msgid "Resend full or remaining?"
 msgstr ""
 
+msgid "Add Wallet"
+msgstr ""
+
 msgid "Followed by {0} and {1}"
 msgstr ""
 

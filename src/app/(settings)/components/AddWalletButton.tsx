@@ -1,15 +1,9 @@
-import { t, Trans } from '@lingui/macro';
+import { Trans } from '@lingui/macro';
 import { memo } from 'react';
 import { useAsyncFn } from 'react-use';
-import { useAccount, useSignMessage } from 'wagmi';
 
 import { ClickableButton, type ClickableButtonProps } from '@/components/ClickableButton.js';
-import { enqueueErrorMessage, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
-import { formatEthereumAddress } from '@/helpers/formatEthereumAddress.js';
-import { getSnackbarMessageFromError } from '@/helpers/getSnackbarMessageFromError.js';
-import { isSameAddress } from '@/helpers/isSameAddress.js';
-import { AccountModalRef, ConnectModalRef } from '@/modals/controls.js';
-import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
+import { AddWalletModalRef } from '@/modals/controls.js';
 import type { FireflyWalletConnection } from '@/providers/types/Firefly.js';
 
 interface AddWalletButtonProps extends Omit<ClickableButtonProps, 'children'> {
@@ -23,35 +17,11 @@ export const AddWalletButton = memo<AddWalletButtonProps>(function AddWalletButt
     onSuccess,
     ...rest
 }) {
-    const account = useAccount();
-    const { signMessageAsync } = useSignMessage();
-
     const [{ loading }, handleAddWallet] = useAsyncFn(async () => {
-        try {
-            const address = account.address;
-            if (!account.isConnected || !address) {
-                return ConnectModalRef.open();
-            }
-
-            const existedConnection = connections.find((connection) => isSameAddress(connection.address, address));
-            if (existedConnection) {
-                const addressName = existedConnection.ens?.[0] || formatEthereumAddress(address, 8);
-                AccountModalRef.open();
-                return enqueueErrorMessage(t`${addressName} is already connected.`);
-            }
-
-            const message = await FireflySocialMediaProvider.getMessageToSignForBindWallet(address.toLowerCase());
-            const signature = await signMessageAsync({ message: { raw: message }, account: address });
-
-            await FireflySocialMediaProvider.verifyAndBindWallet(message, signature);
-
-            enqueueSuccessMessage(t`Wallet added successfully`);
-            onSuccess?.();
-        } catch (error) {
-            enqueueErrorMessage(getSnackbarMessageFromError(error, t`Failed to add wallet`), { error });
-            throw error;
-        }
-    }, [account.isConnected, account.address, connections]);
+        await AddWalletModalRef.openAndWaitForClose({
+            connections,
+        });
+    }, [connections]);
 
     return (
         <ClickableButton

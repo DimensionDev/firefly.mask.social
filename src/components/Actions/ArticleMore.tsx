@@ -11,7 +11,7 @@ import { WatchWalletButton } from '@/components/Actions/WatchWalletButton.js';
 import { MoreActionMenu } from '@/components/MoreActionMenu.js';
 import { Tooltip } from '@/components/Tooltip.js';
 import { Source } from '@/constants/enum.js';
-import { formatEthereumAddress } from '@/helpers/formatEthereumAddress.js';
+import { formatAddress } from '@/helpers/formatAddress.js';
 import { useFireflyIdentity } from '@/hooks/useFireflyIdentity.js';
 import { useIsMyRelatedProfile } from '@/hooks/useIsMyRelatedProfile.js';
 import { useToggleArticleBookmark } from '@/hooks/useToggleArticleBookmark.js';
@@ -31,7 +31,7 @@ export const ArticleMoreAction = memo<MoreProps>(function ArticleMoreAction({ ar
 
     const { data: ens } = useEnsName({ address: author.id });
 
-    const handleOrEnsOrAddress = author.handle || ens || formatEthereumAddress(author.id, 4);
+    const handleOrEnsOrAddress = author.handle || ens || formatAddress(author.id, 4);
 
     return (
         <MoreActionMenu

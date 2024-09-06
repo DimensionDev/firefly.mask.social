@@ -706,6 +706,9 @@ msgstr "Search Filter"
 msgid "Resend full or remaining?"
 msgstr "Resend full or remaining?"
 
+msgid "Add Wallet"
+msgstr "Add Wallet"
+
 msgid "Followed by {0} and {1}"
 msgstr "Followed by {0} and {1}"
 

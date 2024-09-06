@@ -4,6 +4,7 @@ import { memo } from 'react';
 
 import { SolanaAccountModal } from '@/components/SolanaAccountModal.js';
 import { AccountModal } from '@/modals/AccountModal.js';
+import { AddWalletModal } from '@/modals/AddWalletModal.js';
 import { CollectArticleModal } from '@/modals/CollectArticleModal.js';
 import { CollectPostModal } from '@/modals/CollectPostModal.js';
 import { ComposeModal } from '@/modals/ComposeModal.js';
@@ -45,6 +46,7 @@ export const Modals = memo(function Modals() {
             <CollectArticleModal ref={controls.CollectArticleModalRef.register} />
             <EnableSignlessModal ref={controls.EnableSignlessModalRef.register} />
             <CollectPostModal ref={controls.CollectPostModalRef.register} />
+            <AddWalletModal ref={controls.AddWalletModalRef.register} />
         </>
     );
 });
