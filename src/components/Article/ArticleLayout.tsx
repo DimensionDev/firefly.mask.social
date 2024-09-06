@@ -5,14 +5,17 @@ import { memo } from 'react';
 import urlcat from 'urlcat';
 import { useEnsName } from 'wagmi';
 
+import { ArticleShare } from '@/components/Article/ArticleShare.js';
 import { Avatar } from '@/components/Avatar.js';
 import { ArticleMarkup } from '@/components/Markup/ArticleMarkup.js';
 import { TimestampFormatter } from '@/components/TimeStampFormatter.js';
+import { Tips } from '@/components/Tips/index.js';
 import { IS_APPLE, IS_SAFARI } from '@/constants/bowser.js';
 import { PageRoute, SearchType, Source, SourceInURL } from '@/constants/enum.js';
 import { Link } from '@/esm/Link.js';
 import { classNames } from '@/helpers/classNames.js';
-import { type Article } from '@/providers/types/Article.js';
+import { useFireflyIdentity } from '@/hooks/useFireflyIdentity.js';
+import { type Article, ArticlePlatform } from '@/providers/types/Article.js';
 
 interface ArticleLayoutProps {
     article: Article;
@@ -26,6 +29,7 @@ export const ArticleLayout = memo<ArticleLayoutProps>(function ArticleLayout({ a
     });
 
     const { data: ens } = useEnsName({ address: article.author.id, query: { enabled: !article.author.handle } });
+    const identity = useFireflyIdentity(Source.Wallet, article.author.id);
 
     return (
         <div className="relative mt-[6px] flex flex-col gap-2 overflow-hidden rounded-2xl border border-line bg-bg p-3">
@@ -56,8 +60,8 @@ export const ArticleLayout = memo<ArticleLayoutProps>(function ArticleLayout({ a
                     #{article.slug}
                 </div>
             ) : null}
-            <div className="flex items-center justify-between">
-                <div className="flex items-center">
+            <div className="flex items-center justify-between border-b border-secondaryLine pb-[10px]">
+                <div className="flex items-center gap-2">
                     <Link href={authorUrl} className="z-[1]">
                         <Avatar
                             className="h-[15px] w-[15px]"
@@ -69,23 +73,39 @@ export const ArticleLayout = memo<ArticleLayoutProps>(function ArticleLayout({ a
                     <Link
                         href={authorUrl}
                         onClick={(event) => event.stopPropagation()}
-                        className="block truncate text-clip text-medium font-bold leading-5 text-main"
+                        className="block truncate text-clip text-medium leading-5 text-secondary"
                     >
                         {article.author.handle || ens}
                     </Link>
-                    <span className="whitespace-nowrap text-xs leading-4 text-secondary md:text-[13px]">
+                    <span className="whitespace-nowrap text-medium text-xs leading-4 text-secondary">
                         <TimestampFormatter time={article.timestamp} />
                     </span>
+                </div>
+                <div className="flex items-center">
+                    <Tips
+                        identity={identity}
+                        handle={article.author.handle || ens}
+                        tooltipDisabled
+                        onClick={close}
+                        pureWallet
+                    />
+                    <ArticleShare article={article} />
                 </div>
             </div>
             {article.content ? (
                 <div className="h-[100px]">
-                    <ArticleMarkup
-                        disableImage
-                        className="markup linkify break-words text-sm leading-[18px] text-second"
-                    >
-                        {article.content}
-                    </ArticleMarkup>
+                    {article.platform === ArticlePlatform.Limo ? (
+                        // The content returned by limo is html.
+                        // eslint-disable-next-line react/no-danger
+                        <div dangerouslySetInnerHTML={{ __html: article.content }} />
+                    ) : (
+                        <ArticleMarkup
+                            disableImage
+                            className="markup linkify break-words text-sm leading-[18px] text-second"
+                        >
+                            {article.content}
+                        </ArticleMarkup>
+                    )}
                     <div
                         className="absolute bottom-0 left-0 h-[100px] w-full"
                         style={{

@@ -1,6 +1,5 @@
 import { Action, setProxyUrl } from '@dialectlabs/blinks';
 import { safeUnreachable } from '@masknet/kit';
-import Crypto from 'crypto-js';
 import urlcat from 'urlcat';
 
 import { FrameProtocol, Source, STATUS } from '@/constants/enum.js';
@@ -9,6 +8,7 @@ import { LIMO_REGEXP } from '@/constants/regexp.js';
 import { attemptUntil } from '@/helpers/attemptUntil.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
 import { isValidDomain } from '@/helpers/isValidDomain.js';
+import { Md5 } from '@/helpers/md5.js';
 import { parseURL } from '@/helpers/parseURL.js';
 import { isValidPollFrameUrl } from '@/helpers/resolveEmbedMediaType.js';
 import { resolveTCOLink } from '@/helpers/resolveTCOLink.js';
@@ -83,7 +83,7 @@ export async function getPostLinks(url: string, post: Post) {
         [
             async () => {
                 if (!LIMO_REGEXP.test(url)) return null;
-                const id = Crypto.MD5(url).toString(Crypto.enc.Hex);
+                const id = Md5.hashStr(url);
                 const article = await FireflyArticleProvider.getArticleById(id);
                 return article ? { article } : null;
             },
