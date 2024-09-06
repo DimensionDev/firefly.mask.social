@@ -11,7 +11,7 @@ import { useAccount, useSignMessage } from 'wagmi';
 
 import { EMPTY_LIST } from '@/constants/index.js';
 import { enqueueErrorMessage, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
-import { formatEthereumAddress , formatSolanaAddress } from '@/helpers/formatAddress.js';
+import { formatEthereumAddress, formatSolanaAddress } from '@/helpers/formatAddress.js';
 import { getSnackbarMessageFromError } from '@/helpers/getSnackbarMessageFromError.js';
 import { isSameEthereumAddress, isSameSolanaAddress } from '@/helpers/isSameAddress.js';
 import type { SingletonModalRefCreator } from '@/libs/SingletonModal.js';

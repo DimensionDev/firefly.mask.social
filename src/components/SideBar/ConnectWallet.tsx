@@ -17,7 +17,7 @@ import { Image } from '@/components/Image.js';
 import { Tooltip } from '@/components/Tooltip.js';
 import { NetworkPluginID } from '@/constants/enum.js';
 import { classNames } from '@/helpers/classNames.js';
-import { formatEthereumAddress , formatSolanaAddress } from '@/helpers/formatAddress.js';
+import { formatEthereumAddress, formatSolanaAddress } from '@/helpers/formatAddress.js';
 import { formatDomainName } from '@/helpers/formatDomainName.js';
 import { resolveValue } from '@/helpers/resolveValue.js';
 import { useMounted } from '@/hooks/useMounted.js';
