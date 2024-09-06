@@ -2,7 +2,7 @@ import { produce } from 'immer';
 
 import { queryClient } from '@/configs/queryClient.js';
 import { FireflyPlatform, NetworkType, WalletSource } from '@/constants/enum.js';
-import { isSameAddress } from '@/helpers/isSameAddress.js';
+import { isSameEthereumAddress } from '@/helpers/isSameAddress.js';
 import type { FireflySocialMedia } from '@/providers/firefly/SocialMedia.js';
 import type { BindWalletResponse, FireflyWalletConnection } from '@/providers/types/Firefly.js';
 import type { ClassType } from '@/types/index.js';
@@ -19,7 +19,7 @@ function updateWalletFromQueryData(data: BindWalletResponse['data']) {
             queryKey: ['my-wallet-connections'],
         },
         (old) => {
-            if (!old || [...old.connected, ...old.related].some((x) => isSameAddress(x.address, data.address)))
+            if (!old || [...old.connected, ...old.related].some((x) => isSameEthereumAddress(x.address, data.address)))
                 return old;
             return produce(old, (draft) => {
                 draft.connected.push({

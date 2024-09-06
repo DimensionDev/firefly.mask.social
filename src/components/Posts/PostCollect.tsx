@@ -27,7 +27,7 @@ import { getAllowanceModule } from '@/helpers/getAllowanceModule.js';
 import { getSnackbarMessageFromError } from '@/helpers/getSnackbarMessageFromError.js';
 import { getTimeLeft } from '@/helpers/getTimeLeft.js';
 import { getWalletClientRequired } from '@/helpers/getWalletClientRequired.js';
-import { isSameAddress } from '@/helpers/isSameAddress.js';
+import { isSameEthereumAddress } from '@/helpers/isSameAddress.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
 import { useMirror } from '@/hooks/useMirror.js';
 import { useToggleFollow } from '@/hooks/useToggleFollow.js';
@@ -66,7 +66,7 @@ export function PostCollect({ post, onClose }: PostCollectProps) {
     const isTimeout = collectModule?.endsAt ? dayjs(collectModule?.endsAt).isBefore(dayjs()) : false;
 
     const verifiedAssetAddress =
-        !!post.collectModule?.assetAddress && !isSameAddress(post.collectModule.assetAddress, ZERO_ADDRESS);
+        !!post.collectModule?.assetAddress && !isSameEthereumAddress(post.collectModule.assetAddress, ZERO_ADDRESS);
 
     const [followLoading, toggleFollow] = useToggleFollow(post.author);
 

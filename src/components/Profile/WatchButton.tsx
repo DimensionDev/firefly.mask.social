@@ -8,7 +8,7 @@ import FollowedIcon from '@/assets/followed.svg';
 import { ClickableButton, type ClickableButtonProps } from '@/components/ClickableButton.js';
 import { ToggleMuteWalletButton } from '@/components/Profile/MuteWalletButton.js';
 import { classNames } from '@/helpers/classNames.js';
-import { formatEthereumAddress } from '@/helpers/formatEthereumAddress.js';
+import { formatEthereumAddress } from '@/helpers/formatAddress.js';
 import { useEverSeen } from '@/hooks/useEverSeen.js';
 import { useIsFollowingWallet } from '@/hooks/useIsFollowingWallet.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';

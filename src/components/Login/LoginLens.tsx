@@ -18,7 +18,7 @@ import { AbortError } from '@/constants/error.js';
 import { addAccount } from '@/helpers/account.js';
 import { enqueueErrorMessage, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { getSnackbarMessageFromError } from '@/helpers/getSnackbarMessageFromError.js';
-import { isSameAddress } from '@/helpers/isSameAddress.js';
+import { isSameEthereumAddress } from '@/helpers/isSameAddress.js';
 import { isSameProfile } from '@/helpers/isSameProfile.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { useAbortController } from '@/hooks/useAbortController.js';
@@ -81,7 +81,7 @@ export function LoginLens({ profiles, currentAccount }: LoginLensProps) {
 
     useEffect(() => {
         if (!currentProfile) return;
-        if (!isSameAddress(account.address, currentAccount)) LoginModalRef.close();
+        if (!isSameEthereumAddress(account.address, currentAccount)) LoginModalRef.close();
     }, [currentProfile, account, currentAccount]);
 
     return (
@@ -105,7 +105,7 @@ export function LoginLens({ profiles, currentAccount }: LoginLensProps) {
                             </div>
                         </div>
                         {currentProfile?.signless ||
-                        !isSameAddress(currentProfile?.ownedBy?.address, account.address) ? null : (
+                        !isSameEthereumAddress(currentProfile?.ownedBy?.address, account.address) ? null : (
                             <div className="flex flex-col gap-2 rounded-[8px] bg-lightBg px-4 py-6">
                                 <div className="flex items-center justify-between">
                                     <span className="text-sm font-bold leading-[18px] text-lightMain">

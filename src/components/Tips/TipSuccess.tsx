@@ -6,7 +6,7 @@ import { ClickableButton } from '@/components/ClickableButton.js';
 import { TipsModalHeader } from '@/components/Tips/TipsModalHeader.js';
 import { Link } from '@/esm/Link.js';
 import { CHAR_TAG } from '@/helpers/chars.js';
-import { formatEthereumAddress } from '@/helpers/formatEthereumAddress.js';
+import { formatEthereumAddress } from '@/helpers/formatAddress.js';
 import { getCurrentAvailableSources } from '@/helpers/getCurrentAvailableSources.js';
 import { resolveSocialSource } from '@/helpers/resolveSource.js';
 import { useCurrentVisitingChannel } from '@/hooks/useCurrentVisitingChannel.js';

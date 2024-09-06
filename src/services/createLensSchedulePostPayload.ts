@@ -6,7 +6,7 @@ import { CreateScheduleError, SignlessRequireError } from '@/constants/error.js'
 import { SITE_URL } from '@/constants/index.js';
 import { readChars } from '@/helpers/chars.js';
 import { getWalletClientRequired } from '@/helpers/getWalletClientRequired.js';
-import { isSameAddress } from '@/helpers/isSameAddress.js';
+import { isSameEthereumAddress } from '@/helpers/isSameAddress.js';
 import { resolveLensOperationName, resolveLensQuery } from '@/helpers/resolveLensQuery.js';
 import { createS3MediaObject, resolveImageUrl } from '@/helpers/resolveMediaObjectUrl.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
@@ -56,7 +56,7 @@ export async function createLensSchedulePostPayload(
     const { signless } = await LensSocialMediaProvider.getProfileById(currentProfile?.profileId);
 
     const { account } = await getWalletClientRequired(config);
-    if (!isSameAddress(currentProfile?.ownedBy?.address, account.address)) {
+    if (!isSameEthereumAddress(currentProfile?.ownedBy?.address, account.address)) {
         throw new CreateScheduleError(t`Please switch to the wallet consistent with this action`);
     }
 

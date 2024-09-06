@@ -2,7 +2,7 @@ import { type Draft, produce } from 'immer';
 
 import { queryClient } from '@/configs/queryClient.js';
 import { Source } from '@/constants/enum.js';
-import { isSameAddress } from '@/helpers/isSameAddress.js';
+import { isSameEthereumAddress } from '@/helpers/isSameAddress.js';
 import { resolveSourceFromUrl } from '@/helpers/resolveSource.js';
 import type { FireflySocialMedia } from '@/providers/firefly/SocialMedia.js';
 import type { Article } from '@/providers/types/Article.js';
@@ -21,7 +21,7 @@ function toggleBlock(address: string, status: boolean) {
             for (const page of draft.pages) {
                 if (!page) continue;
                 for (const article of page.data) {
-                    if (!isSameAddress(article.author.id, address)) continue;
+                    if (!isSameEthereumAddress(article.author.id, address)) continue;
                     article.author.isMuted = status;
                 }
             }
@@ -32,7 +32,7 @@ function toggleBlock(address: string, status: boolean) {
     queryClient.setQueriesData<Article>({ queryKey: ['article-detail'] }, (old) => {
         if (!old) return;
         return produce(old, (draft) => {
-            if (!isSameAddress(draft.author.id, address)) return;
+            if (!isSameEthereumAddress(draft.author.id, address)) return;
             draft.author.isMuted = status;
         });
     });
@@ -46,9 +46,9 @@ function toggleBlock(address: string, status: boolean) {
                 if (!page.data.length) continue;
                 page.data = page.data.filter((nft) => {
                     if ('network' in nft) {
-                        return !isSameAddress(nft.owner, address);
+                        return !isSameEthereumAddress(nft.owner, address);
                     } else {
-                        return !isSameAddress(nft.address, address);
+                        return !isSameEthereumAddress(nft.address, address);
                     }
                 }) as FollowingNFT[] | NFTFeed[];
             }

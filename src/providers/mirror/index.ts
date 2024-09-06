@@ -8,7 +8,7 @@ import { chains, config } from '@/configs/wagmiClient.js';
 import { NotImplementedError } from '@/constants/error.js';
 import { MIRROR_COLLECT_FEE, MIRROR_COLLECT_FEE_IN_POLYGON, MIRROR_OLD_FACTOR_ADDRESSES } from '@/constants/index.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
-import { isSameAddress } from '@/helpers/isSameAddress.js';
+import { isSameEthereumAddress } from '@/helpers/isSameAddress.js';
 import { rightShift } from '@/helpers/number.js';
 import type { Pageable, PageIndicator } from '@/helpers/pageable.js';
 import { resolveRPCUrl } from '@/helpers/resolveRPCUrl.js';
@@ -96,7 +96,7 @@ class Mirror implements Provider {
 
         const price = article.price ? BigInt(rightShift(article.price, 18).toString()) : 0n;
 
-        if (isSameAddress(article.contractAddress, article.factorAddress) && article.deploymentSignature) {
+        if (isSameEthereumAddress(article.contractAddress, article.factorAddress) && article.deploymentSignature) {
             const { r, s, v } = parseSignature(article.deploymentSignature as `0x${string}`);
             return client.estimateContractGas({
                 address: article.factorAddress as `0x${string}`,
@@ -127,7 +127,7 @@ class Mirror implements Provider {
             });
         }
 
-        const isOld = MIRROR_OLD_FACTOR_ADDRESSES.some((x) => isSameAddress(x, article.factorAddress));
+        const isOld = MIRROR_OLD_FACTOR_ADDRESSES.some((x) => isSameEthereumAddress(x, article.factorAddress));
         const ABI = isOld ? OldMirrorABI : MirrorABI;
 
         return client.estimateContractGas({
@@ -143,7 +143,7 @@ class Mirror implements Provider {
         const account = getAccount(config);
         const price = article.price ? BigInt(rightShift(article.price, 18).toString()) : 0n;
 
-        if (isSameAddress(article.contractAddress, article.factorAddress) && article.deploymentSignature) {
+        if (isSameEthereumAddress(article.contractAddress, article.factorAddress) && article.deploymentSignature) {
             const { r, s, v } = parseSignature(article.deploymentSignature as `0x${string}`);
             const hash = await writeContract(config, {
                 address: article.factorAddress as `0x${string}`,
@@ -176,7 +176,7 @@ class Mirror implements Provider {
             return getTransactionConfirmations(config, { hash });
         }
 
-        const isOld = MIRROR_OLD_FACTOR_ADDRESSES.some((x) => isSameAddress(x, article.factorAddress));
+        const isOld = MIRROR_OLD_FACTOR_ADDRESSES.some((x) => isSameEthereumAddress(x, article.factorAddress));
         const ABI = isOld ? OldMirrorABI : MirrorABI;
 
         const hash = await writeContract(config, {

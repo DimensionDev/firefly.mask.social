@@ -14,7 +14,7 @@ import { TextOverflowTooltip } from '@/components/TextOverflowTooltip.js';
 import { POAP_CONTRACT_ADDRESS } from '@/constants/index.js';
 import { classNames } from '@/helpers/classNames.js';
 import { getFloorPrice } from '@/helpers/getFloorPrice.js';
-import { isSameAddress } from '@/helpers/isSameAddress.js';
+import { isSameEthereumAddress } from '@/helpers/isSameAddress.js';
 import { useComeBack } from '@/hooks/useComeback.js';
 import { useNFTDetail } from '@/hooks/useNFTDetail.js';
 import { usePoapAttendeesCount } from '@/hooks/usePoapAttendeesCount.js';
@@ -32,7 +32,7 @@ export default function Page({
 }) {
     const comeback = useComeBack();
     const chainId = searchParams.chainId ? Number.parseInt(searchParams.chainId as string, 10) : undefined;
-    const isPoap = isSameAddress(address, POAP_CONTRACT_ADDRESS);
+    const isPoap = isSameEthereumAddress(address, POAP_CONTRACT_ADDRESS);
 
     const { data, isLoading, error } = useNFTDetail(address, tokenId, chainId);
     const { data: poapAttendeesCount } = usePoapAttendeesCount(data?.metadata?.eventId);

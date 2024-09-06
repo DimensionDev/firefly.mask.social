@@ -1,7 +1,7 @@
 import { PublicKey } from '@solana/web3.js';
 import { type Address, isAddress, isAddressEqual } from 'viem';
 
-export function isSameAddress(address?: string, otherAddress?: string): boolean {
+export function isSameEthereumAddress(address?: string, otherAddress?: string): boolean {
     if (!address || !otherAddress) return false;
     if (!isAddress(address) || !isAddress(otherAddress)) return false;
     return isAddressEqual(address as Address, otherAddress as Address);
