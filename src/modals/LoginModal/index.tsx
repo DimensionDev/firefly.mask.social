@@ -4,7 +4,7 @@ import urlcat from 'urlcat';
 
 import { Modal } from '@/components/Modal.js';
 import { Popover } from '@/components/Popover.js';
-import type { FarcasterSignType, ProfileSource } from '@/constants/enum.js';
+import { type FarcasterSignType, type ProfileSource } from '@/constants/enum.js';
 import { resolveSourceInURL } from '@/helpers/resolveSourceInURL.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import { useSingletonModal } from '@/hooks/useSingletonModal.js';
@@ -37,12 +37,13 @@ export interface LoginModalOpenProps {
         expectedSignType?: FarcasterSignType;
     };
 }
+
 export const LoginModal = forwardRef<SingletonModalRefCreator<LoginModalOpenProps | void>>(function LoginModal(_, ref) {
     const isMedium = useIsMedium();
     const routerRef = useRef(createLoginRouter());
 
     const [open, dispatch] = useSingletonModal(ref, {
-        onOpen: (props) => {
+        onOpen: async (props) => {
             routerRef.current = createLoginRouter();
 
             if (!props?.source) {

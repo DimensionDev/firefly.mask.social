@@ -41,14 +41,14 @@ export function NFTFeedHeader({
                 <Link
                     href={authorUrl}
                     onClick={(event) => event.stopPropagation()}
-                    className="block max-w-full truncate text-[15px] font-bold leading-5 text-main"
+                    className="block max-w-full truncate text-medium font-bold leading-5 text-main"
                 >
                     {displayInfo.ensHandle ? displayInfo.ensHandle : formatEthereumAddress(address, 4)}
                 </Link>
                 {displayInfo.ensHandle ? (
                     <Link
                         href={authorUrl}
-                        className="ml-2 block max-w-full truncate text-[15px] leading-5 text-secondary"
+                        className="ml-2 block max-w-full truncate text-medium leading-5 text-secondary"
                     >
                         {formatEthereumAddress(address, 4)}
                     </Link>

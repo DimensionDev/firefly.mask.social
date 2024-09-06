@@ -1,11 +1,12 @@
+import { ZERO_ADDRESS } from '@masknet/web3-shared-evm';
 import { create } from 'zustand';
 import { persist, type PersistOptions } from 'zustand/middleware';
 import { immer } from 'zustand/middleware/immer';
 
 import { queryClient } from '@/configs/queryClient.js';
-import { AsyncStoreStatus, Source } from '@/constants/enum.js';
+import { AsyncStatus, Source } from '@/constants/enum.js';
 import { FetchError } from '@/constants/error.js';
-import { EMPTY_LIST, HIDDEN_SECRET } from '@/constants/index.js';
+import { EMPTY_LIST, HIDDEN_SECRET, THIRTY_DAYS } from '@/constants/index.js';
 import { addAccount } from '@/helpers/account.js';
 import { bom } from '@/helpers/bom.js';
 import { createDummyProfile } from '@/helpers/createDummyProfile.js';
@@ -18,6 +19,7 @@ import { farcasterSessionHolder } from '@/providers/farcaster/SessionHolder.js';
 import { FarcasterSocialMediaProvider } from '@/providers/farcaster/SocialMedia.js';
 import type { FireflySession } from '@/providers/firefly/Session.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
+import { LensSession } from '@/providers/lens/Session.js';
 import { lensSessionHolder } from '@/providers/lens/SessionHolder.js';
 import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
 import { TwitterSession } from '@/providers/twitter/Session.js';
@@ -30,7 +32,11 @@ import { bindOrRestoreFireflySession } from '@/services/bindOrRestoreFireflySess
 import { restoreFireflySessionAll } from '@/services/restoreFireflySession.js';
 
 export interface ProfileState {
-    status: AsyncStoreStatus;
+    // indicate the store is ready or not
+    status: AsyncStatus;
+    // internally used in this store
+    __setStatus__: (status: AsyncStatus) => void;
+
     accounts: Account[];
     currentProfile: Profile | null;
     currentProfileSession: Session | null;
@@ -40,15 +46,14 @@ export interface ProfileState {
     updateCurrentAccount: (account: Account) => void;
     resetCurrentAccount: () => void;
     refreshAccounts: () => void;
-    refreshCurrentAccount: () => void;
+    refreshCurrentAccount: () => Promise<void>;
     updateCurrentProfile: (profile: ProfileEditable) => void;
-    transit: (status: AsyncStoreStatus) => void;
     upgrade: () => void;
     clear: () => void;
 }
 
 export interface ProfileStatePersisted {
-    status: AsyncStoreStatus;
+    status: AsyncStatus;
     accounts: Account[];
     currentProfile: Profile | null;
     currentProfileSession: Session | null;
@@ -57,13 +62,14 @@ export interface ProfileStatePersisted {
 function createState(
     provider: {
         getUpdatedProfile?: (profile: Profile) => Promise<Profile | null>;
+        refreshCurrentAccountSession?: (profileId: string) => Promise<Session | null>;
     },
     options: PersistOptions<ProfileState, ProfileStatePersisted>,
 ) {
     return create<ProfileState, [['zustand/persist', unknown], ['zustand/immer', unknown]]>(
         persist(
             immer<ProfileState>((set, get) => ({
-                status: AsyncStoreStatus.Idle,
+                status: AsyncStatus.Idle,
                 accounts: EMPTY_LIST,
                 currentProfile: null,
                 currentProfileSession: null,
@@ -153,11 +159,14 @@ function createState(
                     const updatedProfile = await provider.getUpdatedProfile?.(profile);
                     if (!updatedProfile) return;
 
+                    const session = await provider.refreshCurrentAccountSession?.(updatedProfile.profileId);
+
                     set((state) => {
                         state.currentProfile = updatedProfile;
+                        if (session) state.currentProfileSession = session;
                     });
                 },
-                transit: (status) =>
+                __setStatus__: (status) =>
                     set((state) => {
                         state.status = status;
                     }),
@@ -183,7 +192,7 @@ function createState(
             {
                 storage: createSessionStorage(),
                 partialize: (state) => ({
-                    status: state?.status ?? AsyncStoreStatus.Idle,
+                    status: state?.status ?? AsyncStatus.Idle,
                     accounts: state.accounts,
                     currentProfile: state.currentProfile,
                     currentProfileSession: state.currentProfileSession,
@@ -216,6 +225,26 @@ const useFarcasterStateBase = createState(
 const useLensStateBase = createState(
     {
         getUpdatedProfile: (profile: Profile) => LensSocialMediaProvider.getProfileByHandle(profile.handle),
+        refreshCurrentAccountSession: async (profileId: string) => {
+            const [accessToken, refreshToken, walletAddress] = await Promise.all([
+                lensSessionHolder.sdk.authentication.getAccessToken(),
+                lensSessionHolder.sdk.authentication.getRefreshToken(),
+                lensSessionHolder.sdk.authentication.getWalletAddress(),
+            ]);
+            const now = Date.now();
+            const session =
+                accessToken && refreshToken && walletAddress
+                    ? new LensSession(
+                          profileId,
+                          accessToken.unwrap(),
+                          now,
+                          now + THIRTY_DAYS,
+                          refreshToken.unwrap(),
+                          walletAddress ?? ZERO_ADDRESS,
+                      )
+                    : null;
+            return session;
+        },
     },
     {
         name: 'lens-state',
@@ -273,7 +302,7 @@ const useTwitterStateBase = createState(
                 const isSessionFromServer = session === null && sessionFromServer !== null;
 
                 // show indicator if the session is from the server
-                if (isSessionFromServer) state.transit(AsyncStoreStatus.Pending);
+                if (isSessionFromServer) state.__setStatus__(AsyncStatus.Pending);
 
                 const payload = session?.payload ?? sessionFromServer;
                 const profile = payload ? await TwitterSocialMediaProvider.getProfileById(payload.clientId) : null;
@@ -307,7 +336,7 @@ const useTwitterStateBase = createState(
                 state.clear();
                 twitterSessionHolder.removeSession();
             } finally {
-                state.transit(AsyncStoreStatus.Idle);
+                state.__setStatus__(AsyncStatus.Idle);
             }
         },
     },

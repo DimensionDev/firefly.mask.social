@@ -14,8 +14,8 @@ import {
     WARPCAST_THREAD_REGEX,
 } from '@/constants/regexp.js';
 import { parseURL } from '@/helpers/parseURL.js';
+import { getPostIFrame } from '@/providers/og/readers/iframe.js';
 import {
-    generateIframe,
     getDescription,
     getEmbedUrl,
     getImageUrl,
@@ -98,7 +98,7 @@ class Processor {
             site: getSite(document),
             image,
             isLarge: getIsLarge(document),
-            html: generateIframe(getEmbedUrl(document), url.href),
+            html: getPostIFrame(getEmbedUrl(document), url.href),
             locale: null,
         } satisfies OpenGraph;
 

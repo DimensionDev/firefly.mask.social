@@ -19,6 +19,7 @@ export function ReportButton({ connection }: ReportButtonProps) {
             if (!reason) return;
 
             await FireflySocialMediaProvider.reportAndDeleteWallet(connection, reason);
+            await FireflySocialMediaProvider.disconnectWallet(connection.address);
             enqueueSuccessMessage(t`Disconnected from your social graph`);
         } catch (error) {
             enqueueErrorMessage(getSnackbarMessageFromError(error, t`Failed to disconnect`), { error });

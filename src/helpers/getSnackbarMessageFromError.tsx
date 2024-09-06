@@ -2,7 +2,7 @@ import { Trans } from '@lingui/macro';
 import { ClientError } from 'graphql-request';
 import { first } from 'lodash-es';
 import type { SnackbarMessage } from 'notistack';
-import { UserRejectedRequestError } from 'viem';
+import { EstimateGasExecutionError, UserRejectedRequestError } from 'viem';
 
 import { SnackbarErrorMessage } from '@/components/SnackbarErrorMessage.js';
 import { FarcasterInvalidSignerKey, FetchError } from '@/constants/error.js';
@@ -45,6 +45,10 @@ export function getSnackbarMessageFromError(error: unknown, fallback: string): S
                 message={<Trans>The user rejected the request.</Trans>}
             />
         );
+    }
+
+    if (error instanceof EstimateGasExecutionError) {
+        return <SnackbarErrorMessage title={<Trans>Insufficient funds</Trans>} message={error.shortMessage} />;
     }
 
     return fallback;

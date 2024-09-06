@@ -1,5 +1,4 @@
-import { Trans } from '@lingui/macro';
-import { formatEthereumAddress } from '@masknet/web3-shared-evm';
+import { t, Trans } from '@lingui/macro';
 import { rootRouteId, useMatch } from '@tanstack/react-router';
 import { useMemo } from 'react';
 
@@ -7,6 +6,7 @@ import { ClickableButton } from '@/components/ClickableButton.js';
 import { TipsModalHeader } from '@/components/Tips/TipsModalHeader.js';
 import { Link } from '@/esm/Link.js';
 import { CHAR_TAG } from '@/helpers/chars.js';
+import { formatEthereumAddress } from '@/helpers/formatEthereumAddress.js';
 import { getCurrentAvailableSources } from '@/helpers/getCurrentAvailableSources.js';
 import { resolveSocialSource } from '@/helpers/resolveSource.js';
 import { useCurrentVisitingChannel } from '@/hooks/useCurrentVisitingChannel.js';
@@ -15,7 +15,7 @@ import { ComposeModalRef, LoginModalRef } from '@/modals/controls.js';
 import type { WalletProfile } from '@/providers/types/Firefly.js';
 
 export function TipSuccess() {
-    const { amount, token, recipient, handle, hash: hashUrl, socialProfiles } = TipsContext.useContainer();
+    const { amount, token, recipient, handle, hash: hashUrl, socialProfiles, post } = TipsContext.useContainer();
     const currentChannel = useCurrentVisitingChannel();
     const { context } = useMatch({ from: rootRouteId });
 
@@ -29,47 +29,47 @@ export function TipSuccess() {
     }, [recipient, handle, socialProfiles]);
 
     const onShare = () => {
-        const expectedSources = getCurrentAvailableSources().filter((source) => {
-            return socialProfiles.some((profile) => resolveSocialSource(profile.platform) === source);
-        });
+        const expectedSources = getCurrentAvailableSources().filter((source) =>
+            post
+                ? post.source === source
+                : socialProfiles.some((profile) => resolveSocialSource(profile.platform) === source),
+        );
         if (!expectedSources.length) {
             LoginModalRef.open({
-                source: resolveSocialSource(socialProfiles[0].platform),
+                source: post ? post.source : resolveSocialSource(socialProfiles[0].platform),
             });
             return;
         }
         context.onClose();
         ComposeModalRef.open({
-            type: 'compose',
+            type: post ? 'reply' : 'compose',
+            post,
             channel: currentChannel,
             source: expectedSources,
             chars: [
-                'Hi ',
+                `${amount} $${token?.symbol} tip sent to your wallet ${walletName} using `,
                 {
                     tag: CHAR_TAG.MENTION,
                     visible: true,
-                    content: handle!,
+                    content: `@${handle}`,
                     profiles: socialProfiles,
                 },
-                `, I just sent you ${amount} $${token?.symbol} tips! Check your wallet ${walletName} and try tipping on `,
-                ' https://firefly.mask.social',
+                ' ! Try it now on ',
+                ' https://firefly.social/ .',
             ],
         });
     };
 
     return (
         <>
-            <TipsModalHeader />
+            <TipsModalHeader title={t`Tip transaction completed!`} />
             <div>
                 <div className="md:px-6">
                     <p>
                         {canShare ? (
                             <Trans>
-                                You just sent{' '}
-                                <span className="font-bold text-link">{`${amount} ${'$'}${token?.symbol}`}</span> tips
-                                to <span className="font-bold text-link">{handle || recipient?.displayName}</span>!
-                                <br />
-                                Share this news by mentioning and posting.
+                                Tag {handle || recipient?.displayName} in a post to let them know you’ve sent an onchain
+                                tip to their wallet.
                             </Trans>
                         ) : (
                             <Trans>
@@ -97,7 +97,7 @@ export function TipSuccess() {
                         className="mt-6 h-10 w-full rounded-full border border-lightMain bg-transparent text-center font-bold text-lightMain"
                         onClick={onShare}
                     >
-                        <Trans>Share Now</Trans>
+                        <Trans>Create a Post</Trans>
                     </ClickableButton>
                 ) : null}
             </div>

@@ -119,7 +119,7 @@ export function ArticleDetailPage({ params: { id: articleId } }: PageProps) {
                     <CollapsedContent className="mt-2" authorMuted isQuote={false} />
                 ) : (
                     <ArticleMarkup
-                        className="markup linkify break-words text-[15px]"
+                        className="markup linkify break-words text-medium"
                         imageProps={{ disableLoadHandler: true, style: { objectFit: 'cover' } }}
                     >
                         {article.content}

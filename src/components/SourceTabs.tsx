@@ -1,15 +1,16 @@
 'use client';
 
 import { usePathname, useSearchParams } from 'next/navigation.js';
-import { startTransition, useEffect, useLayoutEffect } from 'react';
+import { startTransition, useEffect, useLayoutEffect, useMemo } from 'react';
 
 import { PageRoute, SearchType, Source } from '@/constants/enum.js';
-import { SORTED_BOOKMARK_SOURCES, SORTED_HOME_SOURCES } from '@/constants/index.js';
+import { SORTED_BOOKMARK_SOURCES, SORTED_HOME_SOURCES, SORTED_SOCIAL_SOURCES } from '@/constants/index.js';
 import { classNames } from '@/helpers/classNames.js';
 import { getCurrentSourceFromUrl } from '@/helpers/getCurrentSourceFromUrl.js';
 import { isRoutePathname } from '@/helpers/isRoutePathname.js';
 import { resolveSourceInURL } from '@/helpers/resolveSourceInURL.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
+import { useIsLogin } from '@/hooks/useIsLogin.js';
 import { useUpdateParams } from '@/hooks/useUpdateParams.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
 import { useFireflyStateStore } from '@/store/useProfileStore.js';
@@ -24,20 +25,30 @@ export function SourceTabs() {
 
     const searchParams = useSearchParams();
     const pathname = usePathname();
+    const isTwitterLogin = useIsLogin(Source.Twitter);
 
-    const sources =
-        pathname === PageRoute.Bookmarks
-            ? SORTED_BOOKMARK_SOURCES
-            : SORTED_HOME_SOURCES.filter((x) => {
-                  if (x !== Source.Article && x !== Source.NFTs) return true;
-                  if (
-                      pathname === PageRoute.Home ||
-                      (pathname === PageRoute.Following && !!fireflySession) ||
-                      isRoutePathname(pathname, '/post/:detail/photos/:index', true)
-                  )
-                      return true;
-                  return false;
-              });
+    const sources = useMemo(() => {
+        switch (pathname) {
+            case PageRoute.Bookmarks:
+                return SORTED_BOOKMARK_SOURCES;
+            case PageRoute.Search:
+                return SORTED_SOCIAL_SOURCES.filter((source) => {
+                    if (source === Source.Twitter) return isTwitterLogin;
+                    return true;
+                });
+            default:
+                return SORTED_HOME_SOURCES.filter((x) => {
+                    if (x !== Source.Article && x !== Source.NFTs) return true;
+                    if (
+                        pathname === PageRoute.Home ||
+                        (pathname === PageRoute.Following && !!fireflySession) ||
+                        isRoutePathname(pathname, '/post/:detail/photos/:index', true)
+                    )
+                        return true;
+                    return false;
+                });
+        }
+    }, [pathname, fireflySession, isTwitterLogin]);
 
     const shouldReset = !sources.includes(currentSource);
 

@@ -1,10 +1,11 @@
 import { t } from '@lingui/macro';
 import { compact } from 'lodash-es';
-import type { TweetV2PaginableTimelineResult, UserV2, UserV2MuteResult } from 'twitter-api-v2';
+import type { TweetV2PaginableTimelineResult, Tweetv2TimelineResult, UserV2, UserV2MuteResult } from 'twitter-api-v2';
 import urlcat from 'urlcat';
 
 import { FireflyPlatform, Source } from '@/constants/enum.js';
 import { NotImplementedError } from '@/constants/error.js';
+import { SetQueryDataForActPost } from '@/decorators/setQueryDataForActPost.js';
 import { SetQueryDataForBlockProfile } from '@/decorators/SetQueryDataForBlockProfile.js';
 import { SetQueryDataForBookmarkPost } from '@/decorators/SetQueryDataForBookmarkPost.js';
 import { SetQueryDataForCommentPost } from '@/decorators/SetQueryDataForCommentPost.js';
@@ -41,6 +42,7 @@ import type { ResponseJSON } from '@/types/index.js';
 @SetQueryDataForDeletePost(Source.Twitter)
 @SetQueryDataForFollowProfile(Source.Twitter)
 @SetQueryDataForBlockProfile(Source.Twitter)
+@SetQueryDataForActPost(Source.Twitter)
 class TwitterSocialMedia implements Provider {
     async unmirrorPost(postId: string, authorId?: number | undefined): Promise<void> {
         const response = await twitterSessionHolder.fetch<ResponseJSON<void>>(`/api/twitter/unretweet/${postId}`, {
@@ -78,6 +80,14 @@ class TwitterSocialMedia implements Provider {
     }
 
     getProfilesByAddress(address: string): Promise<Profile[]> {
+        throw new NotImplementedError();
+    }
+
+    getHiddenComments(postId: string, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
+        throw new NotImplementedError();
+    }
+
+    actPost(postId: string, options: unknown): Promise<void> {
         throw new NotImplementedError();
     }
 
@@ -284,8 +294,15 @@ class TwitterSocialMedia implements Provider {
         if (!response.success) throw new Error(response.error.message);
     }
 
-    searchPosts(q: string, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
-        throw new NotImplementedError();
+    async searchPosts(q: string, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
+        const url = urlcat(`/api/twitter/search/recent`, {
+            limit: 25,
+            cursor: indicator?.id,
+            query: q,
+        });
+        const response = await twitterSessionHolder.fetch<ResponseJSON<Tweetv2TimelineResult>>(url, {}, true);
+        if (!response.success) throw new Error(response.error.message);
+        return formatTweetsPage(response.data, indicator);
     }
 
     searchProfiles(q: string, indicator?: PageIndicator): Promise<Pageable<Profile, PageIndicator>> {

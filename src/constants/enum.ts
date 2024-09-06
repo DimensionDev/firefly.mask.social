@@ -207,7 +207,7 @@ export enum ChannelTabType {
 }
 
 // async store needs to sync data from the server
-export enum AsyncStoreStatus {
+export enum AsyncStatus {
     Idle = 'idle',
     Pending = 'pending',
 }
@@ -228,6 +228,7 @@ export enum WalletSource {
     Wallet = 'wallet',
     NFTs = 'nfts',
     LensContract = 'lens_contract',
+    Particle = 'particle',
 }
 
 export enum AdvertisementType {
@@ -237,4 +238,33 @@ export enum AdvertisementType {
 
 export enum AdFunctionType {
     OpenScan = 'openScan',
+}
+
+export enum UploadMediaStatus {
+    Pending = 'pending',
+    Uploading = 'in_progress',
+    Success = 'succeeded',
+    Failed = 'failed',
+}
+
+export enum FileMimeType {
+    JPEG = 'image/jpeg',
+    MP4 = 'video/mp4',
+    MOV = 'video/quicktime',
+    GIF = 'image/gif',
+    PNG = 'image/png',
+    WEBP = 'image/webp',
+    BMP = 'image/bmp',
+    MPEG = 'video/mpeg',
+    // cspell: disable-next-line
+    MS_VIDEO = 'video/x-msvideo',
+    OGG = 'video/ogg',
+    WEBM = 'video/webm',
+    GPP = 'video/3gpp',
+    GPP2 = 'video/3gpp2',
+}
+
+export enum FrameProtocol {
+    OpenFrame = 'of',
+    Farcaster = 'fc',
 }

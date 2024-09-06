@@ -10,6 +10,7 @@ import { createDummyPost } from '@/helpers/createDummyPost.js';
 import { getUserLocale } from '@/helpers/getUserLocale.js';
 import { createS3MediaObject, resolveImageUrl, resolveVideoUrl } from '@/helpers/resolveMediaObjectUrl.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
+import { uploadVideoCover } from '@/helpers/uploadVideoCover.js';
 import { LensPollProvider } from '@/providers/lens/Poll.js';
 import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
 import { createPostTo } from '@/services/createPostTo.js';
@@ -38,6 +39,7 @@ interface Attachments {
         item: string;
         type: string;
         duration?: number;
+        cover?: string;
     };
     attachments: Array<{
         item: string;
@@ -47,7 +49,10 @@ interface Attachments {
     }>;
 }
 
-export function createPayloadAttachments(images: MediaObject[], video: MediaObject | null): Attachments | undefined {
+export async function createPayloadAttachments(
+    images: MediaObject[],
+    video: MediaObject | null,
+): Promise<Attachments | undefined> {
     if (
         images.some((image) => !resolveImageUrl(Source.Lens, image)) ||
         (video && !resolveVideoUrl(Source.Lens, video))
@@ -58,6 +63,8 @@ export function createPayloadAttachments(images: MediaObject[], video: MediaObje
     const imagesWithIPFS = images as Array<Required<MediaObject>>;
     const videoWithIPFS = video as Required<MediaObject> | null;
 
+    const cover = videoWithIPFS ? await uploadVideoCover(videoWithIPFS) : undefined;
+
     return imagesWithIPFS.length > 0 || !!videoWithIPFS
         ? {
               attachments: videoWithIPFS
@@ -65,7 +72,7 @@ export function createPayloadAttachments(images: MediaObject[], video: MediaObje
                         {
                             type: videoWithIPFS.mimeType,
                             item: resolveVideoUrl(Source.Lens, videoWithIPFS),
-                            cover: resolveVideoUrl(Source.Lens, videoWithIPFS),
+                            cover,
                         },
                     ]
                   : imagesWithIPFS.map((image) => ({
@@ -78,6 +85,7 @@ export function createPayloadAttachments(images: MediaObject[], video: MediaObje
                         video: {
                             type: videoWithIPFS.mimeType,
                             item: resolveVideoUrl(Source.Lens, videoWithIPFS),
+                            cover,
                         },
                     }
                   : {
@@ -166,7 +174,7 @@ async function publishPostForLens(
                 external_url: SITE_URL,
             },
         },
-        createPayloadAttachments(images, video),
+        await createPayloadAttachments(images, video),
     );
     const tokenRes = await LensSocialMediaProvider.getAccessToken();
     const token = tokenRes.unwrap();
@@ -205,7 +213,7 @@ async function commentPostForLens(
                 external_url: SITE_URL,
             },
         },
-        createPayloadAttachments(images, video),
+        await createPayloadAttachments(images, video),
     );
     const tokenRes = await LensSocialMediaProvider.getAccessToken();
     const token = tokenRes.unwrap();
@@ -237,7 +245,7 @@ async function quotePostForLens(
                 external_url: SITE_URL,
             },
         },
-        createPayloadAttachments(images, video),
+        await createPayloadAttachments(images, video),
     );
     const tokenRes = await LensSocialMediaProvider.getAccessToken();
     const token = tokenRes.unwrap();

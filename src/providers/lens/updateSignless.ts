@@ -1,3 +1,4 @@
+import { delay } from '@masknet/kit';
 import type { TypedDataDomain } from 'viem';
 
 import { config } from '@/configs/wagmiClient.js';
@@ -32,5 +33,14 @@ export async function updateSignless(enable: boolean, session: LensSession): Pro
         console.warn("Couldn't update signless", onchainRelayResult);
         throw new Error("Couldn't update signless");
     }
+
+    if (onchainRelayResult.txHash)
+        await sdk.transaction.waitUntilComplete({
+            forTxHash: onchainRelayResult.txHash,
+        });
+
+    // Wait for 3 seconds to make sure the status has been changed
+    await delay(3000);
+
     return;
 }

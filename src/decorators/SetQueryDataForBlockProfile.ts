@@ -65,6 +65,7 @@ function setBlockStatus(source: SocialSource, profileId: string, status: boolean
     queryClient.setQueriesData<PagesData>({ queryKey: ['profiles', source, 'muted-list'] }, profilesPatcher);
     queryClient.setQueriesData<PagesData>({ queryKey: ['suggested-follows', source], type: 'active' }, profilesPatcher);
     queryClient.refetchQueries({ queryKey: ['suggested-follows-lite'] });
+    queryClient.refetchQueries({ queryKey: ['notifications', source, true] });
 }
 
 const METHODS_BE_OVERRIDDEN = ['blockProfile', 'unblockProfile'] as const;

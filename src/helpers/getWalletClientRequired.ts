@@ -1,3 +1,4 @@
+import { ConnectorNotConnectedError } from '@wagmi/core';
 import type { Config } from 'wagmi';
 import { getWalletClient, type GetWalletClientParameters, type GetWalletClientReturnType } from 'wagmi/actions';
 
@@ -13,10 +14,7 @@ export async function getWalletClientRequired(
     try {
         await getWalletClient(config, args);
     } catch (error) {
-        const errorWithName = error as { name: string };
-        const errorName = errorWithName.name;
-        // cannot use `instanceof` because the package does not export the class
-        if (errorName === 'ConnectorNotConnectedError') await ConnectModalRef.openAndWaitForClose();
+        if (error instanceof ConnectorNotConnectedError) await ConnectModalRef.openAndWaitForClose();
         throw error;
     }
 

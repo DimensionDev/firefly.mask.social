@@ -1,15 +1,10 @@
 import type { UploadMediaV1Params } from 'twitter-api-v2';
-import { v4 as uuid } from 'uuid';
 
+import { MAX_SIZE_PER_CHUNK } from '@/constants/index.js';
 import { getVideoDuration } from '@/helpers/getVideoDuration.js';
 import { twitterSessionHolder } from '@/providers/twitter/SessionHolder.js';
-
-interface UploadMediaResponse {
-    data: {
-        media_id: string;
-        media_id_string: string;
-    };
-}
+import { uploadToTwitterWithChunks } from '@/services/uploadToTwitterWithChunks.js';
+import type { UploadMediaResponse } from '@/types/twitter.js';
 
 export interface TwitterMediaResponse {
     file: File;
@@ -22,16 +17,17 @@ export async function uploadToTwitter(
 ): Promise<TwitterMediaResponse[]> {
     const medias = await Promise.all(
         uploads.map(({ file, options = {} }) => {
+            if (file.size > MAX_SIZE_PER_CHUNK) {
+                return uploadToTwitterWithChunks(file);
+            }
+
             const formData = new FormData();
             formData.append('file', file);
             formData.append('options', JSON.stringify(options));
 
-            return twitterSessionHolder.fetch<UploadMediaResponse>('/api/twitter/uploadMedia', {
+            return twitterSessionHolder.fetch<{ data: UploadMediaResponse }>('/api/twitter/uploadMedia', {
                 method: 'POST',
                 body: formData,
-                headers: {
-                    'Content-Type': `multipart/form-data; boundary=--------------------------${uuid()}`,
-                },
             });
         }),
     );

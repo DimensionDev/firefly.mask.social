@@ -54,12 +54,12 @@ export const WatchButton = memo(function WatchButton({
 
     const { data: isMuted } = useIsWalletMuted(address);
 
-    if (isMuted) return <ToggleMuteWalletButton address={address} className={className} />;
+    if (isMuted) return <ToggleMuteWalletButton isMuted={isMuted} address={address} className={className} />;
 
     return (
         <ClickableButton
             className={classNames(
-                'flex h-8 items-center justify-center rounded-full text-[15px] font-semibold transition-all',
+                'flex h-8 items-center justify-center rounded-full text-medium font-semibold transition-all',
                 variantClassName,
                 className,
                 {
@@ -76,7 +76,8 @@ export const WatchButton = memo(function WatchButton({
             onMouseLeave={() => setHovering(false)}
             onClick={() => {
                 if (!isLogin) {
-                    return LoginModalRef.open();
+                    LoginModalRef.open();
+                    return;
                 }
                 mutation.mutate();
             }}

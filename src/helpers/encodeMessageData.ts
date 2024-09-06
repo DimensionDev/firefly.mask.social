@@ -3,7 +3,7 @@ import { blake3 } from '@noble/hashes/blake3';
 import { bytesToHex } from '@noble/hashes/utils';
 import { toBytes } from 'viem';
 
-import { getPublicKeyInHex, signMessageInHex } from '@/helpers/ed25519.js';
+import { getPublicKeyInHexFromSigner, signMessageInHexFromSigner } from '@/helpers/ed25519.js';
 import { farcasterSessionHolder } from '@/providers/farcaster/SessionHolder.js';
 import type { PartialWith } from '@/types/index.js';
 
@@ -26,8 +26,8 @@ export async function encodeMessageData(
     const messageDataBytes = MessageData.encode(messageData).finish();
     const messageDataHash = blake3(messageDataBytes, { dkLen: 20 });
 
-    const publicKey = await getPublicKeyInHex(signer);
-    const signature = await signMessageInHex(signer, messageDataHash);
+    const publicKey = await getPublicKeyInHexFromSigner(signer);
+    const signature = await signMessageInHexFromSigner(signer, messageDataHash);
 
     const message = await withMessage(messageData, signer);
     const messageBytes = Message.encode(message).finish();

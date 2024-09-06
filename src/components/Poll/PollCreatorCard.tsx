@@ -66,7 +66,7 @@ export const PollCreatorCard = memo<PollCreatorCardProps>(function PollCreatorCa
             <div>
                 {poll.options.map((option, index) => (
                     <div
-                        className="mt-4 flex h-12 items-center rounded-2xl bg-lightBg px-3.5 text-[15px] text-lightMain"
+                        className="mt-4 flex h-12 items-center rounded-2xl bg-lightBg px-3.5 text-medium text-lightMain"
                         key={option.id}
                     >
                         <div className="h-full w-[calc(100%_-_20px)]">
@@ -97,7 +97,7 @@ export const PollCreatorCard = memo<PollCreatorCardProps>(function PollCreatorCa
                     onClick={addOption}
                 >
                     <AddIcon width={20} height={20} />
-                    <span className="text-[15px]">
+                    <span className="text-medium">
                         <Trans>Add another option</Trans>
                     </span>
                 </ClickableButton>

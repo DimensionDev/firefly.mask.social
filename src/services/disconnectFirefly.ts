@@ -20,6 +20,7 @@ function getIdentity(connection: FireflyWalletConnection): FireflyIdentity | nul
             return { source: resolveSourceFromWalletSource(connection.source), id: connection.twitterId };
         case WalletSource.Article:
         case WalletSource.NFTs:
+        case WalletSource.Particle:
             return null;
         case WalletSource.Firefly:
         case WalletSource.Wallet:
@@ -32,10 +33,13 @@ function getIdentity(connection: FireflyWalletConnection): FireflyIdentity | nul
 
 export async function disconnectFirefly(connection: FireflyWalletConnection) {
     const identity = getIdentity(connection);
-    if (!identity) throw new Error('No profile identity found for disconnecting wallet');
+    if (identity) {
+        await FireflySocialMediaProvider.disconnectAccount(identity);
+    }
 
-    await FireflySocialMediaProvider.disconnectAccount(identity);
     await FireflySocialMediaProvider.disconnectWallet(connection.address);
+
+    if (!identity) return;
 
     const source = identity.source as SocialSource;
 

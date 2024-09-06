@@ -112,6 +112,14 @@ class WarpcastSocialMedia implements Provider {
         throw new NotImplementedError();
     }
 
+    getHiddenComments(postId: string, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
+        throw new NotImplementedError();
+    }
+
+    actPost(postId: string, options: unknown): Promise<void> {
+        throw new NotImplementedError();
+    }
+
     get type() {
         return SessionType.Farcaster;
     }
@@ -723,13 +731,13 @@ class WarpcastSocialMedia implements Provider {
     }
 
     async updateProfile(profile: ProfileEditable): Promise<boolean> {
-        const location = parseJSON(params.location) ?? undefined;
+        const location = parseJSON(profile.location) ?? undefined;
         await farcasterSessionHolder.fetch<UpdateProfileResponse>(urlcat(WARPCAST_CLIENT_URL, 'me'), {
             method: 'PATCH',
             body: JSON.stringify({
-                pfp: params.avatar,
-                displayName: params.displayName,
-                bio: params.bio,
+                pfp: profile.pfp,
+                displayName: profile.displayName,
+                bio: profile.bio,
                 location,
             }),
         });

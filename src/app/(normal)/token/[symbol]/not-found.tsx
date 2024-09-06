@@ -19,7 +19,7 @@ export default function NotFoundToken() {
     return (
         <div className="flex flex-col items-center py-12 text-secondary">
             <GhostHoleIcon width={200} height={143} className="text-third" />
-            <div className="mt-3 break-words break-all text-center text-[15px] font-bold">
+            <div className="mt-3 break-words break-all text-center text-medium font-bold">
                 <div className="mt-10">
                     <Trans>Token ${symbol} could not be found.</Trans>
                 </div>

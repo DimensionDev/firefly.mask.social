@@ -32,7 +32,7 @@ export const LogoutModal = forwardRef<SingletonModalRefCreator<LogoutModalProps 
                 title: t`Log out`,
                 content: (
                     <>
-                        <div className="text-[15px] font-medium leading-normal text-lightMain">
+                        <div className="text-medium font-medium leading-normal text-lightMain">
                             {props?.account ? (
                                 <Trans>Confirm to log out this account?</Trans>
                             ) : (

@@ -28,7 +28,7 @@ export function SuggestedChannels({ source }: SuggestedChannelsProps) {
 
     if (isError || isLoading) return null;
 
-    const channels = data?.data ?? EMPTY_LIST;
+    const channels = data?.data?.filter((channel) => !channel.blocked) ?? EMPTY_LIST;
     const showMore = channels.length > SHOW_LENGTH;
     const suggestedChannels = channels.slice(0, SHOW_LENGTH);
 
@@ -36,13 +36,13 @@ export function SuggestedChannels({ source }: SuggestedChannelsProps) {
 
     return (
         <div>
-            <AsideTitle className="flex items-center justify-between !px-3">
+            <AsideTitle className="flex items-center justify-between">
                 <span className="text-xl">
                     <Trans>Trending Channels</Trans>
                 </span>
                 {showMore ? (
                     <Link
-                        className="text-[15px] text-lightHighlight"
+                        className="text-medium text-lightHighlight"
                         href={urlcat(PageRoute.Home, {
                             discover: DiscoverType.TopChannels,
                             source: resolveSocialSourceInURL(Source.Farcaster),

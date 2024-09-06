@@ -214,7 +214,7 @@ export const NotificationItem = memo<NotificationItemProps>(function Notificatio
                             }
                             other={<ExtraProfiles profiles={notification.actions} />}
                         />{' '}
-                        <span>acted on your </span>
+                        <span>collected your </span>
                         <strong>
                             <Select
                                 value={notification.post.type}
@@ -250,7 +250,7 @@ export const NotificationItem = memo<NotificationItemProps>(function Notificatio
                 if (isProfileMuted(post.author)) return <CollapsedContent authorMuted isQuote={false} />;
                 return (
                     <Link className="mt-1" href={postLink}>
-                        <Markup post={post} className="markup linkify line-clamp-5 break-words text-[15px]">
+                        <Markup post={post} className="markup linkify line-clamp-5 break-words text-medium">
                             {post.metadata.content?.content || ''}
                         </Markup>
                     </Link>
@@ -263,7 +263,7 @@ export const NotificationItem = memo<NotificationItemProps>(function Notificatio
                     <div className="mt-1">
                         <Markup
                             post={notification.quote}
-                            className="markup linkify line-clamp-5 break-words text-[15px]"
+                            className="markup linkify line-clamp-5 break-words text-medium"
                         >
                             {notification.quote.metadata.content?.content || ''}
                         </Markup>
@@ -376,7 +376,9 @@ export const NotificationItem = memo<NotificationItemProps>(function Notificatio
                                 {moreAction}
                             </div>
                         </div>
-                        <div className="mt-2 text-[15px]">{title}</div>
+                        <div className="mt-2 flex min-w-0 items-center gap-[0.2em] whitespace-nowrap text-medium">
+                            {title}
+                        </div>
                         {content}
                         {actions}
                     </div>

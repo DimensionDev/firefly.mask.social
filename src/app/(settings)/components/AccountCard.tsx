@@ -39,14 +39,13 @@ export function AccountCard({ source }: AccountCardProps) {
             {accounts.map((account) => (
                 <div
                     key={account.profile.profileId}
-                    className="inline-flex h-[63px] w-full items-center justify-start gap-3 rounded-lg bg-white bg-bottom px-3 py-2 dark:bg-bg"
-                    style={{ boxShadow: '0px 0px 20px 0px rgba(0, 0, 0, 0.05)', backdropFilter: 'blur(8px)' }}
+                    className="inline-flex h-[63px] w-full items-center justify-start gap-3 rounded-lg bg-white bg-bottom px-3 py-2 shadow-primary backdrop-blur dark:bg-bg"
                 >
                     <ProfileAvatar profile={account.profile} size={36} />
                     <ProfileName profile={account.profile} />
                     {isSameProfile(account.profile, profile) && account.session ? (
                         <ClickableButton
-                            className="text-[15px] font-bold leading-none text-red-500"
+                            className="text-medium font-bold leading-none text-red-500"
                             onClick={() => {
                                 LogoutModalRef.open({ account: { ...account, session: account.session! } });
                             }}
@@ -55,7 +54,7 @@ export function AccountCard({ source }: AccountCardProps) {
                         </ClickableButton>
                     ) : account.session ? (
                         <ClickableButton
-                            className="text-right text-[15px] font-bold leading-none text-main"
+                            className="text-right text-medium font-bold leading-none text-main"
                             disabled={loading}
                             onClick={() => {
                                 login({ ...account, session: account.session! });
@@ -65,7 +64,7 @@ export function AccountCard({ source }: AccountCardProps) {
                         </ClickableButton>
                     ) : (
                         <ClickableButton
-                            className="text-right text-[15px] font-bold leading-none text-main"
+                            className="text-right text-medium font-bold leading-none text-main"
                             disabled={loading}
                             onClick={() => {
                                 LoginModalRef.open({

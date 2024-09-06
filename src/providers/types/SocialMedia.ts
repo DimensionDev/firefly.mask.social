@@ -1,3 +1,5 @@
+import type { OpenActionModuleType } from '@lens-protocol/client';
+
 import type { BookmarkType, FireflyPlatform, RestrictionType, SocialSource } from '@/constants/enum.js';
 import type { Pageable, PageIndicator } from '@/helpers/pageable.js';
 import type { Poll } from '@/providers/types/Poll.js';
@@ -141,6 +143,11 @@ export interface Post {
             oembedUrls?: string[];
         } | null;
         contentURI?: string;
+        article?: {
+            cover?: string;
+            title: string;
+            content?: string;
+        };
     };
     stats?: {
         comments: number;
@@ -180,6 +187,7 @@ export interface Post {
     commentOn?: Post;
     root?: Post;
     quoteOn?: Post;
+    mirrorOn?: Post;
     comments?: Post[];
     embedPosts?: Post[];
     channel?: Channel;
@@ -216,6 +224,28 @@ export interface Post {
     sendFrom?: {
         displayName?: string;
         name?: string;
+    };
+
+    /**
+     * Lens Only
+     * Used to act a post
+     */
+    collectModule?: {
+        collectedCount: number;
+        collectLimit?: number;
+        assetAddress?: string;
+        currency?: string;
+        usdPrice?: string;
+        amount?: number;
+        referralFee?: number;
+        followerOnly?: boolean;
+        contract: {
+            address?: string;
+            chainId?: number;
+        };
+        endsAt?: string | null;
+        // Lens Only
+        type?: string;
     };
     __original__?: unknown;
 }
@@ -374,6 +404,11 @@ export interface Provider {
      * @returns A promise that resolves to void.
      */
     collectPost?: (postId: string, collectionId?: string) => Promise<void>;
+
+    /**
+     * Act a post with the specified post ID.
+     */
+    actPost: (postId: string, options: { type: OpenActionModuleType; signRequire?: boolean }) => Promise<void>;
 
     /**
      * Upvotes a post with the specified post ID.
@@ -832,4 +867,9 @@ export interface Provider {
      * Update profile
      */
     updateProfile: (profile: ProfileEditable) => Promise<boolean>;
+
+    /**
+     * Get hidden comments
+     */
+    getHiddenComments: (postId: string, indicator?: PageIndicator) => Promise<Pageable<Post, PageIndicator>>;
 }

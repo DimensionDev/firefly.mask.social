@@ -4,6 +4,7 @@ import { t, Trans } from '@lingui/macro';
 import { useSuspenseInfiniteQuery, useSuspenseQuery } from '@tanstack/react-query';
 import { last } from 'lodash-es';
 import { notFound } from 'next/navigation.js';
+import { Suspense } from 'react';
 import urlcat from 'urlcat';
 import { useDocumentTitle } from 'usehooks-ts';
 
@@ -11,6 +12,7 @@ import ComeBack from '@/assets/comeback.svg';
 import { PostStatistics } from '@/components/Actions/PostStatistics.js';
 import { Info } from '@/components/Channel/Info.js';
 import { CommentList } from '@/components/Comments/index.js';
+import { Loading } from '@/components/Loading.js';
 import { SinglePost } from '@/components/Posts/SinglePost.js';
 import { ThreadBody } from '@/components/Posts/ThreadBody.js';
 import { type SocialSourceInURL, Source } from '@/constants/enum.js';
@@ -145,9 +147,10 @@ export function PostDetailPage({ params: { id: postId }, searchParams: { source 
             <div>
                 {allPosts.length >= MIN_POST_SIZE_PER_THREAD ? (
                     <>
-                        <div className="border-b border-line px-4 py-3">
+                        <div className="px-4 py-3">
                             {allPosts.map((post, index) => (
                                 <ThreadBody
+                                    isDetail
                                     post={post}
                                     disableAnimate
                                     showTranslate
@@ -175,7 +178,9 @@ export function PostDetailPage({ params: { id: postId }, searchParams: { source 
                             />
                         ) : null}
                         {/* TODO: Compose Comment Input */}
-                        <CommentList postId={postId} source={currentSource} />
+                        <Suspense fallback={<Loading />}>
+                            <CommentList postId={postId} source={currentSource} />
+                        </Suspense>
                     </>
                 )}
             </div>

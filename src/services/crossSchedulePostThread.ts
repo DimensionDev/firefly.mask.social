@@ -1,19 +1,23 @@
 import { t } from '@lingui/macro';
 import { delay } from '@masknet/kit';
+import { ConnectorNotConnectedError } from '@wagmi/core';
 import { first } from 'lodash-es';
 
 import type { SocialSourceInURL } from '@/constants/enum.js';
-import { checkScheduleTime, CreateScheduleError } from '@/helpers/checkScheduleTime.js';
+import { CreateScheduleError, SignlessRequireError } from '@/constants/error.js';
+import { checkScheduleTime } from '@/helpers/checkScheduleTime.js';
 import { enqueueErrorMessage, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { getProfileSessionsAll } from '@/helpers/getProfileState.js';
 import { getScheduleTaskContent } from '@/helpers/getScheduleTaskContent.js';
 import { getSnackbarMessageFromError } from '@/helpers/getSnackbarMessageFromError.js';
 import type { SchedulePayload } from '@/helpers/resolveCreateSchedulePostPayload.js';
+import { EnableSignlessModalRef } from '@/modals/controls.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
 import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
 import { createSchedulePostsPayload } from '@/services/crossSchedulePost.js';
 import { uploadSessions } from '@/services/metrics.js';
 import { useComposeStateStore } from '@/store/useComposeStore.js';
+import { useLensStateStore } from '@/store/useProfileStore.js';
 
 export async function crossPostScheduleThread(scheduleTime: Date) {
     try {
@@ -44,6 +48,7 @@ export async function crossPostScheduleThread(scheduleTime: Date) {
         const post = first(posts);
         const content = getScheduleTaskContent(post);
 
+        await useLensStateStore.getState().refreshCurrentAccount();
         await uploadSessions('merge', fireflySessionHolder.sessionRequired, getProfileSessionsAll());
 
         const result = await FireflySocialMediaProvider.schedulePost(
@@ -62,8 +67,13 @@ export async function crossPostScheduleThread(scheduleTime: Date) {
         enqueueSuccessMessage(t`Your schedule thread has created successfully.`);
     } catch (error) {
         if (error instanceof CreateScheduleError) {
-            enqueueErrorMessage(error.message);
+            enqueueErrorMessage(error.message, {
+                description: error.description,
+            });
+        } else if (error instanceof SignlessRequireError) {
+            EnableSignlessModalRef.open();
         } else {
+            if (error instanceof ConnectorNotConnectedError) throw error;
             enqueueErrorMessage(getSnackbarMessageFromError(error, t`Failed to create schedule thread posts.`), {
                 error,
             });

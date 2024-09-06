@@ -18,10 +18,9 @@ export function ComposeThreadContent(props: ComposeThreadContentProps) {
     const currentSource = useGlobalState.use.currentSource();
     const currentSocialSource = narrowToSocialSource(currentSource);
 
-    const currentProfile = useCurrentAvailableProfile(currentSocialSource);
-
     const setEditorContent = useSetEditorContent();
 
+    const currentProfile = useCurrentAvailableProfile(currentSocialSource);
     const { posts, cursor, computed, updateCursor, removePostInThread } = useComposeStateStore();
 
     return (
@@ -60,7 +59,7 @@ export function ComposeThreadContent(props: ComposeThreadContentProps) {
                             />
                         ) : null}
                         {i < posts.length - 1 ? (
-                            <div className="absolute bottom-0 left-[19px] top-0 h-full w-[2px] bg-secondaryMain" />
+                            <div className="absolute -bottom-3 left-[19px] top-0 w-[2px] bg-secondaryMain" />
                         ) : null}
                         {currentProfile ? (
                             <div className="relative">

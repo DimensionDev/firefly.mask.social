@@ -40,7 +40,7 @@ export function ToggleMutedButton({ loading, isMuted, className, variant = 'text
         <ClickableButton
             ref={hoverRef}
             className={classNames(
-                'flex h-8 min-w-[112px] items-center justify-center rounded-full border-danger text-[15px] font-semibold transition-all',
+                'flex h-8 min-w-[112px] items-center justify-center rounded-full border-danger text-medium font-semibold transition-all',
                 buttonState === MuteLabel.Muted ? 'border' : '',
                 buttonState === MuteLabel.Unmute ? 'border border-danger border-opacity-50' : '',
                 isMuted ? 'bg-danger text-white' : 'text-danger',

@@ -1,4 +1,5 @@
 import { safeUnreachable } from '@masknet/kit';
+import dayjs from 'dayjs';
 import { compact, groupBy } from 'lodash-es';
 import urlcat from 'urlcat';
 
@@ -108,7 +109,9 @@ async function uploadSessionsByMerge(session: FireflySession, sessions: Session[
             // TODO: merge the same sessions
             if (group.length === 2) {
                 const [a, b] = group;
-                return a;
+                if (dayjs(b.createdAt).isBefore(a.createdAt)) return a;
+
+                return b;
             }
             throw new Error('Not available group length.');
         })
@@ -165,6 +168,13 @@ export async function downloadAccounts(session: FireflySession, signal?: AbortSi
 
     // check if the request is aborted
     if (signal?.aborted) throw new AbortError();
+
+    // failed to get profile due to invalid session
+    allSettled.forEach((x, i) => {
+        if (x.status === 'rejected') {
+            console.warn(`[downloadAccounts] Failed to get profile for session ${sessions[i].serialize()}.`);
+        }
+    });
 
     return compact<Account>(
         allSettled.map((x, i) =>

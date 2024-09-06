@@ -4,6 +4,8 @@ import { memo } from 'react';
 
 import { SolanaAccountModal } from '@/components/SolanaAccountModal.js';
 import { AccountModal } from '@/modals/AccountModal.js';
+import { CollectArticleModal } from '@/modals/CollectArticleModal.js';
+import { CollectPostModal } from '@/modals/CollectPostModal.js';
 import { ComposeModal } from '@/modals/ComposeModal.js';
 import { ConfirmFireflyModal } from '@/modals/ConfirmFireflyModal.js';
 import { ConfirmLeavingModal } from '@/modals/ConfirmLeavingModal.js';
@@ -13,6 +15,7 @@ import { ConnectWalletModal } from '@/modals/ConnectWalletModal.js';
 import * as controls from '@/modals/controls.js';
 import { DraggablePopover } from '@/modals/DraggablePopover.js';
 import { EditProfileModal } from '@/modals/EditProfileModal.js';
+import { EnableSignlessModal } from '@/modals/EnableSignlessModal.js';
 import { LoginModal } from '@/modals/LoginModal/index.js';
 import { LogoutModal } from '@/modals/LogoutModal.js';
 import { PreviewMediaModal } from '@/modals/PreviewMediaModal.js';
@@ -39,6 +42,9 @@ export const Modals = memo(function Modals() {
             <PreviewMediaModal ref={controls.PreviewMediaModalRef.register} />
             <SchedulePostModal ref={controls.SchedulePostModalRef.register} />
             <EditProfileModal ref={controls.EditProfileModalRef.register} />
+            <CollectArticleModal ref={controls.CollectArticleModalRef.register} />
+            <EnableSignlessModal ref={controls.EnableSignlessModalRef.register} />
+            <CollectPostModal ref={controls.CollectPostModalRef.register} />
         </>
     );
 });

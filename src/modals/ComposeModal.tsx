@@ -23,7 +23,7 @@ import LoadingIcon from '@/assets/loading.svg';
 import { router } from '@/components/Compose/ComposeRouter.js';
 import { MentionNode } from '@/components/Lexical/nodes/MentionsNode.js';
 import { Modal } from '@/components/Modal.js';
-import { type SocialSource } from '@/constants/enum.js';
+import { FileMimeType, type SocialSource } from '@/constants/enum.js';
 import { UnreachableError } from '@/constants/error.js';
 import { EMPTY_LIST, RP_HASH_TAG, SITE_HOSTNAME, SITE_URL, SORTED_SOCIAL_SOURCES } from '@/constants/index.js';
 import { CHAR_TAG, type Chars } from '@/helpers/chars.js';
@@ -39,6 +39,7 @@ import { createLocalMediaObject } from '@/helpers/resolveMediaObjectUrl.js';
 import { hasRpPayload, isRpEncrypted, updateRpEncrypted } from '@/helpers/rpPayload.js';
 import { useCompositePost } from '@/hooks/useCompositePost.js';
 import { useCurrentProfile, useCurrentProfileAll } from '@/hooks/useCurrentProfile.js';
+import { useIsSmall } from '@/hooks/useMediaQuery.js';
 import { useSetEditorContent } from '@/hooks/useSetEditorContent.js';
 import { useSingletonModal } from '@/hooks/useSingletonModal.js';
 import type { SingletonModalRefCreator } from '@/libs/SingletonModal.js';
@@ -93,7 +94,7 @@ export const ComposeModalUI = forwardRef<SingletonModalRefCreator<ComposeModalOp
 
         const {
             posts,
-            addImage,
+            insertImage,
             updateType,
             updateAvailableSources,
             updateParentPost,
@@ -143,6 +144,7 @@ export const ComposeModalUI = forwardRef<SingletonModalRefCreator<ComposeModalOp
             },
         });
 
+        const isSmall = useIsSmall('max');
         const onClose = useCallback(async () => {
             const { addDraft } = useComposeDraftStateStore.getState();
             const { posts, cursor, draftId, type } = useComposeStateStore.getState();
@@ -169,7 +171,7 @@ export const ComposeModalUI = forwardRef<SingletonModalRefCreator<ComposeModalOp
                 const confirmed = await ConfirmModalRef.openAndWaitForClose({
                     title: hasError ? t`Save failed post?` : t`Save Post?`,
                     content: (
-                        <div className="text-main">
+                        <div className="text-[15px] text-main md:text-base">
                             {hasError ? (
                                 <Trans>
                                     You can save the failed parts of posts and send them later from your Drafts.
@@ -179,13 +181,13 @@ export const ComposeModalUI = forwardRef<SingletonModalRefCreator<ComposeModalOp
                             )}
                         </div>
                     ),
-                    enableCloseButton: true,
+                    enableCloseButton: !isSmall,
                     enableCancelButton: true,
-                    disableBackdropClose: true,
                     cancelButtonText: t`Discard`,
                     confirmButtonText: t`Save`,
                     variant: 'normal',
                 });
+                if (confirmed === null) return;
 
                 if (confirmed) {
                     addDraft({
@@ -205,7 +207,7 @@ export const ComposeModalUI = forwardRef<SingletonModalRefCreator<ComposeModalOp
             } else {
                 dispatch?.close();
             }
-        }, [dispatch, currentProfileAll]);
+        }, [isSmall, currentProfileAll, dispatch]);
 
         const promoteLink = useMemo(() => {
             const preferSource = SORTED_SOCIAL_SOURCES.find(
@@ -266,9 +268,10 @@ export const ComposeModalUI = forwardRef<SingletonModalRefCreator<ComposeModalOp
 
                 updateChars(chars);
                 setEditorContent(chars);
-
-                addImage(createLocalMediaObject(new File([secretImage], 'image.png', { type: 'image/png' })));
-
+                insertImage(
+                    createLocalMediaObject(new File([secretImage], 'image.png', { type: FileMimeType.PNG })),
+                    0,
+                );
                 updateTypedMessage(updateRpEncrypted(typedMessage));
             } catch (error) {
                 enqueueErrorMessage(getSnackbarMessageFromError(error, t`Failed to create image payload.`), {

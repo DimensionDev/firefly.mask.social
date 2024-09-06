@@ -1,1 +1,5 @@
-<svg fill="none" height="36" viewBox="0 0 36 36" width="36" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><filter id="a" color-interpolation-filters="sRGB" filterUnits="userSpaceOnUse" height="36" width="36" x="0" y="0"><feFlood flood-opacity="0" result="BackgroundImageFix"/><feColorMatrix in="SourceAlpha" result="hardAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"/><feOffset dy="4"/><feGaussianBlur stdDeviation="5"/><feComposite in2="hardAlpha" operator="out"/><feColorMatrix type="matrix" values="0 0 0 0 0.109804 0 0 0 0 0.407843 0 0 0 0 0.952941 0 0 0 0.2 0"/><feBlend in2="BackgroundImageFix" mode="normal" result="effect1_dropShadow_149_14804"/><feBlend in="SourceGraphic" in2="effect1_dropShadow_149_14804" mode="normal" result="shape"/></filter><g filter="url(#a)"><circle cx="18" cy="14" fill="#1c68f3" r="8"/><path d="m14.1328 14.5047 2.6667 2.8 5.3333-5.6" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"/></g></svg>
+<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 18">
+    <circle cx="9" cy="9" r="9" fill="#4C4AA9"/>
+    <path stroke="white" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4.64941 9.56777L7.64941 12.7178L13.6494 6.41777"/>
+</svg>
+

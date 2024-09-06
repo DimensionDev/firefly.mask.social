@@ -61,7 +61,7 @@ export const TokenSelector = memo(function TokenSelector() {
         <>
             <TipsModalHeader back title={t`Select Token`} />
             {isLoading ? (
-                <Loading className="!min-h-[320px]" />
+                <Loading className="!min-h-[260px] sm:!min-h-[320px]" />
             ) : (
                 <div>
                     <div className="rounded-lg !bg-lightBg">
@@ -71,7 +71,7 @@ export const TokenSelector = memo(function TokenSelector() {
                             onClear={() => setSearch('')}
                         />
                     </div>
-                    <div className="no-scrollbar mt-3 h-80 overflow-y-auto" ref={listRef}>
+                    <div className="no-scrollbar mt-3 h-52 overflow-y-auto sm:h-80" ref={listRef}>
                         {displayedTokens?.map((token) => (
                             <TokenItem key={`${token.id}.${token.chain}`} token={token} />
                         ))}

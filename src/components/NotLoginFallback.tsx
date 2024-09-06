@@ -1,13 +1,11 @@
 import { t } from '@lingui/macro';
-import { memo } from 'react';
+import { type HTMLProps, memo } from 'react';
 
 import { ClickableButton } from '@/components/ClickableButton.js';
-import { config } from '@/configs/wagmiClient.js';
 import { type SocialSource, Source } from '@/constants/enum.js';
 import { Image } from '@/esm/Image.js';
 import { classNames } from '@/helpers/classNames.js';
 import { createLookupTableResolver } from '@/helpers/createLookupTableResolver.js';
-import { getWalletClientRequired } from '@/helpers/getWalletClientRequired.js';
 import { resolveFallbackImageUrl } from '@/helpers/resolveFallbackImageUrl.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { LoginModalRef } from '@/modals/controls.js';
@@ -25,16 +23,18 @@ const resolveConnectButtonClass = createLookupTableResolver<SocialSource | Sourc
     '',
 );
 
-interface NotLoginFallbackProps {
+interface NotLoginFallbackProps extends HTMLProps<HTMLDivElement> {
     source: SocialSource | Source.Article;
 }
 
-export const NotLoginFallback = memo<NotLoginFallbackProps>(function NotLoginFallback({ source }) {
+export const NotLoginFallback = memo<NotLoginFallbackProps>(function NotLoginFallback({ source, className }) {
     const fallbackImageUrl = resolveFallbackImageUrl(source);
     const isArticle = source === Source.Article;
 
     return (
-        <div className="flex flex-grow flex-col items-center justify-center space-y-9 pt-[15vh]">
+        <div
+            className={classNames('flex flex-grow flex-col items-center justify-center space-y-9 pt-[15vh]', className)}
+        >
             <Image
                 src={fallbackImageUrl}
                 width={isArticle ? 302 : 200}
@@ -51,8 +51,7 @@ export const NotLoginFallback = memo<NotLoginFallbackProps>(function NotLoginFal
                     'rounded-[10px] bg-transparent px-5 py-3.5 text-sm font-bold shadow-sm ring-1 ring-inset',
                     source ? resolveConnectButtonClass(source) : undefined,
                 )}
-                onClick={async () => {
-                    if (source === Source.Lens) await getWalletClientRequired(config);
+                onClick={() => {
                     LoginModalRef.open({ source: isArticle ? undefined : source });
                 }}
             >

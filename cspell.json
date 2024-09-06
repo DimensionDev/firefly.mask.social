@@ -171,7 +171,9 @@
         "Debank",
         "ampm",
         "crowdsourced",
-        "Coverflow"
+        "Coverflow",
+        "dialectlabs",
+        "Tweetv"
     ],
     "flagWords": [],
     "ignorePaths": [

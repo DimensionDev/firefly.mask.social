@@ -24,6 +24,7 @@
     "dependencies": {
         "@aws-sdk/client-s3": "^3.629.0",
         "@aws-sdk/lib-storage": "^3.629.0",
+        "@dialectlabs/blinks": "^0.9.3",
         "@dimensiondev/holoflows-kit": "0.9.0-20240322092738-f9180f3",
         "@farcaster/core": "^0.14.19",
         "@giphy/js-fetch-api": "^5.6.0",
@@ -39,7 +40,7 @@
         "@lexical/utils": "^0.12.5",
         "@lingui/core": "^4.8.0",
         "@lingui/react": "^4.8.0",
-        "@livepeer/react": "^3.0.5",
+        "@livepeer/react": "3.0.5",
         "@masknet/kit": "^0.3.0",
         "@mui/material": "5.15.12",
         "@mui/x-date-pickers": "^7.7.1",
@@ -238,7 +239,8 @@
             "@lexical/react@0.12.5": "patches/@lexical__react@0.12.5.patch",
             "@rainbow-me/rainbowkit@2.0.5": "patches/@rainbow-me__rainbowkit@2.0.5.patch",
             "@headlessui/react@1.7.17": "patches/@headlessui__react@1.7.17.patch",
-            "react-use@17.5.1": "src/maskbook/patches/react-use@17.5.1.patch"
+            "react-use@17.5.1": "src/maskbook/patches/react-use@17.5.1.patch",
+            "@livepeer/core-react@2.1.9": "patches/@livepeer__core-react@2.1.9.patch"
         }
     }
 }

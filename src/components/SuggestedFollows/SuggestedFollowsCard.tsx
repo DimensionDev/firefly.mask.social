@@ -5,7 +5,6 @@ import 'swiper/css/effect-coverflow';
 
 import { Trans } from '@lingui/macro';
 import { useQuery } from '@tanstack/react-query';
-import { shuffle } from 'lodash-es';
 import { useMemo } from 'react';
 import { Autoplay, EffectCoverflow } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
@@ -18,25 +17,44 @@ import { DiscoverType, PageRoute, Source, SourceInURL } from '@/constants/enum.j
 import { Link } from '@/esm/Link.js';
 import { isSocialSource } from '@/helpers/isSocialSource.js';
 import { resolveSourceInURL } from '@/helpers/resolveSourceInURL.js';
+import { runInSafe } from '@/helpers/runInSafe.js';
 import { useCurrentProfileAll } from '@/hooks/useCurrentProfile.js';
-import { FarcasterSocialMediaProvider } from '@/providers/farcaster/SocialMedia.js';
-import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
+import { useIsLarge } from '@/hooks/useMediaQuery.js';
+import type { Profile } from '@/providers/types/SocialMedia.js';
+import { getSuggestedFollowsInCard } from '@/services/getSuggestedFollows.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
 
+function sortProfiles(farcasterProfiles: Profile[], lensProfiles: Profile[]) {
+    const results: Profile[] = [];
+    let farcasterIndex = 0;
+    let lensIndex = 0;
+    while (farcasterIndex < farcasterProfiles.length || lensIndex < lensProfiles.length) {
+        if (farcasterIndex < farcasterProfiles.length) {
+            results.push(farcasterProfiles[farcasterIndex]);
+            farcasterIndex += 1;
+        }
+        if (lensIndex < lensProfiles.length) {
+            results.push(lensProfiles[lensIndex]);
+            lensIndex += 1;
+        }
+    }
+
+    return results;
+}
+
 export function SuggestedFollowsCard() {
+    const isLarge = useIsLarge('min');
     const currentSource = useGlobalState.use.currentSource();
     const profileAll = useCurrentProfileAll();
     const { data: suggestedFollows, isLoading } = useQuery({
         queryKey: ['suggested-follows-lite'],
         staleTime: 1000 * 60 * 2,
         queryFn: async () => {
-            const farcasterData = (await FarcasterSocialMediaProvider.getSuggestedFollows())?.data;
-            const lensData = (await LensSocialMediaProvider.getSuggestedFollows())?.data;
-            return shuffle(
-                [...(farcasterData ?? []), ...(lensData ?? [])].filter(
-                    (item) => !item.viewerContext?.blocking && !item.viewerContext?.following,
-                ),
-            );
+            const [farcasterData, lensData] = await Promise.all([
+                runInSafe(() => getSuggestedFollowsInCard(Source.Farcaster)),
+                runInSafe(() => getSuggestedFollowsInCard(Source.Lens)),
+            ]);
+            return sortProfiles(farcasterData ?? [], lensData ?? []);
         },
     });
 
@@ -71,11 +89,11 @@ export function SuggestedFollowsCard() {
         );
     }
 
-    if (!suggestedFollows?.length) return null;
+    if (!suggestedFollows?.length || !isLarge) return null;
 
     return (
-        <div>
-            <AsideTitle className="flex items-center justify-between !px-3">
+        <div className="-mb-3">
+            <AsideTitle className="flex items-center justify-between !pb-1">
                 <span className="text-xl">
                     <Trans>You might like</Trans>
                 </span>
@@ -99,8 +117,10 @@ export function SuggestedFollowsCard() {
                     }}
                     pagination
                     loop
+                    updateOnWindowResize={false}
+                    resizeObserver={false}
                     wrapperClass="!box-border"
-                    autoplay={{ delay: 2000 }}
+                    autoplay={{ delay: 5000 }}
                     modules={[Autoplay, EffectCoverflow]}
                 >
                     {suggestedFollows.map((profile, key) => (

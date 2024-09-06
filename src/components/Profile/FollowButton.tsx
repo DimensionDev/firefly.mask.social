@@ -67,7 +67,7 @@ export const FollowButton = memo(function FollowButton({
     return (
         <ClickableButton
             className={classNames(
-                'flex h-8 items-center justify-center rounded-full text-[15px] font-semibold transition-all',
+                'flex h-8 items-center justify-center rounded-full text-medium font-semibold transition-all',
                 variantClassName,
                 className,
                 {

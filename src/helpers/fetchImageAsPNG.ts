@@ -1,3 +1,5 @@
+import { FileMimeType } from '@/constants/enum.js';
+
 function fetchImage(url: string): Promise<HTMLImageElement> {
     return new Promise((resolve, reject) => {
         const img = new Image();
@@ -29,7 +31,7 @@ async function drawImageOnCanvas(img: HTMLImageElement) {
             } else {
                 reject(new Error('Failed to convert image to PNG'));
             }
-        }, 'image/png');
+        }, FileMimeType.PNG);
     });
 }
 

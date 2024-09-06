@@ -4,7 +4,7 @@ import { memo } from 'react';
 
 import MessagesIcon from '@/assets/messages.svg';
 import { CommentsFooter, type CommentsFooterProps } from '@/components/Comments/CommentsFooter.js';
-import { LensHideComments } from '@/components/LensHideComments.js';
+import { HideComments } from '@/components/HideComments.js';
 import { ListInPage } from '@/components/ListInPage.js';
 import { getPostItemContent } from '@/components/VirtualList/getPostItemContent.js';
 import { ScrollListKey, type SocialSource, Source } from '@/constants/enum.js';
@@ -67,8 +67,9 @@ export const CommentList = memo<CommentListProps>(function CommentList({ postId,
                     message: <Trans>Be the first one to comment!</Trans>,
                 }}
             />
-            {queryResult.data.length <= 0 && source === Source.Lens ? (
-                <LensHideComments
+            {queryResult.data.length <= 0 ? (
+                <HideComments
+                    source={source}
                     excludePostIds={excludePostIds}
                     postId={postId}
                     className="border-t-[1px] border-t-line"

@@ -9,6 +9,7 @@ import { isSameAccount } from '@/helpers/isSameAccount.js';
 import { isSameProfile } from '@/helpers/isSameProfile.js';
 import { isSameSession } from '@/helpers/isSameSession.js';
 import { resolveSessionHolder } from '@/helpers/resolveSessionHolder.js';
+import { runInSafe } from '@/helpers/runInSafe.js';
 import { ConfirmFireflyModalRef, LoginModalRef } from '@/modals/controls.js';
 import { FireflySession } from '@/providers/firefly/Session.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
@@ -17,6 +18,7 @@ import type { Account } from '@/providers/types/Account.js';
 import type { Session } from '@/providers/types/Session.js';
 import { SessionType } from '@/providers/types/SocialMedia.js';
 import { downloadAccounts, downloadSessions, uploadSessions } from '@/services/metrics.js';
+import { reportFarcasterSigner } from '@/services/reportFarcasterSigner.js';
 import { useFireflyStateStore } from '@/store/useProfileStore.js';
 
 function getContext(source: SocialSource) {
@@ -126,6 +128,8 @@ export interface AccountOptions {
     skipResumeFireflyAccounts?: boolean;
     // resume the firefly session, default: false
     skipResumeFireflySession?: boolean;
+    // skip reporting farcaster signer, default: true
+    skipReportFarcasterSigner?: boolean;
     // early return signal
     signal?: AbortSignal;
 }
@@ -137,6 +141,7 @@ export async function addAccount(account: Account, options?: AccountOptions) {
         skipResumeFireflyAccounts = false,
         skipResumeFireflySession = false,
         skipUploadFireflySession = false,
+        skipReportFarcasterSigner = true,
         signal,
     } = options ?? {};
 
@@ -214,8 +219,45 @@ export async function addAccount(account: Account, options?: AccountOptions) {
         await uploadSessions('merge', fireflySessionHolder.sessionRequired, getProfileSessionsAll(), signal);
     }
 
+    // report farcaster signer
+    if (!skipReportFarcasterSigner && account.session.type === SessionType.Farcaster && fireflySessionHolder.session) {
+        console.warn('[addAccount] report farcaster signer');
+        runInSafe(() => reportFarcasterSigner(account.session as FireflySession));
+    }
+
     // account has been added to the store
     return true;
+}
+
+/**
+ * Restore accounts from the currently logged-in Firefly session.
+ * @param signal
+ * @returns
+ */
+export async function restoreCurrentAccounts(signal?: AbortSignal) {
+    const session = fireflySessionHolder.session;
+    if (!session) return false;
+
+    const accountsSynced = await downloadAccounts(session, signal);
+    const accountsFiltered = accountsSynced.filter((x) => {
+        const state = getProfileState(x.profile.source);
+        return !state.accounts.find((y) => isSameAccount(x, y));
+    });
+
+    if (accountsFiltered.length) {
+        LoginModalRef.close();
+
+        const confirmed = await ConfirmFireflyModalRef.openAndWaitForClose({
+            belongsTo: true,
+            accounts: accountsFiltered,
+        });
+
+        if (confirmed) {
+            await updateState(accountsFiltered, false);
+            return true;
+        }
+    }
+    return false;
 }
 
 export async function switchAccount(account: Account, signal?: AbortSignal) {

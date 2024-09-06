@@ -86,7 +86,7 @@ export function ChannelInList({
                             className="flex-shrink-0"
                         />
                     </div>
-                    <div className="flex items-center gap-2 text-[15px] text-sm leading-[24px] text-secondary">
+                    <div className="flex items-center gap-2 text-medium text-sm leading-[24px] text-secondary">
                         <ChannelTippy channel={channel}>
                             <p className="truncate">/{channel.id}</p>
                         </ChannelTippy>

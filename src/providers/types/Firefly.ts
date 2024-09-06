@@ -197,6 +197,9 @@ export interface Article {
     cover_img_url: string | null;
     has_bookmarked?: boolean;
     followingSources: FollowingSource[];
+    paragraph_raw_data?: {
+        slug: string;
+    };
 }
 
 export interface Response<T> {
@@ -790,6 +793,7 @@ export type LinkInfoResponse = Response<LinkInfo>;
 export type SessionStatus =
     | {
           status: 'confirm';
+          accountId: string;
           accessToken: string;
       }
     | {
@@ -949,3 +953,12 @@ export type AllConnections = {
 };
 
 export type GetAllConnectionsResponse = Response<AllConnections>;
+
+export type MessageToSignResponse = Response<{
+    message: string;
+}>;
+
+export type WalletLoginResponse = Response<{
+    accessToken: string;
+    accountId: string;
+}>;

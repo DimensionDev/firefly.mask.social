@@ -16,6 +16,13 @@ export function createDummyProfile(source: SocialSource) {
     } satisfies Profile;
 }
 
+export function createDummyProfileFromFireflyAccountId(accountId: string) {
+    return {
+        ...createDummyProfile(Source.Farcaster),
+        profileId: accountId,
+    };
+}
+
 export function createDummyProfileFromLensHandle(handle: string) {
     return {
         ...createDummyProfile(Source.Lens),

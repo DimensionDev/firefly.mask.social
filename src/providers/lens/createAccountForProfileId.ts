@@ -2,6 +2,7 @@ import { ZERO_ADDRESS } from '@masknet/web3-shared-evm';
 import { polygon } from 'viem/chains';
 
 import { config } from '@/configs/wagmiClient.js';
+import { THIRTY_DAYS } from '@/constants/index.js';
 import { createLensSDK, getLensCredentials, MemoryStorageProvider } from '@/helpers/createLensSDK.js';
 import { getWalletClientRequired } from '@/helpers/getWalletClientRequired.js';
 import { parseJSON } from '@/helpers/parseJSON.js';
@@ -9,8 +10,6 @@ import { LensSession } from '@/providers/lens/Session.js';
 import type { Account } from '@/providers/types/Account.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 import { bindOrRestoreFireflySession } from '@/services/bindOrRestoreFireflySession.js';
-
-const THIRTY_DAYS = 1000 * 60 * 60 * 24 * 30;
 
 export async function createAccountForProfileId(profile: Profile, signal?: AbortSignal) {
     const walletClient = await getWalletClientRequired(config, {

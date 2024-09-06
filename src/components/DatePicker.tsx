@@ -1,7 +1,6 @@
 import { LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
-import { DateCalendar } from '@mui/x-date-pickers/DateCalendar';
-import { type DateCalendarProps } from '@mui/x-date-pickers/DateCalendar';
+import { DateCalendar, type DateCalendarProps } from '@mui/x-date-pickers/DateCalendar';
 import dayjs from 'dayjs';
 import { memo, type PropsWithChildren, useState } from 'react';
 
@@ -36,7 +35,7 @@ export const DatePicker = memo<DatePickerProps>(function DatePicker({
                             {...props}
                             classes={{ root: 'custom-date-picker' }}
                             onChange={(...args) => {
-                                close();
+                                setVisible(false);
                                 props.onChange?.(...args);
                             }}
                         />
