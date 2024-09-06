@@ -268,3 +268,12 @@ export enum FrameProtocol {
     OpenFrame = 'of',
     Farcaster = 'fc',
 }
+
+export enum S3ConvertStatus {
+    Submitted = 'SUBMITTED',
+    Progressing = 'PROGRESSING',
+    Complete = 'COMPLETE',
+    Canceled = 'CANCELED',
+    Error = 'ERROR',
+    StatusUpdate = 'STATUS_UPDATE',
+}
