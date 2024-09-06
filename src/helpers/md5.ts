@@ -1,3 +1,4 @@
+/* cspell:disable */
 /* eslint-disable no-plusplus */
 /* eslint-disable no-bitwise */
 interface HasherState {
