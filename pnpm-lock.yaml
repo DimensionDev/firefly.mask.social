@@ -198,6 +198,9 @@ importers:
       '@tippyjs/react':
         specifier: ^4.2.6
         version: 4.2.6(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026)
+      '@types/dompurify':
+        specifier: ^3.0.2
+        version: 3.0.2
       '@vercel/kv':
         specifier: ^1.0.1
         version: 1.0.1
@@ -234,6 +237,9 @@ importers:
       dayjs-twitter:
         specifier: ^0.5.0
         version: 0.5.0
+      dompurify:
+        specifier: ^3.0.5
+        version: 3.0.5
       framer-motion:
         specifier: ^10.16.5
         version: 10.16.5(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026)
@@ -32957,10 +32963,12 @@ time:
   /@solana/web3.js@1.95.2: '2024-07-26T13:49:00.799Z'
   /@tailwindcss/forms@0.5.7: '2023-11-10T19:42:19.349Z'
   /@tanstack/react-ranger@0.0.4: '2023-11-24T09:24:06.987Z'
+  /@types/dompurify@3.0.2: '2023-04-19T20:32:44.559Z'
   /@types/react-avatar-editor@13.0.2: '2023-11-07T13:56:07.308Z'
   /@wagmi/core@2.13.4: '2024-08-09T00:57:30.856Z'
   /@web3modal/wagmi@5.1.0: '2024-08-16T15:44:38.031Z'
   /anchorme@3.0.8: '2024-04-08T09:26:57.773Z'
+  /dompurify@3.0.5: '2023-07-11T08:02:01.823Z'
   /immer@10.0.3: '2023-10-02T06:36:31.915Z'
   /jsdom@24.1.1: '2024-07-21T05:09:13.175Z'
   /postcss@8.4.41: '2024-08-05T23:08:39.503Z'

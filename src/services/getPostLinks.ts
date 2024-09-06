@@ -4,13 +4,17 @@ import urlcat from 'urlcat';
 
 import { FrameProtocol, Source, STATUS } from '@/constants/enum.js';
 import { env } from '@/constants/env.js';
+import { LIMO_REGEXP } from '@/constants/regexp.js';
 import { attemptUntil } from '@/helpers/attemptUntil.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
 import { isValidDomain } from '@/helpers/isValidDomain.js';
+import { Md5 } from '@/helpers/md5.js';
 import { parseURL } from '@/helpers/parseURL.js';
 import { isValidPollFrameUrl } from '@/helpers/resolveEmbedMediaType.js';
 import { resolveTCOLink } from '@/helpers/resolveTCOLink.js';
+import { FireflyArticleProvider } from '@/providers/firefly/Article.js';
 import { getPostIFrame } from '@/providers/og/readers/iframe.js';
+import type { Article } from '@/providers/types/Article.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 import { settings } from '@/settings/index.js';
 import type { FireflyBlinkParserBlinkResponse } from '@/types/blink.js';
@@ -84,8 +88,15 @@ export async function getPostLinks(url: string, post: Post) {
         frame?: Frame;
         action?: Action;
         html?: string;
+        article?: Article;
     } | null>(
         [
+            async () => {
+                if (!LIMO_REGEXP.test(url)) return null;
+                const id = Md5.hashStr(url);
+                const article = await FireflyArticleProvider.getArticleById(id);
+                return article ? { article } : null;
+            },
             async () => {
                 // try iframe first. As we don't have to call other services if matched
                 const html = getPostIFrame(null, url);
