@@ -97,7 +97,10 @@ export async function postToFarcaster(type: ComposeType, compositePost: Composit
         uploadVideos: () => {
             return Promise.all(
                 (video?.file ? [video] : []).map(async (media) => {
-                    return createS3MediaObject(await uploadAndConvertToM3u8(media.file, SourceInURL.Farcaster, signal), media);
+                    return createS3MediaObject(
+                        await uploadAndConvertToM3u8(media.file, SourceInURL.Farcaster, signal),
+                        media,
+                    );
                 }),
             );
         },
