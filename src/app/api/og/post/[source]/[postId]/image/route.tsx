@@ -12,7 +12,7 @@ import TwitterSVG from '@/assets/x-circle-light.svg?url';
 import { type SocialSource, Source, SourceInURL } from '@/constants/enum.js';
 import { CACHE_AGE_INDEFINITE_ON_DISK, SITE_URL } from '@/constants/index.js';
 import { compose } from '@/helpers/compose.js';
-import { createErrorResponseJSON } from '@/helpers/createErrorResponseJSON.js';
+import { createProxyImageResponse } from '@/helpers/createProxyImageResponse.js';
 import { narrowToSocialSourceInURL } from '@/helpers/narrowToSocialSource.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { resolveSocialSource } from '@/helpers/resolveSource.js';
@@ -41,23 +41,16 @@ function resolveAttachmentsSrc(asset?: Attachment) {
     }
 }
 
-export const GET = compose<(request: NextRequest, context: NextRequestContext) => Promise<Response>>(
+export const GET = compose(
     withRequestErrorHandler({ throwError: true }),
-    async (request, context) => {
-        const postId = context.params.postId;
-        const source = narrowToSocialSourceInURL(context.params.source as SourceInURL);
+    async (request: NextRequest, context?: NextRequestContext) => {
+        const postId = context?.params.postId;
+        const source = narrowToSocialSourceInURL(context?.params.source as SourceInURL);
         const provider = resolveSocialMediaProvider(resolveSocialSource(source));
         const post = postId ? await provider.getPostById(postId).catch(() => null) : null;
 
         if (!post) {
-            const response = await fetch(urlcat(SITE_URL, '/image/og.png'));
-            if (!response.ok) return createErrorResponseJSON('Unable to access the image');
-            return new Response(response.body, {
-                headers: {
-                    'Content-Type': response.headers.get('content-type') || 'application/octet-stream',
-                    'Cache-Control': response.headers.get('cache-control') || CACHE_AGE_INDEFINITE_ON_DISK,
-                },
-            });
+            return createProxyImageResponse(urlcat(SITE_URL, '/image/og.png'));
         }
 
         const src = resolveAttachmentsSrc(post.metadata.content?.asset);

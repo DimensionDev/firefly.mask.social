@@ -143,6 +143,11 @@ export interface Post {
             oembedUrls?: string[];
         } | null;
         contentURI?: string;
+        article?: {
+            cover?: string;
+            title: string;
+            content?: string;
+        };
     };
     stats?: {
         comments: number;
@@ -182,6 +187,7 @@ export interface Post {
     commentOn?: Post;
     root?: Post;
     quoteOn?: Post;
+    mirrorOn?: Post;
     comments?: Post[];
     embedPosts?: Post[];
     channel?: Channel;
