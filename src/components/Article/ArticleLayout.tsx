@@ -1,5 +1,6 @@
 'use client';
 
+import DOMPurify from 'dompurify';
 import { useRouter } from 'next/navigation.js';
 import { memo } from 'react';
 import urlcat from 'urlcat';
@@ -14,6 +15,7 @@ import { IS_APPLE, IS_SAFARI } from '@/constants/bowser.js';
 import { PageRoute, SearchType, Source, SourceInURL } from '@/constants/enum.js';
 import { Link } from '@/esm/Link.js';
 import { classNames } from '@/helpers/classNames.js';
+import { resolveArticlePlatformIcon } from '@/helpers/resolveArticlePlatformIcon.js';
 import { useFireflyIdentity } from '@/hooks/useFireflyIdentity.js';
 import { type Article, ArticlePlatform } from '@/providers/types/Article.js';
 
@@ -30,6 +32,7 @@ export const ArticleLayout = memo<ArticleLayoutProps>(function ArticleLayout({ a
 
     const { data: ens } = useEnsName({ address: article.author.id, query: { enabled: !article.author.handle } });
     const identity = useFireflyIdentity(Source.Wallet, article.author.id);
+    const Icon = resolveArticlePlatformIcon(article.platform);
 
     return (
         <div className="relative mt-[6px] flex flex-col gap-2 overflow-hidden rounded-2xl border border-line bg-bg p-3">
@@ -80,6 +83,7 @@ export const ArticleLayout = memo<ArticleLayoutProps>(function ArticleLayout({ a
                     <span className="whitespace-nowrap text-medium text-xs leading-4 text-secondary">
                         <TimestampFormatter time={article.timestamp} />
                     </span>
+                    {Icon ? <Icon width={15} height={15} /> : null}
                 </div>
                 <div className="flex items-center">
                     <Tips
@@ -97,7 +101,7 @@ export const ArticleLayout = memo<ArticleLayoutProps>(function ArticleLayout({ a
                     {article.platform === ArticlePlatform.Limo ? (
                         // The content returned by limo is html.
                         // eslint-disable-next-line react/no-danger
-                        <div dangerouslySetInnerHTML={{ __html: article.content }} />
+                        <div dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(article.content) }} />
                     ) : (
                         <ArticleMarkup
                             disableImage
