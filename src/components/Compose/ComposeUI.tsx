@@ -15,6 +15,7 @@ import { classNames } from '@/helpers/classNames.js';
 import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
 import { getCurrentPostImageLimits } from '@/helpers/getCurrentPostImageLimits.js';
 import { isImageFileType } from '@/helpers/isImageFileType.js';
+import { isValidFileType } from '@/helpers/isValidFileType.js';
 import { isVideoFileType } from '@/helpers/isVideoFileType.js';
 import { createLocalMediaObject } from '@/helpers/resolveMediaObjectUrl.js';
 import { isValidPostImage, isValidPostVideo } from '@/helpers/validatePostFile.js';
@@ -51,7 +52,7 @@ export const ComposeUI = memo(function ComposeUI() {
 
     const [{ loading }, handleDropFiles] = useAsyncFn(
         async (files: File[]) => {
-            const validFiles = files.filter((file) => isImageFileType(file.type));
+            const validFiles = files.filter((file) => isValidFileType(file.type));
             if (!validFiles.length) return;
             const images = validFiles.filter((file) => isImageFileType(file.type));
             const validImages = [...images].filter((file) => {

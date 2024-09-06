@@ -54,6 +54,9 @@ msgstr "发送 thread 失败"
 msgid "Confirm to disconnect this wallet and related accounts from Firefly’s social graph?"
 msgstr "确认从 Firefly 的社交图谱中断链这个钱包和相关账户？"
 
+msgid "Allow Collect Module"
+msgstr ""
+
 msgid "New connect with Warpcast"
 msgstr "使用 Warpcast 连接"
 
@@ -77,6 +80,9 @@ msgstr "获取 Blob 失败。"
 
 msgid "Unmute successfully."
 msgstr "取消隐藏成功。"
+
+msgid "Your frame URL"
+msgstr "您 Frame 的 URL"
 
 msgid "Send a tip"
 msgstr "发送打赏"
@@ -185,9 +191,6 @@ msgstr "查找用户中"
 
 msgid "Airdrop Scam"
 msgstr "空投骗局"
-
-msgid "Collect Action is not supported yet."
-msgstr "还未支持收藏。"
 
 msgid "Overwrite"
 msgstr "覆盖"
@@ -429,6 +432,9 @@ msgstr "使用 Firefly 重连"
 msgid "Only up to 2 images can be chosen."
 msgstr "至多可以选择 2 张图片。"
 
+msgid "Follow to Collect"
+msgstr ""
+
 msgid "{0, select, Image {[Image]} Video {[Video]} Audio {[Audio]} Poll {[Poll]} other {}}"
 msgstr "{0, select, Image {[图片]} Video {[视频]} Audio {[音频]} Poll {[投票]} other {}}"
 
@@ -455,6 +461,9 @@ msgstr "在 {sourceName} 上取消关注 @{0} 失败。"
 
 msgid "Watch"
 msgstr "关注"
+
+msgid "Time Out"
+msgstr ""
 
 msgid "24 Hour Trading Vol"
 msgstr "24h 交易总额"
@@ -503,6 +512,9 @@ msgstr "转帖"
 
 msgid "Add another post..."
 msgstr "添加另一个帖子..."
+
+msgid "1m left"
+msgstr ""
 
 msgid "Items"
 msgstr "条目"
@@ -1113,9 +1125,6 @@ msgstr "用户"
 msgid "Describe a bug or suggest an improvement"
 msgstr "描述问题或者提出建议"
 
-msgid "Invalid URL."
-msgstr "无效的 URL。"
-
 msgid "{shares, plural, one {Mirror or Quote} other {Mirrors or Quotes}}"
 msgstr "{shares, plural, one {转帖或引用} other {转帖或引用}}"
 
@@ -1278,9 +1287,6 @@ msgstr "帖子"
 msgid "Unable to read image."
 msgstr "获取图片失败。"
 
-msgid "Your website URL."
-msgstr "您网站的 URL。"
-
 msgid "Visit firefly.social"
 msgstr "访问 firefly.social"
 
@@ -1299,9 +1305,6 @@ msgstr "如果存在此功能，项目所有者即使在放弃后也可以重新
 msgid "Add wallet"
 msgstr "添加钱包"
 
-msgid "Your Blink URL."
-msgstr "您的 Blink URL。"
-
 msgid "Watch {handleOrEnsOrAddress}"
 msgstr "关注 {handleOrEnsOrAddress}"
 
@@ -1317,6 +1320,9 @@ msgstr "展示更多评论"
 msgid "Failed to parse session."
 msgstr "未能解析会话"
 
+msgid "Exclusivity"
+msgstr ""
+
 msgid "Feedback"
 msgstr "问题反馈"
 
@@ -1331,9 +1337,6 @@ msgstr "签名失败。"
 
 msgid "Share"
 msgstr "分享"
-
-msgid "Your frame URL."
-msgstr "您 Frame 的 URL。"
 
 msgid "Scan the QR code with the <0>Firefly mobile app</0> or <1>Camera app</1> to log in instantly."
 msgstr "使用 <0>Firefly 移动应用</0> 或 <1>相机应用</1> 扫描二维码即可即时登录。"
@@ -1388,6 +1391,9 @@ msgstr "访问 mask.io"
 
 msgid "First time connecting to Firefly?<0/>Approve a <1>new connection with Warpcast</1> or <2>sync</2> through the app"
 msgstr ""
+
+msgid "Your website URL"
+msgstr "您网站的 URL"
 
 msgid "No comments found"
 msgstr "未发现评论"
@@ -1518,6 +1524,9 @@ msgstr "投票成功。"
 msgid "Muted @{0} on {sourceName}."
 msgstr "在 {sourceName} 上隐藏 @{0}"
 
+msgid "Your Blink URL"
+msgstr "您的 Blink URL"
+
 msgid "Quotes"
 msgstr "引用"
 
@@ -1544,6 +1553,9 @@ msgstr "出席"
 
 msgid "Show more"
 msgstr "显示更多"
+
+msgid "Time Limit"
+msgstr ""
 
 msgid "Post removed from your Bookmarks"
 msgstr "帖子已经从您的收藏中移除"
@@ -1767,6 +1779,9 @@ msgstr "添加"
 msgid "Failed to upload. Gif size exceeds {0}"
 msgstr "上传失败。动图超过最大限制 {0}"
 
+msgid "{days}d left"
+msgstr ""
+
 msgid "Log out all"
 msgstr "登出所有"
 
@@ -1875,6 +1890,9 @@ msgstr "发送打赏失败。"
 msgid "Connecting Wallet"
 msgstr "正在连接钱包"
 
+msgid "{minutes}m left"
+msgstr ""
+
 msgid "Total Supply"
 msgstr "总供应量"
 
@@ -1920,6 +1938,9 @@ msgstr "统计"
 msgid "Failed to upload. Video length exceeds {minDuration}s ~ {maxDuration}s"
 msgstr ""
 
+msgid "Post collected successfully!"
+msgstr ""
+
 msgid "Your post have published successfully on {0}."
 msgstr "您已在 {0} 发布成功。"
 
@@ -1940,6 +1961,9 @@ msgstr "取消隐藏"
 
 msgid "No available token"
 msgstr "没有适合的代币"
+
+msgid "Invalid URL"
+msgstr "无效的 URL"
 
 msgid "View on explorer"
 msgstr "在区块链浏览器查看"
@@ -2007,6 +2031,9 @@ msgstr "<0/> 和 <1>{0} 其他的</1>"
 msgid "<0>since </0> <1>{0}</1>"
 msgstr "<0>从 </0> <1>{0}</1>"
 
+msgid "{hours}h left"
+msgstr ""
+
 msgid "{0} Users"
 msgstr "{0} 用户"
 
@@ -2027,6 +2054,9 @@ msgstr "未能解析交易。"
 
 msgid "No anti_whale(Unlimited number of transactions)"
 msgstr "没有反鲸鱼（无限的交易次数）"
+
+msgid "Failed to collect post."
+msgstr ""
 
 msgid "<0>Burned</0> an NFT"
 msgstr "<0>销毁</0> 一个 NFT"

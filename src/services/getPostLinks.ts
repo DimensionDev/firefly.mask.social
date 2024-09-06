@@ -1,4 +1,4 @@
-import { Action, setProxyUrl } from '@dialectlabs/blinks';
+import { Action, type ActionGetResponse, setProxyUrl } from '@dialectlabs/blinks';
 import { safeUnreachable } from '@masknet/kit';
 import urlcat from 'urlcat';
 
@@ -16,6 +16,8 @@ import { FireflyArticleProvider } from '@/providers/firefly/Article.js';
 import { getPostIFrame } from '@/providers/og/readers/iframe.js';
 import type { Article } from '@/providers/types/Article.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
+import { settings } from '@/settings/index.js';
+import type { FireflyBlinkParserBlinkResponse } from '@/types/blink.js';
 import type { Frame, LinkDigestedResponse } from '@/types/frame.js';
 import type { ResponseJSON } from '@/types/index.js';
 import type { LinkDigested } from '@/types/og.js';
@@ -48,13 +50,21 @@ export async function getPostBlinkAction(url: string): Promise<Action | null> {
     if (env.external.NEXT_PUBLIC_BLINK !== STATUS.Enabled) return null;
     if (!url || !isValidPostLink(url)) return null;
     const actionUrl = (await resolveTCOLink(url)) ?? url;
+    const response = await fetchJSON<FireflyBlinkParserBlinkResponse>(
+        urlcat(settings.FIREFLY_ROOT_URL, '/v1/solana/blinks/parse'),
+        {
+            method: 'POST',
+            body: JSON.stringify({ url: actionUrl }),
+        },
+    );
+    if (!response.data) return null;
     setProxyUrl(urlcat(location.origin, '/api/blink/proxy'));
-    return new Proxy(await Action.fetch(actionUrl), {
+    const action = await Action.fetch(response.data.actionApiUrl);
+    // @ts-ignore _data is private, fix the URL after proxy
+    const data = action._data as ActionGetResponse;
+    return new Proxy(action, {
         get(target, prop, receiver) {
-            // @ts-ignore _data is private, action using a proxy image, it is necessary to remove the proxy here https://github.com/dialectlabs/blinks/blob/f470e5815732f7efb6359c871598cc3ad059b26c/src/api/Action/Action.ts#L118
-            if (prop === 'icon') return target._data.icon;
-            // @ts-ignore _data is private, fix the URL after proxy
-            if (prop === 'url' && target._data.url) return target._data.url;
+            if (prop === 'icon') return data.icon;
             return Reflect.get(target, prop, receiver);
         },
     });

@@ -44,7 +44,7 @@ export const PlatformAction = memo(function PlatformAction({ hasError }: ActionP
         return (
             <Popover as="div" className="relative">
                 <Popover.Button
-                    className="flex cursor-pointer gap-1 text-main focus:outline-none disabled:cursor-not-allowed disabled:opacity-50"
+                    className="flex cursor-pointer gap-1 text-main focus:outline-none disabled:cursor-default"
                     disabled={disabled}
                 >
                     {buttonContent}

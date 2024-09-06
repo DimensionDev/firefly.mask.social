@@ -44,7 +44,7 @@ export function useActionAdapter() {
                     return;
                 }
                 const { chainId, ...parsedTransaction } = parseTransaction(txData);
-                if (chainId !== EthereumNetwork.getChainId()) {
+                if (chainId && chainId !== EthereumNetwork.getChainId()) {
                     await switchEthereumChain(chainId as ChainId);
                 }
                 const txHash = await sendTransactionAsync(pick(parsedTransaction, 'data', 'to', 'value', 'type'));
@@ -87,7 +87,13 @@ export function useActionAdapter() {
                     ...chains.map((x) => `eip155:${x.id}`),
                 ],
             },
-            connect: async () => {
+            connect: async (context) => {
+                const isEVM = context.action.metadata.blockchainIds?.some((x) => x.startsWith('eip155:'));
+                if (isEVM) {
+                    if (evmAccount.isConnected && evmAccount.address) return evmAccount.address;
+                    ConnectModalRef.open();
+                    return null;
+                }
                 try {
                     await wallet.connect();
                 } catch {
@@ -103,5 +109,13 @@ export function useActionAdapter() {
                 return signSolanaTransaction(txData);
             },
         });
-    }, [connection, signEvmTransaction, signSolanaTransaction, wallet, walletModal]);
+    }, [
+        connection,
+        evmAccount.address,
+        evmAccount.isConnected,
+        signEvmTransaction,
+        signSolanaTransaction,
+        wallet,
+        walletModal,
+    ]);
 }

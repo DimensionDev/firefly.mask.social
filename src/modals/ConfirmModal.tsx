@@ -22,9 +22,10 @@ export interface ConfirmModalOpenProps {
     variant?: 'normal' | 'danger';
 }
 
-export type ConfirmModalCloseProps = boolean;
+/** Dismissing dialog returns null */
+export type ConfirmModalCloseResult = boolean | null;
 
-export const ConfirmModal = forwardRef<SingletonModalRefCreator<ConfirmModalOpenProps, ConfirmModalCloseProps>>(
+export const ConfirmModal = forwardRef<SingletonModalRefCreator<ConfirmModalOpenProps, ConfirmModalCloseResult>>(
     function ConfirmModal(_, ref) {
         const [props, setProps] = useState<ConfirmModalOpenProps>();
 
@@ -50,11 +51,11 @@ export const ConfirmModal = forwardRef<SingletonModalRefCreator<ConfirmModalOpen
                 open={open}
                 onClose={() => {
                     props.onCancel?.();
-                    dispatch?.close(false);
+                    dispatch?.close(null);
                 }}
             >
                 <div
-                    className="relative w-[355px] max-w-[90vw] rounded-xl bg-bgModal shadow-popover transition-all dark:text-gray-950"
+                    className="relative max-w-[clamp(386px,90vw,95vw)] rounded-xl bg-bgModal shadow-popover transition-all dark:text-gray-950 md:w-[355px]"
                     onClick={(event) => {
                         event.stopPropagation();
                         event.preventDefault();
@@ -65,7 +66,7 @@ export const ConfirmModal = forwardRef<SingletonModalRefCreator<ConfirmModalOpen
                             <CloseButton
                                 onClick={() => {
                                     props.onCancel?.();
-                                    dispatch?.close(false);
+                                    dispatch?.close(null);
                                 }}
                             />
                         ) : null}
@@ -75,7 +76,7 @@ export const ConfirmModal = forwardRef<SingletonModalRefCreator<ConfirmModalOpen
                         {props.enableCloseButton ? <div className="relative h-6 w-6" /> : null}
                     </div>
 
-                    <div className="flex flex-col gap-2 p-6">
+                    <div className="flex flex-col gap-2 p-6 pt-0 md:pt-6">
                         {props.content}
                         {props.enableCancelButton || props.enableConfirmButton ? (
                             <div className="flex flex-col-reverse gap-4 md:flex-row md:gap-3">

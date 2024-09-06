@@ -18,7 +18,7 @@ import { SchedulePostEntryButton } from '@/components/Compose/SchedulePostEntryB
 import { GifEntryButton } from '@/components/Gif/GifEntryButton.js';
 import { PollButton } from '@/components/Poll/PollButton.js';
 import { Tooltip } from '@/components/Tooltip.js';
-import { NODE_ENV, STATUS } from '@/constants/enum.js';
+import { NODE_ENV, Source, STATUS } from '@/constants/enum.js';
 import { env } from '@/constants/env.js';
 import { MAX_POST_SIZE_PER_THREAD, SORTED_CHANNEL_SOURCES, SORTED_SOCIAL_SOURCES } from '@/constants/index.js';
 import { measureChars } from '@/helpers/chars.js';
@@ -85,6 +85,7 @@ export function ComposeActions(props: ComposeActionsProps) {
 
     const showChannel =
         availableSources.some((x) => SORTED_CHANNEL_SOURCES.includes(x)) && (type === 'compose' || type === 'quote');
+    const showReplyScope = type !== 'reply' && !(type === 'quote' && availableSources.includes(Source.Farcaster));
 
     return (
         <div className="px-4 pb-4">
@@ -177,12 +178,14 @@ export function ComposeActions(props: ComposeActionsProps) {
                 <PlatformAction hasError={hasError} />
             </div>
 
-            <div className="flex h-9 items-center justify-between pb-safe">
-                <span className="text-medium text-secondary">
-                    <Trans>Allow replies from</Trans>
-                </span>
-                <ReplyRestrictionAction hasError={hasError} />
-            </div>
+            {showReplyScope ? (
+                <div className="flex h-9 items-center justify-between pb-safe">
+                    <span className="text-medium text-secondary">
+                        <Trans>Allow replies from</Trans>
+                    </span>
+                    <ReplyRestrictionAction hasError={hasError} />
+                </div>
+            ) : null}
 
             {showChannel ? (
                 <div className="flex h-9 items-center justify-between pb-safe">

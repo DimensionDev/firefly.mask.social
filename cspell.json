@@ -174,7 +174,9 @@
         "Coverflow",
         "dialectlabs",
         "Tweetv",
-        "dompurify"
+        "dompurify",
+        "Tweetv",
+        "getconvert"
     ],
     "flagWords": [],
     "ignorePaths": [

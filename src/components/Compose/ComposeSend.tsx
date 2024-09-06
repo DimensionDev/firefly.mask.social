@@ -18,6 +18,7 @@ import { measureChars } from '@/helpers/chars.js';
 import { classNames } from '@/helpers/classNames.js';
 import { isValidPost } from '@/helpers/isValidPost.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
+import { useAbortController } from '@/hooks/useAbortController.js';
 import { useCheckPostMedias } from '@/hooks/useCheckPostMedias.js';
 import { useCompositePost } from '@/hooks/useCompositePost.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
@@ -34,6 +35,8 @@ import { useComposeStateStore } from '@/store/useComposeStore.js';
 interface ComposeSendProps extends React.HTMLAttributes<HTMLDivElement> {}
 
 export function ComposeSend(props: ComposeSendProps) {
+    const controller = useAbortController();
+
     const post = useCompositePost();
     const { type, posts, addPostInThread, draftId } = useComposeStateStore();
     const { scheduleTime } = useComposeScheduleStateStore();
@@ -52,18 +55,21 @@ export function ComposeSend(props: ComposeSendProps) {
         async (isRetry = false) => {
             if (checkPostMedias()) return;
             try {
+                controller.current.renew();
                 if (posts.length > 1) {
                     scheduleTime
                         ? await crossPostScheduleThread(scheduleTime)
                         : await crossPostThread({
                               isRetry,
                               progressCallback: setPercentage,
+                              signal: controller.current.signal,
                           });
                 } else {
                     scheduleTime
                         ? await crossSchedulePost(type, post, scheduleTime)
                         : await crossPost(type, post, {
                               isRetry,
+                              signal: controller.current.signal,
                           });
                 }
                 await delay(300);
@@ -140,10 +146,10 @@ export function ComposeSend(props: ComposeSendProps) {
                         }}
                     >
                         {posts.length >= MAX_POST_SIZE_PER_THREAD ? (
-                            <AddThread width={40} height={40} className="outline-none" />
+                            <AddThread width={40} height={40} className="text-lightHighlight outline-none" />
                         ) : (
                             <Tooltip content={t`Add`} placement="top">
-                                <AddThread width={40} height={40} className="outline-none" />
+                                <AddThread width={40} height={40} className="text-lightHighlight outline-none" />
                             </Tooltip>
                         )}
                     </ClickableButton>
