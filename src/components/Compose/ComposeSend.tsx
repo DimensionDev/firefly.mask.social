@@ -60,9 +60,9 @@ export function ComposeSend(props: ComposeSendProps) {
                     scheduleTime
                         ? await crossPostScheduleThread(scheduleTime)
                         : await crossPostThread({
-                              signal: controller.current.signal,
                               isRetry,
                               progressCallback: setPercentage,
+                              signal: controller.current.signal,
                           });
                 } else {
                     scheduleTime

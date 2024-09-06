@@ -11,11 +11,12 @@ import type { ConvertM3u8Response, ConvertM3u8StatusResponse } from '@/providers
 import { uploadToS3 } from '@/services/uploadToS3.js';
 import { settings } from '@/settings/index.js';
 
-async function convertVideoToM3u8(s3Url: string) {
+async function convertVideoToM3u8(s3Url: string, signal?: AbortSignal) {
     const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/post/convert');
     const response = await fireflySessionHolder.fetch<ConvertM3u8Response>(url, {
         method: 'POST',
         body: JSON.stringify({ file_path: s3Url }),
+        signal,
     });
 
     return resolveFireflyResponseData(response);
@@ -60,7 +61,7 @@ export async function uploadAndConvertToM3u8(file: File, source: SocialSourceInU
     const parsedUrl = parseURL(s3Url);
     if (!parsedUrl) throw new Error('Invalid s3 url');
 
-    const { m3u8Url, jobId } = await convertVideoToM3u8(parsedUrl.pathname);
+    const { m3u8Url, jobId } = await convertVideoToM3u8(parsedUrl.pathname, signal);
 
     await waitForConvertJob(jobId, signal);
 
