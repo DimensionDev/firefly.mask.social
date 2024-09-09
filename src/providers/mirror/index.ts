@@ -1,3 +1,4 @@
+import { delay } from '@masknet/kit';
 import { getAccount, getTransactionConfirmations, readContract, writeContract } from '@wagmi/core';
 import urlcat from 'urlcat';
 import { createPublicClient, http, parseSignature, zeroAddress } from 'viem';
@@ -186,6 +187,9 @@ class Mirror implements Provider {
             args: isOld ? [account.address, ''] : [account.address, '', zeroAddress],
             value: article.fee + price,
         });
+
+        // wait for transaction to be indexed
+        await delay(1000);
 
         return getTransactionConfirmations(config, {
             hash,

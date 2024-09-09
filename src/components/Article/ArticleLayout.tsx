@@ -15,6 +15,7 @@ import { IS_APPLE, IS_SAFARI } from '@/constants/bowser.js';
 import { PageRoute, SearchType, Source, SourceInURL } from '@/constants/enum.js';
 import { Link } from '@/esm/Link.js';
 import { classNames } from '@/helpers/classNames.js';
+import { getArticleUrl } from '@/helpers/getArticleUrl.js';
 import { resolveArticlePlatformIcon } from '@/helpers/resolveArticlePlatformIcon.js';
 import { useFireflyIdentity } from '@/hooks/useFireflyIdentity.js';
 import { type Article, ArticlePlatform } from '@/providers/types/Article.js';
@@ -33,9 +34,20 @@ export const ArticleLayout = memo<ArticleLayoutProps>(function ArticleLayout({ a
     const { data: ens } = useEnsName({ address: article.author.id, query: { enabled: !article.author.handle } });
     const identity = useFireflyIdentity(Source.Wallet, article.author.id);
     const Icon = resolveArticlePlatformIcon(article.platform);
+    const isMuted = article.author.isMuted;
 
     return (
-        <div className="relative mt-[6px] flex flex-col gap-2 overflow-hidden rounded-2xl border border-line bg-bg p-3">
+        <div
+            className="relative mt-[6px] flex flex-col gap-2 overflow-hidden rounded-2xl border border-line bg-bg p-3"
+            onClick={() => {
+                if (isMuted) return;
+                const selection = window.getSelection();
+                if (selection && selection.toString().length !== 0) return;
+
+                router.push(getArticleUrl(article));
+                return;
+            }}
+        >
             <div
                 className={classNames('line-clamp-2 text-base font-bold leading-[20px]', {
                     'max-h-[40px]': IS_SAFARI && IS_APPLE,
