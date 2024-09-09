@@ -39,12 +39,12 @@ const useStyles = makeStyles()((theme) => ({
 export function CalendarContent() {
     const tabs = [
         {
-            label: t`News`,
-            value: 'news',
+            label: t`Events`,
+            value: 'events',
         },
         {
-            label: t`Events`,
-            value: 'event',
+            label: t`News`,
+            value: 'news',
         },
         {
             label: t`NFTs`,
