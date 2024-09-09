@@ -4,7 +4,7 @@ import { ClickAwayListener, IconButton, Typography } from '@mui/material';
 import { eachDayOfInterval, endOfWeek, startOfWeek } from 'date-fns';
 import React, { useMemo } from 'react';
 
-import { DatePicker } from '@/components/Calendar/components/DatePicker.js';
+import { DatePicker } from '@/components/Calendar/DatePicker.js';
 
 const useStyles = makeStyles()((theme) => ({
     container: {

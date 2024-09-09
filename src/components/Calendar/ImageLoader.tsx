@@ -2,6 +2,8 @@ import { LoadingBase, makeStyles } from '@masknet/theme';
 import { Box, useTheme } from '@mui/material';
 import { useState } from 'react';
 
+import { Image } from '@/components/Image.js';
+
 interface ImageLoaderProps {
     src: string;
 }
@@ -52,10 +54,11 @@ export function ImageLoader({ src }: ImageLoaderProps) {
                     }}
                 />
             ) : (
-                <img
+                <Image
                     src={theme.palette.mode === 'light' ? MASK_LIGHT_FALLBACK : MASK_DARK_FALLBACK}
                     width={60}
                     height={60}
+                    alt="mask"
                 />
             )}
             {!loaded && !failed ? (

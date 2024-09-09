@@ -8,7 +8,7 @@ import { type ReactNode, useCallback, useMemo } from 'react';
 import DiscordRoundIcon from '@/assets/discord-round.svg';
 import WebsiteIcon from '@/assets/website.svg';
 import TwitterIcon from '@/assets/x.svg';
-import { CountdownTimer } from '@/components/Calendar/components/CountDownTimer.js';
+import { CountdownTimer } from '@/components/Calendar/CountDownTimer.js';
 
 const useStyles = makeStyles()((theme) => ({
     container: {
@@ -223,7 +223,7 @@ export function NFTList({ list, isLoading, empty, date }: NFTListProps) {
                                                 {dayjs(new Date(v.event_date)).format('MMM dd, yyyy HH:mm')}
                                             </Typography>
                                         </div>
-                                        <img className={classes.poster} src={v.poster_url} alt="poster" />
+                                        <Image className={classes.poster} src={v.poster_url} alt="poster" />
                                     </Link>
                                 ))}
                             </div>

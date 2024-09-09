@@ -2,7 +2,7 @@ import { Trans } from '@lingui/macro';
 import { makeStyles } from '@masknet/theme';
 import { Typography } from '@mui/material';
 import { differenceInSeconds } from 'date-fns';
-import { useCallback, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 
 const useStyles = makeStyles()((theme) => ({
     timer: {
@@ -23,13 +23,13 @@ interface CountDownTimerProps {
     targetDate: Date;
 }
 
-export function CountdownTimer({ targetDate }: CountDownTimerProps) {
-    const calculateRemainingTime = useCallback((targetDate: Date) => {
-        const currentDate = new Date();
-        const difference = differenceInSeconds(targetDate, currentDate);
-        return difference > 0 ? difference : 0;
-    }, []);
+const calculateRemainingTime = (targetDate: Date) => {
+    const currentDate = new Date();
+    const difference = differenceInSeconds(targetDate, currentDate);
+    return difference > 0 ? difference : 0;
+};
 
+export function CountdownTimer({ targetDate }: CountDownTimerProps) {
     const [remainingTime, setRemainingTime] = useState(() => calculateRemainingTime(targetDate));
 
     const { classes } = useStyles();
