@@ -55,8 +55,8 @@ interface ContractItemProps extends HTMLProps<HTMLDivElement> {
 }
 function ContractItem({ contract, ...rest }: ContractItemProps) {
     const chain = useChainInfo(contract.runtime, contract.chainId);
-
     const name = chain?.name || contract.runtime;
+
     return (
         <div {...rest} className={classNames('flex items-center gap-2', rest.className)}>
             {chain?.icon ? (
