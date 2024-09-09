@@ -1,6 +1,6 @@
 import { plural, t } from '@lingui/macro';
 
-import { getTimeLeft } from '@/helpers/getTimeLeft.js';
+import { getTimeLeft } from '@/helpers/formatTimestamp.js';
 
 export function getPollTimeLeft(endDatetime: string) {
     const timeLeft = getTimeLeft(endDatetime);

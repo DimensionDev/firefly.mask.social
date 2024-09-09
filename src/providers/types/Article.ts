@@ -1,3 +1,4 @@
+import type { WaitForTransactionReceiptReturnType } from '@wagmi/core';
 import type { Address } from 'viem';
 
 import type { Pageable, PageIndicator } from '@/helpers/pageable.js';
@@ -114,5 +115,5 @@ export interface Provider {
      * @param account user account
      * @returns
      */
-    collect: (article: ArticleCollectable) => Promise<bigint>;
+    collect: (article: ArticleCollectable) => Promise<WaitForTransactionReceiptReturnType>;
 }

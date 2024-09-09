@@ -1,5 +1,4 @@
-import { delay } from '@masknet/kit';
-import { getAccount, getTransactionConfirmations, http, readContract, writeContract } from '@wagmi/core';
+import { getAccount, http, readContract, waitForTransactionReceipt, writeContract } from '@wagmi/core';
 import urlcat from 'urlcat';
 import { createPublicClient, zeroAddress } from 'viem';
 import { base, optimism, polygon, zora } from 'viem/chains';
@@ -165,10 +164,7 @@ class Paragraph implements Provider {
                 value,
             });
 
-            // wait for transaction to be indexed
-            await delay(1000);
-
-            return getTransactionConfirmations(config, { hash });
+            return waitForTransactionReceipt(config, { hash });
         }
 
         const hash = await writeContract(config, {
@@ -193,10 +189,7 @@ class Paragraph implements Provider {
             value,
         });
 
-        // wait for transaction to be indexed
-        await delay(1000);
-
-        return getTransactionConfirmations(config, { hash });
+        return waitForTransactionReceipt(config, { hash });
     }
 }
 

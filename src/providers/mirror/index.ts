@@ -1,5 +1,4 @@
-import { delay } from '@masknet/kit';
-import { getAccount, getTransactionConfirmations, readContract, writeContract } from '@wagmi/core';
+import { getAccount, readContract, waitForTransactionReceipt, writeContract } from '@wagmi/core';
 import urlcat from 'urlcat';
 import { createPublicClient, http, parseSignature, zeroAddress } from 'viem';
 import { polygon } from 'viem/chains';
@@ -174,7 +173,9 @@ class Mirror implements Provider {
                 value: article.fee + price,
             });
 
-            return getTransactionConfirmations(config, { hash });
+            return waitForTransactionReceipt(config, {
+                hash,
+            });
         }
 
         const isOld = MIRROR_OLD_FACTOR_ADDRESSES.some((x) => isSameEthereumAddress(x, article.factorAddress));
@@ -188,10 +189,7 @@ class Mirror implements Provider {
             value: article.fee + price,
         });
 
-        // wait for transaction to be indexed
-        await delay(1000);
-
-        return getTransactionConfirmations(config, {
+        return waitForTransactionReceipt(config, {
             hash,
         });
     }
