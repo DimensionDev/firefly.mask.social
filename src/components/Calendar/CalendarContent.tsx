@@ -1,16 +1,15 @@
-import { Trans } from '@lingui/macro';
+import { Tab } from '@headlessui/react';
+import { t } from '@lingui/macro';
 import { safeUnreachable } from '@masknet/kit';
-import { makeStyles, MaskTabList, useTabs } from '@masknet/theme';
-import { TabContext, TabPanel } from '@mui/lab';
-import { Tab } from '@mui/material';
-import { useMemo, useState } from 'react';
+import { makeStyles } from '@masknet/theme';
+import { useState } from 'react';
 
 import { DatePickerTab } from '@/components/Calendar/DatePickerTab.js';
 import { EventList } from '@/components/Calendar/EventList.js';
 import { Footer } from '@/components/Calendar/Footer.js';
+import { useEventList, useNewsList, useNFTList } from '@/components/Calendar/hooks/useEventList.js';
 import { NewsList } from '@/components/Calendar/NewsList.js';
 import { NFTList } from '@/components/Calendar/NFTList.js';
-import { useEventList, useNewsList, useNFTList } from '@/components/hooks/useEventList.js';
 import { EMPTY_OBJECT } from '@/constants/index.js';
 
 const useStyles = makeStyles()((theme) => ({
@@ -38,17 +37,36 @@ const useStyles = makeStyles()((theme) => ({
 }));
 
 export function CalendarContent() {
+    const tabs = [
+        {
+            label: t`News`,
+            value: 'news',
+        },
+        {
+            label: t`Events`,
+            value: 'event',
+        },
+        {
+            label: t`NFTs`,
+            value: 'nfts',
+        },
+    ];
+
     const { classes } = useStyles();
-    const [currentTab, onChange, tabs] = useTabs('news', 'event', 'nfts');
+    const [currentTabIndex, setCurrentTabIndex] = useState(0);
     const [selectedDate, setSelectedDate] = useState(new Date());
     const [open, setOpen] = useState(false);
+
+    const currentTab = tabs[currentTabIndex].value as (typeof tabs)[0]['value'] as 'news' | 'event' | 'nfts';
+
     const { data: eventList = EMPTY_OBJECT, isPending: eventLoading } = useEventList(
         selectedDate,
         currentTab === 'event',
     );
     const { data: newsList = EMPTY_OBJECT, isPending: newsLoading } = useNewsList(selectedDate, currentTab === 'news');
     const { data: nftList = EMPTY_OBJECT, isPending: nftLoading } = useNFTList(selectedDate, currentTab === 'nfts');
-    const list = useMemo(() => {
+
+    const getListItems = () => {
         switch (currentTab) {
             case 'news':
                 return newsList;
@@ -60,52 +78,55 @@ export function CalendarContent() {
                 safeUnreachable(currentTab);
                 return null;
         }
-    }, [currentTab, newsList, eventList, nftList]);
+    };
 
     return (
         <div className={classes.calendar}>
-            <TabContext value={currentTab}>
-                <div className={classes.tabList}>
-                    <MaskTabList variant="base" onChange={onChange} aria-label="">
-                        <Tab className={classes.tab} label={<Trans>News</Trans>} value={tabs.news} />
-                        <Tab className={classes.tab} label={<Trans>Events</Trans>} value={tabs.event} />
-                        <Tab className={classes.tab} label={<Trans>NFTs</Trans>} value={tabs.nfts} />
-                    </MaskTabList>
-                </div>
+            <Tab.Group selectedIndex={currentTabIndex} onChange={setCurrentTabIndex}>
+                <Tab.List className={classes.tabList}>
+                    {tabs.map((x) => (
+                        <Tab className={classes.tab} key={x.value}>
+                            {x.label}
+                        </Tab>
+                    ))}
+                </Tab.List>
                 <DatePickerTab
                     open={open}
                     setOpen={setOpen}
                     selectedDate={selectedDate}
                     setSelectedDate={setSelectedDate}
-                    list={list}
+                    list={getListItems()}
                     currentTab={currentTab}
                 />
-                <TabPanel value={tabs.news} className={classes.tabPanel}>
-                    <NewsList
-                        list={newsList}
-                        isLoading={newsLoading}
-                        empty={!Object.keys(newsList).length}
-                        date={selectedDate}
-                    />
-                </TabPanel>
-                <TabPanel value={tabs.event} className={classes.tabPanel}>
-                    <EventList
-                        list={eventList}
-                        isLoading={eventLoading}
-                        empty={!Object.keys(eventList).length}
-                        date={selectedDate}
-                    />
-                </TabPanel>
-                <TabPanel value={tabs.nfts} className={classes.tabPanel}>
-                    <NFTList
-                        list={nftList}
-                        isLoading={nftLoading}
-                        empty={!Object.keys(newsList).length}
-                        date={selectedDate}
-                    />
-                </TabPanel>
+                <Tab.Panels>
+                    <Tab.Panel className={classes.tabPanel}>
+                        <NewsList
+                            list={newsList}
+                            isLoading={newsLoading}
+                            empty={!Object.keys(newsList).length}
+                            date={selectedDate}
+                        />
+                    </Tab.Panel>
+                    <Tab.Panel className={classes.tabPanel}>
+                        <EventList
+                            list={eventList}
+                            isLoading={eventLoading}
+                            empty={!Object.keys(eventList).length}
+                            date={selectedDate}
+                        />
+                    </Tab.Panel>
+                    <Tab.Panel className={classes.tabPanel}>
+                        <NFTList
+                            list={nftList}
+                            isLoading={nftLoading}
+                            empty={!Object.keys(newsList).length}
+                            date={selectedDate}
+                        />
+                    </Tab.Panel>
+                </Tab.Panels>
+
                 <Footer />
-            </TabContext>
+            </Tab.Group>
         </div>
     );
 }

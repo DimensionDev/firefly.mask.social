@@ -45,8 +45,11 @@ export function ImageLoader({ src }: ImageLoaderProps) {
     return (
         <div className={classes.container}>
             {!failed ? (
-                <img
+                <Image
+                    alt="poster"
                     src={src}
+                    width={60}
+                    height={60}
                     className={classes.poster}
                     onLoad={() => setLoaded(true)}
                     onError={() => {

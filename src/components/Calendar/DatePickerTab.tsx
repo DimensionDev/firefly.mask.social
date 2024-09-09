@@ -1,9 +1,9 @@
-import { Icons } from '@masknet/icons';
 import { makeStyles } from '@masknet/theme';
 import { ClickAwayListener, IconButton, Typography } from '@mui/material';
 import { eachDayOfInterval, endOfWeek, startOfWeek } from 'date-fns';
 import React, { useMemo } from 'react';
 
+import CalendarIcon from '@/assets/calendar.svg';
 import { DatePicker } from '@/components/Calendar/DatePicker.js';
 
 const useStyles = makeStyles()((theme) => ({
@@ -79,7 +79,7 @@ export function DatePickerTab({ selectedDate, setSelectedDate, list, open, setOp
                             setOpen(!open);
                         }}
                     >
-                        <Icons.LinearCalendar size={24} />
+                        <CalendarIcon width={24} height={24} />
                     </IconButton>
                     <DatePicker
                         open={open}
