@@ -2,7 +2,7 @@
 
 import { t, Trans } from '@lingui/macro';
 import { safeUnreachable } from '@masknet/kit';
-import { type ComponentType, memo, Suspense, useEffect } from 'react';
+import React, { type ComponentType, memo, Suspense, useEffect } from 'react';
 
 import { DiscoverArticleList } from '@/components/Article/DiscoverArticleList.js';
 import { ChannelList } from '@/components/Channel/ChannelList.js';
@@ -25,12 +25,12 @@ const FARCASTER_TYPES_LOGGED = [
     DiscoverType.ForYou,
     DiscoverType.TopProfiles,
     DiscoverType.TopChannels,
-] as const;
-const FARCASTER_TYPES = [DiscoverType.Trending, DiscoverType.TopProfiles, DiscoverType.TopChannels] as const;
+];
+const FARCASTER_TYPES = [DiscoverType.Trending, DiscoverType.TopProfiles, DiscoverType.TopChannels];
 const LENS_TYPES =
     env.external.NEXT_PUBLIC_OPENRANK === STATUS.Enabled
         ? [DiscoverType.Trending, DiscoverType.Recent, DiscoverType.TopProfiles]
-        : ([DiscoverType.Trending, DiscoverType.TopProfiles] as const);
+        : [DiscoverType.Trending, DiscoverType.TopProfiles];
 
 const ContentList: ComponentType<{ type: DiscoverType; source: SocialSource }> = memo(function ContentList({
     type,
@@ -63,7 +63,7 @@ export function HomePage() {
             ? FARCASTER_TYPES_LOGGED
             : FARCASTER_TYPES;
 
-    const tabLabels = {
+    const tabLabels: Record<DiscoverType, React.ReactNode> = {
         [DiscoverType.Trending]: <Trans>Trending</Trans>,
         [DiscoverType.ForYou]: <Trans>For You</Trans>,
         [DiscoverType.Recent]: <Trans>Recent</Trans>,
