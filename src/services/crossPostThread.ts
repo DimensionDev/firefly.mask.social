@@ -13,6 +13,12 @@ import { reportCrossedPost } from '@/services/reportCrossedPost.js';
 import { type CompositePost, useComposeStateStore } from '@/store/useComposeStore.js';
 import { useFarcasterStateStore } from '@/store/useProfileStore.js';
 
+interface CrossPostThreadOptions {
+    progressCallback?: (progress: number) => void;
+    isRetry?: boolean;
+    signal?: AbortSignal;
+}
+
 function shouldCrossPost(index: number, post: CompositePost) {
     return SORTED_SOCIAL_SOURCES.some(
         (x) => post.availableSources.includes(x) && !post.postId[x] && !post.parentPost[x],
@@ -80,15 +86,7 @@ async function recompositePost(index: number, post: CompositePost, posts: Compos
     } satisfies CompositePost;
 }
 
-export async function crossPostThread({
-    signal,
-    isRetry = false,
-    progressCallback,
-}: {
-    signal?: AbortSignal;
-    isRetry?: boolean;
-    progressCallback?: (progress: number) => void;
-}) {
+export async function crossPostThread({ progressCallback, isRetry = false, signal }: CrossPostThreadOptions = {}) {
     const { posts } = useComposeStateStore.getState();
     if (posts.length === 1) throw new Error(t`A thread must have at least two posts.`);
 
