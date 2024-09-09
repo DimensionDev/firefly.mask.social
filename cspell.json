@@ -178,7 +178,8 @@
         "Tweetv",
         "getconvert",
         "datas",
-        "flatmap"
+        "flatmap",
+        "getconvert"
     ],
     "flagWords": [],
     "ignorePaths": [
