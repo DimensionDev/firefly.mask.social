@@ -1,13 +1,13 @@
-import { Icons } from '@masknet/icons';
 import { safeUnreachable } from '@masknet/kit';
 import { makeStyles } from '@masknet/theme';
-import { IconButton, Typography } from '@mui/material';
-import { Box } from '@mui/system';
+import { Box, IconButton, Typography } from '@mui/material';
 import { addMonths, endOfMonth, format, isAfter, startOfMonth } from 'date-fns';
 import { range } from 'lodash-es';
 import { useMemo, useState } from 'react';
 
-import { useEventList, useNewsList, useNFTList } from '@/components/hooks/useEventList.js';
+import LeftArrowIcon from '@/assets/left-arrow.svg';
+import RightArrowIcon from '@/assets/right-arrow.svg';
+import { useEventList, useNewsList, useNFTList } from '@/components/Calendar/hooks/useEventList.js';
 
 const useStyles = makeStyles<{ open: boolean }>()((theme, { open }) => ({
     container: {
@@ -198,10 +198,10 @@ export function DatePicker({ selectedDate, setSelectedDate, open, setOpen, curre
                     <Typography className={classes.headerText}>{format(currentDate, 'MMMM yyyy')}</Typography>
                     <Box className={classes.headerIcon}>
                         <IconButton size="small" onClick={() => changeMonth(-1)} disabled={isPrevMonthDisabled}>
-                            <Icons.LeftArrow size={24} />
+                            <LeftArrowIcon width={24} height={24} />
                         </IconButton>
                         <IconButton size="small" onClick={() => changeMonth(1)} disabled={isNextMonthDisabled}>
-                            <Icons.RightArrow size={24} />
+                            <RightArrowIcon width={24} height={24} />
                         </IconButton>
                     </Box>
                 </div>
