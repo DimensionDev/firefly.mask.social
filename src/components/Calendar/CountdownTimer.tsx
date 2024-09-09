@@ -1,5 +1,5 @@
 import { Trans } from '@lingui/macro';
-import { makeStyles } from '@masknet/theme';
+import { makeStyles, MaskColors } from '@masknet/theme';
 import { Typography } from '@mui/material';
 import { differenceInSeconds } from 'date-fns';
 import { useEffect, useState } from 'react';
@@ -9,8 +9,8 @@ const useStyles = makeStyles()((theme) => ({
         fontSize: '12px',
         fontWeight: 400,
         lineHeight: '16px',
-        background: theme.palette.maskColor.bg,
-        color: theme.palette.maskColor.main,
+        background: MaskColors[theme.palette.mode].maskColor.bg,
+        color: MaskColors[theme.palette.mode].maskColor.main,
         borderRadius: '4px',
         display: 'flex',
         alignItems: 'center',

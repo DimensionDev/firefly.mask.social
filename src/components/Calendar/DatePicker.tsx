@@ -1,5 +1,5 @@
 import { safeUnreachable } from '@masknet/kit';
-import { makeStyles } from '@masknet/theme';
+import { makeStyles, MaskColors } from '@masknet/theme';
 import { Box, IconButton, Typography } from '@mui/material';
 import { addMonths, endOfMonth, format, isAfter, startOfMonth } from 'date-fns';
 import { range } from 'lodash-es';
@@ -11,7 +11,7 @@ import { useEventList, useNewsList, useNFTList } from '@/components/Calendar/hoo
 
 const useStyles = makeStyles<{ open: boolean }>()((theme, { open }) => ({
     container: {
-        background: theme.palette.maskColor.bottom,
+        background: MaskColors[theme.palette.mode].maskColor.bottom,
         boxShadow: '0px 4px 30px 0px rgba(0, 0, 0, 0.10)',
         borderRadius: '16px',
         display: open ? 'flex' : 'none',
@@ -27,7 +27,7 @@ const useStyles = makeStyles<{ open: boolean }>()((theme, { open }) => ({
     daysOfWeek: {
         fontSize: 12,
         fontWeight: 700,
-        color: theme.palette.maskColor.third,
+        color: MaskColors[theme.palette.mode].maskColor.third,
         marginBottom: '24px',
     },
     header: {
@@ -36,7 +36,7 @@ const useStyles = makeStyles<{ open: boolean }>()((theme, { open }) => ({
         justifyContent: 'space-between',
     },
     headerText: {
-        color: theme.palette.maskColor.main,
+        color: MaskColors[theme.palette.mode].maskColor.main,
         fontSize: '24px',
         fontWeight: 700,
         lineHeight: '120%',
@@ -49,7 +49,7 @@ const useStyles = makeStyles<{ open: boolean }>()((theme, { open }) => ({
         fontSize: '16px',
         fontWeight: 400,
         lineHeight: '20px',
-        color: theme.palette.maskColor.third,
+        color: MaskColors[theme.palette.mode].maskColor.third,
         width: '38px',
         height: '38px',
         display: 'flex',
@@ -61,12 +61,12 @@ const useStyles = makeStyles<{ open: boolean }>()((theme, { open }) => ({
         marginBottom: '8px',
     },
     canClick: {
-        color: theme.palette.maskColor.main,
+        color: MaskColors[theme.palette.mode].maskColor.main,
         cursor: 'pointer',
     },
     active: {
-        color: theme.palette.maskColor.white,
-        background: theme.palette.maskColor.primary,
+        color: MaskColors[theme.palette.mode].maskColor.white,
+        background: MaskColors[theme.palette.mode].maskColor.primary,
     },
     button: {
         outline: 'none',

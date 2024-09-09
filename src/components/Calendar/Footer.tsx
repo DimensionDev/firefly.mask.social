@@ -27,14 +27,14 @@ const useStyles = makeStyles()((theme) => ({
         alignItems: 'center',
     },
     calendarText: {
-        color: theme.palette.maskColor.main,
+        color: MaskColors[theme.palette.mode].maskColor.main,
         fontSize: '16px',
         fontWeight: 700,
         lineHeight: '20px',
         alignItems: 'center',
     },
     providerName: {
-        color: theme.palette.maskColor.main,
+        color: MaskColors[theme.palette.mode].maskColor.main,
         fontSize: '14px',
         fontWeight: 700,
         lineHeight: '18px',

@@ -3,7 +3,7 @@
 import { Tab } from '@headlessui/react';
 import { t } from '@lingui/macro';
 import { safeUnreachable } from '@masknet/kit';
-import { makeStyles } from '@masknet/theme';
+import { makeStyles, MaskColors } from '@masknet/theme';
 import { useState } from 'react';
 
 import { DatePickerTab } from '@/components/Calendar/DatePickerTab.js';
@@ -19,7 +19,7 @@ const useStyles = makeStyles()((theme) => ({
         display: 'flex',
         flexDirection: 'column',
         borderRadius: '12px',
-        border: `1px solid ${theme.palette.maskColor.line}`,
+        border: `1px solid ${MaskColors[theme.palette.mode].maskColor.line}`,
         position: 'relative',
         marginBottom: '20px',
     },

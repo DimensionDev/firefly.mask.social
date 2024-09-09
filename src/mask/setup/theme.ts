@@ -1,5 +1,5 @@
 import { sharedUIComponentOverwrite } from '@masknet/shared';
-import { makeStyles } from '@masknet/theme';
+import { makeStyles, MaskColors } from '@masknet/theme';
 
 const useInjectedDialogClassesOverwriteTwitter = makeStyles()((theme) => {
     const smallQuery = `@media (max-width: ${theme.breakpoints.values.sm}px)`;
@@ -36,7 +36,7 @@ const useInjectedDialogClassesOverwriteTwitter = makeStyles()((theme) => {
             alignItems: 'center',
             padding: 16,
             position: 'relative',
-            background: theme.palette.maskColor.modalTitleBg,
+            background: MaskColors[theme.palette.mode].maskColor.modalTitleBg,
             borderBottom: 'none',
             '& > p': {
                 fontSize: 18,
@@ -57,7 +57,7 @@ const useInjectedDialogClassesOverwriteTwitter = makeStyles()((theme) => {
             },
         },
         dialogContent: {
-            backgroundColor: theme.palette.maskColor.bottom,
+            backgroundColor: MaskColors[theme.palette.mode].maskColor.bottom,
             [smallQuery]: {
                 display: 'flex',
                 flexDirection: 'column',
@@ -68,7 +68,7 @@ const useInjectedDialogClassesOverwriteTwitter = makeStyles()((theme) => {
             },
         },
         dialogActions: {
-            backgroundColor: theme.palette.maskColor.bottom,
+            backgroundColor: MaskColors[theme.palette.mode].maskColor.bottom,
             padding: '6px 16px',
             [smallQuery]: {
                 display: 'flex',

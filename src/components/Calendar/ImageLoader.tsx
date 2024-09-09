@@ -1,4 +1,4 @@
-import { LoadingBase, makeStyles } from '@masknet/theme';
+import { LoadingBase, makeStyles, MaskColors } from '@masknet/theme';
 import { Box, useTheme } from '@mui/material';
 import { useState } from 'react';
 
@@ -19,7 +19,7 @@ const useStyles = makeStyles()((theme) => ({
         borderRadius: '8px',
         justifyContent: 'center',
         alignItems: 'center',
-        background: theme.palette.maskColor.bg,
+        background: MaskColors[theme.palette.mode].maskColor.bg,
         position: 'relative',
     },
     poster: {
@@ -32,7 +32,7 @@ const useStyles = makeStyles()((theme) => ({
         position: 'absolute',
         top: 'calc(50% - 10px)',
         left: 'calc(50% - 10px)',
-        color: theme.palette.maskColor.main,
+        color: MaskColors[theme.palette.mode].maskColor.main,
     },
 }));
 

@@ -1,6 +1,6 @@
 import { Trans } from '@lingui/macro';
 import { EmptyStatus, Image, LoadingStatus } from '@masknet/shared';
-import { makeStyles } from '@masknet/theme';
+import { makeStyles, MaskColors } from '@masknet/theme';
 import { IconButton, Link, Typography } from '@mui/material';
 import dayjs from 'dayjs';
 import { type ReactNode, useCallback, useMemo } from 'react';
@@ -37,7 +37,7 @@ const useStyles = makeStyles()((theme) => ({
         alignItems: 'center',
         flexDirection: 'column',
         gap: 12,
-        color: theme.palette.maskColor.second,
+        color: MaskColors[theme.palette.mode].maskColor.second,
         whiteSpace: 'nowrap',
     },
     eventCard: {
@@ -62,10 +62,10 @@ const useStyles = makeStyles()((theme) => ({
         display: 'flex',
         gap: 8,
         alignItems: 'center',
-        color: theme.palette.maskColor.main,
+        color: MaskColors[theme.palette.mode].maskColor.main,
     },
     projectName: {
-        color: theme.palette.maskColor.main,
+        color: MaskColors[theme.palette.mode].maskColor.main,
         fontSize: '12px',
         fontWeight: 700,
         lineHeight: '16px',
@@ -78,7 +78,7 @@ const useStyles = makeStyles()((theme) => ({
         fontSize: '14px',
         fontWeight: 400,
         lineHeight: '18px',
-        color: theme.palette.maskColor.main,
+        color: MaskColors[theme.palette.mode].maskColor.main,
         whiteSpace: 'nowrap',
         overflow: 'hidden',
         textOverflow: 'ellipsis',
@@ -87,7 +87,7 @@ const useStyles = makeStyles()((theme) => ({
         fontSize: '14px',
         fontWeight: 400,
         lineHeight: '18px',
-        color: theme.palette.maskColor.second,
+        color: MaskColors[theme.palette.mode].maskColor.second,
     },
     poster: {
         borderRadius: '8px',
@@ -99,7 +99,7 @@ const useStyles = makeStyles()((theme) => ({
         fontSize: '14px',
         fontWeight: 700,
         lineHeight: '18px',
-        color: theme.palette.maskColor.main,
+        color: MaskColors[theme.palette.mode].maskColor.main,
         padding: '10px 0',
     },
     socialLinks: {

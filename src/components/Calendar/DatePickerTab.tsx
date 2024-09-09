@@ -1,4 +1,4 @@
-import { makeStyles } from '@masknet/theme';
+import { makeStyles, MaskColors } from '@masknet/theme';
 import { ClickAwayListener, IconButton, Typography } from '@mui/material';
 import { eachDayOfInterval, endOfWeek, startOfWeek } from 'date-fns';
 import React, { useMemo } from 'react';
@@ -18,7 +18,7 @@ const useStyles = makeStyles()((theme) => ({
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
-        color: theme.palette.maskColor.main,
+        color: MaskColors[theme.palette.mode].maskColor.main,
         fontSize: 16,
         fontFamily: 'Helvetica',
         fontWeight: '400',
@@ -27,14 +27,14 @@ const useStyles = makeStyles()((theme) => ({
         textAlign: 'center',
         width: '28px !important',
         height: '28px !important',
-        border: `0.5px ${theme.palette.maskColor.line} solid`,
+        border: `0.5px ${MaskColors[theme.palette.mode].maskColor.line} solid`,
         cursor: 'pointer',
     },
     isActive: {
-        border: `0.5px ${theme.palette.maskColor.main} solid`,
+        border: `0.5px ${MaskColors[theme.palette.mode].maskColor.main} solid`,
     },
     disabled: {
-        color: theme.palette.maskColor.second,
+        color: MaskColors[theme.palette.mode].maskColor.second,
         cursor: 'default',
     },
 }));

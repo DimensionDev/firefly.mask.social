@@ -1,6 +1,6 @@
 import { Trans } from '@lingui/macro';
 import { EmptyStatus, Image, LoadingStatus } from '@masknet/shared';
-import { makeStyles } from '@masknet/theme';
+import { makeStyles, MaskColors } from '@masknet/theme';
 import { resolveIPFS_URL } from '@masknet/web3-shared-base';
 import { Link, Typography } from '@mui/material';
 import dayjs from 'dayjs';
@@ -35,7 +35,7 @@ const useStyles = makeStyles()((theme) => ({
         alignItems: 'center',
         flexDirection: 'column',
         gap: 12,
-        color: theme.palette.maskColor.second,
+        color: MaskColors[theme.palette.mode].maskColor.second,
         whiteSpace: 'nowrap',
     },
     eventCard: {
@@ -57,10 +57,10 @@ const useStyles = makeStyles()((theme) => ({
         display: 'flex',
         gap: 8,
         alignItems: 'center',
-        color: theme.palette.maskColor.main,
+        color: MaskColors[theme.palette.mode].maskColor.main,
     },
     projectName: {
-        color: theme.palette.maskColor.main,
+        color: MaskColors[theme.palette.mode].maskColor.main,
         fontSize: '12px',
         fontWeight: 700,
         lineHeight: '16px',
@@ -73,19 +73,22 @@ const useStyles = makeStyles()((theme) => ({
         fontSize: '14px',
         fontWeight: 400,
         lineHeight: '18px',
-        color: theme.palette.mode === 'dark' ? theme.palette.maskColor.second : theme.palette.maskColor.main,
+        color:
+            theme.palette.mode === 'dark'
+                ? MaskColors[theme.palette.mode].maskColor.second
+                : MaskColors[theme.palette.mode].maskColor.main,
     },
     time: {
         fontSize: '14px',
         fontWeight: 400,
         lineHeight: '18px',
-        color: theme.palette.maskColor.second,
+        color: MaskColors[theme.palette.mode].maskColor.second,
     },
     dateDiv: {
         fontSize: '14px',
         fontWeight: 700,
         lineHeight: '18px',
-        color: theme.palette.maskColor.main,
+        color: MaskColors[theme.palette.mode].maskColor.main,
         padding: '10px 0',
     },
 }));
