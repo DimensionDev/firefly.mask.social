@@ -1,3 +1,5 @@
+'use client';
+
 import { Tab } from '@headlessui/react';
 import { t } from '@lingui/macro';
 import { safeUnreachable } from '@masknet/kit';
