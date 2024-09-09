@@ -32,16 +32,17 @@ export class MentionNode extends TextNode {
 
             const html = renderToStaticMarkup(
                 <>
-                    {this.__profiles.map(({ platform }, index) => {
+                    {this.__profiles.map(({ platform, handle, platform_id }, index) => {
                         return (
-                            <SocialSourceIcon
-                                key={index}
+                            <span
+                                title={`@${handle}`}
                                 className={classNames('inline-flex items-center', {
                                     '-ml-1': index > 0 && self.length > 1,
                                 })}
-                                source={resolveSocialSource(platform)}
-                                size={16}
-                            />
+                                key={platform_id}
+                            >
+                                <SocialSourceIcon source={resolveSocialSource(platform)} size={16} />
+                            </span>
                         );
                     })}
                 </>,

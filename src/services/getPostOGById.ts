@@ -13,12 +13,6 @@ export async function getPostOGById(source: SocialSourceInURL, postId: string) {
     const post = await provider.getPostById(postId).catch(() => null);
     if (!post) return createSiteMetadata();
 
-    const images = compact(
-        post.metadata.content?.attachments?.map((x) => {
-            const url = x.type === 'Image' ? x.uri : x.coverUri;
-            return url ? { url } : undefined;
-        }),
-    );
     const audios = compact(
         post.metadata.content?.attachments?.map((x) => {
             const url = x.type === 'Audio' ? x.uri : undefined;
@@ -32,13 +26,18 @@ export async function getPostOGById(source: SocialSourceInURL, postId: string) {
         }),
     );
 
+    const ogImage = urlcat(SITE_URL, '/api/og/post/:source/:postId/image', {
+        source,
+        postId,
+    });
+
     return createSiteMetadata({
         openGraph: {
             type: 'article',
             url: urlcat(SITE_URL, getPostUrl(post)),
             title: `Posted by ${post.author.displayName} via Firefly`,
             description: post.metadata.content?.content ?? '',
-            images: images.length ? images : [`${SITE_URL}/image/og.png`],
+            images: [ogImage],
             audio: audios,
             videos,
         },
@@ -46,7 +45,7 @@ export async function getPostOGById(source: SocialSourceInURL, postId: string) {
             card: 'summary_large_image',
             title: `Posted by ${post.author.displayName} via Firefly`,
             description: post.metadata.content?.content ?? '',
-            images: images.length ? images : [`${SITE_URL}/image/og.png`],
+            images: [ogImage],
         },
     });
 }

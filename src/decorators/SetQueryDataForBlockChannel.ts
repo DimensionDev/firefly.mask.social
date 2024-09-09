@@ -15,29 +15,18 @@ function setBlockStatus(source: SocialSource, channelId: string, status: boolean
         draft.channel.blocked = status;
     });
 
-    queryClient.setQueriesData<Channel>({ queryKey: ['channels'] }, (old) => {
+    const updater = (old: Channel | undefined) => {
         if (!old || old.id !== channelId) return old;
 
         return produce(old, (draft) => {
             draft.blocked = status;
         });
-    });
+    };
 
-    queryClient.setQueriesData<Channel>({ queryKey: ['search', SearchType.Channels] }, (old) => {
-        if (!old || old.id !== channelId) return old;
-
-        return produce(old, (draft) => {
-            draft.blocked = status;
-        });
-    });
-
-    queryClient.setQueryData<Channel>(['channel', source, channelId], (old) => {
-        if (!old || old.id !== channelId) return old;
-
-        return produce(old, (draft) => {
-            draft.blocked = status;
-        });
-    });
+    queryClient.setQueriesData<Channel>({ queryKey: ['channels'] }, updater);
+    queryClient.setQueriesData<Channel>({ queryKey: ['search', SearchType.Channels] }, updater);
+    queryClient.setQueryData<Channel>(['channel', source, channelId], updater);
+    queryClient.setQueryData<Channel>(['suggest-channels', source], updater);
 }
 
 const METHODS_BE_OVERRIDDEN = ['blockChannel', 'unblockChannel'] as const;

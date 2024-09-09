@@ -1,16 +1,14 @@
-import { NobleEd25519Signer } from '@farcaster/core';
 import { safeUnreachable } from '@masknet/kit';
 import { ZERO_ADDRESS } from '@masknet/web3-shared-evm';
 import { StatusCodes } from 'http-status-codes';
 import { compact, groupBy } from 'lodash-es';
-import { toBytes } from 'viem';
 import { z } from 'zod';
 
 import { CryptoUsage } from '@/constants/enum.js';
 import { NotAllowedError, UnreachableError } from '@/constants/error.js';
 import { createErrorResponseJSON } from '@/helpers/createErrorResponseJSON.js';
 import { createSuccessResponseJSON } from '@/helpers/createSuccessResponseJSON.js';
-import { getPublicKeyInHex } from '@/helpers/ed25519.js';
+import { getPublicKeyInHexFromSession } from '@/helpers/ed25519.js';
 import { parseJSON } from '@/helpers/parseJSON.js';
 import { resolveSocialSourceFromSessionType } from '@/helpers/resolveSource.js';
 import { resolveSocialSourceInURL } from '@/helpers/resolveSourceInURL.js';
@@ -42,7 +40,7 @@ const TwitterMetricsSchema = z.object({
     client_os: z.string(),
     login_metadata: z.array(
         z.object({
-            client_id: z.string(),
+            client_id: z.string(), // '635682749'
             login_time: z.number(),
             access_token: z.string(),
             access_token_secret: z.string(),
@@ -62,8 +60,9 @@ const LensMetricsSchema = z.object({
             address: z.string(), // 0xab...cd
             login_time: z.number(),
             // cspell: disable-next-line
-            profile_id: z.string(), // 0x049b19
+            profile_id: z.string(), // '0x049b19'
             refresh_token: z.string(),
+            identity_token: z.string().optional(),
         }),
     ),
 });
@@ -76,7 +75,8 @@ const FarcasterMetricsSchema = z.object({
         z.object({
             fid: z.number(),
             login_time: z.number(),
-            signer_public_key: z.string(),
+            access_token: z.string().optional(),
+            signer_public_key: z.string().optional(),
             signer_private_key: z.string(),
         }),
     ),
@@ -152,8 +152,7 @@ async function convertSessionToMetadata(session: Session): Promise<Metrics[0]['l
             };
         case SessionType.Farcaster:
             const farcasterSession = session as FarcasterSession;
-            const signer = new NobleEd25519Signer(toBytes(farcasterSession.token));
-            const publicKey = await getPublicKeyInHex(signer);
+            const publicKey = await getPublicKeyInHexFromSession(farcasterSession);
             if (!publicKey) {
                 console.error('[metrics] farcaster found session w/ invalid signer token.');
                 return null;

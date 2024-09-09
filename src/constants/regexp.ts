@@ -1,8 +1,10 @@
 export const URL_REGEX =
     /((https?:\/\/)?[a-zA-Z0-9]+([-.]{1}[a-zA-Z0-9]+)*\.[a-zA-Z]{2,}(:[0-9]{1,5})?(\/[^ \n,)>]*)?)/gi;
 
+export const URL_INPUT_REGEX = new RegExp(`^${URL_REGEX.source.replace('(https?:\\/\\/)?', 'https://')}$`);
+
 export const EMAIL_REGEX =
-    /(([^\s"(),.:;<>@[\\\]]+(\.[^\s"(),.:;<>@[\\\]]+)*)|(".+"))@((\[(?:\d{1,3}\.){3}\d{1,3}])|(([\dA-Za-z-]+\.)+[A-Za-z]{2,}))/;
+    /(([^\s"(),.:;<>@[\\\]/]+(\.[^\s"(),.:;<>@[\\\]/]+)*)|(".+"))@((\[(?:\d{1,3}\.){3}\d{1,3}])|(([\dA-Za-z-]+\.)+[A-Za-z]{2,}))$/;
 
 export const MENTION_REGEX = /@[^\s()@:%+~#?&=,!?']+/g;
 
@@ -34,8 +36,12 @@ export const TWITTER_NORMAL_AVATAR = /^https:\/\/pbs\.twimg\.com.*_normal(\.\w+)
 
 export const NUMBER_STRING_REGEX = /^[0-9\s+-,]+$/m;
 
-export const TWEET_REGEX = /https:\/\/(x\.com|twitter\.com)\/([a-zA-Z_][a-zA-Z0-9_]*)\/status\/(\d+)/;
+export const TWEET_REGEX = /https:\/\/(x\.com|twitter\.com)\/([a-zA-Z0-9_]*)\/status\/(\d+)/;
 
 export const TWEET_WEB_REGEX = /https:\/\/(x\.com|twitter\.com)\/i\/web\/status\/(\d+)/;
 
 export const LENS_HANDLE_REGEXP = /^[a-zA-Z0-9_]*\.lens$/;
+
+export const NUMERIC_INPUT_REGEXP_PATTERN = '^[1-9]|^0(?![0-9])[.,。]?[0-9]*$';
+
+export const LIMO_REGEXP = /^https:\/\/vitalik\.eth\.limo\/general\//;

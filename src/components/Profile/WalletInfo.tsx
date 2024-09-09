@@ -15,7 +15,7 @@ import { RelationPlatformIcon } from '@/components/RelationPlatformIcon.js';
 import { Tooltip } from '@/components/Tooltip.js';
 import { Source } from '@/constants/enum.js';
 import { Link } from '@/esm/Link.js';
-import { formatEthereumAddress } from '@/helpers/formatEthereumAddress.js';
+import { formatAddress } from '@/helpers/formatAddress.js';
 import { getRelationPlatformUrl } from '@/helpers/getRelationPlatformUrl.js';
 import { useCopyText } from '@/hooks/useCopyText.js';
 import { useIsMyRelatedProfile } from '@/hooks/useIsMyRelatedProfile.js';
@@ -36,10 +36,10 @@ export function WalletInfo({ profile, relations }: WalletInfoProps) {
         <div className="flex gap-3 p-3">
             <Avatar src={profile.avatar} alt="avatar" size={80} className="h-20 w-20 rounded-full" />
             <div className="relative flex flex-1 flex-col">
-                <div className="flex flex-col gap-[8px]">
+                <div className="flex flex-col gap-2">
                     <div className="flex items-center gap-2">
                         <span className="text-xl font-black text-lightMain">
-                            {profile.primary_ens || formatEthereumAddress(profile.address, 4)}
+                            {profile.primary_ens || formatAddress(profile.address, 4)}
                         </span>
                         {!isMyWallets && isMedium ? (
                             <>
@@ -105,7 +105,7 @@ export function WalletInfo({ profile, relations }: WalletInfoProps) {
                         ) : null}
                     </div>
                     <div className="flex items-center gap-1 text-sm leading-[14px] text-secondary">
-                        {isMedium ? profile.address : formatEthereumAddress(profile.address, 4)}
+                        {isMedium ? profile.address : formatAddress(profile.address, 4)}
                         <ClickableArea onClick={handleCopy}>
                             <CopyIcon width={14} height={14} className="cursor-pointer" />
                         </ClickableArea>

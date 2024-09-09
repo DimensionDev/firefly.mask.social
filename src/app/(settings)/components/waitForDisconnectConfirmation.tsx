@@ -39,8 +39,7 @@ export async function waitForDisconnectConfirmation(connection: FireflyWalletCon
                     {profiles.map((profile) => (
                         <div
                             key={profile.profileId}
-                            className="mb-3 inline-flex h-[63px] w-full items-center justify-start gap-3 rounded-lg bg-white bg-bottom px-3 py-2 dark:bg-bg"
-                            style={{ boxShadow: '0px 0px 20px 0px rgba(0, 0, 0, 0.05)', backdropFilter: 'blur(8px)' }}
+                            className="mb-3 inline-flex h-[63px] w-full items-center justify-start gap-3 rounded-lg bg-white bg-bottom px-3 py-2 shadow-primary backdrop-blur dark:bg-bg"
                         >
                             <ProfileAvatar profile={profile} size={36} />
                             <ProfileName profile={profile} />

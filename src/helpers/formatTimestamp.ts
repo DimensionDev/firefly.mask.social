@@ -1,5 +1,6 @@
 import { i18n } from '@lingui/core';
 import dayjs from 'dayjs';
+import duration from 'dayjs/plugin/duration.js';
 import relativeTime from 'dayjs/plugin/relativeTime.js';
 import utc from 'dayjs/plugin/utc.js';
 import dayjsTwitter from 'dayjs-twitter';
@@ -7,6 +8,7 @@ import dayjsTwitter from 'dayjs-twitter';
 dayjs.extend(relativeTime);
 dayjs.extend(utc);
 dayjs.extend(dayjsTwitter);
+dayjs.extend(duration);
 
 /**
  * Formats a date as a string in the format used by the application.

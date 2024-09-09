@@ -17,6 +17,7 @@ import { useCurrentFireflyProfilesAll } from '@/hooks/useCurrentFireflyProfiles.
 import { TipsModalRef } from '@/modals/controls.js';
 import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
 import type { FireflyIdentity } from '@/providers/types/Firefly.js';
+import type { Post } from '@/providers/types/SocialMedia.js';
 
 interface TipsProps extends HTMLProps<HTMLDivElement> {
     identity: FireflyIdentity;
@@ -25,6 +26,7 @@ interface TipsProps extends HTMLProps<HTMLDivElement> {
     label?: string;
     tooltipDisabled?: boolean;
     pureWallet?: boolean;
+    post?: Post;
     onClick?: () => void;
 }
 
@@ -35,6 +37,7 @@ export const Tips = memo(function Tips({
     tooltipDisabled = false,
     pureWallet = false,
     handle = '',
+    post,
     className,
     onClick,
 }: TipsProps) {
@@ -46,11 +49,14 @@ export const Tips = memo(function Tips({
             if (!relatedProfiles?.some((profile) => profile.identity.source === Source.Wallet)) {
                 throw new Error('No available profiles');
             }
-            TipsModalRef.open({ identity, handle, pureWallet, profiles: relatedProfiles });
+            TipsModalRef.open({ identity, handle, pureWallet, profiles: relatedProfiles, post });
             onClick?.();
         } catch (error) {
             enqueueErrorMessage(
-                getSnackbarMessageFromError(error, t`Sorry, there is no wallet address available for tipping.`),
+                getSnackbarMessageFromError(
+                    error,
+                    t`Sorry, we are not able to find a wallet for ${handle ? '@' + handle : identity.id}.`,
+                ),
             );
             throw error;
         }
@@ -70,7 +76,7 @@ export const Tips = memo(function Tips({
                 'w-min': !label,
             })}
         >
-            <Tooltip content={t`Send tips`} placement="top" disabled={disabled || tooltipDisabled || loading}>
+            <Tooltip content={t`Send a tip`} placement="top" disabled={disabled || tooltipDisabled || loading}>
                 <motion.button
                     className={classNames('inline-flex items-center', {
                         'hover:bg-lightWarn/[.20]': !disabled && !label && !loading,

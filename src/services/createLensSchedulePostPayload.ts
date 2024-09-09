@@ -1,9 +1,12 @@
 import { t } from '@lingui/macro';
 
+import { config } from '@/configs/wagmiClient.js';
 import { Source, SourceInURL } from '@/constants/enum.js';
+import { CreateScheduleError, SignlessRequireError } from '@/constants/error.js';
 import { SITE_URL } from '@/constants/index.js';
 import { readChars } from '@/helpers/chars.js';
-import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
+import { getWalletClientRequired } from '@/helpers/getWalletClientRequired.js';
+import { isSameEthereumAddress } from '@/helpers/isSameAddress.js';
 import { resolveLensOperationName, resolveLensQuery } from '@/helpers/resolveLensQuery.js';
 import { createS3MediaObject, resolveImageUrl } from '@/helpers/resolveMediaObjectUrl.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
@@ -51,11 +54,13 @@ export async function createLensSchedulePostPayload(
 
     // Request the user settings
     const { signless } = await LensSocialMediaProvider.getProfileById(currentProfile?.profileId);
-    if (!signless) {
-        const message = t`Please enable Momoka to support sending posts on Lens.`;
-        enqueueErrorMessage(message);
-        throw new Error(message);
+
+    const { account } = await getWalletClientRequired(config);
+    if (!isSameEthereumAddress(currentProfile?.ownedBy?.address, account.address)) {
+        throw new CreateScheduleError(t`Please switch to the wallet consistent with this action`);
     }
+
+    if (!signless) throw new SignlessRequireError('Signless required');
 
     const title = `Post by #${currentProfile.handle}`;
     const content = readChars(chars, 'both', Source.Lens);
@@ -69,7 +74,7 @@ export async function createLensSchedulePostPayload(
                 external_url: SITE_URL,
             },
         },
-        createPayloadAttachments(imageResults, videoResult),
+        await createPayloadAttachments(imageResults, videoResult),
     );
 
     const tokenRes = await LensSocialMediaProvider.getAccessToken();

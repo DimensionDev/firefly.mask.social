@@ -9,7 +9,7 @@ import { Avatar } from '@/components/Avatar.js';
 import { NakedMarkup } from '@/components/Markup/NakedMarkup.js';
 import { TimestampFormatter } from '@/components/TimeStampFormatter.js';
 import { Link } from '@/esm/Link.js';
-import { formatEthereumAddress } from '@/helpers/formatEthereumAddress.js';
+import { formatEthereumAddress } from '@/helpers/formatAddress.js';
 import { isSelfReference } from '@/helpers/isLinkMatchingHost.js';
 
 interface MirrorProps {
@@ -80,7 +80,7 @@ export const Mirror = memo<MirrorProps>(function Mirror({
                         </h4>
                     ) : null}
                     {description ? (
-                        <NakedMarkup className="font-sm my-2 line-clamp-3 text-[15px] text-secondary">
+                        <NakedMarkup className="font-sm my-2 line-clamp-3 text-medium text-secondary">
                             {description}
                         </NakedMarkup>
                     ) : null}

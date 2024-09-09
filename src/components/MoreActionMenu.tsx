@@ -44,7 +44,8 @@ export function MoreActionMenu({
                     event.stopPropagation();
                     if (!isLogin && loginRequired) {
                         event.preventDefault();
-                        return LoginModalRef.open({ source });
+                        LoginModalRef.open({ source });
+                        return;
                     }
                 }}
             >

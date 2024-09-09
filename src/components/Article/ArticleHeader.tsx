@@ -9,7 +9,7 @@ import { TimestampFormatter } from '@/components/TimeStampFormatter.js';
 import { SourceInURL } from '@/constants/enum.js';
 import { Link } from '@/esm/Link.js';
 import { classNames } from '@/helpers/classNames.js';
-import { formatEthereumAddress } from '@/helpers/formatEthereumAddress.js';
+import { formatEthereumAddress } from '@/helpers/formatAddress.js';
 import { resolveArticlePlatformIcon } from '@/helpers/resolveArticlePlatformIcon.js';
 import type { Article } from '@/providers/types/Article.js';
 
@@ -43,11 +43,11 @@ export const ArticleHeader = memo<ArticleHeaderProps>(function ArticleHeader({ a
                 <Link
                     href={authorUrl}
                     onClick={(event) => event.stopPropagation()}
-                    className="block truncate text-clip text-[15px] font-bold leading-5 text-main"
+                    className="block truncate text-clip text-medium font-bold leading-5 text-main"
                 >
                     {article.author.handle || ens}
                 </Link>
-                <Link href={authorUrl} className="truncate text-clip text-[15px] leading-6 text-secondary">
+                <Link href={authorUrl} className="truncate text-clip text-medium leading-6 text-secondary">
                     {formatEthereumAddress(article.author.id, 4)}
                 </Link>
             </div>

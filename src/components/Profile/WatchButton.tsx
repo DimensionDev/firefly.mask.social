@@ -8,7 +8,7 @@ import FollowedIcon from '@/assets/followed.svg';
 import { ClickableButton, type ClickableButtonProps } from '@/components/ClickableButton.js';
 import { ToggleMuteWalletButton } from '@/components/Profile/MuteWalletButton.js';
 import { classNames } from '@/helpers/classNames.js';
-import { formatEthereumAddress } from '@/helpers/formatEthereumAddress.js';
+import { formatEthereumAddress } from '@/helpers/formatAddress.js';
 import { useEverSeen } from '@/hooks/useEverSeen.js';
 import { useIsFollowingWallet } from '@/hooks/useIsFollowingWallet.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
@@ -54,12 +54,12 @@ export const WatchButton = memo(function WatchButton({
 
     const { data: isMuted } = useIsWalletMuted(address);
 
-    if (isMuted) return <ToggleMuteWalletButton address={address} className={className} />;
+    if (isMuted) return <ToggleMuteWalletButton isMuted={isMuted} address={address} className={className} />;
 
     return (
         <ClickableButton
             className={classNames(
-                'flex h-8 items-center justify-center rounded-full text-[15px] font-semibold transition-all',
+                'flex h-8 items-center justify-center rounded-full text-medium font-semibold transition-all',
                 variantClassName,
                 className,
                 {
@@ -76,7 +76,8 @@ export const WatchButton = memo(function WatchButton({
             onMouseLeave={() => setHovering(false)}
             onClick={() => {
                 if (!isLogin) {
-                    return LoginModalRef.open();
+                    LoginModalRef.open();
+                    return;
                 }
                 mutation.mutate();
             }}

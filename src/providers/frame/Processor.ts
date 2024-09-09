@@ -2,6 +2,7 @@ import { parseHTML } from 'linkedom';
 
 import { FetchError } from '@/constants/error.js';
 import { anySignal } from '@/helpers/anySignal.js';
+import { getFrameClientProtocol } from '@/helpers/getFrameClientProtocol.js';
 import { parseURL } from '@/helpers/parseURL.js';
 import {
     getAspectRatio,
@@ -51,6 +52,7 @@ class Processor {
             buttons: [],
             // never refresh by default
             refreshPeriod: Number.MAX_SAFE_INTEGER,
+            protocol: getFrameClientProtocol(document),
         };
 
         const postUrl = getPostUrl(document);
@@ -80,8 +82,10 @@ class Processor {
             // It must respond within 5 seconds.
             signal: anySignal(signal ?? null, AbortSignal.timeout(5000)),
         });
-        if (!response.ok || (response.status >= 500 && response.status < 600))
-            throw await FetchError.from(url, response);
+        if (!response.ok || (response.status >= 500 && response.status < 600)) {
+            const fetchError = await FetchError.from(url, response);
+            fetchError.toThrow();
+        }
 
         return this.digestDocument(documentUrl, await response.text(), signal);
     };

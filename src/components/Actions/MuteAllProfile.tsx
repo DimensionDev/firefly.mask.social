@@ -10,7 +10,7 @@ import MuteIcon from '@/assets/mute.svg';
 import { MenuButton } from '@/components/Actions/MenuButton.js';
 import { Source } from '@/constants/enum.js';
 import { enqueueErrorMessage, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
-import { formatEthereumAddress } from '@/helpers/formatEthereumAddress.js';
+import { formatAddress } from '@/helpers/formatAddress.js';
 import { getSnackbarMessageFromError } from '@/helpers/getSnackbarMessageFromError.js';
 import { useFireflyIdentity } from '@/hooks/useFireflyIdentity.js';
 import { ConfirmModalRef } from '@/modals/controls.js';
@@ -88,7 +88,7 @@ export const MuteAllByWallet = memo<{ address: Address; handle?: string; onClose
         return (
             <MuteAllProfileBase
                 identity={identity}
-                handleOrEnsOrAddress={handle?.replace('@', '') || ens || formatEthereumAddress(address, 4)}
+                handleOrEnsOrAddress={handle?.replace('@', '') || ens || formatAddress(address, 4)}
                 onClose={onClose}
             />
         );

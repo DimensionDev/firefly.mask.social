@@ -10,7 +10,7 @@ import { MoreActionMenu } from '@/components/MoreActionMenu.js';
 import { useChainInfo } from '@/components/TokenProfile/useChainInfo.js';
 import { Tooltip } from '@/components/Tooltip.js';
 import { classNames } from '@/helpers/classNames.js';
-import { formatEthereumAddress } from '@/helpers/formatEthereumAddress.js';
+import { formatEthereumAddress } from '@/helpers/formatAddress.js';
 import type { Contract, Trending } from '@/providers/types/Trending.js';
 
 interface Props {

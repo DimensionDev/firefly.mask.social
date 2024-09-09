@@ -4,6 +4,7 @@ import { Player, type PlayerProps } from '@livepeer/react';
 import { memo } from 'react';
 import { useAccount } from 'wagmi';
 
+import { ClickableArea } from '@/components/ClickableArea.js';
 import { ARWEAVE_GATEWAY, IPFS_GATEWAY } from '@/constants/index.js';
 import { classNames } from '@/helpers/classNames.js';
 import { formatImageUrl } from '@/helpers/formatImageUrl.js';
@@ -18,7 +19,7 @@ export const Video = memo<VideoProps>(function Video({ poster, className = '', c
     const account = useAccount();
 
     return (
-        <div className={classNames('lp-player', className)}>
+        <ClickableArea className={classNames('lp-player', className)}>
             <Player
                 {...rest}
                 poster={formatImageUrl(sanitizeDStorageUrl(poster))}
@@ -37,6 +38,6 @@ export const Video = memo<VideoProps>(function Video({ poster, className = '', c
             >
                 {children}
             </Player>
-        </div>
+        </ClickableArea>
     );
 });

@@ -47,14 +47,14 @@ export const ImageAsset = memo<ImageAssetProps>(function ImageAsset({ disableLoa
             if (disableLoadHandler) return;
             const height = event.currentTarget.height;
 
-            if (height < 50 || height > 682) {
+            if (height < 50 || height > 750) {
                 setImageCache(cacheKey, '16 / 9');
                 setImageProps({
                     style: {
                         aspectRatio: '16 / 9',
                         objectFit: 'cover',
                         minHeight: 50,
-                        maxHeight: 682,
+                        maxHeight: 750,
                         ...props.style,
                     },
                 });
@@ -64,7 +64,7 @@ export const ImageAsset = memo<ImageAssetProps>(function ImageAsset({ disableLoa
                     style: {
                         aspectRatio: `${event.currentTarget.width} / ${height}`,
                         minHeight: 50,
-                        maxHeight: 682,
+                        maxHeight: 750,
                         ...props.style,
                     },
                 });

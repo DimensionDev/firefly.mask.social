@@ -24,9 +24,16 @@ export interface FeedActionType {
     isThread?: boolean;
     listKey?: string;
     index?: number;
+    isDetail?: boolean;
 }
 
-export const FeedActionType = memo<FeedActionType>(function FeedActionType({ post, isThread, listKey, index }) {
+export const FeedActionType = memo<FeedActionType>(function FeedActionType({
+    post,
+    isThread,
+    listKey,
+    index,
+    isDetail,
+}) {
     const currentProfile = useCurrentProfile(post.source);
 
     const isComment = post.type === 'Comment';
@@ -78,49 +85,52 @@ export const FeedActionType = memo<FeedActionType>(function FeedActionType({ pos
     }, [post]);
 
     return (
-        <ClickableArea>
+        <ClickableArea className="w-full">
             {combined && !isPostPage ? (
-                <div className="mb-3 flex items-center space-x-2 text-[15px] text-secondary">
-                    <SparkIcon width={16} height={16} />
-                    <span className="flex items-center space-x-1">
-                        <strong>{profilesDescription}</strong> <span>{combinedDescription}</span>
+                <div className="mb-3 flex items-center space-x-2 text-medium text-secondary">
+                    <SparkIcon width={16} height={16} className="flex-shrink-0" />
+                    <span className="flex min-w-0 items-center space-x-1">
+                        <strong className="truncate">{profilesDescription}</strong>
+                        <span>{combinedDescription}</span>
                     </span>
                 </div>
             ) : null}
             {post.type === 'Mirror' && post.reporter && post.source !== Source.Twitter && !isPostPage ? (
-                <div className="mb-3 flex items-center space-x-2 text-[15px] text-secondary">
-                    <MirrorIcon width={16} height={16} />
-                    <Link href={getProfileUrl(post.reporter)}>
+                <div className="mb-3 flex items-center space-x-2 text-medium text-secondary">
+                    <MirrorIcon width={16} height={16} className="flex-shrink-0" />
+                    <Link href={getProfileUrl(post.reporter)} className="flex min-w-0 space-x-1">
                         {isSameProfile(post.reporter, currentProfile) ? (
                             <Trans>
-                                <strong>You</strong> mirrored
+                                <strong className="mr-1">You</strong> mirrored
                             </Trans>
                         ) : (
                             <Trans>
-                                <strong>{post.reporter.displayName}</strong> mirrored
+                                <strong className="truncate">{post.reporter.displayName}</strong>
+                                <span className="flex-shrink-0">mirrored</span>
                             </Trans>
                         )}
                     </Link>
                 </div>
             ) : null}
             {post.type === 'Mirror' && post.reporter && post.source === Source.Twitter && !isPostPage ? (
-                <div className="mb-3 flex items-center space-x-2 text-[15px] text-secondary">
-                    <MirrorIcon width={16} height={16} />
-                    <Link href={getProfileUrl(post.reporter)}>
+                <div className="mb-3 flex items-center space-x-2 text-medium text-secondary">
+                    <MirrorIcon width={16} height={16} className="flex-shrink-0" />
+                    <Link href={getProfileUrl(post.reporter)} className="flex min-w-0 space-x-1">
                         {isSameProfile(post.reporter, currentProfile) ? (
                             <Trans>
-                                <strong>You</strong> reposted
+                                <strong className="mr-1">You</strong> reposted
                             </Trans>
                         ) : (
                             <Trans>
-                                <strong>{post.reporter.displayName}</strong> reposted
+                                <strong>{post.reporter.displayName}</strong>
+                                <span className="flex-shrink-0">reposted</span>
                             </Trans>
                         )}
                     </Link>
                 </div>
             ) : null}
             {post.mirrors?.length && !isPostPage ? (
-                <div className="mb-3 flex items-center space-x-2 text-[15px] text-secondary">
+                <div className="mb-3 flex items-center space-x-2 text-medium text-secondary">
                     <MirrorIcon width={16} height={16} />
                     <Link href={getProfileUrl(first(post.mirrors)!)}>
                         {post.mirrors.some((profile) => isSameProfile(profile, currentProfile)) ? (
@@ -161,7 +171,7 @@ export const FeedActionType = memo<FeedActionType>(function FeedActionType({ pos
                 </div>
             ) : null}
             {post.reactions?.length && !isComment && !isPostPage ? (
-                <div className="mb-3 flex items-center space-x-2 text-[15px] text-secondary">
+                <div className="mb-3 flex items-center space-x-2 text-medium text-secondary">
                     {post.hasLiked ? <LikedIcon width={17} height={16} /> : <LikeIcon width={17} height={16} />}
                     <Link href={getProfileUrl(first(post.reactions)!)}>
                         {post.reactions.some((profile) => isSameProfile(profile, currentProfile)) ? (
@@ -178,10 +188,10 @@ export const FeedActionType = memo<FeedActionType>(function FeedActionType({ pos
             ) : null}
 
             {!post.mirrors?.length && showThread && post.root && !isThread ? (
-                <ThreadBody post={post.root} listKey={listKey} index={index} />
+                <ThreadBody isDetail={isDetail} post={post.root} listKey={listKey} index={index} />
             ) : null}
             {!post.mirrors?.length && showThread && post.commentOn && !isThread ? (
-                <ThreadBody post={post.commentOn} listKey={listKey} index={index} />
+                <ThreadBody isDetail={isDetail} post={post.commentOn} listKey={listKey} index={index} />
             ) : null}
         </ClickableArea>
     );

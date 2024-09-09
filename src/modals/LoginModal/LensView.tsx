@@ -1,6 +1,6 @@
 import { Trans } from '@lingui/macro';
-import { skipToken, useQuery } from '@tanstack/react-query';
-import { Navigate, useLocation } from '@tanstack/react-router';
+import { useQuery } from '@tanstack/react-query';
+import { useLocation, useRouter } from '@tanstack/react-router';
 import { memo } from 'react';
 import { useAccount } from 'wagmi';
 
@@ -27,21 +27,25 @@ function Title() {
 }
 
 export const LensView = memo(function LensView() {
+    const router = useRouter();
+    const { history } = router;
+
     const account = useAccount();
     const { expectedProfile } = useLocation().search as { expectedProfile?: string };
 
-    const { error } = useQuery({
-        queryKey: ['wallet-account'],
-        retry: 0,
-        queryFn: async () => {
-            const { account } = await getWalletClientRequired(config);
-            return account.address;
-        },
-    });
-
     const { data: profiles = EMPTY_LIST, isLoading } = useQuery({
+        retry: false,
         queryKey: ['lens', 'profiles', account.address],
-        queryFn: account.address ? () => LensSocialMediaProvider.getProfilesByAddress(account.address!) : skipToken,
+        queryFn: async () => {
+            try {
+                const { account } = await getWalletClientRequired(config);
+                const profiles = await LensSocialMediaProvider.getProfilesByAddress(account.address);
+                return profiles ?? EMPTY_LIST;
+            } catch (error) {
+                history.replace('/main');
+                throw error;
+            }
+        },
         select: (profiles) => {
             if (!profiles) return EMPTY_LIST;
             const { accounts } = getProfileState(Source.Lens);
@@ -50,10 +54,6 @@ export const LensView = memo(function LensView() {
             return list;
         },
     });
-
-    if ((error as Error | undefined)?.name === 'ConnectorNotConnectedError') {
-        return <Navigate to="/main" replace />;
-    }
 
     if (isLoading || !account.address)
         return (

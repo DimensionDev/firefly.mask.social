@@ -6,6 +6,7 @@ import type { FollowingSource } from '@/providers/types/Firefly.js';
 export enum ArticlePlatform {
     Mirror = 'mirror',
     Paragraph = 'paragraph',
+    Limo = 'limo',
 }
 
 export enum ArticleType {
@@ -33,7 +34,40 @@ export interface Article {
     id: string;
     coverUrl: string | null;
     hasBookmarked?: boolean;
+    slug?: string;
     followingSources: FollowingSource[];
+}
+
+export interface ArticleCollectable {
+    quantity?: number;
+    soldCount: number;
+    chainId: number;
+    contractAddress: string;
+    price: number | null;
+    isCollected: boolean;
+    fee: bigint;
+    symbol?: string;
+
+    // mirror only
+    factorAddress?: string;
+    renderer?: string;
+    nonce?: number;
+    owner?: string;
+    description?: string;
+    title?: string;
+    imageURI?: string;
+    contentURI?: string;
+    deploymentSignature?: string;
+    // paragraph only
+
+    name?: string;
+    ownerAddress?: string;
+    referrerAddress?: string;
+    postId?: string;
+    position?: {
+        from: number;
+        to: number;
+    };
 }
 
 export interface Provider {
@@ -57,4 +91,28 @@ export interface Provider {
      * @returns
      */
     getFollowingArticles: (indicator?: PageIndicator) => Promise<Pageable<Article, PageIndicator>>;
+
+    /**
+     *
+     * Retrieves article detail by its digest.
+     * @param digest query id
+     * @returns
+     */
+    getArticleCollectableByDigest: (digest: string) => Promise<ArticleCollectable>;
+
+    /**
+     * Retrieves the estimated gas fee for collecting an article.
+     * @param article collectable article
+     * @param account user account
+     * @returns
+     */
+    estimateCollectGas: (article: ArticleCollectable) => Promise<bigint>;
+
+    /**
+     * Collect an article
+     * @param article collectable article
+     * @param account user account
+     * @returns
+     */
+    collect: (article: ArticleCollectable) => Promise<bigint>;
 }

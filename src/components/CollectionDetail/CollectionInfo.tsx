@@ -9,8 +9,8 @@ import { Image } from '@/components/Image.js';
 import { ChainIcon } from '@/components/NFTDetail/ChainIcon.js';
 import { NFTImage } from '@/components/NFTImage.js';
 import { TextOverflowTooltip } from '@/components/TextOverflowTooltip.js';
+import { formatEthereumAddress } from '@/helpers/formatAddress.js';
 import { nFormatter } from '@/helpers/formatCommentCounts.js';
-import { formatEthereumAddress } from '@/helpers/formatEthereumAddress.js';
 
 interface CollectionInfoProps {
     address: string;

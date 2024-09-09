@@ -29,7 +29,9 @@ import { createAccountByRelayService } from '@/providers/warpcast/createAccountB
 
 async function login(createAccount: () => Promise<Account>, options?: Omit<AccountOptions, 'source'>) {
     try {
-        const done = await addAccount(await createAccount(), options);
+        const account = await createAccount();
+
+        const done = await addAccount(account, options);
         if (done) enqueueSuccessMessage(t`Your ${resolveSourceName(Source.Farcaster)} account is now connected.`);
         LoginModalRef.close();
     } catch (error) {
@@ -85,7 +87,7 @@ export function LoginFarcaster({ signType }: LoginFarcasterProps) {
                         resetCountdown();
                         startCountdown();
                     }, controller.current.signal),
-                { signal: controller.current.signal },
+                { skipReportFarcasterSigner: false, signal: controller.current.signal },
             );
         } catch (error) {
             enqueueErrorMessage(getSnackbarMessageFromError(error, t`Failed to login.`), {
@@ -206,7 +208,7 @@ export function LoginFarcaster({ signType }: LoginFarcasterProps) {
     }
 
     return (
-        <div className="box-border flex flex-col rounded-xl p-6 md:w-[500px]">
+        <div className="box-border flex flex-col rounded-xl p-6 pt-0 md:w-[500px]">
             {IS_MOBILE_DEVICE ? (
                 <div className="flex min-h-[200px] w-full flex-col items-center justify-center gap-4">
                     {count !== 0 ? <LoadingIcon className="animate-spin" width={24} height={24} /> : null}
@@ -260,25 +262,35 @@ export function LoginFarcaster({ signType }: LoginFarcasterProps) {
                                     <Trans>
                                         Already logged in?
                                         <br />
+                                        Approve the{' '}
                                         <Link
                                             to={`/farcaster?signType=${SignType.RelayService}`}
                                             className="font-bold hover:underline"
                                         >
-                                            Approve the existing Farcaster signer
+                                            existing Farcaster signer
                                         </Link>{' '}
-                                        to Firefly
+                                        to Firefly or{' '}
+                                        <Link to={'/main'} className="font-bold hover:underline">
+                                            sync
+                                        </Link>{' '}
+                                        through the app
                                     </Trans>
                                 ) : signType === SignType.RelayService ? (
                                     <Trans>
                                         First time connecting to Firefly?
                                         <br />
+                                        Approve a{' '}
                                         <Link
                                             to={`/farcaster?signType=${SignType.GrantPermission}`}
                                             className="font-bold hover:underline"
                                         >
-                                            Approve a new connection
+                                            new connection with Warpcast
                                         </Link>{' '}
-                                        with Warpcast
+                                        or{' '}
+                                        <Link to={'/main'} className="font-bold hover:underline">
+                                            sync
+                                        </Link>{' '}
+                                        through the app
                                     </Trans>
                                 ) : null}
                             </div>

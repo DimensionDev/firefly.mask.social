@@ -35,7 +35,7 @@ export default {
         serverSourceMaps: false,
         swcPlugins: [['@lingui/swc-plugin', {}]],
         serverActions: {
-            bodySizeLimit: '20mb',
+            bodySizeLimit: '80mb',
         },
     },
     images: {
@@ -80,6 +80,10 @@ export default {
             {
                 protocol: 'https',
                 hostname: 'ipfs.io',
+            },
+            {
+                protocol: 'https',
+                hostname: 'media.firefly.land',
             },
         ],
     },
@@ -181,8 +185,14 @@ export default {
         config.module.rules.push(
             {
                 test: /\.svg$/i,
+                type: 'asset',
+                resourceQuery: /url/, // *.svg?url
+            },
+            {
+                test: /\.svg$/i,
                 exclude: /src\/maskbook/,
                 loader: '@svgr/webpack',
+                resourceQuery: { not: [/url/] }, // exclude react component if *.svg?url
                 options: {
                     ref: true,
                     svgoConfig: {

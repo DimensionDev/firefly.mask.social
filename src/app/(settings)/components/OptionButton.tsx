@@ -34,7 +34,7 @@ export function OptionButton({ darkMode = false, selected, label, onClick, ...pr
                 ) : (
                     <div className="h-2 w-2" />
                 )}
-                <div className="text-[15px] font-bold leading-[18px]">{label}</div>
+                <div className="text-medium font-bold leading-[18px]">{label}</div>
             </div>
         </ClickableButton>
     );

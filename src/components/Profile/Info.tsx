@@ -1,13 +1,12 @@
 import { plural, Trans } from '@lingui/macro';
 import { useInfiniteQuery } from '@tanstack/react-query';
-import { useMotionValueEvent, useScroll } from 'framer-motion';
-import { useState } from 'react';
 
 import { Avatar } from '@/components/Avatar.js';
 import { AvatarGroup } from '@/components/AvatarGroup.js';
 import { BioMarkup } from '@/components/Markup/BioMarkup.js';
 import { ProfileAction } from '@/components/Profile/ProfileAction.js';
 import { SocialSourceIcon } from '@/components/SocialSourceIcon.js';
+import { TextOverflowTooltip } from '@/components/TextOverflowTooltip.js';
 import { FollowCategory, Source } from '@/constants/enum.js';
 import { EMPTY_LIST } from '@/constants/index.js';
 import { Link } from '@/esm/Link.js';
@@ -19,7 +18,6 @@ import { narrowToSocialSource } from '@/helpers/narrowToSocialSource.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { resolveSourceInURL } from '@/helpers/resolveSourceInURL.js';
 import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
-import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
 
@@ -33,13 +31,6 @@ export function Info({ profile }: InfoProps) {
     const myProfile = useCurrentProfile(currentSocialSource);
     const myProfileId = myProfile?.profileId;
     const profileId = profile.profileId;
-
-    const isMedium = useIsMedium();
-    const [reached, setReached] = useState(false);
-    const { scrollY } = useScroll();
-    useMotionValueEvent(scrollY, 'change', (value) => {
-        setReached(value > 60);
-    });
 
     const source = profile.source;
     const enabledMutuals = !isSameProfile(myProfile, profile);
@@ -60,10 +51,10 @@ export function Info({ profile }: InfoProps) {
 
     const followingCount = profile.followingCount || 0;
     const followerCount = profile.followerCount || 0;
-    const showAction = profile && isMedium && !reached;
+    const showAction = !!profile;
 
     return (
-        <div className="flex gap-3 p-3">
+        <div className="grid grid-cols-[80px_calc(100%-80px-12px)] gap-3 p-3">
             {profile.pfp ? (
                 <Avatar
                     src={source === Source.Twitter ? getLargeTwitterAvatar(profile.pfp) : profile.pfp}
@@ -75,28 +66,25 @@ export function Info({ profile }: InfoProps) {
                 <SocialSourceIcon className="rounded-full" source={source} size={80} />
             )}
 
-            <div className="relative flex w-[calc(100%-80px-12px)] flex-col">
+            <div className="relative flex w-full flex-col">
                 <div className="flex w-full flex-col">
                     <div className="flex w-full items-center gap-2">
-                        <span
-                            className={classNames('truncate text-clip text-xl font-black text-lightMain', {
-                                'max-w-[calc(100%-152px-20px-24px)]': showAction,
-                                'max-w-[calc(100%-20px-16px)]': !showAction,
-                            })}
-                        >
-                            {profile.displayName}
-                        </span>
-                        <SocialSourceIcon className="mr-auto shrink-0" source={source} size={20} />
+                        <SocialSourceIcon className="shrink-0" source={source} size={20} />
+                        <TextOverflowTooltip content={profile.displayName} placement="top">
+                            <div className={classNames('mr-auto truncate text-xl font-black text-lightMain')}>
+                                {profile.displayName}
+                            </div>
+                        </TextOverflowTooltip>
                         {showAction ? <ProfileAction profile={profile} /> : null}
                     </div>
-                    <span className="text-[15px] text-secondary">@{profile.handle}</span>
+                    <span className="text-medium text-secondary">@{profile.handle}</span>
                 </div>
 
-                <BioMarkup className="text-[15px]" source={profile.source}>
+                <BioMarkup className="break-word text-medium" source={profile.source}>
                     {profile.bio ?? '-'}
                 </BioMarkup>
 
-                <div className="flex gap-3 text-[15px] leading-[22px]">
+                <div className="flex gap-3 text-medium leading-[22px]">
                     <Link
                         href={{
                             pathname: `/profile/${profileId}/following`,
@@ -130,37 +118,37 @@ export function Info({ profile }: InfoProps) {
                         </span>
                     </Link>
                 </div>
-                {enabledMutuals && mutualCount ? (
-                    <div className="mt-3 flex items-center gap-2 leading-[22px] hover:underline">
-                        <AvatarGroup profiles={mutuals.slice(0, 3)} AvatarProps={{ size: 30 }} />
-                        <Link
-                            className="text-sm text-secondary"
-                            href={{
-                                pathname: `/profile/${profileId}/${FollowCategory.Mutuals}`,
-                                query: { source: resolveSourceInURL(source) },
-                            }}
-                        >
-                            {mutualCount === 1 ? (
-                                <Trans>Followed by {mutuals[0].displayName}</Trans>
-                            ) : mutualCount === 2 ? (
-                                <Trans>
-                                    Followed by {mutuals[0].displayName} and {mutuals[1].displayName}
-                                </Trans>
-                            ) : mutualCount === 3 ? (
-                                <Trans>
-                                    Followed by {mutuals[0].displayName} , {mutuals[1].displayName}, and{' '}
-                                    {mutuals[2].displayName}
-                                </Trans>
-                            ) : (
-                                <Trans>
-                                    Followed by {mutuals[0].displayName} , {mutuals[1].displayName}, and{' '}
-                                    {mutualCount - 2} others you follow
-                                </Trans>
-                            )}
-                        </Link>
-                    </div>
-                ) : null}
             </div>
+            {enabledMutuals && mutualCount ? (
+                <div className="break-word col-[1/3] mt-3 flex items-center gap-2 leading-[22px] hover:underline sm:col-[2/3]">
+                    <AvatarGroup profiles={mutuals.slice(0, 3)} AvatarProps={{ size: 30 }} />
+                    <Link
+                        className="text-sm text-secondary"
+                        href={{
+                            pathname: `/profile/${profileId}/${FollowCategory.Mutuals}`,
+                            query: { source: resolveSourceInURL(source) },
+                        }}
+                    >
+                        {mutualCount === 1 ? (
+                            <Trans>Followed by {mutuals[0].displayName}</Trans>
+                        ) : mutualCount === 2 ? (
+                            <Trans>
+                                Followed by {mutuals[0].displayName} and {mutuals[1].displayName}
+                            </Trans>
+                        ) : mutualCount === 3 ? (
+                            <Trans>
+                                Followed by {mutuals[0].displayName} , {mutuals[1].displayName}, and{' '}
+                                {mutuals[2].displayName}
+                            </Trans>
+                        ) : (
+                            <Trans>
+                                Followed by {mutuals[0].displayName} , {mutuals[1].displayName}, and {mutualCount - 2}{' '}
+                                others you follow
+                            </Trans>
+                        )}
+                    </Link>
+                </div>
+            ) : null}
         </div>
     );
 }

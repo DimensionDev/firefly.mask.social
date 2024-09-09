@@ -3,7 +3,8 @@ import urlcat from 'urlcat';
 import { v4 as uuid } from 'uuid';
 
 import { type SocialSource, Source } from '@/constants/enum.js';
-import { MAX_CHAR_SIZE_PER_POST, type RP_HASH_TAG } from '@/constants/index.js';
+import { type RP_HASH_TAG } from '@/constants/index.js';
+import { MAX_CHAR_SIZE_PER_POST } from '@/constants/limitation.js';
 import { getCurrentProfile } from '@/helpers/getCurrentProfile.js';
 import { getPollFrameUrl } from '@/helpers/getPollFrameUrl.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
@@ -95,7 +96,9 @@ export function readChars(chars: Chars, strategy: 'both' | 'visible' | 'invisibl
                 case CHAR_TAG.MENTION:
                     if (source) {
                         const target = x.profiles.find((profile) => source === resolveSource(profile.platform));
-                        return target ? `${source === Source.Lens ? '@lens/' : '@'}${target.handle}` : x.content;
+                        return target?.handle
+                            ? `${source === Source.Lens ? '@lens/' : '@'}${target.handle}`
+                            : x.content;
                     }
                     return x.content;
                 case CHAR_TAG.FRAME:

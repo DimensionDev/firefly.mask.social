@@ -16,7 +16,7 @@ import { Tooltip } from '@/components/Tooltip.js';
 import { ScrollListKey, Source } from '@/constants/enum.js';
 import { EMPTY_LIST } from '@/constants/index.js';
 import { Link } from '@/esm/Link.js';
-import { formatEthereumAddress } from '@/helpers/formatEthereumAddress.js';
+import { formatEthereumAddress } from '@/helpers/formatAddress.js';
 import { getStampAvatarByProfileId } from '@/helpers/getStampAvatarByProfileId.js';
 import { createIndicator } from '@/helpers/pageable.js';
 import { resolveProfileUrl } from '@/helpers/resolveProfileUrl.js';

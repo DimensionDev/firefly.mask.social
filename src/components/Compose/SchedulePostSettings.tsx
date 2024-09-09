@@ -10,7 +10,8 @@ import { ClickableButton } from '@/components/ClickableButton.js';
 import { DatePicker } from '@/components/DatePicker.js';
 import { TimePicker } from '@/components/TimePicker.js';
 import { queryClient } from '@/configs/queryClient.js';
-import { checkScheduleTime, CreateScheduleError } from '@/helpers/checkScheduleTime.js';
+import { CreateScheduleError } from '@/constants/error.js';
+import { checkScheduleTime } from '@/helpers/checkScheduleTime.js';
 import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
 import { getSnackbarMessageFromError } from '@/helpers/getSnackbarMessageFromError.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
@@ -66,7 +67,7 @@ export const SchedulePostSettings = memo<SchedulePostSettingsProps>(function Sch
 
     return (
         <div className="flex-col px-4 py-2 pb-6 text-main max-md:px-0 max-md:pb-2">
-            <div className="text-center text-[15px] leading-[18px]">
+            <div className="text-center text-medium leading-[18px]">
                 <Trans>The scheduled time to send this post can be set up to 7 days in advance.</Trans>
             </div>
             <div className="flex gap-2 pt-3 md:gap-4">

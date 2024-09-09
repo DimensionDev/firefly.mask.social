@@ -9,8 +9,8 @@ import PoapIcon from '@/assets/nft-action/poap.svg';
 import SellIcon from '@/assets/nft-action/sell.svg';
 import SendIcon from '@/assets/nft-action/send.svg';
 import { TokenPrice } from '@/components/TokenPrice.js';
+import { formatEthereumAddress } from '@/helpers/formatAddress.js';
 import { formatBalance } from '@/helpers/formatBalance.js';
-import { formatEthereumAddress } from '@/helpers/formatEthereumAddress.js';
 import { isSameAddress } from '@/helpers/isSameAddress.js';
 import { resolveCoinGeckoTokenSymbol } from '@/helpers/resolveCoinGeckoTokenSymbol.js';
 import { type NFTActionCost, NFTFeedTransAction } from '@/providers/types/NFTs.js';
@@ -166,5 +166,5 @@ export function NFTFeedAction({ action, ownerAddress, toAddress, fromAddress, co
         }
     }, [action, ownerAddress, toAddress, fromAddress, cost]);
 
-    return <div className="flex min-h-6 items-center space-x-1 text-[15px] leading-6">{actionEl}</div>;
+    return <div className="flex min-h-6 items-center space-x-1 text-medium leading-6">{actionEl}</div>;
 }

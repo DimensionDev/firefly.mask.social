@@ -2,6 +2,7 @@ import { S3 } from '@aws-sdk/client-s3';
 import { Upload } from '@aws-sdk/lib-storage';
 import { v4 as uuid } from 'uuid';
 
+import { FileMimeType } from '@/constants/enum.js';
 import { EVER_API, S3_BUCKET } from '@/constants/index.js';
 import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
 import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
@@ -10,8 +11,6 @@ export interface IPFSResponse {
     uri: string;
     mimeType: string;
 }
-
-const FALLBACK_TYPE = 'image/jpeg';
 
 /**
  * Returns an S3 client with temporary credentials obtained from the STS service.
@@ -87,7 +86,7 @@ export async function uploadFilesToIPFS(
 
             return {
                 uri: `ipfs://${cid}`,
-                mimeType: file.type || FALLBACK_TYPE,
+                mimeType: file.type || FileMimeType.JPEG,
             };
         }),
     );
@@ -105,5 +104,5 @@ export async function uploadFileToIPFS(file: File, onProgress?: (percentage: num
     const ipfsResponse = await uploadFilesToIPFS([file], onProgress);
     const metadata = ipfsResponse[0];
 
-    return { uri: metadata.uri, mimeType: file.type || FALLBACK_TYPE };
+    return { uri: metadata.uri, mimeType: file.type || FileMimeType.JPEG };
 }

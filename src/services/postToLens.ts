@@ -10,9 +10,11 @@ import { createDummyPost } from '@/helpers/createDummyPost.js';
 import { getUserLocale } from '@/helpers/getUserLocale.js';
 import { createS3MediaObject, resolveImageUrl, resolveVideoUrl } from '@/helpers/resolveMediaObjectUrl.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
+import { uploadVideoCover } from '@/helpers/uploadVideoCover.js';
 import { LensPollProvider } from '@/providers/lens/Poll.js';
 import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
 import { createPostTo } from '@/services/createPostTo.js';
+import { uploadAndConvertToM3u8 } from '@/services/uploadAndConvertToM3u8.js';
 import { uploadToArweave } from '@/services/uploadToArweave.js';
 import { uploadToS3 } from '@/services/uploadToS3.js';
 import { type CompositePost } from '@/store/useComposeStore.js';
@@ -38,6 +40,7 @@ interface Attachments {
         item: string;
         type: string;
         duration?: number;
+        cover?: string;
     };
     attachments: Array<{
         item: string;
@@ -47,7 +50,10 @@ interface Attachments {
     }>;
 }
 
-export function createPayloadAttachments(images: MediaObject[], video: MediaObject | null): Attachments | undefined {
+export async function createPayloadAttachments(
+    images: MediaObject[],
+    video: MediaObject | null,
+): Promise<Attachments | undefined> {
     if (
         images.some((image) => !resolveImageUrl(Source.Lens, image)) ||
         (video && !resolveVideoUrl(Source.Lens, video))
@@ -58,6 +64,8 @@ export function createPayloadAttachments(images: MediaObject[], video: MediaObje
     const imagesWithIPFS = images as Array<Required<MediaObject>>;
     const videoWithIPFS = video as Required<MediaObject> | null;
 
+    const cover = videoWithIPFS ? await uploadVideoCover(videoWithIPFS) : undefined;
+
     return imagesWithIPFS.length > 0 || !!videoWithIPFS
         ? {
               attachments: videoWithIPFS
@@ -65,7 +73,7 @@ export function createPayloadAttachments(images: MediaObject[], video: MediaObje
                         {
                             type: videoWithIPFS.mimeType,
                             item: resolveVideoUrl(Source.Lens, videoWithIPFS),
-                            cover: resolveVideoUrl(Source.Lens, videoWithIPFS),
+                            cover,
                         },
                     ]
                   : imagesWithIPFS.map((image) => ({
@@ -78,6 +86,7 @@ export function createPayloadAttachments(images: MediaObject[], video: MediaObje
                         video: {
                             type: videoWithIPFS.mimeType,
                             item: resolveVideoUrl(Source.Lens, videoWithIPFS),
+                            cover,
                         },
                     }
                   : {
@@ -166,7 +175,7 @@ async function publishPostForLens(
                 external_url: SITE_URL,
             },
         },
-        createPayloadAttachments(images, video),
+        await createPayloadAttachments(images, video),
     );
     const tokenRes = await LensSocialMediaProvider.getAccessToken();
     const token = tokenRes.unwrap();
@@ -205,7 +214,7 @@ async function commentPostForLens(
                 external_url: SITE_URL,
             },
         },
-        createPayloadAttachments(images, video),
+        await createPayloadAttachments(images, video),
     );
     const tokenRes = await LensSocialMediaProvider.getAccessToken();
     const token = tokenRes.unwrap();
@@ -237,7 +246,7 @@ async function quotePostForLens(
                 external_url: SITE_URL,
             },
         },
-        createPayloadAttachments(images, video),
+        await createPayloadAttachments(images, video),
     );
     const tokenRes = await LensSocialMediaProvider.getAccessToken();
     const token = tokenRes.unwrap();
@@ -250,7 +259,7 @@ async function quotePostForLens(
     return post;
 }
 
-export async function postToLens(type: ComposeType, compositePost: CompositePost) {
+export async function postToLens(type: ComposeType, compositePost: CompositePost, signal?: AbortSignal) {
     const { chars, images, postId, parentPost, video, poll } = compositePost;
 
     const lensPostId = postId.Lens;
@@ -277,7 +286,10 @@ export async function postToLens(type: ComposeType, compositePost: CompositePost
             return Promise.all(
                 (video?.file ? [video] : []).map(async (media) => {
                     if (resolveVideoUrl(Source.Lens, media)) return media;
-                    return createS3MediaObject(await uploadToS3(media.file, SourceInURL.Lens), media);
+                    return createS3MediaObject(
+                        await uploadAndConvertToM3u8(media.file, SourceInURL.Lens, signal),
+                        media,
+                    );
                 }),
             );
         },

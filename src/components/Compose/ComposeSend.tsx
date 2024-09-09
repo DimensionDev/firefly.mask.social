@@ -1,5 +1,6 @@
 import { Plural, t, Trans } from '@lingui/macro';
 import { delay } from '@masknet/kit';
+import { ConnectorNotConnectedError } from '@wagmi/core';
 import { compact, values } from 'lodash-es';
 import { useMemo, useState } from 'react';
 import { useAsyncFn } from 'react-use';
@@ -17,6 +18,7 @@ import { measureChars } from '@/helpers/chars.js';
 import { classNames } from '@/helpers/classNames.js';
 import { isValidPost } from '@/helpers/isValidPost.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
+import { useAbortController } from '@/hooks/useAbortController.js';
 import { useCheckPostMedias } from '@/hooks/useCheckPostMedias.js';
 import { useCompositePost } from '@/hooks/useCompositePost.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
@@ -33,6 +35,8 @@ import { useComposeStateStore } from '@/store/useComposeStore.js';
 interface ComposeSendProps extends React.HTMLAttributes<HTMLDivElement> {}
 
 export function ComposeSend(props: ComposeSendProps) {
+    const controller = useAbortController();
+
     const post = useCompositePost();
     const { type, posts, addPostInThread, draftId } = useComposeStateStore();
     const { scheduleTime } = useComposeScheduleStateStore();
@@ -50,24 +54,32 @@ export function ComposeSend(props: ComposeSendProps) {
     const [{ loading }, handlePost] = useAsyncFn(
         async (isRetry = false) => {
             if (checkPostMedias()) return;
-            if (posts.length > 1) {
-                scheduleTime
-                    ? await crossPostScheduleThread(scheduleTime)
-                    : await crossPostThread({
-                          isRetry,
-                          progressCallback: setPercentage,
-                      });
-            } else {
-                scheduleTime
-                    ? await crossSchedulePost(type, post, scheduleTime)
-                    : await crossPost(type, post, {
-                          isRetry,
-                      });
+            try {
+                controller.current.renew();
+                if (posts.length > 1) {
+                    scheduleTime
+                        ? await crossPostScheduleThread(scheduleTime)
+                        : await crossPostThread({
+                              isRetry,
+                              progressCallback: setPercentage,
+                              signal: controller.current.signal,
+                          });
+                } else {
+                    scheduleTime
+                        ? await crossSchedulePost(type, post, scheduleTime)
+                        : await crossPost(type, post, {
+                              isRetry,
+                              signal: controller.current.signal,
+                          });
+                }
+                await delay(300);
+                // If the draft is applied and sent successfully, remove the draft.
+                if (draftId) removeDraft(draftId);
+                ComposeModalRef.close();
+            } catch (error) {
+                if (error instanceof ConnectorNotConnectedError) return;
+                throw error;
             }
-            await delay(300);
-            // If the draft is applied and sent successfully, remove the draft.
-            if (draftId) removeDraft(draftId);
-            ComposeModalRef.close();
         },
         [type, post, posts.length > 1, checkPostMedias, draftId, removeDraft, scheduleTime],
     );
@@ -116,7 +128,7 @@ export function ComposeSend(props: ComposeSendProps) {
         <div className="flex-1 shadow-send">
             <div className="flex h-[68px] items-center justify-end gap-4 px-4">
                 {usedLength && post.availableSources.length ? (
-                    <div className="flex items-center gap-[10px] whitespace-nowrap text-[15px] text-main">
+                    <div className="flex items-center gap-[10px] whitespace-nowrap text-medium text-main">
                         <CountdownCircle width={24} height={24} className="flex-shrink-0" />
                         <span className={usedLength > availableLength ? 'text-danger' : ''}>
                             {usedLength} / {availableLength}
@@ -134,10 +146,10 @@ export function ComposeSend(props: ComposeSendProps) {
                         }}
                     >
                         {posts.length >= MAX_POST_SIZE_PER_THREAD ? (
-                            <AddThread width={40} height={40} />
+                            <AddThread width={40} height={40} className="text-lightHighlight outline-none" />
                         ) : (
                             <Tooltip content={t`Add`} placement="top">
-                                <AddThread width={40} height={40} />
+                                <AddThread width={40} height={40} className="text-lightHighlight outline-none" />
                             </Tooltip>
                         )}
                     </ClickableButton>
@@ -170,7 +182,7 @@ export function ComposeSend(props: ComposeSendProps) {
                     <ClickableButton
                         disabled={disabled}
                         className={classNames(
-                            'relative flex h-10 w-[120px] items-center justify-center gap-1 overflow-hidden rounded-full bg-black text-[15px] font-bold text-white dark:bg-white dark:text-black',
+                            'relative flex h-10 w-[120px] items-center justify-center gap-1 overflow-hidden rounded-full bg-black text-medium font-bold text-white dark:bg-white dark:text-black',
                             {
                                 'bg-commonDanger': !!hasError,
                                 'w-[187px]': !!scheduleTime,

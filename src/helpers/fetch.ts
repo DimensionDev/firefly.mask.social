@@ -18,7 +18,8 @@ export async function fetch(input: RequestInfo | URL, init?: RequestInit, fetche
     const response = await fetcher(input, init);
 
     if (!response.ok) {
-        throw await FetchError.from(input, response);
+        const fetchError = await FetchError.from(input, response);
+        fetchError.toThrow();
     }
     return response;
 }

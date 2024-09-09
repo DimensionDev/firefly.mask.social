@@ -16,6 +16,7 @@ import {
     type Notification,
     type Post,
     type Profile,
+    type ProfileEditable,
     type Provider,
     SessionType,
 } from '@/providers/types/SocialMedia.js';
@@ -86,6 +87,14 @@ class NeynarSocialMedia implements Provider {
     }
 
     searchChannels(q: string, indicator?: PageIndicator): Promise<Pageable<Channel, PageIndicator>> {
+        throw new NotImplementedError();
+    }
+
+    getHiddenComments(postId: string, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
+        throw new NotImplementedError();
+    }
+
+    actPost(postId: string, options: unknown): Promise<void> {
         throw new NotImplementedError();
     }
 
@@ -302,6 +311,9 @@ class NeynarSocialMedia implements Provider {
         throw new NotImplementedError();
     }
     async reportPost(post: Post): Promise<boolean> {
+        throw new NotImplementedError();
+    }
+    async updateProfile(profile: ProfileEditable): Promise<boolean> {
         throw new NotImplementedError();
     }
 }

@@ -9,7 +9,7 @@ import { MuteWalletButton } from '@/components/Actions/MuteWalletButton.js';
 import { MoreActionMenu } from '@/components/MoreActionMenu.js';
 import { Tips } from '@/components/Tips/index.js';
 import { Source } from '@/constants/enum.js';
-import { formatEthereumAddress } from '@/helpers/formatEthereumAddress.js';
+import { formatAddress } from '@/helpers/formatAddress.js';
 import { useFireflyIdentity } from '@/hooks/useFireflyIdentity.js';
 import { useIsMyRelatedProfile } from '@/hooks/useIsMyRelatedProfile.js';
 import { useIsWalletMuted } from '@/hooks/useIsWalletMuted.js';
@@ -27,7 +27,7 @@ export const WalletMoreAction = memo<MoreProps>(function WalletMoreAction({ prof
     const identity = useFireflyIdentity(Source.Wallet, profile.address);
     const isMyWallet = useIsMyRelatedProfile(identity.source, identity.id);
 
-    const ensOrAddress = profile.primary_ens || ens || formatEthereumAddress(profile.address, 4);
+    const ensOrAddress = profile.primary_ens || ens || formatAddress(profile.address, 4);
 
     return (
         <MoreActionMenu button={<EllipsisHorizontalCircleIcon className="h-8 w-8" />} className={className}>
@@ -62,7 +62,7 @@ export const WalletMoreAction = memo<MoreProps>(function WalletMoreAction({ prof
                             identity={identity}
                             handle={profile.primary_ens || ens}
                             tooltipDisabled
-                            label={t`Send tips`}
+                            label={t`Send a tip`}
                             onClick={close}
                             pureWallet
                         />

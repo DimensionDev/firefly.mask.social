@@ -77,6 +77,11 @@ export type SocialSource = Source.Farcaster | Source.Lens | Source.Twitter;
 export type ProfileSource = Source.Farcaster | Source.Lens | Source.Twitter | Source.Firefly;
 export type SocialSourceInURL = SourceInURL.Farcaster | SourceInURL.Lens | SourceInURL.Twitter;
 
+export enum WalletProviderType {
+    AppKit = 'app_kit',
+    RainbowKit = 'rainbow_kit',
+}
+
 export enum DiscoverType {
     ForYou = 'for-you',
     Recent = 'recent',
@@ -92,17 +97,17 @@ export enum SearchType {
 }
 
 export enum KeyType {
-    DigestOpenGraphLink = 'digestOpenGraphLink',
-    DigestFrameLink = 'digestFrameLink',
-    GetPostOGById = 'getPostOGById',
-    GetArticleOGById = 'getArticleOGById',
-    GetProfileOGById = 'getProfileOGById',
-    GetChannelOGById = 'getChannelOGById',
-    GetLensThreadByPostId = 'getLensThreadByPostId',
-    RefreshLensThreadLock = 'RefreshLensThreadLock',
-    GetFollowings = 'getFollowings',
-    ConsumerSecret = 'consumerSecret',
-    GetBlink = 'getBlink',
+    DigestOpenGraphLink = '/v2/digestOpenGraphLink',
+    DigestFrameLink = '/v2/digestFrameLink',
+    GetPostOGById = '/v2/getPostOGById',
+    GetArticleOGById = '/v2/getArticleOGById',
+    GetProfileOGById = '/v2/getProfileOGById',
+    GetChannelOGById = '/v2/getChannelOGById',
+    GetLensThreadByPostId = '/v2/getLensThreadByPostId',
+    RefreshLensThreadLock = '/v2/RefreshLensThreadLock',
+    GetFollowings = '/v2/getFollowings',
+    ConsumerSecret = '/v2/consumerSecret',
+    GetBlink = '/v2/getBlink',
 }
 
 export enum ProfileTabType {
@@ -202,7 +207,7 @@ export enum ChannelTabType {
 }
 
 // async store needs to sync data from the server
-export enum AsyncStoreStatus {
+export enum AsyncStatus {
     Idle = 'idle',
     Pending = 'pending',
 }
@@ -223,4 +228,52 @@ export enum WalletSource {
     Wallet = 'wallet',
     NFTs = 'nfts',
     LensContract = 'lens_contract',
+    Particle = 'particle',
+}
+
+export enum AdvertisementType {
+    Link = 'link',
+    Function = 'function',
+}
+
+export enum AdFunctionType {
+    OpenScan = 'openScan',
+}
+
+export enum UploadMediaStatus {
+    Pending = 'pending',
+    Uploading = 'in_progress',
+    Success = 'succeeded',
+    Failed = 'failed',
+}
+
+export enum FileMimeType {
+    JPEG = 'image/jpeg',
+    MP4 = 'video/mp4',
+    MOV = 'video/quicktime',
+    GIF = 'image/gif',
+    PNG = 'image/png',
+    WEBP = 'image/webp',
+    BMP = 'image/bmp',
+    MPEG = 'video/mpeg',
+    // cspell: disable-next-line
+    MS_VIDEO = 'video/x-msvideo',
+    OGG = 'video/ogg',
+    WEBM = 'video/webm',
+    GPP = 'video/3gpp',
+    GPP2 = 'video/3gpp2',
+}
+
+export enum FrameProtocol {
+    OpenFrame = 'of',
+    Farcaster = 'fc',
+}
+
+export enum S3ConvertStatus {
+    Submitted = 'SUBMITTED',
+    Progressing = 'PROGRESSING',
+    Complete = 'COMPLETE',
+    Canceled = 'CANCELED',
+    Error = 'ERROR',
+    StatusUpdate = 'STATUS_UPDATE',
 }

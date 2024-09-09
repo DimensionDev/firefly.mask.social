@@ -43,7 +43,7 @@
     --color-farcaster-primary: 146 80 255;
     --color-twitter-primary: 29 161 243;
     --color-secondary: rgba(118, 127, 141, 1);
-    --color-collected: 255 150 142;
+    --color-collected: 24 195 123;
     --color-bottom80: rgba(255, 255, 255, 0.8);
     --color-bottom-blue: rgba(36, 107, 253, 1);
     --color-bg: rgba(249, 249, 249, 1);
@@ -69,7 +69,7 @@
     --color-light-main: #181818;
     --color-bottom-bg: rgba(0, 0, 0, 0.05);
     --color-tab-line: rgba(29, 155, 240, 1);
-    --color-success: rgba(61, 194, 51, 1);
+    --color-success: rgb(13, 48, 11);
     --color-firefly-brand: rgba(146, 80, 255, 1);
     --m-common-danger: #ff3545;
     --m-common-warn: #ffb100;
@@ -82,9 +82,9 @@
     --plyr-audio-progress-buffered-background: rgba(207, 207, 207, 1);
     --plyr-control-icon-size: 16px;
     --color-success: #3dc233;
-    --color-fail: #ff3545;
+    --color-fail: 255 53 69;
     --color-light-warn: 255 122 85;
-    --color-light-highlight: #4c4aa9;
+    --color-light-highlight: 76 74 169;
     --color-highlight: 76 74 169;
 }
 
@@ -104,7 +104,7 @@
     --color-lens-primary: 154 227 42;
     --color-twitter-primary: 29 161 243;
     --color-farcaster-primary: 146 80 255;
-    --color-collected: 255 150 142;
+    --color-collected: 24 195 123;
     --color-bottom80: rgba(0, 0, 0, 0.8);
     --color-bottom-blue: rgba(36, 107, 253, 1);
     --color-main1: rgba(255, 255, 255, 0.28);
@@ -134,7 +134,7 @@
     --plyr-control-icon-size: 16px;
     --color-card: white;
     --color-light-warn: 255 122 85;
-    --color-light-highlight: #ac9df6;
+    --color-light-highlight: 172 157 246;
     --color-highlight: 172 157 246;
 }
 
@@ -179,7 +179,7 @@
     --plyr-audio-progress-buffered-background: rgba(255, 255, 255, 0.13);
     --plyr-control-icon-size: 16px;
     --color-light-warn: 255 122 85;
-    --color-light-highlight: #4c4aa9;
+    --color-light-highlight: 76 74 169;
 }
 
 html,
@@ -297,6 +297,16 @@ body {
 
 .preview-actions .swiper-button-disabled {
     display: none;
+}
+
+.swiper-pagination-bullet {
+    background: #fff !important;
+}
+.swiper-pagination-bullet-active {
+    background: var(--color-firefly-brand) !important;
+}
+.ff-advertisement .swiper-pagination {
+    pointer-events: none;
 }
 
 .tippy-card {
@@ -450,7 +460,49 @@ body.not-support .fixed.inset-y-0 {
     display: none;
 }
 
-.mini-video > div > div {
-    max-height: 138px;
+.mini-video {
     width: 100%;
+    height: 100%;
+}
+
+.mini-video > div > div {
+    height: 100%;
+    width: 100%;
+}
+
+/* add class that tailwindcss does not have https://tailwindcss.com/docs/word-break */
+.break-word {
+    word-break: break-word;
+}
+
+.blink.dial-light {
+    --blink-text-primary: rgb(var(--color-main));
+    --blink-text-secondary: var(--color-second);
+    --blink-bg-primary: var(--color-bg);
+    --blink-text-link: var(--color-second);
+    --blink-icon-primary: var(--color-second);
+    --blink-stroke-primary: var(--color-line);
+
+    --blink-button: rgb(var(--color-main));
+    --blink-button-hover: rgb(var(--color-main));
+    --blink-text-button: rgb(var(--color-bottom));
+    --blink-button-disabled: rgb(var(--color-main) / 0.5);
+    --blink-text-button-disabled: rgb(var(--color-bottom));
+
+    --blink-text-input: rgb(var(--color-main));
+    --blink-input-bg: transparent;
+    --blink-input-stroke: var(--color-line2);
+    --blink-input-stroke-selected: rgb(var(--color-farcaster-primary));
+    --blink-input-bg-selected: rgb(var(--color-farcaster-primary));
+
+    --blink-shadow-container: none;
+
+    input,
+    textarea,
+    input:focus,
+    textarea:focus {
+        outline: none !important;
+        border-color: transparent !important;
+        box-shadow: none;
+    }
 }

@@ -1,3 +1,4 @@
+import { Advertisement } from '@/components/Advertisement.js';
 import { SuggestedChannels } from '@/components/Channel/SuggestedChannels.js';
 import { ComposeWatcher } from '@/components/Compose/ComposeWatcher.js';
 import { ComposeButton } from '@/components/ComposeButton/index.js';
@@ -85,6 +86,10 @@ export default function Layout({ children, modal }: { children: React.ReactNode;
                 <div className="no-scrollbar flex flex-1 flex-col gap-4 overflow-auto">
                     <IfPathname isOneOf={['/search']}>
                         <SearchFilter />
+                    </IfPathname>
+
+                    <IfPathname isNotOneOf={['/settings', '/search']}>
+                        <Advertisement />
                     </IfPathname>
 
                     <IfPathname isNotOneOf={['/']} exact>

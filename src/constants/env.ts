@@ -1,6 +1,6 @@
 import { z } from 'zod';
 
-import { NODE_ENV, STATUS, VERCEL_NEV } from '@/constants/enum.js';
+import { NODE_ENV, STATUS, VERCEL_NEV, WalletProviderType } from '@/constants/enum.js';
 import { bom } from '@/helpers/bom.js';
 
 const InternalEnvSchema = z.object({
@@ -70,11 +70,13 @@ const ExternalEnvSchema = z.object({
     // app url scheme
     NEXT_PUBLIC_FIREFLY_DOWNLOAD_LINK: z.string().default('https://5euxu.app.link/PHvNiyVemIb'),
     NEXT_PUBLIC_FIREFLY_IOS_HOME: z.string().default('firefly://'),
-    // TODO: Android doesn't have home url scheme
-    NEXT_PUBLIC_FIREFLY_ANDROID_HOME: z.string().default(''),
+    NEXT_PUBLIC_FIREFLY_ANDROID_HOME: z.string().default('firefly://home'),
 
     // giphy api key.
     NEXT_PUBLIC_GIPHY_API_KEY: z.string().default(''),
+
+    // wallet provider
+    NEXT_PUBLIC_WALLET_PROVIDER: z.nativeEnum(WalletProviderType).default(WalletProviderType.AppKit),
 });
 
 export const env = {
@@ -121,5 +123,7 @@ export const env = {
         NEXT_PUBLIC_FIREFLY_ANDROID_HOME: process.env.NEXT_PUBLIC_FIREFLY_ANDROID_HOME,
 
         NEXT_PUBLIC_GIPHY_API_KEY: process.env.NEXT_PUBLIC_GIPHY_API_KEY,
+
+        NEXT_PUBLIC_WALLET_PROVIDER: process.env.NEXT_PUBLIC_WALLET_PROVIDER,
     }),
 };

@@ -35,19 +35,21 @@ export const ErrorReportSnackbar = forwardRef<HTMLDivElement, ErrorReportSnackba
 
     const githubReportLink = useMemo(() => {
         const url = new URLSearchParams();
-        url.set('title', typeof title !== 'object' ? `${title}` : 'Something wrong');
+        url.set('title', encodeURIComponent(typeof title !== 'object' ? `${title}` : 'Something wrong'));
         url.set(
             'body',
-            [
-                '## Description',
-                body as string,
-                '## Extra Information',
-                `- Version: ${env.shared.VERSION}`,
-                `- Environment: ${env.shared.NODE_ENV}`,
-                `- Commit Hash: ${env.shared.COMMIT_HASH}`,
-                `- UserAgent: ${navigator.userAgent}`,
-                `- Timestamp: ${new Date().toISOString()}`,
-            ].join('\n'),
+            encodeURIComponent(
+                [
+                    '## Description',
+                    body as string,
+                    '## Extra Information',
+                    `- Version: ${env.shared.VERSION}`,
+                    `- Environment: ${env.shared.NODE_ENV}`,
+                    `- Commit Hash: ${env.shared.COMMIT_HASH}`,
+                    `- UserAgent: ${navigator.userAgent}`,
+                    `- Timestamp: ${new Date().toISOString()}`,
+                ].join('\n'),
+            ),
         );
         return 'https://github.com/DimensionDev/firefly.mask.social/issues/new?' + url.toString();
     }, [title, body]);
@@ -64,6 +66,7 @@ export const ErrorReportSnackbar = forwardRef<HTMLDivElement, ErrorReportSnackba
                                 <XCircleIcon className="h-[20px] w-[20px] text-white" />
                             </div>
                             <div
+                                className="break-word"
                                 ref={(node) => {
                                     // convert jsx to string is too complicated, but in favor of DOM api, it's simple
                                     if (typeof message !== 'object' || !node) return;

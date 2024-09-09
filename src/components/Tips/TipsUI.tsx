@@ -1,6 +1,5 @@
 import { t, Trans } from '@lingui/macro';
-import { NUMERIC_INPUT_REGEXP_PATTERN } from '@masknet/shared-base';
-import { memo, useMemo } from 'react';
+import { memo, useMemo, useState } from 'react';
 import { useAsyncFn } from 'react-use';
 
 import LoadingIcon from '@/assets/loading.svg';
@@ -10,10 +9,12 @@ import { TipsModalHeader } from '@/components/Tips/TipsModalHeader.js';
 import { TokenSelectorEntry } from '@/components/Tips/TokenSelector.js';
 import { WalletSelectorEntry } from '@/components/Tips/WalletSelector.js';
 import { NetworkType } from '@/constants/enum.js';
+import { NUMERIC_INPUT_REGEXP_PATTERN } from '@/constants/regexp.js';
 import { resolveNetworkProvider, resolveTransferProvider } from '@/helpers/resolveTokenTransfer.js';
 import { TipsContext } from '@/hooks/useTipsContext.js';
 
 export const TipsUI = memo(function TipsUI() {
+    const [focus, setFocus] = useState(false);
     const { token, recipient, amount, handle, isSending, pureWallet, update } = TipsContext.useContainer();
 
     const { RE_MATCH_WHOLE_AMOUNT, RE_MATCH_FRACTION_AMOUNT } = useMemo(
@@ -27,7 +28,7 @@ export const TipsUI = memo(function TipsUI() {
     const handleAmountChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const value = e.currentTarget.value;
         if (value && !new RegExp(NUMERIC_INPUT_REGEXP_PATTERN).test(value)) return;
-        const amount_ = value.replaceAll(',', '.');
+        const amount_ = value.replaceAll(/[,。]/g, '.');
         if (RE_MATCH_FRACTION_AMOUNT.test(amount_)) {
             update((prev) => ({ ...prev, amount: `0${amount_}` }));
         } else if (amount_ === '' || RE_MATCH_WHOLE_AMOUNT.test(amount_)) {
@@ -51,8 +52,8 @@ export const TipsUI = memo(function TipsUI() {
 
     const tipTitle = recipient
         ? pureWallet
-            ? t`Send tips to ${handle || recipient.displayName}`
-            : t`Send tips to @${handle || recipient.displayName}`
+            ? t`Send a tip to ${handle || recipient.displayName}`
+            : t`Send a tip to @${handle || recipient.displayName}`
         : '';
 
     return (
@@ -64,12 +65,14 @@ export const TipsUI = memo(function TipsUI() {
                     <div className="flex h-10 flex-1 items-center rounded-2xl bg-lightBg pr-3">
                         <input
                             className="h-full w-full border-none bg-transparent text-center outline-none focus:outline-none focus:ring-0 disabled:cursor-not-allowed disabled:opacity-50"
-                            placeholder={t`Enter amount`}
+                            placeholder={focus ? '' : t`Enter amount`}
                             value={amount}
                             autoComplete="off"
                             autoCorrect="off"
                             spellCheck="false"
                             onChange={handleAmountChange}
+                            onFocus={() => setFocus(true)}
+                            onBlur={() => setFocus(false)}
                             disabled={isSending}
                             inputMode="decimal"
                             pattern={NUMERIC_INPUT_REGEXP_PATTERN}

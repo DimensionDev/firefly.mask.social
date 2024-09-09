@@ -22,6 +22,11 @@ declare module '*.svg' {
     export default content;
 }
 
+declare module '*.svg?url' {
+    const content: string;
+    export default content;
+}
+
 namespace JSX {
     interface IntrinsicElements {
         'mask-page-inspector': React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement>;

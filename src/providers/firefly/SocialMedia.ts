@@ -94,6 +94,7 @@ import {
     NotificationType,
     type Post,
     type Profile,
+    type ProfileEditable,
     type Provider,
     SessionType,
 } from '@/providers/types/SocialMedia.js';
@@ -142,6 +143,11 @@ async function unblock(field: BlockFields, profileId: string): Promise<boolean> 
 @SetQueryDataForMuteAllProfiles()
 @SetQueryDataForMuteAllWallets()
 export class FireflySocialMedia implements Provider {
+    getChannelsByIds?: ((ids: string[]) => Promise<Channel[]>) | undefined;
+    getBlockedWallets?: ((indicator?: PageIndicator) => Promise<Pageable<Profile, PageIndicator>>) | undefined;
+    reportChannel?: ((channelId: string) => Promise<boolean>) | undefined;
+    getForYouPosts?: ((indicator?: PageIndicator) => Promise<Pageable<Post, PageIndicator>>) | undefined;
+    getRecentPosts?: ((indicator?: PageIndicator) => Promise<Pageable<Post, PageIndicator>>) | undefined;
     getChannelById(channelId: string): Promise<Channel> {
         return this.getChannelByHandle(channelId);
     }
@@ -179,7 +185,7 @@ export class FireflySocialMedia implements Provider {
             size: 20,
             cursor: indicator?.id,
         });
-        const response = await fetchJSON<DiscoverChannelsResponse>(url, {
+        const response = await fireflySessionHolder.fetch<DiscoverChannelsResponse>(url, {
             method: 'GET',
         });
         const data = resolveFireflyResponseData(response);
@@ -362,6 +368,10 @@ export class FireflySocialMedia implements Provider {
         throw new NotImplementedError();
     }
 
+    async actPost(postId: string, options: unknown): Promise<void> {
+        throw new NotImplementedError();
+    }
+
     get type() {
         return SessionType.Farcaster;
     }
@@ -529,6 +539,29 @@ export class FireflySocialMedia implements Provider {
                 size: 25,
                 fid: session?.profileId,
                 cursor: indicator?.id && !isZero(indicator.id) ? indicator.id : undefined,
+                priority: 'high',
+            });
+            const response = await fireflySessionHolder.fetch<CommentsResponse>(url, {
+                method: 'GET',
+            });
+            const { comments, cursor } = resolveFireflyResponseData(response);
+
+            return createPageable(
+                comments.map((item) => formatFarcasterPostFromFirefly(item)),
+                createIndicator(indicator),
+                cursor ? createNextIndicator(indicator, cursor) : undefined,
+            );
+        });
+    }
+
+    async getHiddenComments(postId: string, indicator?: PageIndicator) {
+        return farcasterSessionHolder.withSession(async (session) => {
+            const url = urlcat(settings.FIREFLY_ROOT_URL, '/v2/farcaster-hub/cast/comments', {
+                hash: postId,
+                size: 25,
+                fid: session?.profileId,
+                cursor: indicator?.id && !isZero(indicator.id) ? indicator.id : undefined,
+                priority: 'low',
             });
             const response = await fireflySessionHolder.fetch<CommentsResponse>(url, {
                 method: 'GET',
@@ -856,7 +889,7 @@ export class FireflySocialMedia implements Provider {
         indicator?: PageIndicator,
         source?: Exclude<SourceInURL, SourceInURL.Article>,
     ): Promise<Pageable<Profile, PageIndicator>> {
-        const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/user/blocklist', {
+        const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/user/platformMuteList', {
             size: 20,
             page: indicator?.id ?? 1,
             platform: source,
@@ -983,19 +1016,28 @@ export class FireflySocialMedia implements Provider {
         });
     }
 
-    async isProfileMuted(platform: FireflyPlatform, profileId: string): Promise<boolean> {
+    async getBlockRelation(conditions: Array<{ snsPlatform: FireflyPlatform; snsId: string }>) {
         return farcasterSessionHolder.withSession(async (session) => {
-            if (!session) return false;
+            if (!session) return [];
             const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/user/blockRelation');
             const response = await fireflySessionHolder.fetch<BlockRelationResponse>(url, {
                 method: 'POST',
                 body: JSON.stringify({
-                    conditions: [{ snsPlatform: platform, snsId: profileId }],
+                    conditions,
                 }),
             });
-            const blocked = !!response.data?.find((x) => x.snsId === profileId)?.blocked;
-            return blocked;
+            return response.data ?? [];
         });
+    }
+
+    async isProfileMuted(platform: FireflyPlatform, profileId: string): Promise<boolean> {
+        const blockRelationList = await this.getBlockRelation([
+            {
+                snsPlatform: platform,
+                snsId: profileId,
+            },
+        ]);
+        return !!blockRelationList.find((x) => x.snsId === profileId)?.blocked;
     }
 
     async blockWallet(address: string) {
@@ -1241,6 +1283,35 @@ export class FireflySocialMedia implements Provider {
         return data;
     }
 
+    async getMessageToSignMessageForBindSolanaWallet(address: string) {
+        const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/solana/solana/signMessage', {
+            address,
+        });
+
+        const response = await fireflySessionHolder.fetch<Response<Hex>>(url, {
+            method: 'GET',
+        });
+
+        const data = resolveFireflyResponseData(response);
+        if (!data) throw new Error('Failed to get message to sign');
+
+        return data;
+    }
+
+    async verifyAndBindSolanaWallet(address: string, messageToSign: string, signature: string) {
+        const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/solana/solana/verify');
+        const response = await fireflySessionHolder.fetch<BindWalletResponse>(url, {
+            method: 'POST',
+            body: JSON.stringify({
+                address,
+                messageToSign,
+                signature,
+            }),
+        });
+
+        return resolveFireflyResponseData(response);
+    }
+
     async disconnectAccount(identity: FireflyIdentity) {
         const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/accountConnection', {
             connectionPlatform: resolveSourceInURL(identity.source),
@@ -1270,7 +1341,7 @@ export class FireflySocialMedia implements Provider {
                 twitterId: connection.twitterId,
                 walletAddress: connection.address,
                 reportReason: reason,
-                sources: connection.sources.join(','),
+                sources: connection.sources.map((x) => x.source).join(','),
             }),
         });
     }
@@ -1318,6 +1389,9 @@ export class FireflySocialMedia implements Provider {
         const url = urlcat(settings.FIREFLY_ROOT_URL, '/v2/farcaster-hub/uploadMediaToken');
         const response = await fetchJSON<UploadMediaTokenResponse>(url);
         return resolveFireflyResponseData(response);
+    }
+    async updateProfile(profile: ProfileEditable): Promise<boolean> {
+        throw new NotImplementedError();
     }
 }
 

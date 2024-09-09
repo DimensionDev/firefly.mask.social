@@ -1,6 +1,6 @@
 import { first } from 'lodash-es';
 
-import { isSameAddress } from '@/helpers/isSameAddress.js';
+import { isSameEthereumAddress } from '@/helpers/isSameAddress.js';
 import type { Article } from '@/providers/types/Article.js';
 import { type Article as FireflyArticle } from '@/providers/types/Firefly.js';
 import { WatchType } from '@/providers/types/Firefly.js';
@@ -17,7 +17,7 @@ export function formatArticleFromFirefly(article: FireflyArticle): Article {
             avatar: article.displayInfo.avatarUrl,
             id: authorId,
             isFollowing: article.followingSources.some(
-                (x) => x.type === WatchType.Wallet && isSameAddress(x.walletAddress, authorId),
+                (x) => x.type === WatchType.Wallet && isSameEthereumAddress(x.walletAddress, authorId),
             ),
             /** Article in timeline are all not muted */
             isMuted: false,
@@ -29,5 +29,6 @@ export function formatArticleFromFirefly(article: FireflyArticle): Article {
         coverUrl: article.cover_img_url,
         hasBookmarked: article.has_bookmarked,
         followingSources: article.followingSources,
+        slug: article.paragraph_raw_data?.slug,
     };
 }

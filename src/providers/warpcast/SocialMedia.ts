@@ -15,6 +15,7 @@ import {
     type Pageable,
     type PageIndicator,
 } from '@/helpers/pageable.js';
+import { parseJSON } from '@/helpers/parseJSON.js';
 import { toFid } from '@/helpers/toFid.js';
 import { farcasterSessionHolder } from '@/providers/farcaster/SessionHolder.js';
 import {
@@ -23,6 +24,7 @@ import {
     NotificationType,
     type Post,
     type Profile,
+    type ProfileEditable,
     type Provider,
     SessionType,
 } from '@/providers/types/SocialMedia.js';
@@ -32,6 +34,7 @@ import {
     type CastResponse,
     type CastsResponse,
     type FeedResponse,
+    type FindLocationResponse,
     type LikesResponse,
     type NotificationResponse,
     type ReactionResponse,
@@ -39,6 +42,7 @@ import {
     type SearchCastsResponse,
     type SearchUsersResponse,
     type SuccessResponse,
+    type UpdateProfileResponse,
     type UserDetailResponse,
     type UsersResponse,
 } from '@/providers/types/Warpcast.js';
@@ -105,6 +109,14 @@ class WarpcastSocialMedia implements Provider {
     }
 
     getMutualFollowers(profileId: string, indicator?: PageIndicator): Promise<Pageable<Profile, PageIndicator>> {
+        throw new NotImplementedError();
+    }
+
+    getHiddenComments(postId: string, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
+        throw new NotImplementedError();
+    }
+
+    actPost(postId: string, options: unknown): Promise<void> {
         throw new NotImplementedError();
     }
 
@@ -716,6 +728,32 @@ class WarpcastSocialMedia implements Provider {
             createIndicator(indicator),
             next?.cursor ? createNextIndicator(indicator, next.cursor) : undefined,
         );
+    }
+
+    async updateProfile(profile: ProfileEditable): Promise<boolean> {
+        const location = parseJSON(profile.location) ?? undefined;
+        await farcasterSessionHolder.fetch<UpdateProfileResponse>(urlcat(WARPCAST_CLIENT_URL, 'me'), {
+            method: 'PATCH',
+            body: JSON.stringify({
+                pfp: profile.pfp,
+                displayName: profile.displayName,
+                bio: profile.bio,
+                location,
+            }),
+        });
+        return true;
+    }
+
+    async findLocation(query: string) {
+        const { result } = await farcasterSessionHolder.fetch<FindLocationResponse>(
+            urlcat(WARPCAST_CLIENT_URL, 'find-location', {
+                q: query,
+            }),
+            {
+                method: 'GET',
+            },
+        );
+        return result.predictions;
     }
 }
 

@@ -170,7 +170,13 @@
         "SYSVAR",
         "Debank",
         "ampm",
-        "crowdsourced"
+        "crowdsourced",
+        "Coverflow",
+        "dialectlabs",
+        "Tweetv",
+        "dompurify",
+        "Tweetv",
+        "getconvert"
     ],
     "flagWords": [],
     "ignorePaths": [

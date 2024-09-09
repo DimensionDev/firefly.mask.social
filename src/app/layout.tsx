@@ -1,5 +1,6 @@
 /* cspell:disable */
 
+import '@dialectlabs/blinks/index.css';
 import '@/app/globals.css';
 
 import { GoogleAnalytics, GoogleTagManager } from '@next/third-parties/google';

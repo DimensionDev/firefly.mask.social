@@ -7,6 +7,8 @@ import {
     isCreateMomokaPublicationResult,
     isRelaySuccess,
     LimitType,
+    type ModuleCurrencyApproval,
+    OpenActionModuleType,
     ProfileReportingReason,
     ProfileReportingSpamSubreason,
     PublicationMetadataMainFocusType,
@@ -15,15 +17,19 @@ import {
     PublicationReportingSpamSubreason,
     PublicationType,
 } from '@lens-protocol/client';
+import { MetadataAttributeType, profile as createProfileMetadata } from '@lens-protocol/metadata';
 import { t } from '@lingui/macro';
 import { compact, first, flatMap, uniq, uniqWith } from 'lodash-es';
 import urlcat from 'urlcat';
+import { v4 as uuid } from 'uuid';
 import type { TypedDataDomain } from 'viem';
+import { polygon } from 'viem/chains';
 
 import { config } from '@/configs/wagmiClient.js';
-import { FireflyPlatform, Source } from '@/constants/enum.js';
+import { FireflyPlatform, Source, SourceInURL } from '@/constants/enum.js';
 import { InvalidResultError, NotImplementedError } from '@/constants/error.js';
 import { EMPTY_LIST } from '@/constants/index.js';
+import { SetQueryDataForActPost } from '@/decorators/setQueryDataForActPost.js';
 import { SetQueryDataForBlockProfile } from '@/decorators/SetQueryDataForBlockProfile.js';
 import { SetQueryDataForBookmarkPost } from '@/decorators/SetQueryDataForBookmarkPost.js';
 import { SetQueryDataForCommentPost } from '@/decorators/SetQueryDataForCommentPost.js';
@@ -34,6 +40,7 @@ import { SetQueryDataForMirrorPost } from '@/decorators/SetQueryDataForMirrorPos
 import { SetQueryDataForPosts } from '@/decorators/SetQueryDataForPosts.js';
 import { assertLensAccountOwner } from '@/helpers/assertLensAccountOwner.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
+import { filterNotificationsByProfileId } from '@/helpers/filterNotificationsByProfileId.js';
 import {
     filterFeeds,
     formatLensPost,
@@ -41,6 +48,7 @@ import {
     formatLensQuoteOrComment,
 } from '@/helpers/formatLensPost.js';
 import { formatLensProfile } from '@/helpers/formatLensProfile.js';
+import { getOpenActionActOnKey } from '@/helpers/getOpenActionActOnKey.js';
 import { getWalletClientRequired } from '@/helpers/getWalletClientRequired.js';
 import { isSamePost } from '@/helpers/isSamePost.js';
 import { isZero } from '@/helpers/number.js';
@@ -68,11 +76,13 @@ import {
     NotificationType,
     type Post,
     type Profile,
+    type ProfileEditable,
     type Provider,
     ReactionType,
     SessionType,
 } from '@/providers/types/SocialMedia.js';
 import { getLensSuggestFollows } from '@/services/getLensSuggestFollows.js';
+import { uploadLensMetadataToS3 } from '@/services/uploadLensMetadataToS3.js';
 import type { ResponseJSON } from '@/types/index.js';
 
 const MOMOKA_ERROR_MSG = 'momoka publication is not allowed';
@@ -84,6 +94,7 @@ const MOMOKA_ERROR_MSG = 'momoka publication is not allowed';
 @SetQueryDataForDeletePost(Source.Lens)
 @SetQueryDataForBlockProfile(Source.Lens)
 @SetQueryDataForFollowProfile(Source.Lens)
+@SetQueryDataForActPost(Source.Lens)
 @SetQueryDataForPosts
 class LensSocialMedia implements Provider {
     getChannelById(channelId: string): Promise<Channel> {
@@ -131,6 +142,14 @@ class LensSocialMedia implements Provider {
 
     getAccessToken() {
         return lensSessionHolder.sdk.authentication.getAccessToken();
+    }
+
+    getRefreshToken() {
+        return lensSessionHolder.sdk.authentication.getRefreshToken();
+    }
+
+    getWalletAddress() {
+        return lensSessionHolder.sdk.authentication.getWalletAddress();
     }
 
     async publishPost(post: Post): Promise<string> {
@@ -369,6 +388,61 @@ class LensSocialMedia implements Provider {
         });
 
         if (result.isFailure()) throw new Error(`Something went wrong: ${JSON.stringify(result.isFailure())}`);
+    }
+
+    async actPost(
+        postId: string,
+        options: {
+            type: OpenActionModuleType;
+            signRequire?: boolean;
+        },
+    ) {
+        const actWithSign = async () => {
+            await assertLensAccountOwner();
+            const walletClient = await getWalletClientRequired(config);
+
+            const resultTypedData = await lensSessionHolder.sdk.publication.actions.createActOnTypedData({
+                actOn: { [getOpenActionActOnKey(options.type)]: true },
+                for: postId,
+            });
+
+            const { id, typedData } = resultTypedData.unwrap();
+
+            const signedTypedData = await walletClient.signTypedData({
+                domain: typedData.domain as TypedDataDomain,
+                types: typedData.types,
+                primaryType: 'Act',
+                message: typedData.value,
+            });
+
+            const broadcastResult = await lensSessionHolder.sdk.transaction.broadcastOnchain({
+                id,
+                signature: signedTypedData,
+            });
+
+            const broadcastValue = broadcastResult.unwrap();
+
+            if (broadcastResult.isFailure() || broadcastValue.__typename === 'RelayError' || !broadcastValue.txHash) {
+                throw new Error(`Something went wrong: ${JSON.stringify(broadcastValue)}`);
+            }
+
+            return waitUntilComplete(lensSessionHolder.sdk, broadcastValue.txHash);
+        };
+
+        if (!options.signRequire) {
+            const result = await lensSessionHolder.sdk.publication.actions.actOn({
+                actOn: { [getOpenActionActOnKey(options.type)]: true },
+                for: postId,
+            });
+
+            const resultValue = result.unwrap();
+
+            if (!isRelaySuccess(resultValue) || !resultValue.txHash) return actWithSign();
+
+            return waitUntilComplete(lensSessionHolder.sdk, resultValue.txHash);
+        }
+
+        return actWithSign();
     }
 
     async commentPostOnMomoka(postId: string, comment: string, signless?: boolean) {
@@ -815,7 +889,7 @@ class LensSocialMedia implements Provider {
             });
 
             const data = result.unwrap();
-            const walletClient = await getWalletClientRequired(config);
+            const walletClient = await getWalletClientRequired(config, { chainId: polygon.id });
 
             const signedTypedData = await walletClient.signTypedData({
                 domain: data.typedData.domain as TypedDataDomain,
@@ -855,7 +929,7 @@ class LensSocialMedia implements Provider {
             });
 
             const data = followTypedDataResult.unwrap();
-            const client = await getWalletClientRequired(config);
+            const client = await getWalletClientRequired(config, { chainId: polygon.id });
 
             const signedTypedData = await client.signTypedData({
                 domain: data.typedData.domain as TypedDataDomain,
@@ -914,6 +988,7 @@ class LensSocialMedia implements Provider {
         const result = await lensSessionHolder.sdk.profile.mutualFollowers({
             observer,
             viewing: profileId,
+            cursor: indicator?.id && !isZero(indicator.id) ? indicator.id : undefined,
         });
 
         return createPageable(
@@ -1039,8 +1114,25 @@ class LensSocialMedia implements Provider {
             return null;
         });
 
+        // filter muted/blocked items
+        const profileIds = compact(
+            data.flatMap((x) => {
+                if (!x) return null;
+                if ('followers' in x) return x.followers.map((follower) => follower.profileId);
+                if ('mirrors' in x) return x.mirrors.map((mirror) => mirror.profileId);
+                if ('reactors' in x) return x.reactors.map((reactor) => reactor.profileId);
+                return x?.post?.author.profileId;
+            }),
+        );
+        const blockList = await FireflySocialMediaProvider.getBlockRelation(
+            profileIds.map((snsId) => ({ snsId, snsPlatform: SourceInURL.Lens })),
+        );
+
         return createPageable(
-            compact(data),
+            filterNotificationsByProfileId(
+                compact(data),
+                blockList.filter((x) => x.blocked).map((x) => x.snsId),
+            ),
             createIndicator(indicator),
             result.pageInfo.next ? createNextIndicator(indicator, result.pageInfo.next) : undefined,
         );
@@ -1290,6 +1382,48 @@ class LensSocialMedia implements Provider {
             createIndicator(indicator),
             createNextIndicator(indicator, `${offset + limit}`),
         );
+    }
+    async updateProfile(profile: ProfileEditable): Promise<boolean> {
+        const metadata = createProfileMetadata({
+            id: uuid(),
+            name: profile.displayName,
+            bio: profile.bio,
+            picture: profile.pfp,
+            attributes: compact([
+                profile.website ? { type: MetadataAttributeType.STRING, key: 'website', value: profile.website } : null,
+                profile.location
+                    ? { type: MetadataAttributeType.STRING, key: 'location', value: profile.location }
+                    : null,
+            ]),
+        });
+        const metadataURI = await uploadLensMetadataToS3(metadata);
+        const result = await lensSessionHolder.sdk.profile.setProfileMetadata({
+            metadataURI,
+        });
+        return result.isSuccess();
+    }
+
+    async queryApprovedModuleAllowanceData(module: OpenActionModuleType, spender: string) {
+        const result = await lensSessionHolder.sdk.modules.approvedAllowanceAmount({
+            currencies: [spender],
+            followModules: [],
+            openActionModules: [module],
+            referenceModules: [],
+        });
+
+        return result.unwrap();
+    }
+
+    async generateModuleAllowanceRequest(
+        allowance: { currency: string; value: string },
+        module: ModuleCurrencyApproval,
+    ) {
+        const result = await lensSessionHolder.sdk.modules.generateCurrencyApprovalData({
+            allowance,
+            module,
+        });
+
+        return result.unwrap();
     }
 }
 

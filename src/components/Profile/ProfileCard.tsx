@@ -1,4 +1,4 @@
-import { plural, Trans } from '@lingui/macro';
+import { Trans } from '@lingui/macro';
 import { useQuery } from '@tanstack/react-query';
 import { memo } from 'react';
 
@@ -6,6 +6,7 @@ import { Avatar } from '@/components/Avatar.js';
 import { ClickableArea } from '@/components/ClickableArea.js';
 import { BioMarkup } from '@/components/Markup/BioMarkup.js';
 import { FollowButton } from '@/components/Profile/FollowButton.js';
+import { FollowersLink } from '@/components/Profile/FollowersLink.js';
 import { SocialSourceIcon } from '@/components/SocialSourceIcon.js';
 import { Source } from '@/constants/enum.js';
 import { Link } from '@/esm/Link.js';
@@ -77,37 +78,23 @@ export const ProfileCard = memo<ProfileCardProps>(function ProfileCard({ identit
                     />
                 </Link>
 
-                <div className="flex flex-1 flex-col gap-[6px]">
+                <div className="flex max-w-[calc(100%-80px-10px)] flex-1 flex-col gap-[6px]">
                     <div className="flex items-center gap-2">
-                        <Link href={url} className="cursor-pointer text-xl leading-6 text-lightMain">
+                        <Link
+                            href={url}
+                            className="block w-full max-w-[calc(100%-18px)] cursor-pointer truncate text-xl leading-6 text-lightMain"
+                        >
                             {profile.displayName}
                         </Link>
-                        <SocialSourceIcon source={profile.source} size={18} />
+                        <SocialSourceIcon source={profile.source} className="flex-shrink-0" size={18} />
                     </div>
 
-                    <Link href={url} className="cursor-pointer text-[15px] leading-6 text-secondary">
+                    <Link href={url} className="cursor-pointer text-medium leading-6 text-secondary">
                         @{profile.handle}
                     </Link>
 
-                    <div className="flex gap-3 text-[15px]">
-                        <Link
-                            href={{
-                                pathname: `/profile/${profile?.profileId}/followers`,
-                                query: { source: resolveSourceInURL(profile.source) },
-                            }}
-                            className={classNames('gap-1 leading-[22px] hover:underline', {
-                                'pointer-events-none':
-                                    profile.source !== Source.Farcaster && profile.source !== Source.Lens,
-                            })}
-                        >
-                            <span className="font-bold text-lightMain">{nFormatter(profile.followerCount)} </span>
-                            <span className="text-secondary">
-                                {plural(profile.followerCount, {
-                                    one: 'Follower',
-                                    other: 'Followers',
-                                })}
-                            </span>
-                        </Link>
+                    <div className="flex gap-3 text-medium">
+                        <FollowersLink profile={profile} className="leading-[22px]" />
 
                         <Link
                             href={{
@@ -128,7 +115,7 @@ export const ProfileCard = memo<ProfileCardProps>(function ProfileCard({ identit
                 </div>
             </div>
 
-            <BioMarkup className="mt-3 line-clamp-2 text-[15px] leading-[22px] text-lightMain" source={profile.source}>
+            <BioMarkup className="mt-3 line-clamp-2 text-medium leading-[22px] text-lightMain" source={profile.source}>
                 {profile.bio ?? '-'}
             </BioMarkup>
 

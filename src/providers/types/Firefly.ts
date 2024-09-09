@@ -1,6 +1,13 @@
 import type { Address } from 'viem';
 
-import { FireflyPlatform, NetworkType, type SocialSourceInURL, type Source, WalletSource } from '@/constants/enum.js';
+import {
+    FireflyPlatform,
+    NetworkType,
+    S3ConvertStatus,
+    type SocialSourceInURL,
+    type Source,
+    WalletSource,
+} from '@/constants/enum.js';
 import type { ArticlePlatform, ArticleType } from '@/providers/types/Article.js';
 import type { Token as DebankToken } from '@/providers/types/Debank.js';
 import type { ComposeType } from '@/types/compose.js';
@@ -197,6 +204,9 @@ export interface Article {
     cover_img_url: string | null;
     has_bookmarked?: boolean;
     followingSources: FollowingSource[];
+    paragraph_raw_data?: {
+        slug: string;
+    };
 }
 
 export interface Response<T> {
@@ -790,6 +800,7 @@ export type LinkInfoResponse = Response<LinkInfo>;
 export type SessionStatus =
     | {
           status: 'confirm';
+          accountId: string;
           accessToken: string;
       }
     | {
@@ -949,3 +960,23 @@ export type AllConnections = {
 };
 
 export type GetAllConnectionsResponse = Response<AllConnections>;
+
+export type MessageToSignResponse = Response<{
+    message: string;
+}>;
+
+export type WalletLoginResponse = Response<{
+    accessToken: string;
+    accountId: string;
+}>;
+
+export type ConvertM3u8Response = Response<{
+    m3u8Url: string;
+    jobId: string;
+}>;
+
+export type ConvertM3u8StatusResponse = Response<{
+    code: boolean;
+    jobId: string;
+    status: S3ConvertStatus;
+}>;

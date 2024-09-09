@@ -2,7 +2,7 @@ import { t } from '@lingui/macro';
 import { uniqBy } from 'lodash-es';
 
 import { Source, SourceInURL } from '@/constants/enum.js';
-import { MAX_IMAGE_SIZE_PER_POST } from '@/constants/index.js';
+import { MAX_IMAGE_SIZE_PER_POST } from '@/constants/limitation.js';
 import { readChars } from '@/helpers/chars.js';
 import { getPollFrameUrl } from '@/helpers/getPollFrameUrl.js';
 import { isHomeChannel } from '@/helpers/isSameChannel.js';
@@ -14,13 +14,14 @@ import { FarcasterSocialMediaProvider } from '@/providers/farcaster/SocialMedia.
 import type { Poll } from '@/providers/types/Poll.js';
 import { type Post, type PostType } from '@/providers/types/SocialMedia.js';
 import { createPostTo } from '@/services/createPostTo.js';
+import { uploadAndConvertToM3u8 } from '@/services/uploadAndConvertToM3u8.js';
 import { uploadToS3 } from '@/services/uploadToS3.js';
 import { validateFarcasterSession } from '@/services/validateFarcasterSignerKey.js';
 import { type CompositePost } from '@/store/useComposeStore.js';
 import { useFarcasterStateStore } from '@/store/useProfileStore.js';
 import { type ComposeType, type MediaObject } from '@/types/compose.js';
 
-export async function postToFarcaster(type: ComposeType, compositePost: CompositePost) {
+export async function postToFarcaster(type: ComposeType, compositePost: CompositePost, signal?: AbortSignal) {
     const { chars, parentPost, images, video, frames, openGraphs, postId, channel, poll } = compositePost;
 
     const farcasterPostId = postId.Farcaster;
@@ -96,7 +97,10 @@ export async function postToFarcaster(type: ComposeType, compositePost: Composit
         uploadVideos: () => {
             return Promise.all(
                 (video?.file ? [video] : []).map(async (media) => {
-                    return createS3MediaObject(await uploadToS3(media.file, SourceInURL.Farcaster), media);
+                    return createS3MediaObject(
+                        await uploadAndConvertToM3u8(media.file, SourceInURL.Farcaster, signal),
+                        media,
+                    );
                 }),
             );
         },

@@ -1,7 +1,7 @@
 import { compact } from 'lodash-es';
 
 import { Source } from '@/constants/enum.js';
-import { formatEthereumAddress } from '@/helpers/formatEthereumAddress.js';
+import { formatEthereumAddress } from '@/helpers/formatAddress.js';
 import type { WalletProfiles } from '@/providers/types/Firefly.js';
 
 export function formatFireflyProfilesFromWalletProfiles(profiles: WalletProfiles) {

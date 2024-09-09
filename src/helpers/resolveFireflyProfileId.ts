@@ -5,7 +5,7 @@ import { UnreachableError } from '@/constants/error.js';
 import type { FireflyIdentity } from '@/providers/types/Firefly.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 
-export function resolveFireflyProfileId(profile: Profile | null) {
+export function resolveFireflyProfileId(profile: Pick<Profile, 'handle' | 'profileId' | 'source'> | null) {
     if (!profile) return;
 
     switch (profile.source) {

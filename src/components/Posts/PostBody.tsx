@@ -8,6 +8,7 @@ import { forwardRef, type HTMLProps, useMemo, useState } from 'react';
 import { useAsync } from 'react-use';
 
 import Lock from '@/assets/lock.svg';
+import { ArticleBody } from '@/components/Article/ArticleBody.js';
 import { NakedMarkup } from '@/components/Markup/NakedMarkup.js';
 import { PostMarkup } from '@/components/Markup/PostMarkup.js';
 import { FramePoll } from '@/components/Poll/FramePoll.js';
@@ -21,6 +22,7 @@ import { IS_APPLE, IS_SAFARI } from '@/constants/bowser.js';
 import { PageRoute, STATUS } from '@/constants/enum.js';
 import { env } from '@/constants/env.js';
 import { EMPTY_LIST } from '@/constants/index.js';
+import { Link } from '@/esm/Link.js';
 import { classNames } from '@/helpers/classNames.js';
 import { formatUrl } from '@/helpers/formatUrl.js';
 import { getEncryptedPayloadFromImageAttachment, getEncryptedPayloadFromText } from '@/helpers/getEncryptedPayload.js';
@@ -28,6 +30,7 @@ import { getPostUrl } from '@/helpers/getPostUrl.js';
 import { isRoutePathname } from '@/helpers/isRoutePathname.js';
 import { isValidUrl } from '@/helpers/isValidUrl.js';
 import { resolveOembedUrl } from '@/helpers/resolveOembedUrl.js';
+import { resolvePostArticleUrl } from '@/helpers/resolvePostArticleUrl.js';
 import { trimify } from '@/helpers/trimify.js';
 import { useEverSeen } from '@/hooks/useEverSeen.js';
 import { useIsProfileMuted } from '@/hooks/useIsProfileMuted.js';
@@ -58,7 +61,6 @@ export const PostBody = forwardRef<HTMLDivElement, PostBodyProps>(function PostB
         isQuote = false,
         isReply = false,
         isDetail = false,
-        isComment = false,
         showMore = false,
         disablePadding = false,
         showTranslate = false,
@@ -105,10 +107,6 @@ export const PostBody = forwardRef<HTMLDivElement, PostBodyProps>(function PostB
     }, [attachments, payloadImageUrl]);
 
     const showAttachments = availableAttachments.length > 0 || !!metadata.content?.asset;
-    const asset =
-        metadata.content?.asset?.uri === payloadImageUrl && availableAttachments.length
-            ? availableAttachments[0]
-            : metadata.content?.asset;
 
     const noLeftPadding = isDetail || isSmall || disablePadding;
 
@@ -118,14 +116,15 @@ export const PostBody = forwardRef<HTMLDivElement, PostBodyProps>(function PostB
     if (post.isEncrypted) {
         return (
             <div
-                className={classNames('my-2', {
-                    'pl-[52px]': !noLeftPadding,
+                className={classNames({
+                    '-mt-3 pl-[52px]': !noLeftPadding,
+                    'my-2': !isQuote,
                 })}
                 ref={ref}
             >
                 <div
                     className={classNames(
-                        'flex items-center gap-1 rounded-lg border-primaryMain px-3 py-[6px] text-[15px]',
+                        'flex items-center gap-1 rounded-lg border-primaryMain px-3 py-[6px] text-medium',
                         {
                             border: !isQuote,
                         },
@@ -158,7 +157,7 @@ export const PostBody = forwardRef<HTMLDivElement, PostBodyProps>(function PostB
                 <NakedMarkup
                     post={post}
                     className={classNames(
-                        'linkify line-clamp-5 w-full self-stretch break-words text-left text-[15px] opacity-75',
+                        'linkify line-clamp-5 w-full self-stretch break-words text-left text-medium opacity-75',
                         {
                             'max-h-[7.8rem]': IS_SAFARI && IS_APPLE,
                         },
@@ -169,7 +168,6 @@ export const PostBody = forwardRef<HTMLDivElement, PostBodyProps>(function PostB
                 {showAttachments ? (
                     <Attachments
                         post={post}
-                        asset={asset}
                         attachments={availableAttachments}
                         isQuote={!!metadata.content?.content?.length}
                     />
@@ -217,6 +215,12 @@ export const PostBody = forwardRef<HTMLDivElement, PostBodyProps>(function PostB
         >
             <PostMarkup post={post} canShowMore={canShowMore} content={postContent} />
 
+            {post.metadata.article ? (
+                <Link href={resolvePostArticleUrl(post)} target="_blank" onClick={(e) => e.stopPropagation()}>
+                    <ArticleBody {...post.metadata.article} />
+                </Link>
+            ) : null}
+
             {showTranslate && trimify(postContent) ? (
                 <ContentTranslator content={trimify(postContent)} canShowMore={canShowMore} post={post} />
             ) : null}
@@ -233,7 +237,7 @@ export const PostBody = forwardRef<HTMLDivElement, PostBodyProps>(function PostB
             ) : null}
 
             {canShowMore ? (
-                <div className="text-[15px] font-bold text-lightHighlight">
+                <div className="text-medium font-bold text-lightHighlight">
                     <div
                         onClick={() => {
                             router.push(getPostUrl(post));
@@ -246,15 +250,15 @@ export const PostBody = forwardRef<HTMLDivElement, PostBodyProps>(function PostB
 
             {/* Poll */}
             {!hasEncryptedPayload ? (
-                post.poll ? (
-                    <PollCard post={post} frameUrl="" />
-                ) : pollId && oembedUrl ? (
+                pollId && oembedUrl ? (
                     <FramePoll post={post} pollId={pollId} frameUrl={oembedUrl} />
+                ) : post.poll ? (
+                    <PollCard post={post} frameUrl={''} />
                 ) : null
             ) : null}
 
             {showAttachments ? (
-                <Attachments post={post} asset={asset} attachments={availableAttachments} isDetail={isDetail} />
+                <Attachments post={post} attachments={availableAttachments} isDetail={isDetail} />
             ) : null}
 
             {!hasEncryptedPayload && !pollId ? <PostLinks post={post} setContent={setPostContent} /> : null}

@@ -1,17 +1,27 @@
 import { plural, t } from '@lingui/macro';
 import { delay, safeUnreachable } from '@masknet/kit';
-import { compact } from 'lodash-es';
+import { compact, first } from 'lodash-es';
 
-import { type SocialSource, Source } from '@/constants/enum.js';
+import { type SocialSource, Source, STATUS } from '@/constants/enum.js';
+import { env } from '@/constants/env.js';
 import { SORTED_SOCIAL_SOURCES } from '@/constants/index.js';
 import { enqueueErrorsMessage, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { getThreadFailedAt } from '@/helpers/getThreadFailedAt.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
+import { getCompositePostParameters } from '@/providers/safary/getCompositePostParameters.js';
+import { SafaryTelemetryProvider } from '@/providers/safary/Telemetry.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
+import { EventId } from '@/providers/types/Telemetry.js';
 import { crossPost } from '@/services/crossPost.js';
 import { reportCrossedPost } from '@/services/reportCrossedPost.js';
 import { type CompositePost, useComposeStateStore } from '@/store/useComposeStore.js';
 import { useFarcasterStateStore } from '@/store/useProfileStore.js';
+
+interface CrossPostThreadOptions {
+    progressCallback?: (progress: number) => void;
+    isRetry?: boolean;
+    signal?: AbortSignal;
+}
 
 function shouldCrossPost(index: number, post: CompositePost) {
     return SORTED_SOCIAL_SOURCES.some(
@@ -80,13 +90,7 @@ async function recompositePost(index: number, post: CompositePost, posts: Compos
     } satisfies CompositePost;
 }
 
-export async function crossPostThread({
-    isRetry = false,
-    progressCallback,
-}: {
-    isRetry?: boolean;
-    progressCallback?: (progress: number) => void;
-}) {
+export async function crossPostThread({ progressCallback, isRetry = false, signal }: CrossPostThreadOptions = {}) {
     const { posts } = useComposeStateStore.getState();
     if (posts.length === 1) throw new Error(t`A thread must have at least two posts.`);
 
@@ -106,7 +110,9 @@ export async function crossPostThread({
             skipRefreshFeeds: index !== posts.length - 1,
             skipCheckPublished: true,
             skipReportCrossedPost: true,
+            signal,
         });
+
         progressCallback?.((index + 1) / posts.length);
     }
 
@@ -125,8 +131,8 @@ export async function crossPostThread({
         SORTED_SOCIAL_SOURCES.forEach((x, i) => {
             const error = allErrors[i];
             if (error) return;
-            const rootPost = updatedPosts[0];
-            if (!rootPost.availableSources.includes(x)) return;
+            const rootPost = first(updatedPosts);
+            if (!rootPost?.availableSources.includes(x)) return;
             if (!isRetry) {
                 enqueueSuccessMessage(t`Your posts have published successfully on ${resolveSourceName(x)}.`);
             }
@@ -150,6 +156,15 @@ export async function crossPostThread({
         enqueueSuccessMessage(t`Your posts have published successfully.`);
     }
 
-    // report crossed posts thread
-    updatedPosts.forEach(reportCrossedPost);
+    // report telemetry
+    if (env.external.NEXT_PUBLIC_TELEMETRY === STATUS.Enabled) {
+        const rootPost = first(updatedPosts);
+
+        if (rootPost) {
+            SafaryTelemetryProvider.captureEvent(EventId.SEND_CROSS_POST_SUCCESS, getCompositePostParameters(rootPost));
+        }
+
+        // report crossed posts thread
+        updatedPosts.forEach(reportCrossedPost);
+    }
 }

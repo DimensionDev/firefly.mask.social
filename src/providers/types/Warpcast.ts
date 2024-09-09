@@ -274,3 +274,18 @@ export interface LikesResponse extends ErrorResponse {
     };
     next?: Next;
 }
+
+export interface UpdateProfileResponse {
+    result: {
+        success: boolean;
+    };
+}
+
+export interface FindLocationResponse {
+    result: { predictions: Prediction[] };
+}
+
+export interface Prediction {
+    placeId: string;
+    description: string;
+}

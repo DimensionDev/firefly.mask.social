@@ -4,6 +4,7 @@ import type { TweetV2UserTimelineParams, UsersV2Params } from 'twitter-api-v2';
 
 import {
     EngagementType,
+    FileMimeType,
     NetworkType,
     NODE_ENV,
     ProfileTabType,
@@ -19,7 +20,7 @@ import { MediaSource } from '@/types/compose.js';
 export const EMPTY_LIST = Object.freeze([]) as never[];
 export const EMPTY_OBJECT = Object.freeze({}) as Record<string, never>;
 
-export const SITE_NAME = 'Firefly: App for Web3 Natives';
+export const SITE_NAME = 'Firefly ✨ Everything App for Web3 Natives';
 export const SITE_DESCRIPTION = "Firefly is a social app for exploring what's happening onchain.";
 export const SITE_URL = env.external.NEXT_PUBLIC_SITE_URL;
 export const SITE_HOSTNAME = 'firefly.mask.social';
@@ -28,13 +29,15 @@ export const FARCASTER_REPLY_URL = 'https://relay.farcaster.xyz';
 export const WARPCAST_ROOT_URL = 'https://api.warpcast.com/v2';
 export const WARPCAST_CLIENT_URL = 'https://client.warpcast.com/v2';
 export const FIREFLY_ROOT_URL = env.external.NEXT_PUBLIC_FIREFLY_API_URL;
-export const FIREFLY_DEV_ROOT_URL = 'https://api-dev.firefly.land';
+export const FIREFLY_DEV_ROOT_URL = 'https://api.firefly.land';
 export const FIREFLY_STAMP_URL = 'https://stamp.firefly.land/avatar';
 export const HEY_IPFS_GW_URL = 'https://gw.ipfs-lens.dev/ipfs';
 export const DSEARCH_BASE_URL = 'https://dsearch.mask.r2d2.to';
 export const CORS_HOST = 'https://cors-next.r2d2.to';
 export const COINGECKO_URL_BASE = 'https://coingecko-agent.r2d2.to/api/v3';
 export const GO_PLUS_LABS_ROOT_URL = 'https://gopluslabs.r2d2.to';
+export const ADVERTISEMENT_JSON_URL = 'https://media.firefly.land/advertisement/web.json';
+export const TWITTER_UPLOAD_MEDIA_URL = 'https://upload.twitter.com/1.1/media/upload.json';
 
 export const FARCASTER_REPLY_COUNTDOWN = 50; // in seconds
 export const FIREFLY_SCAN_QR_CODE_COUNTDOWN = 5 * 60; // in seconds
@@ -114,17 +117,6 @@ export const S3_BUCKET = {
     FIREFLY_LENS_MEDIA: 'firefly-lens-media',
 };
 
-export const MAX_CHAR_SIZE_PER_POST: Record<SocialSource, number> = {
-    [Source.Farcaster]: 1024,
-    [Source.Lens]: 5000,
-    [Source.Twitter]: 280,
-};
-export const MAX_IMAGE_SIZE_PER_POST: Record<SocialSource, number> = {
-    [Source.Farcaster]: 2,
-    [Source.Lens]: 20,
-    [Source.Twitter]: 4,
-};
-
 // HTTP Cache headers
 export const CACHE_AGE_INDEFINITE_ON_DISK = 'public, s-maxage=31536000, max-age=31536000, must-revalidate';
 
@@ -142,38 +134,41 @@ export const MIN_POST_SIZE_PER_THREAD = 3;
 export const LENS_HUB_PROXY_ADDRESS = '0xDb46d1Dc155634FbC732f92E853b10B288AD5a1d';
 export const POAP_CONTRACT_ADDRESS = '0x22C1f6050E56d2876009903609a2cC3fEf83B415';
 
-export const ALLOWED_MEDIA_MIMES = [
-    'image/png',
-    'image/jpeg',
-    'image/gif',
-    'image/webp',
-    'image/bmp',
-    'video/mp4',
-    'video/mpeg',
-    'video/x-msvideo',
-    'video/ogg',
-    'video/webm',
-    'video/3gpp',
-    'video/3gpp2',
+export const ALLOWED_IMAGES_MIMES = [
+    FileMimeType.PNG,
+    FileMimeType.JPEG,
+    FileMimeType.GIF,
+    FileMimeType.WEBP,
+    FileMimeType.BMP,
 ] as const;
 
-export const SUFFIX_NAMES: Record<(typeof ALLOWED_MEDIA_MIMES)[number], string> = {
-    'image/png': 'png',
-    'image/jpeg': 'jpg',
-    'image/gif': 'gif',
-    'image/bmp': 'bmp',
-    'image/webp': 'webp',
-    'video/mp4': 'mp4',
-    'video/mpeg': 'mpeg',
-    'video/x-msvideo': 'avi',
-    'video/ogg': 'ogv',
-    'video/3gpp': '3gp',
-    'video/3gpp2': '3g2',
-    'video/webm': 'webm',
-};
+export const ALLOWED_VIDEO_MIMES = [
+    FileMimeType.MP4,
+    FileMimeType.MPEG,
+    FileMimeType.MS_VIDEO,
+    FileMimeType.OGG,
+    FileMimeType.WEBM,
+    FileMimeType.GPP,
+    FileMimeType.GPP2,
+];
 
-export const FILE_MAX_SIZE = 4 * 1024 * 1024; // 4MB
-export const VIDEO_MAX_SIZE = 400 * 1024 * 1024; // 400MB
+export const ALLOWED_MEDIA_MIMES = [...ALLOWED_IMAGES_MIMES, ...ALLOWED_VIDEO_MIMES] as const;
+
+export const SUFFIX_NAMES: Record<FileMimeType, string> = {
+    [FileMimeType.PNG]: 'png',
+    [FileMimeType.JPEG]: 'jpg',
+    [FileMimeType.GIF]: 'gif',
+    [FileMimeType.BMP]: 'bmp',
+    [FileMimeType.WEBP]: 'webp',
+    [FileMimeType.MP4]: 'mp4',
+    [FileMimeType.MPEG]: 'mpeg',
+    [FileMimeType.MS_VIDEO]: 'avi',
+    [FileMimeType.OGG]: 'ogv',
+    [FileMimeType.GPP]: '3gp',
+    [FileMimeType.GPP2]: '3g2',
+    [FileMimeType.WEBM]: 'webm',
+    [FileMimeType.MOV]: 'mov',
+};
 
 export const TWITTER_TIMELINE_OPTIONS: TweetV2UserTimelineParams = {
     expansions: [
@@ -201,7 +196,41 @@ export const TWITTER_TIMELINE_OPTIONS: TweetV2UserTimelineParams = {
 };
 
 export const TWITTER_USER_OPTIONS: Partial<UsersV2Params> = {
-    'user.fields': ['description', 'username', 'name', 'profile_image_url', 'public_metrics', 'connection_status'],
+    'user.fields': [
+        'description',
+        'username',
+        'name',
+        'profile_image_url',
+        'public_metrics',
+        'connection_status',
+        'url',
+        'location',
+        'verified',
+        'verified_type',
+    ],
 };
 
 export const SOLANA_WALLET_CACHE_KEY = 'walletName';
+
+// https://support.mirror.xyz/hc/en-us/articles/13729399363220-Platform-fees
+// 0.00069 ETH
+export const MIRROR_COLLECT_FEE = 690000000000000n;
+// 1 matic
+export const MIRROR_COLLECT_FEE_IN_POLYGON = 1000000000000000000n;
+
+// https://docs.paragraph.xyz/docs/advanced/referral-program
+// 0.000777 ETH
+export const PARAGRAPH_COLLECT_FEE = 777000000000000n;
+// 2 matic
+export const PARAGRAPH_COLLECT_FEE_IN_POLYGON = 2000000000000000000n;
+
+export const THIRTY_DAYS = 1000 * 60 * 60 * 24 * 30;
+
+export const MAX_SIZE_PER_CHUNK = 2 * 1024 * 1024; // 2MB
+
+export const VITALIK_ADDRESS = '0xd8da6bf26964af9d7eed9e03e53415d37aa96045';
+
+export const MIRROR_OLD_FACTOR_ADDRESSES = [
+    '0x302f746eE2fDC10DDff63188f71639094717a766',
+    '0x2d4b7Ec9923b9cf22d87Ced721e69E1f8eD96a0A',
+];

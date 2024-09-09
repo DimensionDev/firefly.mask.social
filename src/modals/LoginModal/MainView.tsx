@@ -4,7 +4,7 @@ import urlcat from 'urlcat';
 
 import { LoginButton } from '@/components/Login/LoginButton.js';
 import { LoginFirefly } from '@/components/Login/LoginFirefly.js';
-import { FarcasterSignType, Source } from '@/constants/enum.js';
+import { FarcasterSignType, type SocialSource, Source } from '@/constants/enum.js';
 import { SORTED_SOCIAL_SOURCES } from '@/constants/index.js';
 import { resolveSourceInURL } from '@/helpers/resolveSourceInURL.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
@@ -13,6 +13,17 @@ export function MainView() {
     const router = useRouter();
     const { history } = router;
     const isMedium = useIsMedium();
+
+    const onClick = (source: SocialSource) => {
+        const signType = source === Source.Farcaster && isMedium ? FarcasterSignType.RelayService : undefined;
+        const path = urlcat('/:source', {
+            source: resolveSourceInURL(source),
+            signType: signType || undefined,
+        });
+
+        // history.back() is buggy, use .replace() instead.
+        history.replace(path);
+    };
 
     return (
         <div className="flex flex-col rounded-[12px] bg-primaryBottom md:w-[500px]">
@@ -27,19 +38,7 @@ export function MainView() {
                 ) : null}
                 <div className="flex w-full flex-col md:flex-row md:gap-3">
                     {SORTED_SOCIAL_SOURCES.map((source) => (
-                        <LoginButton
-                            key={source}
-                            source={source}
-                            onClick={() => {
-                                const params =
-                                    source === Source.Farcaster && isMedium
-                                        ? { signType: FarcasterSignType.RelayService }
-                                        : {};
-                                const path = urlcat('/', resolveSourceInURL(source), params);
-                                // history.back() is buggy, use .replace() instead.
-                                history.replace(path);
-                            }}
-                        />
+                        <LoginButton key={source} source={source} onClick={() => onClick(source)} />
                     ))}
                 </div>
             </div>

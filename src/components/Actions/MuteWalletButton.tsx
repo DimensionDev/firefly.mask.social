@@ -35,7 +35,10 @@ export const MuteWalletButton = forwardRef<HTMLButtonElement, Props>(function Mu
             {...rest}
             onClick={async () => {
                 rest.onClick?.();
-                if (!isLogin) return LoginModalRef.open();
+                if (!isLogin) {
+                    LoginModalRef.open();
+                    return;
+                }
                 if (!isMuted) {
                     const confirmed = await ConfirmModalRef.openAndWaitForClose({
                         title: t`Mute ${handleOrEnsOrAddress}`,
@@ -43,7 +46,7 @@ export const MuteWalletButton = forwardRef<HTMLButtonElement, Props>(function Mu
                         content: (
                             <div className="text-main">
                                 <Trans>
-                                    Articles from @{handleOrEnsOrAddress} will now be hidden in your home timeline
+                                    Articles from {handleOrEnsOrAddress} will now be hidden in your home timeline
                                 </Trans>
                             </div>
                         ),

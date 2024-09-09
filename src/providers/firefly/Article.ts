@@ -2,7 +2,11 @@ import { compact, first } from 'lodash-es';
 import urlcat from 'urlcat';
 
 import { BookmarkType, FireflyPlatform } from '@/constants/enum.js';
+import { NotImplementedError } from '@/constants/error.js';
+/* cspell:disable-next-line */
+import { VITALIK_ADDRESS } from '@/constants/index.js';
 import { formatArticleFromFirefly } from '@/helpers/formatArticleFromFirefly.js';
+import { isSameEthereumAddress } from '@/helpers/isSameAddress.js';
 import { isZero } from '@/helpers/number.js';
 import {
     createIndicator,
@@ -13,7 +17,7 @@ import {
 } from '@/helpers/pageable.js';
 import { resolveFireflyResponseData } from '@/helpers/resolveFireflyResponseData.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
-import { type Article, ArticlePlatform, type Provider } from '@/providers/types/Article.js';
+import { type Article, type ArticleCollectable, ArticlePlatform, type Provider } from '@/providers/types/Article.js';
 import {
     type Article as FFArticle,
     type BookmarkResponse,
@@ -24,6 +28,18 @@ import {
 import { settings } from '@/settings/index.js';
 
 class FireflyArticle implements Provider {
+    getArticleCollectableByDigest(digest: string): Promise<ArticleCollectable> {
+        throw new NotImplementedError();
+    }
+
+    estimateCollectGas(article: ArticleCollectable): Promise<bigint> {
+        throw new NotImplementedError();
+    }
+
+    collect(article: ArticleCollectable): Promise<bigint> {
+        throw new NotImplementedError();
+    }
+
     async discoverArticles(indicator?: PageIndicator) {
         const url = urlcat(settings.FIREFLY_ROOT_URL, '/v2/discover/articles/timeline', {
             size: 20,
@@ -50,7 +66,12 @@ class FireflyArticle implements Provider {
         const response = await fireflySessionHolder.fetch<DiscoverArticlesResponse>(url, {
             method: 'POST',
             body: JSON.stringify({
-                platform: [ArticlePlatform.Paragraph, ArticlePlatform.Mirror].join(','),
+                platform: compact([
+                    ArticlePlatform.Paragraph,
+                    ArticlePlatform.Mirror,
+                    /* cspell:disable-next-line */
+                    isSameEthereumAddress(VITALIK_ADDRESS, address) ? ArticlePlatform.Limo : undefined,
+                ]).join(','),
                 walletAddresses: [address],
                 size: 20,
                 cursor: indicator?.id && !isZero(indicator.id) ? indicator.id : undefined,

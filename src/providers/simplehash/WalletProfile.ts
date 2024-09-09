@@ -11,13 +11,14 @@ class SimpleHashWalletProfile implements Provider {
         address: string,
         tokenId: string,
         options?: BaseHubOptions<ChainId>,
+        skipScoreCheck = false,
     ): Promise<NonFungibleAsset<ChainId, SchemaType> | null> {
-        const asset = await SimpleHashEVM.getAsset(address, tokenId, options);
+        const asset = await SimpleHashEVM.getAsset(address, tokenId, options, skipScoreCheck);
         return asset || null;
     }
 
-    getNFTs(contractAddress: string, options?: BaseHubOptions<ChainId>) {
-        return SimpleHashEVM.getAssetsByCollection(contractAddress, options);
+    getNFTs(contractAddress: string, options?: BaseHubOptions<ChainId>, skipScoreCheck = false) {
+        return SimpleHashEVM.getAssetsByCollection(contractAddress, options, skipScoreCheck);
     }
 
     getNFTsByCollectionIdAndOwner(collectionId: string, owner: string, options?: BaseHubOptions<ChainId>) {

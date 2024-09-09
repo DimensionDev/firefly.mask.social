@@ -8,32 +8,28 @@ import { ClickableArea } from '@/components/ClickableArea.js';
 import { Tooltip } from '@/components/Tooltip.js';
 import { classNames } from '@/helpers/classNames.js';
 import { nFormatter } from '@/helpers/formatCommentCounts.js';
-import { useToggleBookmark } from '@/hooks/useToggleBookmark.js';
-import type { Post } from '@/providers/types/SocialMedia.js';
 
 interface BookmarkProps {
     count?: number;
     disabled?: boolean;
-    post: Post;
+    hasBookmarked?: boolean;
     hiddenCount?: boolean;
+    onClick: () => void;
 }
 
 export const Bookmark = memo<BookmarkProps>(function Bookmark({
     count = 0,
     disabled = false,
-    post,
+    hasBookmarked,
     hiddenCount = false,
+    onClick,
 }) {
-    const { hasBookmarked } = post;
-
-    const mutation = useToggleBookmark(post.source);
-
     return (
         <ClickableArea
             className={classNames('flex cursor-pointer items-center space-x-1 text-lightSecond md:space-x-2', {
                 'cursor-not-allowed opacity-50': disabled,
             })}
-            onClick={() => mutation.mutate(post)}
+            onClick={onClick}
         >
             <Tooltip
                 disabled={disabled}

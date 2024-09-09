@@ -8,7 +8,7 @@ msgstr ""
 "Language: ko\n"
 "Project-Id-Version: masksocial\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-08-13 12:01\n"
+"PO-Revision-Date: 2024-09-03 09:47\n"
 "Last-Translator: \n"
 "Language-Team: Korean\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
@@ -36,6 +36,9 @@ msgstr ""
 msgid "Onchain Activities"
 msgstr ""
 
+msgid "Tip transaction completed!"
+msgstr ""
+
 msgid "Muted"
 msgstr ""
 
@@ -45,10 +48,19 @@ msgstr ""
 msgid "Quote Post"
 msgstr ""
 
+msgid "FAILED THREAD POST"
+msgstr ""
+
 msgid "Confirm to disconnect this wallet and related accounts from Firefly’s social graph?"
 msgstr ""
 
+msgid "Allow Collect Module"
+msgstr ""
+
 msgid "New connect with Warpcast"
+msgstr ""
+
+msgid "Edit Image"
 msgstr ""
 
 msgid "Failed to upload. File type is not supported on X."
@@ -66,13 +78,19 @@ msgstr ""
 msgid "Failed to fetch as Blob."
 msgstr ""
 
-msgid "You just sent <0>{amount} {0}{1}</0> tips to <1>{2}</1>!<2/>Share this news by mentioning and posting."
-msgstr ""
-
 msgid "Unmute successfully."
 msgstr ""
 
+msgid "Your frame URL"
+msgstr ""
+
+msgid "Send a tip"
+msgstr ""
+
 msgid "Mute /{0}"
+msgstr ""
+
+msgid "Failed to collect article."
 msgstr ""
 
 msgid "Communities"
@@ -111,19 +129,19 @@ msgstr ""
 msgid "Mute @{0}"
 msgstr ""
 
+msgid "Failed to upload. Video size exceeds {0}"
+msgstr ""
+
 msgid "The contract owner is not found to have the authority to modify the balance of tokens at other addresses."
 msgstr ""
 
 msgid "Select token"
 msgstr ""
 
-msgid "Already logged in?<0/><1>Approve the existing Farcaster signer</1> to Firefly"
-msgstr ""
-
 msgid "The post you quoted/replied has already deleted"
 msgstr ""
 
-msgid "Send tips to @{0}"
+msgid "Display Name"
 msgstr ""
 
 msgid "Debug Connection"
@@ -159,25 +177,19 @@ msgstr ""
 msgid "<0>The maximum number of coins coded to exist in the lifetime of the cryptocurrency. It is comparable to the maximum number of issuable shares in the stock market.</0><1>Max Supply = Theoretical maximum as coded</1>"
 msgstr ""
 
-msgid "Unknown error"
-msgstr ""
-
 msgid "More"
 msgstr ""
 
 msgid "Translate post"
 msgstr ""
 
+msgid "Free"
+msgstr ""
+
 msgid "Searching users"
 msgstr ""
 
-msgid "Cannot send tips to yourself"
-msgstr ""
-
 msgid "Airdrop Scam"
-msgstr ""
-
-msgid "Collect Action is not supported yet."
 msgstr ""
 
 msgid "Overwrite"
@@ -192,9 +204,6 @@ msgstr ""
 msgid "Found arweaveTxId is empty."
 msgstr ""
 
-msgid "Blocked"
-msgstr ""
-
 msgid "<0>You</0> and {0} others recasted"
 msgstr ""
 
@@ -202,6 +211,12 @@ msgid "Change Wallet"
 msgstr ""
 
 msgid "Above 10% may be considered a high tax rate. More than 50% tax rate means may not be tradable."
+msgstr ""
+
+msgid "Location should not exceed {maxLocationSize} characters"
+msgstr ""
+
+msgid "FAILED POST"
 msgstr ""
 
 msgid "OpenGraph"
@@ -217,6 +232,9 @@ msgid "You can save the failed parts of posts and send them later from your Draf
 msgstr ""
 
 msgid "Please confirm the login with Firefly."
+msgstr ""
+
+msgid "Wrong wallet"
 msgstr ""
 
 msgid "Failed to un-bookmark article."
@@ -246,6 +264,9 @@ msgstr ""
 msgid "Report submitted on {0}"
 msgstr ""
 
+msgid "Trending Channels"
+msgstr ""
+
 msgid "Debug Console"
 msgstr ""
 
@@ -265,9 +286,6 @@ msgid "Profile not found"
 msgstr ""
 
 msgid "NFT Standard"
-msgstr ""
-
-msgid "<0>{0}</0> reposted"
 msgstr ""
 
 msgid "Failed to like the comment."
@@ -315,7 +333,7 @@ msgstr ""
 msgid "Show less"
 msgstr ""
 
-msgid "The video \"{0}\" exceeds the size limit."
+msgid "Switch between the app kit and rainbow kit wallet providers."
 msgstr ""
 
 msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} {1, select, Lens {mirrored your} Farcaster {recasted your} other {mirrored your}} <4>{2, select, Post {post} Comment {comment} Quote {quote} Mirror {mirror} other {post}}</4>"
@@ -324,10 +342,10 @@ msgstr ""
 msgid "Total"
 msgstr ""
 
-msgid "True Token"
+msgid "<0>{0}</0><1>mirrored</1>"
 msgstr ""
 
-msgid "Failed"
+msgid "True Token"
 msgstr ""
 
 msgid "Bookmarks"
@@ -417,6 +435,9 @@ msgstr ""
 msgid "Only up to 2 images can be chosen."
 msgstr ""
 
+msgid "Follow to Collect"
+msgstr ""
+
 msgid "{0, select, Image {[Image]} Video {[Video]} Audio {[Audio]} Poll {[Poll]} other {}}"
 msgstr ""
 
@@ -445,6 +466,9 @@ msgid "Calendar"
 msgstr ""
 
 msgid "Watch"
+msgstr ""
+
+msgid "Time Out"
 msgstr ""
 
 msgid "24 Hour Trading Vol"
@@ -480,6 +504,9 @@ msgstr ""
 msgid "There are images or videos that were not uploaded successfully."
 msgstr ""
 
+msgid "{addressName} is already connected."
+msgstr ""
+
 msgid "{minutes, plural, one {1 minute left} other {{minutes} minutes left}}"
 msgstr ""
 
@@ -490,6 +517,9 @@ msgid "Reposted"
 msgstr ""
 
 msgid "Add another post..."
+msgstr ""
+
+msgid "1m left"
 msgstr ""
 
 msgid "Items"
@@ -549,13 +579,16 @@ msgstr ""
 msgid "Feed"
 msgstr ""
 
+msgid "Failed to upload. Not a valid image type"
+msgstr ""
+
+msgid "Failed to upload. Image size exceeds {0}"
+msgstr ""
+
 msgid "Recasts"
 msgstr ""
 
 msgid "Market Cap / FDV"
-msgstr ""
-
-msgid "Your action provider blocks execution of this action."
 msgstr ""
 
 msgid "Confirmation"
@@ -576,6 +609,9 @@ msgstr ""
 msgid "Address"
 msgstr ""
 
+msgid "Bio"
+msgstr ""
+
 msgid "[Photo]"
 msgstr ""
 
@@ -586,6 +622,9 @@ msgid "THREAD POST"
 msgstr ""
 
 msgid "This entry has been permanently stored on-chain and signed by its creator."
+msgstr ""
+
+msgid "Failed to avatar."
 msgstr ""
 
 msgid "Frame Validator"
@@ -615,16 +654,13 @@ msgstr ""
 msgid "Update"
 msgstr ""
 
+msgid "You might like"
+msgstr ""
+
 msgid "Remove from Bookmarks"
 msgstr ""
 
 msgid "<0>Bought</0> an NFT"
-msgstr ""
-
-msgid "The file not found"
-msgstr ""
-
-msgid "Invalid file type. Allowed types: {0}"
 msgstr ""
 
 msgid "Connection failed"
@@ -639,6 +675,9 @@ msgstr ""
 msgid "Anti_whale(Limited number of transactions)"
 msgstr ""
 
+msgid "Send a tip to {0}"
+msgstr ""
+
 msgid "The number of token transactions is limited. The number of scam token transactions may be limited (honeypot risk)."
 msgstr ""
 
@@ -646,9 +685,6 @@ msgid "Log out"
 msgstr ""
 
 msgid "Unmuting..."
-msgstr ""
-
-msgid "Send Tips"
 msgstr ""
 
 msgid "{0, plural, one {Your post failed to publish on {firstPlatform} due to an error. Click 'Retry' to attempt posting again.} two {Your post failed to publish on {firstPlatform} and {secondPlatform} due to an error. Click 'Retry' to attempt posting again.} other {Your post failed to publish due to an error. Click 'Retry' to attempt posting again.}}"
@@ -672,16 +708,19 @@ msgstr ""
 msgid "Frame"
 msgstr ""
 
-msgid "Cannot choose due to account mismatch."
+msgid "Directory"
 msgstr ""
 
-msgid "The file exceeds the size limit."
+msgid "Cannot choose due to account mismatch."
 msgstr ""
 
 msgid "Search Filter"
 msgstr ""
 
 msgid "Resend full or remaining?"
+msgstr ""
+
+msgid "Add Wallet"
 msgstr ""
 
 msgid "Followed by {0} and {1}"
@@ -720,6 +759,9 @@ msgstr ""
 msgid "Channel"
 msgstr ""
 
+msgid "Failed to enable signless"
+msgstr ""
+
 msgid "Connect another account"
 msgstr ""
 
@@ -732,6 +774,9 @@ msgstr ""
 msgid "<0/> mentioned you in a <1>{0, select, Post {post} Comment {comment} Quote {quote} Mirror {mirror} other {post}}</1>"
 msgstr ""
 
+msgid "Cost"
+msgstr ""
+
 msgid "Insufficient Gas"
 msgstr ""
 
@@ -739,9 +784,6 @@ msgid "Blacklist function"
 msgstr ""
 
 msgid "AUTHOR ADDRESS"
-msgstr ""
-
-msgid "Failed to send tips."
 msgstr ""
 
 msgid "Enable development API version"
@@ -807,9 +849,6 @@ msgstr ""
 msgid "Your draft was saved."
 msgstr ""
 
-msgid "Send tips"
-msgstr ""
-
 msgid "The chainId mismatch."
 msgstr ""
 
@@ -819,6 +858,9 @@ msgstr ""
 msgid "Privacy Policy"
 msgstr ""
 
+msgid "Rainbow Kit"
+msgstr ""
+
 msgid "Forbidden. Please check your permissions."
 msgstr ""
 
@@ -826,9 +868,6 @@ msgid "There are images that were not uploaded successfully."
 msgstr ""
 
 msgid "No mint function"
-msgstr ""
-
-msgid "Transaction sent successfully"
 msgstr ""
 
 msgid "Expired"
@@ -856,6 +895,9 @@ msgid "{0} Comments"
 msgstr ""
 
 msgid "Schedule Post"
+msgstr ""
+
+msgid "Sold Out"
 msgstr ""
 
 msgid "Proxy contract"
@@ -918,6 +960,9 @@ msgstr ""
 msgid "Disconnected from your social graph"
 msgstr ""
 
+msgid "Failed to upload."
+msgstr ""
+
 msgid "{attentionFactors, plural, one {# Attention item} other {# Attention items}}"
 msgstr ""
 
@@ -927,7 +972,13 @@ msgstr ""
 msgid "Malformed session."
 msgstr ""
 
+msgid "Upload"
+msgstr ""
+
 msgid "Failed to login."
+msgstr ""
+
+msgid "Network"
 msgstr ""
 
 msgid "Unlike"
@@ -945,10 +996,16 @@ msgstr ""
 msgid "Failed to report @{0}."
 msgstr ""
 
+msgid "Post with link"
+msgstr ""
+
 msgid "Your post has published successfully."
 msgstr ""
 
 msgid "Login with Farcaster"
+msgstr ""
+
+msgid "Bio should not exceed {maxBioSize} characters"
 msgstr ""
 
 msgid "1m"
@@ -964,6 +1021,9 @@ msgid "Circulating Supply"
 msgstr ""
 
 msgid "Post has been deleted"
+msgstr ""
+
+msgid "This article is no longer available"
 msgstr ""
 
 msgid "Report article"
@@ -987,6 +1047,9 @@ msgstr ""
 msgid "Log in with recovery phrase"
 msgstr ""
 
+msgid "Edit Profile"
+msgstr ""
+
 msgid "Confirm you want to mute @{0}?"
 msgstr ""
 
@@ -999,16 +1062,13 @@ msgstr ""
 msgid "Fully Diluted Valuation"
 msgstr ""
 
-msgid "Suggested Channels"
-msgstr ""
-
 msgid "Email (optional)"
 msgstr ""
 
 msgid "NFT Contract"
 msgstr ""
 
-msgid "Share Now"
+msgid "Show more tokens with small balances"
 msgstr ""
 
 msgid "{riskyFactors, plural, one {# Risky item} other {# Risky items}}"
@@ -1029,6 +1089,9 @@ msgstr ""
 msgid "No post found"
 msgstr ""
 
+msgid "Display Name should not be blank"
+msgstr ""
+
 msgid "Clear All"
 msgstr ""
 
@@ -1036,9 +1099,6 @@ msgid "There are videos that were not uploaded successfully."
 msgstr ""
 
 msgid "This can’t be undone, and the scheduled send will be canceled."
-msgstr ""
-
-msgid "If you believe this action has been blocked in error, please <0/><1>Ignore warning and proceed</1>."
 msgstr ""
 
 msgid "This contract is an Admin Upgradeability Proxy. The proxy contract means the contract owner can modify the function of the token and could possibly effect the price.There is possibly a way for the team to Rug or Scam. Please confirm the details with the project team before buying."
@@ -1062,6 +1122,15 @@ msgstr ""
 msgid "<0>Acquired</0> an NFT"
 msgstr ""
 
+msgid "App Kit"
+msgstr ""
+
+msgid "Tag {0} in a post to let them know you’ve sent an onchain tip to their wallet."
+msgstr ""
+
+msgid "Articles from {handleOrEnsOrAddress} will now be hidden in your home timeline"
+msgstr ""
+
 msgid "liked"
 msgstr ""
 
@@ -1071,13 +1140,10 @@ msgstr ""
 msgid "Describe a bug or suggest an improvement"
 msgstr ""
 
-msgid "The file \"{0}\" exceeds the size limit."
-msgstr ""
-
-msgid "Invalid URL."
-msgstr ""
-
 msgid "{shares, plural, one {Mirror or Quote} other {Mirrors or Quotes}}"
+msgstr ""
+
+msgid "Standard"
 msgstr ""
 
 msgid "<0>Revised</0>an article"
@@ -1087,9 +1153,6 @@ msgid "You need to connect your {0} account to use this feature."
 msgstr ""
 
 msgid "Bad Request. Please check your request."
-msgstr ""
-
-msgid "Suggested Follows"
 msgstr ""
 
 msgid "Login required to schedule post on {sourceName}"
@@ -1105,6 +1168,9 @@ msgid "Post has been encrypted"
 msgstr ""
 
 msgid "New connection with Warpcast"
+msgstr ""
+
+msgid "Updated profile successfully"
 msgstr ""
 
 msgid "Token ${symbol} could not be found."
@@ -1152,6 +1218,9 @@ msgstr ""
 msgid "Contract source code not verified"
 msgstr ""
 
+msgid "Cannot send tip to yourself"
+msgstr ""
+
 msgid "Unwatch {handleOrEnsOrAddress}"
 msgstr ""
 
@@ -1197,6 +1266,9 @@ msgstr ""
 msgid "Contract Address"
 msgstr ""
 
+msgid "Send a tip to @{0}"
+msgstr ""
+
 msgid "The whitelist function is not included. If there is a whitelist, some addresses may not be able to trade normally (honeypot risk)."
 msgstr ""
 
@@ -1215,19 +1287,19 @@ msgstr ""
 msgid "Page not found. Please try again."
 msgstr ""
 
+msgid "Delegate Signing"
+msgstr ""
+
 msgid "This can’t be undone and you’ll lose your draft."
 msgstr ""
 
 msgid "Article removed from your Bookmarks"
 msgstr ""
 
-msgid "This address is already connected"
-msgstr ""
-
 msgid "Publications"
 msgstr ""
 
-msgid "Your website URL."
+msgid "Unable to read image."
 msgstr ""
 
 msgid "Visit firefly.social"
@@ -1248,9 +1320,6 @@ msgstr ""
 msgid "Add wallet"
 msgstr ""
 
-msgid "Your Blink URL."
-msgstr ""
-
 msgid "Watch {handleOrEnsOrAddress}"
 msgstr ""
 
@@ -1266,6 +1335,9 @@ msgstr ""
 msgid "Failed to parse session."
 msgstr ""
 
+msgid "Exclusivity"
+msgstr ""
+
 msgid "Feedback"
 msgstr ""
 
@@ -1275,10 +1347,10 @@ msgstr ""
 msgid "%Of supply owned"
 msgstr ""
 
-msgid "Share"
+msgid "Signing failed."
 msgstr ""
 
-msgid "Your frame URL."
+msgid "Share"
 msgstr ""
 
 msgid "Scan the QR code with the <0>Firefly mobile app</0> or <1>Camera app</1> to log in instantly."
@@ -1335,6 +1407,12 @@ msgstr ""
 msgid "Visit mask.io"
 msgstr ""
 
+msgid "First time connecting to Firefly?<0/>Approve a <1>new connection with Warpcast</1> or <2>sync</2> through the app"
+msgstr ""
+
+msgid "Your website URL"
+msgstr ""
+
 msgid "No comments found"
 msgstr ""
 
@@ -1344,7 +1422,16 @@ msgstr ""
 msgid "Not my wallet address."
 msgstr ""
 
+msgid "Please switch to the wallet consistent with this action"
+msgstr ""
+
+msgid "Upload to S3"
+msgstr ""
+
 msgid "{shares, plural, one {Recast or Quote} other {Recasts or Quotes}}"
+msgstr ""
+
+msgid "Failed to update profile."
 msgstr ""
 
 msgid "Connected in Firefly"
@@ -1386,10 +1473,13 @@ msgstr ""
 msgid "Failed to submit report on {0}."
 msgstr ""
 
-msgid "Executing"
+msgid "Insufficient funds"
 msgstr ""
 
 msgid "Community"
+msgstr ""
+
+msgid "Free Collect"
 msgstr ""
 
 msgid "Delete"
@@ -1452,13 +1542,22 @@ msgstr ""
 msgid "Muted @{0} on {sourceName}."
 msgstr ""
 
+msgid "Your Blink URL"
+msgstr ""
+
 msgid "Quotes"
 msgstr ""
 
 msgid "The user rejected the request."
 msgstr ""
 
+msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} <4>collected your </4><5>{1, select, Post {post} Comment {comment} Quote {quote} Mirror {mirror} other {post}}</5>"
+msgstr ""
+
 msgid "Recast or Quote"
+msgstr ""
+
+msgid "Sorry, we are not able to find a wallet for {0}."
 msgstr ""
 
 msgid "Unwatch"
@@ -1471,6 +1570,9 @@ msgid "Attendance"
 msgstr ""
 
 msgid "Show more"
+msgstr ""
+
+msgid "Time Limit"
 msgstr ""
 
 msgid "Post removed from your Bookmarks"
@@ -1521,7 +1623,13 @@ msgstr ""
 msgid "Mobile App"
 msgstr ""
 
+msgid "Upload photo"
+msgstr ""
+
 msgid "You can save this to send later from your drafts."
+msgstr ""
+
+msgid "Click to upload"
 msgstr ""
 
 msgid "Internal Server Error. Please try again later."
@@ -1554,6 +1662,9 @@ msgstr ""
 msgid "No available wallet."
 msgstr ""
 
+msgid "<0>{0}</0><1>reposted</1>"
+msgstr ""
+
 msgid "Login to enable all features"
 msgstr ""
 
@@ -1569,10 +1680,10 @@ msgstr ""
 msgid "Back"
 msgstr ""
 
-msgid "Posting..."
+msgid "Article collected successfully!"
 msgstr ""
 
-msgid "This Action has been flagged as an unsafe action, & has been blocked."
+msgid "Posting..."
 msgstr ""
 
 msgid "Connect"
@@ -1635,6 +1746,9 @@ msgstr ""
 msgid "Will send on <0>{0} at <1>{1}</1></0>"
 msgstr ""
 
+msgid "Failed to continue. Please allow Lens Manager for performing actions without the need to sign each transaction."
+msgstr ""
+
 msgid "Properties"
 msgstr ""
 
@@ -1656,10 +1770,16 @@ msgstr ""
 msgid "Followed by {0} , {1}, and {2}"
 msgstr ""
 
+msgid "Collect Article"
+msgstr ""
+
 msgid "Channels"
 msgstr ""
 
 msgid "Firefly"
+msgstr ""
+
+msgid "Invalid website format"
 msgstr ""
 
 msgid "Switching..."
@@ -1672,6 +1792,12 @@ msgid "Post from /{0} will be hidden in your home timeline"
 msgstr ""
 
 msgid "Add"
+msgstr ""
+
+msgid "Failed to upload. Gif size exceeds {0}"
+msgstr ""
+
+msgid "{days}d left"
 msgstr ""
 
 msgid "Log out all"
@@ -1728,12 +1854,6 @@ msgstr ""
 msgid "No codes found to suspend trading."
 msgstr ""
 
-msgid "Please enable Momoka to support sending posts on Lens."
-msgstr ""
-
-msgid "First time connecting to Firefly?<0/><1>Approve a new connection</1> with Warpcast"
-msgstr ""
-
 msgid "Buy Tax: {0}%"
 msgstr ""
 
@@ -1749,19 +1869,16 @@ msgstr ""
 msgid "Article added to your Bookmarks"
 msgstr ""
 
-msgid "{type, select, comment {Comments} mirror {{0}} reaction {Likes} act {Collects} other {Other}}"
+msgid "Create a Post"
 msgstr ""
 
-msgid "This Action has not yet been registered. Only use it if you trust the source."
+msgid "{type, select, comment {Comments} mirror {{0}} reaction {Likes} act {Collects} other {Other}}"
 msgstr ""
 
 msgid "You may lose your assets if giving approval to the website of this token."
 msgstr ""
 
 msgid "Unfollow"
-msgstr ""
-
-msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} <4>acted on your </4><5>{1, select, Post {post} Comment {comment} Quote {quote} Mirror {mirror} other {post}}</5>"
 msgstr ""
 
 msgid "Your {0} account is now connected."
@@ -1779,10 +1896,19 @@ msgstr ""
 msgid "If a suspendable code is included, the token maybe neither be bought nor sold (honeypot risk)."
 msgstr ""
 
+msgid "Display Name should not exceed {maxDisplayNameSize} characters"
+msgstr ""
+
 msgid "<0/> quoted your <1>{0, select, Post {post} Comment {comment} Quote {quote} Mirror {mirror} other {post}}</1>"
 msgstr ""
 
+msgid "Failed to send tip."
+msgstr ""
+
 msgid "Connecting Wallet"
+msgstr ""
+
+msgid "{minutes}m left"
 msgstr ""
 
 msgid "Total Supply"
@@ -1794,9 +1920,6 @@ msgstr ""
 msgid "Your name"
 msgstr ""
 
-msgid "Articles from @{handleOrEnsOrAddress} will now be hidden in your home timeline"
-msgstr ""
-
 msgid "Owned"
 msgstr ""
 
@@ -1804,6 +1927,9 @@ msgid "Associated wallets"
 msgstr ""
 
 msgid "The whitelist function is included. Some addresses may not be able to trade normally (honeypot risk)."
+msgstr ""
+
+msgid "Hide tokens with small balances"
 msgstr ""
 
 msgid "News"
@@ -1815,7 +1941,7 @@ msgstr ""
 msgid "Farcaster channel"
 msgstr ""
 
-msgid "Completed"
+msgid "Failed to send tip. Please try again later."
 msgstr ""
 
 msgid "Failed to unmirror post."
@@ -1828,6 +1954,12 @@ msgid "Failed to fetch as ArrayBuffer."
 msgstr ""
 
 msgid "Statistic"
+msgstr ""
+
+msgid "Failed to upload. Video length exceeds {minDuration}s ~ {maxDuration}s"
+msgstr ""
+
+msgid "Post collected successfully!"
 msgstr ""
 
 msgid "Your post have published successfully on {0}."
@@ -1851,16 +1983,22 @@ msgstr ""
 msgid "No available token"
 msgstr ""
 
-msgid "Send tips to {0}"
+msgid "Invalid URL"
 msgstr ""
 
 msgid "View on explorer"
+msgstr ""
+
+msgid "Already logged in?<0/>Approve the <1>existing Farcaster signer</1> to Firefly or <2>sync</2> through the app"
 msgstr ""
 
 msgid "Unmute @{0}"
 msgstr ""
 
 msgid "Unauthorized. Please check your login."
+msgstr ""
+
+msgid "Failed to upload. Video size exceeds {minWidth}x{minHeight} ~ {maxWidth}x{maxHeight}"
 msgstr ""
 
 msgid "Mask Network"
@@ -1902,6 +2040,9 @@ msgstr ""
 msgid "No matching users"
 msgstr ""
 
+msgid "Website should not exceed {maxWebsiteSize} characters"
+msgstr ""
+
 msgid "Save"
 msgstr ""
 
@@ -1909,6 +2050,9 @@ msgid "<0/> and <1>{0} others</1>"
 msgstr ""
 
 msgid "<0>since </0> <1>{0}</1>"
+msgstr ""
+
+msgid "{hours}h left"
 msgstr ""
 
 msgid "Events"
@@ -1935,7 +2079,7 @@ msgstr ""
 msgid "No anti_whale(Unlimited number of transactions)"
 msgstr ""
 
-msgid "Failed to send tips, please try again later."
+msgid "Failed to collect post."
 msgstr ""
 
 msgid "<0>Burned</0> an NFT"
@@ -1951,6 +2095,9 @@ msgid "Profile"
 msgstr ""
 
 msgid "QUOTE"
+msgstr ""
+
+msgid "Wallet Provider"
 msgstr ""
 
 msgid "Collect"
@@ -1972,6 +2119,9 @@ msgid "Address on Watching Lists"
 msgstr ""
 
 msgid "FREE"
+msgstr ""
+
+msgid "Sign to enable signless"
 msgstr ""
 
 msgid "Profiles"
@@ -2005,6 +2155,9 @@ msgid "This is not an airdrop scam. Many scams attract users through airdrops."
 msgstr ""
 
 msgid "GIF"
+msgstr ""
+
+msgid "Collect for {0} {1}"
 msgstr ""
 
 msgid "Recast"
@@ -2095,6 +2248,9 @@ msgid "Are you sure you want to report this user?"
 msgstr ""
 
 msgid "Likes"
+msgstr ""
+
+msgid "× {0}"
 msgstr ""
 
 msgid "Blink Validator"

@@ -3,6 +3,7 @@ import { t, Trans } from '@lingui/macro';
 import { EVMExplorerResolver } from '@masknet/web3-providers';
 import { ChainId } from '@masknet/web3-shared-evm';
 import { useQuery, useSuspenseQuery } from '@tanstack/react-query';
+import DOMPurify from 'dompurify';
 import urlcat from 'urlcat';
 import { useDocumentTitle } from 'usehooks-ts';
 import { checksumAddress } from 'viem';
@@ -117,9 +118,13 @@ export function ArticleDetailPage({ params: { id: articleId } }: PageProps) {
                 </div>
                 {isMuted ? (
                     <CollapsedContent className="mt-2" authorMuted isQuote={false} />
+                ) : article.platform === ArticlePlatform.Limo ? (
+                    // The content returned by limo is html.
+                    // eslint-disable-next-line react/no-danger
+                    <div dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(article.content) }} />
                 ) : (
                     <ArticleMarkup
-                        className="markup linkify break-words text-[15px]"
+                        className="markup linkify break-words text-medium"
                         imageProps={{ disableLoadHandler: true, style: { objectFit: 'cover' } }}
                     >
                         {article.content}

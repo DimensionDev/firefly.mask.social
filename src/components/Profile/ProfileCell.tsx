@@ -40,9 +40,9 @@ export function ProfileCell({ profile, source, className, ...rest }: Props) {
                 <div className="mr-auto flex max-w-[calc(100%-16px-40px-16px-32px)] flex-col">
                     <div className="flex-start flex items-center truncate text-sm font-bold leading-5">
                         <div className="text-l mr-2 max-w-full truncate text-main">{profile.displayName}</div>
-                        <SocialSourceIcon source={source} size={16} />
+                        <SocialSourceIcon source={source} size={16} className="flex-shrink-0" />
                     </div>
-                    <div className="flex items-center gap-2 text-[15px] text-sm leading-[24px] text-secondary">
+                    <div className="flex items-center gap-2 text-medium text-sm leading-[24px] text-secondary">
                         <p className="truncate">@{profile.handle}</p>
                     </div>
                 </div>

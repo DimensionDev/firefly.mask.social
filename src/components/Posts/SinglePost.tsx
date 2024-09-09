@@ -52,6 +52,7 @@ export const SinglePost = memo<SinglePostProps>(function SinglePost({
     const pathname = usePathname();
 
     const isPostPage = isRoutePathname(pathname, '/post/:detail', true);
+    const isProfilePage = isRoutePathname(pathname, '/profile/:id', true);
     const isChannelPage = isRoutePathname(pathname, '/channel/:detail', true);
     const postLink = getPostUrl(post);
     const muted = useIsProfileMuted(post.author);
@@ -61,10 +62,11 @@ export const SinglePost = memo<SinglePostProps>(function SinglePost({
     const show = useMemo(() => {
         if (post.source === Source.Twitter) return false;
         if (!post.isThread || isPostPage) return false;
-
         if (post.source === Source.Farcaster && post.stats?.comments === 0) return false;
         return true;
     }, [post, isPostPage]);
+
+    const showPostAction = !isDetail && (isProfilePage || !post.isHidden || !muted);
 
     return (
         <motion.article
@@ -88,7 +90,7 @@ export const SinglePost = memo<SinglePostProps>(function SinglePost({
                 return;
             }}
         >
-            {!isComment ? <FeedActionType post={post} listKey={listKey} index={index} /> : null}
+            {!isComment ? <FeedActionType isDetail={isDetail} post={post} listKey={listKey} index={index} /> : null}
 
             <PostHeader
                 isComment={isComment}
@@ -105,7 +107,7 @@ export const SinglePost = memo<SinglePostProps>(function SinglePost({
                 isDetail={isDetail}
                 isComment={isComment}
             />
-            {!post.isHidden && !muted && !isDetail ? (
+            {showPostAction ? (
                 <PostActions
                     className={isComment && !isSmall ? '!ml-[52px]' : ''}
                     post={post}
@@ -118,7 +120,7 @@ export const SinglePost = memo<SinglePostProps>(function SinglePost({
             ) : null}
 
             {show ? (
-                <div className="mt-2 w-full cursor-pointer text-center text-[15px] font-bold text-lightHighlight">
+                <div className="mt-2 w-full cursor-pointer text-center text-medium font-bold text-lightHighlight">
                     <div>
                         <Trans>Show More</Trans>
                     </div>

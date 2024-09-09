@@ -1,10 +1,11 @@
 import { t } from '@lingui/macro';
 import { compact } from 'lodash-es';
-import type { TweetV2PaginableTimelineResult, UserV2, UserV2MuteResult } from 'twitter-api-v2';
+import type { TweetV2PaginableTimelineResult, Tweetv2TimelineResult, UserV2, UserV2MuteResult } from 'twitter-api-v2';
 import urlcat from 'urlcat';
 
 import { FireflyPlatform, Source } from '@/constants/enum.js';
 import { NotImplementedError } from '@/constants/error.js';
+import { SetQueryDataForActPost } from '@/decorators/setQueryDataForActPost.js';
 import { SetQueryDataForBlockProfile } from '@/decorators/SetQueryDataForBlockProfile.js';
 import { SetQueryDataForBookmarkPost } from '@/decorators/SetQueryDataForBookmarkPost.js';
 import { SetQueryDataForCommentPost } from '@/decorators/SetQueryDataForCommentPost.js';
@@ -15,6 +16,7 @@ import { SetQueryDataForMirrorPost } from '@/decorators/SetQueryDataForMirrorPos
 import { formatTweetsPage } from '@/helpers/formatTwitterPost.js';
 import { formatTwitterProfile } from '@/helpers/formatTwitterProfile.js';
 import { type Pageable, type PageIndicator } from '@/helpers/pageable.js';
+import { resolveTCOLink } from '@/helpers/resolveTCOLink.js';
 import { resolveTwitterReplyRestriction } from '@/helpers/resolveTwitterReplyRestriction.js';
 import { runInSafe } from '@/helpers/runInSafe.js';
 import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
@@ -26,6 +28,7 @@ import {
     type Notification,
     type Post,
     type Profile,
+    type ProfileEditable,
     ProfileStatus,
     type Provider,
     SessionType,
@@ -39,6 +42,7 @@ import type { ResponseJSON } from '@/types/index.js';
 @SetQueryDataForDeletePost(Source.Twitter)
 @SetQueryDataForFollowProfile(Source.Twitter)
 @SetQueryDataForBlockProfile(Source.Twitter)
+@SetQueryDataForActPost(Source.Twitter)
 class TwitterSocialMedia implements Provider {
     async unmirrorPost(postId: string, authorId?: number | undefined): Promise<void> {
         const response = await twitterSessionHolder.fetch<ResponseJSON<void>>(`/api/twitter/unretweet/${postId}`, {
@@ -76,6 +80,14 @@ class TwitterSocialMedia implements Provider {
     }
 
     getProfilesByAddress(address: string): Promise<Profile[]> {
+        throw new NotImplementedError();
+    }
+
+    getHiddenComments(postId: string, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
+        throw new NotImplementedError();
+    }
+
+    actPost(postId: string, options: unknown): Promise<void> {
         throw new NotImplementedError();
     }
 
@@ -180,6 +192,9 @@ class TwitterSocialMedia implements Provider {
     async getProfileById(profileId: string): Promise<Profile> {
         const response = await twitterSessionHolder.fetch<ResponseJSON<UserV2>>(`/api/twitter/user/${profileId}`);
         if (!response.success) throw new Error(response.error.message);
+        response.data.url = response.data.url
+            ? (await resolveTCOLink(response.data.url)) ?? response.data.url
+            : response.data.url;
         return formatTwitterProfile(response.data);
     }
 
@@ -188,12 +203,18 @@ class TwitterSocialMedia implements Provider {
             headers: TwitterSession.payloadToHeaders(payload),
         });
         if (!response.success) throw new Error(response.error.message);
+        response.data.url = response.data.url
+            ? (await resolveTCOLink(response.data.url)) ?? response.data.url
+            : response.data.url;
         return formatTwitterProfile(response.data);
     }
 
     async getProfileByHandle(handle: string): Promise<Profile> {
         const response = await twitterSessionHolder.fetch<ResponseJSON<UserV2>>(`/api/twitter/username/${handle}`);
         if (!response.success) throw new Error(response.error.message);
+        response.data.url = response.data.url
+            ? (await resolveTCOLink(response.data.url)) ?? response.data.url
+            : response.data.url;
         return formatTwitterProfile(response.data);
     }
 
@@ -273,8 +294,15 @@ class TwitterSocialMedia implements Provider {
         if (!response.success) throw new Error(response.error.message);
     }
 
-    searchPosts(q: string, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
-        throw new NotImplementedError();
+    async searchPosts(q: string, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
+        const url = urlcat(`/api/twitter/search/recent`, {
+            limit: 25,
+            cursor: indicator?.id,
+            query: q,
+        });
+        const response = await twitterSessionHolder.fetch<ResponseJSON<Tweetv2TimelineResult>>(url, {}, true);
+        if (!response.success) throw new Error(response.error.message);
+        return formatTweetsPage(response.data, indicator);
     }
 
     searchProfiles(q: string, indicator?: PageIndicator): Promise<Pageable<Profile, PageIndicator>> {
@@ -492,6 +520,29 @@ class TwitterSocialMedia implements Provider {
     }
     async reportPost(post: Post): Promise<boolean> {
         throw new NotImplementedError();
+    }
+    async uploadProfileAvatar(file: File) {
+        const formData = new FormData();
+        formData.set('file', file);
+        const res = await twitterSessionHolder.fetch<ResponseJSON<{ pfp: string }>>('/api/twitter/me/avatar', {
+            method: 'PUT',
+            body: formData,
+        });
+        if (!res.success) throw new Error(t`Failed to avatar.`);
+        return res.data.pfp;
+    }
+    async updateProfile(profile: ProfileEditable): Promise<boolean> {
+        const res = await twitterSessionHolder.fetch<ResponseJSON<{}>>('/api/twitter/me', {
+            method: 'PUT',
+            body: JSON.stringify({
+                name: profile.displayName,
+                description: profile.bio,
+                location: profile.location,
+                url: profile.website,
+            }),
+        });
+        if (!res.success) throw new Error(res.error.message);
+        return true;
     }
 }
 
