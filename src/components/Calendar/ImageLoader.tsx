@@ -37,10 +37,11 @@ const useStyles = makeStyles()((theme) => ({
 }));
 
 export function ImageLoader({ src }: ImageLoaderProps) {
-    const [loaded, setLoaded] = useState(false);
-    const [failed, setFailed] = useState(false);
     const { classes } = useStyles();
     const theme = useTheme();
+
+    const [loaded, setLoaded] = useState(false);
+    const [failed, setFailed] = useState(false);
 
     return (
         <div className={classes.container}>

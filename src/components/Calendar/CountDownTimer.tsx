@@ -30,9 +30,8 @@ const calculateRemainingTime = (targetDate: Date) => {
 };
 
 export function CountdownTimer({ targetDate }: CountDownTimerProps) {
-    const [remainingTime, setRemainingTime] = useState(() => calculateRemainingTime(targetDate));
-
     const { classes } = useStyles();
+    const [remainingTime, setRemainingTime] = useState(() => calculateRemainingTime(targetDate));
 
     useEffect(() => {
         const interval = setInterval(() => {

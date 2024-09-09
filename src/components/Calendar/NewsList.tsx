@@ -111,11 +111,9 @@ interface NewsListProps {
 
 export function NewsList({ list, isLoading, empty, date }: NewsListProps) {
     const { classes, cx } = useStyles();
-
     const futureNewsList = useMemo(() => {
         return Object.keys(list).filter((key) => new Date(key) >= date);
     }, [list, date]);
-
     const listRef = useCallback((el: HTMLDivElement | null) => {
         el?.scrollTo({ top: 0 });
     }, []);
