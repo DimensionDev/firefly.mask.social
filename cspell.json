@@ -180,6 +180,7 @@
     ],
     "flagWords": [],
     "ignorePaths": [
+        "*.svg",
         "pnpm-lock.yaml",
         "scripts/**",
         "patches/**",
