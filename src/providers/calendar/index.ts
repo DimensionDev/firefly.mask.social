@@ -1,3 +1,5 @@
+/* cspell:disable */
+
 import urlcat from 'urlcat';
 
 import { fetchCachedJSON } from '@/helpers/fetchJSON.js';
