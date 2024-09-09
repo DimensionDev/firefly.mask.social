@@ -145,6 +145,8 @@ interface CrossPostOptions {
     skipCheckPublished?: boolean;
     // skip report crossed post
     skipReportCrossedPost?: boolean;
+    // abort signal
+    signal?: AbortSignal;
 }
 
 export async function crossPost(
@@ -157,6 +159,7 @@ export async function crossPost(
         skipCheckPublished = false,
         skipRefreshFeeds = false,
         skipReportCrossedPost = false,
+        signal,
     }: CrossPostOptions = {},
 ) {
     const { updatePostInThread } = useComposeStateStore.getState();
@@ -195,7 +198,7 @@ export async function crossPost(
             }
 
             try {
-                const result = await resolvePostTo(source)(type, compositePost);
+                const result = await resolvePostTo(source)(type, compositePost, signal);
                 updatePostInThread(compositePost.id, (post) => ({
                     ...post,
                     postError: {

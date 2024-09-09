@@ -1,6 +1,13 @@
 import type { Address } from 'viem';
 
-import { FireflyPlatform, NetworkType, type SocialSourceInURL, type Source, WalletSource } from '@/constants/enum.js';
+import {
+    FireflyPlatform,
+    NetworkType,
+    S3ConvertStatus,
+    type SocialSourceInURL,
+    type Source,
+    WalletSource,
+} from '@/constants/enum.js';
 import type { ArticlePlatform, ArticleType } from '@/providers/types/Article.js';
 import type { Token as DebankToken } from '@/providers/types/Debank.js';
 import type { ComposeType } from '@/types/compose.js';
@@ -961,4 +968,15 @@ export type MessageToSignResponse = Response<{
 export type WalletLoginResponse = Response<{
     accessToken: string;
     accountId: string;
+}>;
+
+export type ConvertM3u8Response = Response<{
+    m3u8Url: string;
+    jobId: string;
+}>;
+
+export type ConvertM3u8StatusResponse = Response<{
+    code: boolean;
+    jobId: string;
+    status: S3ConvertStatus;
 }>;
