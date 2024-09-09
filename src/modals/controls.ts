@@ -1,7 +1,7 @@
 import { SingletonModal } from '@/libs/SingletonModal.js';
 import type { AddWalletModalProps } from '@/modals/AddWalletModal.js';
 import type { CollectArticleModalOpenProps } from '@/modals/CollectArticleModal.js';
-import type { CollectPostModalOpenProps } from '@/modals/CollectPostModal.jsx';
+import type { CollectPostModalOpenProps } from '@/modals/CollectPostModal.js';
 import type { ComposeModalCloseProps, ComposeModalOpenProps } from '@/modals/ComposeModal.js';
 import type { ConfirmFireflyModalCloseProps, ConfirmFireflyModalOpenProps } from '@/modals/ConfirmFireflyModal.js';
 import type { ConfirmLeavingModalCloseProps, ConfirmLeavingModalOpenProps } from '@/modals/ConfirmLeavingModal.js';

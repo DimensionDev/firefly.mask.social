@@ -5,11 +5,11 @@ import { TabContext, TabPanel } from '@mui/lab';
 import { Tab } from '@mui/material';
 import { useMemo, useState } from 'react';
 
-import { DatePickerTab } from '@/components/Calendar/components/DatePickerTab.jsx';
-import { EventList } from '@/components/Calendar/components/EventList.jsx';
-import { Footer } from '@/components/Calendar/components/Footer.jsx';
-import { NewsList } from '@/components/Calendar/components/NewsList.jsx';
-import { NFTList } from '@/components/Calendar/components/NFTList.jsx';
+import { DatePickerTab } from '@/components/Calendar/components/DatePickerTab.js';
+import { EventList } from '@/components/Calendar/components/EventList.js';
+import { Footer } from '@/components/Calendar/components/Footer.js';
+import { NewsList } from '@/components/Calendar/components/NewsList.js';
+import { NFTList } from '@/components/Calendar/components/NFTList.js';
 import { useEventList, useNewsList, useNFTList } from '@/components/hooks/useEventList.js';
 import { EMPTY_OBJECT } from '@/constants/index.js';
 

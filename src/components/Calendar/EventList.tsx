@@ -6,7 +6,7 @@ import { Link, Typography } from '@mui/material';
 import dayjs from 'dayjs';
 import { useCallback, useMemo } from 'react';
 
-import { ImageLoader } from '@/components/Calendar/components/ImageLoader.jsx';
+import { ImageLoader } from '@/components/Calendar/components/ImageLoader.js';
 
 const useStyles = makeStyles()((theme) => ({
     container: {
