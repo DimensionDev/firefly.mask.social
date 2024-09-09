@@ -130,13 +130,7 @@ const sortPlat = (_: any, b: { type: string }) => {
 export function NFTList({ list, isLoading, empty, date }: NFTListProps) {
     const { classes, cx } = useStyles();
     const listAfterDate = useMemo(() => {
-        const listAfterDate: string[] = [];
-        for (const key in list) {
-            if (new Date(key) >= date) {
-                listAfterDate.push(key);
-            }
-        }
-        return listAfterDate;
+        return Object.keys(list).filter((key) => new Date(key) >= date);
     }, [list, date]);
 
     const listRef = useCallback((el: HTMLDivElement | null) => {

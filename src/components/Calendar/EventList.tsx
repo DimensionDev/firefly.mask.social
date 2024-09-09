@@ -100,13 +100,7 @@ interface EventListProps {
 export function EventList({ list, isLoading, empty, date }: EventListProps) {
     const { classes, cx } = useStyles();
     const futureEvents = useMemo(() => {
-        const listAfterDate: string[] = [];
-        for (const key in list) {
-            if (new Date(key) >= date) {
-                listAfterDate.push(key);
-            }
-        }
-        return listAfterDate;
+        return Object.keys(list).filter((key) => new Date(key) >= date);
     }, [list, date]);
 
     const listRef = useCallback((el: HTMLDivElement | null) => {
