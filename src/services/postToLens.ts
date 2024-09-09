@@ -286,7 +286,10 @@ export async function postToLens(type: ComposeType, compositePost: CompositePost
             return Promise.all(
                 (video?.file ? [video] : []).map(async (media) => {
                     if (resolveVideoUrl(Source.Lens, media)) return media;
-                    return createS3MediaObject(await uploadAndConvertToM3u8(media.file, SourceInURL.Lens, signal), media);
+                    return createS3MediaObject(
+                        await uploadAndConvertToM3u8(media.file, SourceInURL.Lens, signal),
+                        media,
+                    );
                 }),
             );
         },
