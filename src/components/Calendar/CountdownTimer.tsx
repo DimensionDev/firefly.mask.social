@@ -19,7 +19,7 @@ const useStyles = makeStyles()((theme) => ({
     },
 }));
 
-interface CountDownTimerProps {
+interface CountdownTimerProps {
     targetDate: Date;
 }
 
@@ -29,7 +29,7 @@ const calculateRemainingTime = (targetDate: Date) => {
     return difference > 0 ? difference : 0;
 };
 
-export function CountdownTimer({ targetDate }: CountDownTimerProps) {
+export function CountdownTimer({ targetDate }: CountdownTimerProps) {
     const { classes } = useStyles();
     const [remainingTime, setRemainingTime] = useState(() => calculateRemainingTime(targetDate));
 
