@@ -7,8 +7,8 @@ import { type ReactNode, useCallback, useMemo } from 'react';
 
 import DiscordRoundIcon from '@/assets/discord-round.svg';
 import WebsiteIcon from '@/assets/website.svg';
-import TwitterIcon from '@/assets/x.svg';
-import { CountdownTimer } from '@/components/Calendar/CountDownTimer.js';
+import { CountdownTimer } from '@/components/Calendar/CountdownTimer.js';
+import { XIcon } from '@/components/XIcon.js';
 
 const useStyles = makeStyles()((theme) => ({
     container: {
@@ -117,7 +117,7 @@ interface NFTListProps {
 }
 
 const socialIcons: Record<string, ReactNode> = {
-    twitter: <TwitterIcon width={18} height={18} />,
+    twitter: <XIcon width={18} height={18} />,
     discord: <DiscordRoundIcon width={20} height={18} color="#000" />,
     website: <WebsiteIcon width={20} height={18} />,
 };

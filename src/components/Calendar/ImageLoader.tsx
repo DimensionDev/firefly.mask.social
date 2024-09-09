@@ -8,8 +8,8 @@ interface ImageLoaderProps {
     src: string;
 }
 
-const MASK_DARK_FALLBACK = new URL('../assets/mask.dark.svg', import.meta.url).href;
-const MASK_LIGHT_FALLBACK = new URL('../assets/mask.light.svg', import.meta.url).href;
+const MASK_DARK_FALLBACK = new URL('./assets/mask.dark.svg', import.meta.url).href;
+const MASK_LIGHT_FALLBACK = new URL('./assets/mask.light.svg', import.meta.url).href;
 
 const useStyles = makeStyles()((theme) => ({
     container: {
