@@ -49,7 +49,7 @@ interface TabsProps {
 }
 
 export function ProfileContentTabs({ profileId, source }: TabsProps) {
-    const [currentTab, setCurrentTab] = useStateWithSearchParams<ProfileTabType>('profile_tab', ProfileTabType.Feed);
+    const [currentTab, setCurrentTab] = useStateWithSearchParams('profile_tab', ProfileTabType.Feed);
 
     const computedCurrentTab = SORTED_PROFILE_TAB_TYPE[source].includes(currentTab) ? currentTab : ProfileTabType.Feed;
 
