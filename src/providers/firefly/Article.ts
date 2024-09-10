@@ -1,3 +1,4 @@
+import type { WaitForTransactionReceiptReturnType } from '@wagmi/core';
 import { compact, first } from 'lodash-es';
 import urlcat from 'urlcat';
 
@@ -21,14 +22,12 @@ import { type Article, type ArticleCollectable, ArticlePlatform, type Provider }
 import {
     type Article as FFArticle,
     type BookmarkResponse,
+    type DigestResponse,
     type DiscoverArticlesResponse,
     type GetArticleDetailResponse,
     type GetFollowingArticlesResponse,
-    type DigestResponse,
 } from '@/providers/types/Firefly.js';
 import { settings } from '@/settings/index.js';
-import { link } from 'fs';
-import type { WaitForTransactionReceiptReturnType } from '@wagmi/core';
 
 class FireflyArticle implements Provider {
     getArticleCollectableByDigest(digest: string): Promise<ArticleCollectable> {

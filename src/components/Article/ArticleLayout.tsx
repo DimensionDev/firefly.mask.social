@@ -1,37 +1,37 @@
 'use client';
 
 import { t } from '@lingui/macro';
+import { useQuery } from '@tanstack/react-query';
 import DOMPurify from 'dompurify';
+import { motion } from 'framer-motion';
 import { useRouter } from 'next/navigation.js';
 import { memo } from 'react';
 import urlcat from 'urlcat';
 import { useEnsName } from 'wagmi';
-import { motion } from 'framer-motion';
 
 import CollectIcon from '@/assets/collect.svg';
-import { Tooltip } from '@/components/Tooltip.js';
-import { useIsMedium } from '@/hooks/useMediaQuery.js';
+import { ArticleCollect } from '@/components/Article/ArticleCollect.js';
 import { ArticleShare } from '@/components/Article/ArticleShare.js';
 import { Avatar } from '@/components/Avatar.js';
 import { ClickableArea } from '@/components/ClickableArea.js';
 import { ArticleMarkup } from '@/components/Markup/ArticleMarkup.js';
+import { ImageAsset } from '@/components/Posts/ImageAsset.js';
 import { TimestampFormatter } from '@/components/TimeStampFormatter.js';
 import { Tips } from '@/components/Tips/index.js';
+import { Tooltip } from '@/components/Tooltip.js';
 import { IS_APPLE, IS_SAFARI } from '@/constants/bowser.js';
 import { PageRoute, SearchType, Source, SourceInURL } from '@/constants/enum.js';
 import { Link } from '@/esm/Link.js';
 import { classNames } from '@/helpers/classNames.js';
+import { fetchJSON } from '@/helpers/fetchJSON.js';
 import { getArticleUrl } from '@/helpers/getArticleUrl.js';
 import { resolveArticlePlatformIcon } from '@/helpers/resolveArticlePlatformIcon.js';
 import { useFireflyIdentity } from '@/hooks/useFireflyIdentity.js';
-import { type Article, ArticlePlatform } from '@/providers/types/Article.js';
+import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import { CollectArticleModalRef, DraggablePopoverRef, PreviewMediaModalRef } from '@/modals/controls.js';
-import { ArticleCollect } from '@/components/Article/ArticleCollect.js';
-import { fetchJSON } from '@/helpers/fetchJSON.js';
+import { type Article, ArticlePlatform } from '@/providers/types/Article.js';
 import type { ResponseJSON } from '@/types/index.js';
 import { type LinkDigested, PayloadType } from '@/types/og.js';
-import { useQuery } from '@tanstack/react-query';
-import { ImageAsset } from '@/components/Posts/ImageAsset.js';
 
 interface ArticleLayoutProps {
     article: Article;
