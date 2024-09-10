@@ -219,9 +219,6 @@ msgstr ""
 msgid "FAILED POST"
 msgstr ""
 
-msgid "OpenGraph"
-msgstr ""
-
 msgid "Trending"
 msgstr ""
 
@@ -612,6 +609,9 @@ msgstr ""
 msgid "Follow more friends to continue exploring on {0}."
 msgstr ""
 
+msgid "Session Validator"
+msgstr ""
+
 msgid "THREAD POST"
 msgstr ""
 
@@ -694,9 +694,6 @@ msgid "This token contract has a code that states that it cannot be sold. Maybe 
 msgstr ""
 
 msgid "REPLY to<0><1>@{0}</1></0>"
-msgstr ""
-
-msgid "Frame"
 msgstr ""
 
 msgid "Directory"
@@ -889,6 +886,9 @@ msgid "Sold Out"
 msgstr ""
 
 msgid "Proxy contract"
+msgstr ""
+
+msgid "Failed to fetch profile."
 msgstr ""
 
 msgid "The contract owner has the authority to modify the balance of tokens at other addresses, which may result in a loss of assets."
@@ -1191,9 +1191,6 @@ msgstr ""
 msgid "Unmute {handleOrEnsOrAddress}"
 msgstr ""
 
-msgid "Blink"
-msgstr ""
-
 msgid "Failed to disconnect wallet from your social graph."
 msgstr ""
 
@@ -1329,6 +1326,9 @@ msgstr ""
 msgid "Feedback"
 msgstr ""
 
+msgid "Your serialized session"
+msgstr ""
+
 msgid "GIFs"
 msgstr ""
 
@@ -1414,6 +1414,9 @@ msgid "Upload to S3"
 msgstr ""
 
 msgid "{shares, plural, one {Recast or Quote} other {Recasts or Quotes}}"
+msgstr ""
+
+msgid "Please input the serialized session to be validated."
 msgstr ""
 
 msgid "Failed to update profile."
