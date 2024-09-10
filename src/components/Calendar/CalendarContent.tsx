@@ -57,24 +57,24 @@ export function CalendarContent() {
     };
 
     return (
-        <div className="relative mb-5 flex flex-col rounded-md border border-line bg-lightMain">
+        <div className="relative mb-5 flex flex-col rounded-xl">
             <Tab.Group selectedIndex={currentTabIndex} onChange={setCurrentTabIndex}>
-                <Tab.List className="rounded-t-[12px] bg-opacity-80 px-4 py-2" style={{ backgroundColor: '#9250FF80' }}>
+                <Tab.List className="rounded-t-xl bg-opacity-80 px-4 py-2" style={{ backgroundColor: '#9250FF' }}>
                     {tabs.map((x) => (
                         <Tab className="font-bold" key={x.value}>
                             {x.label}
                         </Tab>
                     ))}
                 </Tab.List>
-                <DatePickerTab
+                {/* <DatePickerTab
                     open={open}
                     setOpen={setOpen}
                     selectedDate={selectedDate}
                     setSelectedDate={setSelectedDate}
                     list={getListItems()}
                     currentTab={currentTab}
-                />
-                <Tab.Panels>
+                /> */}
+                <Tab.Panels className="rounded-b-xl border border-t-0 border-line">
                     <Tab.Panel className="px-3">
                         <NewsList
                             list={newsList}
