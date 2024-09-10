@@ -61,7 +61,7 @@ export const PostBody = forwardRef<HTMLDivElement, PostBodyProps>(function PostB
         isQuote = false,
         isReply = false,
         isDetail = false,
-        showMore = false,
+        showMore = !isDetail,
         disablePadding = false,
         showTranslate = false,
     },
