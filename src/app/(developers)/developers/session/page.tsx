@@ -8,12 +8,12 @@ import { useAsyncFn } from 'react-use';
 import { Headline } from '@/app/(settings)/components/Headline.js';
 import { Section } from '@/app/(settings)/components/Section.js';
 import { ClickableButton } from '@/components/ClickableButton.js';
-import { classNames } from '@/helpers/classNames.js';
-import { SessionFactory } from '@/providers/base/SessionFactory.js';
-import type { Profile } from '@/providers/types/SocialMedia.js';
 import { ProfileAvatar } from '@/components/ProfileAvatar.js';
 import { ProfileName } from '@/components/ProfileName.js';
+import { classNames } from '@/helpers/classNames.js';
 import { getProfileBySession } from '@/helpers/getProfileBySession.js';
+import { SessionFactory } from '@/providers/base/SessionFactory.js';
+import type { Profile } from '@/providers/types/SocialMedia.js';
 
 export default function Page() {
     const [serializedSession, setSerializedSession] = useState('');
