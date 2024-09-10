@@ -2,25 +2,25 @@
 
 import { ArrowPathRoundedSquareIcon } from '@heroicons/react/24/outline';
 import { t, Trans } from '@lingui/macro';
+import { safeUnreachable } from '@masknet/kit';
 import { useState } from 'react';
 import { useAsyncFn } from 'react-use';
 
 import { Headline } from '@/app/(settings)/components/Headline.js';
 import { Section } from '@/app/(settings)/components/Section.js';
 import { ClickableButton } from '@/components/ClickableButton.js';
-import { classNames } from '@/helpers/classNames.js';
-import { SessionFactory } from '@/providers/base/SessionFactory.js';
-import { SessionType } from '@/providers/types/SocialMedia.js';
-import type { Profile } from '@/providers/types/SocialMedia.js';
 import { ProfileAvatar } from '@/components/ProfileAvatar.js';
 import { ProfileName } from '@/components/ProfileName.js';
-import type { Session } from '@/providers/types/Session.js';
-import { TwitterSocialMediaProvider } from '@/providers/twitter/SocialMedia.js';
-import type { TwitterSession } from '@/providers/twitter/Session.js';
-import { safeUnreachable } from '@masknet/kit';
 import { NotAllowedError } from '@/constants/error.js';
-import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
+import { classNames } from '@/helpers/classNames.js';
+import { SessionFactory } from '@/providers/base/SessionFactory.js';
 import { FarcasterSocialMediaProvider } from '@/providers/farcaster/SocialMedia.js';
+import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
+import type { TwitterSession } from '@/providers/twitter/Session.js';
+import { TwitterSocialMediaProvider } from '@/providers/twitter/SocialMedia.js';
+import type { Session } from '@/providers/types/Session.js';
+import type { Profile } from '@/providers/types/SocialMedia.js';
+import { SessionType } from '@/providers/types/SocialMedia.js';
 
 async function getProfileBySession(session: Session) {
     switch (session.type) {
