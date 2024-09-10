@@ -27,7 +27,7 @@ export function EventList({ list, isLoading, empty, date }: EventListProps) {
 
     return (
         <div
-            className="scrollbar-none relative mb-[50px] flex h-[506px] w-full flex-col gap-10 overflow-y-scroll"
+            className="scrollbar-none relative mb-[50px] flex h-[506px] w-full flex-col gap-[10px] overflow-y-scroll"
             ref={listRef}
             key={date.toISOString()}
         >
@@ -45,13 +45,13 @@ export function EventList({ list, isLoading, empty, date }: EventListProps) {
                     futureEvents.map((key) => {
                         return (
                             <div key={key}>
-                                <Typography className={'leading-18 py-10 font-bold text-main'}>
+                                <Typography className={'leading-18 py-[10px] font-bold text-main'}>
                                     {dayjs(new Date(key)).format('MMM dd,yyy')}
                                 </Typography>
                                 {list[key].map((v) => (
                                     <Link
                                         key={v.event_url}
-                                        className={'flex cursor-pointer flex-col gap-8 p-8 hover:no-underline'}
+                                        className={'flex cursor-pointer flex-col gap-2 p-2 hover:no-underline'}
                                         href={v.event_url}
                                         rel="noopener noreferrer"
                                         target="_blank"

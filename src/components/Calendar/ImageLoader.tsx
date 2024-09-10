@@ -18,14 +18,14 @@ export function ImageLoader({ src }: ImageLoaderProps) {
     const [failed, setFailed] = useState(false);
 
     return (
-        <div className="rounded-8 relative flex h-[156px] w-full items-center justify-center bg-bg">
+        <div className="relative flex h-[156px] w-full items-center justify-center rounded-md bg-bg">
             {!failed ? (
                 <Image
                     alt="poster"
                     src={src}
                     width={60}
                     height={60}
-                    className="rounded-8 h-[156px] w-full object-cover"
+                    className="h-[156px] w-full rounded-md object-cover"
                     onLoad={() => setLoaded(true)}
                     onError={() => {
                         setFailed(true);

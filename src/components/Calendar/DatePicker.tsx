@@ -124,7 +124,7 @@ export function DatePicker({ selectedDate, setSelectedDate, open, setOpen, curre
         );
 
         return (
-            <div className="absolute -left-4 z-50 flex h-[355px] w-[320px] flex-col gap-6 rounded-2xl bg-bottom p-6 shadow-md">
+            <div className="absolute -left-4 z-50 flex h-[355px] w-[320px] flex-col gap-[6px] rounded-2xl bg-bottom p-[6px] shadow-md">
                 <div className="flex items-center justify-between">
                     <Typography className="text-2xl font-bold text-main">{format(currentDate, 'MMMM yyyy')}</Typography>
                     <Box className="flex items-center">

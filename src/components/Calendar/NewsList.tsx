@@ -25,7 +25,7 @@ export function NewsList({ list, isLoading, empty, date }: NewsListProps) {
 
     return (
         <div
-            className="scrollbar-none relative mb-[50px] flex h-[506px] w-full flex-col gap-10 overflow-y-scroll"
+            className="scrollbar-none relative mb-[50px] flex h-[506px] w-full flex-col gap-[10px] overflow-y-scroll"
             ref={listRef}
             key={date.toISOString()}
         >
@@ -33,8 +33,8 @@ export function NewsList({ list, isLoading, empty, date }: NewsListProps) {
                 {isLoading && !list?.length ? (
                     <div
                         className={classNames(
-                            'absolute left-1/2 top-1/2 flex -translate-x-1/2 -translate-y-1/2 transform flex-col gap-12 whitespace-nowrap text-second',
-                            'text-14 leading-18 font-normal text-main',
+                            'absolute left-1/2 top-1/2 flex -translate-x-1/2 -translate-y-1/2 transform flex-col gap-3 whitespace-nowrap text-second',
+                            'leading-18 font-normal text-main',
                         )}
                     >
                         <LoadingStatus />
@@ -43,19 +43,19 @@ export function NewsList({ list, isLoading, empty, date }: NewsListProps) {
                     futureNewsList.map((key) => {
                         return (
                             <div key={key}>
-                                <Typography className="text-14 leading-18 py-10 font-bold text-main">
+                                <Typography className="leading-18 py-[10px] font-bold text-main">
                                     {dayjs(new Date(key)).format('MMM dd,yyy')}
                                 </Typography>
                                 {list[key].map((v) => (
                                     <Link
                                         key={v.event_url}
                                         href={v.event_url}
-                                        className="leading-16 text-12 flex cursor-pointer flex-col gap-8 border-b border-line pb-8 font-bold hover:no-underline"
+                                        className="leading-16 text-12 flex cursor-pointer flex-col gap-2 border-b border-line pb-2 font-bold hover:no-underline"
                                         rel="noopener noreferrer"
                                         target="_blank"
                                     >
                                         <div className="flex w-full justify-between">
-                                            <div className="flex items-center gap-8">
+                                            <div className="flex items-center gap-2">
                                                 <Image
                                                     className="overflow-hidden rounded-full"
                                                     src={v.project.logo}
@@ -71,10 +71,10 @@ export function NewsList({ list, isLoading, empty, date }: NewsListProps) {
                                                 {v.event_type}
                                             </Typography>
                                         </div>
-                                        <Typography className="text-14 leading-18 font-normal text-main">
+                                        <Typography className="leading-18 font-normal text-main">
                                             {v.event_title}
                                         </Typography>
-                                        <Typography className="text-13 leading-18 font-normal text-second">
+                                        <Typography className="leading-18 font-normal text-second">
                                             {v.event_description}
                                         </Typography>
                                     </Link>
@@ -85,7 +85,7 @@ export function NewsList({ list, isLoading, empty, date }: NewsListProps) {
                 ) : (
                     <EmptyStatus
                         className={
-                            'absolute left-1/2 top-1/2 flex -translate-x-1/2 -translate-y-1/2 transform flex-col gap-12 whitespace-nowrap text-second'
+                            'absolute left-1/2 top-1/2 flex -translate-x-1/2 -translate-y-1/2 transform flex-col gap-3 whitespace-nowrap text-second'
                         }
                     >
                         <Trans>No content for the last two weeks.</Trans>

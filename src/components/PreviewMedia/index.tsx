@@ -96,7 +96,7 @@ export function PreviewMedia({ post, source, medias, index, open, showAction = t
                     </Swiper>
                 </div>
                 <div className="absolute my-1 flex items-center justify-between bottom-safe">
-                    {post && showAction ? <PostActionsWithGrid className="gap-8" post={post} disablePadding /> : null}
+                    {post && showAction ? <PostActionsWithGrid className="gap-2" post={post} disablePadding /> : null}
                 </div>
             </div>
         </Modal>

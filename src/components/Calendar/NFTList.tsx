@@ -47,7 +47,7 @@ export function NFTList({ list, isLoading, empty, date }: NFTListProps) {
                 {isLoading && !list?.length ? (
                     <div
                         className={classNames(
-                            'absolute left-1/2 top-1/2 flex -translate-x-1/2 -translate-y-1/2 transform flex-col gap-12 whitespace-nowrap text-second',
+                            'absolute left-1/2 top-1/2 flex -translate-x-1/2 -translate-y-1/2 transform flex-col gap-3 whitespace-nowrap text-second',
                             'leading-18 overflow-hidden overflow-ellipsis whitespace-nowrap text-main',
                         )}
                     >
@@ -57,19 +57,19 @@ export function NFTList({ list, isLoading, empty, date }: NFTListProps) {
                     listAfterDate.map((key) => {
                         return (
                             <div key={key}>
-                                <Typography className="text-14 leading-18 py-10 font-bold text-main">
+                                <Typography className="leading-18 py-[10px] font-bold text-main">
                                     {dayjs(new Date(key)).format('MMM dd,yyy')}
                                 </Typography>
                                 {list[key].map((v) => (
                                     <Link
                                         key={v.event_url}
-                                        className="leading-16 text-12 flex cursor-pointer flex-col gap-8 font-bold hover:no-underline"
+                                        className="leading-16 text-12 flex cursor-pointer flex-col gap-2 font-bold hover:no-underline"
                                         href={v.event_url}
                                         rel="noopener noreferrer"
                                         target="_blank"
                                     >
                                         <div className="flex w-full justify-between">
-                                            <div className="flex items-center gap-8 text-main">
+                                            <div className="flex items-center gap-2 text-main">
                                                 <Image
                                                     src={v.project.logo}
                                                     className="overflow-hidden rounded-full"
@@ -82,12 +82,12 @@ export function NFTList({ list, isLoading, empty, date }: NFTListProps) {
                                                 </Typography>
                                             </div>
                                         </div>
-                                        <Typography className="text-14 leading-18 overflow-hidden overflow-ellipsis whitespace-nowrap font-normal text-main">
+                                        <Typography className="leading-18 overflow-hidden overflow-ellipsis whitespace-nowrap text-main">
                                             {v.project.description}
                                         </Typography>
                                         <div className="flex w-full justify-between">
                                             <CountdownTimer targetDate={new Date(v.event_date)} />
-                                            <div className="flex items-center gap-8">
+                                            <div className="flex items-center gap-2">
                                                 {v.project.links
                                                     .sort(sortPlat)
                                                     .map((platform: { type: string; url: string }) => {
@@ -110,7 +110,7 @@ export function NFTList({ list, isLoading, empty, date }: NFTListProps) {
                                             <Typography className="leading-18 text-second">
                                                 <Trans>Total</Trans>
                                             </Typography>
-                                            <Typography className="text-14 leading-18 overflow-hidden overflow-ellipsis whitespace-nowrap font-normal text-main">
+                                            <Typography className="leading-18 overflow-hidden overflow-ellipsis whitespace-nowrap text-main">
                                                 {Number(v.ext_info.nft_info.total).toLocaleString('en-US')}
                                             </Typography>
                                         </div>
@@ -118,7 +118,7 @@ export function NFTList({ list, isLoading, empty, date }: NFTListProps) {
                                             <Typography className="leading-18 text-second">
                                                 <Trans>Price</Trans>
                                             </Typography>
-                                            <Typography className="text-14 leading-18 overflow-hidden overflow-ellipsis whitespace-nowrap font-normal text-main">
+                                            <Typography className="leading-18 overflow-hidden overflow-ellipsis whitespace-nowrap text-main">
                                                 {v.ext_info.nft_info.token}
                                             </Typography>
                                         </div>
@@ -126,12 +126,12 @@ export function NFTList({ list, isLoading, empty, date }: NFTListProps) {
                                             <Typography className="leading-18 text-second">
                                                 <Trans>Date</Trans>
                                             </Typography>
-                                            <Typography className="text-14 leading-18 overflow-hidden overflow-ellipsis whitespace-nowrap font-normal text-main">
+                                            <Typography className="leading-18 overflow-hidden overflow-ellipsis whitespace-nowrap font-normal text-main">
                                                 {dayjs(new Date(v.event_date)).format('MMM dd, yyyy HH:mm')}
                                             </Typography>
                                         </div>
                                         <Image
-                                            className="rounded-8 h-156 w-full object-cover"
+                                            className="h-[156px] w-full rounded-md object-cover"
                                             src={v.poster_url}
                                             alt="poster"
                                         />
