@@ -14,10 +14,10 @@ import { router, TipsRoutePath } from '@/components/Tips/TipsModalRouter.js';
 import { TokenIcon } from '@/components/Tips/TokenIcon.js';
 import { TokenItem } from '@/components/Tips/TokenItem.js';
 import { classNames } from '@/helpers/classNames.js';
+import { isSameEthereumAddress } from '@/helpers/isSameAddress.js';
 import { isGreaterThan, isLessThan } from '@/helpers/number.js';
 import { TipsContext } from '@/hooks/useTipsContext.js';
 import { useTipsTokens } from '@/hooks/useTipsTokens.js';
-import { isSameEthereumAddress } from '@/helpers/isSameAddress.js';
 
 export const TokenSelector = memo(function TokenSelector() {
     const [search, setSearch] = useState('');

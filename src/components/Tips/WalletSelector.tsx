@@ -7,9 +7,9 @@ import { AddressLink } from '@/components/Tips/AddressLink.js';
 import { router, TipsRoutePath } from '@/components/Tips/TipsModalRouter.js';
 import { classNames } from '@/helpers/classNames.js';
 import { formatEthereumAddress } from '@/helpers/formatAddress.js';
+import { isSameEthereumAddress } from '@/helpers/isSameAddress.js';
 import { TipsContext, type TipsProfile } from '@/hooks/useTipsContext.js';
 import type { WalletProfile } from '@/providers/types/Firefly.js';
-import { isSameEthereumAddress } from '@/helpers/isSameAddress.js';
 
 const WalletSelector = memo<{ onSelected: () => void }>(function WalletSelector({ onSelected }) {
     const { recipientList, recipient: selectedRecipient, update } = TipsContext.useContainer();
