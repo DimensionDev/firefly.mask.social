@@ -35,6 +35,19 @@ function isValidPostLink(url: string) {
     return true;
 }
 
+async function getArticleIdFromURL(url: string) {
+    if (LIMO_REGEXP.test(url)) {
+        return Md5.hashStr(url);
+    }
+    if (MIRROR_ARTICLE_REGEXP.test(url)) {
+        return url.match(MIRROR_ARTICLE_REGEXP)?.[1];
+    }
+    if (PARAGRAPH_ARTICLE_REGEXP.test(url)) {
+        return await FireflyArticleProvider.getParagraphArticleIdWithLink(url);
+    }
+    return;
+}
+
 export async function getPostFrame(url: string): Promise<Frame | null> {
     if (env.external.NEXT_PUBLIC_FRAME !== STATUS.Enabled) return null;
     if (!url || !isValidPostLink(url)) return null;
@@ -95,15 +108,7 @@ export async function getPostLinks(url: string, post: Post) {
                 const realUrl = (await resolveTCOLink(url)) ?? url;
                 if (!realUrl) return null;
 
-                let id;
-                if (LIMO_REGEXP.test(realUrl)) {
-                    id = Md5.hashStr(realUrl);
-                } else if (MIRROR_ARTICLE_REGEXP.test(realUrl)) {
-                    id = realUrl.match(MIRROR_ARTICLE_REGEXP)?.[1];
-                } else if (PARAGRAPH_ARTICLE_REGEXP.test(realUrl)) {
-                    id = await FireflyArticleProvider.getParagraphArticleIdWithLink(realUrl);
-                }
-
+                const id = await getArticleIdFromURL(realUrl);
                 if (!id) return null;
 
                 const article = await FireflyArticleProvider.getArticleById(id);
