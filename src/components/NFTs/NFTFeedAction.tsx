@@ -11,7 +11,7 @@ import SendIcon from '@/assets/nft-action/send.svg';
 import { TokenPrice } from '@/components/TokenPrice.js';
 import { formatEthereumAddress } from '@/helpers/formatAddress.js';
 import { formatBalance } from '@/helpers/formatBalance.js';
-import { isSameAddress } from '@/helpers/isSameAddress.js';
+import { isSameEthereumAddress } from '@/helpers/isSameAddress.js';
 import { resolveCoinGeckoTokenSymbol } from '@/helpers/resolveCoinGeckoTokenSymbol.js';
 import { type NFTActionCost, NFTFeedTransAction } from '@/providers/types/NFTs.js';
 
@@ -61,7 +61,7 @@ export function NFTFeedAction({ action, ownerAddress, toAddress, fromAddress, co
                     </>
                 );
             case NFTFeedTransAction.Transfer:
-                if (isSameAddress(toAddress, ownerAddress)) {
+                if (isSameEthereumAddress(toAddress, ownerAddress)) {
                     return (
                         <>
                             <AcquiredIcon
@@ -115,7 +115,7 @@ export function NFTFeedAction({ action, ownerAddress, toAddress, fromAddress, co
                     </>
                 );
             case NFTFeedTransAction.Trade:
-                if (isSameAddress(toAddress, ownerAddress)) {
+                if (isSameEthereumAddress(toAddress, ownerAddress)) {
                     return (
                         <>
                             <BuyIcon width={iconSize} height={iconSize} className="mb-auto mt-[3px] min-w-[18px]" />

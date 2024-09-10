@@ -1,5 +1,15 @@
+import { t } from '@lingui/macro';
+
 import { ToolkitList } from '@/app/(developers)/components/ToolkitList.js';
 import { NavigatorBar } from '@/components/NavigatorBar/index.js';
+import { createPageTitleSSR } from '@/helpers/createPageTitle.js';
+import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
+
+export async function generateMetadata() {
+    return createSiteMetadata({
+        title: createPageTitleSSR(t`Developers`),
+    });
+}
 
 export default function Layout({ children }: { children: React.ReactNode }) {
     return (
