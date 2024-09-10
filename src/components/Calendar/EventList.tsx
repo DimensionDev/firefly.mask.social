@@ -1,5 +1,4 @@
 import { Trans } from '@lingui/macro';
-import { makeStyles, MaskColors } from '@masknet/theme';
 import { resolveIPFS_URL } from '@masknet/web3-shared-base';
 import { Link, Typography } from '@mui/material';
 import dayjs from 'dayjs';
@@ -9,91 +8,7 @@ import { EmptyStatus } from '@/components/Calendar/EmptyStatus.js';
 import { ImageLoader } from '@/components/Calendar/ImageLoader.js';
 import { LoadingStatus } from '@/components/Calendar/LoadingStatus.js';
 import { Image } from '@/components/Image.js';
-
-const useStyles = makeStyles()((theme) => ({
-    container: {
-        display: 'flex',
-        flexDirection: 'column',
-        height: '506px',
-        width: '100%',
-        overflowY: 'scroll',
-        position: 'relative',
-        gap: '10px',
-        scrollbarWidth: 'none',
-        '&::-webkit-scrollbar': {
-            display: 'none',
-        },
-        marginBottom: '50px',
-    },
-    paddingWrap: {
-        paddingRight: '12px',
-    },
-    empty: {
-        position: 'absolute',
-        top: '50%',
-        left: '50%',
-        transform: 'translate(-50%,-50%)',
-        display: 'flex',
-        alignItems: 'center',
-        flexDirection: 'column',
-        gap: 12,
-        color: MaskColors[theme.palette.mode].maskColor.second,
-        whiteSpace: 'nowrap',
-    },
-    eventCard: {
-        display: 'flex',
-        padding: '8px 0',
-        flexDirection: 'column',
-        gap: '8px',
-        cursor: 'pointer',
-        '&:hover': {
-            textDecoration: 'none',
-        },
-    },
-    eventHeader: {
-        display: 'flex',
-        width: '100%',
-        justifyContent: 'space-between',
-    },
-    projectWrap: {
-        display: 'flex',
-        gap: 8,
-        alignItems: 'center',
-        color: MaskColors[theme.palette.mode].maskColor.main,
-    },
-    projectName: {
-        color: MaskColors[theme.palette.mode].maskColor.main,
-        fontSize: '12px',
-        fontWeight: 700,
-        lineHeight: '16px',
-    },
-    logo: {
-        borderRadius: '50%',
-        overflow: 'hidden',
-    },
-    eventTitle: {
-        fontSize: '14px',
-        fontWeight: 400,
-        lineHeight: '18px',
-        color:
-            theme.palette.mode === 'dark'
-                ? MaskColors[theme.palette.mode].maskColor.second
-                : MaskColors[theme.palette.mode].maskColor.main,
-    },
-    time: {
-        fontSize: '14px',
-        fontWeight: 400,
-        lineHeight: '18px',
-        color: MaskColors[theme.palette.mode].maskColor.second,
-    },
-    dateDiv: {
-        fontSize: '14px',
-        fontWeight: 700,
-        lineHeight: '18px',
-        color: MaskColors[theme.palette.mode].maskColor.main,
-        padding: '10px 0',
-    },
-}));
+import { classNames } from '@/helpers/classNames.js';
 
 interface EventListProps {
     list: Record<string, any[]>;
@@ -103,7 +18,6 @@ interface EventListProps {
 }
 
 export function EventList({ list, isLoading, empty, date }: EventListProps) {
-    const { classes, cx } = useStyles();
     const futureEvents = useMemo(() => {
         return Object.keys(list).filter((key) => new Date(key) >= date);
     }, [list, date]);
@@ -112,43 +26,52 @@ export function EventList({ list, isLoading, empty, date }: EventListProps) {
     }, []);
 
     return (
-        <div className={classes.container} ref={listRef} key={date.toISOString()}>
-            <div className={classes.paddingWrap}>
+        <div
+            className="scrollbar-none relative mb-[50px] flex h-[506px] w-full flex-col gap-10 overflow-y-scroll"
+            ref={listRef}
+            key={date.toISOString()}
+        >
+            <div className="pr-3">
                 {isLoading && !list?.length ? (
-                    <div className={cx(classes.empty, classes.eventTitle)}>
+                    <div
+                        className={classNames(
+                            'absolute left-1/2 top-1/2 flex -translate-x-1/2 -translate-y-1/2 transform flex-col gap-3 whitespace-nowrap text-second',
+                            'leading-18',
+                        )}
+                    >
                         <LoadingStatus />
                     </div>
                 ) : !empty && futureEvents.length ? (
                     futureEvents.map((key) => {
                         return (
                             <div key={key}>
-                                <Typography className={classes.dateDiv}>
+                                <Typography className={'leading-18 py-10 font-bold text-main'}>
                                     {dayjs(new Date(key)).format('MMM dd,yyy')}
                                 </Typography>
                                 {list[key].map((v) => (
                                     <Link
                                         key={v.event_url}
-                                        className={classes.eventCard}
+                                        className={'flex cursor-pointer flex-col gap-8 p-8 hover:no-underline'}
                                         href={v.event_url}
                                         rel="noopener noreferrer"
                                         target="_blank"
                                     >
-                                        <div className={classes.eventHeader}>
-                                            <div className={classes.projectWrap}>
+                                        <div className={'flex w-full justify-between'}>
+                                            <div className={'flex items-center gap-2 text-main'}>
                                                 <Image
                                                     src={resolveIPFS_URL(v.project.logo)!}
-                                                    className={classes.logo}
+                                                    className={'overflow-hidden rounded-full'}
                                                     width={24}
                                                     height={24}
                                                     alt={v.project.name}
                                                 />
-                                                <Typography className={classes.projectName}>
+                                                <Typography className={'leading-16 text-sm font-bold text-main'}>
                                                     {v.project.name}
                                                 </Typography>
                                             </div>
                                         </div>
-                                        <Typography className={classes.eventTitle}>{v.event_title}</Typography>
-                                        <Typography className={classes.time}>
+                                        <Typography className={'leading-18'}>{v.event_title}</Typography>
+                                        <Typography className={'leading-18 text-second'}>
                                             {dayjs(new Date(v.event_date)).format('MMM dd, yyyy HH:mm')}
                                         </Typography>
                                         <ImageLoader src={v.poster_url} />
@@ -158,7 +81,11 @@ export function EventList({ list, isLoading, empty, date }: EventListProps) {
                         );
                     })
                 ) : (
-                    <EmptyStatus className={classes.empty}>
+                    <EmptyStatus
+                        className={
+                            'absolute left-1/2 top-1/2 flex -translate-x-1/2 -translate-y-1/2 transform flex-col gap-3 whitespace-nowrap text-second'
+                        }
+                    >
                         <Trans>No content for the last two weeks.</Trans>
                     </EmptyStatus>
                 )}

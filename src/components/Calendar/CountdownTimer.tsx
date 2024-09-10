@@ -1,23 +1,7 @@
 import { Trans } from '@lingui/macro';
-import { makeStyles, MaskColors } from '@masknet/theme';
 import { Typography } from '@mui/material';
 import { differenceInSeconds } from 'date-fns';
 import { useEffect, useState } from 'react';
-
-const useStyles = makeStyles()((theme) => ({
-    timer: {
-        fontSize: '12px',
-        fontWeight: 400,
-        lineHeight: '16px',
-        background: MaskColors[theme.palette.mode].maskColor.bg,
-        color: MaskColors[theme.palette.mode].maskColor.main,
-        borderRadius: '4px',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        padding: '2px',
-    },
-}));
 
 interface CountdownTimerProps {
     targetDate: Date;
@@ -30,7 +14,6 @@ const calculateRemainingTime = (targetDate: Date) => {
 };
 
 export function CountdownTimer({ targetDate }: CountdownTimerProps) {
-    const { classes } = useStyles();
     const [remainingTime, setRemainingTime] = useState(() => calculateRemainingTime(targetDate));
 
     useEffect(() => {
@@ -52,7 +35,7 @@ export function CountdownTimer({ targetDate }: CountdownTimerProps) {
     const seconds = remainingTime % 60;
 
     return (
-        <Typography className={classes.timer}>
+        <Typography className="flex items-center justify-center rounded-md bg-bg p-[2px] text-xs leading-4 text-main">
             {remainingTime === 0 ? <Trans>Expired</Trans> : `${days}d :${hours}h :${minutes}m :${seconds}s`}
         </Typography>
     );

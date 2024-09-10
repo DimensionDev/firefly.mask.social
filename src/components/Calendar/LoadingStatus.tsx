@@ -1,25 +1,9 @@
 import { Trans } from '@lingui/macro';
-import { LoadingBase, makeStyles, MaskColors } from '@masknet/theme';
+import { LoadingBase } from '@masknet/theme';
 import { Box, type BoxProps, Typography } from '@mui/material';
 import { memo } from 'react';
 
-const useStyles = makeStyles()((theme) => ({
-    statusBox: {
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        flexDirection: 'column',
-    },
-    icon: {
-        color: MaskColors[theme.palette.mode].maskColor.main,
-    },
-    text: {
-        color: MaskColors[theme.palette.mode].maskColor.second,
-        fontSize: '14px',
-        fontWeight: 400,
-        marginTop: theme.spacing(1.5),
-    },
-}));
+import { classNames } from '@/helpers/classNames.js';
 
 interface Props extends BoxProps {
     omitText?: boolean;
@@ -33,12 +17,11 @@ export const LoadingStatus = memo(function LoadingStatus({
     children,
     ...rest
 }: Props) {
-    const { classes, cx } = useStyles();
     return (
-        <Box className={cx(classes.statusBox, className)} p={2} {...rest}>
-            <LoadingBase size={iconSize} className={classes.icon} />
+        <Box className={classNames('flex flex-col items-center justify-center', className)} p={2} {...rest}>
+            <LoadingBase size={iconSize} className="text-main" />
             {omitText ? null : (
-                <Typography className={classes.text}>{children ?? <Trans>Loading...</Trans>}</Typography>
+                <Typography className="mt-1.5 text-secondary">{children ?? <Trans>Loading...</Trans>}</Typography>
             )}
         </Box>
     );

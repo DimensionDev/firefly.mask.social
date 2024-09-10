@@ -1,43 +1,9 @@
-import { makeStyles, MaskColors } from '@masknet/theme';
 import { ClickAwayListener, IconButton, Typography } from '@mui/material';
 import { eachDayOfInterval, endOfWeek, startOfWeek } from 'date-fns';
 import React, { useMemo } from 'react';
 
 import CalendarIcon from '@/assets/calendar.svg';
 import { DatePicker } from '@/components/Calendar/DatePicker.js';
-
-const useStyles = makeStyles()((theme) => ({
-    container: {
-        display: 'flex',
-        padding: '12px',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-        position: 'relative',
-    },
-    date: {
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        color: MaskColors[theme.palette.mode].maskColor.main,
-        fontSize: 16,
-        fontFamily: 'Helvetica',
-        fontWeight: '400',
-        lineHeight: 20,
-        borderRadius: 999,
-        textAlign: 'center',
-        width: '28px !important',
-        height: '28px !important',
-        border: `0.5px ${MaskColors[theme.palette.mode].maskColor.line} solid`,
-        cursor: 'pointer',
-    },
-    isActive: {
-        border: `0.5px ${MaskColors[theme.palette.mode].maskColor.main} solid`,
-    },
-    disabled: {
-        color: MaskColors[theme.palette.mode].maskColor.second,
-        cursor: 'default',
-    },
-}));
 
 interface DatePickerTabProps {
     open: boolean;
@@ -49,17 +15,16 @@ interface DatePickerTabProps {
 }
 
 export function DatePickerTab({ selectedDate, setSelectedDate, list, open, setOpen, currentTab }: DatePickerTabProps) {
-    const { classes } = useStyles();
     const week = useMemo(() => {
         return eachDayOfInterval({ start: startOfWeek(selectedDate), end: endOfWeek(selectedDate) });
     }, [selectedDate]);
     return (
-        <div className={classes.container}>
+        <div className="relative flex items-center justify-between px-12">
             {week.map((v) => {
                 return (
                     <div
-                        className={`${classes.date} ${selectedDate.getDate() === v.getDate() ? classes.isActive : ''} ${
-                            list && !list[v.toLocaleDateString()] ? classes.disabled : ''
+                        className={`leading-20 flex h-28 w-28 cursor-pointer items-center justify-center rounded-full border-line text-center text-main ${selectedDate.getDate() === v.getDate() ? 'text-main' : ''} ${
+                            list && !list[v.toLocaleDateString()] ? 'cursor-default text-second' : ''
                         }`}
                         key={v.toString()}
                         onClick={() => {

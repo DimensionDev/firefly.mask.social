@@ -3,7 +3,6 @@
 import { Tab } from '@headlessui/react';
 import { t } from '@lingui/macro';
 import { safeUnreachable } from '@masknet/kit';
-import { makeStyles, MaskColors } from '@masknet/theme';
 import { useState } from 'react';
 
 import { DatePickerTab } from '@/components/Calendar/DatePickerTab.js';
@@ -13,30 +12,6 @@ import { useEventList, useNewsList, useNFTList } from '@/components/Calendar/hoo
 import { NewsList } from '@/components/Calendar/NewsList.js';
 import { NFTList } from '@/components/Calendar/NFTList.js';
 import { EMPTY_OBJECT } from '@/constants/index.js';
-
-const useStyles = makeStyles()((theme) => ({
-    calendar: {
-        display: 'flex',
-        flexDirection: 'column',
-        borderRadius: '12px',
-        border: `1px solid ${MaskColors[theme.palette.mode].maskColor.line}`,
-        position: 'relative',
-        marginBottom: '20px',
-    },
-    tab: {
-        fontSize: 16,
-        fontWeight: 700,
-    },
-    tabList: {
-        background:
-            'linear-gradient(180deg, rgba(255, 255, 255, 0.00) 0%, rgba(255, 255, 255, 0.80) 100%), linear-gradient(90deg, rgba(28, 104, 243, 0.20) 0%, rgba(69, 163, 251, 0.20) 100%), #FFF',
-        padding: '8px 16px 0 16px',
-        borderRadius: '12px 12px 0 0',
-    },
-    tabPanel: {
-        padding: '0 4px 0 12px',
-    },
-}));
 
 export function CalendarContent() {
     const tabs = [
@@ -54,7 +29,6 @@ export function CalendarContent() {
         },
     ];
 
-    const { classes } = useStyles();
     const [currentTabIndex, setCurrentTabIndex] = useState(0);
     const [selectedDate, setSelectedDate] = useState(new Date());
     const [open, setOpen] = useState(false);
@@ -83,11 +57,11 @@ export function CalendarContent() {
     };
 
     return (
-        <div className={classes.calendar}>
+        <div className="border-1 relative mb-5 flex flex-col rounded-md border-line">
             <Tab.Group selectedIndex={currentTabIndex} onChange={setCurrentTabIndex}>
-                <Tab.List className={classes.tabList}>
+                <Tab.List className="via-opacity-20 rounded-t-[12px] bg-opacity-80 bg-gradient-to-b from-transparent via-white to-white px-4 py-2">
                     {tabs.map((x) => (
-                        <Tab className={classes.tab} key={x.value}>
+                        <Tab className="font-bold" key={x.value}>
                             {x.label}
                         </Tab>
                     ))}
@@ -101,7 +75,7 @@ export function CalendarContent() {
                     currentTab={currentTab}
                 />
                 <Tab.Panels>
-                    <Tab.Panel className={classes.tabPanel}>
+                    <Tab.Panel className="px-3">
                         <NewsList
                             list={newsList}
                             isLoading={newsLoading}
@@ -109,7 +83,7 @@ export function CalendarContent() {
                             date={selectedDate}
                         />
                     </Tab.Panel>
-                    <Tab.Panel className={classes.tabPanel}>
+                    <Tab.Panel className="px-3">
                         <EventList
                             list={eventList}
                             isLoading={eventLoading}
@@ -117,7 +91,7 @@ export function CalendarContent() {
                             date={selectedDate}
                         />
                     </Tab.Panel>
-                    <Tab.Panel className={classes.tabPanel}>
+                    <Tab.Panel className="px-3">
                         <NFTList
                             list={nftList}
                             isLoading={nftLoading}

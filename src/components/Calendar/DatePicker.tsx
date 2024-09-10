@@ -1,5 +1,4 @@
 import { safeUnreachable } from '@masknet/kit';
-import { makeStyles, MaskColors } from '@masknet/theme';
 import { Box, IconButton, Typography } from '@mui/material';
 import { addMonths, endOfMonth, format, isAfter, startOfMonth } from 'date-fns';
 import { range } from 'lodash-es';
@@ -8,73 +7,6 @@ import { useMemo, useState } from 'react';
 import LeftArrowIcon from '@/assets/left-arrow.svg';
 import RightArrowIcon from '@/assets/right-arrow.svg';
 import { useEventList, useNewsList, useNFTList } from '@/components/Calendar/hooks/useEventList.js';
-
-const useStyles = makeStyles<{ open: boolean }>()((theme, { open }) => ({
-    container: {
-        background: MaskColors[theme.palette.mode].maskColor.bottom,
-        boxShadow: '0px 4px 30px 0px rgba(0, 0, 0, 0.10)',
-        borderRadius: '16px',
-        display: open ? 'flex' : 'none',
-        flexDirection: 'column',
-        gap: '24px',
-        width: '320px',
-        height: '355px',
-        padding: '24px',
-        position: 'absolute',
-        left: '-16px',
-        zIndex: 999,
-    },
-    daysOfWeek: {
-        fontSize: 12,
-        fontWeight: 700,
-        color: MaskColors[theme.palette.mode].maskColor.third,
-        marginBottom: '24px',
-    },
-    header: {
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'space-between',
-    },
-    headerText: {
-        color: MaskColors[theme.palette.mode].maskColor.main,
-        fontSize: '24px',
-        fontWeight: 700,
-        lineHeight: '120%',
-    },
-    headerIcon: {
-        display: 'flex',
-        alignItems: 'center',
-    },
-    dateItem: {
-        fontSize: '16px',
-        fontWeight: 400,
-        lineHeight: '20px',
-        color: MaskColors[theme.palette.mode].maskColor.third,
-        width: '38px',
-        height: '38px',
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        borderRadius: 999,
-    },
-    row: {
-        marginBottom: '8px',
-    },
-    canClick: {
-        color: MaskColors[theme.palette.mode].maskColor.main,
-        cursor: 'pointer',
-    },
-    active: {
-        color: MaskColors[theme.palette.mode].maskColor.white,
-        background: MaskColors[theme.palette.mode].maskColor.primary,
-    },
-    button: {
-        outline: 'none',
-        background: 'none',
-        border: 'none',
-        padding: 0,
-    },
-}));
 
 interface DatePickerProps {
     open: boolean;
@@ -85,7 +17,6 @@ interface DatePickerProps {
 }
 
 export function DatePicker({ selectedDate, setSelectedDate, open, setOpen, currentTab }: DatePickerProps) {
-    const { classes } = useStyles({ open });
     const [currentDate, setCurrentDate] = useState(selectedDate);
     const monthStart = startOfMonth(currentDate);
     const startingDayOfWeek = monthStart.getDay();
@@ -130,7 +61,7 @@ export function DatePicker({ selectedDate, setSelectedDate, open, setOpen, curre
         const table = (
             <table>
                 <thead>
-                    <tr className={classes.daysOfWeek}>
+                    <tr className="mb-6 text-sm font-bold text-third">
                         {daysOfWeek.map((day) => (
                             <th key={day}>
                                 <Typography>{day}</Typography>
@@ -140,7 +71,7 @@ export function DatePicker({ selectedDate, setSelectedDate, open, setOpen, curre
                 </thead>
                 <tbody>
                     {range(6).map((weekIndex) => (
-                        <tr key={weekIndex} className={classes.row}>
+                        <tr key={weekIndex} className="mb-2">
                             {range(7).map((dayIndex) => {
                                 const dayOfMonth = weekIndex * 7 + dayIndex - startingDayOfWeek + 1;
                                 let currentDatePointer = new Date(
@@ -166,17 +97,17 @@ export function DatePicker({ selectedDate, setSelectedDate, open, setOpen, curre
                                 return (
                                     <td key={dayIndex}>
                                         <button
-                                            className={classes.button}
+                                            className="border-none bg-none p-0 outline-none"
                                             type="submit"
                                             disabled={!list?.[currentDatePointer.toLocaleDateString()]}
                                             onClick={() => handleDateClick(currentDatePointer)}
                                         >
                                             <Typography
-                                                className={`${classes.dateItem} ${
+                                                className={`flex h-[38px] w-[38px] items-center justify-center rounded-full text-base font-normal leading-5 text-third ${
                                                     selectedDate.toDateString() === currentDatePointer.toDateString()
-                                                        ? classes.active
+                                                        ? 'bg-bottom text-white'
                                                         : list?.[currentDatePointer.toLocaleDateString()]
-                                                          ? classes.canClick
+                                                          ? 'cursor-pointer text-main'
                                                           : ''
                                                 }`}
                                             >
@@ -193,10 +124,10 @@ export function DatePicker({ selectedDate, setSelectedDate, open, setOpen, curre
         );
 
         return (
-            <div className={classes.container}>
-                <div className={classes.header}>
-                    <Typography className={classes.headerText}>{format(currentDate, 'MMMM yyyy')}</Typography>
-                    <Box className={classes.headerIcon}>
+            <div className="absolute -left-4 z-50 flex h-[355px] w-[320px] flex-col gap-6 rounded-2xl bg-bottom p-6 shadow-md">
+                <div className="flex items-center justify-between">
+                    <Typography className="text-2xl font-bold text-main">{format(currentDate, 'MMMM yyyy')}</Typography>
+                    <Box className="flex items-center">
                         <IconButton size="small" onClick={() => changeMonth(-1)} disabled={isPrevMonthDisabled}>
                             <LeftArrowIcon width={24} height={24} />
                         </IconButton>

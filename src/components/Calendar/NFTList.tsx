@@ -1,5 +1,4 @@
 import { Trans } from '@lingui/macro';
-import { makeStyles, MaskColors } from '@masknet/theme';
 import { IconButton, Link, Typography } from '@mui/material';
 import dayjs from 'dayjs';
 import { type ReactNode, useCallback, useMemo } from 'react';
@@ -11,105 +10,7 @@ import { EmptyStatus } from '@/components/Calendar/EmptyStatus.js';
 import { LoadingStatus } from '@/components/Calendar/LoadingStatus.js';
 import { Image } from '@/components/Image.js';
 import { XIcon } from '@/components/XIcon.js';
-
-const useStyles = makeStyles()((theme) => ({
-    container: {
-        display: 'flex',
-        flexDirection: 'column',
-        height: '506px',
-        width: '100%',
-        overflowY: 'scroll',
-        position: 'relative',
-        gap: '10px',
-        scrollbarWidth: 'none',
-        '&::-webkit-scrollbar': {
-            display: 'none',
-        },
-        marginBottom: '50px',
-    },
-    paddingWrap: {
-        paddingRight: '12px',
-    },
-    empty: {
-        position: 'absolute',
-        top: '50%',
-        left: '50%',
-        transform: 'translate(-50%,-50%)',
-        display: 'flex',
-        alignItems: 'center',
-        flexDirection: 'column',
-        gap: 12,
-        color: MaskColors[theme.palette.mode].maskColor.second,
-        whiteSpace: 'nowrap',
-    },
-    eventCard: {
-        display: 'flex',
-        padding: '8px 0',
-        flexDirection: 'column',
-        gap: '8px',
-        fontWeight: 700,
-        lineHeight: '16px',
-        fontSize: '12px',
-        cursor: 'pointer',
-        '&:hover': {
-            textDecoration: 'none',
-        },
-    },
-    eventHeader: {
-        display: 'flex',
-        width: '100%',
-        justifyContent: 'space-between',
-    },
-    projectWrap: {
-        display: 'flex',
-        gap: 8,
-        alignItems: 'center',
-        color: MaskColors[theme.palette.mode].maskColor.main,
-    },
-    projectName: {
-        color: MaskColors[theme.palette.mode].maskColor.main,
-        fontSize: '12px',
-        fontWeight: 700,
-        lineHeight: '16px',
-    },
-    logo: {
-        borderRadius: '50%',
-        overflow: 'hidden',
-    },
-    eventTitle: {
-        fontSize: '14px',
-        fontWeight: 400,
-        lineHeight: '18px',
-        color: MaskColors[theme.palette.mode].maskColor.main,
-        whiteSpace: 'nowrap',
-        overflow: 'hidden',
-        textOverflow: 'ellipsis',
-    },
-    second: {
-        fontSize: '14px',
-        fontWeight: 400,
-        lineHeight: '18px',
-        color: MaskColors[theme.palette.mode].maskColor.second,
-    },
-    poster: {
-        borderRadius: '8px',
-        width: '100%',
-        height: '156px',
-        objectFit: 'cover',
-    },
-    dateDiv: {
-        fontSize: '14px',
-        fontWeight: 700,
-        lineHeight: '18px',
-        color: MaskColors[theme.palette.mode].maskColor.main,
-        padding: '10px 0',
-    },
-    socialLinks: {
-        display: 'flex',
-        gap: '8px',
-        alignItems: 'center',
-    },
-}));
+import { classNames } from '@/helpers/classNames.js';
 
 interface NFTListProps {
     list: Record<string, any[]>;
@@ -130,7 +31,6 @@ const sortPlat = (_: any, b: { type: string }) => {
 };
 
 export function NFTList({ list, isLoading, empty, date }: NFTListProps) {
-    const { classes, cx } = useStyles();
     const listAfterDate = useMemo(() => {
         return Object.keys(list).filter((key) => new Date(key) >= date);
     }, [list, date]);
@@ -138,45 +38,56 @@ export function NFTList({ list, isLoading, empty, date }: NFTListProps) {
         el?.scrollTo({ top: 0 });
     }, []);
     return (
-        <div className={classes.container} ref={listRef} key={date.toISOString()}>
-            <div className={classes.paddingWrap}>
+        <div
+            className="scrollbar-none relative mb-[50px] flex h-[506px] w-full flex-col gap-[10px] overflow-y-scroll"
+            ref={listRef}
+            key={date.toISOString()}
+        >
+            <div className="pr-3">
                 {isLoading && !list?.length ? (
-                    <div className={cx(classes.empty, classes.eventTitle)}>
+                    <div
+                        className={classNames(
+                            'absolute left-1/2 top-1/2 flex -translate-x-1/2 -translate-y-1/2 transform flex-col gap-12 whitespace-nowrap text-second',
+                            'leading-18 overflow-hidden overflow-ellipsis whitespace-nowrap text-main',
+                        )}
+                    >
                         <LoadingStatus />
                     </div>
                 ) : !empty && listAfterDate.length ? (
                     listAfterDate.map((key) => {
                         return (
                             <div key={key}>
-                                <Typography className={classes.dateDiv}>
+                                <Typography className="text-14 leading-18 py-10 font-bold text-main">
                                     {dayjs(new Date(key)).format('MMM dd,yyy')}
                                 </Typography>
                                 {list[key].map((v) => (
                                     <Link
                                         key={v.event_url}
-                                        className={classes.eventCard}
+                                        className="leading-16 text-12 flex cursor-pointer flex-col gap-8 font-bold hover:no-underline"
                                         href={v.event_url}
                                         rel="noopener noreferrer"
                                         target="_blank"
                                     >
-                                        <div className={classes.eventHeader}>
-                                            <div className={classes.projectWrap}>
+                                        <div className="flex w-full justify-between">
+                                            <div className="flex items-center gap-8 text-main">
                                                 <Image
                                                     src={v.project.logo}
-                                                    className={classes.logo}
+                                                    className="overflow-hidden rounded-full"
                                                     width={24}
                                                     height={24}
                                                     alt={v.project.name}
                                                 />
-                                                <Typography className={classes.projectName}>
+                                                <Typography className="text-12 leading-16 font-bold text-main">
                                                     {v.project.name}
                                                 </Typography>
                                             </div>
                                         </div>
-                                        <Typography className={classes.eventTitle}>{v.project.description}</Typography>
-                                        <div className={classes.eventHeader}>
+                                        <Typography className="text-14 leading-18 overflow-hidden overflow-ellipsis whitespace-nowrap font-normal text-main">
+                                            {v.project.description}
+                                        </Typography>
+                                        <div className="flex w-full justify-between">
                                             <CountdownTimer targetDate={new Date(v.event_date)} />
-                                            <div className={classes.socialLinks}>
+                                            <div className="flex items-center gap-8">
                                                 {v.project.links
                                                     .sort(sortPlat)
                                                     .map((platform: { type: string; url: string }) => {
@@ -195,38 +106,42 @@ export function NFTList({ list, isLoading, empty, date }: NFTListProps) {
                                                     })}
                                             </div>
                                         </div>
-                                        <div className={classes.eventHeader}>
-                                            <Typography className={classes.second}>
+                                        <div className="flex w-full justify-between">
+                                            <Typography className="leading-18 text-second">
                                                 <Trans>Total</Trans>
                                             </Typography>
-                                            <Typography className={classes.eventTitle}>
+                                            <Typography className="text-14 leading-18 overflow-hidden overflow-ellipsis whitespace-nowrap font-normal text-main">
                                                 {Number(v.ext_info.nft_info.total).toLocaleString('en-US')}
                                             </Typography>
                                         </div>
-                                        <div className={classes.eventHeader}>
-                                            <Typography className={classes.second}>
+                                        <div className="flex w-full justify-between">
+                                            <Typography className="leading-18 text-second">
                                                 <Trans>Price</Trans>
                                             </Typography>
-                                            <Typography className={classes.eventTitle}>
+                                            <Typography className="text-14 leading-18 overflow-hidden overflow-ellipsis whitespace-nowrap font-normal text-main">
                                                 {v.ext_info.nft_info.token}
                                             </Typography>
                                         </div>
-                                        <div className={classes.eventHeader}>
-                                            <Typography className={classes.second}>
+                                        <div className="flex w-full justify-between">
+                                            <Typography className="leading-18 text-second">
                                                 <Trans>Date</Trans>
                                             </Typography>
-                                            <Typography className={classes.eventTitle}>
+                                            <Typography className="text-14 leading-18 overflow-hidden overflow-ellipsis whitespace-nowrap font-normal text-main">
                                                 {dayjs(new Date(v.event_date)).format('MMM dd, yyyy HH:mm')}
                                             </Typography>
                                         </div>
-                                        <Image className={classes.poster} src={v.poster_url} alt="poster" />
+                                        <Image
+                                            className="rounded-8 h-156 w-full object-cover"
+                                            src={v.poster_url}
+                                            alt="poster"
+                                        />
                                     </Link>
                                 ))}
                             </div>
                         );
                     })
                 ) : (
-                    <EmptyStatus className={classes.empty}>
+                    <EmptyStatus className="absolute left-1/2 top-1/2 flex -translate-x-1/2 -translate-y-1/2 transform flex-col gap-3 whitespace-nowrap text-second">
                         <Trans>No content for the last two weeks.</Trans>
                     </EmptyStatus>
                 )}
