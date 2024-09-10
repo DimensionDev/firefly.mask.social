@@ -2,25 +2,19 @@
 
 import { ArrowPathRoundedSquareIcon } from '@heroicons/react/24/outline';
 import { t, Trans } from '@lingui/macro';
-import { useMemo, useState } from 'react';
+import { useState } from 'react';
 import { useAsyncFn } from 'react-use';
-import urlcat from 'urlcat';
 
 import { Headline } from '@/app/(settings)/components/Headline.js';
 import { Section } from '@/app/(settings)/components/Section.js';
 import { ClickableButton } from '@/components/ClickableButton.js';
-import { Frame as FrameUI } from '@/components/Frame/index.js';
-import { Source } from '@/constants/enum.js';
 import { classNames } from '@/helpers/classNames.js';
-import { createDummyPost } from '@/helpers/createDummyPost.js';
-import { fetchJSON } from '@/helpers/fetchJSON.js';
-import { isValidUrl } from '@/helpers/isValidUrl.js';
-import { SessionFactory } from '@/providers/base/SessionFactory.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { resolveSocialSourceFromSessionType } from '@/helpers/resolveSource.js';
+import { SessionFactory } from '@/providers/base/SessionFactory.js';
 import { SessionType } from '@/providers/types/SocialMedia.js';
 
-export default function Session() {
+export default function Page() {
     const [serializedSession, setSerializedSession] = useState('');
 
     const [{ error, loading }, onSubmit] = useAsyncFn(async () => {
@@ -40,7 +34,7 @@ export default function Session() {
     return (
         <Section>
             <Headline>
-                <Trans>Session</Trans>
+                <Trans>Session Validator</Trans>
             </Headline>
 
             <div className="mb-2 w-full">

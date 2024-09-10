@@ -29,7 +29,7 @@ type Item =
           onChange?: (ev: ChangeEvent<HTMLSelectElement>) => void;
       };
 
-export default function General() {
+export default function Page() {
     const { useDevelopmentAPI, updateUseDevelopmentAPI, providerType, updateProviderType } =
         useDeveloperSettingsState();
 

@@ -214,9 +214,6 @@ msgstr "Location should not exceed {maxLocationSize} characters"
 msgid "FAILED POST"
 msgstr "FAILED POST"
 
-msgid "OpenGraph"
-msgstr "OpenGraph"
-
 msgid "Trending"
 msgstr "Trending"
 
@@ -607,6 +604,9 @@ msgstr "[Photo]"
 msgid "Follow more friends to continue exploring on {0}."
 msgstr "Follow more friends to continue exploring on {0}."
 
+msgid "Session Validator"
+msgstr "Session Validator"
+
 msgid "THREAD POST"
 msgstr "THREAD POST"
 
@@ -690,9 +690,6 @@ msgstr "This token contract has a code that states that it cannot be sold. Maybe
 
 msgid "REPLY to<0><1>@{0}</1></0>"
 msgstr "REPLY to<0><1>@{0}</1></0>"
-
-msgid "Frame"
-msgstr "Frame"
 
 msgid "Directory"
 msgstr "Directory"
@@ -886,6 +883,9 @@ msgstr "Sold Out"
 msgid "Proxy contract"
 msgstr "Proxy contract"
 
+msgid "Failed to fetch profile."
+msgstr "Failed to fetch profile."
+
 msgid "The contract owner has the authority to modify the balance of tokens at other addresses, which may result in a loss of assets."
 msgstr "The contract owner has the authority to modify the balance of tokens at other addresses, which may result in a loss of assets."
 
@@ -948,6 +948,9 @@ msgstr "Failed to upload."
 
 msgid "{attentionFactors, plural, one {# Attention item} other {# Attention items}}"
 msgstr "{attentionFactors, plural, one {# Attention item} other {# Attention items}}"
+
+msgid "Please input the compact session to be validated."
+msgstr "Please input the compact session to be validated."
 
 msgid "Hide more comments"
 msgstr "Hide more comments"
@@ -1186,9 +1189,6 @@ msgstr "Details"
 msgid "Unmute {handleOrEnsOrAddress}"
 msgstr "Unmute {handleOrEnsOrAddress}"
 
-msgid "Blink"
-msgstr "Blink"
-
 msgid "Failed to disconnect wallet from your social graph."
 msgstr "Failed to disconnect wallet from your social graph."
 
@@ -1323,6 +1323,9 @@ msgstr "Exclusivity"
 
 msgid "Feedback"
 msgstr "Feedback"
+
+msgid "Your serialized session"
+msgstr "Your serialized session"
 
 msgid "GIFs"
 msgstr "GIFs"
