@@ -5,7 +5,6 @@ import { t } from '@lingui/macro';
 import { safeUnreachable } from '@masknet/kit';
 import { useState } from 'react';
 
-import { DatePickerTab } from '@/components/Calendar/DatePickerTab.js';
 import { EventList } from '@/components/Calendar/EventList.js';
 import { Footer } from '@/components/Calendar/Footer.js';
 import { useEventList, useNewsList, useNFTList } from '@/components/Calendar/hooks/useEventList.js';
