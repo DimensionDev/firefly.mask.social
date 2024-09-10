@@ -1,5 +1,4 @@
 import { Popover, Transition } from '@headlessui/react';
-import { isSameAddress } from '@masknet/web3-shared-base';
 import { Fragment, memo } from 'react';
 
 import ArrowDown from '@/assets/arrow-down.svg';
@@ -8,6 +7,7 @@ import { AddressLink } from '@/components/Tips/AddressLink.js';
 import { router, TipsRoutePath } from '@/components/Tips/TipsModalRouter.js';
 import { classNames } from '@/helpers/classNames.js';
 import { formatEthereumAddress } from '@/helpers/formatAddress.js';
+import { isSameEthereumAddress } from '@/helpers/isSameAddress.js';
 import { TipsContext, type TipsProfile } from '@/hooks/useTipsContext.js';
 import type { WalletProfile } from '@/providers/types/Firefly.js';
 
@@ -15,7 +15,7 @@ const WalletSelector = memo<{ onSelected: () => void }>(function WalletSelector(
     const { recipientList, recipient: selectedRecipient, update } = TipsContext.useContainer();
 
     const handleSelectRecipient = (recipient: TipsProfile) => {
-        if (!isSameAddress(recipient.address, selectedRecipient?.address)) {
+        if (!isSameEthereumAddress(recipient.address, selectedRecipient?.address)) {
             update((prev) => ({ ...prev, recipient }));
         }
         onSelected();
@@ -44,7 +44,9 @@ const WalletSelector = memo<{ onSelected: () => void }>(function WalletSelector(
                                 key={recipient.address}
                                 className={classNames(
                                     'flex w-full cursor-pointer items-center justify-center gap-x-1 rounded-lg px-3 py-2 font-bold text-lightMain hover:bg-lightBg',
-                                    isSameAddress(recipient.address, selectedRecipient?.address) ? 'opacity-50' : '',
+                                    isSameEthereumAddress(recipient.address, selectedRecipient?.address)
+                                        ? 'opacity-50'
+                                        : '',
                                 )}
                                 onClick={() => handleSelectRecipient(recipient)}
                             >

@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 
-import { getTimeLeft } from '@/helpers/getTimeLeft.js';
+import { getTimeLeft } from '@/helpers/formatTimestamp.js';
 
 function getDurationTextAt(intervalMinutes: number) {
     const now = new Date().getTime();

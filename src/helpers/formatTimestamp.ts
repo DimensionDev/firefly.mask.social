@@ -59,3 +59,17 @@ export function getTimeToNow(date: Date) {
 export function getTwitterFormat(date: Date | string | number) {
     return dayjs(new Date(date)).twitter();
 }
+
+export function getTimeLeft(endDatetime: string, startDatetime = new Date().toISOString()) {
+    const timeLeft = dayjs(endDatetime).diff(dayjs(startDatetime));
+    if (timeLeft < 0) return;
+
+    const duration = dayjs.duration(timeLeft);
+
+    return {
+        days: duration.days(),
+        hours: duration.hours(),
+        minutes: duration.minutes(),
+        seconds: duration.seconds(),
+    };
+}
