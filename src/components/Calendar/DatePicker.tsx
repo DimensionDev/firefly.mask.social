@@ -103,7 +103,7 @@ export function DatePicker({ selectedDate, setSelectedDate, open, setOpen, curre
                                             onClick={() => handleDateClick(currentDatePointer)}
                                         >
                                             <Typography
-                                                className={`flex h-[38px] w-[38px] items-center justify-center rounded-full text-base font-normal leading-5 text-third ${
+                                                className={`flex h-[38px] w-[38px] items-center justify-center rounded-full text-base leading-5 text-third ${
                                                     selectedDate.toDateString() === currentDatePointer.toDateString()
                                                         ? 'bg-bottom text-white'
                                                         : list?.[currentDatePointer.toLocaleDateString()]

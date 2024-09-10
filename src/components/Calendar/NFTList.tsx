@@ -10,7 +10,6 @@ import { EmptyStatus } from '@/components/Calendar/EmptyStatus.js';
 import { LoadingStatus } from '@/components/Calendar/LoadingStatus.js';
 import { Image } from '@/components/Image.js';
 import { XIcon } from '@/components/XIcon.js';
-import { classNames } from '@/helpers/classNames.js';
 
 interface NFTListProps {
     list: Record<string, any[]>;
@@ -45,12 +44,7 @@ export function NFTList({ list, isLoading, empty, date }: NFTListProps) {
         >
             <div className="pr-3">
                 {isLoading && !list?.length ? (
-                    <div
-                        className={classNames(
-                            'absolute left-1/2 top-1/2 flex -translate-x-1/2 -translate-y-1/2 transform flex-col gap-3 whitespace-nowrap text-second',
-                            'leading-18 overflow-hidden overflow-ellipsis whitespace-nowrap text-main',
-                        )}
-                    >
+                    <div className="leading-18 absolute left-1/2 top-1/2 flex -translate-x-1/2 -translate-y-1/2 transform flex-col gap-3 overflow-hidden overflow-ellipsis whitespace-nowrap text-main text-second">
                         <LoadingStatus />
                     </div>
                 ) : !empty && listAfterDate.length ? (
@@ -126,7 +120,7 @@ export function NFTList({ list, isLoading, empty, date }: NFTListProps) {
                                             <Typography className="leading-18 text-second">
                                                 <Trans>Date</Trans>
                                             </Typography>
-                                            <Typography className="leading-18 overflow-hidden overflow-ellipsis whitespace-nowrap font-normal text-main">
+                                            <Typography className="leading-18 overflow-hidden overflow-ellipsis whitespace-nowrap text-main">
                                                 {dayjs(new Date(v.event_date)).format('MMM dd, yyyy HH:mm')}
                                             </Typography>
                                         </div>

@@ -8,7 +8,6 @@ import { EmptyStatus } from '@/components/Calendar/EmptyStatus.js';
 import { ImageLoader } from '@/components/Calendar/ImageLoader.js';
 import { LoadingStatus } from '@/components/Calendar/LoadingStatus.js';
 import { Image } from '@/components/Image.js';
-import { classNames } from '@/helpers/classNames.js';
 
 interface EventListProps {
     list: Record<string, any[]>;
@@ -33,45 +32,40 @@ export function EventList({ list, isLoading, empty, date }: EventListProps) {
         >
             <div className="pr-3">
                 {isLoading && !list?.length ? (
-                    <div
-                        className={classNames(
-                            'absolute left-1/2 top-1/2 flex -translate-x-1/2 -translate-y-1/2 transform flex-col gap-3 whitespace-nowrap text-second',
-                            'leading-18',
-                        )}
-                    >
+                    <div className="leading-18 absolute left-1/2 top-1/2 flex -translate-x-1/2 -translate-y-1/2 transform flex-col gap-3 whitespace-nowrap text-second">
                         <LoadingStatus />
                     </div>
                 ) : !empty && futureEvents.length ? (
                     futureEvents.map((key) => {
                         return (
                             <div key={key}>
-                                <Typography className={'leading-18 py-[10px] font-bold text-main'}>
+                                <Typography className="leading-18 py-[10px] font-bold text-main">
                                     {dayjs(new Date(key)).format('MMM dd,yyy')}
                                 </Typography>
                                 {list[key].map((v) => (
                                     <Link
                                         key={v.event_url}
-                                        className={'flex cursor-pointer flex-col gap-2 p-2 hover:no-underline'}
+                                        className="flex cursor-pointer flex-col gap-2 p-2 hover:no-underline"
                                         href={v.event_url}
                                         rel="noopener noreferrer"
                                         target="_blank"
                                     >
-                                        <div className={'flex w-full justify-between'}>
-                                            <div className={'flex items-center gap-2 text-main'}>
+                                        <div className="flex w-full justify-between">
+                                            <div className="flex items-center gap-2 text-main">
                                                 <Image
                                                     src={resolveIPFS_URL(v.project.logo)!}
-                                                    className={'overflow-hidden rounded-full'}
+                                                    className="overflow-hidden rounded-full"
                                                     width={24}
                                                     height={24}
                                                     alt={v.project.name}
                                                 />
-                                                <Typography className={'leading-16 text-sm font-bold text-main'}>
+                                                <Typography className="leading-16 text-sm font-bold text-main">
                                                     {v.project.name}
                                                 </Typography>
                                             </div>
                                         </div>
-                                        <Typography className={'leading-18'}>{v.event_title}</Typography>
-                                        <Typography className={'leading-18 text-second'}>
+                                        <Typography className="leading-18">{v.event_title}</Typography>
+                                        <Typography className="leading-18 text-second">
                                             {dayjs(new Date(v.event_date)).format('MMM dd, yyyy HH:mm')}
                                         </Typography>
                                         <ImageLoader src={v.poster_url} />
@@ -81,11 +75,7 @@ export function EventList({ list, isLoading, empty, date }: EventListProps) {
                         );
                     })
                 ) : (
-                    <EmptyStatus
-                        className={
-                            'absolute left-1/2 top-1/2 flex -translate-x-1/2 -translate-y-1/2 transform flex-col gap-3 whitespace-nowrap text-second'
-                        }
-                    >
+                    <EmptyStatus className="absolute left-1/2 top-1/2 flex -translate-x-1/2 -translate-y-1/2 transform flex-col gap-3 whitespace-nowrap text-second">
                         <Trans>No content for the last two weeks.</Trans>
                     </EmptyStatus>
                 )}
