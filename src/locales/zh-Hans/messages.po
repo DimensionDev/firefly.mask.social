@@ -1344,6 +1344,9 @@ msgstr "问题反馈"
 msgid "GIFs"
 msgstr "动图"
 
+msgid "Loading..."
+msgstr ""
+
 msgid "%Of supply owned"
 msgstr "% 总的拥有人"
 

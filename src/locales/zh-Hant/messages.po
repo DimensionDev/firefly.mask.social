@@ -1344,6 +1344,9 @@ msgstr "反饋"
 msgid "GIFs"
 msgstr "GIF"
 
+msgid "Loading..."
+msgstr ""
+
 msgid "%Of supply owned"
 msgstr ""
 

@@ -1339,6 +1339,9 @@ msgstr "Feedback"
 msgid "GIFs"
 msgstr "GIFs"
 
+msgid "Loading..."
+msgstr "Loading..."
+
 msgid "%Of supply owned"
 msgstr "%Of supply owned"
 

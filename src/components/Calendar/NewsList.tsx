@@ -1,9 +1,12 @@
 import { Trans } from '@lingui/macro';
-import { EmptyStatus, Image, LoadingStatus } from '@masknet/shared';
 import { makeStyles, MaskColors } from '@masknet/theme';
 import { Link, Typography } from '@mui/material';
 import dayjs from 'dayjs';
 import { useCallback, useMemo } from 'react';
+
+import { EmptyStatus } from '@/components/Calendar/EmptyStatus.js';
+import { LoadingStatus } from '@/components/Calendar/LoadingStatus.js';
+import { Image } from '@/components/Image.js';
 
 const useStyles = makeStyles()((theme) => ({
     container: {
@@ -143,9 +146,10 @@ export function NewsList({ list, isLoading, empty, date }: NewsListProps) {
                                         <div className={classes.eventHeader}>
                                             <div className={classes.projectWrap}>
                                                 <Image
+                                                    className={classes.logo}
                                                     src={v.project.logo}
-                                                    classes={{ container: classes.logo }}
-                                                    size={24}
+                                                    width={24}
+                                                    height={24}
                                                     alt={v.project.name}
                                                 />
                                                 <Typography className={classes.projectName}>

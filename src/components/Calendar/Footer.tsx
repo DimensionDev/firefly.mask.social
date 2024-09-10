@@ -1,5 +1,5 @@
 import { Trans } from '@lingui/macro';
-import { makeStyles } from '@masknet/theme';
+import { makeStyles, MaskColors } from '@masknet/theme';
 import { Typography } from '@mui/material';
 
 import CalendarIcon from '@/assets/calendar.svg';

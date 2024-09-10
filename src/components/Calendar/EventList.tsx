@@ -1,12 +1,14 @@
 import { Trans } from '@lingui/macro';
-import { EmptyStatus, Image, LoadingStatus } from '@masknet/shared';
 import { makeStyles, MaskColors } from '@masknet/theme';
 import { resolveIPFS_URL } from '@masknet/web3-shared-base';
 import { Link, Typography } from '@mui/material';
 import dayjs from 'dayjs';
 import { useCallback, useMemo } from 'react';
 
+import { EmptyStatus } from '@/components/Calendar/EmptyStatus.js';
 import { ImageLoader } from '@/components/Calendar/ImageLoader.js';
+import { LoadingStatus } from '@/components/Calendar/LoadingStatus.js';
+import { Image } from '@/components/Image.js';
 
 const useStyles = makeStyles()((theme) => ({
     container: {
@@ -134,9 +136,10 @@ export function EventList({ list, isLoading, empty, date }: EventListProps) {
                                         <div className={classes.eventHeader}>
                                             <div className={classes.projectWrap}>
                                                 <Image
-                                                    src={resolveIPFS_URL(v.project.logo)}
-                                                    classes={{ container: classes.logo }}
-                                                    size={24}
+                                                    src={resolveIPFS_URL(v.project.logo)!}
+                                                    className={classes.logo}
+                                                    width={24}
+                                                    height={24}
                                                     alt={v.project.name}
                                                 />
                                                 <Typography className={classes.projectName}>

@@ -1,5 +1,4 @@
 import { Trans } from '@lingui/macro';
-import { EmptyStatus, Image, LoadingStatus } from '@masknet/shared';
 import { makeStyles, MaskColors } from '@masknet/theme';
 import { IconButton, Link, Typography } from '@mui/material';
 import dayjs from 'dayjs';
@@ -9,6 +8,9 @@ import DiscordRoundIcon from '@/assets/discord-round.svg';
 import WebsiteIcon from '@/assets/website.svg';
 import { CountdownTimer } from '@/components/Calendar/CountdownTimer.js';
 import { XIcon } from '@/components/XIcon.js';
+import { Image } from '@/components/Image.js';
+import { LoadingStatus } from '@/components/Calendar/LoadingStatus.js';
+import { EmptyStatus } from '@/components/Calendar/EmptyStatus.js';
 
 const useStyles = makeStyles()((theme) => ({
     container: {
@@ -161,8 +163,9 @@ export function NFTList({ list, isLoading, empty, date }: NFTListProps) {
                                             <div className={classes.projectWrap}>
                                                 <Image
                                                     src={v.project.logo}
-                                                    classes={{ container: classes.logo }}
-                                                    size={24}
+                                                    className={classes.logo}
+                                                    width={24}
+                                                    height={24}
                                                     alt={v.project.name}
                                                 />
                                                 <Typography className={classes.projectName}>
