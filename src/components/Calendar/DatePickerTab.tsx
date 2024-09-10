@@ -23,7 +23,7 @@ export function DatePickerTab({ selectedDate, setSelectedDate, list, open, setOp
             {week.map((v) => {
                 return (
                     <div
-                        className={`leading-20 flex h-[28px] w-[28px] cursor-pointer items-center justify-center rounded-full border-line text-center text-main ${selectedDate.getDate() === v.getDate() ? 'text-main' : ''} ${
+                        className={`leading-20 flex h-[28px] w-[28px] cursor-pointer items-center justify-center rounded-full border border-line text-center text-main ${selectedDate.getDate() === v.getDate() ? 'text-main' : ''} ${
                             list && !list[v.toLocaleDateString()] ? 'cursor-default text-second' : ''
                         }`}
                         key={v.toString()}

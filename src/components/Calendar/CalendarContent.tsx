@@ -57,7 +57,7 @@ export function CalendarContent() {
     };
 
     return (
-        <div className="border-1 relative mb-5 flex flex-col rounded-md border-line">
+        <div className="relative mb-5 flex flex-col rounded-md border border-line">
             <Tab.Group selectedIndex={currentTabIndex} onChange={setCurrentTabIndex}>
                 <Tab.List className="via-opacity-20 rounded-t-[12px] bg-opacity-80 bg-gradient-to-b from-transparent via-white to-white px-4 py-2">
                     {tabs.map((x) => (
