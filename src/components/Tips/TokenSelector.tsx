@@ -1,5 +1,4 @@
 import { t, Trans } from '@lingui/macro';
-import { isSameAddress } from '@masknet/web3-shared-base';
 import { findIndex } from 'lodash-es';
 import { memo, useEffect, useMemo, useRef, useState } from 'react';
 import { useDebounce } from 'usehooks-ts';
@@ -18,6 +17,7 @@ import { classNames } from '@/helpers/classNames.js';
 import { isGreaterThan, isLessThan } from '@/helpers/number.js';
 import { TipsContext } from '@/hooks/useTipsContext.js';
 import { useTipsTokens } from '@/hooks/useTipsTokens.js';
+import { isSameEthereumAddress } from '@/helpers/isSameAddress.js';
 
 export const TokenSelector = memo(function TokenSelector() {
     const [search, setSearch] = useState('');
@@ -29,7 +29,7 @@ export const TokenSelector = memo(function TokenSelector() {
     const debouncedSearch = useDebounce(search, 300);
 
     useEffect(() => {
-        const index = findIndex(tokens, (t) => isSameAddress(t.id, token?.id));
+        const index = findIndex(tokens, (t) => isSameEthereumAddress(t.id, token?.id));
         if (index >= 0 && listRef.current) {
             const selectedEl = listRef.current.children[index];
             selectedEl?.scrollIntoView({ block: 'center' });
