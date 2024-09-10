@@ -9,13 +9,38 @@ import { Headline } from '@/app/(settings)/components/Headline.js';
 import { Section } from '@/app/(settings)/components/Section.js';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { classNames } from '@/helpers/classNames.js';
-import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
-import { resolveSocialSourceFromSessionType } from '@/helpers/resolveSource.js';
 import { SessionFactory } from '@/providers/base/SessionFactory.js';
 import { SessionType } from '@/providers/types/SocialMedia.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 import { ProfileAvatar } from '@/components/ProfileAvatar.js';
 import { ProfileName } from '@/components/ProfileName.js';
+import type { Session } from '@/providers/types/Session.js';
+import { TwitterSocialMediaProvider } from '@/providers/twitter/SocialMedia.js';
+import type { TwitterSession } from '@/providers/twitter/Session.js';
+import { safeUnreachable } from '@masknet/kit';
+import { NotAllowedError } from '@/constants/error.js';
+import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
+import { FarcasterSocialMediaProvider } from '@/providers/farcaster/SocialMedia.js';
+
+async function getProfileBySession(session: Session) {
+    switch (session.type) {
+        case SessionType.Lens:
+            return await LensSocialMediaProvider.getProfileByHandle(session.profileId as string);
+        case SessionType.Farcaster:
+            return await FarcasterSocialMediaProvider.getProfileById(session.profileId as string);
+        case SessionType.Twitter:
+            const payload = (session as TwitterSession).payload;
+            return await TwitterSocialMediaProvider.getProfileByIdWithSessionPayload(
+                session.profileId as string,
+                payload,
+            );
+        case SessionType.Firefly:
+            throw new NotAllowedError();
+        default:
+            safeUnreachable(session.type);
+            return null;
+    }
+}
 
 export default function Page() {
     const [serializedSession, setSerializedSession] = useState('');
@@ -23,12 +48,8 @@ export default function Page() {
 
     const [{ error, loading }, onSubmit] = useAsyncFn(async () => {
         const session = SessionFactory.createSession(serializedSession);
-        const provider = resolveSocialMediaProvider(resolveSocialSourceFromSessionType(session.type));
 
-        const profile =
-            session.type === SessionType.Lens
-                ? await provider.getProfileByHandle(session.profileId as string)
-                : await provider.getProfileById(session.profileId as string);
+        const profile = await getProfileBySession(session);
         if (!profile) throw new Error(t`Failed to fetch profile.`);
 
         setProfile(profile);
