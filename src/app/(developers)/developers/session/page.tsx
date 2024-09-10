@@ -1,0 +1,77 @@
+'use client';
+
+import { ArrowPathRoundedSquareIcon } from '@heroicons/react/24/outline';
+import { t, Trans } from '@lingui/macro';
+import { useMemo, useState } from 'react';
+import { useAsyncFn } from 'react-use';
+import urlcat from 'urlcat';
+
+import { Headline } from '@/app/(settings)/components/Headline.js';
+import { Section } from '@/app/(settings)/components/Section.js';
+import { ClickableButton } from '@/components/ClickableButton.js';
+import { Frame as FrameUI } from '@/components/Frame/index.js';
+import { Source } from '@/constants/enum.js';
+import { classNames } from '@/helpers/classNames.js';
+import { createDummyPost } from '@/helpers/createDummyPost.js';
+import { fetchJSON } from '@/helpers/fetchJSON.js';
+import { isValidUrl } from '@/helpers/isValidUrl.js';
+import { SessionFactory } from '@/providers/base/SessionFactory.js';
+import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
+import { resolveSocialSourceFromSessionType } from '@/helpers/resolveSource.js';
+import { SessionType } from '@/providers/types/SocialMedia.js';
+
+export default function Session() {
+    const [serializedSession, setSerializedSession] = useState('');
+
+    const [{ error, loading }, onSubmit] = useAsyncFn(async () => {
+        const session = SessionFactory.createSession(serializedSession);
+        const provider = resolveSocialMediaProvider(resolveSocialSourceFromSessionType(session.type));
+
+        const profile =
+            session.type === SessionType.Lens
+                ? await provider.getProfileByHandle(session.profileId as string)
+                : await provider.getProfileById(session.profileId as string);
+        if (!profile) {
+            throw new Error(t`Failed to fetch profile.`);
+        }
+        return;
+    }, [serializedSession]);
+
+    return (
+        <Section>
+            <Headline>
+                <Trans>Session</Trans>
+            </Headline>
+
+            <div className="mb-2 w-full">
+                <Trans>Please input the compact session to be validated.</Trans>
+            </div>
+
+            <div className="mb-2 flex w-full flex-row gap-2">
+                <input
+                    className="flex-1 rounded-md border border-line bg-transparent"
+                    type="text"
+                    autoComplete="off"
+                    spellCheck="false"
+                    placeholder={t`Your serialized session`}
+                    onChange={(e) => setSerializedSession(e.target.value)}
+                />
+                <ClickableButton
+                    className={classNames(
+                        'flex h-[42px] w-[42px] items-center justify-center rounded-md border border-line',
+                        {
+                            'text-primaryMain': loading,
+                            'hover:cursor-pointer': !loading,
+                            'hover:text-secondary': !loading,
+                        },
+                    )}
+                    disabled={loading || !serializedSession}
+                    onClick={onSubmit}
+                >
+                    <ArrowPathRoundedSquareIcon width={24} height={24} />
+                </ClickableButton>
+            </div>
+            {error ? <div className="w-full">{error.message}</div> : null}
+        </Section>
+    );
+}
