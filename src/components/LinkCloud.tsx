@@ -1,6 +1,7 @@
 'use client';
 
 import { t, Trans } from '@lingui/macro';
+import { compact } from 'lodash-es';
 import { useRef } from 'react';
 import { useMount } from 'react-use';
 
@@ -8,7 +9,6 @@ import { feedbackIntegration } from '@/configs/sentryClient.js';
 import { STATUS } from '@/constants/enum.js';
 import { env } from '@/constants/env.js';
 import { Link } from '@/esm/Link.js';
-import { compact } from 'lodash-es';
 
 export function LinkCloud() {
     const feedbackEl = useRef<HTMLSpanElement>(null);
