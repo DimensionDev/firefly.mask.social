@@ -57,9 +57,9 @@ export function CalendarContent() {
     };
 
     return (
-        <div className="relative mb-5 flex flex-col rounded-md border border-line">
+        <div className="relative mb-5 flex flex-col rounded-md border border-line bg-lightMain">
             <Tab.Group selectedIndex={currentTabIndex} onChange={setCurrentTabIndex}>
-                <Tab.List className="via-opacity-20 rounded-t-[12px] bg-opacity-80 bg-gradient-to-b from-transparent via-white to-white px-4 py-2">
+                <Tab.List className="rounded-t-[12px] bg-opacity-80 px-4 py-2" style={{ backgroundColor: '#9250FF80' }}>
                     {tabs.map((x) => (
                         <Tab className="font-bold" key={x.value}>
                             {x.label}
