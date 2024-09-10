@@ -38,7 +38,7 @@ export default function Page() {
             </Headline>
 
             <div className="mb-2 w-full">
-                <Trans>Please input the compact session to be validated.</Trans>
+                <Trans>Please input the serialized session to be validated.</Trans>
             </div>
 
             <div className="mb-2 flex w-full flex-row gap-2">
