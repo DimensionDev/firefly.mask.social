@@ -15,6 +15,7 @@ import { SessionFactory } from '@/providers/base/SessionFactory.js';
 import { SessionType } from '@/providers/types/SocialMedia.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 import { ProfileAvatar } from '@/components/ProfileAvatar.js';
+import { ProfileName } from '@/components/ProfileName.js';
 
 export default function Page() {
     const [serializedSession, setSerializedSession] = useState('');
@@ -67,7 +68,12 @@ export default function Page() {
                     <ArrowPathRoundedSquareIcon width={24} height={24} />
                 </ClickableButton>
             </div>
-            {profile ? <ProfileAvatar profile={profile} fallbackUrl="" /> : null}
+            {profile ? (
+                <div className="inline-flex w-full items-center justify-start gap-3 rounded-lg bg-white bg-bottom px-3 py-2 shadow-primary backdrop-blur dark:bg-bg">
+                    <ProfileAvatar profile={profile} size={36} />
+                    <ProfileName profile={profile} />
+                </div>
+            ) : null}
             {error ? <div className="w-full">{error.message}</div> : null}
         </Section>
     );

@@ -954,9 +954,6 @@ msgstr "上传文件失败。"
 msgid "{attentionFactors, plural, one {# Attention item} other {# Attention items}}"
 msgstr "{attentionFactors, plural, one {# 风险条目} other {# 风险条目}}"
 
-msgid "Please input the compact session to be validated."
-msgstr ""
-
 msgid "Hide more comments"
 msgstr "隐藏更多的评论"
 
@@ -1418,6 +1415,9 @@ msgstr "上传到 S3"
 
 msgid "{shares, plural, one {Recast or Quote} other {Recasts or Quotes}}"
 msgstr "{shares, plural, one {转帖或引用} other {转帖或引用}}"
+
+msgid "Please input the serialized session to be validated."
+msgstr ""
 
 msgid "Failed to update profile."
 msgstr "更新个人资料失败。"

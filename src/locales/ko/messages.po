@@ -954,9 +954,6 @@ msgstr ""
 msgid "{attentionFactors, plural, one {# Attention item} other {# Attention items}}"
 msgstr ""
 
-msgid "Please input the compact session to be validated."
-msgstr ""
-
 msgid "Hide more comments"
 msgstr ""
 
@@ -1417,6 +1414,9 @@ msgid "Upload to S3"
 msgstr ""
 
 msgid "{shares, plural, one {Recast or Quote} other {Recasts or Quotes}}"
+msgstr ""
+
+msgid "Please input the serialized session to be validated."
 msgstr ""
 
 msgid "Failed to update profile."
