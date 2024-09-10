@@ -2,45 +2,18 @@
 
 import { ArrowPathRoundedSquareIcon } from '@heroicons/react/24/outline';
 import { t, Trans } from '@lingui/macro';
-import { safeUnreachable } from '@masknet/kit';
 import { useState } from 'react';
 import { useAsyncFn } from 'react-use';
 
 import { Headline } from '@/app/(settings)/components/Headline.js';
 import { Section } from '@/app/(settings)/components/Section.js';
 import { ClickableButton } from '@/components/ClickableButton.js';
-import { ProfileAvatar } from '@/components/ProfileAvatar.js';
-import { ProfileName } from '@/components/ProfileName.js';
-import { NotAllowedError } from '@/constants/error.js';
 import { classNames } from '@/helpers/classNames.js';
 import { SessionFactory } from '@/providers/base/SessionFactory.js';
-import { FarcasterSocialMediaProvider } from '@/providers/farcaster/SocialMedia.js';
-import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
-import type { TwitterSession } from '@/providers/twitter/Session.js';
-import { TwitterSocialMediaProvider } from '@/providers/twitter/SocialMedia.js';
-import type { Session } from '@/providers/types/Session.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
-import { SessionType } from '@/providers/types/SocialMedia.js';
-
-async function getProfileBySession(session: Session) {
-    switch (session.type) {
-        case SessionType.Lens:
-            return await LensSocialMediaProvider.getProfileByHandle(session.profileId as string);
-        case SessionType.Farcaster:
-            return await FarcasterSocialMediaProvider.getProfileById(session.profileId as string);
-        case SessionType.Twitter:
-            const payload = (session as TwitterSession).payload;
-            return await TwitterSocialMediaProvider.getProfileByIdWithSessionPayload(
-                session.profileId as string,
-                payload,
-            );
-        case SessionType.Firefly:
-            throw new NotAllowedError();
-        default:
-            safeUnreachable(session.type);
-            return null;
-    }
-}
+import { ProfileAvatar } from '@/components/ProfileAvatar.js';
+import { ProfileName } from '@/components/ProfileName.js';
+import { getProfileBySession } from '@/helpers/getProfileBySession.js';
 
 export default function Page() {
     const [serializedSession, setSerializedSession] = useState('');
