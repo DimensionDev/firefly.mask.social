@@ -1,11 +1,13 @@
 'use client';
+import '@/assets/css/limo.css';
+
 import { t, Trans } from '@lingui/macro';
 import { EVMExplorerResolver } from '@masknet/web3-providers';
 import { ChainId } from '@masknet/web3-shared-evm';
 import { useQuery, useSuspenseQuery } from '@tanstack/react-query';
 import DOMPurify from 'dompurify';
 import urlcat from 'urlcat';
-import { useDocumentTitle } from 'usehooks-ts';
+import { useDarkMode, useDocumentTitle } from 'usehooks-ts';
 import { checksumAddress } from 'viem';
 
 import ComeBack from '@/assets/comeback.svg';
@@ -25,6 +27,7 @@ import { FireflyArticleProvider } from '@/providers/firefly/Article.js';
 import { ArticlePlatform } from '@/providers/types/Article.js';
 import type { ResponseJSON } from '@/types/index.js';
 import { type LinkDigested, PayloadType } from '@/types/og.js';
+import { classNames } from '@/helpers/classNames.js';
 
 interface PageProps {
     params: {
@@ -34,7 +37,7 @@ interface PageProps {
 
 export function ArticleDetailPage({ params: { id: articleId } }: PageProps) {
     const comeback = useComeBack();
-
+    const { isDarkMode } = useDarkMode()
     const { data: article } = useSuspenseQuery({
         queryKey: ['article-detail', articleId],
         queryFn: async () => {
@@ -119,9 +122,16 @@ export function ArticleDetailPage({ params: { id: articleId } }: PageProps) {
                 {isMuted ? (
                     <CollapsedContent className="mt-2" authorMuted isQuote={false} />
                 ) : article.platform === ArticlePlatform.Limo ? (
-                    // The content returned by limo is html.
-                    // eslint-disable-next-line react/no-danger
-                    <div dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(article.content) }} />
+                    <div className="limo-article">
+                        {/*  The content returned by limo is html. */}
+                        <div
+                            className={classNames("container-fluid markdown-body comment-enabled", {
+                                'dark': isDarkMode
+                            })}
+                            // eslint-disable-next-line react/no-danger
+                            dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(article.content) }}
+                        />
+                    </div>
                 ) : (
                     <ArticleMarkup
                         className="markup linkify break-words text-medium"

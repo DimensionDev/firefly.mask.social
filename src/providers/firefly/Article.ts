@@ -24,8 +24,11 @@ import {
     type DiscoverArticlesResponse,
     type GetArticleDetailResponse,
     type GetFollowingArticlesResponse,
+    type DigestResponse,
 } from '@/providers/types/Firefly.js';
 import { settings } from '@/settings/index.js';
+import { link } from 'fs';
+import type { WaitForTransactionReceiptReturnType } from '@wagmi/core';
 
 class FireflyArticle implements Provider {
     getArticleCollectableByDigest(digest: string): Promise<ArticleCollectable> {
@@ -36,7 +39,7 @@ class FireflyArticle implements Provider {
         throw new NotImplementedError();
     }
 
-    collect(article: ArticleCollectable): Promise<bigint> {
+    collect(article: ArticleCollectable): Promise<WaitForTransactionReceiptReturnType> {
         throw new NotImplementedError();
     }
 
@@ -146,6 +149,21 @@ class FireflyArticle implements Provider {
             createIndicator(indicator),
             response.data?.cursor ? createNextIndicator(indicator, `${response.data.cursor}`) : undefined,
         );
+    }
+
+    async getParagraphArticleIdWithLink(digest: string) {
+        const url = urlcat(settings.FIREFLY_ROOT_URL, '/v2/misc/linkDigestCache');
+
+        const response = await fireflySessionHolder.fetch<DigestResponse>(url, {
+            method: 'POST',
+            body: JSON.stringify({
+                link: digest,
+            }),
+        });
+
+        if (!response.data?.paragraph) return;
+
+        return response.data.paragraph.id;
     }
 }
 

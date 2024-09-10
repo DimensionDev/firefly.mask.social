@@ -4,7 +4,7 @@ import urlcat from 'urlcat';
 
 import { FrameProtocol, Source, STATUS } from '@/constants/enum.js';
 import { env } from '@/constants/env.js';
-import { LIMO_REGEXP } from '@/constants/regexp.js';
+import { LIMO_REGEXP, MIRROR_ARTICLE_REGEXP, PARAGRAPH_ARTICLE_REGEXP } from '@/constants/regexp.js';
 import { attemptUntil } from '@/helpers/attemptUntil.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
 import { isValidDomain } from '@/helpers/isValidDomain.js';
@@ -92,8 +92,20 @@ export async function getPostLinks(url: string, post: Post) {
     } | null>(
         [
             async () => {
-                if (!LIMO_REGEXP.test(url)) return null;
-                const id = Md5.hashStr(url);
+                const realUrl = (await resolveTCOLink(url)) ?? url;
+                if (!realUrl) return null;
+
+                let id;
+                if (LIMO_REGEXP.test(realUrl)) {
+                    id = Md5.hashStr(realUrl);
+                } else if (MIRROR_ARTICLE_REGEXP.test(realUrl)) {
+                    id = realUrl.match(MIRROR_ARTICLE_REGEXP)?.[1];
+                } else if (PARAGRAPH_ARTICLE_REGEXP.test(realUrl)) {
+                    id = await FireflyArticleProvider.getParagraphArticleIdWithLink(realUrl);
+                }
+
+                if (!id) return null;
+
                 const article = await FireflyArticleProvider.getArticleById(id);
                 return article ? { article } : null;
             },

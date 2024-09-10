@@ -39,18 +39,6 @@ export const OembedLayout = memo<{ data: LinkDigested; post?: Post }>(function O
     if (!type) return <OembedUI og={og} />;
 
     switch (type) {
-        case PayloadType.Mirror:
-            return (
-                <Mirror
-                    address={payload.address}
-                    title={og.title}
-                    description={payload.body || ''}
-                    url={og.url}
-                    ens={payload.ens}
-                    displayName={payload.displayName}
-                    timestamp={payload.timestamp}
-                />
-            );
         case PayloadType.Farcaster:
             return <Quote post={formatWarpcastPost(payload.cast)} />;
         case PayloadType.Post:

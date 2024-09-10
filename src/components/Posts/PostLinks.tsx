@@ -25,9 +25,10 @@ import type { ComposeType } from '@/types/compose.js';
 interface Props {
     post: Post;
     setContent?: (content: string) => void;
+    isInCompose?: boolean;
 }
 
-export function PostLinks({ post, setContent }: Props) {
+export function PostLinks({ post, setContent, isInCompose = false }: Props) {
     const url = resolveOembedUrl(post);
     const { isLoading, error, data } = useQuery({
         queryKey: ['post-embed', url, post.postId],
@@ -56,7 +57,7 @@ export function PostLinks({ post, setContent }: Props) {
 
     return (
         <>
-            {data.article ? <ArticleLayout article={data.article} /> : null}
+            {data.article ? <ArticleLayout article={data.article} isInCompose={isInCompose} /> : null}
             {data.html ? (
                 <Player html={data.html} isSpotify={isLinkMatchingHost(url, 'open.spotify.com', false)} />
             ) : null}
@@ -89,5 +90,5 @@ export function PostLinksInCompose({
         } satisfies Post;
     }, [chars, parentPost, source, type]);
 
-    return <PostLinks post={post} />;
+    return <PostLinks post={post} isInCompose />;
 }
