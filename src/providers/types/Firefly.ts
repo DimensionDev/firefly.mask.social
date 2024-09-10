@@ -511,6 +511,13 @@ export type BookmarkResponse<T> = Response<{
     }>;
 }>;
 
+export type DigestResponse = Response<{
+    type: string;
+    paragraph?: {
+        id: string;
+    };
+}>;
+
 export type BlockFields = 'twitterId' | 'lensId' | 'fid' | 'address';
 export type BlockUserResponse = Response<Relationship[]>;
 

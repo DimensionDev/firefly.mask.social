@@ -1,3 +1,4 @@
+import type { WaitForTransactionReceiptReturnType } from '@wagmi/core';
 import { compact, first } from 'lodash-es';
 import urlcat from 'urlcat';
 
@@ -21,6 +22,7 @@ import { type Article, type ArticleCollectable, ArticlePlatform, type Provider }
 import {
     type Article as FFArticle,
     type BookmarkResponse,
+    type DigestResponse,
     type DiscoverArticlesResponse,
     type GetArticleDetailResponse,
     type GetFollowingArticlesResponse,
@@ -36,7 +38,7 @@ class FireflyArticle implements Provider {
         throw new NotImplementedError();
     }
 
-    collect(article: ArticleCollectable): Promise<bigint> {
+    collect(article: ArticleCollectable): Promise<WaitForTransactionReceiptReturnType> {
         throw new NotImplementedError();
     }
 
@@ -146,6 +148,21 @@ class FireflyArticle implements Provider {
             createIndicator(indicator),
             response.data?.cursor ? createNextIndicator(indicator, `${response.data.cursor}`) : undefined,
         );
+    }
+
+    async getParagraphArticleIdWithLink(digest: string) {
+        const url = urlcat(settings.FIREFLY_ROOT_URL, '/v2/misc/linkDigestCache');
+
+        const response = await fireflySessionHolder.fetch<DigestResponse>(url, {
+            method: 'POST',
+            body: JSON.stringify({
+                link: digest,
+            }),
+        });
+
+        if (!response.data?.paragraph) return;
+
+        return response.data.paragraph.id;
     }
 }
 
