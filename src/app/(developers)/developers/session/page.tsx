@@ -13,9 +13,12 @@ import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider
 import { resolveSocialSourceFromSessionType } from '@/helpers/resolveSource.js';
 import { SessionFactory } from '@/providers/base/SessionFactory.js';
 import { SessionType } from '@/providers/types/SocialMedia.js';
+import type { Profile } from '@/providers/types/SocialMedia.js';
+import { ProfileAvatar } from '@/components/ProfileAvatar.js';
 
 export default function Page() {
     const [serializedSession, setSerializedSession] = useState('');
+    const [profile, setProfile] = useState<Profile>();
 
     const [{ error, loading }, onSubmit] = useAsyncFn(async () => {
         const session = SessionFactory.createSession(serializedSession);
@@ -25,10 +28,9 @@ export default function Page() {
             session.type === SessionType.Lens
                 ? await provider.getProfileByHandle(session.profileId as string)
                 : await provider.getProfileById(session.profileId as string);
-        if (!profile) {
-            throw new Error(t`Failed to fetch profile.`);
-        }
-        return;
+        if (!profile) throw new Error(t`Failed to fetch profile.`);
+
+        setProfile(profile);
     }, [serializedSession]);
 
     return (
@@ -65,6 +67,7 @@ export default function Page() {
                     <ArrowPathRoundedSquareIcon width={24} height={24} />
                 </ClickableButton>
             </div>
+            {profile ? <ProfileAvatar profile={profile} fallbackUrl="" /> : null}
             {error ? <div className="w-full">{error.message}</div> : null}
         </Section>
     );
