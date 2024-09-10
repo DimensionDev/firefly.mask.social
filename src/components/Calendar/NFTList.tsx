@@ -7,10 +7,10 @@ import { type ReactNode, useCallback, useMemo } from 'react';
 import DiscordRoundIcon from '@/assets/discord-round.svg';
 import WebsiteIcon from '@/assets/website.svg';
 import { CountdownTimer } from '@/components/Calendar/CountdownTimer.js';
-import { XIcon } from '@/components/XIcon.js';
-import { Image } from '@/components/Image.js';
-import { LoadingStatus } from '@/components/Calendar/LoadingStatus.js';
 import { EmptyStatus } from '@/components/Calendar/EmptyStatus.js';
+import { LoadingStatus } from '@/components/Calendar/LoadingStatus.js';
+import { Image } from '@/components/Image.js';
+import { XIcon } from '@/components/XIcon.js';
 
 const useStyles = makeStyles()((theme) => ({
     container: {
