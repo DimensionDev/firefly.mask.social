@@ -37,7 +37,7 @@ interface PageProps {
 
 export function ArticleDetailPage({ params: { id: articleId } }: PageProps) {
     const comeback = useComeBack();
-    const { isDarkMode } = useDarkMode()
+    const { isDarkMode } = useDarkMode();
     const { data: article } = useSuspenseQuery({
         queryKey: ['article-detail', articleId],
         queryFn: async () => {
@@ -125,8 +125,8 @@ export function ArticleDetailPage({ params: { id: articleId } }: PageProps) {
                     <div className="limo-article">
                         {/*  The content returned by limo is html. */}
                         <div
-                            className={classNames("container-fluid markdown-body comment-enabled", {
-                                'dark': isDarkMode
+                            className={classNames('container-fluid markdown-body comment-enabled', {
+                                dark: isDarkMode,
                             })}
                             // eslint-disable-next-line react/no-danger
                             dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(article.content) }}
