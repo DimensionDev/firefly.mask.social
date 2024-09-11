@@ -105,7 +105,12 @@ export const SingleArticle = memo<SingleArticleProps>(function SingleArticleProp
                             )}
                         </span>
                     </div>
-                    <ArticleBody cover={cover?.data ?? undefined} title={article.title} content={article.content} />
+                    <ArticleBody
+                        cover={cover?.data ?? undefined}
+                        title={article.title}
+                        content={article.content}
+                        platform={article.platform}
+                    />
                     <div className="mt-2">
                         <ArticleActions article={article} />
                     </div>
