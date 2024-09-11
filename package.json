@@ -124,10 +124,10 @@
         "use-subscription": "^1.8.0",
         "usehooks-ts": "^2.9.5",
         "uuid": "^9.0.0",
-        "viem": "^2.19.4",
+        "viem": "^2.21.5",
         "wagmi": "^2.12.10",
         "zod": "^3.23.8",
-        "zustand": "^4.5.4"
+        "zustand": "^4.5.5"
     },
     "devDependencies": {
         "@apollo/client": "^3.8.8",
