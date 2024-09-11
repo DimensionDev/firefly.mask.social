@@ -4,24 +4,21 @@ import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
 
 import { getFollowInList } from '@/components/FollowInList.js';
 import { ListInPage } from '@/components/ListInPage.js';
-import { ScrollListKey, type SocialSourceInURL } from '@/constants/enum.js';
+import { ScrollListKey, type SocialSource } from '@/constants/enum.js';
 import { EMPTY_LIST } from '@/constants/index.js';
 import { createIndicator } from '@/helpers/pageable.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
-import { resolveSocialSource } from '@/helpers/resolveSource.js';
 import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 
-export function MutualFollowersList({ profileId, source }: { profileId: string; source: SocialSourceInURL }) {
-    const socialSource = resolveSocialSource(source);
-
-    const myProfile = useCurrentProfile(socialSource);
+export function MutualFollowersList({ profileId, source }: { profileId: string; source: SocialSource }) {
+    const myProfile = useCurrentProfile(source);
     const myProfileId = myProfile?.profileId;
 
     const queryResult = useSuspenseInfiniteQuery({
-        queryKey: ['profiles', socialSource, 'mutual-followers', myProfileId, profileId],
+        queryKey: ['profiles', source, 'mutual-followers', myProfileId, profileId],
         async queryFn({ pageParam }) {
-            const provider = resolveSocialMediaProvider(socialSource);
+            const provider = resolveSocialMediaProvider(source);
             return provider.getMutualFollowers(profileId, createIndicator(undefined, pageParam));
         },
         initialPageParam: '',

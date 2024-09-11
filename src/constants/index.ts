@@ -61,7 +61,7 @@ export const SORTED_PROFILE_TAB_TYPE: Record<SocialSource, SocialProfileCategory
     [Source.Farcaster]: [
         SocialProfileCategory.Feed,
         SocialProfileCategory.Replies,
-        SocialProfileCategory.Liked,
+        SocialProfileCategory.Likes,
         SocialProfileCategory.Channels,
     ],
     [Source.Twitter]: [SocialProfileCategory.Feed, SocialProfileCategory.Replies],

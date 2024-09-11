@@ -1,46 +1,48 @@
-import { useEffect, useState } from 'react';
+import { produce } from 'immer';
+import { useCallback, useState } from 'react';
 import { createContainer } from 'unstated-next';
-import urlcat from 'urlcat';
 
-import { type ProfileCategory } from '@/constants/enum.js';
-import { resolveSourceInURL } from '@/helpers/resolveSourceInURL.js';
+import type { ProfileCategory, SocialSource } from '@/constants/enum.js';
+import { resolveProfileUrl } from '@/helpers/resolveProfileUrl.js';
 import type { FireflyIdentity } from '@/providers/types/Firefly.js';
 
 interface ProfilePageContext {
-    category: ProfileCategory | null;
     identity: FireflyIdentity | null;
-    pathname: string;
+    category: ProfileCategory | null;
 }
 
 function createEmptyContext(): ProfilePageContext {
     return {
-        category: null,
         identity: null,
-        pathname: '/profile/:id/:category',
+        category: null,
     };
 }
 
 function useProfilePageContext(initialState?: ProfilePageContext) {
     const [value, setValue] = useState<ProfilePageContext>(initialState ?? createEmptyContext());
 
-    useEffect(() => {
-        if (value.category && value.identity?.id && value.identity?.source) {
-            // resolve next.js app router shallow https://github.com/vercel/next.js/discussions/48110
-            history.replaceState(
-                undefined,
-                '',
-                urlcat(value.pathname, {
-                    id: value.identity.id,
-                    category: value.category,
-                    source: resolveSourceInURL(value.identity.source),
+    const setCategory = useCallback(
+        (category: ProfileCategory) => {
+            setValue((x) =>
+                produce(x, (ctx) => {
+                    ctx.category = category;
                 }),
             );
-        }
-    }, [value.identity?.id, value.category, value.pathname, value.identity?.source]);
+            if (value.identity?.source && value.identity?.id) {
+                history.replaceState(
+                    undefined,
+                    '',
+                    resolveProfileUrl(value.identity.source as SocialSource, value.identity.id, category),
+                );
+            }
+        },
+        [value.identity?.source, value.identity?.id],
+    );
 
     return {
         ...value,
         update: setValue,
+        setCategory,
         reset: () => setValue(createEmptyContext()),
     };
 }

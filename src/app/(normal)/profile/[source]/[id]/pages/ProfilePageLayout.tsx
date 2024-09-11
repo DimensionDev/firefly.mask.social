@@ -6,11 +6,12 @@ import { StatusCodes } from 'http-status-codes';
 import { notFound } from 'next/navigation.js';
 import { type PropsWithChildren, useEffect } from 'react';
 
+import { ProfileCategoryTabs } from '@/app/(normal)/profile/[source]/[id]/pages/ProfileCategoryTabs.js';
 import { Loading } from '@/components/Loading.js';
 import { LoginRequiredGuard } from '@/components/LoginRequiredGuard.js';
 import { ProfileInfo } from '@/components/Profile/ProfileInfo.js';
 import { ProfileSourceTabs } from '@/components/Profile/ProfileSourceTabs.js';
-import { type ProfileCategory, Source } from '@/constants/enum.js';
+import { type SocialSource, Source } from '@/constants/enum.js';
 import { FetchError } from '@/constants/error.js';
 import { EMPTY_LIST } from '@/constants/index.js';
 import { isSameFireflyIdentity } from '@/helpers/isSameFireflyIdentity.js';
@@ -19,17 +20,12 @@ import { useCurrentFireflyProfilesAll } from '@/hooks/useCurrentFireflyProfiles.
 import { useUpdateCurrentVisitingProfile } from '@/hooks/useCurrentVisitingProfile.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
 import { useNavigatorTitle } from '@/hooks/useNavigatorTitle.js';
-import { ProfilePageContext } from '@/hooks/useProfilePageContext.js';
 import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
 import type { FireflyIdentity } from '@/providers/types/Firefly.js';
 import { getProfileById } from '@/services/getProfileById.js';
 import { useFireflyIdentityState } from '@/store/useFireflyIdentityStore.js';
 
-export function ProfilePageLayout({
-    identity,
-    category,
-    children,
-}: PropsWithChildren<{ identity: FireflyIdentity; category: ProfileCategory }>) {
+export function ProfilePageLayout({ identity, children }: PropsWithChildren<{ identity: FireflyIdentity }>) {
     const { setIdentity } = useFireflyIdentityState();
     const currentProfiles = useCurrentFireflyProfilesAll();
     const isCurrentProfile = currentProfiles.some((x) => isSameFireflyIdentity(x.identity, identity));
@@ -83,25 +79,20 @@ export function ProfilePageLayout({
         <>
             <ProfileSourceTabs profiles={profiles} />
             <LoginRequiredGuard source={identity.source} className="!pt-0">
-                {isLoadingProfile ? (
+                {isLoading ? (
                     <Loading />
                 ) : (
-                    <ProfilePageContext.Provider
-                        initialState={{
-                            category,
-                            identity,
-                            pathname: '/profile/:id/:category',
-                        }}
-                    >
+                    <>
                         <ProfileInfo
                             profiles={profiles}
                             isSuspended={isSuspended}
                             isLoading={isLoadingProfile}
                             profile={profile}
                         >
+                            <ProfileCategoryTabs source={identity.source as SocialSource} />
                             {children}
                         </ProfileInfo>
-                    </ProfilePageContext.Provider>
+                    </>
                 )}
             </LoginRequiredGuard>
         </>

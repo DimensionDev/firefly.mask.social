@@ -38,7 +38,7 @@ export function LikedFeedList({ profileId, source }: LikedFeedListProps) {
             key={source}
             queryResult={queryResult}
             VirtualListProps={{
-                listKey: `${ScrollListKey.Profile}:${SocialProfileCategory.Liked}:${profileId}`,
+                listKey: `${ScrollListKey.Profile}:${SocialProfileCategory.Likes}:${profileId}`,
                 computeItemKey: (index, post) => `${post.postId}-${index}`,
                 itemContent: (index, post) => getPostItemContent(index, post),
             }}

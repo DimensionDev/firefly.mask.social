@@ -6,16 +6,14 @@ import { useEffect, useMemo } from 'react';
 
 import { LoginRequiredGuard } from '@/components/LoginRequiredGuard.js';
 import { ProfileInfo } from '@/components/Profile/ProfileInfo.js';
-import { ProfilePageTimeline } from '@/components/Profile/ProfilePageTimeline.js';
 import { ProfileSourceTabs } from '@/components/Profile/ProfileSourceTabs.js';
-import type { SocialSourceInURL } from '@/constants/enum.js';
+import { type SocialSourceInURL } from '@/constants/enum.js';
 import { narrowToSocialSource } from '@/helpers/narrowToSocialSource.js';
 import { resolveFireflyIdentity } from '@/helpers/resolveFireflyProfileId.js';
 import { resolveSourceFromUrl } from '@/helpers/resolveSource.js';
 import { resolveSourceInURL } from '@/helpers/resolveSourceInURL.js';
 import { useCurrentFireflyProfiles } from '@/hooks/useCurrentFireflyProfiles.js';
 import { useCurrentProfileAll } from '@/hooks/useCurrentProfile.js';
-import { ProfilePageContext } from '@/hooks/useProfilePageContext.js';
 import { useFireflyIdentityState } from '@/store/useFireflyIdentityStore.js';
 
 export default function Page() {
@@ -55,11 +53,7 @@ export default function Page() {
         <>
             <ProfileSourceTabs profiles={profiles} />
             <LoginRequiredGuard source={source} className="!pt-0">
-                <ProfileInfo profiles={profiles}>
-                    <ProfilePageContext.Provider>
-                        <ProfilePageTimeline />
-                    </ProfilePageContext.Provider>
-                </ProfileInfo>
+                <ProfileInfo profiles={profiles} />
             </LoginRequiredGuard>
         </>
     );

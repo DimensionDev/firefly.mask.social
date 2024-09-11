@@ -80,7 +80,6 @@ export function ProfileSourceTabs({ profiles }: ProfileSourceTabs) {
                                     }
                                 }}
                                 onClick={() => {
-                                    if (identity.source === value) return;
                                     if (!target?.identity) {
                                         updateParams(
                                             new URLSearchParams({

@@ -113,7 +113,7 @@ export enum KeyType {
 export enum SocialProfileCategory {
     Feed = 'feed',
     Replies = 'replies',
-    Liked = 'liked',
+    Likes = 'likes',
     Media = 'media',
     Collected = 'collected',
     Channels = 'channels',
