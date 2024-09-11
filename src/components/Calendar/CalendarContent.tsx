@@ -5,6 +5,7 @@ import { t } from '@lingui/macro';
 import { safeUnreachable } from '@masknet/kit';
 import { useState } from 'react';
 
+import { DatePickerTab } from '@/components/Calendar/DatePickerTab.js';
 import { EventsList } from '@/components/Calendar/EventsList.js';
 import { Footer } from '@/components/Calendar/Footer.js';
 import { useEventList, useNewsList, useNFTList } from '@/components/Calendar/hooks/useEventList.js';
@@ -59,13 +60,15 @@ export function CalendarContent() {
     return (
         <div className="relative mb-5 flex flex-col rounded-xl">
             <Tab.Group selectedIndex={currentTabIndex} onChange={setCurrentTabIndex}>
-                <Tab.List className="flex rounded-t-xl bg-[#9250FF80] bg-opacity-80 px-4 pt-2 dark:bg-white">
+                <Tab.List className="calendar-tab-list flex rounded-t-xl bg-[#9250FF80] bg-white bg-opacity-80 bg-none px-4 pt-2">
                     {tabs.map((x, i) => (
                         <Tab
                             className={classNames(
-                                'flex-1 rounded-t-xl px-4 py-[11px] font-bold leading-none text-white outline-none dark:text-lightSecond',
+                                'flex-1 rounded-t-xl px-4 py-[11px] font-bold leading-none outline-none',
                                 {
-                                    'bg-main text-main dark:bg-black dark:text-main': currentTabIndex === i,
+                                    'text-white dark:text-lightSecond': currentTabIndex !== i,
+                                    'text-main dark:text-white': currentTabIndex === i,
+                                    'bg-white dark:bg-black': currentTabIndex === i,
                                 },
                             )}
                             key={x.value}
@@ -74,15 +77,15 @@ export function CalendarContent() {
                         </Tab>
                     ))}
                 </Tab.List>
-                {/* <DatePickerTab
+                <DatePickerTab
                     open={open}
                     setOpen={setOpen}
                     selectedDate={selectedDate}
                     setSelectedDate={setSelectedDate}
                     list={getListItems()}
                     currentTab={currentTab}
-                /> */}
-                <Tab.Panels className="rounded-b-xl border border-t-0 border-line">
+                />
+                <Tab.Panels className="rounded-b-xl border border-t-0 border-line px-2">
                     <Tab.Panel>
                         <NewsList
                             list={newsList}

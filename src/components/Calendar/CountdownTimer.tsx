@@ -34,7 +34,7 @@ export function CountdownTimer({ targetDate }: CountdownTimerProps) {
     const seconds = remainingTime % 60;
 
     return (
-        <p className="flex items-center justify-center rounded-md border border-line px-4 py-[2px] text-xs leading-none">
+        <p className="flex items-center justify-center rounded-md bg-bg px-4 py-[2px] text-xs leading-none">
             {remainingTime === 0 ? <Trans>Expired</Trans> : `${days}d :${hours}h :${minutes}m :${seconds}s`}
         </p>
     );

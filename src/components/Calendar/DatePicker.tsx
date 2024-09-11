@@ -1,19 +1,19 @@
 import { safeUnreachable } from '@masknet/kit';
-import { Box, IconButton, Typography } from '@mui/material';
 import { addMonths, endOfMonth, format, isAfter, startOfMonth } from 'date-fns';
 import { range } from 'lodash-es';
 import { useMemo, useState } from 'react';
 
-import LeftArrowIcon from '@/assets/left-arrow.svg';
 import RightArrowIcon from '@/assets/right-arrow.svg';
 import { useEventList, useNewsList, useNFTList } from '@/components/Calendar/hooks/useEventList.js';
+import { ClickableButton } from '@/components/ClickableButton.js';
+import { classNames } from '@/helpers/classNames.js';
 
 interface DatePickerProps {
     open: boolean;
     setOpen: (x: boolean) => void;
     selectedDate: Date;
     setSelectedDate: (date: Date) => void;
-    currentTab: 'news' | 'event' | 'nfts';
+    currentTab: 'news' | 'events' | 'nfts';
 }
 
 export function DatePicker({ selectedDate, setSelectedDate, open, setOpen, currentTab }: DatePickerProps) {
@@ -22,14 +22,14 @@ export function DatePicker({ selectedDate, setSelectedDate, open, setOpen, curre
     const startingDayOfWeek = monthStart.getDay();
     const daysInMonth = endOfMonth(currentDate).getDate();
     const daysInPrevMonth = endOfMonth(addMonths(currentDate, -1)).getDate();
-    const { data: eventList } = useEventList(monthStart, currentTab === 'event');
+    const { data: eventList } = useEventList(monthStart, currentTab === 'events');
     const { data: newsList } = useNewsList(monthStart, currentTab === 'news');
     const { data: nftList } = useNFTList(monthStart, currentTab === 'nfts');
     const list = useMemo(() => {
         switch (currentTab) {
             case 'news':
                 return newsList;
-            case 'event':
+            case 'events':
                 return eventList;
             case 'nfts':
                 return nftList;
@@ -64,7 +64,7 @@ export function DatePicker({ selectedDate, setSelectedDate, open, setOpen, curre
                     <tr className="mb-6 text-sm font-bold text-third">
                         {daysOfWeek.map((day) => (
                             <th key={day}>
-                                <Typography>{day}</Typography>
+                                <p>{day}</p>
                             </th>
                         ))}
                     </tr>
@@ -97,22 +97,25 @@ export function DatePicker({ selectedDate, setSelectedDate, open, setOpen, curre
                                 return (
                                     <td key={dayIndex}>
                                         <button
-                                            className="border-none bg-none p-0 outline-none"
+                                            className="border-none bg-none p-[5px] outline-none"
                                             type="submit"
                                             disabled={!list?.[currentDatePointer.toLocaleDateString()]}
                                             onClick={() => handleDateClick(currentDatePointer)}
                                         >
-                                            <Typography
-                                                className={`flex h-[38px] w-[38px] items-center justify-center rounded-full text-base leading-5 text-third ${
-                                                    selectedDate.toDateString() === currentDatePointer.toDateString()
-                                                        ? 'bg-bottom text-white'
-                                                        : list?.[currentDatePointer.toLocaleDateString()]
-                                                          ? 'cursor-pointer text-main'
-                                                          : ''
-                                                }`}
+                                            <span
+                                                className={classNames(
+                                                    'flex h-[28px] w-[28px] items-center justify-center rounded-full leading-5 text-second',
+                                                    {
+                                                        'border !border-main !text-main':
+                                                            selectedDate.toDateString() ===
+                                                            currentDatePointer.toDateString(),
+                                                        'cursor-pointer border border-second':
+                                                            !!list?.[currentDatePointer.toLocaleDateString()],
+                                                    },
+                                                )}
                                             >
                                                 {currentDatePointer.getDate()}
-                                            </Typography>
+                                            </span>
                                         </button>
                                     </td>
                                 );
@@ -124,22 +127,24 @@ export function DatePicker({ selectedDate, setSelectedDate, open, setOpen, curre
         );
 
         return (
-            <div className="absolute -left-4 z-50 flex h-[355px] w-[320px] flex-col gap-[6px] rounded-2xl bg-bottom p-[6px] shadow-md">
+            <div className="absolute right-[15px] top-12 z-50 flex w-[320px] flex-col gap-[6px] rounded-2xl border border-line bg-bgModal px-[6px] pt-[6px]">
                 <div className="flex items-center justify-between">
-                    <Typography className="text-2xl font-bold text-main">{format(currentDate, 'MMMM yyyy')}</Typography>
-                    <Box className="flex items-center">
-                        <IconButton size="small" onClick={() => changeMonth(-1)} disabled={isPrevMonthDisabled}>
-                            <LeftArrowIcon width={24} height={24} />
-                        </IconButton>
-                        <IconButton size="small" onClick={() => changeMonth(1)} disabled={isNextMonthDisabled}>
+                    <p className="pl-2 font-bold text-main">{format(currentDate, 'MMMM yyyy')}</p>
+                    <div className="flex items-center">
+                        <ClickableButton onClick={() => changeMonth(-1)} disabled={isPrevMonthDisabled}>
+                            <RightArrowIcon className="rotate-180" width={24} height={24} />
+                        </ClickableButton>
+                        <ClickableButton onClick={() => changeMonth(1)} disabled={isNextMonthDisabled}>
                             <RightArrowIcon width={24} height={24} />
-                        </IconButton>
-                    </Box>
+                        </ClickableButton>
+                    </div>
                 </div>
                 {table}
             </div>
         );
     };
+
+    if (!open) return null;
 
     return <div>{renderDatePicker()}</div>;
 }

@@ -1339,9 +1339,6 @@ msgstr "Your serialized session"
 msgid "GIFs"
 msgstr "GIFs"
 
-msgid "Loading..."
-msgstr "Loading..."
-
 msgid "%Of supply owned"
 msgstr "%Of supply owned"
 

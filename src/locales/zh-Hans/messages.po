@@ -1344,9 +1344,6 @@ msgstr ""
 msgid "GIFs"
 msgstr "动图"
 
-msgid "Loading..."
-msgstr ""
-
 msgid "%Of supply owned"
 msgstr "% 总的拥有人"
 

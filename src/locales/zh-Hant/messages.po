@@ -1344,9 +1344,6 @@ msgstr ""
 msgid "GIFs"
 msgstr "GIF"
 
-msgid "Loading..."
-msgstr ""
-
 msgid "%Of supply owned"
 msgstr ""
 

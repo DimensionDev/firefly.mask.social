@@ -42,7 +42,7 @@ export function NewsList({ list, isLoading, empty, date }: NewsListProps) {
                                 </p>
                                 {list[key].map((v) => (
                                     <Link
-                                        className="flex cursor-pointer flex-col gap-2 border-b border-line p-2 hover:bg-bg hover:no-underline"
+                                        className="flex cursor-pointer flex-col gap-2 border-b border-line p-2 hover:no-underline"
                                         key={v.event_url}
                                         href={v.event_url}
                                         rel="noopener noreferrer"
