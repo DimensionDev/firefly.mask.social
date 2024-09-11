@@ -2,45 +2,42 @@
 
 import { ArrowPathRoundedSquareIcon } from '@heroicons/react/24/outline';
 import { t, Trans } from '@lingui/macro';
-import { useMemo, useState } from 'react';
+import { useState } from 'react';
 import { useAsyncFn } from 'react-use';
-import urlcat from 'urlcat';
 
 import { Headline } from '@/app/(settings)/components/Headline.js';
 import { Section } from '@/app/(settings)/components/Section.js';
 import { ClickableButton } from '@/components/ClickableButton.js';
-import { Oembed } from '@/components/Oembed/index.js';
-import { Source } from '@/constants/enum.js';
+import { ProfileAvatar } from '@/components/ProfileAvatar.js';
+import { ProfileName } from '@/components/ProfileName.js';
 import { classNames } from '@/helpers/classNames.js';
-import { createDummyPost } from '@/helpers/createDummyPost.js';
-import { fetchJSON } from '@/helpers/fetchJSON.js';
-import { isValidUrl } from '@/helpers/isValidUrl.js';
+import { getProfileBySession } from '@/helpers/getProfileBySession.js';
+import { SessionFactory } from '@/providers/base/SessionFactory.js';
+import type { Profile } from '@/providers/types/SocialMedia.js';
 
 export default function Page() {
-    const [url, setUrl] = useState('');
-    const post = useMemo(() => createDummyPost(Source.Farcaster, '', url, [url]), [url]);
+    const [serializedSession, setSerializedSession] = useState('');
+    const [profile, setProfile] = useState<Profile | null>(null);
 
     const [{ error, loading }, onSubmit] = useAsyncFn(async () => {
-        if (!isValidUrl(url)) throw new Error(t`Invalid URL`);
+        setProfile(null);
 
-        await fetchJSON(
-            urlcat('/api/oembed', {
-                link: url,
-            }),
-            {
-                method: 'DELETE',
-            },
-        );
-    }, [url]);
+        const session = SessionFactory.createSession(serializedSession);
+
+        const profile = await getProfileBySession(session);
+        if (!profile) throw new Error(t`Failed to fetch profile.`);
+
+        setProfile(profile);
+    }, [serializedSession]);
 
     return (
         <Section>
             <Headline>
-                <Trans>OpenGraph Validator</Trans>
+                <Trans>Session Validator</Trans>
             </Headline>
 
             <div className="mb-2 w-full">
-                <Trans>Please input the url to be revalidated.</Trans>
+                <Trans>Please input the serialized session to be validated.</Trans>
             </div>
 
             <div className="mb-2 flex w-full flex-row gap-2">
@@ -49,8 +46,8 @@ export default function Page() {
                     type="text"
                     autoComplete="off"
                     spellCheck="false"
-                    placeholder={t`Your website URL`}
-                    onChange={(e) => setUrl(e.target.value)}
+                    placeholder={t`Your serialized session`}
+                    onChange={(e) => setSerializedSession(e.target.value)}
                 />
                 <ClickableButton
                     className={classNames(
@@ -61,16 +58,18 @@ export default function Page() {
                             'hover:text-secondary': !loading,
                         },
                     )}
-                    disabled={loading || !url}
+                    disabled={loading || !serializedSession}
                     onClick={onSubmit}
                 >
                     <ArrowPathRoundedSquareIcon width={24} height={24} />
                 </ClickableButton>
             </div>
-
-            <div className="w-full max-w-[500px]">
-                <Oembed post={post} />
-            </div>
+            {profile ? (
+                <div className="inline-flex w-full items-center justify-start gap-3 rounded-lg bg-white bg-bottom px-3 py-2 shadow-primary backdrop-blur dark:bg-bg">
+                    <ProfileAvatar profile={profile} size={36} />
+                    <ProfileName profile={profile} />
+                </div>
+            ) : null}
             {error ? <div className="w-full">{error.message}</div> : null}
         </Section>
     );

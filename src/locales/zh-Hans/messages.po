@@ -219,9 +219,6 @@ msgstr "地址不可以超过 {maxLocationSize} 个字"
 msgid "FAILED POST"
 msgstr "发帖失败"
 
-msgid "OpenGraph"
-msgstr "OpenGraph"
-
 msgid "Trending"
 msgstr "趋势"
 
@@ -618,6 +615,9 @@ msgstr "[照片]"
 msgid "Follow more friends to continue exploring on {0}."
 msgstr "在 {0} 上去关注更多的人来继续浏览吧。"
 
+msgid "Session Validator"
+msgstr ""
+
 msgid "THREAD POST"
 msgstr "THREAD 发帖"
 
@@ -704,9 +704,6 @@ msgstr "这个通证合约提到它不能出售。也许这是一个欺诈行为
 
 msgid "REPLY to<0><1>@{0}</1></0>"
 msgstr "回复给<0><1>@{0}</1></0>"
-
-msgid "Frame"
-msgstr "Frame"
 
 msgid "Directory"
 msgstr "目录"
@@ -902,6 +899,9 @@ msgstr "售罄"
 
 msgid "Proxy contract"
 msgstr "代理合约"
+
+msgid "Failed to fetch profile."
+msgstr ""
 
 msgid "The contract owner has the authority to modify the balance of tokens at other addresses, which may result in a loss of assets."
 msgstr "合约所有人有权修改其他地址的通证通证余额，这可能造成资产损失。"
@@ -1203,9 +1203,6 @@ msgstr "详情"
 msgid "Unmute {handleOrEnsOrAddress}"
 msgstr "取消隐藏 {handleOrEnsOrAddress}"
 
-msgid "Blink"
-msgstr "Blink"
-
 msgid "Failed to disconnect wallet from your social graph."
 msgstr "未能从您的社交图谱中断链。"
 
@@ -1341,6 +1338,9 @@ msgstr ""
 msgid "Feedback"
 msgstr "问题反馈"
 
+msgid "Your serialized session"
+msgstr ""
+
 msgid "GIFs"
 msgstr "动图"
 
@@ -1433,6 +1433,9 @@ msgstr "上传到 S3"
 
 msgid "{shares, plural, one {Recast or Quote} other {Recasts or Quotes}}"
 msgstr "{shares, plural, one {转帖或引用} other {转帖或引用}}"
+
+msgid "Please input the serialized session to be validated."
+msgstr ""
 
 msgid "Failed to update profile."
 msgstr "更新个人资料失败。"

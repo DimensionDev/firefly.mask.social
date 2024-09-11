@@ -34,6 +34,7 @@ export function ArticleCollect(props: ArticleCollectProps) {
             const digest = getArticleDigest(props?.article);
             if (!digest) return;
             const provider = resolveArticleCollectProvider(props.article.platform);
+            if (!provider) return;
 
             const data = await provider.getArticleCollectableByDigest(digest);
 
@@ -87,6 +88,7 @@ export function ArticleCollect(props: ArticleCollectProps) {
         if (!data || !props?.article.platform) return;
 
         const provider = resolveArticleCollectProvider(props?.article.platform);
+        if (!provider) return;
         try {
             const confirmation = await provider.collect(data);
             if (!confirmation) return;

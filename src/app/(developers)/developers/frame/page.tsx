@@ -16,7 +16,7 @@ import { createDummyPost } from '@/helpers/createDummyPost.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
 import { isValidUrl } from '@/helpers/isValidUrl.js';
 
-export default function Frame() {
+export default function Page() {
     const [url, setUrl] = useState('');
     const post = useMemo(() => createDummyPost(Source.Farcaster, '', url, [url]), [url]);
 
@@ -36,7 +36,7 @@ export default function Frame() {
     return (
         <Section>
             <Headline>
-                <Trans>Frame</Trans>
+                <Trans>Frame Validator</Trans>
             </Headline>
 
             <div className="mb-2 w-full">
