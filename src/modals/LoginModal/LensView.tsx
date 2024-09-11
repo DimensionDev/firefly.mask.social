@@ -42,6 +42,8 @@ export const LensView = memo(function LensView() {
                 const profiles = await LensSocialMediaProvider.getProfilesByAddress(account.address);
                 return profiles ?? EMPTY_LIST;
             } catch (error) {
+                console.error('[login lens] Failed to fetch lens profiles', error);
+
                 history.replace('/main');
                 throw error;
             }
