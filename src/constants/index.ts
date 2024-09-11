@@ -7,12 +7,12 @@ import {
     FileMimeType,
     NetworkType,
     NODE_ENV,
-    ProfileTabType,
     SearchType,
+    SocialProfileCategory,
     type SocialSource,
     Source,
     VERCEL_NEV,
-    WalletProfileTabType,
+    WalletProfileCategory,
 } from '@/constants/enum.js';
 import { env } from '@/constants/env.js';
 import type { Attachment } from '@/providers/types/SocialMedia.js';
@@ -51,16 +51,26 @@ export const RP_HASH_TAG = '#FireflyLuckyDrop';
 export const HIDDEN_SECRET = '[HIDE_FROM_CLIENT]';
 export const NOT_DEPEND_HUBBLE_KEY = '[TO_BE_REPLACED_LATER]';
 
-export const SORTED_PROFILE_TAB_TYPE: Record<SocialSource, ProfileTabType[]> = {
-    [Source.Lens]: [ProfileTabType.Feed, ProfileTabType.Replies, ProfileTabType.Media, ProfileTabType.Collected],
-    [Source.Farcaster]: [ProfileTabType.Feed, ProfileTabType.Replies, ProfileTabType.Liked, ProfileTabType.Channels],
-    [Source.Twitter]: [ProfileTabType.Feed, ProfileTabType.Replies],
+export const SORTED_PROFILE_TAB_TYPE: Record<SocialSource, SocialProfileCategory[]> = {
+    [Source.Lens]: [
+        SocialProfileCategory.Feed,
+        SocialProfileCategory.Replies,
+        SocialProfileCategory.Media,
+        SocialProfileCategory.Collected,
+    ],
+    [Source.Farcaster]: [
+        SocialProfileCategory.Feed,
+        SocialProfileCategory.Replies,
+        SocialProfileCategory.Liked,
+        SocialProfileCategory.Channels,
+    ],
+    [Source.Twitter]: [SocialProfileCategory.Feed, SocialProfileCategory.Replies],
 };
 export const WALLET_PROFILE_TAB_TYPES = [
-    WalletProfileTabType.OnChainActivities,
-    WalletProfileTabType.POAPs,
-    WalletProfileTabType.NFTs,
-    WalletProfileTabType.Articles,
+    WalletProfileCategory.OnChainActivities,
+    WalletProfileCategory.POAPs,
+    WalletProfileCategory.NFTs,
+    WalletProfileCategory.Articles,
 ];
 export const SORTED_ENGAGEMENT_TAB_TYPE: Record<SocialSource, EngagementType[]> = {
     [Source.Lens]: [EngagementType.Likes, EngagementType.Quotes, EngagementType.Mirrors],

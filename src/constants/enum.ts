@@ -110,7 +110,7 @@ export enum KeyType {
     GetBlink = '/v2/getBlink',
 }
 
-export enum ProfileTabType {
+export enum SocialProfileCategory {
     Feed = 'feed',
     Replies = 'replies',
     Liked = 'liked',
@@ -119,7 +119,7 @@ export enum ProfileTabType {
     Channels = 'channels',
 }
 
-export enum WalletProfileTabType {
+export enum WalletProfileCategory {
     Articles = 'articles',
     POAPs = 'poaps',
     NFTs = 'nfts',
@@ -201,7 +201,7 @@ export const enum FollowCategory {
     Mutuals = 'mutuals',
 }
 
-export type ProfileCategory = FollowCategory | ProfileTabType | WalletProfileTabType;
+export type ProfileCategory = FollowCategory | SocialProfileCategory | WalletProfileCategory;
 
 export enum ChannelTabType {
     Trending = 'trending',

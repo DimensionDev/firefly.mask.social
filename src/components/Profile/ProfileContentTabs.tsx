@@ -11,7 +11,7 @@ import { FeedList } from '@/components/Profile/FeedList.js';
 import { LikedFeedList } from '@/components/Profile/LikedFeedList.js';
 import { MediaList } from '@/components/Profile/MediaList.js';
 import { RepliesList } from '@/components/Profile/RepliesList.js';
-import { ProfileTabType, type SocialSource, Source } from '@/constants/enum.js';
+import { SocialProfileCategory, type SocialSource, Source } from '@/constants/enum.js';
 import { SORTED_PROFILE_TAB_TYPE } from '@/constants/index.js';
 import { classNames } from '@/helpers/classNames.js';
 import { isSocialProfileCategory } from '@/helpers/isSocialProfileCategory.js';
@@ -22,22 +22,22 @@ const ContentList = memo(function ContentList({
     source,
     profileId,
 }: {
-    type: ProfileTabType;
+    type: SocialProfileCategory;
     source: SocialSource;
     profileId: string;
 }) {
     switch (type) {
-        case ProfileTabType.Feed:
+        case SocialProfileCategory.Feed:
             return <FeedList source={source} profileId={profileId} />;
-        case ProfileTabType.Collected:
+        case SocialProfileCategory.Collected:
             return <CollectedList source={source} profileId={profileId} />;
-        case ProfileTabType.Channels:
+        case SocialProfileCategory.Channels:
             return <ChannelList source={source} profileId={profileId} />;
-        case ProfileTabType.Replies:
+        case SocialProfileCategory.Replies:
             return <RepliesList source={source} profileId={profileId} />;
-        case ProfileTabType.Liked:
+        case SocialProfileCategory.Liked:
             return <LikedFeedList source={source} profileId={profileId} />;
-        case ProfileTabType.Media:
+        case SocialProfileCategory.Media:
             return <MediaList source={source} profileId={profileId} />;
         default:
             safeUnreachable(type);
@@ -52,7 +52,7 @@ interface TabsProps {
 
 export function ProfileContentTabs({ profileId, source }: TabsProps) {
     const { update, category } = ProfilePageContext.useContainer();
-    function setProfileCategory(type: ProfileTabType) {
+    function setProfileCategory(type: SocialProfileCategory) {
         update((x) =>
             produce(x, (ctx) => {
                 ctx.category = type;
@@ -60,34 +60,35 @@ export function ProfileContentTabs({ profileId, source }: TabsProps) {
         );
     }
 
-    const computedCategory = category && isSocialProfileCategory(source, category) ? category : ProfileTabType.Feed;
+    const computedCategory =
+        category && isSocialProfileCategory(source, category) ? category : SocialProfileCategory.Feed;
 
     return (
         <>
             <div className="scrollable-tab flex gap-5 border-b border-lightLineSecond px-5 dark:border-line">
                 {[
                     {
-                        type: ProfileTabType.Feed,
+                        type: SocialProfileCategory.Feed,
                         title: source === Source.Farcaster ? <Trans>Casts</Trans> : <Trans>Feed</Trans>,
                     },
                     {
-                        type: ProfileTabType.Replies,
+                        type: SocialProfileCategory.Replies,
                         title: source === Source.Farcaster ? <Trans>Casts + Replies</Trans> : <Trans>Replies</Trans>,
                     },
                     {
-                        type: ProfileTabType.Liked,
+                        type: SocialProfileCategory.Liked,
                         title: <Trans>Likes</Trans>,
                     },
                     {
-                        type: ProfileTabType.Media,
+                        type: SocialProfileCategory.Media,
                         title: <Trans>Media</Trans>,
                     },
                     {
-                        type: ProfileTabType.Collected,
+                        type: SocialProfileCategory.Collected,
                         title: <Trans>Collected</Trans>,
                     },
                     {
-                        type: ProfileTabType.Channels,
+                        type: SocialProfileCategory.Channels,
                         title: <Trans>Channels</Trans>,
                     },
                 ]

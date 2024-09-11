@@ -9,21 +9,21 @@ import { FollowingNFTList } from '@/components/NFTs/FollowingNFTList.js';
 import { ArticleList } from '@/components/Profile/ArticleList.js';
 import { NFTs } from '@/components/Profile/NFTs.js';
 import { POAPList } from '@/components/Profile/POAPList.js';
-import { WalletProfileTabType } from '@/constants/enum.js';
+import { WalletProfileCategory } from '@/constants/enum.js';
 import { WALLET_PROFILE_TAB_TYPES } from '@/constants/index.js';
 import { classNames } from '@/helpers/classNames.js';
 import { isWalletProfileCategory } from '@/helpers/isWalletProfileCategory.js';
 import { ProfilePageContext } from '@/hooks/useProfilePageContext.js';
 
-const ContentList = memo(function ContentList({ type, address }: { type: WalletProfileTabType; address: string }) {
+const ContentList = memo(function ContentList({ type, address }: { type: WalletProfileCategory; address: string }) {
     switch (type) {
-        case WalletProfileTabType.Articles:
+        case WalletProfileCategory.Articles:
             return <ArticleList address={address} />;
-        case WalletProfileTabType.POAPs:
+        case WalletProfileCategory.POAPs:
             return <POAPList address={address} />;
-        case WalletProfileTabType.NFTs:
+        case WalletProfileCategory.NFTs:
             return <NFTs address={address} />;
-        case WalletProfileTabType.OnChainActivities:
+        case WalletProfileCategory.OnChainActivities:
             return <FollowingNFTList walletAddress={address} />;
         default:
             safeUnreachable(type);
@@ -37,7 +37,7 @@ interface WalletTabsProps {
 
 export function WalletTabs({ address }: WalletTabsProps) {
     const { update, category } = ProfilePageContext.useContainer();
-    function setWalletProfileCategory(type: WalletProfileTabType) {
+    function setWalletProfileCategory(type: WalletProfileCategory) {
         update((x) =>
             produce(x, (ctx) => {
                 ctx.category = type;
@@ -45,13 +45,13 @@ export function WalletTabs({ address }: WalletTabsProps) {
         );
     }
     const computedCategory =
-        category && isWalletProfileCategory(category) ? category : WalletProfileTabType.OnChainActivities;
+        category && isWalletProfileCategory(category) ? category : WalletProfileCategory.OnChainActivities;
 
     const tabTitles = {
-        [WalletProfileTabType.OnChainActivities]: <Trans>Onchain Activities</Trans>,
-        [WalletProfileTabType.POAPs]: <Trans>POAPs</Trans>,
-        [WalletProfileTabType.NFTs]: <Trans>NFTs</Trans>,
-        [WalletProfileTabType.Articles]: <Trans>Articles</Trans>,
+        [WalletProfileCategory.OnChainActivities]: <Trans>Onchain Activities</Trans>,
+        [WalletProfileCategory.POAPs]: <Trans>POAPs</Trans>,
+        [WalletProfileCategory.NFTs]: <Trans>NFTs</Trans>,
+        [WalletProfileCategory.Articles]: <Trans>Articles</Trans>,
     };
 
     return (

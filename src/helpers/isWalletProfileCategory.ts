@@ -1,10 +1,10 @@
-import { type ProfileCategory, WalletProfileTabType } from '@/constants/enum.js';
+import { type ProfileCategory, WalletProfileCategory } from '@/constants/enum.js';
 
-export function isWalletProfileCategory(category: ProfileCategory): category is WalletProfileTabType {
+export function isWalletProfileCategory(category: ProfileCategory): category is WalletProfileCategory {
     return [
-        WalletProfileTabType.OnChainActivities,
-        WalletProfileTabType.NFTs,
-        WalletProfileTabType.POAPs,
-        WalletProfileTabType.Articles,
-    ].includes(category as WalletProfileTabType);
+        WalletProfileCategory.OnChainActivities,
+        WalletProfileCategory.NFTs,
+        WalletProfileCategory.POAPs,
+        WalletProfileCategory.Articles,
+    ].includes(category as WalletProfileCategory);
 }

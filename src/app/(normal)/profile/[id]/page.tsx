@@ -1,7 +1,13 @@
 import type { Metadata } from 'next';
 import { redirect, RedirectType } from 'next/navigation.js';
 
-import { KeyType, ProfileTabType, type SocialSource, SourceInURL, WalletProfileTabType } from '@/constants/enum.js';
+import {
+    KeyType,
+    SocialProfileCategory,
+    type SocialSource,
+    SourceInURL,
+    WalletProfileCategory,
+} from '@/constants/enum.js';
 import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
 import { isBotRequest } from '@/helpers/isBotRequest.js';
 import { isSocialSourceInURL } from '@/helpers/isSocialSource.js';
@@ -18,7 +24,7 @@ interface Props {
     params: {
         id: string;
     };
-    searchParams: { source: SourceInURL; profile_tab?: ProfileTabType; wallet_tab?: WalletProfileTabType };
+    searchParams: { source: SourceInURL; profile_tab?: SocialProfileCategory; wallet_tab?: WalletProfileCategory };
 }
 
 export async function generateMetadata({ params, searchParams }: Props): Promise<Metadata> {
