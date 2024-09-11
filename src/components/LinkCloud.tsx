@@ -1,6 +1,7 @@
 'use client';
 
 import { t, Trans } from '@lingui/macro';
+import { compact } from 'lodash-es';
 import { useRef } from 'react';
 import { useMount } from 'react-use';
 
@@ -33,9 +34,11 @@ export function LinkCloud() {
     return (
         <div className="flex flex-wrap gap-x-[12px] gap-y-2 px-3 pb-10 text-xs text-lightSecond lg:px-0">
             <span className="font-bold text-gray-500">© {2024} Firefly</span>
-            {[
+            {compact([
                 { name: <Trans>Communities</Trans>, link: '/settings/more', self: true },
-                { name: <Trans>Developers</Trans>, link: '/developers/general', self: true },
+                env.external.NEXT_PUBLIC_DEVELOPERS !== STATUS.Disabled
+                    ? { name: <Trans>Developers</Trans>, link: '/developers/general', self: true }
+                    : null,
                 {
                     name: <Trans>Privacy Policy</Trans>,
                     link: 'https://mask.notion.site/Privacy-Policy-2e903bb2220e4dcfb7c3e8fcbd983d2a',
@@ -48,7 +51,7 @@ export function LinkCloud() {
                     name: <Trans>Download App</Trans>,
                     link: 'https://firefly.social/#download',
                 },
-            ].map(({ name, link, self }) => (
+            ]).map(({ name, link, self }) => (
                 <Link
                     href={link}
                     key={link}
