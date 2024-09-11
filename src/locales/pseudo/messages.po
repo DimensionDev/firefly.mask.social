@@ -1375,6 +1375,9 @@ msgstr ""
 msgid "Floor Price"
 msgstr ""
 
+msgid "Failed to fetch profiles."
+msgstr ""
+
 msgid "Unliked"
 msgstr ""
 
