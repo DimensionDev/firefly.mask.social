@@ -10,7 +10,7 @@ export function useNewsList(date: Date, enabled = true): UseQueryResult<any> {
     const endTime = Math.floor(addDays(date, 45).getTime() / 1000);
     return useQuery({
         enabled,
-        queryKey: ['newsList', startTime, endTime],
+        queryKey: ['calendar-news', startTime, endTime],
         queryFn: async () => CalendarProvider.getNewsList(startTime, endTime),
         select(data) {
             return (
@@ -30,7 +30,7 @@ export function useEventList(date: Date, enabled = true) {
     const endTime = Math.floor(addDays(date, 45).getTime() / 1000);
     return useQuery<any>({
         enabled,
-        queryKey: ['eventList', startTime, endTime],
+        queryKey: ['calendar-events', startTime, endTime],
         queryFn: async () => CalendarProvider.getEventList(startTime, endTime),
         select(data) {
             return (
@@ -50,7 +50,7 @@ export function useNFTList(date: Date, enabled = true) {
     const endTime = Math.floor(endOfMonth(date).getTime() / 1000);
     return useQuery<any>({
         enabled,
-        queryKey: ['nftList', startTime, endTime],
+        queryKey: ['calendar-nfts', startTime, endTime],
         queryFn: async () => CalendarProvider.getNFTList(startTime, endTime),
         select(data) {
             return (

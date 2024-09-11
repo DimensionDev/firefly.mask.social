@@ -22,10 +22,12 @@ export function DatePicker({ selectedDate, setSelectedDate, open, setOpen, curre
     const startingDayOfWeek = monthStart.getDay();
     const daysInMonth = endOfMonth(currentDate).getDate();
     const daysInPrevMonth = endOfMonth(addMonths(currentDate, -1)).getDate();
-    const { data: eventList } = useEventList(monthStart, currentTab === 'events');
+
     const { data: newsList } = useNewsList(monthStart, currentTab === 'news');
+    const { data: eventList } = useEventList(monthStart, currentTab === 'events');
     const { data: nftList } = useNFTList(monthStart, currentTab === 'nfts');
-    const list = useMemo(() => {
+
+    const getListItems = () => {
         switch (currentTab) {
             case 'news':
                 return newsList;
@@ -37,7 +39,7 @@ export function DatePicker({ selectedDate, setSelectedDate, open, setOpen, curre
                 safeUnreachable(currentTab);
                 return null;
         }
-    }, [currentTab, newsList, eventList, nftList]);
+    };
 
     const isPrevMonthDisabled = useMemo(() => {
         return !isAfter(currentDate, endOfMonth(new Date()));
@@ -51,7 +53,7 @@ export function DatePicker({ selectedDate, setSelectedDate, open, setOpen, curre
         setOpen(false);
     };
 
-    const changeMonth = (amount: number) => {
+    const handleMonthClick = (amount: number) => {
         setCurrentDate(addMonths(currentDate, amount));
     };
 
@@ -96,27 +98,27 @@ export function DatePicker({ selectedDate, setSelectedDate, open, setOpen, curre
 
                                 return (
                                     <td key={dayIndex}>
-                                        <button
+                                        <ClickableButton
                                             className="border-none bg-none p-[5px] outline-none"
                                             type="submit"
-                                            disabled={!list?.[currentDatePointer.toLocaleDateString()]}
+                                            disabled={!getListItems()?.[currentDatePointer.toLocaleDateString()]}
                                             onClick={() => handleDateClick(currentDatePointer)}
                                         >
                                             <span
                                                 className={classNames(
                                                     'flex h-[28px] w-[28px] items-center justify-center rounded-full leading-5 text-second',
                                                     {
-                                                        'border !border-main !text-main':
+                                                        '!border-none bg-fireflyBrand text-main':
                                                             selectedDate.toDateString() ===
                                                             currentDatePointer.toDateString(),
                                                         'cursor-pointer border border-second':
-                                                            !!list?.[currentDatePointer.toLocaleDateString()],
+                                                            !!getListItems()?.[currentDatePointer.toLocaleDateString()],
                                                     },
                                                 )}
                                             >
                                                 {currentDatePointer.getDate()}
                                             </span>
-                                        </button>
+                                        </ClickableButton>
                                     </td>
                                 );
                             })}
@@ -131,10 +133,10 @@ export function DatePicker({ selectedDate, setSelectedDate, open, setOpen, curre
                 <div className="flex items-center justify-between">
                     <p className="pl-2 font-bold text-main">{format(currentDate, 'MMMM yyyy')}</p>
                     <div className="flex items-center">
-                        <ClickableButton onClick={() => changeMonth(-1)} disabled={isPrevMonthDisabled}>
+                        <ClickableButton onClick={() => handleMonthClick(-1)} disabled={isPrevMonthDisabled}>
                             <RightArrowIcon className="rotate-180" width={24} height={24} />
                         </ClickableButton>
-                        <ClickableButton onClick={() => changeMonth(1)} disabled={isNextMonthDisabled}>
+                        <ClickableButton onClick={() => handleMonthClick(1)} disabled={isNextMonthDisabled}>
                             <RightArrowIcon width={24} height={24} />
                         </ClickableButton>
                     </div>

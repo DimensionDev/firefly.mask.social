@@ -26,10 +26,10 @@ export function DatePickerTab({ selectedDate, setSelectedDate, list, open, setOp
                 return (
                     <div
                         className={classNames(
-                            'leading-20 flex h-[28px] w-[28px] cursor-pointer items-center justify-center rounded-full border border-second text-center text-second',
+                            'leading-20 flex h-[28px] w-[28px] cursor-pointer items-center justify-center rounded-full border border-secondary text-center text-secondary',
                             {
-                                '!border-main !text-main': selectedDate.getDate() === v.getDate(),
-                                'cursor-default border-none': !!list && !list[v.toLocaleDateString()],
+                                '!border-none bg-fireflyBrand': selectedDate.getDate() === v.getDate(),
+                                'cursor-default': !!list && !list[v.toLocaleDateString()],
                             },
                         )}
                         key={v.toString()}
