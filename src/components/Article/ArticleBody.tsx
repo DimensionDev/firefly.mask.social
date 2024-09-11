@@ -1,17 +1,20 @@
 import { ArticleMarkup } from '@/components/Markup/ArticleMarkup.js';
 import { ImageAsset } from '@/components/Posts/ImageAsset.js';
+import DOMPurify from 'dompurify';
 import { IS_APPLE, IS_SAFARI } from '@/constants/bowser.js';
 import { Source } from '@/constants/enum.js';
 import { classNames } from '@/helpers/classNames.js';
 import { PreviewMediaModalRef } from '@/modals/controls.js';
+import { ArticlePlatform } from '@/providers/types/Article.js';
 
 interface Props {
     cover?: string;
     title: string;
     content?: string;
+    platform?: ArticlePlatform;
 }
 
-export function ArticleBody({ cover, title, content }: Props) {
+export function ArticleBody({ cover, title, content, platform }: Props) {
     return (
         <div className="relative mt-[6px] flex flex-col gap-2 overflow-hidden rounded-2xl border border-line bg-bg p-3">
             {cover ? (
@@ -44,12 +47,18 @@ export function ArticleBody({ cover, title, content }: Props) {
             </div>
             {content ? (
                 <div className="h-[100px]">
-                    <ArticleMarkup
-                        disableImage
-                        className="markup linkify break-words text-sm leading-[18px] text-second"
-                    >
-                        {content}
-                    </ArticleMarkup>
+                    {platform === ArticlePlatform.Limo ? (
+                        // The content returned by limo is html.
+                        // eslint-disable-next-line react/no-danger
+                        <div dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(content) }} />
+                    ) : (
+                        <ArticleMarkup
+                            disableImage
+                            className="markup linkify break-words text-sm leading-[18px] text-second"
+                        >
+                            {content}
+                        </ArticleMarkup>
+                    )}
                     <div
                         className="absolute bottom-0 left-0 h-[100px] w-full"
                         style={{
