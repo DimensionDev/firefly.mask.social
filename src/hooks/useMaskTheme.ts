@@ -1,4 +1,4 @@
-import { MaskDarkTheme, MaskLightTheme } from '@masknet/theme';
+import { MaskColors, MaskDarkTheme, MaskLightTheme } from '@masknet/theme';
 import type { Theme } from '@mui/material/styles';
 import { merge } from 'lodash-es';
 import { useMemo } from 'react';
@@ -23,7 +23,7 @@ function createTheme(theme: Theme) {
                 },
                 styleOverrides: {
                     root: {
-                        backgroundColor: theme.palette.maskColor.bottom,
+                        backgroundColor: MaskColors[theme.palette.mode].maskColor.bottom,
                     },
                 },
             },

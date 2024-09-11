@@ -29,7 +29,6 @@ declare module '*.svg?url' {
 
 namespace JSX {
     interface IntrinsicElements {
-        'mask-calendar-widget': React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement>;
         'mask-page-inspector': React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement>;
         'mask-decrypted-post': React.DetailedHTMLProps<
             React.HTMLAttributes<HTMLElement> & { props: string },

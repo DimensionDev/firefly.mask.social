@@ -18446,7 +18446,7 @@ packages:
     resolution: {integrity: sha512-fnULvOpxnC5/Vg3NCiWelDsLiUc9bRwAPs/+LfTLNvetFCtCTN+yQz15C/fs4AwX1R9K5GLtLfn8QW+dWisaAw==}
     engines: {node: '>=0.11'}
     dependencies:
-      '@babel/runtime': 7.24.1
+      '@babel/runtime': 7.25.0
     dev: false
 
   /date-fns@3.6.0:
@@ -32907,6 +32907,7 @@ time:
   /@wagmi/core@2.13.5: '2024-09-10T18:41:21.475Z'
   /@web3modal/wagmi@5.1.7: '2024-09-10T03:43:57.573Z'
   /anchorme@3.0.8: '2024-04-08T09:26:57.773Z'
+  /date-fns@2.30.0: '2023-04-30T02:49:47.228Z'
   /dompurify@3.0.5: '2023-07-11T08:02:01.823Z'
   /immer@10.0.3: '2023-10-02T06:36:31.915Z'
   /jsdom@24.1.1: '2024-07-21T05:09:13.175Z'

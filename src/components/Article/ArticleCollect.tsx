@@ -106,7 +106,6 @@ export function ArticleCollect(props: ArticleCollectProps) {
         if (isSoldOut) return t`Sold Out`;
         if (data?.isCollected) return t`Collected`;
         if (!hasSufficientBalance) return t`Insufficient Balance`;
-
         if (!data?.price) return t`Free Collect`;
         return t`Collect for ${data.price} ${chain?.nativeCurrency.symbol}`;
     }, [data, chain, isSoldOut, hasSufficientBalance]);
