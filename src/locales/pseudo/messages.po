@@ -325,6 +325,9 @@ msgstr ""
 msgid "Show less"
 msgstr ""
 
+msgid "Failed to fetch lens profiles."
+msgstr ""
+
 msgid "Switch between the app kit and rainbow kit wallet providers."
 msgstr ""
 
