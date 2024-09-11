@@ -7,6 +7,7 @@ import WebsiteIcon from '@/assets/website.svg';
 import { CountdownTimer } from '@/components/Calendar/CountdownTimer.js';
 import { EmptyStatus } from '@/components/Calendar/EmptyStatus.js';
 import { LoadingStatus } from '@/components/Calendar/LoadingStatus.js';
+import { ClickableButton } from '@/components/ClickableButton.js';
 import { Image } from '@/components/Image.js';
 import { Tooltip } from '@/components/Tooltip.js';
 import { XIcon } from '@/components/XIcon.js';
@@ -19,10 +20,10 @@ interface NFTListProps {
     date: Date;
 }
 
-const socialIcons: Record<string, ReactNode> = {
+const SocialIcons: Record<string, ReactNode> = {
     twitter: <XIcon width={20} height={20} />,
-    discord: <DiscordRoundIcon width={20} height={20} color="#000" />,
-    website: <WebsiteIcon width={20} height={20} />,
+    discord: <DiscordRoundIcon width={20} height={20} />,
+    website: <WebsiteIcon width={20} height={20} className="scale-150" />,
 };
 
 const sortPlat = (_: any, b: { type: string }) => {
@@ -86,16 +87,15 @@ export function NFTList({ list, isLoading, empty, date }: NFTListProps) {
                                                     .map((platform: { type: string; url: string }) => {
                                                         return (
                                                             <Tooltip content={platform.url} placement="top">
-                                                                <div
+                                                                <ClickableButton
                                                                     className="h-5 w-5"
                                                                     key={platform.type}
-                                                                    onClick={(e) => {
-                                                                        e.stopPropagation();
+                                                                    onClick={() => {
                                                                         window.open(platform.url);
                                                                     }}
                                                                 >
-                                                                    {socialIcons[platform.type]}
-                                                                </div>
+                                                                    {SocialIcons[platform.type]}
+                                                                </ClickableButton>
                                                             </Tooltip>
                                                         );
                                                     })}
