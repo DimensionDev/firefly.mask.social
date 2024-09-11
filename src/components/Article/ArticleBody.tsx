@@ -1,6 +1,7 @@
+import DOMPurify from 'dompurify';
+
 import { ArticleMarkup } from '@/components/Markup/ArticleMarkup.js';
 import { ImageAsset } from '@/components/Posts/ImageAsset.js';
-import DOMPurify from 'dompurify';
 import { IS_APPLE, IS_SAFARI } from '@/constants/bowser.js';
 import { Source } from '@/constants/enum.js';
 import { classNames } from '@/helpers/classNames.js';
