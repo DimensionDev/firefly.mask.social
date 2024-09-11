@@ -7,7 +7,7 @@ import { ProfileAvatar } from '@/components/ProfileAvatar.js';
 import { SocialSourceIcon } from '@/components/SocialSourceIcon.js';
 import { Source } from '@/constants/enum.js';
 import { classNames } from '@/helpers/classNames.js';
-import { useFireflyIdentity } from '@/hooks/useFireflyIdentity.js';
+import { resolveFireflyIdentity } from '@/helpers/resolveFireflyProfileId.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 
 interface ProfileSlideProps {
@@ -15,7 +15,9 @@ interface ProfileSlideProps {
 }
 
 export const ProfileSlide = memo<ProfileSlideProps>(function ProfileSlide({ profile }) {
-    const identity = useFireflyIdentity(profile.source, profile.profileId);
+    const identity = resolveFireflyIdentity(profile);
+
+    if (!identity) return null;
 
     return (
         <div className="h-[184px] w-[164px] rounded-2xl bg-lightBottom px-3 py-6 shadow-primary backdrop-blur dark:bg-primaryBottom">
