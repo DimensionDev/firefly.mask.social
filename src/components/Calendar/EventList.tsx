@@ -39,9 +39,9 @@ export function EventList({ list, isLoading, empty, date }: EventListProps) {
                     futureEvents.map((key) => {
                         return (
                             <div key={key}>
-                                <Typography className="leading-18 py-[10px] font-bold text-main">
+                                <p className="leading-18 py-[10px] font-bold text-main">
                                     {dayjs(new Date(key)).format('MMM dd,yyy')}
-                                </Typography>
+                                </p>
                                 {list[key].map((v) => (
                                     <Link
                                         key={v.event_url}
@@ -59,15 +59,15 @@ export function EventList({ list, isLoading, empty, date }: EventListProps) {
                                                     height={24}
                                                     alt={v.project.name}
                                                 />
-                                                <Typography className="leading-16 text-sm font-bold text-main">
+                                                <p className="leading-16 text-sm font-bold text-main">
                                                     {v.project.name}
-                                                </Typography>
+                                                </p>
                                             </div>
                                         </div>
-                                        <Typography className="leading-18">{v.event_title}</Typography>
-                                        <Typography className="leading-18 text-second">
+                                        <p className="leading-18">{v.event_title}</p>
+                                        <p className="leading-18 text-second">
                                             {dayjs(new Date(v.event_date)).format('MMM dd, yyyy HH:mm')}
-                                        </Typography>
+                                        </p>
                                         <ImageLoader src={v.poster_url} />
                                     </Link>
                                 ))}

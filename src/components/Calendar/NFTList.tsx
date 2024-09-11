@@ -51,9 +51,9 @@ export function NFTList({ list, isLoading, empty, date }: NFTListProps) {
                     listAfterDate.map((key) => {
                         return (
                             <div key={key}>
-                                <Typography className="leading-18 py-[10px] font-bold text-main">
+                                <p className="leading-18 py-[10px] font-bold text-main">
                                     {dayjs(new Date(key)).format('MMM dd,yyy')}
-                                </Typography>
+                                </p>
                                 {list[key].map((v) => (
                                     <Link
                                         key={v.event_url}
@@ -71,14 +71,14 @@ export function NFTList({ list, isLoading, empty, date }: NFTListProps) {
                                                     height={24}
                                                     alt={v.project.name}
                                                 />
-                                                <Typography className="text-12 leading-16 font-bold text-main">
+                                                <p className="text-12 leading-16 font-bold text-main">
                                                     {v.project.name}
-                                                </Typography>
+                                                </p>
                                             </div>
                                         </div>
-                                        <Typography className="leading-18 overflow-hidden overflow-ellipsis whitespace-nowrap text-main">
+                                        <p className="leading-18 overflow-hidden overflow-ellipsis whitespace-nowrap text-main">
                                             {v.project.description}
-                                        </Typography>
+                                        </p>
                                         <div className="flex w-full justify-between">
                                             <CountdownTimer targetDate={new Date(v.event_date)} />
                                             <div className="flex items-center gap-2">
@@ -101,28 +101,28 @@ export function NFTList({ list, isLoading, empty, date }: NFTListProps) {
                                             </div>
                                         </div>
                                         <div className="flex w-full justify-between">
-                                            <Typography className="leading-18 text-second">
+                                            <p className="leading-18 text-second">
                                                 <Trans>Total</Trans>
-                                            </Typography>
-                                            <Typography className="leading-18 overflow-hidden overflow-ellipsis whitespace-nowrap text-main">
+                                            </p>
+                                            <p className="leading-18 overflow-hidden overflow-ellipsis whitespace-nowrap text-main">
                                                 {Number(v.ext_info.nft_info.total).toLocaleString('en-US')}
-                                            </Typography>
+                                            </p>
                                         </div>
                                         <div className="flex w-full justify-between">
-                                            <Typography className="leading-18 text-second">
+                                            <p className="leading-18 text-second">
                                                 <Trans>Price</Trans>
-                                            </Typography>
-                                            <Typography className="leading-18 overflow-hidden overflow-ellipsis whitespace-nowrap text-main">
+                                            </p>
+                                            <p className="leading-18 overflow-hidden overflow-ellipsis whitespace-nowrap text-main">
                                                 {v.ext_info.nft_info.token}
-                                            </Typography>
+                                            </p>
                                         </div>
                                         <div className="flex w-full justify-between">
-                                            <Typography className="leading-18 text-second">
+                                            <p className="leading-18 text-second">
                                                 <Trans>Date</Trans>
-                                            </Typography>
-                                            <Typography className="leading-18 overflow-hidden overflow-ellipsis whitespace-nowrap text-main">
+                                            </p>
+                                            <p className="leading-18 overflow-hidden overflow-ellipsis whitespace-nowrap text-main">
                                                 {dayjs(new Date(v.event_date)).format('MMM dd, yyyy HH:mm')}
-                                            </Typography>
+                                            </p>
                                         </div>
                                         <Image
                                             className="h-[156px] w-full rounded-md object-cover"

@@ -11,6 +11,7 @@ import { useEventList, useNewsList, useNFTList } from '@/components/Calendar/hoo
 import { NewsList } from '@/components/Calendar/NewsList.js';
 import { NFTList } from '@/components/Calendar/NFTList.js';
 import { EMPTY_OBJECT } from '@/constants/index.js';
+import { classNames } from '@/helpers/classNames.js';
 
 export function CalendarContent() {
     const tabs = [
@@ -58,9 +59,17 @@ export function CalendarContent() {
     return (
         <div className="relative mb-5 flex flex-col rounded-xl">
             <Tab.Group selectedIndex={currentTabIndex} onChange={setCurrentTabIndex}>
-                <Tab.List className="rounded-t-xl bg-opacity-80 px-4 py-2" style={{ backgroundColor: '#9250FF' }}>
-                    {tabs.map((x) => (
-                        <Tab className="font-bold" key={x.value}>
+                <Tab.List className="flex rounded-t-xl bg-[#9250FF80] bg-opacity-80 px-4 pt-2 dark:bg-white">
+                    {tabs.map((x, i) => (
+                        <Tab
+                            className={classNames(
+                                'flex-1 rounded-t-xl px-4 py-[11px] font-bold leading-none text-white outline-none dark:text-lightSecond',
+                                {
+                                    'bg-main text-main dark:bg-black dark:text-main': currentTabIndex === i,
+                                },
+                            )}
+                            key={x.value}
+                        >
                             {x.label}
                         </Tab>
                     ))}
