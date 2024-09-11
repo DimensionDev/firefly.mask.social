@@ -1,8 +1,8 @@
-import { LoadingBase } from '@masknet/theme';
-import { Box, useTheme } from '@mui/material';
 import { useState } from 'react';
 
 import { Image } from '@/components/Image.js';
+import { useIsDarkMode } from '@/hooks/useIsDarkMode.js';
+import LoadingIcon from '@/assets/loading.svg';
 
 interface ImageLoaderProps {
     src: string;
@@ -12,7 +12,7 @@ const MASK_DARK_FALLBACK = new URL('./assets/mask.dark.svg', import.meta.url).hr
 const MASK_LIGHT_FALLBACK = new URL('./assets/mask.light.svg', import.meta.url).href;
 
 export function ImageLoader({ src }: ImageLoaderProps) {
-    const theme = useTheme();
+    const isDark = useIsDarkMode();
 
     const [loaded, setLoaded] = useState(false);
     const [failed, setFailed] = useState(false);
@@ -32,17 +32,12 @@ export function ImageLoader({ src }: ImageLoaderProps) {
                     }}
                 />
             ) : (
-                <Image
-                    src={theme.palette.mode === 'light' ? MASK_LIGHT_FALLBACK : MASK_DARK_FALLBACK}
-                    width={60}
-                    height={60}
-                    alt="mask"
-                />
+                <Image src={isDark ? MASK_DARK_FALLBACK : MASK_LIGHT_FALLBACK} width={60} height={60} alt="mask" />
             )}
             {!loaded && !failed ? (
-                <Box className="absolute left-1/2 top-1/2 text-main">
-                    <LoadingBase size={20} />
-                </Box>
+                <div className="absolute left-1/2 top-1/2 text-main">
+                    <LoadingIcon className="animate-spin" width={20} height={20} />
+                </div>
             ) : null}
         </div>
     );
