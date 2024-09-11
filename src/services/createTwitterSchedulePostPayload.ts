@@ -31,6 +31,7 @@ export async function createTwitterSchedulePostPayload(
     type: ComposeType,
     compositePost: CompositePost,
     isThread = false,
+    signal?: AbortSignal,
 ): Promise<TwitterSchedulePostPayload> {
     const { chars, images, video, parentPost, restriction, poll } = compositePost;
 
