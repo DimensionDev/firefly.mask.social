@@ -73,7 +73,7 @@ export function EventsList({ list, isLoading, empty, date }: EventListProps) {
                         );
                     })
                 ) : (
-                    <EmptyStatus className="absolute left-1/2 top-1/2 flex -translate-x-1/2 -translate-y-1/2 transform flex-col gap-3 whitespace-nowrap text-second">
+                    <EmptyStatus>
                         <Trans>No content for the last two weeks.</Trans>
                     </EmptyStatus>
                 )}
