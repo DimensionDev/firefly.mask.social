@@ -12,7 +12,8 @@ export function resolveNftUrl(
     if (options?.tokenId) {
         basePath = `${basePath}/${options?.tokenId}`;
     }
-    return urlcat(basePath, {
-        chainId: options?.chainId,
+    const chainId = options?.chainId || ChainId.Mainnet;
+    return urlcat(`${basePath}/:chainId`, {
+        chainId,
     });
 }
