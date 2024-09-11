@@ -28,7 +28,7 @@ export function DatePickerTab({ selectedDate, setSelectedDate, list, open, setOp
                         className={classNames(
                             'leading-20 flex h-[28px] w-[28px] cursor-pointer items-center justify-center rounded-full border border-secondary text-center text-secondary',
                             {
-                                '!border-none bg-fireflyBrand': selectedDate.getDate() === v.getDate(),
+                                '!border-none bg-fireflyBrand text-white': selectedDate.getDate() === v.getDate(),
                                 'cursor-default': !!list && !list[v.toLocaleDateString()],
                             },
                         )}
