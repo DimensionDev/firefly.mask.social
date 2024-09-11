@@ -82,17 +82,15 @@ export function ProfilePageLayout({ identity, children }: PropsWithChildren<{ id
                 {isLoading ? (
                     <Loading />
                 ) : (
-                    <>
-                        <ProfileInfo
-                            profiles={profiles}
-                            isSuspended={isSuspended}
-                            isLoading={isLoadingProfile}
-                            profile={profile}
-                        >
-                            <ProfileCategoryTabs source={identity.source as SocialSource} />
-                            {children}
-                        </ProfileInfo>
-                    </>
+                    <ProfileInfo
+                        profiles={profiles}
+                        isSuspended={isSuspended}
+                        isLoading={isLoadingProfile}
+                        profile={profile}
+                    >
+                        <ProfileCategoryTabs source={identity.source as SocialSource} />
+                        {children}
+                    </ProfileInfo>
                 )}
             </LoginRequiredGuard>
         </>
