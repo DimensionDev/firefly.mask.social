@@ -1,12 +1,19 @@
+import { FRAME_DEV_SERVER_URL, FRAME_SERVER_URL } from '@/constants/index.js';
 import { getResourceType } from '@/helpers/getResourceType.js';
 import { isRoutePathname } from '@/helpers/isRoutePathname.js';
 import { isSameOriginUrl } from '@/helpers/isSameOriginUrl.js';
 import { parseURL } from '@/helpers/parseURL.js';
 import { EmbedMediaType } from '@/providers/types/Firefly.js';
-import { settings } from '@/settings/index.js';
+
+const frameDomains = [
+    FRAME_SERVER_URL,
+    FRAME_DEV_SERVER_URL,
+    'https://polls-canary.firefly.social',
+    'https://polls.mask.social',
+];
 
 export function isValidPollFrameUrl(url: string): boolean {
-    if (!isSameOriginUrl(url, settings.FRAME_SERVER_URL)) return false;
+    if (!frameDomains.some((domain) => isSameOriginUrl(url, domain))) return false;
     const parsed = parseURL(url);
     if (!parsed) return false;
 
