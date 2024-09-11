@@ -23,8 +23,8 @@ export function ImageLoader({ src }: ImageLoaderProps) {
                 <Image
                     alt="poster"
                     src={src}
-                    width={60}
-                    height={60}
+                    width={450}
+                    height={150}
                     className="h-[156px] w-full rounded-md object-cover"
                     onLoad={() => setLoaded(true)}
                     onError={() => {

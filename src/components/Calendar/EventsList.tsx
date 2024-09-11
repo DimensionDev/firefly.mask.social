@@ -1,6 +1,5 @@
 import { Trans } from '@lingui/macro';
 import { resolveIPFS_URL } from '@masknet/web3-shared-base';
-import { Link, Typography } from '@mui/material';
 import dayjs from 'dayjs';
 import { useCallback, useMemo } from 'react';
 
@@ -8,6 +7,7 @@ import { EmptyStatus } from '@/components/Calendar/EmptyStatus.js';
 import { ImageLoader } from '@/components/Calendar/ImageLoader.js';
 import { LoadingStatus } from '@/components/Calendar/LoadingStatus.js';
 import { Image } from '@/components/Image.js';
+import { Link } from '@/esm/Link.js';
 
 interface EventListProps {
     list: Record<string, any[]>;
@@ -16,7 +16,7 @@ interface EventListProps {
     date: Date;
 }
 
-export function EventList({ list, isLoading, empty, date }: EventListProps) {
+export function EventsList({ list, isLoading, empty, date }: EventListProps) {
     const futureEvents = useMemo(() => {
         return Object.keys(list).filter((key) => new Date(key) >= date);
     }, [list, date]);
@@ -26,32 +26,32 @@ export function EventList({ list, isLoading, empty, date }: EventListProps) {
 
     return (
         <div
-            className="scrollbar-none relative mb-[50px] flex h-[506px] w-full flex-col gap-[10px] overflow-y-scroll"
+            className="no-scrollbar relative mb-[50px] flex h-[506px] w-full flex-col gap-[10px] overflow-y-scroll"
             ref={listRef}
             key={date.toISOString()}
         >
-            <div className="pr-3">
+            <div>
                 {isLoading && !list?.length ? (
-                    <div className="leading-18 absolute left-1/2 top-1/2 flex -translate-x-1/2 -translate-y-1/2 transform flex-col gap-3 whitespace-nowrap text-second">
+                    <div className="absolute left-1/2 top-1/2 flex -translate-x-1/2 -translate-y-1/2 transform flex-col gap-3 whitespace-nowrap text-second">
                         <LoadingStatus />
                     </div>
                 ) : !empty && futureEvents.length ? (
                     futureEvents.map((key) => {
                         return (
-                            <div key={key}>
-                                <p className="leading-18 py-[10px] font-bold text-main">
-                                    {dayjs(new Date(key)).format('MMM dd,yyy')}
+                            <div className="text-sm" key={key}>
+                                <p className="p-2 font-bold leading-none">
+                                    {dayjs(new Date(key)).format('MMM DD, YYYY')}
                                 </p>
                                 {list[key].map((v) => (
                                     <Link
+                                        className="flex cursor-pointer flex-col gap-2 border-b border-line p-2 hover:bg-bg hover:no-underline"
                                         key={v.event_url}
-                                        className="flex cursor-pointer flex-col gap-2 p-2 hover:no-underline"
                                         href={v.event_url}
                                         rel="noopener noreferrer"
                                         target="_blank"
                                     >
                                         <div className="flex w-full justify-between">
-                                            <div className="flex items-center gap-2 text-main">
+                                            <div className="flex items-center gap-2">
                                                 <Image
                                                     src={resolveIPFS_URL(v.project.logo)!}
                                                     className="overflow-hidden rounded-full"
@@ -59,14 +59,12 @@ export function EventList({ list, isLoading, empty, date }: EventListProps) {
                                                     height={24}
                                                     alt={v.project.name}
                                                 />
-                                                <p className="leading-16 text-sm font-bold text-main">
-                                                    {v.project.name}
-                                                </p>
+                                                <p className="leading-16 text-xs font-bold">{v.project.name}</p>
                                             </div>
                                         </div>
-                                        <p className="leading-18">{v.event_title}</p>
-                                        <p className="leading-18 text-second">
-                                            {dayjs(new Date(v.event_date)).format('MMM dd, yyyy HH:mm')}
+                                        <p>{v.event_title}</p>
+                                        <p className="text-second">
+                                            {dayjs(new Date(v.event_date)).format('MMM DD, YYYY HH:mm')}
                                         </p>
                                         <ImageLoader src={v.poster_url} />
                                     </Link>

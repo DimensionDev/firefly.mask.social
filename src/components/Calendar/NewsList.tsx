@@ -1,11 +1,11 @@
 import { Trans } from '@lingui/macro';
-import { Link, Typography } from '@mui/material';
 import dayjs from 'dayjs';
 import { useCallback, useMemo } from 'react';
 
 import { EmptyStatus } from '@/components/Calendar/EmptyStatus.js';
 import { LoadingStatus } from '@/components/Calendar/LoadingStatus.js';
 import { Image } from '@/components/Image.js';
+import { Link } from '@/esm/Link.js';
 
 interface NewsListProps {
     list: Record<string, any[]>;
@@ -24,27 +24,27 @@ export function NewsList({ list, isLoading, empty, date }: NewsListProps) {
 
     return (
         <div
-            className="scrollbar-none relative mb-[50px] flex h-[506px] w-full flex-col gap-[10px] overflow-y-scroll"
+            className="no-scrollbar relative mb-[50px] flex h-[506px] w-full flex-col gap-[10px] overflow-y-scroll"
             ref={listRef}
             key={date.toISOString()}
         >
-            <div className="pr-3">
+            <div>
                 {isLoading && !list?.length ? (
-                    <div className="leading-18 absolute left-1/2 top-1/2 flex -translate-x-1/2 -translate-y-1/2 transform flex-col gap-3 whitespace-nowrap text-main">
+                    <div className="absolute left-1/2 top-1/2 flex -translate-x-1/2 -translate-y-1/2 transform flex-col gap-3 whitespace-nowrap text-second">
                         <LoadingStatus />
                     </div>
                 ) : !empty && futureNewsList.length ? (
                     futureNewsList.map((key) => {
                         return (
-                            <div key={key}>
-                                <p className="leading-18 py-[10px] font-bold text-main">
-                                    {dayjs(new Date(key)).format('MMM dd,yyy')}
+                            <div className="text-sm" key={key}>
+                                <p className="p-2 font-bold leading-none">
+                                    {dayjs(new Date(key)).format('MMM DD, YYYY')}
                                 </p>
                                 {list[key].map((v) => (
                                     <Link
+                                        className="flex cursor-pointer flex-col gap-2 border-b border-line p-2 hover:bg-bg hover:no-underline"
                                         key={v.event_url}
                                         href={v.event_url}
-                                        className="leading-16 flex cursor-pointer flex-col gap-2 border-b border-line pb-2 text-sm font-bold hover:no-underline"
                                         rel="noopener noreferrer"
                                         target="_blank"
                                     >
@@ -57,16 +57,14 @@ export function NewsList({ list, isLoading, empty, date }: NewsListProps) {
                                                     height={24}
                                                     alt={v.project.name}
                                                 />
-                                                <p className="leading-16 text-sm font-bold text-main">
-                                                    {v.project.name}
-                                                </p>
+                                                <p className="text-xs font-bold text-main">{v.project.name}</p>
                                             </div>
-                                            <p className="flex items-center justify-center rounded-md bg-bg px-2 py-1 text-center text-sm text-main">
+                                            <p className="flex items-center justify-center rounded-md bg-bg px-2 py-1 text-center text-xs text-main">
                                                 {v.event_type}
                                             </p>
                                         </div>
-                                        <p className="leading-18 text-main">{v.event_title}</p>
-                                        <p className="leading-18 text-second">{v.event_description}</p>
+                                        <p className="text-main">{v.event_title}</p>
+                                        <p className="text-xs text-second">{v.event_description}</p>
                                     </Link>
                                 ))}
                             </div>

@@ -1,5 +1,4 @@
 import { Trans } from '@lingui/macro';
-import { Typography } from '@mui/material';
 import { differenceInSeconds } from 'date-fns';
 import { useEffect, useState } from 'react';
 
@@ -35,8 +34,8 @@ export function CountdownTimer({ targetDate }: CountdownTimerProps) {
     const seconds = remainingTime % 60;
 
     return (
-        <Typography className="flex items-center justify-center rounded-md bg-bg p-[2px] text-xs leading-4 text-main">
+        <p className="flex items-center justify-center rounded-md border border-line px-4 py-[2px] text-xs leading-none">
             {remainingTime === 0 ? <Trans>Expired</Trans> : `${days}d :${hours}h :${minutes}m :${seconds}s`}
-        </Typography>
+        </p>
     );
 }

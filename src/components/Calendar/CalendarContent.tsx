@@ -5,7 +5,7 @@ import { t } from '@lingui/macro';
 import { safeUnreachable } from '@masknet/kit';
 import { useState } from 'react';
 
-import { EventList } from '@/components/Calendar/EventList.js';
+import { EventsList } from '@/components/Calendar/EventsList.js';
 import { Footer } from '@/components/Calendar/Footer.js';
 import { useEventList, useNewsList, useNFTList } from '@/components/Calendar/hooks/useEventList.js';
 import { NewsList } from '@/components/Calendar/NewsList.js';
@@ -16,12 +16,12 @@ import { classNames } from '@/helpers/classNames.js';
 export function CalendarContent() {
     const tabs = [
         {
-            label: t`Events`,
-            value: 'events',
-        },
-        {
             label: t`News`,
             value: 'news',
+        },
+        {
+            label: t`Events`,
+            value: 'events',
         },
         {
             label: t`NFTs`,
@@ -33,20 +33,20 @@ export function CalendarContent() {
     const [selectedDate, setSelectedDate] = useState(new Date());
     const [open, setOpen] = useState(false);
 
-    const currentTab = tabs[currentTabIndex].value as (typeof tabs)[0]['value'] as 'news' | 'event' | 'nfts';
+    const currentTab = tabs[currentTabIndex].value as (typeof tabs)[0]['value'] as 'news' | 'events' | 'nfts';
 
+    const { data: newsList = EMPTY_OBJECT, isPending: newsLoading } = useNewsList(selectedDate, currentTab === 'news');
     const { data: eventList = EMPTY_OBJECT, isPending: eventLoading } = useEventList(
         selectedDate,
-        currentTab === 'event',
+        currentTab === 'events',
     );
-    const { data: newsList = EMPTY_OBJECT, isPending: newsLoading } = useNewsList(selectedDate, currentTab === 'news');
     const { data: nftList = EMPTY_OBJECT, isPending: nftLoading } = useNFTList(selectedDate, currentTab === 'nfts');
 
     const getListItems = () => {
         switch (currentTab) {
             case 'news':
                 return newsList;
-            case 'event':
+            case 'events':
                 return eventList;
             case 'nfts':
                 return nftList;
@@ -83,7 +83,7 @@ export function CalendarContent() {
                     currentTab={currentTab}
                 /> */}
                 <Tab.Panels className="rounded-b-xl border border-t-0 border-line">
-                    <Tab.Panel className="px-3">
+                    <Tab.Panel>
                         <NewsList
                             list={newsList}
                             isLoading={newsLoading}
@@ -91,15 +91,15 @@ export function CalendarContent() {
                             date={selectedDate}
                         />
                     </Tab.Panel>
-                    <Tab.Panel className="px-3">
-                        <EventList
+                    <Tab.Panel>
+                        <EventsList
                             list={eventList}
                             isLoading={eventLoading}
                             empty={!Object.keys(eventList).length}
                             date={selectedDate}
                         />
                     </Tab.Panel>
-                    <Tab.Panel className="px-3">
+                    <Tab.Panel>
                         <NFTList
                             list={nftList}
                             isLoading={nftLoading}

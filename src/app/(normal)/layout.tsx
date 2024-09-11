@@ -1,16 +1,10 @@
-import { Advertisement } from '@/components/Advertisement.js';
 import { CalendarContent } from '@/components/Calendar/CalendarContent.js';
-import { SuggestedChannels } from '@/components/Channel/SuggestedChannels.js';
 import { ComposeWatcher } from '@/components/Compose/ComposeWatcher.js';
 import { ComposeButton } from '@/components/ComposeButton/index.js';
 import { IfPathname } from '@/components/IfPathname.js';
-import { LinkCloud } from '@/components/LinkCloud.js';
 import { NavigatorBar } from '@/components/NavigatorBar/index.js';
 import { AsideSearchBar, HeaderSearchBar } from '@/components/Search/SearchBar.js';
-import { SearchFilter } from '@/components/Search/SearchFilter.js';
 import { SourceTabs } from '@/components/SourceTabs.js';
-import { SuggestedFollowsCard } from '@/components/SuggestedFollows/SuggestedFollowsCard.js';
-import { Source } from '@/constants/enum.js';
 
 export default function Layout({ children, modal }: { children: React.ReactNode; modal: React.ReactNode }) {
     return (
