@@ -86,10 +86,9 @@ export function NFTList({ list, isLoading, empty, date }: NFTListProps) {
                                                     .sort(sortPlat)
                                                     .map((platform: { type: string; url: string }) => {
                                                         return (
-                                                            <Tooltip content={platform.url} placement="top">
+                                                            <Tooltip content={platform.url} placement="top" key={platform.type}>
                                                                 <ClickableButton
                                                                     className="h-5 w-5"
-                                                                    key={platform.type}
                                                                     onClick={() => {
                                                                         window.open(platform.url);
                                                                     }}
