@@ -161,7 +161,9 @@ export const ArticleLayout = memo<ArticleLayoutProps>(function ArticleLayout({ a
                     article.platform !== ArticlePlatform.Limo ? (
                         <Tooltip content={t`Collect`} placement="top">
                             <motion.button
-                                onClick={() => {
+                                onClick={(event) => {
+                                    event.stopPropagation();
+                                    event.preventDefault();
                                     if (isMedium) {
                                         CollectArticleModalRef.open({
                                             article,

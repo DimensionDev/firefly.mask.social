@@ -752,3 +752,7 @@
 .limo-article table.centered td {
     text-align: center;
 }
+
+.limo-article a {
+    color: rgb(var(--color-link));
+}
