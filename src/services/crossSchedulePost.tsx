@@ -24,7 +24,12 @@ import type { CompositePost } from '@/store/useComposeStore.js';
 import { useLensStateStore } from '@/store/useProfileStore.js';
 import type { ComposeType } from '@/types/compose.js';
 
-export async function createSchedulePostsPayload(type: ComposeType, compositePost: CompositePost, isThread = false) {
+export async function createSchedulePostsPayload(
+    type: ComposeType,
+    compositePost: CompositePost,
+    isThread = false,
+    signal?: AbortSignal,
+) {
     const { chars, poll, availableSources } = compositePost;
     if (poll && SUPPORTED_FRAME_SOURCES.some((x) => availableSources.includes(x))) {
         const pollId = await commitPoll(poll, readChars(chars));
@@ -49,7 +54,7 @@ export async function createSchedulePostsPayload(type: ComposeType, compositePos
         availableSources.map(async (x) => {
             const profile = allProfiles[x];
             if (!profile) throw new UnauthorizedError();
-            const payload = await resolveCreateSchedulePostPayload(x)(type, compositePost, isThread);
+            const payload = await resolveCreateSchedulePostPayload(x)(type, compositePost, isThread, signal);
 
             return {
                 platformUserId: profile.profileId,
@@ -60,11 +65,16 @@ export async function createSchedulePostsPayload(type: ComposeType, compositePos
     );
 }
 
-export async function crossSchedulePost(type: ComposeType, compositePost: CompositePost, scheduleTime: Date) {
+export async function crossSchedulePost(
+    type: ComposeType,
+    compositePost: CompositePost,
+    scheduleTime: Date,
+    signal?: AbortSignal,
+) {
     try {
         checkScheduleTime(scheduleTime);
 
-        const posts = await createSchedulePostsPayload(type, compositePost);
+        const posts = await createSchedulePostsPayload(type, compositePost, false, signal);
 
         const content = getScheduleTaskContent(compositePost);
 
