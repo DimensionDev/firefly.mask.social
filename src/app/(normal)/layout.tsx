@@ -1,10 +1,16 @@
+import { Advertisement } from '@/components/Advertisement.js';
 import { CalendarContent } from '@/components/Calendar/CalendarContent.js';
+import { SuggestedChannels } from '@/components/Channel/SuggestedChannels.js';
 import { ComposeWatcher } from '@/components/Compose/ComposeWatcher.js';
 import { ComposeButton } from '@/components/ComposeButton/index.js';
 import { IfPathname } from '@/components/IfPathname.js';
+import { LinkCloud } from '@/components/LinkCloud.js';
 import { NavigatorBar } from '@/components/NavigatorBar/index.js';
 import { AsideSearchBar, HeaderSearchBar } from '@/components/Search/SearchBar.js';
+import { SearchFilter } from '@/components/Search/SearchFilter.js';
 import { SourceTabs } from '@/components/SourceTabs.js';
+import { SuggestedFollowsCard } from '@/components/SuggestedFollows/SuggestedFollowsCard.js';
+import { Source } from '@/constants/enum.js';
 
 export default function Layout({ children, modal }: { children: React.ReactNode; modal: React.ReactNode }) {
     return (
@@ -70,7 +76,7 @@ export default function Layout({ children, modal }: { children: React.ReactNode;
                         <SourceTabs />
                     </IfPathname>
                 </div>
-                {/* {children} */}
+                {children}
                 {modal}
             </main>
             <aside className="sticky top-0 z-[1] hidden h-screen w-96 flex-col gap-4 px-4 md:min-w-[384px] lg:flex">
@@ -79,24 +85,24 @@ export default function Layout({ children, modal }: { children: React.ReactNode;
                 </IfPathname>
 
                 <div className="no-scrollbar flex flex-1 flex-col gap-4 overflow-auto">
-                    {/* <IfPathname isOneOf={['/search']}>
+                    <IfPathname isOneOf={['/search']}>
                         <SearchFilter />
-                    </IfPathname> */}
+                    </IfPathname>
 
-                    {/* <IfPathname isNotOneOf={['/settings', '/search']}>
+                    <IfPathname isNotOneOf={['/settings', '/search']}>
                         <Advertisement />
-                    </IfPathname> */}
+                    </IfPathname>
 
-                    {/* <IfPathname isNotOneOf={['/']} exact>
+                    <IfPathname isNotOneOf={['/']} exact>
                         <SuggestedFollowsCard />
                         <SuggestedChannels source={Source.Farcaster} />
-                    </IfPathname> */}
+                    </IfPathname>
 
                     <IfPathname isOneOf={['/']} exact>
                         <CalendarContent />
                     </IfPathname>
 
-                    {/* <LinkCloud /> */}
+                    <LinkCloud />
                 </div>
             </aside>
             <IfPathname isNotOneOf={['/token']}>

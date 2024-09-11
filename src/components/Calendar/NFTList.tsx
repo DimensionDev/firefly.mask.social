@@ -39,7 +39,7 @@ export function NFTList({ list, isLoading, empty, date }: NFTListProps) {
     }, []);
     return (
         <div
-            className="no-scrollbar relative mb-[50px] flex h-[506px] w-full flex-col gap-[10px] overflow-y-scroll"
+            className="no-scrollbar relative flex h-[506px] w-full flex-col gap-[10px] overflow-y-scroll"
             ref={listRef}
             key={date.toISOString()}
         >
@@ -57,7 +57,7 @@ export function NFTList({ list, isLoading, empty, date }: NFTListProps) {
                                 </p>
                                 {list[key].map((v) => (
                                     <Link
-                                        className="flex cursor-pointer flex-col gap-2 border-b border-line p-2 hover:no-underline"
+                                        className="flex cursor-pointer flex-col gap-2 border-b border-line p-2 outline-none last:border-none hover:no-underline"
                                         key={v.event_url}
                                         href={v.event_url}
                                         rel="noopener noreferrer"

@@ -7,7 +7,6 @@ import { useState } from 'react';
 
 import { DatePickerTab } from '@/components/Calendar/DatePickerTab.js';
 import { EventsList } from '@/components/Calendar/EventsList.js';
-import { Footer } from '@/components/Calendar/Footer.js';
 import { useEventList, useNewsList, useNFTList } from '@/components/Calendar/hooks/useEventList.js';
 import { NewsList } from '@/components/Calendar/NewsList.js';
 import { NFTList } from '@/components/Calendar/NFTList.js';
@@ -60,7 +59,7 @@ export function CalendarContent() {
     return (
         <div className="relative mb-5 flex flex-col rounded-xl">
             <Tab.Group selectedIndex={currentTabIndex} onChange={setCurrentTabIndex}>
-                <Tab.List className="calendar-tab-list flex rounded-t-xl bg-[#9250FF80] bg-white bg-opacity-80 bg-none px-4 pt-2">
+                <Tab.List className="calendar-tab-list flex rounded-t-xl bg-[#9250FF80] bg-none px-4 pt-2">
                     {tabs.map((x, i) => (
                         <Tab
                             className={classNames(
@@ -111,8 +110,6 @@ export function CalendarContent() {
                         />
                     </Tab.Panel>
                 </Tab.Panels>
-
-                <Footer />
             </Tab.Group>
         </div>
     );
