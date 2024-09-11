@@ -330,9 +330,6 @@ msgstr ""
 msgid "Show less"
 msgstr ""
 
-msgid "Failed to fetch lens profiles."
-msgstr ""
-
 msgid "Switch between the app kit and rainbow kit wallet providers."
 msgstr ""
 
@@ -1381,6 +1378,9 @@ msgid "Minutes"
 msgstr ""
 
 msgid "Floor Price"
+msgstr ""
+
+msgid "Failed to fetch profiles."
 msgstr ""
 
 msgid "Unliked"

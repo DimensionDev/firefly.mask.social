@@ -330,9 +330,6 @@ msgstr "重试"
 msgid "Show less"
 msgstr "收起"
 
-msgid "Failed to fetch lens profiles."
-msgstr ""
-
 msgid "Switch between the app kit and rainbow kit wallet providers."
 msgstr "在 App Kit 和 Rainbow Kit 钱包套件提供商之间切换。"
 
@@ -1382,6 +1379,9 @@ msgstr "分钟"
 
 msgid "Floor Price"
 msgstr "地板价"
+
+msgid "Failed to fetch profiles."
+msgstr ""
 
 msgid "Unliked"
 msgstr "已取消点赞"
