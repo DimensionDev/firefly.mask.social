@@ -19,7 +19,7 @@ import { uploadSessions } from '@/services/metrics.js';
 import { useComposeStateStore } from '@/store/useComposeStore.js';
 import { useLensStateStore } from '@/store/useProfileStore.js';
 
-export async function crossPostScheduleThread(scheduleTime: Date) {
+export async function crossPostScheduleThread(scheduleTime: Date, signal?: AbortSignal) {
     try {
         const { posts, type } = useComposeStateStore.getState();
         if (posts.length === 1) throw new Error(t`A thread must have at least two posts.`);
@@ -32,7 +32,7 @@ export async function crossPostScheduleThread(scheduleTime: Date) {
         >();
 
         for (const [index, post] of posts.entries()) {
-            const payload = await createSchedulePostsPayload(index === 0 ? 'compose' : 'reply', post, true);
+            const payload = await createSchedulePostsPayload(index === 0 ? 'compose' : 'reply', post, true, signal);
             payload.forEach((x) => {
                 const origin = results.get(x.platform);
                 results.set(x.platform, {
