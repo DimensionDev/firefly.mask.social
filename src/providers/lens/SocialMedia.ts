@@ -3,6 +3,7 @@ import {
     CustomFiltersType,
     ExplorePublicationsOrderByType,
     FeedEventItemType,
+    type FeeFollowModuleSettingsFragment,
     HiddenCommentsType,
     isCreateMomokaPublicationResult,
     isRelaySuccess,
@@ -17,9 +18,10 @@ import {
     PublicationReportingSpamSubreason,
     PublicationType,
 } from '@lens-protocol/client';
-import { MetadataAttributeType, profile as createProfileMetadata } from '@lens-protocol/metadata';
+import { MetadataAttributeType,profile as createProfileMetadata } from '@lens-protocol/metadata';
 import { t } from '@lingui/macro';
 import { compact, first, flatMap, uniq, uniqWith } from 'lodash-es';
+import omitDeep from 'omit-deep';
 import urlcat from 'urlcat';
 import { v4 as uuid } from 'uuid';
 import type { TypedDataDomain } from 'viem';
@@ -34,7 +36,10 @@ import { SetQueryDataForBlockProfile } from '@/decorators/SetQueryDataForBlockPr
 import { SetQueryDataForBookmarkPost } from '@/decorators/SetQueryDataForBookmarkPost.js';
 import { SetQueryDataForCommentPost } from '@/decorators/SetQueryDataForCommentPost.js';
 import { SetQueryDataForDeletePost } from '@/decorators/SetQueryDataForDeletePost.js';
-import { SetQueryDataForFollowProfile } from '@/decorators/SetQueryDataForFollowProfile.js';
+import {
+    SetQueryDataForFollowProfile,
+    SetQueryDataForSuperFollowProfile,
+} from '@/decorators/SetQueryDataForFollowProfile.js';
 import { SetQueryDataForLikePost } from '@/decorators/SetQueryDataForLikePost.js';
 import { SetQueryDataForMirrorPost } from '@/decorators/SetQueryDataForMirrorPost.js';
 import { SetQueryDataForPosts } from '@/decorators/SetQueryDataForPosts.js';
@@ -48,6 +53,7 @@ import {
     formatLensQuoteOrComment,
 } from '@/helpers/formatLensPost.js';
 import { formatLensProfile } from '@/helpers/formatLensProfile.js';
+import { getCurrentProfile } from '@/helpers/getCurrentProfile.js';
 import { getOpenActionActOnKey } from '@/helpers/getOpenActionActOnKey.js';
 import { getWalletClientRequired } from '@/helpers/getWalletClientRequired.js';
 import { isSamePost } from '@/helpers/isSamePost.js';
@@ -62,6 +68,7 @@ import {
 import { pollWithRetry } from '@/helpers/pollWithRetry.js';
 import { runInSafe } from '@/helpers/runInSafe.js';
 import { waitUntilComplete } from '@/helpers/waitUntilComplete.js';
+import { writeLensHubContract } from '@/helpers/writeLensHubContract.js';
 import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
 import { lensSessionHolder } from '@/providers/lens/SessionHolder.js';
 import { LensOpenRankProvider } from '@/providers/openrank/Lens.js';
@@ -94,6 +101,7 @@ const MOMOKA_ERROR_MSG = 'momoka publication is not allowed';
 @SetQueryDataForDeletePost(Source.Lens)
 @SetQueryDataForBlockProfile(Source.Lens)
 @SetQueryDataForFollowProfile(Source.Lens)
+@SetQueryDataForSuperFollowProfile(Source.Lens)
 @SetQueryDataForActPost(Source.Lens)
 @SetQueryDataForPosts
 class LensSocialMedia implements Provider {
@@ -913,6 +921,81 @@ class LensSocialMedia implements Provider {
         } else {
             await waitUntilComplete(lensSessionHolder.sdk, resultValue.txHash);
         }
+        return true;
+    }
+
+    async superFollow(profileId: string): Promise<boolean> {
+        const lensProfile = await lensSessionHolder.sdk.profile.fetch({
+            forProfileId: profileId,
+        });
+        const followModule = lensProfile?.followModule as FeeFollowModuleSettingsFragment | null;
+
+        if (!followModule) {
+            throw new Error("No profile found or profile doesn't enable super follow");
+        }
+
+        const loggedInProfile = getCurrentProfile(Source.Lens);
+        const currentProfile = await lensSessionHolder.sdk.profile.fetch({
+            forProfileId: loggedInProfile?.profileId,
+        });
+
+        if (!currentProfile) {
+            throw new Error('Failed to fetch current profile');
+        }
+
+        const sigNonces = await lensSessionHolder.sdk.wallet.sigNonces();
+
+        if (!sigNonces?.isSuccess()) {
+            throw new Error('Failed to fetch sig nonces');
+        }
+
+        const followTypedData = await lensSessionHolder.sdk.profile.createFollowTypedData(
+            {
+                follow: [
+                    {
+                        followModule: {
+                            feeFollowModule: {
+                                amount: {
+                                    currency: followModule.amount.asset.contract.address,
+                                    value: followModule.amount.value,
+                                },
+                            },
+                        },
+                        profileId,
+                    },
+                ],
+            },
+            { overrideSigNonce: sigNonces.unwrap().lensHubOnchainSigNonce },
+        );
+
+        if (!followTypedData?.isSuccess()) {
+            throw new Error('Failed to create follow typed data');
+        }
+
+        const client = await getWalletClientRequired(config, { chainId: polygon.id });
+
+        const { id, typedData } = followTypedData.unwrap();
+        const { datas, followerProfileId, followTokenIds, idsOfProfilesToFollow } = typedData.value;
+        const args = [followerProfileId, idsOfProfilesToFollow, followTokenIds, datas];
+
+        if (currentProfile.sponsor) {
+            const signature = await client.signTypedData({
+                domain: omitDeep(typedData.domain, ['__typename']),
+                message: omitDeep(typedData.value, ['__typename']) as Record<string, unknown>,
+                primaryType: Object.keys(omitDeep(typedData.types, ['__typename']))[0],
+                types: omitDeep(typedData.types, ['__typename']) as Record<string, unknown>,
+            });
+            const broadcastData = await lensSessionHolder.sdk.transaction.broadcastOnchain({
+                id,
+                signature,
+            });
+            if (broadcastData?.unwrap()?.__typename === 'RelayError') {
+                await writeLensHubContract('follow', args);
+                return true;
+            }
+        }
+
+        await writeLensHubContract('follow', args);
         return true;
     }
 

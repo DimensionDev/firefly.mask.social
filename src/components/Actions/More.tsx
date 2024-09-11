@@ -4,16 +4,15 @@ import { first } from 'lodash-es';
 import { memo } from 'react';
 
 import EngagementIcon from '@/assets/engagement.svg';
-import FollowUserIcon from '@/assets/follow-user.svg';
 import LoadingIcon from '@/assets/loading.svg';
 import MoreIcon from '@/assets/more.svg';
 import TrashIcon from '@/assets/trash.svg';
-import UnFollowUserIcon from '@/assets/unfollow-user.svg';
 import { BookmarkButton } from '@/components/Actions/BookmarkButton.js';
 import { MenuButton } from '@/components/Actions/MenuButton.js';
 import { MuteChannelButton } from '@/components/Actions/MuteChannelButton.js';
 import { MuteProfileButton } from '@/components/Actions/MuteProfileButton.js';
 import { ReportPostButton } from '@/components/Actions/ReportPostButton.js';
+import { ToggleFollowMenuItem } from '@/components/Actions/ToggleFollowMenuItem.js';
 import { MoreActionMenu } from '@/components/MoreActionMenu.js';
 import { Tooltip } from '@/components/Tooltip.js';
 import { queryClient } from '@/configs/queryClient.js';
@@ -27,7 +26,6 @@ import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
 import { useDeletePost } from '@/hooks/useDeletePost.js';
 import { useIsMyRelatedProfile } from '@/hooks/useIsMyRelatedProfile.js';
 import { useReportPost } from '@/hooks/useReportPost.js';
-import { useToggleFollow } from '@/hooks/useToggleFollow.js';
 import { useToggleMutedChannel } from '@/hooks/useToggleMutedChannel.js';
 import { useToggleMutedProfile } from '@/hooks/useToggleMutedProfile.js';
 import type { Channel, Post, Profile } from '@/providers/types/SocialMedia.js';
@@ -45,12 +43,11 @@ export const MoreAction = memo<MoreProps>(function MoreAction({ source, author, 
     const isMyPost = isSameProfile(author, currentProfile);
     const isMyProfile = useIsMyRelatedProfile(source, resolveFireflyProfileId(author) ?? '');
 
-    const isFollowing = !!author.viewerContext?.following;
-    const [, toggleFollow] = useToggleFollow(author);
     const [{ loading: deleting }, deletePost] = useDeletePost(source);
     const [, reportPost] = useReportPost();
     const [, toggleMutedProfile] = useToggleMutedProfile(currentProfile);
     const [, toggleMutedChannel] = useToggleMutedChannel();
+
     const engagementType = first(SORTED_ENGAGEMENT_TAB_TYPE[source]) || EngagementType.Likes;
 
     return (
@@ -94,25 +91,7 @@ export const MoreAction = memo<MoreProps>(function MoreAction({ source, author, 
                         {!isMyProfile ? (
                             <>
                                 <Menu.Item>
-                                    {({ close }) => (
-                                        <MenuButton
-                                            onClick={async () => {
-                                                close();
-                                                toggleFollow.mutate();
-                                            }}
-                                        >
-                                            {isFollowing ? (
-                                                <UnFollowUserIcon width={18} height={18} />
-                                            ) : (
-                                                <FollowUserIcon width={18} height={18} />
-                                            )}
-                                            <span className="font-bold leading-[22px] text-main">
-                                                {isFollowing
-                                                    ? t`Unfollow @${author.handle}`
-                                                    : t`Follow @${author.handle}`}
-                                            </span>
-                                        </MenuButton>
-                                    )}
+                                    {({ close }) => <ToggleFollowMenuItem profile={author} onClick={close} />}
                                 </Menu.Item>
                                 {post && [Source.Lens, Source.Farcaster].includes(source) ? (
                                     <Menu.Item>

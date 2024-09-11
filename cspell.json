@@ -176,7 +176,8 @@
         "Tweetv",
         "dompurify",
         "Tweetv",
-        "getconvert"
+        "getconvert",
+        "datas"
     ],
     "flagWords": [],
     "ignorePaths": [
