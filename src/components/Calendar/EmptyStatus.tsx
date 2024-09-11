@@ -1,5 +1,5 @@
 import { Trans } from '@lingui/macro';
-import { memo, type HTMLProps } from 'react';
+import { type HTMLProps, memo } from 'react';
 
 import GhostHoleIcon from '@/assets/ghost.svg';
 import { classNames } from '@/helpers/classNames.js';

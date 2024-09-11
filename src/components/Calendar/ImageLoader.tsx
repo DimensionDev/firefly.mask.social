@@ -1,8 +1,8 @@
 import { useState } from 'react';
 
+import LoadingIcon from '@/assets/loading.svg';
 import { Image } from '@/components/Image.js';
 import { useIsDarkMode } from '@/hooks/useIsDarkMode.js';
-import LoadingIcon from '@/assets/loading.svg';
 
 interface ImageLoaderProps {
     src: string;
