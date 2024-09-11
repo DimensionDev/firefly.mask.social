@@ -12,6 +12,7 @@ import {
     type SocialSource,
     Source,
     VERCEL_NEV,
+    WalletProfileTabType,
 } from '@/constants/enum.js';
 import { env } from '@/constants/env.js';
 import type { Attachment } from '@/providers/types/SocialMedia.js';
@@ -55,6 +56,12 @@ export const SORTED_PROFILE_TAB_TYPE: Record<SocialSource, ProfileTabType[]> = {
     [Source.Farcaster]: [ProfileTabType.Feed, ProfileTabType.Replies, ProfileTabType.Liked, ProfileTabType.Channels],
     [Source.Twitter]: [ProfileTabType.Feed, ProfileTabType.Replies],
 };
+export const WALLET_PROFILE_TAB_TYPES = [
+    WalletProfileTabType.OnChainActivities,
+    WalletProfileTabType.POAPs,
+    WalletProfileTabType.NFTs,
+    WalletProfileTabType.Articles,
+];
 export const SORTED_ENGAGEMENT_TAB_TYPE: Record<SocialSource, EngagementType[]> = {
     [Source.Lens]: [EngagementType.Likes, EngagementType.Quotes, EngagementType.Mirrors],
     // TODO No API to fetch recasts for now.

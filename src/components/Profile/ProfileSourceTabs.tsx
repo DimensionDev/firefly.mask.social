@@ -1,16 +1,16 @@
 'use client';
 
-import { usePathname } from 'next/navigation.js';
+import { usePathname, useRouter } from 'next/navigation.js';
 import { useMemo } from 'react';
-import urlcat from 'urlcat';
 
 import { ClickableButton } from '@/components/ClickableButton.js';
-import { PageRoute, Source } from '@/constants/enum.js';
+import { PageRoute, type SocialSource, Source } from '@/constants/enum.js';
 import { SORTED_PROFILE_SOURCES } from '@/constants/index.js';
 import { classNames } from '@/helpers/classNames.js';
 import { getCurrentProfile } from '@/helpers/getCurrentProfile.js';
 import { narrowToSocialSource } from '@/helpers/narrowToSocialSource.js';
 import { resolveFireflyProfileId } from '@/helpers/resolveFireflyProfileId.js';
+import { resolveProfileUrl } from '@/helpers/resolveProfileUrl.js';
 import { resolveSourceInURL } from '@/helpers/resolveSourceInURL.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { useIsMyRelatedProfile } from '@/hooks/useIsMyRelatedProfile.js';
@@ -26,6 +26,8 @@ export function ProfileSourceTabs({ profiles }: ProfileSourceTabs) {
     const { identity } = useFireflyIdentityState();
 
     const pathname = usePathname();
+    const router = useRouter();
+
     const updateParams = useUpdateParams();
 
     const isProfilePage = pathname === PageRoute.Profile;
@@ -44,44 +46,57 @@ export function ProfileSourceTabs({ profiles }: ProfileSourceTabs) {
     return (
         <nav className="border-b border-line bg-primaryBottom px-4">
             <ul className="scrollable-tab -mb-px flex space-x-4" aria-label="Tabs">
-                {tabs.map((value) => (
-                    <li key={value} className="flex flex-1 list-none justify-center lg:flex-initial lg:justify-start">
-                        <ClickableButton
-                            className={classNames(
-                                identity.source === value ? 'border-b-2 border-fireflyBrand text-main' : 'text-third',
-                                'h-[43px] px-4 text-center text-xl font-bold leading-[43px] hover:cursor-pointer hover:text-main',
-                                'md:h-[60px] md:py-[18px] md:leading-6',
-                            )}
-                            aria-current={identity.source === value ? 'page' : undefined}
-                            onClick={() => {
-                                const currentProfile =
-                                    value !== Source.Wallet &&
-                                    value !== Source.Article &&
-                                    (isProfilePage || isMyProfile)
-                                        ? getCurrentProfile(narrowToSocialSource(value))
-                                        : undefined;
+                {tabs.map((value) => {
+                    const currentProfile =
+                        value !== Source.Wallet && value !== Source.Article && (isProfilePage || isMyProfile)
+                            ? getCurrentProfile(narrowToSocialSource(value))
+                            : undefined;
+                    const target = currentProfile
+                        ? {
+                              source: currentProfile.source,
+                              identity: resolveFireflyProfileId(currentProfile),
+                          }
+                        : profiles
+                              .map((x) => ({ source: x.identity.source, identity: x.identity.id }))
+                              .find((x) => x.source === value);
 
-                                const target = currentProfile
-                                    ? {
-                                          source: currentProfile.source,
-                                          identity: resolveFireflyProfileId(currentProfile),
-                                      }
-                                    : profiles
-                                          .map((x) => ({ source: x.identity.source, identity: x.identity.id }))
-                                          .find((x) => x.source === value);
-
-                                updateParams(
-                                    new URLSearchParams({
-                                        source: resolveSourceInURL(value),
-                                    }),
-                                    target ? urlcat('/profile/:id', { id: target.identity }) : undefined,
-                                );
-                            }}
+                    return (
+                        <li
+                            key={value}
+                            className="flex flex-1 list-none justify-center lg:flex-initial lg:justify-start"
                         >
-                            {resolveSourceName(value)}
-                        </ClickableButton>
-                    </li>
-                ))}
+                            <ClickableButton
+                                className={classNames(
+                                    identity.source === value
+                                        ? 'border-b-2 border-fireflyBrand text-main'
+                                        : 'text-third',
+                                    'h-[43px] px-4 text-center text-xl font-bold leading-[43px] hover:cursor-pointer hover:text-main',
+                                    'md:h-[60px] md:py-[18px] md:leading-6',
+                                )}
+                                aria-current={identity.source === value ? 'page' : undefined}
+                                onMouseEnter={() => {
+                                    if (target?.identity) {
+                                        router.prefetch(resolveProfileUrl(value as SocialSource, target.identity));
+                                    }
+                                }}
+                                onClick={() => {
+                                    if (identity.source === value) return;
+                                    if (!target?.identity) {
+                                        updateParams(
+                                            new URLSearchParams({
+                                                source: resolveSourceInURL(value),
+                                            }),
+                                        );
+                                    } else {
+                                        router.replace(resolveProfileUrl(value as SocialSource, target.identity));
+                                    }
+                                }}
+                            >
+                                {resolveSourceName(value)}
+                            </ClickableButton>
+                        </li>
+                    );
+                })}
             </ul>
         </nav>
     );

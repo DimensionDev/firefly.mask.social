@@ -2,6 +2,7 @@ import { NextRequest, NextResponse, userAgent } from 'next/server.js';
 
 export async function middleware(request: NextRequest) {
     const pathname = request.nextUrl.pathname;
+    request.headers.set('x-url', request.url);
     const isPost = pathname.startsWith('/post') && !pathname.includes('/photos');
 
     if (isPost) {

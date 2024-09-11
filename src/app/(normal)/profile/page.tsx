@@ -4,7 +4,9 @@ import { first } from 'lodash-es';
 import { redirect, RedirectType, useSearchParams } from 'next/navigation.js';
 import { useEffect, useMemo } from 'react';
 
-import { ProfilePage } from '@/app/(normal)/pages/Profile.js';
+import { LoginRequiredGuard } from '@/components/LoginRequiredGuard.js';
+import { ProfileInfo } from '@/components/Profile/ProfileInfo.js';
+import { ProfilePageTimeline } from '@/components/Profile/ProfilePageTimeline.js';
 import { ProfileSourceTabs } from '@/components/Profile/ProfileSourceTabs.js';
 import type { SocialSourceInURL } from '@/constants/enum.js';
 import { narrowToSocialSource } from '@/helpers/narrowToSocialSource.js';
@@ -13,6 +15,7 @@ import { resolveSourceFromUrl } from '@/helpers/resolveSource.js';
 import { resolveSourceInURL } from '@/helpers/resolveSourceInURL.js';
 import { useCurrentFireflyProfiles } from '@/hooks/useCurrentFireflyProfiles.js';
 import { useCurrentProfileAll } from '@/hooks/useCurrentProfile.js';
+import { ProfilePageContext } from '@/hooks/useProfilePageContext.js';
 import { useFireflyIdentityState } from '@/store/useFireflyIdentityStore.js';
 
 export default function Page() {
@@ -21,15 +24,15 @@ export default function Page() {
 
     const currentProfiles = useCurrentProfileAll();
     const profiles = useCurrentFireflyProfiles();
+    const sourceInUrl = searchParam.get('source') as SocialSourceInURL;
+    const source = narrowToSocialSource(resolveSourceFromUrl(sourceInUrl));
 
     const profile = useMemo(() => {
-        const sourceInUrl = searchParam.get('source') as SocialSourceInURL;
         if (sourceInUrl) {
-            const source = narrowToSocialSource(resolveSourceFromUrl(sourceInUrl));
             return resolveFireflyIdentity(currentProfiles[source]);
         }
         return first(profiles)?.identity ?? null;
-    }, [profiles, currentProfiles, searchParam]);
+    }, [sourceInUrl, profiles, currentProfiles, source]);
 
     useEffect(() => {
         const sourceInUrl = searchParam.get('source') as SocialSourceInURL;
@@ -51,7 +54,13 @@ export default function Page() {
     return (
         <>
             <ProfileSourceTabs profiles={profiles} />
-            <ProfilePage profiles={profiles} />
+            <LoginRequiredGuard source={source} className="!pt-0">
+                <ProfileInfo profiles={profiles}>
+                    <ProfilePageContext.Provider>
+                        <ProfilePageTimeline />
+                    </ProfilePageContext.Provider>
+                </ProfileInfo>
+            </LoginRequiredGuard>
         </>
     );
 }

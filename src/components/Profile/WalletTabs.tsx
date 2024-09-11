@@ -1,5 +1,6 @@
 import { Trans } from '@lingui/macro';
 import { safeUnreachable } from '@masknet/kit';
+import { produce } from 'immer';
 import { memo, Suspense } from 'react';
 
 import { ClickableButton } from '@/components/ClickableButton.js';
@@ -9,8 +10,10 @@ import { ArticleList } from '@/components/Profile/ArticleList.js';
 import { NFTs } from '@/components/Profile/NFTs.js';
 import { POAPList } from '@/components/Profile/POAPList.js';
 import { WalletProfileTabType } from '@/constants/enum.js';
+import { WALLET_PROFILE_TAB_TYPES } from '@/constants/index.js';
 import { classNames } from '@/helpers/classNames.js';
-import { useStateWithSearchParams } from '@/hooks/useStateWithSearchParams.js';
+import { isWalletProfileCategory } from '@/helpers/isWalletProfileCategory.js';
+import { ProfilePageContext } from '@/hooks/useProfilePageContext.js';
 
 const ContentList = memo(function ContentList({ type, address }: { type: WalletProfileTabType; address: string }) {
     switch (type) {
@@ -33,43 +36,42 @@ interface WalletTabsProps {
 }
 
 export function WalletTabs({ address }: WalletTabsProps) {
-    const [currentTab, setCurrentTab] = useStateWithSearchParams('wallet_tab', WalletProfileTabType.OnChainActivities);
+    const { update, category } = ProfilePageContext.useContainer();
+    function setWalletProfileCategory(type: WalletProfileTabType) {
+        update((x) =>
+            produce(x, (ctx) => {
+                ctx.category = type;
+            }),
+        );
+    }
+    const computedCategory =
+        category && isWalletProfileCategory(category) ? category : WalletProfileTabType.OnChainActivities;
+
+    const tabTitles = {
+        [WalletProfileTabType.OnChainActivities]: <Trans>Onchain Activities</Trans>,
+        [WalletProfileTabType.POAPs]: <Trans>POAPs</Trans>,
+        [WalletProfileTabType.NFTs]: <Trans>NFTs</Trans>,
+        [WalletProfileTabType.Articles]: <Trans>Articles</Trans>,
+    };
 
     return (
         <>
             <div className="scrollable-tab flex gap-5 border-b border-lightLineSecond px-5 dark:border-line">
-                {[
-                    {
-                        type: WalletProfileTabType.OnChainActivities,
-                        title: <Trans>Onchain Activities</Trans>,
-                    },
-                    {
-                        type: WalletProfileTabType.POAPs,
-                        title: <Trans>POAPs</Trans>,
-                    },
-                    {
-                        type: WalletProfileTabType.NFTs,
-                        title: <Trans>NFTs</Trans>,
-                    },
-                    {
-                        type: WalletProfileTabType.Articles,
-                        title: <Trans>Articles</Trans>,
-                    },
-                ].map(({ type, title }) => (
+                {WALLET_PROFILE_TAB_TYPES.map((type) => ({ type, title: tabTitles[type] })).map(({ type, title }) => (
                     <div key={type} className="flex flex-col">
                         <ClickableButton
                             className={classNames(
                                 'flex h-[46px] items-center px-[14px] font-extrabold transition-all',
-                                currentTab === type ? 'text-main' : 'text-third hover:text-main',
+                                computedCategory === type ? 'text-main' : 'text-third hover:text-main',
                             )}
-                            onClick={() => setCurrentTab(type)}
+                            onClick={() => setWalletProfileCategory(type)}
                         >
                             {title}
                         </ClickableButton>
                         <span
                             className={classNames(
                                 'h-1 w-full rounded-full bg-fireflyBrand transition-all',
-                                currentTab !== type ? 'hidden' : '',
+                                computedCategory !== type ? 'hidden' : '',
                             )}
                         />
                     </div>
@@ -77,7 +79,7 @@ export function WalletTabs({ address }: WalletTabsProps) {
             </div>
 
             <Suspense fallback={<Loading />}>
-                <ContentList type={currentTab} address={address} />
+                <ContentList type={computedCategory} address={address} />
             </Suspense>
         </>
     );

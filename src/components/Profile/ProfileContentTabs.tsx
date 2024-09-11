@@ -1,5 +1,6 @@
 import { Trans } from '@lingui/macro';
 import { safeUnreachable } from '@masknet/kit';
+import { produce } from 'immer';
 import { memo, Suspense } from 'react';
 
 import { ClickableButton } from '@/components/ClickableButton.js';
@@ -13,7 +14,8 @@ import { RepliesList } from '@/components/Profile/RepliesList.js';
 import { ProfileTabType, type SocialSource, Source } from '@/constants/enum.js';
 import { SORTED_PROFILE_TAB_TYPE } from '@/constants/index.js';
 import { classNames } from '@/helpers/classNames.js';
-import { useStateWithSearchParams } from '@/hooks/useStateWithSearchParams.js';
+import { isSocialProfileCategory } from '@/helpers/isSocialProfileCategory.js';
+import { ProfilePageContext } from '@/hooks/useProfilePageContext.js';
 
 const ContentList = memo(function ContentList({
     type,
@@ -49,9 +51,16 @@ interface TabsProps {
 }
 
 export function ProfileContentTabs({ profileId, source }: TabsProps) {
-    const [currentTab, setCurrentTab] = useStateWithSearchParams('profile_tab', ProfileTabType.Feed);
+    const { update, category } = ProfilePageContext.useContainer();
+    function setProfileCategory(type: ProfileTabType) {
+        update((x) =>
+            produce(x, (ctx) => {
+                ctx.category = type;
+            }),
+        );
+    }
 
-    const computedCurrentTab = SORTED_PROFILE_TAB_TYPE[source].includes(currentTab) ? currentTab : ProfileTabType.Feed;
+    const computedCategory = category && isSocialProfileCategory(source, category) ? category : ProfileTabType.Feed;
 
     return (
         <>
@@ -88,16 +97,16 @@ export function ProfileContentTabs({ profileId, source }: TabsProps) {
                             <ClickableButton
                                 className={classNames(
                                     'flex h-[46px] items-center whitespace-nowrap px-[14px] font-extrabold transition-all',
-                                    computedCurrentTab === type ? 'text-main' : 'text-third hover:text-main',
+                                    computedCategory === type ? 'text-main' : 'text-third hover:text-main',
                                 )}
-                                onClick={() => setCurrentTab(type)}
+                                onClick={() => setProfileCategory(type)}
                             >
                                 {title}
                             </ClickableButton>
                             <span
                                 className={classNames(
                                     'h-1 w-full rounded-full bg-fireflyBrand transition-all',
-                                    computedCurrentTab !== type ? 'hidden' : '',
+                                    computedCategory !== type ? 'hidden' : '',
                                 )}
                             />
                         </div>
@@ -105,7 +114,7 @@ export function ProfileContentTabs({ profileId, source }: TabsProps) {
             </div>
 
             <Suspense fallback={<Loading />}>
-                <ContentList type={computedCurrentTab} source={source} profileId={profileId} />
+                <ContentList type={computedCategory} source={source} profileId={profileId} />
             </Suspense>
         </>
     );

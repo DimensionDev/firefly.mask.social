@@ -201,6 +201,8 @@ export const enum FollowCategory {
     Mutuals = 'mutuals',
 }
 
+export type ProfileCategory = FollowCategory | ProfileTabType | WalletProfileTabType;
+
 export enum ChannelTabType {
     Trending = 'trending',
     Recent = 'recent',
