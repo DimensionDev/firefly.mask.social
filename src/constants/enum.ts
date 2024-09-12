@@ -1,5 +1,3 @@
-import { DISCOVER_SOURCE, SOCIAL_DISCOVER_SOURCE } from '@/constants/index.js';
-
 export enum NODE_ENV {
     Production = 'production',
     Development = 'development',
@@ -79,8 +77,8 @@ export type SocialSource = Source.Farcaster | Source.Lens | Source.Twitter;
 export type ProfileSource = Source.Farcaster | Source.Lens | Source.Twitter | Source.Firefly;
 export type ProfilePageSource = Source.Farcaster | Source.Lens | Source.Twitter | Source.Wallet;
 export type SocialSourceInURL = SourceInURL.Farcaster | SourceInURL.Lens | SourceInURL.Twitter;
-export type SocialDiscoverSource = (typeof SOCIAL_DISCOVER_SOURCE)[number];
-export type DiscoverSource = (typeof DISCOVER_SOURCE)[number];
+export type SocialDiscoverSource = Source.Farcaster | Source.Lens;
+export type DiscoverSource = SocialDiscoverSource | Source.NFTs | Source.Article;
 
 export enum WalletProviderType {
     AppKit = 'app_kit',
