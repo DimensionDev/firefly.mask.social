@@ -29,19 +29,14 @@ export async function getProfileBySession(session: Session, signal?: AbortSignal
 
             const sdk = createLensSDKForSession(new MemoryStorageProvider(), lensSession);
 
-            const profileId = await attemptUntil(
-                [
-                    () => sdk.authentication.getProfileId(),
-                    async () => {
-                        // refresh lens session and try again
-                        await refreshLensSession(sdk);
-                        return sdk.authentication.getProfileId();
-                    },
-                ],
-                null,
-                isNull,
-            );
-            if (!profileId) return null;
+            const profileIdFirstTry = await sdk.authentication.getProfileId();
+            if (!profileIdFirstTry) {
+                // refresh lens session and try again
+                await refreshLensSession(sdk);
+
+                const profileIdSecondTry = await sdk.authentication.getProfileId();
+                if (!profileIdSecondTry) return null;
+            }
 
             const provider = resolveSocialMediaProvider(Source.Lens);
             return provider.getProfileById(lensSession.profileId);
