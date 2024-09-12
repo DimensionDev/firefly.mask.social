@@ -48,6 +48,8 @@ class LensSessionHolder extends SessionHolder<LensSession> {
                 : null;
         if (!session) throw new Error('Failed to refresh session');
 
+        // the sdk always maintain a latest session, thought no need to resume session here.
+
         return session;
     }
 
