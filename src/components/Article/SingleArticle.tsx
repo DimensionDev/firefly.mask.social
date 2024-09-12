@@ -3,14 +3,13 @@ import { useQuery } from '@tanstack/react-query';
 import { motion } from 'framer-motion';
 import { first, isUndefined } from 'lodash-es';
 import { useRouter } from 'next/navigation.js';
-import { memo } from 'react';
+import { memo, useCallback } from 'react';
 import { useMount } from 'react-use';
 import urlcat from 'urlcat';
 
 import ArticleAnchorIcon from '@/assets/article-anchor.svg';
-import { ArticleActions } from '@/components/Article/ArticleActions.js';
 import { ArticleBody } from '@/components/Article/ArticleBody.js';
-import { ArticleHeader } from '@/components/Article/ArticleHeader.js';
+import { SingleArticleHeader } from '@/components/Article/SingleArticleHeader.js';
 import { FeedFollowSource } from '@/components/FeedFollowSource.js';
 import { CollapsedContent } from '@/components/Posts/CollapsedContent.js';
 import { queryClient } from '@/configs/queryClient.js';
@@ -27,6 +26,7 @@ export interface SingleArticleProps {
     disableAnimate?: boolean;
     listKey?: string;
     index?: number;
+    isBookmark?: boolean;
 }
 
 export const SingleArticle = memo<SingleArticleProps>(function SingleArticleProps({
@@ -34,6 +34,7 @@ export const SingleArticle = memo<SingleArticleProps>(function SingleArticleProp
     disableAnimate,
     listKey,
     index,
+    isBookmark,
 }) {
     const router = useRouter();
     const setScrollIndex = useGlobalState.use.setScrollIndex();
@@ -62,6 +63,17 @@ export const SingleArticle = memo<SingleArticleProps>(function SingleArticleProp
     });
 
     const isMuted = article.author.isMuted;
+
+    const handleClick = useCallback(() => {
+        if (isMuted) return;
+        const selection = window.getSelection();
+        if (selection && selection.toString().length !== 0) return;
+        if (listKey && !isUndefined(index)) setScrollIndex(listKey, index);
+
+        router.push(getArticleUrl(article));
+        return;
+    }, [article, index, isMuted, listKey, router, setScrollIndex]);
+
     return (
         <motion.article
             initial={!disableAnimate ? { opacity: 0 } : false}
@@ -73,47 +85,33 @@ export const SingleArticle = memo<SingleArticleProps>(function SingleArticleProp
                     'cursor-pointer': !isMuted,
                 },
             )}
-            onClick={() => {
-                if (isMuted) return;
-                const selection = window.getSelection();
-                if (selection && selection.toString().length !== 0) return;
-                if (listKey && !isUndefined(index)) setScrollIndex(listKey, index);
-
-                router.push(getArticleUrl(article));
-                return;
-            }}
+            onClick={handleClick}
         >
             <FeedFollowSource source={first(article.followingSources)} />
-            <ArticleHeader article={article} />
+            <SingleArticleHeader article={article} />
             {isMuted ? (
                 <CollapsedContent className="mt-2 pl-[52px]" authorMuted isQuote={false} />
             ) : (
                 <div className="-mt-2 pl-[52px]">
-                    <div className="flex items-center gap-1 text-medium">
-                        <ArticleAnchorIcon width={18} height={18} />
-                        <span className="flex items-center gap-1 text-secondary">
-                            {article.type === ArticleType.Revise ? (
-                                <Trans>
-                                    <strong className="text-main">Revised</strong>
-                                    an article
-                                </Trans>
-                            ) : (
-                                <Trans>
-                                    <strong className="text-main">Posted</strong>
-                                    an article
-                                </Trans>
-                            )}
-                        </span>
-                    </div>
-                    <ArticleBody
-                        cover={cover?.data ?? undefined}
-                        title={article.title}
-                        content={article.content}
-                        platform={article.platform}
-                    />
-                    <div className="mt-2">
-                        <ArticleActions article={article} />
-                    </div>
+                    {!isBookmark ? (
+                        <div className="flex items-center gap-1 text-medium">
+                            <ArticleAnchorIcon width={18} height={18} />
+                            <span className="flex items-center gap-1 text-secondary">
+                                {article.type === ArticleType.Revise ? (
+                                    <Trans>
+                                        <strong className="text-main">Revised</strong>
+                                        an article
+                                    </Trans>
+                                ) : (
+                                    <Trans>
+                                        <strong className="text-main">Posted</strong>
+                                        an article
+                                    </Trans>
+                                )}
+                            </span>
+                        </div>
+                    ) : null}
+                    <ArticleBody onClick={handleClick} cover={cover?.data ?? undefined} article={article} />
                 </div>
             )}
         </motion.article>

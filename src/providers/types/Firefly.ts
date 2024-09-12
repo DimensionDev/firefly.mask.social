@@ -206,6 +206,7 @@ export interface Article {
     followingSources: FollowingSource[];
     paragraph_raw_data?: {
         slug: string;
+        staticHtml: string;
     };
 }
 

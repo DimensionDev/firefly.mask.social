@@ -2,22 +2,21 @@
 
 import { safeUnreachable } from '@masknet/kit';
 import { useQuery } from '@tanstack/react-query';
-import { last } from 'lodash-es';
 import { memo } from 'react';
-import { Tweet } from 'react-tweet';
 import urlcat from 'urlcat';
 
 import { ChannelTag } from '@/components/Markup/MarkupLink/ChannelTag.js';
 import { ExternalLink } from '@/components/Markup/MarkupLink/ExternalLink.js';
 import { Hashtag } from '@/components/Markup/MarkupLink/Hashtag.js';
 import { MentionLink } from '@/components/Markup/MarkupLink/MentionLink.js';
+import { NFTCard } from '@/components/Markup/MarkupLink/NFTCard.js';
+import { NFTCollection } from '@/components/Markup/MarkupLink/NFTCollection.js';
 import { SymbolTag } from '@/components/Markup/MarkupLink/SymbolTag.js';
 import { TcoLink } from '@/components/Markup/MarkupLink/TcoLink.js';
 import { ProfileTippy } from '@/components/Profile/ProfileTippy.js';
-import { components } from '@/components/Tweet/index.js';
 import { type SocialSource, Source } from '@/constants/enum.js';
 import { HEY_URL } from '@/constants/index.js';
-import { BIO_TWITTER_PROFILE_REGEX, EMAIL_REGEX, LENS_HANDLE_REGEXP, TWEET_REGEX } from '@/constants/regexp.js';
+import { BIO_TWITTER_PROFILE_REGEX, EMAIL_REGEX, LENS_HANDLE_REGEXP } from '@/constants/regexp.js';
 import { Link } from '@/esm/Link.js';
 import { createDummyProfileFromLensHandle } from '@/helpers/createDummyProfile.js';
 import { getLensHandleFromMentionTitle } from '@/helpers/getLensHandleFromMentionTitle.js';
@@ -32,10 +31,10 @@ export interface MarkupLinkProps {
     title?: string;
     post?: Post;
     source?: SocialSource;
-    supportTweet?: boolean;
+    sourceLink?: string;
 }
 
-export const MarkupLink = memo<MarkupLinkProps>(function MarkupLink({ title, post, source, supportTweet }) {
+export const MarkupLink = memo<MarkupLinkProps>(function MarkupLink({ title, post, source, sourceLink }) {
     const { data: fallbackProfile } = useQuery({
         // We only have handle in user bio.
         enabled: !post && source === Source.Farcaster && title?.startsWith('@'),
@@ -149,6 +148,28 @@ export const MarkupLink = memo<MarkupLinkProps>(function MarkupLink({ title, pos
         );
     }
 
+    if (title.startsWith('nft://') && sourceLink) {
+        const [chainId, contractAddress, last] = title.replace('nft://', '').split('/');
+        const tokenId = last.split('?')[0];
+        if (!chainId || !contractAddress) return;
+        if (tokenId)
+            return (
+                <NFTCard
+                    sourceLink={sourceLink}
+                    chainId={Number.parseInt(chainId, 10)}
+                    contractAddress={contractAddress}
+                    tokenId={tokenId}
+                />
+            );
+        return (
+            <NFTCollection
+                sourceLink={sourceLink}
+                chainId={Number.parseInt(chainId, 10)}
+                contractAddress={contractAddress}
+            />
+        );
+    }
+
     if (isValidDomain(title)) return title;
 
     if (EMAIL_REGEX.test(title)) return title;
@@ -168,12 +189,6 @@ export const MarkupLink = memo<MarkupLinkProps>(function MarkupLink({ title, pos
                 {title}
             </Link>
         );
-    }
-
-    if (new RegExp(TWEET_REGEX).test(title) && supportTweet) {
-        const id = last(title.match(TWEET_REGEX));
-        if (!id) return <ExternalLink title={title} />;
-        return <Tweet id={id} components={components} />;
     }
 
     if (isTCOLink(title)) {

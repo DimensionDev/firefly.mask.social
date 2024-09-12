@@ -1,22 +1,25 @@
 'use client';
 import '@/assets/css/limo.css';
+import '@/assets/css/paragraph.css';
 
 import { t, Trans } from '@lingui/macro';
 import { EVMExplorerResolver } from '@masknet/web3-providers';
 import { ChainId } from '@masknet/web3-shared-evm';
 import { useQuery, useSuspenseQuery } from '@tanstack/react-query';
 import DOMPurify from 'dompurify';
+import { compact } from 'lodash-es';
+import { useRouter } from 'next/navigation.js';
+import { useEffect, useRef } from 'react';
 import urlcat from 'urlcat';
 import { useDarkMode, useDocumentTitle } from 'usehooks-ts';
 import { checksumAddress } from 'viem';
 
 import ComeBack from '@/assets/comeback.svg';
-import LinkIcon from '@/assets/link.svg';
 import { ArticleHeader } from '@/components/Article/ArticleHeader.js';
 import { ArticleMarkup } from '@/components/Markup/ArticleMarkup.js';
 import { CollapsedContent } from '@/components/Posts/CollapsedContent.js';
 import { ImageAsset } from '@/components/Posts/ImageAsset.js';
-import { Source } from '@/constants/enum.js';
+import { PageRoute, SearchType, Source } from '@/constants/enum.js';
 import { SITE_NAME } from '@/constants/index.js';
 import { Link } from '@/esm/Link.js';
 import { classNames } from '@/helpers/classNames.js';
@@ -36,6 +39,8 @@ interface PageProps {
 }
 
 export function ArticleDetailPage({ params: { id: articleId } }: PageProps) {
+    const router = useRouter();
+    const ref = useRef<HTMLDivElement>(null);
     const comeback = useComeBack();
     const { isDarkMode } = useDarkMode();
     const { data: article } = useSuspenseQuery({
@@ -69,6 +74,41 @@ export function ArticleDetailPage({ params: { id: articleId } }: PageProps) {
     });
 
     useDocumentTitle(article ? createPageTitle(t`Post by ${article.author.handle}`) : SITE_NAME);
+
+    useEffect(() => {
+        if (!article?.content) return;
+
+        const images = ref.current?.querySelectorAll('.embed, .zora-embed');
+        if (!images) return;
+
+        images?.forEach((element, index) => {
+            element.addEventListener('click', (event) => {
+                event.preventDefault();
+                event.stopPropagation();
+                PreviewMediaModalRef.open({
+                    index: Math.max(index, 0),
+                    medias: compact(
+                        [...images.values()].map((x) => {
+                            const src = x.getAttribute('src');
+                            if (!src) return;
+                            return {
+                                type: 'Image',
+                                uri: src,
+                            };
+                        }),
+                    ),
+                    source: Source.Article,
+                });
+            });
+        });
+
+        return () => {
+            images.forEach((element) => {
+                // remove listener
+                element.parentNode?.replaceChild(element.cloneNode(true), element);
+            });
+        };
+    }, [article?.content]);
 
     if (!article) return null;
 
@@ -104,27 +144,55 @@ export function ArticleDetailPage({ params: { id: articleId } }: PageProps) {
                         }}
                     />
                 ) : null}
-                {!isMuted ? <div className="text-2xl font-semibold">{article.title}</div> : null}
-                {article.origin ? (
-                    <Link
-                        href={article.origin}
-                        className="flex items-center gap-1 text-xs text-link hover:underline"
-                        rel="noreferrer noopener"
-                        target="_blank"
-                    >
-                        <Trans>View Source</Trans>
-                        <LinkIcon width={14} height={14} />
-                    </Link>
-                ) : null}
+                {!isMuted ? <div className="line-clamp-5 text-2xl font-semibold">{article.title}</div> : null}
+                <div className="mt-1 flex items-center gap-2">
+                    {article.origin ? (
+                        <Link
+                            href={article.origin}
+                            className="flex items-center gap-1 text-xs text-link hover:underline"
+                            rel="noreferrer noopener"
+                            target="_blank"
+                        >
+                            <Trans>View Source</Trans>
+                        </Link>
+                    ) : null}
+
+                    {article.slug ? (
+                        <div
+                            className="cursor-pointer rounded-lg bg-primaryBottom px-1 py-2 text-xs text-second hover:underline"
+                            onClick={(event) => {
+                                event.stopPropagation();
+                                event.preventDefault();
+
+                                scrollTo(0, 0);
+                                router.push(
+                                    urlcat(PageRoute.Search, {
+                                        q: article.slug,
+                                        type: SearchType.Posts,
+                                        source: Source.Article,
+                                    }),
+                                );
+                            }}
+                        >
+                            #{article.slug}
+                        </div>
+                    ) : null}
+                </div>
                 <div className="my-5 mt-2 border-b border-line">
                     <ArticleHeader article={article} className="items-center pb-2" />
                 </div>
                 {isMuted ? (
                     <CollapsedContent className="mt-2" authorMuted isQuote={false} />
-                ) : article.platform === ArticlePlatform.Limo ? (
-                    <div className="limo-article">
+                ) : article.platform !== ArticlePlatform.Mirror ? (
+                    <div
+                        className={classNames({
+                            'limo-article': article.platform === ArticlePlatform.Limo,
+                            'paragraph-article': article.platform === ArticlePlatform.Paragraph,
+                        })}
+                    >
                         {/*  The content returned by limo is html. */}
                         <div
+                            ref={ref}
                             className={classNames('container-fluid markdown-body comment-enabled', {
                                 dark: isDarkMode,
                             })}
@@ -134,6 +202,7 @@ export function ArticleDetailPage({ params: { id: articleId } }: PageProps) {
                     </div>
                 ) : (
                     <ArticleMarkup
+                        linkProps={{ sourceLink: article.origin }}
                         className="markup linkify break-words text-medium"
                         imageProps={{ disableLoadHandler: true, style: { objectFit: 'cover' } }}
                     >

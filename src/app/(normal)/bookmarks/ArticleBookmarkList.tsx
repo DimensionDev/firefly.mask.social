@@ -56,7 +56,9 @@ export function ArticleBookmarkList() {
                 listKey: `${ScrollListKey.Bookmark}:${Source.Article}`,
                 computeItemKey: (index, article) => `${article.id}-${article.hash}-${index}`,
                 itemContent: (index, article) =>
-                    getArticleItemContent(index, article, `${ScrollListKey.Bookmark}:${Source.Article}`),
+                    getArticleItemContent(index, article, `${ScrollListKey.Bookmark}:${Source.Article}`, {
+                        isBookmark: true,
+                    }),
             }}
             NoResultsFallbackProps={{
                 className: 'mt-20',

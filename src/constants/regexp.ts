@@ -47,4 +47,5 @@ export const NUMERIC_INPUT_REGEXP_PATTERN = '^[1-9]|^0(?![0-9])[.,。]?[0-9]*$';
 export const LIMO_REGEXP = /^https:\/\/vitalik\.eth\.limo\/general\//;
 
 export const MIRROR_ARTICLE_REGEXP = /https?:\/\/mirror\.xyz\/[^/]+\/([^/]+)/;
+export const MIRROR_SUBDOMAIN_ARTICLE_REGEXP = /^https:\/\/.*\.mirror\.xyz\/(.*)$/;
 export const PARAGRAPH_ARTICLE_REGEXP = /https?:\/\/paragraph\.xyz\/@([^/]+)\/(.+)/;
