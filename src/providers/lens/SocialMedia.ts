@@ -18,7 +18,7 @@ import {
     PublicationReportingSpamSubreason,
     PublicationType,
 } from '@lens-protocol/client';
-import { MetadataAttributeType,profile as createProfileMetadata } from '@lens-protocol/metadata';
+import { MetadataAttributeType, profile as createProfileMetadata } from '@lens-protocol/metadata';
 import { t } from '@lingui/macro';
 import { compact, first, flatMap, uniq, uniqWith } from 'lodash-es';
 import omitDeep from 'omit-deep';
