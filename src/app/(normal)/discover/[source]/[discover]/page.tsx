@@ -11,6 +11,5 @@ interface Props {
 
 export default function Page({ params }: Props) {
     const source = resolveSourceFromUrl(params.source) as SocialDiscoverSource;
-    console.log('source: ', source);
     return <DiscoverPage source={source} discover={params.discover} />;
 }
