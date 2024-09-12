@@ -76,8 +76,6 @@ export async function crossSchedulePost(
 
         const posts = await createSchedulePostsPayload(type, compositePost, false, signal);
 
-        const content = getScheduleTaskContent(compositePost);
-
         await useLensStateStore.getState().refreshCurrentAccount();
         await uploadSessions('merge', fireflySessionHolder.sessionRequired, getProfileSessionsAll());
 
@@ -88,11 +86,10 @@ export async function crossSchedulePost(
                 payload: JSON.stringify([x.payload]),
             })),
             {
-                content,
+                content: getScheduleTaskContent(compositePost),
                 type,
             },
         );
-
         if (!result) return;
 
         enqueueSuccessMessage(
