@@ -41,6 +41,7 @@
         ],
         "paths": {
             "@/*": ["./src/*"],
+            "next/navigation.js": ["./src/esm/navigation.ts"],
             "@masknet/backup-format": ["./src/maskbook/packages/backup-format/src/index.ts"],
             "@masknet/base": ["./src/maskbook/packages/base/src/index.ts"],
             "@masknet/encryption": ["./src/maskbook/packages/encryption/src/index.ts"],
