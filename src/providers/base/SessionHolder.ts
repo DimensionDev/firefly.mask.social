@@ -48,6 +48,10 @@ export class SessionHolder<T extends Session> {
         }
     }
 
+    refreshSession() {
+        throw new NotImplementedError();
+    }
+
     resumeSession(session: T) {
         this.removeQueries();
         this.internalSession = session;

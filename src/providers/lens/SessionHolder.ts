@@ -1,5 +1,7 @@
 import { LensClient as LensClientSDK } from '@lens-protocol/client';
+import { ZERO_ADDRESS } from '@masknet/web3-shared-evm';
 
+import { THIRTY_DAYS } from '@/constants/index.js';
 import {
     createLensSDK,
     LocalStorageProvider,
@@ -7,7 +9,7 @@ import {
     setLensCredentials,
 } from '@/helpers/createLensSDK.js';
 import { SessionHolder } from '@/providers/base/SessionHolder.js';
-import type { LensSession } from '@/providers/lens/Session.js';
+import { LensSession } from '@/providers/lens/Session.js';
 
 class LensSessionHolder extends SessionHolder<LensSession> {
     private lensClientSDK: LensClientSDK | null = null;
@@ -17,6 +19,34 @@ class LensSessionHolder extends SessionHolder<LensSession> {
             this.lensClientSDK = createLensSDK(new LocalStorageProvider());
         }
         return this.lensClientSDK;
+    }
+
+    override async refreshSession() {
+        this.assertSession();
+
+        const [accessTokenResult, refreshTokenResult, walletAddress] = await Promise.all([
+            lensSessionHolder.sdk.authentication.getAccessToken(),
+            lensSessionHolder.sdk.authentication.getRefreshToken(),
+            lensSessionHolder.sdk.authentication.getWalletAddress(),
+        ]);
+
+        const profileId = lensSessionHolder.session?.profileId;
+        const accessToken = accessTokenResult.unwrap();
+        const refreshToken = refreshTokenResult.unwrap();
+        const now = Date.now();
+
+        const session =
+            accessToken && refreshToken && walletAddress && profileId
+                ? new LensSession(
+                      profileId,
+                      accessToken,
+                      now,
+                      now + THIRTY_DAYS,
+                      refreshToken,
+                      walletAddress ?? ZERO_ADDRESS,
+                  )
+                : null;
+        return session;
     }
 
     override resumeSession(session: LensSession) {

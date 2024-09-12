@@ -30,6 +30,7 @@ import type { Session } from '@/providers/types/Session.js';
 import type { Profile, ProfileEditable } from '@/providers/types/SocialMedia.js';
 import { bindOrRestoreFireflySession } from '@/services/bindOrRestoreFireflySession.js';
 import { restoreFireflySessionAll } from '@/services/restoreFireflySession.js';
+import { SessionHolder } from '@/providers/base/SessionHolder.js';
 
 export interface ProfileState {
     // indicate the store is ready or not
@@ -226,24 +227,7 @@ const useLensStateBase = createState(
     {
         getUpdatedProfile: (profile: Profile) => LensSocialMediaProvider.getProfileByHandle(profile.handle),
         refreshCurrentAccountSession: async (profileId: string) => {
-            const [accessToken, refreshToken, walletAddress] = await Promise.all([
-                lensSessionHolder.sdk.authentication.getAccessToken(),
-                lensSessionHolder.sdk.authentication.getRefreshToken(),
-                lensSessionHolder.sdk.authentication.getWalletAddress(),
-            ]);
-            const now = Date.now();
-            const session =
-                accessToken && refreshToken && walletAddress
-                    ? new LensSession(
-                          profileId,
-                          accessToken.unwrap(),
-                          now,
-                          now + THIRTY_DAYS,
-                          refreshToken.unwrap(),
-                          walletAddress ?? ZERO_ADDRESS,
-                      )
-                    : null;
-            return session;
+            return lensSessionHolder.refreshSession();
         },
     },
     {
