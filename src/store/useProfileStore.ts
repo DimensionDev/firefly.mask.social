@@ -1,4 +1,3 @@
-import { ZERO_ADDRESS } from '@masknet/web3-shared-evm';
 import { create } from 'zustand';
 import { persist, type PersistOptions } from 'zustand/middleware';
 import { immer } from 'zustand/middleware/immer';
@@ -6,7 +5,7 @@ import { immer } from 'zustand/middleware/immer';
 import { queryClient } from '@/configs/queryClient.js';
 import { AsyncStatus, Source } from '@/constants/enum.js';
 import { FetchError } from '@/constants/error.js';
-import { EMPTY_LIST, HIDDEN_SECRET, THIRTY_DAYS } from '@/constants/index.js';
+import { EMPTY_LIST, HIDDEN_SECRET } from '@/constants/index.js';
 import { addAccount } from '@/helpers/account.js';
 import { bom } from '@/helpers/bom.js';
 import { createDummyProfile } from '@/helpers/createDummyProfile.js';
@@ -19,7 +18,6 @@ import { farcasterSessionHolder } from '@/providers/farcaster/SessionHolder.js';
 import { FarcasterSocialMediaProvider } from '@/providers/farcaster/SocialMedia.js';
 import type { FireflySession } from '@/providers/firefly/Session.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
-import { LensSession } from '@/providers/lens/Session.js';
 import { lensSessionHolder } from '@/providers/lens/SessionHolder.js';
 import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
 import { TwitterSession } from '@/providers/twitter/Session.js';
@@ -30,7 +28,6 @@ import type { Session } from '@/providers/types/Session.js';
 import type { Profile, ProfileEditable } from '@/providers/types/SocialMedia.js';
 import { bindOrRestoreFireflySession } from '@/services/bindOrRestoreFireflySession.js';
 import { restoreFireflySessionAll } from '@/services/restoreFireflySession.js';
-import { SessionHolder } from '@/providers/base/SessionHolder.js';
 
 export interface ProfileState {
     // indicate the store is ready or not
