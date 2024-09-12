@@ -13,63 +13,69 @@ import type { Post } from '@/providers/types/SocialMedia.js';
 
 export function useMirror(post: Post) {
     const { postId, source, hasMirrored: mirrored } = post;
-    return useAsyncFn(async () => {
-        if (!postId) return;
+    return useAsyncFn(
+        async (unmirror?: boolean) => {
+            if (!postId) return;
 
-        const mirrorOrUnmirror = async () => {
-            switch (source) {
-                case Source.Farcaster: {
-                    const result = await (mirrored
-                        ? FarcasterSocialMediaProvider.unmirrorPost(postId, Number(post.author.profileId))
-                        : FarcasterSocialMediaProvider.mirrorPost(postId, { authorId: Number(post.author.profileId) }));
-                    enqueueSuccessMessage(mirrored ? t`Cancel recast successfully` : t`Recasted`);
-                    return result;
+            const mirrorOrUnmirror = async () => {
+                switch (source) {
+                    case Source.Farcaster: {
+                        const result = await (mirrored
+                            ? FarcasterSocialMediaProvider.unmirrorPost(postId, Number(post.author.profileId))
+                            : FarcasterSocialMediaProvider.mirrorPost(postId, {
+                                  authorId: Number(post.author.profileId),
+                              }));
+                        enqueueSuccessMessage(mirrored ? t`Cancel recast successfully` : t`Recasted`);
+                        return result;
+                    }
+                    case Source.Lens: {
+                        const result = await (unmirror
+                            ? LensSocialMediaProvider.unmirrorPost(post.publicationId)
+                            : LensSocialMediaProvider.mirrorPost(postId));
+                        enqueueSuccessMessage(unmirror ? t`Cancel mirror successfully` : t`Mirrored`);
+                        return result;
+                    }
+                    case Source.Twitter:
+                        const result = await (mirrored
+                            ? TwitterSocialMediaProvider.unmirrorPost(postId)
+                            : TwitterSocialMediaProvider.mirrorPost(postId));
+                        enqueueSuccessMessage(mirrored ? t`Cancel repost successfully` : t`Reposted`);
+                        return result;
+                    default:
+                        safeUnreachable(source);
+                        return;
                 }
-                case Source.Lens: {
-                    const result = await LensSocialMediaProvider.mirrorPost(postId);
-                    // lens only supports mirroring
-                    enqueueSuccessMessage(t`Mirrored`);
-                    return result;
+            };
+
+            try {
+                await mirrorOrUnmirror();
+            } catch (error) {
+                switch (source) {
+                    case Source.Farcaster:
+                        enqueueErrorMessage(getSnackbarMessageFromError(error, t`Failed to recast.`), {
+                            error,
+                        });
+                        break;
+                    case Source.Lens:
+                        enqueueErrorMessage(getSnackbarMessageFromError(error, t`Failed to mirror.`), {
+                            error,
+                        });
+                        break;
+                    case Source.Twitter:
+                        enqueueErrorMessage(getSnackbarMessageFromError(error, t`Failed to repost.`), {
+                            error,
+                        });
+                        break;
+                    default:
+                        safeUnreachable(source);
+                        break;
                 }
-                case Source.Twitter:
-                    const result = await (mirrored
-                        ? TwitterSocialMediaProvider.unmirrorPost(postId)
-                        : TwitterSocialMediaProvider.mirrorPost(postId));
-                    enqueueSuccessMessage(mirrored ? t`Cancel repost successfully` : t`Reposted`);
-                    return result;
-                default:
-                    safeUnreachable(source);
-                    return;
+
+                checkFarcasterInvalidSignerKey(error);
+
+                throw error;
             }
-        };
-
-        try {
-            await mirrorOrUnmirror();
-        } catch (error) {
-            switch (source) {
-                case Source.Farcaster:
-                    enqueueErrorMessage(getSnackbarMessageFromError(error, t`Failed to recast.`), {
-                        error,
-                    });
-                    break;
-                case Source.Lens:
-                    enqueueErrorMessage(getSnackbarMessageFromError(error, t`Failed to mirror.`), {
-                        error,
-                    });
-                    break;
-                case Source.Twitter:
-                    enqueueErrorMessage(getSnackbarMessageFromError(error, t`Failed to repost.`), {
-                        error,
-                    });
-                    break;
-                default:
-                    safeUnreachable(source);
-                    break;
-            }
-
-            checkFarcasterInvalidSignerKey(error);
-
-            throw error;
-        }
-    }, [postId, source, mirrored, post.author.profileId]);
+        },
+        [postId, source, mirrored, post.author.profileId],
+    );
 }

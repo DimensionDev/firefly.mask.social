@@ -45,8 +45,8 @@ msgstr "已隐藏"
 msgid "Disconnect"
 msgstr "断开"
 
-msgid "Quote Post"
-msgstr "引用"
+msgid "Undo mirror"
+msgstr ""
 
 msgid "FAILED THREAD POST"
 msgstr "发送 thread 失败"
@@ -401,6 +401,9 @@ msgstr "{searchKeyword} 搜索无结果"
 
 msgid "Page not found"
 msgstr "找不到网页"
+
+msgid "Quote post"
+msgstr ""
 
 msgid "Mint function is transparent or non-existent. Hidden mint functions may increase the amount of tokens in circulation and effect the price of the token."
 msgstr "铸造功能是透明的或不存在的。隐藏的铸造功能可能会增加通证的流通量并影响通证的价格。"
@@ -2000,6 +2003,9 @@ msgstr "详情"
 
 msgid "Post added to your Bookmarks"
 msgstr "帖子已经添加到您的收藏中"
+
+msgid "Cancel mirror successfully"
+msgstr ""
 
 msgid "Cannot continue due to wallet mismatch."
 msgstr "钱包不匹配无法继续。"
