@@ -654,6 +654,9 @@ msgstr "关注 {handleOrEnsOrAddress} 失败。"
 msgid "Update"
 msgstr "更新"
 
+msgid "Failed to follow @{0} on Lens"
+msgstr ""
+
 msgid "You might like"
 msgstr "你也许感兴趣"
 
@@ -996,6 +999,9 @@ msgstr "网站"
 msgid "Failed to report @{0}."
 msgstr "举报 @{0} 失败。"
 
+msgid "Approve token to follow"
+msgstr ""
+
 msgid "Post with link"
 msgstr "发布带链接的帖子"
 
@@ -1118,6 +1124,9 @@ msgstr "您确定要举报这篇文章吗？"
 
 msgid "Failed to upvote post."
 msgstr "无法对帖子进行投票。"
+
+msgid "Insufficient balance to follow"
+msgstr ""
 
 msgid "<0>Acquired</0> an NFT"
 msgstr "<0>获取</0> 一个 NFT"
@@ -1242,6 +1251,9 @@ msgstr "<0>当前市值与满足最大供应量时的市值之比。</0><1>Mkt C
 msgid "Minting Date"
 msgstr "铸造日期"
 
+msgid "This profile doesn't enable super follow"
+msgstr ""
+
 msgid "The page could not be found."
 msgstr "找不到该页面。"
 
@@ -1277,6 +1289,9 @@ msgstr "选择代币"
 
 msgid "Your schedule thread has created successfully."
 msgstr "你设定的定时 thread 已经成功。"
+
+msgid "Super Follow"
+msgstr ""
 
 msgid "General"
 msgstr "通用"
@@ -1316,6 +1331,9 @@ msgstr "如果存在此功能，项目所有者即使在放弃后也可以重新
 
 msgid "Add wallet"
 msgstr "添加钱包"
+
+msgid "Please switch to {0}"
+msgstr ""
 
 msgid "Watch {handleOrEnsOrAddress}"
 msgstr "关注 {handleOrEnsOrAddress}"
@@ -1431,6 +1449,9 @@ msgstr "上传到 S3"
 msgid "{shares, plural, one {Recast or Quote} other {Recasts or Quotes}}"
 msgstr "{shares, plural, one {转帖或引用} other {转帖或引用}}"
 
+msgid "Follow for {0} ${1}"
+msgstr ""
+
 msgid "Please input the serialized session to be validated."
 msgstr ""
 
@@ -1478,6 +1499,9 @@ msgstr "在 {0} 上提交报告失败。"
 
 msgid "Insufficient funds"
 msgstr "金额不足"
+
+msgid "Connect your wallet to follow"
+msgstr ""
 
 msgid "Community"
 msgstr "社区"
@@ -2159,6 +2183,9 @@ msgstr "这不是空投欺诈。许多欺诈通过空投吸引用户。"
 
 msgid "GIF"
 msgstr "GIF"
+
+msgid "Followed @{0} on Lens"
+msgstr ""
 
 msgid "Collect for {0} {1}"
 msgstr "收集 {0} {1}"

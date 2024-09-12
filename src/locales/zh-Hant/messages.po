@@ -654,6 +654,9 @@ msgstr ""
 msgid "Update"
 msgstr "更新"
 
+msgid "Failed to follow @{0} on Lens"
+msgstr ""
+
 msgid "You might like"
 msgstr "你也許會喜歡"
 
@@ -996,6 +999,9 @@ msgstr "網站"
 msgid "Failed to report @{0}."
 msgstr ""
 
+msgid "Approve token to follow"
+msgstr ""
+
 msgid "Post with link"
 msgstr ""
 
@@ -1118,6 +1124,9 @@ msgstr "是否確定要檢舉這篇文章？"
 
 msgid "Failed to upvote post."
 msgstr "上讚貼文失敗"
+
+msgid "Insufficient balance to follow"
+msgstr ""
 
 msgid "<0>Acquired</0> an NFT"
 msgstr "<0>獲取了</0>一個 NFT"
@@ -1242,6 +1251,9 @@ msgstr ""
 msgid "Minting Date"
 msgstr "鑄造日期"
 
+msgid "This profile doesn't enable super follow"
+msgstr ""
+
 msgid "The page could not be found."
 msgstr "無法找到頁面"
 
@@ -1276,6 +1288,9 @@ msgid "Select Token"
 msgstr ""
 
 msgid "Your schedule thread has created successfully."
+msgstr ""
+
+msgid "Super Follow"
 msgstr ""
 
 msgid "General"
@@ -1316,6 +1331,9 @@ msgstr ""
 
 msgid "Add wallet"
 msgstr "新增錢包"
+
+msgid "Please switch to {0}"
+msgstr ""
 
 msgid "Watch {handleOrEnsOrAddress}"
 msgstr ""
@@ -1431,6 +1449,9 @@ msgstr ""
 msgid "{shares, plural, one {Recast or Quote} other {Recasts or Quotes}}"
 msgstr ""
 
+msgid "Follow for {0} ${1}"
+msgstr ""
+
 msgid "Please input the serialized session to be validated."
 msgstr ""
 
@@ -1477,6 +1498,9 @@ msgid "Failed to submit report on {0}."
 msgstr ""
 
 msgid "Insufficient funds"
+msgstr ""
+
+msgid "Connect your wallet to follow"
 msgstr ""
 
 msgid "Community"
@@ -2159,6 +2183,9 @@ msgstr ""
 
 msgid "GIF"
 msgstr "GIF"
+
+msgid "Followed @{0} on Lens"
+msgstr ""
 
 msgid "Collect for {0} {1}"
 msgstr ""

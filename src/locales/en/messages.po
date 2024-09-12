@@ -649,6 +649,9 @@ msgstr "Failed to watch {handleOrEnsOrAddress}."
 msgid "Update"
 msgstr "Update"
 
+msgid "Failed to follow @{0} on Lens"
+msgstr "Failed to follow @{0} on Lens"
+
 msgid "You might like"
 msgstr "You might like"
 
@@ -991,6 +994,9 @@ msgstr "Website"
 msgid "Failed to report @{0}."
 msgstr "Failed to report @{0}."
 
+msgid "Approve token to follow"
+msgstr "Approve token to follow"
+
 msgid "Post with link"
 msgstr "Post with link"
 
@@ -1113,6 +1119,9 @@ msgstr "Are you sure you want to report this article?"
 
 msgid "Failed to upvote post."
 msgstr "Failed to upvote post."
+
+msgid "Insufficient balance to follow"
+msgstr "Insufficient balance to follow"
 
 msgid "<0>Acquired</0> an NFT"
 msgstr "<0>Acquired</0> an NFT"
@@ -1237,6 +1246,9 @@ msgstr "<0>The proportion of current market capitalization compares to market ca
 msgid "Minting Date"
 msgstr "Minting Date"
 
+msgid "This profile doesn't enable super follow"
+msgstr "This profile doesn't enable super follow"
+
 msgid "The page could not be found."
 msgstr "The page could not be found."
 
@@ -1272,6 +1284,9 @@ msgstr "Select Token"
 
 msgid "Your schedule thread has created successfully."
 msgstr "Your schedule thread has created successfully."
+
+msgid "Super Follow"
+msgstr "Super Follow"
 
 msgid "General"
 msgstr "General"
@@ -1311,6 +1326,9 @@ msgstr "If this function exists, it is possible for the project owner to regain 
 
 msgid "Add wallet"
 msgstr "Add wallet"
+
+msgid "Please switch to {0}"
+msgstr "Please switch to {0}"
 
 msgid "Watch {handleOrEnsOrAddress}"
 msgstr "Watch {handleOrEnsOrAddress}"
@@ -1426,6 +1444,9 @@ msgstr "Upload to S3"
 msgid "{shares, plural, one {Recast or Quote} other {Recasts or Quotes}}"
 msgstr "{shares, plural, one {Recast or Quote} other {Recasts or Quotes}}"
 
+msgid "Follow for {0} ${1}"
+msgstr "Follow for {0} ${1}"
+
 msgid "Please input the serialized session to be validated."
 msgstr "Please input the serialized session to be validated."
 
@@ -1473,6 +1494,9 @@ msgstr "Failed to submit report on {0}."
 
 msgid "Insufficient funds"
 msgstr "Insufficient funds"
+
+msgid "Connect your wallet to follow"
+msgstr "Connect your wallet to follow"
 
 msgid "Community"
 msgstr "Community"
@@ -2154,6 +2178,9 @@ msgstr "This is not an airdrop scam. Many scams attract users through airdrops."
 
 msgid "GIF"
 msgstr "GIF"
+
+msgid "Followed @{0} on Lens"
+msgstr "Followed @{0} on Lens"
 
 msgid "Collect for {0} {1}"
 msgstr "Collect for {0} {1}"

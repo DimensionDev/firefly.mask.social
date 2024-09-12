@@ -649,6 +649,9 @@ msgstr ""
 msgid "Update"
 msgstr ""
 
+msgid "Failed to follow @{0} on Lens"
+msgstr ""
+
 msgid "You might like"
 msgstr ""
 
@@ -991,6 +994,9 @@ msgstr ""
 msgid "Failed to report @{0}."
 msgstr ""
 
+msgid "Approve token to follow"
+msgstr ""
+
 msgid "Post with link"
 msgstr ""
 
@@ -1112,6 +1118,9 @@ msgid "Are you sure you want to report this article?"
 msgstr ""
 
 msgid "Failed to upvote post."
+msgstr ""
+
+msgid "Insufficient balance to follow"
 msgstr ""
 
 msgid "<0>Acquired</0> an NFT"
@@ -1237,6 +1246,9 @@ msgstr ""
 msgid "Minting Date"
 msgstr ""
 
+msgid "This profile doesn't enable super follow"
+msgstr ""
+
 msgid "The page could not be found."
 msgstr ""
 
@@ -1271,6 +1283,9 @@ msgid "Select Token"
 msgstr ""
 
 msgid "Your schedule thread has created successfully."
+msgstr ""
+
+msgid "Super Follow"
 msgstr ""
 
 msgid "General"
@@ -1310,6 +1325,9 @@ msgid "If this function exists, it is possible for the project owner to regain o
 msgstr ""
 
 msgid "Add wallet"
+msgstr ""
+
+msgid "Please switch to {0}"
 msgstr ""
 
 msgid "Watch {handleOrEnsOrAddress}"
@@ -1426,6 +1444,9 @@ msgstr ""
 msgid "{shares, plural, one {Recast or Quote} other {Recasts or Quotes}}"
 msgstr ""
 
+msgid "Follow for {0} ${1}"
+msgstr ""
+
 msgid "Please input the serialized session to be validated."
 msgstr ""
 
@@ -1472,6 +1493,9 @@ msgid "Failed to submit report on {0}."
 msgstr ""
 
 msgid "Insufficient funds"
+msgstr ""
+
+msgid "Connect your wallet to follow"
 msgstr ""
 
 msgid "Community"
@@ -2153,6 +2177,9 @@ msgid "This is not an airdrop scam. Many scams attract users through airdrops."
 msgstr ""
 
 msgid "GIF"
+msgstr ""
+
+msgid "Followed @{0} on Lens"
 msgstr ""
 
 msgid "Collect for {0} {1}"
