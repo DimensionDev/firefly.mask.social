@@ -1,8 +1,5 @@
 'use client';
 
-import { Suspense } from 'react';
-
-import { Loading } from '@/components/Loading.js';
 import { SocialProfileContentList } from '@/components/Profile/SocialProfileContentList.js';
 import { WalletProfileContentList } from '@/components/Profile/WalletProfileContentList.js';
 import { type ProfileCategory, SocialProfileCategory, Source, WalletProfileCategory } from '@/constants/enum.js';
@@ -17,21 +14,15 @@ export function ProfilePageTimeline({
     category: ProfileCategory;
 }) {
     if (identity?.source === Source.Wallet) {
-        return (
-            <Suspense fallback={<Loading />}>
-                <WalletProfileContentList type={category as WalletProfileCategory} address={identity.id} />;
-            </Suspense>
-        );
+        return <WalletProfileContentList type={category as WalletProfileCategory} address={identity.id} />;
     }
     if (identity && isSocialSource(identity.source)) {
         return (
-            <Suspense fallback={<Loading />}>
-                <SocialProfileContentList
-                    type={category as SocialProfileCategory}
-                    source={identity.source}
-                    profileId={identity.id}
-                />
-            </Suspense>
+            <SocialProfileContentList
+                type={category as SocialProfileCategory}
+                source={identity.source}
+                profileId={identity.id}
+            />
         );
     }
     return null;

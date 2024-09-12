@@ -1,6 +1,6 @@
-import { type ProfileCategory, WalletProfileCategory } from '@/constants/enum.js';
+import { WalletProfileCategory } from '@/constants/enum.js';
 
-export function isWalletProfileCategory(category: ProfileCategory): category is WalletProfileCategory {
+export function isWalletProfileCategory(category: string): category is WalletProfileCategory {
     return [
         WalletProfileCategory.OnChainActivities,
         WalletProfileCategory.NFTs,

@@ -1,10 +1,13 @@
 import type { Metadata } from 'next';
+import { Suspense } from 'react';
 
-import { ProfileCategoryPage } from '@/app/(normal)/profile/[source]/[id]/pages/ProfileCategoryPage.js';
+import { Loading } from '@/components/Loading.js';
+import { ProfilePageTimeline } from '@/components/Profile/ProfilePageTimeline.js';
 import { KeyType, type ProfileCategory, type SocialSourceInURL } from '@/constants/enum.js';
 import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
 import { isSocialSourceInURL } from '@/helpers/isSocialSource.js';
 import { memoizeWithRedis } from '@/helpers/memoizeWithRedis.js';
+import { resolveSourceFromUrl } from '@/helpers/resolveSource.js';
 import { getProfileOGById } from '@/services/getProfileOGById.js';
 
 interface Props {
@@ -26,6 +29,13 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     return createSiteMetadata();
 }
 
-export default function Page() {
-    return <ProfileCategoryPage />;
+export default function Page({ params }: Props) {
+    return (
+        <Suspense fallback={<Loading />}>
+            <ProfilePageTimeline
+                category={params.category}
+                identity={{ id: params.id, source: resolveSourceFromUrl(params.source) }}
+            />
+        </Suspense>
+    );
 }

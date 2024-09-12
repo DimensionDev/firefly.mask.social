@@ -1,9 +1,7 @@
 'use client';
 
 import { Trans } from '@lingui/macro';
-import { useRouter } from 'next/navigation.js';
 
-import { ClickableButton } from '@/components/ClickableButton.js';
 import {
     type ProfilePageSource,
     SocialProfileCategory,
@@ -12,11 +10,19 @@ import {
     WalletProfileCategory,
 } from '@/constants/enum.js';
 import { SORTED_PROFILE_TAB_TYPE, WALLET_PROFILE_TAB_TYPES } from '@/constants/index.js';
+import { Link } from '@/esm/Link.js';
 import { classNames } from '@/helpers/classNames.js';
-import { ProfilePageContext } from '@/hooks/useProfilePageContext.js';
+import { resolveProfileUrl } from '@/helpers/resolveProfileUrl.js';
 
-export function ProfileCategoryTabs({ source }: { source: ProfilePageSource }) {
-    const { category, setCategory } = ProfilePageContext.useContainer();
+export function ProfileCategoryTabs({
+    source,
+    id,
+    category,
+}: {
+    source: ProfilePageSource;
+    id: string;
+    category: WalletProfileCategory | SocialProfileCategory;
+}) {
     const tabTitles = {
         [WalletProfileCategory.OnChainActivities]: <Trans>Onchain Activities</Trans>,
         [WalletProfileCategory.POAPs]: <Trans>POAPs</Trans>,
@@ -54,22 +60,21 @@ export function ProfileCategoryTabs({ source }: { source: ProfilePageSource }) {
                   },
               ].filter((x) => SORTED_PROFILE_TAB_TYPE[source as SocialSource].includes(x.type));
 
-    const router = useRouter();
-
     return (
         <div className="scrollable-tab flex gap-5 border-b border-lightLineSecond px-5 dark:border-line">
             {categories.map(({ type, title }) => {
                 return (
                     <div key={type} className="flex flex-col">
-                        <ClickableButton
+                        <Link
+                            href={resolveProfileUrl(source, id, type)}
+                            replace
                             className={classNames(
                                 'flex h-[46px] items-center whitespace-nowrap px-[14px] font-extrabold transition-all',
                                 category === type ? 'text-main' : 'text-third hover:text-main',
                             )}
-                            onClick={() => setCategory(type)}
                         >
                             {title}
-                        </ClickableButton>
+                        </Link>
                         <span
                             className={classNames(
                                 'h-1 w-full rounded-full bg-fireflyBrand transition-all',

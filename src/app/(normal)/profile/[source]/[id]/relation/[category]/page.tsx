@@ -1,17 +1,25 @@
-'use client';
+import { notFound } from 'next/navigation.js';
 
 import { FollowersList } from '@/app/(normal)/profile/[source]/[id]/pages/FollowersList.js';
 import { FollowingList } from '@/app/(normal)/profile/[source]/[id]/pages/FollowingList.js';
 import { MutualFollowersList } from '@/app/(normal)/profile/[source]/[id]/pages/MutualFollowersList.js';
-import { ProfilePageTimeline } from '@/components/Profile/ProfilePageTimeline.js';
-import { FollowCategory } from '@/constants/enum.js';
+import { FollowCategory, type ProfileCategory, SourceInURL } from '@/constants/enum.js';
 import { narrowToSocialSource } from '@/helpers/narrowToSocialSource.js';
-import { ProfilePageContext } from '@/hooks/useProfilePageContext.js';
+import { resolveSourceFromUrl } from '@/helpers/resolveSource.js';
 
-export function ProfileCategoryPage() {
-    const { identity, category } = ProfilePageContext.useContainer();
-    if (!category || !identity) return null;
-    switch (category) {
+export default function Page({
+    params,
+}: {
+    params: {
+        id: string;
+        category: ProfileCategory;
+        source: SourceInURL;
+    };
+}) {
+    const source = resolveSourceFromUrl(params.source);
+    const identity = { source, id: params.id };
+    if (!params.category || !identity) return null;
+    switch (params.category) {
         case FollowCategory.Following:
             return <FollowingList profileId={identity.id} source={narrowToSocialSource(identity.source)} />;
         case FollowCategory.Followers:
@@ -19,6 +27,6 @@ export function ProfileCategoryPage() {
         case FollowCategory.Mutuals:
             return <MutualFollowersList profileId={identity.id} source={narrowToSocialSource(identity.source)} />;
         default:
-            return <ProfilePageTimeline category={category} identity={identity} />;
+            notFound();
     }
 }

@@ -11,7 +11,7 @@ import { Loading } from '@/components/Loading.js';
 import { LoginRequiredGuard } from '@/components/LoginRequiredGuard.js';
 import { ProfileInfo } from '@/components/Profile/ProfileInfo.js';
 import { ProfileSourceTabs } from '@/components/Profile/ProfileSourceTabs.js';
-import { type SocialSource, Source } from '@/constants/enum.js';
+import { SocialProfileCategory, type SocialSource, Source, WalletProfileCategory } from '@/constants/enum.js';
 import { FetchError } from '@/constants/error.js';
 import { EMPTY_LIST } from '@/constants/index.js';
 import { isSameFireflyIdentity } from '@/helpers/isSameFireflyIdentity.js';
@@ -25,7 +25,11 @@ import type { FireflyIdentity } from '@/providers/types/Firefly.js';
 import { getProfileById } from '@/services/getProfileById.js';
 import { useFireflyIdentityState } from '@/store/useFireflyIdentityStore.js';
 
-export function ProfilePageLayout({ identity, children }: PropsWithChildren<{ identity: FireflyIdentity }>) {
+export function ProfilePageLayout({
+    identity,
+    children,
+    category,
+}: PropsWithChildren<{ identity: FireflyIdentity; category: WalletProfileCategory | SocialProfileCategory }>) {
     const { setIdentity } = useFireflyIdentityState();
     const currentProfiles = useCurrentFireflyProfilesAll();
     const isCurrentProfile = currentProfiles.some((x) => isSameFireflyIdentity(x.identity, identity));
@@ -88,7 +92,11 @@ export function ProfilePageLayout({ identity, children }: PropsWithChildren<{ id
                         isLoading={isLoadingProfile}
                         profile={profile}
                     >
-                        <ProfileCategoryTabs source={identity.source as SocialSource} />
+                        <ProfileCategoryTabs
+                            category={category}
+                            source={identity.source as SocialSource}
+                            id={identity.id}
+                        />
                         {children}
                     </ProfileInfo>
                 )}
