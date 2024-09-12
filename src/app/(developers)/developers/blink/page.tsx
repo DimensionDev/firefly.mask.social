@@ -10,14 +10,14 @@ import { Source } from '@/constants/enum.js';
 import { Link } from '@/esm/Link.js';
 import { createDummyPost } from '@/helpers/createDummyPost.js';
 
-export default function BlinkPage() {
+export default function Page() {
     const [url, setUrl] = useState('');
     const post = useMemo(() => createDummyPost(Source.Farcaster, url, url, [url]), [url]);
 
     return (
         <Section>
             <Headline>
-                <Trans>Blink</Trans>
+                <Trans>Blink Validator</Trans>
             </Headline>
 
             <div className="mb-2 w-full">

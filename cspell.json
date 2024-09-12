@@ -176,10 +176,12 @@
         "Tweetv",
         "dompurify",
         "Tweetv",
-        "getconvert"
+        "getconvert",
+        "datas"
     ],
     "flagWords": [],
     "ignorePaths": [
+        "*.svg",
         "pnpm-lock.yaml",
         "scripts/**",
         "patches/**",

@@ -214,9 +214,6 @@ msgstr "Location should not exceed {maxLocationSize} characters"
 msgid "FAILED POST"
 msgstr "FAILED POST"
 
-msgid "OpenGraph"
-msgstr "OpenGraph"
-
 msgid "Trending"
 msgstr "Trending"
 
@@ -333,6 +330,9 @@ msgstr "Switch between the app kit and rainbow kit wallet providers."
 
 msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} {1, select, Lens {mirrored your} Farcaster {recasted your} other {mirrored your}} <4>{2, select, Post {post} Comment {comment} Quote {quote} Mirror {mirror} other {post}}</4>"
 msgstr "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} {1, select, Lens {mirrored your} Farcaster {recasted your} other {mirrored your}} <4>{2, select, Post {post} Comment {comment} Quote {quote} Mirror {mirror} other {post}}</4>"
+
+msgid "Total"
+msgstr "Total"
 
 msgid "<0>{0}</0><1>mirrored</1>"
 msgstr "<0>{0}</0><1>mirrored</1>"
@@ -453,6 +453,9 @@ msgstr "Followed by {0}"
 
 msgid "Failed to unfollow @{0} on {sourceName}."
 msgstr "Failed to unfollow @{0} on {sourceName}."
+
+msgid "Calendar"
+msgstr "Calendar"
 
 msgid "Watch"
 msgstr "Watch"
@@ -607,6 +610,9 @@ msgstr "[Photo]"
 msgid "Follow more friends to continue exploring on {0}."
 msgstr "Follow more friends to continue exploring on {0}."
 
+msgid "Session Validator"
+msgstr "Session Validator"
+
 msgid "THREAD POST"
 msgstr "THREAD POST"
 
@@ -642,6 +648,9 @@ msgstr "Failed to watch {handleOrEnsOrAddress}."
 
 msgid "Update"
 msgstr "Update"
+
+msgid "Failed to follow @{0} on Lens"
+msgstr "Failed to follow @{0} on Lens"
 
 msgid "You might like"
 msgstr "You might like"
@@ -685,14 +694,14 @@ msgstr "Login to Firefly"
 msgid "Top Channels"
 msgstr "Top Channels"
 
+msgid "No content for the last two weeks."
+msgstr "No content for the last two weeks."
+
 msgid "This token contract has a code that states that it cannot be sold. Maybe this is a honeypot."
 msgstr "This token contract has a code that states that it cannot be sold. Maybe this is a honeypot."
 
 msgid "REPLY to<0><1>@{0}</1></0>"
 msgstr "REPLY to<0><1>@{0}</1></0>"
-
-msgid "Frame"
-msgstr "Frame"
 
 msgid "Directory"
 msgstr "Directory"
@@ -856,6 +865,9 @@ msgstr "There are images that were not uploaded successfully."
 msgid "No mint function"
 msgstr "No mint function"
 
+msgid "Expired"
+msgstr "Expired"
+
 msgid "Please choose issue to report this wallet:"
 msgstr "Please choose issue to report this wallet:"
 
@@ -885,6 +897,9 @@ msgstr "Sold Out"
 
 msgid "Proxy contract"
 msgstr "Proxy contract"
+
+msgid "Failed to fetch profile."
+msgstr "Failed to fetch profile."
 
 msgid "The contract owner has the authority to modify the balance of tokens at other addresses, which may result in a loss of assets."
 msgstr "The contract owner has the authority to modify the balance of tokens at other addresses, which may result in a loss of assets."
@@ -978,6 +993,9 @@ msgstr "Website"
 
 msgid "Failed to report @{0}."
 msgstr "Failed to report @{0}."
+
+msgid "Approve token to follow"
+msgstr "Approve token to follow"
 
 msgid "Post with link"
 msgstr "Post with link"
@@ -1102,6 +1120,9 @@ msgstr "Are you sure you want to report this article?"
 msgid "Failed to upvote post."
 msgstr "Failed to upvote post."
 
+msgid "Insufficient balance to follow"
+msgstr "Insufficient balance to follow"
+
 msgid "<0>Acquired</0> an NFT"
 msgstr "<0>Acquired</0> an NFT"
 
@@ -1186,9 +1207,6 @@ msgstr "Details"
 msgid "Unmute {handleOrEnsOrAddress}"
 msgstr "Unmute {handleOrEnsOrAddress}"
 
-msgid "Blink"
-msgstr "Blink"
-
 msgid "Failed to disconnect wallet from your social graph."
 msgstr "Failed to disconnect wallet from your social graph."
 
@@ -1228,6 +1246,9 @@ msgstr "<0>The proportion of current market capitalization compares to market ca
 msgid "Minting Date"
 msgstr "Minting Date"
 
+msgid "This profile doesn't enable super follow"
+msgstr "This profile doesn't enable super follow"
+
 msgid "The page could not be found."
 msgstr "The page could not be found."
 
@@ -1263,6 +1284,9 @@ msgstr "Select Token"
 
 msgid "Your schedule thread has created successfully."
 msgstr "Your schedule thread has created successfully."
+
+msgid "Super Follow"
+msgstr "Super Follow"
 
 msgid "General"
 msgstr "General"
@@ -1303,6 +1327,9 @@ msgstr "If this function exists, it is possible for the project owner to regain 
 msgid "Add wallet"
 msgstr "Add wallet"
 
+msgid "Please switch to {0}"
+msgstr "Please switch to {0}"
+
 msgid "Watch {handleOrEnsOrAddress}"
 msgstr "Watch {handleOrEnsOrAddress}"
 
@@ -1323,6 +1350,9 @@ msgstr "Exclusivity"
 
 msgid "Feedback"
 msgstr "Feedback"
+
+msgid "Your serialized session"
+msgstr "Your serialized session"
 
 msgid "GIFs"
 msgstr "GIFs"
@@ -1362,6 +1392,9 @@ msgstr "View engagements"
 
 msgid "Translated"
 msgstr "Translated"
+
+msgid "Price"
+msgstr "Price"
 
 msgid "Failed to bookmark post."
 msgstr "Failed to bookmark post."
@@ -1411,6 +1444,12 @@ msgstr "Upload to S3"
 msgid "{shares, plural, one {Recast or Quote} other {Recasts or Quotes}}"
 msgstr "{shares, plural, one {Recast or Quote} other {Recasts or Quotes}}"
 
+msgid "Follow for {0} ${1}"
+msgstr "Follow for {0} ${1}"
+
+msgid "Please input the serialized session to be validated."
+msgstr "Please input the serialized session to be validated."
+
 msgid "Failed to update profile."
 msgstr "Failed to update profile."
 
@@ -1455,6 +1494,9 @@ msgstr "Failed to submit report on {0}."
 
 msgid "Insufficient funds"
 msgstr "Insufficient funds"
+
+msgid "Connect your wallet to follow"
+msgstr "Connect your wallet to follow"
 
 msgid "Community"
 msgstr "Community"
@@ -1912,6 +1954,9 @@ msgstr "The whitelist function is included. Some addresses may not be able to tr
 msgid "Hide tokens with small balances"
 msgstr "Hide tokens with small balances"
 
+msgid "News"
+msgstr "News"
+
 msgid "NFT ID"
 msgstr "NFT ID"
 
@@ -2032,6 +2077,9 @@ msgstr "<0>since </0> <1>{0}</1>"
 msgid "{hours}h left"
 msgstr "{hours}h left"
 
+msgid "Events"
+msgstr "Events"
+
 msgid "{0} Users"
 msgstr "{0} Users"
 
@@ -2130,6 +2178,9 @@ msgstr "This is not an airdrop scam. Many scams attract users through airdrops."
 
 msgid "GIF"
 msgstr "GIF"
+
+msgid "Followed @{0} on Lens"
+msgstr "Followed @{0} on Lens"
 
 msgid "Collect for {0} {1}"
 msgstr "Collect for {0} {1}"

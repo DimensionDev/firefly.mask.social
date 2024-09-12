@@ -3,7 +3,6 @@ import { useQuery } from '@tanstack/react-query';
 import { memo, Suspense, useEffect } from 'react';
 
 import { Embed } from '@/components/Oembed/Embed.js';
-import { Mirror } from '@/components/Oembed/Mirror.js';
 import { Player } from '@/components/Oembed/Player.js';
 import { PostEmbed } from '@/components/Oembed/Post.js';
 import { Quote } from '@/components/Posts/Quote.js';
@@ -39,18 +38,6 @@ export const OembedLayout = memo<{ data: LinkDigested; post?: Post }>(function O
     if (!type) return <OembedUI og={og} />;
 
     switch (type) {
-        case PayloadType.Mirror:
-            return (
-                <Mirror
-                    address={payload.address}
-                    title={og.title}
-                    description={payload.body || ''}
-                    url={og.url}
-                    ens={payload.ens}
-                    displayName={payload.displayName}
-                    timestamp={payload.timestamp}
-                />
-            );
         case PayloadType.Farcaster:
             return <Quote post={formatWarpcastPost(payload.cast)} />;
         case PayloadType.Post:

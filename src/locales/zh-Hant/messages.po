@@ -219,9 +219,6 @@ msgstr ""
 msgid "FAILED POST"
 msgstr ""
 
-msgid "OpenGraph"
-msgstr ""
-
 msgid "Trending"
 msgstr "流行趨勢"
 
@@ -337,6 +334,9 @@ msgid "Switch between the app kit and rainbow kit wallet providers."
 msgstr ""
 
 msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} {1, select, Lens {mirrored your} Farcaster {recasted your} other {mirrored your}} <4>{2, select, Post {post} Comment {comment} Quote {quote} Mirror {mirror} other {post}}</4>"
+msgstr ""
+
+msgid "Total"
 msgstr ""
 
 msgid "<0>{0}</0><1>mirrored</1>"
@@ -458,6 +458,9 @@ msgstr ""
 
 msgid "Failed to unfollow @{0} on {sourceName}."
 msgstr "在 {sourceName} 上取消追蹤 @{0} 失敗。"
+
+msgid "Calendar"
+msgstr ""
 
 msgid "Watch"
 msgstr "觀察"
@@ -612,6 +615,9 @@ msgstr ""
 msgid "Follow more friends to continue exploring on {0}."
 msgstr "追蹤更多朋友 以繼續探索 {0}"
 
+msgid "Session Validator"
+msgstr ""
+
 msgid "THREAD POST"
 msgstr ""
 
@@ -647,6 +653,9 @@ msgstr ""
 
 msgid "Update"
 msgstr "更新"
+
+msgid "Failed to follow @{0} on Lens"
+msgstr ""
 
 msgid "You might like"
 msgstr "你也許會喜歡"
@@ -690,13 +699,13 @@ msgstr "登錄 Firefly"
 msgid "Top Channels"
 msgstr ""
 
+msgid "No content for the last two weeks."
+msgstr ""
+
 msgid "This token contract has a code that states that it cannot be sold. Maybe this is a honeypot."
 msgstr ""
 
 msgid "REPLY to<0><1>@{0}</1></0>"
-msgstr ""
-
-msgid "Frame"
 msgstr ""
 
 msgid "Directory"
@@ -861,6 +870,9 @@ msgstr ""
 msgid "No mint function"
 msgstr ""
 
+msgid "Expired"
+msgstr ""
+
 msgid "Please choose issue to report this wallet:"
 msgstr ""
 
@@ -890,6 +902,9 @@ msgstr "售罄"
 
 msgid "Proxy contract"
 msgstr "代理合約"
+
+msgid "Failed to fetch profile."
+msgstr ""
 
 msgid "The contract owner has the authority to modify the balance of tokens at other addresses, which may result in a loss of assets."
 msgstr ""
@@ -982,6 +997,9 @@ msgid "Website"
 msgstr "網站"
 
 msgid "Failed to report @{0}."
+msgstr ""
+
+msgid "Approve token to follow"
 msgstr ""
 
 msgid "Post with link"
@@ -1107,6 +1125,9 @@ msgstr "是否確定要檢舉這篇文章？"
 msgid "Failed to upvote post."
 msgstr "上讚貼文失敗"
 
+msgid "Insufficient balance to follow"
+msgstr ""
+
 msgid "<0>Acquired</0> an NFT"
 msgstr "<0>獲取了</0>一個 NFT"
 
@@ -1191,9 +1212,6 @@ msgstr "詳細資訊"
 msgid "Unmute {handleOrEnsOrAddress}"
 msgstr ""
 
-msgid "Blink"
-msgstr ""
-
 msgid "Failed to disconnect wallet from your social graph."
 msgstr ""
 
@@ -1233,6 +1251,9 @@ msgstr ""
 msgid "Minting Date"
 msgstr "鑄造日期"
 
+msgid "This profile doesn't enable super follow"
+msgstr ""
+
 msgid "The page could not be found."
 msgstr "無法找到頁面"
 
@@ -1267,6 +1288,9 @@ msgid "Select Token"
 msgstr ""
 
 msgid "Your schedule thread has created successfully."
+msgstr ""
+
+msgid "Super Follow"
 msgstr ""
 
 msgid "General"
@@ -1308,6 +1332,9 @@ msgstr ""
 msgid "Add wallet"
 msgstr "新增錢包"
 
+msgid "Please switch to {0}"
+msgstr ""
+
 msgid "Watch {handleOrEnsOrAddress}"
 msgstr ""
 
@@ -1328,6 +1355,9 @@ msgstr ""
 
 msgid "Feedback"
 msgstr "反饋"
+
+msgid "Your serialized session"
+msgstr ""
 
 msgid "GIFs"
 msgstr "GIF"
@@ -1366,6 +1396,9 @@ msgid "View engagements"
 msgstr "查看互動數據"
 
 msgid "Translated"
+msgstr ""
+
+msgid "Price"
 msgstr ""
 
 msgid "Failed to bookmark post."
@@ -1416,6 +1449,12 @@ msgstr ""
 msgid "{shares, plural, one {Recast or Quote} other {Recasts or Quotes}}"
 msgstr ""
 
+msgid "Follow for {0} ${1}"
+msgstr ""
+
+msgid "Please input the serialized session to be validated."
+msgstr ""
+
 msgid "Failed to update profile."
 msgstr ""
 
@@ -1459,6 +1498,9 @@ msgid "Failed to submit report on {0}."
 msgstr ""
 
 msgid "Insufficient funds"
+msgstr ""
+
+msgid "Connect your wallet to follow"
 msgstr ""
 
 msgid "Community"
@@ -1917,6 +1959,9 @@ msgstr ""
 msgid "Hide tokens with small balances"
 msgstr ""
 
+msgid "News"
+msgstr ""
+
 msgid "NFT ID"
 msgstr "NFT ID"
 
@@ -2037,6 +2082,9 @@ msgstr ""
 msgid "{hours}h left"
 msgstr ""
 
+msgid "Events"
+msgstr ""
+
 msgid "{0} Users"
 msgstr ""
 
@@ -2135,6 +2183,9 @@ msgstr ""
 
 msgid "GIF"
 msgstr "GIF"
+
+msgid "Followed @{0} on Lens"
+msgstr ""
 
 msgid "Collect for {0} {1}"
 msgstr ""

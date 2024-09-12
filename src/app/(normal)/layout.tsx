@@ -1,4 +1,5 @@
 import { Advertisement } from '@/components/Advertisement.js';
+import { CalendarContent } from '@/components/Calendar/CalendarContent.js';
 import { SuggestedChannels } from '@/components/Channel/SuggestedChannels.js';
 import { ComposeWatcher } from '@/components/Compose/ComposeWatcher.js';
 import { ComposeButton } from '@/components/ComposeButton/index.js';
@@ -112,7 +113,7 @@ export default function Layout({ children, modal }: { children: React.ReactNode;
                     </IfPathname>
 
                     <IfPathname isOneOf={['/']} exact>
-                        <mask-calendar-widget />
+                        <CalendarContent />
                     </IfPathname>
 
                     <LinkCloud />

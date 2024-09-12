@@ -219,9 +219,6 @@ msgstr "地址不可以超过 {maxLocationSize} 个字"
 msgid "FAILED POST"
 msgstr "发帖失败"
 
-msgid "OpenGraph"
-msgstr "OpenGraph"
-
 msgid "Trending"
 msgstr "趋势"
 
@@ -338,6 +335,9 @@ msgstr "在 App Kit 和 Rainbow Kit 钱包套件提供商之间切换。"
 
 msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} {1, select, Lens {mirrored your} Farcaster {recasted your} other {mirrored your}} <4>{2, select, Post {post} Comment {comment} Quote {quote} Mirror {mirror} other {post}}</4>"
 msgstr "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} {1, select, Lens {转帖了你的} Farcaster {转帖了你的} other {转帖了你的}} <4>{2, select, Post {帖子} Comment {评论} Quote {引用} Mirror {转帖} other {帖子}}</4>"
+
+msgid "Total"
+msgstr ""
 
 msgid "<0>{0}</0><1>mirrored</1>"
 msgstr "<0>{0}</0><1>转帖</1>"
@@ -458,6 +458,9 @@ msgstr "被 {0} 关注"
 
 msgid "Failed to unfollow @{0} on {sourceName}."
 msgstr "在 {sourceName} 上取消关注 @{0} 失败。"
+
+msgid "Calendar"
+msgstr ""
 
 msgid "Watch"
 msgstr "关注"
@@ -612,6 +615,9 @@ msgstr "[照片]"
 msgid "Follow more friends to continue exploring on {0}."
 msgstr "在 {0} 上去关注更多的人来继续浏览吧。"
 
+msgid "Session Validator"
+msgstr ""
+
 msgid "THREAD POST"
 msgstr "THREAD 发帖"
 
@@ -647,6 +653,9 @@ msgstr "关注 {handleOrEnsOrAddress} 失败。"
 
 msgid "Update"
 msgstr "更新"
+
+msgid "Failed to follow @{0} on Lens"
+msgstr ""
 
 msgid "You might like"
 msgstr "你也许感兴趣"
@@ -690,14 +699,14 @@ msgstr "登录到 Firefly"
 msgid "Top Channels"
 msgstr "热门频道"
 
+msgid "No content for the last two weeks."
+msgstr ""
+
 msgid "This token contract has a code that states that it cannot be sold. Maybe this is a honeypot."
 msgstr "这个通证合约提到它不能出售。也许这是一个欺诈行为。"
 
 msgid "REPLY to<0><1>@{0}</1></0>"
 msgstr "回复给<0><1>@{0}</1></0>"
-
-msgid "Frame"
-msgstr "Frame"
 
 msgid "Directory"
 msgstr "目录"
@@ -861,6 +870,9 @@ msgstr "图片上传失败。"
 msgid "No mint function"
 msgstr "没有铸造功能"
 
+msgid "Expired"
+msgstr ""
+
 msgid "Please choose issue to report this wallet:"
 msgstr "请选择举报这个钱包的原因："
 
@@ -890,6 +902,9 @@ msgstr "售罄"
 
 msgid "Proxy contract"
 msgstr "代理合约"
+
+msgid "Failed to fetch profile."
+msgstr ""
 
 msgid "The contract owner has the authority to modify the balance of tokens at other addresses, which may result in a loss of assets."
 msgstr "合约所有人有权修改其他地址的通证通证余额，这可能造成资产损失。"
@@ -983,6 +998,9 @@ msgstr "网站"
 
 msgid "Failed to report @{0}."
 msgstr "举报 @{0} 失败。"
+
+msgid "Approve token to follow"
+msgstr ""
 
 msgid "Post with link"
 msgstr "发布带链接的帖子"
@@ -1107,6 +1125,9 @@ msgstr "您确定要举报这篇文章吗？"
 msgid "Failed to upvote post."
 msgstr "无法对帖子进行投票。"
 
+msgid "Insufficient balance to follow"
+msgstr ""
+
 msgid "<0>Acquired</0> an NFT"
 msgstr "<0>获取</0> 一个 NFT"
 
@@ -1191,9 +1212,6 @@ msgstr "详情"
 msgid "Unmute {handleOrEnsOrAddress}"
 msgstr "取消隐藏 {handleOrEnsOrAddress}"
 
-msgid "Blink"
-msgstr "Blink"
-
 msgid "Failed to disconnect wallet from your social graph."
 msgstr "未能从您的社交图谱中断链。"
 
@@ -1233,6 +1251,9 @@ msgstr "<0>当前市值与满足最大供应量时的市值之比。</0><1>Mkt C
 msgid "Minting Date"
 msgstr "铸造日期"
 
+msgid "This profile doesn't enable super follow"
+msgstr ""
+
 msgid "The page could not be found."
 msgstr "找不到该页面。"
 
@@ -1268,6 +1289,9 @@ msgstr "选择代币"
 
 msgid "Your schedule thread has created successfully."
 msgstr "你设定的定时 thread 已经成功。"
+
+msgid "Super Follow"
+msgstr ""
 
 msgid "General"
 msgstr "通用"
@@ -1308,6 +1332,9 @@ msgstr "如果存在此功能，项目所有者即使在放弃后也可以重新
 msgid "Add wallet"
 msgstr "添加钱包"
 
+msgid "Please switch to {0}"
+msgstr ""
+
 msgid "Watch {handleOrEnsOrAddress}"
 msgstr "关注 {handleOrEnsOrAddress}"
 
@@ -1328,6 +1355,9 @@ msgstr ""
 
 msgid "Feedback"
 msgstr "问题反馈"
+
+msgid "Your serialized session"
+msgstr ""
 
 msgid "GIFs"
 msgstr "动图"
@@ -1367,6 +1397,9 @@ msgstr "查看互动"
 
 msgid "Translated"
 msgstr "已翻译"
+
+msgid "Price"
+msgstr ""
 
 msgid "Failed to bookmark post."
 msgstr "收藏帖子失败。"
@@ -1416,6 +1449,12 @@ msgstr "上传到 S3"
 msgid "{shares, plural, one {Recast or Quote} other {Recasts or Quotes}}"
 msgstr "{shares, plural, one {转帖或引用} other {转帖或引用}}"
 
+msgid "Follow for {0} ${1}"
+msgstr ""
+
+msgid "Please input the serialized session to be validated."
+msgstr ""
+
 msgid "Failed to update profile."
 msgstr "更新个人资料失败。"
 
@@ -1460,6 +1499,9 @@ msgstr "在 {0} 上提交报告失败。"
 
 msgid "Insufficient funds"
 msgstr "金额不足"
+
+msgid "Connect your wallet to follow"
+msgstr ""
 
 msgid "Community"
 msgstr "社区"
@@ -1917,6 +1959,9 @@ msgstr "白名单功能已启用。有些地址可能无法正常交易（欺诈
 msgid "Hide tokens with small balances"
 msgstr "隐藏小额通证"
 
+msgid "News"
+msgstr ""
+
 msgid "NFT ID"
 msgstr "NFT ID"
 
@@ -2037,6 +2082,9 @@ msgstr "<0>从 </0> <1>{0}</1>"
 msgid "{hours}h left"
 msgstr ""
 
+msgid "Events"
+msgstr ""
+
 msgid "{0} Users"
 msgstr "{0} 用户"
 
@@ -2135,6 +2183,9 @@ msgstr "这不是空投欺诈。许多欺诈通过空投吸引用户。"
 
 msgid "GIF"
 msgstr "GIF"
+
+msgid "Followed @{0} on Lens"
+msgstr ""
 
 msgid "Collect for {0} {1}"
 msgstr "收集 {0} {1}"

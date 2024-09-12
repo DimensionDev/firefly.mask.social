@@ -3,12 +3,16 @@ import { memo, useMemo, useState } from 'react';
 
 import FollowIcon from '@/assets/follow-bold.svg';
 import FollowedIcon from '@/assets/followed.svg';
+import LoadingIcon from '@/assets/loading.svg';
 import MutualFollowIcon from '@/assets/mutual-follow.svg';
 import { ToggleMutedProfileButton } from '@/components/Actions/ToggleMutedProfileButton.js';
 import { ClickableButton, type ClickableButtonProps } from '@/components/ClickableButton.js';
 import { classNames } from '@/helpers/classNames.js';
+import { useIsLogin } from '@/hooks/useIsLogin.js';
 import { useIsProfileMuted } from '@/hooks/useIsProfileMuted.js';
+import { useSuperFollowModule } from '@/hooks/useSuperFollow.js';
 import { useToggleFollow } from '@/hooks/useToggleFollow.js';
+import { LoginModalRef, SuperFollowModalRef } from '@/modals/controls.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 
 enum State {
@@ -32,20 +36,26 @@ export const FollowButton = memo(function FollowButton({
 }: FollowButtonProps) {
     const [hovering, setHovering] = useState(false);
     const [loading, toggleFollow] = useToggleFollow(profile);
-
-    const muted = useIsProfileMuted(profile, hasMutedButton);
+    const isLogin = useIsLogin(profile.source);
 
     const isFollowing = !!profile.viewerContext?.following;
+
+    const muted = useIsProfileMuted(profile, hasMutedButton);
+    const { followModule, loading: moduleLoading } = useSuperFollowModule(profile, isFollowing);
+
     const isFollowedBy = !!profile.viewerContext?.followedBy;
+    const showSuperFollow = !isFollowing && !!followModule;
+
     const buttonText = useMemo(() => {
+        if (loading || moduleLoading) return <LoadingIcon className="animate-spin" width={16} height={16} />;
         if (variant === 'text') {
             if (isFollowing) return hovering && !loading ? t`Unfollow` : t`Following`;
-            return isFollowedBy ? t`Follow Back` : t`Follow`;
+            return showSuperFollow ? t`Super Follow` : isFollowedBy ? t`Follow Back` : t`Follow`;
         }
         if (isFollowing) return <FollowedIcon className="h-4 w-4 flex-shrink-0" />;
         if (isFollowedBy) return <MutualFollowIcon className="h-4 w-4 flex-shrink-0" />;
         return <FollowIcon className="h-4 w-4 flex-shrink-0" />;
-    }, [hovering, isFollowing, isFollowedBy, loading, variant]);
+    }, [hovering, isFollowing, isFollowedBy, loading, variant, showSuperFollow, moduleLoading]);
 
     if (hasMutedButton && muted) {
         return (
@@ -78,11 +88,19 @@ export const FollowButton = memo(function FollowButton({
                 },
             )}
             {...rest}
-            disabled={loading}
+            disabled={loading || moduleLoading}
             onMouseEnter={() => setHovering(true)}
             onMouseLeave={() => setHovering(false)}
             onClick={() => {
-                toggleFollow.mutate();
+                if (!isLogin) {
+                    LoginModalRef.open({ source: profile.source });
+                    return;
+                }
+                if (showSuperFollow) {
+                    SuperFollowModalRef.open({ profile });
+                } else {
+                    toggleFollow.mutate();
+                }
             }}
         >
             {buttonText}

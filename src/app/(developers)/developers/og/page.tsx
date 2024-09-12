@@ -16,7 +16,7 @@ import { createDummyPost } from '@/helpers/createDummyPost.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
 import { isValidUrl } from '@/helpers/isValidUrl.js';
 
-export default function OpenGraph() {
+export default function Page() {
     const [url, setUrl] = useState('');
     const post = useMemo(() => createDummyPost(Source.Farcaster, '', url, [url]), [url]);
 
@@ -36,7 +36,7 @@ export default function OpenGraph() {
     return (
         <Section>
             <Headline>
-                <Trans>OpenGraph</Trans>
+                <Trans>OpenGraph Validator</Trans>
             </Headline>
 
             <div className="mb-2 w-full">

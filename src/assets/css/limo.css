@@ -1,0 +1,758 @@
+/* for markdown-body */
+.limo-article > .markdown-body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Helvetica, Roboto, Arial, sans-serif,
+        'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
+    padding-top: 40px;
+    padding-bottom: 40px;
+    max-width: 758px;
+    overflow: visible !important;
+    position: relative;
+}
+
+/*fixed style for bootstrap comflict*/
+.limo-article > .markdown-body .emoji {
+    vertical-align: top;
+}
+
+.limo-article > .markdown-body pre {
+    border: inherit !important;
+}
+
+.limo-article > .markdown-body code {
+    color: inherit !important;
+}
+
+.limo-article > .markdown-body pre code .wrapper {
+    display: -moz-inline-flex;
+    display: -ms-inline-flex;
+    display: -o-inline-flex;
+    display: inline-flex;
+}
+
+.limo-article > .markdown-body pre code .gutter {
+    float: left;
+    overflow: hidden;
+    -webkit-user-select: none;
+    user-select: none;
+}
+
+.limo-article > .markdown-body pre code .gutter.linenumber {
+    text-align: right;
+    position: relative;
+    display: inline-block;
+    cursor: default;
+    z-index: 4;
+    padding: 0 8px 0 0;
+    min-width: 20px;
+    box-sizing: content-box;
+    color: #afafaf !important;
+    border-right: 3px solid #6ce26c !important;
+}
+
+.limo-article > .markdown-body pre code .gutter.linenumber > span:before {
+    content: attr(data-linenumber);
+}
+
+.limo-article > .markdown-body pre code .code {
+    float: left;
+    margin: 0 0 0 16px;
+}
+
+.limo-article > .markdown-body .gist .line-numbers {
+    border-left: none;
+    border-top: none;
+    border-bottom: none;
+}
+
+.limo-article > .markdown-body .gist .line-data {
+    border: none;
+}
+
+.limo-article > .markdown-body .gist table {
+    border-spacing: 0;
+    border-collapse: inherit !important;
+}
+
+.limo-article > .markdown-body code[data-gist-id] {
+    background: none;
+    padding: 0;
+}
+
+.limo-article > .markdown-body code[data-gist-id]:before {
+    content: '';
+}
+
+.limo-article > .markdown-body code[data-gist-id]:after {
+    content: '';
+}
+
+.limo-article > .markdown-body code[data-gist-id] .blob-num {
+    border: unset;
+}
+
+.limo-article > .markdown-body code[data-gist-id] table {
+    overflow: unset;
+    margin-bottom: unset;
+}
+
+.limo-article > .markdown-body code[data-gist-id] table tr {
+    background: unset;
+}
+
+/*fixed style for rtl in pre and code*/
+.limo-article > .markdown-body[dir='rtl'] pre {
+    direction: ltr;
+}
+
+.limo-article > .markdown-body[dir='rtl'] code {
+    direction: ltr;
+    unicode-bidi: embed;
+}
+
+.limo-article > .markdown-body .alert > p {
+    margin-bottom: 0;
+}
+
+.limo-article > .markdown-body pre.flow-chart,
+.limo-article > .markdown-body pre.sequence-diagram,
+.limo-article > .markdown-body pre.graphviz,
+.limo-article > .markdown-body pre.mermaid,
+.limo-article > .markdown-body pre.abc,
+.limo-article > .markdown-body pre.vega {
+    text-align: center;
+    background-color: inherit;
+    border-radius: 0;
+    white-space: inherit;
+    overflow: visible;
+    /* prevent top right menu overflow scroll */
+}
+
+.limo-article > .markdown-body pre.flow-chart > code,
+.limo-article > .markdown-body pre.sequence-diagram > code,
+.limo-article > .markdown-body pre.graphviz > code,
+.limo-article > .markdown-body pre.mermaid > code,
+.limo-article > .markdown-body pre.abc > code,
+.limo-article > .markdown-body pre.vega > code {
+    text-align: left;
+}
+
+.limo-article > .markdown-body pre.flow-chart > svg,
+.limo-article > .markdown-body pre.sequence-diagram > svg,
+.limo-article > .markdown-body pre.graphviz > svg,
+.limo-article > .markdown-body pre.mermaid > svg,
+.limo-article > .markdown-body pre.abc > svg,
+.limo-article > .markdown-body pre.vega > svg {
+    max-width: 100%;
+    height: 100%;
+}
+
+.limo-article > .markdown-body pre > code.wrap {
+    white-space: pre-wrap;
+    /* Since CSS 2.1 */
+    white-space: -moz-pre-wrap;
+    /* Mozilla, since 1999 */
+    white-space: -pre-wrap;
+    /* Opera 4-6 */
+    white-space: -o-pre-wrap;
+    /* Opera 7 */
+    word-wrap: break-word;
+    /* Internet Explorer 5.5+ */
+}
+
+.limo-article > .markdown-body .alert > p,
+.limo-article > .markdown-body .alert > ul {
+    margin-bottom: 0;
+}
+
+.limo-article > .markdown-body summary {
+    display: list-item;
+}
+
+.limo-article > .markdown-body summary:focus {
+    outline: none;
+}
+
+.limo-article > .markdown-body details summary {
+    cursor: pointer;
+}
+
+.limo-article > .markdown-body details:not([open]) > *:not(summary) {
+    display: none;
+}
+
+.limo-article > .markdown-body figure {
+    margin: 1em 40px;
+}
+
+.limo-article > .markdown-body .mark,
+.limo-article > .markdown-body mark {
+    background-color: #fff1a7;
+}
+
+.limo-article > .markdown-body::before {
+    display: table;
+    content: '';
+}
+
+.limo-article > .markdown-body::after {
+    display: table;
+    clear: both;
+    content: '';
+}
+
+.limo-article > .markdown-body > *:first-child {
+    margin-top: 0 !important;
+}
+
+.limo-article > .markdown-body > *:last-child {
+    margin-bottom: 0 !important;
+}
+
+.limo-article > .markdown-body a:not([href]) {
+    color: inherit;
+    text-decoration: none;
+}
+
+.limo-article > .markdown-body .absent {
+    color: #c00;
+}
+
+.limo-article > .markdown-body .anchor {
+    float: left;
+    padding-right: 4px;
+    margin-left: -20px;
+    line-height: 1;
+}
+
+.limo-article > .markdown-body .anchor:focus {
+    outline: none;
+}
+
+.limo-article > .markdown-body p,
+.limo-article > .markdown-body blockquote,
+.limo-article > .markdown-body ul,
+.limo-article > .markdown-body ol,
+.limo-article > .markdown-body dl,
+.limo-article > .markdown-body table,
+.limo-article > .markdown-body pre {
+    margin-top: 0;
+    margin-bottom: 16px;
+}
+
+.limo-article > .markdown-body hr {
+    height: 0.25em;
+    padding: 0;
+    margin: 24px 0;
+    background-color: #e7e7e7;
+    border: 0;
+}
+
+.limo-article > .markdown-body blockquote {
+    padding: 0 1em;
+    color: #777;
+    border-left: 0.25em solid #ddd;
+}
+
+.limo-article > .markdown-body blockquote > :first-child {
+    margin-top: 0;
+}
+
+.limo-article > .markdown-body blockquote > :last-child {
+    margin-bottom: 0;
+}
+
+.limo-article > .markdown-body kbd,
+.popover kbd {
+    display: inline-block;
+    padding: 3px 5px;
+    font-size: 11px;
+    line-height: 10px;
+    color: #555;
+    vertical-align: middle;
+    background-color: #fcfcfc;
+    border: solid 1px #ccc;
+    border-bottom-color: #bbb;
+    border-radius: 3px;
+    box-shadow: inset 0 -1px 0 #bbb;
+}
+
+.limo-article > .markdown-body .loweralpha {
+    list-style-type: lower-alpha;
+}
+
+.limo-article > .markdown-body h1,
+.limo-article > .markdown-body h2,
+.limo-article > .markdown-body h3,
+.limo-article > .markdown-body h4,
+.limo-article > .markdown-body h5,
+.limo-article > .markdown-body h6 {
+    margin-top: 42px;
+    margin-bottom: 16px;
+    font-weight: 600;
+    line-height: 1.25;
+}
+
+.limo-article > .markdown-body h1 .octicon-link,
+.limo-article > .markdown-body h2 .octicon-link,
+.limo-article > .markdown-body h3 .octicon-link,
+.limo-article > .markdown-body h4 .octicon-link,
+.limo-article > .markdown-body h5 .octicon-link,
+.limo-article > .markdown-body h6 .octicon-link {
+    color: #000;
+    vertical-align: middle;
+    visibility: hidden;
+}
+
+.limo-article > .markdown-body h1:hover .anchor,
+.limo-article > .markdown-body h2:hover .anchor,
+.limo-article > .markdown-body h3:hover .anchor,
+.limo-article > .markdown-body h4:hover .anchor,
+.limo-article > .markdown-body h5:hover .anchor,
+.limo-article > .markdown-body h6:hover .anchor {
+    text-decoration: none;
+}
+
+.limo-article > .markdown-body h1:hover .anchor .octicon-link,
+.limo-article > .markdown-body h2:hover .anchor .octicon-link,
+.limo-article > .markdown-body h3:hover .anchor .octicon-link,
+.limo-article > .markdown-body h4:hover .anchor .octicon-link,
+.limo-article > .markdown-body h5:hover .anchor .octicon-link,
+.limo-article > .markdown-body h6:hover .anchor .octicon-link {
+    visibility: visible;
+}
+
+.limo-article > .markdown-body h1 tt,
+.limo-article > .markdown-body h1 code,
+.limo-article > .markdown-body h2 tt,
+.limo-article > .markdown-body h2 code,
+.limo-article > .markdown-body h3 tt,
+.limo-article > .markdown-body h3 code,
+.limo-article > .markdown-body h4 tt,
+.limo-article > .markdown-body h4 code,
+.limo-article > .markdown-body h5 tt,
+.limo-article > .markdown-body h5 code,
+.limo-article > .markdown-body h6 tt,
+.limo-article > .markdown-body h6 code {
+    font-size: inherit;
+}
+
+.limo-article > .markdown-body h1 {
+    padding-bottom: 0.3em;
+    font-size: 2em;
+    border-bottom: 1px solid #eee;
+}
+
+.limo-article > .markdown-body h2 {
+    padding-bottom: 0.3em;
+    font-size: 1.5em;
+    border-bottom: 1px solid #eee;
+}
+
+.limo-article > .markdown-body h3 {
+    font-size: 1.25em;
+}
+
+.limo-article > .markdown-body h4 {
+    font-size: 1em;
+}
+
+.limo-article > .markdown-body h5 {
+    font-size: 0.875em;
+}
+
+.limo-article > .markdown-body h6 {
+    font-size: 0.85em;
+    color: #777;
+}
+
+.limo-article > .markdown-body ul,
+.limo-article > .markdown-body ol {
+    padding-left: 2em;
+}
+
+.limo-article > .markdown-body ul.no-list,
+.limo-article > .markdown-body ol.no-list {
+    padding: 0;
+    list-style-type: none;
+}
+
+.limo-article > .markdown-body ul ul,
+.limo-article > .markdown-body ul ol,
+.limo-article > .markdown-body ol ol,
+.limo-article > .markdown-body ol ul {
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.limo-article > .markdown-body li > p {
+    margin-top: 16px;
+}
+
+.limo-article > .markdown-body li + li {
+    padding-top: 0.25em;
+}
+
+.limo-article > .markdown-body dl {
+    padding: 0;
+}
+
+.limo-article > .markdown-body dl dt {
+    padding: 0;
+    margin-top: 16px;
+    font-size: 1em;
+    font-style: italic;
+    font-weight: bold;
+}
+
+.limo-article > .markdown-body dl dd {
+    padding: 0 16px;
+    margin-bottom: 16px;
+}
+
+.limo-article > .markdown-body table {
+    display: block;
+    width: 100%;
+    overflow: auto;
+    word-break: normal;
+    word-break: keep-all;
+}
+
+.limo-article > .markdown-body table th {
+    font-weight: bold;
+}
+
+.limo-article > .markdown-body table th,
+.limo-article > .markdown-body table td {
+    padding: 6px 13px;
+    border: 1px solid #ddd;
+}
+
+.limo-article > .markdown-body table tr {
+    background-color: #fff;
+    border-top: 1px solid #ccc;
+}
+
+.limo-article > .markdown-body table tr:nth-child(2n) {
+    background-color: #f8f8f8;
+}
+
+.limo-article > .markdown-body img {
+    max-width: 100%;
+    box-sizing: content-box;
+    background-color: #fff;
+}
+
+.limo-article > .markdown-body img[align='right'] {
+    padding-left: 20px;
+}
+
+.limo-article > .markdown-body img[align='left'] {
+    padding-right: 20px;
+}
+
+.limo-article > .markdown-body .emoji {
+    max-width: none;
+    vertical-align: text-top;
+    background-color: transparent;
+}
+
+.limo-article > .markdown-body span.frame {
+    display: block;
+    overflow: hidden;
+}
+
+.limo-article > .markdown-body span.frame > span {
+    display: block;
+    float: left;
+    width: auto;
+    padding: 7px;
+    margin: 13px 0 0;
+    overflow: hidden;
+    border: 1px solid #ddd;
+}
+
+.limo-article > .markdown-body span.frame span img {
+    display: block;
+    float: left;
+}
+
+.limo-article > .markdown-body span.frame span span {
+    display: block;
+    padding: 5px 0 0;
+    clear: both;
+    color: #333;
+}
+
+.limo-article > .markdown-body span.align-center {
+    display: block;
+    overflow: hidden;
+    clear: both;
+}
+
+.limo-article > .markdown-body span.align-center > span {
+    display: block;
+    margin: 13px auto 0;
+    overflow: hidden;
+    text-align: center;
+}
+
+.limo-article > .markdown-body span.align-center span img {
+    margin: 0 auto;
+    text-align: center;
+}
+
+.limo-article > .markdown-body span.align-right {
+    display: block;
+    overflow: hidden;
+    clear: both;
+}
+
+.limo-article > .markdown-body span.align-right > span {
+    display: block;
+    margin: 13px 0 0;
+    overflow: hidden;
+    text-align: right;
+}
+
+.limo-article > .markdown-body span.align-right span img {
+    margin: 0;
+    text-align: right;
+}
+
+.limo-article > .markdown-body span.float-left {
+    display: block;
+    float: left;
+    margin-right: 13px;
+    overflow: hidden;
+}
+
+.limo-article > .markdown-body span.float-left span {
+    margin: 13px 0 0;
+}
+
+.limo-article > .markdown-body span.float-right {
+    display: block;
+    float: right;
+    margin-left: 13px;
+    overflow: hidden;
+}
+
+.limo-article > .markdown-body span.float-right > span {
+    display: block;
+    margin: 13px auto 0;
+    overflow: hidden;
+    text-align: right;
+}
+
+.limo-article > .markdown-body code,
+.limo-article > .markdown-body tt {
+    padding: 0;
+    padding-top: 0.2em;
+    padding-bottom: 0.2em;
+    margin: 0;
+    font-size: 85%;
+    background-color: rgba(0, 0, 0, 0.04);
+    border-radius: 3px;
+}
+
+.limo-article > .markdown-body code::before,
+.limo-article > .markdown-body code::after,
+.limo-article > .markdown-body tt::before,
+.limo-article > .markdown-body tt::after {
+    letter-spacing: -0.2em;
+    content: '\00a0';
+}
+
+.limo-article > .markdown-body code br,
+.limo-article > .markdown-body tt br {
+    display: none;
+}
+
+.limo-article > .markdown-body del code {
+    text-decoration: inherit;
+}
+
+.limo-article > .markdown-body pre {
+    word-wrap: normal;
+}
+
+.limo-article > .markdown-body pre > code {
+    padding: 0;
+    margin: 0;
+    font-size: 100%;
+    word-break: normal;
+    white-space: pre;
+    background: transparent;
+    border: 0;
+}
+
+.limo-article > .markdown-body .highlight {
+    margin-bottom: 16px;
+}
+
+.limo-article > .markdown-body .highlight pre {
+    margin-bottom: 0;
+    word-break: normal;
+}
+
+.limo-article > .markdown-body .highlight pre,
+.limo-article > .markdown-body pre {
+    padding: 16px;
+    overflow: auto;
+    font-size: 85%;
+    line-height: 1.45;
+    background-color: #f7f7f7;
+    border-radius: 3px;
+}
+
+.limo-article > .markdown-body pre code,
+.limo-article > .markdown-body pre tt {
+    display: inline;
+    max-width: auto;
+    padding: 0;
+    margin: 0;
+    overflow: visible;
+    line-height: inherit;
+    word-wrap: normal;
+    background-color: transparent;
+    border: 0;
+}
+
+.limo-article > .markdown-body pre code::before,
+.limo-article > .markdown-body pre code::after,
+.limo-article > .markdown-body pre tt::before,
+.limo-article > .markdown-body pre tt::after {
+    content: normal;
+}
+
+.limo-article > .markdown-body .csv-data td,
+.limo-article > .markdown-body .csv-data th {
+    padding: 5px;
+    overflow: hidden;
+    font-size: 12px;
+    line-height: 1;
+    text-align: left;
+    white-space: nowrap;
+}
+
+.limo-article > .markdown-body .csv-data .blob-line-num {
+    padding: 10px 8px 9px;
+    text-align: right;
+    background: #fff;
+    border: 0;
+}
+
+.limo-article > .markdown-body .csv-data tr {
+    border-top: 0;
+}
+
+.limo-article > .markdown-body .csv-data th {
+    font-weight: bold;
+    background: #f8f8f8;
+    border-top: 0;
+}
+
+.news .alert .limo-article > .markdown-body blockquote {
+    padding: 0 0 0 40px;
+    border: 0 none;
+}
+
+.activity-tab .news .limo-article > .markdown-body blockquote,
+.activity-tab .news .alert .commits {
+    padding-left: 0;
+}
+
+/*
+  Light Mode Color Scheme
+*/
+.limo-article {
+    --limo-color-anchor: #337ab7;
+    --limo-color-bg: #fff;
+    --limo-color-blockquote-text: #777;
+    --limo-color-code-bg: #f7f7f7;
+    --limo-color-code-text: #333;
+    --limo-color-divider: #cdcdcd;
+    --limo-color-heading: #333;
+    --limo-color-table-border: #c2c2c2;
+    --limo-color-table-row-even: #f0f0f0;
+    --limo-color-table-row-header: #e8e6e6;
+    --limo-color-table-row-odd: #fbfbfb;
+    --limo-color-toggle-accent: #c3a554;
+    --limo-color-text: #333;
+}
+
+/*
+    Dark Mode Color Scheme
+  */
+.limo-article.dark {
+    --limo-color-anchor: #77e1cd;
+    --limo-color-bg: #1c1c1c;
+    --limo-color-blockquote-text: #c0bcbc;
+    --limo-color-code-bg: #313030;
+    --limo-color-code-text: #fefefe;
+    --limo-color-divider: #8b8b8b;
+    --limo-color-heading: #dfdfdf;
+    --limo-color-table-border: #767676;
+    --limo-color-table-row-even: #181818;
+    --limo-color-table-row-header: #000;
+    --limo-color-table-row-odd: #333333;
+    --limo-color-toggle-accent: #a076ce;
+    --limo-color-text: #fafafa;
+}
+
+.limo-article th,
+.limo-article td,
+.limo-article dd,
+.limo-article dl {
+    color: var(--limo-color-text);
+}
+
+/*
+    Tables
+    - Normal tables are striped styled
+    - Optional: add 'transparent' class to create an invisible table, remove borders, striping and background
+      - Useful for when using tables for grid layouts
+    - Optional: add 'centered' class to center align all the text within the table
+  */
+.limo-article table thead tr,
+.limo-article table tr.header {
+    background-color: var(--limo-color-table-row-header);
+}
+
+.limo-article table tbody tr,
+.limo-article table tr.odd {
+    background-color: var(--limo-color-table-row-odd);
+}
+
+.limo-article table tbody tr:nth-child(2n),
+.limo-article table tr.even {
+    background-color: var(--limo-color-table-row-even);
+}
+
+.limo-article table th,
+.limo-article table td {
+    border-color: var(--limo-color-table-border);
+}
+
+.limo-article table.transparent,
+.limo-article table.transparent th,
+.limo-article table.transparent td,
+.limo-article table.transparent thead tr,
+.limo-article table.borderless tr.header,
+.limo-article table.transparent tbody tr,
+.limo-article table.borderless tr.odd,
+.limo-article table.transparent tbody tr:nth-child(2n),
+.limo-article table.borderless tr.even {
+    border: none;
+    background-color: transparent;
+}
+
+.limo-article table.centered,
+.limo-article table.centered th,
+.limo-article table.centered td {
+    text-align: center;
+}
+
+.limo-article a {
+    color: rgb(var(--color-link));
+}
