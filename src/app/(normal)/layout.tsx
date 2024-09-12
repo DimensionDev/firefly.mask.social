@@ -10,6 +10,8 @@ import { SearchFilter } from '@/components/Search/SearchFilter.js';
 import { SourceTabs } from '@/components/SourceTabs.js';
 import { SuggestedFollowsCard } from '@/components/SuggestedFollows/SuggestedFollowsCard.js';
 import { Source } from '@/constants/enum.js';
+import { DISCOVER_SOURCE } from '@/constants/index.js';
+import { resolveSourceInURL } from '@/helpers/resolveSourceInURL.js';
 
 export default function Layout({ children, modal }: { children: React.ReactNode; modal: React.ReactNode }) {
     return (
@@ -68,6 +70,14 @@ export default function Layout({ children, modal }: { children: React.ReactNode;
                             },
                             {
                                 r: '/nft/[^/]+/\\d+/\\d+$',
+                                flags: 'i',
+                            },
+                            {
+                                r: `/(${DISCOVER_SOURCE.map(resolveSourceInURL).join('|')})$`,
+                                flags: 'i',
+                            },
+                            {
+                                r: `/(${DISCOVER_SOURCE.map(resolveSourceInURL).join('|')})/[^/]+$`,
                                 flags: 'i',
                             },
                             '/channel',

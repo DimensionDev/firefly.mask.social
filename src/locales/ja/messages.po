@@ -1089,6 +1089,9 @@ msgstr ""
 msgid "This can’t be undone, and the scheduled send will be canceled."
 msgstr ""
 
+msgid "Lens"
+msgstr ""
+
 msgid "This contract is an Admin Upgradeability Proxy. The proxy contract means the contract owner can modify the function of the token and could possibly effect the price.There is possibly a way for the team to Rug or Scam. Please confirm the details with the project team before buying."
 msgstr ""
 
@@ -1219,6 +1222,9 @@ msgid "Invalid signer key"
 msgstr ""
 
 msgid "Posts from @{0} will now be hidden in your home timeline"
+msgstr ""
+
+msgid "Farcaster"
 msgstr ""
 
 msgid "commented"

@@ -1,8 +1,8 @@
 'use client';
 
-import { HomePage } from '@/app/(normal)/pages/Home.js';
-import type { SearchParams } from '@/types/index.js';
+import { DiscoverPage } from '@/app/(normal)/pages/Discover.js';
+import { Source } from '@/constants/enum.js';
 
-export default function Page({ searchParams }: { searchParams: SearchParams }) {
-    return <HomePage />;
+export default function Page() {
+    return <DiscoverPage source={Source.Farcaster} />;
 }

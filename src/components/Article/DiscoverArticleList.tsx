@@ -6,20 +6,14 @@ import { memo } from 'react';
 import { ListInPage } from '@/components/ListInPage.js';
 import { getArticleItemContent } from '@/components/VirtualList/getArticleItemContent.js';
 import { ScrollListKey, Source } from '@/constants/enum.js';
-import { EMPTY_LIST } from '@/constants/index.js';
-import { createIndicator, createPageable } from '@/helpers/pageable.js';
+import { createIndicator } from '@/helpers/pageable.js';
 import { FireflyArticleProvider } from '@/providers/firefly/Article.js';
-import type { Article } from '@/providers/types/Article.js';
-import { useGlobalState } from '@/store/useGlobalStore.js';
 
 export const DiscoverArticleList = memo(function DiscoverArticleList() {
-    const currentSource = useGlobalState.use.currentSource();
-
     const articleQueryResult = useSuspenseInfiniteQuery({
-        queryKey: ['articles', 'discover', currentSource],
+        queryKey: ['articles', 'discover'],
         networkMode: 'always',
         queryFn: async ({ pageParam }) => {
-            if (currentSource !== Source.Article) return createPageable<Article>(EMPTY_LIST, createIndicator());
             return FireflyArticleProvider.discoverArticles(createIndicator(undefined, pageParam));
         },
         initialPageParam: '',
@@ -29,7 +23,6 @@ export const DiscoverArticleList = memo(function DiscoverArticleList() {
 
     return (
         <ListInPage
-            key={currentSource}
             queryResult={articleQueryResult}
             VirtualListProps={{
                 listKey: `${ScrollListKey.Discover}:${Source.Article}`,

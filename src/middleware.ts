@@ -1,5 +1,7 @@
 import { NextRequest, NextResponse, userAgent } from 'next/server.js';
 
+import { SourceInURL } from '@/constants/enum.js';
+
 export async function middleware(request: NextRequest) {
     const pathname = request.nextUrl.pathname;
     request.headers.set('x-url', request.url);
@@ -21,5 +23,5 @@ export async function middleware(request: NextRequest) {
 }
 
 export const config = {
-    matcher: ['/post/:path*', '/profile/:path*'],
+    matcher: ['/post/:path*', '/profile/:path*', `/(${[SourceInURL.Farcaster, SourceInURL.Lens].join('|')})`],
 };
