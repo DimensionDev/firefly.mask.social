@@ -1,7 +1,7 @@
 import { first } from 'lodash-es';
 
 import { isSameEthereumAddress } from '@/helpers/isSameAddress.js';
-import { ArticlePlatform, type Article } from '@/providers/types/Article.js';
+import { type Article,ArticlePlatform } from '@/providers/types/Article.js';
 import { type Article as FireflyArticle } from '@/providers/types/Firefly.js';
 import { WatchType } from '@/providers/types/Firefly.js';
 
