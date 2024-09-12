@@ -274,6 +274,12 @@ class LensSocialMedia implements Provider {
         }
     }
 
+    async unmirrorPost(postId: string): Promise<void> {
+        await lensSessionHolder.sdk.publication.hide({
+            for: postId,
+        });
+    }
+
     async quotePostOnMomoka(postId: string, intro: string, signless?: boolean) {
         if (signless) {
             const result = await lensSessionHolder.sdk.publication.quoteOnMomoka({

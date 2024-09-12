@@ -3,6 +3,7 @@ import { v4 as uuid } from 'uuid';
 import { type SocialSource, Source } from '@/constants/enum.js';
 import { patchNotificationQueryDataOnPost } from '@/helpers/patchNotificationQueryData.js';
 import { patchPostQueryData } from '@/helpers/patchPostQueryData.js';
+import { updateQueryForLensPosts } from '@/helpers/updateQueryForLensPosts.js';
 import { type Post, type Provider } from '@/providers/types/SocialMedia.js';
 import type { ClassType } from '@/types/index.js';
 
@@ -42,6 +43,14 @@ function toggleMirror(source: SocialSource, postId: string, status: boolean, key
             post.stats = patchPostStats(post.stats, status);
         }
     });
+
+    if (source === Source.Lens && !status) {
+        // remove mirrored post
+        updateQueryForLensPosts((posts) => {
+            const index = posts.findIndex((p) => p.publicationId === postId);
+            if (index !== -1) posts.splice(index, 1);
+        });
+    }
 }
 
 export function SetQueryDataForMirrorPost(source: SocialSource) {

@@ -45,7 +45,7 @@ msgstr ""
 msgid "Disconnect"
 msgstr ""
 
-msgid "Quote Post"
+msgid "Undo mirror"
 msgstr ""
 
 msgid "FAILED THREAD POST"
@@ -400,6 +400,9 @@ msgid "No results for \"{searchKeyword}\""
 msgstr ""
 
 msgid "Page not found"
+msgstr ""
+
+msgid "Quote post"
 msgstr ""
 
 msgid "Mint function is transparent or non-existent. Hidden mint functions may increase the amount of tokens in circulation and effect the price of the token."
@@ -1999,6 +2002,9 @@ msgid "Detail"
 msgstr ""
 
 msgid "Post added to your Bookmarks"
+msgstr ""
+
+msgid "Cancel mirror successfully"
 msgstr ""
 
 msgid "Cannot continue due to wallet mismatch."
