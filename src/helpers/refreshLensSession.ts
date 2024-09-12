@@ -5,12 +5,15 @@ import { THIRTY_DAYS } from '@/constants/index.js';
 import { LensSession } from '@/providers/lens/Session.js';
 
 export async function refreshLensSession(sdk: LensClient) {
-    const [profileId, accessTokenResult, refreshTokenResult, walletAddress] = await Promise.all([
-        sdk.authentication.getProfileId(),
+    const [accessTokenResult, refreshTokenResult, walletAddress] = await Promise.all([
         sdk.authentication.getAccessToken(),
         sdk.authentication.getRefreshToken(),
         sdk.authentication.getWalletAddress(),
     ]);
+
+    // if not authenticated profileId will be null
+    // so evaluate profile id after refresh the session
+    const profileId = await sdk.authentication.getProfileId();
 
     const accessToken = accessTokenResult.unwrap();
     const refreshToken = refreshTokenResult.unwrap();
