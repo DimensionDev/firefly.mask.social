@@ -48,7 +48,7 @@ export class SessionHolder<T extends Session> {
         }
     }
 
-    refreshSession() {
+    refreshSession(): Promise<T> {
         throw new NotImplementedError();
     }
 

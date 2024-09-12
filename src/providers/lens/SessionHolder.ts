@@ -46,6 +46,8 @@ class LensSessionHolder extends SessionHolder<LensSession> {
                       walletAddress ?? ZERO_ADDRESS,
                   )
                 : null;
+        if (!session) throw new Error('Failed to refresh session');
+
         return session;
     }
 
