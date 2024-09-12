@@ -20,6 +20,7 @@ import { uploadToS3 } from '@/services/uploadToS3.js';
 import { type CompositePost } from '@/store/useComposeStore.js';
 import { useLensStateStore } from '@/store/useProfileStore.js';
 import { type ComposeType, type MediaObject } from '@/types/compose.js';
+import { lensSessionHolder } from '@/providers/lens/SessionHolder.js';
 
 interface BaseMetadata {
     title: string;
@@ -177,8 +178,8 @@ async function publishPostForLens(
         },
         await createPayloadAttachments(images, video),
     );
-    const tokenRes = await LensSocialMediaProvider.getAccessToken();
-    const token = tokenRes.unwrap();
+    const tokenResult = await lensSessionHolder.sdk.authentication.getAccessToken();
+    const token = tokenResult.unwrap();
     const arweaveId = await uploadToArweave(metadata, token);
     const publicationId = await LensSocialMediaProvider.publishPost({
         publicationId: '',
@@ -216,8 +217,8 @@ async function commentPostForLens(
         },
         await createPayloadAttachments(images, video),
     );
-    const tokenRes = await LensSocialMediaProvider.getAccessToken();
-    const token = tokenRes.unwrap();
+    const tokenResult = await lensSessionHolder.sdk.authentication.getAccessToken();
+    const token = tokenResult.unwrap();
     const arweaveId = await uploadToArweave(metadata, token);
     return LensSocialMediaProvider.commentPost(
         postId,
@@ -248,8 +249,8 @@ async function quotePostForLens(
         },
         await createPayloadAttachments(images, video),
     );
-    const tokenRes = await LensSocialMediaProvider.getAccessToken();
-    const token = tokenRes.unwrap();
+    const tokenResult = await lensSessionHolder.sdk.authentication.getAccessToken();
+    const token = tokenResult.unwrap();
     const arweaveId = await uploadToArweave(metadata, token);
     const post = await LensSocialMediaProvider.quotePost(
         postId,
