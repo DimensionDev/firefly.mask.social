@@ -842,6 +842,36 @@ importers:
         specifier: ^1.8.0
         version: 1.8.0(react@0.0.0-experimental-8039e6d0b-20231026)
 
+  src/maskbook/packages/plugins/Calendar:
+    dependencies:
+      '@masknet/icons':
+        specifier: workspace:^
+        version: link:../../icons
+      '@masknet/plugin-infra':
+        specifier: workspace:^
+        version: link:../../plugin-infra
+      '@masknet/shared':
+        specifier: workspace:^
+        version: link:../../shared
+      '@masknet/shared-base':
+        specifier: workspace:^
+        version: link:../../shared-base
+      '@masknet/shared-base-ui':
+        specifier: workspace:^
+        version: link:../../shared-base-ui
+      '@masknet/theme':
+        specifier: workspace:^
+        version: link:../../theme
+      '@masknet/web3-providers':
+        specifier: workspace:^
+        version: link:../../web3-providers
+      '@masknet/web3-shared-base':
+        specifier: workspace:^
+        version: link:../../web3-shared/base
+      date-fns:
+        specifier: ^2.30.0
+        version: 2.30.0
+
   src/maskbook/packages/plugins/RedPacket:
     dependencies:
       '@masknet/icons':
@@ -18482,7 +18512,7 @@ packages:
     resolution: {integrity: sha512-fnULvOpxnC5/Vg3NCiWelDsLiUc9bRwAPs/+LfTLNvetFCtCTN+yQz15C/fs4AwX1R9K5GLtLfn8QW+dWisaAw==}
     engines: {node: '>=0.11'}
     dependencies:
-      '@babel/runtime': 7.24.1
+      '@babel/runtime': 7.25.0
     dev: false
 
   /date-fns@3.6.0:
@@ -32931,6 +32961,7 @@ time:
   /@wagmi/core@2.13.4: '2024-08-09T00:57:30.856Z'
   /@web3modal/wagmi@5.1.0: '2024-08-16T15:44:38.031Z'
   /anchorme@3.0.8: '2024-04-08T09:26:57.773Z'
+  /date-fns@2.30.0: '2023-04-30T02:49:47.228Z'
   /immer@10.0.3: '2023-10-02T06:36:31.915Z'
   /jsdom@24.1.1: '2024-07-21T05:09:13.175Z'
   /postcss@8.4.41: '2024-08-05T23:08:39.503Z'
