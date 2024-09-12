@@ -154,10 +154,10 @@ function createState(
                     const { currentProfile: profile } = get();
                     if (!profile) return;
 
+                    const session = await provider.refreshCurrentAccountSession?.();
+
                     const updatedProfile = await provider.getUpdatedProfile?.(profile);
                     if (!updatedProfile) return;
-
-                    const session = await provider.refreshCurrentAccountSession?.();
 
                     set((state) => {
                         state.currentProfile = updatedProfile;
