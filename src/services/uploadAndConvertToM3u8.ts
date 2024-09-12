@@ -61,9 +61,7 @@ export async function uploadAndConvertToM3u8(file: File, source: SocialSourceInU
     const parsedUrl = parseURL(s3Url);
     if (!parsedUrl) throw new Error('Invalid s3 url');
 
-    const { m3u8Url, jobId } = await convertVideoToM3u8(parsedUrl.pathname, signal);
-
-    await waitForConvertJob(jobId, signal);
+    const { m3u8Url } = await convertVideoToM3u8(parsedUrl.pathname, signal);
 
     return m3u8Url;
 }
