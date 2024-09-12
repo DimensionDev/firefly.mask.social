@@ -1,5 +1,7 @@
 import { LensClient as LensClientSDK } from '@lens-protocol/client';
+import { ZERO_ADDRESS } from '@masknet/web3-shared-evm';
 
+import { THIRTY_DAYS } from '@/constants/index.js';
 import {
     createLensSDK,
     LocalStorageProvider,
