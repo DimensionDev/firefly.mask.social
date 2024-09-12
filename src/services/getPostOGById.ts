@@ -1,8 +1,9 @@
+import { t } from '@lingui/macro';
 import { compact } from 'lodash-es';
 import urlcat from 'urlcat';
 
 import type { SocialSourceInURL } from '@/constants/enum.js';
-import { SITE_URL } from '@/constants/index.js';
+import { SITE_NAME, SITE_URL } from '@/constants/index.js';
 import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
 import { getPostUrl } from '@/helpers/getPostUrl.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
@@ -32,6 +33,7 @@ export async function getPostOGById(source: SocialSourceInURL, postId: string) {
     });
 
     return createSiteMetadata({
+        title: post?.author ? t`Post by ${post.author.displayName}` : SITE_NAME,
         openGraph: {
             type: 'article',
             url: urlcat(SITE_URL, getPostUrl(post)),
