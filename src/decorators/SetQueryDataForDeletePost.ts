@@ -1,21 +1,14 @@
-import { produce } from 'immer';
-
-import { queryClient } from '@/configs/queryClient.js';
 import { type SocialSource, Source } from '@/constants/enum.js';
 import { patchPostQueryData } from '@/helpers/patchPostQueryData.js';
-import type { Post, Provider } from '@/providers/types/SocialMedia.js';
+import { updateQueryForLensPosts } from '@/helpers/updateQueryForLensPosts.js';
+import type { Provider } from '@/providers/types/SocialMedia.js';
 import type { ClassType } from '@/types/index.js';
 
 function deletePostFromQueryData(source: SocialSource, postId: string) {
     if (source === Source.Lens) {
-        queryClient.setQueriesData<{ pages: Array<{ data: Post[] }> }>({ queryKey: ['posts', source] }, (old) => {
-            if (!old?.pages) return old;
-            return produce(old, (draft) => {
-                for (const page of draft.pages) {
-                    const index = page.data.findIndex((p) => p.postId === postId);
-                    if (index !== -1) page.data.splice(index, 1);
-                }
-            });
+        updateQueryForLensPosts((posts) => {
+            const index = posts.findIndex((p) => p.postId === postId);
+            if (index !== -1) posts.splice(index, 1);
         });
     } else {
         patchPostQueryData(source, postId, (p) => {

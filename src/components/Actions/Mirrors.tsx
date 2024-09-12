@@ -3,6 +3,7 @@ import { safeUnreachable } from '@masknet/kit';
 import { motion } from 'framer-motion';
 import { memo, useMemo, useState } from 'react';
 
+import LoadingIcon from '@/assets/loading.svg';
 import MirrorIcon from '@/assets/mirror.svg';
 import MirrorLargeIcon from '@/assets/mirror-large.svg';
 import QuoteDownIcon from '@/assets/quote-down.svg';
@@ -36,6 +37,10 @@ export const Mirror = memo<MirrorProps>(function Mirror({
     const [open, setOpen] = useState(false);
     const isLogin = useIsLogin(source);
     const mirrored = !!post.hasMirrored;
+
+    const canUndoMirror = useMemo(() => {
+        return post.source === Source.Lens && mirrored && post.publicationId !== post.postId;
+    }, [post.source, post.publicationId, post.postId, mirrored]);
 
     const content = useMemo(() => {
         if (shares === 0) {
@@ -113,6 +118,21 @@ export const Mirror = memo<MirrorProps>(function Mirror({
                         <span className="font-medium">{mirrorActionText}</span>
                     </div>
 
+                    {canUndoMirror ? (
+                        <div
+                            className="flex cursor-pointer items-center space-x-1 text-danger md:space-x-2"
+                            onClick={() => {
+                                setOpen(false);
+                                handleMirror(true);
+                            }}
+                        >
+                            <MirrorLargeIcon width={18} height={18} />
+                            <span className="font-medium">
+                                <Trans>Undo mirror</Trans>
+                            </span>
+                        </div>
+                    ) : null}
+
                     <div
                         className="flex cursor-pointer items-center space-x-1 md:space-x-2"
                         onClick={() => {
@@ -126,7 +146,7 @@ export const Mirror = memo<MirrorProps>(function Mirror({
                     >
                         <QuoteDownIcon width={17} height={17} />
                         <span className="font-medium">
-                            <Trans>Quote Post</Trans>
+                            <Trans>Quote post</Trans>
                         </span>
                     </div>
                 </div>
@@ -155,16 +175,20 @@ export const Mirror = memo<MirrorProps>(function Mirror({
                 )}
             >
                 <Tooltip
-                    disabled={disabled || open}
+                    disabled={disabled || open || loading}
                     placement="top"
                     content={shares ? `${humanize(shares)} ${content}` : content}
                 >
                     <span className="inline-flex h-7 w-7 items-center justify-center rounded-full hover:bg-secondarySuccess/[.20]">
-                        <MirrorIcon
-                            width={16}
-                            height={16}
-                            className={mirrored || post.hasQuoted ? 'text-secondarySuccess' : ''}
-                        />
+                        {loading ? (
+                            <LoadingIcon className="animate-spin text-lightSecond" width={16} height={16} />
+                        ) : (
+                            <MirrorIcon
+                                width={16}
+                                height={16}
+                                className={mirrored || post.hasQuoted ? 'text-secondarySuccess' : ''}
+                            />
+                        )}
                     </span>
                 </Tooltip>
                 {!hiddenCount && shares ? (

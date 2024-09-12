@@ -17,7 +17,7 @@ import {
     PublicationReportingSpamSubreason,
     PublicationType,
 } from '@lens-protocol/client';
-import { MetadataAttributeType, profile as createProfileMetadata } from '@lens-protocol/metadata';
+import { MetadataAttributeType,profile as createProfileMetadata } from '@lens-protocol/metadata';
 import { t } from '@lingui/macro';
 import { compact, first, flatMap, uniq, uniqWith } from 'lodash-es';
 import urlcat from 'urlcat';
@@ -276,6 +276,12 @@ class LensSocialMedia implements Provider {
             }
             throw error;
         }
+    }
+
+    async unmirrorPost(postId: string): Promise<void> {
+        await lensSessionHolder.sdk.publication.hide({
+            for: postId,
+        });
     }
 
     async quotePostOnMomoka(postId: string, intro: string, signless?: boolean) {
