@@ -6,9 +6,9 @@ import {
     removeLensCredentials,
     setLensCredentials,
 } from '@/helpers/createLensSDK.js';
+import { refreshLensSession } from '@/helpers/refreshLensSession.js';
 import { SessionHolder } from '@/providers/base/SessionHolder.js';
 import { LensSession } from '@/providers/lens/Session.js';
-import { refreshLensSession } from '@/helpers/refreshLensSession.js';
 
 class LensSessionHolder extends SessionHolder<LensSession> {
     private lensClientSDK: LensClientSDK | null = null;
