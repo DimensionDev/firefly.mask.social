@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse, userAgent } from 'next/server.js';
 
-import { SourceInURL } from '@/constants/enum.js';
+import { isMatchedDiscoverPage } from '@/helpers/isMatchedDiscoverPage.js';
 
 export async function middleware(request: NextRequest) {
     const pathname = request.nextUrl.pathname;
@@ -17,11 +17,27 @@ export async function middleware(request: NextRequest) {
         });
     }
 
+    if (pathname === '/') {
+        const url = request.nextUrl.clone();
+        url.pathname = `/discover/farcaster/trending`;
+        return NextResponse.rewrite(url, {
+            request,
+        });
+    }
+
+    if (isMatchedDiscoverPage(pathname)) {
+        const url = request.nextUrl.clone();
+        url.pathname = `/discover${pathname}`;
+        return NextResponse.rewrite(url, {
+            request,
+        });
+    }
+
     return NextResponse.next({
         request,
     });
 }
 
 export const config = {
-    matcher: ['/post/:path*', '/profile/:path*', `/(${[SourceInURL.Farcaster, SourceInURL.Lens].join('|')})`],
+    matcher: ['/((?!_next/static|_next/image|api|favicon.ico|.*\\.(?:svg|png|jpg|jpeg|gif|webp)$).*)'],
 };

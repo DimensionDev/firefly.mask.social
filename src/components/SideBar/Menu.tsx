@@ -31,6 +31,7 @@ import { Link } from '@/esm/Link.js';
 import { classNames } from '@/helpers/classNames.js';
 import { getCurrentSourceFromParams } from '@/helpers/getCurrentSourceFromUrl.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
+import { isMatchedDiscoverPage } from '@/helpers/isMatchedDiscoverPage.js';
 import { isRoutePathname } from '@/helpers/isRoutePathname.js';
 import { isSameFireflyIdentity } from '@/helpers/isSameFireflyIdentity.js';
 import { useAsyncStatusAll } from '@/hooks/useAsyncStatus.js';
@@ -61,6 +62,7 @@ export const Menu = memo(function Menu({ collapsed = false }: MenuProps) {
     const isLoading = useAsyncStatusAll();
 
     const checkIsSelected = (href: `/${string}`) => {
+        if (href === '/') return pathname === href;
         if (isRoutePathname(href, '/profile')) {
             const identity = {
                 id: isRoutePathname(pathname, '/profile') ? pathname.split('/')[2] ?? '' : '',
@@ -83,6 +85,7 @@ export const Menu = memo(function Menu({ collapsed = false }: MenuProps) {
                                 name: <Trans>Discover</Trans>,
                                 icon: DiscoverIcon,
                                 selectedIcon: DiscoverSelectedIcon,
+                                match: () => isMatchedDiscoverPage(pathname),
                             },
                             {
                                 href: PageRoute.Following,
@@ -122,7 +125,7 @@ export const Menu = memo(function Menu({ collapsed = false }: MenuProps) {
                             },
                         ].map((item) => {
                             const isSelected =
-                                item.href === '/' ? pathname === '/' : checkIsSelected(item.href as `/${string}`);
+                                (item.match && item.match()) || checkIsSelected(item.href as `/${string}`);
                             const Icon = isSelected ? item.selectedIcon : item.icon;
 
                             return (
