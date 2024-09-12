@@ -85,6 +85,7 @@ export default function Layout({ children, modal }: { children: React.ReactNode;
                             '/settings',
                             '/profile',
                             '/token',
+                            '/',
                         ]}
                     >
                         <SourceTabs />

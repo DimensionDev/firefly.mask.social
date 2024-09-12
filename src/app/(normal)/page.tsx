@@ -1,8 +1,8 @@
-'use client';
+import { redirect } from 'next/navigation.js';
 
-import { DiscoverPage } from '@/app/(normal)/pages/Discover.js';
 import { Source } from '@/constants/enum.js';
+import { resolveDiscoverUrl } from '@/helpers/resolveDiscoverUrl.js';
 
 export default function Page() {
-    return <DiscoverPage source={Source.Farcaster} />;
+    return redirect(resolveDiscoverUrl(Source.Farcaster));
 }
