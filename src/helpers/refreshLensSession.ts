@@ -9,7 +9,7 @@ export async function refreshLensSession(sdk: LensClient) {
     const [accessTokenResult, walletAddress, profileId] = await Promise.all([
         sdk.authentication.getAccessToken(),
         sdk.authentication.getWalletAddress(),
-        await sdk.authentication.getProfileId(),
+        sdk.authentication.getProfileId(),
     ]);
 
     const accessToken = accessTokenResult.unwrap();
