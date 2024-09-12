@@ -12,6 +12,7 @@ import { createS3MediaObject, resolveImageUrl, resolveVideoUrl } from '@/helpers
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { uploadVideoCover } from '@/helpers/uploadVideoCover.js';
 import { LensPollProvider } from '@/providers/lens/Poll.js';
+import { lensSessionHolder } from '@/providers/lens/SessionHolder.js';
 import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
 import { createPostTo } from '@/services/createPostTo.js';
 import { uploadAndConvertToM3u8 } from '@/services/uploadAndConvertToM3u8.js';
@@ -177,8 +178,8 @@ async function publishPostForLens(
         },
         await createPayloadAttachments(images, video),
     );
-    const tokenRes = await LensSocialMediaProvider.getAccessToken();
-    const token = tokenRes.unwrap();
+    const tokenResult = await lensSessionHolder.sdk.authentication.getAccessToken();
+    const token = tokenResult.unwrap();
     const arweaveId = await uploadToArweave(metadata, token);
     const publicationId = await LensSocialMediaProvider.publishPost({
         publicationId: '',
@@ -216,8 +217,8 @@ async function commentPostForLens(
         },
         await createPayloadAttachments(images, video),
     );
-    const tokenRes = await LensSocialMediaProvider.getAccessToken();
-    const token = tokenRes.unwrap();
+    const tokenResult = await lensSessionHolder.sdk.authentication.getAccessToken();
+    const token = tokenResult.unwrap();
     const arweaveId = await uploadToArweave(metadata, token);
     return LensSocialMediaProvider.commentPost(
         postId,
@@ -248,8 +249,8 @@ async function quotePostForLens(
         },
         await createPayloadAttachments(images, video),
     );
-    const tokenRes = await LensSocialMediaProvider.getAccessToken();
-    const token = tokenRes.unwrap();
+    const tokenResult = await lensSessionHolder.sdk.authentication.getAccessToken();
+    const token = tokenResult.unwrap();
     const arweaveId = await uploadToArweave(metadata, token);
     const post = await LensSocialMediaProvider.quotePost(
         postId,
