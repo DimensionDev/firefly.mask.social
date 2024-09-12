@@ -633,9 +633,6 @@ msgstr ""
 msgid "Frame Validator"
 msgstr ""
 
-msgid "<0>Poap</0> received"
-msgstr ""
-
 msgid "No proxy"
 msgstr ""
 
@@ -976,6 +973,9 @@ msgid "Hide more comments"
 msgstr ""
 
 msgid "Malformed session."
+msgstr ""
+
+msgid "<0>COLLECTED</0> a POAP"
 msgstr ""
 
 msgid "Upload"

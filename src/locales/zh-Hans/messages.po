@@ -633,9 +633,6 @@ msgstr "上传头像失败。"
 msgid "Frame Validator"
 msgstr "Frame 验证器"
 
-msgid "<0>Poap</0> received"
-msgstr "<0>Poap</0> 已收到"
-
 msgid "No proxy"
 msgstr "无代理"
 
@@ -977,6 +974,9 @@ msgstr "隐藏更多的评论"
 
 msgid "Malformed session."
 msgstr "会话格式错误。"
+
+msgid "<0>COLLECTED</0> a POAP"
+msgstr ""
 
 msgid "Upload"
 msgstr "上传"
