@@ -12,6 +12,7 @@ import { TwitterSession } from '@/providers/twitter/Session.js';
 import { TwitterSocialMediaProvider } from '@/providers/twitter/SocialMedia.js';
 import type { Session } from '@/providers/types/Session.js';
 import { SessionType } from '@/providers/types/SocialMedia.js';
+import { isNull } from 'lodash-es';
 
 export async function getProfileBySession(session: Session, signal?: AbortSignal) {
     switch (session.type) {
@@ -38,6 +39,7 @@ export async function getProfileBySession(session: Session, signal?: AbortSignal
                     },
                 ],
                 null,
+                isNull,
             );
             if (!profileId) return null;
 
