@@ -45,8 +45,8 @@ msgstr "已靜音"
 msgid "Disconnect"
 msgstr "斷開連接"
 
-msgid "Quote Post"
-msgstr "引用"
+msgid "Undo mirror"
+msgstr ""
 
 msgid "FAILED THREAD POST"
 msgstr ""
@@ -401,6 +401,9 @@ msgstr "“{searchKeyword}” 無搜尋結果"
 
 msgid "Page not found"
 msgstr "找不到網頁"
+
+msgid "Quote post"
+msgstr ""
 
 msgid "Mint function is transparent or non-existent. Hidden mint functions may increase the amount of tokens in circulation and effect the price of the token."
 msgstr ""
@@ -1973,6 +1976,9 @@ msgstr "詳細資訊"
 
 msgid "Post added to your Bookmarks"
 msgstr "貼文已加入你的書籤"
+
+msgid "Cancel mirror successfully"
+msgstr ""
 
 msgid "Cannot continue due to wallet mismatch."
 msgstr ""
