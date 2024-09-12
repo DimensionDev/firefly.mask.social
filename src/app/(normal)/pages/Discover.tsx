@@ -120,11 +120,11 @@ export const DiscoverContentList: ComponentType<{ type: DiscoverType; source: So
     function DiscoverContentList({ type, source }) {
         switch (type) {
             case DiscoverType.Trending:
-                return <DiscoverPostList />;
+                return <DiscoverPostList source={source} />;
             case DiscoverType.ForYou:
-                return <ForYouPostList />;
+                return <ForYouPostList source={source} />;
             case DiscoverType.Recent:
-                return <RecentPostList />;
+                return <RecentPostList source={source} />;
             case DiscoverType.TopProfiles:
                 return <SuggestedFollowUsersList source={source} />;
             case DiscoverType.TopChannels:
