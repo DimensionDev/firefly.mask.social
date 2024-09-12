@@ -4,6 +4,7 @@ import { queryClient } from '@/configs/queryClient.js';
 import { SearchType, Source } from '@/constants/enum.js';
 import { patchNotificationQueryDataOnAuthor } from '@/helpers/patchNotificationQueryData.js';
 import { type Matcher, patchPostQueryData } from '@/helpers/patchPostQueryData.js';
+import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
 import { type Notification, type Profile, type Provider } from '@/providers/types/SocialMedia.js';
 import type { ClassType } from '@/types/index.js';
 
@@ -123,6 +124,29 @@ export function SetQueryDataForFollowProfile(source: Source) {
         }
 
         METHODS_BE_OVERRIDDEN.forEach(overrideMethod);
+        return target;
+    };
+}
+
+type LensProvider = typeof LensSocialMediaProvider;
+const OVERRIDDEN_METHODS = ['superFollow'] as const;
+
+export function SetQueryDataForSuperFollowProfile(source: Source) {
+    return function decorator<T extends ClassType<LensProvider>>(target: T): T {
+        function overrideMethod<K extends (typeof OVERRIDDEN_METHODS)[number]>(key: K) {
+            const method = target.prototype[key] as LensProvider[K];
+
+            Object.defineProperty(target.prototype, key, {
+                value: async (profileId: string) => {
+                    const m = method as (profileId: string) => Promise<boolean>;
+                    const status = await m?.call(target.prototype, profileId);
+                    setFollowStatus(source, profileId, status);
+                    return status;
+                },
+            });
+        }
+
+        OVERRIDDEN_METHODS.forEach(overrideMethod);
         return target;
     };
 }

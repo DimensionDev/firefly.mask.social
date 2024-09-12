@@ -13,6 +13,7 @@ import type { LogoutModalProps } from '@/modals/LogoutModal.js';
 import type { PreviewMediaModalOpenProps } from '@/modals/PreviewMediaModal.js';
 import type { SchedulePostModalOpenProps } from '@/modals/SchedulePostModal.js';
 import type { SnackbarCloseProps, SnackbarOpenProps } from '@/modals/Snackbar.js';
+import type { SuperFollowModalOpenProps } from '@/modals/SuperFollowModal.js';
 import type { TipsModalCloseProps, TipsModalOpenProps } from '@/modals/TipsModal.js';
 
 export const AccountModalRef = new SingletonModal();
@@ -35,3 +36,4 @@ export const CollectArticleModalRef = new SingletonModal<CollectArticleModalOpen
 export const EnableSignlessModalRef = new SingletonModal<void, boolean>();
 export const CollectPostModalRef = new SingletonModal<CollectPostModalOpenProps>();
 export const AddWalletModalRef = new SingletonModal<AddWalletModalProps>();
+export const SuperFollowModalRef = new SingletonModal<SuperFollowModalOpenProps>();
