@@ -4,12 +4,18 @@ import { Trans } from '@lingui/macro';
 import { useRouter } from 'next/navigation.js';
 
 import { ClickableButton } from '@/components/ClickableButton.js';
-import { SocialProfileCategory, type SocialSource, Source, WalletProfileCategory } from '@/constants/enum.js';
+import {
+    type ProfilePageSource,
+    SocialProfileCategory,
+    type SocialSource,
+    Source,
+    WalletProfileCategory,
+} from '@/constants/enum.js';
 import { SORTED_PROFILE_TAB_TYPE, WALLET_PROFILE_TAB_TYPES } from '@/constants/index.js';
 import { classNames } from '@/helpers/classNames.js';
 import { ProfilePageContext } from '@/hooks/useProfilePageContext.js';
 
-export function ProfileCategoryTabs({ source }: { source: SocialSource | Source.Wallet }) {
+export function ProfileCategoryTabs({ source }: { source: ProfilePageSource }) {
     const { category, setCategory } = ProfilePageContext.useContainer();
     const tabTitles = {
         [WalletProfileCategory.OnChainActivities]: <Trans>Onchain Activities</Trans>,

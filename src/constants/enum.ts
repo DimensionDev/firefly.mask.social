@@ -77,6 +77,7 @@ export enum SourceInURL {
 
 export type SocialSource = Source.Farcaster | Source.Lens | Source.Twitter;
 export type ProfileSource = Source.Farcaster | Source.Lens | Source.Twitter | Source.Firefly;
+export type ProfilePageSource = Source.Farcaster | Source.Lens | Source.Twitter | Source.Wallet;
 export type SocialSourceInURL = SourceInURL.Farcaster | SourceInURL.Lens | SourceInURL.Twitter;
 export type SocialDiscoverSource = (typeof SOCIAL_DISCOVER_SOURCE)[number];
 export type DiscoverSource = (typeof DISCOVER_SOURCE)[number];
