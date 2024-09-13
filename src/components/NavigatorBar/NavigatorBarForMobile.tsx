@@ -136,7 +136,7 @@ export const NavigatorBarForMobile = memo(function NavigatorBarForMobile({
                     ) : (
                         <>
                             {currentProfiles.length && title ? (
-                                <span className="text-[20px] font-bold leading-[24px]">{title}</span>
+                                <span className="text-[18px] font-bold leading-[24px]">{title}</span>
                             ) : (
                                 <FireflyIcon />
                             )}

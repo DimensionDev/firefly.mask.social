@@ -32,7 +32,7 @@ export function ArticleList({ address }: ArticleListProps) {
                     getArticleItemContent(index, article, `${ScrollListKey.Profile}:${Source.Article}:${address}`),
             }}
             NoResultsFallbackProps={{
-                className: 'pt-[228px]',
+                className: 'md:pt-[228px] max-md:py-20',
             }}
         />
     );

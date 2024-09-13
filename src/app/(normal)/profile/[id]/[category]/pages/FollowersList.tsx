@@ -34,7 +34,7 @@ export function FollowersList({ profileId, source }: { profileId: string; source
                 itemContent: (index, item: Profile) => getFollowInList(index, item),
             }}
             NoResultsFallbackProps={{
-                className: 'pt-[228px]',
+                className: 'md:pt-[228px] max-md:py-20',
             }}
         />
     );

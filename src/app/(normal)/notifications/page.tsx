@@ -93,7 +93,7 @@ export default function Notification() {
                     itemContent: getNotificationItemContent,
                 }}
                 NoResultsFallbackProps={{
-                    className: 'pt-[228px]',
+                    className: 'md:pt-[228px] max-md:py-20',
                 }}
             />
         </>
