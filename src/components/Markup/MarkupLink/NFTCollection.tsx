@@ -4,8 +4,8 @@ import { memo } from 'react';
 
 import { Loading } from '@/components/Loading.js';
 import { NFTImage } from '@/components/NFTImage.js';
-import { useNFTCollection } from '@/hooks/useNFTCollection.js';
 import { Link } from '@/esm/Link.js';
+import { useNFTCollection } from '@/hooks/useNFTCollection.js';
 
 interface NFTCollectionProps {
     contractAddress: string;
