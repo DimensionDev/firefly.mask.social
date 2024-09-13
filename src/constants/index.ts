@@ -3,6 +3,7 @@
 import type { TweetV2UserTimelineParams, UsersV2Params } from 'twitter-api-v2';
 
 import {
+    type BookmarkSource,
     type DiscoverSource,
     DiscoverType,
     EngagementType,
@@ -103,15 +104,17 @@ export const SORTED_MEDIA_SOURCES: MediaSource[] = [
     MediaSource.Giphy,
     MediaSource.Local,
 ];
+export const DEFAULT_SOCIAL_SOURCE = Source.Farcaster;
 export const SUPPORTED_FRAME_SOURCES: SocialSource[] = [Source.Farcaster, Source.Lens];
 export const SUPPORTED_PREVIEW_MEDIA_TYPES: Array<Attachment['type']> = ['Image', 'AnimatedGif'];
 export const SUPPORTED_VIDEO_SOURCES: SocialSource[] = [Source.Farcaster, Source.Lens, Source.Twitter];
 export const SOCIAL_DISCOVER_SOURCE: SocialDiscoverSource[] = [Source.Farcaster, Source.Lens] as const;
-export const DISCOVER_SOURCE: DiscoverSource[] = [...SOCIAL_DISCOVER_SOURCE, Source.NFTs, Source.Article] as const;
+export const DISCOVER_SOURCES: DiscoverSource[] = [...SOCIAL_DISCOVER_SOURCE, Source.NFTs, Source.Article] as const;
 export const DISCOVER_TYPES = {
     [Source.Farcaster]: [DiscoverType.Trending, DiscoverType.TopProfiles, DiscoverType.TopChannels],
     [Source.Lens]: [DiscoverType.Trending, DiscoverType.TopProfiles],
 };
+export const BOOKMARK_SOURCES: BookmarkSource[] = [Source.Farcaster, Source.Lens, Source.Article];
 
 export const TIPS_SUPPORT_NETWORKS = [NetworkType.Ethereum, NetworkType.Solana];
 

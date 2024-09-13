@@ -26,7 +26,8 @@ import { LoginStatusBar } from '@/components/Login/LoginStatusBar.js';
 import { OpenFireflyAppButton } from '@/components/OpenFireflyAppButton.js';
 import { ConnectWallet } from '@/components/SideBar/ConnectWallet.js';
 import { Tooltip } from '@/components/Tooltip.js';
-import { PageRoute, Source } from '@/constants/enum.js';
+import { PageRoute } from '@/constants/enum.js';
+import { DEFAULT_SOCIAL_SOURCE } from '@/constants/index.js';
 import { Link } from '@/esm/Link.js';
 import { classNames } from '@/helpers/classNames.js';
 import { getCurrentSourceFromParams } from '@/helpers/getCurrentSourceFromUrl.js';
@@ -34,6 +35,7 @@ import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { isMatchedDiscoverPage } from '@/helpers/isMatchedDiscoverPage.js';
 import { isRoutePathname } from '@/helpers/isRoutePathname.js';
 import { isSameFireflyIdentity } from '@/helpers/isSameFireflyIdentity.js';
+import { resolveBookmarkUrl } from '@/helpers/resolveBookmarkUrl.js';
 import { resolveFollowingUrl } from '@/helpers/resolveFollowingUrl.js';
 import { resolveNotificationUrl } from '@/helpers/resolveNotificationUrl.js';
 import { useAsyncStatusAll } from '@/hooks/useAsyncStatus.js';
@@ -90,21 +92,21 @@ export const Menu = memo(function Menu({ collapsed = false }: MenuProps) {
                                 match: () => isMatchedDiscoverPage(pathname),
                             },
                             {
-                                href: resolveFollowingUrl(Source.Farcaster),
+                                href: resolveFollowingUrl(DEFAULT_SOCIAL_SOURCE),
                                 name: <Trans>Following</Trans>,
                                 icon: FollowingIcon,
                                 selectedIcon: FollowingSelectedIcon,
                                 match: () => pathname.startsWith(PageRoute.Following),
                             },
                             {
-                                href: resolveNotificationUrl(Source.Farcaster),
+                                href: resolveNotificationUrl(DEFAULT_SOCIAL_SOURCE),
                                 name: <Trans>Notifications</Trans>,
                                 icon: NotificationIcon,
                                 selectedIcon: NotificationSelectedIcon,
                                 match: () => pathname.startsWith(PageRoute.Notifications),
                             },
                             {
-                                href: PageRoute.Bookmarks,
+                                href: resolveBookmarkUrl(DEFAULT_SOCIAL_SOURCE),
                                 name: <Trans>Bookmarks</Trans>,
                                 icon: BookmarkIcon,
                                 selectedIcon: BookmarkSelectedIcon,

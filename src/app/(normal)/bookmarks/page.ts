@@ -1,18 +1,17 @@
 import { t } from '@lingui/macro';
-import { RedirectType } from 'next/dist/client/components/redirect.js';
-import { redirect } from 'next/navigation.js';
+import { redirect, RedirectType } from 'next/navigation.js';
 
 import { DEFAULT_SOCIAL_SOURCE } from '@/constants/index.js';
 import { createPageTitleSSR } from '@/helpers/createPageTitle.js';
 import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
-import { resolveNotificationUrl } from '@/helpers/resolveNotificationUrl.js';
+import { resolveBookmarkUrl } from '@/helpers/resolveBookmarkUrl.js';
 
 export async function generateMetadata() {
     return createSiteMetadata({
-        title: createPageTitleSSR(t`Notifications`),
+        title: createPageTitleSSR(t`Bookmarks`),
     });
 }
 
 export default function Page() {
-    return redirect(resolveNotificationUrl(DEFAULT_SOCIAL_SOURCE), RedirectType.replace);
+    return redirect(resolveBookmarkUrl(DEFAULT_SOCIAL_SOURCE), RedirectType.replace);
 }

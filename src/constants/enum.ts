@@ -79,6 +79,7 @@ export type ProfilePageSource = Source.Farcaster | Source.Lens | Source.Twitter 
 export type SocialSourceInURL = SourceInURL.Farcaster | SourceInURL.Lens | SourceInURL.Twitter;
 export type SocialDiscoverSource = Source.Farcaster | Source.Lens;
 export type DiscoverSource = SocialDiscoverSource | Source.NFTs | Source.Article;
+export type BookmarkSource = Source.Farcaster | Source.Lens | Source.Article;
 
 export enum WalletProviderType {
     AppKit = 'app_kit',

@@ -11,7 +11,7 @@ import { SearchFilter } from '@/components/Search/SearchFilter.js';
 import { SourceTabs } from '@/components/SourceTabs.js';
 import { SuggestedFollowsCard } from '@/components/SuggestedFollows/SuggestedFollowsCard.js';
 import { Source } from '@/constants/enum.js';
-import { DISCOVER_SOURCE } from '@/constants/index.js';
+import { DISCOVER_SOURCES } from '@/constants/index.js';
 import { resolveSourceInURL } from '@/helpers/resolveSourceInURL.js';
 
 export default function Layout({ children, modal }: { children: React.ReactNode; modal: React.ReactNode }) {
@@ -74,11 +74,11 @@ export default function Layout({ children, modal }: { children: React.ReactNode;
                                 flags: 'i',
                             },
                             {
-                                r: `/(${DISCOVER_SOURCE.map(resolveSourceInURL).join('|')})$`,
+                                r: `/(${DISCOVER_SOURCES.map(resolveSourceInURL).join('|')})$`,
                                 flags: 'i',
                             },
                             {
-                                r: `/(${DISCOVER_SOURCE.map(resolveSourceInURL).join('|')})/[^/]+$`,
+                                r: `/(${DISCOVER_SOURCES.map(resolveSourceInURL).join('|')})/[^/]+$`,
                                 flags: 'i',
                             },
                             '/channel',
@@ -87,6 +87,7 @@ export default function Layout({ children, modal }: { children: React.ReactNode;
                             '/token',
                             '/following',
                             '/notification',
+                            '/bookmarks',
                         ]}
                     >
                         <SourceTabs />
@@ -113,11 +114,11 @@ export default function Layout({ children, modal }: { children: React.ReactNode;
                         isNotOneOf={[
                             '/',
                             {
-                                r: `/(${DISCOVER_SOURCE.map(resolveSourceInURL).join('|')})$`,
+                                r: `/(${DISCOVER_SOURCES.map(resolveSourceInURL).join('|')})$`,
                                 flags: 'i',
                             },
                             {
-                                r: `/(${DISCOVER_SOURCE.map(resolveSourceInURL).join('|')})/[^/]+$`,
+                                r: `/(${DISCOVER_SOURCES.map(resolveSourceInURL).join('|')})/[^/]+$`,
                                 flags: 'i',
                             },
                         ]}
@@ -131,11 +132,11 @@ export default function Layout({ children, modal }: { children: React.ReactNode;
                         isOneOf={[
                             '/',
                             {
-                                r: `/(${DISCOVER_SOURCE.map(resolveSourceInURL).join('|')})$`,
+                                r: `/(${DISCOVER_SOURCES.map(resolveSourceInURL).join('|')})$`,
                                 flags: 'i',
                             },
                             {
-                                r: `/(${DISCOVER_SOURCE.map(resolveSourceInURL).join('|')})/[^/]+$`,
+                                r: `/(${DISCOVER_SOURCES.map(resolveSourceInURL).join('|')})/[^/]+$`,
                                 flags: 'i',
                             },
                         ]}
