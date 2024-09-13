@@ -6,7 +6,6 @@ import { ComposeButton } from '@/components/ComposeButton/index.js';
 import { IfPathname } from '@/components/IfPathname.js';
 import { LinkCloud } from '@/components/LinkCloud.js';
 import { NavigatorBar } from '@/components/NavigatorBar/index.js';
-import { RouteProgressBar } from '@/components/RouteProgressBar.js';
 import { AsideSearchBar, HeaderSearchBar } from '@/components/Search/SearchBar.js';
 import { SearchFilter } from '@/components/Search/SearchFilter.js';
 import { SourceTabs } from '@/components/SourceTabs.js';
@@ -18,12 +17,6 @@ import { resolveSourceInURL } from '@/helpers/resolveSourceInURL.js';
 export default function Layout({ children, modal }: { children: React.ReactNode; modal: React.ReactNode }) {
     return (
         <>
-            <RouteProgressBar
-                height="2px"
-                color="var(--color-firefly-brand)"
-                options={{ showSpinner: false }}
-                shallowRouting
-            />
             <main className="flex w-full flex-[1_1_100%] flex-col md:border-r md:border-line md:pl-[289px] lg:w-[888px] lg:max-w-[calc(100%-384px)]">
                 <div className="sticky top-0 z-40 bg-primaryBottom">
                     <IfPathname

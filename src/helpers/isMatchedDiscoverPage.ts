@@ -8,5 +8,5 @@ export function isMatchedDiscoverPage(pathname: string) {
     const source = resolveSourceFromUrlNoFallback(sourceInUrl);
     if (!source) return false;
     if (isSocialDiscoverSource(source) && DISCOVER_TYPES[source].includes(type as DiscoverType)) return true;
-    return isDiscoverSource(source);
+    return isDiscoverSource(source) && !type;
 }

@@ -12,6 +12,7 @@ import { BeforeUnload } from '@/components/Compose/BeforeUnload.js';
 import { IfPathname } from '@/components/IfPathname.js';
 import { Polyfills } from '@/components/Polyfills.js';
 import { Providers } from '@/components/Providers.js';
+import { RouteProgressBar } from '@/components/RouteProgressBar.js';
 import { SideBar } from '@/components/SideBar/index.js';
 import { NODE_ENV, STATUS } from '@/constants/enum.js';
 import { env } from '@/constants/env.js';
@@ -75,6 +76,12 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                         <mask-page-inspector />
                     </div>
                     <Modals />
+                    <RouteProgressBar
+                        height="2px"
+                        color="var(--color-firefly-brand)"
+                        options={{ showSpinner: false }}
+                        shallowRouting
+                    />
                 </Providers>
                 <SpeedInsights />
                 <BeforeUnload />
