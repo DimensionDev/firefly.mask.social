@@ -9,7 +9,7 @@ import { useQuery, useSuspenseQuery } from '@tanstack/react-query';
 import DOMPurify from 'dompurify';
 import { compact } from 'lodash-es';
 import { useRouter } from 'next/navigation.js';
-import { useEffect, useRef } from 'react';
+import { useRef } from 'react';
 import urlcat from 'urlcat';
 import { useDarkMode, useDocumentTitle } from 'usehooks-ts';
 import { checksumAddress } from 'viem';
@@ -29,6 +29,7 @@ import { useComeBack } from '@/hooks/useComeback.js';
 import { PreviewMediaModalRef } from '@/modals/controls.js';
 import { FireflyArticleProvider } from '@/providers/firefly/Article.js';
 import { ArticlePlatform } from '@/providers/types/Article.js';
+import type { Attachment } from '@/providers/types/SocialMedia.js';
 import type { ResponseJSON } from '@/types/index.js';
 import { type LinkDigested, PayloadType } from '@/types/og.js';
 
@@ -74,41 +75,6 @@ export function ArticleDetailPage({ params: { id: articleId } }: PageProps) {
     });
 
     useDocumentTitle(article ? createPageTitle(t`Post by ${article.author.handle}`) : SITE_NAME);
-
-    useEffect(() => {
-        if (!article?.content) return;
-
-        const images = ref.current?.querySelectorAll('.embed, .zora-embed');
-        if (!images) return;
-
-        images?.forEach((element, index) => {
-            element.addEventListener('click', (event) => {
-                event.preventDefault();
-                event.stopPropagation();
-                PreviewMediaModalRef.open({
-                    index: Math.max(index, 0),
-                    medias: compact(
-                        [...images.values()].map((x) => {
-                            const src = x.getAttribute('src');
-                            if (!src) return;
-                            return {
-                                type: 'Image',
-                                uri: src,
-                            };
-                        }),
-                    ),
-                    source: Source.Article,
-                });
-            });
-        });
-
-        return () => {
-            images.forEach((element) => {
-                // remove listener
-                element.parentNode?.replaceChild(element.cloneNode(true), element);
-            });
-        };
-    }, [article?.content]);
 
     if (!article) return null;
 
@@ -198,6 +164,37 @@ export function ArticleDetailPage({ params: { id: articleId } }: PageProps) {
                             })}
                             // eslint-disable-next-line react/no-danger
                             dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(article.content) }}
+                            onClick={(event) => {
+                                event.stopPropagation();
+                                event.preventDefault();
+
+                                if ((event.target as HTMLElement).tagName !== 'IMG' || !ref.current) return;
+
+                                const image = event.target as HTMLImageElement;
+
+                                if (!image.classList.contains('embed') && !image.classList.contains('zora-embed'))
+                                    return;
+
+                                const nodes = ref.current?.querySelectorAll('.embed, .zora-embed');
+                                const medias = compact(
+                                    [...nodes.values()].map((x) => {
+                                        const src = x.getAttribute('src');
+                                        if (!src) return;
+                                        return {
+                                            type: 'Image',
+                                            uri: src,
+                                        };
+                                    }),
+                                ) as Attachment[];
+
+                                const index = medias.findIndex((x) => image.src === x.uri);
+
+                                PreviewMediaModalRef.open({
+                                    index: Math.max(index, 0),
+                                    medias,
+                                    source: Source.Article,
+                                });
+                            }}
                         />
                     </div>
                 ) : (

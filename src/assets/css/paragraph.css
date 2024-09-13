@@ -947,3 +947,7 @@
     margin-top: 1.25rem;
     margin-bottom: 1.25rem;
 }
+
+.paragraph-article a {
+    word-break: break-all;
+}
