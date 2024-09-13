@@ -38,7 +38,7 @@ export default function SuggestedFollowUsersList({ source }: Props) {
                 itemContent: (index, item) => getSuggestedFollowUserInList(index, item),
             }}
             NoResultsFallbackProps={{
-                className: 'pt-[228px]',
+                className: 'md:pt-[228px] max-md:py-20',
             }}
         />
     );
