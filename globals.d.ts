@@ -16,7 +16,7 @@ declare module 'dayjs-twitter' {
         }
     }
 }
-// cspell: disable-next-line
+
 declare module 'unist-util-flatmap' {
     export interface Node {
         children?: Node[];
