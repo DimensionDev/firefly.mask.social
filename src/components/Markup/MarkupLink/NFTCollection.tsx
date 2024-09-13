@@ -5,6 +5,7 @@ import { memo } from 'react';
 import { Loading } from '@/components/Loading.js';
 import { NFTImage } from '@/components/NFTImage.js';
 import { useNFTCollection } from '@/hooks/useNFTCollection.js';
+import { Link } from '@/esm/Link.js';
 
 interface NFTCollectionProps {
     contractAddress: string;
@@ -22,7 +23,7 @@ export const NFTCollection = memo<NFTCollectionProps>(function NFTCard({ contrac
     if (!collection) return null;
 
     return (
-        <a
+        <Link
             className="my-5 flex w-full items-center justify-center"
             href={sourceLink}
             target="_blank"
@@ -41,6 +42,6 @@ export const NFTCollection = memo<NFTCollectionProps>(function NFTCard({ contrac
                     <div className="mb-2 text-base font-bold text-main">{collection.name}</div>
                 </div>
             </div>
-        </a>
+        </Link>
     );
 });

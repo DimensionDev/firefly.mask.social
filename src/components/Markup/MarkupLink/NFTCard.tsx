@@ -5,6 +5,7 @@ import { memo } from 'react';
 
 import { Loading } from '@/components/Loading.js';
 import { NFTImage } from '@/components/NFTImage.js';
+import { Link } from '@/esm/Link.js';
 import { useNFTDetail } from '@/hooks/useNFTDetail.js';
 
 interface NFTCardProps {
@@ -24,7 +25,7 @@ export const NFTCard = memo<NFTCardProps>(function NFTCard({ chainId, contractAd
     if (!nft) return null;
 
     return (
-        <a
+        <Link
             className="my-5 flex w-full items-center justify-center"
             href={sourceLink}
             target="_blank"
@@ -46,6 +47,6 @@ export const NFTCard = memo<NFTCardProps>(function NFTCard({ chainId, contractAd
                     </div>
                 </div>
             </div>
-        </a>
+        </Link>
     );
 });
