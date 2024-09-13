@@ -1,10 +1,9 @@
-import { safeUnreachable } from '@masknet/kit';
+import { delay, safeUnreachable } from '@masknet/kit';
 import urlcat from 'urlcat';
 
 import { S3ConvertStatus, type SocialSourceInURL } from '@/constants/enum.js';
-import { InvalidResultError, UnreachableError } from '@/constants/error.js';
+import { UnreachableError } from '@/constants/error.js';
 import { parseURL } from '@/helpers/parseURL.js';
-import { pollWithRetry } from '@/helpers/pollWithRetry.js';
 import { resolveFireflyResponseData } from '@/helpers/resolveFireflyResponseData.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
 import type { ConvertM3u8Response, ConvertM3u8StatusResponse } from '@/providers/types/Firefly.js';
@@ -23,36 +22,25 @@ async function convertVideoToM3u8(s3Url: string, signal?: AbortSignal) {
 }
 
 async function waitForConvertJob(jobId: string, signal?: AbortSignal) {
-    return pollWithRetry(
-        async () => {
-            const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/post/getconvertStatus', { jobID: jobId });
-            const response = await fireflySessionHolder.fetch<ConvertM3u8StatusResponse>(url);
-            const data = resolveFireflyResponseData(response);
+    const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/post/getconvertStatus', { jobID: jobId });
+    const response = await fireflySessionHolder.fetch<ConvertM3u8StatusResponse>(url, { signal });
+    const data = resolveFireflyResponseData(response);
 
-            if (data.code) return;
+    if (data.code) return;
 
-            switch (data.status) {
-                case S3ConvertStatus.Canceled:
-                    throw new Error('Convert job canceled');
-                case S3ConvertStatus.Error:
-                    throw new Error('Convert job failed');
-                case S3ConvertStatus.Complete:
-                    return;
-                case S3ConvertStatus.Progressing:
-                case S3ConvertStatus.Submitted:
-                case S3ConvertStatus.StatusUpdate:
-                    throw new InvalidResultError();
-                default:
-                    safeUnreachable(data.status);
-                    throw new UnreachableError('s3 convert job status', data.status);
-            }
-        },
-        {
-            times: Number.MAX_SAFE_INTEGER,
-            interval: 2000,
-            signal,
-        },
-    );
+    switch (data.status) {
+        case S3ConvertStatus.Submitted:
+        case S3ConvertStatus.Complete:
+        case S3ConvertStatus.Progressing:
+            return;
+        case S3ConvertStatus.Canceled:
+        case S3ConvertStatus.Error:
+        case S3ConvertStatus.StatusUpdate:
+            throw new Error('Convert job failed');
+        default:
+            safeUnreachable(data.status);
+            throw new UnreachableError('s3 convert job status', data.status);
+    }
 }
 
 export async function uploadAndConvertToM3u8(file: File, source: SocialSourceInURL, signal?: AbortSignal) {
@@ -61,7 +49,10 @@ export async function uploadAndConvertToM3u8(file: File, source: SocialSourceInU
     const parsedUrl = parseURL(s3Url);
     if (!parsedUrl) throw new Error('Invalid s3 url');
 
-    const { m3u8Url } = await convertVideoToM3u8(parsedUrl.pathname, signal);
+    const { m3u8Url, jobId } = await convertVideoToM3u8(parsedUrl.pathname, signal);
+
+    await delay(1500);
+    await waitForConvertJob(jobId, signal);
 
     return m3u8Url;
 }
