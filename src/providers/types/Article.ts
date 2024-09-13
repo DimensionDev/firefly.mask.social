@@ -37,6 +37,7 @@ export interface Article {
     hasBookmarked?: boolean;
     slug?: string;
     followingSources: FollowingSource[];
+    html?: string;
 }
 
 export interface ArticleCollectable {

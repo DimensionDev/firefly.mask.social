@@ -8,7 +8,7 @@ import { forwardRef, type HTMLProps, useMemo, useState } from 'react';
 import { useAsync } from 'react-use';
 
 import Lock from '@/assets/lock.svg';
-import { ArticleBody } from '@/components/Article/ArticleBody.js';
+import { TwitterArticleBody } from '@/components/Article/TwitterArticleBody.js';
 import { NakedMarkup } from '@/components/Markup/NakedMarkup.js';
 import { PostMarkup } from '@/components/Markup/PostMarkup.js';
 import { FramePoll } from '@/components/Poll/FramePoll.js';
@@ -217,7 +217,7 @@ export const PostBody = forwardRef<HTMLDivElement, PostBodyProps>(function PostB
 
             {post.metadata.article ? (
                 <Link href={resolvePostArticleUrl(post)} target="_blank" onClick={(e) => e.stopPropagation()}>
-                    <ArticleBody {...post.metadata.article} />
+                    <TwitterArticleBody {...post.metadata.article} />
                 </Link>
             ) : null}
 

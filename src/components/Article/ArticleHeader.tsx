@@ -1,9 +1,8 @@
-'use client';
 import { memo } from 'react';
 import urlcat from 'urlcat';
 import { useEnsName } from 'wagmi';
 
-import { ArticleMoreAction } from '@/components/Actions/ArticleMore.js';
+import { ArticleActions } from '@/components/Article/ArticleActions.js';
 import { Avatar } from '@/components/Avatar.js';
 import { TimestampFormatter } from '@/components/TimeStampFormatter.js';
 import { SourceInURL } from '@/constants/enum.js';
@@ -17,7 +16,6 @@ interface ArticleHeaderProps {
     article: Article;
     className?: string;
 }
-
 export const ArticleHeader = memo<ArticleHeaderProps>(function ArticleHeader({ article, className }) {
     const authorUrl = urlcat('/profile/:address', {
         address: article.author.id,
@@ -29,36 +27,34 @@ export const ArticleHeader = memo<ArticleHeaderProps>(function ArticleHeader({ a
     const { data: ens } = useEnsName({ address: article.author.id, query: { enabled: !article.author.handle } });
 
     return (
-        <div className={classNames('flex items-start gap-3', className)}>
-            <Link href={authorUrl} className="z-[1]" onClick={(event) => event.stopPropagation()}>
-                <Avatar
-                    className="h-10 w-10"
-                    src={article.author.avatar}
-                    size={40}
-                    alt={article.author.handle || article.author.id}
-                />
-            </Link>
-
-            <div className="flex max-w-[calc(100%-40px-88px-24px)] flex-1 items-center gap-2 overflow-hidden">
+        <div
+            className={classNames(
+                'flex items-center justify-between border-b border-secondaryLine pb-[10px]',
+                className,
+            )}
+        >
+            <div className="flex items-center gap-2">
+                <Link href={authorUrl} className="z-[1]">
+                    <Avatar
+                        className="h-[15px] w-[15px]"
+                        src={article.author.avatar}
+                        size={15}
+                        alt={article.author.handle || article.author.id}
+                    />
+                </Link>
                 <Link
                     href={authorUrl}
                     onClick={(event) => event.stopPropagation()}
-                    className="block truncate text-clip text-medium font-bold leading-5 text-main"
+                    className="block truncate text-clip text-medium leading-5 text-secondary"
                 >
-                    {article.author.handle || ens}
+                    {article.author.handle || ens || formatEthereumAddress(article.author.id, 4)}
                 </Link>
-                <Link href={authorUrl} className="truncate text-clip text-medium leading-6 text-secondary">
-                    {formatEthereumAddress(article.author.id, 4)}
-                </Link>
-            </div>
-            <div className="ml-auto flex items-center space-x-2">
-                {Icon ? <Icon width={20} height={20} /> : null}
-                <span className="whitespace-nowrap text-xs leading-4 text-secondary md:text-[13px]">
+                <span className="whitespace-nowrap text-medium text-xs leading-4 text-secondary">
                     <TimestampFormatter time={article.timestamp} />
                 </span>
-                <ArticleMoreAction article={article} />
-                {/* TODO: report and mute */}
+                {Icon ? <Icon width={15} height={15} /> : null}
             </div>
+            <ArticleActions article={article} />
         </div>
     );
 });

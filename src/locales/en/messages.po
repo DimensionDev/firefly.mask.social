@@ -628,9 +628,6 @@ msgstr "Failed to avatar."
 msgid "Frame Validator"
 msgstr "Frame Validator"
 
-msgid "<0>Poap</0> received"
-msgstr "<0>Poap</0> received"
-
 msgid "No proxy"
 msgstr "No proxy"
 
@@ -972,6 +969,9 @@ msgstr "Hide more comments"
 
 msgid "Malformed session."
 msgstr "Malformed session."
+
+msgid "<0>COLLECTED</0> a POAP"
+msgstr "<0>COLLECTED</0> a POAP"
 
 msgid "Upload"
 msgstr "Upload"

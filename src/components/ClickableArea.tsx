@@ -1,4 +1,4 @@
-import { createElement } from 'react';
+import { createElement, forwardRef } from 'react';
 
 interface ClickableAreaProps extends React.HTMLAttributes<HTMLDivElement> {
     disabled?: boolean;
@@ -7,11 +7,15 @@ interface ClickableAreaProps extends React.HTMLAttributes<HTMLDivElement> {
     onClick?: (ev: React.MouseEvent) => void;
 }
 
-export function ClickableArea({ as = 'div', children, disabled, onClick, ...props }: ClickableAreaProps) {
+export const ClickableArea = forwardRef(function ClickableArea(
+    { as = 'div', children, disabled, onClick, ...props }: ClickableAreaProps,
+    ref,
+) {
     return createElement(
         as,
         {
             ...props,
+            ref,
             onClick: (ev: React.MouseEvent) => {
                 ev.preventDefault();
                 ev.stopPropagation();
@@ -21,4 +25,4 @@ export function ClickableArea({ as = 'div', children, disabled, onClick, ...prop
         },
         children,
     );
-}
+});

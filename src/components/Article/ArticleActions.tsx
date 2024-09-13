@@ -2,9 +2,7 @@
 
 import { t } from '@lingui/macro';
 import { motion } from 'framer-motion';
-import { useRouter } from 'next/navigation.js';
 import { memo } from 'react';
-import urlcat from 'urlcat';
 import { useEnsName } from 'wagmi';
 
 import CollectIcon from '@/assets/collect.svg';
@@ -14,7 +12,7 @@ import { ArticleShare } from '@/components/Article/ArticleShare.js';
 import { ClickableArea } from '@/components/ClickableArea.js';
 import { Tips } from '@/components/Tips/index.js';
 import { Tooltip } from '@/components/Tooltip.js';
-import { PageRoute, SearchType, Source } from '@/constants/enum.js';
+import { Source } from '@/constants/enum.js';
 import { classNames } from '@/helpers/classNames.js';
 import { useFireflyIdentity } from '@/hooks/useFireflyIdentity.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
@@ -27,35 +25,12 @@ interface ArticleActionsProps {
 }
 
 export const ArticleActions = memo<ArticleActionsProps>(function ArticleActions({ article }) {
-    const router = useRouter();
     const mutation = useToggleArticleBookmark();
     const identity = useFireflyIdentity(Source.Wallet, article.author.id);
     const { data: ens } = useEnsName({ address: article.author.id });
     const isMedium = useIsMedium();
     return (
-        <div className="flex items-center justify-between">
-            <div className="text-xs leading-[24px] text-second">
-                {article.slug ? (
-                    <div
-                        className="cursor-pointer text-second hover:underline"
-                        onClick={(event) => {
-                            event.stopPropagation();
-                            event.preventDefault();
-
-                            scrollTo(0, 0);
-                            router.push(
-                                urlcat(PageRoute.Search, {
-                                    q: article.slug,
-                                    type: SearchType.Posts,
-                                    source: Source.Article,
-                                }),
-                            );
-                        }}
-                    >
-                        #{article.slug}
-                    </div>
-                ) : null}
-            </div>
+        <div className="flex items-center justify-end">
             <div className="flex items-center">
                 <ClickableArea
                     className={classNames(

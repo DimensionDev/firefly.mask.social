@@ -4,7 +4,12 @@ import urlcat from 'urlcat';
 
 import { FrameProtocol, Source, STATUS } from '@/constants/enum.js';
 import { env } from '@/constants/env.js';
-import { LIMO_REGEXP, MIRROR_ARTICLE_REGEXP, PARAGRAPH_ARTICLE_REGEXP } from '@/constants/regexp.js';
+import {
+    LIMO_REGEXP,
+    MIRROR_ARTICLE_REGEXP,
+    MIRROR_SUBDOMAIN_ARTICLE_REGEXP,
+    PARAGRAPH_ARTICLE_REGEXP,
+} from '@/constants/regexp.js';
 import { attemptUntil } from '@/helpers/attemptUntil.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
 import { isValidDomain } from '@/helpers/isValidDomain.js';
@@ -42,6 +47,11 @@ async function getArticleIdFromURL(url: string) {
     if (MIRROR_ARTICLE_REGEXP.test(url)) {
         return url.match(MIRROR_ARTICLE_REGEXP)?.[1];
     }
+
+    if (MIRROR_SUBDOMAIN_ARTICLE_REGEXP.test(url)) {
+        return url.match(MIRROR_SUBDOMAIN_ARTICLE_REGEXP)?.[1];
+    }
+
     if (PARAGRAPH_ARTICLE_REGEXP.test(url)) {
         return await FireflyArticleProvider.getParagraphArticleIdWithLink(url);
     }
