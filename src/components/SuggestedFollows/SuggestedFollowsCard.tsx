@@ -8,15 +8,14 @@ import { useQuery } from '@tanstack/react-query';
 import { useMemo } from 'react';
 import { Autoplay, EffectCoverflow } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
-import urlcat from 'urlcat';
 
 import LoadingIcon from '@/assets/loading.svg';
 import { AsideTitle } from '@/components/AsideTitle.js';
 import { ProfileSlide } from '@/components/SuggestedFollows/ProfileSlide.js';
-import { DiscoverType, PageRoute, Source, SourceInURL } from '@/constants/enum.js';
+import { DiscoverType, Source } from '@/constants/enum.js';
 import { Link } from '@/esm/Link.js';
-import { isSocialSource } from '@/helpers/isSocialSource.js';
-import { resolveSourceInURL } from '@/helpers/resolveSourceInURL.js';
+import { isSocialDiscoverSource } from '@/helpers/isDiscoverSource.js';
+import { resolveDiscoverUrl } from '@/helpers/resolveDiscoverUrl.js';
 import { runInSafe } from '@/helpers/runInSafe.js';
 import { useCurrentProfileAll } from '@/hooks/useCurrentProfile.js';
 import { useIsLarge } from '@/hooks/useMediaQuery.js';
@@ -62,21 +61,15 @@ export function SuggestedFollowsCard() {
         const isOnlyFarcaster = !!profileAll.Farcaster && !profileAll.Lens;
         const isOnlyLens = !profileAll.Farcaster && !!profileAll.Lens;
         if (isOnlyFarcaster) {
-            return urlcat(PageRoute.Home, {
-                source: resolveSourceInURL(Source.Farcaster),
-                discover: DiscoverType.TopProfiles,
-            });
+            return resolveDiscoverUrl(Source.Farcaster, DiscoverType.TopProfiles);
         }
         if (isOnlyLens) {
-            return urlcat(PageRoute.Home, {
-                source: resolveSourceInURL(Source.Lens),
-                discover: DiscoverType.TopProfiles,
-            });
+            return resolveDiscoverUrl(Source.Lens, DiscoverType.TopProfiles);
         }
-        return urlcat(PageRoute.Home, {
-            source: isSocialSource(currentSource) ? resolveSourceInURL(currentSource) : SourceInURL.Farcaster,
-            discover: DiscoverType.TopProfiles,
-        });
+        return resolveDiscoverUrl(
+            isSocialDiscoverSource(currentSource) ? currentSource : Source.Farcaster,
+            DiscoverType.TopProfiles,
+        );
     }, [currentSource, profileAll.Farcaster, profileAll.Lens]);
 
     if (!profileAll.Farcaster && !profileAll.Lens) return null;
