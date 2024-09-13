@@ -16,7 +16,12 @@ import type { ComposeType } from '@/types/compose.js';
 
 export type SchedulePayload = LensSchedulePayload | FarcasterSchedulePostPayload | TwitterSchedulePostPayload;
 
-type payloadCreator = (type: ComposeType, compositePost: CompositePost, isThread?: boolean) => Promise<SchedulePayload>;
+type payloadCreator = (
+    type: ComposeType,
+    compositePost: CompositePost,
+    isThread?: boolean,
+    signal?: AbortSignal,
+) => Promise<SchedulePayload>;
 
 export const resolveCreateSchedulePostPayload = createLookupTableResolver<SocialSource, payloadCreator>(
     {

@@ -3,6 +3,7 @@ import { safeUnreachable } from '@masknet/kit';
 import { Source } from '@/constants/enum.js';
 import { NotAllowedError, UnreachableError } from '@/constants/error.js';
 import { createLensSDKForSession, MemoryStorageProvider } from '@/helpers/createLensSDK.js';
+import { refreshLensSession } from '@/helpers/refreshLensSession.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { FarcasterSession } from '@/providers/farcaster/Session.js';
 import { LensSession } from '@/providers/lens/Session.js';
@@ -25,8 +26,15 @@ export async function getProfileBySession(session: Session, signal?: AbortSignal
             if (!lensSession.refreshToken) return null;
 
             const sdk = createLensSDKForSession(new MemoryStorageProvider(), lensSession);
-            const profileId = await sdk.authentication.getProfileId();
-            if (!profileId) return null;
+
+            const profileIdFirstTry = await sdk.authentication.getProfileId();
+            if (!profileIdFirstTry) {
+                // refresh lens session and try again
+                await refreshLensSession(sdk);
+
+                const profileIdSecondTry = await sdk.authentication.getProfileId();
+                if (!profileIdSecondTry) return null;
+            }
 
             const provider = resolveSocialMediaProvider(Source.Lens);
             return provider.getProfileById(lensSession.profileId);

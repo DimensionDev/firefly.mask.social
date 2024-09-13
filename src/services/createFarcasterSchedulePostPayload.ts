@@ -11,6 +11,7 @@ import { isHomeChannel } from '@/helpers/isSameChannel.js';
 import { createS3MediaObject, resolveImageUrl, resolveVideoUrl } from '@/helpers/resolveMediaObjectUrl.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { FarcasterPollProvider } from '@/providers/farcaster/Poll.js';
+import { uploadAndConvertToM3u8 } from '@/services/uploadAndConvertToM3u8.js';
 import { uploadToS3 } from '@/services/uploadToS3.js';
 import { type CompositePost } from '@/store/useComposeStore.js';
 import { useFarcasterStateStore } from '@/store/useProfileStore.js';
@@ -30,6 +31,7 @@ export async function createFarcasterSchedulePostPayload(
     type: ComposeType,
     compositePost: CompositePost,
     isThread = false,
+    signal?: AbortSignal,
 ): Promise<FarcasterSchedulePostPayload> {
     const { chars, parentPost, images, frames, openGraphs, video, channel, poll } = compositePost;
 
@@ -49,7 +51,7 @@ export async function createFarcasterSchedulePostPayload(
 
     const videoResults = await Promise.all(
         (video?.file ? [video] : []).map(async (media) => {
-            return createS3MediaObject(await uploadToS3(media.file, SourceInURL.Farcaster), media);
+            return createS3MediaObject(await uploadAndConvertToM3u8(media.file, SourceInURL.Farcaster, signal), media);
         }),
     );
 

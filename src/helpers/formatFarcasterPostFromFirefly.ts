@@ -7,6 +7,7 @@ import { formatFarcasterProfileFromFirefly } from '@/helpers/formatFarcasterProf
 import { getEmbedUrls } from '@/helpers/getEmbedUrls.js';
 import { composePollFrameUrl } from '@/helpers/getPollFrameUrl.js';
 import { isTopLevelDomain } from '@/helpers/isTopLevelDomain.js';
+import { parseURL } from '@/helpers/parseURL.js';
 import { isValidPollFrameUrl, resolveEmbedMediaType } from '@/helpers/resolveEmbedMediaType.js';
 import { type Cast, EmbedMediaType } from '@/providers/types/Firefly.js';
 import {
@@ -16,6 +17,17 @@ import {
     type Profile,
     ProfileStatus,
 } from '@/providers/types/SocialMedia.js';
+
+function getCoverUriFromUrl(url: string) {
+    const parsed = parseURL(url);
+    if (!parsed) return '';
+
+    if (parsed.origin === 'https://media.firefly.land' && url.endsWith('.m3u8')) {
+        return url.replace(/[^/]+\.m3u8$/, 'thumbnail.jpg');
+    }
+
+    return '';
+}
 
 function formatContent(cast: Cast): Post['metadata']['content'] {
     const embedUrls: Array<{ url: string; type?: EmbedMediaType }> = cast.embed_urls?.length
@@ -57,6 +69,7 @@ function formatContent(cast: Cast): Post['metadata']['content'] {
             asset: {
                 type: assetType,
                 uri: lastAsset.url,
+                coverUri: getCoverUriFromUrl(lastAsset.url),
             } satisfies Attachment,
             attachments: compact<Attachment>(
                 attachments.map((x) => {
@@ -68,6 +81,7 @@ function formatContent(cast: Cast): Post['metadata']['content'] {
                     return {
                         type,
                         uri: x.url,
+                        coverUri: getCoverUriFromUrl(x.url),
                     };
                 }),
             ),

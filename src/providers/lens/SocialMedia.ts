@@ -135,18 +135,6 @@ class LensSocialMedia implements Provider {
         return SessionType.Lens;
     }
 
-    getAccessToken() {
-        return lensSessionHolder.sdk.authentication.getAccessToken();
-    }
-
-    getRefreshToken() {
-        return lensSessionHolder.sdk.authentication.getRefreshToken();
-    }
-
-    getWalletAddress() {
-        return lensSessionHolder.sdk.authentication.getWalletAddress();
-    }
-
     async publishPost(post: Post): Promise<string> {
         if (!post.metadata.contentURI) throw new Error(t`No content to publish.`);
 

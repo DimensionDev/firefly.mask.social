@@ -14,8 +14,11 @@ export async function getWalletClientRequired(
     try {
         await getWalletClient(config, args);
     } catch (error) {
-        if (error instanceof ConnectorNotConnectedError) await ConnectModalRef.openAndWaitForClose();
-        throw error;
+        if (error instanceof ConnectorNotConnectedError) {
+            await ConnectModalRef.openAndWaitForClose();
+        } else {
+            throw error;
+        }
     }
 
     const client = await getWalletClient(config, args);
