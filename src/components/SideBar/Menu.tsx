@@ -35,6 +35,7 @@ import { isMatchedDiscoverPage } from '@/helpers/isMatchedDiscoverPage.js';
 import { isRoutePathname } from '@/helpers/isRoutePathname.js';
 import { isSameFireflyIdentity } from '@/helpers/isSameFireflyIdentity.js';
 import { resolveFollowingUrl } from '@/helpers/resolveFollowingUrl.js';
+import { resolveNotificationUrl } from '@/helpers/resolveNotificationUrl.js';
 import { useAsyncStatusAll } from '@/hooks/useAsyncStatus.js';
 import { useCurrentFireflyProfilesAll } from '@/hooks/useCurrentFireflyProfiles.js';
 import { useCurrentProfileFirstAvailable } from '@/hooks/useCurrentProfile.js';
@@ -96,7 +97,7 @@ export const Menu = memo(function Menu({ collapsed = false }: MenuProps) {
                                 match: () => pathname.startsWith(PageRoute.Following),
                             },
                             {
-                                href: PageRoute.Notifications,
+                                href: resolveNotificationUrl(Source.Farcaster),
                                 name: <Trans>Notifications</Trans>,
                                 icon: NotificationIcon,
                                 selectedIcon: NotificationSelectedIcon,
