@@ -10,6 +10,7 @@ import { isSameAddress } from '@/helpers/isSameAddress.js';
 import { resolveLensOperationName, resolveLensQuery } from '@/helpers/resolveLensQuery.js';
 import { createS3MediaObject, resolveImageUrl } from '@/helpers/resolveMediaObjectUrl.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
+import { lensSessionHolder } from '@/providers/lens/SessionHolder.js';
 import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
 import { createPayloadAttachments, createPostMetadata } from '@/services/postToLens.js';
 import { uploadAndConvertToM3u8 } from '@/services/uploadAndConvertToM3u8.js';
@@ -81,7 +82,7 @@ export async function createLensSchedulePostPayload(
         await createPayloadAttachments(imageResults, videoResult),
     );
 
-    const tokenRes = await LensSocialMediaProvider.getAccessToken();
+    const tokenRes = await lensSessionHolder.sdk.authentication.getAccessToken();
     const token = tokenRes.unwrap();
     const arweaveId = await uploadToArweave(metadata, token);
 

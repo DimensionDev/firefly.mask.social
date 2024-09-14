@@ -223,7 +223,10 @@ class TwitterSocialMedia implements Provider {
         });
         const response = await twitterSessionHolder.fetch<ResponseJSON<TweetV2PaginableTimelineResult>>(url, {}, true);
         if (!response.success) throw new Error(response.error.message);
-        return formatTweetsPage(response.data, indicator);
+        const tweetPageable = formatTweetsPage(response.data, indicator);
+        const commentIdSet = new Set(compact(tweetPageable.data.map((tweet) => tweet.commentOn?.postId)));
+        tweetPageable.data = tweetPageable.data.filter((x) => !commentIdSet.has(x.postId));
+        return tweetPageable;
     }
 
     async getLikedPostsByProfileId(

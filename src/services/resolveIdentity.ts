@@ -6,7 +6,7 @@ import { type SocialSource, Source } from '@/constants/enum.js';
 import { SITE_HOSTNAME } from '@/constants/index.js';
 import { getCurrentProfileAll } from '@/helpers/getCurrentProfile.js';
 import { farcasterSessionHolder } from '@/providers/farcaster/SessionHolder.js';
-import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
+import { lensSessionHolder } from '@/providers/lens/SessionHolder.js';
 import { generateSignaturePacket } from '@/services/generateSignaturePacket.js';
 
 /**
@@ -19,7 +19,7 @@ export async function resolveIdentity(source: SocialSource) {
     const identity: IdentityResolved = {};
     switch (source) {
         case Source.Lens:
-            const lensToken = await LensSocialMediaProvider.getAccessToken();
+            const lensToken = await lensSessionHolder.sdk.authentication.getAccessToken();
             identity.lensToken = lensToken.unwrap();
             identity.profileId = currentProfileAll.Lens?.profileId;
             identity.identifier = ProfileIdentifier.of(SITE_HOSTNAME, currentProfileAll.Lens?.handle).unwrapOr(

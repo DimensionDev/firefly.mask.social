@@ -77,13 +77,14 @@ function createWagmiConfig(): Config {
                 chains,
                 metadata,
                 projectId: env.external.NEXT_PUBLIC_W3M_PROJECT_ID,
+                enableInjected: true,
             });
 
             createWeb3Modal({
                 metadata,
                 wagmiConfig: config,
                 projectId: env.external.NEXT_PUBLIC_W3M_PROJECT_ID,
-                enableSwap: false,
+                enableSwaps: false,
                 enableOnramp: false,
                 enableAnalytics: false, // Optional - defaults to your Cloud configuration
             });
