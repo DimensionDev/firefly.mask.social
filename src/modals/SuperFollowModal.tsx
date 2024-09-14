@@ -25,7 +25,7 @@ export const SuperFollowModal = forwardRef<SingletonModalRefCreator<SuperFollowM
 
         return (
             <Modal open={open} onClose={onClose}>
-                <div>
+                <div className="w-[485px] max-w-[90vw] transform rounded-xl bg-primaryBottom p-6 transition-all">
                     <SuperFollowModalUI profile={props.profile} onClose={onClose} />
                 </div>
             </Modal>

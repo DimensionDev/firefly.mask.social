@@ -942,6 +942,9 @@ msgstr "设置"
 msgid "[Poll]"
 msgstr "[投票]"
 
+msgid "Allow Follow Module"
+msgstr ""
+
 msgid "Allow replies from"
 msgstr "允许回复"
 
@@ -1001,9 +1004,6 @@ msgstr "网站"
 
 msgid "Failed to report @{0}."
 msgstr "举报 @{0} 失败。"
-
-msgid "Approve token to follow"
-msgstr ""
 
 msgid "Post with link"
 msgstr "发布带链接的帖子"
@@ -1128,9 +1128,6 @@ msgstr "您确定要举报这篇文章吗？"
 msgid "Failed to upvote post."
 msgstr "无法对帖子进行投票。"
 
-msgid "Insufficient balance to follow"
-msgstr ""
-
 msgid "<0>Acquired</0> an NFT"
 msgstr "<0>获取</0> 一个 NFT"
 
@@ -1238,6 +1235,9 @@ msgstr "<0>市值</0><1>{0}</1><2>排名 #{1}</2>"
 
 msgid "Invalid signer key"
 msgstr "无效的 singer key"
+
+msgid "Follow for {feeAmount} ${feeSymbol}"
+msgstr ""
 
 msgid "Posts from @{0} will now be hidden in your home timeline"
 msgstr "@{0} 的帖子会从您的时间线中隐藏"
@@ -1454,9 +1454,6 @@ msgstr "上传到 S3"
 
 msgid "{shares, plural, one {Recast or Quote} other {Recasts or Quotes}}"
 msgstr "{shares, plural, one {转帖或引用} other {转帖或引用}}"
-
-msgid "Follow for {0} ${1}"
-msgstr ""
 
 msgid "Please input the serialized session to be validated."
 msgstr ""
@@ -1817,6 +1814,9 @@ msgstr "无效的网站格式"
 
 msgid "Switching..."
 msgstr "切换中..."
+
+msgid "Pay<0> {feeAmount} ${feeSymbol} </0>to follow and get some awesome perks!"
+msgstr ""
 
 msgid "<0>Bought</0> an NFT worth {costEl}"
 msgstr "<0>购买</0> 一个 NFT 价值 {costEl}"
