@@ -18,6 +18,7 @@ import { uploadToS3 } from '@/services/uploadToS3.js';
 import { type CompositePost } from '@/store/useComposeStore.js';
 import { useLensStateStore } from '@/store/useProfileStore.js';
 import { type ComposeType } from '@/types/compose.js';
+import { lensSessionHolder } from '@/providers/lens/SessionHolder.js';
 
 export interface LensSchedulePayload {
     operationName: 'PostOnMomoka' | 'QuoteOnMomoka' | 'CommentOnMomoka';
@@ -81,7 +82,7 @@ export async function createLensSchedulePostPayload(
         await createPayloadAttachments(imageResults, videoResult),
     );
 
-    const tokenRes = await LensSocialMediaProvider.getAccessToken();
+    const tokenRes = await lensSessionHolder.sdk.authentication.getAccessToken();
     const token = tokenRes.unwrap();
     const arweaveId = await uploadToArweave(metadata, token);
 
