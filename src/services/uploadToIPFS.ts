@@ -5,7 +5,6 @@ import { v4 as uuid } from 'uuid';
 import { FileMimeType } from '@/constants/enum.js';
 import { EVER_API, S3_BUCKET } from '@/constants/index.js';
 import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
-import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
 import { lensSessionHolder } from '@/providers/lens/SessionHolder.js';
 
 export interface IPFSResponse {
