@@ -1,7 +1,7 @@
 import { memo, useMemo } from 'react';
 
 import { ClickableButton, type ClickableButtonProps } from '@/components/ClickableButton.js';
-import { SuperFollowModalUI } from '@/components/SuperFollow/SuperFollowModalUI.js';
+import { SuperFollow } from '@/components/Posts/SuperFollow.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import { useSuperFollowModule } from '@/hooks/useSuperFollow.js';
@@ -50,7 +50,7 @@ export const BaseToggleFollowButton = memo(function BaseToggleFollowButton({
                         ? SuperFollowModalRef.open({ profile })
                         : DraggablePopoverRef.open({
                               content: (
-                                  <SuperFollowModalUI
+                                  <SuperFollow
                                       profile={profile}
                                       showCloseButton={false}
                                       onClose={DraggablePopoverRef.close}
