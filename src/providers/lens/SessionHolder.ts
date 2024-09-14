@@ -21,12 +21,8 @@ class LensSessionHolder extends SessionHolder<LensSession> {
     }
 
     override async refreshSession() {
-        this.assertSession();
-
-        const session = await refreshLensSession(this.sdk);
-
         // the sdk always maintain a latest session, thought no need to resume session here.
-
+        const session = await refreshLensSession(this.sdk);
         return session;
     }
 
