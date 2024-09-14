@@ -21,17 +21,13 @@ import { ConnectModalRef } from '@/modals/controls.js';
 import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 
-interface SuperFollowModalUIProps {
+interface SuperFollowProps {
     profile: Profile;
     showCloseButton?: boolean;
     onClose: () => void;
 }
 
-export const SuperFollowModalUI = memo<SuperFollowModalUIProps>(function SuperFollowModalUI({
-    profile,
-    showCloseButton = true,
-    onClose,
-}) {
+export const SuperFollow = memo<SuperFollowProps>(function SuperFollow({ profile, showCloseButton = true, onClose }) {
     const account = useAccount();
     const { loading, followModule, isConnected, allowanceModule, hasAmount, hasAllowance, address, refetchAllowance } =
         useSuperFollowData(profile);
