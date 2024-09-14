@@ -23,16 +23,23 @@ import type { Profile } from '@/providers/types/SocialMedia.js';
 
 interface SuperFollowModalUIProps {
     profile: Profile;
+    showCloseButton?: boolean;
     onClose: () => void;
 }
 
-export const SuperFollowModalUI = memo<SuperFollowModalUIProps>(function SuperFollowModalUI({ profile, onClose }) {
+export const SuperFollowModalUI = memo<SuperFollowModalUIProps>(function SuperFollowModalUI({
+    profile,
+    showCloseButton = true,
+    onClose,
+}) {
     const account = useAccount();
     const { loading, followModule, isConnected, allowanceModule, hasAmount, hasAllowance, address, refetchAllowance } =
         useSuperFollowData(profile);
     const [, handleAllowance] = useAllowanceForLensModule();
 
     const wrongAddress = !isSameEthereumAddress(address, account.address);
+    const feeAmount = parseFloat(followModule?.amount.value || '0');
+    const feeSymbol = followModule?.amount.asset.symbol;
 
     const buttonLabel = useMemo(() => {
         if (!followModule) {
@@ -45,14 +52,14 @@ export const SuperFollowModalUI = memo<SuperFollowModalUIProps>(function SuperFo
             return t`Please switch to ${formatEthereumAddress(address, 4)}`;
         }
         if (!hasAmount) {
-            return t`Insufficient balance to follow`;
+            return t`Insufficient Balance`;
         }
         if (!hasAllowance) {
-            return t`Approve token to follow`;
+            return t`Allow Follow Module`;
         }
 
-        return t`Follow for ${parseFloat(followModule.amount.value || '0')} $${followModule.amount.asset.symbol}`;
-    }, [isConnected, hasAmount, hasAllowance, followModule, wrongAddress, address]);
+        return t`Follow for ${feeAmount} $${feeSymbol}`;
+    }, [isConnected, hasAmount, hasAllowance, followModule, wrongAddress, address, feeAmount, feeSymbol]);
 
     const [{ loading: isFollowing }, handleFollow] = useAsyncFn(async () => {
         try {
@@ -93,12 +100,14 @@ export const SuperFollowModalUI = memo<SuperFollowModalUIProps>(function SuperFo
         loading || isFollowing || (isConnected && (!followModule || !allowanceModule || !hasAmount || wrongAddress));
 
     return (
-        <div className="w-[90vw] max-w-[485px] transform rounded-xl bg-primaryBottom p-6 transition-all">
+        <div className="w-full">
             <div className="relative text-center">
                 <span className="text-lg font-bold leading-6 text-lightMain">
                     <Trans>Super Follow</Trans>
                 </span>
-                <CloseButton onClick={() => onClose?.()} className="absolute -top-1 right-0" />
+                {showCloseButton ? (
+                    <CloseButton onClick={() => onClose?.()} className="absolute -top-1 right-0" />
+                ) : null}
             </div>
             <div className="mt-6 rounded-lg bg-lightBg px-3 py-2">
                 <div className="flex items-center gap-2.5">
@@ -121,6 +130,13 @@ export const SuperFollowModalUI = memo<SuperFollowModalUIProps>(function SuperFo
                     {profile.bio || '--'}
                 </BioMarkup>
             </div>
+            <p className="mt-3 text-medium font-bold text-lightSecond">
+                <Trans>
+                    Pay
+                    <span className="text-lightMain">{` ${feeAmount} $${feeSymbol} `}</span>
+                    to follow and get some awesome perks!
+                </Trans>
+            </p>
             <ClickableButton
                 disabled={disabled}
                 className="mt-6 flex h-10 w-full items-center justify-center rounded-[20px] bg-lightMain text-medium font-bold text-primaryBottom"
