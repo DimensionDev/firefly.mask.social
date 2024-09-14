@@ -75,20 +75,9 @@ function createWagmiConfig(): Config {
                     email: false,
                 },
                 chains,
-                connectors: connectorsForWallets(
-                    [
-                        {
-                            groupName: 'Recommended',
-                            wallets: [metaMaskWallet, walletConnectWallet, coinbaseWallet, rabbyWallet, okxWallet],
-                        },
-                    ],
-                    {
-                        projectId: env.external.NEXT_PUBLIC_W3M_PROJECT_ID,
-                        appName: SITE_HOSTNAME,
-                    },
-                ),
                 metadata,
                 projectId: env.external.NEXT_PUBLIC_W3M_PROJECT_ID,
+                enableInjected: true,
             });
 
             createWeb3Modal({
