@@ -12,13 +12,10 @@ import { uploadToS3 } from '@/services/uploadToS3.js';
 import { settings } from '@/settings/index.js';
 
 async function convertVideoToM3u8(s3Url: string, width: number, height: number, signal?: AbortSignal) {
-    const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/post/convert', {
-        width,
-        height,
-    });
+    const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/post/convert');
     const response = await fireflySessionHolder.fetch<ConvertM3u8Response>(url, {
         method: 'POST',
-        body: JSON.stringify({ file_path: s3Url }),
+        body: JSON.stringify({ file_path: s3Url, width, height }),
         signal,
     });
 
