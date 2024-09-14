@@ -163,7 +163,7 @@ function createState(
                         state.currentProfile = updatedProfile;
                         if (session) state.currentProfileSession = session;
                         state.accounts = state.accounts.map((x) => {
-                            if (x.profile.profileId === updatedProfile.profileId)
+                            if (isSameProfile(x.profile, updatedProfile))
                                 return {
                                     profile: updatedProfile,
                                     session: session ?? x.session,
