@@ -75,6 +75,18 @@ function createWagmiConfig(): Config {
                     email: false,
                 },
                 chains,
+                connectors: connectorsForWallets(
+                    [
+                        {
+                            groupName: 'Recommended',
+                            wallets: [metaMaskWallet, walletConnectWallet, coinbaseWallet, rabbyWallet, okxWallet],
+                        },
+                    ],
+                    {
+                        projectId: env.external.NEXT_PUBLIC_W3M_PROJECT_ID,
+                        appName: SITE_HOSTNAME,
+                    },
+                ),
                 metadata,
                 projectId: env.external.NEXT_PUBLIC_W3M_PROJECT_ID,
             });
@@ -83,7 +95,7 @@ function createWagmiConfig(): Config {
                 metadata,
                 wagmiConfig: config,
                 projectId: env.external.NEXT_PUBLIC_W3M_PROJECT_ID,
-                enableSwap: false,
+                enableSwaps: false,
                 enableOnramp: false,
                 enableAnalytics: false, // Optional - defaults to your Cloud configuration
             });
