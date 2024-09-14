@@ -24,7 +24,6 @@ interface TwitterEventParameters {
 }
 
 interface PostEventParameters {
-    firefly_account_id: string;
     include_image: boolean;
     include_video: boolean;
     include_lucky_drop: boolean;
@@ -40,6 +39,7 @@ export interface Events extends Record<EventId, Event> {
     [EventId.SEND_CROSS_POST_SUCCESS]: {
         type: EventType.Interact;
         parameters: {
+            firefly_account_id: string;
             include_lens_post?: boolean;
             lens_post_id?: string;
             lens_id?: string;
@@ -112,6 +112,7 @@ export interface Events extends Record<EventId, Event> {
     [EventId.FARCASTER_SEND_POST_SUCCESS]: {
         type: EventType.Interact;
         parameters: {
+            firefly_account_id: string;
             farcaster_cast_id: string;
             farcaster_id: string;
             farcaster_handle: string;
@@ -148,6 +149,7 @@ export interface Events extends Record<EventId, Event> {
     [EventId.LENS_SEND_POST_SUCCESS]: {
         type: EventType.Interact;
         parameters: {
+            firefly_account_id: string;
             lens_post_id: string;
             lens_handle: string;
         } & PostEventParameters;
@@ -179,6 +181,7 @@ export interface Events extends Record<EventId, Event> {
     [EventId.X_SEND_POST_SUCCESS]: {
         type: EventType.Interact;
         parameters: {
+            firefly_account_id: string;
             x_post_id: string;
             x_id: string;
             x_handle: string;
