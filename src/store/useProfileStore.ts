@@ -162,6 +162,14 @@ function createState(
                     set((state) => {
                         state.currentProfile = updatedProfile;
                         if (session) state.currentProfileSession = session;
+                        state.accounts = state.accounts.map((x) => {
+                            if (x.profile.profileId === updatedProfile.profileId)
+                                return {
+                                    profile: updatedProfile,
+                                    session: session ?? x.session,
+                                };
+                            return x;
+                        });
                     });
                 },
                 __setStatus__: (status) =>
