@@ -10,6 +10,7 @@ import { isSameEthereumAddress } from '@/helpers/isSameAddress.js';
 import { resolveLensOperationName, resolveLensQuery } from '@/helpers/resolveLensQuery.js';
 import { createS3MediaObject, resolveImageUrl } from '@/helpers/resolveMediaObjectUrl.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
+import { lensSessionHolder } from '@/providers/lens/SessionHolder.js';
 import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
 import { createPayloadAttachments, createPostMetadata } from '@/services/postToLens.js';
 import { uploadAndConvertToM3u8 } from '@/services/uploadAndConvertToM3u8.js';
@@ -18,7 +19,6 @@ import { uploadToS3 } from '@/services/uploadToS3.js';
 import { type CompositePost } from '@/store/useComposeStore.js';
 import { useLensStateStore } from '@/store/useProfileStore.js';
 import { type ComposeType } from '@/types/compose.js';
-import { lensSessionHolder } from '@/providers/lens/SessionHolder.js';
 
 export interface LensSchedulePayload {
     operationName: 'PostOnMomoka' | 'QuoteOnMomoka' | 'CommentOnMomoka';
