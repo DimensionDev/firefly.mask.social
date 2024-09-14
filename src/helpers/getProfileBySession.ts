@@ -2,7 +2,6 @@ import { safeUnreachable } from '@masknet/kit';
 
 import { Source } from '@/constants/enum.js';
 import { NotAllowedError, UnreachableError } from '@/constants/error.js';
-import { attemptUntil } from '@/helpers/attemptUntil.js';
 import { createLensSDKForSession, MemoryStorageProvider } from '@/helpers/createLensSDK.js';
 import { refreshLensSession } from '@/helpers/refreshLensSession.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
