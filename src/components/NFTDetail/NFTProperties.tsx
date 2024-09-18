@@ -1,3 +1,5 @@
+'use client';
+
 import { Trans } from '@lingui/macro';
 import type { NonFungibleTokenTrait } from '@masknet/web3-shared-base';
 

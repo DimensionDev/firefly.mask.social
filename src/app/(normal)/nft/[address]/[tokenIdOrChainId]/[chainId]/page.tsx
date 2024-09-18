@@ -1,10 +1,7 @@
-'use client';
-
 import { SchemaType } from '@masknet/web3-shared-evm';
 import { isUndefined } from 'lodash-es';
 import { notFound } from 'next/navigation.js';
 
-import { Loading } from '@/components/Loading.js';
 import { Attendees } from '@/components/NFTDetail/Attendees.js';
 import { NFTInfo } from '@/components/NFTDetail/NFTInfo.js';
 import { NFTOverflow } from '@/components/NFTDetail/NFTOverflow.js';
@@ -12,33 +9,49 @@ import { NFTProperties } from '@/components/NFTDetail/NFTProperties.js';
 import { NFTNavbar } from '@/components/NFTs/NFTNavbar.js';
 import { POAP_CONTRACT_ADDRESS } from '@/constants/index.js';
 import { classNames } from '@/helpers/classNames.js';
+import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
 import { getFloorPrice } from '@/helpers/getFloorPrice.js';
+import { getNFTPageOG } from '@/helpers/getNFTPageOG.js';
 import { isSameEthereumAddress } from '@/helpers/isSameAddress.js';
-import { useNFTDetail } from '@/hooks/useNFTDetail.js';
-import { usePoapAttendeesCount } from '@/hooks/usePoapAttendeesCount.js';
+import { parseChainId } from '@/helpers/parseChainId.js';
+import { SimpleHashWalletProfileProvider } from '@/providers/simplehash/WalletProfile.js';
 
-export default function Page({
-    params: { address, tokenIdOrChainId: tokenId, ...params },
-}: {
+export const revalidate = 60;
+
+interface Props {
     params: {
         address: string;
         tokenIdOrChainId: string;
         chainId: string;
     };
-}) {
-    const chainId = params.chainId ? Number.parseInt(params.chainId as string, 10) : undefined;
+}
+
+export async function generateMetadata({ params: { address, tokenIdOrChainId: tokenId, ...params } }: Props) {
+    const chainId = parseChainId(params.chainId);
+    if (chainId) return getNFTPageOG(address, tokenId, chainId);
+    return createSiteMetadata();
+}
+
+export default async function Page({ params: { address, tokenIdOrChainId: tokenId, ...params } }: Props) {
+    const chainId = parseChainId(params.chainId);
+    if (!chainId) return notFound();
+
     const isPoap = isSameEthereumAddress(address, POAP_CONTRACT_ADDRESS);
 
-    const { data, isLoading, error } = useNFTDetail(address, tokenId, chainId);
-    const { data: poapAttendeesCount } = usePoapAttendeesCount(data?.metadata?.eventId);
+    const data = await SimpleHashWalletProfileProvider.getNFT(
+        address,
+        tokenId,
+        {
+            chainId,
+        },
+        true,
+    );
+    if (!data?.metadata) return notFound();
 
-    if (isLoading) {
-        return <Loading />;
-    }
-
-    if (error || !data?.metadata) {
-        notFound();
-    }
+    const poapEvent = data.metadata.eventId
+        ? await SimpleHashWalletProfileProvider.getPoapEvent(data.metadata.eventId)
+        : undefined;
+    const poapAttendeesCount = poapEvent?.total ?? 0;
 
     return (
         <div className="min-h-screen">
