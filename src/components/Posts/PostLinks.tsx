@@ -20,10 +20,10 @@ import { isLinkMatchingHost } from '@/helpers/isLinkMatchingHost.js';
 import { removeAtEnd } from '@/helpers/removeAtEnd.js';
 import { resolveOembedUrl } from '@/helpers/resolveOembedUrl.js';
 import { useActionAdapter } from '@/hooks/useActionAdapter.js';
+import { FireflyArticleProvider } from '@/providers/firefly/Article.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 import { getPostLinks } from '@/services/getPostLinks.js';
 import type { ComposeType } from '@/types/compose.js';
-import { FireflyArticleProvider } from '@/providers/firefly/Article.js';
 
 interface Props {
     post: Post;

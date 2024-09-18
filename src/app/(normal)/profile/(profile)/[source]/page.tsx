@@ -27,6 +27,12 @@ export default function Page({
     };
 }>) {
     const source = resolveSourceFromUrl(params.source);
+
+    if (!isSocialSource(source)) notFound();
+
+    const currentProfiles = useCurrentProfileAll();
+    const profile = resolveFireflyIdentity(currentProfiles[source]);
+
     useEffect(() => {
         if (source) {
             useFireflyIdentityState.getState().setIdentity({
@@ -34,12 +40,7 @@ export default function Page({
                 id: profile?.id || '',
             });
         }
-    }, [source]);
-
-    if (!isSocialSource(source)) return notFound();
-
-    const currentProfiles = useCurrentProfileAll();
-    const profile = resolveFireflyIdentity(currentProfiles[source]);
+    }, [source, profile?.id]);
 
     // profile link should be shareable
     if (profile) {

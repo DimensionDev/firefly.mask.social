@@ -21,9 +21,9 @@ import { classNames } from '@/helpers/classNames.js';
 import { formatEthereumAddress } from '@/helpers/formatAddress.js';
 import { resolveArticlePlatformIcon } from '@/helpers/resolveArticlePlatformIcon.js';
 import { useDarkMode } from '@/hooks/useDarkMode.js';
+import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import { PreviewMediaModalRef } from '@/modals/controls.js';
 import { type Article, ArticlePlatform } from '@/providers/types/Article.js';
-import { useIsMedium } from '@/hooks/useMediaQuery.js';
 
 interface Props {
     cover?: string;

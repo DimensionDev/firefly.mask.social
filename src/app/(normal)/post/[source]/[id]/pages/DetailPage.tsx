@@ -51,11 +51,10 @@ interface Props {
 }
 
 export function PostDetailPage({ post, id: postId, source }: Props) {
-    const fetchAndStoreViews = useImpressionsStore.use.fetchAndStoreViews();
     const comeback = useComeBack();
 
     useEffect(() => {
-        if (source === Source.Lens) fetchAndStoreViews([post.postId]);
+        if (source === Source.Lens) useImpressionsStore.getState().fetchAndStoreViews([post.postId]);
     }, [source, post.postId]);
 
     const { data: allPosts = EMPTY_LIST } = useSuspenseInfiniteQuery({
