@@ -117,6 +117,10 @@ export const Menu = memo(function Menu({ collapsed = false }: MenuProps) {
                                 name: <Trans>Profile</Trans>,
                                 icon: ProfileIcon,
                                 selectedIcon: ProfileSelectedIcon,
+                                match: () =>
+                                    profile
+                                        ? pathname === getProfileUrl(profile)
+                                        : pathname.startsWith(PageRoute.Profile),
                             },
                             {
                                 href: '/connect-wallet',

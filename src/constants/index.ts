@@ -10,6 +10,7 @@ import {
     FileMimeType,
     NetworkType,
     NODE_ENV,
+    type ProfilePageSource,
     SearchType,
     type SocialDiscoverSource,
     SocialProfileCategory,
@@ -88,7 +89,12 @@ export const SORTED_SEARCH_TYPE: Record<SocialSource, SearchType[]> = {
     [Source.Twitter]: [SearchType.Posts, SearchType.Profiles],
 };
 export const SORTED_HOME_SOURCES = [Source.Farcaster, Source.Lens, Source.NFTs, Source.Article] as const;
-export const SORTED_PROFILE_SOURCES = [Source.Farcaster, Source.Lens, Source.Twitter, Source.Wallet];
+export const SORTED_PROFILE_SOURCES: ProfilePageSource[] = [
+    Source.Farcaster,
+    Source.Lens,
+    Source.Twitter,
+    Source.Wallet,
+];
 export const SORTED_SOCIAL_SOURCES = [Source.Farcaster, Source.Lens, Source.Twitter] as const;
 export const SORTED_BOOKMARK_SOURCES =
     env.shared.NODE_ENV === NODE_ENV.Development

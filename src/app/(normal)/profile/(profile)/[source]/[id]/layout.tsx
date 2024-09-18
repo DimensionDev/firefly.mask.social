@@ -1,0 +1,23 @@
+import { notFound } from 'next/navigation.js';
+import { type PropsWithChildren } from 'react';
+
+import { ProfilePageLayout } from '@/app/(normal)/profile/pages/ProfilePageLayout.js';
+import { SourceInURL } from '@/constants/enum.js';
+import { resolveSourceFromUrlNoFallback } from '@/helpers/resolveSource.js';
+
+export default function Layout({
+    children,
+    params,
+}: PropsWithChildren<{
+    params: {
+        id: string;
+        source: SourceInURL;
+    };
+}>) {
+    const id = params.id;
+    const source = resolveSourceFromUrlNoFallback(params.source);
+    if (!source) return notFound();
+    const identity = { source, id };
+
+    return <ProfilePageLayout identity={identity}>{children}</ProfilePageLayout>;
+}

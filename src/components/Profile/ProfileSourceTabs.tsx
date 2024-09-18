@@ -1,102 +1,41 @@
 'use client';
 
-import { usePathname, useRouter } from 'next/navigation.js';
-import { useMemo } from 'react';
-
-import { ClickableButton } from '@/components/ClickableButton.js';
-import { PageRoute, type SocialSource, Source } from '@/constants/enum.js';
 import { SORTED_PROFILE_SOURCES } from '@/constants/index.js';
+import { Link } from '@/esm/Link.js';
 import { classNames } from '@/helpers/classNames.js';
-import { getCurrentProfile } from '@/helpers/getCurrentProfile.js';
-import { narrowToSocialSource } from '@/helpers/narrowToSocialSource.js';
-import { resolveFireflyProfileId } from '@/helpers/resolveFireflyProfileId.js';
 import { resolveProfileUrl } from '@/helpers/resolveProfileUrl.js';
-import { resolveSourceInURL } from '@/helpers/resolveSourceInURL.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
-import { useIsMyRelatedProfile } from '@/hooks/useIsMyRelatedProfile.js';
-import { useUpdateParams } from '@/hooks/useUpdateParams.js';
-import type { FireflyProfile } from '@/providers/types/Firefly.js';
-import { useFireflyIdentityState } from '@/store/useFireflyIdentityStore.js';
+import type { FireflyIdentity, FireflyProfile } from '@/providers/types/Firefly.js';
 
 interface ProfileSourceTabs {
     profiles: FireflyProfile[];
+    identity: FireflyIdentity;
 }
 
-export function ProfileSourceTabs({ profiles }: ProfileSourceTabs) {
-    const { identity } = useFireflyIdentityState();
-
-    const pathname = usePathname();
-    const router = useRouter();
-
-    const updateParams = useUpdateParams();
-
-    const isProfilePage = pathname === PageRoute.Profile;
-    const isMyProfile = useIsMyRelatedProfile(identity.source, identity.id);
-
-    const tabs = useMemo(() => {
-        return SORTED_PROFILE_SOURCES.filter((source) => {
-            if (isProfilePage) {
-                if (source === Source.Wallet) return profiles.some((x) => x.identity.source === Source.Wallet);
-                return true;
-            }
-            return profiles.some((x) => x.identity.source === source);
-        });
-    }, [profiles, isProfilePage]);
-
+export function ProfileSourceTabs({ profiles, identity }: ProfileSourceTabs) {
     return (
-        <nav className="border-b border-line bg-primaryBottom px-4">
-            <ul className="scrollable-tab -mb-px flex space-x-4" aria-label="Tabs">
-                {tabs.map((value) => {
-                    const currentProfile =
-                        value !== Source.Wallet && value !== Source.Article && (isProfilePage || isMyProfile)
-                            ? getCurrentProfile(narrowToSocialSource(value))
-                            : undefined;
-                    const target = currentProfile
-                        ? {
-                              source: currentProfile.source,
-                              identity: resolveFireflyProfileId(currentProfile),
-                          }
-                        : profiles
-                              .map((x) => ({ source: x.identity.source, identity: x.identity.id }))
-                              .find((x) => x.source === value);
-
+        <div className="no-scrollbar w-full overflow-x-auto overflow-y-hidden border-b border-line bg-primaryBottom px-4 md:top-0">
+            <nav className="flex space-x-4 text-xl" aria-label="Tabs">
+                {SORTED_PROFILE_SOURCES.map((value) => {
+                    const profile = profiles.find((profile) => profile.identity.source === value);
+                    if (!profile) return null;
                     return (
-                        <li
+                        <Link
                             key={value}
-                            className="flex flex-1 list-none justify-center lg:flex-initial lg:justify-start"
+                            href={resolveProfileUrl(value, profile.identity.id)}
+                            className={classNames(
+                                'h-[43px] cursor-pointer border-b-2 px-4 text-center font-bold leading-[43px] hover:text-main md:h-[60px] md:py-[18px] md:leading-6',
+                                value === identity.source
+                                    ? 'border-farcasterPrimary text-main'
+                                    : 'border-transparent text-third',
+                            )}
+                            aria-current={value === identity.source ? 'page' : undefined}
                         >
-                            <ClickableButton
-                                className={classNames(
-                                    identity.source === value
-                                        ? 'border-b-2 border-fireflyBrand text-main'
-                                        : 'text-third',
-                                    'h-[43px] px-4 text-center text-xl font-bold leading-[43px] hover:cursor-pointer hover:text-main',
-                                    'md:h-[60px] md:py-[18px] md:leading-6',
-                                )}
-                                aria-current={identity.source === value ? 'page' : undefined}
-                                onMouseEnter={() => {
-                                    if (target?.identity) {
-                                        router.prefetch(resolveProfileUrl(value as SocialSource, target.identity));
-                                    }
-                                }}
-                                onClick={() => {
-                                    if (!target?.identity) {
-                                        updateParams(
-                                            new URLSearchParams({
-                                                source: resolveSourceInURL(value),
-                                            }),
-                                        );
-                                    } else {
-                                        router.replace(resolveProfileUrl(value as SocialSource, target.identity));
-                                    }
-                                }}
-                            >
-                                {resolveSourceName(value)}
-                            </ClickableButton>
-                        </li>
+                            {resolveSourceName(value)}
+                        </Link>
                     );
                 })}
-            </ul>
-        </nav>
+            </nav>
+        </div>
     );
 }

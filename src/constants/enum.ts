@@ -127,7 +127,7 @@ export enum WalletProfileCategory {
     Articles = 'articles',
     POAPs = 'poaps',
     NFTs = 'nfts',
-    OnChainActivities = 'on_chain_activities',
+    OnChainActivities = 'activities',
 }
 
 export enum EngagementType {

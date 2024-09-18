@@ -1,15 +1,13 @@
 import { notFound } from 'next/navigation.js';
 import type { PropsWithChildren } from 'react';
 
-import { FollowPageLayout } from '@/app/(normal)/profile/[source]/[id]/pages/FollowPageLayout.js';
+import { FollowPageLayout } from '@/app/(normal)/profile/pages/FollowPageLayout.js';
 import { Title } from '@/components/Profile/Title.js';
 import { type ProfileCategory, Source, SourceInURL } from '@/constants/enum.js';
 import { isFollowCategory } from '@/helpers/isFollowCategory.js';
 import { isSocialSource } from '@/helpers/isSocialSource.js';
 import { resolveSourceFromUrlNoFallback } from '@/helpers/resolveSource.js';
 import { getProfileById } from '@/services/getProfileById.js';
-
-export const revalidate = 60;
 
 export default async function Layout({
     children,

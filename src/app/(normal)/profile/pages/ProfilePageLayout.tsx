@@ -6,12 +6,11 @@ import { StatusCodes } from 'http-status-codes';
 import { notFound } from 'next/navigation.js';
 import { type PropsWithChildren, useEffect } from 'react';
 
-import { ProfileCategoryTabs } from '@/app/(normal)/profile/[source]/[id]/pages/ProfileCategoryTabs.js';
 import { Loading } from '@/components/Loading.js';
 import { LoginRequiredGuard } from '@/components/LoginRequiredGuard.js';
 import { ProfileInfo } from '@/components/Profile/ProfileInfo.js';
 import { ProfileSourceTabs } from '@/components/Profile/ProfileSourceTabs.js';
-import { SocialProfileCategory, type SocialSource, Source, WalletProfileCategory } from '@/constants/enum.js';
+import { Source } from '@/constants/enum.js';
 import { FetchError } from '@/constants/error.js';
 import { EMPTY_LIST } from '@/constants/index.js';
 import { isSameFireflyIdentity } from '@/helpers/isSameFireflyIdentity.js';
@@ -25,11 +24,7 @@ import type { FireflyIdentity } from '@/providers/types/Firefly.js';
 import { getProfileById } from '@/services/getProfileById.js';
 import { useFireflyIdentityState } from '@/store/useFireflyIdentityStore.js';
 
-export function ProfilePageLayout({
-    identity,
-    children,
-    category,
-}: PropsWithChildren<{ identity: FireflyIdentity; category: WalletProfileCategory | SocialProfileCategory }>) {
+export function ProfilePageLayout({ identity, children }: PropsWithChildren<{ identity: FireflyIdentity }>) {
     const { setIdentity } = useFireflyIdentityState();
     const currentProfiles = useCurrentFireflyProfilesAll();
     const isCurrentProfile = currentProfiles.some((x) => isSameFireflyIdentity(x.identity, identity));
@@ -81,7 +76,7 @@ export function ProfilePageLayout({
 
     return (
         <>
-            <ProfileSourceTabs profiles={profiles} />
+            <ProfileSourceTabs profiles={profiles} identity={identity} />
             <LoginRequiredGuard source={identity.source} className="!pt-0">
                 {isLoading ? (
                     <Loading />
@@ -92,11 +87,6 @@ export function ProfilePageLayout({
                         isLoading={isLoadingProfile}
                         profile={profile}
                     >
-                        <ProfileCategoryTabs
-                            category={category}
-                            source={identity.source as SocialSource}
-                            id={identity.id}
-                        />
                         {children}
                     </ProfileInfo>
                 )}

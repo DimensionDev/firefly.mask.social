@@ -1,8 +1,8 @@
 import { notFound } from 'next/navigation.js';
 
-import { FollowersList } from '@/app/(normal)/profile/[source]/[id]/pages/FollowersList.js';
-import { FollowingList } from '@/app/(normal)/profile/[source]/[id]/pages/FollowingList.js';
-import { MutualFollowersList } from '@/app/(normal)/profile/[source]/[id]/pages/MutualFollowersList.js';
+import { FollowersList } from '@/app/(normal)/profile/pages/FollowersList.js';
+import { FollowingList } from '@/app/(normal)/profile/pages/FollowingList.js';
+import { MutualFollowersList } from '@/app/(normal)/profile/pages/MutualFollowersList.js';
 import { FollowCategory, type ProfileCategory, SourceInURL } from '@/constants/enum.js';
 import { narrowToSocialSource } from '@/helpers/narrowToSocialSource.js';
 import { resolveSourceFromUrl } from '@/helpers/resolveSource.js';
