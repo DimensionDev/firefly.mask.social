@@ -1,13 +1,22 @@
+import { t } from '@lingui/macro';
 import { notFound } from 'next/navigation.js';
 import { type PropsWithChildren } from 'react';
 
 import { DISCOVER_SOURCES } from '@/constants/index.js';
 import { Link } from '@/esm/Link.js';
 import { classNames } from '@/helpers/classNames.js';
+import { createPageTitleSSR } from '@/helpers/createPageTitle.js';
+import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
 import { isDiscoverSource } from '@/helpers/isDiscoverSource.js';
 import { resolveFollowingUrl } from '@/helpers/resolveFollowingUrl.js';
 import { resolveSourceFromUrlNoFallback } from '@/helpers/resolveSource.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
+
+export async function generateMetadata() {
+    return createSiteMetadata({
+        title: createPageTitleSSR(t`Following`),
+    });
+}
 
 export default function Layout({
     params,
@@ -26,7 +35,6 @@ export default function Layout({
                     {DISCOVER_SOURCES.map((x) => (
                         <Link
                             key={x}
-                            type={x}
                             href={resolveFollowingUrl(x)}
                             className={classNames(
                                 'h-[43px] cursor-pointer border-b-2 px-4 text-center font-bold leading-[43px] hover:text-main md:h-[60px] md:py-[18px] md:leading-6',

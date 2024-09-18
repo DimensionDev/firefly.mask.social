@@ -27,7 +27,6 @@ export default function Layout({
     };
 }>) {
     const source = resolveSourceFromUrlNoFallback(params.source);
-    console.log('params.source: ', params.source, source);
     if (!source || !isBookmarkSource(source)) return notFound();
     return (
         <>
