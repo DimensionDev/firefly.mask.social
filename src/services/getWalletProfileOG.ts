@@ -16,7 +16,7 @@ export async function getWalletProfileOG(addressOrEns: string) {
     const { walletProfile } = resolveFireflyProfiles(identity, profiles);
     if (!walletProfile) return createSiteMetadata();
     const title = walletProfile.primary_ens
-        ? walletProfile.primary_ens
+        ? createPageTitleV2(walletProfile.primary_ens)
         : createPageTitleV2(`${formatAddress(walletProfile.address, 4)}`);
     const description = walletProfile.address;
     const images = [getStampAvatarByProfileId(identity.source, identity.id)];

@@ -11,12 +11,8 @@ import { isProfilePageSource } from '@/helpers/isProfilePageSource.js';
 import { isSameFireflyIdentity } from '@/helpers/isSameFireflyIdentity.js';
 import { resolveProfileUrl } from '@/helpers/resolveProfileUrl.js';
 import { useDarkMode } from '@/hooks/useDarkMode.js';
-import type { FireflyProfile } from '@/providers/types/Firefly.js';
+import type { FireflyIdentity, FireflyProfile } from '@/providers/types/Firefly.js';
 import { useFireflyIdentityState } from '@/store/useFireflyIdentityStore.js';
-
-interface ProfileTabsProps {
-    profiles: FireflyProfile[];
-}
 
 const resolveProfileTabColor = createLookupTableResolver<
     Source,
@@ -58,9 +54,14 @@ const resolveProfileTabColor = createLookupTableResolver<
     {},
 );
 
-export function ProfileTabs({ profiles }: ProfileTabsProps) {
+interface ProfileTabsProps {
+    profiles: FireflyProfile[];
+    identity: FireflyIdentity;
+}
+
+export function ProfileTabs({ profiles, identity }: ProfileTabsProps) {
     const { isDarkMode } = useDarkMode();
-    const { identity, setIdentity } = useFireflyIdentityState();
+    const { setIdentity } = useFireflyIdentityState();
 
     if (profiles.length <= 1) return null;
 
@@ -77,7 +78,7 @@ export function ProfileTabs({ profiles }: ProfileTabsProps) {
                         href={resolveProfileUrl(profile.identity.source, profile.identity.id)}
                         onClick={() => startTransition(() => setIdentity(profile.identity))}
                         className={classNames(
-                            'flex cursor-pointer items-center gap-1 rounded-lg p-1 px-2',
+                            'flex cursor-pointer items-center gap-1 rounded-lg p-1 px-2 active:bg-main/20',
                             isActive ? 'border border-primaryBottom bg-main text-primaryBottom' : 'bg-thirdMain',
                         )}
                         style={{

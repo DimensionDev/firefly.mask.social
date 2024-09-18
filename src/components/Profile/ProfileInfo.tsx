@@ -21,9 +21,8 @@ import { resolveFireflyProfiles } from '@/helpers/resolveFireflyProfiles.js';
 import { useCurrentFireflyProfilesAll } from '@/hooks/useCurrentFireflyProfiles.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
 import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
-import type { FireflyProfile } from '@/providers/types/Firefly.js';
+import type { FireflyIdentity, FireflyProfile } from '@/providers/types/Firefly.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
-import { useFireflyIdentityState } from '@/store/useFireflyIdentityStore.js';
 import { useTwitterStateStore } from '@/store/useProfileStore.js';
 
 export const ProfileInfo = memo<
@@ -32,9 +31,9 @@ export const ProfileInfo = memo<
         isLoading?: boolean;
         isSuspended?: boolean;
         profile?: Profile | null;
+        identity: FireflyIdentity;
     }>
->(function ProfileInfo({ profiles, children, isLoading = false, profile = null, isSuspended }) {
-    const { identity } = useFireflyIdentityState();
+>(function ProfileInfo({ identity, profiles, children, isLoading = false, profile = null, isSuspended }) {
     const resolvedSource = narrowToSocialSource(identity.source);
     const { walletProfile } = useMemo(() => resolveFireflyProfiles(identity, profiles), [identity, profiles]);
 
@@ -98,7 +97,7 @@ export const ProfileInfo = memo<
             ) : profile ? (
                 <Info profile={profile} />
             ) : null}
-            <ProfileTabs profiles={profiles.filter((x) => x.identity.source === source)} />
+            <ProfileTabs identity={identity} profiles={profiles.filter((x) => x.identity.source === source)} />
             {children}
         </>
     );

@@ -65,8 +65,13 @@ export function ProfilePageLayout({ identity, children }: PropsWithChildren<{ id
         <>
             <SourceTabs
                 source={identity.source}
-                sources={SORTED_PROFILE_SOURCES}
-                href={(x) => resolveProfileUrl(x, identity.id)}
+                sources={SORTED_PROFILE_SOURCES.filter((value) => {
+                    return profiles.find((profile) => profile.identity.source === value);
+                })}
+                href={(x) => {
+                    const profile = profiles.find((profile) => profile.identity.source === x);
+                    return resolveProfileUrl(x, profile?.identity.id ?? identity.id);
+                }}
             />
             <LoginRequiredGuard source={identity.source} className="!pt-0">
                 {isLoading ? (
@@ -77,6 +82,7 @@ export function ProfilePageLayout({ identity, children }: PropsWithChildren<{ id
                         isSuspended={isSuspended}
                         isLoading={isLoadingProfile}
                         profile={profile}
+                        identity={identity}
                     >
                         {children}
                     </ProfileInfo>
