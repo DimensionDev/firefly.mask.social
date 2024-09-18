@@ -23,6 +23,7 @@ import { useActionAdapter } from '@/hooks/useActionAdapter.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 import { getPostLinks } from '@/services/getPostLinks.js';
 import type { ComposeType } from '@/types/compose.js';
+import { FireflyArticleProvider } from '@/providers/firefly/Article.js';
 
 interface Props {
     post: Post;
@@ -40,6 +41,15 @@ export function PostLinks({ post, setContent, isInCompose = false }: Props) {
         refetchOnWindowFocus: false,
         retry: false,
         enabled: !!url,
+    });
+
+    const { data: article } = useQuery({
+        enabled: !!data?.articleId,
+        queryKey: ['article-detail', data?.articleId],
+        queryFn: async () => {
+            if (!data?.articleId) return;
+            return FireflyArticleProvider.getArticleById(data.articleId);
+        },
     });
 
     const actionAdapter = useActionAdapter();
@@ -60,18 +70,18 @@ export function PostLinks({ post, setContent, isInCompose = false }: Props) {
 
     return (
         <>
-            {data.article ? (
+            {article ? (
                 <ArticleBody
-                    article={data.article}
+                    article={article}
                     onClick={() => {
-                        if (!data.article || data.article.author.isMuted) return;
+                        if (!article || article.author.isMuted) return;
 
                         const selection = window.getSelection();
                         if (selection && selection.toString().length !== 0) return;
 
                         if (isInCompose) return;
 
-                        router.push(getArticleUrl(data.article));
+                        router.push(getArticleUrl(article));
                         return;
                     }}
                 />

@@ -21,7 +21,9 @@ export const CollectArticleModal = forwardRef<SingletonModalRefCreator<CollectAr
                     article: props.article,
                 });
             },
-            onClose: () => {},
+            onClose: () => {
+                setProps(undefined);
+            },
         });
 
         return (
