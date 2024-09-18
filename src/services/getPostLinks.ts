@@ -111,18 +111,17 @@ export async function getPostLinks(url: string, post: Post) {
         frame?: Frame;
         action?: Action;
         html?: string;
-        article?: Article;
+        articleId?: string;
     } | null>(
         [
             async () => {
                 const realUrl = (await resolveTCOLink(url)) ?? url;
                 if (!realUrl) return null;
 
-                const id = await getArticleIdFromURL(realUrl);
-                if (!id) return null;
+                const articleId = await getArticleIdFromURL(realUrl);
+                if (!articleId) return null;
 
-                const article = await FireflyArticleProvider.getArticleById(id);
-                return article ? { article } : null;
+                return { articleId };
             },
             async () => {
                 // try iframe first. As we don't have to call other services if matched
