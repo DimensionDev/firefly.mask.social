@@ -1,8 +1,9 @@
 import { notFound, redirect } from 'next/navigation.js';
 import React, { type PropsWithChildren } from 'react';
 
-import { DiscoverSourceTabs } from '@/app/(normal)/pages/Discover.js';
+import { SourceTabs } from '@/components/SourceTabs.js';
 import { DiscoverType } from '@/constants/enum.js';
+import { DISCOVER_SOURCES } from '@/constants/index.js';
 import { getUrlFromHeaders } from '@/helpers/getUrlFromHeaders.js';
 import { isDiscoverSource, isSocialDiscoverSource } from '@/helpers/isDiscoverSource.js';
 import { resolveDiscoverUrl } from '@/helpers/resolveDiscoverUrl.js';
@@ -28,7 +29,11 @@ export default function Layout({
 
     return (
         <>
-            <DiscoverSourceTabs source={source} />
+            <SourceTabs
+                source={source}
+                sources={DISCOVER_SOURCES}
+                href={(x) => resolveDiscoverUrl(x, DiscoverType.Trending)}
+            />
             {children}
         </>
     );

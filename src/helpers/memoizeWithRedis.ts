@@ -13,7 +13,7 @@ interface MemoizedFunction {
     };
 }
 
-export function memoizeWithRedis2<T extends (...args: any) => Promise<any>>(
+export function memoizeWithRedis<T extends (...args: any) => Promise<any>>(
     func: T,
     {
         key,
@@ -83,9 +83,4 @@ export function memoizeWithRedis2<T extends (...args: any) => Promise<any>>(
     };
 
     return memoized as unknown as T & MemoizedFunction;
-}
-
-// eslint-disable-next-line @typescript-eslint/ban-types
-export function memoizeWithRedis<T extends Function>(callback: T, options: any): T {
-    return callback;
 }

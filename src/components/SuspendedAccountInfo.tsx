@@ -1,3 +1,5 @@
+'use client';
+
 import { Trans } from '@lingui/macro';
 
 import { SocialSourceIcon } from '@/components/SocialSourceIcon.js';

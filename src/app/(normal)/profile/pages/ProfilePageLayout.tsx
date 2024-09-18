@@ -2,17 +2,18 @@
 
 import { useQuery } from '@tanstack/react-query';
 import { StatusCodes } from 'http-status-codes';
-import { type PropsWithChildren } from 'react';
+import React, { type PropsWithChildren } from 'react';
 
 import { Loading } from '@/components/Loading.js';
 import { LoginRequiredGuard } from '@/components/LoginRequiredGuard.js';
 import { ProfileInfo } from '@/components/Profile/ProfileInfo.js';
-import { ProfileSourceTabs } from '@/components/Profile/ProfileSourceTabs.js';
+import { SourceTabs } from '@/components/SourceTabs.js';
 import { Source } from '@/constants/enum.js';
 import { FetchError } from '@/constants/error.js';
-import { EMPTY_LIST } from '@/constants/index.js';
+import { EMPTY_LIST, SORTED_PROFILE_SOURCES } from '@/constants/index.js';
 import { isSameFireflyIdentity } from '@/helpers/isSameFireflyIdentity.js';
 import { narrowToSocialSource } from '@/helpers/narrowToSocialSource.js';
+import { resolveProfileUrl } from '@/helpers/resolveProfileUrl.js';
 import { useCurrentFireflyProfilesAll } from '@/hooks/useCurrentFireflyProfiles.js';
 import { useUpdateCurrentVisitingProfile } from '@/hooks/useCurrentVisitingProfile.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
@@ -62,7 +63,11 @@ export function ProfilePageLayout({ identity, children }: PropsWithChildren<{ id
 
     return (
         <>
-            <ProfileSourceTabs profiles={profiles} identity={identity} />
+            <SourceTabs
+                source={identity.source}
+                sources={SORTED_PROFILE_SOURCES}
+                href={(x) => resolveProfileUrl(x, identity.id)}
+            />
             <LoginRequiredGuard source={identity.source} className="!pt-0">
                 {isLoading ? (
                     <Loading />
