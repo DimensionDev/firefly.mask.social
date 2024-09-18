@@ -1,14 +1,15 @@
-import type { Metadata } from 'next';
-import { Suspense } from 'react';
+'use client';
+
+import { useQuery } from '@tanstack/react-query';
+import { notFound } from 'next/navigation.js';
+import { Suspense, useMemo } from 'react';
 
 import { Loading } from '@/components/Loading.js';
 import { ProfilePageTimeline } from '@/components/Profile/ProfilePageTimeline.js';
-import { KeyType, type ProfileCategory, SourceInURL } from '@/constants/enum.js';
-import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
+import { type ProfileCategory, Source, SourceInURL } from '@/constants/enum.js';
 import { isProfilePageSource } from '@/helpers/isProfilePageSource.js';
-import { memoizeWithRedis } from '@/helpers/memoizeWithRedis.js';
-import { resolveSourceFromUrl, resolveSourceFromUrlNoFallback } from '@/helpers/resolveSource.js';
-import { getProfileOGById } from '@/services/getProfileOGById.js';
+import { resolveSourceFromUrl } from '@/helpers/resolveSource.js';
+import { getProfileById } from '@/services/getProfileById.js';
 
 interface Props {
     params: {
@@ -18,23 +19,27 @@ interface Props {
     };
 }
 
-const getProfileOGByIdRedis = memoizeWithRedis(getProfileOGById, {
-    key: KeyType.GetProfileOGById,
-});
-
-export async function generateMetadata({ params }: Props): Promise<Metadata> {
-    const source = resolveSourceFromUrlNoFallback(params.source);
-    if (source && isProfilePageSource(source)) return getProfileOGByIdRedis(source, params.id);
-    return createSiteMetadata();
-}
-
 export default function Page({ params }: Props) {
+    const source = resolveSourceFromUrl(params.source);
+    if (!isProfilePageSource(source)) notFound();
+
+    // Lens used handle in profile page, while timeline can only be queried using profileId, it is necessary to convert handle to profileId.
+    const { data: profile = null } = useQuery({
+        queryKey: ['profile', source, params.id],
+        queryFn: async () => {
+            if (source === Source.Wallet) return null;
+            return getProfileById(source, params.id);
+        },
+    });
+
+    const identity = useMemo(
+        () => ({ id: profile?.profileId ?? params.id, source }),
+        [profile?.profileId, params.id, source],
+    );
+
     return (
         <Suspense fallback={<Loading />}>
-            <ProfilePageTimeline
-                category={params.category}
-                identity={{ id: params.id, source: resolveSourceFromUrl(params.source) }}
-            />
+            <ProfilePageTimeline category={params.category} identity={identity} />
         </Suspense>
     );
 }

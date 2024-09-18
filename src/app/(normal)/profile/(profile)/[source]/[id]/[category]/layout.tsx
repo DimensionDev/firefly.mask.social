@@ -1,10 +1,40 @@
+import type { Metadata } from 'next';
 import { notFound } from 'next/navigation.js';
 import type { PropsWithChildren } from 'react';
 
 import { ProfileCategoryTabs } from '@/app/(normal)/profile/pages/ProfileCategoryTabs.js';
-import { SocialProfileCategory, type SocialSource, SourceInURL, WalletProfileCategory } from '@/constants/enum.js';
+import {
+    KeyType,
+    type ProfileCategory,
+    SocialProfileCategory,
+    type SocialSource,
+    SourceInURL,
+    WalletProfileCategory,
+} from '@/constants/enum.js';
+import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
 import { isFollowCategory } from '@/helpers/isFollowCategory.js';
-import { resolveSourceFromUrl } from '@/helpers/resolveSource.js';
+import { isProfilePageSource } from '@/helpers/isProfilePageSource.js';
+import { memoizeWithRedis } from '@/helpers/memoizeWithRedis.js';
+import { resolveSourceFromUrl, resolveSourceFromUrlNoFallback } from '@/helpers/resolveSource.js';
+import { getProfileOGById } from '@/services/getProfileOGById.js';
+
+interface Props {
+    params: {
+        id: string;
+        category: ProfileCategory;
+        source: SourceInURL;
+    };
+}
+
+const getProfileOGByIdRedis = memoizeWithRedis(getProfileOGById, {
+    key: KeyType.GetProfileOGById,
+});
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+    const source = resolveSourceFromUrlNoFallback(params.source);
+    if (source && isProfilePageSource(source)) return getProfileOGByIdRedis(source, params.id);
+    return createSiteMetadata();
+}
 
 export default function Layout({
     children,

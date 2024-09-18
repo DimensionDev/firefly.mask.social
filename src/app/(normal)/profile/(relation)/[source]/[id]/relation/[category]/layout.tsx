@@ -6,8 +6,8 @@ import { Title } from '@/components/Profile/Title.js';
 import { type ProfileCategory, Source, SourceInURL } from '@/constants/enum.js';
 import { isFollowCategory } from '@/helpers/isFollowCategory.js';
 import { isSocialSource } from '@/helpers/isSocialSource.js';
+import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { resolveSourceFromUrlNoFallback } from '@/helpers/resolveSource.js';
-import { getProfileById } from '@/services/getProfileById.js';
 
 export default async function Layout({
     children,
@@ -24,7 +24,7 @@ export default async function Layout({
     const source = resolveSourceFromUrlNoFallback(params.source);
     if (!source || !isSocialSource(source) || source === Source.Twitter) return notFound();
     const identity = { source, id };
-    const profile = await getProfileById(source, id);
+    const profile = await resolveSocialMediaProvider(source).getProfileById(id);
 
     if (!profile) return notFound();
 

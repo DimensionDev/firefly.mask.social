@@ -1,10 +1,8 @@
 'use client';
 
-import { t } from '@lingui/macro';
 import { useQuery } from '@tanstack/react-query';
 import { StatusCodes } from 'http-status-codes';
-import { notFound } from 'next/navigation.js';
-import { type PropsWithChildren, useEffect } from 'react';
+import { type PropsWithChildren } from 'react';
 
 import { Loading } from '@/components/Loading.js';
 import { LoginRequiredGuard } from '@/components/LoginRequiredGuard.js';
@@ -18,14 +16,11 @@ import { narrowToSocialSource } from '@/helpers/narrowToSocialSource.js';
 import { useCurrentFireflyProfilesAll } from '@/hooks/useCurrentFireflyProfiles.js';
 import { useUpdateCurrentVisitingProfile } from '@/hooks/useCurrentVisitingProfile.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
-import { useNavigatorTitle } from '@/hooks/useNavigatorTitle.js';
 import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
 import type { FireflyIdentity } from '@/providers/types/Firefly.js';
 import { getProfileById } from '@/services/getProfileById.js';
-import { useFireflyIdentityState } from '@/store/useFireflyIdentityStore.js';
 
 export function ProfilePageLayout({ identity, children }: PropsWithChildren<{ identity: FireflyIdentity }>) {
-    const { setIdentity } = useFireflyIdentityState();
     const currentProfiles = useCurrentFireflyProfilesAll();
     const isCurrentProfile = currentProfiles.some((x) => isSameFireflyIdentity(x.identity, identity));
     const resolvedSource = narrowToSocialSource(identity.source);
@@ -57,19 +52,10 @@ export function ProfilePageLayout({ identity, children }: PropsWithChildren<{ id
         },
     });
 
-    useEffect(() => {
-        setIdentity(identity);
-    }, [identity, setIdentity]);
-
-    useNavigatorTitle(t`Profile`);
     useUpdateCurrentVisitingProfile(profile);
 
     if (isLoading && !isCurrentProfile) {
         return <Loading />;
-    }
-
-    if (!identity) {
-        notFound();
     }
 
     const isSuspended = error instanceof FetchError && error.status === StatusCodes.FORBIDDEN;
