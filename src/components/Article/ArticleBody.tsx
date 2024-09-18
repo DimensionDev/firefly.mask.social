@@ -23,6 +23,7 @@ import { resolveArticlePlatformIcon } from '@/helpers/resolveArticlePlatformIcon
 import { useDarkMode } from '@/hooks/useDarkMode.js';
 import { PreviewMediaModalRef } from '@/modals/controls.js';
 import { type Article, ArticlePlatform } from '@/providers/types/Article.js';
+import { useIsMedium } from '@/hooks/useMediaQuery.js';
 
 interface Props {
     cover?: string;
@@ -31,6 +32,7 @@ interface Props {
 }
 
 export function ArticleBody({ cover, article, onClick }: Props) {
+    const isMedium = useIsMedium();
     const router = useRouter();
     const authorUrl = urlcat('/profile/:address', {
         address: article.author.id,
@@ -118,7 +120,7 @@ export function ArticleBody({ cover, article, onClick }: Props) {
                     </span>
                     {Icon ? <Icon width={15} height={15} /> : null}
                 </div>
-                <ArticleActions article={article} />
+                {isMedium ? <ArticleActions article={article} /> : null}
             </div>
             {article.content ? (
                 <div className="h-[100px]">

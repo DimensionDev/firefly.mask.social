@@ -6,6 +6,7 @@ import { useAccount, useReadContract } from 'wagmi';
 import { Source } from '@/constants/enum.js';
 import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
 import { lensSessionHolder } from '@/providers/lens/SessionHolder.js';
+import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 
 export function useSuperFollowModule(profile: Profile, disabled = false) {
@@ -44,19 +45,14 @@ export function useSuperFollowData(profile: Profile) {
         queryKey: ['approved', feeTokenAddress, profile.profileId],
         enabled: !!feeTokenAddress,
         queryFn: () =>
-            lensSessionHolder.sdk.modules.approvedAllowanceAmount({
-                currencies: [feeTokenAddress],
-                followModules: [FollowModuleType.FeeFollowModule],
-                openActionModules: [],
-                referenceModules: [],
-            }),
+            LensSocialMediaProvider.queryApprovedModuleAllowanceData(
+                feeTokenAddress,
+                undefined,
+                FollowModuleType.FeeFollowModule,
+            ),
     });
 
-    if (allowanceData && !allowanceData.isSuccess()) {
-        throw new Error('Failed to fetch allowance data');
-    }
-
-    const allowanceModule = allowanceData?.unwrap()?.[0];
+    const allowanceModule = allowanceData?.[0];
 
     const { data: balanceData, isLoading: isBalanceLoading } = useReadContract({
         abi: erc20Abi,

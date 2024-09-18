@@ -15,7 +15,6 @@ import { formatEthereumAddress } from '@/helpers/formatAddress.js';
 import { nFormatter } from '@/helpers/formatCommentCounts.js';
 import { getSnackbarMessageFromError } from '@/helpers/getSnackbarMessageFromError.js';
 import { isSameEthereumAddress } from '@/helpers/isSameAddress.js';
-import { useAllowanceForLensModule } from '@/hooks/useAllowanceForLensModule.js';
 import { useSuperFollowData } from '@/hooks/useSuperFollow.js';
 import { ConnectModalRef } from '@/modals/controls.js';
 import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
@@ -31,7 +30,6 @@ export const SuperFollow = memo<SuperFollowProps>(function SuperFollow({ profile
     const account = useAccount();
     const { loading, followModule, isConnected, allowanceModule, hasAmount, hasAllowance, address, refetchAllowance } =
         useSuperFollowData(profile);
-    const [, handleAllowance] = useAllowanceForLensModule();
 
     const wrongAddress = !isSameEthereumAddress(address, account.address);
     const feeAmount = parseFloat(followModule?.amount.value || '0');
@@ -65,7 +63,10 @@ export const SuperFollow = memo<SuperFollowProps>(function SuperFollow({ profile
                 return;
             }
             if (!hasAllowance) {
-                await handleAllowance(allowanceModule, Number.MAX_SAFE_INTEGER.toString());
+                await LensSocialMediaProvider.approveModuleAllowance(
+                    allowanceModule,
+                    Number.MAX_SAFE_INTEGER.toString(),
+                );
                 await refetchAllowance();
                 return;
             }
@@ -89,7 +90,6 @@ export const SuperFollow = memo<SuperFollowProps>(function SuperFollow({ profile
         profile.source,
         onClose,
         refetchAllowance,
-        handleAllowance,
     ]);
 
     const disabled =

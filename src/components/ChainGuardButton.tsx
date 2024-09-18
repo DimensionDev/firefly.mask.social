@@ -19,9 +19,10 @@ export const ChainGuardButton = memo<ChainGuardButtonProps>(function ChainBounda
 }) {
     const account = useAccount();
 
-    const [{ loading }, handleSwitchChain] = useAsyncFn(async () => {
+    const [{ loading }, handleClick] = useAsyncFn(async () => {
         if (!targetChainId) return;
-        return switchChain(config, { chainId: targetChainId });
+        if (targetChainId && account.chainId !== targetChainId) await switchChain(config, { chainId: targetChainId });
+        return props.onClick?.();
     }, [targetChainId]);
 
     if (!account.isConnected || !account.address) {
@@ -37,13 +38,9 @@ export const ChainGuardButton = memo<ChainGuardButtonProps>(function ChainBounda
         );
     }
 
-    if (targetChainId && account.chainId !== targetChainId) {
-        return (
-            <ActionButton {...props} loading={loading} onClick={handleSwitchChain}>
-                {children}
-            </ActionButton>
-        );
-    }
-
-    return <ActionButton {...props}>{children}</ActionButton>;
+    return (
+        <ActionButton {...props} loading={loading || props.loading} onClick={handleClick}>
+            {children}
+        </ActionButton>
+    );
 });

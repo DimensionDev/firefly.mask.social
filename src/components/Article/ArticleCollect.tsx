@@ -2,7 +2,7 @@ import { t, Trans } from '@lingui/macro';
 import { EVMChainResolver } from '@masknet/web3-providers';
 import { useQuery } from '@tanstack/react-query';
 import { estimateFeesPerGas, getBalance } from '@wagmi/core';
-import { useMemo } from 'react';
+import { useMemo, useState } from 'react';
 import { useAsyncFn } from 'react-use';
 import { useAccount, useChains } from 'wagmi';
 
@@ -25,6 +25,8 @@ export interface ArticleCollectProps {
 export function ArticleCollect(props: ArticleCollectProps) {
     const account = useAccount();
     const chains = useChains();
+
+    const [collected, setCollected] = useState(false);
 
     const { data: result, isLoading: queryDetailLoading } = useQuery({
         enabled: !!props.article,
@@ -92,6 +94,7 @@ export function ArticleCollect(props: ArticleCollectProps) {
         try {
             const confirmation = await provider.collect(data);
             if (!confirmation) return;
+            setCollected(true);
             enqueueSuccessMessage(t`Article collected successfully!`);
         } catch (error) {
             enqueueErrorMessage(getSnackbarMessageFromError(error, t`Failed to collect article.`), { error });
@@ -104,11 +107,11 @@ export function ArticleCollect(props: ArticleCollectProps) {
 
     const buttonText = useMemo(() => {
         if (isSoldOut) return t`Sold Out`;
-        if (data?.isCollected) return t`Collected`;
+        if (data?.isCollected || collected) return t`Collected`;
         if (!hasSufficientBalance) return t`Insufficient Balance`;
         if (!data?.price) return t`Free Collect`;
         return t`Collect for ${data.price} ${chain?.nativeCurrency.symbol}`;
-    }, [data, chain, isSoldOut, hasSufficientBalance]);
+    }, [data, chain, isSoldOut, hasSufficientBalance, collected]);
 
     if (!queryDetailLoading && !data) {
         return (
@@ -173,7 +176,7 @@ export function ArticleCollect(props: ArticleCollectProps) {
             <ChainGuardButton
                 targetChainId={data?.chainId}
                 className="mt-6 w-full max-md:mt-4"
-                disabled={data?.isCollected || isSoldOut || (account.isConnected && !hasSufficientBalance)}
+                disabled={data?.isCollected || collected || isSoldOut || (account.isConnected && !hasSufficientBalance)}
                 loading={collectLoading || queryDetailLoading}
                 onClick={handleCollect}
             >
