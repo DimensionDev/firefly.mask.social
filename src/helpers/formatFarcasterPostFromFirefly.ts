@@ -23,7 +23,7 @@ function getCoverUriFromUrl(url: string) {
     if (!parsed) return '';
 
     if (parsed.origin === 'https://media.firefly.land' && url.endsWith('.m3u8')) {
-        return url.replace(/\.m3u8$/, '_thumbnail.0000000.jpg');
+        return url.replace(/[^/]+\.m3u8$/, 'thumbnail.jpg');
     }
 
     return '';

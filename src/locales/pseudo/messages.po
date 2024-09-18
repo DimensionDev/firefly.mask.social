@@ -628,9 +628,6 @@ msgstr ""
 msgid "Frame Validator"
 msgstr ""
 
-msgid "<0>Poap</0> received"
-msgstr ""
-
 msgid "No proxy"
 msgstr ""
 
@@ -940,6 +937,9 @@ msgstr ""
 msgid "[Poll]"
 msgstr ""
 
+msgid "Allow Follow Module"
+msgstr ""
+
 msgid "Allow replies from"
 msgstr ""
 
@@ -973,6 +973,9 @@ msgstr ""
 msgid "Malformed session."
 msgstr ""
 
+msgid "<0>COLLECTED</0> a POAP"
+msgstr ""
+
 msgid "Upload"
 msgstr ""
 
@@ -995,9 +998,6 @@ msgid "Website"
 msgstr ""
 
 msgid "Failed to report @{0}."
-msgstr ""
-
-msgid "Approve token to follow"
 msgstr ""
 
 msgid "Post with link"
@@ -1123,9 +1123,6 @@ msgstr ""
 msgid "Failed to upvote post."
 msgstr ""
 
-msgid "Insufficient balance to follow"
-msgstr ""
-
 msgid "<0>Acquired</0> an NFT"
 msgstr ""
 
@@ -1232,6 +1229,9 @@ msgid "<0>Market Cap</0><1>{0}</1><2>Rank #{1}</2>"
 msgstr ""
 
 msgid "Invalid signer key"
+msgstr ""
+
+msgid "Follow for {feeAmount} ${feeSymbol}"
 msgstr ""
 
 msgid "Posts from @{0} will now be hidden in your home timeline"
@@ -1448,9 +1448,6 @@ msgid "Upload to S3"
 msgstr ""
 
 msgid "{shares, plural, one {Recast or Quote} other {Recasts or Quotes}}"
-msgstr ""
-
-msgid "Follow for {0} ${1}"
 msgstr ""
 
 msgid "Please input the serialized session to be validated."
@@ -1811,6 +1808,9 @@ msgid "Invalid website format"
 msgstr ""
 
 msgid "Switching..."
+msgstr ""
+
+msgid "Pay<0> {feeAmount} ${feeSymbol} </0>to follow and get some awesome perks!"
 msgstr ""
 
 msgid "<0>Bought</0> an NFT worth {costEl}"

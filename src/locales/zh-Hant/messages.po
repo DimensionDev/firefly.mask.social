@@ -8,7 +8,7 @@ msgstr ""
 "Language: zh\n"
 "Project-Id-Version: masksocial\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-09-03 09:47\n"
+"PO-Revision-Date: 2024-09-14 12:01\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Traditional\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
@@ -633,9 +633,6 @@ msgstr ""
 msgid "Frame Validator"
 msgstr "Frame 驗證器"
 
-msgid "<0>Poap</0> received"
-msgstr ""
-
 msgid "No proxy"
 msgstr "無代理"
 
@@ -945,6 +942,9 @@ msgstr "設定"
 msgid "[Poll]"
 msgstr "[投票]"
 
+msgid "Allow Follow Module"
+msgstr ""
+
 msgid "Allow replies from"
 msgstr "允許來自 的回覆"
 
@@ -978,6 +978,9 @@ msgstr "隱藏更多評論"
 msgid "Malformed session."
 msgstr ""
 
+msgid "<0>COLLECTED</0> a POAP"
+msgstr ""
+
 msgid "Upload"
 msgstr "上傳"
 
@@ -1000,9 +1003,6 @@ msgid "Website"
 msgstr "網站"
 
 msgid "Failed to report @{0}."
-msgstr ""
-
-msgid "Approve token to follow"
 msgstr ""
 
 msgid "Post with link"
@@ -1128,9 +1128,6 @@ msgstr "是否確定要檢舉這篇文章？"
 msgid "Failed to upvote post."
 msgstr "上讚貼文失敗"
 
-msgid "Insufficient balance to follow"
-msgstr ""
-
 msgid "<0>Acquired</0> an NFT"
 msgstr "<0>獲取了</0>一個 NFT"
 
@@ -1237,6 +1234,9 @@ msgid "<0>Market Cap</0><1>{0}</1><2>Rank #{1}</2>"
 msgstr ""
 
 msgid "Invalid signer key"
+msgstr ""
+
+msgid "Follow for {feeAmount} ${feeSymbol}"
 msgstr ""
 
 msgid "Posts from @{0} will now be hidden in your home timeline"
@@ -1453,9 +1453,6 @@ msgid "Upload to S3"
 msgstr ""
 
 msgid "{shares, plural, one {Recast or Quote} other {Recasts or Quotes}}"
-msgstr ""
-
-msgid "Follow for {0} ${1}"
 msgstr ""
 
 msgid "Please input the serialized session to be validated."
@@ -1817,6 +1814,9 @@ msgstr ""
 
 msgid "Switching..."
 msgstr "切換中..."
+
+msgid "Pay<0> {feeAmount} ${feeSymbol} </0>to follow and get some awesome perks!"
+msgstr ""
 
 msgid "<0>Bought</0> an NFT worth {costEl}"
 msgstr ""
@@ -2294,3 +2294,4 @@ msgstr ""
 
 msgid "Blink Validator"
 msgstr ""
+

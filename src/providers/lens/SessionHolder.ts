@@ -20,13 +20,13 @@ class LensSessionHolder extends SessionHolder<LensSession> {
         return this.lensClientSDK;
     }
 
+    override assertSession(message?: string): LensSession {
+        throw new Error('The Lens session holder does not maintain an internal session, yet the Lens client does.');
+    }
+
     override async refreshSession() {
-        this.assertSession();
-
-        const session = await refreshLensSession(this.sdk);
-
         // the sdk always maintain a latest session, thought no need to resume session here.
-
+        const session = await refreshLensSession(this.sdk);
         return session;
     }
 

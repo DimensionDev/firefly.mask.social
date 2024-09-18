@@ -43,7 +43,7 @@ export function FollowingNFTList({ walletAddress }: { walletAddress?: string }) 
                     }),
             }}
             NoResultsFallbackProps={{
-                className: 'pt-[228px]',
+                className: 'md:pt-[228px] max-md:py-20',
             }}
         />
     );

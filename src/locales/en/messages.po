@@ -628,9 +628,6 @@ msgstr "Failed to avatar."
 msgid "Frame Validator"
 msgstr "Frame Validator"
 
-msgid "<0>Poap</0> received"
-msgstr "<0>Poap</0> received"
-
 msgid "No proxy"
 msgstr "No proxy"
 
@@ -940,6 +937,9 @@ msgstr "Set"
 msgid "[Poll]"
 msgstr "[Poll]"
 
+msgid "Allow Follow Module"
+msgstr "Allow Follow Module"
+
 msgid "Allow replies from"
 msgstr "Allow replies from"
 
@@ -973,6 +973,9 @@ msgstr "Hide more comments"
 msgid "Malformed session."
 msgstr "Malformed session."
 
+msgid "<0>COLLECTED</0> a POAP"
+msgstr "<0>COLLECTED</0> a POAP"
+
 msgid "Upload"
 msgstr "Upload"
 
@@ -996,9 +999,6 @@ msgstr "Website"
 
 msgid "Failed to report @{0}."
 msgstr "Failed to report @{0}."
-
-msgid "Approve token to follow"
-msgstr "Approve token to follow"
 
 msgid "Post with link"
 msgstr "Post with link"
@@ -1123,9 +1123,6 @@ msgstr "Are you sure you want to report this article?"
 msgid "Failed to upvote post."
 msgstr "Failed to upvote post."
 
-msgid "Insufficient balance to follow"
-msgstr "Insufficient balance to follow"
-
 msgid "<0>Acquired</0> an NFT"
 msgstr "<0>Acquired</0> an NFT"
 
@@ -1233,6 +1230,9 @@ msgstr "<0>Market Cap</0><1>{0}</1><2>Rank #{1}</2>"
 
 msgid "Invalid signer key"
 msgstr "Invalid signer key"
+
+msgid "Follow for {feeAmount} ${feeSymbol}"
+msgstr "Follow for {feeAmount} ${feeSymbol}"
 
 msgid "Posts from @{0} will now be hidden in your home timeline"
 msgstr "Posts from @{0} will now be hidden in your home timeline"
@@ -1449,9 +1449,6 @@ msgstr "Upload to S3"
 
 msgid "{shares, plural, one {Recast or Quote} other {Recasts or Quotes}}"
 msgstr "{shares, plural, one {Recast or Quote} other {Recasts or Quotes}}"
-
-msgid "Follow for {0} ${1}"
-msgstr "Follow for {0} ${1}"
 
 msgid "Please input the serialized session to be validated."
 msgstr "Please input the serialized session to be validated."
@@ -1812,6 +1809,9 @@ msgstr "Invalid website format"
 
 msgid "Switching..."
 msgstr "Switching..."
+
+msgid "Pay<0> {feeAmount} ${feeSymbol} </0>to follow and get some awesome perks!"
+msgstr "Pay<0> {feeAmount} ${feeSymbol} </0>to follow and get some awesome perks!"
 
 msgid "<0>Bought</0> an NFT worth {costEl}"
 msgstr "<0>Bought</0> an NFT worth {costEl}"

@@ -94,7 +94,7 @@ export function SuggestedFollowsCard() {
                     <Trans>More</Trans>
                 </Link>
             </AsideTitle>
-            <div>
+            <div className="rounded-xl bg-bg">
                 <Swiper
                     initialSlide={suggestedFollows.length > 2 ? 1 : 0}
                     effect={'coverflow'}

@@ -17,6 +17,19 @@ declare module 'dayjs-twitter' {
     }
 }
 
+declare module 'unist-util-flatmap' {
+    export interface Node {
+        children?: Node[];
+        [key: string]: any;
+    }
+
+    export type TransformFn = (node: Node, index: number, parent: Node | null) => Node[] | null;
+
+    function flatMap(ast: Node, fn: TransformFn): Node[];
+
+    export = flatMap;
+}
+
 declare module '*.svg' {
     const content: React.FunctionComponent<React.SVGAttributes<SVGElement>>;
     export default content;

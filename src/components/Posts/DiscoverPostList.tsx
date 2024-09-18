@@ -43,7 +43,7 @@ export const DiscoverPostList = memo<{ source: SocialSource }>(function Discover
                 itemContent: (index, post) => getPostItemContent(index, post, `${ScrollListKey.Discover}:${source}`),
             }}
             NoResultsFallbackProps={{
-                className: 'pt-[228px]',
+                className: 'md:pt-[228px] max-md:py-20',
             }}
         />
     );

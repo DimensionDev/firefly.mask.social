@@ -10,8 +10,10 @@ import { isSameEthereumAddress } from '@/helpers/isSameAddress.js';
 import { resolveLensOperationName, resolveLensQuery } from '@/helpers/resolveLensQuery.js';
 import { createS3MediaObject, resolveImageUrl } from '@/helpers/resolveMediaObjectUrl.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
+import { lensSessionHolder } from '@/providers/lens/SessionHolder.js';
 import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
 import { createPayloadAttachments, createPostMetadata } from '@/services/postToLens.js';
+import { uploadAndConvertToM3u8 } from '@/services/uploadAndConvertToM3u8.js';
 import { uploadToArweave } from '@/services/uploadToArweave.js';
 import { uploadToS3 } from '@/services/uploadToS3.js';
 import { type CompositePost } from '@/store/useComposeStore.js';
@@ -34,6 +36,7 @@ export async function createLensSchedulePostPayload(
     type: ComposeType,
     compositePost: CompositePost,
     isThread = false,
+    signal?: AbortSignal,
 ): Promise<LensSchedulePayload> {
     const { images, video, chars, parentPost } = compositePost;
 
@@ -47,7 +50,9 @@ export async function createLensSchedulePostPayload(
         }),
     );
 
-    const videoResult = video?.file ? createS3MediaObject(await uploadToS3(video.file, SourceInURL.Lens), video) : null;
+    const videoResult = video?.file
+        ? createS3MediaObject(await uploadAndConvertToM3u8(video.file, SourceInURL.Lens, signal), video)
+        : null;
 
     const { currentProfile } = useLensStateStore.getState();
     if (!currentProfile?.profileId) throw new Error(t`Login required to schedule post on ${sourceName}`);
@@ -77,7 +82,7 @@ export async function createLensSchedulePostPayload(
         await createPayloadAttachments(imageResults, videoResult),
     );
 
-    const tokenRes = await LensSocialMediaProvider.getAccessToken();
+    const tokenRes = await lensSessionHolder.sdk.authentication.getAccessToken();
     const token = tokenRes.unwrap();
     const arweaveId = await uploadToArweave(metadata, token);
 

@@ -5,7 +5,7 @@ import { v4 as uuid } from 'uuid';
 import { FileMimeType } from '@/constants/enum.js';
 import { EVER_API, S3_BUCKET } from '@/constants/index.js';
 import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
-import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
+import { lensSessionHolder } from '@/providers/lens/SessionHolder.js';
 
 export interface IPFSResponse {
     uri: string;
@@ -18,7 +18,7 @@ export interface IPFSResponse {
  * @returns S3 client instance.
  */
 const getS3Client = async (): Promise<S3> => {
-    const accessToken = await LensSocialMediaProvider.getAccessToken();
+    const accessToken = await lensSessionHolder.sdk.authentication.getAccessToken();
     const mediaToken = await FireflySocialMediaProvider.getUploadMediaToken(accessToken.unwrap());
     const client = new S3({
         endpoint: EVER_API,

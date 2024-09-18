@@ -1,7 +1,7 @@
 import { forwardRef, useCallback, useState } from 'react';
 
 import { Modal } from '@/components/Modal.js';
-import { SuperFollowModalUI } from '@/components/SuperFollow/SuperFollowModalUI.js';
+import { SuperFollow } from '@/components/Posts/SuperFollow.js';
 import { useSingletonModal } from '@/hooks/useSingletonModal.js';
 import type { SingletonModalRefCreator } from '@/libs/SingletonModal.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
@@ -25,8 +25,8 @@ export const SuperFollowModal = forwardRef<SingletonModalRefCreator<SuperFollowM
 
         return (
             <Modal open={open} onClose={onClose}>
-                <div>
-                    <SuperFollowModalUI profile={props.profile} onClose={onClose} />
+                <div className="w-[485px] max-w-[90vw] transform rounded-xl bg-primaryBottom p-6 transition-all">
+                    <SuperFollow profile={props.profile} onClose={onClose} />
                 </div>
             </Modal>
         );

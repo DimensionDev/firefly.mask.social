@@ -8,7 +8,7 @@ msgstr ""
 "Language: zh\n"
 "Project-Id-Version: masksocial\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-09-03 09:47\n"
+"PO-Revision-Date: 2024-09-14 12:01\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
@@ -337,7 +337,7 @@ msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} {1, selec
 msgstr "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} {1, select, Lens {转帖了你的} Farcaster {转帖了你的} other {转帖了你的}} <4>{2, select, Post {帖子} Comment {评论} Quote {引用} Mirror {转帖} other {帖子}}</4>"
 
 msgid "Total"
-msgstr ""
+msgstr "总额"
 
 msgid "<0>{0}</0><1>mirrored</1>"
 msgstr "<0>{0}</0><1>转帖</1>"
@@ -403,7 +403,7 @@ msgid "Page not found"
 msgstr "找不到网页"
 
 msgid "Quote post"
-msgstr ""
+msgstr "引用"
 
 msgid "Mint function is transparent or non-existent. Hidden mint functions may increase the amount of tokens in circulation and effect the price of the token."
 msgstr "铸造功能是透明的或不存在的。隐藏的铸造功能可能会增加通证的流通量并影响通证的价格。"
@@ -436,7 +436,7 @@ msgid "Only up to 2 images can be chosen."
 msgstr "至多可以选择 2 张图片。"
 
 msgid "Follow to Collect"
-msgstr ""
+msgstr "关注并且收集"
 
 msgid "{0, select, Image {[Image]} Video {[Video]} Audio {[Audio]} Poll {[Poll]} other {}}"
 msgstr "{0, select, Image {[图片]} Video {[视频]} Audio {[音频]} Poll {[投票]} other {}}"
@@ -463,13 +463,13 @@ msgid "Failed to unfollow @{0} on {sourceName}."
 msgstr "在 {sourceName} 上取消关注 @{0} 失败。"
 
 msgid "Calendar"
-msgstr ""
+msgstr "日历"
 
 msgid "Watch"
 msgstr "关注"
 
 msgid "Time Out"
-msgstr ""
+msgstr "过期"
 
 msgid "24 Hour Trading Vol"
 msgstr "24h 交易总额"
@@ -520,7 +520,7 @@ msgid "Add another post..."
 msgstr "添加另一个帖子..."
 
 msgid "1m left"
-msgstr ""
+msgstr "1分钟剩余"
 
 msgid "Items"
 msgstr "条目"
@@ -619,7 +619,7 @@ msgid "Follow more friends to continue exploring on {0}."
 msgstr "在 {0} 上去关注更多的人来继续浏览吧。"
 
 msgid "Session Validator"
-msgstr ""
+msgstr "会话验证器"
 
 msgid "THREAD POST"
 msgstr "THREAD 发帖"
@@ -632,9 +632,6 @@ msgstr "上传头像失败。"
 
 msgid "Frame Validator"
 msgstr "Frame 验证器"
-
-msgid "<0>Poap</0> received"
-msgstr "<0>Poap</0> 已收到"
 
 msgid "No proxy"
 msgstr "无代理"
@@ -945,6 +942,9 @@ msgstr "设置"
 msgid "[Poll]"
 msgstr "[投票]"
 
+msgid "Allow Follow Module"
+msgstr ""
+
 msgid "Allow replies from"
 msgstr "允许回复"
 
@@ -978,6 +978,9 @@ msgstr "隐藏更多的评论"
 msgid "Malformed session."
 msgstr "会话格式错误。"
 
+msgid "<0>COLLECTED</0> a POAP"
+msgstr ""
+
 msgid "Upload"
 msgstr "上传"
 
@@ -1001,9 +1004,6 @@ msgstr "网站"
 
 msgid "Failed to report @{0}."
 msgstr "举报 @{0} 失败。"
-
-msgid "Approve token to follow"
-msgstr ""
 
 msgid "Post with link"
 msgstr "发布带链接的帖子"
@@ -1128,9 +1128,6 @@ msgstr "您确定要举报这篇文章吗？"
 msgid "Failed to upvote post."
 msgstr "无法对帖子进行投票。"
 
-msgid "Insufficient balance to follow"
-msgstr ""
-
 msgid "<0>Acquired</0> an NFT"
 msgstr "<0>获取</0> 一个 NFT"
 
@@ -1238,6 +1235,9 @@ msgstr "<0>市值</0><1>{0}</1><2>排名 #{1}</2>"
 
 msgid "Invalid signer key"
 msgstr "无效的 singer key"
+
+msgid "Follow for {feeAmount} ${feeSymbol}"
+msgstr ""
 
 msgid "Posts from @{0} will now be hidden in your home timeline"
 msgstr "@{0} 的帖子会从您的时间线中隐藏"
@@ -1455,9 +1455,6 @@ msgstr "上传到 S3"
 msgid "{shares, plural, one {Recast or Quote} other {Recasts or Quotes}}"
 msgstr "{shares, plural, one {转帖或引用} other {转帖或引用}}"
 
-msgid "Follow for {0} ${1}"
-msgstr ""
-
 msgid "Please input the serialized session to be validated."
 msgstr ""
 
@@ -1606,7 +1603,7 @@ msgid "Show more"
 msgstr "显示更多"
 
 msgid "Time Limit"
-msgstr ""
+msgstr "时间限制"
 
 msgid "Post removed from your Bookmarks"
 msgstr "帖子已经从您的收藏中移除"
@@ -1818,6 +1815,9 @@ msgstr "无效的网站格式"
 msgid "Switching..."
 msgstr "切换中..."
 
+msgid "Pay<0> {feeAmount} ${feeSymbol} </0>to follow and get some awesome perks!"
+msgstr ""
+
 msgid "<0>Bought</0> an NFT worth {costEl}"
 msgstr "<0>购买</0> 一个 NFT 价值 {costEl}"
 
@@ -1831,7 +1831,7 @@ msgid "Failed to upload. Gif size exceeds {0}"
 msgstr "上传失败。动图超过最大限制 {0}"
 
 msgid "{days}d left"
-msgstr ""
+msgstr "{days} 天剩余"
 
 msgid "Log out all"
 msgstr "登出所有"
@@ -1942,7 +1942,7 @@ msgid "Connecting Wallet"
 msgstr "正在连接钱包"
 
 msgid "{minutes}m left"
-msgstr ""
+msgstr "{minutes} 分钟剩余"
 
 msgid "Total Supply"
 msgstr "总供应量"
@@ -2092,7 +2092,7 @@ msgid "{hours}h left"
 msgstr ""
 
 msgid "Events"
-msgstr ""
+msgstr "活动"
 
 msgid "{0} Users"
 msgstr "{0} 用户"
@@ -2294,3 +2294,4 @@ msgstr "× {0}"
 
 msgid "Blink Validator"
 msgstr "Blink 验证器"
+

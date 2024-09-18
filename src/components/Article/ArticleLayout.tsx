@@ -24,6 +24,7 @@ import { PageRoute, SearchType, Source, SourceInURL } from '@/constants/enum.js'
 import { Link } from '@/esm/Link.js';
 import { classNames } from '@/helpers/classNames.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
+import { formatEthereumAddress } from '@/helpers/formatAddress.js';
 import { getArticleUrl } from '@/helpers/getArticleUrl.js';
 import { resolveArticlePlatformIcon } from '@/helpers/resolveArticlePlatformIcon.js';
 import { useFireflyIdentity } from '@/hooks/useFireflyIdentity.js';
@@ -149,7 +150,7 @@ export const ArticleLayout = memo<ArticleLayoutProps>(function ArticleLayout({ a
                         onClick={(event) => event.stopPropagation()}
                         className="block truncate text-clip text-medium leading-5 text-secondary"
                     >
-                        {article.author.handle || ens}
+                        {article.author.handle || ens || formatEthereumAddress(article.author.id, 4)}
                     </Link>
                     <span className="whitespace-nowrap text-medium text-xs leading-4 text-secondary">
                         <TimestampFormatter time={article.timestamp} />

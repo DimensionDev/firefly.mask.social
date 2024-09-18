@@ -1,7 +1,7 @@
 import { first } from 'lodash-es';
 
 import { isSameEthereumAddress } from '@/helpers/isSameAddress.js';
-import type { Article } from '@/providers/types/Article.js';
+import { type Article, ArticlePlatform } from '@/providers/types/Article.js';
 import { type Article as FireflyArticle } from '@/providers/types/Firefly.js';
 import { WatchType } from '@/providers/types/Firefly.js';
 
@@ -10,7 +10,10 @@ export function formatArticleFromFirefly(article: FireflyArticle): Article {
     return {
         platform: article.platform,
         type: article.type,
-        content: article.content.body,
+        content:
+            article.platform === ArticlePlatform.Paragraph && article.paragraph_raw_data?.staticHtml
+                ? article.paragraph_raw_data.staticHtml
+                : article.content.body,
         title: article.content.title,
         author: {
             handle: article.displayInfo.ensHandle,

@@ -66,6 +66,8 @@ export const SinglePost = memo<SinglePostProps>(function SinglePost({
         return true;
     }, [post, isPostPage]);
 
+    if (!isProfilePage && !isDetail && muted) return null;
+
     const showPostAction = !isDetail && (isProfilePage || !post.isHidden || !muted);
 
     return (

@@ -35,7 +35,7 @@ export const RecentPostList = memo<{ source: SocialSource }>(function ForYouPost
                 itemContent: (index, post) => getPostItemContent(index, post, `${ScrollListKey.Recent}:${source}`),
             }}
             NoResultsFallbackProps={{
-                className: 'pt-[228px]',
+                className: 'md:pt-[228px] max-md:py-20',
             }}
         />
     );

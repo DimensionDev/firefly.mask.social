@@ -70,7 +70,7 @@ export const FollowingPostList = memo<{
                 itemContent: (index, post) => getPostItemContent(index, post, `${ScrollListKey.Following}:${source}`),
             }}
             NoResultsFallbackProps={{
-                className: 'pt-[228px]',
+                className: 'md:pt-[228px] max-md:py-20',
                 message: (
                     <div className="mt-10">
                         <Trans>Follow more friends to continue exploring on {resolveSourceName(source)}.</Trans>

@@ -58,7 +58,7 @@ export function ComposeSend(props: ComposeSendProps) {
                 controller.current.renew();
                 if (posts.length > 1) {
                     scheduleTime
-                        ? await crossPostScheduleThread(scheduleTime)
+                        ? await crossPostScheduleThread(scheduleTime, controller.current.signal)
                         : await crossPostThread({
                               isRetry,
                               progressCallback: setPercentage,
@@ -66,7 +66,7 @@ export function ComposeSend(props: ComposeSendProps) {
                           });
                 } else {
                     scheduleTime
-                        ? await crossSchedulePost(type, post, scheduleTime)
+                        ? await crossSchedulePost(type, post, scheduleTime, controller.current.signal)
                         : await crossPost(type, post, {
                               isRetry,
                               signal: controller.current.signal,
