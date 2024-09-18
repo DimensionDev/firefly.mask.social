@@ -18,7 +18,7 @@ export function SourceTabs<S extends Source>({ sources, source, href }: SourceTa
                         key={x}
                         href={href(x)}
                         className={classNames(
-                            'h-[43px] cursor-pointer border-b-2 px-4 text-center font-bold leading-[43px] hover:text-main md:h-[60px] md:py-[18px] md:leading-6',
+                            'h-[43px] cursor-pointer border-b-2 px-4 text-center font-bold leading-[43px] hover:text-main active:bg-main/10 md:h-[60px] md:py-[18px] md:leading-6',
                             x === source ? 'border-farcasterPrimary text-main' : 'border-transparent text-third',
                         )}
                         aria-current={source === x ? 'page' : undefined}
