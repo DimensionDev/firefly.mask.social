@@ -3,18 +3,18 @@ import { Suspense } from 'react';
 
 import { Loading } from '@/components/Loading.js';
 import { ProfilePageTimeline } from '@/components/Profile/ProfilePageTimeline.js';
-import { KeyType, type ProfileCategory, type SocialSourceInURL } from '@/constants/enum.js';
+import { KeyType, type ProfileCategory, SourceInURL } from '@/constants/enum.js';
 import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
-import { isSocialSourceInURL } from '@/helpers/isSocialSource.js';
+import { isProfilePageSource } from '@/helpers/isProfilePageSource.js';
 import { memoizeWithRedis } from '@/helpers/memoizeWithRedis.js';
-import { resolveSourceFromUrl } from '@/helpers/resolveSource.js';
+import { resolveSourceFromUrl, resolveSourceFromUrlNoFallback } from '@/helpers/resolveSource.js';
 import { getProfileOGById } from '@/services/getProfileOGById.js';
 
 interface Props {
     params: {
         id: string;
         category: ProfileCategory;
-        source: SocialSourceInURL;
+        source: SourceInURL;
     };
 }
 
@@ -23,9 +23,8 @@ const getProfileOGByIdRedis = memoizeWithRedis(getProfileOGById, {
 });
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-    if (isSocialSourceInURL(params.source)) {
-        return getProfileOGByIdRedis(params.source, params.id);
-    }
+    const source = resolveSourceFromUrlNoFallback(params.source);
+    if (source && isProfilePageSource(source)) return getProfileOGByIdRedis(source, params.id);
     return createSiteMetadata();
 }
 

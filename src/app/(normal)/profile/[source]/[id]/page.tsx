@@ -10,15 +10,12 @@ import {
 } from '@/constants/enum.js';
 import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
 import { isBotRequest } from '@/helpers/isBotRequest.js';
+import { isProfilePageSource } from '@/helpers/isProfilePageSource.js';
 import { isSocialSourceInURL } from '@/helpers/isSocialSource.js';
 import { memoizeWithRedis } from '@/helpers/memoizeWithRedis.js';
 import { resolveProfileUrl } from '@/helpers/resolveProfileUrl.js';
-import { resolveSource, resolveSourceFromUrl } from '@/helpers/resolveSource.js';
+import { resolveSource, resolveSourceFromUrl, resolveSourceFromUrlNoFallback } from '@/helpers/resolveSource.js';
 import { getProfileOGById } from '@/services/getProfileOGById.js';
-
-const getProfileOGByIdRedis = memoizeWithRedis(getProfileOGById, {
-    key: KeyType.GetProfileOGById,
-});
 
 interface Props {
     params: {
@@ -28,10 +25,13 @@ interface Props {
     searchParams: { source?: SourceInURL; profile_tab?: SocialProfileCategory; wallet_tab?: WalletProfileCategory };
 }
 
-export async function generateMetadata({ params, searchParams }: Props): Promise<Metadata> {
-    if (isSocialSourceInURL(params.source)) {
-        return getProfileOGByIdRedis(params.source, params.id);
-    }
+const getProfileOGByIdRedis = memoizeWithRedis(getProfileOGById, {
+    key: KeyType.GetProfileOGById,
+});
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+    const source = resolveSourceFromUrlNoFallback(params.source);
+    if (source && isProfilePageSource(source)) return getProfileOGByIdRedis(source, params.id);
     return createSiteMetadata();
 }
 
