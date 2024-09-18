@@ -1,14 +1,15 @@
 import {
+    type ApprovedAllowanceAmountResultFragment,
     CommentRankingFilterType,
     CustomFiltersType,
     ExplorePublicationsOrderByType,
     FeedEventItemType,
     type FeeFollowModuleSettingsFragment,
+    FollowModuleType,
     HiddenCommentsType,
     isCreateMomokaPublicationResult,
     isRelaySuccess,
     LimitType,
-    type ModuleCurrencyApproval,
     OpenActionModuleType,
     ProfileReportingReason,
     ProfileReportingSpamSubreason,
@@ -17,14 +18,16 @@ import {
     PublicationReportingReason,
     PublicationReportingSpamSubreason,
     PublicationType,
+    ReferenceModuleType,
 } from '@lens-protocol/client';
-import { MetadataAttributeType, profile as createProfileMetadata } from '@lens-protocol/metadata';
+import { MetadataAttributeType,profile as createProfileMetadata } from '@lens-protocol/metadata';
 import { t } from '@lingui/macro';
+import { sendTransaction } from '@wagmi/core';
 import { compact, first, flatMap, uniq, uniqWith } from 'lodash-es';
 import omitDeep from 'omit-deep';
 import urlcat from 'urlcat';
 import { v4 as uuid } from 'uuid';
-import type { TypedDataDomain } from 'viem';
+import type { Address, Hex, TypedDataDomain } from 'viem';
 import { polygon } from 'viem/chains';
 
 import { config } from '@/configs/wagmiClient.js';
@@ -54,6 +57,7 @@ import {
 } from '@/helpers/formatLensPost.js';
 import { formatLensProfile } from '@/helpers/formatLensProfile.js';
 import { getCurrentProfile } from '@/helpers/getCurrentProfile.js';
+import { getLensAllowanceModule } from '@/helpers/getLensAllowanceModule.js';
 import { getOpenActionActOnKey } from '@/helpers/getOpenActionActOnKey.js';
 import { getWalletClientRequired } from '@/helpers/getWalletClientRequired.js';
 import { isSamePost } from '@/helpers/isSamePost.js';
@@ -67,6 +71,7 @@ import {
 } from '@/helpers/pageable.js';
 import { pollWithRetry } from '@/helpers/pollWithRetry.js';
 import { runInSafe } from '@/helpers/runInSafe.js';
+import { waitForEthereumTransaction } from '@/helpers/waitForEthereumTransaction.js';
 import { waitUntilComplete } from '@/helpers/waitUntilComplete.js';
 import { writeLensHubContract } from '@/helpers/writeLensHubContract.js';
 import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
@@ -1480,27 +1485,53 @@ class LensSocialMedia implements Provider {
         return result.isSuccess();
     }
 
-    async queryApprovedModuleAllowanceData(module: OpenActionModuleType, spender: string) {
+    async queryApprovedModuleAllowanceData(
+        spender: string,
+        openAction?: OpenActionModuleType,
+        follow?: FollowModuleType,
+        reference?: ReferenceModuleType,
+    ) {
         const result = await lensSessionHolder.sdk.modules.approvedAllowanceAmount({
             currencies: [spender],
-            followModules: [],
-            openActionModules: [module],
-            referenceModules: [],
+            followModules: compact([follow]),
+            openActionModules: compact([openAction]),
+            referenceModules: compact([reference]),
         });
 
         return result.unwrap();
     }
 
-    async generateModuleAllowanceRequest(
-        allowance: { currency: string; value: string },
-        module: ModuleCurrencyApproval,
+    async approveModuleAllowance(
+        module: ApprovedAllowanceAmountResultFragment,
+        amount: string,
+        currencyAddress?: string,
     ) {
-        const result = await lensSessionHolder.sdk.modules.generateCurrencyApprovalData({
-            allowance,
-            module,
+        const moduleName = module.moduleName;
+        const contract = currencyAddress ?? module.allowance.asset.contract.address;
+        const isUnknownModule = moduleName === OpenActionModuleType.UnknownOpenActionModule;
+        const fieldKey = isUnknownModule ? 'unknownOpenActionModule' : getLensAllowanceModule(moduleName).field;
+
+        const data = await lensSessionHolder.sdk.modules.generateCurrencyApprovalData({
+            allowance: { currency: contract, value: amount },
+            module: {
+                [fieldKey]: isUnknownModule ? module.moduleContract.address : moduleName,
+            },
         });
 
-        return result.unwrap();
+        if (!data?.isSuccess()) {
+            throw new Error('Failed to generate approval data');
+        }
+
+        await getWalletClientRequired(config, { chainId: polygon.id });
+
+        const approvalData = data.unwrap();
+        const hash = await sendTransaction(config, {
+            account: approvalData.from as Address,
+            data: approvalData.data as Hex,
+            to: approvalData.to as Address,
+        });
+
+        await waitForEthereumTransaction(polygon.id, hash);
     }
 }
 

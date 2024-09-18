@@ -3,7 +3,6 @@ import { t, Trans } from '@lingui/macro';
 import { EVMExplorerResolver } from '@masknet/web3-providers';
 import { ZERO_ADDRESS } from '@masknet/web3-shared-evm';
 import { useQuery } from '@tanstack/react-query';
-import { sendTransaction } from '@wagmi/core';
 import dayjs from 'dayjs';
 import { StatusCodes } from 'http-status-codes';
 import { first, multiply } from 'lodash-es';
@@ -24,7 +23,6 @@ import { FetchError } from '@/constants/error.js';
 import { Link } from '@/esm/Link.js';
 import { enqueueErrorMessage, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { getTimeLeft } from '@/helpers/formatTimestamp.js';
-import { getAllowanceModule } from '@/helpers/getAllowanceModule.js';
 import { getSnackbarMessageFromError } from '@/helpers/getSnackbarMessageFromError.js';
 import { getWalletClientRequired } from '@/helpers/getWalletClientRequired.js';
 import { isSameEthereumAddress } from '@/helpers/isSameAddress.js';
@@ -100,8 +98,8 @@ export function PostCollect({ post, onClose }: PostCollectProps) {
             if (!post.collectModule.assetAddress) return;
 
             const result = await LensSocialMediaProvider.queryApprovedModuleAllowanceData(
-                post.collectModule?.type as OpenActionModuleType,
                 post.collectModule.assetAddress,
+                post.collectModule?.type as OpenActionModuleType,
             );
 
             return first(result);
@@ -125,26 +123,7 @@ export function PostCollect({ post, onClose }: PostCollectProps) {
     const [{ loading: approveLoading }, handleApprove] = useAsyncFn(async () => {
         if (post.source !== Source.Lens || !allowanceData || !post.collectModule?.assetAddress) return;
 
-        await getWalletClientRequired(config, { chainId: polygon.id });
-
-        const isUnknownModule = allowanceData?.moduleName === OpenActionModuleType.UnknownOpenActionModule;
-
-        const result = await LensSocialMediaProvider.generateModuleAllowanceRequest(
-            {
-                currency: post.collectModule.assetAddress,
-                value: '0',
-            },
-            {
-                [isUnknownModule ? 'unknownOpenActionModule' : getAllowanceModule(allowanceData.moduleName).field]:
-                    isUnknownModule ? allowanceData.moduleContract.address : allowanceData.moduleName,
-            },
-        );
-
-        return sendTransaction(config, {
-            data: result.data as `0x${string}`,
-            to: result.to as `0x${string}`,
-            account: result.from as `0x${string}`,
-        });
+        await LensSocialMediaProvider.approveModuleAllowance(allowanceData, '0', post.collectModule.assetAddress);
     }, [post, allowanceData]);
 
     const [{ loading: collectLoading }, handleCollect] = useAsyncFn(async () => {
