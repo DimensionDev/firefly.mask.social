@@ -181,7 +181,9 @@
         "nprogress",
         "datas",
         "flatmap",
-        "getconvert"
+        "getconvert",
+        "nextwidth",
+        "nextheight"
     ],
     "flagWords": [],
     "ignorePaths": [
