@@ -23,10 +23,6 @@ export async function middleware(request: NextRequest) {
         });
     }
 
-    if (pathname === '/') {
-        return NextResponse.redirect(new URL(`/farcaster/trending`, request.url), request);
-    }
-
     if (isMatchedDiscoverPage(pathname)) {
         return NextResponse.rewrite(new URL(`/discover${pathname}`, request.url), {
             request,
