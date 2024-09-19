@@ -7,7 +7,7 @@ export function parseOldPostUrl(url: URL) {
     const source = resolveSourceFromUrl(sourceInUrl);
     if (!isSocialSource(source)) return null;
     const [, , id, ...end] = url.pathname.split('/');
-    if (end.join('/') !== '/') return null;
+    if (end.join('/') !== '') return null;
     if (isSocialSource(id)) return null;
     if (!id) return null;
     return { source, id };
