@@ -27,15 +27,15 @@ export interface ParagraphJSONContent {
         tweetData?: {
             video?: {
                 poster: string;
-                variants: { type: string; src: string }[];
+                variants: Array<{ type: string; src: string }>;
             };
         };
     };
-    content: {
+    content: Array<{
         attrs?: {
             nextheight?: number;
             nextwidth?: number;
             src: string;
         };
-    }[];
+    }>;
 }

@@ -28,12 +28,11 @@ import { fetchJSON } from '@/helpers/fetchJSON.js';
 import { useComeBack } from '@/hooks/useComeback.js';
 import { PreviewMediaModalRef } from '@/modals/controls.js';
 import { FireflyArticleProvider } from '@/providers/firefly/Article.js';
+import type { ParagraphJSONContent } from '@/providers/paragraph/type.js';
 import { ArticlePlatform } from '@/providers/types/Article.js';
 import type { Attachment } from '@/providers/types/SocialMedia.js';
 import type { ResponseJSON } from '@/types/index.js';
 import { type LinkDigested, PayloadType } from '@/types/og.js';
-import type { ParagraphJSONContent } from '@/providers/paragraph/type.js';
-import { useMount } from 'react-use';
 
 interface PageProps {
     params: {
