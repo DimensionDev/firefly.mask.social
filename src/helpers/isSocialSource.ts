@@ -7,7 +7,7 @@ export function isSocialSource(source?: string): source is SocialSource {
     return SORTED_SOCIAL_SOURCES.includes(source as SocialSource);
 }
 
-export function isSocialSourceInURL(sourceInUrl?: SourceInURL): sourceInUrl is SocialSourceInURL {
+export function isSocialSourceInURL(sourceInUrl?: string): sourceInUrl is SocialSourceInURL {
     if (!sourceInUrl) return false;
-    return SORTED_SOCIAL_SOURCES.map(resolveSourceInURL).includes(sourceInUrl);
+    return SORTED_SOCIAL_SOURCES.map(resolveSourceInURL).includes(sourceInUrl as SourceInURL);
 }
