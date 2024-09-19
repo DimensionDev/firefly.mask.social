@@ -215,7 +215,7 @@ export function NFTFeedBody({ index = 0, onChangeIndex, tokenList, chainId }: NF
         <div className="w-full space-y-1.5">
             {activeToken ? <NFTFeedAction {...activeToken.action} /> : null}
             <div className="flex w-full overflow-hidden sm:h-[120px]">
-                <div className="h-auto w-full sm:h-[120px]">
+                <div className="grid h-auto w-full grid-cols-[100%] sm:h-[120px]">
                     <AnimatePresence initial={false} custom={direction}>
                         <motion.div
                             key={tokenIndex}
@@ -224,7 +224,7 @@ export function NFTFeedBody({ index = 0, onChangeIndex, tokenList, chainId }: NF
                             initial="enter"
                             animate="center"
                             exit="exit"
-                            className="h-auto w-full sm:h-[120px]"
+                            className="col-start-1 col-end-2 row-start-1 row-end-2 h-auto w-full sm:h-[120px]"
                             transition={{
                                 x: { type: 'spring', stiffness: 300, damping: 30 },
                                 opacity: { duration: 0.2 },
