@@ -1756,6 +1756,9 @@ msgstr "No whitelist"
 msgid "Cancel repost successfully"
 msgstr "Cancel repost successfully"
 
+msgid "Collect Post"
+msgstr "Collect Post"
+
 msgid "Muting..."
 msgstr "Muting..."
 

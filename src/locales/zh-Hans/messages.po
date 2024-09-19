@@ -1761,6 +1761,9 @@ msgstr "没有白名单"
 msgid "Cancel repost successfully"
 msgstr "取消转帖成功"
 
+msgid "Collect Post"
+msgstr ""
+
 msgid "Muting..."
 msgstr "隐藏中..."
 
