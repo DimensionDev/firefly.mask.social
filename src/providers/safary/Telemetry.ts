@@ -5,8 +5,8 @@ import { env } from '@/constants/env.js';
 import { NotImplementedError } from '@/constants/error.js';
 import { bom } from '@/helpers/bom.js';
 import { getPublicParameters } from '@/providers/safary/getPublicParameters.js';
-import type { Events, Safary } from '@/providers/types/Safary.js';
-import { Provider } from '@/providers/types/Telemetry.js';
+import type { Safary } from '@/providers/types/Safary.js';
+import { type Events, Provider } from '@/providers/types/Telemetry.js';
 
 function formatParameter(key: string, value: unknown): [string, unknown] {
     if (typeof value === 'boolean') {
