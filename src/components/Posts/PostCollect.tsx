@@ -156,12 +156,7 @@ export function PostCollect({ post, onClose }: PostCollectProps) {
                 <>
                     <Trans>Collected</Trans>
                     {contractExploreUrl ? (
-                        <Link
-                            className="ml-1"
-                            href={EVMExplorerResolver.addressLink(polygon.id, contractExploreUrl) ?? ''}
-                            target="_blank"
-                            rel="noreferrer noopener"
-                        >
+                        <Link className="ml-1" href={contractExploreUrl} target="_blank" rel="noreferrer noopener">
                             <LinkIcon width={18} height={18} />
                         </Link>
                     ) : null}
@@ -174,12 +169,7 @@ export function PostCollect({ post, onClose }: PostCollectProps) {
                 <>
                     <Trans>Sold Out</Trans>
                     {contractExploreUrl ? (
-                        <Link
-                            className="ml-1"
-                            href={EVMExplorerResolver.addressLink(polygon.id, contractExploreUrl) ?? ''}
-                            target="_blank"
-                            rel="noreferrer noopener"
-                        >
+                        <Link className="ml-1" href={contractExploreUrl} target="_blank" rel="noreferrer noopener">
                             <LinkIcon width={18} height={18} />
                         </Link>
                     ) : null}
@@ -191,11 +181,7 @@ export function PostCollect({ post, onClose }: PostCollectProps) {
                 <>
                     <Trans>Time Out</Trans>
                     {contractExploreUrl ? (
-                        <Link
-                            href={EVMExplorerResolver.addressLink(polygon.id, contractExploreUrl) ?? ''}
-                            target="_blank"
-                            rel="noreferrer noopener"
-                        >
+                        <Link href={contractExploreUrl} target="_blank" rel="noreferrer noopener">
                             <LinkIcon width={18} height={18} />
                         </Link>
                     ) : null}
