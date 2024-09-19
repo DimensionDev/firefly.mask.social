@@ -66,9 +66,9 @@ export const Menu = memo(function Menu({ collapsed = false }: MenuProps) {
 
     return (
         <nav className="relative flex flex-1 flex-col">
-            <ul role="list" className="flex flex-1 flex-col gap-y-7">
+            <menu role="list" className="flex flex-1 flex-col gap-y-7">
                 <li className="flex overflow-hidden">
-                    <ul role="list" className="w-full overflow-hidden">
+                    <menu role="list" className="w-full overflow-hidden">
                         {[
                             {
                                 href: PageRoute.Home,
@@ -204,10 +204,10 @@ export const Menu = memo(function Menu({ collapsed = false }: MenuProps) {
                                 </li>
                             )
                         ) : null}
-                    </ul>
+                    </menu>
                 </li>
-            </ul>
-            <div
+            </menu>
+            <footer
                 className={classNames('absolute -left-2 -right-2 bottom-20', {
                     'flex justify-center text-center': !isLogin,
                 })}
@@ -240,7 +240,7 @@ export const Menu = memo(function Menu({ collapsed = false }: MenuProps) {
                         )}
                     </ClickableButton>
                 )}
-            </div>
+            </footer>
         </nav>
     );
 });

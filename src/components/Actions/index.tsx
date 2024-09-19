@@ -146,7 +146,7 @@ export const PostActions = memo<PostActionsProps>(function PostActions({
     const mutation = useToggleBookmark(post.source);
 
     return (
-        <div
+        <footer
             className={classNames('mt-2 text-xs text-lightSecond', className, {
                 'pl-[52px]': !noLeftPadding,
             })}
@@ -219,6 +219,6 @@ export const PostActions = memo<PostActionsProps>(function PostActions({
                 showChannelTag={showChannelTag}
                 onSetScrollIndex={onSetScrollIndex}
             />
-        </div>
+        </footer>
     );
 });

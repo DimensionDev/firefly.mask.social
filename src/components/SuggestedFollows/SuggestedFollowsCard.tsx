@@ -85,7 +85,7 @@ export function SuggestedFollowsCard() {
     if (!suggestedFollows?.length || !isLarge) return null;
 
     return (
-        <div className="-mb-3">
+        <section className="-mb-3">
             <AsideTitle className="flex items-center justify-between !pb-1">
                 <span className="text-xl">
                     <Trans>You might like</Trans>
@@ -125,6 +125,6 @@ export function SuggestedFollowsCard() {
                     ))}
                 </Swiper>
             </div>
-        </div>
+        </section>
     );
 }

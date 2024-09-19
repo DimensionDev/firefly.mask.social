@@ -184,11 +184,11 @@ export const PostStatistics = memo<Props>(function PostStatistics({
               ])
             : compact([
                   post.timestamp && !hideDate ? (
-                      <>
+                      <time dateTime={new Date(post.timestamp).toISOString()}>
                           <span>{dayjs(post.timestamp).format('hh:mm A')}</span>
                           <span>{' · '}</span>
                           <span>{dayjs(post.timestamp).format('MMM DD, YYYY')}</span>
-                      </>
+                      </time>
                   ) : null,
                   likes,
                   collects,

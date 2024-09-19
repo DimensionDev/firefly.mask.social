@@ -101,5 +101,10 @@ export function HeaderSearchBar() {
 export function AsideSearchBar() {
     const pathname = usePathname();
     const isSearchPage = !isRoutePathname(pathname, '/search');
-    return isSearchPage ? <SearchBar slot="secondary" /> : null;
+    return isSearchPage ? (
+        <section>
+            <h1 className="hidden">Search Bar</h1>
+            <SearchBar slot="secondary" />
+        </section>
+    ) : null;
 }

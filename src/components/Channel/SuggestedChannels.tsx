@@ -35,7 +35,7 @@ export function SuggestedChannels({ source }: SuggestedChannelsProps) {
     if (!suggestedChannels.length) return null;
 
     return (
-        <div>
+        <section>
             <AsideTitle className="flex items-center justify-between">
                 <span className="text-xl">
                     <Trans>Trending Channels</Trans>
@@ -57,6 +57,6 @@ export function SuggestedChannels({ source }: SuggestedChannelsProps) {
                     <ChannelInList key={channel.id} channel={channel} noFollowButton dense />
                 ))}
             </div>
-        </div>
+        </section>
     );
 }

@@ -132,22 +132,24 @@ export function PostDetailPage({ post, id: postId, source }: Props) {
                         />
                     </>
                 ) : (
-                    <>
+                    <article>
                         <SinglePost post={post} disableAnimate isDetail showTranslate className="border-b-0" />
-                        <PostStatistics post={post} className="mb-1.5 px-3" />
-                        {!post.isHidden ? (
-                            <PostActionsWithGrid
-                                disablePadding
-                                post={post}
-                                disabled={post.isHidden}
-                                className="!mt-0 border-b border-t border-line py-3 pl-2 pr-4"
-                            />
-                        ) : null}
+                        <footer>
+                            <PostStatistics post={post} className="mb-1.5 px-3" />
+                            {!post.isHidden ? (
+                                <PostActionsWithGrid
+                                    disablePadding
+                                    post={post}
+                                    disabled={post.isHidden}
+                                    className="!mt-0 border-b border-t border-line py-3 pl-2 pr-4"
+                                />
+                            ) : null}
+                        </footer>
                         {/* TODO: Compose Comment Input */}
                         <Suspense fallback={<Loading />}>
                             <CommentList postId={postId} source={source} />
                         </Suspense>
-                    </>
+                    </article>
                 )}
             </div>
         </div>

@@ -59,7 +59,7 @@ export const PostHeader = memo<PostHeaderProps>(function PostHeader({
     );
 
     return (
-        <div className={classNames('flex gap-3', isQuote ? 'items-center' : 'items-start')}>
+        <header className={classNames('flex gap-3', isQuote ? 'items-center' : 'items-start')}>
             <ProfileTippy identity={identity}>
                 <Link
                     href={profileLink}
@@ -82,8 +82,8 @@ export const PostHeader = memo<PostHeaderProps>(function PostHeader({
                 </Link>
             </ProfileTippy>
 
-            <div
-                className={classNames({
+            <address
+                className={classNames('not-italic', {
                     'w-[calc(100%-40px-20px-24px)]': !isQuote,
                     'w-[calc(100%-24px-24px)]': isQuote,
                 })}
@@ -103,9 +103,12 @@ export const PostHeader = memo<PostHeaderProps>(function PostHeader({
                     {post.timestamp && (isComment || isQuote || !isDetailPage || showDate) ? (
                         <>
                             <span className="mx-1 leading-5 text-secondary">·</span>
-                            <span className="whitespace-nowrap text-medium leading-5 text-secondary">
+                            <time
+                                dateTime={new Date(post.timestamp).toISOString()}
+                                className="whitespace-nowrap text-medium leading-5 text-secondary"
+                            >
                                 <TimestampFormatter time={post.timestamp} />
-                            </span>
+                            </time>
                             <span className="mx-1 leading-5 text-secondary">·</span>
                         </>
                     ) : null}
@@ -115,12 +118,12 @@ export const PostHeader = memo<PostHeaderProps>(function PostHeader({
                     <SocialSourceIcon className="shrink-0" source={post.source} size={15} />
                 </div>
                 {newLine ? <div>{handle}</div> : null}
-            </div>
+            </address>
             <div className="ml-auto flex items-center space-x-2 self-baseline">
                 {!post.isHidden && !isQuote ? (
                     <MoreAction channel={post.channel} source={post.source} author={author} post={post} />
                 ) : null}
             </div>
-        </div>
+        </header>
     );
 });
