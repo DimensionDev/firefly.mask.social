@@ -15,7 +15,6 @@ import { classNames } from '@/helpers/classNames.js';
 import { getPostUrl } from '@/helpers/getPostUrl.js';
 import { isRoutePathname } from '@/helpers/isRoutePathname.js';
 import { useIsProfileMuted } from '@/hooks/useIsProfileMuted.js';
-import { useIsSmall } from '@/hooks/useMediaQuery.js';
 import { type Post } from '@/providers/types/SocialMedia.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
 
@@ -51,13 +50,11 @@ export const SinglePost = memo<SinglePostProps>(function SinglePost({
 
     const pathname = usePathname();
 
-    const isPostPage = isRoutePathname(pathname, '/post/:detail', true);
-    const isProfilePage = isRoutePathname(pathname, '/profile/:id', true);
-    const isChannelPage = isRoutePathname(pathname, '/channel/:detail', true);
+    const isPostPage = isRoutePathname(pathname, '/post/:source');
+    const isProfilePage = isRoutePathname(pathname, '/profile/:source');
+    const isChannelPage = isRoutePathname(pathname, '/channel/:detail');
     const postLink = getPostUrl(post);
     const muted = useIsProfileMuted(post.author);
-
-    const isSmall = useIsSmall('max');
 
     const show = useMemo(() => {
         if (post.source === Source.Twitter) return false;

@@ -11,16 +11,5 @@
             ]
         }
     ],
-    "redirects": [
-        {
-            "source": "/post/lens/:id([\\w-]+)",
-            "destination": "/post/:id?source=lens",
-            "permanent": true
-        },
-        {
-            "source": "/post/farcaster/:id([\\w-]+)",
-            "destination": "/post/:id?source=farcaster",
-            "permanent": true
-        }
-    ]
+    "redirects": []
 }
