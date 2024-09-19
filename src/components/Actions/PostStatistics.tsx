@@ -6,7 +6,7 @@ import { Fragment, type HTMLProps, memo, type ReactNode, useMemo } from 'react';
 
 import FireflyAvatarIcon from '@/assets/firefly-avatar.svg';
 import { ChannelAnchor } from '@/components/Posts/ChannelAnchor.js';
-import { EngagementType, Source } from '@/constants/enum.js';
+import { EngagementType, PageRoute, Source } from '@/constants/enum.js';
 import { Link } from '@/esm/Link.js';
 import { classNames } from '@/helpers/classNames.js';
 import { getPollTimeLeft } from '@/helpers/getPollTimeLeft.js';
@@ -166,7 +166,7 @@ export const PostStatistics = memo<Props>(function PostStatistics({
 
     const sendFrom = post.sendFrom?.displayName === 'Firefly App' ? 'Firefly' : post.sendFrom?.displayName;
 
-    const isDetailPage = isRoutePathname(pathname, '/post/:detail', true);
+    const isDetailPage = isRoutePathname(pathname, PageRoute.PostDetail, true);
 
     const statisticsItems =
         !isDetailPage || isComment

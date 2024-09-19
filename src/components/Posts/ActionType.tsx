@@ -11,7 +11,7 @@ import MirrorIcon from '@/assets/mirror.svg';
 import SparkIcon from '@/assets/spark.svg';
 import { ClickableArea } from '@/components/ClickableArea.js';
 import { ThreadBody } from '@/components/Posts/ThreadBody.js';
-import { Source } from '@/constants/enum.js';
+import { PageRoute, Source } from '@/constants/enum.js';
 import { Link } from '@/esm/Link.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { isRoutePathname } from '@/helpers/isRoutePathname.js';
@@ -40,7 +40,7 @@ export const FeedActionType = memo<FeedActionType>(function FeedActionType({
     const showThread = isComment || !post.comments?.length;
 
     const pathname = usePathname();
-    const isPostPage = isRoutePathname(pathname, '/post/:detail', true);
+    const isPostPage = isRoutePathname(pathname, PageRoute.PostDetail, true);
 
     const combined =
         [post.mirrors?.length ?? 0, post.reactions?.length ?? 0, post.comments?.length ?? 0].filter((x) => x > 0)

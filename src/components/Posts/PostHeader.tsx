@@ -8,7 +8,7 @@ import { Avatar } from '@/components/Avatar.js';
 import { ProfileTippy } from '@/components/Profile/ProfileTippy.js';
 import { SocialSourceIcon } from '@/components/SocialSourceIcon.js';
 import { TimestampFormatter } from '@/components/TimeStampFormatter.js';
-import { Source } from '@/constants/enum.js';
+import { PageRoute, Source } from '@/constants/enum.js';
 import { Link } from '@/esm/Link.js';
 import { classNames } from '@/helpers/classNames.js';
 import { getLennyURL } from '@/helpers/getLennyURL.js';
@@ -39,7 +39,7 @@ export const PostHeader = memo<PostHeaderProps>(function PostHeader({
 
     const isSmall = useIsSmall('max');
     const pathname = usePathname();
-    const isDetailPage = isRoutePathname(pathname, '/post/:detail', true);
+    const isDetailPage = isRoutePathname(pathname, PageRoute.PostDetail, true);
 
     const identity = resolveFireflyIdentity(author);
     const newLine = !isQuote && (isSmall || (isDetailPage && !isComment && !showDate));
