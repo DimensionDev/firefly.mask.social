@@ -103,7 +103,7 @@ export function AsideSearchBar() {
     const isSearchPage = !isRoutePathname(pathname, '/search');
     return isSearchPage ? (
         <section>
-            <h1 className="hidden">Search Bar</h1>
+            <h1 className="sr-only">Search Bar</h1>
             <SearchBar slot="secondary" />
         </section>
     ) : null;
