@@ -1,8 +1,7 @@
 import dayjs from 'dayjs';
 
 import { formatDate } from '@/helpers/formatTimestamp.js';
-import { isTimestamp } from '@/helpers/isTimestamp.js';
-import { isUnixTimestamp } from '@/helpers/isUnixTimestamp.js';
+import { isTimestamp, isUnixTimestamp } from '@/helpers/ts.js';
 
 export function getNFTPropertyDateString(dateString: string) {
     if (isUnixTimestamp(dateString)) {

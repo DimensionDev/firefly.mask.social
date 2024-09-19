@@ -9,8 +9,9 @@ import { resolvePostUrl } from '@/helpers/resolvePostUrl.js';
 import { resolveSourceInURL } from '@/helpers/resolveSourceInURL.js';
 
 export async function middleware(request: NextRequest) {
+    request.headers.set('X-URL', request.url);
+
     const pathname = request.nextUrl.pathname;
-    request.headers.set('x-url', request.url);
     const isPost = pathname.startsWith('/post') && !pathname.includes('/photos');
 
     if (isPost) {

@@ -3,7 +3,7 @@ import { formatFileSize } from '@masknet/kit';
 
 import { FileMimeType, type SocialSource } from '@/constants/enum.js';
 import { getPostGifSizeLimit, getPostImageSizeLimit, getPostVideoSizeLimit } from '@/helpers/getPostLimitation.js';
-import { isValidFileType } from '@/helpers/isValidFileType.js';
+import { isMediaFileType } from '@/helpers/isMediaFileType.js';
 import { validateVideoDuration, validateVideoSize } from '@/helpers/validateVideo.js';
 
 export async function isValidPostVideo(availableSources: SocialSource[], file: File) {
@@ -43,7 +43,7 @@ export function isValidPostImage(availableSources: SocialSource[], file: File) {
             : t`Failed to upload. Image size exceeds ${formatFileSize(maxImageSize, false)}`;
     }
 
-    if (!isValidFileType(file.type)) {
+    if (!isMediaFileType(file.type)) {
         return t`Failed to upload. Not a valid image type`;
     }
 
