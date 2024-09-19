@@ -3,7 +3,7 @@
 import { PlusIcon, UserPlusIcon } from '@heroicons/react/24/outline';
 import { t, Trans } from '@lingui/macro';
 import { delay } from '@masknet/kit';
-import { usePathname, useSearchParams } from 'next/navigation.js';
+import { usePathname } from 'next/navigation.js';
 import { memo } from 'react';
 
 import BookmarkSelectedIcon from '@/assets/bookmark.selected.svg';
@@ -30,11 +30,11 @@ import { PageRoute } from '@/constants/enum.js';
 import { DEFAULT_SOCIAL_SOURCE } from '@/constants/index.js';
 import { Link } from '@/esm/Link.js';
 import { classNames } from '@/helpers/classNames.js';
-import { getCurrentSourceFromParams } from '@/helpers/getCurrentSourceFromUrl.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { isMatchedDiscoverPage } from '@/helpers/isMatchedDiscoverPage.js';
 import { isRoutePathname } from '@/helpers/isRoutePathname.js';
 import { isSameFireflyIdentity } from '@/helpers/isSameFireflyIdentity.js';
+import { parseProfileUrl } from '@/helpers/parseProfileUrl.js';
 import { resolveBookmarkUrl } from '@/helpers/resolveBookmarkUrl.js';
 import { resolveFollowingUrl } from '@/helpers/resolveFollowingUrl.js';
 import { resolveNotificationUrl } from '@/helpers/resolveNotificationUrl.js';
@@ -52,7 +52,6 @@ interface MenuProps {
 }
 
 export const Menu = memo(function Menu({ collapsed = false }: MenuProps) {
-    const params = useSearchParams();
     const currentChannel = useCurrentVisitingChannel();
     const isMedium = useIsMedium();
     const { updateSidebarOpen } = useNavigatorState();
@@ -65,19 +64,6 @@ export const Menu = memo(function Menu({ collapsed = false }: MenuProps) {
 
     const isLoading = useAsyncStatusAll();
 
-    const checkIsSelected = (href: `/${string}`) => {
-        if (href === '/') return pathname === href;
-        if (isRoutePathname(href, '/profile')) {
-            const identity = {
-                id: isRoutePathname(pathname, '/profile') ? pathname.split('/')[2] ?? '' : '',
-                source: getCurrentSourceFromParams(params),
-            };
-            const isCurrentProfile = profiles.some((x) => isSameFireflyIdentity(x.identity, identity));
-            return isCurrentProfile || pathname === PageRoute.Profile;
-        }
-        return isRoutePathname(pathname, href);
-    };
-
     return (
         <nav className="relative flex flex-1 flex-col">
             <ul role="list" className="flex flex-1 flex-col gap-y-7">
@@ -89,7 +75,7 @@ export const Menu = memo(function Menu({ collapsed = false }: MenuProps) {
                                 name: <Trans>Discover</Trans>,
                                 icon: DiscoverIcon,
                                 selectedIcon: DiscoverSelectedIcon,
-                                match: () => isMatchedDiscoverPage(pathname),
+                                match: () => pathname === PageRoute.Home || isMatchedDiscoverPage(pathname),
                             },
                             {
                                 href: resolveFollowingUrl(DEFAULT_SOCIAL_SOURCE),
@@ -117,10 +103,16 @@ export const Menu = memo(function Menu({ collapsed = false }: MenuProps) {
                                 name: <Trans>Profile</Trans>,
                                 icon: ProfileIcon,
                                 selectedIcon: ProfileSelectedIcon,
-                                match: () =>
-                                    profile
-                                        ? pathname === getProfileUrl(profile)
-                                        : pathname.startsWith(PageRoute.Profile),
+                                match: () => {
+                                    const parsedProfileUrl = parseProfileUrl(pathname);
+                                    if (!parsedProfileUrl) return false;
+                                    return profiles.some((x) =>
+                                        isSameFireflyIdentity(x.identity, {
+                                            source: parsedProfileUrl.source,
+                                            id: parsedProfileUrl.id,
+                                        }),
+                                    );
+                                },
                             },
                             {
                                 href: '/connect-wallet',
@@ -133,10 +125,10 @@ export const Menu = memo(function Menu({ collapsed = false }: MenuProps) {
                                 name: <Trans>Settings</Trans>,
                                 icon: SettingsIcon,
                                 selectedIcon: SettingsSelectedIcon,
+                                match: () => isRoutePathname(pathname, PageRoute.Settings),
                             },
                         ].map((item) => {
-                            const isSelected =
-                                (item.match && item.match()) || checkIsSelected(item.href as `/${string}`);
+                            const isSelected = Boolean(item.match?.());
                             const Icon = isSelected ? item.selectedIcon : item.icon;
 
                             return (
