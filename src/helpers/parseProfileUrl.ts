@@ -5,7 +5,7 @@ import { isSocialSource } from '@/helpers/isSocialSource.js';
 import { isWalletProfileCategory } from '@/helpers/isWalletProfileCategory.js';
 import { resolveSourceFromUrlNoFallback } from '@/helpers/resolveSource.js';
 
-export function parseProfileUrl({pathname}: URL) {
+export function parseProfileUrl(pathname: string) {
     if (!pathname.startsWith('/profile')) return null;
     const [, , sourceInUrl, id, category] = pathname.split('/');
     const source = resolveSourceFromUrlNoFallback(sourceInUrl);
