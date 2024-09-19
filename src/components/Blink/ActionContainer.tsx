@@ -6,7 +6,7 @@ import { parseUrl } from '@/helpers/parseUrl.js';
 export const ActionContainer = memo<{
     action: Action;
 }>(function ActionContainer({ action }) {
-    const urlObj = parseUrl(action.url);
+    const parsed = parseUrl(action.url);
 
     return (
         <div
@@ -15,7 +15,7 @@ export const ActionContainer = memo<{
                 e.stopPropagation();
             }}
         >
-            <RawActionContainer action={action} websiteUrl={urlObj?.origin} websiteText={urlObj?.host} />
+            <RawActionContainer action={action} websiteUrl={parsed?.origin} websiteText={parsed?.host} />
         </div>
     );
 });
