@@ -33,7 +33,7 @@ export async function middleware(request: NextRequest) {
         });
     }
 
-    const parsedProfileUrl = parseProfileUrl(pathname);
+    const parsedProfileUrl = parseProfileUrl(request.nextUrl);
     if (parsedProfileUrl?.category && isFollowCategory(parsedProfileUrl.category)) {
         const destination = new URL(
             urlcat(`/profile/:source/:id/relation/:category`, {
