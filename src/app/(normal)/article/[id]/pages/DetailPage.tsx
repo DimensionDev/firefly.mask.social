@@ -7,9 +7,9 @@ import { EVMExplorerResolver } from '@masknet/web3-providers';
 import { ChainId } from '@masknet/web3-shared-evm';
 import { useQuery, useSuspenseQuery } from '@tanstack/react-query';
 import DOMPurify from 'dompurify';
-import { compact } from 'lodash-es';
+import { compact, first } from 'lodash-es';
 import { useRouter } from 'next/navigation.js';
-import { useRef } from 'react';
+import { useEffect, useRef } from 'react';
 import urlcat from 'urlcat';
 import { useDarkMode, useDocumentTitle } from 'usehooks-ts';
 import { checksumAddress } from 'viem';
@@ -32,6 +32,8 @@ import { ArticlePlatform } from '@/providers/types/Article.js';
 import type { Attachment } from '@/providers/types/SocialMedia.js';
 import type { ResponseJSON } from '@/types/index.js';
 import { type LinkDigested, PayloadType } from '@/types/og.js';
+import type { ParagraphJSONContent } from '@/providers/paragraph/type.js';
+import { useMount } from 'react-use';
 
 interface PageProps {
     params: {
@@ -54,6 +56,7 @@ export function ArticleDetailPage({ params: { id: articleId } }: PageProps) {
     });
 
     const isMuted = article?.author.isMuted;
+
     const cover = useQuery({
         enabled: !isMuted,
         queryKey: ['article', 'cover', article?.id],
@@ -75,6 +78,51 @@ export function ArticleDetailPage({ params: { id: articleId } }: PageProps) {
     });
 
     useDocumentTitle(article ? createPageTitle(t`Post by ${article.author.handle}`) : SITE_NAME);
+
+    useEffect(() => {
+        if (!ref.current) return;
+        const paragraphObserver = new MutationObserver(() => {
+            if (!article?.json) return;
+            const json = JSON.parse(article.json) as { content: ParagraphJSONContent[] };
+
+            const twitterEmbeds = json.content.filter((x) => x.type === 'twitter');
+
+            twitterEmbeds.forEach((x) => {
+                const poster = x.attrs?.tweetData?.video?.poster;
+                const videoSrc = first(
+                    x.attrs?.tweetData?.video?.variants.filter((video) => video.type === 'video/mp4'),
+                )?.src;
+                const img = ref.current?.querySelector(`img[src="${poster}"]`);
+
+                if (!img || !videoSrc) return;
+
+                const videoNode = document.createElement('video');
+                videoNode.src = videoSrc;
+                videoNode.controls = true;
+                img?.replaceWith(videoNode);
+            });
+
+            const svgEmbeds = json.content.filter((x) => x.type === 'figure');
+
+            svgEmbeds.forEach((x) => {
+                x.content.forEach((svg) => {
+                    if (svg.attrs?.nextheight && svg.attrs?.nextwidth) {
+                        const node = ref.current?.querySelector(`img[src="${svg.attrs.src}"]`);
+                        node?.setAttribute('height', `${svg.attrs.nextheight}px`);
+                        node?.setAttribute('width', `${svg.attrs.nextwidth}px`);
+                    }
+
+                    return;
+                });
+            });
+        });
+
+        paragraphObserver.observe(ref.current, { subtree: true, childList: true });
+
+        return () => {
+            paragraphObserver.disconnect();
+        };
+    }, [article?.json, article?.content]);
 
     if (!article) return null;
 

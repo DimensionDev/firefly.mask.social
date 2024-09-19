@@ -33,5 +33,7 @@ export function formatArticleFromFirefly(article: FireflyArticle): Article {
         hasBookmarked: article.has_bookmarked,
         followingSources: article.followingSources,
         slug: article.paragraph_raw_data?.slug,
+        // paragraph only
+        json: article.paragraph_raw_data?.json,
     };
 }

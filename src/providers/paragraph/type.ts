@@ -20,3 +20,22 @@ export enum ParagraphChain {
     Zora = 'zora',
     Polygon = 'polygon',
 }
+
+export interface ParagraphJSONContent {
+    type: string;
+    attrs?: {
+        tweetData?: {
+            video?: {
+                poster: string;
+                variants: { type: string; src: string }[];
+            };
+        };
+    };
+    content: {
+        attrs?: {
+            nextheight?: number;
+            nextwidth?: number;
+            src: string;
+        };
+    }[];
+}
