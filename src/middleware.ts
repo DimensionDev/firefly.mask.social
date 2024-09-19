@@ -3,7 +3,9 @@ import urlcat from 'urlcat';
 
 import { isFollowCategory } from '@/helpers/isFollowCategory.js';
 import { isMatchedDiscoverPage } from '@/helpers/isMatchedDiscoverPage.js';
+import { parseOldPostUrl } from '@/helpers/parsePostUrl.js';
 import { parseProfileUrl } from '@/helpers/parseProfileUrl.js';
+import { resolvePostUrl } from '@/helpers/resolvePostUrl.js';
 import { resolveSourceInURL } from '@/helpers/resolveSourceInURL.js';
 
 export async function middleware(request: NextRequest) {
@@ -43,6 +45,13 @@ export async function middleware(request: NextRequest) {
         return NextResponse.rewrite(destination, {
             request,
         });
+    }
+
+    const parsedOldPostUrl = parseOldPostUrl(request.nextUrl);
+    if (parsedOldPostUrl) {
+        const destination = request.nextUrl.clone();
+        destination.pathname = resolvePostUrl(parsedOldPostUrl.source, request.url);
+        return NextResponse.redirect(destination);
     }
 
     return NextResponse.next({

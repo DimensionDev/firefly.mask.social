@@ -15,11 +15,11 @@ interface Props {
     params: {
         id: string;
         index: string;
+        source: SocialSourceInURL;
     };
-    searchParams: { source: SocialSourceInURL };
 }
 
-export default function PreviewPhotoModal({ params: { id: postId, index }, searchParams: { source } }: Props) {
+export default function PreviewPhotoModal({ params: { id: postId, index, source } }: Props) {
     const router = useRouter();
 
     const currentSource = resolveSocialSource(source);
