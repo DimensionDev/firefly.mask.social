@@ -6,7 +6,7 @@ import { formatFireflyPoll } from '@/helpers/formatFireflyPoll.js';
 import { getCurrentProfile } from '@/helpers/getCurrentProfile.js';
 import { getPollDurationSeconds } from '@/helpers/polls.js';
 import { resolveFireflyResponseData } from '@/helpers/resolveFireflyResponseData.js';
-import { resolveSocialSourceInURL } from '@/helpers/resolveSourceInURL.js';
+import { resolveSocialSourceInUrl } from '@/helpers/resolveSourceInUrl.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
 import type {
     CompositePoll,
@@ -49,7 +49,7 @@ export const getPoll = async (pollId: string, source: SocialSource): Promise<Pol
     const profile = getCurrentProfile(source);
     const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/vote_frame/poll', {
         poll_id: pollId,
-        platform: resolveSocialSourceInURL(source),
+        platform: resolveSocialSourceInUrl(source),
         platform_id: profile?.profileId,
     });
 

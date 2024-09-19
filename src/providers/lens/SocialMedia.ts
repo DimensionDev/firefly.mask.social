@@ -34,7 +34,7 @@ import { config } from '@/configs/wagmiClient.js';
 import { FireflyPlatform, Source, SourceInURL } from '@/constants/enum.js';
 import { InvalidResultError, NotImplementedError } from '@/constants/error.js';
 import { EMPTY_LIST } from '@/constants/index.js';
-import { SetQueryDataForActPost } from '@/decorators/setQueryDataForActPost.js';
+import { SetQueryDataForActPost } from '@/decorators/SetQueryDataForActPost.js';
 import { SetQueryDataForBlockProfile } from '@/decorators/SetQueryDataForBlockProfile.js';
 import { SetQueryDataForBookmarkPost } from '@/decorators/SetQueryDataForBookmarkPost.js';
 import { SetQueryDataForCommentPost } from '@/decorators/SetQueryDataForCommentPost.js';

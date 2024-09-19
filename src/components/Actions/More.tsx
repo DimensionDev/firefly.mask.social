@@ -23,7 +23,7 @@ import { SORTED_ENGAGEMENT_TAB_TYPE } from '@/constants/index.js';
 import { Link } from '@/esm/Link.js';
 import { isSameProfile } from '@/helpers/isSameProfile.js';
 import { resolveFireflyProfileId } from '@/helpers/resolveFireflyProfileId.js';
-import { resolveSocialSourceInURL } from '@/helpers/resolveSourceInURL.js';
+import { resolveSocialSourceInUrl } from '@/helpers/resolveSourceInUrl.js';
 import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
 import { useDeletePost } from '@/hooks/useDeletePost.js';
 import { useIsMyRelatedProfile } from '@/hooks/useIsMyRelatedProfile.js';
@@ -176,7 +176,7 @@ export const MoreAction = memo<MoreProps>(function MoreAction({ source, author, 
                     <Menu.Item
                         as={Link}
                         shallow
-                        href={`/post/${post.postId}/${engagementType}?source=${resolveSocialSourceInURL(source)}`}
+                        href={`/post/${post.postId}/${engagementType}?source=${resolveSocialSourceInUrl(source)}`}
                         className="box-border flex h-8 cursor-pointer items-center space-x-2 px-3 py-1 hover:bg-bg"
                         onClick={(e) => e.stopPropagation()}
                     >

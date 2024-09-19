@@ -18,7 +18,7 @@ import { getProfileState } from '@/helpers/getProfileState.js';
 import { isRoutePathname } from '@/helpers/isRoutePathname.js';
 import { isSameProfile } from '@/helpers/isSameProfile.js';
 import { resolveFireflyProfileId } from '@/helpers/resolveFireflyProfileId.js';
-import { resolveSourceInURL } from '@/helpers/resolveSourceInURL.js';
+import { resolveSourceInUrl } from '@/helpers/resolveSourceInUrl.js';
 import { useConnectedAccounts } from '@/hooks/useConnectedAccounts.js';
 import { useIsMyRelatedProfile } from '@/hooks/useIsMyRelatedProfile.js';
 import { useProfileStore } from '@/hooks/useProfileStore.js';
@@ -82,7 +82,7 @@ export function ProfileSettings({ source, onClose }: ProfileSettingsProps) {
                                 ) {
                                     updateParams(
                                         new URLSearchParams({
-                                            source: resolveSourceInURL(account.profile.source),
+                                            source: resolveSourceInUrl(account.profile.source),
                                         }),
                                         isPureProfilePage
                                             ? undefined

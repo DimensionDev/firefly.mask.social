@@ -1,6 +1,6 @@
 /* cspell:disable */
 
-import { parseURL } from '@/helpers/parseURL.js';
+import { parseUrl } from '@/helpers/parseUrl.js';
 
 const TLD_DOMAIN = [
     '.aaa',
@@ -1597,7 +1597,7 @@ const TLD_DOMAIN = [
 ];
 
 export function isTopLevelDomain(url: URL | string) {
-    const u = typeof url === 'string' ? parseURL(url) : url;
+    const u = typeof url === 'string' ? parseUrl(url) : url;
     const domain = u?.hostname.split('.').pop()?.toLocaleLowerCase();
 
     if (domain === 'eth') {

@@ -4,7 +4,7 @@ import { Image } from '@/esm/Image.js';
 import { Link } from '@/esm/Link.js';
 import { classNames } from '@/helpers/classNames.js';
 import { isSelfReference } from '@/helpers/isLinkMatchingHost.js';
-import { parseURL } from '@/helpers/parseURL.js';
+import { parseUrl } from '@/helpers/parseUrl.js';
 import type { OpenGraph } from '@/types/og.js';
 
 interface EmbedProps {
@@ -12,7 +12,7 @@ interface EmbedProps {
 }
 
 export function Embed({ og }: EmbedProps) {
-    const u = parseURL(og.url);
+    const u = parseUrl(og.url);
     if (!u) return null;
 
     const imageProps = og.image

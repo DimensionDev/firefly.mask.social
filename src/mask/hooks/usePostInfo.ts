@@ -11,7 +11,7 @@ import { EMPTY_LIST, SITE_HOSTNAME, SITE_URL } from '@/constants/index.js';
 import { URL_REGEX } from '@/constants/regexp.js';
 import { EMPTY_ARRAY } from '@/constants/subscription.js';
 import { getPostUrl } from '@/helpers/getPostUrl.js';
-import { parseURL } from '@/helpers/parseURL.js';
+import { parseUrl } from '@/helpers/parseUrl.js';
 import { createConstantSubscription } from '@/helpers/subscription.js';
 import { ValueRef } from '@/libs/ValueRef.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
@@ -27,8 +27,8 @@ export function usePostInfo(post: Post) {
         );
 
         const mentionedLinks = post.metadata.content?.content?.match(URL_REGEX) || EMPTY_LIST;
-        const url = parseURL(urlcat(SITE_URL, getPostUrl(post)));
-        const avatarURL = parseURL(post.author.pfp);
+        const url = parseUrl(urlcat(SITE_URL, getPostUrl(post)));
+        const avatarURL = parseUrl(post.author.pfp);
 
         return {
             author: createConstantSubscription(author),

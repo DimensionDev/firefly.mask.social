@@ -7,7 +7,7 @@ import urlcat from 'urlcat';
 import { ClickableArea } from '@/components/ClickableArea.js';
 import type { MarkupLinkProps } from '@/components/Markup/MarkupLink/index.js';
 import { PageRoute, SearchType } from '@/constants/enum.js';
-import { resolveSourceInURL } from '@/helpers/resolveSourceInURL.js';
+import { resolveSourceInUrl } from '@/helpers/resolveSourceInUrl.js';
 
 export const Hashtag = memo<Omit<MarkupLinkProps, 'post'>>(function Hashtag({ title, source }) {
     const router = useRouter();
@@ -28,7 +28,7 @@ export const Hashtag = memo<Omit<MarkupLinkProps, 'post'>>(function Hashtag({ ti
                     urlcat(PageRoute.Search, {
                         q: title,
                         type: SearchType.Posts,
-                        source: source ? resolveSourceInURL(source) : undefined,
+                        source: source ? resolveSourceInUrl(source) : undefined,
                     }),
                 );
             }}

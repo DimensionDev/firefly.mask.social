@@ -1,9 +1,9 @@
 import { headers } from 'next/headers.js';
 
-import { parseURL } from '@/helpers/parseURL.js';
+import { parseUrl } from '@/helpers/parseUrl.js';
 
 export function getUrlFromHeaders() {
-    const url = headers().get('x-url');
+    const url = headers().get('X-URL');
     if (!url) return null;
-    return parseURL(url);
+    return parseUrl(url);
 }

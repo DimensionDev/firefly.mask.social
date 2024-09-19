@@ -1,12 +1,12 @@
 import urlcat from 'urlcat';
 
 import { EngagementType, type SocialSource } from '@/constants/enum.js';
-import { resolveSourceInURL } from '@/helpers/resolveSourceInURL.js';
+import { resolveSourceInUrl } from '@/helpers/resolveSourceInUrl.js';
 
 export function resolveEngagementUrl(id: string, source: SocialSource, type: EngagementType) {
     return urlcat(`/post/:source/:id/:type`, {
         id,
-        source: resolveSourceInURL(source),
+        source: resolveSourceInUrl(source),
         type,
     });
 }

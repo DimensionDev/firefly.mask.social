@@ -3,7 +3,7 @@ import type { HandleInfoFragment, ProfileFragment } from '@lens-protocol/client'
 import { Source } from '@/constants/enum.js';
 import { AVATAR } from '@/constants/index.js';
 import { formatImageUrl } from '@/helpers/formatImageUrl.js';
-import { getLennyURL } from '@/helpers/getLennyURL.js';
+import { getLennyUrl } from '@/helpers/getLennyUrl.js';
 import { sanitizeDStorageUrl } from '@/helpers/sanitizeDStorageUrl.js';
 import type { LensV3Profile } from '@/providers/types/Firefly.js';
 import { NetworkType, type Profile, ProfileStatus } from '@/providers/types/SocialMedia.js';
@@ -16,7 +16,7 @@ function getAvatar(profile: ProfileFragment, namedTransform = AVATAR) {
     } else if (profile.metadata?.picture?.__typename === 'ImageSet') {
         avatarUrl = profile.metadata.picture.optimized?.uri ?? profile.metadata.picture.raw.uri;
     } else {
-        avatarUrl = getLennyURL(profile.id);
+        avatarUrl = getLennyUrl(profile.id);
     }
 
     return formatImageUrl(sanitizeDStorageUrl(avatarUrl), namedTransform);

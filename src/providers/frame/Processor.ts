@@ -3,7 +3,7 @@ import { parseHTML } from 'linkedom';
 import { FetchError } from '@/constants/error.js';
 import { anySignal } from '@/helpers/anySignal.js';
 import { getFrameClientProtocol } from '@/helpers/getFrameClientProtocol.js';
-import { parseURL } from '@/helpers/parseURL.js';
+import { parseUrl } from '@/helpers/parseUrl.js';
 import {
     getAspectRatio,
     getButtons,
@@ -75,7 +75,7 @@ class Processor {
     };
 
     digestDocumentUrl = async (documentUrl: string, signal?: AbortSignal): Promise<LinkDigestedResponse | null> => {
-        const url = parseURL(documentUrl);
+        const url = parseUrl(documentUrl);
         if (!url) throw new Error(`[frame] invalid document URL: ${documentUrl}`);
 
         const response = await fetch(url, {

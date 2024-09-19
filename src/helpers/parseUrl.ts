@@ -6,7 +6,7 @@
  * @param {string} url - The URL string to be parsed.
  * @returns {URL | null} - The parsed URL object or null if parsing fails.
  */
-export function parseURL(url: string) {
+export function parseUrl(url: string) {
     if (URL.canParse(url)) return new URL(url);
     if (URL.canParse(`https://${url}`)) return new URL(`https://${url}`);
     return null;

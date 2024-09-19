@@ -14,7 +14,7 @@ import { attemptUntil } from '@/helpers/attemptUntil.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
 import { isValidDomain } from '@/helpers/isValidDomain.js';
 import { Md5 } from '@/helpers/md5.js';
-import { parseURL } from '@/helpers/parseURL.js';
+import { parseUrl } from '@/helpers/parseUrl.js';
 import { isValidPollFrameUrl } from '@/helpers/resolveEmbedMediaType.js';
 import { resolveTCOLink } from '@/helpers/resolveTCOLink.js';
 import { FireflyArticleProvider } from '@/providers/firefly/Article.js';
@@ -27,7 +27,7 @@ import type { ResponseJSON } from '@/types/index.js';
 import type { LinkDigested } from '@/types/og.js';
 
 function isValidPostLink(url: string) {
-    const parsed = parseURL(url);
+    const parsed = parseUrl(url);
     if (!parsed) return false;
 
     // such as ens domains
@@ -39,7 +39,7 @@ function isValidPostLink(url: string) {
     return true;
 }
 
-async function getArticleIdFromURL(url: string) {
+async function getArticleIdFromUrl(url: string) {
     if (LIMO_REGEXP.test(url)) {
         return Md5.hashStr(url);
     }
@@ -117,7 +117,7 @@ export async function getPostLinks(url: string, post: Post) {
                 const realUrl = (await resolveTCOLink(url)) ?? url;
                 if (!realUrl) return null;
 
-                const articleId = await getArticleIdFromURL(realUrl);
+                const articleId = await getArticleIdFromUrl(realUrl);
                 if (!articleId) return null;
 
                 return { articleId };
@@ -160,7 +160,7 @@ export async function getPostLinks(url: string, post: Post) {
 export function getPollIdFromLink(url: string) {
     if (!isValidPollFrameUrl(url)) return;
 
-    const parsed = parseURL(url);
+    const parsed = parseUrl(url);
 
     return parsed?.pathname.split('/')[2];
 }
