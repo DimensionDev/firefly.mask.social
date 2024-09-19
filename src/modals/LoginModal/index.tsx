@@ -5,7 +5,7 @@ import urlcat from 'urlcat';
 import { Modal } from '@/components/Modal.js';
 import { Popover } from '@/components/Popover.js';
 import { type FarcasterSignType, type ProfileSource } from '@/constants/enum.js';
-import { resolveSourceInURL } from '@/helpers/resolveSourceInURL.js';
+import { resolveSourceInUrl } from '@/helpers/resolveSourceInUrl.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import { useSingletonModal } from '@/hooks/useSingletonModal.js';
 import type { SingletonModalRefCreator } from '@/libs/SingletonModal.js';
@@ -49,7 +49,7 @@ export const LoginModal = forwardRef<SingletonModalRefCreator<LoginModalOpenProp
             if (!props?.source) {
                 routerRef.current.history.push('/main');
             } else {
-                const path = urlcat(`/${resolveSourceInURL(props.source)}`, props.options ?? {});
+                const path = urlcat(`/${resolveSourceInUrl(props.source)}`, props.options ?? {});
                 routerRef.current.history.push(path);
             }
         },

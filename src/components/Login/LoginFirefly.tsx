@@ -14,7 +14,7 @@ import { enqueueErrorMessage, enqueueSuccessMessage } from '@/helpers/enqueueMes
 import { getMobileDevice } from '@/helpers/getMobileDevice.js';
 import { getSnackbarMessageFromError } from '@/helpers/getSnackbarMessageFromError.js';
 import { openAppSchemes } from '@/helpers/openAppSchemes.js';
-import { parseURL } from '@/helpers/parseURL.js';
+import { parseUrl } from '@/helpers/parseUrl.js';
 import { useAbortController } from '@/hooks/useAbortController.js';
 import { LoginModalRef } from '@/modals/controls.js';
 import { createAccountByGrantPermission } from '@/providers/firefly/createAccountByGrantPermission.js';
@@ -70,7 +70,7 @@ export function LoginFirefly(props: LoginFireflyProps) {
                             return;
                         }
 
-                        const parsedUrl = parseURL(url);
+                        const parsedUrl = parseUrl(url);
                         const sessionId = parsedUrl?.searchParams.get('session');
                         if (!sessionId) throw new MalformedError(`Failed to read session from url = ${url}`);
 

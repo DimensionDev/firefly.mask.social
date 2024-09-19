@@ -6,7 +6,7 @@ import { LoginButton } from '@/components/Login/LoginButton.js';
 import { LoginFirefly } from '@/components/Login/LoginFirefly.js';
 import { FarcasterSignType, type SocialSource, Source } from '@/constants/enum.js';
 import { SORTED_SOCIAL_SOURCES } from '@/constants/index.js';
-import { resolveSourceInURL } from '@/helpers/resolveSourceInURL.js';
+import { resolveSourceInUrl } from '@/helpers/resolveSourceInUrl.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
 
 export function MainView() {
@@ -17,7 +17,7 @@ export function MainView() {
     const onClick = (source: SocialSource) => {
         const signType = source === Source.Farcaster && isMedium ? FarcasterSignType.RelayService : undefined;
         const path = urlcat('/:source', {
-            source: resolveSourceInURL(source),
+            source: resolveSourceInUrl(source),
             signType: signType || undefined,
         });
 

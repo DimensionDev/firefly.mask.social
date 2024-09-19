@@ -2,7 +2,7 @@ import urlcat from 'urlcat';
 
 import { FARCASTER_REPLY_URL, SITE_HOSTNAME, SITE_URL } from '@/constants/index.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
-import { parseURL } from '@/helpers/parseURL.js';
+import { parseUrl } from '@/helpers/parseUrl.js';
 import { FarcasterSession } from '@/providers/farcaster/Session.js';
 import { FarcasterSocialMediaProvider } from '@/providers/farcaster/SocialMedia.js';
 import type { Account } from '@/providers/types/Account.js';
@@ -24,7 +24,7 @@ async function createSession(signal?: AbortSignal) {
         method: 'POST',
         body: JSON.stringify({
             siweUri: SITE_URL,
-            domain: parseURL(SITE_URL)?.hostname ?? SITE_HOSTNAME,
+            domain: parseUrl(SITE_URL)?.hostname ?? SITE_HOSTNAME,
         }),
         signal,
     });

@@ -7,7 +7,7 @@ import { LoginRequiredGuard } from '@/components/LoginRequiredGuard.js';
 import { KeyType, type SocialSourceInURL } from '@/constants/enum.js';
 import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
 import { isBotRequest } from '@/helpers/isBotRequest.js';
-import { isSocialSourceInURL } from '@/helpers/isSocialSource.js';
+import { isSocialSourceInUrl } from '@/helpers/isSocialSource.js';
 import { memoizeWithRedis } from '@/helpers/memoizeWithRedis.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { resolveSocialSource } from '@/helpers/resolveSource.js';
@@ -27,7 +27,7 @@ interface Props {
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-    if (isSocialSourceInURL(params.source)) {
+    if (isSocialSourceInUrl(params.source)) {
         return getPostOGByIdRedis(params.source, params.id);
     }
     return createSiteMetadata();
@@ -36,7 +36,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 export default async function Page(props: Props) {
     if (isBotRequest()) return null;
     const { params } = props;
-    if (!isSocialSourceInURL(params.source)) return notFound();
+    if (!isSocialSourceInUrl(params.source)) return notFound();
     const source = resolveSocialSource(params.source);
     const provider = resolveSocialMediaProvider(source);
     const post = await provider.getPostById(params.id).catch(() => null);

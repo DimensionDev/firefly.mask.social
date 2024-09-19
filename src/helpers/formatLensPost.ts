@@ -46,7 +46,7 @@ import { URL_REGEX } from '@/constants/regexp.js';
 import { formatLensProfile, formatLensProfileByHandleInfo } from '@/helpers/formatLensProfile.js';
 import { getEmbedUrls } from '@/helpers/getEmbedUrls.js';
 import { composePollFrameUrl, getPollFrameUrl } from '@/helpers/getPollFrameUrl.js';
-import { parseURL } from '@/helpers/parseURL.js';
+import { parseUrl } from '@/helpers/parseUrl.js';
 import { isValidPollFrameUrl } from '@/helpers/resolveEmbedMediaType.js';
 import { LensMetadataAttributeKey } from '@/providers/types/Lens.js';
 import type { Attachment, Post, Profile } from '@/providers/types/SocialMedia.js';
@@ -167,7 +167,7 @@ function formatContent(metadata: PublicationMetadataFragment, author: Profile) {
                 oembedUrls: getOembedUrls(metadata, author),
             };
         case 'LinkMetadataV3':
-            const parsedLink = parseURL(metadata.sharingLink);
+            const parsedLink = parseUrl(metadata.sharingLink);
             return {
                 content: metadata.content,
                 oembedUrls: getEmbedUrls(

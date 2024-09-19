@@ -4,7 +4,7 @@ import { compact } from 'lodash-es';
 import { Source } from '@/constants/enum.js';
 import { UnreachableError } from '@/constants/error.js';
 import { isDomainOrSubdomainOf } from '@/helpers/isDomainOrSubdomainOf.js';
-import { parseURL } from '@/helpers/parseURL.js';
+import { parseUrl } from '@/helpers/parseUrl.js';
 import type { ComposeModalOpenProps } from '@/modals/ComposeModal.js';
 import { ComposeModalRef } from '@/modals/controls.js';
 
@@ -23,7 +23,7 @@ function generateComposeProps(url: string): ComposeModalOpenProps | null {
     const siteType = parseSiteType(url);
     if (!siteType) return null;
 
-    const u = parseURL(url);
+    const u = parseUrl(url);
 
     switch (siteType) {
         case SiteType.Warpcast: {

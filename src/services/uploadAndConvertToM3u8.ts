@@ -4,7 +4,7 @@ import urlcat from 'urlcat';
 import { S3ConvertStatus, type SocialSourceInURL } from '@/constants/enum.js';
 import { UnreachableError } from '@/constants/error.js';
 import { getVideoMetadata } from '@/helpers/getVideoMetadata.js';
-import { parseURL } from '@/helpers/parseURL.js';
+import { parseUrl } from '@/helpers/parseUrl.js';
 import { resolveFireflyResponseData } from '@/helpers/resolveFireflyResponseData.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
 import type { ConvertM3u8Response, ConvertM3u8StatusResponse } from '@/providers/types/Firefly.js';
@@ -47,7 +47,7 @@ async function waitForConvertJob(jobId: string, signal?: AbortSignal) {
 export async function uploadAndConvertToM3u8(file: File, source: SocialSourceInURL, signal?: AbortSignal) {
     const s3Url = await uploadToS3(file, source);
 
-    const parsedUrl = parseURL(s3Url);
+    const parsedUrl = parseUrl(s3Url);
     if (!parsedUrl) throw new Error('Invalid s3 url');
 
     const { width, height } = await getVideoMetadata(file);

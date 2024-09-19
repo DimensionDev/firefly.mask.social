@@ -1,12 +1,12 @@
 import { Action, ActionContainer as RawActionContainer } from '@dialectlabs/blinks';
 import { memo } from 'react';
 
-import { parseURL } from '@/helpers/parseURL.js';
+import { parseUrl } from '@/helpers/parseUrl.js';
 
 export const ActionContainer = memo<{
     action: Action;
 }>(function ActionContainer({ action }) {
-    const urlObj = parseURL(action.url);
+    const urlObj = parseUrl(action.url);
 
     return (
         <div

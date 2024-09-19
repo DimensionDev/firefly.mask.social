@@ -14,7 +14,7 @@ import { getProfileSessionsAll } from '@/helpers/getProfileState.js';
 import { getScheduleTaskContent } from '@/helpers/getScheduleTaskContent.js';
 import { getSnackbarMessageFromError } from '@/helpers/getSnackbarMessageFromError.js';
 import { resolveCreateSchedulePostPayload } from '@/helpers/resolveCreateSchedulePostPayload.js';
-import { resolveSocialSourceInURL } from '@/helpers/resolveSourceInURL.js';
+import { resolveSocialSourceInUrl } from '@/helpers/resolveSourceInUrl.js';
 import { ComposeModalRef, EnableSignlessModalRef } from '@/modals/controls.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
 import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
@@ -58,7 +58,7 @@ export async function createSchedulePostsPayload(
 
             return {
                 platformUserId: profile.profileId,
-                platform: resolveSocialSourceInURL(x),
+                platform: resolveSocialSourceInUrl(x),
                 payload,
             };
         }),

@@ -1,8 +1,8 @@
 import urlcat from 'urlcat';
 
 import type { BookmarkSource } from '@/constants/enum.js';
-import { resolveSourceInURL } from '@/helpers/resolveSourceInURL.js';
+import { resolveSourceInUrl } from '@/helpers/resolveSourceInUrl.js';
 
 export function resolveBookmarkUrl(source: BookmarkSource) {
-    return urlcat('/bookmarks/:source', { source: resolveSourceInURL(source) });
+    return urlcat('/bookmarks/:source', { source: resolveSourceInUrl(source) });
 }

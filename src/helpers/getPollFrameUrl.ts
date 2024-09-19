@@ -5,7 +5,7 @@ import { getCurrentProfile } from '@/helpers/getCurrentProfile.js';
 import { getLocaleFromCookies } from '@/helpers/getLocaleFromCookies.js';
 import { getMeaningfulThemeMode } from '@/helpers/getMeaningfulThemeMode.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
-import { parseURL } from '@/helpers/parseURL.js';
+import { parseUrl } from '@/helpers/parseUrl.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 import { settings } from '@/settings/index.js';
 
@@ -21,7 +21,7 @@ const getPollFrameSearchParams = (source: SocialSource) => {
 };
 
 export const composePollFrameUrl = (url: string, source: SocialSource) => {
-    const parsed = parseURL(url);
+    const parsed = parseUrl(url);
     if (!parsed) return url;
     Object.entries(getPollFrameSearchParams(source)).forEach(([key, value]) => {
         if (value) parsed.searchParams.set(key, `${value}`);

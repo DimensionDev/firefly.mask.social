@@ -1,8 +1,8 @@
-import { parseURL } from '@/helpers/parseURL.js';
+import { parseUrl } from '@/helpers/parseUrl.js';
 import { isValidPollFrameUrl } from '@/helpers/resolveEmbedMediaType.js';
 
 export function getResourceType(urlString: string) {
-    const parsedURL = parseURL(urlString);
+    const parsedURL = parseUrl(urlString);
     if (!parsedURL) return;
 
     let fileExtension = parsedURL?.pathname.split('.').pop()?.toLowerCase();

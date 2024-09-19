@@ -6,7 +6,7 @@ import { isMatchedDiscoverPage } from '@/helpers/isMatchedDiscoverPage.js';
 import { parseOldPostUrl } from '@/helpers/parsePostUrl.js';
 import { parseProfileUrl } from '@/helpers/parseProfileUrl.js';
 import { resolvePostUrl } from '@/helpers/resolvePostUrl.js';
-import { resolveSourceInURL } from '@/helpers/resolveSourceInURL.js';
+import { resolveSourceInUrl } from '@/helpers/resolveSourceInUrl.js';
 
 export async function middleware(request: NextRequest) {
     request.headers.set('X-URL', request.url);
@@ -35,7 +35,7 @@ export async function middleware(request: NextRequest) {
         const destination = new URL(
             urlcat(`/profile/:source/:id/relation/:category`, {
                 ...parsedProfileUrl,
-                source: resolveSourceInURL(parsedProfileUrl.source),
+                source: resolveSourceInUrl(parsedProfileUrl.source),
             }),
             request.url,
         );
