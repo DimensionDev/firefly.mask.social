@@ -3,15 +3,21 @@
 import type { TweetV2UserTimelineParams, UsersV2Params } from 'twitter-api-v2';
 
 import {
+    type BookmarkSource,
+    type DiscoverSource,
+    DiscoverType,
     EngagementType,
     FileMimeType,
     NetworkType,
     NODE_ENV,
-    ProfileTabType,
+    type ProfilePageSource,
     SearchType,
+    type SocialDiscoverSource,
+    SocialProfileCategory,
     type SocialSource,
     Source,
     VERCEL_NEV,
+    WalletProfileCategory,
 } from '@/constants/enum.js';
 import { env } from '@/constants/env.js';
 import type { Attachment } from '@/providers/types/SocialMedia.js';
@@ -50,11 +56,27 @@ export const RP_HASH_TAG = '#FireflyLuckyDrop';
 export const HIDDEN_SECRET = '[HIDE_FROM_CLIENT]';
 export const NOT_DEPEND_HUBBLE_KEY = '[TO_BE_REPLACED_LATER]';
 
-export const SORTED_PROFILE_TAB_TYPE: Record<SocialSource, ProfileTabType[]> = {
-    [Source.Lens]: [ProfileTabType.Feed, ProfileTabType.Replies, ProfileTabType.Media, ProfileTabType.Collected],
-    [Source.Farcaster]: [ProfileTabType.Feed, ProfileTabType.Replies, ProfileTabType.Liked, ProfileTabType.Channels],
-    [Source.Twitter]: [ProfileTabType.Feed, ProfileTabType.Replies],
+export const SORTED_PROFILE_TAB_TYPE: Record<SocialSource, SocialProfileCategory[]> = {
+    [Source.Lens]: [
+        SocialProfileCategory.Feed,
+        SocialProfileCategory.Replies,
+        SocialProfileCategory.Media,
+        SocialProfileCategory.Collected,
+    ],
+    [Source.Farcaster]: [
+        SocialProfileCategory.Feed,
+        SocialProfileCategory.Replies,
+        SocialProfileCategory.Likes,
+        SocialProfileCategory.Channels,
+    ],
+    [Source.Twitter]: [SocialProfileCategory.Feed, SocialProfileCategory.Replies],
 };
+export const WALLET_PROFILE_TAB_TYPES = [
+    WalletProfileCategory.OnChainActivities,
+    WalletProfileCategory.POAPs,
+    WalletProfileCategory.NFTs,
+    WalletProfileCategory.Articles,
+];
 export const SORTED_ENGAGEMENT_TAB_TYPE: Record<SocialSource, EngagementType[]> = {
     [Source.Lens]: [EngagementType.Likes, EngagementType.Quotes, EngagementType.Mirrors],
     // TODO No API to fetch recasts for now.
@@ -67,7 +89,12 @@ export const SORTED_SEARCH_TYPE: Record<SocialSource, SearchType[]> = {
     [Source.Twitter]: [SearchType.Posts, SearchType.Profiles],
 };
 export const SORTED_HOME_SOURCES = [Source.Farcaster, Source.Lens, Source.NFTs, Source.Article] as const;
-export const SORTED_PROFILE_SOURCES = [Source.Farcaster, Source.Lens, Source.Twitter, Source.Wallet];
+export const SORTED_PROFILE_SOURCES: ProfilePageSource[] = [
+    Source.Farcaster,
+    Source.Lens,
+    Source.Twitter,
+    Source.Wallet,
+];
 export const SORTED_SOCIAL_SOURCES = [Source.Farcaster, Source.Lens, Source.Twitter] as const;
 export const SORTED_BOOKMARK_SOURCES =
     env.shared.NODE_ENV === NODE_ENV.Development
@@ -83,9 +110,17 @@ export const SORTED_MEDIA_SOURCES: MediaSource[] = [
     MediaSource.Giphy,
     MediaSource.Local,
 ];
+export const DEFAULT_SOCIAL_SOURCE = Source.Farcaster;
 export const SUPPORTED_FRAME_SOURCES: SocialSource[] = [Source.Farcaster, Source.Lens];
 export const SUPPORTED_PREVIEW_MEDIA_TYPES: Array<Attachment['type']> = ['Image', 'AnimatedGif'];
 export const SUPPORTED_VIDEO_SOURCES: SocialSource[] = [Source.Farcaster, Source.Lens, Source.Twitter];
+export const SOCIAL_DISCOVER_SOURCE: SocialDiscoverSource[] = [Source.Farcaster, Source.Lens] as const;
+export const DISCOVER_SOURCES: DiscoverSource[] = [...SOCIAL_DISCOVER_SOURCE, Source.NFTs, Source.Article] as const;
+export const DISCOVER_TYPES = {
+    [Source.Farcaster]: [DiscoverType.Trending, DiscoverType.TopProfiles, DiscoverType.TopChannels],
+    [Source.Lens]: [DiscoverType.Trending, DiscoverType.TopProfiles],
+};
+export const BOOKMARK_SOURCES: BookmarkSource[] = [Source.Farcaster, Source.Lens, Source.Article];
 
 export const TIPS_SUPPORT_NETWORKS = [NetworkType.Ethereum, NetworkType.Solana];
 

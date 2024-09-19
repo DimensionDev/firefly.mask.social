@@ -75,7 +75,11 @@ export enum SourceInURL {
 
 export type SocialSource = Source.Farcaster | Source.Lens | Source.Twitter;
 export type ProfileSource = Source.Farcaster | Source.Lens | Source.Twitter | Source.Firefly;
+export type ProfilePageSource = Source.Farcaster | Source.Lens | Source.Twitter | Source.Wallet;
 export type SocialSourceInURL = SourceInURL.Farcaster | SourceInURL.Lens | SourceInURL.Twitter;
+export type SocialDiscoverSource = Source.Farcaster | Source.Lens;
+export type DiscoverSource = SocialDiscoverSource | Source.NFTs | Source.Article;
+export type BookmarkSource = Source.Farcaster | Source.Lens | Source.Article;
 
 export enum WalletProviderType {
     AppKit = 'app_kit',
@@ -110,20 +114,20 @@ export enum KeyType {
     GetBlink = '/v2/getBlink',
 }
 
-export enum ProfileTabType {
+export enum SocialProfileCategory {
     Feed = 'feed',
     Replies = 'replies',
-    Liked = 'liked',
+    Likes = 'likes',
     Media = 'media',
     Collected = 'collected',
     Channels = 'channels',
 }
 
-export enum WalletProfileTabType {
+export enum WalletProfileCategory {
     Articles = 'articles',
     POAPs = 'poaps',
     NFTs = 'nfts',
-    OnChainActivities = 'on_chain_activities',
+    OnChainActivities = 'activities',
 }
 
 export enum EngagementType {
@@ -200,6 +204,8 @@ export const enum FollowCategory {
     Followers = 'followers',
     Mutuals = 'mutuals',
 }
+
+export type ProfileCategory = FollowCategory | SocialProfileCategory | WalletProfileCategory;
 
 export enum ChannelTabType {
     Trending = 'trending',

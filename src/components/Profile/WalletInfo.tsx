@@ -38,7 +38,7 @@ export function WalletInfo({ profile, relations }: WalletInfoProps) {
             <div className="relative flex flex-1 flex-col">
                 <div className="flex flex-col gap-2">
                     <div className="flex items-center gap-2">
-                        <span className="text-xl font-black text-lightMain">
+                        <span className="text-xl font-black leading-[26px] text-lightMain">
                             {profile.primary_ens || formatAddress(profile.address, 4)}
                         </span>
                         {!isMyWallets && isMedium ? (

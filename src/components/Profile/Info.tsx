@@ -15,8 +15,8 @@ import { nFormatter } from '@/helpers/formatCommentCounts.js';
 import { getLargeTwitterAvatar } from '@/helpers/getLargeTwitterAvatar.js';
 import { isSameProfile } from '@/helpers/isSameProfile.js';
 import { narrowToSocialSource } from '@/helpers/narrowToSocialSource.js';
+import { resolveProfileUrl } from '@/helpers/resolveProfileUrl.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
-import { resolveSourceInURL } from '@/helpers/resolveSourceInURL.js';
 import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
@@ -86,10 +86,7 @@ export function Info({ profile }: InfoProps) {
 
                 <div className="flex gap-3 text-medium leading-[22px]">
                     <Link
-                        href={{
-                            pathname: `/profile/${profileId}/following`,
-                            query: { source: resolveSourceInURL(source) },
-                        }}
+                        href={resolveProfileUrl(source, profileId, FollowCategory.Following)}
                         className={classNames('gap-1 hover:underline', {
                             'pointer-events-none': source !== Source.Farcaster && source !== Source.Lens,
                         })}
@@ -101,10 +98,7 @@ export function Info({ profile }: InfoProps) {
                     </Link>
 
                     <Link
-                        href={{
-                            pathname: `/profile/${profileId}/followers`,
-                            query: { source: resolveSourceInURL(source) },
-                        }}
+                        href={resolveProfileUrl(source, profileId, FollowCategory.Followers)}
                         className={classNames('gap-1 hover:underline', {
                             'pointer-events-none': source !== Source.Farcaster && source !== Source.Lens,
                         })}
@@ -124,10 +118,7 @@ export function Info({ profile }: InfoProps) {
                     <AvatarGroup profiles={mutuals.slice(0, 3)} AvatarProps={{ size: 30 }} />
                     <Link
                         className="text-sm text-secondary"
-                        href={{
-                            pathname: `/profile/${profileId}/${FollowCategory.Mutuals}`,
-                            query: { source: resolveSourceInURL(source) },
-                        }}
+                        href={resolveProfileUrl(source, profileId, FollowCategory.Mutuals)}
                     >
                         {mutualCount === 1 ? (
                             <Trans>Followed by {mutuals[0].displayName}</Trans>

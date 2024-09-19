@@ -1,3 +1,5 @@
+'use client';
+
 import { t, Trans } from '@lingui/macro';
 import { first, isNumber } from 'lodash-es';
 import { notFound } from 'next/navigation.js';

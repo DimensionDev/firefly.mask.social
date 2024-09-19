@@ -1,25 +1,18 @@
 'use client';
 
-import { usePathname } from 'next/navigation.js';
 import { startTransition } from 'react';
-import urlcat from 'urlcat';
 
-import { ClickableArea } from '@/components/ClickableArea.js';
 import { SquareSourceIcon } from '@/components/SquareSourceIcon.js';
-import { PageRoute, Source } from '@/constants/enum.js';
+import { Source } from '@/constants/enum.js';
+import { Link } from '@/esm/Link.js';
 import { classNames } from '@/helpers/classNames.js';
 import { createLookupTableResolver } from '@/helpers/createLookupTableResolver.js';
-import { isRoutePathname } from '@/helpers/isRoutePathname.js';
+import { isProfilePageSource } from '@/helpers/isProfilePageSource.js';
 import { isSameFireflyIdentity } from '@/helpers/isSameFireflyIdentity.js';
-import { resolveSourceInURL } from '@/helpers/resolveSourceInURL.js';
+import { resolveProfileUrl } from '@/helpers/resolveProfileUrl.js';
 import { useDarkMode } from '@/hooks/useDarkMode.js';
-import { useUpdateParams } from '@/hooks/useUpdateParams.js';
-import type { FireflyProfile } from '@/providers/types/Firefly.js';
+import type { FireflyIdentity, FireflyProfile } from '@/providers/types/Firefly.js';
 import { useFireflyIdentityState } from '@/store/useFireflyIdentityStore.js';
-
-interface ProfileTabsProps {
-    profiles: FireflyProfile[];
-}
 
 const resolveProfileTabColor = createLookupTableResolver<
     Source,
@@ -61,14 +54,14 @@ const resolveProfileTabColor = createLookupTableResolver<
     {},
 );
 
-export function ProfileTabs({ profiles }: ProfileTabsProps) {
+interface ProfileTabsProps {
+    profiles: FireflyProfile[];
+    identity: FireflyIdentity;
+}
+
+export function ProfileTabs({ profiles, identity }: ProfileTabsProps) {
     const { isDarkMode } = useDarkMode();
-    const { identity, setIdentity } = useFireflyIdentityState();
-
-    const pathname = usePathname();
-    const updateParams = useUpdateParams();
-
-    const isCompleteProfilePage = pathname !== PageRoute.Profile && isRoutePathname(pathname, PageRoute.Profile);
+    const { setIdentity } = useFireflyIdentityState();
 
     if (profiles.length <= 1) return null;
 
@@ -78,24 +71,14 @@ export function ProfileTabs({ profiles }: ProfileTabsProps) {
                 const colors = resolveProfileTabColor(profile.identity.source);
                 const isActive = isSameFireflyIdentity(profile.identity, identity);
 
-                return (
-                    <ClickableArea
-                        onClick={() => {
-                            startTransition(() => {
-                                setIdentity(profile.identity);
+                if (!isProfilePageSource(profile.identity.source)) return null;
 
-                                updateParams(
-                                    new URLSearchParams({
-                                        source: resolveSourceInURL(profile.identity.source),
-                                    }),
-                                    isCompleteProfilePage
-                                        ? urlcat('/profile/:id', { id: profile.identity })
-                                        : undefined,
-                                );
-                            });
-                        }}
+                return (
+                    <Link
+                        href={resolveProfileUrl(profile.identity.source, profile.identity.id)}
+                        onClick={() => startTransition(() => setIdentity(profile.identity))}
                         className={classNames(
-                            'flex cursor-pointer items-center gap-1 rounded-lg p-1 px-2',
+                            'flex cursor-pointer items-center gap-1 rounded-lg p-1 px-2 active:bg-main/20',
                             isActive ? 'border border-primaryBottom bg-main text-primaryBottom' : 'bg-thirdMain',
                         )}
                         style={{
@@ -122,7 +105,7 @@ export function ProfileTabs({ profiles }: ProfileTabsProps) {
                                 ? profile.displayName
                                 : `@${profile.displayName}`}
                         </span>
-                    </ClickableArea>
+                    </Link>
                 );
             })}
         </div>

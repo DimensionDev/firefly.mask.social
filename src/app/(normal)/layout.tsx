@@ -8,9 +8,10 @@ import { LinkCloud } from '@/components/LinkCloud.js';
 import { NavigatorBar } from '@/components/NavigatorBar/index.js';
 import { AsideSearchBar, HeaderSearchBar } from '@/components/Search/SearchBar.js';
 import { SearchFilter } from '@/components/Search/SearchFilter.js';
-import { SourceTabs } from '@/components/SourceTabs.js';
 import { SuggestedFollowsCard } from '@/components/SuggestedFollows/SuggestedFollowsCard.js';
 import { Source } from '@/constants/enum.js';
+import { DEFAULT_SOCIAL_SOURCE, DISCOVER_SOURCES, DISCOVER_TYPES, SOCIAL_DISCOVER_SOURCE } from '@/constants/index.js';
+import { resolveSourceInURL } from '@/helpers/resolveSourceInURL.js';
 
 export default function Layout({ children, modal }: { children: React.ReactNode; modal: React.ReactNode }) {
     return (
@@ -20,15 +21,15 @@ export default function Layout({ children, modal }: { children: React.ReactNode;
                     <IfPathname
                         isNotOneOf={[
                             {
-                                r: '/post/[^/]+$',
+                                r: '^/post/[^/]+$',
                                 flags: 'i',
                             },
                             {
-                                r: '/post/[^/]+/\\w+$',
+                                r: '^/post/[^/]+/\\w+$',
                                 flags: 'i',
                             },
                             {
-                                r: '/article/[^/]+$',
+                                r: '^/article/[^/]+$',
                                 flags: 'i',
                             },
                             '/channel',
@@ -40,41 +41,6 @@ export default function Layout({ children, modal }: { children: React.ReactNode;
                     </IfPathname>
 
                     <HeaderSearchBar />
-
-                    <IfPathname
-                        isNotOneOf={[
-                            {
-                                r: '/post/[^/]+$',
-                                flags: 'i',
-                            },
-                            {
-                                r: '/post/[^/]+/\\w+$',
-                                flags: 'i',
-                            },
-                            {
-                                r: '/article/[^/]+$',
-                                flags: 'i',
-                            },
-                            {
-                                r: '/profile/[^/]+$',
-                                flags: 'i',
-                            },
-                            {
-                                r: '/nft/[^/]+$',
-                                flags: 'i',
-                            },
-                            {
-                                r: '/nft/[^/]+/\\w+$',
-                                flags: 'i',
-                            },
-                            '/channel',
-                            '/settings',
-                            '/profile',
-                            '/token',
-                        ]}
-                    >
-                        <SourceTabs />
-                    </IfPathname>
                 </div>
                 {children}
                 {modal}
@@ -93,12 +59,42 @@ export default function Layout({ children, modal }: { children: React.ReactNode;
                         <Advertisement />
                     </IfPathname>
 
-                    <IfPathname isNotOneOf={['/']} exact>
+                    <IfPathname
+                        isNotOneOf={[
+                            {
+                                r: '^/$',
+                                flags: 'i',
+                            },
+                            {
+                                r: `^/(${DISCOVER_SOURCES.map(resolveSourceInURL).join('|')})$`,
+                                flags: 'i',
+                            },
+                            {
+                                r: `^/(${SOCIAL_DISCOVER_SOURCE.map(resolveSourceInURL).join('|')})/(${DISCOVER_TYPES[DEFAULT_SOCIAL_SOURCE].join('|')})$`,
+                                flags: 'i',
+                            },
+                        ]}
+                    >
                         <SuggestedFollowsCard />
                         <SuggestedChannels source={Source.Farcaster} />
                     </IfPathname>
 
-                    <IfPathname isOneOf={['/']} exact>
+                    <IfPathname
+                        isOneOf={[
+                            {
+                                r: '^/$',
+                                flags: 'i',
+                            },
+                            {
+                                r: `^/(${DISCOVER_SOURCES.map(resolveSourceInURL).join('|')})$`,
+                                flags: 'i',
+                            },
+                            {
+                                r: `^/(${SOCIAL_DISCOVER_SOURCE.map(resolveSourceInURL).join('|')})/(${DISCOVER_TYPES[DEFAULT_SOCIAL_SOURCE].join('|')})$`,
+                                flags: 'i',
+                            },
+                        ]}
+                    >
                         <CalendarContent />
                     </IfPathname>
 

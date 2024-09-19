@@ -3,19 +3,14 @@ import { memo } from 'react';
 
 import { ListInPage } from '@/components/ListInPage.js';
 import { getPostItemContent } from '@/components/VirtualList/getPostItemContent.js';
-import { ScrollListKey, Source } from '@/constants/enum.js';
+import { ScrollListKey, type SocialSource, Source } from '@/constants/enum.js';
 import { EMPTY_LIST } from '@/constants/index.js';
 import { getPostsSelector } from '@/helpers/getPostsSelector.js';
-import { narrowToSocialSource } from '@/helpers/narrowToSocialSource.js';
 import { createIndicator, createPageable } from '@/helpers/pageable.js';
 import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
-import { useGlobalState } from '@/store/useGlobalStore.js';
 
-export const RecentPostList = memo(function ForYouPostList() {
-    const currentSource = useGlobalState.use.currentSource();
-    const source = narrowToSocialSource(currentSource);
-
+export const RecentPostList = memo<{ source: SocialSource }>(function ForYouPostList({ source }) {
     const queryResult = useSuspenseInfiniteQuery({
         queryKey: ['posts', source, 'recent'],
         networkMode: 'always',
@@ -32,13 +27,12 @@ export const RecentPostList = memo(function ForYouPostList() {
 
     return (
         <ListInPage
-            key={currentSource}
+            key={source}
             queryResult={queryResult}
             VirtualListProps={{
-                listKey: `${ScrollListKey.Recent}:${currentSource}`,
+                listKey: `${ScrollListKey.Recent}:${source}`,
                 computeItemKey: (index, post) => `${post.postId}-${index}`,
-                itemContent: (index, post) =>
-                    getPostItemContent(index, post, `${ScrollListKey.Recent}:${currentSource}`),
+                itemContent: (index, post) => getPostItemContent(index, post, `${ScrollListKey.Recent}:${source}`),
             }}
             NoResultsFallbackProps={{
                 className: 'md:pt-[228px] max-md:py-20',

@@ -93,6 +93,7 @@
         "lodash-es": "^4.17.21",
         "next": "^14.1.4",
         "next-auth": "^4.24.7",
+        "next-nprogress-bar": "^2.3.13",
         "notistack": "2.0.8",
         "omit-deep": "^0.3.0",
         "plyr-react": "^5.3.0",

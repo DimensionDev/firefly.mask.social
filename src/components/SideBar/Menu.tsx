@@ -27,12 +27,17 @@ import { OpenFireflyAppButton } from '@/components/OpenFireflyAppButton.js';
 import { ConnectWallet } from '@/components/SideBar/ConnectWallet.js';
 import { Tooltip } from '@/components/Tooltip.js';
 import { PageRoute } from '@/constants/enum.js';
+import { DEFAULT_SOCIAL_SOURCE } from '@/constants/index.js';
 import { Link } from '@/esm/Link.js';
 import { classNames } from '@/helpers/classNames.js';
 import { getCurrentSourceFromParams } from '@/helpers/getCurrentSourceFromUrl.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
+import { isMatchedDiscoverPage } from '@/helpers/isMatchedDiscoverPage.js';
 import { isRoutePathname } from '@/helpers/isRoutePathname.js';
 import { isSameFireflyIdentity } from '@/helpers/isSameFireflyIdentity.js';
+import { resolveBookmarkUrl } from '@/helpers/resolveBookmarkUrl.js';
+import { resolveFollowingUrl } from '@/helpers/resolveFollowingUrl.js';
+import { resolveNotificationUrl } from '@/helpers/resolveNotificationUrl.js';
 import { useAsyncStatusAll } from '@/hooks/useAsyncStatus.js';
 import { useCurrentFireflyProfilesAll } from '@/hooks/useCurrentFireflyProfiles.js';
 import { useCurrentProfileFirstAvailable } from '@/hooks/useCurrentProfile.js';
@@ -61,6 +66,7 @@ export const Menu = memo(function Menu({ collapsed = false }: MenuProps) {
     const isLoading = useAsyncStatusAll();
 
     const checkIsSelected = (href: `/${string}`) => {
+        if (href === '/') return pathname === href;
         if (isRoutePathname(href, '/profile')) {
             const identity = {
                 id: isRoutePathname(pathname, '/profile') ? pathname.split('/')[2] ?? '' : '',
@@ -83,30 +89,38 @@ export const Menu = memo(function Menu({ collapsed = false }: MenuProps) {
                                 name: <Trans>Discover</Trans>,
                                 icon: DiscoverIcon,
                                 selectedIcon: DiscoverSelectedIcon,
+                                match: () => isMatchedDiscoverPage(pathname),
                             },
                             {
-                                href: PageRoute.Following,
+                                href: resolveFollowingUrl(DEFAULT_SOCIAL_SOURCE),
                                 name: <Trans>Following</Trans>,
                                 icon: FollowingIcon,
                                 selectedIcon: FollowingSelectedIcon,
+                                match: () => pathname.startsWith(PageRoute.Following),
                             },
                             {
-                                href: PageRoute.Notifications,
+                                href: resolveNotificationUrl(DEFAULT_SOCIAL_SOURCE),
                                 name: <Trans>Notifications</Trans>,
                                 icon: NotificationIcon,
                                 selectedIcon: NotificationSelectedIcon,
+                                match: () => pathname.startsWith(PageRoute.Notifications),
                             },
                             {
-                                href: PageRoute.Bookmarks,
+                                href: resolveBookmarkUrl(DEFAULT_SOCIAL_SOURCE),
                                 name: <Trans>Bookmarks</Trans>,
                                 icon: BookmarkIcon,
                                 selectedIcon: BookmarkSelectedIcon,
+                                match: () => pathname.startsWith(PageRoute.Bookmarks),
                             },
                             {
                                 href: profile ? getProfileUrl(profile) : PageRoute.Profile,
                                 name: <Trans>Profile</Trans>,
                                 icon: ProfileIcon,
                                 selectedIcon: ProfileSelectedIcon,
+                                match: () =>
+                                    profile
+                                        ? pathname === getProfileUrl(profile)
+                                        : pathname.startsWith(PageRoute.Profile),
                             },
                             {
                                 href: '/connect-wallet',
@@ -122,7 +136,7 @@ export const Menu = memo(function Menu({ collapsed = false }: MenuProps) {
                             },
                         ].map((item) => {
                             const isSelected =
-                                item.href === '/' ? pathname === '/' : checkIsSelected(item.href as `/${string}`);
+                                (item.match && item.match()) || checkIsSelected(item.href as `/${string}`);
                             const Icon = isSelected ? item.selectedIcon : item.icon;
 
                             return (

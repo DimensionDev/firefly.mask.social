@@ -111,7 +111,6 @@ export const SinglePost = memo<SinglePostProps>(function SinglePost({
             />
             {showPostAction ? (
                 <PostActions
-                    className={isComment && !isSmall ? '!ml-[52px]' : ''}
                     post={post}
                     disabled={post.isHidden}
                     showChannelTag={!isComment && !isChannelPage && showChannelTag}

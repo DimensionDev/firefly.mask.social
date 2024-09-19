@@ -48,29 +48,29 @@ export function Tabs<T = string>(props: TabsProps<T>) {
     );
 }
 
-export interface TabProps {
+export interface TabProps extends HTMLProps<HTMLLIElement> {
     children: ReactNode;
     value: string;
 }
 
-export function Tab({ children, value }: TabProps) {
+export function Tab({ children, value, className, ...props }: TabProps) {
     const { value: currentTab, onChange, variant } = useContext(TabContext);
     const liVariantClassName = {
-        default: 'flex-1',
-        second: 'flex-1',
-        solid: '',
+        default: 'flex-1 text-sm sm:text-xl',
+        second: 'flex-1 text-sm sm:text-base',
+        solid: 'text-xs',
     }[variant];
     const variantClassName = {
         default: classNames(
-            'h-[43px] border-b-2 px-4 text-center text-sm font-bold leading-[43px] hover:cursor-pointer hover:text-main sm:text-xl md:h-[60px] md:py-[18px] md:leading-6',
+            'h-[43px] border-b-2 px-4 text-center font-bold leading-[43px] hover:cursor-pointer hover:text-main md:h-[60px] md:py-[18px] md:leading-6',
             currentTab === value ? 'border-farcasterPrimary text-main' : 'border-transparent text-third',
         ),
         second: classNames(
-            'border-b-2 text-center text-sm font-bold hover:cursor-pointer hover:text-main sm:p-4 sm:pb-3 sm:text-base sm:leading-5',
+            'border-b-2 text-center font-bold hover:cursor-pointer hover:text-main sm:p-4 sm:pb-3 sm:leading-5',
             currentTab === value ? 'border-farcasterPrimary text-main' : 'border-transparent text-third',
         ),
         solid: classNames(
-            'h-6 rounded-md bg-farcasterPrimary px-1.5 text-xs leading-6',
+            'h-6 rounded-md bg-farcasterPrimary px-1.5 leading-6',
             currentTab === value
                 ? 'text-bg dark:text-white'
                 : 'cursor-pointer bg-opacity-10 text-farcasterPrimary dark:bg-opacity-30 dark:text-white',
@@ -79,7 +79,12 @@ export function Tab({ children, value }: TabProps) {
 
     return (
         <li
-            className={classNames('flex list-none justify-center lg:flex-initial lg:justify-start', liVariantClassName)}
+            className={classNames(
+                'flex list-none justify-center lg:flex-initial lg:justify-start',
+                liVariantClassName,
+                className,
+            )}
+            {...props}
         >
             <a
                 className={variantClassName}

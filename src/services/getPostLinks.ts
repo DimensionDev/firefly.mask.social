@@ -19,7 +19,6 @@ import { isValidPollFrameUrl } from '@/helpers/resolveEmbedMediaType.js';
 import { resolveTCOLink } from '@/helpers/resolveTCOLink.js';
 import { FireflyArticleProvider } from '@/providers/firefly/Article.js';
 import { getPostIFrame } from '@/providers/og/readers/iframe.js';
-import type { Article } from '@/providers/types/Article.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 import { settings } from '@/settings/index.js';
 import type { FireflyBlinkParserBlinkResponse } from '@/types/blink.js';

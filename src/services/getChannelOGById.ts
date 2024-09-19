@@ -23,6 +23,7 @@ export async function getChannelOGById(source: SocialSourceInURL, channelId: str
     const description = channel.description ?? '';
 
     return createSiteMetadata({
+        title,
         openGraph: {
             type: 'website',
             url: urlcat(SITE_URL, getChannelUrl(channel)),

@@ -6,13 +6,10 @@ import { memo } from 'react';
 import { ListInPage } from '@/components/ListInPage.js';
 import { getPostItemContent } from '@/components/VirtualList/getPostItemContent.js';
 import { ScrollListKey, type SocialSource, Source } from '@/constants/enum.js';
-import { EMPTY_LIST } from '@/constants/index.js';
 import { getPostsSelector } from '@/helpers/getPostsSelector.js';
-import { narrowToSocialSource } from '@/helpers/narrowToSocialSource.js';
-import { createIndicator, createPageable, type Pageable, type PageIndicator } from '@/helpers/pageable.js';
+import { createIndicator, type Pageable, type PageIndicator } from '@/helpers/pageable.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
-import { useGlobalState } from '@/store/useGlobalStore.js';
 import { useImpressionsStore } from '@/store/useImpressionsStore.js';
 
 async function discoverPosts(source: SocialSource, indicator: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
@@ -20,35 +17,30 @@ async function discoverPosts(source: SocialSource, indicator: PageIndicator): Pr
     return provider.discoverPosts(indicator);
 }
 
-export const DiscoverPostList = memo(function DiscoverPostList() {
-    const currentSource = useGlobalState.use.currentSource();
-    const currentSocialSource = narrowToSocialSource(currentSource);
-
+export const DiscoverPostList = memo<{ source: SocialSource }>(function DiscoverPostList({ source }) {
     const fetchAndStoreViews = useImpressionsStore.use.fetchAndStoreViews();
     const queryResult = useSuspenseInfiniteQuery({
-        queryKey: ['posts', currentSource, 'discover'],
+        queryKey: ['posts', source, 'discover'],
         networkMode: 'always',
 
         queryFn: async ({ pageParam }) => {
-            if (currentSource === Source.Article) return createPageable<Post>(EMPTY_LIST, createIndicator());
-            const posts = await discoverPosts(currentSocialSource, createIndicator(undefined, pageParam));
-            if (currentSource === Source.Lens) fetchAndStoreViews(posts.data.flatMap((x) => [x.postId]));
+            const posts = await discoverPosts(source, createIndicator(undefined, pageParam));
+            if (source === Source.Lens) fetchAndStoreViews(posts.data.flatMap((x) => [x.postId]));
             return posts;
         },
         initialPageParam: '',
         getNextPageParam: (lastPage) => lastPage.nextIndicator?.id,
-        select: getPostsSelector(currentSocialSource),
+        select: getPostsSelector(source),
     });
 
     return (
         <ListInPage
-            key={currentSource}
+            key={source}
             queryResult={queryResult}
             VirtualListProps={{
-                listKey: `${ScrollListKey.Discover}:${currentSource}`,
+                listKey: `${ScrollListKey.Discover}:${source}`,
                 computeItemKey: (index, post) => `${post.postId}-${index}`,
-                itemContent: (index, post) =>
-                    getPostItemContent(index, post, `${ScrollListKey.Discover}:${currentSource}`),
+                itemContent: (index, post) => getPostItemContent(index, post, `${ScrollListKey.Discover}:${source}`),
             }}
             NoResultsFallbackProps={{
                 className: 'md:pt-[228px] max-md:py-20',

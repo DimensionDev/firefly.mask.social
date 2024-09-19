@@ -33,6 +33,14 @@ export const resolveSourceFromUrl = (source: SourceInURL | string) => {
     }
 };
 
+export const resolveSourceFromUrlNoFallback = (source?: SourceInURL | string | null) => {
+    try {
+        return resolveSource(source as SourceInURL);
+    } catch {
+        return null;
+    }
+};
+
 export const resolveSocialSource = createLookupTableResolver<SocialSourceInURL, SocialSource>(
     {
         [SourceInURL.Farcaster]: Source.Farcaster,
