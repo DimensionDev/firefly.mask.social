@@ -50,9 +50,9 @@ export const SinglePost = memo<SinglePostProps>(function SinglePost({
 
     const pathname = usePathname();
 
-    const isPostPage = isRoutePathname(pathname, '/post/:source/:id', true);
-    const isProfilePage = isRoutePathname(pathname, '/profile/:source/:id/:category', true);
-    const isChannelPage = isRoutePathname(pathname, '/channel/:detail/:type', true);
+    const isPostPage = isRoutePathname(pathname, '/post/:source');
+    const isProfilePage = isRoutePathname(pathname, '/profile/:source');
+    const isChannelPage = isRoutePathname(pathname, '/channel/:detail');
     const postLink = getPostUrl(post);
     const muted = useIsProfileMuted(post.author);
 
