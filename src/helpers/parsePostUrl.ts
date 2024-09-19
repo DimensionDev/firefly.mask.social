@@ -1,4 +1,4 @@
-import { isSocialSource, isSocialSourceInURL } from '@/helpers/isSocialSource.js';
+import { isSocialSource } from '@/helpers/isSocialSource.js';
 import { resolveSourceFromUrlNoFallback } from '@/helpers/resolveSource.js';
 
 export function parseOldPostUrl(url: URL) {
@@ -6,6 +6,6 @@ export function parseOldPostUrl(url: URL) {
     const source = resolveSourceFromUrlNoFallback(url.searchParams.get('source'));
     if (!source || !isSocialSource(source)) return null;
     const [, , id] = url.pathname.split('/');
-    if (!id || !isSocialSourceInURL(id)) return null;
+    if (!id) return null;
     return { source, id };
 }
