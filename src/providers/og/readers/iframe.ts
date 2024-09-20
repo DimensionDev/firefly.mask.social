@@ -2,7 +2,7 @@
 import { safeUnreachable } from '@masknet/kit';
 import urlcat from 'urlcat';
 
-import { parseURL } from '@/helpers/parseURL.js';
+import { parseUrl } from '@/helpers/parseUrl.js';
 
 // URLs that are manually picked to be embedded that dont have embed metatags
 const pickUrlSites = ['open.spotify.com', 'kick.com', 'tiktok.com'];
@@ -23,7 +23,7 @@ const tiktokApiRegex = /^https?:\/\/(?:www\.)?tiktok\.com\/player\/v1\/[\dA-Za-z
 const universalSize = `width="100%" height="415"`;
 
 export const getPostIFrame = (embedUrl: string | null, url: string): string | null => {
-    const parsedUrl = parseURL(url);
+    const parsedUrl = parseUrl(url);
 
     if (!parsedUrl) return null;
 

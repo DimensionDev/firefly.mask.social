@@ -6,11 +6,12 @@ import { isMatchedDiscoverPage } from '@/helpers/isMatchedDiscoverPage.js';
 import { parseOldPostUrl } from '@/helpers/parsePostUrl.js';
 import { parseProfileUrl } from '@/helpers/parseProfileUrl.js';
 import { resolvePostUrl } from '@/helpers/resolvePostUrl.js';
-import { resolveSourceInURL } from '@/helpers/resolveSourceInURL.js';
+import { resolveSourceInUrl } from '@/helpers/resolveSourceInUrl.js';
 
 export async function middleware(request: NextRequest) {
+    request.headers.set('X-URL', request.url);
+
     const pathname = request.nextUrl.pathname;
-    request.headers.set('x-url', request.url);
     const isPost = pathname.startsWith('/post') && !pathname.includes('/photos');
 
     if (isPost) {
@@ -34,7 +35,7 @@ export async function middleware(request: NextRequest) {
         const destination = new URL(
             urlcat(`/profile/:source/:id/relation/:category`, {
                 ...parsedProfileUrl,
-                source: resolveSourceInURL(parsedProfileUrl.source),
+                source: resolveSourceInUrl(parsedProfileUrl.source),
             }),
             request.url,
         );

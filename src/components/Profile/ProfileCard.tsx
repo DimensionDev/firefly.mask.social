@@ -16,7 +16,7 @@ import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { isSameProfile } from '@/helpers/isSameProfile.js';
 import { narrowToSocialSource } from '@/helpers/narrowToSocialSource.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
-import { resolveSourceInURL } from '@/helpers/resolveSourceInURL.js';
+import { resolveSourceInUrl } from '@/helpers/resolveSourceInUrl.js';
 import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
 import type { FireflyIdentity } from '@/providers/types/Firefly.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
@@ -99,7 +99,7 @@ export const ProfileCard = memo<ProfileCardProps>(function ProfileCard({ identit
                         <Link
                             href={{
                                 pathname: `/profile/${profile?.profileId}/following`,
-                                query: { source: resolveSourceInURL(profile.source) },
+                                query: { source: resolveSourceInUrl(profile.source) },
                             }}
                             className={classNames('gap-1 leading-[22px] hover:underline', {
                                 'pointer-events-none':

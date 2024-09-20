@@ -9,10 +9,10 @@ import { ProfileTippy } from '@/components/Profile/ProfileTippy.js';
 import { Time } from '@/components/Semantic/Time.js';
 import { SocialSourceIcon } from '@/components/SocialSourceIcon.js';
 import { TimestampFormatter } from '@/components/TimeStampFormatter.js';
-import { Source } from '@/constants/enum.js';
+import { PageRoute, Source } from '@/constants/enum.js';
 import { Link } from '@/esm/Link.js';
 import { classNames } from '@/helpers/classNames.js';
-import { getLennyURL } from '@/helpers/getLennyURL.js';
+import { getLennyUrl } from '@/helpers/getLennyUrl.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { isRoutePathname } from '@/helpers/isRoutePathname.js';
 import { isSendFromFirefly } from '@/helpers/isSendFromFirefly.js';
@@ -40,7 +40,7 @@ export const PostHeader = memo<PostHeaderProps>(function PostHeader({
 
     const isSmall = useIsSmall('max');
     const pathname = usePathname();
-    const isDetailPage = isRoutePathname(pathname, '/post/:detail', true);
+    const isDetailPage = isRoutePathname(pathname, PageRoute.PostDetail, true);
 
     const identity = resolveFireflyIdentity(author);
     const newLine = !isQuote && (isSmall || (isDetailPage && !isComment && !showDate));
@@ -78,7 +78,7 @@ export const PostHeader = memo<PostHeaderProps>(function PostHeader({
                         src={author.pfp}
                         size={isQuote ? 24 : 40}
                         alt={author.profileId}
-                        fallbackUrl={post.source === Source.Lens ? getLennyURL(author.handle) : undefined}
+                        fallbackUrl={post.source === Source.Lens ? getLennyUrl(author.handle) : undefined}
                     />
                 </Link>
             </ProfileTippy>

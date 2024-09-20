@@ -8,7 +8,7 @@ import { SORTED_SOCIAL_SOURCES } from '@/constants/index.js';
 import { enqueueErrorsMessage, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { getThreadFailedAt } from '@/helpers/getThreadFailedAt.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
-import { getCompositePostParameters } from '@/providers/safary/getCompositePostParameters.js';
+import { getComposeEventParameters } from '@/providers/safary/getComposeEventParameters.js';
 import { SafaryTelemetryProvider } from '@/providers/safary/Telemetry.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 import { EventId } from '@/providers/types/Telemetry.js';
@@ -161,7 +161,10 @@ export async function crossPostThread({ progressCallback, isRetry = false, signa
         const rootPost = first(updatedPosts);
 
         if (rootPost) {
-            SafaryTelemetryProvider.captureEvent(EventId.SEND_CROSS_POST_SUCCESS, getCompositePostParameters(rootPost));
+            SafaryTelemetryProvider.captureEvent(
+                EventId.COMPOSE_CROSS_POST_SEND_SUCCESS,
+                getComposeEventParameters(rootPost, updatedPosts),
+            );
         }
 
         // report crossed posts thread

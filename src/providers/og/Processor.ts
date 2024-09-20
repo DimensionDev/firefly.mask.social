@@ -13,7 +13,7 @@ import {
     WARPCAST_CONVERSATIONS_REGEX,
     WARPCAST_THREAD_REGEX,
 } from '@/constants/regexp.js';
-import { parseURL } from '@/helpers/parseURL.js';
+import { parseUrl } from '@/helpers/parseUrl.js';
 import { getPostIFrame } from '@/providers/og/readers/iframe.js';
 import {
     getDescription,
@@ -69,7 +69,7 @@ class Processor {
     };
 
     digestDocumentUrl = async (documentUrl: string, signal?: AbortSignal): Promise<LinkDigested | null> => {
-        const url = parseURL(documentUrl);
+        const url = parseUrl(documentUrl);
         if (!url) return null;
 
         const response = await fetch(url, {

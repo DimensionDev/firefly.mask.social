@@ -12,7 +12,7 @@ import { PostStatistics } from '@/components/Actions/PostStatistics.js';
 import { Share } from '@/components/Actions/Share.js';
 import { ClickableArea } from '@/components/ClickableArea.js';
 import { Tips } from '@/components/Tips/index.js';
-import { Source } from '@/constants/enum.js';
+import { PageRoute, Source } from '@/constants/enum.js';
 import { SITE_URL } from '@/constants/index.js';
 import { classNames } from '@/helpers/classNames.js';
 import { getPostUrl } from '@/helpers/getPostUrl.js';
@@ -138,7 +138,7 @@ export const PostActions = memo<PostActionsProps>(function PostActions({
 
     const isSmall = useIsSmall('max');
     const isComment = post.type === 'Comment';
-    const isDetailPage = isRoutePathname(pathname, '/post/:detail', true);
+    const isDetailPage = isRoutePathname(pathname, PageRoute.PostDetail, true);
 
     const identity = useFireflyIdentity(post.source, resolveFireflyProfileId(post.author) ?? '');
 

@@ -10,9 +10,9 @@ import { Autoplay, Navigation, Pagination } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
 import { ClickableArea } from '@/components/ClickableArea.js';
+import { Image } from '@/components/Image.js';
 import { AdFunctionType, AdvertisementType } from '@/constants/enum.js';
 import { ADVERTISEMENT_JSON_URL } from '@/constants/index.js';
-import { Image } from '@/esm/Image.js';
 import { Link } from '@/esm/Link.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
 import { LoginModalRef } from '@/modals/controls.js';

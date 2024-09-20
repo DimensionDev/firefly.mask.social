@@ -5,7 +5,7 @@ import { FetchError } from '@/constants/error.js';
 import { createErrorResponseJSON } from '@/helpers/createErrorResponseJSON.js';
 import { createSuccessResponseJSON } from '@/helpers/createSuccessResponseJSON.js';
 import { parseJSON } from '@/helpers/parseJSON.js';
-import { parseURL } from '@/helpers/parseURL.js';
+import { parseUrl } from '@/helpers/parseUrl.js';
 import type { ParagraphChain } from '@/providers/paragraph/type.js';
 
 interface State {
@@ -55,7 +55,7 @@ interface State {
 
 class Processor {
     async digestDocumentUrl(documentUrl: string, signal?: AbortSignal) {
-        const url = parseURL(documentUrl);
+        const url = parseUrl(documentUrl);
         if (!url) return null;
 
         const response = await fetch(url, { signal });

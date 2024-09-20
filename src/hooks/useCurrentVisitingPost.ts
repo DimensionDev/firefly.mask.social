@@ -1,6 +1,7 @@
 import { usePathname } from 'next/navigation.js';
 import { useEffect } from 'react';
 
+import { PageRoute } from '@/constants/enum.js';
 import { isRoutePathname } from '@/helpers/isRoutePathname.js';
 import { useValueRef } from '@/hooks/useValueRef.js';
 import { ValueRef } from '@/libs/ValueRef.js';
@@ -16,7 +17,7 @@ export function useUpdateCurrentVisitingPost(post: Post | null) {
 
 export function useCurrentVisitingPost() {
     const pathname = usePathname();
-    const isPostPage = isRoutePathname(pathname, '/post/:detail', true);
+    const isPostPage = isRoutePathname(pathname, PageRoute.PostDetail, true);
     const post = useValueRef(currentVisitingPost);
     return isPostPage ? post : null;
 }

@@ -156,12 +156,7 @@ export function PostCollect({ post, onClose }: PostCollectProps) {
                 <>
                     <Trans>Collected</Trans>
                     {contractExploreUrl ? (
-                        <Link
-                            className="ml-1"
-                            href={EVMExplorerResolver.addressLink(polygon.id, contractExploreUrl) ?? ''}
-                            target="_blank"
-                            rel="noreferrer noopener"
-                        >
+                        <Link className="ml-1" href={contractExploreUrl} target="_blank" rel="noreferrer noopener">
                             <LinkIcon width={18} height={18} />
                         </Link>
                     ) : null}
@@ -174,12 +169,7 @@ export function PostCollect({ post, onClose }: PostCollectProps) {
                 <>
                     <Trans>Sold Out</Trans>
                     {contractExploreUrl ? (
-                        <Link
-                            className="ml-1"
-                            href={EVMExplorerResolver.addressLink(polygon.id, contractExploreUrl) ?? ''}
-                            target="_blank"
-                            rel="noreferrer noopener"
-                        >
+                        <Link className="ml-1" href={contractExploreUrl} target="_blank" rel="noreferrer noopener">
                             <LinkIcon width={18} height={18} />
                         </Link>
                     ) : null}
@@ -191,16 +181,16 @@ export function PostCollect({ post, onClose }: PostCollectProps) {
                 <>
                     <Trans>Time Out</Trans>
                     {contractExploreUrl ? (
-                        <Link
-                            href={EVMExplorerResolver.addressLink(polygon.id, contractExploreUrl) ?? ''}
-                            target="_blank"
-                            rel="noreferrer noopener"
-                        >
+                        <Link href={contractExploreUrl} target="_blank" rel="noreferrer noopener">
                             <LinkIcon width={18} height={18} />
                         </Link>
                     ) : null}
                 </>
             );
+
+        if (post.collectModule?.followerOnly && !profile?.viewerContext?.following) {
+            return <Trans>Follow to Collect</Trans>;
+        }
 
         if (!allowed) {
             return <Trans>Allow Collect Module</Trans>;
@@ -216,10 +206,6 @@ export function PostCollect({ post, onClose }: PostCollectProps) {
                     Collect for {post.collectModule.amount} {post.collectModule.currency}
                 </Trans>
             );
-        }
-
-        if (post.collectModule?.followerOnly && !profile?.viewerContext?.following) {
-            return <Trans>Follow to Collect</Trans>;
         }
 
         return <Trans>Free Collect</Trans>;
@@ -246,13 +232,13 @@ export function PostCollect({ post, onClose }: PostCollectProps) {
             return;
         }
 
-        if (!allowed) {
-            handleApprove();
+        if (post.collectModule?.followerOnly && !profile?.viewerContext?.following) {
+            toggleFollow.mutate();
             return;
         }
 
-        if (post.collectModule?.followerOnly && !profile?.viewerContext?.following) {
-            toggleFollow.mutate();
+        if (!allowed) {
+            handleApprove();
             return;
         }
 
@@ -284,7 +270,8 @@ export function PostCollect({ post, onClose }: PostCollectProps) {
             <div className="my-3 rounded-lg bg-lightBg px-3 py-2">
                 <div className="flex items-center gap-2">
                     <Avatar src={post.author.pfp} size={20} alt={post.author.handle} />
-                    <span className="text-medium leading-[24px] text-lightSecond">{post.author.handle}</span>
+                    <span className="text-medium font-bold leading-[24px]">{post.author.displayName}</span>
+                    <span className="text-medium leading-[24px] text-lightSecond">@{post.author.handle}</span>
                 </div>
                 <div className="line-clamp-2 text-left text-base font-bold leading-5 text-fourMain">
                     {post.metadata.content?.content}

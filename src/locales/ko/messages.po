@@ -1761,6 +1761,9 @@ msgstr ""
 msgid "Cancel repost successfully"
 msgstr ""
 
+msgid "Collect Post"
+msgstr ""
+
 msgid "Muting..."
 msgstr ""
 

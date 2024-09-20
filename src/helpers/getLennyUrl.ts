@@ -7,6 +7,6 @@ import { SITE_URL } from '@/constants/index.js';
  * @param id The Lenny ID to get the URL for.
  * @returns The lenny avatar URL.
  */
-export function getLennyURL(id: string): string {
+export function getLennyUrl(id: string): string {
     return urlcat(SITE_URL, '/api/avatar', { id });
 }
