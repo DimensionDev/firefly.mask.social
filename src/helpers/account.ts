@@ -13,6 +13,11 @@ import { runInSafe } from '@/helpers/runInSafe.js';
 import { ConfirmFireflyModalRef, LoginModalRef } from '@/modals/controls.js';
 import { FireflySession } from '@/providers/firefly/Session.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
+import {
+    captureAccountLoginInEvent,
+    captureAccountLoginOutEvent,
+    captureAccountLogoutAllEvent,
+} from '@/providers/safary/captureAccountEvent.js';
 import { captureSyncModalEvent } from '@/providers/safary/captureSyncModalEvent.js';
 import { TwitterSession } from '@/providers/twitter/Session.js';
 import type { Account } from '@/providers/types/Account.js';
@@ -228,6 +233,8 @@ export async function addAccount(account: Account, options?: AccountOptions) {
         runInSafe(() => reportFarcasterSigner(account.session as FireflySession));
     }
 
+    captureAccountLoginInEvent(account);
+
     // account has been added to the store
     return true;
 }
@@ -287,6 +294,8 @@ async function removeAccount(account: Account, signal?: AbortSignal) {
     } else {
         state.removeAccount(account);
     }
+
+    captureAccountLoginOutEvent(account);
 }
 
 export async function removeAccountByProfileId(source: SocialSource, profileId: string) {
@@ -334,6 +343,8 @@ export async function removeAllAccounts() {
             });
         }
     });
+
+    captureAccountLogoutAllEvent();
 
     await removeFireflyAccountIfNeeded();
 }

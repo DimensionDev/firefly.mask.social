@@ -11,7 +11,7 @@ export enum ExceptionType {
 
 export enum EventId {
     ACCOUNT_CREATE_SUCCESS = 'account_create_success',
-    ACCOUNT_LOG_OUT_ALL_SUCCESS = 'account_log_out_all_success',
+    ACCOUNT_LOG_OUT_ALL_SUCCESS = 'account_log_out_all_success', // ✅
     MUTE_ALL_SUCCESS = 'mute_all_success',
     MUTE_SUCCESS = 'mute_success',
     UNMUTE_SUCCESS = 'unmute_success',
@@ -33,8 +33,8 @@ export enum EventId {
     TOKEN_SYNC_USE_NO = 'token_sync_use_no', // ✅
 
     // farcaster
-    FARCASTER_LOG_IN_SUCCESS = 'farcaster_log_in_success',
-    FARCASTER_LOG_OUT_SUCCESS = 'farcaster_log_out_success',
+    FARCASTER_LOG_IN_SUCCESS = 'farcaster_log_in_success', // ✅
+    FARCASTER_LOG_OUT_SUCCESS = 'farcaster_log_out_success', // ✅
     FARCASTER_ACCOUNT_DISCONNECT_SUCCESS = 'account_farcaster_disconnect_success',
     FARCASTER_POST_SEND_SUCCESS = 'farcaster_cast_send_success', // ✅
     FARCASTER_POST_DELETE_SUCCESS = 'farcaster_cast_delete_success',
@@ -50,8 +50,8 @@ export enum EventId {
     FARCASTER_PROFILE_UNFOLLOW_SUCCESS = 'farcaster_unfollow_success',
 
     // lens
-    LENS_ACCOUNT_LOG_IN_SUCCESS = 'lens_log_in_success',
-    LENS_ACCOUNT_LOG_OUT_SUCCESS = 'lens_log_out_success',
+    LENS_ACCOUNT_LOG_IN_SUCCESS = 'lens_log_in_success', // ✅
+    LENS_ACCOUNT_LOG_OUT_SUCCESS = 'lens_log_out_success', // ✅
     LENS_ACCOUNT_DISCONNECT_SUCCESS = 'account_lens_disconnect_success',
     LENS_POST_SEND_SUCCESS = 'lens_post_send_success', // ✅
     LENS_POST_LIKE_SUCCESS = 'lens_post_like_success',
@@ -66,8 +66,8 @@ export enum EventId {
     LENS_PROFILE_UNFOLLOW_SUCCESS = 'lens_unfollow_success',
 
     // x
-    X_ACCOUNT_LOG_IN_SUCCESS = 'x_log_in_success',
-    X_ACCOUNT_LOG_OUT_SUCCESS = 'x_log_out_success',
+    X_ACCOUNT_LOG_IN_SUCCESS = 'x_log_in_success', // ✅
+    X_ACCOUNT_LOG_OUT_SUCCESS = 'x_log_out_success', // ✅
     X_ACCOUNT_DISCONNECT_SUCCESS = 'account_x_disconnect_success',
     X_POST_SEND_SUCCESS = 'x_post_send_success', // ✅
     X_POST_DELETE_SUCCESS = 'x_post_delete_success',
