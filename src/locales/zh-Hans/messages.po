@@ -726,6 +726,9 @@ msgstr ""
 msgid "Followed by {0} and {1}"
 msgstr "被 {0} 和 {1} 关注"
 
+msgid "Insufficient {0} Balance"
+msgstr ""
+
 msgid "Try searching for something else."
 msgstr "试试搜索其他东西。"
 
@@ -1964,6 +1967,9 @@ msgstr "已关联的钱包"
 
 msgid "The whitelist function is included. Some addresses may not be able to trade normally (honeypot risk)."
 msgstr "白名单功能已启用。有些地址可能无法正常交易（欺诈风险）。"
+
+msgid "Mirror now to get 25% referral fee!"
+msgstr ""
 
 msgid "Hide tokens with small balances"
 msgstr "隐藏小额通证"
