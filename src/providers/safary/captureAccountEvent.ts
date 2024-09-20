@@ -64,13 +64,13 @@ function getAccountEventParameters(account: Account) {
     }
 }
 
-export function captureAccountLoginInEvent(account: Account) {
+export function captureAccountLoginEvent(account: Account) {
     const source = account.profile.source;
 
     SafaryTelemetryProvider.captureEvent(resolveLoginEventId(source), getAccountEventParameters(account));
 }
 
-export function captureAccountLoginOutEvent(account: Account) {
+export function captureAccountLogoutEvent(account: Account) {
     const source = account.profile.source;
 
     SafaryTelemetryProvider.captureEvent(resolveLogoutEventId(source), getAccountEventParameters(account));
