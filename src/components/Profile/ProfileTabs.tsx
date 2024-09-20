@@ -66,7 +66,7 @@ export function ProfileTabs({ profiles, identity }: ProfileTabsProps) {
     if (profiles.length <= 1) return null;
 
     return (
-        <div className="scrollable-tab flex gap-2 px-5">
+        <nav className="scrollable-tab flex gap-2 px-5">
             {profiles.map((profile, index) => {
                 const colors = resolveProfileTabColor(profile.identity.source);
                 const isActive = isSameFireflyIdentity(profile.identity, identity);
@@ -108,6 +108,6 @@ export function ProfileTabs({ profiles, identity }: ProfileTabsProps) {
                     </Link>
                 );
             })}
-        </div>
+        </nav>
     );
 }

@@ -222,7 +222,7 @@ export function SearchRecommendation(props: SearchRecommendationProps) {
                 </ClickableButton>
             </h2>
             {records.length ? (
-                <ul className="my-0">
+                <menu className="my-0">
                     {records.map((record) => (
                         <Link
                             className="flex cursor-pointer items-center px-3 hover:bg-bg"
@@ -245,7 +245,7 @@ export function SearchRecommendation(props: SearchRecommendationProps) {
                             />
                         </Link>
                     ))}
-                </ul>
+                </menu>
             ) : null}
         </div>
     );

@@ -34,7 +34,7 @@ export function Info({ channel, source, isChannelPage = false, ...rest }: InfoPr
     const name = <span className="text-xl font-black text-lightMain">{channel.name}</span>;
 
     return (
-        <div {...rest} className={classNames('flex gap-3 p-3', rest.className)}>
+        <article {...rest} className={classNames('flex gap-3 p-3', rest.className)}>
             {isChannelPage ? avatar : <Link href={url}>{avatar}</Link>}
 
             <div className="relative flex flex-1 flex-col gap-[6px]">
@@ -45,13 +45,13 @@ export function Info({ channel, source, isChannelPage = false, ...rest }: InfoPr
                 ) : null}
 
                 <div className="flex flex-col">
-                    <div className="flex items-center gap-2">
+                    <h1 className="flex items-center gap-2">
                         {isChannelPage ? name : <Link href={url}>{name}</Link>}
                         <SocialSourceIcon source={source} size={20} />
-                    </div>
+                    </h1>
                     <div className="flex flex-row gap-1">
                         <span className="text-medium text-secondary">/{channel.id}</span>
-                        <div className="flex items-center gap-1">
+                        <data value={followerCount} className="flex items-center gap-1">
                             <UserIcon width={18} height={18} />
                             <span className="text-lightMain">{nFormatter(followerCount)}</span>
                             <span className="text-secondary">
@@ -60,7 +60,7 @@ export function Info({ channel, source, isChannelPage = false, ...rest }: InfoPr
                                     other: 'Followers',
                                 })}
                             </span>
-                        </div>
+                        </data>
                     </div>
                 </div>
 
@@ -73,6 +73,6 @@ export function Info({ channel, source, isChannelPage = false, ...rest }: InfoPr
                     {channel.description ?? '-'}
                 </BioMarkup>
             </div>
-        </div>
+        </article>
     );
 }

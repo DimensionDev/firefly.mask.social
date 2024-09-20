@@ -6,6 +6,7 @@ import PowerUserIcon from '@/assets/power-user.svg';
 import { MoreAction } from '@/components/Actions/More.js';
 import { Avatar } from '@/components/Avatar.js';
 import { ProfileTippy } from '@/components/Profile/ProfileTippy.js';
+import { Time } from '@/components/Semantic/Time.js';
 import { SocialSourceIcon } from '@/components/SocialSourceIcon.js';
 import { TimestampFormatter } from '@/components/TimeStampFormatter.js';
 import { Source } from '@/constants/enum.js';
@@ -103,12 +104,12 @@ export const PostHeader = memo<PostHeaderProps>(function PostHeader({
                     {post.timestamp && (isComment || isQuote || !isDetailPage || showDate) ? (
                         <>
                             <span className="mx-1 leading-5 text-secondary">·</span>
-                            <time
-                                dateTime={new Date(post.timestamp).toISOString()}
+                            <Time
+                                dateTime={post.timestamp}
                                 className="whitespace-nowrap text-medium leading-5 text-secondary"
                             >
                                 <TimestampFormatter time={post.timestamp} />
-                            </time>
+                            </Time>
                             <span className="mx-1 leading-5 text-secondary">·</span>
                         </>
                     ) : null}

@@ -13,6 +13,7 @@ import { CommentList } from '@/components/Comments/index.js';
 import { Loading } from '@/components/Loading.js';
 import { SinglePost } from '@/components/Posts/SinglePost.js';
 import { ThreadBody } from '@/components/Posts/ThreadBody.js';
+import { Section } from '@/components/Semantic/Section.js';
 import { type SocialSource, Source } from '@/constants/enum.js';
 import { EMPTY_LIST, MIN_POST_SIZE_PER_THREAD } from '@/constants/index.js';
 import { dynamic } from '@/esm/dynamic.js';
@@ -100,20 +101,22 @@ export function PostDetailPage({ post, id: postId, source }: Props) {
     useUpdateCurrentVisitingPost(post);
 
     return (
-        <div className="min-h-screen">
-            <div className="sticky top-0 z-40 flex items-center border-b border-line bg-primaryBottom px-4 py-[18px]">
+        <article className="min-h-screen">
+            <header className="sticky top-0 z-40 flex items-center border-b border-line bg-primaryBottom px-4 py-[18px]">
                 <ComeBack width={24} height={24} className="mr-8 cursor-pointer" onClick={comeback} />
                 <h2 className="text-xl font-black leading-6">
                     <Trans>Details</Trans>
                 </h2>
-            </div>
+            </header>
             {post.channel ? (
-                <Info channel={post.channel} source={post.source} className="border-b border-line p-3" />
+                <Section title="Post Channel">
+                    <Info channel={post.channel} source={post.source} className="border-b border-line p-3" />
+                </Section>
             ) : null}
-            <div>
+            <>
                 {allPosts.length >= MIN_POST_SIZE_PER_THREAD ? (
                     <>
-                        <div className="px-4 py-3">
+                        <article className="px-4 py-3">
                             {allPosts.map((post, index) => (
                                 <ThreadBody
                                     isDetail
@@ -124,17 +127,19 @@ export function PostDetailPage({ post, id: postId, source }: Props) {
                                     isLast={index === allPosts.length - 1}
                                 />
                             ))}
-                        </div>
-                        <CommentList
-                            postId={post.postId}
-                            source={source}
-                            excludePostIds={allPosts.map((x) => x.postId)}
-                        />
+                        </article>
+                        <Section title="Post Comments">
+                            <CommentList
+                                postId={post.postId}
+                                source={source}
+                                excludePostIds={allPosts.map((x) => x.postId)}
+                            />
+                        </Section>
                     </>
                 ) : (
-                    <article>
+                    <>
                         <SinglePost post={post} disableAnimate isDetail showTranslate className="border-b-0" />
-                        <footer>
+                        <Section title="Post Statistics And Actions">
                             <PostStatistics post={post} className="mb-1.5 px-3" />
                             {!post.isHidden ? (
                                 <PostActionsWithGrid
@@ -144,14 +149,16 @@ export function PostDetailPage({ post, id: postId, source }: Props) {
                                     className="!mt-0 border-b border-t border-line py-3 pl-2 pr-4"
                                 />
                             ) : null}
-                        </footer>
+                        </Section>
                         {/* TODO: Compose Comment Input */}
                         <Suspense fallback={<Loading />}>
-                            <CommentList postId={postId} source={source} />
+                            <Section title="Post Comments">
+                                <CommentList postId={postId} source={source} />
+                            </Section>
                         </Suspense>
-                    </article>
+                    </>
                 )}
-            </div>
-        </div>
+            </>
+        </article>
     );
 }

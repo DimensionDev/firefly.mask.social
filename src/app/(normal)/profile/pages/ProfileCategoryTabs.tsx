@@ -61,7 +61,7 @@ export function ProfileCategoryTabs({
               ].filter((x) => SORTED_PROFILE_TAB_TYPE[source as SocialSource].includes(x.type));
 
     return (
-        <div className="scrollable-tab flex gap-5 border-b border-lightLineSecond px-5 dark:border-line">
+        <nav className="scrollable-tab flex gap-5 border-b border-lightLineSecond px-5 dark:border-line">
             {categories.map(({ type, title }) => {
                 return (
                     <div key={type} className="flex flex-col">
@@ -84,6 +84,6 @@ export function ProfileCategoryTabs({
                     </div>
                 );
             })}
-        </div>
+        </nav>
     );
 }

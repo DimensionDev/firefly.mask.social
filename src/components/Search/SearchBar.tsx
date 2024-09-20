@@ -9,6 +9,7 @@ import LeftArrowIcon from '@/assets/left-arrow.svg';
 import SearchIcon from '@/assets/search.svg';
 import { SearchInput } from '@/components/Search/SearchInput.js';
 import { SearchRecommendation } from '@/components/Search/SearchRecommendation.js';
+import { Section } from '@/components/Semantic/Section.js';
 import { classNames } from '@/helpers/classNames.js';
 import { isRoutePathname } from '@/helpers/isRoutePathname.js';
 import { useComeBack } from '@/hooks/useComeback.js';
@@ -102,9 +103,8 @@ export function AsideSearchBar() {
     const pathname = usePathname();
     const isSearchPage = !isRoutePathname(pathname, '/search');
     return isSearchPage ? (
-        <section>
-            <h1 className="sr-only">Search Bar</h1>
+        <Section title="Search Bar">
             <SearchBar slot="secondary" />
-        </section>
+        </Section>
     ) : null;
 }

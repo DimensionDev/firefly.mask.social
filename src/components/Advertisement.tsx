@@ -31,8 +31,7 @@ export function Advertisement() {
     if (isLoading || !data?.length) return null;
 
     return (
-        <section>
-            <h1 className="hidden">Advertisement</h1>
+        <div>
             <Swiper
                 className="ff-advertisement"
                 pagination
@@ -78,6 +77,6 @@ export function Advertisement() {
                     </SwiperSlide>
                 ))}
             </Swiper>
-        </section>
+        </div>
     );
 }

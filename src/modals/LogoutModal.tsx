@@ -39,7 +39,7 @@ export const LogoutModal = forwardRef<SingletonModalRefCreator<LogoutModalProps 
                                 <Trans>Confirm to log out all accounts?</Trans>
                             )}
                         </div>
-                        <ul className="flex max-h-[192px] flex-col gap-3 overflow-auto pb-4 pt-2">
+                        <menu className="flex max-h-[192px] flex-col gap-3 overflow-auto pb-4 pt-2">
                             {accounts.map((account) => (
                                 <ProfileInList
                                     key={account.profile.profileId}
@@ -51,7 +51,7 @@ export const LogoutModal = forwardRef<SingletonModalRefCreator<LogoutModalProps 
                                     }}
                                 />
                             ))}
-                        </ul>
+                        </menu>
                     </>
                 ),
             });

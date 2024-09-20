@@ -96,7 +96,7 @@ export default function Page() {
             </Headline>
 
             {
-                <ul className="w-full">
+                <menu className="w-full">
                     {items.map((x, i) => {
                         return (
                             <ClickableArea
@@ -118,7 +118,7 @@ export default function Page() {
                             </ClickableArea>
                         );
                     })}
-                </ul>
+                </menu>
             }
         </Section>
     );
