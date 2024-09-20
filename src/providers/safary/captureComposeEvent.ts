@@ -8,28 +8,56 @@ import { EventId } from '@/providers/types/Telemetry.js';
 import type { CompositePost } from '@/store/useComposeStore.js';
 import type { ComposeType } from '@/types/compose.js';
 
-export function captureComposeEvent(type: ComposeType, post: CompositePost, options?: Options) {
+export function captureComposeEvent(type: ComposeType, post: CompositePost, options: Options = {}) {
+    const date = new Date();
     const size = post.availableSources.length;
+    const { draftId, scheduleId } = options;
 
-    // post shared to only one platform
-    if (size === 1) {
-        switch (type) {
-            case 'compose':
-                SafaryTelemetryProvider.captureEvent(getPostEventId(type, post), getComposeEventParameters(post));
-                break;
-            case 'reply':
-                SafaryTelemetryProvider.captureEvent(getPostEventId(type, post), getPostEventParameters(post));
-                break;
-            case 'quote':
-                SafaryTelemetryProvider.captureEvent(getPostEventId(type, post), getPostEventParameters(post));
-                break;
-            default:
-                safeUnreachable(type);
-                throw new UnreachableError('type', type);
+    // draft created
+    if (draftId) {
+        SafaryTelemetryProvider.captureEvent(EventId.COMPOSE_DRAFT_CREATE_SUCCESS, {
+            draft_id: draftId,
+            draft_time: date.getTime(),
+            draft_time_utc: date.toUTCString(),
+            ...getComposeEventParameters(post, options),
+        });
+    }
+
+    // scheduled post created
+    if (scheduleId) {
+        SafaryTelemetryProvider.captureEvent(EventId.COMPOSE_SCHEDULED_POST_CREATE_SUCCESS, {
+            schedule_id: scheduleId,
+            schedule_time: date.getTime(),
+            scheduled_time_utc: date.toUTCString(),
+            ...getComposeEventParameters(post, options),
+        });
+    }
+
+    // post created
+    {
+        // post to only one platform
+        if (size === 1) {
+            switch (type) {
+                case 'compose':
+                    SafaryTelemetryProvider.captureEvent(getPostEventId(type, post), getComposeEventParameters(post));
+                    break;
+                case 'reply':
+                    SafaryTelemetryProvider.captureEvent(getPostEventId(type, post), getPostEventParameters(post));
+                    break;
+                case 'quote':
+                    SafaryTelemetryProvider.captureEvent(getPostEventId(type, post), getPostEventParameters(post));
+                    break;
+                default:
+                    safeUnreachable(type);
+                    throw new UnreachableError('type', type);
+            }
+
+            // crossed post
+        } else if (size > 1) {
+            SafaryTelemetryProvider.captureEvent(
+                EventId.COMPOSE_CROSS_POST_SEND_SUCCESS,
+                getComposeEventParameters(post),
+            );
         }
-
-    // crossed post
-    } else if (size > 1) {
-        SafaryTelemetryProvider.captureEvent(EventId.COMPOSE_CROSS_POST_SEND_SUCCESS, getComposeEventParameters(post));
     }
 }

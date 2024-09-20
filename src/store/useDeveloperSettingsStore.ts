@@ -13,6 +13,9 @@ interface DeveloperSettingsState {
 
     useDevelopmentAPI: boolean;
     updateUseDevelopmentAPI: (value: boolean) => void;
+
+    logTelemetry: boolean;
+    updateLogTelemetry: (value: boolean) => void;
 }
 
 function updateRedPacketApiRoot(devMode: boolean) {
@@ -37,11 +40,18 @@ const useDeveloperSettingsBase = create<
                     updateRedPacketApiRoot(value);
                     state.useDevelopmentAPI = value;
                 }),
+
+            logTelemetry: true,
+            updateLogTelemetry: (value: boolean) =>
+                set((state) => {
+                    state.logTelemetry = value;
+                }),
         })),
         {
             name: 'developer-settings',
             partialize: (state) => ({
                 useDevelopmentAPI: state.useDevelopmentAPI,
+                captureTelemetry: state.logTelemetry,
             }),
             onRehydrateStorage: (state) => {
                 updateRedPacketApiRoot(state.useDevelopmentAPI);

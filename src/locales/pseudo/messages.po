@@ -586,6 +586,9 @@ msgstr ""
 msgid "Market Cap / FDV"
 msgstr ""
 
+msgid "Log telemetry events to the console."
+msgstr ""
+
 msgid "Confirmation"
 msgstr ""
 
@@ -998,6 +1001,9 @@ msgid "Website"
 msgstr ""
 
 msgid "Failed to report @{0}."
+msgstr ""
+
+msgid "Enable logging telemetry events"
 msgstr ""
 
 msgid "Post with link"

@@ -586,6 +586,9 @@ msgstr "Recasts"
 msgid "Market Cap / FDV"
 msgstr "Market Cap / FDV"
 
+msgid "Log telemetry events to the console."
+msgstr "Log telemetry events to the console."
+
 msgid "Confirmation"
 msgstr "Confirmation"
 
@@ -999,6 +1002,9 @@ msgstr "Website"
 
 msgid "Failed to report @{0}."
 msgstr "Failed to report @{0}."
+
+msgid "Enable logging telemetry events"
+msgstr "Enable logging telemetry events"
 
 msgid "Post with link"
 msgstr "Post with link"
