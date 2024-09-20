@@ -70,7 +70,7 @@ import {
     type PageIndicator,
 } from '@/helpers/pageable.js';
 import { pollWithRetry } from '@/helpers/pollWithRetry.js';
-import { runInSafe } from '@/helpers/runInSafe.js';
+import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { waitForEthereumTransaction } from '@/helpers/waitForEthereumTransaction.js';
 import { waitUntilComplete } from '@/helpers/waitUntilComplete.js';
 import { writeLensHubContract } from '@/helpers/writeLensHubContract.js';
@@ -1277,7 +1277,7 @@ class LensSocialMedia implements Provider {
 
     async blockProfile(profileId: string) {
         const result = await FireflySocialMediaProvider.blockProfileFor(FireflyPlatform.Lens, profileId);
-        await runInSafe(() =>
+        await runInSafeAsync(() =>
             lensSessionHolder.sdk.profile.block({
                 profiles: [profileId],
             }),
@@ -1287,7 +1287,7 @@ class LensSocialMedia implements Provider {
 
     async unblockProfile(profileId: string) {
         const result = await FireflySocialMediaProvider.unblockProfileFor(FireflyPlatform.Lens, profileId);
-        await runInSafe(() =>
+        await runInSafeAsync(() =>
             lensSessionHolder.sdk.profile.unblock({
                 profiles: [profileId],
             }),

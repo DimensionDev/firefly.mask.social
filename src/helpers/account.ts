@@ -9,7 +9,7 @@ import { isSameAccount } from '@/helpers/isSameAccount.js';
 import { isSameProfile } from '@/helpers/isSameProfile.js';
 import { isSameSession } from '@/helpers/isSameSession.js';
 import { resolveSessionHolder } from '@/helpers/resolveSessionHolder.js';
-import { runInSafe } from '@/helpers/runInSafe.js';
+import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { ConfirmFireflyModalRef, LoginModalRef } from '@/modals/controls.js';
 import { FireflySession } from '@/providers/firefly/Session.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
@@ -230,7 +230,7 @@ export async function addAccount(account: Account, options?: AccountOptions) {
     // report farcaster signer
     if (!skipReportFarcasterSigner && account.session.type === SessionType.Farcaster && fireflySessionHolder.session) {
         console.warn('[addAccount] report farcaster signer');
-        runInSafe(() => reportFarcasterSigner(account.session as FireflySession));
+        runInSafeAsync(() => reportFarcasterSigner(account.session as FireflySession));
     }
 
     captureAccountLoginEvent(account);

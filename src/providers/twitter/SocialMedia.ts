@@ -18,7 +18,7 @@ import { formatTwitterProfile } from '@/helpers/formatTwitterProfile.js';
 import { type Pageable, type PageIndicator } from '@/helpers/pageable.js';
 import { resolveTCOLink } from '@/helpers/resolveTCOLink.js';
 import { resolveTwitterReplyRestriction } from '@/helpers/resolveTwitterReplyRestriction.js';
-import { runInSafe } from '@/helpers/runInSafe.js';
+import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
 import { TwitterSession } from '@/providers/twitter/Session.js';
 import { twitterSessionHolder } from '@/providers/twitter/SessionHolder.js';
@@ -445,7 +445,7 @@ class TwitterSocialMedia implements Provider {
     }
     async blockProfile(profileId: string): Promise<boolean> {
         const result = await FireflySocialMediaProvider.blockProfileFor(FireflyPlatform.Twitter, profileId);
-        await runInSafe(() =>
+        await runInSafeAsync(() =>
             twitterSessionHolder.fetch<ResponseJSON<UserV2MuteResult['data']>>(
                 `/api/twitter/mute/${profileId}`,
                 {
@@ -458,7 +458,7 @@ class TwitterSocialMedia implements Provider {
     }
     async unblockProfile(profileId: string): Promise<boolean> {
         const result = await FireflySocialMediaProvider.unblockProfileFor(FireflyPlatform.Twitter, profileId);
-        await runInSafe(() =>
+        await runInSafeAsync(() =>
             twitterSessionHolder.fetch<ResponseJSON<UserV2MuteResult['data']>>(
                 `/api/twitter/mute/${profileId}`,
                 {

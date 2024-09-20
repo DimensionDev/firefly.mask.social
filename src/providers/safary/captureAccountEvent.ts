@@ -4,6 +4,7 @@ import { type SocialSource, Source } from '@/constants/enum.js';
 import { UnreachableError } from '@/constants/error.js';
 import { createLookupTableResolver } from '@/helpers/createLookupTableResolver.js';
 import { getProfileState } from '@/helpers/getProfileState.js';
+import { runInSafe } from '@/helpers/runInSafe.js';
 import { SafaryTelemetryProvider } from '@/providers/safary/Telemetry.js';
 import type { Account } from '@/providers/types/Account.js';
 import { EventId } from '@/providers/types/Telemetry.js';
@@ -65,17 +66,21 @@ function getAccountEventParameters(account: Account) {
 }
 
 export function captureAccountLoginEvent(account: Account) {
-    const source = account.profile.source;
-
-    SafaryTelemetryProvider.captureEvent(resolveLoginEventId(source), getAccountEventParameters(account));
+    runInSafe(() => {
+        const source = account.profile.source;
+        SafaryTelemetryProvider.captureEvent(resolveLoginEventId(source), getAccountEventParameters(account));
+    });
 }
 
 export function captureAccountLogoutEvent(account: Account) {
-    const source = account.profile.source;
-
-    SafaryTelemetryProvider.captureEvent(resolveLogoutEventId(source), getAccountEventParameters(account));
+    runInSafe(() => {
+        const source = account.profile.source;
+        SafaryTelemetryProvider.captureEvent(resolveLogoutEventId(source), getAccountEventParameters(account));
+    });
 }
 
 export function captureAccountLogoutAllEvent() {
-    SafaryTelemetryProvider.captureEvent(EventId.ACCOUNT_LOG_OUT_ALL_SUCCESS, {});
+    runInSafe(() => {
+        SafaryTelemetryProvider.captureEvent(EventId.ACCOUNT_LOG_OUT_ALL_SUCCESS, {});
+    });
 }
