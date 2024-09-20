@@ -28,7 +28,11 @@ export function Advertisement() {
         },
     });
 
-    if (isLoading || !data?.length) return null;
+    if (isLoading) {
+        return <div className="h-[133px] animate-pulse rounded-xl bg-bg" />;
+    }
+
+    if (!data?.length) return null;
 
     return (
         <div>
@@ -45,7 +49,7 @@ export function Advertisement() {
                         {ad.type === AdvertisementType.Link && ad.link ? (
                             <Link href={ad.link} target="_blank">
                                 <Image
-                                    className="w-full cursor-pointer"
+                                    className="w-full cursor-pointer rounded-xl"
                                     alt={ad.link}
                                     src={ad.image}
                                     width={346}
