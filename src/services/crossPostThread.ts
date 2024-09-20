@@ -2,8 +2,7 @@ import { plural, t } from '@lingui/macro';
 import { delay, safeUnreachable } from '@masknet/kit';
 import { compact, first } from 'lodash-es';
 
-import { type SocialSource, Source, STATUS } from '@/constants/enum.js';
-import { env } from '@/constants/env.js';
+import { type SocialSource, Source } from '@/constants/enum.js';
 import { SORTED_SOCIAL_SOURCES } from '@/constants/index.js';
 import { enqueueErrorsMessage, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { getThreadFailedAt } from '@/helpers/getThreadFailedAt.js';
@@ -157,17 +156,17 @@ export async function crossPostThread({ progressCallback, isRetry = false, signa
     }
 
     // report telemetry
-    if (env.external.NEXT_PUBLIC_TELEMETRY === STATUS.Enabled) {
-        const rootPost = first(updatedPosts);
+    const rootPost = first(updatedPosts);
 
-        if (rootPost) {
-            SafaryTelemetryProvider.captureEvent(
-                EventId.COMPOSE_CROSS_POST_SEND_SUCCESS,
-                getComposeEventParameters(rootPost, updatedPosts),
-            );
-        }
-
-        // report crossed posts thread
-        updatedPosts.forEach(reportCrossedPost);
+    if (rootPost) {
+        SafaryTelemetryProvider.captureEvent(
+            EventId.COMPOSE_CROSS_POST_SEND_SUCCESS,
+            getComposeEventParameters(rootPost, {
+                thread: updatedPosts,
+            }),
+        );
     }
+
+    // report crossed posts thread
+    updatedPosts.forEach(reportCrossedPost);
 }

@@ -20,6 +20,7 @@ import { resolvePostTo } from '@/helpers/resolvePostTo.js';
 import { resolveRedPacketPlatformType } from '@/helpers/resolveRedPacketPlatformType.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { hasRpPayload } from '@/helpers/rpPayload.js';
+import { captureComposeEvent } from '@/providers/safary/captureComposeEvent.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 import { commitPoll } from '@/services/poll.js';
 import { reportCrossedPost } from '@/services/reportCrossedPost.js';
@@ -303,7 +304,10 @@ export async function crossPost(
     }
 
     // report crossed post
-    if (!skipReportCrossedPost) reportCrossedPost(updatedCompositePost);
+    if (!skipReportCrossedPost) {
+        captureComposeEvent(type, updatedCompositePost);
+        reportCrossedPost(updatedCompositePost);
+    }
 
     return updatedCompositePost;
 }

@@ -105,7 +105,7 @@ export interface FarcasterEventParameters {
 }
 
 export interface FarcasterPostEventParameters extends FarcasterEventParameters {
-    target_farcaster_post_id: string;
+    target_farcaster_cast_id: string;
 }
 
 export interface LensEventParameters {
