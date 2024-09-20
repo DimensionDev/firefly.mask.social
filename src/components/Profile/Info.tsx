@@ -71,9 +71,9 @@ export function Info({ profile }: InfoProps) {
                     <div className="flex w-full items-center gap-2">
                         <SocialSourceIcon className="shrink-0" source={source} size={20} />
                         <TextOverflowTooltip content={profile.displayName} placement="top">
-                            <div className={classNames('mr-auto truncate text-xl font-black text-lightMain')}>
+                            <address className="mr-auto truncate text-xl font-black not-italic text-lightMain">
                                 {profile.displayName}
-                            </div>
+                            </address>
                         </TextOverflowTooltip>
                         {showAction ? <ProfileAction profile={profile} /> : null}
                     </div>
@@ -91,10 +91,12 @@ export function Info({ profile }: InfoProps) {
                             'pointer-events-none': source !== Source.Farcaster && source !== Source.Lens,
                         })}
                     >
-                        <span className="font-bold text-lightMain">{nFormatter(followingCount)} </span>
-                        <span className="text-secondary">
-                            <Trans>Following</Trans>
-                        </span>
+                        <data value={followingCount}>
+                            <span className="font-bold text-lightMain">{nFormatter(followingCount)} </span>
+                            <span className="text-secondary">
+                                <Trans>Following</Trans>
+                            </span>
+                        </data>
                     </Link>
 
                     <Link
@@ -103,13 +105,15 @@ export function Info({ profile }: InfoProps) {
                             'pointer-events-none': source !== Source.Farcaster && source !== Source.Lens,
                         })}
                     >
-                        <span className="font-bold text-lightMain">{nFormatter(followerCount)} </span>
-                        <span className="text-secondary">
-                            {plural(followerCount, {
-                                one: 'Follower',
-                                other: 'Followers',
-                            })}
-                        </span>
+                        <data value={followerCount}>
+                            <span className="font-bold text-lightMain">{nFormatter(followerCount)} </span>
+                            <span className="text-secondary">
+                                {plural(followerCount, {
+                                    one: 'Follower',
+                                    other: 'Followers',
+                                })}
+                            </span>
+                        </data>
                     </Link>
                 </div>
             </div>

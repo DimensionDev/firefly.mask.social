@@ -4,6 +4,7 @@ import type { Address } from 'viem';
 
 import { ChainIcon } from '@/components/NFTDetail/ChainIcon.js';
 import { NFTMoreAction } from '@/components/NFTs/NFTMoreAction.js';
+import { Time } from '@/components/Semantic/Time.js';
 import { TimestampFormatter } from '@/components/TimeStampFormatter.js';
 import { SourceInURL } from '@/constants/enum.js';
 import { Link } from '@/esm/Link.js';
@@ -36,7 +37,7 @@ export function NFTFeedHeader({
     });
 
     return (
-        <div className={classNames('flex items-start gap-3', className)} {...rest}>
+        <header className={classNames('flex items-start gap-3', className)} {...rest}>
             <div className="flex flex-1 flex-grow flex-row items-start overflow-hidden text-ellipsis whitespace-nowrap">
                 <Link
                     href={authorUrl}
@@ -50,16 +51,16 @@ export function NFTFeedHeader({
                         href={authorUrl}
                         className="ml-2 block max-w-full truncate text-medium leading-5 text-secondary"
                     >
-                        {formatEthereumAddress(address, 4)}
+                        <address className="not-italic">{formatEthereumAddress(address, 4)}</address>
                     </Link>
                 ) : null}
             </div>
 
             <div className="ml-auto flex items-center space-x-2">
                 <ChainIcon chainId={chainId} size={20} />
-                <span className="whitespace-nowrap text-xs leading-4 text-secondary md:text-[13px]">
+                <Time dateTime={time} className="whitespace-nowrap text-xs leading-4 text-secondary md:text-[13px]">
                     <TimestampFormatter time={time} />
-                </span>
+                </Time>
                 <NFTMoreAction
                     address={address}
                     contractAddress={contractAddress}
@@ -67,6 +68,6 @@ export function NFTFeedHeader({
                     chainId={chainId}
                 />
             </div>
-        </div>
+        </header>
     );
 }

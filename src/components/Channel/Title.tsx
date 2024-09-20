@@ -24,13 +24,13 @@ export function Title({ channel }: TitleProps) {
     const comeback = useComeBack();
 
     return (
-        <div className="sticky top-0 z-30 flex h-[60px] items-center justify-between border-b border-line bg-primaryBottom px-4">
-            <div className="flex items-center gap-7">
+        <header className="sticky top-0 z-30 flex h-[60px] items-center justify-between border-b border-line bg-primaryBottom px-4">
+            <h1 className="flex items-center gap-7">
                 <ComeBackIcon className="cursor-pointer text-lightMain" onClick={comeback} />
                 <span className="text-xl font-black text-lightMain">{channel.name ?? '-'}</span>
-            </div>
+            </h1>
 
             {(channel && reached) || !isMedium ? <ChannelMoreAction channel={channel} /> : null}
-        </div>
+        </header>
     );
 }

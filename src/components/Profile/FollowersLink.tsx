@@ -23,13 +23,15 @@ export const FollowersLink = memo<FollowersLinkProps>(function FollowersLink({ p
                 'pointer-events-none': profile.source !== Source.Farcaster && profile.source !== Source.Lens,
             })}
         >
-            <span className="font-bold text-lightMain">{nFormatter(profile.followerCount)} </span>
-            <span className="text-secondary">
-                {plural(profile.followerCount, {
-                    one: 'Follower',
-                    other: 'Followers',
-                })}
-            </span>
+            <data value={profile.followerCount}>
+                <span className="font-bold text-lightMain">{nFormatter(profile.followerCount)} </span>
+                <span className="text-secondary">
+                    {plural(profile.followerCount, {
+                        one: 'Follower',
+                        other: 'Followers',
+                    })}
+                </span>
+            </data>
         </Link>
     );
 });

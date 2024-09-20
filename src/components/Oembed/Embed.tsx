@@ -24,7 +24,7 @@ export function Embed({ og }: EmbedProps) {
         : null;
 
     return (
-        <div className="mt-4 max-w-full text-sm">
+        <article className="mt-4 max-w-full text-sm">
             <Link
                 onClick={(event) => event.stopPropagation()}
                 href={u}
@@ -93,6 +93,6 @@ export function Embed({ og }: EmbedProps) {
                     </div>
                 </div>
             </Link>
-        </div>
+        </article>
     );
 }

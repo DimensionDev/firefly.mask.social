@@ -13,6 +13,7 @@ import LinkIcon from '@/assets/link-square.svg';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { NFTImage } from '@/components/NFTImage.js';
 import { NFTFeedAction, type NFTFeedActionProps } from '@/components/NFTs/NFTFeedAction.js';
+import { Section } from '@/components/Semantic/Section.js';
 import { TokenPrice } from '@/components/TokenPrice.js';
 import { Link } from '@/esm/Link.js';
 import { classNames } from '@/helpers/classNames.js';
@@ -214,7 +215,7 @@ export function NFTFeedBody({ index = 0, onChangeIndex, tokenList, chainId }: NF
     return (
         <div className="w-full space-y-1.5">
             {activeToken ? <NFTFeedAction {...activeToken.action} /> : null}
-            <div className="flex w-full overflow-hidden sm:h-[120px]">
+            <Section className="flex w-full overflow-hidden sm:h-[120px]" title="NFT Description">
                 <div className="grid h-auto w-full grid-cols-[100%] sm:h-[120px]">
                     <AnimatePresence initial={false} custom={direction}>
                         <motion.div
@@ -242,7 +243,7 @@ export function NFTFeedBody({ index = 0, onChangeIndex, tokenList, chainId }: NF
                         </motion.div>
                     </AnimatePresence>
                 </div>
-            </div>
+            </Section>
             {tokenList.length > 1 ? (
                 <div className="mt-1.5 flex h-[18px] justify-between overflow-hidden text-lightSecond">
                     <ClickableButton

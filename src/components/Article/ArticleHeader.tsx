@@ -4,6 +4,7 @@ import { useEnsName } from 'wagmi';
 
 import { ArticleActions } from '@/components/Article/ArticleActions.js';
 import { Avatar } from '@/components/Avatar.js';
+import { Time } from '@/components/Semantic/Time.js';
 import { TimestampFormatter } from '@/components/TimeStampFormatter.js';
 import { SourceInURL } from '@/constants/enum.js';
 import { Link } from '@/esm/Link.js';
@@ -49,9 +50,12 @@ export const ArticleHeader = memo<ArticleHeaderProps>(function ArticleHeader({ a
                 >
                     {article.author.handle || ens || formatEthereumAddress(article.author.id, 4)}
                 </Link>
-                <span className="whitespace-nowrap text-medium text-xs leading-4 text-secondary">
+                <Time
+                    dateTime={article.timestamp}
+                    className="whitespace-nowrap text-medium text-xs leading-4 text-secondary"
+                >
                     <TimestampFormatter time={article.timestamp} />
-                </span>
+                </Time>
                 {Icon ? <Icon width={15} height={15} /> : null}
             </div>
             <ArticleActions article={article} />

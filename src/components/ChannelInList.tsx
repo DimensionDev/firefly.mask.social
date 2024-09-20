@@ -95,7 +95,7 @@ export function ChannelInList({
                             height={isSmall || dense ? 14 : 18}
                             className="shrink-0"
                         />
-                        <span>{nFormatter(channel.followerCount)}</span>
+                        <data value={channel.followerCount}>{nFormatter(channel.followerCount)}</data>
                     </div>
                     {!dense && channel.description ? (
                         <BioMarkup
