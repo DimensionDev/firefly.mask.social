@@ -305,8 +305,8 @@ export async function crossPost(
 
     // report crossed post
     if (!skipReportCrossedPost) {
-        captureComposeEvent(type, updatedCompositePost);
         reportCrossedPost(updatedCompositePost);
+        captureComposeEvent(type, updatedCompositePost);
     }
 
     return updatedCompositePost;

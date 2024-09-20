@@ -3,10 +3,15 @@ import { safeUnreachable } from '@masknet/kit';
 import { type SocialSource, Source } from '@/constants/enum.js';
 import { UnreachableError } from '@/constants/error.js';
 import { createLookupTableResolver } from '@/helpers/createLookupTableResolver.js';
+import { getEventParameters } from '@/providers/safary/getEventParameters.js';
+import type { Profile } from '@/providers/types/SocialMedia.js';
 import {
     EventId,
+    type FarcasterEventParameters,
     type FarcasterPostEventParameters,
+    type LensEventParameters,
     type LensPostEventParameters,
+    type TwitterEventParameters,
     type TwitterPostEventParameters,
 } from '@/providers/types/Telemetry.js';
 import type { CompositePost } from '@/store/useComposeStore.js';
@@ -59,39 +64,33 @@ export function getPostEventId(type: ComposeType, post: CompositePost) {
     }
 }
 
-export function getPostEventParameters(
-    post: CompositePost,
-): FarcasterPostEventParameters | LensPostEventParameters | TwitterPostEventParameters {
-    switch (post.availableSources[0]) {
+export function getPostEventParameters(targetProfile: Profile, targetPost: CompositePost) {
+    const source = targetProfile.source;
+    if (!source) throw new Error(`Not source found, source = ${source}.`);
+
+    const postId = targetPost.postId[source];
+    if (!postId) throw new Error(`Not post id found, source = ${source}.`);
+
+    const parameters = getEventParameters(targetProfile);
+
+    switch (targetPost.availableSources[0]) {
         case Source.Farcaster:
             return {
-                source_firefly_account_id: '',
-                source_farcaster_handle: '',
-                source_farcaster_id: '',
-                target_farcaster_cast_id: '',
-                target_farcaster_id: '',
-                target_farcaster_handle: '',
-            };
+                ...(parameters as FarcasterEventParameters),
+                target_farcaster_cast_id: postId,
+            } satisfies FarcasterPostEventParameters;
         case Source.Lens:
             return {
-                source_firefly_account_id: '',
-                source_lens_handle: '',
-                source_lens_id: '',
-                target_lens_post_id: '',
-                target_lens_id: '',
-                target_lens_handle: '',
-            };
+                ...(parameters as LensEventParameters),
+                target_lens_post_id: postId,
+            } satisfies LensPostEventParameters;
         case Source.Twitter:
             return {
-                source_firefly_account_id: '',
-                source_x_handle: '',
-                source_x_id: '',
-                target_x_post_id: '',
-                target_x_id: '',
-                target_x_handle: '',
-            };
+                ...(parameters as TwitterEventParameters),
+                target_x_post_id: postId,
+            } satisfies TwitterPostEventParameters;
         default:
-            safeUnreachable(post.availableSources[0]);
-            throw new UnreachableError('source', post.availableSources[0]);
+            safeUnreachable(targetPost.availableSources[0]);
+            throw new UnreachableError('source', targetPost.availableSources[0]);
     }
 }

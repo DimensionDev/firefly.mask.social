@@ -37,6 +37,8 @@ export function captureComposeEvent(type: ComposeType, post: CompositePost, opti
     {
         // post to only one platform
         if (size === 1) {
+            const profile = post.parentPost[post.availableSources[0]]?.author;
+
             switch (type) {
                 case 'compose':
                     SafaryTelemetryProvider.captureEvent(
@@ -45,10 +47,18 @@ export function captureComposeEvent(type: ComposeType, post: CompositePost, opti
                     );
                     break;
                 case 'reply':
-                    SafaryTelemetryProvider.captureEvent(getPostEventId(type, post), getPostEventParameters(post));
+                    if (!profile) throw new Error('Target profile is missing.');
+                    SafaryTelemetryProvider.captureEvent(
+                        getPostEventId(type, post),
+                        getPostEventParameters(profile, post),
+                    );
                     break;
                 case 'quote':
-                    SafaryTelemetryProvider.captureEvent(getPostEventId(type, post), getPostEventParameters(post));
+                    if (!profile) throw new Error('Target profile is missing.');
+                    SafaryTelemetryProvider.captureEvent(
+                        getPostEventId(type, post),
+                        getPostEventParameters(profile, post),
+                    );
                     break;
                 default:
                     safeUnreachable(type);

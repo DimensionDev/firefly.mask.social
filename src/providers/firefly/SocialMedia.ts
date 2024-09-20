@@ -1197,7 +1197,7 @@ export class FireflySocialMedia implements Provider {
             },
             true,
         );
-        if (response.data) return true;
+        if (response.data) return response.data;
         throw new Error(t`Failed to create scheduled post.`);
     }
 
@@ -1215,7 +1215,7 @@ export class FireflySocialMedia implements Provider {
             },
             true,
         );
-        if (response.data) return true;
+        if (response.data) return response.data;
         throw new Error(t`Failed to update scheduled post.`);
     }
 

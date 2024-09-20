@@ -7,10 +7,8 @@ import { SORTED_SOCIAL_SOURCES } from '@/constants/index.js';
 import { enqueueErrorsMessage, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { getThreadFailedAt } from '@/helpers/getThreadFailedAt.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
-import { getComposeEventParameters } from '@/providers/safary/getComposeEventParameters.js';
-import { SafaryTelemetryProvider } from '@/providers/safary/Telemetry.js';
+import { captureComposeEvent } from '@/providers/safary/captureComposeEvent.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
-import { EventId } from '@/providers/types/Telemetry.js';
 import { crossPost } from '@/services/crossPost.js';
 import { reportCrossedPost } from '@/services/reportCrossedPost.js';
 import { type CompositePost, useComposeStateStore } from '@/store/useComposeStore.js';
@@ -155,18 +153,15 @@ export async function crossPostThread({ progressCallback, isRetry = false, signa
         enqueueSuccessMessage(t`Your posts have published successfully.`);
     }
 
-    // report telemetry
+    // report crossed posts thread
+    updatedPosts.forEach(reportCrossedPost);
+
+    // capture compose event
     const rootPost = first(updatedPosts);
 
     if (rootPost) {
-        SafaryTelemetryProvider.captureEvent(
-            EventId.COMPOSE_CROSS_POST_SEND_SUCCESS,
-            getComposeEventParameters(rootPost, {
-                thread: updatedPosts,
-            }),
-        );
+        captureComposeEvent('compose', rootPost, {
+            thread: updatedPosts,
+        });
     }
-
-    // report crossed posts thread
-    updatedPosts.forEach(reportCrossedPost);
 }
