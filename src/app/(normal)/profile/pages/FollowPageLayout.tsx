@@ -44,7 +44,7 @@ export function FollowPageLayout({
     return (
         <>
             <nav className="border-b border-line bg-primaryBottom px-4">
-                <ul className="scrollable-tab -mb-px flex space-x-4" aria-label="Tabs">
+                <menu className="scrollable-tab -mb-px flex space-x-4" aria-label="Tabs">
                     {tabs.map((tab) => {
                         return (
                             <li
@@ -67,7 +67,7 @@ export function FollowPageLayout({
                             </li>
                         );
                     })}
-                </ul>
+                </menu>
             </nav>
             {children}
         </>

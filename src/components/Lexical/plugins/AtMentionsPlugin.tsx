@@ -296,7 +296,7 @@ export function MentionsPlugin(): JSX.Element | null {
                               ref={ref}
                               className="bg-brand sticky z-50 mt-2 w-[300px] min-w-full rounded-xl border bg-white shadow-sm dark:border-gray-700 dark:bg-gray-900"
                           >
-                              <ul className="no-scrollbar max-h-[260px] overflow-auto">
+                              <menu className="no-scrollbar max-h-[260px] overflow-auto">
                                   {options.map((option, i: number) => (
                                       <MentionsTypeaheadMenuItem
                                           index={i}
@@ -312,7 +312,7 @@ export function MentionsPlugin(): JSX.Element | null {
                                           option={option}
                                       />
                                   ))}
-                              </ul>
+                              </menu>
                           </div>,
                           anchorElementRef.current,
                       )

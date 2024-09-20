@@ -23,7 +23,7 @@ export function ChannelLayout({
             <Title channel={channel} />
             <Info channel={channel} source={channel.source} isChannelPage />
             <hr className="divider w-full border-line" />
-            <div className="scrollable-tab flex justify-evenly border-b border-line px-5">
+            <nav className="scrollable-tab flex justify-evenly border-b border-line px-5">
                 {[
                     {
                         type: ChannelTabType.Recent,
@@ -52,7 +52,7 @@ export function ChannelLayout({
                         />
                     </div>
                 ))}
-            </div>
+            </nav>
             <ChannelPageContext.Provider initialState={{ channel }}>{children}</ChannelPageContext.Provider>
         </>
     );

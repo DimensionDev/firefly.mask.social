@@ -6,6 +6,7 @@ import { Fragment, type HTMLProps, memo, type ReactNode, useMemo } from 'react';
 
 import FireflyAvatarIcon from '@/assets/firefly-avatar.svg';
 import { ChannelAnchor } from '@/components/Posts/ChannelAnchor.js';
+import { Time } from '@/components/Semantic/Time.js';
 import { EngagementType, PageRoute, Source } from '@/constants/enum.js';
 import { Link } from '@/esm/Link.js';
 import { classNames } from '@/helpers/classNames.js';
@@ -72,8 +73,10 @@ function PollVotes({ poll }: { poll: Poll }) {
 
     return (
         <>
-            <Plural value={totalVotes} one={`${totalVotes} Vote`} other={`${totalVotes} Votes`} />
-            {timeLeft ? ` · ${timeLeft}` : ''}
+            <data value={totalVotes}>
+                <Plural value={totalVotes} one={`${totalVotes} Vote`} other={`${totalVotes} Votes`} />
+            </data>
+            {timeLeft ? <data value={poll.endDatetime}>{` · ${timeLeft}`}</data> : ''}
         </>
     );
 }
@@ -95,7 +98,8 @@ export const PostStatistics = memo<Props>(function PostStatistics({
     );
 
     const comments = post.stats?.comments ? (
-        <span
+        <data
+            value={post.stats.comments}
             className={classNames({
                 'hover:underline': post.source !== Source.Twitter,
             })}
@@ -105,62 +109,68 @@ export const PostStatistics = memo<Props>(function PostStatistics({
                 one: 'comment',
                 other: 'comments',
             })}
-        </span>
+        </data>
     ) : null;
     const likes = post.stats?.reactions ? (
         <EngagementLink post={post} type={EngagementType.Likes} onSetScrollIndex={onSetScrollIndex}>
-            <span className="mr-[2px] font-bold">{post.stats.reactions}</span>
-            {plural(post.stats.reactions, {
-                one: 'like',
-                other: 'likes',
-            })}
+            <data value={post.stats.reactions}>
+                <span className="mr-[2px] font-bold">{post.stats.reactions}</span>
+                {plural(post.stats.reactions, {
+                    one: 'like',
+                    other: 'likes',
+                })}
+            </data>
         </EngagementLink>
     ) : null;
     const collects = post.stats?.countOpenActions ? (
-        <>
+        <data value={post.stats.countOpenActions}>
             <span className="mr-[2px] font-bold">{post.stats.countOpenActions}</span>
             {plural(post.stats.countOpenActions, {
                 one: 'comment',
                 other: 'comments',
             })}
-        </>
+        </data>
     ) : null;
     const mirrors = post.stats?.mirrors ? (
         <EngagementLink post={post} type={EngagementType.Mirrors} onSetScrollIndex={onSetScrollIndex}>
-            <span className="mr-[2px] font-bold">{post.stats.mirrors}</span>
-            {{
-                [Source.Farcaster]: plural(post.stats.mirrors, {
-                    one: 'recast',
-                    other: 'recasts',
-                }),
-                [Source.Lens]: plural(post.stats.mirrors, {
-                    one: 'mirror',
-                    other: 'mirrors',
-                }),
-                [Source.Twitter]: plural(post.stats.mirrors, {
-                    one: 'repost',
-                    other: 'reposts',
-                }),
-            }[post.source] ?? null}
+            <data value={post.stats.mirrors}>
+                <span className="mr-[2px] font-bold">{post.stats.mirrors}</span>
+                {{
+                    [Source.Farcaster]: plural(post.stats.mirrors, {
+                        one: 'recast',
+                        other: 'recasts',
+                    }),
+                    [Source.Lens]: plural(post.stats.mirrors, {
+                        one: 'mirror',
+                        other: 'mirrors',
+                    }),
+                    [Source.Twitter]: plural(post.stats.mirrors, {
+                        one: 'repost',
+                        other: 'reposts',
+                    }),
+                }[post.source] ?? null}
+            </data>
         </EngagementLink>
     ) : null;
     const quotes = post.stats?.quotes ? (
         <EngagementLink post={post} type={EngagementType.Quotes} onSetScrollIndex={onSetScrollIndex}>
-            <span className="mr-[2px] font-bold">{post.stats.quotes}</span>
-            {plural(post.stats.quotes, {
-                one: 'quote',
-                other: 'quotes',
-            })}
+            <data value={post.stats.quotes}>
+                <span className="mr-[2px] font-bold">{post.stats.quotes}</span>
+                {plural(post.stats.quotes, {
+                    one: 'quote',
+                    other: 'quotes',
+                })}
+            </data>
         </EngagementLink>
     ) : null;
     const views = viewCount ? (
-        <>
+        <data value={viewCount}>
             <span className="mr-[2px] font-bold">{viewCount}</span>
             {plural(viewCount, {
                 one: 'view',
                 other: 'views',
             })}
-        </>
+        </data>
     ) : null;
     const pollVotes = post.poll ? <PollVotes poll={post.poll} /> : null;
 
@@ -184,11 +194,11 @@ export const PostStatistics = memo<Props>(function PostStatistics({
               ])
             : compact([
                   post.timestamp && !hideDate ? (
-                      <>
+                      <Time dateTime={post.timestamp}>
                           <span>{dayjs(post.timestamp).format('hh:mm A')}</span>
                           <span>{' · '}</span>
                           <span>{dayjs(post.timestamp).format('MMM DD, YYYY')}</span>
-                      </>
+                      </Time>
                   ) : null,
                   likes,
                   collects,

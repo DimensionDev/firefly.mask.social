@@ -106,10 +106,12 @@ export const ProfileCard = memo<ProfileCardProps>(function ProfileCard({ identit
                                     profile.source !== Source.Farcaster && profile.source !== Source.Lens,
                             })}
                         >
-                            <span className="font-bold text-lightMain">{nFormatter(profile.followingCount)} </span>
-                            <span className="text-secondary">
-                                <Trans>Following</Trans>
-                            </span>
+                            <data value={profile.followingCount}>
+                                <span className="font-bold text-lightMain">{nFormatter(profile.followingCount)} </span>
+                                <span className="text-secondary">
+                                    <Trans>Following</Trans>
+                                </span>
+                            </data>
                         </Link>
                     </div>
                 </div>

@@ -13,7 +13,7 @@ interface Props {
 
 export function TwitterArticleBody({ cover, title, content }: Props) {
     return (
-        <div className="relative mt-[6px] flex flex-col gap-2 overflow-hidden rounded-2xl border border-line bg-bg p-3">
+        <article className="relative mt-[6px] flex flex-col gap-2 overflow-hidden rounded-2xl border border-line bg-bg p-3">
             {cover ? (
                 <ImageAsset
                     disableLoadHandler
@@ -67,6 +67,6 @@ export function TwitterArticleBody({ cover, title, content }: Props) {
                     />
                 </div>
             ) : null}
-        </div>
+        </article>
     );
 }
