@@ -4,6 +4,7 @@ import { isSameEthereumAddress } from '@/helpers/isSameAddress.js';
 import { type Article, ArticlePlatform } from '@/providers/types/Article.js';
 import { type Article as FireflyArticle } from '@/providers/types/Firefly.js';
 import { WatchType } from '@/providers/types/Firefly.js';
+import { parseParagraphHtml } from '@/helpers/parseParagraphHtml.js';
 
 export function formatArticleFromFirefly(article: FireflyArticle): Article {
     const authorId = article.owner;
@@ -11,8 +12,11 @@ export function formatArticleFromFirefly(article: FireflyArticle): Article {
         platform: article.platform,
         type: article.type,
         content:
-            article.platform === ArticlePlatform.Paragraph && article.paragraph_raw_data?.staticHtml
-                ? article.paragraph_raw_data.staticHtml
+            article.platform === ArticlePlatform.Paragraph &&
+            article.paragraph_raw_data?.staticHtml &&
+            article.paragraph_raw_data.json
+                ? parseParagraphHtml(article.paragraph_raw_data.staticHtml, article.paragraph_raw_data.json) ??
+                  article.paragraph_raw_data.staticHtml
                 : article.content.body,
         title: article.content.title,
         author: {
