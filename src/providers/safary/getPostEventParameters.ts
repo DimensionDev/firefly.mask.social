@@ -64,16 +64,13 @@ export function getPostEventId(type: ComposeType, post: CompositePost) {
     }
 }
 
-export function getPostEventParameters(targetProfile: Profile, targetPost: CompositePost) {
+export function getPostEventParameters(postId: string, targetProfile: Profile) {
     const source = targetProfile.source;
     if (!source) throw new Error(`Not source found, source = ${source}.`);
 
-    const postId = targetPost.postId[source];
-    if (!postId) throw new Error(`Not post id found, source = ${source}.`);
-
     const parameters = getEventParameters(targetProfile);
 
-    switch (targetPost.availableSources[0]) {
+    switch (source) {
         case Source.Farcaster:
             return {
                 ...(parameters as FarcasterEventParameters),
@@ -90,7 +87,7 @@ export function getPostEventParameters(targetProfile: Profile, targetPost: Compo
                 target_x_post_id: postId,
             } satisfies TwitterPostEventParameters;
         default:
-            safeUnreachable(targetPost.availableSources[0]);
-            throw new UnreachableError('source', targetPost.availableSources[0]);
+            safeUnreachable(source);
+            throw new UnreachableError('source', source);
     }
 }

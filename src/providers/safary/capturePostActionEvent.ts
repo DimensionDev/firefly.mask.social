@@ -1,7 +1,6 @@
 import { type SocialSource, Source } from '@/constants/enum.js';
 import { UnreachableError } from '@/constants/error.js';
 import { createLookupTableResolver } from '@/helpers/createLookupTableResolver.js';
-import { getCompositePost } from '@/helpers/getCompositePost.js';
 import { runInSafe } from '@/helpers/runInSafe.js';
 import { getPostEventParameters } from '@/providers/safary/getPostEventParameters.js';
 import { SafaryTelemetryProvider } from '@/providers/safary/Telemetry.js';
@@ -17,7 +16,8 @@ type PostActionType =
     | 'share'
     | 'repost'
     | 'undo_repost'
-    | 'bookmark';
+    | 'bookmark'
+    | 'unbookmark';
 
 const resolvePostActionEventIds = createLookupTableResolver<SocialSource, Record<PostActionType, EventId>>(
     {
@@ -31,6 +31,7 @@ const resolvePostActionEventIds = createLookupTableResolver<SocialSource, Record
             repost: EventId.FARCASTER_POST_REPOST_SUCCESS,
             undo_repost: EventId.FARCASTER_POST_UNDO_REPOST_SUCCESS,
             bookmark: EventId.FARCASTER_POST_BOOKMARK_SUCCESS,
+            unbookmark: EventId.FARCASTER_POST_UNBOOKMARK_SUCCESS,
         },
         [Source.Lens]: {
             like: EventId.LENS_POST_LIKE_SUCCESS,
@@ -42,6 +43,7 @@ const resolvePostActionEventIds = createLookupTableResolver<SocialSource, Record
             repost: EventId.LENS_POST_REPOST_SUCCESS,
             undo_repost: EventId.LENS_POST_UNDO_REPOST_SUCCESS,
             bookmark: EventId.LENS_POST_BOOKMARK_SUCCESS,
+            unbookmark: EventId.LENS_POST_UNBOOKMARK_SUCCESS,
         },
         [Source.Twitter]: {
             like: EventId.X_POST_LIKE_SUCCESS,
@@ -53,6 +55,7 @@ const resolvePostActionEventIds = createLookupTableResolver<SocialSource, Record
             repost: EventId.X_POST_REPOST_SUCCESS,
             undo_repost: EventId.X_POST_UNDO_REPOST_SUCCESS,
             bookmark: EventId.X_POST_BOOKMARK_SUCCESS,
+            unbookmark: EventId.X_POST_UNBOOKMARK_SUCCESS,
         },
     },
     (source) => {
@@ -65,9 +68,6 @@ export function capturePostActionEvent(action: PostActionType, post: Post) {
         const eventIds = resolvePostActionEventIds(post.source);
         const eventId = eventIds[action];
 
-        const compositePost = getCompositePost(post.postId);
-        if (!compositePost) throw new Error(`Composite post not found, postId = ${post.postId}`);
-
-        SafaryTelemetryProvider.captureEvent(eventId, getPostEventParameters(post.author, compositePost));
+        SafaryTelemetryProvider.captureEvent(eventId, getPostEventParameters(post.postId, post.author));
     });
 }

@@ -748,6 +748,9 @@ msgstr ""
 msgid "View Source"
 msgstr ""
 
+msgid "You cannot reply to @{0} on {1}."
+msgstr ""
+
 msgid "Are you sure you want to report this collection?"
 msgstr ""
 
@@ -1919,9 +1922,6 @@ msgid "Unfollow"
 msgstr ""
 
 msgid "Your {0} account is now connected."
-msgstr ""
-
-msgid "You cannot reply to @{author} on {0}."
 msgstr ""
 
 msgid "Posted via {0} <0>{sendFrom}</0>"

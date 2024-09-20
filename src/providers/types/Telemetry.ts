@@ -46,6 +46,7 @@ export enum EventId {
     FARCASTER_POST_QUOTE_SUCCESS = 'farcaster_cast_quote_success', // ✅
     FARCASTER_POST_SHARE_SUCCESS = 'farcaster_cast_share_success', // ✅
     FARCASTER_POST_BOOKMARK_SUCCESS = 'farcaster_cast_bookmark_success', // ✅
+    FARCASTER_POST_UNBOOKMARK_SUCCESS = 'farcaster_cast_unbookmark_success', // ✅
     FARCASTER_PROFILE_FOLLOW_SUCCESS = 'farcaster_follow_success', // ✅
     FARCASTER_PROFILE_UNFOLLOW_SUCCESS = 'farcaster_unfollow_success', // ✅
 
@@ -63,6 +64,7 @@ export enum EventId {
     LENS_POST_QUOTE_SUCCESS = 'lens_post_quote_success', // ✅
     LENS_POST_SHARE_SUCCESS = 'lens_post_share_success', // ✅
     LENS_POST_BOOKMARK_SUCCESS = 'lens_post_bookmark_success', // ✅
+    LENS_POST_UNBOOKMARK_SUCCESS = 'lens_post_unbookmark_success', // ✅
     LENS_PROFILE_FOLLOW_SUCCESS = 'lens_follow_success', // ✅
     LENS_PROFILE_UNFOLLOW_SUCCESS = 'lens_unfollow_success', // ✅
 
@@ -80,6 +82,7 @@ export enum EventId {
     X_POST_UNDO_REPOST_SUCCESS = 'x_post_undo_repost_success', // ✅
     X_POST_SHARE_SUCCESS = 'x_post_share_success', // ✅
     X_POST_BOOKMARK_SUCCESS = 'x_post_bookmark_success', // ✅
+    X_POST_UNBOOKMARK_SUCCESS = 'x_post_unbookmark_success', // ✅
     X_PROFILE_FOLLOW_SUCCESS = 'x_follow_success', // ✅
     X_PROFILE_UNFOLLOW_SUCCESS = 'x_unfollow_success', // ✅
 }

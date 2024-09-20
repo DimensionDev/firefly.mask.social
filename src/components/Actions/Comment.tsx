@@ -1,11 +1,10 @@
 import { t } from '@lingui/macro';
 import { motion } from 'framer-motion';
-import { memo, useCallback, useMemo } from 'react';
+import { memo, useCallback } from 'react';
 
 import ReplyIcon from '@/assets/reply.svg';
 import { ClickableArea } from '@/components/ClickableArea.js';
 import { Tooltip } from '@/components/Tooltip.js';
-import { type SocialSource } from '@/constants/enum.js';
 import { classNames } from '@/helpers/classNames.js';
 import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
 import { humanize, nFormatter } from '@/helpers/formatCommentCounts.js';
@@ -15,32 +14,16 @@ import { ComposeModalRef, LoginModalRef } from '@/modals/controls.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 
 interface CommentProps {
-    count?: number;
-    disabled?: boolean;
-    source: SocialSource;
-    author: string;
-    canComment?: boolean;
     post: Post;
+    disabled?: boolean;
     hiddenCount?: boolean;
 }
 
-export const Comment = memo<CommentProps>(function Comment({
-    count,
-    disabled = false,
-    source,
-    author,
-    canComment,
-    post,
-    hiddenCount = false,
-}) {
-    const isLogin = useIsLogin(source);
+export const Comment = memo<CommentProps>(function Comment({ post, disabled = false, hiddenCount = false }) {
+    const { canComment, source, author } = post;
+    const count = post.stats?.comments ?? 0;
 
-    const tooltip = useMemo(() => {
-        if (count && count > 0) {
-            return t`${humanize(count)} Comments`;
-        }
-        return t`Comment`;
-    }, [count]);
+    const isLogin = useIsLogin(source);
 
     const handleClick = useCallback(async () => {
         if (!isLogin) {
@@ -54,9 +37,9 @@ export const Comment = memo<CommentProps>(function Comment({
                 source,
             });
         } else {
-            enqueueErrorMessage(t`You cannot reply to @${author} on ${resolveSourceName(source)}.`);
+            enqueueErrorMessage(t`You cannot reply to @${author.handle} on ${resolveSourceName(source)}.`);
         }
-    }, [isLogin, canComment, post, author, source]);
+    }, [isLogin, canComment, post, author.handle, source]);
 
     return (
         <ClickableArea
@@ -67,7 +50,11 @@ export const Comment = memo<CommentProps>(function Comment({
                 if (!disabled) handleClick();
             }}
         >
-            <Tooltip disabled={disabled} placement="top" content={tooltip}>
+            <Tooltip
+                disabled={disabled}
+                placement="top"
+                content={count && count > 0 ? t`${humanize(count)} Comments` : t`Comment`}
+            >
                 <motion.button
                     disabled={disabled}
                     whileTap={{ scale: 0.9 }}

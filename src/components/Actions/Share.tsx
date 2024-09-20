@@ -1,18 +1,24 @@
 import { t } from '@lingui/macro';
 import { motion } from 'framer-motion';
 import { type HTMLProps, memo } from 'react';
+import urlcat from 'urlcat';
 
 import ShareIcon from '@/assets/share.svg';
 import { ClickableArea } from '@/components/ClickableArea.js';
 import { Tooltip } from '@/components/Tooltip.js';
+import { SITE_URL } from '@/constants/index.js';
 import { classNames } from '@/helpers/classNames.js';
+import { getPostUrl } from '@/helpers/getPostUrl.js';
 import { useCopyText } from '@/hooks/useCopyText.js';
+import { capturePostActionEvent } from '@/providers/safary/capturePostActionEvent.js';
+import type { Post } from '@/providers/types/SocialMedia.js';
 
 interface ShareProps extends HTMLProps<HTMLDivElement> {
-    url: string;
+    post: Post;
     disabled?: boolean;
 }
-export const Share = memo<ShareProps>(function Collect({ url, className, disabled = false }) {
+export const Share = memo<ShareProps>(function Collect({ className, post, disabled = false }) {
+    const url = urlcat(SITE_URL, getPostUrl(post));
     const [, handleCopy] = useCopyText(url);
 
     return (
@@ -31,8 +37,9 @@ export const Share = memo<ShareProps>(function Collect({ url, className, disable
                     onClick={(event) => {
                         event.preventDefault();
                         event.stopPropagation();
-                        if (disabled) return;
-                        handleCopy();
+
+                        if (!disabled) handleCopy();
+                        capturePostActionEvent('share', post);
                     }}
                     whileTap={{ scale: 0.9 }}
                     className="inline-flex h-7 w-7 items-center justify-center rounded-full hover:bg-link/[0.2] hover:text-link"

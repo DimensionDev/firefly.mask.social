@@ -169,6 +169,7 @@ export async function crossPost(
     // create common poll for farcaster and lens
     if (poll && SUPPORTED_FRAME_SOURCES.some((x) => availableSources.includes(x))) {
         const pollId = await commitPoll(poll, readChars(compositePost.chars));
+
         compositePost = {
             ...compositePost,
             chars: (Array.isArray(chars) ? chars : [chars]).map((x) => {
