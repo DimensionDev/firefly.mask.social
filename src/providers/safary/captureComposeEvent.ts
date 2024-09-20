@@ -39,7 +39,10 @@ export function captureComposeEvent(type: ComposeType, post: CompositePost, opti
         if (size === 1) {
             switch (type) {
                 case 'compose':
-                    SafaryTelemetryProvider.captureEvent(getPostEventId(type, post), getComposeEventParameters(post));
+                    SafaryTelemetryProvider.captureEvent(
+                        getPostEventId(type, post),
+                        getComposeEventParameters(post, options),
+                    );
                     break;
                 case 'reply':
                     SafaryTelemetryProvider.captureEvent(getPostEventId(type, post), getPostEventParameters(post));
@@ -56,7 +59,7 @@ export function captureComposeEvent(type: ComposeType, post: CompositePost, opti
         } else if (size > 1) {
             SafaryTelemetryProvider.captureEvent(
                 EventId.COMPOSE_CROSS_POST_SEND_SUCCESS,
-                getComposeEventParameters(post),
+                getComposeEventParameters(post, options),
             );
         }
     }

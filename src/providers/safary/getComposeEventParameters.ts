@@ -13,7 +13,7 @@ export interface Options {
 
 export function getComposeEventParameters(
     post: CompositePost,
-    { scheduleId, luckyDropIds = [], thread = [post] }: Options = {},
+    { draftId, scheduleId, luckyDropIds = [], thread = [post] }: Options = {},
 ): Omit<ComposeEventParameters, 'firefly_account_id'> {
     return {
         include_lens_post: post.availableSources.includes(Source.Lens),
@@ -33,7 +33,10 @@ export function getComposeEventParameters(
 
         is_thread: !!thread?.length && thread.length > 1,
 
-        is_scheduled: false,
+        is_draft: !!draftId,
+        draft_id: draftId,
+
+        is_scheduled: !!scheduleId,
         schedule_id: scheduleId,
 
         include_lucky_drop: !!post.rpPayload,

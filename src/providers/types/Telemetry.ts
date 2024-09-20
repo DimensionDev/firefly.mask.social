@@ -156,6 +156,10 @@ export interface ComposeEventParameters {
     // thread
     is_thread: boolean;
 
+    // draft
+    is_draft: boolean;
+    draft_id?: string;
+
     // schedule
     is_scheduled: boolean;
     schedule_id?: string;
