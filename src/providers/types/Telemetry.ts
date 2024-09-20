@@ -29,8 +29,8 @@ export enum EventId {
     LUCKY_DROP_CREATE_SUCCESS = 'lucky_drop_create_success',
 
     // token sync dialog
-    TOKEN_SYNC_USE_YES = 'token_sync_use_yes',
-    TOKEN_SYNC_USE_NO = 'token_sync_use_no',
+    TOKEN_SYNC_USE_YES = 'token_sync_use_yes', // ✅
+    TOKEN_SYNC_USE_NO = 'token_sync_use_no', // ✅
 
     // farcaster
     FARCASTER_LOG_IN_SUCCESS = 'farcaster_log_in_success',
