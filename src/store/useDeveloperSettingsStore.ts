@@ -41,7 +41,7 @@ const useDeveloperSettingsBase = create<
                     state.useDevelopmentAPI = value;
                 }),
 
-            logTelemetry: true,
+            logTelemetry: false,
             updateLogTelemetry: (value: boolean) =>
                 set((state) => {
                     state.logTelemetry = value;
