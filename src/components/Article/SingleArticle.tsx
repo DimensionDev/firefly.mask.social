@@ -88,7 +88,7 @@ export const SingleArticle = memo<SingleArticleProps>(function SingleArticleProp
             onClick={handleClick}
         >
             <FeedFollowSource source={first(article.followingSources)} />
-            <SingleArticleHeader article={article} />
+            <SingleArticleHeader article={article} isBookmark={isBookmark} />
             {isMuted ? (
                 <CollapsedContent className="mt-2 pl-[52px]" authorMuted isQuote={false} />
             ) : (

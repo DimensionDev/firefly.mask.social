@@ -23,12 +23,13 @@ export const ChainGuardButton = memo<ChainGuardButtonProps>(function ChainBounda
         if (!targetChainId) return;
         if (targetChainId && account.chainId !== targetChainId) await switchChain(config, { chainId: targetChainId });
         return props.onClick?.();
-    }, [targetChainId]);
+    }, [targetChainId, props.onClick]);
 
     if (!account.isConnected || !account.address) {
         return (
             <ActionButton
                 {...props}
+                disabled={false}
                 onClick={() => {
                     ConnectModalRef.open();
                 }}
