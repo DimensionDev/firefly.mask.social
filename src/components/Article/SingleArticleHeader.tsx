@@ -59,13 +59,18 @@ export const SingleArticleHeader = memo<SingleArticleHeaderProps>(function Singl
             </div>
             <div className="ml-auto flex items-center space-x-2">
                 {Icon ? <Icon width={20} height={20} /> : null}
-                <Time
-                    dateTime={article.timestamp}
-                    className="whitespace-nowrap text-xs leading-4 text-secondary md:text-[13px]"
-                >
-                    <TimestampFormatter time={article.timestamp} />
-                </Time>
-                {isBookmark ? <ArticleMoreAction article={article} /> : null}
+
+                {!isBookmark ? (
+                    <>
+                        <Time
+                            dateTime={article.timestamp}
+                            className="whitespace-nowrap text-xs leading-4 text-secondary md:text-[13px]"
+                        >
+                            <TimestampFormatter time={article.timestamp} />
+                        </Time>
+                        <ArticleMoreAction article={article} />
+                    </>
+                ) : null}
             </div>
         </header>
     );

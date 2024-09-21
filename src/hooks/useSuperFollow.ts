@@ -9,15 +9,17 @@ import { lensSessionHolder } from '@/providers/lens/SessionHolder.js';
 import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 
-export function useSuperFollowModule(profile: Profile, disabled = false) {
+export function useSuperFollowModule(profile: Profile | null, disabled = false) {
     const { data, isLoading } = useQuery({
-        queryKey: ['original-profile', profile.profileId],
+        queryKey: ['original-profile', profile?.profileId],
         staleTime: 1000 * 60 * 2,
-        enabled: profile.source === Source.Lens && !disabled,
-        queryFn: () =>
-            lensSessionHolder.sdk.profile.fetch({
+        enabled: profile?.source === Source.Lens && !disabled,
+        queryFn: () => {
+            if (!profile) return;
+            return lensSessionHolder.sdk.profile.fetch({
                 forProfileId: profile.profileId,
-            }),
+            });
+        },
     });
 
     const followModule = data?.followModule as FeeFollowModuleSettingsFragment | null;

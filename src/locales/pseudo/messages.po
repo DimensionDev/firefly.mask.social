@@ -724,6 +724,9 @@ msgstr ""
 msgid "Followed by {0} and {1}"
 msgstr ""
 
+msgid "Insufficient {0} Balance"
+msgstr ""
+
 msgid "Try searching for something else."
 msgstr ""
 
@@ -1964,6 +1967,9 @@ msgid "Associated wallets"
 msgstr ""
 
 msgid "The whitelist function is included. Some addresses may not be able to trade normally (honeypot risk)."
+msgstr ""
+
+msgid "Mirror now to get 25% referral fee!"
 msgstr ""
 
 msgid "Hide tokens with small balances"
