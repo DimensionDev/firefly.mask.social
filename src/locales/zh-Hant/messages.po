@@ -591,6 +591,9 @@ msgstr ""
 msgid "Market Cap / FDV"
 msgstr ""
 
+msgid "Log telemetry events to the console."
+msgstr ""
+
 msgid "Confirmation"
 msgstr "確認"
 
@@ -749,6 +752,9 @@ msgstr "在 {sourceName} 上對 @{0} 的靜音失敗."
 
 msgid "View Source"
 msgstr "查看來源"
+
+msgid "You cannot reply to @{0} on {1}."
+msgstr ""
 
 msgid "Are you sure you want to report this collection?"
 msgstr "是否確定要檢舉這條收藏？"
@@ -1003,6 +1009,9 @@ msgid "Website"
 msgstr "網站"
 
 msgid "Failed to report @{0}."
+msgstr ""
+
+msgid "Enable logging telemetry events"
 msgstr ""
 
 msgid "Post with link"
@@ -1919,9 +1928,6 @@ msgstr "取消追蹤"
 
 msgid "Your {0} account is now connected."
 msgstr "您的 {0} 帳戶現已連接。"
-
-msgid "You cannot reply to @{author} on {0}."
-msgstr "你無法在 {0} 上回覆 @{author}。"
 
 msgid "Posted via {0} <0>{sendFrom}</0>"
 msgstr ""

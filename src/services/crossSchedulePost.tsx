@@ -18,6 +18,7 @@ import { resolveSocialSourceInUrl } from '@/helpers/resolveSourceInUrl.js';
 import { ComposeModalRef, EnableSignlessModalRef } from '@/modals/controls.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
 import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
+import { captureComposeEvent } from '@/providers/safary/captureComposeEvent.js';
 import { uploadSessions } from '@/services/metrics.js';
 import { commitPoll } from '@/services/poll.js';
 import type { CompositePost } from '@/store/useComposeStore.js';
@@ -91,6 +92,8 @@ export async function crossSchedulePost(
             },
         );
         if (!result) return;
+
+        captureComposeEvent(type, compositePost, { scheduleId: result });
 
         enqueueSuccessMessage(
             <span>

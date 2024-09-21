@@ -9,12 +9,14 @@ import { getSnackbarMessageFromError } from '@/helpers/getSnackbarMessageFromErr
 import { isRoutePathname } from '@/helpers/isRoutePathname.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { useComeBack } from '@/hooks/useComeback.js';
+import { capturePostActionEvent } from '@/providers/safary/capturePostActionEvent.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 
 export function useDeletePost(source: SocialSource) {
     const router = useRouter();
     const pathname = usePathname();
     const navBack = useComeBack();
+
     return useAsyncFn(
         async (post: Post) => {
             try {
@@ -25,6 +27,7 @@ export function useDeletePost(source: SocialSource) {
                 if (isRoutePathname(pathname, '/post') && post.type === 'Post') {
                     navBack();
                 }
+                capturePostActionEvent('delete', post);
                 enqueueSuccessMessage(t`Post was deleted`);
             } catch (error) {
                 enqueueErrorMessage(getSnackbarMessageFromError(error, t`Failed to delete post.`), {

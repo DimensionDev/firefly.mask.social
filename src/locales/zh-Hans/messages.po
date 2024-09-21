@@ -591,6 +591,9 @@ msgstr "转帖"
 msgid "Market Cap / FDV"
 msgstr "完全稀释估值"
 
+msgid "Log telemetry events to the console."
+msgstr ""
+
 msgid "Confirmation"
 msgstr "确认"
 
@@ -749,6 +752,9 @@ msgstr "未能在 {sourceName} 上隐藏 @{0}。"
 
 msgid "View Source"
 msgstr "查看原文"
+
+msgid "You cannot reply to @{0} on {1}."
+msgstr ""
 
 msgid "Are you sure you want to report this collection?"
 msgstr "您确定要举报这个 NFT 吗？"
@@ -1004,6 +1010,9 @@ msgstr "网站"
 
 msgid "Failed to report @{0}."
 msgstr "举报 @{0} 失败。"
+
+msgid "Enable logging telemetry events"
+msgstr ""
 
 msgid "Post with link"
 msgstr "发布带链接的帖子"
@@ -1919,9 +1928,6 @@ msgstr "取消关注"
 
 msgid "Your {0} account is now connected."
 msgstr "您的 {0} 账户已连接。"
-
-msgid "You cannot reply to @{author} on {0}."
-msgstr "您不能在 {0} 上评论 {author}。"
 
 msgid "Posted via {0} <0>{sendFrom}</0>"
 msgstr "发布于 {0} <0>{sendFrom}</0>"

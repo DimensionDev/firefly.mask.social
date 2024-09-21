@@ -14,8 +14,9 @@ export function useReportPost() {
         try {
             const provider = resolveSocialMediaProvider(post.source);
             const result = await provider.reportPost(post);
-            if (result) enqueueSuccessMessage(t`Report submitted on ${post.source}`);
-
+            if (result) {
+                enqueueSuccessMessage(t`Report submitted on ${post.source}`);
+            }
             return result;
         } catch (error) {
             enqueueErrorMessage(getSnackbarMessageFromError(error, t`Failed to submit report on ${post.source}.`), {
