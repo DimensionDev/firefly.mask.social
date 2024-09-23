@@ -8,15 +8,15 @@ import { BioMarkup } from '@/components/Markup/BioMarkup.js';
 import { FollowButton } from '@/components/Profile/FollowButton.js';
 import { FollowersLink } from '@/components/Profile/FollowersLink.js';
 import { SocialSourceIcon } from '@/components/SocialSourceIcon.js';
-import { Source } from '@/constants/enum.js';
+import { FollowCategory, Source } from '@/constants/enum.js';
 import { Link } from '@/esm/Link.js';
 import { classNames } from '@/helpers/classNames.js';
 import { nFormatter } from '@/helpers/formatCommentCounts.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { isSameProfile } from '@/helpers/isSameProfile.js';
 import { narrowToSocialSource } from '@/helpers/narrowToSocialSource.js';
+import { resolveProfileUrl } from '@/helpers/resolveProfileUrl.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
-import { resolveSourceInUrl } from '@/helpers/resolveSourceInUrl.js';
 import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
 import type { FireflyIdentity } from '@/providers/types/Firefly.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
@@ -97,10 +97,7 @@ export const ProfileCard = memo<ProfileCardProps>(function ProfileCard({ identit
                         <FollowersLink profile={profile} className="leading-[22px]" />
 
                         <Link
-                            href={{
-                                pathname: `/profile/${profile?.profileId}/following`,
-                                query: { source: resolveSourceInUrl(profile.source) },
-                            }}
+                            href={resolveProfileUrl(profile.source, profile.profileId, FollowCategory.Following)}
                             className={classNames('gap-1 leading-[22px] hover:underline', {
                                 'pointer-events-none':
                                     profile.source !== Source.Farcaster && profile.source !== Source.Lens,

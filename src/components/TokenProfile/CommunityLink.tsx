@@ -11,8 +11,9 @@ import TelegramRound from '@/assets/telegram-round.svg';
 import YouTube from '@/assets/youtube.svg';
 import { Tooltip } from '@/components/Tooltip.js';
 import { XIcon } from '@/components/XIcon.js';
-import { SourceInURL } from '@/constants/enum.js';
+import { Source } from '@/constants/enum.js';
 import { Link } from '@/esm/Link.js';
+import { resolveProfileUrl } from '@/helpers/resolveProfileUrl.js';
 import { TwitterSocialMediaProvider } from '@/providers/twitter/SocialMedia.js';
 import type { CommunityType, CommunityUrl } from '@/providers/types/Trending.js';
 
@@ -41,7 +42,7 @@ export function CommunityLink({ link }: Props) {
     const { data: fireflyTwitterLink } = useQuery({
         queryKey: ['twitter', 'profile-by-handle', handle],
         queryFn: handle ? () => TwitterSocialMediaProvider.getProfileByHandle(handle) : skipToken,
-        select: (data) => `/profile/${data.profileId}?source=${SourceInURL.Twitter}`,
+        select: (data) => resolveProfileUrl(Source.Twitter, data.profileId),
     });
 
     const href = isTwitter ? fireflyTwitterLink : link.link;
