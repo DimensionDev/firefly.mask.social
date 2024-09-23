@@ -75,7 +75,7 @@ export function SuggestedFollowsCard() {
 
     if (isLoading) {
         return (
-            <div className="flex h-[268px] w-full shrink-0 animate-pulse flex-col gap-1">
+            <div className="-mb-3 flex h-[240px] w-full shrink-0 animate-pulse flex-col gap-1">
                 <div className="h-7 w-full bg-bg" />
                 <div className="w-full flex-1 rounded-xl bg-bg" />
             </div>

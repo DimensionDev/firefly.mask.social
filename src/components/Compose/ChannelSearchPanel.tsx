@@ -96,7 +96,7 @@ export function ChannelSearchPanel({ onSelected, className, ...rest }: ChannelSe
                                             {channel.name}
                                         </span>
                                         {channel.followerCount ? (
-                                            <data value={channel.followerCount}>
+                                            <data className="flex items-center gap-1" value={channel.followerCount}>
                                                 <UserIcon width={16} height={16} />
                                                 <span className="">{nFormatter(channel.followerCount)}</span>
                                             </data>
