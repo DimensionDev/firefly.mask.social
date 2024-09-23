@@ -10,6 +10,8 @@ export function getArticleDigest(article?: Article) {
             return article.id;
         case ArticlePlatform.Paragraph:
             return article.origin;
+        case ArticlePlatform.Limo:
+            return article.id;
         default:
             safeUnreachable(article.platform);
             return;

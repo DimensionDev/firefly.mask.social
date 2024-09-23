@@ -46,6 +46,9 @@ export const OembedLayout = memo<{ data: LinkDigested; post?: Post }>(function O
                     <PostEmbed id={payload.id} source={payload.source} />
                 </Suspense>
             );
+        case PayloadType.Mirror:
+            // Since it has been processed in PostLinks
+            return;
         default:
             safeUnreachable(type);
             return <OembedUI og={og} />;
