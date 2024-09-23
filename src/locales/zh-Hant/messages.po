@@ -168,6 +168,9 @@ msgstr "正在觀察"
 msgid "Rank #{0}"
 msgstr "排名#{0}"
 
+msgid "Mute {walletHandle}"
+msgstr ""
+
 msgid "Searching channel"
 msgstr "搜尋頻道"
 
@@ -969,6 +972,9 @@ msgstr "同步"
 msgid "Description"
 msgstr "描述"
 
+msgid "Muted wallets"
+msgstr ""
+
 msgid "All wallets and accounts are muted."
 msgstr "所有錢包和帳戶都已靜音"
 
@@ -1604,6 +1610,12 @@ msgstr ""
 
 msgid "Unwatch"
 msgstr "取消觀察"
+
+msgid "Wallets"
+msgstr ""
+
+msgid "Articles from {walletHandle} will now be hidden in your home timeline"
+msgstr ""
 
 msgid "Please input the url to be revalidated."
 msgstr "請輸入連結以重新識別有效性"
