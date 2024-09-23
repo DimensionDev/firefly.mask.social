@@ -171,7 +171,7 @@ export function ComposeActions(props: ComposeActionsProps) {
                 ) : null}
             </div>
 
-            <div className="flex h-9 items-center justify-between">
+            <div className="flex h-10 items-center justify-between">
                 <span className="text-medium text-secondary">
                     <Trans>Share to</Trans>
                 </span>
@@ -179,7 +179,7 @@ export function ComposeActions(props: ComposeActionsProps) {
             </div>
 
             {showReplyScope ? (
-                <div className="flex h-9 items-center justify-between pb-safe">
+                <div className="flex h-10 items-center justify-between pb-safe">
                     <span className="text-medium text-secondary">
                         <Trans>Allow replies from</Trans>
                     </span>
@@ -188,7 +188,7 @@ export function ComposeActions(props: ComposeActionsProps) {
             ) : null}
 
             {showChannel ? (
-                <div className="flex h-9 items-center justify-between pb-safe">
+                <div className="flex h-10 items-center justify-between pb-safe">
                     <span className="text-medium text-secondary">
                         <Trans>Farcaster channel</Trans>
                     </span>

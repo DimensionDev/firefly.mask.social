@@ -40,7 +40,7 @@ export const ChooseChannelAction = memo(function ChooseChannelAction({ hasError 
                         >
                             {buttonContent}
                         </Popover.Button>
-                        <ChannelSearchPanel onSelected={close} className="max-h-[192px]" />
+                        <ChannelSearchPanel onSelected={close} className="md:max-h-[192px]" />
                     </>
                 )}
             </Popover>
@@ -55,7 +55,7 @@ export const ChooseChannelAction = memo(function ChooseChannelAction({ hasError 
                 {buttonContent}
             </ClickableButton>
             <PopoverModal open={open} onClose={() => setOpen(false)}>
-                <ChannelSearchPanel onSelected={() => setOpen(false)} className="max-h-[192px]" />
+                <ChannelSearchPanel onSelected={() => setOpen(false)} className="md:max-h-[192px]" />
             </PopoverModal>
         </>
     );

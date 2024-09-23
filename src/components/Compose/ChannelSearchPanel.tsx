@@ -33,7 +33,7 @@ export function ChannelSearchPanel({ onSelected, className, ...rest }: ChannelSe
     const { data, isLoading, isError } = useSearchChannels(inputText, hasRpPayload(typedMessage) ?? false);
 
     const InputBox = (
-        <div className="relative mx-0 flex flex-grow items-center rounded-xl bg-lightBg px-3 text-main md:mx-3">
+        <div className="relative mx-0 flex h-12 flex-grow items-center rounded-xl bg-lightBg px-3 text-main md:mx-3">
             <SearchIcon width={18} height={18} className="shrink-0" />
             <SearchInput
                 className="h-8"
@@ -53,7 +53,7 @@ export function ChannelSearchPanel({ onSelected, className, ...rest }: ChannelSe
     };
 
     const ListBox = (
-        <div className={classNames('no-scrollbar flex flex-col gap-2 overflow-auto', className)} {...rest}>
+        <div className={classNames('no-scrollbar overflow-auto', className)} {...rest}>
             {isLoading ? (
                 <div className="m-auto flex h-[100px] items-center justify-center text-center text-sm text-main">
                     <LoadingIcon className="animate-spin" width={24} height={24} />
@@ -72,7 +72,7 @@ export function ChannelSearchPanel({ onSelected, className, ...rest }: ChannelSe
                     return (
                         <Fragment key={channel.id}>
                             <div
-                                className="flex h-8 cursor-pointer items-center justify-between px-0 transition duration-150 ease-in hover:bg-lightBg md:pl-3 md:pr-1"
+                                className="flex h-12 cursor-pointer items-center justify-between px-0 transition duration-150 ease-in hover:bg-lightBg md:pl-3 md:pr-1"
                                 onClick={() => {
                                     if (!isSelected) updateChannel(channel);
                                     onSelected?.();
