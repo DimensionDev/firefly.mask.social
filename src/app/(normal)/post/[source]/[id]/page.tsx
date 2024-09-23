@@ -9,7 +9,6 @@ import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
 import { isBotRequest } from '@/helpers/isBotRequest.js';
 import { isSocialSourceInUrl } from '@/helpers/isSocialSource.js';
 import { memoizeWithRedis } from '@/helpers/memoizeWithRedis.js';
-import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { resolveSocialSource } from '@/helpers/resolveSource.js';
 import { getPostOGById } from '@/services/getPostOGById.js';
 
@@ -38,14 +37,10 @@ export default async function Page(props: Props) {
     const { params } = props;
     if (!isSocialSourceInUrl(params.source)) return notFound();
     const source = resolveSocialSource(params.source);
-    const provider = resolveSocialMediaProvider(source);
-    const post = await provider.getPostById(params.id).catch(() => null);
-
-    if (!post) return notFound();
 
     return (
         <LoginRequiredGuard source={source}>
-            <PostDetailPage post={post} id={params.id} source={source} />
+            <PostDetailPage id={params.id} source={source} />
         </LoginRequiredGuard>
     );
 }

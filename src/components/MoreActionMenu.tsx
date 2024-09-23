@@ -38,7 +38,7 @@ export function MoreActionMenu({
                 disabled={disabled}
                 whileTap={{ scale: 0.9 }}
                 as={motion.button}
-                className="flex flex-shrink-0 items-center text-secondary"
+                className="flex flex-shrink-0 items-center text-lightMain"
                 aria-label="More"
                 onClick={async (event) => {
                     event.stopPropagation();
