@@ -3,9 +3,11 @@ import urlcat from 'urlcat';
 
 import { isFollowCategory } from '@/helpers/isFollowCategory.js';
 import { isMatchedDiscoverPage } from '@/helpers/isMatchedDiscoverPage.js';
+import { parseOldEngagementUrl } from '@/helpers/parseEngagementUrl.js';
 import { parseOldProfileUrl } from '@/helpers/parseOldProfileUrl.js';
 import { parseOldPostUrl } from '@/helpers/parsePostUrl.js';
 import { parseProfileUrl } from '@/helpers/parseProfileUrl.js';
+import { resolveEngagementUrl } from '@/helpers/resolveEngagementUrl.js';
 import { resolvePostUrl } from '@/helpers/resolvePostUrl.js';
 import { resolveProfileUrl } from '@/helpers/resolveProfileUrl.js';
 import { resolveSourceInUrl } from '@/helpers/resolveSourceInUrl.js';
@@ -37,6 +39,18 @@ export async function middleware(request: NextRequest) {
         return NextResponse.rewrite(destination, {
             request,
         });
+    }
+
+    const parsedOldEngagementUrl = parseOldEngagementUrl(request.nextUrl);
+    if (parsedOldEngagementUrl) {
+        const destination = request.nextUrl.clone();
+        destination.pathname = resolveEngagementUrl(
+            parsedOldEngagementUrl.id,
+            parsedOldEngagementUrl.source,
+            parsedOldEngagementUrl.engagement,
+        );
+        destination.searchParams.delete('source');
+        return NextResponse.redirect(destination);
     }
 
     const parsedOldPostUrl = parseOldPostUrl(request.nextUrl);
