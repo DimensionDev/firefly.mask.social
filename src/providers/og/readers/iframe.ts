@@ -115,7 +115,7 @@ export const getPostIFrame = (embedUrl: string | null, url: string): string | nu
             return null;
         }
         default:
-            safeUnreachable(hostname as never);
+            console.warn(`No iframe reader for ${hostname}`);
             return null;
     }
 };
