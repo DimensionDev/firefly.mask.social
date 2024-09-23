@@ -11,7 +11,6 @@ export function getChannelUrl(channel: Channel) {
         case Source.Farcaster:
             if (!channel.id) return '';
             return urlcat('/channel/:id', {
-                source: channel.source.toLowerCase(),
                 id: channel.id,
             });
         case Source.Twitter:
