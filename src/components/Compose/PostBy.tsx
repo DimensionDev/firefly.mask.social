@@ -46,7 +46,7 @@ export function PostBy(props: PostByProps) {
                 leaveFrom="opacity-100"
                 leaveTo="opacity-0 translate-y-1"
             >
-                <Popover.Panel className="no-scrollbar absolute bottom-full right-0 z-10 flex max-h-[275px] w-[280px] -translate-y-3 flex-col gap-2 overflow-y-auto rounded-lg bg-lightBottom text-medium shadow-popover dark:border dark:border-line dark:bg-darkBottom dark:shadow-none md:max-h-[370px]">
+                <Popover.Panel className="no-scrollbar absolute bottom-full right-0 z-10 flex max-h-[275px] w-[280px] -translate-y-3 flex-col gap-2 overflow-y-auto rounded-lg bg-lightBottom py-3 text-medium shadow-popover dark:border dark:border-line dark:bg-darkBottom dark:shadow-none md:max-h-[370px]">
                     {content}
                 </Popover.Panel>
             </Transition>

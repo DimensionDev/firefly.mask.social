@@ -153,7 +153,7 @@ export function Media({ close }: MediaProps) {
             >
                 <Popover.Panel
                     static
-                    className="absolute bottom-full left-0 z-50 w-[280px] -translate-y-3 rounded-lg bg-lightBottom text-main dark:bg-darkBottom"
+                    className="absolute bottom-full left-0 z-50 w-[280px] -translate-y-3 rounded-lg bg-lightBottom py-3 text-main shadow-popover dark:border dark:border-line dark:bg-darkBottom dark:shadow-none"
                 >
                     {content}
                 </Popover.Panel>
