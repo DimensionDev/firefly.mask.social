@@ -113,7 +113,7 @@ export function ChannelSearchPanel({ onSelected, className, ...rest }: ChannelSe
     );
 
     const content = (
-        <div className="flex flex-col gap-2 bg-lightBottom dark:bg-darkBottom">
+        <div className="flex flex-col gap-2 md:bg-lightBottom md:dark:bg-darkBottom">
             {InputBox}
             {ListBox}
         </div>
