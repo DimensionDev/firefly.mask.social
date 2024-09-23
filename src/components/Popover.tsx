@@ -51,7 +51,7 @@ export function Popover({
                     <Dialog.Panel
                         {...DialogPanelProps}
                         className={classNames(
-                            'fixed inset-x-6 bottom-3 top-auto z-40 mx-auto flex max-w-[800px] flex-col justify-center rounded-2xl border border-line p-6 shadow-[0px_4px_30px_0px_rgba(0,0,0,0.04)] dark:shadow-[0px_8px_20px_0px_rgba(255,255,255,0.04)] md:bg-primaryBottom',
+                            'fixed inset-x-6 bottom-3 top-auto z-40 mx-auto flex max-w-[800px] flex-col justify-center rounded-2xl border border-line bg-primaryBottom p-6 shadow-[0px_4px_30px_0px_rgba(0,0,0,0.04)] dark:shadow-[0px_8px_20px_0px_rgba(255,255,255,0.04)]',
                             DialogPanelProps?.className as string,
                         )}
                         style={{ overflow: !enableOverflow ? 'unset' : 'hidden', ...DialogPanelProps?.style }}
