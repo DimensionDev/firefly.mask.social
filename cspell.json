@@ -183,7 +183,14 @@
         "flatmap",
         "getconvert",
         "nextwidth",
-        "nextheight"
+        "nextheight",
+        "cooldown",
+        "Darkweb",
+        "darkweb",
+        "Cybercrime",
+        "cybercrime",
+        "selfdestruct",
+        "reinit"
     ],
     "flagWords": [],
     "ignorePaths": [
