@@ -1,8 +1,9 @@
 'use client';
 
 import { Trans } from '@lingui/macro';
-import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
+import { useSuspenseInfiniteQuery, useSuspenseQuery } from '@tanstack/react-query';
 import { last } from 'lodash-es';
+import { notFound } from 'next/navigation.js';
 import { Suspense, useEffect } from 'react';
 import urlcat from 'urlcat';
 
@@ -15,6 +16,7 @@ import { SinglePost } from '@/components/Posts/SinglePost.js';
 import { ThreadBody } from '@/components/Posts/ThreadBody.js';
 import { Section } from '@/components/Semantic/Section.js';
 import { type SocialSource, Source } from '@/constants/enum.js';
+import { NotFoundError } from '@/constants/error.js';
 import { EMPTY_LIST, MIN_POST_SIZE_PER_THREAD } from '@/constants/index.js';
 import { dynamic } from '@/esm/dynamic.js';
 import { isSamePost } from '@/helpers/isSamePost.js';
@@ -46,16 +48,36 @@ function refreshThreadByPostId(postId: string) {
 }
 
 interface Props {
-    post: Post;
     id: string;
     source: SocialSource;
 }
 
-export function PostDetailPage({ post, id: postId, source }: Props) {
+export function PostDetailPage({ id: postId, source }: Props) {
     const comeback = useComeBack();
 
+    const { data: post = null } = useSuspenseQuery({
+        queryKey: [source, 'post-detail', postId],
+        queryFn: async () => {
+            if (!postId) return;
+
+            try {
+                const provider = resolveSocialMediaProvider(source);
+                const post = await provider.getPostById(postId);
+                if (!post) return;
+
+                if (source === Source.Lens) useImpressionsStore.getState().fetchAndStoreViews([post.postId]);
+                return post;
+            } catch (error) {
+                if (error instanceof NotFoundError) return null;
+                throw error;
+            }
+        },
+    });
+
+    if (!post) notFound();
+
     useEffect(() => {
-        if (source === Source.Lens) useImpressionsStore.getState().fetchAndStoreViews([post.postId]);
+        if (source === Source.Lens && post.postId) useImpressionsStore.getState().fetchAndStoreViews([post.postId]);
     }, [source, post.postId]);
 
     const { data: allPosts = EMPTY_LIST } = useSuspenseInfiniteQuery({

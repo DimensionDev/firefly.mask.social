@@ -32,6 +32,7 @@ export function RelatedSourceIcon({ source, size = 20, ...props }: RelatedSource
         case RelatedWalletSource.rss3:
         case RelatedWalletSource.twitter_hexagon:
         case RelatedWalletSource.uniswap:
+        case RelatedWalletSource.particle:
             return null;
         default:
             safeUnreachable(source);
