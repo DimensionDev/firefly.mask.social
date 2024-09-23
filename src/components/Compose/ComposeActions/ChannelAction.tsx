@@ -35,7 +35,7 @@ export const ChooseChannelAction = memo(function ChooseChannelAction({ hasError 
                 {({ close }) => (
                     <>
                         <Popover.Button
-                            className="flex cursor-pointer gap-1 text-main focus:outline-none disabled:cursor-not-allowed disabled:opacity-50"
+                            className="flex cursor-pointer items-center gap-1 text-main focus:outline-none disabled:cursor-not-allowed disabled:opacity-50"
                             disabled={hasError}
                         >
                             {buttonContent}
