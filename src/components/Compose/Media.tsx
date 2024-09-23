@@ -80,10 +80,10 @@ export function Media({ close }: MediaProps) {
 
     const content = (
         <div>
-            <div className="pb-2">
+            <div>
                 <div
                     className={classNames(
-                        'flex h-[30px] items-center gap-2 p-3',
+                        'flex h-12 items-center gap-2 p-3',
                         disableImage ? 'cursor-not-allowed opacity-50' : 'cursor-pointer hover:bg-bg',
                     )}
                     onClick={() => {
@@ -107,10 +107,10 @@ export function Media({ close }: MediaProps) {
                     onChange={handleImageChange}
                 />
             </div>
-            <div className="pt-2">
+            <div>
                 <div
                     className={classNames(
-                        'flex h-[30px] items-center gap-2 p-3',
+                        'flex h-12 items-center gap-2 p-3',
                         disableVideo ? 'cursor-not-allowed opacity-50' : 'cursor-pointer hover:bg-bg',
                     )}
                     onClick={() => {

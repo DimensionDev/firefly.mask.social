@@ -47,7 +47,7 @@ export function PostByItem({ source, disabled = false }: PostByItemProps) {
 
     if (!currentProfile || !accounts?.length)
         return (
-            <div className="shrink-0 px-3 md:px-0">
+            <div className="shrink-0">
                 <div className="box-content flex h-12 items-center justify-between px-3 hover:bg-bg">
                     <div className="flex items-center gap-2 text-main">
                         <SocialSourceIcon size={24} source={source} />
@@ -77,7 +77,7 @@ export function PostByItem({ source, disabled = false }: PostByItemProps) {
 
     return accounts.map(({ profile, session }) => (
         <div
-            className="shrink-0 px-3 md:px-0"
+            className="shrink-0"
             key={profile.profileId}
             onClick={() => {
                 if (!isSameProfile(currentProfile, profile) || disabled) return;

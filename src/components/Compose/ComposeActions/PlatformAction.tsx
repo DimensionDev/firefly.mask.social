@@ -62,7 +62,7 @@ export const PlatformAction = memo(function PlatformAction({ hasError }: ActionP
             >
                 {buttonContent}
             </ClickableButton>
-            <PopoverModal open={open} onClose={() => setOpen(false)} DialogPanelProps={{ className: 'px-0' }}>
+            <PopoverModal open={open} onClose={() => setOpen(false)}>
                 <PostBy />
             </PopoverModal>
         </>
