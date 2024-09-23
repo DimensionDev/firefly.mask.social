@@ -3,9 +3,11 @@ import urlcat from 'urlcat';
 
 import { isFollowCategory } from '@/helpers/isFollowCategory.js';
 import { isMatchedDiscoverPage } from '@/helpers/isMatchedDiscoverPage.js';
+import { parseOldProfileUrl } from '@/helpers/parseOldProfileUrl.js';
 import { parseOldPostUrl } from '@/helpers/parsePostUrl.js';
 import { parseProfileUrl } from '@/helpers/parseProfileUrl.js';
 import { resolvePostUrl } from '@/helpers/resolvePostUrl.js';
+import { resolveProfileUrl } from '@/helpers/resolveProfileUrl.js';
 import { resolveSourceInUrl } from '@/helpers/resolveSourceInUrl.js';
 
 export async function middleware(request: NextRequest) {
@@ -28,6 +30,11 @@ export async function middleware(request: NextRequest) {
         return NextResponse.rewrite(new URL(`/discover${pathname}`, request.url), {
             request,
         });
+    }
+
+    const parsedOldProfileUrl = parseOldProfileUrl(request.nextUrl);
+    if (parsedOldProfileUrl) {
+        return NextResponse.redirect(resolveProfileUrl(parsedOldProfileUrl.source, parsedOldProfileUrl.id));
     }
 
     const parsedProfileUrl = parseProfileUrl(pathname);
