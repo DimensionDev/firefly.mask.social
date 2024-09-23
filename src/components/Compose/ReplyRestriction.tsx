@@ -29,7 +29,7 @@ export function ReplyRestriction({ restriction, setRestriction }: ReplyRestricti
     const isMedium = useIsMedium();
 
     const content = (
-        <div className="flex flex-col bg-lightBottom py-1 dark:bg-darkBottom">
+        <div className="flex flex-col py-1 md:bg-lightBottom md:dark:bg-darkBottom">
             {items.map(({ type, disabled }) => (
                 <div
                     key={type}
