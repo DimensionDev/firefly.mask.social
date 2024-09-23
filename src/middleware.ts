@@ -11,20 +11,8 @@ import { resolveProfileUrl } from '@/helpers/resolveProfileUrl.js';
 import { resolveSourceInUrl } from '@/helpers/resolveSourceInUrl.js';
 
 export async function middleware(request: NextRequest) {
-    request.headers.set('X-URL', request.url);
-
     const pathname = request.nextUrl.pathname;
-    const isPost = pathname.startsWith('/post') && !pathname.includes('/photos');
-
-    if (isPost) {
-        const { isBot } = userAgent(request);
-
-        request.headers.set('X-IS-BOT', isBot ? 'true' : 'false');
-
-        return NextResponse.next({
-            request,
-        });
-    }
+    request.headers.set('X-URL', request.url);
 
     if (isMatchedDiscoverPage(pathname)) {
         return NextResponse.rewrite(new URL(`/discover${pathname}`, request.url), {
@@ -54,8 +42,20 @@ export async function middleware(request: NextRequest) {
     const parsedOldPostUrl = parseOldPostUrl(request.nextUrl);
     if (parsedOldPostUrl) {
         const destination = request.nextUrl.clone();
-        destination.pathname = resolvePostUrl(parsedOldPostUrl.source, request.url);
+        destination.pathname = resolvePostUrl(parsedOldPostUrl.source, parsedOldPostUrl.id);
+        destination.searchParams.delete('source');
         return NextResponse.redirect(destination);
+    }
+
+    const isPost = pathname.startsWith('/post') && !pathname.includes('/photos');
+    if (isPost) {
+        const { isBot } = userAgent(request);
+
+        request.headers.set('X-IS-BOT', isBot ? 'true' : 'false');
+
+        return NextResponse.next({
+            request,
+        });
     }
 
     return NextResponse.next({
