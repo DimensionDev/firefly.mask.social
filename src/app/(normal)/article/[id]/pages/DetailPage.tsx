@@ -169,6 +169,14 @@ export function ArticleDetailPage({ params: { id: articleId } }: PageProps) {
                                 event.stopPropagation();
                                 event.preventDefault();
 
+                                if ((event.target as HTMLElement).tagName === 'A') {
+                                    const link = event.target as HTMLAnchorElement;
+                                    if (link.href) {
+                                        window.open(link.href, '_blank', 'noopener noreferrer');
+                                        return;
+                                    }
+                                }
+
                                 if ((event.target as HTMLElement).tagName !== 'IMG' || !ref.current) return;
 
                                 const image = event.target as HTMLImageElement;

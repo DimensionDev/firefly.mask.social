@@ -252,12 +252,12 @@ export const Attachments = memo<AttachmentsProps>(function Attachments({
                     </div>
                 </div>
             ) : null}
-            {video ? (
+            {video && !isQuote ? (
                 <div className="w-full">
                     <VideoAsset asset={video} isQuote={isQuote} source={post.source} />
                 </div>
             ) : null}
-            {!video && gifAttachments.length === 1 ? (
+            {!video && gifAttachments.length === 1 && !isQuote ? (
                 <div className="w-full">
                     <VideoAsset asset={gifAttachments[0]} isQuote={isQuote} source={post.source} />
                 </div>

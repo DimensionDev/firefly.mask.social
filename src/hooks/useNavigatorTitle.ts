@@ -9,5 +9,8 @@ export function useNavigatorTitle(title: string) {
 
     useMount(() => {
         if (title) updateTitle(title);
+        return () => {
+            updateTitle('');
+        };
     });
 }
