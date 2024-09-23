@@ -13,6 +13,9 @@ msgstr ""
 "Language-Team: \n"
 "Plural-Forms: \n"
 
+msgid "The gas abuse function is included. The project owner may have the ability to control the contract."
+msgstr "The gas abuse function is included. The project owner may have the ability to control the contract."
+
 msgid "{days, plural, one {1 day left} other {{days} days left}}"
 msgstr "{days, plural, one {1 day left} other {{days} days left}}"
 
@@ -21,6 +24,9 @@ msgstr "Do you want to retry with the full or remaining content?"
 
 msgid "Login required to post on {sourceName}."
 msgstr "Login required to post on {sourceName}."
+
+msgid "Stealing attack found."
+msgstr "Stealing attack found."
 
 msgid "Be the first one to comment!"
 msgstr "Be the first one to comment!"
@@ -85,6 +91,9 @@ msgstr "Send a tip"
 msgid "Mute /{0}"
 msgstr "Mute /{0}"
 
+msgid "Blackmail activities."
+msgstr "Blackmail activities."
+
 msgid "Failed to collect article."
 msgstr "Failed to collect article."
 
@@ -136,11 +145,17 @@ msgstr "Select token"
 msgid "The post you quoted/replied has already deleted"
 msgstr "The post you quoted/replied has already deleted"
 
+msgid "Money laundering."
+msgstr "Money laundering."
+
 msgid "Display Name"
 msgstr "Display Name"
 
 msgid "Debug Connection"
 msgstr "Debug Connection"
+
+msgid "Blackmail activities found."
+msgstr "Blackmail activities found."
 
 msgid "Allow Lens Manager to perform actions such as posting, liking, and commenting without the need to sign each transaction."
 msgstr "Allow Lens Manager to perform actions such as posting, liking, and commenting without the need to sign each transaction."
@@ -166,11 +181,20 @@ msgstr "Rank #{0}"
 msgid "Searching channel"
 msgstr "Searching channel"
 
+msgid "Malicious mining activities found."
+msgstr "Malicious mining activities found."
+
 msgid "Functions that can suspend trading"
 msgstr "Functions that can suspend trading"
 
 msgid "<0>The maximum number of coins coded to exist in the lifetime of the cryptocurrency. It is comparable to the maximum number of issuable shares in the stock market.</0><1>Max Supply = Theoretical maximum as coded</1>"
 msgstr "<0>The maximum number of coins coded to exist in the lifetime of the cryptocurrency. It is comparable to the maximum number of issuable shares in the stock market.</0><1>Max Supply = Theoretical maximum as coded</1>"
+
+msgid "This token is a gas abuser."
+msgstr "This token is a gas abuser."
+
+msgid "No cryptocurrency mixer found."
+msgstr "No cryptocurrency mixer found."
 
 msgid "More"
 msgstr "More"
@@ -184,6 +208,9 @@ msgstr "Free"
 msgid "Searching users"
 msgstr "Searching users"
 
+msgid "Fake KYC."
+msgstr "Fake KYC."
+
 msgid "Airdrop Scam"
 msgstr "Airdrop Scam"
 
@@ -195,6 +222,9 @@ msgstr "Tax can be modified"
 
 msgid "Join our Discord"
 msgstr "Join our Discord"
+
+msgid "The external call function is not included. If there is an external call function, the project owner may have the ability to control the contract."
+msgstr "The external call function is not included. If there is an external call function, the project owner may have the ability to control the contract."
 
 msgid "Found arweaveTxId is empty."
 msgstr "Found arweaveTxId is empty."
@@ -211,8 +241,17 @@ msgstr "Above 10% may be considered a high tax rate. More than 50% tax rate mean
 msgid "Location should not exceed {maxLocationSize} characters"
 msgstr "Location should not exceed {maxLocationSize} characters"
 
+msgid "Potential risk of external call."
+msgstr "Potential risk of external call."
+
 msgid "FAILED POST"
 msgstr "FAILED POST"
+
+msgid "No financial crime found."
+msgstr "No financial crime found."
+
+msgid "The token can be bought."
+msgstr "The token can be bought."
 
 msgid "Trending"
 msgstr "Trending"
@@ -222,6 +261,9 @@ msgstr "Log out @{0}"
 
 msgid "You can save the failed parts of posts and send them later from your Drafts."
 msgstr "You can save the failed parts of posts and send them later from your Drafts."
+
+msgid "The external call function is included. The project owner may have the ability to control the contract."
+msgstr "The external call function is included. The project owner may have the ability to control the contract."
 
 msgid "Please confirm the login with Firefly."
 msgstr "Please confirm the login with Firefly."
@@ -274,11 +316,20 @@ msgstr "Market Cap"
 msgid "Contract source code verified"
 msgstr "Contract source code verified"
 
+msgid "The contract owner has restrictions on personal slippage."
+msgstr "The contract owner has restrictions on personal slippage."
+
+msgid "Anti whale can be modified."
+msgstr "Anti whale can be modified."
+
 msgid "Profile not found"
 msgstr "Profile not found"
 
 msgid "NFT Standard"
 msgstr "NFT Standard"
+
+msgid "Stealing attack."
+msgstr "Stealing attack."
 
 msgid "Failed to like the comment."
 msgstr "Failed to like the comment."
@@ -288,6 +339,9 @@ msgstr "<0>Posted</0>an article"
 
 msgid "Scan the QR code with your phone’s <0>Camera</0> in {count}s. <1/>Approve a new Farcaster signer to Firefly."
 msgstr "Scan the QR code with your phone’s <0>Camera</0> in {count}s. <1/>Approve a new Farcaster signer to Firefly."
+
+msgid "No malicious mining activities found."
+msgstr "No malicious mining activities found."
 
 msgid "Poll is currently only supported on {0}"
 msgstr "Poll is currently only supported on {0}"
@@ -334,6 +388,9 @@ msgstr "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} {1, sele
 msgid "Total"
 msgstr "Total"
 
+msgid "Trading cooldown function."
+msgstr "Trading cooldown function."
+
 msgid "<0>{0}</0><1>mirrored</1>"
 msgstr "<0>{0}</0><1>mirrored</1>"
 
@@ -376,6 +433,9 @@ msgstr "Switch to the development API version for testing new features."
 msgid "{0, plural, one {quote} other {quotes}}"
 msgstr "{0, plural, one {quote} other {quotes}}"
 
+msgid "No hidden owner."
+msgstr "No hidden owner."
+
 msgid "Blockchain"
 msgstr "Blockchain"
 
@@ -400,8 +460,14 @@ msgstr "Page not found"
 msgid "Quote post"
 msgstr "Quote post"
 
+msgid "The self-destruct function is not included. If there is a self-destruct function, the project owner may have the ability to destroy the contract."
+msgstr "The self-destruct function is not included. If there is a self-destruct function, the project owner may have the ability to destroy the contract."
+
 msgid "Mint function is transparent or non-existent. Hidden mint functions may increase the amount of tokens in circulation and effect the price of the token."
 msgstr "Mint function is transparent or non-existent. Hidden mint functions may increase the amount of tokens in circulation and effect the price of the token."
+
+msgid "Honeypot related address."
+msgstr "Honeypot related address."
 
 msgid "Password"
 msgstr "Password"
@@ -451,17 +517,29 @@ msgstr "Functions with retrievable ownership"
 msgid "Search"
 msgstr "Search"
 
+msgid "Perhaps the token is a honeypot."
+msgstr "Perhaps the token is a honeypot."
+
 msgid "Followed by {0}"
 msgstr "Followed by {0}"
 
 msgid "Failed to unfollow @{0} on {sourceName}."
 msgstr "Failed to unfollow @{0} on {sourceName}."
 
+msgid "Sanctioned address."
+msgstr "Sanctioned address."
+
 msgid "Calendar"
 msgstr "Calendar"
 
 msgid "Watch"
 msgstr "Watch"
+
+msgid "Suspected malicious address."
+msgstr "Suspected malicious address."
+
+msgid "Honeypot related address found."
+msgstr "Honeypot related address found."
 
 msgid "Time Out"
 msgstr "Time Out"
@@ -526,6 +604,9 @@ msgstr "Failed to upload. More than {maxImageCount} images."
 msgid "Minting Txn Hash"
 msgstr "Minting Txn Hash"
 
+msgid "Anti whale can not be modified."
+msgstr "Anti whale can not be modified."
+
 msgid "Audio Cover"
 msgstr "Audio Cover"
 
@@ -562,14 +643,23 @@ msgstr "Owners"
 msgid "OpenGraph Validator"
 msgstr "OpenGraph Validator"
 
+msgid "Phishing activities found."
+msgstr "Phishing activities found."
+
 msgid "No Lens profile found.<0/>Please change to another wallet."
 msgstr "No Lens profile found.<0/>Please change to another wallet."
+
+msgid "The contract owner has no restrictions on trading cooldown."
+msgstr "The contract owner has no restrictions on trading cooldown."
 
 msgid "Connect Wallet"
 msgstr "Connect Wallet"
 
 msgid "Not Found. Please check your URL[{0}]."
 msgstr "Not Found. Please check your URL[{0}]."
+
+msgid "Non-sanctioned address found."
+msgstr "Non-sanctioned address found."
 
 msgid "Feed"
 msgstr "Feed"
@@ -616,6 +706,9 @@ msgstr "[Photo]"
 msgid "Follow more friends to continue exploring on {0}."
 msgstr "Follow more friends to continue exploring on {0}."
 
+msgid "No fake KYC involved."
+msgstr "No fake KYC involved."
+
 msgid "Session Validator"
 msgstr "Session Validator"
 
@@ -631,6 +724,9 @@ msgstr "Failed to avatar."
 msgid "Frame Validator"
 msgstr "Frame Validator"
 
+msgid "The token can not be bought."
+msgstr "The token can not be bought."
+
 msgid "No proxy"
 msgstr "No proxy"
 
@@ -642,6 +738,9 @@ msgstr "Follow System"
 
 msgid "Failed to mirror."
 msgstr "Failed to mirror."
+
+msgid "The contract owner has restrictions on buying."
+msgstr "The contract owner has restrictions on buying."
 
 msgid "Remove Choice"
 msgstr "Remove Choice"
@@ -672,6 +771,12 @@ msgstr "Owner can't change balance"
 
 msgid "Join our Telegram"
 msgstr "Join our Telegram"
+
+msgid "Non-contract address."
+msgstr "Non-contract address."
+
+msgid "Darkweb transactions."
+msgstr "Darkweb transactions."
 
 msgid "Anti_whale(Limited number of transactions)"
 msgstr "Anti_whale(Limited number of transactions)"
@@ -763,6 +868,9 @@ msgstr "and"
 msgid "Channel"
 msgstr "Channel"
 
+msgid "The hidden owner function is not included. If there is a hidden owner, the project owner may have the ability to control the contract."
+msgstr "The hidden owner function is not included. If there is a hidden owner, the project owner may have the ability to control the contract."
+
 msgid "Failed to enable signless"
 msgstr "Failed to enable signless"
 
@@ -814,6 +922,9 @@ msgstr "Owned By"
 msgid "Are you sure you want to report this post?"
 msgstr "Are you sure you want to report this post?"
 
+msgid "No fake KYC found."
+msgstr "No fake KYC found."
+
 msgid "No function found that retrieves ownership"
 msgstr "No function found that retrieves ownership"
 
@@ -831,6 +942,9 @@ msgstr "<0>You</0> mirrored"
 
 msgid "Failed to create image payload."
 msgstr "Failed to create image payload."
+
+msgid "Contract address found."
+msgstr "Contract address found."
 
 msgid "Top Profiles"
 msgstr "Top Profiles"
@@ -862,6 +976,9 @@ msgstr "Open in Firefly App"
 msgid "Privacy Policy"
 msgstr "Privacy Policy"
 
+msgid "Holders can sell all of the token."
+msgstr "Holders can sell all of the token."
+
 msgid "Rainbow Kit"
 msgstr "Rainbow Kit"
 
@@ -886,11 +1003,17 @@ msgstr "Switch"
 msgid "Drafts"
 msgstr "Drafts"
 
+msgid "No financial crime involved."
+msgstr "No financial crime involved."
+
 msgid "Follow"
 msgstr "Follow"
 
 msgid "This token contract is open source. You can check the contract code for details. Unsourced token contracts are likely to have malicious functions to defraud their users of their assets."
 msgstr "This token contract is open source. You can check the contract code for details. Unsourced token contracts are likely to have malicious functions to defraud their users of their assets."
+
+msgid "Darkweb transactions found."
+msgstr "Darkweb transactions found."
 
 msgid "Add account"
 msgstr "Add account"
@@ -1084,11 +1207,17 @@ msgstr "Email (optional)"
 msgid "NFT Contract"
 msgstr "NFT Contract"
 
+msgid "Phishing activities."
+msgstr "Phishing activities."
+
 msgid "Show more tokens with small balances"
 msgstr "Show more tokens with small balances"
 
 msgid "{riskyFactors, plural, one {# Risky item} other {# Risky items}}"
 msgstr "{riskyFactors, plural, one {# Risky item} other {# Risky items}}"
+
+msgid "The self-destruct function is included. The project owner may have the ability to destroy the contract."
+msgstr "The self-destruct function is included. The project owner may have the ability to destroy the contract."
 
 msgid "Mute"
 msgstr "Mute"
@@ -1141,6 +1270,9 @@ msgstr "<0>Acquired</0> an NFT"
 msgid "App Kit"
 msgstr "App Kit"
 
+msgid "Owner can set a different tax rate for every assigned address."
+msgstr "Owner can set a different tax rate for every assigned address."
+
 msgid "Tag {0} in a post to let them know you’ve sent an onchain tip to their wallet."
 msgstr "Tag {0} in a post to let them know you’ve sent an onchain tip to their wallet."
 
@@ -1156,6 +1288,9 @@ msgstr "Users"
 msgid "Describe a bug or suggest an improvement"
 msgstr "Describe a bug or suggest an improvement"
 
+msgid "Cryptocurrency mixer."
+msgstr "Cryptocurrency mixer."
+
 msgid "{shares, plural, one {Mirror or Quote} other {Mirrors or Quotes}}"
 msgstr "{shares, plural, one {Mirror or Quote} other {Mirrors or Quotes}}"
 
@@ -1165,6 +1300,9 @@ msgstr "Standard"
 msgid "<0>Revised</0>an article"
 msgstr "<0>Revised</0>an article"
 
+msgid "No darkweb transactions found."
+msgstr "No darkweb transactions found."
+
 msgid "You need to connect your {0} account to use this feature."
 msgstr "You need to connect your {0} account to use this feature."
 
@@ -1173,6 +1311,9 @@ msgstr "Bad Request. Please check your request."
 
 msgid "Login required to schedule post on {sourceName}"
 msgstr "Login required to schedule post on {sourceName}"
+
+msgid "No blackmail activities found."
+msgstr "No blackmail activities found."
 
 msgid "Failed to disconnect"
 msgstr "Failed to disconnect"
@@ -1192,6 +1333,9 @@ msgstr "Updated profile successfully"
 msgid "Token ${symbol} could not be found."
 msgstr "Token ${symbol} could not be found."
 
+msgid "No cybercrime found."
+msgstr "No cybercrime found."
+
 msgid "Articles"
 msgstr "Articles"
 
@@ -1210,6 +1354,9 @@ msgstr "Unsent posts"
 msgid "Creator"
 msgstr "Creator"
 
+msgid "Holders can not sell all of the token."
+msgstr "Holders can not sell all of the token."
+
 msgid "I want to hide this wallet address."
 msgstr "I want to hide this wallet address."
 
@@ -1222,11 +1369,17 @@ msgstr "Unmute {handleOrEnsOrAddress}"
 msgid "Failed to disconnect wallet from your social graph."
 msgstr "Failed to disconnect wallet from your social graph."
 
+msgid "No external call risk found."
+msgstr "No external call risk found."
+
 msgid "No preview found for shared link"
 msgstr "No preview found for shared link"
 
 msgid "All wallets and social accounts associated with {handleOrEnsOrAddress} will be muted."
 msgstr "All wallets and social accounts associated with {handleOrEnsOrAddress} will be muted."
+
+msgid "Suspected malicious address found."
+msgstr "Suspected malicious address found."
 
 msgid "Contract source code not verified"
 msgstr "Contract source code not verified"
@@ -1273,6 +1426,9 @@ msgstr "No matching channel"
 msgid "{0, plural, one {Your posts failed to publish on {firstPlatform} due to an error. Click 'Retry' to attempt posting again.} two {Your posts failed to publish on {firstPlatform} and {secondPlatform} due to an error. Click 'Retry' to attempt posting again.} other {Your posts failed to publish due to an error. Click 'Retry' to attempt posting again.}}"
 msgstr "{0, plural, one {Your posts failed to publish on {firstPlatform} due to an error. Click 'Retry' to attempt posting again.} two {Your posts failed to publish on {firstPlatform} and {secondPlatform} due to an error. Click 'Retry' to attempt posting again.} other {Your posts failed to publish due to an error. Click 'Retry' to attempt posting again.}}"
 
+msgid "Cybercrime found."
+msgstr "Cybercrime found."
+
 msgid "What's happening..."
 msgstr "What's happening..."
 
@@ -1303,6 +1459,9 @@ msgstr "Your schedule thread has created successfully."
 msgid "Super Follow"
 msgstr "Super Follow"
 
+msgid "Cryptocurrency mixer found."
+msgstr "Cryptocurrency mixer found."
+
 msgid "General"
 msgstr "General"
 
@@ -1311,6 +1470,15 @@ msgstr "Page not found. Please try again."
 
 msgid "Delegate Signing"
 msgstr "Delegate Signing"
+
+msgid "No stealing attack involved."
+msgstr "No stealing attack involved."
+
+msgid "The contract owner has no restrictions on buying."
+msgstr "The contract owner has no restrictions on buying."
+
+msgid "Financial crime."
+msgstr "Financial crime."
 
 msgid "This can’t be undone and you’ll lose your draft."
 msgstr "This can’t be undone and you’ll lose your draft."
@@ -1330,6 +1498,9 @@ msgstr "Visit firefly.social"
 msgid "The scheduled time to send this post can be set up to 7 days in advance."
 msgstr "The scheduled time to send this post can be set up to 7 days in advance."
 
+msgid "This token can not self destruct."
+msgstr "This token can not self destruct."
+
 msgid "Display"
 msgstr "Display"
 
@@ -1344,6 +1515,12 @@ msgstr "Add wallet"
 
 msgid "Please switch to {0}"
 msgstr "Please switch to {0}"
+
+msgid "Non-honeypot related address."
+msgstr "Non-honeypot related address."
+
+msgid "No darkweb transactions involved."
+msgstr "No darkweb transactions involved."
 
 msgid "Watch {handleOrEnsOrAddress}"
 msgstr "Watch {handleOrEnsOrAddress}"
@@ -1405,6 +1582,12 @@ msgstr "Or login with any social account"
 msgid "View engagements"
 msgstr "View engagements"
 
+msgid "The contract owner has restrictions on selling."
+msgstr "The contract owner has restrictions on selling."
+
+msgid "The gas abuse function is not included. If there is a gas abuse function, the project owner may have the ability to control the contract."
+msgstr "The gas abuse function is not included. If there is a gas abuse function, the project owner may have the ability to control the contract."
+
 msgid "Translated"
 msgstr "Translated"
 
@@ -1428,6 +1611,9 @@ msgstr "Minutes"
 
 msgid "Floor Price"
 msgstr "Floor Price"
+
+msgid "This token is not a gas abuser."
+msgstr "This token is not a gas abuser."
 
 msgid "Failed to fetch profiles."
 msgstr "Failed to fetch profiles."
@@ -1521,9 +1707,6 @@ msgstr "Free Collect"
 
 msgid "Delete"
 msgstr "Delete"
-
-msgid "May the token is a honeypot."
-msgstr "May the token is a honeypot."
 
 msgid "The content of this account is currently unavailable"
 msgstr "The content of this account is currently unavailable"
@@ -1672,6 +1855,9 @@ msgstr "Click to upload"
 msgid "Internal Server Error. Please try again later."
 msgstr "Internal Server Error. Please try again later."
 
+msgid "No suspected malicious behavior found."
+msgstr "No suspected malicious behavior found."
+
 msgid "The frame server failed to process the request."
 msgstr "The frame server failed to process the request."
 
@@ -1680,6 +1866,9 @@ msgstr "Report"
 
 msgid "Schedule"
 msgstr "Schedule"
+
+msgid "No cybercrime involved."
+msgstr "No cybercrime involved."
 
 msgid "Post by {0}"
 msgstr "Post by {0}"
@@ -1693,11 +1882,26 @@ msgstr "Image"
 msgid "Failed to delete post."
 msgstr "Failed to delete post."
 
+msgid "Financial crime found."
+msgstr "Financial crime found."
+
+msgid "No stealing attack found."
+msgstr "No stealing attack found."
+
+msgid "The hidden owner function is included. The project owner may have the ability to control the contract."
+msgstr "The hidden owner function is included. The project owner may have the ability to control the contract."
+
 msgid "Copy"
 msgstr "Copy"
 
 msgid "No available wallet."
 msgstr "No available wallet."
+
+msgid "No phishing activities found."
+msgstr "No phishing activities found."
+
+msgid "No cryptocurrency mixer involved."
+msgstr "No cryptocurrency mixer involved."
 
 msgid "<0>{0}</0><1>reposted</1>"
 msgstr "<0>{0}</0><1>reposted</1>"
@@ -1707,6 +1911,15 @@ msgstr "Login to enable all features"
 
 msgid "Owner can change balance"
 msgstr "Owner can change balance"
+
+msgid "Non-contract address found."
+msgstr "Non-contract address found."
+
+msgid "The contract owner has no restrictions on selling."
+msgstr "The contract owner has no restrictions on selling."
+
+msgid "No money laundering found."
+msgstr "No money laundering found."
 
 msgid "Accounts Connected"
 msgstr "Accounts Connected"
@@ -1749,6 +1962,9 @@ msgstr "Your post will be sent on {0} at {1} <0>View</0>"
 
 msgid "Failed to create scheduled post."
 msgstr "Failed to create scheduled post."
+
+msgid "The contract owner has restrictions on anti whale."
+msgstr "The contract owner has restrictions on anti whale."
 
 msgid "I don’t use anymore."
 msgstr "I don’t use anymore."
@@ -1843,6 +2059,9 @@ msgstr "Failed to upload. Gif size exceeds {0}"
 msgid "{days}d left"
 msgstr "{days}d left"
 
+msgid "Money laundering found."
+msgstr "Money laundering found."
+
 msgid "Log out all"
 msgstr "Log out all"
 
@@ -1851,6 +2070,9 @@ msgstr "LuckyDrop"
 
 msgid "{0} and others"
 msgstr "{0} and others"
+
+msgid "No money laundering involved."
+msgstr "No money laundering involved."
 
 msgid "Date"
 msgstr "Date"
@@ -1869,6 +2091,9 @@ msgstr "Developers"
 
 msgid "Share to"
 msgstr "Share to"
+
+msgid "Non-sanctioned address."
+msgstr "Non-sanctioned address."
 
 msgid "Failed to quote post."
 msgstr "Failed to quote post."
@@ -1894,8 +2119,14 @@ msgstr "1y"
 msgid "Cannot find your signer key, please connect again"
 msgstr "Cannot find your signer key, please connect again"
 
+msgid "Malicious mining activities."
+msgstr "Malicious mining activities."
+
 msgid "No codes found to suspend trading."
 msgstr "No codes found to suspend trading."
+
+msgid "This token can self destruct."
+msgstr "This token can self destruct."
 
 msgid "Buy Tax: {0}%"
 msgstr "Buy Tax: {0}%"
@@ -1930,6 +2161,9 @@ msgstr "Your {0} account is now connected."
 msgid "Posted via {0} <0>{sendFrom}</0>"
 msgstr "Posted via {0} <0>{sendFrom}</0>"
 
+msgid "The contract owner has no restrictions on personal slippage."
+msgstr "The contract owner has no restrictions on personal slippage."
+
 msgid "Unmuted @{0} on {sourceName}."
 msgstr "Unmuted @{0} on {sourceName}."
 
@@ -1959,6 +2193,9 @@ msgstr "Collection"
 
 msgid "Your name"
 msgstr "Your name"
+
+msgid "No tax changes found for personal addresses."
+msgstr "No tax changes found for personal addresses."
 
 msgid "Owned"
 msgstr "Owned"
@@ -2008,6 +2245,9 @@ msgstr "Post collected successfully!"
 msgid "Your post have published successfully on {0}."
 msgstr "Your post have published successfully on {0}."
 
+msgid "The contract owner has no restrictions on anti whale."
+msgstr "The contract owner has no restrictions on anti whale."
+
 msgid "Detail"
 msgstr "Detail"
 
@@ -2052,6 +2292,9 @@ msgstr "Mask Network"
 
 msgid "<0>Acquired</0> an NFT from <1>{0}</1>"
 msgstr "<0>Acquired</0> an NFT from <1>{0}</1>"
+
+msgid "Sanctioned address found."
+msgstr "Sanctioned address found."
 
 msgid "Unfollowed @{0} on {sourceName}"
 msgstr "Unfollowed @{0} on {sourceName}"
@@ -2116,8 +2359,17 @@ msgstr "Final results"
 msgid "Suspended account"
 msgstr "Suspended account"
 
+msgid "No blackmail activities involved."
+msgstr "No blackmail activities involved."
+
+msgid "Hidden owner."
+msgstr "Hidden owner."
+
 msgid "Recasted"
 msgstr "Recasted"
+
+msgid "No phishing activities involved."
+msgstr "No phishing activities involved."
 
 msgid "Failed to parse transaction."
 msgstr "Failed to parse transaction."
@@ -2166,6 +2418,9 @@ msgstr "Address on Watching Lists"
 
 msgid "FREE"
 msgstr "FREE"
+
+msgid "The contract owner has restrictions on trading cooldown."
+msgstr "The contract owner has restrictions on trading cooldown."
 
 msgid "Sign to enable signless"
 msgstr "Sign to enable signless"
@@ -2230,8 +2485,14 @@ msgstr "Mint function"
 msgid "Clear"
 msgstr "Clear"
 
+msgid "Cybercrime."
+msgstr "Cybercrime."
+
 msgid "<0>Sent</0> an NFT to <1>{0}</1>"
 msgstr "<0>Sent</0> an NFT to <1>{0}</1>"
+
+msgid "No trading cooldown function."
+msgstr "No trading cooldown function."
 
 msgid "Media"
 msgstr "Media"
@@ -2250,6 +2511,12 @@ msgstr "Terms of Service"
 
 msgid "[Quote]"
 msgstr "[Quote]"
+
+msgid "Contract address."
+msgstr "Contract address."
+
+msgid "No malicious mining activities involved."
+msgstr "No malicious mining activities involved."
 
 msgid "Related by platforms"
 msgstr "Related by platforms"
@@ -2286,6 +2553,9 @@ msgstr "Login"
 
 msgid "Replying to <0>@{0}</0> on {1}"
 msgstr "Replying to <0>@{0}</0> on {1}"
+
+msgid "Fake KYC found."
+msgstr "Fake KYC found."
 
 msgid "A thread must have at least two posts."
 msgstr "A thread must have at least two posts."
