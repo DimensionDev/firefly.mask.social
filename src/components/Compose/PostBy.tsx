@@ -26,7 +26,7 @@ export function PostBy(props: PostByProps) {
     }, [availableSources, images, poll, type]);
 
     const content = (
-        <div className="py-3">
+        <div>
             {SORTED_SOCIAL_SOURCES.map((source, index) => (
                 <PostByItem key={source} source={source} disabled={postByDisabled[index]} />
             ))}

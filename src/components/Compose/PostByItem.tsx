@@ -48,8 +48,8 @@ export function PostByItem({ source, disabled = false }: PostByItemProps) {
 
     if (!currentProfile || !accounts?.length)
         return (
-            <div className="shrink-0 px-3 py-2 md:px-0">
-                <div className="box-content flex h-6 items-center justify-between px-2 py-1 hover:bg-bg">
+            <div className="shrink-0 px-3 md:px-0">
+                <div className="box-content flex h-6 items-center justify-between px-3 py-1 hover:bg-bg">
                     <div className="flex items-center gap-2 text-main">
                         <SocialSourceIcon size={24} source={source} />
                         <span className="font-bold text-main">{resolveSourceName(source)}</span>
@@ -88,7 +88,7 @@ export function PostByItem({ source, disabled = false }: PostByItemProps) {
         >
             <div
                 className={classNames(
-                    'box-content flex h-6 items-center justify-between px-2 py-1 hover:bg-bg',
+                    'box-content flex h-6 items-center justify-between px-3 py-1 hover:bg-bg',
                     disabled ? 'cursor-not-allowed opacity-50' : 'cursor-pointer',
                 )}
             >

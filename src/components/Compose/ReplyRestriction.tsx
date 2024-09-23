@@ -29,7 +29,7 @@ export function ReplyRestriction({ restriction, setRestriction }: ReplyRestricti
     const isMedium = useIsMedium();
 
     const content = (
-        <div className="flex flex-col py-1 md:bg-lightBottom md:dark:bg-darkBottom">
+        <div className="flex flex-col md:bg-lightBottom md:dark:bg-darkBottom">
             {items.map(({ type, disabled }) => (
                 <div
                     key={type}
@@ -65,7 +65,7 @@ export function ReplyRestriction({ restriction, setRestriction }: ReplyRestricti
                 leaveFrom="opacity-100"
                 leaveTo="opacity-0 translate-y-1"
             >
-                <Popover.Panel className="absolute bottom-full right-0 z-10 w-[320px] -translate-y-3 rounded-lg bg-lightBottom p-3 text-medium shadow-popover dark:border dark:border-line dark:bg-darkBottom dark:shadow-none">
+                <Popover.Panel className="absolute bottom-full right-0 z-10 w-[320px] -translate-y-3 rounded-lg bg-lightBottom px-3 py-2 text-medium shadow-popover dark:border dark:border-line dark:bg-darkBottom dark:shadow-none">
                     {content}
                 </Popover.Panel>
             </Transition>
