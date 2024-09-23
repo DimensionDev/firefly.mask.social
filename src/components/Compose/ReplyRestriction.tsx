@@ -2,8 +2,7 @@ import { Popover, Transition } from '@headlessui/react';
 import { getEnumAsArray } from '@masknet/kit';
 import { Fragment } from 'react';
 
-import RadioDisableNoIcon from '@/assets/radio.disable-no.svg';
-import RadioYesIcon from '@/assets/radio.yes.svg';
+import { CircleCheckboxIcon } from '@/components/CircleCheckboxIcon.js';
 import { ReplyRestrictionText } from '@/components/Compose/ReplyRestrictionText.js';
 import { RestrictionType } from '@/constants/enum.js';
 import { classNames } from '@/helpers/classNames.js';
@@ -29,13 +28,13 @@ export function ReplyRestriction({ restriction, setRestriction }: ReplyRestricti
     const isMedium = useIsMedium();
 
     const content = (
-        <div className="flex flex-col bg-lightBottom py-1 dark:bg-darkBottom">
+        <div className="flex flex-col rounded-lg md:bg-lightBottom md:dark:bg-darkBottom">
             {items.map(({ type, disabled }) => (
                 <div
                     key={type}
                     className={classNames(
-                        'flex h-10 items-center justify-between py-3',
-                        disabled ? 'cursor-not-allowed' : 'cursor-pointer',
+                        'flex h-12 items-center justify-between px-3',
+                        disabled ? 'cursor-not-allowed' : 'cursor-pointer hover:bg-bg',
                     )}
                     onClick={() => {
                         if (!disabled) setRestriction(type);
@@ -44,11 +43,7 @@ export function ReplyRestriction({ restriction, setRestriction }: ReplyRestricti
                     <span className={classNames('mr-auto font-bold text-main', { 'opacity-50': disabled })}>
                         <ReplyRestrictionText type={type} />
                     </span>
-                    {restriction === type ? (
-                        <RadioYesIcon width={20} height={20} />
-                    ) : (
-                        <RadioDisableNoIcon width={20} height={20} className="text-secondaryLine" />
-                    )}
+                    <CircleCheckboxIcon checked={restriction === type} />
                 </div>
             ))}
         </div>
@@ -65,7 +60,7 @@ export function ReplyRestriction({ restriction, setRestriction }: ReplyRestricti
                 leaveFrom="opacity-100"
                 leaveTo="opacity-0 translate-y-1"
             >
-                <Popover.Panel className="absolute bottom-full right-0 z-10 w-[320px] -translate-y-3 rounded-lg bg-lightBottom p-3 text-medium shadow-popover dark:border dark:border-line dark:bg-darkBottom dark:shadow-none">
+                <Popover.Panel className="absolute bottom-full right-0 z-10 w-[320px] -translate-y-3 overflow-hidden rounded-lg bg-lightBottom text-medium shadow-popover dark:border dark:border-line dark:bg-darkBottom dark:shadow-none">
                     {content}
                 </Popover.Panel>
             </Transition>

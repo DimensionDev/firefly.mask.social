@@ -56,13 +56,13 @@ export const PlatformAction = memo(function PlatformAction({ hasError }: ActionP
     return (
         <>
             <ClickableButton
-                className="flex gap-1 text-main focus:outline-none disabled:cursor-not-allowed disabled:opacity-50"
+                className="flex items-center gap-1 text-main focus:outline-none disabled:cursor-not-allowed disabled:opacity-50"
                 onClick={() => setOpen(true)}
                 disabled={disabled}
             >
                 {buttonContent}
             </ClickableButton>
-            <PopoverModal open={open} onClose={() => setOpen(false)} DialogPanelProps={{ className: 'px-0' }}>
+            <PopoverModal open={open} onClose={() => setOpen(false)}>
                 <PostBy />
             </PopoverModal>
         </>

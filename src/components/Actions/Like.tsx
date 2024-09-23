@@ -71,7 +71,7 @@ export const Like = memo<LikeProps>(function Like({ post, disabled = false, hidd
             }
             throw error;
         }
-    }, [postId, source, hasLiked, isLogin, author.profileId, isComment]);
+    }, [postId, source, hasLiked, isLogin, author.profileId, post, isComment]);
 
     return (
         <ClickableArea

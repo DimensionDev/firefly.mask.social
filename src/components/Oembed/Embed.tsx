@@ -39,7 +39,7 @@ export function Embed({ og }: EmbedProps) {
                         {!og.isLarge ? (
                             <div
                                 className={classNames(
-                                    'relative flex aspect-square h-20 shrink-0 items-center justify-center',
+                                    'relative flex aspect-square h-[90px] shrink-0 items-center justify-center',
                                     {
                                         'md:h-36': !!imageProps, // card
                                         'md:h-24': !imageProps, // link

@@ -1,5 +1,5 @@
-import DisableNoIcon from '@/assets/disable-no.svg';
-import YesIcon from '@/assets/yes.svg';
+import RadioDisableNoIcon from '@/assets/radio.disable-no.svg';
+import RadioYesIcon from '@/assets/radio.yes.svg';
 import { classNames } from '@/helpers/classNames.js';
 
 interface Props extends React.HTMLProps<SVGAElement> {
@@ -7,9 +7,11 @@ interface Props extends React.HTMLProps<SVGAElement> {
     checked: boolean;
 }
 
-export function CircleCheckboxIcon({ size = 40, checked, className, ...props }: Props) {
+export function CircleCheckboxIcon({ size = 20, checked, className, ...props }: Props) {
     if (checked)
-        return <YesIcon width={size} height={size} {...props} className={classNames('text-highlight', className)} />;
+        return (
+            <RadioYesIcon width={size} height={size} {...props} className={classNames('text-highlight', className)} />
+        );
 
     return (
         <div
@@ -19,7 +21,7 @@ export function CircleCheckboxIcon({ size = 40, checked, className, ...props }: 
                 height: size,
             }}
         >
-            <DisableNoIcon className="text-secondaryLine" width={size / 2} height={size / 2} {...props} />
+            <RadioDisableNoIcon className="text-secondaryLine" width={size} height={size} {...props} />
         </div>
     );
 }

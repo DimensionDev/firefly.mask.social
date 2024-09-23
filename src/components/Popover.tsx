@@ -60,7 +60,7 @@ export function Popover({
                             <div className="h-1 w-12 rounded-full bg-main" />
                         </div>
                         <div
-                            className="flex max-h-[50vh] w-full flex-shrink-0 flex-col overflow-y-auto"
+                            className="no-scrollbar flex max-h-[50vh] w-full flex-shrink-0 flex-col overflow-y-auto"
                             style={{ overflow: !enableOverflow ? 'unset' : undefined }}
                         >
                             {children}

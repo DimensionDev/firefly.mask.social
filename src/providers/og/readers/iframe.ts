@@ -1,5 +1,4 @@
 /* cspell:disable */
-import { safeUnreachable } from '@masknet/kit';
 import urlcat from 'urlcat';
 
 import { parseUrl } from '@/helpers/parseUrl.js';
@@ -115,7 +114,7 @@ export const getPostIFrame = (embedUrl: string | null, url: string): string | nu
             return null;
         }
         default:
-            safeUnreachable(hostname as never);
+            console.warn(`No iframe reader for ${hostname}`);
             return null;
     }
 };
