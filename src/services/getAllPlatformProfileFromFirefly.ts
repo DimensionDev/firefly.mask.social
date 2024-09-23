@@ -1,6 +1,7 @@
 import urlcat from 'urlcat';
 
 import { NetworkType, Source } from '@/constants/enum.js';
+import { getAddressType } from '@/helpers/getAddressType.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
 import type { FireflyIdentity, WalletProfileResponse } from '@/providers/types/Firefly.js';
 import { settings } from '@/settings/index.js';
@@ -14,7 +15,7 @@ function getQueryKey(identity: FireflyIdentity) {
         case Source.Twitter:
             return 'twitterId';
         case Source.Wallet:
-            switch (identity.networkType) {
+            switch (getAddressType(identity.id)) {
                 case NetworkType.Ethereum:
                     return 'walletAddress';
                 case NetworkType.Solana:

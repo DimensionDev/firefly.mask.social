@@ -10,7 +10,6 @@ export function formatFireflyProfilesFromWalletProfiles(profiles: WalletProfiles
             identity: {
                 id: x.address,
                 source: Source.Wallet,
-                networkType: x.blockchain,
             },
             displayName: x.primary_ens || formatEthereumAddress(x.address, 4),
             __origin__: x,
@@ -19,7 +18,6 @@ export function formatFireflyProfilesFromWalletProfiles(profiles: WalletProfiles
             identity: {
                 id: x.address,
                 source: Source.Wallet,
-                networkType: x.blockchain,
             },
             displayName: x.primary_ens || formatSolanaAddress(x.address, 4),
             __origin__: x,

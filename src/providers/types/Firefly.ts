@@ -938,7 +938,6 @@ export interface WalletConnection {
 export interface FireflyIdentity {
     id: string;
     source: Source;
-    networkType?: NetworkType;
 }
 
 export type FireflyWalletConnection = WalletConnection & {
