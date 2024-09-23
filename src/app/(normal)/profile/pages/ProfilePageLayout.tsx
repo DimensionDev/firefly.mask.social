@@ -73,7 +73,7 @@ export function ProfilePageLayout({ identity, children }: PropsWithChildren<{ id
                     return resolveProfileUrl(x, profile?.identity.id ?? identity.id);
                 }}
             />
-            <LoginRequiredGuard source={identity.source} className="!pt-0">
+            <LoginRequiredGuard source={identity.source}>
                 {isLoading ? (
                     <Loading />
                 ) : (

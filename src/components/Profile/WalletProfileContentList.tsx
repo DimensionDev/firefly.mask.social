@@ -1,7 +1,9 @@
 import { safeUnreachable } from '@masknet/kit';
+import { isValidAddress } from '@masknet/web3-shared-evm';
 import { memo } from 'react';
 
 import { FollowingNFTList } from '@/components/NFTs/FollowingNFTList.js';
+import { NoResultsFallback } from '@/components/NoResultsFallback.js';
 import { ArticleList } from '@/components/Profile/ArticleList.js';
 import { NFTs } from '@/components/Profile/NFTs.js';
 import { POAPList } from '@/components/Profile/POAPList.js';
@@ -14,6 +16,9 @@ export const WalletProfileContentList = memo(function WalletProfileContentList({
     type: WalletProfileCategory;
     address: string;
 }) {
+    if (!isValidAddress(address)) {
+        return <NoResultsFallback className="max-md:py-20 md:pt-[228px]" />;
+    }
     switch (type) {
         case WalletProfileCategory.Articles:
             return <ArticleList address={address} />;

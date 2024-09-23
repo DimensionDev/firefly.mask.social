@@ -17,6 +17,7 @@ import { Source } from '@/constants/enum.js';
 import { Link } from '@/esm/Link.js';
 import { formatAddress } from '@/helpers/formatAddress.js';
 import { getRelationPlatformUrl } from '@/helpers/getRelationPlatformUrl.js';
+import { getStampAvatarByProfileId } from '@/helpers/getStampAvatarByProfileId.js';
 import { useCopyText } from '@/hooks/useCopyText.js';
 import { useIsMyRelatedProfile } from '@/hooks/useIsMyRelatedProfile.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
@@ -31,10 +32,11 @@ export function WalletInfo({ profile, relations }: WalletInfoProps) {
     const isMedium = useIsMedium();
     const [, handleCopy] = useCopyText(profile.address);
     const isMyWallets = useIsMyRelatedProfile(Source.Wallet, profile.address);
+    const avatar = profile.avatar ?? getStampAvatarByProfileId(Source.Wallet, profile.address);
 
     return (
         <div className="flex gap-3 p-3">
-            <Avatar src={profile.avatar} alt="avatar" size={80} className="h-20 w-20 rounded-full" />
+            <Avatar src={avatar} alt="avatar" size={80} className="h-20 w-20 rounded-full" />
             <div className="relative flex flex-1 flex-col">
                 <div className="flex flex-col gap-2">
                     <div className="flex items-center gap-2">
@@ -78,7 +80,7 @@ export function WalletInfo({ profile, relations }: WalletInfoProps) {
                                 </Tooltip>
                             );
                         })}
-                        {profile.ens.length ? (
+                        {profile.ens?.length ? (
                             <InteractiveTippy
                                 maxWidth={304}
                                 className="tippy-card"
