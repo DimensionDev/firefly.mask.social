@@ -724,9 +724,6 @@ msgstr "Add Wallet"
 msgid "Followed by {0} and {1}"
 msgstr "Followed by {0} and {1}"
 
-msgid "Insufficient {0} Balance"
-msgstr "Insufficient {0} Balance"
-
 msgid "Try searching for something else."
 msgstr "Try searching for something else."
 

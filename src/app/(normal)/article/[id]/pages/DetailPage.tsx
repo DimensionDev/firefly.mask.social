@@ -25,6 +25,7 @@ import { Link } from '@/esm/Link.js';
 import { classNames } from '@/helpers/classNames.js';
 import { createPageTitle } from '@/helpers/createPageTitle.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
+import { openWindow } from '@/helpers/openWindow.js';
 import { useComeBack } from '@/hooks/useComeback.js';
 import { PreviewMediaModalRef } from '@/modals/controls.js';
 import { FireflyArticleProvider } from '@/providers/firefly/Article.js';
@@ -168,6 +169,14 @@ export function ArticleDetailPage({ params: { id: articleId } }: PageProps) {
                             onClick={(event) => {
                                 event.stopPropagation();
                                 event.preventDefault();
+
+                                if ((event.target as HTMLElement).tagName === 'A') {
+                                    const link = event.target as HTMLAnchorElement;
+                                    if (link.href) {
+                                        openWindow(link.href, '_blank', { opener: false, referrer: false });
+                                        return;
+                                    }
+                                }
 
                                 if ((event.target as HTMLElement).tagName !== 'IMG' || !ref.current) return;
 

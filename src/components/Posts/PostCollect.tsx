@@ -58,7 +58,6 @@ export function PostCollect({ post, onClose }: PostCollectProps) {
     const account = useAccount();
     const collectModule = post.collectModule;
     const timeLeft = collectModule?.endsAt ? formatTimeLeft(collectModule?.endsAt) : undefined;
-    const cost = collectModule?.usdPrice;
 
     const isSoldOut = post.collectModule?.collectLimit
         ? post.collectModule?.collectedCount >= post.collectModule?.collectLimit
@@ -212,7 +211,7 @@ export function PostCollect({ post, onClose }: PostCollectProps) {
         }
 
         if (!hasEnoughBalance) {
-            return <Trans>Insufficient {post.collectModule?.currency} Balance</Trans>;
+            return <Trans>Insufficient Balance</Trans>;
         }
 
         if (!allowed) {
@@ -349,7 +348,11 @@ export function PostCollect({ post, onClose }: PostCollectProps) {
                     </div>
                 </div>
                 <div className="flex flex-col items-center">
-                    <div className="font-bold text-main">{cost ? `≈ $${cost}` : t`Free`}</div>
+                    <div className="font-bold text-main">
+                        {post.collectModule?.currency
+                            ? `${post.collectModule.amount} $${post.collectModule.currency}`
+                            : t`Free`}
+                    </div>
                     <div className="text-second">
                         <Trans>Cost</Trans>
                     </div>
