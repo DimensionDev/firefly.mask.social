@@ -1,5 +1,4 @@
 /* cspell:disable */
-import { safeUnreachable } from '@masknet/kit';
 import urlcat from 'urlcat';
 
 import { parseUrl } from '@/helpers/parseUrl.js';
