@@ -222,6 +222,7 @@ export type Relationship = {
     address: string;
     snsId: string;
     snsPlatform: string;
+    blocked?: boolean;
 };
 
 export type UsersResponse = Response<UsersData>;

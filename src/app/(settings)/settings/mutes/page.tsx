@@ -3,6 +3,7 @@
 import { t, Trans } from '@lingui/macro';
 
 import { TextLink } from '@/app/(settings)/components/TextLink.js';
+import { resolveSourceInUrl } from '@/helpers/resolveSourceInUrl.js';
 import { useMuteMenuList } from '@/hooks/useMuteMenuList.js';
 import { useNavigatorTitle } from '@/hooks/useNavigatorTitle.js';
 
@@ -17,7 +18,11 @@ export default function Page() {
             </div>
             <div>
                 {menus.map((menu) => (
-                    <TextLink key={menu.id} name={menu.name} link={`/settings/mutes/${menu.id}`} />
+                    <TextLink
+                        key={menu.name}
+                        name={menu.name}
+                        link={`/settings/mutes/${resolveSourceInUrl(menu.source)}/${menu.type}`}
+                    />
                 ))}
             </div>
         </div>

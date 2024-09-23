@@ -183,7 +183,8 @@
         "flatmap",
         "getconvert",
         "nextwidth",
-        "nextheight"
+        "nextheight",
+        "mutelist"
     ],
     "flagWords": [],
     "ignorePaths": [

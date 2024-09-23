@@ -183,11 +183,10 @@ export enum BookmarkType {
 
 export { SourceInURL as FireflyPlatform };
 
-export enum MuteMenuId {
-    FarcasterProfiles = '1',
-    FarcasterChannels = '2',
-    LensProfiles = '3',
-    XProfiles = '4',
+export enum MuteType {
+    Profile = 'profile',
+    Channel = 'channel',
+    Wallet = 'wallet',
 }
 
 export enum NetworkType {

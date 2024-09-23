@@ -73,6 +73,7 @@ import {
     type PostQuotesResponse,
     type ReactorsResponse,
     type RelationResponse,
+    type Relationship,
     type ReportPostParams,
     type Response,
     type SchedulePostPayload,
@@ -112,7 +113,7 @@ async function reportPost(params: ReportPostParams) {
 }
 
 async function block(field: BlockFields, profileId: string): Promise<boolean> {
-    const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/user/block');
+    const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/user/mute');
     const response = await fireflySessionHolder.fetch<BlockUserResponse>(url, {
         method: 'POST',
         body: JSON.stringify({
@@ -124,7 +125,7 @@ async function block(field: BlockFields, profileId: string): Promise<boolean> {
 }
 
 async function unblock(field: BlockFields, profileId: string): Promise<boolean> {
-    const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/user/unblock');
+    const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/user/unmute');
     const response = await fireflySessionHolder.fetch<BlockUserResponse>(url, {
         method: 'POST',
         body: JSON.stringify({
@@ -144,7 +145,6 @@ async function unblock(field: BlockFields, profileId: string): Promise<boolean> 
 @SetQueryDataForMuteAllWallets()
 export class FireflySocialMedia implements Provider {
     getChannelsByIds?: ((ids: string[]) => Promise<Channel[]>) | undefined;
-    getBlockedWallets?: ((indicator?: PageIndicator) => Promise<Pageable<Profile, PageIndicator>>) | undefined;
     reportChannel?: ((channelId: string) => Promise<boolean>) | undefined;
     getForYouPosts?: ((indicator?: PageIndicator) => Promise<Pageable<Post, PageIndicator>>) | undefined;
     getRecentPosts?: ((indicator?: PageIndicator) => Promise<Pageable<Post, PageIndicator>>) | undefined;
@@ -906,6 +906,21 @@ export class FireflySocialMedia implements Provider {
 
         return createPageable(
             blockedProfiles,
+            createIndicator(indicator),
+            response.data?.nextPage ? createNextIndicator(indicator, `${response.data?.nextPage}`) : undefined,
+        );
+    }
+
+    async getBlockedWallets(indicator?: PageIndicator): Promise<Pageable<Relationship, PageIndicator>> {
+        const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/user/mutelist', {
+            size: 20,
+            page: indicator?.id ?? 1,
+            platform: SourceInURL.Wallet,
+        });
+        const response = await fireflySessionHolder.fetch<BlockedUsersResponse>(url);
+
+        return createPageable(
+            (response.data?.blocks ?? []).map((item) => ({ ...item, blocked: true })),
             createIndicator(indicator),
             response.data?.nextPage ? createNextIndicator(indicator, `${response.data?.nextPage}`) : undefined,
         );
