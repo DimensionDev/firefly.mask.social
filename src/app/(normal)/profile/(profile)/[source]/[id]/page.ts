@@ -1,6 +1,6 @@
 'use client';
 
-import { notFound, redirect, RedirectType, usePathname } from 'next/navigation.js';
+import { notFound, redirect, RedirectType } from 'next/navigation.js';
 
 import { SourceInURL } from '@/constants/enum.js';
 import { isProfilePageSource } from '@/helpers/isProfilePageSource.js';
@@ -18,9 +18,5 @@ export default function Page({
     const id = params.id;
     const source = resolveSourceFromUrlNoFallback(params.source);
     if (!source || !isProfilePageSource(source)) notFound();
-
-    const pathname = usePathname();
-    if (!pathname.split('/')[4]) redirect(resolveProfileUrl(source, id), RedirectType.replace);
-
-    return null;
+    redirect(resolveProfileUrl(source, id), RedirectType.replace);
 }
