@@ -72,7 +72,7 @@ export function ChannelSearchPanel({ onSelected, className, ...rest }: ChannelSe
                     return (
                         <Fragment key={channel.id}>
                             <div
-                                className="flex h-12 cursor-pointer items-center justify-between px-0 transition duration-150 ease-in hover:bg-lightBg md:pl-3 md:pr-1"
+                                className="flex h-12 cursor-pointer items-center justify-between px-3 transition duration-150 ease-in hover:bg-lightBg"
                                 onClick={() => {
                                     if (!isSelected) updateChannel(channel);
                                     onSelected?.();
