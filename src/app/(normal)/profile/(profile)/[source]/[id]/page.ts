@@ -1,5 +1,3 @@
-'use client';
-
 import { notFound, redirect, RedirectType } from 'next/navigation.js';
 
 import { SourceInURL } from '@/constants/enum.js';
