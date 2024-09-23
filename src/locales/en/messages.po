@@ -163,6 +163,9 @@ msgstr "Watching"
 msgid "Rank #{0}"
 msgstr "Rank #{0}"
 
+msgid "Mute {walletHandle}"
+msgstr "Mute {walletHandle}"
+
 msgid "Searching channel"
 msgstr "Searching channel"
 
@@ -961,6 +964,9 @@ msgstr "Sync"
 msgid "Description"
 msgstr "Description"
 
+msgid "Muted wallets"
+msgstr "Muted wallets"
+
 msgid "All wallets and accounts are muted."
 msgstr "All wallets and accounts are muted."
 
@@ -1596,6 +1602,12 @@ msgstr "Sorry, we are not able to find a wallet for {0}."
 
 msgid "Unwatch"
 msgstr "Unwatch"
+
+msgid "Wallets"
+msgstr "Wallets"
+
+msgid "Articles from {walletHandle} will now be hidden in your home timeline"
+msgstr "Articles from {walletHandle} will now be hidden in your home timeline"
 
 msgid "Please input the url to be revalidated."
 msgstr "Please input the url to be revalidated."

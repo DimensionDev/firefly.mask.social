@@ -2,19 +2,24 @@ import { type Draft, produce } from 'immer';
 
 import { queryClient } from '@/configs/queryClient.js';
 import { Source } from '@/constants/enum.js';
-import { isSameEthereumAddress } from '@/helpers/isSameAddress.js';
+import { isSameEthereumAddress, isSameSolanaAddress } from '@/helpers/isSameAddress.js';
 import { resolveSourceFromUrl } from '@/helpers/resolveSource.js';
 import type { FireflySocialMedia } from '@/providers/firefly/SocialMedia.js';
 import type { Article } from '@/providers/types/Article.js';
-import type { FireflyIdentity } from '@/providers/types/Firefly.js';
+import type { FireflyIdentity, Relationship } from '@/providers/types/Firefly.js';
 import type { FollowingNFT, NFTFeed } from '@/providers/types/NFTs.js';
 import type { ClassType } from '@/types/index.js';
 
+type PagesData = { pages: Array<{ data: Article[] }> };
+interface NFTPagesData {
+    pages: Array<{ data: FollowingNFT[] | NFTFeed[] }>;
+}
+
+interface RelationPagesData {
+    pages: Array<{ data: Relationship[] }>;
+}
+
 function toggleBlock(address: string, status: boolean) {
-    type PagesData = { pages: Array<{ data: Article[] }> };
-    interface NFTPagesData {
-        pages: Array<{ data: FollowingNFT[] | NFTFeed[] }>;
-    }
     const patcher = (old: Draft<PagesData> | undefined) => {
         if (!old) return old;
         return produce(old, (draft) => {
@@ -27,6 +32,7 @@ function toggleBlock(address: string, status: boolean) {
             }
         });
     };
+
     queryClient.setQueriesData<{ pages: Array<{ data: Article[] }> }>({ queryKey: ['articles'] }, patcher);
     queryClient.setQueriesData<PagesData>({ queryKey: ['posts', Source.Article, 'bookmark'] }, patcher);
     queryClient.setQueriesData<Article>({ queryKey: ['article-detail'] }, (old) => {
@@ -57,6 +63,23 @@ function toggleBlock(address: string, status: boolean) {
 
     queryClient.setQueriesData<NFTPagesData>({ queryKey: ['nfts', 'following', Source.NFTs] }, nftsPatcher);
     queryClient.setQueriesData<NFTPagesData>({ queryKey: ['nfts', 'discover', Source.NFTs] }, nftsPatcher);
+
+    queryClient.setQueriesData<RelationPagesData>({ queryKey: ['wallets', 'muted-list'] }, (old) => {
+        if (!old) return old;
+        return produce(old, (draft) => {
+            for (const page of draft.pages) {
+                if (!page) continue;
+                for (const relation of page.data) {
+                    if (
+                        !isSameEthereumAddress(relation.address, address) &&
+                        !isSameSolanaAddress(relation.address, address)
+                    )
+                        continue;
+                    relation.blocked = status;
+                }
+            }
+        });
+    });
 }
 
 const METHODS_BE_OVERRIDDEN = ['blockWallet', 'unblockWallet'] as const;
@@ -73,8 +96,9 @@ export function SetQueryDataForBlockWallet() {
                     const m = method as (address: string) => ReturnType<Provider[K]>;
                     const status = key === 'blockWallet';
                     try {
+                        const result = await m.call(target.prototype, address);
                         toggleBlock(address, status);
-                        return await m.call(target.prototype, address);
+                        return result;
                     } catch (error) {
                         // rolling back
                         toggleBlock(address, !status);

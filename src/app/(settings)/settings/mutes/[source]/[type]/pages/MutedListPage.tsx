@@ -1,17 +1,38 @@
+import { safeUnreachable } from '@masknet/kit';
 import { Suspense } from 'react';
 
+import { MutedWallets } from '@/app/(settings)/components/MutedWallets.js';
 import ComebackIcon from '@/assets/comeback.svg';
 import { MutedChannels } from '@/components/Channel/MutedChannels.js';
 import { Loading } from '@/components/Loading.js';
 import { MutedProfiles } from '@/components/Profile/MutedProfiles.js';
+import { MuteType, Source } from '@/constants/enum.js';
+import { narrowToSocialSource } from '@/helpers/narrowToSocialSource.js';
 import { useComeBack } from '@/hooks/useComeback.js';
-import { type MuteMenu } from '@/hooks/useMuteMenuList.js';
 
 interface MutedListProps {
-    currentMenu: MuteMenu;
+    name: string;
+    type: MuteType;
+    source: Source;
 }
 
-export function MutedListPage({ currentMenu: { name, type, source } }: MutedListProps) {
+function MutedContent({ type, source }: { type: MuteType; source: Source }) {
+    const socialSource = narrowToSocialSource(source);
+
+    switch (type) {
+        case MuteType.Channel:
+            return <MutedChannels source={socialSource} />;
+        case MuteType.Profile:
+            return <MutedProfiles source={socialSource} />;
+        case MuteType.Wallet:
+            return <MutedWallets />;
+        default:
+            safeUnreachable(type);
+            return null;
+    }
+}
+
+export function MutedListPage({ name, type, source }: MutedListProps) {
     const comeback = useComeBack();
 
     return (
@@ -22,7 +43,7 @@ export function MutedListPage({ currentMenu: { name, type, source } }: MutedList
             </div>
             <div className="no-scrollbar flex-1 overflow-auto">
                 <Suspense fallback={<Loading />}>
-                    {type === 'channel' ? <MutedChannels source={source} /> : <MutedProfiles source={source} />}
+                    <MutedContent type={type} source={source} />
                 </Suspense>
             </div>
         </div>
