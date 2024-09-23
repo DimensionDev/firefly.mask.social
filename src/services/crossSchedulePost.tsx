@@ -14,10 +14,11 @@ import { getProfileSessionsAll } from '@/helpers/getProfileState.js';
 import { getScheduleTaskContent } from '@/helpers/getScheduleTaskContent.js';
 import { getSnackbarMessageFromError } from '@/helpers/getSnackbarMessageFromError.js';
 import { resolveCreateSchedulePostPayload } from '@/helpers/resolveCreateSchedulePostPayload.js';
-import { resolveSocialSourceInURL } from '@/helpers/resolveSourceInURL.js';
+import { resolveSocialSourceInUrl } from '@/helpers/resolveSourceInUrl.js';
 import { ComposeModalRef, EnableSignlessModalRef } from '@/modals/controls.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
 import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
+import { captureComposeEvent } from '@/providers/safary/captureComposeEvent.js';
 import { uploadSessions } from '@/services/metrics.js';
 import { commitPoll } from '@/services/poll.js';
 import type { CompositePost } from '@/store/useComposeStore.js';
@@ -58,7 +59,7 @@ export async function createSchedulePostsPayload(
 
             return {
                 platformUserId: profile.profileId,
-                platform: resolveSocialSourceInURL(x),
+                platform: resolveSocialSourceInUrl(x),
                 payload,
             };
         }),
@@ -91,6 +92,8 @@ export async function crossSchedulePost(
             },
         );
         if (!result) return;
+
+        captureComposeEvent(type, compositePost, { scheduleId: result });
 
         enqueueSuccessMessage(
             <span>

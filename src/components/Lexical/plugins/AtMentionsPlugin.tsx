@@ -23,7 +23,7 @@ import { classNames } from '@/helpers/classNames.js';
 import { getSafeMentionQueryText } from '@/helpers/getMentionOriginalText.js';
 import { getStampAvatarByProfileId } from '@/helpers/getStampAvatarByProfileId.js';
 import { resolveSocialSource } from '@/helpers/resolveSource.js';
-import { resolveSocialSourceInURL } from '@/helpers/resolveSourceInURL.js';
+import { resolveSocialSourceInUrl } from '@/helpers/resolveSourceInUrl.js';
 import { useCompositePost } from '@/hooks/useCompositePost.js';
 import { useCurrentProfileAll } from '@/hooks/useCurrentProfile.js';
 import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
@@ -195,13 +195,13 @@ export function MentionsPlugin(): JSX.Element | null {
             if (!data) return EMPTY_LIST;
             return data.list
                 .map((x) => {
-                    const target = SORTED_SOCIAL_SOURCES.map((source) => x[resolveSocialSourceInURL(source)])
+                    const target = SORTED_SOCIAL_SOURCES.map((source) => x[resolveSocialSourceInUrl(source)])
                         .flatMap((value) => value ?? EMPTY_LIST)
                         .find((profile) => profile.hit);
                     if (!target) return;
 
                     const allProfile = compact(
-                        SORTED_SOCIAL_SOURCES.map((source) => first(x[resolveSocialSourceInURL(source)])).map((x) => {
+                        SORTED_SOCIAL_SOURCES.map((source) => first(x[resolveSocialSourceInUrl(source)])).map((x) => {
                             if (target.platform === x?.platform) return target;
                             return x;
                         }),
@@ -296,7 +296,7 @@ export function MentionsPlugin(): JSX.Element | null {
                               ref={ref}
                               className="bg-brand sticky z-50 mt-2 w-[300px] min-w-full rounded-xl border bg-white shadow-sm dark:border-gray-700 dark:bg-gray-900"
                           >
-                              <ul className="no-scrollbar max-h-[260px] overflow-auto">
+                              <menu className="no-scrollbar max-h-[260px] overflow-auto">
                                   {options.map((option, i: number) => (
                                       <MentionsTypeaheadMenuItem
                                           index={i}
@@ -312,7 +312,7 @@ export function MentionsPlugin(): JSX.Element | null {
                                           option={option}
                                       />
                                   ))}
-                              </ul>
+                              </menu>
                           </div>,
                           anchorElementRef.current,
                       )

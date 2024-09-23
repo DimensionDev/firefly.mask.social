@@ -1,12 +1,13 @@
 import { v4 as uuid } from 'uuid';
 
-import { NODE_ENV, STATUS } from '@/constants/enum.js';
+import { STATUS } from '@/constants/enum.js';
 import { env } from '@/constants/env.js';
 import { NotImplementedError } from '@/constants/error.js';
 import { bom } from '@/helpers/bom.js';
 import { getPublicParameters } from '@/providers/safary/getPublicParameters.js';
-import type { Events, Safary } from '@/providers/types/Safary.js';
-import { Provider } from '@/providers/types/Telemetry.js';
+import type { Safary } from '@/providers/types/Safary.js';
+import { type Events, Provider } from '@/providers/types/Telemetry.js';
+import { useDeveloperSettingsState } from '@/store/useDeveloperSettingsStore.js';
 
 function formatParameter(key: string, value: unknown): [string, unknown] {
     if (typeof value === 'boolean') {
@@ -31,7 +32,7 @@ class SafaryTelemetry extends Provider<Events, never> {
             return;
         }
 
-        if (env.shared.NODE_ENV === NODE_ENV.Development) {
+        if (!useDeveloperSettingsState.getState().logTelemetry) {
             console.info('[safary] capture event:', name, parameters);
             return;
         }

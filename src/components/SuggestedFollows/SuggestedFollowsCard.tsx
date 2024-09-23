@@ -9,14 +9,13 @@ import { useMemo } from 'react';
 import { Autoplay, EffectCoverflow } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
-import LoadingIcon from '@/assets/loading.svg';
 import { AsideTitle } from '@/components/AsideTitle.js';
 import { ProfileSlide } from '@/components/SuggestedFollows/ProfileSlide.js';
 import { DiscoverType, Source } from '@/constants/enum.js';
 import { Link } from '@/esm/Link.js';
 import { isSocialDiscoverSource } from '@/helpers/isDiscoverSource.js';
 import { resolveDiscoverUrl } from '@/helpers/resolveDiscoverUrl.js';
-import { runInSafe } from '@/helpers/runInSafe.js';
+import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { useCurrentProfileAll } from '@/hooks/useCurrentProfile.js';
 import { useIsLarge } from '@/hooks/useMediaQuery.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
@@ -50,8 +49,8 @@ export function SuggestedFollowsCard() {
         staleTime: 1000 * 60 * 2,
         queryFn: async () => {
             const [farcasterData, lensData] = await Promise.all([
-                runInSafe(() => getSuggestedFollowsInCard(Source.Farcaster)),
-                runInSafe(() => getSuggestedFollowsInCard(Source.Lens)),
+                runInSafeAsync(() => getSuggestedFollowsInCard(Source.Farcaster)),
+                runInSafeAsync(() => getSuggestedFollowsInCard(Source.Lens)),
             ]);
             return sortProfiles(farcasterData ?? [], lensData ?? []);
         },
@@ -76,8 +75,9 @@ export function SuggestedFollowsCard() {
 
     if (isLoading) {
         return (
-            <div className="flex h-[268px] w-full shrink-0 items-center justify-center">
-                <LoadingIcon width={16} height={16} className="animate-spin" />
+            <div className="flex h-[268px] w-full shrink-0 animate-pulse flex-col gap-1">
+                <div className="h-7 w-full bg-bg" />
+                <div className="w-full flex-1 rounded-xl bg-bg" />
             </div>
         );
     }
@@ -85,7 +85,7 @@ export function SuggestedFollowsCard() {
     if (!suggestedFollows?.length || !isLarge) return null;
 
     return (
-        <div className="-mb-3">
+        <section className="-mb-3">
             <AsideTitle className="flex items-center justify-between !pb-1">
                 <span className="text-xl">
                     <Trans>You might like</Trans>
@@ -125,6 +125,6 @@ export function SuggestedFollowsCard() {
                     ))}
                 </Swiper>
             </div>
-        </div>
+        </section>
     );
 }

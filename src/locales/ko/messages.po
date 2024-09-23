@@ -591,6 +591,9 @@ msgstr ""
 msgid "Market Cap / FDV"
 msgstr ""
 
+msgid "Log telemetry events to the console."
+msgstr ""
+
 msgid "Confirmation"
 msgstr ""
 
@@ -726,6 +729,9 @@ msgstr ""
 msgid "Followed by {0} and {1}"
 msgstr ""
 
+msgid "Insufficient {0} Balance"
+msgstr ""
+
 msgid "Try searching for something else."
 msgstr ""
 
@@ -748,6 +754,9 @@ msgid "Failed to mute @{0} on {sourceName}."
 msgstr ""
 
 msgid "View Source"
+msgstr ""
+
+msgid "You cannot reply to @{0} on {1}."
 msgstr ""
 
 msgid "Are you sure you want to report this collection?"
@@ -1003,6 +1012,9 @@ msgid "Website"
 msgstr ""
 
 msgid "Failed to report @{0}."
+msgstr ""
+
+msgid "Enable logging telemetry events"
 msgstr ""
 
 msgid "Post with link"
@@ -1761,6 +1773,9 @@ msgstr ""
 msgid "Cancel repost successfully"
 msgstr ""
 
+msgid "Collect Post"
+msgstr ""
+
 msgid "Muting..."
 msgstr ""
 
@@ -1917,9 +1932,6 @@ msgstr ""
 msgid "Your {0} account is now connected."
 msgstr ""
 
-msgid "You cannot reply to @{author} on {0}."
-msgstr ""
-
 msgid "Posted via {0} <0>{sendFrom}</0>"
 msgstr ""
 
@@ -1960,6 +1972,9 @@ msgid "Associated wallets"
 msgstr ""
 
 msgid "The whitelist function is included. Some addresses may not be able to trade normally (honeypot risk)."
+msgstr ""
+
+msgid "Mirror now to get 25% referral fee!"
 msgstr ""
 
 msgid "Hide tokens with small balances"

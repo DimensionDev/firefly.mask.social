@@ -16,9 +16,9 @@ export const SideBarForDesktop = memo(function SideBarForDesktop() {
     const { isDarkMode } = useDarkMode();
 
     return (
-        <div className="fixed inset-y-0 z-40 flex h-[100svh] min-h-[626px] flex-col md:w-[289px]">
+        <aside className="fixed inset-y-0 z-40 flex h-[100svh] min-h-[626px] flex-col md:w-[289px]">
             <div className="flex grow flex-col gap-y-4 border-r border-line px-3 lg:px-6">
-                <div className="-ml-1 flex h-16 shrink-0 items-center">
+                <header className="-ml-1 flex h-16 shrink-0 items-center">
                     <Link href={PageRoute.Home}>
                         {isMedium ? (
                             !isDarkMode ? (
@@ -30,9 +30,9 @@ export const SideBarForDesktop = memo(function SideBarForDesktop() {
                             <MiniLogo className="ml-5" width={33} height={43} />
                         )}
                     </Link>
-                </div>
+                </header>
                 <Menu />
             </div>
-        </div>
+        </aside>
     );
 });

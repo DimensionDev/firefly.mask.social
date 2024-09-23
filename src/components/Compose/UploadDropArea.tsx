@@ -6,9 +6,7 @@ import LoadingIcon from '@/assets/loading.svg';
 import { SUPPORTED_VIDEO_SOURCES } from '@/constants/index.js';
 import { classNames } from '@/helpers/classNames.js';
 import { getCurrentPostImageLimits } from '@/helpers/getCurrentPostImageLimits.js';
-import { isImageFileType } from '@/helpers/isImageFileType.js';
-import { isValidFileType } from '@/helpers/isValidFileType.js';
-import { isVideoFileType } from '@/helpers/isVideoFileType.js';
+import { isImageFileType, isMediaFileType, isVideoFileType } from '@/helpers/isMediaFileType.js';
 import { useCompositePost } from '@/hooks/useCompositePost.js';
 import { useComposeStateStore } from '@/store/useComposeStore.js';
 
@@ -70,7 +68,7 @@ export const UploadDropArea = memo(
             const handlePaste = (e: ClipboardEvent) => {
                 const items = e.clipboardData?.items;
                 if (!items) return;
-                const files = compact([...items].map((x) => (isValidFileType(x.type) ? x.getAsFile() : null)));
+                const files = compact([...items].map((x) => (isMediaFileType(x.type) ? x.getAsFile() : null)));
                 onDropFiles(files);
             };
             ele.addEventListener('paste', handlePaste);

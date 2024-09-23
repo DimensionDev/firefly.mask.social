@@ -85,7 +85,9 @@ export const ChannelCard = memo<ChannelCardProps>(function ChannelCard({ channel
                         <span className="min-w-0 truncate whitespace-nowrap"> /{channel?.id}</span>
                         <div className="flex items-center gap-2">
                             <UserIcon width={18} height={18} />
-                            <span className="text-medium leading-6 text-lightMain">{nFormatter(followerCount)}</span>
+                            <data value={followerCount} className="text-medium leading-6 text-lightMain">
+                                {nFormatter(followerCount)}
+                            </data>
                         </div>
                     </div>
 

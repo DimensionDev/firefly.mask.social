@@ -51,6 +51,7 @@ export enum PageRoute {
     Settings = '/settings',
     Developers = '/developers',
     Search = '/search',
+    PostDetail = '/post/:source/:id',
 }
 
 export enum Source {

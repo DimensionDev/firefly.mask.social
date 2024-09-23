@@ -6,7 +6,7 @@ import { SocialSourceIcon } from '@/components/SocialSourceIcon.js';
 import { Source } from '@/constants/enum.js';
 import { Link } from '@/esm/Link.js';
 import { classNames } from '@/helpers/classNames.js';
-import { getLennyURL } from '@/helpers/getLennyURL.js';
+import { getLennyUrl } from '@/helpers/getLennyUrl.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 
@@ -26,7 +26,7 @@ export const MutedProfileItem = memo<MutedProfileItemProps>(function MutedProfil
                 src={profile.pfp}
                 size={50}
                 alt={profile.profileId}
-                fallbackUrl={profile.source === Source.Lens ? getLennyURL(profile.pfp) : undefined}
+                fallbackUrl={profile.source === Source.Lens ? getLennyUrl(profile.pfp) : undefined}
             />
             <div className="leading-5.5 flex flex-col text-medium">
                 <div className="flex w-full items-center">

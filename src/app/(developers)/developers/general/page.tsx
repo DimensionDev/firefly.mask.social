@@ -30,10 +30,25 @@ type Item =
       };
 
 export default function Page() {
-    const { useDevelopmentAPI, updateUseDevelopmentAPI, providerType, updateProviderType } =
-        useDeveloperSettingsState();
+    const {
+        useDevelopmentAPI,
+        updateUseDevelopmentAPI,
+        logTelemetry,
+        updateLogTelemetry,
+        providerType,
+        updateProviderType,
+    } = useDeveloperSettingsState();
 
     const items: Item[] = [
+        {
+            type: 'checkbox',
+            value: logTelemetry,
+            title: t`Enable logging telemetry events`,
+            description: t`Log telemetry events to the console.`,
+            onClick: () => {
+                updateLogTelemetry(!logTelemetry);
+            },
+        },
         {
             type: 'checkbox',
             value: useDevelopmentAPI,
@@ -96,7 +111,7 @@ export default function Page() {
             </Headline>
 
             {
-                <ul className="w-full">
+                <menu className="w-full">
                     {items.map((x, i) => {
                         return (
                             <ClickableArea
@@ -118,7 +133,7 @@ export default function Page() {
                             </ClickableArea>
                         );
                     })}
-                </ul>
+                </menu>
             }
         </Section>
     );

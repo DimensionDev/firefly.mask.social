@@ -1,7 +1,6 @@
 import { compact } from 'lodash-es';
 import { usePathname } from 'next/navigation.js';
 import { memo } from 'react';
-import urlcat from 'urlcat';
 
 import { Bookmark } from '@/components/Actions/Bookmark.js';
 import { Collect } from '@/components/Actions/Collect.js';
@@ -12,10 +11,8 @@ import { PostStatistics } from '@/components/Actions/PostStatistics.js';
 import { Share } from '@/components/Actions/Share.js';
 import { ClickableArea } from '@/components/ClickableArea.js';
 import { Tips } from '@/components/Tips/index.js';
-import { Source } from '@/constants/enum.js';
-import { SITE_URL } from '@/constants/index.js';
+import { PageRoute, Source } from '@/constants/enum.js';
 import { classNames } from '@/helpers/classNames.js';
-import { getPostUrl } from '@/helpers/getPostUrl.js';
 import { isRoutePathname } from '@/helpers/isRoutePathname.js';
 import { resolveFireflyProfileId } from '@/helpers/resolveFireflyProfileId.js';
 import { useFireflyIdentity } from '@/hooks/useFireflyIdentity.js';
@@ -40,15 +37,7 @@ export const PostActionsWithGrid = memo<PostActionsWithGridProps>(function PostA
     const mutation = useToggleBookmark(post.source);
     const actions = compact([
         <div key="comment">
-            <Comment
-                disabled={disabled}
-                count={post.stats?.comments}
-                canComment={post.canComment}
-                source={post.source}
-                author={post.author.handle}
-                post={post}
-                hiddenCount
-            />
+            <Comment post={post} hiddenCount disabled={disabled} />
         </div>,
         <div key="mirror">
             <Mirror
@@ -74,16 +63,7 @@ export const PostActionsWithGrid = memo<PostActionsWithGridProps>(function PostA
         ) : null,
         post.source !== Source.Twitter ? (
             <div key="like">
-                <Like
-                    isComment={isComment}
-                    count={post.stats?.reactions}
-                    hasLiked={post.hasLiked}
-                    postId={post.postId}
-                    source={post.source}
-                    authorId={post.source === Source.Farcaster ? post.author.profileId : undefined}
-                    disabled={disabled}
-                    hiddenCount
-                />
+                <Like isComment={isComment} post={post} disabled={disabled} hiddenCount />
             </div>
         ) : null,
         identity.id ? (
@@ -101,7 +81,7 @@ export const PostActionsWithGrid = memo<PostActionsWithGridProps>(function PostA
                 hiddenCount
             />
         ) : null,
-        <Share key="share" className="!flex-none" url={urlcat(SITE_URL, getPostUrl(post))} disabled={disabled} />,
+        <Share key="share" className="!flex-none" post={post} disabled={disabled} />,
     ]);
 
     return (
@@ -138,7 +118,7 @@ export const PostActions = memo<PostActionsProps>(function PostActions({
 
     const isSmall = useIsSmall('max');
     const isComment = post.type === 'Comment';
-    const isDetailPage = isRoutePathname(pathname, '/post/:detail', true);
+    const isDetailPage = isRoutePathname(pathname, PageRoute.PostDetail, true);
 
     const identity = useFireflyIdentity(post.source, resolveFireflyProfileId(post.author) ?? '');
 
@@ -146,7 +126,7 @@ export const PostActions = memo<PostActionsProps>(function PostActions({
     const mutation = useToggleBookmark(post.source);
 
     return (
-        <div
+        <footer
             className={classNames('mt-2 text-xs text-lightSecond', className, {
                 'pl-[52px]': !noLeftPadding,
             })}
@@ -154,15 +134,7 @@ export const PostActions = memo<PostActionsProps>(function PostActions({
         >
             <ClickableArea className="flex justify-between">
                 <div className="flex -translate-x-1.5 items-center space-x-2">
-                    <Comment
-                        disabled={disabled}
-                        count={post.stats?.comments}
-                        canComment={post.canComment}
-                        source={post.source}
-                        author={post.author.handle}
-                        post={post}
-                        hiddenCount
-                    />
+                    <Comment post={post} hiddenCount disabled={disabled} />
                     <Mirror
                         disabled={disabled}
                         shares={(post.stats?.mirrors || 0) + (post.stats?.quotes || 0)}
@@ -172,16 +144,7 @@ export const PostActions = memo<PostActionsProps>(function PostActions({
                         hiddenCount
                     />
                     {post.source !== Source.Twitter ? (
-                        <Like
-                            isComment={isComment}
-                            count={post.stats?.reactions}
-                            hasLiked={post.hasLiked}
-                            postId={post.postId}
-                            source={post.source}
-                            authorId={post.source === Source.Farcaster ? post.author.profileId : undefined}
-                            disabled={disabled}
-                            hiddenCount
-                        />
+                        <Like isComment={isComment} post={post} disabled={disabled} hiddenCount />
                     ) : null}
                 </div>
                 <div className="flex translate-x-1.5 items-center space-x-2">
@@ -208,7 +171,7 @@ export const PostActions = memo<PostActionsProps>(function PostActions({
                     {identity.id ? (
                         <Tips post={post} identity={identity} disabled={disabled} handle={post.author.handle} />
                     ) : null}
-                    <Share key="share" url={urlcat(SITE_URL, getPostUrl(post))} disabled={disabled} />
+                    <Share key="share" disabled={disabled} post={post} />
                 </div>
             </ClickableArea>
             <PostStatistics
@@ -219,6 +182,6 @@ export const PostActions = memo<PostActionsProps>(function PostActions({
                 showChannelTag={showChannelTag}
                 onSetScrollIndex={onSetScrollIndex}
             />
-        </div>
+        </footer>
     );
 });

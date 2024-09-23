@@ -207,6 +207,7 @@ export interface Article {
     paragraph_raw_data?: {
         slug: string;
         staticHtml: string;
+        json: string;
     };
 }
 

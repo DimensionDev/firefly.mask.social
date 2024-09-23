@@ -11,7 +11,7 @@ import { createSuccessResponseJSON } from '@/helpers/createSuccessResponseJSON.j
 import { getPublicKeyInHexFromSession } from '@/helpers/ed25519.js';
 import { parseJSON } from '@/helpers/parseJSON.js';
 import { resolveSocialSourceFromSessionType } from '@/helpers/resolveSource.js';
-import { resolveSocialSourceInURL } from '@/helpers/resolveSourceInURL.js';
+import { resolveSocialSourceInUrl } from '@/helpers/resolveSourceInUrl.js';
 import { toMilliseconds, toUnix } from '@/helpers/ts.js';
 import { SessionFactory } from '@/providers/base/SessionFactory.js';
 import { FAKE_SIGNER_REQUEST_TOKEN, FarcasterSession } from '@/providers/farcaster/Session.js';
@@ -195,7 +195,7 @@ export async function POST(request: Request) {
             const metrics = await Promise.all(
                 Object.entries(groupBy(sessions, (x) => x.type)).map(async ([type, sessions]) => ({
                     account_id: accountId,
-                    platform: resolveSocialSourceInURL(resolveSocialSourceFromSessionType(type as SessionType)),
+                    platform: resolveSocialSourceInUrl(resolveSocialSourceFromSessionType(type as SessionType)),
                     client_os: 'web',
                     login_metadata: compact(await Promise.all(sessions.map(convertSessionToMetadata))).sort(
                         (a, z) => a.login_time - z.login_time,

@@ -4,7 +4,7 @@ import { Image } from '@/esm/Image.js';
 import { Link } from '@/esm/Link.js';
 import { classNames } from '@/helpers/classNames.js';
 import { isSelfReference } from '@/helpers/isLinkMatchingHost.js';
-import { parseURL } from '@/helpers/parseURL.js';
+import { parseUrl } from '@/helpers/parseUrl.js';
 import type { OpenGraph } from '@/types/og.js';
 
 interface EmbedProps {
@@ -12,7 +12,7 @@ interface EmbedProps {
 }
 
 export function Embed({ og }: EmbedProps) {
-    const u = parseURL(og.url);
+    const u = parseUrl(og.url);
     if (!u) return null;
 
     const imageProps = og.image
@@ -24,7 +24,7 @@ export function Embed({ og }: EmbedProps) {
         : null;
 
     return (
-        <div className="mt-4 max-w-full text-sm">
+        <article className="mt-4 max-w-full text-sm">
             <Link
                 onClick={(event) => event.stopPropagation()}
                 href={u}
@@ -93,6 +93,6 @@ export function Embed({ og }: EmbedProps) {
                     </div>
                 </div>
             </Link>
-        </div>
+        </article>
     );
 }

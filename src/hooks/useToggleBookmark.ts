@@ -7,6 +7,7 @@ import { getSnackbarMessageFromError } from '@/helpers/getSnackbarMessageFromErr
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
 import { LoginModalRef } from '@/modals/controls.js';
+import { capturePostActionEvent } from '@/providers/safary/capturePostActionEvent.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 
 export function useToggleBookmark(source: SocialSource) {
@@ -20,15 +21,14 @@ export function useToggleBookmark(source: SocialSource) {
             }
             try {
                 const provider = resolveSocialMediaProvider(post.source);
-                if (hasBookmarked) {
-                    const result = await provider.unbookmark(postId);
-                    enqueueSuccessMessage(t`Post removed from your Bookmarks`);
-                    return result;
-                } else {
-                    const result = await provider.bookmark(postId, undefined, post.author.profileId, BookmarkType.Text);
-                    enqueueSuccessMessage(t`Post added to your Bookmarks`);
-                    return result;
-                }
+                const result = hasBookmarked
+                    ? await provider.unbookmark(postId)
+                    : await provider.bookmark(postId, undefined, post.author.profileId, BookmarkType.Text);
+                capturePostActionEvent(hasBookmarked ? 'unbookmark' : 'bookmark', post);
+                enqueueSuccessMessage(
+                    hasBookmarked ? t`Post removed from your Bookmarks` : t`Post added to your Bookmarks`,
+                );
+                return result;
             } catch (error) {
                 enqueueErrorMessage(
                     getSnackbarMessageFromError(

@@ -7,7 +7,7 @@ import { formatFarcasterProfileFromFirefly } from '@/helpers/formatFarcasterProf
 import { getEmbedUrls } from '@/helpers/getEmbedUrls.js';
 import { composePollFrameUrl } from '@/helpers/getPollFrameUrl.js';
 import { isTopLevelDomain } from '@/helpers/isTopLevelDomain.js';
-import { parseURL } from '@/helpers/parseURL.js';
+import { parseUrl } from '@/helpers/parseUrl.js';
 import { isValidPollFrameUrl, resolveEmbedMediaType } from '@/helpers/resolveEmbedMediaType.js';
 import { type Cast, EmbedMediaType } from '@/providers/types/Firefly.js';
 import {
@@ -19,7 +19,7 @@ import {
 } from '@/providers/types/SocialMedia.js';
 
 function getCoverUriFromUrl(url: string) {
-    const parsed = parseURL(url);
+    const parsed = parseUrl(url);
     if (!parsed) return '';
 
     if (parsed.origin === 'https://media.firefly.land' && url.endsWith('.m3u8')) {

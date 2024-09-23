@@ -5,6 +5,7 @@ import { useEnsName } from 'wagmi';
 
 import { ArticleMoreAction } from '@/components/Actions/ArticleMore.js';
 import { Avatar } from '@/components/Avatar.js';
+import { Time } from '@/components/Semantic/Time.js';
 import { TimestampFormatter } from '@/components/TimeStampFormatter.js';
 import { SourceInURL } from '@/constants/enum.js';
 import { Link } from '@/esm/Link.js';
@@ -34,7 +35,7 @@ export const SingleArticleHeader = memo<SingleArticleHeaderProps>(function Singl
     const { data: ens } = useEnsName({ address: article.author.id, query: { enabled: !article.author.handle } });
 
     return (
-        <div className={classNames('flex items-start gap-3', className)}>
+        <header className={classNames('flex items-start gap-3', className)}>
             <Link href={authorUrl} className="z-[1]" onClick={(event) => event.stopPropagation()}>
                 <Avatar
                     className="h-10 w-10"
@@ -53,16 +54,24 @@ export const SingleArticleHeader = memo<SingleArticleHeaderProps>(function Singl
                     {article.author.handle || ens}
                 </Link>
                 <Link href={authorUrl} className="truncate text-clip text-medium leading-6 text-secondary">
-                    {formatEthereumAddress(article.author.id, 4)}
+                    <address className="not-italic">{formatEthereumAddress(article.author.id, 4)}</address>
                 </Link>
             </div>
             <div className="ml-auto flex items-center space-x-2">
                 {Icon ? <Icon width={20} height={20} /> : null}
-                <span className="whitespace-nowrap text-xs leading-4 text-secondary md:text-[13px]">
-                    <TimestampFormatter time={article.timestamp} />
-                </span>
-                {isBookmark ? <ArticleMoreAction article={article} /> : null}
+
+                {!isBookmark ? (
+                    <>
+                        <Time
+                            dateTime={article.timestamp}
+                            className="whitespace-nowrap text-xs leading-4 text-secondary md:text-[13px]"
+                        >
+                            <TimestampFormatter time={article.timestamp} />
+                        </Time>
+                        <ArticleMoreAction article={article} />
+                    </>
+                ) : null}
             </div>
-        </div>
+        </header>
     );
 });

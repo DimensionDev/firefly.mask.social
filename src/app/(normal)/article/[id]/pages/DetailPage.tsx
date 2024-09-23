@@ -54,6 +54,7 @@ export function ArticleDetailPage({ params: { id: articleId } }: PageProps) {
     });
 
     const isMuted = article?.author.isMuted;
+
     const cover = useQuery({
         enabled: !isMuted,
         queryKey: ['article', 'cover', article?.id],

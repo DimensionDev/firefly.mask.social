@@ -38,7 +38,7 @@ export const ConfirmFireflyModal = forwardRef<
                                 </Trans>
                             )}
                         </p>
-                        <ul className="no-scrollbar flex max-h-[192px] flex-col gap-3 overflow-auto pb-4 pt-2">
+                        <menu className="no-scrollbar flex max-h-[192px] flex-col gap-3 overflow-auto pb-4 pt-2">
                             {accounts
                                 .sort((a, b) => {
                                     const aIndex = SORTED_SOCIAL_SOURCES.indexOf(a.profile.source);
@@ -56,7 +56,7 @@ export const ConfirmFireflyModal = forwardRef<
                                         }}
                                     />
                                 ))}
-                        </ul>
+                        </menu>
                         <div className="flex gap-2">
                             <ClickableButton
                                 className="box-border flex h-10 flex-1 items-center justify-center rounded-full border border-main text-medium font-bold text-main"

@@ -591,6 +591,9 @@ msgstr "转帖"
 msgid "Market Cap / FDV"
 msgstr "完全稀释估值"
 
+msgid "Log telemetry events to the console."
+msgstr ""
+
 msgid "Confirmation"
 msgstr "确认"
 
@@ -726,6 +729,9 @@ msgstr ""
 msgid "Followed by {0} and {1}"
 msgstr "被 {0} 和 {1} 关注"
 
+msgid "Insufficient {0} Balance"
+msgstr ""
+
 msgid "Try searching for something else."
 msgstr "试试搜索其他东西。"
 
@@ -749,6 +755,9 @@ msgstr "未能在 {sourceName} 上隐藏 @{0}。"
 
 msgid "View Source"
 msgstr "查看原文"
+
+msgid "You cannot reply to @{0} on {1}."
+msgstr ""
 
 msgid "Are you sure you want to report this collection?"
 msgstr "您确定要举报这个 NFT 吗？"
@@ -1004,6 +1013,9 @@ msgstr "网站"
 
 msgid "Failed to report @{0}."
 msgstr "举报 @{0} 失败。"
+
+msgid "Enable logging telemetry events"
+msgstr ""
 
 msgid "Post with link"
 msgstr "发布带链接的帖子"
@@ -1761,6 +1773,9 @@ msgstr "没有白名单"
 msgid "Cancel repost successfully"
 msgstr "取消转帖成功"
 
+msgid "Collect Post"
+msgstr ""
+
 msgid "Muting..."
 msgstr "隐藏中..."
 
@@ -1917,9 +1932,6 @@ msgstr "取消关注"
 msgid "Your {0} account is now connected."
 msgstr "您的 {0} 账户已连接。"
 
-msgid "You cannot reply to @{author} on {0}."
-msgstr "您不能在 {0} 上评论 {author}。"
-
 msgid "Posted via {0} <0>{sendFrom}</0>"
 msgstr "发布于 {0} <0>{sendFrom}</0>"
 
@@ -1961,6 +1973,9 @@ msgstr "已关联的钱包"
 
 msgid "The whitelist function is included. Some addresses may not be able to trade normally (honeypot risk)."
 msgstr "白名单功能已启用。有些地址可能无法正常交易（欺诈风险）。"
+
+msgid "Mirror now to get 25% referral fee!"
+msgstr ""
 
 msgid "Hide tokens with small balances"
 msgstr "隐藏小额通证"

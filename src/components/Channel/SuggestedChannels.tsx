@@ -10,7 +10,7 @@ import { DiscoverType, PageRoute, type SocialSource, Source } from '@/constants/
 import { EMPTY_LIST } from '@/constants/index.js';
 import { Link } from '@/esm/Link.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
-import { resolveSocialSourceInURL } from '@/helpers/resolveSourceInURL.js';
+import { resolveSocialSourceInUrl } from '@/helpers/resolveSourceInUrl.js';
 
 const SHOW_LENGTH = 3;
 
@@ -35,7 +35,7 @@ export function SuggestedChannels({ source }: SuggestedChannelsProps) {
     if (!suggestedChannels.length) return null;
 
     return (
-        <div>
+        <section>
             <AsideTitle className="flex items-center justify-between">
                 <span className="text-xl">
                     <Trans>Trending Channels</Trans>
@@ -45,7 +45,7 @@ export function SuggestedChannels({ source }: SuggestedChannelsProps) {
                         className="text-medium text-lightHighlight"
                         href={urlcat(PageRoute.Home, {
                             discover: DiscoverType.TopChannels,
-                            source: resolveSocialSourceInURL(Source.Farcaster),
+                            source: resolveSocialSourceInUrl(Source.Farcaster),
                         })}
                     >
                         <Trans>More</Trans>
@@ -57,6 +57,6 @@ export function SuggestedChannels({ source }: SuggestedChannelsProps) {
                     <ChannelInList key={channel.id} channel={channel} noFollowButton dense />
                 ))}
             </div>
-        </div>
+        </section>
     );
 }

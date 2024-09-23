@@ -8,8 +8,8 @@ interface AsideTitleProps extends React.HTMLAttributes<HTMLHeadingElement> {
 
 export const AsideTitle = memo(function AsideTitle({ children, className, ...props }: AsideTitleProps) {
     return (
-        <h2 className={classNames('px-3 pb-4 text-lg font-bold leading-none', className)} {...props}>
+        <h1 className={classNames('px-3 pb-4 text-lg font-bold leading-none', className)} {...props}>
             {children}
-        </h2>
+        </h1>
     );
 });

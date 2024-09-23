@@ -6,7 +6,7 @@ import { Image } from '@/components/Image.js';
 import { type SocialSource } from '@/constants/enum.js';
 import { Link } from '@/esm/Link.js';
 import { getCurrentProfile } from '@/helpers/getCurrentProfile.js';
-import { parseURL } from '@/helpers/parseURL.js';
+import { parseUrl } from '@/helpers/parseUrl.js';
 import { LoginModalRef } from '@/modals/controls.js';
 import { ActionType, type Frame, type FrameButton } from '@/types/frame.js';
 
@@ -20,7 +20,7 @@ interface CardProps {
 
 export function Card({ frame, source, readonly = false, loading = false, onButtonClick }: CardProps) {
     const inputRef = useRef<HTMLInputElement>(null);
-    const hostname = parseURL(frame.url)?.hostname;
+    const hostname = parseUrl(frame.url)?.hostname;
 
     return (
         <div className="mt-4 flex flex-col">

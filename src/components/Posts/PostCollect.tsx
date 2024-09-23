@@ -5,7 +5,7 @@ import { ZERO_ADDRESS } from '@masknet/web3-shared-evm';
 import { useQuery } from '@tanstack/react-query';
 import dayjs from 'dayjs';
 import { StatusCodes } from 'http-status-codes';
-import { first, multiply } from 'lodash-es';
+import { compact, first } from 'lodash-es';
 import { useMemo } from 'react';
 import { useAsyncFn } from 'react-use';
 import { polygon } from 'viem/chains';
@@ -17,6 +17,8 @@ import MirrorLargeIcon from '@/assets/mirror-large.svg';
 import { Avatar } from '@/components/Avatar.js';
 import { ChainGuardButton } from '@/components/ChainGuardButton.js';
 import { ClickableButton } from '@/components/ClickableButton.js';
+import { SuperFollow } from '@/components/Posts/SuperFollow.js';
+import { Tooltip } from '@/components/Tooltip.js';
 import { config } from '@/configs/wagmiClient.js';
 import { Source } from '@/constants/enum.js';
 import { FetchError } from '@/constants/error.js';
@@ -27,9 +29,11 @@ import { getSnackbarMessageFromError } from '@/helpers/getSnackbarMessageFromErr
 import { getWalletClientRequired } from '@/helpers/getWalletClientRequired.js';
 import { isSameEthereumAddress } from '@/helpers/isSameAddress.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
+import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import { useMirror } from '@/hooks/useMirror.js';
+import { useSuperFollowModule } from '@/hooks/useSuperFollow.js';
 import { useToggleFollow } from '@/hooks/useToggleFollow.js';
-import { LoginModalRef } from '@/modals/controls.js';
+import { DraggablePopoverRef, LoginModalRef, SuperFollowModalRef } from '@/modals/controls.js';
 import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 import { getProfileById } from '@/services/getProfileById.js';
@@ -50,12 +54,11 @@ interface PostCollectProps {
 }
 
 export function PostCollect({ post, onClose }: PostCollectProps) {
+    const isMedium = useIsMedium();
     const account = useAccount();
     const collectModule = post.collectModule;
     const timeLeft = collectModule?.endsAt ? formatTimeLeft(collectModule?.endsAt) : undefined;
-    const cost = collectModule?.usdPrice
-        ? multiply(Number(collectModule?.usdPrice), Number(collectModule?.amount)).toFixed(2)
-        : undefined;
+    const cost = collectModule?.usdPrice;
 
     const isSoldOut = post.collectModule?.collectLimit
         ? post.collectModule?.collectedCount >= post.collectModule?.collectLimit
@@ -69,7 +72,7 @@ export function PostCollect({ post, onClose }: PostCollectProps) {
     const [followLoading, toggleFollow] = useToggleFollow(post.author);
 
     const { data: profile = null, isLoading: queryProfileLoading } = useQuery({
-        queryKey: ['profile', post.source, post.author.handle],
+        queryKey: ['profile', post.source, post.author.profileId],
         queryFn: async () => {
             return getProfileById(post.source, post.author.handle);
         },
@@ -79,9 +82,19 @@ export function PostCollect({ post, onClose }: PostCollectProps) {
         },
     });
 
+    const isFollowing = !!profile?.viewerContext?.following;
+
+    const { followModule, loading: moduleLoading } = useSuperFollowModule(profile, isFollowing);
+
+    const isSuperFollow = !isFollowing && !!followModule;
+
     const isLogin = useIsLogin(post.source);
 
-    const { data: allowanceData, isLoading: allowanceLoading } = useQuery({
+    const {
+        data: allowanceData,
+        isLoading: allowanceLoading,
+        refetch: refetchAllowanceData,
+    } = useQuery({
         enabled: verifiedAssetAddress,
         queryKey: [
             'post',
@@ -123,8 +136,14 @@ export function PostCollect({ post, onClose }: PostCollectProps) {
     const [{ loading: approveLoading }, handleApprove] = useAsyncFn(async () => {
         if (post.source !== Source.Lens || !allowanceData || !post.collectModule?.assetAddress) return;
 
-        await LensSocialMediaProvider.approveModuleAllowance(allowanceData, '0', post.collectModule.assetAddress);
-    }, [post, allowanceData]);
+        await LensSocialMediaProvider.approveModuleAllowance(
+            allowanceData,
+            Number.MAX_SAFE_INTEGER.toString(),
+            post.collectModule.assetAddress,
+        );
+
+        await refetchAllowanceData();
+    }, [post, allowanceData, refetchAllowanceData]);
 
     const [{ loading: collectLoading }, handleCollect] = useAsyncFn(async () => {
         try {
@@ -156,12 +175,7 @@ export function PostCollect({ post, onClose }: PostCollectProps) {
                 <>
                     <Trans>Collected</Trans>
                     {contractExploreUrl ? (
-                        <Link
-                            className="ml-1"
-                            href={EVMExplorerResolver.addressLink(polygon.id, contractExploreUrl) ?? ''}
-                            target="_blank"
-                            rel="noreferrer noopener"
-                        >
+                        <Link className="ml-1" href={contractExploreUrl} target="_blank" rel="noreferrer noopener">
                             <LinkIcon width={18} height={18} />
                         </Link>
                     ) : null}
@@ -174,12 +188,7 @@ export function PostCollect({ post, onClose }: PostCollectProps) {
                 <>
                     <Trans>Sold Out</Trans>
                     {contractExploreUrl ? (
-                        <Link
-                            className="ml-1"
-                            href={EVMExplorerResolver.addressLink(polygon.id, contractExploreUrl) ?? ''}
-                            target="_blank"
-                            rel="noreferrer noopener"
-                        >
+                        <Link className="ml-1" href={contractExploreUrl} target="_blank" rel="noreferrer noopener">
                             <LinkIcon width={18} height={18} />
                         </Link>
                     ) : null}
@@ -191,23 +200,23 @@ export function PostCollect({ post, onClose }: PostCollectProps) {
                 <>
                     <Trans>Time Out</Trans>
                     {contractExploreUrl ? (
-                        <Link
-                            href={EVMExplorerResolver.addressLink(polygon.id, contractExploreUrl) ?? ''}
-                            target="_blank"
-                            rel="noreferrer noopener"
-                        >
+                        <Link href={contractExploreUrl} target="_blank" rel="noreferrer noopener">
                             <LinkIcon width={18} height={18} />
                         </Link>
                     ) : null}
                 </>
             );
 
-        if (!allowed) {
-            return <Trans>Allow Collect Module</Trans>;
+        if (post.collectModule?.followerOnly && !profile?.viewerContext?.following) {
+            return <Trans>Follow to Collect</Trans>;
         }
 
         if (!hasEnoughBalance) {
-            return <Trans>Insufficient Balance</Trans>;
+            return <Trans>Insufficient {post.collectModule?.currency} Balance</Trans>;
+        }
+
+        if (!allowed) {
+            return <Trans>Allow Collect Module</Trans>;
         }
 
         if (post.collectModule?.amount && post.collectModule.currency) {
@@ -216,10 +225,6 @@ export function PostCollect({ post, onClose }: PostCollectProps) {
                     Collect for {post.collectModule.amount} {post.collectModule.currency}
                 </Trans>
             );
-        }
-
-        if (post.collectModule?.followerOnly && !profile?.viewerContext?.following) {
-            return <Trans>Follow to Collect</Trans>;
         }
 
         return <Trans>Free Collect</Trans>;
@@ -246,27 +251,34 @@ export function PostCollect({ post, onClose }: PostCollectProps) {
             return;
         }
 
+        if (post.collectModule?.followerOnly && !profile?.viewerContext?.following) {
+            if (isSuperFollow && profile) {
+                await (isMedium
+                    ? SuperFollowModalRef.openAndWaitForClose({ profile })
+                    : DraggablePopoverRef.openAndWaitForClose({
+                          content: (
+                              <SuperFollow
+                                  profile={profile}
+                                  showCloseButton={false}
+                                  onClose={DraggablePopoverRef.close}
+                              />
+                          ),
+                      }));
+
+                return;
+            }
+            toggleFollow.mutate();
+
+            return;
+        }
+
         if (!allowed) {
             handleApprove();
             return;
         }
 
-        if (post.collectModule?.followerOnly && !profile?.viewerContext?.following) {
-            toggleFollow.mutate();
-            return;
-        }
-
         handleCollect();
-    }, [
-        isLogin,
-        allowed,
-        post.collectModule?.followerOnly,
-        profile?.viewerContext?.following,
-        post.source,
-        handleCollect,
-        handleApprove,
-        toggleFollow,
-    ]);
+    }, [isSuperFollow, profile, isLogin, allowed, post.source, handleCollect, handleApprove, toggleFollow]);
 
     const loading =
         followLoading ||
@@ -275,7 +287,8 @@ export function PostCollect({ post, onClose }: PostCollectProps) {
         collectLoading ||
         queryBalanceLoading ||
         queryProfileLoading ||
-        clickLoading;
+        clickLoading ||
+        moduleLoading;
 
     const disabled = post.hasActed || isSoldOut || isTimeout || !hasEnoughBalance;
 
@@ -284,10 +297,26 @@ export function PostCollect({ post, onClose }: PostCollectProps) {
             <div className="my-3 rounded-lg bg-lightBg px-3 py-2">
                 <div className="flex items-center gap-2">
                     <Avatar src={post.author.pfp} size={20} alt={post.author.handle} />
-                    <span className="text-medium leading-[24px] text-lightSecond">{post.author.handle}</span>
+                    <span className="overflow-hidden text-ellipsis text-medium font-bold leading-[24px]">
+                        {post.author.displayName}
+                    </span>
+                    <span className="text-medium leading-[24px] text-lightSecond">@{post.author.handle}</span>
                 </div>
-                <div className="line-clamp-2 text-left text-base font-bold leading-5 text-fourMain">
+                <div className="line-clamp-2 text-left text-base leading-5 text-fourMain">
                     {post.metadata.content?.content}
+                    {compact(
+                        [
+                            post.metadata.content?.attachments?.filter((x) => x.type === 'Image').length
+                                ? '[Photo]'
+                                : undefined,
+                            post.metadata.content?.attachments?.filter((x) => x.type === 'Video').length
+                                ? '[Video]'
+                                : undefined,
+                            post.metadata.content?.attachments?.filter((x) => x.type === 'Poll').length
+                                ? '[Poll]'
+                                : undefined,
+                        ].join(''),
+                    )}
                 </div>
             </div>
 
@@ -339,21 +368,23 @@ export function PostCollect({ post, onClose }: PostCollectProps) {
                 </ChainGuardButton>
 
                 {post.collectModule?.referralFee ? (
-                    <ClickableButton
-                        disabled={mirrorLoading}
-                        className="flex w-[86px] items-center justify-center gap-1 rounded-full border border-highlight py-2 text-[15px] font-bold leading-[20px] text-highlight"
-                        onClick={async () => {
-                            await handleMirror();
-                            onClose?.();
-                        }}
-                    >
-                        {!mirrorLoading ? (
-                            <MirrorLargeIcon width={15} height={15} />
-                        ) : (
-                            <LoadingIcon className="animate-spin" width={15} height={15} />
-                        )}
-                        {post.collectModule.referralFee}%
-                    </ClickableButton>
+                    <Tooltip content={t`Mirror now to get 25% referral fee!`} placement="top">
+                        <ClickableButton
+                            disabled={mirrorLoading}
+                            className="flex w-[86px] items-center justify-center gap-1 rounded-full border border-highlight py-2 text-[15px] font-bold leading-[20px] text-highlight"
+                            onClick={async () => {
+                                await handleMirror();
+                                onClose?.();
+                            }}
+                        >
+                            {!mirrorLoading ? (
+                                <MirrorLargeIcon width={15} height={15} />
+                            ) : (
+                                <LoadingIcon className="animate-spin" width={15} height={15} />
+                            )}
+                            {post.collectModule.referralFee}%
+                        </ClickableButton>
+                    </Tooltip>
                 ) : null}
             </div>
         </div>

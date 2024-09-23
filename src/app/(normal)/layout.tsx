@@ -8,10 +8,11 @@ import { LinkCloud } from '@/components/LinkCloud.js';
 import { NavigatorBar } from '@/components/NavigatorBar/index.js';
 import { AsideSearchBar, HeaderSearchBar } from '@/components/Search/SearchBar.js';
 import { SearchFilter } from '@/components/Search/SearchFilter.js';
+import { Section } from '@/components/Semantic/Section.js';
 import { SuggestedFollowsCard } from '@/components/SuggestedFollows/SuggestedFollowsCard.js';
 import { Source } from '@/constants/enum.js';
 import { DEFAULT_SOCIAL_SOURCE, DISCOVER_SOURCES, DISCOVER_TYPES, SOCIAL_DISCOVER_SOURCE } from '@/constants/index.js';
-import { resolveSourceInURL } from '@/helpers/resolveSourceInURL.js';
+import { resolveSourceInUrl } from '@/helpers/resolveSourceInUrl.js';
 
 export default function Layout({ children, modal }: { children: React.ReactNode; modal: React.ReactNode }) {
     return (
@@ -56,7 +57,9 @@ export default function Layout({ children, modal }: { children: React.ReactNode;
                     </IfPathname>
 
                     <IfPathname isNotOneOf={['/settings', '/search']}>
-                        <Advertisement />
+                        <Section title="Advertisement">
+                            <Advertisement />
+                        </Section>
                     </IfPathname>
 
                     <IfPathname
@@ -66,11 +69,11 @@ export default function Layout({ children, modal }: { children: React.ReactNode;
                                 flags: 'i',
                             },
                             {
-                                r: `^/(${DISCOVER_SOURCES.map(resolveSourceInURL).join('|')})$`,
+                                r: `^/(${DISCOVER_SOURCES.map(resolveSourceInUrl).join('|')})$`,
                                 flags: 'i',
                             },
                             {
-                                r: `^/(${SOCIAL_DISCOVER_SOURCE.map(resolveSourceInURL).join('|')})/(${DISCOVER_TYPES[DEFAULT_SOCIAL_SOURCE].join('|')})$`,
+                                r: `^/(${SOCIAL_DISCOVER_SOURCE.map(resolveSourceInUrl).join('|')})/(${DISCOVER_TYPES[DEFAULT_SOCIAL_SOURCE].join('|')})$`,
                                 flags: 'i',
                             },
                         ]}
@@ -86,16 +89,18 @@ export default function Layout({ children, modal }: { children: React.ReactNode;
                                 flags: 'i',
                             },
                             {
-                                r: `^/(${DISCOVER_SOURCES.map(resolveSourceInURL).join('|')})$`,
+                                r: `^/(${DISCOVER_SOURCES.map(resolveSourceInUrl).join('|')})$`,
                                 flags: 'i',
                             },
                             {
-                                r: `^/(${SOCIAL_DISCOVER_SOURCE.map(resolveSourceInURL).join('|')})/(${DISCOVER_TYPES[DEFAULT_SOCIAL_SOURCE].join('|')})$`,
+                                r: `^/(${SOCIAL_DISCOVER_SOURCE.map(resolveSourceInUrl).join('|')})/(${DISCOVER_TYPES[DEFAULT_SOCIAL_SOURCE].join('|')})$`,
                                 flags: 'i',
                             },
                         ]}
                     >
-                        <CalendarContent />
+                        <Section title="Web3 Calendar">
+                            <CalendarContent />
+                        </Section>
                     </IfPathname>
 
                     <LinkCloud />

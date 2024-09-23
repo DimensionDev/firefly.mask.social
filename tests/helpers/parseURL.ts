@@ -1,6 +1,6 @@
 import { describe, expect, test } from 'vitest';
 
-import { parseURL } from '@/helpers/parseURL.js';
+import { parseUrl } from '@/helpers/parseUrl.js';
 
 describe('parseURL', () => {
     test('should correctly parse a valid URL', () => {
@@ -15,7 +15,7 @@ describe('parseURL', () => {
         ] as Array<[string, string]>;
 
         cases.forEach(([input, expectedOutput]) => {
-            const result = parseURL(input);
+            const result = parseUrl(input);
             expect(result).not.toBe(null);
             expect(result!.href).toBe(expectedOutput);
         });

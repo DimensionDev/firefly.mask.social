@@ -45,6 +45,9 @@ export function createSiteMetadata(metadata?: Partial<Metadata>) {
                 url: '/apple-touch-icon.png',
             },
         ],
+        alternates: {
+            canonical: './',
+        },
         ...metadata,
     } satisfies Metadata;
 }

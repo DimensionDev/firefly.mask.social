@@ -106,7 +106,7 @@ export function DatePicker({ selectedDate, setSelectedDate, open, setOpen, curre
                                         >
                                             <span
                                                 className={classNames(
-                                                    'flex h-[28px] w-[28px] items-center justify-center rounded-full leading-5 text-second',
+                                                    'flex h-[28px] w-[28px] items-center justify-center rounded-full text-sm leading-5 text-second',
                                                     {
                                                         '!border-none bg-fireflyBrand text-white':
                                                             selectedDate.toDateString() ===

@@ -8,11 +8,13 @@ import { enqueueErrorMessage, enqueueSuccessMessage } from '@/helpers/enqueueMes
 import { getSnackbarMessageFromError } from '@/helpers/getSnackbarMessageFromError.js';
 import { FarcasterSocialMediaProvider } from '@/providers/farcaster/SocialMedia.js';
 import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
+import { capturePostActionEvent } from '@/providers/safary/capturePostActionEvent.js';
 import { TwitterSocialMediaProvider } from '@/providers/twitter/SocialMedia.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 
 export function useMirror(post: Post) {
-    const { postId, source, hasMirrored: mirrored } = post;
+    const { postId, source, hasMirrored } = post;
+
     return useAsyncFn(
         async (unmirror?: boolean) => {
             if (!postId) return;
@@ -20,12 +22,12 @@ export function useMirror(post: Post) {
             const mirrorOrUnmirror = async () => {
                 switch (source) {
                     case Source.Farcaster: {
-                        const result = await (mirrored
+                        const result = await (hasMirrored
                             ? FarcasterSocialMediaProvider.unmirrorPost(postId, Number(post.author.profileId))
                             : FarcasterSocialMediaProvider.mirrorPost(postId, {
                                   authorId: Number(post.author.profileId),
                               }));
-                        enqueueSuccessMessage(mirrored ? t`Cancel recast successfully` : t`Recasted`);
+                        enqueueSuccessMessage(hasMirrored ? t`Cancel recast successfully` : t`Recasted`);
                         return result;
                     }
                     case Source.Lens: {
@@ -36,10 +38,10 @@ export function useMirror(post: Post) {
                         return result;
                     }
                     case Source.Twitter:
-                        const result = await (mirrored
+                        const result = await (hasMirrored
                             ? TwitterSocialMediaProvider.unmirrorPost(postId)
                             : TwitterSocialMediaProvider.mirrorPost(postId));
-                        enqueueSuccessMessage(mirrored ? t`Cancel repost successfully` : t`Reposted`);
+                        enqueueSuccessMessage(hasMirrored ? t`Cancel repost successfully` : t`Reposted`);
                         return result;
                     default:
                         safeUnreachable(source);
@@ -49,6 +51,8 @@ export function useMirror(post: Post) {
 
             try {
                 await mirrorOrUnmirror();
+
+                capturePostActionEvent(hasMirrored ? 'undo_repost' : 'repost', post);
             } catch (error) {
                 switch (source) {
                     case Source.Farcaster:
@@ -76,6 +80,6 @@ export function useMirror(post: Post) {
                 throw error;
             }
         },
-        [postId, source, mirrored, post.author.profileId],
+        [postId, source, hasMirrored, post.author.profileId],
     );
 }

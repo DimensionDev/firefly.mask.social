@@ -2,7 +2,7 @@ import { type SocialSource, type SocialSourceInURL, Source, SourceInURL } from '
 import { UnreachableError } from '@/constants/error.js';
 import { createLookupTableResolver } from '@/helpers/createLookupTableResolver.js';
 
-export const resolveSourceInURL = createLookupTableResolver<Source, SourceInURL>(
+export const resolveSourceInUrl = createLookupTableResolver<Source, SourceInURL>(
     {
         [Source.Farcaster]: SourceInURL.Farcaster,
         [Source.Lens]: SourceInURL.Lens,
@@ -17,7 +17,7 @@ export const resolveSourceInURL = createLookupTableResolver<Source, SourceInURL>
     },
 );
 
-export const resolveSocialSourceInURL = createLookupTableResolver<SocialSource, SocialSourceInURL>(
+export const resolveSocialSourceInUrl = createLookupTableResolver<SocialSource, SocialSourceInURL>(
     {
         [Source.Farcaster]: SourceInURL.Farcaster,
         [Source.Lens]: SourceInURL.Lens,

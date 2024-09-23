@@ -1,8 +1,8 @@
-import { parseURL } from '@/helpers/parseURL.js';
+import { parseUrl } from '@/helpers/parseUrl.js';
 
 export function isSameOriginUrl(source: string | URL, target: string | URL) {
-    const sourceUrl = typeof source === 'string' ? parseURL(source) : source;
-    const targetUrl = typeof target === 'string' ? parseURL(target) : target;
+    const sourceUrl = typeof source === 'string' ? parseUrl(source) : source;
+    const targetUrl = typeof target === 'string' ? parseUrl(target) : target;
 
     if (!sourceUrl || !targetUrl) return false;
 

@@ -185,7 +185,7 @@ export const ALLOWED_VIDEO_MIMES = [
     FileMimeType.WEBM,
     FileMimeType.GPP,
     FileMimeType.GPP2,
-];
+] as const;
 
 export const ALLOWED_MEDIA_MIMES = [...ALLOWED_IMAGES_MIMES, ...ALLOWED_VIDEO_MIMES] as const;
 

@@ -16,6 +16,7 @@ import { Avatar } from '@/components/Avatar.js';
 import { ClickableArea } from '@/components/ClickableArea.js';
 import { ArticleMarkup } from '@/components/Markup/ArticleMarkup.js';
 import { ImageAsset } from '@/components/Posts/ImageAsset.js';
+import { Time } from '@/components/Semantic/Time.js';
 import { TimestampFormatter } from '@/components/TimeStampFormatter.js';
 import { Tips } from '@/components/Tips/index.js';
 import { Tooltip } from '@/components/Tooltip.js';
@@ -72,6 +73,7 @@ export const ArticleLayout = memo<ArticleLayoutProps>(function ArticleLayout({ a
 
     return (
         <ClickableArea
+            as="article"
             className="relative mt-[6px] flex flex-col gap-2 overflow-hidden rounded-2xl border border-line bg-bg p-3"
             onClick={() => {
                 if (isMuted) return;
@@ -152,9 +154,12 @@ export const ArticleLayout = memo<ArticleLayoutProps>(function ArticleLayout({ a
                     >
                         {article.author.handle || ens || formatEthereumAddress(article.author.id, 4)}
                     </Link>
-                    <span className="whitespace-nowrap text-medium text-xs leading-4 text-secondary">
+                    <Time
+                        dateTime={article.timestamp}
+                        className="whitespace-nowrap text-medium text-xs leading-4 text-secondary"
+                    >
                         <TimestampFormatter time={article.timestamp} />
-                    </span>
+                    </Time>
                     {Icon ? <Icon width={15} height={15} /> : null}
                 </div>
                 <div className="flex items-center">

@@ -1,5 +1,5 @@
 import { bom } from '@/helpers/bom.js';
-import { parseURL } from '@/helpers/parseURL.js';
+import { parseUrl } from '@/helpers/parseUrl.js';
 
 /**
  * Determines whether the provided link matches the specified host.
@@ -9,7 +9,7 @@ import { parseURL } from '@/helpers/parseURL.js';
  * @returns {boolean} - True if the link matches the host criteria; otherwise, false.
  */
 export function isLinkMatchingHost(link: string, host: string, strict = true) {
-    const parsedURL = parseURL(link);
+    const parsedURL = parseUrl(link);
     if (!parsedURL) return false;
     if (!['https:', 'http:'].includes(parsedURL.protocol)) return false;
     return strict ? parsedURL.host === host : parsedURL.host.endsWith(host);

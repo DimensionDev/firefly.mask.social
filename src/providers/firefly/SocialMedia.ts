@@ -38,7 +38,7 @@ import {
 } from '@/helpers/pageable.js';
 import { resolveFireflyResponseData } from '@/helpers/resolveFireflyResponseData.js';
 import { resolveSourceFromUrl } from '@/helpers/resolveSource.js';
-import { resolveSourceInURL } from '@/helpers/resolveSourceInURL.js';
+import { resolveSourceInUrl } from '@/helpers/resolveSourceInUrl.js';
 import { farcasterSessionHolder } from '@/providers/farcaster/SessionHolder.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
 import { NeynarSocialMediaProvider } from '@/providers/neynar/SocialMedia.js';
@@ -1109,7 +1109,7 @@ export class FireflySocialMedia implements Provider {
 
     async reportPost(post: Post): Promise<boolean> {
         await reportPost({
-            platform: resolveSourceInURL(post.source),
+            platform: resolveSourceInUrl(post.source),
             platform_id: post.author.profileId,
             post_type: 'text',
             post_id: post.postId,
@@ -1197,7 +1197,7 @@ export class FireflySocialMedia implements Provider {
             },
             true,
         );
-        if (response.data) return true;
+        if (response.data) return response.data;
         throw new Error(t`Failed to create scheduled post.`);
     }
 
@@ -1215,7 +1215,7 @@ export class FireflySocialMedia implements Provider {
             },
             true,
         );
-        if (response.data) return true;
+        if (response.data) return response.data;
         throw new Error(t`Failed to update scheduled post.`);
     }
 
@@ -1314,7 +1314,7 @@ export class FireflySocialMedia implements Provider {
 
     async disconnectAccount(identity: FireflyIdentity) {
         const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/accountConnection', {
-            connectionPlatform: resolveSourceInURL(identity.source),
+            connectionPlatform: resolveSourceInUrl(identity.source),
             connectionId: identity.id,
         });
         await fireflySessionHolder.fetch<Response<void>>(url, {

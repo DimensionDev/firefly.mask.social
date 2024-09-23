@@ -2,16 +2,13 @@ import { plural, t } from '@lingui/macro';
 import { delay, safeUnreachable } from '@masknet/kit';
 import { compact, first } from 'lodash-es';
 
-import { type SocialSource, Source, STATUS } from '@/constants/enum.js';
-import { env } from '@/constants/env.js';
+import { type SocialSource, Source } from '@/constants/enum.js';
 import { SORTED_SOCIAL_SOURCES } from '@/constants/index.js';
 import { enqueueErrorsMessage, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { getThreadFailedAt } from '@/helpers/getThreadFailedAt.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
-import { getCompositePostParameters } from '@/providers/safary/getCompositePostParameters.js';
-import { SafaryTelemetryProvider } from '@/providers/safary/Telemetry.js';
+import { captureComposeEvent } from '@/providers/safary/captureComposeEvent.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
-import { EventId } from '@/providers/types/Telemetry.js';
 import { crossPost } from '@/services/crossPost.js';
 import { reportCrossedPost } from '@/services/reportCrossedPost.js';
 import { type CompositePost, useComposeStateStore } from '@/store/useComposeStore.js';
@@ -156,15 +153,15 @@ export async function crossPostThread({ progressCallback, isRetry = false, signa
         enqueueSuccessMessage(t`Your posts have published successfully.`);
     }
 
-    // report telemetry
-    if (env.external.NEXT_PUBLIC_TELEMETRY === STATUS.Enabled) {
-        const rootPost = first(updatedPosts);
+    // report crossed posts thread
+    updatedPosts.forEach(reportCrossedPost);
 
-        if (rootPost) {
-            SafaryTelemetryProvider.captureEvent(EventId.SEND_CROSS_POST_SUCCESS, getCompositePostParameters(rootPost));
-        }
+    // capture compose event
+    const rootPost = first(updatedPosts);
 
-        // report crossed posts thread
-        updatedPosts.forEach(reportCrossedPost);
+    if (rootPost) {
+        captureComposeEvent('compose', rootPost, {
+            thread: updatedPosts,
+        });
     }
 }

@@ -8,6 +8,7 @@ import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
 import { LoginModalRef } from '@/modals/controls.js';
+import { captureProfileActionEvent } from '@/providers/safary/captureProfileActionEvent.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 
 export function useToggleFollow(profile: Profile) {
@@ -31,16 +32,16 @@ export function useToggleFollow(profile: Profile) {
 
             try {
                 const provider = resolveSocialMediaProvider(source);
-
-                if (following) {
-                    const result = await provider.unfollow(profile.profileId);
-                    enqueueSuccessMessage(t`Unfollowed @${profile.handle} on ${sourceName}`);
-                    return result;
-                } else {
-                    const result = await provider.follow(profile.profileId);
-                    enqueueSuccessMessage(t`Followed @${profile.handle} on ${sourceName}`);
-                    return result;
-                }
+                const result = following
+                    ? await provider.unfollow(profile.profileId)
+                    : await provider.follow(profile.profileId);
+                enqueueSuccessMessage(
+                    following
+                        ? t`Unfollowed @${profile.handle} on ${sourceName}`
+                        : t`Followed @${profile.handle} on ${sourceName}`,
+                );
+                captureProfileActionEvent(following ? 'unfollow' : 'follow', profile);
+                return result;
             } catch (error) {
                 enqueueErrorMessage(
                     getSnackbarMessageFromError(

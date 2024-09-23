@@ -206,7 +206,7 @@ export const PostBody = forwardRef<HTMLDivElement, PostBodyProps>(function PostB
     }
 
     return (
-        <div
+        <article
             className={classNames('mb-1.5 break-words text-base text-main', {
                 '-mt-2 pl-[52px]': !noLeftPadding,
                 'mt-1.5': noLeftPadding,
@@ -264,6 +264,6 @@ export const PostBody = forwardRef<HTMLDivElement, PostBodyProps>(function PostB
             {!hasEncryptedPayload && !pollId ? <PostLinks post={post} setContent={setPostContent} /> : null}
 
             {!!post.quoteOn && !isQuote ? <Quote post={post.quoteOn} /> : null}
-        </div>
+        </article>
     );
 });

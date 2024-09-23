@@ -586,6 +586,9 @@ msgstr "Recasts"
 msgid "Market Cap / FDV"
 msgstr "Market Cap / FDV"
 
+msgid "Log telemetry events to the console."
+msgstr "Log telemetry events to the console."
+
 msgid "Confirmation"
 msgstr "Confirmation"
 
@@ -721,6 +724,9 @@ msgstr "Add Wallet"
 msgid "Followed by {0} and {1}"
 msgstr "Followed by {0} and {1}"
 
+msgid "Insufficient {0} Balance"
+msgstr "Insufficient {0} Balance"
+
 msgid "Try searching for something else."
 msgstr "Try searching for something else."
 
@@ -744,6 +750,9 @@ msgstr "Failed to mute @{0} on {sourceName}."
 
 msgid "View Source"
 msgstr "View Source"
+
+msgid "You cannot reply to @{0} on {1}."
+msgstr "You cannot reply to @{0} on {1}."
 
 msgid "Are you sure you want to report this collection?"
 msgstr "Are you sure you want to report this collection?"
@@ -999,6 +1008,9 @@ msgstr "Website"
 
 msgid "Failed to report @{0}."
 msgstr "Failed to report @{0}."
+
+msgid "Enable logging telemetry events"
+msgstr "Enable logging telemetry events"
 
 msgid "Post with link"
 msgstr "Post with link"
@@ -1756,6 +1768,9 @@ msgstr "No whitelist"
 msgid "Cancel repost successfully"
 msgstr "Cancel repost successfully"
 
+msgid "Collect Post"
+msgstr "Collect Post"
+
 msgid "Muting..."
 msgstr "Muting..."
 
@@ -1912,9 +1927,6 @@ msgstr "Unfollow"
 msgid "Your {0} account is now connected."
 msgstr "Your {0} account is now connected."
 
-msgid "You cannot reply to @{author} on {0}."
-msgstr "You cannot reply to @{author} on {0}."
-
 msgid "Posted via {0} <0>{sendFrom}</0>"
 msgstr "Posted via {0} <0>{sendFrom}</0>"
 
@@ -1956,6 +1968,9 @@ msgstr "Associated wallets"
 
 msgid "The whitelist function is included. Some addresses may not be able to trade normally (honeypot risk)."
 msgstr "The whitelist function is included. Some addresses may not be able to trade normally (honeypot risk)."
+
+msgid "Mirror now to get 25% referral fee!"
+msgstr "Mirror now to get 25% referral fee!"
 
 msgid "Hide tokens with small balances"
 msgstr "Hide tokens with small balances"

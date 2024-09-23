@@ -8,7 +8,7 @@ import {
     MAX_PROFILE_LOCATION_SIZE,
     MAX_PROFILE_WEBSITE_SIZE,
 } from '@/constants/limitation.js';
-import { isValidFileType } from '@/helpers/isValidFileType.js';
+import { isMediaFileType } from '@/helpers/isMediaFileType.js';
 
 export const Pageable = z.object({
     cursor: z.string().optional(),
@@ -40,7 +40,7 @@ export const FileSchema = z.custom<File>((value) => {
             },
         ]);
     }
-    if (!isValidFileType(value.type)) {
+    if (!isMediaFileType(value.type)) {
         throw new ZodError([
             {
                 message: `Invalid file type. Allowed types: ${ALLOWED_MEDIA_MIMES.join(', ')}`,

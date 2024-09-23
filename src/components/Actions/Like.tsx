@@ -6,7 +6,6 @@ import LikeIcon from '@/assets/like.svg';
 import LikedIcon from '@/assets/liked.svg';
 import { ClickableArea } from '@/components/ClickableArea.js';
 import { Tooltip } from '@/components/Tooltip.js';
-import { type SocialSource } from '@/constants/enum.js';
 import { classNames } from '@/helpers/classNames.js';
 import { enqueueErrorMessage, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { nFormatter } from '@/helpers/formatCommentCounts.js';
@@ -14,28 +13,19 @@ import { getSnackbarMessageFromError } from '@/helpers/getSnackbarMessageFromErr
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
 import { LoginModalRef } from '@/modals/controls.js';
+import { capturePostActionEvent } from '@/providers/safary/capturePostActionEvent.js';
+import type { Post } from '@/providers/types/SocialMedia.js';
 
 interface LikeProps {
-    postId: string;
-    source: SocialSource;
-    count?: number;
-    hasLiked?: boolean;
+    post: Post;
     disabled?: boolean;
-    authorId?: string;
     isComment: boolean;
     hiddenCount?: boolean;
 }
 
-export const Like = memo<LikeProps>(function Like({
-    count,
-    hasLiked,
-    postId,
-    authorId,
-    source,
-    disabled = false,
-    hiddenCount = false,
-    isComment,
-}) {
+export const Like = memo<LikeProps>(function Like({ post, disabled = false, hiddenCount = false, isComment }) {
+    const { author, postId, source, hasLiked } = post;
+
     const isLogin = useIsLogin(source);
 
     const handleClick = useCallback(async () => {
@@ -49,10 +39,12 @@ export const Like = memo<LikeProps>(function Like({
         try {
             const provider = resolveSocialMediaProvider(source);
             const promise = hasLiked
-                ? provider.unvotePost(postId, Number(authorId))
-                : provider.upvotePost(postId, Number(authorId));
+                ? provider.unvotePost(postId, Number(author.profileId))
+                : provider.upvotePost(postId, Number(author.profileId));
 
             await promise;
+
+            capturePostActionEvent(hasLiked ? 'unlike' : 'like', post);
             enqueueSuccessMessage(hasLiked ? t`Unliked` : t`Liked`);
             return;
         } catch (error) {
@@ -79,7 +71,7 @@ export const Like = memo<LikeProps>(function Like({
             }
             throw error;
         }
-    }, [postId, source, hasLiked, isLogin, authorId, isComment]);
+    }, [postId, source, hasLiked, isLogin, author.profileId, isComment]);
 
     return (
         <ClickableArea
@@ -104,13 +96,13 @@ export const Like = memo<LikeProps>(function Like({
                     {hasLiked ? <LikedIcon width={16} height={16} /> : <LikeIcon width={16} height={16} />}
                 </motion.button>
             </Tooltip>
-            {!hiddenCount && count ? (
+            {!hiddenCount && post.stats?.reactions ? (
                 <span
                     className={classNames('text-xs', {
                         'font-bold text-danger': !!hasLiked,
                     })}
                 >
-                    {nFormatter(count)}
+                    {nFormatter(post.stats?.reactions)}
                 </span>
             ) : null}
         </ClickableArea>

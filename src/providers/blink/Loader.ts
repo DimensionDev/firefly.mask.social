@@ -1,7 +1,7 @@
 import urlcat from 'urlcat';
 
 import { anySignal } from '@/helpers/anySignal.js';
-import { parseURL } from '@/helpers/parseURL.js';
+import { parseUrl } from '@/helpers/parseUrl.js';
 import { requestIdleCallbackAsync } from '@/helpers/requestIdleCallbackAsync.js';
 import { BaseLoader } from '@/providers/base/Loader.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
@@ -32,7 +32,7 @@ function createAction(url: string, res: NonNullable<FireflyBlinkParserBlinkRespo
         state,
     };
     if (action.links?.actions) {
-        const u = parseURL(actionApiUrl);
+        const u = parseUrl(actionApiUrl);
         if (!u) return null;
 
         actionResult.actions = action.links.actions.map((action) => {

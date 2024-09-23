@@ -3,7 +3,7 @@ import { notFound, redirect } from 'next/navigation.js';
 
 import { KeyType, type SocialSourceInURL } from '@/constants/enum.js';
 import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
-import { isSocialSourceInURL } from '@/helpers/isSocialSource.js';
+import { isSocialSourceInUrl } from '@/helpers/isSocialSource.js';
 import { memoizeWithRedis } from '@/helpers/memoizeWithRedis.js';
 import { resolvePostUrl } from '@/helpers/resolvePostUrl.js';
 import { resolveSocialSource } from '@/helpers/resolveSource.js';
@@ -23,7 +23,7 @@ interface Props {
 }
 
 export async function generateMetadata({ params, searchParams }: Props): Promise<Metadata> {
-    if (isSocialSourceInURL(searchParams.source)) {
+    if (isSocialSourceInUrl(searchParams.source)) {
         return getPostOGByIdRedis(searchParams.source, params.source);
     }
     return createSiteMetadata();
@@ -31,7 +31,7 @@ export async function generateMetadata({ params, searchParams }: Props): Promise
 
 export default async function Page({ params, searchParams }: Props) {
     if (!searchParams.source) return notFound();
-    if (!isSocialSourceInURL(params.source)) {
+    if (!isSocialSourceInUrl(params.source)) {
         return redirect(resolvePostUrl(resolveSocialSource(searchParams.source), params.source));
     }
     return notFound();

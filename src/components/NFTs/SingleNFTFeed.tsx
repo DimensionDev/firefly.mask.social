@@ -76,7 +76,7 @@ export const SingleNFTFeed = memo(function SingleNFTFeed({
                 <Link href={authorUrl} className="z-[1] flex-shrink-0" onClick={(event) => event.stopPropagation()}>
                     <Avatar className="h-10 w-10" src={displayInfo.avatarUrl} size={40} alt={ownerAddress} />
                 </Link>
-                <div className="min-w-0 flex-grow">
+                <article className="min-w-0 flex-grow">
                     <NFTFeedHeader
                         address={ownerAddress}
                         contractAddress={contractAddress}
@@ -91,7 +91,7 @@ export const SingleNFTFeed = memo(function SingleNFTFeed({
                         tokenList={tokenList}
                         chainId={chainId}
                     />
-                </div>
+                </article>
             </div>
         </motion.article>
     );
