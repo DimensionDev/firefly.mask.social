@@ -84,7 +84,7 @@ function formatCollectModule(
         currency: openAction?.amount.asset.symbol,
         assetAddress: openAction?.amount.asset.contract.address,
         usdPrice: openAction?.amount.asFiat?.value,
-        amount: parseInt(openAction?.amount.value || '0', 10),
+        amount: parseFloat(openAction?.amount.value || '0'),
         referralFee: openAction?.referralFee,
         followerOnly: openAction?.followerOnly,
         contract: {

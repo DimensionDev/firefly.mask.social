@@ -24,10 +24,12 @@ import { Source } from '@/constants/enum.js';
 import { FetchError } from '@/constants/error.js';
 import { Link } from '@/esm/Link.js';
 import { enqueueErrorMessage, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
+import { formatEthereumAddress } from '@/helpers/formatAddress.js';
 import { getTimeLeft } from '@/helpers/formatTimestamp.js';
 import { getSnackbarMessageFromError } from '@/helpers/getSnackbarMessageFromError.js';
 import { getWalletClientRequired } from '@/helpers/getWalletClientRequired.js';
 import { isSameEthereumAddress } from '@/helpers/isSameAddress.js';
+import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import { useMirror } from '@/hooks/useMirror.js';
@@ -56,17 +58,18 @@ interface PostCollectProps {
 export function PostCollect({ post, onClose }: PostCollectProps) {
     const isMedium = useIsMedium();
     const account = useAccount();
+    const currentProfile = useCurrentProfile(Source.Lens);
     const collectModule = post.collectModule;
     const timeLeft = collectModule?.endsAt ? formatTimeLeft(collectModule?.endsAt) : undefined;
 
-    const isSoldOut = post.collectModule?.collectLimit
-        ? post.collectModule?.collectedCount >= post.collectModule?.collectLimit
+    const isSoldOut = collectModule?.collectLimit
+        ? collectModule?.collectedCount >= collectModule?.collectLimit
         : false;
 
     const isTimeout = collectModule?.endsAt ? dayjs(collectModule?.endsAt).isBefore(dayjs()) : false;
 
     const verifiedAssetAddress =
-        !!post.collectModule?.assetAddress && !isSameEthereumAddress(post.collectModule.assetAddress, ZERO_ADDRESS);
+        !!collectModule?.assetAddress && !isSameEthereumAddress(collectModule.assetAddress, ZERO_ADDRESS);
 
     const [followLoading, toggleFollow] = useToggleFollow(post.author);
 
@@ -101,44 +104,40 @@ export function PostCollect({ post, onClose }: PostCollectProps) {
             'allowedAmount',
             post.source,
             post.postId,
-            post.collectModule?.contract.address,
-            post.collectModule?.type,
+            collectModule?.contract.address,
+            collectModule?.type,
         ],
         queryFn: async () => {
-            if (post.source !== Source.Lens || !post.collectModule) return;
+            if (post.source !== Source.Lens || !collectModule) return;
 
-            if (!post.collectModule.assetAddress) return;
+            if (!collectModule.assetAddress) return;
 
             const result = await LensSocialMediaProvider.queryApprovedModuleAllowanceData(
-                post.collectModule.assetAddress,
-                post.collectModule?.type as OpenActionModuleType,
+                collectModule.assetAddress,
+                collectModule?.type as OpenActionModuleType,
             );
 
             return first(result);
         },
     });
 
-    const allowed = allowanceData
-        ? parseFloat(allowanceData?.allowance.value) > (post.collectModule?.amount ?? 0)
-        : true;
+    const allowed = allowanceData ? parseFloat(allowanceData?.allowance.value) > (collectModule?.amount ?? 0) : true;
 
     const { data: balanceData, isLoading: queryBalanceLoading } = useBalance({
         address: account.address,
-        token: verifiedAssetAddress ? (post.collectModule?.assetAddress as `0x${string}`) : undefined,
+        token: verifiedAssetAddress ? (collectModule?.assetAddress as `0x${string}`) : undefined,
     });
 
     const hasEnoughBalance =
-        balanceData?.value && post.collectModule?.amount
-            ? parseFloat(balanceData.formatted) >= post.collectModule.amount
-            : true;
+        balanceData?.value && collectModule?.amount ? parseFloat(balanceData.formatted) >= collectModule.amount : true;
 
     const [{ loading: approveLoading }, handleApprove] = useAsyncFn(async () => {
-        if (post.source !== Source.Lens || !allowanceData || !post.collectModule?.assetAddress) return;
+        if (post.source !== Source.Lens || !allowanceData || !collectModule?.assetAddress) return;
 
         await LensSocialMediaProvider.approveModuleAllowance(
             allowanceData,
             Number.MAX_SAFE_INTEGER.toString(),
-            post.collectModule.assetAddress,
+            collectModule.assetAddress,
         );
 
         await refetchAllowanceData();
@@ -146,11 +145,11 @@ export function PostCollect({ post, onClose }: PostCollectProps) {
 
     const [{ loading: collectLoading }, handleCollect] = useAsyncFn(async () => {
         try {
-            if (!post.collectModule?.type) return;
+            if (!collectModule?.type) return;
 
             await LensSocialMediaProvider.actPost(post.postId, {
-                type: post.collectModule.type as OpenActionModuleType,
-                signRequire: !!post.collectModule.amount || post.collectModule.followerOnly,
+                type: collectModule.type as OpenActionModuleType,
+                signRequire: !!collectModule.amount || collectModule.followerOnly,
             });
             enqueueSuccessMessage(t`Post collected successfully!`);
 
@@ -164,8 +163,8 @@ export function PostCollect({ post, onClose }: PostCollectProps) {
     const [{ loading: mirrorLoading }, handleMirror] = useMirror(post);
 
     const action = useMemo(() => {
-        const contractExploreUrl = post.collectModule?.contract.address
-            ? EVMExplorerResolver.addressLink(polygon.id, post.collectModule.contract.address) ?? ''
+        const contractExploreUrl = collectModule?.contract.address
+            ? EVMExplorerResolver.addressLink(polygon.id, collectModule.contract.address) ?? ''
             : undefined;
         if (!isLogin) return <Trans>Login</Trans>;
 
@@ -206,7 +205,7 @@ export function PostCollect({ post, onClose }: PostCollectProps) {
                 </>
             );
 
-        if (post.collectModule?.followerOnly && !profile?.viewerContext?.following) {
+        if (collectModule?.followerOnly && !profile?.viewerContext?.following) {
             return <Trans>Follow to Collect</Trans>;
         }
 
@@ -218,20 +217,20 @@ export function PostCollect({ post, onClose }: PostCollectProps) {
             return <Trans>Allow Collect Module</Trans>;
         }
 
-        if (post.collectModule?.amount && post.collectModule.currency) {
+        if (collectModule?.amount && collectModule.currency) {
             return (
                 <Trans>
-                    Collect for {post.collectModule.amount} {post.collectModule.currency}
+                    Collect for {collectModule.amount} {collectModule.currency}
                 </Trans>
             );
         }
 
         return <Trans>Free Collect</Trans>;
     }, [
-        post.collectModule?.contract.address,
-        post.collectModule?.amount,
-        post.collectModule?.currency,
-        post.collectModule?.followerOnly,
+        collectModule?.contract.address,
+        collectModule?.amount,
+        collectModule?.currency,
+        collectModule?.followerOnly,
         post.hasActed,
         isLogin,
         isSoldOut,
@@ -250,7 +249,17 @@ export function PostCollect({ post, onClose }: PostCollectProps) {
             return;
         }
 
-        if (post.collectModule?.followerOnly && !profile?.viewerContext?.following) {
+        if (
+            currentProfile?.ownedBy?.address &&
+            !isSameEthereumAddress(currentProfile?.ownedBy?.address, account.address)
+        ) {
+            enqueueErrorMessage(
+                t`The current connected wallet does not match, Please switch to ${formatEthereumAddress(currentProfile.ownedBy.address, 4)}`,
+            );
+            return;
+        }
+
+        if (collectModule?.followerOnly && !profile?.viewerContext?.following) {
             if (isSuperFollow && profile) {
                 await (isMedium
                     ? SuperFollowModalRef.openAndWaitForClose({ profile })
@@ -277,7 +286,18 @@ export function PostCollect({ post, onClose }: PostCollectProps) {
         }
 
         handleCollect();
-    }, [isSuperFollow, profile, isLogin, allowed, post.source, handleCollect, handleApprove, toggleFollow]);
+    }, [
+        isSuperFollow,
+        profile,
+        currentProfile,
+        isLogin,
+        allowed,
+        post.source,
+        handleCollect,
+        handleApprove,
+        toggleFollow,
+        account.address,
+    ]);
 
     const loading =
         followLoading ||
@@ -349,8 +369,8 @@ export function PostCollect({ post, onClose }: PostCollectProps) {
                 </div>
                 <div className="flex flex-col items-center">
                     <div className="font-bold text-main">
-                        {post.collectModule?.currency
-                            ? `${post.collectModule.amount} $${post.collectModule.currency}`
+                        {collectModule?.amount && collectModule.currency
+                            ? `${collectModule.amount} $${collectModule.currency}`
                             : t`Free`}
                     </div>
                     <div className="text-second">
@@ -370,7 +390,7 @@ export function PostCollect({ post, onClose }: PostCollectProps) {
                     {action}
                 </ChainGuardButton>
 
-                {post.collectModule?.referralFee ? (
+                {collectModule?.referralFee ? (
                     <Tooltip content={t`Mirror now to get 25% referral fee!`} placement="top">
                         <ClickableButton
                             disabled={mirrorLoading}
@@ -385,7 +405,7 @@ export function PostCollect({ post, onClose }: PostCollectProps) {
                             ) : (
                                 <LoadingIcon className="animate-spin" width={15} height={15} />
                             )}
-                            {post.collectModule.referralFee}%
+                            {collectModule.referralFee}%
                         </ClickableButton>
                     </Tooltip>
                 ) : null}
