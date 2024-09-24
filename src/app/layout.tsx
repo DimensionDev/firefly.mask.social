@@ -3,7 +3,7 @@
 import '@dialectlabs/blinks/index.css';
 import '@/app/globals.css';
 
-import { GoogleAnalytics, GoogleTagManager } from '@next/third-parties/google';
+import { GoogleAnalytics } from '@next/third-parties/google';
 import { SpeedInsights } from '@vercel/speed-insights/next';
 import { Inter } from 'next/font/google';
 import { lazy } from 'react';
@@ -62,7 +62,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                 <Script src="/js/browser-detector.js" defer />
                 <Script src="/js/safary.js" defer />
                 <meta name="theme-color" content="#ffffff" />
-                <GoogleTagManager gtmId="GTM-WZZF2ZCF" />
                 <GoogleAnalytics gaId="G-61NFDTK6LT" />
             </head>
             <body className={`${inter.variable} font-inter`}>
