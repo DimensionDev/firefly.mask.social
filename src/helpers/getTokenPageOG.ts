@@ -21,7 +21,7 @@ export async function getTokenPageOG(symbol: string) {
             url: resolveTokenPageUrl(symbol),
         },
         twitter: {
-            card: 'summary_large_image',
+            card: 'summary',
             title,
             description,
             images,
