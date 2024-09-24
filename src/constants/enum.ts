@@ -113,6 +113,7 @@ export enum KeyType {
     GetFollowings = '/v2/getFollowings',
     ConsumerSecret = '/v2/consumerSecret',
     GetBlink = '/v2/getBlink',
+    GetTokenPageOG = 'getTokenPageOG',
 }
 
 export enum SocialProfileCategory {
