@@ -1,10 +1,10 @@
 import { Source } from '@/constants/enum.js';
 import { isFollowCategory } from '@/helpers/isFollowCategory.js';
+import { isProfilePageSource } from '@/helpers/isProfilePageSource.js';
 import { isSocialProfileCategory } from '@/helpers/isSocialProfileCategory.js';
 import { isSocialSource } from '@/helpers/isSocialSource.js';
 import { isWalletProfileCategory } from '@/helpers/isWalletProfileCategory.js';
 import { resolveSourceFromUrlNoFallback } from '@/helpers/resolveSource.js';
-import { isProfilePageSource } from '@/helpers/isProfilePageSource.js';
 
 export function parseProfileUrl(pathname: string) {
     if (!pathname.startsWith('/profile')) return null;
