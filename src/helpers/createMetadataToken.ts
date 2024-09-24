@@ -3,7 +3,7 @@ import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
 import { resolveTokenPageUrl } from '@/helpers/resolveTokenPageUrl.js';
 import { Coingecko } from '@/providers/coingecko/index.js';
 
-export async function getTokenPageOG(symbol: string) {
+export async function createMetadataToken(symbol: string) {
     const tokens = await Coingecko.getTokens();
     const sym = symbol.toLowerCase();
     const token = tokens.find((x) => x.symbol === sym) || null;

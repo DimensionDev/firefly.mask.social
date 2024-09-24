@@ -9,7 +9,7 @@ import { getPostUrl } from '@/helpers/getPostUrl.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { resolveSocialSource } from '@/helpers/resolveSource.js';
 
-export async function getPostOGById(source: SocialSourceInURL, postId: string) {
+export async function createMetadataPostById(source: SocialSourceInURL, postId: string) {
     const provider = resolveSocialMediaProvider(resolveSocialSource(source));
     const post = await provider.getPostById(postId).catch(() => null);
     if (!post) return createSiteMetadata();

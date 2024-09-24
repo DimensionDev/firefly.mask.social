@@ -1,10 +1,10 @@
 import { TokenDetail } from '@/components/TokenProfile/TokenDetail.js';
 import { KeyType } from '@/constants/enum.js';
-import { getTokenPageOG } from '@/helpers/getTokenPageOG.js';
+import { createMetadataToken } from '@/helpers/createMetadataToken.js';
 import { memoizeWithRedis } from '@/helpers/memoizeWithRedis.js';
 
-const getTokenPageOGRedis = memoizeWithRedis(getTokenPageOG, {
-    key: KeyType.GetTokenPageOG,
+const createPageMetadata = memoizeWithRedis(createMetadataToken, {
+    key: KeyType.CreateMetadataToken,
 });
 
 interface Props {
@@ -14,7 +14,7 @@ interface Props {
 }
 
 export async function generateMetadata({ params }: Props) {
-    return getTokenPageOGRedis(params.symbol);
+    return createPageMetadata(params.symbol);
 }
 
 export default function TokenPage({ params }: Props) {

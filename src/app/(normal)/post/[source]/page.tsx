@@ -2,17 +2,17 @@ import type { Metadata } from 'next';
 import { notFound, redirect } from 'next/navigation.js';
 
 import { KeyType, type SocialSourceInURL } from '@/constants/enum.js';
+import { createMetadataPostById } from '@/helpers/createMetadataPostById.js';
 import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
 import { isSocialSourceInUrl } from '@/helpers/isSocialSource.js';
 import { memoizeWithRedis } from '@/helpers/memoizeWithRedis.js';
 import { resolvePostUrl } from '@/helpers/resolvePostUrl.js';
 import { resolveSocialSource } from '@/helpers/resolveSource.js';
-import { getPostOGById } from '@/services/getPostOGById.js';
 
 export const revalidate = 60;
 
-const getPostOGByIdRedis = memoizeWithRedis(getPostOGById, {
-    key: KeyType.GetPostOGById,
+const createPageMetadata = memoizeWithRedis(createMetadataPostById, {
+    key: KeyType.CreateMetadataPostById,
 });
 
 interface Props {
@@ -23,9 +23,7 @@ interface Props {
 }
 
 export async function generateMetadata({ params, searchParams }: Props): Promise<Metadata> {
-    if (isSocialSourceInUrl(searchParams.source)) {
-        return getPostOGByIdRedis(searchParams.source, params.source);
-    }
+    if (isSocialSourceInUrl(searchParams.source)) return createPageMetadata(searchParams.source, params.source);
     return createSiteMetadata();
 }
 

@@ -1,16 +1,17 @@
 import urlcat from 'urlcat';
 
-import { type ProfilePageSource, Source } from '@/constants/enum.js';
+import type { ProfilePageSource } from '@/constants/enum.js';
+import { Source } from '@/constants/enum.js';
 import { SITE_DESCRIPTION, SITE_URL } from '@/constants/index.js';
+import { createMetadataWalletProfile } from '@/helpers/createMetadataWalletProfile.js';
 import { createPageTitleOG } from '@/helpers/createPageTitle.js';
 import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { getStampAvatarByProfileId } from '@/helpers/getStampAvatarByProfileId.js';
 import { getProfileById } from '@/services/getProfileById.js';
-import { getWalletProfileOG } from '@/services/getWalletProfileOG.js';
 
-export async function getProfileOGById(source: ProfilePageSource, profileId: string) {
-    if (source === Source.Wallet) return getWalletProfileOG(profileId);
+export async function createMetadataProfileById(source: ProfilePageSource, profileId: string) {
+    if (source === Source.Wallet) return createMetadataWalletProfile(profileId);
     const profile = await getProfileById(source, profileId).catch(() => null);
 
     if (!profile) return createSiteMetadata();

@@ -7,7 +7,7 @@ import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
 import { getArticleUrl } from '@/helpers/getArticleUrl.js';
 import { FireflyArticleProvider } from '@/providers/firefly/Article.js';
 
-export async function getArticleOGById(id: string) {
+export async function createMetadataArticleById(id: string) {
     const article = await FireflyArticleProvider.getArticleById(id);
     if (!article) return createSiteMetadata();
     const images = article.coverUrl ? [article.coverUrl] : undefined;

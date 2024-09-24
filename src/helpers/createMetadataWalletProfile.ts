@@ -10,7 +10,7 @@ import { resolveFireflyProfiles } from '@/helpers/resolveFireflyProfiles.js';
 import { resolveProfileUrl } from '@/helpers/resolveProfileUrl.js';
 import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
 
-export async function getWalletProfileOG(addressOrEns: string) {
+export async function createMetadataWalletProfile(addressOrEns: string) {
     const identity = { id: addressOrEns, source: Source.Wallet } as const;
     const profiles = await FireflySocialMediaProvider.getAllPlatformProfileByIdentity(identity);
     const { walletProfile } = resolveFireflyProfiles(identity, profiles);
