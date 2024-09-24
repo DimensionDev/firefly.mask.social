@@ -3,7 +3,7 @@ import { z } from 'zod';
 
 import { ContentTypeError } from '@/constants/error.js';
 import { compose } from '@/helpers/compose.js';
-import { createSuccessResponseJSON } from '@/helpers/createSuccessResponseJSON.js';
+import { createSuccessResponseJSON } from '@/helpers/createResponseJSON.js';
 import { createTwitterClientV2 } from '@/helpers/createTwitterClientV2.js';
 import { convertTwitterAvatar } from '@/helpers/formatTwitterProfile.js';
 import { withRequestErrorHandler } from '@/helpers/withRequestErrorHandler.js';

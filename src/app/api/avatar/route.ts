@@ -3,7 +3,7 @@ import { polygon } from 'viem/chains';
 
 import { LensHub } from '@/abis/LensHub.js';
 import { CACHE_AGE_INDEFINITE_ON_DISK, LENS_HUB_PROXY_ADDRESS } from '@/constants/index.js';
-import { createErrorResponseJSON } from '@/helpers/createErrorResponseJSON.js';
+import { createErrorResponseJSON } from '@/helpers/createResponseJSON.js';
 import { createWagmiPublicClient } from '@/helpers/createWagmiPublicClient.js';
 import { getGatewayErrorMessage } from '@/helpers/getGatewayErrorMessage.js';
 

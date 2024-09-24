@@ -2,7 +2,7 @@ import urlcat from 'urlcat';
 
 import { Source } from '@/constants/enum.js';
 import { SITE_URL } from '@/constants/index.js';
-import { createPageTitleV2 } from '@/helpers/createPageTitle.js';
+import { createPageTitleOG } from '@/helpers/createPageTitle.js';
 import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
 import { formatAddress } from '@/helpers/formatAddress.js';
 import { getStampAvatarByProfileId } from '@/helpers/getStampAvatarByProfileId.js';
@@ -16,8 +16,8 @@ export async function getWalletProfileOG(addressOrEns: string) {
     const { walletProfile } = resolveFireflyProfiles(identity, profiles);
     if (!walletProfile) return createSiteMetadata();
     const title = walletProfile.primary_ens
-        ? createPageTitleV2(walletProfile.primary_ens)
-        : createPageTitleV2(`${formatAddress(walletProfile.address, 4)}`);
+        ? createPageTitleOG(walletProfile.primary_ens)
+        : createPageTitleOG(`${formatAddress(walletProfile.address, 4)}`);
     const description = walletProfile.address;
     const images = [getStampAvatarByProfileId(identity.source, identity.id)];
     return createSiteMetadata({

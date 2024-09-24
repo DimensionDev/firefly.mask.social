@@ -1,5 +1,5 @@
 import { compose } from '@/helpers/compose.js';
-import { createSuccessResponseJSON } from '@/helpers/createSuccessResponseJSON.js';
+import { createSuccessResponseJSON } from '@/helpers/createResponseJSON.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
 import { withRequestErrorHandler } from '@/helpers/withRequestErrorHandler.js';
 import type { ActionsRegistryResponse } from '@/providers/types/Blink.js';

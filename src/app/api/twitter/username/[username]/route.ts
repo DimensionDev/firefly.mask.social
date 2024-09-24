@@ -3,7 +3,7 @@ import { NextRequest } from 'next/server.js';
 import { MalformedError } from '@/constants/error.js';
 import { TWITTER_USER_OPTIONS } from '@/constants/index.js';
 import { compose } from '@/helpers/compose.js';
-import { createSuccessResponseJSON } from '@/helpers/createSuccessResponseJSON.js';
+import { createSuccessResponseJSON } from '@/helpers/createResponseJSON.js';
 import { createTwitterClientV2 } from '@/helpers/createTwitterClientV2.js';
 import { withRequestErrorHandler } from '@/helpers/withRequestErrorHandler.js';
 import { withTwitterRequestErrorHandler } from '@/helpers/withTwitterRequestErrorHandler.js';

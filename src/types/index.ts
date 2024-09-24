@@ -1,4 +1,4 @@
-import { ServerErrorCodes } from '@/helpers/createErrorResponseJSON.js';
+import { ServerErrorCodes } from '@/helpers/createResponseJSON.js';
 
 export type ResponseJSON<T> =
     | {

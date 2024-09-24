@@ -48,7 +48,6 @@ import { SetQueryDataForMirrorPost } from '@/decorators/SetQueryDataForMirrorPos
 import { SetQueryDataForPosts } from '@/decorators/SetQueryDataForPosts.js';
 import { assertLensAccountOwner } from '@/helpers/assertLensAccountOwner.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
-import { filterNotificationsByProfileId } from '@/helpers/filterNotificationsByProfileId.js';
 import {
     filterFeeds,
     formatLensPost,
@@ -1210,11 +1209,45 @@ class LensSocialMedia implements Provider {
             profileIds.map((snsId) => ({ snsId, snsPlatform: SourceInURL.Lens })),
         );
 
+        const profileIdSet = new Set(blockList.filter((x) => x.blocked).map((x) => x.snsId));
+
+        const items = compact(data)
+            .map((item) => {
+                if (!item) return item;
+                if ('followers' in item) {
+                    item.followers = item.followers.filter((x) => !profileIdSet.has(x.profileId));
+                }
+                if ('mirrors' in item) {
+                    item.mirrors = item.mirrors.filter((x) => !profileIdSet.has(x.profileId));
+                }
+                if ('reactors' in item) {
+                    item.reactors = item.reactors.filter((x) => !profileIdSet.has(x.profileId));
+                }
+                return item;
+            })
+            .filter((item) => {
+                if (!item) return false;
+                if ('followers' in item && item.followers.length <= 0) return false;
+                if ('mirrors' in item && item.mirrors.length <= 0) return false;
+                if ('reactors' in item && item.reactors.length <= 0) return false;
+                if ('post' in item && item.post?.author.profileId && profileIdSet.has(item.post.author.profileId)) {
+                    return false;
+                }
+                if (
+                    'comment' in item &&
+                    item.comment?.author.profileId &&
+                    profileIdSet.has(item.comment.author.profileId)
+                ) {
+                    return false;
+                }
+                if ('quote' in item && item.quote?.author.profileId && profileIdSet.has(item.quote.author.profileId)) {
+                    return false;
+                }
+                return true;
+            });
+
         return createPageable(
-            filterNotificationsByProfileId(
-                compact(data),
-                blockList.filter((x) => x.blocked).map((x) => x.snsId),
-            ),
+            items,
             createIndicator(indicator),
             result.pageInfo.next ? createNextIndicator(indicator, result.pageInfo.next) : undefined,
         );

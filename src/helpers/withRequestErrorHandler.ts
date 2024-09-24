@@ -3,7 +3,7 @@ import type { NextRequest } from 'next/server.js';
 import { ZodError } from 'zod';
 
 import { ContentTypeError, MalformedError, NotFoundError, UnauthorizedError } from '@/constants/error.js';
-import { createErrorResponseJSON } from '@/helpers/createErrorResponseJSON.js';
+import { createErrorResponseJSON } from '@/helpers/createResponseJSON.js';
 import type { NextRequestContext } from '@/types/index.js';
 
 function handleZodErrorMessage(error: ZodError) {

@@ -1,7 +1,7 @@
 import { StatusCodes } from 'http-status-codes';
 import type { InlineErrorV2 } from 'twitter-api-v2';
 
-import { createErrorResponseJSON } from '@/helpers/createErrorResponseJSON.js';
+import { createErrorResponseJSON } from '@/helpers/createResponseJSON.js';
 
 export function createTwitterErrorResponseJSON(errors: InlineErrorV2[] | undefined) {
     if (Array.isArray(errors)) {
