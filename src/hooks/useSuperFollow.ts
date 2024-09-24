@@ -39,19 +39,19 @@ export function useSuperFollowData(profile: Profile) {
     const followFee = parseFloat(followModule?.amount?.value || '0');
     const feeTokenAddress = followModule?.amount?.asset?.contract.address as Address;
 
-    const {
-        data: allowanceData,
-        isLoading: isAllowanceLoading,
-        refetch: refetchAllowance,
-    } = useQuery({
-        queryKey: ['approved', feeTokenAddress, profile.profileId],
+    const { data: { allowanceData, hasAllowance = false } = {}, isLoading: isAllowanceLoading } = useQuery({
+        queryKey: ['approved', feeTokenAddress, currentProfile?.profileId],
         enabled: !!feeTokenAddress,
-        queryFn: () =>
-            LensSocialMediaProvider.queryApprovedModuleAllowanceData(
+        queryFn: async () => {
+            const allowanceData = await LensSocialMediaProvider.queryApprovedModuleAllowanceData(
                 feeTokenAddress,
                 undefined,
                 FollowModuleType.FeeFollowModule,
-            ),
+            );
+            const hasAllowance = parseFloat(allowanceData?.[0]?.allowance.value || '0') > followFee;
+
+            return { allowanceData, hasAllowance };
+        },
     });
 
     const allowanceModule = allowanceData?.[0];
@@ -73,7 +73,6 @@ export function useSuperFollowData(profile: Profile) {
         hasAmount:
             !!balanceData &&
             parseFloat(formatUnits(balanceData, followModule?.amount?.asset?.decimals as number)) > followFee,
-        hasAllowance: parseFloat(allowanceModule?.allowance.value || '0') > followFee,
-        refetchAllowance,
+        hasAllowance,
     };
 }
