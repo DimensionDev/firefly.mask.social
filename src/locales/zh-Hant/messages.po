@@ -783,6 +783,9 @@ msgstr "天"
 msgid "<0/> mentioned you in a <1>{0, select, Post {post} Comment {comment} Quote {quote} Mirror {mirror} other {post}}</1>"
 msgstr "<0/> 在 <1> {0, select, Post {貼文} Comment {評論} Quote {引用} Mirror {鏡像} other {貼文}}</1> 中提到了你"
 
+msgid "The current connected wallet does not match, Please switch to {0}"
+msgstr ""
+
 msgid "Cost"
 msgstr ""
 
