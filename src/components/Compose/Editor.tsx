@@ -7,7 +7,7 @@ import { OnChangePlugin } from '@lexical/react/LexicalOnChangePlugin.js';
 import { PlainTextPlugin } from '@lexical/react/LexicalPlainTextPlugin.js';
 import { $dfs } from '@lexical/utils';
 import { Select, t, Trans } from '@lingui/macro';
-import { memo } from 'react';
+import { memo, useCallback, useEffect, useRef } from 'react';
 import { useDebounce } from 'react-use';
 
 import { $isMentionNode } from '@/components/Lexical/nodes/MentionsNode.js';
@@ -16,6 +16,7 @@ import { LexicalAutoLinkPlugin } from '@/components/Lexical/plugins/AutoLinkPlug
 import { CHAR_TAG, type Chars, writeChars } from '@/helpers/chars.js';
 import { classNames } from '@/helpers/classNames.js';
 import { type CompositePost, useComposeStateStore } from '@/store/useComposeStore.js';
+import { useGlobalState } from '@/store/useGlobalStore.js';
 
 function ErrorBoundaryComponent() {
     return (
@@ -31,6 +32,8 @@ interface EditorProps {
 }
 
 export const Editor = memo(function Editor({ post, replying }: EditorProps) {
+    const timer = useRef<number>(0);
+    const { keyboardHeight, innerHeight, updateKeyboardHeight } = useGlobalState();
     const { type, posts, updateChars, loadComponentsFromChars } = useComposeStateStore();
 
     const { chars } = post;
@@ -44,6 +47,24 @@ export const Editor = memo(function Editor({ post, replying }: EditorProps) {
         [chars, loadComponentsFromChars],
     );
 
+    useEffect(() => () => clearInterval(timer.current), []);
+
+    const handleFocus = useCallback(() => {
+        if (!keyboardHeight) {
+            timer.current = window.setInterval(() => {
+                if (window.innerHeight !== innerHeight) {
+                    updateKeyboardHeight(innerHeight - window.innerHeight);
+                    clearInterval(timer.current);
+                }
+            }, 50);
+        }
+    }, [keyboardHeight, innerHeight, updateKeyboardHeight]);
+
+    const handleBlur = useCallback(() => {
+        clearInterval(timer.current);
+        updateKeyboardHeight(0);
+    }, [updateKeyboardHeight]);
+
     return (
         <>
             <PlainTextPlugin
@@ -51,6 +72,8 @@ export const Editor = memo(function Editor({ post, replying }: EditorProps) {
                     <ContentEditable
                         key="editable"
                         className="flex-1 flex-shrink-0 cursor-text resize-none appearance-none border-none bg-transparent p-0 pb-2 text-left text-[16px] leading-6 text-main outline-none outline-0 focus:ring-0"
+                        onFocus={handleFocus}
+                        onBlur={handleBlur}
                     />
                 }
                 placeholder={

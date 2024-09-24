@@ -21,6 +21,7 @@ import { useCompositePost } from '@/hooks/useCompositePost.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import { useComposeScheduleStateStore } from '@/store/useComposeScheduleStore.js';
 import { useComposeStateStore } from '@/store/useComposeStore.js';
+import { useGlobalState } from '@/store/useGlobalStore.js';
 
 export function Title() {
     const { type } = useComposeStateStore();
@@ -40,6 +41,7 @@ export function Title() {
 
 export const ComposeUI = memo(function ComposeUI() {
     const isMedium = useIsMedium();
+    const { keyboardHeight } = useGlobalState();
     const { type, posts, updateVideo, updateImages } = useComposeStateStore();
     const { scheduleTime } = useComposeScheduleStateStore();
 
@@ -83,7 +85,7 @@ export const ComposeUI = memo(function ComposeUI() {
             <div
                 className={classNames(
                     'flex flex-col overflow-auto px-4 pb-4',
-                    isMedium ? 'h-full' : 'max-h-[300px] min-h-[300px]',
+                    isMedium ? 'h-full' : keyboardHeight ? 'flex-1' : 'max-h-[300px] min-h-[300px]',
                 )}
             >
                 <UploadDropArea
@@ -98,9 +100,14 @@ export const ComposeUI = memo(function ComposeUI() {
                 </UploadDropArea>
             </div>
 
-            <ComposeActions />
+            <div>
+                <p>keyboardHeight: {keyboardHeight}</p>
+                <ComposeActions />
+            </div>
 
             {isMedium ? <ComposeSend /> : null}
+
+            {!isMedium && keyboardHeight > 0 ? <div style={{ height: keyboardHeight }} /> : null}
         </>
     );
 });
