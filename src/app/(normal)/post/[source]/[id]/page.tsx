@@ -5,7 +5,7 @@ import type React from 'react';
 import { PostDetailPage } from '@/app/(normal)/post/[source]/[id]/pages/DetailPage.js';
 import { LoginRequiredGuard } from '@/components/LoginRequiredGuard.js';
 import { KeyType, type SocialSourceInURL } from '@/constants/enum.js';
-import { createPostPageMetadataById } from '@/helpers/createPageMetadata.js';
+import { createMetadataPostById } from '@/helpers/createMetadataPostById.js';
 import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
 import { isBotRequest } from '@/helpers/isBotRequest.js';
 import { isSocialSourceInUrl } from '@/helpers/isSocialSource.js';
@@ -14,8 +14,8 @@ import { resolveSocialSource } from '@/helpers/resolveSource.js';
 
 export const revalidate = 60;
 
-const createPageMetadata = memoizeWithRedis(createPostPageMetadataById, {
-    key: KeyType.CreatePostPageMetadataById,
+const createPageMetadata = memoizeWithRedis(createMetadataPostById, {
+    key: KeyType.CreateMetadataPostById,
 });
 
 interface Props {

@@ -9,7 +9,7 @@ import { NFTProperties } from '@/components/NFTDetail/NFTProperties.js';
 import { NFTNavbar } from '@/components/NFTs/NFTNavbar.js';
 import { POAP_CONTRACT_ADDRESS } from '@/constants/index.js';
 import { classNames } from '@/helpers/classNames.js';
-import { createNFTPageMetadata } from '@/helpers/createPageMetadata.js';
+import { createMetadataNFT } from '@/helpers/createMetadataNFT.js';
 import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
 import { getFloorPrice } from '@/helpers/getFloorPrice.js';
 import { isSameEthereumAddress } from '@/helpers/isSameAddress.js';
@@ -28,7 +28,7 @@ interface Props {
 
 export async function generateMetadata({ params: { address, tokenIdOrChainId: tokenId, ...params } }: Props) {
     const chainId = parseChainId(params.chainId);
-    if (chainId) return createNFTPageMetadata(address, tokenId, chainId);
+    if (chainId) return createMetadataNFT(address, tokenId, chainId);
     return createSiteMetadata();
 }
 

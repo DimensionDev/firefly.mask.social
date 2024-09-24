@@ -11,7 +11,7 @@ import {
     SourceInURL,
     WalletProfileCategory,
 } from '@/constants/enum.js';
-import { createProfilePageMetadataById } from '@/helpers/createPageMetadata.js';
+import { createMetadataProfileById } from '@/helpers/createMetadataProfileById.js';
 import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
 import { isFollowCategory } from '@/helpers/isFollowCategory.js';
 import { isProfilePageSource } from '@/helpers/isProfilePageSource.js';
@@ -26,8 +26,8 @@ interface Props {
     };
 }
 
-const createPageMetadata = memoizeWithRedis(createProfilePageMetadataById, {
-    key: KeyType.CreateProfilePageMetadataById,
+const createPageMetadata = memoizeWithRedis(createMetadataProfileById, {
+    key: KeyType.CreateMetadataProfileById,
 });
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {

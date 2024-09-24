@@ -2,14 +2,14 @@ import type { Metadata } from 'next';
 import { redirect } from 'next/navigation.js';
 
 import { ChannelTabType, KeyType, type SocialSourceInURL } from '@/constants/enum.js';
-import { createChannelPageMetadataById } from '@/helpers/createPageMetadata.js';
+import { createMetadataChannelById } from '@/helpers/createMetadataChannel.js';
 import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
 import { isBotRequest } from '@/helpers/isBotRequest.js';
 import { memoizeWithRedis } from '@/helpers/memoizeWithRedis.js';
 import { resolveChannelUrl } from '@/helpers/resolveChannelUrl.js';
 
-const createPageMetadata = memoizeWithRedis(createChannelPageMetadataById, {
-    key: KeyType.CreateChannelPageMetadataById,
+const createPageMetadata = memoizeWithRedis(createMetadataChannelById, {
+    key: KeyType.CreateMetadataChannelById,
 });
 
 interface Props {

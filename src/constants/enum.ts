@@ -109,11 +109,12 @@ export enum KeyType {
     GetFollowings = '/v2/getFollowings',
     ConsumerSecret = '/v2/consumerSecret',
     GetBlink = '/v2/getBlink',
-    CreatePostPageMetadataById = '/v2/createPostPageMetadataById',
-    CreateArticlePageMetadataById = '/v2/createArticlePageMetadataById',
-    CreateProfilePageMetadataById = '/v2/createProfilePageMetadataById',
-    CreateChannelPageMetadataById = '/v2/createChannelPageMetadataById',
-    CreateTokenPageMetadata = '/v2/createTokenPageMetadata',
+
+    CreateMetadataToken = '/v2/createMetadataToken',
+    CreateMetadataPostById = '/v2/createPageMetadataById',
+    CreateMetadataArticleById = '/v2/createMetadataArticleById',
+    CreateMetadataProfileById = '/v2/createMetadataProfileById',
+    CreateMetadataChannelById = '/v2/createMetadataChannelById',
 }
 
 export enum SocialProfileCategory {
