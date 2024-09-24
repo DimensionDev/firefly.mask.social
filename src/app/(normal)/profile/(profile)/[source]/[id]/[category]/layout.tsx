@@ -11,12 +11,12 @@ import {
     SourceInURL,
     WalletProfileCategory,
 } from '@/constants/enum.js';
+import { createProfilePageMetadataById } from '@/helpers/createPageMetadata.js';
 import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
 import { isFollowCategory } from '@/helpers/isFollowCategory.js';
 import { isProfilePageSource } from '@/helpers/isProfilePageSource.js';
 import { memoizeWithRedis } from '@/helpers/memoizeWithRedis.js';
 import { resolveSourceFromUrl, resolveSourceFromUrlNoFallback } from '@/helpers/resolveSource.js';
-import { getProfileOGById } from '@/services/getProfileOGById.js';
 
 interface Props {
     params: {
@@ -26,13 +26,13 @@ interface Props {
     };
 }
 
-const getProfileOGByIdRedis = memoizeWithRedis(getProfileOGById, {
-    key: KeyType.GetProfileOGById,
+const createPageMetadata = memoizeWithRedis(createProfilePageMetadataById, {
+    key: KeyType.CreateProfilePageMetadataById,
 });
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
     const source = resolveSourceFromUrlNoFallback(params.source);
-    if (source && isProfilePageSource(source)) return getProfileOGByIdRedis(source, params.id);
+    if (source && isProfilePageSource(source)) return createPageMetadata(source, params.id);
     return createSiteMetadata();
 }
 

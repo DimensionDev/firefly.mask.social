@@ -5,17 +5,17 @@ import type React from 'react';
 import { PostDetailPage } from '@/app/(normal)/post/[source]/[id]/pages/DetailPage.js';
 import { LoginRequiredGuard } from '@/components/LoginRequiredGuard.js';
 import { KeyType, type SocialSourceInURL } from '@/constants/enum.js';
+import { createPostPageMetadataById } from '@/helpers/createPageMetadata.js';
 import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
 import { isBotRequest } from '@/helpers/isBotRequest.js';
 import { isSocialSourceInUrl } from '@/helpers/isSocialSource.js';
 import { memoizeWithRedis } from '@/helpers/memoizeWithRedis.js';
 import { resolveSocialSource } from '@/helpers/resolveSource.js';
-import { getPostOGById } from '@/services/getPostOGById.js';
 
 export const revalidate = 60;
 
-const getPostOGByIdRedis = memoizeWithRedis(getPostOGById, {
-    key: KeyType.GetPostOGById,
+const createPageMetadata = memoizeWithRedis(createPostPageMetadataById, {
+    key: KeyType.CreatePostPageMetadataById,
 });
 
 interface Props {
@@ -27,7 +27,7 @@ interface Props {
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
     if (isSocialSourceInUrl(params.source)) {
-        return getPostOGByIdRedis(params.source, params.id);
+        return createPageMetadata(params.source, params.id);
     }
     return createSiteMetadata();
 }

@@ -3,7 +3,7 @@ import type { PropsWithChildren } from 'react';
 
 import { ChannelLayout } from '@/app/(normal)/channel/pages/ChannelLayout.js';
 import { ChannelTabType, Source } from '@/constants/enum.js';
-import { getChannelOG } from '@/helpers/getChannelOG.js';
+import { createChannelPageMetadata } from '@/helpers/createPageMetadata.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 
 export const revalidate = 60;
@@ -16,7 +16,7 @@ type Props = PropsWithChildren<{
 }>;
 
 export async function generateMetadata({ params }: Props) {
-    return getChannelOG(params.id);
+    return createChannelPageMetadata(params.id);
 }
 
 export default async function Layout({ params, children }: Props) {

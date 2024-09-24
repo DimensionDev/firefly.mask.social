@@ -3,9 +3,9 @@ import { notFound, redirect } from 'next/navigation.js';
 import { CollectionInfo } from '@/components/CollectionDetail/CollectionInfo.js';
 import { CollectionTabs } from '@/components/CollectionDetail/CollectionTabs.js';
 import { NFTNavbar } from '@/components/NFTs/NFTNavbar.js';
+import { createNFTCollectionPageMetadata } from '@/helpers/createPageMetadata.js';
 import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
 import { getFloorPrice } from '@/helpers/getFloorPrice.js';
-import { getNFTCollectionOG } from '@/helpers/getNFTCollectionOG.js';
 import { parseChainId } from '@/helpers/parseChainId.js';
 import { resolveNftUrl } from '@/helpers/resolveNftUrl.js';
 import { SimpleHashWalletProfileProvider } from '@/providers/simplehash/WalletProfile.js';
@@ -24,7 +24,7 @@ interface Props {
 
 export async function generateMetadata({ params: { address, tokenIdOrChainId }, searchParams }: Props) {
     const chainId = parseChainId(tokenIdOrChainId);
-    if (chainId) return getNFTCollectionOG(address, chainId);
+    if (chainId) return createNFTCollectionPageMetadata(address, chainId);
     return createSiteMetadata();
 }
 

@@ -104,16 +104,16 @@ export enum SearchType {
 export enum KeyType {
     DigestOpenGraphLink = '/v2/digestOpenGraphLink',
     DigestFrameLink = '/v2/digestFrameLink',
-    GetPostOGById = '/v2/getPostOGById',
-    GetArticleOGById = '/v2/getArticleOGById',
-    GetProfileOGById = '/v2/getProfileOGById',
-    GetChannelOGById = '/v2/getChannelOGById',
     GetLensThreadByPostId = '/v2/getLensThreadByPostId',
     RefreshLensThreadLock = '/v2/RefreshLensThreadLock',
     GetFollowings = '/v2/getFollowings',
     ConsumerSecret = '/v2/consumerSecret',
     GetBlink = '/v2/getBlink',
-    GetTokenPageOG = 'getTokenPageOG',
+    CreatePostPageMetadataById = '/v2/createPostPageMetadataById',
+    CreateArticlePageMetadataById = '/v2/createArticlePageMetadataById',
+    CreateProfilePageMetadataById = '/v2/createProfilePageMetadataById',
+    CreateChannelPageMetadataById = '/v2/createChannelPageMetadataById',
+    CreateTokenPageMetadata = '/v2/createTokenPageMetadata',
 }
 
 export enum SocialProfileCategory {

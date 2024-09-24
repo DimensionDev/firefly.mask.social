@@ -2,14 +2,14 @@ import type { Metadata } from 'next';
 import { redirect } from 'next/navigation.js';
 
 import { ChannelTabType, KeyType, type SocialSourceInURL } from '@/constants/enum.js';
+import { createChannelPageMetadataById } from '@/helpers/createPageMetadata.js';
 import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
 import { isBotRequest } from '@/helpers/isBotRequest.js';
 import { memoizeWithRedis } from '@/helpers/memoizeWithRedis.js';
 import { resolveChannelUrl } from '@/helpers/resolveChannelUrl.js';
-import { getChannelOGById } from '@/services/getChannelOGById.js';
 
-const getChannelOGByIdRedis = memoizeWithRedis(getChannelOGById, {
-    key: KeyType.GetChannelOGById,
+const createPageMetadata = memoizeWithRedis(createChannelPageMetadataById, {
+    key: KeyType.CreateChannelPageMetadataById,
 });
 
 interface Props {
@@ -23,7 +23,7 @@ interface Props {
 }
 
 export async function generateMetadata({ params, searchParams }: Props): Promise<Metadata> {
-    if (searchParams.source) return getChannelOGByIdRedis(searchParams.source, params.id);
+    if (searchParams.source) return createPageMetadata(searchParams.source, params.id);
     return createSiteMetadata();
 }
 
