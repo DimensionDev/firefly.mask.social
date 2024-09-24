@@ -63,7 +63,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                 <Script src="/js/safary.js" defer />
                 <meta name="theme-color" content="#ffffff" />
                 <GoogleTagManager gtmId="GTM-WZZF2ZCF" />
-                <GoogleAnalytics gaId="G-5VSBSKJ6JM" />
+                <GoogleAnalytics gaId="G-61NFDTK6LT" />
             </head>
             <body className={`${inter.variable} font-inter`}>
                 <Providers>
