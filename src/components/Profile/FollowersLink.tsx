@@ -1,11 +1,11 @@
 import { plural } from '@lingui/macro';
 import { memo } from 'react';
 
-import { Source } from '@/constants/enum.js';
+import { FollowCategory, Source } from '@/constants/enum.js';
 import { Link } from '@/esm/Link.js';
 import { classNames } from '@/helpers/classNames.js';
 import { nFormatter } from '@/helpers/formatCommentCounts.js';
-import { resolveSourceInUrl } from '@/helpers/resolveSourceInUrl.js';
+import { resolveProfileUrl } from '@/helpers/resolveProfileUrl.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 
 interface FollowersLinkProps extends React.AnchorHTMLAttributes<HTMLAnchorElement> {
@@ -15,10 +15,7 @@ interface FollowersLinkProps extends React.AnchorHTMLAttributes<HTMLAnchorElemen
 export const FollowersLink = memo<FollowersLinkProps>(function FollowersLink({ profile, className }) {
     return (
         <Link
-            href={{
-                pathname: `/profile/${profile?.profileId}/followers`,
-                query: { source: resolveSourceInUrl(profile.source) },
-            }}
+            href={resolveProfileUrl(profile.source, profile.profileId, FollowCategory.Followers)}
             className={classNames('gap-1 hover:underline', className, {
                 'pointer-events-none': profile.source !== Source.Farcaster && profile.source !== Source.Lens,
             })}
