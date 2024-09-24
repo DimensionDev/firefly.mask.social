@@ -2,7 +2,7 @@ import urlcat from 'urlcat';
 
 import { type ProfilePageSource, Source } from '@/constants/enum.js';
 import { SITE_DESCRIPTION, SITE_URL } from '@/constants/index.js';
-import { createPageTitleV2 } from '@/helpers/createPageTitle.js';
+import { createPageTitleOG } from '@/helpers/createPageTitle.js';
 import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { getStampAvatarByProfileId } from '@/helpers/getStampAvatarByProfileId.js';
@@ -21,7 +21,7 @@ export async function getProfileOGById(source: ProfilePageSource, profileId: str
         },
     ];
 
-    const title = createPageTitleV2(`@${profile.handle}`);
+    const title = createPageTitleOG(`@${profile.handle}`);
     const description = profile.bio ?? SITE_DESCRIPTION;
 
     return createSiteMetadata({

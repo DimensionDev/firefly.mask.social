@@ -5,7 +5,7 @@ import { isFollowCategory } from '@/helpers/isFollowCategory.js';
 import { isMatchedDiscoverPage } from '@/helpers/isMatchedDiscoverPage.js';
 import { parseOldEngagementUrl } from '@/helpers/parseEngagementUrl.js';
 import { parseOldPostUrl } from '@/helpers/parsePostUrl.js';
-import { parseOldProfileUrl , parseProfileUrl } from '@/helpers/parseProfileUrl.js';
+import { parseOldProfileUrl, parseProfileUrl } from '@/helpers/parseProfileUrl.js';
 import { resolveEngagementUrl } from '@/helpers/resolveEngagementUrl.js';
 import { resolvePostUrl } from '@/helpers/resolvePostUrl.js';
 import { resolveProfileUrl } from '@/helpers/resolveProfileUrl.js';

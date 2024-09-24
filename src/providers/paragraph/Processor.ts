@@ -2,8 +2,7 @@ import { parseHTML } from 'linkedom';
 import { first, isEmpty } from 'lodash-es';
 
 import { FetchError } from '@/constants/error.js';
-import { createErrorResponseJSON } from '@/helpers/createErrorResponseJSON.js';
-import { createSuccessResponseJSON } from '@/helpers/createSuccessResponseJSON.js';
+import { createErrorResponseJSON, createSuccessResponseJSON } from '@/helpers/createResponseJSON.js';
 import { parseJSON } from '@/helpers/parseJSON.js';
 import { parseUrl } from '@/helpers/parseUrl.js';
 import type { ParagraphChain } from '@/providers/paragraph/type.js';

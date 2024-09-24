@@ -1,4 +1,4 @@
-import { createPageTitleV2 } from '@/helpers/createPageTitle.js';
+import { createPageTitleOG } from '@/helpers/createPageTitle.js';
 import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
 import { resolveTokenPageUrl } from '@/helpers/resolveTokenPageUrl.js';
 import { Coingecko } from '@/providers/coingecko/index.js';
@@ -8,7 +8,7 @@ export async function getTokenPageOG(symbol: string) {
     const sym = symbol.toLowerCase();
     const token = tokens.find((x) => x.symbol === sym) || null;
     if (!token) return createSiteMetadata();
-    const title = createPageTitleV2(token.symbol);
+    const title = createPageTitleOG(token.symbol);
     const description = token.name;
     const images = token.logoURL ? [token.logoURL] : [];
     return createSiteMetadata({

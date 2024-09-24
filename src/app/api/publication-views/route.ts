@@ -2,7 +2,7 @@ import { NextRequest } from 'next/server.js';
 import urlcat from 'urlcat';
 
 import { HEY_API_URL, HEY_URL } from '@/constants/index.js';
-import { createSuccessResponseJSON } from '@/helpers/createSuccessResponseJSON.js';
+import { createSuccessResponseJSON } from '@/helpers/createResponseJSON.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
 
 const STATS_URL = urlcat(HEY_API_URL, '/stats/publication/views');

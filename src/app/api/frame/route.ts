@@ -3,8 +3,7 @@ import { StatusCodes } from 'http-status-codes';
 import { z } from 'zod';
 
 import { KeyType } from '@/constants/enum.js';
-import { createErrorResponseJSON } from '@/helpers/createErrorResponseJSON.js';
-import { createSuccessResponseJSON } from '@/helpers/createSuccessResponseJSON.js';
+import { createErrorResponseJSON, createSuccessResponseJSON } from '@/helpers/createResponseJSON.js';
 import { getFrameErrorMessage } from '@/helpers/getFrameErrorMessage.js';
 import { getGatewayErrorMessage } from '@/helpers/getGatewayErrorMessage.js';
 import { memoizeWithRedis } from '@/helpers/memoizeWithRedis.js';

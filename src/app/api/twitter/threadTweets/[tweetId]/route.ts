@@ -2,7 +2,7 @@ import type { NextRequest } from 'next/server.js';
 
 import { MalformedError } from '@/constants/error.js';
 import { compose } from '@/helpers/compose.js';
-import { createSuccessResponseJSON } from '@/helpers/createSuccessResponseJSON.js';
+import { createSuccessResponseJSON } from '@/helpers/createResponseJSON.js';
 import { createTwitterClientV2 } from '@/helpers/createTwitterClientV2.js';
 import { tweetV2ToPost } from '@/helpers/formatTwitterPost.js';
 import { getThreadTweets } from '@/helpers/getThreadTweets.js';

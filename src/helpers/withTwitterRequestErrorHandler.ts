@@ -1,7 +1,7 @@
 import { StatusCodes } from 'http-status-codes';
 import type { NextRequest } from 'next/server.js';
 
-import { createErrorResponseJSON } from '@/helpers/createErrorResponseJSON.js';
+import { createErrorResponseJSON } from '@/helpers/createResponseJSON.js';
 import { getTwitterErrorMessage } from '@/helpers/getTwitterErrorMessage.js';
 import type { NextRequestContext } from '@/types/index.js';
 

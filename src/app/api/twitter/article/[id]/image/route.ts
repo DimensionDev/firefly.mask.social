@@ -3,8 +3,8 @@ import type { NextRequest } from 'next/server.js';
 
 import { MalformedError } from '@/constants/error.js';
 import { compose } from '@/helpers/compose.js';
-import { createErrorResponseJSON } from '@/helpers/createErrorResponseJSON.js';
 import { createProxyImageResponse } from '@/helpers/createProxyImageResponse.js';
+import { createErrorResponseJSON } from '@/helpers/createResponseJSON.js';
 import { withRequestErrorHandler } from '@/helpers/withRequestErrorHandler.js';
 import { withTwitterRequestErrorHandler } from '@/helpers/withTwitterRequestErrorHandler.js';
 import { getImageUrl } from '@/providers/og/readers/metadata.js';

@@ -1,7 +1,7 @@
 import { t } from '@lingui/macro';
 import { useIsMutating, useMutation } from '@tanstack/react-query';
 
-import { checkFarcasterInvalidSignerKey } from '@/helpers/checkers.js';
+import { checkFarcasterInvalidSignerKey } from '@/helpers/checkFarcasterInvalidSignerKey.js';
 import { enqueueErrorMessage, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { getSnackbarMessageFromError } from '@/helpers/getSnackbarMessageFromError.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';

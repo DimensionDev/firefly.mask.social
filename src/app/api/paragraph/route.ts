@@ -1,6 +1,6 @@
 import { StatusCodes } from 'http-status-codes';
 
-import { createErrorResponseJSON } from '@/helpers/createErrorResponseJSON.js';
+import { createErrorResponseJSON } from '@/helpers/createResponseJSON.js';
 import { getGatewayErrorMessage } from '@/helpers/getGatewayErrorMessage.js';
 import { ParagraphProcessor } from '@/providers/paragraph/Processor.js';
 

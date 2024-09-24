@@ -11,6 +11,6 @@ export function createPageTitleSSR(msgId: string) {
     return createPageTitle(title || msgId);
 }
 
-export function createPageTitleV2(title: string) {
+export function createPageTitleOG(title: string) {
     return `${title} in Firefly`;
 }
