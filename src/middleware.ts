@@ -4,7 +4,7 @@ import urlcat from 'urlcat';
 import { isFollowCategory } from '@/helpers/isFollowCategory.js';
 import { isMatchedDiscoverPage } from '@/helpers/isMatchedDiscoverPage.js';
 import { parseOldEngagementUrl } from '@/helpers/parseEngagementUrl.js';
-import { parseOldProfileUrl } from '@/helpers/parseOldProfileUrl.js';
+import { parseOldProfileUrl } from '@/helpers/parseProfileUrl.js';
 import { parseOldPostUrl } from '@/helpers/parsePostUrl.js';
 import { parseProfileUrl } from '@/helpers/parseProfileUrl.js';
 import { resolveEngagementUrl } from '@/helpers/resolveEngagementUrl.js';
