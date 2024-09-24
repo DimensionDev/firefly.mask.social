@@ -24,7 +24,10 @@ export async function middleware(request: NextRequest) {
 
     const parsedOldProfileUrl = parseOldProfileUrl(request.nextUrl);
     if (parsedOldProfileUrl) {
-        return NextResponse.redirect(resolveProfileUrl(parsedOldProfileUrl.source, parsedOldProfileUrl.id));
+        const destination = request.nextUrl.clone();
+        destination.pathname = resolveProfileUrl(parsedOldProfileUrl.source, parsedOldProfileUrl.id);
+        destination.searchParams.delete('source');
+        return NextResponse.redirect(destination);
     }
 
     const parsedProfileUrl = parseProfileUrl(pathname);
