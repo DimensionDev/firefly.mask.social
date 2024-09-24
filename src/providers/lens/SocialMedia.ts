@@ -35,6 +35,7 @@ import { FireflyPlatform, Source, SourceInURL } from '@/constants/enum.js';
 import { InvalidResultError, NotImplementedError } from '@/constants/error.js';
 import { EMPTY_LIST } from '@/constants/index.js';
 import { SetQueryDataForActPost } from '@/decorators/SetQueryDataForActPost.js';
+import { SetQueryDataForApprovalLensModule } from '@/decorators/SetQueryDataForApprovalLensModule.js';
 import { SetQueryDataForBlockProfile } from '@/decorators/SetQueryDataForBlockProfile.js';
 import { SetQueryDataForBookmarkPost } from '@/decorators/SetQueryDataForBookmarkPost.js';
 import { SetQueryDataForCommentPost } from '@/decorators/SetQueryDataForCommentPost.js';
@@ -108,6 +109,7 @@ const MOMOKA_ERROR_MSG = 'momoka publication is not allowed';
 @SetQueryDataForSuperFollowProfile(Source.Lens)
 @SetQueryDataForActPost(Source.Lens)
 @SetQueryDataForPosts
+@SetQueryDataForApprovalLensModule
 class LensSocialMedia implements Provider {
     getChannelById(channelId: string): Promise<Channel> {
         throw new NotImplementedError();
@@ -991,6 +993,8 @@ class LensSocialMedia implements Provider {
                 await writeLensHubContract('follow', args);
                 return true;
             }
+
+            return true;
         }
 
         await writeLensHubContract('follow', args);
