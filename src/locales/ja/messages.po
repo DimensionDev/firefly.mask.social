@@ -2046,6 +2046,9 @@ msgstr ""
 msgid "No available token"
 msgstr ""
 
+msgid "Firefly Bridge"
+msgstr ""
+
 msgid "Invalid URL"
 msgstr ""
 
