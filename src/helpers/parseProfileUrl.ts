@@ -40,8 +40,8 @@ export function parseOldProfileUrl(url: URL) {
         return { source, id, category: walletTab };
     }
 
-    const categoray = url.searchParams.get('profile_tab');
-    if (!categoray || !isSocialProfileCategory(source, categoray)) return { source, id };
+    const category = url.searchParams.get('profile_tab');
+    if (!category || !isSocialProfileCategory(source, category)) return { source, id };
 
-    return { source, id, categoray };
+    return { source, id, category };
 }

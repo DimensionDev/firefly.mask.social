@@ -18,9 +18,9 @@ export function parseOldDiscoverUrl(url: URL) {
 
     if (!discover) return null;
 
-    const disocverTypes = DISCOVER_TYPES[source];
+    const discoverTypes = DISCOVER_TYPES[source];
 
-    if (!disocverTypes.includes(discover)) return null;
+    if (!discoverTypes.includes(discover)) return null;
 
     return { source, discover };
 }
