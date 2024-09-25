@@ -29,7 +29,7 @@ class FireflyBridgeProvider {
         );
     }
 
-    request<T extends SupportedMethod>(method: T, params?: RequestArguments[T]) {
+    request<T extends SupportedMethod>(method: T, params: RequestArguments[T]) {
         const requestId = uniqueId('bridge');
 
         return timeout(
