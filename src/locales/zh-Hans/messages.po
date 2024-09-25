@@ -2046,6 +2046,9 @@ msgstr "取消隐藏"
 msgid "No available token"
 msgstr "没有适合的代币"
 
+msgid "Firefly Bridge"
+msgstr ""
+
 msgid "Invalid URL"
 msgstr "无效的 URL"
 

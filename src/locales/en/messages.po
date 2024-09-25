@@ -2041,6 +2041,9 @@ msgstr "Unmute"
 msgid "No available token"
 msgstr "No available token"
 
+msgid "Firefly Bridge"
+msgstr "Firefly Bridge"
+
 msgid "Invalid URL"
 msgstr "Invalid URL"
 
