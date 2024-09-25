@@ -146,7 +146,7 @@ export default function Page() {
 
     return (
         <Section>
-            <Headline>
+            <Headline className="sticky top-0 z-10">
                 <Trans>Firefly Bridge</Trans>
             </Headline>
 
