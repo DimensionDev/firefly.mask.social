@@ -20,7 +20,11 @@ export const formatSolanaAddress: Formatter = memoize(function format(address, s
     return `${address.slice(0, Math.max(0, offset + size))}...${address.slice(-size)}`;
 }, resolver);
 
-export const formatEthereumAddress: Formatter = memoize(function formatEthereumAddress(address: string, size = 0, offset = 2) {
+export const formatEthereumAddress: Formatter = memoize(function formatEthereumAddress(
+    address: string,
+    size = 0,
+    offset = 2,
+) {
     if (!isAddress(address)) return address;
     const address_ = checksumAddress(address);
     if (size === 0 || size >= 20) return address_;
