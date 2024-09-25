@@ -111,7 +111,7 @@ export default function Page() {
             </Headline>
 
             {
-                <menu className="w-full">
+                <menu className="no-scrollbar w-full flex-1 overflow-auto">
                     {items.map((x, i) => {
                         return (
                             <ClickableArea

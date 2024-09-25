@@ -90,13 +90,13 @@ export default function Page() {
     };
 
     return (
-        <Section>
-            <Headline className="sticky top-0 z-10">
+        <Section className="h-screen">
+            <Headline>
                 <Trans>Firefly Bridge</Trans>
             </Headline>
 
             {
-                <menu className="w-full">
+                <menu className="no-scrollbar w-full flex-1 overflow-auto">
                     {items.map((x, i) => {
                         return (
                             <ClickableArea
