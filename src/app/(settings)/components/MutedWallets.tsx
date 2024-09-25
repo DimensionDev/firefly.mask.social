@@ -5,10 +5,10 @@ import { WalletItem } from '@/components/WalletItem.js';
 import { ScrollListKey, Source } from '@/constants/enum.js';
 import { createIndicator } from '@/helpers/pageable.js';
 import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
-import type { Relationship } from '@/providers/types/Firefly.js';
+import type { WalletProfile } from '@/providers/types/Firefly.js';
 
-const getMutedWalletItem = (index: number, relation: Relationship, listKey: string) => {
-    return <WalletItem relation={relation} key={`${listKey}-${index}`} />;
+const getMutedWalletItem = (index: number, profile: WalletProfile, listKey: string) => {
+    return <WalletItem profile={profile} key={`${listKey}-${index}`} />;
 };
 
 export function MutedWallets() {
@@ -31,8 +31,8 @@ export function MutedWallets() {
             VirtualListProps={{
                 useWindowScroll: false,
                 listKey: `${ScrollListKey.Profile}:muted`,
-                computeItemKey: (index, relation) => `${relation.address}-${index}`,
-                itemContent: (index, relation) => getMutedWalletItem(index, relation, `${ScrollListKey.Profile}:muted`),
+                computeItemKey: (index, profile) => `${profile.address}-${index}`,
+                itemContent: (index, profile) => getMutedWalletItem(index, profile, `${ScrollListKey.Profile}:muted`),
             }}
             NoResultsFallbackProps={{
                 className: 'mt-20',

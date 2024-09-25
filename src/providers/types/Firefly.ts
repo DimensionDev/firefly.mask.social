@@ -222,7 +222,6 @@ export type Relationship = {
     address: string;
     snsId: string;
     snsPlatform: string;
-    blocked?: boolean;
 };
 
 export type UsersResponse = Response<UsersData>;
@@ -424,6 +423,7 @@ export interface WalletProfile {
     }>;
     avatar?: string;
     primary_ens?: string | null;
+    blocked?: boolean;
 }
 
 export interface LensV3Profile {
