@@ -8,7 +8,7 @@ import { SITE_NAME } from '@/constants/index.js';
 import { enqueueErrorMessage, enqueueInfoMessage } from '@/helpers/enqueueMessage.js';
 import { getSnackbarMessageFromError } from '@/helpers/getSnackbarMessageFromError.js';
 import { fireflyBridgeProvider } from '@/providers/firefly/Bridge.js';
-import { type MethodItem, Platform, SupportedMethod } from '@/types/bridge.js';
+import { type MethodItem, Network, Platform, SupportedMethod } from '@/types/bridge.js';
 
 interface Props {
     item: MethodItem;
@@ -19,17 +19,21 @@ export function MethodButton({ item }: Props) {
         try {
             switch (item.name) {
                 case SupportedMethod.GET_WALLET_ADDRESS: {
-                    const items = await fireflyBridgeProvider.request(SupportedMethod.GET_WALLET_ADDRESS);
+                    const items = await fireflyBridgeProvider.request(SupportedMethod.GET_WALLET_ADDRESS, {
+                        type: Network.All,
+                    });
                     enqueueInfoMessage(items.join(', '));
                     break;
                 }
                 case SupportedMethod.GET_SUPPORTED_METHODS: {
-                    const methods = await fireflyBridgeProvider.request(SupportedMethod.GET_SUPPORTED_METHODS);
+                    const methods = await fireflyBridgeProvider.request(SupportedMethod.GET_SUPPORTED_METHODS, {});
                     enqueueInfoMessage(methods.join(', '));
                     break;
                 }
                 case SupportedMethod.CONNECT_WALLET: {
-                    const { walletAddress } = await fireflyBridgeProvider.request(SupportedMethod.CONNECT_WALLET);
+                    const { walletAddress } = await fireflyBridgeProvider.request(SupportedMethod.CONNECT_WALLET, {
+                        type: Network.All,
+                    });
                     enqueueInfoMessage(walletAddress);
                     break;
                 }

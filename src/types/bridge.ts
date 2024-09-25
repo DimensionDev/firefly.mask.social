@@ -5,6 +5,12 @@ export enum Platform {
     FARCASTER = 'farcaster',
 }
 
+export enum Network {
+    All = 'all',
+    EVM = 'evm',
+    Solana = 'solana',
+}
+
 export enum SupportedMethod {
     GET_SUPPORTED_METHODS = 'getSupportMethod',
     GET_WALLET_ADDRESS = 'getWalletAddress',
@@ -15,9 +21,13 @@ export enum SupportedMethod {
 }
 
 export interface RequestArguments {
-    [SupportedMethod.GET_SUPPORTED_METHODS]: void;
-    [SupportedMethod.GET_WALLET_ADDRESS]: void;
-    [SupportedMethod.CONNECT_WALLET]: void;
+    [SupportedMethod.GET_SUPPORTED_METHODS]: {};
+    [SupportedMethod.GET_WALLET_ADDRESS]: {
+        type: Network;
+    };
+    [SupportedMethod.CONNECT_WALLET]: {
+        type: Network;
+    };
     [SupportedMethod.LOGIN]: {
         platform: Platform;
     };
