@@ -40,6 +40,25 @@ import { SITE_DESCRIPTION, SITE_HOSTNAME, SITE_NAME, SITE_URL } from '@/constant
 import { resolveRPCUrl } from '@/helpers/resolveRPCUrl.js';
 import { settings } from '@/settings/index.js';
 
+const scrollInnerChain: Chain = {
+    id: 221122,
+    name: 'ScrollSDK',
+    nativeCurrency: { name: 'Ether', symbol: 'ETH', decimals: 18 },
+    rpcUrls: {
+        default: {
+            http: ['http://l2-rpc.scrollsdk'],
+        },
+    },
+    blockExplorers: {
+        default: {
+            name: 'blockscout',
+            url: 'http://blockscout.scrollsdk',
+            apiUrl: 'http://rollup-explorer-backend.scrollsdk/api',
+        },
+    },
+    testnet: true,
+};
+
 export const chains = [
     mainnet,
     base,
@@ -56,6 +75,7 @@ export const chains = [
     xLayer,
     metis,
     zora,
+    scrollInnerChain,
 ] as const satisfies Chain[];
 
 function createWagmiConfig(): Config {
