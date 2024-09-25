@@ -3,9 +3,11 @@ import { safeUnreachable } from '@masknet/kit';
 import { headers } from 'next/headers.js';
 
 import { NativeMethodButton } from '@/app/(developers)/components/NativeMethodButton.js';
+import { WebMethodButton } from '@/app/(developers)/components/WebMethodButton.js';
 import { Headline } from '@/app/(settings)/components/Headline.js';
 import { Section } from '@/app/(settings)/components/Section.js';
 import { ClickableArea } from '@/components/ClickableArea.js';
+import { SITE_DESCRIPTION } from '@/constants/index.js';
 import { classNames } from '@/helpers/classNames.js';
 import {
     type HeaderItem,
@@ -15,8 +17,6 @@ import {
     SupportedWebMethod,
     type WebMethodItem,
 } from '@/types/bridge.js';
-import { SITE_DESCRIPTION } from '@/constants/index.js';
-import { WebMethodButton } from '@/app/(developers)/components/WebMethodButton.js';
 
 type Item = (HeaderItem | NativeMethodItem | WebMethodItem) & {
     title: string;
