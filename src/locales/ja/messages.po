@@ -1044,6 +1044,9 @@ msgstr ""
 msgid "{handleOrEnsOrAddress} watched"
 msgstr ""
 
+msgid "{0} {walletHandle}."
+msgstr ""
+
 msgid "Circulating Supply"
 msgstr ""
 

@@ -1044,6 +1044,9 @@ msgstr "書籤"
 msgid "{handleOrEnsOrAddress} watched"
 msgstr "{handleOrEnsOrAddress} 觀察了"
 
+msgid "{0} {walletHandle}."
+msgstr ""
+
 msgid "Circulating Supply"
 msgstr ""
 

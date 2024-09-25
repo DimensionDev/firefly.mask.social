@@ -1039,6 +1039,9 @@ msgstr "Bookmark"
 msgid "{handleOrEnsOrAddress} watched"
 msgstr "{handleOrEnsOrAddress} watched"
 
+msgid "{0} {walletHandle}."
+msgstr "{0} {walletHandle}."
+
 msgid "Circulating Supply"
 msgstr "Circulating Supply"
 

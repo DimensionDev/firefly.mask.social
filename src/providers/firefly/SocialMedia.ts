@@ -3,9 +3,16 @@ import dayjs from 'dayjs';
 import { compact } from 'lodash-es';
 import urlcat from 'urlcat';
 import { v4 as uuid } from 'uuid';
-import { type Hex, isAddress } from 'viem';
+import { type Address, type Hex, isAddress } from 'viem';
 
-import { BookmarkType, FireflyPlatform, type SocialSource, Source, SourceInURL } from '@/constants/enum.js';
+import {
+    BookmarkType,
+    FireflyPlatform,
+    NetworkType,
+    type SocialSource,
+    Source,
+    SourceInURL,
+} from '@/constants/enum.js';
 import { NotFoundError, NotImplementedError } from '@/constants/error.js';
 import { EMPTY_LIST } from '@/constants/index.js';
 import { SetQueryDataForAddWallet } from '@/decorators/SetQueryDataForAddWallet.js';
@@ -73,7 +80,6 @@ import {
     type PostQuotesResponse,
     type ReactorsResponse,
     type RelationResponse,
-    type Relationship,
     type ReportPostParams,
     type Response,
     type SchedulePostPayload,
@@ -85,6 +91,7 @@ import {
     type UploadMediaTokenResponse,
     type UserResponse,
     type UsersResponse,
+    type WalletProfile,
     type WalletProfileResponse,
     WatchType,
 } from '@/providers/types/Firefly.js';
@@ -101,6 +108,7 @@ import {
 } from '@/providers/types/SocialMedia.js';
 import { getAllPlatformProfileFromFirefly } from '@/services/getAllPlatformProfileFromFirefly.js';
 import { getProfilesByIds } from '@/services/getProfilesByIds.js';
+import { getWalletProfileByAddressOrEns } from '@/services/getWalletProfileByAddressOrEns.js';
 import { settings } from '@/settings/index.js';
 import type { ComposeType } from '@/types/compose.js';
 
@@ -911,7 +919,7 @@ export class FireflySocialMedia implements Provider {
         );
     }
 
-    async getBlockedWallets(indicator?: PageIndicator): Promise<Pageable<Relationship, PageIndicator>> {
+    async getBlockedWallets(indicator?: PageIndicator): Promise<Pageable<WalletProfile, PageIndicator>> {
         const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/user/mutelist', {
             size: 20,
             page: indicator?.id ?? 1,
@@ -919,8 +927,23 @@ export class FireflySocialMedia implements Provider {
         });
         const response = await fireflySessionHolder.fetch<BlockedUsersResponse>(url);
 
+        const data = await Promise.all(
+            (response.data?.blocks ?? []).map(async (item) => {
+                const walletProfile = await getWalletProfileByAddressOrEns(item.address);
+                return {
+                    ...(walletProfile || {
+                        address: item.address as Address,
+                        blockchain: NetworkType.Ethereum,
+                        is_connected: false,
+                        verifiedSources: [],
+                    }),
+                    blocked: true,
+                };
+            }),
+        );
+
         return createPageable(
-            (response.data?.blocks ?? []).map((item) => ({ ...item, blocked: true })),
+            data,
             createIndicator(indicator),
             response.data?.nextPage ? createNextIndicator(indicator, `${response.data?.nextPage}`) : undefined,
         );

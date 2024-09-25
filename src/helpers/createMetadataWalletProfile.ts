@@ -6,26 +6,25 @@ import { createPageTitleOG } from '@/helpers/createPageTitle.js';
 import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
 import { formatAddress } from '@/helpers/formatAddress.js';
 import { getStampAvatarByProfileId } from '@/helpers/getStampAvatarByProfileId.js';
-import { resolveFireflyProfiles } from '@/helpers/resolveFireflyProfiles.js';
 import { resolveProfileUrl } from '@/helpers/resolveProfileUrl.js';
-import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
+import { getWalletProfileByAddressOrEns } from '@/services/getWalletProfileByAddressOrEns.js';
 
 export async function createMetadataWalletProfile(addressOrEns: string) {
-    const identity = { id: addressOrEns, source: Source.Wallet } as const;
-    const profiles = await FireflySocialMediaProvider.getAllPlatformProfileByIdentity(identity);
-    const { walletProfile } = resolveFireflyProfiles(identity, profiles);
+    const walletProfile = await getWalletProfileByAddressOrEns(addressOrEns);
     if (!walletProfile) return createSiteMetadata();
+
     const title = walletProfile.primary_ens
         ? createPageTitleOG(walletProfile.primary_ens)
         : createPageTitleOG(`${formatAddress(walletProfile.address, 4)}`);
     const description = walletProfile.address;
-    const images = [getStampAvatarByProfileId(identity.source, identity.id)];
+    const images = [getStampAvatarByProfileId(Source.Wallet, addressOrEns)];
+
     return createSiteMetadata({
         title,
         description,
         openGraph: {
             type: 'profile',
-            url: urlcat(SITE_URL, resolveProfileUrl(identity.source, identity.id)),
+            url: urlcat(SITE_URL, resolveProfileUrl(Source.Wallet, addressOrEns)),
             title,
             description,
             images,

@@ -1044,6 +1044,9 @@ msgstr "收藏"
 msgid "{handleOrEnsOrAddress} watched"
 msgstr "{handleOrEnsOrAddress} 已关注"
 
+msgid "{0} {walletHandle}."
+msgstr ""
+
 msgid "Circulating Supply"
 msgstr "流通总量"
 
