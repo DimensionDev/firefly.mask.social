@@ -1696,9 +1696,6 @@ msgstr ""
 msgid "Schedule"
 msgstr ""
 
-msgid "Post by {0}"
-msgstr ""
-
 msgid "Casts + Replies"
 msgstr ""
 

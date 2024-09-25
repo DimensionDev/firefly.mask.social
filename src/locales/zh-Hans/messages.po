@@ -1701,9 +1701,6 @@ msgstr "报告"
 msgid "Schedule"
 msgstr "定时"
 
-msgid "Post by {0}"
-msgstr "由 {0} 发帖"
-
 msgid "Casts + Replies"
 msgstr "帖子+回复"
 
