@@ -1,8 +1,8 @@
 import { timeout } from '@masknet/kit';
 import { uniqueId } from 'lodash-es';
 
-import { type RequestArguments, type RequestResult, SupportedMethod } from '@/types/bridge.js';
 import { parseJSON } from '@/helpers/parseJSON.js';
+import { type RequestArguments, type RequestResult, SupportedMethod } from '@/types/bridge.js';
 
 function getFireflyAPI() {
     const api = Reflect.get(window, 'FireflyApi') as
