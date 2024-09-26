@@ -18,6 +18,7 @@ export enum SupportedMethod {
     LOGIN = 'login',
     SHARE = 'share',
     COMPOSE = 'compose',
+    BACK = 'back',
 }
 
 export interface RequestArguments {
@@ -39,6 +40,7 @@ export interface RequestArguments {
         platform: Platform;
         urls?: string[];
     };
+    [SupportedMethod.BACK]: {};
 }
 
 export interface RequestResult {
@@ -52,6 +54,7 @@ export interface RequestResult {
     };
     [SupportedMethod.SHARE]: void;
     [SupportedMethod.COMPOSE]: void;
+    [SupportedMethod.BACK]: void;
 }
 
 export interface HeaderItem {

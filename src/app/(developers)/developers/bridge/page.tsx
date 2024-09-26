@@ -72,6 +72,12 @@ const items: Item[] = [
         title: 'Connect Wallet',
         description: 'Connect wallet from firefly app.',
     },
+    {
+        type: 'method',
+        name: SupportedMethod.BACK,
+        title: 'Back',
+        description: 'Close the current page.',
+    },
 ];
 
 export default function Page() {
