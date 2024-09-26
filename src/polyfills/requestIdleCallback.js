@@ -3,7 +3,7 @@ try {
         if (!window.requestIdleCallback) {
             console.info('[polyfill requestIdleCallback]: created');
 
-            window.requestIdleCallback = (cb: IdleRequestCallback, options?: IdleRequestOptions) => {
+            window.requestIdleCallback = (cb, options) => {
                 const start = Date.now();
                 const timer = setTimeout(() => {
                     cb({
@@ -13,7 +13,7 @@ try {
                         },
                     });
                 }, options?.timeout ?? 1);
-                return timer as unknown as number;
+                return timer;
             };
             window.cancelIdleCallback = clearTimeout;
         }

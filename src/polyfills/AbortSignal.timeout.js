@@ -5,7 +5,7 @@ try {
         // https://dom.spec.whatwg.org/#dom-abortsignal-timeout
         AbortSignal.timeout =
             AbortSignal.timeout ||
-            function (milliseconds: number) {
+            function (milliseconds) {
                 const controller = new AbortController();
                 const signal = controller.signal;
                 const signalTimer = setTimeout(() => {
