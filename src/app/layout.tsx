@@ -33,10 +33,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     return (
         <html>
             <head>
-                <Script src="/js/polyfills/base.js" />
-                <Script src="/js/polyfills/dom.js" />
-                <Script src="/js/polyfills/ecmascript.js" />
-                <Script src="/js/polyfills/worker.js" />
+                <Script src="/js/polyfills/base.js" strategy="beforeInteractive" />
+                <Script src="/js/polyfills/dom.js" strategy="beforeInteractive" />
+                <Script src="/js/polyfills/ecmascript.js" strategy="beforeInteractive" />
+                <Script src="/js/polyfills/worker.js" strategy="beforeInteractive" />
                 <Script src="/js/browser-detector.js" defer />
                 <Script src="/js/safary.js" defer />
                 <meta name="theme-color" content="#ffffff" />

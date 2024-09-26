@@ -1,3 +1,5 @@
+'use client';
+
 import { SpeedInsights } from '@vercel/speed-insights/next';
 import { lazy } from 'react';
 
