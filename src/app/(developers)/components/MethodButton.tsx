@@ -22,16 +22,16 @@ export function MethodButton({ item }: Props) {
                     const items = await fireflyBridgeProvider.request(SupportedMethod.GET_WALLET_ADDRESS, {
                         type: Network.All,
                     });
-                    enqueueInfoMessage(items);
+                    enqueueInfoMessage(JSON.stringify(items, null, 2));
                     break;
                 }
                 case SupportedMethod.GET_SUPPORTED_METHODS: {
                     const methods = await fireflyBridgeProvider.request(SupportedMethod.GET_SUPPORTED_METHODS, {});
-                    enqueueInfoMessage(methods);
+                    enqueueInfoMessage(JSON.stringify(methods, null, 2));
                     break;
                 }
                 case SupportedMethod.CONNECT_WALLET: {
-                    const { walletAddress } = await fireflyBridgeProvider.request(SupportedMethod.CONNECT_WALLET, {
+                    const walletAddress = await fireflyBridgeProvider.request(SupportedMethod.CONNECT_WALLET, {
                         type: Network.All,
                     });
                     enqueueInfoMessage(walletAddress);
@@ -50,11 +50,7 @@ export function MethodButton({ item }: Props) {
                 case SupportedMethod.COMPOSE:
                     fireflyBridgeProvider.request(SupportedMethod.COMPOSE, {
                         text: SITE_NAME,
-                        platform: Platform.FARCASTER,
                     });
-                    break;
-                case SupportedMethod.BACK:
-                    fireflyBridgeProvider.request(SupportedMethod.BACK, {});
                     break;
                 case SupportedMethod.BACK:
                     fireflyBridgeProvider.request(SupportedMethod.BACK, {});

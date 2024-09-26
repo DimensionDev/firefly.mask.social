@@ -9,7 +9,7 @@ const NO_RETURN_METHODS = [SupportedMethod.SHARE, SupportedMethod.COMPOSE, Suppo
 function getFireflyAPI() {
     const api = Reflect.get(window, 'FireflyApi') as
         | {
-              callNativeMethod: <T extends SupportedMethod>(method: T, id: string, params: RequestArguments[T]) => void;
+              callNativeMethod: <T extends SupportedMethod>(method: T, id: string, params: string) => void;
           }
         | undefined;
     if (!api) throw new Error('Firefly API is not available');
@@ -40,7 +40,7 @@ class FireflyBridgeProvider {
         const requestId = uniqueId('bridge');
 
         if (NO_RETURN_METHODS.includes(method)) {
-            getFireflyAPI().callNativeMethod(method, requestId, params as RequestArguments[T]);
+            getFireflyAPI().callNativeMethod(method, requestId, JSON.stringify(params as RequestArguments[T]));
             return Promise.resolve() as unknown as RequestResult[T];
         }
 
@@ -57,7 +57,7 @@ class FireflyBridgeProvider {
                 this.installCallbacks();
 
                 // dispatch the request to the native app
-                getFireflyAPI().callNativeMethod(method, requestId, params as RequestArguments[T]);
+                getFireflyAPI().callNativeMethod(method, requestId, JSON.stringify(params as RequestArguments[T]));
             }),
             3 * 60 * 1000 /* 3 minute */,
         ).finally(() => {
