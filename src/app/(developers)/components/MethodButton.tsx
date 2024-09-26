@@ -53,6 +53,9 @@ export function MethodButton({ item }: Props) {
                         platform: Platform.FARCASTER,
                     });
                     break;
+                case SupportedMethod.BACK:
+                    fireflyBridgeProvider.request(SupportedMethod.BACK, {});
+                    break;
                 default:
                     safeUnreachable(item.name);
                     break;
