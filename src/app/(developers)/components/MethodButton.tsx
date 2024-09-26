@@ -32,24 +32,24 @@ export function MethodButton({ item }: Props) {
                 }
                 case SupportedMethod.GET_AUTHORIZATION: {
                     const token = await fireflyBridgeProvider.request(SupportedMethod.GET_AUTHORIZATION, {});
-                    enqueueInfoMessage(token);
+                    enqueueInfoMessage(`Authorization: ${token}`);
                     break;
                 }
                 case SupportedMethod.GET_THEME: {
                     const theme = await fireflyBridgeProvider.request(SupportedMethod.GET_THEME, {});
-                    enqueueInfoMessage(JSON.stringify(theme, null, 2));
+                    enqueueInfoMessage(`Theme: ${theme}`);
                     break;
                 }
                 case SupportedMethod.GET_LANGUAGE: {
                     const language = await fireflyBridgeProvider.request(SupportedMethod.GET_LANGUAGE, {});
-                    enqueueInfoMessage(language);
+                    enqueueInfoMessage(`Language: ${language}`);
                     break;
                 }
                 case SupportedMethod.CONNECT_WALLET: {
                     const walletAddress = await fireflyBridgeProvider.request(SupportedMethod.CONNECT_WALLET, {
                         type: Network.All,
                     });
-                    enqueueInfoMessage(walletAddress);
+                    enqueueInfoMessage(`Wallet Address: ${walletAddress}`);
                     break;
                 }
                 case SupportedMethod.LOGIN: {
