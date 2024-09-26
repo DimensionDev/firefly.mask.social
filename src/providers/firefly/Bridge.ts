@@ -18,7 +18,7 @@ function getFireflyAPI() {
             }
 
             // ios
-            if (window.webkit && window.webkit.messageHandlers && window.webkit.messageHandlers.callNativeMethod) {
+            if (window.webkit?.messageHandlers?.callNativeMethod) {
                 window.webkit.callNativeMethod.postMessage({
                     method,
                     tag: id,
