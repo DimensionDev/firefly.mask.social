@@ -1,8 +1,6 @@
 try {
     if (typeof window !== 'undefined') {
         function createStorage() {
-            console.info('[polyfill localStorage]: created');
-
             const storage = new Map();
             return {
                 get length() {
@@ -26,7 +24,11 @@ try {
             };
         }
 
-        window.localStorage = window.localStorage || createStorage();
+        if (!window.localStorage) {
+            console.info('[polyfill localStorage]: created');
+
+            window.localStorage = createStorage();
+        }
     }
 } catch (error) {
     console.error(`[polyfill localStorage]: ${error}`);

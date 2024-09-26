@@ -1,5 +1,7 @@
 try {
     if (typeof window !== 'undefined' && 'AbortSignal' in window) {
+        console.info('[polyfill AbortSignal.timeout]: created');
+
         // https://dom.spec.whatwg.org/#dom-abortsignal-timeout
         AbortSignal.timeout =
             AbortSignal.timeout ||
