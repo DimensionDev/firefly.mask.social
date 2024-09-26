@@ -2202,6 +2202,9 @@ msgstr "请在 X 确认登陆。"
 msgid "Max Supply"
 msgstr "最大供应量"
 
+msgid "Posted by {0} via Firefly"
+msgstr ""
+
 msgid "<0>You</0> recasted"
 msgstr "<0>你</0> 已转帖"
 
