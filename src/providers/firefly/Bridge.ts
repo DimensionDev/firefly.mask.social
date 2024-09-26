@@ -23,7 +23,7 @@ function callNativeMethod<T extends SupportedMethod>(method: T, id: string, para
         return;
     }
 
-    throw new Error('Failed to call native method');
+    throw new Error(`Failed to call native method: ${method} ${JSON.stringify(params)}`);
 }
 
 class FireflyBridgeProvider {
