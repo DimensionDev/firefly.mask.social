@@ -6,12 +6,12 @@ import '@/app/globals.css';
 import { GoogleAnalytics } from '@next/third-parties/google';
 import { Inter } from 'next/font/google';
 
+import { LayoutBody } from '@/app/layout-body.js';
 import { Polyfills } from '@/components/Polyfills.js';
 import { Script } from '@/esm/Script.js';
 import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
 import { getLocaleFromCookies } from '@/helpers/getLocaleFromCookies.js';
 import { setLocale } from '@/i18n/index.js';
-import { LayoutBody } from '@/app/layout-body.js';
 
 const inter = Inter({
     subsets: ['latin'],
