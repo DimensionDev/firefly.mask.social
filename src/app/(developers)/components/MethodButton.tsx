@@ -18,6 +18,11 @@ export function MethodButton({ item }: Props) {
     const [{ loading }, onClick] = useAsyncFn(async () => {
         try {
             switch (item.name) {
+                case SupportedMethod.GET_SUPPORTED_METHODS: {
+                    const methods = await fireflyBridgeProvider.request(SupportedMethod.GET_SUPPORTED_METHODS, {});
+                    enqueueInfoMessage(JSON.stringify(methods, null, 2));
+                    break;
+                }
                 case SupportedMethod.GET_WALLET_ADDRESS: {
                     const items = await fireflyBridgeProvider.request(SupportedMethod.GET_WALLET_ADDRESS, {
                         type: Network.All,
@@ -25,9 +30,19 @@ export function MethodButton({ item }: Props) {
                     enqueueInfoMessage(JSON.stringify(items, null, 2));
                     break;
                 }
-                case SupportedMethod.GET_SUPPORTED_METHODS: {
-                    const methods = await fireflyBridgeProvider.request(SupportedMethod.GET_SUPPORTED_METHODS, {});
-                    enqueueInfoMessage(JSON.stringify(methods, null, 2));
+                case SupportedMethod.GET_AUTHORIZATION: {
+                    const token = await fireflyBridgeProvider.request(SupportedMethod.GET_AUTHORIZATION, {});
+                    enqueueInfoMessage(token);
+                    break;
+                }
+                case SupportedMethod.GET_THEME: {
+                    const theme = await fireflyBridgeProvider.request(SupportedMethod.GET_THEME, {});
+                    enqueueInfoMessage(JSON.stringify(theme, null, 2));
+                    break;
+                }
+                case SupportedMethod.GET_LANGUAGE: {
+                    const language = await fireflyBridgeProvider.request(SupportedMethod.GET_LANGUAGE, {});
+                    enqueueInfoMessage(language);
                     break;
                 }
                 case SupportedMethod.CONNECT_WALLET: {
