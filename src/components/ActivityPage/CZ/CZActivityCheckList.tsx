@@ -1,9 +1,6 @@
 'use client';
 
 import { Trans } from '@lingui/macro';
-import { useQuery } from '@tanstack/react-query';
-import urlcat from 'urlcat';
-import { useAccount } from 'wagmi';
 
 import CircleFailIcon from '@/assets/circle-fail.svg';
 import CircleSuccessIcon from '@/assets/circle-success.svg';
@@ -12,26 +9,10 @@ import { CZActivityClaimButton } from '@/components/ActivityPage/CZ/CZActivityCl
 import { Source } from '@/constants/enum.js';
 import { Link } from '@/esm/Link.js';
 import { resolveProfileUrl } from '@/helpers/resolveProfileUrl.js';
-import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
-import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
-import { CZActivity } from '@/providers/types/Firefly.js';
-import { settings } from '@/settings/index.js';
+import { useCZActivityCheckResponse } from '@/hooks/useCZActivityCheckResponse.js';
 
 export function CZActivityCheckList() {
-    const account = useAccount();
-    const twitterProfile = useCurrentProfile(Source.Twitter);
-    const { data, isLoading } = useQuery({
-        queryKey: ['cz-activity-check', account.address, !!twitterProfile],
-        async queryFn() {
-            const response = await fireflySessionHolder.fetch<CZActivity.CheckResponse>(
-                urlcat(settings.FIREFLY_ROOT_URL, '/v1/misc/activity/checkBnbcz', {
-                    address: account.address!,
-                }),
-            );
-            return response.data;
-        },
-        enabled: !!account.address && !!twitterProfile,
-    });
+    const { data, isLoading } = useCZActivityCheckResponse();
     const basicChecklist = [
         {
             icon: <FollowIcon width={16} height={16} />,

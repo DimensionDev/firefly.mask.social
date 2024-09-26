@@ -1,4 +1,4 @@
-import { Trans } from '@lingui/macro';
+import { t, Trans } from '@lingui/macro';
 import { type HTMLProps, useState } from 'react';
 import { useAsyncFn } from 'react-use';
 import urlcat from 'urlcat';
@@ -7,8 +7,10 @@ import { useAccount } from 'wagmi';
 import LoadingIcon from '@/assets/loading.svg';
 import { CZActivityClaimSuccessDialog } from '@/components/ActivityPage/CZ/CZActivityClaimSuccessDialog.js';
 import { classNames } from '@/helpers/classNames.js';
+import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
+import { getSnackbarMessageFromError } from '@/helpers/getSnackbarMessageFromError.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
-import { CZActivity } from '@/providers/types/Firefly.js';
+import { CZActivity, type Response } from '@/providers/types/Firefly.js';
 import { settings } from '@/settings/index.js';
 
 interface Props extends HTMLProps<'button'> {
@@ -25,14 +27,25 @@ export function CZActivityClaimButton({ level, alreadyClaimed, canClaim, isLoadi
     const [open, setOpen] = useState(false);
     const [{ loading }, claim] = useAsyncFn(async () => {
         if (!disabled || !address) return;
-        await fireflySessionHolder.fetch(urlcat(settings.FIREFLY_ROOT_URL, '/v1/wallet_transaction/mint/bnb/sbt'), {
-            method: 'POST',
-            body: JSON.stringify({
-                walletAddress: address,
-                claimPlatform: 'web',
-            }),
-        });
-        setOpen(true);
+        try {
+            const response = await fireflySessionHolder.fetch<Response<{}>>(
+                urlcat(settings.FIREFLY_ROOT_URL, '/v1/wallet_transaction/mint/bnb/sbt'),
+                {
+                    method: 'POST',
+                    body: JSON.stringify({
+                        walletAddress: address,
+                        claimPlatform: 'web',
+                    }),
+                },
+            );
+            if (!response.error) {
+                throw new Error(response.error?.[0] ?? t`Unknown error`);
+            }
+            setOpen(true);
+        } catch (error) {
+            enqueueErrorMessage(getSnackbarMessageFromError(error, t`Unknown error`));
+            throw error;
+        }
     });
 
     return (

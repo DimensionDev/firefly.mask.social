@@ -999,7 +999,7 @@ export module CZActivity {
         Lv2 = 'lv2',
     }
 
-    interface X {
+    export interface X {
         twitterId: string;
         address: string;
         following: boolean;
@@ -1008,7 +1008,7 @@ export module CZActivity {
         level: Level;
     }
 
-    interface BnbId {
+    export interface BnbId {
         lessThan4Char: boolean;
         name: string;
         address: string;
@@ -1016,13 +1016,13 @@ export module CZActivity {
         level: Level;
     }
 
-    interface Firefly {
+    export interface Firefly {
         isNew: boolean;
         valid: boolean;
         level: Level;
     }
 
-    interface BnbBalance {
+    export interface BnbBalance {
         address: string;
         balance: number;
         valid: boolean;

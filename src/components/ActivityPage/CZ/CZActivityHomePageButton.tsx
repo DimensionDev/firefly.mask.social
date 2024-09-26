@@ -1,10 +1,8 @@
 'use client';
 
 import { Trans } from '@lingui/macro';
-import { useQuery } from '@tanstack/react-query';
 import { usePathname } from 'next/navigation.js';
 import { signIn } from 'next-auth/react';
-import urlcat from 'urlcat';
 import { useAccount } from 'wagmi';
 
 import LoadingIcon from '@/assets/loading.svg';
@@ -13,27 +11,14 @@ import { PageRoute, Source } from '@/constants/enum.js';
 import { Link } from '@/esm/Link.js';
 import { isRoutePathname } from '@/helpers/isRoutePathname.js';
 import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
+import { useCZActivityCheckResponse } from '@/hooks/useCZActivityCheckResponse.js';
 import { ConnectModalRef } from '@/modals/controls.js';
-import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
-import { CZActivity } from '@/providers/types/Firefly.js';
-import { settings } from '@/settings/index.js';
 
 export function CZActivityHomePageButton() {
     const account = useAccount();
     const twitterProfile = useCurrentProfile(Source.Twitter);
     const pathname = usePathname();
-    const { data, isLoading } = useQuery({
-        queryKey: ['cz-activity-check', account.address, !!twitterProfile],
-        async queryFn() {
-            const response = await fireflySessionHolder.fetch<CZActivity.CheckResponse>(
-                urlcat(settings.FIREFLY_ROOT_URL, '/v1/misc/activity/checkBnbcz', {
-                    address: account.address!,
-                }),
-            );
-            return response.data;
-        },
-        enabled: !!account.address && !!twitterProfile,
-    });
+    const { data, isLoading } = useCZActivityCheckResponse();
 
     if (!twitterProfile) {
         return (

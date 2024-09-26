@@ -75,6 +75,9 @@ msgstr "售卖税率: {0}%"
 msgid "Failed to translate post. Please retry later."
 msgstr "翻译失败。请稍后重试。"
 
+msgid "Firefly user"
+msgstr ""
+
 msgid "Failed to fetch as Blob."
 msgstr "获取 Blob 失败。"
 
@@ -144,6 +147,9 @@ msgstr "您引用/回复的帖子已经被删除了。"
 msgid "Display Name"
 msgstr "显示名称"
 
+msgid "You will be upgraded to the Premium airdrop if the assets in your current wallet on the BNB Chain are valued at over <0>US$10,000</0>."
+msgstr ""
+
 msgid "Debug Connection"
 msgstr "诊断网络"
 
@@ -179,6 +185,9 @@ msgstr "可以暂停交易的功能"
 
 msgid "<0>The maximum number of coins coded to exist in the lifetime of the cryptocurrency. It is comparable to the maximum number of issuable shares in the stock market.</0><1>Max Supply = Theoretical maximum as coded</1>"
 msgstr "<0>加密货币生命周期存在的最大发行数量。它与股票市场中可发行股票的最大数量相当。</0><1>最大供应量 = 理论最大值</1>"
+
+msgid "Unknown error"
+msgstr ""
 
 msgid "More"
 msgstr "更多"
@@ -366,6 +375,9 @@ msgstr "{0} 隐藏的频道"
 msgid "[Video]"
 msgstr "[视频]"
 
+msgid "The event will run from September 28, 2024, 14:00 (UTC+8) to October 8, 2024, 23:59 (UTC)."
+msgstr ""
+
 msgid "The author is muted by you."
 msgstr "此作者已被隐藏。"
 
@@ -531,6 +543,9 @@ msgstr "1分钟剩余"
 msgid "Congratulation!"
 msgstr ""
 
+msgid "You will be upgraded to the Premium airdrop if you are an elite Firefly user."
+msgstr ""
+
 msgid "Items"
 msgstr "条目"
 
@@ -596,6 +611,9 @@ msgstr ""
 
 msgid "Failed to upload. Not a valid image type"
 msgstr "上传失败。图片格式不支持"
+
+msgid "Owned a .bnb domain"
+msgstr ""
 
 msgid "Failed to upload. Image size exceeds {0}"
 msgstr "上传失败。图片超过最大限制 {0}"
@@ -876,8 +894,14 @@ msgstr "选项 {0}"
 msgid "Send Feedback"
 msgstr "提交反馈"
 
+msgid "CZ-Welcome Back Airdrop"
+msgstr ""
+
 msgid "Your draft was saved."
 msgstr "草稿已被保存"
+
+msgid "BNB Chain asset holder"
+msgstr ""
 
 msgid "The chainId mismatch."
 msgstr "chainId 不匹配"
@@ -1056,6 +1080,9 @@ msgstr "发布成功。"
 msgid "Login with Farcaster"
 msgstr "使用 Farcaster 登录"
 
+msgid "Event runs from September 29, 2024, 12:00 UTC to October 8, 2024, 23:59 UTC."
+msgstr ""
+
 msgid "Bio should not exceed {maxBioSize} characters"
 msgstr "个人介绍不可以超过 {maxBioSize} 个字"
 
@@ -1139,6 +1166,9 @@ msgstr "衡量过去 24 小时内所有平台上加密货币交易量的指标�
 
 msgid "Failed to recast."
 msgstr "转帖失败。"
+
+msgid "Your current X account must follow <0>@cz_binance</0> to qualify, and it will be upgraded to the Premium airdrop if it is <1>X Premium Account</1>."
+msgstr ""
 
 msgid "No post found"
 msgstr "未找到帖子"
@@ -1590,6 +1620,9 @@ msgstr "将在 {0} {1} 发送"
 msgid "Failed to like the post."
 msgstr "点赞失败。"
 
+msgid "Your current wallet must own a .bnb domain to qualify, and it will be upgraded to the Premium airdrop if the domain is a <0>SPACE ID Premier Club member</0>."
+msgstr ""
+
 msgid "Failed to repost."
 msgstr "转帖失败。"
 
@@ -1802,6 +1835,9 @@ msgstr "帖子将在 {1} {0} 上发送 <0>查看</0>"
 
 msgid "Failed to create scheduled post."
 msgstr "创建定时任务失败"
+
+msgid "Followed @cz_binance on X"
+msgstr ""
 
 msgid "I don’t use anymore."
 msgstr "我已经不再使用。"
@@ -2101,6 +2137,9 @@ msgid "No available token"
 msgstr "没有适合的代币"
 
 msgid "Firefly Bridge"
+msgstr ""
+
+msgid "Claim Requirements"
 msgstr ""
 
 msgid "Invalid URL"

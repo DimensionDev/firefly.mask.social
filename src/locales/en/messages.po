@@ -70,6 +70,9 @@ msgstr "Sell Tax: {0}%"
 msgid "Failed to translate post. Please retry later."
 msgstr "Failed to translate post. Please retry later."
 
+msgid "Firefly user"
+msgstr "Firefly user"
+
 msgid "Failed to fetch as Blob."
 msgstr "Failed to fetch as Blob."
 
@@ -139,6 +142,9 @@ msgstr "The post you quoted/replied has already deleted"
 msgid "Display Name"
 msgstr "Display Name"
 
+msgid "You will be upgraded to the Premium airdrop if the assets in your current wallet on the BNB Chain are valued at over <0>US$10,000</0>."
+msgstr "You will be upgraded to the Premium airdrop if the assets in your current wallet on the BNB Chain are valued at over <0>US$10,000</0>."
+
 msgid "Debug Connection"
 msgstr "Debug Connection"
 
@@ -174,6 +180,9 @@ msgstr "Functions that can suspend trading"
 
 msgid "<0>The maximum number of coins coded to exist in the lifetime of the cryptocurrency. It is comparable to the maximum number of issuable shares in the stock market.</0><1>Max Supply = Theoretical maximum as coded</1>"
 msgstr "<0>The maximum number of coins coded to exist in the lifetime of the cryptocurrency. It is comparable to the maximum number of issuable shares in the stock market.</0><1>Max Supply = Theoretical maximum as coded</1>"
+
+msgid "Unknown error"
+msgstr "Unknown error"
 
 msgid "More"
 msgstr "More"
@@ -361,6 +370,9 @@ msgstr "{0} muted channels"
 msgid "[Video]"
 msgstr "[Video]"
 
+msgid "The event will run from September 28, 2024, 14:00 (UTC+8) to October 8, 2024, 23:59 (UTC)."
+msgstr "The event will run from September 28, 2024, 14:00 (UTC+8) to October 8, 2024, 23:59 (UTC)."
+
 msgid "The author is muted by you."
 msgstr "The author is muted by you."
 
@@ -526,6 +538,9 @@ msgstr "1m left"
 msgid "Congratulation!"
 msgstr "Congratulation!"
 
+msgid "You will be upgraded to the Premium airdrop if you are an elite Firefly user."
+msgstr "You will be upgraded to the Premium airdrop if you are an elite Firefly user."
+
 msgid "Items"
 msgstr "Items"
 
@@ -591,6 +606,9 @@ msgstr "In addition to meeting the Basic Criteria, fulfill any of the following 
 
 msgid "Failed to upload. Not a valid image type"
 msgstr "Failed to upload. Not a valid image type"
+
+msgid "Owned a .bnb domain"
+msgstr "Owned a .bnb domain"
 
 msgid "Failed to upload. Image size exceeds {0}"
 msgstr "Failed to upload. Image size exceeds {0}"
@@ -871,8 +889,14 @@ msgstr "Choice {0}"
 msgid "Send Feedback"
 msgstr "Send Feedback"
 
+msgid "CZ-Welcome Back Airdrop"
+msgstr "CZ-Welcome Back Airdrop"
+
 msgid "Your draft was saved."
 msgstr "Your draft was saved."
+
+msgid "BNB Chain asset holder"
+msgstr "BNB Chain asset holder"
 
 msgid "The chainId mismatch."
 msgstr "The chainId mismatch."
@@ -1051,6 +1075,9 @@ msgstr "Your post has published successfully."
 msgid "Login with Farcaster"
 msgstr "Login with Farcaster"
 
+msgid "Event runs from September 29, 2024, 12:00 UTC to October 8, 2024, 23:59 UTC."
+msgstr "Event runs from September 29, 2024, 12:00 UTC to October 8, 2024, 23:59 UTC."
+
 msgid "Bio should not exceed {maxBioSize} characters"
 msgstr "Bio should not exceed {maxBioSize} characters"
 
@@ -1134,6 +1161,9 @@ msgstr "A measure of a cryptocurrency trading volume across all tracked platform
 
 msgid "Failed to recast."
 msgstr "Failed to recast."
+
+msgid "Your current X account must follow <0>@cz_binance</0> to qualify, and it will be upgraded to the Premium airdrop if it is <1>X Premium Account</1>."
+msgstr "Your current X account must follow <0>@cz_binance</0> to qualify, and it will be upgraded to the Premium airdrop if it is <1>X Premium Account</1>."
 
 msgid "No post found"
 msgstr "No post found"
@@ -1585,6 +1615,9 @@ msgstr "will send on {0} at {1}"
 msgid "Failed to like the post."
 msgstr "Failed to like the post."
 
+msgid "Your current wallet must own a .bnb domain to qualify, and it will be upgraded to the Premium airdrop if the domain is a <0>SPACE ID Premier Club member</0>."
+msgstr "Your current wallet must own a .bnb domain to qualify, and it will be upgraded to the Premium airdrop if the domain is a <0>SPACE ID Premier Club member</0>."
+
 msgid "Failed to repost."
 msgstr "Failed to repost."
 
@@ -1797,6 +1830,9 @@ msgstr "Your post will be sent on {0} at {1} <0>View</0>"
 
 msgid "Failed to create scheduled post."
 msgstr "Failed to create scheduled post."
+
+msgid "Followed @cz_binance on X"
+msgstr "Followed @cz_binance on X"
 
 msgid "I don’t use anymore."
 msgstr "I don’t use anymore."
@@ -2097,6 +2133,9 @@ msgstr "No available token"
 
 msgid "Firefly Bridge"
 msgstr "Firefly Bridge"
+
+msgid "Claim Requirements"
+msgstr "Claim Requirements"
 
 msgid "Invalid URL"
 msgstr "Invalid URL"

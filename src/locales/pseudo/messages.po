@@ -70,6 +70,9 @@ msgstr ""
 msgid "Failed to translate post. Please retry later."
 msgstr ""
 
+msgid "Firefly user"
+msgstr ""
+
 msgid "Failed to fetch as Blob."
 msgstr ""
 
@@ -139,6 +142,9 @@ msgstr ""
 msgid "Display Name"
 msgstr ""
 
+msgid "You will be upgraded to the Premium airdrop if the assets in your current wallet on the BNB Chain are valued at over <0>US$10,000</0>."
+msgstr ""
+
 msgid "Debug Connection"
 msgstr ""
 
@@ -173,6 +179,9 @@ msgid "Functions that can suspend trading"
 msgstr ""
 
 msgid "<0>The maximum number of coins coded to exist in the lifetime of the cryptocurrency. It is comparable to the maximum number of issuable shares in the stock market.</0><1>Max Supply = Theoretical maximum as coded</1>"
+msgstr ""
+
+msgid "Unknown error"
 msgstr ""
 
 msgid "More"
@@ -361,6 +370,9 @@ msgstr ""
 msgid "[Video]"
 msgstr ""
 
+msgid "The event will run from September 28, 2024, 14:00 (UTC+8) to October 8, 2024, 23:59 (UTC)."
+msgstr ""
+
 msgid "The author is muted by you."
 msgstr ""
 
@@ -526,6 +538,9 @@ msgstr ""
 msgid "Congratulation!"
 msgstr ""
 
+msgid "You will be upgraded to the Premium airdrop if you are an elite Firefly user."
+msgstr ""
+
 msgid "Items"
 msgstr ""
 
@@ -590,6 +605,9 @@ msgid "In addition to meeting the Basic Criteria, fulfill any of the following t
 msgstr ""
 
 msgid "Failed to upload. Not a valid image type"
+msgstr ""
+
+msgid "Owned a .bnb domain"
 msgstr ""
 
 msgid "Failed to upload. Image size exceeds {0}"
@@ -871,7 +889,13 @@ msgstr ""
 msgid "Send Feedback"
 msgstr ""
 
+msgid "CZ-Welcome Back Airdrop"
+msgstr ""
+
 msgid "Your draft was saved."
+msgstr ""
+
+msgid "BNB Chain asset holder"
 msgstr ""
 
 msgid "The chainId mismatch."
@@ -1051,6 +1075,9 @@ msgstr ""
 msgid "Login with Farcaster"
 msgstr ""
 
+msgid "Event runs from September 29, 2024, 12:00 UTC to October 8, 2024, 23:59 UTC."
+msgstr ""
+
 msgid "Bio should not exceed {maxBioSize} characters"
 msgstr ""
 
@@ -1133,6 +1160,9 @@ msgid "A measure of a cryptocurrency trading volume across all tracked platforms
 msgstr ""
 
 msgid "Failed to recast."
+msgstr ""
+
+msgid "Your current X account must follow <0>@cz_binance</0> to qualify, and it will be upgraded to the Premium airdrop if it is <1>X Premium Account</1>."
 msgstr ""
 
 msgid "No post found"
@@ -1585,6 +1615,9 @@ msgstr ""
 msgid "Failed to like the post."
 msgstr ""
 
+msgid "Your current wallet must own a .bnb domain to qualify, and it will be upgraded to the Premium airdrop if the domain is a <0>SPACE ID Premier Club member</0>."
+msgstr ""
+
 msgid "Failed to repost."
 msgstr ""
 
@@ -1796,6 +1829,9 @@ msgid "Your post will be sent on {0} at {1} <0>View</0>"
 msgstr ""
 
 msgid "Failed to create scheduled post."
+msgstr ""
+
+msgid "Followed @cz_binance on X"
 msgstr ""
 
 msgid "I don’t use anymore."
@@ -2096,6 +2132,9 @@ msgid "No available token"
 msgstr ""
 
 msgid "Firefly Bridge"
+msgstr ""
+
+msgid "Claim Requirements"
 msgstr ""
 
 msgid "Invalid URL"
