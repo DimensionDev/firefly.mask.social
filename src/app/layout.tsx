@@ -1,8 +1,5 @@
 /* cspell:disable */
 
-// eslint-disable-next-line simple-import-sort/imports
-import '@/polyfills/index.js';
-
 import '@dialectlabs/blinks/index.css';
 import '@/app/globals.css';
 
