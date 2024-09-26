@@ -45,20 +45,16 @@ export function MethodButton({ item }: Props) {
                     break;
                 }
                 case SupportedMethod.SHARE:
-                    fireflyBridgeProvider.request(SupportedMethod.SHARE, { text: SITE_NAME }, true);
+                    fireflyBridgeProvider.request(SupportedMethod.SHARE, { text: SITE_NAME });
                     break;
                 case SupportedMethod.COMPOSE:
-                    fireflyBridgeProvider.request(
-                        SupportedMethod.COMPOSE,
-                        {
-                            text: SITE_NAME,
-                            platform: Platform.FARCASTER,
-                        },
-                        true,
-                    );
+                    fireflyBridgeProvider.request(SupportedMethod.COMPOSE, {
+                        text: SITE_NAME,
+                        platform: Platform.FARCASTER,
+                    });
                     break;
                 case SupportedMethod.BACK:
-                    fireflyBridgeProvider.request(SupportedMethod.BACK, {}, true);
+                    fireflyBridgeProvider.request(SupportedMethod.BACK, {});
                     break;
                 case SupportedMethod.BACK:
                     fireflyBridgeProvider.request(SupportedMethod.BACK, {});

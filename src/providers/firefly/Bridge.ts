@@ -4,6 +4,8 @@ import { uniqueId } from 'lodash-es';
 import { parseJSON } from '@/helpers/parseJSON.js';
 import { type RequestArguments, type RequestResult, SupportedMethod } from '@/types/bridge.js';
 
+const NO_RETURN_METHODS = [SupportedMethod.SHARE, SupportedMethod.COMPOSE, SupportedMethod.BACK];
+
 function getFireflyAPI() {
     const api = Reflect.get(window, 'FireflyApi') as
         | {
@@ -34,10 +36,10 @@ class FireflyBridgeProvider {
         );
     }
 
-    request<T extends SupportedMethod>(method: T, params: RequestArguments[T], noReturn = false) {
+    request<T extends SupportedMethod>(method: T, params: RequestArguments[T]) {
         const requestId = uniqueId('bridge');
 
-        if (noReturn) {
+        if (NO_RETURN_METHODS.includes(method)) {
             getFireflyAPI().callNativeMethod(method, requestId, params as RequestArguments[T]);
             return Promise.resolve() as unknown as RequestResult[T];
         }
