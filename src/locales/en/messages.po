@@ -2197,6 +2197,9 @@ msgstr "Please confirm the login with X."
 msgid "Max Supply"
 msgstr "Max Supply"
 
+msgid "Posted by {0} via Firefly"
+msgstr "Posted by {0} via Firefly"
+
 msgid "<0>You</0> recasted"
 msgstr "<0>You</0> recasted"
 

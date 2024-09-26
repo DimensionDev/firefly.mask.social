@@ -2202,6 +2202,9 @@ msgstr "請至 X 確認登錄"
 msgid "Max Supply"
 msgstr ""
 
+msgid "Posted by {0} via Firefly"
+msgstr ""
+
 msgid "<0>You</0> recasted"
 msgstr ""
 
