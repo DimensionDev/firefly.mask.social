@@ -106,7 +106,7 @@
             "@masknet/plugin-redpacket/register": ["./src/maskbook/packages/plugins/RedPacket/src/register.ts"]
         }
     },
-    "include": ["csp.js", "globals.d.ts", "next-auth.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
+    "include": ["csp.js", "globals.d.ts", "next-auth.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "src/polyfills/URL.canParse.js", "src/polyfills/requestIdleCallback.js", "src/polyfills/Object.hasOwn.js", "src/polyfills/localStorage.js", "src/polyfills/AbortSignal.timeout.js", "src/polyfills/index.js"],
     "exclude": [
         "node_modules",
         "src/service-workers",

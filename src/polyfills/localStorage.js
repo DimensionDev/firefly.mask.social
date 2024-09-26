@@ -9,16 +9,16 @@ try {
                     get length() {
                         return storage.size;
                     },
-                    getItem(key: string) {
+                    getItem(key) {
                         return storage.get(key);
                     },
-                    setItem(key: string, value: string) {
+                    setItem(key, value) {
                         return storage.set(key, value);
                     },
-                    removeItem(key: string) {
+                    removeItem(key) {
                         return storage.delete(key);
                     },
-                    key(index: number) {
+                    key(index) {
                         return Array.from(storage.keys())[index];
                     },
                     clear() {

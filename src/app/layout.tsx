@@ -36,6 +36,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     return (
         <html>
             <head>
+                <Script src="/js/polyfills/base.js" />
                 <Script src="/js/polyfills/dom.js" />
                 <Script src="/js/polyfills/ecmascript.js" />
                 <Script src="/js/polyfills/worker.js" />

@@ -1,7 +1,7 @@
 if (!URL.canParse) {
     console.info('[polyfill URL.canParse]: created');
 
-    URL.canParse = (url: string) => {
+    URL.canParse = (url) => {
         try {
             new URL(url);
             return true;
