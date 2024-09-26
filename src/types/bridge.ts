@@ -37,8 +37,6 @@ export interface RequestArguments {
     };
     [SupportedMethod.COMPOSE]: {
         text: string;
-        platform: Platform;
-        urls?: string[];
     };
     [SupportedMethod.BACK]: {};
 }
