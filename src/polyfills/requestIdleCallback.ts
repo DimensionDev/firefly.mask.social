@@ -1,10 +1,11 @@
 try {
     if (typeof window !== 'undefined') {
-        window.requestIdleCallback =
-            window.requestIdleCallback ||
-            function (cb, options) {
+        if (!window.requestIdleCallback) {
+            console.info('[polyfill requestIdleCallback]: created');
+
+            window.requestIdleCallback = (cb: IdleRequestCallback, options?: IdleRequestOptions) => {
                 const start = Date.now();
-                return setTimeout(function () {
+                const timer = setTimeout(() => {
                     cb({
                         didTimeout: false,
                         timeRemaining() {
@@ -12,13 +13,10 @@ try {
                         },
                     });
                 }, options?.timeout ?? 1);
+                return timer as unknown as number;
             };
-
-        window.cancelIdleCallback =
-            window.cancelIdleCallback ||
-            function (id) {
-                clearTimeout(id);
-            };
+            window.cancelIdleCallback = clearTimeout;
+        }
     }
 } catch (error) {
     console.error(`[polyfill requestIdleCallback]: ${error}`);

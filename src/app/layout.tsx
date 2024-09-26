@@ -1,5 +1,8 @@
 /* cspell:disable */
 
+// eslint-disable-next-line simple-import-sort/imports
+import '@/polyfills/index.js';
+
 import '@dialectlabs/blinks/index.css';
 import '@/app/globals.css';
 
@@ -7,7 +10,6 @@ import { GoogleAnalytics } from '@next/third-parties/google';
 import { Inter } from 'next/font/google';
 
 import { LayoutBody } from '@/app/layout-body.js';
-import { Polyfills } from '@/components/Polyfills.js';
 import { Script } from '@/esm/Script.js';
 import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
 import { getLocaleFromCookies } from '@/helpers/getLocaleFromCookies.js';
@@ -34,7 +36,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     return (
         <html>
             <head>
-                <Polyfills />
+                <Script src="/js/polyfills/dom.js" />
+                <Script src="/js/polyfills/ecmascript.js" />
+                <Script src="/js/polyfills/worker.js" />
                 <Script src="/js/browser-detector.js" defer />
                 <Script src="/js/safary.js" defer />
                 <meta name="theme-color" content="#ffffff" />
