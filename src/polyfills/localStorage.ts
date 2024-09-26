@@ -1,6 +1,8 @@
 try {
     if (typeof window !== 'undefined') {
         if (!window.localStorage) {
+            console.info('[polyfill localStorage]: created');
+
             function createStorage() {
                 const storage = new Map();
                 return {
