@@ -498,6 +498,9 @@ msgstr "选择账号"
 msgid "POST"
 msgstr "发帖"
 
+msgid "Log in with X"
+msgstr ""
+
 msgid "Failed to unlike the post."
 msgstr "取消点赞失败。"
 
@@ -525,8 +528,14 @@ msgstr "添加另一个帖子..."
 msgid "1m left"
 msgstr "1分钟剩余"
 
+msgid "Congratulation!"
+msgstr ""
+
 msgid "Items"
 msgstr "条目"
+
+msgid "To be eligible for the airdrop, fulfill the following criteria:"
+msgstr ""
 
 msgid "Failed to upload. More than {maxImageCount} images."
 msgstr "上传失败。超过了最大 {maxImageCount} 的图片数量限制。"
@@ -581,6 +590,9 @@ msgstr "未找到。请检查你的 URL [{0}]。"
 
 msgid "Feed"
 msgstr "信息流"
+
+msgid "In addition to meeting the Basic Criteria, fulfill any of the following to upgrade to a premium NFT:"
+msgstr ""
 
 msgid "Failed to upload. Not a valid image type"
 msgstr "上传失败。图片格式不支持"
@@ -639,6 +651,9 @@ msgstr "上传头像失败。"
 msgid "Frame Validator"
 msgstr "Frame 验证器"
 
+msgid "Copy Link"
+msgstr ""
+
 msgid "No proxy"
 msgstr "无代理"
 
@@ -661,6 +676,9 @@ msgid "Update"
 msgstr "更新"
 
 msgid "Failed to follow @{0} on Lens"
+msgstr ""
+
+msgid "Check Eligibility"
 msgstr ""
 
 msgid "You might like"
@@ -872,6 +890,12 @@ msgstr "隐私条款"
 
 msgid "Rainbow Kit"
 msgstr "Rainbow 套件"
+
+msgid "Claim Premium"
+msgstr ""
+
+msgid "Share in a Post"
+msgstr ""
 
 msgid "Forbidden. Please check your permissions."
 msgstr "禁止！请检查您的权限。"
@@ -1416,6 +1440,9 @@ msgstr "或者使用任意社交账户登录"
 msgid "View engagements"
 msgstr "查看互动"
 
+msgid "Followed <0>@cz_binance</0> on X before Sept 21"
+msgstr ""
+
 msgid "Translated"
 msgstr "已翻译"
 
@@ -1463,6 +1490,9 @@ msgstr "取消关注 @{0}"
 
 msgid "Not my wallet address."
 msgstr "不是我的钱包地址。"
+
+msgid "Get a free special edition Firefly NFT for following <0>@cz_binance</0> on X to celebrate CZ’s return!"
+msgstr ""
 
 msgid "Please switch to the wallet consistent with this action"
 msgstr "请切换到与此操作一致的钱包。"
@@ -1710,8 +1740,14 @@ msgstr "图片"
 msgid "Failed to delete post."
 msgstr "删除帖子失败。"
 
+msgid "Claimed"
+msgstr ""
+
 msgid "Copy"
 msgstr "复制"
+
+msgid "Claim"
+msgstr ""
 
 msgid "No available wallet."
 msgstr "没有可用的钱包。"
@@ -1803,6 +1839,9 @@ msgstr "免费<0>铸造</0> 了一个 NFT"
 msgid "Will send on <0>{0} at <1>{1}</1></0>"
 msgstr "将在 <0>{0} <1>{1}</1></0> 发送"
 
+msgid "Basic Criteria"
+msgstr ""
+
 msgid "Failed to continue. Please allow Lens Manager for performing actions without the need to sign each transaction."
 msgstr "无法继续。请允许 Lens Manager 执行操作，而无需对每笔交易进行签名。"
 
@@ -1847,6 +1886,9 @@ msgstr ""
 
 msgid "<0>Bought</0> an NFT worth {costEl}"
 msgstr "<0>购买</0> 一个 NFT 价值 {costEl}"
+
+msgid "Premium Eligibility Criteria"
+msgstr ""
 
 msgid "Post from /{0} will be hidden in your home timeline"
 msgstr "来自 /{0} 的帖子会从您的时间线中隐藏"
@@ -1917,6 +1959,9 @@ msgstr "没有发现可以暂停交易的代码。"
 msgid "Buy Tax: {0}%"
 msgstr "购买税率: {0}%"
 
+msgid "Success!"
+msgstr ""
+
 msgid "<0>You</0> and {0} recasted"
 msgstr "<0> 你 </0> 和 {0} 人都转发了"
 
@@ -1941,6 +1986,9 @@ msgstr "如果您授权此通证给这个网站，您可能会丢失您的资产
 msgid "Unfollow"
 msgstr "取消关注"
 
+msgid "Your BNB Chain wallet holds assets worth over $10,000."
+msgstr ""
+
 msgid "Your {0} account is now connected."
 msgstr "您的 {0} 账户已连接。"
 
@@ -1952,6 +2000,9 @@ msgstr "在 {sourceName} 上已取消对 @{0} 的隐藏。"
 
 msgid "If a suspendable code is included, the token maybe neither be bought nor sold (honeypot risk)."
 msgstr "如果包含可中止的代码，那么通证可能既不能被购买也不会被出售（欺诈风险）。"
+
+msgid "Your .bnb domain is a member of the SPACE ID Premier Club."
+msgstr ""
 
 msgid "Display Name should not exceed {maxDisplayNameSize} characters"
 msgstr "显示名称不可以超过 {maxDisplayNameSize} 个字"
@@ -1967,6 +2018,9 @@ msgstr "正在连接钱包"
 
 msgid "{minutes}m left"
 msgstr "{minutes} 分钟剩余"
+
+msgid "Your X account holds Premium status."
+msgstr ""
 
 msgid "Total Supply"
 msgstr "总供应量"
@@ -2139,6 +2193,9 @@ msgstr "被冻结账户"
 msgid "Recasted"
 msgstr "已转发"
 
+msgid "Premium Criteria"
+msgstr ""
+
 msgid "Failed to parse transaction."
 msgstr "未能解析交易。"
 
@@ -2286,6 +2343,9 @@ msgstr "已转发"
 msgid "Following"
 msgstr "正在关注"
 
+msgid "View transaction on Explorer"
+msgstr ""
+
 msgid "Hours"
 msgstr "小时"
 
@@ -2324,3 +2384,6 @@ msgstr "× {0}"
 
 msgid "Blink Validator"
 msgstr "Blink 验证器"
+
+msgid "Reward for followers"
+msgstr ""

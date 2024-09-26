@@ -493,6 +493,9 @@ msgstr ""
 msgid "POST"
 msgstr ""
 
+msgid "Log in with X"
+msgstr ""
+
 msgid "Failed to unlike the post."
 msgstr ""
 
@@ -520,7 +523,13 @@ msgstr ""
 msgid "1m left"
 msgstr ""
 
+msgid "Congratulation!"
+msgstr ""
+
 msgid "Items"
+msgstr ""
+
+msgid "To be eligible for the airdrop, fulfill the following criteria:"
 msgstr ""
 
 msgid "Failed to upload. More than {maxImageCount} images."
@@ -575,6 +584,9 @@ msgid "Not Found. Please check your URL[{0}]."
 msgstr ""
 
 msgid "Feed"
+msgstr ""
+
+msgid "In addition to meeting the Basic Criteria, fulfill any of the following to upgrade to a premium NFT:"
 msgstr ""
 
 msgid "Failed to upload. Not a valid image type"
@@ -634,6 +646,9 @@ msgstr ""
 msgid "Frame Validator"
 msgstr ""
 
+msgid "Copy Link"
+msgstr ""
+
 msgid "No proxy"
 msgstr ""
 
@@ -656,6 +671,9 @@ msgid "Update"
 msgstr ""
 
 msgid "Failed to follow @{0} on Lens"
+msgstr ""
+
+msgid "Check Eligibility"
 msgstr ""
 
 msgid "You might like"
@@ -866,6 +884,12 @@ msgid "Privacy Policy"
 msgstr ""
 
 msgid "Rainbow Kit"
+msgstr ""
+
+msgid "Claim Premium"
+msgstr ""
+
+msgid "Share in a Post"
 msgstr ""
 
 msgid "Forbidden. Please check your permissions."
@@ -1411,6 +1435,9 @@ msgstr ""
 msgid "View engagements"
 msgstr ""
 
+msgid "Followed <0>@cz_binance</0> on X before Sept 21"
+msgstr ""
+
 msgid "Translated"
 msgstr ""
 
@@ -1457,6 +1484,9 @@ msgid "Unfollow @{0}"
 msgstr ""
 
 msgid "Not my wallet address."
+msgstr ""
+
+msgid "Get a free special edition Firefly NFT for following <0>@cz_binance</0> on X to celebrate CZ’s return!"
 msgstr ""
 
 msgid "Please switch to the wallet consistent with this action"
@@ -1705,7 +1735,13 @@ msgstr ""
 msgid "Failed to delete post."
 msgstr ""
 
+msgid "Claimed"
+msgstr ""
+
 msgid "Copy"
+msgstr ""
+
+msgid "Claim"
 msgstr ""
 
 msgid "No available wallet."
@@ -1798,6 +1834,9 @@ msgstr ""
 msgid "Will send on <0>{0} at <1>{1}</1></0>"
 msgstr ""
 
+msgid "Basic Criteria"
+msgstr ""
+
 msgid "Failed to continue. Please allow Lens Manager for performing actions without the need to sign each transaction."
 msgstr ""
 
@@ -1841,6 +1880,9 @@ msgid "Pay<0> {feeAmount} ${feeSymbol} </0>to follow and get some awesome perks!
 msgstr ""
 
 msgid "<0>Bought</0> an NFT worth {costEl}"
+msgstr ""
+
+msgid "Premium Eligibility Criteria"
 msgstr ""
 
 msgid "Post from /{0} will be hidden in your home timeline"
@@ -1912,6 +1954,9 @@ msgstr ""
 msgid "Buy Tax: {0}%"
 msgstr ""
 
+msgid "Success!"
+msgstr ""
+
 msgid "<0>You</0> and {0} recasted"
 msgstr ""
 
@@ -1936,6 +1981,9 @@ msgstr ""
 msgid "Unfollow"
 msgstr ""
 
+msgid "Your BNB Chain wallet holds assets worth over $10,000."
+msgstr ""
+
 msgid "Your {0} account is now connected."
 msgstr ""
 
@@ -1946,6 +1994,9 @@ msgid "Unmuted @{0} on {sourceName}."
 msgstr ""
 
 msgid "If a suspendable code is included, the token maybe neither be bought nor sold (honeypot risk)."
+msgstr ""
+
+msgid "Your .bnb domain is a member of the SPACE ID Premier Club."
 msgstr ""
 
 msgid "Display Name should not exceed {maxDisplayNameSize} characters"
@@ -1961,6 +2012,9 @@ msgid "Connecting Wallet"
 msgstr ""
 
 msgid "{minutes}m left"
+msgstr ""
+
+msgid "Your X account holds Premium status."
 msgstr ""
 
 msgid "Total Supply"
@@ -2134,6 +2188,9 @@ msgstr ""
 msgid "Recasted"
 msgstr ""
 
+msgid "Premium Criteria"
+msgstr ""
+
 msgid "Failed to parse transaction."
 msgstr ""
 
@@ -2281,6 +2338,9 @@ msgstr ""
 msgid "Following"
 msgstr ""
 
+msgid "View transaction on Explorer"
+msgstr ""
+
 msgid "Hours"
 msgstr ""
 
@@ -2318,4 +2378,7 @@ msgid "× {0}"
 msgstr ""
 
 msgid "Blink Validator"
+msgstr ""
+
+msgid "Reward for followers"
 msgstr ""

@@ -18,6 +18,7 @@ interface ModalProps {
      */
     disableDialogClose?: boolean;
     disableBackdropClose?: boolean;
+    backdropClassName?: string;
 }
 
 export function Modal({
@@ -29,6 +30,7 @@ export function Modal({
     disableScrollLock = true,
     disableDialogClose = false,
     disableBackdropClose = false,
+    backdropClassName,
 }: ModalProps) {
     const ref = useRef<HTMLDivElement>(null);
 
@@ -60,7 +62,7 @@ export function Modal({
                                 leaveTo="opacity-0"
                             >
                                 <div
-                                    className="fixed inset-0 bg-main/25 bg-opacity-30"
+                                    className={classNames('fixed inset-0 bg-main/25 bg-opacity-30', backdropClassName)}
                                     onClick={(ev) => {
                                         ev.preventDefault();
                                         ev.stopPropagation();

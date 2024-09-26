@@ -493,6 +493,9 @@ msgstr "Select Account"
 msgid "POST"
 msgstr "POST"
 
+msgid "Log in with X"
+msgstr "Log in with X"
+
 msgid "Failed to unlike the post."
 msgstr "Failed to unlike the post."
 
@@ -520,8 +523,14 @@ msgstr "Add another post..."
 msgid "1m left"
 msgstr "1m left"
 
+msgid "Congratulation!"
+msgstr "Congratulation!"
+
 msgid "Items"
 msgstr "Items"
+
+msgid "To be eligible for the airdrop, fulfill the following criteria:"
+msgstr "To be eligible for the airdrop, fulfill the following criteria:"
 
 msgid "Failed to upload. More than {maxImageCount} images."
 msgstr "Failed to upload. More than {maxImageCount} images."
@@ -576,6 +585,9 @@ msgstr "Not Found. Please check your URL[{0}]."
 
 msgid "Feed"
 msgstr "Feed"
+
+msgid "In addition to meeting the Basic Criteria, fulfill any of the following to upgrade to a premium NFT:"
+msgstr "In addition to meeting the Basic Criteria, fulfill any of the following to upgrade to a premium NFT:"
 
 msgid "Failed to upload. Not a valid image type"
 msgstr "Failed to upload. Not a valid image type"
@@ -634,6 +646,9 @@ msgstr "Failed to avatar."
 msgid "Frame Validator"
 msgstr "Frame Validator"
 
+msgid "Copy Link"
+msgstr "Copy Link"
+
 msgid "No proxy"
 msgstr "No proxy"
 
@@ -657,6 +672,9 @@ msgstr "Update"
 
 msgid "Failed to follow @{0} on Lens"
 msgstr "Failed to follow @{0} on Lens"
+
+msgid "Check Eligibility"
+msgstr "Check Eligibility"
 
 msgid "You might like"
 msgstr "You might like"
@@ -867,6 +885,12 @@ msgstr "Privacy Policy"
 
 msgid "Rainbow Kit"
 msgstr "Rainbow Kit"
+
+msgid "Claim Premium"
+msgstr "Claim Premium"
+
+msgid "Share in a Post"
+msgstr "Share in a Post"
 
 msgid "Forbidden. Please check your permissions."
 msgstr "Forbidden. Please check your permissions."
@@ -1411,6 +1435,9 @@ msgstr "Or login with any social account"
 msgid "View engagements"
 msgstr "View engagements"
 
+msgid "Followed <0>@cz_binance</0> on X before Sept 21"
+msgstr "Followed <0>@cz_binance</0> on X before Sept 21"
+
 msgid "Translated"
 msgstr "Translated"
 
@@ -1458,6 +1485,9 @@ msgstr "Unfollow @{0}"
 
 msgid "Not my wallet address."
 msgstr "Not my wallet address."
+
+msgid "Get a free special edition Firefly NFT for following <0>@cz_binance</0> on X to celebrate CZ’s return!"
+msgstr "Get a free special edition Firefly NFT for following <0>@cz_binance</0> on X to celebrate CZ’s return!"
 
 msgid "Please switch to the wallet consistent with this action"
 msgstr "Please switch to the wallet consistent with this action"
@@ -1705,8 +1735,14 @@ msgstr "Image"
 msgid "Failed to delete post."
 msgstr "Failed to delete post."
 
+msgid "Claimed"
+msgstr "Claimed"
+
 msgid "Copy"
 msgstr "Copy"
+
+msgid "Claim"
+msgstr "Claim"
 
 msgid "No available wallet."
 msgstr "No available wallet."
@@ -1798,6 +1834,9 @@ msgstr "<0>Minted</0> an NFT for free"
 msgid "Will send on <0>{0} at <1>{1}</1></0>"
 msgstr "Will send on <0>{0} at <1>{1}</1></0>"
 
+msgid "Basic Criteria"
+msgstr "Basic Criteria"
+
 msgid "Failed to continue. Please allow Lens Manager for performing actions without the need to sign each transaction."
 msgstr "Failed to continue. Please allow Lens Manager for performing actions without the need to sign each transaction."
 
@@ -1842,6 +1881,9 @@ msgstr "Pay<0> {feeAmount} ${feeSymbol} </0>to follow and get some awesome perks
 
 msgid "<0>Bought</0> an NFT worth {costEl}"
 msgstr "<0>Bought</0> an NFT worth {costEl}"
+
+msgid "Premium Eligibility Criteria"
+msgstr "Premium Eligibility Criteria"
 
 msgid "Post from /{0} will be hidden in your home timeline"
 msgstr "Post from /{0} will be hidden in your home timeline"
@@ -1912,6 +1954,9 @@ msgstr "No codes found to suspend trading."
 msgid "Buy Tax: {0}%"
 msgstr "Buy Tax: {0}%"
 
+msgid "Success!"
+msgstr "Success!"
+
 msgid "<0>You</0> and {0} recasted"
 msgstr "<0>You</0> and {0} recasted"
 
@@ -1936,6 +1981,9 @@ msgstr "You may lose your assets if giving approval to the website of this token
 msgid "Unfollow"
 msgstr "Unfollow"
 
+msgid "Your BNB Chain wallet holds assets worth over $10,000."
+msgstr "Your BNB Chain wallet holds assets worth over $10,000."
+
 msgid "Your {0} account is now connected."
 msgstr "Your {0} account is now connected."
 
@@ -1947,6 +1995,9 @@ msgstr "Unmuted @{0} on {sourceName}."
 
 msgid "If a suspendable code is included, the token maybe neither be bought nor sold (honeypot risk)."
 msgstr "If a suspendable code is included, the token maybe neither be bought nor sold (honeypot risk)."
+
+msgid "Your .bnb domain is a member of the SPACE ID Premier Club."
+msgstr "Your .bnb domain is a member of the SPACE ID Premier Club."
 
 msgid "Display Name should not exceed {maxDisplayNameSize} characters"
 msgstr "Display Name should not exceed {maxDisplayNameSize} characters"
@@ -1962,6 +2013,9 @@ msgstr "Connecting Wallet"
 
 msgid "{minutes}m left"
 msgstr "{minutes}m left"
+
+msgid "Your X account holds Premium status."
+msgstr "Your X account holds Premium status."
 
 msgid "Total Supply"
 msgstr "Total Supply"
@@ -2134,6 +2188,9 @@ msgstr "Suspended account"
 msgid "Recasted"
 msgstr "Recasted"
 
+msgid "Premium Criteria"
+msgstr "Premium Criteria"
+
 msgid "Failed to parse transaction."
 msgstr "Failed to parse transaction."
 
@@ -2281,6 +2338,9 @@ msgstr "mirrored"
 msgid "Following"
 msgstr "Following"
 
+msgid "View transaction on Explorer"
+msgstr "View transaction on Explorer"
+
 msgid "Hours"
 msgstr "Hours"
 
@@ -2319,3 +2379,6 @@ msgstr "× {0}"
 
 msgid "Blink Validator"
 msgstr "Blink Validator"
+
+msgid "Reward for followers"
+msgstr "Reward for followers"

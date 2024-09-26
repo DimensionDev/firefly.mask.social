@@ -498,6 +498,9 @@ msgstr "選定帳戶"
 msgid "POST"
 msgstr "貼文"
 
+msgid "Log in with X"
+msgstr ""
+
 msgid "Failed to unlike the post."
 msgstr "點讚評論失敗"
 
@@ -525,8 +528,14 @@ msgstr "加入另一則貼文..."
 msgid "1m left"
 msgstr ""
 
+msgid "Congratulation!"
+msgstr ""
+
 msgid "Items"
 msgstr "物品"
+
+msgid "To be eligible for the airdrop, fulfill the following criteria:"
+msgstr ""
 
 msgid "Failed to upload. More than {maxImageCount} images."
 msgstr "上傳失敗。圖片數量超過{maxImageCount} 張。"
@@ -581,6 +590,9 @@ msgstr "未找到。請檢查您的 URL [{0}]"
 
 msgid "Feed"
 msgstr "資訊來源"
+
+msgid "In addition to meeting the Basic Criteria, fulfill any of the following to upgrade to a premium NFT:"
+msgstr ""
 
 msgid "Failed to upload. Not a valid image type"
 msgstr ""
@@ -639,6 +651,9 @@ msgstr ""
 msgid "Frame Validator"
 msgstr "Frame 驗證器"
 
+msgid "Copy Link"
+msgstr ""
+
 msgid "No proxy"
 msgstr "無代理"
 
@@ -661,6 +676,9 @@ msgid "Update"
 msgstr "更新"
 
 msgid "Failed to follow @{0} on Lens"
+msgstr ""
+
+msgid "Check Eligibility"
 msgstr ""
 
 msgid "You might like"
@@ -871,6 +889,12 @@ msgid "Privacy Policy"
 msgstr "隱私政策"
 
 msgid "Rainbow Kit"
+msgstr ""
+
+msgid "Claim Premium"
+msgstr ""
+
+msgid "Share in a Post"
 msgstr ""
 
 msgid "Forbidden. Please check your permissions."
@@ -1416,6 +1440,9 @@ msgstr ""
 msgid "View engagements"
 msgstr "查看互動數據"
 
+msgid "Followed <0>@cz_binance</0> on X before Sept 21"
+msgstr ""
+
 msgid "Translated"
 msgstr ""
 
@@ -1462,6 +1489,9 @@ msgid "Unfollow @{0}"
 msgstr "取消追蹤 @{0}"
 
 msgid "Not my wallet address."
+msgstr ""
+
+msgid "Get a free special edition Firefly NFT for following <0>@cz_binance</0> on X to celebrate CZ’s return!"
 msgstr ""
 
 msgid "Please switch to the wallet consistent with this action"
@@ -1710,8 +1740,14 @@ msgstr "圖片"
 msgid "Failed to delete post."
 msgstr ""
 
+msgid "Claimed"
+msgstr ""
+
 msgid "Copy"
 msgstr "複製"
+
+msgid "Claim"
+msgstr ""
 
 msgid "No available wallet."
 msgstr "沒有可用的錢包。"
@@ -1803,6 +1839,9 @@ msgstr ""
 msgid "Will send on <0>{0} at <1>{1}</1></0>"
 msgstr ""
 
+msgid "Basic Criteria"
+msgstr ""
+
 msgid "Failed to continue. Please allow Lens Manager for performing actions without the need to sign each transaction."
 msgstr ""
 
@@ -1846,6 +1885,9 @@ msgid "Pay<0> {feeAmount} ${feeSymbol} </0>to follow and get some awesome perks!
 msgstr ""
 
 msgid "<0>Bought</0> an NFT worth {costEl}"
+msgstr ""
+
+msgid "Premium Eligibility Criteria"
 msgstr ""
 
 msgid "Post from /{0} will be hidden in your home timeline"
@@ -1917,6 +1959,9 @@ msgstr ""
 msgid "Buy Tax: {0}%"
 msgstr ""
 
+msgid "Success!"
+msgstr ""
+
 msgid "<0>You</0> and {0} recasted"
 msgstr "<0>你</0>和 {0} 轉發了"
 
@@ -1941,6 +1986,9 @@ msgstr ""
 msgid "Unfollow"
 msgstr "取消追蹤"
 
+msgid "Your BNB Chain wallet holds assets worth over $10,000."
+msgstr ""
+
 msgid "Your {0} account is now connected."
 msgstr "您的 {0} 帳戶現已連接。"
 
@@ -1951,6 +1999,9 @@ msgid "Unmuted @{0} on {sourceName}."
 msgstr ""
 
 msgid "If a suspendable code is included, the token maybe neither be bought nor sold (honeypot risk)."
+msgstr ""
+
+msgid "Your .bnb domain is a member of the SPACE ID Premier Club."
 msgstr ""
 
 msgid "Display Name should not exceed {maxDisplayNameSize} characters"
@@ -1966,6 +2017,9 @@ msgid "Connecting Wallet"
 msgstr ""
 
 msgid "{minutes}m left"
+msgstr ""
+
+msgid "Your X account holds Premium status."
 msgstr ""
 
 msgid "Total Supply"
@@ -2139,6 +2193,9 @@ msgstr ""
 msgid "Recasted"
 msgstr ""
 
+msgid "Premium Criteria"
+msgstr ""
+
 msgid "Failed to parse transaction."
 msgstr ""
 
@@ -2286,6 +2343,9 @@ msgstr ""
 msgid "Following"
 msgstr "追蹤中"
 
+msgid "View transaction on Explorer"
+msgstr ""
+
 msgid "Hours"
 msgstr "小時"
 
@@ -2323,4 +2383,7 @@ msgid "× {0}"
 msgstr ""
 
 msgid "Blink Validator"
+msgstr ""
+
+msgid "Reward for followers"
 msgstr ""

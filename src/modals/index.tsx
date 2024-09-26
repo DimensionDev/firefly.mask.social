@@ -14,6 +14,7 @@ import { ConfirmModal } from '@/modals/ConfirmModal.js';
 import { ConnectModal } from '@/modals/ConnectModal.js';
 import { ConnectWalletModal } from '@/modals/ConnectWalletModal.js';
 import * as controls from '@/modals/controls.js';
+import { CZActivityModal } from '@/modals/CZActivityModal.js';
 import { DraggablePopover } from '@/modals/DraggablePopover.js';
 import { EditProfileModal } from '@/modals/EditProfileModal.js';
 import { EnableSignlessModal } from '@/modals/EnableSignlessModal.js';
@@ -49,6 +50,7 @@ export const Modals = memo(function Modals() {
             <CollectPostModal ref={controls.CollectPostModalRef.register} />
             <AddWalletModal ref={controls.AddWalletModalRef.register} />
             <SuperFollowModal ref={controls.SuperFollowModalRef.register} />
+            <CZActivityModal ref={controls.CZActivityModalRef.register} />
         </>
     );
 });

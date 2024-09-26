@@ -1,0 +1,124 @@
+'use client';
+
+import { Trans } from '@lingui/macro';
+import { useQuery } from '@tanstack/react-query';
+import urlcat from 'urlcat';
+import { useAccount } from 'wagmi';
+
+import CircleFailIcon from '@/assets/circle-fail.svg';
+import CircleSuccessIcon from '@/assets/circle-success.svg';
+import FollowIcon from '@/assets/follow.svg';
+import { CZActivityClaimButton } from '@/components/ActivityPage/CZ/CZActivityClaimButton.js';
+import { Source } from '@/constants/enum.js';
+import { Link } from '@/esm/Link.js';
+import { resolveProfileUrl } from '@/helpers/resolveProfileUrl.js';
+import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
+import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
+import { CZActivity } from '@/providers/types/Firefly.js';
+import { settings } from '@/settings/index.js';
+
+export function CZActivityCheckList() {
+    const account = useAccount();
+    const twitterProfile = useCurrentProfile(Source.Twitter);
+    const { data, isLoading } = useQuery({
+        queryKey: ['cz-activity-check', account.address, !!twitterProfile],
+        async queryFn() {
+            const response = await fireflySessionHolder.fetch<CZActivity.CheckResponse>(
+                urlcat(settings.FIREFLY_ROOT_URL, '/v1/misc/activity/checkBnbcz', {
+                    address: account.address!,
+                }),
+            );
+            return response.data;
+        },
+        enabled: !!account.address && !!twitterProfile,
+    });
+    const basicChecklist = [
+        {
+            icon: <FollowIcon width={16} height={16} />,
+            description: (
+                <Trans>
+                    Followed{' '}
+                    <Link className="text-highlight" href={resolveProfileUrl(Source.Twitter, '902926941413453824')}>
+                        @cz_binance
+                    </Link>{' '}
+                    on X before Sept 21
+                </Trans>
+            ),
+            pass: data?.x?.valid,
+        },
+    ];
+    const premiumChecklist = [
+        {
+            description: <Trans>Your X account holds Premium status.</Trans>,
+            pass: data?.x?.hasVerified,
+        },
+        {
+            description: <Trans>Your BNB Chain wallet holds assets worth over $10,000.</Trans>,
+            pass: data?.bnbBalance?.valid,
+        },
+        {
+            description: <Trans>Your .bnb domain is a member of the SPACE ID Premier Club.</Trans>,
+            pass: data?.bnbId?.valid,
+        },
+    ];
+
+    return (
+        <div className="flex min-h-[100svh] w-full flex-1 flex-col space-y-8 bg-black p-6 text-white">
+            <div className="space-y-4">
+                <h5 className="text-md font-bold text-highlight">
+                    <Trans>Basic Criteria</Trans>
+                </h5>
+                <p>
+                    <Trans>To be eligible for the airdrop, fulfill the following criteria:</Trans>
+                </p>
+                <ul className="flex w-full flex-col items-center space-y-3 text-sm font-bold text-white/80">
+                    {basicChecklist.map((item, i) => (
+                        <li key={i} className="flex w-full items-center justify-between">
+                            <p>{item.description}</p>
+                            <div>
+                                {item.pass ? (
+                                    <CircleSuccessIcon className="ml-auto h-4 w-4" />
+                                ) : (
+                                    <CircleFailIcon className="ml-auto h-4 w-4" />
+                                )}
+                            </div>
+                        </li>
+                    ))}
+                </ul>
+            </div>
+
+            <div className="space-y-4">
+                <h5 className="text-md font-bold">
+                    <Trans>Premium Criteria</Trans>
+                </h5>
+                <p>
+                    <Trans>
+                        In addition to meeting the Basic Criteria, fulfill any of the following to upgrade to a premium
+                        NFT:
+                    </Trans>
+                </p>
+                <ul className="flex w-full flex-col items-center space-y-3 text-sm font-bold text-white/80">
+                    {premiumChecklist.map((item, i) => (
+                        <li key={i} className="flex w-full items-center justify-between">
+                            <p>{item.description}</p>
+                            <div>
+                                {item.pass ? (
+                                    <CircleSuccessIcon className="ml-auto h-4 w-4" />
+                                ) : (
+                                    <CircleFailIcon className="ml-auto h-4 w-4" />
+                                )}
+                            </div>
+                        </li>
+                    ))}
+                </ul>
+            </div>
+
+            <CZActivityClaimButton
+                level={data?.level}
+                alreadyClaimed={data?.alreadyClaimed}
+                canClaim={data?.canClaim}
+                isLoading={isLoading}
+            />
+        </div>
+    );
+}
