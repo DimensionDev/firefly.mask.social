@@ -2,6 +2,7 @@ import { timeout } from '@masknet/kit';
 import { uniqueId } from 'lodash-es';
 
 import { type RequestArguments, type RequestResult, SupportedMethod } from '@/types/bridge.js';
+import { parseJSON } from '@/helpers/parseJSON.js';
 
 function getFireflyAPI() {
     const api = Reflect.get(window, 'FireflyApi') as
@@ -42,7 +43,11 @@ class FireflyBridgeProvider {
 
         return timeout(
             new Promise<RequestResult[T]>((resolve, reject) => {
-                this.callbacks.set(requestId, ({ result, error }: { result?: RequestResult[T]; error?: string }) => {
+                this.callbacks.set(requestId, (response: string) => {
+                    const parsed = parseJSON<{ result?: RequestResult[T]; error?: string }>(response);
+                    if (!parsed) throw new Error(`Failed to parse response: ${response}`);
+
+                    const { error, result } = parsed;
                     if (error) reject(error);
                     else resolve(result as RequestResult[T]);
                 });
