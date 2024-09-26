@@ -32,7 +32,7 @@ export async function createMetadataPostById(source: SocialSourceInURL, postId: 
     });
 
     return createSiteMetadata({
-        title: post?.author ? `Post by ${post.author.displayName} via Firefly` : SITE_NAME,
+        title: post?.author ? `Posted by ${post.author.displayName} via Firefly` : SITE_NAME,
         description: post.metadata.content?.content ?? '',
         openGraph: {
             type: 'article',
