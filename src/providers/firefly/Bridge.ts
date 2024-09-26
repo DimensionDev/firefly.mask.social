@@ -6,30 +6,24 @@ import { type RequestArguments, type RequestResult, SupportedMethod } from '@/ty
 
 const NO_RETURN_METHODS = [SupportedMethod.SHARE, SupportedMethod.COMPOSE, SupportedMethod.BACK];
 
-function getFireflyAPI() {
-    return {
-        callNativeMethod: <T extends SupportedMethod>(method: T, id: string, params: RequestArguments[T]) => {
-            // android
-            if (Reflect.get(window, 'webkit')) {
-                Reflect.get(window, 'webkit').messageHandlers.firefly.postMessage(
-                    JSON.stringify({ method, id, params }),
-                );
-                return;
-            }
+function callNativeMethod<T extends SupportedMethod>(method: T, id: string, params: RequestArguments[T]) {
+    // android
+    if (window.FireflyApi) {
+        window.FireflyApi.callNativeMethod(method, id, JSON.stringify(params));
+        return;
+    }
 
-            // ios
-            if (window.webkit?.messageHandlers?.callNativeMethod) {
-                window.webkit.callNativeMethod.postMessage({
-                    method,
-                    tag: id,
-                    params,
-                });
-                return;
-            }
+    // ios
+    if (window.webkit?.messageHandlers?.callNativeMethod) {
+        window.webkit.callNativeMethod.postMessage({
+            method,
+            tag: id,
+            params,
+        });
+        return;
+    }
 
-            throw new Error('Failed to call native method');
-        },
-    };
+    throw new Error('Failed to call native method');
 }
 
 class FireflyBridgeProvider {
@@ -56,7 +50,7 @@ class FireflyBridgeProvider {
         const requestId = uniqueId('bridge');
 
         if (NO_RETURN_METHODS.includes(method)) {
-            getFireflyAPI().callNativeMethod(method, requestId, params as RequestArguments[T]);
+            callNativeMethod(method, requestId, params as RequestArguments[T]);
             return Promise.resolve() as unknown as RequestResult[T];
         }
 
@@ -73,7 +67,7 @@ class FireflyBridgeProvider {
                 this.installCallbacks();
 
                 // dispatch the request to the native app
-                getFireflyAPI().callNativeMethod(method, requestId, params as RequestArguments[T]);
+                callNativeMethod(method, requestId, params as RequestArguments[T]);
             }),
             3 * 60 * 1000 /* 3 minute */,
         ).finally(() => {
