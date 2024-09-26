@@ -7,6 +7,7 @@ import { parseOldDiscoverUrl } from '@/helpers/parseDiscoverUrl.js';
 import { parseOldEngagementUrl } from '@/helpers/parseEngagementUrl.js';
 import { parseOldBookmarkUrl } from '@/helpers/parseOldBookmarkUrl.js';
 import { parseOldFollowingUrl } from '@/helpers/parseOldFollowingUrl.js';
+import { parseOldNotification } from '@/helpers/parseOldNotification.js';
 import { parseOldSettingsUrl } from '@/helpers/parseOldSettingsUrl.js';
 import { parseOldPostUrl } from '@/helpers/parsePostUrl.js';
 import { parseOldProfileUrl, parseProfileUrl } from '@/helpers/parseProfileUrl.js';
@@ -14,6 +15,7 @@ import { resolveBookmarkUrl } from '@/helpers/resolveBookmarkUrl.js';
 import { resolveDiscoverUrl } from '@/helpers/resolveDiscoverUrl.js';
 import { resolveEngagementUrl } from '@/helpers/resolveEngagementUrl.js';
 import { resolveFollowingUrl } from '@/helpers/resolveFollowingUrl.js';
+import { resolveNotificationUrl } from '@/helpers/resolveNotificationUrl.js';
 import { resolvePostUrl } from '@/helpers/resolvePostUrl.js';
 import { resolveProfileUrl } from '@/helpers/resolveProfileUrl.js';
 import { resolveSourceInUrl } from '@/helpers/resolveSourceInUrl.js';
@@ -35,6 +37,15 @@ export async function middleware(request: NextRequest) {
         destination.pathname = resolveDiscoverUrl(parsedOldDiscoverUrl.source, parsedOldDiscoverUrl.discover);
         destination.searchParams.delete('source');
         destination.searchParams.delete('discover');
+        return NextResponse.redirect(destination);
+    }
+
+    const parsedOldNotificationUrl = parseOldNotification(request.nextUrl);
+
+    if (parsedOldNotificationUrl) {
+        const destination = request.nextUrl.clone();
+        destination.pathname = resolveNotificationUrl(parsedOldNotificationUrl.source);
+        destination.searchParams.delete('source');
         return NextResponse.redirect(destination);
     }
 
