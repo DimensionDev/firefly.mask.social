@@ -1,20 +1,20 @@
 'use client';
 
 import { t, Trans } from '@lingui/macro';
+import { useQueryClient } from '@tanstack/react-query';
 import { type HTMLProps, useContext } from 'react';
 import { useAsyncFn } from 'react-use';
+import urlcat from 'urlcat';
 import { useAccount } from 'wagmi';
 
 import LoadingIcon from '@/assets/loading.svg';
+import { CZActivityContext } from '@/components/ActivityPage/CZ/CZActivityContext.js';
 import { classNames } from '@/helpers/classNames.js';
 import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
 import { getSnackbarMessageFromError } from '@/helpers/getSnackbarMessageFromError.js';
-import urlcat from 'urlcat';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
-import { settings } from '@/settings/index.js';
 import { CZActivity, type Response } from '@/providers/types/Firefly.js';
-import { useQueryClient } from '@tanstack/react-query';
-import { CZActivityContext } from '@/components/ActivityPage/CZ/CZActivityContext.js';
+import { settings } from '@/settings/index.js';
 
 interface Props extends HTMLProps<'button'> {
     level?: CZActivity.Level;

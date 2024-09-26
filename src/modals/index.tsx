@@ -25,7 +25,6 @@ import { SchedulePostModal } from '@/modals/SchedulePostModal.js';
 import { Snackbar } from '@/modals/Snackbar.js';
 import { SuperFollowModal } from '@/modals/SuperFollowModal.js';
 import { TipsModal } from '@/modals/TipsModal.js';
-import { CZActivityClaimSuccessModalRef } from '@/modals/controls.js';
 
 export const Modals = memo(function Modals() {
     return (

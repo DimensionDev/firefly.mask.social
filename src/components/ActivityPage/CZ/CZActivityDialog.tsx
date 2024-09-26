@@ -5,13 +5,13 @@ import Tippy from '@tippyjs/react/headless';
 import React, { useEffect, useState } from 'react';
 
 import QuestionIcon from '@/assets/question.svg';
+import { CZActivityClaimSuccessContent } from '@/components/ActivityPage/CZ/CZActivityClaimSuccessDialog.js';
 import { CZActivityContext } from '@/components/ActivityPage/CZ/CZActivityContext.js';
 import { CZActivityHomePage } from '@/components/ActivityPage/CZ/CZActivityHomePage.js';
 import { CZActivityShortRules } from '@/components/ActivityPage/CZ/CZActivityShortRules.js';
 import { CloseButton } from '@/components/CloseButton.js';
 import { Modal } from '@/components/Modal.js';
 import { Image } from '@/esm/Image.js';
-import { CZActivityClaimSuccessContent } from '@/components/ActivityPage/CZ/CZActivityClaimSuccessDialog.js';
 
 interface Props {
     onClose: () => void;

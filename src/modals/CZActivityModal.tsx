@@ -1,9 +1,9 @@
 import { forwardRef } from 'react';
 
+import { CZActivityClaimSuccessDialog } from '@/components/ActivityPage/CZ/CZActivityClaimSuccessDialog.js';
 import { CZActivityDialog } from '@/components/ActivityPage/CZ/CZActivityDialog.js';
 import { useSingletonModal } from '@/hooks/useSingletonModal.js';
 import type { SingletonModalRefCreator } from '@/libs/SingletonModal.js';
-import { CZActivityClaimSuccessDialog } from '@/components/ActivityPage/CZ/CZActivityClaimSuccessDialog.js';
 
 export const CZActivityModal = forwardRef<SingletonModalRefCreator>(function CZActivityModal(_, ref) {
     const [open, dispatch] = useSingletonModal(ref);
