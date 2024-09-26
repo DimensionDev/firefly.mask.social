@@ -4,7 +4,7 @@ import urlcat from 'urlcat';
 
 import type { SocialSourceInURL } from '@/constants/enum.js';
 import { SITE_NAME, SITE_URL } from '@/constants/index.js';
-import { createPageTitle } from '@/helpers/createPageTitle.js';
+import { createPageTitle, createPageTitleSSR } from '@/helpers/createPageTitle.js';
 import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
 import { getPostUrl } from '@/helpers/getPostUrl.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
@@ -34,9 +34,7 @@ export async function createMetadataPostById(source: SocialSourceInURL, postId: 
         postId,
     });
 
-    const title = post?.author
-        ? createPageTitle(transSSR(t`Posted by ${post.author.displayName} via Firefly`))
-        : SITE_NAME;
+    const title = post?.author ? createPageTitleSSR(t`Posted by ${post.author.displayName} via Firefly`) : SITE_NAME;
 
     return createSiteMetadata({
         title,
