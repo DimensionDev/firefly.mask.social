@@ -22,12 +22,12 @@ export function MethodButton({ item }: Props) {
                     const items = await fireflyBridgeProvider.request(SupportedMethod.GET_WALLET_ADDRESS, {
                         type: Network.All,
                     });
-                    enqueueInfoMessage(items.join(', '));
+                    enqueueInfoMessage(items);
                     break;
                 }
                 case SupportedMethod.GET_SUPPORTED_METHODS: {
                     const methods = await fireflyBridgeProvider.request(SupportedMethod.GET_SUPPORTED_METHODS, {});
-                    enqueueInfoMessage(methods.join(', '));
+                    enqueueInfoMessage(methods);
                     break;
                 }
                 case SupportedMethod.CONNECT_WALLET: {
@@ -52,6 +52,9 @@ export function MethodButton({ item }: Props) {
                         text: SITE_NAME,
                         platform: Platform.FARCASTER,
                     });
+                    break;
+                case SupportedMethod.BACK:
+                    fireflyBridgeProvider.request(SupportedMethod.BACK, {});
                     break;
                 default:
                     safeUnreachable(item.name);
