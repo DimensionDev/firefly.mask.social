@@ -44,7 +44,7 @@ export function CZActivityCheckList() {
     ];
 
     return (
-        <div className="flex min-h-[100svh] w-full flex-1 flex-col space-y-8 bg-black p-6 text-white">
+        <div className="flex w-full flex-col space-y-8 text-left">
             <div className="space-y-4">
                 <h5 className="text-md font-bold text-highlight">
                     <Trans>Basic Criteria</Trans>
@@ -99,6 +99,7 @@ export function CZActivityCheckList() {
                 alreadyClaimed={data?.alreadyClaimed}
                 canClaim={data?.canClaim}
                 isLoading={isLoading}
+                className="!w-full"
             />
         </div>
     );

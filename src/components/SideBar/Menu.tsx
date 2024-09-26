@@ -21,6 +21,7 @@ import ProfileIcon from '@/assets/profile.svg';
 import SettingsSelectedIcon from '@/assets/setting.selected.svg';
 import SettingsIcon from '@/assets/setting.svg';
 import WalletIcon from '@/assets/wallet.svg';
+import { CZActivityMenuIcon } from '@/components/ActivityPage/CZ/CZActivityMenuIcon.js';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { LoginStatusBar } from '@/components/Login/LoginStatusBar.js';
 import { OpenFireflyAppButton } from '@/components/OpenFireflyAppButton.js';
@@ -44,7 +45,7 @@ import { useCurrentProfileFirstAvailable } from '@/hooks/useCurrentProfile.js';
 import { useCurrentVisitingChannel } from '@/hooks/useCurrentVisitingChannel.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
-import { ComposeModalRef, LoginModalRef } from '@/modals/controls.js';
+import { ComposeModalRef, CZActivityModalRef, LoginModalRef } from '@/modals/controls.js';
 import { useNavigatorState } from '@/store/useNavigatorStore.js';
 
 interface MenuProps {
@@ -121,6 +122,12 @@ export const Menu = memo(function Menu({ collapsed = false }: MenuProps) {
                                 selectedIcon: WalletIcon,
                             },
                             {
+                                href: '/welcome-cz',
+                                name: <Trans>Welcome Back CZ</Trans>,
+                                icon: CZActivityMenuIcon,
+                                selectedIcon: CZActivityMenuIcon,
+                            },
+                            {
                                 href: PageRoute.Settings,
                                 name: <Trans>Settings</Trans>,
                                 icon: SettingsIcon,
@@ -137,9 +144,26 @@ export const Menu = memo(function Menu({ collapsed = false }: MenuProps) {
                                     key={item.href}
                                     onClick={() => updateSidebarOpen(false)}
                                 >
-                                    {item.href === '/connect-wallet' ? (
-                                        <ConnectWallet collapsed={collapsed} />
-                                    ) : (
+                                    {{
+                                        ['/connect-wallet']: <ConnectWallet collapsed={collapsed} />,
+                                        ['/welcome-cz']: (
+                                            <button
+                                                className="flex w-full flex-grow-0 items-center gap-x-3 rounded-lg px-2 py-2.5 text-xl leading-6 outline-none hover:bg-bg md:w-auto md:px-4 md:py-3"
+                                                onClick={() => CZActivityModalRef.open()}
+                                            >
+                                                {collapsed ? (
+                                                    <Tooltip content={item.name} placement="right">
+                                                        <Icon width={20} height={20} />
+                                                    </Tooltip>
+                                                ) : (
+                                                    <Icon width={20} height={20} />
+                                                )}
+                                                <span style={{ display: collapsed ? 'none' : 'inline' }}>
+                                                    {item.name}
+                                                </span>
+                                            </button>
+                                        ),
+                                    }[item.href] ?? (
                                         <Link
                                             href={item.href}
                                             className={classNames(

@@ -75,9 +75,6 @@ msgstr ""
 msgid "Failed to translate post. Please retry later."
 msgstr "無法翻譯貼文。請稍候再嘗試"
 
-msgid "Firefly user"
-msgstr ""
-
 msgid "Failed to fetch as Blob."
 msgstr ""
 
@@ -147,9 +144,6 @@ msgstr "您引用/回覆的貼文已經被刪除"
 msgid "Display Name"
 msgstr "展示姓名"
 
-msgid "You will be upgraded to the Premium airdrop if the assets in your current wallet on the BNB Chain are valued at over <0>US$10,000</0>."
-msgstr ""
-
 msgid "Debug Connection"
 msgstr "除錯連接"
 
@@ -200,6 +194,9 @@ msgstr ""
 
 msgid "Searching users"
 msgstr "搜尋用戶"
+
+msgid "{0} is eligible!"
+msgstr ""
 
 msgid "Airdrop Scam"
 msgstr "空投騙局"
@@ -281,6 +278,9 @@ msgstr ""
 
 msgid "Adding..."
 msgstr "正在添加"
+
+msgid "Verifying eligibility..."
+msgstr ""
 
 msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} <4>liked your </4><5>{1, select, Post {post} Comment {comment} Quote {quote} Mirror {mirror} other {post}}</5>"
 msgstr ""
@@ -369,14 +369,14 @@ msgstr "確認從 Firefly 的社交圖譜上取消該錢包的連接？"
 msgid "Confirm"
 msgstr "確認"
 
+msgid "Connect your wallet to claim your NFT."
+msgstr ""
+
 msgid "{0} muted channels"
 msgstr "{0} 個已靜音的頻道"
 
 msgid "[Video]"
 msgstr "[影片]"
-
-msgid "The event will run from September 28, 2024, 14:00 (UTC+8) to October 8, 2024, 23:59 (UTC)."
-msgstr ""
 
 msgid "The author is muted by you."
 msgstr "作者已經被您靜音"
@@ -477,6 +477,9 @@ msgstr ""
 msgid "Failed to unfollow @{0} on {sourceName}."
 msgstr "在 {sourceName} 上取消追蹤 @{0} 失敗。"
 
+msgid "Each wallet or X account is limited to one claim."
+msgstr ""
+
 msgid "Calendar"
 msgstr ""
 
@@ -543,9 +546,6 @@ msgstr ""
 msgid "Congratulation!"
 msgstr ""
 
-msgid "You will be upgraded to the Premium airdrop if you are an elite Firefly user."
-msgstr ""
-
 msgid "Items"
 msgstr "物品"
 
@@ -610,9 +610,6 @@ msgid "In addition to meeting the Basic Criteria, fulfill any of the following t
 msgstr ""
 
 msgid "Failed to upload. Not a valid image type"
-msgstr ""
-
-msgid "Owned a .bnb domain"
 msgstr ""
 
 msgid "Failed to upload. Image size exceeds {0}"
@@ -849,7 +846,13 @@ msgstr "確認對 @{0} 的靜音？"
 msgid "Enter amount"
 msgstr ""
 
+msgid "You're eligible for a <0>Premium</0> CZ Support NFT because your .bnb domain is member of the SPACE <1>ID Premier Club</1>."
+msgstr ""
+
 msgid "<0>Sold</0> an NFT worth {costEl}"
+msgstr ""
+
+msgid "🎉"
 msgstr ""
 
 msgid "Owned By"
@@ -894,14 +897,8 @@ msgstr "選擇 {0}"
 msgid "Send Feedback"
 msgstr "發送反饋"
 
-msgid "CZ-Welcome Back Airdrop"
-msgstr ""
-
 msgid "Your draft was saved."
 msgstr "你的草稿已被保存"
-
-msgid "BNB Chain asset holder"
-msgstr ""
 
 msgid "The chainId mismatch."
 msgstr ""
@@ -956,6 +953,9 @@ msgstr "{0} 評論"
 
 msgid "Schedule Post"
 msgstr "已定時的貼文"
+
+msgid "Almost there!"
+msgstr ""
 
 msgid "Sold Out"
 msgstr "售罄"
@@ -1146,6 +1146,9 @@ msgstr ""
 msgid "Email (optional)"
 msgstr "電子郵箱（非必須）"
 
+msgid "Not eligible"
+msgstr ""
+
 msgid "NFT Contract"
 msgstr "NFT合約"
 
@@ -1165,9 +1168,6 @@ msgid "A measure of a cryptocurrency trading volume across all tracked platforms
 msgstr ""
 
 msgid "Failed to recast."
-msgstr ""
-
-msgid "Your current X account must follow <0>@cz_binance</0> to qualify, and it will be upgraded to the Premium airdrop if it is <1>X Premium Account</1>."
 msgstr ""
 
 msgid "No post found"
@@ -1539,6 +1539,9 @@ msgstr ""
 msgid "Please input the serialized session to be validated."
 msgstr ""
 
+msgid "Welcome Back CZ"
+msgstr ""
+
 msgid "Failed to update profile."
 msgstr ""
 
@@ -1620,9 +1623,6 @@ msgstr ""
 msgid "Failed to like the post."
 msgstr "按讚評論失敗"
 
-msgid "Your current wallet must own a .bnb domain to qualify, and it will be upgraded to the Premium airdrop if the domain is a <0>SPACE ID Premier Club member</0>."
-msgstr ""
-
 msgid "Failed to repost."
 msgstr ""
 
@@ -1649,6 +1649,9 @@ msgstr ""
 
 msgid "Failed to publish post."
 msgstr "發布貼文失敗"
+
+msgid "Must followed <0>@cz_binance</0> on X before Sept 21, 2024."
+msgstr ""
 
 msgid "Voted successfully."
 msgstr "已成功投票"
@@ -1764,6 +1767,9 @@ msgstr "檢舉"
 msgid "Schedule"
 msgstr ""
 
+msgid "Change Account"
+msgstr ""
+
 msgid "Casts + Replies"
 msgstr ""
 
@@ -1836,9 +1842,6 @@ msgstr ""
 msgid "Failed to create scheduled post."
 msgstr ""
 
-msgid "Followed @cz_binance on X"
-msgstr ""
-
 msgid "I don’t use anymore."
 msgstr ""
 
@@ -1847,6 +1850,9 @@ msgstr ""
 
 msgid "You've hit rock bottom."
 msgstr "你已經到頁面最底部"
+
+msgid "Welcome Back CZ Collectible"
+msgstr ""
 
 msgid "Copy link to profile"
 msgstr ""
@@ -2031,6 +2037,9 @@ msgstr "您的 {0} 帳戶現已連接。"
 msgid "Posted via {0} <0>{sendFrom}</0>"
 msgstr ""
 
+msgid "Claim your NFT to show your support onchain for CZ!"
+msgstr ""
+
 msgid "Unmuted @{0} on {sourceName}."
 msgstr ""
 
@@ -2137,9 +2146,6 @@ msgid "No available token"
 msgstr ""
 
 msgid "Firefly Bridge"
-msgstr ""
-
-msgid "Claim Requirements"
 msgstr ""
 
 msgid "Invalid URL"
@@ -2358,6 +2364,9 @@ msgstr "多媒體"
 msgid "No content to publish."
 msgstr "沒有可發布的內容"
 
+msgid "Already claimed"
+msgstr ""
+
 msgid "Text"
 msgstr ""
 
@@ -2425,6 +2434,9 @@ msgid "× {0}"
 msgstr ""
 
 msgid "Blink Validator"
+msgstr ""
+
+msgid "Not eligible to claim, <0>retry</0>"
 msgstr ""
 
 msgid "Reward for followers"

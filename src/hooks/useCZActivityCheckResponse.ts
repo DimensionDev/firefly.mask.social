@@ -1,13 +1,13 @@
 import { t } from '@lingui/macro';
 import { useQuery } from '@tanstack/react-query';
 import { useEffect } from 'react';
-import urlcat from 'urlcat';
 import { useAccount } from 'wagmi';
 
 import { Source } from '@/constants/enum.js';
 import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
 import { getSnackbarMessageFromError } from '@/helpers/getSnackbarMessageFromError.js';
 import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
+import urlcat from 'urlcat';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
 import { CZActivity } from '@/providers/types/Firefly.js';
 import { settings } from '@/settings/index.js';
