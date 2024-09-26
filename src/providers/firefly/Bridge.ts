@@ -15,7 +15,7 @@ function callNativeMethod<T extends SupportedMethod>(method: T, id: string, para
 
     // ios
     if (window.webkit?.messageHandlers?.callNativeMethod) {
-        window.webkit.callNativeMethod.postMessage({
+        window.webkit.messageHandlers.callNativeMethod.postMessage({
             method,
             tag: id,
             params,
