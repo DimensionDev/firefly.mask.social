@@ -2,6 +2,7 @@
 
 import '@dialectlabs/blinks/index.css';
 import '@/app/globals.css';
+import '@/polyfills/index.js';
 
 import { GoogleAnalytics } from '@next/third-parties/google';
 import { Inter } from 'next/font/google';
