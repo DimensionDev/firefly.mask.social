@@ -1,41 +1,55 @@
 import { Trans } from '@lingui/macro';
 import { safeUnreachable } from '@masknet/kit';
-import { headers } from 'next/headers.js';
 
 import { MethodButton } from '@/app/(developers)/components/MethodButton.js';
 import { Headline } from '@/app/(settings)/components/Headline.js';
 import { Section } from '@/app/(settings)/components/Section.js';
 import { ClickableArea } from '@/components/ClickableArea.js';
 import { classNames } from '@/helpers/classNames.js';
-import { type HeaderItem, type MethodItem, SupportedMethod } from '@/types/bridge.js';
+import { type MethodItem, SupportedMethod } from '@/types/bridge.js';
 
-type Item = (HeaderItem | MethodItem) & {
+type Item = MethodItem & {
     title: string;
     description: string;
 };
 
 const items: Item[] = [
-    // request headers
     {
-        type: 'header',
-        title: 'Authorization',
-        description: 'Authorization header if the user is logged in.',
-        name: 'authorization',
+        type: 'method',
+        name: SupportedMethod.GET_SUPPORTED_METHODS,
+        title: 'Get Supported Methods',
+        description: 'Get supported methods from firefly app.',
     },
     {
-        type: 'header',
-        title: 'Theme',
-        description: 'Theme settings from native app.',
-        name: 'x-theme',
+        type: 'method',
+        name: SupportedMethod.GET_AUTHORIZATION,
+        title: 'Get Authorization',
+        description: 'Get authorization from firefly app.',
     },
     {
-        type: 'header',
-        title: 'Language',
-        description: 'Language settings from native app.',
-        name: 'x-language',
+        type: 'method',
+        name: SupportedMethod.GET_THEME,
+        title: 'Get Theme',
+        description: 'Get theme from firefly app.',
     },
-
-    // native methods
+    {
+        type: 'method',
+        name: SupportedMethod.GET_LANGUAGE,
+        title: 'Get Language',
+        description: 'Get language from firefly app.',
+    },
+    {
+        type: 'method',
+        name: SupportedMethod.GET_WALLET_ADDRESS,
+        title: 'Get Wallet Address',
+        description: 'Get wallet address from firefly app.',
+    },
+    {
+        type: 'method',
+        name: SupportedMethod.CONNECT_WALLET,
+        title: 'Connect Wallet',
+        description: 'Connect wallet from firefly app.',
+    },
     {
         type: 'method',
         name: SupportedMethod.LOGIN,
@@ -56,24 +70,6 @@ const items: Item[] = [
     },
     {
         type: 'method',
-        name: SupportedMethod.GET_SUPPORTED_METHODS,
-        title: 'Get Supported Methods',
-        description: 'Get supported methods from firefly app.',
-    },
-    {
-        type: 'method',
-        name: SupportedMethod.GET_WALLET_ADDRESS,
-        title: 'Get Wallet Address',
-        description: 'Get wallet address from firefly app.',
-    },
-    {
-        type: 'method',
-        name: SupportedMethod.CONNECT_WALLET,
-        title: 'Connect Wallet',
-        description: 'Connect wallet from firefly app.',
-    },
-    {
-        type: 'method',
         name: SupportedMethod.BACK,
         title: 'Back',
         description: 'Close the current page.',
@@ -85,8 +81,6 @@ export default function Page() {
         const type = item.type;
 
         switch (type) {
-            case 'header':
-                return <span className="break-all">{headers().get(item.name) ?? 'N/A'}</span>;
             case 'method':
                 return <MethodButton item={item} />;
             default:
