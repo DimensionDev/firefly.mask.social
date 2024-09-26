@@ -5,7 +5,13 @@ import { type RequestArguments, type RequestResult, SupportedMethod } from '@/ty
 
 function getFireflyAPI() {
     const api = Reflect.get(window, 'FireflyApi') as
-        | (<T extends SupportedMethod>(method: T, id: string, params: RequestArguments[T]) => Promise<RequestResult[T]>)
+        | {
+              callNativeMethod: <T extends SupportedMethod>(
+                  method: T,
+                  id: string,
+                  params: RequestArguments[T],
+              ) => Promise<RequestResult[T]>;
+          }
         | undefined;
     if (!api) throw new Error('Firefly API is not available');
     return api;
@@ -43,7 +49,7 @@ class FireflyBridgeProvider {
                 this.installCallbacks();
 
                 // dispatch the request to the native app
-                getFireflyAPI()(method, requestId, params as RequestArguments[T]);
+                getFireflyAPI().callNativeMethod(method, requestId, params as RequestArguments[T]);
             }),
             3 * 60 * 1000 /* 3 minute */,
         ).finally(() => {
