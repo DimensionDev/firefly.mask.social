@@ -333,6 +333,9 @@ importers:
       remark-linkify-regex:
         specifier: ^1.2.1
         version: 1.2.1
+      rollup:
+        specifier: ^3.28.1
+        version: 3.29.4
       satori:
         specifier: ^0.10.13
         version: 0.10.13
@@ -383,7 +386,7 @@ importers:
         version: 2.21.5(typescript@5.5.4)(zod@3.23.8)
       wagmi:
         specifier: ^2.12.10
-        version: 2.12.10(@tanstack/react-query@5.29.2)(@types/react@18.2.48)(@vercel/kv@1.0.1)(immer@10.0.3)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react-native@0.74.1)(react@0.0.0-experimental-8039e6d0b-20231026)(typescript@5.5.4)(viem@2.21.5)(zod@3.23.8)
+        version: 2.12.10(@tanstack/react-query@5.29.2)(@types/react@18.2.48)(@vercel/kv@1.0.1)(immer@10.0.3)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react-native@0.74.1)(react@0.0.0-experimental-8039e6d0b-20231026)(rollup@3.29.4)(typescript@5.5.4)(viem@2.21.5)(zod@3.23.8)
       zod:
         specifier: ^3.23.8
         version: 3.23.8
@@ -8805,7 +8808,7 @@ packages:
       react-native: 0.74.1(@babel/preset-env@7.24.6)(@types/react@18.2.48)(react@0.0.0-experimental-8039e6d0b-20231026)
     dev: false
 
-  /@metamask/sdk@0.28.2(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react-native@0.74.1)(react@0.0.0-experimental-8039e6d0b-20231026):
+  /@metamask/sdk@0.28.2(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react-native@0.74.1)(react@0.0.0-experimental-8039e6d0b-20231026)(rollup@3.29.4):
     resolution: {integrity: sha512-pylk1uJAZYyO3HcNW/TNfII3+T+Yx6qrFYaC/HmuSIuRJeXsdZuExSbNQ236iQocIy3L7JjI+GQKbv3TbN+HQQ==}
     peerDependencies:
       react: 0.0.0-experimental-8039e6d0b-20231026 || 0.0.0-experimental-0a360642d-20230711
@@ -8837,7 +8840,7 @@ packages:
       react-dom: 0.0.0-experimental-8039e6d0b-20231026(react@0.0.0-experimental-8039e6d0b-20231026)
       react-native-webview: 11.26.1(react-native@0.74.1)(react@0.0.0-experimental-8039e6d0b-20231026)
       readable-stream: 3.6.2
-      rollup-plugin-visualizer: 5.12.0
+      rollup-plugin-visualizer: 5.12.0(rollup@3.29.4)
       socket.io-client: 4.7.5
       util: 0.12.5
       uuid: 8.3.2
@@ -10800,7 +10803,7 @@ packages:
       react-remove-scroll: 2.5.7(@types/react@18.2.48)(react@0.0.0-experimental-8039e6d0b-20231026)
       ua-parser-js: 1.0.37
       viem: 2.21.5(typescript@5.5.4)(zod@3.23.8)
-      wagmi: 2.12.10(@tanstack/react-query@5.29.2)(@types/react@18.2.48)(@vercel/kv@1.0.1)(immer@10.0.3)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react-native@0.74.1)(react@0.0.0-experimental-8039e6d0b-20231026)(typescript@5.5.4)(viem@2.21.5)(zod@3.23.8)
+      wagmi: 2.12.10(@tanstack/react-query@5.29.2)(@types/react@18.2.48)(@vercel/kv@1.0.1)(immer@10.0.3)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react-native@0.74.1)(react@0.0.0-experimental-8039e6d0b-20231026)(rollup@3.29.4)(typescript@5.5.4)(viem@2.21.5)(zod@3.23.8)
     transitivePeerDependencies:
       - '@types/react'
     dev: false
@@ -14526,7 +14529,7 @@ packages:
       tinyrainbow: 1.2.0
     dev: true
 
-  /@wagmi/connectors@5.1.10(@types/react@18.2.48)(@vercel/kv@1.0.1)(@wagmi/core@2.13.5)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react-native@0.74.1)(react@0.0.0-experimental-8039e6d0b-20231026)(typescript@5.5.4)(viem@2.21.5)(zod@3.23.8):
+  /@wagmi/connectors@5.1.10(@types/react@18.2.48)(@vercel/kv@1.0.1)(@wagmi/core@2.13.5)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react-native@0.74.1)(react@0.0.0-experimental-8039e6d0b-20231026)(rollup@3.29.4)(typescript@5.5.4)(viem@2.21.5)(zod@3.23.8):
     resolution: {integrity: sha512-ybgKV09PIhgUgQ4atXTs2KOy4Hevd6f972SXfx6HTgsnFXlzxzN6o0aWjhavZOYjvx5tjuL3+8Mgqo0R7uP5Cg==}
     peerDependencies:
       '@wagmi/core': 2.13.5
@@ -14537,7 +14540,7 @@ packages:
         optional: true
     dependencies:
       '@coinbase/wallet-sdk': 4.0.4
-      '@metamask/sdk': 0.28.2(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react-native@0.74.1)(react@0.0.0-experimental-8039e6d0b-20231026)
+      '@metamask/sdk': 0.28.2(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react-native@0.74.1)(react@0.0.0-experimental-8039e6d0b-20231026)(rollup@3.29.4)
       '@safe-global/safe-apps-provider': 0.18.3(typescript@5.5.4)(zod@3.23.8)
       '@safe-global/safe-apps-sdk': 9.1.0(typescript@5.5.4)(zod@3.23.8)
       '@wagmi/core': 2.13.5(@types/react@18.2.48)(immer@10.0.3)(react@0.0.0-experimental-8039e6d0b-20231026)(typescript@5.5.4)(viem@2.21.5)
@@ -15404,7 +15407,7 @@ packages:
       vue:
         optional: true
     dependencies:
-      '@wagmi/connectors': 5.1.10(@types/react@18.2.48)(@vercel/kv@1.0.1)(@wagmi/core@2.13.5)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react-native@0.74.1)(react@0.0.0-experimental-8039e6d0b-20231026)(typescript@5.5.4)(viem@2.21.5)(zod@3.23.8)
+      '@wagmi/connectors': 5.1.10(@types/react@18.2.48)(@vercel/kv@1.0.1)(@wagmi/core@2.13.5)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react-native@0.74.1)(react@0.0.0-experimental-8039e6d0b-20231026)(rollup@3.29.4)(typescript@5.5.4)(viem@2.21.5)(zod@3.23.8)
       '@wagmi/core': 2.13.5(@types/react@18.2.48)(immer@10.0.3)(react@0.0.0-experimental-8039e6d0b-20231026)(typescript@5.5.4)(viem@2.21.5)
       '@walletconnect/ethereum-provider': 2.16.1(@types/react@18.2.48)(@vercel/kv@1.0.1)(react@0.0.0-experimental-8039e6d0b-20231026)
       '@walletconnect/utils': 2.16.1(@vercel/kv@1.0.1)
@@ -15417,7 +15420,7 @@ packages:
       react: 0.0.0-experimental-8039e6d0b-20231026
       react-dom: 0.0.0-experimental-8039e6d0b-20231026(react@0.0.0-experimental-8039e6d0b-20231026)
       viem: 2.21.5(typescript@5.5.4)(zod@3.23.8)
-      wagmi: 2.12.10(@tanstack/react-query@5.29.2)(@types/react@18.2.48)(@vercel/kv@1.0.1)(immer@10.0.3)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react-native@0.74.1)(react@0.0.0-experimental-8039e6d0b-20231026)(typescript@5.5.4)(viem@2.21.5)(zod@3.23.8)
+      wagmi: 2.12.10(@tanstack/react-query@5.29.2)(@types/react@18.2.48)(@vercel/kv@1.0.1)(immer@10.0.3)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react-native@0.74.1)(react@0.0.0-experimental-8039e6d0b-20231026)(rollup@3.29.4)(typescript@5.5.4)(viem@2.21.5)(zod@3.23.8)
     transitivePeerDependencies:
       - '@azure/app-configuration'
       - '@azure/cosmos'
@@ -28149,7 +28152,7 @@ packages:
       terser: 5.29.2
     dev: true
 
-  /rollup-plugin-visualizer@5.12.0:
+  /rollup-plugin-visualizer@5.12.0(rollup@3.29.4):
     resolution: {integrity: sha512-8/NU9jXcHRs7Nnj07PF2o4gjxmm9lXIrZ8r175bT9dK8qoLlvKTwRMArRCMgpMGlq8CTLugRvEmyMeMXIU2pNQ==}
     engines: {node: '>=14'}
     hasBin: true
@@ -28161,6 +28164,7 @@ packages:
     dependencies:
       open: 8.4.2
       picomatch: 2.3.1
+      rollup: 3.29.4
       source-map: 0.7.4
       yargs: 17.7.2
     dev: false
@@ -28190,7 +28194,6 @@ packages:
     hasBin: true
     optionalDependencies:
       fsevents: 2.3.3
-    dev: true
 
   /rollup@4.20.0:
     resolution: {integrity: sha512-6rbWBChcnSGzIlXeIdNIZTopKYad8ZG8ajhl78lGRLsI2rX8IkaotQhVas2Ma+GPxJav19wrSzvRvuiv0YKzWw==}
@@ -31501,7 +31504,7 @@ packages:
       xml-name-validator: 5.0.0
     dev: true
 
-  /wagmi@2.12.10(@tanstack/react-query@5.29.2)(@types/react@18.2.48)(@vercel/kv@1.0.1)(immer@10.0.3)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react-native@0.74.1)(react@0.0.0-experimental-8039e6d0b-20231026)(typescript@5.5.4)(viem@2.21.5)(zod@3.23.8):
+  /wagmi@2.12.10(@tanstack/react-query@5.29.2)(@types/react@18.2.48)(@vercel/kv@1.0.1)(immer@10.0.3)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react-native@0.74.1)(react@0.0.0-experimental-8039e6d0b-20231026)(rollup@3.29.4)(typescript@5.5.4)(viem@2.21.5)(zod@3.23.8):
     resolution: {integrity: sha512-aSG0fW+Kft62syxAWkmSaMku5CZRW6Q2lsu64bLvLLVyZgZMt8+qQRdYk8WcFFdBzivkuDMRMREMxw7dwdImkw==}
     peerDependencies:
       '@tanstack/react-query': '>=5.0.0'
@@ -31515,7 +31518,7 @@ packages:
         optional: true
     dependencies:
       '@tanstack/react-query': 5.29.2(react@0.0.0-experimental-8039e6d0b-20231026)
-      '@wagmi/connectors': 5.1.10(@types/react@18.2.48)(@vercel/kv@1.0.1)(@wagmi/core@2.13.5)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react-native@0.74.1)(react@0.0.0-experimental-8039e6d0b-20231026)(typescript@5.5.4)(viem@2.21.5)(zod@3.23.8)
+      '@wagmi/connectors': 5.1.10(@types/react@18.2.48)(@vercel/kv@1.0.1)(@wagmi/core@2.13.5)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react-native@0.74.1)(react@0.0.0-experimental-8039e6d0b-20231026)(rollup@3.29.4)(typescript@5.5.4)(viem@2.21.5)(zod@3.23.8)
       '@wagmi/core': 2.13.5(@types/react@18.2.48)(immer@10.0.3)(react@0.0.0-experimental-8039e6d0b-20231026)(typescript@5.5.4)(viem@2.21.5)
       react: 0.0.0-experimental-8039e6d0b-20231026
       typescript: 5.5.4
@@ -32925,6 +32928,7 @@ time:
   /postcss@8.4.41: '2024-08-05T23:08:39.503Z'
   /react-avatar-editor@13.0.2: '2023-12-20T22:00:38.496Z'
   /react-qrcode-logo@2.9.0: '2023-02-25T14:35:39.109Z'
+  /rollup@3.29.4: '2023-09-28T05:00:30.238Z'
   /tailwindcss@3.4.10: '2024-08-13T20:43:40.812Z'
   /typescript@5.5.4: '2024-07-22T23:02:51.857Z'
   /unist-util-flatmap@1.0.0: '2018-07-21T19:29:06.641Z'

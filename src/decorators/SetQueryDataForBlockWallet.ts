@@ -6,7 +6,7 @@ import { isSameEthereumAddress, isSameSolanaAddress } from '@/helpers/isSameAddr
 import { resolveSourceFromUrl } from '@/helpers/resolveSource.js';
 import type { FireflySocialMedia } from '@/providers/firefly/SocialMedia.js';
 import type { Article } from '@/providers/types/Article.js';
-import type { FireflyIdentity, Relationship } from '@/providers/types/Firefly.js';
+import type { FireflyIdentity, WalletProfile } from '@/providers/types/Firefly.js';
 import type { FollowingNFT, NFTFeed } from '@/providers/types/NFTs.js';
 import type { ClassType } from '@/types/index.js';
 
@@ -15,8 +15,8 @@ interface NFTPagesData {
     pages: Array<{ data: FollowingNFT[] | NFTFeed[] }>;
 }
 
-interface RelationPagesData {
-    pages: Array<{ data: Relationship[] }>;
+interface WalletProfilePagesData {
+    pages: Array<{ data: WalletProfile[] }>;
 }
 
 function toggleBlock(address: string, status: boolean) {
@@ -64,18 +64,18 @@ function toggleBlock(address: string, status: boolean) {
     queryClient.setQueriesData<NFTPagesData>({ queryKey: ['nfts', 'following', Source.NFTs] }, nftsPatcher);
     queryClient.setQueriesData<NFTPagesData>({ queryKey: ['nfts', 'discover', Source.NFTs] }, nftsPatcher);
 
-    queryClient.setQueriesData<RelationPagesData>({ queryKey: ['wallets', 'muted-list'] }, (old) => {
+    queryClient.setQueriesData<WalletProfilePagesData>({ queryKey: ['wallets', 'muted-list'] }, (old) => {
         if (!old) return old;
         return produce(old, (draft) => {
             for (const page of draft.pages) {
                 if (!page) continue;
-                for (const relation of page.data) {
+                for (const profile of page.data) {
                     if (
-                        !isSameEthereumAddress(relation.address, address) &&
-                        !isSameSolanaAddress(relation.address, address)
+                        !isSameEthereumAddress(profile.address, address) &&
+                        !isSameSolanaAddress(profile.address, address)
                     )
                         continue;
-                    relation.blocked = status;
+                    profile.blocked = status;
                 }
             }
         });

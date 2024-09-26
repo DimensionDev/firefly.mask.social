@@ -1063,6 +1063,9 @@ msgstr "Bookmark"
 msgid "{handleOrEnsOrAddress} watched"
 msgstr "{handleOrEnsOrAddress} watched"
 
+msgid "{0} {walletHandle}."
+msgstr "{0} {walletHandle}."
+
 msgid "Circulating Supply"
 msgstr "Circulating Supply"
 
@@ -1723,9 +1726,6 @@ msgstr "Report"
 msgid "Schedule"
 msgstr "Schedule"
 
-msgid "Post by {0}"
-msgstr "Post by {0}"
-
 msgid "Casts + Replies"
 msgstr "Casts + Replies"
 
@@ -2253,6 +2253,9 @@ msgstr "Please confirm the login with X."
 
 msgid "Max Supply"
 msgstr "Max Supply"
+
+msgid "Posted by {0} via Firefly"
+msgstr "Posted by {0} via Firefly"
 
 msgid "<0>You</0> recasted"
 msgstr "<0>You</0> recasted"

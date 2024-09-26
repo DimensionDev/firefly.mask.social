@@ -1068,6 +1068,9 @@ msgstr "收藏"
 msgid "{handleOrEnsOrAddress} watched"
 msgstr "{handleOrEnsOrAddress} 已关注"
 
+msgid "{0} {walletHandle}."
+msgstr ""
+
 msgid "Circulating Supply"
 msgstr "流通总量"
 
@@ -1728,9 +1731,6 @@ msgstr "报告"
 msgid "Schedule"
 msgstr "定时"
 
-msgid "Post by {0}"
-msgstr "由 {0} 发帖"
-
 msgid "Casts + Replies"
 msgstr "帖子+回复"
 
@@ -2258,6 +2258,9 @@ msgstr "请在 X 确认登陆。"
 
 msgid "Max Supply"
 msgstr "最大供应量"
+
+msgid "Posted by {0} via Firefly"
+msgstr ""
 
 msgid "<0>You</0> recasted"
 msgstr "<0>你</0> 已转帖"

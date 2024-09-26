@@ -6,6 +6,7 @@ tailwind.config.cjs
 
 src/maskbook
 src/locales/**/*.js
+src/polyfills/*.js
 public/js
 public/sw.js
 scripts/build-sw.mjs
