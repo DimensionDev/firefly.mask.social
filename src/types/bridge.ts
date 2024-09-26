@@ -1,3 +1,8 @@
+export enum Theme {
+    Auto = 'auto',
+    Light = 'light',
+    Dark = 'dark',
+}
 export enum Platform {
     LENS = 'lens',
     FIREFLY = 'firefly',
@@ -13,6 +18,9 @@ export enum Network {
 
 export enum SupportedMethod {
     GET_SUPPORTED_METHODS = 'getSupportMethod',
+    GET_AUTHORIZATION = 'getAuthorization',
+    GET_THEME = 'getTheme',
+    GET_LANGUAGE = 'getLanguage',
     GET_WALLET_ADDRESS = 'getWalletAddress',
     CONNECT_WALLET = 'connectWallet',
     LOGIN = 'login',
@@ -23,6 +31,9 @@ export enum SupportedMethod {
 
 export interface RequestArguments {
     [SupportedMethod.GET_SUPPORTED_METHODS]: {};
+    [SupportedMethod.GET_AUTHORIZATION]: {};
+    [SupportedMethod.GET_THEME]: {};
+    [SupportedMethod.GET_LANGUAGE]: {};
     [SupportedMethod.GET_WALLET_ADDRESS]: {
         type: Network;
     };
@@ -43,6 +54,9 @@ export interface RequestArguments {
 
 export interface RequestResult {
     [SupportedMethod.GET_SUPPORTED_METHODS]: SupportedMethod[];
+    [SupportedMethod.GET_AUTHORIZATION]: string;
+    [SupportedMethod.GET_THEME]: Theme;
+    [SupportedMethod.GET_LANGUAGE]: string;
     [SupportedMethod.GET_WALLET_ADDRESS]: string[];
     [SupportedMethod.CONNECT_WALLET]: string;
     [SupportedMethod.LOGIN]: {
@@ -51,11 +65,6 @@ export interface RequestResult {
     [SupportedMethod.SHARE]: void;
     [SupportedMethod.COMPOSE]: void;
     [SupportedMethod.BACK]: void;
-}
-
-export interface HeaderItem {
-    type: 'header';
-    name: 'authorization' | 'x-theme' | 'x-language';
 }
 
 export type MethodItem<T extends SupportedMethod = SupportedMethod> = {
