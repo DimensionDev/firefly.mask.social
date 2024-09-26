@@ -1,16 +1,13 @@
 import { timeout } from '@masknet/kit';
 import { uniqueId } from 'lodash-es';
 
+import { parseJSON } from '@/helpers/parseJSON.js';
 import { type RequestArguments, type RequestResult, SupportedMethod } from '@/types/bridge.js';
 
 function getFireflyAPI() {
     const api = Reflect.get(window, 'FireflyApi') as
         | {
-              callNativeMethod: <T extends SupportedMethod>(
-                  method: T,
-                  id: string,
-                  params: RequestArguments[T],
-              ) => Promise<RequestResult[T]>;
+              callNativeMethod: <T extends SupportedMethod>(method: T, id: string, params: RequestArguments[T]) => void;
           }
         | undefined;
     if (!api) throw new Error('Firefly API is not available');
@@ -37,12 +34,21 @@ class FireflyBridgeProvider {
         );
     }
 
-    request<T extends SupportedMethod>(method: T, params: RequestArguments[T]) {
+    request<T extends SupportedMethod>(method: T, params: RequestArguments[T], noReturn = false) {
         const requestId = uniqueId('bridge');
+
+        if (noReturn) {
+            getFireflyAPI().callNativeMethod(method, requestId, params as RequestArguments[T]);
+            return Promise.resolve() as unknown as RequestResult[T];
+        }
 
         return timeout(
             new Promise<RequestResult[T]>((resolve, reject) => {
-                this.callbacks.set(requestId, ({ result, error }: { result?: RequestResult[T]; error?: string }) => {
+                this.callbacks.set(requestId, (response: string) => {
+                    const parsed = parseJSON<{ result?: RequestResult[T]; error?: string }>(response);
+                    if (!parsed) throw new Error(`Failed to parse response: ${response}`);
+
+                    const { error, result } = parsed;
                     if (error) reject(error);
                     else resolve(result as RequestResult[T]);
                 });
