@@ -19,6 +19,7 @@ export function useCZActivityCheckResponse() {
         queryKey: ['cz-activity-check', account.address, !!twitterProfile],
         async queryFn() {
             const response = await fireflySessionHolder.fetch<CZActivity.CheckResponse>(
+                // cspell: disable-next-line
                 urlcat(settings.FIREFLY_ROOT_URL, '/v1/misc/activity/checkBnbcz', {
                     address: account.address!,
                 }),
