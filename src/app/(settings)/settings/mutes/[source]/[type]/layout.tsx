@@ -1,7 +1,7 @@
 import { t } from '@lingui/macro';
 
 import { MuteType, Source, SourceInURL } from '@/constants/enum.js';
-import { createPageTitle, createPageTitleSSR } from '@/helpers/createPageTitle.js';
+import { createPageTitleSSR } from '@/helpers/createPageTitle.js';
 import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 
@@ -21,7 +21,7 @@ export async function generateMetadata({ params: { source, type } }: PageProps) 
         [`${SourceInURL.Firefly}_${MuteType.Wallet}`]: t`Wallets`,
     };
     return createSiteMetadata({
-        title: createPageTitle(createPageTitleSSR(menuNameMap[`${source}_${type}`])),
+        title: createPageTitleSSR(menuNameMap[`${source}_${type}`]),
     });
 }
 

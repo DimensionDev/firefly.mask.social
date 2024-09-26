@@ -7,6 +7,7 @@ import { parseOldDiscoverUrl } from '@/helpers/parseDiscoverUrl.js';
 import { parseOldEngagementUrl } from '@/helpers/parseEngagementUrl.js';
 import { parseOldBookmarkUrl } from '@/helpers/parseOldBookmarkUrl.js';
 import { parseOldFollowingUrl } from '@/helpers/parseOldFollowingUrl.js';
+import { parseOldSettingsUrl } from '@/helpers/parseOldSettingsUrl.js';
 import { parseOldPostUrl } from '@/helpers/parsePostUrl.js';
 import { parseOldProfileUrl, parseProfileUrl } from '@/helpers/parseProfileUrl.js';
 import { resolveBookmarkUrl } from '@/helpers/resolveBookmarkUrl.js';
@@ -102,6 +103,14 @@ export async function middleware(request: NextRequest) {
         const destination = request.nextUrl.clone();
         destination.pathname = resolvePostUrl(parsedOldPostUrl.source, parsedOldPostUrl.id);
         destination.searchParams.delete('source');
+        return NextResponse.redirect(destination);
+    }
+
+    const parsedOldSettingsUrl = parseOldSettingsUrl(request.nextUrl);
+
+    if (parsedOldSettingsUrl) {
+        const destination = request.nextUrl.clone();
+        destination.pathname = parsedOldSettingsUrl.pathname;
         return NextResponse.redirect(destination);
     }
 
