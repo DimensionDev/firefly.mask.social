@@ -31,7 +31,7 @@ export function MethodButton({ item }: Props) {
                     break;
                 }
                 case SupportedMethod.CONNECT_WALLET: {
-                    const { walletAddress } = await fireflyBridgeProvider.request(SupportedMethod.CONNECT_WALLET, {
+                    const walletAddress = await fireflyBridgeProvider.request(SupportedMethod.CONNECT_WALLET, {
                         type: Network.All,
                     });
                     enqueueInfoMessage(walletAddress);

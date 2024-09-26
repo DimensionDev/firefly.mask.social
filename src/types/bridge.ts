@@ -44,9 +44,7 @@ export interface RequestArguments {
 export interface RequestResult {
     [SupportedMethod.GET_SUPPORTED_METHODS]: SupportedMethod[];
     [SupportedMethod.GET_WALLET_ADDRESS]: string[];
-    [SupportedMethod.CONNECT_WALLET]: {
-        walletAddress: string;
-    };
+    [SupportedMethod.CONNECT_WALLET]: string;
     [SupportedMethod.LOGIN]: {
         success: 'true' | 'false';
     };
