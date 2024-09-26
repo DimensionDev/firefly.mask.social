@@ -64,7 +64,9 @@ export function MethodButton({ item }: Props) {
                     break;
             }
         } catch (error) {
-            enqueueErrorMessage(getSnackbarMessageFromError(error, 'Failed to call method'));
+            enqueueErrorMessage(getSnackbarMessageFromError(error, 'Failed to call method'), {
+                error,
+            });
             throw error;
         }
     });
