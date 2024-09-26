@@ -46,7 +46,7 @@ export const useMuteMenuList = (): MuteMenu[] => {
                 name: t`Muted wallets`,
                 source: Source.Firefly,
                 type: MuteType.Wallet,
-                shouldHide: () => Object.keys(profiles).length === 0,
+                shouldHide: () => Object.values(profiles).every((profile) => !profile?.profileId),
             },
         ];
         return filter(fullMuteMenuList, (menu) => !menu.shouldHide());
