@@ -1,4 +1,3 @@
-import { t } from '@lingui/macro';
 import { compact } from 'lodash-es';
 import urlcat from 'urlcat';
 
@@ -33,7 +32,8 @@ export async function createMetadataPostById(source: SocialSourceInURL, postId: 
     });
 
     return createSiteMetadata({
-        title: post?.author ? t`Post by ${post.author.displayName}` : SITE_NAME,
+        title: post?.author ? `Post by ${post.author.displayName} via Firefly` : SITE_NAME,
+        description: post.metadata.content?.content ?? '',
         openGraph: {
             type: 'article',
             url: urlcat(SITE_URL, getPostUrl(post)),

@@ -2,7 +2,7 @@
 import '@/assets/css/limo.css';
 import '@/assets/css/paragraph.css';
 
-import { t, Trans } from '@lingui/macro';
+import { Trans } from '@lingui/macro';
 import { EVMExplorerResolver } from '@masknet/web3-providers';
 import { ChainId } from '@masknet/web3-shared-evm';
 import { useQuery, useSuspenseQuery } from '@tanstack/react-query';
@@ -11,7 +11,7 @@ import { compact } from 'lodash-es';
 import { useRouter } from 'next/navigation.js';
 import { useRef } from 'react';
 import urlcat from 'urlcat';
-import { useDarkMode, useDocumentTitle } from 'usehooks-ts';
+import { useDarkMode } from 'usehooks-ts';
 import { checksumAddress } from 'viem';
 
 import ComeBack from '@/assets/comeback.svg';
@@ -20,10 +20,8 @@ import { ArticleMarkup } from '@/components/Markup/ArticleMarkup.js';
 import { CollapsedContent } from '@/components/Posts/CollapsedContent.js';
 import { ImageAsset } from '@/components/Posts/ImageAsset.js';
 import { PageRoute, SearchType, Source } from '@/constants/enum.js';
-import { SITE_NAME } from '@/constants/index.js';
 import { Link } from '@/esm/Link.js';
 import { classNames } from '@/helpers/classNames.js';
-import { createPageTitle } from '@/helpers/createPageTitle.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
 import { openWindow } from '@/helpers/openWindow.js';
 import { useComeBack } from '@/hooks/useComeback.js';
@@ -75,8 +73,6 @@ export function ArticleDetailPage({ params: { id: articleId } }: PageProps) {
             return;
         },
     });
-
-    useDocumentTitle(article ? createPageTitle(t`Post by ${article.author.handle}`) : SITE_NAME);
 
     if (!article) return null;
 
