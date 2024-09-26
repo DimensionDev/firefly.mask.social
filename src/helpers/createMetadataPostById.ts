@@ -4,11 +4,12 @@ import urlcat from 'urlcat';
 
 import type { SocialSourceInURL } from '@/constants/enum.js';
 import { SITE_NAME, SITE_URL } from '@/constants/index.js';
-import { createPageTitleSSR } from '@/helpers/createPageTitle.js';
+import { createPageTitle } from '@/helpers/createPageTitle.js';
 import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
 import { getPostUrl } from '@/helpers/getPostUrl.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { resolveSocialSource } from '@/helpers/resolveSource.js';
+import { transSSR } from '@/helpers/transSSR.js';
 
 export async function createMetadataPostById(source: SocialSourceInURL, postId: string) {
     const provider = resolveSocialMediaProvider(resolveSocialSource(source));
@@ -33,13 +34,17 @@ export async function createMetadataPostById(source: SocialSourceInURL, postId: 
         postId,
     });
 
+    const title = post?.author
+        ? createPageTitle(transSSR(t`Posted by ${post.author.displayName} via Firefly`))
+        : SITE_NAME;
+
     return createSiteMetadata({
-        title: post?.author ? createPageTitleSSR(t`Posted by ${post.author.displayName} via Firefly`) : SITE_NAME,
+        title,
         description: post.metadata.content?.content ?? '',
         openGraph: {
             type: 'article',
             url: urlcat(SITE_URL, getPostUrl(post)),
-            title: createPageTitleSSR(t`Posted by ${post.author.displayName} via Firefly`),
+            title,
             description: post.metadata.content?.content ?? '',
             images: [ogImage],
             audio: audios,
@@ -47,7 +52,7 @@ export async function createMetadataPostById(source: SocialSourceInURL, postId: 
         },
         twitter: {
             card: 'summary_large_image',
-            title: createPageTitleSSR(t`Posted by ${post.author.displayName} via Firefly`),
+            title,
             description: post.metadata.content?.content ?? '',
             images: [ogImage],
         },
