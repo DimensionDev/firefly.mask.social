@@ -10,6 +10,7 @@ import { useActivityCheckResponse } from '@/components/CZ/useActivityCheckRespon
 import { Source } from '@/constants/enum.js';
 import { Link } from '@/esm/Link.js';
 import { resolveProfileUrl } from '@/helpers/resolveProfileUrl.js';
+import { redirect } from 'next/navigation.js';
 
 export function ActivityCheckList() {
     const { data, isLoading } = useActivityCheckResponse();
@@ -42,6 +43,10 @@ export function ActivityCheckList() {
             pass: data?.bnbId?.valid,
         },
     ];
+
+    if (data?.eventEnds) {
+        redirect('/activity/cz');
+    }
 
     return (
         <div className="flex w-full flex-col space-y-8 text-left">

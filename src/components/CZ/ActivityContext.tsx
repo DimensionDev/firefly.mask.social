@@ -6,13 +6,13 @@ import urlcat from 'urlcat';
 import { useAccount } from 'wagmi';
 
 import { Source } from '@/constants/enum.js';
-import { FIREFLY_DEV_ROOT_URL } from '@/constants/index.js';
 import { enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
 import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
 import { fireflyBridgeProvider } from '@/providers/firefly/Bridge.js';
 import type { WalletProfileResponse } from '@/providers/types/Firefly.js';
 import { Platform, SupportedMethod } from '@/types/bridge.js';
+import { settings } from '@/settings/index.js';
 
 export interface ActivityContextValues {
     onClaim: (hash: string) => void;
@@ -49,8 +49,7 @@ export function ActivityContextProvider({
         async queryFn() {
             if (!fireflyBridgeProvider.supported) return !!twitterProfile;
             const token = await fireflyBridgeProvider.request(SupportedMethod.GET_AUTHORIZATION, {});
-            // TODO: settings.FIREFLY_ROOT_URL
-            const url = urlcat(FIREFLY_DEV_ROOT_URL, '/v2/wallet/profile');
+            const url = urlcat(settings.FIREFLY_ROOT_URL, '/v2/wallet/profile');
             const res = await fetchJSON<WalletProfileResponse>(url, {
                 headers: {
                     Authorization: `Bearer ${token}`,
