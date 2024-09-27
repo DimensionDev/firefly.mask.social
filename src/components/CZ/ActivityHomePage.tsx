@@ -2,7 +2,8 @@
 
 import { Trans } from '@lingui/macro';
 import { useContext, useMemo } from 'react';
-import { useAccount, useEnsName } from 'wagmi';
+import type { Address } from 'viem';
+import { useEnsName } from 'wagmi';
 
 import LoadingIcon from '@/assets/loading.svg';
 import { ActivityContext } from '@/components/CZ/ActivityContext.js';
@@ -13,23 +14,20 @@ import { Image } from '@/esm/Image.js';
 import { Link } from '@/esm/Link.js';
 import { formatAddress } from '@/helpers/formatAddress.js';
 import { resolveProfileUrl } from '@/helpers/resolveProfileUrl.js';
-import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
 import { Level } from '@/providers/types/CZ.js';
 
 export function ActivityHomePage() {
-    const account = useAccount();
-    const { type, goChecklist } = useContext(ActivityContext);
+    const { type, address, isLoggedTwitter } = useContext(ActivityContext);
     const { data, isLoading } = useActivityCheckResponse();
-    const twitterProfile = useCurrentProfile(Source.Twitter);
-    const { data: ens } = useEnsName({ address: account.address });
+    const { data: ens } = useEnsName({ address: address as Address });
     const { title, description } = useMemo(() => {
-        if (!twitterProfile) {
+        if (!isLoggedTwitter) {
             return {
                 title: <Trans>Reward for followers</Trans>,
                 description: (
                     <Trans>
                         Get a free special edition Firefly NFT for following{' '}
-                        <Link className="text-highlight" href={resolveProfileUrl(Source.Twitter, '902926941413453824')}>
+                        <Link className="text-[#AC9DF6]" href={resolveProfileUrl(Source.Twitter, '902926941413453824')}>
                             @cz_binance
                         </Link>{' '}
                         on X to celebrate CZ’s return!
@@ -37,7 +35,7 @@ export function ActivityHomePage() {
                 ),
             };
         }
-        if (!account.address) {
+        if (!address) {
             return {
                 title: <Trans>Almost there!</Trans>,
                 description: <Trans>Connect your wallet to claim your NFT.</Trans>,
@@ -55,7 +53,7 @@ export function ActivityHomePage() {
                 description: (
                     <Trans>
                         Get a free special edition Firefly NFT for following{' '}
-                        <Link className="text-highlight" href={resolveProfileUrl(Source.Twitter, '902926941413453824')}>
+                        <Link className="text-[#AC9DF6]" href={resolveProfileUrl(Source.Twitter, '902926941413453824')}>
                             @cz_binance
                         </Link>{' '}
                         on X to celebrate CZ’s return!
@@ -64,7 +62,7 @@ export function ActivityHomePage() {
             };
         }
         if (data?.canClaim) {
-            const title = <Trans>{ens ?? formatAddress(account.address, 4)} is eligible!</Trans>;
+            const title = <Trans>{ens ?? formatAddress(address, 4)} is eligible!</Trans>;
             if (data.level === Level.Lv2) {
                 if (data.x?.valid) {
                     return {
@@ -110,14 +108,14 @@ export function ActivityHomePage() {
             description: (
                 <Trans>
                     Must followed{' '}
-                    <Link className="text-highlight" href={resolveProfileUrl(Source.Twitter, '902926941413453824')}>
+                    <Link className="text-[#AC9DF6]" href={resolveProfileUrl(Source.Twitter, '902926941413453824')}>
                         @cz_binance
                     </Link>{' '}
                     on X before Sept 21, 2024.
                 </Trans>
             ),
         };
-    }, [account.address, data?.alreadyClaimed, data?.canClaim, data?.level, ens, twitterProfile, type]);
+    }, [isLoggedTwitter, address, data?.alreadyClaimed, data?.canClaim, data?.level, ens, type]);
 
     if (type === 'dialog' && isLoading) {
         return (

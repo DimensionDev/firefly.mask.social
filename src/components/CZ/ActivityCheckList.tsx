@@ -19,7 +19,7 @@ export function ActivityCheckList() {
             description: (
                 <Trans>
                     Followed{' '}
-                    <Link className="text-highlight" href={resolveProfileUrl(Source.Twitter, '902926941413453824')}>
+                    <Link className="text-[#AC9DF6]" href={resolveProfileUrl(Source.Twitter, '902926941413453824')}>
                         @cz_binance
                     </Link>{' '}
                     on X before Sept 21
@@ -46,7 +46,7 @@ export function ActivityCheckList() {
     return (
         <div className="flex w-full flex-col space-y-8 text-left">
             <div className="space-y-4">
-                <h5 className="text-md font-bold text-highlight">
+                <h5 className="text-md font-bold text-[#AC9DF6]">
                     <Trans>Basic Criteria</Trans>
                 </h5>
                 <p>
