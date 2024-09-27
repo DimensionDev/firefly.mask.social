@@ -2,9 +2,9 @@
 
 import { Trans } from '@lingui/macro';
 
-import { NavigationBar } from '@/components/ActivityPage/common/NavigationBar.js';
-import { CZActivityHomePage } from '@/components/ActivityPage/CZ/CZActivityHomePage.js';
-import { CZActivityShortRules } from '@/components/ActivityPage/CZ/CZActivityShortRules.js';
+import { ActivityHomePage } from '@/components/CZ/ActivityHomePage.js';
+import { ActivityShortRules } from '@/components/CZ/ActivityShortRules.js';
+import { NavigationBar } from '@/components/CZ/NavigationBar.js';
 import { Image } from '@/esm/Image.js';
 
 export default function Page() {
@@ -21,10 +21,10 @@ export default function Page() {
                 className="pointer-events-none fixed left-0 top-0 h-full w-full object-cover"
             />
             <div className="relative z-10 mx-auto flex w-full flex-1 flex-col items-center justify-center space-y-8 p-6 text-white">
-                <CZActivityHomePage />
+                <ActivityHomePage />
                 <div className="rounded-[13px] bg-gradient-to-b from-[#e5dbb9] to-[#181A20] p-[1px]">
                     <div className="w-full space-y-4 rounded-[12px] bg-[#181A20] px-6 py-3 text-sm">
-                        <CZActivityShortRules />
+                        <ActivityShortRules />
                     </div>
                 </div>
             </div>

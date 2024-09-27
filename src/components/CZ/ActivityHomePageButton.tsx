@@ -6,20 +6,20 @@ import { signIn } from 'next-auth/react';
 import { useContext } from 'react';
 import { useAccount } from 'wagmi';
 
-import { CZActivityClaimButton } from '@/components/ActivityPage/CZ/CZActivityClaimButton.js';
-import { CZActivityContext } from '@/components/ActivityPage/CZ/CZActivityContext.js';
+import { ActivityClaimButton } from '@/components/CZ/ActivityClaimButton.js';
+import { ActivityContext } from '@/components/CZ/ActivityContext.js';
+import { useActivityCheckResponse } from '@/components/CZ/useActivityCheckResponse.js';
 import { PageRoute, Source } from '@/constants/enum.js';
 import { isRoutePathname } from '@/helpers/isRoutePathname.js';
 import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
-import { useCZActivityCheckResponse } from '@/hooks/useCZActivityCheckResponse.js';
 import { ConnectModalRef, LoginModalRef } from '@/modals/controls.js';
 
-export function CZActivityHomePageButton() {
+export function ActivityHomePageButton() {
     const account = useAccount();
     const twitterProfile = useCurrentProfile(Source.Twitter);
     const pathname = usePathname();
-    const { data } = useCZActivityCheckResponse();
-    const { goChecklist, type } = useContext(CZActivityContext);
+    const { data } = useActivityCheckResponse();
+    const { goChecklist, type } = useContext(ActivityContext);
 
     const changeWallet =
         type === 'page' ? (
@@ -85,7 +85,7 @@ export function CZActivityHomePageButton() {
     if (data?.canClaim) {
         return (
             <>
-                <CZActivityClaimButton level={data?.level} canClaim className="!h-10 !text-sm !leading-10" />
+                <ActivityClaimButton level={data?.level} canClaim className="!h-10 !text-sm !leading-10" />
                 {changeWallet}
             </>
         );

@@ -2,8 +2,8 @@
 
 import { Trans } from '@lingui/macro';
 
-import { NavigationBar } from '@/components/ActivityPage/common/NavigationBar.js';
-import { CZActivityCheckList } from '@/components/ActivityPage/CZ/CZActivityCheckList.js';
+import { ActivityCheckList } from '@/components/CZ/ActivityCheckList.js';
+import { NavigationBar } from '@/components/CZ/NavigationBar.js';
 import { useComeBack } from '@/hooks/useComeback.js';
 
 export default function Page() {
@@ -14,7 +14,7 @@ export default function Page() {
                 <Trans>Welcome Back CZ Collectible</Trans>
             </NavigationBar>
             <div className="w-full p-6 text-white">
-                <CZActivityCheckList />
+                <ActivityCheckList />
             </div>
         </div>
     );

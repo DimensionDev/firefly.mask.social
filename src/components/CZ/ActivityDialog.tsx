@@ -5,11 +5,11 @@ import Tippy from '@tippyjs/react/headless';
 import React, { useEffect, useState } from 'react';
 
 import QuestionIcon from '@/assets/question.svg';
-import { CZActivityClaimSuccessContent } from '@/components/ActivityPage/CZ/CZActivityClaimSuccessDialog.js';
-import { CZActivityContext } from '@/components/ActivityPage/CZ/CZActivityContext.js';
-import { CZActivityHomePage } from '@/components/ActivityPage/CZ/CZActivityHomePage.js';
-import { CZActivityShortRules } from '@/components/ActivityPage/CZ/CZActivityShortRules.js';
 import { CloseButton } from '@/components/CloseButton.js';
+import { ActivityClaimSuccessContent } from '@/components/CZ/ActivityClaimSuccessDialog.js';
+import { ActivityContext } from '@/components/CZ/ActivityContext.js';
+import { ActivityHomePage } from '@/components/CZ/ActivityHomePage.js';
+import { ActivityShortRules } from '@/components/CZ/ActivityShortRules.js';
 import { Modal } from '@/components/Modal.js';
 import { Image } from '@/esm/Image.js';
 
@@ -18,7 +18,7 @@ interface Props {
     open: boolean;
 }
 
-export function CZActivityDialog({ open, onClose }: Props) {
+export function ActivityDialog({ open, onClose }: Props) {
     const [success, setSuccess] = useState(false);
 
     useEffect(() => {
@@ -43,7 +43,7 @@ export function CZActivityDialog({ open, onClose }: Props) {
                         render={() => {
                             return (
                                 <div className="flex max-w-[327px] flex-col space-y-3 rounded-[12px] bg-[#181A20] px-6 py-3 text-white">
-                                    <CZActivityShortRules />
+                                    <ActivityShortRules />
                                 </div>
                             );
                         }}
@@ -61,7 +61,7 @@ export function CZActivityDialog({ open, onClose }: Props) {
                         onClick={onClose}
                     />
                 </div>
-                <CZActivityContext.Provider
+                <ActivityContext.Provider
                     value={{
                         onClaim() {
                             setSuccess(true);
@@ -71,13 +71,13 @@ export function CZActivityDialog({ open, onClose }: Props) {
                     }}
                 >
                     {success ? (
-                        <CZActivityClaimSuccessContent onClose={onClose} />
+                        <ActivityClaimSuccessContent onClose={onClose} />
                     ) : (
                         <div className="relative flex flex-col space-y-6">
-                            <CZActivityHomePage />
+                            <ActivityHomePage />
                         </div>
                     )}
-                </CZActivityContext.Provider>
+                </ActivityContext.Provider>
             </div>
         </Modal>
     );

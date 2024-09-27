@@ -4,22 +4,22 @@ import { Trans } from '@lingui/macro';
 import { useContext, useMemo } from 'react';
 import { useAccount, useEnsName } from 'wagmi';
 
-import { CZActivityContext } from '@/components/ActivityPage/CZ/CZActivityContext.js';
-import { CZActivityHomePageButton } from '@/components/ActivityPage/CZ/CZActivityHomePageButton.js';
+import LoadingIcon from '@/assets/loading.svg';
+import { ActivityContext } from '@/components/CZ/ActivityContext.js';
+import { ActivityHomePageButton } from '@/components/CZ/ActivityHomePageButton.js';
+import { useActivityCheckResponse } from '@/components/CZ/useActivityCheckResponse.js';
 import { Source } from '@/constants/enum.js';
 import { Image } from '@/esm/Image.js';
 import { Link } from '@/esm/Link.js';
 import { formatAddress } from '@/helpers/formatAddress.js';
 import { resolveProfileUrl } from '@/helpers/resolveProfileUrl.js';
 import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
-import { useCZActivityCheckResponse } from '@/hooks/useCZActivityCheckResponse.js';
-import { CZActivity } from '@/providers/types/Firefly.js';
-import LoadingIcon from '@/assets/loading.svg';
+import { Level } from '@/providers/types/CZ.js';
 
-export function CZActivityHomePage() {
+export function ActivityHomePage() {
     const account = useAccount();
-    const { type, goChecklist } = useContext(CZActivityContext);
-    const { data, isLoading } = useCZActivityCheckResponse();
+    const { type, goChecklist } = useContext(ActivityContext);
+    const { data, isLoading } = useActivityCheckResponse();
     const twitterProfile = useCurrentProfile(Source.Twitter);
     const { data: ens } = useEnsName({ address: account.address });
     const { title, description } = useMemo(() => {
@@ -65,14 +65,14 @@ export function CZActivityHomePage() {
         }
         if (data?.canClaim) {
             const title = <Trans>{ens ?? formatAddress(account.address, 4)} is eligible!</Trans>;
-            if (data.level === CZActivity.Level.Lv2) {
+            if (data.level === Level.Lv2) {
                 if (data.x?.valid) {
                     return {
                         title,
                         description: (
                             <Trans>
-                                You're eligible for a <b>Premium</b> CZ Support NFT because your X account holds Premium
-                                status.
+                                You&apos;re eligible for a <b>Premium</b> CZ Support NFT because your X account holds
+                                Premium status.
                             </Trans>
                         ),
                     };
@@ -82,8 +82,8 @@ export function CZActivityHomePage() {
                         title,
                         description: (
                             <Trans>
-                                You're eligible for a <b>Premium</b> CZ Support NFT because your BNB Chain wallet holds
-                                assets valued over <b>$10,000</b>.
+                                You&apos;re eligible for a <b>Premium</b> CZ Support NFT because your BNB Chain wallet
+                                holds assets valued over <b>$10,000</b>.
                             </Trans>
                         ),
                     };
@@ -93,8 +93,8 @@ export function CZActivityHomePage() {
                         title,
                         description: (
                             <Trans>
-                                You're eligible for a <b>Premium</b> CZ Support NFT because your .bnb domain is member
-                                of the <b>SPACE ID Premier Club</b>.
+                                You&apos;re eligible for a <b>Premium</b> CZ Support NFT because your .bnb domain is
+                                member of the <b>SPACE ID Premier Club</b>.
                             </Trans>
                         ),
                     };
@@ -135,11 +135,7 @@ export function CZActivityHomePage() {
     return (
         <div className="flex w-full flex-col items-center space-y-8">
             <Image
-                src={
-                    data?.level === CZActivity.Level.Lv2
-                        ? '/image/activity/cz/premium-nft.png'
-                        : '/image/activity/cz/nft.png'
-                }
+                src={data?.level === Level.Lv2 ? '/image/activity/cz/premium-nft.png' : '/image/activity/cz/nft.png'}
                 width={162}
                 height={162}
                 alt="cz-nft"
@@ -149,7 +145,7 @@ export function CZActivityHomePage() {
                 <p className="text-sm font-normal">{description}</p>
             </div>
             <div className="flex flex-col space-y-1.5 text-center">
-                <CZActivityHomePageButton />
+                <ActivityHomePageButton />
             </div>
         </div>
     );

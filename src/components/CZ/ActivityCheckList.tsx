@@ -5,14 +5,14 @@ import { Trans } from '@lingui/macro';
 import CircleFailIcon from '@/assets/circle-fail.svg';
 import CircleSuccessIcon from '@/assets/circle-success.svg';
 import FollowIcon from '@/assets/follow.svg';
-import { CZActivityClaimButton } from '@/components/ActivityPage/CZ/CZActivityClaimButton.js';
+import { ActivityClaimButton } from '@/components/CZ/ActivityClaimButton.js';
+import { useActivityCheckResponse } from '@/components/CZ/useActivityCheckResponse.js';
 import { Source } from '@/constants/enum.js';
 import { Link } from '@/esm/Link.js';
 import { resolveProfileUrl } from '@/helpers/resolveProfileUrl.js';
-import { useCZActivityCheckResponse } from '@/hooks/useCZActivityCheckResponse.js';
 
-export function CZActivityCheckList() {
-    const { data, isLoading } = useCZActivityCheckResponse();
+export function ActivityCheckList() {
+    const { data, isLoading } = useActivityCheckResponse();
     const basicChecklist = [
         {
             icon: <FollowIcon width={16} height={16} />,
@@ -94,7 +94,7 @@ export function CZActivityCheckList() {
                 </ul>
             </div>
 
-            <CZActivityClaimButton
+            <ActivityClaimButton
                 level={data?.level}
                 alreadyClaimed={data?.alreadyClaimed}
                 canClaim={data?.canClaim}

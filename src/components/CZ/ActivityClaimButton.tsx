@@ -8,29 +8,24 @@ import urlcat from 'urlcat';
 import { useAccount } from 'wagmi';
 
 import LoadingIcon from '@/assets/loading.svg';
-import { CZActivityContext } from '@/components/ActivityPage/CZ/CZActivityContext.js';
+import { ActivityContext } from '@/components/CZ/ActivityContext.js';
 import { classNames } from '@/helpers/classNames.js';
 import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
 import { getSnackbarMessageFromError } from '@/helpers/getSnackbarMessageFromError.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
-import { CZActivity, type Response } from '@/providers/types/Firefly.js';
+import { Level } from '@/providers/types/CZ.js';
+import { type Response } from '@/providers/types/Firefly.js';
 import { settings } from '@/settings/index.js';
 
 interface Props extends HTMLProps<'button'> {
-    level?: CZActivity.Level;
+    level?: Level;
     alreadyClaimed?: boolean;
     canClaim?: boolean;
     isLoading?: boolean;
 }
 
-export function CZActivityClaimButton({
-    level,
-    alreadyClaimed = false,
-    canClaim,
-    isLoading = false,
-    className,
-}: Props) {
-    const { onClaim } = useContext(CZActivityContext);
+export function ActivityClaimButton({ level, alreadyClaimed = false, canClaim, isLoading = false, className }: Props) {
+    const { onClaim } = useContext(ActivityContext);
     const disabled = isLoading || alreadyClaimed;
     const account = useAccount();
     const address = account.address; // TODO: and address from mobile
@@ -83,7 +78,7 @@ export function CZActivityClaimButton({
 
     return (
         <>
-            {level === CZActivity.Level.Lv2 ? (
+            {level === Level.Lv2 ? (
                 <button
                     disabled={disabled || loading}
                     className={classNames(

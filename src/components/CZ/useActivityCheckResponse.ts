@@ -9,16 +9,16 @@ import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
 import { getSnackbarMessageFromError } from '@/helpers/getSnackbarMessageFromError.js';
 import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
-import { CZActivity } from '@/providers/types/Firefly.js';
+import type { CheckResponse } from '@/providers/types/CZ.js';
 import { settings } from '@/settings/index.js';
 
-export function useCZActivityCheckResponse() {
+export function useActivityCheckResponse() {
     const account = useAccount();
     const twitterProfile = useCurrentProfile(Source.Twitter);
     const query = useQuery({
         queryKey: ['cz-activity-check', account.address, !!twitterProfile],
         async queryFn() {
-            const response = await fireflySessionHolder.fetch<CZActivity.CheckResponse>(
+            const response = await fireflySessionHolder.fetch<CheckResponse>(
                 // cspell: disable-next-line
                 urlcat(settings.FIREFLY_ROOT_URL, '/v1/misc/activity/checkBnbcz', {
                     address: account.address!,
