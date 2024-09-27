@@ -663,9 +663,6 @@ msgstr "会话验证器"
 msgid "THREAD POST"
 msgstr "THREAD 发帖"
 
-msgid "This entry has been permanently stored on-chain and signed by its creator."
-msgstr "这个入口已经被其创建者签名并永久存储上链"
-
 msgid "Failed to avatar."
 msgstr "上传头像失败。"
 
@@ -833,9 +830,6 @@ msgstr "燃油费不足"
 
 msgid "Blacklist function"
 msgstr "黑名单功能"
-
-msgid "AUTHOR ADDRESS"
-msgstr "作者地址"
 
 msgid "Enable development API version"
 msgstr "启用开发环境接口"

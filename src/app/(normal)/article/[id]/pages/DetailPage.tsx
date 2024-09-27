@@ -12,7 +12,6 @@ import { useRouter } from 'next/navigation.js';
 import { useRef } from 'react';
 import urlcat from 'urlcat';
 import { useDarkMode } from 'usehooks-ts';
-import { checksumAddress } from 'viem';
 
 import ComeBack from '@/assets/comeback.svg';
 import { ArticleHeader } from '@/components/Article/ArticleHeader.js';
@@ -212,20 +211,9 @@ export function ArticleDetailPage({ params: { id: articleId } }: PageProps) {
                         {article.content}
                     </ArticleMarkup>
                 )}
-                {authorUrl && !isMuted ? (
-                    <div className="mb-4 mt-4 rounded-2xl border border-line bg-bg p-2">
-                        <div className="border-b border-line pb-2 text-sm">
-                            <Trans>This entry has been permanently stored on-chain and signed by its creator.</Trans>
-                        </div>
 
-                        <Link rel="noreferrer noopener" target="_blank" href={authorUrl} className="mt-3 text-sm">
-                            <div className="mt-1 text-secondary">
-                                <Trans>AUTHOR ADDRESS</Trans>
-                            </div>
-                            <div className="break-all">{checksumAddress(article.author.id)}</div>
-                        </Link>
-                    </div>
-                ) : null}
+                {/* article bottom padding */}
+                <div className="py-4" />
             </div>
         </div>
     );
