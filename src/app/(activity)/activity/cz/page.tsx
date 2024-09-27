@@ -1,12 +1,12 @@
 import { Trans } from '@lingui/macro';
+import type { Metadata } from 'next';
 
+import FireflyIcon from '@/assets/firefly-pure.svg';
 import { ActivityHomePage } from '@/components/CZ/ActivityHomePage.js';
 import { ActivityShortRules } from '@/components/CZ/ActivityShortRules.js';
+import { getActivityOG } from '@/components/CZ/getActivityOG.js';
 import { NavigationBar } from '@/components/CZ/NavigationBar.js';
 import { Image } from '@/esm/Image.js';
-import FireflyIcon from '@/assets/firefly-pure.svg';
-import type { Metadata } from 'next';
-import { getActivityOG } from '@/components/CZ/getActivityOG.js';
 
 export async function generateMetadata(): Promise<Metadata> {
     return getActivityOG();

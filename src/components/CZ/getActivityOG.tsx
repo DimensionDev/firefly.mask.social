@@ -1,5 +1,5 @@
-import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
 import { SITE_URL } from '@/constants/index.js';
+import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
 
 export function getActivityOG() {
     const title = 'Welcome Back CZ Collectible';
