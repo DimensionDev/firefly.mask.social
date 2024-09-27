@@ -2025,12 +2025,6 @@ msgstr "创建帖子"
 msgid "{type, select, comment {Comments} mirror {{0}} reaction {Likes} act {Collects} other {Other}}"
 msgstr "{type, select, comment {评论} mirror {{0}} reaction {点赞} act {收藏} other {其他}}"
 
-msgid ""
-"Just claimed the “@twitterusername welcome back 🎉 to CZ” from @thefireflyapp! \n"
-"Claim yours at firefly.social when you follow @cz_binance. \n"
-"#CZ #FireflySocial"
-msgstr ""
-
 msgid "You may lose your assets if giving approval to the website of this token."
 msgstr "如果您授权此通证给这个网站，您可能会丢失您的资产。"
 
