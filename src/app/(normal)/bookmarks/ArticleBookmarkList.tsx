@@ -49,6 +49,7 @@ export function ArticleBookmarkList() {
 
     return (
         <ListInPage
+            source={Source.Article}
             loginRequired
             key="article"
             queryResult={query}

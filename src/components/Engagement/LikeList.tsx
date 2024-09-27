@@ -31,6 +31,7 @@ export function LikeList({ postId, type, source }: PostEngagementListProps) {
     const listKey = `${ScrollListKey.Engagement}:${postId}:${type}`;
     return (
         <ListInPage
+            source={source}
             key={type}
             queryResult={queryResult}
             VirtualListProps={{

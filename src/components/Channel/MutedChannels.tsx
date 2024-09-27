@@ -29,6 +29,7 @@ export function MutedChannels({ source }: MutedChannelsProps) {
 
     return (
         <ListInPage
+            source={source}
             key={source}
             queryResult={queryResult}
             className="no-scrollbar"

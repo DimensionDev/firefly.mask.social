@@ -30,6 +30,7 @@ export function MutedProfiles({ source }: MutedProfilesProps) {
 
     return (
         <ListInPage
+            source={source}
             key={source}
             queryResult={queryResult}
             className="no-scrollbar"

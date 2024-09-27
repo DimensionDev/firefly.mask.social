@@ -23,6 +23,7 @@ export const DiscoverArticleList = memo(function DiscoverArticleList() {
 
     return (
         <ListInPage
+            source={Source.Article}
             queryResult={articleQueryResult}
             VirtualListProps={{
                 listKey: `${ScrollListKey.Discover}:${Source.Article}`,
