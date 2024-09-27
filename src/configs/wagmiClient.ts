@@ -46,14 +46,14 @@ const scrollInnerChain: Chain = {
     nativeCurrency: { name: 'Ether', symbol: 'ETH', decimals: 18 },
     rpcUrls: {
         default: {
-            http: ['https://l2-rpc.scrollsdk'],
+            http: ['https://l2-rpc-xs9qoe4v.nextnext.id'],
         },
     },
     blockExplorers: {
         default: {
             name: 'blockscout',
-            url: 'https://blockscout.scrollsdk',
-            apiUrl: 'https://rollup-explorer-backend.scrollsdk/api',
+            url: 'https://blockscout-xs9qoe4v.nextnext.id',
+            apiUrl: 'https://rollup-explorer-backend-xs9qoe4v.nextnext.id',
         },
     },
     testnet: true,
