@@ -4,19 +4,19 @@ import { t, Trans } from '@lingui/macro';
 import React from 'react';
 
 import { CloseButton } from '@/components/CloseButton.js';
+import { useActivityCheckResponse } from '@/components/CZ/useActivityCheckResponse.js';
 import { Modal } from '@/components/Modal.js';
 import { Image } from '@/esm/Image.js';
-import { useCZActivityCheckResponse } from '@/hooks/useCZActivityCheckResponse.js';
-import { CZActivity } from '@/providers/types/Firefly.js';
 import { enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { ComposeModalRef } from '@/modals/controls.js';
+import { Level } from '@/providers/types/CZ.js';
 
 interface Props {
     open: boolean;
     onClose: () => void;
 }
 
-export function CZActivityClaimSuccessDialog({ open, onClose }: Props) {
+export function ActivityClaimSuccessDialog({ open, onClose }: Props) {
     return (
         <Modal open={open} onClose={onClose} disableScrollLock={false} backdropClassName="!bg-[rgba(245,245,245,0.3)]">
             <div className="relative z-10 w-[calc(100%-40px)] max-w-[485px] rounded-[12px] bg-black p-6 text-white">
@@ -37,21 +37,18 @@ export function CZActivityClaimSuccessDialog({ open, onClose }: Props) {
                         onClick={onClose}
                     />
                 </div>
-                <CZActivityClaimSuccessContent />
+                <ActivityClaimSuccessContent />
             </div>
         </Modal>
     );
 }
-export function CZActivityClaimSuccessContent({ onClose }: { onClose?: () => void }) {
-    const { data } = useCZActivityCheckResponse();
+
+export function ActivityClaimSuccessContent({ onClose }: { onClose?: () => void }) {
+    const { data } = useActivityCheckResponse();
     return (
         <div className="relative z-10 flex w-full flex-col items-center space-y-6">
             <Image
-                src={
-                    data?.level === CZActivity.Level.Lv2
-                        ? '/image/activity/cz/premium-nft.png'
-                        : '/image/activity/cz/nft.png'
-                }
+                src={data?.level === Level.Lv2 ? '/image/activity/cz/premium-nft.png' : '/image/activity/cz/nft.png'}
                 width={162}
                 height={162}
                 alt="cz-nft"

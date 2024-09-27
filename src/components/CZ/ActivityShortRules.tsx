@@ -4,7 +4,7 @@ import { Trans } from '@lingui/macro';
 
 import StarPremiumIcon from '@/assets/star-premium.svg';
 
-export function CZActivityShortRules() {
+export function ActivityShortRules() {
     return (
         <>
             <h3 className="flex items-center text-sm font-bold leading-[18px]">

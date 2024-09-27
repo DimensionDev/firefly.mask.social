@@ -21,8 +21,8 @@ import ProfileIcon from '@/assets/profile.svg';
 import SettingsSelectedIcon from '@/assets/setting.selected.svg';
 import SettingsIcon from '@/assets/setting.svg';
 import WalletIcon from '@/assets/wallet.svg';
-import { CZActivityMenuIcon } from '@/components/ActivityPage/CZ/CZActivityMenuIcon.js';
 import { ClickableButton } from '@/components/ClickableButton.js';
+import { ActivityMenuIcon } from '@/components/CZ/ActivityMenuIcon.js';
 import { LoginStatusBar } from '@/components/Login/LoginStatusBar.js';
 import { OpenFireflyAppButton } from '@/components/OpenFireflyAppButton.js';
 import { ConnectWallet } from '@/components/SideBar/ConnectWallet.js';
@@ -124,8 +124,8 @@ export const Menu = memo(function Menu({ collapsed = false }: MenuProps) {
                             {
                                 href: '/welcome-cz',
                                 name: <Trans>Welcome Back CZ</Trans>,
-                                icon: CZActivityMenuIcon,
-                                selectedIcon: CZActivityMenuIcon,
+                                icon: ActivityMenuIcon,
+                                selectedIcon: ActivityMenuIcon,
                             },
                             {
                                 href: PageRoute.Settings,
