@@ -3,15 +3,12 @@ import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 import { immer } from 'zustand/middleware/immer';
 
-import { STATUS, WalletProviderType } from '@/constants/enum.js';
+import { STATUS } from '@/constants/enum.js';
 import { env } from '@/constants/env.js';
 import { FIREFLY_DEV_ROOT_URL, FIREFLY_ROOT_URL } from '@/constants/index.js';
 import { createSelectors } from '@/helpers/createSelector.js';
 
 interface DeveloperSettingsState {
-    providerType: WalletProviderType;
-    updateProviderType: (value: WalletProviderType) => void;
-
     useDevelopmentAPI: boolean;
     updateUseDevelopmentAPI: (value: boolean) => void;
 
@@ -29,12 +26,6 @@ const useDeveloperSettingsBase = create<
 >(
     persist(
         immer((set) => ({
-            providerType: WalletProviderType.AppKit,
-            updateProviderType: (value: WalletProviderType) =>
-                set((state) => {
-                    state.providerType = value;
-                }),
-
             useDevelopmentAPI: env.external.NEXT_PUBLIC_ENABLED_FIREFLY_DEV_API === STATUS.Enabled,
             updateUseDevelopmentAPI: (value: boolean) =>
                 set((state) => {
