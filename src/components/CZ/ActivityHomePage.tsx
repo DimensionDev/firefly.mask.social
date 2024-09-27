@@ -21,6 +21,12 @@ export function ActivityHomePage() {
     const { data, isLoading } = useActivityCheckResponse();
     const { data: ens } = useEnsName({ address: address as Address });
     const { title, description } = useMemo(() => {
+        if (data?.eventEnds) {
+            return {
+                title: <Trans>Event ended</Trans>,
+                description: null,
+            };
+        }
         if (!isLoggedTwitter) {
             return {
                 title: <Trans>Reward for followers</Trans>,
@@ -118,6 +124,7 @@ export function ActivityHomePage() {
     }, [
         isLoggedTwitter,
         address,
+        data?.eventEnds,
         data?.alreadyClaimed,
         data?.canClaim,
         data?.level,
@@ -128,14 +135,16 @@ export function ActivityHomePage() {
         type,
     ]);
 
-    if (type === 'dialog' && isLoading) {
+    if (isLoading) {
         return (
             <div className="flex h-[317px] w-full flex-col items-center justify-center">
                 <div className="flex flex-col items-center space-y-3">
                     <LoadingIcon className="animate-spin" width={36} height={36} />
-                    <p className="text-sm leading-[18px]">
-                        <Trans>Checking eligibility</Trans>
-                    </p>
+                    {type === 'dialog' ? (
+                        <p className="text-sm leading-[18px]">
+                            <Trans>Checking eligibility</Trans>
+                        </p>
+                    ) : null}
                 </div>
             </div>
         );

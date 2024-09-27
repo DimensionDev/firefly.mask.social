@@ -1,6 +1,7 @@
 'use client';
 
 import { Trans } from '@lingui/macro';
+import { redirect } from 'next/navigation.js';
 
 import CircleFailIcon from '@/assets/circle-fail.svg';
 import CircleSuccessIcon from '@/assets/circle-success.svg';
@@ -42,6 +43,10 @@ export function ActivityCheckList() {
             pass: data?.bnbId?.valid,
         },
     ];
+
+    if (data?.eventEnds) {
+        redirect('/activity/cz');
+    }
 
     return (
         <div className="flex w-full flex-col space-y-8 text-left">
