@@ -2,6 +2,12 @@ import { Trans } from '@lingui/macro';
 
 import { ActivityCheckList } from '@/components/CZ/ActivityCheckList.js';
 import { NavigationBar } from '@/components/CZ/NavigationBar.js';
+import type { Metadata } from 'next';
+import { getActivityOG } from '@/components/CZ/getActivityOG.js';
+
+export async function generateMetadata(): Promise<Metadata> {
+    return getActivityOG();
+}
 
 export default function Page() {
     return (

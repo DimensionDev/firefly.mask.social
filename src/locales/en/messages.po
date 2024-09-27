@@ -1399,6 +1399,9 @@ msgstr "Mute successfully."
 msgid "If this function exists, it is possible for the project owner to regain ownership even after relinquishing it"
 msgstr "If this function exists, it is possible for the project owner to regain ownership even after relinquishing it"
 
+msgid "<0>© 2024 Firefly.</0> All rights reserved."
+msgstr "<0>© 2024 Firefly.</0> All rights reserved."
+
 msgid "Add wallet"
 msgstr "Add wallet"
 

@@ -115,7 +115,18 @@ export function ActivityHomePage() {
                 </Trans>
             ),
         };
-    }, [isLoggedTwitter, address, data?.alreadyClaimed, data?.canClaim, data?.level, ens, type]);
+    }, [
+        isLoggedTwitter,
+        address,
+        data?.alreadyClaimed,
+        data?.canClaim,
+        data?.level,
+        data?.bnbBalance?.valid,
+        data?.bnbId?.valid,
+        data?.x?.valid,
+        ens,
+        type,
+    ]);
 
     if (type === 'dialog' && isLoading) {
         return (
