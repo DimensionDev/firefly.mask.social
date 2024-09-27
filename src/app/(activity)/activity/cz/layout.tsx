@@ -4,7 +4,7 @@ import { useRouter } from 'next/navigation.js';
 import type { PropsWithChildren } from 'react';
 
 import { ActivityContext } from '@/components/CZ/ActivityContext.js';
-import { CZActivityClaimSuccessModalRef } from '@/modals/controls.js';
+import { ActivityClaimSuccessModalRef } from '@/modals/controls.js';
 
 export default function Layout({ children }: PropsWithChildren) {
     const router = useRouter();
@@ -13,7 +13,7 @@ export default function Layout({ children }: PropsWithChildren) {
         <ActivityContext.Provider
             value={{
                 onClaim() {
-                    CZActivityClaimSuccessModalRef.open();
+                    ActivityClaimSuccessModalRef.open();
                 },
                 goChecklist() {
                     router.push('/activity/cz/checklist');

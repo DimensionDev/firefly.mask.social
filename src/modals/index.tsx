@@ -2,8 +2,7 @@
 
 import { memo } from 'react';
 
-import * as controls from '@/modals/controls.js';
-
+import { ActivityClaimSuccessModal, ActivityModal } from '@/components/CZ/ActivityModal.js';
 import { SolanaAccountModal } from '@/components/SolanaAccountModal.js';
 import { AccountModal } from '@/modals/AccountModal.js';
 import { AddWalletModal } from '@/modals/AddWalletModal.js';
@@ -15,7 +14,7 @@ import { ConfirmLeavingModal } from '@/modals/ConfirmLeavingModal.js';
 import { ConfirmModal } from '@/modals/ConfirmModal.js';
 import { ConnectModal } from '@/modals/ConnectModal.js';
 import { ConnectWalletModal } from '@/modals/ConnectWalletModal.js';
-import { ActivityClaimSuccessModal, ActivityModal } from '@/components/CZ/ActivityModal.js';
+import * as controls from '@/modals/controls.js';
 import { DraggablePopover } from '@/modals/DraggablePopover.js';
 import { EditProfileModal } from '@/modals/EditProfileModal.js';
 import { EnableSignlessModal } from '@/modals/EnableSignlessModal.js';
@@ -51,8 +50,10 @@ export const Modals = memo(function Modals() {
             <CollectPostModal ref={controls.CollectPostModalRef.register} />
             <AddWalletModal ref={controls.AddWalletModalRef.register} />
             <SuperFollowModal ref={controls.SuperFollowModalRef.register} />
-            <ActivityModal ref={controls.CZActivityModalRef.register} />
-            <ActivityClaimSuccessModal ref={controls.CZActivityClaimSuccessModalRef.register} />
+
+            {/* CZ */}
+            <ActivityModal ref={controls.ActivityModalRef.register} />
+            <ActivityClaimSuccessModal ref={controls.ActivityClaimSuccessModalRef.register} />
         </>
     );
 });

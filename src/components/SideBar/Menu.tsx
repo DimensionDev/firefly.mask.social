@@ -45,7 +45,7 @@ import { useCurrentProfileFirstAvailable } from '@/hooks/useCurrentProfile.js';
 import { useCurrentVisitingChannel } from '@/hooks/useCurrentVisitingChannel.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
-import { ComposeModalRef, CZActivityModalRef, LoginModalRef } from '@/modals/controls.js';
+import { ComposeModalRef, ActivityModalRef, LoginModalRef } from '@/modals/controls.js';
 import { useNavigatorState } from '@/store/useNavigatorStore.js';
 
 interface MenuProps {
@@ -149,7 +149,7 @@ export const Menu = memo(function Menu({ collapsed = false }: MenuProps) {
                                         ['/welcome-cz']: (
                                             <button
                                                 className="flex w-full flex-grow-0 items-center gap-x-3 rounded-lg px-2 py-2.5 text-xl leading-6 outline-none hover:bg-bg md:w-auto md:px-4 md:py-3"
-                                                onClick={() => CZActivityModalRef.open()}
+                                                onClick={() => ActivityModalRef.open()}
                                             >
                                                 {collapsed ? (
                                                     <Tooltip content={item.name} placement="right">
