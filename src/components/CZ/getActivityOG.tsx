@@ -4,7 +4,7 @@ import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
 export function getActivityOG() {
     const title = 'Welcome Back CZ Collectible';
     const description = 'Get a free special edition Firefly NFT to celebrate CZ’s return!';
-    const images = [`${SITE_URL}/image/activity/cz/nft.png`];
+    const images = [`${SITE_URL}/image/activity/cz/preview.png`];
     return createSiteMetadata({
         title,
         description,
