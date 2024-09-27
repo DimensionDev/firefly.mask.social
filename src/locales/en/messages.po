@@ -661,9 +661,6 @@ msgstr "Session Validator"
 msgid "THREAD POST"
 msgstr "THREAD POST"
 
-msgid "This entry has been permanently stored on-chain and signed by its creator."
-msgstr "This entry has been permanently stored on-chain and signed by its creator."
-
 msgid "Failed to avatar."
 msgstr "Failed to avatar."
 
@@ -831,9 +828,6 @@ msgstr "Insufficient Gas"
 
 msgid "Blacklist function"
 msgstr "Blacklist function"
-
-msgid "AUTHOR ADDRESS"
-msgstr "AUTHOR ADDRESS"
 
 msgid "Enable development API version"
 msgstr "Enable development API version"

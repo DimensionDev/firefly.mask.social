@@ -663,9 +663,6 @@ msgstr ""
 msgid "THREAD POST"
 msgstr ""
 
-msgid "This entry has been permanently stored on-chain and signed by its creator."
-msgstr ""
-
 msgid "Failed to avatar."
 msgstr ""
 
@@ -832,9 +829,6 @@ msgid "Insufficient Gas"
 msgstr ""
 
 msgid "Blacklist function"
-msgstr ""
-
-msgid "AUTHOR ADDRESS"
 msgstr ""
 
 msgid "Enable development API version"
