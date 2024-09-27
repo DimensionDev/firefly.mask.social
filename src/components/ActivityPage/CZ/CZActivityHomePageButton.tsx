@@ -18,7 +18,7 @@ export function CZActivityHomePageButton() {
     const account = useAccount();
     const twitterProfile = useCurrentProfile(Source.Twitter);
     const pathname = usePathname();
-    const { data, isLoading } = useCZActivityCheckResponse();
+    const { data } = useCZActivityCheckResponse();
     const { goChecklist, type } = useContext(CZActivityContext);
 
     const changeWallet =

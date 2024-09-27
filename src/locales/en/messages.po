@@ -2029,6 +2029,9 @@ msgstr "Your BNB Chain wallet holds assets worth over $10,000."
 msgid "Your {0} account is now connected."
 msgstr "Your {0} account is now connected."
 
+msgid "Checking eligibility"
+msgstr "Checking eligibility"
+
 msgid "Posted via {0} <0>{sendFrom}</0>"
 msgstr "Posted via {0} <0>{sendFrom}</0>"
 

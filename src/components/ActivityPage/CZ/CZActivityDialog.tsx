@@ -71,7 +71,7 @@ export function CZActivityDialog({ open, onClose }: Props) {
                     }}
                 >
                     {success ? (
-                        <CZActivityClaimSuccessContent />
+                        <CZActivityClaimSuccessContent onClose={onClose} />
                     ) : (
                         <div className="relative flex flex-col space-y-6">
                             <CZActivityHomePage />

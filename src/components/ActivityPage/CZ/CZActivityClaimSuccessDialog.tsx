@@ -1,11 +1,15 @@
 'use client';
 
-import { Trans } from '@lingui/macro';
+import { t, Trans } from '@lingui/macro';
 import React from 'react';
 
 import { CloseButton } from '@/components/CloseButton.js';
 import { Modal } from '@/components/Modal.js';
 import { Image } from '@/esm/Image.js';
+import { useCZActivityCheckResponse } from '@/hooks/useCZActivityCheckResponse.js';
+import { CZActivity } from '@/providers/types/Firefly.js';
+import { enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
+import { ComposeModalRef } from '@/modals/controls.js';
 
 interface Props {
     open: boolean;
@@ -38,10 +42,20 @@ export function CZActivityClaimSuccessDialog({ open, onClose }: Props) {
         </Modal>
     );
 }
-export function CZActivityClaimSuccessContent() {
+export function CZActivityClaimSuccessContent({ onClose }: { onClose?: () => void }) {
+    const { data } = useCZActivityCheckResponse();
     return (
         <div className="relative z-10 flex w-full flex-col items-center space-y-6">
-            <Image src="/image/activity/cz/nft.png" width={162} height={162} alt="cz-nft" />
+            <Image
+                src={
+                    data?.level === CZActivity.Level.Lv2
+                        ? '/image/activity/cz/premium-nft.png'
+                        : '/image/activity/cz/nft.png'
+                }
+                width={162}
+                height={162}
+                alt="cz-nft"
+            />
             <div className="leaidng-[18px] space-y-1.5 text-[15px] font-normal">
                 <p className="text-xl font-bold leading-[18px]">
                     <Trans>Success!</Trans>
@@ -54,7 +68,7 @@ export function CZActivityClaimSuccessContent() {
                 <button
                     className="h-10 rounded-full border border-current text-[15px] font-bold leading-10"
                     onClick={() => {
-                        // TODO: Copy event link
+                        enqueueSuccessMessage(t`Copied`);
                     }}
                 >
                     <Trans>Copy Link</Trans>
@@ -62,7 +76,17 @@ export function CZActivityClaimSuccessContent() {
                 <button
                     className="h-10 rounded-full bg-white text-[15px] font-bold leading-10 text-[#181A20]"
                     onClick={() => {
-                        // TODO: call mobile post api
+                        onClose?.();
+                        ComposeModalRef.open({
+                            type: 'compose',
+                            chars: [
+                                t`Just claimed the “@twitterusername welcome back 🎉 to CZ” from @thefireflyapp! 
+
+Claim yours at firefly.social when you follow @cz_binance. 
+
+#CZ #FireflySocial`,
+                            ],
+                        });
                     }}
                 >
                     <Trans>Share in a Post</Trans>

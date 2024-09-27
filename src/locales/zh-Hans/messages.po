@@ -2034,6 +2034,9 @@ msgstr ""
 msgid "Your {0} account is now connected."
 msgstr "您的 {0} 账户已连接。"
 
+msgid "Checking eligibility"
+msgstr ""
+
 msgid "Posted via {0} <0>{sendFrom}</0>"
 msgstr "发布于 {0} <0>{sendFrom}</0>"
 

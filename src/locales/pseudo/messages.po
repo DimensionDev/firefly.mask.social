@@ -2029,6 +2029,9 @@ msgstr ""
 msgid "Your {0} account is now connected."
 msgstr ""
 
+msgid "Checking eligibility"
+msgstr ""
+
 msgid "Posted via {0} <0>{sendFrom}</0>"
 msgstr ""
 

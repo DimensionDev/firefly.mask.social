@@ -14,6 +14,7 @@ import { resolveProfileUrl } from '@/helpers/resolveProfileUrl.js';
 import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
 import { useCZActivityCheckResponse } from '@/hooks/useCZActivityCheckResponse.js';
 import { CZActivity } from '@/providers/types/Firefly.js';
+import LoadingIcon from '@/assets/loading.svg';
 
 export function CZActivityHomePage() {
     const account = useAccount();
@@ -63,18 +64,45 @@ export function CZActivityHomePage() {
             };
         }
         if (data?.canClaim) {
+            const title = <Trans>{ens ?? formatAddress(account.address, 4)} is eligible!</Trans>;
+            if (data.level === CZActivity.Level.Lv2) {
+                if (data.x?.valid) {
+                    return {
+                        title,
+                        description: (
+                            <Trans>
+                                You're eligible for a <b>Premium</b> CZ Support NFT because your X account holds Premium
+                                status.
+                            </Trans>
+                        ),
+                    };
+                }
+                if (data.bnbBalance?.valid) {
+                    return {
+                        title,
+                        description: (
+                            <Trans>
+                                You're eligible for a <b>Premium</b> CZ Support NFT because your BNB Chain wallet holds
+                                assets valued over <b>$10,000</b>.
+                            </Trans>
+                        ),
+                    };
+                }
+                if (data.bnbId?.valid) {
+                    return {
+                        title,
+                        description: (
+                            <Trans>
+                                You're eligible for a <b>Premium</b> CZ Support NFT because your .bnb domain is member
+                                of the <b>SPACE ID Premier Club</b>.
+                            </Trans>
+                        ),
+                    };
+                }
+            }
             return {
-                title: <Trans>{ens ?? formatAddress(account.address, 4)} is eligible!</Trans>,
-                description:
-                    data?.level === CZActivity.Level.Lv2 ? (
-                        <Trans>
-                            {/* eslint-disable-next-line react/no-unescaped-entities */}
-                            You're eligible for a <b>Premium</b> CZ Support NFT because your .bnb domain is member of
-                            the SPACE <b>ID Premier Club</b>.
-                        </Trans>
-                    ) : (
-                        <Trans>Claim your NFT to show your support onchain for CZ!</Trans>
-                    ),
+                title,
+                description: <Trans>Claim your NFT to show your support onchain for CZ!</Trans>,
             };
         }
         return {
@@ -91,9 +119,31 @@ export function CZActivityHomePage() {
         };
     }, [account.address, data?.alreadyClaimed, data?.canClaim, data?.level, ens, twitterProfile, type]);
 
+    if (type === 'dialog' && isLoading) {
+        return (
+            <div className="flex h-[317px] w-full flex-col items-center justify-center">
+                <div className="flex flex-col items-center space-y-3">
+                    <LoadingIcon className="animate-spin" width={36} height={36} />
+                    <p className="text-sm leading-[18px]">
+                        <Trans>Checking eligibility</Trans>
+                    </p>
+                </div>
+            </div>
+        );
+    }
+
     return (
         <div className="flex w-full flex-col items-center space-y-8">
-            <Image src="/image/activity/cz/nft.png" width={162} height={162} alt="cz-nft" />
+            <Image
+                src={
+                    data?.level === CZActivity.Level.Lv2
+                        ? '/image/activity/cz/premium-nft.png'
+                        : '/image/activity/cz/nft.png'
+                }
+                width={162}
+                height={162}
+                alt="cz-nft"
+            />
             <div className="flex flex-col space-y-1 text-center leading-[90%]">
                 <h3 className="text-xl font-bold">{title}</h3>
                 <p className="text-sm font-normal">{description}</p>
