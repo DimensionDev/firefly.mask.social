@@ -46,6 +46,12 @@ class FireflyBridgeProvider {
         );
     }
 
+    isSupported() {
+        if (typeof window.FireflyApi?.callNativeMethod === 'function') return true;
+        if (typeof window.webkit?.messageHandlers?.callNativeMethod === 'function') return true;
+        return false;
+    }
+
     request<T extends SupportedMethod>(method: T, params: RequestArguments[T]) {
         const requestId = uniqueId('bridge');
 
