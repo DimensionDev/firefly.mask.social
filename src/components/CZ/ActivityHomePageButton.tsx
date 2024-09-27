@@ -4,13 +4,13 @@ import { Trans } from '@lingui/macro';
 import { useContext } from 'react';
 
 import { ActivityClaimButton } from '@/components/CZ/ActivityClaimButton.js';
-import { ActivityContext } from '@/components/CZ/ActivityContext.js';
-import { useActivityCheckResponse } from '@/components/CZ/useActivityCheckResponse.js';
-import { LoginModalRef } from '@/modals/controls.js';
 import {
     ActivityChangeWalletButton,
     ActivityConnectWalletButton,
 } from '@/components/CZ/ActivityConnectWalletButton.js';
+import { ActivityContext } from '@/components/CZ/ActivityContext.js';
+import { useActivityCheckResponse } from '@/components/CZ/useActivityCheckResponse.js';
+import { LoginModalRef } from '@/modals/controls.js';
 
 export function ActivityHomePageButton() {
     const { data } = useActivityCheckResponse();

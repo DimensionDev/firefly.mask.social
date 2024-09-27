@@ -4,13 +4,13 @@ import { t, Trans } from '@lingui/macro';
 import React from 'react';
 
 import { useActivityCheckResponse } from '@/components/CZ/useActivityCheckResponse.js';
-import { Image } from '@/esm/Image.js';
-import { ComposeModalRef } from '@/modals/controls.js';
-import { Level } from '@/providers/types/CZ.js';
 import { Popover } from '@/components/Popover.js';
-import { fireflyBridgeProvider } from '@/providers/firefly/Bridge.js';
-import { SupportedMethod } from '@/types/bridge.js';
+import { Image } from '@/esm/Image.js';
 import { Link } from '@/esm/Link.js';
+import { ComposeModalRef } from '@/modals/controls.js';
+import { fireflyBridgeProvider } from '@/providers/firefly/Bridge.js';
+import { Level } from '@/providers/types/CZ.js';
+import { SupportedMethod } from '@/types/bridge.js';
 
 interface Props {
     open: boolean;

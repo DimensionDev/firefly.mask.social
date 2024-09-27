@@ -2,7 +2,8 @@
 
 import { Trans } from '@lingui/macro';
 import { useContext, useMemo } from 'react';
-import { useAccount, useEnsName } from 'wagmi';
+import type { Address } from 'viem';
+import { useEnsName } from 'wagmi';
 
 import LoadingIcon from '@/assets/loading.svg';
 import { ActivityContext } from '@/components/CZ/ActivityContext.js';
@@ -13,9 +14,7 @@ import { Image } from '@/esm/Image.js';
 import { Link } from '@/esm/Link.js';
 import { formatAddress } from '@/helpers/formatAddress.js';
 import { resolveProfileUrl } from '@/helpers/resolveProfileUrl.js';
-import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
 import { Level } from '@/providers/types/CZ.js';
-import type { Address } from 'viem';
 
 export function ActivityHomePage() {
     const { type, address, isLoggedTwitter } = useContext(ActivityContext);

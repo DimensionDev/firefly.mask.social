@@ -7,7 +7,7 @@ import React, { useEffect, useState } from 'react';
 import QuestionIcon from '@/assets/question.svg';
 import { CloseButton } from '@/components/CloseButton.js';
 import { ActivityClaimSuccessContent } from '@/components/CZ/ActivityClaimSuccessDialog.js';
-import { ActivityContext, ActivityContextProvider } from '@/components/CZ/ActivityContext.js';
+import { ActivityContextProvider } from '@/components/CZ/ActivityContext.js';
 import { ActivityHomePage } from '@/components/CZ/ActivityHomePage.js';
 import { ActivityShortRules } from '@/components/CZ/ActivityShortRules.js';
 import { Modal } from '@/components/Modal.js';

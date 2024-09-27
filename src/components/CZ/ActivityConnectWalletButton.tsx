@@ -1,13 +1,14 @@
+import { Menu } from '@headlessui/react';
+import { Trans } from '@lingui/macro';
+import { useQuery } from '@tanstack/react-query';
+import { useContext } from 'react';
+
+import AddCircleIcon from '@/assets/add-circle.svg';
+import { ActivityContext } from '@/components/CZ/ActivityContext.js';
+import { formatAddress } from '@/helpers/formatAddress.js';
+import { ConnectModalRef } from '@/modals/controls.js';
 import { fireflyBridgeProvider } from '@/providers/firefly/Bridge.js';
 import { Network, SupportedMethod } from '@/types/bridge.js';
-import { Trans } from '@lingui/macro';
-import { ConnectModalRef } from '@/modals/controls.js';
-import { Menu } from '@headlessui/react';
-import { useQuery } from '@tanstack/react-query';
-import { formatAddress } from '@/helpers/formatAddress.js';
-import AddCircleIcon from '@/assets/add-circle.svg';
-import { useContext } from 'react';
-import { ActivityContext } from '@/components/CZ/ActivityContext.js';
 
 export function ActivityConnectWalletButton() {
     const { data: addresses = [] } = useQuery({

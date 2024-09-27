@@ -3,6 +3,7 @@ import { useQuery } from '@tanstack/react-query';
 import { useContext, useEffect } from 'react';
 import urlcat from 'urlcat';
 
+import { ActivityContext } from '@/components/CZ/ActivityContext.js';
 import { Source } from '@/constants/enum.js';
 import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
 import { getSnackbarMessageFromError } from '@/helpers/getSnackbarMessageFromError.js';
@@ -10,7 +11,6 @@ import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
 import type { CheckResponse } from '@/providers/types/CZ.js';
 import { settings } from '@/settings/index.js';
-import { ActivityContext } from '@/components/CZ/ActivityContext.js';
 
 export function useActivityCheckResponse() {
     const { address } = useContext(ActivityContext);

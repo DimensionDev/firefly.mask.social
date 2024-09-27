@@ -1,14 +1,14 @@
 'use client';
-import type { HTMLProps, ReactNode } from 'react';
+import { usePathname } from 'next/navigation.js';
+import type { HTMLProps } from 'react';
 
-import NavigationBarBackIcon from '@/assets/navigation-bar-back.svg';
 import CloseButtonIcon from '@/assets/close.svg';
+import NavigationBarBackIcon from '@/assets/navigation-bar-back.svg';
 import ReloadButtonIcon from '@/assets/reload.svg';
 import { classNames } from '@/helpers/classNames.js';
-import { usePathname } from 'next/navigation.js';
+import { useComeBack } from '@/hooks/useComeback.js';
 import { fireflyBridgeProvider } from '@/providers/firefly/Bridge.js';
 import { SupportedMethod } from '@/types/bridge.js';
-import { useComeBack } from '@/hooks/useComeback.js';
 
 interface Props extends HTMLProps<'div'> {}
 

@@ -1,17 +1,18 @@
-import { createContext, type ReactNode, useState } from 'react';
-import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
-import { Source } from '@/constants/enum.js';
-import { useQuery } from '@tanstack/react-query';
-import { fireflyBridgeProvider } from '@/providers/firefly/Bridge.js';
-import { Platform, SupportedMethod } from '@/types/bridge.js';
-import urlcat from 'urlcat';
-import { fetchJSON } from '@/helpers/fetchJSON.js';
-import type { WalletProfileResponse } from '@/providers/types/Firefly.js';
-import { useAccount } from 'wagmi';
-import { enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { t } from '@lingui/macro';
+import { useQuery } from '@tanstack/react-query';
 import { signIn } from 'next-auth/react';
+import { createContext, type ReactNode, useState } from 'react';
+import urlcat from 'urlcat';
+import { useAccount } from 'wagmi';
+
+import { Source } from '@/constants/enum.js';
 import { FIREFLY_DEV_ROOT_URL } from '@/constants/index.js';
+import { enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
+import { fetchJSON } from '@/helpers/fetchJSON.js';
+import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
+import { fireflyBridgeProvider } from '@/providers/firefly/Bridge.js';
+import type { WalletProfileResponse } from '@/providers/types/Firefly.js';
+import { Platform, SupportedMethod } from '@/types/bridge.js';
 
 export interface ActivityContextValues {
     onClaim: (hash: string) => void;
@@ -33,13 +34,13 @@ export const ActivityContext = createContext<ActivityContextValues>({
     isLoggedTwitter: false,
 });
 
-export const ActivityContextProvider = ({
+export function ActivityContextProvider({
     children,
     value,
 }: {
     children: ReactNode;
     value: Omit<ActivityContextValues, 'address' | 'setAddress' | 'isLoggedTwitter' | 'onLoginTwitter'>;
-}) => {
+}) {
     const [address, setAddress] = useState<string | null>(null);
     const account = useAccount();
     const twitterProfile = useCurrentProfile(Source.Twitter);
@@ -88,4 +89,4 @@ export const ActivityContextProvider = ({
             {children}
         </ActivityContext.Provider>
     );
-};
+}
