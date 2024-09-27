@@ -2020,12 +2020,6 @@ msgstr ""
 msgid "{type, select, comment {Comments} mirror {{0}} reaction {Likes} act {Collects} other {Other}}"
 msgstr ""
 
-msgid ""
-"Just claimed the “@twitterusername welcome back 🎉 to CZ” from @thefireflyapp! \n"
-"Claim yours at firefly.social when you follow @cz_binance. \n"
-"#CZ #FireflySocial"
-msgstr ""
-
 msgid "You may lose your assets if giving approval to the website of this token."
 msgstr ""
 
