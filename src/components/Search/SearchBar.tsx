@@ -2,7 +2,6 @@
 
 import { usePathname, useRouter } from 'next/navigation.js';
 import { type HTMLProps, memo, useLayoutEffect, useRef, useState } from 'react';
-import urlcat from 'urlcat';
 import { useOnClickOutside } from 'usehooks-ts';
 
 import LeftArrowIcon from '@/assets/left-arrow.svg';
@@ -12,6 +11,7 @@ import { SearchRecommendation } from '@/components/Search/SearchRecommendation.j
 import { Section } from '@/components/Semantic/Section.js';
 import { classNames } from '@/helpers/classNames.js';
 import { isRoutePathname } from '@/helpers/isRoutePathname.js';
+import { resolveSearchUrl } from '@/helpers/resolveSearchUrl.js';
 import { useComeBack } from '@/hooks/useComeback.js';
 import { useSearchHistoryStateStore } from '@/store/useSearchHistoryStore.js';
 import { type SearchState, useSearchStateStore } from '@/store/useSearchStore.js';
@@ -44,7 +44,7 @@ const SearchBar = memo(function SearchBar({ slot, className, ...rest }: SearchBa
         if (state.q) addRecord(state.q);
         updateState(state);
         setShowRecommendation(false);
-        router.push(urlcat('/search', { q: state.q }));
+        router.push(resolveSearchUrl(state.q || '', state.type));
     };
 
     useLayoutEffect(() => {

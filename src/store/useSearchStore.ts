@@ -1,10 +1,11 @@
-import { useRouter, useSearchParams } from 'next/navigation.js';
+import { usePathname, useRouter, useSearchParams } from 'next/navigation.js';
 import { useCallback } from 'react';
 import { create } from 'zustand';
 import { immer } from 'zustand/middleware/immer';
 
 import { SearchType } from '@/constants/enum.js';
 import { createSelectors } from '@/helpers/createSelector.js';
+import { isRoutePathname } from '@/helpers/isRoutePathname.js';
 
 interface SearchTypeState {
     searchType: SearchType | undefined;
@@ -23,6 +24,15 @@ const useSearchStateBase = create<SearchTypeState, [['zustand/immer', never]]>(
 
 const useStore = createSelectors(useSearchStateBase);
 
+function getSearchTypeFromPath(path: string) {
+    if (isRoutePathname(path, '/search/:type', true)) {
+        const searchType = path.split('/')[2];
+        return searchType as SearchType;
+    }
+
+    return;
+}
+
 export interface SearchState {
     type?: SearchType;
     q?: string;
@@ -31,24 +41,23 @@ export interface SearchState {
 export function useSearchStateStore() {
     const params = useSearchParams();
     const router = useRouter();
+    const pathname = usePathname();
     const { searchType, updateSearchType } = useStore();
 
     const updateState = useCallback(
         (state: SearchState, replace?: boolean) => {
             const newParams = new URLSearchParams(params);
+            const newType = state.type || SearchType.Posts;
 
             if (state.q) {
                 newParams.set('q', state.q);
             }
-            if (state.type) {
-                newParams.set('type', state.type);
-                updateSearchType(state.type);
-            }
+            updateSearchType(newType);
 
             // search input is empty
             if (!newParams.get('q')) return;
 
-            const url = `/search?${newParams.toString()}`;
+            const url = `/search/${newType}/?${newParams.toString()}`;
             if (replace) router.replace(url);
             else router.push(url);
         },
@@ -58,7 +67,7 @@ export function useSearchStateStore() {
     return {
         // use ?? means '' is valid value, it was used when clear the search input
         searchKeyword: params.get('q') || '',
-        searchType: searchType || (params.get('type') as SearchType) || SearchType.Posts,
+        searchType: getSearchTypeFromPath(pathname) || searchType || SearchType.Posts,
         updateState,
         updateSearchType,
     };
