@@ -177,6 +177,12 @@ msgstr "搜尋頻道"
 msgid "Functions that can suspend trading"
 msgstr ""
 
+msgid ""
+"Just claimed the \"@handle\" welcome back 🎉 to CZ” from @thefireflyapp! \n"
+"Claim yours at firefly.social when you follow @cz_binance. \n"
+"#CZ #FireflySocial"
+msgstr ""
+
 msgid "<0>The maximum number of coins coded to exist in the lifetime of the cryptocurrency. It is comparable to the maximum number of issuable shares in the stock market.</0><1>Max Supply = Theoretical maximum as coded</1>"
 msgstr ""
 
@@ -2017,12 +2023,6 @@ msgid "Create a Post"
 msgstr ""
 
 msgid "{type, select, comment {Comments} mirror {{0}} reaction {Likes} act {Collects} other {Other}}"
-msgstr ""
-
-msgid ""
-"Just claimed the “@twitterusername welcome back 🎉 to CZ” from @thefireflyapp! \n"
-"Claim yours at firefly.social when you follow @cz_binance. \n"
-"#CZ #FireflySocial"
 msgstr ""
 
 msgid "You may lose your assets if giving approval to the website of this token."
