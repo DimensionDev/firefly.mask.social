@@ -669,9 +669,6 @@ msgstr ""
 msgid "Frame Validator"
 msgstr ""
 
-msgid "Copy Link"
-msgstr ""
-
 msgid "No proxy"
 msgstr ""
 
@@ -784,6 +781,9 @@ msgid "Failed to un-bookmark post."
 msgstr ""
 
 msgid "Failed to submit report on {0}"
+msgstr ""
+
+msgid "Login X failed"
 msgstr ""
 
 msgid "Failed to mute @{0} on {sourceName}."
@@ -1075,9 +1075,6 @@ msgid "Your post has published successfully."
 msgstr ""
 
 msgid "Login with Farcaster"
-msgstr ""
-
-msgid "Event runs from September 29, 2024, 12:00 UTC to October 8, 2024, 23:59 UTC."
 msgstr ""
 
 msgid "Bio should not exceed {maxBioSize} characters"
@@ -1683,6 +1680,9 @@ msgstr ""
 msgid "Articles from {walletHandle} will now be hidden in your home timeline"
 msgstr ""
 
+msgid "Login X"
+msgstr ""
+
 msgid "Please input the url to be revalidated."
 msgstr ""
 
@@ -1884,6 +1884,9 @@ msgstr ""
 msgid "Failed to continue. Please allow Lens Manager for performing actions without the need to sign each transaction."
 msgstr ""
 
+msgid "*CZ's follower snapshot was taken at 8:00 UTC on September 21, 2024."
+msgstr ""
+
 msgid "Properties"
 msgstr ""
 
@@ -1941,6 +1944,9 @@ msgstr ""
 msgid "{days}d left"
 msgstr ""
 
+msgid "*Event runs from September 29, 2024, 12:00 UTC to October 8, 2024, 23:59 UTC."
+msgstr ""
+
 msgid "Log out all"
 msgstr ""
 
@@ -1980,6 +1986,9 @@ msgstr ""
 msgid "The signer is not authorized to perform the requested operation. Please approve again."
 msgstr ""
 
+msgid "Your assets on BNB Chain are worth over US$10,000."
+msgstr ""
+
 msgid "Saved on {0}"
 msgstr ""
 
@@ -1996,9 +2005,6 @@ msgid "No codes found to suspend trading."
 msgstr ""
 
 msgid "Buy Tax: {0}%"
-msgstr ""
-
-msgid "Success!"
 msgstr ""
 
 msgid "<0>You</0> and {0} recasted"
@@ -2404,6 +2410,9 @@ msgid "View transaction on Explorer"
 msgstr ""
 
 msgid "Hours"
+msgstr ""
+
+msgid "Note:"
 msgstr ""
 
 msgid "Failed to create schedule post."

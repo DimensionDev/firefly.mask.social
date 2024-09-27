@@ -40,4 +40,4 @@ export const SuperFollowModalRef = new SingletonModal<SuperFollowModalOpenProps>
 
 // CZ
 export const ActivityModalRef = new SingletonModal();
-export const ActivityClaimSuccessModalRef = new SingletonModal();
+export const ActivityClaimSuccessModalRef = new SingletonModal<{ hash: string }>();

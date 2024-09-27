@@ -667,9 +667,6 @@ msgstr "Failed to avatar."
 msgid "Frame Validator"
 msgstr "Frame Validator"
 
-msgid "Copy Link"
-msgstr "Copy Link"
-
 msgid "No proxy"
 msgstr "No proxy"
 
@@ -783,6 +780,9 @@ msgstr "Failed to un-bookmark post."
 
 msgid "Failed to submit report on {0}"
 msgstr "Failed to submit report on {0}"
+
+msgid "Login X failed"
+msgstr "Login X failed"
 
 msgid "Failed to mute @{0} on {sourceName}."
 msgstr "Failed to mute @{0} on {sourceName}."
@@ -1074,9 +1074,6 @@ msgstr "Your post has published successfully."
 
 msgid "Login with Farcaster"
 msgstr "Login with Farcaster"
-
-msgid "Event runs from September 29, 2024, 12:00 UTC to October 8, 2024, 23:59 UTC."
-msgstr "Event runs from September 29, 2024, 12:00 UTC to October 8, 2024, 23:59 UTC."
 
 msgid "Bio should not exceed {maxBioSize} characters"
 msgstr "Bio should not exceed {maxBioSize} characters"
@@ -1681,6 +1678,9 @@ msgstr "Wallets"
 msgid "Articles from {walletHandle} will now be hidden in your home timeline"
 msgstr "Articles from {walletHandle} will now be hidden in your home timeline"
 
+msgid "Login X"
+msgstr "Login X"
+
 msgid "Please input the url to be revalidated."
 msgstr "Please input the url to be revalidated."
 
@@ -1882,6 +1882,9 @@ msgstr "Basic Criteria"
 msgid "Failed to continue. Please allow Lens Manager for performing actions without the need to sign each transaction."
 msgstr "Failed to continue. Please allow Lens Manager for performing actions without the need to sign each transaction."
 
+msgid "*CZ's follower snapshot was taken at 8:00 UTC on September 21, 2024."
+msgstr "*CZ's follower snapshot was taken at 8:00 UTC on September 21, 2024."
+
 msgid "Properties"
 msgstr "Properties"
 
@@ -1939,6 +1942,9 @@ msgstr "Failed to upload. Gif size exceeds {0}"
 msgid "{days}d left"
 msgstr "{days}d left"
 
+msgid "*Event runs from September 29, 2024, 12:00 UTC to October 8, 2024, 23:59 UTC."
+msgstr "*Event runs from September 29, 2024, 12:00 UTC to October 8, 2024, 23:59 UTC."
+
 msgid "Log out all"
 msgstr "Log out all"
 
@@ -1978,6 +1984,9 @@ msgstr "Only people you follow"
 msgid "The signer is not authorized to perform the requested operation. Please approve again."
 msgstr "The signer is not authorized to perform the requested operation. Please approve again."
 
+msgid "Your assets on BNB Chain are worth over US$10,000."
+msgstr "Your assets on BNB Chain are worth over US$10,000."
+
 msgid "Saved on {0}"
 msgstr "Saved on {0}"
 
@@ -1995,9 +2004,6 @@ msgstr "No codes found to suspend trading."
 
 msgid "Buy Tax: {0}%"
 msgstr "Buy Tax: {0}%"
-
-msgid "Success!"
-msgstr "Success!"
 
 msgid "<0>You</0> and {0} recasted"
 msgstr "<0>You</0> and {0} recasted"
@@ -2403,6 +2409,9 @@ msgstr "View transaction on Explorer"
 
 msgid "Hours"
 msgstr "Hours"
+
+msgid "Note:"
+msgstr "Note:"
 
 msgid "Failed to create schedule post."
 msgstr "Failed to create schedule post."
