@@ -22,8 +22,8 @@ import { resolveSourceFromUrl } from '@/helpers/resolveSource.js';
 import { resolveSourceInUrl } from '@/helpers/resolveSourceInUrl.js';
 import { useNavigatorTitle } from '@/hooks/useNavigatorTitle.js';
 import type { Channel, Post, Profile } from '@/providers/types/SocialMedia.js';
-import { useSearchStateStore } from '@/store/useSearchStore.js';
 import { useTwitterStateStore } from '@/store/useProfileStore.js';
+import { useSearchStateStore } from '@/store/useSearchStore.js';
 
 const getSearchItemContent = (
     index: number,

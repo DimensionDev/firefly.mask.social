@@ -3,6 +3,7 @@
 import { t, Trans } from '@lingui/macro';
 import { useQuery } from '@tanstack/react-query';
 import { first, uniqBy } from 'lodash-es';
+import { useSearchParams } from 'next/navigation.js';
 import { useDebounce } from 'usehooks-ts';
 
 import LoadingIcon from '@/assets/loading.svg';
@@ -25,7 +26,6 @@ import type { Channel, Profile } from '@/providers/types/SocialMedia.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
 import { useSearchHistoryStateStore } from '@/store/useSearchHistoryStore.js';
 import { type SearchState } from '@/store/useSearchStore.js';
-import { useSearchParams } from 'next/navigation.js';
 
 interface SearchRecommendationProps {
     keyword: string;
