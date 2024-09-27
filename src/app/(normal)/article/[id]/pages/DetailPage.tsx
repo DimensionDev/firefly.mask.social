@@ -213,7 +213,7 @@ export function ArticleDetailPage({ params: { id: articleId } }: PageProps) {
                 )}
 
                 {/* article bottom padding */}
-                <div className="py-2" />
+                <div className="py-4" />
             </div>
         </div>
     );
