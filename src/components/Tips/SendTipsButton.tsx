@@ -13,7 +13,7 @@ import { getSnackbarMessageFromError } from '@/helpers/getSnackbarMessageFromErr
 import { resolveNetworkProvider, resolveTransferProvider } from '@/helpers/resolveTokenTransfer.js';
 import { TipsContext } from '@/hooks/useTipsContext.js';
 import { useTipsValidation } from '@/hooks/useTipsValidation.js';
-import { ConnectWalletModalRef } from '@/modals/controls.js';
+import { ConnectModalRef } from '@/modals/controls.js';
 import { reportTokenTips, UploadTokenTipsToken } from '@/services/reportTokenTips.js';
 
 interface SendTipsButtonProps {
@@ -91,7 +91,7 @@ const SendTipsButton = memo<SendTipsButtonProps>(function SendTipsButton({ conne
 export function SendWithEVM() {
     const account = useAccount();
     const onConnect = useCallback(() => {
-        ConnectWalletModalRef.open();
+        ConnectModalRef.open();
     }, []);
 
     return <SendTipsButton connected={account.isConnected} onConnect={onConnect} />;
