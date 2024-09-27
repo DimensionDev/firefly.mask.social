@@ -2,13 +2,13 @@
 
 import { Trans } from '@lingui/macro';
 import { memo } from 'react';
-import urlcat from 'urlcat';
 
 import { RadioButton } from '@/components/RadioButton.js';
 import { SearchType } from '@/constants/enum.js';
 import { SORTED_SEARCH_TYPE } from '@/constants/index.js';
 import { Link } from '@/esm/Link.js';
 import { narrowToSocialSource } from '@/helpers/narrowToSocialSource.js';
+import { resolveSearchUrl } from '@/helpers/resolveSearchUrl.js';
 import { DraggablePopoverRef } from '@/modals/controls.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
 import { useSearchStateStore } from '@/store/useSearchStore.js';
@@ -45,7 +45,7 @@ export const SearchFilter = memo(function SearchFilter() {
                             <Link
                                 key={filter.type}
                                 className="flex cursor-pointer items-center text-sm"
-                                href={urlcat('/search', { q: searchKeyword, type: filter.type })}
+                                href={resolveSearchUrl(searchKeyword, filter.type)}
                                 onClick={(event) => {
                                     if (!searchKeyword) {
                                         event.stopPropagation();

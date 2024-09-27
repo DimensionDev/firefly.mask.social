@@ -43,6 +43,7 @@ export function RepliesList({ profileId, source }: RepliesListProps) {
 
     return (
         <ListInPage
+            source={source}
             key={source}
             queryResult={queryResult}
             VirtualListProps={{

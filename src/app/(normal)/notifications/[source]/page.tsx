@@ -77,6 +77,7 @@ export default function Notification({ params }: { params: { source: SourceInURL
                 <NotificationFilter className="mb-2 px-4 pt-3" source={source} types={types} onTypesChange={setTypes} />
             ) : null}
             <ListInPage
+                source={source}
                 key={source}
                 queryResult={queryResult}
                 loginRequired

@@ -43,6 +43,7 @@ export function FeedList({ profileId, source }: FeedListProps) {
 
     return (
         <ListInPage
+            source={source}
             key={source}
             queryResult={queryResult}
             VirtualListProps={{

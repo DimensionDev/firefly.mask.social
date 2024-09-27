@@ -69,7 +69,7 @@ export function ComposeThreadContent(props: ComposeThreadContentProps) {
                                 ) : null}
                             </div>
                         ) : null}
-                        <div className="mb-3 mt-2 flex-1">
+                        <div className="mb-3 mt-2 min-w-0 flex-1">
                             <ComposeContent post={x} />
                         </div>
                     </div>

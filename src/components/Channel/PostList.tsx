@@ -43,6 +43,7 @@ export function PostList({ channel, source }: PostListProps) {
 
     return (
         <ListInPage
+            source={source}
             key={source}
             queryResult={queryResult}
             VirtualListProps={{

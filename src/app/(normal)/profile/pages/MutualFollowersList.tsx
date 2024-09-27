@@ -28,6 +28,7 @@ export function MutualFollowersList({ profileId, source }: { profileId: string; 
 
     return (
         <ListInPage
+            source={source}
             key={source}
             queryResult={queryResult}
             VirtualListProps={{

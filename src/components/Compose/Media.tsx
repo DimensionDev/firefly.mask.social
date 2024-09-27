@@ -87,9 +87,9 @@ export function Media({ close }: MediaProps) {
                         disableImage ? 'cursor-not-allowed opacity-50' : 'cursor-pointer hover:bg-bg',
                     )}
                     onClick={() => {
-                        if (!disableVideo) {
-                            imageInputRef.current?.click();
-                        }
+                        if (disableImage) return;
+
+                        imageInputRef.current?.click();
                     }}
                 >
                     <ImageIcon width={24} height={24} />

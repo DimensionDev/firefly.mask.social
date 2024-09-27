@@ -122,7 +122,7 @@ export const DISCOVER_TYPES = {
 };
 export const BOOKMARK_SOURCES: BookmarkSource[] = [Source.Farcaster, Source.Lens, Source.Article];
 
-export const TIPS_SUPPORT_NETWORKS = [NetworkType.Ethereum, NetworkType.Solana];
+export const TIPS_SUPPORT_NETWORKS = [NetworkType.Ethereum];
 
 // Lens
 export const IPFS_GATEWAY = 'https://ipfs.io/ipfs/';

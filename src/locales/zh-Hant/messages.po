@@ -177,7 +177,16 @@ msgstr "搜尋頻道"
 msgid "Functions that can suspend trading"
 msgstr ""
 
+msgid ""
+"Just claimed the \"@handle\" welcome back 🎉 to CZ” from @thefireflyapp! \n"
+"Claim yours at firefly.social when you follow @cz_binance. \n"
+"#CZ #FireflySocial"
+msgstr ""
+
 msgid "<0>The maximum number of coins coded to exist in the lifetime of the cryptocurrency. It is comparable to the maximum number of issuable shares in the stock market.</0><1>Max Supply = Theoretical maximum as coded</1>"
+msgstr ""
+
+msgid "Unknown error"
 msgstr ""
 
 msgid "More"
@@ -191,6 +200,9 @@ msgstr ""
 
 msgid "Searching users"
 msgstr "搜尋用戶"
+
+msgid "{0} is eligible!"
+msgstr ""
 
 msgid "Airdrop Scam"
 msgstr "空投騙局"
@@ -272,6 +284,9 @@ msgstr ""
 
 msgid "Adding..."
 msgstr "正在添加"
+
+msgid "Verifying eligibility..."
+msgstr ""
 
 msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} <4>liked your </4><5>{1, select, Post {post} Comment {comment} Quote {quote} Mirror {mirror} other {post}}</5>"
 msgstr ""
@@ -359,6 +374,9 @@ msgstr "確認從 Firefly 的社交圖譜上取消該錢包的連接？"
 
 msgid "Confirm"
 msgstr "確認"
+
+msgid "Connect your wallet to claim your NFT."
+msgstr ""
 
 msgid "{0} muted channels"
 msgstr "{0} 個已靜音的頻道"
@@ -465,6 +483,9 @@ msgstr ""
 msgid "Failed to unfollow @{0} on {sourceName}."
 msgstr "在 {sourceName} 上取消追蹤 @{0} 失敗。"
 
+msgid "Each wallet or X account is limited to one claim."
+msgstr ""
+
 msgid "Calendar"
 msgstr ""
 
@@ -498,6 +519,9 @@ msgstr "選定帳戶"
 msgid "POST"
 msgstr "貼文"
 
+msgid "Log in with X"
+msgstr ""
+
 msgid "Failed to unlike the post."
 msgstr "點讚評論失敗"
 
@@ -525,8 +549,14 @@ msgstr "加入另一則貼文..."
 msgid "1m left"
 msgstr ""
 
+msgid "Congratulation!"
+msgstr ""
+
 msgid "Items"
 msgstr "物品"
+
+msgid "To be eligible for the airdrop, fulfill the following criteria:"
+msgstr ""
 
 msgid "Failed to upload. More than {maxImageCount} images."
 msgstr "上傳失敗。圖片數量超過{maxImageCount} 張。"
@@ -582,6 +612,9 @@ msgstr "未找到。請檢查您的 URL [{0}]"
 msgid "Feed"
 msgstr "資訊來源"
 
+msgid "In addition to meeting the Basic Criteria, fulfill any of the following to upgrade to a premium NFT:"
+msgstr ""
+
 msgid "Failed to upload. Not a valid image type"
 msgstr ""
 
@@ -630,14 +663,14 @@ msgstr ""
 msgid "THREAD POST"
 msgstr ""
 
-msgid "This entry has been permanently stored on-chain and signed by its creator."
-msgstr ""
-
 msgid "Failed to avatar."
 msgstr ""
 
 msgid "Frame Validator"
 msgstr "Frame 驗證器"
+
+msgid "Copy Link"
+msgstr ""
 
 msgid "No proxy"
 msgstr "無代理"
@@ -661,6 +694,9 @@ msgid "Update"
 msgstr "更新"
 
 msgid "Failed to follow @{0} on Lens"
+msgstr ""
+
+msgid "Check Eligibility"
 msgstr ""
 
 msgid "You might like"
@@ -795,9 +831,6 @@ msgstr "Gas不足"
 msgid "Blacklist function"
 msgstr "黑名單功能"
 
-msgid "AUTHOR ADDRESS"
-msgstr "作者地址"
-
 msgid "Enable development API version"
 msgstr "開啟開發API版本"
 
@@ -814,6 +847,9 @@ msgid "Enter amount"
 msgstr ""
 
 msgid "<0>Sold</0> an NFT worth {costEl}"
+msgstr ""
+
+msgid "🎉"
 msgstr ""
 
 msgid "Owned By"
@@ -873,6 +909,12 @@ msgstr "隱私政策"
 msgid "Rainbow Kit"
 msgstr ""
 
+msgid "Claim Premium"
+msgstr ""
+
+msgid "Share in a Post"
+msgstr ""
+
 msgid "Forbidden. Please check your permissions."
 msgstr "禁止。請檢查您的權限"
 
@@ -908,6 +950,9 @@ msgstr "{0} 評論"
 
 msgid "Schedule Post"
 msgstr "已定時的貼文"
+
+msgid "Almost there!"
+msgstr ""
 
 msgid "Sold Out"
 msgstr "售罄"
@@ -1032,6 +1077,9 @@ msgstr "你的貼文已成功發佈"
 msgid "Login with Farcaster"
 msgstr "通過 Farcaster 登錄"
 
+msgid "Event runs from September 29, 2024, 12:00 UTC to October 8, 2024, 23:59 UTC."
+msgstr ""
+
 msgid "Bio should not exceed {maxBioSize} characters"
 msgstr "個人簡介不可超過 {maxBioSize} 個字符"
 
@@ -1094,6 +1142,9 @@ msgstr ""
 
 msgid "Email (optional)"
 msgstr "電子郵箱（非必須）"
+
+msgid "Not eligible"
+msgstr ""
 
 msgid "NFT Contract"
 msgstr "NFT合約"
@@ -1419,6 +1470,9 @@ msgstr ""
 msgid "View engagements"
 msgstr "查看互動數據"
 
+msgid "Followed <0>@cz_binance</0> on X before Sept 21"
+msgstr ""
+
 msgid "Translated"
 msgstr ""
 
@@ -1467,6 +1521,9 @@ msgstr "取消追蹤 @{0}"
 msgid "Not my wallet address."
 msgstr ""
 
+msgid "Get a free special edition Firefly NFT for following <0>@cz_binance</0> on X to celebrate CZ’s return!"
+msgstr ""
+
 msgid "Please switch to the wallet consistent with this action"
 msgstr ""
 
@@ -1477,6 +1534,9 @@ msgid "{shares, plural, one {Recast or Quote} other {Recasts or Quotes}}"
 msgstr ""
 
 msgid "Please input the serialized session to be validated."
+msgstr ""
+
+msgid "Welcome Back CZ"
 msgstr ""
 
 msgid "Failed to update profile."
@@ -1586,6 +1646,9 @@ msgstr ""
 
 msgid "Failed to publish post."
 msgstr "發布貼文失敗"
+
+msgid "Must followed <0>@cz_binance</0> on X before Sept 21, 2024."
+msgstr ""
 
 msgid "Voted successfully."
 msgstr "已成功投票"
@@ -1701,8 +1764,8 @@ msgstr "檢舉"
 msgid "Schedule"
 msgstr ""
 
-msgid "Post by {0}"
-msgstr "由 {0} 發布"
+msgid "Change Account"
+msgstr ""
 
 msgid "Casts + Replies"
 msgstr ""
@@ -1713,8 +1776,14 @@ msgstr "圖片"
 msgid "Failed to delete post."
 msgstr ""
 
+msgid "Claimed"
+msgstr ""
+
 msgid "Copy"
 msgstr "複製"
+
+msgid "Claim"
+msgstr ""
 
 msgid "No available wallet."
 msgstr "沒有可用的錢包。"
@@ -1779,6 +1848,9 @@ msgstr ""
 msgid "You've hit rock bottom."
 msgstr "你已經到頁面最底部"
 
+msgid "Welcome Back CZ Collectible"
+msgstr ""
+
 msgid "Copy link to profile"
 msgstr ""
 
@@ -1804,6 +1876,9 @@ msgid "<0>Minted</0> an NFT for free"
 msgstr ""
 
 msgid "Will send on <0>{0} at <1>{1}</1></0>"
+msgstr ""
+
+msgid "Basic Criteria"
 msgstr ""
 
 msgid "Failed to continue. Please allow Lens Manager for performing actions without the need to sign each transaction."
@@ -1849,6 +1924,9 @@ msgid "Pay<0> {feeAmount} ${feeSymbol} </0>to follow and get some awesome perks!
 msgstr ""
 
 msgid "<0>Bought</0> an NFT worth {costEl}"
+msgstr ""
+
+msgid "Premium Eligibility Criteria"
 msgstr ""
 
 msgid "Post from /{0} will be hidden in your home timeline"
@@ -1920,6 +1998,9 @@ msgstr ""
 msgid "Buy Tax: {0}%"
 msgstr ""
 
+msgid "Success!"
+msgstr ""
+
 msgid "<0>You</0> and {0} recasted"
 msgstr "<0>你</0>和 {0} 轉發了"
 
@@ -1944,16 +2025,28 @@ msgstr ""
 msgid "Unfollow"
 msgstr "取消追蹤"
 
+msgid "Your BNB Chain wallet holds assets worth over $10,000."
+msgstr ""
+
 msgid "Your {0} account is now connected."
 msgstr "您的 {0} 帳戶現已連接。"
 
+msgid "Checking eligibility"
+msgstr ""
+
 msgid "Posted via {0} <0>{sendFrom}</0>"
+msgstr ""
+
+msgid "Claim your NFT to show your support onchain for CZ!"
 msgstr ""
 
 msgid "Unmuted @{0} on {sourceName}."
 msgstr ""
 
 msgid "If a suspendable code is included, the token maybe neither be bought nor sold (honeypot risk)."
+msgstr ""
+
+msgid "Your .bnb domain is a member of the SPACE ID Premier Club."
 msgstr ""
 
 msgid "Display Name should not exceed {maxDisplayNameSize} characters"
@@ -1969,6 +2062,9 @@ msgid "Connecting Wallet"
 msgstr ""
 
 msgid "{minutes}m left"
+msgstr ""
+
+msgid "Your X account holds Premium status."
 msgstr ""
 
 msgid "Total Supply"
@@ -2127,6 +2223,9 @@ msgstr ""
 msgid "Events"
 msgstr ""
 
+msgid "You're eligible for a <0>Premium</0> CZ Support NFT because your X account holds Premium status."
+msgstr ""
+
 msgid "{0} Users"
 msgstr ""
 
@@ -2140,6 +2239,9 @@ msgid "Suspended account"
 msgstr ""
 
 msgid "Recasted"
+msgstr ""
+
+msgid "Premium Criteria"
 msgstr ""
 
 msgid "Failed to parse transaction."
@@ -2205,6 +2307,9 @@ msgstr "請至 X 確認登錄"
 msgid "Max Supply"
 msgstr ""
 
+msgid "Posted by {0} via Firefly"
+msgstr ""
+
 msgid "<0>You</0> recasted"
 msgstr ""
 
@@ -2230,6 +2335,9 @@ msgid "Followed @{0} on Lens"
 msgstr ""
 
 msgid "Collect for {0} {1}"
+msgstr ""
+
+msgid "You're eligible for a <0>Premium</0> CZ Support NFT because your BNB Chain wallet holds assets valued over <1>$10,000</1>."
 msgstr ""
 
 msgid "Recast"
@@ -2262,6 +2370,9 @@ msgstr "多媒體"
 msgid "No content to publish."
 msgstr "沒有可發布的內容"
 
+msgid "Already claimed"
+msgstr ""
+
 msgid "Text"
 msgstr ""
 
@@ -2289,6 +2400,9 @@ msgstr ""
 msgid "Following"
 msgstr "追蹤中"
 
+msgid "View transaction on Explorer"
+msgstr ""
+
 msgid "Hours"
 msgstr "小時"
 
@@ -2305,6 +2419,9 @@ msgid "Failed to update scheduled post."
 msgstr ""
 
 msgid "Login"
+msgstr ""
+
+msgid "You're eligible for a <0>Premium</0> CZ Support NFT because your .bnb domain is member of the <1>SPACE ID Premier Club</1>."
 msgstr ""
 
 msgid "Replying to <0>@{0}</0> on {1}"
@@ -2326,4 +2443,10 @@ msgid "× {0}"
 msgstr ""
 
 msgid "Blink Validator"
+msgstr ""
+
+msgid "Not eligible to claim, <0>retry</0>"
+msgstr ""
+
+msgid "Reward for followers"
 msgstr ""

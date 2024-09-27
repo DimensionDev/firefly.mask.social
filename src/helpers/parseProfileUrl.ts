@@ -33,5 +33,15 @@ export function parseOldProfileUrl(url: URL) {
     const [, , id, ...end] = url.pathname.split('/');
     if (end.length) return null;
     if (!id) return null;
-    return { source, id };
+
+    if (source === Source.Wallet) {
+        const walletTab = url.searchParams.get('wallet_tab');
+        if (!walletTab || !isWalletProfileCategory(walletTab)) return { source, id };
+        return { source, id, category: walletTab };
+    }
+
+    const category = url.searchParams.get('profile_tab');
+    if (!category || !isSocialProfileCategory(source, category)) return { source, id };
+
+    return { source, id, category };
 }

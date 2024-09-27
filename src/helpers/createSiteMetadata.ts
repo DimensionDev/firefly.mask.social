@@ -6,20 +6,20 @@ import { SITE_DESCRIPTION, SITE_NAME, SITE_URL } from '@/constants/index.js';
 export function createSiteMetadata(metadata?: Partial<Metadata>) {
     return {
         metadataBase: new URL(SITE_URL),
-        title: SITE_NAME,
+        title: metadata?.title ?? SITE_NAME,
         itunes: {
             appId: '1640183078',
         },
         description: SITE_DESCRIPTION,
         openGraph: {
-            title: SITE_NAME,
+            title: metadata?.title ?? SITE_NAME,
             description: SITE_DESCRIPTION,
             url: SITE_URL,
             images: [`${SITE_URL}/image/og.png`],
         },
         twitter: {
             card: 'summary_large_image',
-            title: SITE_NAME,
+            title: metadata?.title ?? SITE_NAME,
             description: SITE_DESCRIPTION,
             creator: '@thefireflyapp',
             images: [`${SITE_URL}/image/og.png`],

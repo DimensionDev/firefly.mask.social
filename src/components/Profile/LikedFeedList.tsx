@@ -35,6 +35,7 @@ export function LikedFeedList({ profileId, source }: LikedFeedListProps) {
 
     return (
         <ListInPage
+            source={source}
             key={source}
             queryResult={queryResult}
             VirtualListProps={{

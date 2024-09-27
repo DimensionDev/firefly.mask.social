@@ -61,6 +61,7 @@ export const FollowingPostList = memo<{
 
     return (
         <ListInPage
+            source={source}
             key={source}
             queryResult={queryResult}
             loginRequired

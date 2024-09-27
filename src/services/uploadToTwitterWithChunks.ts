@@ -1,4 +1,5 @@
 import { delay, safeUnreachable } from '@masknet/kit';
+import type { UploadMediaV1Params } from 'twitter-api-v2';
 import urlcat from 'urlcat';
 
 import { FileMimeType, UploadMediaStatus } from '@/constants/enum.js';
@@ -7,7 +8,11 @@ import { MAX_SIZE_PER_CHUNK } from '@/constants/index.js';
 import { twitterSessionHolder } from '@/providers/twitter/SessionHolder.js';
 import type { GetUploadStatusResponse, UploadMediaResponse } from '@/types/twitter.js';
 
-function getMediaCategoryByMime(type: FileMimeType, target: 'tweet' | 'dm') {
+function getMediaCategoryByMime(type: FileMimeType, target: 'tweet' | 'dm', options?: Partial<UploadMediaV1Params>) {
+    if (type === FileMimeType.MP4 && options?.longVideo) {
+        return 'amplify_video';
+    }
+
     switch (type) {
         case FileMimeType.MP4:
         case FileMimeType.MOV:
@@ -87,7 +92,11 @@ async function uploadChunks(chunks: Blob[], mediaId: string) {
     await Promise.all([...pendingUploads]);
 }
 
-export async function uploadToTwitterWithChunks(file: File, chunkSize = MAX_SIZE_PER_CHUNK) {
+export async function uploadToTwitterWithChunks(
+    file: File,
+    chunkSize = MAX_SIZE_PER_CHUNK,
+    options?: Partial<UploadMediaV1Params>,
+) {
     const chunks = [];
     const fileSize = file.size;
     for (let i = 0; i < fileSize; i += chunkSize) {
@@ -99,7 +108,7 @@ export async function uploadToTwitterWithChunks(file: File, chunkSize = MAX_SIZE
         urlcat('/api/twitter/uploadMedia/chunk/init', {
             total_bytes: fileSize,
             media_type: file.type,
-            media_category: getMediaCategoryByMime(file.type as FileMimeType, 'tweet'),
+            media_category: getMediaCategoryByMime(file.type as FileMimeType, 'tweet', options),
         }),
         { method: 'POST' },
     );

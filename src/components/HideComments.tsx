@@ -1,7 +1,7 @@
 'use client';
 
 import { useInfiniteQuery } from '@tanstack/react-query';
-import React, { type PropsWithChildren, useState } from 'react';
+import { type PropsWithChildren, useState } from 'react';
 
 import { ListInPage } from '@/components/ListInPage.js';
 import { ShowMoreComments } from '@/components/ShowMoreComments.js';
@@ -54,6 +54,7 @@ export function HideComments(props: ShowMoreCommentsProps) {
             />
             {isOpen ? (
                 <ListInPage
+                    source={source}
                     queryResult={queryResult}
                     VirtualListProps={{
                         listKey: `${ScrollListKey.Comment}:${postId}`,

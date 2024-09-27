@@ -30,6 +30,7 @@ export default function SuggestedFollowUsersList({ source }: Props) {
 
     return (
         <ListInPage
+            source={source}
             key={source}
             queryResult={queryResult}
             VirtualListProps={{

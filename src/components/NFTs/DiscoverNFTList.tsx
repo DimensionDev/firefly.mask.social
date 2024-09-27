@@ -35,6 +35,7 @@ export function DiscoverNFTList() {
 
     return (
         <ListInPage
+            source={Source.NFTs}
             queryResult={{ ...nftQueryResult, data: filteredData }}
             VirtualListProps={{
                 listKey: `${ScrollListKey.Discover}:${Source.NFTs}`,

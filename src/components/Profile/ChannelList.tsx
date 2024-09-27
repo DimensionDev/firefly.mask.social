@@ -33,6 +33,7 @@ export function ChannelList({ source, profileId }: ChannelListProps) {
 
     return (
         <ListInPage
+            source={source}
             key={source}
             queryResult={queryResult}
             VirtualListProps={{
