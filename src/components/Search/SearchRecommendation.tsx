@@ -3,7 +3,6 @@
 import { t, Trans } from '@lingui/macro';
 import { useQuery } from '@tanstack/react-query';
 import { first, uniqBy } from 'lodash-es';
-import urlcat from 'urlcat';
 import { useDebounce } from 'usehooks-ts';
 
 import LoadingIcon from '@/assets/loading.svg';
@@ -19,6 +18,7 @@ import { classNames } from '@/helpers/classNames.js';
 import { getChannelUrl } from '@/helpers/getChannelUrl.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { createIndicator, type Pageable, type PageIndicator } from '@/helpers/pageable.js';
+import { resolveSearchUrl } from '@/helpers/resolveSearchUrl.js';
 import { FarcasterSocialMediaProvider } from '@/providers/farcaster/SocialMedia.js';
 import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
 import type { Channel, Profile } from '@/providers/types/SocialMedia.js';
@@ -90,7 +90,7 @@ export function SearchRecommendation(props: SearchRecommendationProps) {
                 </h2>
                 <Link
                     className="flex cursor-pointer items-center px-4 py-4 text-left hover:bg-bg"
-                    href={urlcat('/search', { q: keyword, type: SearchType.Posts })}
+                    href={resolveSearchUrl(keyword)}
                     onClick={() =>
                         onSearch?.({
                             q: keyword,
@@ -227,7 +227,7 @@ export function SearchRecommendation(props: SearchRecommendationProps) {
                         <Link
                             className="flex cursor-pointer items-center px-3 hover:bg-bg"
                             key={record}
-                            href={urlcat('/search', { q: record })}
+                            href={resolveSearchUrl(record)}
                             onClick={() => {
                                 addRecord(record);
                                 onSearch?.({ q: record });
