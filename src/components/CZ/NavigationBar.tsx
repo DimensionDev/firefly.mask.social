@@ -1,6 +1,6 @@
 import type { HTMLProps, ReactNode } from 'react';
 
-import NavigationBarBackIcon from '@/assets/navgation-bar-back.svg';
+import NavigationBarBackIcon from '@/assets/navigation-bar-back.svg';
 import { classNames } from '@/helpers/classNames.js';
 
 interface Props extends HTMLProps<'div'> {

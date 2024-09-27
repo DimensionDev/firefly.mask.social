@@ -53,7 +53,7 @@ export function ActivityClaimSuccessContent({ onClose }: { onClose?: () => void 
                 height={162}
                 alt="cz-nft"
             />
-            <div className="leaidng-[18px] space-y-1.5 text-[15px] font-normal">
+            <div className="space-y-1.5 text-[15px] font-normal leading-[18px]">
                 <p className="text-xl font-bold leading-[18px]">
                     <Trans>Success!</Trans>
                 </p>
@@ -77,7 +77,7 @@ export function ActivityClaimSuccessContent({ onClose }: { onClose?: () => void 
                         ComposeModalRef.open({
                             type: 'compose',
                             chars: [
-                                t`Just claimed the “@twitterusername welcome back 🎉 to CZ” from @thefireflyapp! 
+                                t`Just claimed the "@handle" welcome back 🎉 to CZ” from @thefireflyapp! 
 
 Claim yours at firefly.social when you follow @cz_binance. 
 
