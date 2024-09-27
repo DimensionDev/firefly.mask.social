@@ -1,6 +1,6 @@
 export function parseOldSettingsUrl(url: URL) {
     if (!url.pathname.startsWith('/settings/mutes')) return null;
-    const [, , id] = url.pathname.split('/');
+    const [, , , id] = url.pathname.split('/');
     if (!id) return null;
     switch (id) {
         case '1':
