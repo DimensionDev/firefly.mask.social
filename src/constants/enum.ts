@@ -82,11 +82,6 @@ export type SocialDiscoverSource = Source.Farcaster | Source.Lens;
 export type DiscoverSource = SocialDiscoverSource | Source.NFTs | Source.Article;
 export type BookmarkSource = Source.Farcaster | Source.Lens | Source.Article;
 
-export enum WalletProviderType {
-    AppKit = 'app_kit',
-    RainbowKit = 'rainbow_kit',
-}
-
 export enum DiscoverType {
     ForYou = 'for-you',
     Recent = 'recent',

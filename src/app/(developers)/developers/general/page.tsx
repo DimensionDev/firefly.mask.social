@@ -8,7 +8,6 @@ import { Headline } from '@/app/(settings)/components/Headline.js';
 import { Section } from '@/app/(settings)/components/Section.js';
 import { CircleCheckboxIcon } from '@/components/CircleCheckboxIcon.js';
 import { ClickableArea } from '@/components/ClickableArea.js';
-import { WalletProviderType } from '@/constants/enum.js';
 import { classNames } from '@/helpers/classNames.js';
 import { useDeveloperSettingsState } from '@/store/useDeveloperSettingsStore.js';
 
@@ -30,14 +29,8 @@ type Item =
       };
 
 export default function Page() {
-    const {
-        useDevelopmentAPI,
-        updateUseDevelopmentAPI,
-        logTelemetry,
-        updateLogTelemetry,
-        providerType,
-        updateProviderType,
-    } = useDeveloperSettingsState();
+    const { useDevelopmentAPI, updateUseDevelopmentAPI, logTelemetry, updateLogTelemetry } =
+        useDeveloperSettingsState();
 
     const items: Item[] = [
         {
@@ -56,25 +49,6 @@ export default function Page() {
             description: t`Switch to the development API version for testing new features.`,
             onClick: () => {
                 updateUseDevelopmentAPI(!useDevelopmentAPI);
-            },
-        },
-        {
-            type: 'select',
-            value: providerType,
-            items: [
-                {
-                    label: t`App Kit`,
-                    value: WalletProviderType.AppKit,
-                },
-                {
-                    label: t`Rainbow Kit`,
-                    value: WalletProviderType.RainbowKit,
-                },
-            ],
-            title: t`Wallet Provider`,
-            description: t`Switch between the app kit and rainbow kit wallet providers.`,
-            onChange: (ev) => {
-                updateProviderType(ev.currentTarget.value as WalletProviderType);
             },
         },
     ];

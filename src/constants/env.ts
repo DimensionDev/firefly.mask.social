@@ -1,6 +1,6 @@
 import { z } from 'zod';
 
-import { NODE_ENV, STATUS, VERCEL_NEV, WalletProviderType } from '@/constants/enum.js';
+import { NODE_ENV, STATUS, VERCEL_NEV } from '@/constants/enum.js';
 import { bom } from '@/helpers/bom.js';
 
 const InternalEnvSchema = z.object({
@@ -75,9 +75,6 @@ const ExternalEnvSchema = z.object({
 
     // giphy api key.
     NEXT_PUBLIC_GIPHY_API_KEY: z.string().default(''),
-
-    // wallet provider
-    NEXT_PUBLIC_WALLET_PROVIDER: z.nativeEnum(WalletProviderType).default(WalletProviderType.AppKit),
 });
 
 export const env = {
@@ -124,7 +121,5 @@ export const env = {
         NEXT_PUBLIC_FIREFLY_ANDROID_HOME: process.env.NEXT_PUBLIC_FIREFLY_ANDROID_HOME,
 
         NEXT_PUBLIC_GIPHY_API_KEY: process.env.NEXT_PUBLIC_GIPHY_API_KEY,
-
-        NEXT_PUBLIC_WALLET_PROVIDER: process.env.NEXT_PUBLIC_WALLET_PROVIDER,
     }),
 };
