@@ -25,6 +25,7 @@ export function MutedWallets() {
 
     return (
         <ListInPage
+            source={Source.Wallet}
             key={Source.Wallet}
             queryResult={queryResult}
             className="no-scrollbar"

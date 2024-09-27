@@ -33,6 +33,7 @@ export function FollowingNFTList({ walletAddress }: { walletAddress?: string }) 
 
     return (
         <ListInPage
+            source={Source.NFTs}
             queryResult={nftQueryResult}
             VirtualListProps={{
                 listKey: `${ScrollListKey.Following}:${Source.NFTs}`,

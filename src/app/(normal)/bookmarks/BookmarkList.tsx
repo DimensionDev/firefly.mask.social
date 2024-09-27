@@ -50,6 +50,7 @@ export function BookmarkList({ source }: Props) {
     });
     return (
         <ListInPage
+            source={source}
             loginRequired
             key={source}
             queryResult={query}

@@ -23,6 +23,7 @@ interface ListInPageProps<T = unknown, C = unknown> {
     };
     NoResultsFallbackProps?: NoResultsFallbackProps;
     className?: string;
+    source: Source;
 }
 
 export function ListInPage<T = unknown, C = unknown>({
@@ -32,10 +33,13 @@ export function ListInPage<T = unknown, C = unknown>({
     VirtualListProps,
     NoResultsFallbackProps,
     className,
+    source,
 }: ListInPageProps<T, C>) {
-    const { currentSource, virtuosoState, setVirtuosoState } = useGlobalState();
-    const currentSocialSource = narrowToSocialSource(currentSource);
-    const isLogin = useIsLogin(currentSocialSource);
+    const isArticle = source === Source.Article;
+
+    const { virtuosoState, setVirtuosoState } = useGlobalState();
+    const currentSocialSource = narrowToSocialSource(source);
+    const isLogin = useIsLogin(isArticle ? undefined : currentSocialSource);
 
     const itemsRendered = useRef(false);
 
@@ -51,7 +55,7 @@ export function ListInPage<T = unknown, C = unknown>({
     }, [fetchNextPage, hasNextPage, isFetching, isFetchingNextPage]);
 
     if (loginRequired && !isLogin) {
-        return <NotLoginFallback source={currentSource === Source.Article ? currentSource : currentSocialSource} />;
+        return <NotLoginFallback source={isArticle ? source : currentSocialSource} />;
     }
 
     if (noResultsFallbackRequired && !data.length) {

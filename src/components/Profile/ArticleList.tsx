@@ -26,6 +26,7 @@ export function ArticleList({ address }: ArticleListProps) {
 
     return (
         <ListInPage
+            source={Source.Article}
             key={address}
             queryResult={articleQueryResult}
             VirtualListProps={{

@@ -42,6 +42,7 @@ export function CollectedList({ profileId, source }: CollectedListProps) {
 
     return (
         <ListInPage
+            source={source}
             key={source}
             queryResult={queryResult}
             VirtualListProps={{

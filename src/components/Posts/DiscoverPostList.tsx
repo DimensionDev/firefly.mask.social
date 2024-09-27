@@ -35,6 +35,7 @@ export const DiscoverPostList = memo<{ source: SocialSource }>(function Discover
 
     return (
         <ListInPage
+            source={source}
             key={source}
             queryResult={queryResult}
             VirtualListProps={{

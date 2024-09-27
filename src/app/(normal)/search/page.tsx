@@ -79,6 +79,7 @@ export default function Page() {
     const listKey = `${ScrollListKey.Search}:${searchType}:${searchKeyword}:${currentSource}`;
     return (
         <ListInPage
+            source={currentSource}
             key={listKey}
             queryResult={queryResult}
             VirtualListProps={{

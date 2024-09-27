@@ -23,6 +23,7 @@ export function FollowingList({ profileId, source }: { profileId: string; source
 
     return (
         <ListInPage
+            source={source}
             key={source}
             queryResult={queryResult}
             VirtualListProps={{
