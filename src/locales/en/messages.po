@@ -709,6 +709,9 @@ msgstr "Owner can't change balance"
 msgid "Join our Telegram"
 msgstr "Join our Telegram"
 
+msgid "Event ended"
+msgstr "Event ended"
+
 msgid "Anti_whale(Limited number of transactions)"
 msgstr "Anti_whale(Limited number of transactions)"
 

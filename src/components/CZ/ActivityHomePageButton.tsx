@@ -18,6 +18,9 @@ export function ActivityHomePageButton() {
 
     const changeWallet = type === 'page' ? <ActivityChangeWalletButton /> : null;
 
+    if (data?.eventEnds) {
+        return null;
+    }
     if (!isLoggedTwitter) {
         return (
             <button

@@ -711,6 +711,9 @@ msgstr ""
 msgid "Join our Telegram"
 msgstr ""
 
+msgid "Event ended"
+msgstr ""
+
 msgid "Anti_whale(Limited number of transactions)"
 msgstr ""
 

@@ -711,6 +711,9 @@ msgstr "所有者無法更改餘額"
 msgid "Join our Telegram"
 msgstr "加入我們的 Telegram 社群"
 
+msgid "Event ended"
+msgstr ""
+
 msgid "Anti_whale(Limited number of transactions)"
 msgstr ""
 
