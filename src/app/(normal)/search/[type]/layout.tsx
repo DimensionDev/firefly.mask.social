@@ -1,5 +1,5 @@
 import { t } from '@lingui/macro';
-import type React from 'react';
+import { type PropsWithChildren } from 'react';
 
 import { createPageTitleSSR } from '@/helpers/createPageTitle.js';
 import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
@@ -10,6 +10,6 @@ export async function generateMetadata() {
     });
 }
 
-export default function DetailLayout({ children }: { children: React.ReactNode }) {
+export default function SearchLayout({ children }: PropsWithChildren) {
     return <div>{children}</div>;
 }

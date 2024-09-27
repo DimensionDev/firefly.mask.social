@@ -4,18 +4,25 @@ import { t, Trans } from '@lingui/macro';
 import { safeUnreachable } from '@masknet/kit';
 import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
 import { compact } from 'lodash-es';
+import { useSearchParams } from 'next/navigation.js';
+import type { PropsWithChildren } from 'react';
 
 import { ChannelInList } from '@/components/ChannelInList.js';
 import { ListInPage } from '@/components/ListInPage.js';
 import { SinglePost } from '@/components/Posts/SinglePost.js';
 import { ProfileInList } from '@/components/ProfileInList.js';
-import { ScrollListKey, SearchType } from '@/constants/enum.js';
+import { SourceTabs } from '@/components/SourceTabs.js';
+import { ScrollListKey, SearchType, Source, SourceInURL } from '@/constants/enum.js';
+import { SORTED_SOCIAL_SOURCES } from '@/constants/index.js';
 import { narrowToSocialSource } from '@/helpers/narrowToSocialSource.js';
 import { createIndicator } from '@/helpers/pageable.js';
+import { resolveSearchUrl } from '@/helpers/resolveSearchUrl.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
+import { resolveSourceFromUrl } from '@/helpers/resolveSource.js';
+import { resolveSourceInUrl } from '@/helpers/resolveSourceInUrl.js';
 import { useNavigatorTitle } from '@/hooks/useNavigatorTitle.js';
 import type { Channel, Post, Profile } from '@/providers/types/SocialMedia.js';
-import { useGlobalState } from '@/store/useGlobalStore.js';
+import { useTwitterStateStore } from '@/store/useProfileStore.js';
 import { useSearchStateStore } from '@/store/useSearchStore.js';
 
 const getSearchItemContent = (
@@ -40,13 +47,22 @@ const getSearchItemContent = (
     }
 };
 
-export default function Page() {
+export default function Page({
+    params,
+}: PropsWithChildren<{
+    params: {
+        [key in string]: string;
+    };
+}>) {
+    const searchParams = useSearchParams();
+
     const { searchKeyword, searchType } = useSearchStateStore();
-    const currentSource = useGlobalState.use.currentSource();
-    const currentSocialSource = narrowToSocialSource(currentSource);
+
+    const source = resolveSourceFromUrl(searchParams.get('source') || SourceInURL.Farcaster);
+    const currentSocialSource = narrowToSocialSource(source);
 
     const queryResult = useSuspenseInfiniteQuery({
-        queryKey: ['search', searchType, searchKeyword, currentSource],
+        queryKey: ['search', searchType, searchKeyword, source],
         queryFn: async ({ pageParam }) => {
             if (!searchKeyword) return;
             const provider = resolveSocialMediaProvider(currentSocialSource);
@@ -75,43 +91,51 @@ export default function Page() {
     });
 
     useNavigatorTitle(t`Search`);
+    const currentTwitterProfile = useTwitterStateStore.use.currentProfile();
 
-    const listKey = `${ScrollListKey.Search}:${searchType}:${searchKeyword}:${currentSource}`;
+    const listKey = `${ScrollListKey.Search}:${searchType}:${searchKeyword}:${source}`;
     return (
-        <ListInPage
-            source={currentSource}
-            key={listKey}
-            queryResult={queryResult}
-            VirtualListProps={{
-                listKey,
-                computeItemKey: (index, item) => {
-                    switch (searchType) {
-                        case SearchType.Profiles:
-                            const profile = item as Profile;
-                            return `${profile.profileId}_${index}`;
-                        case SearchType.Posts:
-                            const post = item as Post;
-                            return `${post.postId}_${index}`;
-                        case SearchType.Channels:
-                            const channel = item as Channel;
-                            return `${channel.id}_${index}`;
-                        default:
-                            safeUnreachable(searchType);
-                            return index;
-                    }
-                },
-                itemContent: (index, item) => getSearchItemContent(index, item, searchType, listKey),
-            }}
-            NoResultsFallbackProps={{
-                message: (
-                    <div className="mx-16">
-                        <div className="text-sm text-main">{t`No results for "${searchKeyword}"`}</div>
-                        <p className="mt-4 text-center text-sm text-second">
-                            <Trans>Try searching for something else.</Trans>
-                        </p>
-                    </div>
-                ),
-            }}
-        />
+        <>
+            <SourceTabs
+                source={source}
+                sources={SORTED_SOCIAL_SOURCES.filter((x) => (x === Source.Twitter ? currentTwitterProfile : true))}
+                href={(source) => resolveSearchUrl({ ...params, source: resolveSourceInUrl(source) }, searchParams)}
+            />
+            <ListInPage
+                source={source}
+                key={listKey}
+                queryResult={queryResult}
+                VirtualListProps={{
+                    listKey,
+                    computeItemKey: (index, item) => {
+                        switch (searchType) {
+                            case SearchType.Profiles:
+                                const profile = item as Profile;
+                                return `${profile.profileId}_${index}`;
+                            case SearchType.Posts:
+                                const post = item as Post;
+                                return `${post.postId}_${index}`;
+                            case SearchType.Channels:
+                                const channel = item as Channel;
+                                return `${channel.id}_${index}`;
+                            default:
+                                safeUnreachable(searchType);
+                                return index;
+                        }
+                    },
+                    itemContent: (index, item) => getSearchItemContent(index, item, searchType, listKey),
+                }}
+                NoResultsFallbackProps={{
+                    message: (
+                        <div className="mx-16">
+                            <div className="text-sm text-main">{t`No results for "${searchKeyword}"`}</div>
+                            <p className="mt-4 text-center text-sm text-second">
+                                <Trans>Try searching for something else.</Trans>
+                            </p>
+                        </div>
+                    ),
+                }}
+            />
+        </>
     );
 }
