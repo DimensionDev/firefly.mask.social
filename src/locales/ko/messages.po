@@ -846,9 +846,6 @@ msgstr ""
 msgid "Enter amount"
 msgstr ""
 
-msgid "You're eligible for a <0>Premium</0> CZ Support NFT because your .bnb domain is member of the SPACE <1>ID Premier Club</1>."
-msgstr ""
-
 msgid "<0>Sold</0> an NFT worth {costEl}"
 msgstr ""
 
@@ -2022,6 +2019,12 @@ msgstr ""
 msgid "{type, select, comment {Comments} mirror {{0}} reaction {Likes} act {Collects} other {Other}}"
 msgstr ""
 
+msgid ""
+"Just claimed the “@twitterusername welcome back 🎉 to CZ” from @thefireflyapp! \n"
+"Claim yours at firefly.social when you follow @cz_binance. \n"
+"#CZ #FireflySocial"
+msgstr ""
+
 msgid "You may lose your assets if giving approval to the website of this token."
 msgstr ""
 
@@ -2226,6 +2229,9 @@ msgstr ""
 msgid "Events"
 msgstr ""
 
+msgid "You're eligible for a <0>Premium</0> CZ Support NFT because your X account holds Premium status."
+msgstr ""
+
 msgid "{0} Users"
 msgstr ""
 
@@ -2337,6 +2343,9 @@ msgstr ""
 msgid "Collect for {0} {1}"
 msgstr ""
 
+msgid "You're eligible for a <0>Premium</0> CZ Support NFT because your BNB Chain wallet holds assets valued over <1>$10,000</1>."
+msgstr ""
+
 msgid "Recast"
 msgstr ""
 
@@ -2416,6 +2425,9 @@ msgid "Failed to update scheduled post."
 msgstr ""
 
 msgid "Login"
+msgstr ""
+
+msgid "You're eligible for a <0>Premium</0> CZ Support NFT because your .bnb domain is member of the <1>SPACE ID Premier Club</1>."
 msgstr ""
 
 msgid "Replying to <0>@{0}</0> on {1}"

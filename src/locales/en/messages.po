@@ -841,9 +841,6 @@ msgstr "Confirm you want to mute /{0}?"
 msgid "Enter amount"
 msgstr "Enter amount"
 
-msgid "You're eligible for a <0>Premium</0> CZ Support NFT because your .bnb domain is member of the SPACE <1>ID Premier Club</1>."
-msgstr "You're eligible for a <0>Premium</0> CZ Support NFT because your .bnb domain is member of the SPACE <1>ID Premier Club</1>."
-
 msgid "<0>Sold</0> an NFT worth {costEl}"
 msgstr "<0>Sold</0> an NFT worth {costEl}"
 
@@ -2017,6 +2014,15 @@ msgstr "Create a Post"
 msgid "{type, select, comment {Comments} mirror {{0}} reaction {Likes} act {Collects} other {Other}}"
 msgstr "{type, select, comment {Comments} mirror {{0}} reaction {Likes} act {Collects} other {Other}}"
 
+msgid ""
+"Just claimed the “@twitterusername welcome back 🎉 to CZ” from @thefireflyapp! \n"
+"Claim yours at firefly.social when you follow @cz_binance. \n"
+"#CZ #FireflySocial"
+msgstr ""
+"Just claimed the “@twitterusername welcome back 🎉 to CZ” from @thefireflyapp! \n"
+"Claim yours at firefly.social when you follow @cz_binance. \n"
+"#CZ #FireflySocial"
+
 msgid "You may lose your assets if giving approval to the website of this token."
 msgstr "You may lose your assets if giving approval to the website of this token."
 
@@ -2221,6 +2227,9 @@ msgstr "{hours}h left"
 msgid "Events"
 msgstr "Events"
 
+msgid "You're eligible for a <0>Premium</0> CZ Support NFT because your X account holds Premium status."
+msgstr "You're eligible for a <0>Premium</0> CZ Support NFT because your X account holds Premium status."
+
 msgid "{0} Users"
 msgstr "{0} Users"
 
@@ -2332,6 +2341,9 @@ msgstr "Followed @{0} on Lens"
 msgid "Collect for {0} {1}"
 msgstr "Collect for {0} {1}"
 
+msgid "You're eligible for a <0>Premium</0> CZ Support NFT because your BNB Chain wallet holds assets valued over <1>$10,000</1>."
+msgstr "You're eligible for a <0>Premium</0> CZ Support NFT because your BNB Chain wallet holds assets valued over <1>$10,000</1>."
+
 msgid "Recast"
 msgstr "Recast"
 
@@ -2412,6 +2424,9 @@ msgstr "Failed to update scheduled post."
 
 msgid "Login"
 msgstr "Login"
+
+msgid "You're eligible for a <0>Premium</0> CZ Support NFT because your .bnb domain is member of the <1>SPACE ID Premier Club</1>."
+msgstr "You're eligible for a <0>Premium</0> CZ Support NFT because your .bnb domain is member of the <1>SPACE ID Premier Club</1>."
 
 msgid "Replying to <0>@{0}</0> on {1}"
 msgstr "Replying to <0>@{0}</0> on {1}"
