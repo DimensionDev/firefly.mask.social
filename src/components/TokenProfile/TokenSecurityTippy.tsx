@@ -8,7 +8,6 @@ import { SecurityMessageLevel, type TokenContractSecurity } from '@/providers/ty
 interface Props {
     level: SecurityMessageLevel;
     security: TokenContractSecurity;
-    // eslint-disable-next-line @typescript-eslint/ban-types
     children: ReactElement;
 }
 

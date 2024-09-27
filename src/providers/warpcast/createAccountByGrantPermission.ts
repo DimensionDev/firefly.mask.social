@@ -22,7 +22,7 @@ interface WarpcastSignInResponse {
 async function createSession(signal?: AbortSignal) {
     // create key pair in client side
     const privateKey = utils.randomPrivateKey();
-    const publicKey: `0x${string}` = `0x${Buffer.from(await getPublicKey(privateKey)).toString('hex')}`;
+    const publicKey: `0x${string}` = `0x${Buffer.from(getPublicKey(privateKey)).toString('hex')}`;
 
     const response = await fetchJSON<ResponseJSON<WarpcastSignInResponse>>('/api/warpcast/signin', {
         method: 'POST',

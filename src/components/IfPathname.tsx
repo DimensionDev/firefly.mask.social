@@ -31,8 +31,7 @@ export function IfPathname({ exact = false, isOneOf, isNotOneOf, children }: IfP
     }, [pathname]);
 
     if (
-        isOneOf &&
-        isOneOf.some((includedPath) =>
+        isOneOf?.some((includedPath) =>
             typeof includedPath === 'string'
                 ? isRoutePathname(lastPathname, includedPath, exact)
                 : new RegExp(includedPath.r, includedPath.flags).test(lastPathname),
