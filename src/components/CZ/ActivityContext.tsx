@@ -11,8 +11,8 @@ import { fetchJSON } from '@/helpers/fetchJSON.js';
 import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
 import { fireflyBridgeProvider } from '@/providers/firefly/Bridge.js';
 import type { WalletProfileResponse } from '@/providers/types/Firefly.js';
-import { Platform, SupportedMethod } from '@/types/bridge.js';
 import { settings } from '@/settings/index.js';
+import { Platform, SupportedMethod } from '@/types/bridge.js';
 
 export interface ActivityContextValues {
     onClaim: (hash: string) => void;

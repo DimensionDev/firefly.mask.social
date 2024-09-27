@@ -1,6 +1,7 @@
 'use client';
 
 import { Trans } from '@lingui/macro';
+import { redirect } from 'next/navigation.js';
 
 import CircleFailIcon from '@/assets/circle-fail.svg';
 import CircleSuccessIcon from '@/assets/circle-success.svg';
@@ -10,7 +11,6 @@ import { useActivityCheckResponse } from '@/components/CZ/useActivityCheckRespon
 import { Source } from '@/constants/enum.js';
 import { Link } from '@/esm/Link.js';
 import { resolveProfileUrl } from '@/helpers/resolveProfileUrl.js';
-import { redirect } from 'next/navigation.js';
 
 export function ActivityCheckList() {
     const { data, isLoading } = useActivityCheckResponse();
