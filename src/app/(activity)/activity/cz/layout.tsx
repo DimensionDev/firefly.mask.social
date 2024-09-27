@@ -3,17 +3,17 @@
 import { useRouter } from 'next/navigation.js';
 import type { PropsWithChildren } from 'react';
 
-import { ActivityContext } from '@/components/CZ/ActivityContext.js';
+import { ActivityContextProvider } from '@/components/CZ/ActivityContext.js';
 import { ActivityClaimSuccessModalRef } from '@/modals/controls.js';
 
 export default function Layout({ children }: PropsWithChildren) {
     const router = useRouter();
 
     return (
-        <ActivityContext.Provider
+        <ActivityContextProvider
             value={{
-                onClaim() {
-                    ActivityClaimSuccessModalRef.open();
+                onClaim(hash) {
+                    ActivityClaimSuccessModalRef.open({ hash });
                 },
                 goChecklist() {
                     router.push('/activity/cz/checklist');
@@ -22,6 +22,6 @@ export default function Layout({ children }: PropsWithChildren) {
             }}
         >
             {children}
-        </ActivityContext.Provider>
+        </ActivityContextProvider>
     );
 }

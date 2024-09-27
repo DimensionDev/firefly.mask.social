@@ -78,6 +78,8 @@ const ExternalEnvSchema = z.object({
 
     // wallet provider
     NEXT_PUBLIC_WALLET_PROVIDER: z.nativeEnum(WalletProviderType).default(WalletProviderType.AppKit),
+
+    NEXT_PUBLIC_ENABLED_FIREFLY_DEV_API: z.nativeEnum(STATUS).default(STATUS.Disabled),
 });
 
 export const env = {
@@ -126,5 +128,7 @@ export const env = {
         NEXT_PUBLIC_GIPHY_API_KEY: process.env.NEXT_PUBLIC_GIPHY_API_KEY,
 
         NEXT_PUBLIC_WALLET_PROVIDER: process.env.NEXT_PUBLIC_WALLET_PROVIDER,
+
+        NEXT_PUBLIC_ENABLED_FIREFLY_DEV_API: process.env.NEXT_PUBLIC_ENABLED_FIREFLY_DEV_API,
     }),
 };

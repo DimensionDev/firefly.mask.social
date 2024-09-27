@@ -1,8 +1,7 @@
 import { t } from '@lingui/macro';
 import { useQuery } from '@tanstack/react-query';
-import { useEffect } from 'react';
+import { useContext, useEffect } from 'react';
 import urlcat from 'urlcat';
-import { useAccount } from 'wagmi';
 
 import { Source } from '@/constants/enum.js';
 import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
@@ -11,17 +10,18 @@ import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
 import type { CheckResponse } from '@/providers/types/CZ.js';
 import { settings } from '@/settings/index.js';
+import { ActivityContext } from '@/components/CZ/ActivityContext.js';
 
 export function useActivityCheckResponse() {
-    const account = useAccount();
+    const { address } = useContext(ActivityContext);
     const twitterProfile = useCurrentProfile(Source.Twitter);
     const query = useQuery({
-        queryKey: ['cz-activity-check', account.address, !!twitterProfile],
+        queryKey: ['cz-activity-check', address, !!twitterProfile],
         async queryFn() {
             const response = await fireflySessionHolder.fetch<CheckResponse>(
                 // cspell: disable-next-line
                 urlcat(settings.FIREFLY_ROOT_URL, '/v1/misc/activity/checkBnbcz', {
-                    address: account.address!,
+                    address: address!,
                 }),
             );
             if (!response.data) {
@@ -29,7 +29,7 @@ export function useActivityCheckResponse() {
             }
             return response.data;
         },
-        enabled: !!account.address && !!twitterProfile,
+        enabled: !!address && !!twitterProfile,
     });
 
     useEffect(() => {

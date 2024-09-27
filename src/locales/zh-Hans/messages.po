@@ -669,9 +669,6 @@ msgstr "上传头像失败。"
 msgid "Frame Validator"
 msgstr "Frame 验证器"
 
-msgid "Copy Link"
-msgstr ""
-
 msgid "No proxy"
 msgstr "无代理"
 
@@ -785,6 +782,9 @@ msgstr "取消收藏帖子失败。"
 
 msgid "Failed to submit report on {0}"
 msgstr "在 {0} 上提交报告失败"
+
+msgid "Login X failed"
+msgstr ""
 
 msgid "Failed to mute @{0} on {sourceName}."
 msgstr "未能在 {sourceName} 上隐藏 @{0}。"
@@ -1076,9 +1076,6 @@ msgstr "发布成功。"
 
 msgid "Login with Farcaster"
 msgstr "使用 Farcaster 登录"
-
-msgid "Event runs from September 29, 2024, 12:00 UTC to October 8, 2024, 23:59 UTC."
-msgstr ""
 
 msgid "Bio should not exceed {maxBioSize} characters"
 msgstr "个人介绍不可以超过 {maxBioSize} 个字"
@@ -1683,6 +1680,9 @@ msgstr ""
 msgid "Articles from {walletHandle} will now be hidden in your home timeline"
 msgstr ""
 
+msgid "Login X"
+msgstr ""
+
 msgid "Please input the url to be revalidated."
 msgstr "请输入 URL 重新验证："
 
@@ -1884,6 +1884,9 @@ msgstr ""
 msgid "Failed to continue. Please allow Lens Manager for performing actions without the need to sign each transaction."
 msgstr "无法继续。请允许 Lens Manager 执行操作，而无需对每笔交易进行签名。"
 
+msgid "*CZ's follower snapshot was taken at 8:00 UTC on September 21, 2024."
+msgstr ""
+
 msgid "Properties"
 msgstr "属性"
 
@@ -1941,6 +1944,9 @@ msgstr "上传失败。动图超过最大限制 {0}"
 msgid "{days}d left"
 msgstr "{days} 天剩余"
 
+msgid "*Event runs from September 29, 2024, 12:00 UTC to October 8, 2024, 23:59 UTC."
+msgstr ""
+
 msgid "Log out all"
 msgstr "登出所有"
 
@@ -1980,6 +1986,9 @@ msgstr "只有你关注的人"
 msgid "The signer is not authorized to perform the requested operation. Please approve again."
 msgstr "Signer key 未被授权。请重试。"
 
+msgid "Your assets on BNB Chain are worth over US$10,000."
+msgstr ""
+
 msgid "Saved on {0}"
 msgstr "已保存在 {0}"
 
@@ -1997,9 +2006,6 @@ msgstr "没有发现可以暂停交易的代码。"
 
 msgid "Buy Tax: {0}%"
 msgstr "购买税率: {0}%"
-
-msgid "Success!"
-msgstr ""
 
 msgid "<0>You</0> and {0} recasted"
 msgstr "<0> 你 </0> 和 {0} 人都转发了"
@@ -2405,6 +2411,9 @@ msgstr ""
 
 msgid "Hours"
 msgstr "小时"
+
+msgid "Note:"
+msgstr ""
 
 msgid "Failed to create schedule post."
 msgstr "创建定时任务失败"

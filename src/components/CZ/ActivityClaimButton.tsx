@@ -1,11 +1,9 @@
 'use client';
 
 import { t, Trans } from '@lingui/macro';
-import { useQueryClient } from '@tanstack/react-query';
 import { type HTMLProps, useContext } from 'react';
 import { useAsyncFn } from 'react-use';
 import urlcat from 'urlcat';
-import { useAccount } from 'wagmi';
 
 import LoadingIcon from '@/assets/loading.svg';
 import { ActivityContext } from '@/components/CZ/ActivityContext.js';
@@ -16,6 +14,9 @@ import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
 import { Level } from '@/providers/types/CZ.js';
 import { type Response } from '@/providers/types/Firefly.js';
 import { settings } from '@/settings/index.js';
+import { Link } from '@/esm/Link.js';
+import { fireflyBridgeProvider } from '@/providers/firefly/Bridge.js';
+import { IS_IOS } from '@/constants/bowser.js';
 
 interface Props extends HTMLProps<'button'> {
     level?: Level;
@@ -25,40 +26,40 @@ interface Props extends HTMLProps<'button'> {
 }
 
 export function ActivityClaimButton({ level, alreadyClaimed = false, canClaim, isLoading = false, className }: Props) {
-    const { onClaim } = useContext(ActivityContext);
+    const { onClaim, address } = useContext(ActivityContext);
     const disabled = isLoading || alreadyClaimed;
-    const account = useAccount();
-    const address = account.address; // TODO: and address from mobile
-    const queryClient = useQueryClient();
     const [{ loading }, claim] = useAsyncFn(async () => {
         if (disabled || !address) return;
         try {
-            const response = await fireflySessionHolder.fetch<Response<{}>>(
-                urlcat(settings.FIREFLY_ROOT_URL, '/v1/wallet_transaction/mint/bnb/sbt'),
-                {
-                    method: 'POST',
-                    body: JSON.stringify({
-                        walletAddress: address,
-                        claimPlatform: 'web',
-                    }),
-                },
-            );
-            if (!response.error) {
+            let claimPlatform = 'web';
+            if (fireflyBridgeProvider.supported) claimPlatform = IS_IOS ? 'ios' : 'android';
+            const response = await fireflySessionHolder.fetch<
+                Response<{
+                    status: boolean;
+                    hash: string;
+                    errormessage?: string;
+                }>
+            >(urlcat(settings.FIREFLY_ROOT_URL, '/v1/wallet_transaction/mint/bnb/sbt'), {
+                method: 'POST',
+                body: JSON.stringify({
+                    walletAddress: address,
+                    claimPlatform,
+                }),
+            });
+            if (!response.error || !response.data) {
                 throw new Error(response.error?.[0] ?? t`Unknown error`);
             }
-            onClaim();
+            if (response.data.errormessage) {
+                throw new Error(response.data.errormessage ?? t`Unknown error`);
+            }
+            onClaim(response.data.hash);
         } catch (error) {
             enqueueErrorMessage(getSnackbarMessageFromError(error, t`Unknown error`));
             throw error;
         }
     });
-    const [{ loading: isRetrying }, retry] = useAsyncFn(() => {
-        return queryClient.refetchQueries({
-            queryKey: ['cz-activity-check'],
-        });
-    });
 
-    if (isLoading || isRetrying) {
+    if (isLoading) {
         return (
             <span className="mx-auto text-sm font-bold text-white/70">
                 <Trans>Verifying eligibility...</Trans>
@@ -68,11 +69,11 @@ export function ActivityClaimButton({ level, alreadyClaimed = false, canClaim, i
 
     if (!canClaim) {
         return (
-            <button className="mx-auto text-sm font-bold text-white/70" onClick={retry}>
+            <Link href="/activity/cz" className="mx-auto text-sm font-bold text-white/70">
                 <Trans>
                     Not eligible to claim, <span className="text-[#AC9DF6]">retry</span>
                 </Trans>
-            </button>
+            </Link>
         );
     }
 

@@ -11,6 +11,7 @@ interface PopoverProps {
     onClose?: () => void;
     enableOverflow?: boolean;
     DialogPanelProps?: DialogPanelProps<'div'>;
+    backdropClassName?: string;
 }
 
 export function Popover({
@@ -20,6 +21,7 @@ export function Popover({
     onClose,
     enableOverflow = true,
     DialogPanelProps,
+    backdropClassName,
 }: PopoverProps) {
     const { setRef } = useDisableScrollPassive();
 
@@ -36,7 +38,10 @@ export function Popover({
                         leaveFrom="opacity-100"
                         leaveTo="opacity-0"
                     >
-                        <div className="fixed inset-0 z-40 bg-main/25 bg-opacity-30" ref={(ref) => setRef(ref)} />
+                        <div
+                            className={classNames('fixed inset-0 z-40 bg-main/25 bg-opacity-30', backdropClassName)}
+                            ref={(ref) => setRef(ref)}
+                        />
                     </Transition.Child>
                 ) : null}
                 <Transition.Child

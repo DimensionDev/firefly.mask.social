@@ -7,7 +7,7 @@ import React, { useEffect, useState } from 'react';
 import QuestionIcon from '@/assets/question.svg';
 import { CloseButton } from '@/components/CloseButton.js';
 import { ActivityClaimSuccessContent } from '@/components/CZ/ActivityClaimSuccessDialog.js';
-import { ActivityContext } from '@/components/CZ/ActivityContext.js';
+import { ActivityContext, ActivityContextProvider } from '@/components/CZ/ActivityContext.js';
 import { ActivityHomePage } from '@/components/CZ/ActivityHomePage.js';
 import { ActivityShortRules } from '@/components/CZ/ActivityShortRules.js';
 import { Modal } from '@/components/Modal.js';
@@ -20,6 +20,7 @@ interface Props {
 
 export function ActivityDialog({ open, onClose }: Props) {
     const [success, setSuccess] = useState(false);
+    const [hash, setHash] = useState('');
 
     useEffect(() => {
         if (open) setSuccess(false);
@@ -61,23 +62,24 @@ export function ActivityDialog({ open, onClose }: Props) {
                         onClick={onClose}
                     />
                 </div>
-                <ActivityContext.Provider
+                <ActivityContextProvider
                     value={{
-                        onClaim() {
+                        onClaim(h) {
                             setSuccess(true);
+                            setHash(h);
                         },
                         goChecklist() {},
                         type: 'dialog',
                     }}
                 >
                     {success ? (
-                        <ActivityClaimSuccessContent onClose={onClose} />
+                        <ActivityClaimSuccessContent onClose={onClose} hash={hash} />
                     ) : (
                         <div className="relative flex flex-col space-y-6">
                             <ActivityHomePage />
                         </div>
                     )}
-                </ActivityContext.Provider>
+                </ActivityContextProvider>
             </div>
         </Modal>
     );
