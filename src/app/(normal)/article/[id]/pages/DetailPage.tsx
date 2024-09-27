@@ -12,7 +12,6 @@ import { useRouter } from 'next/navigation.js';
 import { useRef } from 'react';
 import urlcat from 'urlcat';
 import { useDarkMode } from 'usehooks-ts';
-import { checksumAddress } from 'viem';
 
 import ComeBack from '@/assets/comeback.svg';
 import { ArticleHeader } from '@/components/Article/ArticleHeader.js';
