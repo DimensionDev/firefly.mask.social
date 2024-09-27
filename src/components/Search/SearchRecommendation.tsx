@@ -25,6 +25,7 @@ import type { Channel, Profile } from '@/providers/types/SocialMedia.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
 import { useSearchHistoryStateStore } from '@/store/useSearchHistoryStore.js';
 import { type SearchState } from '@/store/useSearchStore.js';
+import { useSearchParams } from 'next/navigation.js';
 
 interface SearchRecommendationProps {
     keyword: string;
@@ -42,6 +43,7 @@ export function SearchRecommendation(props: SearchRecommendationProps) {
     const currentSource = useGlobalState.use.currentSource();
 
     const { records, addRecord, removeRecord, clearAll } = useSearchHistoryStateStore();
+    const params = useSearchParams();
 
     const { data: profiles, isLoading } = useQuery({
         queryKey: ['searchText', currentSource, debouncedKeyword],
@@ -90,7 +92,7 @@ export function SearchRecommendation(props: SearchRecommendationProps) {
                 </h2>
                 <Link
                     className="flex cursor-pointer items-center px-4 py-4 text-left hover:bg-bg"
-                    href={resolveSearchUrl(keyword)}
+                    href={resolveSearchUrl({ q: keyword }, params)}
                     onClick={() =>
                         onSearch?.({
                             q: keyword,
@@ -227,7 +229,7 @@ export function SearchRecommendation(props: SearchRecommendationProps) {
                         <Link
                             className="flex cursor-pointer items-center px-3 hover:bg-bg"
                             key={record}
-                            href={resolveSearchUrl(record)}
+                            href={resolveSearchUrl({ q: record }, params)}
                             onClick={() => {
                                 addRecord(record);
                                 onSearch?.({ q: record });

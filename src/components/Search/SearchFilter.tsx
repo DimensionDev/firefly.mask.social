@@ -1,6 +1,7 @@
 'use client';
 
 import { Trans } from '@lingui/macro';
+import { useSearchParams } from 'next/navigation.js';
 import { memo } from 'react';
 
 import { RadioButton } from '@/components/RadioButton.js';
@@ -16,6 +17,7 @@ import { useSearchStateStore } from '@/store/useSearchStore.js';
 export const SearchFilter = memo(function SearchFilter() {
     const currentSource = useGlobalState.use.currentSource();
     const currentSocialSource = narrowToSocialSource(currentSource);
+    const params = useSearchParams();
 
     const { searchKeyword, searchType, updateSearchType } = useSearchStateStore();
 
@@ -45,7 +47,13 @@ export const SearchFilter = memo(function SearchFilter() {
                             <Link
                                 key={filter.type}
                                 className="flex cursor-pointer items-center text-sm"
-                                href={resolveSearchUrl(searchKeyword, filter.type)}
+                                href={resolveSearchUrl(
+                                    {
+                                        q: searchKeyword,
+                                        type: filter.type,
+                                    },
+                                    params,
+                                )}
                                 onClick={(event) => {
                                     if (!searchKeyword) {
                                         event.stopPropagation();

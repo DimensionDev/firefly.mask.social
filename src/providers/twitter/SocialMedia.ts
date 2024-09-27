@@ -15,7 +15,7 @@ import { SetQueryDataForLikePost } from '@/decorators/SetQueryDataForLikePost.js
 import { SetQueryDataForMirrorPost } from '@/decorators/SetQueryDataForMirrorPost.js';
 import { formatTweetsPage } from '@/helpers/formatTwitterPost.js';
 import { formatTwitterProfile } from '@/helpers/formatTwitterProfile.js';
-import { type Pageable, type PageIndicator } from '@/helpers/pageable.js';
+import { createIndicator, createPageable, type Pageable, type PageIndicator } from '@/helpers/pageable.js';
 import { resolveTCOLink } from '@/helpers/resolveTCOLink.js';
 import { resolveTwitterReplyRestriction } from '@/helpers/resolveTwitterReplyRestriction.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
@@ -295,14 +295,17 @@ class TwitterSocialMedia implements Provider {
     }
 
     async searchPosts(q: string, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
-        const url = urlcat(`/api/twitter/search/recent`, {
-            limit: 25,
-            cursor: indicator?.id,
-            query: q,
+        return twitterSessionHolder.withSession(async (session) => {
+            if (!session) return createPageable([] as Post[], createIndicator(indicator));
+            const url = urlcat(`/api/twitter/search/recent`, {
+                limit: 25,
+                cursor: indicator?.id,
+                query: q,
+            });
+            const response = await twitterSessionHolder.fetch<ResponseJSON<Tweetv2TimelineResult>>(url, {}, true);
+            if (!response.success) throw new Error(response.error.message);
+            return formatTweetsPage(response.data, indicator);
         });
-        const response = await twitterSessionHolder.fetch<ResponseJSON<Tweetv2TimelineResult>>(url, {}, true);
-        if (!response.success) throw new Error(response.error.message);
-        return formatTweetsPage(response.data, indicator);
     }
 
     searchProfiles(q: string, indicator?: PageIndicator): Promise<Pageable<Profile, PageIndicator>> {

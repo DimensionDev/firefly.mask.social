@@ -1,6 +1,6 @@
 'use client';
 
-import { usePathname, useRouter } from 'next/navigation.js';
+import { usePathname, useRouter, useSearchParams } from 'next/navigation.js';
 import { type HTMLProps, memo, useLayoutEffect, useRef, useState } from 'react';
 import { useOnClickOutside } from 'usehooks-ts';
 
@@ -33,6 +33,7 @@ const SearchBar = memo(function SearchBar({ slot, className, ...rest }: SearchBa
     const inputRef = useRef<HTMLInputElement>(null);
     const [inputText, setInputText] = useState(searchKeyword);
     const router = useRouter();
+    const params = useSearchParams();
 
     const comeback = useComeBack();
 
@@ -44,7 +45,7 @@ const SearchBar = memo(function SearchBar({ slot, className, ...rest }: SearchBa
         if (state.q) addRecord(state.q);
         updateState(state);
         setShowRecommendation(false);
-        router.push(resolveSearchUrl(state.q || '', state.type));
+        router.push(resolveSearchUrl(state, params));
     };
 
     useLayoutEffect(() => {
