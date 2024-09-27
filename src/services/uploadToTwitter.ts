@@ -18,7 +18,7 @@ export async function uploadToTwitter(
     const medias = await Promise.all(
         uploads.map(({ file, options = {} }) => {
             if (file.size > MAX_SIZE_PER_CHUNK) {
-                return uploadToTwitterWithChunks(file);
+                return uploadToTwitterWithChunks(file, undefined, options);
             }
 
             const formData = new FormData();
