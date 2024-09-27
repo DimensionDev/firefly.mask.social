@@ -1,11 +1,16 @@
-'use client';
-
 import { Trans } from '@lingui/macro';
+import type { Metadata } from 'next';
 
+import FireflyIcon from '@/assets/firefly-pure.svg';
 import { ActivityHomePage } from '@/components/CZ/ActivityHomePage.js';
 import { ActivityShortRules } from '@/components/CZ/ActivityShortRules.js';
+import { getActivityOG } from '@/components/CZ/getActivityOG.js';
 import { NavigationBar } from '@/components/CZ/NavigationBar.js';
 import { Image } from '@/esm/Image.js';
+
+export async function generateMetadata(): Promise<Metadata> {
+    return getActivityOG();
+}
 
 export default function Page() {
     return (
@@ -27,6 +32,14 @@ export default function Page() {
                         <ActivityShortRules />
                     </div>
                 </div>
+            </div>
+            <div className="relative z-10 mt-auto flex w-full items-center justify-center text-center text-sm pb-safe-or-6">
+                <FireflyIcon width={14} height={19} className="mr-2.5" />
+                <p>
+                    <Trans>
+                        <b>© 2024 Firefly.</b> All rights reserved.
+                    </Trans>
+                </p>
             </div>
         </div>
     );

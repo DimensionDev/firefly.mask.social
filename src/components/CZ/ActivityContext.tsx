@@ -1,7 +1,7 @@
 import { t } from '@lingui/macro';
 import { useQuery } from '@tanstack/react-query';
 import { signIn } from 'next-auth/react';
-import { createContext, type ReactNode, useState } from 'react';
+import { createContext, type ReactNode, useCallback, useMemo, useState } from 'react';
 import urlcat from 'urlcat';
 import { useAccount } from 'wagmi';
 
@@ -44,7 +44,7 @@ export function ActivityContextProvider({
     const [address, setAddress] = useState<string | null>(null);
     const account = useAccount();
     const twitterProfile = useCurrentProfile(Source.Twitter);
-    const { data: isLoggedTwitter = false } = useQuery({
+    const { data: isLoggedTwitter = false, refetch } = useQuery({
         queryKey: ['is-logged-twitter', !!twitterProfile],
         async queryFn() {
             if (!fireflyBridgeProvider.supported) return !!twitterProfile;
@@ -62,31 +62,33 @@ export function ActivityContextProvider({
         refetchInterval: 10000,
     });
 
-    const onLoginTwitter = async () => {
+    const onLoginTwitter = useCallback(async () => {
         if (fireflyBridgeProvider.supported) {
             const result = await fireflyBridgeProvider.request(SupportedMethod.LOGIN, {
                 platform: Platform.TWITTER,
             });
-            if (result) enqueueSuccessMessage(t`Login X`);
-            else enqueueSuccessMessage(t`Login X failed`);
+            if (result) {
+                enqueueSuccessMessage(t`Login X`);
+                await refetch();
+            } else {
+                enqueueSuccessMessage(t`Login X failed`);
+            }
             return;
         }
         await signIn('twitter', {
             redirect: false,
         });
-    };
+    }, [refetch]);
 
-    return (
-        <ActivityContext.Provider
-            value={{
-                isLoggedTwitter,
-                onLoginTwitter,
-                address: address ?? account.address ?? null,
-                setAddress,
-                ...value,
-            }}
-        >
-            {children}
-        </ActivityContext.Provider>
-    );
+    const providerValue = useMemo(() => {
+        return {
+            isLoggedTwitter,
+            onLoginTwitter,
+            address: address ?? account.address ?? null,
+            setAddress,
+            ...value,
+        };
+    }, [value, address, account.address, onLoginTwitter, isLoggedTwitter]);
+
+    return <ActivityContext.Provider value={providerValue}>{children}</ActivityContext.Provider>;
 }
