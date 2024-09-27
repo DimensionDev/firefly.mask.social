@@ -7,11 +7,11 @@ import { GoogleAnalytics } from '@next/third-parties/google';
 import { Inter } from 'next/font/google';
 
 import { LayoutBody } from '@/app/layout-body.js';
+import { IfPathname } from '@/components/IfPathname.jsx';
 import { Script } from '@/esm/Script.js';
 import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
 import { getLocaleFromCookies } from '@/helpers/getLocaleFromCookies.js';
 import { setLocale } from '@/i18n/index.js';
-import { IfPathname } from '@/components/IfPathname.jsx';
 
 const inter = Inter({
     subsets: ['latin'],
