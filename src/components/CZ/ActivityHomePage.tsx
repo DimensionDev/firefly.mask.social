@@ -70,7 +70,7 @@ export function ActivityHomePage() {
         if (data?.canClaim) {
             const title = <Trans>{ens ?? formatAddress(address, 4)} is eligible!</Trans>;
             if (data.level === Level.Lv2) {
-                if (data.x?.valid) {
+                if (data.x?.valid && data.x.level === Level.Lv2) {
                     return {
                         title,
                         description: (
