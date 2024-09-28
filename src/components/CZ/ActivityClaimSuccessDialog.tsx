@@ -51,7 +51,7 @@ export function ActivityClaimSuccessContent({ onClose, hash }: { onClose?: () =>
                     className="h-10 rounded-full bg-white text-[15px] font-bold leading-10 text-[#181A20]"
                     onClick={() => {
                         onClose?.();
-                        const text = t`Just claimed the “Welcome back 🎉 to CZ” collectible from @thefireflyapp!
+                        const text = t`Just claimed the "Welcome back 🎉 to CZ" collectible from @thefireflyapp!
 
 If you followed @cz_binance on X before Sept 21, you’re eligible to claim yours at https://cz.firefly.social.
 

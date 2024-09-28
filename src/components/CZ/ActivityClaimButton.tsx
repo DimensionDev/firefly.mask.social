@@ -26,7 +26,7 @@ interface Props extends HTMLProps<'button'> {
 }
 
 export function ActivityClaimButton({ level, alreadyClaimed = false, canClaim, isLoading = false, className }: Props) {
-    const { onClaim, address } = useContext(ActivityContext);
+    const { onClaim, address, authToken } = useContext(ActivityContext);
     const disabled = isLoading || alreadyClaimed;
     const [{ loading }, claim] = useAsyncFn(async () => {
         if (disabled || !address) return;
@@ -45,6 +45,9 @@ export function ActivityClaimButton({ level, alreadyClaimed = false, canClaim, i
                     walletAddress: address,
                     claimPlatform,
                 }),
+                headers: {
+                    Authorization: `Bearer ${authToken}`,
+                },
             });
             if (response.error || !response.data) {
                 throw new Error(response.error?.[0] ?? t`Unknown error`);

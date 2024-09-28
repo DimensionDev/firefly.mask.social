@@ -603,6 +603,12 @@ msgstr "连接钱包"
 msgid "Not Found. Please check your URL[{0}]."
 msgstr "未找到。请检查你的 URL [{0}]。"
 
+msgid ""
+"Just claimed the \"Welcome back 🎉 to CZ\" collectible from @thefireflyapp!\n"
+"If you followed @cz_binance on X before Sept 21, you’re eligible to claim yours at https://cz.firefly.social.\n"
+"#CZ #FireflySocial"
+msgstr ""
+
 msgid "Feed"
 msgstr "信息流"
 
@@ -1354,12 +1360,6 @@ msgid "Your schedule thread has created successfully."
 msgstr "你设定的定时 thread 已经成功。"
 
 msgid "Super Follow"
-msgstr ""
-
-msgid ""
-"Just claimed the “Welcome back 🎉 to CZ” collectible from @thefireflyapp!\n"
-"If you followed @cz_binance on X before Sept 21, you’re eligible to claim yours at https://cz.firefly.social.\n"
-"#CZ #FireflySocial"
 msgstr ""
 
 msgid "General"
