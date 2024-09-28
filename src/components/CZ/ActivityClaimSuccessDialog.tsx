@@ -1,12 +1,14 @@
 'use client';
 
-import { t, Trans } from '@lingui/macro';
+import { Trans } from '@lingui/macro';
 import React from 'react';
 
 import { useActivityCheckResponse } from '@/components/CZ/useActivityCheckResponse.js';
 import { Popover } from '@/components/Popover.js';
+import { SourceInURL } from '@/constants/enum.js';
 import { Image } from '@/esm/Image.js';
 import { Link } from '@/esm/Link.js';
+import { CHAR_TAG } from '@/helpers/chars.js';
 import { ComposeModalRef } from '@/modals/controls.js';
 import { fireflyBridgeProvider } from '@/providers/firefly/Bridge.js';
 import { Level } from '@/providers/types/CZ.js';
@@ -59,11 +61,7 @@ export function ActivityClaimSuccessContent({ onClose, hash }: { onClose?: () =>
                     className="h-10 rounded-full bg-white text-[15px] font-bold leading-10 text-[#181A20]"
                     onClick={() => {
                         onClose?.();
-                        const text = t`Just claimed the "Welcome back 🎉 to CZ" collectible from @thefireflyapp!
-
-If you followed @cz_binance on X before Sept 21, you’re eligible to claim yours at https://cz.firefly.social.
-
-#CZ #FireflySocial`;
+                        const text = `Just claimed the "Welcome back 🎉 to CZ" collectible from @thefireflyapp!\nIf you followed @cz_binance on X before Sept 21, you’re eligible to claim yours at https://cz.firefly.social.\n#CZ #FireflySocial`;
                         if (fireflyBridgeProvider.supported) {
                             return fireflyBridgeProvider.request(SupportedMethod.COMPOSE, {
                                 text,
@@ -72,7 +70,42 @@ If you followed @cz_binance on X before Sept 21, you’re eligible to claim your
 
                         ComposeModalRef.open({
                             type: 'compose',
-                            chars: [text],
+                            chars: [
+                                `Just claimed the "Welcome back 🎉 to CZ" collectible from `,
+                                {
+                                    tag: CHAR_TAG.MENTION,
+                                    visible: true,
+                                    content: `@thefireflyapp`,
+                                    profiles: [
+                                        {
+                                            platform_id: '1583361564479889408',
+                                            platform: SourceInURL.Twitter,
+                                            handle: 'thefireflyapp',
+                                            name: 'thefireflyapp',
+                                            hit: true,
+                                            score: 0,
+                                        },
+                                    ],
+                                },
+                                `!\nIf you followed `,
+                                {
+                                    tag: CHAR_TAG.MENTION,
+                                    visible: true,
+                                    content: '@cz_binance',
+                                    profiles: [
+                                        {
+                                            platform_id: '902926941413453824',
+                                            platform: SourceInURL.Twitter,
+                                            handle: 'cz_binance',
+                                            name: 'cz_binance',
+                                            hit: true,
+                                            score: 0,
+                                        },
+                                    ],
+                                },
+                                ` on X before Sept 21, you're eligible to claim yours at https://cz.firefly.social. \n`,
+                                '#CZ #FireflySocial',
+                            ],
                         });
                     }}
                 >

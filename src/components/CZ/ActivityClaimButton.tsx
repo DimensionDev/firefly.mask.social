@@ -53,14 +53,14 @@ export function ActivityClaimButton({ level, alreadyClaimed = false, canClaim, i
             });
             await refetch();
             if (response.error || !response.data) {
-                throw new Error(response.error?.[0] ?? t`Unknown error`);
+                throw new Error(response.error?.[0] ?? t`Failed to claim token`);
             }
             if (response.data.errormessage) {
-                throw new Error(response.data.errormessage ?? t`Unknown error`);
+                throw new Error(response.data.errormessage);
             }
             onClaim(response.data.hash);
         } catch (error) {
-            enqueueErrorMessage(getSnackbarMessageFromError(error, t`Unknown error`));
+            enqueueErrorMessage(getSnackbarMessageFromError(error, t`Failed to claim token`), { error });
             throw error;
         }
     });

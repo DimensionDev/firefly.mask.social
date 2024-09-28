@@ -603,12 +603,6 @@ msgstr "連接錢包"
 msgid "Not Found. Please check your URL[{0}]."
 msgstr "未找到。請檢查您的 URL [{0}]"
 
-msgid ""
-"Just claimed the \"Welcome back 🎉 to CZ\" collectible from @thefireflyapp!\n"
-"If you followed @cz_binance on X before Sept 21, you’re eligible to claim yours at https://cz.firefly.social.\n"
-"#CZ #FireflySocial"
-msgstr ""
-
 msgid "Feed"
 msgstr "資訊來源"
 
@@ -1798,6 +1792,9 @@ msgid "Owner can change balance"
 msgstr ""
 
 msgid "Accounts Connected"
+msgstr ""
+
+msgid "Failed to claim token"
 msgstr ""
 
 msgid "Notifications"

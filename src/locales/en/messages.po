@@ -598,15 +598,6 @@ msgstr "Connect Wallet"
 msgid "Not Found. Please check your URL[{0}]."
 msgstr "Not Found. Please check your URL[{0}]."
 
-msgid ""
-"Just claimed the \"Welcome back 🎉 to CZ\" collectible from @thefireflyapp!\n"
-"If you followed @cz_binance on X before Sept 21, you’re eligible to claim yours at https://cz.firefly.social.\n"
-"#CZ #FireflySocial"
-msgstr ""
-"Just claimed the \"Welcome back 🎉 to CZ\" collectible from @thefireflyapp!\n"
-"If you followed @cz_binance on X before Sept 21, you’re eligible to claim yours at https://cz.firefly.social.\n"
-"#CZ #FireflySocial"
-
 msgid "Feed"
 msgstr "Feed"
 
@@ -1797,6 +1788,9 @@ msgstr "Owner can change balance"
 
 msgid "Accounts Connected"
 msgstr "Accounts Connected"
+
+msgid "Failed to claim token"
+msgstr "Failed to claim token"
 
 msgid "Notifications"
 msgstr "Notifications"
