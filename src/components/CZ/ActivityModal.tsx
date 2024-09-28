@@ -8,14 +8,23 @@ import { useSingletonModal } from '@/hooks/useSingletonModal.js';
 import type { SingletonModalRefCreator } from '@/libs/SingletonModal.js';
 
 export const ActivityModal = forwardRef<SingletonModalRefCreator>(function ActivityModal(_, ref) {
+    const [isOpen, setIsOpen] = useState(false);
     const [open, dispatch] = useSingletonModal(ref);
     useEffect(() => {
         const searchParams = new URLSearchParams(window.location.search);
         if (searchParams.get('modal') === 'cz') {
-            dispatch?.open();
+            setIsOpen(true);
         }
     }, []);
-    return <ActivityDialog open={open} onClose={() => dispatch?.close()} />;
+    return (
+        <ActivityDialog
+            open={open || isOpen}
+            onClose={() => {
+                dispatch?.close();
+                setIsOpen(false);
+            }}
+        />
+    );
 });
 
 export const ActivityClaimSuccessModal = forwardRef<SingletonModalRefCreator<{ hash: string }>>(

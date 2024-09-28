@@ -7,15 +7,16 @@ import { ActivityContextProvider } from '@/components/CZ/ActivityContext.js';
 import { ActivityClaimSuccessModalRef } from '@/modals/controls.js';
 import { fireflyBridgeProvider } from '@/providers/firefly/Bridge.js';
 import { SITE_URL } from '@/constants/index.js';
+import urlcat from 'urlcat';
 
 export default function Layout({ children }: PropsWithChildren) {
     const router = useRouter();
 
     useEffect(() => {
-        if (window.location.host === 'cz.firefly.social' && !fireflyBridgeProvider.supported) {
-            const url = new URL(SITE_URL);
-            url.searchParams.set('modal', 'cz');
-            window.location.href = url.toString();
+        if (window.location.hostname === 'cz.firefly.social' && !fireflyBridgeProvider.supported) {
+            window.location.href = urlcat(SITE_URL, '/farcaster/trending', {
+                modal: 'cz',
+            });
         }
     }, []);
 
