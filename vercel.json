@@ -11,17 +11,5 @@
             ]
         }
     ],
-    "redirects": [],
-    "rewrites": [
-        {
-            "source": "/",
-            "has": [
-                {
-                    "type": "host",
-                    "value": "cz.firefly.social"
-                }
-            ],
-            "destination": "/activity/cz"
-        }
-    ]
+    "redirects": []
 }
