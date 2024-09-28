@@ -22,6 +22,8 @@ export interface ActivityContextValues {
     setAddress: (address: string | null) => void;
     isLoggedTwitter: boolean;
     onLoginTwitter: () => Promise<void>;
+    authToken: string | null;
+    setAuthToken: (token: string) => void;
 }
 
 export const ActivityContext = createContext<ActivityContextValues>({
@@ -32,6 +34,8 @@ export const ActivityContext = createContext<ActivityContextValues>({
     type: 'page',
     address: null,
     isLoggedTwitter: false,
+    authToken: null,
+    setAuthToken() {},
 });
 
 export function ActivityContextProvider({
@@ -39,9 +43,13 @@ export function ActivityContextProvider({
     value,
 }: {
     children: ReactNode;
-    value: Omit<ActivityContextValues, 'address' | 'setAddress' | 'isLoggedTwitter' | 'onLoginTwitter'>;
+    value: Omit<
+        ActivityContextValues,
+        'address' | 'setAddress' | 'isLoggedTwitter' | 'onLoginTwitter' | 'authToken' | 'setAuthToken'
+    >;
 }) {
     const [address, setAddress] = useState<string | null>(null);
+    const [authToken, setAuthToken] = useState<string | null>(null);
     const account = useAccount();
     const twitterProfile = useCurrentProfile(Source.Twitter);
     const { data: isLoggedTwitter = false, refetch } = useQuery({
@@ -49,6 +57,7 @@ export function ActivityContextProvider({
         async queryFn() {
             if (!fireflyBridgeProvider.supported) return !!twitterProfile;
             const token = await fireflyBridgeProvider.request(SupportedMethod.GET_AUTHORIZATION, {});
+            setAuthToken(token);
             const url = urlcat(settings.FIREFLY_ROOT_URL, '/v2/wallet/profile');
             const res = await fetchJSON<WalletProfileResponse>(url, {
                 headers: {
@@ -85,9 +94,11 @@ export function ActivityContextProvider({
             onLoginTwitter,
             address: address ?? account.address ?? null,
             setAddress,
+            authToken,
+            setAuthToken,
             ...value,
         };
-    }, [value, address, account.address, onLoginTwitter, isLoggedTwitter]);
+    }, [value, address, account.address, onLoginTwitter, isLoggedTwitter, authToken]);
 
     return <ActivityContext.Provider value={providerValue}>{children}</ActivityContext.Provider>;
 }
