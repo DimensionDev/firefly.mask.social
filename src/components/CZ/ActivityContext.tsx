@@ -1,7 +1,7 @@
 import { t } from '@lingui/macro';
 import { useQuery } from '@tanstack/react-query';
 import { signIn } from 'next-auth/react';
-import { createContext, type ReactNode, useCallback, useEffect, useMemo, useState } from 'react';
+import { createContext, type ReactNode, useCallback, useMemo, useState } from 'react';
 import urlcat from 'urlcat';
 import { useAccount } from 'wagmi';
 

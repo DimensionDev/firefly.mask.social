@@ -5,12 +5,11 @@ import urlcat from 'urlcat';
 
 import { ActivityContext } from '@/components/CZ/ActivityContext.js';
 import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
+import { fetchJSON } from '@/helpers/fetchJSON.js';
 import { getSnackbarMessageFromError } from '@/helpers/getSnackbarMessageFromError.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
 import type { CheckResponse } from '@/providers/types/CZ.js';
 import { settings } from '@/settings/index.js';
-import { fetchJSON } from '@/helpers/fetchJSON.js';
-import { fireflyBridgeProvider } from '@/providers/firefly/Bridge.js';
 
 export function useActivityCheckResponse() {
     const { address, isLoggedTwitter, authToken, type } = useContext(ActivityContext);
