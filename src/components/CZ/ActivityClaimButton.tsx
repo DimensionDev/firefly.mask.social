@@ -46,7 +46,7 @@ export function ActivityClaimButton({ level, alreadyClaimed = false, canClaim, i
                     claimPlatform,
                 }),
             });
-            if (!response.error || !response.data) {
+            if (response.error || !response.data) {
                 throw new Error(response.error?.[0] ?? t`Unknown error`);
             }
             if (response.data.errormessage) {
@@ -83,7 +83,7 @@ export function ActivityClaimButton({ level, alreadyClaimed = false, canClaim, i
                 <button
                     disabled={disabled || loading}
                     className={classNames(
-                        'flex h-12 w-[140px] items-center justify-center rounded-full bg-gradient-to-b from-[#ffeecc] to-[rgba(255,255,255,0)] p-[1px] text-sm font-bold leading-[48px] text-[#181a20]',
+                        'flex h-12 min-w-[140px] items-center justify-center rounded-full bg-gradient-to-b from-[#ffeecc] to-[rgba(255,255,255,0)] p-[1px] text-sm font-bold leading-[48px] text-[#181a20]',
                         className,
                     )}
                     onClick={claim}
