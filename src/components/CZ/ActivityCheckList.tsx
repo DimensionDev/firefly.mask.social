@@ -11,6 +11,7 @@ import { useActivityCheckResponse } from '@/components/CZ/useActivityCheckRespon
 import { Source } from '@/constants/enum.js';
 import { Link } from '@/esm/Link.js';
 import { resolveProfileUrl } from '@/helpers/resolveProfileUrl.js';
+import { Level } from '@/providers/types/CZ.js';
 
 export function ActivityCheckList() {
     const { data, isLoading } = useActivityCheckResponse();
@@ -32,15 +33,15 @@ export function ActivityCheckList() {
     const premiumChecklist = [
         {
             description: <Trans>Your X account holds Premium status.</Trans>,
-            pass: data?.x?.hasVerified,
+            pass: data?.x?.valid && data?.x?.level === Level.Lv2,
         },
         {
             description: <Trans>Your BNB Chain wallet holds assets worth over $10,000.</Trans>,
-            pass: data?.bnbBalance?.valid,
+            pass: data?.bnbBalance?.valid && data?.bnbBalance?.level === Level.Lv2,
         },
         {
             description: <Trans>Your .bnb domain is a member of the SPACE ID Premier Club.</Trans>,
-            pass: data?.bnbId?.valid,
+            pass: data?.bnbId?.valid && data?.bnbId?.level === Level.Lv2,
         },
     ];
 

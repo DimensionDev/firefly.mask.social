@@ -7,6 +7,7 @@ import urlcat from 'urlcat';
 
 import LoadingIcon from '@/assets/loading.svg';
 import { ActivityContext } from '@/components/CZ/ActivityContext.js';
+import { useActivityCheckResponse } from '@/components/CZ/useActivityCheckResponse.js';
 import { IS_IOS } from '@/constants/bowser.js';
 import { Link } from '@/esm/Link.js';
 import { classNames } from '@/helpers/classNames.js';
@@ -28,6 +29,7 @@ interface Props extends HTMLProps<'button'> {
 export function ActivityClaimButton({ level, alreadyClaimed = false, canClaim, isLoading = false, className }: Props) {
     const { onClaim, address, authToken } = useContext(ActivityContext);
     const disabled = isLoading || alreadyClaimed;
+    const { refetch } = useActivityCheckResponse();
     const [{ loading }, claim] = useAsyncFn(async () => {
         if (disabled || !address) return;
         try {
@@ -49,6 +51,7 @@ export function ActivityClaimButton({ level, alreadyClaimed = false, canClaim, i
                     Authorization: `Bearer ${authToken}`,
                 },
             });
+            await refetch();
             if (response.error || !response.data) {
                 throw new Error(response.error?.[0] ?? t`Unknown error`);
             }
