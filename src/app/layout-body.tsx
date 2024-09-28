@@ -4,6 +4,7 @@ import { SpeedInsights } from '@vercel/speed-insights/next';
 import { lazy } from 'react';
 
 import { BeforeUnload } from '@/components/Compose/BeforeUnload.js';
+import { IfHostname } from '@/components/IfHostname.js';
 import { IfPathname } from '@/components/IfPathname.js';
 import { Providers } from '@/components/Providers.js';
 import { RouteProgressBar } from '@/components/RouteProgressBar.js';
@@ -12,7 +13,6 @@ import { NODE_ENV, STATUS } from '@/constants/enum.js';
 import { env } from '@/constants/env.js';
 import { Script } from '@/esm/Script.js';
 import { Modals } from '@/modals/index.js';
-import { IfHostname } from '@/components/IfHostname.js';
 
 // @ts-ignore
 const CustomElements = lazy(() => {
