@@ -4,19 +4,16 @@ import { useContext, useEffect } from 'react';
 import urlcat from 'urlcat';
 
 import { ActivityContext } from '@/components/CZ/ActivityContext.js';
-import { Source } from '@/constants/enum.js';
 import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
 import { getSnackbarMessageFromError } from '@/helpers/getSnackbarMessageFromError.js';
-import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
 import type { CheckResponse } from '@/providers/types/CZ.js';
 import { settings } from '@/settings/index.js';
 
 export function useActivityCheckResponse() {
-    const { address } = useContext(ActivityContext);
-    const twitterProfile = useCurrentProfile(Source.Twitter);
+    const { address, isLoggedTwitter } = useContext(ActivityContext);
     const query = useQuery({
-        queryKey: ['cz-activity-check', address, !!twitterProfile],
+        queryKey: ['cz-activity-check', address],
         async queryFn() {
             const response = await fireflySessionHolder.fetch<CheckResponse>(
                 // cspell: disable-next-line
@@ -29,7 +26,7 @@ export function useActivityCheckResponse() {
             }
             return response.data;
         },
-        enabled: !!address && !!twitterProfile,
+        enabled: !!address && isLoggedTwitter,
     });
 
     useEffect(() => {
