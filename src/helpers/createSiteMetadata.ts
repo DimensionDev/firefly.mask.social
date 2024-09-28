@@ -17,6 +17,9 @@ export function createSiteMetadata(metadata?: Partial<Metadata>) {
             url: SITE_URL,
             images: [`${SITE_URL}/image/og.png`],
         },
+        viewport: {
+            viewportFit: 'cover',
+        },
         twitter: {
             card: 'summary_large_image',
             title: metadata?.title ?? SITE_NAME,
