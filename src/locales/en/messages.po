@@ -1360,15 +1360,6 @@ msgstr "Your schedule thread has created successfully."
 msgid "Super Follow"
 msgstr "Super Follow"
 
-msgid ""
-"Just claimed the “Welcome back 🎉 to CZ” collectible from @thefireflyapp!\n"
-"If you followed @cz_binance on X before Sept 21, you’re eligible to claim yours at https://cz.firefly.social.\n"
-"#CZ #FireflySocial"
-msgstr ""
-"Just claimed the “Welcome back 🎉 to CZ” collectible from @thefireflyapp!\n"
-"If you followed @cz_binance on X before Sept 21, you’re eligible to claim yours at https://cz.firefly.social.\n"
-"#CZ #FireflySocial"
-
 msgid "General"
 msgstr "General"
 
