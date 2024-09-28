@@ -23,7 +23,7 @@ export default function Page() {
                 alt="background"
                 width={1500}
                 height={1000}
-                className="pointer-events-none fixed left-0 top-0 h-full w-full object-cover"
+                className="pointer-events-none fixed left-0 top-0 h-[100vh] w-[100vw] object-cover"
             />
             <div className="relative z-10 mx-auto flex w-full max-w-[600px] flex-1 flex-col items-center justify-center space-y-8 p-6 text-white">
                 <ActivityHomePage />
@@ -33,7 +33,7 @@ export default function Page() {
                     </div>
                 </div>
             </div>
-            <div className="relative z-10 mt-auto flex w-full items-center justify-center text-center text-sm pb-safe-or-6">
+            <div className="relative z-10 mt-auto flex w-full items-center justify-center text-center text-sm text-white pb-safe-or-6">
                 <FireflyIcon width={14} height={19} className="mr-2.5" />
                 <p>
                     <Trans>
