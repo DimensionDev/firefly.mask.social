@@ -46,7 +46,7 @@ export const MIN_DURATION_PER_VIDEO: Limitation = {
 };
 
 export const MAX_DURATION_PER_VIDEO: Limitation = {
-    [Source.Twitter]: Infinity,
+    [Source.Twitter]: 6 * 60, // 6 minutes
     [Source.Lens]: Infinity,
     [Source.Farcaster]: Infinity,
 };
