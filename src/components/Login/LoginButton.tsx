@@ -20,7 +20,7 @@ export function LoginButton(props: LoginButtonProps) {
             disabled={loading}
             onClick={() => onClick?.(source)}
         >
-            <div className="inline-flex w-full flex-col items-center justify-start gap-2 rounded-lg px-4 py-6">
+            <div className="inline-flex w-full flex-col items-center justify-start gap-2 px-4 py-6 md:rounded-lg">
                 <div className="relative h-[48px] w-[48px]">
                     <ProfileSourceIcon className="left-0 top-0 rounded-full" size={48} source={source} />
                 </div>
