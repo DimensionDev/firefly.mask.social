@@ -11,6 +11,7 @@ import { RouteProgressBar } from '@/components/RouteProgressBar.js';
 import { SideBar } from '@/components/SideBar/index.js';
 import { NODE_ENV, STATUS } from '@/constants/enum.js';
 import { env } from '@/constants/env.js';
+import { CZ_ACTIVITY_HOSTNAME } from '@/constants/index.js';
 import { Script } from '@/esm/Script.js';
 import { Modals } from '@/modals/index.js';
 
@@ -36,7 +37,7 @@ export function LayoutBody({ children }: { children: React.ReactNode }) {
                 <div className="m-auto flex w-full md:min-h-screen group-[.not-support]:md:min-h-[calc(100vh_-_38px)] lg:w-[1265px]">
                     <CustomElements />
                     {children}
-                    <IfHostname isNotOneOf={['cz.firefly.social']}>
+                    <IfHostname isNotOneOf={[CZ_ACTIVITY_HOSTNAME]}>
                         <IfPathname isNotOneOf={['/login/desktop', '/activity/cz']}>
                             <SideBar />
                         </IfPathname>
