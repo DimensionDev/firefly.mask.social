@@ -538,15 +538,6 @@ msgstr "Add another post..."
 msgid "1m left"
 msgstr "1m left"
 
-msgid ""
-"Just claimed the \"Welcome back 🎉 to CZ\" collectible from @thefireflyapp! \n"
-"Claim yours at firefly.social when you follow @cz_binance on X.\n"
-"#CZ #FireflySocial"
-msgstr ""
-"Just claimed the \"Welcome back 🎉 to CZ\" collectible from @thefireflyapp! \n"
-"Claim yours at firefly.social when you follow @cz_binance on X.\n"
-"#CZ #FireflySocial"
-
 msgid "Congratulation!"
 msgstr "Congratulation!"
 
@@ -606,6 +597,15 @@ msgstr "Connect Wallet"
 
 msgid "Not Found. Please check your URL[{0}]."
 msgstr "Not Found. Please check your URL[{0}]."
+
+msgid ""
+"Just claimed the \"Welcome back 🎉 to CZ\" collectible from @thefireflyapp!\n"
+"If you followed @cz_binance on X before Sept 21, you’re eligible to claim yours at https://cz.firefly.social.\n"
+"#CZ #FireflySocial"
+msgstr ""
+"Just claimed the \"Welcome back 🎉 to CZ\" collectible from @thefireflyapp!\n"
+"If you followed @cz_binance on X before Sept 21, you’re eligible to claim yours at https://cz.firefly.social.\n"
+"#CZ #FireflySocial"
 
 msgid "Feed"
 msgstr "Feed"
