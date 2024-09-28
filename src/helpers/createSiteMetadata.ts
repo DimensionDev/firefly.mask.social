@@ -18,6 +18,9 @@ export function createSiteMetadata(metadata?: Partial<Metadata>) {
             images: [`${SITE_URL}/image/og.png`],
         },
         viewport: {
+            initialScale: 1,
+            width: 'device-width',
+            height: 'device-height',
             viewportFit: 'cover',
         },
         twitter: {
