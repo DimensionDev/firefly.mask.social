@@ -18,7 +18,7 @@ import { resolveProfileUrl } from '@/helpers/resolveProfileUrl.js';
 import { Level } from '@/providers/types/CZ.js';
 
 export function ActivityHomePage() {
-    const { type, address, isLoggedTwitter } = useContext(ActivityContext);
+    const { type, address, isLoggedTwitter, isLoading: isLoadingContext } = useContext(ActivityContext);
     const { data, isLoading, error, refetch, isRefetching } = useActivityCheckResponse();
     const { data: ens } = useEnsName({ address: address as Address, chainId: ChainId.Mainnet });
     const { title, description } = useMemo(() => {
@@ -163,7 +163,7 @@ export function ActivityHomePage() {
         );
     }
 
-    if (isLoading) {
+    if (isLoading || isLoadingContext) {
         return (
             <div className="flex h-[317px] w-full flex-col items-center justify-center">
                 <div className="flex flex-col items-center space-y-3">

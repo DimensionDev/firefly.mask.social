@@ -24,6 +24,7 @@ export interface ActivityContextValues {
     onLoginTwitter: () => Promise<void>;
     authToken: string | null;
     setAuthToken: (token: string) => void;
+    isLoading: boolean;
 }
 
 export const ActivityContext = createContext<ActivityContextValues>({
@@ -36,6 +37,7 @@ export const ActivityContext = createContext<ActivityContextValues>({
     isLoggedTwitter: false,
     authToken: null,
     setAuthToken() {},
+    isLoading: false,
 });
 
 export function ActivityContextProvider({
@@ -45,14 +47,18 @@ export function ActivityContextProvider({
     children: ReactNode;
     value: Omit<
         ActivityContextValues,
-        'address' | 'setAddress' | 'isLoggedTwitter' | 'onLoginTwitter' | 'authToken' | 'setAuthToken'
+        'address' | 'setAddress' | 'isLoggedTwitter' | 'onLoginTwitter' | 'authToken' | 'setAuthToken' | 'isLoading'
     >;
 }) {
     const [address, setAddress] = useState<string | null>(null);
     const [authToken, setAuthToken] = useState<string | null>(null);
     const account = useAccount();
     const twitterProfile = useCurrentProfile(Source.Twitter);
-    const { data: isLoggedTwitter = false, refetch } = useQuery({
+    const {
+        data: isLoggedTwitter = false,
+        refetch,
+        isLoading,
+    } = useQuery({
         queryKey: ['is-logged-twitter', !!twitterProfile],
         async queryFn() {
             if (!fireflyBridgeProvider.supported) return !!twitterProfile;
@@ -96,9 +102,10 @@ export function ActivityContextProvider({
             setAddress,
             authToken,
             setAuthToken,
+            isLoading,
             ...value,
         };
-    }, [value, address, account.address, onLoginTwitter, isLoggedTwitter, authToken]);
+    }, [value, address, account.address, onLoginTwitter, isLoggedTwitter, authToken, isLoading]);
 
     return <ActivityContext.Provider value={providerValue}>{children}</ActivityContext.Provider>;
 }
