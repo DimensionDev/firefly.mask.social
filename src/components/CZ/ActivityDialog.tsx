@@ -41,6 +41,7 @@ export function ActivityDialog({ open, onClose }: Props) {
                     <Tippy
                         duration={0}
                         delay={0}
+                        placement="bottom"
                         render={() => {
                             return (
                                 <div className="flex max-w-[327px] flex-col space-y-3 rounded-[12px] bg-[#181A20] px-6 py-3 text-white">
