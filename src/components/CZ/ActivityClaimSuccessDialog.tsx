@@ -20,7 +20,15 @@ interface Props {
 
 export function ActivityClaimSuccessDialog({ open, onClose, hash }: Props) {
     return (
-        <Popover open={open} onClose={onClose} backdropClassName="!bg-[rgba(245,245,245,0.3)]">
+        <Popover
+            open={open}
+            onClose={onClose}
+            DialogPanelProps={{
+                className: '!bg-black border-none',
+            }}
+            controlClassName="!bg-white"
+            backdropClassName="!bg-[rgba(245,245,245,0.3)]"
+        >
             <div className="relative z-10 w-full rounded-[12px] bg-black pt-4 text-white">
                 <ActivityClaimSuccessContent hash={hash} />
             </div>
@@ -38,11 +46,11 @@ export function ActivityClaimSuccessContent({ onClose, hash }: { onClose?: () =>
                 height={162}
                 alt="cz-nft"
             />
-            <div className="space-y-1.5 text-[15px] font-normal leading-[18px]">
-                <p className="text-xl font-bold leading-[18px]">
+            <div className="text-[15px] font-normal leading-[18px]">
+                <p className="mb-4 text-xl font-bold leading-[18px]">
                     <Trans>Congratulation!</Trans>
                 </p>
-                <Link href={`https://bscscan.com/tx/${hash}`} target="_blank" className="text-[#AC9DF6] underline">
+                <Link href={`https://bscscan.com/tx/${hash}`} target="_blank" className="z-10 text-[#AC9DF6] underline">
                     <Trans>View transaction on Explorer</Trans>
                 </Link>
             </div>

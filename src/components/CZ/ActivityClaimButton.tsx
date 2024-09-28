@@ -17,6 +17,7 @@ import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
 import { Level } from '@/providers/types/CZ.js';
 import { type Response } from '@/providers/types/Firefly.js';
 import { settings } from '@/settings/index.js';
+import { useActivityCheckResponse } from '@/components/CZ/useActivityCheckResponse.js';
 
 interface Props extends HTMLProps<'button'> {
     level?: Level;
@@ -28,6 +29,7 @@ interface Props extends HTMLProps<'button'> {
 export function ActivityClaimButton({ level, alreadyClaimed = false, canClaim, isLoading = false, className }: Props) {
     const { onClaim, address, authToken } = useContext(ActivityContext);
     const disabled = isLoading || alreadyClaimed;
+    const { refetch } = useActivityCheckResponse();
     const [{ loading }, claim] = useAsyncFn(async () => {
         if (disabled || !address) return;
         try {
@@ -49,6 +51,7 @@ export function ActivityClaimButton({ level, alreadyClaimed = false, canClaim, i
                     Authorization: `Bearer ${authToken}`,
                 },
             });
+            await refetch();
             if (response.error || !response.data) {
                 throw new Error(response.error?.[0] ?? t`Unknown error`);
             }

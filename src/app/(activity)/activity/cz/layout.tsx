@@ -13,6 +13,7 @@ export default function Layout({ children }: PropsWithChildren) {
         <ActivityContextProvider
             value={{
                 onClaim(hash) {
+                    router.push('/activity/cz');
                     ActivityClaimSuccessModalRef.open({ hash });
                 },
                 goChecklist() {
