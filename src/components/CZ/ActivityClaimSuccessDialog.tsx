@@ -78,19 +78,11 @@ export function ActivityClaimSuccessContent({ onClose, hash }: { onClose?: () =>
                                     content: `@thefireflyapp`,
                                     profiles: [
                                         {
-                                            platform_id: '1113516753307426816',
+                                            platform_id: '1583361564479889408',
                                             platform: SourceInURL.Twitter,
-                                            handle: 'realMaskNetwork',
-                                            name: 'realMaskNetwork',
-                                            hit: false,
-                                            score: 0,
-                                        },
-                                        {
-                                            platform_id: '1162557582',
-                                            platform: SourceInURL.Twitter,
-                                            handle: 'caojin_13',
-                                            name: 'caojin_13',
-                                            hit: false,
+                                            handle: 'thefireflyapp',
+                                            name: 'thefireflyapp',
+                                            hit: true,
                                             score: 0,
                                         },
                                     ],
@@ -102,10 +94,10 @@ export function ActivityClaimSuccessContent({ onClose, hash }: { onClose?: () =>
                                     content: '@cz_binance',
                                     profiles: [
                                         {
-                                            platform_id: '1287354425892200448',
+                                            platform_id: '902926941413453824',
                                             platform: SourceInURL.Twitter,
-                                            handle: 'cz_binance_QnY',
-                                            name: 'cz_binance_QnY',
+                                            handle: 'cz_binance',
+                                            name: 'cz_binance',
                                             hit: true,
                                             score: 0,
                                         },
