@@ -1789,6 +1789,9 @@ msgstr "Owner can change balance"
 msgid "Accounts Connected"
 msgstr "Accounts Connected"
 
+msgid "Failed to claim token"
+msgstr "Failed to claim token"
+
 msgid "Notifications"
 msgstr "Notifications"
 
@@ -1995,9 +1998,6 @@ msgstr "No codes found to suspend trading."
 
 msgid "Buy Tax: {0}%"
 msgstr "Buy Tax: {0}%"
-
-msgid "Fail to claim"
-msgstr "Fail to claim"
 
 msgid "<0>You</0> and {0} recasted"
 msgstr "<0>You</0> and {0} recasted"

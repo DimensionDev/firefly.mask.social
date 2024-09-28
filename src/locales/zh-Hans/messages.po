@@ -1794,6 +1794,9 @@ msgstr "所有者可以更改余额"
 msgid "Accounts Connected"
 msgstr "已连接账户"
 
+msgid "Failed to claim token"
+msgstr ""
+
 msgid "Notifications"
 msgstr "通知"
 
@@ -2000,9 +2003,6 @@ msgstr "没有发现可以暂停交易的代码。"
 
 msgid "Buy Tax: {0}%"
 msgstr "购买税率: {0}%"
-
-msgid "Fail to claim"
-msgstr ""
 
 msgid "<0>You</0> and {0} recasted"
 msgstr "<0> 你 </0> 和 {0} 人都转发了"

@@ -1794,6 +1794,9 @@ msgstr ""
 msgid "Accounts Connected"
 msgstr ""
 
+msgid "Failed to claim token"
+msgstr ""
+
 msgid "Notifications"
 msgstr "通知"
 
@@ -1999,9 +2002,6 @@ msgid "No codes found to suspend trading."
 msgstr ""
 
 msgid "Buy Tax: {0}%"
-msgstr ""
-
-msgid "Fail to claim"
 msgstr ""
 
 msgid "<0>You</0> and {0} recasted"
