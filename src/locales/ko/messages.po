@@ -603,6 +603,12 @@ msgstr ""
 msgid "Not Found. Please check your URL[{0}]."
 msgstr ""
 
+msgid ""
+"Just claimed the \"Welcome back 🎉 to CZ\" collectible from @thefireflyapp!\n"
+"If you followed @cz_binance on X before Sept 21, you’re eligible to claim yours at https://cz.firefly.social.\n"
+"#CZ #FireflySocial"
+msgstr ""
+
 msgid "Feed"
 msgstr ""
 
