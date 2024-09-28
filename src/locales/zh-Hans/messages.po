@@ -543,12 +543,6 @@ msgstr "添加另一个帖子..."
 msgid "1m left"
 msgstr "1分钟剩余"
 
-msgid ""
-"Just claimed the \"Welcome back 🎉 to CZ\" collectible from @thefireflyapp! \n"
-"Claim yours at firefly.social when you follow @cz_binance on X.\n"
-"#CZ #FireflySocial"
-msgstr ""
-
 msgid "Congratulation!"
 msgstr ""
 
@@ -1360,6 +1354,12 @@ msgid "Your schedule thread has created successfully."
 msgstr "你设定的定时 thread 已经成功。"
 
 msgid "Super Follow"
+msgstr ""
+
+msgid ""
+"Just claimed the “Welcome back 🎉 to CZ” collectible from @thefireflyapp!\n"
+"If you followed @cz_binance on X before Sept 21, you’re eligible to claim yours at https://cz.firefly.social.\n"
+"#CZ #FireflySocial"
 msgstr ""
 
 msgid "General"
