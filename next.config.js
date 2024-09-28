@@ -87,6 +87,18 @@ export default {
             },
         ],
     },
+    rewrites: [
+        {
+            source: '/',
+            destination: '/activity/cz',
+            has: [
+                {
+                    type: 'host',
+                    key: 'cz.firefly.social',
+                },
+            ],
+        },
+    ],
     async headers() {
         return [
             {
