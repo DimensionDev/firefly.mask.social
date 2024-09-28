@@ -7,6 +7,7 @@ import urlcat from 'urlcat';
 
 import LoadingIcon from '@/assets/loading.svg';
 import { ActivityContext } from '@/components/CZ/ActivityContext.js';
+import { useActivityCheckResponse } from '@/components/CZ/useActivityCheckResponse.js';
 import { IS_IOS } from '@/constants/bowser.js';
 import { Link } from '@/esm/Link.js';
 import { classNames } from '@/helpers/classNames.js';
@@ -17,7 +18,6 @@ import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
 import { Level } from '@/providers/types/CZ.js';
 import { type Response } from '@/providers/types/Firefly.js';
 import { settings } from '@/settings/index.js';
-import { useActivityCheckResponse } from '@/components/CZ/useActivityCheckResponse.js';
 
 interface Props extends HTMLProps<'button'> {
     level?: Level;
