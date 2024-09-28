@@ -177,7 +177,8 @@ msgstr "查询频道中"
 msgid "Functions that can suspend trading"
 msgstr "可以暂停交易的功能"
 
-msgid "Just claimed the \"@handle\" welcome back 🎉 to CZ” from @thefireflyapp! \n"
+msgid ""
+"Just claimed the \"@handle\" welcome back 🎉 to CZ” from @thefireflyapp! \n"
 "Claim yours at firefly.social when you follow @cz_binance. \n"
 "#CZ #FireflySocial"
 msgstr ""
@@ -2452,4 +2453,3 @@ msgstr ""
 
 msgid "Reward for followers"
 msgstr ""
-

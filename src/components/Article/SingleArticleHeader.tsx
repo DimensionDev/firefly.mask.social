@@ -30,7 +30,7 @@ export const SingleArticleHeader = memo<SingleArticleHeaderProps>(function Singl
         source: SourceInURL.Wallet,
     });
 
-    const Icon = resolveArticlePlatformIcon(article.platform);
+    const Icon = !isBookmark ? resolveArticlePlatformIcon(article.platform) : null;
     const size = article.platform === ArticlePlatform.Limo ? 15 : 20;
     const { data: ens } = useEnsName({ address: article.author.id, query: { enabled: !article.author.handle } });
 
