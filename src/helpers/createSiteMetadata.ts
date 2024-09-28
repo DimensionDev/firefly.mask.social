@@ -45,7 +45,6 @@ export function createSiteMetadata(metadata?: Partial<Metadata>) {
                 url: '/apple-touch-icon.png',
             },
         ],
-        viewport: 'width=device-width, initial-scale=1.0, viewport-fit=cover',
         alternates: {
             canonical: './',
         },
