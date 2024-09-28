@@ -14,7 +14,7 @@ export function LoginButton(props: LoginButtonProps) {
     const { source, loading = false, onClick } = props;
     return (
         <ClickableButton
-            className={classNames('group relative flex w-full flex-col md:rounded-lg outline-none hover:bg-lightBg', {
+            className={classNames('group relative flex w-full flex-col outline-none hover:bg-lightBg md:rounded-lg', {
                 'hover:lightBg cursor-pointer': !loading,
             })}
             disabled={loading}
