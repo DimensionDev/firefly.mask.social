@@ -15,11 +15,12 @@ import { Link } from '@/esm/Link.js';
 import { formatAddress } from '@/helpers/formatAddress.js';
 import { resolveProfileUrl } from '@/helpers/resolveProfileUrl.js';
 import { Level } from '@/providers/types/CZ.js';
+import { ChainId } from '@masknet/web3-shared-evm';
 
 export function ActivityHomePage() {
     const { type, address, isLoggedTwitter } = useContext(ActivityContext);
     const { data, isLoading, error, refetch, isRefetching } = useActivityCheckResponse();
-    const { data: ens } = useEnsName({ address: address as Address });
+    const { data: ens } = useEnsName({ address: address as Address, chainId: ChainId.Mainnet });
     const { title, description } = useMemo(() => {
         if (data?.eventEnds) {
             return {
