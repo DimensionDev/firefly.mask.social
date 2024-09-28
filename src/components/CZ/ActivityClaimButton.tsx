@@ -91,15 +91,15 @@ export function ActivityClaimButton({ level, alreadyClaimed = false, canClaim, i
                     )}
                     onClick={claim}
                 >
-                    {loading ? (
-                        <LoadingIcon className="animate-spin text-white" width={16} height={16} />
-                    ) : (
-                        <span className="block h-full w-full rounded-full bg-[#1f1f1f] px-[18px]">
+                    <span className="flex h-full w-full items-center justify-center rounded-full bg-[#1f1f1f] px-[18px]">
+                        {loading ? (
+                            <LoadingIcon className="animate-spin text-white" width={16} height={16} />
+                        ) : (
                             <span className="bg-gradient-to-r from-[#ffeecc] to-[#ad9515] bg-clip-text text-transparent">
                                 <Trans>Claim Premium</Trans>
                             </span>
-                        </span>
-                    )}
+                        )}
+                    </span>
                 </button>
             ) : (
                 <button
