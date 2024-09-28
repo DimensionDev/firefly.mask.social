@@ -2001,6 +2001,9 @@ msgstr ""
 msgid "Buy Tax: {0}%"
 msgstr ""
 
+msgid "Fail to claim"
+msgstr ""
+
 msgid "<0>You</0> and {0} recasted"
 msgstr ""
 

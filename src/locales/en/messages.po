@@ -1996,6 +1996,9 @@ msgstr "No codes found to suspend trading."
 msgid "Buy Tax: {0}%"
 msgstr "Buy Tax: {0}%"
 
+msgid "Fail to claim"
+msgstr "Fail to claim"
+
 msgid "<0>You</0> and {0} recasted"
 msgstr "<0>You</0> and {0} recasted"
 

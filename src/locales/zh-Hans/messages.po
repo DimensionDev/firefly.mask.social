@@ -2001,6 +2001,9 @@ msgstr "没有发现可以暂停交易的代码。"
 msgid "Buy Tax: {0}%"
 msgstr "购买税率: {0}%"
 
+msgid "Fail to claim"
+msgstr ""
+
 msgid "<0>You</0> and {0} recasted"
 msgstr "<0> 你 </0> 和 {0} 人都转发了"
 

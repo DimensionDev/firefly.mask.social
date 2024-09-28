@@ -2001,6 +2001,9 @@ msgstr ""
 msgid "Buy Tax: {0}%"
 msgstr ""
 
+msgid "Fail to claim"
+msgstr ""
+
 msgid "<0>You</0> and {0} recasted"
 msgstr "<0>你</0>和 {0} 轉發了"
 

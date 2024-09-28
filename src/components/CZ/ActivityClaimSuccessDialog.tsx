@@ -5,14 +5,14 @@ import React from 'react';
 
 import { useActivityCheckResponse } from '@/components/CZ/useActivityCheckResponse.js';
 import { Popover } from '@/components/Popover.js';
+import { SourceInURL } from '@/constants/enum.js';
 import { Image } from '@/esm/Image.js';
 import { Link } from '@/esm/Link.js';
+import { CHAR_TAG } from '@/helpers/chars.js';
 import { ComposeModalRef } from '@/modals/controls.js';
 import { fireflyBridgeProvider } from '@/providers/firefly/Bridge.js';
 import { Level } from '@/providers/types/CZ.js';
 import { SupportedMethod } from '@/types/bridge.js';
-import { CHAR_TAG } from '@/helpers/chars.js';
-import { SourceInURL } from '@/constants/enum.js';
 
 interface Props {
     open: boolean;
