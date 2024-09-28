@@ -95,7 +95,7 @@ export function ActivityClaimSuccessContent({ onClose, hash }: { onClose?: () =>
                                         },
                                     ],
                                 },
-                                `! If you followed `,
+                                `!\nIf you followed `,
                                 {
                                     tag: CHAR_TAG.MENTION,
                                     visible: true,
@@ -111,7 +111,7 @@ export function ActivityClaimSuccessContent({ onClose, hash }: { onClose?: () =>
                                         },
                                     ],
                                 },
-                                ` on X before Sept 21, you're eligible to claim yours at https://cz.firefly.social.`,
+                                ` on X before Sept 21, you're eligible to claim yours at https://cz.firefly.social. \n`,
                                 '#CZ #FireflySocial',
                             ],
                         });
