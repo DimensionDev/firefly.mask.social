@@ -1,6 +1,7 @@
 'use client';
 
 import { Trans } from '@lingui/macro';
+import { ChainId } from '@masknet/web3-shared-evm';
 import { useContext, useMemo } from 'react';
 import type { Address } from 'viem';
 import { useEnsName } from 'wagmi';
@@ -15,7 +16,6 @@ import { Link } from '@/esm/Link.js';
 import { formatAddress } from '@/helpers/formatAddress.js';
 import { resolveProfileUrl } from '@/helpers/resolveProfileUrl.js';
 import { Level } from '@/providers/types/CZ.js';
-import { ChainId } from '@masknet/web3-shared-evm';
 
 export function ActivityHomePage() {
     const { type, address, isLoggedTwitter } = useContext(ActivityContext);
