@@ -24,14 +24,7 @@ export async function middleware(request: NextRequest) {
     const pathname = request.nextUrl.pathname;
     request.headers.set('X-URL', request.url);
 
-    console.log('DEBUG: middleware');
-    console.log({
-        url: request.url,
-        nextUrl: request.nextUrl,
-        pathname,
-    });
-
-    if (request.nextUrl.host === 'cz.firefly.social') {
+    if (request.nextUrl.host === 'cz.firefly.social' && pathname === '/') {
         return NextResponse.rewrite(new URL('/activity/cz', request.url), {
             request,
         });
