@@ -1,6 +1,6 @@
 'use client';
 
-import { t, Trans } from '@lingui/macro';
+import { Trans } from '@lingui/macro';
 import React from 'react';
 
 import { useActivityCheckResponse } from '@/components/CZ/useActivityCheckResponse.js';
@@ -11,6 +11,8 @@ import { ComposeModalRef } from '@/modals/controls.js';
 import { fireflyBridgeProvider } from '@/providers/firefly/Bridge.js';
 import { Level } from '@/providers/types/CZ.js';
 import { SupportedMethod } from '@/types/bridge.js';
+import { CHAR_TAG } from '@/helpers/chars.js';
+import { SourceInURL } from '@/constants/enum.js';
 
 interface Props {
     open: boolean;
@@ -59,11 +61,7 @@ export function ActivityClaimSuccessContent({ onClose, hash }: { onClose?: () =>
                     className="h-10 rounded-full bg-white text-[15px] font-bold leading-10 text-[#181A20]"
                     onClick={() => {
                         onClose?.();
-                        const text = t`Just claimed the "Welcome back 🎉 to CZ" collectible from @thefireflyapp!
-
-If you followed @cz_binance on X before Sept 21, you’re eligible to claim yours at https://cz.firefly.social.
-
-#CZ #FireflySocial`;
+                        const text = `Just claimed the "Welcome back 🎉 to CZ" collectible from @thefireflyapp!\nIf you followed @cz_binance on X before Sept 21, you’re eligible to claim yours at https://cz.firefly.social.\n#CZ #FireflySocial`;
                         if (fireflyBridgeProvider.supported) {
                             return fireflyBridgeProvider.request(SupportedMethod.COMPOSE, {
                                 text,
@@ -72,7 +70,50 @@ If you followed @cz_binance on X before Sept 21, you’re eligible to claim your
 
                         ComposeModalRef.open({
                             type: 'compose',
-                            chars: [text],
+                            chars: [
+                                `Just claimed the "Welcome back 🎉 to CZ" collectible from @`,
+                                {
+                                    tag: CHAR_TAG.MENTION,
+                                    visible: true,
+                                    content: `@thefireflyapp`,
+                                    profiles: [
+                                        {
+                                            platform_id: '1113516753307426816',
+                                            platform: SourceInURL.Twitter,
+                                            handle: 'realMaskNetwork',
+                                            name: 'realMaskNetwork',
+                                            hit: false,
+                                            score: 0,
+                                        },
+                                        {
+                                            platform_id: '1162557582',
+                                            platform: SourceInURL.Twitter,
+                                            handle: 'caojin_13',
+                                            name: 'caojin_13',
+                                            hit: false,
+                                            score: 0,
+                                        },
+                                    ],
+                                },
+                                `! If you followed `,
+                                {
+                                    tag: CHAR_TAG.MENTION,
+                                    visible: true,
+                                    content: '@cz_binance',
+                                    profiles: [
+                                        {
+                                            platform_id: '1287354425892200448',
+                                            platform: SourceInURL.Twitter,
+                                            handle: 'cz_binance_QnY',
+                                            name: 'cz_binance_QnY',
+                                            hit: true,
+                                            score: 0,
+                                        },
+                                    ],
+                                },
+                                ` on X before Sept 21, you're eligible to claim yours at https://cz.firefly.social.`,
+                                '#CZ #FireflySocial',
+                            ],
                         });
                     }}
                 >
