@@ -136,6 +136,9 @@ msgstr "Select token"
 msgid "The post you quoted/replied has already deleted"
 msgstr "The post you quoted/replied has already deleted"
 
+msgid "Something went wrong, Please try again."
+msgstr "Something went wrong, Please try again."
+
 msgid "Display Name"
 msgstr "Display Name"
 

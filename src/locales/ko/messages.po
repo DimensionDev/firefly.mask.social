@@ -141,6 +141,9 @@ msgstr ""
 msgid "The post you quoted/replied has already deleted"
 msgstr ""
 
+msgid "Something went wrong, Please try again."
+msgstr ""
+
 msgid "Display Name"
 msgstr ""
 

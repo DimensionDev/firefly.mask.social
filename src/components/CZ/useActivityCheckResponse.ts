@@ -4,7 +4,6 @@ import { useContext, useEffect } from 'react';
 import urlcat from 'urlcat';
 
 import { ActivityContext } from '@/components/CZ/ActivityContext.js';
-import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
 import { getSnackbarMessageFromError } from '@/helpers/getSnackbarMessageFromError.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
@@ -36,7 +35,7 @@ export function useActivityCheckResponse() {
 
     useEffect(() => {
         if (query.error) {
-            enqueueErrorMessage(getSnackbarMessageFromError(query.error, t`Unknown error`));
+            console.log(`CZ event error: ${getSnackbarMessageFromError(query.error, t`Unknown error`)}`);
         }
     }, [query.error]);
 

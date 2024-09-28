@@ -141,6 +141,9 @@ msgstr "選擇代幣"
 msgid "The post you quoted/replied has already deleted"
 msgstr "您引用/回覆的貼文已經被刪除"
 
+msgid "Something went wrong, Please try again."
+msgstr ""
+
 msgid "Display Name"
 msgstr "展示姓名"
 
