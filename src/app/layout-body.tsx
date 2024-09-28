@@ -4,6 +4,7 @@ import { SpeedInsights } from '@vercel/speed-insights/next';
 import { lazy } from 'react';
 
 import { BeforeUnload } from '@/components/Compose/BeforeUnload.js';
+import { IfHostname } from '@/components/IfHostname.js';
 import { IfPathname } from '@/components/IfPathname.js';
 import { Providers } from '@/components/Providers.js';
 import { RouteProgressBar } from '@/components/RouteProgressBar.js';
@@ -35,9 +36,12 @@ export function LayoutBody({ children }: { children: React.ReactNode }) {
                 <div className="m-auto flex w-full md:min-h-screen group-[.not-support]:md:min-h-[calc(100vh_-_38px)] lg:w-[1265px]">
                     <CustomElements />
                     {children}
-                    <IfPathname isNotOneOf={['/login/desktop', '/activity/cz']}>
-                        <SideBar />
-                    </IfPathname>
+                    <IfHostname isNotOneOf={['cz.firefly.social']}>
+                        <IfPathname isNotOneOf={['/login/desktop', '/activity/cz']}>
+                            <SideBar />
+                        </IfPathname>
+                    </IfHostname>
+
                     <mask-page-inspector />
                 </div>
                 <Modals />
