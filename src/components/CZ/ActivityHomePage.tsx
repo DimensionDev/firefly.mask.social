@@ -82,7 +82,7 @@ export function ActivityHomePage() {
                         ),
                     };
                 }
-                if (data.bnbBalance?.valid) {
+                if (data.bnbBalance?.valid && data.bnbBalance.level === Level.Lv2) {
                     return {
                         title,
                         description: (
@@ -93,7 +93,7 @@ export function ActivityHomePage() {
                         ),
                     };
                 }
-                if (data.bnbId?.valid) {
+                if (data.bnbId?.valid && data.bnbId.level === Level.Lv2) {
                     return {
                         title,
                         description: (
@@ -133,6 +133,8 @@ export function ActivityHomePage() {
         data?.bnbId?.valid,
         data?.x?.valid,
         data?.x?.level,
+        data?.bnbBalance?.level,
+        data?.bnbId?.level,
         ens,
         type,
     ]);
