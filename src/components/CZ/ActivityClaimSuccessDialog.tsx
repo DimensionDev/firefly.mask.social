@@ -71,7 +71,7 @@ export function ActivityClaimSuccessContent({ onClose, hash }: { onClose?: () =>
                         ComposeModalRef.open({
                             type: 'compose',
                             chars: [
-                                `Just claimed the "Welcome back 🎉 to CZ" collectible from @`,
+                                `Just claimed the "Welcome back 🎉 to CZ" collectible from `,
                                 {
                                     tag: CHAR_TAG.MENTION,
                                     visible: true,
