@@ -18,7 +18,7 @@ import { Level } from '@/providers/types/CZ.js';
 
 export function ActivityHomePage() {
     const { type, address, isLoggedTwitter } = useContext(ActivityContext);
-    const { data, isLoading } = useActivityCheckResponse();
+    const { data, isLoading, error, refetch, isRefetching } = useActivityCheckResponse();
     const { data: ens } = useEnsName({ address: address as Address });
     const { title, description } = useMemo(() => {
         if (data?.eventEnds) {
@@ -131,9 +131,34 @@ export function ActivityHomePage() {
         data?.bnbBalance?.valid,
         data?.bnbId?.valid,
         data?.x?.valid,
+        data?.x?.level,
         ens,
         type,
     ]);
+
+    if (error) {
+        return (
+            <div className="flex h-[317px] w-full flex-col items-center">
+                <Image
+                    src="/image/radar.png"
+                    width={200}
+                    height={106}
+                    className="my-auto"
+                    alt="Something went wrong. Please try again."
+                />
+                <p className="my-6 text-center text-xl font-bold leading-[18px]">
+                    <Trans>Something went wrong, Please try again.</Trans>
+                </p>
+                <button
+                    className="mt-auto h-10 rounded-full bg-white px-[18px] text-sm font-bold leading-10 text-[#181a20] disabled:opacity-70"
+                    onClick={() => refetch()}
+                    disabled={isRefetching}
+                >
+                    <Trans>Refresh</Trans>
+                </button>
+            </div>
+        );
+    }
 
     if (isLoading) {
         return (
