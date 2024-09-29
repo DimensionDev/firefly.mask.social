@@ -21,6 +21,7 @@ import { getAddressType } from '@/helpers/getAddressType.js';
 import { getRelationPlatformUrl } from '@/helpers/getRelationPlatformUrl.js';
 import { getStampAvatarByProfileId } from '@/helpers/getStampAvatarByProfileId.js';
 import { useCopyText } from '@/hooks/useCopyText.js';
+import { useDarkMode } from '@/hooks/useDarkMode.js';
 import { useIsMyRelatedProfile } from '@/hooks/useIsMyRelatedProfile.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import type { Relation, WalletProfile } from '@/providers/types/Firefly.js';
@@ -30,17 +31,20 @@ interface WalletInfoProps {
     relations?: Relation[];
 }
 
-const AddressTypeIconMap: Record<string, string> = {
-    [NetworkType.Solana]: new URL('../../assets/chains/solana.png', import.meta.url).href,
-    [NetworkType.Ethereum]: new URL('../../assets/chains/ethereum.svg', import.meta.url).href,
-};
-
 export function WalletInfo({ profile, relations }: WalletInfoProps) {
     const isMedium = useIsMedium();
     const [, handleCopy] = useCopyText(profile.address);
     const isMyWallets = useIsMyRelatedProfile(Source.Wallet, profile.address);
     const avatar = profile.avatar ?? getStampAvatarByProfileId(Source.Wallet, profile.address);
     const addressType = getAddressType(profile.address);
+
+    const { isDarkMode } = useDarkMode();
+    const AddressTypeIconMap: Record<string, string> = {
+        [NetworkType.Solana]: new URL('../../assets/chains/solana.png', import.meta.url).href,
+        [NetworkType.Ethereum]: isDarkMode
+            ? new URL('../../assets/chains/ethereum.dark.png', import.meta.url).href
+            : new URL('../../assets/chains/ethereum.light.png', import.meta.url).href,
+    };
     const addressTypeIcon = addressType ? AddressTypeIconMap[addressType] : null;
 
     return (
