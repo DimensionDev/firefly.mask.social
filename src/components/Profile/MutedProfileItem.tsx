@@ -1,12 +1,11 @@
 import { memo } from 'react';
 
 import { ToggleMutedProfileButton } from '@/components/Actions/ToggleMutedProfileButton.js';
-import { Avatar } from '@/components/Avatar.js';
+import { ProfileAvatar } from '@/components/ProfileAvatar.js';
 import { SocialSourceIcon } from '@/components/SocialSourceIcon.js';
 import { Source } from '@/constants/enum.js';
 import { Link } from '@/esm/Link.js';
 import { classNames } from '@/helpers/classNames.js';
-import { getLennyUrl } from '@/helpers/getLennyUrl.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 
@@ -15,24 +14,25 @@ interface MutedProfileItemProps {
 }
 
 export const MutedProfileItem = memo<MutedProfileItemProps>(function MutedProfileItem({ profile }) {
+    const profileUrl = getProfileUrl(profile);
+
     return (
-        <Link
-            href={getProfileUrl(profile)}
+        <div
             className="grid gap-2 border-b border-line p-3"
             style={{ gridTemplateColumns: '50px calc(100% - 50px - 112px - 16px) 112px' }}
         >
-            <Avatar
+            <ProfileAvatar
                 className="min-w-[50px] shrink-0"
-                src={profile.pfp}
+                linkable
+                enableSourceIcon={false}
+                profile={profile}
                 size={50}
-                alt={profile.profileId}
-                fallbackUrl={profile.source === Source.Lens ? getLennyUrl(profile.pfp) : undefined}
             />
             <div className="leading-5.5 flex flex-col text-medium">
                 <div className="flex w-full items-center">
-                    <div className="max-w-[calc(100% - 32px)] mr-2 truncate text-lg leading-6">
+                    <Link href={profileUrl} className="max-w-[calc(100% - 32px)] mr-2 truncate text-lg leading-6">
                         {profile.displayName}
-                    </div>
+                    </Link>
                     <SocialSourceIcon
                         source={profile.source}
                         className={classNames('shrink-0', {
@@ -40,12 +40,14 @@ export const MutedProfileItem = memo<MutedProfileItemProps>(function MutedProfil
                         })}
                     />
                 </div>
-                <div className="w-full truncate text-secondary">@{profile.handle}</div>
+                <Link href={profileUrl} className="w-full truncate text-secondary">
+                    @{profile.handle}
+                </Link>
                 <div className="w-full truncate">{profile.bio}</div>
             </div>
-            <div className="flex shrink-0 justify-end">
+            <div className="flex shrink-0 justify-end" onClick={(ev) => ev.stopPropagation()}>
                 <ToggleMutedProfileButton profile={profile} />
             </div>
-        </Link>
+        </div>
     );
 });
