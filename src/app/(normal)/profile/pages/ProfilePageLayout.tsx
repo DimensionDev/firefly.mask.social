@@ -38,12 +38,10 @@ export function ProfilePageLayout({ identity, children }: PropsWithChildren<{ id
         queryKey: ['all-profiles', identity.source, identity.id, evmAccount.address, solanaWallet.publicKey],
         queryFn: async () => {
             if (!identity.id) return EMPTY_LIST;
-            return FireflySocialMediaProvider.getAllPlatformProfileByIdentity(
-                identity,
+            const isTokenRequired =
                 isSameEthereumAddress(evmAccount.address, identity.id) ||
-                    (!!solanaWallet.publicKey &&
-                        isSameSolanaAddress(encodePublicKey(solanaWallet.publicKey), identity.id)),
-            );
+                (!!solanaWallet.publicKey && isSameSolanaAddress(encodePublicKey(solanaWallet.publicKey), identity.id));
+            return FireflySocialMediaProvider.getAllPlatformProfileByIdentity(identity, isTokenRequired);
         },
     });
 
