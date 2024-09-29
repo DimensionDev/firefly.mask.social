@@ -8,7 +8,7 @@ msgstr ""
 "Language: ko\n"
 "Project-Id-Version: masksocial\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-09-27 12:02\n"
+"PO-Revision-Date: 2024-09-29 09:39\n"
 "Last-Translator: \n"
 "Language-Team: Korean\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
@@ -2453,3 +2453,4 @@ msgstr ""
 
 msgid "Reward for followers"
 msgstr ""
+
