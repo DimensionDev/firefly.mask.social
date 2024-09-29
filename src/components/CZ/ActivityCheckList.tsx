@@ -8,9 +8,6 @@ import CircleSuccessIcon from '@/assets/circle-success.svg';
 import FollowIcon from '@/assets/follow.svg';
 import { ActivityClaimButton } from '@/components/CZ/ActivityClaimButton.js';
 import { useActivityCheckResponse } from '@/components/CZ/useActivityCheckResponse.js';
-import { Source } from '@/constants/enum.js';
-import { Link } from '@/esm/Link.js';
-import { resolveProfileUrl } from '@/helpers/resolveProfileUrl.js';
 import { Level } from '@/providers/types/CZ.js';
 
 export function ActivityCheckList() {
@@ -18,15 +15,7 @@ export function ActivityCheckList() {
     const basicChecklist = [
         {
             icon: <FollowIcon width={16} height={16} />,
-            description: (
-                <Trans>
-                    Followed{' '}
-                    <Link className="text-[#AC9DF6]" href={resolveProfileUrl(Source.Twitter, '902926941413453824')}>
-                        @cz_binance
-                    </Link>{' '}
-                    on X before Sept 21
-                </Trans>
-            ),
+            description: <Trans>Followed @cz_binance on X before Sept 21</Trans>,
             pass: data?.x?.valid,
         },
     ];

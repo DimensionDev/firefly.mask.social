@@ -10,11 +10,8 @@ import LoadingIcon from '@/assets/loading.svg';
 import { ActivityContext } from '@/components/CZ/ActivityContext.js';
 import { ActivityHomePageButton } from '@/components/CZ/ActivityHomePageButton.js';
 import { useActivityCheckResponse } from '@/components/CZ/useActivityCheckResponse.js';
-import { Source } from '@/constants/enum.js';
 import { Image } from '@/esm/Image.js';
-import { Link } from '@/esm/Link.js';
 import { formatAddress } from '@/helpers/formatAddress.js';
-import { resolveProfileUrl } from '@/helpers/resolveProfileUrl.js';
 import { Level } from '@/providers/types/CZ.js';
 
 export function ActivityHomePage() {
@@ -33,11 +30,7 @@ export function ActivityHomePage() {
                 title: <Trans>Reward for followers</Trans>,
                 description: (
                     <Trans>
-                        Get a free special edition Firefly NFT for following{' '}
-                        <Link className="text-[#AC9DF6]" href={resolveProfileUrl(Source.Twitter, '902926941413453824')}>
-                            @cz_binance
-                        </Link>{' '}
-                        on X to celebrate CZ’s return!
+                        Get a free special edition Firefly NFT for following @cz_binance on X to celebrate CZ’s return!
                     </Trans>
                 ),
             };
@@ -59,11 +52,7 @@ export function ActivityHomePage() {
                 title: <Trans>Welcome Back CZ Collectible</Trans>,
                 description: (
                     <Trans>
-                        Get a free special edition Firefly NFT for following{' '}
-                        <Link className="text-[#AC9DF6]" href={resolveProfileUrl(Source.Twitter, '902926941413453824')}>
-                            @cz_binance
-                        </Link>{' '}
-                        on X to celebrate CZ’s return!
+                        Get a free special edition Firefly NFT for following @cz_binance on X to celebrate CZ’s return!
                     </Trans>
                 ),
             };
@@ -112,15 +101,7 @@ export function ActivityHomePage() {
         }
         return {
             title: <Trans>Not eligible</Trans>,
-            description: (
-                <Trans>
-                    Must followed{' '}
-                    <Link className="text-[#AC9DF6]" href={resolveProfileUrl(Source.Twitter, '902926941413453824')}>
-                        @cz_binance
-                    </Link>{' '}
-                    on X before Sept 21, 2024.
-                </Trans>
-            ),
+            description: <Trans>Must followed @cz_binance on X before Sept 21, 2024.</Trans>,
         };
     }, [
         isLoggedTwitter,
