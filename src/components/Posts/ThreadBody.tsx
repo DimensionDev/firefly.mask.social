@@ -59,7 +59,6 @@ export const ThreadBody = memo<ThreadBodyProps>(function ThreadBody({
                 'cursor-pointer': !isSamePost,
             })}
             onClick={() => {
-                if (post.source === Source.Twitter) return;
                 const selection = window.getSelection();
                 if (selection && selection.toString().length !== 0) return;
                 if (isSamePost) return;
