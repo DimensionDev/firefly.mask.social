@@ -63,6 +63,7 @@ export function ActivityContextProvider({
         async queryFn() {
             if (!fireflyBridgeProvider.supported) return !!twitterProfile;
             const token = await fireflyBridgeProvider.request(SupportedMethod.GET_AUTHORIZATION, {});
+            if (!token) return false;
             setAuthToken(token);
             const url = urlcat(settings.FIREFLY_ROOT_URL, '/v2/wallet/profile');
             const res = await fetchJSON<WalletProfileResponse>(url, {
@@ -73,7 +74,6 @@ export function ActivityContextProvider({
             if (!res.data) return false;
             return res.data.twitterProfiles.length > 0;
         },
-        refetchInterval: 10000,
     });
 
     const onLoginTwitter = useCallback(async () => {
@@ -81,9 +81,9 @@ export function ActivityContextProvider({
             const result = await fireflyBridgeProvider.request(SupportedMethod.LOGIN, {
                 platform: Platform.TWITTER,
             });
+            await refetch();
             if (result) {
                 enqueueSuccessMessage(t`Login X`);
-                await refetch();
             } else {
                 enqueueSuccessMessage(t`Login X failed`);
             }
