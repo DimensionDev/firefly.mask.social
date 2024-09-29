@@ -87,8 +87,8 @@ export class SessionHolder<T extends Session> {
      * @param withSession
      */
     fetch<T>(url: string, options?: RequestInit, withSession?: boolean): Promise<T> {
-        if (withSession === true) return this.fetchWithoutSession<T>(url, options);
-        if (withSession === false) return this.fetchWithSession<T>(url, options);
+        if (withSession === true) return this.fetchWithSession<T>(url, options);
+        if (withSession === false) return this.fetchWithoutSession<T>(url, options);
         if (this.session) return this.fetchWithSession<T>(url, options);
         return this.fetchWithoutSession<T>(url, options);
     }
