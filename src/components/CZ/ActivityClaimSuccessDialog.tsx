@@ -5,6 +5,7 @@ import React from 'react';
 
 import { useActivityCheckResponse } from '@/components/CZ/useActivityCheckResponse.js';
 import { Popover } from '@/components/Popover.js';
+import { IS_IOS } from '@/constants/bowser.js';
 import { SourceInURL } from '@/constants/enum.js';
 import { Image } from '@/esm/Image.js';
 import { Link } from '@/esm/Link.js';
@@ -13,7 +14,6 @@ import { ComposeModalRef } from '@/modals/controls.js';
 import { fireflyBridgeProvider } from '@/providers/firefly/Bridge.js';
 import { Level } from '@/providers/types/CZ.js';
 import { SupportedMethod } from '@/types/bridge.js';
-import { IS_IOS } from '@/constants/bowser.js';
 
 interface Props {
     open: boolean;
