@@ -12,6 +12,7 @@ import { env } from '@/constants/env.js';
 import { Image } from '@/esm/Image.js';
 import { classNames } from '@/helpers/classNames.js';
 import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
+import { formatFileSize } from '@/helpers/formatFileSize.js';
 import { getCurrentPostImageLimits } from '@/helpers/getCurrentPostImageLimits.js';
 import { getPostGifSizeLimit } from '@/helpers/getPostLimitation.js';
 import { createGiphyMediaObject } from '@/helpers/resolveMediaObjectUrl.js';
@@ -19,7 +20,6 @@ import { useCompositePost } from '@/hooks/useCompositePost.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import { useComposeStateStore } from '@/store/useComposeStore.js';
 import type { IGif } from '@/types/giphy.js';
-import { formatFileSize } from '@/helpers/formatFileSize.js';
 
 interface GifSelectorProps {
     onSelected: () => void;
