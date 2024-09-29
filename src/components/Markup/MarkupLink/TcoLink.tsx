@@ -15,7 +15,6 @@ export function TcoLink({ title, post }: { title: string; post?: Post }) {
     const href = data ?? title;
     const linkPostId = href.match(TWEET_REGEX)?.[3];
 
-   
     if (linkPostId && post?.postId === linkPostId) return null;
     if (linkPostId && post?.quoteOn?.postId === linkPostId) return null;
 
