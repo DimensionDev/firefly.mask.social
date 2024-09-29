@@ -55,6 +55,9 @@ function createWagmiConfig(): Config {
     const config = defaultWagmiConfig({
         auth: {
             email: false,
+            socials: [],
+            showWallets: false,
+            walletFeatures: false,
         },
         chains,
         metadata,
