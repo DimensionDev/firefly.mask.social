@@ -4,7 +4,7 @@ import type { FireflySession } from '@/providers/firefly/Session.js';
 
 class FireflySessionHolder extends SessionHolder<FireflySession> {
     override fetch<T>(url: string, options?: RequestInit, required = false) {
-        return this.internalSession || required
+        return required
             ? fetchJSON<T>(url, {
                   ...options,
                   headers: { ...options?.headers, Authorization: `Bearer ${this.sessionRequired.token}` },

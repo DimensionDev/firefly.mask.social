@@ -19,7 +19,7 @@ function getQueryKey(identity: FireflyIdentity) {
                 case NetworkType.Ethereum:
                     return 'walletAddress';
                 case NetworkType.Solana:
-                    return 'solanaWalletAddress';
+                    return 'solanaAddress';
                 default:
                     return 'walletAddress';
             }
@@ -28,7 +28,7 @@ function getQueryKey(identity: FireflyIdentity) {
     }
 }
 
-export async function getAllPlatformProfileFromFirefly(identity: FireflyIdentity) {
+export async function getAllPlatformProfileFromFirefly(identity: FireflyIdentity, isTokenRequired = true) {
     const queryKey = getQueryKey(identity);
 
     const url = urlcat(
@@ -39,5 +39,5 @@ export async function getAllPlatformProfileFromFirefly(identity: FireflyIdentity
 
     return fireflySessionHolder.fetch<WalletProfileResponse>(url, {
         method: 'GET',
-    });
+    }, isTokenRequired);
 }
