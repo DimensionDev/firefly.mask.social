@@ -12,10 +12,10 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import { ClickableArea } from '@/components/ClickableArea.js';
 import { Image } from '@/components/Image.js';
 import { AdFunctionType, AdvertisementType } from '@/constants/enum.js';
-import { ADVERTISEMENT_JSON_URL } from '@/constants/index.js';
 import { Link } from '@/esm/Link.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
 import { LoginModalRef } from '@/modals/controls.js';
+import { settings } from '@/settings/index.js';
 import type { Advertisement } from '@/types/advertisement.js';
 
 export function Advertisement() {
@@ -23,8 +23,8 @@ export function Advertisement() {
         queryKey: ['advertisement'],
         staleTime: 1000 * 60 * 10,
         queryFn: async () => {
-            const res = await fetchJSON<{ advertisements: Advertisement[] }>(ADVERTISEMENT_JSON_URL);
-            return res?.advertisements ?? [];
+            const res = await fetchJSON<{ advertisements: Advertisement[] }>(settings.ADVERTISEMENT_JSON_URL);
+            return (res?.advertisements ?? []).sort((a, b) => a.sort - b.sort);
         },
     });
 
