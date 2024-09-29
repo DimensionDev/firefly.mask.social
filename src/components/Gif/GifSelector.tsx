@@ -1,6 +1,5 @@
 import { SearchBar, SearchContextManager } from '@giphy/react-components';
 import { t, Trans } from '@lingui/macro';
-import { formatFileSize } from '@masknet/kit';
 import { useCallback, useMemo, useState } from 'react';
 import { useSize } from 'react-use';
 
@@ -20,6 +19,7 @@ import { useCompositePost } from '@/hooks/useCompositePost.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import { useComposeStateStore } from '@/store/useComposeStore.js';
 import type { IGif } from '@/types/giphy.js';
+import { formatFileSize } from '@/helpers/formatFileSize.js';
 
 interface GifSelectorProps {
     onSelected: () => void;
@@ -62,7 +62,7 @@ export function GifSelector({ onSelected }: GifSelectorProps) {
         (gif: IGif) => {
             const gifSize = gif.images.original.size;
             if (gifSize && parseFloat(gifSize) > maxGifSize) {
-                enqueueErrorMessage(t`Failed to upload. Gif size exceeds ${formatFileSize(maxGifSize, false)}`);
+                enqueueErrorMessage(t`Failed to upload. Gif size exceeds ${formatFileSize(maxGifSize)}`);
                 return;
             }
             updateImages((images) => {
