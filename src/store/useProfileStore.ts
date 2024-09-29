@@ -28,6 +28,7 @@ import type { Session } from '@/providers/types/Session.js';
 import type { Profile, ProfileEditable } from '@/providers/types/SocialMedia.js';
 import { bindOrRestoreFireflySession } from '@/services/bindOrRestoreFireflySession.js';
 import { restoreFireflySessionAll } from '@/services/restoreFireflySession.js';
+import { isSameSession, isSameSessionPayload } from '@/helpers/isSameSession.js';
 
 export interface ProfileState {
     // indicate the store is ready or not
@@ -277,13 +278,15 @@ const useTwitterStateBase = createState(
                 // set session for getProfileById
                 if (session) twitterSessionHolder.resumeSession(session);
 
-                const sessionFromServer = await TwitterSocialMediaProvider.login();
-                const isSessionFromServer = session === null && sessionFromServer !== null;
+                const sessionPayloadFromServer = await TwitterSocialMediaProvider.login();
+                const foundNewSessionFromServer = state.accounts.some((x) =>
+                    isSameSessionPayload(sessionPayloadFromServer, (x.session as TwitterSession).payload),
+                );
 
                 // show indicator if the session is from the server
-                if (isSessionFromServer) state.__setStatus__(AsyncStatus.Pending);
+                if (foundNewSessionFromServer) state.__setStatus__(AsyncStatus.Pending);
 
-                const payload = session?.payload ?? sessionFromServer;
+                const payload = foundNewSessionFromServer ? sessionPayloadFromServer : session?.payload ?? null;
                 const profile = payload ? await TwitterSocialMediaProvider.getProfileById(payload.clientId) : null;
 
                 if (!profile || !payload) {
@@ -295,19 +298,19 @@ const useTwitterStateBase = createState(
 
                 const twitterSession = TwitterSession.from(profile, payload);
 
-                const added = await addAccount(
+                await addAccount(
                     {
                         profile,
                         session: twitterSession,
-                        fireflySession: isSessionFromServer
+                        fireflySession: foundNewSessionFromServer
                             ? await bindOrRestoreFireflySession(twitterSession)
                             : undefined,
                     },
                     {
-                        skipBelongsToCheck: !isSessionFromServer,
-                        skipResumeFireflyAccounts: !isSessionFromServer,
-                        skipResumeFireflySession: !isSessionFromServer,
-                        skipUploadFireflySession: !isSessionFromServer,
+                        skipBelongsToCheck: !foundNewSessionFromServer,
+                        skipResumeFireflyAccounts: !foundNewSessionFromServer,
+                        skipResumeFireflySession: !foundNewSessionFromServer,
+                        skipUploadFireflySession: !foundNewSessionFromServer,
                     },
                 );
             } catch (error) {
