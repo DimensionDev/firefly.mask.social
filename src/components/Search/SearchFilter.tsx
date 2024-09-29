@@ -1,7 +1,6 @@
 'use client';
 
 import { Trans } from '@lingui/macro';
-import { useSearchParams } from 'next/navigation.js';
 import { memo } from 'react';
 
 import { RadioButton } from '@/components/RadioButton.js';
@@ -11,15 +10,12 @@ import { Link } from '@/esm/Link.js';
 import { narrowToSocialSource } from '@/helpers/narrowToSocialSource.js';
 import { resolveSearchUrl } from '@/helpers/resolveSearchUrl.js';
 import { DraggablePopoverRef } from '@/modals/controls.js';
-import { useGlobalState } from '@/store/useGlobalStore.js';
 import { useSearchStateStore } from '@/store/useSearchStore.js';
 
 export const SearchFilter = memo(function SearchFilter() {
-    const currentSource = useGlobalState.use.currentSource();
-    const currentSocialSource = narrowToSocialSource(currentSource);
-    const params = useSearchParams();
+    const { searchKeyword, searchType, source, updateSearchType } = useSearchStateStore();
 
-    const { searchKeyword, searchType, updateSearchType } = useSearchStateStore();
+    const currentSocialSource = narrowToSocialSource(source);
 
     return (
         <div className="gap-2">
@@ -47,13 +43,7 @@ export const SearchFilter = memo(function SearchFilter() {
                             <Link
                                 key={filter.type}
                                 className="flex cursor-pointer items-center text-sm"
-                                href={resolveSearchUrl(
-                                    {
-                                        q: searchKeyword,
-                                        type: filter.type,
-                                    },
-                                    params,
-                                )}
+                                href={resolveSearchUrl(searchKeyword, filter.type, source)}
                                 onClick={(event) => {
                                     if (!searchKeyword) {
                                         event.stopPropagation();

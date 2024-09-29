@@ -4,22 +4,19 @@ import { t, Trans } from '@lingui/macro';
 import { safeUnreachable } from '@masknet/kit';
 import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
 import { compact } from 'lodash-es';
-import { useSearchParams } from 'next/navigation.js';
-import type { PropsWithChildren } from 'react';
+import { useMemo } from 'react';
 
 import { ChannelInList } from '@/components/ChannelInList.js';
 import { ListInPage } from '@/components/ListInPage.js';
 import { SinglePost } from '@/components/Posts/SinglePost.js';
 import { ProfileInList } from '@/components/ProfileInList.js';
 import { SourceTabs } from '@/components/SourceTabs.js';
-import { ScrollListKey, SearchType, Source, SourceInURL } from '@/constants/enum.js';
-import { SORTED_SOCIAL_SOURCES } from '@/constants/index.js';
+import { ScrollListKey, SearchType, Source } from '@/constants/enum.js';
+import { SORTED_SEARCH_TYPE, SORTED_SOCIAL_SOURCES } from '@/constants/index.js';
 import { narrowToSocialSource } from '@/helpers/narrowToSocialSource.js';
 import { createIndicator } from '@/helpers/pageable.js';
 import { resolveSearchUrl } from '@/helpers/resolveSearchUrl.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
-import { resolveSourceFromUrl } from '@/helpers/resolveSource.js';
-import { resolveSourceInUrl } from '@/helpers/resolveSourceInUrl.js';
 import { useNavigatorTitle } from '@/hooks/useNavigatorTitle.js';
 import type { Channel, Post, Profile } from '@/providers/types/SocialMedia.js';
 import { useTwitterStateStore } from '@/store/useProfileStore.js';
@@ -47,19 +44,21 @@ const getSearchItemContent = (
     }
 };
 
-export default function Page({
-    params,
-}: PropsWithChildren<{
-    params: {
-        [key in string]: string;
-    };
-}>) {
-    const searchParams = useSearchParams();
-
-    const { searchKeyword, searchType } = useSearchStateStore();
-
-    const source = resolveSourceFromUrl(searchParams.get('source') || SourceInURL.Farcaster);
+export default function Page() {
+    const { searchKeyword, searchType, source } = useSearchStateStore();
+    const currentTwitterProfile = useTwitterStateStore.use.currentProfile();
     const currentSocialSource = narrowToSocialSource(source);
+
+    const sources = useMemo(() => {
+        return SORTED_SOCIAL_SOURCES.filter((x) => {
+            if (x === Source.Twitter && !currentTwitterProfile) return false;
+
+            const supportTypes = SORTED_SEARCH_TYPE[narrowToSocialSource(x)];
+            if (!supportTypes.includes(searchType)) return false;
+
+            return true;
+        });
+    }, [currentTwitterProfile, searchType]);
 
     const queryResult = useSuspenseInfiniteQuery({
         queryKey: ['search', searchType, searchKeyword, source],
@@ -91,15 +90,14 @@ export default function Page({
     });
 
     useNavigatorTitle(t`Search`);
-    const currentTwitterProfile = useTwitterStateStore.use.currentProfile();
 
     const listKey = `${ScrollListKey.Search}:${searchType}:${searchKeyword}:${source}`;
     return (
         <>
             <SourceTabs
                 source={source}
-                sources={SORTED_SOCIAL_SOURCES.filter((x) => (x === Source.Twitter ? currentTwitterProfile : true))}
-                href={(source) => resolveSearchUrl({ ...params, source: resolveSourceInUrl(source) }, searchParams)}
+                sources={sources}
+                href={(source) => resolveSearchUrl(searchKeyword, searchType, source)}
             />
             <ListInPage
                 source={source}

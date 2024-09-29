@@ -20,5 +20,5 @@ interface SearchPageProps {
 }
 
 export default function Page({ searchParams }: SearchPageProps) {
-    return redirect(resolveSearchUrl(searchParams));
+    return redirect(resolveSearchUrl(searchParams.q, searchParams.type));
 }

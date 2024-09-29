@@ -3,7 +3,6 @@
 import { t, Trans } from '@lingui/macro';
 import { useQuery } from '@tanstack/react-query';
 import { first, uniqBy } from 'lodash-es';
-import { useSearchParams } from 'next/navigation.js';
 import { useDebounce } from 'usehooks-ts';
 
 import LoadingIcon from '@/assets/loading.svg';
@@ -43,7 +42,6 @@ export function SearchRecommendation(props: SearchRecommendationProps) {
     const currentSource = useGlobalState.use.currentSource();
 
     const { records, addRecord, removeRecord, clearAll } = useSearchHistoryStateStore();
-    const params = useSearchParams();
 
     const { data: profiles, isLoading } = useQuery({
         queryKey: ['searchText', currentSource, debouncedKeyword],
@@ -92,7 +90,7 @@ export function SearchRecommendation(props: SearchRecommendationProps) {
                 </h2>
                 <Link
                     className="flex cursor-pointer items-center px-4 py-4 text-left hover:bg-bg"
-                    href={resolveSearchUrl({ q: keyword }, params)}
+                    href={resolveSearchUrl(keyword)}
                     onClick={() =>
                         onSearch?.({
                             q: keyword,
@@ -229,7 +227,7 @@ export function SearchRecommendation(props: SearchRecommendationProps) {
                         <Link
                             className="flex cursor-pointer items-center px-3 hover:bg-bg"
                             key={record}
-                            href={resolveSearchUrl({ q: record }, params)}
+                            href={resolveSearchUrl(record)}
                             onClick={() => {
                                 addRecord(record);
                                 onSearch?.({ q: record });
