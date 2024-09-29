@@ -520,9 +520,3 @@ body.not-support .fixed.inset-y-0 {
     content: ' \A\A';
     white-space: pre;
 }
-
-/* hotfix for disabling web3 modal social login */
-.w3m-email-login-widget,
-.w3m-social-login-widget {
-    display: none;
-}
