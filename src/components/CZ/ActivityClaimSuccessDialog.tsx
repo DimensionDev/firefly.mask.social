@@ -130,7 +130,7 @@ export function ActivityClaimSuccessContent({ onClose, hash }: { onClose?: () =>
                                         },
                                     ],
                                 },
-                                ` on X before Sept 21, you're eligible to claim yours at https://cz.firefly.social . \n\n`,
+                                ` on X before Sept 21, \nyou're eligible to claim yours at https://cz.firefly.social. \n\n`,
                                 '#CZ #FireflySocial',
                             ],
                         });
