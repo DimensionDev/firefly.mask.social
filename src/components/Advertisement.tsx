@@ -14,7 +14,7 @@ import { Image } from '@/components/Image.js';
 import { AdFunctionType, AdvertisementType } from '@/constants/enum.js';
 import { Link } from '@/esm/Link.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
-import { LoginModalRef } from '@/modals/controls.js';
+import { ActivityModalRef, LoginModalRef } from '@/modals/controls.js';
 import { settings } from '@/settings/index.js';
 import type { Advertisement } from '@/types/advertisement.js';
 
@@ -62,6 +62,9 @@ export function Advertisement() {
                                     switch (ad.function) {
                                         case AdFunctionType.OpenScan:
                                             LoginModalRef.open();
+                                            break;
+                                        case AdFunctionType.OpenActivity:
+                                            ActivityModalRef.open();
                                             break;
                                         default:
                                             safeUnreachable(ad.function);

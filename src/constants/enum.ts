@@ -241,6 +241,7 @@ export enum AdvertisementType {
 
 export enum AdFunctionType {
     OpenScan = 'openScan',
+    OpenActivity = 'openActivity',
 }
 
 export enum UploadMediaStatus {
