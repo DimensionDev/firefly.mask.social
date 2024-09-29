@@ -279,7 +279,7 @@ const useTwitterStateBase = createState(
                 if (session) twitterSessionHolder.resumeSession(session);
 
                 const sessionPayloadFromServer = await TwitterSocialMediaProvider.login();
-                const foundNewSessionFromServer = state.accounts.some((x) =>
+                const foundNewSessionFromServer = !state.accounts.some((x) =>
                     isSameSessionPayload(sessionPayloadFromServer, (x.session as TwitterSession).payload),
                 );
 
