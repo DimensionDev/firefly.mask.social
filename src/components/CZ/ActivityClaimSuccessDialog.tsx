@@ -13,6 +13,7 @@ import { ComposeModalRef } from '@/modals/controls.js';
 import { fireflyBridgeProvider } from '@/providers/firefly/Bridge.js';
 import { Level } from '@/providers/types/CZ.js';
 import { SupportedMethod } from '@/types/bridge.js';
+import { IS_IOS } from '@/constants/bowser.js';
 
 interface Props {
     open: boolean;
@@ -40,6 +41,8 @@ export function ActivityClaimSuccessDialog({ open, onClose, hash }: Props) {
 
 export function ActivityClaimSuccessContent({ onClose, hash }: { onClose?: () => void; hash?: string }) {
     const { data } = useActivityCheckResponse();
+    const showExplorerLink = !(fireflyBridgeProvider.supported && IS_IOS);
+
     return (
         <div className="relative z-10 flex w-full flex-col items-center space-y-6 text-center">
             <Image
@@ -52,9 +55,17 @@ export function ActivityClaimSuccessContent({ onClose, hash }: { onClose?: () =>
                 <p className="mb-4 text-xl font-bold leading-[18px]">
                     <Trans>Congratulation!</Trans>
                 </p>
-                <Link href={`https://bscscan.com/tx/${hash}`} target="_blank" className="z-10 text-[#AC9DF6] underline">
-                    <Trans>View transaction on Explorer</Trans>
-                </Link>
+                <div className="h-[18px]">
+                    {showExplorerLink ? (
+                        <Link
+                            href={`https://bscscan.com/tx/${hash}`}
+                            target="_blank"
+                            className="z-10 text-[#AC9DF6] underline"
+                        >
+                            <Trans>View transaction on Explorer</Trans>
+                        </Link>
+                    ) : null}
+                </div>
             </div>
             <div className="grid w-full grid-cols-1 gap-2">
                 <button
