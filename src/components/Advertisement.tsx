@@ -14,7 +14,9 @@ import { Image } from '@/components/Image.js';
 import { AdFunctionType, AdvertisementType } from '@/constants/enum.js';
 import { Link } from '@/esm/Link.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
+import { openWindow } from '@/helpers/openWindow.js';
 import { ActivityModalRef, LoginModalRef } from '@/modals/controls.js';
+import { fireflyBridgeProvider } from '@/providers/firefly/Bridge.js';
 import { settings } from '@/settings/index.js';
 import type { Advertisement } from '@/types/advertisement.js';
 
@@ -64,7 +66,12 @@ export function Advertisement() {
                                             LoginModalRef.open();
                                             break;
                                         case AdFunctionType.OpenActivity:
-                                            ActivityModalRef.open();
+                                            // native
+                                            if (fireflyBridgeProvider.supported) {
+                                                openWindow('https://cz.firefly.social/');
+                                            } else {
+                                                ActivityModalRef.open();
+                                            }
                                             break;
                                         default:
                                             safeUnreachable(ad.function);

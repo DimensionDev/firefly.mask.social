@@ -12,6 +12,7 @@ import { Image } from '@/components/Image.js';
 import { Tooltip } from '@/components/Tooltip.js';
 import { XIcon } from '@/components/XIcon.js';
 import { Link } from '@/esm/Link.js';
+import { openWindow } from '@/helpers/openWindow.js';
 
 interface NFTListProps {
     list: Record<string, any[]>;
@@ -94,7 +95,7 @@ export function NFTList({ list, isLoading, empty, date }: NFTListProps) {
                                                                 <ClickableButton
                                                                     className="h-5 w-5"
                                                                     onClick={() => {
-                                                                        window.open(platform.url);
+                                                                        openWindow(platform.url);
                                                                     }}
                                                                 >
                                                                     {SocialIcons[platform.type]}
