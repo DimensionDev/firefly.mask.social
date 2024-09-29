@@ -65,6 +65,7 @@ function createWagmiConfig(): Config {
         metadata,
         wagmiConfig: config,
         projectId: env.external.NEXT_PUBLIC_W3M_PROJECT_ID,
+        isSiweEnabled: false,
         enableSwaps: false,
         enableOnramp: false,
         enableAnalytics: false, // Optional - defaults to your Cloud configuration
