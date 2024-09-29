@@ -37,7 +37,11 @@ export async function getAllPlatformProfileFromFirefly(identity: FireflyIdentity
         queryKey ? { [`${queryKey}`]: identity.id } : {},
     );
 
-    return fireflySessionHolder.fetch<WalletProfileResponse>(url, {
-        method: 'GET',
-    }, isTokenRequired);
+    return fireflySessionHolder.fetch<WalletProfileResponse>(
+        url,
+        {
+            method: 'GET',
+        },
+        isTokenRequired,
+    );
 }

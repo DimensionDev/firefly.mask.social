@@ -440,7 +440,10 @@ export class FireflySocialMedia implements Provider {
         });
     }
 
-    async getAllPlatformProfileByIdentity(identity: FireflyIdentity, isTokenRequired = true): Promise<FireflyProfile[]> {
+    async getAllPlatformProfileByIdentity(
+        identity: FireflyIdentity,
+        isTokenRequired = true,
+    ): Promise<FireflyProfile[]> {
         const response = await getAllPlatformProfileFromFirefly(identity, isTokenRequired);
         const profiles = resolveFireflyResponseData(response);
         return formatFireflyProfilesFromWalletProfiles(profiles);
