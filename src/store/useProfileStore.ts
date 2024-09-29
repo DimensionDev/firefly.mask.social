@@ -13,6 +13,7 @@ import { createSelectors } from '@/helpers/createSelector.js';
 import { createSessionStorage } from '@/helpers/createSessionStorage.js';
 import { isSameAccount } from '@/helpers/isSameAccount.js';
 import { isSameProfile } from '@/helpers/isSameProfile.js';
+import { isSameSessionPayload } from '@/helpers/isSameSession.js';
 import type { FarcasterSession } from '@/providers/farcaster/Session.js';
 import { farcasterSessionHolder } from '@/providers/farcaster/SessionHolder.js';
 import { FarcasterSocialMediaProvider } from '@/providers/farcaster/SocialMedia.js';
@@ -274,16 +275,18 @@ const useTwitterStateBase = createState(
                     return;
                 }
 
-                // set session for getProfileById
+                // set temporary session for getProfileById
                 if (session) twitterSessionHolder.resumeSession(session);
 
-                const sessionFromServer = await TwitterSocialMediaProvider.login();
-                const isSessionFromServer = session === null && sessionFromServer !== null;
+                const sessionPayloadFromServer = await TwitterSocialMediaProvider.login();
+                const foundNewSessionFromServer = state.accounts.some((x) =>
+                    isSameSessionPayload(sessionPayloadFromServer, (x.session as TwitterSession).payload),
+                );
 
                 // show indicator if the session is from the server
-                if (isSessionFromServer) state.__setStatus__(AsyncStatus.Pending);
+                if (foundNewSessionFromServer) state.__setStatus__(AsyncStatus.Pending);
 
-                const payload = session?.payload ?? sessionFromServer;
+                const payload = foundNewSessionFromServer ? sessionPayloadFromServer : session?.payload ?? null;
                 const profile = payload ? await TwitterSocialMediaProvider.getProfileById(payload.clientId) : null;
 
                 if (!profile || !payload) {
@@ -295,19 +298,19 @@ const useTwitterStateBase = createState(
 
                 const twitterSession = TwitterSession.from(profile, payload);
 
-                const added = await addAccount(
+                await addAccount(
                     {
                         profile,
                         session: twitterSession,
-                        fireflySession: isSessionFromServer
+                        fireflySession: foundNewSessionFromServer
                             ? await bindOrRestoreFireflySession(twitterSession)
                             : undefined,
                     },
                     {
-                        skipBelongsToCheck: !isSessionFromServer,
-                        skipResumeFireflyAccounts: !isSessionFromServer,
-                        skipResumeFireflySession: !isSessionFromServer,
-                        skipUploadFireflySession: !isSessionFromServer,
+                        skipBelongsToCheck: !foundNewSessionFromServer,
+                        skipResumeFireflyAccounts: !foundNewSessionFromServer,
+                        skipResumeFireflySession: !foundNewSessionFromServer,
+                        skipUploadFireflySession: !foundNewSessionFromServer,
                     },
                 );
             } catch (error) {
