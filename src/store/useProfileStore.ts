@@ -275,7 +275,7 @@ const useTwitterStateBase = createState(
                     return;
                 }
 
-                // set session for getProfileById
+                // set temporary session for getProfileById
                 if (session) twitterSessionHolder.resumeSession(session);
 
                 const sessionPayloadFromServer = await TwitterSocialMediaProvider.login();
