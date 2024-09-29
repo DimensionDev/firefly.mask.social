@@ -1394,7 +1394,6 @@ export class FireflySocialMedia implements Provider {
 
         const response = await fireflySessionHolder.fetch<IsMutedAllResponse>(url);
         const data = resolveFireflyResponseData(response);
-
         return data?.isBlockAll ?? false;
     }
 

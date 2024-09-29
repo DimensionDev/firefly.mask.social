@@ -11,25 +11,27 @@ class TwitterSessionHolder extends SessionHolder<TwitterSession> {
         this.internalSession = session;
     }
 
-    override fetch<T>(url: string, options?: RequestInit, required = false) {
-        if (required && !this.internalSession?.payload) throw new Error('Twitter session is required');
-
+    override fetchWithSession<T>(url: string, options?: RequestInit) {
         const input = bom.window ? url : urlcat(SITE_URL, url);
 
-        return this.internalSession?.payload
-            ? fetchJSON<T>(
-                  input,
-                  {
-                      ...options,
-                      headers: TwitterSession.payloadToHeaders(this.internalSession.payload),
-                  },
-                  {
-                      noDefaultContentType: true,
-                  },
-              )
-            : fetchJSON<T>(input, options, {
-                  noDefaultContentType: true,
-              });
+        return fetchJSON<T>(
+            input,
+            {
+                ...options,
+                headers: TwitterSession.payloadToHeaders(this.sessionRequired.payload),
+            },
+            {
+                noDefaultContentType: true,
+            },
+        );
+    }
+
+    override fetchWithoutSession<T>(url: string, options?: RequestInit) {
+        const input = bom.window ? url : urlcat(SITE_URL, url);
+
+        return fetchJSON<T>(input, options, {
+            noDefaultContentType: true,
+        });
     }
 }
 
