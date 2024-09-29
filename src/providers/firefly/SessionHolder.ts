@@ -1,12 +1,10 @@
-import { isUndefined } from 'lodash-es';
-
 import { fetchJSON } from '@/helpers/fetchJSON.js';
 import { SessionHolder } from '@/providers/base/SessionHolder.js';
 import type { FireflySession } from '@/providers/firefly/Session.js';
 
 class FireflySessionHolder extends SessionHolder<FireflySession> {
     override fetch<T>(url: string, options?: RequestInit, required?: boolean) {
-        if(!isUndefined(required) && !required) {
+        if(required === false) {
             return fetchJSON<T>(url, options);
         }
         
