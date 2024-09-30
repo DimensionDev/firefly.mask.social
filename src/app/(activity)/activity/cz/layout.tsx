@@ -1,7 +1,7 @@
 'use client';
 
 import { useRouter } from 'next/navigation.js';
-import { type PropsWithChildren, useEffect } from 'react';
+import { type PropsWithChildren } from 'react';
 import urlcat from 'urlcat';
 
 import { ActivityContextProvider } from '@/components/CZ/ActivityContext.js';
