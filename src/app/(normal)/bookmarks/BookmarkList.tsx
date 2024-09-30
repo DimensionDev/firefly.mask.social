@@ -12,6 +12,7 @@ import { createIndicator } from '@/helpers/pageable.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
+import { useNavigatorTitle } from '@/hooks/useNavigatorTitle.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
 
 interface Props {
@@ -44,6 +45,9 @@ export function BookmarkList({ source }: Props) {
         },
         select: getPostsSelector(source),
     });
+
+    useNavigatorTitle(t`Bookmarks`);
+
     return (
         <ListInPage
             source={source}

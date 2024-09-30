@@ -199,8 +199,8 @@ importers:
         specifier: ^2.13.7
         version: 2.13.7(@types/react@18.2.48)(immer@10.0.3)(react@0.0.0-experimental-8039e6d0b-20231026)(typescript@5.5.4)(viem@2.21.15)
       '@web3modal/wagmi':
-        specifier: ^5.1.9
-        version: 5.1.9(@types/react@18.2.48)(@vercel/kv@1.0.1)(@wagmi/connectors@5.1.10)(@wagmi/core@2.13.7)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026)(viem@2.21.15)(wagmi@2.12.14)
+        specifier: ^5.1.10
+        version: 5.1.10(@types/react@18.2.48)(@vercel/kv@1.0.1)(@wagmi/connectors@5.1.13)(@wagmi/core@2.13.7)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026)(viem@2.21.15)(wagmi@2.12.14)
       async-call-rpc:
         specifier: ^6.4.2
         version: 6.4.2
@@ -8776,51 +8776,6 @@ packages:
       react-native: 0.74.1(@babel/preset-env@7.24.6)(@types/react@18.2.48)(react@0.0.0-experimental-8039e6d0b-20231026)
     dev: false
 
-  /@metamask/sdk@0.28.2(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react-native@0.74.1)(react@0.0.0-experimental-8039e6d0b-20231026)(rollup@3.29.4):
-    resolution: {integrity: sha512-pylk1uJAZYyO3HcNW/TNfII3+T+Yx6qrFYaC/HmuSIuRJeXsdZuExSbNQ236iQocIy3L7JjI+GQKbv3TbN+HQQ==}
-    peerDependencies:
-      react: 0.0.0-experimental-8039e6d0b-20231026 || 0.0.0-experimental-0a360642d-20230711
-      react-dom: 0.0.0-experimental-8039e6d0b-20231026 || 0.0.0-experimental-0a360642d-20230711
-    peerDependenciesMeta:
-      react:
-        optional: true
-      react-dom:
-        optional: true
-    dependencies:
-      '@metamask/onboarding': 1.0.1
-      '@metamask/providers': 16.1.0
-      '@metamask/sdk-communication-layer': 0.28.2(cross-fetch@4.0.0)(eciesjs@0.3.18)(eventemitter2@6.4.9)(readable-stream@3.6.2)(socket.io-client@4.7.5)
-      '@metamask/sdk-install-modal-web': 0.28.1(i18next@23.2.11)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react-native@0.74.1)(react@0.0.0-experimental-8039e6d0b-20231026)
-      '@types/dom-screen-wake-lock': 1.0.3
-      '@types/uuid': 10.0.0
-      bowser: 2.11.0
-      cross-fetch: 4.0.0
-      debug: 4.3.5
-      eciesjs: 0.3.18
-      eth-rpc-errors: 4.0.3
-      eventemitter2: 6.4.9
-      i18next: 23.2.11
-      i18next-browser-languagedetector: 7.1.0
-      obj-multiplex: 1.0.0
-      pump: 3.0.0
-      qrcode-terminal-nooctal: 0.12.1
-      react: 0.0.0-experimental-8039e6d0b-20231026
-      react-dom: 0.0.0-experimental-8039e6d0b-20231026(react@0.0.0-experimental-8039e6d0b-20231026)
-      react-native-webview: 11.26.1(react-native@0.74.1)(react@0.0.0-experimental-8039e6d0b-20231026)
-      readable-stream: 3.6.2
-      rollup-plugin-visualizer: 5.12.0(rollup@3.29.4)
-      socket.io-client: 4.7.5
-      util: 0.12.5
-      uuid: 8.3.2
-    transitivePeerDependencies:
-      - bufferutil
-      - encoding
-      - react-native
-      - rollup
-      - supports-color
-      - utf-8-validate
-    dev: false
-
   /@metamask/sdk@0.28.4(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react-native@0.74.1)(react@0.0.0-experimental-8039e6d0b-20231026)(rollup@3.29.4):
     resolution: {integrity: sha512-RjWBKPNesjeua2SXIDF9IvYALOSsOQyqHv5DPPK0Voskytk7y+2n/33ocbC1BH5hTLI4hDPH+BuCpXJRWs3/Yg==}
     peerDependencies:
@@ -14516,53 +14471,6 @@ packages:
       tinyrainbow: 1.2.0
     dev: true
 
-  /@wagmi/connectors@5.1.10(@types/react@18.2.48)(@vercel/kv@1.0.1)(@wagmi/core@2.13.7)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react-native@0.74.1)(react@0.0.0-experimental-8039e6d0b-20231026)(rollup@3.29.4)(typescript@5.5.4)(viem@2.21.15)(zod@3.23.8):
-    resolution: {integrity: sha512-ybgKV09PIhgUgQ4atXTs2KOy4Hevd6f972SXfx6HTgsnFXlzxzN6o0aWjhavZOYjvx5tjuL3+8Mgqo0R7uP5Cg==}
-    peerDependencies:
-      '@wagmi/core': 2.13.5
-      typescript: '>=5.0.4 || 5'
-      viem: 2.x
-    peerDependenciesMeta:
-      typescript:
-        optional: true
-    dependencies:
-      '@coinbase/wallet-sdk': 4.0.4
-      '@metamask/sdk': 0.28.2(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react-native@0.74.1)(react@0.0.0-experimental-8039e6d0b-20231026)(rollup@3.29.4)
-      '@safe-global/safe-apps-provider': 0.18.3(typescript@5.5.4)(zod@3.23.8)
-      '@safe-global/safe-apps-sdk': 9.1.0(typescript@5.5.4)(zod@3.23.8)
-      '@wagmi/core': 2.13.7(@types/react@18.2.48)(immer@10.0.3)(react@0.0.0-experimental-8039e6d0b-20231026)(typescript@5.5.4)(viem@2.21.15)
-      '@walletconnect/ethereum-provider': 2.16.1(@types/react@18.2.48)(@vercel/kv@1.0.1)(react@0.0.0-experimental-8039e6d0b-20231026)
-      '@walletconnect/modal': 2.6.2(@types/react@18.2.48)(react@0.0.0-experimental-8039e6d0b-20231026)
-      cbw-sdk: /@coinbase/wallet-sdk@3.9.3
-      typescript: 5.5.4
-      viem: 2.21.15(typescript@5.5.4)(zod@3.23.8)
-    transitivePeerDependencies:
-      - '@azure/app-configuration'
-      - '@azure/cosmos'
-      - '@azure/data-tables'
-      - '@azure/identity'
-      - '@azure/keyvault-secrets'
-      - '@azure/storage-blob'
-      - '@capacitor/preferences'
-      - '@netlify/blobs'
-      - '@planetscale/database'
-      - '@react-native-async-storage/async-storage'
-      - '@types/react'
-      - '@upstash/redis'
-      - '@vercel/kv'
-      - bufferutil
-      - encoding
-      - ioredis
-      - react
-      - react-dom
-      - react-native
-      - rollup
-      - supports-color
-      - uWebSockets.js
-      - utf-8-validate
-      - zod
-    dev: false
-
   /@wagmi/connectors@5.1.13(@types/react@18.2.48)(@vercel/kv@1.0.1)(@wagmi/core@2.13.7)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react-native@0.74.1)(react@0.0.0-experimental-8039e6d0b-20231026)(rollup@3.29.4)(typescript@5.5.4)(viem@2.21.15)(zod@3.23.8):
     resolution: {integrity: sha512-Lvw3ClOQL8lJGn2cY2QJbqo0Gb6P30QtDCBMtpXwLUSnKnLvHq0d/aErJXEU3LdHtVJC9qwx9Siug4AUHtTK6w==}
     peerDependencies:
@@ -15219,18 +15127,18 @@ packages:
       tslib: 1.14.1
     dev: false
 
-  /@web3modal/base@5.1.9(@types/react@18.2.48)(@vercel/kv@1.0.1)(react@0.0.0-experimental-8039e6d0b-20231026):
-    resolution: {integrity: sha512-XvMRbYzhdLEg59E0IsDVuvLB1525EGI5iMG2i9G4OVWUB3y9+STjZfl9M3KTy4ONRjWQPEt4OC6iWIkUef1w7Q==}
+  /@web3modal/base@5.1.10(@types/react@18.2.48)(@vercel/kv@1.0.1)(react@0.0.0-experimental-8039e6d0b-20231026):
+    resolution: {integrity: sha512-cmdKr+IZG5OcZBbOFKFAKjGAU2pWSM/rIXc96KzgvY4djv+HCqQELpnWNryEy4cpXqnVqS48EPyumF25OledHQ==}
     dependencies:
       '@walletconnect/utils': 2.16.1(@vercel/kv@1.0.1)
-      '@web3modal/common': 5.1.9
-      '@web3modal/core': 5.1.9(@types/react@18.2.48)(react@0.0.0-experimental-8039e6d0b-20231026)
-      '@web3modal/polyfills': 5.1.9
-      '@web3modal/scaffold-ui': 5.1.9(@types/react@18.2.48)(@vercel/kv@1.0.1)(react@0.0.0-experimental-8039e6d0b-20231026)
-      '@web3modal/scaffold-utils': 5.1.9(@types/react@18.2.48)(react@0.0.0-experimental-8039e6d0b-20231026)
-      '@web3modal/siwe': 5.1.9(@types/react@18.2.48)(@vercel/kv@1.0.1)(react@0.0.0-experimental-8039e6d0b-20231026)
-      '@web3modal/ui': 5.1.9
-      '@web3modal/wallet': 5.1.9
+      '@web3modal/common': 5.1.10
+      '@web3modal/core': 5.1.10(@types/react@18.2.48)(react@0.0.0-experimental-8039e6d0b-20231026)
+      '@web3modal/polyfills': 5.1.10
+      '@web3modal/scaffold-ui': 5.1.10(@types/react@18.2.48)(@vercel/kv@1.0.1)(react@0.0.0-experimental-8039e6d0b-20231026)
+      '@web3modal/scaffold-utils': 5.1.10(@types/react@18.2.48)(react@0.0.0-experimental-8039e6d0b-20231026)
+      '@web3modal/siwe': 5.1.10(@types/react@18.2.48)(@vercel/kv@1.0.1)(react@0.0.0-experimental-8039e6d0b-20231026)
+      '@web3modal/ui': 5.1.10
+      '@web3modal/wallet': 5.1.10
     optionalDependencies:
       borsh: 0.7.0
       bs58: 5.0.0
@@ -15253,39 +15161,39 @@ packages:
       - uWebSockets.js
     dev: false
 
-  /@web3modal/common@5.1.9:
-    resolution: {integrity: sha512-VgYWXrUyhJRlNsRfBO/JUgrUHMdAuE0W7uahM7He4AEohc8zq0bu+iFCwKaDTdhhdwUnBFRLpOkk/6BRgpC6gw==}
+  /@web3modal/common@5.1.10:
+    resolution: {integrity: sha512-C4KWgZv2xelHlY6BbiOK+Mp5bjfnw6/zM3wkkPKrOF/Pnn6fyN34mR0BOTgZyq6V6qhKfqLepLBpRO7cOuOZtw==}
     dependencies:
       bignumber.js: 9.1.2
       dayjs: 1.11.10
     dev: false
 
-  /@web3modal/core@5.1.9(@types/react@18.2.48)(react@0.0.0-experimental-8039e6d0b-20231026):
-    resolution: {integrity: sha512-MNYEcC4OrQvmXmY/mwCESjHAgzo/A46rVkx6a2JsyFpEoGUHGNQYd69ov0V9pbYTQntVnjolMPeWB6ZIUUWDmg==}
+  /@web3modal/core@5.1.10(@types/react@18.2.48)(react@0.0.0-experimental-8039e6d0b-20231026):
+    resolution: {integrity: sha512-+LX1QwFIcp8/IDzS77mJ6Ge5ZSYiAZr3EBSEOZLjrn22jMLyILUtEb1Tjoyrivjsanc2tElodtwf6rlfOZ0qPA==}
     dependencies:
-      '@web3modal/common': 5.1.9
-      '@web3modal/wallet': 5.1.9
+      '@web3modal/common': 5.1.10
+      '@web3modal/wallet': 5.1.10
       valtio: 1.11.2(@types/react@18.2.48)(react@0.0.0-experimental-8039e6d0b-20231026)
     transitivePeerDependencies:
       - '@types/react'
       - react
     dev: false
 
-  /@web3modal/polyfills@5.1.9:
-    resolution: {integrity: sha512-Z1cDmoYlwG+KbGyNWpc+YdbkEcQ+a+Nwed49HTm5ufMuq165iKyoe2uZYicV77Hma60/n599zcIGVP42w7e2+g==}
+  /@web3modal/polyfills@5.1.10:
+    resolution: {integrity: sha512-SozAs8xv0IsR1r8ELBJPs4TReS0jXxV6gDcFAO5xZzElYWtcLfXezI2u1tVXvaHobS4uaUJOss4cRemhh9XCmA==}
     dependencies:
       buffer: 6.0.3
     dev: false
 
-  /@web3modal/scaffold-ui@5.1.9(@types/react@18.2.48)(@vercel/kv@1.0.1)(react@0.0.0-experimental-8039e6d0b-20231026):
-    resolution: {integrity: sha512-p+SJABeb/9TiN/wHMawPttep/+bZZ4i9tt0zZMQpcjp5IgnZwBr83zAd0KwUudFiync8GGv09V4GdhI+MkQDRw==}
+  /@web3modal/scaffold-ui@5.1.10(@types/react@18.2.48)(@vercel/kv@1.0.1)(react@0.0.0-experimental-8039e6d0b-20231026):
+    resolution: {integrity: sha512-Miwuin+kzFqJngbTfY5SDWQSKP3/OgLKm+60GC+WqOOPFmN3i+ql+lLTaAQ3i0ZOk63Zli3R0rv0hUSIqxZYaA==}
     dependencies:
-      '@web3modal/common': 5.1.9
-      '@web3modal/core': 5.1.9(@types/react@18.2.48)(react@0.0.0-experimental-8039e6d0b-20231026)
-      '@web3modal/scaffold-utils': 5.1.9(@types/react@18.2.48)(react@0.0.0-experimental-8039e6d0b-20231026)
-      '@web3modal/siwe': 5.1.9(@types/react@18.2.48)(@vercel/kv@1.0.1)(react@0.0.0-experimental-8039e6d0b-20231026)
-      '@web3modal/ui': 5.1.9
-      '@web3modal/wallet': 5.1.9
+      '@web3modal/common': 5.1.10
+      '@web3modal/core': 5.1.10(@types/react@18.2.48)(react@0.0.0-experimental-8039e6d0b-20231026)
+      '@web3modal/scaffold-utils': 5.1.10(@types/react@18.2.48)(react@0.0.0-experimental-8039e6d0b-20231026)
+      '@web3modal/siwe': 5.1.10(@types/react@18.2.48)(@vercel/kv@1.0.1)(react@0.0.0-experimental-8039e6d0b-20231026)
+      '@web3modal/ui': 5.1.10
+      '@web3modal/wallet': 5.1.10
       lit: 3.1.0
     transitivePeerDependencies:
       - '@azure/app-configuration'
@@ -15306,28 +15214,28 @@ packages:
       - uWebSockets.js
     dev: false
 
-  /@web3modal/scaffold-utils@5.1.9(@types/react@18.2.48)(react@0.0.0-experimental-8039e6d0b-20231026):
-    resolution: {integrity: sha512-RB4xr5c9kaoE2H9xUFOHExhgdp7DEyZAv/4vqzCU14pH1fyCz0HE4UWkS8BtbJJ3dXjp9IVzhA2Az1zhuYBx8w==}
+  /@web3modal/scaffold-utils@5.1.10(@types/react@18.2.48)(react@0.0.0-experimental-8039e6d0b-20231026):
+    resolution: {integrity: sha512-4Fbv+1GnitozyC5W9ckNeSq3Uydd7io5cgWGAv+S5fAA4cG2za5rXBXVdl2RC7EPaBvUXK8JCR34gT5jgU8xXA==}
     dependencies:
-      '@web3modal/common': 5.1.9
-      '@web3modal/core': 5.1.9(@types/react@18.2.48)(react@0.0.0-experimental-8039e6d0b-20231026)
-      '@web3modal/polyfills': 5.1.9
-      '@web3modal/wallet': 5.1.9
+      '@web3modal/common': 5.1.10
+      '@web3modal/core': 5.1.10(@types/react@18.2.48)(react@0.0.0-experimental-8039e6d0b-20231026)
+      '@web3modal/polyfills': 5.1.10
+      '@web3modal/wallet': 5.1.10
       valtio: 1.11.2(@types/react@18.2.48)(react@0.0.0-experimental-8039e6d0b-20231026)
     transitivePeerDependencies:
       - '@types/react'
       - react
     dev: false
 
-  /@web3modal/siwe@5.1.9(@types/react@18.2.48)(@vercel/kv@1.0.1)(react@0.0.0-experimental-8039e6d0b-20231026):
-    resolution: {integrity: sha512-C6Bb8jq7MxojT+niioSBkhFSpGPbCiiieO1M/polLItsPr9tEf439v4Id94Neap6E6P2vtfqvHoRPiDkuvDCJQ==}
+  /@web3modal/siwe@5.1.10(@types/react@18.2.48)(@vercel/kv@1.0.1)(react@0.0.0-experimental-8039e6d0b-20231026):
+    resolution: {integrity: sha512-+UVh+aqilHi99dlZK/m+GmURPNDP5NSEs3uTeBkFHYu0flTW+Svox+l0WWEw0Kah9iM02/t4QEgOUcGUQeCcQw==}
     dependencies:
       '@walletconnect/utils': 2.16.1(@vercel/kv@1.0.1)
-      '@web3modal/common': 5.1.9
-      '@web3modal/core': 5.1.9(@types/react@18.2.48)(react@0.0.0-experimental-8039e6d0b-20231026)
-      '@web3modal/scaffold-utils': 5.1.9(@types/react@18.2.48)(react@0.0.0-experimental-8039e6d0b-20231026)
-      '@web3modal/ui': 5.1.9
-      '@web3modal/wallet': 5.1.9
+      '@web3modal/common': 5.1.10
+      '@web3modal/core': 5.1.10(@types/react@18.2.48)(react@0.0.0-experimental-8039e6d0b-20231026)
+      '@web3modal/scaffold-utils': 5.1.10(@types/react@18.2.48)(react@0.0.0-experimental-8039e6d0b-20231026)
+      '@web3modal/ui': 5.1.10
+      '@web3modal/wallet': 5.1.10
       lit: 3.1.0
       valtio: 1.11.2(@types/react@18.2.48)(react@0.0.0-experimental-8039e6d0b-20231026)
     transitivePeerDependencies:
@@ -15349,15 +15257,15 @@ packages:
       - uWebSockets.js
     dev: false
 
-  /@web3modal/ui@5.1.9:
-    resolution: {integrity: sha512-HGf9qpb7bFWT/YJ8yFmMhz7gWUC6/Jyrb4QWO4YcybL3BqbDH90XFUCP2OPvJ8pYur1RFx/ScYbFhop+O7iaWA==}
+  /@web3modal/ui@5.1.10:
+    resolution: {integrity: sha512-NAUtnFaHo5oFfa+QZ6/Z194kWHnpFLI86MrGNU5Si3v1feSzxkOl8r210ylxbRF0IkcWUJD2GcGhWo3uKBUj2g==}
     dependencies:
       lit: 3.1.0
       qrcode: 1.5.3
     dev: false
 
-  /@web3modal/wagmi@5.1.9(@types/react@18.2.48)(@vercel/kv@1.0.1)(@wagmi/connectors@5.1.10)(@wagmi/core@2.13.7)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026)(viem@2.21.15)(wagmi@2.12.14):
-    resolution: {integrity: sha512-JJAq/xw18iFbRXOf6rzKz6DDpcdPGO/Q5bn/XbwM4rOmyQKW5cFdaz8pww4HbmJwzIyjsBhcVFLAcjnARU/WbQ==}
+  /@web3modal/wagmi@5.1.10(@types/react@18.2.48)(@vercel/kv@1.0.1)(@wagmi/connectors@5.1.13)(@wagmi/core@2.13.7)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026)(viem@2.21.15)(wagmi@2.12.14):
+    resolution: {integrity: sha512-jMMwMeGJG3pGQuSpCF6vw1iafwW2WL3vtYx2+OuvIaJUqghvvbYf+Er18KPhTaudOrIvMWMLkE8GTTTnI9RWbg==}
     peerDependencies:
       '@wagmi/connectors': '>=4'
       '@wagmi/core': '>=2.0.0'
@@ -15374,16 +15282,16 @@ packages:
       vue:
         optional: true
     dependencies:
-      '@wagmi/connectors': 5.1.10(@types/react@18.2.48)(@vercel/kv@1.0.1)(@wagmi/core@2.13.7)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react-native@0.74.1)(react@0.0.0-experimental-8039e6d0b-20231026)(rollup@3.29.4)(typescript@5.5.4)(viem@2.21.15)(zod@3.23.8)
+      '@wagmi/connectors': 5.1.13(@types/react@18.2.48)(@vercel/kv@1.0.1)(@wagmi/core@2.13.7)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react-native@0.74.1)(react@0.0.0-experimental-8039e6d0b-20231026)(rollup@3.29.4)(typescript@5.5.4)(viem@2.21.15)(zod@3.23.8)
       '@wagmi/core': 2.13.7(@types/react@18.2.48)(immer@10.0.3)(react@0.0.0-experimental-8039e6d0b-20231026)(typescript@5.5.4)(viem@2.21.15)
       '@walletconnect/ethereum-provider': 2.16.1(@types/react@18.2.48)(@vercel/kv@1.0.1)(react@0.0.0-experimental-8039e6d0b-20231026)
       '@walletconnect/utils': 2.16.1(@vercel/kv@1.0.1)
-      '@web3modal/base': 5.1.9(@types/react@18.2.48)(@vercel/kv@1.0.1)(react@0.0.0-experimental-8039e6d0b-20231026)
-      '@web3modal/common': 5.1.9
-      '@web3modal/polyfills': 5.1.9
-      '@web3modal/scaffold-utils': 5.1.9(@types/react@18.2.48)(react@0.0.0-experimental-8039e6d0b-20231026)
-      '@web3modal/siwe': 5.1.9(@types/react@18.2.48)(@vercel/kv@1.0.1)(react@0.0.0-experimental-8039e6d0b-20231026)
-      '@web3modal/wallet': 5.1.9
+      '@web3modal/base': 5.1.10(@types/react@18.2.48)(@vercel/kv@1.0.1)(react@0.0.0-experimental-8039e6d0b-20231026)
+      '@web3modal/common': 5.1.10
+      '@web3modal/polyfills': 5.1.10
+      '@web3modal/scaffold-utils': 5.1.10(@types/react@18.2.48)(react@0.0.0-experimental-8039e6d0b-20231026)
+      '@web3modal/siwe': 5.1.10(@types/react@18.2.48)(@vercel/kv@1.0.1)(react@0.0.0-experimental-8039e6d0b-20231026)
+      '@web3modal/wallet': 5.1.10
       react: 0.0.0-experimental-8039e6d0b-20231026
       react-dom: 0.0.0-experimental-8039e6d0b-20231026(react@0.0.0-experimental-8039e6d0b-20231026)
       viem: 2.21.15(typescript@5.5.4)(zod@3.23.8)
@@ -15409,12 +15317,12 @@ packages:
       - utf-8-validate
     dev: false
 
-  /@web3modal/wallet@5.1.9:
-    resolution: {integrity: sha512-xCT8yYl4ev8oGpvLKx7By46QvXVVDkwJ2kQXrOAuaZPpKkkDLk37a2G0TRiAHquQqIJOfwdEj60l46pu8Z6oiw==}
+  /@web3modal/wallet@5.1.10:
+    resolution: {integrity: sha512-C9q84ftHZHSft0sTVplFE3Y8NvQ4/icEpIS/7f6B0y2Lnu4Fa7u8IGlkTHSnhQBGrrUF4ahCZBiaAnZQm3RDMQ==}
     dependencies:
       '@walletconnect/logger': 2.1.2
-      '@web3modal/common': 5.1.9
-      '@web3modal/polyfills': 5.1.9
+      '@web3modal/common': 5.1.10
+      '@web3modal/polyfills': 5.1.10
       zod: 3.22.4
     dev: false
 
@@ -26466,8 +26374,8 @@ packages:
     engines: {node: ^10 || ^12 || >=14}
     dependencies:
       nanoid: 3.3.7
-      picocolors: 1.0.1
-      source-map-js: 1.2.0
+      picocolors: 1.1.0
+      source-map-js: 1.2.1
     dev: false
 
   /postcss@8.4.47:
@@ -32908,7 +32816,7 @@ time:
   /@types/use-subscription@1.0.2: '2023-11-07T18:34:22.454Z'
   /@vercel/speed-insights@1.0.12: '2024-06-12T08:11:09.277Z'
   /@wagmi/core@2.13.7: '2024-09-24T17:21:44.028Z'
-  /@web3modal/wagmi@5.1.9: '2024-09-19T13:27:49.492Z'
+  /@web3modal/wagmi@5.1.10: '2024-09-27T18:42:22.178Z'
   /anchorme@3.0.8: '2024-04-08T09:26:57.773Z'
   /async-call-rpc@6.4.2: '2024-03-05T19:16:13.275Z'
   /autoprefixer@10.4.20: '2024-08-02T21:11:42.554Z'

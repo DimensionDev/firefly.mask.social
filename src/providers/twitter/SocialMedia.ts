@@ -349,9 +349,13 @@ class TwitterSocialMedia implements Provider {
     }
 
     async login(): Promise<SessionPayload | null> {
-        const response = await twitterSessionHolder.fetch<ResponseJSON<SessionPayload>>('/api/twitter/login', {
-            method: 'POST',
-        });
+        const response = await twitterSessionHolder.fetch<ResponseJSON<SessionPayload>>(
+            '/api/twitter/login',
+            {
+                method: 'POST',
+            },
+            false,
+        );
         if (!response.success) return null;
         return response.data;
     }

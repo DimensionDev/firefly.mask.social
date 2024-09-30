@@ -47,11 +47,11 @@ export async function reportTokenTips(identity: FireflyIdentity, params: UploadT
     if (!resolvedIdentity) throw new Error('No available profile.');
 
     const from_account_id = profile
-        ? await getAllPlatformProfileFromFirefly(resolvedIdentity)
+        ? await getAllPlatformProfileFromFirefly(resolvedIdentity, false)
               .then((x) => x.data?.fireflyAccountId)
               .catch(() => undefined)
         : undefined;
-    const to_account_id = await getAllPlatformProfileFromFirefly(identity)
+    const to_account_id = await getAllPlatformProfileFromFirefly(identity, false)
         .then((x) => x.data?.fireflyAccountId)
         .catch(() => undefined);
 
