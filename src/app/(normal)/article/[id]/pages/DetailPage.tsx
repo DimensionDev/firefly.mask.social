@@ -18,11 +18,12 @@ import { ArticleHeader } from '@/components/Article/ArticleHeader.js';
 import { ArticleMarkup } from '@/components/Markup/ArticleMarkup.js';
 import { CollapsedContent } from '@/components/Posts/CollapsedContent.js';
 import { ImageAsset } from '@/components/Posts/ImageAsset.js';
-import { PageRoute, SearchType, Source } from '@/constants/enum.js';
+import { Source } from '@/constants/enum.js';
 import { Link } from '@/esm/Link.js';
 import { classNames } from '@/helpers/classNames.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
 import { openWindow } from '@/helpers/openWindow.js';
+import { resolveSearchUrl } from '@/helpers/resolveSearchUrl.js';
 import { useComeBack } from '@/hooks/useComeback.js';
 import { PreviewMediaModalRef } from '@/modals/controls.js';
 import { FireflyArticleProvider } from '@/providers/firefly/Article.js';
@@ -128,13 +129,7 @@ export function ArticleDetailPage({ params: { id: articleId } }: PageProps) {
                                 event.preventDefault();
 
                                 scrollTo(0, 0);
-                                router.push(
-                                    urlcat(PageRoute.Search, {
-                                        q: article.slug,
-                                        type: SearchType.Posts,
-                                        source: Source.Article,
-                                    }),
-                                );
+                                router.push(resolveSearchUrl(article.slug || '', undefined, Source.Article));
                             }}
                         >
                             #{article.slug}

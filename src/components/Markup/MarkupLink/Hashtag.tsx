@@ -2,12 +2,11 @@
 
 import { useRouter } from 'next/navigation.js';
 import { memo, useEffect } from 'react';
-import urlcat from 'urlcat';
 
 import { ClickableArea } from '@/components/ClickableArea.js';
 import type { MarkupLinkProps } from '@/components/Markup/MarkupLink/index.js';
-import { PageRoute, SearchType } from '@/constants/enum.js';
-import { resolveSourceInUrl } from '@/helpers/resolveSourceInUrl.js';
+import { PageRoute } from '@/constants/enum.js';
+import { resolveSearchUrl } from '@/helpers/resolveSearchUrl.js';
 
 export const Hashtag = memo<Omit<MarkupLinkProps, 'post'>>(function Hashtag({ title, source }) {
     const router = useRouter();
@@ -24,13 +23,7 @@ export const Hashtag = memo<Omit<MarkupLinkProps, 'post'>>(function Hashtag({ ti
             as="span"
             onClick={() => {
                 scrollTo(0, 0);
-                router.push(
-                    urlcat(PageRoute.Search, {
-                        q: title,
-                        type: SearchType.Posts,
-                        source: source ? resolveSourceInUrl(source) : undefined,
-                    }),
-                );
+                router.push(resolveSearchUrl(title, undefined, source));
             }}
         >
             {title}
