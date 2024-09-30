@@ -1,3 +1,5 @@
+'use client';
+
 import { t } from '@lingui/macro';
 import { Suspense } from 'react';
 
