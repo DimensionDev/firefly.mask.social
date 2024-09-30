@@ -34,14 +34,14 @@ export function ProfileAvatar({
 
     const content = (
         <div className="relative z-0" style={style}>
-            {loading ? (
-                <div className="absolute left-0 top-0">
-                    <LoadingIcon className="animate-spin text-primaryBottom" width={size} height={size} />
-                </div>
-            ) : null}
             <div className="absolute left-0 top-0 rounded-full" style={style}>
                 <Avatar src={profile.pfp} size={size} alt={profile.displayName} fallbackUrl={fallbackUrl} />
             </div>
+            {loading ? (
+                <div className="absolute left-0 top-0 z-10">
+                    <LoadingIcon className="animate-spin text-primaryBottom" width={size} height={size} />
+                </div>
+            ) : null}
             {enableSourceIcon ? (
                 <SocialSourceIcon
                     className="absolute -bottom-[1px] -right-[8px] z-10 h-4 w-4 rounded-full border border-white"

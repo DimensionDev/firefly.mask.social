@@ -3,7 +3,7 @@
 import { Popover } from '@headlessui/react';
 import { delay } from '@masknet/kit';
 
-import { ClickableArea } from '@/components/ClickableArea.jsx';
+import { ClickableArea } from '@/components/ClickableArea.js';
 import { ProfileSettings } from '@/components/Login/ProfileSettings.js';
 import { ProfileAvatar } from '@/components/ProfileAvatar.js';
 import { useAsyncStatus } from '@/hooks/useAsyncStatus.js';
@@ -20,8 +20,8 @@ interface ProfileAvatarInteractiveProps {
 export function ProfileAvatarInteractive({ profile, loading }: ProfileAvatarInteractiveProps) {
     const isMedium = useIsMedium();
     const { updateSidebarOpen } = useNavigatorState();
-    const asyncStatus = useAsyncStatus(profile.source);
 
+    const asyncStatus = useAsyncStatus(profile.source);
     const isLoading = loading || asyncStatus;
 
     if (!isMedium) {
