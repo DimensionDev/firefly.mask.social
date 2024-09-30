@@ -1,3 +1,4 @@
+import { t } from '@lingui/macro';
 import { Suspense } from 'react';
 
 import { ArticleBookmarkList } from '@/app/(normal)/bookmarks/ArticleBookmarkList.js';
@@ -6,7 +7,6 @@ import { Loading } from '@/components/Loading.js';
 import { type BookmarkSource, Source, SourceInURL } from '@/constants/enum.js';
 import { resolveSource } from '@/helpers/resolveSource.js';
 import { useNavigatorTitle } from '@/hooks/useNavigatorTitle.js';
-import { t } from '@lingui/macro';
 
 export default function Page({ params }: { params: { source: SourceInURL } }) {
     const source = resolveSource(params.source) as BookmarkSource;
