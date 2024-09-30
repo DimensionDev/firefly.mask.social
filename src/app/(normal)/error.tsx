@@ -8,6 +8,6 @@ import { isRoutePathname } from '@/helpers/isRoutePathname.js';
 export default function Error({ error, reset }: { error: Error; reset: () => void }) {
     const pathname = usePathname();
     const isProfilePage = isRoutePathname(pathname, '/profile/:source');
-    if(isProfilePage) return
+    if (isProfilePage) return;
     return <ErrorHandler error={error} reset={reset} />;
 }
