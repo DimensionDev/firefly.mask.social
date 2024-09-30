@@ -14,9 +14,9 @@ import { narrowToSocialSource } from '@/helpers/narrowToSocialSource.js';
 import { createIndicator } from '@/helpers/pageable.js';
 import { useCurrentProfileAll } from '@/hooks/useCurrentProfile.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
+import { useNavigatorTitle } from '@/hooks/useNavigatorTitle.js';
 import { FireflyArticleProvider } from '@/providers/firefly/Article.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
-import { useNavigatorTitle } from '@/hooks/useNavigatorTitle.js';
 
 export function ArticleBookmarkList() {
     const currentSource = useGlobalState.use.currentSource();
