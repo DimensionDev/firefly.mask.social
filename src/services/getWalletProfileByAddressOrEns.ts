@@ -13,4 +13,8 @@ async function resolver(addressOrEns: string, isTokenRequired = true) {
     return walletProfile;
 }
 
-export const getWalletProfileByAddressOrEns = memoizePromise(memoize, resolver, (addressOrEns, isTokenRequired) => `${addressOrEns}_${isTokenRequired}`);
+export const getWalletProfileByAddressOrEns = memoizePromise(
+    memoize,
+    resolver,
+    (addressOrEns, isTokenRequired) => `${addressOrEns}_${isTokenRequired}`,
+);
