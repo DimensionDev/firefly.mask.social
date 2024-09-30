@@ -39,7 +39,7 @@ export function ProfileAvatarInteractive({ profile, loading }: ProfileAvatarInte
                     });
                 }}
             >
-                <ProfileAvatar profile={profile} clickable loading={loading} />
+                <ProfileAvatar profile={profile} clickable loading={isLoading} />
             </ClickableArea>
         );
     }
@@ -48,8 +48,8 @@ export function ProfileAvatarInteractive({ profile, loading }: ProfileAvatarInte
         <Popover as="div" className="relative">
             {({ close }) => (
                 <>
-                    <Popover.Button as="div" disabled={loading}>
-                        <ProfileAvatar profile={profile} clickable loading={loading} />
+                    <Popover.Button as="div" disabled={isLoading}>
+                        <ProfileAvatar profile={profile} clickable loading={isLoading} />
                     </Popover.Button>
                     <Popover.Panel className="absolute top-[-12px] translate-y-[-100%]">
                         <ProfileSettings source={profile.source} onClose={() => close()} />
