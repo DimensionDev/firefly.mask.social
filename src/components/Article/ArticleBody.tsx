@@ -16,11 +16,12 @@ import { ImageAsset } from '@/components/Posts/ImageAsset.js';
 import { Time } from '@/components/Semantic/Time.js';
 import { TimestampFormatter } from '@/components/TimeStampFormatter.js';
 import { IS_APPLE, IS_SAFARI } from '@/constants/bowser.js';
-import { PageRoute, SearchType, Source, SourceInURL } from '@/constants/enum.js';
+import { Source, SourceInURL } from '@/constants/enum.js';
 import { Link } from '@/esm/Link.js';
 import { classNames } from '@/helpers/classNames.js';
 import { formatEthereumAddress } from '@/helpers/formatAddress.js';
 import { resolveArticlePlatformIcon } from '@/helpers/resolveArticlePlatformIcon.js';
+import { resolveSearchUrl } from '@/helpers/resolveSearchUrl.js';
 import { useDarkMode } from '@/hooks/useDarkMode.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import { PreviewMediaModalRef } from '@/modals/controls.js';
@@ -87,13 +88,7 @@ export function ArticleBody({ cover, article, onClick }: Props) {
                             event.preventDefault();
 
                             scrollTo(0, 0);
-                            router.push(
-                                urlcat(PageRoute.Search, {
-                                    q: article.slug,
-                                    type: SearchType.Posts,
-                                    source: Source.Article,
-                                }),
-                            );
+                            router.push(resolveSearchUrl(article.slug || '', undefined, Source.Article));
                         }}
                     >
                         #{article.slug}
