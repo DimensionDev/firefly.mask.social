@@ -442,7 +442,7 @@ export class FireflySocialMedia implements Provider {
 
     async getAllPlatformProfileByIdentity(
         identity: FireflyIdentity,
-        isTokenRequired = true,
+        isTokenRequired: boolean,
     ): Promise<FireflyProfile[]> {
         const response = await getAllPlatformProfileFromFirefly(identity, isTokenRequired);
         const profiles = resolveFireflyResponseData(response);
