@@ -8,7 +8,7 @@ import { PostStatistics } from '@/components/Actions/PostStatistics.js';
 import { FeedActionType } from '@/components/Posts/ActionType.js';
 import { PostBody } from '@/components/Posts/PostBody.js';
 import { PostHeader } from '@/components/Posts/PostHeader.js';
-import { PageRoute, Source } from '@/constants/enum.js';
+import { PageRoute } from '@/constants/enum.js';
 import { classNames } from '@/helpers/classNames.js';
 import { getPostUrl } from '@/helpers/getPostUrl.js';
 import { isRoutePathname } from '@/helpers/isRoutePathname.js';
@@ -59,7 +59,6 @@ export const ThreadBody = memo<ThreadBodyProps>(function ThreadBody({
                 'cursor-pointer': !isSamePost,
             })}
             onClick={() => {
-                if (post.source === Source.Twitter) return;
                 const selection = window.getSelection();
                 if (selection && selection.toString().length !== 0) return;
                 if (isSamePost) return;
