@@ -23,7 +23,7 @@ export function FollowingNFTList({ walletAddress }: { walletAddress?: string }) 
         queryKey,
         networkMode: 'always',
         queryFn: async ({ pageParam }) => {
-            if (!profileIds.length) return null;
+            if (!walletAddress && !profileIds.length) return null;
             return FireflySocialMediaProvider.getFollowingNFTs({
                 indicator: createIndicator(undefined, pageParam),
                 walletAddresses: walletAddress ? [walletAddress] : undefined,
@@ -34,7 +34,7 @@ export function FollowingNFTList({ walletAddress }: { walletAddress?: string }) 
         select: (data) => compact(data.pages.flatMap((p) => p?.data)),
     });
 
-    if (!profileIds.length) {
+    if (!walletAddress && !profileIds.length) {
         return <NotLoginFallback source={Source.Farcaster} />;
     }
 

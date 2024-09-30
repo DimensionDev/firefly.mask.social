@@ -442,7 +442,7 @@ export class FireflySocialMedia implements Provider {
 
     async getAllPlatformProfileByIdentity(
         identity: FireflyIdentity,
-        isTokenRequired = true,
+        isTokenRequired: boolean,
     ): Promise<FireflyProfile[]> {
         const response = await getAllPlatformProfileFromFirefly(identity, isTokenRequired);
         const profiles = resolveFireflyResponseData(response);
@@ -932,7 +932,7 @@ export class FireflySocialMedia implements Provider {
 
         const data = await Promise.all(
             (response.data?.blocks ?? []).map(async (item) => {
-                const walletProfile = await getWalletProfileByAddressOrEns(item.address);
+                const walletProfile = await getWalletProfileByAddressOrEns(item.address, true);
                 return {
                     ...(walletProfile || {
                         address: item.address as Address,
@@ -1202,14 +1202,18 @@ export class FireflySocialMedia implements Provider {
             settings.FIREFLY_ROOT_URL,
             walletAddresses && walletAddresses.length > 0 ? '/v2/user/timeline/nft' : '/v2/timeline/nft',
         );
-        const response = await fireflySessionHolder.fetch<GetFollowingNFTResponse>(url, {
-            method: 'POST',
-            body: JSON.stringify({
-                size: limit,
-                cursor: indicator?.id && !isZero(indicator.id) ? indicator.id : undefined,
-                walletAddresses,
-            }),
-        });
+        const response = await fireflySessionHolder.fetch<GetFollowingNFTResponse>(
+            url,
+            {
+                method: 'POST',
+                body: JSON.stringify({
+                    size: limit,
+                    cursor: indicator?.id && !isZero(indicator.id) ? indicator.id : undefined,
+                    walletAddresses,
+                }),
+            },
+            !(walletAddresses && walletAddresses.length > 0),
+        );
         return createPageable(
             response.data.result,
             indicator,

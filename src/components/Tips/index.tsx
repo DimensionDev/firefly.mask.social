@@ -45,7 +45,7 @@ export const Tips = memo(function Tips({
 
     const [{ loading }, handleClick] = useAsyncFn(async () => {
         try {
-            const relatedProfiles = await FireflySocialMediaProvider.getAllPlatformProfileByIdentity(identity);
+            const relatedProfiles = await FireflySocialMediaProvider.getAllPlatformProfileByIdentity(identity, false);
             if (!relatedProfiles?.some((profile) => profile.identity.source === Source.Wallet)) {
                 throw new Error('No available profiles');
             }

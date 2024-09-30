@@ -28,7 +28,7 @@ function getQueryKey(identity: FireflyIdentity) {
     }
 }
 
-export async function getAllPlatformProfileFromFirefly(identity: FireflyIdentity, isTokenRequired = true) {
+export async function getAllPlatformProfileFromFirefly(identity: FireflyIdentity, isTokenRequired: boolean) {
     const queryKey = getQueryKey(identity);
 
     const url = urlcat(
