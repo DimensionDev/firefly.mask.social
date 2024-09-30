@@ -1202,14 +1202,18 @@ export class FireflySocialMedia implements Provider {
             settings.FIREFLY_ROOT_URL,
             walletAddresses && walletAddresses.length > 0 ? '/v2/user/timeline/nft' : '/v2/timeline/nft',
         );
-        const response = await fireflySessionHolder.fetch<GetFollowingNFTResponse>(url, {
-            method: 'POST',
-            body: JSON.stringify({
-                size: limit,
-                cursor: indicator?.id && !isZero(indicator.id) ? indicator.id : undefined,
-                walletAddresses,
-            }),
-        }, !(walletAddresses && walletAddresses.length > 0));
+        const response = await fireflySessionHolder.fetch<GetFollowingNFTResponse>(
+            url,
+            {
+                method: 'POST',
+                body: JSON.stringify({
+                    size: limit,
+                    cursor: indicator?.id && !isZero(indicator.id) ? indicator.id : undefined,
+                    walletAddresses,
+                }),
+            },
+            !(walletAddresses && walletAddresses.length > 0),
+        );
         return createPageable(
             response.data.result,
             indicator,
