@@ -1,0 +1,25 @@
+{
+    "advertisements": [
+        {
+            "sort": 0,
+            "image": "https://media.firefly.land/advertisement/cz.png",
+            "link": "",
+            "type": "function",
+            "function": "openActivity"
+        },
+        {
+            "sort": 1,
+            "image": "https://media.firefly.land/advertisement/download.png",
+            "link": "https://firefly.social/",
+            "type": "link",
+            "function": ""
+        },
+        {
+            "sort": 2,
+            "image": "https://media.firefly.land/advertisement/scan.png",
+            "link": "",
+            "type": "function",
+            "function": "openScan"
+        }
+    ]
+}

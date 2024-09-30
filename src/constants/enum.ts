@@ -281,3 +281,11 @@ export enum S3ConvertStatus {
     Error = 'ERROR',
     StatusUpdate = 'STATUS_UPDATE',
 }
+
+export enum SimulateStatus {
+    Pending = 'pending',
+    Unverified = 'unverified',
+    Unsafe = 'unsafe',
+    Success = 'success',
+    Error = 'error',
+}

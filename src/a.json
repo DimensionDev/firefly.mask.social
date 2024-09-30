@@ -1,0 +1,58 @@
+{
+    "name": "Mask Network",
+    "logoURI": "https://raw.githubusercontent.com/DimensionDev/Maskbook-Website/master/img/MB--CircleCanvas--WhiteOverBlue.svg",
+    "keywords": [
+        "browser extension",
+        "web3",
+        "peer to peer",
+        "encryption",
+        "cryptography",
+        "gundb",
+        "privacy protection",
+        "ownyourdata",
+        "social network",
+        "blockchain",
+        "crypto",
+        "dweb"
+    ],
+    "timestamp": "2024-03-20T00:22:54.341Z",
+    "version": {
+        "major": 0,
+        "minor": 0,
+        "patch": 73
+    },
+    "tokens": [
+        {
+            "name": "Wrapped Ether",
+            "symbol": "WETH",
+            "address": "0x19bE64Ced7cDD14984198a7F971462c69046c6A4",
+            "chainId": 221122,
+            "decimals": 18,
+            "logoURI": "https://scroll-tech.github.io/token-list/data/WETH/logo.png"
+        },
+        {
+            "name": "Wrapped Bitcoin",
+            "symbol": "WBTC",
+            "address": "0xD5B019D09389CF8d2646a531ae6B4e4c54EB5903",
+            "chainId": 221122,
+            "decimals": 18,
+            "logoURI": "https://scroll-tech.github.io/token-list/data/WBTC/logo.svg"
+        },
+        {
+            "name": "Tether",
+            "symbol": "USDT",
+            "address": "0xA99Bc6Db05ac5130287D0d06c47D245D08AD79d7",
+            "chainId": 221122,
+            "decimals": 18,
+            "logoURI": "https://scroll-tech.github.io/token-list/data/USDT/logo.svg"
+        },
+        {
+            "name": "Mask Network",
+            "symbol": "MASK",
+            "address": "0xEaDAC90E76B2E121B9e8483129708EefB07F3334",
+            "chainId": 221122,
+            "decimals": 18,
+            "logoURI": "https://dimensiondev.github.io/Mask-VI/assets/Logo/MB--Logo--Geo--ForceCircle--Blue.svg"
+        }
+    ]
+}

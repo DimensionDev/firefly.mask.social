@@ -78,6 +78,7 @@ export enum SecurityMessageLevel {
     High = 'High',
     Medium = 'Medium',
     Safe = 'Safe',
+    Info = 'Info',
 }
 
 export interface SecurityMessage {
@@ -87,4 +88,10 @@ export interface SecurityMessage {
     title: (info: TokenContractSecurity) => string;
     message: (info: TokenContractSecurity) => string;
     shouldHide(info: TokenContractSecurity): boolean;
+}
+
+export interface StaticSecurityMessage {
+    level: SecurityMessageLevel;
+    title: string;
+    message: string;
 }

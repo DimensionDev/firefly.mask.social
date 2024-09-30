@@ -9,6 +9,7 @@ import { Section } from '@/app/(settings)/components/Section.js';
 import LoadingIcon from '@/assets/loading.svg';
 import { ClickableArea } from '@/components/ClickableArea.js';
 import { ClickableButton } from '@/components/ClickableButton.js';
+import { openSimulator } from '@/components/TransactionSimulator/openSimulator.js';
 import { IS_PRODUCTION } from '@/constants/index.js';
 import { Image } from '@/esm/Image.js';
 import { Link } from '@/esm/Link.js';
@@ -71,6 +72,7 @@ export default function Page() {
             >
                 {loading ? <LoadingIcon className="animate-spin" width={24} height={24} /> : <Trans>Upload</Trans>}
             </ClickableButton>
+            <h1 onClick={() => openSimulator({})}>openSimulator</h1>
             {url ? (
                 <Link href={url} target="_blank" className="mt-2 text-base font-bold text-lightHighlight">
                     {url}
