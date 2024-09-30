@@ -48,7 +48,6 @@ export function ArticleBookmarkList() {
         select: (data) => compact(data.pages.flatMap((x) => x?.data)),
     });
 
-
     useNavigatorTitle(t`Bookmarks`);
 
     return (

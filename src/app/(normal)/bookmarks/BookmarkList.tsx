@@ -47,7 +47,7 @@ export function BookmarkList({ source }: Props) {
     });
 
     useNavigatorTitle(t`Bookmarks`);
-    
+
     return (
         <ListInPage
             source={source}
