@@ -11,7 +11,7 @@ import { t } from '@lingui/macro';
 export default function Page({ params }: { params: { source: SourceInURL } }) {
     const source = resolveSource(params.source) as BookmarkSource;
 
-    useNavigatorTitle(t`Bookmarks`)
+    useNavigatorTitle(t`Bookmarks`);
     return (
         <Suspense fallback={<Loading />}>
             {source === Source.Article ? <ArticleBookmarkList /> : <BookmarkList source={source} />}
