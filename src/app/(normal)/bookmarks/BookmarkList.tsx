@@ -13,6 +13,7 @@ import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider
 import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
+import { useNavigatorTitle } from '@/hooks/useNavigatorTitle.js';
 
 interface Props {
     source: SocialSource;
@@ -44,6 +45,9 @@ export function BookmarkList({ source }: Props) {
         },
         select: getPostsSelector(source),
     });
+
+    useNavigatorTitle(t`Bookmarks`);
+
     return (
         <ListInPage
             source={source}

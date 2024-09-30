@@ -1,5 +1,3 @@
-'use client';
-
 import { t } from '@lingui/macro';
 import { Suspense } from 'react';
 
@@ -13,7 +11,6 @@ import { useNavigatorTitle } from '@/hooks/useNavigatorTitle.js';
 export default function Page({ params }: { params: { source: SourceInURL } }) {
     const source = resolveSource(params.source) as BookmarkSource;
 
-    useNavigatorTitle(t`Bookmarks`);
     return (
         <Suspense fallback={<Loading />}>
             {source === Source.Article ? <ArticleBookmarkList /> : <BookmarkList source={source} />}

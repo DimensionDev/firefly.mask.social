@@ -16,6 +16,7 @@ import { useCurrentProfileAll } from '@/hooks/useCurrentProfile.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
 import { FireflyArticleProvider } from '@/providers/firefly/Article.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
+import { useNavigatorTitle } from '@/hooks/useNavigatorTitle.js';
 
 export function ArticleBookmarkList() {
     const currentSource = useGlobalState.use.currentSource();
@@ -46,6 +47,8 @@ export function ArticleBookmarkList() {
         },
         select: (data) => compact(data.pages.flatMap((x) => x?.data)),
     });
+
+    useNavigatorTitle(t`Bookmarks`);
 
     return (
         <ListInPage
