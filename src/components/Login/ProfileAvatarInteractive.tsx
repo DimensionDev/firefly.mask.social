@@ -3,8 +3,10 @@
 import { Popover } from '@headlessui/react';
 import { delay } from '@masknet/kit';
 
+import { ClickableArea } from '@/components/ClickableArea.js';
 import { ProfileSettings } from '@/components/Login/ProfileSettings.js';
 import { ProfileAvatar } from '@/components/ProfileAvatar.js';
+import { useAsyncStatus } from '@/hooks/useAsyncStatus.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import { DraggablePopoverRef } from '@/modals/controls.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
@@ -12,16 +14,21 @@ import { useNavigatorState } from '@/store/useNavigatorStore.js';
 
 interface ProfileAvatarInteractiveProps {
     profile: Profile;
+    loading?: boolean;
 }
 
-export function ProfileAvatarInteractive({ profile }: ProfileAvatarInteractiveProps) {
-    const { updateSidebarOpen } = useNavigatorState();
+export function ProfileAvatarInteractive({ profile, loading }: ProfileAvatarInteractiveProps) {
     const isMedium = useIsMedium();
+    const { updateSidebarOpen } = useNavigatorState();
+
+    const asyncStatus = useAsyncStatus(profile.source);
+    const isLoading = loading || asyncStatus;
 
     if (!isMedium) {
         return (
-            <div
+            <ClickableArea
                 className="flex justify-center"
+                disabled={isLoading}
                 onClick={async () => {
                     updateSidebarOpen(false);
                     await delay(300);
@@ -32,8 +39,8 @@ export function ProfileAvatarInteractive({ profile }: ProfileAvatarInteractivePr
                     });
                 }}
             >
-                <ProfileAvatar profile={profile} clickable />
-            </div>
+                <ProfileAvatar profile={profile} clickable loading={loading} />
+            </ClickableArea>
         );
     }
 
@@ -41,8 +48,8 @@ export function ProfileAvatarInteractive({ profile }: ProfileAvatarInteractivePr
         <Popover as="div" className="relative">
             {({ close }) => (
                 <>
-                    <Popover.Button as="div">
-                        <ProfileAvatar profile={profile} clickable />
+                    <Popover.Button as="div" disabled={loading}>
+                        <ProfileAvatar profile={profile} clickable loading={loading} />
                     </Popover.Button>
                     <Popover.Panel className="absolute top-[-12px] translate-y-[-100%]">
                         <ProfileSettings source={profile.source} onClose={() => close()} />
