@@ -1209,7 +1209,7 @@ export class FireflySocialMedia implements Provider {
                 cursor: indicator?.id && !isZero(indicator.id) ? indicator.id : undefined,
                 walletAddresses,
             }),
-        });
+        }, !(walletAddresses && walletAddresses.length > 0));
         return createPageable(
             response.data.result,
             indicator,

@@ -7,7 +7,7 @@ import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
 
 async function resolver(addressOrEns: string) {
     const identity = { id: addressOrEns, source: Source.Wallet } as const;
-    const profiles = await FireflySocialMediaProvider.getAllPlatformProfileByIdentity(identity);
+    const profiles = await FireflySocialMediaProvider.getAllPlatformProfileByIdentity(identity, false);
     const { walletProfile } = resolveFireflyProfiles(identity, profiles);
 
     return walletProfile;
