@@ -19,6 +19,10 @@ const EVM_CHAIN: { [key in ChainId]?: string } = {
     [ChainId.Linea]: 'linea',
 };
 
+const EVM_CHAIN_ALIAS: Record<string, string> = {
+    binance_smart_chain: 'bsc',
+};
+
 export function resolveSimpleHashChain(chain: ChainId) {
     return EVM_CHAIN[chain] ?? undefined;
 }
@@ -26,6 +30,8 @@ export function resolveSimpleHashChain(chain: ChainId) {
 export const resolveSimpleHashChainId: (chainId: string) => ChainId | undefined = memoize(function resolveChainId(
     chain: string,
 ): ChainId | undefined {
-    const chainIdKey = first(Object.entries(EVM_CHAIN).find(([, value]) => value === chain));
+    const chainIdKey = first(
+        Object.entries(EVM_CHAIN).find(([, value]) => value === (EVM_CHAIN_ALIAS[chain] || chain)),
+    );
     return typeof chainIdKey === 'string' ? (parseInt(chainIdKey, 10) as ChainId) : undefined;
 });
