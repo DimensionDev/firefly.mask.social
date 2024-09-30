@@ -932,7 +932,7 @@ export class FireflySocialMedia implements Provider {
 
         const data = await Promise.all(
             (response.data?.blocks ?? []).map(async (item) => {
-                const walletProfile = await getWalletProfileByAddressOrEns(item.address);
+                const walletProfile = await getWalletProfileByAddressOrEns(item.address, true);
                 return {
                     ...(walletProfile || {
                         address: item.address as Address,

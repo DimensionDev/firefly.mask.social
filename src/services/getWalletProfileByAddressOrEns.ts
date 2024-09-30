@@ -5,7 +5,7 @@ import { Source } from '@/constants/enum.js';
 import { resolveFireflyProfiles } from '@/helpers/resolveFireflyProfiles.js';
 import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
 
-async function resolver(addressOrEns: string, isTokenRequired = true) {
+async function resolver(addressOrEns: string, isTokenRequired: boolean) {
     const identity = { id: addressOrEns, source: Source.Wallet } as const;
     const profiles = await FireflySocialMediaProvider.getAllPlatformProfileByIdentity(identity, isTokenRequired);
     const { walletProfile } = resolveFireflyProfiles(identity, profiles);
