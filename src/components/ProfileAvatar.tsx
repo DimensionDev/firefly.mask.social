@@ -1,3 +1,4 @@
+import LoadingIcon from '@/assets/loading.svg';
 import { Avatar } from '@/components/Avatar.js';
 import { SocialSourceIcon } from '@/components/SocialSourceIcon.js';
 import { Link } from '@/esm/Link.js';
@@ -10,6 +11,7 @@ import type { Profile } from '@/providers/types/SocialMedia.js';
 export interface ProfileAvatarProps extends React.HTMLAttributes<HTMLElement> {
     profile: Profile;
     size?: number;
+    loading?: boolean;
     linkable?: boolean;
     clickable?: boolean;
     enableSourceIcon?: boolean;
@@ -19,8 +21,9 @@ export interface ProfileAvatarProps extends React.HTMLAttributes<HTMLElement> {
 export function ProfileAvatar({
     profile,
     fallbackUrl,
-    clickable = false,
+    loading = false,
     linkable = false,
+    clickable = false,
     enableSourceIcon = true,
     ...props
 }: ProfileAvatarProps) {
@@ -31,6 +34,11 @@ export function ProfileAvatar({
 
     const content = (
         <div className="relative z-0" style={style}>
+            {loading ? (
+                <div className="absolute left-0 top-0">
+                    <LoadingIcon className="animate-spin text-primaryBottom" width={size} height={size} />
+                </div>
+            ) : null}
             <div className="absolute left-0 top-0 rounded-full" style={style}>
                 <Avatar src={profile.pfp} size={size} alt={profile.displayName} fallbackUrl={fallbackUrl} />
             </div>
