@@ -181,9 +181,12 @@ export const PostBody = forwardRef<HTMLDivElement, PostBodyProps>(function PostB
             <div>
                 <NakedMarkup
                     post={post}
-                    className={classNames('line-clamp-3 w-full self-stretch break-words text-base text-main', {
-                        'max-h-[7.8rem]': IS_SAFARI && IS_APPLE,
-                    })}
+                    className={classNames(
+                        'single-post line-clamp-3 w-full self-stretch break-words text-base text-main',
+                        {
+                            'max-h-[7.8rem]': IS_SAFARI && IS_APPLE,
+                        },
+                    )}
                     components={overrideComponents}
                 >
                     {post.metadata.content?.content}

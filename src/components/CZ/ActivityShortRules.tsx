@@ -29,7 +29,7 @@ export function ActivityShortRules() {
                 {t`*CZ's follower snapshot was taken at 8:00 UTC on September 21, 2024.`}
             </p>
             <p className="text-xs font-bold">
-                <Trans>*Event runs from September 29, 2024, 12:00 UTC to October 8, 2024, 23:59 UTC.</Trans>
+                <Trans>*Event runs from September 29, 2024, 12:00 UTC to October 15, 2024, 23:59 UTC.</Trans>
             </p>
         </>
     );
