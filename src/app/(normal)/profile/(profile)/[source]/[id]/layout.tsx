@@ -3,6 +3,7 @@ import { type PropsWithChildren } from 'react';
 
 import { ProfilePageLayout } from '@/app/(normal)/profile/pages/ProfilePageLayout.js';
 import { SourceInURL } from '@/constants/enum.js';
+import { isProfilePageSource } from '@/helpers/isProfilePageSource.js';
 import { resolveSourceFromUrlNoFallback } from '@/helpers/resolveSource.js';
 
 export default function Layout({
@@ -16,7 +17,7 @@ export default function Layout({
 }>) {
     const id = params.id;
     const source = resolveSourceFromUrlNoFallback(params.source);
-    if (!source) return notFound();
+    if (!source || !isProfilePageSource(source)) notFound();
     const identity = { source, id };
 
     return <ProfilePageLayout identity={identity}>{children}</ProfilePageLayout>;

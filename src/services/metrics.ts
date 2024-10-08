@@ -59,7 +59,7 @@ async function decryptMetrics(cipher: string, signal?: AbortSignal) {
 }
 
 async function downloadMetrics(session: FireflySession, signal?: AbortSignal) {
-    const response = await fireflySessionHolder.fetchWithSession(session)<MetricsDownloadResponse>(
+    const response = await fireflySessionHolder.fetchWithSessionGiven(session)<MetricsDownloadResponse>(
         urlcat(settings.FIREFLY_ROOT_URL, '/v1/metrics/download'),
         {
             signal,

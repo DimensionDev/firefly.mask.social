@@ -2,19 +2,15 @@
 
 import { Trans } from '@lingui/macro';
 import { useParams } from 'next/navigation.js';
-import urlcat from 'urlcat';
 
 import GhostHoleIcon from '@/assets/ghost.svg';
-import { PageRoute, SearchType } from '@/constants/enum.js';
 import { Link } from '@/esm/Link.js';
+import { resolveSearchUrl } from '@/helpers/resolveSearchUrl.js';
 
 export default function NotFoundToken() {
     const params = useParams<{ symbol: string }>();
     const symbol = decodeURIComponent(params.symbol);
-    const url = urlcat(PageRoute.Search, {
-        q: `$${symbol}`,
-        type: SearchType.Posts,
-    });
+    const url = resolveSearchUrl(`$${symbol}`);
 
     return (
         <div className="flex flex-col items-center py-12 text-secondary">

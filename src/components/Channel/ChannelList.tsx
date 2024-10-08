@@ -30,6 +30,7 @@ export function ChannelList({ source, useWindowScroll = true }: ChannelListProps
 
     return (
         <ListInPage
+            source={source}
             key={source}
             queryResult={queryResult}
             className="no-scrollbar"

@@ -1,6 +1,6 @@
 import { NextRequest } from 'next/server.js';
 
-import { createSuccessResponseJSON } from '@/helpers/createSuccessResponseJSON.js';
+import { createSuccessResponseJSON } from '@/helpers/createResponseJSON.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
 
 const MIRROR_GRAPHQL_URL = 'https://mirror.xyz/api/graphql';

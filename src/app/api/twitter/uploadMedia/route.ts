@@ -4,7 +4,7 @@ import { z } from 'zod';
 
 import { MalformedError } from '@/constants/error.js';
 import { compose } from '@/helpers/compose.js';
-import { createSuccessResponseJSON } from '@/helpers/createSuccessResponseJSON.js';
+import { createSuccessResponseJSON } from '@/helpers/createResponseJSON.js';
 import { createTwitterClientV2 } from '@/helpers/createTwitterClientV2.js';
 import { parseJSON } from '@/helpers/parseJSON.js';
 import { withRequestErrorHandler } from '@/helpers/withRequestErrorHandler.js';

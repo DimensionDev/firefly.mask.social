@@ -13,7 +13,7 @@ export function PostMarkup({ post, content, canShowMore }: PostMarkupProps) {
         <Markup
             post={post}
             className={classNames(
-                { 'line-clamp-5': canShowMore, 'single-post-body': canShowMore },
+                { 'line-clamp-5': canShowMore, 'single-post': canShowMore },
                 'markup linkify break-words text-medium',
             )}
         >

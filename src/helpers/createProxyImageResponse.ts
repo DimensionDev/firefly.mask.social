@@ -1,5 +1,5 @@
 import { CACHE_AGE_INDEFINITE_ON_DISK } from '@/constants/index.js';
-import { createErrorResponseJSON } from '@/helpers/createErrorResponseJSON.js';
+import { createErrorResponseJSON } from '@/helpers/createResponseJSON.js';
 
 export async function createProxyImageResponse(url: string) {
     const response = await fetch(url);

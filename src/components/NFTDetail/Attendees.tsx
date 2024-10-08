@@ -49,6 +49,7 @@ export function Attendees({ eventId }: AttendeesProps) {
                 <Trans>Attendees</Trans>
             </h3>
             <ListInPage
+                source={Source.Wallet}
                 queryResult={queryResult}
                 VirtualListProps={{
                     listKey: `${ScrollListKey.TopCollectors}:${eventId}`,

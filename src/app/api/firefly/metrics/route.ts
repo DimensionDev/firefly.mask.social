@@ -6,8 +6,7 @@ import { z } from 'zod';
 
 import { CryptoUsage } from '@/constants/enum.js';
 import { NotAllowedError, UnreachableError } from '@/constants/error.js';
-import { createErrorResponseJSON } from '@/helpers/createErrorResponseJSON.js';
-import { createSuccessResponseJSON } from '@/helpers/createSuccessResponseJSON.js';
+import { createErrorResponseJSON, createSuccessResponseJSON } from '@/helpers/createResponseJSON.js';
 import { getPublicKeyInHexFromSession } from '@/helpers/ed25519.js';
 import { parseJSON } from '@/helpers/parseJSON.js';
 import { resolveSocialSourceFromSessionType } from '@/helpers/resolveSource.js';

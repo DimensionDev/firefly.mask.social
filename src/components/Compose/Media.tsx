@@ -80,16 +80,16 @@ export function Media({ close }: MediaProps) {
 
     const content = (
         <div>
-            <div className="pb-2">
+            <div>
                 <div
                     className={classNames(
-                        'flex h-[30px] items-center gap-2 p-3',
+                        'flex h-12 items-center gap-2 p-3',
                         disableImage ? 'cursor-not-allowed opacity-50' : 'cursor-pointer hover:bg-bg',
                     )}
                     onClick={() => {
-                        if (!disableVideo) {
-                            imageInputRef.current?.click();
-                        }
+                        if (disableImage) return;
+
+                        imageInputRef.current?.click();
                     }}
                 >
                     <ImageIcon width={24} height={24} />
@@ -107,10 +107,10 @@ export function Media({ close }: MediaProps) {
                     onChange={handleImageChange}
                 />
             </div>
-            <div className="pt-2">
+            <div>
                 <div
                     className={classNames(
-                        'flex h-[30px] items-center gap-2 p-3',
+                        'flex h-12 items-center gap-2 p-3',
                         disableVideo ? 'cursor-not-allowed opacity-50' : 'cursor-pointer hover:bg-bg',
                     )}
                     onClick={() => {
@@ -153,7 +153,7 @@ export function Media({ close }: MediaProps) {
             >
                 <Popover.Panel
                     static
-                    className="absolute bottom-full left-0 z-50 w-[280px] -translate-y-3 rounded-lg bg-lightBottom py-3 text-medium text-main shadow-popover dark:bg-darkBottom"
+                    className="absolute bottom-full left-0 z-50 w-[280px] -translate-y-3 rounded-lg bg-lightBottom py-3 text-main shadow-popover dark:border dark:border-line dark:bg-darkBottom dark:shadow-none"
                 >
                     {content}
                 </Popover.Panel>

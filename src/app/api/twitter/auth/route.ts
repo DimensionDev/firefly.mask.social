@@ -2,7 +2,7 @@ import { NextRequest } from 'next/server.js';
 
 import { UnauthorizedError } from '@/constants/error.js';
 import { compose } from '@/helpers/compose.js';
-import { createSuccessResponseJSON } from '@/helpers/createSuccessResponseJSON.js';
+import { createSuccessResponseJSON } from '@/helpers/createResponseJSON.js';
 import { createTwitterSessionPayload } from '@/helpers/createTwitterSessionPayload.js';
 import { withRequestErrorHandler } from '@/helpers/withRequestErrorHandler.js';
 import { withTwitterRequestErrorHandler } from '@/helpers/withTwitterRequestErrorHandler.js';

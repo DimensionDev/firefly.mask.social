@@ -14,6 +14,7 @@ import { narrowToSocialSource } from '@/helpers/narrowToSocialSource.js';
 import { createIndicator } from '@/helpers/pageable.js';
 import { useCurrentProfileAll } from '@/hooks/useCurrentProfile.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
+import { useNavigatorTitle } from '@/hooks/useNavigatorTitle.js';
 import { FireflyArticleProvider } from '@/providers/firefly/Article.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
 
@@ -47,8 +48,11 @@ export function ArticleBookmarkList() {
         select: (data) => compact(data.pages.flatMap((x) => x?.data)),
     });
 
+    useNavigatorTitle(t`Bookmarks`);
+
     return (
         <ListInPage
+            source={Source.Article}
             loginRequired
             key="article"
             queryResult={query}

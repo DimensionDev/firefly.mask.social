@@ -48,7 +48,7 @@ export const MediaAction = memo(function MediaAction() {
     return (
         <>
             <ClickableButton onClick={() => setOpen(true)}>{buttonContent}</ClickableButton>
-            <PopoverModal open={open} onClose={() => setOpen(false)} DialogPanelProps={{ className: 'px-0' }}>
+            <PopoverModal open={open} onClose={() => setOpen(false)}>
                 {!mediaDisabled ? <Media close={() => setOpen(false)} /> : null}
             </PopoverModal>
         </>

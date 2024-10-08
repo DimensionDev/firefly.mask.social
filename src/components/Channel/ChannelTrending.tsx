@@ -37,6 +37,7 @@ export function ChannelTrending({ channel, source }: ChannelTrendingProps) {
     });
     return (
         <ListInPage
+            source={source}
             key={source}
             queryResult={result}
             VirtualListProps={{

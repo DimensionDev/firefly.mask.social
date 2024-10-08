@@ -22,7 +22,9 @@ export default function Layout({ children }: { children: React.ReactNode }) {
 
             {/* mobile */}
             <main className="flex min-h-screen w-full flex-col md:hidden">
-                <NavigatorBar enableSearch={false} enableFixedBack />
+                <div className="sticky top-0 z-10 bg-primaryBottom">
+                    <NavigatorBar enableSearch={false} enableFixedBack />
+                </div>
                 <div>{children}</div>
             </main>
         </>

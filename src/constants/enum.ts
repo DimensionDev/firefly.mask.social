@@ -82,11 +82,6 @@ export type SocialDiscoverSource = Source.Farcaster | Source.Lens;
 export type DiscoverSource = SocialDiscoverSource | Source.NFTs | Source.Article;
 export type BookmarkSource = Source.Farcaster | Source.Lens | Source.Article;
 
-export enum WalletProviderType {
-    AppKit = 'app_kit',
-    RainbowKit = 'rainbow_kit',
-}
-
 export enum DiscoverType {
     ForYou = 'for-you',
     Recent = 'recent',
@@ -104,15 +99,17 @@ export enum SearchType {
 export enum KeyType {
     DigestOpenGraphLink = '/v2/digestOpenGraphLink',
     DigestFrameLink = '/v2/digestFrameLink',
-    GetPostOGById = '/v2/getPostOGById',
-    GetArticleOGById = '/v2/getArticleOGById',
-    GetProfileOGById = '/v2/getProfileOGById',
-    GetChannelOGById = '/v2/getChannelOGById',
     GetLensThreadByPostId = '/v2/getLensThreadByPostId',
     RefreshLensThreadLock = '/v2/RefreshLensThreadLock',
     GetFollowings = '/v2/getFollowings',
     ConsumerSecret = '/v2/consumerSecret',
     GetBlink = '/v2/getBlink',
+
+    CreateMetadataToken = '/v2/createMetadataToken',
+    CreateMetadataPostById = '/v2/createPageMetadataById',
+    CreateMetadataArticleById = '/v2/createMetadataArticleById',
+    CreateMetadataProfileById = '/v2/createMetadataProfileById',
+    CreateMetadataChannelById = '/v2/createMetadataChannelById',
 }
 
 export enum SocialProfileCategory {
@@ -183,11 +180,10 @@ export enum BookmarkType {
 
 export { SourceInURL as FireflyPlatform };
 
-export enum MuteMenuId {
-    FarcasterProfiles = '1',
-    FarcasterChannels = '2',
-    LensProfiles = '3',
-    XProfiles = '4',
+export enum MuteType {
+    Profile = 'profile',
+    Channel = 'channel',
+    Wallet = 'wallet',
 }
 
 export enum NetworkType {
@@ -245,6 +241,7 @@ export enum AdvertisementType {
 
 export enum AdFunctionType {
     OpenScan = 'openScan',
+    OpenActivity = 'openActivity',
 }
 
 export enum UploadMediaStatus {

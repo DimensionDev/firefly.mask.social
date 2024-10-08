@@ -1,8 +1,7 @@
 import { NextRequest } from 'next/server.js';
 import { z } from 'zod';
 
-import { createErrorResponseJSON } from '@/helpers/createErrorResponseJSON.js';
-import { createSuccessResponseJSON } from '@/helpers/createSuccessResponseJSON.js';
+import { createErrorResponseJSON, createSuccessResponseJSON } from '@/helpers/createResponseJSON.js';
 import { waitForSignedKeyRequest } from '@/helpers/waitForSignedKeyRequest.js';
 
 const Schema = z.object({

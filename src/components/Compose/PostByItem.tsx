@@ -3,9 +3,8 @@ import { delay } from '@masknet/kit';
 import { useAsyncFn } from 'react-use';
 
 import LoadingIcon from '@/assets/loading.svg';
-import RadioDisableNoIcon from '@/assets/radio.disable-no.svg';
-import RadioYesIcon from '@/assets/radio.yes.svg';
 import { Avatar } from '@/components/Avatar.js';
+import { CircleCheckboxIcon } from '@/components/CircleCheckboxIcon.js';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { SocialSourceIcon } from '@/components/SocialSourceIcon.js';
 import { type SocialSource, Source } from '@/constants/enum.js';
@@ -48,8 +47,8 @@ export function PostByItem({ source, disabled = false }: PostByItemProps) {
 
     if (!currentProfile || !accounts?.length)
         return (
-            <div className="shrink-0 px-3 py-2 md:px-0">
-                <div className="box-content flex h-6 items-center justify-between px-2 py-1 hover:bg-bg">
+            <div className="shrink-0">
+                <div className="box-content flex h-12 items-center justify-between px-3 hover:bg-bg">
                     <div className="flex items-center gap-2 text-main">
                         <SocialSourceIcon size={24} source={source} />
                         <span className="font-bold text-main">{resolveSourceName(source)}</span>
@@ -78,7 +77,7 @@ export function PostByItem({ source, disabled = false }: PostByItemProps) {
 
     return accounts.map(({ profile, session }) => (
         <div
-            className="shrink-0 px-3 py-2 md:px-0"
+            className="shrink-0"
             key={profile.profileId}
             onClick={() => {
                 if (!isSameProfile(currentProfile, profile) || disabled) return;
@@ -88,8 +87,8 @@ export function PostByItem({ source, disabled = false }: PostByItemProps) {
         >
             <div
                 className={classNames(
-                    'box-content flex h-6 items-center justify-between px-2 py-1 hover:bg-bg',
-                    disabled ? 'cursor-not-allowed opacity-50' : 'cursor-pointer',
+                    'box-content flex h-12 items-center justify-between px-3',
+                    disabled ? 'cursor-not-allowed opacity-50' : 'cursor-pointer hover:bg-bg',
                 )}
             >
                 <div className="flex items-center gap-2">
@@ -111,11 +110,7 @@ export function PostByItem({ source, disabled = false }: PostByItemProps) {
                     </span>
                 </div>
                 {isSameProfile(currentProfile, profile) ? (
-                    availableSources.includes(currentProfile.source) ? (
-                        <RadioYesIcon width={18} height={18} className="relative" />
-                    ) : (
-                        <RadioDisableNoIcon width={18} height={18} className="text-secondaryLine" />
-                    )
+                    <CircleCheckboxIcon checked={availableSources.includes(currentProfile.source)} />
                 ) : (
                     <ClickableButton
                         className="font-bold text-farcasterPrimary"

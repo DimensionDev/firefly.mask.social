@@ -385,6 +385,7 @@ export enum RelatedWalletSource {
     farcaster = 'farcaster',
     other = 'other',
     twitter = 'twitter',
+    particle = 'particle',
 }
 
 export enum RelationPlatform {
@@ -412,7 +413,7 @@ export interface FollowingSource {
 
 export interface WalletProfile {
     address: Address;
-    ens: string[];
+    ens?: string[];
     blockchain: NetworkType;
     is_connected: boolean;
     verifiedSources: Array<{
@@ -420,8 +421,9 @@ export interface WalletProfile {
         provider: string;
         verifiedText: string;
     }>;
-    avatar: string;
-    primary_ens: string | null;
+    avatar?: string;
+    primary_ens?: string | null;
+    blocked?: boolean;
 }
 
 export interface LensV3Profile {
@@ -475,6 +477,7 @@ export interface TwitterProfile {
 
 export interface WalletProfiles {
     walletProfiles: WalletProfile[];
+    solanaWalletProfiles: WalletProfile[];
     lensProfilesV3: LensV3Profile[];
     farcasterProfiles: FarcasterProfile[];
     twitterProfiles: TwitterProfile[];

@@ -9,8 +9,7 @@ import { SourceInURL } from '@/constants/enum.js';
 import { env } from '@/constants/env.js';
 import { ContentTypeError } from '@/constants/error.js';
 import { SUFFIX_NAMES } from '@/constants/index.js';
-import { createErrorResponseJSON } from '@/helpers/createErrorResponseJSON.js';
-import { createSuccessResponseJSON } from '@/helpers/createSuccessResponseJSON.js';
+import { createErrorResponseJSON, createSuccessResponseJSON } from '@/helpers/createResponseJSON.js';
 import { getGatewayErrorMessage } from '@/helpers/getGatewayErrorMessage.js';
 import { FileSchema } from '@/schemas/index.js';
 

@@ -3,9 +3,16 @@ import dayjs from 'dayjs';
 import { compact } from 'lodash-es';
 import urlcat from 'urlcat';
 import { v4 as uuid } from 'uuid';
-import { type Hex, isAddress } from 'viem';
+import { type Address, type Hex, isAddress } from 'viem';
 
-import { BookmarkType, FireflyPlatform, type SocialSource, Source, SourceInURL } from '@/constants/enum.js';
+import {
+    BookmarkType,
+    FireflyPlatform,
+    NetworkType,
+    type SocialSource,
+    Source,
+    SourceInURL,
+} from '@/constants/enum.js';
 import { NotFoundError, NotImplementedError } from '@/constants/error.js';
 import { EMPTY_LIST } from '@/constants/index.js';
 import { SetQueryDataForAddWallet } from '@/decorators/SetQueryDataForAddWallet.js';
@@ -84,6 +91,7 @@ import {
     type UploadMediaTokenResponse,
     type UserResponse,
     type UsersResponse,
+    type WalletProfile,
     type WalletProfileResponse,
     WatchType,
 } from '@/providers/types/Firefly.js';
@@ -100,6 +108,7 @@ import {
 } from '@/providers/types/SocialMedia.js';
 import { getAllPlatformProfileFromFirefly } from '@/services/getAllPlatformProfileFromFirefly.js';
 import { getProfilesByIds } from '@/services/getProfilesByIds.js';
+import { getWalletProfileByAddressOrEns } from '@/services/getWalletProfileByAddressOrEns.js';
 import { settings } from '@/settings/index.js';
 import type { ComposeType } from '@/types/compose.js';
 
@@ -112,7 +121,7 @@ async function reportPost(params: ReportPostParams) {
 }
 
 async function block(field: BlockFields, profileId: string): Promise<boolean> {
-    const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/user/block');
+    const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/user/mute');
     const response = await fireflySessionHolder.fetch<BlockUserResponse>(url, {
         method: 'POST',
         body: JSON.stringify({
@@ -124,7 +133,7 @@ async function block(field: BlockFields, profileId: string): Promise<boolean> {
 }
 
 async function unblock(field: BlockFields, profileId: string): Promise<boolean> {
-    const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/user/unblock');
+    const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/user/unmute');
     const response = await fireflySessionHolder.fetch<BlockUserResponse>(url, {
         method: 'POST',
         body: JSON.stringify({
@@ -144,7 +153,6 @@ async function unblock(field: BlockFields, profileId: string): Promise<boolean> 
 @SetQueryDataForMuteAllWallets()
 export class FireflySocialMedia implements Provider {
     getChannelsByIds?: ((ids: string[]) => Promise<Channel[]>) | undefined;
-    getBlockedWallets?: ((indicator?: PageIndicator) => Promise<Pageable<Profile, PageIndicator>>) | undefined;
     reportChannel?: ((channelId: string) => Promise<boolean>) | undefined;
     getForYouPosts?: ((indicator?: PageIndicator) => Promise<Pageable<Post, PageIndicator>>) | undefined;
     getRecentPosts?: ((indicator?: PageIndicator) => Promise<Pageable<Post, PageIndicator>>) | undefined;
@@ -432,8 +440,11 @@ export class FireflySocialMedia implements Provider {
         });
     }
 
-    async getAllPlatformProfileByIdentity(identity: FireflyIdentity): Promise<FireflyProfile[]> {
-        const response = await getAllPlatformProfileFromFirefly(identity);
+    async getAllPlatformProfileByIdentity(
+        identity: FireflyIdentity,
+        isTokenRequired: boolean,
+    ): Promise<FireflyProfile[]> {
+        const response = await getAllPlatformProfileFromFirefly(identity, isTokenRequired);
         const profiles = resolveFireflyResponseData(response);
         return formatFireflyProfilesFromWalletProfiles(profiles);
     }
@@ -911,6 +922,36 @@ export class FireflySocialMedia implements Provider {
         );
     }
 
+    async getBlockedWallets(indicator?: PageIndicator): Promise<Pageable<WalletProfile, PageIndicator>> {
+        const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/user/mutelist', {
+            size: 20,
+            page: indicator?.id ?? 1,
+            platform: SourceInURL.Wallet,
+        });
+        const response = await fireflySessionHolder.fetch<BlockedUsersResponse>(url);
+
+        const data = await Promise.all(
+            (response.data?.blocks ?? []).map(async (item) => {
+                const walletProfile = await getWalletProfileByAddressOrEns(item.address, true);
+                return {
+                    ...(walletProfile || {
+                        address: item.address as Address,
+                        blockchain: NetworkType.Ethereum,
+                        is_connected: false,
+                        verifiedSources: [],
+                    }),
+                    blocked: true,
+                };
+            }),
+        );
+
+        return createPageable(
+            data,
+            createIndicator(indicator),
+            response.data?.nextPage ? createNextIndicator(indicator, `${response.data?.nextPage}`) : undefined,
+        );
+    }
+
     async getBlockedChannels(indicator?: PageIndicator): Promise<Pageable<Channel, PageIndicator>> {
         return farcasterSessionHolder.withSession(async (session) => {
             if (!session) {
@@ -1161,14 +1202,18 @@ export class FireflySocialMedia implements Provider {
             settings.FIREFLY_ROOT_URL,
             walletAddresses && walletAddresses.length > 0 ? '/v2/user/timeline/nft' : '/v2/timeline/nft',
         );
-        const response = await fireflySessionHolder.fetch<GetFollowingNFTResponse>(url, {
-            method: 'POST',
-            body: JSON.stringify({
-                size: limit,
-                cursor: indicator?.id && !isZero(indicator.id) ? indicator.id : undefined,
-                walletAddresses,
-            }),
-        });
+        const response = await fireflySessionHolder.fetch<GetFollowingNFTResponse>(
+            url,
+            {
+                method: 'POST',
+                body: JSON.stringify({
+                    size: limit,
+                    cursor: indicator?.id && !isZero(indicator.id) ? indicator.id : undefined,
+                    walletAddresses,
+                }),
+            },
+            !(walletAddresses && walletAddresses.length > 0),
+        );
         return createPageable(
             response.data.result,
             indicator,
@@ -1353,7 +1398,6 @@ export class FireflySocialMedia implements Provider {
 
         const response = await fireflySessionHolder.fetch<IsMutedAllResponse>(url);
         const data = resolveFireflyResponseData(response);
-
         return data?.isBlockAll ?? false;
     }
 

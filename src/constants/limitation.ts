@@ -33,9 +33,8 @@ export const MAX_FILE_SIZE_PER_GIF: Limitation = {
 };
 
 // https://mask.atlassian.net/browse/FW-2212
-// TODO: Our upload is not strong enough to handle 1GB videos. So we limit 400MB here.
 export const MAX_FILE_SIZE_PER_VIDEO: Limitation = {
-    [Source.Twitter]: 400 * 1024 * 1024, // 400MB
+    [Source.Twitter]: 512 * 1024 * 1024, // 512MB
     [Source.Lens]: 1024 * 1024 * 1024, // 1GB
     [Source.Farcaster]: 1024 * 1024 * 1024, // 1GB
 };
@@ -47,7 +46,7 @@ export const MIN_DURATION_PER_VIDEO: Limitation = {
 };
 
 export const MAX_DURATION_PER_VIDEO: Limitation = {
-    [Source.Twitter]: 140,
+    [Source.Twitter]: Infinity,
     [Source.Lens]: Infinity,
     [Source.Farcaster]: Infinity,
 };

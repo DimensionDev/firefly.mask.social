@@ -6,7 +6,7 @@ import { z } from 'zod';
 
 import { env } from '@/constants/env.js';
 import { WARPCAST_ROOT_URL } from '@/constants/index.js';
-import { createSuccessResponseJSON } from '@/helpers/createSuccessResponseJSON.js';
+import { createSuccessResponseJSON } from '@/helpers/createResponseJSON.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
 
 const SIGNED_KEY_REQUEST_VALIDATOR_EIP_712_DOMAIN = {

@@ -37,3 +37,7 @@ export const EnableSignlessModalRef = new SingletonModal<void, boolean>();
 export const CollectPostModalRef = new SingletonModal<CollectPostModalOpenProps>();
 export const AddWalletModalRef = new SingletonModal<AddWalletModalProps>();
 export const SuperFollowModalRef = new SingletonModal<SuperFollowModalOpenProps>();
+
+// CZ
+export const ActivityModalRef = new SingletonModal();
+export const ActivityClaimSuccessModalRef = new SingletonModal<{ hash: string }>();

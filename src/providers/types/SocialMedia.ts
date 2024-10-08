@@ -2,6 +2,7 @@ import type { OpenActionModuleType } from '@lens-protocol/client';
 
 import type { BookmarkType, FireflyPlatform, RestrictionType, SocialSource } from '@/constants/enum.js';
 import type { Pageable, PageIndicator } from '@/helpers/pageable.js';
+import type { WalletProfile } from '@/providers/types/Firefly.js';
 import type { Poll } from '@/providers/types/Poll.js';
 
 export enum SessionType {
@@ -774,7 +775,7 @@ export interface Provider {
      * @param indicator
      * @returns
      */
-    getBlockedWallets?: (indicator?: PageIndicator) => Promise<Pageable<Profile, PageIndicator>>;
+    getBlockedWallets?: (indicator?: PageIndicator) => Promise<Pageable<WalletProfile, PageIndicator>>;
 
     /**
      * Watch activities related to the specified address.

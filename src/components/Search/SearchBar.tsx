@@ -1,8 +1,7 @@
 'use client';
 
-import { usePathname, useRouter } from 'next/navigation.js';
+import { usePathname } from 'next/navigation.js';
 import { type HTMLProps, memo, useLayoutEffect, useRef, useState } from 'react';
-import urlcat from 'urlcat';
 import { useOnClickOutside } from 'usehooks-ts';
 
 import LeftArrowIcon from '@/assets/left-arrow.svg';
@@ -32,7 +31,6 @@ const SearchBar = memo(function SearchBar({ slot, className, ...rest }: SearchBa
     const rootRef = useRef(null);
     const inputRef = useRef<HTMLInputElement>(null);
     const [inputText, setInputText] = useState(searchKeyword);
-    const router = useRouter();
 
     const comeback = useComeBack();
 
@@ -44,7 +42,6 @@ const SearchBar = memo(function SearchBar({ slot, className, ...rest }: SearchBa
         if (state.q) addRecord(state.q);
         updateState(state);
         setShowRecommendation(false);
-        router.push(urlcat('/search', { q: state.q }));
     };
 
     useLayoutEffect(() => {
@@ -59,11 +56,11 @@ const SearchBar = memo(function SearchBar({ slot, className, ...rest }: SearchBa
             {isSearchPage && slot === 'header' ? (
                 <LeftArrowIcon width={24} height={24} className="mr-7 cursor-pointer" onClick={comeback} />
             ) : null}
-            <div className="group relative flex flex-grow items-center rounded-xl bg-lightBg px-3 text-main ring-0 ring-highlight/50 focus-within:bg-primaryBottom focus-within:ring-1">
+            <div className="group relative flex flex-grow items-center rounded-xl border border-transparent bg-lightBg px-3 text-main focus-within:border-fireflyBrand focus-within:bg-primaryBottom">
                 <SearchIcon
                     width={18}
                     height={18}
-                    className="shrink-0 text-primaryMain group-focus-within:text-highlight"
+                    className="shrink-0 text-primaryMain group-focus-within:text-fireflyBrand"
                 />
                 <form
                     className="w-full flex-1"

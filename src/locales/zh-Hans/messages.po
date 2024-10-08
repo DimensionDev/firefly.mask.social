@@ -8,7 +8,7 @@ msgstr ""
 "Language: zh\n"
 "Project-Id-Version: masksocial\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-09-14 12:01\n"
+"PO-Revision-Date: 2024-09-29 09:39\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
@@ -52,7 +52,7 @@ msgid "Disconnect"
 msgstr "断开"
 
 msgid "Undo mirror"
-msgstr ""
+msgstr "取消转帖"
 
 msgid "FAILED THREAD POST"
 msgstr "发送 thread 失败"
@@ -61,7 +61,7 @@ msgid "Confirm to disconnect this wallet and related accounts from Firefly’s s
 msgstr "确认从 Firefly 的社交图谱中断链这个钱包和相关账户？"
 
 msgid "Allow Collect Module"
-msgstr ""
+msgstr "允许收藏"
 
 msgid "New connect with Warpcast"
 msgstr "使用 Warpcast 连接"
@@ -153,6 +153,9 @@ msgstr "您引用/回复的帖子已经被删除了。"
 msgid "Money laundering."
 msgstr ""
 
+msgid "Something went wrong, Please try again."
+msgstr "发生了一些错误，请重试。"
+
 msgid "Display Name"
 msgstr "显示名称"
 
@@ -183,6 +186,9 @@ msgstr "观察中"
 msgid "Rank #{0}"
 msgstr "排名 #{0}"
 
+msgid "Mute {walletHandle}"
+msgstr "隐藏 {walletHandle}"
+
 msgid "Searching channel"
 msgstr "查询频道中"
 
@@ -201,6 +207,9 @@ msgstr ""
 msgid "No cryptocurrency mixer found."
 msgstr ""
 
+msgid "Unknown error"
+msgstr "未知错误"
+
 msgid "More"
 msgstr "更多"
 
@@ -215,6 +224,9 @@ msgstr "查找用户中"
 
 msgid "Fake KYC."
 msgstr ""
+
+msgid "{0} is eligible!"
+msgstr "{0} 合格！"
 
 msgid "Airdrop Scam"
 msgstr "空投骗局"
@@ -312,6 +324,9 @@ msgstr "诊断命令行"
 msgid "Adding..."
 msgstr "添加中..."
 
+msgid "Verifying eligibility..."
+msgstr "检查资格中..."
+
 msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} <4>liked your </4><5>{1, select, Post {post} Comment {comment} Quote {quote} Mirror {mirror} other {post}}</5>"
 msgstr "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} <4>点赞了你的 </4><5>{1, select, Post {帖子} Comment {评论} Quote {引用} Mirror {转帖} other {帖子}}</5>"
 
@@ -384,9 +399,6 @@ msgstr "重试"
 msgid "Show less"
 msgstr "收起"
 
-msgid "Switch between the app kit and rainbow kit wallet providers."
-msgstr "在 App Kit 和 Rainbow Kit 钱包套件提供商之间切换。"
-
 msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} {1, select, Lens {mirrored your} Farcaster {recasted your} other {mirrored your}} <4>{2, select, Post {post} Comment {comment} Quote {quote} Mirror {mirror} other {post}}</4>"
 msgstr "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} {1, select, Lens {转帖了你的} Farcaster {转帖了你的} other {转帖了你的}} <4>{2, select, Post {帖子} Comment {评论} Quote {引用} Mirror {转帖} other {帖子}}</4>"
 
@@ -413,6 +425,9 @@ msgstr "确认从 Firefly 的社交图谱中断链这个钱包？"
 
 msgid "Confirm"
 msgstr "确认"
+
+msgid "Connect your wallet to claim your NFT."
+msgstr "连接钱包并且领取你的 NFT。"
 
 msgid "{0} muted channels"
 msgstr "{0} 隐藏的频道"
@@ -534,6 +549,9 @@ msgstr "在 {sourceName} 上取消关注 @{0} 失败。"
 msgid "Sanctioned address."
 msgstr ""
 
+msgid "Each wallet or X account is limited to one claim."
+msgstr "每个钱包或 X 账号限领一次。"
+
 msgid "Calendar"
 msgstr "日历"
 
@@ -573,6 +591,9 @@ msgstr "选择账号"
 msgid "POST"
 msgstr "发帖"
 
+msgid "Log in with X"
+msgstr "使用 X 登录"
+
 msgid "Failed to unlike the post."
 msgstr "取消点赞失败。"
 
@@ -600,8 +621,14 @@ msgstr "添加另一个帖子..."
 msgid "1m left"
 msgstr "1分钟剩余"
 
+msgid "Congratulation!"
+msgstr "恭喜！"
+
 msgid "Items"
 msgstr "条目"
+
+msgid "To be eligible for the airdrop, fulfill the following criteria:"
+msgstr "要有资格获得空投，请满足以下条件："
 
 msgid "Failed to upload. More than {maxImageCount} images."
 msgstr "上传失败。超过了最大 {maxImageCount} 的图片数量限制。"
@@ -669,6 +696,9 @@ msgstr ""
 msgid "Feed"
 msgstr "信息流"
 
+msgid "In addition to meeting the Basic Criteria, fulfill any of the following to upgrade to a premium NFT:"
+msgstr "除了满足基本条件外，满足以下任一条件即可升级为优质 NFT："
+
 msgid "Failed to upload. Not a valid image type"
 msgstr "上传失败。图片格式不支持"
 
@@ -682,7 +712,7 @@ msgid "Market Cap / FDV"
 msgstr "完全稀释估值"
 
 msgid "Log telemetry events to the console."
-msgstr ""
+msgstr "日志侦测技术至控制台"
 
 msgid "Confirmation"
 msgstr "确认"
@@ -720,9 +750,6 @@ msgstr "会话验证器"
 msgid "THREAD POST"
 msgstr "THREAD 发帖"
 
-msgid "This entry has been permanently stored on-chain and signed by its creator."
-msgstr "这个入口已经被其创建者签名并永久存储上链"
-
 msgid "Failed to avatar."
 msgstr "上传头像失败。"
 
@@ -757,7 +784,10 @@ msgid "Update"
 msgstr "更新"
 
 msgid "Failed to follow @{0} on Lens"
-msgstr ""
+msgstr "在 Lens 上关注 @{0} 失败"
+
+msgid "Check Eligibility"
+msgstr "检查资格"
 
 msgid "You might like"
 msgstr "你也许感兴趣"
@@ -782,6 +812,9 @@ msgstr ""
 
 msgid "Darkweb transactions."
 msgstr ""
+
+msgid "Event ended"
+msgstr "活动已结束"
 
 msgid "Anti_whale(Limited number of transactions)"
 msgstr "反鲸鱼（有限的交易次数）"
@@ -808,7 +841,7 @@ msgid "Top Channels"
 msgstr "热门频道"
 
 msgid "No content for the last two weeks."
-msgstr ""
+msgstr "最近两周没有内容。"
 
 msgid "This token contract has a code that states that it cannot be sold. Maybe this is a honeypot."
 msgstr "这个通证合约提到它不能出售。也许这是一个欺诈行为。"
@@ -829,13 +862,10 @@ msgid "Resend full or remaining?"
 msgstr "重新完整发送或者发送剩余部分？"
 
 msgid "Add Wallet"
-msgstr ""
+msgstr "添加钱包"
 
 msgid "Followed by {0} and {1}"
 msgstr "被 {0} 和 {1} 关注"
-
-msgid "Insufficient {0} Balance"
-msgstr ""
 
 msgid "Try searching for something else."
 msgstr "试试搜索其他东西。"
@@ -855,6 +885,9 @@ msgstr "取消收藏帖子失败。"
 msgid "Failed to submit report on {0}"
 msgstr "在 {0} 上提交报告失败"
 
+msgid "Login X failed"
+msgstr "登录 X 失败"
+
 msgid "Failed to mute @{0} on {sourceName}."
 msgstr "未能在 {sourceName} 上隐藏 @{0}。"
 
@@ -862,7 +895,7 @@ msgid "View Source"
 msgstr "查看原文"
 
 msgid "You cannot reply to @{0} on {1}."
-msgstr ""
+msgstr "您不能在 {1} 上评论 @{0}。"
 
 msgid "Are you sure you want to report this collection?"
 msgstr "您确定要举报这个 NFT 吗？"
@@ -891,6 +924,9 @@ msgstr "天"
 msgid "<0/> mentioned you in a <1>{0, select, Post {post} Comment {comment} Quote {quote} Mirror {mirror} other {post}}</1>"
 msgstr "<0/>提到了你的 <1>{0, select, Post {帖子} Comment {评论} Quote {引用} Mirror {引用} other {帖子}}</1>"
 
+msgid "The current connected wallet does not match, Please switch to {0}"
+msgstr "当前连接的钱包不匹配，请切换到 {0}。"
+
 msgid "Cost"
 msgstr "成本"
 
@@ -899,9 +935,6 @@ msgstr "燃油费不足"
 
 msgid "Blacklist function"
 msgstr "黑名单功能"
-
-msgid "AUTHOR ADDRESS"
-msgstr "作者地址"
 
 msgid "Enable development API version"
 msgstr "启用开发环境接口"
@@ -920,6 +953,9 @@ msgstr "输入金额"
 
 msgid "<0>Sold</0> an NFT worth {costEl}"
 msgstr "<0>出售了</0> 一个 NFT 价值 {costEl}"
+
+msgid "🎉"
+msgstr "🎉"
 
 msgid "Owned By"
 msgstr "属于"
@@ -987,6 +1023,12 @@ msgstr ""
 msgid "Rainbow Kit"
 msgstr "Rainbow 套件"
 
+msgid "Claim Premium"
+msgstr "领取优质奖励"
+
+msgid "Share in a Post"
+msgstr "在帖子中分享"
+
 msgid "Forbidden. Please check your permissions."
 msgstr "禁止！请检查您的权限。"
 
@@ -997,7 +1039,7 @@ msgid "No mint function"
 msgstr "没有铸造功能"
 
 msgid "Expired"
-msgstr ""
+msgstr "已过期"
 
 msgid "Please choose issue to report this wallet:"
 msgstr "请选择举报这个钱包的原因："
@@ -1029,6 +1071,9 @@ msgstr "{0} 评论"
 msgid "Schedule Post"
 msgstr "定时任务"
 
+msgid "Almost there!"
+msgstr "就要成功了！"
+
 msgid "Sold Out"
 msgstr "售罄"
 
@@ -1036,7 +1081,7 @@ msgid "Proxy contract"
 msgstr "代理合约"
 
 msgid "Failed to fetch profile."
-msgstr ""
+msgstr "未能获取个人资料。"
 
 msgid "The contract owner has the authority to modify the balance of tokens at other addresses, which may result in a loss of assets."
 msgstr "合约所有人有权修改其他地址的通证通证余额，这可能造成资产损失。"
@@ -1075,7 +1120,7 @@ msgid "[Poll]"
 msgstr "[投票]"
 
 msgid "Allow Follow Module"
-msgstr ""
+msgstr "允许关注"
 
 msgid "Allow replies from"
 msgstr "允许回复"
@@ -1091,6 +1136,9 @@ msgstr "同步"
 
 msgid "Description"
 msgstr "介绍"
+
+msgid "Muted wallets"
+msgstr "已隐藏的钱包"
 
 msgid "All wallets and accounts are muted."
 msgstr "已隐藏所有的钱包和账户。"
@@ -1111,7 +1159,7 @@ msgid "Malformed session."
 msgstr "会话格式错误。"
 
 msgid "<0>COLLECTED</0> a POAP"
-msgstr ""
+msgstr "<0>已收藏</0> 一个 POAP"
 
 msgid "Upload"
 msgstr "上传"
@@ -1138,7 +1186,7 @@ msgid "Failed to report @{0}."
 msgstr "举报 @{0} 失败。"
 
 msgid "Enable logging telemetry events"
-msgstr ""
+msgstr "启用日志侦测时间"
 
 msgid "Post with link"
 msgstr "发布带链接的帖子"
@@ -1160,6 +1208,9 @@ msgstr "收藏"
 
 msgid "{handleOrEnsOrAddress} watched"
 msgstr "{handleOrEnsOrAddress} 已关注"
+
+msgid "{0} {walletHandle}."
+msgstr "{0} {walletHandle}."
 
 msgid "Circulating Supply"
 msgstr "流通总量"
@@ -1208,6 +1259,9 @@ msgstr "完全稀释估值"
 
 msgid "Email (optional)"
 msgstr "邮箱（可选）"
+
+msgid "Not eligible"
+msgstr "不满足资格"
 
 msgid "NFT Contract"
 msgstr "NFT 合约"
@@ -1402,7 +1456,7 @@ msgid "Invalid signer key"
 msgstr "无效的 singer key"
 
 msgid "Follow for {feeAmount} ${feeSymbol}"
-msgstr ""
+msgstr "关注需付出 {feeAmount} ${feeSymbol}"
 
 msgid "Posts from @{0} will now be hidden in your home timeline"
 msgstr "@{0} 的帖子会从您的时间线中隐藏"
@@ -1420,7 +1474,7 @@ msgid "Minting Date"
 msgstr "铸造日期"
 
 msgid "This profile doesn't enable super follow"
-msgstr ""
+msgstr "用户未开放超级关注。"
 
 msgid "The page could not be found."
 msgstr "找不到该页面。"
@@ -1462,7 +1516,7 @@ msgid "Your schedule thread has created successfully."
 msgstr "你设定的定时 thread 已经成功。"
 
 msgid "Super Follow"
-msgstr ""
+msgstr "超级关注"
 
 msgid "Cryptocurrency mixer found."
 msgstr ""
@@ -1515,11 +1569,14 @@ msgstr "隐藏成功。"
 msgid "If this function exists, it is possible for the project owner to regain ownership even after relinquishing it"
 msgstr "如果存在此功能，项目所有者即使在放弃后也可以重新获得所有权。"
 
+msgid "<0>© 2024 Firefly.</0> All rights reserved."
+msgstr "<0>© 2024 Firefly.</0> 版权所有。"
+
 msgid "Add wallet"
 msgstr "添加钱包"
 
 msgid "Please switch to {0}"
-msgstr ""
+msgstr "请切换到 {0}"
 
 msgid "Non-honeypot related address."
 msgstr ""
@@ -1543,13 +1600,13 @@ msgid "Failed to parse session."
 msgstr "未能解析会话"
 
 msgid "Exclusivity"
-msgstr ""
+msgstr "独特性"
 
 msgid "Feedback"
 msgstr "问题反馈"
 
 msgid "Your serialized session"
-msgstr ""
+msgstr "你的序列化会话"
 
 msgid "GIFs"
 msgstr "动图"
@@ -1597,7 +1654,7 @@ msgid "Translated"
 msgstr "已翻译"
 
 msgid "Price"
-msgstr ""
+msgstr "价格"
 
 msgid "Failed to bookmark post."
 msgstr "收藏帖子失败。"
@@ -1621,7 +1678,7 @@ msgid "This token is not a gas abuser."
 msgstr ""
 
 msgid "Failed to fetch profiles."
-msgstr ""
+msgstr "未能获取个人资料。"
 
 msgid "Unliked"
 msgstr "已取消点赞"
@@ -1630,7 +1687,7 @@ msgid "Visit mask.io"
 msgstr "访问 mask.io"
 
 msgid "First time connecting to Firefly?<0/>Approve a <1>new connection with Warpcast</1> or <2>sync</2> through the app"
-msgstr ""
+msgstr "第一次连接到 Firefly 吗？<0/>请批准与 <1>Warpcast的新连接</1> 或者通过应用进行 <2>同步</2> 。"
 
 msgid "Your website URL"
 msgstr "您网站的 URL"
@@ -1654,7 +1711,10 @@ msgid "{shares, plural, one {Recast or Quote} other {Recasts or Quotes}}"
 msgstr "{shares, plural, one {转帖或引用} other {转帖或引用}}"
 
 msgid "Please input the serialized session to be validated."
-msgstr ""
+msgstr "请输入要验证的序列化会话。"
+
+msgid "Welcome Back CZ"
+msgstr "欢迎回归 CZ"
 
 msgid "Failed to update profile."
 msgstr "更新个人资料失败。"
@@ -1702,7 +1762,7 @@ msgid "Insufficient funds"
 msgstr "金额不足"
 
 msgid "Connect your wallet to follow"
-msgstr ""
+msgstr "连接钱包并关注"
 
 msgid "Community"
 msgstr "社区"
@@ -1787,6 +1847,18 @@ msgstr "对不起，我们未找到相关钱包 {0}."
 
 msgid "Unwatch"
 msgstr "取消关注"
+
+msgid "Wallets"
+msgstr "钱包"
+
+msgid "Articles from {walletHandle} will now be hidden in your home timeline"
+msgstr "来自 {walletHandle} 的文章现在将从您的首页时间线中隐藏。"
+
+msgid "Followed @cz_binance on X before Sept 21"
+msgstr "必须在年9月21日之前在 X 上关注 @cz_binance 。"
+
+msgid "Login X"
+msgstr "登录 X"
 
 msgid "Please input the url to be revalidated."
 msgstr "请输入 URL 重新验证："
@@ -1878,6 +1950,9 @@ msgstr ""
 msgid "Post by {0}"
 msgstr "由 {0} 发帖"
 
+msgid "Change Account"
+msgstr "切换账号"
+
 msgid "Casts + Replies"
 msgstr "帖子+回复"
 
@@ -1896,8 +1971,14 @@ msgstr ""
 msgid "The hidden owner function is included. The project owner may have the ability to control the contract."
 msgstr ""
 
+msgid "Claimed"
+msgstr "已领取"
+
 msgid "Copy"
 msgstr "复制"
+
+msgid "Claim"
+msgstr "领取"
 
 msgid "No available wallet."
 msgstr "没有可用的钱包。"
@@ -1928,6 +2009,9 @@ msgstr ""
 
 msgid "Accounts Connected"
 msgstr "已连接账户"
+
+msgid "Failed to claim token"
+msgstr "领取通证失败"
 
 msgid "Notifications"
 msgstr "通知"
@@ -1980,6 +2064,9 @@ msgstr "<0>你</0> 已点赞"
 msgid "You've hit rock bottom."
 msgstr "你已经滑到底部啦～"
 
+msgid "Welcome Back CZ Collectible"
+msgstr "欢迎 CZ 回归收藏品"
+
 msgid "Copy link to profile"
 msgstr "复制链接"
 
@@ -1990,7 +2077,7 @@ msgid "Cancel repost successfully"
 msgstr "取消转帖成功"
 
 msgid "Collect Post"
-msgstr ""
+msgstr "收集帖子"
 
 msgid "Muting..."
 msgstr "隐藏中..."
@@ -2007,8 +2094,14 @@ msgstr "免费<0>铸造</0> 了一个 NFT"
 msgid "Will send on <0>{0} at <1>{1}</1></0>"
 msgstr "将在 <0>{0} <1>{1}</1></0> 发送"
 
+msgid "Basic Criteria"
+msgstr "基本条件"
+
 msgid "Failed to continue. Please allow Lens Manager for performing actions without the need to sign each transaction."
 msgstr "无法继续。请允许 Lens Manager 执行操作，而无需对每笔交易进行签名。"
+
+msgid "*CZ's follower snapshot was taken at 8:00 UTC on September 21, 2024."
+msgstr "*CZ的关注者快照发生在在2024年9月21日8:00 UTC。"
 
 msgid "Properties"
 msgstr "属性"
@@ -2047,10 +2140,13 @@ msgid "Switching..."
 msgstr "切换中..."
 
 msgid "Pay<0> {feeAmount} ${feeSymbol} </0>to follow and get some awesome perks!"
-msgstr ""
+msgstr "支付<0>{feeAmount} ${feeSymbol}</0>以关注并获得一些精彩的福利！"
 
 msgid "<0>Bought</0> an NFT worth {costEl}"
 msgstr "<0>购买</0> 一个 NFT 价值 {costEl}"
+
+msgid "Premium Eligibility Criteria"
+msgstr "优质资格条件"
 
 msgid "Post from /{0} will be hidden in your home timeline"
 msgstr "来自 /{0} 的帖子会从您的时间线中隐藏"
@@ -2066,6 +2162,9 @@ msgstr "{days} 天剩余"
 
 msgid "Money laundering found."
 msgstr ""
+
+msgid "*Event runs from September 29, 2024, 12:00 UTC to October 8, 2024, 23:59 UTC."
+msgstr "*活动时间为2024年9月29日12:00 UTC至2024年10月8日23:59 UTC。"
 
 msgid "Log out all"
 msgstr "登出所有"
@@ -2111,6 +2210,12 @@ msgstr "只有你关注的人"
 
 msgid "The signer is not authorized to perform the requested operation. Please approve again."
 msgstr "Signer key 未被授权。请重试。"
+
+msgid "Must followed @cz_binance on X before Sept 21, 2024."
+msgstr "必须在2024年9月21日之前在 X 上关注 @cz_binance 。"
+
+msgid "Your assets on BNB Chain are worth over US$10,000."
+msgstr "您在 BNB Chain 上的资产价值超过 10,000 美元。"
 
 msgid "Saved on {0}"
 msgstr "已保存在 {0}"
@@ -2160,8 +2265,14 @@ msgstr "如果您授权此通证给这个网站，您可能会丢失您的资产
 msgid "Unfollow"
 msgstr "取消关注"
 
+msgid "Your BNB Chain wallet holds assets worth over $10,000."
+msgstr "您的 BNB Chain 钱包中持有的资产价值超过 10,000 美元。"
+
 msgid "Your {0} account is now connected."
 msgstr "您的 {0} 账户已连接。"
+
+msgid "Checking eligibility"
+msgstr "检查资格中"
 
 msgid "Posted via {0} <0>{sendFrom}</0>"
 msgstr "发布于 {0} <0>{sendFrom}</0>"
@@ -2169,11 +2280,17 @@ msgstr "发布于 {0} <0>{sendFrom}</0>"
 msgid "The contract owner has no restrictions on personal slippage."
 msgstr ""
 
+msgid "Claim your NFT to show your support onchain for CZ!"
+msgstr "领取你的 NFT，以在区块链上表达对 CZ 的支持！"
+
 msgid "Unmuted @{0} on {sourceName}."
 msgstr "在 {sourceName} 上已取消对 @{0} 的隐藏。"
 
 msgid "If a suspendable code is included, the token maybe neither be bought nor sold (honeypot risk)."
 msgstr "如果包含可中止的代码，那么通证可能既不能被购买也不会被出售（欺诈风险）。"
+
+msgid "Your .bnb domain is a member of the SPACE ID Premier Club."
+msgstr "您的 .bnb 域名是 SPACE ID Premier Club 的成员。"
 
 msgid "Display Name should not exceed {maxDisplayNameSize} characters"
 msgstr "显示名称不可以超过 {maxDisplayNameSize} 个字"
@@ -2189,6 +2306,9 @@ msgstr "正在连接钱包"
 
 msgid "{minutes}m left"
 msgstr "{minutes} 分钟剩余"
+
+msgid "Your X account holds Premium status."
+msgstr "你的 X 账号拥有 Premium。"
 
 msgid "Total Supply"
 msgstr "总供应量"
@@ -2211,14 +2331,17 @@ msgstr "已关联的钱包"
 msgid "The whitelist function is included. Some addresses may not be able to trade normally (honeypot risk)."
 msgstr "白名单功能已启用。有些地址可能无法正常交易（欺诈风险）。"
 
+msgid "Get a free special edition Firefly NFT for following @cz_binance on X to celebrate CZ’s return!"
+msgstr "在 X 上关注 @cz_binance 以庆祝 CZ 的回归，获取一个免费的特别版 Firefly NFT！"
+
 msgid "Mirror now to get 25% referral fee!"
-msgstr ""
+msgstr "立即转帖以获得 25% 的推荐佣金！"
 
 msgid "Hide tokens with small balances"
 msgstr "隐藏小额通证"
 
 msgid "News"
-msgstr ""
+msgstr "新闻"
 
 msgid "NFT ID"
 msgstr "NFT ID"
@@ -2242,10 +2365,10 @@ msgid "Statistic"
 msgstr "统计"
 
 msgid "Failed to upload. Video length exceeds {minDuration}s ~ {maxDuration}s"
-msgstr ""
+msgstr "上传失败。视频时间超过限制 {minDuration}秒 ~ {maxDuration}秒"
 
 msgid "Post collected successfully!"
-msgstr ""
+msgstr "成功收集文章！"
 
 msgid "Your post have published successfully on {0}."
 msgstr "您已在 {0} 发布成功。"
@@ -2260,7 +2383,7 @@ msgid "Post added to your Bookmarks"
 msgstr "帖子已经添加到您的收藏中"
 
 msgid "Cancel mirror successfully"
-msgstr ""
+msgstr "取消转发成功"
 
 msgid "Cannot continue due to wallet mismatch."
 msgstr "钱包不匹配无法继续。"
@@ -2273,6 +2396,9 @@ msgstr "取消隐藏"
 
 msgid "No available token"
 msgstr "没有适合的代币"
+
+msgid "Firefly Bridge"
+msgstr "Firefly 桥"
 
 msgid "Invalid URL"
 msgstr "无效的 URL"
@@ -2290,7 +2416,7 @@ msgid "Unauthorized. Please check your login."
 msgstr "未授权认证。请重新登录。"
 
 msgid "Failed to upload. Video size exceeds {minWidth}x{minHeight} ~ {maxWidth}x{maxHeight}"
-msgstr ""
+msgstr "上传失败。视频尺寸超过限制 {minWidth}x{minHeight} ~ {maxWidth}x{maxHeight}"
 
 msgid "Mask Network"
 msgstr "Mask Network"
@@ -2347,10 +2473,13 @@ msgid "<0>since </0> <1>{0}</1>"
 msgstr "<0>从 </0> <1>{0}</1>"
 
 msgid "{hours}h left"
-msgstr ""
+msgstr "{hours} 小时剩余"
 
 msgid "Events"
 msgstr "活动"
+
+msgid "You're eligible for a <0>Premium</0> CZ Support NFT because your X account holds Premium status."
+msgstr "您有资格获得一个 <0>Premium</0> 支持 CZ NFT，因为您的 X 账号拥有 Premium 状态。"
 
 msgid "{0} Users"
 msgstr "{0} 用户"
@@ -2376,6 +2505,9 @@ msgstr "已转发"
 msgid "No phishing activities involved."
 msgstr ""
 
+msgid "Premium Criteria"
+msgstr "优质资格条件"
+
 msgid "Failed to parse transaction."
 msgstr "未能解析交易。"
 
@@ -2383,7 +2515,7 @@ msgid "No anti_whale(Unlimited number of transactions)"
 msgstr "没有反鲸鱼（无限的交易次数）"
 
 msgid "Failed to collect post."
-msgstr ""
+msgstr "删除帖子失败。"
 
 msgid "<0>Burned</0> an NFT"
 msgstr "<0>销毁</0> 一个 NFT"
@@ -2399,9 +2531,6 @@ msgstr "个人信息"
 
 msgid "QUOTE"
 msgstr "引用"
-
-msgid "Wallet Provider"
-msgstr "钱包提供方"
 
 msgid "Collect"
 msgstr "收藏"
@@ -2442,6 +2571,9 @@ msgstr "请在 X 确认登陆。"
 msgid "Max Supply"
 msgstr "最大供应量"
 
+msgid "Posted by {0} via Firefly"
+msgstr "由 {0} 使用 Firefly 发送"
+
 msgid "<0>You</0> recasted"
 msgstr "<0>你</0> 已转帖"
 
@@ -2464,10 +2596,13 @@ msgid "GIF"
 msgstr "GIF"
 
 msgid "Followed @{0} on Lens"
-msgstr ""
+msgstr "在 Lens 上关注了 @{0}"
 
 msgid "Collect for {0} {1}"
 msgstr "收集 {0} {1}"
+
+msgid "You're eligible for a <0>Premium</0> CZ Support NFT because your BNB Chain wallet holds assets valued over <1>$10,000</1>."
+msgstr "您有资格获得一个 <0>Premium</0> 支持 CZ NFT，因为您的 BNB Chain 钱包中持有的资产价值超过 <1>$10,000</1>。"
 
 msgid "Recast"
 msgstr "转推"
@@ -2505,6 +2640,9 @@ msgstr "多媒体"
 msgid "No content to publish."
 msgstr "没有发布的内容。"
 
+msgid "Already claimed"
+msgstr "已领取"
+
 msgid "Text"
 msgstr "文本"
 
@@ -2538,8 +2676,14 @@ msgstr "已转发"
 msgid "Following"
 msgstr "正在关注"
 
+msgid "View transaction on Explorer"
+msgstr "查看交易详情"
+
 msgid "Hours"
 msgstr "小时"
+
+msgid "Note:"
+msgstr "注意 ："
 
 msgid "Failed to create schedule post."
 msgstr "创建定时任务失败"
@@ -2555,6 +2699,9 @@ msgstr "更新定时任务失败"
 
 msgid "Login"
 msgstr "登录"
+
+msgid "You're eligible for a <0>Premium</0> CZ Support NFT because your .bnb domain is member of the <1>SPACE ID Premier Club</1>."
+msgstr "您有资格获得一个 <0>Premium</0> 支持 CZ NFT，因为您的 .bnb 域名是 <1>SPACE ID Premier Club</1> 的成员。"
 
 msgid "Replying to <0>@{0}</0> on {1}"
 msgstr "在 {1} 上回复 <0>@{0}</0>"
@@ -2579,3 +2726,9 @@ msgstr "× {0}"
 
 msgid "Blink Validator"
 msgstr "Blink 验证器"
+
+msgid "Not eligible to claim, <0>retry</0>"
+msgstr "未满足领取资格， <0>重试</0>"
+
+msgid "Reward for followers"
+msgstr "回馈粉丝"

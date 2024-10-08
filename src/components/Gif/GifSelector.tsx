@@ -1,6 +1,5 @@
 import { SearchBar, SearchContextManager } from '@giphy/react-components';
 import { t, Trans } from '@lingui/macro';
-import { formatFileSize } from '@masknet/kit';
 import { useCallback, useMemo, useState } from 'react';
 import { useSize } from 'react-use';
 
@@ -13,6 +12,7 @@ import { env } from '@/constants/env.js';
 import { Image } from '@/esm/Image.js';
 import { classNames } from '@/helpers/classNames.js';
 import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
+import { formatFileSize } from '@/helpers/formatFileSize.js';
 import { getCurrentPostImageLimits } from '@/helpers/getCurrentPostImageLimits.js';
 import { getPostGifSizeLimit } from '@/helpers/getPostLimitation.js';
 import { createGiphyMediaObject } from '@/helpers/resolveMediaObjectUrl.js';
@@ -62,7 +62,7 @@ export function GifSelector({ onSelected }: GifSelectorProps) {
         (gif: IGif) => {
             const gifSize = gif.images.original.size;
             if (gifSize && parseFloat(gifSize) > maxGifSize) {
-                enqueueErrorMessage(t`Failed to upload. Gif size exceeds ${formatFileSize(maxGifSize, false)}`);
+                enqueueErrorMessage(t`Failed to upload. Gif size exceeds ${formatFileSize(maxGifSize)}`);
                 return;
             }
             updateImages((images) => {

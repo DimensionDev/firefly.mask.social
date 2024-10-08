@@ -27,6 +27,7 @@ export const ForYouPostList = memo<{ source: SocialSource }>(function ForYouPost
 
     return (
         <ListInPage
+            source={source}
             key={source}
             queryResult={queryResult}
             VirtualListProps={{

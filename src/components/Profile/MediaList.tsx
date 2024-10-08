@@ -45,6 +45,7 @@ export function MediaList({ profileId, source }: MediaListProps) {
 
     return (
         <ListInPage
+            source={source}
             key={source}
             queryResult={queryResult}
             VirtualListProps={{

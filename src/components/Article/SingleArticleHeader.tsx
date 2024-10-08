@@ -12,7 +12,7 @@ import { Link } from '@/esm/Link.js';
 import { classNames } from '@/helpers/classNames.js';
 import { formatEthereumAddress } from '@/helpers/formatAddress.js';
 import { resolveArticlePlatformIcon } from '@/helpers/resolveArticlePlatformIcon.js';
-import type { Article } from '@/providers/types/Article.js';
+import { type Article, ArticlePlatform } from '@/providers/types/Article.js';
 
 interface SingleArticleHeaderProps {
     article: Article;
@@ -30,8 +30,8 @@ export const SingleArticleHeader = memo<SingleArticleHeaderProps>(function Singl
         source: SourceInURL.Wallet,
     });
 
-    const Icon = resolveArticlePlatformIcon(article.platform);
-
+    const Icon = !isBookmark ? resolveArticlePlatformIcon(article.platform) : null;
+    const size = article.platform === ArticlePlatform.Limo ? 15 : 20;
     const { data: ens } = useEnsName({ address: article.author.id, query: { enabled: !article.author.handle } });
 
     return (
@@ -58,7 +58,7 @@ export const SingleArticleHeader = memo<SingleArticleHeaderProps>(function Singl
                 </Link>
             </div>
             <div className="ml-auto flex items-center space-x-2">
-                {Icon ? <Icon width={20} height={20} /> : null}
+                {Icon ? <Icon width={size} height={size} /> : null}
 
                 {!isBookmark ? (
                     <>

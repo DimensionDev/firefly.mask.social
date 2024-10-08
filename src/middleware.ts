@@ -3,23 +3,29 @@ import urlcat from 'urlcat';
 
 import { isFollowCategory } from '@/helpers/isFollowCategory.js';
 import { isMatchedDiscoverPage } from '@/helpers/isMatchedDiscoverPage.js';
+import { parseOldDiscoverUrl } from '@/helpers/parseDiscoverUrl.js';
+import { parseOldEngagementUrl } from '@/helpers/parseEngagementUrl.js';
+import { parseOldBookmarkUrl } from '@/helpers/parseOldBookmarkUrl.js';
+import { parseOldFollowingUrl } from '@/helpers/parseOldFollowingUrl.js';
+import { parseOldNotification } from '@/helpers/parseOldNotification.js';
+import { parseOldSettingsUrl } from '@/helpers/parseOldSettingsUrl.js';
 import { parseOldPostUrl } from '@/helpers/parsePostUrl.js';
-import { parseProfileUrl } from '@/helpers/parseProfileUrl.js';
+import { parseOldProfileUrl, parseProfileUrl } from '@/helpers/parseProfileUrl.js';
+import { resolveBookmarkUrl } from '@/helpers/resolveBookmarkUrl.js';
+import { resolveDiscoverUrl } from '@/helpers/resolveDiscoverUrl.js';
+import { resolveEngagementUrl } from '@/helpers/resolveEngagementUrl.js';
+import { resolveFollowingUrl } from '@/helpers/resolveFollowingUrl.js';
+import { resolveNotificationUrl } from '@/helpers/resolveNotificationUrl.js';
 import { resolvePostUrl } from '@/helpers/resolvePostUrl.js';
+import { resolveProfileUrl } from '@/helpers/resolveProfileUrl.js';
 import { resolveSourceInUrl } from '@/helpers/resolveSourceInUrl.js';
 
 export async function middleware(request: NextRequest) {
+    const pathname = request.nextUrl.pathname;
     request.headers.set('X-URL', request.url);
 
-    const pathname = request.nextUrl.pathname;
-    const isPost = pathname.startsWith('/post') && !pathname.includes('/photos');
-
-    if (isPost) {
-        const { isBot } = userAgent(request);
-
-        request.headers.set('X-IS-BOT', isBot ? 'true' : 'false');
-
-        return NextResponse.next({
+    if (request.nextUrl.host === 'cz.firefly.social' && pathname === '/') {
+        return NextResponse.rewrite(new URL('/activity/cz', request.url), {
             request,
         });
     }
@@ -28,6 +34,59 @@ export async function middleware(request: NextRequest) {
         return NextResponse.rewrite(new URL(`/discover${pathname}`, request.url), {
             request,
         });
+    }
+
+    const parsedOldDiscoverUrl = parseOldDiscoverUrl(request.nextUrl);
+
+    if (parsedOldDiscoverUrl) {
+        const destination = request.nextUrl.clone();
+        destination.pathname = resolveDiscoverUrl(parsedOldDiscoverUrl.source, parsedOldDiscoverUrl.discover);
+        destination.searchParams.delete('source');
+        destination.searchParams.delete('discover');
+        return NextResponse.redirect(destination);
+    }
+
+    const parsedOldNotificationUrl = parseOldNotification(request.nextUrl);
+
+    if (parsedOldNotificationUrl) {
+        const destination = request.nextUrl.clone();
+        destination.pathname = resolveNotificationUrl(parsedOldNotificationUrl.source);
+        destination.searchParams.delete('source');
+        return NextResponse.redirect(destination);
+    }
+
+    const parsedOldFollowingUrl = parseOldFollowingUrl(request.nextUrl);
+    if (parsedOldFollowingUrl) {
+        const destination = request.nextUrl.clone();
+        destination.pathname = resolveFollowingUrl(parsedOldFollowingUrl.source);
+        destination.searchParams.delete('source');
+        return NextResponse.redirect(destination);
+    }
+
+    const parsedOldBookmarkUrl = parseOldBookmarkUrl(request.nextUrl);
+
+    if (parsedOldBookmarkUrl) {
+        const destination = request.nextUrl.clone();
+        destination.pathname = resolveBookmarkUrl(parsedOldBookmarkUrl.source);
+        destination.searchParams.delete('source');
+
+        return NextResponse.redirect(destination);
+    }
+
+    const parsedOldProfileUrl = parseOldProfileUrl(request.nextUrl);
+    if (parsedOldProfileUrl) {
+        const destination = request.nextUrl.clone();
+
+        destination.pathname = resolveProfileUrl(
+            parsedOldProfileUrl.source,
+            parsedOldProfileUrl.id,
+            parsedOldProfileUrl.category,
+        );
+
+        destination.searchParams.delete('profile_tab');
+        destination.searchParams.delete('wallet_tab');
+        destination.searchParams.delete('source');
+        return NextResponse.redirect(destination);
     }
 
     const parsedProfileUrl = parseProfileUrl(pathname);
@@ -44,11 +103,43 @@ export async function middleware(request: NextRequest) {
         });
     }
 
+    const parsedOldEngagementUrl = parseOldEngagementUrl(request.nextUrl);
+    if (parsedOldEngagementUrl) {
+        const destination = request.nextUrl.clone();
+        destination.pathname = resolveEngagementUrl(
+            parsedOldEngagementUrl.id,
+            parsedOldEngagementUrl.source,
+            parsedOldEngagementUrl.engagement,
+        );
+        destination.searchParams.delete('source');
+        return NextResponse.redirect(destination);
+    }
+
     const parsedOldPostUrl = parseOldPostUrl(request.nextUrl);
     if (parsedOldPostUrl) {
         const destination = request.nextUrl.clone();
-        destination.pathname = resolvePostUrl(parsedOldPostUrl.source, request.url);
+        destination.pathname = resolvePostUrl(parsedOldPostUrl.source, parsedOldPostUrl.id);
+        destination.searchParams.delete('source');
         return NextResponse.redirect(destination);
+    }
+
+    const parsedOldSettingsUrl = parseOldSettingsUrl(request.nextUrl);
+
+    if (parsedOldSettingsUrl) {
+        const destination = request.nextUrl.clone();
+        destination.pathname = parsedOldSettingsUrl.pathname;
+        return NextResponse.redirect(destination);
+    }
+
+    const isPost = pathname.startsWith('/post') && !pathname.includes('/photos');
+    if (isPost) {
+        const { isBot } = userAgent(request);
+
+        request.headers.set('X-IS-BOT', isBot ? 'true' : 'false');
+
+        return NextResponse.next({
+            request,
+        });
     }
 
     return NextResponse.next({

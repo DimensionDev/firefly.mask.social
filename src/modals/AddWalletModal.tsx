@@ -65,13 +65,12 @@ export const AddWalletModal = forwardRef<SingletonModalRefCreator<AddWalletModal
             );
             if (existedConnection) {
                 const addressName = existedConnection.ens?.[0] || formatEthereumAddress(address, 8);
-                AccountModalRef.open();
                 return enqueueErrorMessage(t`${addressName} is already connected.`);
             }
             const hexMessage = await FireflySocialMediaProvider.getMessageToSignMessageForBindSolanaWallet(address);
             const message = bs58.decode(bs58.encode(Buffer.from(hexMessage.substring(2), 'hex')));
             const signature = Buffer.from(await signMessage(message)).toString('hex');
-            await FireflySocialMediaProvider.verifyAndBindSolanaWallet(address, hexMessage, signature);
+            return FireflySocialMediaProvider.verifyAndBindSolanaWallet(address, hexMessage, signature);
         }, [connections, publicKey, signMessage, wallet]);
         const qc = useQueryClient();
 
@@ -83,7 +82,8 @@ export const AddWalletModal = forwardRef<SingletonModalRefCreator<AddWalletModal
                             await onBindEvmAddress();
                             break;
                         case 'solana':
-                            await onBindSolanaAddress();
+                            const result = await onBindSolanaAddress();
+                            if (!result) return;
                             break;
                         default:
                             safeUnreachable(platform);

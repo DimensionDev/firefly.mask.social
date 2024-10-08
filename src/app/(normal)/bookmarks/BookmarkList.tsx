@@ -8,23 +8,20 @@ import { ScrollListKey, type SocialSource, Source } from '@/constants/enum.js';
 import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
 import { getPostsSelector } from '@/helpers/getPostsSelector.js';
 import { getSnackbarMessageFromError } from '@/helpers/getSnackbarMessageFromError.js';
-import { narrowToSocialSource } from '@/helpers/narrowToSocialSource.js';
 import { createIndicator } from '@/helpers/pageable.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
+import { useNavigatorTitle } from '@/hooks/useNavigatorTitle.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
-import { useGlobalState } from '@/store/useGlobalStore.js';
 
 interface Props {
     source: SocialSource;
 }
 
 export function BookmarkList({ source }: Props) {
-    const currentSource = useGlobalState.use.currentSource();
-    const currentSocialSource = narrowToSocialSource(currentSource);
-    const isLogin = useIsLogin(currentSocialSource);
-    const profile = useCurrentProfile(currentSocialSource);
+    const isLogin = useIsLogin(source);
+    const profile = useCurrentProfile(source);
     const query = useSuspenseInfiniteQuery({
         queryKey: ['posts', source, 'bookmark', profile?.profileId],
         queryFn: async ({ pageParam }) => {
@@ -48,8 +45,12 @@ export function BookmarkList({ source }: Props) {
         },
         select: getPostsSelector(source),
     });
+
+    useNavigatorTitle(t`Bookmarks`);
+
     return (
         <ListInPage
+            source={source}
             loginRequired
             key={source}
             queryResult={query}

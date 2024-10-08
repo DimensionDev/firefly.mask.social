@@ -3,7 +3,7 @@ import { safeUnreachable } from '@masknet/kit';
 import { useAsyncFn } from 'react-use';
 
 import { Source } from '@/constants/enum.js';
-import { checkFarcasterInvalidSignerKey } from '@/helpers/checkers.js';
+import { checkFarcasterInvalidSignerKey } from '@/helpers/checkFarcasterInvalidSignerKey.js';
 import { enqueueErrorMessage, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { getSnackbarMessageFromError } from '@/helpers/getSnackbarMessageFromError.js';
 import { FarcasterSocialMediaProvider } from '@/providers/farcaster/SocialMedia.js';

@@ -139,7 +139,6 @@
         "punc",
         "quicktime",
         "rabby",
-        "rainbowkit",
         "rarible",
         "redpacket",
         "rpid",
@@ -190,7 +189,8 @@
         "Cybercrime",
         "cybercrime",
         "selfdestruct",
-        "reinit"
+        "reinit",
+        "mutelist"
     ],
     "flagWords": [],
     "ignorePaths": [

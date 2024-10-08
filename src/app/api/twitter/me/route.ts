@@ -1,7 +1,7 @@
 import type { NextRequest } from 'next/server.js';
 
 import { compose } from '@/helpers/compose.js';
-import { createSuccessResponseJSON } from '@/helpers/createSuccessResponseJSON.js';
+import { createSuccessResponseJSON } from '@/helpers/createResponseJSON.js';
 import { createTwitterClientV2 } from '@/helpers/createTwitterClientV2.js';
 import { createTwitterErrorResponseJSON } from '@/helpers/createTwitterErrorResponse.js';
 import { getJsonBodyFromRequestWithZodObject } from '@/helpers/getJsonBodyFromRequestWithZodObject.js';

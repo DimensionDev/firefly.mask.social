@@ -2,7 +2,7 @@
 import '@/assets/css/limo.css';
 import '@/assets/css/paragraph.css';
 
-import { t, Trans } from '@lingui/macro';
+import { Trans } from '@lingui/macro';
 import { EVMExplorerResolver } from '@masknet/web3-providers';
 import { ChainId } from '@masknet/web3-shared-evm';
 import { useQuery, useSuspenseQuery } from '@tanstack/react-query';
@@ -11,20 +11,19 @@ import { compact } from 'lodash-es';
 import { useRouter } from 'next/navigation.js';
 import { useRef } from 'react';
 import urlcat from 'urlcat';
-import { useDarkMode, useDocumentTitle } from 'usehooks-ts';
-import { checksumAddress } from 'viem';
+import { useDarkMode } from 'usehooks-ts';
 
 import ComeBack from '@/assets/comeback.svg';
 import { ArticleHeader } from '@/components/Article/ArticleHeader.js';
 import { ArticleMarkup } from '@/components/Markup/ArticleMarkup.js';
 import { CollapsedContent } from '@/components/Posts/CollapsedContent.js';
 import { ImageAsset } from '@/components/Posts/ImageAsset.js';
-import { PageRoute, SearchType, Source } from '@/constants/enum.js';
-import { SITE_NAME } from '@/constants/index.js';
+import { Source } from '@/constants/enum.js';
 import { Link } from '@/esm/Link.js';
 import { classNames } from '@/helpers/classNames.js';
-import { createPageTitle } from '@/helpers/createPageTitle.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
+import { openWindow } from '@/helpers/openWindow.js';
+import { resolveSearchUrl } from '@/helpers/resolveSearchUrl.js';
 import { useComeBack } from '@/hooks/useComeback.js';
 import { PreviewMediaModalRef } from '@/modals/controls.js';
 import { FireflyArticleProvider } from '@/providers/firefly/Article.js';
@@ -74,8 +73,6 @@ export function ArticleDetailPage({ params: { id: articleId } }: PageProps) {
             return;
         },
     });
-
-    useDocumentTitle(article ? createPageTitle(t`Post by ${article.author.handle}`) : SITE_NAME);
 
     if (!article) return null;
 
@@ -132,13 +129,7 @@ export function ArticleDetailPage({ params: { id: articleId } }: PageProps) {
                                 event.preventDefault();
 
                                 scrollTo(0, 0);
-                                router.push(
-                                    urlcat(PageRoute.Search, {
-                                        q: article.slug,
-                                        type: SearchType.Posts,
-                                        source: Source.Article,
-                                    }),
-                                );
+                                router.push(resolveSearchUrl(article.slug || '', undefined, Source.Article));
                             }}
                         >
                             #{article.slug}
@@ -168,6 +159,14 @@ export function ArticleDetailPage({ params: { id: articleId } }: PageProps) {
                             onClick={(event) => {
                                 event.stopPropagation();
                                 event.preventDefault();
+
+                                if ((event.target as HTMLElement).tagName === 'A') {
+                                    const link = event.target as HTMLAnchorElement;
+                                    if (link.href) {
+                                        openWindow(link.href, '_blank', { opener: false, referrer: false });
+                                        return;
+                                    }
+                                }
 
                                 if ((event.target as HTMLElement).tagName !== 'IMG' || !ref.current) return;
 
@@ -207,20 +206,9 @@ export function ArticleDetailPage({ params: { id: articleId } }: PageProps) {
                         {article.content}
                     </ArticleMarkup>
                 )}
-                {authorUrl && !isMuted ? (
-                    <div className="mb-4 mt-4 rounded-2xl border border-line bg-bg p-2">
-                        <div className="border-b border-line pb-2 text-sm">
-                            <Trans>This entry has been permanently stored on-chain and signed by its creator.</Trans>
-                        </div>
 
-                        <Link rel="noreferrer noopener" target="_blank" href={authorUrl} className="mt-3 text-sm">
-                            <div className="mt-1 text-secondary">
-                                <Trans>AUTHOR ADDRESS</Trans>
-                            </div>
-                            <div className="break-all">{checksumAddress(article.author.id)}</div>
-                        </Link>
-                    </div>
-                ) : null}
+                {/* article bottom padding */}
+                <div className="py-4" />
             </div>
         </div>
     );

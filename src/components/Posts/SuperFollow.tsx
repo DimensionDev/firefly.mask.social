@@ -28,7 +28,7 @@ interface SuperFollowProps {
 
 export const SuperFollow = memo<SuperFollowProps>(function SuperFollow({ profile, showCloseButton = true, onClose }) {
     const account = useAccount();
-    const { loading, followModule, isConnected, allowanceModule, hasAmount, hasAllowance, address, refetchAllowance } =
+    const { loading, followModule, isConnected, allowanceModule, hasAmount, hasAllowance, address } =
         useSuperFollowData(profile);
 
     const wrongAddress = !isSameEthereumAddress(address, account.address);
@@ -67,7 +67,6 @@ export const SuperFollow = memo<SuperFollowProps>(function SuperFollow({ profile
                     allowanceModule,
                     Number.MAX_SAFE_INTEGER.toString(),
                 );
-                await refetchAllowance();
                 return;
             }
 
@@ -89,7 +88,6 @@ export const SuperFollow = memo<SuperFollowProps>(function SuperFollow({ profile
         profile.handle,
         profile.source,
         onClose,
-        refetchAllowance,
     ]);
 
     const disabled =

@@ -32,6 +32,8 @@ export const ReplyRestrictionAction = memo(function ReplyRestrictionAction({ has
         </>
     );
 
+    if (disabled) return <div className="flex gap-1 text-main focus:outline-none">{buttonContent}</div>;
+
     if (isMedium) {
         return (
             <Popover as="div" className="relative">
@@ -48,7 +50,7 @@ export const ReplyRestrictionAction = memo(function ReplyRestrictionAction({ has
     return (
         <>
             <ClickableButton
-                className="flex gap-1 text-main focus:outline-none disabled:cursor-not-allowed disabled:opacity-50"
+                className="flex cursor-pointer gap-1 text-main focus:outline-none disabled:cursor-not-allowed disabled:opacity-50"
                 onClick={() => setOpen(true)}
                 disabled={disabled}
             >
