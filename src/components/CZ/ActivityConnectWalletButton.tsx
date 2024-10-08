@@ -109,10 +109,15 @@ export function ActivityChangeWalletButton() {
                         <a
                             className="flex items-center px-4 py-[11px] text-sm font-semibold leading-6"
                             onClick={async () => {
-                                const address = await fireflyBridgeProvider.request(SupportedMethod.CONNECT_WALLET, {
-                                    type: Network.EVM,
-                                });
-                                setAddress(address);
+                                try {
+                                    const address = await fireflyBridgeProvider.request(
+                                        SupportedMethod.CONNECT_WALLET,
+                                        {
+                                            type: Network.EVM,
+                                        },
+                                    );
+                                    setAddress(address);
+                                } catch {}
                             }}
                         >
                             <AddCircleIcon width={24} height={24} className="mr-2" />
