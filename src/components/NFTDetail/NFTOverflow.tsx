@@ -1,7 +1,7 @@
 'use client';
 
 import { t, Trans } from '@lingui/macro';
-import { EVMExplorerResolver } from '@masknet/web3-providers';
+import { BlockScanExplorerResolver, EVMExplorerResolver } from '@masknet/web3-providers';
 import { SchemaType } from '@masknet/web3-shared-evm';
 import { type ReactNode, useMemo } from 'react';
 
@@ -34,7 +34,7 @@ function DetailsGroup(props: { field: ReactNode; value: ReactNode }) {
 function EVMExplorerLink(props: { address: string; chainId?: number; type: 'address' | 'tx' }) {
     if (props.chainId) {
         const resolveExplorerLink = {
-            address: EVMExplorerResolver.addressLink.bind(EVMExplorerResolver),
+            address: BlockScanExplorerResolver.addressLink.bind(BlockScanExplorerResolver),
             tx: EVMExplorerResolver.transactionLink.bind(EVMExplorerResolver),
         }[props.type];
         return (

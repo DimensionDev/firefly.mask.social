@@ -1,4 +1,5 @@
 import { Trans } from '@lingui/macro';
+import { BlockScanExplorerResolver } from '@masknet/web3-providers';
 import { SimpleHash } from '@masknet/web3-providers/types';
 import { ChainId } from '@masknet/web3-shared-evm';
 import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
@@ -35,11 +36,15 @@ function getTopCollectorsItemContent(
 ) {
     const { totalQuantity } = options || {};
     const addressOrEns = item.owner_ens_name ? item.owner_ens_name : item.owner_address;
+    const profileLink =
+        BlockScanExplorerResolver.addressLink(ChainId.Mainnet, item.owner_address) ||
+        resolveProfileUrl(Source.Wallet, item.owner_address);
+
     return (
         <>
             <td className="pb-5 pr-2 text-left">{index + 1}</td>
             <td className="px-2 pb-5">
-                <Link href={resolveProfileUrl(Source.Wallet, item.owner_address)} className="flex w-full items-center">
+                <Link target="_blank" href={profileLink} className="flex w-full items-center">
                     <Image
                         src={getStampAvatarByProfileId(Source.Wallet, addressOrEns)}
                         alt={item.owner_address}

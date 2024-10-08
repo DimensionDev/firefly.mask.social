@@ -1,4 +1,4 @@
-import { EVMExplorerResolver } from '@masknet/web3-providers';
+import { BlockScanExplorerResolver, EVMExplorerResolver } from '@masknet/web3-providers';
 import type { ChainId } from '@masknet/web3-shared-evm';
 import { getAccount, getChainId } from '@wagmi/core';
 import { type Address, type Hash } from 'viem';
@@ -25,7 +25,7 @@ class Provider implements NetworkProvider<ChainId, Address, Hash> {
     }
 
     getAddressUrl(chainId: ChainId, address: Address): string | undefined {
-        return EVMExplorerResolver.addressLink(chainId, address);
+        return BlockScanExplorerResolver.addressLink(chainId, address);
     }
 
     getTransactionUrl(chainId: ChainId, hash: Hash): string | undefined {

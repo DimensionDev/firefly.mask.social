@@ -1,6 +1,7 @@
 'use client';
 
 import { Trans } from '@lingui/macro';
+import { BlockScanExplorerResolver } from '@masknet/web3-providers';
 import { ChainId } from '@masknet/web3-shared-evm';
 import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
 import { uniq } from 'lodash-es';
@@ -64,12 +65,13 @@ export function Attendees({ eventId }: AttendeesProps) {
 function AttendeesItem({ ownerAddress }: { ownerAddress: Address }) {
     const { data: ensName } = useEnsName({ address: ownerAddress, chainId: ChainId.Mainnet });
     const addressOrEns = ensName ? ensName : ownerAddress;
+    const profileLink =
+        BlockScanExplorerResolver.addressLink(ChainId.Mainnet, ownerAddress) ||
+        resolveProfileUrl(Source.Wallet, ownerAddress);
+
     return (
         <div className="flex items-center justify-between pb-3">
-            <Link
-                href={resolveProfileUrl(Source.Wallet, ownerAddress)}
-                className="flex max-w-[calc(100%-110px)] items-center"
-            >
+            <Link target="_blank" href={profileLink} className="flex max-w-[calc(100%-110px)] items-center">
                 <Image
                     src={getStampAvatarByProfileId(Source.Wallet, addressOrEns)}
                     alt={ownerAddress}
