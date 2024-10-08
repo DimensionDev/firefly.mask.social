@@ -33,9 +33,9 @@ const CustomElements = lazy(() => {
 export function LayoutBody({ children }: { children: React.ReactNode }) {
     return (
         <>
+            <CustomElements />
             <Providers>
                 <div className="m-auto flex w-full md:min-h-screen group-[.not-support]:md:min-h-[calc(100vh_-_38px)] lg:w-[1265px]">
-                    <CustomElements />
                     {children}
                     <IfHostname isNotOneOf={[CZ_ACTIVITY_HOSTNAME]}>
                         <IfPathname isNotOneOf={['/login/desktop', '/activity/cz']}>
