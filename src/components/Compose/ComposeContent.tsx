@@ -15,7 +15,7 @@ interface ComposeContentProps {
 export function ComposeContent(props: ComposeContentProps) {
     const { type, cursor } = useComposeStateStore();
 
-    const { id, parentPost, images, video, poll, availableSources, chars } = props.post;
+    const { id, parentPost, images, poll, availableSources, chars } = props.post;
 
     // in reply and quote mode, there could be only one parent post
     const post = parentPost.Farcaster || parentPost.Lens || parentPost.Twitter;
@@ -40,9 +40,9 @@ export function ComposeContent(props: ComposeContentProps) {
             {images.length > 0 ? <ComposeImages className="flex-grow" images={images} /> : null}
 
             {/* video */}
-            {video ? (
+            {props.post.video ? (
                 <div className={replying ? 'pl-[52px]' : ''}>
-                    <ComposeVideo post={props.post} />
+                    <ComposeVideo video={props.post.video} />
                 </div>
             ) : null}
 
