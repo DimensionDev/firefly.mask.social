@@ -2154,9 +2154,6 @@ msgstr "{days} 天剩余"
 msgid "Money laundering found."
 msgstr ""
 
-msgid "*Event runs from September 29, 2024, 12:00 UTC to October 8, 2024, 23:59 UTC."
-msgstr "*活动时间为2024年9月29日12:00 UTC至2024年10月8日23:59 UTC。"
-
 msgid "Log out all"
 msgstr "登出所有"
 
@@ -2570,6 +2567,9 @@ msgstr "<0>你</0> 已转帖"
 
 msgid "7d"
 msgstr "7天"
+
+msgid "*Event runs from September 29, 2024, 12:00 UTC to October 15, 2024, 23:59 UTC."
+msgstr ""
 
 msgid "Name (optional)"
 msgstr "姓名（可选）"

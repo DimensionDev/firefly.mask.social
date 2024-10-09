@@ -2149,9 +2149,6 @@ msgstr ""
 msgid "Money laundering found."
 msgstr ""
 
-msgid "*Event runs from September 29, 2024, 12:00 UTC to October 8, 2024, 23:59 UTC."
-msgstr ""
-
 msgid "Log out all"
 msgstr ""
 
@@ -2564,6 +2561,9 @@ msgid "<0>You</0> recasted"
 msgstr ""
 
 msgid "7d"
+msgstr ""
+
+msgid "*Event runs from September 29, 2024, 12:00 UTC to October 15, 2024, 23:59 UTC."
 msgstr ""
 
 msgid "Name (optional)"
