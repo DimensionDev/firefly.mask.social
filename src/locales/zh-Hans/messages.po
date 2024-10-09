@@ -150,11 +150,11 @@ msgstr "选择代币"
 msgid "The post you quoted/replied has already deleted"
 msgstr "您引用/回复的帖子已经被删除了。"
 
-msgid "Money laundering."
-msgstr ""
-
 msgid "Something went wrong, Please try again."
 msgstr "发生了一些错误，请重试。"
+
+msgid "Money laundering."
+msgstr ""
 
 msgid "Display Name"
 msgstr "显示名称"
@@ -204,11 +204,11 @@ msgstr "<0>加密货币生命周期存在的最大发行数量。它与股票市
 msgid "This token is a gas abuser."
 msgstr ""
 
-msgid "No cryptocurrency mixer found."
-msgstr ""
-
 msgid "Unknown error"
 msgstr "未知错误"
+
+msgid "No cryptocurrency mixer found."
+msgstr ""
 
 msgid "More"
 msgstr "更多"
@@ -1020,9 +1020,6 @@ msgstr "隐私条款"
 msgid "Holders can sell all of the token."
 msgstr ""
 
-msgid "Rainbow Kit"
-msgstr "Rainbow 套件"
-
 msgid "Claim Premium"
 msgstr "领取优质奖励"
 
@@ -1325,9 +1322,6 @@ msgstr "无法对帖子进行投票。"
 
 msgid "<0>Acquired</0> an NFT"
 msgstr "<0>获取</0> 一个 NFT"
-
-msgid "App Kit"
-msgstr "应用套件"
 
 msgid "Owner can set a different tax rate for every assigned address."
 msgstr ""
@@ -1947,9 +1941,6 @@ msgstr "定时"
 msgid "No cybercrime involved."
 msgstr ""
 
-msgid "Post by {0}"
-msgstr "由 {0} 发帖"
-
 msgid "Change Account"
 msgstr "切换账号"
 
@@ -1968,11 +1959,11 @@ msgstr ""
 msgid "No stealing attack found."
 msgstr ""
 
-msgid "The hidden owner function is included. The project owner may have the ability to control the contract."
-msgstr ""
-
 msgid "Claimed"
 msgstr "已领取"
+
+msgid "The hidden owner function is included. The project owner may have the ability to control the contract."
+msgstr ""
 
 msgid "Copy"
 msgstr "复制"
@@ -2277,11 +2268,11 @@ msgstr "检查资格中"
 msgid "Posted via {0} <0>{sendFrom}</0>"
 msgstr "发布于 {0} <0>{sendFrom}</0>"
 
-msgid "The contract owner has no restrictions on personal slippage."
-msgstr ""
-
 msgid "Claim your NFT to show your support onchain for CZ!"
 msgstr "领取你的 NFT，以在区块链上表达对 CZ 的支持！"
+
+msgid "The contract owner has no restrictions on personal slippage."
+msgstr ""
 
 msgid "Unmuted @{0} on {sourceName}."
 msgstr "在 {sourceName} 上已取消对 @{0} 的隐藏。"

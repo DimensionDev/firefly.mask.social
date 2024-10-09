@@ -145,11 +145,11 @@ msgstr "Select token"
 msgid "The post you quoted/replied has already deleted"
 msgstr "The post you quoted/replied has already deleted"
 
-msgid "Money laundering."
-msgstr "Money laundering."
-
 msgid "Something went wrong, Please try again."
 msgstr "Something went wrong, Please try again."
+
+msgid "Money laundering."
+msgstr "Money laundering."
 
 msgid "Display Name"
 msgstr "Display Name"
@@ -199,11 +199,11 @@ msgstr "<0>The maximum number of coins coded to exist in the lifetime of the cry
 msgid "This token is a gas abuser."
 msgstr "This token is a gas abuser."
 
-msgid "No cryptocurrency mixer found."
-msgstr "No cryptocurrency mixer found."
-
 msgid "Unknown error"
 msgstr "Unknown error"
+
+msgid "No cryptocurrency mixer found."
+msgstr "No cryptocurrency mixer found."
 
 msgid "More"
 msgstr "More"
@@ -1015,9 +1015,6 @@ msgstr "Privacy Policy"
 msgid "Holders can sell all of the token."
 msgstr "Holders can sell all of the token."
 
-msgid "Rainbow Kit"
-msgstr "Rainbow Kit"
-
 msgid "Claim Premium"
 msgstr "Claim Premium"
 
@@ -1320,9 +1317,6 @@ msgstr "Failed to upvote post."
 
 msgid "<0>Acquired</0> an NFT"
 msgstr "<0>Acquired</0> an NFT"
-
-msgid "App Kit"
-msgstr "App Kit"
 
 msgid "Owner can set a different tax rate for every assigned address."
 msgstr "Owner can set a different tax rate for every assigned address."
@@ -1942,9 +1936,6 @@ msgstr "Schedule"
 msgid "No cybercrime involved."
 msgstr "No cybercrime involved."
 
-msgid "Post by {0}"
-msgstr "Post by {0}"
-
 msgid "Change Account"
 msgstr "Change Account"
 
@@ -1963,11 +1954,11 @@ msgstr "Financial crime found."
 msgid "No stealing attack found."
 msgstr "No stealing attack found."
 
-msgid "The hidden owner function is included. The project owner may have the ability to control the contract."
-msgstr "The hidden owner function is included. The project owner may have the ability to control the contract."
-
 msgid "Claimed"
 msgstr "Claimed"
+
+msgid "The hidden owner function is included. The project owner may have the ability to control the contract."
+msgstr "The hidden owner function is included. The project owner may have the ability to control the contract."
 
 msgid "Copy"
 msgstr "Copy"
@@ -2272,11 +2263,11 @@ msgstr "Checking eligibility"
 msgid "Posted via {0} <0>{sendFrom}</0>"
 msgstr "Posted via {0} <0>{sendFrom}</0>"
 
-msgid "The contract owner has no restrictions on personal slippage."
-msgstr "The contract owner has no restrictions on personal slippage."
-
 msgid "Claim your NFT to show your support onchain for CZ!"
 msgstr "Claim your NFT to show your support onchain for CZ!"
+
+msgid "The contract owner has no restrictions on personal slippage."
+msgstr "The contract owner has no restrictions on personal slippage."
 
 msgid "Unmuted @{0} on {sourceName}."
 msgstr "Unmuted @{0} on {sourceName}."
