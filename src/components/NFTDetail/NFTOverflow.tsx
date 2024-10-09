@@ -10,6 +10,7 @@ import { CopyButton } from '@/components/CopyButton.js';
 import { ChainIcon } from '@/components/NFTDetail/ChainIcon.js';
 import { Link } from '@/esm/Link.js';
 import { resolveSimpleHashChain } from '@/helpers/resolveSimpleHashChain.js';
+import { BlockScanExplorerResolver } from '@/providers/ethereum/ExplorerResolver.js';
 
 interface NFTOverflowProps {
     description: string;
@@ -34,7 +35,7 @@ function DetailsGroup(props: { field: ReactNode; value: ReactNode }) {
 function EVMExplorerLink(props: { address: string; chainId?: number; type: 'address' | 'tx' }) {
     if (props.chainId) {
         const resolveExplorerLink = {
-            address: EVMExplorerResolver.addressLink.bind(EVMExplorerResolver),
+            address: BlockScanExplorerResolver.addressLink.bind(BlockScanExplorerResolver),
             tx: EVMExplorerResolver.transactionLink.bind(EVMExplorerResolver),
         }[props.type];
         return (

@@ -20,6 +20,7 @@ import { formatEthereumAddress } from '@/helpers/formatAddress.js';
 import { getStampAvatarByProfileId } from '@/helpers/getStampAvatarByProfileId.js';
 import { createIndicator } from '@/helpers/pageable.js';
 import { resolveProfileUrl } from '@/helpers/resolveProfileUrl.js';
+import { BlockScanExplorerResolver } from '@/providers/ethereum/ExplorerResolver.js';
 import { SimpleHashWalletProfileProvider } from '@/providers/simplehash/WalletProfile.js';
 
 interface AttendeesProps {
@@ -64,12 +65,13 @@ export function Attendees({ eventId }: AttendeesProps) {
 function AttendeesItem({ ownerAddress }: { ownerAddress: Address }) {
     const { data: ensName } = useEnsName({ address: ownerAddress, chainId: ChainId.Mainnet });
     const addressOrEns = ensName ? ensName : ownerAddress;
+    const profileLink =
+        BlockScanExplorerResolver.addressLink(ChainId.Mainnet, ownerAddress) ||
+        resolveProfileUrl(Source.Wallet, ownerAddress);
+
     return (
         <div className="flex items-center justify-between pb-3">
-            <Link
-                href={resolveProfileUrl(Source.Wallet, ownerAddress)}
-                className="flex max-w-[calc(100%-110px)] items-center"
-            >
+            <Link target="_blank" href={profileLink} className="flex max-w-[calc(100%-110px)] items-center">
                 <Image
                     src={getStampAvatarByProfileId(Source.Wallet, addressOrEns)}
                     alt={ownerAddress}

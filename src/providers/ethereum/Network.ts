@@ -5,6 +5,7 @@ import { type Address, type Hash } from 'viem';
 
 import { config } from '@/configs/wagmiClient.js';
 import { NotImplementedError } from '@/constants/error.js';
+import { BlockScanExplorerResolver } from '@/providers/ethereum/ExplorerResolver.js';
 import type { NetworkProvider } from '@/providers/types/Network.js';
 
 class Provider implements NetworkProvider<ChainId, Address, Hash> {
@@ -25,7 +26,7 @@ class Provider implements NetworkProvider<ChainId, Address, Hash> {
     }
 
     getAddressUrl(chainId: ChainId, address: Address): string | undefined {
-        return EVMExplorerResolver.addressLink(chainId, address);
+        return BlockScanExplorerResolver.addressLink(chainId, address);
     }
 
     getTransactionUrl(chainId: ChainId, hash: Hash): string | undefined {
