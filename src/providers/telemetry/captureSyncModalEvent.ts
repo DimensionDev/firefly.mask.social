@@ -1,5 +1,5 @@
 import { runInSafe } from '@/helpers/runInSafe.js';
-import { SafaryTelemetryProvider } from '@/providers/safary/Telemetry.js';
+import { SafaryTelemetryProvider } from '@/providers/telemetry/Safary.js';
 import { EventId } from '@/providers/types/Telemetry.js';
 
 export function captureSyncModalEvent(confirmed: boolean) {

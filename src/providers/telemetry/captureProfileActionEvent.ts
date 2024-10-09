@@ -2,8 +2,8 @@ import { type SocialSource, Source } from '@/constants/enum.js';
 import { UnreachableError } from '@/constants/error.js';
 import { createLookupTableResolver } from '@/helpers/createLookupTableResolver.js';
 import { runInSafe } from '@/helpers/runInSafe.js';
-import { getEventParameters } from '@/providers/safary/getEventParameters.js';
-import { SafaryTelemetryProvider } from '@/providers/safary/Telemetry.js';
+import { getEventParameters } from '@/providers/telemetry/getEventParameters.js';
+import { SafaryTelemetryProvider } from '@/providers/telemetry/Safary.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 import { EventId } from '@/providers/types/Telemetry.js';
 

@@ -2,9 +2,9 @@ import { safeUnreachable } from '@masknet/kit';
 
 import { UnreachableError } from '@/constants/error.js';
 import { runInSafe } from '@/helpers/runInSafe.js';
-import { getComposeEventParameters, type Options } from '@/providers/safary/getComposeEventParameters.js';
-import { getPostEventId, getPostEventParameters } from '@/providers/safary/getPostEventParameters.js';
-import { SafaryTelemetryProvider } from '@/providers/safary/Telemetry.js';
+import { getComposeEventParameters, type Options } from '@/providers/telemetry/getComposeEventParameters.js';
+import { getPostEventId, getPostEventParameters } from '@/providers/telemetry/getPostEventParameters.js';
+import { SafaryTelemetryProvider } from '@/providers/telemetry/Safary.js';
 import { EventId } from '@/providers/types/Telemetry.js';
 import type { CompositePost } from '@/store/useComposeStore.js';
 import type { ComposeType } from '@/types/compose.js';

@@ -5,7 +5,7 @@ import { UnreachableError } from '@/constants/error.js';
 import { createLookupTableResolver } from '@/helpers/createLookupTableResolver.js';
 import { getProfileState } from '@/helpers/getProfileState.js';
 import { runInSafe } from '@/helpers/runInSafe.js';
-import { SafaryTelemetryProvider } from '@/providers/safary/Telemetry.js';
+import { SafaryTelemetryProvider } from '@/providers/telemetry/Safary.js';
 import type { Account } from '@/providers/types/Account.js';
 import { EventId } from '@/providers/types/Telemetry.js';
 

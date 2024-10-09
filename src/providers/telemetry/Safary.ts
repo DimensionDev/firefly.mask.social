@@ -4,7 +4,7 @@ import { STATUS } from '@/constants/enum.js';
 import { env } from '@/constants/env.js';
 import { NotImplementedError } from '@/constants/error.js';
 import { bom } from '@/helpers/bom.js';
-import { getPublicParameters } from '@/providers/safary/getPublicParameters.js';
+import { getPublicParameters } from '@/providers/telemetry/getPublicParameters.js';
 import type { Safary } from '@/providers/types/Safary.js';
 import { type Events, Provider } from '@/providers/types/Telemetry.js';
 import { useDeveloperSettingsState } from '@/store/useDeveloperSettingsStore.js';
