@@ -5,7 +5,12 @@ import { config } from '@/configs/wagmiClient.js';
 import { bom } from '@/helpers/bom.js';
 import { resolveWalletAdapter } from '@/providers/solana/resolveWalletAdapter.js';
 import { useDeveloperSettingsState } from '@/store/useDeveloperSettingsStore.js';
-import { useFireflyStateStore } from '@/store/useProfileStore.js';
+import {
+    useFarcasterStateStore,
+    useFireflyStateStore,
+    useLensStateStore,
+    useTwitterStateStore,
+} from '@/store/useProfileStore.js';
 
 export function getPublicParameters(eventId: string, previousEventId: string | null) {
     const evmClient = getClient(config);
@@ -26,5 +31,10 @@ export function getPublicParameters(eventId: string, previousEventId: string | n
         public_use_development_api: useDeveloperSettingsState.getState().useDevelopmentAPI,
 
         firefly_account_id: useFireflyStateStore.getState().currentProfileSession?.profileId,
+
+        // safary social login
+        twitter_username: useTwitterStateStore.getState().currentProfile?.handle,
+        lens_handle: useLensStateStore.getState().currentProfile?.handle,
+        farcaster_id: useFarcasterStateStore.getState().currentProfile?.profileId,
     };
 }
