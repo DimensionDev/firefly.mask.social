@@ -25,6 +25,7 @@ import { SchedulePostModal } from '@/modals/SchedulePostModal.js';
 import { Snackbar } from '@/modals/Snackbar.js';
 import { SuperFollowModal } from '@/modals/SuperFollowModal.js';
 import { TipsModal } from '@/modals/TipsModal.js';
+import { TransactionSimulatorModal } from '@/modals/TransactionSimulatorModal.js';
 
 export const Modals = memo(function Modals() {
     return (
@@ -50,6 +51,7 @@ export const Modals = memo(function Modals() {
             <CollectPostModal ref={controls.CollectPostModalRef.register} />
             <AddWalletModal ref={controls.AddWalletModalRef.register} />
             <SuperFollowModal ref={controls.SuperFollowModalRef.register} />
+            <TransactionSimulatorModal ref={controls.TransactionSimulatorModalRef.register} />
 
             {/* CZ */}
             <ActivityModal ref={controls.ActivityModalRef.register} />

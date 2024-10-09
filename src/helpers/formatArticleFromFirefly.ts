@@ -15,8 +15,8 @@ export function formatArticleFromFirefly(article: FireflyArticle): Article {
             article.platform === ArticlePlatform.Paragraph &&
             article.paragraph_raw_data?.staticHtml &&
             article.paragraph_raw_data.json
-                ? (parseParagraphHtml(article.paragraph_raw_data.staticHtml, article.paragraph_raw_data.json) ??
-                  article.paragraph_raw_data.staticHtml)
+                ? parseParagraphHtml(article.paragraph_raw_data.staticHtml, article.paragraph_raw_data.json) ??
+                  article.paragraph_raw_data.staticHtml
                 : article.content.body,
         title: article.content.title,
         author: {
