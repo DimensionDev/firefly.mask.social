@@ -13,6 +13,7 @@ import { SearchFilter } from '@/components/Search/SearchFilter.js';
 import { SearchInput } from '@/components/Search/SearchInput.js';
 import { SearchRecommendation } from '@/components/Search/SearchRecommendation.js';
 import { IS_FIREFOX } from '@/constants/bowser.js';
+import { PageRoute } from '@/constants/enum.js';
 import { SORTED_SOCIAL_SOURCES } from '@/constants/index.js';
 import { isRoutePathname } from '@/helpers/isRoutePathname.js';
 import { useCurrentProfileAll } from '@/hooks/useCurrentProfile.js';
@@ -40,7 +41,7 @@ export const NavigatorBarForMobile = memo(function NavigatorBarForMobile({
     const router = useRouter();
 
     const pathname = usePathname();
-    const isSearchPage = isRoutePathname(pathname, '/search');
+    const isSearchPage = isRoutePathname(pathname, PageRoute.Search);
 
     const [searchMode, setSearchMode] = useState(isSearchPage);
     const [showRecommendation, setShowRecommendation] = useState(false);

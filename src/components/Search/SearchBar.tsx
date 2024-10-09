@@ -9,6 +9,7 @@ import SearchIcon from '@/assets/search.svg';
 import { SearchInput } from '@/components/Search/SearchInput.js';
 import { SearchRecommendation } from '@/components/Search/SearchRecommendation.js';
 import { Section } from '@/components/Semantic/Section.js';
+import { PageRoute } from '@/constants/enum.js';
 import { classNames } from '@/helpers/classNames.js';
 import { isRoutePathname } from '@/helpers/isRoutePathname.js';
 import { useComeBack } from '@/hooks/useComeback.js';
@@ -26,7 +27,7 @@ const SearchBar = memo(function SearchBar({ slot, className, ...rest }: SearchBa
     const { addRecord } = useSearchHistoryStateStore();
 
     const pathname = usePathname();
-    const isSearchPage = isRoutePathname(pathname, '/search');
+    const isSearchPage = isRoutePathname(pathname, PageRoute.Search);
 
     const rootRef = useRef(null);
     const inputRef = useRef<HTMLInputElement>(null);
@@ -92,13 +93,13 @@ const SearchBar = memo(function SearchBar({ slot, className, ...rest }: SearchBa
 
 export function HeaderSearchBar() {
     const pathname = usePathname();
-    const isSearchPage = isRoutePathname(pathname, '/search');
+    const isSearchPage = isRoutePathname(pathname, PageRoute.Search);
     return isSearchPage ? <SearchBar slot="header" className="px-4 py-[10px]" /> : null;
 }
 
 export function AsideSearchBar() {
     const pathname = usePathname();
-    const isSearchPage = !isRoutePathname(pathname, '/search');
+    const isSearchPage = !isRoutePathname(pathname, PageRoute.Search);
     return isSearchPage ? (
         <Section title="Search Bar">
             <SearchBar slot="secondary" />
