@@ -52,7 +52,8 @@ if [ -f "package.json" ]; then
   commit_hash=$(get_latest_commit_hash)
   commit_message=$(get_latest_commit_message)
   commit_tag=$(get_latest_commit_tag)
-  commit_branch=$(git rev-parse --abbrev-ref HEAD)
+  # Use VERCEL_GIT_COMMIT_REF in Vercel CI, fallback to local branch in dev
+  commit_branch=${VERCEL_GIT_COMMIT_REF:-$(git rev-parse --abbrev-ref HEAD)}
   version=$(get_package_version)
   node_version=$(get_node_version)
   pnpm_version=$(get_pnpm_version)
