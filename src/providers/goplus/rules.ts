@@ -1,20 +1,21 @@
 import { t } from '@lingui/macro';
 
 import {
+    type AddressSecurity,
     type SecurityMessage,
     SecurityMessageLevel,
     SecurityType,
     type TokenContractSecurity,
 } from '@/providers/types/Security.js';
 
-function isUnset(name: keyof TokenContractSecurity) {
-    return (info: TokenContractSecurity) => info[name] === undefined;
+function isUnset<T>(name: keyof T) {
+    return (info: T) => info[name] === undefined;
 }
 function percentageToNumber(value?: string) {
     return parseInt((value ?? '').replace('%', ''), 10) * 100;
 }
 
-export const SecurityMessages: SecurityMessage[] = [
+export const TokenSecurityMessages: SecurityMessage[] = [
     // open source
     {
         type: SecurityType.Contract,
@@ -181,7 +182,7 @@ export const SecurityMessages: SecurityMessage[] = [
         type: SecurityType.Transaction,
         level: SecurityMessageLevel.High,
         condition: (info: TokenContractSecurity) => info.is_honeypot === '1',
-        title: () => t`May the token is a honeypot.`,
+        title: () => t`Perhaps the token is a honeypot.`,
         message: () => t`This token contract has a code that states that it cannot be sold. Maybe this is a honeypot.`,
         shouldHide: isUnset('is_honeypot'),
     },
@@ -315,5 +316,407 @@ export const SecurityMessages: SecurityMessage[] = [
         title: () => t`No Airdrop Scam`,
         message: () => t`This is not an airdrop scam. Many scams attract users through airdrops.`,
         shouldHide: isUnset('is_airdrop_scam'),
+    },
+    // Hidden owner
+    {
+        type: SecurityType.Contract,
+        level: SecurityMessageLevel.Safe,
+        condition: (info: TokenContractSecurity) => info.hidden_owner === '0',
+        title: () => t`No hidden owner.`,
+        message: () =>
+            t`The hidden owner function is not included. If there is a hidden owner, the project owner may have the ability to control the contract.`,
+        shouldHide: isUnset('hidden_owner'),
+    },
+    {
+        type: SecurityType.Contract,
+        level: SecurityMessageLevel.Medium,
+        condition: (info: TokenContractSecurity) => info.hidden_owner === '1',
+        title: () => t`Hidden owner.`,
+        message: () =>
+            t`The hidden owner function is included. The project owner may have the ability to control the contract.`,
+        shouldHide: isUnset('hidden_owner'),
+    },
+    // Self destruct
+    {
+        type: SecurityType.Contract,
+        level: SecurityMessageLevel.Safe,
+        condition: (info: TokenContractSecurity) => info.selfdestruct === '0',
+        title: () => t`This token can not self destruct.`,
+        message: () =>
+            t`The self-destruct function is not included. If there is a self-destruct function, the project owner may have the ability to destroy the contract.`,
+        shouldHide: isUnset('selfdestruct'),
+    },
+    {
+        type: SecurityType.Contract,
+        level: SecurityMessageLevel.Medium,
+        condition: (info: TokenContractSecurity) => info.selfdestruct === '1',
+        title: () => t`This token can self destruct.`,
+        message: () =>
+            t`The self-destruct function is included. The project owner may have the ability to destroy the contract.`,
+        shouldHide: isUnset('selfdestruct'),
+    },
+    // External call
+    {
+        type: SecurityType.Contract,
+        level: SecurityMessageLevel.Safe,
+        condition: (info: TokenContractSecurity) => info.external_call === '0',
+        title: () => t`No external call risk found.`,
+        message: () =>
+            t`The external call function is not included. If there is an external call function, the project owner may have the ability to control the contract.`,
+        shouldHide: isUnset('external_call'),
+    },
+    {
+        type: SecurityType.Contract,
+        level: SecurityMessageLevel.Medium,
+        condition: (info: TokenContractSecurity) => info.external_call === '1',
+        title: () => t`Potential risk of external call.`,
+        message: () =>
+            t`The external call function is included. The project owner may have the ability to control the contract.`,
+        shouldHide: isUnset('external_call'),
+    },
+    // Gas abuse
+    {
+        type: SecurityType.Contract,
+        level: SecurityMessageLevel.Safe,
+        condition: (info: TokenContractSecurity) => info.gas_abuse === '0',
+        title: () => t`This token is not a gas abuser.`,
+        message: () =>
+            t`The gas abuse function is not included. If there is a gas abuse function, the project owner may have the ability to control the contract.`,
+        shouldHide: isUnset('gas_abuse'),
+    },
+    {
+        type: SecurityType.Contract,
+        level: SecurityMessageLevel.Medium,
+        condition: (info: TokenContractSecurity) => info.gas_abuse === '1',
+        title: () => t`This token is a gas abuser.`,
+        message: () =>
+            t`The gas abuse function is included. The project owner may have the ability to control the contract.`,
+        shouldHide: isUnset('gas_abuse'),
+    },
+    // Cannot buy
+    {
+        type: SecurityType.Transaction,
+        level: SecurityMessageLevel.Safe,
+        condition: (info: TokenContractSecurity) => info.cannot_buy === '0',
+        title: () => t`The token can be bought.`,
+        message: () => t`The contract owner has no restrictions on buying.`,
+        shouldHide: isUnset('cannot_buy'),
+    },
+    {
+        type: SecurityType.Transaction,
+        level: SecurityMessageLevel.Medium,
+        condition: (info: TokenContractSecurity) => info.cannot_buy === '1',
+        title: () => t`The token can not be bought.`,
+        message: () => t`The contract owner has restrictions on buying.`,
+        shouldHide: isUnset('cannot_buy'),
+    },
+    // Cannot sell all
+    {
+        type: SecurityType.Transaction,
+        level: SecurityMessageLevel.Safe,
+        condition: (info: TokenContractSecurity) => info.cannot_sell_all === '0',
+        title: () => t`Holders can sell all of the token.`,
+        message: () => t`The contract owner has no restrictions on selling.`,
+        shouldHide: isUnset('cannot_sell_all'),
+    },
+    {
+        type: SecurityType.Transaction,
+        level: SecurityMessageLevel.Medium,
+        condition: (info: TokenContractSecurity) => info.cannot_sell_all === '1',
+        title: () => t`Holders can not sell all of the token.`,
+        message: () => t`The contract owner has restrictions on selling.`,
+        shouldHide: isUnset('cannot_sell_all'),
+    },
+    // Anti whale modifiable
+    {
+        type: SecurityType.Transaction,
+        level: SecurityMessageLevel.Safe,
+        condition: (info: TokenContractSecurity) => info.anti_whale_modifiable === '0',
+        title: () => t`Anti whale can not be modified.`,
+        message: () => t`The contract owner has no restrictions on anti whale.`,
+        shouldHide: isUnset('anti_whale_modifiable'),
+    },
+    {
+        type: SecurityType.Transaction,
+        level: SecurityMessageLevel.Medium,
+        condition: (info: TokenContractSecurity) => info.anti_whale_modifiable === '1',
+        title: () => t`Anti whale can be modified.`,
+        message: () => t`The contract owner has restrictions on anti whale.`,
+        shouldHide: isUnset('anti_whale_modifiable'),
+    },
+    // Trading cooldown
+    {
+        type: SecurityType.Transaction,
+        level: SecurityMessageLevel.Safe,
+        condition: (info: TokenContractSecurity) => info.trading_cooldown === '0',
+        title: () => t`No trading cooldown function.`,
+        message: () => t`The contract owner has no restrictions on trading cooldown.`,
+        shouldHide: isUnset('trading_cooldown'),
+    },
+    {
+        type: SecurityType.Transaction,
+        level: SecurityMessageLevel.Medium,
+        condition: (info: TokenContractSecurity) => info.trading_cooldown === '1',
+        title: () => t`Trading cooldown function.`,
+        message: () => t`The contract owner has restrictions on trading cooldown.`,
+        shouldHide: isUnset('trading_cooldown'),
+    },
+    // Personal slippage modifiable
+    {
+        type: SecurityType.Transaction,
+        level: SecurityMessageLevel.Safe,
+        condition: (info: TokenContractSecurity) => info.personal_slippage_modifiable === '0',
+        title: () => t`No tax changes found for personal addresses.`,
+        message: () => t`The contract owner has no restrictions on personal slippage.`,
+        shouldHide: isUnset('personal_slippage_modifiable'),
+    },
+    {
+        type: SecurityType.Transaction,
+        level: SecurityMessageLevel.Medium,
+        condition: (info: TokenContractSecurity) => info.personal_slippage_modifiable === '1',
+        title: () => t`Owner can set a different tax rate for every assigned address.`,
+        message: () => t`The contract owner has restrictions on personal slippage.`,
+        shouldHide: isUnset('personal_slippage_modifiable'),
+    },
+];
+
+export const AddressSecurityMessages: Array<SecurityMessage<AddressSecurity>> = [
+    // Honeypot related address
+    {
+        type: SecurityType.Address,
+        level: SecurityMessageLevel.Safe,
+        condition: (info: AddressSecurity) => info.honeypot_related_address === '0',
+        title: () => t`Non-honeypot related address.`,
+        message: () => t`Non-honeypot related address.`,
+        shouldHide: isUnset('honeypot_related_address'),
+    },
+    {
+        type: SecurityType.Address,
+        level: SecurityMessageLevel.High,
+        condition: (info: AddressSecurity) => info.honeypot_related_address === '1',
+        title: () => t`Honeypot related address.`,
+        message: () => t`Honeypot related address found.`,
+        shouldHide: isUnset('honeypot_related_address'),
+    },
+    // Phishing activities
+    {
+        type: SecurityType.Address,
+        level: SecurityMessageLevel.Safe,
+        condition: (info: AddressSecurity) => info.phishing_activities === '0',
+        title: () => t`No phishing activities involved.`,
+        message: () => t`No phishing activities found.`,
+        shouldHide: isUnset('phishing_activities'),
+    },
+    {
+        type: SecurityType.Address,
+        level: SecurityMessageLevel.High,
+        condition: (info: AddressSecurity) => info.phishing_activities === '1',
+        title: () => t`Phishing activities.`,
+        message: () => t`Phishing activities found.`,
+        shouldHide: isUnset('phishing_activities'),
+    },
+    // Blackmail activities
+    {
+        type: SecurityType.Address,
+        level: SecurityMessageLevel.Safe,
+        condition: (info: AddressSecurity) => info.blackmail_activities === '0',
+        title: () => t`No blackmail activities involved.`,
+        message: () => t`No blackmail activities found.`,
+        shouldHide: isUnset('blackmail_activities'),
+    },
+    {
+        type: SecurityType.Address,
+        level: SecurityMessageLevel.High,
+        condition: (info: AddressSecurity) => info.blackmail_activities === '1',
+        title: () => t`Blackmail activities.`,
+        message: () => t`Blackmail activities found.`,
+        shouldHide: isUnset('blackmail_activities'),
+    },
+    // Stealing attack
+    {
+        type: SecurityType.Address,
+        level: SecurityMessageLevel.Safe,
+        condition: (info: AddressSecurity) => info.stealing_attack === '0',
+        title: () => t`No stealing attack involved.`,
+        message: () => t`No stealing attack found.`,
+        shouldHide: isUnset('stealing_attack'),
+    },
+    {
+        type: SecurityType.Address,
+        level: SecurityMessageLevel.High,
+        condition: (info: AddressSecurity) => info.stealing_attack === '1',
+        title: () => t`Stealing attack.`,
+        message: () => t`Stealing attack found.`,
+        shouldHide: isUnset('stealing_attack'),
+    },
+    // Fake KYC
+    {
+        type: SecurityType.Address,
+        level: SecurityMessageLevel.Safe,
+        condition: (info: AddressSecurity) => info.fake_kyc === '0',
+        title: () => t`No fake KYC involved.`,
+        message: () => t`No fake KYC found.`,
+        shouldHide: isUnset('fake_kyc'),
+    },
+    {
+        type: SecurityType.Address,
+        level: SecurityMessageLevel.High,
+        condition: (info: AddressSecurity) => info.fake_kyc === '1',
+        title: () => t`Fake KYC.`,
+        message: () => t`Fake KYC found.`,
+        shouldHide: isUnset('fake_kyc'),
+    },
+    // Malicious mining activities
+    {
+        type: SecurityType.Address,
+        level: SecurityMessageLevel.Safe,
+        condition: (info: AddressSecurity) => info.malicious_mining_activities === '0',
+        title: () => t`No malicious mining activities involved.`,
+        message: () => t`No malicious mining activities found.`,
+        shouldHide: isUnset('malicious_mining_activities'),
+    },
+    {
+        type: SecurityType.Address,
+        level: SecurityMessageLevel.High,
+        condition: (info: AddressSecurity) => info.malicious_mining_activities === '1',
+        title: () => t`Malicious mining activities.`,
+        message: () => t`Malicious mining activities found.`,
+        shouldHide: isUnset('malicious_mining_activities'),
+    },
+    // Darkweb transactions
+    {
+        type: SecurityType.Address,
+        level: SecurityMessageLevel.Safe,
+        condition: (info: AddressSecurity) => info.darkweb_transactions === '0',
+        title: () => t`No darkweb transactions involved.`,
+        message: () => t`No darkweb transactions found.`,
+        shouldHide: isUnset('darkweb_transactions'),
+    },
+    {
+        type: SecurityType.Address,
+        level: SecurityMessageLevel.High,
+        condition: (info: AddressSecurity) => info.darkweb_transactions === '1',
+        title: () => t`Darkweb transactions.`,
+        message: () => t`Darkweb transactions found.`,
+        shouldHide: isUnset('darkweb_transactions'),
+    },
+    // Cybercrime
+    {
+        type: SecurityType.Address,
+        level: SecurityMessageLevel.Safe,
+        condition: (info: AddressSecurity) => info.cybercrime === '0',
+        title: () => t`No cybercrime involved.`,
+        message: () => t`No cybercrime found.`,
+        shouldHide: isUnset('cybercrime'),
+    },
+    {
+        type: SecurityType.Address,
+        level: SecurityMessageLevel.High,
+        condition: (info: AddressSecurity) => info.cybercrime === '1',
+        title: () => t`Cybercrime.`,
+        message: () => t`Cybercrime found.`,
+        shouldHide: isUnset('cybercrime'),
+    },
+    // Money laundering
+    {
+        type: SecurityType.Address,
+        level: SecurityMessageLevel.Safe,
+        condition: (info: AddressSecurity) => info.money_laundering === '0',
+        title: () => t`No money laundering involved.`,
+        message: () => t`No money laundering found.`,
+        shouldHide: isUnset('money_laundering'),
+    },
+    {
+        type: SecurityType.Address,
+        level: SecurityMessageLevel.High,
+        condition: (info: AddressSecurity) => info.money_laundering === '1',
+        title: () => t`Money laundering.`,
+        message: () => t`Money laundering found.`,
+        shouldHide: isUnset('money_laundering'),
+    },
+    // Financial crime
+    {
+        type: SecurityType.Address,
+        level: SecurityMessageLevel.Safe,
+        condition: (info: AddressSecurity) => info.financial_crime === '0',
+        title: () => t`No financial crime involved.`,
+        message: () => t`No financial crime found.`,
+        shouldHide: isUnset('financial_crime'),
+    },
+    {
+        type: SecurityType.Address,
+        level: SecurityMessageLevel.High,
+        condition: (info: AddressSecurity) => info.financial_crime === '1',
+        title: () => t`Financial crime.`,
+        message: () => t`Financial crime found.`,
+        shouldHide: isUnset('financial_crime'),
+    },
+    // Blacklist doubt
+    {
+        type: SecurityType.Address,
+        level: SecurityMessageLevel.Safe,
+        condition: (info: AddressSecurity) => info.blacklist_doubt === '0',
+        title: () => t`No suspected malicious behavior found.`,
+        message: () => t`No suspected malicious behavior found.`,
+        shouldHide: isUnset('blacklist_doubt'),
+    },
+    {
+        type: SecurityType.Address,
+        level: SecurityMessageLevel.High,
+        condition: (info: AddressSecurity) => info.blacklist_doubt === '1',
+        title: () => t`Suspected malicious address.`,
+        message: () => t`Suspected malicious address found.`,
+        shouldHide: isUnset('blacklist_doubt'),
+    },
+    // Mixer
+    {
+        type: SecurityType.Address,
+        level: SecurityMessageLevel.Safe,
+        condition: (info: AddressSecurity) => info.mixer === '0',
+        title: () => t`No cryptocurrency mixer involved.`,
+        message: () => t`No cryptocurrency mixer found.`,
+        shouldHide: isUnset('mixer'),
+    },
+    {
+        type: SecurityType.Address,
+        level: SecurityMessageLevel.High,
+        condition: (info: AddressSecurity) => info.mixer === '1',
+        title: () => t`Cryptocurrency mixer.`,
+        message: () => t`Cryptocurrency mixer found.`,
+        shouldHide: isUnset('mixer'),
+    },
+    // Sanctioned
+    {
+        type: SecurityType.Address,
+        level: SecurityMessageLevel.Safe,
+        condition: (info: AddressSecurity) => info.sanctioned === '0',
+        title: () => t`Non-sanctioned address.`,
+        message: () => t`Non-sanctioned address found.`,
+        shouldHide: isUnset('sanctioned'),
+    },
+    {
+        type: SecurityType.Address,
+        level: SecurityMessageLevel.High,
+        condition: (info: AddressSecurity) => info.sanctioned === '1',
+        title: () => t`Sanctioned address.`,
+        message: () => t`Sanctioned address found.`,
+        shouldHide: isUnset('sanctioned'),
+    },
+    // Contract address
+    {
+        type: SecurityType.Address,
+        level: SecurityMessageLevel.Safe,
+        condition: (info: AddressSecurity) => info.contract_address === '0',
+        title: () => t`Non-contract address.`,
+        message: () => t`Non-contract address found.`,
+        shouldHide: isUnset('contract_address'),
+    },
+    {
+        type: SecurityType.Address,
+        level: SecurityMessageLevel.Medium,
+        condition: (info: AddressSecurity) => info.contract_address === '1',
+        title: () => t`Contract address.`,
+        message: () => t`Contract address found.`,
+        shouldHide: isUnset('contract_address'),
     },
 ];

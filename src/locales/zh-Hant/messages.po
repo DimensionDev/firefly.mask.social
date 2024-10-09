@@ -18,6 +18,9 @@ msgstr ""
 "X-Crowdin-File: /src/locales/en/messages.po\n"
 "X-Crowdin-File-ID: 836\n"
 
+msgid "The gas abuse function is included. The project owner may have the ability to control the contract."
+msgstr ""
+
 msgid "{days, plural, one {1 day left} other {{days} days left}}"
 msgstr ""
 
@@ -26,6 +29,9 @@ msgstr "您想用全部內容還是剩餘內容重試？"
 
 msgid "Login required to post on {sourceName}."
 msgstr "需要登入後在{sourceName} 發佈貼文"
+
+msgid "Stealing attack found."
+msgstr ""
 
 msgid "Be the first one to comment!"
 msgstr "來留下第一條評論吧！"
@@ -90,6 +96,9 @@ msgstr "發送小費"
 msgid "Mute /{0}"
 msgstr "將 @{0} 靜音"
 
+msgid "Blackmail activities."
+msgstr ""
+
 msgid "Failed to collect article."
 msgstr ""
 
@@ -144,11 +153,17 @@ msgstr "您引用/回覆的貼文已經被刪除"
 msgid "Something went wrong, Please try again."
 msgstr ""
 
+msgid "Money laundering."
+msgstr ""
+
 msgid "Display Name"
 msgstr "展示姓名"
 
 msgid "Debug Connection"
 msgstr "除錯連接"
+
+msgid "Blackmail activities found."
+msgstr ""
 
 msgid "Allow Lens Manager to perform actions such as posting, liking, and commenting without the need to sign each transaction."
 msgstr "允許 Lens Manager 無需在每次互動時都簽名，即可進行貼文發佈、按讚、留言等操作。"
@@ -177,13 +192,22 @@ msgstr ""
 msgid "Searching channel"
 msgstr "搜尋頻道"
 
+msgid "Malicious mining activities found."
+msgstr ""
+
 msgid "Functions that can suspend trading"
 msgstr ""
 
 msgid "<0>The maximum number of coins coded to exist in the lifetime of the cryptocurrency. It is comparable to the maximum number of issuable shares in the stock market.</0><1>Max Supply = Theoretical maximum as coded</1>"
 msgstr ""
 
+msgid "This token is a gas abuser."
+msgstr ""
+
 msgid "Unknown error"
+msgstr ""
+
+msgid "No cryptocurrency mixer found."
 msgstr ""
 
 msgid "More"
@@ -197,6 +221,9 @@ msgstr ""
 
 msgid "Searching users"
 msgstr "搜尋用戶"
+
+msgid "Fake KYC."
+msgstr ""
 
 msgid "{0} is eligible!"
 msgstr ""
@@ -213,6 +240,9 @@ msgstr ""
 msgid "Join our Discord"
 msgstr "加入我們的 Discord 社群"
 
+msgid "The external call function is not included. If there is an external call function, the project owner may have the ability to control the contract."
+msgstr ""
+
 msgid "Found arweaveTxId is empty."
 msgstr ""
 
@@ -228,7 +258,16 @@ msgstr ""
 msgid "Location should not exceed {maxLocationSize} characters"
 msgstr ""
 
+msgid "Potential risk of external call."
+msgstr ""
+
 msgid "FAILED POST"
+msgstr ""
+
+msgid "No financial crime found."
+msgstr ""
+
+msgid "The token can be bought."
 msgstr ""
 
 msgid "Trending"
@@ -239,6 +278,9 @@ msgstr "退出 @{0} 的登錄"
 
 msgid "You can save the failed parts of posts and send them later from your Drafts."
 msgstr "您可以將發送失敗的部分貼文保存，並在之後從草稿箱中發送"
+
+msgid "The external call function is included. The project owner may have the ability to control the contract."
+msgstr ""
 
 msgid "Please confirm the login with Firefly."
 msgstr "請用 Firefly 確認登錄"
@@ -294,11 +336,20 @@ msgstr "市值"
 msgid "Contract source code verified"
 msgstr "合約源代碼已驗證"
 
+msgid "The contract owner has restrictions on personal slippage."
+msgstr ""
+
+msgid "Anti whale can be modified."
+msgstr ""
+
 msgid "Profile not found"
 msgstr "找不到帳戶"
 
 msgid "NFT Standard"
 msgstr "NFT 標準"
+
+msgid "Stealing attack."
+msgstr ""
 
 msgid "Failed to like the comment."
 msgstr "按讚留言失敗"
@@ -308,6 +359,9 @@ msgstr "<0>發布</0>一篇文章"
 
 msgid "Scan the QR code with your phone’s <0>Camera</0> in {count}s. <1/>Approve a new Farcaster signer to Firefly."
 msgstr "使用手機<0>相機</0>在 {count} 秒內掃描 QR碼。允許新的 Farcaster 簽名使用 Firefly。"
+
+msgid "No malicious mining activities found."
+msgstr ""
 
 msgid "Poll is currently only supported on {0}"
 msgstr "投票功能目前僅在 {0} 支持"
@@ -349,6 +403,9 @@ msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} {1, selec
 msgstr ""
 
 msgid "Total"
+msgstr ""
+
+msgid "Trading cooldown function."
 msgstr ""
 
 msgid "<0>{0}</0><1>mirrored</1>"
@@ -396,6 +453,9 @@ msgstr "切換至開發 API 版本用以測試新功能。"
 msgid "{0, plural, one {quote} other {quotes}}"
 msgstr ""
 
+msgid "No hidden owner."
+msgstr ""
+
 msgid "Blockchain"
 msgstr "區塊練"
 
@@ -420,7 +480,13 @@ msgstr "找不到網頁"
 msgid "Quote post"
 msgstr ""
 
+msgid "The self-destruct function is not included. If there is a self-destruct function, the project owner may have the ability to destroy the contract."
+msgstr ""
+
 msgid "Mint function is transparent or non-existent. Hidden mint functions may increase the amount of tokens in circulation and effect the price of the token."
+msgstr ""
+
+msgid "Honeypot related address."
 msgstr ""
 
 msgid "Password"
@@ -471,11 +537,17 @@ msgstr ""
 msgid "Search"
 msgstr "搜尋"
 
+msgid "Perhaps the token is a honeypot."
+msgstr ""
+
 msgid "Followed by {0}"
 msgstr ""
 
 msgid "Failed to unfollow @{0} on {sourceName}."
 msgstr "在 {sourceName} 上取消追蹤 @{0} 失敗。"
+
+msgid "Sanctioned address."
+msgstr ""
 
 msgid "Each wallet or X account is limited to one claim."
 msgstr ""
@@ -485,6 +557,12 @@ msgstr ""
 
 msgid "Watch"
 msgstr "觀察"
+
+msgid "Suspected malicious address."
+msgstr ""
+
+msgid "Honeypot related address found."
+msgstr ""
 
 msgid "Time Out"
 msgstr ""
@@ -558,6 +636,9 @@ msgstr "上傳失敗。圖片數量超過{maxImageCount} 張。"
 msgid "Minting Txn Hash"
 msgstr ""
 
+msgid "Anti whale can not be modified."
+msgstr ""
+
 msgid "Audio Cover"
 msgstr "音頻封面"
 
@@ -594,14 +675,23 @@ msgstr "擁有者"
 msgid "OpenGraph Validator"
 msgstr "OpenGraph 驗證器"
 
+msgid "Phishing activities found."
+msgstr ""
+
 msgid "No Lens profile found.<0/>Please change to another wallet."
 msgstr "未找到 Lens 帳戶。<0/> 請切換至其他錢包。"
+
+msgid "The contract owner has no restrictions on trading cooldown."
+msgstr ""
 
 msgid "Connect Wallet"
 msgstr "連接錢包"
 
 msgid "Not Found. Please check your URL[{0}]."
 msgstr "未找到。請檢查您的 URL [{0}]"
+
+msgid "Non-sanctioned address found."
+msgstr ""
 
 msgid "Feed"
 msgstr "資訊來源"
@@ -651,6 +741,9 @@ msgstr ""
 msgid "Follow more friends to continue exploring on {0}."
 msgstr "追蹤更多朋友 以繼續探索 {0}"
 
+msgid "No fake KYC involved."
+msgstr ""
+
 msgid "Session Validator"
 msgstr ""
 
@@ -663,6 +756,9 @@ msgstr ""
 msgid "Frame Validator"
 msgstr "Frame 驗證器"
 
+msgid "The token can not be bought."
+msgstr ""
+
 msgid "No proxy"
 msgstr "無代理"
 
@@ -674,6 +770,9 @@ msgstr "預設"
 
 msgid "Failed to mirror."
 msgstr "鏡像失敗"
+
+msgid "The contract owner has restrictions on buying."
+msgstr ""
 
 msgid "Remove Choice"
 msgstr "移除選擇"
@@ -707,6 +806,12 @@ msgstr "所有者無法更改餘額"
 
 msgid "Join our Telegram"
 msgstr "加入我們的 Telegram 社群"
+
+msgid "Non-contract address."
+msgstr ""
+
+msgid "Darkweb transactions."
+msgstr ""
 
 msgid "Event ended"
 msgstr ""
@@ -801,6 +906,9 @@ msgstr "以及"
 msgid "Channel"
 msgstr "頻道"
 
+msgid "The hidden owner function is not included. If there is a hidden owner, the project owner may have the ability to control the contract."
+msgstr ""
+
 msgid "Failed to enable signless"
 msgstr ""
 
@@ -855,6 +963,9 @@ msgstr "擁有者"
 msgid "Are you sure you want to report this post?"
 msgstr "是否確定要檢舉這條貼文？"
 
+msgid "No fake KYC found."
+msgstr ""
+
 msgid "No function found that retrieves ownership"
 msgstr ""
 
@@ -871,6 +982,9 @@ msgid "<0>You</0> mirrored"
 msgstr ""
 
 msgid "Failed to create image payload."
+msgstr ""
+
+msgid "Contract address found."
 msgstr ""
 
 msgid "Top Profiles"
@@ -903,6 +1017,9 @@ msgstr "在 Firefly 應用程式中打開"
 msgid "Privacy Policy"
 msgstr "隱私政策"
 
+msgid "Holders can sell all of the token."
+msgstr ""
+
 msgid "Claim Premium"
 msgstr ""
 
@@ -930,10 +1047,16 @@ msgstr "切換"
 msgid "Drafts"
 msgstr "草稿"
 
+msgid "No financial crime involved."
+msgstr ""
+
 msgid "Follow"
 msgstr "追蹤"
 
 msgid "This token contract is open source. You can check the contract code for details. Unsourced token contracts are likely to have malicious functions to defraud their users of their assets."
+msgstr ""
+
+msgid "Darkweb transactions found."
 msgstr ""
 
 msgid "Add account"
@@ -1140,10 +1263,16 @@ msgstr ""
 msgid "NFT Contract"
 msgstr "NFT合約"
 
+msgid "Phishing activities."
+msgstr ""
+
 msgid "Show more tokens with small balances"
 msgstr ""
 
 msgid "{riskyFactors, plural, one {# Risky item} other {# Risky items}}"
+msgstr ""
+
+msgid "The self-destruct function is included. The project owner may have the ability to destroy the contract."
 msgstr ""
 
 msgid "Mute"
@@ -1194,6 +1323,9 @@ msgstr "上讚貼文失敗"
 msgid "<0>Acquired</0> an NFT"
 msgstr "<0>獲取了</0>一個 NFT"
 
+msgid "Owner can set a different tax rate for every assigned address."
+msgstr ""
+
 msgid "Tag {0} in a post to let them know you’ve sent an onchain tip to their wallet."
 msgstr ""
 
@@ -1209,6 +1341,9 @@ msgstr "用戶"
 msgid "Describe a bug or suggest an improvement"
 msgstr "描述錯誤或提供改進建議"
 
+msgid "Cryptocurrency mixer."
+msgstr ""
+
 msgid "{shares, plural, one {Mirror or Quote} other {Mirrors or Quotes}}"
 msgstr ""
 
@@ -1218,6 +1353,9 @@ msgstr ""
 msgid "<0>Revised</0>an article"
 msgstr "<0>校訂</0>一篇文章"
 
+msgid "No darkweb transactions found."
+msgstr ""
+
 msgid "You need to connect your {0} account to use this feature."
 msgstr "您需要連接 {source} 帳戶才可使用此功能。"
 
@@ -1225,6 +1363,9 @@ msgid "Bad Request. Please check your request."
 msgstr ""
 
 msgid "Login required to schedule post on {sourceName}"
+msgstr ""
+
+msgid "No blackmail activities found."
 msgstr ""
 
 msgid "Failed to disconnect"
@@ -1245,6 +1386,9 @@ msgstr ""
 msgid "Token ${symbol} could not be found."
 msgstr ""
 
+msgid "No cybercrime found."
+msgstr ""
+
 msgid "Articles"
 msgstr "文章"
 
@@ -1263,6 +1407,9 @@ msgstr ""
 msgid "Creator"
 msgstr "創作者"
 
+msgid "Holders can not sell all of the token."
+msgstr ""
+
 msgid "I want to hide this wallet address."
 msgstr ""
 
@@ -1275,10 +1422,16 @@ msgstr ""
 msgid "Failed to disconnect wallet from your social graph."
 msgstr ""
 
+msgid "No external call risk found."
+msgstr ""
+
 msgid "No preview found for shared link"
 msgstr "分享的連結暫無預覽畫面"
 
 msgid "All wallets and social accounts associated with {handleOrEnsOrAddress} will be muted."
+msgstr ""
+
+msgid "Suspected malicious address found."
 msgstr ""
 
 msgid "Contract source code not verified"
@@ -1326,6 +1479,9 @@ msgstr "未找到對應的頻道"
 msgid "{0, plural, one {Your posts failed to publish on {firstPlatform} due to an error. Click 'Retry' to attempt posting again.} two {Your posts failed to publish on {firstPlatform} and {secondPlatform} due to an error. Click 'Retry' to attempt posting again.} other {Your posts failed to publish due to an error. Click 'Retry' to attempt posting again.}}"
 msgstr ""
 
+msgid "Cybercrime found."
+msgstr ""
+
 msgid "What's happening..."
 msgstr "有什麼新鮮事"
 
@@ -1356,6 +1512,9 @@ msgstr ""
 msgid "Super Follow"
 msgstr ""
 
+msgid "Cryptocurrency mixer found."
+msgstr ""
+
 msgid "General"
 msgstr "一般"
 
@@ -1363,6 +1522,15 @@ msgid "Page not found. Please try again."
 msgstr "未找到頁面。請重試"
 
 msgid "Delegate Signing"
+msgstr ""
+
+msgid "No stealing attack involved."
+msgstr ""
+
+msgid "The contract owner has no restrictions on buying."
+msgstr ""
+
+msgid "Financial crime."
 msgstr ""
 
 msgid "This can’t be undone and you’ll lose your draft."
@@ -1383,6 +1551,9 @@ msgstr "訪問 firefly.social"
 msgid "The scheduled time to send this post can be set up to 7 days in advance."
 msgstr ""
 
+msgid "This token can not self destruct."
+msgstr ""
+
 msgid "Display"
 msgstr "顯示"
 
@@ -1399,6 +1570,12 @@ msgid "Add wallet"
 msgstr "新增錢包"
 
 msgid "Please switch to {0}"
+msgstr ""
+
+msgid "Non-honeypot related address."
+msgstr ""
+
+msgid "No darkweb transactions involved."
 msgstr ""
 
 msgid "Watch {handleOrEnsOrAddress}"
@@ -1461,6 +1638,12 @@ msgstr ""
 msgid "View engagements"
 msgstr "查看互動數據"
 
+msgid "The contract owner has restrictions on selling."
+msgstr ""
+
+msgid "The gas abuse function is not included. If there is a gas abuse function, the project owner may have the ability to control the contract."
+msgstr ""
+
 msgid "Translated"
 msgstr ""
 
@@ -1484,6 +1667,9 @@ msgstr "分鐘"
 
 msgid "Floor Price"
 msgstr "地板價格"
+
+msgid "This token is not a gas abuser."
+msgstr ""
 
 msgid "Failed to fetch profiles."
 msgstr ""
@@ -1580,9 +1766,6 @@ msgstr ""
 
 msgid "Delete"
 msgstr "刪除"
-
-msgid "May the token is a honeypot."
-msgstr ""
 
 msgid "The content of this account is currently unavailable"
 msgstr "該帳戶的內容目前不可見"
@@ -1743,6 +1926,9 @@ msgstr ""
 msgid "Internal Server Error. Please try again later."
 msgstr ""
 
+msgid "No suspected malicious behavior found."
+msgstr ""
+
 msgid "The frame server failed to process the request."
 msgstr ""
 
@@ -1750,6 +1936,9 @@ msgid "Report"
 msgstr "檢舉"
 
 msgid "Schedule"
+msgstr ""
+
+msgid "No cybercrime involved."
 msgstr ""
 
 msgid "Change Account"
@@ -1764,7 +1953,16 @@ msgstr "圖片"
 msgid "Failed to delete post."
 msgstr ""
 
+msgid "Financial crime found."
+msgstr ""
+
+msgid "No stealing attack found."
+msgstr ""
+
 msgid "Claimed"
+msgstr ""
+
+msgid "The hidden owner function is included. The project owner may have the ability to control the contract."
 msgstr ""
 
 msgid "Copy"
@@ -1776,6 +1974,12 @@ msgstr ""
 msgid "No available wallet."
 msgstr "沒有可用的錢包。"
 
+msgid "No phishing activities found."
+msgstr ""
+
+msgid "No cryptocurrency mixer involved."
+msgstr ""
+
 msgid "<0>{0}</0><1>reposted</1>"
 msgstr ""
 
@@ -1783,6 +1987,15 @@ msgid "Login to enable all features"
 msgstr ""
 
 msgid "Owner can change balance"
+msgstr ""
+
+msgid "Non-contract address found."
+msgstr ""
+
+msgid "The contract owner has no restrictions on selling."
+msgstr ""
+
+msgid "No money laundering found."
 msgstr ""
 
 msgid "Accounts Connected"
@@ -1828,6 +2041,9 @@ msgid "Your post will be sent on {0} at {1} <0>View</0>"
 msgstr ""
 
 msgid "Failed to create scheduled post."
+msgstr ""
+
+msgid "The contract owner has restrictions on anti whale."
 msgstr ""
 
 msgid "I don’t use anymore."
@@ -1935,6 +2151,9 @@ msgstr ""
 msgid "{days}d left"
 msgstr ""
 
+msgid "Money laundering found."
+msgstr ""
+
 msgid "*Event runs from September 29, 2024, 12:00 UTC to October 8, 2024, 23:59 UTC."
 msgstr ""
 
@@ -1945,6 +2164,9 @@ msgid "LuckyDrop"
 msgstr ""
 
 msgid "{0} and others"
+msgstr ""
+
+msgid "No money laundering involved."
 msgstr ""
 
 msgid "Date"
@@ -1964,6 +2186,9 @@ msgstr ""
 
 msgid "Share to"
 msgstr "分享至"
+
+msgid "Non-sanctioned address."
+msgstr ""
 
 msgid "Failed to quote post."
 msgstr "引用貼文失敗"
@@ -1995,7 +2220,13 @@ msgstr ""
 msgid "Cannot find your signer key, please connect again"
 msgstr ""
 
+msgid "Malicious mining activities."
+msgstr ""
+
 msgid "No codes found to suspend trading."
+msgstr ""
+
+msgid "This token can self destruct."
 msgstr ""
 
 msgid "Buy Tax: {0}%"
@@ -2040,6 +2271,9 @@ msgstr ""
 msgid "Claim your NFT to show your support onchain for CZ!"
 msgstr ""
 
+msgid "The contract owner has no restrictions on personal slippage."
+msgstr ""
+
 msgid "Unmuted @{0} on {sourceName}."
 msgstr ""
 
@@ -2074,6 +2308,9 @@ msgid "Collection"
 msgstr ""
 
 msgid "Your name"
+msgstr ""
+
+msgid "No tax changes found for personal addresses."
 msgstr ""
 
 msgid "Owned"
@@ -2127,6 +2364,9 @@ msgstr ""
 msgid "Your post have published successfully on {0}."
 msgstr "你的貼文已成功發布在 {0} 上。"
 
+msgid "The contract owner has no restrictions on anti whale."
+msgstr ""
+
 msgid "Detail"
 msgstr "詳細資訊"
 
@@ -2173,6 +2413,9 @@ msgid "Mask Network"
 msgstr "Mask Network"
 
 msgid "<0>Acquired</0> an NFT from <1>{0}</1>"
+msgstr ""
+
+msgid "Sanctioned address found."
 msgstr ""
 
 msgid "Unfollowed @{0} on {sourceName}"
@@ -2241,7 +2484,16 @@ msgstr ""
 msgid "Suspended account"
 msgstr ""
 
+msgid "No blackmail activities involved."
+msgstr ""
+
+msgid "Hidden owner."
+msgstr ""
+
 msgid "Recasted"
+msgstr ""
+
+msgid "No phishing activities involved."
 msgstr ""
 
 msgid "Premium Criteria"
@@ -2291,6 +2543,9 @@ msgstr "在觀察列表上的地址"
 
 msgid "FREE"
 msgstr "免費"
+
+msgid "The contract owner has restrictions on trading cooldown."
+msgstr ""
 
 msgid "Sign to enable signless"
 msgstr ""
@@ -2361,7 +2616,13 @@ msgstr "鑄造功能"
 msgid "Clear"
 msgstr ""
 
+msgid "Cybercrime."
+msgstr ""
+
 msgid "<0>Sent</0> an NFT to <1>{0}</1>"
+msgstr ""
+
+msgid "No trading cooldown function."
 msgstr ""
 
 msgid "Media"
@@ -2383,6 +2644,12 @@ msgid "Terms of Service"
 msgstr ""
 
 msgid "[Quote]"
+msgstr ""
+
+msgid "Contract address."
+msgstr ""
+
+msgid "No malicious mining activities involved."
 msgstr ""
 
 msgid "Related by platforms"
@@ -2428,6 +2695,9 @@ msgid "You're eligible for a <0>Premium</0> CZ Support NFT because your .bnb dom
 msgstr ""
 
 msgid "Replying to <0>@{0}</0> on {1}"
+msgstr ""
+
+msgid "Fake KYC found."
 msgstr ""
 
 msgid "A thread must have at least two posts."

@@ -183,6 +183,11 @@
         "getconvert",
         "nextwidth",
         "nextheight",
+        "cooldown",
+        "darkweb",
+        "cybercrime",
+        "selfdestruct",
+        "reinit",
         "mutelist"
     ],
     "flagWords": [],
