@@ -66,7 +66,7 @@ function resolveMediaObjectBy(key: 'urls' | 'uploadIds') {
         if (!media) return '';
         // the first source that has a url will be used as the preview
         const source = sources.find((x) => !!media[key]?.[x]);
-        return source ? media[key]?.[source] ?? '' : '';
+        return source ? (media[key]?.[source] ?? '') : '';
     };
 }
 

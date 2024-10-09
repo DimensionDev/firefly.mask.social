@@ -289,7 +289,7 @@ const useTwitterStateBase = createState(
                 // show indicator if the session is from the server
                 if (foundNewSessionFromServer) state.__setStatus__(AsyncStatus.Pending);
 
-                const payload = foundNewSessionFromServer ? sessionPayloadFromServer : session?.payload ?? null;
+                const payload = foundNewSessionFromServer ? sessionPayloadFromServer : (session?.payload ?? null);
                 const profile = payload ? await TwitterSocialMediaProvider.getProfileById(payload.clientId) : null;
 
                 if (!profile || !payload) {
