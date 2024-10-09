@@ -1,3 +1,4 @@
+import { sendGAEvent } from '@next/third-parties/google';
 import { v4 as uuid } from 'uuid';
 
 import { STATUS } from '@/constants/enum.js';
@@ -16,10 +17,10 @@ function formatParameter(key: string, value: unknown): [string, unknown] {
     return [key, value];
 }
 
-class SafaryTelemetry extends Provider<Events, never> {
+class Telemetry extends Provider<Events, never> {
     private latestEventId: string | null = null;
 
-    private get sdk() {
+    private get safary() {
         if (typeof bom.window?.safary === 'undefined') return null;
         return bom.window.safary as Safary;
     }
@@ -37,31 +38,38 @@ class SafaryTelemetry extends Provider<Events, never> {
             return;
         }
 
-        if (!this.sdk) {
+        if (!this.safary) {
             console.error('[safary] safary SDK not available. failed to capture event:', name, parameters);
             return;
         }
 
+        const publicParameters = getPublicParameters(uuid(), this.latestEventId);
+        const formattedParameters = Object.fromEntries(
+            Object.entries(parameters).map(([key, value]) => formatParameter(key, value)),
+        );
+
+        // update the latest event id
+        this.latestEventId = publicParameters.public_uuid;
+
+        const event = {
+            eventType: name,
+            eventName: name.replaceAll(/_/g, ' '),
+            parameters: {
+                ...publicParameters,
+                ...formattedParameters,
+            } as unknown as Events[T]['parameters'],
+        };
+
         try {
-            const publicParameters = getPublicParameters(uuid(), this.latestEventId);
-            const formattedParameters = Object.fromEntries(
-                Object.entries(parameters).map(([key, value]) => formatParameter(key, value)),
-            );
-
-            // update the latest event id
-            this.latestEventId = publicParameters.public_uuid;
-
-            await this.sdk.track({
-                eventType: name,
-                eventName: name.replaceAll(/_/g, ' '),
-                parameters: {
-                    ...publicParameters,
-                    ...formattedParameters,
-                } as unknown as Events[T]['parameters'],
-            });
+            sendGAEvent(event);
         } catch (error) {
-            console.error('[safary] failed to capture event:', name, parameters);
-            throw error;
+            console.error('[ga] failed to catpure event:', event);
+        }
+
+        try {
+            await this.safary.track(event);
+        } catch (error) {
+            console.error('[safary] failed to capture event:', event);
         }
     }
 
@@ -70,4 +78,4 @@ class SafaryTelemetry extends Provider<Events, never> {
     }
 }
 
-export const SafaryTelemetryProvider = new SafaryTelemetry();
+export const TelemetryProvider = new Telemetry();
