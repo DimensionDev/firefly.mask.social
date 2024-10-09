@@ -58,7 +58,7 @@ class Telemetry extends Provider<Events, never> {
         try {
             sendGAEvent(event);
         } catch (error) {
-            console.error('[ga] failed to catpure event:', event);
+            console.error('[ga] failed to capture event:', event);
         }
 
         try {
