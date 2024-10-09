@@ -72,7 +72,7 @@
     --color-success: rgb(13, 48, 11);
     --color-firefly-brand: rgba(146, 80, 255, 1);
     --m-common-danger: #ff3545;
-    --m-common-warn: #ffb100;
+    --m-common-warn: 255 177 0;
     --m-light-bottom: #fff;
     --plyr-audio-controls-background: rgba(243, 243, 243, 1);
     --plyr-range-thumb-height: 0px;
@@ -81,7 +81,7 @@
     --plyr-range-fill-background: rgba(118, 118, 118, 1);
     --plyr-audio-progress-buffered-background: rgba(207, 207, 207, 1);
     --plyr-control-icon-size: 16px;
-    --color-success: #3dc233;
+    --color-success: 61 194 51;
     --color-fail: 255 53 69;
     --color-light-warn: 255 122 85;
     --color-light-highlight: 76 74 169;
