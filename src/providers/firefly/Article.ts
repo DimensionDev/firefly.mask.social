@@ -52,7 +52,6 @@ class FireflyArticle implements Provider {
         const response = await fireflySessionHolder.fetch<DiscoverArticlesResponse>(url);
 
         const data = resolveFireflyResponseData(response);
-
         const articles = data.result.map(formatArticleFromFirefly);
 
         return createPageable(

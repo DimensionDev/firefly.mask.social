@@ -10,7 +10,7 @@ import { resolveProfileUrl } from '@/helpers/resolveProfileUrl.js';
 import { getWalletProfileByAddressOrEns } from '@/services/getWalletProfileByAddressOrEns.js';
 
 export async function createMetadataWalletProfile(addressOrEns: string) {
-    const walletProfile = await getWalletProfileByAddressOrEns(addressOrEns);
+    const walletProfile = await getWalletProfileByAddressOrEns(addressOrEns, false);
     if (!walletProfile) return createSiteMetadata();
 
     const title = walletProfile.primary_ens

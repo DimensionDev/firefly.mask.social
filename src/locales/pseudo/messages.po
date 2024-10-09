@@ -136,6 +136,9 @@ msgstr ""
 msgid "The post you quoted/replied has already deleted"
 msgstr ""
 
+msgid "Something went wrong, Please try again."
+msgstr ""
+
 msgid "Display Name"
 msgstr ""
 
@@ -170,12 +173,6 @@ msgid "Searching channel"
 msgstr ""
 
 msgid "Functions that can suspend trading"
-msgstr ""
-
-msgid ""
-"Just claimed the \"@handle\" welcome back 🎉 to CZ” from @thefireflyapp! \n"
-"Claim yours at firefly.social when you follow @cz_binance. \n"
-"#CZ #FireflySocial"
 msgstr ""
 
 msgid "<0>The maximum number of coins coded to exist in the lifetime of the cryptocurrency. It is comparable to the maximum number of issuable shares in the stock market.</0><1>Max Supply = Theoretical maximum as coded</1>"
@@ -1459,9 +1456,6 @@ msgstr ""
 msgid "View engagements"
 msgstr ""
 
-msgid "Followed <0>@cz_binance</0> on X before Sept 21"
-msgstr ""
-
 msgid "Translated"
 msgstr ""
 
@@ -1508,9 +1502,6 @@ msgid "Unfollow @{0}"
 msgstr ""
 
 msgid "Not my wallet address."
-msgstr ""
-
-msgid "Get a free special edition Firefly NFT for following <0>@cz_binance</0> on X to celebrate CZ’s return!"
 msgstr ""
 
 msgid "Please switch to the wallet consistent with this action"
@@ -1636,9 +1627,6 @@ msgstr ""
 msgid "Failed to publish post."
 msgstr ""
 
-msgid "Must followed <0>@cz_binance</0> on X before Sept 21, 2024."
-msgstr ""
-
 msgid "Voted successfully."
 msgstr ""
 
@@ -1670,6 +1658,9 @@ msgid "Wallets"
 msgstr ""
 
 msgid "Articles from {walletHandle} will now be hidden in your home timeline"
+msgstr ""
+
+msgid "Followed @cz_binance on X before Sept 21"
 msgstr ""
 
 msgid "Login X"
@@ -1790,6 +1781,9 @@ msgid "Owner can change balance"
 msgstr ""
 
 msgid "Accounts Connected"
+msgstr ""
+
+msgid "Failed to claim token"
 msgstr ""
 
 msgid "Notifications"
@@ -1978,6 +1972,9 @@ msgstr ""
 msgid "The signer is not authorized to perform the requested operation. Please approve again."
 msgstr ""
 
+msgid "Must followed @cz_binance on X before Sept 21, 2024."
+msgstr ""
+
 msgid "Your assets on BNB Chain are worth over US$10,000."
 msgstr ""
 
@@ -2081,6 +2078,9 @@ msgid "Associated wallets"
 msgstr ""
 
 msgid "The whitelist function is included. Some addresses may not be able to trade normally (honeypot risk)."
+msgstr ""
+
+msgid "Get a free special edition Firefly NFT for following @cz_binance on X to celebrate CZ’s return!"
 msgstr ""
 
 msgid "Mirror now to get 25% referral fee!"

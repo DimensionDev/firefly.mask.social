@@ -4,37 +4,38 @@ import { useContext, useEffect } from 'react';
 import urlcat from 'urlcat';
 
 import { ActivityContext } from '@/components/CZ/ActivityContext.js';
-import { Source } from '@/constants/enum.js';
-import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
+import { fetchJSON } from '@/helpers/fetchJSON.js';
 import { getSnackbarMessageFromError } from '@/helpers/getSnackbarMessageFromError.js';
-import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
 import type { CheckResponse } from '@/providers/types/CZ.js';
 import { settings } from '@/settings/index.js';
 
 export function useActivityCheckResponse() {
-    const { address } = useContext(ActivityContext);
-    const twitterProfile = useCurrentProfile(Source.Twitter);
+    const { address, isLoggedTwitter, authToken, type } = useContext(ActivityContext);
     const query = useQuery({
-        queryKey: ['cz-activity-check', address, !!twitterProfile],
+        queryKey: ['cz-activity-check', address, authToken],
         async queryFn() {
-            const response = await fireflySessionHolder.fetch<CheckResponse>(
-                // cspell: disable-next-line
-                urlcat(settings.FIREFLY_ROOT_URL, '/v1/misc/activity/checkBnbcz', {
-                    address: address!,
-                }),
-            );
-            if (!response.data) {
-                throw new Error(response.error?.[0] ?? t`Unknown error`);
+            // cspell: disable-next-line
+            const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/misc/activity/checkBnbcz', {
+                address: address!,
+            });
+            if (authToken) {
+                const response = await fetchJSON<CheckResponse>(url, {
+                    headers: {
+                        Authorization: `Bearer ${authToken}`,
+                    },
+                });
+                return response.data;
             }
+            const response = await fireflySessionHolder.fetch<CheckResponse>(url);
             return response.data;
         },
-        enabled: !!address && !!twitterProfile,
+        enabled: !!address && isLoggedTwitter,
     });
 
     useEffect(() => {
         if (query.error) {
-            enqueueErrorMessage(getSnackbarMessageFromError(query.error, t`Unknown error`));
+            console.log(`CZ event error: ${getSnackbarMessageFromError(query.error, t`Unknown error`)}`);
         }
     }, [query.error]);
 

@@ -295,6 +295,14 @@ async function removeAccount(account: Account, signal?: AbortSignal) {
         state.removeAccount(account);
     }
 
+    runInSafeAsync(async () => {
+        if (TwitterSession.isNextAuth(account.session)) {
+            await signOut({
+                redirect: false,
+            });
+        }
+    });
+
     captureAccountLogoutEvent(account);
 }
 
@@ -309,12 +317,6 @@ export async function removeAccountByProfileId(source: SocialSource, profileId: 
     await removeAccount(account);
     await removeFireflyAccountIfNeeded();
     await removeFireflyMetricsIfNeeded([account.session]);
-
-    if (TwitterSession.isNextAuth(account.session)) {
-        await signOut({
-            redirect: false,
-        });
-    }
 }
 
 export async function removeCurrentAccount(source: SocialSource) {

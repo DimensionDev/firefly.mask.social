@@ -1,9 +1,11 @@
 'use client';
 
 import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
+import { compact } from 'lodash-es';
 
 import { ListInPage } from '@/components/ListInPage.js';
 import { getSingleFollowingNFTItemContent } from '@/components/NFTs/VirtualListHelper.js';
+import { NotLoginFallback } from '@/components/NotLoginFallback.js';
 import { ScrollListKey, Source } from '@/constants/enum.js';
 import { SORTED_SOCIAL_SOURCES } from '@/constants/index.js';
 import { createIndicator } from '@/helpers/pageable.js';
@@ -12,24 +14,29 @@ import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
 
 export function FollowingNFTList({ walletAddress }: { walletAddress?: string }) {
     const currentProfileAll = useCurrentProfileAll();
-    const profileKey = SORTED_SOCIAL_SOURCES.map((x) => currentProfileAll[x]?.profileId);
+    const profileIds = compact(SORTED_SOCIAL_SOURCES.map((x) => currentProfileAll[x]?.profileId));
 
     const queryKey = walletAddress
-        ? ['nfts-of', walletAddress, profileKey]
-        : ['nfts', 'following', Source.NFTs, profileKey];
+        ? ['nfts-of', walletAddress, profileIds]
+        : ['nfts', 'following', Source.NFTs, profileIds];
     const nftQueryResult = useSuspenseInfiniteQuery({
         queryKey,
         networkMode: 'always',
-        async queryFn({ pageParam }) {
+        queryFn: async ({ pageParam }) => {
+            if (!walletAddress && !profileIds.length) return null;
             return FireflySocialMediaProvider.getFollowingNFTs({
                 indicator: createIndicator(undefined, pageParam),
                 walletAddresses: walletAddress ? [walletAddress] : undefined,
             });
         },
         initialPageParam: '',
-        getNextPageParam: (lastPage) => lastPage.nextIndicator?.id,
-        select: (data) => data.pages.flatMap((p) => p.data),
+        getNextPageParam: (lastPage) => lastPage?.nextIndicator?.id,
+        select: (data) => compact(data.pages.flatMap((p) => p?.data)),
     });
+
+    if (!walletAddress && !profileIds.length) {
+        return <NotLoginFallback source={Source.Farcaster} />;
+    }
 
     return (
         <ListInPage

@@ -7,6 +7,7 @@ import urlcat from 'urlcat';
 
 import LoadingIcon from '@/assets/loading.svg';
 import { ActivityContext } from '@/components/CZ/ActivityContext.js';
+import { useActivityCheckResponse } from '@/components/CZ/useActivityCheckResponse.js';
 import { IS_IOS } from '@/constants/bowser.js';
 import { Link } from '@/esm/Link.js';
 import { classNames } from '@/helpers/classNames.js';
@@ -26,8 +27,9 @@ interface Props extends HTMLProps<'button'> {
 }
 
 export function ActivityClaimButton({ level, alreadyClaimed = false, canClaim, isLoading = false, className }: Props) {
-    const { onClaim, address } = useContext(ActivityContext);
+    const { onClaim, address, authToken } = useContext(ActivityContext);
     const disabled = isLoading || alreadyClaimed;
+    const { refetch } = useActivityCheckResponse();
     const [{ loading }, claim] = useAsyncFn(async () => {
         if (disabled || !address) return;
         try {
@@ -45,16 +47,20 @@ export function ActivityClaimButton({ level, alreadyClaimed = false, canClaim, i
                     walletAddress: address,
                     claimPlatform,
                 }),
+                headers: {
+                    Authorization: `Bearer ${authToken}`,
+                },
             });
-            if (!response.error || !response.data) {
-                throw new Error(response.error?.[0] ?? t`Unknown error`);
+            await refetch();
+            if (response.error || !response.data) {
+                throw new Error(response.error?.[0] ?? t`Failed to claim token`);
             }
             if (response.data.errormessage) {
-                throw new Error(response.data.errormessage ?? t`Unknown error`);
+                throw new Error(response.data.errormessage);
             }
             onClaim(response.data.hash);
         } catch (error) {
-            enqueueErrorMessage(getSnackbarMessageFromError(error, t`Unknown error`));
+            enqueueErrorMessage(getSnackbarMessageFromError(error, t`Failed to claim token`), { error });
             throw error;
         }
     });
@@ -83,20 +89,20 @@ export function ActivityClaimButton({ level, alreadyClaimed = false, canClaim, i
                 <button
                     disabled={disabled || loading}
                     className={classNames(
-                        'flex h-12 w-[140px] items-center justify-center rounded-full bg-gradient-to-b from-[#ffeecc] to-[rgba(255,255,255,0)] p-[1px] text-sm font-bold leading-[48px] text-[#181a20]',
+                        'flex h-12 min-w-[140px] items-center justify-center rounded-full bg-gradient-to-b from-[#ffeecc] to-[rgba(255,255,255,0)] p-[1px] text-sm font-bold leading-[48px] text-[#181a20]',
                         className,
                     )}
                     onClick={claim}
                 >
-                    {loading ? (
-                        <LoadingIcon className="animate-spin text-white" width={16} height={16} />
-                    ) : (
-                        <span className="block h-full w-full rounded-full bg-[#1f1f1f] px-[18px]">
+                    <span className="flex h-full w-full items-center justify-center rounded-full bg-[#1f1f1f] px-[18px]">
+                        {loading ? (
+                            <LoadingIcon className="animate-spin text-white" width={16} height={16} />
+                        ) : (
                             <span className="bg-gradient-to-r from-[#ffeecc] to-[#ad9515] bg-clip-text text-transparent">
                                 <Trans>Claim Premium</Trans>
                             </span>
-                        </span>
-                    )}
+                        )}
+                    </span>
                 </button>
             ) : (
                 <button

@@ -1,8 +1,11 @@
 'use client';
 
+import { encodePublicKey } from '@masknet/web3-shared-solana';
+import { useWallet as useSolanaWallet } from '@solana/wallet-adapter-react';
 import { useQuery } from '@tanstack/react-query';
 import { StatusCodes } from 'http-status-codes';
 import React, { type PropsWithChildren } from 'react';
+import { useAccount as useEVMAccount } from 'wagmi';
 
 import { Loading } from '@/components/Loading.js';
 import { LoginRequiredGuard } from '@/components/LoginRequiredGuard.js';
@@ -11,6 +14,7 @@ import { SourceTabs } from '@/components/SourceTabs.js';
 import { Source } from '@/constants/enum.js';
 import { FetchError } from '@/constants/error.js';
 import { EMPTY_LIST, SORTED_PROFILE_SOURCES } from '@/constants/index.js';
+import { isSameEthereumAddress, isSameSolanaAddress } from '@/helpers/isSameAddress.js';
 import { isSameFireflyIdentity } from '@/helpers/isSameFireflyIdentity.js';
 import { narrowToSocialSource } from '@/helpers/narrowToSocialSource.js';
 import { resolveProfileUrl } from '@/helpers/resolveProfileUrl.js';
@@ -27,11 +31,17 @@ export function ProfilePageLayout({ identity, children }: PropsWithChildren<{ id
     const resolvedSource = narrowToSocialSource(identity.source);
     const isLogin = useIsLogin(resolvedSource);
 
+    const evmAccount = useEVMAccount();
+    const solanaWallet = useSolanaWallet();
+
     const { data: otherProfiles = EMPTY_LIST, isLoading } = useQuery({
-        queryKey: ['all-profiles', identity.source, identity.id],
+        queryKey: ['all-profiles', identity.source, identity.id, evmAccount.address, solanaWallet.publicKey],
         queryFn: async () => {
             if (!identity.id) return EMPTY_LIST;
-            return FireflySocialMediaProvider.getAllPlatformProfileByIdentity(identity);
+            const isTokenRequired =
+                isSameEthereumAddress(evmAccount.address, identity.id) ||
+                (!!solanaWallet.publicKey && isSameSolanaAddress(encodePublicKey(solanaWallet.publicKey), identity.id));
+            return FireflySocialMediaProvider.getAllPlatformProfileByIdentity(identity, isTokenRequired);
         },
     });
 

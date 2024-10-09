@@ -51,7 +51,7 @@ class FireflyBridgeProvider {
      */
     get supported() {
         if (typeof window.FireflyApi?.callNativeMethod === 'function') return true;
-        if (typeof window.webkit?.messageHandlers?.callNativeMethod === 'function') return true;
+        if (typeof window.webkit?.messageHandlers?.callNativeMethod?.postMessage === 'function') return true;
         return false;
     }
 

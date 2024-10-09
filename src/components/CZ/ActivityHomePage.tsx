@@ -1,6 +1,7 @@
 'use client';
 
 import { Trans } from '@lingui/macro';
+import { ChainId } from '@masknet/web3-shared-evm';
 import { useContext, useMemo } from 'react';
 import type { Address } from 'viem';
 import { useEnsName } from 'wagmi';
@@ -9,17 +10,14 @@ import LoadingIcon from '@/assets/loading.svg';
 import { ActivityContext } from '@/components/CZ/ActivityContext.js';
 import { ActivityHomePageButton } from '@/components/CZ/ActivityHomePageButton.js';
 import { useActivityCheckResponse } from '@/components/CZ/useActivityCheckResponse.js';
-import { Source } from '@/constants/enum.js';
 import { Image } from '@/esm/Image.js';
-import { Link } from '@/esm/Link.js';
 import { formatAddress } from '@/helpers/formatAddress.js';
-import { resolveProfileUrl } from '@/helpers/resolveProfileUrl.js';
 import { Level } from '@/providers/types/CZ.js';
 
 export function ActivityHomePage() {
-    const { type, address, isLoggedTwitter } = useContext(ActivityContext);
-    const { data, isLoading } = useActivityCheckResponse();
-    const { data: ens } = useEnsName({ address: address as Address });
+    const { type, address, isLoggedTwitter, isLoading: isLoadingContext } = useContext(ActivityContext);
+    const { data, isLoading, error, refetch, isRefetching } = useActivityCheckResponse();
+    const { data: ens } = useEnsName({ address: address as Address, chainId: ChainId.Mainnet });
     const { title, description } = useMemo(() => {
         if (data?.eventEnds) {
             return {
@@ -32,11 +30,7 @@ export function ActivityHomePage() {
                 title: <Trans>Reward for followers</Trans>,
                 description: (
                     <Trans>
-                        Get a free special edition Firefly NFT for following{' '}
-                        <Link className="text-[#AC9DF6]" href={resolveProfileUrl(Source.Twitter, '902926941413453824')}>
-                            @cz_binance
-                        </Link>{' '}
-                        on X to celebrate CZ’s return!
+                        Get a free special edition Firefly NFT for following @cz_binance on X to celebrate CZ’s return!
                     </Trans>
                 ),
             };
@@ -58,11 +52,7 @@ export function ActivityHomePage() {
                 title: <Trans>Welcome Back CZ Collectible</Trans>,
                 description: (
                     <Trans>
-                        Get a free special edition Firefly NFT for following{' '}
-                        <Link className="text-[#AC9DF6]" href={resolveProfileUrl(Source.Twitter, '902926941413453824')}>
-                            @cz_binance
-                        </Link>{' '}
-                        on X to celebrate CZ’s return!
+                        Get a free special edition Firefly NFT for following @cz_binance on X to celebrate CZ’s return!
                     </Trans>
                 ),
             };
@@ -70,7 +60,7 @@ export function ActivityHomePage() {
         if (data?.canClaim) {
             const title = <Trans>{ens ?? formatAddress(address, 4)} is eligible!</Trans>;
             if (data.level === Level.Lv2) {
-                if (data.x?.valid) {
+                if (data.x?.valid && data.x.level === Level.Lv2) {
                     return {
                         title,
                         description: (
@@ -81,7 +71,7 @@ export function ActivityHomePage() {
                         ),
                     };
                 }
-                if (data.bnbBalance?.valid) {
+                if (data.bnbBalance?.valid && data.bnbBalance.level === Level.Lv2) {
                     return {
                         title,
                         description: (
@@ -92,7 +82,7 @@ export function ActivityHomePage() {
                         ),
                     };
                 }
-                if (data.bnbId?.valid) {
+                if (data.bnbId?.valid && data.bnbId.level === Level.Lv2) {
                     return {
                         title,
                         description: (
@@ -111,15 +101,7 @@ export function ActivityHomePage() {
         }
         return {
             title: <Trans>Not eligible</Trans>,
-            description: (
-                <Trans>
-                    Must followed{' '}
-                    <Link className="text-[#AC9DF6]" href={resolveProfileUrl(Source.Twitter, '902926941413453824')}>
-                        @cz_binance
-                    </Link>{' '}
-                    on X before Sept 21, 2024.
-                </Trans>
-            ),
+            description: <Trans>Must followed @cz_binance on X before Sept 21, 2024.</Trans>,
         };
     }, [
         isLoggedTwitter,
@@ -131,11 +113,38 @@ export function ActivityHomePage() {
         data?.bnbBalance?.valid,
         data?.bnbId?.valid,
         data?.x?.valid,
+        data?.x?.level,
+        data?.bnbBalance?.level,
+        data?.bnbId?.level,
         ens,
         type,
     ]);
 
-    if (isLoading) {
+    if (error) {
+        return (
+            <div className="flex h-[317px] w-full flex-col items-center">
+                <Image
+                    src="/image/radar.png"
+                    width={200}
+                    height={106}
+                    className="my-auto"
+                    alt="Something went wrong. Please try again."
+                />
+                <p className="my-6 text-center text-xl font-bold leading-[18px]">
+                    <Trans>Something went wrong, Please try again.</Trans>
+                </p>
+                <button
+                    className="mt-auto h-10 rounded-full bg-white px-[18px] text-sm font-bold leading-10 text-[#181a20] disabled:opacity-70"
+                    onClick={() => refetch()}
+                    disabled={isRefetching}
+                >
+                    <Trans>Refresh</Trans>
+                </button>
+            </div>
+        );
+    }
+
+    if (isLoading || isLoadingContext) {
         return (
             <div className="flex h-[317px] w-full flex-col items-center justify-center">
                 <div className="flex flex-col items-center space-y-3">

@@ -21,13 +21,14 @@ import { TimestampFormatter } from '@/components/TimeStampFormatter.js';
 import { Tips } from '@/components/Tips/index.js';
 import { Tooltip } from '@/components/Tooltip.js';
 import { IS_APPLE, IS_SAFARI } from '@/constants/bowser.js';
-import { PageRoute, SearchType, Source, SourceInURL } from '@/constants/enum.js';
+import { Source, SourceInURL } from '@/constants/enum.js';
 import { Link } from '@/esm/Link.js';
 import { classNames } from '@/helpers/classNames.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
 import { formatEthereumAddress } from '@/helpers/formatAddress.js';
 import { getArticleUrl } from '@/helpers/getArticleUrl.js';
 import { resolveArticlePlatformIcon } from '@/helpers/resolveArticlePlatformIcon.js';
+import { resolveSearchUrl } from '@/helpers/resolveSearchUrl.js';
 import { useFireflyIdentity } from '@/hooks/useFireflyIdentity.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import { CollectArticleModalRef, DraggablePopoverRef, PreviewMediaModalRef } from '@/modals/controls.js';
@@ -124,13 +125,7 @@ export const ArticleLayout = memo<ArticleLayoutProps>(function ArticleLayout({ a
                             event.preventDefault();
 
                             scrollTo(0, 0);
-                            router.push(
-                                urlcat(PageRoute.Search, {
-                                    q: article.slug,
-                                    type: SearchType.Posts,
-                                    source: Source.Article,
-                                }),
-                            );
+                            router.push(resolveSearchUrl(article.slug || '', undefined, Source.Article));
                         }}
                     >
                         #{article.slug}

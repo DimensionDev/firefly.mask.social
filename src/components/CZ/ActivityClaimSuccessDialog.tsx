@@ -1,12 +1,15 @@
 'use client';
 
-import { t, Trans } from '@lingui/macro';
+import { Trans } from '@lingui/macro';
 import React from 'react';
 
 import { useActivityCheckResponse } from '@/components/CZ/useActivityCheckResponse.js';
 import { Popover } from '@/components/Popover.js';
+import { IS_IOS } from '@/constants/bowser.js';
+import { SourceInURL } from '@/constants/enum.js';
 import { Image } from '@/esm/Image.js';
 import { Link } from '@/esm/Link.js';
+import { CHAR_TAG } from '@/helpers/chars.js';
 import { ComposeModalRef } from '@/modals/controls.js';
 import { fireflyBridgeProvider } from '@/providers/firefly/Bridge.js';
 import { Level } from '@/providers/types/CZ.js';
@@ -20,7 +23,15 @@ interface Props {
 
 export function ActivityClaimSuccessDialog({ open, onClose, hash }: Props) {
     return (
-        <Popover open={open} onClose={onClose} backdropClassName="!bg-[rgba(245,245,245,0.3)]">
+        <Popover
+            open={open}
+            onClose={onClose}
+            DialogPanelProps={{
+                className: '!bg-black border-none',
+            }}
+            controlClassName="!bg-white"
+            backdropClassName="!bg-[rgba(245,245,245,0.3)]"
+        >
             <div className="relative z-10 w-full rounded-[12px] bg-black pt-4 text-white">
                 <ActivityClaimSuccessContent hash={hash} />
             </div>
@@ -30,6 +41,8 @@ export function ActivityClaimSuccessDialog({ open, onClose, hash }: Props) {
 
 export function ActivityClaimSuccessContent({ onClose, hash }: { onClose?: () => void; hash?: string }) {
     const { data } = useActivityCheckResponse();
+    const showExplorerLink = !(fireflyBridgeProvider.supported && IS_IOS);
+
     return (
         <div className="relative z-10 flex w-full flex-col items-center space-y-6 text-center">
             <Image
@@ -38,24 +51,28 @@ export function ActivityClaimSuccessContent({ onClose, hash }: { onClose?: () =>
                 height={162}
                 alt="cz-nft"
             />
-            <div className="space-y-1.5 text-[15px] font-normal leading-[18px]">
-                <p className="text-xl font-bold leading-[18px]">
+            <div className="text-[15px] font-normal leading-[18px]">
+                <p className="mb-4 text-xl font-bold leading-[18px]">
                     <Trans>Congratulation!</Trans>
                 </p>
-                <Link href={`https://bscscan.com/tx/${hash}`} target="_blank" className="text-[#AC9DF6] underline">
-                    <Trans>View transaction on Explorer</Trans>
-                </Link>
+                <div className="h-[18px]">
+                    {showExplorerLink ? (
+                        <Link
+                            href={`https://bscscan.com/tx/${hash}`}
+                            target="_blank"
+                            className="z-10 text-[#AC9DF6] underline"
+                        >
+                            <Trans>View transaction on Explorer</Trans>
+                        </Link>
+                    ) : null}
+                </div>
             </div>
             <div className="grid w-full grid-cols-1 gap-2">
                 <button
                     className="h-10 rounded-full bg-white text-[15px] font-bold leading-10 text-[#181A20]"
                     onClick={() => {
                         onClose?.();
-                        const text = t`Just claimed the "@handle" welcome back 🎉 to CZ” from @thefireflyapp! 
-
-Claim yours at firefly.social when you follow @cz_binance. 
-
-#CZ #FireflySocial`;
+                        const text = `Just claimed the "Welcome back 🎉 to CZ" collectible from @thefireflyapp !\n\nIf you followed https://x.com/cz_binance on X before Sept 21, you're eligible to claim yours at https://cz.firefly.social .\n\n`;
                         if (fireflyBridgeProvider.supported) {
                             return fireflyBridgeProvider.request(SupportedMethod.COMPOSE, {
                                 text,
@@ -64,7 +81,58 @@ Claim yours at firefly.social when you follow @cz_binance.
 
                         ComposeModalRef.open({
                             type: 'compose',
-                            chars: [text],
+                            chars: [
+                                `Just claimed the "Welcome back 🎉 to CZ" collectible from `,
+                                {
+                                    tag: CHAR_TAG.MENTION,
+                                    visible: true,
+                                    content: `@thefireflyapp`,
+                                    profiles: [
+                                        {
+                                            platform_id: '1583361564479889408',
+                                            platform: SourceInURL.Twitter,
+                                            handle: 'thefireflyapp',
+                                            name: 'thefireflyapp',
+                                            hit: true,
+                                            score: 0,
+                                        },
+                                        {
+                                            platform_id: '16823',
+                                            platform: SourceInURL.Farcaster,
+                                            handle: 'fireflyapp',
+                                            name: 'Firefly App',
+                                            hit: true,
+                                            score: 0,
+                                        },
+                                        {
+                                            platform_id: '0x01b000',
+                                            platform: SourceInURL.Lens,
+                                            handle: 'fireflyapp',
+                                            name: 'fireflyapp',
+                                            hit: true,
+                                            score: 0,
+                                        },
+                                    ],
+                                },
+                                `!\n\nIf you followed `,
+                                {
+                                    tag: CHAR_TAG.MENTION,
+                                    visible: true,
+                                    content: '@cz_binance',
+                                    profiles: [
+                                        {
+                                            platform_id: '902926941413453824',
+                                            platform: SourceInURL.Twitter,
+                                            handle: 'cz_binance',
+                                            name: 'cz_binance',
+                                            hit: true,
+                                            score: 0,
+                                        },
+                                    ],
+                                },
+                                ` on X before Sept 21, you're eligible to claim yours at https://cz.firefly.social . \n\n`,
+                                '#CZ #FireflySocial',
+                            ],
                         });
                     }}
                 >

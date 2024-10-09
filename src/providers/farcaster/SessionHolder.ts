@@ -9,15 +9,15 @@ class FarcasterSessionHolder extends SessionHolder<FarcasterSession> {
         this.internalSession = session;
     }
 
-    override fetch<T>(url: string, options?: RequestInit, required = false) {
-        if (required && !this.internalSession?.token) throw new Error('Farcaster session is required');
+    override fetchWithSession<T>(url: string, options?: RequestInit) {
+        return fetchJSON<T>(url, {
+            ...options,
+            headers: { ...options?.headers, Authorization: `Bearer ${this.sessionRequired.token}` },
+        });
+    }
 
-        return this.internalSession?.token
-            ? fetchJSON<T>(url, {
-                  ...options,
-                  headers: { ...options?.headers, Authorization: `Bearer ${this.sessionRequired.token}` },
-              })
-            : fetchJSON<T>(url, options);
+    override fetchWithoutSession<T>(url: string, options?: RequestInit) {
+        return fetchJSON<T>(url, options);
     }
 
     async fetchHubble<T>(url: string, options?: RequestInit) {

@@ -14,6 +14,7 @@ export function ActivityConnectWalletButton() {
     const { data: addresses = [] } = useQuery({
         queryKey: ['mobile-address'],
         async queryFn() {
+            if (!fireflyBridgeProvider.supported) return [];
             return await fireflyBridgeProvider.request(SupportedMethod.GET_WALLET_ADDRESS, {
                 type: Network.EVM,
             });
@@ -76,6 +77,7 @@ export function ActivityChangeWalletButton() {
     const { data: addresses = [] } = useQuery({
         queryKey: ['mobile-address'],
         async queryFn() {
+            if (!fireflyBridgeProvider.supported) return [];
             return await fireflyBridgeProvider.request(SupportedMethod.GET_WALLET_ADDRESS, {
                 type: Network.EVM,
             });

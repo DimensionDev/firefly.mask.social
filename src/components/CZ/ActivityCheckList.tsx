@@ -8,39 +8,29 @@ import CircleSuccessIcon from '@/assets/circle-success.svg';
 import FollowIcon from '@/assets/follow.svg';
 import { ActivityClaimButton } from '@/components/CZ/ActivityClaimButton.js';
 import { useActivityCheckResponse } from '@/components/CZ/useActivityCheckResponse.js';
-import { Source } from '@/constants/enum.js';
-import { Link } from '@/esm/Link.js';
-import { resolveProfileUrl } from '@/helpers/resolveProfileUrl.js';
+import { Level } from '@/providers/types/CZ.js';
 
 export function ActivityCheckList() {
     const { data, isLoading } = useActivityCheckResponse();
     const basicChecklist = [
         {
             icon: <FollowIcon width={16} height={16} />,
-            description: (
-                <Trans>
-                    Followed{' '}
-                    <Link className="text-[#AC9DF6]" href={resolveProfileUrl(Source.Twitter, '902926941413453824')}>
-                        @cz_binance
-                    </Link>{' '}
-                    on X before Sept 21
-                </Trans>
-            ),
+            description: <Trans>Followed @cz_binance on X before Sept 21</Trans>,
             pass: data?.x?.valid,
         },
     ];
     const premiumChecklist = [
         {
             description: <Trans>Your X account holds Premium status.</Trans>,
-            pass: data?.x?.hasVerified,
+            pass: data?.x?.valid && data?.x?.level === Level.Lv2,
         },
         {
             description: <Trans>Your BNB Chain wallet holds assets worth over $10,000.</Trans>,
-            pass: data?.bnbBalance?.valid,
+            pass: data?.bnbBalance?.valid && data?.bnbBalance?.level === Level.Lv2,
         },
         {
             description: <Trans>Your .bnb domain is a member of the SPACE ID Premier Club.</Trans>,
-            pass: data?.bnbId?.valid,
+            pass: data?.bnbId?.valid && data?.bnbId?.level === Level.Lv2,
         },
     ];
 

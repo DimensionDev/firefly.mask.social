@@ -24,6 +24,12 @@ export async function middleware(request: NextRequest) {
     const pathname = request.nextUrl.pathname;
     request.headers.set('X-URL', request.url);
 
+    if (request.nextUrl.host === 'cz.firefly.social' && pathname === '/') {
+        return NextResponse.rewrite(new URL('/activity/cz', request.url), {
+            request,
+        });
+    }
+
     if (isMatchedDiscoverPage(pathname)) {
         return NextResponse.rewrite(new URL(`/discover${pathname}`, request.url), {
             request,
