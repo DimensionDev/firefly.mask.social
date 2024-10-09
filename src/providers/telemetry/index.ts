@@ -34,12 +34,7 @@ class Telemetry extends Provider<Events, never> {
         }
 
         if (!useDeveloperSettingsState.getState().logTelemetry) {
-            console.info('[safary] capture event:', name, parameters);
-            return;
-        }
-
-        if (!this.safary) {
-            console.error('[safary] safary SDK not available. failed to capture event:', name, parameters);
+            console.info('[telemetry] capture event:', name, parameters);
             return;
         }
 
@@ -67,7 +62,11 @@ class Telemetry extends Provider<Events, never> {
         }
 
         try {
-            await this.safary.track(event);
+            if (this.safary) {
+                await this.safary.track(event);
+            } else {
+                console.error('[safary] safary SDK not available. failed to capture event:', name, parameters);
+            }
         } catch (error) {
             console.error('[safary] failed to capture event:', event);
         }
