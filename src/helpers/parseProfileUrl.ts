@@ -1,4 +1,4 @@
-import { Source } from '@/constants/enum.js';
+import { PageRoute, Source } from '@/constants/enum.js';
 import { isFollowCategory } from '@/helpers/isFollowCategory.js';
 import { isProfilePageSource } from '@/helpers/isProfilePageSource.js';
 import { isSocialProfileCategory } from '@/helpers/isSocialProfileCategory.js';
@@ -7,7 +7,7 @@ import { isWalletProfileCategory } from '@/helpers/isWalletProfileCategory.js';
 import { resolveSourceFromUrlNoFallback } from '@/helpers/resolveSource.js';
 
 export function parseProfileUrl(pathname: string) {
-    if (!pathname.startsWith('/profile')) return null;
+    if (!pathname.startsWith(PageRoute.Profile)) return null;
     const [, , sourceInUrl, id, category] = pathname.split('/');
     const source = resolveSourceFromUrlNoFallback(sourceInUrl);
     if (!source) return null;
@@ -27,7 +27,7 @@ export function parseProfileUrl(pathname: string) {
 }
 
 export function parseOldProfileUrl(url: URL) {
-    if (!url.pathname.startsWith('/profile')) return null;
+    if (!url.pathname.startsWith(PageRoute.Profile)) return null;
     const source = resolveSourceFromUrlNoFallback(url.searchParams.get('source'));
     if (!source || !isProfilePageSource(source)) return null;
     const [, , id, ...end] = url.pathname.split('/');

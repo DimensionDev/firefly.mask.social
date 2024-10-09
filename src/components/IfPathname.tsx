@@ -4,6 +4,7 @@ import { usePathname } from 'next/navigation.js';
 import { type ReactNode, useState } from 'react';
 import { useUpdateEffect } from 'react-use';
 
+import { PageRoute } from '@/constants/enum.js';
 import { isRoutePathname } from '@/helpers/isRoutePathname.js';
 
 interface RE {
@@ -13,8 +14,8 @@ interface RE {
 
 interface IfPathname {
     exact?: boolean;
-    isOneOf?: Array<`/${string}` | RE>;
-    isNotOneOf?: Array<`/${string}` | RE>;
+    isOneOf?: Array<PageRoute | `/${string}` | RE>;
+    isNotOneOf?: Array<PageRoute | `/${string}` | RE>;
     children: ReactNode;
 }
 

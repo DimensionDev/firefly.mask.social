@@ -10,7 +10,7 @@ import { AsideSearchBar, HeaderSearchBar } from '@/components/Search/SearchBar.j
 import { SearchFilter } from '@/components/Search/SearchFilter.js';
 import { Section } from '@/components/Semantic/Section.js';
 import { SuggestedFollowsCard } from '@/components/SuggestedFollows/SuggestedFollowsCard.js';
-import { Source } from '@/constants/enum.js';
+import { PageRoute, Source } from '@/constants/enum.js';
 import { DEFAULT_SOCIAL_SOURCE, DISCOVER_SOURCES, DISCOVER_TYPES, SOCIAL_DISCOVER_SOURCE } from '@/constants/index.js';
 import { resolveSourceInUrl } from '@/helpers/resolveSourceInUrl.js';
 
@@ -47,16 +47,16 @@ export default function Layout({ children, modal }: { children: React.ReactNode;
                 {modal}
             </main>
             <aside className="sticky top-0 z-[1] hidden h-screen w-96 flex-col gap-4 px-4 md:min-w-[384px] lg:flex">
-                <IfPathname isNotOneOf={['/settings']}>
+                <IfPathname isNotOneOf={[PageRoute.Settings]}>
                     <AsideSearchBar />
                 </IfPathname>
 
                 <div className="no-scrollbar flex flex-1 flex-col gap-4 overflow-auto">
-                    <IfPathname isOneOf={['/search']}>
+                    <IfPathname isOneOf={[PageRoute.Search]}>
                         <SearchFilter />
                     </IfPathname>
 
-                    <IfPathname isNotOneOf={['/settings', '/search']}>
+                    <IfPathname isNotOneOf={[PageRoute.Settings, PageRoute.Search]}>
                         <Section title="Advertisement">
                             <Advertisement />
                         </Section>
