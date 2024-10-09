@@ -1,6 +1,5 @@
 import { usePathname } from 'next/navigation.js';
 
-import { PageRoute } from '@/constants/enum.js';
 import { Link } from '@/esm/Link.js';
 import { getPostImageUrl } from '@/helpers/getPostImageUrl.js';
 import { isRoutePathname } from '@/helpers/isRoutePathname.js';
@@ -25,7 +24,7 @@ export function WithPreviewLink({
     prefetch = false,
 }: WithPreviewLinkProps) {
     const pathname = usePathname();
-    const isPostPage = isRoutePathname(pathname, PageRoute.PostDetail, true);
+    const isPostPage = isRoutePathname(pathname, '/post/:source/:id', true);
 
     const openPreviewModal = () => {
         PreviewMediaModalRef.open({

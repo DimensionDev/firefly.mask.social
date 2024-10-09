@@ -1,7 +1,6 @@
 import { useRouter } from 'next/navigation.js';
 import { useCallback } from 'react';
 
-import { PageRoute } from '@/constants/enum.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
 
 export function useComeBack() {
@@ -10,7 +9,7 @@ export function useComeBack() {
 
     return useCallback(() => {
         if (!routeChanged) {
-            router.push(PageRoute.Home);
+            router.push('/');
             return;
         }
         router.back();

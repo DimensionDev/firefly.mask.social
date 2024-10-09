@@ -27,7 +27,6 @@ import { LoginStatusBar } from '@/components/Login/LoginStatusBar.js';
 import { OpenFireflyAppButton } from '@/components/OpenFireflyAppButton.js';
 import { ConnectWallet } from '@/components/SideBar/ConnectWallet.js';
 import { Tooltip } from '@/components/Tooltip.js';
-import { PageRoute } from '@/constants/enum.js';
 import { DEFAULT_SOCIAL_SOURCE } from '@/constants/index.js';
 import { Link } from '@/esm/Link.js';
 import { classNames } from '@/helpers/classNames.js';
@@ -72,35 +71,35 @@ export const Menu = memo(function Menu({ collapsed = false }: MenuProps) {
                     <menu role="list" className="w-full overflow-hidden">
                         {[
                             {
-                                href: PageRoute.Home,
+                                href: '/',
                                 name: <Trans>Discover</Trans>,
                                 icon: DiscoverIcon,
                                 selectedIcon: DiscoverSelectedIcon,
-                                match: () => pathname === PageRoute.Home || isMatchedDiscoverPage(pathname),
+                                match: () => pathname === '/' || isMatchedDiscoverPage(pathname),
                             },
                             {
                                 href: resolveFollowingUrl(DEFAULT_SOCIAL_SOURCE),
                                 name: <Trans>Following</Trans>,
                                 icon: FollowingIcon,
                                 selectedIcon: FollowingSelectedIcon,
-                                match: () => pathname.startsWith(PageRoute.Following),
+                                match: () => pathname.startsWith('/following'),
                             },
                             {
                                 href: resolveNotificationUrl(DEFAULT_SOCIAL_SOURCE),
                                 name: <Trans>Notifications</Trans>,
                                 icon: NotificationIcon,
                                 selectedIcon: NotificationSelectedIcon,
-                                match: () => pathname.startsWith(PageRoute.Notifications),
+                                match: () => pathname.startsWith('/notifications'),
                             },
                             {
                                 href: resolveBookmarkUrl(DEFAULT_SOCIAL_SOURCE),
                                 name: <Trans>Bookmarks</Trans>,
                                 icon: BookmarkIcon,
                                 selectedIcon: BookmarkSelectedIcon,
-                                match: () => pathname.startsWith(PageRoute.Bookmarks),
+                                match: () => pathname.startsWith('/bookmarks'),
                             },
                             {
-                                href: profile ? getProfileUrl(profile) : PageRoute.Profile,
+                                href: profile ? getProfileUrl(profile) : '/profile',
                                 name: <Trans>Profile</Trans>,
                                 icon: ProfileIcon,
                                 selectedIcon: ProfileSelectedIcon,
@@ -128,11 +127,11 @@ export const Menu = memo(function Menu({ collapsed = false }: MenuProps) {
                                 selectedIcon: ActivityMenuIcon,
                             },
                             {
-                                href: PageRoute.Settings,
+                                href: '/settings',
                                 name: <Trans>Settings</Trans>,
                                 icon: SettingsIcon,
                                 selectedIcon: SettingsSelectedIcon,
-                                match: () => isRoutePathname(pathname, PageRoute.Settings),
+                                match: () => isRoutePathname(pathname, '/settings'),
                             },
                         ].map((item) => {
                             const isSelected = Boolean(item.match?.());

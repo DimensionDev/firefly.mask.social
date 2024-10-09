@@ -3,7 +3,7 @@ import { usePathname } from 'next/navigation.js';
 import ComposeAddIcon from '@/assets/compose-add.svg';
 import ReplyIcon from '@/assets/reply.svg';
 import { ClickableButton } from '@/components/ClickableButton.js';
-import { PageRoute, Source } from '@/constants/enum.js';
+import { Source } from '@/constants/enum.js';
 import { isRoutePathname } from '@/helpers/isRoutePathname.js';
 import { narrowToSocialSource } from '@/helpers/narrowToSocialSource.js';
 import { useCurrentVisitingChannel } from '@/hooks/useCurrentVisitingChannel.js';
@@ -17,7 +17,7 @@ export function ComposeButtonForMobile() {
     const currentSocialSource = narrowToSocialSource(currentSource);
 
     const pathname = usePathname();
-    const isPostPage = isRoutePathname(pathname, PageRoute.PostDetail, true);
+    const isPostPage = isRoutePathname(pathname, '/post/:source/:id', true);
     const isArticlePage = isRoutePathname(pathname, '/article/:detail', true);
     const isNFTPage = isRoutePathname(pathname, '/nft/:detail', false);
     const isLogin = useIsLogin();

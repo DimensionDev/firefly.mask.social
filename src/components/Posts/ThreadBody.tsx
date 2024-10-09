@@ -8,7 +8,6 @@ import { PostStatistics } from '@/components/Actions/PostStatistics.js';
 import { FeedActionType } from '@/components/Posts/ActionType.js';
 import { PostBody } from '@/components/Posts/PostBody.js';
 import { PostHeader } from '@/components/Posts/PostHeader.js';
-import { PageRoute } from '@/constants/enum.js';
 import { classNames } from '@/helpers/classNames.js';
 import { getPostUrl } from '@/helpers/getPostUrl.js';
 import { isRoutePathname } from '@/helpers/isRoutePathname.js';
@@ -45,7 +44,7 @@ export const ThreadBody = memo<ThreadBodyProps>(function ThreadBody({
     const muted = useIsProfileMuted(post.author);
 
     const isSmall = useIsSmall('max');
-    const isDetailPage = isRoutePathname(pathname, PageRoute.PostDetail, true);
+    const isDetailPage = isRoutePathname(pathname, '/post/:source/:id', true);
     const showAction = !post.isHidden && !muted;
 
     const isSamePost = isDetailPage && link.includes(pathname);
