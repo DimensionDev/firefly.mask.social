@@ -1,5 +1,4 @@
 import { Trans } from '@lingui/macro';
-import { BlockScanExplorerResolver } from '@masknet/web3-providers';
 import { SimpleHash } from '@masknet/web3-providers/types';
 import { ChainId } from '@masknet/web3-shared-evm';
 import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
@@ -19,6 +18,7 @@ import { formatPercentage } from '@/helpers/formatPercentage.js';
 import { getStampAvatarByProfileId } from '@/helpers/getStampAvatarByProfileId.js';
 import { createIndicator } from '@/helpers/pageable.js';
 import { resolveProfileUrl } from '@/helpers/resolveProfileUrl.js';
+import { BlockScanExplorerResolver } from '@/providers/ethereum/ExplorerResolver.js';
 import { SimpleHashWalletProfileProvider } from '@/providers/simplehash/WalletProfile.js';
 
 interface TopCollectorsProps {

@@ -1,7 +1,7 @@
 'use client';
 
 import { t, Trans } from '@lingui/macro';
-import { BlockScanExplorerResolver, EVMExplorerResolver } from '@masknet/web3-providers';
+import { EVMExplorerResolver } from '@masknet/web3-providers';
 import { SchemaType } from '@masknet/web3-shared-evm';
 import { type ReactNode, useMemo } from 'react';
 
@@ -10,6 +10,7 @@ import { CopyButton } from '@/components/CopyButton.js';
 import { ChainIcon } from '@/components/NFTDetail/ChainIcon.js';
 import { Link } from '@/esm/Link.js';
 import { resolveSimpleHashChain } from '@/helpers/resolveSimpleHashChain.js';
+import { BlockScanExplorerResolver } from '@/providers/ethereum/ExplorerResolver.js';
 
 interface NFTOverflowProps {
     description: string;
