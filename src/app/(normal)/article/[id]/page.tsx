@@ -17,8 +17,7 @@ interface Props {
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-    // return createPageMetadata(params.id);
-    return createMetadataArticleById(params.id);
+    return createPageMetadata(params.id);
 }
 
 export default function Page(props: Props) {
