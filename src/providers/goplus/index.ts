@@ -4,8 +4,13 @@ import urlcat from 'urlcat';
 import { GO_PLUS_LABS_ROOT_URL } from '@/constants/index.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
 import { createSecurityResult } from '@/providers/goplus/createSecurityResult.js';
-import { AddressSecurityMessages, TokenSecurityMessages } from '@/providers/goplus/rules.js';
-import { type AddressSecurity, type GoPlusResponse, type TokenContractSecurity } from '@/providers/types/Security.js';
+import { AddressSecurityMessages, SiteSecurityMessages, TokenSecurityMessages } from '@/providers/goplus/rules.js';
+import {
+    type AddressSecurity,
+    type GoPlusResponse,
+    type SiteSecurity,
+    type TokenContractSecurity,
+} from '@/providers/types/Security.js';
 
 export class GoPlus {
     static async getTokenSecurity(chainId: number, address: string) {
@@ -34,5 +39,16 @@ export class GoPlus {
 
         const security = { ...res.result, address, chainId };
         return createSecurityResult(security, AddressSecurityMessages);
+    }
+    static async checkPhishingSite(siteUrl: string) {
+        const url = urlcat(GO_PLUS_LABS_ROOT_URL, 'api/v1/phishing_site', {
+            url: siteUrl,
+        });
+
+        const res = await fetchJSON<GoPlusResponse<SiteSecurity>>(url);
+        if (isEmpty(res.result)) return;
+
+        const security = { ...res.result, siteUrl };
+        return createSecurityResult(security, SiteSecurityMessages);
     }
 }

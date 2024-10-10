@@ -5,6 +5,7 @@ import {
     type SecurityMessage,
     SecurityMessageLevel,
     SecurityType,
+    type SiteSecurity,
     type TokenContractSecurity,
 } from '@/providers/types/Security.js';
 
@@ -720,5 +721,24 @@ export const AddressSecurityMessages: Array<SecurityMessage<AddressSecurity>> = 
         title: () => t`Contract address.`,
         message: () => t`Contract address found.`,
         shouldHide: isUnset('contract_address'),
+    },
+];
+
+export const SiteSecurityMessages: Array<SecurityMessage<SiteSecurity>> = [
+    {
+        type: SecurityType.Site,
+        level: SecurityMessageLevel.Safe,
+        condition: (info: SiteSecurity) => info.phishing_site === 1,
+        title: () => t`No phishing site.`,
+        message: () => t`No phishing site found.`,
+        shouldHide: isUnset('phishing_site'),
+    },
+    {
+        type: SecurityType.Address,
+        level: SecurityMessageLevel.High,
+        condition: (info: SiteSecurity) => info.phishing_site === 0,
+        title: () => t`Phishing site.`,
+        message: () => t`Website is a phishing site.`,
+        shouldHide: isUnset('phishing_site'),
     },
 ];

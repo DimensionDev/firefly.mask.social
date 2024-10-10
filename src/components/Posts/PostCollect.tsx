@@ -164,7 +164,7 @@ export function PostCollect({ post, onClose }: PostCollectProps) {
 
     const action = useMemo(() => {
         const contractExploreUrl = collectModule?.contract.address
-            ? (EVMExplorerResolver.addressLink(polygon.id, collectModule.contract.address) ?? '')
+            ? EVMExplorerResolver.addressLink(polygon.id, collectModule.contract.address) ?? ''
             : undefined;
         if (!isLogin) return <Trans>Login</Trans>;
 

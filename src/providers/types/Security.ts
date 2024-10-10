@@ -123,11 +123,13 @@ export enum SecurityType {
     Transaction = 'transaction-security',
     Address = 'address-security',
     Info = 'info-security',
+    Site = 'site-security',
 }
 export enum SecurityMessageLevel {
     High = 'High',
     Medium = 'Medium',
     Safe = 'Safe',
+    Info = 'Info',
 }
 
 export interface SecurityMessage<T = TokenContractSecurity> {
@@ -137,4 +139,14 @@ export interface SecurityMessage<T = TokenContractSecurity> {
     title: (info: T) => string;
     message: (info: T) => string;
     shouldHide(info: T): boolean;
+}
+
+export interface StaticSecurityMessage {
+    level: SecurityMessageLevel;
+    title: string;
+    message: string;
+}
+
+export interface SiteSecurity {
+    phishing_site: number;
 }

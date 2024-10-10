@@ -193,7 +193,7 @@ class TwitterSocialMedia implements Provider {
         const response = await twitterSessionHolder.fetch<ResponseJSON<UserV2>>(`/api/twitter/user/${profileId}`);
         if (!response.success) throw new Error(response.error.message);
         response.data.url = response.data.url
-            ? ((await resolveTCOLink(response.data.url)) ?? response.data.url)
+            ? (await resolveTCOLink(response.data.url)) ?? response.data.url
             : response.data.url;
         return formatTwitterProfile(response.data);
     }
@@ -204,7 +204,7 @@ class TwitterSocialMedia implements Provider {
         });
         if (!response.success) throw new Error(response.error.message);
         response.data.url = response.data.url
-            ? ((await resolveTCOLink(response.data.url)) ?? response.data.url)
+            ? (await resolveTCOLink(response.data.url)) ?? response.data.url
             : response.data.url;
         return formatTwitterProfile(response.data);
     }
@@ -213,7 +213,7 @@ class TwitterSocialMedia implements Provider {
         const response = await twitterSessionHolder.fetch<ResponseJSON<UserV2>>(`/api/twitter/username/${handle}`);
         if (!response.success) throw new Error(response.error.message);
         response.data.url = response.data.url
-            ? ((await resolveTCOLink(response.data.url)) ?? response.data.url)
+            ? (await resolveTCOLink(response.data.url)) ?? response.data.url
             : response.data.url;
         return formatTwitterProfile(response.data);
     }
