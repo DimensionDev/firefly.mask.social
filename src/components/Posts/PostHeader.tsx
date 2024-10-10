@@ -6,6 +6,7 @@ import PowerUserIcon from '@/assets/power-user.svg';
 import { MoreAction } from '@/components/Actions/More.js';
 import { Avatar } from '@/components/Avatar.js';
 import { ProfileTippy } from '@/components/Profile/ProfileTippy.js';
+import { ProfileVerifyBadge } from '@/components/ProfileVerifyBadge/index.js';
 import { Time } from '@/components/Semantic/Time.js';
 import { SocialSourceIcon } from '@/components/SocialSourceIcon.js';
 import { TimestampFormatter } from '@/components/TimeStampFormatter.js';
@@ -84,7 +85,7 @@ export const PostHeader = memo<PostHeaderProps>(function PostHeader({
             </ProfileTippy>
 
             <address
-                className={classNames('not-italic', {
+                className={classNames('min-w-0 not-italic', {
                     'w-[calc(100%-40px-20px-24px)]': !isQuote,
                     'w-[calc(100%-24px-24px)]': isQuote,
                 })}
@@ -93,13 +94,18 @@ export const PostHeader = memo<PostHeaderProps>(function PostHeader({
                     <ProfileTippy identity={identity}>
                         <Link
                             href={profileLink}
-                            className="mr-1 block truncate text-medium font-bold leading-5 text-main"
+                            className="mr-1 flex items-center text-medium font-bold leading-5 text-main"
                             onClick={(event) => event.stopPropagation()}
                         >
-                            {author.displayName}
+                            <span className="truncate">{author.displayName}</span>
+                            <ProfileVerifyBadge
+                                source={author.source}
+                                handle={author.handle}
+                                className="flex flex-shrink-0 items-center space-x-1"
+                            />
                         </Link>
                     </ProfileTippy>
-                    {author.isPowerUser ? <PowerUserIcon className="mr-2 shrink-0" width={16} height={16} /> : null}
+                    {author.isPowerUser ? <PowerUserIcon className="shrink-0 sm:mr-2" width={16} height={16} /> : null}
                     {newLine ? null : handle}
                     {post.timestamp && (isComment || isQuote || !isDetailPage || showDate) ? (
                         <>

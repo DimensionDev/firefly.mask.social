@@ -89,6 +89,7 @@ import {
     type Post,
     type Profile,
     type ProfileEditable,
+    type ProfileVerifyInfo,
     type Provider,
     ReactionType,
     SessionType,
@@ -1569,6 +1570,10 @@ class LensSocialMedia implements Provider {
         });
 
         await waitForEthereumTransaction(polygon.id, hash);
+    }
+
+    async getProfileVerifyInfoByHandle(): Promise<ProfileVerifyInfo> {
+        throw new NotImplementedError();
     }
 }
 

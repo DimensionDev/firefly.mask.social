@@ -34,6 +34,9 @@ import {
     SessionType,
 } from '@/providers/types/SocialMedia.js';
 import type { ResponseJSON } from '@/types/index.js';
+import { settings } from '@/settings/index.js';
+import { fetchJSON } from '@/helpers/fetchJSON.js';
+import { formatProfileVerifyInfoFromTwitterUserInfo } from '@/helpers/formatProfileVerifyInfoFromTwitterUserInfo.js';
 
 @SetQueryDataForLikePost(Source.Twitter)
 @SetQueryDataForBookmarkPost(Source.Twitter)
@@ -550,6 +553,11 @@ class TwitterSocialMedia implements Provider {
         });
         if (!res.success) throw new Error(res.error.message);
         return true;
+    }
+
+    async getProfileVerifyInfoByHandle(handle: string) {
+        const response = await FireflySocialMediaProvider.getTwitterUserInfo(handle);
+        return formatProfileVerifyInfoFromTwitterUserInfo(response.data.user.result);
     }
 }
 

@@ -1,10 +1,12 @@
 import { plural, Trans } from '@lingui/macro';
 import { useInfiniteQuery } from '@tanstack/react-query';
 
+import PowerUserIcon from '@/assets/power-user.svg';
 import { Avatar } from '@/components/Avatar.js';
 import { AvatarGroup } from '@/components/AvatarGroup.js';
 import { BioMarkup } from '@/components/Markup/BioMarkup.js';
 import { ProfileAction } from '@/components/Profile/ProfileAction.js';
+import { ProfileVerifyBadge } from '@/components/ProfileVerifyBadge/index.js';
 import { SocialSourceIcon } from '@/components/SocialSourceIcon.js';
 import { TextOverflowTooltip } from '@/components/TextOverflowTooltip.js';
 import { FollowCategory, Source } from '@/constants/enum.js';
@@ -71,11 +73,19 @@ export function Info({ profile }: InfoProps) {
                     <div className="flex w-full items-center gap-2">
                         <SocialSourceIcon className="shrink-0" source={source} size={20} />
                         <TextOverflowTooltip content={profile.displayName} placement="top">
-                            <address className="mr-auto truncate text-xl font-black not-italic text-lightMain">
+                            <address className="truncate text-xl font-black not-italic text-lightMain">
                                 {profile.displayName}
                             </address>
                         </TextOverflowTooltip>
-                        {showAction ? <ProfileAction profile={profile} /> : null}
+                        <ProfileVerifyBadge
+                            source={source}
+                            handle={profile.handle}
+                            className="flex flex-shrink-0 items-center space-x-1"
+                        />
+                        {profile.isPowerUser ? <PowerUserIcon className="shrink-0" width={16} height={16} /> : null}
+                        <div className="ml-auto flex items-center gap-2">
+                            {showAction ? <ProfileAction profile={profile} /> : null}
+                        </div>
                     </div>
                     <span className="text-medium text-secondary">@{profile.handle}</span>
                 </div>
