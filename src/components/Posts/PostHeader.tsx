@@ -2,7 +2,6 @@ import { usePathname } from 'next/navigation.js';
 import { memo } from 'react';
 
 import FireflyAvatarIcon from '@/assets/firefly-avatar.svg';
-import PowerUserIcon from '@/assets/power-user.svg';
 import { MoreAction } from '@/components/Actions/More.js';
 import { Avatar } from '@/components/Avatar.js';
 import { ProfileTippy } from '@/components/Profile/ProfileTippy.js';
@@ -94,18 +93,18 @@ export const PostHeader = memo<PostHeaderProps>(function PostHeader({
                     <ProfileTippy identity={identity}>
                         <Link
                             href={profileLink}
-                            className="mr-1 flex items-center text-medium font-bold leading-5 text-main"
+                            className="mr-1 flex items-center truncate text-medium font-bold leading-5 text-main"
                             onClick={(event) => event.stopPropagation()}
                         >
-                            <span className="truncate">{author.displayName}</span>
-                            <ProfileVerifyBadge
-                                source={author.source}
-                                handle={author.handle}
-                                className="flex flex-shrink-0 items-center space-x-1"
-                            />
+                            {author.displayName}
                         </Link>
                     </ProfileTippy>
-                    {author.isPowerUser ? <PowerUserIcon className="shrink-0 sm:mr-2" width={16} height={16} /> : null}
+                    <ProfileVerifyBadge
+                        source={author.source}
+                        handle={author.handle}
+                        className="flex flex-shrink-0 items-center space-x-1 sm:mr-2"
+                        profile={author}
+                    />
                     {newLine ? null : handle}
                     {post.timestamp && (isComment || isQuote || !isDetailPage || showDate) ? (
                         <>

@@ -1,7 +1,6 @@
 import { plural, Trans } from '@lingui/macro';
 import { useInfiniteQuery } from '@tanstack/react-query';
 
-import PowerUserIcon from '@/assets/power-user.svg';
 import { Avatar } from '@/components/Avatar.js';
 import { AvatarGroup } from '@/components/AvatarGroup.js';
 import { BioMarkup } from '@/components/Markup/BioMarkup.js';
@@ -81,8 +80,8 @@ export function Info({ profile }: InfoProps) {
                             source={source}
                             handle={profile.handle}
                             className="flex flex-shrink-0 items-center space-x-1"
+                            profile={profile}
                         />
-                        {profile.isPowerUser ? <PowerUserIcon className="shrink-0" width={16} height={16} /> : null}
                         <div className="ml-auto flex items-center gap-2">
                             {showAction ? <ProfileAction profile={profile} /> : null}
                         </div>

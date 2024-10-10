@@ -342,7 +342,8 @@ export interface Channel {
 
 export interface ProfileVerifyInfo {
     verified: boolean;
-    badgeUrl?: string;
+    badgeAvatarUrl?: string;
+    url?: string;
     description?: string;
     __origin__: TwitterUserInfo;
 }
