@@ -1078,7 +1078,6 @@ export interface TwitterUserInfo {
         url: string;
         verified: boolean;
         want_retweets: boolean;
-        withheld_in_countries: any[];
     };
     professional: {
         rest_id: string;
