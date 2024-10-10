@@ -3,7 +3,6 @@
 import { useActionsRegistryInterval } from '@dialectlabs/blinks';
 import { i18n } from '@lingui/core';
 import { I18nProvider } from '@lingui/react';
-// import { LivepeerConfig } from '@livepeer/react';
 import { QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { ReactQueryStreamedHydration } from '@tanstack/react-query-next-experimental';
@@ -15,7 +14,6 @@ import { v4 as uuid } from 'uuid';
 
 import { SolanaWalletAdapterProvider } from '@/components/SolanaWalletAdapterProvider.js';
 import { WagmiProvider } from '@/components/WagmiProvider.js';
-// import { livepeerClient } from '@/configs/livepeerClient.js';
 import { queryClient } from '@/configs/queryClient.js';
 import { sentryClient } from '@/configs/sentryClient.js';
 import { STATUS } from '@/constants/enum.js';
@@ -100,11 +98,7 @@ export const Providers = memo(function Providers(props: { children: React.ReactN
                         >
                             {/* wagmi depends @tanstack/react-query@4.29.23 */}
                             <WagmiProvider>
-                                <SolanaWalletAdapterProvider>
-                                    {/* livepeer depends @tanstack/react-query@4.36.1 */}
-                                    {/* <LivepeerConfig client={livepeerClient}></LivepeerConfig> */}
-                                    {props.children}
-                                </SolanaWalletAdapterProvider>
+                                <SolanaWalletAdapterProvider>{props.children}</SolanaWalletAdapterProvider>
                             </WagmiProvider>
                         </SnackbarProvider>
                     </DarkModeContext.Provider>
