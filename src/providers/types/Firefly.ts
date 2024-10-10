@@ -1083,11 +1083,11 @@ export interface TwitterUserInfo {
     professional: {
         rest_id: string;
         professional_type: string;
-        category: {
+        category: Array<{
             id: number;
             name: string;
             icon_name: string;
-        }[];
+        }>;
     };
     tipjar_settings: {
         is_enabled: boolean;
@@ -1110,14 +1110,14 @@ export interface TwitterUserInfo {
         reason: {
             description: {
                 text: string;
-                entities: {
+                entities: Array<{
                     from_index: number;
                     to_index: number;
                     ref: {
                         url: string;
                         url_type: string;
                     };
-                }[];
+                }>;
             };
             verified_since_msec: string;
         };
