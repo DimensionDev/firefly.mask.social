@@ -19,6 +19,10 @@ interface GlobalState {
     updateCurrentSource: (source: Source) => void;
     collapsedConnectWallet: boolean;
     updateCollapsedConnectWallet: (collapsed: boolean) => void;
+    innerHeight: number;
+    updateInnerHeight: (height: number) => void;
+    keyboardHeight: number;
+    updateKeyboardHeight: (height: number) => void;
 }
 
 const useGlobalStateBase = create<GlobalState, [['zustand/persist', unknown], ['zustand/immer', never]]>(
@@ -63,6 +67,18 @@ const useGlobalStateBase = create<GlobalState, [['zustand/persist', unknown], ['
             updateCollapsedConnectWallet(collapsed) {
                 set((state) => {
                     state.collapsedConnectWallet = collapsed;
+                });
+            },
+            innerHeight: 0,
+            updateInnerHeight(height) {
+                set((state) => {
+                    state.innerHeight = height;
+                });
+            },
+            keyboardHeight: 0,
+            updateKeyboardHeight(height) {
+                set((state) => {
+                    state.keyboardHeight = height;
                 });
             },
         })),
