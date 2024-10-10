@@ -39,7 +39,7 @@ export function ProfileVerifyBadge({ source, handle, profile, className }: Props
             const { profileId } = await provider.getProfileByHandle(identity!);
             return resolveProfileUrl(source, profileId);
         },
-        enabled: [Source.Twitter].includes(source),
+        enabled: !!data?.url && [Source.Twitter].includes(source),
         refetchOnMount: false,
         refetchOnWindowFocus: false,
         refetchOnReconnect: false,
