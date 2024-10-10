@@ -6,7 +6,7 @@ import urlcat from 'urlcat';
 
 import { AsideTitle } from '@/components/AsideTitle.js';
 import { ChannelInList } from '@/components/ChannelInList.js';
-import { DiscoverType, PageRoute, type SocialSource, Source } from '@/constants/enum.js';
+import { DiscoverType, type SocialSource, Source } from '@/constants/enum.js';
 import { EMPTY_LIST } from '@/constants/index.js';
 import { Link } from '@/esm/Link.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
@@ -43,7 +43,7 @@ export function SuggestedChannels({ source }: SuggestedChannelsProps) {
                 {showMore ? (
                     <Link
                         className="text-medium text-lightHighlight"
-                        href={urlcat(PageRoute.Home, {
+                        href={urlcat('/', {
                             discover: DiscoverType.TopChannels,
                             source: resolveSocialSourceInUrl(Source.Farcaster),
                         })}

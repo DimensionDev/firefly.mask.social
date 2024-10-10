@@ -13,7 +13,7 @@ import { Title } from '@/components/Profile/Title.js';
 import { WalletInfo } from '@/components/Profile/WalletInfo.js';
 import { SuspendedAccountFallback } from '@/components/SuspendedAccountFallback.js';
 import { SuspendedAccountInfo } from '@/components/SuspendedAccountInfo.js';
-import { PageRoute, type SocialSource, Source } from '@/constants/enum.js';
+import { type SocialSource, Source } from '@/constants/enum.js';
 import { EMPTY_LIST } from '@/constants/index.js';
 import { isSameFireflyIdentity } from '@/helpers/isSameFireflyIdentity.js';
 import { narrowToSocialSource } from '@/helpers/narrowToSocialSource.js';
@@ -64,7 +64,7 @@ export const ProfileInfo = memo<
 
     const showFallback =
         identity.source !== Source.Wallet &&
-        ((!isOthersProfile && (!isLogin || profileNotFound)) || (profileNotFound && pathname === PageRoute.Profile));
+        ((!isOthersProfile && (!isLogin || profileNotFound)) || (profileNotFound && pathname === '/profile'));
 
     if (isLoading && source !== Source.Twitter) {
         return <Loading />;

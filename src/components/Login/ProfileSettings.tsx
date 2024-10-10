@@ -12,7 +12,7 @@ import { CircleCheckboxIcon } from '@/components/CircleCheckboxIcon.js';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { ProfileAvatar } from '@/components/ProfileAvatar.js';
 import { ProfileName } from '@/components/ProfileName.js';
-import { PageRoute, type SocialSource, Source } from '@/constants/enum.js';
+import { type SocialSource, Source } from '@/constants/enum.js';
 import { switchAccount } from '@/helpers/account.js';
 import { getProfileState } from '@/helpers/getProfileState.js';
 import { isRoutePathname } from '@/helpers/isRoutePathname.js';
@@ -39,8 +39,8 @@ export function ProfileSettings({ source, onClose }: ProfileSettingsProps) {
     const accounts = useConnectedAccounts(source);
 
     const isMyProfile = useIsMyRelatedProfile(identity.source, identity.id);
-    const isPureProfilePage = pathname === PageRoute.Profile;
-    const isMyProfilePage = isMyProfile && (isPureProfilePage || isRoutePathname(pathname, PageRoute.Profile));
+    const isPureProfilePage = pathname === '/profile';
+    const isMyProfilePage = isMyProfile && (isPureProfilePage || isRoutePathname(pathname, '/profile'));
 
     useMount(() => {
         getProfileState(source).refreshAccounts();

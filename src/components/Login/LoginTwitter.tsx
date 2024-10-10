@@ -6,7 +6,6 @@ import { useEffectOnce } from 'react-use';
 import urlcat from 'urlcat';
 
 import LoadingIcon from '@/assets/loading.svg';
-import { PageRoute } from '@/constants/enum.js';
 import { classNames } from '@/helpers/classNames.js';
 import { isRoutePathname } from '@/helpers/isRoutePathname.js';
 
@@ -18,7 +17,7 @@ export function LoginTwitter(props: Props) {
         signIn('twitter', {
             redirect: false,
             callbackUrl:
-                pathname !== PageRoute.Profile && isRoutePathname(pathname, PageRoute.Profile)
+                pathname !== '/profile' && isRoutePathname(pathname, '/profile')
                     ? urlcat(location.origin, '/profile?source=twitter')
                     : undefined,
         });

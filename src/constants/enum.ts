@@ -42,18 +42,6 @@ export enum Locale {
     zhHant = 'zh-Hant',
 }
 
-export enum PageRoute {
-    Home = '/',
-    Following = '/following',
-    Notifications = '/notifications',
-    Profile = '/profile',
-    Bookmarks = '/bookmarks',
-    Settings = '/settings',
-    Developers = '/developers',
-    Search = '/search',
-    PostDetail = '/post/:source/:id',
-}
-
 export enum Source {
     Farcaster = 'Farcaster',
     Lens = 'Lens',

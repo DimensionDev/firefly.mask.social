@@ -19,7 +19,7 @@ import { ContentTranslator } from '@/components/Posts/ContentTranslator.js';
 import { PostLinks } from '@/components/Posts/PostLinks.js';
 import { Quote } from '@/components/Posts/Quote.js';
 import { IS_APPLE, IS_SAFARI } from '@/constants/bowser.js';
-import { PageRoute, STATUS } from '@/constants/enum.js';
+import { STATUS } from '@/constants/enum.js';
 import { env } from '@/constants/env.js';
 import { EMPTY_LIST } from '@/constants/index.js';
 import { Link } from '@/esm/Link.js';
@@ -93,7 +93,7 @@ export const PostBody = forwardRef<HTMLDivElement, PostBodyProps>(function PostB
     const isSmall = useIsSmall('max');
 
     const pathname = usePathname();
-    const isProfilePage = pathname === PageRoute.Profile || isRoutePathname(pathname, PageRoute.Profile);
+    const isProfilePage = pathname === '/profile' || isRoutePathname(pathname, '/profile');
 
     const payloadFromImageAttachment = payloads?.payloadFromImageAttachment;
     const payloadImageUrl = payloadFromImageAttachment?.[2];
