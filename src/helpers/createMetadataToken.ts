@@ -8,7 +8,7 @@ export async function createMetadataToken(symbol: string) {
     const sym = symbol.toLowerCase();
     const token = tokens.find((x) => x.symbol === sym) || null;
     if (!token) return createSiteMetadata();
-    const title = createPageTitleOG(token.symbol);
+    const title = createPageTitleOG(`$${token.symbol}`);
     const description = token.name;
     const images = token.logoURL ? [token.logoURL] : [];
     return createSiteMetadata({

@@ -10,7 +10,6 @@ import DOMPurify from 'dompurify';
 import { compact } from 'lodash-es';
 import { useRouter } from 'next/navigation.js';
 import { useRef } from 'react';
-import urlcat from 'urlcat';
 import { useDarkMode } from 'usehooks-ts';
 
 import ComeBack from '@/assets/comeback.svg';
@@ -21,7 +20,6 @@ import { ImageAsset } from '@/components/Posts/ImageAsset.js';
 import { Source } from '@/constants/enum.js';
 import { Link } from '@/esm/Link.js';
 import { classNames } from '@/helpers/classNames.js';
-import { fetchJSON } from '@/helpers/fetchJSON.js';
 import { openWindow } from '@/helpers/openWindow.js';
 import { resolveSearchUrl } from '@/helpers/resolveSearchUrl.js';
 import { useComeBack } from '@/hooks/useComeback.js';
@@ -29,8 +27,7 @@ import { PreviewMediaModalRef } from '@/modals/controls.js';
 import { FireflyArticleProvider } from '@/providers/firefly/Article.js';
 import { ArticlePlatform } from '@/providers/types/Article.js';
 import type { Attachment } from '@/providers/types/SocialMedia.js';
-import type { ResponseJSON } from '@/types/index.js';
-import { type LinkDigested, PayloadType } from '@/types/og.js';
+import { getArticleCover } from '@/services/getArticleCover.js';
 
 interface PageProps {
     params: {
@@ -58,19 +55,7 @@ export function ArticleDetailPage({ params: { id: articleId } }: PageProps) {
         enabled: !isMuted,
         queryKey: ['article', 'cover', article?.id],
         queryFn: async () => {
-            if (!article) return null;
-            if (article.coverUrl) return article.coverUrl;
-            if (article.platform === ArticlePlatform.Mirror && article.origin) {
-                const payload = await fetchJSON<ResponseJSON<LinkDigested>>(
-                    urlcat('/api/oembed', {
-                        link: article.origin,
-                    }),
-                );
-                if (payload.success && payload.data.payload?.type === PayloadType.Mirror) {
-                    return payload.data.payload.cover;
-                }
-            }
-            return;
+            return article ? await getArticleCover(article) : null;
         },
     });
 
