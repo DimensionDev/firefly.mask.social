@@ -62,6 +62,9 @@ module.exports = {
                 lightWarn: 'rgb(var(--color-light-warn) / <alpha-value>)',
                 lightHighlight: 'rgb(var(--color-light-highlight) / <alpha-value>)',
                 highlight: 'rgb(var(--color-highlight) / <alpha-value>)',
+                twitterBlue: '#1ea1f1',
+                twitterVerifiedGold: '#ffc803',
+                twitterVerified: '#8299ab',
             },
             backgroundImage: {
                 'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',

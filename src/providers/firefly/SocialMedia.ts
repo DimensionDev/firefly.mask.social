@@ -88,6 +88,7 @@ import {
     type SearchChannelsResponse,
     type SearchProfileResponse,
     type ThreadResponse,
+    type TwitterUserInfoResponse,
     type UploadMediaTokenResponse,
     type UserResponse,
     type UsersResponse,
@@ -103,6 +104,7 @@ import {
     type Post,
     type Profile,
     type ProfileEditable,
+    type ProfileVerifyInfo,
     type Provider,
     SessionType,
 } from '@/providers/types/SocialMedia.js';
@@ -1436,6 +1438,20 @@ export class FireflySocialMedia implements Provider {
     }
     async updateProfile(profile: ProfileEditable): Promise<boolean> {
         throw new NotImplementedError();
+    }
+
+    async getProfileVerifyInfoByHandle(): Promise<ProfileVerifyInfo> {
+        throw new NotImplementedError();
+    }
+
+    async getTwitterUserInfo(screenName: string) {
+        const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/twitter/userinfo', {
+            screenName,
+        });
+        const response = await fetchJSON<TwitterUserInfoResponse>(url, {
+            method: 'GET',
+        });
+        return resolveFireflyResponseData(response);
     }
 }
 

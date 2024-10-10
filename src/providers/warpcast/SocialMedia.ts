@@ -25,6 +25,7 @@ import {
     type Post,
     type Profile,
     type ProfileEditable,
+    type ProfileVerifyInfo,
     type Provider,
     SessionType,
 } from '@/providers/types/SocialMedia.js';
@@ -754,6 +755,10 @@ class WarpcastSocialMedia implements Provider {
             },
         );
         return result.predictions;
+    }
+
+    async getProfileVerifyInfoByHandle(): Promise<ProfileVerifyInfo> {
+        throw new NotImplementedError();
     }
 }
 

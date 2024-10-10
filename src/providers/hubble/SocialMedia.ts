@@ -20,6 +20,7 @@ import {
     type Post,
     type Profile,
     type ProfileEditable,
+    type ProfileVerifyInfo,
     type Provider,
     SessionType,
 } from '@/providers/types/SocialMedia.js';
@@ -581,6 +582,10 @@ class HubbleSocialMedia implements Provider {
     }
 
     async updateProfile(profile: ProfileEditable): Promise<boolean> {
+        throw new NotImplementedError();
+    }
+
+    async getProfileVerifyInfoByHandle(): Promise<ProfileVerifyInfo> {
         throw new NotImplementedError();
     }
 }

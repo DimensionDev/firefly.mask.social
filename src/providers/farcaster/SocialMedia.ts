@@ -32,6 +32,7 @@ import {
     type Post,
     type Profile,
     type ProfileEditable,
+    type ProfileVerifyInfo,
     type Provider,
     SessionType,
 } from '@/providers/types/SocialMedia.js';
@@ -387,6 +388,10 @@ class FarcasterSocialMedia implements Provider {
 
     async getHiddenComments(postId: string, indicator?: PageIndicator) {
         return FireflySocialMediaProvider.getHiddenComments(postId, indicator);
+    }
+
+    async getProfileVerifyInfoByHandle(): Promise<ProfileVerifyInfo> {
+        throw new NotImplementedError();
     }
 }
 

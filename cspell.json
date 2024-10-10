@@ -95,7 +95,9 @@
         "zksync",
         "zora",
         "zustand",
-        "reposted"
+        "reposted",
+        "favourites",
+        "birthdate"
     ],
     "ignoreWords": [
         "DEVNET",
@@ -188,7 +190,8 @@
         "cybercrime",
         "selfdestruct",
         "reinit",
-        "mutelist"
+        "mutelist",
+        "tipjar"
     ],
     "flagWords": [],
     "ignorePaths": [
