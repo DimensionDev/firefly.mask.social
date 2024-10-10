@@ -41,7 +41,8 @@ export const AddWalletModal = forwardRef<SingletonModalRefCreator<AddWalletModal
         const onBindEvmAddress = useCallback(async () => {
             const address = account.address;
             if (!account.isConnected || !address) {
-                return ConnectModalRef.open();
+                ConnectModalRef.open();
+                return;
             }
             const existedConnection = connections.find((connection) =>
                 isSameEthereumAddress(connection.address, address),
@@ -49,23 +50,26 @@ export const AddWalletModal = forwardRef<SingletonModalRefCreator<AddWalletModal
             if (existedConnection) {
                 const addressName = existedConnection.ens?.[0] || formatSolanaAddress(address, 8);
                 AccountModalRef.open();
-                return enqueueErrorMessage(t`${addressName} is already connected.`);
+                enqueueErrorMessage(t`${addressName} is already connected.`);
+                return;
             }
             const message = await FireflySocialMediaProvider.getMessageToSignForBindWallet(address.toLowerCase());
             const signature = await signMessageAsync({ message: { raw: message }, account: address });
-            await FireflySocialMediaProvider.verifyAndBindWallet(message, signature);
+            return await FireflySocialMediaProvider.verifyAndBindWallet(message, signature);
         }, [account.address, account.isConnected, connections, signMessageAsync]);
         const onBindSolanaAddress = useCallback(async () => {
             const address = publicKey?.toBase58();
             if (!address || !signMessage) {
-                return wallet.setVisible(true);
+                wallet.setVisible(true);
+                return;
             }
             const existedConnection = connections.find((connection) =>
                 isSameSolanaAddress(connection.address, address),
             );
             if (existedConnection) {
                 const addressName = existedConnection.ens?.[0] || formatEthereumAddress(address, 8);
-                return enqueueErrorMessage(t`${addressName} is already connected.`);
+                enqueueErrorMessage(t`${addressName} is already connected.`);
+                return;
             }
             const hexMessage = await FireflySocialMediaProvider.getMessageToSignMessageForBindSolanaWallet(address);
             const message = bs58.decode(bs58.encode(Buffer.from(hexMessage.substring(2), 'hex')));
@@ -79,7 +83,8 @@ export const AddWalletModal = forwardRef<SingletonModalRefCreator<AddWalletModal
                 try {
                     switch (platform) {
                         case 'evm':
-                            await onBindEvmAddress();
+                            const evmRes = await onBindEvmAddress();
+                            if (!evmRes) return;
                             break;
                         case 'solana':
                             const result = await onBindSolanaAddress();
