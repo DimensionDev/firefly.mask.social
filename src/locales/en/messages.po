@@ -2458,9 +2458,6 @@ msgstr "<0>since </0> <1>{0}</1>"
 msgid "{hours}h left"
 msgstr "{hours}h left"
 
-msgid "Events"
-msgstr "Events"
-
 msgid "You're eligible for a <0>Premium</0> CZ Support NFT because your X account holds Premium status."
 msgstr "You're eligible for a <0>Premium</0> CZ Support NFT because your X account holds Premium status."
 
