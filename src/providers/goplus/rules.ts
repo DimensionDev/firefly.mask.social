@@ -12,7 +12,9 @@ function isUnset<T>(name: keyof T) {
     return (info: T) => info[name] === undefined;
 }
 function percentageToNumber(value?: string) {
-    return parseInt((value ?? '').replace('%', ''), 10) * 100;
+    const result = value?.endsWith('%') ? parseFloat(value.replace('%', '')) : parseFloat(value ?? '0') * 100;
+
+    return Number.isNaN(result) ? 0 : result;
 }
 
 export const TokenSecurityMessages: SecurityMessage[] = [
