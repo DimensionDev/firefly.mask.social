@@ -86,6 +86,7 @@ class Processor {
             const fetchError = await FetchError.from(url, response);
             fetchError.toThrow();
         }
+        if (!response.headers.get('content-type')?.startsWith('text/')) return null;
 
         return this.digestDocument(documentUrl, await response.text(), signal);
     };
