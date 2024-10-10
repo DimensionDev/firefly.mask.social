@@ -2220,9 +2220,6 @@ msgstr "<0>从 </0> <1>{0}</1>"
 msgid "{hours}h left"
 msgstr "{hours} 小时剩余"
 
-msgid "Events"
-msgstr "活动"
-
 msgid "You're eligible for a <0>Premium</0> CZ Support NFT because your X account holds Premium status."
 msgstr "您有资格获得一个 <0>Premium</0> 支持 CZ NFT，因为您的 X 账号拥有 Premium 状态。"
 
