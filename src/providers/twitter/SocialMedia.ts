@@ -15,7 +15,9 @@ import { SetQueryDataForLikePost } from '@/decorators/SetQueryDataForLikePost.js
 import { SetQueryDataForMirrorPost } from '@/decorators/SetQueryDataForMirrorPost.js';
 import { formatTweetsPage } from '@/helpers/formatTwitterPost.js';
 import { formatTwitterProfile } from '@/helpers/formatTwitterProfile.js';
+import { getTwitterProfileHandleFromUrl } from '@/helpers/getTwitterProfileHandleFromUrl.js';
 import { createIndicator, createPageable, type Pageable, type PageIndicator } from '@/helpers/pageable.js';
+import { resolveProfileUrl } from '@/helpers/resolveProfileUrl.js';
 import { resolveTCOLink } from '@/helpers/resolveTCOLink.js';
 import { resolveTwitterReplyRestriction } from '@/helpers/resolveTwitterReplyRestriction.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
@@ -23,11 +25,13 @@ import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
 import { TwitterSession } from '@/providers/twitter/Session.js';
 import { twitterSessionHolder } from '@/providers/twitter/SessionHolder.js';
 import type { SessionPayload } from '@/providers/twitter/SessionPayload.js';
+import { TwitterUserInfoProfileImageShape, TwitterUserInfoVerifiedType } from '@/providers/types/Firefly.js';
 import {
     type Channel,
     type Notification,
     type Post,
     type Profile,
+    type ProfileBadge,
     type ProfileEditable,
     ProfileStatus,
     type Provider,
@@ -550,6 +554,37 @@ class TwitterSocialMedia implements Provider {
         });
         if (!res.success) throw new Error(res.error.message);
         return true;
+    }
+
+    async getProfileBadges(profile: Profile): Promise<ProfileBadge[]> {
+        const response = await FireflySocialMediaProvider.getTwitterUserInfo(profile.handle);
+        const userInfo = response.data.user.result;
+        if (!userInfo.is_blue_verified) return [];
+        let color =
+            userInfo.profile_image_shape === TwitterUserInfoProfileImageShape.Square
+                ? 'text-twitterVerifiedGold'
+                : 'text-twitterBlue';
+        if (userInfo.legacy.verified_type === TwitterUserInfoVerifiedType.Government) color = 'text-twitterVerified';
+        const handle = userInfo.affiliates_highlighted_label.label
+            ? getTwitterProfileHandleFromUrl(userInfo.affiliates_highlighted_label.label.url.url)
+            : undefined;
+        const badgeTargetProfile = handle ? await this.getProfileByHandle(handle).catch(() => undefined) : undefined;
+        const href = badgeTargetProfile?.profileId
+            ? resolveProfileUrl(Source.Twitter, badgeTargetProfile.profileId)
+            : undefined;
+        return compact([
+            {
+                source: Source.Twitter,
+                color,
+            },
+            userInfo.affiliates_highlighted_label.label?.badge.url
+                ? {
+                      source: Source.Twitter,
+                      icon: userInfo.affiliates_highlighted_label.label.badge.url,
+                      href,
+                  }
+                : null,
+        ]);
     }
 }
 

@@ -24,6 +24,7 @@ import {
     NotificationType,
     type Post,
     type Profile,
+    type ProfileBadge,
     type ProfileEditable,
     type Provider,
     SessionType,
@@ -754,6 +755,10 @@ class WarpcastSocialMedia implements Provider {
             },
         );
         return result.predictions;
+    }
+
+    async getProfileBadges(profile: Profile): Promise<ProfileBadge[]> {
+        throw new NotImplementedError();
     }
 }
 

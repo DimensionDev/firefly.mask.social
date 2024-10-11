@@ -12,17 +12,6 @@ import { Link } from '@/esm/Link.js';
 import { resolveSimpleHashChain } from '@/helpers/resolveSimpleHashChain.js';
 import { BlockScanExplorerResolver } from '@/providers/ethereum/ExplorerResolver.js';
 
-interface NFTOverflowProps {
-    description: string;
-    tokenId?: string;
-    creator?: string;
-    mintingTxnHash?: string;
-    mintingDate?: string;
-    contractAddress?: string;
-    chainId?: number;
-    schemaType?: SchemaType;
-}
-
 function DetailsGroup(props: { field: ReactNode; value: ReactNode }) {
     return (
         <div className="flex w-full gap-[30px] text-base font-normal leading-6">
@@ -32,10 +21,11 @@ function DetailsGroup(props: { field: ReactNode; value: ReactNode }) {
     );
 }
 
-function EVMExplorerLink(props: { address: string; chainId?: number; type: 'address' | 'tx' }) {
+function EVMExplorerLink(props: { address: string; type: 'address' | 'tx'; chainId?: number; useBlockScan?: boolean }) {
     if (props.chainId) {
+        const ExplorerResolver = props.useBlockScan ? BlockScanExplorerResolver : EVMExplorerResolver;
         const resolveExplorerLink = {
-            address: BlockScanExplorerResolver.addressLink.bind(BlockScanExplorerResolver),
+            address: ExplorerResolver.addressLink.bind(ExplorerResolver),
             tx: EVMExplorerResolver.transactionLink.bind(EVMExplorerResolver),
         }[props.type];
         return (
@@ -76,6 +66,17 @@ function convertDescriptionToArray(description: string): ReactNode[] {
         }
         return part;
     });
+}
+
+interface NFTOverflowProps {
+    description: string;
+    tokenId?: string;
+    creator?: string;
+    mintingTxnHash?: string;
+    mintingDate?: string;
+    contractAddress?: string;
+    chainId?: number;
+    schemaType?: SchemaType;
 }
 
 export function NFTOverflow(props: NFTOverflowProps) {
@@ -146,7 +147,14 @@ export function NFTOverflow(props: NFTOverflowProps) {
                     {props.creator ? (
                         <DetailsGroup
                             field={t`Creator`}
-                            value={<EVMExplorerLink address={props.creator} type="address" chainId={props.chainId} />}
+                            value={
+                                <EVMExplorerLink
+                                    useBlockScan
+                                    address={props.creator}
+                                    type="address"
+                                    chainId={props.chainId}
+                                />
+                            }
                         />
                     ) : null}
                     {props.mintingTxnHash ? (

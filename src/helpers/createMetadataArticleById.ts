@@ -6,11 +6,13 @@ import { createPageTitleOG } from '@/helpers/createPageTitle.js';
 import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
 import { getArticleUrl } from '@/helpers/getArticleUrl.js';
 import { FireflyArticleProvider } from '@/providers/firefly/Article.js';
+import { getArticleCover } from '@/services/getArticleCover.js';
 
 export async function createMetadataArticleById(id: string) {
     const article = await FireflyArticleProvider.getArticleById(id);
     if (!article) return createSiteMetadata();
-    const images = article.coverUrl ? [article.coverUrl] : undefined;
+    const coverUrl = await getArticleCover(article).catch(() => null);
+    const images = coverUrl ? [coverUrl] : undefined;
     const title = createPageTitleOG(article.title);
     const html = parseHTML(`<html><body>${article.content}</body></html>`);
     const description = html.document.body.innerText;
