@@ -16,8 +16,8 @@ import {
     type Notification,
     type Post,
     type Profile,
+    type ProfileBadge,
     type ProfileEditable,
-    type ProfileVerifyInfo,
     type Provider,
     SessionType,
 } from '@/providers/types/SocialMedia.js';
@@ -317,7 +317,7 @@ class NeynarSocialMedia implements Provider {
     async updateProfile(profile: ProfileEditable): Promise<boolean> {
         throw new NotImplementedError();
     }
-    async getProfileVerifyInfoByHandle(): Promise<ProfileVerifyInfo> {
+    async getProfileBadges(profile: Profile): Promise<ProfileBadge[]> {
         throw new NotImplementedError();
     }
 }

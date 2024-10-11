@@ -15,7 +15,9 @@ import { SetQueryDataForLikePost } from '@/decorators/SetQueryDataForLikePost.js
 import { SetQueryDataForMirrorPost } from '@/decorators/SetQueryDataForMirrorPost.js';
 import { formatTweetsPage } from '@/helpers/formatTwitterPost.js';
 import { formatTwitterProfile } from '@/helpers/formatTwitterProfile.js';
+import { getTwitterProfileHandleFromUrl } from '@/helpers/getTwitterProfileHandleFromUrl.js';
 import { createIndicator, createPageable, type Pageable, type PageIndicator } from '@/helpers/pageable.js';
+import { resolveProfileUrl } from '@/helpers/resolveProfileUrl.js';
 import { resolveTCOLink } from '@/helpers/resolveTCOLink.js';
 import { resolveTwitterReplyRestriction } from '@/helpers/resolveTwitterReplyRestriction.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
@@ -23,20 +25,19 @@ import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
 import { TwitterSession } from '@/providers/twitter/Session.js';
 import { twitterSessionHolder } from '@/providers/twitter/SessionHolder.js';
 import type { SessionPayload } from '@/providers/twitter/SessionPayload.js';
+import { TwitterUserInfoProfileImageShape } from '@/providers/types/Firefly.js';
 import {
     type Channel,
     type Notification,
     type Post,
     type Profile,
+    type ProfileBadge,
     type ProfileEditable,
     ProfileStatus,
     type Provider,
     SessionType,
 } from '@/providers/types/SocialMedia.js';
 import type { ResponseJSON } from '@/types/index.js';
-import { settings } from '@/settings/index.js';
-import { fetchJSON } from '@/helpers/fetchJSON.js';
-import { formatProfileVerifyInfoFromTwitterUserInfo } from '@/helpers/formatProfileVerifyInfoFromTwitterUserInfo.js';
 
 @SetQueryDataForLikePost(Source.Twitter)
 @SetQueryDataForBookmarkPost(Source.Twitter)
@@ -555,9 +556,30 @@ class TwitterSocialMedia implements Provider {
         return true;
     }
 
-    async getProfileVerifyInfoByHandle(handle: string) {
-        const response = await FireflySocialMediaProvider.getTwitterUserInfo(handle);
-        return formatProfileVerifyInfoFromTwitterUserInfo(response.data.user.result);
+    async getProfileBadges(profile: Profile): Promise<ProfileBadge[]> {
+        const response = await FireflySocialMediaProvider.getTwitterUserInfo(profile.handle);
+        const userInfo = response.data.user.result;
+        const color =
+            userInfo.profile_image_shape === TwitterUserInfoProfileImageShape.Square
+                ? 'text-twitterVerifiedGold'
+                : 'text-twitterBlue';
+
+        const handle = getTwitterProfileHandleFromUrl(userInfo.affiliates_highlighted_label.label.url.url);
+        const badgeProfileId = handle ? (await this.getProfileByHandle(handle)).profileId : undefined;
+        const href = badgeProfileId ? resolveProfileUrl(Source.Twitter, badgeProfileId) : undefined;
+        return compact([
+            {
+                source: Source.Twitter,
+                color,
+            },
+            userInfo.affiliates_highlighted_label.label.badge.url
+                ? {
+                      source: Source.Twitter,
+                      icon: userInfo.affiliates_highlighted_label.label.badge.url,
+                      href,
+                  }
+                : null,
+        ]);
     }
 }
 

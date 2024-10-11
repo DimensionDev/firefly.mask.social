@@ -100,8 +100,6 @@ export const PostHeader = memo<PostHeaderProps>(function PostHeader({
                         </Link>
                     </ProfileTippy>
                     <ProfileVerifyBadge
-                        source={author.source}
-                        handle={author.handle}
                         className="flex flex-shrink-0 items-center space-x-1 sm:mr-2"
                         profile={author}
                     />

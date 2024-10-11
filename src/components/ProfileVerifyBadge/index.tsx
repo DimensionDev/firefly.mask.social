@@ -1,66 +1,59 @@
+import { safeUnreachable } from '@masknet/kit';
 import { useQuery } from '@tanstack/react-query';
-import { compact } from 'lodash-es';
 import type { HTMLProps } from 'react';
 
 import PowerUserIcon from '@/assets/power-user.svg';
-import { TwitterVerifyIcon } from '@/components/ProfileVerifyBadge/TwitterVerifyIcon.js';
-import { type SocialSource, Source } from '@/constants/enum.js';
+import VerifyIcon from '@/assets/verify.svg';
+import { Image } from '@/components/Image.js';
+import { Source } from '@/constants/enum.js';
 import { Link } from '@/esm/Link.js';
-import { getTwitterProfileHandleFromUrl } from '@/helpers/getTwitterProfileHandleFromUrl.js';
-import { resolveProfileUrl } from '@/helpers/resolveProfileUrl.js';
+import { classNames } from '@/helpers/classNames.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 
 interface Props extends HTMLProps<'div'> {
-    source: SocialSource;
-    handle: string;
-    profile?: Pick<Profile, 'isPowerUser' | 'profileId'>;
+    profile: Profile;
 }
 
-export function ProfileVerifyBadge({ source, handle, profile, className }: Props) {
-    const { data } = useQuery({
-        queryKey: ['profile-verify-badge', source, handle],
+export function ProfileVerifyBadge({ profile, className }: Props) {
+    const { data: icons = [] } = useQuery({
+        queryKey: ['profile-badge', profile],
         queryFn: async () => {
-            const provider = resolveSocialMediaProvider(source);
-            return provider.getProfileVerifyInfoByHandle(handle);
+            const provider = resolveSocialMediaProvider(profile.source);
+            return provider.getProfileBadges(profile);
         },
-        enabled: [Source.Twitter].includes(source),
+        enabled: [Source.Twitter, Source.Farcaster].includes(profile.source),
         refetchOnMount: false,
         refetchOnWindowFocus: false,
         refetchOnReconnect: false,
     });
-
-    const { data: badgeUrl } = useQuery({
-        queryKey: ['badge-url', source, data?.url],
-        async queryFn() {
-            if (!data?.url) return;
-            const identity = getTwitterProfileHandleFromUrl(data.url);
-            const provider = resolveSocialMediaProvider(source);
-            const { profileId } = await provider.getProfileByHandle(identity!);
-            return resolveProfileUrl(source, profileId);
-        },
-        enabled: !!data?.url && [Source.Twitter].includes(source),
-        refetchOnMount: false,
-        refetchOnWindowFocus: false,
-        refetchOnReconnect: false,
-    });
-
-    const badgeEl = data?.badgeAvatarUrl ? (
-        <img src={data.badgeAvatarUrl} className="h-4 w-4 flex-shrink-0" alt={data.description} />
-    ) : null;
-
-    const icons = compact([
-        {
-            [Source.Twitter]: data ? <TwitterVerifyIcon data={data} /> : null,
-            [Source.Farcaster]: profile?.isPowerUser ? (
-                <PowerUserIcon className="h-4 w-4 shrink-0" width={16} height={16} />
-            ) : null,
-            [Source.Lens]: null,
-        }[source],
-        badgeUrl ? <Link href={badgeUrl}>{badgeEl}</Link> : badgeEl,
-    ]);
 
     if (!icons.length) return null;
 
-    return <div className={className}>{icons}</div>;
+    console.log(icons);
+
+    return (
+        <div className={className}>
+            {icons.map((icon, i) => {
+                if (icon.icon) {
+                    const iconEl = (
+                        <Image key={i} src={icon.icon} className="h-4 w-4 flex-shrink-0" alt={icon.source} />
+                    );
+                    return icon.href ? <Link href={icon.href}>{iconEl}</Link> : iconEl;
+                }
+                switch (icon.source) {
+                    case Source.Twitter:
+                        const color = icon.color ?? 'text-twitterVerified';
+                        return <VerifyIcon key={i} className={classNames('h-4 w-4 shrink-0', color)} />;
+                    case Source.Farcaster:
+                        return <PowerUserIcon key={i} className="h-4 w-4 shrink-0" width={16} height={16} />;
+                    case Source.Lens:
+                        return null;
+                    default:
+                        safeUnreachable(icon.source);
+                        return null;
+                }
+            })}
+        </div>
+    );
 }

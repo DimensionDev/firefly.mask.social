@@ -103,8 +103,8 @@ import {
     NotificationType,
     type Post,
     type Profile,
+    type ProfileBadge,
     type ProfileEditable,
-    type ProfileVerifyInfo,
     type Provider,
     SessionType,
 } from '@/providers/types/SocialMedia.js';
@@ -1440,10 +1440,6 @@ export class FireflySocialMedia implements Provider {
         throw new NotImplementedError();
     }
 
-    async getProfileVerifyInfoByHandle(): Promise<ProfileVerifyInfo> {
-        throw new NotImplementedError();
-    }
-
     async getTwitterUserInfo(screenName: string) {
         const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/twitter/userinfo', {
             screenName,
@@ -1452,6 +1448,10 @@ export class FireflySocialMedia implements Provider {
             method: 'GET',
         });
         return resolveFireflyResponseData(response);
+    }
+
+    async getProfileBadges(profile: Profile): Promise<ProfileBadge[]> {
+        throw new NotImplementedError();
     }
 }
 

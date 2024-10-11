@@ -2,7 +2,7 @@ import type { OpenActionModuleType } from '@lens-protocol/client';
 
 import type { BookmarkType, FireflyPlatform, RestrictionType, SocialSource } from '@/constants/enum.js';
 import type { Pageable, PageIndicator } from '@/helpers/pageable.js';
-import type { TwitterUserInfo, WalletProfile } from '@/providers/types/Firefly.js';
+import type { WalletProfile } from '@/providers/types/Firefly.js';
 import type { Poll } from '@/providers/types/Poll.js';
 
 export enum SessionType {
@@ -340,12 +340,11 @@ export interface Channel {
     __original__?: unknown;
 }
 
-export interface ProfileVerifyInfo {
-    verified: boolean;
-    badgeAvatarUrl?: string;
-    url?: string;
-    description?: string;
-    __origin__: TwitterUserInfo;
+export interface ProfileBadge {
+    source: SocialSource;
+    href?: string;
+    icon?: string;
+    color?: string;
 }
 
 export interface Provider {
@@ -883,7 +882,7 @@ export interface Provider {
     getHiddenComments: (postId: string, indicator?: PageIndicator) => Promise<Pageable<Post, PageIndicator>>;
 
     /**
-     * Get Profile Verify Info
+     * Get Profile Badges
      */
-    getProfileVerifyInfoByHandle: (handle: string) => Promise<ProfileVerifyInfo>;
+    getProfileBadges: (profile: Profile) => Promise<ProfileBadge[]>;
 }

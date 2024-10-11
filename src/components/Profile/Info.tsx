@@ -76,12 +76,7 @@ export function Info({ profile }: InfoProps) {
                                 {profile.displayName}
                             </address>
                         </TextOverflowTooltip>
-                        <ProfileVerifyBadge
-                            source={source}
-                            handle={profile.handle}
-                            className="flex flex-shrink-0 items-center space-x-1"
-                            profile={profile}
-                        />
+                        <ProfileVerifyBadge className="flex flex-shrink-0 items-center space-x-1" profile={profile} />
                         <div className="ml-auto flex items-center gap-2">
                             {showAction ? <ProfileAction profile={profile} /> : null}
                         </div>

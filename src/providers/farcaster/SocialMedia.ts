@@ -31,8 +31,8 @@ import {
     type Notification,
     type Post,
     type Profile,
+    type ProfileBadge,
     type ProfileEditable,
-    type ProfileVerifyInfo,
     type Provider,
     SessionType,
 } from '@/providers/types/SocialMedia.js';
@@ -390,8 +390,14 @@ class FarcasterSocialMedia implements Provider {
         return FireflySocialMediaProvider.getHiddenComments(postId, indicator);
     }
 
-    async getProfileVerifyInfoByHandle(): Promise<ProfileVerifyInfo> {
-        throw new NotImplementedError();
+    async getProfileBadges(profile: Profile): Promise<ProfileBadge[]> {
+        return profile.isPowerUser
+            ? [
+                  {
+                      source: Source.Farcaster,
+                  },
+              ]
+            : [];
     }
 }
 
