@@ -520,3 +520,12 @@ body.not-support .fixed.inset-y-0 {
     content: ' \A\A';
     white-space: pre;
 }
+
+.markup ol {
+    counter-reset: list-counter;
+    list-style-type: none;
+}
+.markup ol li::before {
+    counter-increment: list-counter;
+    content: counter(list-counter) '. ';
+}
