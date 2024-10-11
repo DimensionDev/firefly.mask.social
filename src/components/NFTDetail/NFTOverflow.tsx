@@ -12,17 +12,6 @@ import { Link } from '@/esm/Link.js';
 import { resolveSimpleHashChain } from '@/helpers/resolveSimpleHashChain.js';
 import { BlockScanExplorerResolver } from '@/providers/ethereum/ExplorerResolver.js';
 
-interface NFTOverflowProps {
-    description: string;
-    tokenId?: string;
-    creator?: string;
-    mintingTxnHash?: string;
-    mintingDate?: string;
-    contractAddress?: string;
-    chainId?: number;
-    schemaType?: SchemaType;
-}
-
 function DetailsGroup(props: { field: ReactNode; value: ReactNode }) {
     return (
         <div className="flex w-full gap-[30px] text-base font-normal leading-6">
@@ -77,6 +66,17 @@ function convertDescriptionToArray(description: string): ReactNode[] {
         }
         return part;
     });
+}
+
+interface NFTOverflowProps {
+    description: string;
+    tokenId?: string;
+    creator?: string;
+    mintingTxnHash?: string;
+    mintingDate?: string;
+    contractAddress?: string;
+    chainId?: number;
+    schemaType?: SchemaType;
 }
 
 export function NFTOverflow(props: NFTOverflowProps) {

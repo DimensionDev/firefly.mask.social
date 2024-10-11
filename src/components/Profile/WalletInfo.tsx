@@ -22,6 +22,7 @@ import { formatAddress } from '@/helpers/formatAddress.js';
 import { getAddressType } from '@/helpers/getAddressType.js';
 import { getRelationPlatformUrl } from '@/helpers/getRelationPlatformUrl.js';
 import { getStampAvatarByProfileId } from '@/helpers/getStampAvatarByProfileId.js';
+import { resolveNetworkIcon } from '@/helpers/resolveNetworkIcon.js';
 import { useCopyText } from '@/hooks/useCopyText.js';
 import { useDarkMode } from '@/hooks/useDarkMode.js';
 import { useIsMyRelatedProfile } from '@/hooks/useIsMyRelatedProfile.js';
@@ -36,23 +37,19 @@ interface WalletInfoProps {
 
 export function WalletInfo({ profile, relations }: WalletInfoProps) {
     const isMedium = useIsMedium();
+    const { isDarkMode } = useDarkMode();
+
     const [, handleCopy] = useCopyText(profile.address);
     const isMyWallets = useIsMyRelatedProfile(Source.Wallet, profile.address);
-    const avatar = profile.avatar ?? getStampAvatarByProfileId(Source.Wallet, profile.address);
-    const addressType = getAddressType(profile.address);
 
-    const { isDarkMode } = useDarkMode();
-    const AddressTypeIconMap: Record<string, string> = {
-        [NetworkType.Solana]: new URL('../../assets/chains/solana.png', import.meta.url).href,
-        [NetworkType.Ethereum]: isDarkMode
-            ? new URL('../../assets/chains/ethereum.dark.png', import.meta.url).href
-            : new URL('../../assets/chains/ethereum.light.png', import.meta.url).href,
-    };
-    const addressTypeIcon = addressType ? AddressTypeIconMap[addressType] : null;
+    const avatar = profile.avatar ?? getStampAvatarByProfileId(Source.Wallet, profile.address);
+    const networkType = getAddressType(profile.address);
+
     const addressLink =
-        addressType === NetworkType.Ethereum
+        networkType === NetworkType.Ethereum
             ? BlockScanExplorerResolver.addressLink(ChainId.Mainnet, profile.address)
             : null;
+    const networkIcon = networkType ? resolveNetworkIcon(networkType, isDarkMode) : null;
 
     return (
         <div className="flex gap-3 p-3">
@@ -60,8 +57,8 @@ export function WalletInfo({ profile, relations }: WalletInfoProps) {
             <div className="relative flex flex-1 flex-col">
                 <div className="flex flex-col gap-2">
                     <div className="flex items-center gap-1">
-                        {addressTypeIcon ? (
-                            <Image src={addressTypeIcon} alt={addressType!} width={18} height={18} />
+                        {networkIcon && networkType ? (
+                            <Image src={networkIcon} alt={networkType} width={18} height={18} />
                         ) : null}
                         <span className="text-xl font-black leading-[26px] text-lightMain">
                             {profile.primary_ens || formatAddress(profile.address, 4)}
