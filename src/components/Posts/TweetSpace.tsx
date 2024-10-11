@@ -5,6 +5,7 @@ import { Avatar } from '@/components/Avatar.js';
 import { ProfileVerifyBadge } from '@/components/ProfileVerifyBadge/index.js';
 import { Source } from '@/constants/enum.js';
 import { TWEET_SPACE_REGEX } from '@/constants/regexp.js';
+import { Link } from '@/esm/Link.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 
 export const TweetSpace = memo(function TweetSpace({ post }: { post: Post }) {
@@ -15,7 +16,11 @@ export const TweetSpace = memo(function TweetSpace({ post }: { post: Post }) {
     if (!entityUrl) return null;
 
     return (
-        <div className="bg-purple flex w-full flex-col space-y-3 rounded-2xl p-4 text-white">
+        <Link
+            href={entityUrl.expanded_url}
+            target="_blank"
+            className="bg-purple mt-3 flex w-full flex-col space-y-3 rounded-2xl p-4 text-white"
+        >
             <h3 className="text-md font-semibold leading-6">{entityUrl.title}</h3>
             <div className="flex">
                 <Avatar className="mr-2 h-[18px] w-[18px]" src={post.author.pfp} size={18} alt={post.author.handle} />
@@ -25,6 +30,6 @@ export const TweetSpace = memo(function TweetSpace({ post }: { post: Post }) {
                     profile={post.author}
                 />
             </div>
-        </div>
+        </Link>
     );
 });
