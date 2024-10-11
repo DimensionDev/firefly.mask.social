@@ -30,8 +30,6 @@ export function ProfileVerifyBadge({ profile, className }: Props) {
 
     if (!icons.length) return null;
 
-    console.log(icons);
-
     return (
         <div className={className}>
             {icons.map((icon, i) => {
