@@ -1,0 +1,12 @@
+diff --git a/package.json b/package.json
+index 4a106f7a65e26771efb0dabe3d4937bc4dc710a7..ca3a248abf4d1b46b9b4bdc68cd491c32e3668bc 100644
+--- a/package.json
++++ b/package.json
+@@ -30,6 +30,7 @@
+     },
+     "dependencies": {
+         "@ethereumjs/tx": "^4.2.0",
++        "@ethereumjs/common": "^4.4.0",
+         "@types/elliptic": "^6.4.14",
+         "buffer": "^6.0.3",
+         "elliptic": "^6.5.4"

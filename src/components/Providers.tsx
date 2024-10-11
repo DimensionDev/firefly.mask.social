@@ -1,5 +1,6 @@
 'use client';
 
+// eslint-disable-next-line simple-import-sort/imports
 import { useActionsRegistryInterval } from '@dialectlabs/blinks';
 import { i18n } from '@lingui/core';
 import { I18nProvider } from '@lingui/react';
@@ -26,6 +27,13 @@ import { useMounted } from '@/hooks/useMounted.js';
 import { setLocale } from '@/i18n/index.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
 import { useLeafwatchPersistStore } from '@/store/useLeafwatchPersistStore.js';
+
+import * as authCore from '@particle-network/auth-core';
+
+console.log('DEBUG: particle network');
+console.log({
+    authCore,
+});
 
 export const Providers = memo(function Providers(props: { children: React.ReactNode }) {
     const isDarkMode = useIsDarkMode();

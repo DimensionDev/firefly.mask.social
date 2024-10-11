@@ -1,0 +1,64 @@
+diff --git a/dist/types/api/types/index.d.ts b/dist/types/api/types/index.d.ts
+index 2966d0eac54ece7a96b66d0a766891057f485745..e05adfe04fe57bdf2d751e79ca5c4b3bbe228f65 100644
+--- a/dist/types/api/types/index.d.ts
++++ b/dist/types/api/types/index.d.ts
+@@ -1,4 +1,4 @@
+-import type { OriginalUserInfo, UserInfo } from './apiData';
+-export * from './apiData';
+-export * from './rpcData';
++import type { OriginalUserInfo, UserInfo } from './apiData.d.ts';
++export type * from './apiData.d.ts';
++export type * from './rpcData.d.ts';
+ export declare const mapToUserInfo: (originalUserInfo: OriginalUserInfo) => UserInfo;
+diff --git a/dist/types/index.d.ts b/dist/types/index.d.ts
+index 81908e8b6d524bbdf8cde8d354dc10f8d8ef2e8b..34b7bb78e904311d7e17571f495d1cfc1ac15f3b 100644
+--- a/dist/types/index.d.ts
++++ b/dist/types/index.d.ts
+@@ -1,13 +1,13 @@
+-export * from './api/apiError';
+-export * from './api/authType';
+-export * from './api/types';
+-export * from './core/analyticsApi';
+-export * from './core/authCore';
+-export * from './core/connectApi';
+-export { type EthereumProvider } from './core/ethereumProvider';
+-export * from './core/securityApi';
+-export { type SolanaWallet } from './core/solanaWallet';
+-export * from './types';
+-export * from './utils/chainUtils';
+-export * from './utils/ethereumUtils';
+-export * from './utils/validate';
++export type * from './api/apiError.d.ts';
++export type * from './api/authType.d.ts';
++export type * from './api/types/index.d.ts';
++export type * from './core/analyticsApi.d.ts';
++export type * from './core/authCore.d.ts';
++export type * from './core/connectApi.d.ts';
++export type { EthereumProvider } from './core/ethereumProvider.d.ts';
++export type * from './core/securityApi.d.ts';
++export type { SolanaWallet } from './core/solanaWallet.d.ts';
++export type * from './types/index.d.ts';
++export type * from './utils/chainUtils.d.ts';
++export type * from './utils/ethereumUtils.d.ts';
++export type * from './utils/validate.d.ts';
+diff --git a/dist/types/types/index.d.ts b/dist/types/types/index.d.ts
+index 652d2d733266cf8287543181b8d71c6cb2dfa6ff..67e03e7d618363b0682c9aeb62c1a3ea57f3a828 100644
+--- a/dist/types/types/index.d.ts
++++ b/dist/types/types/index.d.ts
+@@ -1,10 +1,10 @@
+ export type { MessageTypes, TypedDataV1, TypedMessage } from '@metamask/eth-sig-util';
+-export * from './authCoreEvent';
+-export * from './cloudflare';
+-export * from './connectParam';
+-export * from './eip1193';
+-export * from './rpcMethods';
+-export * from './wallet';
++export type * from './authCoreEvent.d.ts';
++export type * from './cloudflare.d.ts';
++export type * from './connectParam.d.ts';
++export type * from './eip1193.d.ts';
++export type * from './rpcMethods.d.ts';
++export type * from './wallet.d.ts';
+ export declare enum SignTypedDataVersion {
+     V1 = "V1",
+     V3 = "V3",
