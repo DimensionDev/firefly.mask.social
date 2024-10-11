@@ -1005,6 +1005,10 @@ export enum TwitterUserInfoLabelUrlType {
     DeepLink = 'DeepLink',
 }
 
+export enum TwitterUserInfoVerifiedType {
+    Government = 'Government',
+}
+
 export interface TwitterUserInfoLabel {
     url: {
         url: string;
@@ -1035,7 +1039,7 @@ export interface TwitterUserInfo {
     id: string;
     rest_id: string;
     affiliates_highlighted_label: {
-        label: TwitterUserInfoLabel;
+        label?: TwitterUserInfoLabel;
     };
     has_graduated_access: boolean;
     is_blue_verified: boolean;
@@ -1077,6 +1081,7 @@ export interface TwitterUserInfo {
         translator_type: string;
         url: string;
         verified: boolean;
+        verified_type?: TwitterUserInfoVerifiedType;
         want_retweets: boolean;
     };
     professional: {
