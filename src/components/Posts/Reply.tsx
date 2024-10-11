@@ -6,12 +6,10 @@ import { PostBody } from '@/components/Posts/PostBody.js';
 import { ProfileAvatar } from '@/components/ProfileAvatar.js';
 import { Source } from '@/constants/enum.js';
 import { getLennyUrl } from '@/helpers/getLennyUrl.js';
-import { narrowToSocialSource } from '@/helpers/narrowToSocialSource.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { useCurrentAvailableProfile } from '@/hooks/useCurrentAvailableProfile.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 import type { CompositePost } from '@/store/useComposeStore.js';
-import { useGlobalState } from '@/store/useGlobalStore.js';
 
 interface ReplyProps {
     post: Post;
@@ -19,9 +17,7 @@ interface ReplyProps {
 }
 
 export const Reply = memo<ReplyProps>(function Reply({ post, compositePost }) {
-    const currentSource = useGlobalState.use.currentSource();
-    const currentSocialSource = narrowToSocialSource(currentSource);
-    const currentProfile = useCurrentAvailableProfile(currentSocialSource);
+    const currentProfile = useCurrentAvailableProfile(post.source);
 
     const avatarFallbackUrl = post.source === Source.Lens ? getLennyUrl(post.author.handle) : undefined;
 
