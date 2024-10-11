@@ -1,5 +1,4 @@
 import type { Encoder } from '@dimensiondev/holoflows-kit';
-import { defer } from '@masknet/kit';
 import {
     __workaround__replaceImplementationOfCreatePluginMessage__,
     type PluginMessageEmitter,
@@ -11,6 +10,7 @@ import {
     encoder,
 } from '@masknet/shared-base';
 
+import { defer } from '@/helpers/promise.js';
 import type { InternalMessage_PluginMessage } from '@/mask/background-worker/message-port.js';
 
 type MessageHandler = (message: any) => void;
