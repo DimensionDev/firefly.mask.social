@@ -32,10 +32,11 @@ function DetailsGroup(props: { field: ReactNode; value: ReactNode }) {
     );
 }
 
-function EVMExplorerLink(props: { address: string; chainId?: number; type: 'address' | 'tx' }) {
+function EVMExplorerLink(props: { address: string; type: 'address' | 'tx'; chainId?: number; useBlockScan?: boolean }) {
     if (props.chainId) {
+        const ExplorerResolver = props.useBlockScan ? BlockScanExplorerResolver : EVMExplorerResolver;
         const resolveExplorerLink = {
-            address: BlockScanExplorerResolver.addressLink.bind(BlockScanExplorerResolver),
+            address: ExplorerResolver.addressLink.bind(ExplorerResolver),
             tx: EVMExplorerResolver.transactionLink.bind(EVMExplorerResolver),
         }[props.type];
         return (
@@ -146,7 +147,14 @@ export function NFTOverflow(props: NFTOverflowProps) {
                     {props.creator ? (
                         <DetailsGroup
                             field={t`Creator`}
-                            value={<EVMExplorerLink address={props.creator} type="address" chainId={props.chainId} />}
+                            value={
+                                <EVMExplorerLink
+                                    useBlockScan
+                                    address={props.creator}
+                                    type="address"
+                                    chainId={props.chainId}
+                                />
+                            }
                         />
                     ) : null}
                     {props.mintingTxnHash ? (
