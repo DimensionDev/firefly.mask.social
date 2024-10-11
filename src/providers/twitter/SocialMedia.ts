@@ -297,7 +297,7 @@ class TwitterSocialMedia implements Provider {
     async searchPosts(q: string, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
         return twitterSessionHolder.withSession(async (session) => {
             if (!session) return createPageable([] as Post[], createIndicator(indicator));
-            const url = urlcat(`/api/twitter/search/recent`, {
+            const url = urlcat(`/api/twitter/search/all`, {
                 limit: 25,
                 cursor: indicator?.id,
                 query: q,
