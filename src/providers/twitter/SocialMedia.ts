@@ -563,7 +563,6 @@ class TwitterSocialMedia implements Provider {
             userInfo.profile_image_shape === TwitterUserInfoProfileImageShape.Square
                 ? 'text-twitterVerifiedGold'
                 : 'text-twitterBlue';
-
         const handle = getTwitterProfileHandleFromUrl(userInfo.affiliates_highlighted_label.label.url.url);
         const badgeProfileId = handle ? (await this.getProfileByHandle(handle)).profileId : undefined;
         const href = badgeProfileId ? resolveProfileUrl(Source.Twitter, badgeProfileId) : undefined;
