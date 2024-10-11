@@ -36,9 +36,7 @@ export function ProfileVerifyBadge({ profile, className }: Props) {
         <div className={className}>
             {icons.map((icon, i) => {
                 if (icon.icon) {
-                    const iconEl = (
-                        <Image key={i} src={icon.icon} className="h-4 w-4 flex-shrink-0" alt={icon.source} />
-                    );
+                    const iconEl = <Image key={i} src={icon.icon} className="h-4 w-4 shrink-0" alt={icon.source} />;
                     return icon.href ? <Link href={icon.href}>{iconEl}</Link> : iconEl;
                 }
                 switch (icon.source) {
