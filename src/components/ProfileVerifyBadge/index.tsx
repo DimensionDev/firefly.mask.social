@@ -17,7 +17,7 @@ interface Props extends HTMLProps<'div'> {
 
 export function ProfileVerifyBadge({ profile, className }: Props) {
     const { data: icons = [] } = useQuery({
-        queryKey: ['profile-badge', profile],
+        queryKey: ['profile-badge', profile.handle, profile.source],
         queryFn: async () => {
             const provider = resolveSocialMediaProvider(profile.source);
             return provider.getProfileBadges(profile);
