@@ -46,12 +46,6 @@ export function tweetV2ToPost(item: TweetV2, includes?: ApiV2Includes): Post {
         content = parsedEntitiesUrls.contentArr.join('');
     }
 
-    // item.entities?.urls?.forEach((url) => {
-    //     const spliceItems = TWEET_SPACE_REGEX.test(url.expanded_url) ? [] : url.expanded_url.split('');
-    //     const contentArr = content.split('');
-    //     contentArr.splice(url.start, url.end - url.start, ...spliceItems);
-    //     content = contentArr.join('');
-    // });
     if (repliedTweetId) {
         content = content.replace(/^(@\w+\s*)+/, '');
     }

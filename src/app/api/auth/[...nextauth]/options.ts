@@ -67,7 +67,6 @@ export const authOptions: AuthOptions = {
                 token[account.provider].oauthTokenSecret = account.oauth_token_secret!;
             }
 
-            console.log('token: ', token);
             return token;
         },
     },
