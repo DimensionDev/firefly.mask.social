@@ -19,6 +19,7 @@ import {
     type Notification,
     type Post,
     type Profile,
+    type ProfileBadge,
     type ProfileEditable,
     type Provider,
     SessionType,
@@ -581,6 +582,10 @@ class HubbleSocialMedia implements Provider {
     }
 
     async updateProfile(profile: ProfileEditable): Promise<boolean> {
+        throw new NotImplementedError();
+    }
+
+    async getProfileBadges(profile: Profile): Promise<ProfileBadge[]> {
         throw new NotImplementedError();
     }
 }

@@ -31,6 +31,7 @@ import {
     type Notification,
     type Post,
     type Profile,
+    type ProfileBadge,
     type ProfileEditable,
     type Provider,
     SessionType,
@@ -387,6 +388,16 @@ class FarcasterSocialMedia implements Provider {
 
     async getHiddenComments(postId: string, indicator?: PageIndicator) {
         return FireflySocialMediaProvider.getHiddenComments(postId, indicator);
+    }
+
+    async getProfileBadges(profile: Profile): Promise<ProfileBadge[]> {
+        return profile.isPowerUser
+            ? [
+                  {
+                      source: Source.Farcaster,
+                  },
+              ]
+            : [];
     }
 }
 

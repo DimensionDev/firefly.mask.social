@@ -88,6 +88,7 @@ import {
     NotificationType,
     type Post,
     type Profile,
+    type ProfileBadge,
     type ProfileEditable,
     type Provider,
     ReactionType,
@@ -1569,6 +1570,10 @@ class LensSocialMedia implements Provider {
         });
 
         await waitForEthereumTransaction(polygon.id, hash);
+    }
+
+    async getProfileBadges(profile: Profile): Promise<ProfileBadge[]> {
+        throw new NotImplementedError();
     }
 }
 

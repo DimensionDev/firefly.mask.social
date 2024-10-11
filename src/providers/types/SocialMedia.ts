@@ -340,6 +340,13 @@ export interface Channel {
     __original__?: unknown;
 }
 
+export interface ProfileBadge {
+    source: SocialSource;
+    href?: string;
+    icon?: string;
+    color?: string;
+}
+
 export interface Provider {
     type: SessionType;
 
@@ -873,4 +880,9 @@ export interface Provider {
      * Get hidden comments
      */
     getHiddenComments: (postId: string, indicator?: PageIndicator) => Promise<Pageable<Post, PageIndicator>>;
+
+    /**
+     * Get Profile Badges
+     */
+    getProfileBadges: (profile: Profile) => Promise<ProfileBadge[]>;
 }
