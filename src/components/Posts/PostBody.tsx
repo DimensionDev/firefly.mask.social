@@ -18,8 +18,9 @@ import { CollapsedContent } from '@/components/Posts/CollapsedContent.js';
 import { ContentTranslator } from '@/components/Posts/ContentTranslator.js';
 import { PostLinks } from '@/components/Posts/PostLinks.js';
 import { Quote } from '@/components/Posts/Quote.js';
+import { TweetSpace } from '@/components/Posts/TweetSpace.js';
 import { IS_APPLE, IS_SAFARI } from '@/constants/bowser.js';
-import { PageRoute, STATUS } from '@/constants/enum.js';
+import { PageRoute, Source, STATUS } from '@/constants/enum.js';
 import { env } from '@/constants/env.js';
 import { EMPTY_LIST } from '@/constants/index.js';
 import { Link } from '@/esm/Link.js';
@@ -265,6 +266,8 @@ export const PostBody = forwardRef<HTMLDivElement, PostBodyProps>(function PostB
             ) : null}
 
             {!hasEncryptedPayload && !pollId ? <PostLinks post={post} setContent={setPostContent} /> : null}
+
+            {post.source === Source.Twitter ? <TweetSpace post={post} /> : null}
 
             {!!post.quoteOn && !isQuote ? <Quote post={post.quoteOn} /> : null}
         </article>

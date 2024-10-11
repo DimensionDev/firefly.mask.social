@@ -65,6 +65,7 @@ module.exports = {
                 twitterBlue: '#1ea1f1',
                 twitterVerifiedGold: '#ffc803',
                 twitterVerified: '#8299ab',
+                purple: '#7B3EE1',
             },
             backgroundImage: {
                 'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
