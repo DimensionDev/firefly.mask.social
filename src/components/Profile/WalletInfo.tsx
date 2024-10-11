@@ -1,10 +1,12 @@
 'use client';
 
 import { t } from '@lingui/macro';
+import { ChainId } from '@masknet/web3-shared-evm';
 
 import CopyIcon from '@/assets/copy.svg';
 import EnsIcon from '@/assets/ens.svg';
 import MiniEnsIcon from '@/assets/ens-16.svg';
+import LinkIcon from '@/assets/link-square.svg';
 import { Avatar } from '@/components/Avatar.js';
 import { ClickableArea } from '@/components/ClickableArea.js';
 import { Image } from '@/components/Image.js';
@@ -24,6 +26,7 @@ import { useCopyText } from '@/hooks/useCopyText.js';
 import { useDarkMode } from '@/hooks/useDarkMode.js';
 import { useIsMyRelatedProfile } from '@/hooks/useIsMyRelatedProfile.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
+import { BlockScanExplorerResolver } from '@/providers/ethereum/ExplorerResolver.js';
 import type { Relation, WalletProfile } from '@/providers/types/Firefly.js';
 
 interface WalletInfoProps {
@@ -46,6 +49,10 @@ export function WalletInfo({ profile, relations }: WalletInfoProps) {
             : new URL('../../assets/chains/ethereum.light.png', import.meta.url).href,
     };
     const addressTypeIcon = addressType ? AddressTypeIconMap[addressType] : null;
+    const addressLink =
+        addressType === NetworkType.Ethereum
+            ? BlockScanExplorerResolver.addressLink(ChainId.Mainnet, profile.address)
+            : null;
 
     return (
         <div className="flex gap-3 p-3">
@@ -127,6 +134,11 @@ export function WalletInfo({ profile, relations }: WalletInfoProps) {
                         <ClickableArea onClick={handleCopy}>
                             <CopyIcon width={14} height={14} className="cursor-pointer" />
                         </ClickableArea>
+                        {addressLink ? (
+                            <Link target="_blank" href={addressLink}>
+                                <LinkIcon width={14} height={14} />
+                            </Link>
+                        ) : null}
                     </div>
                 </div>
             </div>
