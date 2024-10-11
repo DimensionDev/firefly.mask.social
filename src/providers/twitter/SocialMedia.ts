@@ -32,6 +32,7 @@ import {
     type Post,
     type Profile,
     type ProfileBadge,
+    ProfileBadgePresetColors,
     type ProfileEditable,
     ProfileStatus,
     type Provider,
@@ -562,9 +563,10 @@ class TwitterSocialMedia implements Provider {
         if (!userInfo.is_blue_verified) return [];
         let color =
             userInfo.profile_image_shape === TwitterUserInfoProfileImageShape.Square
-                ? 'text-twitterVerifiedGold'
-                : 'text-twitterBlue';
-        if (userInfo.legacy.verified_type === TwitterUserInfoVerifiedType.Government) color = 'text-twitterVerified';
+                ? ProfileBadgePresetColors.TwitterGold
+                : ProfileBadgePresetColors.TwitterBlue;
+        if (userInfo.legacy.verified_type === TwitterUserInfoVerifiedType.Government)
+            color = ProfileBadgePresetColors.TwitterGray;
         const handle = userInfo.affiliates_highlighted_label.label
             ? getTwitterProfileHandleFromUrl(userInfo.affiliates_highlighted_label.label.url.url)
             : undefined;
