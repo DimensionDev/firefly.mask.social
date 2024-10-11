@@ -72,7 +72,7 @@ export const SchedulePostSettings = memo<SchedulePostSettingsProps>(function Sch
             </div>
             <div className="flex gap-2 pt-3 md:gap-4">
                 <DatePicker
-                    className="flex w-full gap-3 rounded-2xl bg-bg px-4 py-3 text-main"
+                    className="flex w-full cursor-pointer gap-3 rounded-2xl bg-bg px-4 py-3 text-main"
                     minDate={dayjs()}
                     maxDate={dayjs().add(7, 'day')}
                     value={dayjs(value)}
@@ -91,7 +91,7 @@ export const SchedulePostSettings = memo<SchedulePostSettingsProps>(function Sch
                     ampm={false}
                     timeSteps={{ minutes: 1 }}
                     containerClassName="flex-1"
-                    className="flex w-full gap-3 rounded-2xl bg-bg px-4 py-3 text-main"
+                    className="flex w-full cursor-pointer gap-3 rounded-2xl bg-bg px-4 py-3 text-main"
                     panelClassName="translate-y-[0%]"
                     onChange={(value) => {
                         setValue((prev) => {
