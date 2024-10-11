@@ -77,6 +77,16 @@ export const MoreAction = memo<MoreProps>(function MoreAction({ source, author, 
 
     const engagementType = first(SORTED_ENGAGEMENT_TAB_TYPE[source]) || EngagementType.Likes;
 
+    // all menu items are hidden
+    if (
+        !isMyPost &&
+        isMyProfile &&
+        !(channel && currentProfile) &&
+        !(post && post.source !== Source.Twitter) &&
+        !(post?.postId && post.source !== Source.Twitter)
+    )
+        return null;
+
     return (
         <MoreActionMenu
             source={source}

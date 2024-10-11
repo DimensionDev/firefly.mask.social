@@ -29,6 +29,7 @@ export const TimePicker = memo<TimePickerProps>(function TimePicker({
             <InteractiveTippy
                 visible={visible}
                 onClickOutside={() => setVisible(false)}
+                delay={0}
                 content={
                     <div
                         className={classNames(
