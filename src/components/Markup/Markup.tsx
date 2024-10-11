@@ -32,7 +32,7 @@ export const Markup = memo<MarkupProps>(function Markup({ children, post, ...res
     const plugins = useMemo(() => {
         if (!post?.mentions?.length)
             return compact([
-                [stripMarkdown, { keep: ['strong', 'emphasis', 'inlineCode'] }],
+                [stripMarkdown, { keep: ['strong', 'emphasis', 'inlineCode', 'list', 'listItem'] }],
                 remarkBreaks,
                 linkifyRegex(LENS_HANDLE_REGEXP),
                 linkifyRegex(EMAIL_REGEX),
@@ -44,7 +44,7 @@ export const Markup = memo<MarkupProps>(function Markup({ children, post, ...res
         const handles = post.mentions.map((x) => x.fullHandle);
         const mentionRe = new RegExp(`@(${handles.join('|')})`, 'g');
         return compact([
-            [stripMarkdown, { keep: ['strong', 'emphasis', 'inlineCode'] }],
+            [stripMarkdown, { keep: ['strong', 'emphasis', 'inlineCode', 'list', 'listItem'] }],
             remarkBreaks,
             linkifyRegex(LENS_HANDLE_REGEXP),
             linkifyRegex(EMAIL_REGEX),

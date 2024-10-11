@@ -520,3 +520,7 @@ body.not-support .fixed.inset-y-0 {
     content: ' \A\A';
     white-space: pre;
 }
+
+.markup ol {
+    list-style-type: decimal;
+}
