@@ -117,9 +117,7 @@ export function LoginFarcaster({ signType }: LoginFarcasterProps) {
                     setScanned(true);
 
                     if (!account.session.token) {
-                        enqueueInfoMessage(
-                            t`Cannot find your signer key, please approve a new Farcaster signer to us.`,
-                        );
+                        enqueueInfoMessage(t`Signer key not found. Please approve a new one for us in Warpcast.`);
                         history.replace(`/farcaster?signType=${FarcasterSignType.GrantPermission}`);
                         throw new AbortError();
                     }
