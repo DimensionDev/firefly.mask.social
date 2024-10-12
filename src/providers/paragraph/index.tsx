@@ -108,7 +108,7 @@ class Paragraph implements Provider {
         const value = price + article.fee;
 
         if (article.contractAddress) {
-            return await client.estimateContractGas({
+            return client.estimateContractGas({
                 address: article.contractAddress as `0x${string}`,
                 abi: ParagraphABI,
                 functionName: 'mintWithReferrer',
@@ -196,7 +196,7 @@ class Paragraph implements Provider {
                 value,
             });
 
-            return await waitForTransactionReceipt(config, { hash });
+            return waitForTransactionReceipt(config, { hash });
         }
 
         try {
