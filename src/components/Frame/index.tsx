@@ -9,8 +9,9 @@ import { encodePacked, isAddress, type SignTypedDataParameters } from 'viem';
 import { z } from 'zod';
 
 import { Card } from '@/components/Frame/Card.js';
+import { simulate } from '@/components/TransactionSimulator/simulate.js';
 import { config } from '@/configs/wagmiClient.js';
-import { NODE_ENV, type SocialSource, Source } from '@/constants/enum.js';
+import { NODE_ENV, SimulateType, type SocialSource, Source } from '@/constants/enum.js';
 import { env } from '@/constants/env.js';
 import { MalformedError } from '@/constants/error.js';
 import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
@@ -179,6 +180,12 @@ async function getNextFrame(
                         chainId,
                     });
                     if (client.chain.id !== chainId) throw new Error(t`The chainId mismatch.`);
+                    await simulate({
+                        type: SimulateType.Swap,
+                        chainId,
+                        url: frame.url,
+                        transaction: mintTx,
+                    });
                     await client.sendTransaction(mintTx);
                     return;
                 }
@@ -210,14 +217,20 @@ async function getNextFrame(
                 const method = action.method;
                 switch (method) {
                     case MethodType.ETH_SEND_TRANSACTION: {
-                        const transactionId = await client.sendTransaction({
+                        const params = {
                             to: action.params.to as `0x${string}`,
                             data: (action.params.data ||
                                 (action.attribution !== false
                                     ? encodePacked(['byte1', 'uint32'], [0xfc, Number.parseInt(profile.profileId, 10)])
                                     : undefined)) as `0x${string}` | undefined,
                             value: action.params.value ? BigInt(action.params.value) : BigInt(0),
+                        };
+                        await simulate({
+                            url: frame.url,
+                            chainId,
+                            transaction: params,
                         });
+                        const transactionId = await client.sendTransaction(params);
                         const response = await postAction<LinkDigestedResponse>({
                             address,
                             transactionId,
@@ -225,6 +238,7 @@ async function getNextFrame(
                         return response.success ? response.data.frame : null;
                     }
                     case MethodType.ETH_SIGN_TYPED_DATA_V4: {
+                        await simulate({ type: SimulateType.Signature, url: frame.url, chainId });
                         const signature = await client.signTypedData(action.params as SignTypedDataParameters);
                         const response = await postAction<LinkDigestedResponse>({
                             address,

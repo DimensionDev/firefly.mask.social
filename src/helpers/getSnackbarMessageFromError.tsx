@@ -5,7 +5,7 @@ import type { SnackbarMessage } from 'notistack';
 import { EstimateGasExecutionError, UserRejectedRequestError } from 'viem';
 
 import { SnackbarErrorMessage } from '@/components/SnackbarErrorMessage.js';
-import { FarcasterInvalidSignerKey, FetchError } from '@/constants/error.js';
+import { FarcasterInvalidSignerKey, FetchError, UserRejectionError } from '@/constants/error.js';
 import { IS_PRODUCTION } from '@/constants/index.js';
 import { getErrorMessageFromFetchError } from '@/helpers/getErrorMessageFromFetchError.js';
 
@@ -49,6 +49,15 @@ export function getSnackbarMessageFromError(error: unknown, fallback: string): S
 
     if (error instanceof EstimateGasExecutionError) {
         return <SnackbarErrorMessage title={<Trans>Insufficient funds</Trans>} message={error.shortMessage} />;
+    }
+
+    if (error instanceof UserRejectionError) {
+        return (
+            <SnackbarErrorMessage
+                title={<Trans>Canceled</Trans>}
+                message={<Trans>The user canceled the operation.</Trans>}
+            />
+        );
     }
 
     return fallback;

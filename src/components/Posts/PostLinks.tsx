@@ -52,7 +52,7 @@ export function PostLinks({ post, setContent, isInCompose = false }: Props) {
         },
     });
 
-    const actionAdapter = useActionAdapter();
+    const actionAdapter = useActionAdapter(url);
     useEffect(() => {
         if (data?.action) {
             data.action.setAdapter(actionAdapter);
