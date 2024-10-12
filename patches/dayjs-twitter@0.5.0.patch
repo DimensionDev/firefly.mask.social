@@ -1,0 +1,17 @@
+diff --git a/src/index.js b/src/index.js
+index 3e3da2e0bdfec5db380fa7d72c882d947eed7993..83f653c928c06f4976d1c8ddc5be23cfcb1b1daa 100644
+--- a/src/index.js
++++ b/src/index.js
+@@ -25,7 +25,11 @@ const twitterFormat = instance => {
+   } else if (diff < day) {
+     unit = 'hours'
+   } else if (diff < year) {
+-    unit = 'days'
++    if(instance.year() !== new Date().getFullYear()) {
++      unit = 'years'
++    } else {
++      unit = 'days'
++    }
+   } else {
+     unit = 'years'
+   }

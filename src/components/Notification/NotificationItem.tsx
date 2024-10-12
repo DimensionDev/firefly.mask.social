@@ -9,8 +9,8 @@ import { memo, useMemo } from 'react';
 import { PostActions } from '@/components/Actions/index.js';
 import { MoreAction } from '@/components/Actions/More.js';
 import { AvatarGroup } from '@/components/AvatarGroup.js';
-import { Markup } from '@/components/Markup/Markup.js';
 import { ExtraProfiles } from '@/components/Notification/ExtraProfiles.js';
+import { NotificationPostBody } from '@/components/Notification/NotificationPostBody.js';
 import { ProfileLink } from '@/components/Notification/ProfileLink.js';
 import { CollapsedContent } from '@/components/Posts/CollapsedContent.js';
 import { Quote } from '@/components/Posts/Quote.js';
@@ -250,9 +250,7 @@ export const NotificationItem = memo<NotificationItemProps>(function Notificatio
                 if (isProfileMuted(post.author)) return <CollapsedContent authorMuted isQuote={false} />;
                 return (
                     <Link className="mt-1" href={postLink}>
-                        <Markup post={post} className="markup linkify line-clamp-5 break-words text-medium">
-                            {post.metadata.content?.content || ''}
-                        </Markup>
+                        <NotificationPostBody post={post} />
                     </Link>
                 );
             case NotificationType.Quote:
@@ -261,12 +259,7 @@ export const NotificationItem = memo<NotificationItemProps>(function Notificatio
                 }
                 return (
                     <div className="mt-1">
-                        <Markup
-                            post={notification.quote}
-                            className="markup linkify line-clamp-5 break-words text-medium"
-                        >
-                            {notification.quote.metadata.content?.content || ''}
-                        </Markup>
+                        <NotificationPostBody post={notification.quote} />
                         <Quote className="bg-bg" post={notification.post} />
                     </div>
                 );
