@@ -25,7 +25,7 @@
     "dependencies": {
         "@aws-sdk/client-s3": "^3.658.1",
         "@aws-sdk/lib-storage": "^3.658.1",
-        "@dialectlabs/blinks": "^0.12.0",
+        "@dialectlabs/blinks": "^0.9.3",
         "@dimensiondev/holoflows-kit": "0.9.0-20240322092738-f9180f3",
         "@farcaster/core": "^0.15.3",
         "@giphy/js-fetch-api": "^5.6.0",
@@ -212,7 +212,10 @@
             "@openzeppelin/contracts@<4.8.3": ">=4.8.3",
             "i18next": "23.2.11",
             "react-i18next": "13.0.2",
-            "react-use": "17.5.1"
+            "react-use": "17.5.1",
+            "@tanstack/react-query": "5.56.2",
+            "@tanstack/react-query-devtools": "5.58.0",
+            "@tanstack/react-query-next-experimental": "5.56.2"
         },
         "override comments": {
             "i18next-translation-parser": "see https://github.com/i18next/i18next-translation-parser/issues/11 we manually pin the commit"
@@ -245,7 +248,8 @@
             "web3-core@1.10.2": "src/maskbook/patches/web3-core@1.10.2.patch",
             "@headlessui/react@1.7.17": "patches/@headlessui__react@1.7.17.patch",
             "react-use@17.5.1": "src/maskbook/patches/react-use@17.5.1.patch",
-            "@livepeer/core@3.2.7": "patches/@livepeer__core@3.2.7.patch"
+            "@livepeer/core@3.2.7": "patches/@livepeer__core@3.2.7.patch",
+            "dayjs-twitter@0.5.0": "patches/dayjs-twitter@0.5.0.patch"
         }
     }
 }

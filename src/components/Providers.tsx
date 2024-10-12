@@ -18,6 +18,7 @@ import { queryClient } from '@/configs/queryClient.js';
 import { sentryClient } from '@/configs/sentryClient.js';
 import { STATUS } from '@/constants/enum.js';
 import { env } from '@/constants/env.js';
+import { classNames } from '@/helpers/classNames.js';
 import { getLocaleFromCookies } from '@/helpers/getLocaleFromCookies.js';
 import { DarkModeContext } from '@/hooks/useDarkMode.js';
 import { useIsDarkMode } from '@/hooks/useIsDarkMode.js';
@@ -49,6 +50,8 @@ export const Providers = memo(function Providers(props: { children: React.ReactN
     }, [isDarkMode]);
 
     useEffect(() => {
+        const locale = getLocaleFromCookies();
+        console.info('set locale =', locale);
         setLocale(getLocaleFromCookies());
     }, []);
 
@@ -94,6 +97,7 @@ export const Providers = memo(function Providers(props: { children: React.ReactN
                             autoHideDuration={3000}
                             classes={{
                                 containerAnchorOriginTopCenter: isMedium ? undefined : 'px-2',
+                                variantInfo: classNames('!bg-warn'),
                             }}
                         >
                             {/* wagmi depends @tanstack/react-query@4.29.23 */}

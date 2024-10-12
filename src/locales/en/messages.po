@@ -112,9 +112,6 @@ msgstr "Please be cautious when connecting your wallet, as malicious websites ma
 msgid "<0>Fully Diluted Valuation (FDV) = Current Price x Total Supply</0><1>Fully Diluted Valuation (FDV) is the theoretical market capitalization of a coin if the entirety of its supply is in circulation, based on its current market price. The FDV value is theoretical as increasing the circulating supply of a coin may impact its market price. Also depending on the tokenomics, emission schedule or lock-up period of a coin's supply, it may take a significant time before its entire supply is released into circulation.</1>"
 msgstr "<0>Fully Diluted Valuation (FDV) = Current Price x Total Supply</0><1>Fully Diluted Valuation (FDV) is the theoretical market capitalization of a coin if the entirety of its supply is in circulation, based on its current market price. The FDV value is theoretical as increasing the circulating supply of a coin may impact its market price. Also depending on the tokenomics, emission schedule or lock-up period of a coin's supply, it may take a significant time before its entire supply is released into circulation.</1>"
 
-msgid "Up to 7 days can be set as the scheduled time."
-msgstr "Up to 7 days can be set as the scheduled time."
-
 msgid "Followed @{0} on {sourceName}"
 msgstr "Followed @{0} on {sourceName}"
 
@@ -399,6 +396,9 @@ msgstr "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} {1, sele
 
 msgid "Total"
 msgstr "Total"
+
+msgid "Signer key not found. Please approve a new one for us in Warpcast."
+msgstr "Signer key not found. Please approve a new one for us in Warpcast."
 
 msgid "Trading cooldown function."
 msgstr "Trading cooldown function."
@@ -930,6 +930,9 @@ msgstr "Insufficient Gas"
 
 msgid "Blacklist function"
 msgstr "Blacklist function"
+
+msgid "Up to 7 days can be set as the scheduled time. Please reset it"
+msgstr "Up to 7 days can be set as the scheduled time. Please reset it"
 
 msgid "Enable development API version"
 msgstr "Enable development API version"
@@ -2208,9 +2211,6 @@ msgstr "Add another option"
 
 msgid "1y"
 msgstr "1y"
-
-msgid "Cannot find your signer key, please connect again"
-msgstr "Cannot find your signer key, please connect again"
 
 msgid "Malicious mining activities."
 msgstr "Malicious mining activities."

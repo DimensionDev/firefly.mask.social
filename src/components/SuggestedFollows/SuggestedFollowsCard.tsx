@@ -75,7 +75,7 @@ export function SuggestedFollowsCard() {
 
     if (isLoading) {
         return (
-            <div className="-mb-3 flex h-[240px] w-full shrink-0 animate-pulse flex-col gap-1">
+            <div className="flex h-[240px] w-full shrink-0 animate-pulse flex-col gap-1">
                 <div className="h-7 w-full bg-bg" />
                 <div className="w-full flex-1 rounded-xl bg-bg" />
             </div>
@@ -85,8 +85,8 @@ export function SuggestedFollowsCard() {
     if (!suggestedFollows?.length || !isLarge) return null;
 
     return (
-        <section className="-mb-3">
-            <AsideTitle className="flex items-center justify-between !pb-1">
+        <section>
+            <AsideTitle className="flex items-center justify-between">
                 <span className="text-xl">
                     <Trans>You might like</Trans>
                 </span>
