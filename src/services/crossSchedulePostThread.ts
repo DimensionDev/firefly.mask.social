@@ -6,7 +6,7 @@ import { first } from 'lodash-es';
 import type { SocialSourceInURL } from '@/constants/enum.js';
 import { CreateScheduleError, SignlessRequireError } from '@/constants/error.js';
 import { checkScheduleTime } from '@/helpers/checkScheduleTime.js';
-import { enqueueErrorMessage, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
+import { enqueueErrorMessage, enqueueInfoMessage, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { getProfileSessionsAll } from '@/helpers/getProfileState.js';
 import { getScheduleTaskContent } from '@/helpers/getScheduleTaskContent.js';
 import { getSnackbarMessageFromError } from '@/helpers/getSnackbarMessageFromError.js';
@@ -73,9 +73,7 @@ export async function crossPostScheduleThread(scheduleTime: Date, signal?: Abort
         enqueueSuccessMessage(t`Your schedule thread has created successfully.`);
     } catch (error) {
         if (error instanceof CreateScheduleError) {
-            enqueueErrorMessage(error.message, {
-                description: error.description,
-            });
+            enqueueInfoMessage(error.message);
         } else if (error instanceof SignlessRequireError) {
             EnableSignlessModalRef.open();
         } else {
