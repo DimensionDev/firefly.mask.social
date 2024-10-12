@@ -44,7 +44,7 @@ patchedDependencies:
     hash: cc6ztxhxwsg3dyqdzvftqua3dy
     path: src/maskbook/patches/@protobufjs__inquire@1.1.0.patch
   dayjs-twitter@0.5.0:
-    hash: 3qbfl7c6zxtfyhvb6ashi3kkpm
+    hash: 3tjtunpncvdv4s34umzp7pmbr4
     path: patches/dayjs-twitter@0.5.0.patch
   gulp@4.0.2:
     hash: p4ow72ftqhxvnyunk2auogmbge
@@ -230,7 +230,7 @@ importers:
         version: 1.11.13
       dayjs-twitter:
         specifier: ^0.5.0
-        version: 0.5.0(patch_hash=3qbfl7c6zxtfyhvb6ashi3kkpm)
+        version: 0.5.0(patch_hash=3tjtunpncvdv4s34umzp7pmbr4)
       dompurify:
         specifier: ^3.1.7
         version: 3.1.7
@@ -18663,7 +18663,7 @@ packages:
     resolution: {integrity: sha512-fRHTG8g/Gif+kSh50gaGEdToemgfj74aRX3swtiouboip5JDLAyDE9F11nHMIcvOaXeOC6D7SpNhi7uFyB7Uww==}
     dev: true
 
-  /dayjs-twitter@0.5.0(patch_hash=3qbfl7c6zxtfyhvb6ashi3kkpm):
+  /dayjs-twitter@0.5.0(patch_hash=3tjtunpncvdv4s34umzp7pmbr4):
     resolution: {integrity: sha512-SZ7qEUISstBLUXdlGAbLrwr6zfRM9kaCfbq4uVTerM/HXzuHiiGzzUqAJVhxt+3tf69E+ocmQdP6YYpOINv05w==}
     dependencies:
       duration-js: 4.0.0
