@@ -10,8 +10,7 @@ import { Tooltip } from '@/components/Tooltip.js';
 import { Source, STATUS } from '@/constants/enum.js';
 import { env } from '@/constants/env.js';
 import { classNames } from '@/helpers/classNames.js';
-import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
-import { getSnackbarMessageFromError } from '@/helpers/getSnackbarMessageFromError.js';
+import { enqueueInfoMessage } from '@/helpers/enqueueMessage.js';
 import { isSameFireflyIdentity } from '@/helpers/isSameFireflyIdentity.js';
 import { useCurrentFireflyProfilesAll } from '@/hooks/useCurrentFireflyProfiles.js';
 import { TipsModalRef } from '@/modals/controls.js';
@@ -52,12 +51,7 @@ export const Tips = memo(function Tips({
             TipsModalRef.open({ identity, handle, pureWallet, profiles: relatedProfiles, post });
             onClick?.();
         } catch (error) {
-            enqueueErrorMessage(
-                getSnackbarMessageFromError(
-                    error,
-                    t`Sorry, we are not able to find a wallet for ${handle ? '@' + handle : identity.id}.`,
-                ),
-            );
+            enqueueInfoMessage(t`Sorry, we are not able to find a wallet for ${handle ? '@' + handle : identity.id}.`);
             throw error;
         }
     }, [identity, handle, pureWallet, onClick]);

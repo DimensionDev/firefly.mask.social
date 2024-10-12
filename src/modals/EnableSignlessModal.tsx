@@ -7,7 +7,7 @@ import { useAccount } from 'wagmi';
 import { ChainGuardButton } from '@/components/ChainGuardButton.js';
 import { CloseButton } from '@/components/CloseButton.js';
 import { Modal } from '@/components/Modal.js';
-import { enqueueErrorMessage, enqueueErrorsMessage } from '@/helpers/enqueueMessage.js';
+import { enqueueErrorsMessage, enqueueInfoMessage } from '@/helpers/enqueueMessage.js';
 import { getSnackbarMessageFromError } from '@/helpers/getSnackbarMessageFromError.js';
 import { isSameEthereumAddress } from '@/helpers/isSameAddress.js';
 import { useSingletonModal } from '@/hooks/useSingletonModal.js';
@@ -28,9 +28,16 @@ export const EnableSignlessModal = forwardRef<SingletonModalRefCreator<void, boo
             try {
                 if (!currentProfileSession) return;
                 if (!isSameEthereumAddress(currentProfile?.ownedBy?.address, account.address)) {
-                    enqueueErrorMessage(t`Wrong wallet`, {
-                        description: t`Please switch to the wallet consistent with this action`,
-                    });
+                    enqueueInfoMessage(
+                        <div className="w-full text-sm">
+                            <div className="break-word font-bold text-white">
+                                <Trans>Wrong wallet</Trans>
+                            </div>
+                            <div className="whitespace-pre-wrap text-sm text-white">
+                                <Trans>Please switch to the wallet consistent with this action</Trans>
+                            </div>
+                        </div>,
+                    );
                     return;
                 }
 

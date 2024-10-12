@@ -12,7 +12,7 @@ import { TimePicker } from '@/components/TimePicker.js';
 import { queryClient } from '@/configs/queryClient.js';
 import { CreateScheduleError } from '@/constants/error.js';
 import { checkScheduleTime } from '@/helpers/checkScheduleTime.js';
-import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
+import { enqueueErrorMessage, enqueueInfoMessage } from '@/helpers/enqueueMessage.js';
 import { getSnackbarMessageFromError } from '@/helpers/getSnackbarMessageFromError.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
 import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
@@ -55,7 +55,7 @@ export const SchedulePostSettings = memo<SchedulePostSettingsProps>(function Sch
             onClose();
         } catch (error) {
             if (error instanceof CreateScheduleError) {
-                enqueueErrorMessage(error.message);
+                enqueueInfoMessage(error.message);
             } else {
                 enqueueErrorMessage(getSnackbarMessageFromError(error, t`Failed to set schedule time.`), {
                     error,

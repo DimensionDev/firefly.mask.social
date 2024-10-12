@@ -117,9 +117,6 @@ msgstr "連結錢包時請保持警惕，惡意網站可能會試圖存取您的
 msgid "<0>Fully Diluted Valuation (FDV) = Current Price x Total Supply</0><1>Fully Diluted Valuation (FDV) is the theoretical market capitalization of a coin if the entirety of its supply is in circulation, based on its current market price. The FDV value is theoretical as increasing the circulating supply of a coin may impact its market price. Also depending on the tokenomics, emission schedule or lock-up period of a coin's supply, it may take a significant time before its entire supply is released into circulation.</1>"
 msgstr ""
 
-msgid "Up to 7 days can be set as the scheduled time."
-msgstr ""
-
 msgid "Followed @{0} on {sourceName}"
 msgstr "在{sourceName} 上已關注 @{0}"
 
@@ -938,6 +935,9 @@ msgstr "Gas不足"
 
 msgid "Blacklist function"
 msgstr "黑名單功能"
+
+msgid "Up to 7 days can be set as the scheduled time. Please reset it"
+msgstr ""
 
 msgid "Enable development API version"
 msgstr "開啟開發API版本"
