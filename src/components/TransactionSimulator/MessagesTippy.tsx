@@ -98,7 +98,7 @@ export function MessagesTippy({ messages, ...rest }: PropsWithChildren<MessagesT
             className="tippy-card"
             placement="top-start"
             delay={100}
-            content={<MessagesContent style={{ width }} messages={messages} />}
+            content={<MessagesContent style={{ width: width === Infinity ? 'auto' : width }} messages={messages} />}
         >
             {reference}
         </InteractiveTippy>

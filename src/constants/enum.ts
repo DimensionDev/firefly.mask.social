@@ -291,7 +291,7 @@ export enum SimulateStatus {
 }
 
 export enum SimulateType {
-    Pay = 'pay',
+    Swap = 'swap',
     Send = 'send',
     Approve = 'approve',
     Receive = 'receive',

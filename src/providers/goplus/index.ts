@@ -4,10 +4,16 @@ import urlcat from 'urlcat';
 import { GO_PLUS_LABS_ROOT_URL } from '@/constants/index.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
 import { createSecurityResult } from '@/providers/goplus/createSecurityResult.js';
-import { AddressSecurityMessages, SiteSecurityMessages, TokenSecurityMessages } from '@/providers/goplus/rules.js';
+import {
+    AddressSecurityMessages,
+    NFTSecurityMessages,
+    SiteSecurityMessages,
+    TokenSecurityMessages,
+} from '@/providers/goplus/rules.js';
 import {
     type AddressSecurity,
     type GoPlusResponse,
+    type NFTSecurity,
     type SiteSecurity,
     type TokenContractSecurity,
 } from '@/providers/types/Security.js';
@@ -50,5 +56,18 @@ export class GoPlus {
 
         const security = { ...res.result, siteUrl };
         return createSecurityResult(security, SiteSecurityMessages);
+    }
+    static async getNFTSecurity(chainId: number, address: string, tokenId?: string) {
+        const url = urlcat(GO_PLUS_LABS_ROOT_URL, 'api/v1/nft_security/:chainId', {
+            chainId,
+            contract_addresses: address.toLowerCase(),
+            token_id: tokenId,
+        });
+
+        const res = await fetchJSON<GoPlusResponse<NFTSecurity>>(url);
+        if (isEmpty(res.result)) return;
+
+        const security = { ...res.result, address, chainId, tokenId };
+        return createSecurityResult(security, NFTSecurityMessages);
     }
 }

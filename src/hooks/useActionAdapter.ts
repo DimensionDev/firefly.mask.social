@@ -9,6 +9,7 @@ import { useCallback, useMemo } from 'react';
 import { type Hex, isHex, parseTransaction } from 'viem';
 import { useAccount, useSendTransaction } from 'wagmi';
 
+import { simulate } from '@/components/TransactionSimulator/simulate.js';
 import { chains } from '@/configs/wagmiClient.js';
 import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
 import { getSnackbarMessageFromError } from '@/helpers/getSnackbarMessageFromError.js';
@@ -29,7 +30,7 @@ class ActionConfig extends RawActionConfig {
     }
 }
 
-export function useActionAdapter() {
+export function useActionAdapter(url?: string) {
     const { connection } = useConnection();
     const wallet = useWallet();
     const walletModal = useWalletModal();
@@ -47,6 +48,11 @@ export function useActionAdapter() {
                 if (chainId && chainId !== EthereumNetwork.getChainId()) {
                     await switchEthereumChain(chainId as ChainId);
                 }
+                await simulate({
+                    url,
+                    chainId: chainId || EthereumNetwork.getChainId(),
+                    transaction: parsedTransaction,
+                });
                 const txHash = await sendTransactionAsync(pick(parsedTransaction, 'data', 'to', 'value', 'type'));
                 return {
                     signature: JSON.stringify({ txHash, chainId }),
@@ -56,7 +62,7 @@ export function useActionAdapter() {
                 return { error: t`Signing failed.` };
             }
         },
-        [evmAccount?.address, sendTransactionAsync],
+        [evmAccount?.address, url, sendTransactionAsync],
     );
 
     const signSolanaTransaction = useCallback(

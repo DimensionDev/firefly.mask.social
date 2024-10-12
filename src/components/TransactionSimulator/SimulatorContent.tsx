@@ -1,22 +1,49 @@
 import { Trans } from '@lingui/macro';
-import { useAsync } from 'react-use';
+import { useQuery } from '@tanstack/react-query';
+import { useAccount } from 'wagmi';
 
 import { CloseButton } from '@/components/CloseButton.js';
+import { ContinueButton } from '@/components/TransactionSimulator/ContinueButton.js';
 import { DataPanel } from '@/components/TransactionSimulator/DataPanel.js';
 import { simulateAndCheckSecurity } from '@/components/TransactionSimulator/simulateAndCheckSecurity.js';
 import { SimulatorStatusBar } from '@/components/TransactionSimulator/SimulatorStatusBar.js';
-import { SimulateStatus } from '@/constants/enum.js';
+import { SimulateStatus, SimulateType } from '@/constants/enum.js';
 import type { SimulationOptions } from '@/providers/types/Tenderly.js';
 
 interface TransactionSimulatorProps {
     options: SimulationOptions;
     showCloseButton?: boolean;
-    onClose: () => void;
+    onClose?: () => void;
+    onContinue?: () => void;
 }
-export function TransactionSimulator({ options, showCloseButton = true, onClose }: TransactionSimulatorProps) {
-    const { value, loading } = useAsync(async () => {
-        return await simulateAndCheckSecurity(options);
-    }, [options]);
+export function TransactionSimulator({
+    options,
+    showCloseButton = true,
+    onContinue,
+    onClose,
+}: TransactionSimulatorProps) {
+    const account = useAccount();
+    const isUnConnected = !account.isConnected || !account.address;
+
+    const { data, isLoading, isRefetching, refetch } = useQuery({
+        queryKey: [
+            'transaction-simulator',
+            options.chainId,
+            options.type,
+            options.url,
+            options.transaction?.to,
+            options.transaction?.data,
+            options.transaction?.value?.toString(),
+        ],
+        queryFn: async () => {
+            return await simulateAndCheckSecurity(options);
+        },
+        staleTime: 1000 * 60 * 2,
+        enabled: !isUnConnected,
+    });
+
+    const loading = isLoading || isRefetching;
+    const simulateType = options.type || data?.simulation?.method;
 
     return (
         <div className="w-full">
@@ -25,16 +52,43 @@ export function TransactionSimulator({ options, showCloseButton = true, onClose 
                     <Trans>Transaction Simulation</Trans>
                 </span>
                 {showCloseButton ? (
-                    <CloseButton onClick={() => onClose?.()} className="absolute -top-1 right-0" />
+                    <CloseButton onClick={() => onClose?.()} className="absolute -top-1 left-0" />
                 ) : null}
             </div>
             <div className="mt-6">
-                <DataPanel />
+                {loading && !simulateType ? (
+                    <div className="flex animate-pulse flex-col gap-3.5">
+                        <div className="flex w-full justify-between">
+                            <span className="h-6 w-1/3 bg-third" />
+                            <span className="h-6 w-1/6 bg-third" />
+                        </div>
+                        <div className="flex w-full justify-between">
+                            <span className="h-6 w-1/3 bg-third" />
+                            <span className="h-6 w-1/6 bg-third" />
+                        </div>
+                        <div className="flex w-full justify-between">
+                            <span className="h-6 w-1/3 bg-third" />
+                            <span className="h-6 w-1/6 bg-third" />
+                        </div>
+                    </div>
+                ) : (
+                    <DataPanel
+                        type={simulateType || SimulateType.Unknown}
+                        loading={loading}
+                        data={options}
+                        simulation={data?.simulation}
+                    />
+                )}
                 {loading ? (
                     <SimulatorStatusBar status={SimulateStatus.Pending} />
-                ) : value ? (
-                    <SimulatorStatusBar status={value.status} messages={value.messages} />
+                ) : data ? (
+                    <SimulatorStatusBar status={data.status} messages={data.messages} retry={refetch} />
                 ) : null}
+                <ContinueButton
+                    onClick={onContinue}
+                    disabled={loading || data?.status === SimulateStatus.Error}
+                    status={data?.status ?? SimulateStatus.Pending}
+                />
             </div>
         </div>
     );
