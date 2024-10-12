@@ -24,6 +24,7 @@ export function ProfileCell({ profile, source, className, ...rest }: Props) {
         <Link
             href={resolveProfileUrl(source, source === Source.Lens ? profile.handle : profile.profileId)}
             className={classNames('flex w-full px-4 py-2 hover:bg-bg', className)}
+            data-disable-nprogress
             {...rest}
         >
             <div className="flex w-full items-center">
