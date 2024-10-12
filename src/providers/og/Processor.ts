@@ -2,18 +2,18 @@ import sizeOf from 'image-size';
 import { parseHTML } from 'linkedom';
 import urlcat from 'urlcat';
 
-import { type SocialSourceInURL, SourceInURL } from '@/constants/enum.js';
+import { SourceInURL } from '@/constants/enum.js';
 import {
     LENS_DETAIL_REGEX,
-    MASK_SOCIAL_DETAIL_REGEX,
-    MASK_SOCIAL_POST_PATH_REGEX,
     MIRROR_HOSTNAME_REGEXP,
     TWEET_REGEX,
     TWEET_WEB_REGEX,
     WARPCAST_CONVERSATIONS_REGEX,
     WARPCAST_THREAD_REGEX,
 } from '@/constants/regexp.js';
+import { parsePostUrl } from '@/helpers/parsePostUrl.js';
 import { parseUrl } from '@/helpers/parseUrl.js';
+import { resolveSocialSourceInUrl } from '@/helpers/resolveSourceInUrl.js';
 import { getPostIFrame } from '@/providers/og/readers/iframe.js';
 import {
     getDescription,
@@ -154,20 +154,15 @@ class Processor {
                 },
             };
         }
-        if (MASK_SOCIAL_DETAIL_REGEX.test(documentUrl)) {
-            const match = documentUrl.match(MASK_SOCIAL_POST_PATH_REGEX);
-            const id = match ? match[1] : null;
 
-            const url = new URL(documentUrl);
-            const source = url.searchParams.get('source');
-
-            if (!id || !source) return { og };
+        const parsedPostUrl = parsePostUrl(documentUrl);
+        if (parsedPostUrl) {
             return {
                 og,
                 payload: {
                     type: PayloadType.Post,
-                    id,
-                    source: source as SocialSourceInURL,
+                    id: parsedPostUrl.id,
+                    source: resolveSocialSourceInUrl(parsedPostUrl.source),
                 },
             };
         }
