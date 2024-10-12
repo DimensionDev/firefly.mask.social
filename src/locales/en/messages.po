@@ -346,6 +346,9 @@ msgstr "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} {1, sele
 msgid "Total"
 msgstr "Total"
 
+msgid "Signer key not found. Please approve a new one for us in Warpcast."
+msgstr "Signer key not found. Please approve a new one for us in Warpcast."
+
 msgid "<0>{0}</0><1>mirrored</1>"
 msgstr "<0>{0}</0><1>mirrored</1>"
 
@@ -1983,9 +1986,6 @@ msgstr "Add another option"
 
 msgid "1y"
 msgstr "1y"
-
-msgid "Cannot find your signer key, please connect again"
-msgstr "Cannot find your signer key, please connect again"
 
 msgid "No codes found to suspend trading."
 msgstr "No codes found to suspend trading."
