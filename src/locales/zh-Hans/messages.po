@@ -84,8 +84,14 @@ msgstr "翻译失败。请稍后重试。"
 msgid "Failed to fetch as Blob."
 msgstr "获取 Blob 失败。"
 
+msgid "Metadata not frozen."
+msgstr ""
+
 msgid "Unmute successfully."
 msgstr "取消隐藏成功。"
+
+msgid "Simulating"
+msgstr ""
 
 msgid "Your frame URL"
 msgstr "您 Frame 的 URL"
@@ -228,6 +234,9 @@ msgstr "{0} 合格！"
 msgid "Airdrop Scam"
 msgstr "空投骗局"
 
+msgid "Metadata frozen."
+msgstr ""
+
 msgid "Overwrite"
 msgstr "覆盖"
 
@@ -297,6 +306,9 @@ msgstr "投票"
 msgid "Scheduled"
 msgstr "已定时"
 
+msgid "Pay"
+msgstr ""
+
 msgid "Failed to add wallet"
 msgstr "添加钱包失败"
 
@@ -326,6 +338,9 @@ msgstr "检查资格中..."
 
 msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} <4>liked your </4><5>{1, select, Post {post} Comment {comment} Quote {quote} Mirror {mirror} other {post}}</5>"
 msgstr "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} <4>点赞了你的 </4><5>{1, select, Post {帖子} Comment {评论} Quote {引用} Mirror {转帖} other {帖子}}</5>"
+
+msgid "Our transaction simulation and security detection found no issues. However, it is always crucial to double-check and proceed with caution."
+msgstr ""
 
 msgid "Market Cap"
 msgstr "市值"
@@ -396,6 +411,9 @@ msgstr "重试"
 msgid "Show less"
 msgstr "收起"
 
+msgid "Proxy contract."
+msgstr ""
+
 msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} {1, select, Lens {mirrored your} Farcaster {recasted your} other {mirrored your}} <4>{2, select, Post {post} Comment {comment} Quote {quote} Mirror {mirror} other {post}}</4>"
 msgstr "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} {1, select, Lens {转帖了你的} Farcaster {转帖了你的} other {转帖了你的}} <4>{2, select, Post {帖子} Comment {评论} Quote {引用} Mirror {转帖} other {帖子}}</4>"
 
@@ -440,6 +458,9 @@ msgstr "此作者已被隐藏。"
 
 msgid "Failed to report @{0}"
 msgstr "举报 @{0} 失败"
+
+msgid "Restricted approval."
+msgstr ""
 
 msgid "Report submitted"
 msgstr "举报已经提交"
@@ -534,6 +555,9 @@ msgstr "已连接的账户"
 msgid "Functions with retrievable ownership"
 msgstr "具有可检索所有权的功能"
 
+msgid "No proxy contract."
+msgstr ""
+
 msgid "Search"
 msgstr "搜索"
 
@@ -551,6 +575,9 @@ msgstr ""
 
 msgid "Each wallet or X account is limited to one claim."
 msgstr "每个钱包或 X 账号限领一次。"
+
+msgid "Unsafe: Transaction is at risk"
+msgstr ""
 
 msgid "Calendar"
 msgstr "日历"
@@ -783,6 +810,9 @@ msgstr "关注 {handleOrEnsOrAddress} 失败。"
 msgid "Update"
 msgstr "更新"
 
+msgid "Domain"
+msgstr ""
+
 msgid "Failed to follow @{0} on Lens"
 msgstr "在 Lens 上关注 @{0} 失败"
 
@@ -825,8 +855,14 @@ msgstr "发送打赏给 {0}"
 msgid "The number of token transactions is limited. The number of scam token transactions may be limited (honeypot risk)."
 msgstr "通证的交易次数是有限的。可疑通证的交易次数可能会被限制（欺诈风险）。"
 
+msgid "No phishing site found."
+msgstr ""
+
 msgid "Log out"
 msgstr "登出"
+
+msgid "No restricted approval."
+msgstr ""
 
 msgid "Unmuting..."
 msgstr "取消隐藏中..."
@@ -839,6 +875,9 @@ msgstr "登录到 Firefly"
 
 msgid "Top Channels"
 msgstr "热门频道"
+
+msgid "Canceled"
+msgstr ""
 
 msgid "No content for the last two weeks."
 msgstr "最近两周没有内容。"
@@ -960,6 +999,9 @@ msgstr "<0>出售了</0> 一个 NFT 价值 {costEl}"
 msgid "🎉"
 msgstr "🎉"
 
+msgid "The user canceled the operation."
+msgstr ""
+
 msgid "Owned By"
 msgstr "属于"
 
@@ -986,6 +1028,9 @@ msgstr "<0>你</0> 已转发"
 
 msgid "Failed to create image payload."
 msgstr "创建图片内容失败"
+
+msgid "Network Fee"
+msgstr ""
 
 msgid "Contract address found."
 msgstr ""
@@ -1239,6 +1284,9 @@ msgstr "取消隐藏失败/{0}。"
 msgid "Please confirm the login with Warpcast."
 msgstr "请确认使用 Warpcast 登录。"
 
+msgid "Verified"
+msgstr ""
+
 msgid "Log in with recovery phrase"
 msgstr "使用助记词登录"
 
@@ -1302,6 +1350,9 @@ msgstr "全部清除"
 msgid "There are videos that were not uploaded successfully."
 msgstr "视频上传失败。"
 
+msgid "NFT contract cant restrict the approval, resulting in NFT can not be traded on the NFT DEX."
+msgstr ""
+
 msgid "This can’t be undone, and the scheduled send will be canceled."
 msgstr "操作无法回滚，并且定时任务将会被取消。"
 
@@ -1319,6 +1370,9 @@ msgstr "回关"
 
 msgid "Are you sure you want to report this article?"
 msgstr "您确定要举报这篇文章吗？"
+
+msgid "NFT owner cant bypass the maximum amount of minting specified in the contract, and continue to mint NFTs beyond this limit."
+msgstr ""
 
 msgid "Failed to upvote post."
 msgstr "无法对帖子进行投票。"
@@ -1452,6 +1506,9 @@ msgstr "<0>市值</0><1>{0}</1><2>排名 #{1}</2>"
 msgid "Invalid signer key"
 msgstr "无效的 singer key"
 
+msgid "Unverified"
+msgstr ""
+
 msgid "Follow for {feeAmount} ${feeSymbol}"
 msgstr "关注需付出 {feeAmount} ${feeSymbol}"
 
@@ -1509,6 +1566,9 @@ msgstr "请输入 URL 重新验证。"
 msgid "Select Token"
 msgstr "选择代币"
 
+msgid "This NFT contract doesn't have a proxy contract."
+msgstr ""
+
 msgid "Your schedule thread has created successfully."
 msgstr "你设定的定时 thread 已经成功。"
 
@@ -1541,6 +1601,9 @@ msgstr "此操作无法撤销，您将丢失您的草稿。"
 
 msgid "Article removed from your Bookmarks"
 msgstr "文章已经从您的收藏中移除"
+
+msgid "Powered by Tenderly and GoPlus"
+msgstr ""
 
 msgid "Publications"
 msgstr "帖子"
@@ -1611,11 +1674,17 @@ msgstr "动图"
 msgid "%Of supply owned"
 msgstr "% 总的拥有人"
 
+msgid "Approve"
+msgstr ""
+
 msgid "Signing failed."
 msgstr "签名失败。"
 
 msgid "Share"
 msgstr "分享"
+
+msgid "Transaction Simulation"
+msgstr ""
 
 msgid "Scan the QR code with the <0>Firefly mobile app</0> or <1>Camera app</1> to log in instantly."
 msgstr "使用 <0>Firefly 移动应用</0> 或 <1>相机应用</1> 扫描二维码即可即时登录。"
@@ -1628,6 +1697,9 @@ msgstr "成功取消转发"
 
 msgid "Failed to create schedule thread posts."
 msgstr "创建定时 thread 失败。"
+
+msgid "This NFT contract has a proxy contract."
+msgstr ""
 
 msgid "Top Collectors"
 msgstr "热门收藏者"
@@ -1692,6 +1764,9 @@ msgstr "您网站的 URL"
 msgid "No comments found"
 msgstr "未发现评论"
 
+msgid "We were unable to simulate the transaction or complete all security detection. Please proceed with caution."
+msgstr ""
+
 msgid "Unfollow @{0}"
 msgstr "取消关注 @{0}"
 
@@ -1706,6 +1781,9 @@ msgstr "上传到 S3"
 
 msgid "{shares, plural, one {Recast or Quote} other {Recasts or Quotes}}"
 msgstr "{shares, plural, one {转帖或引用} other {转帖或引用}}"
+
+msgid "Website is a phishing site."
+msgstr ""
 
 msgid "Please input the serialized session to be validated."
 msgstr "请输入要验证的序列化会话。"
@@ -1757,6 +1835,9 @@ msgstr "在 {0} 上提交报告失败。"
 
 msgid "Insufficient funds"
 msgstr "金额不足"
+
+msgid "No phishing site."
+msgstr ""
 
 msgid "Connect your wallet to follow"
 msgstr "连接钱包并关注"
@@ -1998,6 +2079,9 @@ msgstr ""
 msgid "The contract owner has no restrictions on selling."
 msgstr ""
 
+msgid "No oversupply minting."
+msgstr ""
+
 msgid "No money laundering found."
 msgstr ""
 
@@ -2027,6 +2111,9 @@ msgstr "查看交易详情"
 
 msgid "<0>You</0> reposted"
 msgstr "<0>你</0> 已转帖"
+
+msgid "NFT owner can bypass the maximum amount of minting specified in the contract, and continue to mint NFTs beyond this limit."
+msgstr ""
 
 msgid "The contract may contain additional issuance functions, which could maybe generate a large number of tokens, resulting in significant fluctuations in token prices. It is recommended to confirm with the project team whether it complies with the token issuance instructions."
 msgstr "合约可能含有额外的发行功能，这可能会产生大量的通证，导致通证价格的重大波动。建议向项目组确认它是否遵守通证发行准则。"
@@ -2114,6 +2201,9 @@ msgstr "签署交易以验证你是所选账号的所有者。"
 
 msgid "Refresh"
 msgstr "刷新"
+
+msgid "Receive"
+msgstr ""
 
 msgid "Followed by {0} , {1}, and {2}"
 msgstr "被 {0} 和 {1} 和 {2} 关注"
@@ -2298,6 +2388,9 @@ msgstr "{minutes} 分钟剩余"
 msgid "Your X account holds Premium status."
 msgstr "你的 X 账号拥有 Premium。"
 
+msgid "Signature Request"
+msgstr ""
+
 msgid "Total Supply"
 msgstr "总供应量"
 
@@ -2388,11 +2481,17 @@ msgstr "没有适合的代币"
 msgid "Firefly Bridge"
 msgstr "Firefly 桥"
 
+msgid "Oversupply minting."
+msgstr ""
+
 msgid "Invalid URL"
 msgstr "无效的 URL"
 
 msgid "View on explorer"
 msgstr "在区块链浏览器查看"
+
+msgid "Unverified: Failed to simulate,"
+msgstr ""
 
 msgid "Already logged in?<0/>Approve the <1>existing Farcaster signer</1> to Firefly or <2>sync</2> through the app"
 msgstr "已经登录？<0/>授权 <1>已经存在的 Farcaster signer</1> 给 Firefly 或者通过应用程序<2>同步</2>"
@@ -2432,6 +2531,9 @@ msgstr "定时任务的时间已过期。"
 
 msgid "The connection has timed out. Please try again later."
 msgstr "连接已经超时。请稍后重试。"
+
+msgid "Phishing site."
+msgstr ""
 
 msgid "Emoji"
 msgstr "表情符号"
@@ -2496,6 +2598,9 @@ msgstr "优质资格条件"
 msgid "Failed to parse transaction."
 msgstr "未能解析交易。"
 
+msgid "The metadata of this NFT is stored in IPFS, AR, generated by contract, or another decentralized way."
+msgstr ""
+
 msgid "No anti_whale(Unlimited number of transactions)"
 msgstr "没有反鲸鱼（无限的交易次数）"
 
@@ -2538,6 +2643,9 @@ msgstr "已关注地址列表"
 msgid "FREE"
 msgstr "免费"
 
+msgid "Ignore the warnings to continue"
+msgstr ""
+
 msgid "The contract owner has restrictions on trading cooldown."
 msgstr ""
 
@@ -2558,6 +2666,9 @@ msgstr "最大供应量"
 
 msgid "Posted by {0} via Firefly"
 msgstr "由 {0} 使用 Firefly 发送"
+
+msgid "NFT contract can restrict the approval, resulting in NFT can not be traded on the NFT DEX."
+msgstr ""
 
 msgid "<0>You</0> recasted"
 msgstr "<0>你</0> 已转帖"
@@ -2613,11 +2724,20 @@ msgstr "铸造功能"
 msgid "Clear"
 msgstr "清空"
 
+msgid "Continue"
+msgstr ""
+
+msgid "try again"
+msgstr ""
+
 msgid "Cybercrime."
 msgstr ""
 
 msgid "<0>Sent</0> an NFT to <1>{0}</1>"
 msgstr "<0>发送</0> 一个 NFT 至 <1>{0}</1>"
+
+msgid "The metadata of this NFT is not stored in IPFS, AR, generated by contract, or another decentralized way."
+msgstr ""
 
 msgid "No trading cooldown function."
 msgstr ""
@@ -2633,6 +2753,9 @@ msgstr "已领取"
 
 msgid "Text"
 msgstr "文本"
+
+msgid "Chain"
+msgstr ""
 
 msgid "Mirror"
 msgstr "转发"
