@@ -108,7 +108,7 @@ class Paragraph implements Provider {
         const value = price + article.fee;
 
         if (article.contractAddress) {
-            return client.estimateContractGas({
+            return await client.estimateContractGas({
                 address: article.contractAddress as `0x${string}`,
                 abi: ParagraphABI,
                 functionName: 'mintWithReferrer',
@@ -121,7 +121,7 @@ class Paragraph implements Provider {
         if (!address) throw new Error(`Unsupported network: ${article.chainId}`);
 
         try {
-            return client.estimateContractGas({
+            return await client.estimateContractGas({
                 address: address as `0x${string}`,
                 abi: ParagraphMintABI,
                 functionName: 'createAndMint',
@@ -149,7 +149,7 @@ class Paragraph implements Provider {
              *
              */
             if (error instanceof Error && error.message.includes('nft already exists')) {
-                return client.estimateContractGas({
+                return await client.estimateContractGas({
                     address: address as `0x${string}`,
                     abi: ParagraphMintABI,
                     functionName: 'createAndMint',
@@ -196,7 +196,7 @@ class Paragraph implements Provider {
                 value,
             });
 
-            return waitForTransactionReceipt(config, { hash });
+            return await waitForTransactionReceipt(config, { hash });
         }
 
         try {
@@ -222,7 +222,7 @@ class Paragraph implements Provider {
                 value,
             });
 
-            return waitForTransactionReceipt(config, { hash });
+            return await waitForTransactionReceipt(config, { hash });
         } catch (error) {
             if (error instanceof Error && error.message.includes('nft already exists')) {
                 const hash = await writeContract(config, {
@@ -247,7 +247,7 @@ class Paragraph implements Provider {
                     value,
                 });
 
-                return waitForTransactionReceipt(config, { hash });
+                return await waitForTransactionReceipt(config, { hash });
             }
             throw error;
         }
