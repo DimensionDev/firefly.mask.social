@@ -4,7 +4,7 @@ import { z } from 'zod';
 import { TWITTER_TIMELINE_OPTIONS } from '@/constants/index.js';
 import { compose } from '@/helpers/compose.js';
 import { createSuccessResponseJSON } from '@/helpers/createResponseJSON.js';
-import { createTwitterClientV2 } from '@/helpers/createTwitterClientV2.js';
+import { createAppOnlyTwitterClientV2 } from '@/helpers/createTwitterClientV2.js';
 import { getSearchParamsFromRequestWithZodObject } from '@/helpers/getSearchParamsFromRequestWithZodObject.js';
 import { withRequestErrorHandler } from '@/helpers/withRequestErrorHandler.js';
 import { withTwitterRequestErrorHandler } from '@/helpers/withTwitterRequestErrorHandler.js';
@@ -38,7 +38,7 @@ export const GET = compose<(request: NextRequest, context?: NextRequestContext) 
     async (request) => {
         const queryParams = getSearchParamsFromRequestWithZodObject(request, SearchPageable);
 
-        const client = await createTwitterClientV2(request);
+        const client = await createAppOnlyTwitterClientV2(request);
         const { data, errors } = await client.v2.searchAll(removeUnknownOperator(queryParams.query), {
             ...TWITTER_TIMELINE_OPTIONS,
             next_token: queryParams.cursor ? queryParams.cursor : undefined,
