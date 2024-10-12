@@ -49,6 +49,8 @@ export const Providers = memo(function Providers(props: { children: React.ReactN
     }, [isDarkMode]);
 
     useEffect(() => {
+        const locale = getLocaleFromCookies();
+        console.info('set locale =', locale);
         setLocale(getLocaleFromCookies());
     }, []);
 
