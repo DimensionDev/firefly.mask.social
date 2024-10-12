@@ -30,18 +30,18 @@ async function getNetworkFee(chainId: number, gasUsed: number) {
         const debankChain = Object.keys(DEBANK_CHAIN_TO_CHAIN_ID_MAP).find((chain) => {
             return DEBANK_CHAIN_TO_CHAIN_ID_MAP[chain] === chainId;
         });
-        if (!debankChain || !nativeCurrency) return undefined;
+        if (!debankChain || !nativeCurrency) return;
 
         const prices = await Debank.getGasPrice(debankChain);
         const normalPrice = prices.find((price) => price.level === 'normal')?.price || prices[0].price;
-        if (!normalPrice) return undefined;
+        if (!normalPrice) return;
 
         return {
             value: formatUnits(BigInt(multiply(normalPrice, gasUsed)), nativeCurrency.decimals),
             symbol: nativeCurrency.symbol,
         };
     } catch {
-        return undefined;
+        return;
     }
 }
 
