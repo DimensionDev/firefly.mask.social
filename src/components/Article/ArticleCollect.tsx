@@ -46,41 +46,48 @@ export function ArticleCollect(props: ArticleCollectProps) {
                     hasSufficientBalance: false,
                 };
 
-            const isEIP1559 = EVMChainResolver.isFeatureSupported(data.chainId, 'EIP1559');
-            const { gasPrice, maxFeePerGas } = await estimateFeesPerGas(config, {
-                chainId: data.chainId,
-                type: isEIP1559 ? 'eip1559' : 'legacy',
-            });
+            try {
+                const isEIP1559 = EVMChainResolver.isFeatureSupported(data.chainId, 'EIP1559');
+                const { gasPrice, maxFeePerGas } = await estimateFeesPerGas(config, {
+                    chainId: data.chainId,
+                    type: isEIP1559 ? 'eip1559' : 'legacy',
+                });
 
-            const gasLimit = await provider.estimateCollectGas(data);
+                const gasLimit = await provider.estimateCollectGas(data);
 
-            const balance = await getBalance(config, {
-                address: account.address,
-                chainId: data.chainId,
-            });
+                const balance = await getBalance(config, {
+                    address: account.address,
+                    chainId: data.chainId,
+                });
 
-            const gasFee = isEIP1559
-                ? !maxFeePerGas
-                    ? ZERO
-                    : multipliedBy(maxFeePerGas.toString(), gasLimit.toString())
-                : !gasPrice
-                  ? ZERO
-                  : multipliedBy(gasPrice.toString(), gasLimit.toString());
+                const gasFee = isEIP1559
+                    ? !maxFeePerGas
+                        ? ZERO
+                        : multipliedBy(maxFeePerGas.toString(), gasLimit.toString())
+                    : !gasPrice
+                      ? ZERO
+                      : multipliedBy(gasPrice.toString(), gasLimit.toString());
 
-            const price = data.price ? BigInt(rightShift(data.price, 18).toString()) : 0n;
+                const price = data.price ? BigInt(rightShift(data.price, 18).toString()) : 0n;
 
-            const total = price + data.fee + BigInt(gasFee.toString());
+                const total = price + data.fee + BigInt(gasFee.toString());
 
-            if (total > balance.value) {
+                if (total > balance.value) {
+                    return {
+                        data,
+                        hasSufficientBalance: false,
+                    };
+                }
+                return {
+                    data,
+                    hasSufficientBalance: true,
+                };
+            } catch {
                 return {
                     data,
                     hasSufficientBalance: false,
                 };
             }
-            return {
-                data,
-                hasSufficientBalance: true,
-            };
         },
     });
 
