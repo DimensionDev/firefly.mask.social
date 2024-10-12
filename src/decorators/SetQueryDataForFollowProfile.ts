@@ -80,24 +80,27 @@ function setFollowStatus(source: Source, profileId: string, status: boolean) {
             }
         }
     }
-    queryClient.setQueryData<{ pages: Array<{ data: Notification[] }> }>(['notifications', source, true], (old) => {
-        if (!old?.pages) return old;
-        return produce(old, (draft) => {
-            for (const page of draft.pages) {
-                for (const notification of page.data) {
-                    if ('reactors' in notification) {
-                        matchProfile(notification.reactors, profileId);
-                    } else if ('mirrors' in notification) {
-                        matchProfile(notification.mirrors, profileId);
-                    } else if ('followers' in notification) {
-                        matchProfile(notification.followers, profileId);
-                    } else if ('actions' in notification) {
-                        matchProfile(notification.actions, profileId);
+    queryClient.setQueriesData<{ pages: Array<{ data: Notification[] }> }>(
+        { queryKey: ['notifications', source, true] },
+        (old) => {
+            if (!old?.pages) return old;
+            return produce(old, (draft) => {
+                for (const page of draft.pages) {
+                    for (const notification of page.data) {
+                        if ('reactors' in notification) {
+                            matchProfile(notification.reactors, profileId);
+                        } else if ('mirrors' in notification) {
+                            matchProfile(notification.mirrors, profileId);
+                        } else if ('followers' in notification) {
+                            matchProfile(notification.followers, profileId);
+                        } else if ('actions' in notification) {
+                            matchProfile(notification.actions, profileId);
+                        }
                     }
                 }
-            }
-        });
-    });
+            });
+        },
+    );
 }
 
 const METHODS_BE_OVERRIDDEN = ['follow', 'unfollow'] as const;

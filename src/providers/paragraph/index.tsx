@@ -120,27 +120,59 @@ class Paragraph implements Provider {
         const address = resolveParagraphMintContract(article.chainId);
         if (!address) throw new Error(`Unsupported network: ${article.chainId}`);
 
-        return client.estimateContractGas({
-            address: address as `0x${string}`,
-            abi: ParagraphMintABI,
-            functionName: 'createAndMint',
-            args: [
-                [
-                    article.name,
-                    article.symbol,
-                    article.ownerAddress,
-                    account.address,
-                    article.referrerAddress ?? zeroAddress,
-                    BigInt(article.quantity ?? MAX_SUPPLY),
-                    BigInt(rightShift(article.price ?? 0, chain.nativeCurrency.decimals).toString()),
+        try {
+            return await client.estimateContractGas({
+                address: address as `0x${string}`,
+                abi: ParagraphMintABI,
+                functionName: 'createAndMint',
+                args: [
+                    [
+                        article.name,
+                        article.symbol,
+                        article.ownerAddress,
+                        account.address,
+                        article.referrerAddress ?? zeroAddress,
+                        BigInt(article.quantity ?? MAX_SUPPLY),
+                        BigInt(rightShift(article.price ?? 0, chain.nativeCurrency.decimals).toString()),
+                    ],
+                    zeroAddress,
+                    article.postId,
+                    article.position?.from,
+                    article.position?.to,
                 ],
-                zeroAddress,
-                article.postId,
-                article.position?.from,
-                article.position?.to,
-            ],
-            value,
-        });
+                value,
+            });
+        } catch (error) {
+            /**
+             * This is a hacky solution for paragraph. Very occasionally the contract gets deployed onchain
+             * but not in DB, so if future people try to mint, they would be unsuccessful.
+             *
+             */
+            if (error instanceof Error && error.message.includes('nft already exists')) {
+                return await client.estimateContractGas({
+                    address: address as `0x${string}`,
+                    abi: ParagraphMintABI,
+                    functionName: 'createAndMint',
+                    args: [
+                        [
+                            article.name,
+                            article.symbol,
+                            article.ownerAddress,
+                            account.address,
+                            article.referrerAddress ?? zeroAddress,
+                            BigInt(article.quantity ?? MAX_SUPPLY),
+                            BigInt(rightShift(article.price ?? 0, chain.nativeCurrency.decimals).toString()),
+                        ],
+                        zeroAddress,
+                        article.postId,
+                        article.position?.from ? article.position.from + 1 : 0,
+                        article.position?.to ? article.position.to + 1 : 0,
+                    ],
+                    value,
+                });
+            }
+            throw error;
+        }
     }
 
     async collect(article: ArticleCollectable) {
@@ -167,29 +199,58 @@ class Paragraph implements Provider {
             return waitForTransactionReceipt(config, { hash });
         }
 
-        const hash = await writeContract(config, {
-            address: address as `0x${string}`,
-            abi: ParagraphMintABI,
-            functionName: 'createAndMint',
-            args: [
-                [
-                    article.name,
-                    article.symbol,
-                    article.ownerAddress,
-                    account.address,
-                    article.referrerAddress ?? zeroAddress,
-                    BigInt(article.quantity ?? MAX_SUPPLY),
-                    price,
+        try {
+            const hash = await writeContract(config, {
+                address: address as `0x${string}`,
+                abi: ParagraphMintABI,
+                functionName: 'createAndMint',
+                args: [
+                    [
+                        article.name,
+                        article.symbol,
+                        article.ownerAddress,
+                        account.address,
+                        article.referrerAddress ?? zeroAddress,
+                        BigInt(article.quantity ?? MAX_SUPPLY),
+                        price,
+                    ],
+                    zeroAddress,
+                    article.postId,
+                    article.position?.from,
+                    article.position?.to,
                 ],
-                zeroAddress,
-                article.postId,
-                article.position?.from,
-                article.position?.to,
-            ],
-            value,
-        });
+                value,
+            });
 
-        return waitForTransactionReceipt(config, { hash });
+            return await waitForTransactionReceipt(config, { hash });
+        } catch (error) {
+            if (error instanceof Error && error.message.includes('nft already exists')) {
+                const hash = await writeContract(config, {
+                    address: address as `0x${string}`,
+                    abi: ParagraphMintABI,
+                    functionName: 'createAndMint',
+                    args: [
+                        [
+                            article.name,
+                            article.symbol,
+                            article.ownerAddress,
+                            account.address,
+                            article.referrerAddress ?? zeroAddress,
+                            BigInt(article.quantity ?? MAX_SUPPLY),
+                            price,
+                        ],
+                        zeroAddress,
+                        article.postId,
+                        article.position?.from ? article.position.from + 1 : 0,
+                        article.position?.to ? article.position.to + 1 : 0,
+                    ],
+                    value,
+                });
+
+                return await waitForTransactionReceipt(config, { hash });
+            }
+            throw error;
+        }
     }
 }
 

@@ -1,3 +1,6 @@
 export function fixUrlProtocol(url: string) {
-    return url.startsWith('http') ? url : `https://${url}`;
+    if (url.match(/^https?:\/\//)) {
+        return url;
+    }
+    return `https://${url}`;
 }

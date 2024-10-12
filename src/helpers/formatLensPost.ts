@@ -81,10 +81,10 @@ function formatCollectModule(
     return {
         collectedCount: count,
         collectLimit: parseInt(openAction?.collectLimit || '0', 10),
-        currency: openAction?.amount.asset.symbol,
-        assetAddress: openAction?.amount.asset.contract.address,
-        usdPrice: openAction?.amount.asFiat?.value,
-        amount: parseFloat(openAction?.amount.value || '0'),
+        currency: openAction?.amount?.asset.symbol,
+        assetAddress: openAction?.amount?.asset.contract.address,
+        usdPrice: openAction?.amount?.asFiat?.value,
+        amount: parseFloat(openAction?.amount?.value || '0'),
         referralFee: openAction?.referralFee,
         followerOnly: openAction?.followerOnly,
         contract: {

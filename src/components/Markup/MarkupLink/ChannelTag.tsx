@@ -7,7 +7,7 @@ import { ClickableArea } from '@/components/ClickableArea.js';
 import { InteractiveTippy } from '@/components/InteractiveTippy.js';
 import type { MarkupLinkProps } from '@/components/Markup/MarkupLink/index.js';
 import { TippyContext, useTippyContext } from '@/components/TippyContext/index.js';
-import { getFarcasterChannelUrlById } from '@/helpers/getFarcasterChannelUrlById.js';
+import { resolveChannelUrl } from '@/helpers/resolveChannelUrl.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { useEverSeen } from '@/hooks/useEverSeen.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
@@ -23,7 +23,7 @@ export const ChannelTag = memo<Omit<MarkupLinkProps, 'post'>>(function ChannelTa
 
     useEffect(() => {
         if (!title) return;
-        router.prefetch(getFarcasterChannelUrlById(title.trim().slice(1)));
+        router.prefetch(resolveChannelUrl(title.trim().slice(1)));
     }, [title, router]);
 
     const data = useQuery({
@@ -51,7 +51,7 @@ export const ChannelTag = memo<Omit<MarkupLinkProps, 'post'>>(function ChannelTa
                 className="cursor-pointer text-lightHighlight hover:underline"
                 as="span"
                 onClick={() => {
-                    router.push(getFarcasterChannelUrlById(channelId));
+                    router.push(resolveChannelUrl(channelId));
                 }}
             >
                 {title}

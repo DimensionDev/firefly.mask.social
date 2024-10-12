@@ -32,6 +32,7 @@ interface State {
                         highlightsChain: ParagraphChain;
                         id: string;
                         post_preview: string;
+                        title: string;
                         collectibleWalletAddress: string;
                     }>;
                 };
@@ -76,11 +77,12 @@ class Processor {
                 });
 
             const result = {
-                chain: target.highlightsChain ?? data?.props.pageProps.initialState.blog.blog.highlightsChain,
+                chain:
+                    target.highlightsChain ?? data?.props.pageProps.initialState.blog.blog.highlightsChain ?? 'polygon',
                 noteId: target.id,
                 supply: target.highlightsSupply,
                 costEth: target.highlightsCost ?? data?.props.pageProps.initialState.blog.blog.highlightsCost,
-                text: target.post_preview,
+                text: target.title,
                 collectorWallet:
                     target.collectibleWalletAddress ??
                     data?.props.pageProps.initialState.blog.blog.collectibleWalletAddress ??

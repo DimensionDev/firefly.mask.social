@@ -48,7 +48,9 @@ export function ArticleBody({ cover, article, onClick }: Props) {
         <ClickableArea
             as="article"
             onClick={onClick}
-            className="relative mt-[6px] flex flex-col gap-2 overflow-hidden rounded-2xl border border-line bg-bg p-3"
+            className={classNames('relative mt-[6px] flex flex-col gap-2 rounded-2xl border border-line bg-bg p-3', {
+                'overflow-hidden': !!article.content,
+            })}
         >
             {cover ? (
                 <ImageAsset

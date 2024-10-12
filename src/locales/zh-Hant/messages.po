@@ -351,6 +351,9 @@ msgstr ""
 msgid "Total"
 msgstr ""
 
+msgid "Signer key not found. Please approve a new one for us in Warpcast."
+msgstr ""
+
 msgid "<0>{0}</0><1>mirrored</1>"
 msgstr ""
 
@@ -409,7 +412,7 @@ msgid "Mutes"
 msgstr "靜音"
 
 msgid "NFTs"
-msgstr "非同質化代幣 (NFT)"
+msgstr "NFTs"
 
 msgid "No results for \"{searchKeyword}\""
 msgstr "“{searchKeyword}” 無搜尋結果"
@@ -1989,9 +1992,6 @@ msgstr ""
 msgid "1y"
 msgstr ""
 
-msgid "Cannot find your signer key, please connect again"
-msgstr ""
-
 msgid "No codes found to suspend trading."
 msgstr ""
 
@@ -2092,7 +2092,7 @@ msgid "Hide tokens with small balances"
 msgstr ""
 
 msgid "News"
-msgstr ""
+msgstr "资讯"
 
 msgid "NFT ID"
 msgstr "NFT ID"
@@ -2218,9 +2218,6 @@ msgid "<0>since </0> <1>{0}</1>"
 msgstr ""
 
 msgid "{hours}h left"
-msgstr ""
-
-msgid "Events"
 msgstr ""
 
 msgid "You're eligible for a <0>Premium</0> CZ Support NFT because your X account holds Premium status."
