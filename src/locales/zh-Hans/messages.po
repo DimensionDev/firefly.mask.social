@@ -405,6 +405,9 @@ msgstr "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} {1, sele
 msgid "Total"
 msgstr "总额"
 
+msgid "Signer key not found. Please approve a new one for us in Warpcast."
+msgstr ""
+
 msgid "Trading cooldown function."
 msgstr ""
 
@@ -2213,9 +2216,6 @@ msgstr "添加另一个选项"
 
 msgid "1y"
 msgstr "1年"
-
-msgid "Cannot find your signer key, please connect again"
-msgstr "未能找到你的 signer key，请重新链接"
 
 msgid "Malicious mining activities."
 msgstr ""

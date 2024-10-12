@@ -405,6 +405,9 @@ msgstr ""
 msgid "Total"
 msgstr ""
 
+msgid "Signer key not found. Please approve a new one for us in Warpcast."
+msgstr ""
+
 msgid "Trading cooldown function."
 msgstr ""
 
@@ -2212,9 +2215,6 @@ msgid "Add another option"
 msgstr ""
 
 msgid "1y"
-msgstr ""
-
-msgid "Cannot find your signer key, please connect again"
 msgstr ""
 
 msgid "Malicious mining activities."
