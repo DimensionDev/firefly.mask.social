@@ -16,7 +16,7 @@ import { AbortError, NotAllowedError, TimeoutError } from '@/constants/error.js'
 import { FARCASTER_REPLY_COUNTDOWN } from '@/constants/index.js';
 import { type AccountOptions, addAccount } from '@/helpers/account.js';
 import { classNames } from '@/helpers/classNames.js';
-import { enqueueErrorMessage, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
+import { enqueueErrorMessage, enqueueInfoMessage, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { getMobileDevice } from '@/helpers/getMobileDevice.js';
 import { getSnackbarMessageFromError } from '@/helpers/getSnackbarMessageFromError.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
@@ -117,7 +117,9 @@ export function LoginFarcaster({ signType }: LoginFarcasterProps) {
                     setScanned(true);
 
                     if (!account.session.token) {
-                        enqueueErrorMessage(t`Cannot find your signer key, please connect again`);
+                        enqueueInfoMessage(
+                            t`Cannot find your signer key, please approve a new Farcaster signer to us.`,
+                        );
                         history.replace(`/farcaster?signType=${FarcasterSignType.GrantPermission}`);
                         throw new AbortError();
                     }
