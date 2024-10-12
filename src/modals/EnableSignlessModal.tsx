@@ -33,7 +33,7 @@ export const EnableSignlessModal = forwardRef<SingletonModalRefCreator<void, boo
                             <div className="break-word font-bold text-white">
                                 <Trans>Wrong wallet</Trans>
                             </div>
-                            <div className='className="whitespace-pre-wrap text-sm text-white'>
+                            <div className="whitespace-pre-wrap text-sm text-white">
                                 <Trans>Please switch to the wallet consistent with this action</Trans>
                             </div>
                         </div>,
