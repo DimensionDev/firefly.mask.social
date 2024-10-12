@@ -31,7 +31,7 @@ export const Blink = memo<Props>(function Blink({ post, onData, onFailed, childr
         enabled: !!url,
     });
 
-    const actionAdapter = useActionAdapter();
+    const actionAdapter = useActionAdapter(url);
     useEffect(() => {
         if (action) {
             action.setAdapter(actionAdapter);

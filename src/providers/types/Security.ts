@@ -123,11 +123,14 @@ export enum SecurityType {
     Transaction = 'transaction-security',
     Address = 'address-security',
     Info = 'info-security',
+    Site = 'site-security',
+    NFT = 'nft-security',
 }
 export enum SecurityMessageLevel {
     High = 'High',
     Medium = 'Medium',
     Safe = 'Safe',
+    Info = 'Info',
 }
 
 export interface SecurityMessage<T = TokenContractSecurity> {
@@ -137,4 +140,55 @@ export interface SecurityMessage<T = TokenContractSecurity> {
     title: (info: T) => string;
     message: (info: T) => string;
     shouldHide(info: T): boolean;
+}
+
+export interface StaticSecurityMessage {
+    level: SecurityMessageLevel;
+    title: string;
+    message: string;
+}
+
+export interface SiteSecurity {
+    phishing_site: number;
+}
+
+type NFTSecurityLevel = {
+    value: string;
+    owner_address: string;
+    owner_type: string;
+};
+
+export interface NFTSecurity {
+    nft_name: string;
+    nft_symbol: string;
+    nft_description: string;
+    nft_erc: string;
+    creator_address: string;
+    create_block_number: string;
+    website_url: string;
+    discord_url: string;
+    github_url: string;
+    twitter_url: string;
+    medium_url: string;
+    telegram_url: string;
+    nft_items: unknown[];
+    nft_owner_number: number;
+    average_price_24h: string;
+    lowest_price_24h: string;
+    sales_24h: number;
+    traded_volume_24h: string;
+    total_volume: string;
+    highest_price: string;
+    nft_verified: BooleanChar;
+    same_nfts: unknown[];
+    trust_list: BooleanChar;
+    malicious_nft_contract: BooleanChar;
+    nft_open_source: BooleanChar;
+    nft_proxy: BooleanChar;
+    metadata_frozen: BooleanChar;
+    privileged_burn?: NFTSecurityLevel;
+    transfer_without_approval?: NFTSecurityLevel;
+    self_destruct?: NFTSecurityLevel;
+    restricted_approval: BooleanChar;
+    oversupply_minting: BooleanChar;
 }

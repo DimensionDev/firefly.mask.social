@@ -15,6 +15,7 @@ import type { SchedulePostModalOpenProps } from '@/modals/SchedulePostModal.js';
 import type { SnackbarCloseProps, SnackbarOpenProps } from '@/modals/Snackbar.js';
 import type { SuperFollowModalOpenProps } from '@/modals/SuperFollowModal.js';
 import type { TipsModalCloseProps, TipsModalOpenProps } from '@/modals/TipsModal.js';
+import type { TransactionSimulatorModalOpenProps } from '@/modals/TransactionSimulatorModal.js';
 
 export const AccountModalRef = new SingletonModal();
 export const ConnectModalRef = new SingletonModal();
@@ -37,6 +38,7 @@ export const EnableSignlessModalRef = new SingletonModal<void, boolean>();
 export const CollectPostModalRef = new SingletonModal<CollectPostModalOpenProps>();
 export const AddWalletModalRef = new SingletonModal<AddWalletModalProps>();
 export const SuperFollowModalRef = new SingletonModal<SuperFollowModalOpenProps>();
+export const TransactionSimulatorModalRef = new SingletonModal<TransactionSimulatorModalOpenProps>();
 
 // CZ
 export const ActivityModalRef = new SingletonModal();
