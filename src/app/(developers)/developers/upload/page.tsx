@@ -9,10 +9,10 @@ import { Section } from '@/app/(settings)/components/Section.js';
 import LoadingIcon from '@/assets/loading.svg';
 import { ClickableArea } from '@/components/ClickableArea.js';
 import { ClickableButton } from '@/components/ClickableButton.js';
-import { IS_PRODUCTION } from '@/constants/index.js';
 import { Image } from '@/esm/Image.js';
 import { Link } from '@/esm/Link.js';
 import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
+import { twitterSessionHolder } from '@/providers/twitter/SessionHolder.js';
 import { uploadToDirectory } from '@/services/uploadToS3.js';
 
 export default function Page() {
@@ -33,7 +33,13 @@ export default function Page() {
         }
     }, [file, directory, name, setUrl]);
 
-    if (IS_PRODUCTION) return null;
+    const [{ loading: isLoading }, handleTest] = useAsyncFn(async () => {
+        const res = await twitterSessionHolder.fetch('/api/twitter/test');
+
+        console.log('Twitter Token: ', res);
+    }, []);
+
+    // if (IS_PRODUCTION) return null;
 
     return (
         <Section>
@@ -52,6 +58,7 @@ export default function Page() {
                     </span>
                 )}
             </ClickableArea>
+            <h1 onClick={handleTest}>{isLoading ? 'Loading...' : 'Test Token'}</h1>
             <input
                 value={directory}
                 onChange={(e) => setDirectory(e.target.value)}
