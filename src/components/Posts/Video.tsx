@@ -1,5 +1,3 @@
-import 'plyr-react/plyr.css';
-
 import {
     EnterFullscreenIcon,
     ExitFullscreenIcon,
