@@ -32,7 +32,7 @@ export function LinkCloud() {
     });
 
     return (
-        <nav className="flex flex-wrap gap-x-[12px] gap-y-2 px-3 pb-10 text-xs text-lightSecond lg:px-0">
+        <nav className="flex flex-wrap gap-x-[12px] gap-y-2 px-3 pb-5 text-xs text-lightSecond lg:px-0">
             <span className="font-bold text-gray-500">© {2024} Firefly</span>
             {compact([
                 { name: <Trans>Communities</Trans>, link: '/settings/more', self: true },
