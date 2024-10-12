@@ -34,10 +34,10 @@ export default function Page() {
     }, [file, directory, name, setUrl]);
 
     const [{ loading: isLoading }, handleTest] = useAsyncFn(async () => {
-        const res = await twitterSessionHolder.fetch('/api/twitter/test');
+        const res = await twitterSessionHolder.fetch(`/api/twitter/test?query=${name}`);
 
-        console.log('Twitter Token: ', res);
-    }, []);
+        console.log('Space: ', res);
+    }, [name]);
 
     // if (IS_PRODUCTION) return null;
 
@@ -58,7 +58,7 @@ export default function Page() {
                     </span>
                 )}
             </ClickableArea>
-            <h1 onClick={handleTest}>{isLoading ? 'Loading...' : 'Test Token'}</h1>
+            <h1 onClick={handleTest}>{isLoading ? 'Loading...' : 'Get Space'}</h1>
             <input
                 value={directory}
                 onChange={(e) => setDirectory(e.target.value)}
