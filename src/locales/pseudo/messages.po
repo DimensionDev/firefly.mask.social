@@ -148,6 +148,9 @@ msgstr ""
 msgid "Money laundering."
 msgstr ""
 
+msgid "This space does not exist."
+msgstr ""
+
 msgid "Display Name"
 msgstr ""
 
@@ -835,6 +838,9 @@ msgstr ""
 msgid "{0, plural, one {Your post failed to publish on {firstPlatform} due to an error. Click 'Retry' to attempt posting again.} two {Your post failed to publish on {firstPlatform} and {secondPlatform} due to an error. Click 'Retry' to attempt posting again.} other {Your post failed to publish due to an error. Click 'Retry' to attempt posting again.}}"
 msgstr ""
 
+msgid "Log in with your X account to view"
+msgstr ""
+
 msgid "Login to Firefly"
 msgstr ""
 
@@ -989,6 +995,9 @@ msgid "<0>Price</0><1>${0}</1><2/>{1}"
 msgstr ""
 
 msgid "Collected"
+msgstr ""
+
+msgid "Try again"
 msgstr ""
 
 msgid "<0>You</0> mirrored"
@@ -2234,6 +2243,9 @@ msgid "Add another option"
 msgstr ""
 
 msgid "1y"
+msgstr ""
+
+msgid "Something went wrong"
 msgstr ""
 
 msgid "Malicious mining activities."

@@ -93,7 +93,7 @@ export function PostLinks({ post, setContent, isInCompose = false }: Props) {
             {data.frame ? <FrameLayout frame={data.frame} post={post} /> : null}
             {data.action ? <ActionContainer action={data.action} /> : null}
             {data.oembed ? <OembedLayout data={data.oembed} post={post} /> : null}
-            {data.space ? <TweetSpace data={data.space} /> : null}
+            {data.spaceId ? <TweetSpace spaceId={data.spaceId} /> : null}
         </>
     );
 }

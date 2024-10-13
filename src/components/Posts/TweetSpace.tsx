@@ -1,14 +1,21 @@
 import { Trans } from '@lingui/macro';
+import { useQuery } from '@tanstack/react-query';
 import dayjs from 'dayjs';
 import { type FunctionComponent, memo, type ReactNode, type SVGAttributes } from 'react';
-import type { SpaceV2SingleResult } from 'twitter-api-v2';
 
 import CalendarIcon from '@/assets/calendar.svg';
+import EmptyStatusIcon from '@/assets/empty-status.svg';
+import LoadingIcon from '@/assets/loading.svg';
 import MicrophoneIcon from '@/assets/microphone.svg';
 import { Avatar } from '@/components/Avatar.js';
+import { ClickableArea } from '@/components/ClickableArea.js';
 import { ProfileVerifyBadge } from '@/components/ProfileVerifyBadge/index.js';
+import { Source } from '@/constants/enum.js';
 import { Link } from '@/esm/Link.js';
 import { formatTwitterProfile } from '@/helpers/formatTwitterProfile.js';
+import { useIsLogin } from '@/hooks/useIsLogin.js';
+import { LoginModalRef } from '@/modals/controls.js';
+import { TwitterSocialMediaProvider } from '@/providers/twitter/SocialMedia.js';
 
 interface Tag {
     icon?: FunctionComponent<SVGAttributes<SVGElement>>;
@@ -16,12 +23,65 @@ interface Tag {
 }
 
 interface Props {
-    data: SpaceV2SingleResult
+    spaceId: string
 }
 
-export const TweetSpace = memo<Props>(function TweetSpace({ data }) {
-    if (!data?.data) return null;
-    const space = data.data;
+export const TweetSpace = memo<Props>(function TweetSpace({ spaceId }) {
+    const isLogin = useIsLogin(Source.Twitter)
+    const enabled = isLogin
+    const { data, isLoading, error, refetch } = useQuery({
+        enabled,
+        queryKey: ['twitter-space', spaceId],
+        async queryFn() {
+            return await TwitterSocialMediaProvider.getSpace(spaceId)
+        }
+    })
+    const space = data?.data;
+
+    if (!isLogin) {
+        return (
+            <div className="flex flex-col min-h-[152px] mt-3 w-full items-center justify-center space-y-3 rounded-2xl bg-purple p-4 text-white">
+                <p className="text-[13px] font-semibold leading-6">
+                    <Trans>Log in with your X account to view</Trans>
+                </p>
+                <ClickableArea className="px-3 py-2 rounded-full bg-[rgba(24,26,32,0.5)] text-sm leading-[18px]" onClick={() => LoginModalRef.open()}>
+                    <Trans>Login</Trans>
+                </ClickableArea>
+            </div>
+        );
+    }
+
+    if (isLoading) {
+        return (
+            <div className="min-h-[152px] mt-3 flex w-full flex-col items-center justify-center space-y-3 rounded-2xl bg-purple p-4 text-white">
+                <LoadingIcon className="animate-spin" width={24} height={24} />
+            </div>
+        );
+    }
+
+    if (error) {
+        return (
+            <div className="flex flex-col min-h-[152px] mt-3 w-full items-center justify-center space-y-3 rounded-2xl bg-purple p-4 text-white">
+                <p className="text-[13px] font-semibold leading-6">
+                    <Trans>Something went wrong</Trans>
+                </p>
+                <ClickableArea className="px-3 py-2 rounded-full bg-[rgba(24,26,32,0.5)] text-sm leading-[18px]" onClick={() => refetch()}>
+                    <Trans>Try again</Trans>
+                </ClickableArea>
+            </div>
+        );
+    }
+
+    if (!space) {
+        return (
+            <div className="mt-3 flex min-h-[152px] w-full flex-col items-center justify-center space-y-3 rounded-2xl bg-purple p-4 text-white">
+                <EmptyStatusIcon className="h-[64px] w-[80px]" />
+                <p className="text-[13px] font-semibold leading-6">
+                    <Trans>This space does not exist.</Trans>
+                </p>
+            </div>
+        );
+    }
 
     const rawCreator = data?.includes?.users?.find((user) => user.id === data.data.creator_id);
     const creator = rawCreator ? formatTwitterProfile(rawCreator) : undefined;
@@ -85,7 +145,7 @@ export const TweetSpace = memo<Props>(function TweetSpace({ data }) {
             </div>
             <h3 className="text-md font-semibold leading-6 line-clamp-2 min-h-12">{space.title}</h3>
             {creator ? (
-                <div className="flex leading-6 items-center">
+                <div className="flex leading-6 items-center h-6">
                     <Avatar className="mr-2 h-[18px] w-[18px]" src={creator.pfp} size={18} alt={creator.handle} />
                     <span className="mr-1 truncate text-medium font-bold leading-5">{creator.displayName}</span>
                     <ProfileVerifyBadge

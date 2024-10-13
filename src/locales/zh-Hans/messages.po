@@ -153,6 +153,9 @@ msgstr "发生了一些错误，请重试。"
 msgid "Money laundering."
 msgstr ""
 
+msgid "This space does not exist."
+msgstr ""
+
 msgid "Display Name"
 msgstr "显示名称"
 
@@ -840,6 +843,9 @@ msgstr "取消隐藏中..."
 msgid "{0, plural, one {Your post failed to publish on {firstPlatform} due to an error. Click 'Retry' to attempt posting again.} two {Your post failed to publish on {firstPlatform} and {secondPlatform} due to an error. Click 'Retry' to attempt posting again.} other {Your post failed to publish due to an error. Click 'Retry' to attempt posting again.}}"
 msgstr "{0, plural, one {由于某些错误您的帖子在 {firstPlatform} 发布失败。请点击重试。} two {由于某些错误您的帖子在 {firstPlatform} 和{secondPlatform} 发布失败。请点击重试。} other {您的帖子发布失败。请点击重试。}}"
 
+msgid "Log in with your X account to view"
+msgstr ""
+
 msgid "Login to Firefly"
 msgstr "登录到 Firefly"
 
@@ -995,6 +1001,9 @@ msgstr "<0>价格</0><1>${0}</1><2/>{1}"
 
 msgid "Collected"
 msgstr "已收藏"
+
+msgid "Try again"
+msgstr ""
 
 msgid "<0>You</0> mirrored"
 msgstr "<0>你</0> 已转发"
@@ -2240,6 +2249,9 @@ msgstr "添加另一个选项"
 
 msgid "1y"
 msgstr "1年"
+
+msgid "Something went wrong"
+msgstr ""
 
 msgid "Malicious mining activities."
 msgstr ""
