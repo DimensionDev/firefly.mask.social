@@ -23,6 +23,7 @@ export enum SupportedMethod {
     GET_LANGUAGE = 'getLanguage',
     GET_WALLET_ADDRESS = 'getWalletAddress',
     CONNECT_WALLET = 'connectWallet',
+    OPEN_URL = 'openUrl',
     LOGIN = 'login',
     SHARE = 'share',
     COMPOSE = 'compose',
@@ -39,6 +40,9 @@ export interface RequestArguments {
     };
     [SupportedMethod.CONNECT_WALLET]: {
         type: Network;
+    };
+    [SupportedMethod.OPEN_URL]: {
+        url: string;
     };
     [SupportedMethod.LOGIN]: {
         platform: Platform;
@@ -59,6 +63,7 @@ export interface RequestResult {
     [SupportedMethod.GET_LANGUAGE]: string;
     [SupportedMethod.GET_WALLET_ADDRESS]: string[];
     [SupportedMethod.CONNECT_WALLET]: string;
+    [SupportedMethod.OPEN_URL]: void;
     [SupportedMethod.LOGIN]: {
         success: 'true' | 'false';
     };
