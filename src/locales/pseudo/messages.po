@@ -175,6 +175,9 @@ msgstr ""
 msgid "Watching"
 msgstr ""
 
+msgid "{0} listening"
+msgstr ""
+
 msgid "Rank #{0}"
 msgstr ""
 
@@ -547,6 +550,9 @@ msgstr ""
 msgid "Each wallet or X account is limited to one claim."
 msgstr ""
 
+msgid "Host"
+msgstr ""
+
 msgid "Calendar"
 msgstr ""
 
@@ -835,6 +841,9 @@ msgstr ""
 msgid "Top Channels"
 msgstr ""
 
+msgid "Canceled"
+msgstr ""
+
 msgid "No content for the last two weeks."
 msgstr ""
 
@@ -946,6 +955,9 @@ msgstr ""
 msgid "Confirm you want to mute /{0}?"
 msgstr ""
 
+msgid "{0}"
+msgstr ""
+
 msgid "Enter amount"
 msgstr ""
 
@@ -953,6 +965,9 @@ msgid "<0>Sold</0> an NFT worth {costEl}"
 msgstr ""
 
 msgid "🎉"
+msgstr ""
+
+msgid "Failed to fetch space \"{id}\"."
 msgstr ""
 
 msgid "Owned By"
@@ -1100,6 +1115,9 @@ msgid "Comment"
 msgstr ""
 
 msgid "Only people you mention"
+msgstr ""
+
+msgid "{0} turned in"
 msgstr ""
 
 msgid "You successfully sent <0>{amount} {0}{1}</0> tips to <1>{2}</1>!"
@@ -1777,6 +1795,9 @@ msgstr ""
 msgid "Cancel"
 msgstr ""
 
+msgid "Live"
+msgstr ""
+
 msgid "Send on schedule"
 msgstr ""
 
@@ -2111,6 +2132,9 @@ msgid "Refresh"
 msgstr ""
 
 msgid "Followed by {0} , {1}, and {2}"
+msgstr ""
+
+msgid "Ended on {0}"
 msgstr ""
 
 msgid "Collect Article"

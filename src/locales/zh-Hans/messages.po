@@ -180,6 +180,9 @@ msgstr "我们没察觉到有任何阻止通证售卖的代码逻辑。"
 msgid "Watching"
 msgstr "观察中"
 
+msgid "{0} listening"
+msgstr ""
+
 msgid "Rank #{0}"
 msgstr "排名 #{0}"
 
@@ -552,6 +555,9 @@ msgstr ""
 msgid "Each wallet or X account is limited to one claim."
 msgstr "每个钱包或 X 账号限领一次。"
 
+msgid "Host"
+msgstr ""
+
 msgid "Calendar"
 msgstr "日历"
 
@@ -840,6 +846,9 @@ msgstr "登录到 Firefly"
 msgid "Top Channels"
 msgstr "热门频道"
 
+msgid "Canceled"
+msgstr ""
+
 msgid "No content for the last two weeks."
 msgstr "最近两周没有内容。"
 
@@ -951,6 +960,9 @@ msgstr "转帖或者引用"
 msgid "Confirm you want to mute /{0}?"
 msgstr "您确定要隐藏 /{0} 吗？"
 
+msgid "{0}"
+msgstr ""
+
 msgid "Enter amount"
 msgstr "输入金额"
 
@@ -959,6 +971,9 @@ msgstr "<0>出售了</0> 一个 NFT 价值 {costEl}"
 
 msgid "🎉"
 msgstr "🎉"
+
+msgid "Failed to fetch space \"{id}\"."
+msgstr ""
 
 msgid "Owned By"
 msgstr "属于"
@@ -1106,6 +1121,9 @@ msgstr "评论"
 
 msgid "Only people you mention"
 msgstr "只有你提及的人"
+
+msgid "{0} turned in"
+msgstr ""
 
 msgid "You successfully sent <0>{amount} {0}{1}</0> tips to <1>{2}</1>!"
 msgstr "你成功发送了 <0>{amount} {0}{1}</0> 的打赏给 <1>{2}</1>！"
@@ -1782,6 +1800,9 @@ msgstr "没有可显示的数据。"
 msgid "Cancel"
 msgstr "取消"
 
+msgid "Live"
+msgstr ""
+
 msgid "Send on schedule"
 msgstr "发送定时任务"
 
@@ -2117,6 +2138,9 @@ msgstr "刷新"
 
 msgid "Followed by {0} , {1}, and {2}"
 msgstr "被 {0} 和 {1} 和 {2} 关注"
+
+msgid "Ended on {0}"
+msgstr ""
 
 msgid "Collect Article"
 msgstr "收集文章"

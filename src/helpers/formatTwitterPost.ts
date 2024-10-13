@@ -5,7 +5,6 @@ import urlcat from 'urlcat';
 import { Source } from '@/constants/enum.js';
 import { SITE_URL } from '@/constants/index.js';
 import { POLL_CHOICE_TYPE, POLL_STRATEGIES } from '@/constants/poll.js';
-import { TWEET_SPACE_REGEX } from '@/constants/regexp.js';
 import { formatTwitterMedia } from '@/helpers/formatTwitterMedia.js';
 import { convertTwitterAvatar } from '@/helpers/formatTwitterProfile.js';
 import { getEmbedUrls } from '@/helpers/getEmbedUrls.js';
@@ -21,7 +20,6 @@ export function tweetV2ToPost(item: TweetV2, includes?: ApiV2Includes): Post {
     const quotedTweet = quotedTweetId ? includes?.tweets?.find((tweet) => tweet.id === quotedTweetId) : undefined;
     const retweeted = item.referenced_tweets?.find((tweet) => tweet.type === 'retweeted');
     const retweetedTweet = retweeted ? includes?.tweets?.find((tweet) => tweet.id === retweeted.id) : undefined;
-    const oembedUrls = getEmbedUrls(item.text ?? '', []);
     const attachments = compact(
         item.attachments?.media_keys?.map((key) => {
             const media = includes?.media?.find((m) => m.media_key === key);
@@ -32,7 +30,7 @@ export function tweetV2ToPost(item: TweetV2, includes?: ApiV2Includes): Post {
     const parsedEntitiesUrls = item.entities?.urls?.reduce(
         (acc, url) => {
             const length = url.end - url.start;
-            const spliceItems = TWEET_SPACE_REGEX.test(url.expanded_url) ? [] : url.expanded_url.split('');
+            const spliceItems = url.expanded_url.split('');
             acc.contentArr.splice(url.start + acc.offsetIndex, length, ...spliceItems);
             acc.offsetIndex += spliceItems.length - length;
             return acc;
@@ -45,6 +43,7 @@ export function tweetV2ToPost(item: TweetV2, includes?: ApiV2Includes): Post {
     if (parsedEntitiesUrls) {
         content = parsedEntitiesUrls.contentArr.join('');
     }
+    const oembedUrls = getEmbedUrls(content, []);
 
     if (repliedTweetId) {
         content = content.replace(/^(@\w+\s*)+/, '');

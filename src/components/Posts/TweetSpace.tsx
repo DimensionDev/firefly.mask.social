@@ -1,35 +1,102 @@
-import { memo } from 'react';
-import type { TweetV2 } from 'twitter-api-v2';
+import { Trans } from '@lingui/macro';
+import dayjs from 'dayjs';
+import { type FunctionComponent, memo, type ReactNode, type SVGAttributes } from 'react';
+import type { SpaceV2SingleResult } from 'twitter-api-v2';
 
+import CalendarIcon from '@/assets/calendar.svg';
+import MicrophoneIcon from '@/assets/microphone.svg';
 import { Avatar } from '@/components/Avatar.js';
 import { ProfileVerifyBadge } from '@/components/ProfileVerifyBadge/index.js';
-import { Source } from '@/constants/enum.js';
-import { TWEET_SPACE_REGEX } from '@/constants/regexp.js';
 import { Link } from '@/esm/Link.js';
-import type { Post } from '@/providers/types/SocialMedia.js';
+import { formatTwitterProfile } from '@/helpers/formatTwitterProfile.js';
 
-export const TweetSpace = memo(function TweetSpace({ post }: { post: Post }) {
-    if (post.source !== Source.Twitter) return;
-    const tweet = post.__original__ as TweetV2;
-    if (!tweet) return null;
-    const entityUrl = tweet.entities?.urls?.find((url) => TWEET_SPACE_REGEX.test(url.expanded_url));
-    if (!entityUrl) return null;
+interface Tag {
+    icon?: FunctionComponent<SVGAttributes<SVGElement>>;
+    label: ReactNode;
+}
+
+interface Props {
+    data: SpaceV2SingleResult
+}
+
+export const TweetSpace = memo<Props>(function TweetSpace({ data }) {
+    if (!data?.data) return null;
+    const space = data.data;
+
+    const rawCreator = data?.includes?.users?.find((user) => user.id === data.data.creator_id);
+    const creator = rawCreator ? formatTwitterProfile(rawCreator) : undefined;
+
+    const tags: Tag[] = (() => {
+        switch (space.state) {
+            case 'canceled':
+                return [
+                    {
+                        label: <Trans>Canceled</Trans>,
+                    },
+                ];
+            case 'live':
+                return [
+                    {
+                        icon: MicrophoneIcon,
+                        label: <Trans>Live</Trans>,
+                    },
+                    {
+                        label: <Trans>{space.participant_count?.toLocaleString()} listening</Trans>,
+                    },
+                ];
+            case 'ended':
+                return [
+                    {
+                        icon: MicrophoneIcon,
+                        label: <Trans>Ended on {dayjs(space.ended_at).format('MMM DD')}</Trans>,
+                    },
+                    {
+                        label: <Trans>{space.participant_count?.toLocaleString()} turned in</Trans>,
+                    },
+                ];
+            case 'scheduled':
+                return [
+                    {
+                        icon: CalendarIcon,
+                        label: <Trans>{dayjs(space.scheduled_start).format('MMM DD, YYYY at HH:mm')}</Trans>,
+                    },
+                ];
+            default:
+                return [];
+        }
+    })();
 
     return (
         <Link
-            href={entityUrl.expanded_url}
+            href={`https://x.com/i/spaces/${space.id}`}
             target="_blank"
-            className="bg-purple mt-3 flex w-full flex-col space-y-3 rounded-2xl p-4 text-white"
+            className="mt-3 flex w-full flex-col space-y-3 rounded-2xl bg-purple p-4 text-white"
         >
-            <h3 className="text-md font-semibold leading-6">{entityUrl.title}</h3>
-            <div className="flex">
-                <Avatar className="mr-2 h-[18px] w-[18px]" src={post.author.pfp} size={18} alt={post.author.handle} />
-                <span className="mr-1 truncate text-medium font-bold leading-5">{post.author.displayName}</span>
-                <ProfileVerifyBadge
-                    className="flex flex-shrink-0 items-center space-x-1 sm:mr-2"
-                    profile={post.author}
-                />
+            <div className="flex items-center space-x-1">
+                {tags.map((tag, i) => (
+                    <div
+                        className="flex items-center rounded-lg bg-[rgba(24,26,32,0.5)] px-2 py-1 text-xs font-semibold leading-4"
+                        key={i}
+                    >
+                        {tag.icon ? <tag.icon className="mr-1 h-4 w-4" /> : null}
+                        {tag.label}
+                    </div>
+                ))}
             </div>
+            <h3 className="text-md font-semibold leading-6 line-clamp-2 min-h-12">{space.title}</h3>
+            {creator ? (
+                <div className="flex leading-6 items-center">
+                    <Avatar className="mr-2 h-[18px] w-[18px]" src={creator.pfp} size={18} alt={creator.handle} />
+                    <span className="mr-1 truncate text-medium font-bold leading-5">{creator.displayName}</span>
+                    <ProfileVerifyBadge
+                        className="flex flex-shrink-0 items-center space-x-1 sm:mr-2"
+                        profile={creator}
+                    />
+                    <div className="flex items-center space-x-1 rounded-lg bg-[rgba(24,26,32,0.5)] px-2 text-xs font-semibold leading-[18px]">
+                        <Trans>Host</Trans>
+                    </div>
+                </div>
+            ) : null}
         </Link>
     );
 });

@@ -175,6 +175,9 @@ msgstr "We are not aware of any code that prevents the sale of tokens."
 msgid "Watching"
 msgstr "Watching"
 
+msgid "{0} listening"
+msgstr "{0} listening"
+
 msgid "Rank #{0}"
 msgstr "Rank #{0}"
 
@@ -547,6 +550,9 @@ msgstr "Sanctioned address."
 msgid "Each wallet or X account is limited to one claim."
 msgstr "Each wallet or X account is limited to one claim."
 
+msgid "Host"
+msgstr "Host"
+
 msgid "Calendar"
 msgstr "Calendar"
 
@@ -835,6 +841,9 @@ msgstr "Login to Firefly"
 msgid "Top Channels"
 msgstr "Top Channels"
 
+msgid "Canceled"
+msgstr "Canceled"
+
 msgid "No content for the last two weeks."
 msgstr "No content for the last two weeks."
 
@@ -946,6 +955,9 @@ msgstr "Mirror or Quote"
 msgid "Confirm you want to mute /{0}?"
 msgstr "Confirm you want to mute /{0}?"
 
+msgid "{0}"
+msgstr "{0}"
+
 msgid "Enter amount"
 msgstr "Enter amount"
 
@@ -954,6 +966,9 @@ msgstr "<0>Sold</0> an NFT worth {costEl}"
 
 msgid "🎉"
 msgstr "🎉"
+
+msgid "Failed to fetch space \"{id}\"."
+msgstr "Failed to fetch space \"{id}\"."
 
 msgid "Owned By"
 msgstr "Owned By"
@@ -1101,6 +1116,9 @@ msgstr "Comment"
 
 msgid "Only people you mention"
 msgstr "Only people you mention"
+
+msgid "{0} turned in"
+msgstr "{0} turned in"
 
 msgid "You successfully sent <0>{amount} {0}{1}</0> tips to <1>{2}</1>!"
 msgstr "You successfully sent <0>{amount} {0}{1}</0> tips to <1>{2}</1>!"
@@ -1777,6 +1795,9 @@ msgstr "There is no data available for display."
 msgid "Cancel"
 msgstr "Cancel"
 
+msgid "Live"
+msgstr "Live"
+
 msgid "Send on schedule"
 msgstr "Send on schedule"
 
@@ -2112,6 +2133,9 @@ msgstr "Refresh"
 
 msgid "Followed by {0} , {1}, and {2}"
 msgstr "Followed by {0} , {1}, and {2}"
+
+msgid "Ended on {0}"
+msgstr "Ended on {0}"
 
 msgid "Collect Article"
 msgstr "Collect Article"

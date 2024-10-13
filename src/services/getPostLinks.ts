@@ -1,5 +1,6 @@
 import { Action, type ActionGetResponse, setProxyUrl } from '@dialectlabs/blinks';
 import { safeUnreachable } from '@masknet/kit';
+import type { SpaceV2SingleResult } from 'twitter-api-v2';
 import urlcat from 'urlcat';
 
 import { FrameProtocol, Source, STATUS } from '@/constants/enum.js';
@@ -9,6 +10,7 @@ import {
     MIRROR_ARTICLE_REGEXP,
     MIRROR_SUBDOMAIN_ARTICLE_REGEXP,
     PARAGRAPH_ARTICLE_REGEXP,
+    TWEET_SPACE_REGEX,
 } from '@/constants/regexp.js';
 import { attemptUntil } from '@/helpers/attemptUntil.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
@@ -19,6 +21,7 @@ import { isValidPollFrameUrl } from '@/helpers/resolveEmbedMediaType.js';
 import { resolveTCOLink } from '@/helpers/resolveTCOLink.js';
 import { FireflyArticleProvider } from '@/providers/firefly/Article.js';
 import { getPostIFrame } from '@/providers/og/readers/iframe.js';
+import { TwitterSocialMediaProvider } from '@/providers/twitter/SocialMedia.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 import { settings } from '@/settings/index.js';
 import type { FireflyBlinkParserBlinkResponse } from '@/types/blink.js';
@@ -111,8 +114,17 @@ export async function getPostLinks(url: string, post: Post) {
         action?: Action;
         html?: string;
         articleId?: string;
+        space?: SpaceV2SingleResult
     } | null>(
         [
+            async () => {
+                if (post.source !== Source.Twitter) return null
+                const spaceId = url.match(TWEET_SPACE_REGEX)?.[3]
+                if (!spaceId) return null;
+                const space = await TwitterSocialMediaProvider.getSpace(spaceId)
+                if (!space) return null
+                return { space }
+            },
             async () => {
                 const realUrl = (await resolveTCOLink(url)) ?? url;
                 if (!realUrl) return null;
