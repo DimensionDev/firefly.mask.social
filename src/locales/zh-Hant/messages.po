@@ -490,7 +490,7 @@ msgid "Mutes"
 msgstr "靜音"
 
 msgid "NFTs"
-msgstr "非同質化代幣 (NFT)"
+msgstr "非同質化代幣"
 
 msgid "No results for \"{searchKeyword}\""
 msgstr "“{searchKeyword}” 無搜尋結果"
