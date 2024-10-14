@@ -9,12 +9,11 @@ import type { FollowingNFT, NFTFeed } from '@/providers/types/NFTs.js';
 export function getSingleNFTFeedItemContent(
     index: number,
     feed: NFTFeed,
+    chainId: ChainId,
     {
-        chainId = ChainId.Mainnet,
         listKey,
     }: {
         listKey?: string;
-        chainId?: ChainId;
     } = {},
 ) {
     return (

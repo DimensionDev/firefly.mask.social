@@ -47,10 +47,7 @@ export const SingleNFTFeed = memo(function SingleNFTFeed({
     const token = tokenList[activeTokenIndex];
     const nftUrl = useMemo(() => {
         if (!token) return null;
-        return resolveNftUrl(token.contractAddress, {
-            chainId,
-            tokenId: token.id,
-        });
+        return resolveNftUrl(chainId, token.contractAddress, token.id);
     }, [chainId, token]);
 
     const authorUrl = resolveProfileUrl(Source.Wallet, ownerAddress);

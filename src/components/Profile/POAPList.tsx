@@ -64,10 +64,7 @@ export function getNFTItemContent(
 ) {
     return (
         <Link
-            href={resolveNftUrl(item.id, {
-                tokenId: item.tokenId,
-                chainId: item.chainId,
-            })}
+            href={resolveNftUrl(item.chainId, item.id, item.tokenId)}
             key={`${index}-${item.id}-${item.tokenId}`}
             className="flex flex-col rounded-lg bg-bg pb-1 sm:rounded-2xl"
         >
