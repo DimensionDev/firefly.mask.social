@@ -8,7 +8,7 @@ import { CreateScheduleError, SignlessRequireError, UnauthorizedError } from '@/
 import { SUPPORTED_FRAME_SOURCES } from '@/constants/index.js';
 import { CHAR_TAG, readChars } from '@/helpers/chars.js';
 import { checkScheduleTime } from '@/helpers/checkScheduleTime.js';
-import { enqueueErrorMessage, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
+import { enqueueErrorMessage, enqueueInfoMessage, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { getCurrentProfileAll } from '@/helpers/getCurrentProfile.js';
 import { getProfileSessionsAll } from '@/helpers/getProfileState.js';
 import { getScheduleTaskContent } from '@/helpers/getScheduleTaskContent.js';
@@ -115,9 +115,7 @@ export async function crossSchedulePost(
         );
     } catch (error) {
         if (error instanceof CreateScheduleError) {
-            enqueueErrorMessage(error.message, {
-                description: error.description,
-            });
+            enqueueInfoMessage(error.message);
         } else if (error instanceof SignlessRequireError) {
             EnableSignlessModalRef.open();
         } else {

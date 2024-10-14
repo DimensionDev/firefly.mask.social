@@ -36,16 +36,15 @@ export const CollectArticleModal = forwardRef<SingletonModalRefCreator<CollectAr
                     }}
                 >
                     <div className="inline-flex h-14 w-full items-center justify-center gap-2 rounded-t-[12px] p-4">
-                        <div className="relative h-6 w-6" />
-                        <div className="shrink grow basis-0 text-center text-lg font-bold leading-snug text-main">
-                            <Trans>Collect Article</Trans>
-                        </div>
-
                         <CloseButton
                             onClick={() => {
                                 dispatch?.close();
                             }}
                         />
+                        <div className="shrink grow basis-0 text-center text-lg font-bold leading-snug text-main">
+                            <Trans>Collect Article</Trans>
+                        </div>
+                        <div className="relative h-6 w-6" />
                     </div>
 
                     {props?.article ? <ArticleCollect article={props?.article} /> : null}

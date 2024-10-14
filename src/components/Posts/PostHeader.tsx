@@ -1,7 +1,7 @@
 import { usePathname } from 'next/navigation.js';
 import { memo } from 'react';
 
-import FireflyAvatarIcon from '@/assets/firefly-avatar.svg';
+import FireflyMonochromeIcon from '@/assets/firefly-monochrome.svg';
 import { MoreAction } from '@/components/Actions/More.js';
 import { Avatar } from '@/components/Avatar.js';
 import { ProfileTippy } from '@/components/Profile/ProfileTippy.js';
@@ -117,9 +117,14 @@ export const PostHeader = memo<PostHeaderProps>(function PostHeader({
                         </>
                     ) : null}
                     {isSendFromFirefly(post) ? (
-                        <FireflyAvatarIcon fontSize={15} width={15} height={15} className="mr-1 inline shrink-0" />
+                        <FireflyMonochromeIcon
+                            fontSize={15}
+                            width={15}
+                            height={15}
+                            className="mr-1 inline shrink-0 text-second"
+                        />
                     ) : null}
-                    <SocialSourceIcon className="shrink-0" source={post.source} size={15} />
+                    <SocialSourceIcon mono className="shrink-0 text-second" source={post.source} size={15} />
                 </div>
                 {newLine ? <div>{handle}</div> : null}
             </address>

@@ -75,7 +75,7 @@ export const PostBody = forwardRef<HTMLDivElement, PostBodyProps>(function PostB
     const [seen, seenRef] = useEverSeen({ rootMargin: '300px 0px' });
     const mergedRef = useForkRef(ref, seenRef);
 
-    const { value: payloads } = useAsync(async () => {
+    const { value: payloads, loading: decodingImage } = useAsync(async () => {
         // decode the image upon post viewing, to reduce unnecessary load of images
         if (!seen) return;
 
@@ -106,7 +106,7 @@ export const PostBody = forwardRef<HTMLDivElement, PostBodyProps>(function PostB
         return attachments.filter((x) => x.uri !== payloadImageUrl);
     }, [attachments, payloadImageUrl]);
 
-    const showAttachments = availableAttachments.length > 0 || !!metadata.content?.asset;
+    const showAttachments = (availableAttachments.length > 0 || !!metadata.content?.asset) && !decodingImage;
 
     const noLeftPadding = isDetail || isSmall || disablePadding;
 
@@ -252,7 +252,7 @@ export const PostBody = forwardRef<HTMLDivElement, PostBodyProps>(function PostB
             ) : null}
 
             {/* Poll */}
-            {!hasEncryptedPayload ? (
+            {!hasEncryptedPayload && !decodingImage ? (
                 pollId && oembedUrl ? (
                     <FramePoll post={post} pollId={pollId} frameUrl={oembedUrl} />
                 ) : post.poll ? (
@@ -264,7 +264,9 @@ export const PostBody = forwardRef<HTMLDivElement, PostBodyProps>(function PostB
                 <Attachments post={post} attachments={availableAttachments} isDetail={isDetail} />
             ) : null}
 
-            {!hasEncryptedPayload && !pollId ? <PostLinks post={post} setContent={setPostContent} /> : null}
+            {!hasEncryptedPayload && !decodingImage && !pollId ? (
+                <PostLinks post={post} setContent={setPostContent} />
+            ) : null}
 
             {!!post.quoteOn && !isQuote ? <Quote post={post.quoteOn} /> : null}
         </article>

@@ -12,6 +12,7 @@ import { Image } from '@/components/Image.js';
 import { Tooltip } from '@/components/Tooltip.js';
 import { XIcon } from '@/components/XIcon.js';
 import { Link } from '@/esm/Link.js';
+import { fixUrlProtocol } from '@/helpers/fixUrlProtocol.js';
 import { openWindow } from '@/helpers/openWindow.js';
 
 interface NFTListProps {
@@ -61,7 +62,7 @@ export function NFTList({ list, isLoading, empty, date }: NFTListProps) {
                                     <Link
                                         className="flex cursor-pointer flex-col gap-2 border-b border-line p-2 outline-none last:border-none hover:no-underline"
                                         key={v.event_url}
-                                        href={v.event_url}
+                                        href={fixUrlProtocol(v.event_url)}
                                         rel="noopener noreferrer"
                                         target="_blank"
                                     >

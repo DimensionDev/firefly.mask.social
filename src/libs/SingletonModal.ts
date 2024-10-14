@@ -1,5 +1,7 @@
-import { defer, type DeferTuple, delay } from '@masknet/kit';
+import { delay } from '@masknet/kit';
 import { Emitter } from '@servie/events';
+
+import { defer, type DeferTuple } from '@/helpers/promise.js';
 
 export type SingletonModalRefCreator<OpenProps = void, CloseProps = void> = (
     onOpen: (props: OpenProps) => void,

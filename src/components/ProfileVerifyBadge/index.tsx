@@ -9,15 +9,21 @@ import { Source } from '@/constants/enum.js';
 import { Link } from '@/esm/Link.js';
 import { classNames } from '@/helpers/classNames.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
-import type { Profile } from '@/providers/types/SocialMedia.js';
+import { type Profile, ProfileBadgePresetColors } from '@/providers/types/SocialMedia.js';
 
 interface Props extends HTMLProps<'div'> {
     profile: Profile;
 }
 
+const presetColors: Record<string, string> = {
+    [ProfileBadgePresetColors.TwitterGray]: 'text-twitterVerified',
+    [ProfileBadgePresetColors.TwitterBlue]: 'text-twitterBlue',
+    [ProfileBadgePresetColors.TwitterGold]: 'text-twitterVerifiedGold',
+};
+
 export function ProfileVerifyBadge({ profile, className }: Props) {
     const { data: icons = [] } = useQuery({
-        queryKey: ['profile-badge', profile],
+        queryKey: ['profile-badge', profile.handle, profile.source],
         queryFn: async () => {
             const provider = resolveSocialMediaProvider(profile.source);
             return provider.getProfileBadges(profile);
@@ -39,7 +45,7 @@ export function ProfileVerifyBadge({ profile, className }: Props) {
                 }
                 switch (icon.source) {
                     case Source.Twitter:
-                        const color = icon.color ?? 'text-twitterVerified';
+                        const color = (icon.color ? presetColors[icon.color] : undefined) ?? 'text-twitterVerified';
                         return <VerifyIcon key={i} className={classNames('h-4 w-4 shrink-0', color)} />;
                     case Source.Farcaster:
                         return <PowerUserIcon key={i} className="h-4 w-4 shrink-0" width={16} height={16} />;

@@ -347,6 +347,12 @@ export interface ProfileBadge {
     color?: string;
 }
 
+export enum ProfileBadgePresetColors {
+    TwitterBlue = 'twitter-blue',
+    TwitterGold = 'twitter-gold',
+    TwitterGray = 'twitter-gray',
+}
+
 export interface Provider {
     type: SessionType;
 

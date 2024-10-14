@@ -12,7 +12,7 @@ import { TimePicker } from '@/components/TimePicker.js';
 import { queryClient } from '@/configs/queryClient.js';
 import { CreateScheduleError } from '@/constants/error.js';
 import { checkScheduleTime } from '@/helpers/checkScheduleTime.js';
-import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
+import { enqueueErrorMessage, enqueueInfoMessage } from '@/helpers/enqueueMessage.js';
 import { getSnackbarMessageFromError } from '@/helpers/getSnackbarMessageFromError.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
 import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
@@ -55,7 +55,7 @@ export const SchedulePostSettings = memo<SchedulePostSettingsProps>(function Sch
             onClose();
         } catch (error) {
             if (error instanceof CreateScheduleError) {
-                enqueueErrorMessage(error.message);
+                enqueueInfoMessage(error.message);
             } else {
                 enqueueErrorMessage(getSnackbarMessageFromError(error, t`Failed to set schedule time.`), {
                     error,
@@ -72,7 +72,7 @@ export const SchedulePostSettings = memo<SchedulePostSettingsProps>(function Sch
             </div>
             <div className="flex gap-2 pt-3 md:gap-4">
                 <DatePicker
-                    className="flex w-full gap-3 rounded-2xl bg-bg px-4 py-3 text-main"
+                    className="flex w-full cursor-pointer gap-3 rounded-2xl bg-bg px-4 py-3 text-main"
                     minDate={dayjs()}
                     maxDate={dayjs().add(7, 'day')}
                     value={dayjs(value)}
@@ -91,7 +91,7 @@ export const SchedulePostSettings = memo<SchedulePostSettingsProps>(function Sch
                     ampm={false}
                     timeSteps={{ minutes: 1 }}
                     containerClassName="flex-1"
-                    className="flex w-full gap-3 rounded-2xl bg-bg px-4 py-3 text-main"
+                    className="flex w-full cursor-pointer gap-3 rounded-2xl bg-bg px-4 py-3 text-main"
                     panelClassName="translate-y-[0%]"
                     onChange={(value) => {
                         setValue((prev) => {

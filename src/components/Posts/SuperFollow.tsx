@@ -32,8 +32,8 @@ export const SuperFollow = memo<SuperFollowProps>(function SuperFollow({ profile
         useSuperFollowData(profile);
 
     const wrongAddress = !isSameEthereumAddress(address, account.address);
-    const feeAmount = parseFloat(followModule?.amount.value || '0');
-    const feeSymbol = followModule?.amount.asset.symbol;
+    const feeAmount = parseFloat(followModule?.amount?.value || '0');
+    const feeSymbol = followModule?.amount?.asset.symbol;
 
     const buttonLabel = useMemo(() => {
         if (!followModule) {
@@ -96,12 +96,12 @@ export const SuperFollow = memo<SuperFollowProps>(function SuperFollow({ profile
     return (
         <div className="w-full">
             <div className="relative text-center">
+                {showCloseButton ? (
+                    <CloseButton onClick={() => onClose?.()} className="absolute -top-1 left-0" />
+                ) : null}
                 <span className="text-lg font-bold leading-6 text-lightMain">
                     <Trans>Super Follow</Trans>
                 </span>
-                {showCloseButton ? (
-                    <CloseButton onClick={() => onClose?.()} className="absolute -top-1 right-0" />
-                ) : null}
             </div>
             <div className="mt-6 rounded-lg bg-lightBg px-3 py-2">
                 <div className="flex items-center gap-2.5">

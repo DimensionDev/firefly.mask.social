@@ -43,6 +43,7 @@ export const DSEARCH_BASE_URL = 'https://dsearch.mask.r2d2.to';
 export const CORS_HOST = 'https://cors-next.r2d2.to';
 export const COINGECKO_URL_BASE = 'https://coingecko-agent.r2d2.to/api/v3';
 export const GO_PLUS_LABS_ROOT_URL = 'https://gopluslabs.r2d2.to';
+export const DEBANK_OPEN_API = 'https://debank-proxy.r2d2.to';
 export const TWITTER_UPLOAD_MEDIA_URL = 'https://upload.twitter.com/1.1/media/upload.json';
 
 export const ADVERTISEMENT_JSON_URL = 'https://media.firefly.land/advertisement/web.json';
@@ -89,7 +90,7 @@ export const SORTED_ENGAGEMENT_TAB_TYPE: Record<SocialSource, EngagementType[]> 
 export const SORTED_SEARCH_TYPE: Record<SocialSource, SearchType[]> = {
     [Source.Lens]: [SearchType.Posts, SearchType.Profiles],
     [Source.Farcaster]: [SearchType.Posts, SearchType.Profiles, SearchType.Channels],
-    [Source.Twitter]: [SearchType.Posts, SearchType.Profiles],
+    [Source.Twitter]: [SearchType.Posts],
 };
 export const SORTED_HOME_SOURCES = [Source.Farcaster, Source.Lens, Source.NFTs, Source.Article] as const;
 export const SORTED_PROFILE_SOURCES: ProfilePageSource[] = [

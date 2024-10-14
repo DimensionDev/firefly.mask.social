@@ -10,30 +10,37 @@ export interface DraggablePopoverProps {
     backdrop?: boolean;
     content?: React.ReactNode;
     enableOverflow?: boolean;
+    onClose?: () => void;
 }
 
 export const DraggablePopover = forwardRef<SingletonModalRefCreator<DraggablePopoverProps>>(
     function DraggablePopover(_, ref) {
-        const [enableBackdrop, setEnableBackdrop] = useState(true);
-        const [content, setContent] = useState<React.ReactNode>();
-        const [enableOverflow, setEnableOverflow] = useState(true);
+        const [props, setProps] = useState<DraggablePopoverProps>();
 
         const [open, dispatch] = useSingletonModal(ref, {
             onOpen(props) {
-                setEnableBackdrop(props.backdrop ?? true);
-                setEnableOverflow(props.enableOverflow ?? true);
-                setContent(props.content);
+                setProps({
+                    ...props,
+                    backdrop: props.backdrop ?? true,
+                    enableOverflow: props.enableOverflow ?? true,
+                });
+            },
+            onClose() {
+                props?.onClose?.();
+                setProps(undefined);
             },
         });
+
+        if (!props) return null;
 
         return (
             <Popover
                 open={open}
-                backdrop={enableBackdrop}
+                backdrop={props.backdrop}
                 onClose={() => dispatch?.close()}
-                enableOverflow={enableOverflow}
+                enableOverflow={props.enableOverflow}
             >
-                {content}
+                {props.content}
             </Popover>
         );
     },

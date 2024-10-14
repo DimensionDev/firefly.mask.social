@@ -23,6 +23,9 @@ overrides:
   i18next: 23.2.11
   react-i18next: 13.0.2
   react-use: 17.5.1
+  '@tanstack/react-query': 5.56.2
+  '@tanstack/react-query-devtools': 5.58.0
+  '@tanstack/react-query-next-experimental': 5.56.2
 
 patchedDependencies:
   '@headlessui/react@1.7.17':
@@ -43,6 +46,9 @@ patchedDependencies:
   '@protobufjs/inquire@1.1.0':
     hash: cc6ztxhxwsg3dyqdzvftqua3dy
     path: src/maskbook/patches/@protobufjs__inquire@1.1.0.patch
+  dayjs-twitter@0.5.0:
+    hash: 3tjtunpncvdv4s34umzp7pmbr4
+    path: patches/dayjs-twitter@0.5.0.patch
   gulp@4.0.2:
     hash: p4ow72ftqhxvnyunk2auogmbge
     path: src/maskbook/patches/gulp@4.0.2.patch
@@ -67,8 +73,8 @@ importers:
         specifier: ^3.658.1
         version: 3.658.1(@aws-sdk/client-s3@3.658.1)
       '@dialectlabs/blinks':
-        specifier: ^0.12.0
-        version: 0.12.0(@solana/wallet-adapter-react-ui@0.9.35)(@solana/wallet-adapter-react@0.15.35)(@solana/web3.js@1.95.3)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026)
+        specifier: ^0.9.3
+        version: 0.9.3(@solana/wallet-adapter-react-ui@0.9.35)(@solana/wallet-adapter-react@0.15.35)(@solana/web3.js@1.95.3)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026)
       '@dimensiondev/holoflows-kit':
         specifier: 0.9.0-20240322092738-f9180f3
         version: 0.9.0-20240322092738-f9180f3
@@ -181,13 +187,13 @@ importers:
         specifier: ^0.5.9
         version: 0.5.9(tailwindcss@3.4.13)
       '@tanstack/react-query':
-        specifier: ^5.56.2
+        specifier: 5.56.2
         version: 5.56.2(react@0.0.0-experimental-8039e6d0b-20231026)
       '@tanstack/react-query-devtools':
-        specifier: ^5.58.0
+        specifier: 5.58.0
         version: 5.58.0(@tanstack/react-query@5.56.2)(react@0.0.0-experimental-8039e6d0b-20231026)
       '@tanstack/react-query-next-experimental':
-        specifier: ^5.56.2
+        specifier: 5.56.2
         version: 5.56.2(@tanstack/react-query@5.56.2)(next@14.1.4)(react@0.0.0-experimental-8039e6d0b-20231026)
       '@tanstack/react-ranger':
         specifier: ^0.0.4
@@ -233,7 +239,7 @@ importers:
         version: 1.11.13
       dayjs-twitter:
         specifier: ^0.5.0
-        version: 0.5.0
+        version: 0.5.0(patch_hash=3tjtunpncvdv4s34umzp7pmbr4)
       dompurify:
         specifier: ^3.1.7
         version: 3.1.7
@@ -602,8 +608,8 @@ importers:
         specifier: 5.15.12
         version: 5.15.12(@emotion/react@11.11.1)(@emotion/styled@11.11.0)(@types/react@18.2.48)(react@0.0.0-experimental-8039e6d0b-20231026)
       '@tanstack/react-query':
-        specifier: ^5.29.2
-        version: 5.29.2(react@0.0.0-experimental-8039e6d0b-20231026)
+        specifier: 5.56.2
+        version: 5.56.2(react@0.0.0-experimental-8039e6d0b-20231026)
       '@types/masknet__global-types':
         specifier: workspace:^
         version: link:packages/polyfills/types
@@ -903,8 +909,8 @@ importers:
         specifier: workspace:^
         version: link:../../web3-shared/evm
       '@tanstack/react-query':
-        specifier: ^5.29.2
-        version: 5.29.2(react@0.0.0-experimental-8039e6d0b-20231026)
+        specifier: 5.56.2
+        version: 5.56.2(react@0.0.0-experimental-8039e6d0b-20231026)
       bignumber.js:
         specifier: 9.1.2
         version: 9.1.2
@@ -1174,8 +1180,8 @@ importers:
         specifier: workspace:^
         version: link:../shared-base
       '@tanstack/react-query':
-        specifier: ^5.29.2
-        version: 5.29.2(react@0.0.0-experimental-8039e6d0b-20231026)
+        specifier: 5.56.2
+        version: 5.56.2(react@0.0.0-experimental-8039e6d0b-20231026)
       react-use:
         specifier: 17.5.1
         version: 17.5.1(patch_hash=jdgfodh3ixpexpgf3fwrwvcmtq)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026)
@@ -1360,8 +1366,8 @@ importers:
         specifier: workspace:^
         version: link:../../web3-shared/solana
       '@tanstack/react-query':
-        specifier: ^5.29.2
-        version: 5.29.2(react@0.0.0-experimental-8039e6d0b-20231026)
+        specifier: 5.56.2
+        version: 5.56.2(react@0.0.0-experimental-8039e6d0b-20231026)
       bignumber.js:
         specifier: 9.1.2
         version: 9.1.2
@@ -6439,25 +6445,8 @@ packages:
       - supports-color
     dev: true
 
-  /@dialectlabs/blinks-core@0.12.0(react@0.0.0-experimental-8039e6d0b-20231026):
-    resolution: {integrity: sha512-rKGp4Dk8Dg3vbq29Gmrq6AhqWuJhaREVN6ZbbUBsJHMTPMmpq3OoumXYhv8+qhneU1v3NlchKyC7IdXZw6BWFg==}
-    peerDependencies:
-      react: 0.0.0-experimental-8039e6d0b-20231026 || 0.0.0-experimental-0a360642d-20230711
-    peerDependenciesMeta:
-      react:
-        optional: true
-    dependencies:
-      '@solana/web3.js': 1.95.3
-      nanoid: 5.0.7
-      react: 0.0.0-experimental-8039e6d0b-20231026
-    transitivePeerDependencies:
-      - bufferutil
-      - encoding
-      - utf-8-validate
-    dev: false
-
-  /@dialectlabs/blinks@0.12.0(@solana/wallet-adapter-react-ui@0.9.35)(@solana/wallet-adapter-react@0.15.35)(@solana/web3.js@1.95.3)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026):
-    resolution: {integrity: sha512-afjrTHOk0HDX68Xl2AbVYZ3TqTfsZjaFEBB2mfoUtbBHDxRVn/OmhgnnP8hvGXArl5O/6X70Ig1I/CZScb7+9w==}
+  /@dialectlabs/blinks@0.9.3(@solana/wallet-adapter-react-ui@0.9.35)(@solana/wallet-adapter-react@0.15.35)(@solana/web3.js@1.95.3)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026):
+    resolution: {integrity: sha512-eJYMYxd5nSuyc/yBCVDNru2zU+Vc+ngK+0pwwks7t2OqbMErswY2GGeM/xPsfOWFveUZN55dloP0W0t8kA1s/Q==}
     peerDependencies:
       '@solana/wallet-adapter-react': ^0.15.0
       '@solana/wallet-adapter-react-ui': ^0.9.0
@@ -6470,17 +6459,12 @@ packages:
       react-dom:
         optional: true
     dependencies:
-      '@dialectlabs/blinks-core': 0.12.0(react@0.0.0-experimental-8039e6d0b-20231026)
       '@solana/wallet-adapter-react': 0.15.35(@solana/web3.js@1.95.3)(bs58@5.0.0)(react-native@0.74.1)(react@0.0.0-experimental-8039e6d0b-20231026)
       '@solana/wallet-adapter-react-ui': 0.9.35(@solana/web3.js@1.95.3)(bs58@5.0.0)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react-native@0.74.1)(react@0.0.0-experimental-8039e6d0b-20231026)
       '@solana/web3.js': 1.95.3
       clsx: 2.1.1
       react: 0.0.0-experimental-8039e6d0b-20231026
       react-dom: 0.0.0-experimental-8039e6d0b-20231026(react@0.0.0-experimental-8039e6d0b-20231026)
-    transitivePeerDependencies:
-      - bufferutil
-      - encoding
-      - utf-8-validate
     dev: false
 
   /@dimensiondev/holoflows-kit@0.9.0-20240322092738-f9180f3:
@@ -14371,10 +14355,6 @@ packages:
     engines: {node: '>=12'}
     dev: false
 
-  /@tanstack/query-core@5.29.0:
-    resolution: {integrity: sha512-WgPTRs58hm9CMzEr5jpISe8HXa3qKQ8CxewdYZeVnA54JrPY9B1CZiwsCoLpLkf0dGRZq+LcX5OiJb0bEsOFww==}
-    dev: false
-
   /@tanstack/query-core@5.56.2:
     resolution: {integrity: sha512-gor0RI3/R5rVV3gXfddh1MM+hgl0Z4G7tj6Xxpq6p2I03NGPaJ8dITY9Gz05zYYb/EJq9vPas/T4wn9EaDPd4Q==}
     dev: false
@@ -14391,7 +14371,7 @@ packages:
   /@tanstack/react-query-devtools@5.58.0(@tanstack/react-query@5.56.2)(react@0.0.0-experimental-8039e6d0b-20231026):
     resolution: {integrity: sha512-qF0xCyBeVuNLygTO1sAl1X4Gv52w52SeaDdbjYQmtTOooUJ3aAVlBEtiRJFfJblWQ9p/UQG8NIcC/65RjX8Jkw==}
     peerDependencies:
-      '@tanstack/react-query': ^5.56.2
+      '@tanstack/react-query': 5.56.2
       react: 0.0.0-experimental-8039e6d0b-20231026 || 0.0.0-experimental-0a360642d-20230711
     peerDependenciesMeta:
       react:
@@ -14405,7 +14385,7 @@ packages:
   /@tanstack/react-query-next-experimental@5.56.2(@tanstack/react-query@5.56.2)(next@14.1.4)(react@0.0.0-experimental-8039e6d0b-20231026):
     resolution: {integrity: sha512-9LjzJfqPzUP9Jfm3RU2elLw6g0OM/+o8O7xaIkZAtLjXvXVGw2NIEPSfoDzJ6Q+Kb1dcZpcftFpLpeHA1WsZgw==}
     peerDependencies:
-      '@tanstack/react-query': ^5.56.2
+      '@tanstack/react-query': 5.56.2
       next: ^13 || ^14 || ^15
       react: 0.0.0-experimental-8039e6d0b-20231026 || 0.0.0-experimental-0a360642d-20230711
     peerDependenciesMeta:
@@ -14414,18 +14394,6 @@ packages:
     dependencies:
       '@tanstack/react-query': 5.56.2(react@0.0.0-experimental-8039e6d0b-20231026)
       next: 14.1.4(babel-plugin-macros@3.1.0)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026)
-      react: 0.0.0-experimental-8039e6d0b-20231026
-    dev: false
-
-  /@tanstack/react-query@5.29.2(react@0.0.0-experimental-8039e6d0b-20231026):
-    resolution: {integrity: sha512-nyuWILR4u7H5moLGSiifLh8kIqQDLNOHGuSz0rcp+J75fNc8aQLyr5+I2JCHU3n+nJrTTW1ssgAD8HiKD7IFBQ==}
-    peerDependencies:
-      react: 0.0.0-experimental-8039e6d0b-20231026 || 0.0.0-experimental-0a360642d-20230711
-    peerDependenciesMeta:
-      react:
-        optional: true
-    dependencies:
-      '@tanstack/query-core': 5.29.0
       react: 0.0.0-experimental-8039e6d0b-20231026
     dev: false
 
@@ -19682,11 +19650,12 @@ packages:
     resolution: {integrity: sha512-fRHTG8g/Gif+kSh50gaGEdToemgfj74aRX3swtiouboip5JDLAyDE9F11nHMIcvOaXeOC6D7SpNhi7uFyB7Uww==}
     dev: true
 
-  /dayjs-twitter@0.5.0:
+  /dayjs-twitter@0.5.0(patch_hash=3tjtunpncvdv4s34umzp7pmbr4):
     resolution: {integrity: sha512-SZ7qEUISstBLUXdlGAbLrwr6zfRM9kaCfbq4uVTerM/HXzuHiiGzzUqAJVhxt+3tf69E+ocmQdP6YYpOINv05w==}
     dependencies:
       duration-js: 4.0.0
     dev: false
+    patched: true
 
   /dayjs@1.11.10:
     resolution: {integrity: sha512-vjAczensTgRcqDERK0SR2XMwsF/tSvnvlv6VcF2GIhg6Sx4yOIt/irsr1RDJsKiIyBzJDpCoXiWWq28MqH2cnQ==}
@@ -32538,7 +32507,7 @@ packages:
   /wagmi@2.12.14(@tanstack/react-query@5.56.2)(@types/react@18.2.48)(@vercel/kv@1.0.1)(immer@10.1.1)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react-native@0.74.1)(react@0.0.0-experimental-8039e6d0b-20231026)(rollup@3.29.4)(typescript@5.6.2)(viem@2.21.15)(zod@3.23.8):
     resolution: {integrity: sha512-D9pCL3D/+Ph8k6SVi1aWcmnnw7gWyPiFlSovBplpsFgKT613csfXQDp+VslVR8onB+nkFikakxZNKcZgbLHU6A==}
     peerDependencies:
-      '@tanstack/react-query': '>=5.0.0'
+      '@tanstack/react-query': 5.56.2
       react: 0.0.0-experimental-8039e6d0b-20231026 || 0.0.0-experimental-0a360642d-20230711
       typescript: '>=5.0.4 || 5'
       viem: 2.x
@@ -33915,6 +33884,7 @@ packages:
     dependencies:
       void-elements: 2.0.1
     dev: true
+<<<<<<< HEAD
 
 time:
   /@apollo/client@3.11.8: '2024-09-05T08:37:49.305Z'
@@ -34016,3 +33986,5 @@ time:
   /wagmi@2.12.14: '2024-09-24T17:21:42.632Z'
   /zod@3.23.8: '2024-05-08T19:13:04.545Z'
   /zustand@4.5.5: '2024-08-15T02:32:33.544Z'
+=======
+>>>>>>> main

@@ -79,7 +79,13 @@ msgstr ""
 msgid "Failed to fetch as Blob."
 msgstr ""
 
+msgid "Metadata not frozen."
+msgstr ""
+
 msgid "Unmute successfully."
+msgstr ""
+
+msgid "Simulating"
 msgstr ""
 
 msgid "Your frame URL"
@@ -110,9 +116,6 @@ msgid "Please be cautious when connecting your wallet, as malicious websites may
 msgstr ""
 
 msgid "<0>Fully Diluted Valuation (FDV) = Current Price x Total Supply</0><1>Fully Diluted Valuation (FDV) is the theoretical market capitalization of a coin if the entirety of its supply is in circulation, based on its current market price. The FDV value is theoretical as increasing the circulating supply of a coin may impact its market price. Also depending on the tokenomics, emission schedule or lock-up period of a coin's supply, it may take a significant time before its entire supply is released into circulation.</1>"
-msgstr ""
-
-msgid "Up to 7 days can be set as the scheduled time."
 msgstr ""
 
 msgid "Followed @{0} on {sourceName}"
@@ -226,6 +229,9 @@ msgstr ""
 msgid "Airdrop Scam"
 msgstr ""
 
+msgid "Metadata frozen."
+msgstr ""
+
 msgid "Overwrite"
 msgstr ""
 
@@ -295,6 +301,9 @@ msgstr ""
 msgid "Scheduled"
 msgstr ""
 
+msgid "Pay"
+msgstr ""
+
 msgid "Failed to add wallet"
 msgstr ""
 
@@ -323,6 +332,9 @@ msgid "Verifying eligibility..."
 msgstr ""
 
 msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} <4>liked your </4><5>{1, select, Post {post} Comment {comment} Quote {quote} Mirror {mirror} other {post}}</5>"
+msgstr ""
+
+msgid "Our transaction simulation and security detection found no issues. However, it is always crucial to double-check and proceed with caution."
 msgstr ""
 
 msgid "Market Cap"
@@ -394,10 +406,16 @@ msgstr ""
 msgid "Show less"
 msgstr ""
 
+msgid "Proxy contract."
+msgstr ""
+
 msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} {1, select, Lens {mirrored your} Farcaster {recasted your} other {mirrored your}} <4>{2, select, Post {post} Comment {comment} Quote {quote} Mirror {mirror} other {post}}</4>"
 msgstr ""
 
 msgid "Total"
+msgstr ""
+
+msgid "Signer key not found. Please approve a new one for us in Warpcast."
 msgstr ""
 
 msgid "Trading cooldown function."
@@ -434,6 +452,9 @@ msgid "The author is muted by you."
 msgstr ""
 
 msgid "Failed to report @{0}"
+msgstr ""
+
+msgid "Restricted approval."
 msgstr ""
 
 msgid "Report submitted"
@@ -529,6 +550,9 @@ msgstr ""
 msgid "Functions with retrievable ownership"
 msgstr ""
 
+msgid "No proxy contract."
+msgstr ""
+
 msgid "Search"
 msgstr ""
 
@@ -545,6 +569,9 @@ msgid "Sanctioned address."
 msgstr ""
 
 msgid "Each wallet or X account is limited to one claim."
+msgstr ""
+
+msgid "Unsafe: Transaction is at risk"
 msgstr ""
 
 msgid "Calendar"
@@ -778,6 +805,9 @@ msgstr ""
 msgid "Update"
 msgstr ""
 
+msgid "Domain"
+msgstr ""
+
 msgid "Failed to follow @{0} on Lens"
 msgstr ""
 
@@ -820,7 +850,13 @@ msgstr ""
 msgid "The number of token transactions is limited. The number of scam token transactions may be limited (honeypot risk)."
 msgstr ""
 
+msgid "No phishing site found."
+msgstr ""
+
 msgid "Log out"
+msgstr ""
+
+msgid "No restricted approval."
 msgstr ""
 
 msgid "Unmuting..."
@@ -833,6 +869,9 @@ msgid "Login to Firefly"
 msgstr ""
 
 msgid "Top Channels"
+msgstr ""
+
+msgid "Canceled"
 msgstr ""
 
 msgid "No content for the last two weeks."
@@ -931,6 +970,9 @@ msgstr ""
 msgid "Blacklist function"
 msgstr ""
 
+msgid "Up to 7 days can be set as the scheduled time. Please reset it"
+msgstr ""
+
 msgid "Enable development API version"
 msgstr ""
 
@@ -950,6 +992,9 @@ msgid "<0>Sold</0> an NFT worth {costEl}"
 msgstr ""
 
 msgid "🎉"
+msgstr ""
+
+msgid "The user canceled the operation."
 msgstr ""
 
 msgid "Owned By"
@@ -977,6 +1022,9 @@ msgid "<0>You</0> mirrored"
 msgstr ""
 
 msgid "Failed to create image payload."
+msgstr ""
+
+msgid "Network Fee"
 msgstr ""
 
 msgid "Contract address found."
@@ -1231,6 +1279,9 @@ msgstr ""
 msgid "Please confirm the login with Warpcast."
 msgstr ""
 
+msgid "Verified"
+msgstr ""
+
 msgid "Log in with recovery phrase"
 msgstr ""
 
@@ -1294,6 +1345,9 @@ msgstr ""
 msgid "There are videos that were not uploaded successfully."
 msgstr ""
 
+msgid "NFT contract cant restrict the approval, resulting in NFT can not be traded on the NFT DEX."
+msgstr ""
+
 msgid "This can’t be undone, and the scheduled send will be canceled."
 msgstr ""
 
@@ -1310,6 +1364,9 @@ msgid "Follow Back"
 msgstr ""
 
 msgid "Are you sure you want to report this article?"
+msgstr ""
+
+msgid "NFT owner cant bypass the maximum amount of minting specified in the contract, and continue to mint NFTs beyond this limit."
 msgstr ""
 
 msgid "Failed to upvote post."
@@ -1444,6 +1501,9 @@ msgstr ""
 msgid "Invalid signer key"
 msgstr ""
 
+msgid "Unverified"
+msgstr ""
+
 msgid "Follow for {feeAmount} ${feeSymbol}"
 msgstr ""
 
@@ -1501,6 +1561,9 @@ msgstr ""
 msgid "Select Token"
 msgstr ""
 
+msgid "This NFT contract doesn't have a proxy contract."
+msgstr ""
+
 msgid "Your schedule thread has created successfully."
 msgstr ""
 
@@ -1532,6 +1595,9 @@ msgid "This can’t be undone and you’ll lose your draft."
 msgstr ""
 
 msgid "Article removed from your Bookmarks"
+msgstr ""
+
+msgid "Powered by Tenderly and GoPlus"
 msgstr ""
 
 msgid "Publications"
@@ -1603,10 +1669,16 @@ msgstr ""
 msgid "%Of supply owned"
 msgstr ""
 
+msgid "Approve"
+msgstr ""
+
 msgid "Signing failed."
 msgstr ""
 
 msgid "Share"
+msgstr ""
+
+msgid "Transaction Simulation"
 msgstr ""
 
 msgid "Scan the QR code with the <0>Firefly mobile app</0> or <1>Camera app</1> to log in instantly."
@@ -1619,6 +1691,9 @@ msgid "Cancel recast successfully"
 msgstr ""
 
 msgid "Failed to create schedule thread posts."
+msgstr ""
+
+msgid "This NFT contract has a proxy contract."
 msgstr ""
 
 msgid "Top Collectors"
@@ -1684,6 +1759,9 @@ msgstr ""
 msgid "No comments found"
 msgstr ""
 
+msgid "We were unable to simulate the transaction or complete all security detection. Please proceed with caution."
+msgstr ""
+
 msgid "Unfollow @{0}"
 msgstr ""
 
@@ -1697,6 +1775,9 @@ msgid "Upload to S3"
 msgstr ""
 
 msgid "{shares, plural, one {Recast or Quote} other {Recasts or Quotes}}"
+msgstr ""
+
+msgid "Website is a phishing site."
 msgstr ""
 
 msgid "Please input the serialized session to be validated."
@@ -1748,6 +1829,9 @@ msgid "Failed to submit report on {0}."
 msgstr ""
 
 msgid "Insufficient funds"
+msgstr ""
+
+msgid "No phishing site."
 msgstr ""
 
 msgid "Connect your wallet to follow"
@@ -1990,6 +2074,9 @@ msgstr ""
 msgid "The contract owner has no restrictions on selling."
 msgstr ""
 
+msgid "No oversupply minting."
+msgstr ""
+
 msgid "No money laundering found."
 msgstr ""
 
@@ -2018,6 +2105,9 @@ msgid "View transaction on explorer"
 msgstr ""
 
 msgid "<0>You</0> reposted"
+msgstr ""
+
+msgid "NFT owner can bypass the maximum amount of minting specified in the contract, and continue to mint NFTs beyond this limit."
 msgstr ""
 
 msgid "The contract may contain additional issuance functions, which could maybe generate a large number of tokens, resulting in significant fluctuations in token prices. It is recommended to confirm with the project team whether it complies with the token issuance instructions."
@@ -2107,10 +2197,16 @@ msgstr ""
 msgid "Refresh"
 msgstr ""
 
+msgid "Receive"
+msgstr ""
+
 msgid "Followed by {0} , {1}, and {2}"
 msgstr ""
 
 msgid "Collect Article"
+msgstr ""
+
+msgid "Firefly Wallets"
 msgstr ""
 
 msgid "Channels"
@@ -2209,9 +2305,6 @@ msgstr ""
 msgid "1y"
 msgstr ""
 
-msgid "Cannot find your signer key, please connect again"
-msgstr ""
-
 msgid "Malicious mining activities."
 msgstr ""
 
@@ -2291,6 +2384,9 @@ msgid "{minutes}m left"
 msgstr ""
 
 msgid "Your X account holds Premium status."
+msgstr ""
+
+msgid "Signature Request"
 msgstr ""
 
 msgid "Total Supply"
@@ -2383,10 +2479,16 @@ msgstr ""
 msgid "Firefly Bridge"
 msgstr ""
 
+msgid "Oversupply minting."
+msgstr ""
+
 msgid "Invalid URL"
 msgstr ""
 
 msgid "View on explorer"
+msgstr ""
+
+msgid "Unverified: Failed to simulate,"
 msgstr ""
 
 msgid "Already logged in?<0/>Approve the <1>existing Farcaster signer</1> to Firefly or <2>sync</2> through the app"
@@ -2426,6 +2528,9 @@ msgid "The scheduled time has passed."
 msgstr ""
 
 msgid "The connection has timed out. Please try again later."
+msgstr ""
+
+msgid "Phishing site."
 msgstr ""
 
 msgid "Emoji"
@@ -2491,6 +2596,9 @@ msgstr ""
 msgid "Failed to parse transaction."
 msgstr ""
 
+msgid "The metadata of this NFT is stored in IPFS, AR, generated by contract, or another decentralized way."
+msgstr ""
+
 msgid "No anti_whale(Unlimited number of transactions)"
 msgstr ""
 
@@ -2533,6 +2641,9 @@ msgstr ""
 msgid "FREE"
 msgstr ""
 
+msgid "Ignore the warnings to continue"
+msgstr ""
+
 msgid "The contract owner has restrictions on trading cooldown."
 msgstr ""
 
@@ -2552,6 +2663,9 @@ msgid "Max Supply"
 msgstr ""
 
 msgid "Posted by {0} via Firefly"
+msgstr ""
+
+msgid "NFT contract can restrict the approval, resulting in NFT can not be traded on the NFT DEX."
 msgstr ""
 
 msgid "<0>You</0> recasted"
@@ -2608,10 +2722,19 @@ msgstr ""
 msgid "Clear"
 msgstr ""
 
+msgid "Continue"
+msgstr ""
+
+msgid "try again"
+msgstr ""
+
 msgid "Cybercrime."
 msgstr ""
 
 msgid "<0>Sent</0> an NFT to <1>{0}</1>"
+msgstr ""
+
+msgid "The metadata of this NFT is not stored in IPFS, AR, generated by contract, or another decentralized way."
 msgstr ""
 
 msgid "No trading cooldown function."
@@ -2627,6 +2750,9 @@ msgid "Already claimed"
 msgstr ""
 
 msgid "Text"
+msgstr ""
+
+msgid "Chain"
 msgstr ""
 
 msgid "Mirror"
