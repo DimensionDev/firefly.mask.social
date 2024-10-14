@@ -1009,11 +1009,11 @@ msgstr "<0>Sold</0> an NFT worth {costEl}"
 msgid "🎉"
 msgstr "🎉"
 
-msgid "Failed to fetch space \"{id}\"."
-msgstr "Failed to fetch space \"{id}\"."
-
 msgid "The user canceled the operation."
 msgstr "The user canceled the operation."
+
+msgid "Failed to fetch space \"{id}\"."
+msgstr "Failed to fetch space \"{id}\"."
 
 msgid "Owned By"
 msgstr "Owned By"

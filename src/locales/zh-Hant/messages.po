@@ -1014,10 +1014,10 @@ msgstr ""
 msgid "🎉"
 msgstr ""
 
-msgid "Failed to fetch space \"{id}\"."
+msgid "The user canceled the operation."
 msgstr ""
 
-msgid "The user canceled the operation."
+msgid "Failed to fetch space \"{id}\"."
 msgstr ""
 
 msgid "Owned By"
