@@ -8,7 +8,7 @@ msgstr ""
 "Language: zh\n"
 "Project-Id-Version: masksocial\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-09-29 09:39\n"
+"PO-Revision-Date: 2024-10-13 00:06\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
@@ -1594,7 +1594,7 @@ msgid "The contract owner has no restrictions on buying."
 msgstr ""
 
 msgid "Financial crime."
-msgstr ""
+msgstr "金融犯罪。"
 
 msgid "This can’t be undone and you’ll lose your draft."
 msgstr "此操作无法撤销，您将丢失您的草稿。"
@@ -2846,3 +2846,4 @@ msgstr "未满足领取资格， <0>重试</0>"
 
 msgid "Reward for followers"
 msgstr "回馈粉丝"
+
