@@ -83,9 +83,9 @@ const ExternalEnvSchema = z.object({
     NEXT_PUBLIC_W3M_PROJECT_ID: z.string(),
 
     // particle
-    NEXT_PUBLIC_PARTICLE_APP_ID: z.string(),
-    NEXT_PUBLIC_PARTICLE_PROJECT_ID: z.string(),
-    NEXT_PUBLIC_PARTICLE_CLIENT_KEY: z.string(),
+    NEXT_PUBLIC_PARTICLE_APP_ID: z.string().optional(),
+    NEXT_PUBLIC_PARTICLE_PROJECT_ID: z.string().optional(),
+    NEXT_PUBLIC_PARTICLE_CLIENT_KEY: z.string().optional(),
 });
 
 export const env = {
