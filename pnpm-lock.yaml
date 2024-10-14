@@ -26,6 +26,7 @@ overrides:
   '@tanstack/react-query': 5.56.2
   '@tanstack/react-query-devtools': 5.58.0
   '@tanstack/react-query-next-experimental': 5.56.2
+  '@particle-network/thresh-sig': 0.7.8
 
 patchedDependencies:
   '@headlessui/react@1.7.17':
@@ -153,6 +154,9 @@ importers:
       '@particle-network/auth-core':
         specifier: 2.0.4
         version: 2.0.4(patch_hash=y5pebe2cxou6y2f6nbcd75kcyq)(@aws-sdk/client-sso-oidc@3.666.0)
+      '@particle-network/thresh-sig':
+        specifier: 0.7.8
+        version: 0.7.8(patch_hash=djurfuqlypzynf7ecdgo5yeqzy)
       '@sentry/browser':
         specifier: ^7.112.2
         version: 7.112.2
@@ -7475,7 +7479,7 @@ packages:
       '@ethereumjs/common': 3.2.0
       '@ethereumjs/rlp': 4.0.1
       '@ethereumjs/util': 8.1.0
-      ethereum-cryptography: 2.1.3
+      ethereum-cryptography: 2.2.1
     dev: false
 
   /@ethereumjs/util@8.1.0:
@@ -9087,7 +9091,7 @@ packages:
       '@metamask/abi-utils': 2.0.4
       '@metamask/utils': 9.2.1
       '@scure/base': 1.1.8
-      ethereum-cryptography: 2.1.3
+      ethereum-cryptography: 2.2.1
       tweetnacl: 1.0.3
     transitivePeerDependencies:
       - supports-color
