@@ -48,4 +48,4 @@ export const LIMO_REGEXP = /^https:\/\/vitalik\.eth\.limo\/general\//;
 
 export const MIRROR_ARTICLE_REGEXP = /https?:\/\/mirror\.xyz\/[^/]+\/([^/]+)/;
 export const MIRROR_SUBDOMAIN_ARTICLE_REGEXP = /^https:\/\/.*\.mirror\.xyz\/(.*)$/;
-export const PARAGRAPH_ARTICLE_REGEXP = /https?:\/\/paragraph\.xyz\/@([^/]+)\/(.+)/;
+export const PARAGRAPH_ARTICLE_REGEXP = /https?:\/\/paragraph\.xyz(\/view)?\/@([^/]+)\/(.+)/;
