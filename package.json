@@ -216,7 +216,7 @@
             "@tanstack/react-query": "5.56.2",
             "@tanstack/react-query-devtools": "5.58.0",
             "@tanstack/react-query-next-experimental": "5.56.2",
-            "@particle-network/thresh-sig": "git@https://github.com/guanbinrui/thresh-sig.git#de7f16a64fa7dd73b487d130da065b209495fdb4"
+            "@particle-network/thresh-sig": "git+https://github.com/guanbinrui/thresh-sig.git#bb5bfc4cf9319941a6ec9fb85a3a5b99f718b661"
         },
         "override comments": {
             "i18next-translation-parser": "see https://github.com/i18next/i18next-translation-parser/issues/11 we manually pin the commit"
