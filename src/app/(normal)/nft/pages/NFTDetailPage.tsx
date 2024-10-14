@@ -1,4 +1,4 @@
-'use client'
+'use client';
 
 import { ChainId, SchemaType } from '@masknet/web3-shared-evm';
 import { useQuery } from '@tanstack/react-query';
@@ -18,7 +18,7 @@ import { isSameEthereumAddress } from '@/helpers/isSameAddress.js';
 import { useNFTDetail } from '@/hooks/useNFTDetail.js';
 import { SimpleHashWalletProfileProvider } from '@/providers/simplehash/WalletProfile.js';
 
-export function NFTDetailPage({ chainId, address, tokenId }: { chainId: ChainId, address: string, tokenId: string }) {
+export function NFTDetailPage({ chainId, address, tokenId }: { chainId: ChainId; address: string; tokenId: string }) {
     const isPoap = isSameEthereumAddress(address, POAP_CONTRACT_ADDRESS);
 
     const { data, isLoading } = useNFTDetail(address, tokenId, chainId);
@@ -26,19 +26,17 @@ export function NFTDetailPage({ chainId, address, tokenId }: { chainId: ChainId,
     const { data: poapEvent } = useQuery({
         queryKey: ['post-event', data?.metadata?.eventId],
         async queryFn() {
-            return SimpleHashWalletProfileProvider.getPoapEvent(data?.metadata?.eventId!)
+            return SimpleHashWalletProfileProvider.getPoapEvent(data?.metadata?.eventId!);
         },
-        enabled: !!data?.metadata?.eventId
-    })
-    
+        enabled: !!data?.metadata?.eventId,
+    });
+
     if (isLoading) {
-        return (
-            <Loading />
-        );
+        return <Loading />;
     }
 
     if (!data?.metadata) {
-        return notFound()
+        return notFound();
     }
     const poapAttendeesCount = poapEvent?.total ?? 0;
 

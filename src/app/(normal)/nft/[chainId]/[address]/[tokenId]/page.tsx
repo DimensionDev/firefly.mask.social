@@ -22,5 +22,5 @@ export async function generateMetadata({ params: { address, tokenId, ...params }
 export default async function Page({ params: { address, tokenId, ...params } }: Props) {
     const chainId = parseChainId(params.chainId);
     if (!chainId) return notFound();
-    return <NFTDetailPage chainId={chainId} tokenId={tokenId} address={address} />
+    return <NFTDetailPage chainId={chainId} tokenId={tokenId} address={address} />;
 }

@@ -22,5 +22,5 @@ export default async function Page({ params: { address, ...params } }: Props) {
     const chainId = parseChainId(params.chainId);
     if (!chainId) notFound();
 
-    return <NFTCollectionPage chainId={chainId} address={address} />
+    return <NFTCollectionPage chainId={chainId} address={address} />;
 }

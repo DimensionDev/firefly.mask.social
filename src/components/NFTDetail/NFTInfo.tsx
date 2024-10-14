@@ -78,11 +78,7 @@ export function NFTInfo(props: NFTInfoProps) {
                     <div className="flex w-full flex-col items-center justify-center space-y-3 sm:justify-start">
                         {!isPoap && collection ? (
                             <Link
-                                href={
-                                    contractAddress
-                                        ? resolveNftUrl(chainId, contractAddress)
-                                        : ''
-                                }
+                                href={contractAddress ? resolveNftUrl(chainId, contractAddress) : ''}
                                 className="flex h-5 w-full items-center justify-center text-base font-bold leading-6 sm:justify-start"
                             >
                                 {collection.icon ? (

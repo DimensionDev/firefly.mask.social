@@ -1,4 +1,4 @@
-'use client'
+'use client';
 
 import { ChainId } from '@masknet/web3-shared-evm';
 import { useSuspenseQuery } from '@tanstack/react-query';
@@ -10,15 +10,15 @@ import { NFTNavbar } from '@/components/NFTs/NFTNavbar.js';
 import { getFloorPrice } from '@/helpers/getFloorPrice.js';
 import { SimpleHashWalletProfileProvider } from '@/providers/simplehash/WalletProfile.js';
 
-export function NFTCollectionPage({ chainId, address }: { chainId: ChainId, address: string }) {
+export function NFTCollectionPage({ chainId, address }: { chainId: ChainId; address: string }) {
     const { data } = useSuspenseQuery({
         queryKey: ['nft-collection', chainId, address],
         async queryFn() {
-            return await SimpleHashWalletProfileProvider.getCollection(address, { chainId })
-        }
-    })
+            return await SimpleHashWalletProfileProvider.getCollection(address, { chainId });
+        },
+    });
 
-    if (!data) notFound()
+    if (!data) notFound();
 
     return (
         <div className="min-h-screen">
