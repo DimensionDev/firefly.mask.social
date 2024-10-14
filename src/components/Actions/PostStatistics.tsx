@@ -4,7 +4,7 @@ import { compact, sumBy } from 'lodash-es';
 import { usePathname } from 'next/navigation.js';
 import { Fragment, type HTMLProps, memo, type ReactNode, useMemo } from 'react';
 
-import FireflyAvatarIcon from '@/assets/firefly-avatar.svg';
+import FireflyMonochromeIcon from '@/assets/firefly-monochrome.svg';
 import { ChannelAnchor } from '@/components/Posts/ChannelAnchor.js';
 import { Time } from '@/components/Semantic/Time.js';
 import { EngagementType, PageRoute, Source } from '@/constants/enum.js';
@@ -210,7 +210,7 @@ export const PostStatistics = memo<Props>(function PostStatistics({
                       <Trans>
                           Posted via{' '}
                           {isSendFromFirefly(post) ? (
-                              <FireflyAvatarIcon fontSize={15} width={15} height={15} className="inline" />
+                              <FireflyMonochromeIcon fontSize={15} width={15} height={15} className="inline" />
                           ) : null}{' '}
                           <span className="capitalize">{sendFrom}</span>
                       </Trans>

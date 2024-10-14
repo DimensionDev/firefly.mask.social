@@ -1,8 +1,12 @@
 'use client';
-import { safeUnreachable } from '@masknet/kit';
+
+import type { FunctionComponent, SVGAttributes } from 'react';
 
 import FarcasterIcon from '@/assets/farcaster.svg';
+import FarcasterFillIcon from '@/assets/farcaster-fill.svg';
 import LensIcon from '@/assets/lens.svg';
+import LensFillIcon from '@/assets/lens-fill.svg';
+import XFillIcon from '@/assets/x-fill.svg';
 import { XIcon } from '@/components/XIcon.js';
 import { type SocialSource, Source } from '@/constants/enum.js';
 import { useSizeStyle } from '@/hooks/useSizeStyle.js';
@@ -10,20 +14,26 @@ import { useSizeStyle } from '@/hooks/useSizeStyle.js';
 interface SocialSourceIconProps extends React.SVGProps<SVGSVGElement> {
     size?: number;
     source: SocialSource;
+    /** Monochrome */
+    mono?: boolean;
 }
 
-export function SocialSourceIcon({ source, size = 20, ...props }: SocialSourceIconProps) {
-    const style = useSizeStyle(size, props.style);
+const ColorIconMap: Record<SocialSource, FunctionComponent<SVGAttributes<SVGElement>>> = {
+    [Source.Lens]: LensIcon,
+    [Source.Farcaster]: FarcasterIcon,
+    [Source.Twitter]: XIcon,
+};
+const MonochromeIconMap: Record<SocialSource, FunctionComponent<SVGAttributes<SVGElement>>> = {
+    [Source.Lens]: LensFillIcon,
+    [Source.Farcaster]: FarcasterFillIcon,
+    [Source.Twitter]: XFillIcon,
+};
 
-    switch (source) {
-        case Source.Lens:
-            return <LensIcon {...props} style={style} width={size} height={size} />;
-        case Source.Farcaster:
-            return <FarcasterIcon {...props} style={style} width={size} height={size} />;
-        case Source.Twitter:
-            return <XIcon {...props} style={style} width={size} height={size} />;
-        default:
-            safeUnreachable(source);
-            return null;
-    }
+export function SocialSourceIcon({ source, size = 20, mono, ...props }: SocialSourceIconProps) {
+    const style = useSizeStyle(size, props.style);
+    const map = mono ? MonochromeIconMap : ColorIconMap;
+    const Icon = map[source];
+
+    if (!Icon) return null;
+    return <Icon {...props} style={style} width={size} height={size} />;
 }
