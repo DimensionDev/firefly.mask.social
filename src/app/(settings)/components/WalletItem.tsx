@@ -2,8 +2,10 @@ import { useNetworkDescriptor } from '@masknet/web3-hooks-base';
 import { ChainId as EVMChainId } from '@masknet/web3-shared-evm';
 import { ChainId as SolanaChainId } from '@masknet/web3-shared-solana';
 
+import { ConnectMPCWalletButton } from '@/app/(settings)/components/ConnectMPCWalletButton.js';
 import { DisconnectButton } from '@/app/(settings)/components/DisconnectButton.js';
 import { ReportButton } from '@/app/(settings)/components/ReportButton.js';
+import FireflyLogo from '@/assets/firefly.round.svg';
 import LinkIcon from '@/assets/link-square.svg';
 import WalletIcon from '@/assets/wallet-circle.svg';
 import VerifiedDarkIcon from '@/assets/wallet-circle-verified.dark.svg';
@@ -42,18 +44,20 @@ export function WalletItem({ connection, noAction = false }: WalletItemProps) {
             ? BlockScanExplorerResolver.addressLink(EVMChainId.Mainnet, connection.address)
             : null;
 
+    const isMPCWallet = connection.source === WalletSource.Particle;
+
+    const Icon = isMPCWallet
+        ? FireflyLogo
+        : !connection.canReport
+          ? isDark
+              ? VerifiedDarkIcon
+              : VerifiedLightIcon
+          : WalletIcon;
+
     return (
         <div className="mb-3 inline-flex h-[63px] w-full items-center justify-start gap-3 rounded-lg bg-white bg-bottom px-3 py-2 text-medium text-lightMain shadow-primary backdrop-blur dark:bg-bg">
-            {!connection.canReport ? (
-                isDark ? (
-                    <VerifiedDarkIcon width={24} height={24} />
-                ) : (
-                    <VerifiedLightIcon width={24} height={24} />
-                )
-            ) : (
-                <WalletIcon width={24} height={24} />
-            )}
-            <div className="flex flex-1 flex-col text-left">
+            <Icon className="shrink-0" width={24} height={24} />
+            <div className="flex min-w-0 flex-1 flex-col text-left">
                 {connection.ens?.[0] ? (
                     <span className="flex items-center text-base font-bold">
                         {chainIconImage}
@@ -83,7 +87,9 @@ export function WalletItem({ connection, noAction = false }: WalletItemProps) {
                 </div>
             </div>
             {noAction ? null : !connection.canReport ? (
-                [WalletSource.Particle].includes(connection.source) ? null : (
+                isMPCWallet ? (
+                    <ConnectMPCWalletButton connection={connection} />
+                ) : (
                     <DisconnectButton connection={connection} />
                 )
             ) : (

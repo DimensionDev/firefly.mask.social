@@ -10,9 +10,17 @@ import { WalletGroup } from '@/app/(settings)/components/WalletGroup.js';
 import LoadingIcon from '@/assets/loading.svg';
 import { Loading } from '@/components/Loading.js';
 import { NoResultsFallback } from '@/components/NoResultsFallback.js';
+import { WalletSource } from '@/constants/enum.js';
 import { EMPTY_LIST } from '@/constants/index.js';
 import { useNavigatorTitle } from '@/hooks/useNavigatorTitle.js';
 import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
+import type { FireflyWalletConnection } from '@/providers/types/Firefly.js';
+
+function filterMPCWallets(connections: FireflyWalletConnection[], noMPC = false) {
+    return connections.filter(({ source }) =>
+        noMPC ? source !== WalletSource.Particle : source === WalletSource.Particle,
+    );
+}
 
 export default function Wallets() {
     useNavigatorTitle(t`Associated wallets`);
@@ -26,8 +34,10 @@ export default function Wallets() {
         queryFn: () => FireflySocialMediaProvider.getAllConnections(),
     });
 
+    const mpcWallets = [connected, related].flatMap((connection) => filterMPCWallets(connection));
+
     return (
-        <Section>
+        <Section className="max-h-screen overflow-y-auto">
             <Headline>
                 <Trans>Associated wallets</Trans>
                 {isRefetching ? (
@@ -38,11 +48,12 @@ export default function Wallets() {
                 <NoResultsFallback message={t`No available wallet.`} />
             ) : null}
             {isLoading ? <Loading className="!min-h-[200px]" /> : null}
-            <WalletGroup title={t`Connected in Firefly`} connections={connected} />
+            <WalletGroup title={t`Firefly Wallets`} connections={mpcWallets} />
+            <WalletGroup title={t`Connected in Firefly`} connections={filterMPCWallets(connected, true)} />
             <WalletGroup
                 related
                 title={t`Related by platforms`}
-                connections={related}
+                connections={filterMPCWallets(related, true)}
                 tooltip={t`Wallets retrieved from public verifiable data registries or our entity algorithm can be reported for disconnection.`}
             />
             {!isLoading ? (
