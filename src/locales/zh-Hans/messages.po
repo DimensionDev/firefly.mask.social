@@ -2211,6 +2211,9 @@ msgstr "被 {0} 和 {1} 和 {2} 关注"
 msgid "Collect Article"
 msgstr "收集文章"
 
+msgid "Firefly Wallets"
+msgstr ""
+
 msgid "Channels"
 msgstr "频道"
 

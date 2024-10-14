@@ -2206,6 +2206,9 @@ msgstr ""
 msgid "Collect Article"
 msgstr ""
 
+msgid "Firefly Wallets"
+msgstr ""
+
 msgid "Channels"
 msgstr ""
 

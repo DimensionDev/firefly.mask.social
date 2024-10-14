@@ -2206,6 +2206,9 @@ msgstr "Followed by {0} , {1}, and {2}"
 msgid "Collect Article"
 msgstr "Collect Article"
 
+msgid "Firefly Wallets"
+msgstr "Firefly Wallets"
+
 msgid "Channels"
 msgstr "Channels"
 
