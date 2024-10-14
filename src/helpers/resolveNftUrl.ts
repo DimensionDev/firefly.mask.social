@@ -2,18 +2,20 @@ import { ChainId } from '@masknet/web3-shared-evm';
 import urlcat from 'urlcat';
 
 export function resolveNftUrl(
-    contractAddress: string,
-    options?: {
-        tokenId?: string;
-        chainId?: ChainId | string | number | null;
-    },
+    chainId: ChainId | string | number,
+    address: string,
+    tokenId?: string
 ) {
-    let basePath = `/nft/${contractAddress.toLowerCase()}`;
-    if (options?.tokenId) {
-        basePath = `${basePath}/${options?.tokenId}`;
+    const basePath = '/nft/:chainId/:address'
+    if (tokenId) {
+        return urlcat(`${basePath}/:tokenId`, {
+            tokenId,
+            address,
+            chainId
+        })
     }
-    const chainId = options?.chainId || ChainId.Mainnet;
-    return urlcat(`${basePath}/:chainId`, {
-        chainId,
-    });
+    return urlcat(basePath, {
+        address,
+        chainId
+    })
 }

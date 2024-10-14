@@ -113,7 +113,7 @@ function NFTItem({
 }: {
     address: string;
     tokenId: string;
-    chainId?: ChainId;
+    chainId: ChainId;
     action?: NFTFeedTransAction;
 }) {
     const { data, isLoading } = useNFTDetail(address, tokenId, chainId);
@@ -155,9 +155,7 @@ function NFTItem({
                             value={
                                 <Link
                                     className="flex items-center hover:underline"
-                                    href={resolveNftUrl(address, {
-                                        chainId,
-                                    })}
+                                    href={resolveNftUrl(chainId, address)}
                                     onClick={(event) => event.stopPropagation()}
                                 >
                                     <div className="max-w-[calc(100%-22px)] truncate">{collectionName}</div>
@@ -199,7 +197,7 @@ export interface NFTFeedBodyProps {
     tokenList: Array<{ id: string; contractAddress: string; action: NFTFeedActionProps }>;
     onChangeIndex?: (index: number) => void;
     index?: number;
-    chainId?: ChainId;
+    chainId: ChainId;
 }
 
 export function NFTFeedBody({ index = 0, onChangeIndex, tokenList, chainId }: NFTFeedBodyProps) {

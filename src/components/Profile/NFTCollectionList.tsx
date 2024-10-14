@@ -35,7 +35,7 @@ function NFTCollectionItem({ collection, onClick }: NFTCollectionItemProps) {
 
     const chainId = useMemo(() => {
         const chain = first(collection.collection_details.chains);
-        if (!chain) return null;
+        if (!chain) return undefined;
         return resolveSimpleHashChainId(chain);
     }, [collection.collection_details.chains]);
 
@@ -46,10 +46,7 @@ function NFTCollectionItem({ collection, onClick }: NFTCollectionItemProps) {
             nftPreview.name ?? nftPreview?.contract?.name ? `${nftPreview.contract.name} #${tokenId}` : `#${tokenId}`;
         return (
             <Link
-                href={resolveNftUrl(nftPreview.contract_address, {
-                    tokenId,
-                    chainId,
-                })}
+                href={resolveNftUrl(chainId ?? ChainId.Mainnet, nftPreview.contract_address, tokenId)}
                 className="relative flex flex-col rounded-lg bg-bg pb-1 sm:rounded-2xl"
             >
                 {chainId ? (

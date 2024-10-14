@@ -32,7 +32,7 @@ interface NFTInfoProps {
         id?: string;
     };
     floorPrice?: ReactNode;
-    chainId?: ChainId;
+    chainId: ChainId;
     attendance?: number;
     tokenNameClassName?: string;
     isPoap?: boolean;
@@ -80,9 +80,7 @@ export function NFTInfo(props: NFTInfoProps) {
                             <Link
                                 href={
                                     contractAddress
-                                        ? resolveNftUrl(contractAddress, {
-                                              chainId,
-                                          })
+                                        ? resolveNftUrl(chainId, contractAddress)
                                         : ''
                                 }
                                 className="flex h-5 w-full items-center justify-center text-base font-bold leading-6 sm:justify-start"

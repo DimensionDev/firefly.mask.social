@@ -25,7 +25,7 @@ export async function createMetadataNFT(address: string, tokenId: string, chainI
             title,
             description,
             images,
-            url: resolveNftUrl(address, { chainId }),
+            url: resolveNftUrl(chainId, address),
         },
         twitter: {
             card: 'summary_large_image',
@@ -49,7 +49,7 @@ export async function createMetadataNFTCollection(address: string, chainId: Chai
             title,
             description,
             images,
-            url: resolveNftUrl(address, { chainId }),
+            url: resolveNftUrl(chainId, address),
         },
         twitter: {
             card: 'summary_large_image',

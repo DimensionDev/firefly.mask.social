@@ -1,7 +1,11 @@
-import { SchemaType } from '@masknet/web3-shared-evm';
+'use client'
+
+import { ChainId, SchemaType } from '@masknet/web3-shared-evm';
+import { useQuery } from '@tanstack/react-query';
 import { isUndefined } from 'lodash-es';
 import { notFound } from 'next/navigation.js';
 
+import Loading from '@/app/(normal)/loading.js';
 import { Attendees } from '@/components/NFTDetail/Attendees.js';
 import { NFTInfo } from '@/components/NFTDetail/NFTInfo.js';
 import { NFTOverflow } from '@/components/NFTDetail/NFTOverflow.js';
@@ -9,48 +13,33 @@ import { NFTProperties } from '@/components/NFTDetail/NFTProperties.js';
 import { NFTNavbar } from '@/components/NFTs/NFTNavbar.js';
 import { POAP_CONTRACT_ADDRESS } from '@/constants/index.js';
 import { classNames } from '@/helpers/classNames.js';
-import { createMetadataNFT } from '@/helpers/createMetadataNFT.js';
-import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
 import { getFloorPrice } from '@/helpers/getFloorPrice.js';
 import { isSameEthereumAddress } from '@/helpers/isSameAddress.js';
-import { parseChainId } from '@/helpers/parseChainId.js';
+import { useNFTDetail } from '@/hooks/useNFTDetail.js';
 import { SimpleHashWalletProfileProvider } from '@/providers/simplehash/WalletProfile.js';
 
-export const revalidate = 60;
-
-interface Props {
-    params: {
-        address: string;
-        tokenIdOrChainId: string;
-        chainId: string;
-    };
-}
-
-export async function generateMetadata({ params: { address, tokenIdOrChainId: tokenId, ...params } }: Props) {
-    const chainId = parseChainId(params.chainId);
-    if (chainId) return createMetadataNFT(address, tokenId, chainId);
-    return createSiteMetadata();
-}
-
-export default async function Page({ params: { address, tokenIdOrChainId: tokenId, ...params } }: Props) {
-    const chainId = parseChainId(params.chainId);
-    if (!chainId) return notFound();
-
+export function NFTDetailPage({ chainId, address, tokenId }: { chainId: ChainId, address: string, tokenId: string }) {
     const isPoap = isSameEthereumAddress(address, POAP_CONTRACT_ADDRESS);
 
-    const data = await SimpleHashWalletProfileProvider.getNFT(
-        address,
-        tokenId,
-        {
-            chainId,
-        },
-        true,
-    );
-    if (!data?.metadata) return notFound();
+    const { data, isLoading } = useNFTDetail(address, tokenId, chainId);
 
-    const poapEvent = data.metadata.eventId
-        ? await SimpleHashWalletProfileProvider.getPoapEvent(data.metadata.eventId)
-        : undefined;
+    const { data: poapEvent } = useQuery({
+        queryKey: ['post-event', data?.metadata?.eventId],
+        async queryFn() {
+            return SimpleHashWalletProfileProvider.getPoapEvent(data?.metadata?.eventId!)
+        },
+        enabled: !!data?.metadata?.eventId
+    })
+    
+    if (isLoading) {
+        return (
+            <Loading />
+        );
+    }
+
+    if (!data?.metadata) {
+        return notFound()
+    }
     const poapAttendeesCount = poapEvent?.total ?? 0;
 
     return (
