@@ -29,13 +29,6 @@ import { setLocale } from '@/i18n/index.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
 import { useLeafwatchPersistStore } from '@/store/useLeafwatchPersistStore.js';
 
-import * as authCore from '@particle-network/auth-core';
-
-console.log('DEBUG: particle network');
-console.log({
-    authCore,
-});
-
 export const Providers = memo(function Providers(props: { children: React.ReactNode }) {
     const isDarkMode = useIsDarkMode();
     const isMedium = useIsMedium();
