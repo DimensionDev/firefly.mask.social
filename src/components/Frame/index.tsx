@@ -19,7 +19,7 @@ import { fetchJSON } from '@/helpers/fetchJSON.js';
 import { getCurrentProfile } from '@/helpers/getCurrentProfile.js';
 import { getSnackbarMessageFromError } from '@/helpers/getSnackbarMessageFromError.js';
 import { getWalletClientRequired } from '@/helpers/getWalletClientRequired.js';
-import { openIntentUrl } from '@/helpers/openIntentUrl.js';
+import { interceptExternalUrl } from '@/helpers/interceptExternalUrl.js';
 import { openWindow } from '@/helpers/openWindow.js';
 import { parseCAIP10 } from '@/helpers/parseCAIP10.js';
 import { untilImageUrlLoaded } from '@/helpers/untilImageLoaded.js';
@@ -166,8 +166,8 @@ async function getNextFrame(
             case ActionType.Link:
                 if (!button.target) return;
 
-                const opened = openIntentUrl(button.target);
-                if (opened) return;
+                const intercepted = await interceptExternalUrl(button.target);
+                if (intercepted) return;
 
                 if (await ConfirmLeavingModalRef.openAndWaitForClose(button.target))
                     openWindow(button.target, '_blank');
