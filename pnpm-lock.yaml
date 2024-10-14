@@ -9118,7 +9118,7 @@ packages:
     resolution: {integrity: sha512-dwZPq8wx9yV3IX2caLi9q9xZBw2XeIoYqdyihDDDpuHVCEiqadJLwqM3zy+uwf6F1QYQ65A8aOMQg1Uw7LMLNg==}
     engines: {node: '>=16.0.0'}
     dependencies:
-      '@metamask/rpc-errors': 6.4.0
+      '@metamask/rpc-errors': 6.2.1
       '@metamask/safe-event-emitter': 3.1.1
       '@metamask/utils': 8.4.0
     transitivePeerDependencies:
@@ -9129,7 +9129,7 @@ packages:
     resolution: {integrity: sha512-IoQPmql8q7ABLruW7i4EYVHWUbF74yrp63bRuXV5Zf9BQwcn5H9Ww1eLtROYvI1bUXwOiHZ6qT5CWTrDc/t/AA==}
     engines: {node: '>=16.0.0'}
     dependencies:
-      '@metamask/rpc-errors': 6.4.0
+      '@metamask/rpc-errors': 6.2.1
       '@metamask/safe-event-emitter': 3.1.1
       '@metamask/utils': 8.4.0
     transitivePeerDependencies:
@@ -9169,7 +9169,7 @@ packages:
       '@metamask/json-rpc-engine': 8.0.2
       '@metamask/json-rpc-middleware-stream': 7.0.2
       '@metamask/object-multiplex': 2.0.0
-      '@metamask/rpc-errors': 6.4.0
+      '@metamask/rpc-errors': 6.2.1
       '@metamask/safe-event-emitter': 3.1.1
       '@metamask/utils': 8.4.0
       detect-browser: 5.3.0
@@ -9178,6 +9178,16 @@ packages:
       is-stream: 2.0.1
       readable-stream: 3.6.2
       webextension-polyfill: 0.10.0
+    transitivePeerDependencies:
+      - supports-color
+    dev: false
+
+  /@metamask/rpc-errors@6.2.1:
+    resolution: {integrity: sha512-VTgWkjWLzb0nupkFl1duQi9Mk8TGT9rsdnQg6DeRrYEFxtFOh0IF8nAwxM/4GWqDl6uIB06lqUBgUrAVWl62Bw==}
+    engines: {node: '>=16.0.0'}
+    dependencies:
+      '@metamask/utils': 8.4.0
+      fast-safe-stringify: 2.1.1
     transitivePeerDependencies:
       - supports-color
     dev: false
@@ -12256,7 +12266,7 @@ packages:
   /@scure/bip32@1.4.0:
     resolution: {integrity: sha512-sVUpc0Vq3tXCkDGYVWGIZTRfnvu8LoTDaev7vbwh0omSvVORONr960MQWdKqJDCReIEmTj3PAr73O3aoxz7OPg==}
     dependencies:
-      '@noble/curves': 1.4.2
+      '@noble/curves': 1.4.0
       '@noble/hashes': 1.4.0
       '@scure/base': 1.1.8
     dev: false
@@ -21254,7 +21264,7 @@ packages:
       ajv: 6.12.6
       chalk: 4.1.2
       cross-spawn: 7.0.3
-      debug: 4.3.7
+      debug: 4.3.5
       doctrine: 3.0.0
       escape-string-regexp: 4.0.0
       eslint-scope: 7.2.2
