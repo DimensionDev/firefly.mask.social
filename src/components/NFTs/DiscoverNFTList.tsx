@@ -41,7 +41,7 @@ export function DiscoverNFTList() {
                 listKey: `${ScrollListKey.Discover}:${Source.NFTs}`,
                 computeItemKey: (index, nftFeed) => `${nftFeed.id}-${index}`,
                 itemContent: (index, nftFeed) =>
-                    getSingleNFTFeedItemContent(index, nftFeed, {
+                    getSingleNFTFeedItemContent(index, nftFeed, ChainId.Mainnet, {
                         listKey: `${ScrollListKey.Discover}:${Source.NFTs}`,
                     }),
                 overscan: 2000,

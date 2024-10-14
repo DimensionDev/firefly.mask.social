@@ -7,6 +7,7 @@ import { parseOldDiscoverUrl } from '@/helpers/parseDiscoverUrl.js';
 import { parseOldEngagementUrl } from '@/helpers/parseEngagementUrl.js';
 import { parseOldBookmarkUrl } from '@/helpers/parseOldBookmarkUrl.js';
 import { parseOldFollowingUrl } from '@/helpers/parseOldFollowingUrl.js';
+import { parseOldNftUrl } from '@/helpers/parseOldNftUrl.js';
 import { parseOldNotification } from '@/helpers/parseOldNotification.js';
 import { parseOldSettingsUrl } from '@/helpers/parseOldSettingsUrl.js';
 import { parseOldPostUrl } from '@/helpers/parsePostUrl.js';
@@ -15,6 +16,7 @@ import { resolveBookmarkUrl } from '@/helpers/resolveBookmarkUrl.js';
 import { resolveDiscoverUrl } from '@/helpers/resolveDiscoverUrl.js';
 import { resolveEngagementUrl } from '@/helpers/resolveEngagementUrl.js';
 import { resolveFollowingUrl } from '@/helpers/resolveFollowingUrl.js';
+import { resolveNftUrl } from '@/helpers/resolveNftUrl.js';
 import { resolveNotificationUrl } from '@/helpers/resolveNotificationUrl.js';
 import { resolvePostUrl } from '@/helpers/resolvePostUrl.js';
 import { resolveProfileUrl } from '@/helpers/resolveProfileUrl.js';
@@ -120,6 +122,14 @@ export async function middleware(request: NextRequest) {
         const destination = request.nextUrl.clone();
         destination.pathname = resolvePostUrl(parsedOldPostUrl.source, parsedOldPostUrl.id);
         destination.searchParams.delete('source');
+        return NextResponse.redirect(destination);
+    }
+
+    const parsedOldNftUrl = parseOldNftUrl(request.nextUrl);
+    if (parsedOldNftUrl) {
+        const destination = request.nextUrl.clone();
+        destination.pathname = resolveNftUrl(parsedOldNftUrl.chainId, parsedOldNftUrl.address, parsedOldNftUrl.tokenId);
+        destination.searchParams.delete('chainId');
         return NextResponse.redirect(destination);
     }
 
