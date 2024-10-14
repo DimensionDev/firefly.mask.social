@@ -39,12 +39,13 @@ function formatAsset(asset?: AssetChange) {
     if (!asset) return null;
 
     const standard = asset.token_info?.standard || '';
+    const amount = asset.amount ?? asset.raw_amount;
 
     if (['ERC721', 'ERC1155'].includes(standard)) {
-        return `${asset.token_info?.name || 'Unknown'} *${asset.amount}`;
+        return `${asset.token_info?.name || 'Unknown'} *${amount}`;
     }
 
-    return `${asset.amount} ${asset.token_info?.symbol?.toUpperCase() || 'Unknown'}`;
+    return `${amount} ${asset.token_info?.symbol?.toUpperCase() || 'Unknown'}`;
 }
 
 export function getPanelConfig(): PanelConfig[] {
