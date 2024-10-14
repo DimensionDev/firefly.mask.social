@@ -35,7 +35,7 @@ function NFTCollectionItem({ collection, onClick }: NFTCollectionItemProps) {
 
     const chainId = useMemo(() => {
         const chain = first(collection.collection_details.chains);
-        if (!chain) return undefined;
+        if (!chain) return;
         return resolveSimpleHashChainId(chain);
     }, [collection.collection_details.chains]);
 
