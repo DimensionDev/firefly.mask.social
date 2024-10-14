@@ -40,7 +40,7 @@ export function NFTMoreAction({ address, contractAddress, tokenId, chainId }: Pr
         <MoreActionMenu
             button={
                 <Tooltip content={t`More`} placement="top">
-                    <MoreIcon width={24} height={24} />
+                    <MoreIcon width={24} height={24} className="text-secondary" />
                 </Tooltip>
             }
         >
