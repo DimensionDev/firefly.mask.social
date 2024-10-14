@@ -52,6 +52,10 @@ export function MethodButton({ item }: Props) {
                     enqueueInfoMessage(`Wallet Address: ${walletAddress}`);
                     break;
                 }
+                case SupportedMethod.OPEN_URL: {
+                    fireflyBridgeProvider.request(SupportedMethod.OPEN_URL, { url: 'https://firefly.land' });
+                    break;
+                }
                 case SupportedMethod.LOGIN: {
                     const result = await fireflyBridgeProvider.request(SupportedMethod.LOGIN, {
                         platform: Platform.FARCASTER,

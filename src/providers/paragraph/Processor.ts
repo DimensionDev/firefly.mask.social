@@ -77,7 +77,8 @@ class Processor {
                 });
 
             const result = {
-                chain: target.highlightsChain ?? data?.props.pageProps.initialState.blog.blog.highlightsChain,
+                chain:
+                    target.highlightsChain ?? data?.props.pageProps.initialState.blog.blog.highlightsChain ?? 'polygon',
                 noteId: target.id,
                 supply: target.highlightsSupply,
                 costEth: target.highlightsCost ?? data?.props.pageProps.initialState.blog.blog.highlightsCost,

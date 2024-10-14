@@ -18,3 +18,8 @@ export interface Token<AddressLike = string> {
     symbol: string;
     time_at: number;
 }
+
+export interface GasPrice {
+    level: 'slow' | 'normal' | 'fast';
+    price: number;
+}
