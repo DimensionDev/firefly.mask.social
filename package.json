@@ -251,7 +251,8 @@
             "react-use@17.5.1": "src/maskbook/patches/react-use@17.5.1.patch",
             "@livepeer/core@3.2.7": "patches/@livepeer__core@3.2.7.patch",
             "@particle-network/auth-core@2.0.4": "patches/@particle-network__auth-core@2.0.4.patch",
-            "dayjs-twitter@0.5.0": "patches/dayjs-twitter@0.5.0.patch"
+            "dayjs-twitter@0.5.0": "patches/dayjs-twitter@0.5.0.patch",
+            "@particle-network/thresh-sig@0.7.8": "patches/@particle-network__thresh-sig@0.7.8.patch"
         }
     }
 }
