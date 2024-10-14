@@ -129,7 +129,7 @@ export async function middleware(request: NextRequest) {
     if (parsedOldNftUrl) {
         const destination = request.nextUrl.clone();
         destination.pathname = resolveNftUrl(parsedOldNftUrl.chainId, parsedOldNftUrl.address, parsedOldNftUrl.tokenId);
-        destination.searchParams.delete('source');
+        destination.searchParams.delete('chainId')
         return NextResponse.redirect(destination);
     }
 
