@@ -2830,6 +2830,9 @@ msgstr ""
 msgid "Note:"
 msgstr ""
 
+msgid "Logging out will cause scheduled posts to fail. To ensure that posts are sent as scheduled, please make sure that your Firefly account remains logged in."
+msgstr ""
+
 msgid "Failed to create schedule post."
 msgstr ""
 

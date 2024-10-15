@@ -25,8 +25,8 @@ export const DraftPage = memo(function DraftPage() {
     });
 
     return (
-        <div>
-            <div className="scrollable-tab flex gap-3 border-b border-line px-4">
+        <div className="flex min-h-0 flex-grow flex-col">
+            <div className="scrollable-tab flex shrink-0 gap-3 border-b border-line px-4">
                 {[
                     {
                         type: DraftPageTab.Draft,

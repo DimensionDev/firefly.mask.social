@@ -227,17 +227,15 @@ export const DraftList = memo(function DraftList() {
                 (x) => {
                     return dayjs(x.createdAt).unix();
                 },
-                'asc',
-            )
-                .reverse()
-                .map((draft) => (
-                    <DraftListItem
-                        draft={draft}
-                        key={draft.draftId}
-                        handleRemove={handleRemove}
-                        handleApply={handleApply}
-                    />
-                ))}
+                'desc',
+            ).map((draft) => (
+                <DraftListItem
+                    draft={draft}
+                    key={draft.draftId}
+                    handleRemove={handleRemove}
+                    handleApply={handleApply}
+                />
+            ))}
         </div>
     );
 });
