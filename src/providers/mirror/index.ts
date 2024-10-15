@@ -4,7 +4,7 @@ import { createPublicClient, http, parseSignature, zeroAddress } from 'viem';
 import { polygon } from 'viem/chains';
 
 import { MirrorABI, MirrorFactoryABI, OldMirrorABI } from '@/abis/Mirror.js';
-import { config, wagmiChains as chains } from '@/configs/wagmiClient.js';
+import { config, chains as chains } from '@/configs/wagmiClient.js';
 import { NotImplementedError } from '@/constants/error.js';
 import { MIRROR_COLLECT_FEE, MIRROR_COLLECT_FEE_IN_POLYGON, MIRROR_OLD_FACTOR_ADDRESSES } from '@/constants/index.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';

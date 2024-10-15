@@ -43,7 +43,7 @@ import {
 import { env } from '@/constants/env.js';
 import { SITE_DESCRIPTION, SITE_NAME, SITE_URL } from '@/constants/index.js';
 
-export const chains = [
+const networks = [
     mainnet,
     base,
     bsc,
@@ -61,7 +61,7 @@ export const chains = [
     zora,
 ] as [AppKitNetwork, ...AppKitNetwork[]];
 
-export const wagmiChains = [
+export const chains = [
     wagmiMainnet,
     wagmiBase,
     wagmiBsc,
@@ -80,7 +80,7 @@ export const wagmiChains = [
 ] as const;
 
 export const adapter = new WagmiAdapter({
-    networks: chains,
+    networks: networks,
     projectId: env.external.NEXT_PUBLIC_W3M_PROJECT_ID,
 });
 
@@ -92,7 +92,7 @@ const metadata = {
 };
 createAppKit({
     adapters: [adapter],
-    networks: chains,
+    networks: networks,
     metadata,
     projectId: env.external.NEXT_PUBLIC_W3M_PROJECT_ID,
     showWallets: false,
