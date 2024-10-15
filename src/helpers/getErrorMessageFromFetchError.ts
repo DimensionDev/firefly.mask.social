@@ -4,6 +4,9 @@ import { StatusCodes } from 'http-status-codes';
 import type { FetchError } from '@/constants/error.js';
 
 export function getErrorMessageFromFetchError(error: FetchError): string {
+    console.log('DEBUG: fetch error')
+    console.log(error)
+
     switch (error.status) {
         case StatusCodes.BAD_REQUEST:
             return t`Bad Request. Please check your request.`;
