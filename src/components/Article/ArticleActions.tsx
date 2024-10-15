@@ -3,17 +3,19 @@
 import { t } from '@lingui/macro';
 import { motion } from 'framer-motion';
 import { memo } from 'react';
+import urlcat from 'urlcat';
 import { useEnsName } from 'wagmi';
 
 import CollectIcon from '@/assets/collect.svg';
 import { Bookmark } from '@/components/Actions/Bookmark.js';
+import { ShareAction } from '@/components/Actions/ShareAction.js';
 import { ArticleCollect } from '@/components/Article/ArticleCollect.js';
-import { ArticleShare } from '@/components/Article/ArticleShare.js';
 import { ClickableArea } from '@/components/ClickableArea.js';
 import { Tips } from '@/components/Tips/index.js';
 import { Tooltip } from '@/components/Tooltip.js';
 import { Source } from '@/constants/enum.js';
 import { classNames } from '@/helpers/classNames.js';
+import { getArticleUrl } from '@/helpers/getArticleUrl.js';
 import { useFireflyIdentity } from '@/hooks/useFireflyIdentity.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import { useToggleArticleBookmark } from '@/hooks/useToggleArticleBookmark.js';
@@ -29,6 +31,7 @@ export const ArticleActions = memo<ArticleActionsProps>(function ArticleActions(
     const identity = useFireflyIdentity(Source.Wallet, article.author.id);
     const { data: ens } = useEnsName({ address: article.author.id });
     const isMedium = useIsMedium();
+    const url = urlcat(location.origin, getArticleUrl(article));
     return (
         <div className="flex items-center justify-end">
             <div className="flex items-center">
@@ -68,7 +71,7 @@ export const ArticleActions = memo<ArticleActionsProps>(function ArticleActions(
                     onClick={close}
                     pureWallet
                 />
-                {article.origin ? <ArticleShare article={article} /> : null}
+                {url ? <ShareAction link={url} /> : null}
             </div>
         </div>
     );

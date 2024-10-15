@@ -42,7 +42,7 @@ function getTitle(displayInfo: SchedulePostDisplayInfo, isFailed: boolean) {
     }
 }
 
-const ScheduleTaskItem = memo(function ScheduleTaskItem({ task, index }: { task: ScheduleTask; index: number }) {
+const ScheduleTaskItem = memo(function ScheduleTaskItem({ task }: { task: ScheduleTask }) {
     const displayInfo = task.display_info;
     const isFailed = task.status === 'fail';
 
@@ -147,8 +147,8 @@ const ScheduleTaskItem = memo(function ScheduleTaskItem({ task, index }: { task:
     );
 });
 
-function getScheduleTaskItemContent(index: number, task: ScheduleTask) {
-    return <ScheduleTaskItem key={task.uuid} index={index} task={task} />;
+function getScheduleTaskItemContent(task: ScheduleTask) {
+    return <ScheduleTaskItem key={task.uuid} task={task} />;
 }
 
 export function ScheduleTaskList() {
@@ -185,7 +185,7 @@ export function ScheduleTaskList() {
                 className={classNames('max-md:no-scrollbar schedule-task-list h-full')}
                 listKey={`$${ScrollListKey.SchedulePosts}`}
                 computeItemKey={(index, item) => item.uuid}
-                itemContent={(index, task) => getScheduleTaskItemContent(index, task)}
+                itemContent={(index, task) => getScheduleTaskItemContent(task)}
             />
         </div>
     );

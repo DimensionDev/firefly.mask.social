@@ -78,7 +78,7 @@ export const TokenSelector = memo(function TokenSelector() {
                         {!filteredTokens?.length && !isLoading && <NoResultsFallback message={t`No available token`} />}
                         {showMore ? (
                             <ClickableButton
-                                className="mt-2 flex w-full items-center justify-center gap-0.5 rounded-lg py-2 text-sm font-bold text-lightHighlight hover:bg-lightBg"
+                                className="mt-2 flex w-full items-center justify-center gap-0.5 rounded-lg py-2 text-sm font-bold text-highlight hover:bg-lightBg"
                                 onClick={() => setShowSmall((prev) => !prev)}
                             >
                                 <span>

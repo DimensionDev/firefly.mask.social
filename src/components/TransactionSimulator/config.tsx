@@ -163,7 +163,7 @@ export function getStatusConfig(): StatusConfig[] {
             text: (_, retry) => (
                 <span>
                     <Trans>Unverified: Failed to simulate,</Trans>
-                    <ClickableButton className="text-lightHighlight" onClick={retry}>
+                    <ClickableButton className="text-highlight" onClick={retry}>
                         {' '}
                         <Trans>try again</Trans>
                     </ClickableButton>

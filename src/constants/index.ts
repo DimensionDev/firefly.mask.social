@@ -46,6 +46,7 @@ export const COINGECKO_URL_BASE = 'https://coingecko-agent.r2d2.to/api/v3';
 export const GO_PLUS_LABS_ROOT_URL = 'https://gopluslabs.r2d2.to';
 export const DEBANK_OPEN_API = 'https://debank-proxy.r2d2.to';
 export const TWITTER_UPLOAD_MEDIA_URL = 'https://upload.twitter.com/1.1/media/upload.json';
+export const SNAPSHOT_GRAPHQL_URL = 'https://hub.snapshot.org/graphql';
 
 export const ADVERTISEMENT_JSON_URL = 'https://media.firefly.land/advertisement/web.json';
 export const ADVERTISEMENT_JSON_URL_DEV = 'https://media.firefly.land/advertisement/web-dev.json';

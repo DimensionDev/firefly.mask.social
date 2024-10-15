@@ -66,7 +66,7 @@ export function EditProfileForm() {
                         <div className="text-[20px] font-bold">@{profile.handle}</div>
                         <label
                             htmlFor="pfp-upload"
-                            className="text-md block cursor-pointer rounded-lg font-bold leading-5 text-lightHighlight"
+                            className="text-md block cursor-pointer rounded-lg font-bold leading-5 text-highlight"
                         >
                             <Trans>Upload photo</Trans>
                         </label>

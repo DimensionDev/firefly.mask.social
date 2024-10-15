@@ -90,7 +90,7 @@ export function SuggestedFollowsCard() {
                 <span className="text-xl">
                     <Trans>You might like</Trans>
                 </span>
-                <Link href={showMoreUrl} className="text-[15px] text-lightHighlight">
+                <Link href={showMoreUrl} className="text-[15px] text-highlight">
                     <Trans>More</Trans>
                 </Link>
             </AsideTitle>

@@ -72,7 +72,7 @@ export default function Page() {
                 {loading ? <LoadingIcon className="animate-spin" width={24} height={24} /> : <Trans>Upload</Trans>}
             </ClickableButton>
             {url ? (
-                <Link href={url} target="_blank" className="mt-2 text-base font-bold text-lightHighlight">
+                <Link href={url} target="_blank" className="mt-2 text-base font-bold text-highlight">
                     {url}
                 </Link>
             ) : null}

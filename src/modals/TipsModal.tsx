@@ -67,6 +67,9 @@ const TipsModalUI = forwardRef<SingletonModalRefCreator<TipsModalOpenProps, Tips
         const { reset, update } = TipsContext.useContainer();
         const [open, dispatch] = useSingletonModal(ref, {
             onOpen: async ({ identity, handle, profiles, post, pureWallet = false }) => {
+                // avoid UI flicker when closing
+                reset();
+
                 try {
                     const { walletProfiles, socialProfiles } = formatTipsProfiles(profiles);
 
@@ -100,9 +103,6 @@ const TipsModalUI = forwardRef<SingletonModalRefCreator<TipsModalOpenProps, Tips
                     );
                     throw error;
                 }
-            },
-            onClose: () => {
-                reset();
             },
         });
         const onClose = useCallback(() => {

@@ -160,6 +160,7 @@ export enum ScrollListKey {
     TopCollectors = 'top-collectors',
     SuggestedUsers = 'suggested-users',
     SchedulePosts = 'schedule-posts',
+    SnapshotVotes = 'snapshot-votes',
 }
 
 export enum FarcasterSignType {
@@ -301,4 +302,8 @@ export enum SimulateType {
 
 export enum ExternalSiteDomain {
     Warpcast = 'warpcast.com',
+}
+
+export enum LinkDigestType {
+    Snapshot = 'snapshot',
 }
