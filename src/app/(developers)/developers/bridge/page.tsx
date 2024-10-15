@@ -52,6 +52,24 @@ const items: Item[] = [
     },
     {
         type: 'method',
+        name: SupportedMethod.BIND_WALLET,
+        title: 'Bind Wallet',
+        description: 'Bind wallet from firefly app.',
+    },
+    {
+        type: 'method',
+        name: SupportedMethod.FOLLOW_TWITTER_USER,
+        title: 'Follow Twitter User',
+        description: 'Follow a twitter user.',
+    },
+    {
+        type: 'method',
+        name: SupportedMethod.UPDATE_NAVIGATOR_BAR,
+        title: 'Update Navigator Bar',
+        description: 'Update title on navigator bar.',
+    },
+    {
+        type: 'method',
         name: SupportedMethod.LOGIN,
         title: 'Login',
         description: 'Login an account.',
