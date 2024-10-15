@@ -116,7 +116,7 @@ export function PostLinksInCompose({
 
         return {
             ...createDummyPost(source, content, oembedUrl, oembedUrls),
-            quoteOn: type === 'quote' ? (parentPost ?? undefined) : undefined,
+            quoteOn: type === 'quote' ? parentPost ?? undefined : undefined,
         } satisfies Post;
     }, [chars, parentPost, source, type]);
 

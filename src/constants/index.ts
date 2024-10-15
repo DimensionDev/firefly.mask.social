@@ -252,12 +252,7 @@ export const TWITTER_USER_OPTIONS: Partial<UsersV2Params> = {
 };
 
 export const SPACE_OPTIONS: Partial<SpaceV2FieldsParams> = {
-    expansions: [
-        'invited_user_ids',
-        'speaker_ids',
-        'creator_id',
-        'host_ids',
-    ],
+    expansions: ['invited_user_ids', 'speaker_ids', 'creator_id', 'host_ids'],
     'space.fields': [
         'created_at',
         'creator_id',

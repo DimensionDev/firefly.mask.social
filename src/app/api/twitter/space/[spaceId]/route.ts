@@ -17,7 +17,7 @@ export const GET = compose<(request: NextRequest, context?: NextRequestContext) 
         if (!spaceId) throw new MalformedError('spaceId not found');
         const client = await createAppOnlyTwitterClientV2(request);
         const space = await client.v2.space(spaceId, {
-            ...SPACE_OPTIONS
+            ...SPACE_OPTIONS,
         });
         return createSuccessResponseJSON(space);
     },

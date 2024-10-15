@@ -204,7 +204,7 @@ class TwitterSocialMedia implements Provider {
         const response = await twitterSessionHolder.fetch<ResponseJSON<UserV2>>(`/api/twitter/user/${profileId}`);
         if (!response.success) throw new Error(response.error.message);
         response.data.url = response.data.url
-            ? ((await resolveTCOLink(response.data.url)) ?? response.data.url)
+            ? (await resolveTCOLink(response.data.url)) ?? response.data.url
             : response.data.url;
         return formatTwitterProfile(response.data);
     }
@@ -215,7 +215,7 @@ class TwitterSocialMedia implements Provider {
         });
         if (!response.success) throw new Error(response.error.message);
         response.data.url = response.data.url
-            ? ((await resolveTCOLink(response.data.url)) ?? response.data.url)
+            ? (await resolveTCOLink(response.data.url)) ?? response.data.url
             : response.data.url;
         return formatTwitterProfile(response.data);
     }
@@ -224,7 +224,7 @@ class TwitterSocialMedia implements Provider {
         const response = await twitterSessionHolder.fetch<ResponseJSON<UserV2>>(`/api/twitter/username/${handle}`);
         if (!response.success) throw new Error(response.error.message);
         response.data.url = response.data.url
-            ? ((await resolveTCOLink(response.data.url)) ?? response.data.url)
+            ? (await resolveTCOLink(response.data.url)) ?? response.data.url
             : response.data.url;
         return formatTwitterProfile(response.data);
     }
@@ -596,9 +596,11 @@ class TwitterSocialMedia implements Provider {
     }
 
     async getSpace(id: string) {
-        const response = await twitterSessionHolder.fetch<ResponseJSON<SpaceV2SingleResult>>(urlcat('/api/twitter/space/:id', { id }));
+        const response = await twitterSessionHolder.fetch<ResponseJSON<SpaceV2SingleResult>>(
+            urlcat('/api/twitter/space/:id', { id }),
+        );
         if (!response.success) throw new Error(t`Failed to fetch space "${id}".`);
-        return response.data
+        return response.data;
     }
 }
 

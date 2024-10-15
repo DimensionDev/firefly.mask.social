@@ -87,11 +87,11 @@ export async function getPostLinks(url: string, post: Post) {
         action?: Action;
         html?: string;
         articleId?: string;
-        spaceId?: string
+        spaceId?: string;
     } | null>(
         [
             async () => {
-                const spaceId = url.match(TWEET_SPACE_REGEX)?.[3]
+                const spaceId = url.match(TWEET_SPACE_REGEX)?.[3];
                 if (!spaceId) return null;
                 return { spaceId };
             },

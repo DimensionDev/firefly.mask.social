@@ -23,28 +23,31 @@ interface Tag {
 }
 
 interface Props {
-    spaceId: string
+    spaceId: string;
 }
 
 export const TweetSpace = memo<Props>(function TweetSpace({ spaceId }) {
-    const isLogin = useIsLogin(Source.Twitter)
-    const enabled = isLogin
+    const isLogin = useIsLogin(Source.Twitter);
+    const enabled = isLogin;
     const { data, isLoading, error, refetch } = useQuery({
         enabled,
         queryKey: ['twitter-space', spaceId],
         async queryFn() {
-            return await TwitterSocialMediaProvider.getSpace(spaceId)
-        }
-    })
+            return await TwitterSocialMediaProvider.getSpace(spaceId);
+        },
+    });
     const space = data?.data;
 
     if (!isLogin) {
         return (
-            <div className="flex flex-col min-h-[152px] mt-3 w-full items-center justify-center space-y-3 rounded-2xl bg-purple p-4 text-white">
+            <div className="mt-3 flex min-h-[152px] w-full flex-col items-center justify-center space-y-3 rounded-2xl bg-purple p-4 text-white">
                 <p className="text-[13px] font-semibold leading-6">
                     <Trans>Log in with your X account to view</Trans>
                 </p>
-                <ClickableArea className="px-3 py-2 rounded-full bg-[rgba(24,26,32,0.5)] text-sm leading-[18px]" onClick={() => LoginModalRef.open()}>
+                <ClickableArea
+                    className="rounded-full bg-[rgba(24,26,32,0.5)] px-3 py-2 text-sm leading-[18px]"
+                    onClick={() => LoginModalRef.open()}
+                >
                     <Trans>Login</Trans>
                 </ClickableArea>
             </div>
@@ -53,7 +56,7 @@ export const TweetSpace = memo<Props>(function TweetSpace({ spaceId }) {
 
     if (isLoading) {
         return (
-            <div className="min-h-[152px] mt-3 flex w-full flex-col items-center justify-center space-y-3 rounded-2xl bg-purple p-4 text-white">
+            <div className="mt-3 flex min-h-[152px] w-full flex-col items-center justify-center space-y-3 rounded-2xl bg-purple p-4 text-white">
                 <LoadingIcon className="animate-spin" width={24} height={24} />
             </div>
         );
@@ -61,11 +64,14 @@ export const TweetSpace = memo<Props>(function TweetSpace({ spaceId }) {
 
     if (error) {
         return (
-            <div className="flex flex-col min-h-[152px] mt-3 w-full items-center justify-center space-y-3 rounded-2xl bg-purple p-4 text-white">
+            <div className="mt-3 flex min-h-[152px] w-full flex-col items-center justify-center space-y-3 rounded-2xl bg-purple p-4 text-white">
                 <p className="text-[13px] font-semibold leading-6">
                     <Trans>Something went wrong</Trans>
                 </p>
-                <ClickableArea className="px-3 py-2 rounded-full bg-[rgba(24,26,32,0.5)] text-sm leading-[18px]" onClick={() => refetch()}>
+                <ClickableArea
+                    className="rounded-full bg-[rgba(24,26,32,0.5)] px-3 py-2 text-sm leading-[18px]"
+                    onClick={() => refetch()}
+                >
                     <Trans>Try again</Trans>
                 </ClickableArea>
             </div>
@@ -143,9 +149,9 @@ export const TweetSpace = memo<Props>(function TweetSpace({ spaceId }) {
                     </div>
                 ))}
             </div>
-            <h3 className="text-md font-semibold leading-6 line-clamp-2 min-h-12">{space.title}</h3>
+            <h3 className="text-md line-clamp-2 min-h-12 font-semibold leading-6">{space.title}</h3>
             {creator ? (
-                <div className="flex leading-6 items-center h-6">
+                <div className="flex h-6 items-center leading-6">
                     <Avatar className="mr-2 h-[18px] w-[18px]" src={creator.pfp} size={18} alt={creator.handle} />
                     <span className="mr-1 truncate text-medium font-bold leading-5">{creator.displayName}</span>
                     <ProfileVerifyBadge
