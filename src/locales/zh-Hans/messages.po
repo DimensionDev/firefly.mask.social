@@ -8,7 +8,7 @@ msgstr ""
 "Language: zh\n"
 "Project-Id-Version: masksocial\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-10-13 00:06\n"
+"PO-Revision-Date: 2024-10-15 12:01\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
@@ -2885,3 +2885,4 @@ msgstr "未满足领取资格， <0>重试</0>"
 
 msgid "Reward for followers"
 msgstr "回馈粉丝"
+
