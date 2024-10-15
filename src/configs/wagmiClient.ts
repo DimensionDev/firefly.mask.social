@@ -80,7 +80,7 @@ export const chains = [
 ] as const;
 
 export const adapter = new WagmiAdapter({
-    networks: networks,
+    networks,
     projectId: env.external.NEXT_PUBLIC_W3M_PROJECT_ID,
 });
 
@@ -92,7 +92,7 @@ const metadata = {
 };
 createAppKit({
     adapters: [adapter],
-    networks: networks,
+    networks,
     metadata,
     projectId: env.external.NEXT_PUBLIC_W3M_PROJECT_ID,
     showWallets: false,
