@@ -1524,9 +1524,6 @@ msgstr ""
 msgid "Please input the serialized session to be validated."
 msgstr ""
 
-msgid "Welcome Back CZ"
-msgstr ""
-
 msgid "Failed to update profile."
 msgstr ""
 

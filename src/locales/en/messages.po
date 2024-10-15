@@ -1519,9 +1519,6 @@ msgstr "{shares, plural, one {Recast or Quote} other {Recasts or Quotes}}"
 msgid "Please input the serialized session to be validated."
 msgstr "Please input the serialized session to be validated."
 
-msgid "Welcome Back CZ"
-msgstr "Welcome Back CZ"
-
 msgid "Failed to update profile."
 msgstr "Failed to update profile."
 
