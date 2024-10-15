@@ -4,25 +4,12 @@ import { type Address, formatUnits } from 'viem';
 
 import { chains, config } from '@/configs/wagmiClient.js';
 import { DEBANK_CHAIN_TO_CHAIN_ID_MAP } from '@/constants/chain.js';
-import { SimulateStatus, SimulateType } from '@/constants/enum.js';
+import { SimulateStatus } from '@/constants/enum.js';
 import { Debank } from '@/providers/debank/index.js';
-import type { createSecurityResult } from '@/providers/goplus/createSecurityResult.js';
 import { GoPlus } from '@/providers/goplus/index.js';
 import { Tenderly } from '@/providers/tenderly/index.js';
 import { SecurityMessageLevel } from '@/providers/types/Security.js';
 import type { SimulationOptions } from '@/providers/types/Tenderly.js';
-
-type Security<T> = ReturnType<typeof createSecurityResult<T>>;
-
-function formatSecurityMessages<T>(security: Security<T> | null | undefined) {
-    if (!security) return [];
-
-    return security.message_list.map((message) => ({
-        title: message.title(security),
-        level: message.level,
-        message: message.message(security),
-    }));
-}
 
 async function getNetworkFee(chainId: number, gasUsed: number) {
     try {
@@ -45,27 +32,23 @@ async function getNetworkFee(chainId: number, gasUsed: number) {
     }
 }
 
-const CHECK_TOKEN = [SimulateType.Swap, SimulateType.Send, SimulateType.Receive];
-const CHECK_ADDRESS = [
-    SimulateType.Approve,
-    SimulateType.Swap,
-    SimulateType.Send,
-    SimulateType.Receive,
-    SimulateType.Unknown,
-];
-
 export async function simulateAndCheckSecurity({ url, chainId, transaction: data }: SimulationOptions) {
     try {
         const account = getAccount(config).address;
-
-        const simulation = data
-            ? await Tenderly.simulateTransaction({
+        const txData = data
+            ? {
                   chain_id: chainId,
-                  from_address: account as Address,
                   to_address: data.to as Address,
                   input_data: data.data || '0x',
                   value: data.value?.toString() || '0',
                   url,
+              }
+            : null;
+
+        const simulation = txData
+            ? await Tenderly.simulateTransaction({
+                  ...txData,
+                  from_address: account as Address,
               })
             : undefined;
         if (simulation?.status === false) {
@@ -82,24 +65,22 @@ export async function simulateAndCheckSecurity({ url, chainId, transaction: data
             };
         }
 
-        const type = simulation?.method as SimulateType;
-        const messages = [
-            formatSecurityMessages(url ? await GoPlus.checkPhishingSite(url) : null),
-            formatSecurityMessages(
-                CHECK_TOKEN.includes(type) && data?.to ? await GoPlus.getTokenSecurity(chainId, data.to) : null,
-            ),
-            formatSecurityMessages(
-                CHECK_ADDRESS.includes(type) && data?.to ? await GoPlus.getAddressSecurity(chainId, data.to) : null,
-            ),
-        ].flat();
+        const messages =
+            simulation?.status && txData
+                ? await GoPlus.checkTransaction({
+                      ...txData,
+                      chain_id: txData.chain_id.toString(),
+                  })
+                : [];
 
         return {
-            simulation: simulation?.gasUsed
-                ? {
-                      ...simulation,
-                      fee: await getNetworkFee(chainId, simulation.gasUsed),
-                  }
-                : simulation,
+            simulation:
+                simulation?.status && simulation.gasUsed
+                    ? {
+                          ...simulation,
+                          fee: await getNetworkFee(chainId, simulation.gasUsed),
+                      }
+                    : simulation,
             status: messages.length ? SimulateStatus.Unsafe : SimulateStatus.Success,
             messages,
         };

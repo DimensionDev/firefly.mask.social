@@ -12,6 +12,7 @@ import WarningIcon from '@/assets/warning.svg';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { ChainIcon } from '@/components/NFTDetail/ChainIcon.js';
 import { SimulateStatus, SimulateType } from '@/constants/enum.js';
+import { leftShift } from '@/helpers/number.js';
 import { parseUrl } from '@/helpers/parseUrl.js';
 import { SecurityMessageLevel, type StaticSecurityMessage } from '@/providers/types/Security.js';
 import type { AssetChange, SimulateResponse, SimulationOptions } from '@/providers/types/Tenderly.js';
@@ -40,13 +41,13 @@ function formatAsset(asset?: AssetChange) {
     if (!asset) return null;
 
     const standard = asset.token_info?.standard || '';
-    const amount = asset.amount ?? asset.raw_amount;
+    const amount = asset.amount ?? leftShift(asset.raw_amount, asset.token_info?.decimals);
 
     if (['ERC721', 'ERC1155'].includes(standard)) {
-        const tokenId = isHex(asset.token_id) ? fromHex(asset.token_id, 'number') : asset.token_id;
+        const tokenId = isHex(asset.token_id) ? fromHex(asset.token_id, 'bigint') : asset.token_id;
         const collectionName = asset.token_info?.name || 'Unknown Collection';
 
-        return tokenId && amount === '1' ? `${collectionName} #${tokenId}` : `${collectionName} *${amount}`;
+        return tokenId && amount === '1' ? `${collectionName} #${tokenId.toString()}` : `${collectionName} *${amount}`;
     }
 
     return `${amount} ${asset.token_info?.symbol?.toUpperCase() || 'Unknown'}`;
