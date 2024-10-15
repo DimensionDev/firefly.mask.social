@@ -1,6 +1,12 @@
 import { t } from '@lingui/macro';
 import { compact } from 'lodash-es';
-import type { TweetV2PaginableTimelineResult, Tweetv2TimelineResult, UserV2, UserV2MuteResult } from 'twitter-api-v2';
+import type {
+    SpaceV2SingleResult,
+    TweetV2PaginableTimelineResult,
+    Tweetv2TimelineResult,
+    UserV2,
+    UserV2MuteResult,
+} from 'twitter-api-v2';
 import urlcat from 'urlcat';
 
 import { FireflyPlatform, Source } from '@/constants/enum.js';
@@ -587,6 +593,14 @@ class TwitterSocialMedia implements Provider {
                   }
                 : null,
         ]);
+    }
+
+    async getSpace(id: string) {
+        const response = await twitterSessionHolder.fetch<ResponseJSON<SpaceV2SingleResult>>(
+            urlcat('/api/twitter/space/:id', { id }),
+        );
+        if (!response.success) throw new Error(t`Failed to fetch space "${id}".`);
+        return response.data;
     }
 }
 

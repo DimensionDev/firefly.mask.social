@@ -20,7 +20,6 @@ export function tweetV2ToPost(item: TweetV2, includes?: ApiV2Includes): Post {
     const quotedTweet = quotedTweetId ? includes?.tweets?.find((tweet) => tweet.id === quotedTweetId) : undefined;
     const retweeted = item.referenced_tweets?.find((tweet) => tweet.type === 'retweeted');
     const retweetedTweet = retweeted ? includes?.tweets?.find((tweet) => tweet.id === retweeted.id) : undefined;
-    const oembedUrls = getEmbedUrls(item.text ?? '', []);
     const attachments = compact(
         item.attachments?.media_keys?.map((key) => {
             const media = includes?.media?.find((m) => m.media_key === key);
@@ -28,6 +27,24 @@ export function tweetV2ToPost(item: TweetV2, includes?: ApiV2Includes): Post {
         }),
     );
     let content = item.note_tweet?.text || item.text || '';
+    const parsedEntitiesUrls = item.entities?.urls?.reduce(
+        (acc, url) => {
+            const length = url.end - url.start;
+            const spliceItems = url.expanded_url.split('');
+            acc.contentArr.splice(url.start + acc.offsetIndex, length, ...spliceItems);
+            acc.offsetIndex += spliceItems.length - length;
+            return acc;
+        },
+        {
+            contentArr: content.split(''),
+            offsetIndex: 0,
+        },
+    );
+    if (parsedEntitiesUrls) {
+        content = parsedEntitiesUrls.contentArr.join('');
+    }
+    const oembedUrls = getEmbedUrls(content, []);
+
     if (repliedTweetId) {
         content = content.replace(/^(@\w+\s*)+/, '');
     }

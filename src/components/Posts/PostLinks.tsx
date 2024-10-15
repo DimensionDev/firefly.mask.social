@@ -10,6 +10,7 @@ import { ActionContainer } from '@/components/Blink/ActionContainer.js';
 import { FrameLayout } from '@/components/Frame/index.js';
 import { OembedLayout } from '@/components/Oembed/index.js';
 import { Player } from '@/components/Oembed/Player.js';
+import { TweetSpace } from '@/components/Posts/TweetSpace.js';
 import { type SocialSource } from '@/constants/enum.js';
 import { URL_REGEX } from '@/constants/regexp.js';
 import type { Chars } from '@/helpers/chars.js';
@@ -92,6 +93,7 @@ export function PostLinks({ post, setContent, isInCompose = false }: Props) {
             {data.frame ? <FrameLayout frame={data.frame} post={post} /> : null}
             {data.action ? <ActionContainer action={data.action} /> : null}
             {data.oembed ? <OembedLayout data={data.oembed} post={post} /> : null}
+            {data.spaceId ? <TweetSpace spaceId={data.spaceId} /> : null}
         </>
     );
 }

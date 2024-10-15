@@ -159,6 +159,9 @@ msgstr ""
 msgid "Money laundering."
 msgstr ""
 
+msgid "This space does not exist."
+msgstr ""
+
 msgid "Display Name"
 msgstr ""
 
@@ -184,6 +187,9 @@ msgid "We are not aware of any code that prevents the sale of tokens."
 msgstr ""
 
 msgid "Watching"
+msgstr ""
+
+msgid "{0} listening"
 msgstr ""
 
 msgid "Rank #{0}"
@@ -576,6 +582,9 @@ msgstr ""
 msgid "Each wallet or X account is limited to one claim."
 msgstr ""
 
+msgid "Host"
+msgstr ""
+
 msgid "Unsafe: Transaction is at risk"
 msgstr ""
 
@@ -870,6 +879,9 @@ msgstr ""
 msgid "{0, plural, one {Your post failed to publish on {firstPlatform} due to an error. Click 'Retry' to attempt posting again.} two {Your post failed to publish on {firstPlatform} and {secondPlatform} due to an error. Click 'Retry' to attempt posting again.} other {Your post failed to publish due to an error. Click 'Retry' to attempt posting again.}}"
 msgstr ""
 
+msgid "Log in with your X account to view"
+msgstr ""
+
 msgid "Login to Firefly"
 msgstr ""
 
@@ -990,6 +1002,9 @@ msgstr ""
 msgid "Confirm you want to mute /{0}?"
 msgstr ""
 
+msgid "{0}"
+msgstr ""
+
 msgid "Enter amount"
 msgstr ""
 
@@ -1000,6 +1015,9 @@ msgid "🎉"
 msgstr ""
 
 msgid "The user canceled the operation."
+msgstr ""
+
+msgid "Failed to fetch space \"{id}\"."
 msgstr ""
 
 msgid "Owned By"
@@ -1021,6 +1039,9 @@ msgid "<0>Price</0><1>${0}</1><2/>{1}"
 msgstr ""
 
 msgid "Collected"
+msgstr ""
+
+msgid "Try again"
 msgstr ""
 
 msgid "<0>You</0> mirrored"
@@ -1150,6 +1171,9 @@ msgid "Comment"
 msgstr ""
 
 msgid "Only people you mention"
+msgstr ""
+
+msgid "{0} turned in"
 msgstr ""
 
 msgid "You successfully sent <0>{amount} {0}{1}</0> tips to <1>{2}</1>!"
@@ -1863,6 +1887,9 @@ msgstr ""
 msgid "Cancel"
 msgstr ""
 
+msgid "Live"
+msgstr ""
+
 msgid "Send on schedule"
 msgstr ""
 
@@ -2208,6 +2235,9 @@ msgstr ""
 msgid "Followed by {0} , {1}, and {2}"
 msgstr ""
 
+msgid "Ended on {0}"
+msgstr ""
+
 msgid "Collect Article"
 msgstr ""
 
@@ -2308,6 +2338,9 @@ msgid "Add another option"
 msgstr ""
 
 msgid "1y"
+msgstr ""
+
+msgid "Something went wrong"
 msgstr ""
 
 msgid "Malicious mining activities."

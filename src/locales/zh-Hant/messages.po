@@ -159,6 +159,9 @@ msgstr ""
 msgid "Money laundering."
 msgstr ""
 
+msgid "This space does not exist."
+msgstr ""
+
 msgid "Display Name"
 msgstr "展示姓名"
 
@@ -185,6 +188,9 @@ msgstr ""
 
 msgid "Watching"
 msgstr "正在觀察"
+
+msgid "{0} listening"
+msgstr ""
 
 msgid "Rank #{0}"
 msgstr "排名#{0}"
@@ -576,6 +582,9 @@ msgstr ""
 msgid "Each wallet or X account is limited to one claim."
 msgstr ""
 
+msgid "Host"
+msgstr ""
+
 msgid "Unsafe: Transaction is at risk"
 msgstr ""
 
@@ -870,6 +879,9 @@ msgstr "正在靜音中"
 msgid "{0, plural, one {Your post failed to publish on {firstPlatform} due to an error. Click 'Retry' to attempt posting again.} two {Your post failed to publish on {firstPlatform} and {secondPlatform} due to an error. Click 'Retry' to attempt posting again.} other {Your post failed to publish due to an error. Click 'Retry' to attempt posting again.}}"
 msgstr ""
 
+msgid "Log in with your X account to view"
+msgstr ""
+
 msgid "Login to Firefly"
 msgstr "登錄 Firefly"
 
@@ -990,6 +1002,9 @@ msgstr ""
 msgid "Confirm you want to mute /{0}?"
 msgstr "確認對 @{0} 的靜音？"
 
+msgid "{0}"
+msgstr ""
+
 msgid "Enter amount"
 msgstr ""
 
@@ -1000,6 +1015,9 @@ msgid "🎉"
 msgstr ""
 
 msgid "The user canceled the operation."
+msgstr ""
+
+msgid "Failed to fetch space \"{id}\"."
 msgstr ""
 
 msgid "Owned By"
@@ -1021,6 +1039,9 @@ msgid "<0>Price</0><1>${0}</1><2/>{1}"
 msgstr ""
 
 msgid "Collected"
+msgstr ""
+
+msgid "Try again"
 msgstr ""
 
 msgid "<0>You</0> mirrored"
@@ -1151,6 +1172,9 @@ msgstr "評論"
 
 msgid "Only people you mention"
 msgstr "僅限你提及的帳戶"
+
+msgid "{0} turned in"
+msgstr ""
 
 msgid "You successfully sent <0>{amount} {0}{1}</0> tips to <1>{2}</1>!"
 msgstr "你成功給 <1>{2}</1> 發送了 <0>{amount} {0}{1}</0> 的小費！"
@@ -1863,6 +1887,9 @@ msgstr "沒有可供展示的數據"
 msgid "Cancel"
 msgstr "取消"
 
+msgid "Live"
+msgstr ""
+
 msgid "Send on schedule"
 msgstr ""
 
@@ -2208,6 +2235,9 @@ msgstr ""
 msgid "Followed by {0} , {1}, and {2}"
 msgstr ""
 
+msgid "Ended on {0}"
+msgstr ""
+
 msgid "Collect Article"
 msgstr ""
 
@@ -2308,6 +2338,9 @@ msgid "Add another option"
 msgstr ""
 
 msgid "1y"
+msgstr ""
+
+msgid "Something went wrong"
 msgstr ""
 
 msgid "Malicious mining activities."

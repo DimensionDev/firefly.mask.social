@@ -154,6 +154,9 @@ msgstr "Something went wrong, Please try again."
 msgid "Money laundering."
 msgstr "Money laundering."
 
+msgid "This space does not exist."
+msgstr "This space does not exist."
+
 msgid "Display Name"
 msgstr "Display Name"
 
@@ -180,6 +183,9 @@ msgstr "We are not aware of any code that prevents the sale of tokens."
 
 msgid "Watching"
 msgstr "Watching"
+
+msgid "{0} listening"
+msgstr "{0} listening"
 
 msgid "Rank #{0}"
 msgstr "Rank #{0}"
@@ -571,6 +577,9 @@ msgstr "Sanctioned address."
 msgid "Each wallet or X account is limited to one claim."
 msgstr "Each wallet or X account is limited to one claim."
 
+msgid "Host"
+msgstr "Host"
+
 msgid "Unsafe: Transaction is at risk"
 msgstr "Unsafe: Transaction is at risk"
 
@@ -865,6 +874,9 @@ msgstr "Unmuting..."
 msgid "{0, plural, one {Your post failed to publish on {firstPlatform} due to an error. Click 'Retry' to attempt posting again.} two {Your post failed to publish on {firstPlatform} and {secondPlatform} due to an error. Click 'Retry' to attempt posting again.} other {Your post failed to publish due to an error. Click 'Retry' to attempt posting again.}}"
 msgstr "{0, plural, one {Your post failed to publish on {firstPlatform} due to an error. Click 'Retry' to attempt posting again.} two {Your post failed to publish on {firstPlatform} and {secondPlatform} due to an error. Click 'Retry' to attempt posting again.} other {Your post failed to publish due to an error. Click 'Retry' to attempt posting again.}}"
 
+msgid "Log in with your X account to view"
+msgstr "Log in with your X account to view"
+
 msgid "Login to Firefly"
 msgstr "Login to Firefly"
 
@@ -985,6 +997,9 @@ msgstr "Mirror or Quote"
 msgid "Confirm you want to mute /{0}?"
 msgstr "Confirm you want to mute /{0}?"
 
+msgid "{0}"
+msgstr "{0}"
+
 msgid "Enter amount"
 msgstr "Enter amount"
 
@@ -996,6 +1011,9 @@ msgstr "🎉"
 
 msgid "The user canceled the operation."
 msgstr "The user canceled the operation."
+
+msgid "Failed to fetch space \"{id}\"."
+msgstr "Failed to fetch space \"{id}\"."
 
 msgid "Owned By"
 msgstr "Owned By"
@@ -1017,6 +1035,9 @@ msgstr "<0>Price</0><1>${0}</1><2/>{1}"
 
 msgid "Collected"
 msgstr "Collected"
+
+msgid "Try again"
+msgstr "Try again"
 
 msgid "<0>You</0> mirrored"
 msgstr "<0>You</0> mirrored"
@@ -1146,6 +1167,9 @@ msgstr "Comment"
 
 msgid "Only people you mention"
 msgstr "Only people you mention"
+
+msgid "{0} turned in"
+msgstr "{0} turned in"
 
 msgid "You successfully sent <0>{amount} {0}{1}</0> tips to <1>{2}</1>!"
 msgstr "You successfully sent <0>{amount} {0}{1}</0> tips to <1>{2}</1>!"
@@ -1858,6 +1882,9 @@ msgstr "There is no data available for display."
 msgid "Cancel"
 msgstr "Cancel"
 
+msgid "Live"
+msgstr "Live"
+
 msgid "Send on schedule"
 msgstr "Send on schedule"
 
@@ -2203,6 +2230,9 @@ msgstr "Receive"
 msgid "Followed by {0} , {1}, and {2}"
 msgstr "Followed by {0} , {1}, and {2}"
 
+msgid "Ended on {0}"
+msgstr "Ended on {0}"
+
 msgid "Collect Article"
 msgstr "Collect Article"
 
@@ -2304,6 +2334,9 @@ msgstr "Add another option"
 
 msgid "1y"
 msgstr "1y"
+
+msgid "Something went wrong"
+msgstr "Something went wrong"
 
 msgid "Malicious mining activities."
 msgstr "Malicious mining activities."

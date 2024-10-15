@@ -4,6 +4,7 @@ import urlcat from 'urlcat';
 
 import { FrameProtocol, Source, STATUS } from '@/constants/enum.js';
 import { env } from '@/constants/env.js';
+import { TWEET_SPACE_REGEX } from '@/constants/regexp.js';
 import { attemptUntil } from '@/helpers/attemptUntil.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
 import { isValidDomain } from '@/helpers/isValidDomain.js';
@@ -86,8 +87,14 @@ export async function getPostLinks(url: string, post: Post) {
         action?: Action;
         html?: string;
         articleId?: string;
+        spaceId?: string;
     } | null>(
         [
+            async () => {
+                const spaceId = url.match(TWEET_SPACE_REGEX)?.[3];
+                if (!spaceId) return null;
+                return { spaceId };
+            },
             async () => {
                 const realUrl = (await resolveTCOLink(url)) ?? url;
                 if (!realUrl) return null;
