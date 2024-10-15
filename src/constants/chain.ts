@@ -324,7 +324,7 @@ export const DEBANK_CHAIN_TO_CHAIN_ID_MAP: Record<string, number> = {
     kcc: ChainId.Kcc,
     klay: ChainId.Klaytn,
     mada: ChainId.Milkomeda,
-    matic: ChainId.Matic,
+    matic: ChainId.Polygon,
     metis: ChainId.Metis,
     mobm: ChainId.Moonbeam,
     movr: ChainId.Moonriver,

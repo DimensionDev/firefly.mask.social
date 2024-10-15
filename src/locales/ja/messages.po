@@ -8,7 +8,7 @@ msgstr ""
 "Language: ja\n"
 "Project-Id-Version: masksocial\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-09-29 09:39\n"
+"PO-Revision-Date: 2024-10-13 00:06\n"
 "Last-Translator: \n"
 "Language-Team: Japanese\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
@@ -2239,6 +2239,9 @@ msgid "Ended on {0}"
 msgstr ""
 
 msgid "Collect Article"
+msgstr ""
+
+msgid "Firefly Wallets"
 msgstr ""
 
 msgid "Channels"

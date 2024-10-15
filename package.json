@@ -49,6 +49,7 @@
         "@next/third-parties": "^14.2.13",
         "@noble/ed25519": "^1.7.3",
         "@noble/hashes": "^1.5.0",
+        "@particle-network/auth-core": "2.0.4",
         "@sentry/browser": "^7.112.2",
         "@servie/events": "^3.0.0",
         "@solana/buffer-layout": "^4.0.1",
@@ -184,7 +185,6 @@
         "html-webpack-plugin": "^5.6.0",
         "https-browserify": "^1.0.0",
         "jsdom": "^24.1.1",
-        "patch-package": "^8.0.0",
         "postcss": "^8.4.47",
         "prettier": "^3.3.3",
         "prettier-plugin-tailwindcss": "^0.6.8",
@@ -215,7 +215,8 @@
             "react-use": "17.5.1",
             "@tanstack/react-query": "5.56.2",
             "@tanstack/react-query-devtools": "5.58.0",
-            "@tanstack/react-query-next-experimental": "5.56.2"
+            "@tanstack/react-query-next-experimental": "5.56.2",
+            "@particle-network/thresh-sig": "git+https://github.com/guanbinrui/thresh-sig.git#bb5bfc4cf9319941a6ec9fb85a3a5b99f718b661"
         },
         "override comments": {
             "i18next-translation-parser": "see https://github.com/i18next/i18next-translation-parser/issues/11 we manually pin the commit"
@@ -249,7 +250,8 @@
             "@headlessui/react@1.7.17": "patches/@headlessui__react@1.7.17.patch",
             "react-use@17.5.1": "src/maskbook/patches/react-use@17.5.1.patch",
             "@livepeer/core@3.2.7": "patches/@livepeer__core@3.2.7.patch",
-            "dayjs-twitter@0.5.0": "patches/dayjs-twitter@0.5.0.patch"
+            "dayjs-twitter@0.5.0": "patches/dayjs-twitter@0.5.0.patch",
+            "@particle-network/auth-core@2.0.4": "patches/@particle-network__auth-core@2.0.4.patch"
         }
     }
 }

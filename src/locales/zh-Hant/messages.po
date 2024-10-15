@@ -8,7 +8,7 @@ msgstr ""
 "Language: zh\n"
 "Project-Id-Version: masksocial\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-09-29 09:39\n"
+"PO-Revision-Date: 2024-10-13 00:06\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Traditional\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
@@ -496,7 +496,7 @@ msgid "Mutes"
 msgstr "靜音"
 
 msgid "NFTs"
-msgstr "NFTs"
+msgstr "非同質化代幣"
 
 msgid "No results for \"{searchKeyword}\""
 msgstr "“{searchKeyword}” 無搜尋結果"
@@ -2239,6 +2239,9 @@ msgid "Ended on {0}"
 msgstr ""
 
 msgid "Collect Article"
+msgstr ""
+
+msgid "Firefly Wallets"
 msgstr ""
 
 msgid "Channels"

@@ -3,8 +3,8 @@ import { Trans } from '@lingui/macro';
 import { memo } from 'react';
 import urlcat from 'urlcat';
 
-import EllipsisHorizontalCircleIcon from '@/assets/ellipsis-horizontal-circle.svg';
 import LoadingIcon from '@/assets/loading.svg';
+import MoreCircleIcon from '@/assets/more-circle.svg';
 import LinkIcon from '@/assets/small-link.svg';
 import { MenuButton } from '@/components/Actions/MenuButton.js';
 import { MuteChannelButton } from '@/components/Actions/MuteChannelButton.js';
@@ -35,7 +35,7 @@ export const ChannelMoreAction = memo<MoreProps>(function ChannelMoreAction({ ch
                         <LoadingIcon width={16} height={16} />
                     </span>
                 ) : (
-                    <EllipsisHorizontalCircleIcon className="h-8 w-8" />
+                    <MoreCircleIcon width={32} height={32} />
                 )
             }
         >

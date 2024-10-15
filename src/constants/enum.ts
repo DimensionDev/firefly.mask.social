@@ -298,3 +298,7 @@ export enum SimulateType {
     Signature = 'signature',
     Unknown = 'unknown',
 }
+
+export enum ExternalSiteDomain {
+    Warpcast = 'warpcast.com',
+}

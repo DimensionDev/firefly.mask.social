@@ -2236,6 +2236,9 @@ msgstr "Ended on {0}"
 msgid "Collect Article"
 msgstr "Collect Article"
 
+msgid "Firefly Wallets"
+msgstr "Firefly Wallets"
+
 msgid "Channels"
 msgstr "Channels"
 

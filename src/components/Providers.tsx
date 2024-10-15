@@ -1,5 +1,6 @@
 'use client';
 
+// eslint-disable-next-line simple-import-sort/imports
 import { useActionsRegistryInterval } from '@dialectlabs/blinks';
 import { i18n } from '@lingui/core';
 import { I18nProvider } from '@lingui/react';

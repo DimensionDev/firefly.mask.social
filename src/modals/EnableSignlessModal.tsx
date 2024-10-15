@@ -54,15 +54,15 @@ export const EnableSignlessModal = forwardRef<SingletonModalRefCreator<void, boo
             <Modal open={open} onClose={() => dispatch?.close(false)}>
                 <div className="relative w-[355px] max-w-[90vw] rounded-xl bg-primaryBottom shadow-popover transition-all">
                     <div className="inline-flex h-14 w-full items-center justify-center gap-2 rounded-t-[12px] p-4">
-                        <div className="relative h-6 w-6" />
-                        <div className="shrink grow basis-0 text-center text-lg font-bold leading-snug text-main">
-                            <Trans>Delegate Signing</Trans>
-                        </div>
                         <CloseButton
                             onClick={() => {
                                 dispatch?.close(false);
                             }}
                         />
+                        <div className="shrink grow basis-0 text-center text-lg font-bold leading-snug text-main">
+                            <Trans>Delegate Signing</Trans>
+                        </div>
+                        <div className="relative h-6 w-6" />
                     </div>
 
                     <div className="flex flex-col gap-6 p-6">

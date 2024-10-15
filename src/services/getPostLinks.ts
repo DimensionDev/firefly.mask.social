@@ -4,23 +4,16 @@ import urlcat from 'urlcat';
 
 import { FrameProtocol, Source, STATUS } from '@/constants/enum.js';
 import { env } from '@/constants/env.js';
-import {
-    LIMO_REGEXP,
-    MIRROR_ARTICLE_REGEXP,
-    MIRROR_SUBDOMAIN_ARTICLE_REGEXP,
-    PARAGRAPH_ARTICLE_REGEXP,
-    TWEET_SPACE_REGEX,
-} from '@/constants/regexp.js';
+import { TWEET_SPACE_REGEX } from '@/constants/regexp.js';
 import { attemptUntil } from '@/helpers/attemptUntil.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
 import { isValidDomain } from '@/helpers/isValidDomain.js';
-import { Md5 } from '@/helpers/md5.js';
 import { parseUrl } from '@/helpers/parseUrl.js';
 import { isValidPollFrameUrl } from '@/helpers/resolveEmbedMediaType.js';
 import { resolveTCOLink } from '@/helpers/resolveTCOLink.js';
-import { FireflyArticleProvider } from '@/providers/firefly/Article.js';
 import { getPostIFrame } from '@/providers/og/readers/iframe.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
+import { getArticleIdFromUrl } from '@/services/getArticleIdFromUrl.js';
 import { settings } from '@/settings/index.js';
 import type { FireflyBlinkParserBlinkResponse } from '@/types/blink.js';
 import type { Frame, LinkDigestedResponse } from '@/types/frame.js';
@@ -38,24 +31,6 @@ function isValidPostLink(url: string) {
     if (/\.\w{1,6}$/i.test(parsed.pathname)) return false;
 
     return true;
-}
-
-async function getArticleIdFromUrl(url: string) {
-    if (LIMO_REGEXP.test(url)) {
-        return Md5.hashStr(url);
-    }
-    if (MIRROR_ARTICLE_REGEXP.test(url)) {
-        return url.match(MIRROR_ARTICLE_REGEXP)?.[1];
-    }
-
-    if (MIRROR_SUBDOMAIN_ARTICLE_REGEXP.test(url)) {
-        return url.match(MIRROR_SUBDOMAIN_ARTICLE_REGEXP)?.[1];
-    }
-
-    if (PARAGRAPH_ARTICLE_REGEXP.test(url)) {
-        return await FireflyArticleProvider.getParagraphArticleIdWithLink(url);
-    }
-    return;
 }
 
 export async function getPostFrame(url: string): Promise<Frame | null> {
