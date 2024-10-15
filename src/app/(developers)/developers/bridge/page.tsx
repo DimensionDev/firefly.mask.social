@@ -42,19 +42,19 @@ const items: Item[] = [
         type: 'method',
         name: SupportedMethod.GET_WALLET_ADDRESS,
         title: 'Get Wallet Address',
-        description: 'Get connected wallet address.',
+        description: 'Get connected wallet address from firefly app.',
     },
     {
         type: 'method',
         name: SupportedMethod.CONNECT_WALLET,
         title: 'Connect Wallet',
-        description: 'Connect a wallet.',
+        description: 'Connect a wallet',
     },
     {
         type: 'method',
         name: SupportedMethod.BIND_WALLET,
         title: 'Bind Wallet',
-        description: 'Bind a wallet.',
+        description: 'Bind a wallet',
     },
     {
         type: 'method',
