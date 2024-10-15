@@ -2662,6 +2662,9 @@ msgstr "Mirrors"
 msgid "Video"
 msgstr "Video"
 
+msgid "Firefly Wallet"
+msgstr "Firefly Wallet"
+
 msgid "{hours, plural, one {1 hour left} other {{hours} hours left}}"
 msgstr "{hours, plural, one {1 hour left} other {{hours} hours left}}"
 

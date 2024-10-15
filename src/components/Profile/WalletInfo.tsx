@@ -6,6 +6,7 @@ import { ChainId } from '@masknet/web3-shared-evm';
 import CopyIcon from '@/assets/copy.svg';
 import EnsIcon from '@/assets/ens.svg';
 import MiniEnsIcon from '@/assets/ens-16.svg';
+import FireflyLogo from '@/assets/firefly.round.svg';
 import LinkIcon from '@/assets/link-square.svg';
 import { Avatar } from '@/components/Avatar.js';
 import { ClickableArea } from '@/components/ClickableArea.js';
@@ -22,13 +23,14 @@ import { formatAddress } from '@/helpers/formatAddress.js';
 import { getAddressType } from '@/helpers/getAddressType.js';
 import { getRelationPlatformUrl } from '@/helpers/getRelationPlatformUrl.js';
 import { getStampAvatarByProfileId } from '@/helpers/getStampAvatarByProfileId.js';
+import { isMPCWallet } from '@/helpers/isMPCWallet.js';
 import { resolveNetworkIcon } from '@/helpers/resolveNetworkIcon.js';
 import { useCopyText } from '@/hooks/useCopyText.js';
 import { useDarkMode } from '@/hooks/useDarkMode.js';
 import { useIsMyRelatedProfile } from '@/hooks/useIsMyRelatedProfile.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import { BlockScanExplorerResolver } from '@/providers/ethereum/ExplorerResolver.js';
-import type { Relation, WalletProfile } from '@/providers/types/Firefly.js';
+import { type Relation, type WalletProfile } from '@/providers/types/Firefly.js';
 
 interface WalletInfoProps {
     profile: WalletProfile;
@@ -51,18 +53,20 @@ export function WalletInfo({ profile, relations }: WalletInfoProps) {
             : null;
     const networkIcon = networkType ? resolveNetworkIcon(networkType, isDarkMode) : null;
 
+    const isMPC = isMPCWallet(profile);
+    const displayName = isMPC ? t`Firefly Wallet` : profile.primary_ens || formatAddress(profile.address, 4);
+
     return (
         <div className="flex gap-3 p-3">
             <Avatar src={avatar} alt="avatar" size={80} className="h-20 w-20 rounded-full" />
             <div className="relative flex flex-1 flex-col">
                 <div className="flex flex-col gap-2">
                     <div className="flex items-center gap-1">
+                        {isMPC ? <FireflyLogo width={19} height={19} /> : null}
                         {networkIcon && networkType ? (
                             <Image src={networkIcon} alt={networkType} width={18} height={18} />
                         ) : null}
-                        <span className="text-xl font-black leading-[26px] text-lightMain">
-                            {profile.primary_ens || formatAddress(profile.address, 4)}
-                        </span>
+                        <span className="text-xl font-black leading-[26px] text-lightMain">{displayName}</span>
                         {!isMyWallets && isMedium ? (
                             <>
                                 <WatchButton className="ml-auto mr-1" address={profile.address} />

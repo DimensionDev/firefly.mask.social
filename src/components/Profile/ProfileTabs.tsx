@@ -2,16 +2,18 @@
 
 import { startTransition } from 'react';
 
+import FireflyLogo from '@/assets/firefly.round.svg';
 import { SquareSourceIcon } from '@/components/SquareSourceIcon.js';
 import { Source } from '@/constants/enum.js';
 import { Link } from '@/esm/Link.js';
 import { classNames } from '@/helpers/classNames.js';
 import { createLookupTableResolver } from '@/helpers/createLookupTableResolver.js';
+import { isMPCWallet } from '@/helpers/isMPCWallet.js';
 import { isProfilePageSource } from '@/helpers/isProfilePageSource.js';
 import { isSameFireflyIdentity } from '@/helpers/isSameFireflyIdentity.js';
 import { resolveProfileUrl } from '@/helpers/resolveProfileUrl.js';
 import { useDarkMode } from '@/hooks/useDarkMode.js';
-import type { FireflyIdentity, FireflyProfile } from '@/providers/types/Firefly.js';
+import { type FireflyIdentity, type FireflyProfile, type WalletProfile } from '@/providers/types/Firefly.js';
 import { useFireflyIdentityState } from '@/store/useFireflyIdentityStore.js';
 
 const resolveProfileTabColor = createLookupTableResolver<
@@ -71,6 +73,9 @@ export function ProfileTabs({ profiles, identity }: ProfileTabsProps) {
                 const colors = resolveProfileTabColor(profile.identity.source);
                 const isActive = isSameFireflyIdentity(profile.identity, identity);
 
+                const isWalletProfile = profile.identity.source === Source.Wallet;
+                const isMPC = isWalletProfile && isMPCWallet(profile.__origin__ as WalletProfile);
+
                 if (!isProfilePageSource(profile.identity.source)) return null;
 
                 return (
@@ -91,19 +96,22 @@ export function ProfileTabs({ profiles, identity }: ProfileTabsProps) {
                         }}
                         key={index}
                     >
-                        <SquareSourceIcon
-                            source={profile.identity.source}
-                            size={14}
-                            forceLight={isActive}
-                            className="rounded-[4px]"
-                            style={{
-                                border: isActive && colors.borderColor ? `1px solid ${colors.borderColor}` : undefined,
-                            }}
-                        />
+                        {isMPC ? (
+                            <FireflyLogo width={14} height={14} />
+                        ) : (
+                            <SquareSourceIcon
+                                source={profile.identity.source}
+                                size={14}
+                                forceLight={isActive}
+                                className="rounded-[4px]"
+                                style={{
+                                    border:
+                                        isActive && colors.borderColor ? `1px solid ${colors.borderColor}` : undefined,
+                                }}
+                            />
+                        )}
                         <span className="whitespace-nowrap text-[10px] leading-3">
-                            {profile.identity.source === Source.Wallet
-                                ? profile.displayName
-                                : `@${profile.displayName}`}
+                            {`${isWalletProfile ? '' : '@'}${profile.displayName}`}
                         </span>
                     </Link>
                 );
