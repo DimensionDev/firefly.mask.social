@@ -42,7 +42,7 @@ export function ContinueButton({ status, className, onClick, ...rest }: Continue
             className={classNames(
                 'mt-6 h-10 w-full rounded-lg text-sm font-bold',
                 {
-                    'bg-lightMain text-lightBottom': !isUnSafe,
+                    'bg-lightMain text-primaryBottom': !isUnSafe,
                     'bg-danger text-white': isUnSafe,
                 },
                 className,

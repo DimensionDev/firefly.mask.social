@@ -46,7 +46,7 @@ function MessagesContent({ messages, className, ...rest }: MessagesTippyProps) {
     return (
         <menu
             className={classNames(
-                'max-h-[40vh] overflow-y-auto rounded-2xl border border-line bg-lightBottom p-4 text-left md:max-h-72',
+                'max-h-[40vh] overflow-y-auto rounded-2xl border border-line bg-lightBottom p-4 text-left dark:bg-darkBottom dark:shadow-popover md:max-h-72',
                 className,
             )}
             {...rest}
