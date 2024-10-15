@@ -21,8 +21,9 @@ const CustomElements = lazy(() => {
         env.shared.NODE_ENV !== NODE_ENV.Development ||
         (env.shared.NODE_ENV === NODE_ENV.Development &&
             env.external.NEXT_PUBLIC_MASK_WEB_COMPONENTS === STATUS.Enabled)
-    )
+    ) {
         return import('@/components/CustomElements.js');
+    }
 
     // disable mask web components
     return Promise.resolve({
