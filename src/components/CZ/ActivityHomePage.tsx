@@ -133,9 +133,7 @@ export function ActivityHomePage() {
                 />
                 <div className="flex flex-col space-y-1 text-center leading-[90%]">
                     <h3 className="text-xl font-bold">
-                        <Trans>
-                            Event ended
-                        </Trans>
+                        <Trans>Event ended</Trans>
                     </h3>
                 </div>
             </div>
