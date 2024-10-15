@@ -16,6 +16,7 @@ import { resolveSourceFromUrl } from '@/helpers/resolveSource.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { useCurrentProfileAll } from '@/hooks/useCurrentProfile.js';
 import { useFireflyIdentityState } from '@/store/useFireflyIdentityStore.js';
+import { usePreferencesState } from '@/store/usePreferenceStore.js';
 
 export default function Page({
     params,
@@ -39,6 +40,7 @@ export default function Page({
                 source,
                 id: profile?.id || '',
             });
+            usePreferencesState.getState().resetPreference();
         }
     }, [source, profile?.id]);
 
