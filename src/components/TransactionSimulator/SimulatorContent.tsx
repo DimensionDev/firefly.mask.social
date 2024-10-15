@@ -38,7 +38,6 @@ export function TransactionSimulator({
         queryFn: async () => {
             return await simulateAndCheckSecurity(options);
         },
-        staleTime: 1000 * 60 * 2,
         enabled: !isUnConnected,
     });
 
@@ -56,29 +55,12 @@ export function TransactionSimulator({
                 ) : null}
             </div>
             <div className="mt-6">
-                {loading && !simulateType ? (
-                    <div className="flex animate-pulse flex-col gap-3.5">
-                        <div className="flex w-full justify-between">
-                            <span className="h-6 w-1/3 bg-third" />
-                            <span className="h-6 w-1/6 bg-third" />
-                        </div>
-                        <div className="flex w-full justify-between">
-                            <span className="h-6 w-1/3 bg-third" />
-                            <span className="h-6 w-1/6 bg-third" />
-                        </div>
-                        <div className="flex w-full justify-between">
-                            <span className="h-6 w-1/3 bg-third" />
-                            <span className="h-6 w-1/6 bg-third" />
-                        </div>
-                    </div>
-                ) : (
-                    <DataPanel
-                        type={simulateType || SimulateType.Unknown}
-                        loading={loading}
-                        data={options}
-                        simulation={data?.simulation}
-                    />
-                )}
+                <DataPanel
+                    type={simulateType || SimulateType.Unknown}
+                    loading={loading}
+                    data={options}
+                    simulation={data?.simulation}
+                />
                 {loading ? (
                     <SimulatorStatusBar status={SimulateStatus.Pending} />
                 ) : data ? (

@@ -46,7 +46,13 @@ async function getNetworkFee(chainId: number, gasUsed: number) {
 }
 
 const CHECK_TOKEN = [SimulateType.Swap, SimulateType.Send, SimulateType.Receive];
-const CHECK_ADDRESS = [SimulateType.Send, SimulateType.Approve, SimulateType.Unknown];
+const CHECK_ADDRESS = [
+    SimulateType.Approve,
+    SimulateType.Swap,
+    SimulateType.Send,
+    SimulateType.Receive,
+    SimulateType.Unknown,
+];
 
 export async function simulateAndCheckSecurity({ url, chainId, transaction: data }: SimulationOptions) {
     try {

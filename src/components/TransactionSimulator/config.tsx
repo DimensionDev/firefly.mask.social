@@ -1,6 +1,7 @@
 import { t, Trans } from '@lingui/macro';
 import { CHAIN_DESCRIPTORS } from '@masknet/web3-shared-evm';
 import type { FunctionComponent, SVGAttributes } from 'react';
+import { fromHex, isHex } from 'viem';
 
 import LoadingIcon from '@/assets/loading.svg';
 import ReceiveIcon from '@/assets/receive-token.svg';
@@ -42,7 +43,10 @@ function formatAsset(asset?: AssetChange) {
     const amount = asset.amount ?? asset.raw_amount;
 
     if (['ERC721', 'ERC1155'].includes(standard)) {
-        return `${asset.token_info?.name || 'Unknown'} *${amount}`;
+        const tokenId = isHex(asset.token_id) ? fromHex(asset.token_id, 'number') : asset.token_id;
+        const collectionName = asset.token_info?.name || 'Unknown Collection';
+
+        return tokenId && amount === '1' ? `${collectionName} #${tokenId}` : `${collectionName} *${amount}`;
     }
 
     return `${amount} ${asset.token_info?.symbol?.toUpperCase() || 'Unknown'}`;
@@ -169,7 +173,7 @@ export function getStatusConfig(): StatusConfig[] {
         {
             status: SimulateStatus.Unsafe,
             icon: WarningIcon,
-            className: 'bg-commonWarn/10 text-commonWarn',
+            className: 'bg-commonWarn/20 text-commonWarn',
             text: () => <Trans>Unsafe: Transaction is at risk</Trans>,
         },
         {
@@ -188,7 +192,7 @@ export function getStatusConfig(): StatusConfig[] {
         {
             status: SimulateStatus.Error,
             icon: TradeInfo,
-            className: 'bg-danger/10 text-danger',
+            className: 'bg-danger/20 text-danger',
             text: (message: string) => message,
         },
     ];
