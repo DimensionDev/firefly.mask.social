@@ -13,10 +13,10 @@ import { ProfileVerifyBadge } from '@/components/ProfileVerifyBadge/index.js';
 import { Source } from '@/constants/enum.js';
 import { Link } from '@/esm/Link.js';
 import { formatTwitterProfile } from '@/helpers/formatTwitterProfile.js';
+import { resolveValue } from '@/helpers/resolveValue.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
 import { LoginModalRef } from '@/modals/controls.js';
 import { TwitterSocialMediaProvider } from '@/providers/twitter/SocialMedia.js';
-import { resolveValue } from '@/helpers/resolveValue.js';
 
 interface Tag {
     icon?: FunctionComponent<SVGAttributes<SVGElement>>;
