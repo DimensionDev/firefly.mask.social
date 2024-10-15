@@ -1,5 +1,6 @@
 import { t } from '@lingui/macro';
 import { useQuery } from '@tanstack/react-query';
+import dayjs from 'dayjs';
 import { signIn } from 'next-auth/react';
 import { createContext, type ReactNode, useCallback, useMemo, useState } from 'react';
 import urlcat from 'urlcat';
@@ -25,6 +26,7 @@ export interface ActivityContextValues {
     authToken: string | null;
     setAuthToken: (token: string) => void;
     isLoading: boolean;
+    isEnded?: boolean;
 }
 
 export const ActivityContext = createContext<ActivityContextValues>({
@@ -103,6 +105,7 @@ export function ActivityContextProvider({
             authToken,
             setAuthToken,
             isLoading,
+            isEnded: dayjs('Oct 16 2024 00:00:00 GMT+0000').isBefore(dayjs()),
             ...value,
         };
     }, [value, address, account.address, onLoginTwitter, isLoggedTwitter, authToken, isLoading]);

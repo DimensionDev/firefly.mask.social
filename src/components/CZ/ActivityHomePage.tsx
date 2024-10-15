@@ -15,7 +15,7 @@ import { formatAddress } from '@/helpers/formatAddress.js';
 import { Level } from '@/providers/types/CZ.js';
 
 export function ActivityHomePage() {
-    const { type, address, isLoggedTwitter, isLoading: isLoadingContext } = useContext(ActivityContext);
+    const { type, address, isLoggedTwitter, isLoading: isLoadingContext, isEnded } = useContext(ActivityContext);
     const { data, isLoading, error, refetch, isRefetching } = useActivityCheckResponse();
     const { data: ens } = useEnsName({ address: address as Address, chainId: ChainId.Mainnet });
     const { title, description } = useMemo(() => {
@@ -119,6 +119,28 @@ export function ActivityHomePage() {
         ens,
         type,
     ]);
+
+    if (isEnded) {
+        return (
+            <div className="flex h-[317px] w-full flex-col items-center space-y-8">
+                <Image
+                    src={
+                        data?.level === Level.Lv2 ? '/image/activity/cz/premium-nft.png' : '/image/activity/cz/nft.png'
+                    }
+                    width={162}
+                    height={162}
+                    alt="cz-nft"
+                />
+                <div className="flex flex-col space-y-1 text-center leading-[90%]">
+                    <h3 className="text-xl font-bold">
+                        <Trans>
+                            Event ended
+                        </Trans>
+                    </h3>
+                </div>
+            </div>
+        );
+    }
 
     if (error) {
         return (
