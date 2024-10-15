@@ -1,3 +1,5 @@
+import type { Response } from '@/providers/types/Firefly.js';
+
 export type GoPlusResponse<T> = {
     code: 0 | 1;
     message: 'OK' | string;
@@ -192,3 +194,21 @@ export interface NFTSecurity {
     restricted_approval: BooleanChar;
     oversupply_minting: BooleanChar;
 }
+
+export interface CheckTransactionRequest {
+    url?: string;
+    chain_id: string;
+    to_address: string;
+    input_data: string;
+    value: string;
+}
+
+export type CheckTransactionResponse = Response<
+    Record<
+        'risky_items' | 'warning_items',
+        Array<{
+            title: string;
+            message: string;
+        }>
+    >
+>;

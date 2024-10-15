@@ -3,6 +3,8 @@ import urlcat from 'urlcat';
 
 import { GO_PLUS_LABS_ROOT_URL } from '@/constants/index.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
+import { resolveFireflyResponseData } from '@/helpers/resolveFireflyResponseData.js';
+import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
 import { createSecurityResult } from '@/providers/goplus/createSecurityResult.js';
 import {
     AddressSecurityMessages,
@@ -12,11 +14,15 @@ import {
 } from '@/providers/goplus/rules.js';
 import {
     type AddressSecurity,
+    type CheckTransactionRequest,
+    type CheckTransactionResponse,
     type GoPlusResponse,
     type NFTSecurity,
+    SecurityMessageLevel,
     type SiteSecurity,
     type TokenContractSecurity,
 } from '@/providers/types/Security.js';
+import { settings } from '@/settings/index.js';
 
 export class GoPlus {
     static async getTokenSecurity(chainId: number, address: string) {
@@ -69,5 +75,20 @@ export class GoPlus {
 
         const security = { ...res.result, address, chainId, tokenId };
         return createSecurityResult(security, NFTSecurityMessages);
+    }
+    static async checkTransaction(options: CheckTransactionRequest) {
+        const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/goplus/tx_check');
+
+        const res = await fireflySessionHolder.fetch<CheckTransactionResponse>(url, {
+            method: 'POST',
+            body: JSON.stringify(options),
+        });
+
+        const data = resolveFireflyResponseData(res) || {};
+
+        return [
+            data.risky_items?.map((item) => ({ ...item, level: SecurityMessageLevel.High })) || [],
+            data.warning_items?.map((item) => ({ ...item, level: SecurityMessageLevel.Medium })) || [],
+        ].flat();
     }
 }
