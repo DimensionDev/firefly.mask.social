@@ -2835,6 +2835,9 @@ msgstr "小时"
 msgid "Note:"
 msgstr "注意 ："
 
+msgid "Logging out will cause scheduled posts to fail. To ensure that posts are sent as scheduled, please make sure that your Firefly account remains logged in."
+msgstr ""
+
 msgid "Failed to create schedule post."
 msgstr "创建定时任务失败"
 

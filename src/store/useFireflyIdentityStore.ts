@@ -5,6 +5,7 @@ import { immer } from 'zustand/middleware/immer';
 import { createSelectors } from '@/helpers/createSelector.js';
 import { getCurrentSourceFromUrl } from '@/helpers/getCurrentSourceFromUrl.js';
 import type { FireflyIdentity } from '@/providers/types/Firefly.js';
+import { usePreferencesState } from '@/store/usePreferenceStore.js';
 
 interface FireflyIdentityState {
     identity: FireflyIdentity;
@@ -22,6 +23,7 @@ const useFireflyIdentityBase = create<FireflyIdentityState, [['zustand/persist',
             setIdentity: (profileIdentity: FireflyIdentity) =>
                 set((state) => {
                     state.identity = profileIdentity;
+                    usePreferencesState().resetPreference();
                 }),
             reset: () => {
                 set((state) => {
@@ -29,6 +31,7 @@ const useFireflyIdentityBase = create<FireflyIdentityState, [['zustand/persist',
                         id: '',
                         source: getCurrentSourceFromUrl(),
                     };
+                    usePreferencesState().resetPreference();
                 });
             },
         })),

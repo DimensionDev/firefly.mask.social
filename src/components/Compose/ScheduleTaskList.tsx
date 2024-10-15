@@ -7,6 +7,8 @@ import { uniq } from 'lodash-es';
 import { memo, useCallback } from 'react';
 import { useAsyncFn } from 'react-use';
 
+import Close from '@/assets/close.svg';
+import Info from '@/assets/info.svg';
 import LoadingIcon from '@/assets/loading.svg';
 import Trash from '@/assets/trash2.svg';
 import { SchedulePostSettings } from '@/components/Compose/SchedulePostSettings.js';
@@ -26,6 +28,7 @@ import { ConfirmModalRef, DraggablePopoverRef, SchedulePostModalRef } from '@/mo
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
 import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
 import type { SchedulePostDisplayInfo, ScheduleTask } from '@/providers/types/Firefly.js';
+import { usePreferencesState } from '@/store/usePreferenceStore.js';
 
 function getTitle(displayInfo: SchedulePostDisplayInfo, isFailed: boolean) {
     if (!displayInfo) return;
@@ -79,7 +82,7 @@ const ScheduleTaskItem = memo(function ScheduleTaskItem({ task, index }: { task:
     }, [task.uuid]);
 
     return (
-        <div className="border-b border-line py-3">
+        <div className="border-b border-line p-3">
             <div className="flex items-center justify-between">
                 <div
                     className={classNames('text-[12px] font-bold', {
@@ -170,19 +173,40 @@ export function ScheduleTaskList() {
         await fetchNextPage();
     }, [fetchNextPage, hasNextPage, isFetching, isFetchingNextPage]);
 
+    const { preferences, setPreference } = usePreferencesState();
+
     if (!data?.length) {
         return <NoResultsFallback className="h-[478px] justify-center" />;
     }
 
     return (
-        <div className="h-[478px]">
+        <div className="no-scrollbar box-border flex flex-grow flex-col gap-1 overflow-auto p-3">
+            {preferences.SHOW_SCHEDULE_POST_TIP ? (
+                <div className="flex items-center gap-1.5 rounded-[4px] bg-bg p-3">
+                    <Info width={20} height={20} className="shrink-0 text-main" />
+                    <div className="text-left text-xs leading-4 text-main">
+                        <Trans>
+                            Logging out will cause scheduled posts to fail. To ensure that posts are sent as scheduled,
+                            please make sure that your Firefly account remains logged in.
+                        </Trans>
+                    </div>
+                    <Close
+                        width={20}
+                        height={20}
+                        className="shrink-0 cursor-pointer text-main"
+                        onClick={() => {
+                            setPreference('SHOW_SCHEDULE_POST_TIP', false);
+                        }}
+                    />
+                </div>
+            ) : null}
             <VirtualList
                 data={data}
                 endReached={onEndReached}
                 components={{
                     Footer: VirtualListFooter,
                 }}
-                className={classNames('max-md:no-scrollbar schedule-task-list h-full')}
+                className="max-md:no-scrollbar schedule-task-list box-border h-full min-h-0"
                 listKey={`$${ScrollListKey.SchedulePosts}`}
                 computeItemKey={(index, item) => item.uuid}
                 itemContent={(index, task) => getScheduleTaskItemContent(index, task)}
