@@ -2,10 +2,8 @@
 
 'use client';
 
-import { createWeb3Modal } from '@web3modal/wagmi/react';
-import { defaultWagmiConfig } from '@web3modal/wagmi/react/config';
-import { type Config } from 'wagmi';
 import {
+    type AppKitNetwork,
     arbitrum,
     aurora,
     avalanche,
@@ -21,6 +19,25 @@ import {
     polygon,
     xLayer,
     zora,
+} from '@reown/appkit/networks';
+import { createAppKit } from '@reown/appkit/react';
+import { WagmiAdapter } from '@reown/appkit-adapter-wagmi';
+import {
+    arbitrum as wagmiArbitrum,
+    aurora as wagmiAurora,
+    avalanche as wagmiAvalanche,
+    base as wagmiBase,
+    bsc as wagmiBsc,
+    confluxESpace as wagmiConfluxESpace,
+    degen as wagmiDegen,
+    fantom as wagmiFantom,
+    gnosis as wagmiGnosis,
+    mainnet as wagmiMainnet,
+    metis as wagmiMetis,
+    optimism as wagmiOptimism,
+    polygon as wagmiPolygon,
+    xLayer as wagmiXLayer,
+    zora as wagmiZora,
 } from 'wagmi/chains';
 
 import { env } from '@/constants/env.js';
@@ -42,38 +59,47 @@ export const chains = [
     xLayer,
     metis,
     zora,
+] as [AppKitNetwork, ...AppKitNetwork[]];
+
+export const wagmiChains = [
+    wagmiMainnet,
+    wagmiBase,
+    wagmiBsc,
+    wagmiDegen,
+    wagmiPolygon,
+    wagmiOptimism,
+    wagmiArbitrum,
+    wagmiGnosis,
+    wagmiAvalanche,
+    wagmiAurora,
+    wagmiConfluxESpace,
+    wagmiFantom,
+    wagmiXLayer,
+    wagmiMetis,
+    wagmiZora,
 ] as const;
 
-function createWagmiConfig(): Config {
-    const metadata = {
-        name: SITE_NAME,
-        description: SITE_DESCRIPTION,
-        url: SITE_URL,
-        icons: ['/image/firefly-light-avatar.png'],
-    };
+export const adapter = new WagmiAdapter({
+    networks: chains,
+    projectId: env.external.NEXT_PUBLIC_W3M_PROJECT_ID,
+});
 
-    const config = defaultWagmiConfig({
-        auth: {
-            email: false,
-            socials: [],
-            showWallets: false,
-            walletFeatures: false,
-        },
-        chains,
-        metadata,
-        projectId: env.external.NEXT_PUBLIC_W3M_PROJECT_ID,
-    });
+const metadata = {
+    name: SITE_NAME,
+    description: SITE_DESCRIPTION,
+    url: SITE_URL,
+    icons: ['/image/firefly-light-avatar.png'],
+};
+createAppKit({
+    adapters: [adapter],
+    networks: chains,
+    metadata,
+    projectId: env.external.NEXT_PUBLIC_W3M_PROJECT_ID,
+    showWallets: false,
+    features: {
+        email: false,
+        socials: [],
+    },
+});
 
-    createWeb3Modal({
-        metadata,
-        wagmiConfig: config,
-        projectId: env.external.NEXT_PUBLIC_W3M_PROJECT_ID,
-        isSiweEnabled: false,
-        enableSwaps: false,
-        enableOnramp: false,
-        enableAnalytics: false, // Optional - defaults to your Cloud configuration
-    });
-    return config;
-}
-
-export const config = createWagmiConfig();
+export const config = adapter.wagmiConfig;

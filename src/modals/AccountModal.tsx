@@ -1,12 +1,12 @@
-import { useWeb3Modal, useWeb3ModalState } from '@web3modal/wagmi/react';
+import { useAppKit, useAppKitState } from '@reown/appkit/react';
 import { forwardRef } from 'react';
 
 import { useWalletModal } from '@/hooks/useWalletModal.js';
 import type { SingletonModalRefCreator } from '@/libs/SingletonModal.js';
 
 export const AccountModal = forwardRef<SingletonModalRefCreator>(function AccountModal(_, ref) {
-    const { open: opened } = useWeb3ModalState();
-    const { open } = useWeb3Modal();
+    const { open } = useAppKit();
+    const state = useAppKitState();
 
     const openModal = () => {
         open({
@@ -15,7 +15,7 @@ export const AccountModal = forwardRef<SingletonModalRefCreator>(function Accoun
     };
 
     const getModalOpened = () => {
-        return opened;
+        return state.open;
     };
 
     useWalletModal(openModal, getModalOpened(), ref);
