@@ -37,7 +37,7 @@ export const SchedulePostSettings = memo<SchedulePostSettingsProps>(function Sch
     const [{ loading }, handleSet] = useAsyncFn(async () => {
         try {
             if (dayjs(value).isBefore(new Date(), 'minute')) {
-                enqueueErrorMessage(t`The scheduled time has passed.`);
+                enqueueInfoMessage(t`The scheduled time has passed.`);
                 return;
             }
 
