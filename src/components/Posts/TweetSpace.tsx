@@ -13,6 +13,7 @@ import { ProfileVerifyBadge } from '@/components/ProfileVerifyBadge/index.js';
 import { Source } from '@/constants/enum.js';
 import { Link } from '@/esm/Link.js';
 import { formatTwitterProfile } from '@/helpers/formatTwitterProfile.js';
+import { resolveValue } from '@/helpers/resolveValue.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
 import { LoginModalRef } from '@/modals/controls.js';
 import { TwitterSocialMediaProvider } from '@/providers/twitter/SocialMedia.js';
@@ -28,12 +29,11 @@ interface Props {
 
 export const TweetSpace = memo<Props>(function TweetSpace({ spaceId }) {
     const isLogin = useIsLogin(Source.Twitter);
-    const enabled = isLogin;
     const { data, isLoading, error, refetch } = useQuery({
-        enabled,
+        enabled: isLogin,
         queryKey: ['twitter-space', spaceId],
-        async queryFn() {
-            return await TwitterSocialMediaProvider.getSpace(spaceId);
+        queryFn() {
+            return TwitterSocialMediaProvider.getSpace(spaceId);
         },
     });
     const space = data?.data;
@@ -92,7 +92,7 @@ export const TweetSpace = memo<Props>(function TweetSpace({ spaceId }) {
     const rawCreator = data?.includes?.users?.find((user) => user.id === data.data.creator_id);
     const creator = rawCreator ? formatTwitterProfile(rawCreator) : undefined;
 
-    const tags: Tag[] = (() => {
+    const tags: Tag[] = resolveValue(() => {
         switch (space.state) {
             case 'canceled':
                 return [
@@ -130,7 +130,7 @@ export const TweetSpace = memo<Props>(function TweetSpace({ spaceId }) {
             default:
                 return [];
         }
-    })();
+    });
 
     return (
         <Link
