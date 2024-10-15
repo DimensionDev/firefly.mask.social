@@ -1,3 +1,5 @@
+import type { Hex } from 'viem';
+
 import type { SimulateType } from '@/constants/enum.js';
 import type { Response } from '@/providers/types/Firefly.js';
 
@@ -17,7 +19,7 @@ export type AssetChange = {
     raw_amount: string;
     from?: string;
     to?: string;
-    token_id?: string;
+    token_id?: Hex;
     type: string;
     token_info?: {
         decimals: number;

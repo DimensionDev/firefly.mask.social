@@ -40,10 +40,10 @@ export function ContinueButton({ status, className, onClick, ...rest }: Continue
     return (
         <ClickableButton
             className={classNames(
-                'mt-6 h-10 w-full rounded-lg text-sm font-bold text-lightBottom',
+                'mt-6 h-10 w-full rounded-lg text-sm font-bold',
                 {
-                    'bg-lightMain': !isUnSafe,
-                    'bg-danger': isUnSafe,
+                    'bg-lightMain text-lightBottom': !isUnSafe,
+                    'bg-danger text-white': isUnSafe,
                 },
                 className,
             )}
