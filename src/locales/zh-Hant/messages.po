@@ -2667,6 +2667,9 @@ msgstr ""
 msgid "Video"
 msgstr "影片"
 
+msgid "Firefly Wallet"
+msgstr ""
+
 msgid "{hours, plural, one {1 hour left} other {{hours} hours left}}"
 msgstr ""
 

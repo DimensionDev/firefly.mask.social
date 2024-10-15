@@ -2667,6 +2667,9 @@ msgstr "转帖"
 msgid "Video"
 msgstr "视频"
 
+msgid "Firefly Wallet"
+msgstr ""
+
 msgid "{hours, plural, one {1 hour left} other {{hours} hours left}}"
 msgstr "{hours, plural, one {1 小时剩余} other {{hours} 小时剩余}}"
 
