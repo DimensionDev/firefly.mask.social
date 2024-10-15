@@ -18,11 +18,14 @@ export function memoizeWithRedis<T extends (...args: any) => Promise<any>>(
     {
         key,
         resolver,
+        ignoreCacheWhen,
     }: {
         /** the name of KV store in redis */
         key: KeyType;
         /** the resolver returns the field key */
         resolver?: (...args: Parameters<T>) => string;
+        /** the function to determine whether to ignore the cache */
+        ignoreCacheWhen?: (result: Awaited<ReturnType<T>> | null) => boolean;
     },
 ): T & MemoizedFunction {
     const memoized = async (...args: any) => {
@@ -33,8 +36,11 @@ export function memoizeWithRedis<T extends (...args: any) => Promise<any>>(
 
             // Cache hit, return the cached value
             if (fieldExists) {
-                const fieldValue = await kv.hget(key, fieldKey);
-                return fieldValue;
+                const fieldValue = await kv.hget<ReturnType<T>>(key, fieldKey);
+
+                if (!ignoreCacheWhen?.(fieldValue)) {
+                    return fieldValue;
+                }
             }
         } catch (error) {
             // Ignore
