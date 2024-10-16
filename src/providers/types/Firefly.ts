@@ -1005,4 +1005,4 @@ export type ActivityInfoResponse = Response<{
     ext: string;
     start_time: string;
     end_time: string;
-}>
+}>;

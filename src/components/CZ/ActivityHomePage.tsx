@@ -120,7 +120,6 @@ export function ActivityHomePage() {
         type,
     ]);
 
-
     if (isLoading || isLoadingContext) {
         return (
             <div className="flex h-[317px] w-full flex-col items-center justify-center">

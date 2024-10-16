@@ -78,17 +78,17 @@ export function ActivityContextProvider({
         },
     });
 
-    const activityName = 'cz_welcome_back_airdrop'
+    const activityName = 'cz_welcome_back_airdrop';
     const { data: activityInfo, isLoading: ioLoadingActivityInfo } = useQuery({
         queryKey: ['activity-info', activityName],
         async queryFn() {
             const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/activity/info', {
                 name: activityName,
             });
-            const res = await fetchJSON<ActivityInfoResponse>(url)
-            return res.data
-        }
-    })
+            const res = await fetchJSON<ActivityInfoResponse>(url);
+            return res.data;
+        },
+    });
 
     const onLoginTwitter = useCallback(async () => {
         if (fireflyBridgeProvider.supported) {
