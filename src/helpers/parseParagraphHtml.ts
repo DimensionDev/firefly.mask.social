@@ -36,7 +36,6 @@ export function parseParagraphHtml(htmlString: string, jsonString: string) {
                 node?.setAttribute('height', `${svg.attrs.nextheight}px`);
                 node?.setAttribute('width', `${svg.attrs.nextwidth}px`);
             }
-
             return;
         });
     });
