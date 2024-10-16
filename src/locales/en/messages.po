@@ -2722,6 +2722,9 @@ msgstr "Location"
 msgid "There is no limit to the number of token transactions. The number of scam token transactions may be limited (honeypot risk)."
 msgstr "There is no limit to the number of token transactions. The number of scam token transactions may be limited (honeypot risk)."
 
+msgid "Error: {message}"
+msgstr "Error: {message}"
+
 msgid "This is not an airdrop scam. Many scams attract users through airdrops."
 msgstr "This is not an airdrop scam. Many scams attract users through airdrops."
 
