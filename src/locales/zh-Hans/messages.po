@@ -1524,9 +1524,6 @@ msgstr "{shares, plural, one {转帖或引用} other {转帖或引用}}"
 msgid "Please input the serialized session to be validated."
 msgstr "请输入要验证的序列化会话。"
 
-msgid "Welcome Back CZ"
-msgstr "欢迎回归 CZ"
-
 msgid "Failed to update profile."
 msgstr "更新个人资料失败。"
 

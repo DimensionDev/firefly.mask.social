@@ -1,5 +1,6 @@
 import { t } from '@lingui/macro';
 import { useQuery } from '@tanstack/react-query';
+import dayjs from 'dayjs';
 import { signIn } from 'next-auth/react';
 import { createContext, type ReactNode, useCallback, useMemo, useState } from 'react';
 import urlcat from 'urlcat';
@@ -25,6 +26,7 @@ export interface ActivityContextValues {
     authToken: string | null;
     setAuthToken: (token: string) => void;
     isLoading: boolean;
+    isEnded?: boolean;
 }
 
 export const ActivityContext = createContext<ActivityContextValues>({
@@ -76,6 +78,14 @@ export function ActivityContextProvider({
         },
     });
 
+    const { data: serverTime, isLoading: isLoadingServerTime } = useQuery({
+        queryKey: ['server-time'],
+        async queryFn() {
+            const res = await fetchJSON<{ data: { time: string } }>('/api/time');
+            return res.data.time;
+        },
+    });
+
     const onLoginTwitter = useCallback(async () => {
         if (fireflyBridgeProvider.supported) {
             const result = await fireflyBridgeProvider.request(SupportedMethod.LOGIN, {
@@ -102,10 +112,11 @@ export function ActivityContextProvider({
             setAddress,
             authToken,
             setAuthToken,
-            isLoading,
+            isLoading: isLoading || isLoadingServerTime,
+            isEnded: serverTime ? dayjs('Oct 16 2024 00:00:00 GMT+0000').isBefore(dayjs(serverTime)) : undefined,
             ...value,
         };
-    }, [value, address, account.address, onLoginTwitter, isLoggedTwitter, authToken, isLoading]);
+    }, [value, address, account.address, onLoginTwitter, isLoggedTwitter, authToken, isLoading, isLoadingServerTime]);
 
     return <ActivityContext.Provider value={providerValue}>{children}</ActivityContext.Provider>;
 }

@@ -15,7 +15,7 @@ import { formatAddress } from '@/helpers/formatAddress.js';
 import { Level } from '@/providers/types/CZ.js';
 
 export function ActivityHomePage() {
-    const { type, address, isLoggedTwitter, isLoading: isLoadingContext } = useContext(ActivityContext);
+    const { type, address, isLoggedTwitter, isLoading: isLoadingContext, isEnded } = useContext(ActivityContext);
     const { data, isLoading, error, refetch, isRefetching } = useActivityCheckResponse();
     const { data: ens } = useEnsName({ address: address as Address, chainId: ChainId.Mainnet });
     const { title, description } = useMemo(() => {
@@ -120,6 +120,41 @@ export function ActivityHomePage() {
         type,
     ]);
 
+    if (isLoading || isLoadingContext) {
+        return (
+            <div className="flex h-[317px] w-full flex-col items-center justify-center">
+                <div className="flex flex-col items-center space-y-3">
+                    <LoadingIcon className="animate-spin" width={36} height={36} />
+                    {type === 'dialog' ? (
+                        <p className="text-sm leading-[18px]">
+                            <Trans>Checking eligibility</Trans>
+                        </p>
+                    ) : null}
+                </div>
+            </div>
+        );
+    }
+
+    if (isEnded) {
+        return (
+            <div className="flex h-[317px] w-full flex-col items-center space-y-8">
+                <Image
+                    src={
+                        data?.level === Level.Lv2 ? '/image/activity/cz/premium-nft.png' : '/image/activity/cz/nft.png'
+                    }
+                    width={162}
+                    height={162}
+                    alt="cz-nft"
+                />
+                <div className="flex flex-col space-y-1 text-center leading-[90%]">
+                    <h3 className="text-xl font-bold">
+                        <Trans>Event ended</Trans>
+                    </h3>
+                </div>
+            </div>
+        );
+    }
+
     if (error) {
         return (
             <div className="flex h-[317px] w-full flex-col items-center">
@@ -140,21 +175,6 @@ export function ActivityHomePage() {
                 >
                     <Trans>Refresh</Trans>
                 </button>
-            </div>
-        );
-    }
-
-    if (isLoading || isLoadingContext) {
-        return (
-            <div className="flex h-[317px] w-full flex-col items-center justify-center">
-                <div className="flex flex-col items-center space-y-3">
-                    <LoadingIcon className="animate-spin" width={36} height={36} />
-                    {type === 'dialog' ? (
-                        <p className="text-sm leading-[18px]">
-                            <Trans>Checking eligibility</Trans>
-                        </p>
-                    ) : null}
-                </div>
             </div>
         );
     }
