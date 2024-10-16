@@ -11,7 +11,7 @@ export async function getAccountInfo(
     connection: Connection,
     address: PublicKey,
     commitment?: Commitment,
-    programId = TOKEN_PROGRAM_ID,
+    programId: PublicKey = TOKEN_PROGRAM_ID,
 ) {
     const info = await connection.getAccountInfo(address, commitment);
     if (!info) throw new Error('TokenAccountNotFoundError');

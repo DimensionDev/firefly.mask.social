@@ -45,7 +45,7 @@ export function createTransferInstruction(
     owner: PublicKey,
     amount: number,
     multiSigners: Signer[] = [],
-    programId = TOKEN_PROGRAM_ID,
+    programId: PublicKey = TOKEN_PROGRAM_ID,
 ): TransactionInstruction {
     const dataLayout = struct<{ instruction: number; amount: Uint8Array }>([u8('instruction'), blob(8, 'amount')]);
 
