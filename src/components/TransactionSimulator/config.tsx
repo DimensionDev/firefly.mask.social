@@ -1,5 +1,6 @@
 import { t, Trans } from '@lingui/macro';
 import { CHAIN_DESCRIPTORS } from '@masknet/web3-shared-evm';
+import { getAccount } from '@wagmi/core';
 import type { FunctionComponent, SVGAttributes } from 'react';
 import { fromHex, isHex } from 'viem';
 
@@ -11,7 +12,9 @@ import TradeSecurity from '@/assets/trade-security.svg';
 import WarningIcon from '@/assets/warning.svg';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { ChainIcon } from '@/components/NFTDetail/ChainIcon.js';
+import { config } from '@/configs/wagmiClient.js';
 import { SimulateStatus, SimulateType } from '@/constants/enum.js';
+import { isSameEthereumAddress } from '@/helpers/isSameAddress.js';
 import { leftShift } from '@/helpers/number.js';
 import { parseUrl } from '@/helpers/parseUrl.js';
 import { SecurityMessageLevel, type StaticSecurityMessage } from '@/providers/types/Security.js';
@@ -41,7 +44,7 @@ function formatAsset(asset?: AssetChange) {
     if (!asset) return null;
 
     const standard = asset.token_info?.standard || '';
-    const amount = asset.amount ?? leftShift(asset.raw_amount, asset.token_info?.decimals);
+    const amount = asset.amount ?? leftShift(asset.raw_amount, asset.token_info?.decimals).toString();
 
     if (['ERC721', 'ERC1155'].includes(standard)) {
         const tokenId = isHex(asset.token_id) ? fromHex(asset.token_id, 'bigint') : asset.token_id;
@@ -53,6 +56,12 @@ function formatAsset(asset?: AssetChange) {
     return `${amount} ${asset.token_info?.symbol?.toUpperCase() || 'Unknown'}`;
 }
 
+function formatPayOrReceive(simulation: SimulateResponse['data'], field: 'to' | 'from') {
+    return formatAsset(
+        simulation?.assetChanges?.find((asset) => isSameEthereumAddress(getAccount(config)?.address, asset[field])),
+    );
+}
+
 export function getPanelConfig(): PanelConfig[] {
     return [
         {
@@ -60,27 +69,21 @@ export function getPanelConfig(): PanelConfig[] {
             icon: SendIcon,
             showLoading: true,
             modules: [SimulateType.Swap],
-            content: (_, simulation) => {
-                return formatAsset(simulation?.assetChanges?.[1]);
-            },
+            content: (_, simulation) => formatPayOrReceive(simulation, 'from'),
         },
         {
             title: t`Receive`,
             icon: ReceiveIcon,
             showLoading: true,
             modules: [SimulateType.Swap, SimulateType.Receive],
-            content: (_, simulation) => {
-                return formatAsset(simulation?.assetChanges?.[0]);
-            },
+            content: (_, simulation) => formatPayOrReceive(simulation, 'to'),
         },
         {
             title: t`Send`,
             icon: SendIcon,
             showLoading: true,
             modules: [SimulateType.Send],
-            content: (_, simulation) => {
-                return formatAsset(simulation?.assetChanges?.[0]);
-            },
+            content: (_, simulation) => formatPayOrReceive(simulation, 'from'),
         },
         {
             title: t`Approve`,
@@ -194,7 +197,7 @@ export function getStatusConfig(): StatusConfig[] {
             status: SimulateStatus.Error,
             icon: TradeInfo,
             className: 'bg-danger/20 text-danger',
-            text: (message: string) => message,
+            text: (message: string) => (message ? t`Error: ${message}` : ''),
         },
     ];
 }
