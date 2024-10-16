@@ -2727,6 +2727,9 @@ msgstr "地点"
 msgid "There is no limit to the number of token transactions. The number of scam token transactions may be limited (honeypot risk)."
 msgstr "对通证的交易次数没有限制。可疑通证的交易次数可能是有限的。"
 
+msgid "Error: {message}"
+msgstr ""
+
 msgid "This is not an airdrop scam. Many scams attract users through airdrops."
 msgstr "这不是空投欺诈。许多欺诈通过空投吸引用户。"
 
@@ -2885,4 +2888,3 @@ msgstr "未满足领取资格， <0>重试</0>"
 
 msgid "Reward for followers"
 msgstr "回馈粉丝"
-
