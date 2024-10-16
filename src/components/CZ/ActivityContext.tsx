@@ -11,7 +11,7 @@ import { enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
 import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
 import { fireflyBridgeProvider } from '@/providers/firefly/Bridge.js';
-import type { WalletProfileResponse } from '@/providers/types/Firefly.js';
+import type { ActivityInfoResponse, WalletProfileResponse } from '@/providers/types/Firefly.js';
 import { settings } from '@/settings/index.js';
 import { Platform, SupportedMethod } from '@/types/bridge.js';
 
@@ -78,6 +78,18 @@ export function ActivityContextProvider({
         },
     });
 
+    const activityName = 'cz_welcome_back_airdrop'
+    const { data: activityInfo, isLoading: ioLoadingActivityInfo } = useQuery({
+        queryKey: ['activity-info', activityName],
+        async queryFn() {
+            const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/activity/info', {
+                name: activityName,
+            });
+            const res = await fetchJSON<ActivityInfoResponse>(url)
+            return res.data
+        }
+    })
+
     const onLoginTwitter = useCallback(async () => {
         if (fireflyBridgeProvider.supported) {
             const result = await fireflyBridgeProvider.request(SupportedMethod.LOGIN, {
@@ -104,11 +116,11 @@ export function ActivityContextProvider({
             setAddress,
             authToken,
             setAuthToken,
-            isLoading,
-            isEnded: dayjs('Oct 16 2024 00:00:00 GMT+0000').isBefore(dayjs()),
+            isLoading: isLoading || ioLoadingActivityInfo,
+            isEnded: activityInfo?.end_time ? dayjs(activityInfo.end_time).isBefore(dayjs()) : undefined,
             ...value,
         };
-    }, [value, address, account.address, onLoginTwitter, isLoggedTwitter, authToken, isLoading]);
+    }, [value, address, account.address, onLoginTwitter, isLoggedTwitter, authToken, isLoading, ioLoadingActivityInfo]);
 
     return <ActivityContext.Provider value={providerValue}>{children}</ActivityContext.Provider>;
 }

@@ -992,3 +992,17 @@ export type ConvertM3u8StatusResponse = Response<{
     jobId: string;
     status: S3ConvertStatus;
 }>;
+
+export type ActivityInfoResponse = Response<{
+    id: number;
+    name: string;
+    title: string;
+    sub_title: string;
+    description: string;
+    url: string;
+    banner_url: string;
+    icon_url: string;
+    ext: string;
+    start_time: string;
+    end_time: string;
+}>

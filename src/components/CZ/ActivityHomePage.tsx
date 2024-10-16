@@ -120,6 +120,22 @@ export function ActivityHomePage() {
         type,
     ]);
 
+
+    if (isLoading || isLoadingContext) {
+        return (
+            <div className="flex h-[317px] w-full flex-col items-center justify-center">
+                <div className="flex flex-col items-center space-y-3">
+                    <LoadingIcon className="animate-spin" width={36} height={36} />
+                    {type === 'dialog' ? (
+                        <p className="text-sm leading-[18px]">
+                            <Trans>Checking eligibility</Trans>
+                        </p>
+                    ) : null}
+                </div>
+            </div>
+        );
+    }
+
     if (isEnded) {
         return (
             <div className="flex h-[317px] w-full flex-col items-center space-y-8">
@@ -160,21 +176,6 @@ export function ActivityHomePage() {
                 >
                     <Trans>Refresh</Trans>
                 </button>
-            </div>
-        );
-    }
-
-    if (isLoading || isLoadingContext) {
-        return (
-            <div className="flex h-[317px] w-full flex-col items-center justify-center">
-                <div className="flex flex-col items-center space-y-3">
-                    <LoadingIcon className="animate-spin" width={36} height={36} />
-                    {type === 'dialog' ? (
-                        <p className="text-sm leading-[18px]">
-                            <Trans>Checking eligibility</Trans>
-                        </p>
-                    ) : null}
-                </div>
             </div>
         );
     }
