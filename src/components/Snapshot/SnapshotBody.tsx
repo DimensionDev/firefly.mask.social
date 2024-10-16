@@ -11,6 +11,7 @@ import { Time } from '@/components/Semantic/Time.js';
 import { SnapshotActions } from '@/components/Snapshot/SnapshotActions.js';
 import { SnapshotApprovalChoices } from '@/components/Snapshot/SnapshotApprovalChoices.js';
 import { SnapshotQuadraticChoices } from '@/components/Snapshot/SnapshotQuadraticChoices.js';
+import { SnapshotRankChoices } from '@/components/Snapshot/SnapshotRankChoices.js';
 import { SnapshotResults } from '@/components/Snapshot/SnapshotResults.js';
 import { SnapshotSingleChoices } from '@/components/Snapshot/SnapshotSingleChoices.js';
 import { SnapshotStatus } from '@/components/Snapshot/SnapshotStatus.js';
@@ -22,7 +23,6 @@ import { classNames } from '@/helpers/classNames.js';
 import { formatEthereumAddress } from '@/helpers/formatAddress.js';
 import { getStampAvatarByProfileId } from '@/helpers/getStampAvatarByProfileId.js';
 import { type SnapshotProposal, SnapshotState } from '@/providers/types/Snapshot.js';
-import { SnapshotRankChoices } from '@/components/Snapshot/SnapshotRankChoices.js';
 
 interface Props {
     snapshot: SnapshotProposal;

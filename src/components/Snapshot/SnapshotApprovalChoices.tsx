@@ -1,3 +1,4 @@
+import { uniq } from 'lodash-es';
 import { memo, useState } from 'react';
 
 import { SnapshotChoice } from '@/components/Snapshot/SnapshotChoice.js';
@@ -13,7 +14,7 @@ export const SnapshotApprovalChoices = memo<SnapshotApprovalChoicesProps>(functi
     disabled,
     onChange,
 }) {
-    const [selectedChocies, setSelectedChocies] = useState<string[]>([]);
+    const [selectedChoices, setSelectedChoices] = useState<string[]>([]);
 
     return (
         <div className="flex flex-col gap-3">
@@ -22,11 +23,11 @@ export const SnapshotApprovalChoices = memo<SnapshotApprovalChoicesProps>(functi
                     <SnapshotChoice
                         key={choice}
                         value={choice}
-                        selected={selectedChocies.includes(choice)}
+                        selected={selectedChoices.includes(choice)}
                         onClick={(value) => {
-                            const result = new Set([...selectedChocies, value]);
-                            setSelectedChocies([...result]);
-                            onChange?.([...result]);
+                            const result = uniq([...selectedChoices, value]);
+                            setSelectedChoices(result);
+                            onChange?.(result);
                         }}
                         disabled={disabled}
                     />

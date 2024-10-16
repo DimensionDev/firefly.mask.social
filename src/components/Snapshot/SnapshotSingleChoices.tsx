@@ -8,7 +8,7 @@ interface SnapshotSingleChoicesProps {
     onChange?: (value: string) => void;
 }
 
-export const SnapshotSingleChoices = memo<SnapshotSingleChoicesProps>(function SnapshotSingleChociesProps({
+export const SnapshotSingleChoices = memo<SnapshotSingleChoicesProps>(function SnapshotSingleChoices({
     choices,
     disabled = false,
     onChange,

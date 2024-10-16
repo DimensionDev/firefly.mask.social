@@ -726,6 +726,9 @@ msgstr "连接钱包"
 msgid "Not Found. Please check your URL[{0}]."
 msgstr "未找到。请检查你的 URL [{0}]。"
 
+msgid "Closed"
+msgstr ""
+
 msgid "Non-sanctioned address found."
 msgstr ""
 
@@ -836,6 +839,9 @@ msgstr "取消收藏"
 
 msgid "<0>Bought</0> an NFT"
 msgstr "<0>购买</0> 一个 NFT"
+
+msgid "Active"
+msgstr ""
 
 msgid "Connection failed"
 msgstr "连接失败"
@@ -1167,6 +1173,9 @@ msgstr "此通证合约尚未验证。我们无法检查合约代码了解详情
 msgid "Replies"
 msgstr "回复"
 
+msgid "Current Results"
+msgstr ""
+
 msgid "Comment"
 msgstr "评论"
 
@@ -1265,6 +1274,9 @@ msgstr "发布成功。"
 
 msgid "Login with Farcaster"
 msgstr "使用 Farcaster 登录"
+
+msgid "Votes"
+msgstr ""
 
 msgid "Bio should not exceed {maxBioSize} characters"
 msgstr "个人介绍不可以超过 {maxBioSize} 个字"
@@ -1504,6 +1516,9 @@ msgid "Failed to disconnect wallet from your social graph."
 msgstr "未能从您的社交图谱中断链。"
 
 msgid "No external call risk found."
+msgstr ""
+
+msgid "Pending"
 msgstr ""
 
 msgid "No preview found for shared link"
@@ -2211,6 +2226,9 @@ msgstr "无法继续。请允许 Lens Manager 执行操作，而无需对每笔�
 msgid "*CZ's follower snapshot was taken at 8:00 UTC on September 21, 2024."
 msgstr "*CZ的关注者快照发生在在2024年9月21日8:00 UTC。"
 
+msgid "Results"
+msgstr ""
+
 msgid "Properties"
 msgstr "属性"
 
@@ -2456,6 +2474,9 @@ msgstr "立即转帖以获得 25% 的推荐佣金！"
 
 msgid "Hide tokens with small balances"
 msgstr "隐藏小额通证"
+
+msgid "Proposal"
+msgstr ""
 
 msgid "News"
 msgstr "新闻"

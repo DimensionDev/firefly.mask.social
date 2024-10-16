@@ -721,6 +721,9 @@ msgstr "Connect Wallet"
 msgid "Not Found. Please check your URL[{0}]."
 msgstr "Not Found. Please check your URL[{0}]."
 
+msgid "Closed"
+msgstr "Closed"
+
 msgid "Non-sanctioned address found."
 msgstr "Non-sanctioned address found."
 
@@ -831,6 +834,9 @@ msgstr "Remove from Bookmarks"
 
 msgid "<0>Bought</0> an NFT"
 msgstr "<0>Bought</0> an NFT"
+
+msgid "Active"
+msgstr "Active"
 
 msgid "Connection failed"
 msgstr "Connection failed"
@@ -1162,6 +1168,9 @@ msgstr "This token contract has not been verified. We cannot check the contract 
 msgid "Replies"
 msgstr "Replies"
 
+msgid "Current Results"
+msgstr "Current Results"
+
 msgid "Comment"
 msgstr "Comment"
 
@@ -1260,6 +1269,9 @@ msgstr "Your post has published successfully."
 
 msgid "Login with Farcaster"
 msgstr "Login with Farcaster"
+
+msgid "Votes"
+msgstr "Votes"
 
 msgid "Bio should not exceed {maxBioSize} characters"
 msgstr "Bio should not exceed {maxBioSize} characters"
@@ -1500,6 +1512,9 @@ msgstr "Failed to disconnect wallet from your social graph."
 
 msgid "No external call risk found."
 msgstr "No external call risk found."
+
+msgid "Pending"
+msgstr "Pending"
 
 msgid "No preview found for shared link"
 msgstr "No preview found for shared link"
@@ -2206,6 +2221,9 @@ msgstr "Failed to continue. Please allow Lens Manager for performing actions wit
 msgid "*CZ's follower snapshot was taken at 8:00 UTC on September 21, 2024."
 msgstr "*CZ's follower snapshot was taken at 8:00 UTC on September 21, 2024."
 
+msgid "Results"
+msgstr "Results"
+
 msgid "Properties"
 msgstr "Properties"
 
@@ -2451,6 +2469,9 @@ msgstr "Mirror now to get 25% referral fee!"
 
 msgid "Hide tokens with small balances"
 msgstr "Hide tokens with small balances"
+
+msgid "Proposal"
+msgstr "Proposal"
 
 msgid "News"
 msgstr "News"

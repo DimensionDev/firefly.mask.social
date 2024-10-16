@@ -13,7 +13,7 @@ interface Props {
 }
 
 export function SnapshotStatus({ status, className }: Props) {
-    const isAcitveOrPending = status === SnapshotState.Active || status === SnapshotState.Pending;
+    const isActiveOrPending = status === SnapshotState.Active || status === SnapshotState.Pending;
 
     const title = useMemo(() => {
         switch (status) {
@@ -33,14 +33,14 @@ export function SnapshotStatus({ status, className }: Props) {
             className={classNames(
                 'flex items-center gap-1 rounded-full px-3 py-[2px] text-sm leading-[18px] text-white',
                 {
-                    'bg-highlight': isAcitveOrPending,
+                    'bg-highlight': isActiveOrPending,
                     'bg-secondary': status === SnapshotState.Closed,
                     'opacity-50': status === SnapshotState.Pending,
                 },
                 className,
             )}
         >
-            {isAcitveOrPending ? <ActiveIcon /> : <ClosedIcon />}
+            {isActiveOrPending ? <ActiveIcon /> : <ClosedIcon />}
             <span>{title}</span>
         </div>
     );

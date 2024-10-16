@@ -15,7 +15,7 @@ export const SnapshotRankChoices = memo<SnapshotRankChoicesProps>(function Snaps
     disabled = false,
 }) {
     const controls = useDragControls();
-    const [selectedChoices, setSelectedChocies] = useState<string[]>([]);
+    const [selectedChoices, setSelectedChoices] = useState<string[]>([]);
 
     return (
         <div>
@@ -26,7 +26,7 @@ export const SnapshotRankChoices = memo<SnapshotRankChoicesProps>(function Snaps
                 dragListener={false}
                 dragControls={controls}
                 onReorder={(newOrder) => {
-                    setSelectedChocies(newOrder);
+                    setSelectedChoices(newOrder);
                 }}
             >
                 {selectedChoices.map((choice, index) => {
@@ -62,7 +62,7 @@ export const SnapshotRankChoices = memo<SnapshotRankChoicesProps>(function Snaps
                                 },
                             )}
                             onClick={() => {
-                                setSelectedChocies(uniq([...selectedChoices, choice]));
+                                setSelectedChoices(uniq([...selectedChoices, choice]));
                             }}
                         >
                             <span className="text-sm font-bold leading-[18px]">{choice}</span>

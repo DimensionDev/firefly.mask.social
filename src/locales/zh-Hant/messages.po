@@ -726,6 +726,9 @@ msgstr "連接錢包"
 msgid "Not Found. Please check your URL[{0}]."
 msgstr "未找到。請檢查您的 URL [{0}]"
 
+msgid "Closed"
+msgstr ""
+
 msgid "Non-sanctioned address found."
 msgstr ""
 
@@ -836,6 +839,9 @@ msgstr "從書籤中移除"
 
 msgid "<0>Bought</0> an NFT"
 msgstr "<0>已購買</0>一個 NFT"
+
+msgid "Active"
+msgstr ""
 
 msgid "Connection failed"
 msgstr "連結失敗"
@@ -1167,6 +1173,9 @@ msgstr ""
 msgid "Replies"
 msgstr "回覆"
 
+msgid "Current Results"
+msgstr ""
+
 msgid "Comment"
 msgstr "評論"
 
@@ -1265,6 +1274,9 @@ msgstr "你的貼文已成功發佈"
 
 msgid "Login with Farcaster"
 msgstr "通過 Farcaster 登錄"
+
+msgid "Votes"
+msgstr ""
 
 msgid "Bio should not exceed {maxBioSize} characters"
 msgstr "個人簡介不可超過 {maxBioSize} 個字符"
@@ -1504,6 +1516,9 @@ msgid "Failed to disconnect wallet from your social graph."
 msgstr ""
 
 msgid "No external call risk found."
+msgstr ""
+
+msgid "Pending"
 msgstr ""
 
 msgid "No preview found for shared link"
@@ -2211,6 +2226,9 @@ msgstr ""
 msgid "*CZ's follower snapshot was taken at 8:00 UTC on September 21, 2024."
 msgstr ""
 
+msgid "Results"
+msgstr ""
+
 msgid "Properties"
 msgstr "屬性"
 
@@ -2455,6 +2473,9 @@ msgid "Mirror now to get 25% referral fee!"
 msgstr ""
 
 msgid "Hide tokens with small balances"
+msgstr ""
+
+msgid "Proposal"
 msgstr ""
 
 msgid "News"

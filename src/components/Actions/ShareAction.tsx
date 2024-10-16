@@ -2,7 +2,6 @@ import { Menu } from '@headlessui/react';
 import { t, Trans } from '@lingui/macro';
 import { motion } from 'framer-motion';
 import { memo } from 'react';
-import urlcat from 'urlcat';
 
 import LinkIcon from '@/assets/link.svg';
 import SendIcon from '@/assets/send.svg';
@@ -10,7 +9,6 @@ import ShareIcon from '@/assets/share.svg';
 import { MenuButton } from '@/components/Actions/MenuButton.js';
 import { MoreActionMenu } from '@/components/MoreActionMenu.js';
 import { Tooltip } from '@/components/Tooltip.js';
-import { getArticleUrl } from '@/helpers/getArticleUrl.js';
 import { useCopyText } from '@/hooks/useCopyText.js';
 import { ComposeModalRef } from '@/modals/controls.js';
 

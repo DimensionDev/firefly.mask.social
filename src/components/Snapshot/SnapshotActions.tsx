@@ -1,5 +1,6 @@
-import { ShareAction } from '@/components/Actions/ShareAction.js';
 import { memo } from 'react';
+
+import { ShareAction } from '@/components/Actions/ShareAction.js';
 
 interface SnapshotActionsProps {
     link: string;
