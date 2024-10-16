@@ -18,7 +18,6 @@ import { openWindow } from '@/helpers/openWindow.js';
 interface NFTListProps {
     list: Record<string, any[]>;
     isLoading: boolean;
-    empty: boolean;
     date: Date;
 }
 
@@ -33,10 +32,11 @@ const sortPlat = (_: any, b: { type: string }) => {
     else return 0;
 };
 
-export function NFTList({ list, isLoading, empty, date }: NFTListProps) {
+export function NFTList({ list, isLoading, date }: NFTListProps) {
     const listAfterDate = useMemo(() => {
         return Object.keys(list).filter((key) => new Date(key) >= date);
     }, [list, date]);
+    const empty = !listAfterDate.length;
     const listRef = useCallback((el: HTMLDivElement | null) => {
         el?.scrollTo({ top: 0 });
     }, []);
@@ -47,7 +47,7 @@ export function NFTList({ list, isLoading, empty, date }: NFTListProps) {
             key={date.toISOString()}
         >
             <div>
-                {isLoading && !list?.length ? (
+                {isLoading && empty ? (
                     <div className="absolute left-1/2 top-1/2 flex -translate-x-1/2 -translate-y-1/2 transform flex-col gap-3 whitespace-nowrap text-second">
                         <LoadingStatus />
                     </div>

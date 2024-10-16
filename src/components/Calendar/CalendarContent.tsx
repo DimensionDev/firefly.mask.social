@@ -75,20 +75,10 @@ export function CalendarContent() {
                 />
                 <Tab.Panels className="rounded-b-xl border border-t-0 border-line px-2">
                     <Tab.Panel>
-                        <NewsList
-                            list={newsList}
-                            isLoading={newsLoading}
-                            empty={!Object.keys(newsList).length}
-                            date={selectedDate}
-                        />
+                        <NewsList list={newsList} isLoading={newsLoading} date={selectedDate} />
                     </Tab.Panel>
                     <Tab.Panel>
-                        <NFTList
-                            list={nftList}
-                            isLoading={nftLoading}
-                            empty={!Object.keys(newsList).length}
-                            date={selectedDate}
-                        />
+                        <NFTList list={nftList} isLoading={nftLoading} date={selectedDate} />
                     </Tab.Panel>
                 </Tab.Panels>
             </Tab.Group>
