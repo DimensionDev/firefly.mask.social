@@ -67,6 +67,7 @@ module.exports = {
                 twitterVerified: '#8299ab',
                 purple: '#7B3EE1',
                 commonMain: 'rgb(var(--color-common-main) / <alpha-value>)',
+                bg02: 'rgb(var(--color-bg02) / <alpha-value>)',
                 bg03: 'rgb(var(--color-bg03) / <alpha-value>)',
                 lightRebrandingBg: 'rgb(var(--color-light-rebranding-bg) / <alpha-value>)',
             },

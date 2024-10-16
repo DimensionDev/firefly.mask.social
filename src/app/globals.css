@@ -87,6 +87,7 @@
     --color-light-highlight: 76 74 169;
     --color-highlight: 76 74 169;
     --color-common-main: 24 26 32;
+    --color-bg02: 172 172 174;
     --color-bg03: 230 230 237;
     --color-light-rebranding-bg: 245 245 249;
 }
@@ -140,6 +141,7 @@
     --color-light-highlight: 76 74 169;
     --color-highlight: 172 157 246;
     --color-common-main: 24 26 32;
+    --color-bg02: 172 172 174;
     --color-bg03: 230 230 237;
     --color-light-rebranding-bg: 245 245 249;
 }
@@ -545,7 +547,11 @@ body.not-support .fixed.inset-y-0 {
     color: rgb(var(--color-main));
 }
 
-.snapshot-markup h2 {
+.snapshot-markup h2,
+h3,
+h4,
+h5,
+h6 {
     font-size: 1rem;
     font-weight: 600;
     line-height: 1.5rem;

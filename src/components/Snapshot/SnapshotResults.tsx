@@ -1,12 +1,12 @@
 import { Trans } from '@lingui/macro';
 import { memo, Suspense } from 'react';
 
+import { Loading } from '@/components/Loading.js';
 import { SnapshotVotesList } from '@/components/Snapshot/SnapshotVotesList.js';
+import { Tooltip } from '@/components/Tooltip.js';
 import { nFormatter } from '@/helpers/formatCommentCounts.js';
 import { formatPercentage } from '@/helpers/formatPercentage.js';
 import { SnapshotState } from '@/providers/types/Snapshot.js';
-import { Loading } from '@/components/Loading.js';
-import { Tooltip } from '@/components/Tooltip.js';
 
 interface SnapshotResultsProps {
     status: SnapshotState;
@@ -32,7 +32,7 @@ export const SnapshotResults = memo<SnapshotResultsProps>(function SnapshotResul
             <div className="text-base font-bold">
                 {status === SnapshotState.Closed ? <Trans>Results</Trans> : <Trans>Current Results</Trans>}
             </div>
-            <div className="bg-lightRebrandingBg mt-2 flex flex-col gap-2 rounded-lg p-4">
+            <div className="mt-2 flex flex-col gap-2 rounded-lg bg-lightRebrandingBg p-4">
                 {choices.map((choice, index) => {
                     const score = scores[index];
                     return (
@@ -47,7 +47,7 @@ export const SnapshotResults = memo<SnapshotResultsProps>(function SnapshotResul
                                     <span>{formatPercentage(score / scoreTotal)}</span>
                                 </div>
                             </div>
-                            <div className="bg-bg03 mt-2 h-2 w-full rounded">
+                            <div className="mt-2 h-2 w-full rounded bg-bg03">
                                 <div
                                     className="h-full rounded bg-lightHighlight"
                                     style={{

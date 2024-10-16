@@ -9,7 +9,10 @@ import { ClickableArea } from '@/components/ClickableArea.js';
 import { SnapshotMarkup } from '@/components/Markup/SnapshotMarkup.js';
 import { Time } from '@/components/Semantic/Time.js';
 import { SnapshotActions } from '@/components/Snapshot/SnapshotActions.js';
+import { SnapshotApprovalChoices } from '@/components/Snapshot/SnapshotApprovalChoices.js';
+import { SnapshotQuadraticChoices } from '@/components/Snapshot/SnapshotQuadraticChoices.js';
 import { SnapshotResults } from '@/components/Snapshot/SnapshotResults.js';
+import { SnapshotSingleChoices } from '@/components/Snapshot/SnapshotSingleChoices.js';
 import { SnapshotStatus } from '@/components/Snapshot/SnapshotStatus.js';
 import { TimestampFormatter } from '@/components/TimeStampFormatter.js';
 import { IS_APPLE, IS_SAFARI } from '@/constants/bowser.js';
@@ -18,7 +21,8 @@ import { Link } from '@/esm/Link.js';
 import { classNames } from '@/helpers/classNames.js';
 import { formatEthereumAddress } from '@/helpers/formatAddress.js';
 import { getStampAvatarByProfileId } from '@/helpers/getStampAvatarByProfileId.js';
-import type { SnapshotProposal } from '@/providers/types/Snapshot.js';
+import { type SnapshotProposal, SnapshotState } from '@/providers/types/Snapshot.js';
+import { SnapshotRankChoices } from '@/components/Snapshot/SnapshotRankChoices.js';
 
 interface Props {
     snapshot: SnapshotProposal;
@@ -43,9 +47,14 @@ export function SnapshotBody({ snapshot }: Props) {
 
     const [currentTabIndex, setCurrentTabIndex] = useState(0);
 
+    const { choices, type, state, displayInfo, scores, symbol, scores_total, votes } = snapshot.ext_param;
+
+    const disabled = state === SnapshotState.Pending;
+
+    console.log(type);
     return (
         <ClickableArea className="relative mt-[6px] flex flex-col gap-2 rounded-2xl border border-line bg-bg p-3 text-commonMain">
-            <SnapshotStatus status={snapshot.ext_param.state} className="self-start" />
+            <SnapshotStatus status={state} className="self-start" />
             <h1
                 className={classNames('line-clamp-2 text-left text-[18px] font-bold leading-[20px]', {
                     'max-h-[40px]': IS_SAFARI && IS_APPLE,
@@ -58,12 +67,9 @@ export function SnapshotBody({ snapshot }: Props) {
                     <Link href={authorUrl} className="z-[1]">
                         <Avatar
                             className="h-[15px] w-[15px]"
-                            src={
-                                snapshot.ext_param.displayInfo?.avatarUrl ||
-                                getStampAvatarByProfileId(Source.Wallet, snapshot.author)
-                            }
+                            src={displayInfo?.avatarUrl || getStampAvatarByProfileId(Source.Wallet, snapshot.author)}
                             size={15}
-                            alt={snapshot.ext_param.displayInfo?.ensHandle || snapshot.author}
+                            alt={displayInfo?.ensHandle || snapshot.author}
                         />
                     </Link>
                     <Link
@@ -71,7 +77,7 @@ export function SnapshotBody({ snapshot }: Props) {
                         onClick={(event) => event.stopPropagation()}
                         className="block truncate text-clip text-medium leading-5 text-secondary"
                     >
-                        {snapshot.ext_param.displayInfo?.ensHandle || formatEthereumAddress(snapshot.author, 4)}
+                        {displayInfo?.ensHandle || formatEthereumAddress(snapshot.author, 4)}
                     </Link>
                     <Time
                         dateTime={snapshot.created * 1000}
@@ -102,26 +108,40 @@ export function SnapshotBody({ snapshot }: Props) {
                             </Tab>
                         ))}
                     </Tab.List>
-                    <Tab.Panels className="bg-white dark:bg-black">
-                        <Tab.Panel className="rounded-b-xl bg-white p-4">
+                    <Tab.Panels className="rounded-b-xl bg-white p-4">
+                        <Tab.Panel>
                             <SnapshotMarkup className="no-scrollbar max-h-[374px] overflow-auto text-sm leading-[18px] text-secondary">
                                 {snapshot.body}
                             </SnapshotMarkup>
                         </Tab.Panel>
-                        <Tab.Panel className="rounded-b-xl p-4">
+                        <Tab.Panel>
                             <SnapshotResults
-                                status={snapshot.ext_param.state}
-                                choices={snapshot.ext_param.choices}
-                                scores={snapshot.ext_param.scores}
-                                symbol={snapshot.ext_param.symbol}
-                                scoreTotal={snapshot.ext_param.scores_total}
+                                status={state}
+                                choices={choices}
+                                scores={scores}
+                                symbol={symbol}
+                                scoreTotal={scores_total}
                                 id={snapshot.id}
-                                votes={snapshot.ext_param.votes}
+                                votes={votes}
                             />
                         </Tab.Panel>
                     </Tab.Panels>
                 </Tab.Group>
             </div>
+            {state !== SnapshotState.Closed ? (
+                <>
+                    {type === 'single-choice' || type === 'basic' ? (
+                        <SnapshotSingleChoices choices={choices} disabled={disabled} />
+                    ) : null}
+                    {type === 'approval' ? (
+                        <SnapshotApprovalChoices choices={snapshot.ext_param.choices} disabled={disabled} />
+                    ) : null}
+                    {type === 'quadratic' || type === 'weighted' ? (
+                        <SnapshotQuadraticChoices choices={choices} disabled={disabled} />
+                    ) : null}
+                    {type === 'ranked-choice' ? <SnapshotRankChoices choices={choices} disabled={disabled} /> : null}
+                </>
+            ) : null}
         </ClickableArea>
     );
 }

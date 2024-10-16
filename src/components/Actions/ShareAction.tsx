@@ -13,15 +13,12 @@ import { Tooltip } from '@/components/Tooltip.js';
 import { getArticleUrl } from '@/helpers/getArticleUrl.js';
 import { useCopyText } from '@/hooks/useCopyText.js';
 import { ComposeModalRef } from '@/modals/controls.js';
-import type { Article } from '@/providers/types/Article.js';
 
 interface ShareActionProps {
-    // article: Article;
     link: string;
 }
 
 export const ShareAction = memo(function ShareAction({ link }: ShareActionProps) {
-    // const url = urlcat(location.origin, getArticleUrl(article));
     const [, handleCopy] = useCopyText(link ?? '');
     return (
         <MoreActionMenu
