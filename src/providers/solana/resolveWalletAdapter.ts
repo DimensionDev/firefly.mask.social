@@ -6,14 +6,10 @@ import { resolveSolanaWalletAdapter } from '@/providers/solana/resolveSolanaWall
 
 export function resolveWalletAdapter() {
     const currentName = parseJSON<string>(localStorage.getItem(SOLANA_WALLET_CACHE_KEY));
-    if (!currentName) {
-        throw new WalletNotConnectedError();
-    }
-    const adapter = resolveSolanaWalletAdapter(currentName);
+    if (!currentName) throw new WalletNotConnectedError();
 
-    if (!adapter) {
-        throw new WalletNotConnectedError();
-    }
+    const adapter = resolveSolanaWalletAdapter(currentName);
+    if (!adapter) throw new WalletNotConnectedError();
 
     return adapter;
 }
