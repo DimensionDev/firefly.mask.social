@@ -1,10 +1,9 @@
 'use client';
+
 import '@/assets/css/limo.css';
 import '@/assets/css/paragraph.css';
 
 import { Trans } from '@lingui/macro';
-import { EVMExplorerResolver } from '@masknet/web3-providers';
-import { ChainId } from '@masknet/web3-shared-evm';
 import { useQuery, useSuspenseQuery } from '@tanstack/react-query';
 import DOMPurify from 'dompurify';
 import { compact } from 'lodash-es';
@@ -60,8 +59,6 @@ export function ArticleDetailPage({ params: { id: articleId } }: PageProps) {
     });
 
     if (!article) return null;
-
-    const authorUrl = EVMExplorerResolver.addressLink(ChainId.Mainnet, article.author.id);
 
     return (
         <div className="min-h-screen">

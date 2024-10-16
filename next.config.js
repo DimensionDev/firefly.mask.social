@@ -180,6 +180,7 @@ export default {
             buffer: require.resolve('buffer'),
             zlib: require.resolve('zlib-browserify'),
             'text-encoding': require.resolve('@sinonjs/text-encoding'),
+            perf_hooks: false,
         };
 
         config.module.rules.push(
