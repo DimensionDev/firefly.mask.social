@@ -17,12 +17,13 @@ interface VideoAssetProps {
     isQuote?: boolean;
     autoPlay?: boolean;
     videoClassName?: string;
+    minimal?: boolean;
 }
 
-export function VideoAsset({ asset, isQuote, source, autoPlay, videoClassName }: VideoAssetProps) {
+export function VideoAsset({ asset, isQuote, minimal, source, autoPlay, videoClassName }: VideoAssetProps) {
     const isGif = asset.type === 'AnimatedGif';
 
-    return isQuote ? (
+    return minimal ? (
         <div className="relative h-full w-full">
             <div className="absolute inset-0 m-auto box-border flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-xl bg-white/80 text-[#181818]">
                 <Play width={16} height={16} />

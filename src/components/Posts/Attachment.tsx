@@ -51,6 +51,7 @@ interface AttachmentsProps {
     attachments: Attachment[];
     isQuote?: boolean;
     isDetail?: boolean;
+    minimal?: boolean;
 }
 
 export const Attachments = memo<AttachmentsProps>(function Attachments({
@@ -58,6 +59,7 @@ export const Attachments = memo<AttachmentsProps>(function Attachments({
     post,
     isQuote = false,
     isDetail = false,
+    minimal = false,
 }) {
     const video: Attachment | undefined = attachments.find((a) => a.type === 'Video');
     const gifAttachments = attachments.filter((a) => a.type === 'AnimatedGif');
@@ -67,7 +69,7 @@ export const Attachments = memo<AttachmentsProps>(function Attachments({
     });
     const asset = imageAttachments[0];
 
-    const attachmentsSnapshot = isDetail ? imageAttachments : imageAttachments.slice(0, isQuote ? 4 : 9);
+    const attachmentsSnapshot = isDetail ? imageAttachments : imageAttachments.slice(0, minimal ? 4 : 9);
     const moreImageCount = imageAttachments.length - attachmentsSnapshot.length; // If it is 0 or below, there are no more images
 
     const handleImageError = useCallback(
@@ -78,7 +80,7 @@ export const Attachments = memo<AttachmentsProps>(function Attachments({
         [asset],
     );
 
-    if (isQuote && asset?.type === 'Audio') {
+    if (minimal && asset?.type === 'Audio') {
         return (
             <div className="h-[120px] w-[120px]">
                 {asset.coverUri ? (
@@ -112,7 +114,13 @@ export const Attachments = memo<AttachmentsProps>(function Attachments({
         !post?.metadata.content?.content && attachmentsSnapshot.length === 1 && attachmentsSnapshot[0].type === 'Image';
 
     return (
-        <div className={classNames('flex flex-col gap-3', isQuote ? 'w-[120px]' : 'mt-3')}>
+        <div
+            className={classNames('flex flex-col gap-3', {
+                'w-[120px]': minimal,
+                'mt-3': !minimal && !isQuote,
+                'mt-2': isQuote,
+            })}
+        >
             {attachmentsSnapshot.length === 1 && asset ? (
                 <WithPreviewLink
                     post={post}
@@ -123,18 +131,18 @@ export const Attachments = memo<AttachmentsProps>(function Attachments({
                     {asset.type === 'Image' ? (
                         <div
                             className={classNames({
-                                'w-full': !isQuote,
-                                'w-[120px]': isQuote,
+                                'w-full': !minimal,
+                                'w-[120px]': minimal,
                             })}
                         >
                             <ImageAsset
                                 className={classNames('cursor-pointer rounded-lg object-cover', {
-                                    'w-full': !isQuote,
-                                    'h-[120px] w-[120px]': isQuote,
+                                    'w-full': !minimal,
+                                    'h-[120px] w-[120px]': minimal,
                                 })}
-                                disableLoadHandler={isQuote}
-                                width={isQuote ? 120 : 1000}
-                                height={isQuote ? 120 : 1000}
+                                disableLoadHandler={minimal}
+                                width={minimal ? 120 : 1000}
+                                height={minimal ? 120 : 1000}
                                 onError={handleImageError}
                                 src={formatImageUrl(asset.uri, ATTACHMENT)}
                                 alt={formatImageUrl(asset.uri, ATTACHMENT)}
@@ -143,11 +151,11 @@ export const Attachments = memo<AttachmentsProps>(function Attachments({
                     ) : (
                         <div
                             className={classNames({
-                                'h-[120px] w-[120px] flex-shrink-0 flex-grow-0 basis-[120px]': isQuote,
-                                'w-full': !isQuote,
+                                'h-[120px] w-[120px] flex-shrink-0 flex-grow-0 basis-[120px]': minimal,
+                                'w-full': !minimal,
                             })}
                         >
-                            <VideoAsset asset={asset} isQuote={isQuote} source={post.source} />
+                            <VideoAsset asset={asset} isQuote={isQuote} minimal={minimal} source={post.source} />
                         </div>
                     )}
                 </WithPreviewLink>
@@ -158,10 +166,10 @@ export const Attachments = memo<AttachmentsProps>(function Attachments({
                     className={classNames(
                         getClass(attachmentsSnapshot.length)?.row ?? '',
                         'grid',
-                        isQuote ? 'gap-1' : 'gap-2',
+                        minimal ? 'gap-1' : 'gap-2',
                         {
                             'grid-flow-col': attachmentsSnapshot.length === 3,
-                            'h-[120px] w-[120px]': isQuote && !isSoloImage,
+                            'h-[120px] w-[120px]': minimal && !isSoloImage,
                         },
                     )}
                 >
@@ -174,9 +182,9 @@ export const Attachments = memo<AttachmentsProps>(function Attachments({
                                 className={classNames(getClass(attachmentsSnapshot.length).aspect, {
                                     'max-h-[288px]':
                                         (attachmentsSnapshot.length === 2 || attachmentsSnapshot.length === 4) &&
-                                        !isQuote,
+                                        !minimal,
                                     'row-span-2 max-h-[284px]': attachmentsSnapshot.length === 3 && index === 2,
-                                    'max-h-[138px]': attachmentsSnapshot.length === 3 && index !== 2 && !isQuote,
+                                    'max-h-[138px]': attachmentsSnapshot.length === 3 && index !== 2 && !minimal,
                                     relative: isLast && moreImageCount > 0,
                                 })}
                             >
@@ -191,10 +199,10 @@ export const Attachments = memo<AttachmentsProps>(function Attachments({
                                             className="h-full shrink-0 cursor-pointer rounded-lg object-cover"
                                             loading="lazy"
                                             fill={isSoloImage}
-                                            width={!isSoloImage ? (isQuote ? 120 : 1000) : undefined}
-                                            height={!isSoloImage ? (isQuote ? 120 : 1000) : undefined}
+                                            width={!isSoloImage ? (minimal ? 120 : 1000) : undefined}
+                                            height={!isSoloImage ? (minimal ? 120 : 1000) : undefined}
                                             style={{
-                                                maxHeight: isSoloImage && isQuote ? 288 : undefined,
+                                                maxHeight: isSoloImage && minimal ? 288 : undefined,
                                             }}
                                             onError={({ currentTarget }) => (currentTarget.src = uri)}
                                             src={formatImageUrl(uri, ATTACHMENT)}
@@ -208,6 +216,7 @@ export const Attachments = memo<AttachmentsProps>(function Attachments({
                                                 }
                                                 asset={attachment}
                                                 isQuote={isQuote}
+                                                minimal={minimal}
                                                 source={post.source}
                                             />
                                         </div>
@@ -215,7 +224,7 @@ export const Attachments = memo<AttachmentsProps>(function Attachments({
                                 </WithPreviewLink>
                                 {isLast && moreImageCount > 0 ? (
                                     <div className="absolute right-0 top-0 flex h-full w-full items-center justify-center rounded-lg bg-mainLight/50 text-white">
-                                        <div className={classNames('font-bold', isQuote ? 'text-medium' : 'text-2xl')}>
+                                        <div className={classNames('font-bold', minimal ? 'text-medium' : 'text-2xl')}>
                                             +{moreImageCount + 1}
                                         </div>
                                     </div>
@@ -225,16 +234,16 @@ export const Attachments = memo<AttachmentsProps>(function Attachments({
                     })}
                 </div>
             ) : null}
-            {asset?.type === 'Audio' && !isQuote ? (
+            {asset?.type === 'Audio' && !minimal ? (
                 <Audio src={asset.uri} poster={asset.coverUri} artist={asset.artist} title={asset.title} />
             ) : null}
-            {asset?.type === 'Unknown' && !isQuote ? (
+            {asset?.type === 'Unknown' && !minimal ? (
                 <div className={classNames('my-2')}>
                     <div
                         className={classNames(
                             'flex items-center justify-between gap-1 rounded-lg border-primaryMain px-3 py-[6px] text-medium',
                             {
-                                border: !isQuote,
+                                border: !minimal,
                             },
                         )}
                     >
@@ -252,14 +261,14 @@ export const Attachments = memo<AttachmentsProps>(function Attachments({
                     </div>
                 </div>
             ) : null}
-            {video && !isQuote ? (
+            {video && !minimal ? (
                 <div className="w-full">
-                    <VideoAsset asset={video} isQuote={isQuote} source={post.source} />
+                    <VideoAsset asset={video} isQuote={isQuote} minimal={minimal} source={post.source} />
                 </div>
             ) : null}
-            {!video && gifAttachments.length === 1 && !isQuote ? (
+            {!video && gifAttachments.length === 1 && !minimal ? (
                 <div className="w-full">
-                    <VideoAsset asset={gifAttachments[0]} isQuote={isQuote} source={post.source} />
+                    <VideoAsset asset={gifAttachments[0]} isQuote={isQuote} minimal={minimal} source={post.source} />
                 </div>
             ) : null}
         </div>

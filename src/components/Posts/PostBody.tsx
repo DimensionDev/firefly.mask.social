@@ -153,11 +153,11 @@ export const PostBody = forwardRef<HTMLDivElement, PostBodyProps>(function PostB
 
     if (isQuote) {
         return (
-            <div className="my-2 flex items-center space-x-2 break-words text-base text-main">
+            <div className="my-2 break-words text-base text-main">
                 <NakedMarkup
                     post={post}
                     className={classNames(
-                        'linkify single-post line-clamp-5 w-full self-stretch break-words text-left text-medium opacity-75',
+                        'linkify line-clamp-5 w-full self-stretch break-words text-left text-medium opacity-75',
                         {
                             'max-h-[7.8rem]': IS_SAFARI && IS_APPLE,
                         },
