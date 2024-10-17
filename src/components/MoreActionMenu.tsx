@@ -1,9 +1,10 @@
 import { Menu, type MenuProps, Transition } from '@headlessui/react';
 import { motion } from 'framer-motion';
-import { Fragment } from 'react';
+import { Fragment, type MouseEvent } from 'react';
 
 import { type SocialSource } from '@/constants/enum.js';
 import { classNames } from '@/helpers/classNames.js';
+import { stopEvent } from '@/helpers/stopEvent.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
 import { LoginModalRef } from '@/modals/controls.js';
 
@@ -27,20 +28,14 @@ export function MoreActionMenu({
     const isLogin = useIsLogin();
 
     return (
-        <Menu
-            className={classNames('relative', className)}
-            as="div"
-            onClick={(event) => {
-                event.stopPropagation();
-            }}
-        >
+        <Menu className={classNames('relative', className)} as="div" onClick={stopEvent}>
             <Menu.Button
                 disabled={disabled}
                 whileTap={{ scale: 0.9 }}
                 as={motion.button}
                 className="flex flex-shrink-0 items-center text-lightMain"
                 aria-label="More"
-                onClick={async (event) => {
+                onClick={async (event: MouseEvent) => {
                     event.stopPropagation();
                     if (!isLogin && loginRequired) {
                         event.preventDefault();

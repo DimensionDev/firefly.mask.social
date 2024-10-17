@@ -13,6 +13,7 @@ import { Tips } from '@/components/Tips/index.js';
 import { Tooltip } from '@/components/Tooltip.js';
 import { Source } from '@/constants/enum.js';
 import { formatEthereumAddress } from '@/helpers/formatAddress.js';
+import { stopEvent } from '@/helpers/stopEvent.js';
 import { useFireflyIdentity } from '@/hooks/useFireflyIdentity.js';
 import { useIsMyRelatedProfile } from '@/hooks/useIsMyRelatedProfile.js';
 import { useIsWalletMuted } from '@/hooks/useIsWalletMuted.js';
@@ -47,10 +48,7 @@ export function NFTMoreAction({ address, contractAddress, tokenId, chainId }: Pr
         >
             <Menu.Items
                 className="absolute right-0 z-[1000] flex w-max flex-col gap-2 overflow-auto rounded-2xl border border-line bg-primaryBottom py-3 text-base text-main"
-                onClick={(event) => {
-                    event.stopPropagation();
-                    event.preventDefault();
-                }}
+                onClick={stopEvent}
             >
                 {!isMyProfile ? (
                     <>
