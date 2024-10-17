@@ -51,7 +51,6 @@ export function SnapshotBody({ snapshot }: Props) {
 
     const disabled = state === SnapshotState.Pending;
 
-    console.log(type);
     return (
         <ClickableArea className="relative mt-[6px] flex flex-col gap-2 rounded-2xl border border-line bg-bg p-3 text-commonMain">
             <SnapshotStatus status={state} className="self-start" />
