@@ -188,7 +188,9 @@ export const MoreAction = memo<MoreProps>(function MoreAction({ source, author, 
                         shallow
                         href={`/post/${post.postId}/${engagementType}?source=${resolveSocialSourceInUrl(source)}`}
                         className="box-border flex h-8 cursor-pointer items-center space-x-2 px-3 py-1 hover:bg-bg"
-                        onClick={(e) => e.stopPropagation()}
+                        onClick={(event) => {
+                            event.stopPropagation()
+                        }}
                     >
                         <EngagementIcon width={18} height={18} />
                         <span className="font-bold leading-[22px] text-main">

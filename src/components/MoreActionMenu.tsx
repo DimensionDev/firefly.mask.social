@@ -30,8 +30,8 @@ export function MoreActionMenu({
         <Menu
             className={classNames('relative', className)}
             as="div"
-            onClick={(e) => {
-                e.stopPropagation();
+            onClick={(event) => {
+                event.stopPropagation();
             }}
         >
             <Menu.Button
