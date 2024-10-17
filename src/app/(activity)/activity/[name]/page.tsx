@@ -141,7 +141,7 @@ export default function Page({
             </div>
             <div className="sticky bottom-0 w-full border-t border-line bg-primaryBottom px-4 pt-1.5 pb-safe-or-2">
                 <button
-                    className="leading-12 disabled:opecity-50 h-12 w-full rounded-full bg-main text-base font-bold text-primaryBottom"
+                    className="leading-12 h-12 w-full rounded-full bg-main text-base font-bold text-primaryBottom disabled:opacity-60"
                     disabled={data.status === ActivityStatus.Ended}
                 >
                     {data.status === ActivityStatus.Ended ? <Trans>Ended</Trans> : <Trans>Claim Now</Trans>}
