@@ -1,7 +1,5 @@
 import { addClassNamesToElement } from '@lexical/utils';
-import { type SerializedTextNode, TextNode } from 'lexical';
-import type { EditorConfig } from 'lexical/LexicalEditor.js';
-import type { LexicalNode, NodeKey } from 'lexical/LexicalNode.js';
+import { type EditorConfig, type LexicalNode, type NodeKey, type SerializedTextNode, TextNode } from 'lexical';
 import { renderToStaticMarkup } from 'react-dom/server';
 
 import { SocialSourceIcon } from '@/components/SocialSourceIcon.js';

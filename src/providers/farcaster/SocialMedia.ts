@@ -316,6 +316,7 @@ class FarcasterSocialMedia implements Provider {
     getCommentsById(postId: string, indicator?: PageIndicator) {
         return FireflySocialMediaProvider.getCommentsById(postId, indicator);
     }
+
     async reportProfile(profileId: string) {
         return FireflyEndpointProvider.reportProfile(profileId);
     }

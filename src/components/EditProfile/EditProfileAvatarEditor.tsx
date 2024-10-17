@@ -2,7 +2,7 @@ import { Trans } from '@lingui/macro';
 import { Ranger, useRanger } from '@tanstack/react-ranger';
 import { useRouter } from '@tanstack/react-router';
 import { Fragment, useRef, useState } from 'react';
-import AvatarEditor, { type AvatarEditorProps } from 'react-avatar-editor';
+import AvatarEditor from 'react-avatar-editor';
 import { useFormContext } from 'react-hook-form';
 
 import { BaseNotFound } from '@/components/BaseNotFound.js';
@@ -14,7 +14,7 @@ export function EditProfileAvatarEditor() {
     const pfp = (history.location.state as { pfp?: FileList }).pfp;
     const file = pfp?.[0];
 
-    const editorRef = useRef<AvatarEditorProps & { getImageScaledToCanvas: () => HTMLCanvasElement }>(null);
+    const editorRef = useRef<AvatarEditor>(null);
 
     const rangerRef = useRef<HTMLDivElement>(null);
     const [values, setValues] = useState<readonly number[]>([1]);

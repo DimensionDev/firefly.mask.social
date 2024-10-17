@@ -4,7 +4,6 @@ import urlcat from 'urlcat';
 import { BookmarkType, FireflyPlatform, Source, SourceInURL } from '@/constants/enum.js';
 import { NotFoundError, NotImplementedError } from '@/constants/error.js';
 import { EMPTY_LIST } from '@/constants/index.js';
-import { SetQueryDataForBlockWallet } from '@/decorators/SetQueryDataForBlockWallet.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
 import {
     formatBriefChannelFromFirefly,
@@ -68,7 +67,6 @@ import {
 import { getProfilesByIds } from '@/services/getProfilesByIds.js';
 import { settings } from '@/settings/index.js';
 
-@SetQueryDataForBlockWallet()
 export class FireflySocialMedia implements Provider {
     get type() {
         return SessionType.Farcaster;

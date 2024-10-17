@@ -14,9 +14,9 @@ import { CreateScheduleError } from '@/constants/error.js';
 import { checkScheduleTime } from '@/helpers/checkScheduleTime.js';
 import { enqueueErrorMessage, enqueueInfoMessage } from '@/helpers/enqueueMessage.js';
 import { getSnackbarMessageFromError } from '@/helpers/getSnackbarMessageFromError.js';
-import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
 import type { ScheduleTask } from '@/providers/types/Firefly.js';
+import { updateScheduledPost } from '@/services/post.js';
 import { useComposeScheduleStateStore } from '@/store/useComposeScheduleStore.js';
 
 interface SchedulePostSettingsProps {
@@ -43,7 +43,7 @@ export const SchedulePostSettings = memo<SchedulePostSettingsProps>(function Sch
 
             if (task) {
                 checkScheduleTime(value);
-                const result = await FireflyEndpointProvider.updateScheduledPost(task.uuid, value);
+                const result = await updateScheduledPost(task.uuid, value);
                 if (!result) return;
                 queryClient.refetchQueries({
                     queryKey: ['schedule-tasks', fireflySessionHolder.session?.profileId],

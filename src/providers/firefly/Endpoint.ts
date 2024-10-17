@@ -8,7 +8,7 @@ import { FireflyPlatform, NetworkType, type SocialSource, Source, SourceInURL } 
 import { EMPTY_LIST } from '@/constants/index.js';
 import { SetQueryDataForAddWallet } from '@/decorators/SetQueryDataForAddWallet.js';
 import { SetQueryDataForMuteAllProfiles } from '@/decorators/SetQueryDataForBlockProfile.js';
-import { SetQueryDataForMuteAllWallets } from '@/decorators/SetQueryDataForBlockWallet.js';
+import { SetQueryDataForBlockWallet, SetQueryDataForMuteAllWallets } from '@/decorators/SetQueryDataForBlockWallet.js';
 import {
     SetQueryDataForDeleteWallet,
     SetQueryDataForReportAndDeleteWallet,
@@ -22,6 +22,7 @@ import { formatLensProfileFromSuggestedFollow } from '@/helpers/formatLensProfil
 import { formatWalletConnections } from '@/helpers/formatWalletConnection.js';
 import { getAddressType } from '@/helpers/getAddressType.js';
 import { getPlatformQueryKey } from '@/helpers/getPlatformQueryKey.js';
+import { isSameEthereumAddress } from '@/helpers/isSameAddress.js';
 import { isZero } from '@/helpers/number.js';
 import {
     createIndicator,
@@ -61,11 +62,13 @@ import {
     type TwitterUserInfoResponse,
     type WalletProfile,
     type WalletProfileResponse,
+    type WalletsFollowStatusResponse,
     WatchType,
 } from '@/providers/types/Firefly.js';
 import type { DiscoverNFTResponse, GetFollowingNFTResponse } from '@/providers/types/NFTs.js';
 import { getWalletProfileByAddressOrEns } from '@/services/getWalletProfileByAddressOrEns.js';
 import { settings } from '@/settings/index.js';
+import type { Article } from '@/providers/types/Article.js';
 
 function resolveDebankChain(debankChain: string) {
     const chain = DEBANK_CHAINS.find((chain) => chain.id === debankChain);
@@ -101,6 +104,7 @@ async function unblock(field: BlockFields, profileId: string): Promise<boolean> 
     throw new Error('Failed to mute user');
 }
 
+@SetQueryDataForBlockWallet()
 @SetQueryDataForAddWallet()
 @SetQueryDataForDeleteWallet()
 @SetQueryDataForReportAndDeleteWallet()
@@ -139,6 +143,19 @@ export class FireflyEndpoint {
             },
             true,
         );
+    }
+
+    async reportArticle(article: Article) {
+        const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/report/post/create');
+        return fireflySessionHolder.fetch<string>(url, {
+            method: 'POST',
+            body: JSON.stringify({
+                platform: FireflyPlatform.Article,
+                platform_id: article.author.id,
+                post_type: 'text',
+                post_id: article.id,
+            }),
+        });
     }
 
     /**
@@ -609,6 +626,18 @@ export class FireflyEndpoint {
             createIndicator(indicator),
             response.data?.nextPage ? createNextIndicator(indicator, `${response.data?.nextPage}`) : undefined,
         );
+    }
+
+    async isFollowingWallet(address: string) {
+        const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/user/follow/wallet');
+        const response = await fireflySessionHolder.fetch<WalletsFollowStatusResponse>(url, {
+            method: 'POST',
+            body: JSON.stringify({
+                addresses: [address],
+            }),
+        });
+        if (!response.data) return false;
+        return response.data.some((x) => x.is_followed && isSameEthereumAddress(x.address, address));
     }
 }
 

@@ -2,10 +2,10 @@ import { safeUnreachable } from '@masknet/kit';
 
 import { type SocialSource, Source, WalletSource } from '@/constants/enum.js';
 import { SORTED_SOCIAL_SOURCES } from '@/constants/index.js';
-import { removeAccountByProfileId } from '@/helpers/account.js';
 import { resolveSourceFromWalletSource } from '@/helpers/resolveSource.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 import type { FireflyIdentity, FireflyWalletConnection } from '@/providers/types/Firefly.js';
+import { removeAccountByProfileId } from '@/services/account.js';
 
 function getIdentity(connection: FireflyWalletConnection): FireflyIdentity | null {
     switch (connection.source) {

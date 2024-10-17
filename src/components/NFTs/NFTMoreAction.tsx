@@ -25,6 +25,7 @@ interface Props {
     tokenId: string;
     chainId: ChainId;
 }
+
 export function NFTMoreAction({ address, contractAddress, tokenId, chainId }: Props) {
     const { data: ens } = useEnsName({ address });
     const { data } = useNFTDetail(contractAddress, tokenId, chainId);

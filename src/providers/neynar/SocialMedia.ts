@@ -9,11 +9,12 @@ import { formatChannelFromFirefly } from '@/helpers/formatFarcasterChannelFromFi
 import { formatFarcasterProfileFromNeynar } from '@/helpers/formatFarcasterProfileFromNeynar.js';
 import { createIndicator, createPageable, type Pageable, type PageIndicator } from '@/helpers/pageable.js';
 import { farcasterSessionHolder } from '@/providers/farcaster/SessionHolder.js';
-import type { Channel as FireflyChannel } from '@/providers/types/Firefly.js';
+import type { Channel as FireflyChannel, WalletProfile } from '@/providers/types/Firefly.js';
 import type { Profile as NeynarProfile } from '@/providers/types/Neynar.js';
 import {
     type Channel,
     type Friendship,
+    NetworkType,
     type Notification,
     type Post,
     type Profile,
@@ -45,8 +46,40 @@ function fetchNeynarJSON<T>(url: string, options: RequestInit): Promise<T> {
 }
 
 class NeynarSocialMedia implements Provider {
-    get type() {
-        return SessionType.Farcaster;
+    getChannelTrendingPosts(channel: Channel, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
+        throw new NotImplementedError();
+    }
+
+    blockWallet(address: string, networkType?: NetworkType): Promise<boolean> {
+        throw new NotImplementedError();
+    }
+
+    unblockWallet(address: string, networkType?: NetworkType): Promise<boolean> {
+        throw new NotImplementedError();
+    }
+
+    getBlockedWallets(indicator?: PageIndicator): Promise<Pageable<WalletProfile, PageIndicator>> {
+        throw new NotImplementedError();
+    }
+
+    watchWallet(address: string, networkType?: NetworkType): Promise<boolean> {
+        throw new NotImplementedError();
+    }
+
+    unwatchWallet(address: string, networkType?: NetworkType): Promise<boolean> {
+        throw new NotImplementedError();
+    }
+
+    reportChannel(channelId: string): Promise<boolean> {
+        throw new NotImplementedError();
+    }
+
+    getForYouPosts(indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
+        throw new NotImplementedError();
+    }
+
+    getRecentPosts(indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
+        throw new NotImplementedError();
     }
 
     getFriendship(profileId: string): Promise<Friendship | null> {
@@ -287,6 +320,10 @@ class NeynarSocialMedia implements Provider {
 
     getProfileBadges(profile: Profile): Promise<ProfileBadge[]> {
         throw new NotImplementedError();
+    }
+
+    get type() {
+        return SessionType.Farcaster;
     }
 
     async getProfileById(profileId: string): Promise<Profile> {

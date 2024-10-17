@@ -1,6 +1,5 @@
 import { $isAutoLinkNode, AutoLinkNode } from '@lexical/link';
-import { $getSelection, $isRangeSelection } from 'lexical';
-import type { LexicalEditor, RangeSelection } from 'lexical/index.js';
+import { $getSelection, $isRangeSelection, type LexicalEditor, type RangeSelection } from 'lexical';
 
 import { MENTION_REGEX } from '@/constants/regexp.js';
 import { trimify } from '@/helpers/trimify.js';
