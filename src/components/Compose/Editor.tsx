@@ -7,6 +7,7 @@ import { OnChangePlugin } from '@lexical/react/LexicalOnChangePlugin.js';
 import { PlainTextPlugin } from '@lexical/react/LexicalPlainTextPlugin.js';
 import { $dfs } from '@lexical/utils';
 import { Select, t, Trans } from '@lingui/macro';
+import { compact } from 'lodash-es';
 import { memo } from 'react';
 import { useDebounce } from 'react-use';
 
@@ -16,7 +17,6 @@ import { LexicalAutoLinkPlugin } from '@/components/Lexical/plugins/AutoLinkPlug
 import { CHAR_TAG, type Chars, type ComplexChars, writeChars } from '@/helpers/chars.js';
 import { classNames } from '@/helpers/classNames.js';
 import { type CompositePost, useComposeStateStore } from '@/store/useComposeStore.js';
-import { compact } from 'lodash-es';
 
 function ErrorBoundaryComponent() {
     return (
