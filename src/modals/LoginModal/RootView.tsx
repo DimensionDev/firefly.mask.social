@@ -1,5 +1,5 @@
 import { Trans } from '@lingui/macro';
-import { Outlet, useRouter } from '@tanstack/react-router';
+import { Outlet, useRouter, useRouterState } from '@tanstack/react-router';
 
 import { BackButton } from '@/components/BackButton.js';
 import { CloseButton } from '@/components/CloseButton.js';
@@ -9,7 +9,7 @@ import { LoginModalRef } from '@/modals/controls.js';
 export function RootView() {
     const isMedium = useIsMedium();
     const router = useRouter();
-    const { matches, location } = router.state;
+    const { matches, location } = useRouterState();
 
     const isMain = location.pathname === '/main';
 
