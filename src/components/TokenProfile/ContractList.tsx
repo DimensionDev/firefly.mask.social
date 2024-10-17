@@ -69,7 +69,7 @@ function ContractItem({ contract, ...rest }: ContractItemProps) {
                     {formatEthereumAddress(contract.address, 4)}
                 </div>
             </div>
-            <CopyTextButton value={contract.address} />
+            <CopyTextButton text={contract.address} />
         </div>
     );
 }
