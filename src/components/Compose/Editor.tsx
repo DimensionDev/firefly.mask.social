@@ -10,12 +10,13 @@ import { Select, t, Trans } from '@lingui/macro';
 import { memo } from 'react';
 import { useDebounce } from 'react-use';
 
-import { $isMentionNode } from '@/components/Lexical/nodes/MentionsNode.js';
+import { $isMentionNode, MentionNode } from '@/components/Lexical/nodes/MentionsNode.js';
 import { MentionsPlugin } from '@/components/Lexical/plugins/AtMentionsPlugin.js';
 import { LexicalAutoLinkPlugin } from '@/components/Lexical/plugins/AutoLinkPlugin.js';
-import { CHAR_TAG, type Chars, writeChars } from '@/helpers/chars.js';
+import { CHAR_TAG, type Chars, type ComplexChars, writeChars } from '@/helpers/chars.js';
 import { classNames } from '@/helpers/classNames.js';
 import { type CompositePost, useComposeStateStore } from '@/store/useComposeStore.js';
+import { compact } from 'lodash-es';
 
 function ErrorBoundaryComponent() {
     return (
@@ -82,23 +83,27 @@ export const Editor = memo(function Editor({ post, replying }: EditorProps) {
                     editorState.read(async () => {
                         const markdown = $convertToMarkdownString(TEXT_FORMAT_TRANSFORMERS);
                         const allNodes = $dfs();
-                        const mentionNodes = allNodes.filter((x) => $isMentionNode(x.node));
+                        const mentionNodes = allNodes
+                            .filter((x) => $isMentionNode(x.node))
+                            .map((x) => x.node as MentionNode);
                         // avoid empty content with paragraph node
-                        const newChars: Chars = (markdown.replace('\n', '') === '' ? '' : markdown)
-                            .split(/(@[^\s()@:%+~#?&=,!?']+)/g)
-                            .filter(Boolean)
-                            .map((x) => {
-                                const targetMentionNode = mentionNodes.find((node) => node.node.__text === x);
-                                if (targetMentionNode)
-                                    return {
-                                        tag: CHAR_TAG.MENTION,
-                                        visible: true,
-                                        content: x,
-                                        profiles: targetMentionNode.node.__profiles,
-                                    };
+                        const newChars: Chars = compact(
+                            (markdown.replace('\n', '') === '' ? '' : markdown)
+                                .split(/(@[^\s()@:%+~#?&=,!?']+)/g)
+                                .filter(Boolean)
+                                .map((x) => {
+                                    const targetMentionNode = mentionNodes.find((node) => node.__text === x);
+                                    if (targetMentionNode)
+                                        return {
+                                            tag: CHAR_TAG.MENTION,
+                                            visible: true,
+                                            content: x,
+                                            profiles: targetMentionNode.__profiles,
+                                        } as ComplexChars;
 
-                                return x;
-                            });
+                                    return x;
+                                }),
+                        );
 
                         updateChars((chars) => writeChars(chars, newChars));
                     });
