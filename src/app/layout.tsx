@@ -12,8 +12,6 @@ import { IfPathname } from '@/components/IfPathname.js';
 import { CZ_ACTIVITY_HOSTNAME } from '@/constants/index.js';
 import { Script } from '@/esm/Script.js';
 import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
-import { getLocaleFromCookies } from '@/helpers/getLocaleFromCookies.js';
-import { setLocale } from '@/i18n/index.js';
 
 const inter = Inter({
     subsets: ['latin'],
@@ -31,8 +29,6 @@ export const viewport = {
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
-    setLocale(getLocaleFromCookies());
-
     return (
         <html>
             <head>

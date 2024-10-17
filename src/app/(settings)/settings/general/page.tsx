@@ -1,7 +1,6 @@
 'use client';
 
 import { t, Trans } from '@lingui/macro';
-import { useLingui } from '@lingui/react';
 import { getEnumAsArray } from '@masknet/kit';
 import { Appearance } from '@masknet/public-api';
 import { useMediaQuery } from 'usehooks-ts';
@@ -14,14 +13,14 @@ import { Subtitle } from '@/app/(settings)/components/Subtitle.js';
 import { Locale } from '@/constants/enum.js';
 import { useNavigatorTitle } from '@/hooks/useNavigatorTitle.js';
 import { setLocale, supportedLocales } from '@/i18n/index.js';
+import { useLocale } from '@/store/useLocale.js';
 import { useThemeModeStore } from '@/store/useThemeModeStore.js';
 
 export default function General() {
     const setThemeMode = useThemeModeStore.use.setThemeMode();
     const mode = useThemeModeStore.use.themeMode();
     const isDarkOS = useMediaQuery('(prefers-color-scheme: dark)');
-    const { i18n } = useLingui();
-    const locale = i18n.locale;
+    const locale = useLocale();
 
     useNavigatorTitle(t`General`);
 

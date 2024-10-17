@@ -6,6 +6,7 @@ import { Headline } from '@/app/(settings)/components/Headline.js';
 import { Section } from '@/app/(settings)/components/Section.js';
 import { ClickableArea } from '@/components/ClickableArea.js';
 import { classNames } from '@/helpers/classNames.js';
+import { setupLocaleForSSR } from '@/i18n/index.js';
 import { type MethodItem, SupportedMethod } from '@/types/bridge.js';
 
 type Item = MethodItem & {
@@ -95,6 +96,8 @@ const items: Item[] = [
 ];
 
 export default function Page() {
+    setupLocaleForSSR();
+
     const renderItem = (item: (typeof items)[0]) => {
         const type = item.type;
 
@@ -127,7 +130,7 @@ export default function Page() {
                                     <h2 className="mb-2">
                                         <span>{x.title}</span>
                                         <span className="ml-2 rounded-md bg-bg p-1 text-sm text-secondary">
-                                            {x.type}
+                                            {`${x.name}()`}
                                         </span>
                                     </h2>
                                     <p className="text-sm text-secondary">{x.description}</p>

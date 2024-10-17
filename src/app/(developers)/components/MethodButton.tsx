@@ -1,5 +1,6 @@
 'use client';
 
+import { Trans } from '@lingui/macro';
 import { safeUnreachable } from '@masknet/kit';
 import { useAsyncFn } from 'react-use';
 
@@ -112,7 +113,7 @@ export function MethodButton({ item }: Props) {
             disabled={loading}
             onClick={onClick}
         >
-            {item.name}()
+            <Trans>Invoke</Trans>
         </ClickableButton>
     );
 }

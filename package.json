@@ -23,6 +23,7 @@
         "crowdin:sync:translations": "crowdin pull"
     },
     "dependencies": {
+        "@apollo/client": "^3.11.8",
         "@aws-sdk/client-s3": "^3.658.1",
         "@aws-sdk/lib-storage": "^3.658.1",
         "@dialectlabs/blinks": "^0.9.3",
@@ -39,8 +40,8 @@
         "@lexical/markdown": "^0.18.0",
         "@lexical/react": "^0.18.0",
         "@lexical/utils": "^0.18.0",
-        "@lingui/core": "^4.11.4",
-        "@lingui/react": "^4.11.4",
+        "@lingui/core": "^4.13.0",
+        "@lingui/react": "^4.13.0",
         "@livepeer/react": "4.2.7",
         "@masknet/kit": "^0.4.1",
         "@mui/material": "5.15.12",
@@ -135,12 +136,11 @@
         "zustand": "^4.5.5"
     },
     "devDependencies": {
-        "@apollo/client": "^3.11.8",
         "@crowdin/cli": "^4.2.0",
-        "@lingui/cli": "^4.11.4",
-        "@lingui/conf": "^4.11.4",
-        "@lingui/loader": "^4.11.4",
-        "@lingui/macro": "^4.11.4",
+        "@lingui/cli": "^4.13.0",
+        "@lingui/conf": "^4.13.0",
+        "@lingui/loader": "^4.13.0",
+        "@lingui/macro": "^4.13.0",
         "@lingui/swc-plugin": "^4.0.4",
         "@sinonjs/text-encoding": "^0.7.3",
         "@svgr/webpack": "^8.1.0",
