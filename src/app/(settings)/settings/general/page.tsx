@@ -1,9 +1,9 @@
 'use client';
 
 import { t, Trans } from '@lingui/macro';
-import { useLingui } from '@lingui/react';
 import { getEnumAsArray } from '@masknet/kit';
 import { Appearance } from '@masknet/public-api';
+import { useMemo } from 'react';
 import { useMediaQuery } from 'usehooks-ts';
 
 import { changeLocale } from '@/actions/changeLocale.js';
@@ -12,6 +12,7 @@ import { OptionButton } from '@/app/(settings)/components/OptionButton.js';
 import { Section } from '@/app/(settings)/components/Section.js';
 import { Subtitle } from '@/app/(settings)/components/Subtitle.js';
 import { Locale } from '@/constants/enum.js';
+import { getLocaleFromCookies } from '@/helpers/getLocaleFromCookies.js';
 import { useNavigatorTitle } from '@/hooks/useNavigatorTitle.js';
 import { setLocale, supportedLocales } from '@/i18n/index.js';
 import { useThemeModeStore } from '@/store/useThemeModeStore.js';
@@ -20,8 +21,7 @@ export default function General() {
     const setThemeMode = useThemeModeStore.use.setThemeMode();
     const mode = useThemeModeStore.use.themeMode();
     const isDarkOS = useMediaQuery('(prefers-color-scheme: dark)');
-    const { i18n } = useLingui();
-    const locale = i18n.locale;
+    const locale = useMemo(() => getLocaleFromCookies(), []);
 
     useNavigatorTitle(t`General`);
 
