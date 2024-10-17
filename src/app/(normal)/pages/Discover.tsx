@@ -22,6 +22,7 @@ import {
 import { Link } from '@/esm/Link.js';
 import { classNames } from '@/helpers/classNames.js';
 import { resolveDiscoverUrl } from '@/helpers/resolveDiscoverUrl.js';
+import { DiscoverSnapshotList } from '@/components/Snapshot/DiscoverSnapshotList.js';
 
 interface Props {
     source: DiscoverSource;
@@ -29,6 +30,13 @@ interface Props {
 }
 
 export function DiscoverPage({ source, discover = DiscoverType.Trending }: Props) {
+    if (source === Source.DAO) {
+        return (
+            <Suspense fallback={<Loading />}>
+                <DiscoverSnapshotList />
+            </Suspense>
+        );
+    }
     if (source === Source.Article) {
         return (
             <Suspense fallback={<Loading />}>

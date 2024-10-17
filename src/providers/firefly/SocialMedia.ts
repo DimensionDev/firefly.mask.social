@@ -51,6 +51,7 @@ import {
     type ThreadResponse,
     type UserResponse,
     type UsersResponse,
+    type DiscoverSnapshotsResponse,
 } from '@/providers/types/Firefly.js';
 import {
     type Channel,
@@ -66,6 +67,8 @@ import {
 } from '@/providers/types/SocialMedia.js';
 import { getProfilesByIds } from '@/services/getProfilesByIds.js';
 import { settings } from '@/settings/index.js';
+import { formatSnapshotActivityFromFirefly } from '@/helpers/formatSnapshotFromFirefly.js';
+import { Snapshot } from '@/providers/snapshot/index.js';
 
 export class FireflySocialMedia implements Provider {
     get type() {
@@ -935,6 +938,33 @@ export class FireflySocialMedia implements Provider {
             }),
         });
         return true;
+    }
+
+    async discoverSnapshotActivity(indicator?: PageIndicator) {
+        const url = urlcat(settings.FIREFLY_ROOT_URL, '/v2/discover/snapshot/timeline', {
+            size: 20,
+            cursor: indicator?.id && !isZero(indicator.id) ? indicator.id : undefined,
+        });
+
+        const response = await fireflySessionHolder.fetch<DiscoverSnapshotsResponse>(url);
+
+        const data = resolveFireflyResponseData(response);
+        const proposals = await Snapshot.getProposals(data.result.map((x) => x.metadata.proposal_id));
+
+        const activies = data.result.map((x) => {
+            const proposal = proposals.find((p) => p.id === x.metadata.proposal_id);
+
+            return {
+                ...formatSnapshotActivityFromFirefly(x),
+                proposal,
+            };
+        });
+
+        return createPageable(
+            activies,
+            createIndicator(indicator),
+            data.cursor ? createNextIndicator(indicator, `${data.cursor}`) : undefined,
+        );
     }
 }
 

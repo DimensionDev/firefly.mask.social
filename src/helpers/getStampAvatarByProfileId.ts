@@ -17,6 +17,7 @@ export function getStampAvatarByProfileId(source: Source, profileId: string) {
         case Source.Wallet:
         case Source.NFTs:
         case Source.Article:
+        case Source.DAO:
             return urlcat(FIREFLY_STAMP_URL, '/:address', { address: profileId });
         default:
             safeUnreachable(source);

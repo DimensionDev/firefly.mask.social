@@ -22,7 +22,6 @@ export const ChainGuardButton = memo<ChainGuardButtonProps>(function ChainBounda
 
     const [{ loading }, handleClick] = useAsyncFn(
         async (event: MouseEvent<HTMLButtonElement>) => {
-            if (!targetChainId) return;
             if (targetChainId && account.chainId !== targetChainId) {
                 await switchChain(config, { chainId: targetChainId });
             }

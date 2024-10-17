@@ -6,6 +6,9 @@ import { resolveSource } from '@/helpers/resolveSource.js';
 
 export default function Page({ params }: { params: { source: SourceInURL } }) {
     const source = resolveSource(params.source) as DiscoverSource;
+    if (source == Source.DAO) {
+        return null;
+    }
     if (source === Source.Article) {
         return <FollowingArticleList />;
     }
