@@ -3,7 +3,7 @@ index bcc1dc7b3ea17375feb532cc8e945f0574041275..03158c3ab1031ea51b75bca395c55116
 --- a/dist/components/dialog/dialog.d.ts
 +++ b/dist/components/dialog/dialog.d.ts
 @@ -1,68 +1,121 @@
--import React, { ElementType, MutableRefObject, Ref } from 'react';
+-import React, { ElementType, MutableRefObject, Ref } from 'react'; import {stopPropagation} from '@/helpers/stopEvent.js';
 -import { Props } from '../../types.js';
 -import { PropsForFeatures, HasDisplayName, RefProp } from '../../utils/render.js';
 -import { ComponentDescription } from '../description/description.js';

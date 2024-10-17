@@ -22,6 +22,7 @@ import { classNames } from '@/helpers/classNames.js';
 import { formatEthereumAddress } from '@/helpers/formatAddress.js';
 import { resolveArticlePlatformIcon } from '@/helpers/resolveArticlePlatformIcon.js';
 import { resolveSearchUrl } from '@/helpers/resolveSearchUrl.js';
+import { stopPropagation } from '@/helpers/stopEvent.js';
 import { useDarkMode } from '@/hooks/useDarkMode.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import { PreviewMediaModalRef } from '@/modals/controls.js';
@@ -109,7 +110,7 @@ export function ArticleBody({ cover, article, onClick }: Props) {
                     </Link>
                     <Link
                         href={authorUrl}
-                        onClick={(event) => event.stopPropagation()}
+                        onClick={stopPropagation}
                         className="block truncate text-clip text-medium leading-5 text-secondary"
                     >
                         {article.author.handle || ens || formatEthereumAddress(article.author.id, 4)}

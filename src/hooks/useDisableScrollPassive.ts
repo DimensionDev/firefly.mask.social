@@ -1,18 +1,16 @@
 import { useEffect, useState } from 'react';
 
+import { stopEvent } from '@/helpers/stopEvent.js';
+
 export function useDisableScrollPassive() {
     const [ref, setRef] = useState<HTMLDivElement | null>(null);
 
     useEffect(() => {
         if (!ref) return;
-        const handler = (event: TouchEvent) => {
-            event.preventDefault();
-            event.stopPropagation();
-        };
-        ref?.addEventListener('touchmove', handler, { passive: false });
+        ref?.addEventListener('touchmove', stopEvent, { passive: false });
 
         return () => {
-            ref?.removeEventListener('touchmove', handler);
+            ref?.removeEventListener('touchmove', stopEvent);
         };
     }, [ref]);
 

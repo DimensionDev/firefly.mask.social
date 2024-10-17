@@ -22,9 +22,7 @@ class SentryClient {
         const tags: Record<string, string> = {
             version: env.shared.VERSION,
             commitHash: env.shared.COMMIT_HASH ?? 'unknown',
-            siteURL: env.external.NEXT_PUBLIC_SITE_URL ?? 'unknown',
-            fireflyURL: env.external.NEXT_PUBLIC_FIREFLY_API_URL,
-            fireflyRootURL: settings.FIREFLY_ROOT_URL,
+            rootURL: settings.FIREFLY_ROOT_URL,
         };
 
         Sentry.onLoad(() => {

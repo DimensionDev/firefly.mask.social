@@ -11,6 +11,7 @@ import { SourceInURL } from '@/constants/enum.js';
 import { Link } from '@/esm/Link.js';
 import { classNames } from '@/helpers/classNames.js';
 import { formatEthereumAddress } from '@/helpers/formatAddress.js';
+import { stopPropagation } from '@/helpers/stopEvent.js';
 import type { NFTOwnerDisplayInfo } from '@/providers/types/NFTs.js';
 
 interface NFTFeedHeaderProps extends HTMLProps<HTMLDivElement> {
@@ -42,7 +43,7 @@ export function NFTFeedHeader({
             <div className="flex flex-1 flex-grow flex-row items-start overflow-hidden text-ellipsis whitespace-nowrap">
                 <Link
                     href={authorUrl}
-                    onClick={(event) => event.stopPropagation()}
+                    onClick={stopPropagation}
                     className="block max-w-full truncate text-medium font-bold leading-5 text-main"
                 >
                     {displayInfo.ensHandle ? displayInfo.ensHandle : formatEthereumAddress(address, 4)}

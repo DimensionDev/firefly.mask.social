@@ -87,6 +87,7 @@ export const Tips = memo(function Tips({
                     onClick={(event) => {
                         event.preventDefault();
                         event.stopPropagation();
+
                         if (disabled) return;
                         handleClick(event);
                     }}

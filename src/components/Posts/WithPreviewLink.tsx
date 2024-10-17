@@ -4,6 +4,7 @@ import { PageRoute } from '@/constants/enum.js';
 import { Link } from '@/esm/Link.js';
 import { getPostImageUrl } from '@/helpers/getPostImageUrl.js';
 import { isRoutePathname } from '@/helpers/isRoutePathname.js';
+import { stopPropagation } from '@/helpers/stopEvent.js';
 import { PreviewMediaModalRef } from '@/modals/controls.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 
@@ -41,7 +42,7 @@ export function WithPreviewLink({
             prefetch={prefetch}
             href={getPostImageUrl(post, index, isPostPage)}
             scroll={false}
-            onClick={(event) => event.stopPropagation()}
+            onClick={stopPropagation}
         >
             {children}
         </Link>

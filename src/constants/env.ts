@@ -1,7 +1,6 @@
 import { z } from 'zod';
 
 import { NODE_ENV, STATUS, VERCEL_NEV } from '@/constants/enum.js';
-import { bom } from '@/helpers/bom.js';
 
 const InternalEnvSchema = z.object({
     TWITTER_CLIENT_ID: z.string(),
@@ -41,11 +40,9 @@ const ExternalEnvSchema = z.object({
     NEXT_PUBLIC_VERCEL_ENV: z.nativeEnum(VERCEL_NEV).default(VERCEL_NEV.Development),
 
     // urls
-    NEXT_PUBLIC_SITE_URL: z.string().default('https://firefly.mask.social'),
-    NEXT_PUBLIC_FIREFLY_API_URL: z.string().default('https://api.firefly.land'),
     NEXT_PUBLIC_FARCASTER_OPENRANK_URL: z.string().default('https://graph.cast.k3l.io'),
     NEXT_PUBLIC_LENS_OPENRANK_URL: z.string().default('https://lens-api.k3l.io'),
-    NEXT_PUBLIC_SOLANA_RPC_URL: z.string(),
+    NEXT_PUBLIC_SOLANA_RPC_URL: z.string().default('https://api.mainnet-beta.solana.com'),
 
     // features
     NEXT_PUBLIC_POLL: z.nativeEnum(STATUS).default(STATUS.Disabled),
@@ -94,47 +91,41 @@ export const env = {
         VERSION: process.env.npm_package_version || process.version,
         COMMIT_HASH: process.env.COMMIT_HASH,
     },
-    internal: ((!bom.window || process.env.VITEST) && !process.env.GITHUB_ACTIONS
-        ? InternalEnvSchema.parse(process.env)
-        : {}) as z.infer<typeof InternalEnvSchema>,
-    external: (!process.env.GITHUB_ACTIONS
-        ? ExternalEnvSchema.parse({
-              NEXT_PUBLIC_VERCEL_ENV: process.env.NEXT_PUBLIC_VERCEL_ENV,
+    internal: InternalEnvSchema.parse(process.env),
+    external: ExternalEnvSchema.parse({
+        NEXT_PUBLIC_VERCEL_ENV: process.env.NEXT_PUBLIC_VERCEL_ENV,
 
-              NEXT_PUBLIC_SITE_URL: process.env.NEXT_PUBLIC_SITE_URL,
-              NEXT_PUBLIC_FIREFLY_API_URL: process.env.NEXT_PUBLIC_FIREFLY_API_URL,
-              NEXT_PUBLIC_FARCASTER_OPENRANK_URL: process.env.NEXT_PUBLIC_FARCASTER_OPENRANK_URL,
-              NEXT_PUBLIC_LENS_OPENRANK_URL: process.env.NEXT_PUBLIC_LENS_OPENRANK_URL,
-              NEXT_PUBLIC_SOLANA_RPC_URL: process.env.NEXT_PUBLIC_SOLANA_RPC_URL,
+        NEXT_PUBLIC_FARCASTER_OPENRANK_URL: process.env.NEXT_PUBLIC_FARCASTER_OPENRANK_URL,
+        NEXT_PUBLIC_LENS_OPENRANK_URL: process.env.NEXT_PUBLIC_LENS_OPENRANK_URL,
+        NEXT_PUBLIC_SOLANA_RPC_URL: process.env.NEXT_PUBLIC_SOLANA_RPC_URL,
 
-              NEXT_PUBLIC_POLL: process.env.NEXT_PUBLIC_POLL,
-              NEXT_PUBLIC_FRAME: process.env.NEXT_PUBLIC_FRAME,
-              NEXT_PUBLIC_BLINK: process.env.NEXT_PUBLIC_BLINK,
-              NEXT_PUBLIC_OPENGRAPH: process.env.NEXT_PUBLIC_OPENGRAPH,
-              NEXT_PUBLIC_MASK_WEB_COMPONENTS: process.env.NEXT_PUBLIC_MASK_WEB_COMPONENTS,
-              NEXT_PUBLIC_SCHEDULE_POST: process.env.NEXT_PUBLIC_SCHEDULE_POST,
-              NEXT_PUBLIC_REACT_DEV_TOOLS: process.env.NEXT_PUBLIC_REACT_DEV_TOOLS,
-              NEXT_PUBLIC_TIPS: process.env.NEXT_PUBLIC_TIPS,
-              NEXT_PUBLIC_COMPOSE_GIF: process.env.NEXT_PUBLIC_COMPOSE_GIF,
-              NEXT_PUBLIC_CHANNEL_TRENDING: process.env.NEXT_PUBLIC_CHANNEL_TRENDING,
-              NEXT_PUBLIC_FEEDBACK: process.env.NEXT_PUBLIC_FEEDBACK,
-              NEXT_PUBLIC_TELEMETRY: process.env.NEXT_PUBLIC_TELEMETRY,
-              NEXT_PUBLIC_DEVELOPERS: process.env.NEXT_PUBLIC_DEVELOPERS,
-              NEXT_PUBLIC_HUBBLE_URL: process.env.NEXT_PUBLIC_HUBBLE_URL,
-              NEXT_PUBLIC_HUBBLE_TOKEN: process.env.NEXT_PUBLIC_HUBBLE_TOKEN,
+        NEXT_PUBLIC_POLL: process.env.NEXT_PUBLIC_POLL,
+        NEXT_PUBLIC_FRAME: process.env.NEXT_PUBLIC_FRAME,
+        NEXT_PUBLIC_BLINK: process.env.NEXT_PUBLIC_BLINK,
+        NEXT_PUBLIC_OPENGRAPH: process.env.NEXT_PUBLIC_OPENGRAPH,
+        NEXT_PUBLIC_MASK_WEB_COMPONENTS: process.env.NEXT_PUBLIC_MASK_WEB_COMPONENTS,
+        NEXT_PUBLIC_SCHEDULE_POST: process.env.NEXT_PUBLIC_SCHEDULE_POST,
+        NEXT_PUBLIC_REACT_DEV_TOOLS: process.env.NEXT_PUBLIC_REACT_DEV_TOOLS,
+        NEXT_PUBLIC_TIPS: process.env.NEXT_PUBLIC_TIPS,
+        NEXT_PUBLIC_COMPOSE_GIF: process.env.NEXT_PUBLIC_COMPOSE_GIF,
+        NEXT_PUBLIC_CHANNEL_TRENDING: process.env.NEXT_PUBLIC_CHANNEL_TRENDING,
+        NEXT_PUBLIC_FEEDBACK: process.env.NEXT_PUBLIC_FEEDBACK,
+        NEXT_PUBLIC_TELEMETRY: process.env.NEXT_PUBLIC_TELEMETRY,
+        NEXT_PUBLIC_DEVELOPERS: process.env.NEXT_PUBLIC_DEVELOPERS,
+        NEXT_PUBLIC_HUBBLE_URL: process.env.NEXT_PUBLIC_HUBBLE_URL,
+        NEXT_PUBLIC_HUBBLE_TOKEN: process.env.NEXT_PUBLIC_HUBBLE_TOKEN,
 
-              NEXT_PUBLIC_SENTRY_DSN: process.env.NEXT_PUBLIC_SENTRY_DSN,
-              NEXT_PUBLIC_SENTRY_REPORT_URL: process.env.NEXT_PUBLIC_SENTRY_REPORT_URL,
+        NEXT_PUBLIC_SENTRY_DSN: process.env.NEXT_PUBLIC_SENTRY_DSN,
+        NEXT_PUBLIC_SENTRY_REPORT_URL: process.env.NEXT_PUBLIC_SENTRY_REPORT_URL,
 
-              NEXT_PUBLIC_FIREFLY_DOWNLOAD_LINK: process.env.NEXT_PUBLIC_FIREFLY_DOWNLOAD_LINK,
-              NEXT_PUBLIC_FIREFLY_IOS_HOME: process.env.NEXT_PUBLIC_FIREFLY_IOS_HOME,
-              NEXT_PUBLIC_FIREFLY_ANDROID_HOME: process.env.NEXT_PUBLIC_FIREFLY_ANDROID_HOME,
+        NEXT_PUBLIC_FIREFLY_DOWNLOAD_LINK: process.env.NEXT_PUBLIC_FIREFLY_DOWNLOAD_LINK,
+        NEXT_PUBLIC_FIREFLY_IOS_HOME: process.env.NEXT_PUBLIC_FIREFLY_IOS_HOME,
+        NEXT_PUBLIC_FIREFLY_ANDROID_HOME: process.env.NEXT_PUBLIC_FIREFLY_ANDROID_HOME,
 
-              // giphy
-              NEXT_PUBLIC_GIPHY_API_KEY: process.env.NEXT_PUBLIC_GIPHY_API_KEY,
+        // giphy
+        NEXT_PUBLIC_GIPHY_API_KEY: process.env.NEXT_PUBLIC_GIPHY_API_KEY,
 
-              // w3m
-              NEXT_PUBLIC_W3M_PROJECT_ID: process.env.NEXT_PUBLIC_W3M_PROJECT_ID,
-          })
-        : {}) as z.infer<typeof ExternalEnvSchema>,
+        // w3m
+        NEXT_PUBLIC_W3M_PROJECT_ID: process.env.NEXT_PUBLIC_W3M_PROJECT_ID,
+    }) as z.infer<typeof ExternalEnvSchema>,
 };

@@ -64,7 +64,6 @@ if [ -f "package.json" ]; then
   echo "Build Information" > "$output_file"
   echo "-----------------" >> "$output_file"
   echo "Vercel ENV: $VERCEL_ENV" >> "$output_file"
-  echo "Site URL: $NEXT_PUBLIC_SITE_URL" >> "$output_file"
   echo "Blink: $NEXT_PUBLIC_BLINK" >> "$output_file"
   echo "Frame: $NEXT_PUBLIC_FRAME" >> "$output_file"
   echo "Mask Web Components: $NEXT_PUBLIC_MASK_WEB_COMPONENTS" >> "$output_file"
