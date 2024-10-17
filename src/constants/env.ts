@@ -1,8 +1,8 @@
+import { defaults } from 'lodash-es';
 import { z } from 'zod';
 
 import { NODE_ENV, STATUS, VERCEL_NEV } from '@/constants/enum.js';
 import { bom } from '@/helpers/bom.js';
-import { defaults } from 'lodash-es';
 
 const InternalEnvSchema = z.object({
     TWITTER_CLIENT_ID: z.string(),
