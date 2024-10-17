@@ -1,7 +1,6 @@
 'use client';
 
 import { t, Trans } from '@lingui/macro';
-import { useQuery } from '@tanstack/react-query';
 
 import { AddWalletButton } from '@/app/(settings)/components/AddWalletButton.js';
 import { Headline } from '@/app/(settings)/components/Headline.js';
@@ -11,8 +10,8 @@ import LoadingIcon from '@/assets/loading.svg';
 import { Loading } from '@/components/Loading.js';
 import { NoResultsFallback } from '@/components/NoResultsFallback.js';
 import { EMPTY_LIST } from '@/constants/index.js';
+import { useAllConnections } from '@/hooks/useAllConnections.js';
 import { useNavigatorTitle } from '@/hooks/useNavigatorTitle.js';
-import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
 
 export default function Wallets() {
     useNavigatorTitle(t`Associated wallets`);
@@ -21,10 +20,7 @@ export default function Wallets() {
         data: { connected = EMPTY_LIST, related = EMPTY_LIST } = {},
         isLoading,
         isRefetching,
-    } = useQuery({
-        queryKey: ['my-wallet-connections'],
-        queryFn: () => FireflySocialMediaProvider.getAllConnections(),
-    });
+    } = useAllConnections();
 
     return (
         <Section>

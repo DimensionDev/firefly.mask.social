@@ -862,9 +862,6 @@ msgstr "Mirror or Quote"
 msgid "Confirm you want to mute /{0}?"
 msgstr "Confirm you want to mute /{0}?"
 
-msgid "Followed @Firefly on X"
-msgstr "Followed @Firefly on X"
-
 msgid "Enter amount"
 msgstr "Enter amount"
 
@@ -1143,6 +1140,9 @@ msgstr "Please confirm the login with Warpcast."
 
 msgid "Log in with recovery phrase"
 msgstr "Log in with recovery phrase"
+
+msgid "Connected"
+msgstr "Connected"
 
 msgid "Edit Profile"
 msgstr "Edit Profile"
@@ -1840,6 +1840,9 @@ msgstr "Notifications"
 msgid "Back"
 msgstr "Back"
 
+msgid "Followed @{handle} on X before 9/21"
+msgstr "Followed @{handle} on X before 9/21"
+
 msgid "Article collected successfully!"
 msgstr "Article collected successfully!"
 
@@ -2032,6 +2035,9 @@ msgstr "Add another option"
 msgid "1y"
 msgstr "1y"
 
+msgid "Change"
+msgstr "Change"
+
 msgid "No codes found to suspend trading."
 msgstr "No codes found to suspend trading."
 
@@ -2049,6 +2055,9 @@ msgstr "Dark Mode"
 
 msgid "Article added to your Bookmarks"
 msgstr "Article added to your Bookmarks"
+
+msgid "Please sign in with X to continue"
+msgstr "Please sign in with X to continue"
 
 msgid "Create a Post"
 msgstr "Create a Post"
@@ -2134,6 +2143,9 @@ msgstr "Hide tokens with small balances"
 msgid "News"
 msgstr "News"
 
+msgid "Followed @{handle} on {0}"
+msgstr "Followed @{handle} on {0}"
+
 msgid "NFT ID"
 msgstr "NFT ID"
 
@@ -2187,9 +2199,6 @@ msgstr "No available token"
 
 msgid "Firefly Bridge"
 msgstr "Firefly Bridge"
-
-msgid "Followed @{followedHandle} on X before 9/21"
-msgstr "Followed @{followedHandle} on X before 9/21"
 
 msgid "Invalid URL"
 msgstr "Invalid URL"
@@ -2280,6 +2289,9 @@ msgstr "Suspended account"
 
 msgid "Final Step Claim Now!"
 msgstr "Final Step Claim Now!"
+
+msgid "Verify"
+msgstr "Verify"
 
 msgid "Recasted"
 msgstr "Recasted"

@@ -867,9 +867,6 @@ msgstr "转帖或者引用"
 msgid "Confirm you want to mute /{0}?"
 msgstr "您确定要隐藏 /{0} 吗？"
 
-msgid "Followed @Firefly on X"
-msgstr ""
-
 msgid "Enter amount"
 msgstr "输入金额"
 
@@ -1148,6 +1145,9 @@ msgstr "请确认使用 Warpcast 登录。"
 
 msgid "Log in with recovery phrase"
 msgstr "使用助记词登录"
+
+msgid "Connected"
+msgstr ""
 
 msgid "Edit Profile"
 msgstr "编辑个人信息"
@@ -1845,6 +1845,9 @@ msgstr "通知"
 msgid "Back"
 msgstr "返回"
 
+msgid "Followed @{handle} on X before 9/21"
+msgstr ""
+
 msgid "Article collected successfully!"
 msgstr "成功收集文章！"
 
@@ -2037,6 +2040,9 @@ msgstr "添加另一个选项"
 msgid "1y"
 msgstr "1年"
 
+msgid "Change"
+msgstr ""
+
 msgid "No codes found to suspend trading."
 msgstr "没有发现可以暂停交易的代码。"
 
@@ -2054,6 +2060,9 @@ msgstr "深色模式"
 
 msgid "Article added to your Bookmarks"
 msgstr "文章已经添加到您的收藏中"
+
+msgid "Please sign in with X to continue"
+msgstr ""
 
 msgid "Create a Post"
 msgstr "创建帖子"
@@ -2139,6 +2148,9 @@ msgstr "隐藏小额通证"
 msgid "News"
 msgstr "新闻"
 
+msgid "Followed @{handle} on {0}"
+msgstr ""
+
 msgid "NFT ID"
 msgstr "NFT ID"
 
@@ -2192,9 +2204,6 @@ msgstr "没有适合的代币"
 
 msgid "Firefly Bridge"
 msgstr "Firefly 桥"
-
-msgid "Followed @{followedHandle} on X before 9/21"
-msgstr ""
 
 msgid "Invalid URL"
 msgstr "无效的 URL"
@@ -2284,6 +2293,9 @@ msgid "Suspended account"
 msgstr "被冻结账户"
 
 msgid "Final Step Claim Now!"
+msgstr ""
+
+msgid "Verify"
 msgstr ""
 
 msgid "Recasted"

@@ -29,7 +29,6 @@ export default function Page() {
                 <ListInPage
                     source={Source.Wallet}
                     queryResult={queryResult}
-                    loginRequired
                     VirtualListProps={{
                         listKey: `${ScrollListKey.Activity}`,
                         itemContent: getActivityListItem,

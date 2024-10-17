@@ -5,7 +5,13 @@ import { useSuspenseQuery } from '@tanstack/react-query';
 import dayjs from 'dayjs';
 
 import CalendarIcon from '@/assets/activity-calendar.svg';
+import { ActivityConnectCard } from '@/components/Activity/ActivityConnectCard.js';
+import { ActivityFollowTargetCard } from '@/components/Activity/ActivityFollowTargetCard.js';
+import { ActivityPremiumConditionList } from '@/components/Activity/ActivityPremiumConditionList.js';
 import { ActivityStatusTag } from '@/components/Activity/ActivityStatus.js';
+import { ActivityTaskFollowCard } from '@/components/Activity/ActivityTaskFollowCard.js';
+import { ActivityTwitterLoginButton } from '@/components/Activity/ActivityTwitterLoginButton.js';
+import { Source } from '@/constants/enum.js';
 import { Image } from '@/esm/Image.js';
 import { classNames } from '@/helpers/classNames.js';
 import { ActivityStatus } from '@/providers/types/Firefly.js';
@@ -25,14 +31,13 @@ export default function Page({
         },
     });
     const timeTemplate = 'M/DD hh:MM';
-    const followedHandle = 'cz_binance';
 
     return (
-        <main className="flex w-full flex-[1_1_100%] flex-col md:border-r md:border-line md:pl-[289px] lg:w-[888px] lg:max-w-[calc(100%-384px)]">
+        <main className="flex min-h-[100svh] w-full flex-1 flex-col md:border-r md:border-line md:pl-[289px] lg:w-[888px] lg:max-w-[calc(100%-384px)]">
             <Image
                 src={data.banner_url}
                 alt={data.title}
-                className={classNames('aspect-[375/280] w-full object-cover')}
+                className={classNames('w-full object-cover')}
                 width={375}
                 height={280}
             />
@@ -54,64 +59,16 @@ export default function Page({
                             <h2 className="text-base font-semibold leading-6">
                                 <Trans>Step 1 Sign in with X</Trans>
                             </h2>
-                            <button className="h-8 rounded-full border border-current px-4 font-bold leading-8 text-[13x]">
-                                <Trans>Sign in</Trans>
-                            </button>
+                            <ActivityTwitterLoginButton />
                         </div>
-                        <div className="w-full rounded-2xl bg-bg p-3 text-sm font-semibold leading-6">
-                            <Trans>Followed @{followedHandle} on X before 9/21</Trans>
-                        </div>
+                        <ActivityFollowTargetCard handle="cz_binance" />
                     </div>
-                    <div className="flex w-full flex-col space-y-2 rounded-2xl bg-bg p-3 text-sm font-semibold leading-6">
-                        <h3>
-                            <Trans>Followed @Firefly on X</Trans>
-                        </h3>
-                        <div className="space-x-2">
-                            <button className="rounded-full bg-main px-4 leading-8 text-primaryBottom">Follow</button>
-                            <button className="rounded-full border border-current px-4 leading-8">Verify</button>
-                        </div>
-                    </div>
+                    <ActivityTaskFollowCard handle="Firefly" source={Source.Twitter} profileId="1583361564479889408" />
                     <h2 className="text-base font-semibold leading-6">
                         <Trans>Step 2 Connect Wallet</Trans>
                     </h2>
-                    <div className="flex w-full flex-col space-y-2 rounded-2xl bg-bg p-3 text-sm font-semibold leading-6">
-                        <h3>
-                            <Trans>Submitted claimed address</Trans>
-                        </h3>
-                        <div className="space-x-2">
-                            <button className="rounded-full bg-main px-4 leading-8 text-primaryBottom">Connect</button>
-                        </div>
-                    </div>
-                    <div className="flex w-full flex-col space-y-2 text-sm font-semibold leading-6">
-                        <h2 className="text-base font-semibold leading-6">
-                            <Trans>Final Step Claim Now!</Trans>
-                        </h2>
-                        <div className="flex w-full flex-col space-y-2 rounded-2xl bg-bg p-3 text-sm font-semibold leading-6">
-                            <h3>
-                                <Trans>
-                                    Hold on, in addition to meeting above criteria, fulfill any of the following to
-                                    upgrade to a premium airdrop
-                                </Trans>
-                            </h3>
-                            <ul className="list-disc pl-4 text-sm font-medium leading-6">
-                                <li>
-                                    <Trans>X Premium account</Trans>
-                                </li>
-                                <li>
-                                    <Trans>Hold ≥ $10k BNB Chain asset</Trans>
-                                </li>
-                                <li>
-                                    <Trans>Share this activity on social media</Trans>
-                                </li>
-                            </ul>
-                            <div className="space-x-2">
-                                <button className="rounded-full bg-main px-4 leading-8 text-primaryBottom">
-                                    Share
-                                </button>
-                                <button className="rounded-full border border-current px-4 leading-8">Verify</button>
-                            </div>
-                        </div>
-                    </div>
+                    <ActivityConnectCard />
+                    <ActivityPremiumConditionList />
                     <div className="w-full rounded-2xl border border-line p-3">
                         <h2 className="mb-2 text-base font-semibold leading-6">
                             <Trans>About Airdrop</Trans>
@@ -139,7 +96,7 @@ export default function Page({
                     </div>
                 </div>
             </div>
-            <div className="sticky bottom-0 w-full border-t border-line bg-primaryBottom px-4 pt-1.5 pb-safe-or-2">
+            <div className="sticky bottom-0 mt-auto w-full border-t border-line bg-primaryBottom px-4 pt-1.5 pb-safe-or-2">
                 <button
                     className="leading-12 h-12 w-full rounded-full bg-main text-base font-bold text-primaryBottom disabled:opacity-60"
                     disabled={data.status === ActivityStatus.Ended}

@@ -862,9 +862,6 @@ msgstr ""
 msgid "Confirm you want to mute /{0}?"
 msgstr ""
 
-msgid "Followed @Firefly on X"
-msgstr ""
-
 msgid "Enter amount"
 msgstr ""
 
@@ -1142,6 +1139,9 @@ msgid "Please confirm the login with Warpcast."
 msgstr ""
 
 msgid "Log in with recovery phrase"
+msgstr ""
+
+msgid "Connected"
 msgstr ""
 
 msgid "Edit Profile"
@@ -1840,6 +1840,9 @@ msgstr ""
 msgid "Back"
 msgstr ""
 
+msgid "Followed @{handle} on X before 9/21"
+msgstr ""
+
 msgid "Article collected successfully!"
 msgstr ""
 
@@ -2032,6 +2035,9 @@ msgstr ""
 msgid "1y"
 msgstr ""
 
+msgid "Change"
+msgstr ""
+
 msgid "No codes found to suspend trading."
 msgstr ""
 
@@ -2048,6 +2054,9 @@ msgid "Dark Mode"
 msgstr ""
 
 msgid "Article added to your Bookmarks"
+msgstr ""
+
+msgid "Please sign in with X to continue"
 msgstr ""
 
 msgid "Create a Post"
@@ -2134,6 +2143,9 @@ msgstr ""
 msgid "News"
 msgstr ""
 
+msgid "Followed @{handle} on {0}"
+msgstr ""
+
 msgid "NFT ID"
 msgstr ""
 
@@ -2186,9 +2198,6 @@ msgid "No available token"
 msgstr ""
 
 msgid "Firefly Bridge"
-msgstr ""
-
-msgid "Followed @{followedHandle} on X before 9/21"
 msgstr ""
 
 msgid "Invalid URL"
@@ -2279,6 +2288,9 @@ msgid "Suspended account"
 msgstr ""
 
 msgid "Final Step Claim Now!"
+msgstr ""
+
+msgid "Verify"
 msgstr ""
 
 msgid "Recasted"
