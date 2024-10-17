@@ -30,7 +30,6 @@ export const ArticleMoreAction = memo<MoreProps>(function ArticleMoreAction({ ar
     const isMyProfile = useIsMyRelatedProfile(identity.source, identity.id);
 
     const { data: ens } = useEnsName({ address: author.id });
-
     const handleOrEnsOrAddress = author.handle || ens || formatAddress(author.id, 4);
 
     return (
