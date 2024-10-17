@@ -92,9 +92,9 @@ export const env = {
         VERSION: process.env.npm_package_version || process.version,
         COMMIT_HASH: process.env.COMMIT_HASH,
     },
-    internal: (!bom.window || process.env.VITEST ? InternalEnvSchema.parse(process.env) : {}) as z.infer<
-        typeof InternalEnvSchema
-    >,
+    internal: ((!bom.window || process.env.VITEST) && !process.env.GITHUB_ACTIONS
+        ? InternalEnvSchema.parse(process.env)
+        : {}) as z.infer<typeof InternalEnvSchema>,
     external: ExternalEnvSchema.parse({
         NEXT_PUBLIC_VERCEL_ENV: process.env.NEXT_PUBLIC_VERCEL_ENV,
 
