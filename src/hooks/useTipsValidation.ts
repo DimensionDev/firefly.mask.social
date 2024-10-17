@@ -10,7 +10,7 @@ import { TipsContext } from '@/hooks/useTipsContext.js';
 export function useTipsValidation() {
     const { recipient, token, amount } = TipsContext.useContainer();
 
-    const { value, loading, error } = useAsync(async () => {
+    return useAsync(async () => {
         if (!recipient || !token || !trimify(amount) || isZero(trimify(amount))) {
             return { label: t`Send`, disabled: true };
         }
@@ -41,6 +41,4 @@ export function useTipsValidation() {
         }
         return { label: t`Send`, disabled: false };
     }, [recipient, token, amount]);
-
-    return { value, loading, error };
 }
