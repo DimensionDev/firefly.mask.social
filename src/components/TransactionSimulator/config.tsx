@@ -99,7 +99,7 @@ export function getPanelConfig(): PanelConfig[] {
         {
             title: t`Signature Request`,
             modules: [SimulateType.Signature],
-            content: (_, simulation) => 'Sign Typed Data',
+            content: (_, simulation) => t`Sign Typed Data`,
         },
         {
             title: t`Network Fee`,

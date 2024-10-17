@@ -17,6 +17,7 @@ export function simulate(props: TransactionSimulatorModalOpenProps) {
         } else {
             DraggablePopoverRef.open({
                 onClose: onCanceled,
+                enableOverflow: false,
                 content: (
                     <TransactionSimulator
                         showCloseButton={false}
