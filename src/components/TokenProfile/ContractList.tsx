@@ -16,6 +16,7 @@ import type { Contract, Trending } from '@/providers/types/Trending.js';
 interface Props {
     contracts: NonNullable<Trending['contracts']>;
 }
+
 export const ContractList = memo<Props>(function ContractList({ contracts }) {
     return (
         <MoreActionMenu
