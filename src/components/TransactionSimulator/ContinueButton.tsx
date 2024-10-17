@@ -11,7 +11,7 @@ interface ContinueButtonProps extends Omit<ClickableButtonProps, 'children'> {
     status: SimulateStatus;
 }
 
-export function ContinueButton({ status, className, onClick, ref, ...props }: ContinueButtonProps) {
+export function ContinueButton({ status, className, onClick, ref, ...rest }: ContinueButtonProps) {
     const account = useAccount();
 
     const isUnConnected = !account.isConnected || !account.address;
@@ -48,7 +48,7 @@ export function ContinueButton({ status, className, onClick, ref, ...props }: Co
 
                 onClick?.(event);
             }}
-            {...props}
+            {...rest}
         >
             {buttonLabel}
         </ClickableButton>

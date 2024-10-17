@@ -16,7 +16,7 @@ interface Props extends HTMLProps<HTMLAnchorElement> {
     source: SocialSource;
 }
 
-export function ProfileCell({ profile, source, className, ref, ...props }: Props) {
+export function ProfileCell({ profile, source, className, ref, ...rest }: Props) {
     const identity = resolveFireflyIdentity(profile);
     if (!identity) return null;
 
@@ -25,7 +25,7 @@ export function ProfileCell({ profile, source, className, ref, ...props }: Props
             href={resolveProfileUrl(source, source === Source.Lens ? profile.handle : profile.profileId)}
             className={classNames('flex w-full px-4 py-2 hover:bg-bg', className)}
             data-disable-nprogress
-            {...props}
+            {...rest}
         >
             <div className="flex w-full items-center">
                 <ProfileTippy identity={identity}>

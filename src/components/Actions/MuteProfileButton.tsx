@@ -16,13 +16,13 @@ interface MuteProfileButtonProps extends Omit<ClickableButtonProps, 'children'> 
 }
 
 export const MuteProfileButton = forwardRef<HTMLButtonElement, MuteProfileButtonProps>(function MuteProfileButton(
-    { profile, onConfirm, onToggle, onClick, ...props }: MuteProfileButtonProps,
+    { profile, onConfirm, onToggle, onClick, ...rest }: MuteProfileButtonProps,
     ref,
 ) {
     const muted = useIsProfileMuted(profile);
     return (
         <MenuButton
-            {...props}
+            {...rest}
             onClick={async (event) => {
                 onClick?.(event);
                 if (!muted) {

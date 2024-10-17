@@ -14,12 +14,12 @@ interface Props extends Omit<ClickableButtonProps, 'children'> {
 }
 
 export const ReportPostButton = forwardRef<HTMLButtonElement, Props>(function ReportPostButton(
-    { post, onReport, onClick, ...props }: Props,
+    { post, onReport, onClick, ...rest }: Props,
     ref,
 ) {
     return (
         <MenuButton
-            {...props}
+            {...rest}
             onClick={async (event) => {
                 onClick?.(event);
                 const confirmed = await ConfirmModalRef.openAndWaitForClose({

@@ -123,7 +123,7 @@ export const NavigatorBarForMobile = memo(function NavigatorBarForMobile({
                         >
                             <MagnifierIcon width={18} height={18} />
                             <SearchInput
-                                text={inputText}
+                                value={inputText}
                                 onChange={(ev) => setInputText(ev.currentTarget.value)}
                                 onFocus={() => {
                                     setShowRecommendation(true);

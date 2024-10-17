@@ -11,13 +11,13 @@ interface BackButtonProps extends HTMLProps<HTMLButtonElement> {
     tooltip?: string;
 }
 
-export function BackButton({ size = 24, tooltip = t`Back`, ref, ...props }: BackButtonProps) {
+export function BackButton({ size = 24, tooltip = t`Back`, ref, ...rest }: BackButtonProps) {
     return (
         <Tooltip content={tooltip} placement="top">
-            <ClickableButton {...props} className={classNames('rounded hover:bg-lightBg', props.className)}>
+            <ClickableButton {...rest} className={classNames('rounded hover:bg-lightBg', rest.className)}>
                 <LeftArrowIcon
                     className={classNames('text-main', {
-                        'cursor-pointer': !props.disabled,
+                        'cursor-pointer': !rest.disabled,
                     })}
                     width={size}
                     height={size}

@@ -14,14 +14,14 @@ interface Props extends Omit<ClickableButtonProps, 'children'> {
 }
 
 export const BookmarkButton = forwardRef<HTMLButtonElement, Props>(function BookmarkButton(
-    { post, onConfirm, onClick, ...props }: Props,
+    { post, onConfirm, onClick, ...rest }: Props,
     ref,
 ) {
     const mutation = useToggleBookmark(post.source);
     const { hasBookmarked } = post;
     return (
         <MenuButton
-            {...props}
+            {...rest}
             onClick={async (event) => {
                 await mutation.mutateAsync(post);
                 onClick?.(event);

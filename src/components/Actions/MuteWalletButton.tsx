@@ -19,7 +19,7 @@ interface Props extends Omit<ClickableButtonProps, 'children'> {
 }
 
 export const MuteWalletButton = forwardRef<HTMLButtonElement, Props>(function MuteArticleButton(
-    { handleOrEnsOrAddress, address, isMuted, onClick, ...props }: Props,
+    { handleOrEnsOrAddress, address, isMuted, onClick, ...rest }: Props,
     ref,
 ) {
     const isLogin = useIsLogin();
@@ -32,7 +32,7 @@ export const MuteWalletButton = forwardRef<HTMLButtonElement, Props>(function Mu
     const loading = mutation.isPending;
     return (
         <MenuButton
-            {...props}
+            {...rest}
             onClick={async (event) => {
                 onClick?.(event);
 

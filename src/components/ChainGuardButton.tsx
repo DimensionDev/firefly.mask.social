@@ -15,6 +15,7 @@ interface ChainGuardButtonProps extends ActionButtonProps {
 export const ChainGuardButton = memo<ChainGuardButtonProps>(function ChainBoundary({
     targetChainId,
     children,
+    onClick,
     ...props
 }) {
     const account = useAccount();
@@ -22,11 +23,13 @@ export const ChainGuardButton = memo<ChainGuardButtonProps>(function ChainBounda
     const [{ loading }, handleClick] = useAsyncFn(
         async (event: MouseEvent<HTMLButtonElement>) => {
             if (!targetChainId) return;
-            if (targetChainId && account.chainId !== targetChainId)
+            if (targetChainId && account.chainId !== targetChainId) {
                 await switchChain(config, { chainId: targetChainId });
-            return props.onClick?.(event);
+            }
+
+            return onClick?.(event);
         },
-        [targetChainId, props.onClick],
+        [targetChainId, onClick],
     );
 
     if (!account.isConnected || !account.address) {

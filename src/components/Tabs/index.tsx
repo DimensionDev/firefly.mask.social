@@ -1,6 +1,6 @@
 'use client';
 
-import { createContext, type HTMLProps, type PropsWithChildren, type ReactNode, useContext, useMemo } from 'react';
+import { createContext, type HTMLProps, type PropsWithChildren, useContext, useMemo } from 'react';
 
 import { classNames } from '@/helpers/classNames.js';
 
@@ -49,10 +49,10 @@ export function Tabs<T = string>(props: TabsProps<T>) {
 }
 
 export interface TabProps extends HTMLProps<HTMLLIElement> {
-    text: string;
+    value: string;
 }
 
-export function Tab({ children, text: value, className, ...props }: TabProps) {
+export function Tab({ children, value, className, ...props }: TabProps) {
     const { value: currentTab, onChange, variant } = useContext(TabContext);
     const liVariantClassName = {
         default: 'flex-1 text-sm sm:text-xl',

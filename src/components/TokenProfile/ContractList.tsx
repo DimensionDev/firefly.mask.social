@@ -4,7 +4,7 @@ import { type HTMLProps, memo } from 'react';
 
 import DotsIcon from '@/assets/dots.svg';
 import QuestionIcon from '@/assets/question.svg';
-import { CopyTextButton } from '@/components/CopyTextButton.jsx';
+import { CopyTextButton } from '@/components/CopyTextButton.js';
 import { Image } from '@/components/Image.js';
 import { MoreActionMenu } from '@/components/MoreActionMenu.js';
 import { useChainInfo } from '@/components/TokenProfile/useChainInfo.js';
@@ -70,7 +70,7 @@ function ContractItem({ contract, ...rest }: ContractItemProps) {
                     {formatEthereumAddress(contract.address, 4)}
                 </div>
             </div>
-            <CopyTextButton text={contract.address} />
+            <CopyTextButton value={contract.address} />
         </div>
     );
 }

@@ -37,7 +37,7 @@ export function ChannelSearchPanel({ onSelected, className, ...rest }: ChannelSe
             <SearchIcon width={18} height={18} className="shrink-0" />
             <SearchInput
                 className="h-8"
-                text={inputText}
+                value={inputText}
                 onChange={(ev) => setInputText(ev.currentTarget.value)}
                 onClear={() => setInputText('')}
             />

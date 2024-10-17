@@ -110,7 +110,7 @@ export const PostActions = memo<PostActionsProps>(function PostActions({
     showChannelTag,
     hideDate,
     onSetScrollIndex,
-    ...props
+    ...rest
 }) {
     const pathname = usePathname();
 
@@ -128,7 +128,7 @@ export const PostActions = memo<PostActionsProps>(function PostActions({
             className={classNames('mt-2 text-xs text-lightSecond', className, {
                 'pl-[52px]': !noLeftPadding,
             })}
-            {...props}
+            {...rest}
         >
             <ClickableArea className="flex justify-between">
                 <div className="flex -translate-x-1.5 items-center space-x-2">

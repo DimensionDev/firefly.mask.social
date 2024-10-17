@@ -1,7 +1,7 @@
 import { Trans } from '@lingui/macro';
 import dayjs from 'dayjs';
 import { useRouter } from 'next/navigation.js';
-import React, { memo, useCallback, type MouseEvent } from 'react';
+import React, { memo, type MouseEvent, useCallback } from 'react';
 
 import UserIcon from '@/assets/user.svg';
 import { Avatar } from '@/components/Avatar.js';
@@ -19,7 +19,7 @@ interface ChannelCardProps {
 export const ChannelCard = memo<ChannelCardProps>(function ChannelCard({ channel, loading }) {
     const router = useRouter();
     const handleNavigateToDetail = useCallback(
-        (event: MouseEvent) => {
+        (event: MouseEvent<HTMLDivElement>) => {
             event.stopPropagation();
             event.preventDefault();
             if (!channel) return;

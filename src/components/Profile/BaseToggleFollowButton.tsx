@@ -1,6 +1,6 @@
-import { memo, useMemo, type HTMLProps } from 'react';
+import { type HTMLProps, memo, useMemo } from 'react';
 
-import { ClickableButton, type ClickableButtonProps } from '@/components/ClickableButton.js';
+import { ClickableButton } from '@/components/ClickableButton.js';
 import { SuperFollow } from '@/components/Posts/SuperFollow.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
@@ -19,7 +19,7 @@ export const BaseToggleFollowButton = memo(function BaseToggleFollowButton({
     profile,
     onClick,
     children,
-    ...props
+    ...rest
 }: BaseToggleFollowButtonProps) {
     const [loading, toggleFollow] = useToggleFollow(profile);
     const isLogin = useIsLogin(profile.source);
@@ -38,8 +38,8 @@ export const BaseToggleFollowButton = memo(function BaseToggleFollowButton({
 
     return (
         <ClickableButton
-            {...props}
-            disabled={loading || moduleLoading || props.disabled}
+            {...rest}
+            disabled={loading || moduleLoading || rest.disabled}
             onClick={(event) => {
                 onClick?.(event);
                 if (!isLogin) {

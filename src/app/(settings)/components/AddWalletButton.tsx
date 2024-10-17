@@ -16,7 +16,7 @@ export const AddWalletButton = memo<AddWalletButtonProps>(function AddWalletButt
     connections,
     onSuccess,
     ref,
-    ...props
+    ...rest
 }) {
     const [{ loading }, handleAddWallet] = useAsyncFn(async () => {
         await AddWalletModalRef.openAndWaitForClose({
@@ -26,7 +26,7 @@ export const AddWalletButton = memo<AddWalletButtonProps>(function AddWalletButt
 
     return (
         <ClickableButton
-            {...props}
+            {...rest}
             className="h-10 rounded-2xl bg-lightMain px-[18px] text-medium font-bold leading-10 text-lightBottom dark:text-darkBottom"
             onClick={handleAddWallet}
             disabled={loading || disabled}

@@ -10,7 +10,7 @@ import LinkIcon from '@/assets/link-square.svg';
 import WalletIcon from '@/assets/wallet-circle.svg';
 import VerifiedDarkIcon from '@/assets/wallet-circle-verified.dark.svg';
 import VerifiedLightIcon from '@/assets/wallet-circle-verified.light.svg';
-import { CopyTextButton } from '@/components/CopyTextButton.jsx';
+import { CopyTextButton } from '@/components/CopyTextButton.js';
 import { Image } from '@/components/Image.js';
 import { NetworkPluginID, WalletSource } from '@/constants/enum.js';
 import { Link } from '@/esm/Link.js';
@@ -78,7 +78,7 @@ export function WalletItem({ connection, noAction = false }: WalletItemProps) {
                               ? formatSolanaAddress(connection.address, 8)
                               : connection.address}
                     </span>
-                    <CopyTextButton text={connection.address} />
+                    <CopyTextButton value={connection.address} />
                     {addressLink ? (
                         <Link target="_blank" className="ml-1" href={addressLink}>
                             <LinkIcon width={13} height={13} />

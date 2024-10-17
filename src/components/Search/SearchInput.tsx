@@ -8,7 +8,7 @@ interface SearchInputProps extends HTMLProps<HTMLInputElement> {
     onClear?: () => void;
 }
 
-export function SearchInput({ onClear, ref, ...props }: SearchInputProps) {
+export function SearchInput({ onClear, ref, ...rest }: SearchInputProps) {
     const inputRef = useRef<HTMLInputElement>(null);
 
     return (
@@ -20,13 +20,13 @@ export function SearchInput({ onClear, ref, ...props }: SearchInputProps) {
                 spellCheck="false"
                 placeholder={t`Search...`}
                 ref={inputRef}
-                {...props}
+                {...rest}
                 className={classNames(
                     `w-full border-0 bg-transparent py-2 placeholder-secondary focus:border-0 focus:outline-0 focus:ring-0 dark:text-input sm:text-sm sm:leading-6`,
-                    props.className,
+                    rest.className,
                 )}
             />
-            {props.text ? (
+            {rest.value ? (
                 <ClearButton
                     type="button"
                     className="text-highlight"

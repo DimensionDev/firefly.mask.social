@@ -8,7 +8,7 @@ import { forwardRef } from 'react';
 
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { CloseButton } from '@/components/CloseButton.js';
-import { CopyTextButton } from '@/components/CopyTextButton.jsx';
+import { CopyTextButton } from '@/components/CopyTextButton.js';
 import { Image } from '@/components/Image.js';
 import { Modal } from '@/components/Modal.js';
 import { NetworkPluginID } from '@/constants/enum.js';
@@ -64,7 +64,7 @@ export const SolanaAccountModal = forwardRef<SingletonModalRefCreator>(function 
                             <div className="text-center text-medium font-bold leading-tight text-main">
                                 {publicKeyStr ? formatSolanaAddress(publicKeyStr, 10) : '-'}
                             </div>
-                            {publicKeyStr ? <CopyTextButton text={publicKeyStr} /> : null}
+                            {publicKeyStr ? <CopyTextButton value={publicKeyStr} /> : null}
                         </div>
                         <div className="inline-flex h-[23px] items-center justify-start gap-3 self-stretch">
                             <div

@@ -14,14 +14,14 @@ interface Props extends Omit<ClickableButtonProps, 'children'> {
 }
 
 export const MuteChannelButton = forwardRef<HTMLButtonElement, Props>(function MuteChannelButton(
-    { channel, onToggle, onClick, ...props }: Props,
+    { channel, onToggle, onClick, ...rest }: Props,
     ref,
 ) {
     const muted = channel.blocked;
 
     return (
         <MenuButton
-            {...props}
+            {...rest}
             onClick={async (event) => {
                 onClick?.(event);
                 const confirmed = !muted

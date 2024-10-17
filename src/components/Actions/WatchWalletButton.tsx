@@ -16,7 +16,7 @@ interface Props extends Omit<ClickableButtonProps, 'children'> {
 }
 
 export const WatchWalletButton = forwardRef<HTMLButtonElement, Props>(function WatchWalletButton(
-    { handleOrEnsOrAddress, address, isFollowing, ...props }: Props,
+    { handleOrEnsOrAddress, address, isFollowing, ...rest }: Props,
     ref,
 ) {
     const { data } = useIsFollowingWallet(address, isFollowing === undefined);
@@ -26,10 +26,10 @@ export const WatchWalletButton = forwardRef<HTMLButtonElement, Props>(function W
 
     return (
         <MenuButton
-            {...props}
+            {...rest}
             onClick={async (event) => {
                 await mutation.mutateAsync();
-                props.onClick?.(event);
+                rest.onClick?.(event);
             }}
             ref={ref}
         >

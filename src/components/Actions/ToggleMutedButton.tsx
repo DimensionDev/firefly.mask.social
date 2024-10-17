@@ -25,7 +25,7 @@ export function ToggleMutedButton({
     className,
     variant = 'text',
     ref,
-    ...props
+    ...rest
 }: ToggleMutedButtonProps) {
     const hoverRef = useRef<HTMLButtonElement>(null);
     const isHover = useHover(hoverRef);
@@ -53,7 +53,7 @@ export function ToggleMutedButton({
                 isMuted ? 'bg-danger text-white' : 'text-danger',
                 className,
             )}
-            {...props}
+            {...rest}
             disabled={loading}
         >
             {buttonText}

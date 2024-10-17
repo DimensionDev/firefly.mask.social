@@ -6,7 +6,7 @@ import { isAddress } from 'viem';
 
 import { ToggleMutedButton } from '@/components/Actions/ToggleMutedButton.js';
 import { Avatar } from '@/components/Avatar.js';
-import { CopyTextButton } from '@/components/CopyTextButton.jsx';
+import { CopyTextButton } from '@/components/CopyTextButton.js';
 import { Source } from '@/constants/enum.js';
 import { Link } from '@/esm/Link.js';
 import { classNames } from '@/helpers/classNames.js';
@@ -86,7 +86,7 @@ export const WalletItem = memo<WalletItemProps>(function WalletItem({
                     <Link href={profileLink} className="truncate">
                         {formatAddress(address, 10, 0)}
                     </Link>
-                    <CopyTextButton text={address} />
+                    <CopyTextButton value={address} />
                 </div>
             </div>
             {isValidAddress ? (
