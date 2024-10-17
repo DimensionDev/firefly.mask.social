@@ -1,5 +1,6 @@
 'use client';
 
+import { Trans } from '@lingui/macro';
 import { safeUnreachable } from '@masknet/kit';
 import { useAsyncFn } from 'react-use';
 
@@ -9,7 +10,6 @@ import { enqueueErrorMessage, enqueueInfoMessage } from '@/helpers/enqueueMessag
 import { getSnackbarMessageFromError } from '@/helpers/getSnackbarMessageFromError.js';
 import { fireflyBridgeProvider } from '@/providers/firefly/Bridge.js';
 import { type MethodItem, Network, Platform, SupportedMethod } from '@/types/bridge.js';
-import { Trans } from '@lingui/macro';
 
 interface Props {
     item: MethodItem;
