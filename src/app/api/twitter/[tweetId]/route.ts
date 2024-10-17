@@ -3,7 +3,7 @@ import { pick } from 'lodash-es';
 import type { NextRequest } from 'next/server.js';
 
 import { MalformedError } from '@/constants/error.js';
-import { TWITTER_TIMELINE_OPTIONS } from '@/constants/index.js';
+import { TWITTER_TIMELINE_OPTIONS } from '@/constants/twitter.js';
 import { compose } from '@/helpers/compose.js';
 import { createSuccessResponseJSON } from '@/helpers/createResponseJSON.js';
 import { createTwitterClientV2 } from '@/helpers/createTwitterClientV2.js';

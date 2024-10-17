@@ -45,7 +45,6 @@ export function ContinueButton({ status, className, onClick, ref, ...rest }: Con
                     ConnectModalRef.open();
                     return;
                 }
-
                 onClick?.(event);
             }}
             {...rest}
