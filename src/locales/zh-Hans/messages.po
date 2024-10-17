@@ -177,6 +177,9 @@ msgstr "允许 Lens 管理员执行发帖、点赞和评论等操作，而无需
 msgid "<0>Market Cap = Current Price x Circulating Supply</0><1>Refers to the total market value of a cryptocurrency’s circulating supply. It is similar to the stock market’s measurement of multiplying price per share by shares readily available in the market (not held & locked by insiders, governments)</1>"
 msgstr "<0>市值 = 当前价格 x 流通供应量</0><1>指加密货币流通供应量的总市值。它类似于股票市场的衡量标准，即将每股价格乘以市场上流通的股票（未被内部人员、政府持有和锁定）</1>"
 
+msgid "🤑 Just voted “{0}”"
+msgstr ""
+
 msgid "Confirm to sync accounts"
 msgstr "确认登陆"
 
@@ -966,6 +969,9 @@ msgstr "频道"
 msgid "The hidden owner function is not included. If there is a hidden owner, the project owner may have the ability to control the contract."
 msgstr ""
 
+msgid "{label} on a proposal"
+msgstr ""
+
 msgid "Failed to enable signless"
 msgstr "未能启用无签名功能"
 
@@ -1019,6 +1025,9 @@ msgstr "<0>出售了</0> 一个 NFT 价值 {costEl}"
 
 msgid "🎉"
 msgstr "🎉"
+
+msgid "Your vote is in!"
+msgstr ""
 
 msgid "The user canceled the operation."
 msgstr ""
@@ -1079,6 +1088,9 @@ msgstr "选项 {0}"
 
 msgid "Send Feedback"
 msgstr "提交反馈"
+
+msgid "No voting power"
+msgstr ""
 
 msgid "Your draft was saved."
 msgstr "草稿已被保存"
@@ -1408,6 +1420,9 @@ msgid "Are you sure you want to report this article?"
 msgstr "您确定要举报这篇文章吗？"
 
 msgid "NFT owner cant bypass the maximum amount of minting specified in the contract, and continue to mint NFTs beyond this limit."
+msgstr ""
+
+msgid "VOTED"
 msgstr ""
 
 msgid "Failed to upvote post."
@@ -2256,6 +2271,9 @@ msgstr ""
 msgid "Followed by {0} , {1}, and {2}"
 msgstr "被 {0} 和 {1} 和 {2} 关注"
 
+msgid "Vote"
+msgstr ""
+
 msgid "Ended on {0}"
 msgstr ""
 
@@ -2315,6 +2333,9 @@ msgstr ""
 
 msgid "Date"
 msgstr "日期"
+
+msgid "Failed to vote. {0}"
+msgstr ""
 
 msgid "Confirm to log out all accounts?"
 msgstr "确认登出这些账户？"
@@ -2852,6 +2873,9 @@ msgstr "已转发"
 
 msgid "Following"
 msgstr "正在关注"
+
+msgid "Create a post to tell everyone about your participation. Votes can be changed while the proposal is active."
+msgstr ""
 
 msgid "View transaction on Explorer"
 msgstr "查看交易详情"

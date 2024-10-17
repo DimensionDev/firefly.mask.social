@@ -1,4 +1,4 @@
-import { Menu, MenuItem, MenuItems } from '@headlessui/react';
+import { MenuItem, MenuItems } from '@headlessui/react';
 import { t, Trans } from '@lingui/macro';
 import { motion } from 'framer-motion';
 import { memo } from 'react';

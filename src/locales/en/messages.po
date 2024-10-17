@@ -172,6 +172,9 @@ msgstr "Allow Lens Manager to perform actions such as posting, liking, and comme
 msgid "<0>Market Cap = Current Price x Circulating Supply</0><1>Refers to the total market value of a cryptocurrency’s circulating supply. It is similar to the stock market’s measurement of multiplying price per share by shares readily available in the market (not held & locked by insiders, governments)</1>"
 msgstr "<0>Market Cap = Current Price x Circulating Supply</0><1>Refers to the total market value of a cryptocurrency’s circulating supply. It is similar to the stock market’s measurement of multiplying price per share by shares readily available in the market (not held & locked by insiders, governments)</1>"
 
+msgid "🤑 Just voted “{0}”"
+msgstr "🤑 Just voted “{0}”"
+
 msgid "Confirm to sync accounts"
 msgstr "Confirm to sync accounts"
 
@@ -961,6 +964,9 @@ msgstr "Channel"
 msgid "The hidden owner function is not included. If there is a hidden owner, the project owner may have the ability to control the contract."
 msgstr "The hidden owner function is not included. If there is a hidden owner, the project owner may have the ability to control the contract."
 
+msgid "{label} on a proposal"
+msgstr "{label} on a proposal"
+
 msgid "Failed to enable signless"
 msgstr "Failed to enable signless"
 
@@ -1014,6 +1020,9 @@ msgstr "<0>Sold</0> an NFT worth {costEl}"
 
 msgid "🎉"
 msgstr "🎉"
+
+msgid "Your vote is in!"
+msgstr "Your vote is in!"
 
 msgid "The user canceled the operation."
 msgstr "The user canceled the operation."
@@ -1074,6 +1083,9 @@ msgstr "Choice {0}"
 
 msgid "Send Feedback"
 msgstr "Send Feedback"
+
+msgid "No voting power"
+msgstr "No voting power"
 
 msgid "Your draft was saved."
 msgstr "Your draft was saved."
@@ -1404,6 +1416,9 @@ msgstr "Are you sure you want to report this article?"
 
 msgid "NFT owner cant bypass the maximum amount of minting specified in the contract, and continue to mint NFTs beyond this limit."
 msgstr "NFT owner cant bypass the maximum amount of minting specified in the contract, and continue to mint NFTs beyond this limit."
+
+msgid "VOTED"
+msgstr "VOTED"
 
 msgid "Failed to upvote post."
 msgstr "Failed to upvote post."
@@ -2251,6 +2266,9 @@ msgstr "Receive"
 msgid "Followed by {0} , {1}, and {2}"
 msgstr "Followed by {0} , {1}, and {2}"
 
+msgid "Vote"
+msgstr "Vote"
+
 msgid "Ended on {0}"
 msgstr "Ended on {0}"
 
@@ -2310,6 +2328,9 @@ msgstr "No money laundering involved."
 
 msgid "Date"
 msgstr "Date"
+
+msgid "Failed to vote. {0}"
+msgstr "Failed to vote. {0}"
 
 msgid "Confirm to log out all accounts?"
 msgstr "Confirm to log out all accounts?"
@@ -2847,6 +2868,9 @@ msgstr "mirrored"
 
 msgid "Following"
 msgstr "Following"
+
+msgid "Create a post to tell everyone about your participation. Votes can be changed while the proposal is active."
+msgstr "Create a post to tell everyone about your participation. Votes can be changed while the proposal is active."
 
 msgid "View transaction on Explorer"
 msgstr "View transaction on Explorer"

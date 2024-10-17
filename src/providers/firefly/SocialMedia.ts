@@ -12,6 +12,7 @@ import {
 } from '@/helpers/formatFarcasterChannelFromFirefly.js';
 import { formatFarcasterPostFromFirefly } from '@/helpers/formatFarcasterPostFromFirefly.js';
 import { formatFarcasterProfileFromFirefly } from '@/helpers/formatFarcasterProfileFromFirefly.js';
+import { formatSnapshotActivityFromFirefly } from '@/helpers/formatSnapshotFromFirefly.js';
 import { getCurrentProfile } from '@/helpers/getCurrentProfile.js';
 import { isZero } from '@/helpers/number.js';
 import {
@@ -26,6 +27,7 @@ import { resolveSourceInUrl } from '@/helpers/resolveSourceInUrl.js';
 import { farcasterSessionHolder } from '@/providers/farcaster/SessionHolder.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
 import { NeynarSocialMediaProvider } from '@/providers/neynar/SocialMedia.js';
+import { Snapshot } from '@/providers/snapshot/index.js';
 import {
     type BlockChannelResponse,
     type BlockedChannelsResponse,
@@ -39,6 +41,7 @@ import {
     type ChannelsResponse,
     type CommentsResponse,
     type DiscoverChannelsResponse,
+    type DiscoverSnapshotsResponse,
     type FireflyFarcasterProfileResponse,
     type FriendshipResponse,
     type NotificationResponse,
@@ -51,7 +54,6 @@ import {
     type ThreadResponse,
     type UserResponse,
     type UsersResponse,
-    type DiscoverSnapshotsResponse,
 } from '@/providers/types/Firefly.js';
 import {
     type Channel,
@@ -67,8 +69,6 @@ import {
 } from '@/providers/types/SocialMedia.js';
 import { getProfilesByIds } from '@/services/getProfilesByIds.js';
 import { settings } from '@/settings/index.js';
-import { formatSnapshotActivityFromFirefly } from '@/helpers/formatSnapshotFromFirefly.js';
-import { Snapshot } from '@/providers/snapshot/index.js';
 
 export class FireflySocialMedia implements Provider {
     get type() {

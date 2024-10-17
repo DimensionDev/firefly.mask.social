@@ -29,10 +29,10 @@ import { classNames } from '@/helpers/classNames.js';
 import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
 import { formatEthereumAddress } from '@/helpers/formatAddress.js';
 import { getSnackbarMessageFromError } from '@/helpers/getSnackbarMessageFromError.js';
+import { stopPropagation } from '@/helpers/stopEvent.js';
 import { ComposeModalRef, ConfirmModalRef } from '@/modals/controls.js';
 import { Snapshot } from '@/providers/snapshot/index.js';
 import type { SnapshotChoice, SnapshotProposal } from '@/providers/snapshot/type.js';
-import { stopPropagation } from '@/helpers/stopEvent.js';
 
 interface Props {
     snapshot: SnapshotProposal;

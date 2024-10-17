@@ -11,6 +11,7 @@ import { DiscoverNFTList } from '@/components/NFTs/DiscoverNFTList.js';
 import { DiscoverPostList } from '@/components/Posts/DiscoverPostList.js';
 import { ForYouPostList } from '@/components/Posts/ForYouPostList.js';
 import { RecentPostList } from '@/components/Posts/RecentPostList.js';
+import { DiscoverSnapshotList } from '@/components/Snapshot/DiscoverSnapshotList.js';
 import SuggestedFollowUsersList from '@/components/SuggestedFollows/SuggestedFollowUsersList.js';
 import {
     type DiscoverSource,
@@ -22,7 +23,6 @@ import {
 import { Link } from '@/esm/Link.js';
 import { classNames } from '@/helpers/classNames.js';
 import { resolveDiscoverUrl } from '@/helpers/resolveDiscoverUrl.js';
-import { DiscoverSnapshotList } from '@/components/Snapshot/DiscoverSnapshotList.js';
 
 interface Props {
     source: DiscoverSource;

@@ -1,7 +1,7 @@
+import { sum, values } from 'lodash-es';
+
 import { ordinal_suffix_of } from '@/helpers/ordinal_suffix_of.js';
 import type { SnapshotChoice } from '@/providers/snapshot/type.js';
-import { t } from '@lingui/macro';
-import { sum, values } from 'lodash-es';
 
 export function formatSnapshotChoice(choice: SnapshotChoice, type: string, choices: string[]) {
     if (['single-choice', 'basic'].includes(type) && typeof choice === 'number') {

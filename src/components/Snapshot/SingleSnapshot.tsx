@@ -1,14 +1,14 @@
+import { Trans } from '@lingui/macro';
 import { motion } from 'framer-motion';
 import { memo } from 'react';
 
 import VoteIcon from '@/assets/snapshot/vote.svg';
-import { SingleSnapshotHeader } from '@/components/Snapshot/SingleSnapshotHeader.js';
-import { classNames } from '@/helpers/classNames.js';
-import type { SnapshotActivity } from '@/providers/snapshot/type.js';
 import { CollapsedContent } from '@/components/Posts/CollapsedContent.js';
-import { Trans } from '@lingui/macro';
-import { formatSnapshotChoice } from '@/helpers/formatSnapshotChoice.js';
+import { SingleSnapshotHeader } from '@/components/Snapshot/SingleSnapshotHeader.js';
 import { SnapshotBody } from '@/components/Snapshot/SnapshotBody.js';
+import { classNames } from '@/helpers/classNames.js';
+import { formatSnapshotChoice } from '@/helpers/formatSnapshotChoice.js';
+import type { SnapshotActivity } from '@/providers/snapshot/type.js';
 
 interface SingleSnapshotProps {
     data: SnapshotActivity;
@@ -19,7 +19,6 @@ export const SingleSnapshot = memo<SingleSnapshotProps>(function SingleSnapshot(
 
     const label = data.proposal ? formatSnapshotChoice(data.choice, data.proposal.type, data.proposal.choices) : null;
 
-    console.log(data.proposal, label);
     return (
         <motion.article
             initial={{ opacity: 0 }}

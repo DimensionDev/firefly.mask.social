@@ -13,12 +13,12 @@ import { Link } from '@/esm/Link.js';
 import { classNames } from '@/helpers/classNames.js';
 import { formatEthereumAddress } from '@/helpers/formatAddress.js';
 import { humanize, nFormatter } from '@/helpers/formatCommentCounts.js';
+import { formatSnapshotChoice } from '@/helpers/formatSnapshotChoice.js';
 import { getStampAvatarByProfileId } from '@/helpers/getStampAvatarByProfileId.js';
 import { createIndicator } from '@/helpers/pageable.js';
 import { sanitizeDStorageUrl } from '@/helpers/sanitizeDStorageUrl.js';
 import { Snapshot } from '@/providers/snapshot/index.js';
 import type { SnapshotVote } from '@/providers/snapshot/type.js';
-import { formatSnapshotChoice } from '@/helpers/formatSnapshotChoice.js';
 
 interface SnapshotVotesListItemProps {
     vote: SnapshotVote;
