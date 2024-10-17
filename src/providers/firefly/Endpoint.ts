@@ -67,12 +67,12 @@ import type { DiscoverNFTResponse, GetFollowingNFTResponse } from '@/providers/t
 import { getWalletProfileByAddressOrEns } from '@/services/getWalletProfileByAddressOrEns.js';
 import { settings } from '@/settings/index.js';
 
-function resolveDeBankChain(deBankChain: string) {
-    const chain = DEBANK_CHAINS.find((chain) => chain.id === deBankChain);
+function resolveDebankChain(debankChain: string) {
+    const chain = DEBANK_CHAINS.find((chain) => chain.id === debankChain);
     if (chain) return { id: chain.community_id, logoUrl: chain.logo_url };
 
-    if (deBankChain in DEBANK_CHAIN_TO_CHAIN_ID_MAP) {
-        return { id: DEBANK_CHAIN_TO_CHAIN_ID_MAP[deBankChain] };
+    if (debankChain in DEBANK_CHAIN_TO_CHAIN_ID_MAP) {
+        return { id: DEBANK_CHAIN_TO_CHAIN_ID_MAP[debankChain] };
     }
     return;
 }
@@ -239,7 +239,7 @@ export class FireflyEndpoint {
         });
 
         return tokens.map((token) => {
-            const chain = resolveDeBankChain(token.chain);
+            const chain = resolveDebankChain(token.chain);
             return {
                 ...token,
                 chainId: chain?.id,

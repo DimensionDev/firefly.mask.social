@@ -18,9 +18,11 @@ import {
 import { parseJSON } from '@/helpers/parseJSON.js';
 import { toFid } from '@/helpers/toFid.js';
 import { farcasterSessionHolder } from '@/providers/farcaster/SessionHolder.js';
+import type { WalletProfile } from '@/providers/types/Firefly.js';
 import {
     type Channel,
     type Friendship,
+    NetworkType,
     type Notification,
     NotificationType,
     type Post,
@@ -50,6 +52,46 @@ import {
 } from '@/providers/types/Warpcast.js';
 
 class WarpcastSocialMedia implements Provider {
+    getChannelsByIds(ids: string[]): Promise<Channel[]> {
+        throw new NotImplementedError();
+    }
+
+    getChannelTrendingPosts(channel: Channel, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
+        throw new NotImplementedError();
+    }
+
+    blockWallet(address: string, networkType?: NetworkType): Promise<boolean> {
+        throw new NotImplementedError();
+    }
+
+    unblockWallet(address: string, networkType?: NetworkType): Promise<boolean> {
+        throw new NotImplementedError();
+    }
+
+    getBlockedWallets(indicator?: PageIndicator): Promise<Pageable<WalletProfile, PageIndicator>> {
+        throw new NotImplementedError();
+    }
+
+    watchWallet(address: string, networkType?: NetworkType): Promise<boolean> {
+        throw new NotImplementedError();
+    }
+
+    unwatchWallet(address: string, networkType?: NetworkType): Promise<boolean> {
+        throw new NotImplementedError();
+    }
+
+    reportChannel(channelId: string): Promise<boolean> {
+        throw new NotImplementedError();
+    }
+
+    getForYouPosts(indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
+        throw new NotImplementedError();
+    }
+
+    getRecentPosts(indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
+        throw new NotImplementedError();
+    }
+
     getFriendship(profileId: string): Promise<Friendship | null> {
         throw new NotImplementedError();
     }
@@ -719,9 +761,11 @@ class WarpcastSocialMedia implements Provider {
     async bookmark(postId: string): Promise<boolean> {
         return this.baseBookmark(postId, 'PUT');
     }
+
     async unbookmark(postId: string): Promise<boolean> {
         return this.baseBookmark(postId, 'DELETE');
     }
+
     async getBookmarks(indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
         const url = urlcat(WARPCAST_CLIENT_URL, '/bookmarked-casts', {
             limit: 25,

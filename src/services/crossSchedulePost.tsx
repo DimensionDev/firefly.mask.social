@@ -24,6 +24,7 @@ import { commitPoll } from '@/services/poll.js';
 import type { CompositePost } from '@/store/useComposeStore.js';
 import { useLensStateStore } from '@/store/useProfileStore.js';
 import type { ComposeType } from '@/types/compose.js';
+import { schedulePost } from '@/services/post.js';
 
 export async function createSchedulePostsPayload(
     type: ComposeType,
@@ -80,7 +81,7 @@ export async function crossSchedulePost(
         await useLensStateStore.getState().refreshCurrentAccount();
         await uploadSessions('merge', fireflySessionHolder.sessionRequired, getProfileSessionsAll());
 
-        const result = await FireflySocialMediaProvider.schedulePost(
+        const result = await schedulePost(
             scheduleTime,
             posts.map((x) => ({
                 ...x,

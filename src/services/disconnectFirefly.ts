@@ -6,6 +6,7 @@ import { removeAccountByProfileId } from '@/helpers/account.js';
 import { resolveSourceFromWalletSource } from '@/helpers/resolveSource.js';
 import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
 import type { FireflyIdentity, FireflyWalletConnection } from '@/providers/types/Firefly.js';
+import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 
 function getIdentity(connection: FireflyWalletConnection): FireflyIdentity | null {
     switch (connection.source) {
@@ -34,10 +35,10 @@ function getIdentity(connection: FireflyWalletConnection): FireflyIdentity | nul
 export async function disconnectFirefly(connection: FireflyWalletConnection) {
     const identity = getIdentity(connection);
     if (identity) {
-        await FireflySocialMediaProvider.disconnectAccount(identity);
+        await FireflyEndpointProvider.disconnectAccount(identity);
     }
 
-    await FireflySocialMediaProvider.disconnectWallet(connection.address);
+    await FireflyEndpointProvider.disconnectWallet(connection.address);
 
     if (!identity) return;
 
