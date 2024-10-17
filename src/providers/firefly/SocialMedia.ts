@@ -951,7 +951,7 @@ export class FireflySocialMedia implements Provider {
         const data = resolveFireflyResponseData(response);
         const proposals = await Snapshot.getProposals(data.result.map((x) => x.metadata.proposal_id));
 
-        const activies = data.result.map((x) => {
+        const activities = data.result.map((x) => {
             const proposal = proposals.find((p) => p.id === x.metadata.proposal_id);
 
             return {
@@ -961,7 +961,7 @@ export class FireflySocialMedia implements Provider {
         });
 
         return createPageable(
-            activies,
+            activities,
             createIndicator(indicator),
             data.cursor ? createNextIndicator(indicator, `${data.cursor}`) : undefined,
         );
