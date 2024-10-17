@@ -2909,4 +2909,3 @@ msgstr "未满足领取资格， <0>重试</0>"
 
 msgid "Reward for followers"
 msgstr "回馈粉丝"
-

@@ -9,6 +9,7 @@ import { resolveSourceInUrl } from '@/helpers/resolveSourceInUrl.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import { useSingletonModal } from '@/hooks/useSingletonModal.js';
 import type { SingletonModalRefCreator } from '@/libs/SingletonModal.js';
+import { MainView } from '@/modals/LoginModal/MainView.js';
 import { routeTree } from '@/modals/LoginModal/routes.js';
 
 function createLoginRouter() {
@@ -20,6 +21,7 @@ function createLoginRouter() {
         routeTree,
         history: memoryHistory,
         defaultPendingMinMs: 0,
+        defaultPendingComponent: MainView,
     });
 
     return router;
