@@ -1,6 +1,5 @@
 'use client';
 
-import { encodePublicKey } from '@masknet/web3-shared-solana';
 import { useWallet as useSolanaWallet } from '@solana/wallet-adapter-react';
 import { useQuery } from '@tanstack/react-query';
 import { StatusCodes } from 'http-status-codes';
@@ -40,7 +39,7 @@ export function ProfilePageLayout({ identity, children }: PropsWithChildren<{ id
             if (!identity.id) return EMPTY_LIST;
             const isTokenRequired =
                 isSameEthereumAddress(evmAccount.address, identity.id) ||
-                (!!solanaWallet.publicKey && isSameSolanaAddress(encodePublicKey(solanaWallet.publicKey), identity.id));
+                (!!solanaWallet.publicKey && isSameSolanaAddress(solanaWallet.publicKey.toBase58(), identity.id));
             return FireflyEndpointProvider.getAllPlatformProfileByIdentity(identity, isTokenRequired);
         },
     });

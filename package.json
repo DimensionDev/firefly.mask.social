@@ -151,7 +151,7 @@
         "@types/d3": "5.16.4",
         "@types/dompurify": "^3.0.5",
         "@types/lodash-es": "^4.17.12",
-        "@types/node": "20.12.7",
+        "@types/node": "20.11.9",
         "@types/omit-deep": "^0.3.2",
         "@types/react": "18.2.48",
         "@types/react-avatar-editor": "^13.0.3",
