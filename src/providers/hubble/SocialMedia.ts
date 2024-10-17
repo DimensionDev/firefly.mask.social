@@ -13,10 +13,12 @@ import { encodeMessageData } from '@/helpers/encodeMessageData.js';
 import { getAllMentionsForFarcaster } from '@/helpers/getAllMentionsForFarcaster.js';
 import type { Pageable, PageIndicator } from '@/helpers/pageable.js';
 import { farcasterSessionHolder } from '@/providers/farcaster/SessionHolder.js';
+import type { WalletProfile } from '@/providers/types/Firefly.js';
 import type { Response } from '@/providers/types/Hubble.js';
 import {
     type Channel,
     type Friendship,
+    NetworkType,
     type Notification,
     type Post,
     type Profile,
@@ -37,6 +39,46 @@ const ErrorResponseSchema = z.custom<Response<never>>((response) => {
 });
 
 class HubbleSocialMedia implements Provider {
+    getChannelsByIds(ids: string[]): Promise<Channel[]> {
+        throw new NotImplementedError();
+    }
+
+    getChannelTrendingPosts(channel: Channel, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
+        throw new NotImplementedError();
+    }
+
+    blockWallet(address: string, networkType?: NetworkType): Promise<boolean> {
+        throw new NotImplementedError();
+    }
+
+    unblockWallet(address: string, networkType?: NetworkType): Promise<boolean> {
+        throw new NotImplementedError();
+    }
+
+    getBlockedWallets(indicator?: PageIndicator): Promise<Pageable<WalletProfile, PageIndicator>> {
+        throw new NotImplementedError();
+    }
+
+    watchWallet(address: string, networkType?: NetworkType): Promise<boolean> {
+        throw new NotImplementedError();
+    }
+
+    unwatchWallet(address: string, networkType?: NetworkType): Promise<boolean> {
+        throw new NotImplementedError();
+    }
+
+    reportChannel(channelId: string): Promise<boolean> {
+        throw new NotImplementedError();
+    }
+
+    getForYouPosts(indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
+        throw new NotImplementedError();
+    }
+
+    getRecentPosts(indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
+        throw new NotImplementedError();
+    }
+
     getFriendship(profileId: string): Promise<Friendship | null> {
         throw new NotImplementedError();
     }

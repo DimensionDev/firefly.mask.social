@@ -37,6 +37,7 @@ import { resolveSourceInUrl } from '@/helpers/resolveSourceInUrl.js';
 import { resolveValue } from '@/helpers/resolveValue.js';
 import type { FarcasterSession } from '@/providers/farcaster/Session.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
+import type { Article } from '@/providers/types/Article.js';
 import type { Token as DebankToken } from '@/providers/types/Debank.js';
 import {
     type BindWalletResponse,
@@ -68,7 +69,6 @@ import {
 import type { DiscoverNFTResponse, GetFollowingNFTResponse } from '@/providers/types/NFTs.js';
 import { getWalletProfileByAddressOrEns } from '@/services/getWalletProfileByAddressOrEns.js';
 import { settings } from '@/settings/index.js';
-import type { Article } from '@/providers/types/Article.js';
 
 function resolveDebankChain(debankChain: string) {
     const chain = DEBANK_CHAINS.find((chain) => chain.id === debankChain);
