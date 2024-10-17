@@ -7,12 +7,15 @@ import { ActivityShortRules } from '@/components/CZ/ActivityShortRules.js';
 import { getActivityOG } from '@/components/CZ/getActivityOG.js';
 import { NavigationBar } from '@/components/CZ/NavigationBar.js';
 import { Image } from '@/esm/Image.js';
+import { setupLocaleForSSR } from '@/i18n/index.js';
 
 export async function generateMetadata(): Promise<Metadata> {
     return getActivityOG();
 }
 
 export default function Page() {
+    setupLocaleForSSR();
+
     return (
         <div className="mx-auto flex min-h-[100svh] w-full flex-col items-center">
             <NavigationBar>

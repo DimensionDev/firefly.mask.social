@@ -11,6 +11,7 @@ import { PageRoute, Source } from '@/constants/enum.js';
 import { Link } from '@/esm/Link.js';
 import { createPageTitleSSR } from '@/helpers/createPageTitle.js';
 import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
+import { setupLocaleForSSR } from '@/i18n/index.js';
 
 export async function generateMetadata() {
     return createSiteMetadata({
@@ -19,6 +20,8 @@ export async function generateMetadata() {
 }
 
 export default function NotFound() {
+    setupLocaleForSSR();
+
     return (
         <>
             <BaseNotFound className="min-h-[100vh] flex-grow md:pl-[289px]">

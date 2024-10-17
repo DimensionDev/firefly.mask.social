@@ -1,7 +1,7 @@
 'use client';
 
 import { useRouter } from 'next/navigation.js';
-import { useEffect } from 'react';
+import { useEffectOnce } from 'react-use';
 
 import { ToolkitList } from '@/app/(developers)/components/ToolkitList.js';
 import { useIsSmall } from '@/hooks/useMediaQuery.js';
@@ -10,10 +10,9 @@ export default function Developers() {
     const router = useRouter();
     const isSmall = useIsSmall('max');
 
-    useEffect(() => {
+    useEffectOnce(() => {
         if (!isSmall) router.replace('/developers/general');
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
+    });
 
     if (!isSmall) return null;
 

@@ -9,6 +9,7 @@ import { enqueueErrorMessage, enqueueInfoMessage } from '@/helpers/enqueueMessag
 import { getSnackbarMessageFromError } from '@/helpers/getSnackbarMessageFromError.js';
 import { fireflyBridgeProvider } from '@/providers/firefly/Bridge.js';
 import { type MethodItem, Network, Platform, SupportedMethod } from '@/types/bridge.js';
+import { Trans } from '@lingui/macro';
 
 interface Props {
     item: MethodItem;
@@ -112,7 +113,7 @@ export function MethodButton({ item }: Props) {
             disabled={loading}
             onClick={onClick}
         >
-            {item.name}()
+            <Trans>Invoke</Trans>
         </ClickableButton>
     );
 }
