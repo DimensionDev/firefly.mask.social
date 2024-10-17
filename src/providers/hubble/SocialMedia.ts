@@ -16,6 +16,7 @@ import { farcasterSessionHolder } from '@/providers/farcaster/SessionHolder.js';
 import type { Response } from '@/providers/types/Hubble.js';
 import {
     type Channel,
+    type Friendship,
     type Notification,
     type Post,
     type Profile,
@@ -36,24 +37,8 @@ const ErrorResponseSchema = z.custom<Response<never>>((response) => {
 });
 
 class HubbleSocialMedia implements Provider {
-    private async submitMessage<T>(messageBytes: Buffer) {
-        const url = urlcat(HUBBLE_URL, '/v1/submitMessage');
-        const response = await farcasterSessionHolder.fetchHubble<Response<T>>(url, {
-            method: 'POST',
-            body: messageBytes,
-        });
-
-        const parsed = ErrorResponseSchema.safeParse(response);
-
-        if (parsed.success) {
-            // invalid signer: signer not found for fid
-            if (parsed.data.code === 3 && parsed.data.errCode === 'bad_request.validation_failure')
-                throw new FarcasterInvalidSignerKey('Invalid signer key.');
-
-            throw new Error(parsed.data.details);
-        } else {
-            return response as T;
-        }
+    getFriendship(profileId: string): Promise<Friendship | null> {
+        throw new NotImplementedError();
     }
 
     commentPost(postId: string, post: Post): Promise<string> {
@@ -92,17 +77,11 @@ class HubbleSocialMedia implements Provider {
         throw new NotImplementedError();
     }
 
-    async getLikedPostsByProfileId(
-        profileId: string,
-        indicator?: PageIndicator,
-    ): Promise<Pageable<Post, PageIndicator>> {
+    getLikedPostsByProfileId(profileId: string, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
         throw new NotImplementedError();
     }
 
-    async getRepliesPostsByProfileId(
-        profileId: string,
-        indicator?: PageIndicator,
-    ): Promise<Pageable<Post, PageIndicator>> {
+    getRepliesPostsByProfileId(profileId: string, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
         throw new NotImplementedError();
     }
 
@@ -210,64 +189,84 @@ class HubbleSocialMedia implements Provider {
         throw new NotImplementedError();
     }
 
-    async reportProfile(profileId: string): Promise<boolean> {
+    reportProfile(profileId: string): Promise<boolean> {
         throw new NotImplementedError();
     }
 
-    async reportPost(post: Post): Promise<boolean> {
+    reportPost(post: Post): Promise<boolean> {
         throw new NotImplementedError();
     }
 
-    async blockProfile(profileId: string): Promise<boolean> {
+    blockProfile(profileId: string): Promise<boolean> {
         throw new NotImplementedError();
     }
 
-    async unblockProfile(profileId: string): Promise<boolean> {
+    unblockProfile(profileId: string): Promise<boolean> {
         throw new NotImplementedError();
     }
 
-    async getBlockedProfiles(indicator?: PageIndicator): Promise<Pageable<Profile, PageIndicator>> {
+    getBlockedProfiles(indicator?: PageIndicator): Promise<Pageable<Profile, PageIndicator>> {
         throw new NotImplementedError();
     }
 
-    async blockChannel(channelId: string): Promise<boolean> {
+    blockChannel(channelId: string): Promise<boolean> {
         throw new NotImplementedError();
     }
 
-    async unblockChannel(channelId: string): Promise<boolean> {
+    unblockChannel(channelId: string): Promise<boolean> {
         throw new NotImplementedError();
     }
 
-    async getBlockedChannels(indicator?: PageIndicator): Promise<Pageable<Channel, PageIndicator>> {
+    getBlockedChannels(indicator?: PageIndicator): Promise<Pageable<Channel, PageIndicator>> {
         throw new NotImplementedError();
     }
 
-    async getLikeReactors(postId: string, indicator?: PageIndicator): Promise<Pageable<Profile, PageIndicator>> {
+    getLikeReactors(postId: string, indicator?: PageIndicator): Promise<Pageable<Profile, PageIndicator>> {
         throw new NotImplementedError();
     }
 
-    async getRepostReactors(postId: string, indicator?: PageIndicator): Promise<Pageable<Profile, PageIndicator>> {
+    getRepostReactors(postId: string, indicator?: PageIndicator): Promise<Pageable<Profile, PageIndicator>> {
         throw new NotImplementedError();
     }
 
-    async getPostsQuoteOn(postId: string, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
+    getPostsQuoteOn(postId: string, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
         throw new NotImplementedError();
     }
 
-    async bookmark(postId: string): Promise<boolean> {
+    bookmark(postId: string): Promise<boolean> {
         throw new NotImplementedError();
     }
 
-    async unbookmark(postId: string): Promise<boolean> {
+    unbookmark(postId: string): Promise<boolean> {
         throw new NotImplementedError();
     }
 
-    async getBookmarks(indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
+    getBookmarks(indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
         throw new NotImplementedError();
     }
 
     get type() {
         return SessionType.Farcaster;
+    }
+
+    private async submitMessage<T>(messageBytes: Buffer) {
+        const url = urlcat(HUBBLE_URL, '/v1/submitMessage');
+        const response = await farcasterSessionHolder.fetchHubble<Response<T>>(url, {
+            method: 'POST',
+            body: messageBytes,
+        });
+
+        const parsed = ErrorResponseSchema.safeParse(response);
+
+        if (parsed.success) {
+            // invalid signer: signer not found for fid
+            if (parsed.data.code === 3 && parsed.data.errCode === 'bad_request.validation_failure')
+                throw new FarcasterInvalidSignerKey('Invalid signer key.');
+
+            throw new Error(parsed.data.details);
+        } else {
+            return response as T;
+        }
     }
 
     async quotePost(postId: string, post: Post, profileId?: string): Promise<string> {

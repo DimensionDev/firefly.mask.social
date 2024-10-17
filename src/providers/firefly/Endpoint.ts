@@ -4,7 +4,7 @@ import { type Address, type Hex, isAddress } from 'viem';
 
 import { queryClient } from '@/configs/queryClient.js';
 import { DEBANK_CHAIN_TO_CHAIN_ID_MAP, DEBANK_CHAINS } from '@/constants/chain.js';
-import { FireflyPlatform, NetworkType, Source, SourceInURL } from '@/constants/enum.js';
+import { FireflyPlatform, NetworkType, type SocialSource, Source, SourceInURL } from '@/constants/enum.js';
 import { EMPTY_LIST } from '@/constants/index.js';
 import { SetQueryDataForAddWallet } from '@/decorators/SetQueryDataForAddWallet.js';
 import { SetQueryDataForMuteAllProfiles } from '@/decorators/SetQueryDataForBlockProfile.js';
@@ -41,6 +41,7 @@ import {
     type BindWalletResponse,
     type BlockedUsersResponse,
     type BlockFields,
+    type BlockRelationResponse,
     type BlockUserResponse,
     type DebankTokensResponse,
     type EmptyResponse,
@@ -56,6 +57,7 @@ import {
     type NFTCollectionsResponse,
     type RelationResponse,
     type Response,
+    type SearchProfileResponse,
     type TwitterUserInfoResponse,
     type WalletProfile,
     type WalletProfileResponse,
@@ -412,6 +414,17 @@ export class FireflyEndpoint {
         return true;
     }
 
+    async searchIdentity(q: string, platforms?: SocialSource[]) {
+        const url = urlcat(settings.FIREFLY_ROOT_URL, '/v2/search/identity', {
+            keyword: q,
+            size: 100,
+        });
+        const response = await fireflySessionHolder.fetch<SearchProfileResponse>(url, {
+            method: 'GET',
+        });
+        return resolveFireflyResponseData(response);
+    }
+
     async discoverNFTs({
         indicator,
         limit = 40,
@@ -464,6 +477,30 @@ export class FireflyEndpoint {
             indicator,
             response.data.cursor ? createIndicator(undefined, response.data.cursor) : undefined,
         );
+    }
+
+    async getBlockRelation(conditions: Array<{ snsPlatform: FireflyPlatform; snsId: string }>) {
+        return fireflySessionHolder.withSession(async (session) => {
+            if (!session) return [];
+            const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/user/blockRelation');
+            const response = await fireflySessionHolder.fetch<BlockRelationResponse>(url, {
+                method: 'POST',
+                body: JSON.stringify({
+                    conditions,
+                }),
+            });
+            return response.data ?? [];
+        });
+    }
+
+    async isProfileMuted(platform: FireflyPlatform, profileId: string): Promise<boolean> {
+        const blockRelationList = await this.getBlockRelation([
+            {
+                snsPlatform: platform,
+                snsId: profileId,
+            },
+        ]);
+        return !!blockRelationList.find((x) => x.snsId === profileId)?.blocked;
     }
 
     async isProfileMutedAll(identity: FireflyIdentity) {

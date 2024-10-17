@@ -7,9 +7,8 @@ import { patchNotificationQueryDataOnAuthor } from '@/helpers/patchNotificationQ
 import { type Matcher, patchPostQueryData } from '@/helpers/patchPostQueryData.js';
 import { resolveSourceFromUrl } from '@/helpers/resolveSource.js';
 import type { FireflyEndpoint } from '@/providers/firefly/Endpoint.js';
-import type { FireflySocialMedia } from '@/providers/firefly/SocialMedia.js';
 import type { FireflyIdentity } from '@/providers/types/Firefly.js';
-import { type Profile } from '@/providers/types/SocialMedia.js';
+import { type Profile, type Provider } from '@/providers/types/SocialMedia.js';
 import type { ClassType } from '@/types/index.js';
 
 interface PagesData {
@@ -73,9 +72,9 @@ const METHODS_BE_OVERRIDDEN = ['blockProfile', 'unblockProfile'] as const;
 const METHODS_BE_OVERRIDDEN_MUTE_ALL = ['muteProfileAll'] as const;
 
 export function SetQueryDataForBlockProfile(source: SocialSource) {
-    return function decorator<T extends ClassType<FireflySocialMedia>>(target: T): T {
+    return function decorator<T extends ClassType<Provider>>(target: T): T {
         function overrideMethod<K extends (typeof METHODS_BE_OVERRIDDEN)[number]>(key: K) {
-            const method = target.prototype[key] as FireflySocialMedia[K];
+            const method = target.prototype[key] as Provider[K];
 
             Object.defineProperty(target.prototype, key, {
                 value: async (profileId: string) => {

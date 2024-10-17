@@ -7,8 +7,6 @@ import type { FireflyEndpoint } from '@/providers/firefly/Endpoint.js';
 import type { Article } from '@/providers/types/Article.js';
 import type { ClassType } from '@/types/index.js';
 
-type Provider = FireflyEndpoint;
-
 function toggleWatch(address: string, status: boolean) {
     type PagesData = { pages: Array<{ data: Article[] }> };
     const patcher = (old: Draft<PagesData> | undefined) => {
@@ -38,13 +36,13 @@ function toggleWatch(address: string, status: boolean) {
 const METHODS_BE_OVERRIDDEN = ['watchWallet', 'unwatchWallet'] as const;
 
 export function SetQueryDataForWatchWallet() {
-    return function decorator<T extends ClassType<Provider>>(target: T): T {
+    return function decorator<T extends ClassType<FireflyEndpoint>>(target: T): T {
         function overrideMethod<K extends (typeof METHODS_BE_OVERRIDDEN)[number]>(key: K) {
-            const method = target.prototype[key] as Provider[K];
+            const method = target.prototype[key] as FireflyEndpoint[K];
 
             Object.defineProperty(target.prototype, key, {
                 value: async (address: string) => {
-                    const m = method as (address: string) => ReturnType<Provider[K]>;
+                    const m = method as (address: string) => ReturnType<FireflyEndpoint[K]>;
                     const status = key === 'watchWallet';
                     try {
                         toggleWatch(address, status);

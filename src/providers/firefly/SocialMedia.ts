@@ -1,7 +1,7 @@
 import { compact } from 'lodash-es';
 import urlcat from 'urlcat';
 
-import { BookmarkType, FireflyPlatform, type SocialSource, Source, SourceInURL } from '@/constants/enum.js';
+import { BookmarkType, FireflyPlatform, Source, SourceInURL } from '@/constants/enum.js';
 import { NotFoundError, NotImplementedError } from '@/constants/error.js';
 import { EMPTY_LIST } from '@/constants/index.js';
 import { SetQueryDataForBlockWallet } from '@/decorators/SetQueryDataForBlockWallet.js';
@@ -31,7 +31,6 @@ import {
     type BlockChannelResponse,
     type BlockedChannelsResponse,
     type BlockedUsersResponse,
-    type BlockRelationResponse,
     type BookmarkResponse,
     type Cast,
     type CastResponse,
@@ -724,19 +723,6 @@ export class FireflySocialMedia implements Provider {
         );
     }
 
-    async searchIdentity(q: string, platforms?: SocialSource[]) {
-        const url = urlcat(settings.FIREFLY_ROOT_URL, '/v2/search/identity', {
-            keyword: q,
-            size: 100,
-        });
-
-        const response = await fireflySessionHolder.fetch<SearchProfileResponse>(url, {
-            method: 'GET',
-        });
-
-        return response.data;
-    }
-
     async searchPosts(q: string, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
         return farcasterSessionHolder.withSession(async (session) => {
             const url = urlcat(settings.FIREFLY_ROOT_URL, '/v2/farcaster-hub/cast/search', {
@@ -911,30 +897,6 @@ export class FireflySocialMedia implements Provider {
                 response.data?.cursor ? createNextIndicator(indicator, `${response.data.cursor}`) : undefined,
             );
         });
-    }
-
-    async getBlockRelation(conditions: Array<{ snsPlatform: FireflyPlatform; snsId: string }>) {
-        return farcasterSessionHolder.withSession(async (session) => {
-            if (!session) return [];
-            const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/user/blockRelation');
-            const response = await fireflySessionHolder.fetch<BlockRelationResponse>(url, {
-                method: 'POST',
-                body: JSON.stringify({
-                    conditions,
-                }),
-            });
-            return response.data ?? [];
-        });
-    }
-
-    async isProfileMuted(platform: FireflyPlatform, profileId: string): Promise<boolean> {
-        const blockRelationList = await this.getBlockRelation([
-            {
-                snsPlatform: platform,
-                snsId: profileId,
-            },
-        ]);
-        return !!blockRelationList.find((x) => x.snsId === profileId)?.blocked;
     }
 
     async blockChannel(channelId: string): Promise<boolean> {

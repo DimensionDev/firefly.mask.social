@@ -85,6 +85,7 @@ import {
 } from '@/providers/types/LensGraphql/profileManagers.js';
 import {
     type Channel,
+    type Friendship,
     type Notification,
     NotificationType,
     type Post,
@@ -111,7 +112,15 @@ const MOMOKA_ERROR_MSG = 'momoka publication is not allowed';
 @SetQueryDataForActPost(Source.Lens)
 @SetQueryDataForPosts
 @SetQueryDataForApprovalLensModule
-class LensSocialMedia implements Provider {
+export class LensSocialMedia implements Provider {
+    get type() {
+        return SessionType.Lens;
+    }
+
+    getFriendship(profileId: string): Promise<Friendship | null> {
+        throw new NotImplementedError();
+    }
+
     getChannelById(channelId: string): Promise<Channel> {
         throw new NotImplementedError();
     }
@@ -144,15 +153,35 @@ class LensSocialMedia implements Provider {
         throw new NotImplementedError();
     }
 
+    getLikedPostsByProfileId(profileId: string, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
+        throw new NotImplementedError();
+    }
+
+    getReactors(postId: string): Promise<Pageable<Profile>> {
+        throw new NotImplementedError();
+    }
+
+    blockChannel(channelId: string): Promise<boolean> {
+        throw new NotImplementedError();
+    }
+
+    unblockChannel(channelId: string): Promise<boolean> {
+        throw new NotImplementedError();
+    }
+
+    getBlockedChannels(indicator?: PageIndicator): Promise<Pageable<Channel, PageIndicator>> {
+        throw new NotImplementedError();
+    }
+
+    getProfileBadges(profile: Profile): Promise<ProfileBadge[]> {
+        throw new NotImplementedError();
+    }
+
     async deletePost(postId: string): Promise<boolean> {
         const response = await lensSessionHolder.sdk.publication.hide({
             for: postId,
         });
         return response.isSuccess().valueOf();
-    }
-
-    get type() {
-        return SessionType.Lens;
     }
 
     async publishPost(post: Post): Promise<string> {
@@ -755,13 +784,6 @@ class LensSocialMedia implements Provider {
         );
     }
 
-    async getLikedPostsByProfileId(
-        profileId: string,
-        indicator?: PageIndicator,
-    ): Promise<Pageable<Post, PageIndicator>> {
-        throw new NotImplementedError();
-    }
-
     async getRepliesPostsByProfileId(
         profileId: string,
         indicator?: PageIndicator,
@@ -875,8 +897,6 @@ class LensSocialMedia implements Provider {
             result.pageInfo.next ? createNextIndicator(indicator, result.pageInfo.next) : undefined,
         );
     }
-
-    getReactors!: (postId: string) => Promise<Pageable<Profile>>;
 
     async follow(profileId: string): Promise<boolean> {
         const result = await lensSessionHolder.sdk.profile.follow({
@@ -1210,7 +1230,7 @@ class LensSocialMedia implements Provider {
                 return x?.post?.author.profileId;
             }),
         );
-        const blockList = await FireflySocialMediaProvider.getBlockRelation(
+        const blockList = await FireflyEndpointProvider.getBlockRelation(
             profileIds.map((snsId) => ({ snsId, snsPlatform: SourceInURL.Lens })),
         );
 
@@ -1314,7 +1334,7 @@ class LensSocialMedia implements Provider {
     }
 
     async blockProfile(profileId: string) {
-        const result = await FireflySocialMediaProvider.blockProfileFor(FireflyPlatform.Lens, profileId);
+        const result = await FireflyEndpointProvider.blockProfileFor(FireflyPlatform.Lens, profileId);
         await runInSafeAsync(() =>
             lensSessionHolder.sdk.profile.block({
                 profiles: [profileId],
@@ -1324,7 +1344,7 @@ class LensSocialMedia implements Provider {
     }
 
     async unblockProfile(profileId: string) {
-        const result = await FireflySocialMediaProvider.unblockProfileFor(FireflyPlatform.Lens, profileId);
+        const result = await FireflyEndpointProvider.unblockProfileFor(FireflyPlatform.Lens, profileId);
         await runInSafeAsync(() =>
             lensSessionHolder.sdk.profile.unblock({
                 profiles: [profileId],
@@ -1335,18 +1355,6 @@ class LensSocialMedia implements Provider {
 
     async getBlockedProfiles(indicator?: PageIndicator): Promise<Pageable<Profile, PageIndicator>> {
         return FireflySocialMediaProvider.getBlockedProfiles(indicator, FireflyPlatform.Lens);
-    }
-
-    async blockChannel(channelId: string): Promise<boolean> {
-        throw new NotImplementedError();
-    }
-
-    async unblockChannel(channelId: string): Promise<boolean> {
-        throw new NotImplementedError();
-    }
-
-    async getBlockedChannels(indicator?: PageIndicator): Promise<Pageable<Channel, PageIndicator>> {
-        throw new NotImplementedError();
     }
 
     async getLikeReactors(postId: string, indicator?: PageIndicator) {
@@ -1570,10 +1578,6 @@ class LensSocialMedia implements Provider {
         });
 
         await waitForEthereumTransaction(polygon.id, hash);
-    }
-
-    async getProfileBadges(profile: Profile): Promise<ProfileBadge[]> {
-        throw new NotImplementedError();
     }
 }
 

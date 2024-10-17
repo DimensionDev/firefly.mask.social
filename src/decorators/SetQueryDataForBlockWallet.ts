@@ -5,7 +5,6 @@ import { Source } from '@/constants/enum.js';
 import { isSameEthereumAddress, isSameSolanaAddress } from '@/helpers/isSameAddress.js';
 import { resolveSourceFromUrl } from '@/helpers/resolveSource.js';
 import type { FireflyEndpoint } from '@/providers/firefly/Endpoint.js';
-import type { FireflySocialMedia } from '@/providers/firefly/SocialMedia.js';
 import type { Article } from '@/providers/types/Article.js';
 import type { FireflyIdentity, WalletProfile } from '@/providers/types/Firefly.js';
 import type { FollowingNFT, NFTFeed } from '@/providers/types/NFTs.js';
@@ -64,7 +63,6 @@ function toggleBlock(address: string, status: boolean) {
 
     queryClient.setQueriesData<NFTPagesData>({ queryKey: ['nfts', 'following', Source.NFTs] }, nftsPatcher);
     queryClient.setQueriesData<NFTPagesData>({ queryKey: ['nfts', 'discover', Source.NFTs] }, nftsPatcher);
-
     queryClient.setQueriesData<WalletProfilePagesData>({ queryKey: ['wallets', 'muted-list'] }, (old) => {
         if (!old) return old;
         return produce(old, (draft) => {
@@ -87,13 +85,13 @@ const METHODS_BE_OVERRIDDEN = ['blockWallet', 'unblockWallet'] as const;
 const METHODS_BE_OVERRIDDEN_MUTE_ALL = ['muteProfileAll'] as const;
 
 export function SetQueryDataForBlockWallet() {
-    return function decorator<T extends ClassType<FireflySocialMedia>>(target: T): T {
+    return function decorator<T extends ClassType<FireflyEndpoint>>(target: T): T {
         function overrideMethod<K extends (typeof METHODS_BE_OVERRIDDEN)[number]>(key: K) {
-            const method = target.prototype[key] as FireflySocialMedia[K];
+            const method = target.prototype[key] as FireflyEndpoint[K];
 
             Object.defineProperty(target.prototype, key, {
                 value: async (address: string) => {
-                    const m = method as (address: string) => ReturnType<FireflySocialMedia[K]>;
+                    const m = method as (address: string) => ReturnType<FireflyEndpoint[K]>;
                     const status = key === 'blockWallet';
                     try {
                         const result = await m.call(target.prototype, address);

@@ -29,6 +29,7 @@ import { NeynarSocialMediaProvider } from '@/providers/neynar/SocialMedia.js';
 import { FarcasterOpenRankProvider } from '@/providers/openrank/Farcaster.js';
 import {
     type Channel,
+    type Friendship,
     type Notification,
     type Post,
     type Profile,
@@ -60,6 +61,10 @@ class FarcasterSocialMedia implements Provider {
     }
 
     collectPost(postId: string, collectionId?: string): Promise<void> {
+        throw new NotImplementedError();
+    }
+
+    getFriendship(profileId: string): Promise<Friendship | null> {
         throw new NotImplementedError();
     }
 
@@ -312,17 +317,19 @@ class FarcasterSocialMedia implements Provider {
         return FireflySocialMediaProvider.getCommentsById(postId, indicator);
     }
     async reportProfile(profileId: string) {
-        return FireflySocialMediaProvider.reportProfile(profileId);
+        return FireflyEndpointProvider.reportProfile(profileId);
     }
+
     async reportPost(post: Post) {
         return FireflySocialMediaProvider.reportPost(post);
     }
+
     async blockProfile(profileId: string) {
-        return FireflySocialMediaProvider.blockProfileFor(FireflyPlatform.Farcaster, profileId);
+        return FireflyEndpointProvider.blockProfileFor(FireflyPlatform.Farcaster, profileId);
     }
 
     async unblockProfile(profileId: string) {
-        return FireflySocialMediaProvider.unblockProfileFor(FireflyPlatform.Farcaster, profileId);
+        return FireflyEndpointProvider.unblockProfileFor(FireflyPlatform.Farcaster, profileId);
     }
 
     async getBlockedProfiles(indicator?: PageIndicator): Promise<Pageable<Profile, PageIndicator>> {
