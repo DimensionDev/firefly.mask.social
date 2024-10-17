@@ -6,7 +6,7 @@ import { ListInPage } from '@/components/ListInPage.js';
 import { getSingleNFTFeedItemContent } from '@/components/NFTs/VirtualListHelper.js';
 import { ScrollListKey, Source } from '@/constants/enum.js';
 import { createIndicator } from '@/helpers/pageable.js';
-import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
+import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 import { useInvalidNFTStore } from '@/store/useInvalidNFTStore.js';
 
 export function DiscoverNFTList() {
@@ -14,7 +14,7 @@ export function DiscoverNFTList() {
         queryKey: ['nfts', 'discover'],
         networkMode: 'always',
         async queryFn({ pageParam }) {
-            return await FireflySocialMediaProvider.discoverNFTs({
+            return await FireflyEndpointProvider.discoverNFTs({
                 indicator: createIndicator(undefined, pageParam),
             });
         },

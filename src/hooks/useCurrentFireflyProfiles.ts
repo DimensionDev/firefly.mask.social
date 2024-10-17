@@ -6,7 +6,7 @@ import { type SocialSource, Source } from '@/constants/enum.js';
 import { EMPTY_LIST, SORTED_SOCIAL_SOURCES } from '@/constants/index.js';
 import { resolveFireflyProfileId } from '@/helpers/resolveFireflyProfileId.js';
 import { useCurrentProfileAll } from '@/hooks/useCurrentProfile.js';
-import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
+import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 import type { FireflyProfile } from '@/providers/types/Firefly.js';
 
 export function useCurrentFireflyProfiles() {
@@ -72,10 +72,10 @@ export function useCurrentFireflyProfilesAll() {
         enabled: queryEnabled,
         queryFn: async () => {
             const withTwitterProfiles = twitterIdentity
-                ? await FireflySocialMediaProvider.getAllPlatformProfiles(undefined, undefined, twitterIdentity)
+                ? await FireflyEndpointProvider.getAllPlatformProfiles(undefined, undefined, twitterIdentity)
                 : [];
             const connectedProfiles =
-                lensIdentity || farcasterIdentity ? await FireflySocialMediaProvider.getAllPlatformProfiles() : [];
+                lensIdentity || farcasterIdentity ? await FireflyEndpointProvider.getAllPlatformProfiles() : [];
             return [
                 ...connectedProfiles,
                 ...withTwitterProfiles.filter((profile) =>

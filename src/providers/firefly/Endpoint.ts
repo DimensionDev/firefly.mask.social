@@ -369,26 +369,6 @@ export class FireflyEndpoint {
         return resolveFireflyResponseData(response);
     }
 
-    async disconnectAccount(identity: FireflyIdentity) {
-        const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/accountConnection', {
-            connectionPlatform: resolveSourceInUrl(identity.source),
-            connectionId: identity.id,
-        });
-        await fireflySessionHolder.fetch<Response<void>>(url, {
-            method: 'DELETE',
-        });
-    }
-
-    async disconnectWallet(address: string) {
-        const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/wallet');
-        await fireflySessionHolder.fetch<Response<void>>(url, {
-            method: 'DELETE',
-            body: JSON.stringify({
-                addresses: [address],
-            }),
-        });
-    }
-
     async watchWallet(address: string) {
         if (!isAddress(address)) throw new Error(`Invalid address: ${address}`);
         const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/user/follow', {
@@ -490,6 +470,26 @@ export class FireflyEndpoint {
                 }),
             });
             return response.data ?? [];
+        });
+    }
+
+    async disconnectAccount(identity: FireflyIdentity) {
+        const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/accountConnection', {
+            connectionPlatform: resolveSourceInUrl(identity.source),
+            connectionId: identity.id,
+        });
+        await fireflySessionHolder.fetch<EmptyResponse>(url, {
+            method: 'DELETE',
+        });
+    }
+
+    async disconnectWallet(address: string) {
+        const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/wallet');
+        await fireflySessionHolder.fetch<EmptyResponse>(url, {
+            method: 'DELETE',
+            body: JSON.stringify({
+                addresses: [address],
+            }),
         });
     }
 

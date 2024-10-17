@@ -33,9 +33,7 @@ function getIdentity(connection: FireflyWalletConnection): FireflyIdentity | nul
 
 export async function disconnectFirefly(connection: FireflyWalletConnection) {
     const identity = getIdentity(connection);
-    if (identity) {
-        await FireflyEndpointProvider.disconnectAccount(identity);
-    }
+    if (identity) await FireflyEndpointProvider.disconnectAccount(identity);
 
     await FireflyEndpointProvider.disconnectWallet(connection.address);
 

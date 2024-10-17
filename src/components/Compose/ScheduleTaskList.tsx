@@ -26,8 +26,8 @@ import { resolveSocialSource } from '@/helpers/resolveSource.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import { ConfirmModalRef, DraggablePopoverRef, SchedulePostModalRef } from '@/modals/controls.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
-import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
 import type { SchedulePostDisplayInfo, ScheduleTask } from '@/providers/types/Firefly.js';
+import { deleteScheduledPost, getScheduledPosts } from '@/services/post.js';
 import { usePreferencesState } from '@/store/usePreferenceStore.js';
 
 function getTitle(displayInfo: SchedulePostDisplayInfo, isFailed: boolean) {
@@ -68,7 +68,7 @@ const ScheduleTaskItem = memo(function ScheduleTaskItem({ task }: { task: Schedu
             });
 
             if (!confirmed) return;
-            const result = await FireflySocialMediaProvider.deleteScheduledPost(task.uuid);
+            const result = await deleteScheduledPost(task.uuid);
             if (!result) return;
             queryClient.refetchQueries({
                 queryKey: ['schedule-tasks', fireflySessionHolder.session?.profileId],
@@ -158,7 +158,7 @@ export function ScheduleTaskList() {
     const { data, fetchNextPage, isFetching, isFetchingNextPage, hasNextPage } = useSuspenseInfiniteQuery({
         queryKey: ['schedule-tasks', fireflySessionHolder.session?.profileId],
         queryFn: async ({ pageParam }) => {
-            return FireflySocialMediaProvider.getScheduledPosts(createIndicator(undefined, pageParam));
+            return getScheduledPosts(createIndicator(undefined, pageParam));
         },
         initialPageParam: '',
         getNextPageParam: (lastPage) => lastPage.nextIndicator?.id,

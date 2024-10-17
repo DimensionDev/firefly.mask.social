@@ -14,7 +14,7 @@ import { enqueueInfoMessage } from '@/helpers/enqueueMessage.js';
 import { isSameFireflyIdentity } from '@/helpers/isSameFireflyIdentity.js';
 import { useCurrentFireflyProfilesAll } from '@/hooks/useCurrentFireflyProfiles.js';
 import { TipsModalRef } from '@/modals/controls.js';
-import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
+import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 import type { FireflyIdentity } from '@/providers/types/Firefly.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 
@@ -44,7 +44,7 @@ export const Tips = memo(function Tips({
 
     const [{ loading }, handleClick] = useAsyncFn(async () => {
         try {
-            const relatedProfiles = await FireflySocialMediaProvider.getAllPlatformProfileByIdentity(identity, true);
+            const relatedProfiles = await FireflyEndpointProvider.getAllPlatformProfileByIdentity(identity, true);
             if (!relatedProfiles?.some((profile) => profile.identity.source === Source.Wallet)) {
                 throw new Error('No available profiles');
             }

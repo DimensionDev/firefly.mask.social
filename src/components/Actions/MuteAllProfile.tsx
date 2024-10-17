@@ -14,7 +14,7 @@ import { formatAddress } from '@/helpers/formatAddress.js';
 import { getSnackbarMessageFromError } from '@/helpers/getSnackbarMessageFromError.js';
 import { useFireflyIdentity } from '@/hooks/useFireflyIdentity.js';
 import { ConfirmModalRef } from '@/modals/controls.js';
-import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
+import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 import type { FireflyIdentity } from '@/providers/types/Firefly.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 
@@ -39,7 +39,7 @@ function waitForConfirmation(handleOrEnsOrAddress: string) {
 function MuteAllProfileBase({ handleOrEnsOrAddress, identity, onClose }: MuteAllProfileBaseProps) {
     const { data: isMutedAll, isLoading } = useQuery({
         queryKey: ['profile', 'mute-all', identity.id, identity.source],
-        queryFn: async () => FireflySocialMediaProvider.isProfileMutedAll(identity),
+        queryFn: async () => FireflyEndpointProvider.isProfileMutedAll(identity),
     });
 
     const [{ loading }, handleMuteAll] = useAsyncFn(async () => {
@@ -47,7 +47,7 @@ function MuteAllProfileBase({ handleOrEnsOrAddress, identity, onClose }: MuteAll
             onClose?.();
             const confirmed = await waitForConfirmation(handleOrEnsOrAddress);
             if (!confirmed) return;
-            await FireflySocialMediaProvider.muteProfileAll(identity);
+            await FireflyEndpointProvider.muteProfileAll(identity);
             enqueueSuccessMessage(t`All wallets and accounts are muted.`);
         } catch (error) {
             enqueueErrorMessage(getSnackbarMessageFromError(error, t`Failed to mute all wallets and accounts.`), {

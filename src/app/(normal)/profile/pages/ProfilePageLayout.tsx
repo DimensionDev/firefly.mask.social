@@ -21,7 +21,7 @@ import { resolveProfileUrl } from '@/helpers/resolveProfileUrl.js';
 import { useCurrentFireflyProfilesAll } from '@/hooks/useCurrentFireflyProfiles.js';
 import { useUpdateCurrentVisitingProfile } from '@/hooks/useCurrentVisitingProfile.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
-import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
+import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 import type { FireflyIdentity } from '@/providers/types/Firefly.js';
 import { getProfileById } from '@/services/getProfileById.js';
 
@@ -41,7 +41,7 @@ export function ProfilePageLayout({ identity, children }: PropsWithChildren<{ id
             const isTokenRequired =
                 isSameEthereumAddress(evmAccount.address, identity.id) ||
                 (!!solanaWallet.publicKey && isSameSolanaAddress(encodePublicKey(solanaWallet.publicKey), identity.id));
-            return FireflySocialMediaProvider.getAllPlatformProfileByIdentity(identity, isTokenRequired);
+            return FireflyEndpointProvider.getAllPlatformProfileByIdentity(identity, isTokenRequired);
         },
     });
 

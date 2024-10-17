@@ -10,7 +10,7 @@ import { MenuButton } from '@/components/Actions/MenuButton.js';
 import { type ClickableButtonProps } from '@/components/ClickableButton.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
 import { ConfirmModalRef, LoginModalRef } from '@/modals/controls.js';
-import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
+import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 
 interface Props extends Omit<ClickableButtonProps, 'children'> {
     handleOrEnsOrAddress: string;
@@ -25,8 +25,8 @@ export const MuteWalletButton = forwardRef<HTMLButtonElement, Props>(function Mu
     const isLogin = useIsLogin();
     const mutation = useMutation({
         mutationFn: () => {
-            if (isMuted) return FireflySocialMediaProvider.unblockWallet(address);
-            return FireflySocialMediaProvider.blockWallet(address);
+            if (isMuted) return FireflyEndpointProvider.unblockWallet(address);
+            return FireflyEndpointProvider.blockWallet(address);
         },
     });
     const loading = mutation.isPending;

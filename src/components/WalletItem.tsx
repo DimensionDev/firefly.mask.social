@@ -17,7 +17,7 @@ import { isValidSolanaAddress } from '@/helpers/isValidSolanaAddress.js';
 import { resolveProfileUrl } from '@/helpers/resolveProfileUrl.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
 import { ConfirmModalRef, LoginModalRef } from '@/modals/controls.js';
-import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
+import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 import type { WalletProfile } from '@/providers/types/Firefly.js';
 
 interface WalletItemProps {
@@ -37,8 +37,8 @@ export const WalletItem = memo<WalletItemProps>(function WalletItem({
     const isLogin = useIsLogin();
     const mutation = useMutation({
         mutationFn: () => {
-            if (isMuted) return FireflySocialMediaProvider.unblockWallet(address);
-            return FireflySocialMediaProvider.blockWallet(address);
+            if (isMuted) return FireflyEndpointProvider.unblockWallet(address);
+            return FireflyEndpointProvider.blockWallet(address);
         },
     });
 

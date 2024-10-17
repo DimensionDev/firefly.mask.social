@@ -4,7 +4,7 @@ import type { Address } from 'viem';
 
 import { enqueueErrorMessage, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { getSnackbarMessageFromError } from '@/helpers/getSnackbarMessageFromError.js';
-import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
+import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 
 interface Options {
     handleOrEnsOrAddress: string;
@@ -20,11 +20,11 @@ export function useToggleWatchWallet({ handleOrEnsOrAddress, address, following 
                 const addr = address.toLowerCase();
 
                 if (following) {
-                    const result = await FireflySocialMediaProvider.unwatchWallet(addr);
+                    const result = await FireflyEndpointProvider.unwatchWallet(addr);
                     enqueueSuccessMessage(t`${handleOrEnsOrAddress} unwatched`);
                     return result;
                 }
-                const result = await FireflySocialMediaProvider.watchWallet(addr);
+                const result = await FireflyEndpointProvider.watchWallet(addr);
                 enqueueSuccessMessage(t`${handleOrEnsOrAddress} watched`);
                 return result;
             } catch (error) {

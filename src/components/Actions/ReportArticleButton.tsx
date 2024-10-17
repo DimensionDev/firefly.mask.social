@@ -8,7 +8,7 @@ import { type ClickableButtonProps } from '@/components/ClickableButton.js';
 import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
 import { getSnackbarMessageFromError } from '@/helpers/getSnackbarMessageFromError.js';
 import { ConfirmModalRef } from '@/modals/controls.js';
-import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
+import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 import type { Article } from '@/providers/types/Article.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 
@@ -23,7 +23,7 @@ export const ReportArticleButton = forwardRef<HTMLButtonElement, Props>(function
 ) {
     const mutation = useMutation({
         mutationFn: async () => {
-            return FireflySocialMediaProvider.reportArticle(article);
+            return FireflyEndpointProvider.reportArticle(article);
         },
     });
     return (
