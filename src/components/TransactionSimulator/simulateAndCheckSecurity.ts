@@ -66,10 +66,11 @@ export async function simulateAndCheckSecurity({ url, chainId, transaction: data
         }
 
         const messages =
-            simulation?.status && txData
+            simulation?.status || url
                 ? await GoPlus.checkTransaction({
                       ...txData,
-                      chain_id: txData.chain_id.toString(),
+                      chain_id: chainId.toString(),
+                      url,
                   })
                 : [];
 

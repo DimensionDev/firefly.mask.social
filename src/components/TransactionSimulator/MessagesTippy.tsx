@@ -46,7 +46,7 @@ function MessagesContent({ messages, className, ...rest }: MessagesTippyProps) {
     return (
         <menu
             className={classNames(
-                'max-h-[40vh] overflow-y-auto rounded-2xl border border-line bg-lightBottom p-4 text-left dark:bg-darkBottom dark:shadow-popover md:max-h-72',
+                'no-scrollbar max-h-[40vh] overflow-y-auto rounded-2xl border border-line bg-lightBottom p-4 text-left dark:bg-darkBottom dark:shadow-popover md:max-h-72',
                 className,
             )}
             {...rest}
@@ -74,7 +74,7 @@ function MessagesContent({ messages, className, ...rest }: MessagesTippyProps) {
                                         />
                                         {title}
                                     </h2>
-                                    <span className="mt-1 text-sm text-lightSecond">{message}</span>
+                                    <span className="mt-1 break-all text-sm text-lightSecond">{message}</span>
                                 </li>
                             ))}
                         </menu>

@@ -198,9 +198,9 @@ export interface NFTSecurity {
 export interface CheckTransactionRequest {
     url?: string;
     chain_id: string;
-    to_address: string;
-    input_data: string;
-    value: string;
+    to_address?: string;
+    input_data?: string;
+    value?: string;
 }
 
 export type CheckTransactionResponse = Response<
