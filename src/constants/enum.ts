@@ -160,6 +160,7 @@ export enum ScrollListKey {
     TopCollectors = 'top-collectors',
     SuggestedUsers = 'suggested-users',
     SchedulePosts = 'schedule-posts',
+    Activity = 'activity',
 }
 
 export enum FarcasterSignType {

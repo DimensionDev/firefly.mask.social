@@ -99,6 +99,9 @@ msgstr "社区"
 msgid "Discover"
 msgstr "发现"
 
+msgid "Hold ≥ $10k BNB Chain asset"
+msgstr ""
+
 msgid "Ask a question"
 msgstr "询问"
 
@@ -150,6 +153,9 @@ msgstr "显示名称"
 msgid "Debug Connection"
 msgstr "诊断网络"
 
+msgid "Hold on, in addition to meeting above criteria, fulfill any of the following to upgrade to a premium airdrop"
+msgstr ""
+
 msgid "Allow Lens Manager to perform actions such as posting, liking, and commenting without the need to sign each transaction."
 msgstr "允许 Lens 管理员执行发帖、点赞和评论等操作，而无需签署每笔交易。"
 
@@ -168,6 +174,9 @@ msgstr "我们没察觉到有任何阻止通证售卖的代码逻辑。"
 msgid "Watching"
 msgstr "观察中"
 
+msgid "Step 1 Sign in with X"
+msgstr ""
+
 msgid "Rank #{0}"
 msgstr "排名 #{0}"
 
@@ -182,6 +191,9 @@ msgstr "可以暂停交易的功能"
 
 msgid "<0>The maximum number of coins coded to exist in the lifetime of the cryptocurrency. It is comparable to the maximum number of issuable shares in the stock market.</0><1>Max Supply = Theoretical maximum as coded</1>"
 msgstr "<0>加密货币生命周期存在的最大发行数量。它与股票市场中可发行股票的最大数量相当。</0><1>最大供应量 = 理论最大值</1>"
+
+msgid "Ended"
+msgstr ""
 
 msgid "Unknown error"
 msgstr "未知错误"
@@ -302,6 +314,9 @@ msgstr "NFT 标准"
 
 msgid "Failed to like the comment."
 msgstr "点赞失败。"
+
+msgid "Sign in"
+msgstr ""
 
 msgid "<0>Posted</0>an article"
 msgstr "<0>发布了</0>一篇文章"
@@ -546,6 +561,9 @@ msgstr "添加另一个帖子..."
 msgid "1m left"
 msgstr "1分钟剩余"
 
+msgid "Core Asset Access: Unlock premium tokens, exclusive NFTs, and nodes for more investment opportunities."
+msgstr ""
+
 msgid "Congratulation!"
 msgstr "恭喜！"
 
@@ -666,6 +684,9 @@ msgstr "上传头像失败。"
 msgid "Frame Validator"
 msgstr "Frame 验证器"
 
+msgid "Priority Access: Holders get early access to future projects, beta tests, and airdrops. And they will also have a first look at the latest features and content."
+msgstr ""
+
 msgid "No proxy"
 msgstr "无代理"
 
@@ -746,6 +767,9 @@ msgstr "这个通证合约提到它不能出售。也许这是一个欺诈行为
 
 msgid "REPLY to<0><1>@{0}</1></0>"
 msgstr "回复给<0><1>@{0}</1></0>"
+
+msgid "Share this activity on social media"
+msgstr ""
 
 msgid "Directory"
 msgstr "目录"
@@ -843,6 +867,9 @@ msgstr "转帖或者引用"
 msgid "Confirm you want to mute /{0}?"
 msgstr "您确定要隐藏 /{0} 吗？"
 
+msgid "Followed @Firefly on X"
+msgstr ""
+
 msgid "Enter amount"
 msgstr "输入金额"
 
@@ -932,6 +959,9 @@ msgstr "切换"
 
 msgid "Drafts"
 msgstr "草稿"
+
+msgid "About Airdrop"
+msgstr ""
 
 msgid "Follow"
 msgstr "关注"
@@ -1260,6 +1290,9 @@ msgstr "你认识的关注者"
 msgid "Settings"
 msgstr "设置"
 
+msgid "X Premium account"
+msgstr ""
+
 msgid "Unsent posts"
 msgstr "未发送的帖子"
 
@@ -1277,6 +1310,9 @@ msgstr "取消隐藏 {handleOrEnsOrAddress}"
 
 msgid "Failed to disconnect wallet from your social graph."
 msgstr "未能从您的社交图谱中断链。"
+
+msgid "Pending"
+msgstr ""
 
 msgid "No preview found for shared link"
 msgstr "无法预加载"
@@ -1401,6 +1437,9 @@ msgstr "<0>© 2024 Firefly.</0> 版权所有。"
 msgid "Add wallet"
 msgstr "添加钱包"
 
+msgid "Voting Rights: Participate in key decisions and shape the platform’s development through community governance."
+msgstr ""
+
 msgid "Please switch to {0}"
 msgstr "请切换到 {0}"
 
@@ -1518,6 +1557,9 @@ msgstr "请切换到与此操作一致的钱包。"
 msgid "Upload to S3"
 msgstr "上传到 S3"
 
+msgid "Submitted claimed address"
+msgstr ""
+
 msgid "{shares, plural, one {Recast or Quote} other {Recasts or Quotes}}"
 msgstr "{shares, plural, one {转帖或引用} other {转帖或引用}}"
 
@@ -1560,6 +1602,9 @@ msgstr "在 X 上关注 @thefireflyapp"
 msgid "Wallets retrieved from public verifiable data registries or our entity algorithm can be reported for disconnection."
 msgstr "从公开可验证数据注册表中或我们的实体算法中检索到的钱包可以被举报从而断开连接。"
 
+msgid "Step 2 Connect Wallet"
+msgstr ""
+
 msgid "Light Mode"
 msgstr "明亮模式"
 
@@ -1595,6 +1640,9 @@ msgstr "没有可显示的数据。"
 
 msgid "Cancel"
 msgstr "取消"
+
+msgid "Live"
+msgstr ""
 
 msgid "Send on schedule"
 msgstr "发送定时任务"
@@ -2145,6 +2193,9 @@ msgstr "没有适合的代币"
 msgid "Firefly Bridge"
 msgstr "Firefly 桥"
 
+msgid "Followed @{followedHandle} on X before 9/21"
+msgstr ""
+
 msgid "Invalid URL"
 msgstr "无效的 URL"
 
@@ -2231,6 +2282,9 @@ msgstr "最终结果"
 
 msgid "Suspended account"
 msgstr "被冻结账户"
+
+msgid "Final Step Claim Now!"
+msgstr ""
 
 msgid "Recasted"
 msgstr "已转发"
@@ -2328,6 +2382,9 @@ msgstr "GIF"
 msgid "Followed @{0} on Lens"
 msgstr "在 Lens 上关注了 @{0}"
 
+msgid "Claim Now"
+msgstr ""
+
 msgid "Collect for {0} {1}"
 msgstr "收集 {0} {1}"
 
@@ -2354,6 +2411,9 @@ msgstr "铸造功能"
 
 msgid "Clear"
 msgstr "清空"
+
+msgid "End"
+msgstr ""
 
 msgid "<0>Sent</0> an NFT to <1>{0}</1>"
 msgstr "<0>发送</0> 一个 NFT 至 <1>{0}</1>"

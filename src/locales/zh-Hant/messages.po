@@ -99,6 +99,9 @@ msgstr "社群"
 msgid "Discover"
 msgstr "發現"
 
+msgid "Hold ≥ $10k BNB Chain asset"
+msgstr ""
+
 msgid "Ask a question"
 msgstr "提問"
 
@@ -150,6 +153,9 @@ msgstr "展示姓名"
 msgid "Debug Connection"
 msgstr "除錯連接"
 
+msgid "Hold on, in addition to meeting above criteria, fulfill any of the following to upgrade to a premium airdrop"
+msgstr ""
+
 msgid "Allow Lens Manager to perform actions such as posting, liking, and commenting without the need to sign each transaction."
 msgstr "允許 Lens Manager 無需在每次互動時都簽名，即可進行貼文發佈、按讚、留言等操作。"
 
@@ -168,6 +174,9 @@ msgstr ""
 msgid "Watching"
 msgstr "正在觀察"
 
+msgid "Step 1 Sign in with X"
+msgstr ""
+
 msgid "Rank #{0}"
 msgstr "排名#{0}"
 
@@ -181,6 +190,9 @@ msgid "Functions that can suspend trading"
 msgstr ""
 
 msgid "<0>The maximum number of coins coded to exist in the lifetime of the cryptocurrency. It is comparable to the maximum number of issuable shares in the stock market.</0><1>Max Supply = Theoretical maximum as coded</1>"
+msgstr ""
+
+msgid "Ended"
 msgstr ""
 
 msgid "Unknown error"
@@ -302,6 +314,9 @@ msgstr "NFT 標準"
 
 msgid "Failed to like the comment."
 msgstr "按讚留言失敗"
+
+msgid "Sign in"
+msgstr ""
 
 msgid "<0>Posted</0>an article"
 msgstr "<0>發布</0>一篇文章"
@@ -546,6 +561,9 @@ msgstr "加入另一則貼文..."
 msgid "1m left"
 msgstr ""
 
+msgid "Core Asset Access: Unlock premium tokens, exclusive NFTs, and nodes for more investment opportunities."
+msgstr ""
+
 msgid "Congratulation!"
 msgstr ""
 
@@ -666,6 +684,9 @@ msgstr ""
 msgid "Frame Validator"
 msgstr "Frame 驗證器"
 
+msgid "Priority Access: Holders get early access to future projects, beta tests, and airdrops. And they will also have a first look at the latest features and content."
+msgstr ""
+
 msgid "No proxy"
 msgstr "無代理"
 
@@ -745,6 +766,9 @@ msgid "This token contract has a code that states that it cannot be sold. Maybe 
 msgstr ""
 
 msgid "REPLY to<0><1>@{0}</1></0>"
+msgstr ""
+
+msgid "Share this activity on social media"
 msgstr ""
 
 msgid "Directory"
@@ -843,6 +867,9 @@ msgstr ""
 msgid "Confirm you want to mute /{0}?"
 msgstr "確認對 @{0} 的靜音？"
 
+msgid "Followed @Firefly on X"
+msgstr ""
+
 msgid "Enter amount"
 msgstr ""
 
@@ -932,6 +959,9 @@ msgstr "切換"
 
 msgid "Drafts"
 msgstr "草稿"
+
+msgid "About Airdrop"
+msgstr ""
 
 msgid "Follow"
 msgstr "追蹤"
@@ -1260,6 +1290,9 @@ msgstr ""
 msgid "Settings"
 msgstr "設定"
 
+msgid "X Premium account"
+msgstr ""
+
 msgid "Unsent posts"
 msgstr ""
 
@@ -1276,6 +1309,9 @@ msgid "Unmute {handleOrEnsOrAddress}"
 msgstr ""
 
 msgid "Failed to disconnect wallet from your social graph."
+msgstr ""
+
+msgid "Pending"
 msgstr ""
 
 msgid "No preview found for shared link"
@@ -1401,6 +1437,9 @@ msgstr ""
 msgid "Add wallet"
 msgstr "新增錢包"
 
+msgid "Voting Rights: Participate in key decisions and shape the platform’s development through community governance."
+msgstr ""
+
 msgid "Please switch to {0}"
 msgstr ""
 
@@ -1518,6 +1557,9 @@ msgstr ""
 msgid "Upload to S3"
 msgstr ""
 
+msgid "Submitted claimed address"
+msgstr ""
+
 msgid "{shares, plural, one {Recast or Quote} other {Recasts or Quotes}}"
 msgstr ""
 
@@ -1560,6 +1602,9 @@ msgstr "在 X 上追蹤@thefireflyapp"
 msgid "Wallets retrieved from public verifiable data registries or our entity algorithm can be reported for disconnection."
 msgstr ""
 
+msgid "Step 2 Connect Wallet"
+msgstr ""
+
 msgid "Light Mode"
 msgstr "淺色模式"
 
@@ -1595,6 +1640,9 @@ msgstr "沒有可供展示的數據"
 
 msgid "Cancel"
 msgstr "取消"
+
+msgid "Live"
+msgstr ""
 
 msgid "Send on schedule"
 msgstr ""
@@ -2145,6 +2193,9 @@ msgstr ""
 msgid "Firefly Bridge"
 msgstr ""
 
+msgid "Followed @{followedHandle} on X before 9/21"
+msgstr ""
+
 msgid "Invalid URL"
 msgstr "無效的 URL"
 
@@ -2230,6 +2281,9 @@ msgid "Final results"
 msgstr ""
 
 msgid "Suspended account"
+msgstr ""
+
+msgid "Final Step Claim Now!"
 msgstr ""
 
 msgid "Recasted"
@@ -2328,6 +2382,9 @@ msgstr "GIF"
 msgid "Followed @{0} on Lens"
 msgstr ""
 
+msgid "Claim Now"
+msgstr ""
+
 msgid "Collect for {0} {1}"
 msgstr ""
 
@@ -2353,6 +2410,9 @@ msgid "Mint function"
 msgstr "鑄造功能"
 
 msgid "Clear"
+msgstr ""
+
+msgid "End"
 msgstr ""
 
 msgid "<0>Sent</0> an NFT to <1>{0}</1>"

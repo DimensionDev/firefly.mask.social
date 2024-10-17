@@ -94,6 +94,9 @@ msgstr ""
 msgid "Discover"
 msgstr ""
 
+msgid "Hold ≥ $10k BNB Chain asset"
+msgstr ""
+
 msgid "Ask a question"
 msgstr ""
 
@@ -145,6 +148,9 @@ msgstr ""
 msgid "Debug Connection"
 msgstr ""
 
+msgid "Hold on, in addition to meeting above criteria, fulfill any of the following to upgrade to a premium airdrop"
+msgstr ""
+
 msgid "Allow Lens Manager to perform actions such as posting, liking, and commenting without the need to sign each transaction."
 msgstr ""
 
@@ -163,6 +169,9 @@ msgstr ""
 msgid "Watching"
 msgstr ""
 
+msgid "Step 1 Sign in with X"
+msgstr ""
+
 msgid "Rank #{0}"
 msgstr ""
 
@@ -176,6 +185,9 @@ msgid "Functions that can suspend trading"
 msgstr ""
 
 msgid "<0>The maximum number of coins coded to exist in the lifetime of the cryptocurrency. It is comparable to the maximum number of issuable shares in the stock market.</0><1>Max Supply = Theoretical maximum as coded</1>"
+msgstr ""
+
+msgid "Ended"
 msgstr ""
 
 msgid "Unknown error"
@@ -296,6 +308,9 @@ msgid "NFT Standard"
 msgstr ""
 
 msgid "Failed to like the comment."
+msgstr ""
+
+msgid "Sign in"
 msgstr ""
 
 msgid "<0>Posted</0>an article"
@@ -541,6 +556,9 @@ msgstr ""
 msgid "1m left"
 msgstr ""
 
+msgid "Core Asset Access: Unlock premium tokens, exclusive NFTs, and nodes for more investment opportunities."
+msgstr ""
+
 msgid "Congratulation!"
 msgstr ""
 
@@ -661,6 +679,9 @@ msgstr ""
 msgid "Frame Validator"
 msgstr ""
 
+msgid "Priority Access: Holders get early access to future projects, beta tests, and airdrops. And they will also have a first look at the latest features and content."
+msgstr ""
+
 msgid "No proxy"
 msgstr ""
 
@@ -740,6 +761,9 @@ msgid "This token contract has a code that states that it cannot be sold. Maybe 
 msgstr ""
 
 msgid "REPLY to<0><1>@{0}</1></0>"
+msgstr ""
+
+msgid "Share this activity on social media"
 msgstr ""
 
 msgid "Directory"
@@ -838,6 +862,9 @@ msgstr ""
 msgid "Confirm you want to mute /{0}?"
 msgstr ""
 
+msgid "Followed @Firefly on X"
+msgstr ""
+
 msgid "Enter amount"
 msgstr ""
 
@@ -926,6 +953,9 @@ msgid "Switch"
 msgstr ""
 
 msgid "Drafts"
+msgstr ""
+
+msgid "About Airdrop"
 msgstr ""
 
 msgid "Follow"
@@ -1255,6 +1285,9 @@ msgstr ""
 msgid "Settings"
 msgstr ""
 
+msgid "X Premium account"
+msgstr ""
+
 msgid "Unsent posts"
 msgstr ""
 
@@ -1271,6 +1304,9 @@ msgid "Unmute {handleOrEnsOrAddress}"
 msgstr ""
 
 msgid "Failed to disconnect wallet from your social graph."
+msgstr ""
+
+msgid "Pending"
 msgstr ""
 
 msgid "No preview found for shared link"
@@ -1396,6 +1432,9 @@ msgstr ""
 msgid "Add wallet"
 msgstr ""
 
+msgid "Voting Rights: Participate in key decisions and shape the platform’s development through community governance."
+msgstr ""
+
 msgid "Please switch to {0}"
 msgstr ""
 
@@ -1513,6 +1552,9 @@ msgstr ""
 msgid "Upload to S3"
 msgstr ""
 
+msgid "Submitted claimed address"
+msgstr ""
+
 msgid "{shares, plural, one {Recast or Quote} other {Recasts or Quotes}}"
 msgstr ""
 
@@ -1555,6 +1597,9 @@ msgstr ""
 msgid "Wallets retrieved from public verifiable data registries or our entity algorithm can be reported for disconnection."
 msgstr ""
 
+msgid "Step 2 Connect Wallet"
+msgstr ""
+
 msgid "Light Mode"
 msgstr ""
 
@@ -1589,6 +1634,9 @@ msgid "There is no data available for display."
 msgstr ""
 
 msgid "Cancel"
+msgstr ""
+
+msgid "Live"
 msgstr ""
 
 msgid "Send on schedule"
@@ -2140,6 +2188,9 @@ msgstr ""
 msgid "Firefly Bridge"
 msgstr ""
 
+msgid "Followed @{followedHandle} on X before 9/21"
+msgstr ""
+
 msgid "Invalid URL"
 msgstr ""
 
@@ -2225,6 +2276,9 @@ msgid "Final results"
 msgstr ""
 
 msgid "Suspended account"
+msgstr ""
+
+msgid "Final Step Claim Now!"
 msgstr ""
 
 msgid "Recasted"
@@ -2323,6 +2377,9 @@ msgstr ""
 msgid "Followed @{0} on Lens"
 msgstr ""
 
+msgid "Claim Now"
+msgstr ""
+
 msgid "Collect for {0} {1}"
 msgstr ""
 
@@ -2348,6 +2405,9 @@ msgid "Mint function"
 msgstr ""
 
 msgid "Clear"
+msgstr ""
+
+msgid "End"
 msgstr ""
 
 msgid "<0>Sent</0> an NFT to <1>{0}</1>"

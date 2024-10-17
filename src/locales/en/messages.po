@@ -94,6 +94,9 @@ msgstr "Communities"
 msgid "Discover"
 msgstr "Discover"
 
+msgid "Hold ≥ $10k BNB Chain asset"
+msgstr "Hold ≥ $10k BNB Chain asset"
+
 msgid "Ask a question"
 msgstr "Ask a question"
 
@@ -145,6 +148,9 @@ msgstr "Display Name"
 msgid "Debug Connection"
 msgstr "Debug Connection"
 
+msgid "Hold on, in addition to meeting above criteria, fulfill any of the following to upgrade to a premium airdrop"
+msgstr "Hold on, in addition to meeting above criteria, fulfill any of the following to upgrade to a premium airdrop"
+
 msgid "Allow Lens Manager to perform actions such as posting, liking, and commenting without the need to sign each transaction."
 msgstr "Allow Lens Manager to perform actions such as posting, liking, and commenting without the need to sign each transaction."
 
@@ -163,6 +169,9 @@ msgstr "We are not aware of any code that prevents the sale of tokens."
 msgid "Watching"
 msgstr "Watching"
 
+msgid "Step 1 Sign in with X"
+msgstr "Step 1 Sign in with X"
+
 msgid "Rank #{0}"
 msgstr "Rank #{0}"
 
@@ -177,6 +186,9 @@ msgstr "Functions that can suspend trading"
 
 msgid "<0>The maximum number of coins coded to exist in the lifetime of the cryptocurrency. It is comparable to the maximum number of issuable shares in the stock market.</0><1>Max Supply = Theoretical maximum as coded</1>"
 msgstr "<0>The maximum number of coins coded to exist in the lifetime of the cryptocurrency. It is comparable to the maximum number of issuable shares in the stock market.</0><1>Max Supply = Theoretical maximum as coded</1>"
+
+msgid "Ended"
+msgstr "Ended"
 
 msgid "Unknown error"
 msgstr "Unknown error"
@@ -297,6 +309,9 @@ msgstr "NFT Standard"
 
 msgid "Failed to like the comment."
 msgstr "Failed to like the comment."
+
+msgid "Sign in"
+msgstr "Sign in"
 
 msgid "<0>Posted</0>an article"
 msgstr "<0>Posted</0>an article"
@@ -541,6 +556,9 @@ msgstr "Add another post..."
 msgid "1m left"
 msgstr "1m left"
 
+msgid "Core Asset Access: Unlock premium tokens, exclusive NFTs, and nodes for more investment opportunities."
+msgstr "Core Asset Access: Unlock premium tokens, exclusive NFTs, and nodes for more investment opportunities."
+
 msgid "Congratulation!"
 msgstr "Congratulation!"
 
@@ -661,6 +679,9 @@ msgstr "Failed to avatar."
 msgid "Frame Validator"
 msgstr "Frame Validator"
 
+msgid "Priority Access: Holders get early access to future projects, beta tests, and airdrops. And they will also have a first look at the latest features and content."
+msgstr "Priority Access: Holders get early access to future projects, beta tests, and airdrops. And they will also have a first look at the latest features and content."
+
 msgid "No proxy"
 msgstr "No proxy"
 
@@ -741,6 +762,9 @@ msgstr "This token contract has a code that states that it cannot be sold. Maybe
 
 msgid "REPLY to<0><1>@{0}</1></0>"
 msgstr "REPLY to<0><1>@{0}</1></0>"
+
+msgid "Share this activity on social media"
+msgstr "Share this activity on social media"
 
 msgid "Directory"
 msgstr "Directory"
@@ -838,6 +862,9 @@ msgstr "Mirror or Quote"
 msgid "Confirm you want to mute /{0}?"
 msgstr "Confirm you want to mute /{0}?"
 
+msgid "Followed @Firefly on X"
+msgstr "Followed @Firefly on X"
+
 msgid "Enter amount"
 msgstr "Enter amount"
 
@@ -927,6 +954,9 @@ msgstr "Switch"
 
 msgid "Drafts"
 msgstr "Drafts"
+
+msgid "About Airdrop"
+msgstr "About Airdrop"
 
 msgid "Follow"
 msgstr "Follow"
@@ -1255,6 +1285,9 @@ msgstr "Followers you know"
 msgid "Settings"
 msgstr "Settings"
 
+msgid "X Premium account"
+msgstr "X Premium account"
+
 msgid "Unsent posts"
 msgstr "Unsent posts"
 
@@ -1272,6 +1305,9 @@ msgstr "Unmute {handleOrEnsOrAddress}"
 
 msgid "Failed to disconnect wallet from your social graph."
 msgstr "Failed to disconnect wallet from your social graph."
+
+msgid "Pending"
+msgstr "Pending"
 
 msgid "No preview found for shared link"
 msgstr "No preview found for shared link"
@@ -1396,6 +1432,9 @@ msgstr "<0>© 2024 Firefly.</0> All rights reserved."
 msgid "Add wallet"
 msgstr "Add wallet"
 
+msgid "Voting Rights: Participate in key decisions and shape the platform’s development through community governance."
+msgstr "Voting Rights: Participate in key decisions and shape the platform’s development through community governance."
+
 msgid "Please switch to {0}"
 msgstr "Please switch to {0}"
 
@@ -1513,6 +1552,9 @@ msgstr "Please switch to the wallet consistent with this action"
 msgid "Upload to S3"
 msgstr "Upload to S3"
 
+msgid "Submitted claimed address"
+msgstr "Submitted claimed address"
+
 msgid "{shares, plural, one {Recast or Quote} other {Recasts or Quotes}}"
 msgstr "{shares, plural, one {Recast or Quote} other {Recasts or Quotes}}"
 
@@ -1555,6 +1597,9 @@ msgstr "Follow @thefireflyapp on X"
 msgid "Wallets retrieved from public verifiable data registries or our entity algorithm can be reported for disconnection."
 msgstr "Wallets retrieved from public verifiable data registries or our entity algorithm can be reported for disconnection."
 
+msgid "Step 2 Connect Wallet"
+msgstr "Step 2 Connect Wallet"
+
 msgid "Light Mode"
 msgstr "Light Mode"
 
@@ -1590,6 +1635,9 @@ msgstr "There is no data available for display."
 
 msgid "Cancel"
 msgstr "Cancel"
+
+msgid "Live"
+msgstr "Live"
 
 msgid "Send on schedule"
 msgstr "Send on schedule"
@@ -2140,6 +2188,9 @@ msgstr "No available token"
 msgid "Firefly Bridge"
 msgstr "Firefly Bridge"
 
+msgid "Followed @{followedHandle} on X before 9/21"
+msgstr "Followed @{followedHandle} on X before 9/21"
+
 msgid "Invalid URL"
 msgstr "Invalid URL"
 
@@ -2226,6 +2277,9 @@ msgstr "Final results"
 
 msgid "Suspended account"
 msgstr "Suspended account"
+
+msgid "Final Step Claim Now!"
+msgstr "Final Step Claim Now!"
 
 msgid "Recasted"
 msgstr "Recasted"
@@ -2323,6 +2377,9 @@ msgstr "GIF"
 msgid "Followed @{0} on Lens"
 msgstr "Followed @{0} on Lens"
 
+msgid "Claim Now"
+msgstr "Claim Now"
+
 msgid "Collect for {0} {1}"
 msgstr "Collect for {0} {1}"
 
@@ -2349,6 +2406,9 @@ msgstr "Mint function"
 
 msgid "Clear"
 msgstr "Clear"
+
+msgid "End"
+msgstr "End"
 
 msgid "<0>Sent</0> an NFT to <1>{0}</1>"
 msgstr "<0>Sent</0> an NFT to <1>{0}</1>"
