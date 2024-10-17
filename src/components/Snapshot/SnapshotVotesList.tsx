@@ -13,6 +13,7 @@ import { Link } from '@/esm/Link.js';
 import { classNames } from '@/helpers/classNames.js';
 import { formatEthereumAddress } from '@/helpers/formatAddress.js';
 import { humanize, nFormatter } from '@/helpers/formatCommentCounts.js';
+import { formatSnapshotChoice } from '@/helpers/formatSnapshotChoice.js';
 import { getStampAvatarByProfileId } from '@/helpers/getStampAvatarByProfileId.js';
 import { createIndicator } from '@/helpers/pageable.js';
 import { sanitizeDStorageUrl } from '@/helpers/sanitizeDStorageUrl.js';
@@ -30,13 +31,11 @@ const SnapshotVotesListItem = memo<SnapshotVotesListItemProps>(function Snapshot
     });
     const { data: ens } = useEnsName({ address: vote.voter as `0x${string}` });
 
-    const choice = vote.proposal.choices[vote.choice - 1];
+    const choiceLabel = formatSnapshotChoice(vote.choice, vote.proposal.type, vote.proposal.choices);
+
     return (
         <div className="mb-2 flex items-center gap-[14px] text-sm leading-[14px]">
-            <Link
-                href={authorUrl}
-                className="z-[1] flex w-1/4 items-center gap-1 overflow-hidden overflow-ellipsis whitespace-nowrap"
-            >
+            <Link href={authorUrl} className="z-[1] flex items-center gap-1 truncate max-md:w-1/4 md:w-[120px]">
                 <Avatar
                     className="h-[14px] w-[14px]"
                     size={14}
@@ -48,11 +47,11 @@ const SnapshotVotesListItem = memo<SnapshotVotesListItemProps>(function Snapshot
                     alt={ens || vote.voter}
                 />
                 <Tooltip placement="top" content={ens || formatEthereumAddress(vote.voter, 4)}>
-                    <div>{ens || formatEthereumAddress(vote.voter, 4)}</div>
+                    <div className="truncate">{ens || formatEthereumAddress(vote.voter, 4)}</div>
                 </Tooltip>
             </Link>
-            <Tooltip placement="top-start" content={choice}>
-                <div className="flex-1 overflow-hidden overflow-ellipsis whitespace-nowrap">{choice}</div>
+            <Tooltip placement="top-start" content={choiceLabel}>
+                <div className="flex-1 truncate">{choiceLabel}</div>
             </Tooltip>
 
             <div className="flex gap-1">

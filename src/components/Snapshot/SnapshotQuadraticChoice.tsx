@@ -5,72 +5,61 @@ import PlusIcon from '@/assets/snapshot/plus.svg';
 import { ClickableArea } from '@/components/ClickableArea.js';
 import { classNames } from '@/helpers/classNames.js';
 
-export type QuadraticChoice = {
+interface SnapshotQuadraticChoiceProps {
     label: string;
     quantity: number;
-};
-
-interface SnapshotQuadraticChoiceProps {
-    choice: QuadraticChoice;
     disabled?: boolean;
-    onChange: (value: QuadraticChoice) => void;
+    onChange: (quantity: number) => void;
     total: number;
 }
 
 export const SnapshotQuadraticChoice = memo<SnapshotQuadraticChoiceProps>(function SnapshotQuadraticChoice({
-    choice,
+    label,
+    quantity,
     disabled = false,
     total,
     onChange,
 }) {
-    const percentage = total ? (choice.quantity / total) * 100 : 0;
+    const percentage = total ? (quantity / total) * 100 : 0;
 
     return (
         <ClickableArea
-            className={classNames(
-                'flex items-center justify-between rounded-[10px] border bg-white px-5 py-2 hover:border-lightHighlight',
-                {
-                    'border-transparent text-commonMain': !choice.quantity,
-                    'border border-lightHighlight text-lightHighlight': !!choice.quantity,
-                    'opacity-40': disabled,
-                },
-            )}
+            className={classNames('flex items-center justify-between rounded-[10px] border bg-white px-5 py-2', {
+                'hover:border-lightHighlight': !disabled,
+                'border-transparent text-commonMain': !quantity,
+                'border border-lightHighlight text-lightHighlight': !!quantity,
+                'opacity-40': disabled,
+            })}
         >
-            <span className="text-sm font-bold leading-[18px]">{choice.label}</span>
+            <span className="text-sm font-bold leading-[18px]">{label}</span>
 
             <div className="flex items-center gap-[6px]">
                 <div
                     className={classNames('flex min-w-[100px] items-center justify-between rounded-full', {
-                        'bg-bg03': !choice.quantity,
-                        'bg-lightHighlight bg-opacity-20': !!choice.quantity,
+                        'bg-bg03': !quantity,
+                        'bg-lightHighlight bg-opacity-20': !!quantity,
                     })}
                 >
                     <div
                         className={classNames('flex h-6 w-6 items-center justify-center rounded-full', {
-                            'bg-bg02 opacity-40': !choice.quantity,
-                            'bg-lightHighlight bg-opacity-20': !!choice.quantity,
+                            'bg-bg02 opacity-40': !quantity,
+                            'bg-lightHighlight bg-opacity-20': !!quantity,
                         })}
                         onClick={() => {
-                            if (!choice.quantity) return;
-                            onChange({
-                                ...choice,
-                                quantity: choice.quantity - 1,
-                            });
+                            if (!quantity) return;
+                            onChange(quantity - 1);
                         }}
                     >
                         <MinusIcon />
                     </div>
-                    <span className="font-bold">{choice.quantity}</span>
+                    <span className="font-bold">{quantity}</span>
                     <div
                         className={classNames('flex h-6 w-6 items-center justify-center rounded-full', {
-                            'bg-bg02': !choice.quantity,
-                            'bg-lightHighlight bg-opacity-20': !!choice.quantity,
+                            'bg-bg02': !quantity,
+                            'bg-lightHighlight bg-opacity-20': !!quantity,
                         })}
                         onClick={() => {
-                            onChange({
-                                ...choice,
-                                quantity: choice.quantity + 1,
-                            });
+                            onChange(quantity + 1);
                         }}
                     >
                         <PlusIcon />

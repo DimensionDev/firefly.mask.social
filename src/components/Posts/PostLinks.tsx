@@ -88,7 +88,9 @@ export function PostLinks({ post, setContent, isInCompose = false }: Props) {
                     }}
                 />
             ) : null}
-            {data.snapshot && !isInCompose ? <SnapshotBody snapshot={data.snapshot} /> : null}
+            {data.snapshot && !isInCompose ? (
+                <SnapshotBody snapshot={data.snapshot} link={url} postId={post.postId} />
+            ) : null}
             {data.html ? (
                 <Player html={data.html} isSpotify={isLinkMatchingHost(url, 'open.spotify.com', false)} />
             ) : null}

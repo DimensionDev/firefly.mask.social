@@ -1,4 +1,4 @@
-import { Menu } from '@headlessui/react';
+import { MenuItem, MenuItems } from '@headlessui/react';
 import { t, Trans } from '@lingui/macro';
 import { motion } from 'framer-motion';
 import { memo } from 'react';
@@ -32,11 +32,11 @@ export const ShareAction = memo(function ShareAction({ link }: ShareActionProps)
                 </Tooltip>
             }
         >
-            <Menu.Items
+            <MenuItems
                 className="absolute right-0 z-[1000] flex w-max flex-col gap-2 overflow-hidden rounded-2xl border border-line bg-primaryBottom py-3 text-base text-main"
                 onClick={stopEvent}
             >
-                <Menu.Item>
+                <MenuItem>
                     {({ close }) => (
                         <MenuButton
                             onClick={() => {
@@ -52,8 +52,8 @@ export const ShareAction = memo(function ShareAction({ link }: ShareActionProps)
                             </span>
                         </MenuButton>
                     )}
-                </Menu.Item>
-                <Menu.Item>
+                </MenuItem>
+                <MenuItem>
                     {({ close }) => (
                         <MenuButton
                             onClick={() => {
@@ -67,8 +67,8 @@ export const ShareAction = memo(function ShareAction({ link }: ShareActionProps)
                             </span>
                         </MenuButton>
                     )}
-                </Menu.Item>
-            </Menu.Items>
+                </MenuItem>
+            </MenuItems>
         </MoreActionMenu>
     );
 });

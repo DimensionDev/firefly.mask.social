@@ -4,8 +4,8 @@ import { useMemo } from 'react';
 
 import ActiveIcon from '@/assets/snapshot-active.svg';
 import ClosedIcon from '@/assets/snapshot-closed.svg';
+import { SnapshotState } from '@/constants/enum.js';
 import { classNames } from '@/helpers/classNames.js';
-import { SnapshotState } from '@/providers/types/Snapshot.js';
 
 interface Props {
     status: SnapshotState;

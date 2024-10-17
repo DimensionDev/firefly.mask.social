@@ -1,30 +1,31 @@
-import { memo, useState } from 'react';
+import { memo } from 'react';
 
 import { SnapshotChoice } from '@/components/Snapshot/SnapshotChoice.js';
 
 interface SnapshotSingleChoicesProps {
     choices: string[];
+    value?: number;
     disabled?: boolean;
-    onChange?: (value: string) => void;
+    onChange?: (index?: number) => void;
 }
 
 export const SnapshotSingleChoices = memo<SnapshotSingleChoicesProps>(function SnapshotSingleChoices({
     choices,
     disabled = false,
     onChange,
+    value,
 }) {
-    const [selected, setSelected] = useState<string>();
     return (
         <div className="flex flex-col gap-3">
-            {choices.map((choice) => {
+            {choices.map((choice, index) => {
+                const optionIndex = index + 1;
                 return (
                     <SnapshotChoice
                         key={choice}
                         value={choice}
-                        selected={selected === choice}
-                        onClick={(value) => {
-                            setSelected(value);
-                            onChange?.(value);
+                        selected={value === index + 1}
+                        onClick={() => {
+                            onChange?.(!(value && value === optionIndex) ? optionIndex : undefined);
                         }}
                         disabled={disabled}
                     />

@@ -13,7 +13,7 @@ import { isValidPollFrameUrl } from '@/helpers/resolveEmbedMediaType.js';
 import { resolveTCOLink } from '@/helpers/resolveTCOLink.js';
 import { getPostIFrame } from '@/providers/og/readers/iframe.js';
 import { Snapshot } from '@/providers/snapshot/index.js';
-import type { SnapshotProposal } from '@/providers/types/Snapshot.js';
+import type { SnapshotProposal } from '@/providers/snapshot/type.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 import { getArticleIdFromUrl } from '@/services/getArticleIdFromUrl.js';
 import { settings } from '@/settings/index.js';

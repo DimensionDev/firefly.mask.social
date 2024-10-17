@@ -12,6 +12,7 @@ import {
 } from '@/helpers/formatFarcasterChannelFromFirefly.js';
 import { formatFarcasterPostFromFirefly } from '@/helpers/formatFarcasterPostFromFirefly.js';
 import { formatFarcasterProfileFromFirefly } from '@/helpers/formatFarcasterProfileFromFirefly.js';
+import { formatSnapshotActivityFromFirefly } from '@/helpers/formatSnapshotFromFirefly.js';
 import { getCurrentProfile } from '@/helpers/getCurrentProfile.js';
 import { isZero } from '@/helpers/number.js';
 import {
@@ -26,6 +27,7 @@ import { resolveSourceInUrl } from '@/helpers/resolveSourceInUrl.js';
 import { farcasterSessionHolder } from '@/providers/farcaster/SessionHolder.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
 import { NeynarSocialMediaProvider } from '@/providers/neynar/SocialMedia.js';
+import { Snapshot } from '@/providers/snapshot/index.js';
 import {
     type BlockChannelResponse,
     type BlockedChannelsResponse,
@@ -39,6 +41,7 @@ import {
     type ChannelsResponse,
     type CommentsResponse,
     type DiscoverChannelsResponse,
+    type DiscoverSnapshotsResponse,
     type FireflyFarcasterProfileResponse,
     type FriendshipResponse,
     type NotificationResponse,
@@ -935,6 +938,33 @@ export class FireflySocialMedia implements Provider {
             }),
         });
         return true;
+    }
+
+    async discoverSnapshotActivity(indicator?: PageIndicator) {
+        const url = urlcat(settings.FIREFLY_ROOT_URL, '/v2/discover/snapshot/timeline', {
+            size: 20,
+            cursor: indicator?.id && !isZero(indicator.id) ? indicator.id : undefined,
+        });
+
+        const response = await fireflySessionHolder.fetch<DiscoverSnapshotsResponse>(url);
+
+        const data = resolveFireflyResponseData(response);
+        const proposals = await Snapshot.getProposals(data.result.map((x) => x.metadata.proposal_id));
+
+        const activities = data.result.map((x) => {
+            const proposal = proposals.find((p) => p.id === x.metadata.proposal_id);
+
+            return {
+                ...formatSnapshotActivityFromFirefly(x),
+                proposal,
+            };
+        });
+
+        return createPageable(
+            activities,
+            createIndicator(indicator),
+            data.cursor ? createNextIndicator(indicator, `${data.cursor}`) : undefined,
+        );
     }
 }
 

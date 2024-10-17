@@ -4,9 +4,9 @@ import { memo, Suspense } from 'react';
 import { Loading } from '@/components/Loading.js';
 import { SnapshotVotesList } from '@/components/Snapshot/SnapshotVotesList.js';
 import { Tooltip } from '@/components/Tooltip.js';
+import { SnapshotState } from '@/constants/enum.js';
 import { nFormatter } from '@/helpers/formatCommentCounts.js';
 import { formatPercentage } from '@/helpers/formatPercentage.js';
-import { SnapshotState } from '@/providers/types/Snapshot.js';
 
 interface SnapshotResultsProps {
     status: SnapshotState;
@@ -44,17 +44,21 @@ export const SnapshotResults = memo<SnapshotResultsProps>(function SnapshotResul
                                 <div className="flex gap-1">
                                     <span>{nFormatter(score)}</span>
                                     <span>{symbol}</span>
-                                    <span>{formatPercentage(score / scoreTotal)}</span>
+                                    <span>{scoreTotal ? formatPercentage(score / scoreTotal) : '0%'}</span>
                                 </div>
                             </div>
                             <div className="mt-2 h-2 w-full rounded bg-bg03">
                                 <div
                                     className="h-full rounded bg-lightHighlight"
                                     style={{
-                                        width: `${((score / scoreTotal) * 100)
-                                            .toFixed(2)
-                                            .replace(/(\.\d*?)0+$/, '$1')
-                                            .replace(/\.$/, '')}%`,
+                                        width: `${
+                                            scoreTotal
+                                                ? ((score / scoreTotal) * 100)
+                                                      .toFixed(2)
+                                                      .replace(/(\.\d*?)0+$/, '$1')
+                                                      .replace(/\.$/, '')
+                                                : 0
+                                        }%`,
                                     }}
                                 />
                             </div>
