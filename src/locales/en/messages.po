@@ -1987,6 +1987,9 @@ msgstr "Follow @realMaskNetwork on X"
 msgid "Leaving Firefly"
 msgstr "Leaving Firefly"
 
+msgid "Sign Typed Data"
+msgstr "Sign Typed Data"
+
 msgid "24H Volume"
 msgstr "24H Volume"
 

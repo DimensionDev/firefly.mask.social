@@ -1992,6 +1992,9 @@ msgstr "在 X 上跟隨 @realMaskNetwork"
 msgid "Leaving Firefly"
 msgstr "離開 Firefly"
 
+msgid "Sign Typed Data"
+msgstr ""
+
 msgid "24H Volume"
 msgstr "24 小時交易量"
 

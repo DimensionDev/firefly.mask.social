@@ -1992,6 +1992,9 @@ msgstr ""
 msgid "Leaving Firefly"
 msgstr ""
 
+msgid "Sign Typed Data"
+msgstr ""
+
 msgid "24H Volume"
 msgstr ""
 
