@@ -11,6 +11,7 @@ import { isSameSession } from '@/helpers/isSameSession.js';
 import { resolveSessionHolder } from '@/helpers/resolveSessionHolder.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { ConfirmFireflyModalRef, LoginModalRef } from '@/modals/controls.js';
+import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 import { FireflySession } from '@/providers/firefly/Session.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
 import {
@@ -24,7 +25,6 @@ import type { Account } from '@/providers/types/Account.js';
 import type { Session } from '@/providers/types/Session.js';
 import { SessionType } from '@/providers/types/SocialMedia.js';
 import { downloadAccounts, downloadSessions, uploadSessions } from '@/services/metrics.js';
-import { reportFarcasterSigner } from '@/services/reportFarcasterSigner.js';
 import { useFireflyStateStore } from '@/store/useProfileStore.js';
 
 function getContext(source: SocialSource) {
@@ -230,7 +230,7 @@ export async function addAccount(account: Account, options?: AccountOptions) {
     // report farcaster signer
     if (!skipReportFarcasterSigner && account.session.type === SessionType.Farcaster && fireflySessionHolder.session) {
         console.warn('[addAccount] report farcaster signer');
-        runInSafeAsync(() => reportFarcasterSigner(account.session as FireflySession));
+        runInSafeAsync(() => FireflyEndpointProvider.reportFarcasterSigner(account.session as FireflySession));
     }
 
     captureAccountLoginEvent(account);

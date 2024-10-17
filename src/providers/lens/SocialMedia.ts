@@ -74,6 +74,7 @@ import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { waitForEthereumTransaction } from '@/helpers/waitForEthereumTransaction.js';
 import { waitUntilComplete } from '@/helpers/waitUntilComplete.js';
 import { writeLensHubContract } from '@/helpers/writeLensHubContract.js';
+import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
 import { lensSessionHolder } from '@/providers/lens/SessionHolder.js';
 import { LensOpenRankProvider } from '@/providers/openrank/Lens.js';
@@ -94,7 +95,6 @@ import {
     ReactionType,
     SessionType,
 } from '@/providers/types/SocialMedia.js';
-import { getLensSuggestFollows } from '@/services/getLensSuggestFollows.js';
 import { uploadLensMetadataToS3 } from '@/services/uploadLensMetadataToS3.js';
 import type { ResponseJSON } from '@/types/index.js';
 
@@ -1259,7 +1259,7 @@ class LensSocialMedia implements Provider {
     }
 
     async getSuggestedFollows(indicator?: PageIndicator): Promise<Pageable<Profile>> {
-        const response = await getLensSuggestFollows(indicator);
+        const response = await FireflyEndpointProvider.getLensSuggestFollows(indicator);
         const result = await lensSessionHolder.sdk.profile.fetchAll({
             where: {
                 profileIds: response.data.map((profile) => profile.profileId),

@@ -47,6 +47,7 @@ import { resolveFireflyResponseData } from '@/helpers/resolveFireflyResponseData
 import { resolveSourceFromUrl } from '@/helpers/resolveSource.js';
 import { resolveSourceInUrl } from '@/helpers/resolveSourceInUrl.js';
 import { farcasterSessionHolder } from '@/providers/farcaster/SessionHolder.js';
+import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
 import { NeynarSocialMediaProvider } from '@/providers/neynar/SocialMedia.js';
 import type { Article } from '@/providers/types/Article.js';
@@ -108,7 +109,6 @@ import {
     type Provider,
     SessionType,
 } from '@/providers/types/SocialMedia.js';
-import { getAllPlatformProfileFromFirefly } from '@/services/getAllPlatformProfileFromFirefly.js';
 import { getProfilesByIds } from '@/services/getProfilesByIds.js';
 import { getWalletProfileByAddressOrEns } from '@/services/getWalletProfileByAddressOrEns.js';
 import { settings } from '@/settings/index.js';
@@ -446,7 +446,7 @@ export class FireflySocialMedia implements Provider {
         identity: FireflyIdentity,
         isTokenRequired: boolean,
     ): Promise<FireflyProfile[]> {
-        const response = await getAllPlatformProfileFromFirefly(identity, isTokenRequired);
+        const response = await FireflyEndpointProvider.getAllPlatformProfileFromFirefly(identity, isTokenRequired);
         const profiles = resolveFireflyResponseData(response);
         return formatFireflyProfilesFromWalletProfiles(profiles);
     }

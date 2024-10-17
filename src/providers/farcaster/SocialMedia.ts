@@ -22,6 +22,7 @@ import {
     type Pageable,
     type PageIndicator,
 } from '@/helpers/pageable.js';
+import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
 import { HubbleSocialMediaProvider } from '@/providers/hubble/SocialMedia.js';
 import { NeynarSocialMediaProvider } from '@/providers/neynar/SocialMedia.js';
@@ -37,7 +38,6 @@ import {
     SessionType,
 } from '@/providers/types/SocialMedia.js';
 import { WarpcastSocialMediaProvider } from '@/providers/warpcast/SocialMedia.js';
-import { getFarcasterSuggestFollows } from '@/services/getFarcasterSuggestFollows.js';
 
 @SetQueryDataForLikePost(Source.Farcaster)
 @SetQueryDataForBookmarkPost(Source.Farcaster)
@@ -289,7 +289,7 @@ class FarcasterSocialMedia implements Provider {
     }
 
     async getSuggestedFollows(indicator?: PageIndicator): Promise<Pageable<Profile>> {
-        const response = await getFarcasterSuggestFollows(indicator);
+        const response = await FireflyEndpointProvider.getFarcasterSuggestFollows(indicator);
         // get full profiles
         response.data = await NeynarSocialMediaProvider.getProfilesByIds(
             response.data.map((profile) => `${profile.profileId}`),

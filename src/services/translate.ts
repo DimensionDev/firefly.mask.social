@@ -3,6 +3,7 @@
 import urlcat from 'urlcat';
 
 import { fetchJSON } from '@/helpers/fetchJSON.js';
+import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
 import { settings } from '@/settings/index.js';
 
 // Learn more supported languages here:
@@ -158,6 +159,27 @@ interface TranslationResponse {
     }>;
 }
 
+interface DetectionResponse {
+    data: { language: Language };
+}
+
+/**
+ * Detect content language.
+ *
+ * @param {string} text - The text to be detected.
+ * @returns - Content language or N/A when detect failed.
+ *
+ */
+export async function detectLanguage(text: string): Promise<Language> {
+    const url = urlcat(settings.FIREFLY_ROOT_URL, '/ai/detect-language');
+    const { data } = await fireflySessionHolder.fetch<DetectionResponse>(url, {
+        method: 'POST',
+        body: JSON.stringify({ text }),
+    });
+
+    return data?.language;
+}
+
 /**
  * Translates the provided text to the specified target language.
  *
@@ -166,7 +188,7 @@ interface TranslationResponse {
  * @returns - A promise that resolves to an object containing the detected language and translations.
  *
  */
-export async function translate(
+export async function translateLanguage(
     to: Language,
     text: string,
 ): Promise<{

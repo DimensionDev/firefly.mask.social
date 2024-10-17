@@ -11,9 +11,8 @@ import { getSnackbarMessageFromError } from '@/helpers/getSnackbarMessageFromErr
 import { isSameEthereumAddress } from '@/helpers/isSameAddress.js';
 import { resolveSimpleHashChainId } from '@/helpers/resolveSimpleHashChain.js';
 import { ConfirmModalRef } from '@/modals/controls.js';
+import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 import type { FollowingNFT, NFTFeed } from '@/providers/types/NFTs.js';
-import { muteNFT } from '@/services/muteNFT.js';
-import { reportNFT } from '@/services/reportNFT.js';
 
 interface PagesData {
     pages: Array<{ data: FollowingNFT[] | NFTFeed[] }>;
@@ -74,9 +73,9 @@ export function useReportSpamNFT() {
         });
         if (!confirmed) return;
         try {
-            await reportNFT(collectionId);
+            await FireflyEndpointProvider.reportNFT(collectionId);
             filterOutActivities(collectionId);
-            await muteNFT(collectionId);
+            await FireflyEndpointProvider.muteNFT(collectionId);
             enqueueSuccessMessage(t`Report submitted`);
         } catch (error) {
             enqueueErrorMessage(getSnackbarMessageFromError(error, t`Failed to report spam NFT.`), {

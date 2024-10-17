@@ -6,8 +6,8 @@ import { queryClient } from '@/configs/queryClient.js';
 import { config } from '@/configs/wagmiClient.js';
 import { getTokenAbiForWagmi } from '@/helpers/getTokenAbiForWagmi.js';
 import { isNativeToken } from '@/providers/ethereum/isNativeToken.js';
+import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 import type { Token } from '@/providers/types/Transfer.js';
-import { getAllTokenList } from '@/services/getTokensByAddress.js';
 
 export async function getTokenBalance(token: Token<ChainId, Address>, address: Address, chainId: number) {
     if (isNativeToken(token)) {
@@ -60,7 +60,7 @@ export async function getTokenBalance(token: Token<ChainId, Address>, address: A
 export async function getDebankTokenBalance(token: Token<ChainId, Address>, account: Address) {
     const tokens = await queryClient.fetchQuery({
         queryKey: ['debank', 'tokens', account],
-        queryFn: () => getAllTokenList(account),
+        queryFn: () => FireflyEndpointProvider.getAllTokenList(account),
         staleTime: 1000 * 60 * 1,
     });
 
