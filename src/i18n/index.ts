@@ -1,4 +1,4 @@
-import { i18n, type Messages } from '@lingui/core';
+import { setupI18n, type Messages } from '@lingui/core';
 import dayjs from 'dayjs';
 
 import { Locale } from '@/constants/enum.js';
@@ -35,8 +35,10 @@ export function setLocale(locale: Locale) {
         console.log(`[i18n]: locale ${locale}`);
     }
 
-    i18n.load(locale, locales[locale]);
-    i18n.activate(locale, [Locale.en, Locale.zhHans]);
+    setupI18n({
+        locale,
+        messages: locales,
+    });
     dayjs.locale(locale);
 }
 
