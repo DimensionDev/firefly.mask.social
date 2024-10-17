@@ -17,14 +17,13 @@ import { resolveCreateSchedulePostPayload } from '@/helpers/resolveCreateSchedul
 import { resolveSocialSourceInUrl } from '@/helpers/resolveSourceInUrl.js';
 import { ComposeModalRef, EnableSignlessModalRef } from '@/modals/controls.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
-import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
 import { captureComposeEvent } from '@/providers/telemetry/captureComposeEvent.js';
 import { uploadSessions } from '@/services/metrics.js';
 import { commitPoll } from '@/services/poll.js';
+import { schedulePost } from '@/services/post.js';
 import type { CompositePost } from '@/store/useComposeStore.js';
 import { useLensStateStore } from '@/store/useProfileStore.js';
 import type { ComposeType } from '@/types/compose.js';
-import { schedulePost } from '@/services/post.js';
 
 export async function createSchedulePostsPayload(
     type: ComposeType,

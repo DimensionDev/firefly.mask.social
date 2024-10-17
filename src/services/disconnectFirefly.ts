@@ -4,9 +4,8 @@ import { type SocialSource, Source, WalletSource } from '@/constants/enum.js';
 import { SORTED_SOCIAL_SOURCES } from '@/constants/index.js';
 import { removeAccountByProfileId } from '@/helpers/account.js';
 import { resolveSourceFromWalletSource } from '@/helpers/resolveSource.js';
-import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
-import type { FireflyIdentity, FireflyWalletConnection } from '@/providers/types/Firefly.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
+import type { FireflyIdentity, FireflyWalletConnection } from '@/providers/types/Firefly.js';
 
 function getIdentity(connection: FireflyWalletConnection): FireflyIdentity | null {
     switch (connection.source) {
