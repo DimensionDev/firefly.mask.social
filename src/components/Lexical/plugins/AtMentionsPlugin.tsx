@@ -1,4 +1,4 @@
-import type { AutoLinkNode } from '@lexical/link/index.js';
+import type { AutoLinkNode } from '@lexical/link';
 import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext.js';
 import type { MenuTextMatch } from '@lexical/react/LexicalTypeaheadMenuPlugin.js';
 import {
@@ -7,7 +7,7 @@ import {
     useBasicTypeaheadTriggerMatch,
 } from '@lexical/react/LexicalTypeaheadMenuPlugin.js';
 import { useQuery } from '@tanstack/react-query';
-import type { TextNode } from 'lexical/index.js';
+import type { TextNode } from 'lexical';
 import { compact, first } from 'lodash-es';
 import { memo, useCallback, useMemo, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
