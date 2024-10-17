@@ -52,7 +52,7 @@ export function ActivityConnectButton() {
                 >
                     {buttonText}
                 </Menu.Button>
-                <Menu.Items className="absolute left-1/2 top-[calc(100%+12px)] flex w-[200px] -translate-x-1/2 flex-col rounded-[12px] bg-[#1C1C1E] shadow-lg">
+                <Menu.Items className="absolute left-1/2 top-[calc(100%+12px)] z-50 flex w-[200px] -translate-x-1/2 flex-col rounded-[12px] border border-line bg-primaryBottom shadow-lg">
                     {addresses.map((address) => (
                         <Menu.Item key={address}>
                             <a
