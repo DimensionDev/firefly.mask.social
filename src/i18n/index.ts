@@ -1,4 +1,4 @@
-import { setupI18n, type Messages } from '@lingui/core';
+import { setupI18n, i18n, type Messages } from '@lingui/core';
 import dayjs from 'dayjs';
 
 import { Locale } from '@/constants/enum.js';
@@ -9,7 +9,7 @@ import { messages as zhHans } from '@/locales/zh-Hans/messages.mjs';
 // @ts-ignore
 import { messages as zhHant } from '@/locales/zh-Hant/messages.mjs';
 
-const locales: Record<Locale, Messages> = {
+const messages: Record<Locale, Messages> = {
     [Locale.en]: en,
     [Locale.zhHans]: zhHans,
     [Locale.zhHant]: zhHant,
@@ -23,6 +23,15 @@ export const supportedLocales: Record<Locale, string> = {
 
 export const defaultLocale = Locale.en;
 
+export function setupLocale(locale: Locale) {
+    return setupI18n({
+        locale,
+        messages: {
+            [locale]: messages[locale],
+        },
+    })
+}
+
 /**
  * set locale and dynamically import catalog
  * @param locale a supported locale string
@@ -35,13 +44,11 @@ export function setLocale(locale: Locale) {
         console.log(`[i18n]: locale ${locale}`);
     }
 
-    setupI18n({
-        locale,
-        messages: locales,
-    });
+    i18n.load(locale, messages[locale]);
+    i18n.activate(locale, [Locale.en, Locale.zhHans]);
     dayjs.locale(locale);
 }
 
 export function getLocale(locale: Locale) {
-    return locales[locale];
+    return messages[locale];
 }
