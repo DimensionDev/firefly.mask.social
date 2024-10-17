@@ -155,7 +155,7 @@ export const Attachments = memo<AttachmentsProps>(function Attachments({
                                 'w-full': !minimal,
                             })}
                         >
-                            <VideoAsset asset={asset} isQuote={isQuote} minimal={minimal} source={post.source} />
+                            <VideoAsset asset={asset} minimal={minimal} source={post.source} />
                         </div>
                     )}
                 </WithPreviewLink>
@@ -215,7 +215,6 @@ export const Attachments = memo<AttachmentsProps>(function Attachments({
                                                     attachmentsSnapshot.length >= 2 ? 'mini-video flex-1' : undefined
                                                 }
                                                 asset={attachment}
-                                                isQuote={isQuote}
                                                 minimal={minimal}
                                                 source={post.source}
                                             />
@@ -263,12 +262,12 @@ export const Attachments = memo<AttachmentsProps>(function Attachments({
             ) : null}
             {video && !minimal ? (
                 <div className="w-full">
-                    <VideoAsset asset={video} isQuote={isQuote} minimal={minimal} source={post.source} />
+                    <VideoAsset asset={video} minimal={minimal} source={post.source} />
                 </div>
             ) : null}
             {!video && gifAttachments.length === 1 && !minimal ? (
                 <div className="w-full">
-                    <VideoAsset asset={gifAttachments[0]} isQuote={isQuote} minimal={minimal} source={post.source} />
+                    <VideoAsset asset={gifAttachments[0]} minimal={minimal} source={post.source} />
                 </div>
             ) : null}
         </div>
