@@ -4,6 +4,7 @@ import { queryClient } from '@/configs/queryClient.js';
 import { Source } from '@/constants/enum.js';
 import { isSameEthereumAddress, isSameSolanaAddress } from '@/helpers/isSameAddress.js';
 import { resolveSourceFromUrl } from '@/helpers/resolveSource.js';
+import type { FireflyEndpoint } from '@/providers/firefly/Endpoint.js';
 import type { FireflySocialMedia } from '@/providers/firefly/SocialMedia.js';
 import type { Article } from '@/providers/types/Article.js';
 import type { FireflyIdentity, WalletProfile } from '@/providers/types/Firefly.js';
@@ -85,15 +86,14 @@ function toggleBlock(address: string, status: boolean) {
 const METHODS_BE_OVERRIDDEN = ['blockWallet', 'unblockWallet'] as const;
 const METHODS_BE_OVERRIDDEN_MUTE_ALL = ['muteProfileAll'] as const;
 
-type Provider = FireflySocialMedia;
 export function SetQueryDataForBlockWallet() {
-    return function decorator<T extends ClassType<Provider>>(target: T): T {
+    return function decorator<T extends ClassType<FireflySocialMedia>>(target: T): T {
         function overrideMethod<K extends (typeof METHODS_BE_OVERRIDDEN)[number]>(key: K) {
-            const method = target.prototype[key] as Provider[K];
+            const method = target.prototype[key] as FireflySocialMedia[K];
 
             Object.defineProperty(target.prototype, key, {
                 value: async (address: string) => {
-                    const m = method as (address: string) => ReturnType<Provider[K]>;
+                    const m = method as (address: string) => ReturnType<FireflySocialMedia[K]>;
                     const status = key === 'blockWallet';
                     try {
                         const result = await m.call(target.prototype, address);
@@ -115,13 +115,13 @@ export function SetQueryDataForBlockWallet() {
 }
 
 export function SetQueryDataForMuteAllWallets() {
-    return function decorator<T extends ClassType<Provider>>(target: T): T {
+    return function decorator<T extends ClassType<FireflyEndpoint>>(target: T): T {
         function overrideMethod<K extends (typeof METHODS_BE_OVERRIDDEN_MUTE_ALL)[number]>(key: K) {
-            const method = target.prototype[key] as Provider[K];
+            const method = target.prototype[key] as FireflyEndpoint[K];
 
             Object.defineProperty(target.prototype, key, {
                 value: async (identity: FireflyIdentity) => {
-                    const m = method as (identity: FireflyIdentity) => ReturnType<Provider[K]>;
+                    const m = method as (identity: FireflyIdentity) => ReturnType<FireflyEndpoint[K]>;
                     const relationships = await m.call(target.prototype, identity);
                     [...relationships, { snsId: identity.id, snsPlatform: identity.source }].forEach(
                         ({ snsId, snsPlatform }) => {

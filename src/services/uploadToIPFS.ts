@@ -1,11 +1,26 @@
 import { S3 } from '@aws-sdk/client-s3';
 import { Upload } from '@aws-sdk/lib-storage';
+import urlcat from 'urlcat';
 import { v4 as uuid } from 'uuid';
 
 import { FileMimeType } from '@/constants/enum.js';
 import { EVER_API, S3_BUCKET } from '@/constants/index.js';
-import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
+import { fetchJSON } from '@/helpers/fetchJSON.js';
+import { resolveFireflyResponseData } from '@/helpers/resolveFireflyResponseData.js';
 import { lensSessionHolder } from '@/providers/lens/SessionHolder.js';
+import type { UploadMediaTokenResponse } from '@/providers/types/Firefly.js';
+import { settings } from '@/settings/index.js';
+
+async function getUploadMediaToken(token: string) {
+    if (!token) throw new Error('Need to login with Lens');
+    const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/lens/public_uploadMediaToken');
+    const response = await fetchJSON<UploadMediaTokenResponse>(url, {
+        headers: {
+            'x-access-token': token,
+        },
+    });
+    return resolveFireflyResponseData(response);
+}
 
 export interface IPFSResponse {
     uri: string;
@@ -19,7 +34,7 @@ export interface IPFSResponse {
  */
 const getS3Client = async (): Promise<S3> => {
     const accessToken = await lensSessionHolder.sdk.authentication.getAccessToken();
-    const mediaToken = await FireflySocialMediaProvider.getUploadMediaToken(accessToken.unwrap());
+    const mediaToken = await getUploadMediaToken(accessToken.unwrap());
     const client = new S3({
         endpoint: EVER_API,
         credentials: {

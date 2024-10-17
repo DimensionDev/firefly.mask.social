@@ -2,13 +2,13 @@ import { produce } from 'immer';
 
 import { queryClient } from '@/configs/queryClient.js';
 import { isSameConnectionAddress } from '@/helpers/isSameConnectionAddress.js';
-import type { FireflySocialMedia } from '@/providers/firefly/SocialMedia.js';
+import type { FireflyEndpoint } from '@/providers/firefly/Endpoint.js';
 import type { FireflyWalletConnection } from '@/providers/types/Firefly.js';
 import type { ClassType } from '@/types/index.js';
 
-type Provider = FireflySocialMedia;
+type Provider = FireflyEndpoint;
 type WalletsData = Record<'connected' | 'related', FireflyWalletConnection[]>;
-type ReportOptions = Parameters<FireflySocialMedia['reportAndDeleteWallet']>[0];
+type ReportOptions = Parameters<FireflyEndpoint['reportAndDeleteWallet']>[0];
 
 const METHODS_BE_OVERRIDDEN = ['disconnectWallet'] as const;
 const METHODS_BE_OVERRIDDEN_FOR_REPORT = ['reportAndDeleteWallet'] as const;

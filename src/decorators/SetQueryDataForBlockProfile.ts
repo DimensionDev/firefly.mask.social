@@ -6,9 +6,10 @@ import { narrowToSocialSource } from '@/helpers/narrowToSocialSource.js';
 import { patchNotificationQueryDataOnAuthor } from '@/helpers/patchNotificationQueryData.js';
 import { type Matcher, patchPostQueryData } from '@/helpers/patchPostQueryData.js';
 import { resolveSourceFromUrl } from '@/helpers/resolveSource.js';
+import type { FireflyEndpoint } from '@/providers/firefly/Endpoint.js';
 import type { FireflySocialMedia } from '@/providers/firefly/SocialMedia.js';
 import type { FireflyIdentity } from '@/providers/types/Firefly.js';
-import { type Profile, type Provider } from '@/providers/types/SocialMedia.js';
+import { type Profile } from '@/providers/types/SocialMedia.js';
 import type { ClassType } from '@/types/index.js';
 
 interface PagesData {
@@ -72,9 +73,9 @@ const METHODS_BE_OVERRIDDEN = ['blockProfile', 'unblockProfile'] as const;
 const METHODS_BE_OVERRIDDEN_MUTE_ALL = ['muteProfileAll'] as const;
 
 export function SetQueryDataForBlockProfile(source: SocialSource) {
-    return function decorator<T extends ClassType<Provider>>(target: T): T {
+    return function decorator<T extends ClassType<FireflySocialMedia>>(target: T): T {
         function overrideMethod<K extends (typeof METHODS_BE_OVERRIDDEN)[number]>(key: K) {
-            const method = target.prototype[key] as Provider[K];
+            const method = target.prototype[key] as FireflySocialMedia[K];
 
             Object.defineProperty(target.prototype, key, {
                 value: async (profileId: string) => {
@@ -104,13 +105,13 @@ export function SetQueryDataForBlockProfile(source: SocialSource) {
 }
 
 export function SetQueryDataForMuteAllProfiles() {
-    return function decorator<T extends ClassType<FireflySocialMedia>>(target: T): T {
+    return function decorator<T extends ClassType<FireflyEndpoint>>(target: T): T {
         function overrideMethod<K extends (typeof METHODS_BE_OVERRIDDEN_MUTE_ALL)[number]>(key: K) {
-            const method = target.prototype[key] as FireflySocialMedia[K];
+            const method = target.prototype[key] as FireflyEndpoint[K];
 
             Object.defineProperty(target.prototype, key, {
                 value: async (identity: FireflyIdentity) => {
-                    const m = method as (identity: FireflyIdentity) => ReturnType<FireflySocialMedia[K]>;
+                    const m = method as (identity: FireflyIdentity) => ReturnType<FireflyEndpoint[K]>;
                     const relationships = await m.call(target.prototype, identity);
                     [...relationships, { snsId: identity.id, snsPlatform: identity.source }].forEach(
                         ({ snsId, snsPlatform }) => {

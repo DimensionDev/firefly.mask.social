@@ -3,11 +3,11 @@ import { produce } from 'immer';
 import { queryClient } from '@/configs/queryClient.js';
 import { FireflyPlatform, NetworkType, WalletSource } from '@/constants/enum.js';
 import { isSameEthereumAddress } from '@/helpers/isSameAddress.js';
-import type { FireflySocialMedia } from '@/providers/firefly/SocialMedia.js';
+import type { FireflyEndpoint } from '@/providers/firefly/Endpoint.js';
 import type { BindWalletResponse, FireflyWalletConnection } from '@/providers/types/Firefly.js';
 import type { ClassType } from '@/types/index.js';
 
-type Provider = FireflySocialMedia;
+type Provider = FireflyEndpoint;
 type WalletsData = Record<'connected' | 'related', FireflyWalletConnection[]>;
 
 const METHODS_BE_OVERRIDDEN = ['verifyAndBindWallet'] as const;

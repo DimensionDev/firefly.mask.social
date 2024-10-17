@@ -3,9 +3,11 @@ import { type Draft, produce } from 'immer';
 import { queryClient } from '@/configs/queryClient.js';
 import { Source } from '@/constants/enum.js';
 import { isSameEthereumAddress } from '@/helpers/isSameAddress.js';
-import type { FireflySocialMedia } from '@/providers/firefly/SocialMedia.js';
+import type { FireflyEndpoint } from '@/providers/firefly/Endpoint.js';
 import type { Article } from '@/providers/types/Article.js';
 import type { ClassType } from '@/types/index.js';
+
+type Provider = FireflyEndpoint;
 
 function toggleWatch(address: string, status: boolean) {
     type PagesData = { pages: Array<{ data: Article[] }> };
@@ -35,7 +37,6 @@ function toggleWatch(address: string, status: boolean) {
 
 const METHODS_BE_OVERRIDDEN = ['watchWallet', 'unwatchWallet'] as const;
 
-type Provider = FireflySocialMedia;
 export function SetQueryDataForWatchWallet() {
     return function decorator<T extends ClassType<Provider>>(target: T): T {
         function overrideMethod<K extends (typeof METHODS_BE_OVERRIDDEN)[number]>(key: K) {

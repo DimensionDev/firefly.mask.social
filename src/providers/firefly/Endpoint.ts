@@ -1,27 +1,68 @@
 import { compact } from 'lodash-es';
 import urlcat from 'urlcat';
+import { type Address, type Hex, isAddress } from 'viem';
 
 import { queryClient } from '@/configs/queryClient.js';
 import { DEBANK_CHAIN_TO_CHAIN_ID_MAP, DEBANK_CHAINS } from '@/constants/chain.js';
-import { NetworkType, Source } from '@/constants/enum.js';
+import { FireflyPlatform, NetworkType, Source, SourceInURL } from '@/constants/enum.js';
 import { EMPTY_LIST } from '@/constants/index.js';
+import { SetQueryDataForAddWallet } from '@/decorators/SetQueryDataForAddWallet.js';
+import { SetQueryDataForMuteAllProfiles } from '@/decorators/SetQueryDataForBlockProfile.js';
+import { SetQueryDataForMuteAllWallets } from '@/decorators/SetQueryDataForBlockWallet.js';
+import {
+    SetQueryDataForDeleteWallet,
+    SetQueryDataForReportAndDeleteWallet,
+} from '@/decorators/SetQueryDataForDeleteWallet.js';
+import { SetQueryDataForWatchWallet } from '@/decorators/SetQueryDataForWatchWallet.js';
 import { getPublicKeyInHexFromSession } from '@/helpers/ed25519.js';
+import { fetchJSON } from '@/helpers/fetchJSON.js';
 import { formatFarcasterProfileFromSuggestedFollow } from '@/helpers/formatFarcasterProfileFromSuggestedFollow.js';
+import { formatFireflyProfilesFromWalletProfiles } from '@/helpers/formatFireflyProfilesFromWalletProfiles.js';
 import { formatLensProfileFromSuggestedFollow } from '@/helpers/formatLensProfile.js';
+import { formatWalletConnections } from '@/helpers/formatWalletConnection.js';
 import { getAddressType } from '@/helpers/getAddressType.js';
-import { createIndicator, createNextIndicator, createPageable, type PageIndicator } from '@/helpers/pageable.js';
+import { getPlatformQueryKey } from '@/helpers/getPlatformQueryKey.js';
+import { isZero } from '@/helpers/number.js';
+import {
+    createIndicator,
+    createNextIndicator,
+    createPageable,
+    type Pageable,
+    type PageIndicator,
+} from '@/helpers/pageable.js';
+import { resolveFireflyResponseData } from '@/helpers/resolveFireflyResponseData.js';
+import { resolveSourceFromUrl } from '@/helpers/resolveSource.js';
+import { resolveSourceInUrl } from '@/helpers/resolveSourceInUrl.js';
 import { resolveValue } from '@/helpers/resolveValue.js';
 import type { FarcasterSession } from '@/providers/farcaster/Session.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
 import type { Token as DebankToken } from '@/providers/types/Debank.js';
-import type {
-    DebankTokensResponse,
-    FireflyIdentity,
-    GetFarcasterSuggestedFollowUserResponse,
-    GetLensSuggestedFollowUserResponse,
-    NFTCollectionsResponse,
-    WalletProfileResponse,
+import {
+    type BindWalletResponse,
+    type BlockedUsersResponse,
+    type BlockFields,
+    type BlockUserResponse,
+    type DebankTokensResponse,
+    type EmptyResponse,
+    type FireflyIdentity,
+    type FireflyProfile,
+    type FireflyWalletConnection,
+    type GetAllConnectionsResponse,
+    type GetFarcasterSuggestedFollowUserResponse,
+    type GetLensSuggestedFollowUserResponse,
+    type HexResponse,
+    type IsMutedAllResponse,
+    type MuteAllResponse,
+    type NFTCollectionsResponse,
+    type RelationResponse,
+    type Response,
+    type TwitterUserInfoResponse,
+    type WalletProfile,
+    type WalletProfileResponse,
+    WatchType,
 } from '@/providers/types/Firefly.js';
+import type { DiscoverNFTResponse, GetFollowingNFTResponse } from '@/providers/types/NFTs.js';
+import { getWalletProfileByAddressOrEns } from '@/services/getWalletProfileByAddressOrEns.js';
 import { settings } from '@/settings/index.js';
 
 function resolveDeBankChain(deBankChain: string) {
@@ -34,7 +75,37 @@ function resolveDeBankChain(deBankChain: string) {
     return;
 }
 
-class EndpointProvider {
+async function block(field: BlockFields, profileId: string): Promise<boolean> {
+    const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/user/mute');
+    const response = await fireflySessionHolder.fetch<BlockUserResponse>(url, {
+        method: 'POST',
+        body: JSON.stringify({
+            [field]: profileId,
+        }),
+    });
+    if (response) return true;
+    throw new Error('Failed to block user');
+}
+
+async function unblock(field: BlockFields, profileId: string): Promise<boolean> {
+    const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/user/unmute');
+    const response = await fireflySessionHolder.fetch<BlockUserResponse>(url, {
+        method: 'POST',
+        body: JSON.stringify({
+            [field]: profileId,
+        }),
+    });
+    if (response) return true;
+    throw new Error('Failed to mute user');
+}
+
+@SetQueryDataForAddWallet()
+@SetQueryDataForDeleteWallet()
+@SetQueryDataForReportAndDeleteWallet()
+@SetQueryDataForWatchWallet()
+@SetQueryDataForMuteAllProfiles()
+@SetQueryDataForMuteAllWallets()
+export class FireflyEndpoint {
     async muteNFT(collectionId: string) {
         const url = urlcat(settings.FIREFLY_ROOT_URL, '/v2/mute/collection');
         await fireflySessionHolder.fetch(
@@ -199,6 +270,309 @@ class EndpointProvider {
             response.data?.suggestedFollowList.map((user) => formatFarcasterProfileFromSuggestedFollow(user)) ?? [];
         return createPageable(profiles, indicator, createIndicator(indicator, `${response.data.cursor}`));
     }
+
+    async getMessageToSignForBindWallet(address: string) {
+        const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/wallet/messageToSign', {
+            address,
+        });
+
+        const response = await fireflySessionHolder.fetch<Response<{ message: Hex }>>(url, {
+            method: 'GET',
+        });
+
+        const { message } = resolveFireflyResponseData(response);
+        if (!message) throw new Error('Failed to get message to sign');
+
+        return message;
+    }
+
+    async getAllPlatformProfileByIdentity(
+        identity: FireflyIdentity,
+        isTokenRequired: boolean,
+    ): Promise<FireflyProfile[]> {
+        const response = await FireflyEndpointProvider.getAllPlatformProfileFromFirefly(identity, isTokenRequired);
+        const profiles = resolveFireflyResponseData(response);
+        return formatFireflyProfilesFromWalletProfiles(profiles);
+    }
+
+    async getAllPlatformProfiles(lensHandle?: string, fid?: string, twitterId?: string): Promise<FireflyProfile[]> {
+        const url = urlcat(settings.FIREFLY_ROOT_URL, '/v2/wallet/profile', {
+            twitterId,
+            lensHandle,
+            fid,
+        });
+
+        const response = await fireflySessionHolder.fetch<WalletProfileResponse>(url, {
+            method: 'GET',
+        });
+
+        const profiles = resolveFireflyResponseData(response);
+        return formatFireflyProfilesFromWalletProfiles(profiles);
+    }
+
+    async getNextIDRelations(platform: string, identity: string) {
+        const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/wallet/relations', {
+            platform,
+            identity,
+        });
+
+        const response = await fireflySessionHolder.fetch<RelationResponse>(url, {
+            method: 'GET',
+        });
+
+        const relations = resolveFireflyResponseData(response);
+        return relations;
+    }
+
+    async verifyAndBindWallet(signMessage: string, signature: string) {
+        const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/wallet/verify');
+        const response = await fireflySessionHolder.fetch<BindWalletResponse>(url, {
+            method: 'POST',
+            body: JSON.stringify({
+                signMessage,
+                signature,
+            }),
+        });
+
+        const data = resolveFireflyResponseData(response);
+        return data;
+    }
+
+    async getMessageToSignMessageForBindSolanaWallet(address: string) {
+        const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/solana/solana/signMessage', {
+            address,
+        });
+
+        const response = await fireflySessionHolder.fetch<HexResponse>(url, {
+            method: 'GET',
+        });
+
+        const data = resolveFireflyResponseData(response);
+        if (!data) throw new Error('Failed to get message to sign');
+
+        return data;
+    }
+
+    async verifyAndBindSolanaWallet(address: string, messageToSign: string, signature: string) {
+        const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/solana/solana/verify');
+        const response = await fireflySessionHolder.fetch<BindWalletResponse>(url, {
+            method: 'POST',
+            body: JSON.stringify({
+                address,
+                messageToSign,
+                signature,
+            }),
+        });
+
+        return resolveFireflyResponseData(response);
+    }
+
+    async disconnectAccount(identity: FireflyIdentity) {
+        const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/accountConnection', {
+            connectionPlatform: resolveSourceInUrl(identity.source),
+            connectionId: identity.id,
+        });
+        await fireflySessionHolder.fetch<Response<void>>(url, {
+            method: 'DELETE',
+        });
+    }
+
+    async disconnectWallet(address: string) {
+        const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/wallet');
+        await fireflySessionHolder.fetch<Response<void>>(url, {
+            method: 'DELETE',
+            body: JSON.stringify({
+                addresses: [address],
+            }),
+        });
+    }
+
+    async watchWallet(address: string) {
+        if (!isAddress(address)) throw new Error(`Invalid address: ${address}`);
+        const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/user/follow', {
+            type: WatchType.Wallet,
+            toObjectId: address,
+        });
+        await fireflySessionHolder.fetch<Response<void>>(url, { method: 'PUT' });
+        return true;
+    }
+
+    async unwatchWallet(address: string) {
+        if (!isAddress(address)) throw new Error(`Invalid address: ${address}`);
+        const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/user/follow', {
+            type: WatchType.Wallet,
+            toObjectId: address,
+        });
+        await fireflySessionHolder.fetch<Response<void>>(url, { method: 'DELETE' });
+        return true;
+    }
+
+    async reportProfile(profileId: string): Promise<boolean> {
+        // TODO Mocking result for now.
+        return true;
+    }
+
+    async discoverNFTs({
+        indicator,
+        limit = 40,
+    }: {
+        indicator?: PageIndicator;
+        limit?: number;
+    } = {}) {
+        const page = Number.parseInt(indicator?.id || '0', 10);
+        const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/discover/feeds', {
+            size: limit,
+            offset: page * limit,
+        });
+        const response = await fireflySessionHolder.fetch<DiscoverNFTResponse>(url, {
+            method: 'GET',
+        });
+        return createPageable(
+            response.data.feeds,
+            indicator,
+            response.data.hasMore ? createIndicator(undefined, `${page + 1}`) : undefined,
+        );
+    }
+
+    async getFollowingNFTs({
+        limit = 40,
+        indicator,
+        walletAddresses,
+    }: {
+        limit?: number;
+        indicator?: PageIndicator;
+        walletAddresses?: string[];
+    } = {}) {
+        const url = urlcat(
+            settings.FIREFLY_ROOT_URL,
+            walletAddresses && walletAddresses.length > 0 ? '/v2/user/timeline/nft' : '/v2/timeline/nft',
+        );
+        const response = await fireflySessionHolder.fetch<GetFollowingNFTResponse>(
+            url,
+            {
+                method: 'POST',
+                body: JSON.stringify({
+                    size: limit,
+                    cursor: indicator?.id && !isZero(indicator.id) ? indicator.id : undefined,
+                    walletAddresses,
+                }),
+            },
+            !(walletAddresses && walletAddresses.length > 0),
+        );
+        return createPageable(
+            response.data.result,
+            indicator,
+            response.data.cursor ? createIndicator(undefined, response.data.cursor) : undefined,
+        );
+    }
+
+    async isProfileMutedAll(identity: FireflyIdentity) {
+        const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/user/isMuteAll', {
+            [getPlatformQueryKey(identity.source)]: identity.id,
+        });
+
+        const response = await fireflySessionHolder.fetch<IsMutedAllResponse>(url);
+        const data = resolveFireflyResponseData(response);
+        return data?.isBlockAll ?? false;
+    }
+
+    async reportAndDeleteWallet(connection: FireflyWalletConnection, reason: string) {
+        const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/wallet/twitter/wallet/report');
+
+        await fireflySessionHolder.fetch<EmptyResponse>(url, {
+            method: 'POST',
+            body: JSON.stringify({
+                twitterId: connection.twitterId,
+                walletAddress: connection.address,
+                reportReason: reason,
+                sources: connection.sources.map((x) => x.source).join(','),
+            }),
+        });
+    }
+
+    async muteProfileAll(identity: FireflyIdentity) {
+        const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/user/muteAll', {
+            [getPlatformQueryKey(identity.source)]: identity.id,
+        });
+
+        const response = await fireflySessionHolder.fetch<MuteAllResponse>(url, {
+            method: 'POST',
+            body: JSON.stringify({
+                [getPlatformQueryKey(identity.source)]: identity.id,
+            }),
+        });
+
+        return resolveFireflyResponseData(response);
+    }
+
+    async getAllConnections() {
+        const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/accountConnection');
+        const response = await fireflySessionHolder.fetch<GetAllConnectionsResponse>(url, {
+            method: 'GET',
+        });
+        const connections = resolveFireflyResponseData(response);
+
+        return {
+            connected: formatWalletConnections(connections.wallet.connected, connections),
+            related: formatWalletConnections(connections.wallet.unconnected, connections),
+        };
+    }
+
+    async getTwitterUserInfo(screenName: string) {
+        const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/twitter/userinfo', {
+            screenName,
+        });
+        const response = await fetchJSON<TwitterUserInfoResponse>(url, {
+            method: 'GET',
+        });
+        return resolveFireflyResponseData(response);
+    }
+
+    async blockWallet(address: string) {
+        return block('address', address);
+    }
+
+    async unblockWallet(address: string) {
+        return unblock('address', address);
+    }
+
+    async blockProfileFor(source: FireflyPlatform, profileId: string): Promise<boolean> {
+        return block(getPlatformQueryKey(resolveSourceFromUrl(source)), profileId);
+    }
+
+    async unblockProfileFor(source: FireflyPlatform, profileId: string): Promise<boolean> {
+        return unblock(getPlatformQueryKey(resolveSourceFromUrl(source)), profileId);
+    }
+
+    async getBlockedWallets(indicator?: PageIndicator): Promise<Pageable<WalletProfile, PageIndicator>> {
+        const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/user/mutelist', {
+            size: 20,
+            page: indicator?.id ?? 1,
+            platform: SourceInURL.Wallet,
+        });
+        const response = await fireflySessionHolder.fetch<BlockedUsersResponse>(url);
+
+        const data = await Promise.all(
+            (response.data?.blocks ?? []).map(async (item) => {
+                const walletProfile = await getWalletProfileByAddressOrEns(item.address, true);
+                return {
+                    ...(walletProfile || {
+                        address: item.address as Address,
+                        blockchain: NetworkType.Ethereum,
+                        is_connected: false,
+                        verifiedSources: [],
+                    }),
+                    blocked: true,
+                };
+            }),
+        );
+
+        return createPageable(
+            data,
+            createIndicator(indicator),
+            response.data?.nextPage ? createNextIndicator(indicator, `${response.data?.nextPage}`) : undefined,
+        );
+    }
 }
 
-export const FireflyEndpointProvider = new EndpointProvider();
+export const FireflyEndpointProvider = new FireflyEndpoint();

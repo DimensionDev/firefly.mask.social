@@ -1,12 +1,22 @@
 import { type PutObjectCommandInput, S3 } from '@aws-sdk/client-s3';
 import { Upload } from '@aws-sdk/lib-storage';
+import urlcat from 'urlcat';
 import { v4 as uuid } from 'uuid';
 
 import { type SocialSourceInURL } from '@/constants/enum.js';
 import { SUFFIX_NAMES } from '@/constants/index.js';
-import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
+import { fetchJSON } from '@/helpers/fetchJSON.js';
+import { resolveFireflyResponseData } from '@/helpers/resolveFireflyResponseData.js';
+import type { UploadMediaTokenResponse } from '@/providers/types/Firefly.js';
+import { settings } from '@/settings/index.js';
 
 const uploadedCache = new WeakMap<File, string | Promise<string>>();
+
+async function getS3UploadMediaToken() {
+    const url = urlcat(settings.FIREFLY_ROOT_URL, '/v2/farcaster-hub/uploadMediaToken');
+    const response = await fetchJSON<UploadMediaTokenResponse>(url);
+    return resolveFireflyResponseData(response);
+}
 
 export async function uploadToDirectory(
     file: File,
@@ -17,7 +27,7 @@ export async function uploadToDirectory(
     if (typeof hit === 'string' || hit instanceof Promise) return hit;
     const promise = new Promise<string>(async (resolve, reject) => {
         try {
-            const mediaToken = await FireflySocialMediaProvider.getS3UploadMediaToken();
+            const mediaToken = await getS3UploadMediaToken();
             const client = new S3({
                 credentials: {
                     accessKeyId: mediaToken.accessKeyId,

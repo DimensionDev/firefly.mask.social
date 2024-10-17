@@ -1,4 +1,4 @@
-import type { Address } from 'viem';
+import type { Address, Hex } from 'viem';
 
 import {
     FireflyPlatform,
@@ -824,6 +824,10 @@ export type SessionStatus =
     | {
           status: 'pending';
       };
+
+export type EmptyResponse = Response<void>;
+
+export type HexResponse = Response<Hex>;
 
 export type SessionStatusResponse = Response<SessionStatus>;
 

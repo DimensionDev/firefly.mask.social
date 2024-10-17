@@ -47,6 +47,11 @@ export interface Tag {
     label: string;
 }
 
+export interface Friendship {
+    isFollowing: boolean;
+    isFollowedBack: boolean;
+}
+
 export interface Profile {
     /** fid for Farcaster, twitter id for Twitter */
     profileId: string;
@@ -610,6 +615,12 @@ export interface Provider {
      * @returns A promise that resolves to a pageable list of Post objects.
      */
     getPostsByParentPostId: (postId: string, indicator?: PageIndicator) => Promise<Pageable<Post>>;
+
+    /**
+     * Retrieves friendship status between the current logged user and another profile.
+     * @param profileId
+     */
+    getFriendship(profileId: string): Promise<Friendship | null>;
 
     /**
      * Retrieves reactors (users who reacted to a post) by post ID.
