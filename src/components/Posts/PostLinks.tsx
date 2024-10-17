@@ -11,6 +11,7 @@ import { FrameLayout } from '@/components/Frame/index.js';
 import { OembedLayout } from '@/components/Oembed/index.js';
 import { Player } from '@/components/Oembed/Player.js';
 import { TweetSpace } from '@/components/Posts/TweetSpace.js';
+import { SnapshotBody } from '@/components/Snapshot/SnapshotBody.js';
 import { type SocialSource } from '@/constants/enum.js';
 import { URL_REGEX } from '@/constants/regexp.js';
 import type { Chars } from '@/helpers/chars.js';
@@ -87,6 +88,7 @@ export function PostLinks({ post, setContent, isInCompose = false }: Props) {
                     }}
                 />
             ) : null}
+            {data.snapshot && !isInCompose ? <SnapshotBody snapshot={data.snapshot} /> : null}
             {data.html ? (
                 <Player html={data.html} isSpotify={isLinkMatchingHost(url, 'open.spotify.com', false)} />
             ) : null}

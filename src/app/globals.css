@@ -86,6 +86,10 @@
     --color-light-warn: 255 122 85;
     --color-light-highlight: 76 74 169;
     --color-highlight: 76 74 169;
+    --color-common-main: 24 26 32;
+    --color-bg02: 172 172 174;
+    --color-bg03: 230 230 237;
+    --color-light-rebranding-bg: 245 245 249;
 }
 
 .dark {
@@ -134,8 +138,12 @@
     --plyr-control-icon-size: 16px;
     --color-card: white;
     --color-light-warn: 255 122 85;
-    --color-light-highlight: 172 157 246;
+    --color-light-highlight: 76 74 169;
     --color-highlight: 172 157 246;
+    --color-common-main: 24 26 32;
+    --color-bg02: 172 172 174;
+    --color-bg03: 230 230 237;
+    --color-light-rebranding-bg: 245 245 249;
 }
 
 .dark .plyr__control {
@@ -528,4 +536,26 @@ body.not-support .fixed.inset-y-0 {
 .markup ol li::before {
     counter-increment: list-counter;
     content: counter(list-counter) '. ';
+}
+
+.snapshot-markup h1 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    line-height: 2rem;
+    margin-top: 1.5rem;
+    margin-bottom: 1.5rem;
+    color: rgb(var(--color-main));
+}
+
+.snapshot-markup h2,
+h3,
+h4,
+h5,
+h6 {
+    font-size: 1rem;
+    font-weight: 600;
+    line-height: 1.5rem;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    color: rgb(var(--color-main));
 }

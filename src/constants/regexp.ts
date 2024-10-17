@@ -51,3 +51,5 @@ export const LIMO_REGEXP = /^https:\/\/vitalik\.eth\.limo\/general\//;
 export const MIRROR_ARTICLE_REGEXP = /https?:\/\/mirror\.xyz\/[^/]+\/([^/]+)/;
 export const MIRROR_SUBDOMAIN_ARTICLE_REGEXP = /^https:\/\/.*\.mirror\.xyz\/(.*)$/;
 export const PARAGRAPH_ARTICLE_REGEXP = /https?:\/\/paragraph\.xyz(\/view)?\/@([^/]+)\/(.+)/;
+
+export const SNAPSHOT_PROPOSAL_REGEXP = /^https:\/\/snapshot\.org\/#\/[a-zA-Z0-9]+\/proposal\/[a-zA-Z0-9]+$/;

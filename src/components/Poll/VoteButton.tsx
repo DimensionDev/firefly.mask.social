@@ -46,7 +46,7 @@ export function VoteButton({ option, post, frameUrl }: VoteButtonProps) {
         <div className="mt-3">
             <ClickableButton
                 disabled={loading}
-                className="flex h-10 w-full items-center justify-center rounded-[10px] border border-lightMain text-base font-bold leading-10 text-lightMain hover:border-lightHighlight hover:text-lightHighlight disabled:!cursor-default disabled:!opacity-100"
+                className="flex h-10 w-full items-center justify-center rounded-[10px] border border-lightMain text-base font-bold leading-10 text-lightMain hover:border-lightHighlight hover:text-highlight disabled:!cursor-default disabled:!opacity-100"
                 onClick={handleVote}
             >
                 {loading ? <LoadingIcon className="animate-spin" width={24} height={24} /> : option.label}

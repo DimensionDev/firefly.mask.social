@@ -146,10 +146,10 @@ export function ComposeSend(props: ComposeSendProps) {
                         }}
                     >
                         {posts.length >= MAX_POST_SIZE_PER_THREAD ? (
-                            <AddThread width={40} height={40} className="text-lightHighlight outline-none" />
+                            <AddThread width={40} height={40} className="text-highlight outline-none" />
                         ) : (
                             <Tooltip content={t`Add`} placement="top">
-                                <AddThread width={40} height={40} className="text-lightHighlight outline-none" />
+                                <AddThread width={40} height={40} className="text-highlight outline-none" />
                             </Tooltip>
                         )}
                     </ClickableButton>

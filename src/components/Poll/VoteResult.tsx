@@ -24,7 +24,7 @@ export function VoteResult({ option, totalVotes, maxPercent }: VoteResultProps) 
             <div className="absolute z-10 flex h-full w-full items-center justify-between pl-5 text-base font-bold text-lightMain">
                 <span
                     className={classNames('mr-2 flex items-center gap-2 truncate', {
-                        'text-lightHighlight': isUserVoted,
+                        'text-highlight': isUserVoted,
                         'text-lightMain': !isUserVoted && isMaxPercent,
                         'text-lightSecond': !isUserVoted && !isMaxPercent,
                     })}

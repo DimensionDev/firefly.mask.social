@@ -51,7 +51,7 @@ export class MentionNode extends TextNode {
             sources.setAttribute('class', 'flex items-center -space-x-1');
             element.setAttribute(
                 'class',
-                'inline-flex items-center gap-2 py-1 px-3 rounded-full border border-link text-lightHighlight leading-4',
+                'inline-flex items-center gap-2 py-1 px-3 rounded-full border border-link text-highlight leading-4',
             );
             element.insertBefore(sources, element.firstChild);
         }

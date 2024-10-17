@@ -2,7 +2,6 @@ import { Menu } from '@headlessui/react';
 import { t, Trans } from '@lingui/macro';
 import { motion } from 'framer-motion';
 import { memo } from 'react';
-import urlcat from 'urlcat';
 
 import LinkIcon from '@/assets/link.svg';
 import SendIcon from '@/assets/send.svg';
@@ -10,18 +9,15 @@ import ShareIcon from '@/assets/share.svg';
 import { MenuButton } from '@/components/Actions/MenuButton.js';
 import { MoreActionMenu } from '@/components/MoreActionMenu.js';
 import { Tooltip } from '@/components/Tooltip.js';
-import { getArticleUrl } from '@/helpers/getArticleUrl.js';
 import { useCopyText } from '@/hooks/useCopyText.js';
 import { ComposeModalRef } from '@/modals/controls.js';
-import type { Article } from '@/providers/types/Article.js';
 
-interface ArticleShareProps {
-    article: Article;
+interface ShareActionProps {
+    link: string;
 }
 
-export const ArticleShare = memo(function ArticleShare({ article }: ArticleShareProps) {
-    const url = urlcat(location.origin, getArticleUrl(article));
-    const [, handleCopy] = useCopyText(url ?? '');
+export const ShareAction = memo(function ShareAction({ link }: ShareActionProps) {
+    const [, handleCopy] = useCopyText(link ?? '');
     return (
         <MoreActionMenu
             button={
@@ -47,7 +43,7 @@ export const ArticleShare = memo(function ArticleShare({ article }: ArticleShare
                         <MenuButton
                             onClick={() => {
                                 ComposeModalRef.open({
-                                    chars: url,
+                                    chars: link,
                                 });
                                 close();
                             }}

@@ -726,6 +726,9 @@ msgstr ""
 msgid "Not Found. Please check your URL[{0}]."
 msgstr ""
 
+msgid "Closed"
+msgstr ""
+
 msgid "Non-sanctioned address found."
 msgstr ""
 
@@ -835,6 +838,9 @@ msgid "Remove from Bookmarks"
 msgstr ""
 
 msgid "<0>Bought</0> an NFT"
+msgstr ""
+
+msgid "Active"
 msgstr ""
 
 msgid "Connection failed"
@@ -1167,6 +1173,9 @@ msgstr ""
 msgid "Replies"
 msgstr ""
 
+msgid "Current Results"
+msgstr ""
+
 msgid "Comment"
 msgstr ""
 
@@ -1264,6 +1273,9 @@ msgid "Your post has published successfully."
 msgstr ""
 
 msgid "Login with Farcaster"
+msgstr ""
+
+msgid "Votes"
 msgstr ""
 
 msgid "Bio should not exceed {maxBioSize} characters"
@@ -1504,6 +1516,9 @@ msgid "Failed to disconnect wallet from your social graph."
 msgstr ""
 
 msgid "No external call risk found."
+msgstr ""
+
+msgid "Pending"
 msgstr ""
 
 msgid "No preview found for shared link"
@@ -2211,6 +2226,9 @@ msgstr ""
 msgid "*CZ's follower snapshot was taken at 8:00 UTC on September 21, 2024."
 msgstr ""
 
+msgid "Results"
+msgstr ""
+
 msgid "Properties"
 msgstr ""
 
@@ -2455,6 +2473,9 @@ msgid "Mirror now to get 25% referral fee!"
 msgstr ""
 
 msgid "Hide tokens with small balances"
+msgstr ""
+
+msgid "Proposal"
 msgstr ""
 
 msgid "News"

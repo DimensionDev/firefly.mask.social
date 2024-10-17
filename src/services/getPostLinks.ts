@@ -12,6 +12,8 @@ import { parseUrl } from '@/helpers/parseUrl.js';
 import { isValidPollFrameUrl } from '@/helpers/resolveEmbedMediaType.js';
 import { resolveTCOLink } from '@/helpers/resolveTCOLink.js';
 import { getPostIFrame } from '@/providers/og/readers/iframe.js';
+import { Snapshot } from '@/providers/snapshot/index.js';
+import type { SnapshotProposal } from '@/providers/types/Snapshot.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 import { getArticleIdFromUrl } from '@/services/getArticleIdFromUrl.js';
 import { settings } from '@/settings/index.js';
@@ -88,12 +90,20 @@ export async function getPostLinks(url: string, post: Post) {
         html?: string;
         articleId?: string;
         spaceId?: string;
+        snapshot?: SnapshotProposal;
     } | null>(
         [
             async () => {
                 const spaceId = url.match(TWEET_SPACE_REGEX)?.[3];
                 if (!spaceId) return null;
                 return { spaceId };
+            },
+            async () => {
+                const realUrl = (await resolveTCOLink(url)) ?? url;
+                if (!realUrl) return null;
+                const snapshot = await Snapshot.getSnapshotByLink(realUrl);
+                if (!snapshot) return null;
+                return { snapshot };
             },
             async () => {
                 const realUrl = (await resolveTCOLink(url)) ?? url;

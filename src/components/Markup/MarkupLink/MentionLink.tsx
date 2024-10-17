@@ -16,7 +16,7 @@ export const MentionLink = memo(
         if (!handle) return null;
         return (
             <Link
-                className={classNames('text-lightHighlight', className)}
+                className={classNames('text-highlight', className)}
                 {...rest}
                 onClick={(event) => event.stopPropagation()}
                 ref={ref}
