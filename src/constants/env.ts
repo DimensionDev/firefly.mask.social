@@ -41,11 +41,9 @@ const ExternalEnvSchema = z.object({
     NEXT_PUBLIC_VERCEL_ENV: z.nativeEnum(VERCEL_NEV).default(VERCEL_NEV.Development),
 
     // urls
-    NEXT_PUBLIC_SITE_URL: z.string().default('https://firefly.mask.social'),
-    NEXT_PUBLIC_FIREFLY_API_URL: z.string().default('https://api.firefly.land'),
     NEXT_PUBLIC_FARCASTER_OPENRANK_URL: z.string().default('https://graph.cast.k3l.io'),
     NEXT_PUBLIC_LENS_OPENRANK_URL: z.string().default('https://lens-api.k3l.io'),
-    NEXT_PUBLIC_SOLANA_RPC_URL: z.string(),
+    NEXT_PUBLIC_SOLANA_RPC_URL: z.string().default('https://api.mainnet-beta.solana.com'),
 
     // features
     NEXT_PUBLIC_POLL: z.nativeEnum(STATUS).default(STATUS.Disabled),
@@ -64,11 +62,11 @@ const ExternalEnvSchema = z.object({
     NEXT_PUBLIC_FIREFLY_DEV_API: z.nativeEnum(STATUS).default(STATUS.Disabled),
 
     // hubble
-    NEXT_PUBLIC_HUBBLE_URL: z.string(),
+    NEXT_PUBLIC_HUBBLE_URL: z.string().default('https://api.neynar.com:2281'),
     NEXT_PUBLIC_HUBBLE_TOKEN: z.string().optional(),
 
     // sentry
-    NEXT_PUBLIC_SENTRY_DSN: z.string(),
+    NEXT_PUBLIC_SENTRY_DSN: z.string().optional(),
     NEXT_PUBLIC_SENTRY_REPORT_URL: z.string().optional(),
 
     // app url scheme
@@ -77,10 +75,10 @@ const ExternalEnvSchema = z.object({
     NEXT_PUBLIC_FIREFLY_ANDROID_HOME: z.string().default('firefly://home'),
 
     // giphy
-    NEXT_PUBLIC_GIPHY_API_KEY: z.string().default(''),
+    NEXT_PUBLIC_GIPHY_API_KEY: z.string().default('invalid_giphy_api_key'),
 
     // w3m
-    NEXT_PUBLIC_W3M_PROJECT_ID: z.string(),
+    NEXT_PUBLIC_W3M_PROJECT_ID: z.string().default('invalid_w3m_project_id'),
 
     // particle
     NEXT_PUBLIC_PARTICLE_APP_ID: z.string().optional(),
@@ -94,18 +92,18 @@ export const env = {
         VERSION: process.env.npm_package_version || process.version,
         COMMIT_HASH: process.env.COMMIT_HASH,
     },
-    internal: (!bom.window || process.env.VITEST ? InternalEnvSchema.parse(process.env) : {}) as z.infer<
-        typeof InternalEnvSchema
-    >,
+    internal: ((!bom.window || process.env.VITEST) && !process.env.GITHUB_ACTIONS
+        ? InternalEnvSchema.parse(process.env)
+        : {}) as z.infer<typeof InternalEnvSchema>,
     external: ExternalEnvSchema.parse({
         NEXT_PUBLIC_VERCEL_ENV: process.env.NEXT_PUBLIC_VERCEL_ENV,
 
-        NEXT_PUBLIC_SITE_URL: process.env.NEXT_PUBLIC_SITE_URL,
-        NEXT_PUBLIC_FIREFLY_API_URL: process.env.NEXT_PUBLIC_FIREFLY_API_URL,
+        // urls
         NEXT_PUBLIC_FARCASTER_OPENRANK_URL: process.env.NEXT_PUBLIC_FARCASTER_OPENRANK_URL,
         NEXT_PUBLIC_LENS_OPENRANK_URL: process.env.NEXT_PUBLIC_LENS_OPENRANK_URL,
         NEXT_PUBLIC_SOLANA_RPC_URL: process.env.NEXT_PUBLIC_SOLANA_RPC_URL,
 
+        // features
         NEXT_PUBLIC_POLL: process.env.NEXT_PUBLIC_POLL,
         NEXT_PUBLIC_FRAME: process.env.NEXT_PUBLIC_FRAME,
         NEXT_PUBLIC_BLINK: process.env.NEXT_PUBLIC_BLINK,
@@ -119,12 +117,16 @@ export const env = {
         NEXT_PUBLIC_FEEDBACK: process.env.NEXT_PUBLIC_FEEDBACK,
         NEXT_PUBLIC_TELEMETRY: process.env.NEXT_PUBLIC_TELEMETRY,
         NEXT_PUBLIC_DEVELOPERS: process.env.NEXT_PUBLIC_DEVELOPERS,
+
+        // hubble
         NEXT_PUBLIC_HUBBLE_URL: process.env.NEXT_PUBLIC_HUBBLE_URL,
         NEXT_PUBLIC_HUBBLE_TOKEN: process.env.NEXT_PUBLIC_HUBBLE_TOKEN,
 
+        // sentry
         NEXT_PUBLIC_SENTRY_DSN: process.env.NEXT_PUBLIC_SENTRY_DSN,
         NEXT_PUBLIC_SENTRY_REPORT_URL: process.env.NEXT_PUBLIC_SENTRY_REPORT_URL,
 
+        // app scheme url
         NEXT_PUBLIC_FIREFLY_DOWNLOAD_LINK: process.env.NEXT_PUBLIC_FIREFLY_DOWNLOAD_LINK,
         NEXT_PUBLIC_FIREFLY_IOS_HOME: process.env.NEXT_PUBLIC_FIREFLY_IOS_HOME,
         NEXT_PUBLIC_FIREFLY_ANDROID_HOME: process.env.NEXT_PUBLIC_FIREFLY_ANDROID_HOME,
@@ -134,5 +136,10 @@ export const env = {
 
         // w3m
         NEXT_PUBLIC_W3M_PROJECT_ID: process.env.NEXT_PUBLIC_W3M_PROJECT_ID,
+
+        // particle
+        NEXT_PUBLIC_PARTICLE_APP_ID: process.env.NEXT_PUBLIC_PARTICLE_APP_ID,
+        NEXT_PUBLIC_PARTICLE_PROJECT_ID: process.env.NEXT_PUBLIC_PARTICLE_PROJECT_ID,
+        NEXT_PUBLIC_PARTICLE_CLIENT_KEY: process.env.NEXT_PUBLIC_PARTICLE_CLIENT_KEY,
     }),
 };

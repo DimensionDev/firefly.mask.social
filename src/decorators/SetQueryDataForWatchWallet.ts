@@ -3,7 +3,7 @@ import { type Draft, produce } from 'immer';
 import { queryClient } from '@/configs/queryClient.js';
 import { Source } from '@/constants/enum.js';
 import { isSameEthereumAddress } from '@/helpers/isSameAddress.js';
-import type { FireflySocialMedia } from '@/providers/firefly/SocialMedia.js';
+import type { FireflyEndpoint } from '@/providers/firefly/Endpoint.js';
 import type { Article } from '@/providers/types/Article.js';
 import type { ClassType } from '@/types/index.js';
 
@@ -35,15 +35,14 @@ function toggleWatch(address: string, status: boolean) {
 
 const METHODS_BE_OVERRIDDEN = ['watchWallet', 'unwatchWallet'] as const;
 
-type Provider = FireflySocialMedia;
 export function SetQueryDataForWatchWallet() {
-    return function decorator<T extends ClassType<Provider>>(target: T): T {
+    return function decorator<T extends ClassType<FireflyEndpoint>>(target: T): T {
         function overrideMethod<K extends (typeof METHODS_BE_OVERRIDDEN)[number]>(key: K) {
-            const method = target.prototype[key] as Provider[K];
+            const method = target.prototype[key] as FireflyEndpoint[K];
 
             Object.defineProperty(target.prototype, key, {
                 value: async (address: string) => {
-                    const m = method as (address: string) => ReturnType<Provider[K]>;
+                    const m = method as (address: string) => ReturnType<FireflyEndpoint[K]>;
                     const status = key === 'watchWallet';
                     try {
                         toggleWatch(address, status);

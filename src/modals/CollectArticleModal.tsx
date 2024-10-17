@@ -4,6 +4,7 @@ import { forwardRef, useState } from 'react';
 import { ArticleCollect } from '@/components/Article/ArticleCollect.js';
 import { CloseButton } from '@/components/CloseButton.js';
 import { Modal } from '@/components/Modal.js';
+import { stopEvent } from '@/helpers/stopEvent.js';
 import { useSingletonModal } from '@/hooks/useSingletonModal.js';
 import { type SingletonModalRefCreator } from '@/libs/SingletonModal.js';
 import { type Article } from '@/providers/types/Article.js';
@@ -30,10 +31,7 @@ export const CollectArticleModal = forwardRef<SingletonModalRefCreator<CollectAr
             <Modal onClose={() => dispatch?.close()} open={open}>
                 <div
                     className="relative w-[432px] max-w-[90vw] rounded-xl bg-lightBottom shadow-popover transition-all dark:bg-darkBottom dark:text-gray-950"
-                    onClick={(event) => {
-                        event.stopPropagation();
-                        event.preventDefault();
-                    }}
+                    onClick={stopEvent}
                 >
                     <div className="inline-flex h-14 w-full items-center justify-center gap-2 rounded-t-[12px] p-4">
                         <CloseButton

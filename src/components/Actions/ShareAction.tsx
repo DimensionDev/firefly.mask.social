@@ -9,6 +9,7 @@ import ShareIcon from '@/assets/share.svg';
 import { MenuButton } from '@/components/Actions/MenuButton.js';
 import { MoreActionMenu } from '@/components/MoreActionMenu.js';
 import { Tooltip } from '@/components/Tooltip.js';
+import { stopEvent } from '@/helpers/stopEvent.js';
 import { useCopyText } from '@/hooks/useCopyText.js';
 import { ComposeModalRef } from '@/modals/controls.js';
 
@@ -33,10 +34,7 @@ export const ShareAction = memo(function ShareAction({ link }: ShareActionProps)
         >
             <Menu.Items
                 className="absolute right-0 z-[1000] flex w-max flex-col gap-2 overflow-hidden rounded-2xl border border-line bg-primaryBottom py-3 text-base text-main"
-                onClick={(event) => {
-                    event.stopPropagation();
-                    event.preventDefault();
-                }}
+                onClick={stopEvent}
             >
                 <Menu.Item>
                     {({ close }) => (

@@ -15,7 +15,6 @@ import { ClickableButton } from '@/components/ClickableButton.js';
 import { ProfileInList } from '@/components/Login/ProfileInList.js';
 import { Source } from '@/constants/enum.js';
 import { AbortError } from '@/constants/error.js';
-import { addAccount } from '@/helpers/account.js';
 import { enqueueErrorMessage, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { getSnackbarMessageFromError } from '@/helpers/getSnackbarMessageFromError.js';
 import { isSameEthereumAddress } from '@/helpers/isSameAddress.js';
@@ -27,6 +26,7 @@ import { createAccountForProfileId } from '@/providers/lens/createAccountForProf
 import { lensSessionHolder } from '@/providers/lens/SessionHolder.js';
 import { updateSignless } from '@/providers/lens/updateSignless.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
+import { addAccount } from '@/services/account.js';
 
 interface LoginLensProps {
     profiles: Profile[];

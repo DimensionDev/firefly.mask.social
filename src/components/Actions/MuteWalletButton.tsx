@@ -10,7 +10,7 @@ import { MenuButton } from '@/components/Actions/MenuButton.js';
 import { type ClickableButtonProps } from '@/components/ClickableButton.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
 import { ConfirmModalRef, LoginModalRef } from '@/modals/controls.js';
-import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
+import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 
 interface Props extends Omit<ClickableButtonProps, 'children'> {
     handleOrEnsOrAddress: string;
@@ -19,22 +19,23 @@ interface Props extends Omit<ClickableButtonProps, 'children'> {
 }
 
 export const MuteWalletButton = forwardRef<HTMLButtonElement, Props>(function MuteArticleButton(
-    { handleOrEnsOrAddress, address, isMuted, ...rest }: Props,
+    { handleOrEnsOrAddress, address, isMuted, onClick, ...rest }: Props,
     ref,
 ) {
     const isLogin = useIsLogin();
     const mutation = useMutation({
         mutationFn: () => {
-            if (isMuted) return FireflySocialMediaProvider.unblockWallet(address);
-            return FireflySocialMediaProvider.blockWallet(address);
+            if (isMuted) return FireflyEndpointProvider.unblockWallet(address);
+            return FireflyEndpointProvider.blockWallet(address);
         },
     });
     const loading = mutation.isPending;
     return (
         <MenuButton
             {...rest}
-            onClick={async () => {
-                rest.onClick?.();
+            onClick={async (event) => {
+                onClick?.(event);
+
                 if (!isLogin) {
                     LoginModalRef.open();
                     return;

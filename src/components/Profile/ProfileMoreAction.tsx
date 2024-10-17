@@ -14,6 +14,7 @@ import { Source } from '@/constants/enum.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { isSameFireflyIdentity } from '@/helpers/isSameFireflyIdentity.js';
 import { resolveFireflyProfileId } from '@/helpers/resolveFireflyProfileId.js';
+import { stopEvent } from '@/helpers/stopEvent.js';
 import { useCopyText } from '@/hooks/useCopyText.js';
 import { useCurrentFireflyProfilesAll } from '@/hooks/useCurrentFireflyProfiles.js';
 import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
@@ -51,10 +52,7 @@ export const ProfileMoreAction = memo<ProfileMoreActionProps>(function ProfileMo
         >
             <Menu.Items
                 className="absolute right-0 z-[1000] flex w-max flex-col gap-2 overflow-hidden rounded-2xl border border-line bg-primaryBottom py-3 text-base text-main"
-                onClick={(event) => {
-                    event.stopPropagation();
-                    event.preventDefault();
-                }}
+                onClick={stopEvent}
             >
                 <Menu.Item>
                     {({ close }) => (

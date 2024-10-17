@@ -2,7 +2,7 @@ import { Plural, t, Trans } from '@lingui/macro';
 import { delay } from '@masknet/kit';
 import { ConnectorNotConnectedError } from '@wagmi/core';
 import { compact, values } from 'lodash-es';
-import { useMemo, useState } from 'react';
+import { type HTMLProps, useMemo, useState } from 'react';
 import { useAsyncFn } from 'react-use';
 
 import AddThread from '@/assets/add-thread.svg';
@@ -32,7 +32,7 @@ import { useComposeDraftStateStore } from '@/store/useComposeDraftStore.js';
 import { useComposeScheduleStateStore } from '@/store/useComposeScheduleStore.js';
 import { useComposeStateStore } from '@/store/useComposeStore.js';
 
-interface ComposeSendProps extends React.HTMLAttributes<HTMLDivElement> {}
+interface ComposeSendProps extends HTMLProps<HTMLDivElement> {}
 
 export function ComposeSend(props: ComposeSendProps) {
     const controller = useAbortController();

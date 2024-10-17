@@ -1,28 +1,9 @@
-import { t } from '@lingui/macro';
-import dayjs from 'dayjs';
 import { compact } from 'lodash-es';
 import urlcat from 'urlcat';
-import { v4 as uuid } from 'uuid';
-import { type Address, type Hex, isAddress } from 'viem';
 
-import {
-    BookmarkType,
-    FireflyPlatform,
-    NetworkType,
-    type SocialSource,
-    Source,
-    SourceInURL,
-} from '@/constants/enum.js';
+import { BookmarkType, FireflyPlatform, Source, SourceInURL } from '@/constants/enum.js';
 import { NotFoundError, NotImplementedError } from '@/constants/error.js';
 import { EMPTY_LIST } from '@/constants/index.js';
-import { SetQueryDataForAddWallet } from '@/decorators/SetQueryDataForAddWallet.js';
-import { SetQueryDataForMuteAllProfiles } from '@/decorators/SetQueryDataForBlockProfile.js';
-import { SetQueryDataForBlockWallet, SetQueryDataForMuteAllWallets } from '@/decorators/SetQueryDataForBlockWallet.js';
-import {
-    SetQueryDataForDeleteWallet,
-    SetQueryDataForReportAndDeleteWallet,
-} from '@/decorators/SetQueryDataForDeleteWallet.js';
-import { SetQueryDataForWatchWallet } from '@/decorators/SetQueryDataForWatchWallet.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
 import {
     formatBriefChannelFromFirefly,
@@ -31,10 +12,7 @@ import {
 } from '@/helpers/formatFarcasterChannelFromFirefly.js';
 import { formatFarcasterPostFromFirefly } from '@/helpers/formatFarcasterPostFromFirefly.js';
 import { formatFarcasterProfileFromFirefly } from '@/helpers/formatFarcasterProfileFromFirefly.js';
-import { formatFireflyProfilesFromWalletProfiles } from '@/helpers/formatFireflyProfilesFromWalletProfiles.js';
-import { formatWalletConnections } from '@/helpers/formatWalletConnection.js';
 import { getCurrentProfile } from '@/helpers/getCurrentProfile.js';
-import { getPlatformQueryKey } from '@/helpers/getPlatformQueryKey.js';
 import { isZero } from '@/helpers/number.js';
 import {
     createIndicator,
@@ -44,20 +22,14 @@ import {
     type PageIndicator,
 } from '@/helpers/pageable.js';
 import { resolveFireflyResponseData } from '@/helpers/resolveFireflyResponseData.js';
-import { resolveSourceFromUrl } from '@/helpers/resolveSource.js';
 import { resolveSourceInUrl } from '@/helpers/resolveSourceInUrl.js';
 import { farcasterSessionHolder } from '@/providers/farcaster/SessionHolder.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
 import { NeynarSocialMediaProvider } from '@/providers/neynar/SocialMedia.js';
-import type { Article } from '@/providers/types/Article.js';
 import {
-    type BindWalletResponse,
     type BlockChannelResponse,
     type BlockedChannelsResponse,
     type BlockedUsersResponse,
-    type BlockFields,
-    type BlockRelationResponse,
-    type BlockUserResponse,
     type BookmarkResponse,
     type Cast,
     type CastResponse,
@@ -68,37 +40,21 @@ import {
     type CommentsResponse,
     type DiscoverChannelsResponse,
     type FireflyFarcasterProfileResponse,
-    type FireflyIdentity,
-    type FireflyProfile,
-    type FireflyWalletConnection,
     type FriendshipResponse,
-    type GetAllConnectionsResponse,
-    type IsMutedAllResponse,
-    type MuteAllResponse,
     type NotificationResponse,
     NotificationType as FireflyNotificationType,
     type PostQuotesResponse,
     type ReactorsResponse,
-    type RelationResponse,
-    type ReportPostParams,
-    type Response,
-    type SchedulePostPayload,
-    type ScheduleTasksResponse,
     type SearchCastsResponse,
     type SearchChannelsResponse,
     type SearchProfileResponse,
     type ThreadResponse,
-    type TwitterUserInfoResponse,
-    type UploadMediaTokenResponse,
     type UserResponse,
     type UsersResponse,
-    type WalletProfile,
-    type WalletProfileResponse,
-    WatchType,
 } from '@/providers/types/Firefly.js';
-import type { DiscoverNFTResponse, GetFollowingNFTResponse } from '@/providers/types/NFTs.js';
 import {
     type Channel,
+    type Friendship,
     type Notification,
     NotificationType,
     type Post,
@@ -108,58 +64,135 @@ import {
     type Provider,
     SessionType,
 } from '@/providers/types/SocialMedia.js';
-import { getAllPlatformProfileFromFirefly } from '@/services/getAllPlatformProfileFromFirefly.js';
 import { getProfilesByIds } from '@/services/getProfilesByIds.js';
-import { getWalletProfileByAddressOrEns } from '@/services/getWalletProfileByAddressOrEns.js';
 import { settings } from '@/settings/index.js';
-import type { ComposeType } from '@/types/compose.js';
 
-async function reportPost(params: ReportPostParams) {
-    const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/report/post/create');
-    return fireflySessionHolder.fetch<string>(url, {
-        method: 'POST',
-        body: JSON.stringify(params),
-    });
-}
-
-async function block(field: BlockFields, profileId: string): Promise<boolean> {
-    const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/user/mute');
-    const response = await fireflySessionHolder.fetch<BlockUserResponse>(url, {
-        method: 'POST',
-        body: JSON.stringify({
-            [field]: profileId,
-        }),
-    });
-    if (response) return true;
-    throw new Error('Failed to block user');
-}
-
-async function unblock(field: BlockFields, profileId: string): Promise<boolean> {
-    const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/user/unmute');
-    const response = await fireflySessionHolder.fetch<BlockUserResponse>(url, {
-        method: 'POST',
-        body: JSON.stringify({
-            [field]: profileId,
-        }),
-    });
-    if (response) return true;
-    throw new Error('Failed to mute user');
-}
-
-@SetQueryDataForAddWallet()
-@SetQueryDataForDeleteWallet()
-@SetQueryDataForReportAndDeleteWallet()
-@SetQueryDataForWatchWallet()
-@SetQueryDataForBlockWallet()
-@SetQueryDataForMuteAllProfiles()
-@SetQueryDataForMuteAllWallets()
 export class FireflySocialMedia implements Provider {
-    getChannelsByIds?: ((ids: string[]) => Promise<Channel[]>) | undefined;
-    reportChannel?: ((channelId: string) => Promise<boolean>) | undefined;
-    getForYouPosts?: ((indicator?: PageIndicator) => Promise<Pageable<Post, PageIndicator>>) | undefined;
-    getRecentPosts?: ((indicator?: PageIndicator) => Promise<Pageable<Post, PageIndicator>>) | undefined;
+    get type() {
+        return SessionType.Farcaster;
+    }
+
+    getChannelsByIds(ids: string[]): Promise<Channel[]> {
+        throw new NotImplementedError();
+    }
+
+    reportChannel(channelId: string): Promise<boolean> {
+        throw new NotImplementedError();
+    }
+
+    getForYouPosts(indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
+        throw new NotImplementedError();
+    }
+
+    getRecentPosts(indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
+        throw new NotImplementedError();
+    }
+
     getChannelById(channelId: string): Promise<Channel> {
         return this.getChannelByHandle(channelId);
+    }
+
+    updateProfile(profile: ProfileEditable): Promise<boolean> {
+        throw new NotImplementedError();
+    }
+
+    getProfileBadges(profile: Profile): Promise<ProfileBadge[]> {
+        throw new NotImplementedError();
+    }
+
+    quotePost(postId: string, post: Post): Promise<string> {
+        throw new NotImplementedError();
+    }
+
+    collectPost(postId: string, collectionId?: string): Promise<void> {
+        throw new NotImplementedError();
+    }
+
+    getProfilesByAddress(address: string): Promise<Profile[]> {
+        throw new NotImplementedError();
+    }
+
+    getProfilesByIds(ids: string[]): Promise<Profile[]> {
+        throw new NotImplementedError();
+    }
+
+    getPostsBeMentioned(profileId: string, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
+        throw new NotImplementedError();
+    }
+
+    getPostsLiked(profileId: string, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
+        throw new NotImplementedError();
+    }
+
+    getPostsReplies(profileId: string, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
+        throw new NotImplementedError();
+    }
+
+    getPostsByParentPostId(postId: string, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
+        throw new NotImplementedError();
+    }
+
+    getReactors(postId: string, indicator?: PageIndicator): Promise<Pageable<Profile, PageIndicator>> {
+        throw new NotImplementedError();
+    }
+
+    isFollowedByMe(profileId: string): Promise<boolean> {
+        throw new NotImplementedError();
+    }
+
+    isFollowingMe(profileId: string): Promise<boolean> {
+        throw new NotImplementedError();
+    }
+
+    getSuggestedFollows(indicator?: PageIndicator): Promise<Pageable<Profile, PageIndicator>> {
+        throw new NotImplementedError();
+    }
+
+    publishPost(post: Post): Promise<string> {
+        throw new NotImplementedError();
+    }
+    deletePost(postId: string): Promise<boolean> {
+        throw new NotImplementedError();
+    }
+
+    upvotePost(postId: string): Promise<void> {
+        throw new NotImplementedError();
+    }
+
+    unvotePost(postId: string): Promise<void> {
+        throw new NotImplementedError();
+    }
+
+    commentPost(postId: string, post: Post): Promise<string> {
+        throw new NotImplementedError();
+    }
+
+    mirrorPost(postId: string): Promise<string> {
+        throw new NotImplementedError();
+    }
+
+    unmirrorPost(postId: string): Promise<void> {
+        throw new NotImplementedError();
+    }
+
+    follow(profileId: string): Promise<boolean> {
+        throw new NotImplementedError();
+    }
+
+    unfollow(profileId: string): Promise<boolean> {
+        throw new NotImplementedError();
+    }
+
+    blockProfile(profileId: string): Promise<boolean> {
+        throw new NotImplementedError();
+    }
+
+    unblockProfile(profileId: string): Promise<boolean> {
+        throw new NotImplementedError();
+    }
+
+    actPost(postId: string, options: unknown): Promise<void> {
+        throw new NotImplementedError();
     }
 
     async getChannelByHandle(channelHandle: string): Promise<Channel> {
@@ -273,22 +306,6 @@ export class FireflySocialMedia implements Provider {
         });
     }
 
-    quotePost(postId: string, post: Post): Promise<string> {
-        throw new NotImplementedError();
-    }
-
-    collectPost(postId: string, collectionId?: string): Promise<void> {
-        throw new NotImplementedError();
-    }
-
-    getProfilesByAddress(address: string): Promise<Profile[]> {
-        throw new NotImplementedError();
-    }
-
-    getProfilesByIds(ids: string[]): Promise<Profile[]> {
-        throw new NotImplementedError();
-    }
-
     getProfileByHandle(handle: string): Promise<Profile> {
         return farcasterSessionHolder.withSession(async (session) => {
             const url = urlcat(settings.FIREFLY_ROOT_URL, '/v2/farcaster-hub/user/profile', {
@@ -301,89 +318,6 @@ export class FireflySocialMedia implements Provider {
             }
             return formatFireflyFarcasterProfile(response.data);
         });
-    }
-
-    getPostsBeMentioned(profileId: string, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
-        throw new NotImplementedError();
-    }
-
-    getPostsLiked(profileId: string, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
-        throw new NotImplementedError();
-    }
-
-    getPostsReplies(profileId: string, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
-        throw new NotImplementedError();
-    }
-
-    getPostsByParentPostId(postId: string, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
-        throw new NotImplementedError();
-    }
-
-    getReactors(postId: string, indicator?: PageIndicator): Promise<Pageable<Profile, PageIndicator>> {
-        throw new NotImplementedError();
-    }
-
-    isFollowedByMe(profileId: string): Promise<boolean> {
-        throw new NotImplementedError();
-    }
-
-    isFollowingMe(profileId: string): Promise<boolean> {
-        throw new NotImplementedError();
-    }
-
-    getSuggestedFollows(indicator?: PageIndicator): Promise<Pageable<Profile, PageIndicator>> {
-        throw new NotImplementedError();
-    }
-
-    async publishPost(post: Post): Promise<string> {
-        throw new NotImplementedError();
-    }
-    async deletePost(postId: string): Promise<boolean> {
-        throw new NotImplementedError();
-    }
-
-    async upvotePost(postId: string): Promise<void> {
-        throw new NotImplementedError();
-    }
-
-    async unvotePost(postId: string) {
-        throw new NotImplementedError();
-    }
-
-    async commentPost(postId: string, post: Post): Promise<string> {
-        throw new NotImplementedError();
-    }
-
-    async mirrorPost(postId: string): Promise<string> {
-        throw new NotImplementedError();
-    }
-
-    async unmirrorPost(postId: string) {
-        throw new NotImplementedError();
-    }
-
-    async follow(profileId: string): Promise<boolean> {
-        throw new NotImplementedError();
-    }
-
-    async unfollow(profileId: string): Promise<boolean> {
-        throw new NotImplementedError();
-    }
-
-    async blockProfile(profileId: string): Promise<boolean> {
-        throw new NotImplementedError();
-    }
-
-    async unblockProfile(profileId: string): Promise<boolean> {
-        throw new NotImplementedError();
-    }
-
-    async actPost(postId: string, options: unknown): Promise<void> {
-        throw new NotImplementedError();
-    }
-
-    get type() {
-        return SessionType.Farcaster;
     }
 
     async discoverPosts(indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
@@ -440,44 +374,6 @@ export class FireflySocialMedia implements Provider {
                 ...friendship,
             });
         });
-    }
-
-    async getAllPlatformProfileByIdentity(
-        identity: FireflyIdentity,
-        isTokenRequired: boolean,
-    ): Promise<FireflyProfile[]> {
-        const response = await getAllPlatformProfileFromFirefly(identity, isTokenRequired);
-        const profiles = resolveFireflyResponseData(response);
-        return formatFireflyProfilesFromWalletProfiles(profiles);
-    }
-
-    async getAllPlatformProfiles(lensHandle?: string, fid?: string, twitterId?: string): Promise<FireflyProfile[]> {
-        const url = urlcat(settings.FIREFLY_ROOT_URL, '/v2/wallet/profile', {
-            twitterId,
-            lensHandle,
-            fid,
-        });
-
-        const response = await fireflySessionHolder.fetch<WalletProfileResponse>(url, {
-            method: 'GET',
-        });
-
-        const profiles = resolveFireflyResponseData(response);
-        return formatFireflyProfilesFromWalletProfiles(profiles);
-    }
-
-    async getNextIDRelations(platform: string, identity: string) {
-        const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/wallet/relations', {
-            platform,
-            identity,
-        });
-
-        const response = await fireflySessionHolder.fetch<RelationResponse>(url, {
-            method: 'GET',
-        });
-
-        const relations = resolveFireflyResponseData(response);
-        return relations;
     }
 
     async getFollowers(profileId: string, indicator?: PageIndicator): Promise<Pageable<Profile, PageIndicator>> {
@@ -825,19 +721,6 @@ export class FireflySocialMedia implements Provider {
         );
     }
 
-    async searchIdentity(q: string, platforms?: SocialSource[]) {
-        const url = urlcat(settings.FIREFLY_ROOT_URL, '/v2/search/identity', {
-            keyword: q,
-            size: 100,
-        });
-
-        const response = await fireflySessionHolder.fetch<SearchProfileResponse>(url, {
-            method: 'GET',
-        });
-
-        return response.data;
-    }
-
     async searchPosts(q: string, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
         return farcasterSessionHolder.withSession(async (session) => {
             const url = urlcat(settings.FIREFLY_ROOT_URL, '/v2/farcaster-hub/cast/search', {
@@ -852,20 +735,9 @@ export class FireflySocialMedia implements Provider {
         });
     }
 
-    async getUploadMediaToken(token: string) {
-        if (!token) throw new Error('Need to login with Lens');
-        const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/lens/public_uploadMediaToken');
-        const response = await fetchJSON<UploadMediaTokenResponse>(url, {
-            headers: {
-                'x-access-token': token,
-            },
-        });
-        return resolveFireflyResponseData(response);
-    }
-
     async getFriendship(profileId: string) {
         return farcasterSessionHolder.withSession(async (session) => {
-            if (!session) return;
+            if (!session) return null;
             const response = await fetchJSON<FriendshipResponse>(
                 urlcat(settings.FIREFLY_ROOT_URL, '/v2/farcaster-hub/user/friendship', {
                     sourceFid: session?.profileId,
@@ -875,7 +747,7 @@ export class FireflySocialMedia implements Provider {
                     method: 'GET',
                 },
             );
-            return resolveFireflyResponseData(response);
+            return resolveFireflyResponseData<Friendship>(response);
         });
     }
 
@@ -924,36 +796,6 @@ export class FireflySocialMedia implements Provider {
         );
     }
 
-    async getBlockedWallets(indicator?: PageIndicator): Promise<Pageable<WalletProfile, PageIndicator>> {
-        const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/user/mutelist', {
-            size: 20,
-            page: indicator?.id ?? 1,
-            platform: SourceInURL.Wallet,
-        });
-        const response = await fireflySessionHolder.fetch<BlockedUsersResponse>(url);
-
-        const data = await Promise.all(
-            (response.data?.blocks ?? []).map(async (item) => {
-                const walletProfile = await getWalletProfileByAddressOrEns(item.address, true);
-                return {
-                    ...(walletProfile || {
-                        address: item.address as Address,
-                        blockchain: NetworkType.Ethereum,
-                        is_connected: false,
-                        verifiedSources: [],
-                    }),
-                    blocked: true,
-                };
-            }),
-        );
-
-        return createPageable(
-            data,
-            createIndicator(indicator),
-            response.data?.nextPage ? createNextIndicator(indicator, `${response.data?.nextPage}`) : undefined,
-        );
-    }
-
     async getBlockedChannels(indicator?: PageIndicator): Promise<Pageable<Channel, PageIndicator>> {
         return farcasterSessionHolder.withSession(async (session) => {
             if (!session) {
@@ -970,10 +812,6 @@ export class FireflySocialMedia implements Provider {
                 : EMPTY_LIST;
             return createPageable(channels, createIndicator(indicator), undefined);
         });
-    }
-
-    async getPostLikeProfiles(postId: string, indicator?: PageIndicator): Promise<Pageable<Profile, PageIndicator>> {
-        throw new NotImplementedError();
     }
 
     async getPostsQuoteOn(postId: string, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
@@ -1059,46 +897,6 @@ export class FireflySocialMedia implements Provider {
         });
     }
 
-    async getBlockRelation(conditions: Array<{ snsPlatform: FireflyPlatform; snsId: string }>) {
-        return farcasterSessionHolder.withSession(async (session) => {
-            if (!session) return [];
-            const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/user/blockRelation');
-            const response = await fireflySessionHolder.fetch<BlockRelationResponse>(url, {
-                method: 'POST',
-                body: JSON.stringify({
-                    conditions,
-                }),
-            });
-            return response.data ?? [];
-        });
-    }
-
-    async isProfileMuted(platform: FireflyPlatform, profileId: string): Promise<boolean> {
-        const blockRelationList = await this.getBlockRelation([
-            {
-                snsPlatform: platform,
-                snsId: profileId,
-            },
-        ]);
-        return !!blockRelationList.find((x) => x.snsId === profileId)?.blocked;
-    }
-
-    async blockWallet(address: string) {
-        return block('address', address);
-    }
-
-    async unblockWallet(address: string) {
-        return unblock('address', address);
-    }
-
-    async blockProfileFor(source: FireflyPlatform, profileId: string): Promise<boolean> {
-        return block(getPlatformQueryKey(resolveSourceFromUrl(source)), profileId);
-    }
-
-    async unblockProfileFor(source: FireflyPlatform, profileId: string): Promise<boolean> {
-        return unblock(getPlatformQueryKey(resolveSourceFromUrl(source)), profileId);
-    }
-
     async blockChannel(channelId: string): Promise<boolean> {
         const url = urlcat(settings.FIREFLY_ROOT_URL, '/v2/farcaster-hub/channel/block');
         const response = await fireflySessionHolder.fetch<BlockChannelResponse>(url, {
@@ -1125,333 +923,18 @@ export class FireflySocialMedia implements Provider {
         throw new Error('Failed to mute channel');
     }
 
-    async watchWallet(address: string) {
-        if (!isAddress(address)) throw new Error(`Invalid address: ${address}`);
-        const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/user/follow', {
-            type: WatchType.Wallet,
-            toObjectId: address,
-        });
-        await fireflySessionHolder.fetch<Response<void>>(url, { method: 'PUT' });
-        return true;
-    }
-
-    async unwatchWallet(address: string) {
-        if (!isAddress(address)) throw new Error(`Invalid address: ${address}`);
-        const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/user/follow', {
-            type: WatchType.Wallet,
-            toObjectId: address,
-        });
-        await fireflySessionHolder.fetch<Response<void>>(url, { method: 'DELETE' });
-        return true;
-    }
-
-    async reportProfile(profileId: string): Promise<boolean> {
-        // TODO Mocking result for now.
-        return true;
-    }
-
     async reportPost(post: Post): Promise<boolean> {
-        await reportPost({
-            platform: resolveSourceInUrl(post.source),
-            platform_id: post.author.profileId,
-            post_type: 'text',
-            post_id: post.postId,
+        const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/report/post/create');
+        await fireflySessionHolder.fetch<string>(url, {
+            method: 'POST',
+            body: JSON.stringify({
+                platform: resolveSourceInUrl(post.source),
+                platform_id: post.author.profileId,
+                post_type: 'text',
+                post_id: post.postId,
+            }),
         });
         return true;
-    }
-
-    async reportArticle(article: Article) {
-        return reportPost({
-            platform: FireflyPlatform.Article,
-            platform_id: article.author.id,
-            post_type: 'text',
-            post_id: article.id,
-        });
-    }
-
-    async discoverNFTs({
-        indicator,
-        limit = 40,
-    }: {
-        indicator?: PageIndicator;
-        limit?: number;
-    } = {}) {
-        const page = Number.parseInt(indicator?.id || '0', 10);
-        const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/discover/feeds', {
-            size: limit,
-            offset: page * limit,
-        });
-        const response = await fireflySessionHolder.fetch<DiscoverNFTResponse>(url, {
-            method: 'GET',
-        });
-        return createPageable(
-            response.data.feeds,
-            indicator,
-            response.data.hasMore ? createIndicator(undefined, `${page + 1}`) : undefined,
-        );
-    }
-
-    async getFollowingNFTs({
-        limit = 40,
-        indicator,
-        walletAddresses,
-    }: {
-        limit?: number;
-        indicator?: PageIndicator;
-        walletAddresses?: string[];
-    } = {}) {
-        const url = urlcat(
-            settings.FIREFLY_ROOT_URL,
-            walletAddresses && walletAddresses.length > 0 ? '/v2/user/timeline/nft' : '/v2/timeline/nft',
-        );
-        const response = await fireflySessionHolder.fetch<GetFollowingNFTResponse>(
-            url,
-            {
-                method: 'POST',
-                body: JSON.stringify({
-                    size: limit,
-                    cursor: indicator?.id && !isZero(indicator.id) ? indicator.id : undefined,
-                    walletAddresses,
-                }),
-            },
-            !(walletAddresses && walletAddresses.length > 0),
-        );
-        return createPageable(
-            response.data.result,
-            indicator,
-            response.data.cursor ? createIndicator(undefined, response.data.cursor) : undefined,
-        );
-    }
-
-    async schedulePost(
-        scheduleTime: Date,
-        posts: SchedulePostPayload[],
-        displayInfo: { content: string; type: ComposeType },
-    ) {
-        const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/post/schedule');
-
-        const response = await fireflySessionHolder.fetch<Response<string>>(
-            url,
-            {
-                method: 'POST',
-                body: JSON.stringify({
-                    scheduleTime: dayjs(scheduleTime).toISOString(),
-                    posts,
-                    display_info: JSON.stringify(displayInfo),
-                    ua_type: 'web',
-                    groupId: uuid(),
-                }),
-            },
-            true,
-        );
-        if (response.data) return response.data;
-        throw new Error(t`Failed to create scheduled post.`);
-    }
-
-    async updateScheduledPost(id: string, scheduleTime: Date) {
-        const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/post/updateTasks');
-        const response = await fireflySessionHolder.fetch<Response<string>>(
-            url,
-            {
-                method: 'POST',
-                body: JSON.stringify({
-                    taskUUID: id,
-                    publishTime: dayjs(scheduleTime).toISOString(),
-                    ua_type: 'web',
-                }),
-            },
-            true,
-        );
-        if (response.data) return response.data;
-        throw new Error(t`Failed to update scheduled post.`);
-    }
-
-    async deleteScheduledPost(id: string) {
-        const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/post/deleteTask');
-        const response = await fireflySessionHolder.fetch<Response<string>>(
-            url,
-            {
-                method: 'POST',
-                body: JSON.stringify({
-                    taskUUID: id,
-                }),
-            },
-            true,
-        );
-        if (response.data) return true;
-        throw new Error(t`Failed to delete scheduled post.`);
-    }
-
-    async getScheduledPosts(indicator?: PageIndicator) {
-        const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/post/tasks');
-        const response = await fireflySessionHolder.fetch<ScheduleTasksResponse>(url, {
-            method: 'POST',
-            body: JSON.stringify({
-                cursor: indicator?.id,
-                size: 20,
-            }),
-        });
-
-        const data = resolveFireflyResponseData(response);
-
-        return createPageable(
-            data.tasks,
-            createIndicator(indicator),
-            data.cursor ? createNextIndicator(indicator, data.cursor) : undefined,
-        );
-    }
-
-    async getMessageToSignForBindWallet(address: string) {
-        const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/wallet/messageToSign', {
-            address,
-        });
-
-        const response = await fireflySessionHolder.fetch<Response<{ message: Hex }>>(url, {
-            method: 'GET',
-        });
-
-        const { message } = resolveFireflyResponseData(response);
-        if (!message) throw new Error('Failed to get message to sign');
-
-        return message;
-    }
-
-    async verifyAndBindWallet(signMessage: string, signature: string) {
-        const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/wallet/verify');
-        const response = await fireflySessionHolder.fetch<BindWalletResponse>(url, {
-            method: 'POST',
-            body: JSON.stringify({
-                signMessage,
-                signature,
-            }),
-        });
-
-        const data = resolveFireflyResponseData(response);
-        return data;
-    }
-
-    async getMessageToSignMessageForBindSolanaWallet(address: string) {
-        const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/solana/solana/signMessage', {
-            address,
-        });
-
-        const response = await fireflySessionHolder.fetch<Response<Hex>>(url, {
-            method: 'GET',
-        });
-
-        const data = resolveFireflyResponseData(response);
-        if (!data) throw new Error('Failed to get message to sign');
-
-        return data;
-    }
-
-    async verifyAndBindSolanaWallet(address: string, messageToSign: string, signature: string) {
-        const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/solana/solana/verify');
-        const response = await fireflySessionHolder.fetch<BindWalletResponse>(url, {
-            method: 'POST',
-            body: JSON.stringify({
-                address,
-                messageToSign,
-                signature,
-            }),
-        });
-
-        return resolveFireflyResponseData(response);
-    }
-
-    async disconnectAccount(identity: FireflyIdentity) {
-        const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/accountConnection', {
-            connectionPlatform: resolveSourceInUrl(identity.source),
-            connectionId: identity.id,
-        });
-        await fireflySessionHolder.fetch<Response<void>>(url, {
-            method: 'DELETE',
-        });
-    }
-
-    async disconnectWallet(address: string) {
-        const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/wallet');
-        await fireflySessionHolder.fetch<Response<void>>(url, {
-            method: 'DELETE',
-            body: JSON.stringify({
-                addresses: [address],
-            }),
-        });
-    }
-
-    async reportAndDeleteWallet(connection: FireflyWalletConnection, reason: string) {
-        const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/wallet/twitter/wallet/report');
-
-        await fireflySessionHolder.fetch<Response<void>>(url, {
-            method: 'POST',
-            body: JSON.stringify({
-                twitterId: connection.twitterId,
-                walletAddress: connection.address,
-                reportReason: reason,
-                sources: connection.sources.map((x) => x.source).join(','),
-            }),
-        });
-    }
-
-    async isProfileMutedAll(identity: FireflyIdentity) {
-        const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/user/isMuteAll', {
-            [getPlatformQueryKey(identity.source)]: identity.id,
-        });
-
-        const response = await fireflySessionHolder.fetch<IsMutedAllResponse>(url);
-        const data = resolveFireflyResponseData(response);
-        return data?.isBlockAll ?? false;
-    }
-
-    async muteProfileAll(identity: FireflyIdentity) {
-        const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/user/muteAll', {
-            [getPlatformQueryKey(identity.source)]: identity.id,
-        });
-
-        const response = await fireflySessionHolder.fetch<MuteAllResponse>(url, {
-            method: 'POST',
-            body: JSON.stringify({
-                [getPlatformQueryKey(identity.source)]: identity.id,
-            }),
-        });
-
-        return resolveFireflyResponseData(response);
-    }
-
-    async getAllConnections() {
-        const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/accountConnection');
-        const response = await fireflySessionHolder.fetch<GetAllConnectionsResponse>(url, {
-            method: 'GET',
-        });
-        const connections = resolveFireflyResponseData(response);
-
-        return {
-            connected: formatWalletConnections(connections.wallet.connected, connections),
-            related: formatWalletConnections(connections.wallet.unconnected, connections),
-        };
-    }
-
-    async getS3UploadMediaToken() {
-        const url = urlcat(settings.FIREFLY_ROOT_URL, '/v2/farcaster-hub/uploadMediaToken');
-        const response = await fetchJSON<UploadMediaTokenResponse>(url);
-        return resolveFireflyResponseData(response);
-    }
-    async updateProfile(profile: ProfileEditable): Promise<boolean> {
-        throw new NotImplementedError();
-    }
-
-    async getTwitterUserInfo(screenName: string) {
-        const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/twitter/userinfo', {
-            screenName,
-        });
-        const response = await fetchJSON<TwitterUserInfoResponse>(url, {
-            method: 'GET',
-        });
-        return resolveFireflyResponseData(response);
-    }
-
-    async getProfileBadges(profile: Profile): Promise<ProfileBadge[]> {
-        throw new NotImplementedError();
     }
 }
 

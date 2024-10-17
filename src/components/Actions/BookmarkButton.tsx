@@ -14,7 +14,7 @@ interface Props extends Omit<ClickableButtonProps, 'children'> {
 }
 
 export const BookmarkButton = forwardRef<HTMLButtonElement, Props>(function BookmarkButton(
-    { post, onConfirm, ...rest }: Props,
+    { post, onConfirm, onClick, ...rest }: Props,
     ref,
 ) {
     const mutation = useToggleBookmark(post.source);
@@ -22,9 +22,9 @@ export const BookmarkButton = forwardRef<HTMLButtonElement, Props>(function Book
     return (
         <MenuButton
             {...rest}
-            onClick={async () => {
+            onClick={async (event) => {
                 await mutation.mutateAsync(post);
-                rest.onClick?.();
+                onClick?.(event);
             }}
             ref={ref}
         >

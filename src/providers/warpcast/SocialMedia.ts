@@ -18,8 +18,11 @@ import {
 import { parseJSON } from '@/helpers/parseJSON.js';
 import { toFid } from '@/helpers/toFid.js';
 import { farcasterSessionHolder } from '@/providers/farcaster/SessionHolder.js';
+import type { WalletProfile } from '@/providers/types/Firefly.js';
 import {
     type Channel,
+    type Friendship,
+    NetworkType,
     type Notification,
     NotificationType,
     type Post,
@@ -49,6 +52,50 @@ import {
 } from '@/providers/types/Warpcast.js';
 
 class WarpcastSocialMedia implements Provider {
+    getChannelsByIds(ids: string[]): Promise<Channel[]> {
+        throw new NotImplementedError();
+    }
+
+    getChannelTrendingPosts(channel: Channel, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
+        throw new NotImplementedError();
+    }
+
+    blockWallet(address: string, networkType?: NetworkType): Promise<boolean> {
+        throw new NotImplementedError();
+    }
+
+    unblockWallet(address: string, networkType?: NetworkType): Promise<boolean> {
+        throw new NotImplementedError();
+    }
+
+    getBlockedWallets(indicator?: PageIndicator): Promise<Pageable<WalletProfile, PageIndicator>> {
+        throw new NotImplementedError();
+    }
+
+    watchWallet(address: string, networkType?: NetworkType): Promise<boolean> {
+        throw new NotImplementedError();
+    }
+
+    unwatchWallet(address: string, networkType?: NetworkType): Promise<boolean> {
+        throw new NotImplementedError();
+    }
+
+    reportChannel(channelId: string): Promise<boolean> {
+        throw new NotImplementedError();
+    }
+
+    getForYouPosts(indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
+        throw new NotImplementedError();
+    }
+
+    getRecentPosts(indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
+        throw new NotImplementedError();
+    }
+
+    getFriendship(profileId: string): Promise<Friendship | null> {
+        throw new NotImplementedError();
+    }
+
     quotePost(postId: string, post: Post): Promise<string> {
         throw new NotImplementedError();
     }
@@ -121,6 +168,54 @@ class WarpcastSocialMedia implements Provider {
         throw new NotImplementedError();
     }
 
+    getProfileBadges(profile: Profile): Promise<ProfileBadge[]> {
+        throw new NotImplementedError();
+    }
+
+    getLikedPostsByProfileId(profileId: string, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
+        throw new NotImplementedError();
+    }
+
+    getRepliesPostsByProfileId(profileId: string, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
+        throw new NotImplementedError();
+    }
+
+    async reportProfile(profileId: string): Promise<boolean> {
+        // TODO Mocking result for now.
+        return true;
+    }
+    async reportPost(post: Post): Promise<boolean> {
+        throw new NotImplementedError();
+    }
+    async blockProfile(profileId: string): Promise<boolean> {
+        // TODO Mocking result for now.
+        return true;
+    }
+    async unblockProfile(profileId: string): Promise<boolean> {
+        // TODO Mocking result for now.
+        return true;
+    }
+
+    getBlockedProfiles(indicator?: PageIndicator): Promise<Pageable<Profile, PageIndicator>> {
+        throw new NotImplementedError();
+    }
+
+    blockChannel(channelId: string): Promise<boolean> {
+        throw new NotImplementedError();
+    }
+
+    unblockChannel(channelId: string): Promise<boolean> {
+        throw new NotImplementedError();
+    }
+
+    getBlockedChannels(indicator?: PageIndicator): Promise<Pageable<Channel, PageIndicator>> {
+        throw new NotImplementedError();
+    }
+
+    getPostsQuoteOn(postId: string, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
+        throw new NotImplementedError();
+    }
+
     get type() {
         return SessionType.Farcaster;
     }
@@ -183,20 +278,6 @@ class WarpcastSocialMedia implements Provider {
             createIndicator(indicator),
             next?.cursor ? createNextIndicator(indicator, next.cursor) : undefined,
         );
-    }
-
-    async getLikedPostsByProfileId(
-        profileId: string,
-        indicator?: PageIndicator,
-    ): Promise<Pageable<Post, PageIndicator>> {
-        throw new NotImplementedError();
-    }
-
-    async getRepliesPostsByProfileId(
-        profileId: string,
-        indicator?: PageIndicator,
-    ): Promise<Pageable<Post, PageIndicator>> {
-        throw new NotImplementedError();
     }
 
     async getPostById(postId: string): Promise<Post> {
@@ -661,41 +742,7 @@ class WarpcastSocialMedia implements Provider {
             next?.cursor ? createNextIndicator(indicator, next.cursor) : undefined,
         );
     }
-    async reportProfile(profileId: string): Promise<boolean> {
-        // TODO Mocking result for now.
-        return true;
-    }
-    async reportPost(post: Post): Promise<boolean> {
-        throw new NotImplementedError();
-    }
-    async blockProfile(profileId: string): Promise<boolean> {
-        // TODO Mocking result for now.
-        return true;
-    }
-    async unblockProfile(profileId: string): Promise<boolean> {
-        // TODO Mocking result for now.
-        return true;
-    }
 
-    async getBlockedProfiles(indicator?: PageIndicator): Promise<Pageable<Profile, PageIndicator>> {
-        throw new NotImplementedError();
-    }
-
-    async blockChannel(channelId: string): Promise<boolean> {
-        throw new NotImplementedError();
-    }
-
-    async unblockChannel(channelId: string): Promise<boolean> {
-        throw new NotImplementedError();
-    }
-
-    async getBlockedChannels(indicator?: PageIndicator): Promise<Pageable<Channel, PageIndicator>> {
-        throw new NotImplementedError();
-    }
-
-    async getPostsQuoteOn(postId: string, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
-        throw new NotImplementedError();
-    }
     /**
      * @param {string} postId
      * @param {'PUT' | 'DELETE'} method - PUT to bookmark, DELETE to unbookmark
@@ -714,9 +761,11 @@ class WarpcastSocialMedia implements Provider {
     async bookmark(postId: string): Promise<boolean> {
         return this.baseBookmark(postId, 'PUT');
     }
+
     async unbookmark(postId: string): Promise<boolean> {
         return this.baseBookmark(postId, 'DELETE');
     }
+
     async getBookmarks(indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
         const url = urlcat(WARPCAST_CLIENT_URL, '/bookmarked-casts', {
             limit: 25,
@@ -755,10 +804,6 @@ class WarpcastSocialMedia implements Provider {
             },
         );
         return result.predictions;
-    }
-
-    async getProfileBadges(profile: Profile): Promise<ProfileBadge[]> {
-        throw new NotImplementedError();
     }
 }
 

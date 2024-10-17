@@ -10,7 +10,7 @@ import { ScrollListKey, Source } from '@/constants/enum.js';
 import { SORTED_SOCIAL_SOURCES } from '@/constants/index.js';
 import { createIndicator } from '@/helpers/pageable.js';
 import { useCurrentProfileAll } from '@/hooks/useCurrentProfile.js';
-import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
+import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 
 export function FollowingNFTList({ walletAddress }: { walletAddress?: string }) {
     const currentProfileAll = useCurrentProfileAll();
@@ -24,7 +24,7 @@ export function FollowingNFTList({ walletAddress }: { walletAddress?: string }) 
         networkMode: 'always',
         queryFn: async ({ pageParam }) => {
             if (!walletAddress && !profileIds.length) return null;
-            return FireflySocialMediaProvider.getFollowingNFTs({
+            return FireflyEndpointProvider.getFollowingNFTs({
                 indicator: createIndicator(undefined, pageParam),
                 walletAddresses: walletAddress ? [walletAddress] : undefined,
             });

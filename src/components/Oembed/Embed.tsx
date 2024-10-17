@@ -5,6 +5,7 @@ import { Link } from '@/esm/Link.js';
 import { classNames } from '@/helpers/classNames.js';
 import { isSelfReference } from '@/helpers/isLinkMatchingHost.js';
 import { parseUrl } from '@/helpers/parseUrl.js';
+import { stopPropagation } from '@/helpers/stopEvent.js';
 import type { OpenGraph } from '@/types/og.js';
 
 interface EmbedProps {
@@ -26,7 +27,7 @@ export function Embed({ og }: EmbedProps) {
     return (
         <article className="mt-4 max-w-full text-sm">
             <Link
-                onClick={(event) => event.stopPropagation()}
+                onClick={stopPropagation}
                 href={u}
                 target={isSelfReference(og.url) ? '_self' : '_blank'}
                 rel="noreferrer noopener"

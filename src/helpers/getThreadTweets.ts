@@ -1,6 +1,6 @@
 import { TwitterApi } from 'twitter-api-v2';
 
-import { TWITTER_TIMELINE_OPTIONS } from '@/constants/index.js';
+import { TWITTER_TIMELINE_OPTIONS } from '@/constants/twitter.js';
 
 async function getThreadTweetIds(client: TwitterApi, id: string, result = []): Promise<string[]> {
     const data = await client.v2.singleTweet(id, {

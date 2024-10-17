@@ -6,8 +6,8 @@ import { chains } from '@/configs/wagmiClient.js';
 import { isGreaterThan } from '@/helpers/number.js';
 import { resolveNetworkProvider } from '@/helpers/resolveTokenTransfer.js';
 import { TipsContext } from '@/hooks/useTipsContext.js';
+import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 import type { Token } from '@/providers/types/Transfer.js';
-import { getTokensByAddress } from '@/services/getTokensByAddress.js';
 
 function sortTokensByUsdValue(tokens: Token[]) {
     return tokens.sort((a, b) => b.usdValue - a.usdValue);
@@ -21,7 +21,7 @@ export const useTipsTokens = () => {
         queryFn: async () => {
             if (!recipient) return [];
             const network = resolveNetworkProvider(recipient.networkType);
-            return await getTokensByAddress(await network.getAccount());
+            return await FireflyEndpointProvider.getTokensByAddress(await network.getAccount());
         },
     });
 

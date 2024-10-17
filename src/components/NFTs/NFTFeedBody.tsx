@@ -21,6 +21,7 @@ import { nFormatter } from '@/helpers/formatCommentCounts.js';
 import { getFloorPrice } from '@/helpers/getFloorPrice.js';
 import { resolveCoinGeckoTokenSymbol } from '@/helpers/resolveCoinGeckoTokenSymbol.js';
 import { resolveNftUrl } from '@/helpers/resolveNftUrl.js';
+import { stopPropagation } from '@/helpers/stopEvent.js';
 import { useNFTDetail } from '@/hooks/useNFTDetail.js';
 import { usePoapAttendeesCount } from '@/hooks/usePoapAttendeesCount.js';
 import { NFTFeedTransAction } from '@/providers/types/NFTs.js';
@@ -156,7 +157,7 @@ function NFTItem({
                                 <Link
                                     className="flex items-center hover:underline"
                                     href={resolveNftUrl(chainId, address)}
-                                    onClick={(event) => event.stopPropagation()}
+                                    onClick={stopPropagation}
                                 >
                                     <div className="max-w-[calc(100%-22px)] truncate">{collectionName}</div>
                                     <LinkIcon width={18} height={18} className="ml-1 text-second" />

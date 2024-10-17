@@ -12,14 +12,14 @@ interface ChannelAnchorProps extends HTMLProps<HTMLDivElement> {
     channel: Channel;
 }
 
-export const ChannelAnchor = memo<ChannelAnchorProps>(function ChannelAnchor({ channel, ...rest }) {
+export const ChannelAnchor = memo<ChannelAnchorProps>(function ChannelAnchor({ channel, onClick, ...rest }) {
     return (
         <div
             {...rest}
             className={classNames(rest.className, 'flex justify-end text-[12px] leading-[16px] text-main')}
             onClick={(event) => {
-                rest.onClick?.(event);
                 event.stopPropagation();
+                onClick?.(event);
             }}
         >
             <ChannelTippy channel={channel}>

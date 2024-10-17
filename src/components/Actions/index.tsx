@@ -1,6 +1,6 @@
 import { compact } from 'lodash-es';
 import { usePathname } from 'next/navigation.js';
-import { memo } from 'react';
+import { type HTMLProps, memo } from 'react';
 
 import { Bookmark } from '@/components/Actions/Bookmark.js';
 import { Collect } from '@/components/Actions/Collect.js';
@@ -20,15 +20,14 @@ import { useIsSmall } from '@/hooks/useMediaQuery.js';
 import { useToggleBookmark } from '@/hooks/useToggleBookmark.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 
-interface PostActionsWithGridProps extends React.HTMLAttributes<HTMLDivElement> {
+interface PostActionsWithGridProps extends HTMLProps<HTMLDivElement> {
     post: Post;
-    disabled?: boolean;
     disablePadding?: boolean;
 }
 
 export const PostActionsWithGrid = memo<PostActionsWithGridProps>(function PostActionsWithGrid({
-    className,
     post,
+    className,
     disabled = false,
     disablePadding = false,
 }) {
@@ -95,18 +94,17 @@ export const PostActionsWithGrid = memo<PostActionsWithGridProps>(function PostA
     );
 });
 
-interface PostActionsProps extends React.HTMLAttributes<HTMLDivElement> {
+interface PostActionsProps extends HTMLProps<HTMLDivElement> {
     showChannelTag?: boolean;
     post: Post;
-    disabled?: boolean;
     disablePadding?: boolean;
     hideDate?: boolean;
     onSetScrollIndex?: () => void;
 }
 
 export const PostActions = memo<PostActionsProps>(function PostActions({
-    className,
     post,
+    className,
     disabled = false,
     disablePadding = false,
     showChannelTag,

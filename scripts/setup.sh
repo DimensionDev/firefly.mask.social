@@ -18,6 +18,9 @@ pnpm install
 npx gulp polyfill
 npx gulp codegen
 
+# Run TypeScript compiler for the submodule
+npx tsc -b ./
+
 # Return to the original directory
 cd -
 

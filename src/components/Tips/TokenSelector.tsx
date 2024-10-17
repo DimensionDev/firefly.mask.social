@@ -67,7 +67,7 @@ export const TokenSelector = memo(function TokenSelector() {
                     <div className="rounded-lg !bg-lightBg">
                         <SearchInput
                             value={search}
-                            onChange={(e) => setSearch(e.target.value)}
+                            onChange={(event) => setSearch(event.currentTarget.value)}
                             onClear={() => setSearch('')}
                         />
                     </div>

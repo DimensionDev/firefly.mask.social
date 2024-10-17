@@ -11,7 +11,7 @@ interface Props extends Omit<ClickableButtonProps, 'children'> {
 }
 
 export const NFTReportSpamButton = forwardRef<HTMLButtonElement, Props>(function ReportSpamButton(
-    { collectionId, ...rest },
+    { collectionId, onClick, ...rest },
     ref,
 ) {
     const [, reportSpamNFT] = useReportSpamNFT();
@@ -19,8 +19,8 @@ export const NFTReportSpamButton = forwardRef<HTMLButtonElement, Props>(function
         <MenuButton
             {...rest}
             ref={ref}
-            onClick={async () => {
-                rest.onClick?.();
+            onClick={async (event) => {
+                onClick?.(event);
                 await reportSpamNFT(collectionId);
             }}
         >

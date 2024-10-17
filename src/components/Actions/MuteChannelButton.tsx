@@ -14,7 +14,7 @@ interface Props extends Omit<ClickableButtonProps, 'children'> {
 }
 
 export const MuteChannelButton = forwardRef<HTMLButtonElement, Props>(function MuteChannelButton(
-    { channel, onToggle, ...rest }: Props,
+    { channel, onToggle, onClick, ...rest }: Props,
     ref,
 ) {
     const muted = channel.blocked;
@@ -22,8 +22,8 @@ export const MuteChannelButton = forwardRef<HTMLButtonElement, Props>(function M
     return (
         <MenuButton
             {...rest}
-            onClick={async () => {
-                rest.onClick?.();
+            onClick={async (event) => {
+                onClick?.(event);
                 const confirmed = !muted
                     ? await ConfirmModalRef.openAndWaitForClose({
                           title: muted ? t`Unmute` : t`Mute`,

@@ -38,7 +38,7 @@ export function ChannelSearchPanel({ onSelected, className, ...rest }: ChannelSe
             <SearchInput
                 className="h-8"
                 value={inputText}
-                onChange={(ev) => setInputText(ev.target.value)}
+                onChange={(ev) => setInputText(ev.currentTarget.value)}
                 onClear={() => setInputText('')}
             />
         </div>

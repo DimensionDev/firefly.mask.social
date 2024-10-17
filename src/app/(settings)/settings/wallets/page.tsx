@@ -13,7 +13,7 @@ import { NoResultsFallback } from '@/components/NoResultsFallback.js';
 import { WalletSource } from '@/constants/enum.js';
 import { EMPTY_LIST } from '@/constants/index.js';
 import { useNavigatorTitle } from '@/hooks/useNavigatorTitle.js';
-import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
+import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 import type { FireflyWalletConnection } from '@/providers/types/Firefly.js';
 
 function filterMPCWallets(connections: FireflyWalletConnection[], noMPC = false) {
@@ -31,7 +31,7 @@ export default function Wallets() {
         isRefetching,
     } = useQuery({
         queryKey: ['my-wallet-connections'],
-        queryFn: () => FireflySocialMediaProvider.getAllConnections(),
+        queryFn: () => FireflyEndpointProvider.getAllConnections(),
     });
 
     const mpcWallets = [connected, related].flatMap((connection) => filterMPCWallets(connection));

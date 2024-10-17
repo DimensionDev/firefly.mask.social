@@ -1,4 +1,5 @@
 'use client';
+
 import { memo } from 'react';
 import urlcat from 'urlcat';
 import { useEnsName } from 'wagmi';
@@ -12,6 +13,7 @@ import { Link } from '@/esm/Link.js';
 import { classNames } from '@/helpers/classNames.js';
 import { formatEthereumAddress } from '@/helpers/formatAddress.js';
 import { resolveArticlePlatformIcon } from '@/helpers/resolveArticlePlatformIcon.js';
+import { stopPropagation } from '@/helpers/stopEvent.js';
 import { type Article, ArticlePlatform } from '@/providers/types/Article.js';
 
 interface SingleArticleHeaderProps {
@@ -36,7 +38,7 @@ export const SingleArticleHeader = memo<SingleArticleHeaderProps>(function Singl
 
     return (
         <header className={classNames('flex items-start gap-3', className)}>
-            <Link href={authorUrl} className="z-[1]" onClick={(event) => event.stopPropagation()}>
+            <Link href={authorUrl} className="z-[1]" onClick={stopPropagation}>
                 <Avatar
                     className="h-10 w-10"
                     src={article.author.avatar}
@@ -48,7 +50,7 @@ export const SingleArticleHeader = memo<SingleArticleHeaderProps>(function Singl
             <div className="flex max-w-[calc(100%-40px-88px-24px)] flex-1 items-center gap-2 overflow-hidden">
                 <Link
                     href={authorUrl}
-                    onClick={(event) => event.stopPropagation()}
+                    onClick={stopPropagation}
                     className="block truncate text-clip text-medium font-bold leading-5 text-main"
                 >
                     {article.author.handle || ens}

@@ -8,7 +8,6 @@ import { ScannableQRCode } from '@/components/ScannableQRCode.js';
 import { IS_MOBILE_DEVICE } from '@/constants/bowser.js';
 import { AbortError, MalformedError, TimeoutError } from '@/constants/error.js';
 import { FIREFLY_SCAN_QR_CODE_COUNTDOWN } from '@/constants/index.js';
-import { addAccount } from '@/helpers/account.js';
 import { classNames } from '@/helpers/classNames.js';
 import { enqueueErrorMessage, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { getMobileDevice } from '@/helpers/getMobileDevice.js';
@@ -19,6 +18,7 @@ import { useAbortController } from '@/hooks/useAbortController.js';
 import { LoginModalRef } from '@/modals/controls.js';
 import { createAccountByGrantPermission } from '@/providers/firefly/createAccountByGrantPermission.js';
 import type { Account } from '@/providers/types/Account.js';
+import { addAccount } from '@/services/account.js';
 import { DeviceType } from '@/types/device.js';
 
 async function login(createAccount: () => Promise<Account>, options?: { signal?: AbortSignal }) {

@@ -13,13 +13,20 @@ enum MuteLabel {
     Muted = 'Muted',
 }
 
-interface Props extends Omit<ClickableButtonProps, 'children'> {
+interface ToggleMutedButtonProps extends Omit<ClickableButtonProps, 'children'> {
     loading: boolean;
     isMuted: boolean;
     variant?: 'text' | 'icon';
 }
 
-export function ToggleMutedButton({ loading, isMuted, className, variant = 'text', ...rest }: Props) {
+export function ToggleMutedButton({
+    loading,
+    isMuted,
+    className,
+    variant = 'text',
+    ref,
+    ...rest
+}: ToggleMutedButtonProps) {
     const hoverRef = useRef<HTMLButtonElement>(null);
     const isHover = useHover(hoverRef);
     const buttonState = isHover ? MuteLabel.Unmute : MuteLabel.Muted;

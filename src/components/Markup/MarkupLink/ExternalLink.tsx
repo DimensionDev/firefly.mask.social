@@ -9,6 +9,7 @@ import { formatUrl } from '@/helpers/formatUrl.js';
 import { isSelfReference } from '@/helpers/isLinkMatchingHost.js';
 import { isTopLevelDomain } from '@/helpers/isTopLevelDomain.js';
 import { parseUrl } from '@/helpers/parseUrl.js';
+import { stopPropagation } from '@/helpers/stopEvent.js';
 
 interface ExternalLinkProps extends Omit<LinkProps, 'href'> {
     title: string;
@@ -22,7 +23,7 @@ export const ExternalLink = memo<ExternalLinkProps>(function ExternalLink({ titl
 
     return (
         <Link
-            onClick={(event) => event.stopPropagation()}
+            onClick={stopPropagation}
             href={u.href}
             title={u.href}
             className={classNames('text-highlight', {

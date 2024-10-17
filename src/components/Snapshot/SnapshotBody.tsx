@@ -22,6 +22,7 @@ import { Link } from '@/esm/Link.js';
 import { classNames } from '@/helpers/classNames.js';
 import { formatEthereumAddress } from '@/helpers/formatAddress.js';
 import { getStampAvatarByProfileId } from '@/helpers/getStampAvatarByProfileId.js';
+import { stopPropagation } from '@/helpers/stopEvent.js';
 import { type SnapshotProposal, SnapshotState } from '@/providers/types/Snapshot.js';
 
 interface Props {
@@ -73,7 +74,7 @@ export function SnapshotBody({ snapshot }: Props) {
                     </Link>
                     <Link
                         href={authorUrl}
-                        onClick={(event) => event.stopPropagation()}
+                        onClick={stopPropagation}
                         className="block truncate text-clip text-medium leading-5 text-secondary"
                     >
                         {displayInfo?.ensHandle || formatEthereumAddress(snapshot.author, 4)}

@@ -11,7 +11,7 @@ import { classNames } from '@/helpers/classNames.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { type Profile, ProfileBadgePresetColors } from '@/providers/types/SocialMedia.js';
 
-interface Props extends HTMLProps<'div'> {
+interface Props extends HTMLProps<HTMLDivElement> {
     profile: Profile;
 }
 

@@ -14,7 +14,6 @@ import { IS_MOBILE_DEVICE } from '@/constants/bowser.js';
 import { FarcasterSignType, FarcasterSignType as SignType, Source } from '@/constants/enum.js';
 import { AbortError, NotAllowedError, TimeoutError } from '@/constants/error.js';
 import { FARCASTER_REPLY_COUNTDOWN } from '@/constants/index.js';
-import { type AccountOptions, addAccount } from '@/helpers/account.js';
 import { classNames } from '@/helpers/classNames.js';
 import { enqueueErrorMessage, enqueueInfoMessage, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { getMobileDevice } from '@/helpers/getMobileDevice.js';
@@ -26,6 +25,7 @@ import { LoginModalRef } from '@/modals/controls.js';
 import type { Account } from '@/providers/types/Account.js';
 import { createAccountByGrantPermission } from '@/providers/warpcast/createAccountByGrantPermission.js';
 import { createAccountByRelayService } from '@/providers/warpcast/createAccountByRelayService.js';
+import { type AccountOptions, addAccount } from '@/services/account.js';
 
 async function login(createAccount: () => Promise<Account>, options?: Omit<AccountOptions, 'source'>) {
     try {

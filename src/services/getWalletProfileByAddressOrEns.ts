@@ -3,11 +3,11 @@ import { memoize } from 'lodash-es';
 
 import { Source } from '@/constants/enum.js';
 import { resolveFireflyProfiles } from '@/helpers/resolveFireflyProfiles.js';
-import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
+import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 
 async function resolver(addressOrEns: string, isTokenRequired: boolean) {
     const identity = { id: addressOrEns, source: Source.Wallet } as const;
-    const profiles = await FireflySocialMediaProvider.getAllPlatformProfileByIdentity(identity, isTokenRequired);
+    const profiles = await FireflyEndpointProvider.getAllPlatformProfileByIdentity(identity, isTokenRequired);
     const { walletProfile } = resolveFireflyProfiles(identity, profiles);
 
     return walletProfile;

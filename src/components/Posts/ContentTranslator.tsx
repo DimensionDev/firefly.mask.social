@@ -11,8 +11,7 @@ import { getLangNameFromLocal } from '@/helpers/getLangNameFromLocal.js';
 import { trimify } from '@/helpers/trimify.js';
 import { useIsLoginFirefly } from '@/hooks/useIsLogin.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
-import { getContentLanguage } from '@/services/getContentLanguage.js';
-import { Language, translate } from '@/services/translate.js';
+import { detectLanguage, Language, translateLanguage } from '@/services/translate.js';
 
 function isValidContentToTranslate(content: string) {
     NUMBER_STRING_REGEX.lastIndex = 0;
@@ -39,7 +38,7 @@ export const ContentTranslator = memo<ContentWithTranslatorProps>(function Conte
     const isLoginFirefly = useIsLoginFirefly();
 
     const [_, handleDetect] = useAsyncFn(async () => {
-        const originalLanguage = await getContentLanguage(content);
+        const originalLanguage = await detectLanguage(content);
         setTranslationConfig({
             original: originalLanguage,
             target: getTargetLanguage(originalLanguage),
@@ -47,7 +46,7 @@ export const ContentTranslator = memo<ContentWithTranslatorProps>(function Conte
     }, []);
 
     const [{ value: data, loading, error }, handleTranslate] = useAsyncFn(async () => {
-        const { translations } = await translate(translationConfig.target!, content);
+        const { translations } = await translateLanguage(translationConfig.target!, content);
         return {
             contentLanguage: getLangNameFromLocal(translationConfig.original!),
             translatedText: first(translations)?.text,

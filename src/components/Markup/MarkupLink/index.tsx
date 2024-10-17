@@ -24,6 +24,7 @@ import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { getTwitterProfileUrl } from '@/helpers/getTwitterProfileUrl.js';
 import { isValidDomain } from '@/helpers/isValidDomain.js';
 import { isTCOLink } from '@/helpers/resolveTCOLink.js';
+import { stopPropagation } from '@/helpers/stopEvent.js';
 import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
 import { type Post } from '@/providers/types/SocialMedia.js';
 
@@ -139,7 +140,7 @@ export const MarkupLink = memo<MarkupLinkProps>(function MarkupLink({ title, pos
             <Link
                 href={urlcat(HEY_URL, '/u/:handle', { handle })}
                 className="text-link hover:underline"
-                onClick={(event) => event.stopPropagation()}
+                onClick={stopPropagation}
                 target="_blank"
                 rel="noreferrer noopener"
             >
@@ -182,7 +183,7 @@ export const MarkupLink = memo<MarkupLinkProps>(function MarkupLink({ title, pos
             <Link
                 href={href}
                 className="text-highlight hover:underline"
-                onClick={(event) => event.stopPropagation()}
+                onClick={stopPropagation}
                 target="_blank"
                 rel="noreferrer noopener"
             >

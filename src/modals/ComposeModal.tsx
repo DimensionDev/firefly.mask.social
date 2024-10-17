@@ -15,7 +15,6 @@ import { $getRoot } from 'lexical';
 import { compact, flatten, values } from 'lodash-es';
 import { forwardRef, useCallback, useMemo, useRef } from 'react';
 import { useAsync, useUpdateEffect } from 'react-use';
-import { None } from 'ts-results-es';
 import urlcat from 'urlcat';
 import { v4 as uuid } from 'uuid';
 
@@ -233,7 +232,6 @@ export const ComposeModalUI = forwardRef<SingletonModalRefCreator<ComposeModalOp
                 const encrypted = await encrypt(
                     {
                         author: ProfileIdentifier.of(SITE_HOSTNAME, profile?.handle),
-                        authorPublicKey: None,
                         message: typedMessage,
                         network: SITE_HOSTNAME,
                         target: { type: 'public' },

@@ -2,8 +2,8 @@ import urlcat from 'urlcat';
 
 import { fetchJSON } from '@/helpers/fetchJSON.js';
 import { resolveFireflyIdentity } from '@/helpers/resolveFireflyProfileId.js';
+import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 import type { FireflyIdentity } from '@/providers/types/Firefly.js';
-import { getAllPlatformProfileFromFirefly } from '@/services/getAllPlatformProfileFromFirefly.js';
 import { settings } from '@/settings/index.js';
 import { useFarcasterStateStore, useLensStateStore, useTwitterStateStore } from '@/store/useProfileStore.js';
 
@@ -47,11 +47,11 @@ export async function reportTokenTips(identity: FireflyIdentity, params: UploadT
     if (!resolvedIdentity) throw new Error('No available profile.');
 
     const from_account_id = profile
-        ? await getAllPlatformProfileFromFirefly(resolvedIdentity, false)
+        ? await FireflyEndpointProvider.getAllPlatformProfileFromFirefly(resolvedIdentity, false)
               .then((x) => x.data?.fireflyAccountId)
               .catch(() => undefined)
         : undefined;
-    const to_account_id = await getAllPlatformProfileFromFirefly(identity, false)
+    const to_account_id = await FireflyEndpointProvider.getAllPlatformProfileFromFirefly(identity, false)
         .then((x) => x.data?.fireflyAccountId)
         .catch(() => undefined);
 

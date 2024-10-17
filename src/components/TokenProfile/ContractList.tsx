@@ -4,18 +4,20 @@ import { type HTMLProps, memo } from 'react';
 
 import DotsIcon from '@/assets/dots.svg';
 import QuestionIcon from '@/assets/question.svg';
-import { CopyButton } from '@/components/CopyButton.js';
+import { CopyTextButton } from '@/components/CopyTextButton.js';
 import { Image } from '@/components/Image.js';
 import { MoreActionMenu } from '@/components/MoreActionMenu.js';
 import { useChainInfo } from '@/components/TokenProfile/useChainInfo.js';
 import { Tooltip } from '@/components/Tooltip.js';
 import { classNames } from '@/helpers/classNames.js';
 import { formatEthereumAddress } from '@/helpers/formatAddress.js';
+import { stopEvent } from '@/helpers/stopEvent.js';
 import type { Contract, Trending } from '@/providers/types/Trending.js';
 
 interface Props {
     contracts: NonNullable<Trending['contracts']>;
 }
+
 export const ContractList = memo<Props>(function ContractList({ contracts }) {
     return (
         <MoreActionMenu
@@ -29,10 +31,7 @@ export const ContractList = memo<Props>(function ContractList({ contracts }) {
             <Menu.Items
                 className="backdrop-filter-[blur(8px)] absolute right-0 z-[1000] flex max-h-[225px] w-max flex-col gap-2 overflow-auto rounded-2xl border border-line bg-primaryBottom p-3 text-base text-main shadow-[0_0_20px_0_rgba(34,49,71,0.05)]"
                 data-hide-scrollbar
-                onClick={(event) => {
-                    event.stopPropagation();
-                    event.preventDefault();
-                }}
+                onClick={stopEvent}
             >
                 {contracts.map((contract, index) => (
                     <Menu.Item key={contract.address}>
@@ -70,7 +69,7 @@ function ContractItem({ contract, ...rest }: ContractItemProps) {
                     {formatEthereumAddress(contract.address, 4)}
                 </div>
             </div>
-            <CopyButton value={contract.address} />
+            <CopyTextButton value={contract.address} />
         </div>
     );
 }

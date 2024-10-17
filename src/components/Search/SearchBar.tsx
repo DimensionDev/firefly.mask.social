@@ -73,7 +73,7 @@ const SearchBar = memo(function SearchBar({ slot, className, ...rest }: SearchBa
                     <SearchInput
                         className="box-border h-[35px] focus:text-main"
                         value={inputText}
-                        onChange={(ev) => setInputText(ev.target.value)}
+                        onChange={(ev) => setInputText(ev.currentTarget.value)}
                         onFocus={() => setShowRecommendation(true)}
                         onClear={() => setInputText('')}
                     />

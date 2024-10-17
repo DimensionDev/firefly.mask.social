@@ -1,0 +1,12 @@
+diff --git a/dist/components/dialog/dialog.d.ts b/dist/components/dialog/dialog.d.ts
+index 680b654a2a06436ca8505981227f7e7c83c149cc..d61ac4847b0ef9a5b297cb54b62c99e0d05aa25c 100644
+--- a/dist/components/dialog/dialog.d.ts
++++ b/dist/components/dialog/dialog.d.ts
+@@ -10,6 +10,7 @@ type DialogPropsWeControl = 'aria-describedby' | 'aria-labelledby' | 'aria-modal
+ declare let DialogRenderFeatures: number;
+ export type DialogProps<TTag extends ElementType = typeof DEFAULT_DIALOG_TAG> = Props<TTag, DialogRenderPropArg, DialogPropsWeControl, PropsForFeatures<typeof DialogRenderFeatures> & {
+     open?: boolean;
++    disableScrollLock?: boolean;
+     onClose: (value: boolean) => void;
+     initialFocus?: MutableRefObject<HTMLElement | null>;
+     role?: 'dialog' | 'alertdialog';

@@ -5,7 +5,7 @@ import { waitForSelectReportReason } from '@/app/(settings)/components/waitForSe
 import LoadingIcon from '@/assets/loading.svg';
 import { enqueueErrorMessage, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { getSnackbarMessageFromError } from '@/helpers/getSnackbarMessageFromError.js';
-import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
+import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 import type { FireflyWalletConnection } from '@/providers/types/Firefly.js';
 
 interface ReportButtonProps {
@@ -18,8 +18,8 @@ export function ReportButton({ connection }: ReportButtonProps) {
             const reason = await waitForSelectReportReason();
             if (!reason) return;
 
-            await FireflySocialMediaProvider.reportAndDeleteWallet(connection, reason);
-            await FireflySocialMediaProvider.disconnectWallet(connection.address);
+            await FireflyEndpointProvider.reportAndDeleteWallet(connection, reason);
+            await FireflyEndpointProvider.disconnectWallet(connection.address);
             enqueueSuccessMessage(t`Disconnected from your social graph`);
         } catch (error) {
             enqueueErrorMessage(getSnackbarMessageFromError(error, t`Failed to disconnect`), { error });

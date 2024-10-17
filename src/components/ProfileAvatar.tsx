@@ -1,3 +1,5 @@
+import type { HTMLProps } from 'react';
+
 import LoadingIcon from '@/assets/loading.svg';
 import { Avatar } from '@/components/Avatar.js';
 import { SocialSourceIcon } from '@/components/SocialSourceIcon.js';
@@ -8,7 +10,7 @@ import { useIsLarge } from '@/hooks/useMediaQuery.js';
 import { useSizeStyle } from '@/hooks/useSizeStyle.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 
-export interface ProfileAvatarProps extends React.HTMLAttributes<HTMLElement> {
+export interface ProfileAvatarProps extends HTMLProps<HTMLElement> {
     profile: Profile;
     size?: number;
     loading?: boolean;
@@ -19,6 +21,7 @@ export interface ProfileAvatarProps extends React.HTMLAttributes<HTMLElement> {
 }
 
 export function ProfileAvatar({
+    ref,
     profile,
     fallbackUrl,
     loading = false,

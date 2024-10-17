@@ -9,22 +9,17 @@ import {
 } from '@livepeer/react/assets';
 import { getSrc } from '@livepeer/react/external';
 import * as Player from '@livepeer/react/player';
-import { memo, type PropsWithChildren } from 'react';
+import { type HTMLProps, memo } from 'react';
 
 import { ClickableArea } from '@/components/ClickableArea.js';
 
-interface VideoProps extends PropsWithChildren {
-    poster?: string;
-    className?: string;
-    src: string;
-    autoPlay?: boolean;
-    loop?: boolean;
+interface VideoProps extends HTMLProps<HTMLVideoElement> {
     forceNoToken?: boolean;
 }
 
 export const Video = memo<VideoProps>(function Video({
-    poster,
     className = '',
+    poster,
     src,
     autoPlay = false,
     loop = false,

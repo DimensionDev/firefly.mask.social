@@ -27,6 +27,7 @@ import { resolveProfileUrl } from '@/helpers/resolveProfileUrl.js';
 import { resolveTCOLink } from '@/helpers/resolveTCOLink.js';
 import { resolveTwitterReplyRestriction } from '@/helpers/resolveTwitterReplyRestriction.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
+import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
 import { TwitterSession } from '@/providers/twitter/Session.js';
 import { twitterSessionHolder } from '@/providers/twitter/SessionHolder.js';
@@ -34,6 +35,7 @@ import type { SessionPayload } from '@/providers/twitter/SessionPayload.js';
 import { TwitterUserInfoProfileImageShape, TwitterUserInfoVerifiedType } from '@/providers/types/Firefly.js';
 import {
     type Channel,
+    type Friendship,
     type Notification,
     type Post,
     type Profile,
@@ -55,30 +57,23 @@ import type { ResponseJSON } from '@/types/index.js';
 @SetQueryDataForBlockProfile(Source.Twitter)
 @SetQueryDataForActPost(Source.Twitter)
 class TwitterSocialMedia implements Provider {
-    async unmirrorPost(postId: string, authorId?: number | undefined): Promise<void> {
-        const response = await twitterSessionHolder.fetch<ResponseJSON<void>>(`/api/twitter/unretweet/${postId}`, {
-            method: 'POST',
-        });
-        if (!response.success) throw new Error(response.error.message);
+    get type() {
+        return SessionType.Twitter;
     }
 
-    async mirrorPost(postId: string): Promise<string> {
-        const response = await twitterSessionHolder.fetch<ResponseJSON<void>>(`/api/twitter/retweet/${postId}`, {
-            method: 'POST',
-        });
-        if (!response.success) throw new Error(response.error.message);
-        return postId;
-    }
-
-    async blockChannel(channelId: string): Promise<boolean> {
+    getFriendship(profileId: string): Promise<Friendship | null> {
         throw new NotImplementedError();
     }
 
-    async unblockChannel(channelId: string): Promise<boolean> {
+    blockChannel(channelId: string): Promise<boolean> {
         throw new NotImplementedError();
     }
 
-    async getBlockedChannels(indicator?: PageIndicator): Promise<Pageable<Channel, PageIndicator>> {
+    unblockChannel(channelId: string): Promise<boolean> {
+        throw new NotImplementedError();
+    }
+
+    getBlockedChannels(indicator?: PageIndicator): Promise<Pageable<Channel, PageIndicator>> {
         throw new NotImplementedError();
     }
 
@@ -100,20 +95,6 @@ class TwitterSocialMedia implements Provider {
 
     actPost(postId: string, options: unknown): Promise<void> {
         throw new NotImplementedError();
-    }
-
-    async getProfilesByIds(ids: string[]): Promise<Profile[]> {
-        const response = await twitterSessionHolder.fetch<ResponseJSON<UserV2[]>>('/api/twitter/users', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                ids,
-            }),
-        });
-        if (!response.success) throw new Error(response.error.message);
-        return response.data.map(formatTwitterProfile);
     }
 
     getPostsBeMentioned(profileId: string, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
@@ -160,6 +141,89 @@ class TwitterSocialMedia implements Provider {
         throw new NotImplementedError();
     }
 
+    discoverPostsById(profileId: string, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
+        throw new NotImplementedError();
+    }
+
+    getNotifications(indicator?: PageIndicator): Promise<Pageable<Notification, PageIndicator>> {
+        throw new NotImplementedError();
+    }
+
+    searchProfiles(q: string, indicator?: PageIndicator): Promise<Pageable<Profile, PageIndicator>> {
+        throw new NotImplementedError();
+    }
+
+    getChannelTrendingPosts(channel: Channel, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
+        throw new NotImplementedError();
+    }
+
+    getChannelById(channelId: string): Promise<Channel> {
+        throw new NotImplementedError();
+    }
+
+    getChannelByHandle(channelHandle: string): Promise<Channel> {
+        throw new NotImplementedError();
+    }
+
+    getChannelsByProfileId(profileId: string, indicator?: PageIndicator): Promise<Pageable<Channel, PageIndicator>> {
+        throw new NotImplementedError();
+    }
+
+    discoverChannels(indicator?: PageIndicator): Promise<Pageable<Channel, PageIndicator>> {
+        throw new NotImplementedError();
+    }
+
+    getPostsByChannelId(channelId: string, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
+        throw new NotImplementedError();
+    }
+
+    getPostsByChannelHandle(channelHandle: string, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
+        throw new NotImplementedError();
+    }
+
+    searchChannels(q: string, indicator?: PageIndicator): Promise<Pageable<Channel, PageIndicator>> {
+        throw new NotImplementedError();
+    }
+
+    getLikeReactors(postId: string, indicator?: PageIndicator): Promise<Pageable<Profile, PageIndicator>> {
+        throw new NotImplementedError();
+    }
+    getRepostReactors(postId: string, indicator?: PageIndicator): Promise<Pageable<Profile, PageIndicator>> {
+        throw new NotImplementedError();
+    }
+    getPostsQuoteOn(postId: string, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
+        throw new NotImplementedError();
+    }
+
+    async unmirrorPost(postId: string, authorId?: number | undefined): Promise<void> {
+        const response = await twitterSessionHolder.fetch<ResponseJSON<void>>(`/api/twitter/unretweet/${postId}`, {
+            method: 'POST',
+        });
+        if (!response.success) throw new Error(response.error.message);
+    }
+
+    async mirrorPost(postId: string): Promise<string> {
+        const response = await twitterSessionHolder.fetch<ResponseJSON<void>>(`/api/twitter/retweet/${postId}`, {
+            method: 'POST',
+        });
+        if (!response.success) throw new Error(response.error.message);
+        return postId;
+    }
+
+    async getProfilesByIds(ids: string[]): Promise<Profile[]> {
+        const response = await twitterSessionHolder.fetch<ResponseJSON<UserV2[]>>('/api/twitter/users', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                ids,
+            }),
+        });
+        if (!response.success) throw new Error(response.error.message);
+        return response.data.map(formatTwitterProfile);
+    }
+
     async follow(profileId: string): Promise<boolean> {
         const response = await twitterSessionHolder.fetch<ResponseJSON<void>>(`/api/twitter/follow/${profileId}`, {
             method: 'POST',
@@ -184,14 +248,6 @@ class TwitterSocialMedia implements Provider {
         const response = await twitterSessionHolder.fetch<ResponseJSON<TweetV2PaginableTimelineResult>>(url, {}, true);
         if (!response.success) throw new Error(response.error.message);
         return formatTweetsPage(response.data, indicator);
-    }
-
-    discoverPostsById(profileId: string, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
-        throw new NotImplementedError();
-    }
-
-    getNotifications(indicator?: PageIndicator): Promise<Pageable<Notification, PageIndicator>> {
-        throw new NotImplementedError();
     }
 
     async getPostById(postId: string): Promise<Post> {
@@ -319,46 +375,6 @@ class TwitterSocialMedia implements Provider {
         });
     }
 
-    searchProfiles(q: string, indicator?: PageIndicator): Promise<Pageable<Profile, PageIndicator>> {
-        throw new NotImplementedError();
-    }
-
-    getChannelTrendingPosts(channel: Channel, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
-        throw new NotImplementedError();
-    }
-
-    getChannelById(channelId: string): Promise<Channel> {
-        throw new NotImplementedError();
-    }
-
-    getChannelByHandle(channelHandle: string): Promise<Channel> {
-        throw new NotImplementedError();
-    }
-
-    getChannelsByProfileId(profileId: string, indicator?: PageIndicator): Promise<Pageable<Channel, PageIndicator>> {
-        throw new NotImplementedError();
-    }
-
-    discoverChannels(indicator?: PageIndicator): Promise<Pageable<Channel, PageIndicator>> {
-        throw new NotImplementedError();
-    }
-
-    getPostsByChannelId(channelId: string, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
-        throw new NotImplementedError();
-    }
-
-    getPostsByChannelHandle(channelHandle: string, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
-        throw new NotImplementedError();
-    }
-
-    searchChannels(q: string, indicator?: PageIndicator): Promise<Pageable<Channel, PageIndicator>> {
-        throw new NotImplementedError();
-    }
-
-    get type() {
-        return SessionType.Twitter;
-    }
-
     async login(): Promise<SessionPayload | null> {
         const response = await twitterSessionHolder.fetch<ResponseJSON<SessionPayload>>(
             '/api/twitter/login',
@@ -462,7 +478,7 @@ class TwitterSocialMedia implements Provider {
         return response.data.deleted;
     }
     async blockProfile(profileId: string): Promise<boolean> {
-        const result = await FireflySocialMediaProvider.blockProfileFor(FireflyPlatform.Twitter, profileId);
+        const result = await FireflyEndpointProvider.blockProfileFor(FireflyPlatform.Twitter, profileId);
         await runInSafeAsync(() =>
             twitterSessionHolder.fetch<ResponseJSON<UserV2MuteResult['data']>>(
                 `/api/twitter/mute/${profileId}`,
@@ -475,7 +491,7 @@ class TwitterSocialMedia implements Provider {
         return result;
     }
     async unblockProfile(profileId: string): Promise<boolean> {
-        const result = await FireflySocialMediaProvider.unblockProfileFor(FireflyPlatform.Twitter, profileId);
+        const result = await FireflyEndpointProvider.unblockProfileFor(FireflyPlatform.Twitter, profileId);
         await runInSafeAsync(() =>
             twitterSessionHolder.fetch<ResponseJSON<UserV2MuteResult['data']>>(
                 `/api/twitter/mute/${profileId}`,
@@ -493,15 +509,7 @@ class TwitterSocialMedia implements Provider {
     async getBlockedProfiles(indicator?: PageIndicator): Promise<Pageable<Profile, PageIndicator>> {
         return FireflySocialMediaProvider.getBlockedProfiles(indicator, FireflyPlatform.Twitter);
     }
-    async getLikeReactors(postId: string, indicator?: PageIndicator): Promise<Pageable<Profile, PageIndicator>> {
-        throw new NotImplementedError();
-    }
-    async getRepostReactors(postId: string, indicator?: PageIndicator): Promise<Pageable<Profile, PageIndicator>> {
-        throw new NotImplementedError();
-    }
-    async getPostsQuoteOn(postId: string, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
-        throw new NotImplementedError();
-    }
+
     async bookmark(tweetId: string): Promise<boolean> {
         const response = await twitterSessionHolder.fetch<ResponseJSON<boolean>>(`/api/twitter/bookmark/${tweetId}`, {
             method: 'PUT',
@@ -564,7 +572,7 @@ class TwitterSocialMedia implements Provider {
     }
 
     async getProfileBadges(profile: Profile): Promise<ProfileBadge[]> {
-        const response = await FireflySocialMediaProvider.getTwitterUserInfo(profile.handle);
+        const response = await FireflyEndpointProvider.getTwitterUserInfo(profile.handle);
         const userInfo = response.data.user.result;
         if (!userInfo.is_blue_verified) return [];
         let color =

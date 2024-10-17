@@ -22,12 +22,14 @@ import {
     type Pageable,
     type PageIndicator,
 } from '@/helpers/pageable.js';
+import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
 import { HubbleSocialMediaProvider } from '@/providers/hubble/SocialMedia.js';
 import { NeynarSocialMediaProvider } from '@/providers/neynar/SocialMedia.js';
 import { FarcasterOpenRankProvider } from '@/providers/openrank/Farcaster.js';
 import {
     type Channel,
+    type Friendship,
     type Notification,
     type Post,
     type Profile,
@@ -37,7 +39,6 @@ import {
     SessionType,
 } from '@/providers/types/SocialMedia.js';
 import { WarpcastSocialMediaProvider } from '@/providers/warpcast/SocialMedia.js';
-import { getFarcasterSuggestFollows } from '@/services/getFarcasterSuggestFollows.js';
 
 @SetQueryDataForLikePost(Source.Farcaster)
 @SetQueryDataForBookmarkPost(Source.Farcaster)
@@ -60,6 +61,10 @@ class FarcasterSocialMedia implements Provider {
     }
 
     collectPost(postId: string, collectionId?: string): Promise<void> {
+        throw new NotImplementedError();
+    }
+
+    getFriendship(profileId: string): Promise<Friendship | null> {
         throw new NotImplementedError();
     }
 
@@ -289,7 +294,7 @@ class FarcasterSocialMedia implements Provider {
     }
 
     async getSuggestedFollows(indicator?: PageIndicator): Promise<Pageable<Profile>> {
-        const response = await getFarcasterSuggestFollows(indicator);
+        const response = await FireflyEndpointProvider.getFarcasterSuggestFollows(indicator);
         // get full profiles
         response.data = await NeynarSocialMediaProvider.getProfilesByIds(
             response.data.map((profile) => `${profile.profileId}`),
@@ -311,18 +316,21 @@ class FarcasterSocialMedia implements Provider {
     getCommentsById(postId: string, indicator?: PageIndicator) {
         return FireflySocialMediaProvider.getCommentsById(postId, indicator);
     }
+
     async reportProfile(profileId: string) {
-        return FireflySocialMediaProvider.reportProfile(profileId);
+        return FireflyEndpointProvider.reportProfile(profileId);
     }
+
     async reportPost(post: Post) {
         return FireflySocialMediaProvider.reportPost(post);
     }
+
     async blockProfile(profileId: string) {
-        return FireflySocialMediaProvider.blockProfileFor(FireflyPlatform.Farcaster, profileId);
+        return FireflyEndpointProvider.blockProfileFor(FireflyPlatform.Farcaster, profileId);
     }
 
     async unblockProfile(profileId: string) {
-        return FireflySocialMediaProvider.unblockProfileFor(FireflyPlatform.Farcaster, profileId);
+        return FireflyEndpointProvider.unblockProfileFor(FireflyPlatform.Farcaster, profileId);
     }
 
     async getBlockedProfiles(indicator?: PageIndicator): Promise<Pageable<Profile, PageIndicator>> {

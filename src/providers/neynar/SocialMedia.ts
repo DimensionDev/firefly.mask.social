@@ -9,10 +9,12 @@ import { formatChannelFromFirefly } from '@/helpers/formatFarcasterChannelFromFi
 import { formatFarcasterProfileFromNeynar } from '@/helpers/formatFarcasterProfileFromNeynar.js';
 import { createIndicator, createPageable, type Pageable, type PageIndicator } from '@/helpers/pageable.js';
 import { farcasterSessionHolder } from '@/providers/farcaster/SessionHolder.js';
-import type { Channel as FireflyChannel } from '@/providers/types/Firefly.js';
+import type { Channel as FireflyChannel, WalletProfile } from '@/providers/types/Firefly.js';
 import type { Profile as NeynarProfile } from '@/providers/types/Neynar.js';
 import {
     type Channel,
+    type Friendship,
+    NetworkType,
     type Notification,
     type Post,
     type Profile,
@@ -44,17 +46,70 @@ function fetchNeynarJSON<T>(url: string, options: RequestInit): Promise<T> {
 }
 
 class NeynarSocialMedia implements Provider {
-    mirrorPost?:
-        | ((
-              postId: string,
-              options?: { onMomoka?: boolean | undefined; authorId?: number | undefined } | undefined,
-          ) => Promise<string>)
-        | undefined;
-    unmirrorPost?: ((postId: string, authorId?: number | undefined) => Promise<void>) | undefined;
-    quotePost?: ((postId: string, post: Post) => Promise<string>) | undefined;
-    collectPost?: ((postId: string, collectionId?: string | undefined) => Promise<void>) | undefined;
-    isFollowedByMe?: ((profileId: string) => Promise<boolean>) | undefined;
-    isFollowingMe?: ((profileId: string) => Promise<boolean>) | undefined;
+    getChannelTrendingPosts(channel: Channel, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
+        throw new NotImplementedError();
+    }
+
+    blockWallet(address: string, networkType?: NetworkType): Promise<boolean> {
+        throw new NotImplementedError();
+    }
+
+    unblockWallet(address: string, networkType?: NetworkType): Promise<boolean> {
+        throw new NotImplementedError();
+    }
+
+    getBlockedWallets(indicator?: PageIndicator): Promise<Pageable<WalletProfile, PageIndicator>> {
+        throw new NotImplementedError();
+    }
+
+    watchWallet(address: string, networkType?: NetworkType): Promise<boolean> {
+        throw new NotImplementedError();
+    }
+
+    unwatchWallet(address: string, networkType?: NetworkType): Promise<boolean> {
+        throw new NotImplementedError();
+    }
+
+    reportChannel(channelId: string): Promise<boolean> {
+        throw new NotImplementedError();
+    }
+
+    getForYouPosts(indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
+        throw new NotImplementedError();
+    }
+
+    getRecentPosts(indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
+        throw new NotImplementedError();
+    }
+
+    getFriendship(profileId: string): Promise<Friendship | null> {
+        throw new NotImplementedError();
+    }
+
+    mirrorPost(postId: string, options?: { onMomoka?: boolean; authorId?: number }): Promise<string> {
+        throw new NotImplementedError();
+    }
+
+    unmirrorPost(postId: string, authorId?: number): Promise<void> {
+        throw new NotImplementedError();
+    }
+
+    quotePost(postId: string, post: Post): Promise<string> {
+        throw new NotImplementedError();
+    }
+
+    collectPost(postId: string, collectionId?: string): Promise<void> {
+        throw new NotImplementedError();
+    }
+
+    isFollowedByMe(profileId: string): Promise<boolean> {
+        throw new NotImplementedError();
+    }
+
+    isFollowingMe(profileId: string): Promise<boolean> {
+        throw new NotImplementedError();
+    }
+
     commentPost(postId: string, post: Post): Promise<string> {
         throw new NotImplementedError();
     }
@@ -99,38 +154,176 @@ class NeynarSocialMedia implements Provider {
         throw new NotImplementedError();
     }
 
-    async getLikedPostsByProfileId(
-        profileId: string,
-        indicator?: PageIndicator,
-    ): Promise<Pageable<Post, PageIndicator>> {
+    getLikedPostsByProfileId(profileId: string, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
         throw new NotImplementedError();
     }
 
-    async getRepliesPostsByProfileId(
-        profileId: string,
-        indicator?: PageIndicator,
-    ): Promise<Pageable<Post, PageIndicator>> {
+    getRepliesPostsByProfileId(profileId: string, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
+        throw new NotImplementedError();
+    }
+
+    publishPost(post: Post): Promise<string> {
+        throw new NotImplementedError();
+    }
+
+    upvotePost(postId: string): Promise<void> {
+        throw new NotImplementedError();
+    }
+
+    unvotePost(postId: string): Promise<void> {
+        throw new NotImplementedError();
+    }
+
+    getProfilesByAddress(address: string): Promise<Profile[]> {
+        throw new NotImplementedError();
+    }
+
+    getProfileByHandle(handle: string): Promise<Profile> {
+        throw new NotImplementedError();
+    }
+
+    getPostById(postId: string): Promise<Post> {
+        throw new NotImplementedError();
+    }
+
+    getCommentsById(postId: string): Promise<Pageable<Post, PageIndicator>> {
+        throw new NotImplementedError();
+    }
+
+    discoverPosts(): Promise<Pageable<Post, PageIndicator>> {
+        throw new NotImplementedError();
+    }
+
+    discoverPostsById(profileId: string): Promise<Pageable<Post, PageIndicator>> {
+        throw new NotImplementedError();
+    }
+
+    getPostsByProfileId(profileId: string): Promise<Pageable<Post>> {
+        throw new NotImplementedError();
+    }
+
+    getPostsBeMentioned(profileId: string): Promise<Pageable<Post>> {
+        throw new NotImplementedError();
+    }
+
+    getPostsLiked(profileId: string): Promise<Pageable<Post>> {
+        throw new NotImplementedError();
+    }
+
+    getPostsReplies(profileId: string): Promise<Pageable<Post>> {
+        throw new NotImplementedError();
+    }
+
+    getPostsByParentPostId(postId: string): Promise<Pageable<Post>> {
+        throw new NotImplementedError();
+    }
+
+    getReactors(postId: string): Promise<Pageable<Profile>> {
+        throw new NotImplementedError();
+    }
+
+    follow(profileId: string): Promise<boolean> {
+        throw new NotImplementedError();
+    }
+
+    unfollow(profileId: string): Promise<boolean> {
+        throw new NotImplementedError();
+    }
+
+    getFollowers(profileId: string): Promise<Pageable<Profile>> {
+        throw new NotImplementedError();
+    }
+
+    getFollowings(profileId: string): Promise<Pageable<Profile>> {
+        throw new NotImplementedError();
+    }
+
+    getMutualFollowers(profileId: string, indicator?: PageIndicator): Promise<Pageable<Profile, PageIndicator>> {
+        throw new NotImplementedError();
+    }
+
+    getNotifications(): Promise<Pageable<Notification>> {
+        throw new NotImplementedError();
+    }
+
+    getSuggestedFollows(): Promise<Pageable<Profile>> {
+        throw new NotImplementedError();
+    }
+
+    searchPosts(q: string): Promise<Pageable<Post>> {
+        throw new NotImplementedError();
+    }
+
+    getThreadByPostId(postId: string): Promise<Post[]> {
+        throw new NotImplementedError();
+    }
+
+    blockProfile(profileId: string): Promise<boolean> {
+        throw new NotImplementedError();
+    }
+
+    unblockProfile(profileId: string): Promise<boolean> {
+        throw new NotImplementedError();
+    }
+
+    getBlockedProfiles(indicator?: PageIndicator): Promise<Pageable<Profile, PageIndicator>> {
+        throw new NotImplementedError();
+    }
+
+    blockChannel(channelId: string): Promise<boolean> {
+        throw new NotImplementedError();
+    }
+
+    unblockChannel(channelId: string): Promise<boolean> {
+        throw new NotImplementedError();
+    }
+
+    getBlockedChannels(indicator?: PageIndicator): Promise<Pageable<Channel, PageIndicator>> {
+        throw new NotImplementedError();
+    }
+
+    getLikeReactors(postId: string, indicator?: PageIndicator): Promise<Pageable<Profile, PageIndicator>> {
+        throw new NotImplementedError();
+    }
+
+    getRepostReactors(postId: string, indicator?: PageIndicator): Promise<Pageable<Profile, PageIndicator>> {
+        throw new NotImplementedError();
+    }
+
+    getPostsQuoteOn(postId: string, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
+        throw new NotImplementedError();
+    }
+
+    bookmark(postId: string): Promise<boolean> {
+        throw new NotImplementedError();
+    }
+
+    unbookmark(postId: string): Promise<boolean> {
+        throw new NotImplementedError();
+    }
+
+    getBookmarks(indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
+        throw new NotImplementedError();
+    }
+
+    reportProfile(profileId: string): Promise<boolean> {
+        throw new NotImplementedError();
+    }
+
+    reportPost(post: Post): Promise<boolean> {
+        throw new NotImplementedError();
+    }
+
+    updateProfile(profile: ProfileEditable): Promise<boolean> {
+        throw new NotImplementedError();
+    }
+
+    getProfileBadges(profile: Profile): Promise<ProfileBadge[]> {
         throw new NotImplementedError();
     }
 
     get type() {
         return SessionType.Farcaster;
-    }
-
-    async publishPost(post: Post): Promise<string> {
-        throw new NotImplementedError();
-    }
-
-    async upvotePost(postId: string): Promise<void> {
-        throw new NotImplementedError();
-    }
-
-    async unvotePost(postId: string) {
-        throw new NotImplementedError();
-    }
-
-    async getProfilesByAddress(address: string): Promise<Profile[]> {
-        throw new NotImplementedError();
     }
 
     async getProfileById(profileId: string): Promise<Profile> {
@@ -139,86 +332,6 @@ class NeynarSocialMedia implements Provider {
 
         if (!data) throw new Error("Can't get the profile");
         return data;
-    }
-
-    async getProfileByHandle(handle: string): Promise<Profile> {
-        throw new NotImplementedError();
-    }
-
-    async getPostById(postId: string): Promise<Post> {
-        throw new NotImplementedError();
-    }
-
-    async getCommentsById(postId: string): Promise<Pageable<Post, PageIndicator>> {
-        throw new NotImplementedError();
-    }
-
-    async discoverPosts(): Promise<Pageable<Post, PageIndicator>> {
-        throw new NotImplementedError();
-    }
-
-    async discoverPostsById(profileId: string): Promise<Pageable<Post, PageIndicator>> {
-        throw new NotImplementedError();
-    }
-
-    async getPostsByProfileId(profileId: string): Promise<Pageable<Post>> {
-        throw new NotImplementedError();
-    }
-
-    async getPostsBeMentioned(profileId: string): Promise<Pageable<Post>> {
-        throw new NotImplementedError();
-    }
-
-    async getPostsLiked(profileId: string): Promise<Pageable<Post>> {
-        throw new NotImplementedError();
-    }
-
-    async getPostsReplies(profileId: string): Promise<Pageable<Post>> {
-        throw new NotImplementedError();
-    }
-
-    async getPostsByParentPostId(postId: string): Promise<Pageable<Post>> {
-        throw new NotImplementedError();
-    }
-
-    async getReactors(postId: string): Promise<Pageable<Profile>> {
-        throw new NotImplementedError();
-    }
-
-    async follow(profileId: string): Promise<boolean> {
-        throw new NotImplementedError();
-    }
-
-    async unfollow(profileId: string): Promise<boolean> {
-        throw new NotImplementedError();
-    }
-
-    async getFollowers(profileId: string): Promise<Pageable<Profile>> {
-        throw new NotImplementedError();
-    }
-
-    async getFollowings(profileId: string): Promise<Pageable<Profile>> {
-        throw new NotImplementedError();
-    }
-
-    async getMutualFollowers(profileId: string, indicator?: PageIndicator): Promise<Pageable<Profile, PageIndicator>> {
-        throw new NotImplementedError();
-    }
-
-    async getNotifications(): Promise<Pageable<Notification>> {
-        throw new NotImplementedError();
-    }
-
-    async getSuggestedFollows(): Promise<Pageable<Profile>> {
-        throw new NotImplementedError();
-    }
-
-    async searchPosts(q: string): Promise<Pageable<Post>> {
-        throw new NotImplementedError();
-    }
-
-    async getThreadByPostId(postId: string): Promise<Post[]> {
-        throw new NotImplementedError();
     }
 
     async getProfilesByIds(ids: string[]) {
@@ -269,56 +382,6 @@ class NeynarSocialMedia implements Provider {
             const result = data.result.users.map(formatFarcasterProfileFromNeynar);
             return createPageable(result, createIndicator(indicator));
         });
-    }
-    async blockProfile(profileId: string): Promise<boolean> {
-        throw new NotImplementedError();
-    }
-    async unblockProfile(profileId: string): Promise<boolean> {
-        throw new NotImplementedError();
-    }
-    async getBlockedProfiles(indicator?: PageIndicator): Promise<Pageable<Profile, PageIndicator>> {
-        throw new NotImplementedError();
-    }
-    async blockChannel(channelId: string): Promise<boolean> {
-        throw new NotImplementedError();
-    }
-
-    async unblockChannel(channelId: string): Promise<boolean> {
-        throw new NotImplementedError();
-    }
-    async getBlockedChannels(indicator?: PageIndicator): Promise<Pageable<Channel, PageIndicator>> {
-        throw new NotImplementedError();
-    }
-    async getLikeReactors(postId: string, indicator?: PageIndicator): Promise<Pageable<Profile, PageIndicator>> {
-        throw new NotImplementedError();
-    }
-    async getRepostReactors(postId: string, indicator?: PageIndicator): Promise<Pageable<Profile, PageIndicator>> {
-        throw new NotImplementedError();
-    }
-
-    async getPostsQuoteOn(postId: string, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
-        throw new NotImplementedError();
-    }
-    async bookmark(postId: string): Promise<boolean> {
-        throw new NotImplementedError();
-    }
-    async unbookmark(postId: string): Promise<boolean> {
-        throw new NotImplementedError();
-    }
-    async getBookmarks(indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
-        throw new NotImplementedError();
-    }
-    async reportProfile(profileId: string): Promise<boolean> {
-        throw new NotImplementedError();
-    }
-    async reportPost(post: Post): Promise<boolean> {
-        throw new NotImplementedError();
-    }
-    async updateProfile(profile: ProfileEditable): Promise<boolean> {
-        throw new NotImplementedError();
-    }
-    async getProfileBadges(profile: Profile): Promise<ProfileBadge[]> {
-        throw new NotImplementedError();
     }
 }
 

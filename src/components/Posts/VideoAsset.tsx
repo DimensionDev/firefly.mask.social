@@ -7,6 +7,7 @@ import { Image } from '@/components/Image.js';
 import { VideoPoster } from '@/components/Posts/VideoPoster.js';
 import { Source } from '@/constants/enum.js';
 import { dynamic } from '@/esm/dynamic.js';
+import { stopPropagation } from '@/helpers/stopEvent.js';
 import type { Attachment } from '@/providers/types/SocialMedia.js';
 
 const Video = dynamic(() => import('@/components/Posts/Video.js').then((module) => module.Video), { ssr: false });
@@ -14,13 +15,12 @@ const Video = dynamic(() => import('@/components/Posts/Video.js').then((module) 
 interface VideoAssetProps {
     asset: Attachment;
     source: Source;
-    isQuote?: boolean;
     autoPlay?: boolean;
     videoClassName?: string;
     minimal?: boolean;
 }
 
-export function VideoAsset({ asset, isQuote, minimal, source, autoPlay, videoClassName }: VideoAssetProps) {
+export function VideoAsset({ asset, minimal, source, autoPlay, videoClassName }: VideoAssetProps) {
     const isGif = asset.type === 'AnimatedGif';
 
     return minimal ? (
@@ -50,10 +50,7 @@ export function VideoAsset({ asset, isQuote, minimal, source, autoPlay, videoCla
             forceNoToken={source === Source.Twitter}
         >
             {isGif ? (
-                <span
-                    className="absolute bottom-[5px] left-2.5 flex items-center"
-                    onClick={(event) => event.stopPropagation()}
-                >
+                <span className="absolute bottom-[5px] left-2.5 flex items-center" onClick={stopPropagation}>
                     <Player.PlayPauseTrigger className="h-[25px] w-[25px]">
                         <Player.PlayingIndicator asChild matcher={false}>
                             <PlayIcon />

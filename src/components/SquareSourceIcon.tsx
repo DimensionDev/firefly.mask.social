@@ -1,5 +1,6 @@
 'use client';
 import { safeUnreachable } from '@masknet/kit';
+import type { SVGProps } from 'react';
 
 import FarcasterIcon from '@/assets/farcaster-square.svg';
 import LensIcon from '@/assets/lens-square.svg';
@@ -12,7 +13,7 @@ import { Source } from '@/constants/enum.js';
 import { useDarkMode } from '@/hooks/useDarkMode.js';
 import { useSizeStyle } from '@/hooks/useSizeStyle.js';
 
-interface SquareSourceIconProps extends React.SVGProps<SVGSVGElement> {
+interface SquareSourceIconProps extends SVGProps<SVGSVGElement> {
     size?: number;
     source: Source;
     forceLight?: boolean;

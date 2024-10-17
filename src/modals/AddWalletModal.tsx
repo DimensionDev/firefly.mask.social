@@ -17,7 +17,7 @@ import { isSameEthereumAddress, isSameSolanaAddress } from '@/helpers/isSameAddr
 import type { SingletonModalRefCreator } from '@/libs/SingletonModal.js';
 import { ConnectWalletModalUI } from '@/modals/ConnectWalletModal.js';
 import { AccountModalRef, ConnectModalRef } from '@/modals/controls.js';
-import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
+import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 import type { FireflyWalletConnection } from '@/providers/types/Firefly.js';
 
 export interface AddWalletModalProps {
@@ -53,9 +53,9 @@ export const AddWalletModal = forwardRef<SingletonModalRefCreator<AddWalletModal
                 enqueueErrorMessage(t`${addressName} is already connected.`);
                 return;
             }
-            const message = await FireflySocialMediaProvider.getMessageToSignForBindWallet(address.toLowerCase());
+            const message = await FireflyEndpointProvider.getMessageToSignForBindWallet(address.toLowerCase());
             const signature = await signMessageAsync({ message: { raw: message }, account: address });
-            return await FireflySocialMediaProvider.verifyAndBindWallet(message, signature);
+            return await FireflyEndpointProvider.verifyAndBindWallet(message, signature);
         }, [account.address, account.isConnected, connections, signMessageAsync]);
         const onBindSolanaAddress = useCallback(async () => {
             const address = publicKey?.toBase58();
@@ -71,10 +71,10 @@ export const AddWalletModal = forwardRef<SingletonModalRefCreator<AddWalletModal
                 enqueueErrorMessage(t`${addressName} is already connected.`);
                 return;
             }
-            const hexMessage = await FireflySocialMediaProvider.getMessageToSignMessageForBindSolanaWallet(address);
+            const hexMessage = await FireflyEndpointProvider.getMessageToSignMessageForBindSolanaWallet(address);
             const message = bs58.decode(bs58.encode(Buffer.from(hexMessage.substring(2), 'hex')));
             const signature = Buffer.from(await signMessage(message)).toString('hex');
-            return FireflySocialMediaProvider.verifyAndBindSolanaWallet(address, hexMessage, signature);
+            return FireflyEndpointProvider.verifyAndBindSolanaWallet(address, hexMessage, signature);
         }, [connections, publicKey, signMessage, wallet]);
         const qc = useQueryClient();
 

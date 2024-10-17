@@ -11,7 +11,7 @@ interface OpenAppButtonProps extends ClickableButtonProps {
     schemes?: Schemes;
 }
 
-export function OpenFireflyAppButton({ schemes, ...props }: OpenAppButtonProps) {
+export function OpenFireflyAppButton({ schemes, ref, ...props }: OpenAppButtonProps) {
     const [{ loading }, tryOpenApp] = useAsyncFn(async () => {
         await openAppSchemes(
             schemes ?? {

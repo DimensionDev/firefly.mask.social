@@ -20,7 +20,7 @@ import { narrowToSocialSource } from '@/helpers/narrowToSocialSource.js';
 import { resolveFireflyProfiles } from '@/helpers/resolveFireflyProfiles.js';
 import { useCurrentFireflyProfilesAll } from '@/hooks/useCurrentFireflyProfiles.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
-import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
+import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 import type { FireflyIdentity, FireflyProfile } from '@/providers/types/Firefly.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 import { useTwitterStateStore } from '@/store/useProfileStore.js';
@@ -50,7 +50,7 @@ export const ProfileInfo = memo<
         queryKey: ['relation', source, id],
         queryFn: async () => {
             if (source !== Source.Wallet || !id) return EMPTY_LIST;
-            return FireflySocialMediaProvider.getNextIDRelations('ethereum', id);
+            return FireflyEndpointProvider.getNextIDRelations('ethereum', id);
         },
     });
 

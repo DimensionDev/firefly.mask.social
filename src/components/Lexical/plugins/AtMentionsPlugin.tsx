@@ -26,7 +26,7 @@ import { resolveSocialSource } from '@/helpers/resolveSource.js';
 import { resolveSocialSourceInUrl } from '@/helpers/resolveSourceInUrl.js';
 import { useCompositePost } from '@/hooks/useCompositePost.js';
 import { useCurrentProfileAll } from '@/hooks/useCurrentProfile.js';
-import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
+import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 import type { Profile } from '@/providers/types/Firefly.js';
 
 const PUNCTUATION = '\\.,\\+\\*\\?\\$\\@\\|#{}\\(\\)\\^\\-\\[\\]\\\\/!%\'"~=<>_:;';
@@ -190,7 +190,7 @@ export function MentionsPlugin(): JSX.Element | null {
         ],
         queryFn: async () => {
             if (!debounceQuery) return;
-            const data = await FireflySocialMediaProvider.searchIdentity(debounceQuery, availableSources);
+            const data = await FireflyEndpointProvider.searchIdentity(debounceQuery, availableSources);
 
             if (!data) return EMPTY_LIST;
             return data.list

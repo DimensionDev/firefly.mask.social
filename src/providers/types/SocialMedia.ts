@@ -47,6 +47,11 @@ export interface Tag {
     label: string;
 }
 
+export interface Friendship {
+    isFollowing: boolean;
+    isFollowedBack: boolean;
+}
+
 export interface Profile {
     /** fid for Farcaster, twitter id for Twitter */
     profileId: string;
@@ -505,6 +510,13 @@ export interface Provider {
     getChannelsByProfileId: (profileId: string, indicator?: PageIndicator) => Promise<Pageable<Channel, PageIndicator>>;
 
     /**
+     * Retrieves trending posts of given channel.
+     * @param channel
+     * @param indicator
+     */
+    getChannelTrendingPosts(channel: Channel, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>>;
+
+    /**
      * Retrieves comments by post ID.
      * @param postId The ID of the post to retrieve.
      * @returns A promise that resolves to Comments list.
@@ -610,6 +622,12 @@ export interface Provider {
      * @returns A promise that resolves to a pageable list of Post objects.
      */
     getPostsByParentPostId: (postId: string, indicator?: PageIndicator) => Promise<Pageable<Post>>;
+
+    /**
+     * Retrieves friendship status between the current logged user and another profile.
+     * @param profileId
+     */
+    getFriendship(profileId: string): Promise<Friendship | null>;
 
     /**
      * Retrieves reactors (users who reacted to a post) by post ID.
@@ -861,11 +879,6 @@ export interface Provider {
      * Report spam or inappropriate channel content.
      */
     reportChannel?: (channelId: string) => Promise<boolean>;
-
-    /**
-     * Get trending posts in the channel.
-     */
-    getChannelTrendingPosts?: (channel: Channel, indicator?: PageIndicator) => Promise<Pageable<Post, PageIndicator>>;
 
     /**
      * Get for you posts

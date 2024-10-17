@@ -1,6 +1,6 @@
 'use client';
 
-import { createContext, type HTMLProps, type PropsWithChildren, type ReactNode, useContext, useMemo } from 'react';
+import { createContext, type HTMLProps, type PropsWithChildren, useContext, useMemo } from 'react';
 
 import { classNames } from '@/helpers/classNames.js';
 
@@ -49,7 +49,6 @@ export function Tabs<T = string>(props: TabsProps<T>) {
 }
 
 export interface TabProps extends HTMLProps<HTMLLIElement> {
-    children: ReactNode;
     value: string;
 }
 

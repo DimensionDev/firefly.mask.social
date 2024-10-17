@@ -24,6 +24,7 @@ import { Link } from '@/esm/Link.js';
 import { isSameProfile } from '@/helpers/isSameProfile.js';
 import { resolveFireflyProfileId } from '@/helpers/resolveFireflyProfileId.js';
 import { resolveSocialSourceInUrl } from '@/helpers/resolveSourceInUrl.js';
+import { stopEvent } from '@/helpers/stopEvent.js';
 import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
 import { useDeletePost } from '@/hooks/useDeletePost.js';
 import { useIsMyRelatedProfile } from '@/hooks/useIsMyRelatedProfile.js';
@@ -98,10 +99,7 @@ export const MoreAction = memo<MoreProps>(function MoreAction({ source, author, 
         >
             <Menu.Items
                 className="absolute right-0 z-[1000] flex w-max flex-col gap-2 overflow-hidden rounded-2xl border border-line bg-primaryBottom py-3 text-base text-main"
-                onClick={(event) => {
-                    event.stopPropagation();
-                    event.preventDefault();
-                }}
+                onClick={stopEvent}
             >
                 {isMyPost ? (
                     <Menu.Item>
@@ -188,7 +186,7 @@ export const MoreAction = memo<MoreProps>(function MoreAction({ source, author, 
                         shallow
                         href={`/post/${post.postId}/${engagementType}?source=${resolveSocialSourceInUrl(source)}`}
                         className="box-border flex h-8 cursor-pointer items-center space-x-2 px-3 py-1 hover:bg-bg"
-                        onClick={(e) => e.stopPropagation()}
+                        onClick={stopEvent}
                     >
                         <EngagementIcon width={18} height={18} />
                         <span className="font-bold leading-[22px] text-main">

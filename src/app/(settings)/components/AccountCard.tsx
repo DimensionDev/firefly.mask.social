@@ -5,7 +5,6 @@ import { ClickableButton } from '@/components/ClickableButton.js';
 import { ProfileAvatar } from '@/components/ProfileAvatar.js';
 import { ProfileName } from '@/components/ProfileName.js';
 import type { SocialSource } from '@/constants/enum.js';
-import { switchAccount } from '@/helpers/account.js';
 import { enqueueErrorMessage, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { getSnackbarMessageFromError } from '@/helpers/getSnackbarMessageFromError.js';
 import { isSameProfile } from '@/helpers/isSameProfile.js';
@@ -14,6 +13,7 @@ import { useConnectedAccounts } from '@/hooks/useConnectedAccounts.js';
 import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
 import { LoginModalRef, LogoutModalRef } from '@/modals/controls.js';
 import type { Account } from '@/providers/types/Account.js';
+import { switchAccount } from '@/services/account.js';
 
 interface AccountCardProps {
     source: SocialSource;

@@ -1,6 +1,5 @@
 'use client';
 
-import { encodePublicKey } from '@masknet/web3-shared-solana';
 import { useWallet as useSolanaWallet } from '@solana/wallet-adapter-react';
 import { useQuery } from '@tanstack/react-query';
 import { StatusCodes } from 'http-status-codes';
@@ -21,7 +20,7 @@ import { resolveProfileUrl } from '@/helpers/resolveProfileUrl.js';
 import { useCurrentFireflyProfilesAll } from '@/hooks/useCurrentFireflyProfiles.js';
 import { useUpdateCurrentVisitingProfile } from '@/hooks/useCurrentVisitingProfile.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
-import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
+import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 import type { FireflyIdentity } from '@/providers/types/Firefly.js';
 import { getProfileById } from '@/services/getProfileById.js';
 
@@ -40,8 +39,8 @@ export function ProfilePageLayout({ identity, children }: PropsWithChildren<{ id
             if (!identity.id) return EMPTY_LIST;
             const isTokenRequired =
                 isSameEthereumAddress(evmAccount.address, identity.id) ||
-                (!!solanaWallet.publicKey && isSameSolanaAddress(encodePublicKey(solanaWallet.publicKey), identity.id));
-            return FireflySocialMediaProvider.getAllPlatformProfileByIdentity(identity, isTokenRequired);
+                (!!solanaWallet.publicKey && isSameSolanaAddress(solanaWallet.publicKey.toBase58(), identity.id));
+            return FireflyEndpointProvider.getAllPlatformProfileByIdentity(identity, isTokenRequired);
         },
     });
 

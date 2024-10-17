@@ -124,7 +124,7 @@ export const NavigatorBarForMobile = memo(function NavigatorBarForMobile({
                             <MagnifierIcon width={18} height={18} />
                             <SearchInput
                                 value={inputText}
-                                onChange={(ev) => setInputText(ev.target.value)}
+                                onChange={(ev) => setInputText(ev.currentTarget.value)}
                                 onFocus={() => {
                                     setShowRecommendation(true);
                                     changeBodyOverflow('hidden');

@@ -17,6 +17,7 @@ import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { isRoutePathname } from '@/helpers/isRoutePathname.js';
 import { isSendFromFirefly } from '@/helpers/isSendFromFirefly.js';
 import { resolveFireflyIdentity } from '@/helpers/resolveFireflyProfileId.js';
+import { stopPropagation } from '@/helpers/stopEvent.js';
 import { useIsSmall } from '@/hooks/useMediaQuery.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 
@@ -52,7 +53,7 @@ export const PostHeader = memo<PostHeaderProps>(function PostHeader({
             <Link
                 href={profileLink}
                 className="max-w-[150px] flex-shrink-0 truncate text-medium leading-5 text-secondary"
-                onClick={(event) => event.stopPropagation()}
+                onClick={stopPropagation}
             >
                 @{author.handle}
             </Link>
@@ -66,8 +67,8 @@ export const PostHeader = memo<PostHeaderProps>(function PostHeader({
                     href={profileLink}
                     className="z-[1]"
                     onClick={(event) => {
-                        onClickProfileLink?.();
                         event.stopPropagation();
+                        onClickProfileLink?.();
                     }}
                 >
                     <Avatar
@@ -94,7 +95,7 @@ export const PostHeader = memo<PostHeaderProps>(function PostHeader({
                         <Link
                             href={profileLink}
                             className="mr-1 truncate text-medium font-bold leading-5 text-main"
-                            onClick={(event) => event.stopPropagation()}
+                            onClick={stopPropagation}
                         >
                             {author.displayName}
                         </Link>

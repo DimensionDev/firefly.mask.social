@@ -6,7 +6,7 @@ import { SchemaType } from '@masknet/web3-shared-evm';
 import { type ReactNode, useMemo } from 'react';
 
 import LinkIcon from '@/assets/link-square.svg';
-import { CopyButton } from '@/components/CopyButton.js';
+import { CopyTextButton } from '@/components/CopyTextButton.js';
 import { ChainIcon } from '@/components/NFTDetail/ChainIcon.js';
 import { Link } from '@/esm/Link.js';
 import { resolveSimpleHashChain } from '@/helpers/resolveSimpleHashChain.js';
@@ -32,7 +32,7 @@ function EVMExplorerLink(props: { address: string; type: 'address' | 'tx'; chain
             <span className="break-all">
                 {props.address}
                 <span className="ml-1">
-                    <CopyButton value={props.address} />
+                    <CopyTextButton value={props.address} />
                 </span>
                 <a
                     href={resolveExplorerLink(props.chainId, props.address)}

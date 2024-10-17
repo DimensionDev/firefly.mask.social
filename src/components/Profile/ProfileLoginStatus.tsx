@@ -2,12 +2,12 @@ import { Trans } from '@lingui/macro';
 import type { HTMLProps } from 'react';
 
 import { ClickableButton } from '@/components/ClickableButton.js';
-import { switchAccount } from '@/helpers/account.js';
 import { classNames } from '@/helpers/classNames.js';
 import { isSameProfile } from '@/helpers/isSameProfile.js';
 import { useProfileStore } from '@/hooks/useProfileStore.js';
 import { LoginModalRef } from '@/modals/controls.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
+import { switchAccount } from '@/services/account.js';
 
 interface ProfileLoginStatusProps extends HTMLProps<HTMLDivElement> {
     profile: Profile;

@@ -1,6 +1,6 @@
 import { Trans } from '@lingui/macro';
 import { switchChain } from '@wagmi/core';
-import { memo } from 'react';
+import { memo, type MouseEvent } from 'react';
 import { useAsyncFn } from 'react-use';
 import { useAccount } from 'wagmi';
 
@@ -15,15 +15,22 @@ interface ChainGuardButtonProps extends ActionButtonProps {
 export const ChainGuardButton = memo<ChainGuardButtonProps>(function ChainBoundary({
     targetChainId,
     children,
+    onClick,
     ...props
 }) {
     const account = useAccount();
 
-    const [{ loading }, handleClick] = useAsyncFn(async () => {
-        if (!targetChainId) return;
-        if (targetChainId && account.chainId !== targetChainId) await switchChain(config, { chainId: targetChainId });
-        return props.onClick?.();
-    }, [targetChainId, props.onClick]);
+    const [{ loading }, handleClick] = useAsyncFn(
+        async (event: MouseEvent<HTMLButtonElement>) => {
+            if (!targetChainId) return;
+            if (targetChainId && account.chainId !== targetChainId) {
+                await switchChain(config, { chainId: targetChainId });
+            }
+
+            return onClick?.(event);
+        },
+        [targetChainId, onClick],
+    );
 
     if (!account.isConnected || !account.address) {
         return (

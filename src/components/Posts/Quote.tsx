@@ -24,9 +24,10 @@ export const Quote = memo<QuoteProps>(function Quote({ post, className = '' }) {
             exit={{ opacity: 0 }}
             className={classNames('mt-3 cursor-pointer rounded-2xl border border-secondaryLine bg-bg p-3', className)}
             onClick={(event) => {
+                event.stopPropagation();
+
                 const selection = window.getSelection();
                 if (selection && selection.toString().length !== 0) return;
-                event.stopPropagation();
                 router.push(getPostUrl(post));
             }}
         >

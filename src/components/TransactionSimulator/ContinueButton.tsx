@@ -11,7 +11,7 @@ interface ContinueButtonProps extends Omit<ClickableButtonProps, 'children'> {
     status: SimulateStatus;
 }
 
-export function ContinueButton({ status, className, onClick, ...rest }: ContinueButtonProps) {
+export function ContinueButton({ status, className, onClick, ref, ...rest }: ContinueButtonProps) {
     const account = useAccount();
 
     const isUnConnected = !account.isConnected || !account.address;
@@ -28,14 +28,7 @@ export function ContinueButton({ status, className, onClick, ...rest }: Continue
         return t`Continue`;
     }, [isUnConnected, isUnSafe]);
 
-    const handleClick = () => {
-        if (isUnConnected) {
-            ConnectModalRef.open();
-            return;
-        }
-
-        onClick?.();
-    };
+    const handleClick = () => {};
 
     return (
         <ClickableButton
@@ -47,7 +40,13 @@ export function ContinueButton({ status, className, onClick, ...rest }: Continue
                 },
                 className,
             )}
-            onClick={handleClick}
+            onClick={(event) => {
+                if (isUnConnected) {
+                    ConnectModalRef.open();
+                    return;
+                }
+                onClick?.(event);
+            }}
             {...rest}
         >
             {buttonLabel}

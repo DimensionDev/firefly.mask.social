@@ -11,6 +11,7 @@ import { Link } from '@/esm/Link.js';
 import { classNames } from '@/helpers/classNames.js';
 import { formatEthereumAddress } from '@/helpers/formatAddress.js';
 import { resolveArticlePlatformIcon } from '@/helpers/resolveArticlePlatformIcon.js';
+import { stopPropagation } from '@/helpers/stopEvent.js';
 import type { Article } from '@/providers/types/Article.js';
 
 interface ArticleHeaderProps {
@@ -45,7 +46,7 @@ export const ArticleHeader = memo<ArticleHeaderProps>(function ArticleHeader({ a
                 </Link>
                 <Link
                     href={authorUrl}
-                    onClick={(event) => event.stopPropagation()}
+                    onClick={stopPropagation}
                     className="block truncate text-clip text-medium leading-5 text-secondary"
                 >
                     {article.author.handle || ens || formatEthereumAddress(article.author.id, 4)}

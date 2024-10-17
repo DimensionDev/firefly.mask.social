@@ -8,7 +8,6 @@ import { CircleCheckboxIcon } from '@/components/CircleCheckboxIcon.js';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { SocialSourceIcon } from '@/components/SocialSourceIcon.js';
 import { type SocialSource, Source } from '@/constants/enum.js';
-import { switchAccount } from '@/helpers/account.js';
 import { classNames } from '@/helpers/classNames.js';
 import { enqueueErrorMessage, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { getSnackbarMessageFromError } from '@/helpers/getSnackbarMessageFromError.js';
@@ -19,6 +18,7 @@ import { useCompositePost } from '@/hooks/useCompositePost.js';
 import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
 import { ComposeModalRef, LoginModalRef } from '@/modals/controls.js';
 import type { Account } from '@/providers/types/Account.js';
+import { switchAccount } from '@/services/account.js';
 import { useComposeStateStore } from '@/store/useComposeStore.js';
 
 interface PostByItemProps {

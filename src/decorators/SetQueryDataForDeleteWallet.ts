@@ -2,19 +2,15 @@ import { produce } from 'immer';
 
 import { queryClient } from '@/configs/queryClient.js';
 import { isSameConnectionAddress } from '@/helpers/isSameConnectionAddress.js';
-import type { FireflySocialMedia } from '@/providers/firefly/SocialMedia.js';
+import type { FireflyEndpoint } from '@/providers/firefly/Endpoint.js';
 import type { FireflyWalletConnection } from '@/providers/types/Firefly.js';
 import type { ClassType } from '@/types/index.js';
-
-type Provider = FireflySocialMedia;
-type WalletsData = Record<'connected' | 'related', FireflyWalletConnection[]>;
-type ReportOptions = Parameters<FireflySocialMedia['reportAndDeleteWallet']>[0];
 
 const METHODS_BE_OVERRIDDEN = ['disconnectWallet'] as const;
 const METHODS_BE_OVERRIDDEN_FOR_REPORT = ['reportAndDeleteWallet'] as const;
 
 function deleteWalletsFromQueryData(address: string) {
-    queryClient.setQueriesData<WalletsData>(
+    queryClient.setQueriesData<Record<'connected' | 'related', FireflyWalletConnection[]>>(
         {
             queryKey: ['my-wallet-connections'],
         },
@@ -31,13 +27,13 @@ function deleteWalletsFromQueryData(address: string) {
 }
 
 export function SetQueryDataForDeleteWallet() {
-    return function decorator<T extends ClassType<Provider>>(target: T): T {
+    return function decorator<T extends ClassType<FireflyEndpoint>>(target: T): T {
         function overrideMethod<K extends (typeof METHODS_BE_OVERRIDDEN)[number]>(key: K) {
-            const method = target.prototype[key] as Provider[K];
+            const method = target.prototype[key] as FireflyEndpoint[K];
 
             Object.defineProperty(target.prototype, key, {
                 value: async (address: string) => {
-                    const m = method as (address: string) => ReturnType<Provider[K]>;
+                    const m = method as (address: string) => ReturnType<FireflyEndpoint[K]>;
                     const result = await m.call(target.prototype, address);
                     deleteWalletsFromQueryData(address);
                     return result;
@@ -52,13 +48,16 @@ export function SetQueryDataForDeleteWallet() {
 }
 
 export function SetQueryDataForReportAndDeleteWallet() {
-    return function decorator<T extends ClassType<Provider>>(target: T): T {
+    return function decorator<T extends ClassType<FireflyEndpoint>>(target: T): T {
         function overrideMethod<K extends (typeof METHODS_BE_OVERRIDDEN_FOR_REPORT)[number]>(key: K) {
-            const method = target.prototype[key] as Provider[K];
+            const method = target.prototype[key] as FireflyEndpoint[K];
 
             Object.defineProperty(target.prototype, key, {
                 value: async (connection: FireflyWalletConnection, reason: string) => {
-                    const m = method as (options: ReportOptions, reason: string) => ReturnType<Provider[K]>;
+                    const m = method as (
+                        options: Parameters<FireflyEndpoint['reportAndDeleteWallet']>[0],
+                        reason: string,
+                    ) => ReturnType<FireflyEndpoint[K]>;
                     const result = await m.call(target.prototype, connection, reason);
                     deleteWalletsFromQueryData(connection.address);
                     return result;

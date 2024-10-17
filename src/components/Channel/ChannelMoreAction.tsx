@@ -10,6 +10,7 @@ import { MenuButton } from '@/components/Actions/MenuButton.js';
 import { MuteChannelButton } from '@/components/Actions/MuteChannelButton.js';
 import { MoreActionMenu } from '@/components/MoreActionMenu.js';
 import { getChannelUrl } from '@/helpers/getChannelUrl.js';
+import { stopEvent } from '@/helpers/stopEvent.js';
 import { useCopyText } from '@/hooks/useCopyText.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
 import { useToggleMutedChannel } from '@/hooks/useToggleMutedChannel.js';
@@ -41,10 +42,7 @@ export const ChannelMoreAction = memo<MoreProps>(function ChannelMoreAction({ ch
         >
             <Menu.Items
                 className="absolute right-0 z-[1000] flex w-max flex-col gap-2 overflow-hidden rounded-2xl border border-line bg-primaryBottom py-3 text-base text-main"
-                onClick={(event) => {
-                    event.stopPropagation();
-                    event.preventDefault();
-                }}
+                onClick={stopEvent}
             >
                 <Menu.Item>
                     {({ close }) => (

@@ -11,6 +11,7 @@ import { TimestampFormatter } from '@/components/TimeStampFormatter.js';
 import { Link } from '@/esm/Link.js';
 import { formatEthereumAddress } from '@/helpers/formatAddress.js';
 import { isSelfReference } from '@/helpers/isLinkMatchingHost.js';
+import { stopPropagation } from '@/helpers/stopEvent.js';
 
 interface MirrorProps {
     address?: `0x${string}`;
@@ -49,7 +50,7 @@ export const Mirror = memo<MirrorProps>(function Mirror({
     return (
         <div className="mt-4 text-sm">
             <Link
-                onClick={(event) => event.stopPropagation()}
+                onClick={stopPropagation}
                 href={url}
                 target={isSelfReference(url) ? '_self' : '_blank'}
                 rel="noreferrer noopener"

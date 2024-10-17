@@ -13,6 +13,7 @@ import { Source } from '@/constants/enum.js';
 import { Link } from '@/esm/Link.js';
 import { resolveNftUrl } from '@/helpers/resolveNftUrl.js';
 import { resolveProfileUrl } from '@/helpers/resolveProfileUrl.js';
+import { stopPropagation } from '@/helpers/stopEvent.js';
 import { type FollowingNFT, type NFTOwnerDisplayInfo } from '@/providers/types/NFTs.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
 
@@ -70,7 +71,7 @@ export const SingleNFTFeed = memo(function SingleNFTFeed({
         >
             <FeedFollowSource source={first(followingSources)} />
             <div className="flex gap-3">
-                <Link href={authorUrl} className="z-[1] flex-shrink-0" onClick={(event) => event.stopPropagation()}>
+                <Link href={authorUrl} className="z-[1] flex-shrink-0" onClick={stopPropagation}>
                     <Avatar className="h-10 w-10" src={displayInfo.avatarUrl} size={40} alt={ownerAddress} />
                 </Link>
                 <article className="min-w-0 flex-grow">

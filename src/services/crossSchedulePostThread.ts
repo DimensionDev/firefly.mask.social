@@ -13,10 +13,10 @@ import { getSnackbarMessageFromError } from '@/helpers/getSnackbarMessageFromErr
 import type { SchedulePayload } from '@/helpers/resolveCreateSchedulePostPayload.js';
 import { EnableSignlessModalRef } from '@/modals/controls.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
-import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
 import { captureComposeEvent } from '@/providers/telemetry/captureComposeEvent.js';
 import { createSchedulePostsPayload } from '@/services/crossSchedulePost.js';
 import { uploadSessions } from '@/services/metrics.js';
+import { schedulePost } from '@/services/post.js';
 import { useComposeStateStore } from '@/store/useComposeStore.js';
 import { useLensStateStore } from '@/store/useProfileStore.js';
 
@@ -52,7 +52,7 @@ export async function crossPostScheduleThread(scheduleTime: Date, signal?: Abort
         await useLensStateStore.getState().refreshCurrentAccount();
         await uploadSessions('merge', fireflySessionHolder.sessionRequired, getProfileSessionsAll());
 
-        const result = await FireflySocialMediaProvider.schedulePost(
+        const result = await schedulePost(
             scheduleTime,
             postsPayload.map((x) => ({
                 ...x,

@@ -15,6 +15,7 @@ export const AddWalletButton = memo<AddWalletButtonProps>(function AddWalletButt
     disabled = false,
     connections,
     onSuccess,
+    ref,
     ...rest
 }) {
     const [{ loading }, handleAddWallet] = useAsyncFn(async () => {

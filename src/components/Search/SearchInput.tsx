@@ -1,14 +1,14 @@
 import { t } from '@lingui/macro';
-import { useRef } from 'react';
+import { type HTMLProps, useRef } from 'react';
 
 import { ClearButton } from '@/components/ClearButton.js';
 import { classNames } from '@/helpers/classNames.js';
 
-interface SearchInputProps extends React.InputHTMLAttributes<HTMLInputElement> {
+interface SearchInputProps extends HTMLProps<HTMLInputElement> {
     onClear?: () => void;
 }
 
-export function SearchInput({ onClear, ...rest }: SearchInputProps) {
+export function SearchInput({ onClear, ref, ...rest }: SearchInputProps) {
     const inputRef = useRef<HTMLInputElement>(null);
 
     return (

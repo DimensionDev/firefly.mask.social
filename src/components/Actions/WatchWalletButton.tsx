@@ -27,9 +27,9 @@ export const WatchWalletButton = forwardRef<HTMLButtonElement, Props>(function W
     return (
         <MenuButton
             {...rest}
-            onClick={async () => {
+            onClick={async (event) => {
                 await mutation.mutateAsync();
-                rest.onClick?.();
+                rest.onClick?.(event);
             }}
             ref={ref}
         >

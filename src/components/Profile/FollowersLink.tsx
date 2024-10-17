@@ -1,5 +1,5 @@
 import { plural } from '@lingui/macro';
-import { memo } from 'react';
+import { type HTMLProps, memo } from 'react';
 
 import { FollowCategory, Source } from '@/constants/enum.js';
 import { Link } from '@/esm/Link.js';
@@ -8,7 +8,7 @@ import { nFormatter } from '@/helpers/formatCommentCounts.js';
 import { resolveProfileUrl } from '@/helpers/resolveProfileUrl.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 
-interface FollowersLinkProps extends React.AnchorHTMLAttributes<HTMLAnchorElement> {
+interface FollowersLinkProps extends HTMLProps<HTMLAnchorElement> {
     profile: Profile;
 }
 

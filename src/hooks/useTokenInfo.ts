@@ -6,10 +6,6 @@ export function useTokenInfo(symbol: string) {
     return useQuery({
         queryKey: ['coingecko', 'tokens'],
         queryFn: () => Coingecko.getTokens(),
-        select: (tokens) => {
-            const sym = symbol.toLowerCase();
-            const token = tokens.find((x) => x.symbol === sym) || null;
-            return token;
-        },
+        select: (tokens) => tokens.find((x) => x.symbol === symbol.toLowerCase()) || null,
     });
 }

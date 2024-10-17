@@ -25,8 +25,8 @@ export const TipsUI = memo(function TipsUI() {
         [token?.decimals],
     );
 
-    const handleAmountChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const value = e.currentTarget.value;
+    const handleAmountChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        const value = event.currentTarget.value;
         if (value && !new RegExp(NUMERIC_INPUT_REGEXP_PATTERN).test(value)) return;
         const amount_ = value.replaceAll(/[,。]/g, '.');
         if (RE_MATCH_FRACTION_AMOUNT.test(amount_)) {

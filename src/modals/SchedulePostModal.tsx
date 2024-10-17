@@ -6,6 +6,7 @@ import { forwardRef, useState } from 'react';
 import { CloseButton } from '@/components/CloseButton.js';
 import { SchedulePostSettings } from '@/components/Compose/SchedulePostSettings.js';
 import { Modal } from '@/components/Modal.js';
+import { stopEvent } from '@/helpers/stopEvent.js';
 import type { ScheduleTask } from '@/providers/types/Firefly.js';
 
 export interface SchedulePostModalOpenProps {
@@ -32,10 +33,7 @@ export const SchedulePostModal = forwardRef<SingletonModalRefCreator<SchedulePos
             <Modal open={open} onClose={() => dispatch?.close()}>
                 <div
                     className="relative w-[355px] max-w-[90vw] rounded-xl bg-primaryBottom shadow-popover transition-all dark:text-gray-950"
-                    onClick={(event) => {
-                        event.stopPropagation();
-                        event.preventDefault();
-                    }}
+                    onClick={stopEvent}
                 >
                     <div className="inline-flex h-14 w-full items-center justify-center gap-2 rounded-t-[12px] p-4">
                         <CloseButton onClick={() => dispatch?.close()} />

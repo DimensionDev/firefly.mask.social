@@ -11,7 +11,7 @@ interface Props extends HTMLProps<HTMLButtonElement> {
     value: string;
 }
 
-export function CopyButton({ value, onClick, ...rest }: Props) {
+export function CopyTextButton({ value: value, onClick, ...rest }: Props) {
     const [copied, handleCopy] = useCopyText(value, { enqueueSuccessMessage: false });
 
     return (
