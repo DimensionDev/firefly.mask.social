@@ -116,7 +116,17 @@ export function ActivityContextProvider({
             isEnded: serverTime ? dayjs('Oct 16 2024 00:00:00 GMT+0000').isBefore(dayjs(serverTime)) : undefined,
             ...value,
         };
-    }, [value, address, account.address, onLoginTwitter, isLoggedTwitter, authToken, isLoading, isLoadingServerTime]);
+    }, [
+        value,
+        address,
+        account.address,
+        onLoginTwitter,
+        isLoggedTwitter,
+        authToken,
+        isLoading,
+        isLoadingServerTime,
+        serverTime,
+    ]);
 
     return <ActivityContext.Provider value={providerValue}>{children}</ActivityContext.Provider>;
 }
