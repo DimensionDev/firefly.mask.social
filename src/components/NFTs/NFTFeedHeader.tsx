@@ -1,4 +1,5 @@
 import { ChainId } from '@masknet/web3-shared-evm';
+import type { HTMLProps } from 'react';
 import urlcat from 'urlcat';
 import type { Address } from 'viem';
 
@@ -12,7 +13,7 @@ import { classNames } from '@/helpers/classNames.js';
 import { formatEthereumAddress } from '@/helpers/formatAddress.js';
 import type { NFTOwnerDisplayInfo } from '@/providers/types/NFTs.js';
 
-interface NFTFeedHeaderProps extends React.HTMLAttributes<HTMLDivElement> {
+interface NFTFeedHeaderProps extends HTMLProps<HTMLDivElement> {
     address: Address;
     contractAddress: Address;
     displayInfo: NFTOwnerDisplayInfo;

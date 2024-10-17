@@ -1,10 +1,8 @@
-import React, { memo } from 'react';
+import React, { type HTMLProps, memo } from 'react';
 
 import { classNames } from '@/helpers/classNames.js';
 
-interface AsideTitleProps extends React.HTMLAttributes<HTMLHeadingElement> {
-    children?: React.ReactNode;
-}
+interface AsideTitleProps extends HTMLProps<HTMLHeadingElement> {}
 
 export const AsideTitle = memo(function AsideTitle({ children, className, ...props }: AsideTitleProps) {
     return (

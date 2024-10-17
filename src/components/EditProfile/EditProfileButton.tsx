@@ -12,7 +12,7 @@ export interface EditProfileButtonProps extends Omit<ClickableButtonProps, 'chil
     profile: Profile;
 }
 
-export function EditProfileButton({ profile, variant = 'text', className, ...props }: EditProfileButtonProps) {
+export function EditProfileButton({ profile, variant = 'text', className, ref, ...props }: EditProfileButtonProps) {
     const [open, setOpen] = useState(false);
     const onClose = useCallback(() => setOpen(false), []);
     const children = {

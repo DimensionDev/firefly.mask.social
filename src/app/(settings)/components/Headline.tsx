@@ -1,8 +1,8 @@
+import type { HTMLProps } from 'react';
+
 import { classNames } from '@/helpers/classNames.js';
 
-interface HeadlineProps extends React.HTMLAttributes<HTMLDivElement> {
-    children?: React.ReactNode;
-}
+interface HeadlineProps extends HTMLProps<HTMLDivElement> {}
 
 export function Headline({ className, children }: HeadlineProps) {
     return (

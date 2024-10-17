@@ -1,8 +1,10 @@
-import type { ButtonHTMLAttributes } from 'react';
+'use client';
+
+import type { HTMLProps } from 'react';
 
 import { classNames } from '@/helpers/classNames.js';
 
-interface Props extends Omit<ButtonHTMLAttributes<HTMLButtonElement>, 'children'> {
+interface Props extends HTMLProps<HTMLButtonElement> {
     size?: number;
     checked: boolean;
 }
@@ -19,6 +21,7 @@ export function RadioButton({ size = 40, checked, className, ...props }: Props) 
                 className,
             )}
             {...props}
+            type={props.type as 'button'}
             style={{
                 ...props.style,
                 width: size,

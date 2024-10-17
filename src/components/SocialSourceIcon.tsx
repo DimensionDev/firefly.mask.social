@@ -1,6 +1,6 @@
 'use client';
 
-import type { FunctionComponent, SVGAttributes } from 'react';
+import type { FunctionComponent, SVGAttributes, SVGProps } from 'react';
 
 import FarcasterIcon from '@/assets/farcaster.svg';
 import FarcasterFillIcon from '@/assets/farcaster-fill.svg';
@@ -11,7 +11,7 @@ import { XIcon } from '@/components/XIcon.js';
 import { type SocialSource, Source } from '@/constants/enum.js';
 import { useSizeStyle } from '@/hooks/useSizeStyle.js';
 
-interface SocialSourceIconProps extends React.SVGProps<SVGSVGElement> {
+interface SocialSourceIconProps extends SVGProps<SVGSVGElement> {
     size?: number;
     source: SocialSource;
     /** Monochrome */

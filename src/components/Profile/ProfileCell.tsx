@@ -1,4 +1,4 @@
-import type { HTMLAttributes } from 'react';
+import type { HTMLProps } from 'react';
 
 import { Avatar } from '@/components/Avatar.js';
 import { FollowButton } from '@/components/Profile/FollowButton.js';
@@ -11,12 +11,12 @@ import { resolveFireflyIdentity } from '@/helpers/resolveFireflyProfileId.js';
 import { resolveProfileUrl } from '@/helpers/resolveProfileUrl.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 
-interface Props extends HTMLAttributes<HTMLAnchorElement> {
+interface Props extends HTMLProps<HTMLAnchorElement> {
     profile: Profile;
     source: SocialSource;
 }
 
-export function ProfileCell({ profile, source, className, ...rest }: Props) {
+export function ProfileCell({ profile, source, className, ref, ...props }: Props) {
     const identity = resolveFireflyIdentity(profile);
     if (!identity) return null;
 
@@ -25,7 +25,7 @@ export function ProfileCell({ profile, source, className, ...rest }: Props) {
             href={resolveProfileUrl(source, source === Source.Lens ? profile.handle : profile.profileId)}
             className={classNames('flex w-full px-4 py-2 hover:bg-bg', className)}
             data-disable-nprogress
-            {...rest}
+            {...props}
         >
             <div className="flex w-full items-center">
                 <ProfileTippy identity={identity}>

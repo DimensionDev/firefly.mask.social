@@ -1,17 +1,17 @@
 import { t } from '@lingui/macro';
+import type { HTMLProps } from 'react';
 
 import CloseIcon from '@/assets/close.svg';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { Tooltip } from '@/components/Tooltip.js';
 import { classNames } from '@/helpers/classNames.js';
 
-interface RemoveButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+interface RemoveButtonProps extends HTMLProps<HTMLButtonElement> {
     tooltip?: string;
     size?: number;
-    onClick?: () => void;
 }
 
-export function RemoveButton({ size = 18, tooltip = t`Remove`, ...props }: RemoveButtonProps) {
+export function RemoveButton({ size = 18, tooltip = t`Remove`, ref, ...props }: RemoveButtonProps) {
     return (
         <Tooltip content={tooltip} placement="top">
             <ClickableButton

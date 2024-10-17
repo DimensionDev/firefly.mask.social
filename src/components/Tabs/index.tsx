@@ -49,11 +49,10 @@ export function Tabs<T = string>(props: TabsProps<T>) {
 }
 
 export interface TabProps extends HTMLProps<HTMLLIElement> {
-    children: ReactNode;
-    value: string;
+    text: string;
 }
 
-export function Tab({ children, value, className, ...props }: TabProps) {
+export function Tab({ children, text: value, className, ...props }: TabProps) {
     const { value: currentTab, onChange, variant } = useContext(TabContext);
     const liVariantClassName = {
         default: 'flex-1 text-sm sm:text-xl',

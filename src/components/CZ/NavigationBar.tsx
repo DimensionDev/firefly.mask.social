@@ -10,7 +10,7 @@ import { useComeBack } from '@/hooks/useComeback.js';
 import { fireflyBridgeProvider } from '@/providers/firefly/Bridge.js';
 import { SupportedMethod } from '@/types/bridge.js';
 
-interface Props extends HTMLProps<'div'> {}
+interface Props extends HTMLProps<HTMLDivElement> {}
 
 export function NavigationBar({ children, className }: Props) {
     const pathname = usePathname();

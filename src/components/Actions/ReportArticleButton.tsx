@@ -18,7 +18,7 @@ interface Props extends Omit<ClickableButtonProps, 'children'> {
 }
 
 export const ReportArticleButton = forwardRef<HTMLButtonElement, Props>(function ReportArticleButton(
-    { article, onReport, ...rest }: Props,
+    { article, onReport, onClick, ...props }: Props,
     ref,
 ) {
     const mutation = useMutation({
@@ -28,9 +28,9 @@ export const ReportArticleButton = forwardRef<HTMLButtonElement, Props>(function
     });
     return (
         <MenuButton
-            {...rest}
-            onClick={async () => {
-                rest.onClick?.();
+            {...props}
+            onClick={async (event) => {
+                onClick?.(event);
                 const confirmed = await ConfirmModalRef.openAndWaitForClose({
                     title: t`Report article`,
                     content: (

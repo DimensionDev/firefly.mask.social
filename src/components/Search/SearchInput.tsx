@@ -1,14 +1,14 @@
 import { t } from '@lingui/macro';
-import { useRef } from 'react';
+import { type HTMLProps, useRef } from 'react';
 
 import { ClearButton } from '@/components/ClearButton.js';
 import { classNames } from '@/helpers/classNames.js';
 
-interface SearchInputProps extends React.InputHTMLAttributes<HTMLInputElement> {
+interface SearchInputProps extends HTMLProps<HTMLInputElement> {
     onClear?: () => void;
 }
 
-export function SearchInput({ onClear, ...rest }: SearchInputProps) {
+export function SearchInput({ onClear, ref, ...props }: SearchInputProps) {
     const inputRef = useRef<HTMLInputElement>(null);
 
     return (
@@ -20,13 +20,13 @@ export function SearchInput({ onClear, ...rest }: SearchInputProps) {
                 spellCheck="false"
                 placeholder={t`Search...`}
                 ref={inputRef}
-                {...rest}
+                {...props}
                 className={classNames(
                     `w-full border-0 bg-transparent py-2 placeholder-secondary focus:border-0 focus:outline-0 focus:ring-0 dark:text-input sm:text-sm sm:leading-6`,
-                    rest.className,
+                    props.className,
                 )}
             />
-            {rest.value ? (
+            {props.text ? (
                 <ClearButton
                     type="button"
                     className="text-highlight"

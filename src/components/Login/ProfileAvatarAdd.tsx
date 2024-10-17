@@ -1,4 +1,5 @@
 import { PlusIcon } from '@heroicons/react/24/outline';
+import type { HTMLProps } from 'react';
 
 import LoadingIcon from '@/assets/loading.svg';
 import { SocialSourceIcon } from '@/components/SocialSourceIcon.js';
@@ -8,7 +9,7 @@ import { useAsyncStatus } from '@/hooks/useAsyncStatus.js';
 import { useIsLarge } from '@/hooks/useMediaQuery.js';
 import { useSizeStyle } from '@/hooks/useSizeStyle.js';
 
-interface ProfileAvatarAddProps extends React.HTMLAttributes<HTMLDivElement> {
+interface ProfileAvatarAddProps extends HTMLProps<HTMLDivElement> {
     source: SocialSource;
     loading?: boolean;
 }

@@ -31,7 +31,9 @@ export const PollButton = memo(function PollButton() {
             <ClickableButton
                 disabled={!isPollSupported || hasConflictContent}
                 className="leading-4 text-main"
-                onClick={createPoll}
+                onClick={() => {
+                    createPoll();
+                }}
             >
                 <PollIcon width={24} height={24} />
             </ClickableButton>

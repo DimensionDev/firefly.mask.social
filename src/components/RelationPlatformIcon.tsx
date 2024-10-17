@@ -1,5 +1,6 @@
 'use client';
 import { safeUnreachable } from '@masknet/kit';
+import type { SVGProps } from 'react';
 
 import GithubDarkIcon from '@/assets/github-dark.svg';
 import GithubLightIcon from '@/assets/github-light.svg';
@@ -9,7 +10,7 @@ import { useDarkMode } from '@/hooks/useDarkMode.js';
 import { useSizeStyle } from '@/hooks/useSizeStyle.js';
 import { RelationPlatform } from '@/providers/types/Firefly.js';
 
-interface RelationPlatformIconProps extends React.SVGProps<SVGSVGElement> {
+interface RelationPlatformIconProps extends SVGProps<SVGSVGElement> {
     size?: number;
     source: RelationPlatform;
 }

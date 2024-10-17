@@ -1,15 +1,14 @@
 'use client';
 
-import React, { type ButtonHTMLAttributes } from 'react';
+import React, { type HTMLProps } from 'react';
 
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { classNames } from '@/helpers/classNames.js';
 
-interface OptionButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
+interface OptionButtonProps extends Omit<HTMLProps<HTMLButtonElement>, 'label'> {
+    label: React.ReactNode;
     darkMode?: boolean;
     selected: boolean;
-    label: React.ReactNode;
-    onClick?: () => void;
 }
 
 export function OptionButton({ darkMode = false, selected, label, onClick, ...props }: OptionButtonProps) {
@@ -23,7 +22,7 @@ export function OptionButton({ darkMode = false, selected, label, onClick, ...pr
                 }`,
                 props.className,
             )}
-            onClick={() => onClick?.()}
+            onClick={onClick}
         >
             <div className="flex items-center gap-5">
                 {selected ? (

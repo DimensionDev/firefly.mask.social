@@ -1,6 +1,7 @@
 'use client';
 
 import { Trans } from '@lingui/macro';
+import type { HTMLProps } from 'react';
 
 import LoadingIcon from '@/assets/loading.svg';
 import { ClickableButton } from '@/components/ClickableButton.js';
@@ -9,7 +10,7 @@ import { Image } from '@/esm/Image.js';
 import { classNames } from '@/helpers/classNames.js';
 import { getErrorMessageFromFetchError } from '@/helpers/getErrorMessageFromFetchError.js';
 
-interface ErrorHandlerProps extends React.HTMLAttributes<HTMLDivElement> {
+interface ErrorHandlerProps extends HTMLProps<HTMLDivElement> {
     error: Error;
     reset: () => void;
 }

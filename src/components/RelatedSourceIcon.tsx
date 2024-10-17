@@ -1,5 +1,6 @@
 'use client';
 import { safeUnreachable } from '@masknet/kit';
+import type { SVGProps } from 'react';
 
 import FarcasterIcon from '@/assets/farcaster.svg';
 import LensIcon from '@/assets/lens.svg';
@@ -7,7 +8,7 @@ import { XIcon } from '@/components/XIcon.js';
 import { useSizeStyle } from '@/hooks/useSizeStyle.js';
 import { RelatedWalletSource } from '@/providers/types/Firefly.js';
 
-interface RelatedSourceIconProps extends React.SVGProps<SVGSVGElement> {
+interface RelatedSourceIconProps extends SVGProps<SVGSVGElement> {
     size?: number;
     source: RelatedWalletSource;
 }

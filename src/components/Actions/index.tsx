@@ -1,6 +1,6 @@
 import { compact } from 'lodash-es';
 import { usePathname } from 'next/navigation.js';
-import { memo } from 'react';
+import { type HTMLProps, memo } from 'react';
 
 import { Bookmark } from '@/components/Actions/Bookmark.js';
 import { Collect } from '@/components/Actions/Collect.js';
@@ -20,15 +20,14 @@ import { useIsSmall } from '@/hooks/useMediaQuery.js';
 import { useToggleBookmark } from '@/hooks/useToggleBookmark.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 
-interface PostActionsWithGridProps extends React.HTMLAttributes<HTMLDivElement> {
+interface PostActionsWithGridProps extends HTMLProps<HTMLDivElement> {
     post: Post;
-    disabled?: boolean;
     disablePadding?: boolean;
 }
 
 export const PostActionsWithGrid = memo<PostActionsWithGridProps>(function PostActionsWithGrid({
-    className,
     post,
+    className,
     disabled = false,
     disablePadding = false,
 }) {
@@ -95,24 +94,23 @@ export const PostActionsWithGrid = memo<PostActionsWithGridProps>(function PostA
     );
 });
 
-interface PostActionsProps extends React.HTMLAttributes<HTMLDivElement> {
+interface PostActionsProps extends HTMLProps<HTMLDivElement> {
     showChannelTag?: boolean;
     post: Post;
-    disabled?: boolean;
     disablePadding?: boolean;
     hideDate?: boolean;
     onSetScrollIndex?: () => void;
 }
 
 export const PostActions = memo<PostActionsProps>(function PostActions({
-    className,
     post,
+    className,
     disabled = false,
     disablePadding = false,
     showChannelTag,
     hideDate,
     onSetScrollIndex,
-    ...rest
+    ...props
 }) {
     const pathname = usePathname();
 
@@ -130,7 +128,7 @@ export const PostActions = memo<PostActionsProps>(function PostActions({
             className={classNames('mt-2 text-xs text-lightSecond', className, {
                 'pl-[52px]': !noLeftPadding,
             })}
-            {...rest}
+            {...props}
         >
             <ClickableArea className="flex justify-between">
                 <div className="flex -translate-x-1.5 items-center space-x-2">

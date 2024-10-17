@@ -1,12 +1,10 @@
 'use client';
 
-import { createElement, forwardRef } from 'react';
+import { createElement, forwardRef, type HTMLProps, type MouseEvent } from 'react';
 
-interface ClickableAreaProps extends React.HTMLAttributes<HTMLDivElement> {
+interface ClickableAreaProps extends HTMLProps<HTMLDivElement> {
     disabled?: boolean;
     as?: keyof JSX.IntrinsicElements;
-    children?: React.ReactNode;
-    onClick?: (ev: React.MouseEvent) => void;
 }
 
 export const ClickableArea = forwardRef(function ClickableArea(
@@ -18,7 +16,7 @@ export const ClickableArea = forwardRef(function ClickableArea(
         {
             ...props,
             ref,
-            onClick: (ev: React.MouseEvent) => {
+            onClick: (ev: MouseEvent<HTMLDivElement>) => {
                 ev.preventDefault();
                 ev.stopPropagation();
                 if (disabled) return;

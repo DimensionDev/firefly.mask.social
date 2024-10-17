@@ -24,7 +24,6 @@ interface Props extends HTMLProps<HTMLDivElement> {
     isComment?: boolean;
     hideDate?: boolean;
     hideSource?: boolean;
-
     onSetScrollIndex?: () => void;
 }
 

@@ -19,10 +19,11 @@ interface ToggleMuteWalletButtonProps extends Omit<ClickableButtonProps, 'childr
 }
 
 export const ToggleMuteWalletButton = memo(function ToggleMuteWalletButton({
+    ref,
     address,
     className,
     isMuted,
-    ...rest
+    ...props
 }: ToggleMuteWalletButtonProps) {
     const [hovering, setHovering] = useState(false);
 
@@ -46,7 +47,7 @@ export const ToggleMuteWalletButton = memo(function ToggleMuteWalletButton({
                 buttonState === State.Unmute ? 'border border-danger border-opacity-50' : '',
                 isMuted ? 'bg-danger text-white' : 'text-danger',
             )}
-            {...rest}
+            {...props}
             disabled={loading}
             onMouseEnter={() => setHovering(true)}
             onMouseLeave={() => setHovering(false)}

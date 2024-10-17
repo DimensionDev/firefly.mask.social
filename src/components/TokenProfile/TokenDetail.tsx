@@ -8,7 +8,7 @@ import { type HTMLProps, memo, type ReactNode, useRef, useState } from 'react';
 import PriceArrow from '@/assets/price-arrow.svg';
 import QuestionIcon from '@/assets/question.svg';
 import { ClickableButton } from '@/components/ClickableButton.js';
-import { CopyButton } from '@/components/CopyButton.js';
+import { CopyTextButton } from '@/components/CopyTextButton.jsx';
 import { Image } from '@/components/Image.js';
 import { Loading } from '@/components/Loading.js';
 import { CommunityLink } from '@/components/TokenProfile/CommunityLink.js';
@@ -293,7 +293,7 @@ export const TokenDetail = memo<Props>(function TokenDetail({ symbol, children, 
                                             {formatContractAddress(contracts[0])}
                                         </span>
                                     </Tooltip>
-                                    <CopyButton value={contracts[0].address} />
+                                    <CopyTextButton text={contracts[0].address} />
                                     {contracts.length > 1 ? <ContractList contracts={contracts} /> : null}
                                 </div>
                             }

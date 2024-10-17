@@ -1,8 +1,10 @@
+import type { SVGProps } from 'react';
+
 import RadioDisableNoIcon from '@/assets/radio.disable-no.svg';
 import RadioYesIcon from '@/assets/radio.yes.svg';
 import { classNames } from '@/helpers/classNames.js';
 
-interface Props extends React.HTMLProps<SVGAElement> {
+interface Props extends SVGProps<SVGAElement> {
     size?: number;
     checked: boolean;
 }

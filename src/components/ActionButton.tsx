@@ -13,6 +13,7 @@ export const ActionButton = memo<ActionButtonProps>(function ActionButton({
     loading,
     children,
     variant = 'primary',
+    ref,
     ...props
 }) {
     return (

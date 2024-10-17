@@ -8,10 +8,10 @@ import { Tooltip } from '@/components/Tooltip.js';
 import { useCopyText } from '@/hooks/useCopyText.js';
 
 interface Props extends HTMLProps<HTMLButtonElement> {
-    value: string;
+    text: string;
 }
 
-export function CopyButton({ value, onClick, ...rest }: Props) {
+export function CopyTextButton({ text: value, onClick, ...rest }: Props) {
     const [copied, handleCopy] = useCopyText(value, { enqueueSuccessMessage: false });
 
     return (

@@ -1,7 +1,7 @@
 import { Trans } from '@lingui/macro';
 import { reduce } from 'lodash-es';
 import type React from 'react';
-import type { PropsWithChildren } from 'react';
+import type { HTMLProps, PropsWithChildren } from 'react';
 import { useSize } from 'react-use';
 
 import TradeInfo from '@/assets/trade-info.svg';
@@ -11,9 +11,10 @@ import { InteractiveTippy } from '@/components/InteractiveTippy.js';
 import { classNames } from '@/helpers/classNames.js';
 import { SecurityMessageLevel, type StaticSecurityMessage } from '@/providers/types/Security.js';
 
-interface MessagesTippyProps extends React.HTMLProps<HTMLDivElement> {
+interface MessagesTippyProps extends HTMLProps<HTMLDivElement> {
     messages: StaticSecurityMessage[];
 }
+
 const iconMap = {
     [SecurityMessageLevel.High]: TradeInfo,
     [SecurityMessageLevel.Medium]: WarningIcon,
