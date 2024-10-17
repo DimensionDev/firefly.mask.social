@@ -86,7 +86,7 @@ export const WalletItem = memo<WalletItemProps>(function WalletItem({
                     <Link href={profileLink} className="truncate">
                         {formatAddress(address, 10, 0)}
                     </Link>
-                    <CopyTextButton value={address} />
+                    <CopyTextButton text={address} />
                 </div>
             </div>
             {isValidAddress ? (
