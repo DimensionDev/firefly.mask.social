@@ -2,12 +2,13 @@ import { t, Trans } from '@lingui/macro';
 import { EVMChainResolver } from '@masknet/web3-providers';
 import { useQuery } from '@tanstack/react-query';
 import { estimateFeesPerGas, getBalance } from '@wagmi/core';
-import { useMemo, useState } from 'react';
+import { useMemo, useRef, useState } from 'react';
 import { useAsyncFn } from 'react-use';
 import { useAccount, useChains } from 'wagmi';
 
 import LoadingIcon from '@/assets/loading.svg';
 import { Avatar } from '@/components/Avatar.js';
+import CollectFillIcon from '@/assets/collect-fill.svg';
 import { ChainGuardButton } from '@/components/ChainGuardButton.js';
 import { config } from '@/configs/wagmiClient.js';
 import { enqueueErrorMessage, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
@@ -17,6 +18,8 @@ import { getSnackbarMessageFromError } from '@/helpers/getSnackbarMessageFromErr
 import { multipliedBy, rightShift, ZERO } from '@/helpers/number.js';
 import { resolveArticleCollectProvider } from '@/helpers/resolveArticleCollectProvider.js';
 import { type Article } from '@/providers/types/Article.js';
+import { queryClient } from '@/configs/queryClient.js';
+import { produce } from 'immer';
 
 export interface ArticleCollectProps {
     article: Article;
@@ -26,16 +29,19 @@ export function ArticleCollect(props: ArticleCollectProps) {
     const account = useAccount();
     const chains = useChains();
 
-    const [collected, setCollected] = useState(false);
+    const platform = props?.article.platform;
 
+    const queryKey = ['article', platform, props?.article.id, props?.article.origin, account.address];
+    const queryKeyRef = useRef(queryKey);
+    queryKeyRef.current = queryKey;
     const { data: result, isLoading: queryDetailLoading } = useQuery({
         enabled: !!props.article,
-        queryKey: ['article', props?.article.platform, props?.article.id, props?.article.origin, account.address],
+        queryKey: queryKey,
         queryFn: async () => {
             if (!props) return;
             const digest = getArticleDigest(props?.article);
             if (!digest) return;
-            const provider = resolveArticleCollectProvider(props.article.platform);
+            const provider = resolveArticleCollectProvider(platform);
             if (!provider) return;
 
             const data = await provider.getArticleCollectableByDigest(digest);
@@ -94,31 +100,36 @@ export function ArticleCollect(props: ArticleCollectProps) {
     const { data, hasSufficientBalance } = result ?? {};
 
     const [{ loading: collectLoading }, handleCollect] = useAsyncFn(async () => {
-        if (!data || !props?.article.platform) return;
+        if (!data || !platform) return;
 
-        const provider = resolveArticleCollectProvider(props?.article.platform);
+        const provider = resolveArticleCollectProvider(platform);
         if (!provider) return;
         try {
             const confirmation = await provider.collect(data);
             if (!confirmation) return;
-            setCollected(true);
+            queryClient.setQueryData<typeof result>(queryKeyRef.current, (data) => {
+                if (!data) return data;
+                return produce(data, (draft) => {
+                    draft.data.isCollected = true;
+                });
+            });
             enqueueSuccessMessage(t`Article collected successfully!`);
         } catch (error) {
             enqueueErrorMessage(getSnackbarMessageFromError(error, t`Failed to collect article.`), { error });
             throw error;
         }
-    }, [account, data, props?.article.platform]);
+    }, [account, data, platform]);
 
     const chain = chains.find((x) => x.id === data?.chainId);
     const isSoldOut = !!data?.quantity && data.soldCount >= data.quantity;
 
     const buttonText = useMemo(() => {
         if (isSoldOut) return t`Sold Out`;
-        if (data?.isCollected || collected) return t`Collected`;
+        if (data?.isCollected) return t`Collected`;
         if (!hasSufficientBalance) return t`Insufficient Balance`;
         if (!data?.price) return t`Free Collect`;
         return t`Collect for ${data.price} ${chain?.nativeCurrency.symbol}`;
-    }, [data, chain, isSoldOut, hasSufficientBalance, collected]);
+    }, [data, chain, isSoldOut, hasSufficientBalance]);
 
     if (!queryDetailLoading && !data) {
         return (
@@ -146,6 +157,9 @@ export function ArticleCollect(props: ArticleCollectProps) {
                         <span className="text-medium leading-[24px] text-lightSecond">
                             {props.article.author.handle ?? formatEthereumAddress(props.article.author.id, 4)}
                         </span>
+                        {data?.isCollected ? (
+                            <CollectFillIcon width={16} height={16} className="ml-auto mr-1.5" />
+                        ) : null}
                     </div>
                 ) : null}
             </div>
@@ -183,7 +197,7 @@ export function ArticleCollect(props: ArticleCollectProps) {
             <ChainGuardButton
                 targetChainId={data?.chainId}
                 className="mt-6 w-full max-md:mt-4"
-                disabled={data?.isCollected || collected || isSoldOut || (account.isConnected && !hasSufficientBalance)}
+                disabled={data?.isCollected || isSoldOut || (account.isConnected && !hasSufficientBalance)}
                 loading={collectLoading || queryDetailLoading}
                 onClick={handleCollect}
             >
