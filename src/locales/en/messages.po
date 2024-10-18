@@ -94,9 +94,6 @@ msgstr "Communities"
 msgid "Discover"
 msgstr "Discover"
 
-msgid "Hold ≥ $10k BNB Chain asset"
-msgstr "Hold ≥ $10k BNB Chain asset"
-
 msgid "Ask a question"
 msgstr "Ask a question"
 
@@ -631,6 +628,9 @@ msgstr "Failed to upload. Not a valid image type"
 msgid "Failed to upload. Image size exceeds {0}"
 msgstr "Failed to upload. Image size exceeds {0}"
 
+msgid "Done"
+msgstr "Done"
+
 msgid "Recasts"
 msgstr "Recasts"
 
@@ -879,6 +879,9 @@ msgstr "Are you sure you want to report this post?"
 
 msgid "No function found that retrieves ownership"
 msgstr "No function found that retrieves ownership"
+
+msgid "View Status"
+msgstr "View Status"
 
 msgid "Send"
 msgstr "Send"
@@ -1245,6 +1248,9 @@ msgstr "Standard"
 
 msgid "<0>Revised</0>an article"
 msgstr "<0>Revised</0>an article"
+
+msgid "Mint Succeeded"
+msgstr "Mint Succeeded"
 
 msgid "You need to connect your {0} account to use this feature."
 msgstr "You need to connect your {0} account to use this feature."
@@ -1641,6 +1647,9 @@ msgstr "Live"
 
 msgid "Send on schedule"
 msgstr "Send on schedule"
+
+msgid "Your transaction will confirm shortly"
+msgstr "Your transaction will confirm shortly"
 
 msgid "will send on {0} at {1}"
 msgstr "will send on {0} at {1}"
@@ -2292,6 +2301,9 @@ msgstr "Final Step Claim Now!"
 
 msgid "Verify"
 msgstr "Verify"
+
+msgid "Hold ≥ $10k Base Chain asset"
+msgstr "Hold ≥ $10k Base Chain asset"
 
 msgid "Recasted"
 msgstr "Recasted"

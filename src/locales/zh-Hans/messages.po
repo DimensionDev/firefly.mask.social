@@ -99,9 +99,6 @@ msgstr "社区"
 msgid "Discover"
 msgstr "发现"
 
-msgid "Hold ≥ $10k BNB Chain asset"
-msgstr ""
-
 msgid "Ask a question"
 msgstr "询问"
 
@@ -636,6 +633,9 @@ msgstr "上传失败。图片格式不支持"
 msgid "Failed to upload. Image size exceeds {0}"
 msgstr "上传失败。图片超过最大限制 {0}"
 
+msgid "Done"
+msgstr ""
+
 msgid "Recasts"
 msgstr "转帖"
 
@@ -884,6 +884,9 @@ msgstr "您确定要举报这个帖子吗？"
 
 msgid "No function found that retrieves ownership"
 msgstr "没有找到检索所有权的功能"
+
+msgid "View Status"
+msgstr ""
 
 msgid "Send"
 msgstr "发送"
@@ -1250,6 +1253,9 @@ msgstr "标准"
 
 msgid "<0>Revised</0>an article"
 msgstr "<0>修改了</0>文章"
+
+msgid "Mint Succeeded"
+msgstr ""
 
 msgid "You need to connect your {0} account to use this feature."
 msgstr "您需要连接您的 {0} 账户来使用此功能。"
@@ -1646,6 +1652,9 @@ msgstr ""
 
 msgid "Send on schedule"
 msgstr "发送定时任务"
+
+msgid "Your transaction will confirm shortly"
+msgstr ""
 
 msgid "will send on {0} at {1}"
 msgstr "将在 {0} {1} 发送"
@@ -2296,6 +2305,9 @@ msgid "Final Step Claim Now!"
 msgstr ""
 
 msgid "Verify"
+msgstr ""
+
+msgid "Hold ≥ $10k Base Chain asset"
 msgstr ""
 
 msgid "Recasted"

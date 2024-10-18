@@ -3,6 +3,7 @@
 import { Trans } from '@lingui/macro';
 import { useSuspenseQuery } from '@tanstack/react-query';
 import dayjs from 'dayjs';
+import { notFound } from 'next/navigation.js';
 
 import CalendarIcon from '@/assets/activity-calendar.svg';
 import { ActivityClaimButton } from '@/components/Activity/ActivityClaimButton.js';
@@ -13,8 +14,8 @@ import { ActivityRules } from '@/components/Activity/ActivityRules.js';
 import { ActivityStatusTag } from '@/components/Activity/ActivityStatus.js';
 import { ActivityTaskFollowCard } from '@/components/Activity/ActivityTaskFollowCard.js';
 import { ActivityTwitterLoginButton } from '@/components/Activity/ActivityTwitterLoginButton.js';
+import { Image } from '@/components/Image.js';
 import { Source } from '@/constants/enum.js';
-import { Image } from '@/esm/Image.js';
 import { classNames } from '@/helpers/classNames.js';
 import { getFireflyActivityInfo } from '@/services/getFireflyActivityInfo.js';
 
@@ -32,6 +33,8 @@ export default function Page({
         },
     });
     const timeTemplate = 'M/DD hh:MM';
+
+    if (!data) notFound();
 
     return (
         <div className="flex min-h-[100svh] w-full flex-1 flex-col">
