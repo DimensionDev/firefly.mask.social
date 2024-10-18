@@ -2,14 +2,16 @@ import { t, Trans } from '@lingui/macro';
 import { EVMChainResolver } from '@masknet/web3-providers';
 import { useQuery } from '@tanstack/react-query';
 import { estimateFeesPerGas, getBalance } from '@wagmi/core';
-import { useMemo, useRef, useState } from 'react';
+import { produce } from 'immer';
+import { useMemo, useRef } from 'react';
 import { useAsyncFn } from 'react-use';
 import { useAccount, useChains } from 'wagmi';
 
+import CollectFillIcon from '@/assets/collect-fill.svg';
 import LoadingIcon from '@/assets/loading.svg';
 import { Avatar } from '@/components/Avatar.js';
-import CollectFillIcon from '@/assets/collect-fill.svg';
 import { ChainGuardButton } from '@/components/ChainGuardButton.js';
+import { queryClient } from '@/configs/queryClient.js';
 import { config } from '@/configs/wagmiClient.js';
 import { enqueueErrorMessage, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { formatEthereumAddress } from '@/helpers/formatAddress.js';
@@ -18,8 +20,6 @@ import { getSnackbarMessageFromError } from '@/helpers/getSnackbarMessageFromErr
 import { multipliedBy, rightShift, ZERO } from '@/helpers/number.js';
 import { resolveArticleCollectProvider } from '@/helpers/resolveArticleCollectProvider.js';
 import { type Article } from '@/providers/types/Article.js';
-import { queryClient } from '@/configs/queryClient.js';
-import { produce } from 'immer';
 
 export interface ArticleCollectProps {
     article: Article;
@@ -36,7 +36,7 @@ export function ArticleCollect(props: ArticleCollectProps) {
     queryKeyRef.current = queryKey;
     const { data: result, isLoading: queryDetailLoading } = useQuery({
         enabled: !!props.article,
-        queryKey: queryKey,
+        queryKey,
         queryFn: async () => {
             if (!props) return;
             const digest = getArticleDigest(props?.article);
