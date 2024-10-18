@@ -9,7 +9,7 @@ module.exports = {
         './src/modals/**/*.{js,ts,jsx,tsx,mdx}',
         './node_modules/tailwind-datepicker-react/dist/**/*.js',
     ],
-    safelist: ['!bg-warn'],
+    safelist: ['!bg-warn', 'link-overlay'],
     theme: {
         extend: {
             colors: {
