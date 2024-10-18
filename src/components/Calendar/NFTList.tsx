@@ -58,7 +58,7 @@ export function NFTList({ list, isLoading, date }: NFTListProps) {
                                 </p>
                                 {list[key].map((v) => (
                                     <div
-                                        className="flex flex-col gap-2 border-b border-line p-2 outline-none last:border-none hover:no-underline"
+                                        className="relative flex flex-col gap-2 border-b border-line p-2 outline-none last:border-none hover:no-underline"
                                         key={v.event_url}
                                     >
                                         <div className="flex w-full justify-between">
