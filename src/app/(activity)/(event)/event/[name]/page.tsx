@@ -65,9 +65,13 @@ export default function Page({
                             </h2>
                             <ActivityTwitterLoginButton />
                         </div>
-                        <ActivityFollowTargetCard handle="brian_armstrong" />
+                        <ActivityFollowTargetCard handle="brian_armstrong" profileId="14379660" />
                     </div>
-                    <ActivityTaskFollowCard handle="Firefly" source={Source.Twitter} profileId="1583361564479889408" />
+                    <ActivityTaskFollowCard
+                        handle="thefireflyapp"
+                        source={Source.Twitter}
+                        profileId="1583361564479889408"
+                    />
                     <h2 className="text-base font-semibold leading-6">
                         <Trans>Step 2 Connect Wallet</Trans>
                     </h2>

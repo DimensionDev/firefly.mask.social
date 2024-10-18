@@ -14,7 +14,7 @@ export function ActivityConnectCard() {
         <div
             className={classNames(
                 'flex w-full flex-col space-y-2 rounded-2xl p-3 text-sm font-semibold leading-6',
-                address ? 'bg-success/10' : 'bg-bg',
+                address ? 'bg-success/10 dark:bg-success/20' : 'bg-bg',
             )}
         >
             <ActivityVerifyText verified={!!address}>
@@ -22,7 +22,7 @@ export function ActivityConnectCard() {
                     <Trans>Submitted claimed address</Trans>
                 </h3>
             </ActivityVerifyText>
-            <div className="space-x-2">
+            <div className="h-8 space-x-2">
                 <ActivityConnectButton />
             </div>
         </div>

@@ -1,3 +1,5 @@
+'use client';
+
 import { t, Trans } from '@lingui/macro';
 import { useContext, useState } from 'react';
 import { useAsyncFn } from 'react-use';
@@ -7,6 +9,7 @@ import LoadingIcon from '@/assets/loading.svg';
 import { ActivityContext } from '@/components/Activity/ActivityContext.js';
 import { ActivityMintSuccessDialog } from '@/components/Activity/ActivityMintSuccessDialog.js';
 import { useActivityClaimCondition } from '@/components/Activity/hooks/useActivityClaimCondition.js';
+import { useActivityPremiumList } from '@/components/Activity/hooks/useActivityPremiumList.js';
 import { IS_IOS } from '@/constants/bowser.js';
 import { classNames } from '@/helpers/classNames.js';
 import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
@@ -19,7 +22,7 @@ import { settings } from '@/settings/index.js';
 
 export function ActivityClaimButton({ status }: { status: ActivityStatus }) {
     const { address } = useContext(ActivityContext);
-    const authToken = useFireflyBridgeAuthorization();
+    const { data: authToken } = useFireflyBridgeAuthorization();
     const { data, refetch } = useActivityClaimCondition();
     const disabled = status === ActivityStatus.Ended || !data?.canClaim;
     const [hash, setHash] = useState<string | undefined>(undefined);
@@ -60,6 +63,20 @@ export function ActivityClaimButton({ status }: { status: ActivityStatus }) {
             throw error;
         }
     });
+    const list = useActivityPremiumList();
+
+    const buttonText = (() => {
+        if (status === ActivityStatus.Ended) {
+            return <Trans>Ended</Trans>;
+        }
+        if (data?.alreadyClaimed) {
+            return <Trans>Claimed</Trans>;
+        }
+        if (data?.canClaim) {
+            return list.some((x) => x.verified) ? <Trans>Claim Premium</Trans> : <Trans>Claim Basic</Trans>;
+        }
+        return <Trans>Claim Now</Trans>;
+    })();
 
     return (
         <>
@@ -70,7 +87,7 @@ export function ActivityClaimButton({ status }: { status: ActivityStatus }) {
                 onClick={claim}
             >
                 {loading ? (
-                    <span className="left-0 top-0 flex h-full w-full items-center justify-center">
+                    <span className="absolute left-0 top-0 flex h-full w-full items-center justify-center">
                         <LoadingIcon className="animate-spin" width={16} height={16} />
                     </span>
                 ) : null}
@@ -79,7 +96,7 @@ export function ActivityClaimButton({ status }: { status: ActivityStatus }) {
                         'opacity-0': loading,
                     })}
                 >
-                    {disabled ? <Trans>Ended</Trans> : <Trans>Claim Now</Trans>}
+                    {buttonText}
                 </span>
             </button>
         </>

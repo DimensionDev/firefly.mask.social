@@ -367,6 +367,9 @@ msgstr "<0>{0}</0><1>mirrored</1>"
 msgid "True Token"
 msgstr "True Token"
 
+msgid "Failed to follow @{handle} on {0}."
+msgstr "Failed to follow @{handle} on {0}."
+
 msgid "Bookmarks"
 msgstr "Bookmarks"
 
@@ -483,6 +486,9 @@ msgstr "Search"
 
 msgid "Followed by {0}"
 msgstr "Followed by {0}"
+
+msgid "Followed<0>@{handle}</0>on {0}"
+msgstr "Followed<0>@{handle}</0>on {0}"
 
 msgid "Failed to unfollow @{0} on {sourceName}."
 msgstr "Failed to unfollow @{0} on {sourceName}."
@@ -1810,6 +1816,9 @@ msgstr "Change Account"
 msgid "Casts + Replies"
 msgstr "Casts + Replies"
 
+msgid "Followed <0>@{handle}</0> on X before 9/21"
+msgstr "Followed <0>@{handle}</0> on X before 9/21"
+
 msgid "Image"
 msgstr "Image"
 
@@ -1848,9 +1857,6 @@ msgstr "Notifications"
 
 msgid "Back"
 msgstr "Back"
-
-msgid "Followed @{handle} on X before 9/21"
-msgstr "Followed @{handle} on X before 9/21"
 
 msgid "Article collected successfully!"
 msgstr "Article collected successfully!"
@@ -2415,6 +2421,9 @@ msgstr "Recast"
 
 msgid "Translating..."
 msgstr "Translating..."
+
+msgid "Claim Basic"
+msgstr "Claim Basic"
 
 msgid "Back to home"
 msgstr "Back to home"

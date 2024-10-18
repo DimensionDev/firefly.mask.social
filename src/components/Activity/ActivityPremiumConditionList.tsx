@@ -3,22 +3,11 @@
 import { Trans } from '@lingui/macro';
 
 import { ActivityVerifyText } from '@/components/Activity/ActivityVerifyText.js';
-import { useActivityClaimCondition } from '@/components/Activity/hooks/useActivityClaimCondition.js';
+import { useActivityPremiumList } from '@/components/Activity/hooks/useActivityPremiumList.js';
 import { classNames } from '@/helpers/classNames.js';
-import { Level } from '@/providers/types/CZ.js';
 
 export function ActivityPremiumConditionList() {
-    const { data } = useActivityClaimCondition(); // TODO
-    const list = [
-        {
-            label: <Trans>X Premium account</Trans>,
-            verified: data?.x?.level === Level.Lv2,
-        },
-        {
-            label: <Trans>Hold ≥ $10k Base Chain asset</Trans>,
-            verified: data?.bnbId?.level === Level.Lv2, // TODO: Base Chain assets
-        },
-    ];
+    const list = useActivityPremiumList();
 
     return (
         <div className="flex w-full flex-col space-y-2 text-sm font-semibold leading-6">
@@ -28,7 +17,7 @@ export function ActivityPremiumConditionList() {
             <div
                 className={classNames(
                     'flex w-full flex-col space-y-2 rounded-2xl p-3 text-sm font-semibold leading-6',
-                    list.some((x) => x.verified) ? 'bg-success/10' : 'bg-bg',
+                    list.some((x) => x.verified) ? 'bg-success/10 dark:bg-success/20' : 'bg-bg',
                 )}
             >
                 <h3>
