@@ -21,7 +21,7 @@ import { ChainId } from '@/types/frame.js';
 export function ActivityConnectButton() {
     const { onChangeAddress, address } = useContext(ActivityContext);
     const { data: isLoggedIn } = useIsLoginTwitterInActivity();
-    const { data: { connected = EMPTY_LIST } = {} } = useAllConnections({
+    const { data: { connected = EMPTY_LIST } = {}, refetch } = useAllConnections({
         refetchInterval: 600000,
     });
     const { data: bridgeAddresses = EMPTY_LIST } = useQuery({
@@ -89,9 +89,10 @@ export function ActivityConnectButton() {
                                     onChangeAddress(address);
                                     return;
                                 }
-                                AddWalletModalRef.open({
+                                await AddWalletModalRef.openAndWaitForClose({
                                     connections: connected,
                                 });
+                                await refetch();
                             }}
                         >
                             <AddCircleIcon width={24} height={24} className="mr-2" />
