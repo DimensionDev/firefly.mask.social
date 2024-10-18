@@ -32,15 +32,16 @@ import { getSnackbarMessageFromError } from '@/helpers/getSnackbarMessageFromErr
 import { stopPropagation } from '@/helpers/stopEvent.js';
 import { ComposeModalRef, ConfirmModalRef } from '@/modals/controls.js';
 import { Snapshot } from '@/providers/snapshot/index.js';
-import type { SnapshotChoice, SnapshotProposal } from '@/providers/snapshot/type.js';
+import type { SnapshotActivity, SnapshotChoice, SnapshotProposal } from '@/providers/snapshot/type.js';
 
 interface Props {
+    activity?: SnapshotActivity;
     snapshot: SnapshotProposal;
     link?: string;
     postId?: string;
 }
 
-export function SnapshotBody({ snapshot, link, postId }: Props) {
+export function SnapshotBody({ snapshot, link, postId, activity }: Props) {
     const { choices, type, state, scores, symbol, scores_total, votes, space, author } = snapshot;
 
     const [currentTabIndex, setCurrentTabIndex] = useState(0);
@@ -109,7 +110,7 @@ export function SnapshotBody({ snapshot, link, postId }: Props) {
             return true;
 
         return false;
-    }, [vp, queryVpLoading, type, selectedChoices, choices, isNotEnoughVp]);
+    }, [type, selectedChoices, choices, isNotEnoughVp]);
 
     const [, handleVote] = useAsyncFn(async () => {
         try {
@@ -177,7 +178,7 @@ export function SnapshotBody({ snapshot, link, postId }: Props) {
                         <Link href={authorUrl} className="z-[1]">
                             <Avatar
                                 className="h-[15px] w-[15px]"
-                                src={`'https://cdn.stamp.fyi/space/s:${space.id}?s=40'`}
+                                src={`https://cdn.stamp.fyi/space/s:${space.id}?s=40`}
                                 size={15}
                                 alt={space.name || space.id}
                             />
@@ -197,7 +198,7 @@ export function SnapshotBody({ snapshot, link, postId }: Props) {
                         </Time>
                         <SnapshotIcon width={15} height={15} />
                     </div>
-                    <SnapshotActions link={snapshot.link} />
+                    <SnapshotActions activity={activity} link={snapshot.link} />
                 </div>
 
                 <div>

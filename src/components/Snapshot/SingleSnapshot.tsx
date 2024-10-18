@@ -1,4 +1,4 @@
-import { Trans } from '@lingui/macro';
+import { t, Trans } from '@lingui/macro';
 import { motion } from 'framer-motion';
 import { memo } from 'react';
 
@@ -9,6 +9,11 @@ import { SnapshotBody } from '@/components/Snapshot/SnapshotBody.js';
 import { classNames } from '@/helpers/classNames.js';
 import { formatSnapshotChoice } from '@/helpers/formatSnapshotChoice.js';
 import type { SnapshotActivity } from '@/providers/snapshot/type.js';
+import { IS_APPLE, IS_SAFARI } from '@/constants/bowser.js';
+import { ClickableArea } from '@/components/ClickableArea.js';
+import { SnapshotMarkup } from '@/components/Markup/SnapshotMarkup.js';
+import { Tab } from '@headlessui/react';
+import { SnapshotFallbackContent } from '@/components/Snapshot/SnapshotFallbackContent.js';
 
 interface SingleSnapshotProps {
     data: SnapshotActivity;
@@ -18,6 +23,17 @@ export const SingleSnapshot = memo<SingleSnapshotProps>(function SingleSnapshot(
     const isMuted = data.author.isMuted;
 
     const label = data.proposal ? formatSnapshotChoice(data.choice, data.proposal.type, data.proposal.choices) : null;
+
+    const tabs = [
+        {
+            label: t`Proposal`,
+            value: 'proposal',
+        },
+        {
+            label: t`Votes`,
+            value: 'votes',
+        },
+    ] as const;
 
     return (
         <motion.article
@@ -48,9 +64,11 @@ export const SingleSnapshot = memo<SingleSnapshotProps>(function SingleSnapshot(
 
                     {data.proposal ? (
                         <div>
-                            <SnapshotBody snapshot={data.proposal} />
+                            <SnapshotBody activity={data} snapshot={data.proposal} />
                         </div>
-                    ) : null}
+                    ) : (
+                        <SnapshotFallbackContent {...data.fallback_content} />
+                    )}
                 </div>
             )}
         </motion.article>

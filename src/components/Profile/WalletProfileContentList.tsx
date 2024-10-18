@@ -6,6 +6,7 @@ import { NoResultsFallback } from '@/components/NoResultsFallback.js';
 import { ArticleList } from '@/components/Profile/ArticleList.js';
 import { NFTs } from '@/components/Profile/NFTs.js';
 import { POAPList } from '@/components/Profile/POAPList.js';
+import { FollowingSnapshotList } from '@/components/Snapshot/FollowingSnapshotList.js';
 import { NetworkType, WalletProfileCategory } from '@/constants/enum.js';
 import { getAddressType } from '@/helpers/getAddressType.js';
 
@@ -28,6 +29,8 @@ export const WalletProfileContentList = memo(function WalletProfileContentList({
             return <NFTs address={address} />;
         case WalletProfileCategory.OnChainActivities:
             return <FollowingNFTList walletAddress={address} />;
+        case WalletProfileCategory.DAO:
+            return <FollowingSnapshotList walletAddress={address} />;
         default:
             safeUnreachable(type);
             return null;

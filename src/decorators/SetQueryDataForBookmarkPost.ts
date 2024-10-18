@@ -4,6 +4,7 @@ import { queryClient } from '@/configs/queryClient.js';
 import { Source } from '@/constants/enum.js';
 import { patchNotificationQueryDataOnPost } from '@/helpers/patchNotificationQueryData.js';
 import { patchPostQueryData } from '@/helpers/patchPostQueryData.js';
+import type { SnapshotActivity } from '@/providers/snapshot/type.js';
 import type { Article } from '@/providers/types/Article.js';
 import { type Post, type Provider } from '@/providers/types/SocialMedia.js';
 import type { ClassType } from '@/types/index.js';
@@ -36,6 +37,18 @@ function toggleBookmark(source: Source, postId: string, status: boolean) {
         });
     });
 
+    queryClient.setQueriesData<{ pages: Array<{ data: SnapshotActivity[] }> }>({ queryKey: ['snapshots'] }, (old) => {
+        if (!old) return old;
+
+        return produce(old, (draft) => {
+            draft.pages.forEach((page) => {
+                page.data.forEach((snapshot) => {
+                    if (snapshot.hash === postId) snapshot.hasBookmarked = status;
+                });
+            });
+        });
+    });
+
     queryClient.setQueryData<Article>(['article-detail', postId], (old) => {
         return produce(old, (draft) => {
             if (!draft) return;
@@ -60,6 +73,8 @@ function toggleBookmark(source: Source, postId: string, status: boolean) {
                         page.data = page.data.filter((post) => {
                             if ('id' in post)
                                 return post.id !== postId; // Article
+                            else if ('hash' in post)
+                                return post.hash !== postId; // Snapshot
                             else return post.postId !== postId; // Post
                         });
                     });

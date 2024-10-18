@@ -4,6 +4,7 @@ import urlcat from 'urlcat';
 import { useEnsName } from 'wagmi';
 
 import SnapshotIcon from '@/assets/snapshot.svg';
+import { SnapshotMoreAction } from '@/components/Actions/SnapshotMore.js';
 import { Avatar } from '@/components/Avatar.js';
 import { Time } from '@/components/Semantic/Time.js';
 import { TimestampFormatter } from '@/components/TimeStampFormatter.js';
@@ -58,7 +59,9 @@ export const SingleSnapshotHeader = memo<SingleSnapshotHeaderProps>(function Sin
                 </span>
                 <SnapshotIcon width={15} height={15} />
             </div>
-            <div className="ml-auto flex items-center space-x-2" />
+            <div className="ml-auto flex items-center space-x-2">
+                <SnapshotMoreAction data={data} />
+            </div>
         </header>
     );
 });

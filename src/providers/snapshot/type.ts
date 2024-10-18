@@ -205,4 +205,8 @@ export type SnapshotActivity = {
     hash: string;
     related_urls: string[];
     hasBookmarked: boolean;
+    fallback_content: {
+        title: string;
+        body: string;
+    };
 };

@@ -81,7 +81,7 @@ export type ProfilePageSource = Source.Farcaster | Source.Lens | Source.Twitter 
 export type SocialSourceInURL = SourceInURL.Farcaster | SourceInURL.Lens | SourceInURL.Twitter;
 export type SocialDiscoverSource = Source.Farcaster | Source.Lens;
 export type DiscoverSource = SocialDiscoverSource | Source.NFTs | Source.Article | Source.DAO;
-export type BookmarkSource = Source.Farcaster | Source.Lens | Source.Article;
+export type BookmarkSource = Source.Farcaster | Source.Lens | Source.Article | Source.DAO;
 
 export enum DiscoverType {
     ForYou = 'for-you',
@@ -127,6 +127,7 @@ export enum WalletProfileCategory {
     POAPs = 'poaps',
     NFTs = 'nfts',
     OnChainActivities = 'activities',
+    DAO = 'DAO',
 }
 
 export enum EngagementType {
@@ -180,7 +181,16 @@ export enum BookmarkType {
     Image = 'image',
 }
 
-export { SourceInURL as FireflyPlatform };
+export enum FireflyPlatform {
+    Farcaster = 'farcaster',
+    Lens = 'lens',
+    Twitter = 'twitter',
+    Firefly = 'firefly',
+    Article = 'article',
+    Wallet = 'wallet',
+    NFTs = 'nfts',
+    Snapshot = 'snapshot',
+}
 
 export enum MuteType {
     Profile = 'profile',

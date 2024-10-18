@@ -18,10 +18,14 @@ export function formatSnapshotActivityFromFirefly(snapshot: FireflySnapshotActiv
         choice: snapshot.metadata.choice,
         type: snapshot.type,
         id: snapshot.id,
-        timestamp: parseInt(snapshot.timestamp) * 1000,
+        timestamp: parseInt(snapshot.timestamp, 10) * 1000,
         hash: snapshot.hash,
         related_urls: snapshot.related_urls,
         proposal_id: snapshot.metadata.proposal_id,
         hasBookmarked: snapshot.has_bookmarked,
+        fallback_content: {
+            title: snapshot.metadata.proposal_title,
+            body: snapshot.metadata.proposal_body,
+        },
     };
 }

@@ -223,6 +223,8 @@ export interface FireflySnapshotActivity {
     metadata: {
         proposal_id: string;
         choice: SnapshotChoice;
+        proposal_title: string;
+        proposal_body: string;
     };
     displayInfo: { ensHandle: string; avatarUrl: string };
     followingSources: FollowingSource[];

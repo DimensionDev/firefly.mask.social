@@ -17,6 +17,7 @@ import {
 import { classNames } from '@/helpers/classNames.js';
 import { sanitizeDStorageUrl } from '@/helpers/sanitizeDStorageUrl.js';
 import { trimify } from '@/helpers/trimify.js';
+import { SNAPSHOT_IPFS_GATEWAY_URL } from '@/constants/index.js';
 
 export const SnapshotMarkup = memo<ReactMarkdownOptions>(function SnapshotMarkup({ children, ...rest }) {
     const plugins = [
@@ -38,7 +39,7 @@ export const SnapshotMarkup = memo<ReactMarkdownOptions>(function SnapshotMarkup
                 // @ts-ignore
                 // eslint-disable-next-line react/no-unstable-nested-components
                 img: (props) => {
-                    const src = sanitizeDStorageUrl(props.src);
+                    const src = sanitizeDStorageUrl(props.src, SNAPSHOT_IPFS_GATEWAY_URL);
                     return <ImageAsset {...props} src={src} alt={src} width={1000} height={1000} />;
                 },
                 ...rest.components,
