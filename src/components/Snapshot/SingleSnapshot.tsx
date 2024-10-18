@@ -7,7 +7,6 @@ import { CollapsedContent } from '@/components/Posts/CollapsedContent.js';
 import { SingleSnapshotHeader } from '@/components/Snapshot/SingleSnapshotHeader.js';
 import { SnapshotBody } from '@/components/Snapshot/SnapshotBody.js';
 import { SnapshotFallbackContent } from '@/components/Snapshot/SnapshotFallbackContent.js';
-import { classNames } from '@/helpers/classNames.js';
 import { formatSnapshotChoice } from '@/helpers/formatSnapshotChoice.js';
 import type { SnapshotActivity } from '@/providers/snapshot/type.js';
 
@@ -36,12 +35,7 @@ export const SingleSnapshot = memo<SingleSnapshotProps>(function SingleSnapshot(
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className={classNames(
-                'border-b border-line bg-bottom px-3 py-2 hover:bg-bg max-md:px-4 max-md:py-3 md:px-4 md:py-3',
-                {
-                    'cursor-pointer': !isMuted,
-                },
-            )}
+            className={'border-b border-line bg-bottom px-3 py-2 hover:bg-bg max-md:px-4 max-md:py-3 md:px-4 md:py-3'}
         >
             <SingleSnapshotHeader data={data} />
             {isMuted ? (
@@ -49,11 +43,11 @@ export const SingleSnapshot = memo<SingleSnapshotProps>(function SingleSnapshot(
             ) : (
                 <div className="-mt-2 pl-[52px]">
                     <div className="flex items-center gap-1 text-medium">
-                        <VoteIcon width={18} height={18} />
+                        <VoteIcon width={18} height={18} className="min-w-[18px]" />
                         <span className="font-bold text-main">
                             <Trans>VOTED</Trans>
                         </span>
-                        <span className="text-secondary">
+                        <span className="truncate text-secondary">
                             <Trans>{label} on a proposal</Trans>
                         </span>
                     </div>
