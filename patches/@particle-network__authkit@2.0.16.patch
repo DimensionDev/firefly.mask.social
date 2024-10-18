@@ -1,0 +1,145 @@
+diff --git a/dist/types/context/hooks/index.d.ts b/dist/types/context/hooks/index.d.ts
+index 8915ce1ca13a89fc7bf9ddaa55116c944c2a586f..7375149e8dd84f12978a788d54486351e58c6fb2 100644
+--- a/dist/types/context/hooks/index.d.ts
++++ b/dist/types/context/hooks/index.d.ts
+@@ -1,7 +1,7 @@
+-export { useAuthCore } from './useAuthCore';
+-export { useConnect } from './useConnect';
+-export { useCustomize } from './useCustomize';
+-export { useEthereum } from './useEthereum';
+-export { useIsMounted } from './useIsMounted';
+-export { useSolana } from './useSolana';
+-export { useUserInfo } from './useUserInfo';
++export { useAuthCore } from './useAuthCore.js';
++export { useConnect } from './useConnect.js';
++export { useCustomize } from './useCustomize.js';
++export { useEthereum } from './useEthereum.js';
++export { useIsMounted } from './useIsMounted.js';
++export { useSolana } from './useSolana.js';
++export { useUserInfo } from './useUserInfo.js';
+diff --git a/dist/types/context/hooks/useAuthCore.d.ts b/dist/types/context/hooks/useAuthCore.d.ts
+index 1d3935d8f9e4afe62919d8e823d6deab951c5859..99ffb13f03a94f00e3dd827e47f5108d80c5e70c 100644
+--- a/dist/types/context/hooks/useAuthCore.d.ts
++++ b/dist/types/context/hooks/useAuthCore.d.ts
+@@ -1,5 +1,5 @@
+ import type { WalletConfig } from '@particle-network/wallet';
+-import type { OpenBuyOptions } from '../types';
++import type { OpenBuyOptions } from '../types.js';
+ interface OpenWalletOptions {
+     windowSize?: 'small' | 'large';
+     pathName?: string;
+diff --git a/dist/types/context/hooks/useCustomize.d.ts b/dist/types/context/hooks/useCustomize.d.ts
+index 22eab638bef9ef8c799df69dee9a0a0201eaae62..22031a002d2d79f5e80ae8bf274d87e037ef4fff 100644
+--- a/dist/types/context/hooks/useCustomize.d.ts
++++ b/dist/types/context/hooks/useCustomize.d.ts
+@@ -1,8 +1,8 @@
+ import type { AuthType, ERC4337Options } from '@particle-network/auth-core';
+ import type { WalletOption } from '@particle-network/wallet';
+-import type { CurrencyUnit, Theme } from '../../types';
+-import { type CustomStyle, type Language } from '../types';
+-import type { PromptSettingConfig } from './../../api/model/bundle';
++import type { CurrencyUnit, Theme } from '../../types/index.js';
++import { type CustomStyle, type Language } from '../types.js';
++import type { PromptSettingConfig } from './../../api/model/bundle.js';
+ export declare const useCustomize: () => {
+     themeType: Theme | undefined;
+     setThemeType: (themeType?: Theme) => void;
+diff --git a/dist/types/context/hooks/useEthereum.d.ts b/dist/types/context/hooks/useEthereum.d.ts
+index b88b83eed288de59d74c73e89b67601471222f5b..824f072a3dcb9f9dd89bb2ed531b14f25233e801 100644
+--- a/dist/types/context/hooks/useEthereum.d.ts
++++ b/dist/types/context/hooks/useEthereum.d.ts
+@@ -1,6 +1,6 @@
+ import { SignTypedDataVersion, type EIP1559TxData, type MessageTypes, type PrefixedHexString, type TxData, type TypedDataV1, type TypedMessage } from '@particle-network/auth-core';
+ import type { Chain as ViemChain } from 'viem';
+-import { EVMProvider } from '../evmProvider';
++import { EVMProvider } from '../evmProvider.js';
+ export declare const useEthereum: () => {
+     provider: EVMProvider;
+     address: string | null;
+diff --git a/dist/types/context/hooks/useSolana.d.ts b/dist/types/context/hooks/useSolana.d.ts
+index 6c6d6864ee65089dceede806deb14a121e555a18..2441aca654a245d925bbfd2ad66c1594b9c90ced 100644
+--- a/dist/types/context/hooks/useSolana.d.ts
++++ b/dist/types/context/hooks/useSolana.d.ts
+@@ -1,6 +1,6 @@
+ import type { Transaction, VersionedTransaction } from '@solana/web3.js';
+ import type { Chain as ViemChain } from 'viem/chains';
+-import { SolanaWallet } from '../solanaWallet';
++import { SolanaWallet } from '../solanaWallet.js';
+ export declare const useSolana: () => {
+     address: string | null;
+     chainId: number;
+diff --git a/dist/types/context/index.d.ts b/dist/types/context/index.d.ts
+index a5adfebb87fa9590224287f00a7f5b5f620375a9..4f6bd94bd6bd32eee4eb1a2d7961fa6c2495e1d6 100644
+--- a/dist/types/context/index.d.ts
++++ b/dist/types/context/index.d.ts
+@@ -2,9 +2,9 @@ import type { LoginAuthorization, UserInfo } from '@particle-network/auth-core';
+ import type { WalletEntryPlugin } from '@particle-network/wallet';
+ import { EventEmitter } from 'events';
+ import React from 'react';
+-import type { AccountTipModalProps } from '../pages/account/accountTipModal';
+-import type { PaymentVerify } from '../pages/account/paymentVerifyModal';
+-import type { WrongPasswordInfo } from '../pages/account/wrongPasswordModal';
++import type { AccountTipModalProps } from '../pages/account/accountTipModal/index.js';
++import type { PaymentVerify } from '../pages/account/paymentVerifyModal/index.js';
++import type { WrongPasswordInfo } from '../pages/account/wrongPasswordModal/index.js';
+ import type { AuthCoreModalOptions, ConnectionStatus, IAuthCoreModal, ICustomRouter, Language, NavigateOptions, SocialConnectCallback } from './types';
+ export declare const defaultModalOptions: Partial<AuthCoreModalOptions>;
+ interface GlobalState {
+diff --git a/dist/types/context/types.d.ts b/dist/types/context/types.d.ts
+index 2f190d7a8036c211d8c42ea0135a78547e9a77a5..7bcd7e17251070ef9055df0894e4413ebb8d1b30 100644
+--- a/dist/types/context/types.d.ts
++++ b/dist/types/context/types.d.ts
+@@ -1,8 +1,8 @@
+ import type { AuthType, ERC4337Options, ServerError, UserInfo } from '@particle-network/auth-core';
+ import type { WalletCustomStyle, WalletOption } from '@particle-network/wallet';
+ import type { Chain as ViemChain } from 'viem/chains';
+-import type { PromptSettingConfig } from '../api/model/bundle';
+-import type { CurrencyUnit, Theme } from '../types';
++import type { PromptSettingConfig } from '../api/model/bundle.js';
++import type { CurrencyUnit, Theme } from '../types/index.js';
+ export type ViewType = 'desktop' | 'mobile';
+ export interface NavigateOptions {
+     replace?: boolean;
+diff --git a/dist/types/index.d.ts b/dist/types/index.d.ts
+index dafbfd6954732846f9e6826d5d3e81fc48a4fbd6..fe111110113a6a0177f34a7816bbbcc65f3a289e 100644
+--- a/dist/types/index.d.ts
++++ b/dist/types/index.d.ts
+@@ -1,10 +1,10 @@
+-import { AuthCoreContextProvider } from './context';
+-export type { EVMProvider } from './context/evmProvider';
+-export type { SolanaWallet } from './context/solanaWallet';
+-export * from './context/types';
+-export * from './types';
+-export * from './api/model/bundle';
+-export * from './context/hooks';
+-export { getEVMPublicAddress } from './api/getPublicAddress';
+-export { isValidE164PhoneNumber, isValidEmail } from './utils';
++import { AuthCoreContextProvider } from './context/index.js';
++export type { EVMProvider } from './context/evmProvider.js';
++export type { SolanaWallet } from './context/solanaWallet.js';
++export * from './context/index.js';
++export * from './types/index.js';
++export * from './api/model/bundle.js';
++export * from './context/hooks/index.js';
++export { getEVMPublicAddress } from './api/getPublicAddress.js';
++export { isValidE164PhoneNumber, isValidEmail } from './utils/index.js';
+ export { AuthCoreContextProvider };
+diff --git a/dist/types/types/index.d.ts b/dist/types/types/index.d.ts
+index affc425b4385e3f0fe40040a227280c26e11180d..b49042c69471f18cd168c74b07469c2e9d37431c 100644
+--- a/dist/types/types/index.d.ts
++++ b/dist/types/types/index.d.ts
+@@ -1,2 +1,2 @@
+-export * from './currency';
+-export * from './theme';
++export * from './currency.js';
++export * from './theme.js';
+diff --git a/dist/types/utils/index.d.ts b/dist/types/utils/index.d.ts
+index e9087538639be2f985eb644d7196404c718aefe3..89988b4aa9623c4561c3821e69f0aa63f1bcf6ef 100644
+--- a/dist/types/utils/index.d.ts
++++ b/dist/types/utils/index.d.ts
+@@ -1,4 +1,4 @@
+-import type { Theme } from '../types';
++import type { Theme } from '../types/index.js';
+ export declare const ipfsToSrc: (ipfs: string) => string;
+ export declare const EmailRegExp: RegExp;
+ export declare const PhoneRegExp: RegExp;
