@@ -38,7 +38,7 @@ export const SnapshotResults = memo<SnapshotResultsProps>(function SnapshotResul
                     return (
                         <div key={index}>
                             <div className="flex items-center justify-between">
-                                <Tooltip placement="top" content={choice}>
+                                <Tooltip className="max-sm:block" placement="top" content={choice}>
                                     <div className="overflow-hidden overflow-ellipsis whitespace-nowrap">{choice}</div>
                                 </Tooltip>
                                 <div className="flex gap-1">
