@@ -75,10 +75,10 @@ export function ActivityTaskFollowCard({ source, profileId, handle }: Props) {
             <ActivityVerifyText verified={isFollowedFirefly}>
                 <h3>
                     <Trans>
-                        Followed
+                        Followed{' '}
                         <Link className="inline text-highlight" href={resolveProfileUrl(source, profileId)}>
                             @{handle}
-                        </Link>
+                        </Link>{' '}
                         on {resolveSourceName(source)}
                     </Trans>
                 </h3>
