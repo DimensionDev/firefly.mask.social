@@ -768,9 +768,6 @@ msgstr "这个通证合约提到它不能出售。也许这是一个欺诈行为
 msgid "REPLY to<0><1>@{0}</1></0>"
 msgstr "回复给<0><1>@{0}</1></0>"
 
-msgid "Share this activity on social media"
-msgstr ""
-
 msgid "Directory"
 msgstr "目录"
 
@@ -815,6 +812,9 @@ msgstr "未能在 {sourceName} 上隐藏 @{0}。"
 
 msgid "View Source"
 msgstr "查看原文"
+
+msgid "Firefly Garden"
+msgstr ""
 
 msgid "You cannot reply to @{0} on {1}."
 msgstr "您不能在 {1} 上评论 @{0}。"

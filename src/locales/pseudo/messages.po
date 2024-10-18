@@ -763,9 +763,6 @@ msgstr ""
 msgid "REPLY to<0><1>@{0}</1></0>"
 msgstr ""
 
-msgid "Share this activity on social media"
-msgstr ""
-
 msgid "Directory"
 msgstr ""
 
@@ -809,6 +806,9 @@ msgid "Failed to mute @{0} on {sourceName}."
 msgstr ""
 
 msgid "View Source"
+msgstr ""
+
+msgid "Firefly Garden"
 msgstr ""
 
 msgid "You cannot reply to @{0} on {1}."

@@ -763,9 +763,6 @@ msgstr "This token contract has a code that states that it cannot be sold. Maybe
 msgid "REPLY to<0><1>@{0}</1></0>"
 msgstr "REPLY to<0><1>@{0}</1></0>"
 
-msgid "Share this activity on social media"
-msgstr "Share this activity on social media"
-
 msgid "Directory"
 msgstr "Directory"
 
@@ -810,6 +807,9 @@ msgstr "Failed to mute @{0} on {sourceName}."
 
 msgid "View Source"
 msgstr "View Source"
+
+msgid "Firefly Garden"
+msgstr "Firefly Garden"
 
 msgid "You cannot reply to @{0} on {1}."
 msgstr "You cannot reply to @{0} on {1}."
