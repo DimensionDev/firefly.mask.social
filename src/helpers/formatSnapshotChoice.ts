@@ -16,7 +16,7 @@ export function formatSnapshotChoice(choice: SnapshotChoice, type: string, choic
         return Object.entries(choice)
             .map(([key, value]) => {
                 const percentage = total ? (value / total) * 100 : 0;
-                const label = choices[parseInt(key) - 1];
+                const label = choices[parseInt(key, 10) - 1];
                 return `${Math.round(percentage)}% for ${label}`;
             })
             .join(', ');
