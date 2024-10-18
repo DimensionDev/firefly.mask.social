@@ -7,6 +7,7 @@ import linkifyRegex from 'remark-linkify-regex';
 
 import { Code } from '@/components/Code.js';
 import { ImageAsset } from '@/components/Posts/ImageAsset.js';
+import { SNAPSHOT_IPFS_GATEWAY_URL } from '@/constants/index.js';
 import {
     BIO_TWITTER_PROFILE_REGEX,
     HASHTAG_REGEX,
@@ -38,7 +39,7 @@ export const SnapshotMarkup = memo<ReactMarkdownOptions>(function SnapshotMarkup
                 // @ts-ignore
                 // eslint-disable-next-line react/no-unstable-nested-components
                 img: (props) => {
-                    const src = sanitizeDStorageUrl(props.src);
+                    const src = sanitizeDStorageUrl(props.src, SNAPSHOT_IPFS_GATEWAY_URL);
                     return <ImageAsset {...props} src={src} alt={src} width={1000} height={1000} />;
                 },
                 ...rest.components,

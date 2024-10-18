@@ -14516,7 +14516,7 @@ packages:
     resolution: {integrity: sha512-dPObl4ntmfOc0VAGGyyFvrqhL8UkHXmVsgbj0K9RcznKV4KB3MgjGwzo8CTSX5El5lkb0rDeEzFqvToJXRz3dw==}
     engines: {node: '>=16'}
     dependencies:
-      '@noble/curves': 1.5.0
+      '@noble/curves': 1.6.0
       '@solana/wallet-standard-chains': 1.1.0
       '@solana/wallet-standard-features': 1.2.0
     dev: false
@@ -17466,7 +17466,7 @@ packages:
     resolution: {integrity: sha512-bXuaUNLVVkD20wcGBWRyo7j9N3TxePEWFZj2Y+r9OoUzfqmavM84+mFykRicNsBqatba5JLay1t48wxaXaWnlA==}
     engines: {node: '>=8'}
     dependencies:
-      tslib: 2.6.2
+      tslib: 2.8.0
     dev: false
 
   /@wry/context@0.7.4:
@@ -17480,7 +17480,7 @@ packages:
     resolution: {integrity: sha512-BRFORjsTuQv5gxcXsuDXx6oGRhuVsEGwZy6LOzRRfgu+eSfxbhUQ9L9YtSEIuIjY/o7g3iWFjrc5eSY1GXP2Dw==}
     engines: {node: '>=8'}
     dependencies:
-      tslib: 2.6.2
+      tslib: 2.8.0
     dev: false
 
   /@wry/trie@0.4.3:
@@ -17494,7 +17494,7 @@ packages:
     resolution: {integrity: sha512-FNoYzHawTMk/6KMQoEG5O4PuioX19UbwdQKF44yw0nLfOypfQdjtfZzo/UIJWAJ23sNIFbD1Ug9lbaDGMwbqQA==}
     engines: {node: '>=8'}
     dependencies:
-      tslib: 2.6.2
+      tslib: 2.8.0
     dev: false
 
   /@xmldom/xmldom@0.8.10:
@@ -23661,7 +23661,7 @@ packages:
       graphql: ^0.9.0 || ^0.10.0 || ^0.11.0 || ^0.12.0 || ^0.13.0 || ^14.0.0 || ^15.0.0 || ^16.0.0
     dependencies:
       graphql: 16.9.0
-      tslib: 2.6.2
+      tslib: 2.8.0
     dev: false
 
   /graphql@16.9.0:
@@ -27706,7 +27706,7 @@ packages:
       '@wry/caches': 1.0.1
       '@wry/context': 0.7.4
       '@wry/trie': 0.4.3
-      tslib: 2.6.2
+      tslib: 2.8.0
     dev: false
 
   /optionator@0.9.3:
@@ -31935,7 +31935,7 @@ packages:
     resolution: {integrity: sha512-uivwYcQaxAucv1CzRp2n/QdYPo4ILf9VXgH19zEIjFx2EJufV16P0JtJVpYHy89DItG6Kwj2oIUjrcK5au+4tQ==}
     engines: {node: '>=8'}
     dependencies:
-      tslib: 2.6.2
+      tslib: 2.8.0
     dev: false
 
   /ts-node@10.9.1(@swc/core@1.3.106)(@types/node@20.11.9)(typescript@5.5.0-beta):
@@ -34815,6 +34815,7 @@ time:
   /@reown/appkit-adapter-wagmi@1.1.3: '2024-10-15T14:55:44.936Z'
   /@reown/appkit@1.1.3: '2024-10-15T14:55:45.209Z'
   /@sinonjs/text-encoding@0.7.3: '2024-08-19T14:17:18.453Z'
+  /@solana/buffer-layout@4.0.1: '2022-12-09T16:49:55.927Z'
   /@solana/spl-token@0.4.8: '2024-07-09T19:26:11.025Z'
   /@solana/web3.js@1.95.3: '2024-08-21T00:30:04.048Z'
   /@tailwindcss/forms@0.5.9: '2024-09-05T13:53:09.872Z'

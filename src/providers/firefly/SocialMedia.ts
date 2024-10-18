@@ -12,6 +12,7 @@ import {
 } from '@/helpers/formatFarcasterChannelFromFirefly.js';
 import { formatFarcasterPostFromFirefly } from '@/helpers/formatFarcasterPostFromFirefly.js';
 import { formatFarcasterProfileFromFirefly } from '@/helpers/formatFarcasterProfileFromFirefly.js';
+import { formatSnapshotActivityFromFirefly } from '@/helpers/formatSnapshotFromFirefly.js';
 import { getCurrentProfile } from '@/helpers/getCurrentProfile.js';
 import { isZero } from '@/helpers/number.js';
 import {
@@ -26,6 +27,8 @@ import { resolveSourceInUrl } from '@/helpers/resolveSourceInUrl.js';
 import { farcasterSessionHolder } from '@/providers/farcaster/SessionHolder.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
 import { NeynarSocialMediaProvider } from '@/providers/neynar/SocialMedia.js';
+import { Snapshot } from '@/providers/snapshot/index.js';
+import type { SnapshotActivity } from '@/providers/snapshot/type.js';
 import {
     type BlockChannelResponse,
     type BlockedChannelsResponse,
@@ -39,7 +42,9 @@ import {
     type ChannelsResponse,
     type CommentsResponse,
     type DiscoverChannelsResponse,
+    type DiscoverSnapshotsResponse,
     type FireflyFarcasterProfileResponse,
+    type FireflySnapshotActivity,
     type FriendshipResponse,
     type NotificationResponse,
     NotificationType as FireflyNotificationType,
@@ -870,7 +875,7 @@ export class FireflySocialMedia implements Provider {
         return farcasterSessionHolder.withSession(async (session) => {
             const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/bookmark/find', {
                 post_type: BookmarkType.All,
-                platforms: 'farcaster',
+                platforms: FireflyPlatform.Farcaster,
                 limit: 25,
                 cursor: indicator?.id || undefined,
                 fid: session?.profileId,
@@ -935,6 +940,113 @@ export class FireflySocialMedia implements Provider {
             }),
         });
         return true;
+    }
+
+    async discoverSnapshotActivity(indicator?: PageIndicator) {
+        const url = urlcat(settings.FIREFLY_ROOT_URL, '/v2/discover/snapshot/timeline', {
+            size: 20,
+            cursor: indicator?.id && !isZero(indicator.id) ? indicator.id : undefined,
+        });
+
+        const response = await fireflySessionHolder.fetch<DiscoverSnapshotsResponse>(url);
+
+        const data = resolveFireflyResponseData(response);
+        const proposals = await Snapshot.getProposals(data.result.map((x) => x.metadata.proposal_id));
+
+        const activities = data.result.map((x) => {
+            const proposal = proposals.find((p) => p.id === x.metadata.proposal_id);
+
+            return {
+                ...formatSnapshotActivityFromFirefly(x),
+                proposal,
+            };
+        });
+
+        return createPageable(
+            activities,
+            createIndicator(indicator),
+            data.cursor ? createNextIndicator(indicator, `${data.cursor}`) : undefined,
+        );
+    }
+
+    async getFollowingSnapshotActivity({
+        indicator,
+        walletAddresses,
+    }: {
+        indicator?: PageIndicator;
+        walletAddresses?: string[];
+    }) {
+        const url = urlcat(
+            settings.FIREFLY_ROOT_URL,
+            walletAddresses && walletAddresses.length > 0 ? '/v1/user/timeline/snapshot' : '/v1/timeline/snapshot',
+        );
+
+        const response = await fireflySessionHolder.fetch<DiscoverSnapshotsResponse>(
+            url,
+            {
+                method: 'POST',
+                body: JSON.stringify({
+                    size: 20,
+                    cursor: indicator?.id && !isZero(indicator.id) ? indicator.id : undefined,
+                    walletAddresses,
+                }),
+            },
+            !(walletAddresses && walletAddresses.length > 0),
+        );
+
+        const data = resolveFireflyResponseData(response);
+        const proposals = await Snapshot.getProposals(data.result.map((x) => x.metadata.proposal_id));
+
+        const activities = data.result.map((x) => {
+            const proposal = proposals.find((p) => p.id === x.metadata.proposal_id);
+
+            return {
+                ...formatSnapshotActivityFromFirefly(x),
+                proposal,
+            };
+        });
+
+        return createPageable(
+            activities,
+            createIndicator(indicator),
+            data.cursor ? createNextIndicator(indicator, `${data.cursor}`) : undefined,
+        );
+    }
+
+    async getSnapshotBookmarks(indicator?: PageIndicator): Promise<Pageable<SnapshotActivity, PageIndicator>> {
+        return farcasterSessionHolder.withSession(async (session) => {
+            const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/bookmark/find', {
+                post_type: BookmarkType.All,
+                platforms: FireflyPlatform.Snapshot,
+                limit: 25,
+                cursor: indicator?.id || undefined,
+                fid: session?.profileId,
+            });
+            const response = await fireflySessionHolder.fetch<BookmarkResponse<FireflySnapshotActivity>>(url);
+
+            const data = resolveFireflyResponseData(response);
+            const proposals = await Snapshot.getProposals(
+                compact(data.list.map((x) => x.post_content?.metadata.proposal_id)),
+            );
+
+            const activities = compact(
+                data.list.map((x) => {
+                    if (!x.post_content) return;
+                    const proposal = proposals.find((p) => p.id === x.post_content?.metadata.proposal_id);
+
+                    return {
+                        ...formatSnapshotActivityFromFirefly(x.post_content),
+                        proposal,
+                    };
+                }),
+            );
+
+            return createPageable(
+                activities,
+                createIndicator(indicator),
+                data.cursor ? createNextIndicator(indicator, `${data.cursor}`) : undefined,
+            );
+        });
     }
 }
 

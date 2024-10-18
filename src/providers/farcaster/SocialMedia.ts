@@ -43,6 +43,7 @@ import { WarpcastSocialMediaProvider } from '@/providers/warpcast/SocialMedia.js
 @SetQueryDataForLikePost(Source.Farcaster)
 @SetQueryDataForBookmarkPost(Source.Farcaster)
 @SetQueryDataForBookmarkPost(Source.Article)
+@SetQueryDataForBookmarkPost(Source.Snapshot)
 @SetQueryDataForMirrorPost(Source.Farcaster)
 @SetQueryDataForCommentPost(Source.Farcaster)
 @SetQueryDataForDeletePost(Source.Farcaster)

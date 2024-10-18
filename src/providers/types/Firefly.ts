@@ -8,6 +8,7 @@ import {
     type Source,
     WalletSource,
 } from '@/constants/enum.js';
+import type { SnapshotChoice } from '@/providers/snapshot/type.js';
 import type { ArticlePlatform, ArticleType } from '@/providers/types/Article.js';
 import type { Token as DebankToken } from '@/providers/types/Debank.js';
 import type { ComposeType } from '@/types/compose.js';
@@ -210,6 +211,30 @@ export interface Article {
         json: string;
     };
 }
+
+export interface FireflySnapshotActivity {
+    id: string;
+    timestamp: string;
+    hash: string;
+    owner: Address;
+    // only support vote type
+    type: 'vote';
+    related_urls: string[];
+    metadata: {
+        proposal_id: string;
+        choice: SnapshotChoice;
+        proposal_title: string;
+        proposal_body: string;
+    };
+    displayInfo: { ensHandle: string; avatarUrl: string };
+    followingSources: FollowingSource[];
+    has_bookmarked: boolean;
+}
+
+export type DiscoverSnapshotsResponse = Response<{
+    cursor: number;
+    result: FireflySnapshotActivity[];
+}>;
 
 export interface Response<T> {
     code: number;

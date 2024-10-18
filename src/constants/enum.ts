@@ -61,6 +61,7 @@ export enum Source {
     Article = 'Article',
     Wallet = 'Wallet',
     NFTs = 'NFTs',
+    Snapshot = 'Snapshot',
 }
 
 export enum SourceInURL {
@@ -71,6 +72,7 @@ export enum SourceInURL {
     Article = 'article',
     Wallet = 'wallet',
     NFTs = 'nfts',
+    Snapshot = 'snapshot',
 }
 
 export type SocialSource = Source.Farcaster | Source.Lens | Source.Twitter;
@@ -78,8 +80,8 @@ export type ProfileSource = Source.Farcaster | Source.Lens | Source.Twitter | So
 export type ProfilePageSource = Source.Farcaster | Source.Lens | Source.Twitter | Source.Wallet;
 export type SocialSourceInURL = SourceInURL.Farcaster | SourceInURL.Lens | SourceInURL.Twitter;
 export type SocialDiscoverSource = Source.Farcaster | Source.Lens;
-export type DiscoverSource = SocialDiscoverSource | Source.NFTs | Source.Article;
-export type BookmarkSource = Source.Farcaster | Source.Lens | Source.Article;
+export type DiscoverSource = SocialDiscoverSource | Source.NFTs | Source.Article | Source.Snapshot;
+export type BookmarkSource = Source.Farcaster | Source.Lens | Source.Article | Source.Snapshot;
 
 export enum DiscoverType {
     ForYou = 'for-you',
@@ -125,6 +127,7 @@ export enum WalletProfileCategory {
     POAPs = 'poaps',
     NFTs = 'nfts',
     OnChainActivities = 'activities',
+    DAO = 'DAO',
 }
 
 export enum EngagementType {
@@ -305,4 +308,10 @@ export enum ExternalSiteDomain {
 
 export enum LinkDigestType {
     Snapshot = 'snapshot',
+}
+
+export enum SnapshotState {
+    Active = 'active',
+    Closed = 'closed',
+    Pending = 'pending',
 }

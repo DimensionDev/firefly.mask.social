@@ -177,6 +177,9 @@ msgstr "允許 Lens Manager 無需在每次互動時都簽名，即可進行貼�
 msgid "<0>Market Cap = Current Price x Circulating Supply</0><1>Refers to the total market value of a cryptocurrency’s circulating supply. It is similar to the stock market’s measurement of multiplying price per share by shares readily available in the market (not held & locked by insiders, governments)</1>"
 msgstr ""
 
+msgid "🤑 Just voted “{0}”"
+msgstr ""
+
 msgid "Confirm to sync accounts"
 msgstr "確認以同步帳號"
 
@@ -966,6 +969,9 @@ msgstr "頻道"
 msgid "The hidden owner function is not included. If there is a hidden owner, the project owner may have the ability to control the contract."
 msgstr ""
 
+msgid "{label} on a proposal"
+msgstr ""
+
 msgid "Failed to enable signless"
 msgstr ""
 
@@ -1018,6 +1024,9 @@ msgid "<0>Sold</0> an NFT worth {costEl}"
 msgstr ""
 
 msgid "🎉"
+msgstr ""
+
+msgid "Your vote is in!"
 msgstr ""
 
 msgid "The user canceled the operation."
@@ -1080,6 +1089,9 @@ msgstr "選擇 {0}"
 msgid "Send Feedback"
 msgstr "發送反饋"
 
+msgid "No voting power"
+msgstr ""
+
 msgid "Your draft was saved."
 msgstr "你的草稿已被保存"
 
@@ -1136,6 +1148,9 @@ msgstr ""
 
 msgid "Add account"
 msgstr "新增帳户"
+
+msgid "DAO"
+msgstr ""
 
 msgid "{0} Comments"
 msgstr "{0} 評論"
@@ -1408,6 +1423,9 @@ msgid "Are you sure you want to report this article?"
 msgstr "是否確定要檢舉這篇文章？"
 
 msgid "NFT owner cant bypass the maximum amount of minting specified in the contract, and continue to mint NFTs beyond this limit."
+msgstr ""
+
+msgid "VOTED"
 msgstr ""
 
 msgid "Failed to upvote post."
@@ -1905,6 +1923,9 @@ msgstr ""
 msgid "Send on schedule"
 msgstr ""
 
+msgid "Failed to un-bookmark snapshot."
+msgstr ""
+
 msgid "will send on {0} at {1}"
 msgstr ""
 
@@ -2223,6 +2244,9 @@ msgstr ""
 msgid "Basic Criteria"
 msgstr ""
 
+msgid "Snapshot added to your Bookmarks"
+msgstr ""
+
 msgid "Failed to continue. Please allow Lens Manager for performing actions without the need to sign each transaction."
 msgstr ""
 
@@ -2254,6 +2278,9 @@ msgid "Receive"
 msgstr ""
 
 msgid "Followed by {0} , {1}, and {2}"
+msgstr ""
+
+msgid "Vote"
 msgstr ""
 
 msgid "Ended on {0}"
@@ -2313,8 +2340,14 @@ msgstr ""
 msgid "No money laundering involved."
 msgstr ""
 
+msgid "Failed to bookmark snapshot."
+msgstr ""
+
 msgid "Date"
 msgstr "日期"
+
+msgid "Failed to vote. {0}"
+msgstr ""
 
 msgid "Confirm to log out all accounts?"
 msgstr ""
@@ -2405,6 +2438,9 @@ msgstr ""
 
 msgid "Your {0} account is now connected."
 msgstr "您的 {0} 帳戶現已連接。"
+
+msgid "Not Found"
+msgstr ""
 
 msgid "Checking eligibility"
 msgstr ""
@@ -2724,6 +2760,9 @@ msgstr ""
 msgid "Please confirm the login with X."
 msgstr "請至 X 確認登錄"
 
+msgid "Snapshot removed from your Bookmarks"
+msgstr ""
+
 msgid "Max Supply"
 msgstr ""
 
@@ -2852,6 +2891,9 @@ msgstr ""
 
 msgid "Following"
 msgstr "追蹤中"
+
+msgid "Create a post to tell everyone about your participation. Votes can be changed while the proposal is active."
+msgstr ""
 
 msgid "View transaction on Explorer"
 msgstr ""

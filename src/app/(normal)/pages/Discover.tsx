@@ -11,6 +11,7 @@ import { DiscoverNFTList } from '@/components/NFTs/DiscoverNFTList.js';
 import { DiscoverPostList } from '@/components/Posts/DiscoverPostList.js';
 import { ForYouPostList } from '@/components/Posts/ForYouPostList.js';
 import { RecentPostList } from '@/components/Posts/RecentPostList.js';
+import { DiscoverSnapshotList } from '@/components/Snapshot/DiscoverSnapshotList.js';
 import SuggestedFollowUsersList from '@/components/SuggestedFollows/SuggestedFollowUsersList.js';
 import {
     type DiscoverSource,
@@ -29,6 +30,13 @@ interface Props {
 }
 
 export function DiscoverPage({ source, discover = DiscoverType.Trending }: Props) {
+    if (source === Source.Snapshot) {
+        return (
+            <Suspense fallback={<Loading />}>
+                <DiscoverSnapshotList />
+            </Suspense>
+        );
+    }
     if (source === Source.Article) {
         return (
             <Suspense fallback={<Loading />}>

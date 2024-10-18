@@ -44,6 +44,10 @@ export const GO_PLUS_LABS_ROOT_URL = 'https://gopluslabs.r2d2.to';
 export const DEBANK_OPEN_API = 'https://debank-proxy.r2d2.to';
 export const TWITTER_UPLOAD_MEDIA_URL = 'https://upload.twitter.com/1.1/media/upload.json';
 export const SNAPSHOT_GRAPHQL_URL = 'https://hub.snapshot.org/graphql';
+export const SNAPSHOT_SCORES_URL = 'https://score.snapshot.org';
+export const SNAPSHOT_SEQ_URL = 'https://seq.snapshot.org';
+export const SNAPSHOT_RELAY_URL = 'https://relayer.snapshot.org';
+export const SNAPSHOT_IPFS_GATEWAY_URL = 'https://snapshot.4everland.link/ipfs/';
 
 export const ADVERTISEMENT_JSON_URL = 'https://media.firefly.land/advertisement/web.json';
 export const ADVERTISEMENT_JSON_URL_DEV = 'https://media.firefly.land/advertisement/web-dev.json';
@@ -79,6 +83,7 @@ export const WALLET_PROFILE_TAB_TYPES = [
     WalletProfileCategory.POAPs,
     WalletProfileCategory.NFTs,
     WalletProfileCategory.Articles,
+    WalletProfileCategory.DAO,
 ];
 export const SORTED_ENGAGEMENT_TAB_TYPE: Record<SocialSource, EngagementType[]> = {
     [Source.Lens]: [EngagementType.Likes, EngagementType.Quotes, EngagementType.Mirrors],
@@ -118,12 +123,17 @@ export const SUPPORTED_FRAME_SOURCES: SocialSource[] = [Source.Farcaster, Source
 export const SUPPORTED_PREVIEW_MEDIA_TYPES: Array<Attachment['type']> = ['Image', 'AnimatedGif'];
 export const SUPPORTED_VIDEO_SOURCES: SocialSource[] = [Source.Farcaster, Source.Lens, Source.Twitter];
 export const SOCIAL_DISCOVER_SOURCE: SocialDiscoverSource[] = [Source.Farcaster, Source.Lens] as const;
-export const DISCOVER_SOURCES: DiscoverSource[] = [...SOCIAL_DISCOVER_SOURCE, Source.NFTs, Source.Article] as const;
+export const DISCOVER_SOURCES: DiscoverSource[] = [
+    ...SOCIAL_DISCOVER_SOURCE,
+    Source.NFTs,
+    Source.Article,
+    Source.Snapshot,
+] as const;
 export const DISCOVER_TYPES = {
     [Source.Farcaster]: [DiscoverType.Trending, DiscoverType.TopProfiles, DiscoverType.TopChannels],
     [Source.Lens]: [DiscoverType.Trending, DiscoverType.TopProfiles],
 };
-export const BOOKMARK_SOURCES: BookmarkSource[] = [Source.Farcaster, Source.Lens, Source.Article];
+export const BOOKMARK_SOURCES: BookmarkSource[] = [Source.Farcaster, Source.Lens, Source.Article, Source.Snapshot];
 
 export const TIPS_SUPPORT_NETWORKS = [NetworkType.Ethereum];
 
