@@ -6,6 +6,7 @@ import { delay } from '@masknet/kit';
 import { usePathname } from 'next/navigation.js';
 import { memo } from 'react';
 
+import ActivityIcon from '@/assets/activity.svg';
 import BookmarkSelectedIcon from '@/assets/bookmark.selected.svg';
 import BookmarkIcon from '@/assets/bookmark.svg';
 import CircleShareIcon from '@/assets/circle-share.svg';
@@ -119,6 +120,13 @@ export const Menu = memo(function Menu({ collapsed = false }: MenuProps) {
                                 name: <Trans>Connect</Trans>,
                                 icon: WalletIcon,
                                 selectedIcon: WalletIcon,
+                            },
+                            {
+                                href: PageRoute.Events,
+                                name: <Trans>Firefly Garden</Trans>,
+                                icon: ActivityIcon,
+                                selectedIcon: ActivityIcon,
+                                match: () => isRoutePathname(pathname, PageRoute.Events),
                             },
                             {
                                 href: PageRoute.Settings,
