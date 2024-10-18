@@ -58,7 +58,7 @@ export const MIN_WIDTH_PER_VIDEO: Limitation = {
 };
 
 export const MAX_WIDTH_PER_VIDEO: Limitation = {
-    [Source.Twitter]: 1280,
+    [Source.Twitter]: Infinity,
     [Source.Lens]: 4096,
     [Source.Farcaster]: 4096,
 };
@@ -70,7 +70,7 @@ export const MIN_HEIGHT_PER_VIDEO: Limitation = {
 };
 
 export const MAX_HEIGHT_PER_VIDEO: Limitation = {
-    [Source.Twitter]: 1280,
+    [Source.Twitter]: Infinity,
     [Source.Lens]: 4096,
     [Source.Farcaster]: 4096,
 };
