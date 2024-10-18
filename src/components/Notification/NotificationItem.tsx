@@ -360,7 +360,7 @@ export const NotificationItem = memo<NotificationItemProps>(function Notificatio
                         <div className="flex flex-1 items-center justify-between">
                             <AvatarGroup profiles={profiles.slice(0, 5)} />
                             <div className="flex items-center space-x-2">
-                                <SocialSourceIcon source={notification.source} />
+                                <SocialSourceIcon mono source={notification.source} className="text-second" />
                                 {notification.timestamp ? (
                                     <span className="text-xs leading-4 text-secondary">
                                         <TimestampFormatter time={notification.timestamp} />

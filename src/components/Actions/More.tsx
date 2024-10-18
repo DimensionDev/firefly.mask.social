@@ -1,4 +1,4 @@
-import { Menu } from '@headlessui/react';
+import { MenuItem, MenuItems } from '@headlessui/react';
 import { t, Trans } from '@lingui/macro';
 import { first } from 'lodash-es';
 import { memo, useCallback } from 'react';
@@ -90,6 +90,7 @@ export const MoreAction = memo<MoreProps>(function MoreAction({ source, author, 
 
     return (
         <MoreActionMenu
+            className="z-10"
             source={source}
             button={
                 <Tooltip content={t`More`} placement="top">
@@ -97,12 +98,14 @@ export const MoreAction = memo<MoreProps>(function MoreAction({ source, author, 
                 </Tooltip>
             }
         >
-            <Menu.Items
-                className="absolute right-0 z-[1000] flex w-max flex-col gap-2 overflow-hidden rounded-2xl border border-line bg-primaryBottom py-3 text-base text-main"
+            <MenuItems
+                className="z-[1000] flex w-max flex-col gap-2 overflow-hidden rounded-2xl border border-line bg-primaryBottom py-3 text-base text-main"
                 onClick={stopEvent}
+                portal
+                anchor="bottom end"
             >
                 {isMyPost ? (
-                    <Menu.Item>
+                    <MenuItem>
                         {({ close }) => (
                             <MenuButton
                                 onClick={async () => {
@@ -120,12 +123,12 @@ export const MoreAction = memo<MoreProps>(function MoreAction({ source, author, 
                                 </span>
                             </MenuButton>
                         )}
-                    </Menu.Item>
+                    </MenuItem>
                 ) : (
                     <>
                         {!isMyProfile ? (
                             <>
-                                <Menu.Item>
+                                <MenuItem>
                                     {({ close }) => (
                                         <BaseToggleFollowButton
                                             className="flex h-8 cursor-pointer items-center space-x-2 px-3 py-1 hover:bg-bg"
@@ -135,18 +138,18 @@ export const MoreAction = memo<MoreProps>(function MoreAction({ source, author, 
                                             {followButtonLabelRender}
                                         </BaseToggleFollowButton>
                                     )}
-                                </Menu.Item>
+                                </MenuItem>
                                 {post && [Source.Lens, Source.Farcaster].includes(source) ? (
-                                    <Menu.Item>
+                                    <MenuItem>
                                         {({ close }) => (
                                             <ReportPostButton post={post} onReport={reportPost} onClick={close} />
                                         )}
-                                    </Menu.Item>
+                                    </MenuItem>
                                 ) : null}
                             </>
                         ) : null}
                         {channel && currentProfile ? (
-                            <Menu.Item>
+                            <MenuItem>
                                 {({ close }) => (
                                     <MuteChannelButton
                                         channel={channel}
@@ -160,11 +163,11 @@ export const MoreAction = memo<MoreProps>(function MoreAction({ source, author, 
                                         onClick={close}
                                     />
                                 )}
-                            </Menu.Item>
+                            </MenuItem>
                         ) : null}
                         {!isMyProfile ? (
                             <>
-                                <Menu.Item>
+                                <MenuItem>
                                     {({ close }) => (
                                         <MuteProfileButton
                                             profile={author}
@@ -172,16 +175,16 @@ export const MoreAction = memo<MoreProps>(function MoreAction({ source, author, 
                                             onClick={close}
                                         />
                                     )}
-                                </Menu.Item>
+                                </MenuItem>
                             </>
                         ) : null}
                     </>
                 )}
                 {post && post.source !== Source.Twitter ? (
-                    <Menu.Item>{({ close }) => <BookmarkButton post={post} onClick={close} />}</Menu.Item>
+                    <MenuItem>{({ close }) => <BookmarkButton post={post} onClick={close} />}</MenuItem>
                 ) : null}
                 {post?.postId && post.source !== Source.Twitter ? (
-                    <Menu.Item
+                    <MenuItem
                         as={Link}
                         shallow
                         href={`/post/${post.postId}/${engagementType}?source=${resolveSocialSourceInUrl(source)}`}
@@ -192,9 +195,9 @@ export const MoreAction = memo<MoreProps>(function MoreAction({ source, author, 
                         <span className="font-bold leading-[22px] text-main">
                             <Trans>View engagements</Trans>
                         </span>
-                    </Menu.Item>
+                    </MenuItem>
                 ) : null}
-            </Menu.Items>
+            </MenuItems>
         </MoreActionMenu>
     );
 });
