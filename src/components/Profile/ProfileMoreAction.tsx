@@ -1,4 +1,4 @@
-import { Menu, type MenuProps } from '@headlessui/react';
+import { MenuItem, MenuItems, type MenuProps } from '@headlessui/react';
 import { Trans } from '@lingui/macro';
 import { memo } from 'react';
 import urlcat from 'urlcat';
@@ -50,14 +50,18 @@ export const ProfileMoreAction = memo<ProfileMoreActionProps>(function ProfileMo
             button={<MoreCircleIcon width={32} height={32} />}
             className={className}
         >
-            <Menu.Items
-                className="absolute right-0 z-[1000] flex w-max flex-col gap-2 overflow-hidden rounded-2xl border border-line bg-primaryBottom py-3 text-base text-main"
+            <MenuItems
+                className="z-[1000] flex w-max flex-col gap-2 overflow-hidden rounded-2xl border border-line bg-primaryBottom py-3 text-base text-main"
                 onClick={stopEvent}
+                portal
+                anchor="bottom end"
             >
-                <Menu.Item>
+                <MenuItem>
                     {({ close }) => (
                         <MenuButton
-                            onClick={async () => {
+                            enableDefault
+                            enablePropagate
+                            onClick={() => {
                                 close();
                                 handleCopy();
                             }}
@@ -68,26 +72,26 @@ export const ProfileMoreAction = memo<ProfileMoreActionProps>(function ProfileMo
                             </span>
                         </MenuButton>
                     )}
-                </Menu.Item>
+                </MenuItem>
 
                 {!isRelatedProfile ? (
                     <>
                         {profile.source === Source.Lens ? (
-                            <Menu.Item>
+                            <MenuItem>
                                 {({ close }) => (
                                     <ReportProfileButton onConfirm={close} profile={profile} onReport={reportProfile} />
                                 )}
-                            </Menu.Item>
+                            </MenuItem>
                         ) : null}
-                        <Menu.Item>
+                        <MenuItem>
                             {({ close }) => (
                                 <MuteProfileButton onConfirm={close} profile={profile} onToggle={toggleMutedProfile} />
                             )}
-                        </Menu.Item>
-                        <Menu.Item>{({ close }) => <MuteAllByProfile profile={profile} onClose={close} />}</Menu.Item>
+                        </MenuItem>
+                        <MenuItem>{({ close }) => <MuteAllByProfile profile={profile} onClose={close} />}</MenuItem>
                     </>
                 ) : null}
-            </Menu.Items>
+            </MenuItems>
         </MoreActionMenu>
     );
 });
