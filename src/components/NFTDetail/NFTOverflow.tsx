@@ -32,7 +32,7 @@ function EVMExplorerLink(props: { address: string; type: 'address' | 'tx'; chain
             <span className="break-all">
                 {props.address}
                 <span className="ml-1">
-                    <CopyTextButton value={props.address} />
+                    <CopyTextButton text={props.address} />
                 </span>
                 <a
                     href={resolveExplorerLink(props.chainId, props.address)}

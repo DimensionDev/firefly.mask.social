@@ -293,7 +293,7 @@ export const TokenDetail = memo<Props>(function TokenDetail({ symbol, children, 
                                             {formatContractAddress(contracts[0])}
                                         </span>
                                     </Tooltip>
-                                    <CopyTextButton value={contracts[0].address} />
+                                    <CopyTextButton text={contracts[0].address} />
                                     {contracts.length > 1 ? <ContractList contracts={contracts} /> : null}
                                 </div>
                             }

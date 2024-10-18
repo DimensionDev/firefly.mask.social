@@ -78,7 +78,7 @@ export function WalletItem({ connection, noAction = false }: WalletItemProps) {
                               ? formatSolanaAddress(connection.address, 8)
                               : connection.address}
                     </span>
-                    <CopyTextButton value={connection.address} />
+                    <CopyTextButton text={connection.address} />
                     {addressLink ? (
                         <Link target="_blank" className="ml-1" href={addressLink}>
                             <LinkIcon width={13} height={13} />
