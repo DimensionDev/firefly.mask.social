@@ -30,6 +30,7 @@ class Telemetry extends Provider<Events, never> {
         parameters: Omit<Events[T]['parameters'], keyof ReturnType<typeof getPublicParameters>>,
     ): Promise<void> {
         if (env.external.NEXT_PUBLIC_TELEMETRY === STATUS.Disabled) {
+            console.log('[telemetry] event capture is disabled');
             return;
         }
 
