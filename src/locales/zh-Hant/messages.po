@@ -492,9 +492,6 @@ msgstr "搜尋"
 msgid "Followed by {0}"
 msgstr ""
 
-msgid "Followed<0>@{handle}</0>on {0}"
-msgstr ""
-
 msgid "Failed to unfollow @{0} on {sourceName}."
 msgstr "在 {sourceName} 上取消追蹤 @{0} 失敗。"
 
@@ -2222,6 +2219,9 @@ msgstr ""
 
 msgid "Invalid URL"
 msgstr "無效的 URL"
+
+msgid "Followed <0>@{handle}</0> on {0}"
+msgstr ""
 
 msgid "View on explorer"
 msgstr ""

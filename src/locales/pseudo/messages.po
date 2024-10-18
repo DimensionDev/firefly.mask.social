@@ -487,9 +487,6 @@ msgstr ""
 msgid "Followed by {0}"
 msgstr ""
 
-msgid "Followed<0>@{handle}</0>on {0}"
-msgstr ""
-
 msgid "Failed to unfollow @{0} on {sourceName}."
 msgstr ""
 
@@ -2216,6 +2213,9 @@ msgid "Firefly Bridge"
 msgstr ""
 
 msgid "Invalid URL"
+msgstr ""
+
+msgid "Followed <0>@{handle}</0> on {0}"
 msgstr ""
 
 msgid "View on explorer"

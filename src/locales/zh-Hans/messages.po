@@ -492,9 +492,6 @@ msgstr "搜索"
 msgid "Followed by {0}"
 msgstr "被 {0} 关注"
 
-msgid "Followed<0>@{handle}</0>on {0}"
-msgstr ""
-
 msgid "Failed to unfollow @{0} on {sourceName}."
 msgstr "在 {sourceName} 上取消关注 @{0} 失败。"
 
@@ -2222,6 +2219,9 @@ msgstr "Firefly 桥"
 
 msgid "Invalid URL"
 msgstr "无效的 URL"
+
+msgid "Followed <0>@{handle}</0> on {0}"
+msgstr ""
 
 msgid "View on explorer"
 msgstr "在区块链浏览器查看"
