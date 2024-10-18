@@ -99,7 +99,7 @@ export function SnapshotBody({ snapshot, link, postId }: Props) {
         if (type === 'approval' && isArray(selectedChoices) && !selectedChoices.length) return true;
 
         if (
-            (type === 'quadradic' || type === 'weighted') &&
+            (type === 'quadratic' || type === 'weighted') &&
             isObject(selectedChoices) &&
             sum(values(selectedChoices)) === 0
         )
