@@ -7,13 +7,11 @@ import WebsiteIcon from '@/assets/website.svg';
 import { CountdownTimer } from '@/components/Calendar/CountdownTimer.js';
 import { EmptyStatus } from '@/components/Calendar/EmptyStatus.js';
 import { LoadingStatus } from '@/components/Calendar/LoadingStatus.js';
-import { ClickableButton } from '@/components/ClickableButton.js';
 import { Image } from '@/components/Image.js';
 import { Tooltip } from '@/components/Tooltip.js';
 import { XIcon } from '@/components/XIcon.js';
 import { Link } from '@/esm/Link.js';
 import { fixUrlProtocol } from '@/helpers/fixUrlProtocol.js';
-import { openWindow } from '@/helpers/openWindow.js';
 
 interface NFTListProps {
     list: Record<string, any[]>;
@@ -24,7 +22,7 @@ interface NFTListProps {
 const SocialIcons: Record<string, ReactNode> = {
     twitter: <XIcon width={20} height={20} />,
     discord: <DiscordRoundIcon width={20} height={20} />,
-    website: <WebsiteIcon width={20} height={20} className="scale-150" />,
+    website: <WebsiteIcon width={20} height={20} />,
 };
 
 const sortPlat = (_: any, b: { type: string }) => {
@@ -59,12 +57,9 @@ export function NFTList({ list, isLoading, date }: NFTListProps) {
                                     {dayjs(new Date(key)).format('MMM DD, YYYY')}
                                 </p>
                                 {list[key].map((v) => (
-                                    <Link
-                                        className="flex cursor-pointer flex-col gap-2 border-b border-line p-2 outline-none last:border-none hover:no-underline"
+                                    <div
+                                        className="flex flex-col gap-2 border-b border-line p-2 outline-none last:border-none hover:no-underline"
                                         key={v.event_url}
-                                        href={fixUrlProtocol(v.event_url)}
-                                        rel="noopener noreferrer"
-                                        target="_blank"
                                     >
                                         <div className="flex w-full justify-between">
                                             <div className="flex items-center gap-2 text-main">
@@ -75,7 +70,14 @@ export function NFTList({ list, isLoading, date }: NFTListProps) {
                                                     height={24}
                                                     alt={v.project.name}
                                                 />
-                                                <p className="text-sm font-bold text-main">{v.project.name}</p>
+                                                <Link
+                                                    className="link-overlay text-sm font-bold text-main"
+                                                    href={fixUrlProtocol(v.event_url)}
+                                                    rel="noopener noreferrer"
+                                                    target="_blank"
+                                                >
+                                                    {v.project.name}
+                                                </Link>
                                             </div>
                                         </div>
                                         <p className="overflow-hidden overflow-ellipsis whitespace-nowrap text-main">
@@ -93,14 +95,14 @@ export function NFTList({ list, isLoading, date }: NFTListProps) {
                                                                 placement="top"
                                                                 key={platform.type}
                                                             >
-                                                                <ClickableButton
-                                                                    className="h-5 w-5"
-                                                                    onClick={() => {
-                                                                        openWindow(platform.url);
-                                                                    }}
+                                                                <Link
+                                                                    className="z-10 h-5 w-5"
+                                                                    href={platform.url}
+                                                                    rel="noopener noreferrer"
+                                                                    target="_blank"
                                                                 >
                                                                     {SocialIcons[platform.type]}
-                                                                </ClickableButton>
+                                                                </Link>
                                                             </Tooltip>
                                                         );
                                                     })}
@@ -137,7 +139,7 @@ export function NFTList({ list, isLoading, date }: NFTListProps) {
                                             height={150}
                                             alt="poster"
                                         />
-                                    </Link>
+                                    </div>
                                 ))}
                             </div>
                         );
