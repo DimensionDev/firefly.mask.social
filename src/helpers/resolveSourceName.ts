@@ -11,7 +11,7 @@ export const resolveSourceName = createLookupTableResolver<Source, string>(
         [Source.Article]: 'Articles',
         [Source.Wallet]: 'Wallets',
         [Source.NFTs]: 'NFTs',
-        [Source.DAO]: 'DAOs',
+        [Source.Snapshot]: 'DAOs',
     },
     (source) => {
         throw new UnreachableError('source', source);

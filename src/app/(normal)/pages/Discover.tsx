@@ -30,7 +30,7 @@ interface Props {
 }
 
 export function DiscoverPage({ source, discover = DiscoverType.Trending }: Props) {
-    if (source === Source.DAO) {
+    if (source === Source.Snapshot) {
         return (
             <Suspense fallback={<Loading />}>
                 <DiscoverSnapshotList />

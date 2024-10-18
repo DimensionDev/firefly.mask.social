@@ -23,13 +23,13 @@ export const DiscoverSnapshotList = memo(function DiscoverSnapshotList() {
 
     return (
         <ListInPage
-            source={Source.DAO}
+            source={Source.Snapshot}
             queryResult={snapshotQueryResult}
             NoResultsFallbackProps={{
                 className: 'md:pt-[228px] max-md:py-20',
             }}
             VirtualListProps={{
-                listKey: `${ScrollListKey.Discover}:${Source.DAO}`,
+                listKey: `${ScrollListKey.Discover}:${Source.Snapshot}`,
                 computeItemKey: (index, snapshot) => `${snapshot.id}-${index}`,
                 itemContent: (index, snapshot) => getSnapshotItemContent(index, snapshot),
             }}

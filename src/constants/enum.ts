@@ -61,7 +61,7 @@ export enum Source {
     Article = 'Article',
     Wallet = 'Wallet',
     NFTs = 'NFTs',
-    DAO = 'DAO',
+    Snapshot = 'Snapshot',
 }
 
 export enum SourceInURL {
@@ -72,7 +72,7 @@ export enum SourceInURL {
     Article = 'article',
     Wallet = 'wallet',
     NFTs = 'nfts',
-    DAO = 'dao',
+    Snapshot = 'snapshot',
 }
 
 export type SocialSource = Source.Farcaster | Source.Lens | Source.Twitter;
@@ -80,8 +80,8 @@ export type ProfileSource = Source.Farcaster | Source.Lens | Source.Twitter | So
 export type ProfilePageSource = Source.Farcaster | Source.Lens | Source.Twitter | Source.Wallet;
 export type SocialSourceInURL = SourceInURL.Farcaster | SourceInURL.Lens | SourceInURL.Twitter;
 export type SocialDiscoverSource = Source.Farcaster | Source.Lens;
-export type DiscoverSource = SocialDiscoverSource | Source.NFTs | Source.Article | Source.DAO;
-export type BookmarkSource = Source.Farcaster | Source.Lens | Source.Article | Source.DAO;
+export type DiscoverSource = SocialDiscoverSource | Source.NFTs | Source.Article | Source.Snapshot;
+export type BookmarkSource = Source.Farcaster | Source.Lens | Source.Article | Source.Snapshot;
 
 export enum DiscoverType {
     ForYou = 'for-you',
@@ -181,16 +181,7 @@ export enum BookmarkType {
     Image = 'image',
 }
 
-export enum FireflyPlatform {
-    Farcaster = 'farcaster',
-    Lens = 'lens',
-    Twitter = 'twitter',
-    Firefly = 'firefly',
-    Article = 'article',
-    Wallet = 'wallet',
-    NFTs = 'nfts',
-    Snapshot = 'snapshot',
-}
+export { SourceInURL as FireflyPlatform };
 
 export enum MuteType {
     Profile = 'profile',

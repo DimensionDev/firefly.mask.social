@@ -43,7 +43,7 @@ export function SquareSourceIcon({ source, size = 20, forceLight, ...props }: Sq
             return <FireflyIcon {...props} style={style} width={size} height={size} />;
         case Source.NFTs:
         case Source.Article:
-        case Source.DAO:
+        case Source.Snapshot:
             return null;
         default:
             safeUnreachable(source);

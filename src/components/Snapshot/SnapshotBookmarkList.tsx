@@ -26,7 +26,7 @@ export function SnapshotBookmarkList() {
     const query = useSuspenseInfiniteQuery({
         queryKey: [
             'snapshots',
-            Source.DAO,
+            Source.Snapshot,
             'bookmark',
             SORTED_SOCIAL_SOURCES.map((x) => currentProfileAll[x]?.profileId),
         ],
@@ -54,14 +54,14 @@ export function SnapshotBookmarkList() {
 
     return (
         <ListInPage
-            source={Source.DAO}
+            source={Source.Snapshot}
             queryResult={query}
             loginRequired
             NoResultsFallbackProps={{
                 className: 'md:pt-[228px] max-md:py-20',
             }}
             VirtualListProps={{
-                listKey: `${ScrollListKey.Following}:${Source.DAO}`,
+                listKey: `${ScrollListKey.Following}:${Source.Snapshot}`,
                 computeItemKey: (index, snapshot) => `${snapshot.id}-${index}`,
                 itemContent: (index, snapshot) => getSnapshotItemContent(index, snapshot),
             }}
