@@ -38,26 +38,26 @@ export const SingleSnapshotHeader = memo<SingleSnapshotHeaderProps>(function Sin
                 />
             </Link>
 
-            <div className="flex max-w-[calc(100%-40px-88px-24px)] flex-1 items-center gap-2 overflow-hidden">
+            <div className="flex max-w-[calc(100%-40px-68px-24px)] flex-1 items-center gap-2 overflow-hidden">
                 <Link
                     href={authorUrl}
                     onClick={(event) => event.stopPropagation()}
-                    className="block truncate text-clip text-medium font-bold leading-5 text-main"
+                    className="block truncate text-medium font-bold leading-6 text-main max-md:max-w-[60px]"
                 >
                     {data.author.handle || ens}
                 </Link>
-                <Link href={authorUrl} className="truncate text-clip text-medium leading-6 text-secondary">
+                <Link href={authorUrl} className="truncate text-medium leading-6 text-secondary">
                     <address className="not-italic">{formatEthereumAddress(data.author.id, 4)}</address>
                 </Link>
-                <span className="truncate text-medium leading-6 text-secondary">
+                <span className="text-medium leading-6 text-secondary">
                     <Time
                         dateTime={data.timestamp}
-                        className="whitespace-nowrap text-xs leading-4 text-secondary md:text-[13px]"
+                        className="whitespace-nowrap text-medium leading-6 text-secondary md:text-[13px]"
                     >
                         <TimestampFormatter time={data.timestamp} />
                     </Time>
                 </span>
-                <SnapshotIcon width={15} height={15} />
+                <SnapshotIcon width={16} height={16} />
             </div>
             <div className="ml-auto flex items-center space-x-2">
                 <SnapshotMoreAction data={data} />
