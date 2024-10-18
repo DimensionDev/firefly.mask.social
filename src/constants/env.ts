@@ -60,6 +60,7 @@ const ExternalEnvSchema = z.object({
     NEXT_PUBLIC_DEVELOPERS: z.nativeEnum(STATUS).default(STATUS.Enabled),
     NEXT_PUBLIC_TELEMETRY: z.nativeEnum(STATUS).default(STATUS.Disabled),
     NEXT_PUBLIC_FIREFLY_DEV_API: z.nativeEnum(STATUS).default(STATUS.Disabled),
+    NEXt_PUBLIC_PARTICLE: z.nativeEnum(STATUS).default(STATUS.Disabled),
 
     // hubble
     NEXT_PUBLIC_HUBBLE_URL: z.string().default('https://api.neynar.com:2281'),
