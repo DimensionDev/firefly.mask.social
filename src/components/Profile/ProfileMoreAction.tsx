@@ -59,8 +59,6 @@ export const ProfileMoreAction = memo<ProfileMoreActionProps>(function ProfileMo
                 <MenuItem>
                     {({ close }) => (
                         <MenuButton
-                            enableDefault
-                            enablePropagate
                             onClick={() => {
                                 close();
                                 handleCopy();

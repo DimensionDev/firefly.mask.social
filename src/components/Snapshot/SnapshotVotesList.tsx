@@ -46,11 +46,11 @@ const SnapshotVotesListItem = memo<SnapshotVotesListItemProps>(function Snapshot
                     }
                     alt={ens || vote.voter}
                 />
-                <Tooltip placement="top" content={ens || formatEthereumAddress(vote.voter, 4)}>
+                <Tooltip className="max-sm:block" placement="top" content={ens || formatEthereumAddress(vote.voter, 4)}>
                     <div className="truncate">{ens || formatEthereumAddress(vote.voter, 4)}</div>
                 </Tooltip>
             </Link>
-            <Tooltip placement="top-start" content={choiceLabel}>
+            <Tooltip className="max-sm:block" placement="top-start" content={choiceLabel}>
                 <div className="flex-1 truncate">{choiceLabel}</div>
             </Tooltip>
 
