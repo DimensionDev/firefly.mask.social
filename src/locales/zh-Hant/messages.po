@@ -8,7 +8,7 @@ msgstr ""
 "Language: zh\n"
 "Project-Id-Version: masksocial\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-10-16 12:01\n"
+"PO-Revision-Date: 2024-10-18 00:05\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Traditional\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
@@ -1149,6 +1149,9 @@ msgstr ""
 msgid "Add account"
 msgstr "新增帳户"
 
+msgid "DAO"
+msgstr ""
+
 msgid "{0} Comments"
 msgstr "{0} 評論"
 
@@ -1920,6 +1923,9 @@ msgstr ""
 msgid "Send on schedule"
 msgstr ""
 
+msgid "Failed to un-bookmark snapshot."
+msgstr ""
+
 msgid "will send on {0} at {1}"
 msgstr ""
 
@@ -2238,6 +2244,9 @@ msgstr ""
 msgid "Basic Criteria"
 msgstr ""
 
+msgid "Snapshot added to your Bookmarks"
+msgstr ""
+
 msgid "Failed to continue. Please allow Lens Manager for performing actions without the need to sign each transaction."
 msgstr ""
 
@@ -2329,6 +2338,9 @@ msgid "{0} and others"
 msgstr ""
 
 msgid "No money laundering involved."
+msgstr ""
+
+msgid "Failed to bookmark snapshot."
 msgstr ""
 
 msgid "Date"
@@ -2426,6 +2438,9 @@ msgstr ""
 
 msgid "Your {0} account is now connected."
 msgstr "您的 {0} 帳戶現已連接。"
+
+msgid "Not Found"
+msgstr ""
 
 msgid "Checking eligibility"
 msgstr ""
@@ -2744,6 +2759,9 @@ msgstr ""
 
 msgid "Please confirm the login with X."
 msgstr "請至 X 確認登錄"
+
+msgid "Snapshot removed from your Bookmarks"
+msgstr ""
 
 msgid "Max Supply"
 msgstr ""

@@ -7,6 +7,7 @@ import linkifyRegex from 'remark-linkify-regex';
 
 import { Code } from '@/components/Code.js';
 import { ImageAsset } from '@/components/Posts/ImageAsset.js';
+import { SNAPSHOT_IPFS_GATEWAY_URL } from '@/constants/index.js';
 import {
     BIO_TWITTER_PROFILE_REGEX,
     HASHTAG_REGEX,
@@ -17,7 +18,6 @@ import {
 import { classNames } from '@/helpers/classNames.js';
 import { sanitizeDStorageUrl } from '@/helpers/sanitizeDStorageUrl.js';
 import { trimify } from '@/helpers/trimify.js';
-import { SNAPSHOT_IPFS_GATEWAY_URL } from '@/constants/index.js';
 
 export const SnapshotMarkup = memo<ReactMarkdownOptions>(function SnapshotMarkup({ children, ...rest }) {
     const plugins = [

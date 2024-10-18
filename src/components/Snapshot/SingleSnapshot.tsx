@@ -6,14 +6,10 @@ import VoteIcon from '@/assets/snapshot/vote.svg';
 import { CollapsedContent } from '@/components/Posts/CollapsedContent.js';
 import { SingleSnapshotHeader } from '@/components/Snapshot/SingleSnapshotHeader.js';
 import { SnapshotBody } from '@/components/Snapshot/SnapshotBody.js';
+import { SnapshotFallbackContent } from '@/components/Snapshot/SnapshotFallbackContent.js';
 import { classNames } from '@/helpers/classNames.js';
 import { formatSnapshotChoice } from '@/helpers/formatSnapshotChoice.js';
 import type { SnapshotActivity } from '@/providers/snapshot/type.js';
-import { IS_APPLE, IS_SAFARI } from '@/constants/bowser.js';
-import { ClickableArea } from '@/components/ClickableArea.js';
-import { SnapshotMarkup } from '@/components/Markup/SnapshotMarkup.js';
-import { Tab } from '@headlessui/react';
-import { SnapshotFallbackContent } from '@/components/Snapshot/SnapshotFallbackContent.js';
 
 interface SingleSnapshotProps {
     data: SnapshotActivity;

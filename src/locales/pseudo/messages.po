@@ -1144,6 +1144,9 @@ msgstr ""
 msgid "Add account"
 msgstr ""
 
+msgid "DAO"
+msgstr ""
+
 msgid "{0} Comments"
 msgstr ""
 
@@ -1915,6 +1918,9 @@ msgstr ""
 msgid "Send on schedule"
 msgstr ""
 
+msgid "Failed to un-bookmark snapshot."
+msgstr ""
+
 msgid "will send on {0} at {1}"
 msgstr ""
 
@@ -2233,6 +2239,9 @@ msgstr ""
 msgid "Basic Criteria"
 msgstr ""
 
+msgid "Snapshot added to your Bookmarks"
+msgstr ""
+
 msgid "Failed to continue. Please allow Lens Manager for performing actions without the need to sign each transaction."
 msgstr ""
 
@@ -2324,6 +2333,9 @@ msgid "{0} and others"
 msgstr ""
 
 msgid "No money laundering involved."
+msgstr ""
+
+msgid "Failed to bookmark snapshot."
 msgstr ""
 
 msgid "Date"
@@ -2420,6 +2432,9 @@ msgid "Your BNB Chain wallet holds assets worth over $10,000."
 msgstr ""
 
 msgid "Your {0} account is now connected."
+msgstr ""
+
+msgid "Not Found"
 msgstr ""
 
 msgid "Checking eligibility"
@@ -2738,6 +2753,9 @@ msgid "No parent post found."
 msgstr ""
 
 msgid "Please confirm the login with X."
+msgstr ""
+
+msgid "Snapshot removed from your Bookmarks"
 msgstr ""
 
 msgid "Max Supply"

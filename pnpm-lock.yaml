@@ -13,7 +13,6 @@ overrides:
   i18next-translation-parser>html-parse-stringify2: github:locize/html-parse-stringify2#d463109433b2c49c74a081044f54b2a6a1ccad7c
   web3@0.20.7>bignumber.js: git+https://github.com/frozeman/bignumber.js-nolookahead.git#57692b3ecfc98bbdd6b3a516cb2353652ea49934
   '@mui/base': 5.0.0-beta.38
-  '@protobufjs/inquire': 1.1.0
   reflect-metadata: 0.1.13
   webpack@5: Jack-Works/webpack#528c91e564d5756e21c9c462b607d913452af770
   react: 0.0.0-experimental-8039e6d0b-20231026
@@ -44,9 +43,6 @@ patchedDependencies:
   '@particle-network/auth-core@2.0.4':
     hash: y5pebe2cxou6y2f6nbcd75kcyq
     path: patches/@particle-network__auth-core@2.0.4.patch
-  '@protobufjs/inquire@1.1.0':
-    hash: cc6ztxhxwsg3dyqdzvftqua3dy
-    path: src/maskbook/patches/@protobufjs__inquire@1.1.0.patch
   dayjs-twitter@0.5.0:
     hash: 3tjtunpncvdv4s34umzp7pmbr4
     path: patches/dayjs-twitter@0.5.0.patch
@@ -11058,17 +11054,16 @@ packages:
     resolution: {integrity: sha512-lljVXpqXebpsijW71PZaCYeIcE5on1w5DlQy5WH6GLbFryLUrBD4932W/E2BSpfRJWseIL4v/KPgBFxDOIdKpQ==}
     dependencies:
       '@protobufjs/aspromise': 1.1.2
-      '@protobufjs/inquire': 1.1.0(patch_hash=cc6ztxhxwsg3dyqdzvftqua3dy)
+      '@protobufjs/inquire': 1.1.0
     dev: false
 
   /@protobufjs/float@1.0.2:
     resolution: {integrity: sha512-Ddb+kVXlXst9d+R9PfTIxh1EdNkgoRe5tOX6t01f1lYWOvJnSPDBlG241QLzcyPdoNTsblLUdujGSE4RzrTZGQ==}
     dev: false
 
-  /@protobufjs/inquire@1.1.0(patch_hash=cc6ztxhxwsg3dyqdzvftqua3dy):
+  /@protobufjs/inquire@1.1.0:
     resolution: {integrity: sha512-kdSefcPdruJiFMVSbn801t4vFK7KB/5gd2fYvrxhuJYg8ILrmn9SKSX2tZdV6V+ksulWqS7aXjBcRXl3wHoD9Q==}
     dev: false
-    patched: true
 
   /@protobufjs/path@1.1.2:
     resolution: {integrity: sha512-6JOcJ5Tm08dOHAbdR3GrvP+yUUfkjG5ePsHYczMFLq3ZmMkAD98cDgcT2iA1lJ9NVwFd4tH/iSSoe44YWkltEA==}
@@ -14410,7 +14405,7 @@ packages:
     resolution: {integrity: sha512-LZmYCKcPQDtJgecvWOgT/cnoIQPWjdH+QVyzPcFvyDUiT0DiRjZaam4aqNUyvchLFhzgunv3d9xOoyE34ofdoQ==}
     engines: {node: '>= 10'}
     dependencies:
-      '@babel/runtime': 7.24.1
+      '@babel/runtime': 7.25.7
       '@solana/web3.js': 1.95.3
       bn.js: 5.2.1
       buffer: 6.0.3
@@ -17554,7 +17549,7 @@ packages:
     resolution: {integrity: sha512-bXuaUNLVVkD20wcGBWRyo7j9N3TxePEWFZj2Y+r9OoUzfqmavM84+mFykRicNsBqatba5JLay1t48wxaXaWnlA==}
     engines: {node: '>=8'}
     dependencies:
-      tslib: 2.6.2
+      tslib: 2.8.0
     dev: false
 
   /@wry/context@0.7.4:
@@ -17568,7 +17563,7 @@ packages:
     resolution: {integrity: sha512-BRFORjsTuQv5gxcXsuDXx6oGRhuVsEGwZy6LOzRRfgu+eSfxbhUQ9L9YtSEIuIjY/o7g3iWFjrc5eSY1GXP2Dw==}
     engines: {node: '>=8'}
     dependencies:
-      tslib: 2.6.2
+      tslib: 2.8.0
     dev: false
 
   /@wry/trie@0.4.3:
@@ -17582,7 +17577,7 @@ packages:
     resolution: {integrity: sha512-FNoYzHawTMk/6KMQoEG5O4PuioX19UbwdQKF44yw0nLfOypfQdjtfZzo/UIJWAJ23sNIFbD1Ug9lbaDGMwbqQA==}
     engines: {node: '>=8'}
     dependencies:
-      tslib: 2.6.2
+      tslib: 2.8.0
     dev: false
 
   /@xmldom/xmldom@0.8.10:
@@ -23759,7 +23754,7 @@ packages:
       graphql: ^0.9.0 || ^0.10.0 || ^0.11.0 || ^0.12.0 || ^0.13.0 || ^14.0.0 || ^15.0.0 || ^16.0.0
     dependencies:
       graphql: 16.9.0
-      tslib: 2.6.2
+      tslib: 2.8.0
     dev: false
 
   /graphql@16.9.0:
@@ -27808,7 +27803,7 @@ packages:
       '@wry/caches': 1.0.1
       '@wry/context': 0.7.4
       '@wry/trie': 0.4.3
-      tslib: 2.6.2
+      tslib: 2.8.0
     dev: false
 
   /optionator@0.9.3:
@@ -28749,7 +28744,7 @@ packages:
       '@protobufjs/eventemitter': 1.1.0
       '@protobufjs/fetch': 1.1.0
       '@protobufjs/float': 1.0.2
-      '@protobufjs/inquire': 1.1.0(patch_hash=cc6ztxhxwsg3dyqdzvftqua3dy)
+      '@protobufjs/inquire': 1.1.0
       '@protobufjs/path': 1.1.2
       '@protobufjs/pool': 1.1.0
       '@protobufjs/utf8': 1.1.0
@@ -32056,7 +32051,7 @@ packages:
     resolution: {integrity: sha512-uivwYcQaxAucv1CzRp2n/QdYPo4ILf9VXgH19zEIjFx2EJufV16P0JtJVpYHy89DItG6Kwj2oIUjrcK5au+4tQ==}
     engines: {node: '>=8'}
     dependencies:
-      tslib: 2.6.2
+      tslib: 2.8.0
     dev: false
 
   /ts-node@10.9.1(@swc/core@1.3.106)(@types/node@20.11.9)(typescript@5.5.0-beta):
@@ -34908,6 +34903,7 @@ time:
   /@aws-sdk/lib-storage@3.658.1: '2024-09-25T19:26:22.245Z'
   /@crowdin/cli@4.2.0: '2024-09-23T11:55:47.235Z'
   /@dialectlabs/blinks@0.9.3: '2024-08-29T11:36:13.031Z'
+  /@dimensiondev/mask-wallet-core@0.1.0-20211013082857-eb62e5f: '2021-10-13T08:39:07Z'
   /@emotion/styled@11.11.0: '2023-05-06T08:49:15.982Z'
   /@farcaster/core@0.15.5: '2024-10-14T23:43:14.672Z'
   /@giphy/js-fetch-api@5.6.0: '2024-05-28T16:39:28.633Z'
@@ -34936,6 +34932,8 @@ time:
   /@reown/appkit-adapter-wagmi@1.1.3: '2024-10-15T14:55:44.936Z'
   /@reown/appkit@1.1.3: '2024-10-15T14:55:45.209Z'
   /@sinonjs/text-encoding@0.7.3: '2024-08-19T14:17:18.453Z'
+  /@solana/buffer-layout@4.0.1: '2022-12-09T16:49:55.927Z'
+  /@solana/spl-token@0.1.8: '2021-08-16T19:07:32.336Z'
   /@solana/spl-token@0.4.8: '2024-07-09T19:26:11.025Z'
   /@solana/web3.js@1.95.3: '2024-08-21T00:30:04.048Z'
   /@tailwindcss/forms@0.5.9: '2024-09-05T13:53:09.872Z'

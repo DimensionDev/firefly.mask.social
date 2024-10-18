@@ -69,7 +69,7 @@ export function CollectionInfo(props: CollectionInfoProps) {
                     <div className="text-normal flex items-center text-sm leading-[14px] text-secondary">
                         <span className="hidden sm:inline">{address}</span>
                         <span className="inline sm:hidden">{formatEthereumAddress(address, 4)}</span>
-                        <CopyTextButton value={address} />
+                        <CopyTextButton text={address} />
                         <a
                             className="ml-1.5 h-3 w-3"
                             href={EVMExplorerResolver.addressLink(chainId, address)}

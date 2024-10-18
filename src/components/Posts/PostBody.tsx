@@ -113,6 +113,29 @@ export const PostBody = forwardRef<HTMLDivElement, PostBodyProps>(function PostB
     const oembedUrl = resolveOembedUrl(post);
     const pollId = oembedUrl ? getPollIdFromLink(oembedUrl) : undefined;
 
+    const EncryptedContent = useMemo(
+        () =>
+            seen && hasEncryptedPayload ? (
+                <mask-decrypted-post
+                    props={encodeURIComponent(
+                        JSON.stringify({
+                            post,
+                            payloads: compact([payloads.payloadFromImageAttachment, payloads.payloadFromText]),
+                        }),
+                    )}
+                />
+            ) : null,
+        [seen, hasEncryptedPayload, post, payloads?.payloadFromImageAttachment, payloads?.payloadFromText],
+    );
+
+    const LinksContent = useMemo(
+        () =>
+            !hasEncryptedPayload && !decodingImage && !pollId ? (
+                <PostLinks post={post} setContent={setPostContent} />
+            ) : null,
+        [hasEncryptedPayload, decodingImage, pollId, post, setPostContent],
+    );
+
     if (post.isEncrypted) {
         return (
             <div
@@ -165,6 +188,7 @@ export const PostBody = forwardRef<HTMLDivElement, PostBodyProps>(function PostB
                 >
                     {metadata.content?.content}
                 </NakedMarkup>
+                {EncryptedContent}
                 {showAttachments ? (
                     <Attachments
                         post={post}
@@ -172,6 +196,7 @@ export const PostBody = forwardRef<HTMLDivElement, PostBodyProps>(function PostB
                         isQuote={!!metadata.content?.content?.length}
                     />
                 ) : null}
+                {LinksContent}
             </div>
         );
     }
@@ -228,16 +253,7 @@ export const PostBody = forwardRef<HTMLDivElement, PostBodyProps>(function PostB
                 <ContentTranslator content={trimify(postContent)} canShowMore={canShowMore} post={post} />
             ) : null}
 
-            {seen && hasEncryptedPayload ? (
-                <mask-decrypted-post
-                    props={encodeURIComponent(
-                        JSON.stringify({
-                            post,
-                            payloads: compact([payloads.payloadFromImageAttachment, payloads.payloadFromText]),
-                        }),
-                    )}
-                />
-            ) : null}
+            {EncryptedContent}
 
             {canShowMore ? (
                 <div className="text-medium font-bold text-highlight">
@@ -264,9 +280,7 @@ export const PostBody = forwardRef<HTMLDivElement, PostBodyProps>(function PostB
                 <Attachments post={post} attachments={availableAttachments} isDetail={isDetail} />
             ) : null}
 
-            {!hasEncryptedPayload && !decodingImage && !pollId ? (
-                <PostLinks post={post} setContent={setPostContent} />
-            ) : null}
+            {LinksContent}
 
             {!!post.quoteOn && !isQuote ? <Quote post={post.quoteOn} /> : null}
         </article>

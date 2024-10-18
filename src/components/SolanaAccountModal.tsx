@@ -64,7 +64,7 @@ export const SolanaAccountModal = forwardRef<SingletonModalRefCreator>(function 
                             <div className="text-center text-medium font-bold leading-tight text-main">
                                 {publicKeyStr ? formatSolanaAddress(publicKeyStr, 10) : '-'}
                             </div>
-                            {publicKeyStr ? <CopyTextButton value={publicKeyStr} /> : null}
+                            {publicKeyStr ? <CopyTextButton text={publicKeyStr} /> : null}
                         </div>
                         <div className="inline-flex h-[23px] items-center justify-start gap-3 self-stretch">
                             <div

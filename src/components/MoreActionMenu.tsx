@@ -1,4 +1,4 @@
-import { Menu, type MenuProps, Transition } from '@headlessui/react';
+import { Menu, MenuButton, type MenuProps, Transition } from '@headlessui/react';
 import { motion } from 'framer-motion';
 import { Fragment, type MouseEvent } from 'react';
 
@@ -29,7 +29,7 @@ export function MoreActionMenu({
 
     return (
         <Menu className={classNames('relative', className)} as="div" onClick={stopEvent}>
-            <Menu.Button
+            <MenuButton
                 disabled={disabled}
                 whileTap={{ scale: 0.9 }}
                 as={motion.button}
@@ -45,7 +45,7 @@ export function MoreActionMenu({
                 }}
             >
                 {button}
-            </Menu.Button>
+            </MenuButton>
             <Transition
                 as={Fragment}
                 enter="transition ease-out duration-100"
