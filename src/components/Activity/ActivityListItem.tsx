@@ -15,7 +15,7 @@ export function ActivityListItem({ data, index }: { data: TypeActivityListItem; 
     const timeTemplate = 'M/DD hh:MM';
     return (
         <Link
-            href={`/activity/${data.name}`}
+            href={`/event/${data.name}`}
             className="relative flex w-full flex-col rounded-2xl border border-line bg-bg"
         >
             <div className="absolute right-2 top-2 z-[1]">

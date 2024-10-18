@@ -5,16 +5,17 @@ import { useSuspenseQuery } from '@tanstack/react-query';
 import dayjs from 'dayjs';
 
 import CalendarIcon from '@/assets/activity-calendar.svg';
+import { ActivityClaimButton } from '@/components/Activity/ActivityClaimButton.js';
 import { ActivityConnectCard } from '@/components/Activity/ActivityConnectCard.js';
 import { ActivityFollowTargetCard } from '@/components/Activity/ActivityFollowTargetCard.js';
 import { ActivityPremiumConditionList } from '@/components/Activity/ActivityPremiumConditionList.js';
+import { ActivityRules } from '@/components/Activity/ActivityRules.js';
 import { ActivityStatusTag } from '@/components/Activity/ActivityStatus.js';
 import { ActivityTaskFollowCard } from '@/components/Activity/ActivityTaskFollowCard.js';
 import { ActivityTwitterLoginButton } from '@/components/Activity/ActivityTwitterLoginButton.js';
 import { Source } from '@/constants/enum.js';
 import { Image } from '@/esm/Image.js';
 import { classNames } from '@/helpers/classNames.js';
-import { ActivityStatus } from '@/providers/types/Firefly.js';
 import { getFireflyActivityInfo } from '@/services/getFireflyActivityInfo.js';
 
 export default function Page({
@@ -33,7 +34,7 @@ export default function Page({
     const timeTemplate = 'M/DD hh:MM';
 
     return (
-        <main className="flex min-h-[100svh] w-full flex-1 flex-col md:border-r md:border-line md:pl-[289px] lg:w-[888px] lg:max-w-[calc(100%-384px)]">
+        <div className="flex min-h-[100svh] w-full flex-1 flex-col">
             <Image
                 src={data.banner_url}
                 alt={data.title}
@@ -61,7 +62,7 @@ export default function Page({
                             </h2>
                             <ActivityTwitterLoginButton />
                         </div>
-                        <ActivityFollowTargetCard handle="cz_binance" />
+                        <ActivityFollowTargetCard handle="brian_armstrong" />
                     </div>
                     <ActivityTaskFollowCard handle="Firefly" source={Source.Twitter} profileId="1583361564479889408" />
                     <h2 className="text-base font-semibold leading-6">
@@ -69,41 +70,12 @@ export default function Page({
                     </h2>
                     <ActivityConnectCard />
                     <ActivityPremiumConditionList />
-                    <div className="w-full rounded-2xl border border-line p-3">
-                        <h2 className="mb-2 text-base font-semibold leading-6">
-                            <Trans>About Airdrop</Trans>
-                        </h2>
-                        <ul className="list-decimal pl-4 text-sm font-medium leading-6">
-                            <li>
-                                <Trans>
-                                    Priority Access: Holders get early access to future projects, beta tests, and
-                                    airdrops. And they will also have a first look at the latest features and content.
-                                </Trans>
-                            </li>
-                            <li>
-                                <Trans>
-                                    Core Asset Access: Unlock premium tokens, exclusive NFTs, and nodes for more
-                                    investment opportunities.
-                                </Trans>
-                            </li>
-                            <li>
-                                <Trans>
-                                    Voting Rights: Participate in key decisions and shape the platform’s development
-                                    through community governance.
-                                </Trans>
-                            </li>
-                        </ul>
-                    </div>
+                    <ActivityRules />
                 </div>
             </div>
             <div className="sticky bottom-0 mt-auto w-full border-t border-line bg-primaryBottom px-4 pt-1.5 pb-safe-or-2">
-                <button
-                    className="leading-12 h-12 w-full rounded-full bg-main text-base font-bold text-primaryBottom disabled:opacity-60"
-                    disabled={data.status === ActivityStatus.Ended}
-                >
-                    {data.status === ActivityStatus.Ended ? <Trans>Ended</Trans> : <Trans>Claim Now</Trans>}
-                </button>
+                <ActivityClaimButton status={data.status} />
             </div>
-        </main>
+        </div>
     );
 }

@@ -110,6 +110,7 @@ export enum KeyType {
     CreateMetadataArticleById = '/v2/createMetadataArticleById',
     CreateMetadataProfileById = '/v2/createMetadataProfileById',
     CreateMetadataChannelById = '/v2/createMetadataChannelById',
+    CreateMetadataEvent = '/v2/createMetadataEvent',
 }
 
 export enum SocialProfileCategory {

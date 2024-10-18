@@ -1,3 +1,5 @@
+'use client';
+
 import { Trans } from '@lingui/macro';
 import { safeUnreachable } from '@masknet/kit';
 

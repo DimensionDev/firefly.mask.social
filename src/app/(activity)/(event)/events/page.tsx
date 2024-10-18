@@ -24,20 +24,18 @@ export default function Page() {
     });
 
     return (
-        <main className="flex w-full flex-[1_1_100%] flex-col md:border-r md:border-line md:pl-[289px] lg:w-[888px] lg:max-w-[calc(100%-384px)]">
-            <div className="flex w-full flex-col p-4">
-                <ListInPage
-                    source={Source.Wallet}
-                    queryResult={queryResult}
-                    VirtualListProps={{
-                        listKey: `${ScrollListKey.Activity}`,
-                        itemContent: getActivityListItem,
-                    }}
-                    NoResultsFallbackProps={{
-                        className: 'md:pt-[228px] max-md:py-20',
-                    }}
-                />
-            </div>
-        </main>
+        <div className="flex w-full flex-col p-4">
+            <ListInPage
+                source={Source.Wallet}
+                queryResult={queryResult}
+                VirtualListProps={{
+                    listKey: `${ScrollListKey.Activity}`,
+                    itemContent: getActivityListItem,
+                }}
+                NoResultsFallbackProps={{
+                    className: 'md:pt-[228px] max-md:py-20',
+                }}
+            />
+        </div>
     );
 }

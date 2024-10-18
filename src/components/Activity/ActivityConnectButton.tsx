@@ -6,9 +6,9 @@ import { useQuery } from '@tanstack/react-query';
 import { useContext } from 'react';
 
 import AddCircleIcon from '@/assets/add-circle.svg';
-import EthereumIcon from '@/assets/chains/ethereum.svg';
 import { ActivityContext } from '@/components/Activity/ActivityContext.js';
 import { useIsLoginTwitterInActivity } from '@/components/Activity/hooks/useIsLoginTwitterInActivity.js';
+import { ChainIcon } from '@/components/NFTDetail/ChainIcon.js';
 import { EMPTY_LIST } from '@/constants/index.js';
 import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
 import { formatAddress } from '@/helpers/formatAddress.js';
@@ -16,15 +16,15 @@ import { useAllConnections } from '@/hooks/useAllConnections.js';
 import { AddWalletModalRef } from '@/modals/controls.js';
 import { fireflyBridgeProvider } from '@/providers/firefly/Bridge.js';
 import { Network, SupportedMethod } from '@/types/bridge.js';
+import { ChainId } from '@/types/frame.js';
 
 export function ActivityConnectButton() {
-    const buttonClassName = 'rounded-full bg-main px-4 leading-8 text-primaryBottom';
     const { onChangeAddress, address } = useContext(ActivityContext);
     const { data: isLoggedIn } = useIsLoginTwitterInActivity();
     const { data: { connected = EMPTY_LIST } = {} } = useAllConnections({
         refetchInterval: 600000,
     });
-    const { data: bridgeAddresses = [] } = useQuery({
+    const { data: bridgeAddresses = EMPTY_LIST } = useQuery({
         enabled: fireflyBridgeProvider.supported,
         queryKey: ['firefly-bridge-address', Network.EVM],
         async queryFn() {
@@ -38,7 +38,17 @@ export function ActivityConnectButton() {
         ? bridgeAddresses
         : connected.filter((x) => x.platform === 'eth').map((x) => x.address);
 
-    const buttonText = address ? <Trans>Change</Trans> : <Trans>Connect</Trans>;
+    const buttonText = address ? (
+        <Trans>Change</Trans>
+    ) : (
+        <>
+            <ChainIcon className="mr-2 h-4 w-4 shrink-0" chainId={ChainId.Base} />
+            <Trans>Connect</Trans>
+        </>
+    );
+    const buttonClassName = address
+        ? 'inline-flex items-center rounded-full text-main px-4 bg-transparent border border-current leading-[30px]'
+        : 'inline-flex items-center rounded-full bg-main px-4 leading-8 text-primaryBottom';
     const button = (
         <div className="relative inline">
             <Menu>
@@ -100,8 +110,8 @@ export function ActivityConnectButton() {
     if (address) {
         return (
             <div className="flex w-full items-center gap-2">
-                <EthereumIcon className="h-5 w-5 shrink-0" />
-                <span className="mr-auto text-base font-semibold leading-6">{formatAddress(address, 4)}</span>
+                <ChainIcon className="h-5 w-5 shrink-0" chainId={ChainId.Base} />
+                <span className="mr-auto text-base font-medium leading-6">{formatAddress(address, 4)}</span>
                 {button}
             </div>
         );

@@ -2,6 +2,7 @@
 
 import { Trans } from '@lingui/macro';
 
+import LoadingIcon from '@/assets/loading.svg';
 import { ActivityVerifyText } from '@/components/Activity/ActivityVerifyText.js';
 import { useActivityClaimCondition } from '@/components/Activity/hooks/useActivityClaimCondition.js';
 import { useIsLoginTwitterInActivity } from '@/components/Activity/hooks/useIsLoginTwitterInActivity.js';
@@ -52,14 +53,28 @@ export function ActivityTaskFollowCard({ source, profileId, handle }: Props) {
                     </Link>
                     <button
                         disabled={isRefetching}
-                        className="rounded-full border border-current px-4 leading-8 disabled:opacity-60"
+                        className="rounded-full border border-current px-4 leading-[30px] disabled:opacity-60"
                         onClick={(e) => {
-                            if (isLoggedIn) return refetch();
+                            if (isLoggedIn) {
+                                refetch();
+                                return;
+                            }
                             e.preventDefault();
                             enqueueErrorMessage(<Trans>Please sign in with X to continue</Trans>);
                         }}
                     >
-                        <Trans>Verify</Trans>
+                        {isRefetching ? (
+                            <span className="left-0 top-0 flex h-full w-full items-center justify-center">
+                                <LoadingIcon className="animate-spin" width={16} height={16} />
+                            </span>
+                        ) : null}
+                        <span
+                            className={classNames('flex items-center', {
+                                'opacity-0': isRefetching,
+                            })}
+                        >
+                            <Trans>Verify</Trans>
+                        </span>
                     </button>
                 </div>
             ) : null}

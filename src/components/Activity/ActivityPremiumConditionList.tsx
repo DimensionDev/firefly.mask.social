@@ -27,8 +27,10 @@ export function ActivityPremiumConditionList() {
                         </ActivityVerifyText>
                     </li>
                     <li>
-                        <ActivityVerifyText verified={data?.bnbId?.level === Level.Lv2}>
-                            <Trans>Hold ≥ $10k BNB Chain asset</Trans>
+                        <ActivityVerifyText
+                            verified={data?.bnbId?.level === Level.Lv2} // TODO: Base Chain assets
+                        >
+                            <Trans>Hold ≥ $10k Base Chain asset</Trans>
                         </ActivityVerifyText>
                     </li>
                     <li>
