@@ -1,6 +1,6 @@
 'use client';
 
-import { WagmiConfig } from 'wagmi';
+import { WagmiProvider as WagmiProviderSDK } from 'wagmi';
 
 import { config } from '@/configs/wagmiClient.js';
 
@@ -9,5 +9,5 @@ interface WagmiProviderProps {
 }
 
 export function WagmiProvider(props: WagmiProviderProps) {
-    return <WagmiConfig config={config}>{props.children}</WagmiConfig>;
+    return <WagmiProviderSDK config={config}>{props.children}</WagmiProviderSDK>;
 }
