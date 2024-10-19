@@ -80,9 +80,11 @@ export const chains = [
     wagmiZora,
 ] as const;
 
+const particleConnector = createParticleConnector({});
+
 export const adapter = new WagmiAdapter({
     networks,
-    connectors: [createParticleConnector({})],
+    connectors: particleConnector ? [particleConnector] : [],
     projectId: env.external.NEXT_PUBLIC_W3M_PROJECT_ID,
 });
 

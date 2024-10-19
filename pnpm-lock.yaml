@@ -41,7 +41,7 @@ patchedDependencies:
     hash: pazpgmj4gmp6yuv75wbb5yvia4
     path: src/maskbook/patches/@mui__material@5.15.12.patch
   '@particle-network/auth-core@2.0.4':
-    hash: y5pebe2cxou6y2f6nbcd75kcyq
+    hash: 7366xd6hdjwbiu226ytexflsbm
     path: patches/@particle-network__auth-core@2.0.4.patch
   '@particle-network/authkit@2.0.16':
     hash: kmwvj6kgmbl46n6zcclajk2kda
@@ -149,7 +149,7 @@ importers:
         version: 1.5.0
       '@particle-network/auth-core':
         specifier: 2.0.4
-        version: 2.0.4(patch_hash=y5pebe2cxou6y2f6nbcd75kcyq)(@aws-sdk/client-sso-oidc@3.670.0)
+        version: 2.0.4(patch_hash=7366xd6hdjwbiu226ytexflsbm)(@aws-sdk/client-sso-oidc@3.670.0)
       '@particle-network/authkit':
         specifier: ^2.0.16
         version: 2.0.16(patch_hash=kmwvj6kgmbl46n6zcclajk2kda)(@aws-sdk/client-sso-oidc@3.670.0)(@particle-network/wallet@2.0.6)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026)(viem@2.21.27)
@@ -11004,7 +11004,7 @@ packages:
       uuidv4: 6.2.13
     dev: false
 
-  /@particle-network/auth-core@2.0.4(patch_hash=y5pebe2cxou6y2f6nbcd75kcyq)(@aws-sdk/client-sso-oidc@3.670.0):
+  /@particle-network/auth-core@2.0.4(patch_hash=7366xd6hdjwbiu226ytexflsbm)(@aws-sdk/client-sso-oidc@3.670.0):
     resolution: {integrity: sha512-bz0NYkhZw2/NrMG3y8nw3YomdC7H/PKVfpLNBx9pacqxh3qlWm/k4KC8G6B0e3zvv0WZpqKn6VkAY1ZKr+j4nA==}
     engines: {node: '>=16'}
     dependencies:
@@ -11050,7 +11050,7 @@ packages:
         optional: true
     dependencies:
       '@particle-network/analytics': 1.0.1
-      '@particle-network/auth-core': 2.0.4(patch_hash=y5pebe2cxou6y2f6nbcd75kcyq)(@aws-sdk/client-sso-oidc@3.670.0)
+      '@particle-network/auth-core': 2.0.4(patch_hash=7366xd6hdjwbiu226ytexflsbm)(@aws-sdk/client-sso-oidc@3.670.0)
       '@particle-network/wallet': 2.0.6
       ahooks: 3.8.1(react@0.0.0-experimental-8039e6d0b-20231026)
       antd: 4.24.16(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026)
