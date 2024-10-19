@@ -52,15 +52,17 @@ export function createParticleConnector(options: ConnectorOptions) {
 
                 console.info(`[Particle] connected`, user);
 
-                const wallet = user.wallets.find((x) => x.chain_name === 'evm_chain');
-                if (!isValidAddress(wallet?.public_address)) {
+                const wallets = user.wallets.filter(
+                    (x) => x.chain_name === 'evm_chain' && isValidAddress(x.public_address),
+                );
+                if (!wallets.length) {
                     console.error(`[Particle] wallet not found`);
                     throw new AuthenticationError('Wallet not found');
                 }
 
                 return {
                     chainId: ChainId.Mainnet,
-                    accounts: [wallet.public_address as Address],
+                    accounts: wallets.map((x) => x.public_address!) as Address[],
                 };
             },
             async disconnect() {
