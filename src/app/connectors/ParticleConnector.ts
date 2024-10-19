@@ -15,14 +15,23 @@ export function createParticleConnector({}: ConnectorOptions) {
         return null;
     }
 
+    if (
+        !env.external.NEXT_PUBLIC_PARTICLE_APP_ID ||
+        !env.external.NEXT_PUBLIC_PARTICLE_CLIENT_KEY ||
+        !env.external.NEXT_PUBLIC_PARTICLE_PROJECT_ID
+    ) {
+        console.warn(`[Particle] missing required environment variables.`);
+        return null;
+    }
+
     console.info(`[Particle] enabled`);
 
     return createConnector(() => {
         // init auth
         particleAuth.init({
-            appId: env.external.NEXT_PUBLIC_PARTICLE_APP_ID ?? '',
-            clientKey: env.external.NEXT_PUBLIC_PARTICLE_CLIENT_KEY ?? '',
-            projectId: env.external.NEXT_PUBLIC_PARTICLE_PROJECT_ID ?? '',
+            appId: env.external.NEXT_PUBLIC_PARTICLE_APP_ID!,
+            clientKey: env.external.NEXT_PUBLIC_PARTICLE_CLIENT_KEY!,
+            projectId: env.external.NEXT_PUBLIC_PARTICLE_PROJECT_ID!,
             chains,
         });
 
