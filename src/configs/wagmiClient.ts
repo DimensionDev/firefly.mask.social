@@ -43,6 +43,7 @@ import {
 import { createParticleConnector } from '@/app/connectors/ParticleConnector.js';
 import { env } from '@/constants/env.js';
 import { SITE_DESCRIPTION, SITE_NAME, SITE_URL } from '@/constants/index.js';
+import { VERCEL_NEV } from '@/constants/enum.js';
 
 const networks = [
     mainnet,
@@ -80,7 +81,8 @@ export const chains = [
     wagmiZora,
 ] as const;
 
-const particleConnector = createParticleConnector({});
+const particleConnector =
+    env.external.NEXT_PUBLIC_VERCEL_ENV === VERCEL_NEV.Production ? null : createParticleConnector({});
 
 export const adapter = new WagmiAdapter({
     networks,
