@@ -1,5 +1,5 @@
 import { ChainId, isValidAddress } from '@masknet/web3-shared-evm';
-import { AuthType, connect, particleAuth } from '@particle-network/auth-core';
+import { AuthType, connect, disconnect, particleAuth } from '@particle-network/auth-core';
 import type { Address } from 'viem';
 import { createConnector } from 'wagmi';
 
@@ -64,7 +64,7 @@ export function createParticleConnector(options: ConnectorOptions) {
                 };
             },
             async disconnect() {
-                throw new NotImplementedError();
+                await disconnect();
             },
             async getAccounts() {
                 return [particleAuth.ethereum.selectedAddress as Address];
