@@ -12,6 +12,7 @@ import { enqueueErrorMessage, enqueueInfoMessage } from '@/helpers/enqueueMessag
 import { formatBalance } from '@/helpers/formatBalance.js';
 import { getSnackbarMessageFromError } from '@/helpers/getSnackbarMessageFromError.js';
 import type { MethodItem } from '@/types/ethereum.js';
+import { Trans } from '@lingui/macro';
 
 interface Props {
     item: MethodItem;
@@ -76,7 +77,7 @@ export function EthereumMethodButton({ item }: Props) {
                 onClick();
             }}
         >
-            {item.method}()
+            <Trans>Invoke</Trans>
         </ClickableButton>
     );
 }
