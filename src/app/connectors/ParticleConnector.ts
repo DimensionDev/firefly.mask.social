@@ -6,8 +6,9 @@ import { createConnector } from 'wagmi';
 import { chains } from '@/configs/wagmiClient.js';
 import { STATUS } from '@/constants/enum.js';
 import { env } from '@/constants/env.js';
-import { AuthenticationError, NotImplementedError } from '@/constants/error.js';
+import { AuthenticationError } from '@/constants/error.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
+import { mainnet } from 'wagmi/chains';
 
 interface ConnectorOptions {}
 
@@ -45,6 +46,7 @@ export function createParticleConnector(options: ConnectorOptions) {
                 if (!fireflySessionHolder.session) throw new AuthenticationError('Firefly session not found');
 
                 const user = await connect({
+                    chain: mainnet,
                     provider: AuthType.jwt,
                     // cspell: disable-next-line
                     thirdpartyCode: fireflySessionHolder.session?.token,
@@ -72,7 +74,7 @@ export function createParticleConnector(options: ConnectorOptions) {
                 return [particleAuth.ethereum.selectedAddress as Address];
             },
             async getChainId() {
-                return Number.parseInt(particleAuth.ethereum.chainId, 10);
+                return Number.parseInt(particleAuth.ethereum.chainId, 16);
             },
             async getProvider() {
                 return particleAuth.ethereum;
