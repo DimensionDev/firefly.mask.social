@@ -2,13 +2,13 @@ import { ChainId, isValidAddress } from '@masknet/web3-shared-evm';
 import { AuthType, connect, disconnect, particleAuth } from '@particle-network/auth-core';
 import type { Address } from 'viem';
 import { createConnector } from 'wagmi';
+import { mainnet } from 'wagmi/chains';
 
 import { chains } from '@/configs/wagmiClient.js';
 import { STATUS } from '@/constants/enum.js';
 import { env } from '@/constants/env.js';
 import { AuthenticationError } from '@/constants/error.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
-import { mainnet } from 'wagmi/chains';
 
 interface ConnectorOptions {}
 
@@ -39,9 +39,9 @@ export function createParticleConnector(options: ConnectorOptions) {
         });
 
         return {
-            id: 'particle',
-            name: 'Particle',
-            type: 'Particle',
+            id: 'firefly',
+            name: 'Firefly',
+            type: 'Firefly',
             async connect() {
                 if (!fireflySessionHolder.session) throw new AuthenticationError('Firefly session not found');
 
