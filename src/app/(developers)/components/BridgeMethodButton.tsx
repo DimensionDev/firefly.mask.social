@@ -15,7 +15,7 @@ interface Props {
     item: MethodItem;
 }
 
-export function MethodButton({ item }: Props) {
+export function BridgeMethodButton({ item }: Props) {
     const [{ loading }, onClick] = useAsyncFn(async () => {
         try {
             switch (item.name) {
@@ -101,7 +101,7 @@ export function MethodButton({ item }: Props) {
                     break;
             }
         } catch (error) {
-            enqueueErrorMessage(getSnackbarMessageFromError(error, 'Failed to call method'), {
+            enqueueErrorMessage(getSnackbarMessageFromError(error, 'Failed to execute method'), {
                 error,
             });
             throw error;

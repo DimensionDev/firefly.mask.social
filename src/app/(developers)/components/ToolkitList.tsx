@@ -18,6 +18,7 @@ export function ToolkitList() {
             {[
                 { name: <Trans>General</Trans>, link: '/general' },
                 { name: <Trans>Firefly Bridge</Trans>, link: '/bridge' },
+                { name: <Trans>Ethereum JSON RPC</Trans>, link: '/ethereum' },
                 { name: <Trans>Session Validator</Trans>, link: '/session' },
                 { name: <Trans>Blink Validator</Trans>, link: '/blink' },
                 { name: <Trans>Frame Validator</Trans>, link: '/frame' },

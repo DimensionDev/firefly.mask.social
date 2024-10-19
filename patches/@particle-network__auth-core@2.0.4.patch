@@ -1,17 +1,166 @@
+diff --git a/dist/types/api/evmApi.d.ts b/dist/types/api/evmApi.d.ts
+index 8208a1e7c53d27690e1c3335d42397fefd7761d8..087d5a59fd953afbbb90db335cbf08ff4161e05d 100644
+--- a/dist/types/api/evmApi.d.ts
++++ b/dist/types/api/evmApi.d.ts
+@@ -1,4 +1,4 @@
+-import type { RpcInput } from './types';
++import type { RpcInput } from './types/index.js';
+ declare const evmApi: {
+     request<T>(data: Partial<RpcInput>): Promise<T>;
+ };
+diff --git a/dist/types/api/pnApi.d.ts b/dist/types/api/pnApi.d.ts
+index 8bb7a87046ea12a764221f55b8d78dab063f3dcf..75c297f5e19889bb2d14cd33245ed98d5a4ffa47 100644
+--- a/dist/types/api/pnApi.d.ts
++++ b/dist/types/api/pnApi.d.ts
+@@ -1,5 +1,5 @@
+-import type { AuthType, SocialAuthType } from './authType';
+-import type { CaptchaRequest, CognitoResult, DeviceInfo, LoginAccount, LoginBindRequest, LoginBindThirdpartyRequest, LoginRequest, OriginalUserInfo, SecurityAccount, ThirdpartyAuthUrlResult, UserInfoSync, UserWalletRequestParam } from './types';
++import type { AuthType, SocialAuthType } from './authType.js';
++import type { CaptchaRequest, CognitoResult, DeviceInfo, LoginAccount, LoginBindRequest, LoginBindThirdpartyRequest, LoginRequest, OriginalUserInfo, SecurityAccount, ThirdpartyAuthUrlResult, UserInfoSync, UserWalletRequestParam } from './types/index.js';
+ declare const pnApi: {
+     /**
+      * send auth code
+diff --git a/dist/types/api/solanaApi.d.ts b/dist/types/api/solanaApi.d.ts
+index c6abac2686798f364f6902b8c4a3d57ccea337e1..a8f720eb2f9af97a0e72129aa9ff9698a7b690f7 100644
+--- a/dist/types/api/solanaApi.d.ts
++++ b/dist/types/api/solanaApi.d.ts
+@@ -1,4 +1,4 @@
+-import type { RpcInput } from './types';
++import type { RpcInput } from './types/index.js';
+ declare const solanaApi: {
+     request<T>(data: Partial<RpcInput>): Promise<T>;
+     getLatestBlockhash(chainId?: number): Promise<string>;
+diff --git a/dist/types/api/types/apiData.d.ts b/dist/types/api/types/apiData.d.ts
+index 1ee5ee282ff5511b31e3ad572b7c965a6c2f547a..142438477b3004a0b6ccdcdc133f6851a91760c2 100644
+--- a/dist/types/api/types/apiData.d.ts
++++ b/dist/types/api/types/apiData.d.ts
+@@ -1,4 +1,4 @@
+-import { type SocialAuthType } from '../authType';
++import { type SocialAuthType } from '../authType.js';
+ export type BooleanResult = {
+     success: boolean;
+ };
 diff --git a/dist/types/api/types/index.d.ts b/dist/types/api/types/index.d.ts
-index 2966d0eac54ece7a96b66d0a766891057f485745..e05adfe04fe57bdf2d751e79ca5c4b3bbe228f65 100644
+index 2966d0eac54ece7a96b66d0a766891057f485745..5533f430deed3981eda89baf2edfea24d3cd0b17 100644
 --- a/dist/types/api/types/index.d.ts
 +++ b/dist/types/api/types/index.d.ts
 @@ -1,4 +1,4 @@
 -import type { OriginalUserInfo, UserInfo } from './apiData';
 -export * from './apiData';
 -export * from './rpcData';
-+import type { OriginalUserInfo, UserInfo } from './apiData.d.ts';
-+export type * from './apiData.d.ts';
-+export type * from './rpcData.d.ts';
++import type { OriginalUserInfo, UserInfo } from './apiData.js';
++export * from './apiData.js';
++export * from './rpcData.js';
  export declare const mapToUserInfo: (originalUserInfo: OriginalUserInfo) => UserInfo;
+diff --git a/dist/types/config/index.d.ts b/dist/types/config/index.d.ts
+index 3aa0db3bed3e14591486cbdbbe800bb10a3b05fc..346aeb33ebd9a5904d3046f9fe7af3b9da901c80 100644
+--- a/dist/types/config/index.d.ts
++++ b/dist/types/config/index.d.ts
+@@ -1,4 +1,4 @@
+-import type { AuthOptions } from './../core/authCore';
++import type { AuthOptions } from './../core/authCore.js';
+ type Env = {
+     basicUsername: string;
+     basicPassword: string;
+diff --git a/dist/types/core/authCore.d.ts b/dist/types/core/authCore.d.ts
+index 66a5376bff2920f5e13f3769e5c5728ca915a3c1..d03bccad0e3001d035bf842643b61e550b41d476 100644
+--- a/dist/types/core/authCore.d.ts
++++ b/dist/types/core/authCore.d.ts
+@@ -1,7 +1,7 @@
+ import type { Chain as ViemChain } from 'viem/chains';
+-import { type AuthCoreEvent } from '../types/authCoreEvent';
+-import { EthereumProvider } from './ethereumProvider';
+-import { SolanaWallet } from './solanaWallet';
++import { type AuthCoreEvent } from '../types/authCoreEvent.js';
++import { EthereumProvider } from './ethereumProvider.js';
++import { SolanaWallet } from './solanaWallet.js';
+ export type AuthOptions = {
+     projectId: string;
+     clientKey: string;
+diff --git a/dist/types/core/connectApi.d.ts b/dist/types/core/connectApi.d.ts
+index 85d05fecf10e588bccfb639e789d041114b21261..efe2cf3a1b313ee53cd9e37315bf02a5827010e4 100644
+--- a/dist/types/core/connectApi.d.ts
++++ b/dist/types/core/connectApi.d.ts
+@@ -1,8 +1,8 @@
+-import type { LoginWithSocial } from '../api/authType';
+-import { AuthType } from '../api/authType';
+-import { type CaptchaRequest, type UserInfo } from '../api/types';
+-import type { CloudflareOptions, ERC4337Options } from '../types';
+-import { type ConnectParam } from '../types/connectParam';
++import type { LoginWithSocial } from '../api/authType.js';
++import { AuthType } from '../api/authType.js';
++import { type CaptchaRequest, type UserInfo } from '../api/types/index.js';
++import type { CloudflareOptions, ERC4337Options } from '../types/index.js';
++import { type ConnectParam } from '../types/connectParam.js';
+ /**
+  *  get cloudflare turnstile response
+  */
+diff --git a/dist/types/core/ethereumProvider.d.ts b/dist/types/core/ethereumProvider.d.ts
+index 5ece3fad4045103b23d616464af8dea71db1fe32..394649ed9cc7f5a50bab304853a23897860d63d1 100644
+--- a/dist/types/core/ethereumProvider.d.ts
++++ b/dist/types/core/ethereumProvider.d.ts
+@@ -1,7 +1,7 @@
+-import { type EIP1559TxData, type PrefixedHexString, type RpcInput, type TxData } from '../api/types';
+-import type { ConnectParam, MessageTypes, TypedDataV1, TypedMessage } from '../types';
+-import { type SignTypedDataVersion } from '../types';
+-import { type EIP1193Provider } from '../types/eip1193';
++import { type EIP1559TxData, type PrefixedHexString, type RpcInput, type TxData } from '../api/types/index.js';
++import type { ConnectParam, MessageTypes, TypedDataV1, TypedMessage } from '../types/index.js';
++import { type SignTypedDataVersion } from '../types/index.js';
++import { type EIP1193Provider } from '../types/eip1193.js';
+ export declare class EthereumProvider implements EIP1193Provider {
+     #private;
+     readonly isParticleNetwork = true;
+diff --git a/dist/types/core/masterPassword.d.ts b/dist/types/core/masterPassword.d.ts
+index 118fd4ed882b0673b157b800c7245c548452b1e8..7cb95680a00aa826d56deaa893d195c18506ee2d 100644
+--- a/dist/types/core/masterPassword.d.ts
++++ b/dist/types/core/masterPassword.d.ts
+@@ -1,4 +1,4 @@
+-import { type WalletInfo } from '../api/types';
++import { type WalletInfo } from '../api/types/index.js';
+ /**
+  * evm and solan wallet will be created when set master password
+  * @param password
+diff --git a/dist/types/core/securityApi.d.ts b/dist/types/core/securityApi.d.ts
+index 1d5d5c39dba81b9191a5567162f235f358279262..71dd813a3d1157c087287001bcd80a9a69826bcb 100644
+--- a/dist/types/core/securityApi.d.ts
++++ b/dist/types/core/securityApi.d.ts
+@@ -1,5 +1,5 @@
+-import type { AuthType } from '../api/authType';
+-import { type CaptchaRequest, type DeviceInfo, type LoginAccount, type LoginBindRequest, type LoginBindThirdpartyRequest, type SecurityAccount, type UserInfo } from '../api/types';
++import type { AuthType } from '../api/authType.js';
++import { type CaptchaRequest, type DeviceInfo, type LoginAccount, type LoginBindRequest, type LoginBindThirdpartyRequest, type SecurityAccount, type UserInfo } from '../api/types/index.js';
+ /**
+  * get all login bind accounts
+  * @returns login accounts
+diff --git a/dist/types/core/solanaWallet.d.ts b/dist/types/core/solanaWallet.d.ts
+index 1182270f017fc67d3bb988762d87acb46c3df296..78aa4dcdf94128a47046090d66a6c012d801db3a 100644
+--- a/dist/types/core/solanaWallet.d.ts
++++ b/dist/types/core/solanaWallet.d.ts
+@@ -1,6 +1,6 @@
+ import type { PublicKey, Transaction, VersionedTransaction } from '@solana/web3.js';
+-import { type RpcInput } from '../api/types';
+-import { type ConnectParam } from '../types';
++import { type RpcInput } from '../api/types/index.js';
++import { type ConnectParam } from '../types/index.js';
+ export declare class SolanaWallet {
+     #private;
+     readonly isParticleNetwork = true;
+diff --git a/dist/types/core/wallet.d.ts b/dist/types/core/wallet.d.ts
+index 6cee77375a70e43c9ada21634acbb6d08886f170..1222370a13c8e080514d1684359d70846e0abce9 100644
+--- a/dist/types/core/wallet.d.ts
++++ b/dist/types/core/wallet.d.ts
+@@ -1,6 +1,6 @@
+ import type { Ecdsa, EdDsa } from '@particle-network/thresh-sig';
+-import type { WalletInfo } from '../api/types';
+-import { type WalletType } from '../types/wallet';
++import type { WalletInfo } from '../api/types/index.js';
++import { type WalletType } from '../types/wallet.js';
+ declare const wallet: {
+     getWalletInfo(name: WalletType): WalletInfo;
+     hasType1Wallet(): boolean;
 diff --git a/dist/types/index.d.ts b/dist/types/index.d.ts
-index 81908e8b6d524bbdf8cde8d354dc10f8d8ef2e8b..34b7bb78e904311d7e17571f495d1cfc1ac15f3b 100644
+index 81908e8b6d524bbdf8cde8d354dc10f8d8ef2e8b..8833086e9bcb543d6fddc8775f6611f62b9f51e3 100644
 --- a/dist/types/index.d.ts
 +++ b/dist/types/index.d.ts
 @@ -1,13 +1,13 @@
@@ -28,21 +177,69 @@ index 81908e8b6d524bbdf8cde8d354dc10f8d8ef2e8b..34b7bb78e904311d7e17571f495d1cfc
 -export * from './utils/chainUtils';
 -export * from './utils/ethereumUtils';
 -export * from './utils/validate';
-+export type * from './api/apiError.d.ts';
-+export type * from './api/authType.d.ts';
-+export type * from './api/types/index.d.ts';
-+export type * from './core/analyticsApi.d.ts';
-+export type * from './core/authCore.d.ts';
-+export type * from './core/connectApi.d.ts';
-+export type { EthereumProvider } from './core/ethereumProvider.d.ts';
-+export type * from './core/securityApi.d.ts';
-+export type { SolanaWallet } from './core/solanaWallet.d.ts';
-+export type * from './types/index.d.ts';
-+export type * from './utils/chainUtils.d.ts';
-+export type * from './utils/ethereumUtils.d.ts';
-+export type * from './utils/validate.d.ts';
++export * from './api/apiError.js';
++export * from './api/authType.js';
++export * from './api/types/index.js';
++export * from './core/analyticsApi.js';
++export * from './core/authCore.js';
++export * from './core/connectApi.js';
++export { EthereumProvider } from './core/ethereumProvider.js';
++export * from './core/securityApi.js';
++export { SolanaWallet } from './core/solanaWallet.js';
++export * from './types/index.js';
++export * from './utils/chainUtils.js';
++export * from './utils/ethereumUtils.js';
++export * from './utils/validate.js';
+diff --git a/dist/types/storage/index.d.ts b/dist/types/storage/index.d.ts
+index 327e12b0025248eaf794aa0f59fd56987f5d2b49..1ed92aea0fed148bcbc4accbc7091209f842c35e 100644
+--- a/dist/types/storage/index.d.ts
++++ b/dist/types/storage/index.d.ts
+@@ -1,5 +1,5 @@
+-import encryptedStorage from './encryptedStorage';
+-import userStorage from './userStorage';
++import encryptedStorage from './encryptedStorage.js';
++import userStorage from './userStorage.js';
+ declare enum PreferenceKey {
+     LocalKey = "local_key",
+     EvmChainId = "evm_chain_id",
+diff --git a/dist/types/storage/userStorage.d.ts b/dist/types/storage/userStorage.d.ts
+index 98bc65d0ada4d31b7549cabd6465579fadcda330..76e33b477d9f0c84063e75a7aa244f87a0021766 100644
+--- a/dist/types/storage/userStorage.d.ts
++++ b/dist/types/storage/userStorage.d.ts
+@@ -1,5 +1,5 @@
+-import type { AuthType } from '../api/authType';
+-import type { CognitoResult, OriginalUserInfo, SecurityAccount, WalletInfo } from './../api/types/apiData';
++import type { AuthType } from '../api/authType.js';
++import type { CognitoResult, OriginalUserInfo, SecurityAccount, WalletInfo } from './../api/types/apiData.js';
+ declare const userStorage: {
+     setUserInfo(info: OriginalUserInfo | undefined): void;
+     getUserInfo(): OriginalUserInfo | undefined;
+diff --git a/dist/types/types/connectParam.d.ts b/dist/types/types/connectParam.d.ts
+index 52fede41c8634dcb48a58da831dc0bfda80adeae..c63582eac6d40ed3c7392b213ed8f0fd1c200e90 100644
+--- a/dist/types/types/connectParam.d.ts
++++ b/dist/types/types/connectParam.d.ts
+@@ -1,6 +1,6 @@
+ import type { Chain } from 'viem/chains';
+-import type { Base58String } from '../api/types';
+-import type { AuthType, SocialAuthType } from './../api/authType';
++import type { Base58String } from '../api/types/index.js';
++import type { AuthType, SocialAuthType } from './../api/authType.js';
+ export type E164Phone = string;
+ export type EthereumAuthorization = {
+     uniq: boolean;
+diff --git a/dist/types/types/eip1193.d.ts b/dist/types/types/eip1193.d.ts
+index 4720dc9657bc961aac7967e0df53c7430641bca9..c62404343b93b0da81a20600639d6611e2787816 100644
+--- a/dist/types/types/eip1193.d.ts
++++ b/dist/types/types/eip1193.d.ts
+@@ -1,5 +1,5 @@
+ import type { EthereumProviderError } from '@metamask/rpc-errors';
+-import type { RpcInput } from '../api/types';
++import type { RpcInput } from '../api/types/index.js';
+ export interface ProviderMessage {
+     type: string;
+     data: unknown;
 diff --git a/dist/types/types/index.d.ts b/dist/types/types/index.d.ts
-index 652d2d733266cf8287543181b8d71c6cb2dfa6ff..67e03e7d618363b0682c9aeb62c1a3ea57f3a828 100644
+index 652d2d733266cf8287543181b8d71c6cb2dfa6ff..326f4e3c5cd4b3f47988de78330b926ba97a0921 100644
 --- a/dist/types/types/index.d.ts
 +++ b/dist/types/types/index.d.ts
 @@ -1,10 +1,10 @@
@@ -53,12 +250,46 @@ index 652d2d733266cf8287543181b8d71c6cb2dfa6ff..67e03e7d618363b0682c9aeb62c1a3ea
 -export * from './eip1193';
 -export * from './rpcMethods';
 -export * from './wallet';
-+export type * from './authCoreEvent.d.ts';
-+export type * from './cloudflare.d.ts';
-+export type * from './connectParam.d.ts';
-+export type * from './eip1193.d.ts';
-+export type * from './rpcMethods.d.ts';
-+export type * from './wallet.d.ts';
++export * from './authCoreEvent.js';
++export * from './cloudflare.js';
++export * from './connectParam.js';
++export * from './eip1193.js';
++export * from './rpcMethods.js';
++export * from './wallet.js';
  export declare enum SignTypedDataVersion {
      V1 = "V1",
      V3 = "V3",
+diff --git a/dist/types/utils/chainUtils.d.ts b/dist/types/utils/chainUtils.d.ts
+index 0562d6db4616c0ce2e8fa3903e89c13b2dda9f9d..d910d9c4ac2c258e5959761057040f7ba9dbee3e 100644
+--- a/dist/types/utils/chainUtils.d.ts
++++ b/dist/types/utils/chainUtils.d.ts
+@@ -1,6 +1,6 @@
+ import type { Chain as ViemChain } from 'viem';
+-import type { EIP1559TxData, TxData } from '../api/types';
+-import { fromHex as tronAddressFromHex, toHex as tronAddressToHex } from './tron/crypto';
++import type { EIP1559TxData, TxData } from '../api/types/index.js';
++import { fromHex as tronAddressFromHex, toHex as tronAddressToHex } from './tron/crypto.js';
+ export declare const defaultTokenIcon = "https://static.particle.network/token-list/defaultToken/default.png";
+ export declare const solana: {
+     blockExplorers: {
+diff --git a/dist/types/utils/ethereumUtils.d.ts b/dist/types/utils/ethereumUtils.d.ts
+index f94ef397940a6881ad4e9348d620f68e78705cf6..5b8232c2c981368f496421bbe95cb397bc9b0417 100644
+--- a/dist/types/utils/ethereumUtils.d.ts
++++ b/dist/types/utils/ethereumUtils.d.ts
+@@ -1,4 +1,4 @@
+-import { SignTypedDataVersion } from '../types';
++import { SignTypedDataVersion } from '../types/index.js';
+ export declare const ethereumUtils: {
+     getSignTypedVersion(method: string): SignTypedDataVersion;
+     isUniq(method: string): boolean;
+diff --git a/dist/types/utils/sigUtils.d.ts b/dist/types/utils/sigUtils.d.ts
+index bd40d330ac4b28aba23d5e3a38cff54009319a61..78dad6e48381ad86da86ca1c5b3c5c43ffaf9b24 100644
+--- a/dist/types/utils/sigUtils.d.ts
++++ b/dist/types/utils/sigUtils.d.ts
+@@ -1,5 +1,5 @@
+ import { type ToBufferInputTypes } from '@ethereumjs/util';
+-import { SignTypedDataVersion, type MessageTypes, type TypedDataV1, type TypedMessage } from '../types';
++import { SignTypedDataVersion, type MessageTypes, type TypedDataV1, type TypedMessage } from '../types/index.js';
+ export declare function personalSignHash({ data }: {
+     data: ToBufferInputTypes;
+ }): Buffer;

@@ -1,7 +1,7 @@
 import { Trans } from '@lingui/macro';
 import { safeUnreachable } from '@masknet/kit';
 
-import { MethodButton } from '@/app/(developers)/components/MethodButton.js';
+import { BridgeMethodButton } from '@/app/(developers)/components/BridgeMethodButton.js';
 import { Headline } from '@/app/(settings)/components/Headline.js';
 import { Section } from '@/app/(settings)/components/Section.js';
 import { ClickableArea } from '@/components/ClickableArea.js';
@@ -103,7 +103,7 @@ export default function Page() {
 
         switch (type) {
             case 'method':
-                return <MethodButton item={item} />;
+                return <BridgeMethodButton item={item} />;
             default:
                 safeUnreachable(type);
                 return null;

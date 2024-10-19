@@ -2794,6 +2794,9 @@ msgstr "This is not an airdrop scam. Many scams attract users through airdrops."
 msgid "GIF"
 msgstr "GIF"
 
+msgid "Ethereum JSON RPC"
+msgstr "Ethereum JSON RPC"
+
 msgid "Followed @{0} on Lens"
 msgstr "Followed @{0} on Lens"
 
