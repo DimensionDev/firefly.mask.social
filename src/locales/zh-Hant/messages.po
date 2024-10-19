@@ -2799,6 +2799,9 @@ msgstr ""
 msgid "GIF"
 msgstr "GIF"
 
+msgid "Ethereum JSON RPC"
+msgstr ""
+
 msgid "Followed @{0} on Lens"
 msgstr ""
 

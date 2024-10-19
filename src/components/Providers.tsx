@@ -3,6 +3,8 @@
 import { useActionsRegistryInterval } from '@dialectlabs/blinks';
 import { i18n } from '@lingui/core';
 import { I18nProvider } from '@lingui/react';
+import * as AuthCore from '@particle-network/auth-core';
+import * as AuthKit from '@particle-network/authkit';
 import { QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { ReactQueryStreamedHydration } from '@tanstack/react-query-next-experimental';
@@ -27,6 +29,12 @@ import { useMounted } from '@/hooks/useMounted.js';
 import { setLocale } from '@/i18n/index.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
 import { useLeafwatchPersistStore } from '@/store/useLeafwatchPersistStore.js';
+
+console.log('DEBUG: auth SDK');
+console.log({
+    AuthKit,
+    AuthCore,
+});
 
 export const Providers = memo(function Providers(props: { children: React.ReactNode }) {
     const isDarkMode = useIsDarkMode();

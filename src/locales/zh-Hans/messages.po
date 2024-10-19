@@ -2799,6 +2799,9 @@ msgstr "这不是空投欺诈。许多欺诈通过空投吸引用户。"
 msgid "GIF"
 msgstr "GIF"
 
+msgid "Ethereum JSON RPC"
+msgstr ""
+
 msgid "Followed @{0} on Lens"
 msgstr "在 Lens 上关注了 @{0}"
 

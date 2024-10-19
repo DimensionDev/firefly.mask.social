@@ -60,8 +60,8 @@ export function ConnectWallet({ collapsed: sideBarCollapsed = false }: ConnectWa
             icon: solanaNetworkDescriptor?.icon,
             label: resolveValue(() => {
                 if (!solanaWallet.publicKey) return null;
-                const publicKey = solanaWallet.publicKey.toBase58();
-                return formatSolanaAddress(publicKey, 4);
+                const address = solanaWallet.publicKey.toBase58();
+                return formatSolanaAddress(address, 4);
             }),
             onOpenConnectModal: () => connectModalSolana.setVisible(true),
             onOpenAccountModal: () => SolanaAccountModalRef.open(),
