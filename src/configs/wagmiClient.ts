@@ -41,9 +41,9 @@ import {
 } from 'wagmi/chains';
 
 import { createParticleConnector } from '@/app/connectors/ParticleConnector.js';
+import { VERCEL_NEV } from '@/constants/enum.js';
 import { env } from '@/constants/env.js';
 import { SITE_DESCRIPTION, SITE_NAME, SITE_URL } from '@/constants/index.js';
-import { VERCEL_NEV } from '@/constants/enum.js';
 
 const networks = [
     mainnet,
