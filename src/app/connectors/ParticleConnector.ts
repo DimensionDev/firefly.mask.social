@@ -10,10 +10,12 @@ import { NotImplementedError } from '@/constants/error.js';
 interface ConnectorOptions {}
 
 export function createParticleConnector({}: ConnectorOptions) {
-    if (env.external.NEXt_PUBLIC_PARTICLE !== STATUS.Enabled) {
-        console.warn(`Particle is disabled.`);
+    if (env.external.NEXT_PUBLIC_PARTICLE !== STATUS.Enabled) {
+        console.warn(`[Particle] disabled.`);
         return null;
     }
+
+    console.info(`[Particle] enabled`);
 
     return createConnector(() => {
         // init auth
@@ -44,7 +46,7 @@ export function createParticleConnector({}: ConnectorOptions) {
                 return particleAuth.ethereum;
             },
             async isAuthorized() {
-                return env.external.NEXt_PUBLIC_PARTICLE === STATUS.Enabled;
+                return env.external.NEXT_PUBLIC_PARTICLE === STATUS.Enabled;
             },
             onAccountsChanged(account) {
                 console.log(`[Particle] onAccountsChanged`, account);
