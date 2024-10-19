@@ -30,12 +30,12 @@ export function ConnectMPCWalletButton({ connection }: ConnectMPCWalletButtonPro
             try {
                 switch (connection.platform) {
                     case 'eth': {
-                        const connector = createParticleConnector({});
-                        if (!connector) throw new Error('Failed to create connector.');
-
                         if (isConnected) {
                             await disconnect(config);
                         } else {
+                            const connector = createParticleConnector({});
+                            if (!connector) throw new Error('Failed to create connector.');
+
                             await connect(config, {
                                 chainId: ChainId.Mainnet,
                                 connector,
