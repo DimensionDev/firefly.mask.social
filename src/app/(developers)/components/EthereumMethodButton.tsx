@@ -1,5 +1,6 @@
 'use client';
 
+import { Trans } from '@lingui/macro';
 import { EthereumMethodType } from '@masknet/web3-shared-evm';
 import { getAccount, getBalance, sendTransaction, signMessage } from '@wagmi/core';
 import { first } from 'lodash-es';
@@ -12,7 +13,6 @@ import { enqueueErrorMessage, enqueueInfoMessage } from '@/helpers/enqueueMessag
 import { formatBalance } from '@/helpers/formatBalance.js';
 import { getSnackbarMessageFromError } from '@/helpers/getSnackbarMessageFromError.js';
 import type { MethodItem } from '@/types/ethereum.js';
-import { Trans } from '@lingui/macro';
 
 interface Props {
     item: MethodItem;
