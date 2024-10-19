@@ -81,6 +81,7 @@ export const chains = [
 
 export const adapter = new WagmiAdapter({
     networks,
+    connectors: [],
     projectId: env.external.NEXT_PUBLIC_W3M_PROJECT_ID,
 });
 
