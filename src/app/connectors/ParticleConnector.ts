@@ -1,15 +1,17 @@
-import { particleAuth } from '@particle-network/auth-core';
+import { ChainId, isValidAddress } from '@masknet/web3-shared-evm';
+import { AuthType, connect, particleAuth } from '@particle-network/auth-core';
 import type { Address } from 'viem';
 import { createConnector } from 'wagmi';
 
 import { chains } from '@/configs/wagmiClient.js';
 import { STATUS } from '@/constants/enum.js';
 import { env } from '@/constants/env.js';
-import { NotImplementedError } from '@/constants/error.js';
+import { AuthenticationError, NotImplementedError } from '@/constants/error.js';
+import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
 
 interface ConnectorOptions {}
 
-export function createParticleConnector({}: ConnectorOptions) {
+export function createParticleConnector(options: ConnectorOptions) {
     if (env.external.NEXT_PUBLIC_PARTICLE !== STATUS.Enabled) {
         console.warn(`[Particle] disabled.`);
         return null;
@@ -40,7 +42,26 @@ export function createParticleConnector({}: ConnectorOptions) {
             name: 'Particle',
             type: 'Particle',
             async connect() {
-                throw new NotImplementedError();
+                if (!fireflySessionHolder.session) throw new AuthenticationError('Firefly session not found');
+
+                const user = await connect({
+                    provider: AuthType.jwt,
+                    // cspell: disable-next-line
+                    thirdpartyCode: fireflySessionHolder.session?.token,
+                });
+
+                console.info(`[Particle] connected`, user);
+
+                const wallet = user.wallets.find((x) => x.chain_name === 'evm_chain');
+                if (!isValidAddress(wallet?.public_address)) {
+                    console.error(`[Particle] wallet not found`);
+                    throw new AuthenticationError('Wallet not found');
+                }
+
+                return {
+                    chainId: ChainId.Mainnet,
+                    accounts: [wallet.public_address as Address],
+                };
             },
             async disconnect() {
                 throw new NotImplementedError();

@@ -21,7 +21,7 @@ interface Props {
 export function EthereumMethodButton({ item }: Props) {
     const [{ loading }, onClick] = useAsyncFn(async () => {
         try {
-            const account = await getAccount(config);
+            const account = getAccount(config);
             const address = first(account.addresses);
             if (!address) {
                 enqueueErrorMessage('No accounts found');

@@ -77,6 +77,12 @@ export class ContentTypeError extends Error {
     }
 }
 
+export class AuthenticationError extends Error {
+    constructor(message?: string) {
+        super(message ?? 'Failed to authenticate');
+    }
+}
+
 export class UserRejectionError extends Error {
     constructor(message?: string) {
         super(message ?? 'User rejected.');
