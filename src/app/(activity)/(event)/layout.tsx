@@ -11,10 +11,10 @@ import { fireflyBridgeProvider } from '@/providers/firefly/Bridge.js';
 
 export default function Layout({ children }: { children: React.ReactNode }) {
     const isMedium = useIsMedium();
-    if (fireflyBridgeProvider.supported) return children;
+    if (fireflyBridgeProvider.supported || !isMedium) return children;
     return (
         <>
-            {isMedium ? <SideBarForDesktop /> : null}
+            <SideBarForDesktop />
             <main className="flex w-full flex-[1_1_100%] flex-col md:border-r md:border-line md:pl-[289px] lg:w-[888px] lg:max-w-[calc(100%-384px)]">
                 <div className="sticky top-0 z-40 bg-primaryBottom">
                     <HeaderSearchBar />
