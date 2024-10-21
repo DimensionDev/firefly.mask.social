@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse, userAgent } from 'next/server.js';
 import urlcat from 'urlcat';
 
+import { DEFAULT_SOCIAL_SOURCE } from '@/constants/index.js';
 import { isFollowCategory } from '@/helpers/isFollowCategory.js';
 import { isMatchedDiscoverPage } from '@/helpers/isMatchedDiscoverPage.js';
 import { parseOldDiscoverUrl } from '@/helpers/parseDiscoverUrl.js';
@@ -30,6 +31,10 @@ export async function middleware(request: NextRequest) {
         return NextResponse.rewrite(new URL('/activity/cz', request.url), {
             request,
         });
+    }
+
+    if (pathname === '/') {
+        return NextResponse.redirect(new URL(resolveDiscoverUrl(DEFAULT_SOCIAL_SOURCE), request.url));
     }
 
     if (isMatchedDiscoverPage(pathname)) {

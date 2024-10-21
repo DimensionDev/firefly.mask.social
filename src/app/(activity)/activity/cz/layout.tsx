@@ -11,6 +11,7 @@ import { fireflyBridgeProvider } from '@/providers/firefly/Bridge.js';
 
 export default function Layout({ children }: PropsWithChildren) {
     const router = useRouter();
+
     if (
         typeof window !== 'undefined' &&
         window.location.hostname === 'cz.firefly.social' &&
