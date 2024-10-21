@@ -183,7 +183,8 @@
         "getconvert",
         "nextwidth",
         "nextheight",
-        "mutelist"
+        "mutelist",
+        "Powerbadge"
     ],
     "flagWords": [],
     "ignorePaths": [

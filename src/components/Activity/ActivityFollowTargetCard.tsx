@@ -12,6 +12,8 @@ import { resolveProfileUrl } from '@/helpers/resolveProfileUrl.js';
 export function ActivityFollowTargetCard({ handle, profileId }: { handle: string; profileId: string }) {
     const { data } = useActivityClaimCondition();
     const isFollowed = data?.x?.following; // TODO: farcaster follow
+    // cspell: disable-next-line
+    const farcasterHandle = 'barmstrong';
     return (
         <div
             className={classNames(
@@ -28,7 +30,7 @@ export function ActivityFollowTargetCard({ handle, profileId }: { handle: string
                         </Link>{' '}
                         on X before 9/21, or followed{' '}
                         <Link className="inline text-highlight" href={resolveProfileUrl(Source.Farcaster, '20')}>
-                            @barmstrong
+                            @{farcasterHandle}
                         </Link>{' '}
                         on Farcaster before Oct 20, 2024
                     </Trans>
