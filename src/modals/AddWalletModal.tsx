@@ -9,6 +9,7 @@ import { forwardRef, useCallback, useState } from 'react';
 import { useAsyncFn } from 'react-use';
 import { useAccount, useSignMessage } from 'wagmi';
 
+import { FetchError } from '@/constants/error.js';
 import { EMPTY_LIST } from '@/constants/index.js';
 import { enqueueErrorMessage, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { formatEthereumAddress, formatSolanaAddress } from '@/helpers/formatAddress.js';
@@ -41,31 +42,35 @@ export const AddWalletModal = forwardRef<SingletonModalRefCreator<AddWalletModal
         const onBindEvmAddress = useCallback(async () => {
             const address = account.address;
             if (!account.isConnected || !address) {
-                return ConnectModalRef.open();
+                ConnectModalRef.open();
+                return;
             }
             const existedConnection = connections.find((connection) =>
                 isSameEthereumAddress(connection.address, address),
             );
             if (existedConnection) {
-                const addressName = existedConnection.ens?.[0] || formatSolanaAddress(address, 8);
+                const addressName = existedConnection.ens?.[0] || formatEthereumAddress(address, 8);
                 AccountModalRef.open();
-                return enqueueErrorMessage(t`${addressName} is already connected.`);
+                enqueueErrorMessage(t`${addressName} is already connected.`);
+                return;
             }
             const message = await FireflySocialMediaProvider.getMessageToSignForBindWallet(address.toLowerCase());
             const signature = await signMessageAsync({ message: { raw: message }, account: address });
-            await FireflySocialMediaProvider.verifyAndBindWallet(message, signature);
+            return await FireflySocialMediaProvider.verifyAndBindWallet(message, signature);
         }, [account.address, account.isConnected, connections, signMessageAsync]);
         const onBindSolanaAddress = useCallback(async () => {
             const address = publicKey?.toBase58();
             if (!address || !signMessage) {
-                return wallet.setVisible(true);
+                wallet.setVisible(true);
+                return;
             }
             const existedConnection = connections.find((connection) =>
                 isSameSolanaAddress(connection.address, address),
             );
             if (existedConnection) {
-                const addressName = existedConnection.ens?.[0] || formatEthereumAddress(address, 8);
-                return enqueueErrorMessage(t`${addressName} is already connected.`);
+                const addressName = existedConnection.ens?.[0] || formatSolanaAddress(address, 8);
+                enqueueErrorMessage(t`${addressName} is already connected.`);
+                return;
             }
             const hexMessage = await FireflySocialMediaProvider.getMessageToSignMessageForBindSolanaWallet(address);
             const message = bs58.decode(bs58.encode(Buffer.from(hexMessage.substring(2), 'hex')));
@@ -79,7 +84,8 @@ export const AddWalletModal = forwardRef<SingletonModalRefCreator<AddWalletModal
                 try {
                     switch (platform) {
                         case 'evm':
-                            await onBindEvmAddress();
+                            const evmRes = await onBindEvmAddress();
+                            if (!evmRes) return;
                             break;
                         case 'solana':
                             const result = await onBindSolanaAddress();
@@ -93,7 +99,10 @@ export const AddWalletModal = forwardRef<SingletonModalRefCreator<AddWalletModal
                     enqueueSuccessMessage(t`Wallet added successfully`);
                     onClose();
                 } catch (error) {
-                    enqueueErrorMessage(getSnackbarMessageFromError(error, t`Failed to add wallet`));
+                    const messageFromError = error instanceof FetchError ? error.text : '';
+                    enqueueErrorMessage(
+                        getSnackbarMessageFromError(error, messageFromError || t`Failed to add wallet`),
+                    );
                     throw error;
                 }
             },
