@@ -1,4 +1,10 @@
-import { ChainId, EthereumMethodType, isValidChainId, type RequestArguments } from '@masknet/web3-shared-evm';
+import {
+    ChainId,
+    EthereumMethodType,
+    isValidAddress,
+    isValidChainId,
+    type RequestArguments,
+} from '@masknet/web3-shared-evm';
 import { first } from 'lodash-es';
 import { hexToBigInt, hexToNumber, numberToHex } from 'viem';
 import { getAccount, sendTransaction, signMessage, switchNetwork } from 'wagmi/actions';
@@ -12,11 +18,11 @@ document.addEventListener(
     'mask_custom_event_provider_request',
     async (event: CustomEvent<{ id: string; requestArguments: RequestArguments }>) => {
         const { id, requestArguments } = event.detail;
-        console.warn('[wagmi] request:', requestArguments);
+        console.info('[custom-event-provider] request:', requestArguments);
 
         const dispatchEvent = (result: unknown, error?: Error) => {
-            if (error) console.warn(`[wagmi] response error: ${error}`);
-            else console.warn(`[wagmi] response result: ${result}`);
+            if (error) console.info(`[custom-event-provider] response error: ${error}`);
+            else console.info(`[custom-event-provider] response result: ${result}`);
             document.dispatchEvent(
                 new CustomEvent('mask_custom_event_provider_response', {
                     detail: {
@@ -41,7 +47,7 @@ document.addEventListener(
                 }
                 case EthereumMethodType.ETH_ACCOUNTS: {
                     const account = getAccount(config);
-                    dispatchEvent(account.address ? [account.address] : []);
+                    dispatchEvent(isValidAddress(account.address) ? [account.address] : []);
                     return;
                 }
                 case EthereumMethodType.ETH_CHAIN_ID: {
@@ -98,7 +104,7 @@ config.subscribe(
     (s) => s,
     (state, previousState) => {
         const dispatchEvent = (type: string, payload?: unknown) => {
-            console.warn(`[wagmi] ${type}`, payload);
+            console.info(`[custom-event-provider] ${type}`, payload);
             document.dispatchEvent(
                 new CustomEvent('mask_custom_event_provider_event', {
                     detail: {

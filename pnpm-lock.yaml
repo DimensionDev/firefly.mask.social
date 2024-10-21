@@ -44,7 +44,7 @@ patchedDependencies:
     hash: 7366xd6hdjwbiu226ytexflsbm
     path: patches/@particle-network__auth-core@2.0.4.patch
   '@particle-network/authkit@2.0.16':
-    hash: kmwvj6kgmbl46n6zcclajk2kda
+    hash: l7vszbbi2gqztq27clumbuakpa
     path: patches/@particle-network__authkit@2.0.16.patch
   dayjs-twitter@0.5.0:
     hash: 3tjtunpncvdv4s34umzp7pmbr4
@@ -152,7 +152,7 @@ importers:
         version: 2.0.4(patch_hash=7366xd6hdjwbiu226ytexflsbm)(@aws-sdk/client-sso-oidc@3.670.0)
       '@particle-network/authkit':
         specifier: ^2.0.16
-        version: 2.0.16(patch_hash=kmwvj6kgmbl46n6zcclajk2kda)(@aws-sdk/client-sso-oidc@3.670.0)(@particle-network/wallet@2.0.6)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026)(viem@2.21.27)
+        version: 2.0.16(patch_hash=l7vszbbi2gqztq27clumbuakpa)(@aws-sdk/client-sso-oidc@3.670.0)(@particle-network/wallet@2.0.6)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026)(viem@2.21.27)
       '@reown/appkit':
         specifier: ^1.1.3
         version: 1.1.3(@types/react@18.2.48)(@vercel/kv@1.0.1)(react@0.0.0-experimental-8039e6d0b-20231026)(typescript@5.6.3)(zod@3.23.8)
@@ -11038,7 +11038,7 @@ packages:
     dev: false
     patched: true
 
-  /@particle-network/authkit@2.0.16(patch_hash=kmwvj6kgmbl46n6zcclajk2kda)(@aws-sdk/client-sso-oidc@3.670.0)(@particle-network/wallet@2.0.6)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026)(viem@2.21.27):
+  /@particle-network/authkit@2.0.16(patch_hash=l7vszbbi2gqztq27clumbuakpa)(@aws-sdk/client-sso-oidc@3.670.0)(@particle-network/wallet@2.0.6)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026)(viem@2.21.27):
     resolution: {integrity: sha512-m0zr4TW1SzuLD6VxNHf9oWpPWeb8Ba/o2pMuTLJDm61KkCtbvjIRPSbOdjIM1bTk10P1d0VkIaYPj9eT0KPR2g==}
     engines: {node: '>=16'}
     peerDependencies:

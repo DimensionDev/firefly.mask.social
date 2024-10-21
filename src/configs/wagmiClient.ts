@@ -41,7 +41,6 @@ import {
 } from 'wagmi/chains';
 
 import { createParticleConnector } from '@/app/connectors/ParticleConnector.js';
-import { VERCEL_NEV } from '@/constants/enum.js';
 import { env } from '@/constants/env.js';
 import { SITE_DESCRIPTION, SITE_NAME, SITE_URL } from '@/constants/index.js';
 
@@ -81,13 +80,12 @@ export const chains = [
     wagmiZora,
 ] as const;
 
-const particleConnector =
-    env.external.NEXT_PUBLIC_VERCEL_ENV === VERCEL_NEV.Production ? null : createParticleConnector({});
+const particleConnector = createParticleConnector({});
 
 export const adapter = new WagmiAdapter({
-    networks,
-    connectors: particleConnector ? [particleConnector] : [],
     projectId: env.external.NEXT_PUBLIC_W3M_PROJECT_ID,
+    connectors: particleConnector ? [particleConnector] : [],
+    networks,
 });
 
 const metadata = {
@@ -106,6 +104,7 @@ createAppKit({
         email: false,
         socials: [],
     },
+    debug: true,
 });
 
 export const config = adapter.wagmiConfig;
