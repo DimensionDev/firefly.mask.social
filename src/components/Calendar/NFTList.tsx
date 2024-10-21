@@ -22,7 +22,7 @@ interface NFTListProps {
 const SocialIcons: Record<string, ReactNode> = {
     twitter: <XIcon width={20} height={20} />,
     discord: <DiscordRoundIcon width={20} height={20} />,
-    website: <WebsiteIcon width={20} height={20} />,
+    website: <WebsiteIcon className="dark:invert" width={20} height={20} />,
 };
 
 const sortPlat = (_: any, b: { type: string }) => {

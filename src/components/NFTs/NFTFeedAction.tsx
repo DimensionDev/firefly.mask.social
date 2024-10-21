@@ -155,7 +155,7 @@ export function NFTFeedAction({ action, ownerAddress, toAddress, fromAddress, co
                         <PoapIcon width={iconSize} height={iconSize} className="mb-auto mt-[3px] min-w-[18px]" />
                         <div className="text-second">
                             <Trans>
-                                <span className="font-bold text-main">COLLECTED</span> a POAP
+                                <span className="font-bold text-main">Collected</span> a POAP
                             </Trans>
                         </div>
                     </>
