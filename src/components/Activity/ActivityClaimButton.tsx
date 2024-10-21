@@ -3,25 +3,21 @@
 import { t, Trans } from '@lingui/macro';
 import { useContext, useState } from 'react';
 import { useAsyncFn } from 'react-use';
-import urlcat from 'urlcat';
 
 import LoadingIcon from '@/assets/loading.svg';
 import { ActivityContext } from '@/components/Activity/ActivityContext.js';
 import { ActivityMintSuccessDialog } from '@/components/Activity/ActivityMintSuccessDialog.js';
 import { useActivityClaimCondition } from '@/components/Activity/hooks/useActivityClaimCondition.js';
 import { useActivityPremiumList } from '@/components/Activity/hooks/useActivityPremiumList.js';
-import { IS_IOS } from '@/constants/bowser.js';
 import { classNames } from '@/helpers/classNames.js';
 import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
 import { getSnackbarMessageFromError } from '@/helpers/getSnackbarMessageFromError.js';
 import { useFireflyBridgeAuthorization } from '@/hooks/useFireflyBridgeAuthorization.js';
-import { fireflyBridgeProvider } from '@/providers/firefly/Bridge.js';
-import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
-import { ActivityStatus, type Response } from '@/providers/types/Firefly.js';
-import { settings } from '@/settings/index.js';
+import { ActivityStatus } from '@/providers/types/Firefly.js';
+import { mintActivitySBT } from '@/services/mintActivitySBT.js';
 
 export function ActivityClaimButton({ status }: { status: ActivityStatus }) {
-    const { address } = useContext(ActivityContext);
+    const { address, name } = useContext(ActivityContext);
     const { data: authToken } = useFireflyBridgeAuthorization();
     const { data, refetch } = useActivityClaimCondition();
     const disabled = status === ActivityStatus.Ended || !data?.canClaim;
@@ -29,35 +25,9 @@ export function ActivityClaimButton({ status }: { status: ActivityStatus }) {
     const [{ loading }, claim] = useAsyncFn(async () => {
         if (disabled || !address) return;
         try {
-            let claimPlatform = 'web';
-            if (fireflyBridgeProvider.supported) claimPlatform = IS_IOS ? 'ios' : 'android';
-            const response = await fireflySessionHolder.fetch<
-                Response<{
-                    status: boolean;
-                    hash: string;
-                    errormessage?: string;
-                }>
-            >(
-                urlcat(settings.FIREFLY_ROOT_URL, '/v1/wallet_transaction/mint/bnb/sbt'), // TODO: new api
-                {
-                    method: 'POST',
-                    body: JSON.stringify({
-                        walletAddress: address,
-                        claimPlatform,
-                    }),
-                    headers: {
-                        Authorization: `Bearer ${authToken}`,
-                    },
-                },
-            );
+            const { hash } = await mintActivitySBT(address, name, { authToken });
             await refetch();
-            if (response.error || !response.data) {
-                throw new Error(response.error?.[0] ?? t`Failed to claim token`);
-            }
-            if (response.data.errormessage) {
-                throw new Error(response.data.errormessage);
-            }
-            setHash(response.data.hash);
+            setHash(hash);
         } catch (error) {
             enqueueErrorMessage(getSnackbarMessageFromError(error, t`Failed to claim token`), { error });
             throw error;
