@@ -9,22 +9,31 @@ import { getCurrentSourceFromUrl } from '@/helpers/getCurrentSourceFromUrl.js';
 
 interface GlobalState {
     routeChanged: boolean;
+
     asyncStatus: Record<SocialSource, AsyncStatus>;
     setAsyncStatus: (source: SocialSource, status: AsyncStatus) => void;
+
     scrollIndex: Record<string, number>;
     setScrollIndex: (key: string, value: number) => void;
+
     virtuosoState: Record<'temporary' | 'cached', Record<string, StateSnapshot | undefined>>;
     setVirtuosoState: (key: 'temporary' | 'cached', listKey: string, snapshot: StateSnapshot) => void;
+
     currentSource: Source;
     updateCurrentSource: (source: Source) => void;
+
     collapsedConnectWallet: boolean;
     updateCollapsedConnectWallet: (collapsed: boolean) => void;
+
+    particleReconnecting: boolean;
+    updateParticleReconnecting: (reconnecting: boolean) => void;
 }
 
 const useGlobalStateBase = create<GlobalState, [['zustand/persist', unknown], ['zustand/immer', never]]>(
     persist(
         immer((set) => ({
             routeChanged: false,
+
             asyncStatus: {
                 [Source.Farcaster]: AsyncStatus.Idle,
                 [Source.Lens]: AsyncStatus.Idle,
@@ -34,11 +43,13 @@ const useGlobalStateBase = create<GlobalState, [['zustand/persist', unknown], ['
                 set((state) => {
                     state.asyncStatus[source] = status;
                 }),
+
             currentSource: getCurrentSourceFromUrl(),
             updateCurrentSource: (source: Source) =>
                 set((state) => {
                     state.currentSource = source;
                 }),
+
             scrollIndex: {},
             setScrollIndex: (key: string, value) => {
                 set((state) => {
@@ -50,6 +61,7 @@ const useGlobalStateBase = create<GlobalState, [['zustand/persist', unknown], ['
                     }
                 });
             },
+
             virtuosoState: {
                 temporary: {},
                 cached: {},
@@ -59,10 +71,18 @@ const useGlobalStateBase = create<GlobalState, [['zustand/persist', unknown], ['
                     state.virtuosoState[key][listKey] = snapshot;
                 });
             },
+
             collapsedConnectWallet: false,
             updateCollapsedConnectWallet(collapsed) {
                 set((state) => {
                     state.collapsedConnectWallet = collapsed;
+                });
+            },
+
+            particleReconnecting: false,
+            updateParticleReconnecting(reconnecting) {
+                set((state) => {
+                    state.particleReconnecting = reconnecting;
                 });
             },
         })),
@@ -71,6 +91,7 @@ const useGlobalStateBase = create<GlobalState, [['zustand/persist', unknown], ['
             storage: createJSONStorage(() => sessionStorage),
             partialize: (state) => ({
                 routeChanged: state.routeChanged,
+                particleReconnecting: state.particleReconnecting,
             }),
         },
     ),

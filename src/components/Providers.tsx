@@ -12,6 +12,7 @@ import { memo, useEffect, useLayoutEffect, useMemo, useRef } from 'react';
 import { useEffectOnce } from 'react-use';
 import { v4 as uuid } from 'uuid';
 
+import { ParticleProvider } from '@/components/ParticleProvider.js';
 import { SolanaWalletAdapterProvider } from '@/components/SolanaWalletAdapterProvider.js';
 import { WagmiProvider } from '@/components/WagmiProvider.js';
 import { queryClient } from '@/configs/queryClient.js';
@@ -100,10 +101,12 @@ export const Providers = memo(function Providers(props: { children: React.ReactN
                                 variantInfo: classNames('!bg-warn'),
                             }}
                         >
-                            {/* wagmi depends @tanstack/react-query@4.29.23 */}
-                            <WagmiProvider>
-                                <SolanaWalletAdapterProvider>{props.children}</SolanaWalletAdapterProvider>
-                            </WagmiProvider>
+                            <ParticleProvider>
+                                {/* wagmi depends @tanstack/react-query@4.29.23 */}
+                                <WagmiProvider>
+                                    <SolanaWalletAdapterProvider>{props.children}</SolanaWalletAdapterProvider>
+                                </WagmiProvider>
+                            </ParticleProvider>
                         </SnackbarProvider>
                     </DarkModeContext.Provider>
                 </ReactQueryStreamedHydration>

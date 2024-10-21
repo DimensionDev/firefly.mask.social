@@ -54,7 +54,6 @@ export function EthereumMethodButton({ item }: Props) {
                     break;
                 case EthereumMethodType.ETH_SEND_TRANSACTION:
                     const hash = await sendTransaction(config, {
-                        account: address,
                         to: address,
                         value: 0n,
                     });

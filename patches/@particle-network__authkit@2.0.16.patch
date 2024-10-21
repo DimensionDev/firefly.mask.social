@@ -1,3 +1,14 @@
+diff --git a/dist/types/components/customRouter/index.d.ts b/dist/types/components/customRouter/index.d.ts
+index 559098bbe2aa1b5aff178d4ce0c5487458907a13..c3985a29afa69ea299d9cc982450ea4f00c23187 100644
+--- a/dist/types/components/customRouter/index.d.ts
++++ b/dist/types/components/customRouter/index.d.ts
+@@ -1,5 +1,5 @@
+ import React from 'react';
+-import type { ICustomRouter } from '../../context/types';
++import type { ICustomRouter } from '../../context/types.js';
+ export declare enum AuthPage {
+     Index = "index",
+     Login = "login",
 diff --git a/dist/types/context/hooks/index.d.ts b/dist/types/context/hooks/index.d.ts
 index 8915ce1ca13a89fc7bf9ddaa55116c944c2a586f..7375149e8dd84f12978a788d54486351e58c6fb2 100644
 --- a/dist/types/context/hooks/index.d.ts
@@ -69,22 +80,24 @@ index 6c6d6864ee65089dceede806deb14a121e555a18..2441aca654a245d925bbfd2ad66c1594
      address: string | null;
      chainId: number;
 diff --git a/dist/types/context/index.d.ts b/dist/types/context/index.d.ts
-index a5adfebb87fa9590224287f00a7f5b5f620375a9..4f6bd94bd6bd32eee4eb1a2d7961fa6c2495e1d6 100644
+index a5adfebb87fa9590224287f00a7f5b5f620375a9..2cc70aa4af87658ba2f0ab9bd1d2fc499c9c26f1 100644
 --- a/dist/types/context/index.d.ts
 +++ b/dist/types/context/index.d.ts
-@@ -2,9 +2,9 @@ import type { LoginAuthorization, UserInfo } from '@particle-network/auth-core';
+@@ -2,10 +2,10 @@ import type { LoginAuthorization, UserInfo } from '@particle-network/auth-core';
  import type { WalletEntryPlugin } from '@particle-network/wallet';
  import { EventEmitter } from 'events';
  import React from 'react';
 -import type { AccountTipModalProps } from '../pages/account/accountTipModal';
 -import type { PaymentVerify } from '../pages/account/paymentVerifyModal';
 -import type { WrongPasswordInfo } from '../pages/account/wrongPasswordModal';
+-import type { AuthCoreModalOptions, ConnectionStatus, IAuthCoreModal, ICustomRouter, Language, NavigateOptions, SocialConnectCallback } from './types';
 +import type { AccountTipModalProps } from '../pages/account/accountTipModal/index.js';
 +import type { PaymentVerify } from '../pages/account/paymentVerifyModal/index.js';
 +import type { WrongPasswordInfo } from '../pages/account/wrongPasswordModal/index.js';
- import type { AuthCoreModalOptions, ConnectionStatus, IAuthCoreModal, ICustomRouter, Language, NavigateOptions, SocialConnectCallback } from './types';
++import type { AuthCoreModalOptions, ConnectionStatus, IAuthCoreModal, ICustomRouter, Language, NavigateOptions, SocialConnectCallback } from './types.js';
  export declare const defaultModalOptions: Partial<AuthCoreModalOptions>;
  interface GlobalState {
+     connectionStatus: ConnectionStatus;
 diff --git a/dist/types/context/types.d.ts b/dist/types/context/types.d.ts
 index 2f190d7a8036c211d8c42ea0135a78547e9a77a5..7bcd7e17251070ef9055df0894e4413ebb8d1b30 100644
 --- a/dist/types/context/types.d.ts
@@ -124,6 +137,19 @@ index dafbfd6954732846f9e6826d5d3e81fc48a4fbd6..fe111110113a6a0177f34a7816bbbcc6
 +export { getEVMPublicAddress } from './api/getPublicAddress.js';
 +export { isValidE164PhoneNumber, isValidEmail } from './utils/index.js';
  export { AuthCoreContextProvider };
+diff --git a/dist/types/pages/sign/components/NewErcTransfers.d.ts b/dist/types/pages/sign/components/NewErcTransfers.d.ts
+index 3afece87689448905db5a38200413b8cd68d8cc3..53acf1f17c861fdb306831b906642b01c020ff5e 100644
+--- a/dist/types/pages/sign/components/NewErcTransfers.d.ts
++++ b/dist/types/pages/sign/components/NewErcTransfers.d.ts
+@@ -1,7 +1,7 @@
+ import { type EVMDeserializeTransactionResult, type EVMFunction } from '@particle-network/auth-core';
+ import React from 'react';
+ import type { Chain as ViemChain } from 'viem/chains';
+-import type { AuthError } from '../../../api/model/authError';
++import type { AuthError } from '../../../api/model/authError.js';
+ interface Props {
+     displayDetail: boolean;
+     gasError: AuthError | undefined;
 diff --git a/dist/types/types/index.d.ts b/dist/types/types/index.d.ts
 index affc425b4385e3f0fe40040a227280c26e11180d..b49042c69471f18cd168c74b07469c2e9d37431c 100644
 --- a/dist/types/types/index.d.ts
