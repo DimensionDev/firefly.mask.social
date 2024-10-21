@@ -1,46 +1,22 @@
 'use client';
 
 import { SuggestedChannels } from '@/components/Channel/SuggestedChannels.js';
-import { ComposeWatcher } from '@/components/Compose/ComposeWatcher.js';
-import { ComposeButton } from '@/components/ComposeButton/index.js';
-import { IfPathname } from '@/components/IfPathname.js';
 import { LinkCloud } from '@/components/LinkCloud.js';
-import { NavigatorBar } from '@/components/NavigatorBar/index.js';
 import { AsideSearchBar, HeaderSearchBar } from '@/components/Search/SearchBar.js';
-import { SideBar } from '@/components/SideBar/index.js';
+import { SideBarForDesktop } from '@/components/SideBar/SideBarForDesktop.js';
 import { SuggestedFollowsCard } from '@/components/SuggestedFollows/SuggestedFollowsCard.js';
 import { Source } from '@/constants/enum.js';
+import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import { fireflyBridgeProvider } from '@/providers/firefly/Bridge.js';
 
 export default function Layout({ children }: { children: React.ReactNode }) {
+    const isMedium = useIsMedium();
     if (fireflyBridgeProvider.supported) return children;
     return (
         <>
-            <SideBar />
+            {isMedium ? <SideBarForDesktop /> : null}
             <main className="flex w-full flex-[1_1_100%] flex-col md:border-r md:border-line md:pl-[289px] lg:w-[888px] lg:max-w-[calc(100%-384px)]">
                 <div className="sticky top-0 z-40 bg-primaryBottom">
-                    <IfPathname
-                        isNotOneOf={[
-                            {
-                                r: '^/post/[^/]+$',
-                                flags: 'i',
-                            },
-                            {
-                                r: '^/post/[^/]+/\\w+$',
-                                flags: 'i',
-                            },
-                            {
-                                r: '^/article/[^/]+$',
-                                flags: 'i',
-                            },
-                            '/channel',
-                            '/token',
-                            '/nft',
-                        ]}
-                    >
-                        <NavigatorBar />
-                    </IfPathname>
-
                     <HeaderSearchBar />
                 </div>
                 {children}
@@ -53,8 +29,6 @@ export default function Layout({ children }: { children: React.ReactNode }) {
                     <LinkCloud />
                 </div>
             </aside>
-            <ComposeButton />
-            <ComposeWatcher />
         </>
     );
 }
