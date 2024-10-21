@@ -40,7 +40,6 @@ import {
     zora as wagmiZora,
 } from 'wagmi/chains';
 
-import { VERCEL_NEV } from '@/constants/enum.js';
 import { env } from '@/constants/env.js';
 import { SITE_DESCRIPTION, SITE_NAME, SITE_URL } from '@/constants/index.js';
 
