@@ -32,9 +32,6 @@ const InternalEnvSchema = z.object({
     S3_ACCESS_KEY_ID: z.string(),
     S3_ACCESS_KEY_SECRET: z.string(),
     S3_HOST: z.string(),
-
-    // particle
-    PARTICLE_SERVER_KEY: z.string(),
 });
 
 const ExternalEnvSchema = z.object({
