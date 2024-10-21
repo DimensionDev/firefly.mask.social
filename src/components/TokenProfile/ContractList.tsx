@@ -1,4 +1,4 @@
-import { Menu } from '@headlessui/react';
+import { MenuItem, MenuItems } from '@headlessui/react';
 import { t } from '@lingui/macro';
 import { type HTMLProps, memo } from 'react';
 
@@ -28,13 +28,14 @@ export const ContractList = memo<Props>(function ContractList({ contracts }) {
                 </Tooltip>
             }
         >
-            <Menu.Items
-                className="backdrop-filter-[blur(8px)] absolute right-0 z-[1000] flex max-h-[225px] w-max flex-col gap-2 overflow-auto rounded-2xl border border-line bg-primaryBottom p-3 text-base text-main shadow-[0_0_20px_0_rgba(34,49,71,0.05)]"
+            <MenuItems
+                className="backdrop-filter-[blur(8px)] z-[1000] flex max-h-[225px] w-max flex-col gap-2 overflow-auto rounded-2xl border border-line bg-primaryBottom p-3 text-base text-main shadow-[0_0_20px_0_rgba(34,49,71,0.05)]"
                 data-hide-scrollbar
                 onClick={stopEvent}
+                anchor="top end"
             >
                 {contracts.map((contract, index) => (
-                    <Menu.Item key={contract.address}>
+                    <MenuItem key={contract.address}>
                         {({ close }) => (
                             <ContractItem
                                 className={index < contracts.length - 1 ? 'border-b border-line' : ''}
@@ -42,9 +43,9 @@ export const ContractList = memo<Props>(function ContractList({ contracts }) {
                                 onClick={close}
                             />
                         )}
-                    </Menu.Item>
+                    </MenuItem>
                 ))}
-            </Menu.Items>
+            </MenuItems>
         </MoreActionMenu>
     );
 });
@@ -69,7 +70,7 @@ function ContractItem({ contract, ...rest }: ContractItemProps) {
                     {formatEthereumAddress(contract.address, 4)}
                 </div>
             </div>
-            <CopyTextButton text={contract.address} />
+            <CopyTextButton tooltipProps={{ placement: 'left' }} text={contract.address} />
         </div>
     );
 }

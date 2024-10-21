@@ -1,4 +1,4 @@
-import { MenuItem, MenuItems } from '@headlessui/react';
+import { MenuItem } from '@headlessui/react';
 import { t, Trans } from '@lingui/macro';
 import { first } from 'lodash-es';
 import { memo, useCallback } from 'react';
@@ -14,6 +14,7 @@ import { MenuButton } from '@/components/Actions/MenuButton.js';
 import { MuteChannelButton } from '@/components/Actions/MuteChannelButton.js';
 import { MuteProfileButton } from '@/components/Actions/MuteProfileButton.js';
 import { ReportPostButton } from '@/components/Actions/ReportPostButton.js';
+import { MenuGroup } from '@/components/MenuGroup.js';
 import { MoreActionMenu } from '@/components/MoreActionMenu.js';
 import { BaseToggleFollowButton } from '@/components/Profile/BaseToggleFollowButton.js';
 import { Tooltip } from '@/components/Tooltip.js';
@@ -98,12 +99,7 @@ export const MoreAction = memo<MoreProps>(function MoreAction({ source, author, 
                 </Tooltip>
             }
         >
-            <MenuItems
-                className="z-[1000] flex w-max flex-col gap-2 overflow-hidden rounded-2xl border border-line bg-primaryBottom py-3 text-base text-main"
-                onClick={stopEvent}
-                portal
-                anchor="bottom end"
-            >
+            <MenuGroup>
                 {isMyPost ? (
                     <MenuItem>
                         {({ close }) => (
@@ -197,7 +193,7 @@ export const MoreAction = memo<MoreProps>(function MoreAction({ source, author, 
                         </span>
                     </MenuItem>
                 ) : null}
-            </MenuItems>
+            </MenuGroup>
         </MoreActionMenu>
     );
 });

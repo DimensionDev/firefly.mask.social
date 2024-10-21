@@ -1,4 +1,4 @@
-import { Menu } from '@headlessui/react';
+import { MenuItem } from '@headlessui/react';
 import { t } from '@lingui/macro';
 import { ChainId } from '@masknet/web3-shared-evm';
 import type { Address } from 'viem';
@@ -8,12 +8,12 @@ import MoreIcon from '@/assets/more.svg';
 import { MuteWalletButton } from '@/components/Actions/MuteWalletButton.js';
 import { NFTReportSpamButton } from '@/components/Actions/NFTReportSpamButton.js';
 import { WatchWalletButton } from '@/components/Actions/WatchWalletButton.js';
+import { MenuGroup } from '@/components/MenuGroup.js';
 import { MoreActionMenu } from '@/components/MoreActionMenu.js';
 import { Tips } from '@/components/Tips/index.js';
 import { Tooltip } from '@/components/Tooltip.js';
 import { Source } from '@/constants/enum.js';
 import { formatEthereumAddress } from '@/helpers/formatAddress.js';
-import { stopEvent } from '@/helpers/stopEvent.js';
 import { useFireflyIdentity } from '@/hooks/useFireflyIdentity.js';
 import { useIsMyRelatedProfile } from '@/hooks/useIsMyRelatedProfile.js';
 import { useIsWalletMuted } from '@/hooks/useIsWalletMuted.js';
@@ -46,13 +46,10 @@ export function NFTMoreAction({ address, contractAddress, tokenId, chainId }: Pr
                 </Tooltip>
             }
         >
-            <Menu.Items
-                className="absolute right-0 z-[1000] flex w-max flex-col gap-2 overflow-auto rounded-2xl border border-line bg-primaryBottom py-3 text-base text-main"
-                onClick={stopEvent}
-            >
+            <MenuGroup>
                 {!isMyProfile ? (
                     <>
-                        <Menu.Item>
+                        <MenuItem>
                             {({ close }) => (
                                 <WatchWalletButton
                                     handleOrEnsOrAddress={ensOrAddress}
@@ -60,8 +57,8 @@ export function NFTMoreAction({ address, contractAddress, tokenId, chainId }: Pr
                                     onClick={close}
                                 />
                             )}
-                        </Menu.Item>
-                        <Menu.Item>
+                        </MenuItem>
+                        <MenuItem>
                             {({ close }) => (
                                 <MuteWalletButton
                                     handleOrEnsOrAddress={ensOrAddress}
@@ -70,15 +67,15 @@ export function NFTMoreAction({ address, contractAddress, tokenId, chainId }: Pr
                                     onClick={close}
                                 />
                             )}
-                        </Menu.Item>
+                        </MenuItem>
                     </>
                 ) : null}
                 {collectionId ? (
-                    <Menu.Item>
+                    <MenuItem>
                         {({ close }) => <NFTReportSpamButton onClick={close} collectionId={collectionId} />}
-                    </Menu.Item>
+                    </MenuItem>
                 ) : null}
-                <Menu.Item>
+                <MenuItem>
                     {({ close }) => (
                         <Tips
                             className="px-3 py-1 !text-main hover:bg-bg"
@@ -90,8 +87,8 @@ export function NFTMoreAction({ address, contractAddress, tokenId, chainId }: Pr
                             pureWallet
                         />
                     )}
-                </Menu.Item>
-            </Menu.Items>
+                </MenuItem>
+            </MenuGroup>
         </MoreActionMenu>
     );
 }

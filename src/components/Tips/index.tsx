@@ -1,6 +1,6 @@
 import { t } from '@lingui/macro';
 import { motion } from 'framer-motion';
-import { type HTMLProps, memo, type MouseEvent } from 'react';
+import { forwardRef, type HTMLProps } from 'react';
 import { useAsyncFn } from 'react-use';
 
 import LoadingIcon from '@/assets/loading.svg';
@@ -26,39 +26,38 @@ interface TipsProps extends HTMLProps<HTMLButtonElement> {
     tooltipDisabled?: boolean;
     pureWallet?: boolean;
     post?: Post;
+    onClick?: () => void;
 }
 
-export const Tips = memo(function Tips({
-    identity,
-    disabled = false,
-    label,
-    tooltipDisabled = false,
-    pureWallet = false,
-    handle = '',
-    post,
-    className,
-    onClick,
-}: TipsProps) {
+export const Tips = forwardRef<HTMLButtonElement, TipsProps>(function Tips(
+    {
+        identity,
+        disabled = false,
+        label,
+        tooltipDisabled = false,
+        pureWallet = false,
+        handle = '',
+        post,
+        className,
+        onClick,
+    },
+    ref,
+) {
     const profiles = useCurrentFireflyProfilesAll();
 
-    const [{ loading }, handleClick] = useAsyncFn(
-        async (event: MouseEvent<HTMLButtonElement>) => {
-            try {
-                const relatedProfiles = await FireflyEndpointProvider.getAllPlatformProfileByIdentity(identity, true);
-                if (!relatedProfiles?.some((profile) => profile.identity.source === Source.Wallet)) {
-                    throw new Error('No available profiles');
-                }
-                TipsModalRef.open({ identity, handle, pureWallet, profiles: relatedProfiles, post });
-                onClick?.(event);
-            } catch (error) {
-                enqueueInfoMessage(
-                    t`Sorry, we are not able to find a wallet for ${handle ? '@' + handle : identity.id}.`,
-                );
-                throw error;
+    const [{ loading }, handleClick] = useAsyncFn(async () => {
+        try {
+            const relatedProfiles = await FireflyEndpointProvider.getAllPlatformProfileByIdentity(identity, true);
+            if (!relatedProfiles?.some((profile) => profile.identity.source === Source.Wallet)) {
+                throw new Error('No available profiles');
             }
-        },
-        [identity, handle, pureWallet, onClick],
-    );
+            onClick?.();
+            TipsModalRef.open({ identity, handle, pureWallet, profiles: relatedProfiles, post });
+        } catch (error) {
+            enqueueInfoMessage(t`Sorry, we are not able to find a wallet for ${handle ? '@' + handle : identity.id}.`);
+            throw error;
+        }
+    }, [identity, handle, pureWallet, onClick]);
 
     if (
         env.external.NEXT_PUBLIC_TIPS !== STATUS.Enabled ||
@@ -84,12 +83,13 @@ export const Tips = memo(function Tips({
                     })}
                     whileTap={!label ? { scale: 0.9 } : undefined}
                     disabled={disabled || loading}
+                    ref={ref}
                     onClick={(event) => {
                         event.preventDefault();
                         event.stopPropagation();
 
                         if (disabled) return;
-                        handleClick(event);
+                        handleClick();
                     }}
                 >
                     {loading ? (
