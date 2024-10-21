@@ -811,9 +811,6 @@ msgstr ""
 msgid "View Source"
 msgstr ""
 
-msgid "Firefly Garden"
-msgstr ""
-
 msgid "You cannot reply to @{0} on {1}."
 msgstr ""
 
@@ -2189,6 +2186,9 @@ msgid "Your post have published successfully on {0}."
 msgstr ""
 
 msgid "Detail"
+msgstr ""
+
+msgid "Exclusive Events"
 msgstr ""
 
 msgid "Post added to your Bookmarks"

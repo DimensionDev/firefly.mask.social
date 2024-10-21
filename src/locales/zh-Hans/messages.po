@@ -816,9 +816,6 @@ msgstr "未能在 {sourceName} 上隐藏 @{0}。"
 msgid "View Source"
 msgstr "查看原文"
 
-msgid "Firefly Garden"
-msgstr ""
-
 msgid "You cannot reply to @{0} on {1}."
 msgstr "您不能在 {1} 上评论 @{0}。"
 
@@ -2195,6 +2192,9 @@ msgstr "您已在 {0} 发布成功。"
 
 msgid "Detail"
 msgstr "详情"
+
+msgid "Exclusive Events"
+msgstr ""
 
 msgid "Post added to your Bookmarks"
 msgstr "帖子已经添加到您的收藏中"

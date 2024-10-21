@@ -26,6 +26,7 @@ import { ClickableButton } from '@/components/ClickableButton.js';
 import { LoginStatusBar } from '@/components/Login/LoginStatusBar.js';
 import { OpenFireflyAppButton } from '@/components/OpenFireflyAppButton.js';
 import { ConnectWallet } from '@/components/SideBar/ConnectWallet.js';
+import { ExclusiveEvents } from '@/components/SideBar/ExclusiveEvents.js';
 import { Tooltip } from '@/components/Tooltip.js';
 import { PageRoute } from '@/constants/enum.js';
 import { DEFAULT_SOCIAL_SOURCE } from '@/constants/index.js';
@@ -123,10 +124,9 @@ export const Menu = memo(function Menu({ collapsed = false }: MenuProps) {
                             },
                             {
                                 href: PageRoute.Events,
-                                name: <Trans>Firefly Garden</Trans>,
+                                name: <Trans>Exclusive Events</Trans>,
                                 icon: ActivityIcon,
                                 selectedIcon: ActivityIcon,
-                                match: () => isRoutePathname(pathname, PageRoute.Events),
                             },
                             {
                                 href: PageRoute.Settings,
@@ -147,6 +147,7 @@ export const Menu = memo(function Menu({ collapsed = false }: MenuProps) {
                                 >
                                     {{
                                         ['/connect-wallet']: <ConnectWallet collapsed={collapsed} />,
+                                        [PageRoute.Events]: <ExclusiveEvents />,
                                     }[item.href] ?? (
                                         <Link
                                             href={item.href}

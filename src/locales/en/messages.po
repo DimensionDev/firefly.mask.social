@@ -811,9 +811,6 @@ msgstr "Failed to mute @{0} on {sourceName}."
 msgid "View Source"
 msgstr "View Source"
 
-msgid "Firefly Garden"
-msgstr "Firefly Garden"
-
 msgid "You cannot reply to @{0} on {1}."
 msgstr "You cannot reply to @{0} on {1}."
 
@@ -2190,6 +2187,9 @@ msgstr "Your post have published successfully on {0}."
 
 msgid "Detail"
 msgstr "Detail"
+
+msgid "Exclusive Events"
+msgstr "Exclusive Events"
 
 msgid "Post added to your Bookmarks"
 msgstr "Post added to your Bookmarks"
