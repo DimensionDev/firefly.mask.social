@@ -37,9 +37,6 @@ patchedDependencies:
   '@mui/material@5.15.12':
     hash: pazpgmj4gmp6yuv75wbb5yvia4
     path: src/maskbook/patches/@mui__material@5.15.12.patch
-  '@protobufjs/inquire@1.1.0':
-    hash: cc6ztxhxwsg3dyqdzvftqua3dy
-    path: src/maskbook/patches/@protobufjs__inquire@1.1.0.patch
   dayjs-twitter@0.5.0:
     hash: 3tjtunpncvdv4s34umzp7pmbr4
     path: patches/dayjs-twitter@0.5.0.patch
