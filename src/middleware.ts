@@ -21,6 +21,7 @@ import { resolveNotificationUrl } from '@/helpers/resolveNotificationUrl.js';
 import { resolvePostUrl } from '@/helpers/resolvePostUrl.js';
 import { resolveProfileUrl } from '@/helpers/resolveProfileUrl.js';
 import { resolveSourceInUrl } from '@/helpers/resolveSourceInUrl.js';
+import { DEFAULT_SOCIAL_SOURCE } from '@/constants/index.js';
 
 export async function middleware(request: NextRequest) {
     const pathname = request.nextUrl.pathname;
@@ -30,6 +31,10 @@ export async function middleware(request: NextRequest) {
         return NextResponse.rewrite(new URL('/activity/cz', request.url), {
             request,
         });
+    }
+
+    if (pathname === '/') {
+        return NextResponse.redirect(new URL(resolveDiscoverUrl(DEFAULT_SOCIAL_SOURCE), request.url));
     }
 
     if (isMatchedDiscoverPage(pathname)) {
