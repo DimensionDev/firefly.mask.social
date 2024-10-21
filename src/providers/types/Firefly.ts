@@ -1034,5 +1034,6 @@ export type ActivityInfoResponse = Response<{
     ext: string;
     start_time: string;
     end_time: string;
+    open_graph_url: string;
     status: ActivityStatus;
 }>;

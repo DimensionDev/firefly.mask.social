@@ -8,7 +8,7 @@ export async function createMetadataEventDetailPage(eventName: string) {
     const info = await getFireflyActivityInfo(eventName);
     const title = info.title;
     const description = info.sub_title;
-    const images = [info.banner_url];
+    const images = [info.open_graph_url];
     return createSiteMetadata({
         title,
         description,
