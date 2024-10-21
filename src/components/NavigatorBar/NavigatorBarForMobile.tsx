@@ -21,6 +21,7 @@ import { DraggablePopoverRef } from '@/modals/controls.js';
 import { useNavigatorState } from '@/store/useNavigatorStore.js';
 import { useSearchHistoryStateStore } from '@/store/useSearchHistoryStore.js';
 import { type SearchState, useSearchStateStore } from '@/store/useSearchStore.js';
+import { classNames } from '@/helpers/classNames.js';
 
 interface NavigatorBarForMobileProps {
     title: string;
@@ -139,7 +140,11 @@ export const NavigatorBarForMobile = memo(function NavigatorBarForMobile({
                             {currentProfiles.length && title ? (
                                 <span className="text-[18px] font-bold leading-[24px]">{title}</span>
                             ) : (
-                                <FireflyIcon />
+                                <FireflyIcon
+                                    className={classNames('relative', {
+                                        '-left-2': currentProfiles.length === 3,
+                                    })}
+                                />
                             )}
                         </>
                     )}
