@@ -6,7 +6,7 @@ import { useEnsName } from 'wagmi';
 import MoreCircleIcon from '@/assets/more-circle.svg';
 import { MuteAllByWallet } from '@/components/Actions/MuteAllProfile.js';
 import { MuteWalletButton } from '@/components/Actions/MuteWalletButton.js';
-import { MenuGroup } from '@/components/MenuGroup.jsx';
+import { MenuGroup } from '@/components/MenuGroup.js';
 import { MoreActionMenu } from '@/components/MoreActionMenu.js';
 import { Tips } from '@/components/Tips/index.js';
 import { Source } from '@/constants/enum.js';
