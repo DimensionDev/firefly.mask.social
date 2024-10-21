@@ -12,7 +12,11 @@ export async function getProfileById(source: SocialSource, handleOrProfileId: st
         case Source.Farcaster:
             return FarcasterSocialMediaProvider.getProfileById(handleOrProfileId);
         case Source.Twitter:
-            return TwitterSocialMediaProvider.getProfileById(handleOrProfileId);
+            if (/^\d+$/.test(handleOrProfileId)) {
+                return TwitterSocialMediaProvider.getProfileById(handleOrProfileId);
+            } else {
+                return TwitterSocialMediaProvider.getProfileByHandle(handleOrProfileId);
+            }
         default:
             safeUnreachable(source);
             return null;
