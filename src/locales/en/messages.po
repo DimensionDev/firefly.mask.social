@@ -1336,6 +1336,9 @@ msgstr "<0>Market Cap</0><1>{0}</1><2>Rank #{1}</2>"
 msgid "Invalid signer key"
 msgstr "Invalid signer key"
 
+msgid "Followed <0>@{handle}</0> on X before 9/21, or followed <1>@{farcasterHandle}</1> on Farcaster before Oct 20, 2024"
+msgstr "Followed <0>@{handle}</0> on X before 9/21, or followed <1>@{farcasterHandle}</1> on Farcaster before Oct 20, 2024"
+
 msgid "Follow for {feeAmount} ${feeSymbol}"
 msgstr "Follow for {feeAmount} ${feeSymbol}"
 
@@ -1416,9 +1419,6 @@ msgstr "Publications"
 
 msgid "Unable to read image."
 msgstr "Unable to read image."
-
-msgid "Followed <0>@{handle}</0> on X before 9/21, or followed <1>@barmstrong</1> on Farcaster before Oct 20, 2024"
-msgstr "Followed <0>@{handle}</0> on X before 9/21, or followed <1>@barmstrong</1> on Farcaster before Oct 20, 2024"
 
 msgid "Visit firefly.social"
 msgstr "Visit firefly.social"

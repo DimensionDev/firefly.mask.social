@@ -1336,6 +1336,9 @@ msgstr ""
 msgid "Invalid signer key"
 msgstr ""
 
+msgid "Followed <0>@{handle}</0> on X before 9/21, or followed <1>@{farcasterHandle}</1> on Farcaster before Oct 20, 2024"
+msgstr ""
+
 msgid "Follow for {feeAmount} ${feeSymbol}"
 msgstr ""
 
@@ -1415,9 +1418,6 @@ msgid "Publications"
 msgstr ""
 
 msgid "Unable to read image."
-msgstr ""
-
-msgid "Followed <0>@{handle}</0> on X before 9/21, or followed <1>@barmstrong</1> on Farcaster before Oct 20, 2024"
 msgstr ""
 
 msgid "Visit firefly.social"

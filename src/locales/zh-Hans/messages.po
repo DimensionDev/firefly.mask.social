@@ -1341,6 +1341,9 @@ msgstr "<0>市值</0><1>{0}</1><2>排名 #{1}</2>"
 msgid "Invalid signer key"
 msgstr "无效的 singer key"
 
+msgid "Followed <0>@{handle}</0> on X before 9/21, or followed <1>@{farcasterHandle}</1> on Farcaster before Oct 20, 2024"
+msgstr ""
+
 msgid "Follow for {feeAmount} ${feeSymbol}"
 msgstr "关注需付出 {feeAmount} ${feeSymbol}"
 
@@ -1421,9 +1424,6 @@ msgstr "帖子"
 
 msgid "Unable to read image."
 msgstr "获取图片失败。"
-
-msgid "Followed <0>@{handle}</0> on X before 9/21, or followed <1>@barmstrong</1> on Farcaster before Oct 20, 2024"
-msgstr ""
 
 msgid "Visit firefly.social"
 msgstr "访问 firefly.social"
