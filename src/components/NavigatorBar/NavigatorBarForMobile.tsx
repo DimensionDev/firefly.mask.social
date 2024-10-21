@@ -15,13 +15,13 @@ import { SearchRecommendation } from '@/components/Search/SearchRecommendation.j
 import { IS_FIREFOX } from '@/constants/bowser.js';
 import { PageRoute } from '@/constants/enum.js';
 import { SORTED_SOCIAL_SOURCES } from '@/constants/index.js';
+import { classNames } from '@/helpers/classNames.js';
 import { isRoutePathname } from '@/helpers/isRoutePathname.js';
 import { useCurrentProfileAll } from '@/hooks/useCurrentProfile.js';
 import { DraggablePopoverRef } from '@/modals/controls.js';
 import { useNavigatorState } from '@/store/useNavigatorStore.js';
 import { useSearchHistoryStateStore } from '@/store/useSearchHistoryStore.js';
 import { type SearchState, useSearchStateStore } from '@/store/useSearchStore.js';
-import { classNames } from '@/helpers/classNames.js';
 
 interface NavigatorBarForMobileProps {
     title: string;
