@@ -1,10 +1,10 @@
 'use client';
 
 import { useRouter } from 'next/navigation.js';
+import { useEffect } from 'react';
 
 import { ToolkitList } from '@/app/(developers)/components/ToolkitList.js';
 import { useIsSmall } from '@/hooks/useMediaQuery.js';
-import { useEffect } from 'react';
 
 export default function Developers() {
     const router = useRouter();
