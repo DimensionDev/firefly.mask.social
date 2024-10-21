@@ -1,4 +1,10 @@
-import { ChainId, EthereumMethodType, isValidAddress, isValidChainId, type RequestArguments } from '@masknet/web3-shared-evm';
+import {
+    ChainId,
+    EthereumMethodType,
+    isValidAddress,
+    isValidChainId,
+    type RequestArguments,
+} from '@masknet/web3-shared-evm';
 import { first } from 'lodash-es';
 import { hexToBigInt, hexToNumber, numberToHex } from 'viem';
 import { getAccount, sendTransaction, signMessage, switchNetwork } from 'wagmi/actions';
