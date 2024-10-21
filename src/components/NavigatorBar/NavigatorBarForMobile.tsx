@@ -15,6 +15,7 @@ import { SearchRecommendation } from '@/components/Search/SearchRecommendation.j
 import { IS_FIREFOX } from '@/constants/bowser.js';
 import { PageRoute } from '@/constants/enum.js';
 import { SORTED_SOCIAL_SOURCES } from '@/constants/index.js';
+import { classNames } from '@/helpers/classNames.js';
 import { isRoutePathname } from '@/helpers/isRoutePathname.js';
 import { useCurrentProfileAll } from '@/hooks/useCurrentProfile.js';
 import { DraggablePopoverRef } from '@/modals/controls.js';
@@ -139,7 +140,11 @@ export const NavigatorBarForMobile = memo(function NavigatorBarForMobile({
                             {currentProfiles.length && title ? (
                                 <span className="text-[18px] font-bold leading-[24px]">{title}</span>
                             ) : (
-                                <FireflyIcon />
+                                <FireflyIcon
+                                    className={classNames('relative', {
+                                        '-left-2': currentProfiles.length === 3,
+                                    })}
+                                />
                             )}
                         </>
                     )}
