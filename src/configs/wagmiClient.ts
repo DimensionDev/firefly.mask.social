@@ -40,6 +40,7 @@ import {
     zora as wagmiZora,
 } from 'wagmi/chains';
 
+import { createParticleConnector } from '@/app/connectors/ParticleConnector.js';
 import { env } from '@/constants/env.js';
 import { SITE_DESCRIPTION, SITE_NAME, SITE_URL } from '@/constants/index.js';
 
@@ -79,9 +80,12 @@ export const chains = [
     wagmiZora,
 ] as const;
 
+const particleConnector = createParticleConnector({});
+
 export const adapter = new WagmiAdapter({
-    networks,
     projectId: env.external.NEXT_PUBLIC_W3M_PROJECT_ID,
+    connectors: particleConnector ? [particleConnector] : [],
+    networks,
 });
 
 const metadata = {

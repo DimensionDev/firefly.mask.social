@@ -30,9 +30,10 @@ export function createParticleConnector(options: ConnectorOptions) {
 
     return createConnector(() => {
         return {
-            id: 'firefly',
-            name: 'Firefly',
-            type: 'Firefly',
+            id: 'firefly-wallet',
+            name: 'Firefly Wallet',
+            type: 'firefly-wallet',
+            icon: '/firefly.png',
             async connect() {
                 console.info(`[particle] connect`);
 
