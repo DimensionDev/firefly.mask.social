@@ -10,7 +10,7 @@ import { ChannelInList } from '@/components/ChannelInList.js';
 import { ListInPage } from '@/components/ListInPage.js';
 import { SinglePost } from '@/components/Posts/SinglePost.js';
 import { ProfileInList } from '@/components/ProfileInList.js';
-import { SourceTabs } from '@/components/SourceTabs.js';
+import { SourceTabs } from '@/components/SourceTabs/index.js';
 import { ScrollListKey, SearchType, Source } from '@/constants/enum.js';
 import { SORTED_SEARCH_TYPE, SORTED_SOCIAL_SOURCES } from '@/constants/index.js';
 import { narrowToSocialSource } from '@/helpers/narrowToSocialSource.js';

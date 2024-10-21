@@ -1,7 +1,7 @@
 import { notFound, redirect } from 'next/navigation.js';
 import React, { type PropsWithChildren } from 'react';
 
-import { SourceTabs } from '@/components/SourceTabs.js';
+import { SourceTabs } from '@/components/SourceTabs/index.js';
 import { DiscoverType } from '@/constants/enum.js';
 import { DISCOVER_SOURCES } from '@/constants/index.js';
 import { getUrlFromHeaders } from '@/helpers/getUrlFromHeaders.js';

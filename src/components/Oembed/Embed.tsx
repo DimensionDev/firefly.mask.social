@@ -34,7 +34,7 @@ export function Embed({ og }: EmbedProps) {
             >
                 <div className="rounded-xl border bg-white text-main dark:border-gray-700 dark:bg-black">
                     {og.isLarge && imageProps ? (
-                        <Image className="divider aspect-2 w-full rounded-xl object-cover" {...imageProps} alt="" />
+                        <Image className="divider aspect-2 w-full rounded-t-xl object-cover" {...imageProps} alt="" />
                     ) : null}
                     <div className="flex items-center">
                         {!og.isLarge ? (

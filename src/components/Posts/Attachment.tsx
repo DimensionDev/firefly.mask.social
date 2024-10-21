@@ -150,7 +150,7 @@ export const Attachments = memo<AttachmentsProps>(function Attachments({
                         </div>
                     ) : (
                         <div
-                            className={classNames({
+                            className={classNames('overflow-hidden rounded-lg', {
                                 'h-[120px] w-[120px] flex-shrink-0 flex-grow-0 basis-[120px]': minimal,
                                 'w-full': !minimal,
                             })}
@@ -209,7 +209,7 @@ export const Attachments = memo<AttachmentsProps>(function Attachments({
                                             alt={formatImageUrl(uri, ATTACHMENT)}
                                         />
                                     ) : (
-                                        <div className="flex h-full w-full flex-col">
+                                        <div className="flex h-full w-full flex-col overflow-hidden rounded-lg">
                                             <VideoAsset
                                                 videoClassName={
                                                     attachmentsSnapshot.length >= 2 ? 'mini-video flex-1' : undefined
@@ -261,12 +261,12 @@ export const Attachments = memo<AttachmentsProps>(function Attachments({
                 </div>
             ) : null}
             {video && !minimal ? (
-                <div className="w-full">
+                <div className="w-full overflow-hidden rounded-lg">
                     <VideoAsset asset={video} minimal={minimal} source={post.source} />
                 </div>
             ) : null}
             {!video && gifAttachments.length === 1 && !minimal ? (
-                <div className="w-full">
+                <div className="w-full overflow-hidden rounded-lg">
                     <VideoAsset asset={gifAttachments[0]} minimal={minimal} source={post.source} />
                 </div>
             ) : null}

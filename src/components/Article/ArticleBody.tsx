@@ -37,10 +37,14 @@ interface Props {
 export function ArticleBody({ cover, article, onClick }: Props) {
     const isMedium = useIsMedium();
     const router = useRouter();
-    const authorUrl = urlcat('/profile/:address', {
-        address: article.author.id,
-        source: SourceInURL.Wallet,
-    });
+
+    const authorUrl = article.author.id
+        ? urlcat('/profile/:address', {
+              address: article.author.id,
+              source: SourceInURL.Wallet,
+          })
+        : '';
+
     const { data: ens } = useEnsName({ address: article.author.id, query: { enabled: !article.author.handle } });
     const Icon = resolveArticlePlatformIcon(article.platform);
 
@@ -50,9 +54,12 @@ export function ArticleBody({ cover, article, onClick }: Props) {
         <ClickableArea
             as="article"
             onClick={onClick}
-            className={classNames('relative mt-[6px] flex flex-col gap-2 rounded-2xl border border-line bg-bg p-3', {
-                'overflow-hidden': !!article.content,
-            })}
+            className={classNames(
+                'relative mt-[6px] flex flex-col gap-2 rounded-2xl border border-secondaryLine bg-bg p-3',
+                {
+                    'overflow-hidden': !!article.content,
+                },
+            )}
         >
             {cover ? (
                 <ImageAsset
