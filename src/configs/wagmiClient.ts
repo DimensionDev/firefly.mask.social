@@ -104,6 +104,7 @@ createAppKit({
         email: false,
         socials: [],
     },
+    debug: true,
 });
 
 export const config = adapter.wagmiConfig;

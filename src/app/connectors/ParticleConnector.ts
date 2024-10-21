@@ -8,8 +8,17 @@ import { STATUS } from '@/constants/enum.js';
 import { env } from '@/constants/env.js';
 import { AuthenticationError } from '@/constants/error.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
+import { runInSafeAsync } from '@/helpers/runInSafe.js';
+import { ValueRef } from '@/libs/ValueRef.js';
+import type { EVMProvider } from '@particle-network/authkit';
 
 interface ConnectorOptions {}
+
+const providerRef = new ValueRef<EVMProvider | null>(null);
+
+export function setParticleProvider(provider: EVMProvider) {
+    providerRef.value = provider;
+}
 
 export function createParticleConnector(options: ConnectorOptions) {
     if (env.external.NEXT_PUBLIC_PARTICLE !== STATUS.Enabled) {
@@ -30,9 +39,10 @@ export function createParticleConnector(options: ConnectorOptions) {
 
     return createConnector(() => {
         return {
-            id: 'firefly-wallet',
+            // override particle wallet from EIP6963
+            id: 'network.particle',
             name: 'Firefly Wallet',
-            type: 'firefly-wallet',
+            type: 'INJECTED',
             icon: '/firefly.png',
             async connect() {
                 console.info(`[particle] connect`);
@@ -63,7 +73,7 @@ export function createParticleConnector(options: ConnectorOptions) {
             },
             async disconnect() {
                 console.info(`[particle] disconnect`);
-                await disconnect();
+                runInSafeAsync(disconnect);
             },
             async getAccounts() {
                 return [particleAuth.ethereum.selectedAddress as Address];
@@ -72,7 +82,7 @@ export function createParticleConnector(options: ConnectorOptions) {
                 return Number.parseInt(particleAuth.ethereum.chainId, 16);
             },
             async getProvider() {
-                return particleAuth.ethereum;
+                return providerRef.value;
             },
             async isAuthorized() {
                 return env.external.NEXT_PUBLIC_PARTICLE === STATUS.Enabled;

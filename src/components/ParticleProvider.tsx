@@ -1,12 +1,13 @@
 'use client';
 
 // cspell: disable-next-line
-import { AuthType } from '@particle-network/auth-core';
-import { AuthCoreContextProvider, PromptSettingType } from '@particle-network/authkit';
-import { type ReactNode, useMemo } from 'react';
+import { AuthCoreContextProvider, PromptSettingType, useConnect, useEthereum } from '@particle-network/authkit';
+import { type ReactNode, useEffect, useMemo } from 'react';
 
 import { chains } from '@/configs/wagmiClient.js';
+import { VERCEL_NEV } from '@/constants/enum.js';
 import { env } from '@/constants/env.js';
+import { setParticleProvider } from '@/app/connectors/ParticleConnector.js';
 
 type AuthCoreContextProviderOptions = Parameters<typeof AuthCoreContextProvider>[0]['options'];
 
@@ -30,7 +31,6 @@ export function ParticleProvider({ children }: ParticleProviderProps) {
             appId: env.external.NEXT_PUBLIC_PARTICLE_APP_ID,
             projectId: env.external.NEXT_PUBLIC_PARTICLE_PROJECT_ID,
             clientKey: env.external.NEXT_PUBLIC_PARTICLE_CLIENT_KEY,
-            authTypes: [AuthType.jwt],
             // You can prompt the user to set up extra security measures upon login or other interactions
             promptSettingConfig: {
                 promptPaymentPasswordSettingWhenSign: PromptSettingType.first,
@@ -38,14 +38,32 @@ export function ParticleProvider({ children }: ParticleProviderProps) {
             },
             wallet: {
                 // Set to false to remove the embedded wallet modal
-                visible: false,
+                visible: env.external.NEXT_PUBLIC_VERCEL_ENV === VERCEL_NEV.Development,
             },
             // Disable inject the wagmi connector
-            supportEIP6963: false,
+            supportEIP6963: true,
         } satisfies AuthCoreContextProviderOptions;
     }, []);
 
     if (!options) return null;
 
-    return <AuthCoreContextProvider options={options}>{children}</AuthCoreContextProvider>;
+    return (
+        <AuthCoreContextProvider options={options}>
+            <ParticleProviderSetter />
+            {children}
+        </AuthCoreContextProvider>
+    );
+}
+
+export function ParticleProviderSetter() {
+    const ethereum = useEthereum();
+
+    useEffect(() => {
+        console.info(`[particle] ethereum provider ready`);
+
+        // Set the particle provider when the ethereum provider is ready
+        setParticleProvider(ethereum.provider);
+    }, [ethereum.provider]);
+
+    return null;
 }
