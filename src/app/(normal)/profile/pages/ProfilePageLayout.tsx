@@ -9,7 +9,7 @@ import { useAccount as useEVMAccount } from 'wagmi';
 import { Loading } from '@/components/Loading.js';
 import { LoginRequiredGuard } from '@/components/LoginRequiredGuard.js';
 import { ProfileInfo } from '@/components/Profile/ProfileInfo.js';
-import { SourceTabs } from '@/components/SourceTabs.js';
+import { SourceTabs } from '@/components/SourceTabs/index.js';
 import { Source } from '@/constants/enum.js';
 import { FetchError } from '@/constants/error.js';
 import { EMPTY_LIST, SORTED_PROFILE_SOURCES } from '@/constants/index.js';

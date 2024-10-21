@@ -2,7 +2,7 @@ import { t } from '@lingui/macro';
 import { notFound } from 'next/navigation.js';
 import { type PropsWithChildren } from 'react';
 
-import { SourceTabs } from '@/components/SourceTabs.js';
+import { SourceTabs } from '@/components/SourceTabs/index.js';
 import { DISCOVER_SOURCES } from '@/constants/index.js';
 import { createPageTitleSSR } from '@/helpers/createPageTitle.js';
 import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
