@@ -25,6 +25,7 @@ import type { Account } from '@/providers/types/Account.js';
 import type { Session } from '@/providers/types/Session.js';
 import { SessionType } from '@/providers/types/SocialMedia.js';
 import { downloadAccounts, downloadSessions, uploadSessions } from '@/services/metrics.js';
+import { usePreferencesState } from '@/store/usePreferenceStore.js';
 import { useFireflyStateStore } from '@/store/useProfileStore.js';
 
 function getContext(source: SocialSource) {
@@ -111,6 +112,7 @@ async function resumeFireflySession(account: Account, signal?: AbortSignal): Pro
 async function removeFireflyAccountIfNeeded() {
     if (hasFireflySession()) return;
     useFireflyStateStore.getState().clear();
+    usePreferencesState.getState().resetPreferences();
     fireflySessionHolder.removeSession();
 }
 
