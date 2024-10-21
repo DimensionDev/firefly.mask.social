@@ -1,6 +1,5 @@
 'use client';
 
-// cspell: disable-next-line
 import { AuthCoreContextProvider, PromptSettingType, useEthereum } from '@particle-network/authkit';
 import { type ReactNode, useEffect, useMemo } from 'react';
 
