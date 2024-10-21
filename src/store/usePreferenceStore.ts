@@ -16,7 +16,7 @@ export interface PreferencesState {
     preferences: Preferences;
     getPreference<T extends keyof Preferences>(key: T): Preferences[T];
     setPreference<T extends keyof Preferences>(key: T, value: Preferences[T]): void;
-    resetPreference(): void;
+    resetPreferences(): void;
 }
 
 const PreferencesState = create<PreferencesState, [['zustand/persist', unknown], ['zustand/immer', unknown]]>(
@@ -31,7 +31,7 @@ const PreferencesState = create<PreferencesState, [['zustand/persist', unknown],
                     state.preferences[key] = value;
                 });
             },
-            resetPreference() {
+            resetPreferences() {
                 return set((state) => {
                     state.preferences = defaultPreferences;
                 });

@@ -40,7 +40,7 @@ export default function Page({
                 source,
                 id: profile?.id || '',
             });
-            usePreferencesState.getState().resetPreference();
+            usePreferencesState.getState().resetPreferences();
         }
     }, [source, profile?.id]);
 
