@@ -3,6 +3,7 @@
 import { Trans } from '@lingui/macro';
 
 import SuccessShieldIcon from '@/assets/success-shield.svg';
+import { useActivityCompose } from '@/components/Activity/hooks/useActivityCompose.js';
 import { CloseButton } from '@/components/CloseButton.js';
 import { Modal } from '@/components/Modal.js';
 import { Popover } from '@/components/Popover.js';
@@ -17,6 +18,7 @@ interface Props {
 
 export function ActivityMintSuccessDialog({ open, onClose, hash }: Props) {
     const isMedium = useIsMedium();
+    const [{ loading }, shareAndPost] = useActivityCompose();
     const content = (
         <div className="flex w-full flex-col items-center text-center">
             <SuccessShieldIcon className="mb-4 h-[64px] w-[64px] text-success" />
@@ -33,8 +35,12 @@ export function ActivityMintSuccessDialog({ open, onClose, hash }: Props) {
             >
                 <Trans>View Status</Trans>
             </Link>
-            <button className="leading-12 relative mt-6 flex h-12 w-full items-center justify-center rounded-full bg-main text-center text-base font-bold text-primaryBottom disabled:opacity-60">
-                <Trans>Done</Trans>
+            <button
+                className="leading-12 relative mt-6 flex h-12 w-full items-center justify-center rounded-full bg-main text-center text-base font-bold text-primaryBottom disabled:opacity-60"
+                onClick={shareAndPost}
+                disabled={loading}
+            >
+                <Trans>Share and Post</Trans>
             </button>
         </div>
     );
