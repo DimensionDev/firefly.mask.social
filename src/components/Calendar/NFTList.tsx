@@ -8,8 +8,10 @@ import { CountdownTimer } from '@/components/Calendar/CountdownTimer.js';
 import { EmptyStatus } from '@/components/Calendar/EmptyStatus.js';
 import { LoadingStatus } from '@/components/Calendar/LoadingStatus.js';
 import { Image } from '@/components/Image.js';
+import { CommunityLink } from '@/components/TokenProfile/CommunityLink.js';
 import { Tooltip } from '@/components/Tooltip.js';
 import { XIcon } from '@/components/XIcon.js';
+import { TWITTER_PROFILE_REGEX } from '@/constants/regexp.js';
 import { Link } from '@/esm/Link.js';
 import { fixUrlProtocol } from '@/helpers/fixUrlProtocol.js';
 
@@ -89,7 +91,17 @@ export function NFTList({ list, isLoading, date }: NFTListProps) {
                                                 {v.project.links
                                                     .sort(sortPlat)
                                                     .map((platform: { type: string; url: string }) => {
-                                                        return (
+                                                        const isTwitterProfile = TWITTER_PROFILE_REGEX.test(
+                                                            platform.url,
+                                                        );
+
+                                                        return isTwitterProfile ? (
+                                                            <CommunityLink
+                                                                iconSize={20}
+                                                                key={platform.type}
+                                                                link={{ type: 'twitter', link: platform.url }}
+                                                            />
+                                                        ) : (
                                                             <Tooltip
                                                                 content={platform.url}
                                                                 placement="top"
