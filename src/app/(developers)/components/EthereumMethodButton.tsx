@@ -2,8 +2,7 @@
 
 import { Trans } from '@lingui/macro';
 import { EthereumMethodType } from '@masknet/web3-shared-evm';
-import { useEthereum } from '@particle-network/authkit';
-import { getAccount, getBalance, sendTransaction } from '@wagmi/core';
+import { getAccount, getBalance, sendTransaction, signMessage } from '@wagmi/core';
 import { first } from 'lodash-es';
 import { useAsyncFn } from 'react-use';
 
@@ -20,8 +19,6 @@ interface Props {
 }
 
 export function EthereumMethodButton({ item }: Props) {
-    const connection = useEthereum();
-
     const [{ loading }, onClick] = useAsyncFn(async () => {
         try {
             const account = getAccount(config);
@@ -50,12 +47,13 @@ export function EthereumMethodButton({ item }: Props) {
                     break;
                 }
                 case EthereumMethodType.ETH_SIGN:
-                    const signed = await connection.signMessage(SITE_DESCRIPTION);
+                    const signed = await signMessage(config, {
+                        message: SITE_DESCRIPTION,
+                    });
                     enqueueInfoMessage(signed);
                     break;
                 case EthereumMethodType.ETH_SEND_TRANSACTION:
                     const hash = await sendTransaction(config, {
-                        account: address,
                         to: address,
                         value: 0n,
                     });

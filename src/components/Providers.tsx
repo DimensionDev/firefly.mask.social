@@ -27,6 +27,7 @@ import { useMounted } from '@/hooks/useMounted.js';
 import { setLocale } from '@/i18n/index.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
 import { useLeafwatchPersistStore } from '@/store/useLeafwatchPersistStore.js';
+import { ParticleProvider } from '@/components/PraticleProvider.js';
 
 export const Providers = memo(function Providers(props: { children: React.ReactNode }) {
     const isDarkMode = useIsDarkMode();
@@ -100,10 +101,12 @@ export const Providers = memo(function Providers(props: { children: React.ReactN
                                 variantInfo: classNames('!bg-warn'),
                             }}
                         >
-                            {/* wagmi depends @tanstack/react-query@4.29.23 */}
-                            <WagmiProvider>
-                                <SolanaWalletAdapterProvider>{props.children}</SolanaWalletAdapterProvider>
-                            </WagmiProvider>
+                            <ParticleProvider>
+                                {/* wagmi depends @tanstack/react-query@4.29.23 */}
+                                <WagmiProvider>
+                                    <SolanaWalletAdapterProvider>{props.children}</SolanaWalletAdapterProvider>
+                                </WagmiProvider>
+                            </ParticleProvider>
                         </SnackbarProvider>
                     </DarkModeContext.Provider>
                 </ReactQueryStreamedHydration>

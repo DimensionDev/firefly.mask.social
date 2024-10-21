@@ -2,7 +2,6 @@ import { Trans } from '@lingui/macro';
 import { EthereumMethodType } from '@masknet/web3-shared-evm';
 
 import { EthereumMethodButton } from '@/app/(developers)/components/EthereumMethodButton.js';
-import { ParticleProvider } from '@/app/(developers)/components/PraticleProvider.js';
 import { Headline } from '@/app/(settings)/components/Headline.js';
 import { Section } from '@/app/(settings)/components/Section.js';
 import { ClickableArea } from '@/components/ClickableArea.js';
@@ -42,11 +41,7 @@ export default function Page() {
     setupLocaleForSSR();
 
     const renderItem = (item: Item) => {
-        return (
-            <ParticleProvider>
-                <EthereumMethodButton item={item} />
-            </ParticleProvider>
-        );
+        return <EthereumMethodButton item={item} />;
     };
 
     return (
