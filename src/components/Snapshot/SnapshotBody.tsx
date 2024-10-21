@@ -293,12 +293,16 @@ export function SnapshotBody({ snapshot, link, postId, activity }: Props) {
                                 onChange={(value) => setSelectedChoices(value)}
                             />
                         ) : null}
+                        <ChainGuardButton
+                            className="w-full"
+                            disabled={disabled}
+                            loading={queryVpLoading}
+                            onClick={handleVote}
+                        >
+                            {vp === 0 ? t`No voting power` : t`Vote`}
+                        </ChainGuardButton>
                     </>
                 ) : null}
-
-                <ChainGuardButton className="w-full" disabled={disabled} loading={queryVpLoading} onClick={handleVote}>
-                    {vp === 0 ? t`No voting power` : t`Vote`}
-                </ChainGuardButton>
             </ClickableArea>
         </div>
     );
