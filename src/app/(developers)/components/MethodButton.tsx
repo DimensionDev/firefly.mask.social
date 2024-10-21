@@ -52,6 +52,31 @@ export function MethodButton({ item }: Props) {
                     enqueueInfoMessage(`Wallet Address: ${walletAddress}`);
                     break;
                 }
+                case SupportedMethod.BIND_WALLET: {
+                    const walletAddress = await fireflyBridgeProvider.request(SupportedMethod.BIND_WALLET, {
+                        type: Network.EVM,
+                    });
+                    enqueueInfoMessage(`Wallet Address: ${walletAddress}`);
+                    break;
+                }
+                case SupportedMethod.FOLLOW_TWITTER_USER: {
+                    const followed = await fireflyBridgeProvider.request(SupportedMethod.FOLLOW_TWITTER_USER, {
+                        id: '952921795316912133',
+                    });
+                    enqueueInfoMessage(`Followed: ${followed}`);
+                    break;
+                }
+                case SupportedMethod.UPDATE_NAVIGATOR_BAR: {
+                    await fireflyBridgeProvider.request(SupportedMethod.UPDATE_NAVIGATOR_BAR, {
+                        show: true,
+                        title: `${SITE_NAME} ${Math.random()}`,
+                    });
+                    break;
+                }
+                case SupportedMethod.OPEN_URL: {
+                    fireflyBridgeProvider.request(SupportedMethod.OPEN_URL, { url: 'https://firefly.land' });
+                    break;
+                }
                 case SupportedMethod.LOGIN: {
                     const result = await fireflyBridgeProvider.request(SupportedMethod.LOGIN, {
                         platform: Platform.FARCASTER,
@@ -75,7 +100,7 @@ export function MethodButton({ item }: Props) {
                     break;
             }
         } catch (error) {
-            enqueueErrorMessage(getSnackbarMessageFromError(error, 'Failed to call method'), {
+            enqueueErrorMessage(getSnackbarMessageFromError(error, 'Failed to execute method'), {
                 error,
             });
             throw error;

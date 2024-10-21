@@ -23,6 +23,10 @@ export enum SupportedMethod {
     GET_LANGUAGE = 'getLanguage',
     GET_WALLET_ADDRESS = 'getWalletAddress',
     CONNECT_WALLET = 'connectWallet',
+    BIND_WALLET = 'bindWallet',
+    FOLLOW_TWITTER_USER = 'followTwitterUser',
+    UPDATE_NAVIGATOR_BAR = 'updateNavigatorBar',
+    OPEN_URL = 'openUrl',
     LOGIN = 'login',
     SHARE = 'share',
     COMPOSE = 'compose',
@@ -39,6 +43,19 @@ export interface RequestArguments {
     };
     [SupportedMethod.CONNECT_WALLET]: {
         type: Network;
+    };
+    [SupportedMethod.BIND_WALLET]: {
+        type: Network;
+    };
+    [SupportedMethod.FOLLOW_TWITTER_USER]: {
+        id: string; // e.g., 952921795316912133
+    };
+    [SupportedMethod.UPDATE_NAVIGATOR_BAR]: {
+        show: boolean;
+        title: string;
+    };
+    [SupportedMethod.OPEN_URL]: {
+        url: string;
     };
     [SupportedMethod.LOGIN]: {
         platform: Platform;
@@ -59,6 +76,10 @@ export interface RequestResult {
     [SupportedMethod.GET_LANGUAGE]: string;
     [SupportedMethod.GET_WALLET_ADDRESS]: string[];
     [SupportedMethod.CONNECT_WALLET]: string;
+    [SupportedMethod.BIND_WALLET]: string; // address
+    [SupportedMethod.FOLLOW_TWITTER_USER]: boolean;
+    [SupportedMethod.UPDATE_NAVIGATOR_BAR]: void;
+    [SupportedMethod.OPEN_URL]: void;
     [SupportedMethod.LOGIN]: {
         success: 'true' | 'false';
     };

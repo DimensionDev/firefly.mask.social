@@ -7,13 +7,16 @@ import { enqueueErrorMessage, enqueueSuccessMessage } from '@/helpers/enqueueMes
 import { getSnackbarMessageFromError } from '@/helpers/getSnackbarMessageFromError.js';
 import { fireflyBridgeProvider } from '@/providers/firefly/Bridge.js';
 import { TwitterSocialMediaProvider } from '@/providers/twitter/SocialMedia.js';
+import { SupportedMethod } from '@/types/bridge.js';
 
 export function useActivityFollowTwitter() {
     const { refetch } = useActivityClaimCondition();
     return useAsyncFn(async (profileId: string, handle: string) => {
         try {
             if (fireflyBridgeProvider.supported) {
-                // TODO: bridge follow
+                await fireflyBridgeProvider.request(SupportedMethod.FOLLOW_TWITTER_USER, {
+                    id: profileId,
+                });
             } else {
                 await TwitterSocialMediaProvider.follow(profileId);
             }

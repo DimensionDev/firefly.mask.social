@@ -1425,6 +1425,9 @@ msgstr "發表"
 msgid "Unable to read image."
 msgstr ""
 
+msgid "Followed <0>@{handle}</0> on X before 9/21, or followed <1>@barmstrong</1> on Farcaster before Oct 20, 2024"
+msgstr ""
+
 msgid "Visit firefly.social"
 msgstr "訪問 firefly.social"
 
@@ -1816,9 +1819,6 @@ msgid "Change Account"
 msgstr ""
 
 msgid "Casts + Replies"
-msgstr ""
-
-msgid "Followed <0>@{handle}</0> on X before 9/21"
 msgstr ""
 
 msgid "Image"
@@ -2494,6 +2494,9 @@ msgid "Hours"
 msgstr "小時"
 
 msgid "Note:"
+msgstr ""
+
+msgid "Farcaster Powerbadge account"
 msgstr ""
 
 msgid "Failed to create schedule post."

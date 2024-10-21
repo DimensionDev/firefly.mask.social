@@ -1425,6 +1425,9 @@ msgstr "帖子"
 msgid "Unable to read image."
 msgstr "获取图片失败。"
 
+msgid "Followed <0>@{handle}</0> on X before 9/21, or followed <1>@barmstrong</1> on Farcaster before Oct 20, 2024"
+msgstr ""
+
 msgid "Visit firefly.social"
 msgstr "访问 firefly.social"
 
@@ -1817,9 +1820,6 @@ msgstr "切换账号"
 
 msgid "Casts + Replies"
 msgstr "帖子+回复"
-
-msgid "Followed <0>@{handle}</0> on X before 9/21"
-msgstr ""
 
 msgid "Image"
 msgstr "图片"
@@ -2495,6 +2495,9 @@ msgstr "小时"
 
 msgid "Note:"
 msgstr "注意 ："
+
+msgid "Farcaster Powerbadge account"
+msgstr ""
 
 msgid "Failed to create schedule post."
 msgstr "创建定时任务失败"

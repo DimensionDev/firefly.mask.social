@@ -1420,6 +1420,9 @@ msgstr "Publications"
 msgid "Unable to read image."
 msgstr "Unable to read image."
 
+msgid "Followed <0>@{handle}</0> on X before 9/21, or followed <1>@barmstrong</1> on Farcaster before Oct 20, 2024"
+msgstr "Followed <0>@{handle}</0> on X before 9/21, or followed <1>@barmstrong</1> on Farcaster before Oct 20, 2024"
+
 msgid "Visit firefly.social"
 msgstr "Visit firefly.social"
 
@@ -1812,9 +1815,6 @@ msgstr "Change Account"
 
 msgid "Casts + Replies"
 msgstr "Casts + Replies"
-
-msgid "Followed <0>@{handle}</0> on X before 9/21"
-msgstr "Followed <0>@{handle}</0> on X before 9/21"
 
 msgid "Image"
 msgstr "Image"
@@ -2490,6 +2490,9 @@ msgstr "Hours"
 
 msgid "Note:"
 msgstr "Note:"
+
+msgid "Farcaster Powerbadge account"
+msgstr "Farcaster Powerbadge account"
 
 msgid "Failed to create schedule post."
 msgstr "Failed to create schedule post."

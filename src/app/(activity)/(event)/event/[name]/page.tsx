@@ -10,7 +10,6 @@ import { ActivityClaimButton } from '@/components/Activity/ActivityClaimButton.j
 import { ActivityConnectCard } from '@/components/Activity/ActivityConnectCard.js';
 import { ActivityFollowTargetCard } from '@/components/Activity/ActivityFollowTargetCard.js';
 import { ActivityPremiumConditionList } from '@/components/Activity/ActivityPremiumConditionList.js';
-import { ActivityRules } from '@/components/Activity/ActivityRules.js';
 import { ActivityStatusTag } from '@/components/Activity/ActivityStatus.js';
 import { ActivityTaskFollowCard } from '@/components/Activity/ActivityTaskFollowCard.js';
 import { ActivityTwitterLoginButton } from '@/components/Activity/ActivityTwitterLoginButton.js';
@@ -77,7 +76,7 @@ export default function Page({
                     </h2>
                     <ActivityConnectCard />
                     <ActivityPremiumConditionList />
-                    <ActivityRules />
+                    {/* <ActivityRules /> */}
                 </div>
             </div>
             <div className="sticky bottom-0 mt-auto w-full border-t border-line bg-primaryBottom px-4 pt-1.5 pb-safe-or-2">
