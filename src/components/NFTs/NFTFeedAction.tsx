@@ -50,11 +50,11 @@ export function NFTFeedAction({ action, ownerAddress, toAddress, fromAddress, co
                         <div className="text-second">
                             {cost ? (
                                 <Trans>
-                                    <span className="font-bold uppercase text-main">Minted</span> an NFT worth {costEl}
+                                    <span className="font-bold text-main">Minted</span> an NFT worth {costEl}
                                 </Trans>
                             ) : (
                                 <Trans>
-                                    <span className="font-bold uppercase text-main">Minted</span> an NFT for free
+                                    <span className="font-bold text-main">Minted</span> an NFT for free
                                 </Trans>
                             )}
                         </div>
@@ -72,14 +72,14 @@ export function NFTFeedAction({ action, ownerAddress, toAddress, fromAddress, co
                             <div className="text-second">
                                 {fromAddress ? (
                                     <Trans>
-                                        <span className="font-bold uppercase text-main">Acquired</span> an NFT from{' '}
+                                        <span className="font-bold text-main">Acquired</span> an NFT from{' '}
                                         <span className="font-bold text-main">
                                             {formatEthereumAddress(fromAddress, 4)}
                                         </span>
                                     </Trans>
                                 ) : (
                                     <Trans>
-                                        <span className="font-bold uppercase text-main">Acquired</span> an NFT
+                                        <span className="font-bold text-main">Acquired</span> an NFT
                                     </Trans>
                                 )}
                             </div>
@@ -92,12 +92,12 @@ export function NFTFeedAction({ action, ownerAddress, toAddress, fromAddress, co
                         <div className="text-second">
                             {toAddress ? (
                                 <Trans>
-                                    <span className="font-bold uppercase text-main">Sent</span> an NFT to{' '}
+                                    <span className="font-bold text-main">Sent</span> an NFT to{' '}
                                     <span className="font-bold text-main">{formatEthereumAddress(toAddress, 4)}</span>
                                 </Trans>
                             ) : (
                                 <Trans>
-                                    <span className="font-bold uppercase text-main">Sent</span> an NFT
+                                    <span className="font-bold text-main">Sent</span> an NFT
                                 </Trans>
                             )}
                         </div>
@@ -109,7 +109,7 @@ export function NFTFeedAction({ action, ownerAddress, toAddress, fromAddress, co
                         <BurnIcon width={iconSize} height={iconSize} className="mb-auto mt-[3px] min-w-[18px]" />
                         <div className="text-second">
                             <Trans>
-                                <span className="font-bold uppercase text-main">Burned</span> an NFT
+                                <span className="font-bold text-main">Burned</span> an NFT
                             </Trans>
                         </div>
                     </>
@@ -122,12 +122,11 @@ export function NFTFeedAction({ action, ownerAddress, toAddress, fromAddress, co
                             <div className="text-second">
                                 {cost ? (
                                     <Trans>
-                                        <span className="font-bold uppercase text-main">Bought</span> an NFT worth{' '}
-                                        {costEl}
+                                        <span className="font-bold text-main">Bought</span> an NFT worth {costEl}
                                     </Trans>
                                 ) : (
                                     <Trans>
-                                        <span className="font-bold uppercase text-main">Bought</span> an NFT
+                                        <span className="font-bold text-main">Bought</span> an NFT
                                     </Trans>
                                 )}
                             </div>
@@ -140,11 +139,11 @@ export function NFTFeedAction({ action, ownerAddress, toAddress, fromAddress, co
                         <div className="text-second">
                             {cost ? (
                                 <Trans>
-                                    <span className="font-bold uppercase text-main">Sold</span> an NFT worth {costEl}
+                                    <span className="font-bold text-main">Sold</span> an NFT worth {costEl}
                                 </Trans>
                             ) : (
                                 <Trans>
-                                    <span className="font-bold uppercase text-main">Sold</span> an NFT
+                                    <span className="font-bold text-main">Sold</span> an NFT
                                 </Trans>
                             )}
                         </div>
@@ -156,7 +155,7 @@ export function NFTFeedAction({ action, ownerAddress, toAddress, fromAddress, co
                         <PoapIcon width={iconSize} height={iconSize} className="mb-auto mt-[3px] min-w-[18px]" />
                         <div className="text-second">
                             <Trans>
-                                <span className="font-bold uppercase text-main">COLLECTED</span> a POAP
+                                <span className="font-bold text-main">Collected</span> a POAP
                             </Trans>
                         </div>
                     </>
