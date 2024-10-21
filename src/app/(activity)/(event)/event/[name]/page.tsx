@@ -41,8 +41,8 @@ export default function Page({
                 src={data.banner_url}
                 alt={data.title}
                 className={classNames('w-full object-cover')}
-                width={375}
-                height={280}
+                width={343}
+                height={140}
             />
             <div className="w-full px-6 py-4">
                 <div className="w-full space-y-2 border-b border-line pb-4">
