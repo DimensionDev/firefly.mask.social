@@ -1,4 +1,4 @@
-import { Menu, type MenuProps } from '@headlessui/react';
+import { MenuItem, type MenuProps } from '@headlessui/react';
 import { t } from '@lingui/macro';
 import { memo } from 'react';
 import { useEnsName } from 'wagmi';
@@ -6,11 +6,11 @@ import { useEnsName } from 'wagmi';
 import MoreCircleIcon from '@/assets/more-circle.svg';
 import { MuteAllByWallet } from '@/components/Actions/MuteAllProfile.js';
 import { MuteWalletButton } from '@/components/Actions/MuteWalletButton.js';
+import { MenuGroup } from '@/components/MenuGroup.jsx';
 import { MoreActionMenu } from '@/components/MoreActionMenu.js';
 import { Tips } from '@/components/Tips/index.js';
 import { Source } from '@/constants/enum.js';
 import { formatAddress } from '@/helpers/formatAddress.js';
-import { stopEvent } from '@/helpers/stopEvent.js';
 import { useFireflyIdentity } from '@/hooks/useFireflyIdentity.js';
 import { useIsMyRelatedProfile } from '@/hooks/useIsMyRelatedProfile.js';
 import { useIsWalletMuted } from '@/hooks/useIsWalletMuted.js';
@@ -32,11 +32,8 @@ export const WalletMoreAction = memo<MoreProps>(function WalletMoreAction({ prof
 
     return (
         <MoreActionMenu button={<MoreCircleIcon width={32} height={32} />} className={className}>
-            <Menu.Items
-                className="absolute right-0 z-[1000] flex w-max flex-col gap-2 overflow-hidden rounded-2xl border border-line bg-primaryBottom py-3 text-base text-main"
-                onClick={stopEvent}
-            >
-                <Menu.Item>
+            <MenuGroup>
+                <MenuItem>
                     {({ close }) => (
                         <MuteWalletButton
                             handleOrEnsOrAddress={ensOrAddress}
@@ -45,15 +42,15 @@ export const WalletMoreAction = memo<MoreProps>(function WalletMoreAction({ prof
                             onClick={close}
                         />
                     )}
-                </Menu.Item>
+                </MenuItem>
                 {!isMyWallet && (
-                    <Menu.Item>
+                    <MenuItem>
                         {({ close }) => (
                             <MuteAllByWallet address={profile.address} handle={ensOrAddress} onClose={close} />
                         )}
-                    </Menu.Item>
+                    </MenuItem>
                 )}
-                <Menu.Item>
+                <MenuItem>
                     {({ close }) => (
                         <Tips
                             className="px-3 py-1 !text-main hover:bg-bg"
@@ -65,8 +62,8 @@ export const WalletMoreAction = memo<MoreProps>(function WalletMoreAction({ prof
                             pureWallet
                         />
                     )}
-                </Menu.Item>
-            </Menu.Items>
+                </MenuItem>
+            </MenuGroup>
         </MoreActionMenu>
     );
 });

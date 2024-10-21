@@ -1,4 +1,4 @@
-import { Menu, type MenuProps } from '@headlessui/react';
+import { MenuItem, type MenuProps } from '@headlessui/react';
 import { Trans } from '@lingui/macro';
 import { memo } from 'react';
 import urlcat from 'urlcat';
@@ -8,9 +8,9 @@ import MoreCircleIcon from '@/assets/more-circle.svg';
 import LinkIcon from '@/assets/small-link.svg';
 import { MenuButton } from '@/components/Actions/MenuButton.js';
 import { MuteChannelButton } from '@/components/Actions/MuteChannelButton.js';
+import { MenuGroup } from '@/components/MenuGroup.js';
 import { MoreActionMenu } from '@/components/MoreActionMenu.js';
 import { getChannelUrl } from '@/helpers/getChannelUrl.js';
-import { stopEvent } from '@/helpers/stopEvent.js';
 import { useCopyText } from '@/hooks/useCopyText.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
 import { useToggleMutedChannel } from '@/hooks/useToggleMutedChannel.js';
@@ -40,11 +40,8 @@ export const ChannelMoreAction = memo<MoreProps>(function ChannelMoreAction({ ch
                 )
             }
         >
-            <Menu.Items
-                className="absolute right-0 z-[1000] flex w-max flex-col gap-2 overflow-hidden rounded-2xl border border-line bg-primaryBottom py-3 text-base text-main"
-                onClick={stopEvent}
-            >
-                <Menu.Item>
+            <MenuGroup>
+                <MenuItem>
                     {({ close }) => (
                         <MenuButton
                             onClick={async () => {
@@ -58,15 +55,15 @@ export const ChannelMoreAction = memo<MoreProps>(function ChannelMoreAction({ ch
                             </span>
                         </MenuButton>
                     )}
-                </Menu.Item>
+                </MenuItem>
                 {isLogin ? (
-                    <Menu.Item>
+                    <MenuItem>
                         {({ close }) => (
                             <MuteChannelButton channel={channel} onToggle={toggleBlockChannel} onClick={close} />
                         )}
-                    </Menu.Item>
+                    </MenuItem>
                 ) : null}
-            </Menu.Items>
+            </MenuGroup>
         </MoreActionMenu>
     );
 });

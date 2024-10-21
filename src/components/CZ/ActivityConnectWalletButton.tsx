@@ -1,4 +1,4 @@
-import { Menu } from '@headlessui/react';
+import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react';
 import { Trans } from '@lingui/macro';
 import { useQuery } from '@tanstack/react-query';
 import { useContext } from 'react';
@@ -36,13 +36,13 @@ export function ActivityConnectWalletButton() {
     return (
         <div className="relative">
             <Menu>
-                <Menu.Button className="h-10 rounded-full bg-white px-[18px] text-sm font-bold leading-10 text-[#181a20]">
+                <MenuButton className="h-10 rounded-full bg-white px-[18px] text-sm font-bold leading-10 text-[#181a20]">
                     <Trans>Connect Wallet</Trans>
-                </Menu.Button>
+                </MenuButton>
 
-                <Menu.Items className="absolute left-1/2 top-[calc(100%+12px)] flex w-[200px] -translate-x-1/2 flex-col rounded-[12px] bg-[#1C1C1E] shadow-lg">
+                <MenuItems className="absolute left-1/2 top-[calc(100%+12px)] flex w-[200px] -translate-x-1/2 flex-col rounded-[12px] bg-[#1C1C1E] shadow-lg">
                     {addresses.map((address) => (
-                        <Menu.Item key={address}>
+                        <MenuItem key={address}>
                             <a
                                 className="px-4 py-[11px] text-sm font-semibold leading-6"
                                 onClick={() => {
@@ -51,9 +51,9 @@ export function ActivityConnectWalletButton() {
                             >
                                 {formatAddress(address, 4)}
                             </a>
-                        </Menu.Item>
+                        </MenuItem>
                     ))}
-                    <Menu.Item>
+                    <MenuItem>
                         <a
                             className="flex items-center px-4 py-[11px] text-sm font-semibold leading-6"
                             onClick={async () => {
@@ -66,8 +66,8 @@ export function ActivityConnectWalletButton() {
                             <AddCircleIcon width={24} height={24} className="mr-2" />
                             <Trans>Connect Wallet</Trans>
                         </a>
-                    </Menu.Item>
-                </Menu.Items>
+                    </MenuItem>
+                </MenuItems>
             </Menu>
         </div>
     );
@@ -88,13 +88,13 @@ export function ActivityChangeWalletButton() {
     return (
         <div className="relative">
             <Menu>
-                <Menu.Button className="text-[13px] font-bold leading-[18px] text-[#f4d008]">
+                <MenuButton className="text-[13px] font-bold leading-[18px] text-[#f4d008]">
                     <Trans>Change Wallet</Trans>
-                </Menu.Button>
+                </MenuButton>
 
-                <Menu.Items className="absolute left-1/2 top-[calc(100%+12px)] flex w-[200px] -translate-x-1/2 flex-col rounded-[12px] bg-[#1C1C1E] shadow-lg">
+                <MenuItems className="absolute left-1/2 top-[calc(100%+12px)] flex w-[200px] -translate-x-1/2 flex-col rounded-[12px] bg-[#1C1C1E] shadow-lg">
                     {addresses.map((address) => (
-                        <Menu.Item key={address}>
+                        <MenuItem key={address}>
                             <a
                                 className="px-4 py-[11px] text-sm font-semibold leading-6"
                                 onClick={() => {
@@ -103,9 +103,9 @@ export function ActivityChangeWalletButton() {
                             >
                                 {formatAddress(address, 4)}
                             </a>
-                        </Menu.Item>
+                        </MenuItem>
                     ))}
-                    <Menu.Item>
+                    <MenuItem>
                         <a
                             className="flex items-center px-4 py-[11px] text-sm font-semibold leading-6"
                             onClick={async () => {
@@ -118,8 +118,8 @@ export function ActivityChangeWalletButton() {
                             <AddCircleIcon width={24} height={24} className="mr-2" />
                             <Trans>Connect Wallet</Trans>
                         </a>
-                    </Menu.Item>
-                </Menu.Items>
+                    </MenuItem>
+                </MenuItems>
             </Menu>
         </div>
     );

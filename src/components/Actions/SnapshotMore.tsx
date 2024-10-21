@@ -1,4 +1,4 @@
-import { MenuItem, MenuItems } from '@headlessui/react';
+import { MenuItem } from '@headlessui/react';
 import { t, Trans } from '@lingui/macro';
 import { memo } from 'react';
 import { useEnsName } from 'wagmi';
@@ -10,12 +10,12 @@ import MoreIcon from '@/assets/more.svg';
 import { MenuButton } from '@/components/Actions/MenuButton.js';
 import { MuteWalletButton } from '@/components/Actions/MuteWalletButton.js';
 import { WatchWalletButton } from '@/components/Actions/WatchWalletButton.js';
+import { MenuGroup } from '@/components/MenuGroup.js';
 import { MoreActionMenu } from '@/components/MoreActionMenu.js';
 import { Tips } from '@/components/Tips/index.js';
 import { Tooltip } from '@/components/Tooltip.js';
 import { Source } from '@/constants/enum.js';
 import { formatAddress } from '@/helpers/formatAddress.js';
-import { stopEvent } from '@/helpers/stopEvent.js';
 import { useFireflyIdentity } from '@/hooks/useFireflyIdentity.js';
 import { useIsMyRelatedProfile } from '@/hooks/useIsMyRelatedProfile.js';
 import { useToggleSnapshotBookmark } from '@/hooks/useToggleSnapshotBookmark.js';
@@ -50,10 +50,7 @@ export const SnapshotMoreAction = memo<MoreProps>(function SnapshotMoreAction({ 
                 )
             }
         >
-            <MenuItems
-                className="absolute right-0 z-[1000] flex w-max flex-col gap-2 overflow-hidden rounded-2xl border border-line bg-primaryBottom py-3 text-base text-main"
-                onClick={stopEvent}
-            >
+            <MenuGroup>
                 {!isMyProfile && (
                     <>
                         <MenuItem>
@@ -110,7 +107,7 @@ export const SnapshotMoreAction = memo<MoreProps>(function SnapshotMoreAction({ 
                         />
                     )}
                 </MenuItem>
-            </MenuItems>
+            </MenuGroup>
         </MoreActionMenu>
     );
 });

@@ -1251,9 +1251,6 @@ msgstr "隐藏更多的评论"
 msgid "Malformed session."
 msgstr "会话格式错误。"
 
-msgid "<0>COLLECTED</0> a POAP"
-msgstr "<0>已收藏</0> 一个 POAP"
-
 msgid "Upload"
 msgstr "上传"
 
@@ -1402,6 +1399,9 @@ msgid "There are videos that were not uploaded successfully."
 msgstr "视频上传失败。"
 
 msgid "NFT contract cant restrict the approval, resulting in NFT can not be traded on the NFT DEX."
+msgstr ""
+
+msgid "<0>Collected</0> a POAP"
 msgstr ""
 
 msgid "This can’t be undone, and the scheduled send will be canceled."

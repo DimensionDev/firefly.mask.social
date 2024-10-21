@@ -1,4 +1,4 @@
-import { Menu } from '@headlessui/react';
+import { MenuItem } from '@headlessui/react';
 import { t } from '@lingui/macro';
 import { memo } from 'react';
 import { useEnsName } from 'wagmi';
@@ -8,11 +8,11 @@ import MoreIcon from '@/assets/more.svg';
 import { MuteWalletButton } from '@/components/Actions/MuteWalletButton.js';
 import { ReportArticleButton } from '@/components/Actions/ReportArticleButton.js';
 import { WatchWalletButton } from '@/components/Actions/WatchWalletButton.js';
+import { MenuGroup } from '@/components/MenuGroup.js';
 import { MoreActionMenu } from '@/components/MoreActionMenu.js';
 import { Tooltip } from '@/components/Tooltip.js';
 import { Source } from '@/constants/enum.js';
 import { formatAddress } from '@/helpers/formatAddress.js';
-import { stopEvent } from '@/helpers/stopEvent.js';
 import { useFireflyIdentity } from '@/hooks/useFireflyIdentity.js';
 import { useIsMyRelatedProfile } from '@/hooks/useIsMyRelatedProfile.js';
 import { useToggleArticleBookmark } from '@/hooks/useToggleArticleBookmark.js';
@@ -47,13 +47,10 @@ export const ArticleMoreAction = memo<MoreProps>(function ArticleMoreAction({ ar
                 )
             }
         >
-            <Menu.Items
-                className="absolute right-0 z-[1000] flex w-max flex-col gap-2 overflow-hidden rounded-2xl border border-line bg-primaryBottom py-3 text-base text-main"
-                onClick={stopEvent}
-            >
+            <MenuGroup>
                 {!isMyProfile && (
                     <>
-                        <Menu.Item>
+                        <MenuItem>
                             {({ close }) => (
                                 <WatchWalletButton
                                     handleOrEnsOrAddress={handleOrEnsOrAddress}
@@ -62,8 +59,8 @@ export const ArticleMoreAction = memo<MoreProps>(function ArticleMoreAction({ ar
                                     onClick={close}
                                 />
                             )}
-                        </Menu.Item>
-                        <Menu.Item>
+                        </MenuItem>
+                        <MenuItem>
                             {({ close }) => (
                                 <MuteWalletButton
                                     handleOrEnsOrAddress={handleOrEnsOrAddress}
@@ -72,11 +69,11 @@ export const ArticleMoreAction = memo<MoreProps>(function ArticleMoreAction({ ar
                                     onClick={close}
                                 />
                             )}
-                        </Menu.Item>
+                        </MenuItem>
                     </>
                 )}
-                <Menu.Item>{({ close }) => <ReportArticleButton article={article} onClick={close} />}</Menu.Item>
-            </Menu.Items>
+                <MenuItem>{({ close }) => <ReportArticleButton article={article} onClick={close} />}</MenuItem>
+            </MenuGroup>
         </MoreActionMenu>
     );
 });

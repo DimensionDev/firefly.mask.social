@@ -1,4 +1,4 @@
-import { MenuItem, MenuItems, type MenuProps } from '@headlessui/react';
+import { MenuItem, type MenuProps } from '@headlessui/react';
 import { Trans } from '@lingui/macro';
 import { memo } from 'react';
 import urlcat from 'urlcat';
@@ -9,12 +9,12 @@ import { MenuButton } from '@/components/Actions/MenuButton.js';
 import { MuteAllByProfile } from '@/components/Actions/MuteAllProfile.js';
 import { MuteProfileButton } from '@/components/Actions/MuteProfileButton.js';
 import { ReportProfileButton } from '@/components/Actions/ReportProfileButton.js';
+import { MenuGroup } from '@/components/MenuGroup.js';
 import { MoreActionMenu } from '@/components/MoreActionMenu.js';
 import { Source } from '@/constants/enum.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { isSameFireflyIdentity } from '@/helpers/isSameFireflyIdentity.js';
 import { resolveFireflyProfileId } from '@/helpers/resolveFireflyProfileId.js';
-import { stopEvent } from '@/helpers/stopEvent.js';
 import { useCopyText } from '@/hooks/useCopyText.js';
 import { useCurrentFireflyProfilesAll } from '@/hooks/useCurrentFireflyProfiles.js';
 import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
@@ -50,12 +50,7 @@ export const ProfileMoreAction = memo<ProfileMoreActionProps>(function ProfileMo
             button={<MoreCircleIcon width={32} height={32} />}
             className={className}
         >
-            <MenuItems
-                className="z-[1000] flex w-max flex-col gap-2 overflow-hidden rounded-2xl border border-line bg-primaryBottom py-3 text-base text-main"
-                onClick={stopEvent}
-                portal
-                anchor="bottom end"
-            >
+            <MenuGroup>
                 <MenuItem>
                     {({ close }) => (
                         <MenuButton
@@ -89,7 +84,7 @@ export const ProfileMoreAction = memo<ProfileMoreActionProps>(function ProfileMo
                         <MenuItem>{({ close }) => <MuteAllByProfile profile={profile} onClose={close} />}</MenuItem>
                     </>
                 ) : null}
-            </MenuItems>
+            </MenuGroup>
         </MoreActionMenu>
     );
 });
