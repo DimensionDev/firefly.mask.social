@@ -15,6 +15,7 @@ build/
 # Ignore all files of a specific type in a specific directory
 public/*.html
 public/js/*.js
+public/lottie-files/*.json
 
 # Ignore specific files in a directory
 src/specialFile.js

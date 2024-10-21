@@ -6,6 +6,7 @@ import { delay } from '@masknet/kit';
 import { usePathname } from 'next/navigation.js';
 import { memo } from 'react';
 
+import ActivityIcon from '@/assets/activity.svg';
 import BookmarkSelectedIcon from '@/assets/bookmark.selected.svg';
 import BookmarkIcon from '@/assets/bookmark.svg';
 import CircleShareIcon from '@/assets/circle-share.svg';
@@ -25,6 +26,7 @@ import { ClickableButton } from '@/components/ClickableButton.js';
 import { LoginStatusBar } from '@/components/Login/LoginStatusBar.js';
 import { OpenFireflyAppButton } from '@/components/OpenFireflyAppButton.js';
 import { ConnectWallet } from '@/components/SideBar/ConnectWallet.js';
+import { ExclusiveEvents } from '@/components/SideBar/ExclusiveEvents.js';
 import { Tooltip } from '@/components/Tooltip.js';
 import { PageRoute } from '@/constants/enum.js';
 import { DEFAULT_SOCIAL_SOURCE } from '@/constants/index.js';
@@ -121,6 +123,12 @@ export const Menu = memo(function Menu({ collapsed = false }: MenuProps) {
                                 selectedIcon: WalletIcon,
                             },
                             {
+                                href: PageRoute.Events,
+                                name: <Trans>Exclusive Events</Trans>,
+                                icon: ActivityIcon,
+                                selectedIcon: ActivityIcon,
+                            },
+                            {
                                 href: PageRoute.Settings,
                                 name: <Trans>Settings</Trans>,
                                 icon: SettingsIcon,
@@ -139,6 +147,7 @@ export const Menu = memo(function Menu({ collapsed = false }: MenuProps) {
                                 >
                                     {{
                                         ['/connect-wallet']: <ConnectWallet collapsed={collapsed} />,
+                                        [PageRoute.Events]: <ExclusiveEvents />,
                                     }[item.href] ?? (
                                         <Link
                                             href={item.href}
