@@ -636,9 +636,6 @@ msgstr ""
 msgid "Failed to upload. Image size exceeds {0}"
 msgstr ""
 
-msgid "Done"
-msgstr ""
-
 msgid "Recasts"
 msgstr ""
 
@@ -694,6 +691,9 @@ msgid "No proxy"
 msgstr ""
 
 msgid "<0>Sold</0> an NFT"
+msgstr ""
+
+msgid "Share and Post"
 msgstr ""
 
 msgid "Follow System"

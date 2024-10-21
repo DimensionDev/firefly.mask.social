@@ -32,7 +32,7 @@ export function ActivityClaimButton({ status }: { status: ActivityStatus }) {
             enqueueErrorMessage(getSnackbarMessageFromError(error, t`Failed to claim token`), { error });
             throw error;
         }
-    });
+    }, [disabled, address, authToken]);
     const list = useActivityPremiumList();
 
     const buttonText = (() => {

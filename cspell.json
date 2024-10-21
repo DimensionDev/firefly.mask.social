@@ -186,7 +186,8 @@
         "nextwidth",
         "nextheight",
         "mutelist",
-        "Powerbadge"
+        "Powerbadge",
+        "errormessage"
     ],
     "flagWords": [],
     "ignorePaths": [

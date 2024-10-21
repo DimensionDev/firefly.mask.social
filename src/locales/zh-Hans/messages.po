@@ -636,9 +636,6 @@ msgstr "上传失败。图片格式不支持"
 msgid "Failed to upload. Image size exceeds {0}"
 msgstr "上传失败。图片超过最大限制 {0}"
 
-msgid "Done"
-msgstr ""
-
 msgid "Recasts"
 msgstr "转帖"
 
@@ -695,6 +692,9 @@ msgstr "无代理"
 
 msgid "<0>Sold</0> an NFT"
 msgstr "<0>出售</0> 一个 NFT"
+
+msgid "Share and Post"
+msgstr ""
 
 msgid "Follow System"
 msgstr "跟随系统"

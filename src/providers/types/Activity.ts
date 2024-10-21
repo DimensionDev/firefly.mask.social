@@ -46,10 +46,10 @@ export interface Balance {
 export type CheckResponse = Response<{
     alreadyClaimed: boolean;
     canClaim: boolean;
-    x: X | null;
+    x: X;
     farcaster: Farcaster;
     balance: Balance;
-    firefly: Firefly | null;
+    firefly: Firefly;
     address: string;
     claimCondition: [];
 }>;
