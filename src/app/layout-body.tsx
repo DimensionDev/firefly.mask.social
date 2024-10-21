@@ -38,7 +38,7 @@ export function LayoutBody({ children }: { children: React.ReactNode }) {
                     <CustomElements />
                     {children}
                     <IfHostname isNotOneOf={[CZ_ACTIVITY_HOSTNAME]}>
-                        <IfPathname isNotOneOf={['/login/desktop', '/activity/cz']}>
+                        <IfPathname isNotOneOf={['/login/desktop', '/activity/cz', '/event', '/events']}>
                             <SideBar />
                         </IfPathname>
                     </IfHostname>

@@ -1,7 +1,7 @@
 'use client';
 
 import { Trans } from '@lingui/macro';
-import type { ReactNode } from 'react';
+import { type ReactNode } from 'react';
 
 import LoadingIcon from '@/assets/loading.svg';
 import { ActivityVerifyText } from '@/components/Activity/ActivityVerifyText.js';
