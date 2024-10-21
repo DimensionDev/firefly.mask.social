@@ -1,5 +1,6 @@
 import { ChainId, isValidAddress } from '@masknet/web3-shared-evm';
 import { AuthType, connect, disconnect, particleAuth } from '@particle-network/auth-core';
+import type { EVMProvider } from '@particle-network/authkit';
 import type { Address } from 'viem';
 import { createConnector } from 'wagmi';
 import { mainnet } from 'wagmi/chains';
@@ -7,10 +8,10 @@ import { mainnet } from 'wagmi/chains';
 import { STATUS } from '@/constants/enum.js';
 import { env } from '@/constants/env.js';
 import { AuthenticationError } from '@/constants/error.js';
-import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { ValueRef } from '@/libs/ValueRef.js';
-import type { EVMProvider } from '@particle-network/authkit';
+import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
+import { useGlobalState } from '@/store/useGlobalStore.js';
 
 interface ConnectorOptions {}
 
@@ -44,7 +45,12 @@ export function createParticleConnector(options: ConnectorOptions) {
             name: 'Firefly Wallet',
             type: 'INJECTED',
             icon: '/firefly.png',
-            async connect() {
+            async connect(options) {
+                if (options?.isReconnecting && useGlobalState.getState().particleReconnecting) {
+                    console.info(`[particle] cancel reconnect`);
+                    throw new Error('Abort reconnecting.');
+                }
+
                 console.info(`[particle] connect`);
 
                 if (!fireflySessionHolder.session) throw new AuthenticationError('Firefly session not found');
@@ -66,6 +72,8 @@ export function createParticleConnector(options: ConnectorOptions) {
                     throw new AuthenticationError('Wallet not found');
                 }
 
+                useGlobalState.getState().updateParticleReconnecting(false);
+
                 return {
                     chainId: ChainId.Mainnet,
                     accounts: wallets.map((x) => x.public_address!) as Address[],
@@ -73,7 +81,11 @@ export function createParticleConnector(options: ConnectorOptions) {
             },
             async disconnect() {
                 console.info(`[particle] disconnect`);
-                runInSafeAsync(disconnect);
+
+                useGlobalState.getState().updateParticleReconnecting(true);
+                await runInSafeAsync(disconnect);
+
+                console.info(`[particle] disconnected`);
             },
             async getAccounts() {
                 return [particleAuth.ethereum.selectedAddress as Address];

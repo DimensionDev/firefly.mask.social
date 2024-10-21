@@ -1,13 +1,13 @@
 'use client';
 
 // cspell: disable-next-line
-import { AuthCoreContextProvider, PromptSettingType, useConnect, useEthereum } from '@particle-network/authkit';
+import { AuthCoreContextProvider, PromptSettingType, useEthereum } from '@particle-network/authkit';
 import { type ReactNode, useEffect, useMemo } from 'react';
 
+import { setParticleProvider } from '@/app/connectors/ParticleConnector.js';
 import { chains } from '@/configs/wagmiClient.js';
 import { VERCEL_NEV } from '@/constants/enum.js';
 import { env } from '@/constants/env.js';
-import { setParticleProvider } from '@/app/connectors/ParticleConnector.js';
 
 type AuthCoreContextProviderOptions = Parameters<typeof AuthCoreContextProvider>[0]['options'];
 
