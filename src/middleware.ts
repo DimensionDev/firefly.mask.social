@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse, userAgent } from 'next/server.js';
 import urlcat from 'urlcat';
 
+import { DEFAULT_SOCIAL_SOURCE } from '@/constants/index.js';
 import { isFollowCategory } from '@/helpers/isFollowCategory.js';
 import { isMatchedDiscoverPage } from '@/helpers/isMatchedDiscoverPage.js';
 import { parseOldDiscoverUrl } from '@/helpers/parseDiscoverUrl.js';
@@ -21,7 +22,6 @@ import { resolveNotificationUrl } from '@/helpers/resolveNotificationUrl.js';
 import { resolvePostUrl } from '@/helpers/resolvePostUrl.js';
 import { resolveProfileUrl } from '@/helpers/resolveProfileUrl.js';
 import { resolveSourceInUrl } from '@/helpers/resolveSourceInUrl.js';
-import { DEFAULT_SOCIAL_SOURCE } from '@/constants/index.js';
 
 export async function middleware(request: NextRequest) {
     const pathname = request.nextUrl.pathname;
