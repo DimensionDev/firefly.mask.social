@@ -6,7 +6,6 @@ import {
     scopePollingDetectionStrategy,
     WalletAccountError,
     WalletConnectionError,
-    WalletDisconnectedError,
     WalletDisconnectionError,
     WalletError,
     WalletNotConnectedError,
@@ -64,6 +63,12 @@ declare const window: ParticleSolanaWindow;
 export interface ParticleSolanaWalletAdapterConfig {}
 
 export const ParticleSolanaWalletName = 'Firefly Wallet' as WalletName<'Firefly Wallet'>;
+
+function formatError(error: unknown, fallback = '') {
+    if (error instanceof Error) return error.message;
+
+    return fallback;
+}
 
 export class ParticleSolanaWalletAdapter extends BaseMessageSignerWalletAdapter {
     name = ParticleSolanaWalletName;
@@ -148,8 +153,8 @@ export class ParticleSolanaWalletAdapter extends BaseMessageSignerWalletAdapter 
                 try {
                     // update wallet state
                     await wallet.connect();
-                } catch (error: any) {
-                    throw new WalletConnectionError(error?.message, error);
+                } catch (error: unknown) {
+                    throw new WalletConnectionError(formatError(error), error);
                 }
             }
 
@@ -158,8 +163,8 @@ export class ParticleSolanaWalletAdapter extends BaseMessageSignerWalletAdapter 
             let publicKey: PublicKey;
             try {
                 publicKey = new PublicKey(wallet.publicKey.toBytes());
-            } catch (error: any) {
-                throw new WalletPublicKeyError(error?.message, error);
+            } catch (error: unknown) {
+                throw new WalletPublicKeyError(formatError(error), error);
             }
 
             wallet.on('disconnect', this._disconnected);
@@ -169,8 +174,8 @@ export class ParticleSolanaWalletAdapter extends BaseMessageSignerWalletAdapter 
             this._publicKey = publicKey;
 
             this.emit('connect', publicKey);
-        } catch (error: any) {
-            this.emit('error', error);
+        } catch (error: unknown) {
+            this.emit('error', error as WalletError);
             throw error;
         } finally {
             this._connecting = false;
@@ -180,16 +185,16 @@ export class ParticleSolanaWalletAdapter extends BaseMessageSignerWalletAdapter 
     async disconnect(): Promise<void> {
         const wallet = this._wallet;
         if (wallet) {
-            wallet.off('disconnect', this._disconnected);
-            wallet.off('accountChanged', this._accountChanged);
-
-            this._wallet = null;
-            this._publicKey = null;
-
             try {
+                wallet.off('disconnect', this._disconnected);
+                wallet.off('accountChanged', this._accountChanged);
+
+                this._wallet = null;
+                this._publicKey = null;
+
                 await wallet.disconnect();
-            } catch (error: any) {
-                this.emit('error', new WalletDisconnectionError(error?.message, error));
+            } catch (error: unknown) {
+                this.emit('error', new WalletDisconnectionError(formatError(error), error));
             }
         }
 
@@ -219,12 +224,12 @@ export class ParticleSolanaWalletAdapter extends BaseMessageSignerWalletAdapter 
 
                 const { signature } = await wallet.signAndSendTransaction(transaction, sendOptions);
                 return signature;
-            } catch (error: any) {
+            } catch (error: unknown) {
                 if (error instanceof WalletError) throw error;
-                throw new WalletSendTransactionError(error?.message, error);
+                throw new WalletSendTransactionError(formatError(error), error);
             }
-        } catch (error: any) {
-            this.emit('error', error);
+        } catch (error: unknown) {
+            this.emit('error', error as WalletError);
             throw error;
         }
     }
@@ -236,11 +241,11 @@ export class ParticleSolanaWalletAdapter extends BaseMessageSignerWalletAdapter 
 
             try {
                 return (await wallet.signTransaction(transaction)) || transaction;
-            } catch (error: any) {
-                throw new WalletSignTransactionError(error?.message, error);
+            } catch (error: unknown) {
+                throw new WalletSignTransactionError(formatError(error), error);
             }
-        } catch (error: any) {
-            this.emit('error', error);
+        } catch (error: unknown) {
+            this.emit('error', error as WalletError);
             throw error;
         }
     }
@@ -252,11 +257,11 @@ export class ParticleSolanaWalletAdapter extends BaseMessageSignerWalletAdapter 
 
             try {
                 return (await wallet.signAllTransactions(transactions)) || transactions;
-            } catch (error: any) {
-                throw new WalletSignTransactionError(error?.message, error);
+            } catch (error: unknown) {
+                throw new WalletSignTransactionError(formatError(error), error);
             }
-        } catch (error: any) {
-            this.emit('error', error);
+        } catch (error: unknown) {
+            this.emit('error', error as WalletError);
             throw error;
         }
     }
@@ -269,11 +274,11 @@ export class ParticleSolanaWalletAdapter extends BaseMessageSignerWalletAdapter 
             try {
                 const { signature } = await wallet.signMessage(message);
                 return signature;
-            } catch (error: any) {
-                throw new WalletSignMessageError(error?.message, error);
+            } catch (error: unknown) {
+                throw new WalletSignMessageError(formatError(error), error);
             }
-        } catch (error: any) {
-            this.emit('error', error);
+        } catch (error: unknown) {
+            this.emit('error', error as WalletError);
             throw error;
         }
     }
@@ -287,7 +292,6 @@ export class ParticleSolanaWalletAdapter extends BaseMessageSignerWalletAdapter 
             this._wallet = null;
             this._publicKey = null;
 
-            this.emit('error', new WalletDisconnectedError());
             this.emit('disconnect');
         }
     };
@@ -298,8 +302,8 @@ export class ParticleSolanaWalletAdapter extends BaseMessageSignerWalletAdapter 
 
         try {
             newPublicKey = new PublicKey(newPublicKey.toBytes());
-        } catch (error: any) {
-            this.emit('error', new WalletPublicKeyError(error?.message, error));
+        } catch (error: unknown) {
+            this.emit('error', new WalletPublicKeyError(formatError(error), error));
             return;
         }
 
