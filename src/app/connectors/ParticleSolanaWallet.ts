@@ -52,14 +52,14 @@ interface ParticleSolanaWallet extends EventEmitter<ParticleSolanaWalletEvents> 
     disconnect(): Promise<void>;
 }
 
-interface ParticleSolonaWindow extends Window {
+interface ParticleSolanaWindow extends Window {
     particle?: {
         solana?: ParticleSolanaWallet;
     };
     solana?: ParticleSolanaWallet;
 }
 
-declare const window: ParticleSolonaWindow;
+declare const window: ParticleSolanaWindow;
 
 export interface ParticleSolanaWalletAdapterConfig {}
 
