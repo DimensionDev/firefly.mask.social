@@ -115,11 +115,7 @@ export function createParticleConnector(options: ConnectorOptions) {
                         ],
                     });
 
-                    const currentChainId = await provider.request({
-                        method: EthereumMethodType.ETH_CHAIN_ID,
-                        params: [],
-                    });
-
+                    const currentChainId = await this.getChainId();
                     if (currentChainId !== parameters.chainId) {
                         throw new UserRejectedRequestError(new Error('User rejected switch after adding network.'));
                     }
@@ -130,11 +126,16 @@ export function createParticleConnector(options: ConnectorOptions) {
 
                 return chain;
             },
+            async getChainId() {
+                const provider = await getProvider();
+                const chainId = await provider.request({
+                    method: EthereumMethodType.ETH_CHAIN_ID,
+                    params: [],
+                });
+                return Number.parseInt(chainId, 16);
+            },
             async getAccounts() {
                 return [particleAuth.ethereum.selectedAddress as Address];
-            },
-            async getChainId() {
-                return Number.parseInt(particleAuth.ethereum.chainId, 16);
             },
             async getProvider() {
                 return getProvider();
