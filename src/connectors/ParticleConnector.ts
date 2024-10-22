@@ -1,4 +1,4 @@
-import { ChainId, EthereumMethodType, isValidAddress } from '@masknet/web3-shared-evm';
+import { EthereumMethodType, isValidAddress } from '@masknet/web3-shared-evm';
 import { AuthType, connect, disconnect, EthereumProvider, particleAuth } from '@particle-network/auth-core';
 import { type Address, type Chain, numberToHex, RpcError, SwitchChainError, UserRejectedRequestError } from 'viem';
 import { ChainNotConfiguredError, createConnector } from 'wagmi';
@@ -56,8 +56,8 @@ export function createParticleConnector(options: ConnectorOptions) {
             name: 'Firefly Wallet',
             type: 'INJECTED',
             icon: '/firefly.png',
-            async connect(options) {
-                if (options?.isReconnecting && useGlobalState.getState().particleReconnecting) {
+            async connect(parameters) {
+                if (parameters?.isReconnecting && useGlobalState.getState().particleReconnecting) {
                     console.info(`[particle] cancel reconnect`);
                     throw new Error('Abort reconnecting.');
                 }
@@ -66,8 +66,9 @@ export function createParticleConnector(options: ConnectorOptions) {
 
                 if (!fireflySessionHolder.session) throw new AuthenticationError('Firefly session not found');
 
+                const chain = options.chains.find((x) => x.id === parameters?.chainId) ?? mainnet;
                 const user = await connect({
-                    chain: mainnet,
+                    chain,
                     provider: AuthType.jwt,
                     // cspell: disable-next-line
                     thirdpartyCode: fireflySessionHolder.session?.token,
@@ -86,7 +87,7 @@ export function createParticleConnector(options: ConnectorOptions) {
                 useGlobalState.getState().updateParticleReconnecting(false);
 
                 return {
-                    chainId: ChainId.Mainnet,
+                    chainId: chain.id,
                     accounts: wallets.map((x) => x.public_address!) as Address[],
                 };
             },
