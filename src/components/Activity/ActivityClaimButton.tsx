@@ -15,7 +15,9 @@ import { classNames } from '@/helpers/classNames.js';
 import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
 import { getSnackbarMessageFromError } from '@/helpers/getSnackbarMessageFromError.js';
 import { useFireflyBridgeAuthorization } from '@/hooks/useFireflyBridgeAuthorization.js';
+import { captureActivityEvent } from '@/providers/telemetry/captureActivityEvent.js';
 import { ActivityStatus } from '@/providers/types/Firefly.js';
+import { EventId } from '@/providers/types/Telemetry.js';
 import { mintActivitySBT } from '@/services/mintActivitySBT.js';
 
 export function ActivityClaimButton({ status }: { status: ActivityStatus }) {
@@ -25,7 +27,11 @@ export function ActivityClaimButton({ status }: { status: ActivityStatus }) {
     const [hash, setHash] = useState<string | undefined>(undefined);
     const [chainId, setChainId] = useState<ChainId | undefined>(undefined);
     const { data: isFollowedFirefly } = useIsFollowTwitterInActivity('1583361564479889408', 'thefireflyapp');
+    const list = useActivityPremiumList();
+
+    const isPremium = list.some((x) => x.verified);
     const disabled = status === ActivityStatus.Ended || !data?.canClaim || isFollowedFirefly;
+
     const [{ loading }, claim] = useAsyncFn(async () => {
         if (disabled || !address) return;
         try {
@@ -33,12 +39,16 @@ export function ActivityClaimButton({ status }: { status: ActivityStatus }) {
             await refetch();
             setHash(hash);
             setChainId(chainId);
+            if (isPremium) {
+            }
+            captureActivityEvent(isPremium ? EventId.EVENT_CLAIM_PREMIUM_SUCCESS : EventId.EVENT_CLAIM_BASIC_SUCCESS, {
+                wallet_address: address,
+            });
         } catch (error) {
             enqueueErrorMessage(getSnackbarMessageFromError(error, t`Failed to claim token`), { error });
             throw error;
         }
-    }, [disabled, address, authToken]);
-    const list = useActivityPremiumList();
+    }, [disabled, address, authToken, isPremium]);
 
     const buttonText = (() => {
         if (status === ActivityStatus.Ended) {
@@ -48,7 +58,7 @@ export function ActivityClaimButton({ status }: { status: ActivityStatus }) {
             return <Trans>Claimed</Trans>;
         }
         if (!disabled && data?.canClaim) {
-            return list.some((x) => x.verified) ? <Trans>Claim Premium</Trans> : <Trans>Claim Basic</Trans>;
+            return isPremium ? <Trans>Claim Premium</Trans> : <Trans>Claim Basic</Trans>;
         }
         return <Trans>Claim Now</Trans>;
     })();

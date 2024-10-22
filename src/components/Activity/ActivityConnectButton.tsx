@@ -19,6 +19,8 @@ import { formatAddress } from '@/helpers/formatAddress.js';
 import { useAllConnections } from '@/hooks/useAllConnections.js';
 import { AddWalletModalRef } from '@/modals/controls.js';
 import { fireflyBridgeProvider } from '@/providers/firefly/Bridge.js';
+import { captureActivityEvent } from '@/providers/telemetry/captureActivityEvent.js';
+import { EventId } from '@/providers/types/Telemetry.js';
 import { Network, SupportedMethod } from '@/types/bridge.js';
 import { ChainId } from '@/types/frame.js';
 
@@ -85,6 +87,9 @@ export function ActivityConnectButton() {
                                 className="cursor-pointer px-4 py-[11px] text-sm font-semibold leading-6"
                                 onClick={() => {
                                     onChangeAddress(address);
+                                    captureActivityEvent(EventId.EVENT_CHANGE_WALLET_SUCCESS, {
+                                        wallet_address: address,
+                                    });
                                     refetchActivityClaimCondition();
                                 }}
                             >
@@ -104,6 +109,9 @@ export function ActivityConnectButton() {
                                         },
                                     );
                                     onChangeAddress(address);
+                                    captureActivityEvent(EventId.EVENT_CONNECT_WALLET_SUCCESS, {
+                                        wallet_address: address,
+                                    });
                                     refetchActivityClaimCondition();
                                     return;
                                 }

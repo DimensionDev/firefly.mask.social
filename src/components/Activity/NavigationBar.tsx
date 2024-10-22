@@ -8,6 +8,8 @@ import { SITE_NAME } from '@/constants/index.js';
 import { classNames } from '@/helpers/classNames.js';
 import { useComeBack } from '@/hooks/useComeback.js';
 import { fireflyBridgeProvider } from '@/providers/firefly/Bridge.js';
+import { captureActivityEvent } from '@/providers/telemetry/captureActivityEvent.js';
+import { EventId } from '@/providers/types/Telemetry.js';
 import { SupportedMethod } from '@/types/bridge.js';
 
 interface Props extends HTMLProps<'div'> {}
@@ -34,6 +36,7 @@ export function NavigationBar({ children, className }: Props) {
             <button
                 className="h-6 w-6 cursor-pointer"
                 onClick={() => {
+                    captureActivityEvent(EventId.EVENT_SHARE_CLICK, {});
                     fireflyBridgeProvider.request(SupportedMethod.SHARE, { text: SITE_NAME }); // TODO: event name
                 }}
             >
