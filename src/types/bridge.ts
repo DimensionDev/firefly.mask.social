@@ -17,6 +17,7 @@ export enum Network {
 }
 
 export enum SupportedMethod {
+    IS_TWITTER_USER_FOLLOWING = 'isTwitterUserFollowing',
     GET_SUPPORTED_METHODS = 'getSupportMethod',
     GET_AUTHORIZATION = 'getAuthorization',
     GET_THEME = 'getTheme',
@@ -40,6 +41,9 @@ export interface RequestArguments {
     [SupportedMethod.GET_LANGUAGE]: {};
     [SupportedMethod.GET_WALLET_ADDRESS]: {
         type: Network;
+    };
+    [SupportedMethod.IS_TWITTER_USER_FOLLOWING]: {
+        id: string;
     };
     [SupportedMethod.CONNECT_WALLET]: {
         type: Network;
@@ -75,6 +79,7 @@ export interface RequestResult {
     [SupportedMethod.GET_THEME]: Theme;
     [SupportedMethod.GET_LANGUAGE]: string;
     [SupportedMethod.GET_WALLET_ADDRESS]: string[];
+    [SupportedMethod.IS_TWITTER_USER_FOLLOWING]: boolean;
     [SupportedMethod.CONNECT_WALLET]: string;
     [SupportedMethod.BIND_WALLET]: string; // address
     [SupportedMethod.FOLLOW_TWITTER_USER]: boolean;
