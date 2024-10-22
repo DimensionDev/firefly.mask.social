@@ -2053,6 +2053,9 @@ msgstr ""
 msgid "All notifications"
 msgstr ""
 
+msgid "Please try switching to {0}"
+msgstr ""
+
 msgid "Mobile App"
 msgstr ""
 
@@ -2330,6 +2333,9 @@ msgid "LuckyDrop"
 msgstr ""
 
 msgid "{0} and others"
+msgstr ""
+
+msgid "Please switch to Firefly Wallet."
 msgstr ""
 
 msgid "No money laundering involved."

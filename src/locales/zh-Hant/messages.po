@@ -2058,6 +2058,9 @@ msgstr "<0>{0}</0> 鏡像了"
 msgid "All notifications"
 msgstr "全部通知"
 
+msgid "Please try switching to {0}"
+msgstr ""
+
 msgid "Mobile App"
 msgstr "手機應用"
 
@@ -2335,6 +2338,9 @@ msgid "LuckyDrop"
 msgstr ""
 
 msgid "{0} and others"
+msgstr ""
+
+msgid "Please switch to Firefly Wallet."
 msgstr ""
 
 msgid "No money laundering involved."

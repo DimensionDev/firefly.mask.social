@@ -2058,6 +2058,9 @@ msgstr "<0>{0}</0> 已转发"
 msgid "All notifications"
 msgstr "通知"
 
+msgid "Please try switching to {0}"
+msgstr ""
+
 msgid "Mobile App"
 msgstr "手机应用"
 
@@ -2336,6 +2339,9 @@ msgstr "红包"
 
 msgid "{0} and others"
 msgstr "{0} 和 其他"
+
+msgid "Please switch to Firefly Wallet."
+msgstr ""
 
 msgid "No money laundering involved."
 msgstr ""
