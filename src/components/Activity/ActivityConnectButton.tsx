@@ -117,6 +117,7 @@ export function ActivityConnectButton() {
                                 }
                                 await AddWalletModalRef.openAndWaitForClose({
                                     connections: connected,
+                                    platform: 'evm',
                                 });
                                 await delay(5000);
                                 await refetch();
