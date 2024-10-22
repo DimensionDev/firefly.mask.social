@@ -10,6 +10,7 @@ import { useAccount as useEVMAccount, useEnsName } from 'wagmi';
 import { mainnet } from 'wagmi/chains';
 
 import LineArrowUp from '@/assets/line-arrow-up.svg';
+import LoadingIcon from '@/assets/loading.svg';
 import WalletSelectedIcon from '@/assets/wallet.selected.svg';
 import WalletIcon from '@/assets/wallet.svg';
 import { ClickableButton } from '@/components/ClickableButton.js';
@@ -54,6 +55,7 @@ export function ConnectWallet({ collapsed: sideBarCollapsed = false }: ConnectWa
             onOpenConnectModal: () => ConnectModalRef.open(),
             onOpenAccountModal: () => AccountModalRef.open(),
             isConnected: evmAccount.isConnected,
+            isLoading: evmAccount.isConnecting || evmAccount.isReconnecting,
             type: 'EVM',
         },
         {
@@ -66,6 +68,7 @@ export function ConnectWallet({ collapsed: sideBarCollapsed = false }: ConnectWa
             onOpenConnectModal: () => connectModalSolana.setVisible(true),
             onOpenAccountModal: () => SolanaAccountModalRef.open(),
             isConnected: solanaWallet.connected,
+            isLoading: solanaWallet.connecting || solanaWallet.disconnecting,
             type: 'Solana',
         },
     ];
@@ -142,6 +145,7 @@ export function ConnectWallet({ collapsed: sideBarCollapsed = false }: ConnectWa
                                 <ClickableButton
                                     key={type.type}
                                     onClick={() => {
+                                        if (type.isLoading) return;
                                         if (type.isConnected) {
                                             type.onOpenAccountModal();
                                             return;
@@ -150,13 +154,17 @@ export function ConnectWallet({ collapsed: sideBarCollapsed = false }: ConnectWa
                                     }}
                                     className="flex w-full flex-row items-center gap-3 text-xl font-bold leading-6"
                                 >
-                                    <Image
-                                        src={type.icon ?? ''}
-                                        alt="chain-icon"
-                                        width={20}
-                                        height={20}
-                                        className="h-5 w-5"
-                                    />
+                                    {type.isLoading ? (
+                                        <LoadingIcon className="animate-spin" width={20} height={20} />
+                                    ) : (
+                                        <Image
+                                            src={type.icon ?? ''}
+                                            alt="chain-icon"
+                                            width={20}
+                                            height={20}
+                                            className="h-5 w-5"
+                                        />
+                                    )}
                                     {type.isConnected ? (
                                         <span>{type.label}</span>
                                     ) : (

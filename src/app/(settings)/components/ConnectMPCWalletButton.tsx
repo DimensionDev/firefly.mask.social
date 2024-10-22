@@ -1,8 +1,9 @@
-import { Trans } from '@lingui/macro';
+import { t, Trans } from '@lingui/macro';
 import { safeUnreachable } from '@masknet/kit';
 import { isSameAddress } from '@masknet/web3-shared-base';
 import { ChainId } from '@masknet/web3-shared-evm';
 import { useWallet } from '@solana/wallet-adapter-react';
+import { useWalletModal as useConnectModalSolana } from '@solana/wallet-adapter-react-ui';
 import { connect, disconnect } from '@wagmi/core';
 import { useAsyncFn } from 'react-use';
 import { useAccount } from 'wagmi';
@@ -11,10 +12,13 @@ import LoadingIcon from '@/assets/loading.svg';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { config } from '@/configs/wagmiClient.js';
 import { createParticleConnector } from '@/connectors/ParticleConnector.js';
-import { NotImplementedError } from '@/constants/error.js';
-import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
+import { ParticleSolanaWalletAdapter } from '@/connectors/ParticleSolanaWallet.js';
+import { enqueueErrorMessage, enqueueInfoMessage } from '@/helpers/enqueueMessage.js';
+import { formatSolanaAddress } from '@/helpers/formatAddress.js';
 import { getSnackbarMessageFromError } from '@/helpers/getSnackbarMessageFromError.js';
+import { isSameSolanaAddress } from '@/helpers/isSameAddress.js';
 import { resolveValue } from '@/helpers/resolveValue.js';
+import { SolanaAccountModalRef } from '@/modals/controls.js';
 import type { FireflyWalletConnection } from '@/providers/types/Firefly.js';
 
 interface ConnectMPCWalletButtonProps {
@@ -24,6 +28,9 @@ interface ConnectMPCWalletButtonProps {
 export function ConnectMPCWalletButton({ connection }: ConnectMPCWalletButtonProps) {
     const account = useAccount();
     const wallet = useWallet();
+    const connectModalSolana = useConnectModalSolana();
+
+    const isFireflyWallet = wallet.wallet?.adapter instanceof ParticleSolanaWalletAdapter;
 
     const [{ loading }, updateConnection] = useAsyncFn(
         async (isConnected: boolean) => {
@@ -44,7 +51,20 @@ export function ConnectMPCWalletButton({ connection }: ConnectMPCWalletButtonPro
                         break;
                     }
                     case 'solana':
-                        throw new NotImplementedError();
+                        if (!wallet.connected || !isFireflyWallet) {
+                            enqueueInfoMessage(t`Please switch to Firefly Wallet.`, { autoHideDuration: 1000 * 10 });
+                            connectModalSolana.setVisible(true);
+                            return;
+                        }
+                        if (!isConnected) {
+                            enqueueInfoMessage(t`Please try switching to ${formatSolanaAddress(connection.address)}`, {
+                                autoHideDuration: 1000 * 10,
+                            });
+                            SolanaAccountModalRef.open();
+                            return;
+                        }
+                        await wallet.disconnect();
+                        return;
                     default:
                         safeUnreachable(connection.platform);
                 }
@@ -55,7 +75,7 @@ export function ConnectMPCWalletButton({ connection }: ConnectMPCWalletButtonPro
                 throw error;
             }
         },
-        [connection],
+        [connection, isFireflyWallet, wallet.connected, connection.address, wallet.disconnect],
     );
 
     if (loading) return <LoadingIcon className="animate-spin" width={20} height={20} />;
@@ -66,7 +86,7 @@ export function ConnectMPCWalletButton({ connection }: ConnectMPCWalletButtonPro
                 if (isSameAddress(account.address, connection.address)) return true;
                 return false;
             case 'solana':
-                if (isSameAddress(wallet.publicKey?.toBase58(), connection.address)) return true;
+                if (isSameSolanaAddress(wallet.publicKey?.toBase58(), connection.address)) return true;
                 return false;
             default:
                 safeUnreachable(connection.platform);
