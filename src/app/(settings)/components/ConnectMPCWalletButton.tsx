@@ -10,8 +10,7 @@ import { useAccount } from 'wagmi';
 
 import LoadingIcon from '@/assets/loading.svg';
 import { ClickableButton } from '@/components/ClickableButton.js';
-import { config } from '@/configs/wagmiClient.js';
-import { createParticleConnector } from '@/connectors/ParticleConnector.js';
+import { config, particleConnector } from '@/configs/wagmiClient.js';
 import { ParticleSolanaWalletAdapter } from '@/connectors/ParticleSolanaWallet.js';
 import { enqueueErrorMessage, enqueueInfoMessage } from '@/helpers/enqueueMessage.js';
 import { formatSolanaAddress } from '@/helpers/formatAddress.js';
@@ -40,12 +39,10 @@ export function ConnectMPCWalletButton({ connection }: ConnectMPCWalletButtonPro
                         if (isConnected) {
                             await disconnect(config);
                         } else {
-                            const connector = createParticleConnector({});
-                            if (!connector) throw new Error('Failed to create connector.');
-
+                            if (!particleConnector) throw new Error('Failed to create connector.');
                             await connect(config, {
                                 chainId: ChainId.Mainnet,
-                                connector,
+                                connector: particleConnector,
                             });
                         }
                         break;

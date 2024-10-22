@@ -8,7 +8,7 @@ interface Options {
     signal?: AbortSignal;
 }
 
-export async function pollWithRetry<T>(
+export async function retry<T>(
     callback: (signal?: AbortSignal) => Promise<T>,
     { times = 60, interval = 2000, signal }: Options = {},
 ) {

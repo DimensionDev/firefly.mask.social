@@ -1,24 +1,35 @@
-import { ChainId, isValidAddress } from '@masknet/web3-shared-evm';
-import { AuthType, connect, disconnect, particleAuth } from '@particle-network/auth-core';
-import type { EVMProvider } from '@particle-network/authkit';
-import type { Address } from 'viem';
-import { createConnector } from 'wagmi';
+import { EthereumMethodType, isValidAddress } from '@masknet/web3-shared-evm';
+import { AuthType, connect, disconnect, EthereumProvider, particleAuth } from '@particle-network/auth-core';
+import { type Address, type Chain, numberToHex, RpcError, SwitchChainError, UserRejectedRequestError } from 'viem';
+import { ChainNotConfiguredError, createConnector } from 'wagmi';
 import { mainnet } from 'wagmi/chains';
 
 import { STATUS } from '@/constants/enum.js';
 import { env } from '@/constants/env.js';
-import { AuthenticationError } from '@/constants/error.js';
+import { AbortError, AuthenticationError, InvalidResultError } from '@/constants/error.js';
+import { retry } from '@/helpers/retry.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
-import { ValueRef } from '@/libs/ValueRef.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
 
-interface ConnectorOptions {}
+async function getProvider(signal?: AbortSignal) {
+    return retry(
+        async () => {
+            if (typeof window === 'undefined') throw new AbortError();
+            if (typeof window.particle === 'undefined') throw new InvalidResultError();
+            if (typeof window.particle.ethereum === 'undefined') throw new InvalidResultError();
+            return window.particle.ethereum as EthereumProvider;
+        },
+        {
+            times: 5,
+            interval: 300,
+            signal,
+        },
+    );
+}
 
-const providerRef = new ValueRef<EVMProvider | null>(null);
-
-export function setParticleProvider(provider: EVMProvider) {
-    providerRef.value = provider;
+interface ConnectorOptions {
+    chains: readonly Chain[];
 }
 
 export function createParticleConnector(options: ConnectorOptions) {
@@ -45,8 +56,8 @@ export function createParticleConnector(options: ConnectorOptions) {
             name: 'Firefly Wallet',
             type: 'INJECTED',
             icon: '/firefly.png',
-            async connect(options) {
-                if (options?.isReconnecting && useGlobalState.getState().particleReconnecting) {
+            async connect(parameters) {
+                if (parameters?.isReconnecting && useGlobalState.getState().particleReconnecting) {
                     console.info(`[particle] cancel reconnect`);
                     throw new Error('Abort reconnecting.');
                 }
@@ -55,8 +66,9 @@ export function createParticleConnector(options: ConnectorOptions) {
 
                 if (!fireflySessionHolder.session) throw new AuthenticationError('Firefly session not found');
 
+                const chain = options.chains.find((x) => x.id === parameters?.chainId) ?? mainnet;
                 const user = await connect({
-                    chain: mainnet,
+                    chain,
                     provider: AuthType.jwt,
                     // cspell: disable-next-line
                     thirdpartyCode: fireflySessionHolder.session?.token,
@@ -75,7 +87,7 @@ export function createParticleConnector(options: ConnectorOptions) {
                 useGlobalState.getState().updateParticleReconnecting(false);
 
                 return {
-                    chainId: ChainId.Mainnet,
+                    chainId: chain.id,
                     accounts: wallets.map((x) => x.public_address!) as Address[],
                 };
             },
@@ -87,14 +99,47 @@ export function createParticleConnector(options: ConnectorOptions) {
 
                 console.info(`[particle] disconnected`);
             },
+            async switchChain(parameters) {
+                console.info(`[particle] switchChain`, parameters);
+
+                const chain = options.chains.find((x) => x.id === parameters.chainId);
+                if (!chain) throw new SwitchChainError(new ChainNotConfiguredError());
+
+                try {
+                    const provider = await getProvider();
+                    await provider.request({
+                        method: EthereumMethodType.WALLET_SWITCH_ETHEREUM_CHAIN,
+                        params: [
+                            {
+                                chainId: numberToHex(parameters.chainId),
+                            },
+                        ],
+                    });
+
+                    const currentChainId = await this.getChainId();
+                    if (currentChainId !== parameters.chainId) {
+                        throw new UserRejectedRequestError(new Error('User rejected switch after adding network.'));
+                    }
+                } catch (error) {
+                    console.error(`[particle] switchChain error`, error);
+                    throw new SwitchChainError(error as RpcError);
+                }
+
+                return chain;
+            },
+            async getChainId() {
+                const provider = await getProvider();
+                const chainId = await provider.request({
+                    method: EthereumMethodType.ETH_CHAIN_ID,
+                    params: [],
+                });
+                return Number.parseInt(chainId, 16);
+            },
             async getAccounts() {
                 return [particleAuth.ethereum.selectedAddress as Address];
             },
-            async getChainId() {
-                return Number.parseInt(particleAuth.ethereum.chainId, 16);
-            },
             async getProvider() {
-                return providerRef.value;
+                return getProvider();
             },
             async isAuthorized() {
                 return env.external.NEXT_PUBLIC_PARTICLE === STATUS.Enabled;

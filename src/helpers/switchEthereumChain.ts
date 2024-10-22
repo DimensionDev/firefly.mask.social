@@ -12,7 +12,7 @@ export async function switchEthereumChain(chainId: ChainId) {
                   chainName: chain.name,
                   nativeCurrency: chain.nativeCurrency,
                   rpcUrls: chain.rpcUrls.default.http,
-                  blockExplorerUrls: [chain.blockExplorers.default.url],
+                  blockExplorerUrls: chain.blockExplorers?.default.url ? [chain.blockExplorers.default.url] : [],
               }
             : undefined,
     });
