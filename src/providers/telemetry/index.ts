@@ -5,7 +5,6 @@ import { STATUS } from '@/constants/enum.js';
 import { env } from '@/constants/env.js';
 import { NotImplementedError } from '@/constants/error.js';
 import { bom } from '@/helpers/bom.js';
-import { getFilterParameters } from '@/providers/telemetry/getFilterParameters.js';
 import { getPublicParameters } from '@/providers/telemetry/getPublicParameters.js';
 import type { Safary } from '@/providers/types/Safary.js';
 import { type Events, Provider, ProviderFilter, VersionFilter } from '@/providers/types/Telemetry.js';
