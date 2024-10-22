@@ -13,9 +13,11 @@ import { ActivityPremiumConditionList } from '@/components/Activity/ActivityPrem
 import { ActivityStatusTag } from '@/components/Activity/ActivityStatus.js';
 import { ActivityTaskFollowCard } from '@/components/Activity/ActivityTaskFollowCard.js';
 import { ActivityTwitterLoginButton } from '@/components/Activity/ActivityTwitterLoginButton.js';
+import { NavigationBar } from '@/components/Activity/NavigationBar.js';
 import { Image } from '@/components/Image.js';
 import { Source } from '@/constants/enum.js';
 import { classNames } from '@/helpers/classNames.js';
+import { fireflyBridgeProvider } from '@/providers/firefly/Bridge.js';
 import { getFireflyActivityInfo } from '@/services/getFireflyActivityInfo.js';
 
 export default function Page({
@@ -37,6 +39,7 @@ export default function Page({
 
     return (
         <div className="flex min-h-[100svh] w-full flex-1 flex-col">
+            {fireflyBridgeProvider.supported ? <NavigationBar>{data.title}</NavigationBar> : null}
             <Image
                 src={data.banner_url}
                 alt={data.title}

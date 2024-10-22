@@ -98,6 +98,15 @@ export enum EventId {
     X_POST_UNBOOKMARK_SUCCESS = 'x_post_unbookmark_success', // ✅
     X_PROFILE_FOLLOW_SUCCESS = 'x_follow_success', // ✅
     X_PROFILE_UNFOLLOW_SUCCESS = 'x_unfollow_success', // ✅
+
+    // activity
+    EVENT_SHARE_CLICK = 'event_share_click',
+    EVENT_X_LOG_IN_SUCCESS = 'event_x_log_in_success',
+    EVENT_CONNECT_WALLET_SUCCESS = 'event_connect_wallet_success',
+    EVENT_CHANGE_WALLET_SUCCESS = 'event_change_wallet_success',
+    EVENT_CLAIM_BASIC_SUCCESS = 'event_claim_basic_success',
+    EVENT_CLAIM_PREMIUM_SUCCESS = 'event_claim_premium_success',
+    EVENT_SHARE_AND_POST_SUCCESS = 'event_share_and_post_success',
 }
 
 export enum ExceptionId {}
@@ -583,6 +592,59 @@ export interface Events extends Record<EventId, Event> {
     [EventId.X_PROFILE_UNFOLLOW_SUCCESS]: {
         type: EventType.Interact;
         parameters: TwitterEventParameters;
+    };
+
+    // Activity
+    [EventId.EVENT_SHARE_CLICK]: {
+        type: EventType.Interact;
+        parameters: {
+            firefly_account_id?: string;
+        };
+    };
+    [EventId.EVENT_X_LOG_IN_SUCCESS]: {
+        type: EventType.Interact;
+        parameters: {
+            firefly_account_id: string;
+            is_token_sync: string;
+            x_accounts: Array<[string, string]>;
+        };
+    };
+    [EventId.EVENT_CONNECT_WALLET_SUCCESS]: {
+        type: EventType.Interact;
+        parameters: {
+            firefly_account_id: string;
+            wallet_address: string;
+        };
+    };
+    [EventId.EVENT_CHANGE_WALLET_SUCCESS]: {
+        type: EventType.Interact;
+        parameters: {
+            firefly_account_id: string;
+            wallet_address: string;
+        };
+    };
+    [EventId.EVENT_CLAIM_BASIC_SUCCESS]: {
+        type: EventType.Interact;
+        parameters: {
+            firefly_account_id: string;
+            wallet_address: string;
+        };
+    };
+    [EventId.EVENT_CLAIM_PREMIUM_SUCCESS]: {
+        type: EventType.Interact;
+        parameters: {
+            firefly_account_id: string;
+            wallet_address: string;
+        };
+    };
+    [EventId.EVENT_SHARE_AND_POST_SUCCESS]: {
+        type: EventType.Interact;
+        parameters: {
+            firefly_account_id: string;
+            x_post_ids: string[];
+            x_id: string;
+            x_handle: string;
+        };
     };
 }
 
