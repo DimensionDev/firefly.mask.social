@@ -10,7 +10,7 @@ import { SITE_URL } from '@/constants/index.js';
 import { classNames } from '@/helpers/classNames.js';
 import { getPostUrl } from '@/helpers/getPostUrl.js';
 import { useCopyText } from '@/hooks/useCopyText.js';
-import { capturePostActionEvent } from '@/providers/safary/capturePostActionEvent.js';
+import { capturePostActionEvent } from '@/providers/telemetry/capturePostActionEvent.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 
 interface ShareProps extends HTMLProps<HTMLDivElement> {

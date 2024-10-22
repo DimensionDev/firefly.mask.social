@@ -33,7 +33,7 @@ const useDeveloperSettingsBase = create<
                     state.useDevelopmentAPI = value;
                 }),
 
-            logTelemetry: false,
+            logTelemetry: env.external.NEXT_PUBLIC_TELEMETRY === STATUS.Enabled,
             updateLogTelemetry: (value: boolean) =>
                 set((state) => {
                     state.logTelemetry = value;

@@ -17,8 +17,8 @@ import {
     captureAccountLoginEvent,
     captureAccountLogoutAllEvent,
     captureAccountLogoutEvent,
-} from '@/providers/safary/captureAccountEvent.js';
-import { captureSyncModalEvent } from '@/providers/safary/captureSyncModalEvent.js';
+} from '@/providers/telemetry/captureAccountEvent.js';
+import { captureSyncModalEvent } from '@/providers/telemetry/captureSyncModalEvent.js';
 import { TwitterSession } from '@/providers/twitter/Session.js';
 import type { Account } from '@/providers/types/Account.js';
 import type { Session } from '@/providers/types/Session.js';

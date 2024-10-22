@@ -2,10 +2,10 @@ import { type SocialSource, Source } from '@/constants/enum.js';
 import { UnreachableError } from '@/constants/error.js';
 import { createLookupTableResolver } from '@/helpers/createLookupTableResolver.js';
 import { runInSafe } from '@/helpers/runInSafe.js';
-import { getEventParameters } from '@/providers/safary/getEventParameters.js';
-import { SafaryTelemetryProvider } from '@/providers/safary/Telemetry.js';
+import { getEventParameters } from '@/providers/telemetry/getEventParameters.js';
+import { TelemetryProvider } from '@/providers/telemetry/index.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
-import { EventId } from '@/providers/types/Telemetry.js';
+import { EventId, VersionFilter } from '@/providers/types/Telemetry.js';
 
 type ProfileActionType = 'follow' | 'unfollow';
 
@@ -34,6 +34,8 @@ export function captureProfileActionEvent(action: ProfileActionType, profile: Pr
         const eventIds = resolveProfileActionEventIds(profile.source);
         const eventId = eventIds[action];
 
-        SafaryTelemetryProvider.captureEvent(eventId, getEventParameters(profile));
+        TelemetryProvider.captureEvent(eventId, getEventParameters(profile), {
+            version_filter: VersionFilter.Next,
+        });
     });
 }

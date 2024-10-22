@@ -18,7 +18,7 @@ const items: Item[] = [
         type: 'method',
         name: SupportedMethod.GET_SUPPORTED_METHODS,
         title: 'Get Supported Methods',
-        description: 'Get supported methods from firefly app.',
+        description: 'Get supported bridge methods.',
     },
     {
         type: 'method',
@@ -42,13 +42,37 @@ const items: Item[] = [
         type: 'method',
         name: SupportedMethod.GET_WALLET_ADDRESS,
         title: 'Get Wallet Address',
-        description: 'Get wallet address from firefly app.',
+        description: 'Get connected wallet address from firefly app.',
     },
     {
         type: 'method',
         name: SupportedMethod.CONNECT_WALLET,
         title: 'Connect Wallet',
-        description: 'Connect wallet from firefly app.',
+        description: 'Connect a wallet',
+    },
+    {
+        type: 'method',
+        name: SupportedMethod.BIND_WALLET,
+        title: 'Bind Wallet',
+        description: 'Bind a wallet',
+    },
+    {
+        type: 'method',
+        name: SupportedMethod.IS_TWITTER_USER_FOLLOWING,
+        title: 'Is Twitter User Following',
+        description: 'Check if a twitter user is following.',
+    },
+    {
+        type: 'method',
+        name: SupportedMethod.FOLLOW_TWITTER_USER,
+        title: 'Follow Twitter User',
+        description: 'Follow a twitter user.',
+    },
+    {
+        type: 'method',
+        name: SupportedMethod.UPDATE_NAVIGATOR_BAR,
+        title: 'Update Navigator Bar',
+        description: 'Update title on navigator bar.',
     },
     {
         type: 'method',
