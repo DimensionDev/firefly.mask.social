@@ -5,7 +5,7 @@ import { runInSafe } from '@/helpers/runInSafe.js';
 import { getPostEventParameters } from '@/providers/telemetry/getPostEventParameters.js';
 import { TelemetryProvider } from '@/providers/telemetry/index.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
-import { EventId } from '@/providers/types/Telemetry.js';
+import { EventId, VersionFilter } from '@/providers/types/Telemetry.js';
 
 type PostActionType =
     | 'like'
@@ -68,6 +68,8 @@ export function capturePostActionEvent(action: PostActionType, post: Post) {
         const eventIds = resolvePostActionEventIds(post.source);
         const eventId = eventIds[action];
 
-        TelemetryProvider.captureEvent(eventId, getPostEventParameters(post.postId, post.author));
+        TelemetryProvider.captureEvent(eventId, getPostEventParameters(post.postId, post.author), {
+            version_filter: VersionFilter.Next,
+        });
     });
 }
