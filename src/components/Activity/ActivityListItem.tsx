@@ -18,7 +18,7 @@ export function ActivityListItem({ data, index }: { data: TypeActivityListItem; 
     return (
         <Link
             href={`/event/${data.name}`}
-            className="relative flex w-full flex-col rounded-2xl border border-line bg-bg"
+            className="relative mb-4 flex w-full flex-col rounded-2xl border border-line bg-bg"
         >
             <div className="absolute right-2 top-2 z-[1]">
                 <ActivityStatusTag status={data.status} />

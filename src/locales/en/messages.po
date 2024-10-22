@@ -88,6 +88,9 @@ msgstr "Mute /{0}"
 msgid "Failed to collect article."
 msgstr "Failed to collect article."
 
+msgid "Hold on! Meet any of the following to unlock a premium collectible:"
+msgstr "Hold on! Meet any of the following to unlock a premium collectible:"
+
 msgid "Communities"
 msgstr "Communities"
 
@@ -144,9 +147,6 @@ msgstr "Display Name"
 
 msgid "Debug Connection"
 msgstr "Debug Connection"
-
-msgid "Hold on, in addition to meeting above criteria, fulfill any of the following to upgrade to a premium airdrop"
-msgstr "Hold on, in addition to meeting above criteria, fulfill any of the following to upgrade to a premium airdrop"
 
 msgid "Allow Lens Manager to perform actions such as posting, liking, and commenting without the need to sign each transaction."
 msgstr "Allow Lens Manager to perform actions such as posting, liking, and commenting without the need to sign each transaction."
@@ -1183,6 +1183,9 @@ msgstr "Mute"
 msgid "Confirm to log out this account?"
 msgstr "Confirm to log out this account?"
 
+msgid "Incoming"
+msgstr "Incoming"
+
 msgid "A measure of a cryptocurrency trading volume across all tracked platforms in the last 24 hours. This is tracked on a rolling 24-hour basis with no open/closing times."
 msgstr "A measure of a cryptocurrency trading volume across all tracked platforms in the last 24 hours. This is tracked on a rolling 24-hour basis with no open/closing times."
 
@@ -1312,9 +1315,6 @@ msgstr "Unmute {handleOrEnsOrAddress}"
 msgid "Failed to disconnect wallet from your social graph."
 msgstr "Failed to disconnect wallet from your social graph."
 
-msgid "Pending"
-msgstr "Pending"
-
 msgid "No preview found for shared link"
 msgstr "No preview found for shared link"
 
@@ -1371,6 +1371,9 @@ msgstr "{0, plural, one {Your posts failed to publish on {firstPlatform} due to 
 
 msgid "What's happening..."
 msgstr "What's happening..."
+
+msgid "Connect your wallet to claim your NFT"
+msgstr "Connect your wallet to claim your NFT"
 
 msgid "24h"
 msgstr "24h"
@@ -1561,9 +1564,6 @@ msgstr "Please switch to the wallet consistent with this action"
 msgid "Upload to S3"
 msgstr "Upload to S3"
 
-msgid "Submitted claimed address"
-msgstr "Submitted claimed address"
-
 msgid "{shares, plural, one {Recast or Quote} other {Recasts or Quotes}}"
 msgstr "{shares, plural, one {Recast or Quote} other {Recasts or Quotes}}"
 
@@ -1680,6 +1680,9 @@ msgstr "The amount of coins that are circulating in the market and are tradeable
 
 msgid "{0, plural, one {repost} other {reposts}}"
 msgstr "{0, plural, one {repost} other {reposts}}"
+
+msgid "Wallet submitted"
+msgstr "Wallet submitted"
 
 msgid "This does not appear to be a honeypot."
 msgstr "This does not appear to be a honeypot."

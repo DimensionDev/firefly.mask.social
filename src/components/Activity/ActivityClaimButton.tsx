@@ -30,7 +30,7 @@ export function ActivityClaimButton({ status }: { status: ActivityStatus }) {
     const list = useActivityPremiumList();
 
     const isPremium = list.some((x) => x.verified);
-    const disabled = status === ActivityStatus.Ended || !data?.canClaim || isFollowedFirefly;
+    const disabled = status === ActivityStatus.Ended || !data?.canClaim || !isFollowedFirefly;
 
     const [{ loading }, claim] = useAsyncFn(async () => {
         if (disabled || !address) return;

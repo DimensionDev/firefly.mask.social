@@ -13,7 +13,7 @@ import { useIsLoginTwitterInActivity } from '@/components/Activity/hooks/useIsLo
 import { type ProfilePageSource } from '@/constants/enum.js';
 import { Link } from '@/esm/Link.js';
 import { classNames } from '@/helpers/classNames.js';
-import { enqueueInfoMessage } from '@/helpers/enqueueMessage.js';
+import { enqueueWarningMessage } from '@/helpers/enqueueMessage.js';
 import { resolveProfileUrl } from '@/helpers/resolveProfileUrl.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 
@@ -43,7 +43,7 @@ function Button({
             onClick={(e) => {
                 if (isLoggedIn) return onClick?.();
                 e.preventDefault();
-                enqueueInfoMessage(<Trans>Please sign in with X to continue</Trans>);
+                enqueueWarningMessage(<Trans>Please sign in with X to continue</Trans>);
             }}
         >
             {loading ? (

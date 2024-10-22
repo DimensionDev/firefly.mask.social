@@ -93,6 +93,9 @@ msgstr "隐藏 /{0}"
 msgid "Failed to collect article."
 msgstr "收集文章失败。"
 
+msgid "Hold on! Meet any of the following to unlock a premium collectible:"
+msgstr ""
+
 msgid "Communities"
 msgstr "社区"
 
@@ -149,9 +152,6 @@ msgstr "显示名称"
 
 msgid "Debug Connection"
 msgstr "诊断网络"
-
-msgid "Hold on, in addition to meeting above criteria, fulfill any of the following to upgrade to a premium airdrop"
-msgstr ""
 
 msgid "Allow Lens Manager to perform actions such as posting, liking, and commenting without the need to sign each transaction."
 msgstr "允许 Lens 管理员执行发帖、点赞和评论等操作，而无需签署每笔交易。"
@@ -1188,6 +1188,9 @@ msgstr "屏蔽"
 msgid "Confirm to log out this account?"
 msgstr "确认退出该账户吗？"
 
+msgid "Incoming"
+msgstr ""
+
 msgid "A measure of a cryptocurrency trading volume across all tracked platforms in the last 24 hours. This is tracked on a rolling 24-hour basis with no open/closing times."
 msgstr "衡量过去 24 小时内所有平台上加密货币交易量的指标。该指标以 24 小时为单位进行连续跟踪，没有开盘/收盘时间。"
 
@@ -1317,9 +1320,6 @@ msgstr "取消隐藏 {handleOrEnsOrAddress}"
 msgid "Failed to disconnect wallet from your social graph."
 msgstr "未能从您的社交图谱中断链。"
 
-msgid "Pending"
-msgstr ""
-
 msgid "No preview found for shared link"
 msgstr "无法预加载"
 
@@ -1376,6 +1376,9 @@ msgstr "{0, plural, one {由于某些错误您的帖子在 {firstPlatform} 发�
 
 msgid "What's happening..."
 msgstr "正在发生..."
+
+msgid "Connect your wallet to claim your NFT"
+msgstr ""
 
 msgid "24h"
 msgstr "24小时"
@@ -1566,9 +1569,6 @@ msgstr "请切换到与此操作一致的钱包。"
 msgid "Upload to S3"
 msgstr "上传到 S3"
 
-msgid "Submitted claimed address"
-msgstr ""
-
 msgid "{shares, plural, one {Recast or Quote} other {Recasts or Quotes}}"
 msgstr "{shares, plural, one {转帖或引用} other {转帖或引用}}"
 
@@ -1685,6 +1685,9 @@ msgstr "市场上流通并可供公众交易的货币数量。这相当于市场
 
 msgid "{0, plural, one {repost} other {reposts}}"
 msgstr "{0, plural, one {转帖} other {转帖}}"
+
+msgid "Wallet submitted"
+msgstr ""
 
 msgid "This does not appear to be a honeypot."
 msgstr "这看起来不像是一个陷阱。"

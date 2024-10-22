@@ -93,6 +93,9 @@ msgstr ""
 msgid "Failed to collect article."
 msgstr ""
 
+msgid "Hold on! Meet any of the following to unlock a premium collectible:"
+msgstr ""
+
 msgid "Communities"
 msgstr ""
 
@@ -148,9 +151,6 @@ msgid "Display Name"
 msgstr ""
 
 msgid "Debug Connection"
-msgstr ""
-
-msgid "Hold on, in addition to meeting above criteria, fulfill any of the following to upgrade to a premium airdrop"
 msgstr ""
 
 msgid "Allow Lens Manager to perform actions such as posting, liking, and commenting without the need to sign each transaction."
@@ -1188,6 +1188,9 @@ msgstr ""
 msgid "Confirm to log out this account?"
 msgstr ""
 
+msgid "Incoming"
+msgstr ""
+
 msgid "A measure of a cryptocurrency trading volume across all tracked platforms in the last 24 hours. This is tracked on a rolling 24-hour basis with no open/closing times."
 msgstr ""
 
@@ -1317,9 +1320,6 @@ msgstr ""
 msgid "Failed to disconnect wallet from your social graph."
 msgstr ""
 
-msgid "Pending"
-msgstr ""
-
 msgid "No preview found for shared link"
 msgstr ""
 
@@ -1375,6 +1375,9 @@ msgid "{0, plural, one {Your posts failed to publish on {firstPlatform} due to a
 msgstr ""
 
 msgid "What's happening..."
+msgstr ""
+
+msgid "Connect your wallet to claim your NFT"
 msgstr ""
 
 msgid "24h"
@@ -1566,9 +1569,6 @@ msgstr ""
 msgid "Upload to S3"
 msgstr ""
 
-msgid "Submitted claimed address"
-msgstr ""
-
 msgid "{shares, plural, one {Recast or Quote} other {Recasts or Quotes}}"
 msgstr ""
 
@@ -1684,6 +1684,9 @@ msgid "The amount of coins that are circulating in the market and are tradeable 
 msgstr ""
 
 msgid "{0, plural, one {repost} other {reposts}}"
+msgstr ""
+
+msgid "Wallet submitted"
 msgstr ""
 
 msgid "This does not appear to be a honeypot."

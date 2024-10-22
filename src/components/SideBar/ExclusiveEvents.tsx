@@ -30,8 +30,8 @@ export function ExclusiveEvents() {
                 renderConfig={{}}
                 src={
                     isDarkMode
-                        ? '/lottie-files/discover_right_top_activity_icon_light.json'
-                        : '/lottie-files/discover_right_top_activity_icon_dark.json'
+                        ? '/lottie-files/discover_right_top_activity_icon_dark.json'
+                        : '/lottie-files/discover_right_top_activity_icon_light.json'
                 }
                 autoplay
                 width={20}

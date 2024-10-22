@@ -21,10 +21,7 @@ export function ActivityPremiumConditionList() {
                 )}
             >
                 <h3>
-                    <Trans>
-                        Hold on, in addition to meeting above criteria, fulfill any of the following to upgrade to a
-                        premium airdrop
-                    </Trans>
+                    <Trans>Hold on! Meet any of the following to unlock a premium collectible:</Trans>
                 </h3>
                 <ul className="list-disc pl-4 text-sm font-medium leading-6">
                     {list.map((item, i) => (

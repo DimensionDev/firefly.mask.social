@@ -41,9 +41,9 @@ export function ActivityConnectButton() {
         },
         refetchInterval: 600000,
     });
-    const addresses = fireflyBridgeProvider.supported
-        ? bridgeAddresses
-        : connected.filter((x) => x.platform === 'eth').map((x) => x.address);
+    const addresses: Array<{ address: string; ens?: string }> = fireflyBridgeProvider.supported
+        ? bridgeAddresses.map((address) => ({ address }))
+        : connected.filter((x) => x.platform === 'eth').map((x) => ({ address: x.address, ens: x.ens[0] }));
 
     const buttonText = address ? (
         <Trans>Change</Trans>
@@ -81,7 +81,7 @@ export function ActivityConnectButton() {
                     </span>
                 </Menu.Button>
                 <Menu.Items className="absolute left-1/2 top-[calc(100%+12px)] z-50 flex w-[200px] -translate-x-1/2 flex-col rounded-[12px] border border-line bg-primaryBottom shadow-lg">
-                    {addresses.map((address) => (
+                    {addresses.map(({ address, ens }) => (
                         <Menu.Item key={address}>
                             <a
                                 className="cursor-pointer px-4 py-[11px] text-sm font-semibold leading-6"
@@ -93,7 +93,7 @@ export function ActivityConnectButton() {
                                     refetchActivityClaimCondition();
                                 }}
                             >
-                                {formatAddress(address, 4)}
+                                {ens || formatAddress(address, 4)}
                             </a>
                         </Menu.Item>
                     ))}
@@ -139,7 +139,9 @@ export function ActivityConnectButton() {
         return (
             <div className="flex w-full items-center gap-2">
                 <ChainIcon className="h-5 w-5 shrink-0" chainId={ChainId.Base} />
-                <span className="mr-auto text-base font-medium leading-6">{formatAddress(address, 4)}</span>
+                <span className="mr-auto text-base font-medium leading-6">
+                    {addresses.find((x) => x.address === address)?.ens || formatAddress(address, 4)}
+                </span>
                 {button}
             </div>
         );
