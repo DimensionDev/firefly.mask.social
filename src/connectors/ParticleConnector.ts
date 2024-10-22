@@ -1,25 +1,34 @@
 import { ChainId, isValidAddress } from '@masknet/web3-shared-evm';
-import { AuthType, connect, disconnect, particleAuth } from '@particle-network/auth-core';
-import type { EVMProvider } from '@particle-network/authkit';
+import { AuthType, connect, disconnect, EthereumProvider, particleAuth } from '@particle-network/auth-core';
 import type { Address } from 'viem';
 import { createConnector } from 'wagmi';
 import { mainnet } from 'wagmi/chains';
 
 import { STATUS } from '@/constants/enum.js';
 import { env } from '@/constants/env.js';
-import { AuthenticationError } from '@/constants/error.js';
+import { AbortError, AuthenticationError, InvalidResultError } from '@/constants/error.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
-import { ValueRef } from '@/libs/ValueRef.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
+import { retry } from '@/helpers/retry.js';
+
+async function getProvider(signal?: AbortSignal) {
+    return retry(
+        async () => {
+            if (typeof window === 'undefined') throw new AbortError();
+            if (typeof window.particle === 'undefined') throw new InvalidResultError();
+            if (typeof window.particle.ethereum === 'undefined') throw new InvalidResultError();
+            return window.particle.ethereum as EthereumProvider;
+        },
+        {
+            times: 5,
+            interval: 300,
+            signal,
+        },
+    );
+}
 
 interface ConnectorOptions {}
-
-const providerRef = new ValueRef<EVMProvider | null>(null);
-
-export function setParticleProvider(provider: EVMProvider) {
-    providerRef.value = provider;
-}
 
 export function createParticleConnector(options: ConnectorOptions) {
     if (env.external.NEXT_PUBLIC_PARTICLE !== STATUS.Enabled) {
@@ -94,7 +103,7 @@ export function createParticleConnector(options: ConnectorOptions) {
                 return Number.parseInt(particleAuth.ethereum.chainId, 16);
             },
             async getProvider() {
-                return providerRef.value;
+                return getProvider();
             },
             async isAuthorized() {
                 return env.external.NEXT_PUBLIC_PARTICLE === STATUS.Enabled;

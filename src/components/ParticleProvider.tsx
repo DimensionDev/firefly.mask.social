@@ -4,7 +4,6 @@ import { AuthCoreContextProvider, PromptSettingType, useEthereum } from '@partic
 import { type ReactNode, useEffect, useMemo } from 'react';
 
 import { chains } from '@/configs/wagmiClient.js';
-import { setParticleProvider } from '@/connectors/ParticleConnector.js';
 import { VERCEL_NEV } from '@/constants/enum.js';
 import { env } from '@/constants/env.js';
 
@@ -46,23 +45,5 @@ export function ParticleProvider({ children }: ParticleProviderProps) {
 
     if (!options) return null;
 
-    return (
-        <AuthCoreContextProvider options={options}>
-            <ParticleProviderSetter />
-            {children}
-        </AuthCoreContextProvider>
-    );
-}
-
-export function ParticleProviderSetter() {
-    const ethereum = useEthereum();
-
-    useEffect(() => {
-        console.info(`[particle] ethereum provider ready`);
-
-        // Set the particle provider when the ethereum provider is ready
-        setParticleProvider(ethereum.provider);
-    }, [ethereum.provider]);
-
-    return null;
+    return <AuthCoreContextProvider options={options}>{children}</AuthCoreContextProvider>;
 }
