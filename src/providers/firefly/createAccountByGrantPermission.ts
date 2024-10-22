@@ -4,14 +4,14 @@ import urlcat from 'urlcat';
 import { InvalidResultError, TimeoutError, UnreachableError, UserRejectionError } from '@/constants/error.js';
 import { createDummyProfileFromFireflyAccountId } from '@/helpers/createDummyProfile.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
-import { pollWithRetry } from '@/helpers/pollWithRetry.js';
+import { retry } from '@/helpers/retry.js';
 import { resolveFireflyResponseData } from '@/helpers/resolveFireflyResponseData.js';
 import { FireflySession } from '@/providers/firefly/Session.js';
 import type { LinkInfoResponse, SessionStatusResponse } from '@/providers/types/Firefly.js';
 import { settings } from '@/settings/index.js';
 
 async function pollSessionStatus(session: string, signal?: AbortSignal) {
-    return pollWithRetry(
+    return retry(
         async (pollingSignal) => {
             const url = urlcat(settings.FIREFLY_ROOT_URL, '/desktop/status');
             const response = await fetchJSON<SessionStatusResponse>(url, {

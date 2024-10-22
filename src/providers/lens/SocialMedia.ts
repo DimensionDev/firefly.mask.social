@@ -69,7 +69,7 @@ import {
     type Pageable,
     type PageIndicator,
 } from '@/helpers/pageable.js';
-import { pollWithRetry } from '@/helpers/pollWithRetry.js';
+import { retry } from '@/helpers/retry.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { waitForEthereumTransaction } from '@/helpers/waitForEthereumTransaction.js';
 import { waitUntilComplete } from '@/helpers/waitUntilComplete.js';
@@ -671,7 +671,7 @@ export class LensSocialMedia implements Provider {
             const post = formatLensPost(result);
             return post;
         };
-        return pollWithRetry(() => getPostByTxHash(txHash));
+        return retry(() => getPostByTxHash(txHash));
     }
 
     async getCommentsById(
