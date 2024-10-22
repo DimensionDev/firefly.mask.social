@@ -40,7 +40,7 @@ import {
     zora as wagmiZora,
 } from 'wagmi/chains';
 
-import { createParticleConnector } from '@/app/connectors/ParticleConnector.js';
+import { createParticleConnector } from '@/connectors/ParticleConnector.js';
 import { IS_MOBILE_DEVICE } from '@/constants/bowser.js';
 import { env } from '@/constants/env.js';
 import { SITE_DESCRIPTION, SITE_NAME, SITE_URL } from '@/constants/index.js';
