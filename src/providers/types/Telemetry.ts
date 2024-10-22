@@ -1,3 +1,16 @@
+export enum VersionFilter {
+    // the current working version
+    Latest = 'latest',
+    // the next version (disabled for the current version)
+    Next = 'next',
+}
+
+export enum ProviderFilter {
+    All = 'all',
+    GA = 'google_analytics',
+    Safary = 'safary',
+}
+
 export enum EventType {
     Debug = 'debug',
     Access = 'access',
