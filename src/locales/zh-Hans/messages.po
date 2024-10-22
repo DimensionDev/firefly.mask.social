@@ -1749,6 +1749,9 @@ msgstr ""
 msgid "Scan the QR code with the <0>Firefly mobile app</0> or <1>Camera app</1> to log in instantly."
 msgstr "使用 <0>Firefly 移动应用</0> 或 <1>相机应用</1> 扫描二维码即可即时登录。"
 
+msgid "Solana Method Test"
+msgstr ""
+
 msgid "Remaining"
 msgstr "剩余"
 

@@ -1744,6 +1744,9 @@ msgstr "Transaction Simulation"
 msgid "Scan the QR code with the <0>Firefly mobile app</0> or <1>Camera app</1> to log in instantly."
 msgstr "Scan the QR code with the <0>Firefly mobile app</0> or <1>Camera app</1> to log in instantly."
 
+msgid "Solana Method Test"
+msgstr "Solana Method Test"
+
 msgid "Remaining"
 msgstr "Remaining"
 
