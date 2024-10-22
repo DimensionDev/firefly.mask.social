@@ -206,7 +206,7 @@ export function ScheduleTaskList() {
                 components={{
                     Footer: VirtualListFooter,
                 }}
-                className="max-md:no-scrollbar schedule-task-list box-border h-full min-h-0"
+                className="no-scrollbar schedule-task-list box-border h-full min-h-0"
                 listKey={`$${ScrollListKey.SchedulePosts}`}
                 computeItemKey={(index, item) => item.uuid}
                 itemContent={(index, task) => getScheduleTaskItemContent(task)}
