@@ -11,7 +11,7 @@ import { useIsLoginTwitterInActivity } from '@/components/Activity/hooks/useIsLo
 import type { ProfilePageSource } from '@/constants/enum.js';
 import { Link } from '@/esm/Link.js';
 import { classNames } from '@/helpers/classNames.js';
-import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
+import { enqueueInfoMessage } from '@/helpers/enqueueMessage.js';
 import { resolveProfileUrl } from '@/helpers/resolveProfileUrl.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 
@@ -41,7 +41,7 @@ function Button({
             onClick={(e) => {
                 if (isLoggedIn) return onClick?.();
                 e.preventDefault();
-                enqueueErrorMessage(<Trans>Please sign in with X to continue</Trans>);
+                enqueueInfoMessage(<Trans>Please sign in with X to continue</Trans>);
             }}
         >
             {loading ? (
@@ -64,7 +64,7 @@ export function ActivityTaskFollowCard({ source, profileId, handle }: Props) {
     const { data: isLoggedIn } = useIsLoginTwitterInActivity();
     const [{ loading: isFollowingTwitter }, followingTwitter] = useActivityFollowTwitter();
     const { data, refetch, isRefetching } = useActivityClaimCondition();
-    const isFollowedFirefly = data?.firefly?.valid; // TODO
+    const isFollowedFirefly = data?.x.followingFirefly;
     return (
         <div
             className={classNames(

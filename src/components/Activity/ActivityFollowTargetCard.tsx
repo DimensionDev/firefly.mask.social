@@ -11,7 +11,7 @@ import { resolveProfileUrl } from '@/helpers/resolveProfileUrl.js';
 
 export function ActivityFollowTargetCard({ handle, profileId }: { handle: string; profileId: string }) {
     const { data } = useActivityClaimCondition();
-    const isFollowed = data?.x?.following; // TODO: farcaster follow
+    const isFollowed = data?.x?.following || data?.farcaster.valid;
     // cspell: disable-next-line
     const farcasterHandle = 'barmstrong';
     return (

@@ -20,6 +20,7 @@ export interface Farcaster {
     alreadyClaimed: boolean;
     fid: string;
     isPowerUser: boolean;
+    valid: boolean;
 }
 
 export interface BnbId {

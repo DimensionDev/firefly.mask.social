@@ -6,10 +6,13 @@ import { useQuery } from '@tanstack/react-query';
 import { useContext } from 'react';
 
 import AddCircleIcon from '@/assets/add-circle.svg';
+import LoadingIcon from '@/assets/loading.svg';
 import { ActivityContext } from '@/components/Activity/ActivityContext.js';
+import { useActivityClaimCondition } from '@/components/Activity/hooks/useActivityClaimCondition.js';
 import { useIsLoginTwitterInActivity } from '@/components/Activity/hooks/useIsLoginTwitterInActivity.js';
 import { ChainIcon } from '@/components/NFTDetail/ChainIcon.js';
 import { EMPTY_LIST } from '@/constants/index.js';
+import { classNames } from '@/helpers/classNames.js';
 import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
 import { formatAddress } from '@/helpers/formatAddress.js';
 import { useAllConnections } from '@/hooks/useAllConnections.js';
@@ -20,6 +23,7 @@ import { ChainId } from '@/types/frame.js';
 
 export function ActivityConnectButton() {
     const { onChangeAddress, address } = useContext(ActivityContext);
+    const { refetch: refetchActivityClaimCondition, isRefetching } = useActivityClaimCondition();
     const { data: isLoggedIn } = useIsLoginTwitterInActivity();
     const { data: { connected = EMPTY_LIST } = {}, refetch } = useAllConnections({
         refetchInterval: 600000,
@@ -47,8 +51,8 @@ export function ActivityConnectButton() {
         </>
     );
     const buttonClassName = address
-        ? 'inline-flex items-center rounded-full text-main px-4 bg-transparent border border-current leading-[30px]'
-        : 'inline-flex items-center rounded-full bg-main px-4 leading-8 text-primaryBottom';
+        ? 'inline-flex items-center rounded-full text-main px-4 bg-transparent border border-current leading-[30px] relative'
+        : 'inline-flex items-center rounded-full bg-main px-4 leading-8 text-primaryBottom relative';
     const button = (
         <div className="relative inline">
             <Menu>
@@ -60,7 +64,18 @@ export function ActivityConnectButton() {
                         enqueueErrorMessage(<Trans>Please sign in with X to continue</Trans>);
                     }}
                 >
-                    {buttonText}
+                    {isRefetching ? (
+                        <span className="absolute left-0 top-0 flex h-full w-full items-center justify-center">
+                            <LoadingIcon className="animate-spin" width={16} height={16} />
+                        </span>
+                    ) : null}
+                    <span
+                        className={classNames('flex items-center', {
+                            'opacity-0': isRefetching,
+                        })}
+                    >
+                        {buttonText}
+                    </span>
                 </Menu.Button>
                 <Menu.Items className="absolute left-1/2 top-[calc(100%+12px)] z-50 flex w-[200px] -translate-x-1/2 flex-col rounded-[12px] border border-line bg-primaryBottom shadow-lg">
                     {addresses.map((address) => (
@@ -69,6 +84,7 @@ export function ActivityConnectButton() {
                                 className="cursor-pointer px-4 py-[11px] text-sm font-semibold leading-6"
                                 onClick={() => {
                                     onChangeAddress(address);
+                                    refetchActivityClaimCondition();
                                 }}
                             >
                                 {formatAddress(address, 4)}
@@ -87,6 +103,7 @@ export function ActivityConnectButton() {
                                         },
                                     );
                                     onChangeAddress(address);
+                                    refetchActivityClaimCondition();
                                     return;
                                 }
                                 await AddWalletModalRef.openAndWaitForClose({

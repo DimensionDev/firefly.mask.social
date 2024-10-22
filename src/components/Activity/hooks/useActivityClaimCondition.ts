@@ -13,8 +13,8 @@ export function useActivityClaimCondition() {
     return useQuery({
         queryKey: ['activity-claim-condition', address, authToken, name],
         async queryFn() {
-            return getActivityClaimCondition(name, address!, { authToken });
+            return getActivityClaimCondition(name, { authToken, address: address ?? '' });
         },
-        enabled: !!address && isLoggedTwitter,
+        enabled: isLoggedTwitter,
     });
 }
