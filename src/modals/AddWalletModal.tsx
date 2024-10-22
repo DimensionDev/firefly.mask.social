@@ -10,7 +10,7 @@ import { useAsyncFn } from 'react-use';
 import { useAccount, useSignMessage } from 'wagmi';
 
 import { EMPTY_LIST } from '@/constants/index.js';
-import { enqueueErrorMessage, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
+import { enqueueErrorMessage, enqueueInfoMessage, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { formatEthereumAddress, formatSolanaAddress } from '@/helpers/formatAddress.js';
 import { getSnackbarMessageFromError } from '@/helpers/getSnackbarMessageFromError.js';
 import { isSameEthereumAddress, isSameSolanaAddress } from '@/helpers/isSameAddress.js';
@@ -50,7 +50,7 @@ export const AddWalletModal = forwardRef<SingletonModalRefCreator<AddWalletModal
             if (existedConnection) {
                 const addressName = existedConnection.ens?.[0] || formatSolanaAddress(address, 8);
                 AccountModalRef.open();
-                enqueueErrorMessage(t`${addressName} is already connected.`);
+                enqueueInfoMessage(t`${addressName} is already connected.`);
                 return;
             }
             const message = await FireflyEndpointProvider.getMessageToSignForBindWallet(address.toLowerCase());
@@ -68,7 +68,7 @@ export const AddWalletModal = forwardRef<SingletonModalRefCreator<AddWalletModal
             );
             if (existedConnection) {
                 const addressName = existedConnection.ens?.[0] || formatEthereumAddress(address, 8);
-                enqueueErrorMessage(t`${addressName} is already connected.`);
+                enqueueInfoMessage(t`${addressName} is already connected.`);
                 return;
             }
             const hexMessage = await FireflyEndpointProvider.getMessageToSignMessageForBindSolanaWallet(address);
@@ -98,6 +98,16 @@ export const AddWalletModal = forwardRef<SingletonModalRefCreator<AddWalletModal
                     enqueueSuccessMessage(t`Wallet added successfully`);
                     onClose();
                 } catch (error) {
+                    if (
+                        error instanceof Error &&
+                        error.message.includes('This wallet already bound to the other account')
+                    ) {
+                        enqueueInfoMessage(
+                            t`Sorry, this wallet is already linked to another Firefly account. Please try a different one.`,
+                        );
+                        throw error;
+                    }
+
                     enqueueErrorMessage(getSnackbarMessageFromError(error, t`Failed to add wallet`));
                     throw error;
                 }
