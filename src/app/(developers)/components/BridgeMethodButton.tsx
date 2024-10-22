@@ -46,13 +46,6 @@ export function BridgeMethodButton({ item }: Props) {
                     enqueueInfoMessage(`Language: ${language}`);
                     break;
                 }
-                case SupportedMethod.IS_TWITTER_USER_FOLLOWING: {
-                    const following = await fireflyBridgeProvider.request(SupportedMethod.IS_TWITTER_USER_FOLLOWING, {
-                        id: '952921795316912133',
-                    });
-                    enqueueInfoMessage(`Following: ${following}`);
-                    break;
-                }
                 case SupportedMethod.CONNECT_WALLET: {
                     const walletAddress = await fireflyBridgeProvider.request(SupportedMethod.CONNECT_WALLET, {
                         type: Network.All,
@@ -65,6 +58,13 @@ export function BridgeMethodButton({ item }: Props) {
                         type: Network.EVM,
                     });
                     enqueueInfoMessage(`Wallet Address: ${walletAddress}`);
+                    break;
+                }
+                case SupportedMethod.IS_TWITTER_USER_FOLLOWING: {
+                    const following = await fireflyBridgeProvider.request(SupportedMethod.IS_TWITTER_USER_FOLLOWING, {
+                        id: '952921795316912133',
+                    });
+                    enqueueInfoMessage(`Following: ${following}`);
                     break;
                 }
                 case SupportedMethod.FOLLOW_TWITTER_USER: {
