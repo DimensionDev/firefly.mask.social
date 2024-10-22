@@ -1,7 +1,7 @@
-import { ChainId, isValidAddress } from '@masknet/web3-shared-evm';
+import { ChainId, EthereumMethodType, isValidAddress } from '@masknet/web3-shared-evm';
 import { AuthType, connect, disconnect, EthereumProvider, particleAuth } from '@particle-network/auth-core';
-import type { Address } from 'viem';
-import { createConnector } from 'wagmi';
+import { type Address, type Chain, numberToHex, RpcError, SwitchChainError, UserRejectedRequestError } from 'viem';
+import { ChainNotConfiguredError, createConnector } from 'wagmi';
 import { mainnet } from 'wagmi/chains';
 
 import { STATUS } from '@/constants/enum.js';
@@ -28,7 +28,9 @@ async function getProvider(signal?: AbortSignal) {
     );
 }
 
-interface ConnectorOptions {}
+interface ConnectorOptions {
+    chains: readonly Chain[];
+}
 
 export function createParticleConnector(options: ConnectorOptions) {
     if (env.external.NEXT_PUBLIC_PARTICLE !== STATUS.Enabled) {
@@ -95,6 +97,38 @@ export function createParticleConnector(options: ConnectorOptions) {
                 await runInSafeAsync(disconnect);
 
                 console.info(`[particle] disconnected`);
+            },
+            async switchChain(parameters) {
+                console.info(`[particle] switchChain`, parameters);
+
+                const chain = options.chains.find((x) => x.id === parameters.chainId);
+                if (!chain) throw new SwitchChainError(new ChainNotConfiguredError());
+
+                try {
+                    const provider = await getProvider();
+                    await provider.request({
+                        method: EthereumMethodType.WALLET_SWITCH_ETHEREUM_CHAIN,
+                        params: [
+                            {
+                                chainId: numberToHex(parameters.chainId),
+                            },
+                        ],
+                    });
+
+                    const currentChainId = await provider.request({
+                        method: EthereumMethodType.ETH_CHAIN_ID,
+                        params: [],
+                    });
+
+                    if (currentChainId !== parameters.chainId) {
+                        throw new UserRejectedRequestError(new Error('User rejected switch after adding network.'));
+                    }
+                } catch (error) {
+                    console.error(`[particle] switchChain error`, error);
+                    throw new SwitchChainError(error as RpcError);
+                }
+
+                return chain;
             },
             async getAccounts() {
                 return [particleAuth.ethereum.selectedAddress as Address];
