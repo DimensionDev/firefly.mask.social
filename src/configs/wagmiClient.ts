@@ -96,6 +96,9 @@ const metadata = {
     url: SITE_URL,
     icons: ['/image/firefly-light-avatar.png'],
 };
+const walletIds = IS_MOBILE_DEVICE
+    ? [WalletId.FireflyWallet, WalletId.MetaMask, WalletId.Rabby, WalletId.OKX]
+    : [WalletId.FireflyWallet, WalletId.CoinBase, WalletId.Rabby, WalletId.OKX];
 createAppKit({
     adapters: [adapter],
     networks,
@@ -107,14 +110,8 @@ createAppKit({
         socials: [],
     },
     debug: true,
-    featuredWalletIds: IS_MOBILE_DEVICE
-        ? [WalletId.FireflyWallet, WalletId.MetaMask, WalletId.Rabby, WalletId.OKX]
-        : [
-              WalletId.FireflyWallet,
-              WalletId.CoinBase, // Coinbase
-              WalletId.Rabby, // Rabby
-              WalletId.OKX,
-          ],
+    includeWalletIds: walletIds,
+    featuredWalletIds: walletIds,
 });
 
 export const config = adapter.wagmiConfig;

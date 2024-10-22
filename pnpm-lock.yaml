@@ -46,6 +46,9 @@ patchedDependencies:
   '@particle-network/authkit@2.0.16':
     hash: l7vszbbi2gqztq27clumbuakpa
     path: patches/@particle-network__authkit@2.0.16.patch
+  '@reown/appkit-scaffold-ui@1.1.3':
+    hash: n7dgrv3zjkddz3lji52edow6ji
+    path: patches/@reown__appkit-scaffold-ui@1.1.3.patch
   dayjs-twitter@0.5.0:
     hash: 3tjtunpncvdv4s34umzp7pmbr4
     path: patches/dayjs-twitter@0.5.0.patch
@@ -12629,7 +12632,7 @@ packages:
       '@reown/appkit-common': 1.1.3(typescript@5.6.3)(zod@3.23.8)
       '@reown/appkit-core': 1.1.3(@types/react@18.2.48)(@vercel/kv@1.0.1)(react@0.0.0-experimental-8039e6d0b-20231026)(typescript@5.6.3)(zod@3.23.8)
       '@reown/appkit-polyfills': 1.1.3
-      '@reown/appkit-scaffold-ui': 1.1.3(@types/react@18.2.48)(@vercel/kv@1.0.1)(react@0.0.0-experimental-8039e6d0b-20231026)(typescript@5.6.3)(valtio@1.11.2)(zod@3.23.8)
+      '@reown/appkit-scaffold-ui': 1.1.3(patch_hash=n7dgrv3zjkddz3lji52edow6ji)(@types/react@18.2.48)(@vercel/kv@1.0.1)(react@0.0.0-experimental-8039e6d0b-20231026)(typescript@5.6.3)(valtio@1.11.2)(zod@3.23.8)
       '@reown/appkit-siwe': 1.1.3(@types/react@18.2.48)(@vercel/kv@1.0.1)(react@0.0.0-experimental-8039e6d0b-20231026)(typescript@5.6.3)(zod@3.23.8)
       '@reown/appkit-ui': 1.1.3
       '@reown/appkit-utils': 1.1.3(@types/react@18.2.48)(@vercel/kv@1.0.1)(react@0.0.0-experimental-8039e6d0b-20231026)(typescript@5.6.3)(valtio@1.11.2)(zod@3.23.8)
@@ -12729,7 +12732,7 @@ packages:
       buffer: 6.0.3
     dev: false
 
-  /@reown/appkit-scaffold-ui@1.1.3(@types/react@18.2.48)(@vercel/kv@1.0.1)(react@0.0.0-experimental-8039e6d0b-20231026)(typescript@5.6.3)(valtio@1.11.2)(zod@3.23.8):
+  /@reown/appkit-scaffold-ui@1.1.3(patch_hash=n7dgrv3zjkddz3lji52edow6ji)(@types/react@18.2.48)(@vercel/kv@1.0.1)(react@0.0.0-experimental-8039e6d0b-20231026)(typescript@5.6.3)(valtio@1.11.2)(zod@3.23.8):
     resolution: {integrity: sha512-dGiHcoMCjyXmYW+XftjTa1cKSmw92fHV04O3OqohA3WAipwu7pOr4+uyVdg5fpZZt26sv3cuFlYknbX9a1tUdA==}
     dependencies:
       '@reown/appkit-common': 1.1.3(typescript@5.6.3)(zod@3.23.8)
@@ -12763,6 +12766,7 @@ packages:
       - valtio
       - zod
     dev: false
+    patched: true
 
   /@reown/appkit-siwe@1.1.3(@types/react@18.2.48)(@vercel/kv@1.0.1)(react@0.0.0-experimental-8039e6d0b-20231026)(typescript@5.6.3)(zod@3.23.8):
     resolution: {integrity: sha512-5TM0KgT/pOXIBzT43FdpsVwJYZCfUKyHolY8E+Dn8/O/p4i3OSms2W8DbM8IHkL8vj0H2RBfEd1eXnO16PHkIg==}
@@ -12862,7 +12866,7 @@ packages:
       '@reown/appkit-common': 1.1.3(typescript@5.6.3)(zod@3.23.8)
       '@reown/appkit-core': 1.1.3(@types/react@18.2.48)(@vercel/kv@1.0.1)(react@0.0.0-experimental-8039e6d0b-20231026)(typescript@5.6.3)(zod@3.23.8)
       '@reown/appkit-polyfills': 1.1.3
-      '@reown/appkit-scaffold-ui': 1.1.3(@types/react@18.2.48)(@vercel/kv@1.0.1)(react@0.0.0-experimental-8039e6d0b-20231026)(typescript@5.6.3)(valtio@1.11.2)(zod@3.23.8)
+      '@reown/appkit-scaffold-ui': 1.1.3(patch_hash=n7dgrv3zjkddz3lji52edow6ji)(@types/react@18.2.48)(@vercel/kv@1.0.1)(react@0.0.0-experimental-8039e6d0b-20231026)(typescript@5.6.3)(valtio@1.11.2)(zod@3.23.8)
       '@reown/appkit-siwe': 1.1.3(@types/react@18.2.48)(@vercel/kv@1.0.1)(react@0.0.0-experimental-8039e6d0b-20231026)(typescript@5.6.3)(zod@3.23.8)
       '@reown/appkit-ui': 1.1.3
       '@reown/appkit-utils': 1.1.3(@types/react@18.2.48)(@vercel/kv@1.0.1)(react@0.0.0-experimental-8039e6d0b-20231026)(typescript@5.6.3)(valtio@1.11.2)(zod@3.23.8)
