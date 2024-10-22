@@ -58,6 +58,12 @@ const items: Item[] = [
     },
     {
         type: 'method',
+        name: SupportedMethod.IS_TWITTER_USER_FOLLOWING,
+        title: 'Is Twitter User Following',
+        description: 'Check if a twitter user is following.',
+    },
+    {
+        type: 'method',
         name: SupportedMethod.FOLLOW_TWITTER_USER,
         title: 'Follow Twitter User',
         description: 'Follow a twitter user.',
