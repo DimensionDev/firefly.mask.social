@@ -1,5 +1,5 @@
-import { AuthType, connect } from '@particle-network/auth-core';
-import type { EventEmitter, SendTransactionOptions, WalletName } from '@solana/wallet-adapter-base';
+import { AuthType, connect, SolanaWallet } from '@particle-network/auth-core';
+import type { SendTransactionOptions, WalletName } from '@solana/wallet-adapter-base';
 import {
     BaseMessageSignerWalletAdapter,
     isVersionedTransaction,
@@ -18,7 +18,6 @@ import {
 } from '@solana/wallet-adapter-base';
 import type {
     Connection,
-    SendOptions,
     Transaction,
     TransactionSignature,
     TransactionVersion,
@@ -26,39 +25,26 @@ import type {
 } from '@solana/web3.js';
 import { PublicKey } from '@solana/web3.js';
 
-import { AuthenticationError } from '@/constants/error.js';
+import { AbortError, AuthenticationError, InvalidResultError } from '@/constants/error.js';
 import { isValidSolanaAddress } from '@/helpers/isValidSolanaAddress.js';
+import { retry } from '@/helpers/retry.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
 
-interface ParticleSolanaWalletEvents {
-    connect(...args: unknown[]): unknown;
-    disconnect(...args: unknown[]): unknown;
-    accountChanged(newPublicKey: PublicKey): unknown;
+async function getProvider(signal?: AbortSignal) {
+    return retry(
+        async () => {
+            if (typeof window === 'undefined') throw new AbortError();
+            if (typeof window.particle === 'undefined') throw new InvalidResultError();
+            if (typeof window.particle.solana === 'undefined') throw new InvalidResultError();
+            return window.particle.solana as SolanaWallet;
+        },
+        {
+            times: 5,
+            interval: 300,
+            signal,
+        },
+    );
 }
-
-interface ParticleSolanaWallet extends EventEmitter<ParticleSolanaWalletEvents> {
-    isParticleNetwork?: boolean;
-    publicKey?: { toBytes(): Uint8Array };
-    isConnected: boolean;
-    signTransaction<T extends Transaction | VersionedTransaction>(transaction: T): Promise<T>;
-    signAllTransactions<T extends Transaction | VersionedTransaction>(transactions: T[]): Promise<T[]>;
-    signAndSendTransaction<T extends Transaction | VersionedTransaction>(
-        transaction: T,
-        options?: SendOptions,
-    ): Promise<{ signature: TransactionSignature }>;
-    signMessage(message: Uint8Array): Promise<{ signature: Uint8Array }>;
-    connect(): Promise<void>;
-    disconnect(): Promise<void>;
-}
-
-interface ParticleSolanaWindow extends Window {
-    particle?: {
-        solana?: ParticleSolanaWallet;
-    };
-    solana?: ParticleSolanaWallet;
-}
-
-declare const window: ParticleSolanaWindow;
 
 export interface ParticleSolanaWalletAdapterConfig {}
 
@@ -77,7 +63,7 @@ export class ParticleSolanaWalletAdapter extends BaseMessageSignerWalletAdapter 
     supportedTransactionVersions: ReadonlySet<TransactionVersion> = new Set(['legacy', 0]);
 
     private _connecting: boolean;
-    private _wallet: ParticleSolanaWallet | null;
+    private _wallet: SolanaWallet | null;
     private _publicKey: PublicKey | null;
     private _readyState: WalletReadyState =
         typeof window === 'undefined' || typeof document === 'undefined'
@@ -129,7 +115,7 @@ export class ParticleSolanaWalletAdapter extends BaseMessageSignerWalletAdapter 
             this._connecting = true;
 
             // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-            const wallet = window.particle?.solana || window.solana!;
+            const wallet = await getProvider();
 
             if (!wallet.isConnected) {
                 if (!fireflySessionHolder.session) throw new AuthenticationError('Firefly session not found');
@@ -222,7 +208,7 @@ export class ParticleSolanaWalletAdapter extends BaseMessageSignerWalletAdapter 
 
                 sendOptions.preflightCommitment = sendOptions.preflightCommitment || connection.commitment;
 
-                const { signature } = await wallet.signAndSendTransaction(transaction, sendOptions);
+                const { signature } = await wallet.signAndSendTransaction(transaction);
                 return signature;
             } catch (error: unknown) {
                 if (error instanceof WalletError) throw error;

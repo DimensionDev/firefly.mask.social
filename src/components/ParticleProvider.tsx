@@ -1,7 +1,7 @@
 'use client';
 
-import { AuthCoreContextProvider, PromptSettingType, useEthereum } from '@particle-network/authkit';
-import { type ReactNode, useEffect, useMemo } from 'react';
+import { AuthCoreContextProvider, PromptSettingType } from '@particle-network/authkit';
+import { type ReactNode, useMemo } from 'react';
 
 import { chains } from '@/configs/wagmiClient.js';
 import { VERCEL_NEV } from '@/constants/enum.js';
