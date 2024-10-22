@@ -20,7 +20,7 @@ export function tweetV2ToPost(item: TweetV2, includes?: ApiV2Includes): Post {
     const quotedTweet = quotedTweetId ? includes?.tweets?.find((tweet) => tweet.id === quotedTweetId) : undefined;
     const retweeted = item.referenced_tweets?.find((tweet) => tweet.type === 'retweeted');
     const retweetedTweet = retweeted ? includes?.tweets?.find((tweet) => tweet.id === retweeted.id) : undefined;
-    const oembedUrls = getEmbedUrls(item.text ?? '', []);
+
     const attachments = compact(
         item.attachments?.media_keys?.map((key) => {
             const media = includes?.media?.find((m) => m.media_key === key);
@@ -31,6 +31,8 @@ export function tweetV2ToPost(item: TweetV2, includes?: ApiV2Includes): Post {
     if (repliedTweetId) {
         content = content.replace(/^(@\w+\s*)+/, '');
     }
+
+    const oembedUrls = getEmbedUrls(content, []);
 
     const ret: Post = {
         publicationId: item.id,
