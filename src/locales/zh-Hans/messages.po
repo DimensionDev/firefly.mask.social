@@ -1140,6 +1140,9 @@ msgstr ""
 msgid "Follow"
 msgstr "关注"
 
+msgid "Sorry, this wallet is already linked to another Firefly account. Please try a different one."
+msgstr ""
+
 msgid "This token contract is open source. You can check the contract code for details. Unsourced token contracts are likely to have malicious functions to defraud their users of their assets."
 msgstr "此通证合约是开源代码。您可以检查合约代码了解详情。 未知来源的通证合同很可能带有恶意的功能来欺诈其用户的资产。"
 
