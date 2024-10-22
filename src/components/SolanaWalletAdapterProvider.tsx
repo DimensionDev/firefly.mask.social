@@ -11,7 +11,7 @@ import { WalletModalProvider } from '@solana/wallet-adapter-react-ui';
 import { WalletConnectWalletAdapter } from '@solana/wallet-adapter-walletconnect';
 import { type PropsWithChildren } from 'react';
 
-import { ParticleSolanaWalletAdapter } from '@/app/connectors/ParticleSolanaWallet.js';
+import { ParticleSolanaWalletAdapter } from '@/connectors/ParticleSolanaWallet.js';
 import { env } from '@/constants/env.js';
 import { SOLANA_WALLET_CACHE_KEY } from '@/constants/index.js';
 

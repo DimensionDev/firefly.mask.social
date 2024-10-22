@@ -24,6 +24,7 @@ export enum SupportedMethod {
     GET_WALLET_ADDRESS = 'getWalletAddress',
     CONNECT_WALLET = 'connectWallet',
     BIND_WALLET = 'bindWallet',
+    IS_TWITTER_USER_FOLLOWING = 'isTwitterUserFollowing',
     FOLLOW_TWITTER_USER = 'followTwitterUser',
     UPDATE_NAVIGATOR_BAR = 'updateNavigatorBar',
     OPEN_URL = 'openUrl',
@@ -46,6 +47,9 @@ export interface RequestArguments {
     };
     [SupportedMethod.BIND_WALLET]: {
         type: Network;
+    };
+    [SupportedMethod.IS_TWITTER_USER_FOLLOWING]: {
+        id: string;
     };
     [SupportedMethod.FOLLOW_TWITTER_USER]: {
         id: string; // e.g., 952921795316912133
@@ -77,6 +81,7 @@ export interface RequestResult {
     [SupportedMethod.GET_WALLET_ADDRESS]: string[];
     [SupportedMethod.CONNECT_WALLET]: string;
     [SupportedMethod.BIND_WALLET]: string; // address
+    [SupportedMethod.IS_TWITTER_USER_FOLLOWING]: boolean;
     [SupportedMethod.FOLLOW_TWITTER_USER]: boolean;
     [SupportedMethod.UPDATE_NAVIGATOR_BAR]: void;
     [SupportedMethod.OPEN_URL]: void;

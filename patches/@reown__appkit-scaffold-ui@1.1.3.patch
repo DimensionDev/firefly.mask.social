@@ -1,0 +1,24 @@
+diff --git a/dist/esm/src/partials/w3m-connector-list/index.js b/dist/esm/src/partials/w3m-connector-list/index.js
+index 2b0524b6fe9c4621f6dbf2ab58e8fb61c76e70b6..dfa5a5c0144c20caeae6a5ddd83045905c5082ea 100644
+--- a/dist/esm/src/partials/w3m-connector-list/index.js
++++ b/dist/esm/src/partials/w3m-connector-list/index.js
+@@ -26,6 +26,9 @@ let W3mConnectorList = class W3mConnectorList extends LitElement {
+         const enableWalletConnect = OptionsController.state.enableWalletConnect;
+         return html `
+       <wui-flex flexDirection="column" gap="xs">
++        ${external.length
++            ? html `<w3m-connect-external-widget></w3m-connect-external-widget>`
++            : null}
+         ${enableWalletConnect
+             ? html `<w3m-connect-walletconnect-widget></w3m-connect-walletconnect-widget>`
+             : null}
+@@ -43,9 +46,6 @@ let W3mConnectorList = class W3mConnectorList extends LitElement {
+             ? html `<w3m-connect-featured-widget></w3m-connect-featured-widget>`
+             : null}
+         ${custom?.length ? html `<w3m-connect-custom-widget></w3m-connect-custom-widget>` : null}
+-        ${external.length
+-            ? html `<w3m-connect-external-widget></w3m-connect-external-widget>`
+-            : null}
+         ${recommended.length
+             ? html `<w3m-connect-recommended-widget></w3m-connect-recommended-widget>`
+             : null}

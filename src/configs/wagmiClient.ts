@@ -40,9 +40,11 @@ import {
     zora as wagmiZora,
 } from 'wagmi/chains';
 
-import { createParticleConnector } from '@/app/connectors/ParticleConnector.js';
+import { createParticleConnector } from '@/connectors/ParticleConnector.js';
+import { IS_MOBILE_DEVICE } from '@/constants/bowser.js';
 import { env } from '@/constants/env.js';
 import { SITE_DESCRIPTION, SITE_NAME, SITE_URL } from '@/constants/index.js';
+import { WalletId } from '@/constants/reown.js';
 
 const networks = [
     mainnet,
@@ -94,6 +96,9 @@ const metadata = {
     url: SITE_URL,
     icons: ['/image/firefly-light-avatar.png'],
 };
+const walletIds = IS_MOBILE_DEVICE
+    ? [WalletId.FireflyWallet, WalletId.MetaMask, WalletId.Rabby, WalletId.OKX]
+    : [WalletId.FireflyWallet, WalletId.CoinBase, WalletId.Rabby, WalletId.OKX];
 createAppKit({
     adapters: [adapter],
     networks,
@@ -105,6 +110,8 @@ createAppKit({
         socials: [],
     },
     debug: true,
+    includeWalletIds: walletIds,
+    featuredWalletIds: walletIds,
 });
 
 export const config = adapter.wagmiConfig;

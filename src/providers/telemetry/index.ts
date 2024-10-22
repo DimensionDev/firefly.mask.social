@@ -7,7 +7,7 @@ import { NotImplementedError } from '@/constants/error.js';
 import { bom } from '@/helpers/bom.js';
 import { getPublicParameters } from '@/providers/telemetry/getPublicParameters.js';
 import type { Safary } from '@/providers/types/Safary.js';
-import { type Events, Provider } from '@/providers/types/Telemetry.js';
+import { type Events, Provider, ProviderFilter, VersionFilter } from '@/providers/types/Telemetry.js';
 import { useDeveloperSettingsState } from '@/store/useDeveloperSettingsStore.js';
 
 function formatParameter(key: string, value: unknown): [string, unknown] {
@@ -28,9 +28,18 @@ class Telemetry extends Provider<Events, never> {
     override async captureEvent<T extends keyof Events>(
         name: T,
         parameters: Omit<Events[T]['parameters'], keyof ReturnType<typeof getPublicParameters>>,
+        {
+            version_filter = VersionFilter.Latest,
+            provider_filter = ProviderFilter.All,
+        }: { version_filter?: VersionFilter; provider_filter?: ProviderFilter } = {},
     ): Promise<void> {
         if (env.external.NEXT_PUBLIC_TELEMETRY === STATUS.Disabled) {
             console.log('[telemetry] event capture is disabled');
+            return;
+        }
+
+        if (version_filter === VersionFilter.Next) {
+            console.error('[telemetry] event is filtered out:', name, parameters);
             return;
         }
 
@@ -56,20 +65,28 @@ class Telemetry extends Provider<Events, never> {
             } as unknown as Events[T]['parameters'],
         };
 
-        try {
-            sendGAEvent(event);
-        } catch (error) {
-            console.error('[ga] failed to capture event:', event);
+        if (provider_filter === ProviderFilter.All || provider_filter === ProviderFilter.GA) {
+            try {
+                sendGAEvent(event);
+            } catch (error) {
+                console.error('[ga] failed to capture event:', event);
+            }
+        } else {
+            console.info('[ga] event is filtered out:', name, parameters);
         }
 
-        try {
-            if (this.safary) {
-                await this.safary.track(event);
-            } else {
-                console.error('[safary] safary SDK not available. failed to capture event:', name, parameters);
+        if (provider_filter === ProviderFilter.All || provider_filter === ProviderFilter.Safary) {
+            try {
+                if (this.safary) {
+                    await this.safary.track(event);
+                } else {
+                    console.error('[safary] safary SDK not available. failed to capture event:', name, parameters);
+                }
+            } catch (error) {
+                console.error('[safary] failed to capture event:', event);
             }
-        } catch (error) {
-            console.error('[safary] failed to capture event:', event);
+        } else {
+            console.info('[safary] event is filtered out:', name, parameters);
         }
     }
 

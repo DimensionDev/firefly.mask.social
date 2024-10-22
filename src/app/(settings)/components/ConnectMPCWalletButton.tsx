@@ -8,11 +8,11 @@ import { connect, disconnect } from '@wagmi/core';
 import { useAsyncFn } from 'react-use';
 import { useAccount } from 'wagmi';
 
-import { createParticleConnector } from '@/app/connectors/ParticleConnector.js';
-import { ParticleSolanaWalletAdapter } from '@/app/connectors/ParticleSolanaWallet.js';
 import LoadingIcon from '@/assets/loading.svg';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { config } from '@/configs/wagmiClient.js';
+import { createParticleConnector } from '@/connectors/ParticleConnector.js';
+import { ParticleSolanaWalletAdapter } from '@/connectors/ParticleSolanaWallet.js';
 import { enqueueErrorMessage, enqueueInfoMessage } from '@/helpers/enqueueMessage.js';
 import { formatSolanaAddress } from '@/helpers/formatAddress.js';
 import { getSnackbarMessageFromError } from '@/helpers/getSnackbarMessageFromError.js';
