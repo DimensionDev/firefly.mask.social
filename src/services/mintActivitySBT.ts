@@ -1,4 +1,5 @@
 import { t } from '@lingui/macro';
+import { ChainId } from '@masknet/web3-shared-evm';
 import urlcat from 'urlcat';
 
 import { IS_IOS } from '@/constants/bowser.js';
@@ -23,6 +24,7 @@ export async function mintActivitySBT(
             status: boolean;
             hash: string;
             errormessage?: string;
+            chainId: ChainId;
         }>
     >(urlcat(settings.FIREFLY_ROOT_URL, '/v1/wallet_transaction/mint/activity/sbt'), {
         method: 'POST',

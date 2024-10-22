@@ -2,6 +2,7 @@
 
 import { Menu } from '@headlessui/react';
 import { Trans } from '@lingui/macro';
+import { delay } from '@masknet/kit';
 import { useQuery } from '@tanstack/react-query';
 import { useContext } from 'react';
 
@@ -109,6 +110,7 @@ export function ActivityConnectButton() {
                                 await AddWalletModalRef.openAndWaitForClose({
                                     connections: connected,
                                 });
+                                await delay(5000);
                                 await refetch();
                             }}
                         >

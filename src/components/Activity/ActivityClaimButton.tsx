@@ -1,6 +1,7 @@
 'use client';
 
 import { t, Trans } from '@lingui/macro';
+import { ChainId } from '@masknet/web3-shared-evm';
 import { useContext, useState } from 'react';
 import { useAsyncFn } from 'react-use';
 
@@ -22,12 +23,14 @@ export function ActivityClaimButton({ status }: { status: ActivityStatus }) {
     const { data, refetch } = useActivityClaimCondition();
     const disabled = status === ActivityStatus.Ended || !data?.canClaim;
     const [hash, setHash] = useState<string | undefined>(undefined);
+    const [chainId, setChainId] = useState<ChainId | undefined>(undefined);
     const [{ loading }, claim] = useAsyncFn(async () => {
         if (disabled || !address) return;
         try {
-            const { hash } = await mintActivitySBT(address, name, { authToken });
+            const { hash, chainId } = await mintActivitySBT(address, name, { authToken });
             await refetch();
             setHash(hash);
+            setChainId(chainId);
         } catch (error) {
             enqueueErrorMessage(getSnackbarMessageFromError(error, t`Failed to claim token`), { error });
             throw error;
@@ -50,7 +53,7 @@ export function ActivityClaimButton({ status }: { status: ActivityStatus }) {
 
     return (
         <>
-            <ActivityMintSuccessDialog hash={hash} open={!!hash} onClose={() => setHash(undefined)} />
+            <ActivityMintSuccessDialog hash={hash} open={!!hash} chainId={chainId} onClose={() => setHash(undefined)} />
             <button
                 className="leading-12 relative flex h-12 w-full items-center justify-center rounded-full bg-main text-center text-base font-bold text-primaryBottom disabled:opacity-60"
                 disabled={disabled || loading}
