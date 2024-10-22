@@ -60,12 +60,14 @@ export async function createLensSchedulePostPayload(
     // Request the user settings
     const { signless } = await LensSocialMediaProvider.getProfileById(currentProfile?.profileId);
 
-    const { account } = await getWalletClientRequired(config);
-    if (!isSameEthereumAddress(currentProfile?.ownedBy?.address, account.address)) {
-        throw new CreateScheduleError(t`Please switch to the wallet consistent with this action`);
-    }
+    if (!signless) {
+        const { account } = await getWalletClientRequired(config);
+        if (!isSameEthereumAddress(currentProfile?.ownedBy?.address, account.address)) {
+            throw new CreateScheduleError(t`Please switch to the wallet consistent with this action`);
+        }
 
-    if (!signless) throw new SignlessRequireError('Signless required');
+        throw new SignlessRequireError('Signless required');
+    }
 
     const title = `Post by #${currentProfile.handle}`;
     const content = readChars(chars, 'both', Source.Lens);
