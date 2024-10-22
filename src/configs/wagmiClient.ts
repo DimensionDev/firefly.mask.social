@@ -108,9 +108,9 @@ createAppKit({
     },
     debug: true,
     featuredWalletIds: IS_MOBILE_DEVICE
-        ? [WalletId.FirelfyWallet, WalletId.MetaMask, WalletId.Rabby, WalletId.OKX]
+        ? [WalletId.FireflyWallet, WalletId.MetaMask, WalletId.Rabby, WalletId.OKX]
         : [
-              WalletId.FirelfyWallet,
+              WalletId.FireflyWallet,
               WalletId.CoinBase, // Coinbase
               WalletId.Rabby, // Rabby
               WalletId.OKX,
