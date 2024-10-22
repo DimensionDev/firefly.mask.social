@@ -9,6 +9,7 @@ import LoadingIcon from '@/assets/loading.svg';
 import { ActivityContext } from '@/components/Activity/ActivityContext.js';
 import { ActivityMintSuccessDialog } from '@/components/Activity/ActivityMintSuccessDialog.js';
 import { useActivityClaimCondition } from '@/components/Activity/hooks/useActivityClaimCondition.js';
+import { useIsFollowTwitterInActivity } from '@/components/Activity/hooks/useActivityFollowTwitter.js';
 import { useActivityPremiumList } from '@/components/Activity/hooks/useActivityPremiumList.js';
 import { classNames } from '@/helpers/classNames.js';
 import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
@@ -21,9 +22,10 @@ export function ActivityClaimButton({ status }: { status: ActivityStatus }) {
     const { address, name } = useContext(ActivityContext);
     const { data: authToken } = useFireflyBridgeAuthorization();
     const { data, refetch } = useActivityClaimCondition();
-    const disabled = status === ActivityStatus.Ended || !data?.canClaim;
     const [hash, setHash] = useState<string | undefined>(undefined);
     const [chainId, setChainId] = useState<ChainId | undefined>(undefined);
+    const { data: isFollowedFirefly } = useIsFollowTwitterInActivity('1583361564479889408', 'thefireflyapp');
+    const disabled = status === ActivityStatus.Ended || !data?.canClaim || isFollowedFirefly;
     const [{ loading }, claim] = useAsyncFn(async () => {
         if (disabled || !address) return;
         try {
@@ -45,7 +47,7 @@ export function ActivityClaimButton({ status }: { status: ActivityStatus }) {
         if (data?.alreadyClaimed) {
             return <Trans>Claimed</Trans>;
         }
-        if (data?.canClaim) {
+        if (!disabled && data?.canClaim) {
             return list.some((x) => x.verified) ? <Trans>Claim Premium</Trans> : <Trans>Claim Basic</Trans>;
         }
         return <Trans>Claim Now</Trans>;

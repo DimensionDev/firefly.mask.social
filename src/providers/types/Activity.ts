@@ -9,7 +9,6 @@ export interface X {
     twitterId: string;
     address: string;
     following: boolean;
-    followingFirefly: boolean;
     hasVerified: boolean;
     valid: boolean;
     level: Level;

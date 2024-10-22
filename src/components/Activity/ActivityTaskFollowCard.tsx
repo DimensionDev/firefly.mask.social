@@ -5,10 +5,12 @@ import { type ReactNode } from 'react';
 
 import LoadingIcon from '@/assets/loading.svg';
 import { ActivityVerifyText } from '@/components/Activity/ActivityVerifyText.js';
-import { useActivityClaimCondition } from '@/components/Activity/hooks/useActivityClaimCondition.js';
-import { useActivityFollowTwitter } from '@/components/Activity/hooks/useActivityFollowTwitter.js';
+import {
+    useActivityFollowTwitter,
+    useIsFollowTwitterInActivity,
+} from '@/components/Activity/hooks/useActivityFollowTwitter.js';
 import { useIsLoginTwitterInActivity } from '@/components/Activity/hooks/useIsLoginTwitterInActivity.js';
-import type { ProfilePageSource } from '@/constants/enum.js';
+import { type ProfilePageSource } from '@/constants/enum.js';
 import { Link } from '@/esm/Link.js';
 import { classNames } from '@/helpers/classNames.js';
 import { enqueueInfoMessage } from '@/helpers/enqueueMessage.js';
@@ -62,9 +64,9 @@ function Button({
 
 export function ActivityTaskFollowCard({ source, profileId, handle }: Props) {
     const { data: isLoggedIn } = useIsLoginTwitterInActivity();
-    const [{ loading: isFollowingTwitter }, followingTwitter] = useActivityFollowTwitter();
-    const { data, refetch, isRefetching } = useActivityClaimCondition();
-    const isFollowedFirefly = data?.x.followingFirefly;
+    const [{ loading: isFollowingTwitter }, followTwitter] = useActivityFollowTwitter(profileId, handle);
+    const { data: isFollowedFirefly, refetch, isRefetching } = useIsFollowTwitterInActivity(profileId, handle);
+
     return (
         <div
             className={classNames(
@@ -89,7 +91,7 @@ export function ActivityTaskFollowCard({ source, profileId, handle }: Props) {
                         className="relative inline-block rounded-full bg-main px-4 leading-8 text-primaryBottom"
                         loading={isFollowingTwitter}
                         isLoggedIn={isLoggedIn}
-                        onClick={() => followingTwitter(profileId, handle)}
+                        onClick={() => followTwitter()}
                     >
                         <Trans>Follow</Trans>
                     </Button>
