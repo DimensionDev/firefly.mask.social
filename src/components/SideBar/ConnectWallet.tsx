@@ -55,7 +55,7 @@ export function ConnectWallet({ collapsed: sideBarCollapsed = false }: ConnectWa
             onOpenConnectModal: () => ConnectModalRef.open(),
             onOpenAccountModal: () => AccountModalRef.open(),
             isConnected: evmAccount.isConnected,
-            isConnecting: evmAccount.isConnecting,
+            isLoading: evmAccount.isConnecting || evmAccount.isReconnecting,
             type: 'EVM',
         },
         {
@@ -68,7 +68,7 @@ export function ConnectWallet({ collapsed: sideBarCollapsed = false }: ConnectWa
             onOpenConnectModal: () => connectModalSolana.setVisible(true),
             onOpenAccountModal: () => SolanaAccountModalRef.open(),
             isConnected: solanaWallet.connected,
-            isConnecting: solanaWallet.connecting,
+            isLoading: solanaWallet.connecting || solanaWallet.disconnecting,
             type: 'Solana',
         },
     ];
@@ -145,7 +145,7 @@ export function ConnectWallet({ collapsed: sideBarCollapsed = false }: ConnectWa
                                 <ClickableButton
                                     key={type.type}
                                     onClick={() => {
-                                        if (type.isConnecting) return;
+                                        if (type.isLoading) return;
                                         if (type.isConnected) {
                                             type.onOpenAccountModal();
                                             return;
@@ -154,7 +154,7 @@ export function ConnectWallet({ collapsed: sideBarCollapsed = false }: ConnectWa
                                     }}
                                     className="flex w-full flex-row items-center gap-3 text-xl font-bold leading-6"
                                 >
-                                    {type.isConnecting ? (
+                                    {type.isLoading ? (
                                         <LoadingIcon className="animate-spin" width={20} height={20} />
                                     ) : (
                                         <Image
