@@ -3,7 +3,7 @@
 import { AuthCoreContextProvider, PromptSettingType, useEthereum } from '@particle-network/authkit';
 import { type ReactNode, useEffect, useMemo } from 'react';
 
-import { setParticleProvider } from '@/app/connectors/ParticleConnector.js';
+import { setParticleProvider } from '@/connectors/ParticleConnector.js';
 import { chains } from '@/configs/wagmiClient.js';
 import { VERCEL_NEV } from '@/constants/enum.js';
 import { env } from '@/constants/env.js';
