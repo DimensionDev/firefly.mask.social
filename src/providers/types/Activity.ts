@@ -21,6 +21,7 @@ export interface Farcaster {
     fid: string;
     isPowerUser: boolean;
     valid: boolean;
+    isFollowing: boolean;
 }
 
 export interface BnbId {
