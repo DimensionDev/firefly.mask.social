@@ -10,7 +10,7 @@ import { settings } from '@/settings/index.js';
 
 export async function mintActivitySBT(
     address: string,
-    activityType: string,
+    activityName: string,
     {
         authToken,
     }: {
@@ -31,7 +31,7 @@ export async function mintActivitySBT(
         body: JSON.stringify({
             walletAddress: address,
             claimPlatform,
-            activityType,
+            activityName,
         }),
         ...(authToken
             ? {
