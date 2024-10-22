@@ -316,7 +316,7 @@ export function PostCollect({ post, onClose }: PostCollectProps) {
             <div className="my-3 rounded-lg bg-lightBg px-3 py-2">
                 <div className="flex items-center gap-2">
                     <Avatar src={post.author.pfp} size={20} alt={post.author.handle} />
-                    <span className="overflow-hidden text-ellipsis text-medium font-bold leading-[24px]">
+                    <span className="overflow-hidden text-ellipsis text-medium font-bold leading-[24px] text-main">
                         {post.author.displayName}
                     </span>
                     <span className="text-medium leading-[24px] text-lightSecond">@{post.author.handle}</span>

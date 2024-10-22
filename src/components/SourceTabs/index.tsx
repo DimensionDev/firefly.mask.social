@@ -16,7 +16,7 @@ export function SourceTabs<S extends Source>({ sources, source, href }: SourceTa
             className={classNames(
                 'no-scrollbar sticky top-[54px] z-40 w-full overflow-x-auto overflow-y-hidden border-b border-line bg-primaryBottom px-4 md:top-0',
                 {
-                    '-mt-[1px]': IS_APPLE && IS_SAFARI,
+                    'top-[53px]': IS_APPLE && IS_SAFARI,
                 },
             )}
         >
