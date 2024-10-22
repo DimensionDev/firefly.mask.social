@@ -43,7 +43,7 @@ export function ActivityConnectButton() {
     });
     const addresses: Array<{ address: string; ens?: string }> = fireflyBridgeProvider.supported
         ? bridgeAddresses.map((address) => ({ address }))
-        : connected.filter((x) => x.platform === 'eth').map((x) => ({ address: x.address, ens: x.ens[0] }));
+        : connected.filter((x) => x.platform === 'eth').map((x) => ({ address: x.address, ens: x.ens?.[0] }));
 
     const buttonText = address ? (
         <Trans>Change</Trans>
