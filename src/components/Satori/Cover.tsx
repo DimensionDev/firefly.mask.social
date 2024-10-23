@@ -1,14 +1,13 @@
-import type { FireflyRedPacketAPI } from '@masknet/web3-providers/types';
-
 import { AmountProgressText } from '@/components/Satori/AmountProgressText.js';
 import { AuthorText } from '@/components/Satori/AuthorText.js';
 import { ClaimProgressText } from '@/components/Satori/ClaimProgressText.js';
 import { CoverContainer } from '@/components/Satori/CoverContainer.js';
 import { MessageText } from '@/components/Satori/MessageText.js';
 import { TokenType, UsageType } from '@/types/rp.js';
+import type { ThemeGroupSettings } from '@/providers/types/RedPacket.js';
 
 interface CoverProps {
-    theme: FireflyRedPacketAPI.ThemeGroupSettings;
+    theme: ThemeGroupSettings;
     message: string;
     from: string;
     shares: number;

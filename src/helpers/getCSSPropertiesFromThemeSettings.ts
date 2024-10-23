@@ -1,4 +1,4 @@
-import type { FireflyRedPacketAPI } from '@masknet/web3-providers/types';
+import type { ThemeSettings } from '@/providers/types/RedPacket.js';
 import type { CSSProperties } from 'react';
 
 /**
@@ -8,7 +8,7 @@ import type { CSSProperties } from 'react';
  * @param elementType
  * @returns
  */
-export function getCSSPropertiesFromThemeSettings(theme: FireflyRedPacketAPI.ThemeSettings['title1']) {
+export function getCSSPropertiesFromThemeSettings(theme: ThemeSettings['title1']) {
     return {
         color: theme.color,
         fontSize: theme.font_size,

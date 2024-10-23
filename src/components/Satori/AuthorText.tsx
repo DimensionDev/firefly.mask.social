@@ -1,12 +1,12 @@
 import { safeUnreachable } from '@masknet/kit';
-import type { FireflyRedPacketAPI } from '@masknet/web3-providers/types';
 
 import { formatEthereumAddress } from '@/helpers/formatAddress.js';
 import { getCSSPropertiesFromThemeSettings } from '@/helpers/getCSSPropertiesFromThemeSettings.js';
 import { UsageType } from '@/types/rp.js';
+import type { ThemeGroupSettings } from '@/providers/types/RedPacket.js';
 
 interface AuthorTextProps {
-    theme: FireflyRedPacketAPI.ThemeGroupSettings;
+    theme: ThemeGroupSettings;
     usage: UsageType;
     from?: string;
     ContainerStyle?: React.CSSProperties;

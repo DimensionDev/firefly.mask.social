@@ -1,7 +1,7 @@
 import { plural, t } from '@lingui/macro';
 import { RedPacketMetaKey } from '@masknet/plugin-redpacket';
 import { FireflyRedPacket } from '@masknet/web3-providers';
-import { type FireflyRedPacketAPI, type RedPacketJSONPayload } from '@masknet/web3-providers/types';
+import { type RedPacketJSONPayload } from '@masknet/web3-providers/types';
 import { produce } from 'immer';
 import { compact } from 'lodash-es';
 
@@ -26,6 +26,7 @@ import { commitPoll } from '@/services/poll.js';
 import { reportCrossedPost } from '@/services/reportCrossedPost.js';
 import { type CompositePost, useComposeStateStore } from '@/store/useComposeStore.js';
 import type { ComposeType } from '@/types/compose.js';
+import type { PostOn } from '@/providers/types/RedPacket.js';
 
 async function refreshProfileFeed(source: SocialSource) {
     const currentProfileAll = getCurrentProfileAll();
@@ -75,7 +76,7 @@ async function updateRpClaimStrategy(compositePost: CompositePost) {
                     : null;
             }),
         );
-        const postOn: FireflyRedPacketAPI.PostOn[] = compact(
+        const postOn: PostOn[] = compact(
             SORTED_SOCIAL_SOURCES.map((x) => {
                 const currentProfile = currentProfileAll[x];
                 return postId[x] && currentProfile

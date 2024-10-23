@@ -1,7 +1,7 @@
-import type { FireflyRedPacketAPI } from '@masknet/web3-providers/types';
+import type { ThemeGroupSettings } from '@/providers/types/RedPacket.js';
 
 interface CoverContainerProps {
-    theme: FireflyRedPacketAPI.ThemeGroupSettings;
+    theme: ThemeGroupSettings;
     children: React.ReactNode;
     ContainerStyle?: React.CSSProperties;
 }

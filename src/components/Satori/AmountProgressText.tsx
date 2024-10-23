@@ -1,12 +1,11 @@
-import type { FireflyRedPacketAPI } from '@masknet/web3-providers/types';
-
 import { formatBalance } from '@/helpers/formatBalance.js';
 import { getCSSPropertiesFromThemeSettings } from '@/helpers/getCSSPropertiesFromThemeSettings.js';
 import { isZero, minus } from '@/helpers/number.js';
 import type { TokenType } from '@/types/rp.js';
+import type { ThemeGroupSettings } from '@/providers/types/RedPacket.js';
 
 interface AmountProgressTextProps {
-    theme: FireflyRedPacketAPI.ThemeGroupSettings;
+    theme: ThemeGroupSettings;
     amount: string; // bigint in str
     remainingAmount: string; // bigint in str
     token: {

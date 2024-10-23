@@ -1,9 +1,8 @@
-import type { FireflyRedPacketAPI } from '@masknet/web3-providers/types';
-
 import { getCSSPropertiesFromThemeSettings } from '@/helpers/getCSSPropertiesFromThemeSettings.js';
+import type { ThemeGroupSettings } from '@/providers/types/RedPacket.js';
 
 interface QuoteTextProps {
-    theme: FireflyRedPacketAPI.ThemeGroupSettings;
+    theme: ThemeGroupSettings;
     ContainerStyle?: React.CSSProperties;
 }
 

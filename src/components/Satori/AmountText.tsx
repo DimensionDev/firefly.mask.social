@@ -1,13 +1,12 @@
 /* eslint-disable @next/next/no-img-element */
 
-import type { FireflyRedPacketAPI } from '@masknet/web3-providers/types';
-
 import { formatBalance } from '@/helpers/formatBalance.js';
 import { getCSSPropertiesFromThemeSettings } from '@/helpers/getCSSPropertiesFromThemeSettings.js';
 import { TokenType } from '@/types/rp.js';
+import type { ThemeGroupSettings } from '@/providers/types/RedPacket.js';
 
 interface AmountTextProps {
-    theme: FireflyRedPacketAPI.ThemeGroupSettings;
+    theme: ThemeGroupSettings;
     amount: string; // bigint in str
     token: {
         type: TokenType;
