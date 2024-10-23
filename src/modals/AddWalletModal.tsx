@@ -5,31 +5,34 @@ import { useWallet } from '@solana/wallet-adapter-react';
 import { useWalletModal } from '@solana/wallet-adapter-react-ui';
 import { useQueryClient } from '@tanstack/react-query';
 import bs58 from 'bs58';
-import { forwardRef, useCallback, useEffect, useState } from 'react';
+import { forwardRef, useCallback, useState } from 'react';
 import { useAsyncFn } from 'react-use';
-import { useAccount, useSignMessage } from 'wagmi';
 
+import { config } from '@/configs/wagmiClient.js';
 import { FetchError } from '@/constants/error.js';
 import { EMPTY_LIST } from '@/constants/index.js';
 import { enqueueErrorMessage, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { formatEthereumAddress, formatSolanaAddress } from '@/helpers/formatAddress.js';
 import { getSnackbarMessageFromError } from '@/helpers/getSnackbarMessageFromError.js';
+import { getWalletClientRequired } from '@/helpers/getWalletClientRequired.js';
 import { isSameEthereumAddress, isSameSolanaAddress } from '@/helpers/isSameAddress.js';
 import type { SingletonModalRefCreator } from '@/libs/SingletonModal.js';
 import { ConnectWalletModalUI } from '@/modals/ConnectWalletModal.js';
-import { AccountModalRef, ConnectModalRef } from '@/modals/controls.js';
+import { AccountModalRef } from '@/modals/controls.js';
 import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
-import type { FireflyWalletConnection } from '@/providers/types/Firefly.js';
+import type { BindWalletResponse, FireflyWalletConnection } from '@/providers/types/Firefly.js';
 
 export interface AddWalletModalProps {
     connections: FireflyWalletConnection[];
     platform?: 'evm' | 'solana';
 }
 
-export const AddWalletModal = forwardRef<SingletonModalRefCreator<AddWalletModalProps>>(
+export interface AddWalletModalCloseProps {
+    response?: BindWalletResponse['data'];
+}
+
+export const AddWalletModal = forwardRef<SingletonModalRefCreator<AddWalletModalProps, AddWalletModalCloseProps>>(
     function AddWalletModal(_, ref) {
-        const account = useAccount();
-        const { signMessageAsync } = useSignMessage();
         const { publicKey, signMessage } = useWallet();
         const wallet = useWalletModal();
         const [{ connections, platform }, setProps] = useState<AddWalletModalProps>({
@@ -38,43 +41,17 @@ export const AddWalletModal = forwardRef<SingletonModalRefCreator<AddWalletModal
         const [open, dispatch] = useSingletonModal(ref, {
             onOpen: (props) => {
                 setProps(props);
-
-                if (!props.platform) return;
-
-                switch (props.platform) {
-                    case 'evm':
-                        onBindEvmAddress().then(() => {
-                            onClose();
-                        });
-                        break;
-                    case 'solana':
-                        onBindSolanaAddress().then(() => {
-                            onClose();
-                        });
-                        break;
-                    default:
-                        safeUnreachable(props.platform);
-                        break;
+                if (props.platform) {
+                    onBind(props.platform);
                 }
             },
             onClose: () => setProps({ connections: EMPTY_LIST }),
         });
-        const onClose = useCallback(() => dispatch?.close(), [dispatch]);
-        const [isConnecting, setIsConnecting] = useState(false);
-
-        useEffect(() => {
-            if (!isConnecting || !account.address) return;
-            onBindEvmAddress();
-        }, [account.address, isConnecting]);
+        const onClose = useCallback((props: AddWalletModalCloseProps = {}) => dispatch?.close(props), [dispatch]);
 
         const onBindEvmAddress = useCallback(async () => {
-            const address = account.address;
-            if (!account.isConnected || !address) {
-                ConnectModalRef.open();
-                setIsConnecting(true);
-                return;
-            }
-            setIsConnecting(false);
+            const walletClient = await getWalletClientRequired(config);
+            const address = walletClient.account.address;
             const existedConnection = connections.find((connection) =>
                 isSameEthereumAddress(connection.address, address),
             );
@@ -85,9 +62,9 @@ export const AddWalletModal = forwardRef<SingletonModalRefCreator<AddWalletModal
                 return;
             }
             const message = await FireflySocialMediaProvider.getMessageToSignForBindWallet(address.toLowerCase());
-            const signature = await signMessageAsync({ message: { raw: message }, account: address });
+            const signature = await walletClient.signMessage({ message: { raw: message }, account: address });
             return await FireflySocialMediaProvider.verifyAndBindWallet(message, signature);
-        }, [account.address, account.isConnected, connections, signMessageAsync]);
+        }, [connections]);
 
         const onBindSolanaAddress = useCallback(async () => {
             const address = publicKey?.toBase58();
@@ -114,13 +91,14 @@ export const AddWalletModal = forwardRef<SingletonModalRefCreator<AddWalletModal
         const [{ loading }, onBind] = useAsyncFn(
             async (platform: 'evm' | 'solana') => {
                 try {
+                    let result: BindWalletResponse['data'] | undefined;
                     switch (platform) {
                         case 'evm':
-                            const evmRes = await onBindEvmAddress();
-                            if (!evmRes) return;
+                            result = await onBindEvmAddress();
+                            if (!result) return;
                             break;
                         case 'solana':
-                            const result = await onBindSolanaAddress();
+                            result = await onBindSolanaAddress();
                             if (!result) return;
                             break;
                         default:
@@ -129,7 +107,7 @@ export const AddWalletModal = forwardRef<SingletonModalRefCreator<AddWalletModal
                     }
                     await qc.refetchQueries({ queryKey: ['my-wallet-connections'] });
                     enqueueSuccessMessage(t`Wallet added successfully`);
-                    onClose();
+                    onClose({ response: result });
                 } catch (error) {
                     const messageFromError = error instanceof FetchError ? error.text : '';
                     enqueueErrorMessage(
