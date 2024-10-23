@@ -34,6 +34,16 @@ export enum SupportedMethod {
     BACK = 'back',
 }
 
+export interface Profile {
+    platform_id: string;
+    platform: Platform;
+    handle: string;
+    name: string;
+    namespace: string;
+    hit: boolean;
+    score: number;
+}
+
 export interface RequestArguments {
     [SupportedMethod.GET_SUPPORTED_METHODS]: {};
     [SupportedMethod.GET_AUTHORIZATION]: {};
@@ -69,6 +79,11 @@ export interface RequestArguments {
     };
     [SupportedMethod.COMPOSE]: {
         text: string;
+        activity: string;
+        mentions: Array<{
+            content: string;
+            profiles: Profile[];
+        }>;
     };
     [SupportedMethod.BACK]: {};
 }
