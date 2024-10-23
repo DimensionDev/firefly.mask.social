@@ -44,7 +44,7 @@ export default function Page({
     return (
         <div className="flex min-h-[100svh] w-full flex-1 flex-col">
             {fireflyBridgeProvider.supported ? (
-                <NavigationBar>{data.title}</NavigationBar>
+                <NavigationBar shareText={data.title}>{data.title}</NavigationBar>
             ) : (
                 <div className="sticky top-0 z-40 flex items-center border-b border-line bg-primaryBottom px-4 py-[18px]">
                     <ComeBack width={24} height={24} className="mr-8 cursor-pointer" onClick={comeback} />

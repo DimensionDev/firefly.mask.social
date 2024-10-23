@@ -4,7 +4,6 @@ import type { HTMLProps } from 'react';
 
 import NavigationBarBackIcon from '@/assets/navigation-bar-back.svg';
 import ShareIcon from '@/assets/share-navbar.svg';
-import { SITE_NAME } from '@/constants/index.js';
 import { classNames } from '@/helpers/classNames.js';
 import { useComeBack } from '@/hooks/useComeback.js';
 import { fireflyBridgeProvider } from '@/providers/firefly/Bridge.js';
@@ -12,9 +11,11 @@ import { captureActivityEvent } from '@/providers/telemetry/captureActivityEvent
 import { EventId } from '@/providers/types/Telemetry.js';
 import { SupportedMethod } from '@/types/bridge.js';
 
-interface Props extends HTMLProps<'div'> {}
+interface Props extends HTMLProps<'div'> {
+    shareText: string;
+}
 
-export function NavigationBar({ children, className }: Props) {
+export function NavigationBar({ shareText, children, className }: Props) {
     const comeback = useComeBack();
     return (
         <div
@@ -37,7 +38,7 @@ export function NavigationBar({ children, className }: Props) {
                 className="h-6 w-6 cursor-pointer"
                 onClick={() => {
                     captureActivityEvent(EventId.EVENT_SHARE_CLICK, {});
-                    fireflyBridgeProvider.request(SupportedMethod.SHARE, { text: SITE_NAME }); // TODO: event name
+                    fireflyBridgeProvider.request(SupportedMethod.SHARE, { text: shareText });
                 }}
             >
                 <ShareIcon width={24} height={24} />

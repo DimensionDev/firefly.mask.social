@@ -1,6 +1,6 @@
 'use client';
 
-import { Trans } from '@lingui/macro';
+import { t, Trans } from '@lingui/macro';
 import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
 import { compact } from 'lodash-es';
 
@@ -29,7 +29,7 @@ export default function Page() {
     return (
         <div className="flex w-full flex-col">
             {fireflyBridgeProvider.supported ? (
-                <NavigationBar>
+                <NavigationBar shareText={t`Exclusive Events`}>
                     <Trans>Exclusive Events</Trans>
                 </NavigationBar>
             ) : null}
