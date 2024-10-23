@@ -115,6 +115,7 @@ createAppKit({
     },
     debug: true,
     includeWalletIds: walletIds,
+    excludeWalletIds: [WalletId.Injected],
     featuredWalletIds: walletIds,
 });
 
