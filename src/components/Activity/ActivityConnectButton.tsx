@@ -14,7 +14,7 @@ import { useIsLoginTwitterInActivity } from '@/components/Activity/hooks/useIsLo
 import { ChainIcon } from '@/components/NFTDetail/ChainIcon.js';
 import { EMPTY_LIST } from '@/constants/index.js';
 import { classNames } from '@/helpers/classNames.js';
-import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
+import { enqueueWarningMessage } from '@/helpers/enqueueMessage.js';
 import { formatAddress } from '@/helpers/formatAddress.js';
 import { useAllConnections } from '@/hooks/useAllConnections.js';
 import { AddWalletModalRef } from '@/modals/controls.js';
@@ -49,8 +49,10 @@ export function ActivityConnectButton() {
         <Trans>Change</Trans>
     ) : (
         <>
-            <ChainIcon className="mr-2 h-4 w-4 shrink-0" chainId={ChainId.Base} />
-            <Trans>Connect</Trans>
+            <ChainIcon className="mr-2 h-4 w-4 shrink-0" width={16} height={16} chainId={ChainId.Base} />
+            <span>
+                <Trans>Connect</Trans>
+            </span>
         </>
     );
     const buttonClassName = address
@@ -64,7 +66,7 @@ export function ActivityConnectButton() {
                     onClick={(e) => {
                         if (isLoggedIn) return;
                         e.preventDefault();
-                        enqueueErrorMessage(<Trans>Please sign in with X to continue</Trans>);
+                        enqueueWarningMessage(<Trans>Please sign in with X to continue</Trans>);
                     }}
                 >
                     {isRefetching ? (

@@ -70,7 +70,7 @@ export function ActivityTaskFollowCard({ source, profileId, handle }: Props) {
     return (
         <div
             className={classNames(
-                'flex w-full flex-col space-y-2 rounded-2xl p-3 text-sm font-semibold leading-6',
+                'flex w-full flex-col space-y-2 rounded-2xl p-3 text-sm font-semibold leading-6 sm:flex-row sm:items-center sm:space-y-0',
                 isFollowedFirefly ? 'bg-success/10 dark:bg-success/20' : 'bg-bg',
             )}
         >
@@ -86,7 +86,7 @@ export function ActivityTaskFollowCard({ source, profileId, handle }: Props) {
                 </h3>
             </ActivityVerifyText>
             {!isFollowedFirefly ? (
-                <div className="space-x-2">
+                <div className="flex space-x-2">
                     <Button
                         className="relative inline-block rounded-full bg-main px-4 leading-8 text-primaryBottom"
                         loading={isFollowingTwitter}

@@ -13,7 +13,7 @@ export function ActivityConnectCard() {
     return (
         <div
             className={classNames(
-                'flex w-full flex-col space-y-2 rounded-2xl p-3 text-sm font-semibold leading-6',
+                'flex w-full flex-col space-y-2 rounded-2xl p-3 text-sm font-semibold leading-6 sm:flex-row sm:items-center sm:space-y-0',
                 address ? 'bg-success/10 dark:bg-success/20' : 'bg-bg',
             )}
         >
@@ -22,7 +22,7 @@ export function ActivityConnectCard() {
                     {address ? <Trans>Wallet submitted</Trans> : <Trans>Connect your wallet to claim your NFT</Trans>}
                 </h3>
             </ActivityVerifyText>
-            <div className="h-8 space-x-2">
+            <div className="flex h-8 flex-shrink-0 space-x-2">
                 <ActivityConnectButton />
             </div>
         </div>
