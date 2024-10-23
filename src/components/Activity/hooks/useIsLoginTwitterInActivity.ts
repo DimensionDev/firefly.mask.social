@@ -1,6 +1,8 @@
 import { useQuery } from '@tanstack/react-query';
+import { useContext } from 'react';
 import urlcat from 'urlcat';
 
+import { ActivityContext } from '@/components/Activity/ActivityContext.js';
 import { Source } from '@/constants/enum.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
 import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
@@ -12,6 +14,7 @@ import { settings } from '@/settings/index.js';
 export function useIsLoginTwitterInActivity() {
     const twitterProfile = useCurrentProfile(Source.Twitter);
     const { data: token } = useFireflyBridgeAuthorization();
+    const { setFireflyAccountId } = useContext(ActivityContext);
     return useQuery({
         enabled: twitterProfile ? true : !!token,
         queryKey: ['is-logged-twitter', !!twitterProfile, token],
@@ -24,6 +27,7 @@ export function useIsLoginTwitterInActivity() {
                 },
             });
             if (!res.data) return false;
+            if (res.data.fireflyAccountId) setFireflyAccountId(res.data.fireflyAccountId);
             return res.data.twitterProfiles.length > 0;
         },
     });

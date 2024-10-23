@@ -25,7 +25,7 @@ import { Network, SupportedMethod } from '@/types/bridge.js';
 import { ChainId } from '@/types/frame.js';
 
 export function ActivityConnectButton() {
-    const { onChangeAddress, address } = useContext(ActivityContext);
+    const { onChangeAddress, address, fireflyAccountId } = useContext(ActivityContext);
     const { refetch: refetchActivityClaimCondition, isRefetching } = useActivityClaimCondition();
     const { data: isLoggedIn } = useIsLoginTwitterInActivity();
     const { data: { connected = EMPTY_LIST } = {}, refetch } = useAllConnections({
@@ -91,6 +91,7 @@ export function ActivityConnectButton() {
                                     onChangeAddress(address);
                                     captureActivityEvent(EventId.EVENT_CHANGE_WALLET_SUCCESS, {
                                         wallet_address: address,
+                                        firefly_account_id: fireflyAccountId,
                                     });
                                     refetchActivityClaimCondition();
                                 }}
@@ -110,6 +111,7 @@ export function ActivityConnectButton() {
                                     onChangeAddress(address);
                                     captureActivityEvent(EventId.EVENT_CONNECT_WALLET_SUCCESS, {
                                         wallet_address: address,
+                                        firefly_account_id: fireflyAccountId,
                                     });
                                     refetchActivityClaimCondition();
                                     return;

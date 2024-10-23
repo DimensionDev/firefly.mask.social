@@ -21,7 +21,7 @@ import { EventId } from '@/providers/types/Telemetry.js';
 import { mintActivitySBT } from '@/services/mintActivitySBT.js';
 
 export function ActivityClaimButton({ status }: { status: ActivityStatus }) {
-    const { address, name } = useContext(ActivityContext);
+    const { address, name, fireflyAccountId } = useContext(ActivityContext);
     const { data: authToken } = useFireflyBridgeAuthorization();
     const { data, refetch } = useActivityClaimCondition();
     const [hash, setHash] = useState<string | undefined>(undefined);
@@ -39,28 +39,25 @@ export function ActivityClaimButton({ status }: { status: ActivityStatus }) {
             await refetch();
             setHash(hash);
             setChainId(chainId);
-            if (isPremium) {
-            }
             captureActivityEvent(isPremium ? EventId.EVENT_CLAIM_PREMIUM_SUCCESS : EventId.EVENT_CLAIM_BASIC_SUCCESS, {
                 wallet_address: address,
+                firefly_account_id: fireflyAccountId ?? undefined,
             });
         } catch (error) {
             enqueueErrorMessage(getSnackbarMessageFromError(error, t`Failed to claim token`), { error });
             throw error;
         }
-    }, [disabled, address, authToken, isPremium]);
+    }, [disabled, address, authToken, isPremium, fireflyAccountId]);
 
     const buttonText = (() => {
         if (status === ActivityStatus.Ended) {
             return <Trans>Ended</Trans>;
         }
-        if (!disabled) {
-            if (data?.alreadyClaimed) {
-                return <Trans>Claimed</Trans>;
-            }
-            if (data?.canClaim) {
-                return isPremium ? <Trans>Claim Premium</Trans> : <Trans>Claim Basic</Trans>;
-            }
+        if (data?.alreadyClaimed) {
+            return <Trans>Claimed</Trans>;
+        }
+        if (!disabled || data?.canClaim) {
+            return isPremium ? <Trans>Claim Premium</Trans> : <Trans>Claim Basic</Trans>;
         }
         return <Trans>Claim Now</Trans>;
     })();

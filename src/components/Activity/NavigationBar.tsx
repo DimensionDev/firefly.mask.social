@@ -1,9 +1,10 @@
 'use client';
 
-import type { HTMLProps } from 'react';
+import { type HTMLProps, useContext } from 'react';
 
 import NavigationBarBackIcon from '@/assets/navigation-bar-back.svg';
 import ShareIcon from '@/assets/share-navbar.svg';
+import { ActivityContext } from '@/components/Activity/ActivityContext.js';
 import { classNames } from '@/helpers/classNames.js';
 import { useComeBack } from '@/hooks/useComeback.js';
 import { fireflyBridgeProvider } from '@/providers/firefly/Bridge.js';
@@ -17,6 +18,7 @@ interface Props extends HTMLProps<'div'> {
 
 export function NavigationBar({ shareText, children, className }: Props) {
     const comeback = useComeBack();
+    const { fireflyAccountId } = useContext(ActivityContext);
     return (
         <div
             className={classNames(
@@ -37,7 +39,9 @@ export function NavigationBar({ shareText, children, className }: Props) {
             <button
                 className="h-6 w-6 cursor-pointer"
                 onClick={() => {
-                    captureActivityEvent(EventId.EVENT_SHARE_CLICK, {});
+                    captureActivityEvent(EventId.EVENT_SHARE_CLICK, {
+                        firefly_account_id: fireflyAccountId,
+                    });
                     fireflyBridgeProvider.request(SupportedMethod.SHARE, { text: shareText });
                 }}
             >

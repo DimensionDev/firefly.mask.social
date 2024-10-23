@@ -12,7 +12,12 @@ export function captureActivityEvent<
         | EventId.EVENT_CLAIM_BASIC_SUCCESS
         | EventId.EVENT_CLAIM_PREMIUM_SUCCESS
         | EventId.EVENT_SHARE_AND_POST_SUCCESS,
->(eventId: E, params: Omit<Events[E]['parameters'], 'firefly_account_id'>) {
+>(
+    eventId: E,
+    params: Omit<Events[E]['parameters'], 'firefly_account_id'> & {
+        firefly_account_id?: string;
+    },
+) {
     runInSafe(() => {
         const fireflyAccountId = useFireflyStateStore.getState().currentProfileSession?.profileId as string;
         TelemetryProvider.captureEvent(
