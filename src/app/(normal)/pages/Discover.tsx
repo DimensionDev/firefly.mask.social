@@ -2,11 +2,10 @@
 
 import { Trans } from '@lingui/macro';
 import { safeUnreachable } from '@masknet/kit';
-import React, { type ComponentType, memo, Suspense } from 'react';
+import React, { type ComponentType, memo } from 'react';
 
 import { DiscoverArticleList } from '@/components/Article/DiscoverArticleList.js';
 import { ChannelList } from '@/components/Channel/ChannelList.js';
-import { Loading } from '@/components/Loading.js';
 import { DiscoverNFTList } from '@/components/NFTs/DiscoverNFTList.js';
 import { DiscoverPostList } from '@/components/Posts/DiscoverPostList.js';
 import { ForYouPostList } from '@/components/Posts/ForYouPostList.js';
@@ -31,33 +30,17 @@ interface Props {
 
 export function DiscoverPage({ source, discover = DiscoverType.Trending }: Props) {
     if (source === Source.Snapshot) {
-        return (
-            <Suspense fallback={<Loading />}>
-                <DiscoverSnapshotList />
-            </Suspense>
-        );
+        return <DiscoverSnapshotList />;
     }
     if (source === Source.Article) {
-        return (
-            <Suspense fallback={<Loading />}>
-                <DiscoverArticleList />
-            </Suspense>
-        );
+        return <DiscoverArticleList />;
     }
 
     if (source === Source.NFTs) {
-        return (
-            <Suspense fallback={<Loading />}>
-                <DiscoverNFTList />
-            </Suspense>
-        );
+        return <DiscoverNFTList />;
     }
 
-    return (
-        <Suspense fallback={<Loading />}>
-            <DiscoverContentList type={discover} source={source} />
-        </Suspense>
-    );
+    return <DiscoverContentList type={discover} source={source} />;
 }
 
 export function DiscoverTypeTabs({
