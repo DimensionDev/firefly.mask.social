@@ -98,7 +98,7 @@ export function BridgeMethodButton({ item }: Props) {
                 case SupportedMethod.COMPOSE:
                     fireflyBridgeProvider.request(SupportedMethod.COMPOSE, {
                         text: SITE_DESCRIPTION,
-                        activity: 'xxxxxx',
+                        activity: 'firefly',
                         mentions: [
                             {
                                 content: '@thefireflyapp',
