@@ -84,7 +84,7 @@ export function BridgeMethodButton({ item }: Props) {
                     break;
                 }
                 case SupportedMethod.OPEN_URL: {
-                    fireflyBridgeProvider.request(SupportedMethod.OPEN_URL, { url: 'https://firefly.land' });
+                    await fireflyBridgeProvider.request(SupportedMethod.OPEN_URL, { url: 'https://firefly.land' });
                     break;
                 }
                 case SupportedMethod.LOGIN: {
