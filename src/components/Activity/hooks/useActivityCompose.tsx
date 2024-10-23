@@ -5,7 +5,8 @@ import { SourceInURL } from '@/constants/enum.js';
 import { CHAR_TAG, type Chars } from '@/helpers/chars.js';
 import { ComposeModalRef } from '@/modals/controls.js';
 import { fireflyBridgeProvider } from '@/providers/firefly/Bridge.js';
-import { SupportedMethod } from '@/types/bridge.js';
+import type { Profile } from '@/providers/types/Firefly.js';
+import { type Mention, type RequestArguments, SupportedMethod } from '@/types/bridge.js';
 
 export function useActivityCompose() {
     const list = useActivityPremiumList();
@@ -39,7 +40,7 @@ export function useActivityCompose() {
                 hit: true,
                 score: 0,
             },
-        ],
+        ] as Profile[],
     };
     // cspell: disable-next-line
     const barmstrongMention = {
@@ -101,9 +102,26 @@ export function useActivityCompose() {
 
     return useAsyncFn(async () => {
         if (fireflyBridgeProvider.supported) {
-            return fireflyBridgeProvider.request(SupportedMethod.COMPOSE, {
-                text: text.map((part) => (typeof part === 'object' ? part.content : part)).join(''),
-            });
+            const params = text.reduce<RequestArguments[SupportedMethod.COMPOSE]>(
+                (acc, part) => {
+                    if (typeof part === 'string') {
+                        acc.text += part;
+                    } else {
+                        acc.text += part.content;
+                        acc.mentions.push({
+                            content: part.content,
+                            profiles: part.profiles,
+                        } as Mention);
+                    }
+                    return acc;
+                },
+                {
+                    activity: `${window.location.origin}${window.location.pathname}`,
+                    text: '',
+                    mentions: [],
+                },
+            );
+            return fireflyBridgeProvider.request(SupportedMethod.COMPOSE, params);
         }
 
         ComposeModalRef.open({

@@ -1,3 +1,5 @@
+import type { Profile } from '@/providers/types/Firefly.js';
+
 export enum Theme {
     Auto = 'auto',
     Light = 'light',
@@ -32,6 +34,11 @@ export enum SupportedMethod {
     SHARE = 'share',
     COMPOSE = 'compose',
     BACK = 'back',
+}
+
+export interface Mention {
+    content: string;
+    profiles: Profile[];
 }
 
 export interface RequestArguments {
@@ -69,6 +76,8 @@ export interface RequestArguments {
     };
     [SupportedMethod.COMPOSE]: {
         text: string;
+        activity: string;
+        mentions: Mention[];
     };
     [SupportedMethod.BACK]: {};
 }

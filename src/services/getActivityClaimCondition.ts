@@ -12,7 +12,7 @@ export async function getActivityClaimCondition(
         authToken?: string;
     } = {},
 ) {
-    const { authToken, address = '' } = options;
+    const { authToken, address = '0x' } = options;
     const url = urlcat(settings.FIREFLY_ROOT_URL, `/v1/activity/check/:name`, { name, address });
     if (authToken) {
         const response = await fetchJSON<CheckResponse>(url, {

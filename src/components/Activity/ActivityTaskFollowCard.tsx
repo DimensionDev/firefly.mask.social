@@ -1,6 +1,6 @@
 'use client';
 
-import { Trans } from '@lingui/macro';
+import { t, Trans } from '@lingui/macro';
 import { type ReactNode } from 'react';
 
 import LoadingIcon from '@/assets/loading.svg';
@@ -99,7 +99,10 @@ export function ActivityTaskFollowCard({ source, profileId, handle }: Props) {
                         className="relative rounded-full border border-current px-4 leading-[30px] disabled:opacity-60"
                         loading={isRefetching}
                         isLoggedIn={isLoggedIn}
-                        onClick={() => refetch()}
+                        onClick={async () => {
+                            const { data: isFollowed } = await refetch();
+                            if (!isFollowed) enqueueWarningMessage(t`Verification unsuccessful`);
+                        }}
                     >
                         <Trans>Verify</Trans>
                     </Button>
