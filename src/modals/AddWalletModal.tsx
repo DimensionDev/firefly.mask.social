@@ -36,26 +36,31 @@ export const AddWalletModal = forwardRef<SingletonModalRefCreator<AddWalletModal
             connections: EMPTY_LIST,
         });
         const [open, dispatch] = useSingletonModal(ref, {
-            onOpen: setProps,
+            onOpen: (props) => {
+                setProps(props);
+
+                if (!props.platform) return;
+
+                switch (props.platform) {
+                    case 'evm':
+                        onBindEvmAddress().then(() => {
+                            onClose();
+                        });
+                        break;
+                    case 'solana':
+                        onBindSolanaAddress().then(() => {
+                            onClose();
+                        });
+                        break;
+                    default:
+                        safeUnreachable(props.platform);
+                        break;
+                }
+            },
             onClose: () => setProps({ connections: EMPTY_LIST }),
         });
         const onClose = useCallback(() => dispatch?.close(), [dispatch]);
         const [isConnecting, setIsConnecting] = useState(false);
-
-        useEffect(() => {
-            switch (platform) {
-                case 'evm':
-                    onBindEvmAddress().then(() => {
-                        onClose();
-                    });
-                    break;
-                case 'solana':
-                    onBindSolanaAddress().then(() => {
-                        onClose();
-                    });
-                    break;
-            }
-        }, [platform]);
 
         useEffect(() => {
             if (!isConnecting || !account.address) return;
