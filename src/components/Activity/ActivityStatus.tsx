@@ -20,10 +20,10 @@ export function ActivityStatusTag({ status }: { status: ActivityStatus }) {
                     <div className="ml-1 h-2 w-2 shrink-0 rounded-full bg-current" />
                 </div>
             );
-        case ActivityStatus.Incoming:
+        case ActivityStatus.Upcoming:
             return (
                 <div className="rounded-full border border-current bg-primaryBottom/80 px-2.5 text-center text-xs font-bold uppercase leading-6 text-second">
-                    <Trans>Incoming</Trans>
+                    <Trans>Upcoming</Trans>
                 </div>
             );
         default:
