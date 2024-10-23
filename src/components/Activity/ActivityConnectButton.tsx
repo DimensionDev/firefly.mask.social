@@ -2,7 +2,6 @@
 
 import { Menu } from '@headlessui/react';
 import { Trans } from '@lingui/macro';
-import { delay } from '@masknet/kit';
 import { useQuery } from '@tanstack/react-query';
 import { useContext } from 'react';
 
@@ -88,7 +87,7 @@ export function ActivityConnectButton() {
                         {buttonText}
                     </span>
                 </Menu.Button>
-                <Menu.Items className="absolute left-1/2 top-[calc(100%+12px)] z-50 flex w-[200px] -translate-x-1/2 flex-col rounded-[12px] border border-line bg-primaryBottom shadow-lg">
+                <Menu.Items className="absolute left-1/2 top-[calc(100%+12px)] z-50 flex max-h-[400px] w-[200px] -translate-x-1/2 flex-col overflow-y-auto rounded-[12px] border border-line bg-primaryBottom shadow-lg">
                     {addresses.map(({ address, ens }) => (
                         <Menu.Item key={address}>
                             <a
@@ -122,11 +121,11 @@ export function ActivityConnectButton() {
                                     refetchActivityClaimCondition();
                                     return;
                                 }
-                                await AddWalletModalRef.openAndWaitForClose({
+                                const { response } = await AddWalletModalRef.openAndWaitForClose({
                                     connections: connected,
                                     platform: 'evm',
                                 });
-                                await delay(5000);
+                                if (response?.address) onChangeAddress(response.address);
                                 await refetch();
                             }}
                         >
