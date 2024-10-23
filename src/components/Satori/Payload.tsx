@@ -1,9 +1,9 @@
 import type { FireflyRedPacketAPI } from '@masknet/web3-providers/types';
 
-import { AmountText } from '@/components/RedPacket/AmountText.js';
-import { AuthorText } from '@/components/RedPacket/AuthorText.js';
-import { PayloadContainer } from '@/components/RedPacket/PayloadContainer.js';
-import { QuoteText } from '@/components/RedPacket/QuoteText.js';
+import { AmountText } from '@/components/Satori/AmountText.js';
+import { AuthorText } from '@/components/Satori/AuthorText.js';
+import { PayloadContainer } from '@/components/Satori/PayloadContainer.js';
+import { QuoteText } from '@/components/Satori/QuoteText.js';
 import { TokenType, UsageType } from '@/types/rp.js';
 
 interface PayloadProps {

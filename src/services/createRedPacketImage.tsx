@@ -4,8 +4,8 @@ import type { FireflyRedPacketAPI } from '@masknet/web3-providers/types';
 import satori from 'satori';
 import urlcat from 'urlcat';
 
-import { RedPacketCover } from '@/components/RedPacket/Cover.js';
-import { RedPacketPayload } from '@/components/RedPacket/Payload.js';
+import { RedPacketCover } from '@/components/Satori/Cover.js';
+import { RedPacketPayload } from '@/components/Satori/Payload.js';
 import { Locale } from '@/constants/enum.js';
 import { UnreachableError } from '@/constants/error.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
