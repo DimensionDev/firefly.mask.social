@@ -60,6 +60,7 @@ export function useActivityCompose() {
             {
                 platform_id: '20',
                 platform: SourceInURL.Farcaster,
+                // cspell: disable-next-line
                 handle: 'barmstrong',
                 name: 'Brian Armstrong',
                 namespace: '',
@@ -94,6 +95,7 @@ export function useActivityCompose() {
               fireflyMention,
               '!\n\n',
               'If you followed ',
+              // cspell: disable-next-line
               barmstrongMention,
               ' on X or Farcaster before Oct 20, you’re eligible to claim yours at https://firefly.mask.social/event/hlbl .\n\n',
               '#Base #FireflySocial',
