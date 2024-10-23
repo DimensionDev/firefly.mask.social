@@ -90,14 +90,13 @@ export function useActivityCompose() {
               '#Base #FireflySocial',
           ]
         : [
-              'Just claimed the "Congrats 🥂 to Brian" collectible from ',
+              'Just claimed the "Huge Congrats🍾 to Brian" collectible from ',
               fireflyMention,
               '!\n\n',
               'If you followed ',
-              // cspell: disable-next-line
               barmstrongMention,
-              " on X or Farcaster before Oct 20, you're eligible to claim yours at https://firefly.mask.social/event/hlbl .\n\n",
-              '#Base #FireflySocial\n',
+              ' on X or Farcaster before Oct 20, you’re eligible to claim yours at https://firefly.mask.social/event/hlbl .\n\n',
+              '#Base #FireflySocial',
           ];
 
     return useAsyncFn(async () => {
