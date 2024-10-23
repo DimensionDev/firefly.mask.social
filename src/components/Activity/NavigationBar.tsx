@@ -20,7 +20,7 @@ export function NavigationBar({ shareText, children, className }: Props) {
     return (
         <div
             className={classNames(
-                'sticky top-0 z-20 grid h-[44px] w-full grid-cols-[24px_1fr_24px] items-center justify-between gap-2 bg-primaryBottom px-4 text-center text-lg font-bold dark:bg-[#262a34]',
+                'sticky top-0 z-20 grid h-[44px] w-full grid-cols-[24px_1fr_24px] items-center justify-between gap-2 bg-primaryBottom px-4 text-center text-lg font-bold',
                 className,
             )}
         >

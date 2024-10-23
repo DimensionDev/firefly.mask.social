@@ -2,12 +2,12 @@ import { Trans } from '@lingui/macro';
 import { DotLottie, DotLottieReact } from '@lottiefiles/dotlottie-react';
 import { usePathname } from 'next/navigation.js';
 import { useRef } from 'react';
-import { useDarkMode } from 'usehooks-ts';
 
 import { PageRoute } from '@/constants/enum.js';
 import { Link } from '@/esm/Link.js';
 import { classNames } from '@/helpers/classNames.js';
 import { isRoutePathname } from '@/helpers/isRoutePathname.js';
+import { useDarkMode } from '@/hooks/useDarkMode.js';
 
 export function ExclusiveEvents() {
     const pathname = usePathname();

@@ -871,6 +871,9 @@ msgstr ""
 msgid "🎉"
 msgstr ""
 
+msgid "Your Farcaster account holds Power Badge"
+msgstr ""
+
 msgid "Owned By"
 msgstr ""
 
@@ -1289,9 +1292,6 @@ msgid "Followers you know"
 msgstr ""
 
 msgid "Settings"
-msgstr ""
-
-msgid "X Premium account"
 msgstr ""
 
 msgid "Unsent posts"
@@ -2311,9 +2311,6 @@ msgstr ""
 msgid "Verify"
 msgstr ""
 
-msgid "Hold ≥ $10k Base Chain asset"
-msgstr ""
-
 msgid "Recasted"
 msgstr ""
 
@@ -2401,6 +2398,9 @@ msgstr ""
 msgid "There is no limit to the number of token transactions. The number of scam token transactions may be limited (honeypot risk)."
 msgstr ""
 
+msgid "Your assets on Base Chain are worth over US$10,000"
+msgstr ""
+
 msgid "This is not an airdrop scam. Many scams attract users through airdrops."
 msgstr ""
 
@@ -2485,6 +2485,9 @@ msgstr ""
 msgid "Following"
 msgstr ""
 
+msgid "Your X account holds Premium status"
+msgstr ""
+
 msgid "View transaction on Explorer"
 msgstr ""
 
@@ -2492,9 +2495,6 @@ msgid "Hours"
 msgstr ""
 
 msgid "Note:"
-msgstr ""
-
-msgid "Farcaster Powerbadge account"
 msgstr ""
 
 msgid "Failed to create schedule post."

@@ -104,12 +104,9 @@ export function ActivityConnectButton() {
                             className="flex cursor-pointer items-center px-4 py-[11px] text-sm font-semibold leading-6"
                             onClick={async () => {
                                 if (fireflyBridgeProvider.supported) {
-                                    const address = await fireflyBridgeProvider.request(
-                                        SupportedMethod.CONNECT_WALLET,
-                                        {
-                                            type: Network.EVM,
-                                        },
-                                    );
+                                    const address = await fireflyBridgeProvider.request(SupportedMethod.BIND_WALLET, {
+                                        type: Network.EVM,
+                                    });
                                     onChangeAddress(address);
                                     captureActivityEvent(EventId.EVENT_CONNECT_WALLET_SUCCESS, {
                                         wallet_address: address,

@@ -876,6 +876,9 @@ msgstr "<0>出售了</0> 一个 NFT 价值 {costEl}"
 msgid "🎉"
 msgstr "🎉"
 
+msgid "Your Farcaster account holds Power Badge"
+msgstr ""
+
 msgid "Owned By"
 msgstr "属于"
 
@@ -1295,9 +1298,6 @@ msgstr "你认识的关注者"
 
 msgid "Settings"
 msgstr "设置"
-
-msgid "X Premium account"
-msgstr ""
 
 msgid "Unsent posts"
 msgstr "未发送的帖子"
@@ -2316,9 +2316,6 @@ msgstr ""
 msgid "Verify"
 msgstr ""
 
-msgid "Hold ≥ $10k Base Chain asset"
-msgstr ""
-
 msgid "Recasted"
 msgstr "已转发"
 
@@ -2406,6 +2403,9 @@ msgstr "地点"
 msgid "There is no limit to the number of token transactions. The number of scam token transactions may be limited (honeypot risk)."
 msgstr "对通证的交易次数没有限制。可疑通证的交易次数可能是有限的。"
 
+msgid "Your assets on Base Chain are worth over US$10,000"
+msgstr ""
+
 msgid "This is not an airdrop scam. Many scams attract users through airdrops."
 msgstr "这不是空投欺诈。许多欺诈通过空投吸引用户。"
 
@@ -2490,6 +2490,9 @@ msgstr "已转发"
 msgid "Following"
 msgstr "正在关注"
 
+msgid "Your X account holds Premium status"
+msgstr ""
+
 msgid "View transaction on Explorer"
 msgstr "查看交易详情"
 
@@ -2498,9 +2501,6 @@ msgstr "小时"
 
 msgid "Note:"
 msgstr "注意 ："
-
-msgid "Farcaster Powerbadge account"
-msgstr ""
 
 msgid "Failed to create schedule post."
 msgstr "创建定时任务失败"
