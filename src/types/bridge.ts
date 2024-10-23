@@ -82,6 +82,8 @@ export interface RequestArguments {
     [SupportedMethod.BACK]: {};
 }
 
+type StringifyBoolean = 'true' | 'false';
+
 export interface RequestResult {
     [SupportedMethod.GET_SUPPORTED_METHODS]: SupportedMethod[];
     [SupportedMethod.GET_AUTHORIZATION]: string;
@@ -90,8 +92,8 @@ export interface RequestResult {
     [SupportedMethod.GET_WALLET_ADDRESS]: string[];
     [SupportedMethod.CONNECT_WALLET]: string;
     [SupportedMethod.BIND_WALLET]: string; // address
-    [SupportedMethod.IS_TWITTER_USER_FOLLOWING]: boolean;
-    [SupportedMethod.FOLLOW_TWITTER_USER]: boolean;
+    [SupportedMethod.IS_TWITTER_USER_FOLLOWING]: StringifyBoolean;
+    [SupportedMethod.FOLLOW_TWITTER_USER]: StringifyBoolean;
     [SupportedMethod.UPDATE_NAVIGATOR_BAR]: void;
     [SupportedMethod.OPEN_URL]: void;
     [SupportedMethod.LOGIN]: {

@@ -4,8 +4,8 @@ import { Trans } from '@lingui/macro';
 
 import { ActivityVerifyText } from '@/components/Activity/ActivityVerifyText.js';
 import { useActivityClaimCondition } from '@/components/Activity/hooks/useActivityClaimCondition.js';
+import { Link } from '@/components/Activity/Link.js';
 import { Source } from '@/constants/enum.js';
-import { Link } from '@/esm/Link.js';
 import { classNames } from '@/helpers/classNames.js';
 import { resolveProfileUrl } from '@/helpers/resolveProfileUrl.js';
 

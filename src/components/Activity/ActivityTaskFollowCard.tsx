@@ -5,13 +5,11 @@ import { type ReactNode } from 'react';
 
 import LoadingIcon from '@/assets/loading.svg';
 import { ActivityVerifyText } from '@/components/Activity/ActivityVerifyText.js';
-import {
-    useActivityFollowTwitter,
-    useIsFollowTwitterInActivity,
-} from '@/components/Activity/hooks/useActivityFollowTwitter.js';
+import { useActivityFollowTwitter } from '@/components/Activity/hooks/useActivityFollowTwitter.js';
+import { useIsFollowTwitterInActivity } from '@/components/Activity/hooks/useIsFollowTwitterInActivity.js';
 import { useIsLoginTwitterInActivity } from '@/components/Activity/hooks/useIsLoginTwitterInActivity.js';
+import { Link } from '@/components/Activity/Link.js';
 import { type ProfilePageSource } from '@/constants/enum.js';
-import { Link } from '@/esm/Link.js';
 import { classNames } from '@/helpers/classNames.js';
 import { enqueueWarningMessage } from '@/helpers/enqueueMessage.js';
 import { resolveProfileUrl } from '@/helpers/resolveProfileUrl.js';
