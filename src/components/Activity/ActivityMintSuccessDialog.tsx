@@ -42,7 +42,7 @@ export function ActivityMintSuccessDialog({ open, onClose, hash, chainId }: Prop
                 onClick={shareAndPost}
                 disabled={loading}
             >
-                <Trans>Share and Post</Trans>
+                <Trans>Share in Post</Trans>
             </button>
         </div>
     );

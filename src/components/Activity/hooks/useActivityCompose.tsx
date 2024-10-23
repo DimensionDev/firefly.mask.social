@@ -81,7 +81,7 @@ export function useActivityCompose() {
 
     const text = isPremium
         ? [
-              'Just claimed the "Huge Congrats🍾 to Brian" collectible from ',
+              'Just claimed the "Congrats 🥂 to Brian" collectible from ',
               fireflyMention,
               '!\n\n',
               'If you followed ',
@@ -129,5 +129,5 @@ export function useActivityCompose() {
             type: 'compose',
             chars: text as Chars,
         });
-    });
+    }, [text]);
 }
