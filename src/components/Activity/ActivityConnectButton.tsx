@@ -28,10 +28,14 @@ export function ActivityConnectButton() {
     const { onChangeAddress, address, fireflyAccountId } = useContext(ActivityContext);
     const { refetch: refetchActivityClaimCondition, isRefetching } = useActivityClaimCondition();
     const { data: isLoggedIn } = useIsLoginTwitterInActivity();
-    const { data: { connected = EMPTY_LIST } = {}, refetch } = useAllConnections({
+    const {
+        data: { connected = EMPTY_LIST } = {},
+        refetch,
+        isLoading: isLoadingAllConnections,
+    } = useAllConnections({
         refetchInterval: 600000,
     });
-    const { data: bridgeAddresses = EMPTY_LIST } = useQuery({
+    const { data: bridgeAddresses = EMPTY_LIST, isLoading: isLoadingBridgeAddresses } = useQuery({
         enabled: fireflyBridgeProvider.supported,
         queryKey: ['firefly-bridge-address', Network.EVM],
         async queryFn() {
@@ -41,6 +45,8 @@ export function ActivityConnectButton() {
         },
         refetchInterval: 600000,
     });
+
+    const isLoading = isLoadingAllConnections || isLoadingBridgeAddresses;
     const addresses: Array<{ address: string; ens?: string }> = fireflyBridgeProvider.supported
         ? bridgeAddresses.map((address) => ({ address }))
         : connected.filter((x) => x.platform === 'eth').map((x) => ({ address: x.address, ens: x.ens?.[0] }));
@@ -69,14 +75,14 @@ export function ActivityConnectButton() {
                         enqueueWarningMessage(<Trans>Please sign in with X to continue</Trans>);
                     }}
                 >
-                    {isRefetching ? (
+                    {isRefetching || isLoading ? (
                         <span className="absolute left-0 top-0 flex h-full w-full items-center justify-center">
                             <LoadingIcon className="animate-spin" width={16} height={16} />
                         </span>
                     ) : null}
                     <span
                         className={classNames('flex items-center', {
-                            'opacity-0': isRefetching,
+                            'opacity-0': isRefetching || isLoading,
                         })}
                     >
                         {buttonText}
