@@ -1,0 +1,16 @@
+diff --git a/lib/esm/WalletModal.js b/lib/esm/WalletModal.js
+index 2dfb2481b8fe0c5fc86f82ec36cb5d0c6befc2bd..4ae3a84d848488f4d680f631b439556493b973e9 100644
+--- a/lib/esm/WalletModal.js
++++ b/lib/esm/WalletModal.js
+@@ -24,6 +24,11 @@ export const WalletModal = ({ className = '', container = 'body' }) => {
+                 notInstalled.push(wallet);
+             }
+         }
++        installed.sort((a, b) => {
++            const name = a.adapter.name;
++            if (typeof name === 'string' && name.includes('Firefly')) return -1;
++            return 0;
++        });
+         return installed.length ? [installed, notInstalled] : [notInstalled, []];
+     }, [wallets]);
+     const hideModal = useCallback(() => {
