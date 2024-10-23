@@ -30,7 +30,7 @@ export function ActivityClaimButton({ status }: { status: ActivityStatus }) {
     const list = useActivityPremiumList();
 
     const isPremium = list.some((x) => x.verified);
-    const disabled = status === ActivityStatus.Ended || !data?.canClaim || !isFollowedFirefly;
+    const disabled = status === ActivityStatus.Ended || !data?.canClaim || !isFollowedFirefly || !address;
 
     const [{ loading }, claim] = useAsyncFn(async () => {
         if (disabled || !address) return;
@@ -54,11 +54,13 @@ export function ActivityClaimButton({ status }: { status: ActivityStatus }) {
         if (status === ActivityStatus.Ended) {
             return <Trans>Ended</Trans>;
         }
-        if (data?.alreadyClaimed) {
-            return <Trans>Claimed</Trans>;
-        }
-        if (!disabled && data?.canClaim) {
-            return isPremium ? <Trans>Claim Premium</Trans> : <Trans>Claim Basic</Trans>;
+        if (!disabled) {
+            if (data?.alreadyClaimed) {
+                return <Trans>Claimed</Trans>;
+            }
+            if (data?.canClaim) {
+                return isPremium ? <Trans>Claim Premium</Trans> : <Trans>Claim Basic</Trans>;
+            }
         }
         return <Trans>Claim Now</Trans>;
     })();
