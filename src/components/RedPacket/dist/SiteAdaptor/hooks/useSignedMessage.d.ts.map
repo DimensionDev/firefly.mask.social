@@ -1,0 +1,1 @@
+{"version":3,"file":"useSignedMessage.d.ts","sourceRoot":"","sources":["../../../src/SiteAdaptor/hooks/useSignedMessage.ts"],"names":[],"mappings":"AAEA,OAAO,EAAE,KAAK,oBAAoB,EAAE,KAAK,uBAAuB,EAAE,MAAM,+BAA+B,CAAA;AAMvG,wBAAgB,gBAAgB,CAC5B,OAAO,EAAE,MAAM,EACf,OAAO,GAAE,oBAAoB,GAAG,uBAAoD,6EAwCvF"}
