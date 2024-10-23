@@ -1,6 +1,7 @@
 import { runInSafe } from '@/helpers/runInSafe.js';
+import { getPublicParameters } from '@/providers/telemetry/getPublicParameters.js';
 import { TelemetryProvider } from '@/providers/telemetry/index.js';
-import { type EventId, type Events, VersionFilter } from '@/providers/types/Telemetry.js';
+import { type EventId, type Events } from '@/providers/types/Telemetry.js';
 import { useFireflyStateStore } from '@/store/useProfileStore.js';
 
 export function captureActivityEvent<
@@ -22,10 +23,12 @@ export function captureActivityEvent<
         const fireflyAccountId = useFireflyStateStore.getState().currentProfileSession?.profileId as string;
         TelemetryProvider.captureEvent(
             eventId,
-            { ...params, firefly_account_id: fireflyAccountId } as Events[E]['parameters'],
             {
-                version_filter: VersionFilter.Next,
-            },
+                ...params,
+                ...getPublicParameters(eventId, null),
+                firefly_account_id: fireflyAccountId,
+            } as Events[E]['parameters'],
+            {},
         );
     });
 }
