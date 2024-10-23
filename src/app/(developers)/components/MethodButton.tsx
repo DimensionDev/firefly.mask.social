@@ -1,10 +1,12 @@
+/* cspell:disable */
+
 'use client';
 
 import { safeUnreachable } from '@masknet/kit';
 import { useAsyncFn } from 'react-use';
 
 import { ClickableButton } from '@/components/ClickableButton.js';
-import { SITE_NAME } from '@/constants/index.js';
+import { SITE_DESCRIPTION, SITE_NAME } from '@/constants/index.js';
 import { enqueueErrorMessage, enqueueInfoMessage } from '@/helpers/enqueueMessage.js';
 import { getSnackbarMessageFromError } from '@/helpers/getSnackbarMessageFromError.js';
 import { fireflyBridgeProvider } from '@/providers/firefly/Bridge.js';
@@ -96,7 +98,42 @@ export function MethodButton({ item }: Props) {
                     break;
                 case SupportedMethod.COMPOSE:
                     fireflyBridgeProvider.request(SupportedMethod.COMPOSE, {
-                        text: SITE_NAME,
+                        text: SITE_DESCRIPTION,
+                        activity: 'firefly',
+                        mentions: [
+                            {
+                                content: '@thefireflyapp',
+                                profiles: [
+                                    {
+                                        platform_id: '0x01d86b',
+                                        platform: Platform.LENS,
+                                        handle: 'brian',
+                                        name: 'brian',
+                                        namespace: 'lens',
+                                        hit: false,
+                                        score: 0,
+                                    },
+                                    {
+                                        platform_id: '20',
+                                        platform: Platform.FARCASTER,
+                                        handle: 'barmstrong',
+                                        name: 'Brian Armstrong',
+                                        namespace: '',
+                                        hit: false,
+                                        score: 0,
+                                    },
+                                    {
+                                        platform_id: '14379660',
+                                        platform: Platform.TWITTER,
+                                        handle: 'brian_armstrong',
+                                        name: 'brian_armstrong',
+                                        namespace: '',
+                                        hit: true,
+                                        score: 0.062500186,
+                                    },
+                                ],
+                            },
+                        ],
                     });
                     break;
                 case SupportedMethod.BACK:

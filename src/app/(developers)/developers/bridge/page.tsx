@@ -76,6 +76,12 @@ const items: Item[] = [
     },
     {
         type: 'method',
+        name: SupportedMethod.OPEN_URL,
+        title: 'Open URL',
+        description: 'Open an URL.',
+    },
+    {
+        type: 'method',
         name: SupportedMethod.LOGIN,
         title: 'Login',
         description: 'Login an account.',
