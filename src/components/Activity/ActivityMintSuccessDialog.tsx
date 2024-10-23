@@ -22,12 +22,9 @@ interface Props {
 export function ActivityMintSuccessDialog({ open, onClose, hash, chainId }: Props) {
     const isMedium = useIsMedium();
     const [{ loading }, shareAndPost] = useActivityCompose();
+
     const content = (
         <div className="flex w-full flex-col items-center text-center">
-            <SuccessShieldIcon className="mb-4 h-[64px] w-[64px] text-success" />
-            <h3 className="text-lg font-semibold leading-6">
-                <Trans>Mint Succeeded</Trans>
-            </h3>
             <p className="mt-6 text-sm font-medium leading-6">
                 <Trans>Your transaction will confirm shortly</Trans>
             </p>
@@ -37,7 +34,7 @@ export function ActivityMintSuccessDialog({ open, onClose, hash, chainId }: Prop
                     target="_blank"
                     className="mt-2 text-sm font-bold leading-6 text-highlight"
                 >
-                    <Trans>View Status</Trans>
+                    <Trans>View on Explorer</Trans>
                 </Link>
             ) : null}
             <button
@@ -59,7 +56,13 @@ export function ActivityMintSuccessDialog({ open, onClose, hash, chainId }: Prop
                     className: '!p-4',
                 }}
             >
-                <div className="pt-4">{content}</div>
+                <div className="flex w-full flex-col items-center pt-4 text-center">
+                    <SuccessShieldIcon className="mb-4 h-[64px] w-[64px] text-success" />
+                    <h3 className="text-lg font-semibold leading-6">
+                        <Trans>Succeeded!</Trans>
+                    </h3>
+                    {content}
+                </div>
             </Popover>
         );
     }
@@ -67,13 +70,13 @@ export function ActivityMintSuccessDialog({ open, onClose, hash, chainId }: Prop
     return (
         <Modal open={open} onClose={onClose}>
             <div className="transform rounded-[12px] bg-primaryBottom transition-all">
-                <div
-                    className="relative inline-flex items-center justify-center gap-2 rounded-t-[12px] p-4 text-center md:h-[56px] md:w-[600px]"
-                    style={{ background: 'var(--m-modal-title-bg)' }}
-                >
+                <div className="relative inline-flex items-center justify-center gap-2 rounded-t-[12px] p-4 text-center md:h-[56px] md:w-[600px]">
                     <CloseButton onClick={onClose} className="absolute left-4 top-4" />
+                    <div className="text-lg font-bold leading-6 text-main">
+                        <Trans>Succeeded!</Trans>
+                    </div>
                 </div>
-                <div className="p-4">{content}</div>
+                <div className="px-4 pb-4">{content}</div>
             </div>
         </Modal>
     );

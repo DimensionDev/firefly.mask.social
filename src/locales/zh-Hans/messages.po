@@ -891,9 +891,6 @@ msgstr "您确定要举报这个帖子吗？"
 msgid "No function found that retrieves ownership"
 msgstr "没有找到检索所有权的功能"
 
-msgid "View Status"
-msgstr ""
-
 msgid "Send"
 msgstr "发送"
 
@@ -917,6 +914,9 @@ msgstr "EVM"
 
 msgid "[LuckyDrop]"
 msgstr "[红包]"
+
+msgid "Succeeded!"
+msgstr ""
 
 msgid "Failed to unvote post."
 msgstr "无法对帖子进行投票。"
@@ -1236,6 +1236,9 @@ msgstr "无法对帖子进行投票。"
 msgid "<0>Acquired</0> an NFT"
 msgstr "<0>获取</0> 一个 NFT"
 
+msgid "View on Explorer"
+msgstr ""
+
 msgid "Tag {0} in a post to let them know you’ve sent an onchain tip to their wallet."
 msgstr "在帖子中标记 {0}，让他们知道你已经向他们的钱包发打赏了一笔小费。"
 
@@ -1259,9 +1262,6 @@ msgstr "标准"
 
 msgid "<0>Revised</0>an article"
 msgstr "<0>修改了</0>文章"
-
-msgid "Mint Succeeded"
-msgstr ""
 
 msgid "You need to connect your {0} account to use this feature."
 msgstr "您需要连接您的 {0} 账户来使用此功能。"
@@ -1340,9 +1340,6 @@ msgstr "<0>市值</0><1>{0}</1><2>排名 #{1}</2>"
 
 msgid "Invalid signer key"
 msgstr "无效的 singer key"
-
-msgid "Followed <0>@{handle}</0> on X before 9/21, or followed <1>@{farcasterHandle}</1> on Farcaster before Oct 20, 2024"
-msgstr ""
 
 msgid "Follow for {feeAmount} ${feeSymbol}"
 msgstr "关注需付出 {feeAmount} ${feeSymbol}"
@@ -1865,6 +1862,9 @@ msgstr "成功收集文章！"
 
 msgid "Posting..."
 msgstr "发帖中..."
+
+msgid "Followed <0>@{handle}</0> on X or <1>@{farcasterHandle}</1> on Farcaster before Oct 20, 2024"
+msgstr ""
 
 msgid "Connect"
 msgstr "连接"

@@ -891,9 +891,6 @@ msgstr "是否確定要檢舉這條貼文？"
 msgid "No function found that retrieves ownership"
 msgstr ""
 
-msgid "View Status"
-msgstr ""
-
 msgid "Send"
 msgstr ""
 
@@ -916,6 +913,9 @@ msgid "EVM"
 msgstr "EVM"
 
 msgid "[LuckyDrop]"
+msgstr ""
+
+msgid "Succeeded!"
 msgstr ""
 
 msgid "Failed to unvote post."
@@ -1236,6 +1236,9 @@ msgstr "上讚貼文失敗"
 msgid "<0>Acquired</0> an NFT"
 msgstr "<0>獲取了</0>一個 NFT"
 
+msgid "View on Explorer"
+msgstr ""
+
 msgid "Tag {0} in a post to let them know you’ve sent an onchain tip to their wallet."
 msgstr ""
 
@@ -1259,9 +1262,6 @@ msgstr ""
 
 msgid "<0>Revised</0>an article"
 msgstr "<0>校訂</0>一篇文章"
-
-msgid "Mint Succeeded"
-msgstr ""
 
 msgid "You need to connect your {0} account to use this feature."
 msgstr "您需要連接 {source} 帳戶才可使用此功能。"
@@ -1339,9 +1339,6 @@ msgid "<0>Market Cap</0><1>{0}</1><2>Rank #{1}</2>"
 msgstr ""
 
 msgid "Invalid signer key"
-msgstr ""
-
-msgid "Followed <0>@{handle}</0> on X before 9/21, or followed <1>@{farcasterHandle}</1> on Farcaster before Oct 20, 2024"
 msgstr ""
 
 msgid "Follow for {feeAmount} ${feeSymbol}"
@@ -1865,6 +1862,9 @@ msgstr ""
 
 msgid "Posting..."
 msgstr "正在發布"
+
+msgid "Followed <0>@{handle}</0> on X or <1>@{farcasterHandle}</1> on Farcaster before Oct 20, 2024"
+msgstr ""
 
 msgid "Connect"
 msgstr "連接"

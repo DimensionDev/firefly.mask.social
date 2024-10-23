@@ -886,9 +886,6 @@ msgstr ""
 msgid "No function found that retrieves ownership"
 msgstr ""
 
-msgid "View Status"
-msgstr ""
-
 msgid "Send"
 msgstr ""
 
@@ -911,6 +908,9 @@ msgid "EVM"
 msgstr ""
 
 msgid "[LuckyDrop]"
+msgstr ""
+
+msgid "Succeeded!"
 msgstr ""
 
 msgid "Failed to unvote post."
@@ -1231,6 +1231,9 @@ msgstr ""
 msgid "<0>Acquired</0> an NFT"
 msgstr ""
 
+msgid "View on Explorer"
+msgstr ""
+
 msgid "Tag {0} in a post to let them know you’ve sent an onchain tip to their wallet."
 msgstr ""
 
@@ -1253,9 +1256,6 @@ msgid "Standard"
 msgstr ""
 
 msgid "<0>Revised</0>an article"
-msgstr ""
-
-msgid "Mint Succeeded"
 msgstr ""
 
 msgid "You need to connect your {0} account to use this feature."
@@ -1334,9 +1334,6 @@ msgid "<0>Market Cap</0><1>{0}</1><2>Rank #{1}</2>"
 msgstr ""
 
 msgid "Invalid signer key"
-msgstr ""
-
-msgid "Followed <0>@{handle}</0> on X before 9/21, or followed <1>@{farcasterHandle}</1> on Farcaster before Oct 20, 2024"
 msgstr ""
 
 msgid "Follow for {feeAmount} ${feeSymbol}"
@@ -1859,6 +1856,9 @@ msgid "Article collected successfully!"
 msgstr ""
 
 msgid "Posting..."
+msgstr ""
+
+msgid "Followed <0>@{handle}</0> on X or <1>@{farcasterHandle}</1> on Farcaster before Oct 20, 2024"
 msgstr ""
 
 msgid "Connect"

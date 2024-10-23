@@ -886,9 +886,6 @@ msgstr "Are you sure you want to report this post?"
 msgid "No function found that retrieves ownership"
 msgstr "No function found that retrieves ownership"
 
-msgid "View Status"
-msgstr "View Status"
-
 msgid "Send"
 msgstr "Send"
 
@@ -912,6 +909,9 @@ msgstr "EVM"
 
 msgid "[LuckyDrop]"
 msgstr "[LuckyDrop]"
+
+msgid "Succeeded!"
+msgstr "Succeeded!"
 
 msgid "Failed to unvote post."
 msgstr "Failed to unvote post."
@@ -1231,6 +1231,9 @@ msgstr "Failed to upvote post."
 msgid "<0>Acquired</0> an NFT"
 msgstr "<0>Acquired</0> an NFT"
 
+msgid "View on Explorer"
+msgstr "View on Explorer"
+
 msgid "Tag {0} in a post to let them know you’ve sent an onchain tip to their wallet."
 msgstr "Tag {0} in a post to let them know you’ve sent an onchain tip to their wallet."
 
@@ -1254,9 +1257,6 @@ msgstr "Standard"
 
 msgid "<0>Revised</0>an article"
 msgstr "<0>Revised</0>an article"
-
-msgid "Mint Succeeded"
-msgstr "Mint Succeeded"
 
 msgid "You need to connect your {0} account to use this feature."
 msgstr "You need to connect your {0} account to use this feature."
@@ -1335,9 +1335,6 @@ msgstr "<0>Market Cap</0><1>{0}</1><2>Rank #{1}</2>"
 
 msgid "Invalid signer key"
 msgstr "Invalid signer key"
-
-msgid "Followed <0>@{handle}</0> on X before 9/21, or followed <1>@{farcasterHandle}</1> on Farcaster before Oct 20, 2024"
-msgstr "Followed <0>@{handle}</0> on X before 9/21, or followed <1>@{farcasterHandle}</1> on Farcaster before Oct 20, 2024"
 
 msgid "Follow for {feeAmount} ${feeSymbol}"
 msgstr "Follow for {feeAmount} ${feeSymbol}"
@@ -1860,6 +1857,9 @@ msgstr "Article collected successfully!"
 
 msgid "Posting..."
 msgstr "Posting..."
+
+msgid "Followed <0>@{handle}</0> on X or <1>@{farcasterHandle}</1> on Farcaster before Oct 20, 2024"
+msgstr "Followed <0>@{handle}</0> on X or <1>@{farcasterHandle}</1> on Farcaster before Oct 20, 2024"
 
 msgid "Connect"
 msgstr "Connect"
