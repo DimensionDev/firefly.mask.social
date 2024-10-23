@@ -18,6 +18,7 @@ export function captureActivityEvent<
         firefly_account_id?: string;
     },
 ) {
+    if (!params.firefly_account_id) delete params.firefly_account_id; // filter undefined or null
     runInSafe(() => {
         TelemetryProvider.captureEvent(
             eventId,
