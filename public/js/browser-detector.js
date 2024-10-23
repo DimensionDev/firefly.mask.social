@@ -1,5 +1,13 @@
 (function () {
-    if (!window.bowser) return;
+    if (
+        !window.bowser ||
+        (window.FireflyApi &&
+          typeof window.FireflyApi.callNativeMethod === "function") ||
+        (window.webkit &&
+          window.webkit.messageHandlers &&
+          window.webkit.messageHandlers.callNativeMethod)
+      )
+        return;
 
     try {
         function getCookie(field) {
