@@ -2,9 +2,11 @@
 
 import { safeUnreachable } from '@masknet/kit';
 import { useAsyncFn } from 'react-use';
+import urlcat from 'urlcat';
 
 import { ClickableButton } from '@/components/ClickableButton.js';
-import { SITE_NAME } from '@/constants/index.js';
+import { SourceInURL } from '@/constants/enum.js';
+import { SITE_NAME, SITE_URL } from '@/constants/index.js';
 import { enqueueErrorMessage, enqueueInfoMessage } from '@/helpers/enqueueMessage.js';
 import { getSnackbarMessageFromError } from '@/helpers/getSnackbarMessageFromError.js';
 import { fireflyBridgeProvider } from '@/providers/firefly/Bridge.js';
@@ -97,6 +99,38 @@ export function MethodButton({ item }: Props) {
                 case SupportedMethod.COMPOSE:
                     fireflyBridgeProvider.request(SupportedMethod.COMPOSE, {
                         text: SITE_NAME,
+                        activity: urlcat(SITE_URL, '/event/hlbl'),
+                        mentions: [
+                            {
+                                content: '@Firefly',
+                                profiles: [
+                                    {
+                                        platform_id: '1583361564479889408',
+                                        platform: SourceInURL.Twitter,
+                                        handle: 'thefireflyapp',
+                                        name: 'thefireflyapp',
+                                        hit: true,
+                                        score: 0,
+                                    },
+                                    {
+                                        platform_id: '16823',
+                                        platform: SourceInURL.Farcaster,
+                                        handle: 'fireflyapp',
+                                        name: 'Firefly App',
+                                        hit: true,
+                                        score: 0,
+                                    },
+                                    {
+                                        platform_id: '0x01b000',
+                                        platform: SourceInURL.Lens,
+                                        handle: 'fireflyapp',
+                                        name: 'fireflyapp',
+                                        hit: true,
+                                        score: 0,
+                                    },
+                                ],
+                            },
+                        ],
                     });
                     break;
                 case SupportedMethod.BACK:
