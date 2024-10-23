@@ -1,3 +1,5 @@
+/* cspell:disable */
+
 'use client';
 
 import { Trans } from '@lingui/macro';
