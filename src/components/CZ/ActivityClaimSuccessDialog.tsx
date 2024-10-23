@@ -1,7 +1,6 @@
 'use client';
 
 import { Trans } from '@lingui/macro';
-import React from 'react';
 
 import { useActivityCheckResponse } from '@/components/CZ/useActivityCheckResponse.js';
 import { Popover } from '@/components/Popover.js';
@@ -76,6 +75,8 @@ export function ActivityClaimSuccessContent({ onClose, hash }: { onClose?: () =>
                         if (fireflyBridgeProvider.supported) {
                             return fireflyBridgeProvider.request(SupportedMethod.COMPOSE, {
                                 text,
+                                activity: '',
+                                mentions: [],
                             });
                         }
 
