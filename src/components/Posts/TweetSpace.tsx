@@ -124,7 +124,7 @@ export const TweetSpace = memo<Props>(function TweetSpace({ spaceId }) {
                 return [
                     {
                         icon: CalendarIcon,
-                        label: <Trans>{dayjs(space.scheduled_start).format('MMM DD, YYYY at HH:mm')}</Trans>,
+                        label: <Trans>{dayjs(space.scheduled_start).format('MMM DD, YYYY [at] HH:mm')}</Trans>,
                     },
                 ];
             default:
