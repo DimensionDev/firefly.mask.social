@@ -235,6 +235,9 @@ msgstr "Fake KYC."
 msgid "{0} is eligible!"
 msgstr "{0} is eligible!"
 
+msgid "Successfully synced development to production"
+msgstr "Successfully synced development to production"
+
 msgid "Airdrop Scam"
 msgstr "Airdrop Scam"
 
@@ -418,6 +421,9 @@ msgstr "Show less"
 msgid "Proxy contract."
 msgstr "Proxy contract."
 
+msgid "Successfully synced production to development"
+msgstr "Successfully synced production to development"
+
 msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} {1, select, Lens {mirrored your} Farcaster {recasted your} other {mirrored your}} <4>{2, select, Post {post} Comment {comment} Quote {quote} Mirror {mirror} other {post}}</4>"
 msgstr "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} {1, select, Lens {mirrored your} Farcaster {recasted your} other {mirrored your}} <4>{2, select, Post {post} Comment {comment} Quote {quote} Mirror {mirror} other {post}}</4>"
 
@@ -447,6 +453,9 @@ msgstr "Confirm to disconnect this wallet from Firefly’s social graph?"
 
 msgid "Confirm"
 msgstr "Confirm"
+
+msgid "Successfully uploaded advertisement"
+msgstr "Successfully uploaded advertisement"
 
 msgid "Connect your wallet to claim your NFT."
 msgstr "Connect your wallet to claim your NFT."
@@ -880,6 +889,9 @@ msgstr "No restricted approval."
 msgid "Unmuting..."
 msgstr "Unmuting..."
 
+msgid "Remove Advertisement"
+msgstr "Remove Advertisement"
+
 msgid "{0, plural, one {Your post failed to publish on {firstPlatform} due to an error. Click 'Retry' to attempt posting again.} two {Your post failed to publish on {firstPlatform} and {secondPlatform} due to an error. Click 'Retry' to attempt posting again.} other {Your post failed to publish due to an error. Click 'Retry' to attempt posting again.}}"
 msgstr "{0, plural, one {Your post failed to publish on {firstPlatform} due to an error. Click 'Retry' to attempt posting again.} two {Your post failed to publish on {firstPlatform} and {secondPlatform} due to an error. Click 'Retry' to attempt posting again.} other {Your post failed to publish due to an error. Click 'Retry' to attempt posting again.}}"
 
@@ -903,6 +915,9 @@ msgstr "This token contract has a code that states that it cannot be sold. Maybe
 
 msgid "REPLY to<0><1>@{0}</1></0>"
 msgstr "REPLY to<0><1>@{0}</1></0>"
+
+msgid "Are you sure you want to remove this advertisement?"
+msgstr "Are you sure you want to remove this advertisement?"
 
 msgid "Directory"
 msgstr "Directory"
@@ -1645,6 +1660,9 @@ msgstr "Delegate Signing"
 msgid "No stealing attack involved."
 msgstr "No stealing attack involved."
 
+msgid "Advertisement"
+msgstr "Advertisement"
+
 msgid "The contract owner has no restrictions on buying."
 msgstr "The contract owner has no restrictions on buying."
 
@@ -1710,6 +1728,9 @@ msgstr "Search..."
 
 msgid "Show more comments"
 msgstr "Show more comments"
+
+msgid "Failed to sync development to production"
+msgstr "Failed to sync development to production"
 
 msgid "Failed to parse session."
 msgstr "Failed to parse session."
@@ -1932,6 +1953,9 @@ msgstr "Failed to like the post."
 
 msgid "Failed to repost."
 msgstr "Failed to repost."
+
+msgid "Advertisement Management"
+msgstr "Advertisement Management"
 
 msgid "Download image"
 msgstr "Download image"
@@ -2197,6 +2221,9 @@ msgstr "Invoke"
 msgid "Your post will be sent on {0} at {1} <0>View</0>"
 msgstr "Your post will be sent on {0} at {1} <0>View</0>"
 
+msgid "Sync Development to Production"
+msgstr "Sync Development to Production"
+
 msgid "Failed to create scheduled post."
 msgstr "Failed to create scheduled post."
 
@@ -2395,6 +2422,9 @@ msgstr "Saved on {0}"
 msgid "Add another option"
 msgstr "Add another option"
 
+msgid "Sync Advertisement"
+msgstr "Sync Advertisement"
+
 msgid "1y"
 msgstr "1y"
 
@@ -2518,6 +2548,9 @@ msgstr "Mirror now to get 25% referral fee!"
 msgid "Hide tokens with small balances"
 msgstr "Hide tokens with small balances"
 
+msgid "Failed to upload advertisement"
+msgstr "Failed to upload advertisement"
+
 msgid "Proposal"
 msgstr "Proposal"
 
@@ -2535,6 +2568,9 @@ msgstr "Failed to send tip. Please try again later."
 
 msgid "Failed to unmirror post."
 msgstr "Failed to unmirror post."
+
+msgid "Sync Production to Development"
+msgstr "Sync Production to Development"
 
 msgid "Failed to unlike the comment."
 msgstr "Failed to unlike the comment."
@@ -2640,6 +2676,9 @@ msgstr "Emoji"
 
 msgid "Failed to report spam NFT."
 msgstr "Failed to report spam NFT."
+
+msgid "Are you sure you want to sync development to production?"
+msgstr "Are you sure you want to sync development to production?"
 
 msgid "Malformed twitter session payload."
 msgstr "Malformed twitter session payload."
@@ -2751,6 +2790,9 @@ msgstr "Ignore the warnings to continue"
 
 msgid "The contract owner has restrictions on trading cooldown."
 msgstr "The contract owner has restrictions on trading cooldown."
+
+msgid "Failed to sync production to development"
+msgstr "Failed to sync production to development"
 
 msgid "Sign to enable signless"
 msgstr "Sign to enable signless"
