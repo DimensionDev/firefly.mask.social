@@ -88,6 +88,9 @@ msgstr "Mute /{0}"
 msgid "Failed to collect article."
 msgstr "Failed to collect article."
 
+msgid "Hold on! Meet any of the following to unlock a premium collectible:"
+msgstr "Hold on! Meet any of the following to unlock a premium collectible:"
+
 msgid "Communities"
 msgstr "Communities"
 
@@ -163,6 +166,9 @@ msgstr "We are not aware of any code that prevents the sale of tokens."
 msgid "Watching"
 msgstr "Watching"
 
+msgid "Step 1 Sign in with X"
+msgstr "Step 1 Sign in with X"
+
 msgid "Rank #{0}"
 msgstr "Rank #{0}"
 
@@ -177,6 +183,9 @@ msgstr "Functions that can suspend trading"
 
 msgid "<0>The maximum number of coins coded to exist in the lifetime of the cryptocurrency. It is comparable to the maximum number of issuable shares in the stock market.</0><1>Max Supply = Theoretical maximum as coded</1>"
 msgstr "<0>The maximum number of coins coded to exist in the lifetime of the cryptocurrency. It is comparable to the maximum number of issuable shares in the stock market.</0><1>Max Supply = Theoretical maximum as coded</1>"
+
+msgid "Ended"
+msgstr "Ended"
 
 msgid "Unknown error"
 msgstr "Unknown error"
@@ -298,6 +307,9 @@ msgstr "NFT Standard"
 msgid "Failed to like the comment."
 msgstr "Failed to like the comment."
 
+msgid "Sign in"
+msgstr "Sign in"
+
 msgid "<0>Posted</0>an article"
 msgstr "<0>Posted</0>an article"
 
@@ -340,6 +352,9 @@ msgstr "Retry"
 msgid "Show less"
 msgstr "Show less"
 
+msgid "Verification unsuccessful"
+msgstr "Verification unsuccessful"
+
 msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} {1, select, Lens {mirrored your} Farcaster {recasted your} other {mirrored your}} <4>{2, select, Post {post} Comment {comment} Quote {quote} Mirror {mirror} other {post}}</4>"
 msgstr "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} {1, select, Lens {mirrored your} Farcaster {recasted your} other {mirrored your}} <4>{2, select, Post {post} Comment {comment} Quote {quote} Mirror {mirror} other {post}}</4>"
 
@@ -354,6 +369,9 @@ msgstr "<0>{0}</0><1>mirrored</1>"
 
 msgid "True Token"
 msgstr "True Token"
+
+msgid "Failed to follow @{handle} on {0}."
+msgstr "Failed to follow @{handle} on {0}."
 
 msgid "Bookmarks"
 msgstr "Bookmarks"
@@ -541,6 +559,9 @@ msgstr "Add another post..."
 msgid "1m left"
 msgstr "1m left"
 
+msgid "Core Asset Access: Unlock premium tokens, exclusive NFTs, and nodes for more investment opportunities."
+msgstr "Core Asset Access: Unlock premium tokens, exclusive NFTs, and nodes for more investment opportunities."
+
 msgid "Congratulation!"
 msgstr "Congratulation!"
 
@@ -552,6 +573,9 @@ msgstr "To be eligible for the airdrop, fulfill the following criteria:"
 
 msgid "Failed to upload. More than {maxImageCount} images."
 msgstr "Failed to upload. More than {maxImageCount} images."
+
+msgid "Share in Post"
+msgstr "Share in Post"
 
 msgid "Minting Txn Hash"
 msgstr "Minting Txn Hash"
@@ -660,6 +684,9 @@ msgstr "Failed to avatar."
 
 msgid "Frame Validator"
 msgstr "Frame Validator"
+
+msgid "Priority Access: Holders get early access to future projects, beta tests, and airdrops. And they will also have a first look at the latest features and content."
+msgstr "Priority Access: Holders get early access to future projects, beta tests, and airdrops. And they will also have a first look at the latest features and content."
 
 msgid "No proxy"
 msgstr "No proxy"
@@ -847,6 +874,9 @@ msgstr "<0>Sold</0> an NFT worth {costEl}"
 msgid "🎉"
 msgstr "🎉"
 
+msgid "Your Farcaster account holds Power Badge"
+msgstr "Your Farcaster account holds Power Badge"
+
 msgid "Owned By"
 msgstr "Owned By"
 
@@ -879,6 +909,9 @@ msgstr "EVM"
 
 msgid "[LuckyDrop]"
 msgstr "[LuckyDrop]"
+
+msgid "Succeeded!"
+msgstr "Succeeded!"
 
 msgid "Failed to unvote post."
 msgstr "Failed to unvote post."
@@ -927,6 +960,9 @@ msgstr "Switch"
 
 msgid "Drafts"
 msgstr "Drafts"
+
+msgid "About Airdrop"
+msgstr "About Airdrop"
 
 msgid "Follow"
 msgstr "Follow"
@@ -1108,11 +1144,17 @@ msgstr "Search ${symbol}"
 msgid "Failed to unmute /{0}."
 msgstr "Failed to unmute /{0}."
 
+msgid "Login X successfully."
+msgstr "Login X successfully."
+
 msgid "Please confirm the login with Warpcast."
 msgstr "Please confirm the login with Warpcast."
 
 msgid "Log in with recovery phrase"
 msgstr "Log in with recovery phrase"
+
+msgid "Connected"
+msgstr "Connected"
 
 msgid "Edit Profile"
 msgstr "Edit Profile"
@@ -1191,6 +1233,9 @@ msgstr "Failed to upvote post."
 
 msgid "<0>Acquired</0> an NFT"
 msgstr "<0>Acquired</0> an NFT"
+
+msgid "View on Explorer"
+msgstr "View on Explorer"
 
 msgid "Tag {0} in a post to let them know you’ve sent an onchain tip to their wallet."
 msgstr "Tag {0} in a post to let them know you’ve sent an onchain tip to their wallet."
@@ -1327,6 +1372,9 @@ msgstr "{0, plural, one {Your posts failed to publish on {firstPlatform} due to 
 msgid "What's happening..."
 msgstr "What's happening..."
 
+msgid "Connect your wallet to claim your NFT"
+msgstr "Connect your wallet to claim your NFT"
+
 msgid "24h"
 msgstr "24h"
 
@@ -1395,6 +1443,9 @@ msgstr "<0>© 2024 Firefly.</0> All rights reserved."
 
 msgid "Add wallet"
 msgstr "Add wallet"
+
+msgid "Voting Rights: Participate in key decisions and shape the platform’s development through community governance."
+msgstr "Voting Rights: Participate in key decisions and shape the platform’s development through community governance."
 
 msgid "Please switch to {0}"
 msgstr "Please switch to {0}"
@@ -1555,6 +1606,9 @@ msgstr "Follow @thefireflyapp on X"
 msgid "Wallets retrieved from public verifiable data registries or our entity algorithm can be reported for disconnection."
 msgstr "Wallets retrieved from public verifiable data registries or our entity algorithm can be reported for disconnection."
 
+msgid "Step 2 Connect Wallet"
+msgstr "Step 2 Connect Wallet"
+
 msgid "Light Mode"
 msgstr "Light Mode"
 
@@ -1591,8 +1645,14 @@ msgstr "There is no data available for display."
 msgid "Cancel"
 msgstr "Cancel"
 
+msgid "Live"
+msgstr "Live"
+
 msgid "Send on schedule"
 msgstr "Send on schedule"
+
+msgid "Your transaction will confirm shortly"
+msgstr "Your transaction will confirm shortly"
 
 msgid "will send on {0} at {1}"
 msgstr "will send on {0} at {1}"
@@ -1620,6 +1680,9 @@ msgstr "The amount of coins that are circulating in the market and are tradeable
 
 msgid "{0, plural, one {repost} other {reposts}}"
 msgstr "{0, plural, one {repost} other {reposts}}"
+
+msgid "Wallet submitted"
+msgstr "Wallet submitted"
 
 msgid "This does not appear to be a honeypot."
 msgstr "This does not appear to be a honeypot."
@@ -1798,6 +1861,9 @@ msgstr "Article collected successfully!"
 msgid "Posting..."
 msgstr "Posting..."
 
+msgid "Followed <0>@{handle}</0> on X or <1>@{farcasterHandle}</1> on Farcaster before Oct 20, 2024"
+msgstr "Followed <0>@{handle}</0> on X or <1>@{farcasterHandle}</1> on Farcaster before Oct 20, 2024"
+
 msgid "Connect"
 msgstr "Connect"
 
@@ -1809,6 +1875,9 @@ msgstr "<0>You</0> reposted"
 
 msgid "The contract may contain additional issuance functions, which could maybe generate a large number of tokens, resulting in significant fluctuations in token prices. It is recommended to confirm with the project team whether it complies with the token issuance instructions."
 msgstr "The contract may contain additional issuance functions, which could maybe generate a large number of tokens, resulting in significant fluctuations in token prices. It is recommended to confirm with the project team whether it complies with the token issuance instructions."
+
+msgid "Upcoming"
+msgstr "Upcoming"
 
 msgid "{handleOrEnsOrAddress} unwatched"
 msgstr "{handleOrEnsOrAddress} unwatched"
@@ -1984,6 +2053,9 @@ msgstr "Add another option"
 msgid "1y"
 msgstr "1y"
 
+msgid "Change"
+msgstr "Change"
+
 msgid "No codes found to suspend trading."
 msgstr "No codes found to suspend trading."
 
@@ -2001,6 +2073,9 @@ msgstr "Dark Mode"
 
 msgid "Article added to your Bookmarks"
 msgstr "Article added to your Bookmarks"
+
+msgid "Please sign in with X to continue"
+msgstr "Please sign in with X to continue"
 
 msgid "Create a Post"
 msgstr "Create a Post"
@@ -2086,6 +2161,9 @@ msgstr "Hide tokens with small balances"
 msgid "News"
 msgstr "News"
 
+msgid "Followed @{handle} on {0}"
+msgstr "Followed @{handle} on {0}"
+
 msgid "NFT ID"
 msgstr "NFT ID"
 
@@ -2119,6 +2197,9 @@ msgstr "Your post have published successfully on {0}."
 msgid "Detail"
 msgstr "Detail"
 
+msgid "Exclusive Events"
+msgstr "Exclusive Events"
+
 msgid "Post added to your Bookmarks"
 msgstr "Post added to your Bookmarks"
 
@@ -2142,6 +2223,9 @@ msgstr "Firefly Bridge"
 
 msgid "Invalid URL"
 msgstr "Invalid URL"
+
+msgid "Followed <0>@{handle}</0> on {0}"
+msgstr "Followed <0>@{handle}</0> on {0}"
 
 msgid "View on explorer"
 msgstr "View on explorer"
@@ -2226,6 +2310,12 @@ msgstr "Final results"
 
 msgid "Suspended account"
 msgstr "Suspended account"
+
+msgid "Final Step Claim Now!"
+msgstr "Final Step Claim Now!"
+
+msgid "Verify"
+msgstr "Verify"
 
 msgid "Recasted"
 msgstr "Recasted"
@@ -2314,6 +2404,9 @@ msgstr "Location"
 msgid "There is no limit to the number of token transactions. The number of scam token transactions may be limited (honeypot risk)."
 msgstr "There is no limit to the number of token transactions. The number of scam token transactions may be limited (honeypot risk)."
 
+msgid "Your assets on Base Chain are worth over US$10,000"
+msgstr "Your assets on Base Chain are worth over US$10,000"
+
 msgid "This is not an airdrop scam. Many scams attract users through airdrops."
 msgstr "This is not an airdrop scam. Many scams attract users through airdrops."
 
@@ -2322,6 +2415,9 @@ msgstr "GIF"
 
 msgid "Followed @{0} on Lens"
 msgstr "Followed @{0} on Lens"
+
+msgid "Claim Now"
+msgstr "Claim Now"
 
 msgid "Collect for {0} {1}"
 msgstr "Collect for {0} {1}"
@@ -2334,6 +2430,9 @@ msgstr "Recast"
 
 msgid "Translating..."
 msgstr "Translating..."
+
+msgid "Claim Basic"
+msgstr "Claim Basic"
 
 msgid "Back to home"
 msgstr "Back to home"
@@ -2349,6 +2448,9 @@ msgstr "Mint function"
 
 msgid "Clear"
 msgstr "Clear"
+
+msgid "End"
+msgstr "End"
 
 msgid "<0>Sent</0> an NFT to <1>{0}</1>"
 msgstr "<0>Sent</0> an NFT to <1>{0}</1>"
@@ -2388,6 +2490,9 @@ msgstr "mirrored"
 
 msgid "Following"
 msgstr "Following"
+
+msgid "Your X account holds Premium status"
+msgstr "Your X account holds Premium status"
 
 msgid "View transaction on Explorer"
 msgstr "View transaction on Explorer"

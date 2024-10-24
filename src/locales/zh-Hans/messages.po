@@ -93,6 +93,9 @@ msgstr "隐藏 /{0}"
 msgid "Failed to collect article."
 msgstr "收集文章失败。"
 
+msgid "Hold on! Meet any of the following to unlock a premium collectible:"
+msgstr ""
+
 msgid "Communities"
 msgstr "社区"
 
@@ -168,6 +171,9 @@ msgstr "我们没察觉到有任何阻止通证售卖的代码逻辑。"
 msgid "Watching"
 msgstr "观察中"
 
+msgid "Step 1 Sign in with X"
+msgstr ""
+
 msgid "Rank #{0}"
 msgstr "排名 #{0}"
 
@@ -182,6 +188,9 @@ msgstr "可以暂停交易的功能"
 
 msgid "<0>The maximum number of coins coded to exist in the lifetime of the cryptocurrency. It is comparable to the maximum number of issuable shares in the stock market.</0><1>Max Supply = Theoretical maximum as coded</1>"
 msgstr "<0>加密货币生命周期存在的最大发行数量。它与股票市场中可发行股票的最大数量相当。</0><1>最大供应量 = 理论最大值</1>"
+
+msgid "Ended"
+msgstr ""
 
 msgid "Unknown error"
 msgstr "未知错误"
@@ -303,6 +312,9 @@ msgstr "NFT 标准"
 msgid "Failed to like the comment."
 msgstr "点赞失败。"
 
+msgid "Sign in"
+msgstr ""
+
 msgid "<0>Posted</0>an article"
 msgstr "<0>发布了</0>一篇文章"
 
@@ -345,6 +357,9 @@ msgstr "重试"
 msgid "Show less"
 msgstr "收起"
 
+msgid "Verification unsuccessful"
+msgstr ""
+
 msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} {1, select, Lens {mirrored your} Farcaster {recasted your} other {mirrored your}} <4>{2, select, Post {post} Comment {comment} Quote {quote} Mirror {mirror} other {post}}</4>"
 msgstr "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} {1, select, Lens {转帖了你的} Farcaster {转帖了你的} other {转帖了你的}} <4>{2, select, Post {帖子} Comment {评论} Quote {引用} Mirror {转帖} other {帖子}}</4>"
 
@@ -359,6 +374,9 @@ msgstr "<0>{0}</0><1>转帖</1>"
 
 msgid "True Token"
 msgstr "真实的通证"
+
+msgid "Failed to follow @{handle} on {0}."
+msgstr ""
 
 msgid "Bookmarks"
 msgstr "收藏"
@@ -546,6 +564,9 @@ msgstr "添加另一个帖子..."
 msgid "1m left"
 msgstr "1分钟剩余"
 
+msgid "Core Asset Access: Unlock premium tokens, exclusive NFTs, and nodes for more investment opportunities."
+msgstr ""
+
 msgid "Congratulation!"
 msgstr "恭喜！"
 
@@ -557,6 +578,9 @@ msgstr "要有资格获得空投，请满足以下条件："
 
 msgid "Failed to upload. More than {maxImageCount} images."
 msgstr "上传失败。超过了最大 {maxImageCount} 的图片数量限制。"
+
+msgid "Share in Post"
+msgstr ""
 
 msgid "Minting Txn Hash"
 msgstr "铸造交易哈希中"
@@ -665,6 +689,9 @@ msgstr "上传头像失败。"
 
 msgid "Frame Validator"
 msgstr "Frame 验证器"
+
+msgid "Priority Access: Holders get early access to future projects, beta tests, and airdrops. And they will also have a first look at the latest features and content."
+msgstr ""
 
 msgid "No proxy"
 msgstr "无代理"
@@ -852,6 +879,9 @@ msgstr "<0>出售了</0> 一个 NFT 价值 {costEl}"
 msgid "🎉"
 msgstr "🎉"
 
+msgid "Your Farcaster account holds Power Badge"
+msgstr ""
+
 msgid "Owned By"
 msgstr "属于"
 
@@ -884,6 +914,9 @@ msgstr "EVM"
 
 msgid "[LuckyDrop]"
 msgstr "[红包]"
+
+msgid "Succeeded!"
+msgstr ""
 
 msgid "Failed to unvote post."
 msgstr "无法对帖子进行投票。"
@@ -932,6 +965,9 @@ msgstr "切换"
 
 msgid "Drafts"
 msgstr "草稿"
+
+msgid "About Airdrop"
+msgstr ""
 
 msgid "Follow"
 msgstr "关注"
@@ -1113,11 +1149,17 @@ msgstr "搜索 ${symbol}"
 msgid "Failed to unmute /{0}."
 msgstr "取消隐藏失败/{0}。"
 
+msgid "Login X successfully."
+msgstr ""
+
 msgid "Please confirm the login with Warpcast."
 msgstr "请确认使用 Warpcast 登录。"
 
 msgid "Log in with recovery phrase"
 msgstr "使用助记词登录"
+
+msgid "Connected"
+msgstr ""
 
 msgid "Edit Profile"
 msgstr "编辑个人信息"
@@ -1196,6 +1238,9 @@ msgstr "无法对帖子进行投票。"
 
 msgid "<0>Acquired</0> an NFT"
 msgstr "<0>获取</0> 一个 NFT"
+
+msgid "View on Explorer"
+msgstr ""
 
 msgid "Tag {0} in a post to let them know you’ve sent an onchain tip to their wallet."
 msgstr "在帖子中标记 {0}，让他们知道你已经向他们的钱包发打赏了一笔小费。"
@@ -1332,6 +1377,9 @@ msgstr "{0, plural, one {由于某些错误您的帖子在 {firstPlatform} 发�
 msgid "What's happening..."
 msgstr "正在发生..."
 
+msgid "Connect your wallet to claim your NFT"
+msgstr ""
+
 msgid "24h"
 msgstr "24小时"
 
@@ -1400,6 +1448,9 @@ msgstr "<0>© 2024 Firefly.</0> 版权所有。"
 
 msgid "Add wallet"
 msgstr "添加钱包"
+
+msgid "Voting Rights: Participate in key decisions and shape the platform’s development through community governance."
+msgstr ""
 
 msgid "Please switch to {0}"
 msgstr "请切换到 {0}"
@@ -1560,6 +1611,9 @@ msgstr "在 X 上关注 @thefireflyapp"
 msgid "Wallets retrieved from public verifiable data registries or our entity algorithm can be reported for disconnection."
 msgstr "从公开可验证数据注册表中或我们的实体算法中检索到的钱包可以被举报从而断开连接。"
 
+msgid "Step 2 Connect Wallet"
+msgstr ""
+
 msgid "Light Mode"
 msgstr "明亮模式"
 
@@ -1596,8 +1650,14 @@ msgstr "没有可显示的数据。"
 msgid "Cancel"
 msgstr "取消"
 
+msgid "Live"
+msgstr ""
+
 msgid "Send on schedule"
 msgstr "发送定时任务"
+
+msgid "Your transaction will confirm shortly"
+msgstr ""
 
 msgid "will send on {0} at {1}"
 msgstr "将在 {0} {1} 发送"
@@ -1625,6 +1685,9 @@ msgstr "市场上流通并可供公众交易的货币数量。这相当于市场
 
 msgid "{0, plural, one {repost} other {reposts}}"
 msgstr "{0, plural, one {转帖} other {转帖}}"
+
+msgid "Wallet submitted"
+msgstr ""
 
 msgid "This does not appear to be a honeypot."
 msgstr "这看起来不像是一个陷阱。"
@@ -1803,6 +1866,9 @@ msgstr "成功收集文章！"
 msgid "Posting..."
 msgstr "发帖中..."
 
+msgid "Followed <0>@{handle}</0> on X or <1>@{farcasterHandle}</1> on Farcaster before Oct 20, 2024"
+msgstr ""
+
 msgid "Connect"
 msgstr "连接"
 
@@ -1814,6 +1880,9 @@ msgstr "<0>你</0> 已转帖"
 
 msgid "The contract may contain additional issuance functions, which could maybe generate a large number of tokens, resulting in significant fluctuations in token prices. It is recommended to confirm with the project team whether it complies with the token issuance instructions."
 msgstr "合约可能含有额外的发行功能，这可能会产生大量的通证，导致通证价格的重大波动。建议向项目组确认它是否遵守通证发行准则。"
+
+msgid "Upcoming"
+msgstr ""
 
 msgid "{handleOrEnsOrAddress} unwatched"
 msgstr "{handleOrEnsOrAddress} 取消关注"
@@ -1989,6 +2058,9 @@ msgstr "添加另一个选项"
 msgid "1y"
 msgstr "1年"
 
+msgid "Change"
+msgstr ""
+
 msgid "No codes found to suspend trading."
 msgstr "没有发现可以暂停交易的代码。"
 
@@ -2006,6 +2078,9 @@ msgstr "深色模式"
 
 msgid "Article added to your Bookmarks"
 msgstr "文章已经添加到您的收藏中"
+
+msgid "Please sign in with X to continue"
+msgstr ""
 
 msgid "Create a Post"
 msgstr "创建帖子"
@@ -2091,6 +2166,9 @@ msgstr "隐藏小额通证"
 msgid "News"
 msgstr "新闻"
 
+msgid "Followed @{handle} on {0}"
+msgstr ""
+
 msgid "NFT ID"
 msgstr "NFT ID"
 
@@ -2124,6 +2202,9 @@ msgstr "您已在 {0} 发布成功。"
 msgid "Detail"
 msgstr "详情"
 
+msgid "Exclusive Events"
+msgstr ""
+
 msgid "Post added to your Bookmarks"
 msgstr "帖子已经添加到您的收藏中"
 
@@ -2147,6 +2228,9 @@ msgstr "Firefly 桥"
 
 msgid "Invalid URL"
 msgstr "无效的 URL"
+
+msgid "Followed <0>@{handle}</0> on {0}"
+msgstr ""
 
 msgid "View on explorer"
 msgstr "在区块链浏览器查看"
@@ -2231,6 +2315,12 @@ msgstr "最终结果"
 
 msgid "Suspended account"
 msgstr "被冻结账户"
+
+msgid "Final Step Claim Now!"
+msgstr ""
+
+msgid "Verify"
+msgstr ""
 
 msgid "Recasted"
 msgstr "已转发"
@@ -2319,6 +2409,9 @@ msgstr "地点"
 msgid "There is no limit to the number of token transactions. The number of scam token transactions may be limited (honeypot risk)."
 msgstr "对通证的交易次数没有限制。可疑通证的交易次数可能是有限的。"
 
+msgid "Your assets on Base Chain are worth over US$10,000"
+msgstr ""
+
 msgid "This is not an airdrop scam. Many scams attract users through airdrops."
 msgstr "这不是空投欺诈。许多欺诈通过空投吸引用户。"
 
@@ -2327,6 +2420,9 @@ msgstr "GIF"
 
 msgid "Followed @{0} on Lens"
 msgstr "在 Lens 上关注了 @{0}"
+
+msgid "Claim Now"
+msgstr ""
 
 msgid "Collect for {0} {1}"
 msgstr "收集 {0} {1}"
@@ -2339,6 +2435,9 @@ msgstr "转推"
 
 msgid "Translating..."
 msgstr "翻译中..."
+
+msgid "Claim Basic"
+msgstr ""
 
 msgid "Back to home"
 msgstr "返回主页"
@@ -2354,6 +2453,9 @@ msgstr "铸造功能"
 
 msgid "Clear"
 msgstr "清空"
+
+msgid "End"
+msgstr ""
 
 msgid "<0>Sent</0> an NFT to <1>{0}</1>"
 msgstr "<0>发送</0> 一个 NFT 至 <1>{0}</1>"
@@ -2393,6 +2495,9 @@ msgstr "已转发"
 
 msgid "Following"
 msgstr "正在关注"
+
+msgid "Your X account holds Premium status"
+msgstr ""
 
 msgid "View transaction on Explorer"
 msgstr "查看交易详情"
