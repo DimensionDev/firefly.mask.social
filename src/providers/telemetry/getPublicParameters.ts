@@ -3,6 +3,7 @@ import { getClient } from '@wagmi/core';
 
 import { config } from '@/configs/wagmiClient.js';
 import { bom } from '@/helpers/bom.js';
+import { runInSafe } from '@/helpers/runInSafe.js';
 import { resolveWalletAdapter } from '@/providers/solana/resolveWalletAdapter.js';
 import { useDeveloperSettingsState } from '@/store/useDeveloperSettingsStore.js';
 import {
@@ -11,7 +12,6 @@ import {
     useLensStateStore,
     useTwitterStateStore,
 } from '@/store/useProfileStore.js';
-import { runInSafe } from '@/helpers/runInSafe.js';
 
 export function getPublicParameters(eventId: string, previousEventId: string | null) {
     const evmClient = getClient(config);
