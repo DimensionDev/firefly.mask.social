@@ -579,6 +579,9 @@ msgstr ""
 msgid "Failed to upload. More than {maxImageCount} images."
 msgstr "上傳失敗。圖片數量超過{maxImageCount} 張。"
 
+msgid "Share in Post"
+msgstr ""
+
 msgid "Minting Txn Hash"
 msgstr ""
 
@@ -695,9 +698,6 @@ msgstr "無代理"
 
 msgid "<0>Sold</0> an NFT"
 msgstr "<0>已售賣</0>一個 NFT"
-
-msgid "Share and Post"
-msgstr ""
 
 msgid "Follow System"
 msgstr "預設"

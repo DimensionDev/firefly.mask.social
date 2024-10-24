@@ -574,6 +574,9 @@ msgstr ""
 msgid "Failed to upload. More than {maxImageCount} images."
 msgstr ""
 
+msgid "Share in Post"
+msgstr ""
+
 msgid "Minting Txn Hash"
 msgstr ""
 
@@ -689,9 +692,6 @@ msgid "No proxy"
 msgstr ""
 
 msgid "<0>Sold</0> an NFT"
-msgstr ""
-
-msgid "Share and Post"
 msgstr ""
 
 msgid "Follow System"

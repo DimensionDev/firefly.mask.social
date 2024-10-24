@@ -579,6 +579,9 @@ msgstr "要有资格获得空投，请满足以下条件："
 msgid "Failed to upload. More than {maxImageCount} images."
 msgstr "上传失败。超过了最大 {maxImageCount} 的图片数量限制。"
 
+msgid "Share in Post"
+msgstr ""
+
 msgid "Minting Txn Hash"
 msgstr "铸造交易哈希中"
 
@@ -695,9 +698,6 @@ msgstr "无代理"
 
 msgid "<0>Sold</0> an NFT"
 msgstr "<0>出售</0> 一个 NFT"
-
-msgid "Share and Post"
-msgstr ""
 
 msgid "Follow System"
 msgstr "跟随系统"
