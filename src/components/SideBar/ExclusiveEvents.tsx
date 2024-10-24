@@ -24,7 +24,6 @@ export function ExclusiveEvents() {
                 src={isDarkMode ? '/webm/activity-icon-dark.webm' : '/webm/activity-icon-light.webm'}
                 poster={isDarkMode ? '/webm/poster/activity-icon-dark.png' : '/webm/poster/activity-icon-light.png'}
                 autoPlay
-                loop
                 muted
                 playsInline
                 width={20}
