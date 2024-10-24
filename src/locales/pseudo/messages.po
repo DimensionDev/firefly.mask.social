@@ -574,9 +574,6 @@ msgstr ""
 msgid "Failed to upload. More than {maxImageCount} images."
 msgstr ""
 
-msgid "Share in Post"
-msgstr ""
-
 msgid "Minting Txn Hash"
 msgstr ""
 
@@ -908,9 +905,6 @@ msgid "EVM"
 msgstr ""
 
 msgid "[LuckyDrop]"
-msgstr ""
-
-msgid "Succeeded!"
 msgstr ""
 
 msgid "Failed to unvote post."
@@ -2060,6 +2054,9 @@ msgid "No codes found to suspend trading."
 msgstr ""
 
 msgid "Buy Tax: {0}%"
+msgstr ""
+
+msgid "Success!"
 msgstr ""
 
 msgid "<0>You</0> and {0} recasted"

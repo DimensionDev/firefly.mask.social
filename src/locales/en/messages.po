@@ -574,9 +574,6 @@ msgstr "To be eligible for the airdrop, fulfill the following criteria:"
 msgid "Failed to upload. More than {maxImageCount} images."
 msgstr "Failed to upload. More than {maxImageCount} images."
 
-msgid "Share in Post"
-msgstr "Share in Post"
-
 msgid "Minting Txn Hash"
 msgstr "Minting Txn Hash"
 
@@ -909,9 +906,6 @@ msgstr "EVM"
 
 msgid "[LuckyDrop]"
 msgstr "[LuckyDrop]"
-
-msgid "Succeeded!"
-msgstr "Succeeded!"
 
 msgid "Failed to unvote post."
 msgstr "Failed to unvote post."
@@ -2061,6 +2055,9 @@ msgstr "No codes found to suspend trading."
 
 msgid "Buy Tax: {0}%"
 msgstr "Buy Tax: {0}%"
+
+msgid "Success!"
+msgstr "Success!"
 
 msgid "<0>You</0> and {0} recasted"
 msgstr "<0>You</0> and {0} recasted"

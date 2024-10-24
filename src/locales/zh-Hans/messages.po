@@ -579,9 +579,6 @@ msgstr "要有资格获得空投，请满足以下条件："
 msgid "Failed to upload. More than {maxImageCount} images."
 msgstr "上传失败。超过了最大 {maxImageCount} 的图片数量限制。"
 
-msgid "Share in Post"
-msgstr ""
-
 msgid "Minting Txn Hash"
 msgstr "铸造交易哈希中"
 
@@ -914,9 +911,6 @@ msgstr "EVM"
 
 msgid "[LuckyDrop]"
 msgstr "[红包]"
-
-msgid "Succeeded!"
-msgstr ""
 
 msgid "Failed to unvote post."
 msgstr "无法对帖子进行投票。"
@@ -2066,6 +2060,9 @@ msgstr "没有发现可以暂停交易的代码。"
 
 msgid "Buy Tax: {0}%"
 msgstr "购买税率: {0}%"
+
+msgid "Success!"
+msgstr ""
 
 msgid "<0>You</0> and {0} recasted"
 msgstr "<0> 你 </0> 和 {0} 人都转发了"
