@@ -29,12 +29,16 @@ export function ActivityConnectButton() {
     const { data: isLoggedIn } = useIsLoginTwitterInActivity();
     const {
         data: { connected = EMPTY_LIST } = {},
-        refetch,
+        refetch: refetchAllConnections,
         isLoading: isLoadingAllConnections,
     } = useAllConnections({
         refetchInterval: 600000,
     });
-    const { data: bridgeAddresses = EMPTY_LIST, isLoading: isLoadingBridgeAddresses } = useQuery({
+    const {
+        data: bridgeAddresses = EMPTY_LIST,
+        isLoading: isLoadingBridgeAddresses,
+        refetch: refetchBridgeAddresses,
+    } = useQuery({
         enabled: fireflyBridgeProvider.supported,
         queryKey: ['firefly-bridge-address', Network.EVM],
         async queryFn() {
@@ -45,7 +49,7 @@ export function ActivityConnectButton() {
         refetchInterval: 600000,
     });
 
-    const isLoading = isLoadingAllConnections || isLoadingBridgeAddresses;
+    const isLoading = fireflyBridgeProvider.supported ? isLoadingBridgeAddresses : isLoadingAllConnections;
     const addresses: Array<{ address: string; ens?: string }> = fireflyBridgeProvider.supported
         ? bridgeAddresses.map((address) => ({ address }))
         : connected.filter((x) => x.platform === 'eth').map((x) => ({ address: x.address, ens: x.ens?.[0] }));
@@ -118,15 +122,21 @@ export function ActivityConnectButton() {
                                         wallet_address: address,
                                         firefly_account_id: fireflyAccountId,
                                     });
-                                    refetchActivityClaimCondition();
+                                    await refetchActivityClaimCondition();
+                                    await refetchBridgeAddresses();
                                     return;
                                 }
                                 const { response } = await AddWalletModalRef.openAndWaitForClose({
                                     connections: connected,
                                     platform: 'evm',
                                 });
-                                if (response?.address) onChangeAddress(response.address);
-                                await refetch();
+                                if (response?.address) {
+                                    onChangeAddress(response.address);
+                                    captureActivityEvent(EventId.EVENT_CONNECT_WALLET_SUCCESS, {
+                                        wallet_address: response.address,
+                                    });
+                                }
+                                await refetchAllConnections();
                             }}
                         >
                             <AddCircleIcon width={24} height={24} className="mr-2" />
