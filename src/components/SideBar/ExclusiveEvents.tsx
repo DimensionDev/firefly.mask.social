@@ -1,7 +1,5 @@
 import { Trans } from '@lingui/macro';
-import { DotLottie, DotLottieReact } from '@lottiefiles/dotlottie-react';
 import { usePathname } from 'next/navigation.js';
-import { useRef } from 'react';
 
 import { PageRoute } from '@/constants/enum.js';
 import { Link } from '@/esm/Link.js';
@@ -12,7 +10,6 @@ import { useDarkMode } from '@/hooks/useDarkMode.js';
 export function ExclusiveEvents() {
     const pathname = usePathname();
     const isSelected = isRoutePathname(pathname, PageRoute.Events);
-    const ref = useRef<DotLottie | null>(null);
     const { isDarkMode } = useDarkMode();
 
     return (
@@ -23,17 +20,13 @@ export function ExclusiveEvents() {
                 { 'font-bold': isSelected },
             )}
         >
-            <DotLottieReact
-                dotLottieRefCallback={(x) => {
-                    ref.current = x;
-                }}
-                renderConfig={{}}
-                src={
-                    isDarkMode
-                        ? '/lottie-files/discover_right_top_activity_icon_dark.json'
-                        : '/lottie-files/discover_right_top_activity_icon_light.json'
-                }
-                autoplay
+            <video
+                src={isDarkMode ? '/webm/activity-icon-dark.webm' : '/webm/activity-icon-light.webm'}
+                poster={isDarkMode ? '/webm/poster/activity-icon-dark.png' : '/webm/poster/activity-icon-light.png'}
+                autoPlay
+                loop
+                muted
+                playsInline
                 width={20}
                 height={20}
                 className="h-5 w-5"
