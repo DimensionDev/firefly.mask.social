@@ -78,7 +78,7 @@ export default function Page({
                     <div className="flex w-full flex-col space-y-2">
                         <div className="flex h-8 items-center justify-between">
                             <h2 className="text-base font-semibold leading-6">
-                                <Trans>Step 1 Sign in with X</Trans>
+                                <Trans>Step 1 Sign in</Trans>
                             </h2>
                             <ActivityTwitterLoginButton />
                         </div>
