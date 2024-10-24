@@ -184,6 +184,9 @@ msgstr "<0>The maximum number of coins coded to exist in the lifetime of the cry
 msgid "Ended"
 msgstr "Ended"
 
+msgid "Failed to follow @{handle} on X."
+msgstr "Failed to follow @{handle} on X."
+
 msgid "Unknown error"
 msgstr "Unknown error"
 
@@ -366,9 +369,6 @@ msgstr "<0>{0}</0><1>mirrored</1>"
 
 msgid "True Token"
 msgstr "True Token"
-
-msgid "Failed to follow @{handle} on {0}."
-msgstr "Failed to follow @{handle} on {0}."
 
 msgid "Bookmarks"
 msgstr "Bookmarks"
@@ -1002,6 +1002,9 @@ msgstr "Replies"
 
 msgid "Comment"
 msgstr "Comment"
+
+msgid "Followed @{handle} on X"
+msgstr "Followed @{handle} on X"
 
 msgid "Only people you mention"
 msgstr "Only people you mention"
@@ -2163,9 +2166,6 @@ msgstr "Hide tokens with small balances"
 
 msgid "News"
 msgstr "News"
-
-msgid "Followed @{handle} on {0}"
-msgstr "Followed @{handle} on {0}"
 
 msgid "NFT ID"
 msgstr "NFT ID"

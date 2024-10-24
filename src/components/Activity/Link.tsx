@@ -8,7 +8,7 @@ import { SupportedMethod } from '@/types/bridge.js';
 
 export const Link = forwardRef<
     HTMLAnchorElement,
-    PropsWithChildren<Omit<LinkProps, 'href'>> & Pick<HTMLProps<'a'>, 'className'> & { href: string }
+    PropsWithChildren<Omit<LinkProps, 'href'>> & Pick<HTMLProps<'a'>, 'className' | 'target'> & { href: string }
 >(function Link({ children, ...props }, ref) {
     return (
         <RawLink
