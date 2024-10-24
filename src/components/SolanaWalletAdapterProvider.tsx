@@ -12,11 +12,12 @@ import { WalletConnectWalletAdapter } from '@solana/wallet-adapter-walletconnect
 import { type PropsWithChildren } from 'react';
 
 import { ParticleSolanaWalletAdapter } from '@/connectors/ParticleSolanaWallet.js';
+import { STATUS } from '@/constants/enum.js';
 import { env } from '@/constants/env.js';
 import { SOLANA_WALLET_CACHE_KEY } from '@/constants/index.js';
 
 const wallets: Adapter[] = [
-    new ParticleSolanaWalletAdapter(),
+    env.external.NEXT_PUBLIC_PARTICLE === STATUS.Enabled ? new ParticleSolanaWalletAdapter() : null,
     new PhantomWalletAdapter(),
     new WalletConnectWalletAdapter({
         options: {
@@ -24,7 +25,7 @@ const wallets: Adapter[] = [
         },
         network: WalletAdapterNetwork.Mainnet,
     }),
-];
+].filter((x) => !!x);
 
 export function SolanaWalletAdapterProvider({ children }: PropsWithChildren) {
     return (

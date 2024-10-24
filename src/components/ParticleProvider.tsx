@@ -4,7 +4,7 @@ import { AuthCoreContextProvider, PromptSettingType } from '@particle-network/au
 import { type ReactNode, useMemo } from 'react';
 
 import { chains } from '@/configs/wagmiClient.js';
-import { VERCEL_NEV } from '@/constants/enum.js';
+import { STATUS, VERCEL_NEV } from '@/constants/enum.js';
 import { env } from '@/constants/env.js';
 
 type AuthCoreContextProviderOptions = Parameters<typeof AuthCoreContextProvider>[0]['options'];
@@ -15,6 +15,10 @@ interface ParticleProviderProps {
 
 export function ParticleProvider({ children }: ParticleProviderProps) {
     const options = useMemo(() => {
+        if (env.external.NEXT_PUBLIC_PARTICLE === STATUS.Disabled) {
+            console.warn(`[particle] disabled.`);
+            return null;
+        }
         if (
             !env.external.NEXT_PUBLIC_PARTICLE_APP_ID ||
             !env.external.NEXT_PUBLIC_PARTICLE_CLIENT_KEY ||
@@ -43,7 +47,7 @@ export function ParticleProvider({ children }: ParticleProviderProps) {
         } satisfies AuthCoreContextProviderOptions;
     }, []);
 
-    if (!options) return null;
+    if (!options) return children;
 
     return <AuthCoreContextProvider options={options}>{children}</AuthCoreContextProvider>;
 }

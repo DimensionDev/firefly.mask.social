@@ -34,7 +34,6 @@ interface ConnectorOptions {
 
 export function createParticleConnector(options: ConnectorOptions) {
     if (env.external.NEXT_PUBLIC_PARTICLE !== STATUS.Enabled) {
-        console.warn(`[particle] disabled.`);
         return null;
     }
 
