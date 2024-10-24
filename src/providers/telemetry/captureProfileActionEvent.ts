@@ -34,8 +34,6 @@ export function captureProfileActionEvent(action: ProfileActionType, profile: Pr
         const eventIds = resolveProfileActionEventIds(profile.source);
         const eventId = eventIds[action];
 
-        TelemetryProvider.captureEvent(eventId, getEventParameters(profile), {
-            version_filter: VersionFilter.Next,
-        });
+        TelemetryProvider.captureEvent(eventId, getEventParameters(profile));
     });
 }

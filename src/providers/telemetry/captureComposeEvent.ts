@@ -17,34 +17,22 @@ export function captureComposeEvent(type: ComposeType, post: CompositePost, opti
 
         // draft created
         if (draftId) {
-            TelemetryProvider.captureEvent(
-                EventId.COMPOSE_DRAFT_CREATE_SUCCESS,
-                {
-                    draft_id: draftId,
-                    draft_time: date.getTime(),
-                    draft_time_utc: date.toUTCString(),
-                    ...getComposeEventParameters(post, options),
-                },
-                {
-                    version_filter: VersionFilter.Next,
-                },
-            );
+            TelemetryProvider.captureEvent(EventId.COMPOSE_DRAFT_CREATE_SUCCESS, {
+                draft_id: draftId,
+                draft_time: date.getTime(),
+                draft_time_utc: date.toUTCString(),
+                ...getComposeEventParameters(post, options),
+            });
         }
 
         // scheduled post created
         if (scheduleId) {
-            TelemetryProvider.captureEvent(
-                EventId.COMPOSE_SCHEDULED_POST_CREATE_SUCCESS,
-                {
-                    schedule_id: scheduleId,
-                    schedule_time: date.getTime(),
-                    scheduled_time_utc: date.toUTCString(),
-                    ...getComposeEventParameters(post, options),
-                },
-                {
-                    version_filter: VersionFilter.Next,
-                },
-            );
+            TelemetryProvider.captureEvent(EventId.COMPOSE_SCHEDULED_POST_CREATE_SUCCESS, {
+                schedule_id: scheduleId,
+                schedule_time: date.getTime(),
+                scheduled_time_utc: date.toUTCString(),
+                ...getComposeEventParameters(post, options),
+            });
         }
 
         // post created
@@ -56,9 +44,6 @@ export function captureComposeEvent(type: ComposeType, post: CompositePost, opti
                         TelemetryProvider.captureEvent(
                             getPostEventId(type, post),
                             getComposeEventParameters(post, options),
-                            {
-                                version_filter: VersionFilter.Next,
-                            },
                         );
                         break;
                     case 'reply':
@@ -74,9 +59,6 @@ export function captureComposeEvent(type: ComposeType, post: CompositePost, opti
                         TelemetryProvider.captureEvent(
                             getPostEventId(type, post),
                             getPostEventParameters(postId, profile),
-                            {
-                                version_filter: VersionFilter.Next,
-                            },
                         );
                         break;
                     default:
@@ -89,9 +71,6 @@ export function captureComposeEvent(type: ComposeType, post: CompositePost, opti
                 TelemetryProvider.captureEvent(
                     EventId.COMPOSE_CROSS_POST_SEND_SUCCESS,
                     getComposeEventParameters(post, options),
-                    {
-                        version_filter: VersionFilter.Next,
-                    },
                 );
             }
         }

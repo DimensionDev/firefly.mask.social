@@ -68,29 +68,19 @@ function getAccountEventParameters(account: Account) {
 export function captureAccountLoginEvent(account: Account) {
     runInSafe(() => {
         const source = account.profile.source;
-        TelemetryProvider.captureEvent(resolveLoginEventId(source), getAccountEventParameters(account), {
-            version_filter: VersionFilter.Next,
-        });
+        TelemetryProvider.captureEvent(resolveLoginEventId(source), getAccountEventParameters(account));
     });
 }
 
 export function captureAccountLogoutEvent(account: Account) {
     runInSafe(() => {
         const source = account.profile.source;
-        TelemetryProvider.captureEvent(resolveLogoutEventId(source), getAccountEventParameters(account), {
-            version_filter: VersionFilter.Next,
-        });
+        TelemetryProvider.captureEvent(resolveLogoutEventId(source), getAccountEventParameters(account));
     });
 }
 
 export function captureAccountLogoutAllEvent() {
     runInSafe(() => {
-        TelemetryProvider.captureEvent(
-            EventId.ACCOUNT_LOG_OUT_ALL_SUCCESS,
-            {},
-            {
-                version_filter: VersionFilter.Next,
-            },
-        );
+        TelemetryProvider.captureEvent(EventId.ACCOUNT_LOG_OUT_ALL_SUCCESS, {});
     });
 }
