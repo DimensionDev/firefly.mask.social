@@ -44,6 +44,7 @@ export function ActivityClaimButton({ status }: { status: ActivityStatus }) {
                 firefly_account_id: fireflyAccountId ?? undefined,
             });
         } catch (error) {
+            await refetch();
             enqueueErrorMessage(getSnackbarMessageFromError(error, t`Failed to claim token`), { error });
             throw error;
         }

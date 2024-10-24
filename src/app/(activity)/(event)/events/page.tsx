@@ -32,7 +32,13 @@ export default function Page() {
                 <NavigationBar>
                     <Trans>Exclusive Events</Trans>
                 </NavigationBar>
-            ) : null}
+            ) : (
+                <div className="hidden h-12 flex-row items-center px-4 text-xl font-bold md:flex">
+                    <span>
+                        <Trans>Exclusive Events</Trans>
+                    </span>
+                </div>
+            )}
             <div className="flex w-full flex-col p-4">
                 <ListInPage
                     source={Source.Wallet}
