@@ -9,8 +9,8 @@ import { CloseButton } from '@/components/CloseButton.js';
 import { Modal } from '@/components/Modal.js';
 import { Popover } from '@/components/Popover.js';
 import { Link } from '@/esm/Link.js';
+import { resolveExplorerLink } from '@/helpers/resolveExplorerLink.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
-import { resolveExplorerLink } from '@/services/resolveExplorerLink.js';
 
 interface Props {
     open: boolean;

@@ -90,7 +90,7 @@ export function ActivityConnectButton() {
                 <Menu.Items className="absolute left-1/2 top-[calc(100%+12px)] z-50 flex max-h-[400px] w-[200px] -translate-x-1/2 flex-col overflow-y-auto rounded-[12px] border border-line bg-primaryBottom shadow-lg">
                     {addresses.map(({ address, ens }) => (
                         <Menu.Item key={address}>
-                            <a
+                            <button
                                 className="cursor-pointer px-4 py-[11px] text-sm font-semibold leading-6"
                                 onClick={() => {
                                     onChangeAddress(address);
@@ -102,7 +102,7 @@ export function ActivityConnectButton() {
                                 }}
                             >
                                 {ens || formatAddress(address, 4)}
-                            </a>
+                            </button>
                         </Menu.Item>
                     ))}
                     <Menu.Item>
