@@ -2,6 +2,7 @@ import { S3Client } from '@aws-sdk/client-s3';
 import { Upload } from '@aws-sdk/lib-storage';
 import { StatusCodes } from 'http-status-codes';
 import type { NextRequest } from 'next/server.js';
+import urlcat from 'urlcat';
 import { v4 as uuid } from 'uuid';
 import { z, ZodError } from 'zod';
 
@@ -10,6 +11,7 @@ import { env } from '@/constants/env.js';
 import { ContentTypeError } from '@/constants/error.js';
 import { SUFFIX_NAMES } from '@/constants/index.js';
 import { createErrorResponseJSON, createSuccessResponseJSON } from '@/helpers/createResponseJSON.js';
+import { fetch } from '@/helpers/fetch.js';
 import { getGatewayErrorMessage } from '@/helpers/getGatewayErrorMessage.js';
 import { FileSchema } from '@/schemas/index.js';
 
@@ -63,6 +65,38 @@ export async function PUT(req: NextRequest) {
                 status: StatusCodes.BAD_REQUEST,
             });
         }
+        return createErrorResponseJSON(getGatewayErrorMessage(error, 'Internal Server Error'), {
+            status: StatusCodes.INTERNAL_SERVER_ERROR,
+        });
+    }
+}
+
+export async function DELETE(req: NextRequest) {
+    try {
+        const path = req.nextUrl.searchParams.get('path');
+        if (!path) {
+            return createErrorResponseJSON('InvalidParams: path is required', {
+                status: StatusCodes.BAD_REQUEST,
+            });
+        }
+
+        if (!env.external.NEXT_PUBLIC_S3_API_KEY) {
+            throw new Error('S3_API_KEY is not defined');
+        }
+
+        const url = urlcat('https://openapi-dev.firefly.land/media_invalid', {
+            path,
+        });
+
+        await fetch(url, {
+            method: 'GET',
+            headers: {
+                'x-api-key': env.external.NEXT_PUBLIC_S3_API_KEY,
+            },
+        });
+
+        return createSuccessResponseJSON({});
+    } catch (error) {
         return createErrorResponseJSON(getGatewayErrorMessage(error, 'Internal Server Error'), {
             status: StatusCodes.INTERNAL_SERVER_ERROR,
         });

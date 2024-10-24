@@ -240,6 +240,9 @@ msgstr ""
 msgid "{0} is eligible!"
 msgstr ""
 
+msgid "Successfully synced development to production"
+msgstr ""
+
 msgid "Airdrop Scam"
 msgstr "空投騙局"
 
@@ -423,6 +426,9 @@ msgstr "顯示更少"
 msgid "Proxy contract."
 msgstr ""
 
+msgid "Successfully synced production to development"
+msgstr ""
+
 msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} {1, select, Lens {mirrored your} Farcaster {recasted your} other {mirrored your}} <4>{2, select, Post {post} Comment {comment} Quote {quote} Mirror {mirror} other {post}}</4>"
 msgstr ""
 
@@ -452,6 +458,9 @@ msgstr "確認從 Firefly 的社交圖譜上取消該錢包的連接？"
 
 msgid "Confirm"
 msgstr "確認"
+
+msgid "Successfully uploaded advertisement"
+msgstr ""
 
 msgid "Connect your wallet to claim your NFT."
 msgstr ""
@@ -885,6 +894,9 @@ msgstr ""
 msgid "Unmuting..."
 msgstr "正在靜音中"
 
+msgid "Remove Advertisement"
+msgstr ""
+
 msgid "{0, plural, one {Your post failed to publish on {firstPlatform} due to an error. Click 'Retry' to attempt posting again.} two {Your post failed to publish on {firstPlatform} and {secondPlatform} due to an error. Click 'Retry' to attempt posting again.} other {Your post failed to publish due to an error. Click 'Retry' to attempt posting again.}}"
 msgstr ""
 
@@ -907,6 +919,9 @@ msgid "This token contract has a code that states that it cannot be sold. Maybe 
 msgstr ""
 
 msgid "REPLY to<0><1>@{0}</1></0>"
+msgstr ""
+
+msgid "Are you sure you want to remove this advertisement?"
 msgstr ""
 
 msgid "Directory"
@@ -1650,6 +1665,9 @@ msgstr ""
 msgid "No stealing attack involved."
 msgstr ""
 
+msgid "Advertisement"
+msgstr ""
+
 msgid "The contract owner has no restrictions on buying."
 msgstr ""
 
@@ -1715,6 +1733,9 @@ msgstr "搜尋..."
 
 msgid "Show more comments"
 msgstr "顯示更多評論"
+
+msgid "Failed to sync development to production"
+msgstr ""
 
 msgid "Failed to parse session."
 msgstr ""
@@ -1936,6 +1957,9 @@ msgid "Failed to like the post."
 msgstr "按讚評論失敗"
 
 msgid "Failed to repost."
+msgstr ""
+
+msgid "Advertisement Management"
 msgstr ""
 
 msgid "Download image"
@@ -2202,6 +2226,9 @@ msgstr ""
 msgid "Your post will be sent on {0} at {1} <0>View</0>"
 msgstr ""
 
+msgid "Sync Development to Production"
+msgstr ""
+
 msgid "Failed to create scheduled post."
 msgstr ""
 
@@ -2400,6 +2427,9 @@ msgstr ""
 msgid "Add another option"
 msgstr ""
 
+msgid "Sync Advertisement"
+msgstr ""
+
 msgid "1y"
 msgstr ""
 
@@ -2523,6 +2553,9 @@ msgstr ""
 msgid "Hide tokens with small balances"
 msgstr ""
 
+msgid "Failed to upload advertisement"
+msgstr ""
+
 msgid "Proposal"
 msgstr ""
 
@@ -2540,6 +2573,9 @@ msgstr ""
 
 msgid "Failed to unmirror post."
 msgstr "取消鏡像貼文失敗"
+
+msgid "Sync Production to Development"
+msgstr ""
 
 msgid "Failed to unlike the comment."
 msgstr "取消評論點贊失敗"
@@ -2644,6 +2680,9 @@ msgid "Emoji"
 msgstr ""
 
 msgid "Failed to report spam NFT."
+msgstr ""
+
+msgid "Are you sure you want to sync development to production?"
 msgstr ""
 
 msgid "Malformed twitter session payload."
@@ -2755,6 +2794,9 @@ msgid "Ignore the warnings to continue"
 msgstr ""
 
 msgid "The contract owner has restrictions on trading cooldown."
+msgstr ""
+
+msgid "Failed to sync production to development"
 msgstr ""
 
 msgid "Sign to enable signless"

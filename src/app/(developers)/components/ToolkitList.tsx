@@ -23,6 +23,7 @@ export function ToolkitList() {
                 { name: <Trans>Blink Validator</Trans>, link: '/blink' },
                 { name: <Trans>Frame Validator</Trans>, link: '/frame' },
                 { name: <Trans>OpenGraph Validator</Trans>, link: '/og' },
+                { name: <Trans>Advertisement</Trans>, link: '/advertisement' },
             ].map(({ name, link }) => (
                 <Link
                     className={`mb-6 flex items-center justify-between border-b border-line pb-1 text-[18px] leading-[24px] text-main hover:font-bold ${

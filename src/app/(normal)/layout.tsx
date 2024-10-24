@@ -1,4 +1,4 @@
-import { Advertisement } from '@/components/Advertisement.js';
+import { Advertisement } from '@/components/Advertisement/index.js';
 import { CalendarContent } from '@/components/Calendar/CalendarContent.js';
 import { SuggestedChannels } from '@/components/Channel/SuggestedChannels.js';
 import { ComposeWatcher } from '@/components/Compose/ComposeWatcher.js';
