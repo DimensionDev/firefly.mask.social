@@ -1,5 +1,5 @@
 import { ChainId } from '@masknet/web3-shared-solana';
-import { getClient } from '@wagmi/core';
+import { getAccount } from '@wagmi/core';
 
 import { config } from '@/configs/wagmiClient.js';
 import { bom } from '@/helpers/bom.js';
@@ -9,9 +9,10 @@ import { useDeveloperSettingsState } from '@/store/useDeveloperSettingsStore.js'
 import { useFireflyStateStore } from '@/store/useProfileStore.js';
 
 export function getPublicParameters(eventId: string, previousEventId: string | null) {
-    const evmClient = getClient(config);
+    const evmAccount = runInSafe(() => getAccount(config));
     const solanaAdaptor = runInSafe(() => resolveWalletAdapter());
     const fireflyAccountId = useFireflyStateStore.getState().currentProfileSession?.profileId;
+
     return {
         public_uuid: eventId,
         public_previous_uuid: previousEventId,
@@ -19,8 +20,8 @@ export function getPublicParameters(eventId: string, previousEventId: string | n
         public_ua: bom.navigator?.userAgent,
         public_href: bom.location?.href,
 
-        public_evm_address: evmClient?.account?.address,
-        public_evm_chain_id: evmClient?.chain.id,
+        public_evm_address: evmAccount?.address,
+        public_evm_chain_id: evmAccount?.chainId,
         public_solana_chain_id: ChainId.Mainnet,
         public_solana_address: solanaAdaptor?.publicKey?.toBase58(),
 
