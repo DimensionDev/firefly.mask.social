@@ -5,10 +5,10 @@ import { ChainId } from '@masknet/web3-shared-evm';
 
 import SuccessShieldIcon from '@/assets/success-shield.svg';
 import { useActivityCompose } from '@/components/Activity/hooks/useActivityCompose.js';
+import { Link } from '@/components/Activity/Link.js';
 import { CloseButton } from '@/components/CloseButton.js';
 import { Modal } from '@/components/Modal.js';
 import { Popover } from '@/components/Popover.js';
-import { Link } from '@/esm/Link.js';
 import { resolveExplorerLink } from '@/helpers/resolveExplorerLink.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
 
