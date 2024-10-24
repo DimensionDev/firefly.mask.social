@@ -114,8 +114,6 @@ createAppKit({
         socials: [],
     },
     debug: true,
-    includeWalletIds: walletIds,
-    excludeWalletIds: [WalletId.Injected],
     featuredWalletIds: walletIds,
 });
 

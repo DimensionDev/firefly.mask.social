@@ -1,5 +1,5 @@
 diff --git a/dist/esm/src/partials/w3m-connect-injected-widget/index.js b/dist/esm/src/partials/w3m-connect-injected-widget/index.js
-index 8834cda2346d8316a340b914f00e39bad9008192..c553c81a9e5eef14cc8c471ce404697505963263 100644
+index 8834cda2346d8316a340b914f00e39bad9008192..7c270153b3dc36be97ade2b3ba9059f82bcbc033 100644
 --- a/dist/esm/src/partials/w3m-connect-injected-widget/index.js
 +++ b/dist/esm/src/partials/w3m-connect-injected-widget/index.js
 @@ -20,7 +20,12 @@ let W3mConnectInjectedWidget = class W3mConnectInjectedWidget extends LitElement
@@ -7,12 +7,12 @@ index 8834cda2346d8316a340b914f00e39bad9008192..c553c81a9e5eef14cc8c471ce4046975
      }
      render() {
 -        const injectedConnectors = this.connectors.filter(connector => connector.type === 'INJECTED');
-+        const MetaMask = 'c57ca95b47569778a828d19178114f4db188b89b763c899ba0be274e97267d96';
-+        const CoinBase = 'fd20dc426fb37566d803205b19bbc1d4096b248ac04548e3cfb6b3a38bd033aa';
-+        const Rabby = '18388be9ac2d02726dbac9777c96efaac06d744b2f6d580fccdd4127a6d01fd1';
-+        const OKX = '971e689d0a5be527bac79629b4ee9b925e82208e5168b733496a09c0faed0709'
-+        const promotes = CoreHelperUtil.isMobile() ? [MetaMask, Rabby, OKX]: [CoinBase, Rabby, OKX]
-+        const injectedConnectors = this.connectors.filter(connector => connector.type === 'INJECTED').filter(x => promotes.includes(x.id));
++        const MetaMask = 'io.metamask';
++        const CoinBase = 'coinbaseWalletSDK';
++        const Rabby = 'io.rabby';
++        const OKX = 'com.okex.wallet'
++        const RDNSs = CoreHelperUtil.isMobile() ? [MetaMask, Rabby, OKX]: [CoinBase, Rabby, OKX]
++        const injectedConnectors = this.connectors.filter(connector => connector.type === 'INJECTED').filter(x => RDNSs.includes(x.id));
          if (!injectedConnectors?.length ||
              (injectedConnectors.length === 1 &&
                  injectedConnectors[0]?.name === 'Browser Wallet' &&
@@ -25,7 +25,7 @@ index 8834cda2346d8316a340b914f00e39bad9008192..c553c81a9e5eef14cc8c471ce4046975
        <wui-flex flexDirection="column" gap="xs">
          ${injectedConnectors.map(connector => {
 diff --git a/dist/esm/src/partials/w3m-connector-list/index.js b/dist/esm/src/partials/w3m-connector-list/index.js
-index 2b0524b6fe9c4621f6dbf2ab58e8fb61c76e70b6..9e61b830d637ef9d60b143cc3e1f8f9c3a935b44 100644
+index 2b0524b6fe9c4621f6dbf2ab58e8fb61c76e70b6..002edc8fab5048a5396ff19ffd892708a974a0e4 100644
 --- a/dist/esm/src/partials/w3m-connector-list/index.js
 +++ b/dist/esm/src/partials/w3m-connector-list/index.js
 @@ -26,8 +26,8 @@ let W3mConnectorList = class W3mConnectorList extends LitElement {
