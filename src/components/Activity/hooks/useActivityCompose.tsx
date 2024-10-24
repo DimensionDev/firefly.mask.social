@@ -80,7 +80,7 @@ export function useActivityCompose() {
     const list = useActivityPremiumList();
     const isPremium = list.some((x) => x.verified);
 
-    const text = isPremium
+    const text = !isPremium
         ? [
               'Just claimed the "Congrats 🥂 to Brian" collectible from ',
               fireflyMention,
