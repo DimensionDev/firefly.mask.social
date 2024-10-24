@@ -1,8 +1,4 @@
-'use client';
-
-import { PlusIcon, UserPlusIcon } from '@heroicons/react/24/outline';
-import { t, Trans } from '@lingui/macro';
-import { delay } from '@masknet/kit';
+import { Trans } from '@lingui/macro';
 import { usePathname } from 'next/navigation.js';
 import { memo } from 'react';
 
@@ -13,7 +9,6 @@ import DiscoverSelectedIcon from '@/assets/discover.selected.svg';
 import DiscoverIcon from '@/assets/discover.svg';
 import FollowingSelectedIcon from '@/assets/following.selected.svg';
 import FollowingIcon from '@/assets/following.svg';
-import LoadingIcon from '@/assets/loading.svg';
 import NotificationSelectedIcon from '@/assets/notification.selected.svg';
 import NotificationIcon from '@/assets/notification.svg';
 import ProfileSelectedIcon from '@/assets/profile.selected.svg';
@@ -21,30 +16,21 @@ import ProfileIcon from '@/assets/profile.svg';
 import SettingsSelectedIcon from '@/assets/setting.selected.svg';
 import SettingsIcon from '@/assets/setting.svg';
 import WalletIcon from '@/assets/wallet.svg';
-import { ClickableButton } from '@/components/ClickableButton.js';
-import { LoginStatusBar } from '@/components/Login/LoginStatusBar.js';
 import { OpenFireflyAppButton } from '@/components/OpenFireflyAppButton.js';
 import { ConnectWallet } from '@/components/SideBar/ConnectWallet.js';
+import { Footer } from '@/components/SideBar/Footer.js';
+import { Post } from '@/components/SideBar/Post.js';
+import { Profile } from '@/components/SideBar/Profile.js';
 import { Tooltip } from '@/components/Tooltip.js';
 import { PageRoute } from '@/constants/enum.js';
 import { DEFAULT_SOCIAL_SOURCE } from '@/constants/index.js';
 import { Link } from '@/esm/Link.js';
 import { classNames } from '@/helpers/classNames.js';
-import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { isMatchedDiscoverPage } from '@/helpers/isMatchedDiscoverPage.js';
 import { isRoutePathname } from '@/helpers/isRoutePathname.js';
-import { isSameFireflyIdentity } from '@/helpers/isSameFireflyIdentity.js';
-import { parseProfileUrl } from '@/helpers/parseProfileUrl.js';
 import { resolveBookmarkUrl } from '@/helpers/resolveBookmarkUrl.js';
 import { resolveFollowingUrl } from '@/helpers/resolveFollowingUrl.js';
 import { resolveNotificationUrl } from '@/helpers/resolveNotificationUrl.js';
-import { useAsyncStatusAll } from '@/hooks/useAsyncStatus.js';
-import { useCurrentFireflyProfilesAll } from '@/hooks/useCurrentFireflyProfiles.js';
-import { useCurrentProfileFirstAvailable } from '@/hooks/useCurrentProfile.js';
-import { useCurrentVisitingChannel } from '@/hooks/useCurrentVisitingChannel.js';
-import { useIsLogin } from '@/hooks/useIsLogin.js';
-import { useIsMedium } from '@/hooks/useMediaQuery.js';
-import { ComposeModalRef, LoginModalRef } from '@/modals/controls.js';
 import { useNavigatorState } from '@/store/useNavigatorStore.js';
 
 interface MenuProps {
@@ -52,17 +38,7 @@ interface MenuProps {
 }
 
 export const Menu = memo(function Menu({ collapsed = false }: MenuProps) {
-    const currentChannel = useCurrentVisitingChannel();
-    const isMedium = useIsMedium();
-    const { updateSidebarOpen } = useNavigatorState();
-
-    const profile = useCurrentProfileFirstAvailable();
-    const profiles = useCurrentFireflyProfilesAll();
-
-    const isLogin = useIsLogin();
     const pathname = usePathname();
-
-    const isLoading = useAsyncStatusAll();
 
     return (
         <nav className="relative flex flex-1 flex-col">
@@ -99,20 +75,10 @@ export const Menu = memo(function Menu({ collapsed = false }: MenuProps) {
                                 match: () => pathname.startsWith(PageRoute.Bookmarks),
                             },
                             {
-                                href: profile ? getProfileUrl(profile) : PageRoute.Profile,
+                                href: '/profile',
                                 name: <Trans>Profile</Trans>,
                                 icon: ProfileIcon,
                                 selectedIcon: ProfileSelectedIcon,
-                                match: () => {
-                                    const parsedProfileUrl = parseProfileUrl(pathname);
-                                    if (!parsedProfileUrl) return false;
-                                    return profiles.some((x) =>
-                                        isSameFireflyIdentity(x.identity, {
-                                            source: parsedProfileUrl.source,
-                                            id: parsedProfileUrl.id,
-                                        }),
-                                    );
-                                },
                             },
                             {
                                 href: '/connect-wallet',
@@ -135,10 +101,13 @@ export const Menu = memo(function Menu({ collapsed = false }: MenuProps) {
                                 <li
                                     className="flex rounded-lg text-main outline-none"
                                     key={item.href}
-                                    onClick={() => updateSidebarOpen(false)}
+                                    onClick={() => {
+                                        useNavigatorState.getState().updateSidebarOpen(false);
+                                    }}
                                 >
                                     {{
                                         ['/connect-wallet']: <ConnectWallet collapsed={collapsed} />,
+                                        ['/profile']: <Profile collapsed={collapsed} />,
                                     }[item.href] ?? (
                                         <Link
                                             href={item.href}
@@ -161,86 +130,20 @@ export const Menu = memo(function Menu({ collapsed = false }: MenuProps) {
                                 </li>
                             );
                         })}
-                        {!isMedium ? (
-                            <li>
-                                <OpenFireflyAppButton className="flex w-full items-center gap-x-3 px-2 py-2.5 text-fireflyBrand">
-                                    <CircleShareIcon width={20} height={20} />
-                                    <span className="text-xl font-bold leading-6">
-                                        <Trans>Mobile App</Trans>
-                                    </span>
-                                </OpenFireflyAppButton>
-                            </li>
-                        ) : null}
-                        {isLogin ? (
-                            collapsed ? (
-                                <li className="text-center">
-                                    <Tooltip content={t`Post`} placement="right">
-                                        <ClickableButton
-                                            className="rounded-full bg-main p-1 text-primaryBottom"
-                                            onClick={() =>
-                                                ComposeModalRef.open({
-                                                    type: 'compose',
-                                                    channel: currentChannel,
-                                                })
-                                            }
-                                        >
-                                            <PlusIcon className="h-5 w-5" aria-hidden="true" />
-                                        </ClickableButton>
-                                    </Tooltip>
-                                </li>
-                            ) : (
-                                <li>
-                                    <ClickableButton
-                                        className="mt-6 hidden w-[200px] rounded-2xl bg-main p-2 text-xl font-bold leading-6 text-primaryBottom md:block"
-                                        onClick={() => {
-                                            ComposeModalRef.open({
-                                                type: 'compose',
-                                                channel: currentChannel,
-                                            });
-                                        }}
-                                    >
-                                        <Trans>Post</Trans>
-                                    </ClickableButton>
-                                </li>
-                            )
-                        ) : null}
+
+                        <li className="md: hidden">
+                            <OpenFireflyAppButton className="flex w-full items-center gap-x-3 px-2 py-2.5 text-fireflyBrand">
+                                <CircleShareIcon width={20} height={20} />
+                                <span className="text-xl font-bold leading-6">
+                                    <Trans>Mobile App</Trans>
+                                </span>
+                            </OpenFireflyAppButton>
+                        </li>
+                        <Post collapsed={collapsed} />
                     </menu>
                 </li>
             </menu>
-            <footer
-                className={classNames('absolute -left-2 -right-2 bottom-20', {
-                    'flex justify-center text-center': !isLogin,
-                })}
-            >
-                {isLogin ? (
-                    <LoginStatusBar collapsed={collapsed} />
-                ) : collapsed ? (
-                    <ClickableButton
-                        onClick={() => {
-                            LoginModalRef.open();
-                        }}
-                        className="rounded-full bg-main p-1 text-primaryBottom"
-                    >
-                        <UserPlusIcon className="h-5 w-5" aria-hidden="true" />
-                    </ClickableButton>
-                ) : (
-                    <ClickableButton
-                        disabled={isLoading}
-                        onClick={async () => {
-                            updateSidebarOpen(false);
-                            await delay(300);
-                            LoginModalRef.open();
-                        }}
-                        className="flex w-[200px] items-center justify-center rounded-2xl bg-main p-2 text-xl font-bold leading-6 text-primaryBottom"
-                    >
-                        {isLoading ? (
-                            <LoadingIcon className="mr-2 animate-spin" width={24} height={24} />
-                        ) : (
-                            <Trans>Login</Trans>
-                        )}
-                    </ClickableButton>
-                )}
-            </footer>
+            <Footer collapsed={collapsed} />
         </nav>
     );
 });

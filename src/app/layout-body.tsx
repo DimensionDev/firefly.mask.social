@@ -43,9 +43,9 @@ export function LayoutBody({ children }: { children: React.ReactNode }) {
                             <SideBar />
                         </IfPathname>
                     </IfHostname>
-
                     <mask-page-inspector />
                 </div>
+
                 <Modals />
                 <RouteProgressBar
                     height="2px"

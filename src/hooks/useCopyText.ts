@@ -1,3 +1,5 @@
+'use client';
+
 import { t } from '@lingui/macro';
 import { useCallback, useRef, useState } from 'react';
 import { useCopyToClipboard } from 'usehooks-ts';

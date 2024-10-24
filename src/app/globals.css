@@ -103,60 +103,61 @@
     --color-light-rebranding-bg: 245 245 249;
 }
 
-.dark {
-    --foreground-rgb: 255 255 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
-    --color-main: 245 245 245;
-    --color-link: 142 150 255;
-    --color-bottom: 3 3 3;
-    --color-dark-bottom: #181818;
-    --color-second: rgba(255, 255, 255, 0.78);
-    --color-secondary-success: 24 195 123;
-    --color-primary-pink: 255 150 142;
-    --color-danger: 255 53 69;
-    --color-warn: 255 177 0;
-    --color-lens-primary: 154 227 42;
-    --color-twitter-primary: 29 161 243;
-    --color-farcaster-primary: 146 80 255;
-    --color-collected: 24 195 123;
-    --color-bottom80: rgba(0, 0, 0, 0.8);
-    --color-bottom-blue: rgba(36, 107, 253, 1);
-    --color-main1: rgba(255, 255, 255, 0.28);
-    --color-main2: rgba(255, 255, 255, 0.13);
-    --color-main3: rgba(255, 255, 255, 0.11);
-    --color-main4: rgba(245, 245, 245, 1);
-    --color-tooltip-bg: rgba(255, 255, 255, 0.9);
-    --color-third: rgba(255, 255, 255, 0.44);
-    --color-secondary: rgba(255, 255, 255, 0.78);
-    --color-bg: rgba(255, 255, 255, 0.08);
-    --color-bg-modal: rgba(0, 0, 0);
-    --color-bg-modal-layer: 217 217 217;
-    --m-modal-title-bg: linear-gradient(180deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.06) 100%);
-    --color-input: rgba(255, 255, 255, 1);
-    --color-line: rgba(255, 255, 255, 0.18);
-    --color-line2: rgba(255, 255, 255, 0.43);
-    --color-light-bg: rgba(255, 255, 255, 0.08);
-    --color-light-main: #f5f5f5;
-    --color-tab-line: var(--color-firefly-brand);
-    --color-firefly-brand: rgba(146, 80, 255, 1);
-    --plyr-audio-controls-background: transparent;
-    --plyr-range-thumb-height: 0px;
-    --plyr-range-track-height: 12px;
-    --plyr-control-radius: 12px;
-    --plyr-range-fill-background: rgba(255, 255, 255, 0.78);
-    --plyr-audio-progress-buffered-background: rgba(255, 255, 255, 0.13);
-    --plyr-control-icon-size: 16px;
-    --color-card: white;
-    --color-light-warn: 255 122 85;
-    --color-light-highlight: 76 74 169;
-    --color-highlight: 172 157 246;
-    --color-common-main: 24 26 32;
-    --color-bg02: 172 172 174;
-    --color-bg03: 230 230 237;
-    --color-light-rebranding-bg: 245 245 249;
+@media (prefers-color-scheme: dark) {
+    :root {
+        --foreground-rgb: 255 255 255;
+        --background-start-rgb: 0, 0, 0;
+        --background-end-rgb: 0, 0, 0;
+        --color-main: 245 245 245;
+        --color-link: 142 150 255;
+        --color-bottom: 3 3 3;
+        --color-dark-bottom: #181818;
+        --color-second: rgba(255, 255, 255, 0.78);
+        --color-secondary-success: 24 195 123;
+        --color-primary-pink: 255 150 142;
+        --color-danger: 255 53 69;
+        --color-warn: 255 177 0;
+        --color-lens-primary: 154 227 42;
+        --color-twitter-primary: 29 161 243;
+        --color-farcaster-primary: 146 80 255;
+        --color-collected: 24 195 123;
+        --color-bottom80: rgba(0, 0, 0, 0.8);
+        --color-bottom-blue: rgba(36, 107, 253, 1);
+        --color-main1: rgba(255, 255, 255, 0.28);
+        --color-main2: rgba(255, 255, 255, 0.13);
+        --color-main3: rgba(255, 255, 255, 0.11);
+        --color-main4: rgba(245, 245, 245, 1);
+        --color-tooltip-bg: rgba(255, 255, 255, 0.9);
+        --color-third: rgba(255, 255, 255, 0.44);
+        --color-secondary: rgba(255, 255, 255, 0.78);
+        --color-bg: rgba(255, 255, 255, 0.08);
+        --color-bg-modal: rgba(0, 0, 0);
+        --color-bg-modal-layer: 217 217 217;
+        --m-modal-title-bg: linear-gradient(180deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.06) 100%);
+        --color-input: rgba(255, 255, 255, 1);
+        --color-line: rgba(255, 255, 255, 0.18);
+        --color-line2: rgba(255, 255, 255, 0.43);
+        --color-light-bg: rgba(255, 255, 255, 0.08);
+        --color-light-main: #f5f5f5;
+        --color-tab-line: var(--color-firefly-brand);
+        --color-firefly-brand: rgba(146, 80, 255, 1);
+        --plyr-audio-controls-background: transparent;
+        --plyr-range-thumb-height: 0px;
+        --plyr-range-track-height: 12px;
+        --plyr-control-radius: 12px;
+        --plyr-range-fill-background: rgba(255, 255, 255, 0.78);
+        --plyr-audio-progress-buffered-background: rgba(255, 255, 255, 0.13);
+        --plyr-control-icon-size: 16px;
+        --color-card: white;
+        --color-light-warn: 255 122 85;
+        --color-light-highlight: 76 74 169;
+        --color-highlight: 172 157 246;
+        --color-common-main: 24 26 32;
+        --color-bg02: 172 172 174;
+        --color-bg03: 230 230 237;
+        --color-light-rebranding-bg: 245 245 249;
+    }
 }
-
 .dark .plyr__control {
     background: inherit !important;
 }

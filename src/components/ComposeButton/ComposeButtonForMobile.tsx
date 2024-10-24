@@ -1,3 +1,5 @@
+'use client';
+
 import { usePathname } from 'next/navigation.js';
 
 import ComposeAddIcon from '@/assets/compose-add.svg';
