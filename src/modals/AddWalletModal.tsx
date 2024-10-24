@@ -4,6 +4,7 @@ import { useSingletonModal } from '@masknet/shared-base-ui';
 import { useWallet } from '@solana/wallet-adapter-react';
 import { useWalletModal } from '@solana/wallet-adapter-react-ui';
 import { useQueryClient } from '@tanstack/react-query';
+import { disconnect } from '@wagmi/core';
 import bs58 from 'bs58';
 import { forwardRef, useCallback, useState } from 'react';
 import { useAsyncFn } from 'react-use';
@@ -50,6 +51,7 @@ export const AddWalletModal = forwardRef<SingletonModalRefCreator<AddWalletModal
         const onClose = useCallback((props: AddWalletModalCloseProps = {}) => dispatch?.close(props), [dispatch]);
 
         const onBindEvmAddress = useCallback(async () => {
+            await disconnect(config);
             const walletClient = await getWalletClientRequired(config);
             const address = walletClient.account.address;
             const existedConnection = connections.find((connection) =>

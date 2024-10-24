@@ -110,8 +110,8 @@ export function ActivityConnectButton() {
                         </Menu.Item>
                     ))}
                     <Menu.Item>
-                        <a
-                            className="flex cursor-pointer items-center px-4 py-[11px] text-sm font-semibold leading-6"
+                        <button
+                            className="flex cursor-pointer items-center justify-center px-4 py-[11px] text-sm font-semibold leading-6"
                             onClick={async () => {
                                 if (fireflyBridgeProvider.supported) {
                                     const address = await fireflyBridgeProvider.request(SupportedMethod.BIND_WALLET, {
@@ -145,7 +145,7 @@ export function ActivityConnectButton() {
                             ) : (
                                 <Trans>Add Wallet</Trans>
                             )}
-                        </a>
+                        </button>
                     </Menu.Item>
                 </Menu.Items>
             </Menu>
