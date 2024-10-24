@@ -102,7 +102,6 @@ export enum EventId {
     EVENT_CHANGE_WALLET_SUCCESS = 'event_change_wallet_success',
     EVENT_CLAIM_BASIC_SUCCESS = 'event_claim_basic_success',
     EVENT_CLAIM_PREMIUM_SUCCESS = 'event_claim_premium_success',
-    EVENT_SHARE_AND_POST_SUCCESS = 'event_share_and_post_success',
 }
 
 export enum ExceptionId {}
@@ -569,6 +568,7 @@ export interface Events extends Record<EventId, Event> {
         type: EventType.Interact;
         parameters: {
             firefly_account_id?: string;
+            activity: string;
         };
     };
     [EventId.EVENT_X_LOG_IN_SUCCESS]: {
@@ -577,6 +577,7 @@ export interface Events extends Record<EventId, Event> {
             firefly_account_id: string;
             is_token_sync: string;
             x_accounts: Array<[string, string]>;
+            activity: string;
         };
     };
     [EventId.EVENT_CONNECT_WALLET_SUCCESS]: {
@@ -584,6 +585,7 @@ export interface Events extends Record<EventId, Event> {
         parameters: {
             firefly_account_id: string;
             wallet_address: string;
+            activity: string;
         };
     };
     [EventId.EVENT_CHANGE_WALLET_SUCCESS]: {
@@ -591,6 +593,7 @@ export interface Events extends Record<EventId, Event> {
         parameters: {
             firefly_account_id: string;
             wallet_address: string;
+            activity: string;
         };
     };
     [EventId.EVENT_CLAIM_BASIC_SUCCESS]: {
@@ -598,6 +601,7 @@ export interface Events extends Record<EventId, Event> {
         parameters: {
             firefly_account_id: string;
             wallet_address: string;
+            activity: string;
         };
     };
     [EventId.EVENT_CLAIM_PREMIUM_SUCCESS]: {
@@ -605,15 +609,7 @@ export interface Events extends Record<EventId, Event> {
         parameters: {
             firefly_account_id: string;
             wallet_address: string;
-        };
-    };
-    [EventId.EVENT_SHARE_AND_POST_SUCCESS]: {
-        type: EventType.Interact;
-        parameters: {
-            firefly_account_id: string;
-            x_post_ids: string[];
-            x_id: string;
-            x_handle: string;
+            activity: string;
         };
     };
 }

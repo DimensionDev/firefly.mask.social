@@ -10,11 +10,10 @@ export function captureActivityEvent<
         | EventId.EVENT_CONNECT_WALLET_SUCCESS
         | EventId.EVENT_CHANGE_WALLET_SUCCESS
         | EventId.EVENT_CLAIM_BASIC_SUCCESS
-        | EventId.EVENT_CLAIM_PREMIUM_SUCCESS
-        | EventId.EVENT_SHARE_AND_POST_SUCCESS,
+        | EventId.EVENT_CLAIM_PREMIUM_SUCCESS,
 >(
     eventId: E,
-    params: Omit<Events[E]['parameters'], 'firefly_account_id'> & {
+    params: Omit<Events[E]['parameters'], 'firefly_account_id' | 'activity'> & {
         firefly_account_id?: string;
     },
 ) {
@@ -23,6 +22,7 @@ export function captureActivityEvent<
         TelemetryProvider.captureEvent(
             eventId,
             {
+                activity: window.location.href,
                 ...getPublicParameters(eventId, null),
                 ...params,
             } as Events[E]['parameters'],
