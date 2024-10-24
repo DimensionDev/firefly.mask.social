@@ -7,8 +7,8 @@ import MiniLogo from '@/assets/miniLogo.svg';
 export const SideBarLogo = memo(function SideBarLogo() {
     return (
         <>
-            <LightLogo width={169} height={80} className="dark:hidden max-md:hidden" />
-            <DarkLogo width={169} height={80} className="hidden dark:block max-md:hidden" />
+            <LightLogo width={169} height={80} className="sidebar-light-logo max-md:hidden" />
+            <DarkLogo width={169} height={80} className="sidebar-dark-logo max-md:hidden" />
             <MiniLogo className="ml-5 md:hidden" width={33} height={43} />
         </>
     );

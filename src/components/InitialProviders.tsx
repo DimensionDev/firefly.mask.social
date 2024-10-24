@@ -1,30 +1,18 @@
 'use client';
 
 import { useActionsRegistryInterval } from '@dialectlabs/blinks';
-import { i18n } from '@lingui/core';
-import { I18nProvider } from '@lingui/react';
-import { QueryClientProvider } from '@tanstack/react-query';
-import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
-import { ReactQueryStreamedHydration } from '@tanstack/react-query-next-experimental';
 import { usePathname } from 'next/navigation.js';
 import { SnackbarProvider } from 'notistack';
 import { memo, useEffect, useLayoutEffect, useMemo, useRef } from 'react';
 import { useEffectOnce } from 'react-use';
 import { v4 as uuid } from 'uuid';
 
-import { ParticleProvider } from '@/components/ParticleProvider.js';
-import { SolanaWalletAdapterProvider } from '@/components/SolanaWalletAdapterProvider.js';
-import { WagmiProvider } from '@/components/WagmiProvider.js';
-import { queryClient } from '@/configs/queryClient.js';
 import { sentryClient } from '@/configs/sentryClient.js';
-import { STATUS } from '@/constants/enum.js';
-import { env } from '@/constants/env.js';
 import { classNames } from '@/helpers/classNames.js';
 import { getLocaleFromCookies } from '@/helpers/getLocaleFromCookies.js';
 import { DarkModeContext } from '@/hooks/useDarkMode.js';
 import { useIsDarkMode } from '@/hooks/useIsDarkMode.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
-import { useMounted } from '@/hooks/useMounted.js';
 import { setLocale } from '@/i18n/index.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
 import { useLeafwatchPersistStore } from '@/store/useLeafwatchPersistStore.js';
@@ -94,10 +82,7 @@ export const InitialProviders = memo(function Providers(props: { children: React
                     variantInfo: classNames('!bg-warn'),
                 }}
             >
-                {/* <ParticleProvider> */}
-                {/* wagmi depends @tanstack/react-query@4.29.23 */}
                 {props.children}
-                {/* </ParticleProvider> */}
             </SnackbarProvider>
         </DarkModeContext.Provider>
     );

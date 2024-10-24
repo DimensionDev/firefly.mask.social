@@ -103,6 +103,10 @@
     --color-light-rebranding-bg: 245 245 249;
 }
 
+.sidebar-dark-logo {
+    display: none;
+}
+
 @media (prefers-color-scheme: dark) {
     :root {
         --foreground-rgb: 255 255 255;
@@ -156,6 +160,13 @@
         --color-bg02: 172 172 174;
         --color-bg03: 230 230 237;
         --color-light-rebranding-bg: 245 245 249;
+    }
+
+    .sidebar-light-logo {
+        display: none;
+    }
+    .sidebar-dark-logo {
+        display: block;
     }
 }
 .dark .plyr__control {
