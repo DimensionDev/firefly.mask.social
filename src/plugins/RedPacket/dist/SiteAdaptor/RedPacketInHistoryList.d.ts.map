@@ -1,0 +1,1 @@
+{"version":3,"file":"RedPacketInHistoryList.d.ts","sourceRoot":"","sources":["../../src/SiteAdaptor/RedPacketInHistoryList.tsx"],"names":[],"mappings":"AAIA,OAAO,EAAE,mBAAmB,EAAE,KAAK,oBAAoB,EAAE,MAAM,+BAA+B,CAAA;AAyI9F,UAAU,2BAA2B;IACjC,OAAO,EAAE,mBAAmB,CAAC,iBAAiB,CAAA;IAC9C,QAAQ,EAAE,CAAC,OAAO,EAAE,oBAAoB,KAAK,IAAI,CAAA;CACpD;AAED,eAAO,MAAM,sBAAsB,mEAwHjC,CAAA"}

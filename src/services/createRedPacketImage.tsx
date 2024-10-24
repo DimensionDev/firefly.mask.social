@@ -1,11 +1,10 @@
 /* cspell:disable */
 import { safeUnreachable } from '@masknet/kit';
-import type { FireflyRedPacketAPI } from '@masknet/web3-providers/types';
 import satori from 'satori';
 import urlcat from 'urlcat';
 
-import { RedPacketCover } from '@/components/RedPacket/Cover.js';
-import { RedPacketPayload } from '@/components/RedPacket/Payload.js';
+import { RedPacketCover } from '@/components/Satori/Cover.js';
+import { RedPacketPayload } from '@/components/Satori/Payload.js';
 import { Locale } from '@/constants/enum.js';
 import { UnreachableError } from '@/constants/error.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
@@ -14,6 +13,7 @@ import { removeVS16s } from '@/helpers/removeVS16s.js';
 import { getSatoriFonts } from '@/services/getSatoriFonts.js';
 import { settings } from '@/settings/index.js';
 import { TokenType, UsageType } from '@/types/rp.js';
+import type { ThemeByIdResponse } from '@/providers/types/RedPacket.js';
 
 interface Cover {
     locale: Locale;
@@ -49,7 +49,7 @@ async function getTheme(themeId: string, signal?: AbortSignal) {
     const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/redpacket/themeById', {
         themeId,
     });
-    const response = await fetchJSON<FireflyRedPacketAPI.ThemeByIdResponse>(url, {
+    const response = await fetchJSON<ThemeByIdResponse>(url, {
         next: {
             // revalidate at most every hour
             revalidate: 60 * 60,

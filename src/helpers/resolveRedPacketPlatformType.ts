@@ -1,14 +1,13 @@
-import { FireflyRedPacketAPI } from '@masknet/web3-providers/types';
-
 import { type SocialSource, Source } from '@/constants/enum.js';
 import { UnreachableError } from '@/constants/error.js';
 import { createLookupTableResolver } from '@/helpers/createLookupTableResolver.js';
+import { PlatformType } from '@/providers/types/RedPacket.js';
 
-export const resolveRedPacketPlatformType = createLookupTableResolver<SocialSource, FireflyRedPacketAPI.PlatformType>(
+export const resolveRedPacketPlatformType = createLookupTableResolver<SocialSource, PlatformType>(
     {
-        [Source.Lens]: FireflyRedPacketAPI.PlatformType.lens,
-        [Source.Farcaster]: FireflyRedPacketAPI.PlatformType.farcaster,
-        [Source.Twitter]: FireflyRedPacketAPI.PlatformType.twitter,
+        [Source.Lens]: PlatformType.lens,
+        [Source.Farcaster]: PlatformType.farcaster,
+        [Source.Twitter]: PlatformType.twitter,
     },
     (source) => {
         throw new UnreachableError('source', source);

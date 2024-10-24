@@ -1,0 +1,2 @@
+export declare function useClaimNftRedpacketCallback(id: string, totalAmount: number | undefined, signedMsg: string): import("react-use/lib/useAsyncFn.js").AsyncFnReturn<() => Promise<string | undefined | Error>>;
+// # sourceMappingURL=useClaimNftRedpacketCallback.d.ts.map

@@ -1,4 +1,4 @@
-import type { FireflyRedPacketAPI } from '@masknet/web3-providers/types';
+import type { StrategyPayload } from '@/providers/types/RedPacket.js';
 
 export enum TokenType {
     Fungible = 'fungible',
@@ -13,5 +13,5 @@ export enum UsageType {
 export interface RedPacketPayload {
     publicKey?: string;
     payloadImage: string;
-    claimRequirements: FireflyRedPacketAPI.StrategyPayload[];
+    claimRequirements: StrategyPayload[];
 }

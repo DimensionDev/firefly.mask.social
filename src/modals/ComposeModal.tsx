@@ -9,7 +9,6 @@ import { encrypt, SteganographyPreset } from '@masknet/encryption';
 import { delay } from '@masknet/kit';
 import { ProfileIdentifier } from '@masknet/shared-base';
 import type { TypedMessageTextV1 } from '@masknet/typed-message';
-import type { FireflyRedPacketAPI } from '@masknet/web3-providers/types';
 import { RouterProvider } from '@tanstack/react-router';
 import { $getRoot } from 'lexical';
 import { compact, flatten, values } from 'lodash-es';
@@ -50,6 +49,7 @@ import { useComposeScheduleStateStore } from '@/store/useComposeScheduleStore.js
 import { useComposeStateStore } from '@/store/useComposeStore.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
 import type { ComposeType } from '@/types/compose.js';
+import type { StrategyPayload } from '@/providers/types/RedPacket.js';
 
 const initialConfig = {
     namespace: 'composer',
@@ -71,7 +71,7 @@ export interface ComposeModalOpenProps {
     typedMessage?: TypedMessageTextV1 | null;
     rpPayload?: {
         payloadImage: string;
-        claimRequirements: FireflyRedPacketAPI.StrategyPayload[];
+        claimRequirements: StrategyPayload[];
     };
     channel?: Channel | null;
     initialPath?: string;
