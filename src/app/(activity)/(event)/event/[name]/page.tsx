@@ -94,7 +94,6 @@ export default function Page({
                     </h2>
                     <ActivityConnectCard />
                     <ActivityPremiumConditionList />
-                    {/* <ActivityRules /> */}
                 </div>
             </div>
             <div className="sticky bottom-0 mt-auto w-full bg-primaryBottom px-4 pt-1.5 pb-safe-or-4 sm:pb-safe-or-2">
