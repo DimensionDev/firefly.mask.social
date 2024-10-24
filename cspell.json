@@ -187,7 +187,8 @@
         "nextheight",
         "mutelist",
         "Powerbadge",
-        "errormessage"
+        "errormessage",
+        "webm"
     ],
     "flagWords": [],
     "ignorePaths": [
