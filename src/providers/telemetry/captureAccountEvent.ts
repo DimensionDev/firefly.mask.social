@@ -7,7 +7,7 @@ import { getProfileState } from '@/helpers/getProfileState.js';
 import { runInSafe } from '@/helpers/runInSafe.js';
 import { TelemetryProvider } from '@/providers/telemetry/index.js';
 import type { Account } from '@/providers/types/Account.js';
-import { EventId, VersionFilter } from '@/providers/types/Telemetry.js';
+import { EventId } from '@/providers/types/Telemetry.js';
 
 const resolveLoginEventId = createLookupTableResolver<SocialSource, EventId>(
     {
