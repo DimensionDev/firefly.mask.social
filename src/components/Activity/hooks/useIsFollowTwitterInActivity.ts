@@ -17,7 +17,7 @@ export function useIsFollowTwitterInActivity(profileId: string, handle: string) 
                 );
             }
             const profile = await getProfileById(Source.Twitter, profileId);
-            return profile?.viewerContext?.following;
+            return profile?.viewerContext?.following ?? false;
         },
     });
 }

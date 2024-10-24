@@ -2,7 +2,7 @@ import { t } from '@lingui/macro';
 import { signIn } from 'next-auth/react';
 import { useAsyncFn } from 'react-use';
 
-import { enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
+import { enqueueErrorMessage, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { useFireflyBridgeAuthorization } from '@/hooks/useFireflyBridgeAuthorization.js';
 import { fireflyBridgeProvider } from '@/providers/firefly/Bridge.js';
 import { Platform, SupportedMethod } from '@/types/bridge.js';
@@ -15,10 +15,10 @@ export function useLoginInActivity() {
                 platform: Platform.TWITTER,
             });
             await queryFireflyBridgeAuthorization.refetch();
-            if (result) {
-                enqueueSuccessMessage(t`Login X`);
+            if (result.success === 'true') {
+                enqueueSuccessMessage(t`Login X successfully.`);
             } else {
-                enqueueSuccessMessage(t`Login X failed`);
+                enqueueErrorMessage(t`Failed to login.`);
             }
             return;
         }

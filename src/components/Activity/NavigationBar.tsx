@@ -27,8 +27,8 @@ export function NavigationBar({ children, className }: Props) {
             <button
                 className="h-6 w-6 cursor-pointer"
                 onClick={() => {
-                    if (fireflyBridgeProvider.supported) return fireflyBridgeProvider.request(SupportedMethod.BACK, {});
-                    return comeback();
+                    if (fireflyBridgeProvider.supported) fireflyBridgeProvider.request(SupportedMethod.BACK, {});
+                    else comeback();
                 }}
             >
                 <NavigationBarBackIcon width={24} height={24} />

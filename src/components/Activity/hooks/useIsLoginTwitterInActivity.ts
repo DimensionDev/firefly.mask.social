@@ -5,6 +5,7 @@ import urlcat from 'urlcat';
 import { ActivityContext } from '@/components/Activity/ActivityContext.js';
 import { Source } from '@/constants/enum.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
+import { resolveFireflyResponseData } from '@/helpers/resolveFireflyResponseData.js';
 import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
 import { useFireflyBridgeAuthorization } from '@/hooks/useFireflyBridgeAuthorization.js';
 import { fireflyBridgeProvider } from '@/providers/firefly/Bridge.js';
@@ -21,14 +22,14 @@ export function useIsLoginTwitterInActivity() {
         async queryFn() {
             if (!fireflyBridgeProvider.supported) return !!twitterProfile;
             const url = urlcat(settings.FIREFLY_ROOT_URL, '/v2/wallet/profile');
-            const res = await fetchJSON<WalletProfileResponse>(url, {
+            const response = await fetchJSON<WalletProfileResponse>(url, {
                 headers: {
                     Authorization: `Bearer ${token}`,
                 },
             });
-            if (!res.data) return false;
-            if (res.data.fireflyAccountId) setFireflyAccountId(res.data.fireflyAccountId);
-            return res.data.twitterProfiles.length > 0;
+            const data = resolveFireflyResponseData(response);
+            if (data.fireflyAccountId) setFireflyAccountId(data.fireflyAccountId);
+            return data.twitterProfiles.length > 0;
         },
     });
 }

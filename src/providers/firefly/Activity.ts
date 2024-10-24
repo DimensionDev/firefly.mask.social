@@ -48,13 +48,14 @@ class FireflyActivity implements Provider {
             size,
         });
         const response = await fetchJSON<ActivityListResponse>(url);
-        if (!response.data?.list) {
+        const data = resolveFireflyResponseData(response);
+        if (!data.list) {
             return createPageable(EMPTY_LIST, createIndicator(indicator));
         }
         return createPageable(
-            response.data.list,
+            data.list,
             createIndicator(indicator),
-            response.data.cursor ? createNextIndicator(indicator, `${response.data.cursor}`) : undefined,
+            data.cursor ? createNextIndicator(indicator, `${data.cursor}`) : undefined,
         );
     }
 
@@ -111,13 +112,14 @@ class FireflyActivity implements Provider {
             size,
         });
         const response = await fetchJSON<ActivityListResponse>(url);
-        if (!response.data?.list) {
+        const data = resolveFireflyResponseData(response);
+        if (!data.list) {
             return createPageable(EMPTY_LIST, createIndicator(indicator));
         }
         return createPageable<ActivityListItem>(
-            response.data.list,
+            data.list,
             createIndicator(indicator),
-            response.data.cursor ? createNextIndicator(indicator, `${response.data.cursor}`) : undefined,
+            data.cursor ? createNextIndicator(indicator, `${data.cursor}`) : undefined,
         );
     }
 }

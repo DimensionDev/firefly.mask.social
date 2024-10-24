@@ -1144,6 +1144,9 @@ msgstr "Search ${symbol}"
 msgid "Failed to unmute /{0}."
 msgstr "Failed to unmute /{0}."
 
+msgid "Login X successfully."
+msgstr "Login X successfully."
+
 msgid "Please confirm the login with Warpcast."
 msgstr "Please confirm the login with Warpcast."
 
