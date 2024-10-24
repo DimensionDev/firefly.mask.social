@@ -1,3 +1,5 @@
+'use client';
+
 import { compact } from 'lodash-es';
 import { usePathname, useRouter } from 'next/navigation.js';
 import { memo, useEffect, useLayoutEffect, useRef, useState } from 'react';

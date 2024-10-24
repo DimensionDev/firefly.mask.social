@@ -26,7 +26,12 @@ export const SideBarForMobile = memo(function SideBarForMobile() {
 
     return (
         <Transition.Root show={sidebarOpen} as={Fragment}>
-            <Dialog as="div" className="relative z-50" onClose={() => updateSidebarOpen(false)} disableScrollLock>
+            <Dialog
+                as="div"
+                className="relative z-50 md:hidden"
+                onClose={() => updateSidebarOpen(false)}
+                disableScrollLock
+            >
                 <Transition.Child
                     as={Fragment}
                     enter="transition-opacity ease-linear duration-300"

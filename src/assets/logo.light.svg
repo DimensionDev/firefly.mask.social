@@ -1,1 +1,51 @@
-<svg fill="none" height="80" viewBox="0 0 169 80" width="169" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><filter id="a" color-interpolation-filters="sRGB" filterUnits="userSpaceOnUse" height="80" width="168.024" x="0" y="0"><feFlood flood-opacity="0" result="BackgroundImageFix"/><feGaussianBlur in="BackgroundImageFix" stdDeviation="8"/><feComposite in2="SourceAlpha" operator="in" result="effect1_backgroundBlur_24206_156837"/><feColorMatrix in="SourceAlpha" result="hardAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"/><feOffset/><feGaussianBlur stdDeviation="10"/><feComposite in2="hardAlpha" operator="out"/><feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.05 0"/><feBlend in2="effect1_backgroundBlur_24206_156837" mode="normal" result="effect2_dropShadow_24206_156837"/><feBlend in="SourceGraphic" in2="effect2_dropShadow_24206_156837" mode="normal" result="shape"/></filter><g filter="url(#a)"><g fill="#181818"><path d="m57.3232 37.127h13.578v5.1728h-7.0605v2.4503h4.6165v3.5393h-4.6165v4.6283h-6.5175z"/><path d="m72.8021 37.127h5.4312v15.7907h-5.4312z"/><path d="m102.945 43.3888v-2.9948h4.074v-3.267h-9.7766v15.7907h9.7766v-3.267h-4.074v-2.9948h2.716v-3.2671z"/><path d="m108.919 37.127h13.578v4.6283h-6.789v3.2671h4.345v3.267h-4.345v4.6283h-6.789z"/><path d="m130.101 37.127h-5.703v15.7907h8.69v-3.267h-2.987z"/><path clip-rule="evenodd" d="m80.1342 37.127h12.4917v1.6335h2.7156v6.5341h-2.7156v2.4503h2.7156v5.1728h-6.7889v-4.6283h-2.9872v4.6283h-5.4312zm9.7761 3.8115v3.2671h-4.3449v-3.2671z" fill-rule="evenodd"/><path d="m138.791 37.127h-6.246v6.2618h2.173v1.6336h1.357v1.6335h1.358v6.2618h5.703v-6.2618h1.358v-1.6335h1.358v-1.6336h2.172v-6.2618h-6.246v6.2618h-2.987z"/></g><path d="m22.5362 20h2.5363v2.5h-2.5363z" fill="#e64cff"/><path d="m27.6087 25h-2.5362v2.5h-2.5363v10h-2.5362v12.5h2.5362v5h2.5363v2.5h2.5362v2.5h15.2174v-2.5h2.5362v-2.5h2.5363v-2.5h2.5362v-12.5h-2.5362v-5h-2.5363v-5h-2.5362v-2.5h2.5362v-2.5h-2.5362v2.5h-2.5362v-2.5h-2.5363v-2.5h-5.0724v-2.5h-2.5363v5h2.5363v2.5h-2.5363v5h-2.5362v-2.5h-2.5362v-2.5h2.5362z" fill="#e64cff"/><path d="m35.2173 27.5h2.5362v2.5h2.5363v2.5h2.5362v5h2.5362v5h2.5362v10h-2.5362v2.5h-2.5362v2.5h-12.6812v-2.5h-5.0724v-5h-2.5363v-10h2.5363v-5h7.6087v-2.5h2.5362z" fill="#222ebb"/><path d="m27.6086 30h-2.5362v2.5h2.5362z" fill="#222ebb"/><path d="m35.2172 32.5h2.5362v2.5h-2.5362z" fill="#6548f7"/><path d="m42.8259 45v-5h-2.5362v-5h-2.5363v2.5h-5.0725v2.5h-2.5362v-2.5h-2.5362v5h-2.5362v12.5h5.0724v2.5h12.6812v-5h2.5362v-7.5z" fill="#6548f7"/><path d="m37.7533 37.5h-2.5362v2.5h2.5362z" fill="#fff"/><path clip-rule="evenodd" d="m30.1446 42.5v2.5h-2.5362v10h2.5362v2.5h10.145v-2.5h2.5362v-10h-2.5362v-2.5zm0 5h2.5362v5h-2.5362zm10.145 5v-5h-2.5363v5z" fill="#fff" fill-rule="evenodd"/></g></svg>
+<svg fill="none" height="80" viewBox="0 0 169 80" width="169" xmlns="http://www.w3.org/2000/svg"
+    xmlns:xlink="http://www.w3.org/1999/xlink">
+    <filter id="a" color-interpolation-filters="sRGB" filterUnits="userSpaceOnUse" height="80"
+        width="168.024" x="0" y="0">
+        <feFlood flood-opacity="0" result="BackgroundImageFix" />
+        <feGaussianBlur in="BackgroundImageFix" stdDeviation="8" />
+        <feComposite in2="SourceAlpha" operator="in" result="effect1_backgroundBlur_24206_156837" />
+        <feColorMatrix in="SourceAlpha" result="hardAlpha" type="matrix"
+            values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" />
+        <feOffset />
+        <feGaussianBlur stdDeviation="10" />
+        <feComposite in2="hardAlpha" operator="out" />
+        <feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.05 0" />
+        <feBlend in2="effect1_backgroundBlur_24206_156837" mode="normal"
+            result="effect2_dropShadow_24206_156837" />
+        <feBlend in="SourceGraphic" in2="effect2_dropShadow_24206_156837" mode="normal"
+            result="shape" />
+    </filter>
+    <g filter="url(#a)">
+        <g fill="#181818">
+            <path
+                d="m57.3232 37.127h13.578v5.1728h-7.0605v2.4503h4.6165v3.5393h-4.6165v4.6283h-6.5175z" />
+            <path d="m72.8021 37.127h5.4312v15.7907h-5.4312z" />
+            <path
+                d="m102.945 43.3888v-2.9948h4.074v-3.267h-9.7766v15.7907h9.7766v-3.267h-4.074v-2.9948h2.716v-3.2671z" />
+            <path d="m108.919 37.127h13.578v4.6283h-6.789v3.2671h4.345v3.267h-4.345v4.6283h-6.789z" />
+            <path d="m130.101 37.127h-5.703v15.7907h8.69v-3.267h-2.987z" />
+            <path clip-rule="evenodd"
+                d="m80.1342 37.127h12.4917v1.6335h2.7156v6.5341h-2.7156v2.4503h2.7156v5.1728h-6.7889v-4.6283h-2.9872v4.6283h-5.4312zm9.7761 3.8115v3.2671h-4.3449v-3.2671z"
+                fill-rule="evenodd" />
+            <path
+                d="m138.791 37.127h-6.246v6.2618h2.173v1.6336h1.357v1.6335h1.358v6.2618h5.703v-6.2618h1.358v-1.6335h1.358v-1.6336h2.172v-6.2618h-6.246v6.2618h-2.987z" />
+        </g>
+        <path d="m22.5362 20h2.5363v2.5h-2.5363z" fill="#e64cff" />
+        <path
+            d="m27.6087 25h-2.5362v2.5h-2.5363v10h-2.5362v12.5h2.5362v5h2.5363v2.5h2.5362v2.5h15.2174v-2.5h2.5362v-2.5h2.5363v-2.5h2.5362v-12.5h-2.5362v-5h-2.5363v-5h-2.5362v-2.5h2.5362v-2.5h-2.5362v2.5h-2.5362v-2.5h-2.5363v-2.5h-5.0724v-2.5h-2.5363v5h2.5363v2.5h-2.5363v5h-2.5362v-2.5h-2.5362v-2.5h2.5362z"
+            fill="#e64cff" />
+        <path
+            d="m35.2173 27.5h2.5362v2.5h2.5363v2.5h2.5362v5h2.5362v5h2.5362v10h-2.5362v2.5h-2.5362v2.5h-12.6812v-2.5h-5.0724v-5h-2.5363v-10h2.5363v-5h7.6087v-2.5h2.5362z"
+            fill="#222ebb" />
+        <path d="m27.6086 30h-2.5362v2.5h2.5362z" fill="#222ebb" />
+        <path d="m35.2172 32.5h2.5362v2.5h-2.5362z" fill="#6548f7" />
+        <path
+            d="m42.8259 45v-5h-2.5362v-5h-2.5363v2.5h-5.0725v2.5h-2.5362v-2.5h-2.5362v5h-2.5362v12.5h5.0724v2.5h12.6812v-5h2.5362v-7.5z"
+            fill="#6548f7" />
+        <path d="m37.7533 37.5h-2.5362v2.5h2.5362z" fill="#fff" />
+        <path clip-rule="evenodd"
+            d="m30.1446 42.5v2.5h-2.5362v10h2.5362v2.5h10.145v-2.5h2.5362v-10h-2.5362v-2.5zm0 5h2.5362v5h-2.5362zm10.145 5v-5h-2.5363v5z"
+            fill="#fff" fill-rule="evenodd" />
+    </g>
+</svg>

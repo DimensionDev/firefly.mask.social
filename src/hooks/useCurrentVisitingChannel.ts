@@ -1,3 +1,5 @@
+'use client';
+
 import { usePathname } from 'next/navigation.js';
 import { useEffect } from 'react';
 
@@ -19,4 +21,8 @@ export function useCurrentVisitingChannel() {
     const isChannelPage = isRoutePathname(pathname, '/channel');
     const channel = useValueRef(currentVisitingChannel);
     return isChannelPage ? channel : null;
+}
+
+export function getCurrentVisitingChannel() {
+    return currentVisitingChannel.value;
 }
