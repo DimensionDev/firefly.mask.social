@@ -11,10 +11,11 @@ import {
     useLensStateStore,
     useTwitterStateStore,
 } from '@/store/useProfileStore.js';
+import { runInSafe } from '@/helpers/runInSafe.js';
 
 export function getPublicParameters(eventId: string, previousEventId: string | null) {
     const evmClient = getClient(config);
-    const solanaAdaptor = resolveWalletAdapter();
+    const solanaAdaptor = runInSafe(() => resolveWalletAdapter());
     return {
         public_uuid: eventId,
         public_previous_uuid: previousEventId,
@@ -25,7 +26,7 @@ export function getPublicParameters(eventId: string, previousEventId: string | n
         public_evm_address: evmClient?.account?.address,
         public_evm_chain_id: evmClient?.chain.id,
         public_solana_chain_id: ChainId.Mainnet,
-        public_solana_address: solanaAdaptor.publicKey?.toBase58(),
+        public_solana_address: solanaAdaptor?.publicKey?.toBase58(),
 
         public_account_id: useFireflyStateStore.getState().currentProfileSession?.profileId,
         public_use_development_api: useDeveloperSettingsState.getState().useDevelopmentAPI,
