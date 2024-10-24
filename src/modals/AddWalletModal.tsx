@@ -11,7 +11,7 @@ import { useAsyncFn } from 'react-use';
 import { config } from '@/configs/wagmiClient.js';
 import { FetchError } from '@/constants/error.js';
 import { EMPTY_LIST } from '@/constants/index.js';
-import { enqueueErrorMessage, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
+import { enqueueErrorMessage, enqueueInfoMessage, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { formatEthereumAddress, formatSolanaAddress } from '@/helpers/formatAddress.js';
 import { getSnackbarMessageFromError } from '@/helpers/getSnackbarMessageFromError.js';
 import { getWalletClientRequired } from '@/helpers/getWalletClientRequired.js';
@@ -109,6 +109,16 @@ export const AddWalletModal = forwardRef<SingletonModalRefCreator<AddWalletModal
                     enqueueSuccessMessage(t`Wallet added successfully`);
                     onClose({ response: result });
                 } catch (error) {
+                    if (
+                        error instanceof Error &&
+                        error.message.includes('This wallet already bound to the other account')
+                    ) {
+                        enqueueInfoMessage(
+                            t`Sorry, this wallet is already linked to another Firefly account. Please try a different one.`,
+                        );
+                        throw error;
+                    }
+
                     const messageFromError = error instanceof FetchError ? error.text : '';
                     enqueueErrorMessage(
                         getSnackbarMessageFromError(error, messageFromError || t`Failed to add wallet`),
