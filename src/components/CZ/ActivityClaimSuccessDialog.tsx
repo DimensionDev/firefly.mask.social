@@ -76,6 +76,8 @@ export function ActivityClaimSuccessContent({ onClose, hash }: { onClose?: () =>
                         if (fireflyBridgeProvider.supported) {
                             return fireflyBridgeProvider.request(SupportedMethod.COMPOSE, {
                                 text,
+                                activity: '',
+                                mentions: [],
                             });
                         }
 

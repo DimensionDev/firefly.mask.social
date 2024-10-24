@@ -3,7 +3,7 @@ import { safeUnreachable } from '@masknet/kit';
 import { type SocialSource, Source } from '@/constants/enum.js';
 import { UnreachableError } from '@/constants/error.js';
 import { createLookupTableResolver } from '@/helpers/createLookupTableResolver.js';
-import { getEventParameters } from '@/providers/safary/getEventParameters.js';
+import { getEventParameters } from '@/providers/telemetry/getEventParameters.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 import {
     EventId,

@@ -7,7 +7,7 @@ import { SORTED_SOCIAL_SOURCES } from '@/constants/index.js';
 import { enqueueErrorsMessage, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { getThreadFailedAt } from '@/helpers/getThreadFailedAt.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
-import { captureComposeEvent } from '@/providers/safary/captureComposeEvent.js';
+import { captureComposeEvent } from '@/providers/telemetry/captureComposeEvent.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 import { crossPost } from '@/services/crossPost.js';
 import { reportCrossedPost } from '@/services/reportCrossedPost.js';

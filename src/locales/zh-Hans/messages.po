@@ -93,6 +93,9 @@ msgstr "隐藏 /{0}"
 msgid "Failed to collect article."
 msgstr "收集文章失败。"
 
+msgid "Hold on! Meet any of the following to unlock a premium collectible:"
+msgstr ""
+
 msgid "Communities"
 msgstr "社区"
 
@@ -182,6 +185,12 @@ msgstr "可以暂停交易的功能"
 
 msgid "<0>The maximum number of coins coded to exist in the lifetime of the cryptocurrency. It is comparable to the maximum number of issuable shares in the stock market.</0><1>Max Supply = Theoretical maximum as coded</1>"
 msgstr "<0>加密货币生命周期存在的最大发行数量。它与股票市场中可发行股票的最大数量相当。</0><1>最大供应量 = 理论最大值</1>"
+
+msgid "Ended"
+msgstr ""
+
+msgid "Failed to follow @{handle} on X."
+msgstr ""
 
 msgid "Unknown error"
 msgstr "未知错误"
@@ -303,6 +312,9 @@ msgstr "NFT 标准"
 msgid "Failed to like the comment."
 msgstr "点赞失败。"
 
+msgid "Sign in"
+msgstr ""
+
 msgid "<0>Posted</0>an article"
 msgstr "<0>发布了</0>一篇文章"
 
@@ -344,6 +356,9 @@ msgstr "重试"
 
 msgid "Show less"
 msgstr "收起"
+
+msgid "Verification unsuccessful"
+msgstr ""
 
 msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} {1, select, Lens {mirrored your} Farcaster {recasted your} other {mirrored your}} <4>{2, select, Post {post} Comment {comment} Quote {quote} Mirror {mirror} other {post}}</4>"
 msgstr "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} {1, select, Lens {转帖了你的} Farcaster {转帖了你的} other {转帖了你的}} <4>{2, select, Post {帖子} Comment {评论} Quote {引用} Mirror {转帖} other {帖子}}</4>"
@@ -546,6 +561,9 @@ msgstr "添加另一个帖子..."
 msgid "1m left"
 msgstr "1分钟剩余"
 
+msgid "Core Asset Access: Unlock premium tokens, exclusive NFTs, and nodes for more investment opportunities."
+msgstr ""
+
 msgid "Congratulation!"
 msgstr "恭喜！"
 
@@ -665,6 +683,9 @@ msgstr "上传头像失败。"
 
 msgid "Frame Validator"
 msgstr "Frame 验证器"
+
+msgid "Priority Access: Holders get early access to future projects, beta tests, and airdrops. And they will also have a first look at the latest features and content."
+msgstr ""
 
 msgid "No proxy"
 msgstr "无代理"
@@ -933,8 +954,14 @@ msgstr "切换"
 msgid "Drafts"
 msgstr "草稿"
 
+msgid "About Airdrop"
+msgstr ""
+
 msgid "Follow"
 msgstr "关注"
+
+msgid "Sorry, this wallet is already linked to another Firefly account. Please try a different one."
+msgstr ""
 
 msgid "This token contract is open source. You can check the contract code for details. Unsourced token contracts are likely to have malicious functions to defraud their users of their assets."
 msgstr "此通证合约是开源代码。您可以检查合约代码了解详情。 未知来源的通证合同很可能带有恶意的功能来欺诈其用户的资产。"
@@ -980,6 +1007,9 @@ msgstr "回复"
 
 msgid "Comment"
 msgstr "评论"
+
+msgid "Followed @{handle} on X"
+msgstr ""
 
 msgid "Only people you mention"
 msgstr "只有你提及的人"
@@ -1113,11 +1143,17 @@ msgstr "搜索 ${symbol}"
 msgid "Failed to unmute /{0}."
 msgstr "取消隐藏失败/{0}。"
 
+msgid "Login X successfully."
+msgstr ""
+
 msgid "Please confirm the login with Warpcast."
 msgstr "请确认使用 Warpcast 登录。"
 
 msgid "Log in with recovery phrase"
 msgstr "使用助记词登录"
+
+msgid "Connected"
+msgstr ""
 
 msgid "Edit Profile"
 msgstr "编辑个人信息"
@@ -1173,6 +1209,9 @@ msgstr "全部清除"
 msgid "There are videos that were not uploaded successfully."
 msgstr "视频上传失败。"
 
+msgid "Followed"
+msgstr ""
+
 msgid "This can’t be undone, and the scheduled send will be canceled."
 msgstr "操作无法回滚，并且定时任务将会被取消。"
 
@@ -1196,6 +1235,9 @@ msgstr "无法对帖子进行投票。"
 
 msgid "<0>Acquired</0> an NFT"
 msgstr "<0>获取</0> 一个 NFT"
+
+msgid "View on Explorer"
+msgstr ""
 
 msgid "Tag {0} in a post to let them know you’ve sent an onchain tip to their wallet."
 msgstr "在帖子中标记 {0}，让他们知道你已经向他们的钱包发打赏了一笔小费。"
@@ -1259,6 +1301,9 @@ msgstr "你认识的关注者"
 
 msgid "Settings"
 msgstr "设置"
+
+msgid "X Premium account"
+msgstr ""
 
 msgid "Unsent posts"
 msgstr "未发送的帖子"
@@ -1389,6 +1434,9 @@ msgstr "定时任务的时间跨度最长是 7 天。"
 msgid "Display"
 msgstr "显示"
 
+msgid "Submit claimed address"
+msgstr ""
+
 msgid "Mute successfully."
 msgstr "隐藏成功。"
 
@@ -1400,6 +1448,9 @@ msgstr "<0>© 2024 Firefly.</0> 版权所有。"
 
 msgid "Add wallet"
 msgstr "添加钱包"
+
+msgid "Voting Rights: Participate in key decisions and shape the platform’s development through community governance."
+msgstr ""
 
 msgid "Please switch to {0}"
 msgstr "请切换到 {0}"
@@ -1560,6 +1611,9 @@ msgstr "在 X 上关注 @thefireflyapp"
 msgid "Wallets retrieved from public verifiable data registries or our entity algorithm can be reported for disconnection."
 msgstr "从公开可验证数据注册表中或我们的实体算法中检索到的钱包可以被举报从而断开连接。"
 
+msgid "Step 2 Connect Wallet"
+msgstr ""
+
 msgid "Light Mode"
 msgstr "明亮模式"
 
@@ -1568,6 +1622,9 @@ msgstr "在 {0} 上提交报告失败。"
 
 msgid "Insufficient funds"
 msgstr "金额不足"
+
+msgid "Followed <0>@{handle}</0> on X before Oct 12,2024, or followed <1>@{farcasterHandle}</1> on Farcaster before Oct 20, 2024"
+msgstr ""
 
 msgid "Connect your wallet to follow"
 msgstr "连接钱包并关注"
@@ -1596,8 +1653,14 @@ msgstr "没有可显示的数据。"
 msgid "Cancel"
 msgstr "取消"
 
+msgid "Live"
+msgstr ""
+
 msgid "Send on schedule"
 msgstr "发送定时任务"
+
+msgid "Your transaction will confirm shortly"
+msgstr ""
 
 msgid "will send on {0} at {1}"
 msgstr "将在 {0} {1} 发送"
@@ -1767,6 +1830,9 @@ msgstr "删除帖子失败。"
 msgid "Claimed"
 msgstr "已领取"
 
+msgid "Step 1 Sign in"
+msgstr ""
+
 msgid "Copy"
 msgstr "复制"
 
@@ -1814,6 +1880,9 @@ msgstr "<0>你</0> 已转帖"
 
 msgid "The contract may contain additional issuance functions, which could maybe generate a large number of tokens, resulting in significant fluctuations in token prices. It is recommended to confirm with the project team whether it complies with the token issuance instructions."
 msgstr "合约可能含有额外的发行功能，这可能会产生大量的通证，导致通证价格的重大波动。建议向项目组确认它是否遵守通证发行准则。"
+
+msgid "Upcoming"
+msgstr ""
 
 msgid "{handleOrEnsOrAddress} unwatched"
 msgstr "{handleOrEnsOrAddress} 取消关注"
@@ -1989,11 +2058,17 @@ msgstr "添加另一个选项"
 msgid "1y"
 msgstr "1年"
 
+msgid "Change"
+msgstr ""
+
 msgid "No codes found to suspend trading."
 msgstr "没有发现可以暂停交易的代码。"
 
 msgid "Buy Tax: {0}%"
 msgstr "购买税率: {0}%"
+
+msgid "Success!"
+msgstr ""
 
 msgid "<0>You</0> and {0} recasted"
 msgstr "<0> 你 </0> 和 {0} 人都转发了"
@@ -2006,6 +2081,9 @@ msgstr "深色模式"
 
 msgid "Article added to your Bookmarks"
 msgstr "文章已经添加到您的收藏中"
+
+msgid "Please sign in with X to continue"
+msgstr ""
 
 msgid "Create a Post"
 msgstr "创建帖子"
@@ -2085,6 +2163,9 @@ msgstr "在 X 上关注 @cz_binance 以庆祝 CZ 的回归，获取一个免费�
 msgid "Mirror now to get 25% referral fee!"
 msgstr "立即转帖以获得 25% 的推荐佣金！"
 
+msgid "<0>@{handle}</0> on {0}"
+msgstr ""
+
 msgid "Hide tokens with small balances"
 msgstr "隐藏小额通证"
 
@@ -2123,6 +2204,9 @@ msgstr "您已在 {0} 发布成功。"
 
 msgid "Detail"
 msgstr "详情"
+
+msgid "Exclusive Events"
+msgstr ""
 
 msgid "Post added to your Bookmarks"
 msgstr "帖子已经添加到您的收藏中"
@@ -2232,6 +2316,15 @@ msgstr "最终结果"
 msgid "Suspended account"
 msgstr "被冻结账户"
 
+msgid "Final Step Claim Now!"
+msgstr ""
+
+msgid "Verify"
+msgstr ""
+
+msgid "Hold ≥ $10k Base Chain asset"
+msgstr ""
+
 msgid "Recasted"
 msgstr "已转发"
 
@@ -2328,6 +2421,9 @@ msgstr "GIF"
 msgid "Followed @{0} on Lens"
 msgstr "在 Lens 上关注了 @{0}"
 
+msgid "Claim Now"
+msgstr ""
+
 msgid "Collect for {0} {1}"
 msgstr "收集 {0} {1}"
 
@@ -2339,6 +2435,9 @@ msgstr "转推"
 
 msgid "Translating..."
 msgstr "翻译中..."
+
+msgid "Claim Basic"
+msgstr ""
 
 msgid "Back to home"
 msgstr "返回主页"
@@ -2354,6 +2453,9 @@ msgstr "铸造功能"
 
 msgid "Clear"
 msgstr "清空"
+
+msgid "End"
+msgstr ""
 
 msgid "<0>Sent</0> an NFT to <1>{0}</1>"
 msgstr "<0>发送</0> 一个 NFT 至 <1>{0}</1>"
@@ -2402,6 +2504,9 @@ msgstr "小时"
 
 msgid "Note:"
 msgstr "注意 ："
+
+msgid "Farcaster Powerbadge account"
+msgstr ""
 
 msgid "Failed to create schedule post."
 msgstr "创建定时任务失败"

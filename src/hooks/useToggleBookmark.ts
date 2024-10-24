@@ -7,7 +7,7 @@ import { getSnackbarMessageFromError } from '@/helpers/getSnackbarMessageFromErr
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
 import { LoginModalRef } from '@/modals/controls.js';
-import { capturePostActionEvent } from '@/providers/safary/capturePostActionEvent.js';
+import { capturePostActionEvent } from '@/providers/telemetry/capturePostActionEvent.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 
 export function useToggleBookmark(source: SocialSource) {

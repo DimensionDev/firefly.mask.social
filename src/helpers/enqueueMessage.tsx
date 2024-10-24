@@ -3,6 +3,7 @@ import { type OptionsObject, type SnackbarKey, type SnackbarMessage } from 'noti
 
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { ErrorReportSnackbar, type ErrorReportSnackbarProps } from '@/components/ErrorReportSnackbar.js';
+import { WarnSnackbar } from '@/components/WarnSnackbar.js';
 import type { NODE_ENV } from '@/constants/enum.js';
 import { env } from '@/constants/env.js';
 import { getDetailedErrorMessage } from '@/helpers/getDetailedErrorMessage.js';
@@ -77,6 +78,20 @@ export function enqueueSuccessMessage(message: SnackbarMessage, options?: Messag
             variant: 'success',
             action: snackbarAction,
             ...options,
+        },
+    });
+}
+
+export function enqueueWarningMessage(message: SnackbarMessage, options?: MessageOptions) {
+    if (MESSAGE_FILTERS.some((filter) => !filter(options))) return;
+
+    SnackbarRef.open({
+        message,
+        options: {
+            autoHideDuration: 15 * 1000, // 15s
+            variant: 'warning',
+            ...options,
+            content: (key: SnackbarKey, message?: SnackbarMessage) => <WarnSnackbar id={key} message={message} />,
         },
     });
 }

@@ -93,6 +93,9 @@ msgstr "將 @{0} 靜音"
 msgid "Failed to collect article."
 msgstr ""
 
+msgid "Hold on! Meet any of the following to unlock a premium collectible:"
+msgstr ""
+
 msgid "Communities"
 msgstr "社群"
 
@@ -181,6 +184,12 @@ msgid "Functions that can suspend trading"
 msgstr ""
 
 msgid "<0>The maximum number of coins coded to exist in the lifetime of the cryptocurrency. It is comparable to the maximum number of issuable shares in the stock market.</0><1>Max Supply = Theoretical maximum as coded</1>"
+msgstr ""
+
+msgid "Ended"
+msgstr ""
+
+msgid "Failed to follow @{handle} on X."
 msgstr ""
 
 msgid "Unknown error"
@@ -303,6 +312,9 @@ msgstr "NFT 標準"
 msgid "Failed to like the comment."
 msgstr "按讚留言失敗"
 
+msgid "Sign in"
+msgstr ""
+
 msgid "<0>Posted</0>an article"
 msgstr "<0>發布</0>一篇文章"
 
@@ -344,6 +356,9 @@ msgstr "重試"
 
 msgid "Show less"
 msgstr "顯示更少"
+
+msgid "Verification unsuccessful"
+msgstr ""
 
 msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} {1, select, Lens {mirrored your} Farcaster {recasted your} other {mirrored your}} <4>{2, select, Post {post} Comment {comment} Quote {quote} Mirror {mirror} other {post}}</4>"
 msgstr ""
@@ -546,6 +561,9 @@ msgstr "加入另一則貼文..."
 msgid "1m left"
 msgstr ""
 
+msgid "Core Asset Access: Unlock premium tokens, exclusive NFTs, and nodes for more investment opportunities."
+msgstr ""
+
 msgid "Congratulation!"
 msgstr ""
 
@@ -665,6 +683,9 @@ msgstr ""
 
 msgid "Frame Validator"
 msgstr "Frame 驗證器"
+
+msgid "Priority Access: Holders get early access to future projects, beta tests, and airdrops. And they will also have a first look at the latest features and content."
+msgstr ""
 
 msgid "No proxy"
 msgstr "無代理"
@@ -933,8 +954,14 @@ msgstr "切換"
 msgid "Drafts"
 msgstr "草稿"
 
+msgid "About Airdrop"
+msgstr ""
+
 msgid "Follow"
 msgstr "追蹤"
+
+msgid "Sorry, this wallet is already linked to another Firefly account. Please try a different one."
+msgstr ""
 
 msgid "This token contract is open source. You can check the contract code for details. Unsourced token contracts are likely to have malicious functions to defraud their users of their assets."
 msgstr ""
@@ -980,6 +1007,9 @@ msgstr "回覆"
 
 msgid "Comment"
 msgstr "評論"
+
+msgid "Followed @{handle} on X"
+msgstr ""
 
 msgid "Only people you mention"
 msgstr "僅限你提及的帳戶"
@@ -1113,10 +1143,16 @@ msgstr "搜尋 ${symbol}"
 msgid "Failed to unmute /{0}."
 msgstr "對 @{0} 的解除靜音失敗"
 
+msgid "Login X successfully."
+msgstr ""
+
 msgid "Please confirm the login with Warpcast."
 msgstr "請至 Warpcast 確認登錄"
 
 msgid "Log in with recovery phrase"
+msgstr ""
+
+msgid "Connected"
 msgstr ""
 
 msgid "Edit Profile"
@@ -1173,6 +1209,9 @@ msgstr "清除所有"
 msgid "There are videos that were not uploaded successfully."
 msgstr ""
 
+msgid "Followed"
+msgstr ""
+
 msgid "This can’t be undone, and the scheduled send will be canceled."
 msgstr ""
 
@@ -1196,6 +1235,9 @@ msgstr "上讚貼文失敗"
 
 msgid "<0>Acquired</0> an NFT"
 msgstr "<0>獲取了</0>一個 NFT"
+
+msgid "View on Explorer"
+msgstr ""
 
 msgid "Tag {0} in a post to let them know you’ve sent an onchain tip to their wallet."
 msgstr ""
@@ -1259,6 +1301,9 @@ msgstr ""
 
 msgid "Settings"
 msgstr "設定"
+
+msgid "X Premium account"
+msgstr ""
 
 msgid "Unsent posts"
 msgstr ""
@@ -1389,6 +1434,9 @@ msgstr ""
 msgid "Display"
 msgstr "顯示"
 
+msgid "Submit claimed address"
+msgstr ""
+
 msgid "Mute successfully."
 msgstr "已成功靜音"
 
@@ -1400,6 +1448,9 @@ msgstr ""
 
 msgid "Add wallet"
 msgstr "新增錢包"
+
+msgid "Voting Rights: Participate in key decisions and shape the platform’s development through community governance."
+msgstr ""
 
 msgid "Please switch to {0}"
 msgstr ""
@@ -1560,6 +1611,9 @@ msgstr "在 X 上追蹤@thefireflyapp"
 msgid "Wallets retrieved from public verifiable data registries or our entity algorithm can be reported for disconnection."
 msgstr ""
 
+msgid "Step 2 Connect Wallet"
+msgstr ""
+
 msgid "Light Mode"
 msgstr "淺色模式"
 
@@ -1567,6 +1621,9 @@ msgid "Failed to submit report on {0}."
 msgstr ""
 
 msgid "Insufficient funds"
+msgstr ""
+
+msgid "Followed <0>@{handle}</0> on X before Oct 12,2024, or followed <1>@{farcasterHandle}</1> on Farcaster before Oct 20, 2024"
 msgstr ""
 
 msgid "Connect your wallet to follow"
@@ -1596,7 +1653,13 @@ msgstr "沒有可供展示的數據"
 msgid "Cancel"
 msgstr "取消"
 
+msgid "Live"
+msgstr ""
+
 msgid "Send on schedule"
+msgstr ""
+
+msgid "Your transaction will confirm shortly"
 msgstr ""
 
 msgid "will send on {0} at {1}"
@@ -1767,6 +1830,9 @@ msgstr ""
 msgid "Claimed"
 msgstr ""
 
+msgid "Step 1 Sign in"
+msgstr ""
+
 msgid "Copy"
 msgstr "複製"
 
@@ -1813,6 +1879,9 @@ msgid "<0>You</0> reposted"
 msgstr ""
 
 msgid "The contract may contain additional issuance functions, which could maybe generate a large number of tokens, resulting in significant fluctuations in token prices. It is recommended to confirm with the project team whether it complies with the token issuance instructions."
+msgstr ""
+
+msgid "Upcoming"
 msgstr ""
 
 msgid "{handleOrEnsOrAddress} unwatched"
@@ -1989,10 +2058,16 @@ msgstr ""
 msgid "1y"
 msgstr ""
 
+msgid "Change"
+msgstr ""
+
 msgid "No codes found to suspend trading."
 msgstr ""
 
 msgid "Buy Tax: {0}%"
+msgstr ""
+
+msgid "Success!"
 msgstr ""
 
 msgid "<0>You</0> and {0} recasted"
@@ -2006,6 +2081,9 @@ msgstr "深色模式"
 
 msgid "Article added to your Bookmarks"
 msgstr "文章已加入你的書籤"
+
+msgid "Please sign in with X to continue"
+msgstr ""
 
 msgid "Create a Post"
 msgstr ""
@@ -2085,6 +2163,9 @@ msgstr ""
 msgid "Mirror now to get 25% referral fee!"
 msgstr ""
 
+msgid "<0>@{handle}</0> on {0}"
+msgstr ""
+
 msgid "Hide tokens with small balances"
 msgstr ""
 
@@ -2123,6 +2204,9 @@ msgstr "你的貼文已成功發布在 {0} 上。"
 
 msgid "Detail"
 msgstr "詳細資訊"
+
+msgid "Exclusive Events"
+msgstr ""
 
 msgid "Post added to your Bookmarks"
 msgstr "貼文已加入你的書籤"
@@ -2232,6 +2316,15 @@ msgstr ""
 msgid "Suspended account"
 msgstr ""
 
+msgid "Final Step Claim Now!"
+msgstr ""
+
+msgid "Verify"
+msgstr ""
+
+msgid "Hold ≥ $10k Base Chain asset"
+msgstr ""
+
 msgid "Recasted"
 msgstr ""
 
@@ -2328,6 +2421,9 @@ msgstr "GIF"
 msgid "Followed @{0} on Lens"
 msgstr ""
 
+msgid "Claim Now"
+msgstr ""
+
 msgid "Collect for {0} {1}"
 msgstr ""
 
@@ -2339,6 +2435,9 @@ msgstr ""
 
 msgid "Translating..."
 msgstr "正在翻譯"
+
+msgid "Claim Basic"
+msgstr ""
 
 msgid "Back to home"
 msgstr "回到首頁"
@@ -2353,6 +2452,9 @@ msgid "Mint function"
 msgstr "鑄造功能"
 
 msgid "Clear"
+msgstr ""
+
+msgid "End"
 msgstr ""
 
 msgid "<0>Sent</0> an NFT to <1>{0}</1>"
@@ -2401,6 +2503,9 @@ msgid "Hours"
 msgstr "小時"
 
 msgid "Note:"
+msgstr ""
+
+msgid "Farcaster Powerbadge account"
 msgstr ""
 
 msgid "Failed to create schedule post."

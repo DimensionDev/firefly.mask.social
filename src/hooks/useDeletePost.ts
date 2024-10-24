@@ -9,7 +9,7 @@ import { getSnackbarMessageFromError } from '@/helpers/getSnackbarMessageFromErr
 import { isRoutePathname } from '@/helpers/isRoutePathname.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { useComeBack } from '@/hooks/useComeback.js';
-import { capturePostActionEvent } from '@/providers/safary/capturePostActionEvent.js';
+import { capturePostActionEvent } from '@/providers/telemetry/capturePostActionEvent.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 
 export function useDeletePost(source: SocialSource) {

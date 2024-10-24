@@ -2,10 +2,10 @@ import { safeUnreachable } from '@masknet/kit';
 
 import { UnreachableError } from '@/constants/error.js';
 import { runInSafe } from '@/helpers/runInSafe.js';
-import { getComposeEventParameters, type Options } from '@/providers/safary/getComposeEventParameters.js';
-import { getPostEventId, getPostEventParameters } from '@/providers/safary/getPostEventParameters.js';
-import { SafaryTelemetryProvider } from '@/providers/safary/Telemetry.js';
-import { EventId } from '@/providers/types/Telemetry.js';
+import { getComposeEventParameters, type Options } from '@/providers/telemetry/getComposeEventParameters.js';
+import { getPostEventId, getPostEventParameters } from '@/providers/telemetry/getPostEventParameters.js';
+import { TelemetryProvider } from '@/providers/telemetry/index.js';
+import { EventId, VersionFilter } from '@/providers/types/Telemetry.js';
 import type { CompositePost } from '@/store/useComposeStore.js';
 import type { ComposeType } from '@/types/compose.js';
 
@@ -17,22 +17,34 @@ export function captureComposeEvent(type: ComposeType, post: CompositePost, opti
 
         // draft created
         if (draftId) {
-            SafaryTelemetryProvider.captureEvent(EventId.COMPOSE_DRAFT_CREATE_SUCCESS, {
-                draft_id: draftId,
-                draft_time: date.getTime(),
-                draft_time_utc: date.toUTCString(),
-                ...getComposeEventParameters(post, options),
-            });
+            TelemetryProvider.captureEvent(
+                EventId.COMPOSE_DRAFT_CREATE_SUCCESS,
+                {
+                    draft_id: draftId,
+                    draft_time: date.getTime(),
+                    draft_time_utc: date.toUTCString(),
+                    ...getComposeEventParameters(post, options),
+                },
+                {
+                    version_filter: VersionFilter.Next,
+                },
+            );
         }
 
         // scheduled post created
         if (scheduleId) {
-            SafaryTelemetryProvider.captureEvent(EventId.COMPOSE_SCHEDULED_POST_CREATE_SUCCESS, {
-                schedule_id: scheduleId,
-                schedule_time: date.getTime(),
-                scheduled_time_utc: date.toUTCString(),
-                ...getComposeEventParameters(post, options),
-            });
+            TelemetryProvider.captureEvent(
+                EventId.COMPOSE_SCHEDULED_POST_CREATE_SUCCESS,
+                {
+                    schedule_id: scheduleId,
+                    schedule_time: date.getTime(),
+                    scheduled_time_utc: date.toUTCString(),
+                    ...getComposeEventParameters(post, options),
+                },
+                {
+                    version_filter: VersionFilter.Next,
+                },
+            );
         }
 
         // post created
@@ -41,9 +53,12 @@ export function captureComposeEvent(type: ComposeType, post: CompositePost, opti
             if (size === 1) {
                 switch (type) {
                     case 'compose':
-                        SafaryTelemetryProvider.captureEvent(
+                        TelemetryProvider.captureEvent(
                             getPostEventId(type, post),
                             getComposeEventParameters(post, options),
+                            {
+                                version_filter: VersionFilter.Next,
+                            },
                         );
                         break;
                     case 'reply':
@@ -56,9 +71,12 @@ export function captureComposeEvent(type: ComposeType, post: CompositePost, opti
                         const postId = post.parentPost[source]?.postId;
                         if (!postId) throw new Error(`Target post ID is missing, source = ${source}.`);
 
-                        SafaryTelemetryProvider.captureEvent(
+                        TelemetryProvider.captureEvent(
                             getPostEventId(type, post),
                             getPostEventParameters(postId, profile),
+                            {
+                                version_filter: VersionFilter.Next,
+                            },
                         );
                         break;
                     default:
@@ -68,9 +86,12 @@ export function captureComposeEvent(type: ComposeType, post: CompositePost, opti
 
                 // crossed post
             } else if (size > 1) {
-                SafaryTelemetryProvider.captureEvent(
+                TelemetryProvider.captureEvent(
                     EventId.COMPOSE_CROSS_POST_SEND_SUCCESS,
                     getComposeEventParameters(post, options),
+                    {
+                        version_filter: VersionFilter.Next,
+                    },
                 );
             }
         }

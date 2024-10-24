@@ -8,7 +8,7 @@ import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
 import { LoginModalRef } from '@/modals/controls.js';
-import { captureProfileActionEvent } from '@/providers/safary/captureProfileActionEvent.js';
+import { captureProfileActionEvent } from '@/providers/telemetry/captureProfileActionEvent.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 
 export function useToggleFollow(profile: Profile) {
