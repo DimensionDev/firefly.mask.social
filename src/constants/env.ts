@@ -82,6 +82,9 @@ const ExternalEnvSchema = z.object({
     NEXT_PUBLIC_PARTICLE_APP_ID: z.string().optional(),
     NEXT_PUBLIC_PARTICLE_PROJECT_ID: z.string().optional(),
     NEXT_PUBLIC_PARTICLE_CLIENT_KEY: z.string().optional(),
+
+    // s3
+    NEXT_PUBLIC_S3_API_KEY: z.string().optional(),
 });
 
 export const env = {
@@ -141,5 +144,8 @@ export const env = {
         NEXT_PUBLIC_PARTICLE_APP_ID: process.env.NEXT_PUBLIC_PARTICLE_APP_ID,
         NEXT_PUBLIC_PARTICLE_PROJECT_ID: process.env.NEXT_PUBLIC_PARTICLE_PROJECT_ID,
         NEXT_PUBLIC_PARTICLE_CLIENT_KEY: process.env.NEXT_PUBLIC_PARTICLE_CLIENT_KEY,
+
+        // s3
+        NEXT_PUBLIC_S3_API_KEY: process.env.NEXT_PUBLIC_S3_API_KEY,
     }),
 };
