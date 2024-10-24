@@ -81,8 +81,8 @@ export function ActivityMintSuccessDialog({ open, onClose, hash, chainId }: Prop
 
     return (
         <Modal open={open} onClose={onClose}>
-            <div className="transform rounded-[12px] bg-primaryBottom transition-all">
-                <div className="relative inline-flex items-center justify-center gap-2 rounded-t-[12px] p-4 text-center md:h-[56px] md:w-[600px]">
+            <div className="w-[485px] transform rounded-[12px] bg-primaryBottom transition-all">
+                <div className="relative inline-flex w-full items-center justify-center gap-2 rounded-t-[12px] p-4 text-center md:h-[56px]">
                     <CloseButton onClick={onClose} className="absolute right-4 top-4" />
                     <div className="text-lg font-bold leading-6 text-main">
                         <Trans>Success!</Trans>
