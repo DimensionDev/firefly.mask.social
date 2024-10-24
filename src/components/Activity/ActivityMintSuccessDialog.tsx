@@ -5,10 +5,12 @@ import { ChainId } from '@masknet/web3-shared-evm';
 
 import SuccessShieldIcon from '@/assets/success-shield.svg';
 import { useActivityCompose } from '@/components/Activity/hooks/useActivityCompose.js';
+import { useActivityPremiumList } from '@/components/Activity/hooks/useActivityPremiumList.js';
 import { Link } from '@/components/Activity/Link.js';
 import { CloseButton } from '@/components/CloseButton.js';
 import { Modal } from '@/components/Modal.js';
 import { Popover } from '@/components/Popover.js';
+import { parseUrl } from '@/helpers/parseUrl.js';
 import { resolveExplorerLink } from '@/helpers/resolveExplorerLink.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
 
@@ -22,6 +24,8 @@ interface Props {
 export function ActivityMintSuccessDialog({ open, onClose, hash, chainId }: Props) {
     const isMedium = useIsMedium();
     const [{ loading }, shareAndPost] = useActivityCompose();
+    const list = useActivityPremiumList();
+    const isPremium = list.some((x) => x.verified);
 
     const content = (
         <div className="flex w-full flex-col items-center text-center">
@@ -39,7 +43,15 @@ export function ActivityMintSuccessDialog({ open, onClose, hash, chainId }: Prop
             ) : null}
             <button
                 className="leading-12 relative mt-6 flex h-12 w-full items-center justify-center rounded-full bg-main text-center text-base font-bold text-primaryBottom disabled:opacity-60"
-                onClick={shareAndPost}
+                onClick={() => {
+                    const url = parseUrl(window.location.href);
+                    if (url) {
+                        url.searchParams.set('claim-type', isPremium ? 'premium' : 'base');
+                        window.history.replaceState({}, '', url.href);
+                    }
+                    shareAndPost();
+                    onClose();
+                }}
                 disabled={loading}
             >
                 <Trans>Share in a Post</Trans>
