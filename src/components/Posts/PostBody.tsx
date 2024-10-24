@@ -69,12 +69,14 @@ export const PostBody = forwardRef<HTMLDivElement, PostBodyProps>(function PostB
 ) {
     const router = useRouter();
     const { metadata, author } = post;
-    const canShowMore = !!(metadata.content?.content && metadata.content.content.length > 450) && showMore;
+    const postRawContent = metadata.content?.content;
+    const canShowMore = !!(postRawContent && postRawContent.length > 450) && showMore;
 
-    const [postContent, setPostContent] = useState(metadata.content?.content ?? '');
+    const [postContent, setPostContent] = useState(postRawContent ?? '');
     const [seen, seenRef] = useEverSeen({ rootMargin: '300px 0px' });
     const mergedRef = useForkRef(ref, seenRef);
 
+    const attachments = metadata.content?.attachments ?? EMPTY_LIST;
     const { value: payloads, loading: decodingImage } = useAsync(async () => {
         // decode the image upon post viewing, to reduce unnecessary load of images
         if (!seen) return;
@@ -83,10 +85,10 @@ export const PostBody = forwardRef<HTMLDivElement, PostBodyProps>(function PostB
         if (env.external.NEXT_PUBLIC_MASK_WEB_COMPONENTS === STATUS.Disabled) return;
 
         return {
-            payloadFromText: getEncryptedPayloadFromText(post),
-            payloadFromImageAttachment: await getEncryptedPayloadFromImageAttachment(post),
+            payloadFromText: getEncryptedPayloadFromText(postRawContent),
+            payloadFromImageAttachment: await getEncryptedPayloadFromImageAttachment(attachments),
         };
-    }, [post, seen]);
+    }, [postRawContent, attachments, seen]);
 
     const muted = useIsProfileMuted(author, isDetail);
 
@@ -100,7 +102,6 @@ export const PostBody = forwardRef<HTMLDivElement, PostBodyProps>(function PostB
     const hasEncryptedPayload = payloads?.payloadFromImageAttachment || payloads?.payloadFromText;
 
     // if payload image attachment is available, we don't need to show the attachments
-    const attachments = metadata.content?.attachments ?? EMPTY_LIST;
     const availableAttachments = useMemo(() => {
         if (!payloadImageUrl) return attachments;
         return attachments.filter((x) => x.uri !== payloadImageUrl);
@@ -186,7 +187,7 @@ export const PostBody = forwardRef<HTMLDivElement, PostBodyProps>(function PostB
                         },
                     )}
                 >
-                    {metadata.content?.content}
+                    {postRawContent}
                 </NakedMarkup>
                 {EncryptedContent}
                 {showAttachments ? (
@@ -214,7 +215,7 @@ export const PostBody = forwardRef<HTMLDivElement, PostBodyProps>(function PostB
                     )}
                     components={overrideComponents}
                 >
-                    {post.metadata.content?.content}
+                    {postRawContent}
                 </NakedMarkup>
                 <div className="flex flex-col text-base text-main">
                     {post.metadata.content?.asset?.type ? (
