@@ -104,9 +104,7 @@ export interface RequestResult {
     [SupportedMethod.FOLLOW_TWITTER_USER]: StringifyBoolean;
     [SupportedMethod.UPDATE_NAVIGATOR_BAR]: void;
     [SupportedMethod.OPEN_URL]: void;
-    [SupportedMethod.LOGIN]: {
-        success: 'true' | 'false';
-    };
+    [SupportedMethod.LOGIN]: StringifyBoolean;
     [SupportedMethod.SHARE]: void;
     [SupportedMethod.COMPOSE]: void;
     [SupportedMethod.BACK]: void;

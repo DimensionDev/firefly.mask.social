@@ -15,8 +15,9 @@ import { EMPTY_LIST } from '@/constants/index.js';
 import { classNames } from '@/helpers/classNames.js';
 import { enqueueWarningMessage } from '@/helpers/enqueueMessage.js';
 import { formatAddress } from '@/helpers/formatAddress.js';
-import { useAllConnections } from '@/hooks/useAllConnections.js';
+import { useFireflyBridgeAuthorization } from '@/hooks/useFireflyBridgeAuthorization.js';
 import { AddWalletModalRef } from '@/modals/controls.js';
+import { FireflyActivityProvider } from '@/providers/firefly/Activity.js';
 import { fireflyBridgeProvider } from '@/providers/firefly/Bridge.js';
 import { captureActivityEvent } from '@/providers/telemetry/captureActivityEvent.js';
 import { EventId } from '@/providers/types/Telemetry.js';
@@ -26,33 +27,23 @@ import { ChainId } from '@/types/frame.js';
 export function ActivityConnectButton() {
     const { onChangeAddress, address, fireflyAccountId } = useContext(ActivityContext);
     const { refetch: refetchActivityClaimCondition, isRefetching } = useActivityClaimCondition();
+    const { data: authToken } = useFireflyBridgeAuthorization();
     const { data: isLoggedIn } = useIsLoginTwitterInActivity();
     const {
         data: { connected = EMPTY_LIST } = {},
-        refetch: refetchAllConnections,
-        isLoading: isLoadingAllConnections,
-    } = useAllConnections({
-        refetchInterval: 600000,
-    });
-    const {
-        data: bridgeAddresses = EMPTY_LIST,
-        isLoading: isLoadingBridgeAddresses,
-        refetch: refetchBridgeAddresses,
+        refetch,
+        isLoading,
     } = useQuery({
-        enabled: fireflyBridgeProvider.supported,
-        queryKey: ['firefly-bridge-address', Network.EVM],
+        queryKey: ['my-wallet-connections', authToken],
         async queryFn() {
-            return await fireflyBridgeProvider.request(SupportedMethod.GET_WALLET_ADDRESS, {
-                type: Network.EVM,
-            });
+            return FireflyActivityProvider.getAllConnections({ authToken });
         },
         refetchInterval: 600000,
     });
 
-    const isLoading = fireflyBridgeProvider.supported ? isLoadingBridgeAddresses : isLoadingAllConnections;
-    const addresses: Array<{ address: string; ens?: string }> = fireflyBridgeProvider.supported
-        ? bridgeAddresses.map((address) => ({ address }))
-        : connected.filter((x) => x.platform === 'eth').map((x) => ({ address: x.address, ens: x.ens?.[0] }));
+    const addresses: Array<{ address: string; ens?: string }> = connected
+        .filter((x) => x.platform === 'eth')
+        .map((x) => ({ address: x.address, ens: x.ens?.[0] }));
 
     const buttonText = address ? (
         <Trans>Change</Trans>
@@ -64,14 +55,15 @@ export function ActivityConnectButton() {
             </span>
         </>
     );
-    const buttonClassName = address
-        ? 'inline-flex items-center rounded-full text-main px-4 bg-transparent border border-current leading-[30px] relative'
-        : 'inline-flex items-center rounded-full bg-main px-4 leading-8 text-primaryBottom relative';
     const button = (
         <div className="relative inline">
             <Menu>
                 <Menu.Button
-                    className={buttonClassName}
+                    className={
+                        address
+                            ? 'relative inline-flex items-center rounded-full border border-current bg-transparent px-4 leading-[30px] text-main'
+                            : 'relative inline-flex items-center rounded-full bg-main px-4 leading-8 text-primaryBottom'
+                    }
                     onClick={(e) => {
                         if (isLoggedIn) return;
                         e.preventDefault();
@@ -123,7 +115,7 @@ export function ActivityConnectButton() {
                                         firefly_account_id: fireflyAccountId,
                                     });
                                     await refetchActivityClaimCondition();
-                                    await refetchBridgeAddresses();
+                                    await refetch();
                                     return;
                                 }
                                 const { response } = await AddWalletModalRef.openAndWaitForClose({
@@ -136,7 +128,7 @@ export function ActivityConnectButton() {
                                         wallet_address: response.address,
                                     });
                                 }
-                                await refetchAllConnections();
+                                await refetch();
                             }}
                         >
                             <AddCircleIcon width={24} height={24} className="mr-2" />

@@ -4,12 +4,18 @@ import urlcat from 'urlcat';
 
 import { EMPTY_LIST } from '@/constants/index.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
+import { formatWalletConnections } from '@/helpers/formatWalletConnection.js';
 import { createIndicator, createNextIndicator, createPageable, type PageIndicator } from '@/helpers/pageable.js';
 import { resolveFireflyResponseData } from '@/helpers/resolveFireflyResponseData.js';
 import { fireflyBridgeProvider } from '@/providers/firefly/Bridge.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
 import type { CheckResponse, MintActivitySBTResponse, Provider } from '@/providers/types/Activity.js';
-import type { ActivityInfoResponse, ActivityListItem, ActivityListResponse } from '@/providers/types/Firefly.js';
+import type {
+    ActivityInfoResponse,
+    ActivityListItem,
+    ActivityListResponse,
+    GetAllConnectionsResponse,
+} from '@/providers/types/Firefly.js';
 import { settings } from '@/settings/index.js';
 
 class FireflyActivity implements Provider {
@@ -121,6 +127,29 @@ class FireflyActivity implements Provider {
             createIndicator(indicator),
             data.cursor ? createNextIndicator(indicator, `${data.cursor}`) : undefined,
         );
+    }
+
+    async getAllConnections({
+        authToken,
+    }: {
+        authToken?: string;
+    } = {}) {
+        const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/accountConnection');
+        const response = await fireflySessionHolder.fetch<GetAllConnectionsResponse>(url, {
+            method: 'GET',
+            ...(authToken
+                ? {
+                      headers: {
+                          Authorization: `Bearer ${authToken}`,
+                      },
+                  }
+                : {}),
+        });
+        const connections = resolveFireflyResponseData(response);
+        return {
+            connected: formatWalletConnections(connections.wallet.connected, connections),
+            related: formatWalletConnections(connections.wallet.unconnected, connections),
+        };
     }
 }
 

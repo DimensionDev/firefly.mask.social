@@ -15,7 +15,7 @@ export function useLoginInActivity() {
                 platform: Platform.TWITTER,
             });
             await queryFireflyBridgeAuthorization.refetch();
-            if (result.success === 'true') {
+            if (result === 'true') {
                 enqueueSuccessMessage(t`Login X successfully.`);
             } else {
                 enqueueErrorMessage(t`Failed to login.`);

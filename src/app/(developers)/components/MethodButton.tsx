@@ -90,7 +90,7 @@ export function MethodButton({ item }: Props) {
                     const result = await fireflyBridgeProvider.request(SupportedMethod.LOGIN, {
                         platform: Platform.FARCASTER,
                     });
-                    enqueueInfoMessage(`Success: ${result.success}`);
+                    enqueueInfoMessage(`Success: ${result}`);
                     break;
                 }
                 case SupportedMethod.SHARE:

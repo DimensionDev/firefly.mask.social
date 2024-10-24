@@ -2,7 +2,12 @@ import type { Pageable } from '@masknet/shared-base';
 import { ChainId } from '@masknet/web3-shared-evm';
 
 import type { PageIndicator } from '@/helpers/pageable.js';
-import type { ActivityInfoResponse, ActivityListItem, Response } from '@/providers/types/Firefly.js';
+import type {
+    ActivityInfoResponse,
+    ActivityListItem,
+    FireflyWalletConnection,
+    Response,
+} from '@/providers/types/Firefly.js';
 
 export enum Level {
     Lv1 = 'lv1',
@@ -86,4 +91,8 @@ export interface Provider {
             authToken?: string;
         },
     ) => Promise<MintActivitySBTResponse['data']>;
+
+    getAllConnections: (params?: {
+        authToken?: string;
+    }) => Promise<{ connected: FireflyWalletConnection[]; related: FireflyWalletConnection[] }>;
 }

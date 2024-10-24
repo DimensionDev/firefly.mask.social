@@ -2,7 +2,6 @@ import { t } from '@lingui/macro';
 import { useAsyncFn } from 'react-use';
 
 import { useIsFollowTwitterInActivity } from '@/components/Activity/hooks/useIsFollowTwitterInActivity.js';
-import { Source } from '@/constants/enum.js';
 import { enqueueErrorMessage, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { getSnackbarMessageFromError } from '@/helpers/getSnackbarMessageFromError.js';
 import { fireflyBridgeProvider } from '@/providers/firefly/Bridge.js';
@@ -21,14 +20,11 @@ export function useActivityFollowTwitter(profileId: string, handle: string) {
                 await TwitterSocialMediaProvider.follow(profileId);
             }
             await refetch();
-            enqueueSuccessMessage(t`Followed @${handle} on ${Source.Twitter}`);
+            enqueueSuccessMessage(t`Followed @${handle} on X`);
         } catch (error) {
-            enqueueErrorMessage(
-                getSnackbarMessageFromError(error, t`Failed to follow @${handle} on ${Source.Twitter}.`),
-                {
-                    error,
-                },
-            );
+            enqueueErrorMessage(getSnackbarMessageFromError(error, t`Failed to follow @${handle} on X.`), {
+                error,
+            });
             throw error;
         }
     }, [profileId, handle]);
