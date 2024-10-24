@@ -1,6 +1,7 @@
 import urlcat from 'urlcat';
 
 import { fetchJSON } from '@/helpers/fetchJSON.js';
+import { resolveFireflyResponseData } from '@/helpers/resolveFireflyResponseData.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
 import type { CheckResponse } from '@/providers/types/Activity.js';
 import { settings } from '@/settings/index.js';
@@ -23,5 +24,5 @@ export async function getActivityClaimCondition(
         return response.data;
     }
     const response = await fireflySessionHolder.fetch<CheckResponse>(url);
-    return response.data;
+    return resolveFireflyResponseData(response);
 }
