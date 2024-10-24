@@ -42,7 +42,7 @@ export function ActivityMintSuccessDialog({ open, onClose, hash, chainId }: Prop
                 onClick={shareAndPost}
                 disabled={loading}
             >
-                <Trans>Share in Post</Trans>
+                <Trans>Share in a Post</Trans>
             </button>
         </div>
     );
@@ -59,7 +59,7 @@ export function ActivityMintSuccessDialog({ open, onClose, hash, chainId }: Prop
                 <div className="flex w-full flex-col items-center pt-4 text-center">
                     <SuccessShieldIcon className="mb-4 h-[64px] w-[64px] text-success" />
                     <h3 className="text-lg font-semibold leading-6">
-                        <Trans>Succeeded!</Trans>
+                        <Trans>Success!</Trans>
                     </h3>
                     {content}
                 </div>
@@ -71,9 +71,9 @@ export function ActivityMintSuccessDialog({ open, onClose, hash, chainId }: Prop
         <Modal open={open} onClose={onClose}>
             <div className="transform rounded-[12px] bg-primaryBottom transition-all">
                 <div className="relative inline-flex items-center justify-center gap-2 rounded-t-[12px] p-4 text-center md:h-[56px] md:w-[600px]">
-                    <CloseButton onClick={onClose} className="absolute left-4 top-4" />
+                    <CloseButton onClick={onClose} className="absolute right-4 top-4" />
                     <div className="text-lg font-bold leading-6 text-main">
-                        <Trans>Succeeded!</Trans>
+                        <Trans>Success!</Trans>
                     </div>
                 </div>
                 <div className="px-4 pb-4">{content}</div>
