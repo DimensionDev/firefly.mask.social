@@ -49,7 +49,7 @@ const TransactionSchema = z.object({
     attribution: z.boolean().optional(),
     params: z.object({
         // JSON ABI which must include encoded function type and should include potential error types. Can be empty.
-        abi: z.union([z.object({}), z.array(z.object({}))]).optional(),
+        abi: z.union([z.object({}), z.array(z.object({})), z.string()]).optional(),
         to: z.string().refine((x) => isAddress(x), { message: 'Invalid address format.' }),
         value: z.string().optional(),
         data: z.string().optional(),

@@ -1,16 +1,16 @@
+/* cspell:disable */
+
 'use client';
 
 import { safeUnreachable } from '@masknet/kit';
 import { useAsyncFn } from 'react-use';
-import urlcat from 'urlcat';
 
 import { ClickableButton } from '@/components/ClickableButton.js';
-import { SourceInURL } from '@/constants/enum.js';
-import { SITE_NAME, SITE_URL } from '@/constants/index.js';
+import { SITE_DESCRIPTION, SITE_NAME } from '@/constants/index.js';
 import { enqueueErrorMessage, enqueueInfoMessage } from '@/helpers/enqueueMessage.js';
 import { getSnackbarMessageFromError } from '@/helpers/getSnackbarMessageFromError.js';
 import { fireflyBridgeProvider } from '@/providers/firefly/Bridge.js';
-import { type MethodItem, Network, Platform, SupportedMethod } from '@/types/bridge.js';
+import { type MethodItem, Network, Platform, SupportedMethod, Mention } from '@/types/bridge.js';
 
 interface Props {
     item: MethodItem;
@@ -98,40 +98,42 @@ export function MethodButton({ item }: Props) {
                     break;
                 case SupportedMethod.COMPOSE:
                     fireflyBridgeProvider.request(SupportedMethod.COMPOSE, {
-                        text: SITE_NAME,
-                        /* cspell:disable-next-line */
-                        activity: urlcat(SITE_URL, '/event/hlbl'),
+                        text: SITE_DESCRIPTION,
+                        activity: 'firefly',
                         mentions: [
                             {
-                                content: '@Firefly',
+                                content: '@thefireflyapp',
                                 profiles: [
                                     {
-                                        platform_id: '1583361564479889408',
-                                        platform: SourceInURL.Twitter,
-                                        handle: 'thefireflyapp',
-                                        name: 'thefireflyapp',
-                                        hit: true,
+                                        platform_id: '0x01d86b',
+                                        platform: Platform.LENS,
+                                        handle: 'brian',
+                                        name: 'brian',
+                                        namespace: 'lens',
+                                        hit: false,
                                         score: 0,
                                     },
                                     {
-                                        platform_id: '16823',
-                                        platform: SourceInURL.Farcaster,
-                                        handle: 'fireflyapp',
-                                        name: 'Firefly App',
-                                        hit: true,
+                                        platform_id: '20',
+                                        platform: Platform.FARCASTER,
+                                        handle: 'barmstrong',
+                                        name: 'Brian Armstrong',
+                                        namespace: '',
+                                        hit: false,
                                         score: 0,
                                     },
                                     {
-                                        platform_id: '0x01b000',
-                                        platform: SourceInURL.Lens,
-                                        handle: 'fireflyapp',
-                                        name: 'fireflyapp',
+                                        platform_id: '14379660',
+                                        platform: Platform.TWITTER,
+                                        handle: 'brian_armstrong',
+                                        name: 'brian_armstrong',
+                                        namespace: '',
                                         hit: true,
-                                        score: 0,
+                                        score: 0.062500186,
                                     },
                                 ],
                             },
-                        ],
+                        ] as Mention[],
                     });
                     break;
                 case SupportedMethod.BACK:

@@ -1,5 +1,3 @@
-import type { Profile } from '@/providers/types/Firefly.js';
-
 export enum Theme {
     Auto = 'auto',
     Light = 'light',
@@ -36,9 +34,19 @@ export enum SupportedMethod {
     BACK = 'back',
 }
 
+export interface MentionProfile {
+    platform_id: string;
+    platform: Platform;
+    handle: string;
+    name: string;
+    namespace: string;
+    hit: boolean;
+    score: number;
+}
+
 export interface Mention {
     content: string;
-    profiles: Profile[];
+    profiles: MentionProfile[];
 }
 
 export interface RequestArguments {
