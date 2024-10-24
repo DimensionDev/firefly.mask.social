@@ -171,9 +171,6 @@ msgstr "我们没察觉到有任何阻止通证售卖的代码逻辑。"
 msgid "Watching"
 msgstr "观察中"
 
-msgid "Step 1 Sign in with X"
-msgstr ""
-
 msgid "Rank #{0}"
 msgstr "排名 #{0}"
 
@@ -579,9 +576,6 @@ msgstr "要有资格获得空投，请满足以下条件："
 msgid "Failed to upload. More than {maxImageCount} images."
 msgstr "上传失败。超过了最大 {maxImageCount} 的图片数量限制。"
 
-msgid "Share in Post"
-msgstr ""
-
 msgid "Minting Txn Hash"
 msgstr "铸造交易哈希中"
 
@@ -879,9 +873,6 @@ msgstr "<0>出售了</0> 一个 NFT 价值 {costEl}"
 msgid "🎉"
 msgstr "🎉"
 
-msgid "Your Farcaster account holds Power Badge"
-msgstr ""
-
 msgid "Owned By"
 msgstr "属于"
 
@@ -914,9 +905,6 @@ msgstr "EVM"
 
 msgid "[LuckyDrop]"
 msgstr "[红包]"
-
-msgid "Succeeded!"
-msgstr ""
 
 msgid "Failed to unvote post."
 msgstr "无法对帖子进行投票。"
@@ -1218,6 +1206,9 @@ msgstr "全部清除"
 msgid "There are videos that were not uploaded successfully."
 msgstr "视频上传失败。"
 
+msgid "Followed"
+msgstr ""
+
 msgid "This can’t be undone, and the scheduled send will be canceled."
 msgstr "操作无法回滚，并且定时任务将会被取消。"
 
@@ -1308,6 +1299,9 @@ msgstr "你认识的关注者"
 msgid "Settings"
 msgstr "设置"
 
+msgid "X Premium account"
+msgstr ""
+
 msgid "Unsent posts"
 msgstr "未发送的帖子"
 
@@ -1380,9 +1374,6 @@ msgstr "{0, plural, one {由于某些错误您的帖子在 {firstPlatform} 发�
 msgid "What's happening..."
 msgstr "正在发生..."
 
-msgid "Connect your wallet to claim your NFT"
-msgstr ""
-
 msgid "24h"
 msgstr "24小时"
 
@@ -1439,6 +1430,9 @@ msgstr "定时任务的时间跨度最长是 7 天。"
 
 msgid "Display"
 msgstr "显示"
+
+msgid "Submit claimed address"
+msgstr ""
 
 msgid "Mute successfully."
 msgstr "隐藏成功。"
@@ -1626,6 +1620,9 @@ msgstr "在 {0} 上提交报告失败。"
 msgid "Insufficient funds"
 msgstr "金额不足"
 
+msgid "Followed <0>@{handle}</0> on X before Oct 12,2024, or followed <1>@{farcasterHandle}</1> on Farcaster before Oct 20, 2024"
+msgstr ""
+
 msgid "Connect your wallet to follow"
 msgstr "连接钱包并关注"
 
@@ -1688,9 +1685,6 @@ msgstr "市场上流通并可供公众交易的货币数量。这相当于市场
 
 msgid "{0, plural, one {repost} other {reposts}}"
 msgstr "{0, plural, one {转帖} other {转帖}}"
-
-msgid "Wallet submitted"
-msgstr ""
 
 msgid "This does not appear to be a honeypot."
 msgstr "这看起来不像是一个陷阱。"
@@ -1833,6 +1827,9 @@ msgstr "删除帖子失败。"
 msgid "Claimed"
 msgstr "已领取"
 
+msgid "Step 1 Sign in"
+msgstr ""
+
 msgid "Copy"
 msgstr "复制"
 
@@ -1868,9 +1865,6 @@ msgstr "成功收集文章！"
 
 msgid "Posting..."
 msgstr "发帖中..."
-
-msgid "Followed <0>@{handle}</0> on X or <1>@{farcasterHandle}</1> on Farcaster before Oct 20, 2024"
-msgstr ""
 
 msgid "Connect"
 msgstr "连接"
@@ -2070,6 +2064,9 @@ msgstr "没有发现可以暂停交易的代码。"
 msgid "Buy Tax: {0}%"
 msgstr "购买税率: {0}%"
 
+msgid "Success!"
+msgstr ""
+
 msgid "<0>You</0> and {0} recasted"
 msgstr "<0> 你 </0> 和 {0} 人都转发了"
 
@@ -2163,6 +2160,9 @@ msgstr "在 X 上关注 @cz_binance 以庆祝 CZ 的回归，获取一个免费�
 msgid "Mirror now to get 25% referral fee!"
 msgstr "立即转帖以获得 25% 的推荐佣金！"
 
+msgid "<0>@{handle}</0> on {0}"
+msgstr ""
+
 msgid "Hide tokens with small balances"
 msgstr "隐藏小额通证"
 
@@ -2231,9 +2231,6 @@ msgstr "Firefly 桥"
 
 msgid "Invalid URL"
 msgstr "无效的 URL"
-
-msgid "Followed <0>@{handle}</0> on {0}"
-msgstr ""
 
 msgid "View on explorer"
 msgstr "在区块链浏览器查看"
@@ -2325,6 +2322,9 @@ msgstr ""
 msgid "Verify"
 msgstr ""
 
+msgid "Hold ≥ $10k Base Chain asset"
+msgstr ""
+
 msgid "Recasted"
 msgstr "已转发"
 
@@ -2412,9 +2412,6 @@ msgstr "地点"
 msgid "There is no limit to the number of token transactions. The number of scam token transactions may be limited (honeypot risk)."
 msgstr "对通证的交易次数没有限制。可疑通证的交易次数可能是有限的。"
 
-msgid "Your assets on Base Chain are worth over US$10,000"
-msgstr ""
-
 msgid "This is not an airdrop scam. Many scams attract users through airdrops."
 msgstr "这不是空投欺诈。许多欺诈通过空投吸引用户。"
 
@@ -2499,9 +2496,6 @@ msgstr "已转发"
 msgid "Following"
 msgstr "正在关注"
 
-msgid "Your X account holds Premium status"
-msgstr ""
-
 msgid "View transaction on Explorer"
 msgstr "查看交易详情"
 
@@ -2510,6 +2504,9 @@ msgstr "小时"
 
 msgid "Note:"
 msgstr "注意 ："
+
+msgid "Farcaster Powerbadge account"
+msgstr ""
 
 msgid "Failed to create schedule post."
 msgstr "创建定时任务失败"

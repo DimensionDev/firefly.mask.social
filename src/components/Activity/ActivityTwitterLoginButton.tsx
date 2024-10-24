@@ -17,7 +17,6 @@ export function ActivityTwitterLoginButton() {
     if (isLoggedIn) {
         return (
             <button className="flex h-8 items-center rounded-full border border-current px-4 font-bold leading-8 text-[13x]">
-                <TwitterIcon className="mr-2 h-4 w-4 shrink-0" />
                 <Trans>Connected</Trans>
             </button>
         );

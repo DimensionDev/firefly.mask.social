@@ -67,7 +67,8 @@ export default function Page({
                     <div className="flex h-6 items-center space-x-1.5 text-[13px] leading-6">
                         <CalendarIcon className="h-4 w-4 shrink-0" />
                         <span>
-                            {dayjs(data.start_time).format(timeTemplate)} - {dayjs(data.end_time).format(timeTemplate)}
+                            {dayjs(data.start_time).utc().format(timeTemplate)} -{' '}
+                            {dayjs(data.end_time).utc().format(timeTemplate)} (UTC)
                         </span>
                         <ActivityStatusTag status={data.status} />
                     </div>
@@ -78,7 +79,7 @@ export default function Page({
                     <div className="flex w-full flex-col space-y-2">
                         <div className="flex h-8 items-center justify-between">
                             <h2 className="text-base font-semibold leading-6">
-                                <Trans>Step 1 Sign in with X</Trans>
+                                <Trans>Step 1 Sign in</Trans>
                             </h2>
                             <ActivityTwitterLoginButton />
                         </div>

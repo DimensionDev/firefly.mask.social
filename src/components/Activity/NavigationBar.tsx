@@ -24,6 +24,7 @@ export function NavigationBar({ children, className }: Props) {
                 className,
             )}
         >
+            <div className="absolute bottom-full left-0 h-[500px] w-full bg-primaryBottom" />
             <button
                 className="h-6 w-6 cursor-pointer"
                 onClick={() => {

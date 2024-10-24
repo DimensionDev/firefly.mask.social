@@ -166,9 +166,6 @@ msgstr "We are not aware of any code that prevents the sale of tokens."
 msgid "Watching"
 msgstr "Watching"
 
-msgid "Step 1 Sign in with X"
-msgstr "Step 1 Sign in with X"
-
 msgid "Rank #{0}"
 msgstr "Rank #{0}"
 
@@ -574,9 +571,6 @@ msgstr "To be eligible for the airdrop, fulfill the following criteria:"
 msgid "Failed to upload. More than {maxImageCount} images."
 msgstr "Failed to upload. More than {maxImageCount} images."
 
-msgid "Share in Post"
-msgstr "Share in Post"
-
 msgid "Minting Txn Hash"
 msgstr "Minting Txn Hash"
 
@@ -874,9 +868,6 @@ msgstr "<0>Sold</0> an NFT worth {costEl}"
 msgid "🎉"
 msgstr "🎉"
 
-msgid "Your Farcaster account holds Power Badge"
-msgstr "Your Farcaster account holds Power Badge"
-
 msgid "Owned By"
 msgstr "Owned By"
 
@@ -909,9 +900,6 @@ msgstr "EVM"
 
 msgid "[LuckyDrop]"
 msgstr "[LuckyDrop]"
-
-msgid "Succeeded!"
-msgstr "Succeeded!"
 
 msgid "Failed to unvote post."
 msgstr "Failed to unvote post."
@@ -1213,6 +1201,9 @@ msgstr "Clear All"
 msgid "There are videos that were not uploaded successfully."
 msgstr "There are videos that were not uploaded successfully."
 
+msgid "Followed"
+msgstr "Followed"
+
 msgid "This can’t be undone, and the scheduled send will be canceled."
 msgstr "This can’t be undone, and the scheduled send will be canceled."
 
@@ -1303,6 +1294,9 @@ msgstr "Followers you know"
 msgid "Settings"
 msgstr "Settings"
 
+msgid "X Premium account"
+msgstr "X Premium account"
+
 msgid "Unsent posts"
 msgstr "Unsent posts"
 
@@ -1375,9 +1369,6 @@ msgstr "{0, plural, one {Your posts failed to publish on {firstPlatform} due to 
 msgid "What's happening..."
 msgstr "What's happening..."
 
-msgid "Connect your wallet to claim your NFT"
-msgstr "Connect your wallet to claim your NFT"
-
 msgid "24h"
 msgstr "24h"
 
@@ -1434,6 +1425,9 @@ msgstr "The scheduled time to send this post can be set up to 7 days in advance.
 
 msgid "Display"
 msgstr "Display"
+
+msgid "Submit claimed address"
+msgstr "Submit claimed address"
 
 msgid "Mute successfully."
 msgstr "Mute successfully."
@@ -1621,6 +1615,9 @@ msgstr "Failed to submit report on {0}."
 msgid "Insufficient funds"
 msgstr "Insufficient funds"
 
+msgid "Followed <0>@{handle}</0> on X before Oct 12,2024, or followed <1>@{farcasterHandle}</1> on Farcaster before Oct 20, 2024"
+msgstr "Followed <0>@{handle}</0> on X before Oct 12,2024, or followed <1>@{farcasterHandle}</1> on Farcaster before Oct 20, 2024"
+
 msgid "Connect your wallet to follow"
 msgstr "Connect your wallet to follow"
 
@@ -1683,9 +1680,6 @@ msgstr "The amount of coins that are circulating in the market and are tradeable
 
 msgid "{0, plural, one {repost} other {reposts}}"
 msgstr "{0, plural, one {repost} other {reposts}}"
-
-msgid "Wallet submitted"
-msgstr "Wallet submitted"
 
 msgid "This does not appear to be a honeypot."
 msgstr "This does not appear to be a honeypot."
@@ -1828,6 +1822,9 @@ msgstr "Failed to delete post."
 msgid "Claimed"
 msgstr "Claimed"
 
+msgid "Step 1 Sign in"
+msgstr "Step 1 Sign in"
+
 msgid "Copy"
 msgstr "Copy"
 
@@ -1863,9 +1860,6 @@ msgstr "Article collected successfully!"
 
 msgid "Posting..."
 msgstr "Posting..."
-
-msgid "Followed <0>@{handle}</0> on X or <1>@{farcasterHandle}</1> on Farcaster before Oct 20, 2024"
-msgstr "Followed <0>@{handle}</0> on X or <1>@{farcasterHandle}</1> on Farcaster before Oct 20, 2024"
 
 msgid "Connect"
 msgstr "Connect"
@@ -2065,6 +2059,9 @@ msgstr "No codes found to suspend trading."
 msgid "Buy Tax: {0}%"
 msgstr "Buy Tax: {0}%"
 
+msgid "Success!"
+msgstr "Success!"
+
 msgid "<0>You</0> and {0} recasted"
 msgstr "<0>You</0> and {0} recasted"
 
@@ -2158,6 +2155,9 @@ msgstr "Get a free special edition Firefly NFT for following @cz_binance on X to
 msgid "Mirror now to get 25% referral fee!"
 msgstr "Mirror now to get 25% referral fee!"
 
+msgid "<0>@{handle}</0> on {0}"
+msgstr "<0>@{handle}</0> on {0}"
+
 msgid "Hide tokens with small balances"
 msgstr "Hide tokens with small balances"
 
@@ -2226,9 +2226,6 @@ msgstr "Firefly Bridge"
 
 msgid "Invalid URL"
 msgstr "Invalid URL"
-
-msgid "Followed <0>@{handle}</0> on {0}"
-msgstr "Followed <0>@{handle}</0> on {0}"
 
 msgid "View on explorer"
 msgstr "View on explorer"
@@ -2320,6 +2317,9 @@ msgstr "Final Step Claim Now!"
 msgid "Verify"
 msgstr "Verify"
 
+msgid "Hold ≥ $10k Base Chain asset"
+msgstr "Hold ≥ $10k Base Chain asset"
+
 msgid "Recasted"
 msgstr "Recasted"
 
@@ -2407,9 +2407,6 @@ msgstr "Location"
 msgid "There is no limit to the number of token transactions. The number of scam token transactions may be limited (honeypot risk)."
 msgstr "There is no limit to the number of token transactions. The number of scam token transactions may be limited (honeypot risk)."
 
-msgid "Your assets on Base Chain are worth over US$10,000"
-msgstr "Your assets on Base Chain are worth over US$10,000"
-
 msgid "This is not an airdrop scam. Many scams attract users through airdrops."
 msgstr "This is not an airdrop scam. Many scams attract users through airdrops."
 
@@ -2494,9 +2491,6 @@ msgstr "mirrored"
 msgid "Following"
 msgstr "Following"
 
-msgid "Your X account holds Premium status"
-msgstr "Your X account holds Premium status"
-
 msgid "View transaction on Explorer"
 msgstr "View transaction on Explorer"
 
@@ -2505,6 +2499,9 @@ msgstr "Hours"
 
 msgid "Note:"
 msgstr "Note:"
+
+msgid "Farcaster Powerbadge account"
+msgstr "Farcaster Powerbadge account"
 
 msgid "Failed to create schedule post."
 msgstr "Failed to create schedule post."

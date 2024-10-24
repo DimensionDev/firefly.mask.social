@@ -17,10 +17,10 @@ export function useIsLoginTwitterInActivity() {
     const { data: token } = useFireflyBridgeAuthorization();
     const { setFireflyAccountId } = useContext(ActivityContext);
     return useQuery({
-        enabled: twitterProfile ? true : !!token,
         queryKey: ['is-logged-twitter', !!twitterProfile, token],
         async queryFn() {
             if (!fireflyBridgeProvider.supported) return !!twitterProfile;
+            if (!token) return false;
             const url = urlcat(settings.FIREFLY_ROOT_URL, '/v2/wallet/profile');
             const response = await fetchJSON<WalletProfileResponse>(url, {
                 headers: {

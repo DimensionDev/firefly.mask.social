@@ -28,7 +28,7 @@ export function ActivityFollowTargetCard({ handle, profileId }: { handle: string
                         <Link className="inline text-highlight" href={resolveProfileUrl(Source.Twitter, profileId)}>
                             @{handle}
                         </Link>{' '}
-                        on X or{' '}
+                        on X before Oct 12,2024, or followed{' '}
                         <Link className="inline text-highlight" href={resolveProfileUrl(Source.Farcaster, '20')}>
                             @{farcasterHandle}
                         </Link>{' '}

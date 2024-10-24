@@ -74,8 +74,8 @@ export function ActivityTaskFollowCard({ source, profileId, handle }: Props) {
         >
             <ActivityVerifyText verified={isFollowedFirefly}>
                 <h3>
+                    {isFollowedFirefly ? <Trans>Follow </Trans> : <Trans>Followed </Trans>}
                     <Trans>
-                        Followed{' '}
                         <Link className="inline text-highlight" href={resolveProfileUrl(source, profileId)}>
                             @{handle}
                         </Link>{' '}

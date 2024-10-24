@@ -6,7 +6,7 @@ import { CHAR_TAG, type Chars } from '@/helpers/chars.js';
 import { ComposeModalRef } from '@/modals/controls.js';
 import { fireflyBridgeProvider } from '@/providers/firefly/Bridge.js';
 import type { Profile } from '@/providers/types/Firefly.js';
-import { type Mention, type RequestArguments, SupportedMethod } from '@/types/bridge.js';
+import { type Mention, Platform, type RequestArguments, SupportedMethod } from '@/types/bridge.js';
 
 const fireflyMention = {
     tag: CHAR_TAG.MENTION,
@@ -80,7 +80,7 @@ export function useActivityCompose() {
     const list = useActivityPremiumList();
     const isPremium = list.some((x) => x.verified);
 
-    const text = isPremium
+    const text = !isPremium
         ? [
               'Just claimed the "Congrats 🥂 to Brian" collectible from ',
               fireflyMention,
@@ -112,7 +112,10 @@ export function useActivityCompose() {
                         acc.text += part.content;
                         acc.mentions.push({
                             content: part.content,
-                            profiles: part.profiles,
+                            profiles: part.profiles.map((profile) => ({
+                                ...profile,
+                                platform: profile.platform as unknown as Platform,
+                            })),
                         } as Mention);
                     }
                     return acc;
