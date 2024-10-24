@@ -189,6 +189,9 @@ msgstr ""
 msgid "Ended"
 msgstr ""
 
+msgid "Failed to follow @{handle} on X."
+msgstr ""
+
 msgid "Unknown error"
 msgstr ""
 
@@ -370,9 +373,6 @@ msgid "<0>{0}</0><1>mirrored</1>"
 msgstr ""
 
 msgid "True Token"
-msgstr ""
-
-msgid "Failed to follow @{handle} on {0}."
 msgstr ""
 
 msgid "Bookmarks"
@@ -1007,6 +1007,9 @@ msgstr "回覆"
 
 msgid "Comment"
 msgstr "評論"
+
+msgid "Followed @{handle} on X"
+msgstr ""
 
 msgid "Only people you mention"
 msgstr "僅限你提及的帳戶"
@@ -2168,9 +2171,6 @@ msgstr ""
 
 msgid "News"
 msgstr "资讯"
-
-msgid "Followed @{handle} on {0}"
-msgstr ""
 
 msgid "NFT ID"
 msgstr "NFT ID"

@@ -189,6 +189,9 @@ msgstr "<0>加密货币生命周期存在的最大发行数量。它与股票市
 msgid "Ended"
 msgstr ""
 
+msgid "Failed to follow @{handle} on X."
+msgstr ""
+
 msgid "Unknown error"
 msgstr "未知错误"
 
@@ -371,9 +374,6 @@ msgstr "<0>{0}</0><1>转帖</1>"
 
 msgid "True Token"
 msgstr "真实的通证"
-
-msgid "Failed to follow @{handle} on {0}."
-msgstr ""
 
 msgid "Bookmarks"
 msgstr "收藏"
@@ -1007,6 +1007,9 @@ msgstr "回复"
 
 msgid "Comment"
 msgstr "评论"
+
+msgid "Followed @{handle} on X"
+msgstr ""
 
 msgid "Only people you mention"
 msgstr "只有你提及的人"
@@ -2168,9 +2171,6 @@ msgstr "隐藏小额通证"
 
 msgid "News"
 msgstr "新闻"
-
-msgid "Followed @{handle} on {0}"
-msgstr ""
 
 msgid "NFT ID"
 msgstr "NFT ID"

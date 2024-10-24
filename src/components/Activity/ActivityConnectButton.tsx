@@ -87,7 +87,7 @@ export function ActivityConnectButton() {
                     {addresses.map(({ address, ens }) => (
                         <Menu.Item key={address}>
                             <button
-                                className="cursor-pointer px-4 py-[11px] text-sm font-semibold leading-6"
+                                className="cursor-pointer px-4 py-[11px] text-left text-sm font-semibold leading-6 hover:bg-main/10"
                                 onClick={() => {
                                     onChangeAddress(address);
                                     captureActivityEvent(EventId.EVENT_CHANGE_WALLET_SUCCESS, {
@@ -103,7 +103,7 @@ export function ActivityConnectButton() {
                     ))}
                     <Menu.Item>
                         <button
-                            className="flex cursor-pointer items-center justify-center px-4 py-[11px] text-sm font-semibold leading-6"
+                            className="flex cursor-pointer items-center justify-start px-4 py-[11px] text-sm font-semibold leading-6 hover:bg-main/10"
                             onClick={async () => {
                                 if (fireflyBridgeProvider.supported) {
                                     const address = await fireflyBridgeProvider.request(SupportedMethod.BIND_WALLET, {

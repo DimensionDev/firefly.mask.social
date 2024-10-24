@@ -189,6 +189,9 @@ msgstr ""
 msgid "Ended"
 msgstr ""
 
+msgid "Failed to follow @{handle} on X."
+msgstr ""
+
 msgid "Unknown error"
 msgstr ""
 
@@ -370,9 +373,6 @@ msgid "<0>{0}</0><1>mirrored</1>"
 msgstr ""
 
 msgid "True Token"
-msgstr ""
-
-msgid "Failed to follow @{handle} on {0}."
 msgstr ""
 
 msgid "Bookmarks"
@@ -1006,6 +1006,9 @@ msgid "Replies"
 msgstr ""
 
 msgid "Comment"
+msgstr ""
+
+msgid "Followed @{handle} on X"
 msgstr ""
 
 msgid "Only people you mention"
@@ -2167,9 +2170,6 @@ msgid "Hide tokens with small balances"
 msgstr ""
 
 msgid "News"
-msgstr ""
-
-msgid "Followed @{handle} on {0}"
 msgstr ""
 
 msgid "NFT ID"

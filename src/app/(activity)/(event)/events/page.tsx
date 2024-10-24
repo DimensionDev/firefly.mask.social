@@ -39,7 +39,7 @@ export default function Page() {
                     </span>
                 </div>
             )}
-            <div className="flex w-full flex-col p-4">
+            <div className="mb-[72px] flex w-full flex-col p-4">
                 <ListInPage
                     source={Source.Wallet}
                     queryResult={queryResult}
