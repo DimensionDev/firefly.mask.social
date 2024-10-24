@@ -20,8 +20,8 @@ import { TextOverflowTooltip } from '@/components/TextOverflowTooltip.js';
 import { Source } from '@/constants/enum.js';
 import { classNames } from '@/helpers/classNames.js';
 import { useComeBack } from '@/hooks/useComeback.js';
+import { FireflyActivityProvider } from '@/providers/firefly/Activity.js';
 import { fireflyBridgeProvider } from '@/providers/firefly/Bridge.js';
-import { getFireflyActivityInfo } from '@/services/getFireflyActivityInfo.js';
 
 export default function Page({
     params: { name },
@@ -34,7 +34,7 @@ export default function Page({
     const { data } = useSuspenseQuery({
         queryKey: ['activity-info', name],
         async queryFn() {
-            return getFireflyActivityInfo(name);
+            return FireflyActivityProvider.getFireflyActivityInfo(name);
         },
     });
     const timeTemplate = 'M/DD hh:MM';

@@ -15,10 +15,10 @@ import { classNames } from '@/helpers/classNames.js';
 import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
 import { getSnackbarMessageFromError } from '@/helpers/getSnackbarMessageFromError.js';
 import { useFireflyBridgeAuthorization } from '@/hooks/useFireflyBridgeAuthorization.js';
+import { FireflyActivityProvider } from '@/providers/firefly/Activity.js';
 import { captureActivityEvent } from '@/providers/telemetry/captureActivityEvent.js';
 import { ActivityStatus } from '@/providers/types/Firefly.js';
 import { EventId } from '@/providers/types/Telemetry.js';
-import { mintActivitySBT } from '@/services/mintActivitySBT.js';
 
 export function ActivityClaimButton({ status }: { status: ActivityStatus }) {
     const { address, name, fireflyAccountId } = useContext(ActivityContext);
@@ -35,7 +35,7 @@ export function ActivityClaimButton({ status }: { status: ActivityStatus }) {
     const [{ loading }, claim] = useAsyncFn(async () => {
         if (disabled || !address) return;
         try {
-            const { hash, chainId } = await mintActivitySBT(address, name, { authToken });
+            const { hash, chainId } = await FireflyActivityProvider.claimActivitySBT(address, name, { authToken });
             await refetch();
             setHash(hash);
             setChainId(chainId);

@@ -9,14 +9,14 @@ import { NavigationBar } from '@/components/Activity/NavigationBar.js';
 import { ListInPage } from '@/components/ListInPage.js';
 import { ScrollListKey, Source } from '@/constants/enum.js';
 import { createIndicator } from '@/helpers/pageable.js';
+import { FireflyActivityProvider } from '@/providers/firefly/Activity.js';
 import { fireflyBridgeProvider } from '@/providers/firefly/Bridge.js';
-import { getFireflyActivityList } from '@/services/getFireflyActivityList.js';
 
 export default function Page() {
     const queryResult = useSuspenseInfiniteQuery({
         queryKey: ['activity-list'],
         queryFn: async ({ pageParam }) => {
-            return getFireflyActivityList({ indicator: createIndicator(undefined, pageParam) });
+            return FireflyActivityProvider.getFireflyActivityList({ indicator: createIndicator(undefined, pageParam) });
         },
         initialPageParam: '',
         getNextPageParam: (lastPage) => {

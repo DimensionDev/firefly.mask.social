@@ -1,4 +1,8 @@
-import type { Response } from '@/providers/types/Firefly.js';
+import type { Pageable } from '@masknet/shared-base';
+import { ChainId } from '@masknet/web3-shared-evm';
+
+import type { PageIndicator } from '@/helpers/pageable.js';
+import type { ActivityInfoResponse, ActivityListItem, Response } from '@/providers/types/Firefly.js';
 
 export enum Level {
     Lv1 = 'lv1',
@@ -54,3 +58,32 @@ export type CheckResponse = Response<{
     address: string;
     claimCondition: [];
 }>;
+
+export type MintActivitySBTResponse = Response<{
+    status: boolean;
+    hash: string;
+    errormessage?: string;
+    chainId: ChainId;
+}>;
+
+export interface Provider {
+    getActivityClaimCondition: (
+        name: string,
+        options?: {
+            address?: string;
+            authToken?: string;
+        },
+    ) => Promise<CheckResponse['data']>;
+
+    getActivityInfo: (name: string) => Promise<ActivityInfoResponse['data']>;
+
+    getActivityList: (indicator?: PageIndicator, size?: number) => Promise<Pageable<ActivityListItem, PageIndicator>>;
+
+    claimActivitySBT: (
+        address: string,
+        activityName: string,
+        options?: {
+            authToken?: string;
+        },
+    ) => Promise<MintActivitySBTResponse['data']>;
+}

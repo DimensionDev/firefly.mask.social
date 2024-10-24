@@ -4,7 +4,7 @@ import { useContext } from 'react';
 import { ActivityContext } from '@/components/Activity/ActivityContext.js';
 import { useIsLoginTwitterInActivity } from '@/components/Activity/hooks/useIsLoginTwitterInActivity.js';
 import { useFireflyBridgeAuthorization } from '@/hooks/useFireflyBridgeAuthorization.js';
-import { getActivityClaimCondition } from '@/services/getActivityClaimCondition.js';
+import { FireflyActivityProvider } from '@/providers/firefly/Activity.js';
 
 export function useActivityClaimCondition() {
     const { address, name } = useContext(ActivityContext);
@@ -13,7 +13,7 @@ export function useActivityClaimCondition() {
     return useQuery({
         queryKey: ['activity-claim-condition', address, authToken, name],
         async queryFn() {
-            return getActivityClaimCondition(name, { authToken, address: address ?? '0x' });
+            return FireflyActivityProvider.getActivityClaimCondition(name, { authToken, address: address ?? '0x' });
         },
         enabled: isLoggedTwitter,
     });

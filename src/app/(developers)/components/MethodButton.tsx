@@ -10,7 +10,7 @@ import { SITE_DESCRIPTION, SITE_NAME } from '@/constants/index.js';
 import { enqueueErrorMessage, enqueueInfoMessage } from '@/helpers/enqueueMessage.js';
 import { getSnackbarMessageFromError } from '@/helpers/getSnackbarMessageFromError.js';
 import { fireflyBridgeProvider } from '@/providers/firefly/Bridge.js';
-import { type MethodItem, Network, Platform, SupportedMethod, Mention } from '@/types/bridge.js';
+import { type Mention, type MethodItem, Network, Platform, SupportedMethod } from '@/types/bridge.js';
 
 interface Props {
     item: MethodItem;
