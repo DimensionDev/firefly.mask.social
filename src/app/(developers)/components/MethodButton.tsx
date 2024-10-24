@@ -99,6 +99,7 @@ export function MethodButton({ item }: Props) {
                 case SupportedMethod.COMPOSE:
                     fireflyBridgeProvider.request(SupportedMethod.COMPOSE, {
                         text: SITE_NAME,
+                        /* cspell:disable-next-line */
                         activity: urlcat(SITE_URL, '/event/hlbl'),
                         mentions: [
                             {
