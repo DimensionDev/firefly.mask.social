@@ -32,7 +32,7 @@ export const SchedulePostSettings = memo<SchedulePostSettingsProps>(function Sch
 }) {
     const { updateScheduleTime, clearScheduleTime, scheduleTime } = useComposeScheduleStateStore();
 
-    const [value, setValue] = useState(task ? dayjs(task.publish_timestamp).toDate() : scheduleTime ?? new Date());
+    const [value, setValue] = useState(task ? dayjs(task.publish_timestamp).toDate() : (scheduleTime ?? new Date()));
 
     const [{ loading }, handleSet] = useAsyncFn(async () => {
         try {

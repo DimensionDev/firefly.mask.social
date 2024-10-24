@@ -1149,6 +1149,9 @@ msgstr ""
 msgid "Failed to unmute /{0}."
 msgstr ""
 
+msgid "Login X successfully."
+msgstr ""
+
 msgid "Please confirm the login with Warpcast."
 msgstr ""
 

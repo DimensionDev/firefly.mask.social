@@ -18,10 +18,11 @@ export const Link = forwardRef<
             onClick={
                 fireflyBridgeProvider.supported
                     ? (event) => {
+                          event.preventDefault();
+
                           const url = !props.href.startsWith('https')
                               ? urlcat(window.location.origin, props.href)
                               : props.href;
-                          event.preventDefault();
                           fireflyBridgeProvider.request(SupportedMethod.OPEN_URL, {
                               url,
                           });

@@ -10,7 +10,7 @@ interface PopoverProps {
     children?: React.ReactNode;
     onClose?: () => void;
     enableOverflow?: boolean;
-    DialogPanelProps?: DialogPanelProps<'div'>;
+    DialogPanelProps?: DialogPanelProps;
     backdropClassName?: string;
     controlClassName?: string;
 }

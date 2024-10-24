@@ -1149,6 +1149,9 @@ msgstr "搜尋 ${symbol}"
 msgid "Failed to unmute /{0}."
 msgstr "對 @{0} 的解除靜音失敗"
 
+msgid "Login X successfully."
+msgstr ""
+
 msgid "Please confirm the login with Warpcast."
 msgstr "請至 Warpcast 確認登錄"
 
