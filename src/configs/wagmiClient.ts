@@ -45,6 +45,7 @@ import { IS_MOBILE_DEVICE } from '@/constants/bowser.js';
 import { env } from '@/constants/env.js';
 import { SITE_DESCRIPTION, SITE_NAME, SITE_URL } from '@/constants/index.js';
 import { WalletId } from '@/constants/reown.js';
+import { VERCEL_NEV } from '@/constants/enum.js';
 
 const networks = [
     mainnet,
@@ -113,7 +114,7 @@ createAppKit({
         email: false,
         socials: [],
     },
-    debug: true,
+    debug: env.external.NEXT_PUBLIC_VERCEL_ENV !== VERCEL_NEV.Production,
     includeWalletIds: walletIds,
     featuredWalletIds: walletIds,
 });
