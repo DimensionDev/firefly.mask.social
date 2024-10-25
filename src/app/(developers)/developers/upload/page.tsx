@@ -13,7 +13,6 @@ import { IS_PRODUCTION } from '@/constants/index.js';
 import { Image } from '@/esm/Image.js';
 import { Link } from '@/esm/Link.js';
 import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
-import { twitterSessionHolder } from '@/providers/twitter/SessionHolder.js';
 import { uploadToDirectory } from '@/services/uploadToS3.js';
 
 export default function Page() {
@@ -33,17 +32,6 @@ export default function Page() {
             throw error;
         }
     }, [file, directory, name, setUrl]);
-
-    const [{ loading: searching }, searchTwitterUsers] = useAsyncFn(async () => {
-        try {
-            await twitterSessionHolder.withSession(async () => {
-                const response = await twitterSessionHolder.fetch(`/api/twitter/user/search?query=${name}`, {}, true);
-                console.log('Search users on X', response);
-            });
-        } catch (error) {
-            console.error('Failed to search users on X', error);
-        }
-    }, [name]);
 
     if (IS_PRODUCTION) return null;
 
@@ -76,7 +64,6 @@ export default function Page() {
                 className="h-10 w-full rounded-xl bg-bgModal"
                 placeholder={t`Name`}
             />
-            <h1 onClick={searchTwitterUsers}>{searching ? 'Loading...' : 'Test Twitter Search'}</h1>
             <ClickableButton
                 className="mt-6 flex w-full items-center justify-center rounded-2xl bg-main p-2 text-xl font-bold leading-6 text-primaryBottom"
                 disabled={!file || !directory || !name || loading}

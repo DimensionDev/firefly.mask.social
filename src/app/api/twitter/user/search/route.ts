@@ -1,5 +1,5 @@
-import { isObject } from 'lodash-es';
 import { NextRequest } from 'next/server.js';
+import type { UserV2TimelineResult } from 'twitter-api-v2';
 import urlcat from 'urlcat';
 import { z } from 'zod';
 
@@ -37,22 +37,9 @@ export const GET = compose<(request: NextRequest, context?: NextRequestContext) 
             next_token: queryParams.cursor ? queryParams.cursor : undefined,
             max_results: queryParams.limit,
         });
-        const client = await createTwitterClientV2(request);
 
-        let data = {};
-        try {
-            data = await client.v2.get(url);
-        } catch (error) {
-            if (isObject(error)) {
-                return createSuccessResponseJSON({
-                    error: JSON.stringify(error),
-                });
-            } else {
-                return createSuccessResponseJSON({
-                    error,
-                });
-            }
-        }
+        const client = await createTwitterClientV2(request);
+        const data: UserV2TimelineResult = await client.v2.get(url);
 
         return createSuccessResponseJSON(data);
     },

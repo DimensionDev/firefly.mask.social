@@ -1,6 +1,7 @@
-import type { UserV2 } from 'twitter-api-v2';
+import type { UserV2, UserV2TimelineResult } from 'twitter-api-v2';
 
 import { Source } from '@/constants/enum.js';
+import { createIndicator, createPageable, type Pageable, type PageIndicator } from '@/helpers/pageable.js';
 import { type Profile, ProfileStatus } from '@/providers/types/SocialMedia.js';
 
 export function convertTwitterAvatar(url: string) {
@@ -27,4 +28,16 @@ export function formatTwitterProfile(data: UserV2): Profile {
         website: data.url,
         location: data.location,
     };
+}
+
+export function formatTwitterProfilePage(
+    data: UserV2TimelineResult,
+    currentIndicator?: PageIndicator,
+): Pageable<Profile, PageIndicator> {
+    const profiles = data.data?.map(formatTwitterProfile) || [];
+    return createPageable(
+        profiles,
+        createIndicator(currentIndicator),
+        data.meta.next_token ? createIndicator(undefined, data.meta.next_token) : undefined,
+    );
 }

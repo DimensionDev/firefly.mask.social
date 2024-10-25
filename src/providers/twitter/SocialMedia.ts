@@ -6,6 +6,7 @@ import type {
     Tweetv2TimelineResult,
     UserV2,
     UserV2MuteResult,
+    UserV2TimelineResult,
 } from 'twitter-api-v2';
 import urlcat from 'urlcat';
 
@@ -20,7 +21,7 @@ import { SetQueryDataForFollowProfile } from '@/decorators/SetQueryDataForFollow
 import { SetQueryDataForLikePost } from '@/decorators/SetQueryDataForLikePost.js';
 import { SetQueryDataForMirrorPost } from '@/decorators/SetQueryDataForMirrorPost.js';
 import { formatTweetsPage } from '@/helpers/formatTwitterPost.js';
-import { formatTwitterProfile } from '@/helpers/formatTwitterProfile.js';
+import { formatTwitterProfile, formatTwitterProfilePage } from '@/helpers/formatTwitterProfile.js';
 import { getTwitterProfileHandleFromUrl } from '@/helpers/getTwitterProfileHandleFromUrl.js';
 import { createIndicator, createPageable, type Pageable, type PageIndicator } from '@/helpers/pageable.js';
 import { resolveProfileUrl } from '@/helpers/resolveProfileUrl.js';
@@ -150,7 +151,17 @@ class TwitterSocialMedia implements Provider {
     }
 
     searchProfiles(q: string, indicator?: PageIndicator): Promise<Pageable<Profile, PageIndicator>> {
-        throw new NotImplementedError();
+        return twitterSessionHolder.withSession(async (session) => {
+            if (!session) return createPageable([] as Profile[], createIndicator(indicator));
+            const url = urlcat(`/api/twitter/user/search`, {
+                limit: 25,
+                cursor: indicator?.id,
+                query: q,
+            });
+            const response = await twitterSessionHolder.fetch<ResponseJSON<UserV2TimelineResult>>(url, {}, true);
+            if (!response.success) throw new Error(response.error.message);
+            return formatTwitterProfilePage(response.data, indicator);
+        });
     }
 
     getChannelTrendingPosts(channel: Channel, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
@@ -260,7 +271,7 @@ class TwitterSocialMedia implements Provider {
         const response = await twitterSessionHolder.fetch<ResponseJSON<UserV2>>(`/api/twitter/user/${profileId}`);
         if (!response.success) throw new Error(response.error.message);
         response.data.url = response.data.url
-            ? ((await resolveTCOLink(response.data.url)) ?? response.data.url)
+            ? (await resolveTCOLink(response.data.url)) ?? response.data.url
             : response.data.url;
         return formatTwitterProfile(response.data);
     }
@@ -271,7 +282,7 @@ class TwitterSocialMedia implements Provider {
         });
         if (!response.success) throw new Error(response.error.message);
         response.data.url = response.data.url
-            ? ((await resolveTCOLink(response.data.url)) ?? response.data.url)
+            ? (await resolveTCOLink(response.data.url)) ?? response.data.url
             : response.data.url;
         return formatTwitterProfile(response.data);
     }
@@ -280,7 +291,7 @@ class TwitterSocialMedia implements Provider {
         const response = await twitterSessionHolder.fetch<ResponseJSON<UserV2>>(`/api/twitter/username/${handle}`);
         if (!response.success) throw new Error(response.error.message);
         response.data.url = response.data.url
-            ? ((await resolveTCOLink(response.data.url)) ?? response.data.url)
+            ? (await resolveTCOLink(response.data.url)) ?? response.data.url
             : response.data.url;
         return formatTwitterProfile(response.data);
     }
