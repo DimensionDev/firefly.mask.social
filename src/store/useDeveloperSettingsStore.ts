@@ -9,11 +9,14 @@ import { FIREFLY_DEV_ROOT_URL, FIREFLY_ROOT_URL } from '@/constants/index.js';
 import { createSelectors } from '@/helpers/createSelector.js';
 
 interface DeveloperSettingsState {
-    useDevelopmentAPI: boolean;
-    updateUseDevelopmentAPI: (value: boolean) => void;
+    developmentAPI: boolean;
+    updateDevelopmentAPI: (value: boolean) => void;
 
-    logTelemetry: boolean;
-    updateLogTelemetry: (value: boolean) => void;
+    telemetry: boolean;
+    updateTelemetry: (value: boolean) => void;
+
+    telemetryDebug: boolean;
+    updateTelemetryDebug: (value: boolean) => void;
 }
 
 function updateRedPacketApiRoot(devMode: boolean) {
@@ -26,27 +29,34 @@ const useDeveloperSettingsBase = create<
 >(
     persist(
         immer((set) => ({
-            useDevelopmentAPI: env.external.NEXT_PUBLIC_FIREFLY_DEV_API === STATUS.Enabled,
-            updateUseDevelopmentAPI: (value: boolean) =>
+            developmentAPI: env.external.NEXT_PUBLIC_FIREFLY_DEV_API === STATUS.Enabled,
+            updateDevelopmentAPI: (value: boolean) =>
                 set((state) => {
                     updateRedPacketApiRoot(value);
-                    state.useDevelopmentAPI = value;
+                    state.developmentAPI = value;
                 }),
 
-            logTelemetry: env.external.NEXT_PUBLIC_TELEMETRY === STATUS.Enabled,
-            updateLogTelemetry: (value: boolean) =>
+            telemetry: env.external.NEXT_PUBLIC_TELEMETRY === STATUS.Enabled,
+            updateTelemetry: (value: boolean) =>
                 set((state) => {
-                    state.logTelemetry = value;
+                    state.telemetry = value;
+                }),
+
+            telemetryDebug: false,
+            updateTelemetryDebug: (value: boolean) =>
+                set((state) => {
+                    state.telemetryDebug = value;
                 }),
         })),
         {
             name: 'developer-settings',
             partialize: (state) => ({
-                useDevelopmentAPI: state.useDevelopmentAPI,
-                captureTelemetry: state.logTelemetry,
+                developmentAPI: state.developmentAPI,
+                telemetry: state.telemetry,
+                telemetryDebug: state.telemetryDebug,
             }),
             onRehydrateStorage: (state) => {
-                updateRedPacketApiRoot(state.useDevelopmentAPI);
+                updateRedPacketApiRoot(state.developmentAPI);
             },
         },
     ),

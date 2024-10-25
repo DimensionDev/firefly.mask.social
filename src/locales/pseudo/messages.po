@@ -271,6 +271,9 @@ msgstr ""
 msgid "Potential risk of external call."
 msgstr ""
 
+msgid "Enable telemetry debug mode"
+msgstr ""
+
 msgid "FAILED POST"
 msgstr ""
 
@@ -1088,6 +1091,9 @@ msgid "No voting power"
 msgstr ""
 
 msgid "Your draft was saved."
+msgstr ""
+
+msgid "Send telemetry events in debug mode."
 msgstr ""
 
 msgid "The chainId mismatch."
