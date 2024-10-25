@@ -6,7 +6,6 @@ import { notFound } from 'next/navigation.js';
 
 import CalendarIcon from '@/assets/activity-calendar.svg';
 import ComeBack from '@/assets/comeback.svg';
-import { ActivityClaimButton } from '@/components/Activity/ActivityClaimButton.js';
 import { ActivityStatusTag } from '@/components/Activity/ActivityStatus.js';
 import { NavigationBar } from '@/components/Activity/NavigationBar.js';
 import { Image } from '@/components/Image.js';
@@ -63,9 +62,6 @@ export default function Page() {
                     <h1 className="text-xl font-semibold leading-6">{data.title}</h1>
                     <p className="line-clamp-2 text-sm leading-6">{data.sub_title}</p>
                 </div>
-            </div>
-            <div className="sticky bottom-0 mt-auto w-full bg-primaryBottom px-4 pt-1.5 pb-safe-or-4 sm:pb-safe-or-2">
-                <ActivityClaimButton status={data.status} />
             </div>
         </div>
     );
