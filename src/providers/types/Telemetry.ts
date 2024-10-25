@@ -23,6 +23,8 @@ export enum ExceptionType {
 }
 
 export enum EventId {
+    DEBUG = 'debug',
+
     ACCOUNT_CREATE_SUCCESS = 'account_create_success',
     ACCOUNT_LOG_OUT_ALL_SUCCESS = 'account_log_out_all_success', // ✅
 
@@ -191,6 +193,13 @@ export interface ComposeEventParameters {
 }
 
 export interface Events extends Record<EventId, Event> {
+    [EventId.DEBUG]: {
+        type: EventType.Debug;
+        parameters: {
+            message: string;
+        };
+    };
+
     [EventId.COMPOSE_CROSS_POST_SEND_SUCCESS]: {
         type: EventType.Interact;
         parameters: {} & ComposeEventParameters;

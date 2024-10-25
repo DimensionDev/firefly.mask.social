@@ -1368,6 +1368,9 @@ msgstr "NFT 合约"
 msgid "Phishing activities."
 msgstr ""
 
+msgid "Telemetry"
+msgstr ""
+
 msgid "Show more tokens with small balances"
 msgstr "展示更多的小额通证"
 

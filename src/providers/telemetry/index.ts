@@ -7,7 +7,7 @@ import { NotImplementedError } from '@/constants/error.js';
 import { bom } from '@/helpers/bom.js';
 import { getPublicParameters } from '@/providers/telemetry/getPublicParameters.js';
 import type { Safary } from '@/providers/types/Safary.js';
-import { type Events, Provider, ProviderFilter, VersionFilter } from '@/providers/types/Telemetry.js';
+import { type Events, EventType, Provider, ProviderFilter, VersionFilter } from '@/providers/types/Telemetry.js';
 import { useDeveloperSettingsState } from '@/store/useDeveloperSettingsStore.js';
 
 function formatParameter(key: string, value: unknown): [string, unknown] {
@@ -67,12 +67,11 @@ class Telemetry extends Provider<Events, never> {
 
         if (provider_filter === ProviderFilter.All || provider_filter === ProviderFilter.GA) {
             try {
-                if (env.external.NEXT_PUBLIC_TELEMETRY_DEBUG === STATUS.Enabled) {
-                    console.log('[ga] DEBUG - capture event:', event);
-                }
                 sendGAEvent('event', event.eventType, {
                     ...event.parameters,
-                    debug_mode: env.external.NEXT_PUBLIC_TELEMETRY_DEBUG === STATUS.Enabled,
+                    debug_mode:
+                        env.external.NEXT_PUBLIC_TELEMETRY_DEBUG === STATUS.Enabled ||
+                        event.eventName === EventType.Debug,
                 });
             } catch (error) {
                 console.error('[ga] failed to capture event:', event);
