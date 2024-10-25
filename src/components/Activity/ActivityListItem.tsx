@@ -14,7 +14,7 @@ export function getActivityListItem(index: number, data: TypeActivityListItem) {
 }
 
 export function ActivityListItem({ data, index }: { data: TypeActivityListItem; index?: number }) {
-    const timeTemplate = 'M/DD hh:MM';
+    const timeTemplate = 'M/DD hh:mm';
     return (
         <Link
             href={`/event/${data.name}`}
