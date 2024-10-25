@@ -72,8 +72,8 @@ export function ActivityConnectButton() {
                 </Menu.Button>
                 <Menu.Items
                     className={classNames(
-                        'absolute top-[calc(100%+12px)] z-50 flex max-h-[200px] w-[200px] flex-col overflow-y-auto rounded-[12px] border border-line bg-primaryBottom shadow-lg',
-                        address ? 'right-0' : 'left-0',
+                        'absolute bottom-[calc(100%+12px)] z-50 flex max-h-[200px] w-[200px] flex-col overflow-y-auto rounded-[12px] border border-line bg-primaryBottom shadow-lg',
+                        address ? 'right-0' : 'left-0 sm:left-[unset] sm:right-0',
                     )}
                 >
                     {addresses.map(({ address, ens }) => (

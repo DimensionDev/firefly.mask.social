@@ -22,7 +22,7 @@ export function ActivityStatusTag({ status }: { status: ActivityStatus }) {
             );
         case ActivityStatus.Upcoming:
             return (
-                <div className="rounded-full border border-current bg-primaryBottom/80 px-2.5 text-center text-xs font-bold uppercase leading-6 text-second">
+                <div className="rounded-full border border-current bg-primaryBottom/80 px-2.5 text-center text-xs font-bold uppercase leading-6 text-main">
                     <Trans>Upcoming</Trans>
                 </div>
             );
