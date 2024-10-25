@@ -2466,9 +2466,6 @@ msgstr ""
 msgid "Clear"
 msgstr ""
 
-msgid "End"
-msgstr ""
-
 msgid "<0>Sent</0> an NFT to <1>{0}</1>"
 msgstr ""
 
