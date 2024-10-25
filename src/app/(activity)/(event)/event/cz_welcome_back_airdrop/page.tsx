@@ -3,6 +3,8 @@
 import { useSuspenseQuery } from '@tanstack/react-query';
 import dayjs from 'dayjs';
 import { notFound } from 'next/navigation.js';
+import { useLayoutEffect } from 'react';
+import urlcat from 'urlcat';
 
 import CalendarIcon from '@/assets/activity-calendar.svg';
 import ComeBack from '@/assets/comeback.svg';
@@ -10,6 +12,7 @@ import { ActivityStatusTag } from '@/components/Activity/ActivityStatus.js';
 import { NavigationBar } from '@/components/Activity/NavigationBar.js';
 import { Image } from '@/components/Image.js';
 import { TextOverflowTooltip } from '@/components/TextOverflowTooltip.js';
+import { SITE_URL } from '@/constants/index.js';
 import { classNames } from '@/helpers/classNames.js';
 import { useComeBack } from '@/hooks/useComeback.js';
 import { FireflyActivityProvider } from '@/providers/firefly/Activity.js';
@@ -25,6 +28,12 @@ export default function Page() {
         },
     });
     const timeTemplate = 'M/DD HH:mm';
+
+    useLayoutEffect(() => {
+        if (window.location.hostname === 'cz.firefly.social') {
+            window.location.href = urlcat(SITE_URL, '/event/cz_welcome_back_airdrop');
+        }
+    }, []);
 
     if (!data) notFound();
 
