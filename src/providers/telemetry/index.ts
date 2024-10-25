@@ -9,12 +9,16 @@ import { getPublicParameters } from '@/providers/telemetry/getPublicParameters.j
 import type { Safary } from '@/providers/types/Safary.js';
 import { type Events, EventType, Provider, ProviderFilter, VersionFilter } from '@/providers/types/Telemetry.js';
 import { useDeveloperSettingsState } from '@/store/useDeveloperSettingsStore.js';
+import { isHex } from 'viem';
 
 function formatParameter(key: string, value: unknown): [string, unknown] {
     if (typeof value === 'boolean') {
         return [key, value === true ? 'Y' : 'N'];
+    } else if (isHex(value)) {
+        return [key, `hex:${value}`];
+    } else {
+        return [key, value];
     }
-    return [key, value];
 }
 
 class Telemetry extends Provider<Events, never> {
