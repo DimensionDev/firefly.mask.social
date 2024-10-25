@@ -56,9 +56,6 @@ export function captureComposeEvent(type: ComposeType, post: CompositePost, opti
                         TelemetryProvider.captureEvent(
                             getPostEventId(type, post),
                             getComposeEventParameters(post, options),
-                            {
-                                version_filter: VersionFilter.Next,
-                            },
                         );
                         break;
                     case 'reply':

@@ -68,9 +68,7 @@ function getAccountEventParameters(account: Account) {
 export function captureAccountLoginEvent(account: Account) {
     runInSafe(() => {
         const source = account.profile.source;
-        TelemetryProvider.captureEvent(resolveLoginEventId(source), getAccountEventParameters(account), {
-            version_filter: VersionFilter.Next,
-        });
+        TelemetryProvider.captureEvent(resolveLoginEventId(source), getAccountEventParameters(account));
     });
 }
 
