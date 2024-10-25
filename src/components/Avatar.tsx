@@ -32,6 +32,7 @@ export const Avatar = memo(function Avatar({ src, size, className, fallbackUrl, 
     });
 
     const defaultFallbackUrl = isDarkMode ? '/image/firefly-dark-avatar.png' : '/image/firefly-light-avatar.png';
+    const imageSrc = (isNormalUrl ? url : src) || src || defaultFallbackUrl;
 
     return (
         <NextImage
@@ -45,7 +46,7 @@ export const Avatar = memo(function Avatar({ src, size, className, fallbackUrl, 
                 width: size,
                 ...rest.style,
             }}
-            src={(isNormalUrl ? url : src) || defaultFallbackUrl}
+            src={imageSrc}
             width={size}
             height={size}
             alt={rest.alt}
