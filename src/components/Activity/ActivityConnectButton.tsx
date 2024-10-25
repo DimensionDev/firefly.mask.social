@@ -83,11 +83,16 @@ export function ActivityConnectButton() {
                         {buttonText}
                     </span>
                 </Menu.Button>
-                <Menu.Items className="absolute left-1/2 top-[calc(100%+12px)] z-50 flex max-h-[400px] w-[200px] -translate-x-1/2 flex-col overflow-y-auto rounded-[12px] border border-line bg-primaryBottom shadow-lg">
+                <Menu.Items
+                    className={classNames(
+                        'absolute top-[calc(100%+12px)] z-50 flex max-h-[200px] w-[200px] flex-col overflow-y-auto rounded-[12px] border border-line bg-primaryBottom shadow-lg',
+                        address ? 'right-0' : 'left-0',
+                    )}
+                >
                     {addresses.map(({ address, ens }) => (
                         <Menu.Item key={address}>
                             <button
-                                className="cursor-pointer px-4 py-[11px] text-left text-sm font-semibold leading-6 hover:bg-main/10"
+                                className="cursor-pointer px-4 py-2 text-left text-sm font-semibold leading-6 hover:bg-main/10"
                                 onClick={() => {
                                     onChangeAddress(address);
                                     captureActivityEvent(EventId.EVENT_CHANGE_WALLET_SUCCESS, {
