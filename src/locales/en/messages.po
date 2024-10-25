@@ -139,9 +139,6 @@ msgstr "Select token"
 msgid "The post you quoted/replied has already deleted"
 msgstr "The post you quoted/replied has already deleted"
 
-msgid "Something went wrong, Please try again."
-msgstr "Something went wrong, Please try again."
-
 msgid "Display Name"
 msgstr "Display Name"
 
@@ -187,9 +184,6 @@ msgstr "Ended"
 msgid "Failed to follow @{handle} on X."
 msgstr "Failed to follow @{handle} on X."
 
-msgid "Unknown error"
-msgstr "Unknown error"
-
 msgid "More"
 msgstr "More"
 
@@ -201,9 +195,6 @@ msgstr "Free"
 
 msgid "Searching users"
 msgstr "Searching users"
-
-msgid "{0} is eligible!"
-msgstr "{0} is eligible!"
 
 msgid "Airdrop Scam"
 msgstr "Airdrop Scam"
@@ -288,9 +279,6 @@ msgstr "Debug Console"
 
 msgid "Adding..."
 msgstr "Adding..."
-
-msgid "Verifying eligibility..."
-msgstr "Verifying eligibility..."
 
 msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} <4>liked your </4><5>{1, select, Post {post} Comment {comment} Quote {quote} Mirror {mirror} other {post}}</5>"
 msgstr "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} <4>liked your </4><5>{1, select, Post {post} Comment {comment} Quote {quote} Mirror {mirror} other {post}}</5>"
@@ -387,9 +375,6 @@ msgstr "Confirm to disconnect this wallet from Firefly’s social graph?"
 
 msgid "Confirm"
 msgstr "Confirm"
-
-msgid "Connect your wallet to claim your NFT."
-msgstr "Connect your wallet to claim your NFT."
 
 msgid "{0} muted channels"
 msgstr "{0} muted channels"
@@ -496,9 +481,6 @@ msgstr "Followed by {0}"
 msgid "Failed to unfollow @{0} on {sourceName}."
 msgstr "Failed to unfollow @{0} on {sourceName}."
 
-msgid "Each wallet or X account is limited to one claim."
-msgstr "Each wallet or X account is limited to one claim."
-
 msgid "Calendar"
 msgstr "Calendar"
 
@@ -532,9 +514,6 @@ msgstr "Select Account"
 msgid "POST"
 msgstr "POST"
 
-msgid "Log in with X"
-msgstr "Log in with X"
-
 msgid "Failed to unlike the post."
 msgstr "Failed to unlike the post."
 
@@ -565,14 +544,8 @@ msgstr "1m left"
 msgid "Core Asset Access: Unlock premium tokens, exclusive NFTs, and nodes for more investment opportunities."
 msgstr "Core Asset Access: Unlock premium tokens, exclusive NFTs, and nodes for more investment opportunities."
 
-msgid "Congratulation!"
-msgstr "Congratulation!"
-
 msgid "Items"
 msgstr "Items"
-
-msgid "To be eligible for the airdrop, fulfill the following criteria:"
-msgstr "To be eligible for the airdrop, fulfill the following criteria:"
 
 msgid "Failed to upload. More than {maxImageCount} images."
 msgstr "Failed to upload. More than {maxImageCount} images."
@@ -627,9 +600,6 @@ msgstr "Not Found. Please check your URL[{0}]."
 
 msgid "Feed"
 msgstr "Feed"
-
-msgid "In addition to meeting the Basic Criteria, fulfill any of the following to upgrade to a premium NFT:"
-msgstr "In addition to meeting the Basic Criteria, fulfill any of the following to upgrade to a premium NFT:"
 
 msgid "Failed to upload. Not a valid image type"
 msgstr "Failed to upload. Not a valid image type"
@@ -712,9 +682,6 @@ msgstr "Update"
 msgid "Failed to follow @{0} on Lens"
 msgstr "Failed to follow @{0} on Lens"
 
-msgid "Check Eligibility"
-msgstr "Check Eligibility"
-
 msgid "You might like"
 msgstr "You might like"
 
@@ -735,9 +702,6 @@ msgstr "Owner can't change balance"
 
 msgid "Join our Telegram"
 msgstr "Join our Telegram"
-
-msgid "Event ended"
-msgstr "Event ended"
 
 msgid "Anti_whale(Limited number of transactions)"
 msgstr "Anti_whale(Limited number of transactions)"
@@ -808,9 +772,6 @@ msgstr "Failed to un-bookmark post."
 msgid "Failed to submit report on {0}"
 msgstr "Failed to submit report on {0}"
 
-msgid "Login X failed"
-msgstr "Login X failed"
-
 msgid "Failed to mute @{0} on {sourceName}."
 msgstr "Failed to mute @{0} on {sourceName}."
 
@@ -873,9 +834,6 @@ msgstr "Enter amount"
 
 msgid "<0>Sold</0> an NFT worth {costEl}"
 msgstr "<0>Sold</0> an NFT worth {costEl}"
-
-msgid "🎉"
-msgstr "🎉"
 
 msgid "Your Farcaster account holds Power Badge"
 msgstr "Your Farcaster account holds Power Badge"
@@ -984,9 +942,6 @@ msgstr "{0} Comments"
 
 msgid "Schedule Post"
 msgstr "Schedule Post"
-
-msgid "Almost there!"
-msgstr "Almost there!"
 
 msgid "Sold Out"
 msgstr "Sold Out"
@@ -1179,9 +1134,6 @@ msgstr "Fully Diluted Valuation"
 
 msgid "Email (optional)"
 msgstr "Email (optional)"
-
-msgid "Not eligible"
-msgstr "Not eligible"
 
 msgid "NFT Contract"
 msgstr "NFT Contract"
@@ -1449,9 +1401,6 @@ msgstr "Mute successfully."
 
 msgid "If this function exists, it is possible for the project owner to regain ownership even after relinquishing it"
 msgstr "If this function exists, it is possible for the project owner to regain ownership even after relinquishing it"
-
-msgid "<0>© 2024 Firefly.</0> All rights reserved."
-msgstr "<0>© 2024 Firefly.</0> All rights reserved."
 
 msgid "Add wallet"
 msgstr "Add wallet"
@@ -1732,12 +1681,6 @@ msgstr "Wallets"
 msgid "Articles from {walletHandle} will now be hidden in your home timeline"
 msgstr "Articles from {walletHandle} will now be hidden in your home timeline"
 
-msgid "Followed @cz_binance on X before Sept 21"
-msgstr "Followed @cz_binance on X before Sept 21"
-
-msgid "Login X"
-msgstr "Login X"
-
 msgid "Please input the url to be revalidated."
 msgstr "Please input the url to be revalidated."
 
@@ -1822,9 +1765,6 @@ msgstr "Schedule"
 msgid "Followed @{handle} on X."
 msgstr "Followed @{handle} on X."
 
-msgid "Change Account"
-msgstr "Change Account"
-
 msgid "Casts + Replies"
 msgstr "Casts + Replies"
 
@@ -1842,9 +1782,6 @@ msgstr "Step 1 Sign in"
 
 msgid "Copy"
 msgstr "Copy"
-
-msgid "Claim"
-msgstr "Claim"
 
 msgid "No available wallet."
 msgstr "No available wallet."
@@ -1915,9 +1852,6 @@ msgstr "<0>You</0> liked"
 msgid "You've hit rock bottom."
 msgstr "You've hit rock bottom."
 
-msgid "Welcome Back CZ Collectible"
-msgstr "Welcome Back CZ Collectible"
-
 msgid "Copy link to profile"
 msgstr "Copy link to profile"
 
@@ -1945,14 +1879,8 @@ msgstr "<0>Minted</0> an NFT for free"
 msgid "Will send on <0>{0} at <1>{1}</1></0>"
 msgstr "Will send on <0>{0} at <1>{1}</1></0>"
 
-msgid "Basic Criteria"
-msgstr "Basic Criteria"
-
 msgid "Failed to continue. Please allow Lens Manager for performing actions without the need to sign each transaction."
 msgstr "Failed to continue. Please allow Lens Manager for performing actions without the need to sign each transaction."
-
-msgid "*CZ's follower snapshot was taken at 8:00 UTC on September 21, 2024."
-msgstr "*CZ's follower snapshot was taken at 8:00 UTC on September 21, 2024."
 
 msgid "Properties"
 msgstr "Properties"
@@ -1995,9 +1923,6 @@ msgstr "Pay<0> {feeAmount} ${feeSymbol} </0>to follow and get some awesome perks
 
 msgid "<0>Bought</0> an NFT worth {costEl}"
 msgstr "<0>Bought</0> an NFT worth {costEl}"
-
-msgid "Premium Eligibility Criteria"
-msgstr "Premium Eligibility Criteria"
 
 msgid "Post from /{0} will be hidden in your home timeline"
 msgstr "Post from /{0} will be hidden in your home timeline"
@@ -2050,12 +1975,6 @@ msgstr "Only people you follow"
 msgid "The signer is not authorized to perform the requested operation. Please approve again."
 msgstr "The signer is not authorized to perform the requested operation. Please approve again."
 
-msgid "Must followed @cz_binance on X before Sept 21, 2024."
-msgstr "Must followed @cz_binance on X before Sept 21, 2024."
-
-msgid "Your assets on BNB Chain are worth over US$10,000."
-msgstr "Your assets on BNB Chain are worth over US$10,000."
-
 msgid "Saved on {0}"
 msgstr "Saved on {0}"
 
@@ -2107,29 +2026,17 @@ msgstr "You may lose your assets if giving approval to the website of this token
 msgid "Unfollow"
 msgstr "Unfollow"
 
-msgid "Your BNB Chain wallet holds assets worth over $10,000."
-msgstr "Your BNB Chain wallet holds assets worth over $10,000."
-
 msgid "Your {0} account is now connected."
 msgstr "Your {0} account is now connected."
 
-msgid "Checking eligibility"
-msgstr "Checking eligibility"
-
 msgid "Posted via {0} <0>{sendFrom}</0>"
 msgstr "Posted via {0} <0>{sendFrom}</0>"
-
-msgid "Claim your NFT to show your support onchain for CZ!"
-msgstr "Claim your NFT to show your support onchain for CZ!"
 
 msgid "Unmuted @{0} on {sourceName}."
 msgstr "Unmuted @{0} on {sourceName}."
 
 msgid "If a suspendable code is included, the token maybe neither be bought nor sold (honeypot risk)."
 msgstr "If a suspendable code is included, the token maybe neither be bought nor sold (honeypot risk)."
-
-msgid "Your .bnb domain is a member of the SPACE ID Premier Club."
-msgstr "Your .bnb domain is a member of the SPACE ID Premier Club."
 
 msgid "Display Name should not exceed {maxDisplayNameSize} characters"
 msgstr "Display Name should not exceed {maxDisplayNameSize} characters"
@@ -2145,9 +2052,6 @@ msgstr "Connecting Wallet"
 
 msgid "{minutes}m left"
 msgstr "{minutes}m left"
-
-msgid "Your X account holds Premium status."
-msgstr "Your X account holds Premium status."
 
 msgid "Total Supply"
 msgstr "Total Supply"
@@ -2166,9 +2070,6 @@ msgstr "Associated wallets"
 
 msgid "The whitelist function is included. Some addresses may not be able to trade normally (honeypot risk)."
 msgstr "The whitelist function is included. Some addresses may not be able to trade normally (honeypot risk)."
-
-msgid "Get a free special edition Firefly NFT for following @cz_binance on X to celebrate CZ’s return!"
-msgstr "Get a free special edition Firefly NFT for following @cz_binance on X to celebrate CZ’s return!"
 
 msgid "Mirror now to get 25% referral fee!"
 msgstr "Mirror now to get 25% referral fee!"
@@ -2311,9 +2212,6 @@ msgstr "<0>since </0> <1>{0}</1>"
 msgid "{hours}h left"
 msgstr "{hours}h left"
 
-msgid "You're eligible for a <0>Premium</0> CZ Support NFT because your X account holds Premium status."
-msgstr "You're eligible for a <0>Premium</0> CZ Support NFT because your X account holds Premium status."
-
 msgid "{0} Users"
 msgstr "{0} Users"
 
@@ -2334,9 +2232,6 @@ msgstr "Verify"
 
 msgid "Recasted"
 msgstr "Recasted"
-
-msgid "Premium Criteria"
-msgstr "Premium Criteria"
 
 msgid "Failed to parse transaction."
 msgstr "Failed to parse transaction."
@@ -2407,9 +2302,6 @@ msgstr "<0>You</0> recasted"
 msgid "7d"
 msgstr "7d"
 
-msgid "*Event runs from September 29, 2024, 12:00 UTC to October 15, 2024, 23:59 UTC."
-msgstr "*Event runs from September 29, 2024, 12:00 UTC to October 15, 2024, 23:59 UTC."
-
 msgid "Name (optional)"
 msgstr "Name (optional)"
 
@@ -2436,9 +2328,6 @@ msgstr "Claim Now"
 
 msgid "Collect for {0} {1}"
 msgstr "Collect for {0} {1}"
-
-msgid "You're eligible for a <0>Premium</0> CZ Support NFT because your BNB Chain wallet holds assets valued over <1>$10,000</1>."
-msgstr "You're eligible for a <0>Premium</0> CZ Support NFT because your BNB Chain wallet holds assets valued over <1>$10,000</1>."
 
 msgid "Recast"
 msgstr "Recast"
@@ -2473,9 +2362,6 @@ msgstr "Media"
 msgid "No content to publish."
 msgstr "No content to publish."
 
-msgid "Already claimed"
-msgstr "Already claimed"
-
 msgid "Text"
 msgstr "Text"
 
@@ -2506,14 +2392,8 @@ msgstr "Following"
 msgid "Your X account holds Premium status"
 msgstr "Your X account holds Premium status"
 
-msgid "View transaction on Explorer"
-msgstr "View transaction on Explorer"
-
 msgid "Hours"
 msgstr "Hours"
-
-msgid "Note:"
-msgstr "Note:"
 
 msgid "Failed to create schedule post."
 msgstr "Failed to create schedule post."
@@ -2529,9 +2409,6 @@ msgstr "Failed to update scheduled post."
 
 msgid "Login"
 msgstr "Login"
-
-msgid "You're eligible for a <0>Premium</0> CZ Support NFT because your .bnb domain is member of the <1>SPACE ID Premier Club</1>."
-msgstr "You're eligible for a <0>Premium</0> CZ Support NFT because your .bnb domain is member of the <1>SPACE ID Premier Club</1>."
 
 msgid "Replying to <0>@{0}</0> on {1}"
 msgstr "Replying to <0>@{0}</0> on {1}"
@@ -2553,9 +2430,3 @@ msgstr "× {0}"
 
 msgid "Blink Validator"
 msgstr "Blink Validator"
-
-msgid "Not eligible to claim, <0>retry</0>"
-msgstr "Not eligible to claim, <0>retry</0>"
-
-msgid "Reward for followers"
-msgstr "Reward for followers"

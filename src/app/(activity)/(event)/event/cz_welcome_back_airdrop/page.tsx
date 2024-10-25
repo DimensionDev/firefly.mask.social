@@ -1,6 +1,5 @@
 'use client';
 
-import { Trans } from '@lingui/macro';
 import { useSuspenseQuery } from '@tanstack/react-query';
 import dayjs from 'dayjs';
 import { notFound } from 'next/navigation.js';
@@ -8,28 +7,17 @@ import { notFound } from 'next/navigation.js';
 import CalendarIcon from '@/assets/activity-calendar.svg';
 import ComeBack from '@/assets/comeback.svg';
 import { ActivityClaimButton } from '@/components/Activity/ActivityClaimButton.js';
-import { ActivityConnectCard } from '@/components/Activity/ActivityConnectCard.js';
-import { ActivityFollowTargetCard } from '@/components/Activity/ActivityFollowTargetCard.js';
-import { ActivityPremiumConditionList } from '@/components/Activity/ActivityPremiumConditionList.js';
 import { ActivityStatusTag } from '@/components/Activity/ActivityStatus.js';
-import { ActivityTaskFollowCard } from '@/components/Activity/ActivityTaskFollowCard.js';
-import { ActivityTwitterLoginButton } from '@/components/Activity/ActivityTwitterLoginButton.js';
 import { NavigationBar } from '@/components/Activity/NavigationBar.js';
 import { Image } from '@/components/Image.js';
 import { TextOverflowTooltip } from '@/components/TextOverflowTooltip.js';
-import { Source } from '@/constants/enum.js';
 import { classNames } from '@/helpers/classNames.js';
 import { useComeBack } from '@/hooks/useComeback.js';
 import { FireflyActivityProvider } from '@/providers/firefly/Activity.js';
 import { fireflyBridgeProvider } from '@/providers/firefly/Bridge.js';
 
-export default function Page({
-    params: { name },
-}: {
-    params: {
-        name: string;
-    };
-}) {
+export default function Page() {
+    const name = 'cz_welcome_back_airdrop';
     const comeback = useComeBack();
     const { data } = useSuspenseQuery({
         queryKey: ['activity-info', name],
@@ -74,27 +62,6 @@ export default function Page({
                     </div>
                     <h1 className="text-xl font-semibold leading-6">{data.title}</h1>
                     <p className="line-clamp-2 text-sm leading-6">{data.sub_title}</p>
-                </div>
-                <div className="w-full space-y-4 pt-4">
-                    <div className="flex w-full flex-col space-y-2">
-                        <div className="flex h-8 items-center justify-between">
-                            <h2 className="text-base font-semibold leading-6">
-                                <Trans>Step 1 Sign in</Trans>
-                            </h2>
-                            <ActivityTwitterLoginButton />
-                        </div>
-                        <ActivityFollowTargetCard handle="brian_armstrong" profileId="14379660" />
-                    </div>
-                    <ActivityTaskFollowCard
-                        handle="thefireflyapp"
-                        source={Source.Twitter}
-                        profileId="1583361564479889408"
-                    />
-                    <h2 className="text-base font-semibold leading-6">
-                        <Trans>Step 2 Connect Wallet</Trans>
-                    </h2>
-                    <ActivityConnectCard />
-                    <ActivityPremiumConditionList />
                 </div>
             </div>
             <div className="sticky bottom-0 mt-auto w-full bg-primaryBottom px-4 pt-1.5 pb-safe-or-4 sm:pb-safe-or-2">

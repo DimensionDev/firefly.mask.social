@@ -2,7 +2,6 @@
 
 import { memo } from 'react';
 
-import { ActivityClaimSuccessModal, ActivityModal } from '@/components/CZ/ActivityModal.js';
 import { SolanaAccountModal } from '@/components/SolanaAccountModal.js';
 import { AccountModal } from '@/modals/AccountModal.js';
 import { AddWalletModal } from '@/modals/AddWalletModal.js';
@@ -50,10 +49,6 @@ export const Modals = memo(function Modals() {
             <CollectPostModal ref={controls.CollectPostModalRef.register} />
             <AddWalletModal ref={controls.AddWalletModalRef.register} />
             <SuperFollowModal ref={controls.SuperFollowModalRef.register} />
-
-            {/* CZ */}
-            <ActivityModal ref={controls.ActivityModalRef.register} />
-            <ActivityClaimSuccessModal ref={controls.ActivityClaimSuccessModalRef.register} />
         </>
     );
 });
