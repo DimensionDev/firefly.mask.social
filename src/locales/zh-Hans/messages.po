@@ -1401,9 +1401,6 @@ msgstr "定时任务的时间跨度最长是 7 天。"
 msgid "Display"
 msgstr "显示"
 
-msgid "Submit claimed address"
-msgstr "提交已领取的地址"
-
 msgid "Mute successfully."
 msgstr "隐藏成功。"
 
@@ -1649,6 +1646,9 @@ msgstr "市场上流通并可供公众交易的货币数量。这相当于市场
 
 msgid "{0, plural, one {repost} other {reposts}}"
 msgstr "{0, plural, one {转帖} other {转帖}}"
+
+msgid "Wallet submitted"
+msgstr "已选择的钱包"
 
 msgid "This does not appear to be a honeypot."
 msgstr "这看起来不像是一个陷阱。"

@@ -1396,9 +1396,6 @@ msgstr "The scheduled time to send this post can be set up to 7 days in advance.
 msgid "Display"
 msgstr "Display"
 
-msgid "Submit claimed address"
-msgstr "Submit claimed address"
-
 msgid "Mute successfully."
 msgstr "Mute successfully."
 
@@ -1644,6 +1641,9 @@ msgstr "The amount of coins that are circulating in the market and are tradeable
 
 msgid "{0, plural, one {repost} other {reposts}}"
 msgstr "{0, plural, one {repost} other {reposts}}"
+
+msgid "Wallet submitted"
+msgstr "Wallet submitted"
 
 msgid "This does not appear to be a honeypot."
 msgstr "This does not appear to be a honeypot."
