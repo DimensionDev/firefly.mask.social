@@ -224,7 +224,7 @@ export async function addAccount(account: Account, options?: AccountOptions) {
     // upload sessions to firefly
     if (!skipUploadFireflySession && belongsTo && account.session.type !== SessionType.Firefly) {
         console.warn('[addAccount] upload sessions to firefly');
-        await uploadSessions('merge', fireflySessionHolder.sessionRequired, getProfileSessionsAll(), signal);
+        await uploadSessions('merge', fireflySessionHolder.sessionRequired, getProfileSessionsAll());
     }
 
     // report farcaster signer
