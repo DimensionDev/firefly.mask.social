@@ -26,11 +26,19 @@ export function getPublicParameters(eventId: string, previousEventId: string | n
 
         public_evm_address: evmAccount?.address,
         public_evm_chain_id: evmAccount?.chainId,
+        public_evm_caip10:
+            evmAccount?.address && evmAccount.chainId
+                ? `ethereum:${evmAccount.chainId}:${evmAccount.address}`
+                : undefined,
+
         public_solana_chain_id: ChainId.Mainnet,
         public_solana_address: solanaAdaptor?.publicKey?.toBase58(),
+        public_solana_caip10: solanaAdaptor?.publicKey
+            ? `solana:${ChainId.Mainnet}:${solanaAdaptor.publicKey.toBase58()}`
+            : undefined,
 
         public_account_id: useFireflyStateStore.getState().currentProfileSession?.profileId,
-        public_use_development_api: useDeveloperSettingsState.getState().useDevelopmentAPI,
+        public_use_development_api: useDeveloperSettingsState.getState().developmentAPI,
 
         firefly_account_id: useFireflyStateStore.getState().currentProfileSession?.profileId,
 

@@ -1,5 +1,6 @@
 import { sendGAEvent } from '@next/third-parties/google';
 import { v4 as uuid } from 'uuid';
+import { isHex } from 'viem';
 
 import { STATUS } from '@/constants/enum.js';
 import { env } from '@/constants/env.js';
@@ -7,14 +8,17 @@ import { NotImplementedError } from '@/constants/error.js';
 import { bom } from '@/helpers/bom.js';
 import { getPublicParameters } from '@/providers/telemetry/getPublicParameters.js';
 import type { Safary } from '@/providers/types/Safary.js';
-import { type Events, Provider, ProviderFilter, VersionFilter } from '@/providers/types/Telemetry.js';
+import { type Events, EventType, Provider, ProviderFilter, VersionFilter } from '@/providers/types/Telemetry.js';
 import { useDeveloperSettingsState } from '@/store/useDeveloperSettingsStore.js';
 
 function formatParameter(key: string, value: unknown): [string, unknown] {
     if (typeof value === 'boolean') {
         return [key, value === true ? 'Y' : 'N'];
+    } else if (isHex(value)) {
+        return [key, `hex:${value}`];
+    } else {
+        return [key, value];
     }
-    return [key, value];
 }
 
 class Telemetry extends Provider<Events, never> {
@@ -43,7 +47,7 @@ class Telemetry extends Provider<Events, never> {
             return;
         }
 
-        if (!useDeveloperSettingsState.getState().logTelemetry) {
+        if (!useDeveloperSettingsState.getState().telemetry) {
             console.info('[telemetry] capture event:', name, parameters);
             return;
         }
@@ -67,7 +71,11 @@ class Telemetry extends Provider<Events, never> {
 
         if (provider_filter === ProviderFilter.All || provider_filter === ProviderFilter.GA) {
             try {
-                sendGAEvent('event', event.eventType, event.parameters);
+                sendGAEvent('event', event.eventType, {
+                    ...event.parameters,
+                    debug_mode:
+                        useDeveloperSettingsState.getState().telemetryDebug || event.eventName === EventType.Debug,
+                });
             } catch (error) {
                 console.error('[ga] failed to capture event:', event);
             }

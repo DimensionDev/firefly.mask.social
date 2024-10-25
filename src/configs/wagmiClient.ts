@@ -42,6 +42,7 @@ import {
 
 import { createParticleConnector } from '@/connectors/ParticleConnector.js';
 import { IS_MOBILE_DEVICE } from '@/constants/bowser.js';
+import { VERCEL_NEV } from '@/constants/enum.js';
 import { env } from '@/constants/env.js';
 import { SITE_DESCRIPTION, SITE_NAME, SITE_URL } from '@/constants/index.js';
 import { WalletId } from '@/constants/reown.js';
@@ -113,8 +114,7 @@ createAppKit({
         email: false,
         socials: [],
     },
-    debug: true,
-    includeWalletIds: walletIds,
+    debug: env.external.NEXT_PUBLIC_VERCEL_ENV !== VERCEL_NEV.Production,
     featuredWalletIds: walletIds,
 });
 

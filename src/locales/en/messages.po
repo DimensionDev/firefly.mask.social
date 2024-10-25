@@ -271,6 +271,9 @@ msgstr "Location should not exceed {maxLocationSize} characters"
 msgid "Potential risk of external call."
 msgstr "Potential risk of external call."
 
+msgid "Enable telemetry debug mode"
+msgstr "Enable telemetry debug mode"
+
 msgid "FAILED POST"
 msgstr "FAILED POST"
 
@@ -1090,6 +1093,9 @@ msgstr "No voting power"
 msgid "Your draft was saved."
 msgstr "Your draft was saved."
 
+msgid "Send telemetry events in debug mode."
+msgstr "Send telemetry events in debug mode."
+
 msgid "The chainId mismatch."
 msgstr "The chainId mismatch."
 
@@ -1362,6 +1368,9 @@ msgstr "NFT Contract"
 
 msgid "Phishing activities."
 msgstr "Phishing activities."
+
+msgid "Telemetry"
+msgstr "Telemetry"
 
 msgid "Show more tokens with small balances"
 msgstr "Show more tokens with small balances"

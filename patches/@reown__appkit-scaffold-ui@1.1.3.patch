@@ -1,24 +1,63 @@
+diff --git a/dist/esm/src/partials/w3m-connect-injected-widget/index.js b/dist/esm/src/partials/w3m-connect-injected-widget/index.js
+index 8834cda2346d8316a340b914f00e39bad9008192..7c270153b3dc36be97ade2b3ba9059f82bcbc033 100644
+--- a/dist/esm/src/partials/w3m-connect-injected-widget/index.js
++++ b/dist/esm/src/partials/w3m-connect-injected-widget/index.js
+@@ -20,7 +20,12 @@ let W3mConnectInjectedWidget = class W3mConnectInjectedWidget extends LitElement
+         this.unsubscribe.forEach(unsubscribe => unsubscribe());
+     }
+     render() {
+-        const injectedConnectors = this.connectors.filter(connector => connector.type === 'INJECTED');
++        const MetaMask = 'io.metamask';
++        const CoinBase = 'coinbaseWalletSDK';
++        const Rabby = 'io.rabby';
++        const OKX = 'com.okex.wallet'
++        const RDNSs = CoreHelperUtil.isMobile() ? [MetaMask, Rabby, OKX]: [CoinBase, Rabby, OKX]
++        const injectedConnectors = this.connectors.filter(connector => connector.type === 'INJECTED').filter(x => RDNSs.includes(x.id));
+         if (!injectedConnectors?.length ||
+             (injectedConnectors.length === 1 &&
+                 injectedConnectors[0]?.name === 'Browser Wallet' &&
+@@ -28,6 +33,7 @@ let W3mConnectInjectedWidget = class W3mConnectInjectedWidget extends LitElement
+             this.style.cssText = `display: none`;
+             return null;
+         }
++
+         return html `
+       <wui-flex flexDirection="column" gap="xs">
+         ${injectedConnectors.map(connector => {
 diff --git a/dist/esm/src/partials/w3m-connector-list/index.js b/dist/esm/src/partials/w3m-connector-list/index.js
-index 2b0524b6fe9c4621f6dbf2ab58e8fb61c76e70b6..dfa5a5c0144c20caeae6a5ddd83045905c5082ea 100644
+index 2b0524b6fe9c4621f6dbf2ab58e8fb61c76e70b6..002edc8fab5048a5396ff19ffd892708a974a0e4 100644
 --- a/dist/esm/src/partials/w3m-connector-list/index.js
 +++ b/dist/esm/src/partials/w3m-connector-list/index.js
-@@ -26,6 +26,9 @@ let W3mConnectorList = class W3mConnectorList extends LitElement {
+@@ -26,8 +26,8 @@ let W3mConnectorList = class W3mConnectorList extends LitElement {
          const enableWalletConnect = OptionsController.state.enableWalletConnect;
          return html `
        <wui-flex flexDirection="column" gap="xs">
+-        ${enableWalletConnect
+-            ? html `<w3m-connect-walletconnect-widget></w3m-connect-walletconnect-widget>`
 +        ${external.length
 +            ? html `<w3m-connect-external-widget></w3m-connect-external-widget>`
-+            : null}
-         ${enableWalletConnect
-             ? html `<w3m-connect-walletconnect-widget></w3m-connect-walletconnect-widget>`
              : null}
-@@ -43,9 +46,6 @@ let W3mConnectorList = class W3mConnectorList extends LitElement {
+         ${recent.length ? html `<w3m-connect-recent-widget></w3m-connect-recent-widget>` : null}
+         ${multiChain.length
+@@ -42,10 +42,10 @@ let W3mConnectorList = class W3mConnectorList extends LitElement {
+         ${featured.length
              ? html `<w3m-connect-featured-widget></w3m-connect-featured-widget>`
              : null}
-         ${custom?.length ? html `<w3m-connect-custom-widget></w3m-connect-custom-widget>` : null}
+-        ${custom?.length ? html `<w3m-connect-custom-widget></w3m-connect-custom-widget>` : null}
 -        ${external.length
 -            ? html `<w3m-connect-external-widget></w3m-connect-external-widget>`
--            : null}
++        ${enableWalletConnect
++            ? html `<w3m-connect-walletconnect-widget></w3m-connect-walletconnect-widget>`
+             : null}
++        ${custom?.length ? html `<w3m-connect-custom-widget></w3m-connect-custom-widget>` : null}
          ${recommended.length
              ? html `<w3m-connect-recommended-widget></w3m-connect-recommended-widget>`
              : null}
+@@ -56,6 +56,7 @@ let W3mConnectorList = class W3mConnectorList extends LitElement {
+         const { featured, recommended } = ApiController.state;
+         const { customWallets: custom } = OptionsController.state;
+         const recent = StorageUtil.getRecentWallets();
++
+         const filteredRecommended = WalletUtil.filterOutDuplicateWallets(recommended);
+         const filteredFeatured = WalletUtil.filterOutDuplicateWallets(featured);
+         const multiChain = this.connectors.filter(connector => connector.type === 'MULTI_CHAIN');
