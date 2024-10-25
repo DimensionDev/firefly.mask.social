@@ -85,7 +85,7 @@ export function useActivityCompose() {
         ? [
               'Just claimed the "Congrats 🥂 to Brian" collectible from ',
               fireflyMention,
-              '!\n\n',
+              ' !\n\n',
               'If you followed ',
               // cspell: disable-next-line
               barmstrongMention,
@@ -95,7 +95,7 @@ export function useActivityCompose() {
         : [
               'Just claimed the "Huge Congrats🍾 to Brian" collectible from ',
               fireflyMention,
-              '!\n\n',
+              ' !\n\n',
               'If you followed ',
               // cspell: disable-next-line
               barmstrongMention,
