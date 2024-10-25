@@ -1,6 +1,7 @@
 'use client';
 
 import { t, Trans } from '@lingui/macro';
+import { safeUnreachable } from '@masknet/kit';
 import { ChainId } from '@masknet/web3-shared-evm';
 import { useContext, useState } from 'react';
 import { useAsyncFn } from 'react-use';
@@ -51,16 +52,23 @@ export function ActivityClaimButton({ status }: { status: ActivityStatus }) {
     }, [disabled, address, authToken, isPremium, fireflyAccountId]);
 
     const buttonText = (() => {
-        if (status === ActivityStatus.Ended) {
-            return <Trans>Ended</Trans>;
+        switch (status) {
+            case ActivityStatus.Upcoming:
+                return <Trans>Not Started</Trans>;
+            case ActivityStatus.Ended:
+                return <Trans>Ended</Trans>;
+            case ActivityStatus.Active:
+                if (data?.alreadyClaimed) {
+                    return <Trans>Claimed</Trans>;
+                }
+                if (!disabled || data?.canClaim) {
+                    return isPremium ? <Trans>Claim Premium</Trans> : <Trans>Claim Basic</Trans>;
+                }
+                return <Trans>Claim Now</Trans>;
+            default:
+                safeUnreachable(status);
+                return null;
         }
-        if (data?.alreadyClaimed) {
-            return <Trans>Claimed</Trans>;
-        }
-        if (!disabled || data?.canClaim) {
-            return isPremium ? <Trans>Claim Premium</Trans> : <Trans>Claim Basic</Trans>;
-        }
-        return <Trans>Claim Now</Trans>;
     })();
 
     return (

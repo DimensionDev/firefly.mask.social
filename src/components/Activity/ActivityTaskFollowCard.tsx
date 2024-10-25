@@ -8,6 +8,7 @@ import { ActivityVerifyText } from '@/components/Activity/ActivityVerifyText.js'
 import { useActivityFollowTwitter } from '@/components/Activity/hooks/useActivityFollowTwitter.js';
 import { useIsFollowTwitterInActivity } from '@/components/Activity/hooks/useIsFollowTwitterInActivity.js';
 import { useIsLoginTwitterInActivity } from '@/components/Activity/hooks/useIsLoginTwitterInActivity.js';
+import { useLoginInActivity } from '@/components/Activity/hooks/useLoginInActivity.js';
 import { Link } from '@/components/Activity/Link.js';
 import { type ProfilePageSource } from '@/constants/enum.js';
 import { classNames } from '@/helpers/classNames.js';
@@ -34,14 +35,15 @@ function Button({
     onClick?: () => void;
     className?: string;
 }) {
+    const [{ loading: logging }, login] = useLoginInActivity();
     return (
         <button
             className={className}
-            disabled={loading}
+            disabled={loading || logging}
             onClick={(e) => {
                 if (isLoggedIn) return onClick?.();
                 e.preventDefault();
-                enqueueWarningMessage(<Trans>Please sign in with X to continue</Trans>);
+                login();
             }}
         >
             {loading ? (

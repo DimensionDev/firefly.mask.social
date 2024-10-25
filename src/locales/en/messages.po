@@ -1288,6 +1288,9 @@ msgstr "All wallets and social accounts associated with {handleOrEnsOrAddress} w
 msgid "Contract source code not verified"
 msgstr "Contract source code not verified"
 
+msgid "Not Started"
+msgstr "Not Started"
+
 msgid "Cannot send tip to yourself"
 msgstr "Cannot send tip to yourself"
 

@@ -1293,6 +1293,9 @@ msgstr ""
 msgid "Contract source code not verified"
 msgstr ""
 
+msgid "Not Started"
+msgstr ""
+
 msgid "Cannot send tip to yourself"
 msgstr ""
 

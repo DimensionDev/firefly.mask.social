@@ -1293,6 +1293,9 @@ msgstr "{handleOrEnsOrAddress} 相关的所有钱包和社交账号都将会被�
 msgid "Contract source code not verified"
 msgstr "合约源代码未验证"
 
+msgid "Not Started"
+msgstr ""
+
 msgid "Cannot send tip to yourself"
 msgstr "不能打赏给自己"
 
