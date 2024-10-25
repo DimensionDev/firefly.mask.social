@@ -63,7 +63,12 @@ function Button({
 export function ActivityTaskFollowCard({ source, profileId, handle }: Props) {
     const { data: isLoggedIn } = useIsLoginTwitterInActivity();
     const [{ loading: isFollowingTwitter }, followTwitter] = useActivityFollowTwitter(profileId, handle);
-    const { data: isFollowedFirefly, refetch, isRefetching } = useIsFollowTwitterInActivity(profileId, handle);
+    const {
+        data: isFollowedFirefly,
+        refetch,
+        isRefetching,
+        isLoading,
+    } = useIsFollowTwitterInActivity(profileId, handle);
 
     return (
         <div
@@ -74,14 +79,23 @@ export function ActivityTaskFollowCard({ source, profileId, handle }: Props) {
         >
             <ActivityVerifyText verified={isFollowedFirefly}>
                 <h3>
-                    {isFollowedFirefly ? <Trans>Followed</Trans> : <Trans>Follow</Trans>}
-                    <Trans>
-                        {' '}
-                        <Link className="inline text-highlight" href={resolveProfileUrl(source, profileId)}>
-                            @{handle}
-                        </Link>{' '}
-                        on {resolveSourceName(source)}
-                    </Trans>
+                    {isFollowedFirefly ? (
+                        <Trans>
+                            Followed{' '}
+                            <Link className="inline text-highlight" href={resolveProfileUrl(source, profileId)}>
+                                @{handle}
+                            </Link>{' '}
+                            on {resolveSourceName(source)}
+                        </Trans>
+                    ) : (
+                        <Trans>
+                            Follow{' '}
+                            <Link className="inline text-highlight" href={resolveProfileUrl(source, profileId)}>
+                                @{handle}
+                            </Link>{' '}
+                            on {resolveSourceName(source)}
+                        </Trans>
+                    )}
                 </h3>
             </ActivityVerifyText>
             {!isFollowedFirefly ? (
@@ -96,7 +110,7 @@ export function ActivityTaskFollowCard({ source, profileId, handle }: Props) {
                     </Button>
                     <Button
                         className="relative whitespace-nowrap rounded-full border border-current px-4 leading-[30px] disabled:opacity-60"
-                        loading={isRefetching}
+                        loading={isRefetching || isLoading}
                         isLoggedIn={isLoggedIn}
                         onClick={async () => {
                             const { data: isFollowed } = await refetch();

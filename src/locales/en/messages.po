@@ -352,6 +352,9 @@ msgstr "Retry"
 msgid "Show less"
 msgstr "Show less"
 
+msgid "Follow <0>@{handle}</0> on {0}"
+msgstr "Follow <0>@{handle}</0> on {0}"
+
 msgid "Verification unsuccessful"
 msgstr "Verification unsuccessful"
 
@@ -1206,9 +1209,6 @@ msgstr "Clear All"
 
 msgid "There are videos that were not uploaded successfully."
 msgstr "There are videos that were not uploaded successfully."
-
-msgid "Followed"
-msgstr "Followed"
 
 msgid "This can’t be undone, and the scheduled send will be canceled."
 msgstr "This can’t be undone, and the scheduled send will be canceled."
@@ -2161,9 +2161,6 @@ msgstr "Get a free special edition Firefly NFT for following @cz_binance on X to
 msgid "Mirror now to get 25% referral fee!"
 msgstr "Mirror now to get 25% referral fee!"
 
-msgid "<0>@{handle}</0> on {0}"
-msgstr "<0>@{handle}</0> on {0}"
-
 msgid "Hide tokens with small balances"
 msgstr "Hide tokens with small balances"
 
@@ -2229,6 +2226,9 @@ msgstr "Firefly Bridge"
 
 msgid "Invalid URL"
 msgstr "Invalid URL"
+
+msgid "Followed <0>@{handle}</0> on {0}"
+msgstr "Followed <0>@{handle}</0> on {0}"
 
 msgid "View on explorer"
 msgstr "View on explorer"

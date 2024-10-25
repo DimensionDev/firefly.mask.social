@@ -352,6 +352,9 @@ msgstr ""
 msgid "Show less"
 msgstr ""
 
+msgid "Follow <0>@{handle}</0> on {0}"
+msgstr ""
+
 msgid "Verification unsuccessful"
 msgstr ""
 
@@ -1205,9 +1208,6 @@ msgid "Clear All"
 msgstr ""
 
 msgid "There are videos that were not uploaded successfully."
-msgstr ""
-
-msgid "Followed"
 msgstr ""
 
 msgid "This can’t be undone, and the scheduled send will be canceled."
@@ -2161,9 +2161,6 @@ msgstr ""
 msgid "Mirror now to get 25% referral fee!"
 msgstr ""
 
-msgid "<0>@{handle}</0> on {0}"
-msgstr ""
-
 msgid "Hide tokens with small balances"
 msgstr ""
 
@@ -2228,6 +2225,9 @@ msgid "Firefly Bridge"
 msgstr ""
 
 msgid "Invalid URL"
+msgstr ""
+
+msgid "Followed <0>@{handle}</0> on {0}"
 msgstr ""
 
 msgid "View on explorer"

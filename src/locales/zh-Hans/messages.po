@@ -357,6 +357,9 @@ msgstr "重试"
 msgid "Show less"
 msgstr "收起"
 
+msgid "Follow <0>@{handle}</0> on {0}"
+msgstr ""
+
 msgid "Verification unsuccessful"
 msgstr ""
 
@@ -1211,9 +1214,6 @@ msgstr "全部清除"
 
 msgid "There are videos that were not uploaded successfully."
 msgstr "视频上传失败。"
-
-msgid "Followed"
-msgstr ""
 
 msgid "This can’t be undone, and the scheduled send will be canceled."
 msgstr "操作无法回滚，并且定时任务将会被取消。"
@@ -2166,9 +2166,6 @@ msgstr "在 X 上关注 @cz_binance 以庆祝 CZ 的回归，获取一个免费�
 msgid "Mirror now to get 25% referral fee!"
 msgstr "立即转帖以获得 25% 的推荐佣金！"
 
-msgid "<0>@{handle}</0> on {0}"
-msgstr ""
-
 msgid "Hide tokens with small balances"
 msgstr "隐藏小额通证"
 
@@ -2234,6 +2231,9 @@ msgstr "Firefly 桥"
 
 msgid "Invalid URL"
 msgstr "无效的 URL"
+
+msgid "Followed <0>@{handle}</0> on {0}"
+msgstr ""
 
 msgid "View on explorer"
 msgstr "在区块链浏览器查看"
