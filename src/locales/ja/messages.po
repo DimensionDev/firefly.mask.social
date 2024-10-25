@@ -237,6 +237,12 @@ msgstr ""
 msgid "Location should not exceed {maxLocationSize} characters"
 msgstr ""
 
+msgid "Potential risk of external call."
+msgstr ""
+
+msgid "Enable telemetry debug mode"
+msgstr ""
+
 msgid "FAILED POST"
 msgstr ""
 
@@ -919,6 +925,9 @@ msgid "Send Feedback"
 msgstr ""
 
 msgid "Your draft was saved."
+msgstr ""
+
+msgid "Send telemetry events in debug mode."
 msgstr ""
 
 msgid "The chainId mismatch."

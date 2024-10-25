@@ -237,6 +237,12 @@ msgstr "10% 以上的税率可能被认为是高的税率。超过 50% 的税率
 msgid "Location should not exceed {maxLocationSize} characters"
 msgstr "地址不可以超过 {maxLocationSize} 个字"
 
+msgid "Potential risk of external call."
+msgstr ""
+
+msgid "Enable telemetry debug mode"
+msgstr ""
+
 msgid "FAILED POST"
 msgstr "发帖失败"
 
@@ -920,6 +926,9 @@ msgstr "提交反馈"
 
 msgid "Your draft was saved."
 msgstr "草稿已被保存"
+
+msgid "Send telemetry events in debug mode."
+msgstr ""
 
 msgid "The chainId mismatch."
 msgstr "chainId 不匹配"

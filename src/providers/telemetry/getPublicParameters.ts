@@ -26,7 +26,7 @@ export function getPublicParameters(eventId: string, previousEventId: string | n
         public_solana_address: solanaAdaptor?.publicKey?.toBase58(),
 
         public_account_id: fireflyAccountId,
-        public_use_development_api: useDeveloperSettingsState.getState().useDevelopmentAPI,
+        public_use_development_api: useDeveloperSettingsState.getState().developmentAPI,
 
         firefly_account_id: fireflyAccountId,
     };
