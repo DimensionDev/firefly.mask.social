@@ -11,7 +11,7 @@ import { SITE_DESCRIPTION, SITE_NAME } from '@/constants/index.js';
 import { enqueueErrorMessage, enqueueInfoMessage } from '@/helpers/enqueueMessage.js';
 import { getSnackbarMessageFromError } from '@/helpers/getSnackbarMessageFromError.js';
 import { fireflyBridgeProvider } from '@/providers/firefly/Bridge.js';
-import { type MethodItem, Network, Platform, SupportedMethod } from '@/types/bridge.js';
+import { type Mention, type MethodItem, Network, Platform, SupportedMethod } from '@/types/bridge.js';
 
 interface Props {
     item: MethodItem;
@@ -84,14 +84,14 @@ export function BridgeMethodButton({ item }: Props) {
                     break;
                 }
                 case SupportedMethod.OPEN_URL: {
-                    await fireflyBridgeProvider.request(SupportedMethod.OPEN_URL, { url: 'https://firefly.land' });
+                    fireflyBridgeProvider.request(SupportedMethod.OPEN_URL, { url: 'https://firefly.land' });
                     break;
                 }
                 case SupportedMethod.LOGIN: {
                     const result = await fireflyBridgeProvider.request(SupportedMethod.LOGIN, {
                         platform: Platform.FARCASTER,
                     });
-                    enqueueInfoMessage(`Success: ${result.success}`);
+                    enqueueInfoMessage(`Success: ${result}`);
                     break;
                 }
                 case SupportedMethod.SHARE:
@@ -134,7 +134,7 @@ export function BridgeMethodButton({ item }: Props) {
                                     },
                                 ],
                             },
-                        ],
+                        ] as Mention[],
                     });
                     break;
                 case SupportedMethod.BACK:

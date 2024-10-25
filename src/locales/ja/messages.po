@@ -8,7 +8,7 @@ msgstr ""
 "Language: ja\n"
 "Project-Id-Version: masksocial\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-10-18 00:05\n"
+"PO-Revision-Date: 2024-09-29 09:39\n"
 "Last-Translator: \n"
 "Language-Team: Japanese\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
@@ -18,9 +18,6 @@ msgstr ""
 "X-Crowdin-File: /src/locales/en/messages.po\n"
 "X-Crowdin-File-ID: 836\n"
 
-msgid "The gas abuse function is included. The project owner may have the ability to control the contract."
-msgstr ""
-
 msgid "{days, plural, one {1 day left} other {{days} days left}}"
 msgstr ""
 
@@ -28,9 +25,6 @@ msgid "Do you want to retry with the full or remaining content?"
 msgstr ""
 
 msgid "Login required to post on {sourceName}."
-msgstr ""
-
-msgid "Stealing attack found."
 msgstr ""
 
 msgid "Be the first one to comment!"
@@ -84,13 +78,7 @@ msgstr ""
 msgid "Failed to fetch as Blob."
 msgstr ""
 
-msgid "Metadata not frozen."
-msgstr ""
-
 msgid "Unmute successfully."
-msgstr ""
-
-msgid "Simulating"
 msgstr ""
 
 msgid "Your frame URL"
@@ -102,10 +90,10 @@ msgstr ""
 msgid "Mute /{0}"
 msgstr ""
 
-msgid "Blackmail activities."
+msgid "Failed to collect article."
 msgstr ""
 
-msgid "Failed to collect article."
+msgid "Hold on! Meet any of the following to unlock a premium collectible:"
 msgstr ""
 
 msgid "Communities"
@@ -121,6 +109,9 @@ msgid "Please be cautious when connecting your wallet, as malicious websites may
 msgstr ""
 
 msgid "<0>Fully Diluted Valuation (FDV) = Current Price x Total Supply</0><1>Fully Diluted Valuation (FDV) is the theoretical market capitalization of a coin if the entirety of its supply is in circulation, based on its current market price. The FDV value is theoretical as increasing the circulating supply of a coin may impact its market price. Also depending on the tokenomics, emission schedule or lock-up period of a coin's supply, it may take a significant time before its entire supply is released into circulation.</1>"
+msgstr ""
+
+msgid "Up to 7 days can be set as the scheduled time."
 msgstr ""
 
 msgid "Followed @{0} on {sourceName}"
@@ -153,31 +144,16 @@ msgstr ""
 msgid "The post you quoted/replied has already deleted"
 msgstr ""
 
-msgid "Something went wrong, Please try again."
-msgstr ""
-
-msgid "Money laundering."
-msgstr ""
-
-msgid "This space does not exist."
-msgstr ""
-
 msgid "Display Name"
 msgstr ""
 
 msgid "Debug Connection"
 msgstr ""
 
-msgid "Blackmail activities found."
-msgstr ""
-
 msgid "Allow Lens Manager to perform actions such as posting, liking, and commenting without the need to sign each transaction."
 msgstr ""
 
 msgid "<0>Market Cap = Current Price x Circulating Supply</0><1>Refers to the total market value of a cryptocurrency’s circulating supply. It is similar to the stock market’s measurement of multiplying price per share by shares readily available in the market (not held & locked by insiders, governments)</1>"
-msgstr ""
-
-msgid "🤑 Just voted “{0}”"
 msgstr ""
 
 msgid "Confirm to sync accounts"
@@ -192,9 +168,6 @@ msgstr ""
 msgid "Watching"
 msgstr ""
 
-msgid "{0} listening"
-msgstr ""
-
 msgid "Rank #{0}"
 msgstr ""
 
@@ -204,22 +177,16 @@ msgstr ""
 msgid "Searching channel"
 msgstr ""
 
-msgid "Malicious mining activities found."
-msgstr ""
-
 msgid "Functions that can suspend trading"
 msgstr ""
 
 msgid "<0>The maximum number of coins coded to exist in the lifetime of the cryptocurrency. It is comparable to the maximum number of issuable shares in the stock market.</0><1>Max Supply = Theoretical maximum as coded</1>"
 msgstr ""
 
-msgid "This token is a gas abuser."
+msgid "Ended"
 msgstr ""
 
-msgid "Unknown error"
-msgstr ""
-
-msgid "No cryptocurrency mixer found."
+msgid "Failed to follow @{handle} on X."
 msgstr ""
 
 msgid "More"
@@ -234,16 +201,7 @@ msgstr ""
 msgid "Searching users"
 msgstr ""
 
-msgid "Fake KYC."
-msgstr ""
-
-msgid "{0} is eligible!"
-msgstr ""
-
 msgid "Airdrop Scam"
-msgstr ""
-
-msgid "Metadata frozen."
 msgstr ""
 
 msgid "Overwrite"
@@ -253,9 +211,6 @@ msgid "Tax can be modified"
 msgstr ""
 
 msgid "Join our Discord"
-msgstr ""
-
-msgid "The external call function is not included. If there is an external call function, the project owner may have the ability to control the contract."
 msgstr ""
 
 msgid "Found arweaveTxId is empty."
@@ -273,19 +228,10 @@ msgstr ""
 msgid "Location should not exceed {maxLocationSize} characters"
 msgstr ""
 
-msgid "Potential risk of external call."
-msgstr ""
-
 msgid "Enable telemetry debug mode"
 msgstr ""
 
 msgid "FAILED POST"
-msgstr ""
-
-msgid "No financial crime found."
-msgstr ""
-
-msgid "The token can be bought."
 msgstr ""
 
 msgid "Trending"
@@ -295,9 +241,6 @@ msgid "Log out @{0}"
 msgstr ""
 
 msgid "You can save the failed parts of posts and send them later from your Drafts."
-msgstr ""
-
-msgid "The external call function is included. The project owner may have the ability to control the contract."
 msgstr ""
 
 msgid "Please confirm the login with Firefly."
@@ -316,9 +259,6 @@ msgid "Poll"
 msgstr ""
 
 msgid "Scheduled"
-msgstr ""
-
-msgid "Pay"
 msgstr ""
 
 msgid "Failed to add wallet"
@@ -345,13 +285,7 @@ msgstr ""
 msgid "Adding..."
 msgstr ""
 
-msgid "Verifying eligibility..."
-msgstr ""
-
 msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} <4>liked your </4><5>{1, select, Post {post} Comment {comment} Quote {quote} Mirror {mirror} other {post}}</5>"
-msgstr ""
-
-msgid "Our transaction simulation and security detection found no issues. However, it is always crucial to double-check and proceed with caution."
 msgstr ""
 
 msgid "Market Cap"
@@ -360,31 +294,22 @@ msgstr ""
 msgid "Contract source code verified"
 msgstr ""
 
-msgid "The contract owner has restrictions on personal slippage."
-msgstr ""
-
-msgid "Anti whale can be modified."
-msgstr ""
-
 msgid "Profile not found"
 msgstr ""
 
 msgid "NFT Standard"
 msgstr ""
 
-msgid "Stealing attack."
+msgid "Failed to like the comment."
 msgstr ""
 
-msgid "Failed to like the comment."
+msgid "Sign in"
 msgstr ""
 
 msgid "<0>Posted</0>an article"
 msgstr ""
 
 msgid "Scan the QR code with your phone’s <0>Camera</0> in {count}s. <1/>Approve a new Farcaster signer to Firefly."
-msgstr ""
-
-msgid "No malicious mining activities found."
 msgstr ""
 
 msgid "Poll is currently only supported on {0}"
@@ -423,7 +348,10 @@ msgstr ""
 msgid "Show less"
 msgstr ""
 
-msgid "Proxy contract."
+msgid "Follow <0>@{handle}</0> on {0}"
+msgstr ""
+
+msgid "Verification unsuccessful"
 msgstr ""
 
 msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} {1, select, Lens {mirrored your} Farcaster {recasted your} other {mirrored your}} <4>{2, select, Post {post} Comment {comment} Quote {quote} Mirror {mirror} other {post}}</4>"
@@ -433,9 +361,6 @@ msgid "Total"
 msgstr ""
 
 msgid "Signer key not found. Please approve a new one for us in Warpcast."
-msgstr ""
-
-msgid "Trading cooldown function."
 msgstr ""
 
 msgid "<0>{0}</0><1>mirrored</1>"
@@ -456,9 +381,6 @@ msgstr ""
 msgid "Confirm"
 msgstr ""
 
-msgid "Connect your wallet to claim your NFT."
-msgstr ""
-
 msgid "{0} muted channels"
 msgstr ""
 
@@ -471,9 +393,6 @@ msgstr ""
 msgid "Failed to report @{0}"
 msgstr ""
 
-msgid "Restricted approval."
-msgstr ""
-
 msgid "Report submitted"
 msgstr ""
 
@@ -484,9 +403,6 @@ msgid "Switch to the development API version for testing new features."
 msgstr ""
 
 msgid "{0, plural, one {quote} other {quotes}}"
-msgstr ""
-
-msgid "No hidden owner."
 msgstr ""
 
 msgid "Blockchain"
@@ -513,13 +429,7 @@ msgstr ""
 msgid "Quote post"
 msgstr ""
 
-msgid "The self-destruct function is not included. If there is a self-destruct function, the project owner may have the ability to destroy the contract."
-msgstr ""
-
 msgid "Mint function is transparent or non-existent. Hidden mint functions may increase the amount of tokens in circulation and effect the price of the token."
-msgstr ""
-
-msgid "Honeypot related address."
 msgstr ""
 
 msgid "Password"
@@ -567,13 +477,7 @@ msgstr ""
 msgid "Functions with retrievable ownership"
 msgstr ""
 
-msgid "No proxy contract."
-msgstr ""
-
 msgid "Search"
-msgstr ""
-
-msgid "Perhaps the token is a honeypot."
 msgstr ""
 
 msgid "Followed by {0}"
@@ -582,28 +486,10 @@ msgstr ""
 msgid "Failed to unfollow @{0} on {sourceName}."
 msgstr ""
 
-msgid "Sanctioned address."
-msgstr ""
-
-msgid "Each wallet or X account is limited to one claim."
-msgstr ""
-
-msgid "Host"
-msgstr ""
-
-msgid "Unsafe: Transaction is at risk"
-msgstr ""
-
 msgid "Calendar"
 msgstr ""
 
 msgid "Watch"
-msgstr ""
-
-msgid "Suspected malicious address."
-msgstr ""
-
-msgid "Honeypot related address found."
 msgstr ""
 
 msgid "Time Out"
@@ -633,9 +519,6 @@ msgstr ""
 msgid "POST"
 msgstr ""
 
-msgid "Log in with X"
-msgstr ""
-
 msgid "Failed to unlike the post."
 msgstr ""
 
@@ -663,22 +546,16 @@ msgstr ""
 msgid "1m left"
 msgstr ""
 
-msgid "Congratulation!"
+msgid "Core Asset Access: Unlock premium tokens, exclusive NFTs, and nodes for more investment opportunities."
 msgstr ""
 
 msgid "Items"
-msgstr ""
-
-msgid "To be eligible for the airdrop, fulfill the following criteria:"
 msgstr ""
 
 msgid "Failed to upload. More than {maxImageCount} images."
 msgstr ""
 
 msgid "Minting Txn Hash"
-msgstr ""
-
-msgid "Anti whale can not be modified."
 msgstr ""
 
 msgid "Audio Cover"
@@ -717,13 +594,7 @@ msgstr ""
 msgid "OpenGraph Validator"
 msgstr ""
 
-msgid "Phishing activities found."
-msgstr ""
-
 msgid "No Lens profile found.<0/>Please change to another wallet."
-msgstr ""
-
-msgid "The contract owner has no restrictions on trading cooldown."
 msgstr ""
 
 msgid "Connect Wallet"
@@ -732,16 +603,7 @@ msgstr ""
 msgid "Not Found. Please check your URL[{0}]."
 msgstr ""
 
-msgid "Closed"
-msgstr ""
-
-msgid "Non-sanctioned address found."
-msgstr ""
-
 msgid "Feed"
-msgstr ""
-
-msgid "In addition to meeting the Basic Criteria, fulfill any of the following to upgrade to a premium NFT:"
 msgstr ""
 
 msgid "Failed to upload. Not a valid image type"
@@ -786,9 +648,6 @@ msgstr ""
 msgid "Follow more friends to continue exploring on {0}."
 msgstr ""
 
-msgid "No fake KYC involved."
-msgstr ""
-
 msgid "Session Validator"
 msgstr ""
 
@@ -801,7 +660,7 @@ msgstr ""
 msgid "Frame Validator"
 msgstr ""
 
-msgid "The token can not be bought."
+msgid "Priority Access: Holders get early access to future projects, beta tests, and airdrops. And they will also have a first look at the latest features and content."
 msgstr ""
 
 msgid "No proxy"
@@ -816,9 +675,6 @@ msgstr ""
 msgid "Failed to mirror."
 msgstr ""
 
-msgid "The contract owner has restrictions on buying."
-msgstr ""
-
 msgid "Remove Choice"
 msgstr ""
 
@@ -828,13 +684,7 @@ msgstr ""
 msgid "Update"
 msgstr ""
 
-msgid "Domain"
-msgstr ""
-
 msgid "Failed to follow @{0} on Lens"
-msgstr ""
-
-msgid "Check Eligibility"
 msgstr ""
 
 msgid "You might like"
@@ -858,15 +708,6 @@ msgstr ""
 msgid "Join our Telegram"
 msgstr ""
 
-msgid "Non-contract address."
-msgstr ""
-
-msgid "Darkweb transactions."
-msgstr ""
-
-msgid "Event ended"
-msgstr ""
-
 msgid "Anti_whale(Limited number of transactions)"
 msgstr ""
 
@@ -876,13 +717,7 @@ msgstr ""
 msgid "The number of token transactions is limited. The number of scam token transactions may be limited (honeypot risk)."
 msgstr ""
 
-msgid "No phishing site found."
-msgstr ""
-
 msgid "Log out"
-msgstr ""
-
-msgid "No restricted approval."
 msgstr ""
 
 msgid "Unmuting..."
@@ -891,16 +726,10 @@ msgstr ""
 msgid "{0, plural, one {Your post failed to publish on {firstPlatform} due to an error. Click 'Retry' to attempt posting again.} two {Your post failed to publish on {firstPlatform} and {secondPlatform} due to an error. Click 'Retry' to attempt posting again.} other {Your post failed to publish due to an error. Click 'Retry' to attempt posting again.}}"
 msgstr ""
 
-msgid "Log in with your X account to view"
-msgstr ""
-
 msgid "Login to Firefly"
 msgstr ""
 
 msgid "Top Channels"
-msgstr ""
-
-msgid "Canceled"
 msgstr ""
 
 msgid "No content for the last two weeks."
@@ -948,9 +777,6 @@ msgstr ""
 msgid "Failed to submit report on {0}"
 msgstr ""
 
-msgid "Login X failed"
-msgstr ""
-
 msgid "Failed to mute @{0} on {sourceName}."
 msgstr ""
 
@@ -967,12 +793,6 @@ msgid "and"
 msgstr ""
 
 msgid "Channel"
-msgstr ""
-
-msgid "The hidden owner function is not included. If there is a hidden owner, the project owner may have the ability to control the contract."
-msgstr ""
-
-msgid "{label} on a proposal"
 msgstr ""
 
 msgid "Failed to enable signless"
@@ -1002,9 +822,6 @@ msgstr ""
 msgid "Blacklist function"
 msgstr ""
 
-msgid "Up to 7 days can be set as the scheduled time. Please reset it"
-msgstr ""
-
 msgid "Enable development API version"
 msgstr ""
 
@@ -1017,34 +834,19 @@ msgstr ""
 msgid "Confirm you want to mute /{0}?"
 msgstr ""
 
-msgid "{0}"
-msgstr ""
-
 msgid "Enter amount"
 msgstr ""
 
 msgid "<0>Sold</0> an NFT worth {costEl}"
 msgstr ""
 
-msgid "🎉"
-msgstr ""
-
-msgid "Your vote is in!"
-msgstr ""
-
-msgid "The user canceled the operation."
-msgstr ""
-
-msgid "Failed to fetch space \"{id}\"."
+msgid "Your Farcaster account holds Power Badge"
 msgstr ""
 
 msgid "Owned By"
 msgstr ""
 
 msgid "Are you sure you want to report this post?"
-msgstr ""
-
-msgid "No fake KYC found."
 msgstr ""
 
 msgid "No function found that retrieves ownership"
@@ -1059,19 +861,10 @@ msgstr ""
 msgid "Collected"
 msgstr ""
 
-msgid "Try again"
-msgstr ""
-
 msgid "<0>You</0> mirrored"
 msgstr ""
 
 msgid "Failed to create image payload."
-msgstr ""
-
-msgid "Network Fee"
-msgstr ""
-
-msgid "Contract address found."
 msgstr ""
 
 msgid "Top Profiles"
@@ -1092,9 +885,6 @@ msgstr ""
 msgid "Send Feedback"
 msgstr ""
 
-msgid "No voting power"
-msgstr ""
-
 msgid "Your draft was saved."
 msgstr ""
 
@@ -1108,9 +898,6 @@ msgid "Open in Firefly App"
 msgstr ""
 
 msgid "Privacy Policy"
-msgstr ""
-
-msgid "Holders can sell all of the token."
 msgstr ""
 
 msgid "Claim Premium"
@@ -1140,7 +927,7 @@ msgstr ""
 msgid "Drafts"
 msgstr ""
 
-msgid "No financial crime involved."
+msgid "About Airdrop"
 msgstr ""
 
 msgid "Follow"
@@ -1152,22 +939,13 @@ msgstr ""
 msgid "This token contract is open source. You can check the contract code for details. Unsourced token contracts are likely to have malicious functions to defraud their users of their assets."
 msgstr ""
 
-msgid "Darkweb transactions found."
-msgstr ""
-
 msgid "Add account"
-msgstr ""
-
-msgid "DAO"
 msgstr ""
 
 msgid "{0} Comments"
 msgstr ""
 
 msgid "Schedule Post"
-msgstr ""
-
-msgid "Almost there!"
 msgstr ""
 
 msgid "Sold Out"
@@ -1197,16 +975,10 @@ msgstr ""
 msgid "Replies"
 msgstr ""
 
-msgid "Current Results"
-msgstr ""
-
 msgid "Comment"
 msgstr ""
 
 msgid "Only people you mention"
-msgstr ""
-
-msgid "{0} turned in"
 msgstr ""
 
 msgid "You successfully sent <0>{amount} {0}{1}</0> tips to <1>{2}</1>!"
@@ -1260,6 +1032,9 @@ msgstr ""
 msgid "Malformed session."
 msgstr ""
 
+msgid "<0>COLLECTED</0> a POAP"
+msgstr ""
+
 msgid "Upload"
 msgstr ""
 
@@ -1294,9 +1069,6 @@ msgid "Your post has published successfully."
 msgstr ""
 
 msgid "Login with Farcaster"
-msgstr ""
-
-msgid "Votes"
 msgstr ""
 
 msgid "Bio should not exceed {maxBioSize} characters"
@@ -1338,13 +1110,16 @@ msgstr ""
 msgid "Failed to unmute /{0}."
 msgstr ""
 
+msgid "Login X successfully."
+msgstr ""
+
 msgid "Please confirm the login with Warpcast."
 msgstr ""
 
-msgid "Verified"
+msgid "Log in with recovery phrase"
 msgstr ""
 
-msgid "Log in with recovery phrase"
+msgid "Connected"
 msgstr ""
 
 msgid "Edit Profile"
@@ -1365,13 +1140,7 @@ msgstr ""
 msgid "Email (optional)"
 msgstr ""
 
-msgid "Not eligible"
-msgstr ""
-
 msgid "NFT Contract"
-msgstr ""
-
-msgid "Phishing activities."
 msgstr ""
 
 msgid "Telemetry"
@@ -1381,9 +1150,6 @@ msgid "Show more tokens with small balances"
 msgstr ""
 
 msgid "{riskyFactors, plural, one {# Risky item} other {# Risky items}}"
-msgstr ""
-
-msgid "The self-destruct function is included. The project owner may have the ability to destroy the contract."
 msgstr ""
 
 msgid "Mute"
@@ -1410,12 +1176,6 @@ msgstr ""
 msgid "There are videos that were not uploaded successfully."
 msgstr ""
 
-msgid "NFT contract cant restrict the approval, resulting in NFT can not be traded on the NFT DEX."
-msgstr ""
-
-msgid "<0>Collected</0> a POAP"
-msgstr ""
-
 msgid "This can’t be undone, and the scheduled send will be canceled."
 msgstr ""
 
@@ -1434,19 +1194,13 @@ msgstr ""
 msgid "Are you sure you want to report this article?"
 msgstr ""
 
-msgid "NFT owner cant bypass the maximum amount of minting specified in the contract, and continue to mint NFTs beyond this limit."
-msgstr ""
-
-msgid "VOTED"
-msgstr ""
-
 msgid "Failed to upvote post."
 msgstr ""
 
 msgid "<0>Acquired</0> an NFT"
 msgstr ""
 
-msgid "Owner can set a different tax rate for every assigned address."
+msgid "View on Explorer"
 msgstr ""
 
 msgid "Tag {0} in a post to let them know you’ve sent an onchain tip to their wallet."
@@ -1464,9 +1218,6 @@ msgstr ""
 msgid "Describe a bug or suggest an improvement"
 msgstr ""
 
-msgid "Cryptocurrency mixer."
-msgstr ""
-
 msgid "{shares, plural, one {Mirror or Quote} other {Mirrors or Quotes}}"
 msgstr ""
 
@@ -1476,9 +1227,6 @@ msgstr ""
 msgid "<0>Revised</0>an article"
 msgstr ""
 
-msgid "No darkweb transactions found."
-msgstr ""
-
 msgid "You need to connect your {0} account to use this feature."
 msgstr ""
 
@@ -1486,9 +1234,6 @@ msgid "Bad Request. Please check your request."
 msgstr ""
 
 msgid "Login required to schedule post on {sourceName}"
-msgstr ""
-
-msgid "No blackmail activities found."
 msgstr ""
 
 msgid "Failed to disconnect"
@@ -1509,9 +1254,6 @@ msgstr ""
 msgid "Token ${symbol} could not be found."
 msgstr ""
 
-msgid "No cybercrime found."
-msgstr ""
-
 msgid "Articles"
 msgstr ""
 
@@ -1530,9 +1272,6 @@ msgstr ""
 msgid "Creator"
 msgstr ""
 
-msgid "Holders can not sell all of the token."
-msgstr ""
-
 msgid "I want to hide this wallet address."
 msgstr ""
 
@@ -1545,22 +1284,16 @@ msgstr ""
 msgid "Failed to disconnect wallet from your social graph."
 msgstr ""
 
-msgid "No external call risk found."
-msgstr ""
-
-msgid "Pending"
-msgstr ""
-
 msgid "No preview found for shared link"
 msgstr ""
 
 msgid "All wallets and social accounts associated with {handleOrEnsOrAddress} will be muted."
 msgstr ""
 
-msgid "Suspected malicious address found."
+msgid "Contract source code not verified"
 msgstr ""
 
-msgid "Contract source code not verified"
+msgid "Not Started"
 msgstr ""
 
 msgid "Cannot send tip to yourself"
@@ -1573,9 +1306,6 @@ msgid "<0>Market Cap</0><1>{0}</1><2>Rank #{1}</2>"
 msgstr ""
 
 msgid "Invalid signer key"
-msgstr ""
-
-msgid "Unverified"
 msgstr ""
 
 msgid "Follow for {feeAmount} ${feeSymbol}"
@@ -1608,10 +1338,10 @@ msgstr ""
 msgid "{0, plural, one {Your posts failed to publish on {firstPlatform} due to an error. Click 'Retry' to attempt posting again.} two {Your posts failed to publish on {firstPlatform} and {secondPlatform} due to an error. Click 'Retry' to attempt posting again.} other {Your posts failed to publish due to an error. Click 'Retry' to attempt posting again.}}"
 msgstr ""
 
-msgid "Cybercrime found."
+msgid "What's happening..."
 msgstr ""
 
-msgid "What's happening..."
+msgid "Connect your wallet to claim your NFT"
 msgstr ""
 
 msgid "24h"
@@ -1635,16 +1365,10 @@ msgstr ""
 msgid "Select Token"
 msgstr ""
 
-msgid "This NFT contract doesn't have a proxy contract."
-msgstr ""
-
 msgid "Your schedule thread has created successfully."
 msgstr ""
 
 msgid "Super Follow"
-msgstr ""
-
-msgid "Cryptocurrency mixer found."
 msgstr ""
 
 msgid "General"
@@ -1656,22 +1380,10 @@ msgstr ""
 msgid "Delegate Signing"
 msgstr ""
 
-msgid "No stealing attack involved."
-msgstr ""
-
-msgid "The contract owner has no restrictions on buying."
-msgstr ""
-
-msgid "Financial crime."
-msgstr ""
-
 msgid "This can’t be undone and you’ll lose your draft."
 msgstr ""
 
 msgid "Article removed from your Bookmarks"
-msgstr ""
-
-msgid "Powered by Tenderly and GoPlus"
 msgstr ""
 
 msgid "Publications"
@@ -1686,10 +1398,10 @@ msgstr ""
 msgid "The scheduled time to send this post can be set up to 7 days in advance."
 msgstr ""
 
-msgid "This token can not self destruct."
+msgid "Display"
 msgstr ""
 
-msgid "Display"
+msgid "Submit claimed address"
 msgstr ""
 
 msgid "Mute successfully."
@@ -1698,19 +1410,13 @@ msgstr ""
 msgid "If this function exists, it is possible for the project owner to regain ownership even after relinquishing it"
 msgstr ""
 
-msgid "<0>© 2024 Firefly.</0> All rights reserved."
-msgstr ""
-
 msgid "Add wallet"
 msgstr ""
 
+msgid "Voting Rights: Participate in key decisions and shape the platform’s development through community governance."
+msgstr ""
+
 msgid "Please switch to {0}"
-msgstr ""
-
-msgid "Non-honeypot related address."
-msgstr ""
-
-msgid "No darkweb transactions involved."
 msgstr ""
 
 msgid "Watch {handleOrEnsOrAddress}"
@@ -1743,16 +1449,10 @@ msgstr ""
 msgid "%Of supply owned"
 msgstr ""
 
-msgid "Approve"
-msgstr ""
-
 msgid "Signing failed."
 msgstr ""
 
 msgid "Share"
-msgstr ""
-
-msgid "Transaction Simulation"
 msgstr ""
 
 msgid "Scan the QR code with the <0>Firefly mobile app</0> or <1>Camera app</1> to log in instantly."
@@ -1767,9 +1467,6 @@ msgstr ""
 msgid "Failed to create schedule thread posts."
 msgstr ""
 
-msgid "This NFT contract has a proxy contract."
-msgstr ""
-
 msgid "Top Collectors"
 msgstr ""
 
@@ -1780,12 +1477,6 @@ msgid "Or login with any social account"
 msgstr ""
 
 msgid "View engagements"
-msgstr ""
-
-msgid "The contract owner has restrictions on selling."
-msgstr ""
-
-msgid "The gas abuse function is not included. If there is a gas abuse function, the project owner may have the ability to control the contract."
 msgstr ""
 
 msgid "Translated"
@@ -1812,9 +1503,6 @@ msgstr ""
 msgid "Floor Price"
 msgstr ""
 
-msgid "This token is not a gas abuser."
-msgstr ""
-
 msgid "Failed to fetch profiles."
 msgstr ""
 
@@ -1833,9 +1521,6 @@ msgstr ""
 msgid "No comments found"
 msgstr ""
 
-msgid "We were unable to simulate the transaction or complete all security detection. Please proceed with caution."
-msgstr ""
-
 msgid "Unfollow @{0}"
 msgstr ""
 
@@ -1849,9 +1534,6 @@ msgid "Upload to S3"
 msgstr ""
 
 msgid "{shares, plural, one {Recast or Quote} other {Recasts or Quotes}}"
-msgstr ""
-
-msgid "Website is a phishing site."
 msgstr ""
 
 msgid "Please input the serialized session to be validated."
@@ -1893,6 +1575,9 @@ msgstr ""
 msgid "Wallets retrieved from public verifiable data registries or our entity algorithm can be reported for disconnection."
 msgstr ""
 
+msgid "Step 2 Connect Wallet"
+msgstr ""
+
 msgid "Light Mode"
 msgstr ""
 
@@ -1902,7 +1587,7 @@ msgstr ""
 msgid "Insufficient funds"
 msgstr ""
 
-msgid "No phishing site."
+msgid "Followed <0>@{handle}</0> on X before Oct 12,2024, or followed <1>@{farcasterHandle}</1> on Farcaster before Oct 20, 2024"
 msgstr ""
 
 msgid "Connect your wallet to follow"
@@ -1917,6 +1602,9 @@ msgstr ""
 msgid "Delete"
 msgstr ""
 
+msgid "May the token is a honeypot."
+msgstr ""
+
 msgid "The content of this account is currently unavailable"
 msgstr ""
 
@@ -1929,13 +1617,10 @@ msgstr ""
 msgid "Cancel"
 msgstr ""
 
-msgid "Live"
-msgstr ""
-
 msgid "Send on schedule"
 msgstr ""
 
-msgid "Failed to un-bookmark snapshot."
+msgid "Your transaction will confirm shortly"
 msgstr ""
 
 msgid "will send on {0} at {1}"
@@ -2004,12 +1689,6 @@ msgstr ""
 msgid "Articles from {walletHandle} will now be hidden in your home timeline"
 msgstr ""
 
-msgid "Followed @cz_binance on X before Sept 21"
-msgstr ""
-
-msgid "Login X"
-msgstr ""
-
 msgid "Please input the url to be revalidated."
 msgstr ""
 
@@ -2040,9 +1719,6 @@ msgstr ""
 msgid "Leaving Firefly"
 msgstr ""
 
-msgid "Sign Typed Data"
-msgstr ""
-
 msgid "24H Volume"
 msgstr ""
 
@@ -2070,9 +1746,6 @@ msgstr ""
 msgid "All notifications"
 msgstr ""
 
-msgid "Please try switching to {0}"
-msgstr ""
-
 msgid "Mobile App"
 msgstr ""
 
@@ -2088,9 +1761,6 @@ msgstr ""
 msgid "Internal Server Error. Please try again later."
 msgstr ""
 
-msgid "No suspected malicious behavior found."
-msgstr ""
-
 msgid "The frame server failed to process the request."
 msgstr ""
 
@@ -2100,10 +1770,7 @@ msgstr ""
 msgid "Schedule"
 msgstr ""
 
-msgid "No cybercrime involved."
-msgstr ""
-
-msgid "Change Account"
+msgid "Followed @{handle} on X."
 msgstr ""
 
 msgid "Casts + Replies"
@@ -2115,31 +1782,16 @@ msgstr ""
 msgid "Failed to delete post."
 msgstr ""
 
-msgid "Financial crime found."
-msgstr ""
-
-msgid "No stealing attack found."
-msgstr ""
-
 msgid "Claimed"
 msgstr ""
 
-msgid "The hidden owner function is included. The project owner may have the ability to control the contract."
+msgid "Step 1 Sign in"
 msgstr ""
 
 msgid "Copy"
 msgstr ""
 
-msgid "Claim"
-msgstr ""
-
 msgid "No available wallet."
-msgstr ""
-
-msgid "No phishing activities found."
-msgstr ""
-
-msgid "No cryptocurrency mixer involved."
 msgstr ""
 
 msgid "<0>{0}</0><1>reposted</1>"
@@ -2149,18 +1801,6 @@ msgid "Login to enable all features"
 msgstr ""
 
 msgid "Owner can change balance"
-msgstr ""
-
-msgid "Non-contract address found."
-msgstr ""
-
-msgid "The contract owner has no restrictions on selling."
-msgstr ""
-
-msgid "No oversupply minting."
-msgstr ""
-
-msgid "No money laundering found."
 msgstr ""
 
 msgid "Accounts Connected"
@@ -2190,10 +1830,10 @@ msgstr ""
 msgid "<0>You</0> reposted"
 msgstr ""
 
-msgid "NFT owner can bypass the maximum amount of minting specified in the contract, and continue to mint NFTs beyond this limit."
+msgid "The contract may contain additional issuance functions, which could maybe generate a large number of tokens, resulting in significant fluctuations in token prices. It is recommended to confirm with the project team whether it complies with the token issuance instructions."
 msgstr ""
 
-msgid "The contract may contain additional issuance functions, which could maybe generate a large number of tokens, resulting in significant fluctuations in token prices. It is recommended to confirm with the project team whether it complies with the token issuance instructions."
+msgid "Upcoming"
 msgstr ""
 
 msgid "{handleOrEnsOrAddress} unwatched"
@@ -2205,16 +1845,10 @@ msgstr ""
 msgid "No profile found"
 msgstr ""
 
-msgid "Invoke"
-msgstr ""
-
 msgid "Your post will be sent on {0} at {1} <0>View</0>"
 msgstr ""
 
 msgid "Failed to create scheduled post."
-msgstr ""
-
-msgid "The contract owner has restrictions on anti whale."
 msgstr ""
 
 msgid "I don’t use anymore."
@@ -2224,9 +1858,6 @@ msgid "<0>You</0> liked"
 msgstr ""
 
 msgid "You've hit rock bottom."
-msgstr ""
-
-msgid "Welcome Back CZ Collectible"
 msgstr ""
 
 msgid "Copy link to profile"
@@ -2256,19 +1887,7 @@ msgstr ""
 msgid "Will send on <0>{0} at <1>{1}</1></0>"
 msgstr ""
 
-msgid "Basic Criteria"
-msgstr ""
-
-msgid "Snapshot added to your Bookmarks"
-msgstr ""
-
 msgid "Failed to continue. Please allow Lens Manager for performing actions without the need to sign each transaction."
-msgstr ""
-
-msgid "*CZ's follower snapshot was taken at 8:00 UTC on September 21, 2024."
-msgstr ""
-
-msgid "Results"
 msgstr ""
 
 msgid "Properties"
@@ -2289,22 +1908,10 @@ msgstr ""
 msgid "Refresh"
 msgstr ""
 
-msgid "Receive"
-msgstr ""
-
 msgid "Followed by {0} , {1}, and {2}"
 msgstr ""
 
-msgid "Vote"
-msgstr ""
-
-msgid "Ended on {0}"
-msgstr ""
-
 msgid "Collect Article"
-msgstr ""
-
-msgid "Firefly Wallets"
 msgstr ""
 
 msgid "Channels"
@@ -2325,9 +1932,6 @@ msgstr ""
 msgid "<0>Bought</0> an NFT worth {costEl}"
 msgstr ""
 
-msgid "Premium Eligibility Criteria"
-msgstr ""
-
 msgid "Post from /{0} will be hidden in your home timeline"
 msgstr ""
 
@@ -2340,9 +1944,6 @@ msgstr ""
 msgid "{days}d left"
 msgstr ""
 
-msgid "Money laundering found."
-msgstr ""
-
 msgid "Log out all"
 msgstr ""
 
@@ -2352,19 +1953,7 @@ msgstr ""
 msgid "{0} and others"
 msgstr ""
 
-msgid "Please switch to Firefly Wallet."
-msgstr ""
-
-msgid "No money laundering involved."
-msgstr ""
-
-msgid "Failed to bookmark snapshot."
-msgstr ""
-
 msgid "Date"
-msgstr ""
-
-msgid "Failed to vote. {0}"
 msgstr ""
 
 msgid "Confirm to log out all accounts?"
@@ -2382,9 +1971,6 @@ msgstr ""
 msgid "Share to"
 msgstr ""
 
-msgid "Non-sanctioned address."
-msgstr ""
-
 msgid "Failed to quote post."
 msgstr ""
 
@@ -2397,12 +1983,6 @@ msgstr ""
 msgid "The signer is not authorized to perform the requested operation. Please approve again."
 msgstr ""
 
-msgid "Must followed @cz_binance on X before Sept 21, 2024."
-msgstr ""
-
-msgid "Your assets on BNB Chain are worth over US$10,000."
-msgstr ""
-
 msgid "Saved on {0}"
 msgstr ""
 
@@ -2412,19 +1992,19 @@ msgstr ""
 msgid "1y"
 msgstr ""
 
-msgid "Something went wrong"
-msgstr ""
-
-msgid "Malicious mining activities."
+msgid "Change"
 msgstr ""
 
 msgid "No codes found to suspend trading."
 msgstr ""
 
-msgid "This token can self destruct."
+msgid "Failed to bind address."
 msgstr ""
 
 msgid "Buy Tax: {0}%"
+msgstr ""
+
+msgid "Success!"
 msgstr ""
 
 msgid "<0>You</0> and {0} recasted"
@@ -2439,6 +2019,9 @@ msgstr ""
 msgid "Article added to your Bookmarks"
 msgstr ""
 
+msgid "Please sign in with X to continue"
+msgstr ""
+
 msgid "Create a Post"
 msgstr ""
 
@@ -2451,34 +2034,16 @@ msgstr ""
 msgid "Unfollow"
 msgstr ""
 
-msgid "Your BNB Chain wallet holds assets worth over $10,000."
-msgstr ""
-
 msgid "Your {0} account is now connected."
 msgstr ""
 
-msgid "Not Found"
-msgstr ""
-
-msgid "Checking eligibility"
-msgstr ""
-
 msgid "Posted via {0} <0>{sendFrom}</0>"
-msgstr ""
-
-msgid "Claim your NFT to show your support onchain for CZ!"
-msgstr ""
-
-msgid "The contract owner has no restrictions on personal slippage."
 msgstr ""
 
 msgid "Unmuted @{0} on {sourceName}."
 msgstr ""
 
 msgid "If a suspendable code is included, the token maybe neither be bought nor sold (honeypot risk)."
-msgstr ""
-
-msgid "Your .bnb domain is a member of the SPACE ID Premier Club."
 msgstr ""
 
 msgid "Display Name should not exceed {maxDisplayNameSize} characters"
@@ -2496,12 +2061,6 @@ msgstr ""
 msgid "{minutes}m left"
 msgstr ""
 
-msgid "Your X account holds Premium status."
-msgstr ""
-
-msgid "Signature Request"
-msgstr ""
-
 msgid "Total Supply"
 msgstr ""
 
@@ -2509,9 +2068,6 @@ msgid "Collection"
 msgstr ""
 
 msgid "Your name"
-msgstr ""
-
-msgid "No tax changes found for personal addresses."
 msgstr ""
 
 msgid "Owned"
@@ -2523,16 +2079,10 @@ msgstr ""
 msgid "The whitelist function is included. Some addresses may not be able to trade normally (honeypot risk)."
 msgstr ""
 
-msgid "Get a free special edition Firefly NFT for following @cz_binance on X to celebrate CZ’s return!"
-msgstr ""
-
 msgid "Mirror now to get 25% referral fee!"
 msgstr ""
 
 msgid "Hide tokens with small balances"
-msgstr ""
-
-msgid "Proposal"
 msgstr ""
 
 msgid "News"
@@ -2568,10 +2118,10 @@ msgstr ""
 msgid "Your post have published successfully on {0}."
 msgstr ""
 
-msgid "The contract owner has no restrictions on anti whale."
+msgid "Detail"
 msgstr ""
 
-msgid "Detail"
+msgid "Exclusive Events"
 msgstr ""
 
 msgid "Post added to your Bookmarks"
@@ -2595,16 +2145,13 @@ msgstr ""
 msgid "Firefly Bridge"
 msgstr ""
 
-msgid "Oversupply minting."
-msgstr ""
-
 msgid "Invalid URL"
 msgstr ""
 
-msgid "View on explorer"
+msgid "Followed <0>@{handle}</0> on {0}"
 msgstr ""
 
-msgid "Unverified: Failed to simulate,"
+msgid "View on explorer"
 msgstr ""
 
 msgid "Already logged in?<0/>Approve the <1>existing Farcaster signer</1> to Firefly or <2>sync</2> through the app"
@@ -2625,9 +2172,6 @@ msgstr ""
 msgid "<0>Acquired</0> an NFT from <1>{0}</1>"
 msgstr ""
 
-msgid "Sanctioned address found."
-msgstr ""
-
 msgid "Unfollowed @{0} on {sourceName}"
 msgstr ""
 
@@ -2644,9 +2188,6 @@ msgid "The scheduled time has passed."
 msgstr ""
 
 msgid "The connection has timed out. Please try again later."
-msgstr ""
-
-msgid "Phishing site."
 msgstr ""
 
 msgid "Emoji"
@@ -2679,9 +2220,6 @@ msgstr ""
 msgid "{hours}h left"
 msgstr ""
 
-msgid "You're eligible for a <0>Premium</0> CZ Support NFT because your X account holds Premium status."
-msgstr ""
-
 msgid "{0} Users"
 msgstr ""
 
@@ -2694,25 +2232,16 @@ msgstr ""
 msgid "Suspended account"
 msgstr ""
 
-msgid "No blackmail activities involved."
+msgid "Final Step Claim Now!"
 msgstr ""
 
-msgid "Hidden owner."
+msgid "Verify"
 msgstr ""
 
 msgid "Recasted"
 msgstr ""
 
-msgid "No phishing activities involved."
-msgstr ""
-
-msgid "Premium Criteria"
-msgstr ""
-
 msgid "Failed to parse transaction."
-msgstr ""
-
-msgid "The metadata of this NFT is stored in IPFS, AR, generated by contract, or another decentralized way."
 msgstr ""
 
 msgid "No anti_whale(Unlimited number of transactions)"
@@ -2745,9 +2274,6 @@ msgstr ""
 msgid "Video"
 msgstr ""
 
-msgid "Firefly Wallet"
-msgstr ""
-
 msgid "{hours, plural, one {1 hour left} other {{hours} hours left}}"
 msgstr ""
 
@@ -2758,12 +2284,6 @@ msgid "Address on Watching Lists"
 msgstr ""
 
 msgid "FREE"
-msgstr ""
-
-msgid "Ignore the warnings to continue"
-msgstr ""
-
-msgid "The contract owner has restrictions on trading cooldown."
 msgstr ""
 
 msgid "Sign to enable signless"
@@ -2778,25 +2298,16 @@ msgstr ""
 msgid "Please confirm the login with X."
 msgstr ""
 
-msgid "Snapshot removed from your Bookmarks"
-msgstr ""
-
 msgid "Max Supply"
 msgstr ""
 
 msgid "Posted by {0} via Firefly"
 msgstr ""
 
-msgid "NFT contract can restrict the approval, resulting in NFT can not be traded on the NFT DEX."
-msgstr ""
-
 msgid "<0>You</0> recasted"
 msgstr ""
 
 msgid "7d"
-msgstr ""
-
-msgid "*Event runs from September 29, 2024, 12:00 UTC to October 15, 2024, 23:59 UTC."
 msgstr ""
 
 msgid "Name (optional)"
@@ -2808,7 +2319,7 @@ msgstr ""
 msgid "There is no limit to the number of token transactions. The number of scam token transactions may be limited (honeypot risk)."
 msgstr ""
 
-msgid "Error: {message}"
+msgid "Your assets on Base Chain are worth over US$10,000"
 msgstr ""
 
 msgid "This is not an airdrop scam. Many scams attract users through airdrops."
@@ -2817,22 +2328,22 @@ msgstr ""
 msgid "GIF"
 msgstr ""
 
-msgid "Ethereum JSON RPC"
-msgstr ""
-
 msgid "Followed @{0} on Lens"
 msgstr ""
 
-msgid "Collect for {0} {1}"
+msgid "Claim Now"
 msgstr ""
 
-msgid "You're eligible for a <0>Premium</0> CZ Support NFT because your BNB Chain wallet holds assets valued over <1>$10,000</1>."
+msgid "Collect for {0} {1}"
 msgstr ""
 
 msgid "Recast"
 msgstr ""
 
 msgid "Translating..."
+msgstr ""
+
+msgid "Claim Basic"
 msgstr ""
 
 msgid "Back to home"
@@ -2850,22 +2361,7 @@ msgstr ""
 msgid "Clear"
 msgstr ""
 
-msgid "Continue"
-msgstr ""
-
-msgid "try again"
-msgstr ""
-
-msgid "Cybercrime."
-msgstr ""
-
 msgid "<0>Sent</0> an NFT to <1>{0}</1>"
-msgstr ""
-
-msgid "The metadata of this NFT is not stored in IPFS, AR, generated by contract, or another decentralized way."
-msgstr ""
-
-msgid "No trading cooldown function."
 msgstr ""
 
 msgid "Media"
@@ -2874,13 +2370,7 @@ msgstr ""
 msgid "No content to publish."
 msgstr ""
 
-msgid "Already claimed"
-msgstr ""
-
 msgid "Text"
-msgstr ""
-
-msgid "Chain"
 msgstr ""
 
 msgid "Mirror"
@@ -2890,12 +2380,6 @@ msgid "Terms of Service"
 msgstr ""
 
 msgid "[Quote]"
-msgstr ""
-
-msgid "Contract address."
-msgstr ""
-
-msgid "No malicious mining activities involved."
 msgstr ""
 
 msgid "Related by platforms"
@@ -2913,19 +2397,10 @@ msgstr ""
 msgid "Following"
 msgstr ""
 
-msgid "Create a post to tell everyone about your participation. Votes can be changed while the proposal is active."
-msgstr ""
-
-msgid "View transaction on Explorer"
+msgid "Your X account holds Premium status"
 msgstr ""
 
 msgid "Hours"
-msgstr ""
-
-msgid "Note:"
-msgstr ""
-
-msgid "Logging out will cause scheduled posts to fail. To ensure that posts are sent as scheduled, please make sure that your Firefly account remains logged in."
 msgstr ""
 
 msgid "Failed to create schedule post."
@@ -2943,13 +2418,7 @@ msgstr ""
 msgid "Login"
 msgstr ""
 
-msgid "You're eligible for a <0>Premium</0> CZ Support NFT because your .bnb domain is member of the <1>SPACE ID Premier Club</1>."
-msgstr ""
-
 msgid "Replying to <0>@{0}</0> on {1}"
-msgstr ""
-
-msgid "Fake KYC found."
 msgstr ""
 
 msgid "A thread must have at least two posts."
@@ -2968,10 +2437,4 @@ msgid "× {0}"
 msgstr ""
 
 msgid "Blink Validator"
-msgstr ""
-
-msgid "Not eligible to claim, <0>retry</0>"
-msgstr ""
-
-msgid "Reward for followers"
 msgstr ""

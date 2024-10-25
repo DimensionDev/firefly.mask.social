@@ -23,7 +23,7 @@ function callNativeMethod<T extends SupportedMethod>(method: T, id: string, para
         window.webkit.messageHandlers.callNativeMethod.postMessage({
             method,
             tag: id,
-            params,
+            params: JSON.stringify(params),
         });
         return;
     }

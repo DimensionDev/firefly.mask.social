@@ -225,21 +225,21 @@ export async function addAccount(account: Account, options?: AccountOptions) {
 
     await runInSafeAsync(async () => {
         // upload sessions to firefly
-        if (!skipUploadFireflySession && belongsTo && account.session.type !== SessionType.Firefly) {
+        await runInSafeAsync(async () => {if (!skipUploadFireflySession && belongsTo && account.session.type !== SessionType.Firefly) {
             console.warn('[addAccount] upload sessions to firefly');
             await uploadSessions('merge', fireflySessionHolder.sessionRequired, getProfileSessionsAll());
         }
     });
 
+    // report farcaster signer
     await runInSafeAsync(async () => {
-        // report farcaster signer
         if (
             !skipReportFarcasterSigner &&
             account.session.type === SessionType.Farcaster &&
             fireflySessionHolder.session
         ) {
             console.warn('[addAccount] report farcaster signer');
-            await FireflyEndpointProvider.reportFarcasterSigner(account.session as FireflySession);
+            await reportFarcasterSigner(account.session as FireflySession);
         }
     });
 

@@ -1022,6 +1022,33 @@ export type ConvertM3u8StatusResponse = Response<{
     status: S3ConvertStatus;
 }>;
 
+export enum ActivityStatus {
+    Upcoming = 0,
+    Active = 1,
+    Ended = 2,
+}
+
+export interface ActivityListItem {
+    id: number;
+    name: string;
+    title: string;
+    sub_title: string;
+    description: string;
+    url: string;
+    banner_url: string;
+    icon_url: string;
+    ext: string;
+    start_time: string;
+    end_time: string;
+    status: ActivityStatus;
+}
+
+export type ActivityListResponse = Response<{
+    list: ActivityListItem[];
+    cursor: number;
+    size: number;
+}>;
+
 export enum TwitterUserInfoLabelType {
     BusinessLabel = 'BusinessLabel',
 }
@@ -1176,6 +1203,8 @@ export type ActivityInfoResponse = Response<{
     id: number;
     name: string;
     title: string;
+    sort: number;
+    is_offline: number;
     sub_title: string;
     description: string;
     url: string;
@@ -1184,4 +1213,6 @@ export type ActivityInfoResponse = Response<{
     ext: string;
     start_time: string;
     end_time: string;
+    open_graph_url: string;
+    status: ActivityStatus;
 }>;
