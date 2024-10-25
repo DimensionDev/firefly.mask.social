@@ -23,10 +23,30 @@ export enum SupportedMethod {
     GET_LANGUAGE = 'getLanguage',
     GET_WALLET_ADDRESS = 'getWalletAddress',
     CONNECT_WALLET = 'connectWallet',
+    BIND_WALLET = 'bindWallet',
+    IS_TWITTER_USER_FOLLOWING = 'isTwitterUserFollowing',
+    FOLLOW_TWITTER_USER = 'followTwitterUser',
+    UPDATE_NAVIGATOR_BAR = 'updateNavigatorBar',
+    OPEN_URL = 'openUrl',
     LOGIN = 'login',
     SHARE = 'share',
     COMPOSE = 'compose',
     BACK = 'back',
+}
+
+export interface MentionProfile {
+    platform_id: string;
+    platform: Platform;
+    handle: string;
+    name: string;
+    namespace: string;
+    hit: boolean;
+    score: number;
+}
+
+export interface Mention {
+    content: string;
+    profiles: MentionProfile[];
 }
 
 export interface RequestArguments {
@@ -40,6 +60,22 @@ export interface RequestArguments {
     [SupportedMethod.CONNECT_WALLET]: {
         type: Network;
     };
+    [SupportedMethod.BIND_WALLET]: {
+        type: Network;
+    };
+    [SupportedMethod.IS_TWITTER_USER_FOLLOWING]: {
+        id: string;
+    };
+    [SupportedMethod.FOLLOW_TWITTER_USER]: {
+        id: string; // e.g., 952921795316912133
+    };
+    [SupportedMethod.UPDATE_NAVIGATOR_BAR]: {
+        show: boolean;
+        title: string;
+    };
+    [SupportedMethod.OPEN_URL]: {
+        url: string;
+    };
     [SupportedMethod.LOGIN]: {
         platform: Platform;
     };
@@ -48,9 +84,13 @@ export interface RequestArguments {
     };
     [SupportedMethod.COMPOSE]: {
         text: string;
+        activity: string;
+        mentions: Mention[];
     };
     [SupportedMethod.BACK]: {};
 }
+
+type StringifyBoolean = 'true' | 'false';
 
 export interface RequestResult {
     [SupportedMethod.GET_SUPPORTED_METHODS]: SupportedMethod[];
@@ -59,9 +99,12 @@ export interface RequestResult {
     [SupportedMethod.GET_LANGUAGE]: string;
     [SupportedMethod.GET_WALLET_ADDRESS]: string[];
     [SupportedMethod.CONNECT_WALLET]: string;
-    [SupportedMethod.LOGIN]: {
-        success: 'true' | 'false';
-    };
+    [SupportedMethod.BIND_WALLET]: string; // address
+    [SupportedMethod.IS_TWITTER_USER_FOLLOWING]: StringifyBoolean;
+    [SupportedMethod.FOLLOW_TWITTER_USER]: StringifyBoolean;
+    [SupportedMethod.UPDATE_NAVIGATOR_BAR]: void;
+    [SupportedMethod.OPEN_URL]: void;
+    [SupportedMethod.LOGIN]: StringifyBoolean;
     [SupportedMethod.SHARE]: void;
     [SupportedMethod.COMPOSE]: void;
     [SupportedMethod.BACK]: void;

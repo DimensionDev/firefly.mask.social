@@ -27,7 +27,7 @@ export async function middleware(request: NextRequest) {
     request.headers.set('X-URL', request.url);
 
     if (request.nextUrl.host === 'cz.firefly.social' && pathname === '/') {
-        return NextResponse.rewrite(new URL('/activity/cz', request.url), {
+        return NextResponse.rewrite(new URL('/event/cz_welcome_back_airdrop', request.url), {
             request,
         });
     }

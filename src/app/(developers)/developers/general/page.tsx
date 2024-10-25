@@ -29,26 +29,35 @@ type Item =
       };
 
 export default function Page() {
-    const { useDevelopmentAPI, updateUseDevelopmentAPI, logTelemetry, updateLogTelemetry } =
+    const { developmentAPI, updateDevelopmentAPI, telemetry, updateTelemetry, telemetryDebug, updateTelemetryDebug } =
         useDeveloperSettingsState();
 
     const items: Item[] = [
         {
             type: 'checkbox',
-            value: logTelemetry,
+            value: telemetry,
             title: t`Enable logging telemetry events`,
             description: t`Log telemetry events to the console.`,
             onClick: () => {
-                updateLogTelemetry(!logTelemetry);
+                updateTelemetry(!telemetry);
             },
         },
         {
             type: 'checkbox',
-            value: useDevelopmentAPI,
+            value: telemetryDebug,
+            title: t`Enable telemetry debug mode`,
+            description: t`Send telemetry events in debug mode.`,
+            onClick: () => {
+                updateTelemetryDebug(!telemetryDebug);
+            },
+        },
+        {
+            type: 'checkbox',
+            value: developmentAPI,
             title: t`Enable development API version`,
             description: t`Switch to the development API version for testing new features.`,
             onClick: () => {
-                updateUseDevelopmentAPI(!useDevelopmentAPI);
+                updateDevelopmentAPI(!developmentAPI);
             },
         },
     ];

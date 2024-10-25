@@ -1,5 +1,13 @@
 (function () {
-    if (!window.bowser) return;
+    if (
+        !window.bowser ||
+        (window.FireflyApi &&
+          typeof window.FireflyApi.callNativeMethod === "function") ||
+        (window.webkit &&
+          window.webkit.messageHandlers &&
+          window.webkit.messageHandlers.callNativeMethod)
+      )
+        return;
 
     try {
         function getCookie(field) {
@@ -9,6 +17,12 @@
             if (!pair) return '';
             var value = pair.split('=')[1];
             return value;
+        }
+
+        function isBridge() {
+            if (typeof window.FireflyApi?.callNativeMethod === 'function') return true;
+            if (typeof window.webkit?.messageHandlers?.callNativeMethod?.postMessage === 'function') return true;
+            return false;
         }
 
         var browser = window.bowser.getParser(window.navigator.userAgent);
@@ -29,7 +43,7 @@
             edge: '>=103',
         });
 
-        if (!isValidBrowser) {
+        if (!isValidBrowser && !isBridge()) {
             const showTip = (isDarkMode) => {
                 var locale = getCookie('locale');
                 const isCN = locale === 'zh-Hans';

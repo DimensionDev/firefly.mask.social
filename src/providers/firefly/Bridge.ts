@@ -4,7 +4,12 @@ import { uniqueId } from 'lodash-es';
 import { parseJSON } from '@/helpers/parseJSON.js';
 import { type RequestArguments, type RequestResult, SupportedMethod } from '@/types/bridge.js';
 
-const NO_RETURN_METHODS = [SupportedMethod.SHARE, SupportedMethod.COMPOSE, SupportedMethod.BACK];
+const NO_RETURN_METHODS = [
+    SupportedMethod.SHARE,
+    SupportedMethod.COMPOSE,
+    SupportedMethod.BACK,
+    SupportedMethod.UPDATE_NAVIGATOR_BAR,
+];
 
 function callNativeMethod<T extends SupportedMethod>(method: T, id: string, params: RequestArguments[T]) {
     // android
@@ -18,7 +23,7 @@ function callNativeMethod<T extends SupportedMethod>(method: T, id: string, para
         window.webkit.messageHandlers.callNativeMethod.postMessage({
             method,
             tag: id,
-            params,
+            params: JSON.stringify(params),
         });
         return;
     }

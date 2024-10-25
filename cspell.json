@@ -95,7 +95,9 @@
         "zksync",
         "zora",
         "zustand",
-        "reposted"
+        "reposted",
+        "lottiefiles",
+        "dotlottie"
     ],
     "ignoreWords": [
         "DEVNET",
@@ -183,7 +185,10 @@
         "getconvert",
         "nextwidth",
         "nextheight",
-        "mutelist"
+        "mutelist",
+        "Powerbadge",
+        "errormessage",
+        "webm"
     ],
     "flagWords": [],
     "ignorePaths": [

@@ -8,7 +8,7 @@ import { enqueueErrorMessage, enqueueSuccessMessage } from '@/helpers/enqueueMes
 import { getSnackbarMessageFromError } from '@/helpers/getSnackbarMessageFromError.js';
 import { FarcasterSocialMediaProvider } from '@/providers/farcaster/SocialMedia.js';
 import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
-import { capturePostActionEvent } from '@/providers/safary/capturePostActionEvent.js';
+import { capturePostActionEvent } from '@/providers/telemetry/capturePostActionEvent.js';
 import { TwitterSocialMediaProvider } from '@/providers/twitter/SocialMedia.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 
