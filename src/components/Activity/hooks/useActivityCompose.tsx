@@ -39,6 +39,7 @@ const fireflyMention = {
         },
     ] as Profile[],
 };
+
 // cspell: disable-next-line
 const barmstrongMention = {
     tag: CHAR_TAG.MENTION,

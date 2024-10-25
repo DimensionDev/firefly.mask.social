@@ -1020,9 +1020,6 @@ msgstr "回覆"
 msgid "Comment"
 msgstr "評論"
 
-msgid "Followed @{handle} on X"
-msgstr ""
-
 msgid "Only people you mention"
 msgstr "僅限你提及的帳戶"
 
@@ -1825,6 +1822,9 @@ msgid "Report"
 msgstr "檢舉"
 
 msgid "Schedule"
+msgstr ""
+
+msgid "Followed @{handle} on X."
 msgstr ""
 
 msgid "Change Account"
