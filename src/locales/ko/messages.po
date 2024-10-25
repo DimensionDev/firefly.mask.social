@@ -2076,6 +2076,9 @@ msgstr ""
 msgid "No codes found to suspend trading."
 msgstr ""
 
+msgid "Failed to bind address."
+msgstr ""
+
 msgid "Buy Tax: {0}%"
 msgstr ""
 
@@ -2464,9 +2467,6 @@ msgid "Mint function"
 msgstr ""
 
 msgid "Clear"
-msgstr ""
-
-msgid "End"
 msgstr ""
 
 msgid "<0>Sent</0> an NFT to <1>{0}</1>"

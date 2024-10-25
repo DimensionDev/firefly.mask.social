@@ -2,44 +2,31 @@
 
 import { Menu } from '@headlessui/react';
 import { Trans } from '@lingui/macro';
-import { useQuery } from '@tanstack/react-query';
 import { useContext } from 'react';
 
 import AddCircleIcon from '@/assets/add-circle.svg';
 import LoadingIcon from '@/assets/loading.svg';
 import { ActivityContext } from '@/components/Activity/ActivityContext.js';
+import { useActivityBindAddress } from '@/components/Activity/hooks/useActivityBindAddress.js';
 import { useActivityClaimCondition } from '@/components/Activity/hooks/useActivityClaimCondition.js';
+import { useActivityConnections } from '@/components/Activity/hooks/useActivityConnections.js';
 import { useIsLoginTwitterInActivity } from '@/components/Activity/hooks/useIsLoginTwitterInActivity.js';
 import { ChainIcon } from '@/components/NFTDetail/ChainIcon.js';
 import { EMPTY_LIST } from '@/constants/index.js';
 import { classNames } from '@/helpers/classNames.js';
 import { enqueueWarningMessage } from '@/helpers/enqueueMessage.js';
 import { formatAddress } from '@/helpers/formatAddress.js';
-import { useFireflyBridgeAuthorization } from '@/hooks/useFireflyBridgeAuthorization.js';
-import { AddWalletModalRef } from '@/modals/controls.js';
-import { FireflyActivityProvider } from '@/providers/firefly/Activity.js';
 import { fireflyBridgeProvider } from '@/providers/firefly/Bridge.js';
 import { captureActivityEvent } from '@/providers/telemetry/captureActivityEvent.js';
 import { EventId } from '@/providers/types/Telemetry.js';
-import { Network, SupportedMethod } from '@/types/bridge.js';
 import { ChainId } from '@/types/frame.js';
 
 export function ActivityConnectButton() {
     const { onChangeAddress, address, fireflyAccountId } = useContext(ActivityContext);
     const { refetch: refetchActivityClaimCondition, isRefetching } = useActivityClaimCondition();
-    const { data: authToken } = useFireflyBridgeAuthorization();
     const { data: isLoggedIn } = useIsLoginTwitterInActivity();
-    const {
-        data: { connected = EMPTY_LIST } = {},
-        refetch,
-        isLoading,
-    } = useQuery({
-        queryKey: ['my-wallet-connections', authToken],
-        async queryFn() {
-            return FireflyActivityProvider.getAllConnections({ authToken });
-        },
-        refetchInterval: 600000,
-    });
+    const { data: { connected = EMPTY_LIST } = {}, isLoading } = useActivityConnections();
+    const [, bindAddress] = useActivityBindAddress();
 
     const addresses: Array<{ address: string; ens?: string }> = connected
         .filter((x) => x.platform === 'eth')
@@ -108,33 +95,8 @@ export function ActivityConnectButton() {
                     ))}
                     <Menu.Item>
                         <button
-                            className="flex cursor-pointer items-center justify-start px-4 py-[11px] text-sm font-semibold leading-6 hover:bg-main/10"
-                            onClick={async () => {
-                                if (fireflyBridgeProvider.supported) {
-                                    const address = await fireflyBridgeProvider.request(SupportedMethod.BIND_WALLET, {
-                                        type: Network.EVM,
-                                    });
-                                    onChangeAddress(address);
-                                    captureActivityEvent(EventId.EVENT_CONNECT_WALLET_SUCCESS, {
-                                        wallet_address: address,
-                                        firefly_account_id: fireflyAccountId,
-                                    });
-                                    await refetchActivityClaimCondition();
-                                    await refetch();
-                                    return;
-                                }
-                                const { response } = await AddWalletModalRef.openAndWaitForClose({
-                                    connections: connected,
-                                    platform: 'evm',
-                                });
-                                if (response?.address) {
-                                    onChangeAddress(response.address);
-                                    captureActivityEvent(EventId.EVENT_CONNECT_WALLET_SUCCESS, {
-                                        wallet_address: response.address,
-                                    });
-                                }
-                                await refetch();
-                            }}
+                            className="flex cursor-pointer items-center justify-start px-4 py-2 text-sm font-semibold leading-6 hover:bg-main/10"
+                            onClick={bindAddress}
                         >
                             <AddCircleIcon width={24} height={24} className="mr-2" />
                             {fireflyBridgeProvider.supported ? (
