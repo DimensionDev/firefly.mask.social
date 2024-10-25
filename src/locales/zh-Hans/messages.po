@@ -316,7 +316,7 @@ msgid "Failed to like the comment."
 msgstr "点赞失败。"
 
 msgid "Sign in"
-msgstr ""
+msgstr "登录"
 
 msgid "<0>Posted</0>an article"
 msgstr "<0>发布了</0>一篇文章"
@@ -728,6 +728,9 @@ msgstr "取消收藏"
 
 msgid "<0>Bought</0> an NFT"
 msgstr "<0>购买</0> 一个 NFT"
+
+msgid "Active"
+msgstr "进行中"
 
 msgid "Connection failed"
 msgstr "连接失败"
@@ -1633,7 +1636,7 @@ msgid "Insufficient funds"
 msgstr "金额不足"
 
 msgid "Followed <0>@{handle}</0> on X before Oct 12,2024, or followed <1>@{farcasterHandle}</1> on Farcaster before Oct 20, 2024"
-msgstr "在 2024 年 10 月 12 日之前关注了 <0>@{handle}</0> 的 X 账号，或在 2024 年 10 月 20 日之前关注了 <1>@{farcasterHandle}</1> 的 Farcaster 账号"
+msgstr "在 2024 年 10 月 12 日之前在 X 上关注了 <0>@{handle}</0>，或在 2024 年 10 月 20 日之前在 Farcaster 上关注了 <1>@{farcasterHandle}</1>"
 
 msgid "Connect your wallet to follow"
 msgstr "连接钱包并关注"
@@ -1661,9 +1664,6 @@ msgstr "没有可显示的数据。"
 
 msgid "Cancel"
 msgstr "取消"
-
-msgid "Live"
-msgstr "直播"
 
 msgid "Send on schedule"
 msgstr "发送定时任务"
@@ -2465,9 +2465,6 @@ msgstr "铸造功能"
 
 msgid "Clear"
 msgstr "清空"
-
-msgid "End"
-msgstr "结束"
 
 msgid "<0>Sent</0> an NFT to <1>{0}</1>"
 msgstr "<0>发送</0> 一个 NFT 至 <1>{0}</1>"

@@ -729,6 +729,9 @@ msgstr ""
 msgid "<0>Bought</0> an NFT"
 msgstr ""
 
+msgid "Active"
+msgstr ""
+
 msgid "Connection failed"
 msgstr ""
 
@@ -1662,9 +1665,6 @@ msgstr ""
 msgid "Cancel"
 msgstr ""
 
-msgid "Live"
-msgstr ""
-
 msgid "Send on schedule"
 msgstr ""
 
@@ -2464,9 +2464,6 @@ msgid "Mint function"
 msgstr ""
 
 msgid "Clear"
-msgstr ""
-
-msgid "End"
 msgstr ""
 
 msgid "<0>Sent</0> an NFT to <1>{0}</1>"
