@@ -1,5 +1,6 @@
 import { sendGAEvent } from '@next/third-parties/google';
 import { v4 as uuid } from 'uuid';
+import { isHex } from 'viem';
 
 import { STATUS } from '@/constants/enum.js';
 import { env } from '@/constants/env.js';
@@ -9,7 +10,6 @@ import { getPublicParameters } from '@/providers/telemetry/getPublicParameters.j
 import type { Safary } from '@/providers/types/Safary.js';
 import { type Events, EventType, Provider, ProviderFilter, VersionFilter } from '@/providers/types/Telemetry.js';
 import { useDeveloperSettingsState } from '@/store/useDeveloperSettingsStore.js';
-import { isHex } from 'viem';
 
 function formatParameter(key: string, value: unknown): [string, unknown] {
     if (typeof value === 'boolean') {
