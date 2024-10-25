@@ -12,8 +12,11 @@ interface DeveloperSettingsState {
     useDevelopmentAPI: boolean;
     updateUseDevelopmentAPI: (value: boolean) => void;
 
-    logTelemetry: boolean;
-    updateLogTelemetry: (value: boolean) => void;
+    telemetry: boolean;
+    updateTelemetry: (value: boolean) => void;
+
+    telemtryDebug: boolean;
+    updateTelemetryDebug: (value: boolean) => void;
 }
 
 function updateRedPacketApiRoot(devMode: boolean) {
@@ -33,17 +36,24 @@ const useDeveloperSettingsBase = create<
                     state.useDevelopmentAPI = value;
                 }),
 
-            logTelemetry: env.external.NEXT_PUBLIC_TELEMETRY === STATUS.Enabled,
-            updateLogTelemetry: (value: boolean) =>
+            telemetry: env.external.NEXT_PUBLIC_TELEMETRY === STATUS.Enabled,
+            updateTelemetry: (value: boolean) =>
                 set((state) => {
-                    state.logTelemetry = value;
+                    state.telemetry = value;
+                }),
+
+            telemtryDebug: env.external.NEXT_PUBLIC_TELEMETRY_DEBUG === STATUS.Enabled,
+            updateTelemetryDebug: (value: boolean) =>
+                set((state) => {
+                    state.telemtryDebug = value;
                 }),
         })),
         {
             name: 'developer-settings',
             partialize: (state) => ({
                 useDevelopmentAPI: state.useDevelopmentAPI,
-                captureTelemetry: state.logTelemetry,
+                telemtry: state.telemetry,
+                telemtryDebug: state.telemtryDebug,
             }),
             onRehydrateStorage: (state) => {
                 updateRedPacketApiRoot(state.useDevelopmentAPI);

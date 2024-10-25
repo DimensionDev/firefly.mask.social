@@ -43,7 +43,7 @@ class Telemetry extends Provider<Events, never> {
             return;
         }
 
-        if (!useDeveloperSettingsState.getState().logTelemetry) {
+        if (!useDeveloperSettingsState.getState().telemetry) {
             console.info('[telemetry] capture event:', name, parameters);
             return;
         }
