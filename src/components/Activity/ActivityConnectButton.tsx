@@ -2,7 +2,7 @@
 
 import { Menu } from '@headlessui/react';
 import { Trans } from '@lingui/macro';
-import { useContext } from 'react';
+import { type MouseEvent, useContext } from 'react';
 
 import AddCircleIcon from '@/assets/add-circle.svg';
 import LoadingIcon from '@/assets/loading.svg';
@@ -51,7 +51,7 @@ export function ActivityConnectButton() {
                             ? 'relative inline-flex items-center rounded-full border border-current bg-transparent px-4 leading-[30px] text-main'
                             : 'relative inline-flex items-center rounded-full bg-main px-4 leading-8 text-primaryBottom'
                     }
-                    onClick={(e) => {
+                    onClick={(e: MouseEvent<HTMLButtonElement>) => {
                         if (isLoggedIn) return;
                         e.preventDefault();
                         enqueueWarningMessage(<Trans>Please sign in with X to continue</Trans>);
