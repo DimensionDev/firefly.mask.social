@@ -6,6 +6,7 @@ import { type HTMLProps, useContext } from 'react';
 import NavigationBarBackIcon from '@/assets/navigation-bar-back.svg';
 import ShareIcon from '@/assets/share-navbar.svg';
 import { ActivityContext } from '@/components/Activity/ActivityContext.js';
+import { IS_ANDROID } from '@/constants/bowser.js';
 import { PageRoute } from '@/constants/enum.js';
 import { classNames } from '@/helpers/classNames.js';
 import { useComeBack } from '@/hooks/useComeback.js';
@@ -26,9 +27,16 @@ export function NavigationBar({ children, className }: Props) {
             className={classNames(
                 'sticky top-0 z-20 grid h-[44px] w-full grid-cols-[24px_1fr_24px] items-center justify-between gap-2 bg-primaryBottom px-4 text-center text-lg font-bold',
                 className,
+                {
+                    'dark:bg-[#181a20]': IS_ANDROID,
+                },
             )}
         >
-            <div className="absolute bottom-full left-0 h-[500px] w-full bg-primaryBottom" />
+            <div
+                className={classNames('absolute bottom-full left-0 h-[500px] w-full bg-primaryBottom', {
+                    'dark:bg-[#181a20]': IS_ANDROID,
+                })}
+            />
             <button
                 className="h-6 w-6 cursor-pointer"
                 onClick={() => {
