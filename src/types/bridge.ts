@@ -78,7 +78,6 @@ export interface RequestArguments {
     };
     [SupportedMethod.LOGIN]: {
         platform: Platform;
-        activity?: string;
     };
     [SupportedMethod.SHARE]: {
         text: string;
