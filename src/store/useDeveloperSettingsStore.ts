@@ -29,7 +29,7 @@ const useDeveloperSettingsBase = create<
 >(
     persist(
         immer((set) => ({
-            developmentAPI: false,
+            developmentAPI: env.external.NEXT_PUBLIC_ENABLED_FIREFLY_DEV_API === STATUS.Enabled,
             updateDevelopmentAPI: (value: boolean) =>
                 set((state) => {
                     updateRedPacketApiRoot(value);
