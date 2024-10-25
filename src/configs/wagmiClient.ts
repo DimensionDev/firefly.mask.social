@@ -115,7 +115,6 @@ createAppKit({
         socials: [],
     },
     debug: env.external.NEXT_PUBLIC_VERCEL_ENV !== VERCEL_NEV.Production,
-    includeWalletIds: walletIds,
     featuredWalletIds: walletIds,
 });
 
