@@ -58,9 +58,6 @@ export default function Page() {
                                 <div className="flex-1">
                                     <h2 className="mb-2">
                                         <span>{x.title}</span>
-                                        <span className="ml-2 rounded-md bg-bg p-1 text-sm text-secondary">
-                                            {x.description}
-                                        </span>
                                     </h2>
                                     <p className="text-sm text-secondary">{x.description}</p>
                                 </div>
