@@ -74,8 +74,9 @@ export function ActivityTaskFollowCard({ source, profileId, handle }: Props) {
         >
             <ActivityVerifyText verified={isFollowedFirefly}>
                 <h3>
-                    {isFollowedFirefly ? <Trans>Follow </Trans> : <Trans>Followed </Trans>}
+                    {isFollowedFirefly ? <Trans>Followed</Trans> : <Trans>Follow</Trans>}
                     <Trans>
+                        {' '}
                         <Link className="inline text-highlight" href={resolveProfileUrl(source, profileId)}>
                             @{handle}
                         </Link>{' '}
@@ -86,7 +87,7 @@ export function ActivityTaskFollowCard({ source, profileId, handle }: Props) {
             {!isFollowedFirefly ? (
                 <div className="flex space-x-2">
                     <Button
-                        className="relative inline-block rounded-full bg-main px-4 leading-8 text-primaryBottom"
+                        className="relative inline-block whitespace-nowrap rounded-full bg-main px-4 leading-8 text-primaryBottom"
                         loading={isFollowingTwitter}
                         isLoggedIn={isLoggedIn}
                         onClick={() => followTwitter()}
@@ -94,7 +95,7 @@ export function ActivityTaskFollowCard({ source, profileId, handle }: Props) {
                         <Trans>Follow</Trans>
                     </Button>
                     <Button
-                        className="relative rounded-full border border-current px-4 leading-[30px] disabled:opacity-60"
+                        className="relative whitespace-nowrap rounded-full border border-current px-4 leading-[30px] disabled:opacity-60"
                         loading={isRefetching}
                         isLoggedIn={isLoggedIn}
                         onClick={async () => {
