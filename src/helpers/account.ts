@@ -222,16 +222,24 @@ export async function addAccount(account: Account, options?: AccountOptions) {
     }
 
     // upload sessions to firefly
-    if (!skipUploadFireflySession && belongsTo && account.session.type !== SessionType.Firefly) {
-        console.warn('[addAccount] upload sessions to firefly');
-        await uploadSessions('merge', fireflySessionHolder.sessionRequired, getProfileSessionsAll());
-    }
+    await runInSafeAsync(async () => {
+        if (!skipUploadFireflySession && belongsTo && account.session.type !== SessionType.Firefly) {
+            console.warn('[addAccount] upload sessions to firefly');
+            await uploadSessions('merge', fireflySessionHolder.sessionRequired, getProfileSessionsAll());
+        }
+    });
 
     // report farcaster signer
-    if (!skipReportFarcasterSigner && account.session.type === SessionType.Farcaster && fireflySessionHolder.session) {
-        console.warn('[addAccount] report farcaster signer');
-        runInSafeAsync(() => reportFarcasterSigner(account.session as FireflySession));
-    }
+    await runInSafeAsync(async () => {
+        if (
+            !skipReportFarcasterSigner &&
+            account.session.type === SessionType.Farcaster &&
+            fireflySessionHolder.session
+        ) {
+            console.warn('[addAccount] report farcaster signer');
+            await reportFarcasterSigner(account.session as FireflySession);
+        }
+    });
 
     captureAccountLoginEvent(account);
 
