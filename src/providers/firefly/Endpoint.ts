@@ -179,7 +179,7 @@ export class FireflyEndpoint {
         );
     }
 
-    async reportFarcasterSigner(session: FarcasterSession) {
+    async reportFarcasterSigner(session: FarcasterSession, signal?: AbortSignal) {
         // ensure session is available
         fireflySessionHolder.assertSession('[reportFarcasterSigner] firefly session required');
 
@@ -192,6 +192,7 @@ export class FireflyEndpoint {
                 signerPublickey: await getPublicKeyInHexFromSession(session),
                 signerPrivatekey: session.token,
             }),
+            signal,
         });
     }
 
