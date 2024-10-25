@@ -6,21 +6,18 @@ import { isUndefined } from 'lodash-es';
 import { usePathname, useRouter } from 'next/navigation.js';
 import { type HTMLProps, memo, useMemo } from 'react';
 
+import { PostActions } from '@/components/Actions/index.js';
+import { NoSSR } from '@/components/NoSSR.js';
 import { FeedActionType } from '@/components/Posts/ActionType.js';
 import { PostBody } from '@/components/Posts/PostBody.js';
 import { PostHeader } from '@/components/Posts/PostHeader.js';
 import { Source } from '@/constants/enum.js';
-import { dynamic } from '@/esm/dynamic.js';
 import { classNames } from '@/helpers/classNames.js';
 import { getPostUrl } from '@/helpers/getPostUrl.js';
 import { isRoutePathname } from '@/helpers/isRoutePathname.js';
 import { useIsProfileMuted } from '@/hooks/useIsProfileMuted.js';
 import { type Post } from '@/providers/types/SocialMedia.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
-
-const PostActions = dynamic(() => import('@/components/Actions/index.js').then((module) => module.PostActions), {
-    ssr: false,
-});
 
 export interface SinglePostProps extends HTMLProps<HTMLDivElement> {
     post: Post;
@@ -45,11 +42,8 @@ export const SinglePost = memo<SinglePostProps>(function SinglePost({
     index,
     className,
 }) {
-    const setScrollIndex = useGlobalState.use.setScrollIndex();
     const router = useRouter();
-
     const pathname = usePathname();
-
     const isPostPage = isRoutePathname(pathname, '/post/:source');
     const isProfilePage = isRoutePathname(pathname, '/profile/:source');
     const isChannelPage = isRoutePathname(pathname, '/channel/:detail');
@@ -83,19 +77,21 @@ export const SinglePost = memo<SinglePostProps>(function SinglePost({
                 const selection = window.getSelection();
                 if (selection && selection.toString().length !== 0) return;
                 if (!isPostPage || isComment) {
-                    if (listKey && !isUndefined(index)) setScrollIndex(listKey, index);
+                    if (listKey && !isUndefined(index)) useGlobalState.getState().setScrollIndex(listKey, index);
                     router.push(postLink);
                 }
                 return;
             }}
         >
-            {!isComment ? <FeedActionType isDetail={isDetail} post={post} listKey={listKey} index={index} /> : null}
+            <NoSSR>
+                {!isComment ? <FeedActionType isDetail={isDetail} post={post} listKey={listKey} index={index} /> : null}
+            </NoSSR>
 
             <PostHeader
                 isComment={isComment}
                 post={post}
                 onClickProfileLink={() => {
-                    if (listKey && !isUndefined(index)) setScrollIndex(listKey, index);
+                    if (listKey && !isUndefined(index)) useGlobalState.getState().setScrollIndex(listKey, index);
                 }}
             />
 
@@ -106,16 +102,19 @@ export const SinglePost = memo<SinglePostProps>(function SinglePost({
                 isDetail={isDetail}
                 isComment={isComment}
             />
-            {showPostAction ? (
-                <PostActions
-                    post={post}
-                    disabled={post.isHidden}
-                    showChannelTag={!isComment && !isChannelPage && showChannelTag}
-                    onSetScrollIndex={() => {
-                        if (listKey && !isUndefined(index)) setScrollIndex(listKey, index);
-                    }}
-                />
-            ) : null}
+            <NoSSR>
+                {showPostAction ? (
+                    <PostActions
+                        post={post}
+                        disabled={post.isHidden}
+                        showChannelTag={!isComment && !isChannelPage && showChannelTag}
+                        onSetScrollIndex={() => {
+                            if (listKey && !isUndefined(index))
+                                useGlobalState.getState().setScrollIndex(listKey, index);
+                        }}
+                    />
+                ) : null}
+            </NoSSR>
 
             {show ? (
                 <div className="mt-2 w-full cursor-pointer text-center text-medium font-bold text-highlight">

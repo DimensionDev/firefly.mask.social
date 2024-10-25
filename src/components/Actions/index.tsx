@@ -1,3 +1,6 @@
+'use client';
+
+import { useQuery } from '@tanstack/react-query';
 import { compact } from 'lodash-es';
 import { usePathname } from 'next/navigation.js';
 import { type HTMLProps, memo } from 'react';
@@ -11,26 +14,50 @@ import { PostStatistics } from '@/components/Actions/PostStatistics.js';
 import { Share } from '@/components/Actions/Share.js';
 import { ClickableArea } from '@/components/ClickableArea.js';
 import { Tips } from '@/components/Tips/index.js';
-import { PageRoute, Source } from '@/constants/enum.js';
+import { PageRoute,Source } from '@/constants/enum.js';
+import { NotFoundError } from '@/constants/error.js';
 import { classNames } from '@/helpers/classNames.js';
 import { isRoutePathname } from '@/helpers/isRoutePathname.js';
 import { resolveFireflyProfileId } from '@/helpers/resolveFireflyProfileId.js';
+import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { useFireflyIdentity } from '@/hooks/useFireflyIdentity.js';
 import { useIsSmall } from '@/hooks/useMediaQuery.js';
 import { useToggleBookmark } from '@/hooks/useToggleBookmark.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 
 interface PostActionsWithGridProps extends HTMLProps<HTMLDivElement> {
-    post: Post;
     disablePadding?: boolean;
+    post: Post;
+    isDetail?: boolean;
 }
 
 export const PostActionsWithGrid = memo<PostActionsWithGridProps>(function PostActionsWithGrid({
-    post,
     className,
+    post: initialPost,
+    isDetail = false,
     disabled = false,
     disablePadding = false,
 }) {
+    const postId = initialPost.postId;
+
+    const { data: post = initialPost } = useQuery({
+        queryKey: [initialPost.source, 'post-detail', 'actions', initialPost.postId],
+        queryFn: async () => {
+            if (!postId) return;
+
+            try {
+                const provider = resolveSocialMediaProvider(initialPost.source);
+                const post = await provider.getPostById(postId);
+                if (!post) return;
+                return post;
+            } catch (error) {
+                if (error instanceof NotFoundError) return;
+                throw error;
+            }
+        },
+        enabled: isDetail,
+    });
+
     const isComment = post.type === 'Comment';
     const identity = useFireflyIdentity(post.source, resolveFireflyProfileId(post.author) ?? '');
     const mutation = useToggleBookmark(post.source);

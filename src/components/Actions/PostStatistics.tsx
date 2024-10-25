@@ -1,3 +1,5 @@
+'use client';
+
 import { Plural, plural, t, Trans } from '@lingui/macro';
 import dayjs from 'dayjs';
 import { compact, sumBy } from 'lodash-es';

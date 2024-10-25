@@ -11,6 +11,7 @@ import { isBotRequest } from '@/helpers/isBotRequest.js';
 import { isSocialSourceInUrl } from '@/helpers/isSocialSource.js';
 import { memoizeWithRedis } from '@/helpers/memoizeWithRedis.js';
 import { resolveSocialSource } from '@/helpers/resolveSource.js';
+import { setupLocaleForSSR } from '@/i18n/index.js';
 
 export const revalidate = 60;
 
@@ -37,6 +38,8 @@ export default async function Page(props: Props) {
     const { params } = props;
     if (!isSocialSourceInUrl(params.source)) return notFound();
     const source = resolveSocialSource(params.source);
+
+    setupLocaleForSSR();
 
     return (
         <LoginRequiredGuard source={source}>

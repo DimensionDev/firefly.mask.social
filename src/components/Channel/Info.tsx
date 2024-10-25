@@ -1,18 +1,18 @@
-import { plural } from '@lingui/macro';
+import { Plural } from '@lingui/macro';
 import type { HTMLProps } from 'react';
 import urlcat from 'urlcat';
 
 import UserIcon from '@/assets/user.svg';
 import { Avatar } from '@/components/Avatar.js';
-import { ChannelMoreAction } from '@/components/Channel/ChannelMoreAction.js';
-import { BioMarkup } from '@/components/Markup/BioMarkup.js';
+import { ChannelInfoAction } from '@/components/Channel/ChannelInfoAction.js';
+import { ChannelInfoBio } from '@/components/Channel/ChannelInfoBio.js';
 import { SocialSourceIcon } from '@/components/SocialSourceIcon.js';
-import { type SocialSource, Source } from '@/constants/enum.js';
+import { type SocialSource } from '@/constants/enum.js';
+import { SITE_URL } from '@/constants/index.js';
 import { Link } from '@/esm/Link.js';
 import { classNames } from '@/helpers/classNames.js';
 import { nFormatter } from '@/helpers/formatCommentCounts.js';
 import { getChannelUrl } from '@/helpers/getChannelUrl.js';
-import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import type { Channel } from '@/providers/types/SocialMedia.js';
 
 interface InfoProps extends HTMLProps<HTMLDivElement> {
@@ -24,8 +24,7 @@ interface InfoProps extends HTMLProps<HTMLDivElement> {
 export function Info({ channel, source, isChannelPage = false, ...rest }: InfoProps) {
     const followerCount = channel.followerCount ?? 0;
 
-    const isMedium = useIsMedium();
-    const url = urlcat(location.origin, getChannelUrl(channel));
+    const url = urlcat(SITE_URL, getChannelUrl(channel));
     const avatar = channel.imageUrl ? (
         <Avatar src={channel.imageUrl} alt="avatar" size={48} className="h-12 w-12 rounded-full" />
     ) : (
@@ -38,11 +37,7 @@ export function Info({ channel, source, isChannelPage = false, ...rest }: InfoPr
             {isChannelPage ? avatar : <Link href={url}>{avatar}</Link>}
 
             <div className="relative flex flex-1 flex-col gap-[6px]">
-                {isMedium ? (
-                    <div className="absolute right-0 top-0">
-                        <ChannelMoreAction channel={channel} />
-                    </div>
-                ) : null}
+                <ChannelInfoAction channel={channel} />
 
                 <div className="flex flex-col">
                     <h1 className="flex items-center gap-2">
@@ -55,23 +50,13 @@ export function Info({ channel, source, isChannelPage = false, ...rest }: InfoPr
                             <UserIcon width={18} height={18} />
                             <span className="text-lightMain">{nFormatter(followerCount)}</span>
                             <span className="text-secondary">
-                                {plural(followerCount, {
-                                    one: 'Follower',
-                                    other: 'Followers',
-                                })}
+                                <Plural value={followerCount} one="Follower" other="Followers" />
                             </span>
                         </data>
                     </div>
                 </div>
 
-                <BioMarkup
-                    className={classNames('text-medium', {
-                        '-ml-[60px]': !isMedium,
-                    })}
-                    source={Source.Farcaster}
-                >
-                    {channel.description ?? '-'}
-                </BioMarkup>
+                <ChannelInfoBio description={channel.description} />
             </div>
         </article>
     );
