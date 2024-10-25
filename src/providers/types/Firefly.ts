@@ -995,7 +995,7 @@ export type ConvertM3u8StatusResponse = Response<{
 
 export enum ActivityStatus {
     Upcoming = 0,
-    Live = 1,
+    Active = 1,
     Ended = 2,
 }
 

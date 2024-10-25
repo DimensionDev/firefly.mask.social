@@ -729,6 +729,9 @@ msgstr ""
 msgid "<0>Bought</0> an NFT"
 msgstr ""
 
+msgid "Active"
+msgstr ""
+
 msgid "Connection failed"
 msgstr ""
 
@@ -1660,9 +1663,6 @@ msgid "There is no data available for display."
 msgstr ""
 
 msgid "Cancel"
-msgstr ""
-
-msgid "Live"
 msgstr ""
 
 msgid "Send on schedule"

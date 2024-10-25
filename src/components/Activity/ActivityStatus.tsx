@@ -13,10 +13,10 @@ export function ActivityStatusTag({ status }: { status: ActivityStatus }) {
                     <Trans>Ended</Trans>
                 </div>
             );
-        case ActivityStatus.Live:
+        case ActivityStatus.Active:
             return (
                 <div className="flex items-center rounded-full border border-current bg-primaryBottom/80 px-2.5 text-center text-xs font-bold uppercase leading-6 text-success">
-                    <Trans>Live</Trans>
+                    <Trans>Active</Trans>
                     <div className="ml-1 h-2 w-2 shrink-0 rounded-full bg-current" />
                 </div>
             );

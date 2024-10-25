@@ -729,6 +729,9 @@ msgstr "從書籤中移除"
 msgid "<0>Bought</0> an NFT"
 msgstr "<0>已購買</0>一個 NFT"
 
+msgid "Active"
+msgstr ""
+
 msgid "Connection failed"
 msgstr "連結失敗"
 
@@ -1661,9 +1664,6 @@ msgstr "沒有可供展示的數據"
 
 msgid "Cancel"
 msgstr "取消"
-
-msgid "Live"
-msgstr ""
 
 msgid "Send on schedule"
 msgstr ""

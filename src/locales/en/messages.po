@@ -724,6 +724,9 @@ msgstr "Remove from Bookmarks"
 msgid "<0>Bought</0> an NFT"
 msgstr "<0>Bought</0> an NFT"
 
+msgid "Active"
+msgstr "Active"
+
 msgid "Connection failed"
 msgstr "Connection failed"
 
@@ -1656,9 +1659,6 @@ msgstr "There is no data available for display."
 
 msgid "Cancel"
 msgstr "Cancel"
-
-msgid "Live"
-msgstr "Live"
 
 msgid "Send on schedule"
 msgstr "Send on schedule"
