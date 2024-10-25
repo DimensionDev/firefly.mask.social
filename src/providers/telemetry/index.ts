@@ -67,6 +67,9 @@ class Telemetry extends Provider<Events, never> {
 
         if (provider_filter === ProviderFilter.All || provider_filter === ProviderFilter.GA) {
             try {
+                if (env.external.NEXT_PUBLIC_TELEMETRY_DEBUG === STATUS.Enabled) {
+                    console.log('[ga] DEBUG - capture event:', event);
+                }
                 sendGAEvent('event', event.eventType, {
                     ...event.parameters,
                     debug_mode: env.external.NEXT_PUBLIC_TELEMETRY_DEBUG === STATUS.Enabled,
