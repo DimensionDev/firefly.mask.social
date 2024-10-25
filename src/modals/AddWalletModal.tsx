@@ -60,7 +60,7 @@ export const AddWalletModal = forwardRef<SingletonModalRefCreator<AddWalletModal
             if (existedConnection) {
                 const addressName = existedConnection.ens?.[0] || formatEthereumAddress(address, 8);
                 AccountModalRef.open();
-                enqueueErrorMessage(t`${addressName} is already connected.`);
+                enqueueInfoMessage(t`${addressName} is already connected.`);
                 return;
             }
             const message = await FireflySocialMediaProvider.getMessageToSignForBindWallet(address.toLowerCase());
@@ -79,7 +79,7 @@ export const AddWalletModal = forwardRef<SingletonModalRefCreator<AddWalletModal
             );
             if (existedConnection) {
                 const addressName = existedConnection.ens?.[0] || formatSolanaAddress(address, 8);
-                enqueueErrorMessage(t`${addressName} is already connected.`);
+                enqueueInfoMessage(t`${addressName} is already connected.`);
                 return;
             }
             const hexMessage = await FireflySocialMediaProvider.getMessageToSignMessageForBindSolanaWallet(address);
