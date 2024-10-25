@@ -1,15 +1,18 @@
 'use client';
 
+import { usePathname } from 'next/navigation.js';
 import { type HTMLProps, useContext } from 'react';
 
 import NavigationBarBackIcon from '@/assets/navigation-bar-back.svg';
 import ShareIcon from '@/assets/share-navbar.svg';
 import { ActivityContext } from '@/components/Activity/ActivityContext.js';
+import { PageRoute } from '@/constants/enum.js';
 import { classNames } from '@/helpers/classNames.js';
 import { useComeBack } from '@/hooks/useComeback.js';
 import { fireflyBridgeProvider } from '@/providers/firefly/Bridge.js';
 import { captureActivityEvent } from '@/providers/telemetry/captureActivityEvent.js';
 import { EventId } from '@/providers/types/Telemetry.js';
+import { useGlobalState } from '@/store/useGlobalStore.js';
 import { SupportedMethod } from '@/types/bridge.js';
 
 interface Props extends HTMLProps<'div'> {}
@@ -17,6 +20,7 @@ interface Props extends HTMLProps<'div'> {}
 export function NavigationBar({ children, className }: Props) {
     const comeback = useComeBack();
     const { fireflyAccountId } = useContext(ActivityContext);
+    const pathname = usePathname();
     return (
         <div
             className={classNames(
@@ -28,6 +32,10 @@ export function NavigationBar({ children, className }: Props) {
             <button
                 className="h-6 w-6 cursor-pointer"
                 onClick={() => {
+                    if (pathname !== PageRoute.Events && useGlobalState.getState().routeChanged) {
+                        comeback();
+                        return;
+                    }
                     if (fireflyBridgeProvider.supported) fireflyBridgeProvider.request(SupportedMethod.BACK, {});
                     else comeback();
                 }}
