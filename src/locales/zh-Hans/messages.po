@@ -94,7 +94,7 @@ msgid "Failed to collect article."
 msgstr "收集文章失败。"
 
 msgid "Hold on! Meet any of the following to unlock a premium collectible:"
-msgstr ""
+msgstr "满足以下任一条件即可解锁高级版本："
 
 msgid "Communities"
 msgstr "社区"
@@ -115,7 +115,7 @@ msgid "Up to 7 days can be set as the scheduled time."
 msgstr "最长可以设置 7 天的定时任务。"
 
 msgid "Followed @{0} on {sourceName}"
-msgstr ""
+msgstr "在 {sourceName} 上关注了 @{0}"
 
 msgid "{followerCount, plural, one {Follower} other {Followers}}"
 msgstr "{followerCount, plural, one {关注者} other {关注者}}"
@@ -184,10 +184,10 @@ msgid "<0>The maximum number of coins coded to exist in the lifetime of the cryp
 msgstr "<0>加密货币生命周期存在的最大发行数量。它与股票市场中可发行股票的最大数量相当。</0><1>最大供应量 = 理论最大值</1>"
 
 msgid "Ended"
-msgstr ""
+msgstr "已结束"
 
 msgid "Failed to follow @{handle} on X."
-msgstr ""
+msgstr "未能在 X 上关注 @{handle}。"
 
 msgid "More"
 msgstr "更多"
@@ -229,7 +229,7 @@ msgid "Location should not exceed {maxLocationSize} characters"
 msgstr "地址不可以超过 {maxLocationSize} 个字"
 
 msgid "Enable telemetry debug mode"
-msgstr ""
+msgstr "启用遥测调试模式"
 
 msgid "FAILED POST"
 msgstr "发帖失败"
@@ -349,10 +349,10 @@ msgid "Show less"
 msgstr "收起"
 
 msgid "Follow <0>@{handle}</0> on {0}"
-msgstr ""
+msgstr "在 {0} 上关注 <0>@{handle}</0>"
 
 msgid "Verification unsuccessful"
-msgstr ""
+msgstr "验证未成功"
 
 msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} {1, select, Lens {mirrored your} Farcaster {recasted your} other {mirrored your}} <4>{2, select, Post {post} Comment {comment} Quote {quote} Mirror {mirror} other {post}}</4>"
 msgstr "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} {1, select, Lens {转帖了你的} Farcaster {转帖了你的} other {转帖了你的}} <4>{2, select, Post {帖子} Comment {评论} Quote {引用} Mirror {转帖} other {帖子}}</4>"
@@ -361,7 +361,7 @@ msgid "Total"
 msgstr "总额"
 
 msgid "Signer key not found. Please approve a new one for us in Warpcast."
-msgstr ""
+msgstr "未找到签名密钥。请在 Warpcast 中为我们批准一个新密钥。"
 
 msgid "<0>{0}</0><1>mirrored</1>"
 msgstr "<0>{0}</0><1>转帖</1>"
@@ -547,7 +547,7 @@ msgid "1m left"
 msgstr "1分钟剩余"
 
 msgid "Core Asset Access: Unlock premium tokens, exclusive NFTs, and nodes for more investment opportunities."
-msgstr ""
+msgstr "核心资产访问：解锁高级代币、独家 NFT 和更多投资机会的节点。"
 
 msgid "Items"
 msgstr "条目"
@@ -661,7 +661,7 @@ msgid "Frame Validator"
 msgstr "Frame 验证器"
 
 msgid "Priority Access: Holders get early access to future projects, beta tests, and airdrops. And they will also have a first look at the latest features and content."
-msgstr ""
+msgstr "优先访问：持有者可以提前体验未来项目、内测和空投。他们还将率先查看最新功能和内容。"
 
 msgid "No proxy"
 msgstr "无代理"
@@ -841,7 +841,7 @@ msgid "<0>Sold</0> an NFT worth {costEl}"
 msgstr "<0>出售了</0> 一个 NFT 价值 {costEl}"
 
 msgid "Your Farcaster account holds Power Badge"
-msgstr ""
+msgstr "您的 Farcaster 账户拥有 Power Badge。"
 
 msgid "Owned By"
 msgstr "属于"
@@ -889,7 +889,7 @@ msgid "Your draft was saved."
 msgstr "草稿已被保存"
 
 msgid "Send telemetry events in debug mode."
-msgstr ""
+msgstr "在调试模式下发送遥测事件。"
 
 msgid "The chainId mismatch."
 msgstr "chainId 不匹配"
@@ -928,13 +928,13 @@ msgid "Drafts"
 msgstr "草稿"
 
 msgid "About Airdrop"
-msgstr ""
+msgstr "关于空投"
 
 msgid "Follow"
 msgstr "关注"
 
 msgid "Sorry, this wallet is already linked to another Firefly account. Please try a different one."
-msgstr ""
+msgstr "抱歉，该钱包已经链接到另一个 Firefly 账户。请尝试其他钱包。"
 
 msgid "This token contract is open source. You can check the contract code for details. Unsourced token contracts are likely to have malicious functions to defraud their users of their assets."
 msgstr "此通证合约是开源代码。您可以检查合约代码了解详情。 未知来源的通证合同很可能带有恶意的功能来欺诈其用户的资产。"
@@ -1294,7 +1294,7 @@ msgid "Contract source code not verified"
 msgstr "合约源代码未验证"
 
 msgid "Not Started"
-msgstr ""
+msgstr "未开始"
 
 msgid "Cannot send tip to yourself"
 msgstr "不能打赏给自己"
@@ -1342,7 +1342,7 @@ msgid "What's happening..."
 msgstr "正在发生..."
 
 msgid "Connect your wallet to claim your NFT"
-msgstr ""
+msgstr "连接您的钱包以领取您的 NFT"
 
 msgid "24h"
 msgstr "24小时"
@@ -1400,9 +1400,6 @@ msgstr "定时任务的时间跨度最长是 7 天。"
 
 msgid "Display"
 msgstr "显示"
-
-msgid "Submit claimed address"
-msgstr "提交已领取的地址"
 
 msgid "Mute successfully."
 msgstr "隐藏成功。"
@@ -1649,6 +1646,9 @@ msgstr "市场上流通并可供公众交易的货币数量。这相当于市场
 
 msgid "{0, plural, one {repost} other {reposts}}"
 msgstr "{0, plural, one {转帖} other {转帖}}"
+
+msgid "Wallet submitted"
+msgstr "已选择的钱包"
 
 msgid "This does not appear to be a honeypot."
 msgstr "这看起来不像是一个陷阱。"
@@ -1999,7 +1999,7 @@ msgid "No codes found to suspend trading."
 msgstr "没有发现可以暂停交易的代码。"
 
 msgid "Failed to bind address."
-msgstr ""
+msgstr "绑定地址失败。"
 
 msgid "Buy Tax: {0}%"
 msgstr "购买税率: {0}%"
@@ -2398,7 +2398,7 @@ msgid "Following"
 msgstr "正在关注"
 
 msgid "Your X account holds Premium status"
-msgstr ""
+msgstr "您的 X 账号属于 Premium 账号。"
 
 msgid "Hours"
 msgstr "小时"

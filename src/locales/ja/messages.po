@@ -1401,9 +1401,6 @@ msgstr ""
 msgid "Display"
 msgstr ""
 
-msgid "Submit claimed address"
-msgstr ""
-
 msgid "Mute successfully."
 msgstr ""
 
@@ -1648,6 +1645,9 @@ msgid "The amount of coins that are circulating in the market and are tradeable 
 msgstr ""
 
 msgid "{0, plural, one {repost} other {reposts}}"
+msgstr ""
+
+msgid "Wallet submitted"
 msgstr ""
 
 msgid "This does not appear to be a honeypot."
