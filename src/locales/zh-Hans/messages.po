@@ -1018,7 +1018,7 @@ msgid "Comment"
 msgstr "评论"
 
 msgid "Followed @{handle} on X"
-msgstr "在 X 上关注 @{handle}"
+msgstr "已关注 @{handle} 的 X 账号"
 
 msgid "Only people you mention"
 msgstr "只有你提及的人"
@@ -1153,7 +1153,7 @@ msgid "Failed to unmute /{0}."
 msgstr "取消隐藏失败/{0}。"
 
 msgid "Login X successfully."
-msgstr "登陆 X 成功"
+msgstr "成功登录 X。"
 
 msgid "Please confirm the login with Warpcast."
 msgstr "请确认使用 Warpcast 登录。"
@@ -1246,7 +1246,7 @@ msgid "<0>Acquired</0> an NFT"
 msgstr "<0>获取</0> 一个 NFT"
 
 msgid "View on Explorer"
-msgstr "在区块链浏览器查看"
+msgstr "在 Explorer 上查看"
 
 msgid "Tag {0} in a post to let them know you’ve sent an onchain tip to their wallet."
 msgstr "在帖子中标记 {0}，让他们知道你已经向他们的钱包发打赏了一笔小费。"
@@ -1444,7 +1444,7 @@ msgid "Display"
 msgstr "显示"
 
 msgid "Submit claimed address"
-msgstr "提交已认领的地址"
+msgstr "提交已领取的地址"
 
 msgid "Mute successfully."
 msgstr "隐藏成功。"
@@ -1459,7 +1459,7 @@ msgid "Add wallet"
 msgstr "添加钱包"
 
 msgid "Voting Rights: Participate in key decisions and shape the platform’s development through community governance."
-msgstr "投票权：通过社区治理参与关键决策并塑造平台的发展。"
+msgstr "投票权：通过社区治理参与关键决策，塑造平台的发展。"
 
 msgid "Please switch to {0}"
 msgstr "请切换到 {0}"
@@ -1621,7 +1621,7 @@ msgid "Wallets retrieved from public verifiable data registries or our entity al
 msgstr "从公开可验证数据注册表中或我们的实体算法中检索到的钱包可以被举报从而断开连接。"
 
 msgid "Step 2 Connect Wallet"
-msgstr "第二步链接钱包"
+msgstr "第 2 步 连接钱包"
 
 msgid "Light Mode"
 msgstr "明亮模式"
@@ -1840,7 +1840,7 @@ msgid "Claimed"
 msgstr "已领取"
 
 msgid "Step 1 Sign in"
-msgstr "第一步登陆"
+msgstr "第 1 步 登录"
 
 msgid "Copy"
 msgstr "复制"
