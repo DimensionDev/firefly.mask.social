@@ -37,7 +37,7 @@ export default function Page({
             return FireflyActivityProvider.getFireflyActivityInfo(name);
         },
     });
-    const timeTemplate = 'M/DD hh:MM';
+    const timeTemplate = 'M/DD hh:mm';
 
     if (!data) notFound();
 
