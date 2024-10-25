@@ -14,7 +14,7 @@ import { PostStatistics } from '@/components/Actions/PostStatistics.js';
 import { Share } from '@/components/Actions/Share.js';
 import { ClickableArea } from '@/components/ClickableArea.js';
 import { Tips } from '@/components/Tips/index.js';
-import { PageRoute,Source } from '@/constants/enum.js';
+import { PageRoute, Source } from '@/constants/enum.js';
 import { NotFoundError } from '@/constants/error.js';
 import { classNames } from '@/helpers/classNames.js';
 import { isRoutePathname } from '@/helpers/isRoutePathname.js';
