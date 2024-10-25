@@ -13,6 +13,7 @@ export function useLoginInActivity() {
         if (fireflyBridgeProvider.supported) {
             const result = await fireflyBridgeProvider.request(SupportedMethod.LOGIN, {
                 platform: Platform.TWITTER,
+                activity: window.location.href,
             });
             await queryFireflyBridgeAuthorization.refetch();
             if (result === 'true') {
