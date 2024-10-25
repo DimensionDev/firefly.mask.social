@@ -94,7 +94,7 @@ msgid "Failed to collect article."
 msgstr "收集文章失败。"
 
 msgid "Hold on! Meet any of the following to unlock a premium collectible:"
-msgstr "满足以下任一条件即可解锁尊贵藏品："
+msgstr "满足以下任一条件即可解锁高级版本："
 
 msgid "Communities"
 msgstr "社区"
