@@ -22,11 +22,7 @@ export function ActivityConnectCard() {
         >
             <ActivityVerifyText verified={!!address}>
                 <h3>
-                    {address ? (
-                        <Trans>Wallet submitted</Trans>
-                    ) : (
-                        <Trans>Connect your wallet to claim your NFT</Trans>
-                    )}
+                    {address ? <Trans>Wallet submitted</Trans> : <Trans>Connect your wallet to claim your NFT</Trans>}
                 </h3>
             </ActivityVerifyText>
             <div className="flex h-8 flex-shrink-0 space-x-2">
