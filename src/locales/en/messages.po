@@ -232,9 +232,6 @@ msgstr "Above 10% may be considered a high tax rate. More than 50% tax rate mean
 msgid "Location should not exceed {maxLocationSize} characters"
 msgstr "Location should not exceed {maxLocationSize} characters"
 
-msgid "Potential risk of external call."
-msgstr "Potential risk of external call."
-
 msgid "Enable telemetry debug mode"
 msgstr "Enable telemetry debug mode"
 
