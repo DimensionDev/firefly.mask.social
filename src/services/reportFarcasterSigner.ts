@@ -7,7 +7,7 @@ import type { FarcasterSession } from '@/providers/farcaster/Session.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
 import { settings } from '@/settings/index.js';
 
-export async function reportFarcasterSigner(session: FarcasterSession) {
+export async function reportFarcasterSigner(session: FarcasterSession, signal?: AbortSignal) {
     // ensure session is available
     fireflySessionHolder.assertSession('[reportFarcasterSigner] firefly session required');
 
@@ -20,5 +20,6 @@ export async function reportFarcasterSigner(session: FarcasterSession) {
             signerPublickey: await getPublicKeyInHexFromSession(session),
             signerPrivatekey: session.token,
         }),
+        signal,
     });
 }
