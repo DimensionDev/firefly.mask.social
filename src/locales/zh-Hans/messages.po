@@ -1018,7 +1018,7 @@ msgid "Comment"
 msgstr "评论"
 
 msgid "Followed @{handle} on X"
-msgstr ""
+msgstr "在 X 上关注 @{handle}"
 
 msgid "Only people you mention"
 msgstr "只有你提及的人"
@@ -1153,7 +1153,7 @@ msgid "Failed to unmute /{0}."
 msgstr "取消隐藏失败/{0}。"
 
 msgid "Login X successfully."
-msgstr ""
+msgstr "登陆 X 成功"
 
 msgid "Please confirm the login with Warpcast."
 msgstr "请确认使用 Warpcast 登录。"
@@ -1162,7 +1162,7 @@ msgid "Log in with recovery phrase"
 msgstr "使用助记词登录"
 
 msgid "Connected"
-msgstr ""
+msgstr "已连接"
 
 msgid "Edit Profile"
 msgstr "编辑个人信息"
@@ -1189,7 +1189,7 @@ msgid "NFT Contract"
 msgstr "NFT 合约"
 
 msgid "Telemetry"
-msgstr ""
+msgstr "遥测"
 
 msgid "Show more tokens with small balances"
 msgstr "展示更多的小额通证"
@@ -1246,7 +1246,7 @@ msgid "<0>Acquired</0> an NFT"
 msgstr "<0>获取</0> 一个 NFT"
 
 msgid "View on Explorer"
-msgstr ""
+msgstr "在区块链浏览器查看"
 
 msgid "Tag {0} in a post to let them know you’ve sent an onchain tip to their wallet."
 msgstr "在帖子中标记 {0}，让他们知道你已经向他们的钱包发打赏了一笔小费。"
@@ -1312,7 +1312,7 @@ msgid "Settings"
 msgstr "设置"
 
 msgid "X Premium account"
-msgstr ""
+msgstr "X Premium 账户"
 
 msgid "Unsent posts"
 msgstr "未发送的帖子"
@@ -1444,7 +1444,7 @@ msgid "Display"
 msgstr "显示"
 
 msgid "Submit claimed address"
-msgstr ""
+msgstr "提交已认领的地址"
 
 msgid "Mute successfully."
 msgstr "隐藏成功。"
@@ -1459,7 +1459,7 @@ msgid "Add wallet"
 msgstr "添加钱包"
 
 msgid "Voting Rights: Participate in key decisions and shape the platform’s development through community governance."
-msgstr ""
+msgstr "投票权：通过社区治理参与关键决策并塑造平台的发展。"
 
 msgid "Please switch to {0}"
 msgstr "请切换到 {0}"
@@ -1621,7 +1621,7 @@ msgid "Wallets retrieved from public verifiable data registries or our entity al
 msgstr "从公开可验证数据注册表中或我们的实体算法中检索到的钱包可以被举报从而断开连接。"
 
 msgid "Step 2 Connect Wallet"
-msgstr ""
+msgstr "第二步链接钱包"
 
 msgid "Light Mode"
 msgstr "明亮模式"
@@ -1633,7 +1633,7 @@ msgid "Insufficient funds"
 msgstr "金额不足"
 
 msgid "Followed <0>@{handle}</0> on X before Oct 12,2024, or followed <1>@{farcasterHandle}</1> on Farcaster before Oct 20, 2024"
-msgstr ""
+msgstr "在 2024 年 10 月 12 日之前关注了 <0>@{handle}</0> 的 X 账号，或在 2024 年 10 月 20 日之前关注了 <1>@{farcasterHandle}</1> 的 Farcaster 账号"
 
 msgid "Connect your wallet to follow"
 msgstr "连接钱包并关注"
@@ -1663,13 +1663,13 @@ msgid "Cancel"
 msgstr "取消"
 
 msgid "Live"
-msgstr ""
+msgstr "直播"
 
 msgid "Send on schedule"
 msgstr "发送定时任务"
 
 msgid "Your transaction will confirm shortly"
-msgstr ""
+msgstr "您的交易将很快确认"
 
 msgid "will send on {0} at {1}"
 msgstr "将在 {0} {1} 发送"
@@ -1840,7 +1840,7 @@ msgid "Claimed"
 msgstr "已领取"
 
 msgid "Step 1 Sign in"
-msgstr ""
+msgstr "第一步登陆"
 
 msgid "Copy"
 msgstr "复制"
@@ -1891,7 +1891,7 @@ msgid "The contract may contain additional issuance functions, which could maybe
 msgstr "合约可能含有额外的发行功能，这可能会产生大量的通证，导致通证价格的重大波动。建议向项目组确认它是否遵守通证发行准则。"
 
 msgid "Upcoming"
-msgstr ""
+msgstr "即将推出"
 
 msgid "{handleOrEnsOrAddress} unwatched"
 msgstr "{handleOrEnsOrAddress} 取消关注"
@@ -2068,7 +2068,7 @@ msgid "1y"
 msgstr "1年"
 
 msgid "Change"
-msgstr ""
+msgstr "切换"
 
 msgid "No codes found to suspend trading."
 msgstr "没有发现可以暂停交易的代码。"
@@ -2077,7 +2077,7 @@ msgid "Buy Tax: {0}%"
 msgstr "购买税率: {0}%"
 
 msgid "Success!"
-msgstr ""
+msgstr "成功！"
 
 msgid "<0>You</0> and {0} recasted"
 msgstr "<0> 你 </0> 和 {0} 人都转发了"
@@ -2092,7 +2092,7 @@ msgid "Article added to your Bookmarks"
 msgstr "文章已经添加到您的收藏中"
 
 msgid "Please sign in with X to continue"
-msgstr ""
+msgstr "请登陆 X 以继续"
 
 msgid "Create a Post"
 msgstr "创建帖子"
@@ -2212,7 +2212,7 @@ msgid "Detail"
 msgstr "详情"
 
 msgid "Exclusive Events"
-msgstr ""
+msgstr "独家活动"
 
 msgid "Post added to your Bookmarks"
 msgstr "帖子已经添加到您的收藏中"
@@ -2239,7 +2239,7 @@ msgid "Invalid URL"
 msgstr "无效的 URL"
 
 msgid "Followed <0>@{handle}</0> on {0}"
-msgstr ""
+msgstr "在 {0} 上关注了 <0>@{handle}</0>"
 
 msgid "View on explorer"
 msgstr "在区块链浏览器查看"
@@ -2326,13 +2326,13 @@ msgid "Suspended account"
 msgstr "被冻结账户"
 
 msgid "Final Step Claim Now!"
-msgstr ""
+msgstr "最后一步，立即领取！"
 
 msgid "Verify"
-msgstr ""
+msgstr "验证"
 
 msgid "Hold ≥ $10k Base Chain asset"
-msgstr ""
+msgstr "持有 ≥ $10,000 的 Base Chain 资产"
 
 msgid "Recasted"
 msgstr "已转发"
@@ -2410,7 +2410,7 @@ msgid "7d"
 msgstr "7天"
 
 msgid "*Event runs from September 29, 2024, 12:00 UTC to October 15, 2024, 23:59 UTC."
-msgstr ""
+msgstr "*活动时间为 2024 年 9 月 29 日 12:00 UTC 至 2024 年 10 月 15 日 23:59 UTC。"
 
 msgid "Name (optional)"
 msgstr "姓名（可选）"
@@ -2431,7 +2431,7 @@ msgid "Followed @{0} on Lens"
 msgstr "在 Lens 上关注了 @{0}"
 
 msgid "Claim Now"
-msgstr ""
+msgstr "立即领取"
 
 msgid "Collect for {0} {1}"
 msgstr "收集 {0} {1}"
@@ -2446,7 +2446,7 @@ msgid "Translating..."
 msgstr "翻译中..."
 
 msgid "Claim Basic"
-msgstr ""
+msgstr "领取基础奖励"
 
 msgid "Back to home"
 msgstr "返回主页"
@@ -2464,7 +2464,7 @@ msgid "Clear"
 msgstr "清空"
 
 msgid "End"
-msgstr ""
+msgstr "结束"
 
 msgid "<0>Sent</0> an NFT to <1>{0}</1>"
 msgstr "<0>发送</0> 一个 NFT 至 <1>{0}</1>"
@@ -2515,7 +2515,7 @@ msgid "Note:"
 msgstr "注意 ："
 
 msgid "Farcaster Powerbadge account"
-msgstr ""
+msgstr "Farcaster 权限徽章账户"
 
 msgid "Failed to create schedule post."
 msgstr "创建定时任务失败"
