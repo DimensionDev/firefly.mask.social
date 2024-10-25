@@ -22,10 +22,10 @@ msgid "{days, plural, one {1 day left} other {{days} days left}}"
 msgstr "{days, plural, one {1 天剩余} other {{days} 天剩余}}"
 
 msgid "Do you want to retry with the full or remaining content?"
-msgstr "您想尝试重新发送或者仅发送剩余部分吗？"
+msgstr "您想尝试重新发送全部内容还是仅发送剩余部分？"
 
 msgid "Login required to post on {sourceName}."
-msgstr "请先登录 {sourceName}。"
+msgstr "在 {sourceName} 上发帖需要登录。"
 
 msgid "Be the first one to comment!"
 msgstr "还没有人评论哦～快来抢沙发！"
@@ -49,28 +49,28 @@ msgid "Undo mirror"
 msgstr "取消转帖"
 
 msgid "FAILED THREAD POST"
-msgstr "发送 thread 失败"
+msgstr "发送线程失败"
 
 msgid "Confirm to disconnect this wallet and related accounts from Firefly’s social graph?"
-msgstr "确认从 Firefly 的社交图谱中断链这个钱包和相关账户？"
+msgstr "确认要从 Firefly 的社交图谱中断开这个钱包和相关账户吗？"
 
 msgid "Allow Collect Module"
-msgstr "允许收藏"
+msgstr "允许收藏模块"
 
 msgid "New connect with Warpcast"
 msgstr "使用 Warpcast 连接"
 
 msgid "Edit Image"
-msgstr "修改图片"
+msgstr "编辑图片"
 
 msgid "Failed to upload. File type is not supported on X."
-msgstr "图片格式 X 不支持。上传失败。"
+msgstr "上传失败。文件类型在 X 上不被支持。"
 
 msgid "Report @{0}"
 msgstr "报告 @{0}"
 
 msgid "Sell Tax: {0}%"
-msgstr "售卖税率: {0}%"
+msgstr "出售税率: {0}%"
 
 msgid "Failed to translate post. Please retry later."
 msgstr "翻译失败。请稍后重试。"
@@ -82,7 +82,7 @@ msgid "Unmute successfully."
 msgstr "取消隐藏成功。"
 
 msgid "Your frame URL"
-msgstr "您 Frame 的 URL"
+msgstr "您的 Frame 的 URL"
 
 msgid "Send a tip"
 msgstr "发送打赏"
@@ -94,7 +94,7 @@ msgid "Failed to collect article."
 msgstr "收集文章失败。"
 
 msgid "Hold on! Meet any of the following to unlock a premium collectible:"
-msgstr ""
+msgstr "请稍候！满足以下任意条件以解锁优质收藏品："
 
 msgid "Communities"
 msgstr "社区"
@@ -103,46 +103,46 @@ msgid "Discover"
 msgstr "发现"
 
 msgid "Ask a question"
-msgstr "询问"
+msgstr "提问"
 
 msgid "Please be cautious when connecting your wallet, as malicious websites may attempt to access your funds."
-msgstr "当您连接钱包时请务必小心，一些恶意网站会试图访问您的钱包资产。"
+msgstr "连接钱包时请务必小心，恶意网站可能会试图访问您的资产。"
 
 msgid "<0>Fully Diluted Valuation (FDV) = Current Price x Total Supply</0><1>Fully Diluted Valuation (FDV) is the theoretical market capitalization of a coin if the entirety of its supply is in circulation, based on its current market price. The FDV value is theoretical as increasing the circulating supply of a coin may impact its market price. Also depending on the tokenomics, emission schedule or lock-up period of a coin's supply, it may take a significant time before its entire supply is released into circulation.</1>"
-msgstr "<0>完全稀释估值 (FDV) = 当前价格 x 总供应量</0><1>完全稀释估值 (FDV) 是某种货币的全流通时基于当前市场价格的理论市值。FDV 值是理论上的，因为增加货币的流通量可能会影响其市场价格。此外，根据代币经济学、发行计划或货币供应量的锁定期，可能需要相当长的时间才能将其全部供应量释放到流通中。</1>"
+msgstr "<0>完全稀释估值 (FDV) = 当前价格 x 总供应量</0><1>完全稀释估值 (FDV) 是某种货币在全流通时基于其当前市场价格的理论市值。FDV 值是理论上的，因为增加货币的流通量可能会影响其市场价格。此外，根据代币经济学、发行计划或货币供应的锁定期，可能需要相当长的时间才能将其全部供应量释放到流通中。</1>"
 
 msgid "Up to 7 days can be set as the scheduled time."
-msgstr "最长可以设置 7 天的定时任务。"
+msgstr "最多可以设置为 7 天的定时任务。"
 
 msgid "Followed @{0} on {sourceName}"
-msgstr "在 {sourceName} 上关注 @{0}"
+msgstr "在 {sourceName} 上关注了 @{0}"
 
 msgid "{followerCount, plural, one {Follower} other {Followers}}"
 msgstr "{followerCount, plural, one {关注者} other {关注者}}"
 
 msgid "Failed to unbookmark post."
-msgstr "取消收藏失败。"
+msgstr "取消书签失败。"
 
 msgid "Delete post"
 msgstr "删除帖子"
 
 msgid "You can sign in to Farcaster with the following options."
-msgstr "您可以使用以下方式登录 Farcaster。"
+msgstr "您可以通过以下方式登录 Farcaster。"
 
 msgid "Mute @{0}"
 msgstr "隐藏 @{0}"
 
 msgid "Failed to upload. Video size exceeds {0}"
-msgstr "上传失败。视频超过最大限制 {0}"
+msgstr "上传失败。视频大小超过 {0}。"
 
 msgid "The contract owner is not found to have the authority to modify the balance of tokens at other addresses."
-msgstr "合约所有者无权修改其他地址的通证余额。"
+msgstr "合约所有者无权修改其他地址的代币余额。"
 
 msgid "Select token"
 msgstr "选择代币"
 
 msgid "The post you quoted/replied has already deleted"
-msgstr "您引用/回复的帖子已经被删除了。"
+msgstr "您引用/回复的帖子已被删除。"
 
 msgid "Something went wrong, Please try again."
 msgstr "发生了一些错误，请重试。"
@@ -151,25 +151,25 @@ msgid "Display Name"
 msgstr "显示名称"
 
 msgid "Debug Connection"
-msgstr "诊断网络"
+msgstr "调试连接"
 
 msgid "Allow Lens Manager to perform actions such as posting, liking, and commenting without the need to sign each transaction."
-msgstr "允许 Lens 管理员执行发帖、点赞和评论等操作，而无需签署每笔交易。"
+msgstr "允许 Lens 管理员执行发帖、点赞和评论等操作，无需为每笔交易进行签名。"
 
 msgid "<0>Market Cap = Current Price x Circulating Supply</0><1>Refers to the total market value of a cryptocurrency’s circulating supply. It is similar to the stock market’s measurement of multiplying price per share by shares readily available in the market (not held & locked by insiders, governments)</1>"
-msgstr "<0>市值 = 当前价格 x 流通供应量</0><1>指加密货币流通供应量的总市值。它类似于股票市场的衡量标准，即将每股价格乘以市场上流通的股票（未被内部人员、政府持有和锁定）</1>"
+msgstr "<0>市值 = 当前价格 x 流通供应量</0><1>指加密货币流通供应量的总市场价值。这与股票市场上每股价格乘以市场上可用的流通股（不被内部人员或政府持有和锁定）的计算方式相似。</1>"
 
 msgid "Confirm to sync accounts"
-msgstr "确认登陆"
+msgstr "确认同步账户"
 
 msgid "Failed to fetch: {0}. Please try again later."
 msgstr "获取失败: {0}。请稍后重试。"
 
 msgid "We are not aware of any code that prevents the sale of tokens."
-msgstr "我们没察觉到有任何阻止通证售卖的代码逻辑。"
+msgstr "我们没有发现任何阻止代币销售的代码逻辑。"
 
 msgid "Watching"
-msgstr "观察中"
+msgstr "正在观察"
 
 msgid "Rank #{0}"
 msgstr "排名 #{0}"
@@ -178,19 +178,19 @@ msgid "Mute {walletHandle}"
 msgstr "隐藏 {walletHandle}"
 
 msgid "Searching channel"
-msgstr "查询频道中"
+msgstr "正在查询频道"
 
 msgid "Functions that can suspend trading"
 msgstr "可以暂停交易的功能"
 
 msgid "<0>The maximum number of coins coded to exist in the lifetime of the cryptocurrency. It is comparable to the maximum number of issuable shares in the stock market.</0><1>Max Supply = Theoretical maximum as coded</1>"
-msgstr "<0>加密货币生命周期存在的最大发行数量。它与股票市场中可发行股票的最大数量相当。</0><1>最大供应量 = 理论最大值</1>"
+msgstr "<0>加密货币生命周期内存在的最大数量。它与股票市场可发行股票的最大数量相当。</0><1>最大供应量 = 理论最大值</1>"
 
 msgid "Ended"
-msgstr ""
+msgstr "结束"
 
 msgid "Failed to follow @{handle} on X."
-msgstr ""
+msgstr "在 X 上关注 @{handle} 失败。"
 
 msgid "Unknown error"
 msgstr "未知错误"
@@ -205,10 +205,10 @@ msgid "Free"
 msgstr "免费"
 
 msgid "Searching users"
-msgstr "查找用户中"
+msgstr "正在查找用户"
 
 msgid "{0} is eligible!"
-msgstr "{0} 合格！"
+msgstr "{0} 有资格！"
 
 msgid "Airdrop Scam"
 msgstr "空投骗局"
@@ -217,28 +217,28 @@ msgid "Overwrite"
 msgstr "覆盖"
 
 msgid "Tax can be modified"
-msgstr "税率可以被修改"
+msgstr "税率可以修改"
 
 msgid "Join our Discord"
 msgstr "加入我们的 Discord"
 
 msgid "Found arweaveTxId is empty."
-msgstr "ArweaveTxId 为空。"
+msgstr "找到的 arweaveTxId 为空。"
 
 msgid "<0>You</0> and {0} others recasted"
-msgstr "<0> 你 </0> 和 {0} 人都转发了"
+msgstr "<0>您</0> 和 {0} 位其他人转发了"
 
 msgid "Change Wallet"
 msgstr "更换钱包"
 
 msgid "Above 10% may be considered a high tax rate. More than 50% tax rate means may not be tradable."
-msgstr "10% 以上的税率可能被认为是高的税率。超过 50% 的税率可能无法交易。"
+msgstr "超过 10% 的税率可能被认为是高税率。超过 50% 的税率可能无法交易。"
 
 msgid "Location should not exceed {maxLocationSize} characters"
-msgstr "地址不可以超过 {maxLocationSize} 个字"
+msgstr "地址不得超过 {maxLocationSize} 个字符"
 
 msgid "Enable telemetry debug mode"
-msgstr ""
+msgstr "启用遥测调试模式"
 
 msgid "FAILED POST"
 msgstr "发帖失败"
@@ -250,7 +250,7 @@ msgid "Log out @{0}"
 msgstr "登出 @{0}"
 
 msgid "You can save the failed parts of posts and send them later from your Drafts."
-msgstr "您可以先保存发送的帖子并稍后发送。"
+msgstr "您可以保存未成功发送的帖子部分，并稍后从草稿中发送它们。"
 
 msgid "Please confirm the login with Firefly."
 msgstr "请在 Firefly 上确认登录。"
@@ -262,7 +262,7 @@ msgid "Failed to un-bookmark article."
 msgstr "取消收藏文章失败。"
 
 msgid "Scan the QR code with your phone’s <0>Camera</0> in {count}s.<1/> Approve the existing Farcaster signer to Firefly."
-msgstr "使用<0>摄像头</0> 在 {count} 内<1/> 来扫描您的二维码。授权 Farcaster singer 给 Firefly。"
+msgstr "使用<0>摄像头</0> 在 {count} 秒内<1/>扫描您的二维码。授权现有的 Farcaster 签名者给 Firefly。"
 
 msgid "Poll"
 msgstr "投票"
@@ -283,13 +283,13 @@ msgid "Your account is now connected."
 msgstr "您的账户已连接。"
 
 msgid "Report submitted on {0}"
-msgstr "举报已提交 {0}"
+msgstr "举报已提交于 {0}"
 
 msgid "Trending Channels"
 msgstr "流行频道"
 
 msgid "Debug Console"
-msgstr "诊断命令行"
+msgstr "调试控制台"
 
 msgid "Adding..."
 msgstr "添加中..."
@@ -298,13 +298,13 @@ msgid "Verifying eligibility..."
 msgstr "检查资格中..."
 
 msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} <4>liked your </4><5>{1, select, Post {post} Comment {comment} Quote {quote} Mirror {mirror} other {post}}</5>"
-msgstr "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} <4>点赞了你的 </4><5>{1, select, Post {帖子} Comment {评论} Quote {引用} Mirror {转帖} other {帖子}}</5>"
+msgstr "{0, plural, offset:1 =1 {<0/>} =2 {<1/> 和 <2/>} other {<3/>}} <4>点赞了你的 </4><5>{1, select, Post {帖子} Comment {评论} Quote {引用} Mirror {转发} other {帖子}}</5>"
 
 msgid "Market Cap"
 msgstr "市值"
 
 msgid "Contract source code verified"
-msgstr "已验证合约源代码"
+msgstr "合约源代码已验证"
 
 msgid "Profile not found"
 msgstr "未找到个人信息"
@@ -313,16 +313,16 @@ msgid "NFT Standard"
 msgstr "NFT 标准"
 
 msgid "Failed to like the comment."
-msgstr "点赞失败。"
+msgstr "点赞评论失败。"
 
 msgid "Sign in"
-msgstr ""
+msgstr "登录"
 
 msgid "<0>Posted</0>an article"
 msgstr "<0>发布了</0>一篇文章"
 
 msgid "Scan the QR code with your phone’s <0>Camera</0> in {count}s. <1/>Approve a new Farcaster signer to Firefly."
-msgstr "使用<0>摄像头</0> 在 {count} 内<1/> 来扫描您的二维码。授权 Farcaster singer 给 Firefly。"
+msgstr "使用<0>摄像头</0> 在 {count} 秒内<1/>扫描您的二维码。授权一个新的 Farcaster 签名者给 Firefly。"
 
 msgid "Poll is currently only supported on {0}"
 msgstr "投票目前仅支持 {0}"
@@ -331,10 +331,10 @@ msgid "<0>The amount of coins that have already been created, minus any coins th
 msgstr "<0>已创建的通证数量减去已销毁（从流通中移除）的通证数量。它相当于股票市场上的流通股。</0><1>总供应量 = 链上供应量 - 已销毁的通证</1>"
 
 msgid "Username is required."
-msgstr "用户名为必填。"
+msgstr "用户名为必填项。"
 
 msgid "<0>Sent</0> an NFT"
-msgstr "<0>发送了</0> 一个 NFT"
+msgstr "<0>发送了</0>一个 NFT"
 
 msgid "Report post"
 msgstr "举报帖子"
@@ -352,7 +352,7 @@ msgid "Failed to vote."
 msgstr "投票失败。"
 
 msgid "Your posts have published successfully."
-msgstr "发布成功。"
+msgstr "您的帖子已成功发布。"
 
 msgid "Retry"
 msgstr "重试"
@@ -361,31 +361,31 @@ msgid "Show less"
 msgstr "收起"
 
 msgid "Follow <0>@{handle}</0> on {0}"
-msgstr ""
+msgstr "在 {0} 上关注 <0>@{handle}</0>"
 
 msgid "Verification unsuccessful"
-msgstr ""
+msgstr "验证不成功"
 
 msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} {1, select, Lens {mirrored your} Farcaster {recasted your} other {mirrored your}} <4>{2, select, Post {post} Comment {comment} Quote {quote} Mirror {mirror} other {post}}</4>"
-msgstr "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} {1, select, Lens {转帖了你的} Farcaster {转帖了你的} other {转帖了你的}} <4>{2, select, Post {帖子} Comment {评论} Quote {引用} Mirror {转帖} other {帖子}}</4>"
+msgstr "{0, plural, offset:1 =1 {<0/>} =2 {<1/> 和 <2/>} other {<3/>}} {1, select, Lens {转发了你的} Farcaster {转发了你的} other {转发了你的}} <4>{2, select, Post {帖子} Comment {评论} Quote {引用} Mirror {转发} other {帖子}}</4>"
 
 msgid "Total"
-msgstr "总额"
+msgstr "总计"
 
 msgid "Signer key not found. Please approve a new one for us in Warpcast."
-msgstr ""
+msgstr "未找到签名者密钥。请在 Warpcast 中为我们批准一个新的。"
 
 msgid "<0>{0}</0><1>mirrored</1>"
-msgstr "<0>{0}</0><1>转帖</1>"
+msgstr "<0>{0}</0><1>转发</1>"
 
 msgid "True Token"
-msgstr "真实的通证"
+msgstr "真实通证"
 
 msgid "Bookmarks"
-msgstr "收藏"
+msgstr "书签"
 
 msgid "Followed by {0} , {1}, and {2} others you follow"
-msgstr "被 {0} , {1}, 和 {2} 个其他的你正在关注的人关注"
+msgstr "被 {0}, {1} 和您关注的其他 {2} 人关注"
 
 msgid "Confirm to disconnect this wallet from Firefly’s social graph?"
 msgstr "确认从 Firefly 的社交图谱中断链这个钱包？"
@@ -394,7 +394,7 @@ msgid "Confirm"
 msgstr "确认"
 
 msgid "Connect your wallet to claim your NFT."
-msgstr "连接钱包并且领取你的 NFT。"
+msgstr "连接您的钱包以领取您的 NFT。"
 
 msgid "{0} muted channels"
 msgstr "{0} 隐藏的频道"
@@ -403,19 +403,19 @@ msgid "[Video]"
 msgstr "[视频]"
 
 msgid "The author is muted by you."
-msgstr "此作者已被隐藏。"
+msgstr "您已将该作者隐藏。"
 
 msgid "Failed to report @{0}"
 msgstr "举报 @{0} 失败"
 
 msgid "Report submitted"
-msgstr "举报已经提交"
+msgstr "举报已提交"
 
 msgid "Username"
 msgstr "用户名"
 
 msgid "Switch to the development API version for testing new features."
-msgstr "切换到开发环境接口。"
+msgstr "切换到开发 API 版本以测试新功能。"
 
 msgid "{0, plural, one {quote} other {quotes}}"
 msgstr "{0, plural, one {引用} other {引用}}"
@@ -424,25 +424,25 @@ msgid "Blockchain"
 msgstr "区块链"
 
 msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}}<4> followed you</4>"
-msgstr "{0, plural, offset:1 =1 {<0/>} =2 {<1/> 和 <2/>} other {<3/>}}<4> 关注你</4>"
+msgstr "{0, plural, offset:1 =1 {<0/>} =2 {<1/> 和 <2/>} other {<3/>}}<4> 关注了你</4>"
 
 msgid "{0, plural, one {Follower} other {Followers}}"
 msgstr "{0, plural, one {关注者} other {关注者}}"
 
 msgid "Mutes"
-msgstr "隐藏"
+msgstr "已隐藏"
 
 msgid "NFTs"
 msgstr "NFTs"
 
 msgid "No results for \"{searchKeyword}\""
-msgstr "{searchKeyword} 搜索无结果"
+msgstr "“{searchKeyword}”没有结果"
 
 msgid "Page not found"
-msgstr "找不到网页"
+msgstr "找不到页面"
 
 msgid "Quote post"
-msgstr "引用"
+msgstr "引用帖子"
 
 msgid "Mint function is transparent or non-existent. Hidden mint functions may increase the amount of tokens in circulation and effect the price of the token."
 msgstr "铸造功能是透明的或不存在的。隐藏的铸造功能可能会增加通证的流通量并影响通证的价格。"
@@ -454,28 +454,28 @@ msgid "Liked"
 msgstr "已点赞"
 
 msgid "Check out my LuckyDrop 🧧💰✨ on Firefly mobile app or {promoteLink} !"
-msgstr "在 Firefly 移动端或者 {promoteLink} 打开我的红包🧧💰✨ ！"
+msgstr "在 Firefly 移动应用或 {promoteLink} 查看我的幸运红包🧧💰✨！"
 
 msgid "Token ID"
 msgstr "通证 ID"
 
 msgid "{0, plural, one {mirror} other {mirrors}}"
-msgstr "{0, plural, one {转帖} other {转帖}}"
+msgstr "{0, plural, one {转发} other {转发}}"
 
 msgid "Type something here..."
-msgstr "从这里开始..."
+msgstr "在这里输入一些内容..."
 
 msgid "Save Post?"
-msgstr "保存草稿？"
+msgstr "保存帖子？"
 
 msgid "Reconnect with Firefly"
-msgstr "使用 Firefly 重连"
+msgstr "重新连接 Firefly"
 
 msgid "Only up to 2 images can be chosen."
-msgstr "至多可以选择 2 张图片。"
+msgstr "最多只能选择 2 张图片。"
 
 msgid "Follow to Collect"
-msgstr "关注并且收集"
+msgstr "关注以收集"
 
 msgid "{0, select, Image {[Image]} Video {[Video]} Audio {[Audio]} Poll {[Poll]} other {}}"
 msgstr "{0, select, Image {[图片]} Video {[视频]} Audio {[音频]} Poll {[投票]} other {}}"
@@ -568,7 +568,7 @@ msgid "1m left"
 msgstr "1分钟剩余"
 
 msgid "Core Asset Access: Unlock premium tokens, exclusive NFTs, and nodes for more investment opportunities."
-msgstr ""
+msgstr "核心资产访问：解锁高级通证、独家 NFT 和节点以获得更多投资机会。"
 
 msgid "Congratulation!"
 msgstr "恭喜！"
@@ -691,7 +691,7 @@ msgid "Frame Validator"
 msgstr "Frame 验证器"
 
 msgid "Priority Access: Holders get early access to future projects, beta tests, and airdrops. And they will also have a first look at the latest features and content."
-msgstr ""
+msgstr "优先访问：持有者可提前获取未来项目、测试版和空投的机会，并且可以优先体验最新功能和内容。"
 
 msgid "No proxy"
 msgstr "无代理"
@@ -757,7 +757,7 @@ msgid "Unmuting..."
 msgstr "取消隐藏中..."
 
 msgid "{0, plural, one {Your post failed to publish on {firstPlatform} due to an error. Click 'Retry' to attempt posting again.} two {Your post failed to publish on {firstPlatform} and {secondPlatform} due to an error. Click 'Retry' to attempt posting again.} other {Your post failed to publish due to an error. Click 'Retry' to attempt posting again.}}"
-msgstr "{0, plural, one {由于某些错误您的帖子在 {firstPlatform} 发布失败。请点击重试。} two {由于某些错误您的帖子在 {firstPlatform} 和{secondPlatform} 发布失败。请点击重试。} other {您的帖子发布失败。请点击重试。}}"
+msgstr "{0, plural, one {由于某些错误您的帖子在 {firstPlatform} 发布失败。请点击重试。} two {由于某些错误您的帖子在 {firstPlatform} 和 {secondPlatform} 发布失败。请点击重试。} other {您的帖子发布失败。请点击重试。}}"
 
 msgid "Login to Firefly"
 msgstr "登录到 Firefly"
@@ -925,7 +925,7 @@ msgid "Your draft was saved."
 msgstr "草稿已被保存"
 
 msgid "Send telemetry events in debug mode."
-msgstr ""
+msgstr "以调试模式发送遥测事件。"
 
 msgid "The chainId mismatch."
 msgstr "chainId 不匹配"
@@ -964,16 +964,16 @@ msgid "Drafts"
 msgstr "草稿"
 
 msgid "About Airdrop"
-msgstr ""
+msgstr "关于空投"
 
 msgid "Follow"
 msgstr "关注"
 
 msgid "Sorry, this wallet is already linked to another Firefly account. Please try a different one."
-msgstr ""
+msgstr "抱歉，此钱包已链接到另一个 Firefly 账户。请尝试不同的账户。"
 
 msgid "This token contract is open source. You can check the contract code for details. Unsourced token contracts are likely to have malicious functions to defraud their users of their assets."
-msgstr "此通证合约是开源代码。您可以检查合约代码了解详情。 未知来源的通证合同很可能带有恶意的功能来欺诈其用户的资产。"
+msgstr "此通证合约是开源的。您可以检查合约代码了解详情。未来源的通证合约很可能包含恶意功能，以欺诈用户的资产。"
 
 msgid "Add account"
 msgstr "添加账户"
@@ -997,7 +997,7 @@ msgid "Failed to fetch profile."
 msgstr "未能获取个人资料。"
 
 msgid "The contract owner has the authority to modify the balance of tokens at other addresses, which may result in a loss of assets."
-msgstr "合约所有人有权修改其他地址的通证通证余额，这可能造成资产损失。"
+msgstr "合约所有人有权修改其他地址的通证余额，这可能导致资产损失。"
 
 msgid "Failed to unmute @{0} on {sourceName}."
 msgstr "在 {sourceName} 上取消隐藏 @{0} 失败。"
@@ -1006,10 +1006,10 @@ msgid "Insufficient Balance"
 msgstr "余额不足"
 
 msgid "Tax cannot be modified"
-msgstr "不能修改税"
+msgstr "税务不能修改"
 
 msgid "This token contract has not been verified. We cannot check the contract code for details. Unsourced token contracts are likely to have malicious functions to defraud users of their assets."
-msgstr "此通证合约尚未验证。我们无法检查合约代码了解详情。 无法查证的通证合约有可能会欺诈用户。"
+msgstr "此通证合约尚未验证。我们无法检查合约代码了解详情。无来源的通证合约可能会欺诈用户的资产。"
 
 msgid "Replies"
 msgstr "回复"
@@ -1027,7 +1027,7 @@ msgid "You successfully sent <0>{amount} {0}{1}</0> tips to <1>{2}</1>!"
 msgstr "你成功发送了 <0>{amount} {0}{1}</0> 的打赏给 <1>{2}</1>！"
 
 msgid "This token is not issued by its declared team. Some scams will create a well-known token with the same name to defraud their users of their assets."
-msgstr "此通证不是由其声明的团队发布的。某些骗子将创建一个相同名称的通证来欺诈用户。"
+msgstr "此通证不是由其声明的团队发布的。某些诈骗将创建一个同名的知名通证来欺诈用户。"
 
 msgid "Set"
 msgstr "设置"
@@ -1036,10 +1036,10 @@ msgid "[Poll]"
 msgstr "[投票]"
 
 msgid "Allow Follow Module"
-msgstr "允许关注"
+msgstr "允许关注模块"
 
 msgid "Allow replies from"
-msgstr "允许回复"
+msgstr "允许回复来自"
 
 msgid "No one likes this post yet."
 msgstr "还未有人点赞。"
@@ -1051,25 +1051,25 @@ msgid "Sync"
 msgstr "同步"
 
 msgid "Description"
-msgstr "介绍"
+msgstr "描述"
 
 msgid "Muted wallets"
 msgstr "已隐藏的钱包"
 
 msgid "All wallets and accounts are muted."
-msgstr "已隐藏所有的钱包和账户。"
+msgstr "已隐藏所有钱包和账户。"
 
 msgid "Disconnected from your social graph"
-msgstr "从您的社交图谱中断开"
+msgstr "已从您的社交图谱中断开"
 
 msgid "Failed to upload."
-msgstr "上传文件失败。"
+msgstr "上传失败。"
 
 msgid "{attentionFactors, plural, one {# Attention item} other {# Attention items}}"
 msgstr "{attentionFactors, plural, one {# 风险条目} other {# 风险条目}}"
 
 msgid "Hide more comments"
-msgstr "隐藏更多的评论"
+msgstr "隐藏更多评论"
 
 msgid "Malformed session."
 msgstr "会话格式错误。"
@@ -1102,7 +1102,7 @@ msgid "Failed to report @{0}."
 msgstr "举报 @{0} 失败。"
 
 msgid "Enable logging telemetry events"
-msgstr "启用日志侦测时间"
+msgstr "启用日志遥测事件"
 
 msgid "Post with link"
 msgstr "发布带链接的帖子"
@@ -1144,7 +1144,7 @@ msgid "Everyone"
 msgstr "任何人"
 
 msgid "This token is issued by its declared team. Some scams will create a well-known token with the same name to defraud their users of their assets."
-msgstr "此通证由其宣称的团队发行。一些骗局会创建同名的知名通证来骗取用户的资产。"
+msgstr "此通证由其声明的团队发行。一些骗局会创建同名的知名通证来欺诈用户的资产。"
 
 msgid "Search ${symbol}"
 msgstr "搜索 ${symbol}"
@@ -1192,7 +1192,7 @@ msgid "Telemetry"
 msgstr "遥测"
 
 msgid "Show more tokens with small balances"
-msgstr "展示更多的小额通证"
+msgstr "展示更多小额通证"
 
 msgid "{riskyFactors, plural, one {# Risky item} other {# Risky items}}"
 msgstr "{riskyFactors, plural, one {# 风险条目} other {# 风险条目}}"
