@@ -25,7 +25,7 @@ import { Link } from '@/esm/Link.js';
 import { isSameProfile } from '@/helpers/isSameProfile.js';
 import { resolveFireflyProfileId } from '@/helpers/resolveFireflyProfileId.js';
 import { resolveSocialSourceInUrl } from '@/helpers/resolveSourceInUrl.js';
-import { stopEvent } from '@/helpers/stopEvent.js';
+import { stopPropagation } from '@/helpers/stopEvent.js';
 import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
 import { useDeletePost } from '@/hooks/useDeletePost.js';
 import { useIsMyRelatedProfile } from '@/hooks/useIsMyRelatedProfile.js';
@@ -180,17 +180,18 @@ export const MoreAction = memo<MoreProps>(function MoreAction({ source, author, 
                     <MenuItem>{({ close }) => <BookmarkButton post={post} onClick={close} />}</MenuItem>
                 ) : null}
                 {post?.postId && post.source !== Source.Twitter ? (
-                    <MenuItem
-                        as={Link}
-                        shallow
-                        href={`/post/${post.postId}/${engagementType}?source=${resolveSocialSourceInUrl(source)}`}
-                        className="box-border flex h-8 cursor-pointer items-center space-x-2 px-3 py-1 hover:bg-bg"
-                        onClick={stopEvent}
-                    >
-                        <EngagementIcon width={18} height={18} />
-                        <span className="font-bold leading-[22px] text-main">
-                            <Trans>View engagements</Trans>
-                        </span>
+                    <MenuItem>
+                        <Link
+                            shallow
+                            href={`/post/${resolveSocialSourceInUrl(source)}/${post.postId}/${engagementType}`}
+                            className="box-border flex h-8 cursor-pointer items-center space-x-2 px-3 py-1 hover:bg-bg"
+                            onClick={stopPropagation}
+                        >
+                            <EngagementIcon width={18} height={18} />
+                            <span className="font-bold leading-[22px] text-main">
+                                <Trans>View engagements</Trans>
+                            </span>
+                        </Link>
                     </MenuItem>
                 ) : null}
             </MenuGroup>
