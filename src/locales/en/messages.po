@@ -1363,6 +1363,9 @@ msgstr "NFT Contract"
 msgid "Phishing activities."
 msgstr "Phishing activities."
 
+msgid "Telemetry"
+msgstr "Telemetry"
+
 msgid "Show more tokens with small balances"
 msgstr "Show more tokens with small balances"
 

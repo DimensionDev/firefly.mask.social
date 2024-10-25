@@ -17,6 +17,7 @@ export function ToolkitList() {
             </div>
             {[
                 { name: <Trans>General</Trans>, link: '/general' },
+                { name: <Trans>Telemetry</Trans>, link: '/telemetry' },
                 { name: <Trans>Firefly Bridge</Trans>, link: '/bridge' },
                 { name: <Trans>Ethereum JSON RPC</Trans>, link: '/ethereum' },
                 { name: <Trans>Session Validator</Trans>, link: '/session' },

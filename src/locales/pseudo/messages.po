@@ -1363,6 +1363,9 @@ msgstr ""
 msgid "Phishing activities."
 msgstr ""
 
+msgid "Telemetry"
+msgstr ""
+
 msgid "Show more tokens with small balances"
 msgstr ""
 
