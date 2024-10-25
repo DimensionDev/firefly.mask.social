@@ -29,7 +29,7 @@ type Item =
       };
 
 export default function Page() {
-    const { developmentAPI, updateDevelopmentAPI, telemetry, updateTelemetry, telemtryDebug, updateTelemetryDebug } =
+    const { developmentAPI, updateDevelopmentAPI, telemetry, updateTelemetry, telemetryDebug, updateTelemetryDebug } =
         useDeveloperSettingsState();
 
     const items: Item[] = [
@@ -44,11 +44,11 @@ export default function Page() {
         },
         {
             type: 'checkbox',
-            value: telemtryDebug,
+            value: telemetryDebug,
             title: t`Enable logging telemetry debug events`,
             description: t`Log telemetry debug events to the console.`,
             onClick: () => {
-                updateTelemetryDebug(!telemtryDebug);
+                updateTelemetryDebug(!telemetryDebug);
             },
         },
         {

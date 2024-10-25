@@ -15,7 +15,7 @@ interface DeveloperSettingsState {
     telemetry: boolean;
     updateTelemetry: (value: boolean) => void;
 
-    telemtryDebug: boolean;
+    telemetryDebug: boolean;
     updateTelemetryDebug: (value: boolean) => void;
 }
 
@@ -42,18 +42,18 @@ const useDeveloperSettingsBase = create<
                     state.telemetry = value;
                 }),
 
-            telemtryDebug: false,
+            telemetryDebug: false,
             updateTelemetryDebug: (value: boolean) =>
                 set((state) => {
-                    state.telemtryDebug = value;
+                    state.telemetryDebug = value;
                 }),
         })),
         {
             name: 'developer-settings',
             partialize: (state) => ({
                 developmentAPI: state.developmentAPI,
-                telemtry: state.telemetry,
-                telemtryDebug: state.telemtryDebug,
+                telemetry: state.telemetry,
+                telemetryDebug: state.telemetryDebug,
             }),
             onRehydrateStorage: (state) => {
                 updateRedPacketApiRoot(state.developmentAPI);
