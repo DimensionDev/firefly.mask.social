@@ -9,8 +9,8 @@ import { FIREFLY_DEV_ROOT_URL, FIREFLY_ROOT_URL } from '@/constants/index.js';
 import { createSelectors } from '@/helpers/createSelector.js';
 
 interface DeveloperSettingsState {
-    useDevelopmentAPI: boolean;
-    updateUseDevelopmentAPI: (value: boolean) => void;
+    developmentAPI: boolean;
+    updateDevelopmentAPI: (value: boolean) => void;
 
     telemetry: boolean;
     updateTelemetry: (value: boolean) => void;
@@ -29,11 +29,11 @@ const useDeveloperSettingsBase = create<
 >(
     persist(
         immer((set) => ({
-            useDevelopmentAPI: env.external.NEXT_PUBLIC_FIREFLY_DEV_API === STATUS.Enabled,
-            updateUseDevelopmentAPI: (value: boolean) =>
+            developmentAPI: env.external.NEXT_PUBLIC_FIREFLY_DEV_API === STATUS.Enabled,
+            updateDevelopmentAPI: (value: boolean) =>
                 set((state) => {
                     updateRedPacketApiRoot(value);
-                    state.useDevelopmentAPI = value;
+                    state.developmentAPI = value;
                 }),
 
             telemetry: env.external.NEXT_PUBLIC_TELEMETRY === STATUS.Enabled,
@@ -42,7 +42,7 @@ const useDeveloperSettingsBase = create<
                     state.telemetry = value;
                 }),
 
-            telemtryDebug: env.external.NEXT_PUBLIC_TELEMETRY_DEBUG === STATUS.Enabled,
+            telemtryDebug: false,
             updateTelemetryDebug: (value: boolean) =>
                 set((state) => {
                     state.telemtryDebug = value;
@@ -51,12 +51,12 @@ const useDeveloperSettingsBase = create<
         {
             name: 'developer-settings',
             partialize: (state) => ({
-                useDevelopmentAPI: state.useDevelopmentAPI,
+                developmentAPI: state.developmentAPI,
                 telemtry: state.telemetry,
                 telemtryDebug: state.telemtryDebug,
             }),
             onRehydrateStorage: (state) => {
-                updateRedPacketApiRoot(state.useDevelopmentAPI);
+                updateRedPacketApiRoot(state.developmentAPI);
             },
         },
     ),

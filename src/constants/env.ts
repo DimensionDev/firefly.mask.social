@@ -56,7 +56,6 @@ const ExternalEnvSchema = z.object({
     NEXT_PUBLIC_FEEDBACK: z.nativeEnum(STATUS).default(STATUS.Disabled),
     NEXT_PUBLIC_DEVELOPERS: z.nativeEnum(STATUS).default(STATUS.Enabled),
     NEXT_PUBLIC_TELEMETRY: z.nativeEnum(STATUS).default(STATUS.Disabled),
-    NEXT_PUBLIC_TELEMETRY_DEBUG: z.nativeEnum(STATUS).default(STATUS.Disabled),
     NEXT_PUBLIC_FIREFLY_DEV_API: z.nativeEnum(STATUS).default(STATUS.Disabled),
     NEXT_PUBLIC_PARTICLE: z.nativeEnum(STATUS).default(STATUS.Disabled),
 
@@ -116,7 +115,6 @@ export const env = {
         NEXT_PUBLIC_FEEDBACK: process.env.NEXT_PUBLIC_FEEDBACK,
         NEXT_PUBLIC_DEVELOPERS: process.env.NEXT_PUBLIC_DEVELOPERS,
         NEXT_PUBLIC_TELEMETRY: process.env.NEXT_PUBLIC_TELEMETRY,
-        NEXT_PUBLIC_TELEMETRY_DEBUG: process.env.NEXT_PUBLIC_TELEMETRY_DEBUG,
         NEXT_PUBLIC_FIREFLY_DEV_API: process.env.NEXT_PUBLIC_FIREFLY_DEV_API,
         NEXT_PUBLIC_PARTICLE: process.env.NEXT_PUBLIC_PARTICLE,
 

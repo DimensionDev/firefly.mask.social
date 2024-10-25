@@ -29,14 +29,8 @@ type Item =
       };
 
 export default function Page() {
-    const {
-        useDevelopmentAPI,
-        updateUseDevelopmentAPI,
-        telemetry,
-        updateTelemetry,
-        telemtryDebug,
-        updateTelemetryDebug,
-    } = useDeveloperSettingsState();
+    const { developmentAPI, updateDevelopmentAPI, telemetry, updateTelemetry, telemtryDebug, updateTelemetryDebug } =
+        useDeveloperSettingsState();
 
     const items: Item[] = [
         {
@@ -59,11 +53,11 @@ export default function Page() {
         },
         {
             type: 'checkbox',
-            value: useDevelopmentAPI,
+            value: developmentAPI,
             title: t`Enable development API version`,
             description: t`Switch to the development API version for testing new features.`,
             onClick: () => {
-                updateUseDevelopmentAPI(!useDevelopmentAPI);
+                updateDevelopmentAPI(!developmentAPI);
             },
         },
     ];

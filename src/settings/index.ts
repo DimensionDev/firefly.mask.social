@@ -10,15 +10,15 @@ import { useDeveloperSettingsState } from '@/store/useDeveloperSettingsStore.js'
 
 class Settings {
     get FIREFLY_ROOT_URL() {
-        return useDeveloperSettingsState.getState().useDevelopmentAPI ? FIREFLY_DEV_ROOT_URL : FIREFLY_ROOT_URL;
+        return useDeveloperSettingsState.getState().developmentAPI ? FIREFLY_DEV_ROOT_URL : FIREFLY_ROOT_URL;
     }
 
     get FRAME_SERVER_URL() {
-        return useDeveloperSettingsState.getState().useDevelopmentAPI ? FRAME_DEV_SERVER_URL : FRAME_SERVER_URL;
+        return useDeveloperSettingsState.getState().developmentAPI ? FRAME_DEV_SERVER_URL : FRAME_SERVER_URL;
     }
 
     get ADVERTISEMENT_JSON_URL() {
-        return useDeveloperSettingsState.getState().useDevelopmentAPI
+        return useDeveloperSettingsState.getState().developmentAPI
             ? ADVERTISEMENT_JSON_URL_DEV
             : ADVERTISEMENT_JSON_URL;
     }
