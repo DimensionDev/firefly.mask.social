@@ -1174,6 +1174,9 @@ msgstr "Not eligible"
 msgid "NFT Contract"
 msgstr "NFT Contract"
 
+msgid "Telemetry"
+msgstr "Telemetry"
+
 msgid "Show more tokens with small balances"
 msgstr "Show more tokens with small balances"
 

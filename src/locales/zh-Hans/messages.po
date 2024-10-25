@@ -1179,6 +1179,9 @@ msgstr "不满足资格"
 msgid "NFT Contract"
 msgstr "NFT 合约"
 
+msgid "Telemetry"
+msgstr ""
+
 msgid "Show more tokens with small balances"
 msgstr "展示更多的小额通证"
 

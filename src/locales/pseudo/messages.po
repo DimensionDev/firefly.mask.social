@@ -1174,6 +1174,9 @@ msgstr ""
 msgid "NFT Contract"
 msgstr ""
 
+msgid "Telemetry"
+msgstr ""
+
 msgid "Show more tokens with small balances"
 msgstr ""
 
