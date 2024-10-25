@@ -2398,7 +2398,7 @@ msgid "Following"
 msgstr "正在关注"
 
 msgid "Your X account holds Premium status"
-msgstr "您的 X 账户具有 Premium 状态。"
+msgstr "您的 X 账号属于 Premium 账号。"
 
 msgid "Hours"
 msgstr "小时"
