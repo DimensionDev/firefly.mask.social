@@ -115,7 +115,7 @@ msgid "Up to 7 days can be set as the scheduled time."
 msgstr "最长可以设置 7 天的定时任务。"
 
 msgid "Followed @{0} on {sourceName}"
-msgstr "在 {sourceName} 上关注 @{0}"
+msgstr ""
 
 msgid "{followerCount, plural, one {Follower} other {Followers}}"
 msgstr "{followerCount, plural, one {关注者} other {关注者}}"
@@ -1020,9 +1020,6 @@ msgstr "回复"
 msgid "Comment"
 msgstr "评论"
 
-msgid "Followed @{handle} on X"
-msgstr "已关注 @{handle} 的 X 账号"
-
 msgid "Only people you mention"
 msgstr "只有你提及的人"
 
@@ -1826,6 +1823,9 @@ msgstr "报告"
 
 msgid "Schedule"
 msgstr "定时"
+
+msgid "Followed @{handle} on X."
+msgstr ""
 
 msgid "Change Account"
 msgstr "切换账号"

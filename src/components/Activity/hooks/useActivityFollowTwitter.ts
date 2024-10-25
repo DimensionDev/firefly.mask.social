@@ -20,7 +20,7 @@ export function useActivityFollowTwitter(profileId: string, handle: string) {
                 await TwitterSocialMediaProvider.follow(profileId);
             }
             await refetch();
-            enqueueSuccessMessage(t`Followed @${handle} on X`);
+            enqueueSuccessMessage(t`Followed @${handle} on X.`);
         } catch (error) {
             enqueueErrorMessage(getSnackbarMessageFromError(error, t`Failed to follow @${handle} on X.`), {
                 error,

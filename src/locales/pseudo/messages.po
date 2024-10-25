@@ -1015,9 +1015,6 @@ msgstr ""
 msgid "Comment"
 msgstr ""
 
-msgid "Followed @{handle} on X"
-msgstr ""
-
 msgid "Only people you mention"
 msgstr ""
 
@@ -1820,6 +1817,9 @@ msgid "Report"
 msgstr ""
 
 msgid "Schedule"
+msgstr ""
+
+msgid "Followed @{handle} on X."
 msgstr ""
 
 msgid "Change Account"
