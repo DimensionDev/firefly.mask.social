@@ -63,9 +63,6 @@ msgstr ""
 msgid "Allow Collect Module"
 msgstr ""
 
-msgid "Enable logging telemetry debug events"
-msgstr ""
-
 msgid "New connect with Warpcast"
 msgstr "通過 Warpcast 的新連接"
 
@@ -277,6 +274,9 @@ msgid "Location should not exceed {maxLocationSize} characters"
 msgstr ""
 
 msgid "Potential risk of external call."
+msgstr ""
+
+msgid "Enable telemetry debug mode"
 msgstr ""
 
 msgid "FAILED POST"
@@ -1097,6 +1097,9 @@ msgstr ""
 
 msgid "Your draft was saved."
 msgstr "你的草稿已被保存"
+
+msgid "Send telemetry events in debug mode."
+msgstr ""
 
 msgid "The chainId mismatch."
 msgstr ""
@@ -2770,9 +2773,6 @@ msgid "Profiles"
 msgstr "個人資料"
 
 msgid "No parent post found."
-msgstr ""
-
-msgid "Log telemetry debug events to the console."
 msgstr ""
 
 msgid "Please confirm the login with X."

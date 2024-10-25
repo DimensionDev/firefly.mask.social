@@ -58,9 +58,6 @@ msgstr "Confirm to disconnect this wallet and related accounts from Firefly’s 
 msgid "Allow Collect Module"
 msgstr "Allow Collect Module"
 
-msgid "Enable logging telemetry debug events"
-msgstr "Enable logging telemetry debug events"
-
 msgid "New connect with Warpcast"
 msgstr "New connect with Warpcast"
 
@@ -273,6 +270,9 @@ msgstr "Location should not exceed {maxLocationSize} characters"
 
 msgid "Potential risk of external call."
 msgstr "Potential risk of external call."
+
+msgid "Enable telemetry debug mode"
+msgstr "Enable telemetry debug mode"
 
 msgid "FAILED POST"
 msgstr "FAILED POST"
@@ -1092,6 +1092,9 @@ msgstr "No voting power"
 
 msgid "Your draft was saved."
 msgstr "Your draft was saved."
+
+msgid "Send telemetry events in debug mode."
+msgstr "Send telemetry events in debug mode."
 
 msgid "The chainId mismatch."
 msgstr "The chainId mismatch."
@@ -2766,9 +2769,6 @@ msgstr "Profiles"
 
 msgid "No parent post found."
 msgstr "No parent post found."
-
-msgid "Log telemetry debug events to the console."
-msgstr "Log telemetry debug events to the console."
 
 msgid "Please confirm the login with X."
 msgstr "Please confirm the login with X."

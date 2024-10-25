@@ -63,9 +63,6 @@ msgstr "确认从 Firefly 的社交图谱中断链这个钱包和相关账户？
 msgid "Allow Collect Module"
 msgstr "允许收藏"
 
-msgid "Enable logging telemetry debug events"
-msgstr ""
-
 msgid "New connect with Warpcast"
 msgstr "使用 Warpcast 连接"
 
@@ -277,6 +274,9 @@ msgid "Location should not exceed {maxLocationSize} characters"
 msgstr "地址不可以超过 {maxLocationSize} 个字"
 
 msgid "Potential risk of external call."
+msgstr ""
+
+msgid "Enable telemetry debug mode"
 msgstr ""
 
 msgid "FAILED POST"
@@ -1097,6 +1097,9 @@ msgstr ""
 
 msgid "Your draft was saved."
 msgstr "草稿已被保存"
+
+msgid "Send telemetry events in debug mode."
+msgstr ""
 
 msgid "The chainId mismatch."
 msgstr "chainId 不匹配"
@@ -2771,9 +2774,6 @@ msgstr "个人信息"
 
 msgid "No parent post found."
 msgstr "未找到上级帖子。"
-
-msgid "Log telemetry debug events to the console."
-msgstr ""
 
 msgid "Please confirm the login with X."
 msgstr "请在 X 确认登陆。"

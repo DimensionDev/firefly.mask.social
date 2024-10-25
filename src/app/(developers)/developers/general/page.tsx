@@ -45,8 +45,8 @@ export default function Page() {
         {
             type: 'checkbox',
             value: telemetryDebug,
-            title: t`Enable logging telemetry debug events`,
-            description: t`Log telemetry debug events to the console.`,
+            title: t`Enable telemetry debug mode`,
+            description: t`Send telemetry events in debug mode.`,
             onClick: () => {
                 updateTelemetryDebug(!telemetryDebug);
             },
