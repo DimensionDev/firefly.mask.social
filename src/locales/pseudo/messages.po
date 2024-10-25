@@ -58,6 +58,9 @@ msgstr ""
 msgid "Allow Collect Module"
 msgstr ""
 
+msgid "Enable logging telemetry debug events"
+msgstr ""
+
 msgid "New connect with Warpcast"
 msgstr ""
 
@@ -2762,6 +2765,9 @@ msgid "Profiles"
 msgstr ""
 
 msgid "No parent post found."
+msgstr ""
+
+msgid "Log telemetry debug events to the console."
 msgstr ""
 
 msgid "Please confirm the login with X."

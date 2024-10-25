@@ -58,6 +58,9 @@ msgstr "Confirm to disconnect this wallet and related accounts from Firefly’s 
 msgid "Allow Collect Module"
 msgstr "Allow Collect Module"
 
+msgid "Enable logging telemetry debug events"
+msgstr "Enable logging telemetry debug events"
+
 msgid "New connect with Warpcast"
 msgstr "New connect with Warpcast"
 
@@ -2763,6 +2766,9 @@ msgstr "Profiles"
 
 msgid "No parent post found."
 msgstr "No parent post found."
+
+msgid "Log telemetry debug events to the console."
+msgstr "Log telemetry debug events to the console."
 
 msgid "Please confirm the login with X."
 msgstr "Please confirm the login with X."

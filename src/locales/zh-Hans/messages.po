@@ -63,6 +63,9 @@ msgstr "确认从 Firefly 的社交图谱中断链这个钱包和相关账户？
 msgid "Allow Collect Module"
 msgstr "允许收藏"
 
+msgid "Enable logging telemetry debug events"
+msgstr ""
+
 msgid "New connect with Warpcast"
 msgstr "使用 Warpcast 连接"
 
@@ -2768,6 +2771,9 @@ msgstr "个人信息"
 
 msgid "No parent post found."
 msgstr "未找到上级帖子。"
+
+msgid "Log telemetry debug events to the console."
+msgstr ""
 
 msgid "Please confirm the login with X."
 msgstr "请在 X 确认登陆。"
