@@ -71,9 +71,6 @@ export function captureComposeEvent(type: ComposeType, post: CompositePost, opti
                         TelemetryProvider.captureEvent(
                             getPostEventId(type, post),
                             getPostEventParameters(postId, profile),
-                            {
-                                version_filter: VersionFilter.Next,
-                            },
                         );
                         break;
                     default:
@@ -86,9 +83,6 @@ export function captureComposeEvent(type: ComposeType, post: CompositePost, opti
                 TelemetryProvider.captureEvent(
                     EventId.COMPOSE_CROSS_POST_SEND_SUCCESS,
                     getComposeEventParameters(post, options),
-                    {
-                        version_filter: VersionFilter.Next,
-                    },
                 );
             }
         }
