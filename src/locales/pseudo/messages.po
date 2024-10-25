@@ -151,9 +151,6 @@ msgstr ""
 msgid "The post you quoted/replied has already deleted"
 msgstr ""
 
-msgid "Something went wrong, Please try again."
-msgstr ""
-
 msgid "Money laundering."
 msgstr ""
 
@@ -211,13 +208,13 @@ msgstr ""
 msgid "<0>The maximum number of coins coded to exist in the lifetime of the cryptocurrency. It is comparable to the maximum number of issuable shares in the stock market.</0><1>Max Supply = Theoretical maximum as coded</1>"
 msgstr ""
 
-msgid "Ended"
-msgstr ""
-
 msgid "This token is a gas abuser."
 msgstr ""
 
-msgid "Unknown error"
+msgid "Ended"
+msgstr ""
+
+msgid "Failed to follow @{handle} on X."
 msgstr ""
 
 msgid "No cryptocurrency mixer found."
@@ -269,9 +266,6 @@ msgid "Above 10% may be considered a high tax rate. More than 50% tax rate means
 msgstr ""
 
 msgid "Location should not exceed {maxLocationSize} characters"
-msgstr ""
-
-msgid "Enable telemetry debug mode"
 msgstr ""
 
 msgid "Potential risk of external call."
@@ -424,10 +418,10 @@ msgstr ""
 msgid "Show less"
 msgstr ""
 
-msgid "Proxy contract."
+msgid "Follow <0>@{handle}</0> on {0}"
 msgstr ""
 
-msgid "Follow <0>@{handle}</0> on {0}"
+msgid "Proxy contract."
 msgstr ""
 
 msgid "Verification unsuccessful"
@@ -587,9 +581,6 @@ msgid "Failed to unfollow @{0} on {sourceName}."
 msgstr ""
 
 msgid "Sanctioned address."
-msgstr ""
-
-msgid "Each wallet or X account is limited to one claim."
 msgstr ""
 
 msgid "Host"
@@ -796,10 +787,10 @@ msgstr ""
 msgid "Frame Validator"
 msgstr ""
 
-msgid "The token can not be bought."
+msgid "Priority Access: Holders get early access to future projects, beta tests, and airdrops. And they will also have a first look at the latest features and content."
 msgstr ""
 
-msgid "Priority Access: Holders get early access to future projects, beta tests, and airdrops. And they will also have a first look at the latest features and content."
+msgid "The token can not be bought."
 msgstr ""
 
 msgid "No proxy"
@@ -844,9 +835,6 @@ msgstr ""
 msgid "Active"
 msgstr ""
 
-msgid "Active"
-msgstr ""
-
 msgid "Connection failed"
 msgstr ""
 
@@ -860,9 +848,6 @@ msgid "Non-contract address."
 msgstr ""
 
 msgid "Darkweb transactions."
-msgstr ""
-
-msgid "Event ended"
 msgstr ""
 
 msgid "Anti_whale(Limited number of transactions)"
@@ -1021,13 +1006,13 @@ msgstr ""
 msgid "<0>Sold</0> an NFT worth {costEl}"
 msgstr ""
 
-msgid "Your Farcaster account holds Power Badge"
-msgstr ""
-
 msgid "Your vote is in!"
 msgstr ""
 
 msgid "The user canceled the operation."
+msgstr ""
+
+msgid "Your Farcaster account holds Power Badge"
 msgstr ""
 
 msgid "Failed to fetch space \"{id}\"."
@@ -1135,16 +1120,13 @@ msgstr ""
 msgid "Drafts"
 msgstr ""
 
-msgid "No financial crime involved."
-msgstr ""
-
 msgid "About Airdrop"
 msgstr ""
 
-msgid "Follow"
+msgid "No financial crime involved."
 msgstr ""
 
-msgid "Sorry, this wallet is already linked to another Firefly account. Please try a different one."
+msgid "Follow"
 msgstr ""
 
 msgid "Sorry, this wallet is already linked to another Firefly account. Please try a different one."
@@ -1370,9 +1352,6 @@ msgid "Email (optional)"
 msgstr ""
 
 msgid "NFT Contract"
-msgstr ""
-
-msgid "Telemetry"
 msgstr ""
 
 msgid "Phishing activities."
@@ -1921,10 +1900,10 @@ msgstr ""
 msgid "Insufficient funds"
 msgstr ""
 
-msgid "Followed <0>@{handle}</0> on X before Oct 12,2024, or followed <1>@{farcasterHandle}</1> on Farcaster before Oct 20, 2024"
+msgid "No phishing site."
 msgstr ""
 
-msgid "No phishing site."
+msgid "Followed <0>@{handle}</0> on X before Oct 12,2024, or followed <1>@{farcasterHandle}</1> on Farcaster before Oct 20, 2024"
 msgstr ""
 
 msgid "Connect your wallet to follow"
@@ -2143,10 +2122,10 @@ msgstr ""
 msgid "Claimed"
 msgstr ""
 
-msgid "Step 1 Sign in"
+msgid "The hidden owner function is included. The project owner may have the ability to control the contract."
 msgstr ""
 
-msgid "The hidden owner function is included. The project owner may have the ability to control the contract."
+msgid "Step 1 Sign in"
 msgstr ""
 
 msgid "Copy"
@@ -2273,9 +2252,6 @@ msgid "<0>Minted</0> an NFT for free"
 msgstr ""
 
 msgid "Will send on <0>{0} at <1>{1}</1></0>"
-msgstr ""
-
-msgid "Basic Criteria"
 msgstr ""
 
 msgid "Snapshot added to your Bookmarks"
@@ -2419,10 +2395,10 @@ msgstr ""
 msgid "1y"
 msgstr ""
 
-msgid "Change"
+msgid "Something went wrong"
 msgstr ""
 
-msgid "Something went wrong"
+msgid "Change"
 msgstr ""
 
 msgid "Malicious mining activities."
@@ -2431,10 +2407,10 @@ msgstr ""
 msgid "No codes found to suspend trading."
 msgstr ""
 
-msgid "Failed to bind address."
+msgid "This token can self destruct."
 msgstr ""
 
-msgid "This token can self destruct."
+msgid "Failed to bind address."
 msgstr ""
 
 msgid "Buy Tax: {0}%"
@@ -2476,13 +2452,7 @@ msgstr ""
 msgid "Not Found"
 msgstr ""
 
-msgid "Checking eligibility"
-msgstr ""
-
 msgid "Posted via {0} <0>{sendFrom}</0>"
-msgstr ""
-
-msgid "Claim your NFT to show your support onchain for CZ!"
 msgstr ""
 
 msgid "The contract owner has no restrictions on personal slippage."
@@ -2507,9 +2477,6 @@ msgid "Connecting Wallet"
 msgstr ""
 
 msgid "{minutes}m left"
-msgstr ""
-
-msgid "Your X account holds Premium status."
 msgstr ""
 
 msgid "Signature Request"
@@ -2710,19 +2677,19 @@ msgstr ""
 msgid "No blackmail activities involved."
 msgstr ""
 
-msgid "Hidden owner."
-msgstr ""
-
 msgid "Final Step Claim Now!"
 msgstr ""
 
 msgid "Verify"
 msgstr ""
 
-msgid "No phishing activities involved."
+msgid "Hidden owner."
 msgstr ""
 
 msgid "Recasted"
+msgstr ""
+
+msgid "No phishing activities involved."
 msgstr ""
 
 msgid "Failed to parse transaction."
@@ -2821,10 +2788,10 @@ msgstr ""
 msgid "There is no limit to the number of token transactions. The number of scam token transactions may be limited (honeypot risk)."
 msgstr ""
 
-msgid "Your assets on Base Chain are worth over US$10,000"
+msgid "Error: {message}"
 msgstr ""
 
-msgid "Error: {message}"
+msgid "Your assets on Base Chain are worth over US$10,000"
 msgstr ""
 
 msgid "This is not an airdrop scam. Many scams attract users through airdrops."
@@ -2929,16 +2896,13 @@ msgstr ""
 msgid "Following"
 msgstr ""
 
-msgid "Create a post to tell everyone about your participation. Votes can be changed while the proposal is active."
-msgstr ""
-
 msgid "Your X account holds Premium status"
 msgstr ""
 
-msgid "Hours"
+msgid "Create a post to tell everyone about your participation. Votes can be changed while the proposal is active."
 msgstr ""
 
-msgid "Note:"
+msgid "Hours"
 msgstr ""
 
 msgid "Logging out will cause scheduled posts to fail. To ensure that posts are sent as scheduled, please make sure that your Firefly account remains logged in."

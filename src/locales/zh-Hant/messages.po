@@ -156,9 +156,6 @@ msgstr "選擇代幣"
 msgid "The post you quoted/replied has already deleted"
 msgstr "您引用/回覆的貼文已經被刪除"
 
-msgid "Something went wrong, Please try again."
-msgstr ""
-
 msgid "Money laundering."
 msgstr ""
 
@@ -243,9 +240,6 @@ msgstr "搜尋用戶"
 msgid "Fake KYC."
 msgstr ""
 
-msgid "{0} is eligible!"
-msgstr ""
-
 msgid "Airdrop Scam"
 msgstr "空投騙局"
 
@@ -277,9 +271,6 @@ msgid "Above 10% may be considered a high tax rate. More than 50% tax rate means
 msgstr ""
 
 msgid "Location should not exceed {maxLocationSize} characters"
-msgstr ""
-
-msgid "Enable telemetry debug mode"
 msgstr ""
 
 msgid "Potential risk of external call."
@@ -435,10 +426,10 @@ msgstr "顯示更少"
 msgid "Follow <0>@{handle}</0> on {0}"
 msgstr ""
 
-msgid "Verification unsuccessful"
+msgid "Proxy contract."
 msgstr ""
 
-msgid "Proxy contract."
+msgid "Verification unsuccessful"
 msgstr ""
 
 msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} {1, select, Lens {mirrored your} Farcaster {recasted your} other {mirrored your}} <4>{2, select, Post {post} Comment {comment} Quote {quote} Mirror {mirror} other {post}}</4>"
@@ -595,9 +586,6 @@ msgid "Failed to unfollow @{0} on {sourceName}."
 msgstr "在 {sourceName} 上取消追蹤 @{0} 失敗。"
 
 msgid "Sanctioned address."
-msgstr ""
-
-msgid "Each wallet or X account is limited to one claim."
 msgstr ""
 
 msgid "Host"
@@ -867,9 +855,6 @@ msgstr ""
 msgid "Darkweb transactions."
 msgstr ""
 
-msgid "Event ended"
-msgstr ""
-
 msgid "Anti_whale(Limited number of transactions)"
 msgstr ""
 
@@ -1026,13 +1011,13 @@ msgstr ""
 msgid "<0>Sold</0> an NFT worth {costEl}"
 msgstr ""
 
-msgid "Your Farcaster account holds Power Badge"
-msgstr ""
-
 msgid "Your vote is in!"
 msgstr ""
 
 msgid "The user canceled the operation."
+msgstr ""
+
+msgid "Your Farcaster account holds Power Badge"
 msgstr ""
 
 msgid "Failed to fetch space \"{id}\"."
@@ -1373,9 +1358,6 @@ msgstr "電子郵箱（非必須）"
 
 msgid "NFT Contract"
 msgstr "NFT合約"
-
-msgid "Telemetry"
-msgstr ""
 
 msgid "Phishing activities."
 msgstr ""
@@ -1923,10 +1905,10 @@ msgstr ""
 msgid "Insufficient funds"
 msgstr ""
 
-msgid "Followed <0>@{handle}</0> on X before Oct 12,2024, or followed <1>@{farcasterHandle}</1> on Farcaster before Oct 20, 2024"
+msgid "No phishing site."
 msgstr ""
 
-msgid "No phishing site."
+msgid "Followed <0>@{handle}</0> on X before Oct 12,2024, or followed <1>@{farcasterHandle}</1> on Farcaster before Oct 20, 2024"
 msgstr ""
 
 msgid "Connect your wallet to follow"
@@ -2145,10 +2127,10 @@ msgstr ""
 msgid "Claimed"
 msgstr ""
 
-msgid "Step 1 Sign in"
+msgid "The hidden owner function is included. The project owner may have the ability to control the contract."
 msgstr ""
 
-msgid "The hidden owner function is included. The project owner may have the ability to control the contract."
+msgid "Step 1 Sign in"
 msgstr ""
 
 msgid "Copy"
@@ -2275,9 +2257,6 @@ msgid "<0>Minted</0> an NFT for free"
 msgstr ""
 
 msgid "Will send on <0>{0} at <1>{1}</1></0>"
-msgstr ""
-
-msgid "Basic Criteria"
 msgstr ""
 
 msgid "Snapshot added to your Bookmarks"
@@ -2421,10 +2400,10 @@ msgstr ""
 msgid "1y"
 msgstr ""
 
-msgid "Change"
+msgid "Something went wrong"
 msgstr ""
 
-msgid "Something went wrong"
+msgid "Change"
 msgstr ""
 
 msgid "Malicious mining activities."
@@ -2433,10 +2412,10 @@ msgstr ""
 msgid "No codes found to suspend trading."
 msgstr ""
 
-msgid "Failed to bind address."
+msgid "This token can self destruct."
 msgstr ""
 
-msgid "This token can self destruct."
+msgid "Failed to bind address."
 msgstr ""
 
 msgid "Buy Tax: {0}%"
@@ -2478,13 +2457,7 @@ msgstr "您的 {0} 帳戶現已連接。"
 msgid "Not Found"
 msgstr ""
 
-msgid "Checking eligibility"
-msgstr ""
-
 msgid "Posted via {0} <0>{sendFrom}</0>"
-msgstr ""
-
-msgid "Claim your NFT to show your support onchain for CZ!"
 msgstr ""
 
 msgid "The contract owner has no restrictions on personal slippage."
@@ -2509,9 +2482,6 @@ msgid "Connecting Wallet"
 msgstr ""
 
 msgid "{minutes}m left"
-msgstr ""
-
-msgid "Your X account holds Premium status."
 msgstr ""
 
 msgid "Signature Request"
@@ -2712,19 +2682,19 @@ msgstr ""
 msgid "No blackmail activities involved."
 msgstr ""
 
-msgid "Hidden owner."
-msgstr ""
-
 msgid "Final Step Claim Now!"
 msgstr ""
 
 msgid "Verify"
 msgstr ""
 
-msgid "No phishing activities involved."
+msgid "Hidden owner."
 msgstr ""
 
 msgid "Recasted"
+msgstr ""
+
+msgid "No phishing activities involved."
 msgstr ""
 
 msgid "Failed to parse transaction."
@@ -2823,10 +2793,10 @@ msgstr ""
 msgid "There is no limit to the number of token transactions. The number of scam token transactions may be limited (honeypot risk)."
 msgstr ""
 
-msgid "Your assets on Base Chain are worth over US$10,000"
+msgid "Error: {message}"
 msgstr ""
 
-msgid "Error: {message}"
+msgid "Your assets on Base Chain are worth over US$10,000"
 msgstr ""
 
 msgid "This is not an airdrop scam. Many scams attract users through airdrops."
@@ -2931,17 +2901,14 @@ msgstr ""
 msgid "Following"
 msgstr "追蹤中"
 
-msgid "Create a post to tell everyone about your participation. Votes can be changed while the proposal is active."
+msgid "Your X account holds Premium status"
 msgstr ""
 
-msgid "Your X account holds Premium status"
+msgid "Create a post to tell everyone about your participation. Votes can be changed while the proposal is active."
 msgstr ""
 
 msgid "Hours"
 msgstr "小時"
-
-msgid "Note:"
-msgstr ""
 
 msgid "Logging out will cause scheduled posts to fail. To ensure that posts are sent as scheduled, please make sure that your Firefly account remains logged in."
 msgstr ""
