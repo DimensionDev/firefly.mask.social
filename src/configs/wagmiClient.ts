@@ -114,7 +114,6 @@ createAppKit({
         socials: [],
     },
     debug: true,
-    includeWalletIds: walletIds,
     featuredWalletIds: walletIds,
 });
 
