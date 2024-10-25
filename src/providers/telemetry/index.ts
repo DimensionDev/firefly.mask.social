@@ -1,5 +1,6 @@
 import { sendGAEvent } from '@next/third-parties/google';
 import { v4 as uuid } from 'uuid';
+import { isHex } from 'viem';
 
 import { STATUS } from '@/constants/enum.js';
 import { env } from '@/constants/env.js';
@@ -13,8 +14,11 @@ import { useDeveloperSettingsState } from '@/store/useDeveloperSettingsStore.js'
 function formatParameter(key: string, value: unknown): [string, unknown] {
     if (typeof value === 'boolean') {
         return [key, value === true ? 'Y' : 'N'];
+    } else if (isHex(value)) {
+        return [key, `hex:${value}`];
+    } else {
+        return [key, value];
     }
-    return [key, value];
 }
 
 class Telemetry extends Provider<Events, never> {
