@@ -7,15 +7,15 @@ export function useActivityPremiumList() {
     const { data } = useActivityClaimCondition();
     return [
         {
-            label: <Trans>X Premium account</Trans>,
+            label: <Trans>Your X account holds Premium status</Trans>,
             verified: data?.x?.level === Level.Lv2,
         },
         {
-            label: <Trans>Farcaster Powerbadge account</Trans>,
+            label: <Trans>Your Farcaster account holds Power Badge</Trans>,
             verified: data?.farcaster.isPowerUser,
         },
         {
-            label: <Trans>Hold ≥ $10k Base Chain asset</Trans>,
+            label: <Trans>Your assets on Base Chain are worth over US$10,000</Trans>,
             verified: data?.balance?.level === Level.Lv2,
         },
     ];
