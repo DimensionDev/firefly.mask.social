@@ -17,7 +17,7 @@ export class ErrorBoundary extends Component<Partial<CrashProps>> {
         if (!this.state.error) return <>{this.props.children}</>;
         return (
             <CrashUI
-                subject="Mask"
+                subject="Firefly"
                 onRetry={() => this.setState({ error: null })}
                 {...this.props}
                 {...this.normalizedError}
