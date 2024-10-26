@@ -12,6 +12,7 @@ import { memo, useEffect, useLayoutEffect, useMemo, useRef } from 'react';
 import { useEffectOnce } from 'react-use';
 import { v4 as uuid } from 'uuid';
 
+import { ErrorBoundary } from '@/components/ErrorBoundary/index.js';
 import { ParticleProvider } from '@/components/ParticleProvider.js';
 import { SolanaWalletAdapterProvider } from '@/components/SolanaWalletAdapterProvider.js';
 import { WagmiProvider } from '@/components/WagmiProvider.js';
@@ -87,35 +88,37 @@ export const Providers = memo(function Providers(props: { children: React.ReactN
     if (!mounted) return null;
 
     return (
-        <I18nProvider i18n={i18n}>
-            {/* We are using @tanstack/react-query@5.8.7 */}
-            <QueryClientProvider client={queryClient}>
-                <ReactQueryStreamedHydration>
-                    <DarkModeContext.Provider value={darkModeContext}>
-                        <SnackbarProvider
-                            maxSnack={30}
-                            anchorOrigin={{ vertical: 'top', horizontal: isMedium ? 'right' : 'center' }}
-                            autoHideDuration={3000}
-                            classes={{
-                                containerAnchorOriginTopCenter: isMedium ? undefined : 'px-2',
-                                variantInfo: classNames('!bg-warn'),
-                            }}
-                        >
-                            <ParticleProvider>
-                                {/* wagmi depends @tanstack/react-query@4.29.23 */}
-                                <WagmiProvider>
-                                    <SolanaWalletAdapterProvider>{props.children}</SolanaWalletAdapterProvider>
-                                </WagmiProvider>
-                            </ParticleProvider>
-                        </SnackbarProvider>
-                    </DarkModeContext.Provider>
-                </ReactQueryStreamedHydration>
-                {/* enable dead code elimination */}
-                {process.env.NODE_ENV === 'development' &&
-                env.external.NEXT_PUBLIC_MASK_WEB_COMPONENTS === STATUS.Enabled ? (
-                    <ReactQueryDevtools initialIsOpen={false} buttonPosition="bottom-left" />
-                ) : null}
-            </QueryClientProvider>
-        </I18nProvider>
+        <ErrorBoundary>
+            <I18nProvider i18n={i18n}>
+                {/* We are using @tanstack/react-query@5.8.7 */}
+                <QueryClientProvider client={queryClient}>
+                    <ReactQueryStreamedHydration>
+                        <DarkModeContext.Provider value={darkModeContext}>
+                            <SnackbarProvider
+                                maxSnack={30}
+                                anchorOrigin={{ vertical: 'top', horizontal: isMedium ? 'right' : 'center' }}
+                                autoHideDuration={3000}
+                                classes={{
+                                    containerAnchorOriginTopCenter: isMedium ? undefined : 'px-2',
+                                    variantInfo: classNames('!bg-warn'),
+                                }}
+                            >
+                                <ParticleProvider>
+                                    {/* wagmi depends @tanstack/react-query@4.29.23 */}
+                                    <WagmiProvider>
+                                        <SolanaWalletAdapterProvider>{props.children}</SolanaWalletAdapterProvider>
+                                    </WagmiProvider>
+                                </ParticleProvider>
+                            </SnackbarProvider>
+                        </DarkModeContext.Provider>
+                    </ReactQueryStreamedHydration>
+                    {/* enable dead code elimination */}
+                    {process.env.NODE_ENV === 'development' &&
+                    env.external.NEXT_PUBLIC_MASK_WEB_COMPONENTS === STATUS.Enabled ? (
+                        <ReactQueryDevtools initialIsOpen={false} buttonPosition="bottom-left" />
+                    ) : null}
+                </QueryClientProvider>
+            </I18nProvider>
+        </ErrorBoundary>
     );
 });
