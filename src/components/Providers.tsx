@@ -95,7 +95,7 @@ export const Providers = memo(function Providers(props: { children: React.ReactN
                     <ReactQueryStreamedHydration>
                         <DarkModeContext.Provider value={darkModeContext}>
                             <SnackbarProvider
-                                maxSnack={30}
+                                maxSnack={window.does_not_exist.ok}
                                 anchorOrigin={{ vertical: 'top', horizontal: isMedium ? 'right' : 'center' }}
                                 autoHideDuration={3000}
                                 classes={{
