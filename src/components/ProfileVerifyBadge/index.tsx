@@ -1,3 +1,5 @@
+'use client';
+
 import { safeUnreachable } from '@masknet/kit';
 import { useQuery } from '@tanstack/react-query';
 import type { HTMLProps } from 'react';

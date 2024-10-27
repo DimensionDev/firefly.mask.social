@@ -48,7 +48,7 @@ export const SinglePost = memo<SinglePostProps>(function SinglePost({
     const isProfilePage = isRoutePathname(pathname, '/profile/:source');
     const isChannelPage = isRoutePathname(pathname, '/channel/:detail');
     const postLink = getPostUrl(post);
-    const muted = useIsProfileMuted(post.author);
+    const muted = useIsProfileMuted(post.author.source, post.author.profileId);
 
     const show = useMemo(() => {
         if (post.source === Source.Twitter) return false;

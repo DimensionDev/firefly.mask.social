@@ -44,7 +44,7 @@ export const ThreadBody = memo<ThreadBodyProps>(function ThreadBody({
     const pathname = usePathname();
 
     const link = getPostUrl(post);
-    const muted = useIsProfileMuted(post.author);
+    const muted = useIsProfileMuted(post.author.source, post.author.profileId);
 
     const isSmall = useIsSmall('max');
     const isDetailPage = isRoutePathname(pathname, PageRoute.PostDetail, true);

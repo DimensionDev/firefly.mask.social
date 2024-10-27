@@ -1,18 +1,17 @@
-'use client';
-
 import { Trans } from '@lingui/macro';
 import type { PropsWithChildren } from 'react';
 
+import { ChannelProvider } from '@/components/Channel/ChannelProvider.js';
 import { Info } from '@/components/Channel/Info.js';
 import { Title } from '@/components/Channel/Title.js';
+import { NoSSR } from '@/components/NoSSR.js';
 import { ChannelTabType } from '@/constants/enum.js';
 import { Link } from '@/esm/Link.js';
 import { classNames } from '@/helpers/classNames.js';
 import { resolveChannelUrl } from '@/helpers/resolveChannelUrl.js';
-import { ChannelPageContext } from '@/hooks/useChannelPageContext.js';
 import type { Channel } from '@/providers/types/SocialMedia.js';
 
-export function ChannelLayout({
+export async function ChannelLayout({
     channel,
     type,
     id,
@@ -53,7 +52,9 @@ export function ChannelLayout({
                     </div>
                 ))}
             </nav>
-            <ChannelPageContext.Provider initialState={{ channel }}>{children}</ChannelPageContext.Provider>
+            <NoSSR>
+                <ChannelProvider channel={channel}>{children}</ChannelProvider>
+            </NoSSR>
         </>
     );
 }

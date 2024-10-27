@@ -5,6 +5,7 @@ import { ChannelLayout } from '@/app/(normal)/channel/pages/ChannelLayout.js';
 import { ChannelTabType, Source } from '@/constants/enum.js';
 import { createMetadataChannel } from '@/helpers/createMetadataChannel.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
+import { setupLocaleForSSR } from '@/i18n/index.js';
 
 export const revalidate = 60;
 
@@ -25,6 +26,8 @@ export default async function Layout({ params, children }: Props) {
     const channel = await provider.getChannelById(params.id).catch(() => null);
 
     if (!channel) return notFound();
+
+    setupLocaleForSSR();
 
     return (
         <ChannelLayout channel={channel} id={params.id} type={params.type}>

@@ -1,3 +1,5 @@
+'use client';
+
 import { useMemo } from 'react';
 
 import { EditProfileButton } from '@/components/EditProfile/EditProfileButton.js';

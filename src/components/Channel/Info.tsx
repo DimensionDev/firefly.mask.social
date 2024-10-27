@@ -6,6 +6,7 @@ import UserIcon from '@/assets/user.svg';
 import { Avatar } from '@/components/Avatar.js';
 import { ChannelInfoAction } from '@/components/Channel/ChannelInfoAction.js';
 import { ChannelInfoBio } from '@/components/Channel/ChannelInfoBio.js';
+import { NoSSR } from '@/components/NoSSR.js';
 import { SocialSourceIcon } from '@/components/SocialSourceIcon.js';
 import { type SocialSource } from '@/constants/enum.js';
 import { SITE_URL } from '@/constants/index.js';
@@ -37,7 +38,9 @@ export function Info({ channel, source, isChannelPage = false, ...rest }: InfoPr
             {isChannelPage ? avatar : <Link href={url}>{avatar}</Link>}
 
             <div className="relative flex flex-1 flex-col gap-[6px]">
-                <ChannelInfoAction channel={channel} />
+                <NoSSR>
+                    <ChannelInfoAction channel={channel} />
+                </NoSSR>
 
                 <div className="flex flex-col">
                     <h1 className="flex items-center gap-2">

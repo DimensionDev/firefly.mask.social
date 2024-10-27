@@ -5,6 +5,7 @@ import { KeyType } from '@/constants/enum.js';
 import { createMetadataArticleById } from '@/helpers/createMetadataArticleById.js';
 import { isBotRequest } from '@/helpers/isBotRequest.js';
 import { memoizeWithRedis } from '@/helpers/memoizeWithRedis.js';
+import { setupLocaleForSSR } from '@/i18n/index.js';
 
 const createPageMetadata = memoizeWithRedis(createMetadataArticleById, {
     key: KeyType.CreateMetadataArticleById,
@@ -22,5 +23,6 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 export default function Page(props: Props) {
     if (isBotRequest()) return null;
+    setupLocaleForSSR();
     return <ArticleDetailPage {...props} />;
 }

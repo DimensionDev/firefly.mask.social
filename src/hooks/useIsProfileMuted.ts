@@ -1,22 +1,25 @@
+'use client';
+
 import { useQuery } from '@tanstack/react-query';
 
 import { queryClient } from '@/configs/queryClient.js';
+import type { Source } from '@/constants/enum.js';
 import { resolveSourceInUrl } from '@/helpers/resolveSourceInUrl.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 
-export function useIsProfileMuted(profile: Profile, enabled = true) {
+export function useIsProfileMuted(source: Source, profileId: string, blocking?: boolean, enabled = true) {
     const isLogin = useIsLogin();
     const { data } = useQuery({
-        enabled: !!profile && isLogin && enabled,
-        queryKey: ['profile-is-muted', profile.source, profile.profileId],
+        enabled: !!source && !!profileId && isLogin && enabled,
+        queryKey: ['profile-is-muted', source, profileId],
         staleTime: 600_000,
         queryFn: () => {
-            return FireflyEndpointProvider.isProfileMuted(resolveSourceInUrl(profile.source), profile.profileId);
+            return FireflyEndpointProvider.isProfileMuted(resolveSourceInUrl(source), profileId);
         },
     });
-    return data ?? !!profile.viewerContext?.blocking;
+    return data ?? !!blocking;
 }
 
 export function isProfileMuted(profile: Profile) {

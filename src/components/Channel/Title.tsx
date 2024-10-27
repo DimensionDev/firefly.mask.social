@@ -1,8 +1,11 @@
+'use client';
+
 import { useMotionValueEvent, useScroll } from 'framer-motion';
 import { useState } from 'react';
 
 import ComeBackIcon from '@/assets/comeback.svg';
 import { ChannelMoreAction } from '@/components/Channel/ChannelMoreAction.js';
+import { NoSSR } from '@/components/NoSSR.js';
 import { useComeBack } from '@/hooks/useComeback.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import type { Channel } from '@/providers/types/SocialMedia.js';
@@ -30,7 +33,7 @@ export function Title({ channel }: TitleProps) {
                 <span className="text-xl font-black text-lightMain">{channel.name ?? '-'}</span>
             </h1>
 
-            {(channel && reached) || !isMedium ? <ChannelMoreAction channel={channel} /> : null}
+            <NoSSR>{(channel && reached) || !isMedium ? <ChannelMoreAction channel={channel} /> : null}</NoSSR>
         </header>
     );
 }
