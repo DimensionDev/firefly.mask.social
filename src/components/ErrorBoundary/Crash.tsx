@@ -57,17 +57,25 @@ Developer Settings: ${useDeveloperSettingsState.getState().developmentAPI}
 
     return (
         <div className="mt-4 w-full flex-1 overflow-x-auto p-5 contain-paint">
-            <div className="rounded-sm border-red-500 p-5 text-red-500">
-                <div className="mb-2 select-text">
-                    {error.type}: {error.message}
+            <div className="rounded-md border border-red-500 p-5 text-red-500">
+                <div>
+                    <div className="mb-2 select-text">
+                        {error.type}: {error.message}
+                    </div>
+                    <div className="flex gap-2">
+                        <button className="rounded-md border border-blue-500 px-2 py-1 text-blue-500" onClick={onRetry}>
+                            Try to recover
+                        </button>
+                        <Link
+                            className="rounded-md border border-blue-500 px-2 py-1 text-blue-500"
+                            href={githubLink}
+                            target="_blank"
+                        >
+                            Report on GitHub
+                        </Link>
+                    </div>
                 </div>
-                <div className="flex gap-2">
-                    <button onClick={onRetry}>Try to recover</button>
-                    <Link href={githubLink} target="_blank">
-                        Report on GitHub
-                    </Link>
-                </div>
-                <div className="h-[300px] select-text overflow-x-auto">
+                <div className="mt-2 select-text overflow-x-auto">
                     <pre>
                         <code>{error.stack}</code>
                     </pre>
