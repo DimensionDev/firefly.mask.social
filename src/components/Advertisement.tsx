@@ -1,11 +1,9 @@
-'use client';
 import 'swiper/css';
 import 'swiper/css/autoplay';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 
 import { safeUnreachable } from '@masknet/kit';
-import { useQuery } from '@tanstack/react-query';
 import { Autoplay, Navigation, Pagination } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
@@ -20,20 +18,13 @@ import { fireflyBridgeProvider } from '@/providers/firefly/Bridge.js';
 import { settings } from '@/settings/index.js';
 import type { Advertisement } from '@/types/advertisement.js';
 
-export function Advertisement() {
-    const { data, isLoading } = useQuery({
-        queryKey: ['advertisement'],
-        staleTime: 1000 * 60 * 10,
-        queryFn: async () => {
-            const res = await fetchJSON<{ advertisements: Advertisement[] }>(settings.ADVERTISEMENT_JSON_URL);
-            return (res?.advertisements ?? []).sort((a, b) => a.sort - b.sort);
+export async function Advertisement() {
+    const response = await fetchJSON<{ advertisements: Advertisement[] }>(settings.ADVERTISEMENT_JSON_URL, {
+        next: {
+            revalidate: 1000 * 60 * 10,
         },
     });
-
-    if (isLoading) {
-        return <div className="h-[133px] animate-pulse rounded-xl bg-bg" />;
-    }
-
+    const data = (response?.advertisements ?? []).sort((a, b) => a.sort - b.sort);
     if (!data?.length) return null;
 
     return (
