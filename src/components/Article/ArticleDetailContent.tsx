@@ -18,6 +18,7 @@ import { Link } from '@/esm/Link.js';
 import { classNames } from '@/helpers/classNames.js';
 import { openWindow } from '@/helpers/openWindow.js';
 import { resolveSearchUrl } from '@/helpers/resolveSearchUrl.js';
+import { useIsDarkMode } from '@/hooks/useIsDarkMode.js';
 import { useIsProfileMuted } from '@/hooks/useIsProfileMuted.js';
 import { PreviewMediaModalRef } from '@/modals/controls.js';
 import type { Article } from '@/providers/types/Article.js';
@@ -30,6 +31,8 @@ interface ArticleDetailContentProps {
 }
 
 export function ArticleDetailContent({ article, cover }: ArticleDetailContentProps) {
+    const isDarkMode = useIsDarkMode();
+
     const router = useRouter();
     const isMuted = useIsProfileMuted(Source.Wallet, article.author.id, article.author.isMuted);
 
