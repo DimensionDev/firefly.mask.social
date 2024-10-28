@@ -1,3 +1,5 @@
+'use client';
+
 import { env } from '@/constants/env.js';
 import { Link } from '@/esm/Link.js';
 import { resolveValue } from '@/helpers/resolveValue.js';
