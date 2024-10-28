@@ -1,3 +1,5 @@
+'use client';
+
 import { plural, t, Trans } from '@lingui/macro';
 import { safeUnreachable } from '@masknet/kit';
 import { motion } from 'framer-motion';

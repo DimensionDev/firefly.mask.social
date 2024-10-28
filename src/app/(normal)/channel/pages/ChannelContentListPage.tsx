@@ -10,6 +10,7 @@ import { ChannelPageContext } from '@/hooks/useChannelPageContext.js';
 export function ChannelContentListPage({ type }: { type: ChannelTabType }) {
     const { channel } = ChannelPageContext.useContainer();
     if (!channel) return null;
+
     return (
         <Suspense fallback={<Loading />}>
             <ChannelContentList type={type} channel={channel} />

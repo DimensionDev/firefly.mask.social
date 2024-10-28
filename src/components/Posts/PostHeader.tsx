@@ -4,6 +4,7 @@ import { memo } from 'react';
 import FireflyMonochromeIcon from '@/assets/firefly-monochrome.svg';
 import { MoreAction } from '@/components/Actions/More.js';
 import { Avatar } from '@/components/Avatar.js';
+import { NoSSR } from '@/components/NoSSR.js';
 import { ProfileTippy } from '@/components/Profile/ProfileTippy.js';
 import { ProfileVerifyBadge } from '@/components/ProfileVerifyBadge/index.js';
 import { Time } from '@/components/Semantic/Time.js';
@@ -130,9 +131,11 @@ export const PostHeader = memo<PostHeaderProps>(function PostHeader({
                 {newLine ? <div>{handle}</div> : null}
             </address>
             <div className="ml-auto flex items-center space-x-2 self-baseline">
-                {!post.isHidden && !isQuote ? (
-                    <MoreAction channel={post.channel} source={post.source} author={author} post={post} />
-                ) : null}
+                <NoSSR>
+                    {!post.isHidden && !isQuote ? (
+                        <MoreAction channel={post.channel} source={post.source} author={author} post={post} />
+                    ) : null}
+                </NoSSR>
             </div>
         </header>
     );

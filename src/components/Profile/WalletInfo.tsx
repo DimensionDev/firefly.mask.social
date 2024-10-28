@@ -3,17 +3,15 @@
 import { t } from '@lingui/macro';
 import { ChainId } from '@masknet/web3-shared-evm';
 
-import CopyIcon from '@/assets/copy.svg';
 import EnsIcon from '@/assets/ens.svg';
 import MiniEnsIcon from '@/assets/ens-16.svg';
 import FireflyLogo from '@/assets/firefly.round.svg';
 import LinkIcon from '@/assets/link-square.svg';
 import { Avatar } from '@/components/Avatar.js';
-import { ClickableArea } from '@/components/ClickableArea.js';
+import { CopyTextButton } from '@/components/CopyTextButton.js';
 import { Image } from '@/components/Image.js';
 import { InteractiveTippy } from '@/components/InteractiveTippy.js';
-import { WalletMoreAction } from '@/components/Profile/WalletMoreAction.js';
-import { WatchButton } from '@/components/Profile/WatchButton.js';
+import { WalletActions } from '@/components/Profile/WalletActions.js';
 import { RelatedSourceIcon } from '@/components/RelatedSourceIcon.js';
 import { RelationPlatformIcon } from '@/components/RelationPlatformIcon.js';
 import { Tooltip } from '@/components/Tooltip.js';
@@ -25,9 +23,7 @@ import { getRelationPlatformUrl } from '@/helpers/getRelationPlatformUrl.js';
 import { getStampAvatarByProfileId } from '@/helpers/getStampAvatarByProfileId.js';
 import { isMPCWallet } from '@/helpers/isMPCWallet.js';
 import { resolveNetworkIcon } from '@/helpers/resolveNetworkIcon.js';
-import { useCopyText } from '@/hooks/useCopyText.js';
 import { useDarkMode } from '@/hooks/useDarkMode.js';
-import { useIsMyRelatedProfile } from '@/hooks/useIsMyRelatedProfile.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import { BlockScanExplorerResolver } from '@/providers/ethereum/ExplorerResolver.js';
 import { type Relation, type WalletProfile } from '@/providers/types/Firefly.js';
@@ -40,9 +36,6 @@ interface WalletInfoProps {
 export function WalletInfo({ profile, relations }: WalletInfoProps) {
     const isMedium = useIsMedium();
     const { isDarkMode } = useDarkMode();
-
-    const [, handleCopy] = useCopyText(profile.address);
-    const isMyWallets = useIsMyRelatedProfile(Source.Wallet, profile.address);
 
     const avatar = profile.avatar ?? getStampAvatarByProfileId(Source.Wallet, profile.address);
     const networkType = getAddressType(profile.address);
@@ -67,12 +60,7 @@ export function WalletInfo({ profile, relations }: WalletInfoProps) {
                             <Image src={networkIcon} alt={networkType} width={18} height={18} />
                         ) : null}
                         <span className="text-xl font-black leading-[26px] text-lightMain">{displayName}</span>
-                        {!isMyWallets && isMedium ? (
-                            <>
-                                <WatchButton className="ml-auto mr-1" address={profile.address} />
-                                <WalletMoreAction profile={profile} />
-                            </>
-                        ) : null}
+                        <WalletActions profile={profile} />
                     </div>
                     <div className="flex gap-[10px]">
                         {profile.verifiedSources.map((x) => {
@@ -132,9 +120,7 @@ export function WalletInfo({ profile, relations }: WalletInfoProps) {
                     </div>
                     <div className="flex items-center gap-1 text-sm leading-[14px] text-secondary">
                         {isMedium ? profile.address : formatAddress(profile.address, 4)}
-                        <ClickableArea onClick={handleCopy}>
-                            <CopyIcon width={14} height={14} className="cursor-pointer" />
-                        </ClickableArea>
+                        <CopyTextButton text={profile.address} />
                         {addressLink ? (
                             <Link target="_blank" href={addressLink}>
                                 <LinkIcon width={14} height={14} />

@@ -1,3 +1,5 @@
+'use client';
+
 import { useQuery } from '@tanstack/react-query';
 import { compact } from 'lodash-es';
 import type { ImageProps as NextImageProps } from 'next/image.js';

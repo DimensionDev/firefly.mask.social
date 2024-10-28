@@ -68,10 +68,8 @@ export function DiscoverTypeTabs({
                     href={resolveDiscoverUrl(source, x)}
                     replace
                     className={classNames(
-                        'flex h-6 cursor-pointer list-none justify-center rounded-md bg-farcasterPrimary px-1.5 text-xs leading-6 lg:flex-initial lg:justify-start',
-                        type === x
-                            ? 'text-bg dark:text-white'
-                            : 'bg-opacity-10 text-farcasterPrimary dark:bg-opacity-30 dark:text-white',
+                        'flex h-6 cursor-pointer list-none justify-center rounded-md bg-farcasterPrimary px-1.5 text-xs leading-6 text-white lg:flex-initial lg:justify-start',
+                        type !== x ? 'discover-tab' : '',
                     )}
                     aria-current={type === x ? 'page' : undefined}
                 >

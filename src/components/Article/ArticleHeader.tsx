@@ -1,9 +1,11 @@
+'use client';
 import { memo } from 'react';
 import urlcat from 'urlcat';
 import { useEnsName } from 'wagmi';
 
 import { ArticleActions } from '@/components/Article/ArticleActions.js';
 import { Avatar } from '@/components/Avatar.js';
+import { NoSSR } from '@/components/NoSSR.js';
 import { Time } from '@/components/Semantic/Time.js';
 import { TimestampFormatter } from '@/components/TimeStampFormatter.js';
 import { SourceInURL } from '@/constants/enum.js';
@@ -59,7 +61,9 @@ export const ArticleHeader = memo<ArticleHeaderProps>(function ArticleHeader({ a
                 </Time>
                 {Icon ? <Icon width={15} height={15} /> : null}
             </div>
-            <ArticleActions article={article} />
+            <NoSSR>
+                <ArticleActions article={article} />
+            </NoSSR>
         </div>
     );
 });

@@ -4,14 +4,17 @@ import { useMotionValueEvent, useScroll } from 'framer-motion';
 import { type HTMLProps, useState } from 'react';
 
 import ComeBackIcon from '@/assets/comeback.svg';
+import { NoSSR } from '@/components/NoSSR.js';
 import { ProfileAction } from '@/components/Profile/ProfileAction.js';
 import { WalletMoreAction } from '@/components/Profile/WalletMoreAction.js';
 import { WatchButton } from '@/components/Profile/WatchButton.js';
 import { EMPTY_LIST } from '@/constants/index.js';
 import { classNames } from '@/helpers/classNames.js';
 import { formatEthereumAddress } from '@/helpers/formatAddress.js';
+import { isSameFireflyIdentity } from '@/helpers/isSameFireflyIdentity.js';
 import { resolveFireflyProfiles } from '@/helpers/resolveFireflyProfiles.js';
 import { useComeBack } from '@/hooks/useComeback.js';
+import { useCurrentFireflyProfiles } from '@/hooks/useCurrentFireflyProfiles.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import type { FireflyProfile } from '@/providers/types/Firefly.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
@@ -22,7 +25,6 @@ interface TitleProps extends HTMLProps<HTMLDivElement> {
     profiles?: FireflyProfile[];
     /** Always visible */
     sticky?: boolean;
-    isOthersProfile?: boolean;
     keepVisible?: boolean;
     disableActions?: boolean;
 }
@@ -31,13 +33,13 @@ export function Title({
     profile,
     profiles = EMPTY_LIST,
     sticky,
-    isOthersProfile,
     keepVisible,
     disableActions,
     className,
     ...rest
 }: TitleProps) {
     const isMedium = useIsMedium();
+    const currentProfiles = useCurrentFireflyProfiles();
 
     const [reached, setReached] = useState(false);
     const { scrollY } = useScroll();
@@ -49,6 +51,7 @@ export function Title({
 
     const comeback = useComeBack();
     const { identity: identity } = useFireflyIdentityState();
+    const isOthersProfile = !currentProfiles.some((x) => isSameFireflyIdentity(x.identity, identity));
 
     const { walletProfile } = resolveFireflyProfiles(identity, profiles);
 
@@ -87,7 +90,10 @@ export function Title({
                     </span>
                 </div>
 
-                {disableActions ? null : <div className="flex flex-shrink-0 gap-2">{renderActions()}</div>}
+                <NoSSR>
+                    {' '}
+                    {disableActions ? null : <div className="flex flex-shrink-0 gap-2">{renderActions()}</div>}
+                </NoSSR>
             </div>
         </div>
     );

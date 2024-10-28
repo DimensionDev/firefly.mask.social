@@ -12,6 +12,7 @@ import { isMPCWallet } from '@/helpers/isMPCWallet.js';
 import { isProfilePageSource } from '@/helpers/isProfilePageSource.js';
 import { isSameFireflyIdentity } from '@/helpers/isSameFireflyIdentity.js';
 import { resolveProfileUrl } from '@/helpers/resolveProfileUrl.js';
+import { useCurrentFireflyProfilesAll } from '@/hooks/useCurrentFireflyProfiles.js';
 import { useDarkMode } from '@/hooks/useDarkMode.js';
 import { type FireflyIdentity, type FireflyProfile, type WalletProfile } from '@/providers/types/Firefly.js';
 import { useFireflyIdentityState } from '@/store/useFireflyIdentityStore.js';
@@ -62,9 +63,14 @@ interface ProfileTabsProps {
     identity: FireflyIdentity;
 }
 
-export function ProfileTabs({ profiles, identity }: ProfileTabsProps) {
+export function ProfileTabs({ profiles: otherProfiles, identity }: ProfileTabsProps) {
     const { isDarkMode } = useDarkMode();
-    const { setIdentity } = useFireflyIdentityState();
+    const currentProfiles = useCurrentFireflyProfilesAll();
+    const isCurrentProfile = currentProfiles.some((x) => isSameFireflyIdentity(x.identity, identity));
+
+    const profiles = (isCurrentProfile ? currentProfiles : otherProfiles).filter(
+        (x) => x.identity.source === identity.source,
+    );
 
     if (profiles.length <= 1) return null;
 
@@ -82,7 +88,11 @@ export function ProfileTabs({ profiles, identity }: ProfileTabsProps) {
                 return (
                     <Link
                         href={resolveProfileUrl(profile.identity.source, profile.identity.id)}
-                        onClick={() => startTransition(() => setIdentity(profile.identity))}
+                        onClick={() =>
+                            startTransition(() => {
+                                useFireflyIdentityState.getState().setIdentity(profile.identity);
+                            })
+                        }
                         className={classNames(
                             'flex cursor-pointer items-center gap-1 rounded-lg p-1 px-2 active:bg-main/20',
                             isActive ? 'border border-primaryBottom bg-main text-primaryBottom' : 'bg-thirdMain',

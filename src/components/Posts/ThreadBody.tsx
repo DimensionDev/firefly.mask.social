@@ -1,3 +1,5 @@
+'use client';
+
 import { motion } from 'framer-motion';
 import { isUndefined } from 'lodash-es';
 import { usePathname, useRouter } from 'next/navigation.js';
@@ -5,6 +7,7 @@ import { memo } from 'react';
 
 import { PostActions, PostActionsWithGrid } from '@/components/Actions/index.js';
 import { PostStatistics } from '@/components/Actions/PostStatistics.js';
+import { NoSSR } from '@/components/NoSSR.js';
 import { FeedActionType } from '@/components/Posts/ActionType.js';
 import { PostBody } from '@/components/Posts/PostBody.js';
 import { PostHeader } from '@/components/Posts/PostHeader.js';
@@ -36,13 +39,12 @@ export const ThreadBody = memo<ThreadBodyProps>(function ThreadBody({
     listKey,
     index,
 }) {
-    const setScrollIndex = useGlobalState.use.setScrollIndex();
     const router = useRouter();
 
     const pathname = usePathname();
 
     const link = getPostUrl(post);
-    const muted = useIsProfileMuted(post.author);
+    const muted = useIsProfileMuted(post.author.source, post.author.profileId);
 
     const isSmall = useIsSmall('max');
     const isDetailPage = isRoutePathname(pathname, PageRoute.PostDetail, true);
@@ -65,12 +67,14 @@ export const ThreadBody = memo<ThreadBodyProps>(function ThreadBody({
                 router.push(link);
             }}
         >
-            <FeedActionType isDetail={isDetail} post={post} isThread />
+            <NoSSR>
+                <FeedActionType isDetail={isDetail} post={post} isThread />
+            </NoSSR>
             <PostHeader
                 showDate={!!isDetail && !isLast}
                 post={post}
                 onClickProfileLink={() => {
-                    if (listKey && !isUndefined(index)) setScrollIndex(listKey, index);
+                    if (listKey && !isUndefined(index)) useGlobalState.getState().setScrollIndex(listKey, index);
                 }}
             />
             <div className="flex">
@@ -90,32 +94,38 @@ export const ThreadBody = memo<ThreadBodyProps>(function ThreadBody({
                     })}
                 >
                     <PostBody post={post} disablePadding showTranslate={showTranslate} />
-                    {showAction ? (
-                        isDetail && isLast ? null : (
-                            <PostActions
-                                hideDate={!!isDetail && !isLast}
-                                post={post}
-                                disabled={post.isHidden}
-                                disablePadding
-                                onSetScrollIndex={() => {
-                                    if (listKey && !isUndefined(index)) setScrollIndex(listKey, index);
-                                }}
-                            />
-                        )
-                    ) : null}
+                    <NoSSR>
+                        {showAction ? (
+                            isDetail && isLast ? null : (
+                                <PostActions
+                                    hideDate={!!isDetail && !isLast}
+                                    post={post}
+                                    disabled={post.isHidden}
+                                    disablePadding
+                                    onSetScrollIndex={() => {
+                                        if (listKey && !isUndefined(index))
+                                            useGlobalState.getState().setScrollIndex(listKey, index);
+                                    }}
+                                />
+                            )
+                        ) : null}
+                    </NoSSR>
                 </div>
             </div>
-            {showAction && isDetail && isLast ? (
-                <div className="-mx-4">
-                    <PostStatistics post={post} className="mb-1.5 px-4" />
-                    <PostActionsWithGrid
-                        disablePadding
-                        post={post}
-                        disabled={post.isHidden}
-                        className="!mt-0 border-b border-t border-line py-3 pl-2.5 pr-4"
-                    />
-                </div>
-            ) : null}
+            <NoSSR>
+                {showAction && isDetail && isLast ? (
+                    <div className="-mx-4">
+                        <PostStatistics post={post} className="mb-1.5 px-4" />
+                        <PostActionsWithGrid
+                            isDetail={isDetail}
+                            disablePadding
+                            post={post}
+                            disabled={post.isHidden}
+                            className="!mt-0 border-b border-t border-line py-3 pl-2.5 pr-4"
+                        />
+                    </div>
+                ) : null}
+            </NoSSR>
         </motion.article>
     );
 });

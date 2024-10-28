@@ -15,7 +15,7 @@ interface Props extends HTMLProps<HTMLDivElement> {
 export function LoginRequiredGuard({ source, children, fallback, className }: PropsWithChildren<Props>) {
     const isLogin = useIsLogin(isSocialSource(source) ? source : undefined);
 
-    if (isSocialSource(source) && !isLogin && source === Source.Twitter) {
+    if (!isLogin && source === Source.Twitter) {
         return fallback ?? <NotLoginFallback source={source} className={className} />;
     }
 
