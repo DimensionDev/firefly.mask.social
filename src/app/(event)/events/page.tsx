@@ -5,7 +5,7 @@ import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
 import { compact } from 'lodash-es';
 
 import { getActivityListItem } from '@/components/Activity/ActivityListItem.js';
-import { ActivityNavigationBar } from '@/components/Activity/ActivityNavigationBar.js';
+import { ActivityMobileNavigationBar } from '@/components/Activity/ActivityMobileNavigationBar.js';
 import { ListInPage } from '@/components/ListInPage.js';
 import { ScrollListKey, Source } from '@/constants/enum.js';
 import { createIndicator } from '@/helpers/pageable.js';
@@ -29,9 +29,9 @@ export default function Page() {
     return (
         <div className="flex w-full flex-col">
             {fireflyBridgeProvider.supported ? (
-                <ActivityNavigationBar>
+                <ActivityMobileNavigationBar>
                     <Trans>Exclusive Events</Trans>
-                </ActivityNavigationBar>
+                </ActivityMobileNavigationBar>
             ) : (
                 <div className="sticky top-0 z-20 hidden h-12 w-full flex-row items-center bg-primaryBottom px-4 text-xl font-bold md:flex">
                     <span>
