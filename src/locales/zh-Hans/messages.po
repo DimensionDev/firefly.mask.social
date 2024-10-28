@@ -1894,7 +1894,7 @@ msgid "Wallets retrieved from public verifiable data registries or our entity al
 msgstr "从公开可验证数据注册表中或我们的实体算法中检索到的钱包可以被举报从而断开连接。"
 
 msgid "Step 2 Connect Wallet"
-msgstr ""
+msgstr "第 2 步 连接钱包"
 
 msgid "Light Mode"
 msgstr "明亮模式"
@@ -2131,7 +2131,7 @@ msgid "The hidden owner function is included. The project owner may have the abi
 msgstr ""
 
 msgid "Step 1 Sign in"
-msgstr ""
+msgstr "第 1 步 登录"
 
 msgid "Copy"
 msgstr "复制"
