@@ -18,11 +18,11 @@ import { ActivityModalRef, LoginModalRef } from '@/modals/controls.js';
 import { fireflyBridgeProvider } from '@/providers/firefly/Bridge.js';
 import type { Advertisement } from '@/types/advertisement.js';
 
-interface SwiperProps extends React.HTMLProps<'div'> {
+interface Props extends React.HTMLProps<'div'> {
     items: Advertisement[];
 }
 
-export function AdvertisementSwiper({ items }: SwiperProps) {
+export function AdvertisementSwiper({ items }: Props) {
     return (
         <Swiper
             className="ff-advertisement"
