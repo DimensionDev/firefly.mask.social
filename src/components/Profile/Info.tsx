@@ -87,10 +87,6 @@ export function Info({ profile }: InfoProps) {
                         <data value={followerCount}>
                             <span className="font-bold text-lightMain">{nFormatter(followerCount)} </span>
                             <span className="text-secondary">
-                                {/* {plural(followerCount, {
-                                    one: 'Follower',
-                                    other: 'Followers',
-                                })} */}
                                 <Plural value={followerCount} one="Follower" other="Followers" />
                             </span>
                         </data>
@@ -98,33 +94,6 @@ export function Info({ profile }: InfoProps) {
                 </div>
             </div>
             <Mutuals profile={profile} />
-            {/* {enabledMutuals && mutualCount ? (
-                <div className="break-word col-[1/3] mt-3 flex items-center gap-2 leading-[22px] hover:underline sm:col-[2/3]">
-                    <AvatarGroup profiles={mutuals.slice(0, 3)} AvatarProps={{ size: 30 }} />
-                    <Link
-                        className="text-sm text-secondary"
-                        href={resolveProfileUrl(source, profileId, FollowCategory.Mutuals)}
-                    >
-                        {mutualCount === 1 ? (
-                            <Trans>Followed by {mutuals[0].displayName}</Trans>
-                        ) : mutualCount === 2 ? (
-                            <Trans>
-                                Followed by {mutuals[0].displayName} and {mutuals[1].displayName}
-                            </Trans>
-                        ) : mutualCount === 3 ? (
-                            <Trans>
-                                Followed by {mutuals[0].displayName} , {mutuals[1].displayName}, and{' '}
-                                {mutuals[2].displayName}
-                            </Trans>
-                        ) : (
-                            <Trans>
-                                Followed by {mutuals[0].displayName} , {mutuals[1].displayName}, and {mutualCount - 2}{' '}
-                                others you follow
-                            </Trans>
-                        )}
-                    </Link>
-                </div>
-            ) : null} */}
         </div>
     );
 }
