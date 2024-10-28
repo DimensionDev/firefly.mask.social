@@ -7,6 +7,7 @@ import { GoogleAnalytics } from '@next/third-parties/google';
 import { Inter } from 'next/font/google';
 
 import { LayoutBody } from '@/app/layout-body.js';
+import { ErrorBoundary } from '@/components/ErrorBoundary/index.js';
 import { Script } from '@/esm/Script.js';
 import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
 
@@ -39,7 +40,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                 <meta name="theme-color" content="#ffffff" />
             </head>
             <body className={`${inter.variable} font-inter`}>
-                <LayoutBody>{children}</LayoutBody>
+                <ErrorBoundary>
+                    <LayoutBody>{children}</LayoutBody>
+                </ErrorBoundary>
             </body>
         </html>
     );
