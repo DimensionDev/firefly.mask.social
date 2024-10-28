@@ -1,7 +1,7 @@
+import { ChainId } from '@masknet/web3-shared-evm';
 import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
 import { memo, useCallback } from 'react';
 import urlcat from 'urlcat';
-import { mainnet } from 'viem/chains';
 import { useEnsName } from 'wagmi';
 
 import { Avatar } from '@/components/Avatar.js';
@@ -31,7 +31,7 @@ const SnapshotVotesListItem = memo<SnapshotVotesListItemProps>(function Snapshot
         source: SourceInURL.Wallet,
     });
 
-    const { data: ens } = useEnsName({ address: vote.voter as `0x${string}`, chainId: mainnet.id });
+    const { data: ens } = useEnsName({ address: vote.voter as `0x${string}`, chainId: ChainId.Mainnet });
 
     const choiceLabel = formatSnapshotChoice(vote.choice, vote.proposal.type, vote.proposal.choices);
 
@@ -71,3 +71,43 @@ interface SnapshotVotesListProps {
 function getSnapshotVotesItemContent(vote: SnapshotVote) {
     return <SnapshotVotesListItem key={vote.ipfs} vote={vote} />;
 }
+
+export const SnapshotVotesList = memo<SnapshotVotesListProps>(function SnapshotVotesList({ id }) {
+    const { data, fetchNextPage, isFetching, isFetchingNextPage, hasNextPage } = useSuspenseInfiniteQuery({
+        queryKey: ['snapshot', 'votes', id],
+        queryFn: async ({ pageParam }) => {
+            return Snapshot.getVotesById(id, createIndicator(undefined, pageParam));
+        },
+        initialPageParam: '0',
+        getNextPageParam: (lastPage) => lastPage.nextIndicator?.id,
+        refetchOnMount: true,
+        select: (data) => data.pages.flatMap((x) => x.data),
+    });
+
+    const onEndReached = useCallback(async () => {
+        if (!hasNextPage || isFetching || isFetchingNextPage) {
+            return;
+        }
+        await fetchNextPage();
+    }, [fetchNextPage, hasNextPage, isFetching, isFetchingNextPage]);
+
+    if (!data?.length) {
+        return <NoResultsFallback className="h-[138px] justify-center" />;
+    }
+
+    return (
+        <div className="h-[138px]">
+            <VirtualList
+                data={data}
+                endReached={onEndReached}
+                components={{
+                    Footer: VirtualListFooter,
+                }}
+                className={classNames('no-scrollbar h-full')}
+                listKey={`$${ScrollListKey.SnapshotVotes}`}
+                computeItemKey={(index, item) => item.ipfs}
+                itemContent={(index, vote) => getSnapshotVotesItemContent(vote)}
+            />
+        </div>
+    );
+});
