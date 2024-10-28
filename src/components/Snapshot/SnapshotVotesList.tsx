@@ -1,3 +1,4 @@
+import { ChainId } from '@masknet/web3-shared-evm';
 import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
 import { memo, useCallback } from 'react';
 import urlcat from 'urlcat';
@@ -29,7 +30,8 @@ const SnapshotVotesListItem = memo<SnapshotVotesListItemProps>(function Snapshot
         address: vote.voter,
         source: SourceInURL.Wallet,
     });
-    const { data: ens } = useEnsName({ address: vote.voter as `0x${string}` });
+
+    const { data: ens } = useEnsName({ address: vote.voter as `0x${string}`, chainId: ChainId.Mainnet });
 
     const choiceLabel = formatSnapshotChoice(vote.choice, vote.proposal.type, vote.proposal.choices);
 

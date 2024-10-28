@@ -1,4 +1,4 @@
-import { Tab } from '@headlessui/react';
+import { Tab, TabGroup, TabList, TabPanel, TabPanels } from '@headlessui/react';
 import { t, Trans } from '@lingui/macro';
 import { useQuery } from '@tanstack/react-query';
 import { isArray, isNumber, isObject, isUndefined, sum, values } from 'lodash-es';
@@ -202,8 +202,8 @@ export function SnapshotBody({ snapshot, link, postId, activity }: Props) {
                 </div>
 
                 <div>
-                    <Tab.Group selectedIndex={currentTabIndex} onChange={setCurrentTabIndex}>
-                        <Tab.List className="flex w-full rounded-t-xl bg-none">
+                    <TabGroup selectedIndex={currentTabIndex} onChange={setCurrentTabIndex}>
+                        <TabList className="flex w-full rounded-t-xl bg-none">
                             {tabs.map((x, i) => (
                                 <Tab
                                     className={classNames(
@@ -218,14 +218,14 @@ export function SnapshotBody({ snapshot, link, postId, activity }: Props) {
                                     {x.label}
                                 </Tab>
                             ))}
-                        </Tab.List>
-                        <Tab.Panels className="rounded-b-xl bg-white p-4">
-                            <Tab.Panel>
+                        </TabList>
+                        <TabPanels className="rounded-b-xl bg-white p-4">
+                            <TabPanel>
                                 <SnapshotMarkup className="no-scrollbar overflow-auto text-sm leading-[18px] text-secondary max-md:h-[270px] md:h-[374px]">
                                     {snapshot.body}
                                 </SnapshotMarkup>
-                            </Tab.Panel>
-                            <Tab.Panel>
+                            </TabPanel>
+                            <TabPanel>
                                 <SnapshotResults
                                     status={state}
                                     choices={choices}
@@ -235,9 +235,9 @@ export function SnapshotBody({ snapshot, link, postId, activity }: Props) {
                                     id={snapshot.id}
                                     votes={votes}
                                 />
-                            </Tab.Panel>
-                        </Tab.Panels>
-                    </Tab.Group>
+                            </TabPanel>
+                        </TabPanels>
+                    </TabGroup>
                 </div>
                 {state !== SnapshotState.Closed ? (
                     <>

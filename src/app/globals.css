@@ -619,6 +619,14 @@ body.not-support .fixed.inset-y-0 {
     content: counter(list-counter) '. ';
 }
 
+.snapshot-markup ol {
+    list-style-type: decimal;
+}
+
+.snapshot-markup ul {
+    list-style: inside;
+}
+
 .snapshot-markup h1 {
     font-size: 1.5rem;
     font-weight: 600;
