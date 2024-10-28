@@ -17,10 +17,8 @@ export async function ArticleDetailPage({ params: { id: articleId } }: PageProps
     if (!articleId) notFound();
 
     const article = await FireflyArticleProvider.getArticleById(articleId);
-
     if (!article) notFound();
 
     const cover = await getArticleCover(article);
-
     return <ArticleDetailContent article={article} cover={cover} />;
 }

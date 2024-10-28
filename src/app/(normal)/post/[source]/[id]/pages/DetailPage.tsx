@@ -4,7 +4,7 @@ import { Suspense } from 'react';
 
 import { PostActionsWithGrid } from '@/components/Actions/index.js';
 import { PostStatistics } from '@/components/Actions/PostStatistics.js';
-import { Info } from '@/components/Channel/Info.js';
+import { ChannelInfo } from '@/components/Channel/ChannelInfo.js';
 import { Comeback } from '@/components/Comeback.js';
 import { CommentList } from '@/components/Comments/index.js';
 import { Loading } from '@/components/Loading.js';
@@ -28,7 +28,6 @@ export async function PostDetailPage({ id: postId, source }: Props) {
 
     const provider = resolveSocialMediaProvider(source);
     const post = await provider.getPostById(postId);
-
     if (!post) return notFound();
 
     const threads = await getThreads(post, source);
@@ -44,7 +43,7 @@ export async function PostDetailPage({ id: postId, source }: Props) {
             </header>
             {post.channel ? (
                 <Section title="Post Channel">
-                    <Info channel={post.channel} source={post.source} className="border-b border-line p-3" />
+                    <ChannelInfo channel={post.channel} source={post.source} className="border-b border-line p-3" />
                 </Section>
             ) : null}
             {allPosts.length >= MIN_POST_SIZE_PER_THREAD ? (
