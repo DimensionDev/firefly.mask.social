@@ -22,7 +22,7 @@ interface InfoProps extends HTMLProps<HTMLDivElement> {
     isChannelPage?: boolean;
 }
 
-export function Info({ channel, source, isChannelPage = false, ...rest }: InfoProps) {
+export function ChannelInfo({ channel, source, isChannelPage = false, ...rest }: InfoProps) {
     const followerCount = channel.followerCount ?? 0;
 
     const url = urlcat(SITE_URL, getChannelUrl(channel));

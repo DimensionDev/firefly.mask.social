@@ -35,11 +35,13 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 export default async function Page(props: Props) {
     if (isBotRequest()) return null;
+
     const { params } = props;
     if (!isSocialSourceInUrl(params.source)) return notFound();
-    const source = resolveSocialSource(params.source);
 
     setupLocaleForSSR();
+
+    const source = resolveSocialSource(params.source);
 
     return (
         <LoginRequiredGuard source={source}>
