@@ -51,6 +51,8 @@ export enum PageRoute {
     Developers = '/developers',
     Search = '/search',
     PostDetail = '/post/:source/:id',
+    Events = '/events',
+    ConnectWallet = '/connect-wallet',
 }
 
 export enum Source {
@@ -111,6 +113,7 @@ export enum KeyType {
     CreateMetadataArticleById = '/v2/createMetadataArticleById',
     CreateMetadataProfileById = '/v2/createMetadataProfileById',
     CreateMetadataChannelById = '/v2/createMetadataChannelById',
+    CreateMetadataEvent = '/v2/createMetadataEvent',
 }
 
 export enum SocialProfileCategory {
@@ -163,6 +166,7 @@ export enum ScrollListKey {
     SuggestedUsers = 'suggested-users',
     SchedulePosts = 'schedule-posts',
     SnapshotVotes = 'snapshot-votes',
+    Activity = 'activity',
 }
 
 export enum FarcasterSignType {

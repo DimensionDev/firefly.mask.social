@@ -16,6 +16,7 @@ import {
 export function getPublicParameters(eventId: string, previousEventId: string | null) {
     const evmAccount = runInSafe(() => getAccount(config));
     const solanaAdaptor = runInSafe(() => resolveWalletAdapter());
+    const fireflyAccountId = useFireflyStateStore.getState().currentProfileSession?.profileId;
 
     return {
         public_uuid: eventId,
@@ -37,10 +38,10 @@ export function getPublicParameters(eventId: string, previousEventId: string | n
             ? `solana:${ChainId.Mainnet}:${solanaAdaptor.publicKey.toBase58()}`
             : undefined,
 
-        public_account_id: useFireflyStateStore.getState().currentProfileSession?.profileId,
+        public_account_id: fireflyAccountId,
         public_use_development_api: useDeveloperSettingsState.getState().developmentAPI,
 
-        firefly_account_id: useFireflyStateStore.getState().currentProfileSession?.profileId,
+        firefly_account_id: fireflyAccountId,
 
         // safary social login
         twitter_username: useTwitterStateStore.getState().currentProfile?.handle,

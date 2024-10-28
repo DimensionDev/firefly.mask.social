@@ -9,5 +9,6 @@ export const IS_SAFARI = !!(ua?.toLowerCase().includes('safari') && !ua?.toLower
 export const IS_APPLE = !!ua?.toLowerCase().includes('apple');
 export const IS_IOS = !!ua?.match(/(iPhone|iPod|iPad)/);
 export const IS_FIREFOX = !!ua?.toLowerCase().includes('firefox');
+export const IS_ANDROID = !!ua?.toLowerCase().includes('android');
 
 export const IS_MOBILE_DEVICE = getMobileDevice() !== 'unknown';

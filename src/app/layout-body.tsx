@@ -38,7 +38,7 @@ export function LayoutBody({ children }: { children: React.ReactNode }) {
                 <div className="m-auto flex w-full md:min-h-screen group-[.not-support]:md:min-h-[calc(100vh_-_38px)] lg:w-[1265px]">
                     {children}
                     <IfHostname isNotOneOf={[CZ_ACTIVITY_HOSTNAME]}>
-                        <IfPathname isNotOneOf={['/login/desktop', '/activity/cz']}>
+                        <IfPathname isNotOneOf={['/login/desktop', '/activity/cz', '/event', '/events']}>
                             <SideBar />
                         </IfPathname>
                     </IfHostname>

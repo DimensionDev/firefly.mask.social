@@ -74,7 +74,7 @@ export function ComposeActions(props: ComposeActionsProps) {
                 }),
             ),
         });
-    }, [currentProfileAll]);
+    }, [account.isConnected, currentProfileAll]);
 
     const maxImageCount = getCurrentPostImageLimits(type, availableSources);
     const mediaDisabled = !!video || images.length >= maxImageCount || !!poll;

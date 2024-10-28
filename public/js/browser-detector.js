@@ -19,6 +19,12 @@
             return value;
         }
 
+        function isBridge() {
+            if (typeof window.FireflyApi?.callNativeMethod === 'function') return true;
+            if (typeof window.webkit?.messageHandlers?.callNativeMethod?.postMessage === 'function') return true;
+            return false;
+        }
+
         var browser = window.bowser.getParser(window.navigator.userAgent);
         var isValidBrowser = browser.satisfies({
             ios: {
@@ -37,7 +43,7 @@
             edge: '>=103',
         });
 
-        if (!isValidBrowser) {
+        if (!isValidBrowser && !isBridge()) {
             const showTip = (isDarkMode) => {
                 var locale = getCookie('locale');
                 const isCN = locale === 'zh-Hans';

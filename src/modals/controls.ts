@@ -1,5 +1,5 @@
 import { SingletonModal } from '@/libs/SingletonModal.js';
-import type { AddWalletModalProps } from '@/modals/AddWalletModal.js';
+import type { AddWalletModalCloseProps, AddWalletModalProps } from '@/modals/AddWalletModal.js';
 import type { CollectArticleModalOpenProps } from '@/modals/CollectArticleModal.js';
 import type { CollectPostModalOpenProps } from '@/modals/CollectPostModal.js';
 import type { ComposeModalCloseProps, ComposeModalOpenProps } from '@/modals/ComposeModal.js';
@@ -36,7 +36,7 @@ export const EditProfileModalRef = new SingletonModal<EditProfileModalOpenProps>
 export const CollectArticleModalRef = new SingletonModal<CollectArticleModalOpenProps>();
 export const EnableSignlessModalRef = new SingletonModal<void, boolean>();
 export const CollectPostModalRef = new SingletonModal<CollectPostModalOpenProps>();
-export const AddWalletModalRef = new SingletonModal<AddWalletModalProps>();
+export const AddWalletModalRef = new SingletonModal<AddWalletModalProps, AddWalletModalCloseProps>();
 export const SuperFollowModalRef = new SingletonModal<SuperFollowModalOpenProps>();
 export const TransactionSimulatorModalRef = new SingletonModal<TransactionSimulatorModalOpenProps>();
 

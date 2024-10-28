@@ -4,6 +4,7 @@ import { Trans } from '@lingui/macro';
 import { usePathname } from 'next/navigation.js';
 import { memo } from 'react';
 
+import ActivityIcon from '@/assets/activity.svg';
 import BookmarkSelectedIcon from '@/assets/bookmark.selected.svg';
 import BookmarkIcon from '@/assets/bookmark.svg';
 import CircleShareIcon from '@/assets/circle-share.svg';
@@ -20,6 +21,7 @@ import SettingsIcon from '@/assets/setting.svg';
 import WalletIcon from '@/assets/wallet.svg';
 import { OpenFireflyAppButton } from '@/components/OpenFireflyAppButton.js';
 import { ConnectWallet } from '@/components/SideBar/ConnectWallet.js';
+import { ExclusiveEvents } from '@/components/SideBar/ExclusiveEvents.js';
 import { Footer } from '@/components/SideBar/Footer.js';
 import { Post } from '@/components/SideBar/Post.js';
 import { Profile } from '@/components/SideBar/Profile.js';
@@ -89,6 +91,12 @@ export const Menu = memo(function Menu({ collapsed = false }: MenuProps) {
                                 selectedIcon: WalletIcon,
                             },
                             {
+                                href: PageRoute.Events,
+                                name: <Trans>Exclusive Events</Trans>,
+                                icon: ActivityIcon,
+                                selectedIcon: ActivityIcon,
+                            },
+                            {
                                 href: PageRoute.Settings,
                                 name: <Trans>Settings</Trans>,
                                 icon: SettingsIcon,
@@ -108,8 +116,9 @@ export const Menu = memo(function Menu({ collapsed = false }: MenuProps) {
                                     }}
                                 >
                                     {{
-                                        ['/connect-wallet']: <ConnectWallet collapsed={collapsed} />,
-                                        ['/profile']: <Profile collapsed={collapsed} />,
+                                        [PageRoute.ConnectWallet]: <ConnectWallet collapsed={collapsed} />,
+                                        [PageRoute.Events]: <ExclusiveEvents />,
+                                        [PageRoute.Profile]: <Profile collapsed={collapsed} />,
                                     }[item.href] ?? (
                                         <Link
                                             href={item.href}

@@ -34,7 +34,7 @@ export enum SupportedMethod {
     BACK = 'back',
 }
 
-export interface Profile {
+export interface MentionProfile {
     platform_id: string;
     platform: Platform;
     handle: string;
@@ -42,6 +42,11 @@ export interface Profile {
     namespace: string;
     hit: boolean;
     score: number;
+}
+
+export interface Mention {
+    content: string;
+    profiles: MentionProfile[];
 }
 
 export interface RequestArguments {
@@ -80,13 +85,12 @@ export interface RequestArguments {
     [SupportedMethod.COMPOSE]: {
         text: string;
         activity: string;
-        mentions: Array<{
-            content: string;
-            profiles: Profile[];
-        }>;
+        mentions: Mention[];
     };
     [SupportedMethod.BACK]: {};
 }
+
+type StringifyBoolean = 'true' | 'false';
 
 export interface RequestResult {
     [SupportedMethod.GET_SUPPORTED_METHODS]: SupportedMethod[];
@@ -96,13 +100,14 @@ export interface RequestResult {
     [SupportedMethod.GET_WALLET_ADDRESS]: string[];
     [SupportedMethod.CONNECT_WALLET]: string;
     [SupportedMethod.BIND_WALLET]: string; // address
-    [SupportedMethod.IS_TWITTER_USER_FOLLOWING]: boolean;
-    [SupportedMethod.FOLLOW_TWITTER_USER]: boolean;
     [SupportedMethod.UPDATE_NAVIGATOR_BAR]: void;
     [SupportedMethod.OPEN_URL]: void;
-    [SupportedMethod.LOGIN]: {
-        success: 'true' | 'false';
-    };
+    [SupportedMethod.BIND_WALLET]: string; // address
+    [SupportedMethod.IS_TWITTER_USER_FOLLOWING]: StringifyBoolean;
+    [SupportedMethod.FOLLOW_TWITTER_USER]: StringifyBoolean;
+    [SupportedMethod.UPDATE_NAVIGATOR_BAR]: void;
+    [SupportedMethod.OPEN_URL]: void;
+    [SupportedMethod.LOGIN]: StringifyBoolean;
     [SupportedMethod.SHARE]: void;
     [SupportedMethod.COMPOSE]: void;
     [SupportedMethod.BACK]: void;
