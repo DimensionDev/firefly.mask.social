@@ -52,6 +52,7 @@ export enum PageRoute {
     Search = '/search',
     PostDetail = '/post/:source/:id',
     Events = '/events',
+    ConnectWallet = '/connect-wallet',
 }
 
 export enum Source {

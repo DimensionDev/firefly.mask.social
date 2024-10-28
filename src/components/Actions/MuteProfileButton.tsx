@@ -19,7 +19,7 @@ export const MuteProfileButton = forwardRef<HTMLButtonElement, MuteProfileButton
     { profile, onConfirm, onToggle, onClick, ...rest }: MuteProfileButtonProps,
     ref,
 ) {
-    const muted = useIsProfileMuted(profile);
+    const muted = useIsProfileMuted(profile.source, profile.profileId, profile.viewerContext?.blocking);
     return (
         <MenuButton
             {...rest}

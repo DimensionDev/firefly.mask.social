@@ -77,6 +77,8 @@ export function ConnectWallet({ collapsed: sideBarCollapsed = false }: ConnectWa
     const text = activeType?.label ?? <Trans>Connect Wallet</Trans>;
     const isConnected = !!activeType;
 
+    if (!mounted) return null;
+
     const icon = (
         <div className="h-5 w-5 flex-shrink-0">
             {collapsed ? <WalletSelectedIcon width={20} height={20} /> : <WalletIcon width={20} height={20} />}

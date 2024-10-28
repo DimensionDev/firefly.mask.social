@@ -1,3 +1,5 @@
+'use client';
+
 import { MenuItem, type MenuProps } from '@headlessui/react';
 import { t } from '@lingui/macro';
 import { memo } from 'react';

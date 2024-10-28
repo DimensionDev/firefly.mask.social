@@ -32,7 +32,7 @@ export const FollowButton = memo(function FollowButton({
     ...rest
 }: FollowButtonProps) {
     const [hovering, setHovering] = useState(false);
-    const muted = useIsProfileMuted(profile, hasMutedButton);
+    const muted = useIsProfileMuted(profile.source, profile.profileId, profile.viewerContext?.blocking, hasMutedButton);
 
     const isFollowing = !!profile.viewerContext?.following;
     const isFollowedBy = !!profile.viewerContext?.followedBy;

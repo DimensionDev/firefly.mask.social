@@ -1,3 +1,5 @@
+'use client';
+
 import type { TippyProps } from '@tippyjs/react';
 import { cloneElement, memo, type ReactElement, type ReactNode } from 'react';
 

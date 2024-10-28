@@ -90,7 +90,7 @@ export const PostBody = forwardRef<HTMLDivElement, PostBodyProps>(function PostB
         };
     }, [postRawContent, attachments, seen]);
 
-    const muted = useIsProfileMuted(author, isDetail);
+    const muted = useIsProfileMuted(author.source, author.profileId, author.viewerContext?.blocking, isDetail);
 
     const isSmall = useIsSmall('max');
 

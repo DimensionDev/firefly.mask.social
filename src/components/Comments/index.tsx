@@ -1,3 +1,5 @@
+'use client';
+
 import { Trans } from '@lingui/macro';
 import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
 import { memo } from 'react';

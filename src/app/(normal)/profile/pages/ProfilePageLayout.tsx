@@ -1,102 +1,62 @@
-'use client';
-
-import { useWallet as useSolanaWallet } from '@solana/wallet-adapter-react';
-import { useQuery } from '@tanstack/react-query';
 import { StatusCodes } from 'http-status-codes';
 import React, { type PropsWithChildren } from 'react';
-import { useAccount as useEVMAccount } from 'wagmi';
 
-import { Loading } from '@/components/Loading.js';
-import { LoginRequiredGuard } from '@/components/LoginRequiredGuard.js';
-import { ProfileInfo } from '@/components/Profile/ProfileInfo.js';
-import { SourceTabs } from '@/components/SourceTabs/index.js';
+import { Info } from '@/components/Profile/Info.js';
+import { ProfileNotFound } from '@/components/Profile/ProfileNotFound.js';
+import { ProfileSourceTabs } from '@/components/Profile/ProfileSourceTabs.js';
+import { ProfileTabs } from '@/components/Profile/ProfileTabs.js';
+import { Title } from '@/components/Profile/Title.js';
+import { WalletInfo } from '@/components/Profile/WalletInfo.js';
+import { ProfileDetailEffect } from '@/components/ProfileDetailEffect.js';
+import { SuspendedAccountFallback } from '@/components/SuspendedAccountFallback.js';
+import { SuspendedAccountInfo } from '@/components/SuspendedAccountInfo.js';
 import { Source } from '@/constants/enum.js';
 import { FetchError } from '@/constants/error.js';
-import { EMPTY_LIST, SORTED_PROFILE_SOURCES } from '@/constants/index.js';
-import { isSameEthereumAddress, isSameSolanaAddress } from '@/helpers/isSameAddress.js';
-import { isSameFireflyIdentity } from '@/helpers/isSameFireflyIdentity.js';
 import { narrowToSocialSource } from '@/helpers/narrowToSocialSource.js';
-import { resolveProfileUrl } from '@/helpers/resolveProfileUrl.js';
-import { useCurrentFireflyProfilesAll } from '@/hooks/useCurrentFireflyProfiles.js';
-import { useUpdateCurrentVisitingProfile } from '@/hooks/useCurrentVisitingProfile.js';
-import { useIsLogin } from '@/hooks/useIsLogin.js';
+import { resolveFireflyProfiles } from '@/helpers/resolveFireflyProfiles.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 import type { FireflyIdentity } from '@/providers/types/Firefly.js';
 import { getProfileById } from '@/services/getProfileById.js';
 
-export function ProfilePageLayout({ identity, children }: PropsWithChildren<{ identity: FireflyIdentity }>) {
-    const currentProfiles = useCurrentFireflyProfilesAll();
-    const isCurrentProfile = currentProfiles.some((x) => isSameFireflyIdentity(x.identity, identity));
+export async function ProfilePageLayout({ identity, children }: PropsWithChildren<{ identity: FireflyIdentity }>) {
     const resolvedSource = narrowToSocialSource(identity.source);
-    const isLogin = useIsLogin(resolvedSource);
 
-    const evmAccount = useEVMAccount();
-    const solanaWallet = useSolanaWallet();
+    const profiles = await FireflyEndpointProvider.getAllPlatformProfileByIdentity(identity, false);
 
-    const { data: otherProfiles = EMPTY_LIST, isLoading } = useQuery({
-        queryKey: ['all-profiles', identity.source, identity.id, evmAccount.address, solanaWallet.publicKey],
-        queryFn: async () => {
-            if (!identity.id) return EMPTY_LIST;
-            const isTokenRequired =
-                isSameEthereumAddress(evmAccount.address, identity.id) ||
-                (!!solanaWallet.publicKey && isSameSolanaAddress(solanaWallet.publicKey.toBase58(), identity.id));
-            return FireflyEndpointProvider.getAllPlatformProfileByIdentity(identity, isTokenRequired);
-        },
-    });
+    const { walletProfile } = resolveFireflyProfiles(identity, profiles);
 
-    const profiles = isCurrentProfile ? currentProfiles : otherProfiles;
+    try {
+        const profile =
+            identity.id && identity.source !== Source.Wallet ? await getProfileById(resolvedSource, identity.id) : null;
+        const profileMissing =
+            !profile && !walletProfile && ((identity.source === Source.Twitter && !profile) || !profiles.length);
 
-    const {
-        data: profile = null,
-        isLoading: isLoadingProfile,
-        error,
-    } = useQuery({
-        queryKey: ['profile', identity.source, identity.id],
-        queryFn: async () => {
-            if (!identity.id || identity.source === Source.Wallet || (isCurrentProfile && !isLogin)) return null;
-            return getProfileById(resolvedSource, identity.id);
-        },
-        retry(failureCount, error) {
-            if (error instanceof FetchError && error.status === StatusCodes.FORBIDDEN) return false;
-            return failureCount <= 3;
-        },
-    });
+        if (profileMissing) return <ProfileNotFound />;
 
-    useUpdateCurrentVisitingProfile(profile);
+        return (
+            <>
+                <ProfileSourceTabs profiles={profiles} identity={identity} />
+                {profile || walletProfile ? <Title profile={profile} profiles={profiles} /> : null}
+                {identity.source === Source.Wallet && walletProfile ? (
+                    <WalletInfo profile={walletProfile} />
+                ) : profile ? (
+                    <Info profile={profile} />
+                ) : null}
+                <ProfileTabs profiles={profiles} identity={identity} />
+                {children}
+                <ProfileDetailEffect profile={profile} identity={identity} />
+            </>
+        );
+    } catch (error) {
+        if (error instanceof FetchError && error.status === StatusCodes.FORBIDDEN) {
+            return (
+                <>
+                    <SuspendedAccountInfo source={resolvedSource} />
+                    <SuspendedAccountFallback />
+                </>
+            );
+        }
 
-    if (isLoading && !isCurrentProfile) {
-        return <Loading />;
+        throw error;
     }
-
-    const isSuspended = error instanceof FetchError && error.status === StatusCodes.FORBIDDEN;
-
-    return (
-        <>
-            <SourceTabs
-                source={identity.source}
-                sources={SORTED_PROFILE_SOURCES.filter((value) => {
-                    return profiles.find((profile) => profile.identity.source === value);
-                })}
-                href={(x) => {
-                    const profile = profiles.find((profile) => profile.identity.source === x);
-                    return resolveProfileUrl(x, profile?.identity.id ?? identity.id);
-                }}
-            />
-            <LoginRequiredGuard source={identity.source}>
-                {isLoading ? (
-                    <Loading />
-                ) : (
-                    <ProfileInfo
-                        profiles={profiles}
-                        isSuspended={isSuspended}
-                        isLoading={isLoadingProfile}
-                        profile={profile}
-                        identity={identity}
-                    >
-                        {children}
-                    </ProfileInfo>
-                )}
-            </LoginRequiredGuard>
-        </>
-    );
 }
