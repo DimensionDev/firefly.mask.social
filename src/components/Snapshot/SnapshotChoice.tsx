@@ -19,13 +19,17 @@ export const SnapshotChoice = memo<SnapshotChoiceProps>(function SnapshotChoice(
 }) {
     return (
         <ClickableArea
-            className={classNames('flex items-center justify-between rounded-[10px] border bg-white px-5 py-2', {
-                'hover:border-lightHighlight hover:text-lightHighlight': !disabled,
-                'border-transparent text-commonMain': !selected,
-                'border border-lightHighlight text-lightHighlight': selected,
-                'opacity-40': disabled,
-            })}
+            className={classNames(
+                'flex cursor-pointer items-center justify-between rounded-[10px] border bg-white px-5 py-2',
+                {
+                    'hover:border-lightHighlight hover:text-lightHighlight': !disabled,
+                    'border-transparent text-commonMain': !selected,
+                    'border border-lightHighlight text-lightHighlight': selected,
+                    'cursor-default opacity-40': disabled,
+                },
+            )}
             onClick={() => {
+                if (disabled) return;
                 onClick(value);
             }}
         >
