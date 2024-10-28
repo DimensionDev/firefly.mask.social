@@ -27,22 +27,11 @@ export function tweetV2ToPost(item: TweetV2, includes?: ApiV2Includes): Post {
         }),
     );
     let content = item.note_tweet?.text || item.text || '';
-    const parsedEntitiesUrls = item.entities?.urls?.reduce(
-        (acc, url) => {
-            const length = url.end - url.start;
-            const spliceItems = url.expanded_url.split('');
-            acc.contentArr.splice(url.start + acc.offsetIndex, length, ...spliceItems);
-            acc.offsetIndex += spliceItems.length - length;
-            return acc;
-        },
-        {
-            contentArr: content.split(''),
-            offsetIndex: 0,
-        },
-    );
-    if (parsedEntitiesUrls) {
-        content = parsedEntitiesUrls.contentArr.join('');
-    }
+
+    item.entities?.urls?.forEach((url) => {
+        content = content.replaceAll(url.url, url.expanded_url);
+    });
+
     const oembedUrls = getEmbedUrls(content, []);
 
     if (repliedTweetId) {
