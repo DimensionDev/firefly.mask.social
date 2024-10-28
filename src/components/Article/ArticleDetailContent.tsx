@@ -105,7 +105,9 @@ export function ArticleDetailContent({ article, cover }: ArticleDetailContentPro
                     >
                         {/*  The content returned by limo is html. */}
                         <div
-                            className={classNames('container-fluid markdown-body comment-enabled')}
+                            className={classNames('container-fluid markdown-body comment-enabled', {
+                                dark: isDarkMode,
+                            })}
                             // eslint-disable-next-line react/no-danger
                             dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(article.content) }}
                             onClick={(event) => {
