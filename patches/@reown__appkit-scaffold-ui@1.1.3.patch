@@ -1,5 +1,5 @@
 diff --git a/dist/esm/src/partials/w3m-connect-injected-widget/index.js b/dist/esm/src/partials/w3m-connect-injected-widget/index.js
-index 8834cda2346d8316a340b914f00e39bad9008192..7c270153b3dc36be97ade2b3ba9059f82bcbc033 100644
+index 8834cda2346d8316a340b914f00e39bad9008192..8e63e3e27e1d44d2d175bf6a0cee9f435cdfa806 100644
 --- a/dist/esm/src/partials/w3m-connect-injected-widget/index.js
 +++ b/dist/esm/src/partials/w3m-connect-injected-widget/index.js
 @@ -20,7 +20,12 @@ let W3mConnectInjectedWidget = class W3mConnectInjectedWidget extends LitElement
@@ -11,7 +11,7 @@ index 8834cda2346d8316a340b914f00e39bad9008192..7c270153b3dc36be97ade2b3ba9059f8
 +        const CoinBase = 'coinbaseWalletSDK';
 +        const Rabby = 'io.rabby';
 +        const OKX = 'com.okex.wallet'
-+        const RDNSs = CoreHelperUtil.isMobile() ? [MetaMask, Rabby, OKX]: [CoinBase, Rabby, OKX]
++        const RDNSs = CoreHelperUtil.isMobile() ? [CoinBase, OKX, MetaMask]: [MetaMask, Rabby, OKX]
 +        const injectedConnectors = this.connectors.filter(connector => connector.type === 'INJECTED').filter(x => RDNSs.includes(x.id));
          if (!injectedConnectors?.length ||
              (injectedConnectors.length === 1 &&

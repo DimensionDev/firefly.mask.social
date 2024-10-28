@@ -101,8 +101,8 @@ const metadata = {
 };
 
 const walletIds = IS_MOBILE_DEVICE
-    ? [WalletId.MetaMask, WalletId.Rabby, WalletId.OKX]
-    : [WalletId.CoinBase, WalletId.Rabby, WalletId.OKX];
+    ? [WalletId.CoinBase, WalletId.Rainbow, WalletId.OKX, WalletId.MetaMask]
+    : [WalletId.MetaMask, WalletId.Rabby, WalletId.OKX];
 
 createAppKit({
     adapters: [adapter],
