@@ -109,6 +109,7 @@
 
 .discover-tab {
     --tw-bg-opacity: 0.1;
+    color: rgb(var(--color-farcaster-primary));
 }
 
 .calendar-tab-list .tabItem {
@@ -183,6 +184,7 @@
     }
     .discover-tab {
         --tw-bg-opacity: 0.3;
+        color: #fff;
     }
 
     .calendar-tab-list {
