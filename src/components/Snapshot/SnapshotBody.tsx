@@ -75,7 +75,7 @@ export function SnapshotBody({ snapshot, link, postId, activity }: Props) {
             snapshot.space.id,
         ],
         queryFn: async () => {
-            if (!account.address) return;
+            if (!account.address) return 0;
             const { vp } = await Snapshot.getVotePower(
                 account.address,
                 snapshot.network,
@@ -95,7 +95,7 @@ export function SnapshotBody({ snapshot, link, postId, activity }: Props) {
     const isNotEnoughVp = vp === 0 && !queryVpLoading;
 
     const disabled = useMemo(() => {
-        if (!selectedChoices || (isArray(selectedChoices) && !selectedChoices?.length) || !isNotEnoughVp) return true;
+        if (!selectedChoices || (isArray(selectedChoices) && !selectedChoices?.length) || isNotEnoughVp) return true;
 
         if (type === 'approval' && isArray(selectedChoices) && !selectedChoices.length) return true;
 
@@ -249,9 +249,9 @@ export function SnapshotBody({ snapshot, link, postId, activity }: Props) {
                                         : undefined
                                 }
                                 choices={choices}
-                                disabled={isPending || isNotEnoughVp}
+                                disabled={isPending}
                                 onChange={(value) => {
-                                    if (value) setSelectedChoices([value]);
+                                    if (!isUndefined(value)) setSelectedChoices(value);
                                 }}
                             />
                         ) : null}
@@ -263,7 +263,7 @@ export function SnapshotBody({ snapshot, link, postId, activity }: Props) {
                                         : undefined
                                 }
                                 choices={snapshot.choices}
-                                disabled={isPending || isNotEnoughVp}
+                                disabled={isPending}
                                 onChange={(value) => setSelectedChoices(value)}
                             />
                         ) : null}
@@ -277,7 +277,7 @@ export function SnapshotBody({ snapshot, link, postId, activity }: Props) {
                                         : undefined
                                 }
                                 choices={choices}
-                                disabled={isPending || isNotEnoughVp}
+                                disabled={isPending}
                                 onChange={(value) => setSelectedChoices(value)}
                             />
                         ) : null}
@@ -289,7 +289,7 @@ export function SnapshotBody({ snapshot, link, postId, activity }: Props) {
                                         : undefined
                                 }
                                 choices={choices}
-                                disabled={isPending || isNotEnoughVp}
+                                disabled={isPending}
                                 onChange={(value) => setSelectedChoices(value)}
                             />
                         ) : null}
@@ -299,7 +299,7 @@ export function SnapshotBody({ snapshot, link, postId, activity }: Props) {
                             loading={queryVpLoading}
                             onClick={handleVote}
                         >
-                            {vp === 0 ? t`No voting power` : t`Vote`}
+                            {isNotEnoughVp ? t`No voting power` : t`Vote`}
                         </ChainGuardButton>
                     </>
                 ) : null}
