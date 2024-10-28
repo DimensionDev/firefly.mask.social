@@ -15,14 +15,7 @@ export class ErrorBoundary extends Component<Partial<CrashProps>> {
 
     override render() {
         if (!this.state.error) return <>{this.props.children}</>;
-        return (
-            <CrashUI
-                subject="Firefly"
-                onRetry={() => this.setState({ error: null })}
-                {...this.props}
-                {...this.normalizedError}
-            />
-        );
+        return <CrashUI onRetry={() => this.setState({ error: null })} {...this.props} {...this.normalizedError} />;
     }
 
     private get normalizedError(): ErrorBoundaryError {
@@ -32,9 +25,6 @@ export class ErrorBoundary extends Component<Partial<CrashProps>> {
         if (!this.state.error) return { stack, type, message };
         try {
             stack = String(this.state.error.stack!) || '<stack not available>';
-            stack = stack.replaceAll(/webpack-internal:.+node_modules\//g, 'npm:');
-            // remove webpack-internal:///
-            stack = stack.replaceAll(/webpack-internal:\/{3}/g, '');
         } catch {}
         try {
             type = String(this.state.error.name) || '<type not available>';

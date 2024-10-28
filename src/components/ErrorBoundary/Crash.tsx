@@ -21,16 +21,9 @@ export interface CrashProps extends React.PropsWithChildren<ErrorBoundaryError> 
     message: string;
     /** The error stack */
     stack: string;
-    /** The component part in the boundary */
-    subject: string;
-
     onRetry: () => void;
 }
-export function CrashUI({ onRetry, subject, ...error }: CrashProps) {
-    // This is a rarely reported crash. It is likely a race condition.
-    // http://github.com/DimensionDev/mask.social/issues?q=Failed+to+execute+%27insertBefore%27+on+%27Node%27+
-    // It seems like DOM mutation from out of our application might conflict with React reconciliation.
-    // As a temporary fix, try to recover this React tree after 200ms.
+export function CrashUI({ onRetry, ...error }: CrashProps) {
     useTimeoutFn(() => {
         if (error.message.includes("Failed to execute 'insertBefore' on 'Node'")) {
             onRetry();
