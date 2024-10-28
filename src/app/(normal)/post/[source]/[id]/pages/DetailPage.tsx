@@ -24,7 +24,7 @@ interface Props {
 }
 
 export async function PostDetailPage({ id: postId, source }: Props) {
-    if (!postId || !postId.startsWith('0x')) return notFound();
+    if (!postId) return notFound();
 
     const provider = resolveSocialMediaProvider(source);
     const post = await provider.getPostById(postId);
