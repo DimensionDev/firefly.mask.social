@@ -107,6 +107,19 @@
     display: none;
 }
 
+.discover-tab {
+    --tw-bg-opacity: 0.1;
+}
+
+.calendar-tab-list .tabItem {
+    color: #fff;
+}
+
+.calendar-tab-list .activeTabItem {
+    background-color: #fff;
+    color: rgba(7 16 27);
+}
+
 @media (prefers-color-scheme: dark) {
     :root {
         --foreground-rgb: 255 255 255;
@@ -167,6 +180,23 @@
     }
     .sidebar-dark-logo {
         display: block;
+    }
+    .discover-tab {
+        --tw-bg-opacity: 0.3;
+    }
+
+    .calendar-tab-list {
+        background: linear-gradient(rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.8) 100%),
+            linear-gradient(90deg, rgba(28, 104, 243, 0.2) 0%, rgba(69, 163, 251, 0.2) 100%), rgb(255, 255, 255);
+    }
+
+    .calendar-tab-list .tabItem {
+        color: #767f8d;
+    }
+
+    .calendar-tab-list .activeTabItem {
+        background-color: #000;
+        color: #fff;
     }
 }
 .dark .plyr__control {
@@ -568,11 +598,6 @@ body.not-support .fixed.inset-y-0 {
         border-color: transparent !important;
         box-shadow: none;
     }
-}
-
-.dark .calendar-tab-list {
-    background: linear-gradient(rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.8) 100%),
-        linear-gradient(90deg, rgba(28, 104, 243, 0.2) 0%, rgba(69, 163, 251, 0.2) 100%), rgb(255, 255, 255);
 }
 
 .single-post p {

@@ -1,6 +1,6 @@
 'use client';
 
-import { Tab } from '@headlessui/react';
+import { Tab, TabGroup, TabList, TabPanel, TabPanels } from '@headlessui/react';
 import { t } from '@lingui/macro';
 import { safeUnreachable } from '@masknet/kit';
 import { useState } from 'react';
@@ -47,16 +47,15 @@ export function CalendarContent() {
 
     return (
         <div className="relative flex flex-col rounded-xl">
-            <Tab.Group selectedIndex={currentTabIndex} onChange={setCurrentTabIndex}>
-                <Tab.List className="calendar-tab-list flex rounded-t-xl bg-[#9250FF80] bg-none px-4 pt-2">
+            <TabGroup selectedIndex={currentTabIndex} onChange={setCurrentTabIndex}>
+                <TabList className="calendar-tab-list flex rounded-t-xl bg-[#9250FF80] bg-none px-4 pt-2">
                     {tabs.map((x, i) => (
                         <Tab
                             className={classNames(
                                 'flex-1 rounded-t-xl px-4 py-[11px] font-bold leading-none outline-none',
                                 {
-                                    'text-white dark:text-lightSecond': currentTabIndex !== i,
-                                    'text-main dark:text-white': currentTabIndex === i,
-                                    'bg-white dark:bg-black': currentTabIndex === i,
+                                    tabItem: currentTabIndex !== i,
+                                    activeTabItem: currentTabIndex === i,
                                 },
                             )}
                             key={x.value}
@@ -64,7 +63,7 @@ export function CalendarContent() {
                             {x.label}
                         </Tab>
                     ))}
-                </Tab.List>
+                </TabList>
                 <DatePickerTab
                     open={open}
                     setOpen={setOpen}
@@ -73,15 +72,15 @@ export function CalendarContent() {
                     list={getListItems()}
                     currentTab={currentTab}
                 />
-                <Tab.Panels className="rounded-b-xl border border-t-0 border-line px-2">
-                    <Tab.Panel>
+                <TabPanels className="rounded-b-xl border border-t-0 border-line px-2">
+                    <TabPanel>
                         <NewsList list={newsList} isLoading={newsLoading} date={selectedDate} />
-                    </Tab.Panel>
-                    <Tab.Panel>
+                    </TabPanel>
+                    <TabPanel>
                         <NFTList list={nftList} isLoading={nftLoading} date={selectedDate} />
-                    </Tab.Panel>
-                </Tab.Panels>
-            </Tab.Group>
+                    </TabPanel>
+                </TabPanels>
+            </TabGroup>
         </div>
     );
 }
