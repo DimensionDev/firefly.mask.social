@@ -1,59 +1,38 @@
-'use client';
-
 import { Trans } from '@lingui/macro';
-import { useSuspenseQuery } from '@tanstack/react-query';
 import dayjs from 'dayjs';
-import { notFound } from 'next/navigation.js';
 
 import CalendarIcon from '@/assets/activity-calendar.svg';
-import ComeBack from '@/assets/comeback.svg';
 import { ActivityClaimButton } from '@/components/Activity/ActivityClaimButton.js';
 import { ActivityConnectCard } from '@/components/Activity/ActivityConnectCard.js';
+import { ActivityDesktopNavigationBar } from '@/components/Activity/ActivityDesktopNavigationBar.js';
 import { ActivityFollowTargetCard } from '@/components/Activity/ActivityFollowTargetCard.js';
+import { ActivityNavigationBar } from '@/components/Activity/ActivityNavigationBar.js';
 import { ActivityPremiumConditionList } from '@/components/Activity/ActivityPremiumConditionList.js';
 import { ActivityStatusTag } from '@/components/Activity/ActivityStatus.js';
 import { ActivityTaskFollowCard } from '@/components/Activity/ActivityTaskFollowCard.js';
 import { ActivityTwitterLoginButton } from '@/components/Activity/ActivityTwitterLoginButton.js';
-import { NavigationBar } from '@/components/Activity/NavigationBar.js';
 import { Image } from '@/components/Image.js';
-import { TextOverflowTooltip } from '@/components/TextOverflowTooltip.js';
 import { Source } from '@/constants/enum.js';
 import { classNames } from '@/helpers/classNames.js';
-import { useComeBack } from '@/hooks/useComeback.js';
 import { FireflyActivityProvider } from '@/providers/firefly/Activity.js';
 import { fireflyBridgeProvider } from '@/providers/firefly/Bridge.js';
 
-export default function Page({
+export default async function Page({
     params: { name },
 }: {
     params: {
         name: string;
     };
 }) {
-    const comeback = useComeBack();
-    const { data } = useSuspenseQuery({
-        queryKey: ['activity-info', name],
-        async queryFn() {
-            return FireflyActivityProvider.getFireflyActivityInfo(name);
-        },
-    });
     const timeTemplate = 'M/DD HH:mm';
-
-    if (!data) notFound();
+    const data = await FireflyActivityProvider.getFireflyActivityInfo(name);
 
     return (
         <div className="flex min-h-[100svh] w-full flex-1 flex-col">
             {fireflyBridgeProvider.supported ? (
-                <NavigationBar>{data.title}</NavigationBar>
+                <ActivityNavigationBar>{data.title}</ActivityNavigationBar>
             ) : (
-                <div className="sticky top-0 z-40 flex items-center border-b border-line bg-primaryBottom px-4 py-[18px]">
-                    <ComeBack width={24} height={24} className="mr-8 cursor-pointer" onClick={comeback} />
-                    <TextOverflowTooltip content={data.title}>
-                        <h2 className="max-w-[calc(100%-24px-32px)] truncate text-xl font-black leading-6">
-                            {data.title}
-                        </h2>
-                    </TextOverflowTooltip>
-                </div>
+                <ActivityDesktopNavigationBar>{data.title}</ActivityDesktopNavigationBar>
             )}
             <Image
                 src={data.banner_url}
