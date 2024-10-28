@@ -13,6 +13,8 @@ import { ProfileVerifyBadge } from '@/components/ProfileVerifyBadge/index.js';
 import { Source } from '@/constants/enum.js';
 import { Link } from '@/esm/Link.js';
 import { formatTwitterProfile } from '@/helpers/formatTwitterProfile.js';
+import { isToday } from '@/helpers/isToday.js';
+import { isTomorrow } from '@/helpers/isTomorrow.js';
 import { resolveValue } from '@/helpers/resolveValue.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
 import { LoginModalRef } from '@/modals/controls.js';
@@ -40,7 +42,7 @@ export const TweetSpace = memo<Props>(function TweetSpace({ spaceId }) {
 
     if (!isLogin) {
         return (
-            <div className="mt-3 flex min-h-[152px] w-full flex-col items-center justify-center space-y-3 rounded-2xl bg-purple p-4 text-white">
+            <div className="bg-purple mt-3 flex min-h-[152px] w-full flex-col items-center justify-center space-y-3 rounded-2xl p-4 text-white">
                 <p className="text-[13px] font-semibold leading-6">
                     <Trans>Log in with your X account to view</Trans>
                 </p>
@@ -56,7 +58,7 @@ export const TweetSpace = memo<Props>(function TweetSpace({ spaceId }) {
 
     if (isLoading) {
         return (
-            <div className="mt-3 flex min-h-[152px] w-full flex-col items-center justify-center space-y-3 rounded-2xl bg-purple p-4 text-white">
+            <div className="bg-purple mt-3 flex min-h-[152px] w-full flex-col items-center justify-center space-y-3 rounded-2xl p-4 text-white">
                 <LoadingIcon className="animate-spin" width={24} height={24} />
             </div>
         );
@@ -64,7 +66,7 @@ export const TweetSpace = memo<Props>(function TweetSpace({ spaceId }) {
 
     if (error) {
         return (
-            <div className="mt-3 flex min-h-[152px] w-full flex-col items-center justify-center space-y-3 rounded-2xl bg-purple p-4 text-white">
+            <div className="bg-purple mt-3 flex min-h-[152px] w-full flex-col items-center justify-center space-y-3 rounded-2xl p-4 text-white">
                 <p className="text-[13px] font-semibold leading-6">
                     <Trans>Something went wrong</Trans>
                 </p>
@@ -80,7 +82,7 @@ export const TweetSpace = memo<Props>(function TweetSpace({ spaceId }) {
 
     if (!space) {
         return (
-            <div className="mt-3 flex min-h-[152px] w-full flex-col items-center justify-center space-y-3 rounded-2xl bg-purple p-4 text-white">
+            <div className="bg-purple mt-3 flex min-h-[152px] w-full flex-col items-center justify-center space-y-3 rounded-2xl p-4 text-white">
                 <EmptyStatusIcon className="h-[64px] w-[80px]" />
                 <p className="text-[13px] font-semibold leading-6">
                     <Trans>This space does not exist.</Trans>
@@ -121,6 +123,22 @@ export const TweetSpace = memo<Props>(function TweetSpace({ spaceId }) {
                     },
                 ];
             case 'scheduled':
+                if (isToday(space.scheduled_start)) {
+                    return [
+                        {
+                            icon: CalendarIcon,
+                            label: <Trans>Today at {dayjs(space.scheduled_start).format('HH:mm')}</Trans>,
+                        },
+                    ];
+                }
+                if (isTomorrow(space.scheduled_start)) {
+                    return [
+                        {
+                            icon: CalendarIcon,
+                            label: <Trans>Tomorrow at {dayjs(space.scheduled_start).format('HH:mm')}</Trans>,
+                        },
+                    ];
+                }
                 return [
                     {
                         icon: CalendarIcon,
@@ -136,7 +154,7 @@ export const TweetSpace = memo<Props>(function TweetSpace({ spaceId }) {
         <Link
             href={`https://x.com/i/spaces/${space.id}`}
             target="_blank"
-            className="mt-3 flex w-full flex-col space-y-3 rounded-2xl bg-purple p-4 text-white"
+            className="bg-purple mt-3 flex w-full flex-col space-y-3 rounded-2xl p-4 text-white"
         >
             <div className="flex items-center space-x-1">
                 {tags.map((tag, i) => (
@@ -144,7 +162,7 @@ export const TweetSpace = memo<Props>(function TweetSpace({ spaceId }) {
                         className="flex items-center rounded-lg bg-[rgba(24,26,32,0.5)] px-2 py-1 text-xs font-semibold leading-4"
                         key={i}
                     >
-                        {tag.icon ? <tag.icon className="mr-1 h-4 w-4" /> : null}
+                        {tag.icon ? <tag.icon className="mr-1 h-4 w-4" width={16} height={16} /> : null}
                         {tag.label}
                     </div>
                 ))}
