@@ -1,5 +1,3 @@
-'use client';
-
 import { Component } from 'react';
 
 import { type CrashProps, CrashUI, type ErrorBoundaryError } from '@/components/ErrorBoundary/Crash.js';

@@ -1,8 +1,6 @@
-import { useMemo } from 'react';
-import { useTimeoutFn } from 'react-use';
-
 import { env } from '@/constants/env.js';
 import { Link } from '@/esm/Link.js';
+import { resolveValue } from '@/helpers/resolveValue.js';
 import { useDeveloperSettingsState } from '@/store/useDeveloperSettingsStore.js';
 
 export interface ErrorBoundaryError {
@@ -24,12 +22,6 @@ export interface CrashProps extends React.PropsWithChildren<ErrorBoundaryError> 
     onRetry: () => void;
 }
 export function CrashUI({ onRetry, ...error }: CrashProps) {
-    useTimeoutFn(() => {
-        if (error.message.includes("Failed to execute 'insertBefore' on 'Node'")) {
-            onRetry();
-        }
-    }, 200);
-
     // crash report, will send to GitHub
     const reportTitle = `[Crash] ${error.type}: ${error.message}`;
     const reportBody = `<!--Thanks for the crash report!
@@ -48,12 +40,12 @@ Commit Hash: ${env.shared.COMMIT_HASH}
 Developer Settings: ${useDeveloperSettingsState.getState().developmentAPI}
 `;
 
-    const githubLink = useMemo(() => {
+    const githubLink = resolveValue(() => {
         const url = new URLSearchParams();
         url.set('title', reportTitle);
         url.set('body', reportBody);
         return 'http://github.com/DimensionDev/mask.social/issues/new?' + url.toString();
-    }, [reportBody, reportTitle]);
+    });
 
     return (
         <div className="mt-4 w-full flex-1 overflow-x-auto p-5 contain-paint">
