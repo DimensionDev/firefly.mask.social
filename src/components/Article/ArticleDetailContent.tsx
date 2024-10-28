@@ -31,8 +31,8 @@ interface ArticleDetailContentProps {
 }
 
 export function ArticleDetailContent({ article, cover }: ArticleDetailContentProps) {
-    const isDarkMode = useIsDarkMode()
-    
+    const isDarkMode = useIsDarkMode();
+
     const router = useRouter();
     const isMuted = useIsProfileMuted(Source.Wallet, article.author.id, article.author.isMuted);
 
