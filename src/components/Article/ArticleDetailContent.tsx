@@ -18,12 +18,12 @@ import { Link } from '@/esm/Link.js';
 import { classNames } from '@/helpers/classNames.js';
 import { openWindow } from '@/helpers/openWindow.js';
 import { resolveSearchUrl } from '@/helpers/resolveSearchUrl.js';
+import { useIsDarkMode } from '@/hooks/useIsDarkMode.js';
 import { useIsProfileMuted } from '@/hooks/useIsProfileMuted.js';
 import { PreviewMediaModalRef } from '@/modals/controls.js';
 import type { Article } from '@/providers/types/Article.js';
 import { ArticlePlatform } from '@/providers/types/Article.js';
 import type { Attachment } from '@/providers/types/SocialMedia.js';
-import { useIsDarkMode } from '@/hooks/useIsDarkMode.js';
 
 interface ArticleDetailContentProps {
     article: Article;
