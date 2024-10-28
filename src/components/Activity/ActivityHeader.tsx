@@ -1,26 +1,24 @@
+'use client';
+
 import dayjs from 'dayjs';
 
 import CalendarIcon from '@/assets/activity-calendar.svg';
-import { ActivityDesktopNavigationBar } from '@/components/Activity/ActivityDesktopNavigationBar.js';
-import { ActivityNavigationBar } from '@/components/Activity/ActivityNavigationBar.js';
 import { ActivityStatusTag } from '@/components/Activity/ActivityStatus.js';
 import { Image } from '@/components/Image.js';
 import { classNames } from '@/helpers/classNames.js';
-import { FireflyActivityProvider } from '@/providers/firefly/Activity.js';
-import { fireflyBridgeProvider } from '@/providers/firefly/Bridge.js';
+import type { ActivityInfoResponse } from '@/providers/types/Firefly.js';
 
-export default async function Page() {
-    const name = 'cz_welcome_back_airdrop';
-    const data = await FireflyActivityProvider.getFireflyActivityInfo(name);
+export function ActivityHeader({
+    data,
+}: {
+    data: Pick<
+        Required<ActivityInfoResponse>['data'],
+        'title' | 'sub_title' | 'start_time' | 'end_time' | 'status' | 'banner_url'
+    >;
+}) {
     const timeTemplate = 'M/DD HH:mm';
-
     return (
-        <div className="flex min-h-[100svh] w-full flex-1 flex-col">
-            {fireflyBridgeProvider.supported ? (
-                <ActivityNavigationBar>{data.title}</ActivityNavigationBar>
-            ) : (
-                <ActivityDesktopNavigationBar>{data.title}</ActivityDesktopNavigationBar>
-            )}
+        <div className="flex w-full flex-col">
             <Image
                 src={data.banner_url}
                 alt={data.title}
