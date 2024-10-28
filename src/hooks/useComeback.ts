@@ -6,7 +6,7 @@ import { useCallback } from 'react';
 import { PageRoute } from '@/constants/enum.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
 
-export function useComeBack({ defaultPath = PageRoute.Home }: { defaultPath: PageRoute }) {
+export function useComeBack({ defaultPath = PageRoute.Home }: { defaultPath?: PageRoute } = {}) {
     const router = useRouter();
 
     return useCallback(() => {
