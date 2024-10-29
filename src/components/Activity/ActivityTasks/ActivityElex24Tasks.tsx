@@ -5,16 +5,14 @@ import { useContext } from 'react';
 
 import { ActivityClaimButton } from '@/components/Activity/ActivityClaimButton.js';
 import { ActivityConnectCard } from '@/components/Activity/ActivityConnectCard.js';
-import {
-    ActivityElex24Context,
-    ActivityElex24VoteOption,
-} from '@/components/Activity/ActivityElex24/ActivityElex24Context.js';
+import { ActivityElex24Context } from '@/components/Activity/ActivityElex24/ActivityElex24Context.js';
 import { ActivityElex24Vote } from '@/components/Activity/ActivityElex24/ActivityElex24Vote.js';
 import { ActivityPremiumConditionList } from '@/components/Activity/ActivityPremiumConditionList.js';
 import { ActivityTaskFollowCard } from '@/components/Activity/ActivityTaskFollowCard.js';
 import { ActivityTwitterLoginButton } from '@/components/Activity/ActivityTwitterLoginButton.js';
 import { Source, SourceInURL } from '@/constants/enum.js';
 import { CHAR_TAG, type Chars } from '@/helpers/chars.js';
+import { ActivityElex24VoteOption } from '@/providers/types/Activity.js';
 import type { ActivityInfoResponse, Profile } from '@/providers/types/Firefly.js';
 
 const fireflyMention = {
