@@ -37,6 +37,9 @@ msgstr "Failed to mute all wallets and accounts."
 msgid "Onchain Activities"
 msgstr "Onchain Activities"
 
+msgid "Tomorrow at {0}"
+msgstr "Tomorrow at {0}"
+
 msgid "Tip transaction completed!"
 msgstr "Tip transaction completed!"
 
@@ -648,6 +651,9 @@ msgstr "No Airdrop Scam"
 
 msgid "Reposted"
 msgstr "Reposted"
+
+msgid "Today at {0}"
+msgstr "Today at {0}"
 
 msgid "Add another post..."
 msgstr "Add another post..."

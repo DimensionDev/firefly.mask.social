@@ -13,6 +13,8 @@ import { ProfileVerifyBadge } from '@/components/ProfileVerifyBadge/index.js';
 import { Source } from '@/constants/enum.js';
 import { Link } from '@/esm/Link.js';
 import { formatTwitterProfile } from '@/helpers/formatTwitterProfile.js';
+import { isToday } from '@/helpers/isToday.js';
+import { isTomorrow } from '@/helpers/isTomorrow.js';
 import { resolveValue } from '@/helpers/resolveValue.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
 import { LoginModalRef } from '@/modals/controls.js';
@@ -121,6 +123,22 @@ export const TweetSpace = memo<Props>(function TweetSpace({ spaceId }) {
                     },
                 ];
             case 'scheduled':
+                if (isToday(space.scheduled_start)) {
+                    return [
+                        {
+                            icon: CalendarIcon,
+                            label: <Trans>Today at {dayjs(space.scheduled_start).format('HH:mm')}</Trans>,
+                        },
+                    ];
+                }
+                if (isTomorrow(space.scheduled_start)) {
+                    return [
+                        {
+                            icon: CalendarIcon,
+                            label: <Trans>Tomorrow at {dayjs(space.scheduled_start).format('HH:mm')}</Trans>,
+                        },
+                    ];
+                }
                 return [
                     {
                         icon: CalendarIcon,
@@ -144,7 +162,7 @@ export const TweetSpace = memo<Props>(function TweetSpace({ spaceId }) {
                         className="flex items-center rounded-lg bg-[rgba(24,26,32,0.5)] px-2 py-1 text-xs font-semibold leading-4"
                         key={i}
                     >
-                        {tag.icon ? <tag.icon className="mr-1 h-4 w-4" /> : null}
+                        {tag.icon ? <tag.icon className="mr-1 h-4 w-4" width={16} height={16} /> : null}
                         {tag.label}
                     </div>
                 ))}
