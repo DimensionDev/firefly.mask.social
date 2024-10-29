@@ -1,7 +1,7 @@
 'use client';
 
 import { Tab, TabGroup, TabList, TabPanel, TabPanels } from '@headlessui/react';
-import { t } from '@lingui/macro';
+import { t, Trans } from '@lingui/macro';
 import { safeUnreachable } from '@masknet/kit';
 import { useState } from 'react';
 
@@ -15,11 +15,11 @@ import { classNames } from '@/helpers/classNames.js';
 export function CalendarContent() {
     const tabs = [
         {
-            label: t`News`,
+            label: <Trans>News</Trans>,
             value: 'news',
         },
         {
-            label: t`NFTs`,
+            label: <Trans>NFTs</Trans>,
             value: 'nfts',
         },
     ] as const;
