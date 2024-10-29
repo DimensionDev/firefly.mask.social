@@ -1,22 +1,30 @@
 'use client';
 
 import { useQuery } from '@tanstack/react-query';
+import { BigNumber } from 'bignumber.js';
 
+import { STATUS } from '@/constants/enum.js';
+import { env } from '@/constants/env.js';
 import { Link } from '@/esm/Link.js';
+import { minus } from '@/helpers/number.js';
 import { useIsMedium, useIsSmall } from '@/hooks/useMediaQuery.js';
+import { FireflyActivityProvider } from '@/providers/firefly/Activity.js';
 
 interface VotingResultBannerProps {
-    trumpRate: number;
+    ended?: boolean;
 }
 
-export function VotingResultBanner({ trumpRate }: VotingResultBannerProps) {
+export function VotingResultBanner({ ended }: VotingResultBannerProps) {
     const isSmall = useIsSmall('max');
     const isMedium = useIsMedium('max');
+
+    const enabled = env.external.NEXT_PUBLIC_VOTING_RESULT === STATUS.Enabled;
 
     // wait for image to load before showing the percentage
     const { isLoading } = useQuery({
         queryKey: ['voting-bg'],
         staleTime: 10 * 60 * 1000,
+        enabled,
         queryFn: () =>
             new Promise((resolve) => {
                 try {
@@ -31,12 +39,28 @@ export function VotingResultBanner({ trumpRate }: VotingResultBannerProps) {
             }),
     });
 
+    const {
+        isLoading: loadingResult,
+        data,
+        refetch,
+    } = useQuery({
+        queryKey: ['voting-result'],
+        staleTime: 0,
+        enabled,
+        refetchInterval: !ended ? 1 * 60 * 1000 : false,
+        queryFn: () => {
+            return FireflyActivityProvider.getVotingResults();
+        },
+    });
+
     const strokeWidth = isSmall ? 2 : isMedium ? 3 : 3.5;
 
-    const trumpRatePercent = Math.round(trumpRate * 100);
-    const HarrisRatePercent = 100 - trumpRatePercent;
+    const trumpRatePercent = new BigNumber((data?.trump || 0) * 100).toFixed(2);
+    const HarrisRatePercent = data?.trump
+        ? minus(100, trumpRatePercent).toFixed(2)
+        : new BigNumber((data?.harris || 0) * 100).toFixed(2);
 
-    const showPercent = !isLoading;
+    const showPercent = !isLoading && !loadingResult && !!data;
 
     return (
         <Link className="relative w-full" href={'/event/elex24'}>
@@ -57,13 +81,13 @@ export function VotingResultBanner({ trumpRate }: VotingResultBannerProps) {
                     >
                         <span className="flex">
                             <span
-                                className="text-[16px] sm:text-[24px] md:text-[29px]"
+                                className="text-[14px] sm:text-[24px] md:text-[29px]"
                                 style={{ WebkitTextStrokeWidth: strokeWidth, WebkitTextStrokeColor: '#B8133B' }}
                             >
                                 {trumpRatePercent}
                             </span>
                             <span
-                                className="-ml-1 text-[16px] sm:text-[24px] md:text-[29px]"
+                                className="-ml-1 text-[14px] sm:text-[24px] md:text-[29px]"
                                 style={{
                                     WebkitTextStrokeWidth: 1.5,
                                     WebkitTextStrokeColor: '#B8133B',
@@ -75,13 +99,13 @@ export function VotingResultBanner({ trumpRate }: VotingResultBannerProps) {
                         </span>
                         <span className="flex">
                             <span
-                                className="text-[16px] sm:text-[24px] md:text-[29px]"
+                                className="text-[14px] sm:text-[24px] md:text-[29px]"
                                 style={{ WebkitTextStrokeWidth: strokeWidth, WebkitTextStrokeColor: '#0F53A4' }}
                             >
                                 {HarrisRatePercent}
                             </span>
                             <span
-                                className="-ml-1 text-[16px] sm:text-[24px] md:text-[29px]"
+                                className="-ml-1 text-[14px] sm:text-[24px] md:text-[29px]"
                                 style={{
                                     WebkitTextStrokeWidth: 1.5,
                                     WebkitTextStrokeColor: '#0F53A4',
