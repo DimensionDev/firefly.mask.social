@@ -16,7 +16,7 @@ export function ActivityHeader({
         'title' | 'sub_title' | 'start_time' | 'end_time' | 'status' | 'banner_url'
     >;
 }) {
-    const timeTemplate = 'M/DD HH:mm';
+    const timeTemplate = 'MMM DD, HH:mm';
     return (
         <div className="flex w-full flex-col">
             <Image
