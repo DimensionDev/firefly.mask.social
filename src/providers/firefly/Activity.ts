@@ -15,6 +15,7 @@ import type {
     ActivityListItem,
     ActivityListResponse,
     GetAllConnectionsResponse,
+    VotingResultResponse,
 } from '@/providers/types/Firefly.js';
 import { settings } from '@/settings/index.js';
 
@@ -153,6 +154,13 @@ class FireflyActivity implements Provider {
             connected: formatWalletConnections(connections.wallet.connected, connections),
             related: formatWalletConnections(connections.wallet.unconnected, connections),
         };
+    }
+
+    async getVotingResults() {
+        const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/wallet_transaction/elex24/activity/ratio');
+
+        const response = await fetchJSON<VotingResultResponse>(url);
+        return resolveFireflyResponseData(response);
     }
 }
 
