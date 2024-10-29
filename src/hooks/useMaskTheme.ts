@@ -3,7 +3,7 @@ import type { Theme } from '@mui/material/styles';
 import { merge } from 'lodash-es';
 import { useMemo } from 'react';
 
-import { useDarkMode } from '@/hooks/useDarkMode.js';
+import { useIsDarkMode } from '@/hooks/useIsDarkMode.js';
 
 function createTheme(theme: Theme) {
     return merge(theme, {
@@ -49,7 +49,7 @@ function createTheme(theme: Theme) {
 }
 
 export function useMaskTheme(): Theme {
-    const { isDarkMode } = useDarkMode();
+    const isDarkMode = useIsDarkMode();
 
     return useMemo(() => createTheme(isDarkMode ? MaskDarkTheme : MaskLightTheme), [isDarkMode]);
 }

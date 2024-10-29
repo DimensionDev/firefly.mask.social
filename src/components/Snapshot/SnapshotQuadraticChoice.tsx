@@ -24,12 +24,15 @@ export const SnapshotQuadraticChoice = memo<SnapshotQuadraticChoiceProps>(functi
 
     return (
         <ClickableArea
-            className={classNames('flex items-center justify-between rounded-[10px] border bg-white px-5 py-2', {
-                'hover:border-lightHighlight': !disabled,
-                'border-transparent text-commonMain': !quantity,
-                'border border-lightHighlight text-lightHighlight': !!quantity,
-                'opacity-40': disabled,
-            })}
+            className={classNames(
+                'flex cursor-pointer items-center justify-between rounded-[10px] border bg-white px-5 py-2',
+                {
+                    'hover:border-lightHighlight': !disabled,
+                    'border-transparent text-commonMain': !quantity,
+                    'border border-lightHighlight text-lightHighlight': !!quantity,
+                    'cursor-default opacity-40': disabled,
+                },
+            )}
         >
             <span className="text-sm font-bold leading-[18px]">{label}</span>
 

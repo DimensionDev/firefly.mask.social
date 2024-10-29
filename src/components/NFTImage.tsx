@@ -1,10 +1,10 @@
 import { memo } from 'react';
 
 import { Image, type ImageProps } from '@/components/Image.js';
-import { useDarkMode } from '@/hooks/useDarkMode.js';
+import { useIsDarkMode } from '@/hooks/useIsDarkMode.js';
 
 export const NFTImage = memo<ImageProps>(function NFTImage(props) {
-    const { isDarkMode } = useDarkMode();
+    const isDarkMode = useIsDarkMode();
     return (
         <Image
             fallbackClassName="border border-secondaryLine"

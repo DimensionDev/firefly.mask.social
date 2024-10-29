@@ -1,4 +1,4 @@
-import { t } from '@lingui/macro';
+import { Trans } from '@lingui/macro';
 import { type HTMLProps, memo } from 'react';
 
 import { ClickableButton } from '@/components/ClickableButton.js';
@@ -42,9 +42,11 @@ export const NotLoginFallback = memo<NotLoginFallbackProps>(function NotLoginFal
                 alt={`${resolveSourceName(source)} login`}
             />
             <span className="leading-3.5 px-6 text-center text-base text-secondary">
-                {isArticle
-                    ? t`Login to enable all features`
-                    : t`You need to connect your ${resolveSourceName(source)} account to use this feature.`}
+                {isArticle ? (
+                    <Trans>Login to enable all features</Trans>
+                ) : (
+                    <Trans>You need to connect your {resolveSourceName(source)} account to use this feature.</Trans>
+                )}
             </span>
             <ClickableButton
                 className={classNames(
@@ -55,7 +57,7 @@ export const NotLoginFallback = memo<NotLoginFallbackProps>(function NotLoginFal
                     LoginModalRef.open({ source: isArticle ? undefined : source });
                 }}
             >
-                {isArticle ? t`Login` : t`Connect to ${resolveSourceName(source)}`}
+                {isArticle ? <Trans>Login</Trans> : <Trans>Connect to {resolveSourceName(source)}</Trans>}
             </ClickableButton>
         </div>
     );

@@ -7,9 +7,11 @@ import { AsideSearchBar, HeaderSearchBar } from '@/components/Search/SearchBar.j
 import { SideBar } from '@/components/SideBar/index.js';
 import { SuggestedFollowsCard } from '@/components/SuggestedFollows/SuggestedFollowsCard.js';
 import { Source } from '@/constants/enum.js';
+import { setupLocaleForSSR } from '@/i18n/index.js';
 import { fireflyBridgeProvider } from '@/providers/firefly/Bridge.js';
 
 export default function Layout({ children }: { children: React.ReactNode }) {
+    setupLocaleForSSR();
     if (fireflyBridgeProvider.supported) return children;
     return (
         <>

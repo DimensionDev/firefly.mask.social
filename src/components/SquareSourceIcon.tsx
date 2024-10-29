@@ -10,7 +10,7 @@ import WalletSquareLightIcon from '@/assets/wallet-square-light.svg';
 import XSquareDarkIcon from '@/assets/x-square-dark.svg';
 import XSquareLightIcon from '@/assets/x-square-light.svg';
 import { Source } from '@/constants/enum.js';
-import { useDarkMode } from '@/hooks/useDarkMode.js';
+import { useIsDarkMode } from '@/hooks/useIsDarkMode.js';
 import { useSizeStyle } from '@/hooks/useSizeStyle.js';
 
 interface SquareSourceIconProps extends SVGProps<SVGSVGElement> {
@@ -19,7 +19,7 @@ interface SquareSourceIconProps extends SVGProps<SVGSVGElement> {
     forceLight?: boolean;
 }
 export function SquareSourceIcon({ source, size = 20, forceLight, ...props }: SquareSourceIconProps) {
-    const { isDarkMode } = useDarkMode();
+    const isDarkMode = useIsDarkMode();
     const style = useSizeStyle(size, props.style);
 
     switch (source) {

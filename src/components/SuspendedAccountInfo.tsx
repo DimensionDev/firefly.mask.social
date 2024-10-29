@@ -5,10 +5,10 @@ import { Trans } from '@lingui/macro';
 import { SocialSourceIcon } from '@/components/SocialSourceIcon.js';
 import type { SocialSource } from '@/constants/enum.js';
 import { Image as NextImage } from '@/esm/Image.js';
-import { useDarkMode } from '@/hooks/useDarkMode.js';
+import { useIsDarkMode } from '@/hooks/useIsDarkMode.js';
 
 export function SuspendedAccountInfo({ source }: { source: SocialSource }) {
-    const { isDarkMode } = useDarkMode();
+    const isDarkMode = useIsDarkMode();
     const src = isDarkMode ? '/image/firefly-dark-avatar.png' : '/image/firefly-light-avatar.png';
 
     return (

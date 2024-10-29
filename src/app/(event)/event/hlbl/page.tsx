@@ -9,9 +9,11 @@ import { ActivityPremiumConditionList } from '@/components/Activity/ActivityPrem
 import { ActivityTaskFollowCard } from '@/components/Activity/ActivityTaskFollowCard.js';
 import { ActivityTwitterLoginButton } from '@/components/Activity/ActivityTwitterLoginButton.js';
 import { Source } from '@/constants/enum.js';
+import { setupLocaleForSSR } from '@/i18n/index.js';
 import { FireflyActivityProvider } from '@/providers/firefly/Activity.js';
 
 export default async function Page() {
+    setupLocaleForSSR();
     // cspell: disable-next-line
     const name = 'hlbl';
     const data = await FireflyActivityProvider.getFireflyActivityInfo(name);
