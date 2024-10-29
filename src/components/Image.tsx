@@ -6,7 +6,7 @@ import { forwardRef, useCallback, useEffect, useState } from 'react';
 
 import { Image as NextImage } from '@/esm/Image.js';
 import { classNames } from '@/helpers/classNames.js';
-import { useDarkMode } from '@/hooks/useDarkMode.js';
+import { useIsDarkMode } from '@/hooks/useIsDarkMode.js';
 
 export interface ImageProps extends NextImageProps {
     fallback?: string;
@@ -18,7 +18,7 @@ export const Image = forwardRef<HTMLImageElement, ImageProps>(function Image(
     ref,
 ) {
     const [imageLoadFailed, setImageLoadFailed] = useState(false);
-    const { isDarkMode } = useDarkMode();
+    const isDarkMode = useIsDarkMode();
     const [loading, setLoading] = useState(true);
 
     const handleError = useCallback(

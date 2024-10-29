@@ -12,6 +12,8 @@ import type { SingletonModalRefCreator } from '@/libs/SingletonModal.js';
 export interface ConfirmModalOpenProps {
     title?: string;
     content: React.ReactNode;
+    contentClass?: string;
+    modalClass?: string;
     confirmButtonText?: string;
     cancelButtonText?: string;
     enableConfirmButton?: boolean;
@@ -20,7 +22,7 @@ export interface ConfirmModalOpenProps {
     disableBackdropClose?: boolean;
     onConfirm?: () => void;
     onCancel?: () => void;
-    variant?: 'normal' | 'danger';
+    variant?: 'normal' | 'secondary' | 'danger';
 }
 
 /** Dismissing dialog returns null */
@@ -56,7 +58,10 @@ export const ConfirmModal = forwardRef<SingletonModalRefCreator<ConfirmModalOpen
                 }}
             >
                 <div
-                    className="relative w-[320px] max-w-[clamp(386px,90vw,95vw)] rounded-xl bg-bgModal shadow-popover transition-all dark:text-gray-950 md:w-[355px]"
+                    className={classNames(
+                        'relative w-[320px] max-w-[clamp(386px,90vw,95vw)] rounded-xl bg-bgModal shadow-popover transition-all dark:text-gray-950 md:w-[355px]',
+                        props.modalClass,
+                    )}
                     onClick={stopEvent}
                 >
                     <div className="inline-flex h-14 w-full items-center justify-center gap-2 rounded-t-[12px] p-4">
@@ -74,7 +79,7 @@ export const ConfirmModal = forwardRef<SingletonModalRefCreator<ConfirmModalOpen
                         {props.enableCloseButton ? <div className="relative h-6 w-6" /> : null}
                     </div>
 
-                    <div className="flex flex-col gap-2 p-6 pt-0 md:pt-6">
+                    <div className={classNames('flex flex-col gap-2 p-6 max-md:pt-0', props.contentClass)}>
                         {props.content}
                         {props.enableCancelButton || props.enableConfirmButton ? (
                             <div className="flex flex-col-reverse gap-4 md:flex-row md:gap-3">
@@ -93,9 +98,11 @@ export const ConfirmModal = forwardRef<SingletonModalRefCreator<ConfirmModalOpen
                                     <ClickableButton
                                         className={classNames(
                                             'flex flex-1 items-center justify-center rounded-full py-2 font-bold',
-                                            props.variant === 'normal'
-                                                ? 'bg-main text-primaryBottom'
-                                                : 'bg-commonDanger text-lightBottom',
+                                            {
+                                                'bg-main text-primaryBottom': props.variant === 'normal',
+                                                'bg-commonDanger text-lightBottom': props.variant === 'danger',
+                                                'border border-main bg-bottom text-main': props.variant === 'secondary',
+                                            },
                                         )}
                                         onClick={() => {
                                             props.onConfirm?.();

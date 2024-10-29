@@ -23,7 +23,7 @@ import { formatEthereumAddress } from '@/helpers/formatAddress.js';
 import { resolveArticlePlatformIcon } from '@/helpers/resolveArticlePlatformIcon.js';
 import { resolveSearchUrl } from '@/helpers/resolveSearchUrl.js';
 import { stopPropagation } from '@/helpers/stopEvent.js';
-import { useDarkMode } from '@/hooks/useDarkMode.js';
+import { useIsDarkMode } from '@/hooks/useIsDarkMode.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import { PreviewMediaModalRef } from '@/modals/controls.js';
 import { type Article, ArticlePlatform } from '@/providers/types/Article.js';
@@ -48,7 +48,7 @@ export function ArticleBody({ cover, article, onClick }: Props) {
     const { data: ens } = useEnsName({ address: article.author.id, query: { enabled: !article.author.handle } });
     const Icon = resolveArticlePlatformIcon(article.platform);
 
-    const { isDarkMode } = useDarkMode();
+    const isDarkMode = useIsDarkMode();
 
     return (
         <ClickableArea

@@ -8,13 +8,13 @@ import DarkLogo from '@/assets/logo.dark.svg';
 import LightLogo from '@/assets/logo.light.svg';
 import { CloseButton } from '@/components/CloseButton.js';
 import { Menu } from '@/components/SideBar/Menu.js';
-import { useDarkMode } from '@/hooks/useDarkMode.js';
 import { useDisableScrollPassive } from '@/hooks/useDisableScrollPassive.js';
+import { useIsDarkMode } from '@/hooks/useIsDarkMode.js';
 import { useNavigatorState } from '@/store/useNavigatorStore.js';
 
 export const SideBarForMobile = memo(function SideBarForMobile() {
     const { setRef } = useDisableScrollPassive();
-    const { isDarkMode } = useDarkMode();
+    const isDarkMode = useIsDarkMode();
 
     const { sidebarOpen, updateSidebarOpen } = useNavigatorState();
 

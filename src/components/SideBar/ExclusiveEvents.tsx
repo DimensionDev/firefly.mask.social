@@ -1,3 +1,5 @@
+'use client';
+
 import { Trans } from '@lingui/macro';
 import { usePathname } from 'next/navigation.js';
 import { useRef } from 'react';
@@ -7,12 +9,12 @@ import { PageRoute } from '@/constants/enum.js';
 import { Link } from '@/esm/Link.js';
 import { classNames } from '@/helpers/classNames.js';
 import { isRoutePathname } from '@/helpers/isRoutePathname.js';
-import { useDarkMode } from '@/hooks/useDarkMode.js';
+import { useIsDarkMode } from '@/hooks/useIsDarkMode.js';
 
 export function ExclusiveEvents() {
     const pathname = usePathname();
     const isSelected = isRoutePathname(pathname, PageRoute.Events);
-    const { isDarkMode } = useDarkMode();
+    const isDarkMode = useIsDarkMode();
     const linkRef = useRef<HTMLAnchorElement | null>(null);
     const videoRef = useRef<HTMLVideoElement | null>(null);
     const isHovering = useHover(linkRef);
