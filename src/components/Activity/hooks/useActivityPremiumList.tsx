@@ -2,10 +2,10 @@ import { Trans } from '@lingui/macro';
 import { useContext } from 'react';
 
 import { ActivityContext } from '@/components/Activity/ActivityContext.js';
+import { useActivityElex24Involved } from '@/components/Activity/ActivityElex24/useActivityElex24Involved.js';
 import { useActivityClaimCondition } from '@/components/Activity/hooks/useActivityClaimCondition.js';
 import { Link } from '@/components/Activity/Link.js';
 import { Level } from '@/providers/types/CZ.js';
-import { useActivityElex24Involved } from '@/components/Activity/ActivityElex24/useActivityElex24Involved.js';
 
 export function useActivityPremiumList() {
     const { name } = useContext(ActivityContext);
