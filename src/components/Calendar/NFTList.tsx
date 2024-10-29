@@ -14,9 +14,10 @@ import { XIcon } from '@/components/XIcon.js';
 import { TWITTER_PROFILE_REGEX } from '@/constants/regexp.js';
 import { Link } from '@/esm/Link.js';
 import { fixUrlProtocol } from '@/helpers/fixUrlProtocol.js';
+import type { ParsedEvent, ProjectInfo } from '@/types/calendar.js';
 
 interface NFTListProps {
-    list: Record<string, any[]>;
+    list: Record<string, ParsedEvent[]>;
     isLoading: boolean;
     date: Date;
 }
@@ -27,7 +28,7 @@ const SocialIcons: Record<string, ReactNode> = {
     website: <WebsiteIcon className="dark:invert" width={20} height={20} />,
 };
 
-const sortPlat = (_: any, b: { type: string }) => {
+const sortPlat = (_: ProjectInfo['links'][0], b: ProjectInfo['links'][0]) => {
     if (b.type === 'website') return -1;
     else return 0;
 };
@@ -63,79 +64,87 @@ export function NFTList({ list, isLoading, date }: NFTListProps) {
                                         className="relative flex flex-col gap-2 border-b border-line p-2 outline-none last:border-none hover:no-underline"
                                         key={v.event_url}
                                     >
-                                        <div className="flex w-full justify-between">
-                                            <div className="flex items-center gap-2 text-main">
-                                                <Image
-                                                    src={v.project.logo}
-                                                    className="overflow-hidden rounded-full"
-                                                    width={24}
-                                                    height={24}
-                                                    alt={v.project.name}
-                                                />
-                                                <Link
-                                                    className="link-overlay text-sm font-bold text-main"
-                                                    href={fixUrlProtocol(v.event_url)}
-                                                    rel="noopener noreferrer"
-                                                    target="_blank"
-                                                >
-                                                    {v.project.name}
-                                                </Link>
-                                            </div>
-                                        </div>
-                                        <p className="overflow-hidden overflow-ellipsis whitespace-nowrap text-main">
-                                            {v.project.description}
-                                        </p>
-                                        <div className="flex w-full justify-between">
-                                            <CountdownTimer targetDate={new Date(v.event_date)} />
-                                            <div className="flex items-center gap-2">
-                                                {v.project.links
-                                                    .sort(sortPlat)
-                                                    .map((platform: { type: string; url: string }) => {
-                                                        const isTwitterProfile = TWITTER_PROFILE_REGEX.test(
-                                                            platform.url,
-                                                        );
+                                        {v.project ? (
+                                            <>
+                                                <div className="flex w-full justify-between">
+                                                    <div className="flex items-center gap-2 text-main">
+                                                        <Image
+                                                            src={v.project.logo}
+                                                            className="overflow-hidden rounded-full"
+                                                            width={24}
+                                                            height={24}
+                                                            alt={v.project.name}
+                                                        />
+                                                        <Link
+                                                            className="link-overlay text-sm font-bold text-main"
+                                                            href={fixUrlProtocol(v.event_url)}
+                                                            rel="noopener noreferrer"
+                                                            target="_blank"
+                                                        >
+                                                            {v.project.name}
+                                                        </Link>
+                                                    </div>
+                                                </div>
+                                                <p className="overflow-hidden overflow-ellipsis whitespace-nowrap text-main">
+                                                    {v.project.description}
+                                                </p>
+                                                <div className="flex w-full justify-between">
+                                                    <CountdownTimer targetDate={new Date(v.event_date)} />
+                                                    <div className="flex items-center gap-2">
+                                                        {v.project.links
+                                                            .sort(sortPlat)
+                                                            .map((platform: { type: string; url: string }) => {
+                                                                const isTwitterProfile = TWITTER_PROFILE_REGEX.test(
+                                                                    platform.url,
+                                                                );
 
-                                                        return isTwitterProfile ? (
-                                                            <CommunityLink
-                                                                iconSize={20}
-                                                                key={platform.type}
-                                                                link={{ type: 'twitter', link: platform.url }}
-                                                            />
-                                                        ) : (
-                                                            <Tooltip
-                                                                content={platform.url}
-                                                                placement="top"
-                                                                key={platform.type}
-                                                            >
-                                                                <Link
-                                                                    className="z-10 h-5 w-5"
-                                                                    href={platform.url}
-                                                                    rel="noopener noreferrer"
-                                                                    target="_blank"
-                                                                >
-                                                                    {SocialIcons[platform.type]}
-                                                                </Link>
-                                                            </Tooltip>
-                                                        );
-                                                    })}
-                                            </div>
-                                        </div>
-                                        <div className="flex w-full justify-between">
-                                            <p className="text-second">
-                                                <Trans>Total</Trans>
-                                            </p>
-                                            <p className="overflow-hidden overflow-ellipsis whitespace-nowrap text-main">
-                                                {Number(v.ext_info.nft_info.total).toLocaleString('en-US')}
-                                            </p>
-                                        </div>
-                                        <div className="flex w-full justify-between">
-                                            <p className="text-second">
-                                                <Trans>Price</Trans>
-                                            </p>
-                                            <p className="overflow-hidden overflow-ellipsis whitespace-nowrap text-main">
-                                                {v.ext_info.nft_info.token}
-                                            </p>
-                                        </div>
+                                                                return isTwitterProfile ? (
+                                                                    <CommunityLink
+                                                                        iconSize={20}
+                                                                        key={platform.type}
+                                                                        link={{ type: 'twitter', link: platform.url }}
+                                                                    />
+                                                                ) : (
+                                                                    <Tooltip
+                                                                        content={platform.url}
+                                                                        placement="top"
+                                                                        key={platform.type}
+                                                                    >
+                                                                        <Link
+                                                                            className="z-10 h-5 w-5"
+                                                                            href={platform.url}
+                                                                            rel="noopener noreferrer"
+                                                                            target="_blank"
+                                                                        >
+                                                                            {SocialIcons[platform.type]}
+                                                                        </Link>
+                                                                    </Tooltip>
+                                                                );
+                                                            })}
+                                                    </div>
+                                                </div>{' '}
+                                            </>
+                                        ) : null}
+                                        {v.ext_info ? (
+                                            <>
+                                                <div className="flex w-full justify-between">
+                                                    <p className="text-second">
+                                                        <Trans>Total</Trans>
+                                                    </p>
+                                                    <p className="overflow-hidden overflow-ellipsis whitespace-nowrap text-main">
+                                                        {Number(v.ext_info.nft_info.total).toLocaleString('en-US')}
+                                                    </p>
+                                                </div>
+                                                <div className="flex w-full justify-between">
+                                                    <p className="text-second">
+                                                        <Trans>Price</Trans>
+                                                    </p>
+                                                    <p className="overflow-hidden overflow-ellipsis whitespace-nowrap text-main">
+                                                        {v.ext_info.nft_info.token}
+                                                    </p>
+                                                </div>
+                                            </>
+                                        ) : null}
                                         <div className="flex w-full justify-between">
                                             <p className="text-second">
                                                 <Trans>Date</Trans>

@@ -6,9 +6,10 @@ import { EmptyStatus } from '@/components/Calendar/EmptyStatus.js';
 import { LoadingStatus } from '@/components/Calendar/LoadingStatus.js';
 import { Image } from '@/components/Image.js';
 import { Link } from '@/esm/Link.js';
+import type { ParsedEvent } from '@/types/calendar.js';
 
 interface NewsListProps {
-    list: Record<string, any[]>;
+    list: Record<string, ParsedEvent[]>;
     isLoading: boolean;
     date: Date;
 }
@@ -49,16 +50,18 @@ export function NewsList({ list, isLoading, date }: NewsListProps) {
                                         target="_blank"
                                     >
                                         <div className="flex w-full justify-between">
-                                            <div className="flex items-center gap-2">
-                                                <Image
-                                                    className="overflow-hidden rounded-full"
-                                                    src={v.project.logo}
-                                                    width={24}
-                                                    height={24}
-                                                    alt={v.project.name}
-                                                />
-                                                <p className="text-xs font-bold text-main">{v.project.name}</p>
-                                            </div>
+                                            {v.project ? (
+                                                <div className="flex items-center gap-2">
+                                                    <Image
+                                                        className="overflow-hidden rounded-full"
+                                                        src={v.project.logo}
+                                                        width={24}
+                                                        height={24}
+                                                        alt={v.project.name}
+                                                    />
+                                                    <p className="text-xs font-bold text-main">{v.project.name}</p>
+                                                </div>
+                                            ) : null}
                                             <p className="flex items-center justify-center rounded-md bg-bg px-2 py-1 text-center text-xs text-main">
                                                 {v.event_type}
                                             </p>

@@ -1,3 +1,5 @@
+'use client';
+
 import { ClickAwayListener } from '@mui/material';
 import { eachDayOfInterval, endOfWeek, startOfWeek } from 'date-fns';
 import React, { useMemo } from 'react';
@@ -5,14 +7,15 @@ import React, { useMemo } from 'react';
 import CalendarIcon from '@/assets/calendar.svg';
 import { DatePicker } from '@/components/Calendar/DatePicker.js';
 import { classNames } from '@/helpers/classNames.js';
+import type { ParsedEvent } from '@/types/calendar.js';
 
 interface DatePickerTabProps {
     open: boolean;
     setOpen: (x: boolean) => void;
     selectedDate: Date;
     setSelectedDate: (date: Date) => void;
-    list: Record<string, any[]> | null;
-    currentTab: 'news' | 'events' | 'nfts';
+    list: Record<string, ParsedEvent[]> | null;
+    currentTab: 'news' | 'nfts';
 }
 
 export function DatePickerTab({ selectedDate, setSelectedDate, list, open, setOpen, currentTab }: DatePickerTabProps) {
