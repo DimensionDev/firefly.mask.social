@@ -8,9 +8,10 @@ import { ImageLoader } from '@/components/Calendar/ImageLoader.js';
 import { LoadingStatus } from '@/components/Calendar/LoadingStatus.js';
 import { Image } from '@/components/Image.js';
 import { Link } from '@/esm/Link.js';
+import type { MeetingEvent } from '@/types/calendar.js';
 
 interface EventListProps {
-    list: Record<string, any[]>;
+    list: Record<string, MeetingEvent[]>;
     isLoading: boolean;
     empty: boolean;
     date: Date;

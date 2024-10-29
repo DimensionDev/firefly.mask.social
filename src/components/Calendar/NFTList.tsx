@@ -14,9 +14,10 @@ import { XIcon } from '@/components/XIcon.js';
 import { TWITTER_PROFILE_REGEX } from '@/constants/regexp.js';
 import { Link } from '@/esm/Link.js';
 import { fixUrlProtocol } from '@/helpers/fixUrlProtocol.js';
+import type { NewsEvent, NftEvent } from '@/types/calendar.js';
 
 interface NFTListProps {
-    list: Record<string, any[]>;
+    list: Record<string, NftEvent[]>;
     isLoading: boolean;
     date: Date;
 }
@@ -27,7 +28,7 @@ const SocialIcons: Record<string, ReactNode> = {
     website: <WebsiteIcon className="dark:invert" width={20} height={20} />,
 };
 
-const sortPlat = (_: any, b: { type: string }) => {
+const sortPlat = (_: NftEvent['project']['links'][0], b: { type: string }) => {
     if (b.type === 'website') return -1;
     else return 0;
 };

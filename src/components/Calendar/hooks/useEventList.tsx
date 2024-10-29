@@ -1,11 +1,11 @@
 import { EMPTY_OBJECT } from '@masknet/shared-base';
-import type { UseQueryResult } from '@tanstack/react-query';
 import { useQuery } from '@tanstack/react-query';
 import { addDays, endOfMonth, startOfMonth } from 'date-fns';
 
 import { CalendarProvider } from '@/providers/calendar/index.js';
+import type { MeetingEvent, NewsEvent, NftEvent } from '@/types/calendar.js';
 
-export function useNewsList(date: Date, enabled = true): UseQueryResult<any> {
+export function useNewsList(date: Date, enabled = true) {
     const startTime = startOfMonth(date).getTime() / 1000;
     const endTime = Math.floor(addDays(date, 45).getTime() / 1000);
     return useQuery({
@@ -14,7 +14,7 @@ export function useNewsList(date: Date, enabled = true): UseQueryResult<any> {
         queryFn: async () => CalendarProvider.getNewsList(startTime, endTime),
         select(data) {
             return (
-                data?.reduce((acc: Record<string, any[]>, v: any) => {
+                data?.reduce((acc: Record<string, NewsEvent[]>, v) => {
                     const date = new Date(Number(v.event_date)).toLocaleDateString();
                     acc[date] = acc[date] || [];
                     acc[date].push(v);
@@ -34,7 +34,7 @@ export function useEventList(date: Date, enabled = true) {
         queryFn: async () => CalendarProvider.getEventList(startTime, endTime),
         select(data) {
             return (
-                data?.reduce((acc: Record<string, any[]>, v: any) => {
+                data?.reduce((acc: Record<string, MeetingEvent[]>, v: any) => {
                     const date = new Date(Number(v.event_date)).toLocaleDateString();
                     acc[date] = acc[date] || [];
                     acc[date].push(v);
@@ -54,7 +54,7 @@ export function useNFTList(date: Date, enabled = true) {
         queryFn: async () => CalendarProvider.getNFTList(startTime, endTime),
         select(data) {
             return (
-                data?.reduce((acc: Record<string, any[]>, v: any) => {
+                data?.reduce((acc: Record<string, NftEvent[]>, v: any) => {
                     const date = new Date(v.event_date).toLocaleDateString();
                     acc[date] = acc[date] || [];
                     acc[date].push(v);
