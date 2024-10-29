@@ -30,12 +30,13 @@ export interface Event {
     ext_info?: ExtensionInfo;
 }
 
-export interface NewsEvent extends Omit<Event, 'event_date'> {
+export interface ParsedEvent extends Omit<Event, 'event_date'> {
     event_date: number;
 }
 
-export interface NftEvent extends Omit<Event, 'event_date'> {
-    event_date: number;
+export interface NewsEvent extends ParsedEvent {}
+
+export interface NftEvent extends ParsedEvent {
     project: ProjectInfo;
     ext_info: ExtensionInfo;
 }

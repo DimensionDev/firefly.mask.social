@@ -3,8 +3,8 @@
 import urlcat from 'urlcat';
 
 import { fetchCachedJSON } from '@/helpers/fetchJSON.js';
-import type { EventResponse, NewsEvent, NftEvent } from '@/types/calendar.js';
 import { resolveFireflyResponseData } from '@/helpers/resolveFireflyResponseData.js';
+import type { EventResponse, NewsEvent, NftEvent } from '@/types/calendar.js';
 
 const BASE_URL = 'https://mask-network-dev.firefly.land/v1/calendar/crypto_event_list';
 
