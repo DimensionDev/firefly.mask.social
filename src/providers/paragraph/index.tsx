@@ -148,7 +148,7 @@ class Paragraph implements Provider {
              * but not in DB, so if future people try to mint, they would be unsuccessful.
              *
              */
-            if (error instanceof Error && error.message.includes('nft already exists')) {
+            if (error instanceof Error && error.message.toLowerCase().includes('nft already exists')) {
                 return await client.estimateContractGas({
                     address: address as `0x${string}`,
                     abi: ParagraphMintABI,
@@ -165,8 +165,8 @@ class Paragraph implements Provider {
                         ],
                         zeroAddress,
                         article.postId,
-                        article.position?.from ? article.position.from + 1 : 0,
-                        article.position?.to ? article.position.to + 1 : 0,
+                        1,
+                        1,
                     ],
                     value,
                 });
@@ -224,7 +224,7 @@ class Paragraph implements Provider {
 
             return await waitForTransactionReceipt(config, { hash });
         } catch (error) {
-            if (error instanceof Error && error.message.includes('nft already exists')) {
+            if (error instanceof Error && error.message.toLowerCase().includes('nft already exists')) {
                 const hash = await writeContract(config, {
                     address: address as `0x${string}`,
                     abi: ParagraphMintABI,
@@ -241,8 +241,8 @@ class Paragraph implements Provider {
                         ],
                         zeroAddress,
                         article.postId,
-                        article.position?.from ? article.position.from + 1 : 0,
-                        article.position?.to ? article.position.to + 1 : 0,
+                        1,
+                        1,
                     ],
                     value,
                 });
