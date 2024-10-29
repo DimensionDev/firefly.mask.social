@@ -1,12 +1,21 @@
 'use client';
 
-import type { PropsWithChildren } from 'react';
+import { usePathname } from 'next/navigation.js';
+import { type HTMLProps, useContext } from 'react';
 
-import { ActivityDesktopNavigationBar } from '@/components/Activity/ActivityDesktopNavigationBar.js';
-import { ActivityMobileNavigationBar } from '@/components/Activity/ActivityMobileNavigationBar.js';
+import NavigationBarBackIcon from '@/assets/navigation-bar-back.svg';
+import ShareIcon from '@/assets/share-navbar.svg';
+import { ActivityContext } from '@/components/Activity/ActivityContext.js';
+import { IS_ANDROID } from '@/constants/bowser.js';
+import { PageRoute } from '@/constants/enum.js';
+import { classNames } from '@/helpers/classNames.js';
+import { useComeBack } from '@/hooks/useComeback.js';
 import { fireflyBridgeProvider } from '@/providers/firefly/Bridge.js';
+import { captureActivityEvent } from '@/providers/telemetry/captureActivityEvent.js';
+import { EventId } from '@/providers/types/Telemetry.js';
+import { useGlobalState } from '@/store/useGlobalStore.js';
+import { SupportedMethod } from '@/types/bridge.js';
 
-<<<<<<<< HEAD:src/components/Activity/ActivityMobileNavigationBar.tsx
 interface Props extends HTMLProps<'div'> {}
 
 export function ActivityMobileNavigationBar({ children, className }: Props) {
@@ -56,11 +65,4 @@ export function ActivityMobileNavigationBar({ children, className }: Props) {
             <div className="absolute bottom-[100%] h-[200px] w-full bg-primaryBottom dark:bg-[#262a34]" />
         </div>
     );
-========
-export function ActivityNavigationBar({ children }: PropsWithChildren) {
-    if (fireflyBridgeProvider.supported) {
-        return <ActivityMobileNavigationBar>{children}</ActivityMobileNavigationBar>;
-    }
-    return <ActivityDesktopNavigationBar>{children}</ActivityDesktopNavigationBar>;
->>>>>>>> 4d75c2b8 (refactor: activity route and component (#2968)):src/components/Activity/ActivityNavigationBar.tsx
 }
