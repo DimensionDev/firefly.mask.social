@@ -10,6 +10,7 @@ import { Link } from '@/components/Activity/Link.js';
 import { CloseButton } from '@/components/CloseButton.js';
 import { Modal } from '@/components/Modal.js';
 import { Popover } from '@/components/Popover.js';
+import type { Chars } from '@/helpers/chars.js';
 import { parseUrl } from '@/helpers/parseUrl.js';
 import { resolveExplorerLink } from '@/helpers/resolveExplorerLink.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
@@ -19,9 +20,11 @@ interface Props {
     onClose: () => void;
     hash?: string;
     chainId?: ChainId;
+    shareContent: Chars;
+    claimType?: string;
 }
 
-export function ActivityMintSuccessDialog({ open, onClose, hash, chainId }: Props) {
+export function ActivityMintSuccessDialog({ claimType, shareContent, open, onClose, hash, chainId }: Props) {
     const isMedium = useIsMedium();
     const [{ loading }, shareAndPost] = useActivityCompose();
     const list = useActivityPremiumList();
@@ -44,12 +47,14 @@ export function ActivityMintSuccessDialog({ open, onClose, hash, chainId }: Prop
             <button
                 className="leading-12 relative mt-6 flex h-12 w-full items-center justify-center rounded-full bg-main text-center text-base font-bold text-primaryBottom disabled:opacity-60"
                 onClick={() => {
-                    const url = parseUrl(window.location.href);
-                    if (url) {
-                        url.searchParams.set('claim-type', isPremium ? 'premium' : 'base');
-                        window.history.replaceState({}, '', url.href);
+                    if (claimType) {
+                        const url = parseUrl(window.location.href);
+                        if (url) {
+                            url.searchParams.set('claim-type', claimType);
+                            window.history.replaceState({}, '', url.href);
+                        }
                     }
-                    shareAndPost();
+                    shareAndPost(shareContent);
                     onClose();
                 }}
                 disabled={loading}
