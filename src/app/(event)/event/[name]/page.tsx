@@ -22,7 +22,7 @@ export default async function Page({
 
     return (
         <div className="flex min-h-[100svh] w-full flex-1 flex-col">
-            <ActivityNavigationBar />
+            <ActivityNavigationBar>{data.title}</ActivityNavigationBar>
             <ActivityHeader data={data} />
             <div className="w-full space-y-4 px-6 pt-4">
                 <div className="flex w-full flex-col space-y-2">
