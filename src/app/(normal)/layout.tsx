@@ -13,8 +13,11 @@ import { SuggestedFollowsCard } from '@/components/SuggestedFollows/SuggestedFol
 import { PageRoute, Source } from '@/constants/enum.js';
 import { DEFAULT_SOCIAL_SOURCE, DISCOVER_SOURCES, DISCOVER_TYPES, SOCIAL_DISCOVER_SOURCE } from '@/constants/index.js';
 import { resolveSourceInUrl } from '@/helpers/resolveSourceInUrl.js';
+import { setupLocaleForSSR } from '@/i18n/index.js';
 
 export default function Layout({ children, modal }: { children: React.ReactNode; modal: React.ReactNode }) {
+    setupLocaleForSSR();
+
     return (
         <>
             <main className="flex w-full flex-[1_1_100%] flex-col md:border-r md:border-line md:pl-[289px] lg:w-[888px] lg:max-w-[calc(100%-384px)]">
