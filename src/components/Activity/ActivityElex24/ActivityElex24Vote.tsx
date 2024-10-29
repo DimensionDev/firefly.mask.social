@@ -27,12 +27,12 @@ export function ActivityElex24Vote() {
     return (
         <div className="flex flex-col space-y-2">
             {options.map((option) => {
-                const selected = vote === option.value;
+                const selected = vote === option.value || option.value === data?.ext?.vote;
                 return (
                     <button
                         key={option.name}
                         className="flex h-12 rounded-2xl bg-bg p-3 text-sm font-semibold leading-6 disabled:bg-success/10 disabled:dark:bg-success/20"
-                        disabled={vote === option.value || vote === data?.ext?.vote}
+                        disabled={selected}
                         onClick={() => {
                             if (data?.ext?.vote) return;
                             setVote(option.value);
