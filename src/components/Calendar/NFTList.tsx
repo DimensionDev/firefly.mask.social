@@ -14,7 +14,7 @@ import { XIcon } from '@/components/XIcon.js';
 import { TWITTER_PROFILE_REGEX } from '@/constants/regexp.js';
 import { Link } from '@/esm/Link.js';
 import { fixUrlProtocol } from '@/helpers/fixUrlProtocol.js';
-import type { NewsEvent, NftEvent } from '@/types/calendar.js';
+import type { NftEvent } from '@/types/calendar.js';
 
 interface NFTListProps {
     list: Record<string, NftEvent[]>;

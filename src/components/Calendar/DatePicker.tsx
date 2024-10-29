@@ -4,7 +4,7 @@ import { range } from 'lodash-es';
 import { useMemo, useState } from 'react';
 
 import RightArrowIcon from '@/assets/right-arrow.svg';
-import { useEventList, useNewsList, useNFTList } from '@/components/Calendar/hooks/useEventList.js';
+import { useNewsList, useNFTList } from '@/components/Calendar/hooks/useEventList.js';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { classNames } from '@/helpers/classNames.js';
 
@@ -13,7 +13,7 @@ interface DatePickerProps {
     setOpen: (x: boolean) => void;
     selectedDate: Date;
     setSelectedDate: (date: Date) => void;
-    currentTab: 'news' | 'events' | 'nfts';
+    currentTab: 'news' | 'nfts';
 }
 
 export function DatePicker({ selectedDate, setSelectedDate, open, setOpen, currentTab }: DatePickerProps) {
@@ -24,15 +24,12 @@ export function DatePicker({ selectedDate, setSelectedDate, open, setOpen, curre
     const daysInPrevMonth = endOfMonth(addMonths(currentDate, -1)).getDate();
 
     const { data: newsList } = useNewsList(monthStart, currentTab === 'news');
-    const { data: eventList } = useEventList(monthStart, currentTab === 'events');
     const { data: nftList } = useNFTList(monthStart, currentTab === 'nfts');
 
     const getListItems = () => {
         switch (currentTab) {
             case 'news':
                 return newsList;
-            case 'events':
-                return eventList;
             case 'nfts':
                 return nftList;
             default:

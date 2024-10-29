@@ -34,11 +34,6 @@ export interface NewsEvent extends Omit<Event, 'event_date'> {
     event_date: number;
 }
 
-export interface MeetingEvent extends Omit<Event, 'event_date'> {
-    event_date: number;
-    project: ProjectInfo;
-}
-
 export interface NftEvent extends Omit<Event, 'event_date'> {
     event_date: number;
     project: ProjectInfo;
