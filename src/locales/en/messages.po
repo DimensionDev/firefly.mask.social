@@ -1387,6 +1387,9 @@ msgstr "Publications"
 msgid "Unable to read image."
 msgstr "Unable to read image."
 
+msgid "Step 3 Select to vote"
+msgstr "Step 3 Select to vote"
+
 msgid "Visit firefly.social"
 msgstr "Visit firefly.social"
 
@@ -1545,6 +1548,9 @@ msgstr "{type, select, compose {{0}} quote {Add a comment} reply {Post your repl
 
 msgid "Unknown transaction method: {method}."
 msgstr "Unknown transaction method: {method}."
+
+msgid "Get involved in the <0>Presidential Election Winner 2024</0> on Polymarket"
+msgstr "Get involved in the <0>Presidential Election Winner 2024</0> on Polymarket"
 
 msgid "You are logging into a different Firefly account. Continuing will <0>overwrite</0> your current accounts."
 msgstr "You are logging into a different Firefly account. Continuing will <0>overwrite</0> your current accounts."
