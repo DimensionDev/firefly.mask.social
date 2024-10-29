@@ -1683,6 +1683,9 @@ msgstr "帖子"
 msgid "Unable to read image."
 msgstr "获取图片失败。"
 
+msgid "Step 3 Select to vote"
+msgstr ""
+
 msgid "Visit firefly.social"
 msgstr "访问 firefly.social"
 
@@ -1877,6 +1880,9 @@ msgstr "{type, select, compose {{0}} quote {添加一条评论} reply {发布你
 
 msgid "Unknown transaction method: {method}."
 msgstr "未知交易方法：{method}。"
+
+msgid "Get involved in the <0>Presidential Election Winner 2024</0> on Polymarket"
+msgstr ""
 
 msgid "You are logging into a different Firefly account. Continuing will <0>overwrite</0> your current accounts."
 msgstr "您正在登录不同的 Firefly 账户。如果继续则会<0>覆盖</0>当前账号。"

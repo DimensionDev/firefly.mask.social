@@ -21,7 +21,12 @@ import { captureActivityEvent } from '@/providers/telemetry/captureActivityEvent
 import { ActivityStatus } from '@/providers/types/Firefly.js';
 import { EventId } from '@/providers/types/Telemetry.js';
 
-export function ActivityClaimButton({ status }: { status: ActivityStatus }) {
+interface Props {
+    status: ActivityStatus;
+    claimApiExtraParams?: Record<string, unknown>;
+}
+
+export function ActivityClaimButton({ status, claimApiExtraParams }: Props) {
     const { address, name, fireflyAccountId } = useContext(ActivityContext);
     const { data: authToken } = useFireflyBridgeAuthorization();
     const { data, refetch } = useActivityClaimCondition();

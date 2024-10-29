@@ -200,7 +200,9 @@
         "selfdestruct",
         "reinit",
         "mutelist",
-        "tipjar"
+        "tipjar",
+        "elex",
+        "hlbl"
     ],
     "flagWords": [],
     "ignorePaths": [
