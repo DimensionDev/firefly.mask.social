@@ -3,8 +3,9 @@ import { notFound } from 'next/navigation.js';
 import type React from 'react';
 
 import { PostDetailPage } from '@/app/(normal)/post/[source]/[id]/pages/DetailPage.js';
+import { TwitterPostDetailPage } from '@/app/(normal)/post/[source]/[id]/pages/TwitterDetailPage.js';
 import { LoginRequiredGuard } from '@/components/LoginRequiredGuard.js';
-import { KeyType, type SocialSourceInURL } from '@/constants/enum.js';
+import { KeyType, type SocialSourceInURL, Source } from '@/constants/enum.js';
 import { createMetadataPostById } from '@/helpers/createMetadataPostById.js';
 import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
 import { isBotRequest } from '@/helpers/isBotRequest.js';
@@ -43,9 +44,13 @@ export default async function Page(props: Props) {
 
     const source = resolveSocialSource(params.source);
 
-    return (
-        <LoginRequiredGuard source={source}>
-            <PostDetailPage id={params.id} source={source} />
-        </LoginRequiredGuard>
-    );
+    if (source === Source.Twitter) {
+        return (
+            <LoginRequiredGuard source={source}>
+                <TwitterPostDetailPage id={params.id} source={source} />
+            </LoginRequiredGuard>
+        );
+    }
+
+    return <PostDetailPage id={params.id} source={source} />;
 }

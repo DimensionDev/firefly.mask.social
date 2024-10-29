@@ -1,11 +1,13 @@
 import { StatusCodes } from 'http-status-codes';
 import React, { type PropsWithChildren } from 'react';
 
+import { LoginRequiredGuard } from '@/components/LoginRequiredGuard.js';
 import { Info } from '@/components/Profile/Info.js';
 import { ProfileNotFound } from '@/components/Profile/ProfileNotFound.js';
 import { ProfileSourceTabs } from '@/components/Profile/ProfileSourceTabs.js';
 import { ProfileTabs } from '@/components/Profile/ProfileTabs.js';
 import { Title } from '@/components/Profile/Title.js';
+import { TwitterProfileInfo } from '@/components/Profile/TwitterProfileInfo.js';
 import { WalletInfo } from '@/components/Profile/WalletInfo.js';
 import { ProfileDetailEffect } from '@/components/ProfileDetailEffect.js';
 import { SuspendedAccountFallback } from '@/components/SuspendedAccountFallback.js';
@@ -25,11 +27,20 @@ export async function ProfilePageLayout({ identity, children }: PropsWithChildre
 
     const { walletProfile } = resolveFireflyProfiles(identity, profiles);
 
+    if (identity.source === Source.Twitter) {
+        return (
+            <LoginRequiredGuard source={identity.source}>
+                <TwitterProfileInfo profiles={profiles} identity={identity}>
+                    {children}
+                </TwitterProfileInfo>
+            </LoginRequiredGuard>
+        );
+    }
+
     try {
         const profile =
             identity.id && identity.source !== Source.Wallet ? await getProfileById(resolvedSource, identity.id) : null;
-        const profileMissing =
-            !profile && !walletProfile && ((identity.source === Source.Twitter && !profile) || !profiles.length);
+        const profileMissing = !profile && !walletProfile && !profiles.length;
 
         if (profileMissing) return <ProfileNotFound />;
 
