@@ -4,7 +4,7 @@ import urlcat from 'urlcat';
 
 import { fetchCachedJSON } from '@/helpers/fetchJSON.js';
 import { resolveFireflyResponseData } from '@/helpers/resolveFireflyResponseData.js';
-import type { EventResponse, NewsEvent, NftEvent } from '@/types/calendar.js';
+import type { EventResponse } from '@/types/calendar.js';
 
 const BASE_URL = 'https://mask-network-dev.firefly.land/v1/calendar/crypto_event_list';
 
@@ -22,7 +22,7 @@ class Provider {
         return data?.events?.map((x) => ({
             ...x,
             event_date: Number.parseInt(x.event_date, 10) * 1000,
-        })) as NewsEvent[];
+        }));
     }
 
     async getNFTList(startDate: number, endDate?: number) {
@@ -38,7 +38,7 @@ class Provider {
         return data?.events?.map((x: any) => ({
             ...x,
             event_date: Number.parseInt(x.event_date, 10) * 1000,
-        })) as NftEvent[];
+        }));
     }
 }
 

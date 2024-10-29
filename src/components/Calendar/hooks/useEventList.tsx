@@ -3,7 +3,7 @@ import { useQuery } from '@tanstack/react-query';
 import { addDays, endOfMonth, startOfMonth } from 'date-fns';
 
 import { CalendarProvider } from '@/providers/calendar/index.js';
-import type { NewsEvent, NftEvent } from '@/types/calendar.js';
+import type { ParsedEvent } from '@/types/calendar.js';
 
 export function useNewsList(date: Date, enabled = true) {
     const startTime = startOfMonth(date).getTime() / 1000;
@@ -14,7 +14,7 @@ export function useNewsList(date: Date, enabled = true) {
         queryFn: async () => CalendarProvider.getNewsList(startTime, endTime),
         select(data) {
             return (
-                data?.reduce((acc: Record<string, NewsEvent[]>, v) => {
+                data?.reduce((acc: Record<string, ParsedEvent[]>, v) => {
                     const date = new Date(Number(v.event_date)).toLocaleDateString();
                     acc[date] = acc[date] || [];
                     acc[date].push(v);
@@ -34,7 +34,7 @@ export function useNFTList(date: Date, enabled = true) {
         queryFn: async () => CalendarProvider.getNFTList(startTime, endTime),
         select(data) {
             return (
-                data?.reduce((acc: Record<string, NftEvent[]>, v: any) => {
+                data?.reduce((acc: Record<string, ParsedEvent[]>, v: any) => {
                     const date = new Date(v.event_date).toLocaleDateString();
                     acc[date] = acc[date] || [];
                     acc[date].push(v);

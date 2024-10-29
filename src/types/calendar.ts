@@ -1,4 +1,4 @@
-interface ExtensionInfo {
+export interface ExtensionInfo {
     nft_info: {
         token: string;
         total: string;
@@ -6,7 +6,7 @@ interface ExtensionInfo {
     poster_url: string;
 }
 
-interface ProjectInfo {
+export interface ProjectInfo {
     links: Array<{
         type: string;
         url: string;
@@ -32,13 +32,6 @@ export interface Event {
 
 export interface ParsedEvent extends Omit<Event, 'event_date'> {
     event_date: number;
-}
-
-export interface NewsEvent extends ParsedEvent {}
-
-export interface NftEvent extends ParsedEvent {
-    project: ProjectInfo;
-    ext_info: ExtensionInfo;
 }
 
 interface Response<T> {

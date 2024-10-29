@@ -6,10 +6,10 @@ import { EmptyStatus } from '@/components/Calendar/EmptyStatus.js';
 import { LoadingStatus } from '@/components/Calendar/LoadingStatus.js';
 import { Image } from '@/components/Image.js';
 import { Link } from '@/esm/Link.js';
-import type { NewsEvent } from '@/types/calendar.js';
+import type { ParsedEvent } from '@/types/calendar.js';
 
 interface NewsListProps {
-    list: Record<string, NewsEvent[]>;
+    list: Record<string, ParsedEvent[]>;
     isLoading: boolean;
     date: Date;
 }
