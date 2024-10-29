@@ -13,7 +13,7 @@ import { isProfilePageSource } from '@/helpers/isProfilePageSource.js';
 import { isSameFireflyIdentity } from '@/helpers/isSameFireflyIdentity.js';
 import { resolveProfileUrl } from '@/helpers/resolveProfileUrl.js';
 import { useCurrentFireflyProfilesAll } from '@/hooks/useCurrentFireflyProfiles.js';
-import { useDarkMode } from '@/hooks/useDarkMode.js';
+import { useIsDarkMode } from '@/hooks/useIsDarkMode.js';
 import { type FireflyIdentity, type FireflyProfile, type WalletProfile } from '@/providers/types/Firefly.js';
 import { useFireflyIdentityState } from '@/store/useFireflyIdentityStore.js';
 
@@ -64,7 +64,7 @@ interface ProfileTabsProps {
 }
 
 export function ProfileTabs({ profiles: otherProfiles, identity }: ProfileTabsProps) {
-    const { isDarkMode } = useDarkMode();
+    const isDarkMode = useIsDarkMode();
     const currentProfiles = useCurrentFireflyProfilesAll();
     const isCurrentProfile = currentProfiles.some((x) => isSameFireflyIdentity(x.identity, identity));
 

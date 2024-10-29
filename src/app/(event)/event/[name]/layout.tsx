@@ -4,6 +4,7 @@ import { ActivityProvider } from '@/components/Activity/ActivityContext.js';
 import { KeyType } from '@/constants/enum.js';
 import { createMetadataEventDetailPage } from '@/helpers/createMetadataEventDetailPage.js';
 import { memoizeWithRedis } from '@/helpers/memoizeWithRedis.js';
+import { setupLocaleForSSR } from '@/i18n/index.js';
 
 const createPageMetadata = memoizeWithRedis(createMetadataEventDetailPage, {
     key: KeyType.CreateMetadataEvent,
@@ -21,5 +22,6 @@ export async function generateMetadata({ params }: Props) {
 }
 
 export default function Layout({ children, params }: Props) {
+    setupLocaleForSSR();
     return <ActivityProvider name={params.name}>{children}</ActivityProvider>;
 }

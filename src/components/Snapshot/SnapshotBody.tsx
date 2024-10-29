@@ -132,14 +132,16 @@ export function SnapshotBody({ snapshot, link, postId, activity }: Props) {
             const confirmed = await ConfirmModalRef.openAndWaitForClose({
                 title: t`Your vote is in!`,
                 content: (
-                    <div className="text-center text-[15px] leading-[18px] text-secondary">
+                    <div className="mb-2 text-center text-[15px] leading-[18px] text-secondary">
                         <Trans>
                             Create a post to tell everyone about your participation. Votes can be changed while the
                             proposal is active.
                         </Trans>
                     </div>
                 ),
-                variant: 'normal',
+                contentClass: 'pt-0',
+                modalClass: '!max-w-[388px] !w-[388px]',
+                variant: 'secondary',
                 enableConfirmButton: true,
                 confirmButtonText: t`Create a Post`,
             });

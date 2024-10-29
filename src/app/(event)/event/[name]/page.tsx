@@ -3,6 +3,7 @@ import { ActivityHeader } from '@/components/Activity/ActivityHeader.js';
 import { ActivityNavigationBar } from '@/components/Activity/ActivityNavigationBar.js';
 import { ActivityTasks } from '@/components/Activity/ActivityTasks/index.js';
 import { setupLocaleForSSR } from '@/i18n/index.js';
+import { setupLocaleForSSR } from '@/i18n/index.js';
 import { FireflyActivityProvider } from '@/providers/firefly/Activity.js';
 
 export default async function Page({

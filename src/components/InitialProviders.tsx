@@ -3,14 +3,13 @@
 import { useActionsRegistryInterval } from '@dialectlabs/blinks';
 import { usePathname } from 'next/navigation.js';
 import { SnackbarProvider } from 'notistack';
-import { memo, useEffect, useLayoutEffect, useMemo, useRef } from 'react';
+import { memo, useEffect, useLayoutEffect, useRef } from 'react';
 import { useEffectOnce } from 'react-use';
 import { v4 as uuid } from 'uuid';
 
 import { sentryClient } from '@/configs/sentryClient.js';
 import { classNames } from '@/helpers/classNames.js';
 import { getLocaleFromCookies } from '@/helpers/getLocaleFromCookies.js';
-import { DarkModeContext } from '@/hooks/useDarkMode.js';
 import { useIsDarkMode } from '@/hooks/useIsDarkMode.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import { setLocale } from '@/i18n/index.js';
@@ -21,12 +20,6 @@ export const InitialProviders = memo(function Providers(props: { children: React
     const isDarkMode = useIsDarkMode();
     const isMedium = useIsMedium();
     useActionsRegistryInterval();
-
-    const darkModeContext = useMemo(() => {
-        return {
-            isDarkMode,
-        };
-    }, [isDarkMode]);
 
     const entryPathname = useRef('');
     const pathname = usePathname();
@@ -72,18 +65,16 @@ export const InitialProviders = memo(function Providers(props: { children: React
     }, [pathname]);
 
     return (
-        <DarkModeContext.Provider value={darkModeContext}>
-            <SnackbarProvider
-                maxSnack={30}
-                anchorOrigin={{ vertical: 'top', horizontal: isMedium ? 'right' : 'center' }}
-                autoHideDuration={3000}
-                classes={{
-                    containerAnchorOriginTopCenter: isMedium ? undefined : 'px-2',
-                    variantInfo: classNames('!bg-warn'),
-                }}
-            >
-                {props.children}
-            </SnackbarProvider>
-        </DarkModeContext.Provider>
+        <SnackbarProvider
+            maxSnack={30}
+            anchorOrigin={{ vertical: 'top', horizontal: isMedium ? 'right' : 'center' }}
+            autoHideDuration={3000}
+            classes={{
+                containerAnchorOriginTopCenter: isMedium ? undefined : 'px-2',
+                variantInfo: classNames('!bg-warn'),
+            }}
+        >
+            {props.children}
+        </SnackbarProvider>
     );
 });

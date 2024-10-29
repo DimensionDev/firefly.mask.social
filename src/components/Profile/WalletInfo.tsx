@@ -23,7 +23,7 @@ import { getRelationPlatformUrl } from '@/helpers/getRelationPlatformUrl.js';
 import { getStampAvatarByProfileId } from '@/helpers/getStampAvatarByProfileId.js';
 import { isMPCWallet } from '@/helpers/isMPCWallet.js';
 import { resolveNetworkIcon } from '@/helpers/resolveNetworkIcon.js';
-import { useDarkMode } from '@/hooks/useDarkMode.js';
+import { useIsDarkMode } from '@/hooks/useIsDarkMode.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import { BlockScanExplorerResolver } from '@/providers/ethereum/ExplorerResolver.js';
 import { type Relation, type WalletProfile } from '@/providers/types/Firefly.js';
@@ -35,7 +35,7 @@ interface WalletInfoProps {
 
 export function WalletInfo({ profile, relations }: WalletInfoProps) {
     const isMedium = useIsMedium();
-    const { isDarkMode } = useDarkMode();
+    const isDarkMode = useIsDarkMode();
 
     const avatar = profile.avatar ?? getStampAvatarByProfileId(Source.Wallet, profile.address);
     const networkType = getAddressType(profile.address);

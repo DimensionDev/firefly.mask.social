@@ -10,7 +10,7 @@ import { classNames } from '@/helpers/classNames.js';
 import { isDomainOrSubdomainOf } from '@/helpers/isDomainOrSubdomainOf.js';
 import { resolveFirstAvailableUrl } from '@/helpers/resolveFirstAvailableUrl.js';
 import { resolveImgurUrl } from '@/helpers/resolveImgurUrl.js';
-import { useDarkMode } from '@/hooks/useDarkMode.js';
+import { useIsDarkMode } from '@/hooks/useIsDarkMode.js';
 
 function resolveAvatarFallbackUrl(url: string | undefined, isDarkMode = false) {
     if (!url?.startsWith('https://cdn.stamp.fyi/avatar/eth:')) return url;
@@ -24,7 +24,7 @@ export interface AvatarProps extends Omit<NextImageProps, 'src'> {
 }
 
 export const Avatar = memo(function Avatar({ src, size, className, fallbackUrl, ...rest }: AvatarProps) {
-    const { isDarkMode } = useDarkMode();
+    const isDarkMode = useIsDarkMode();
 
     const isNormalUrl = !!src && !src.startsWith('data:image/') && !isDomainOrSubdomainOf(src, 'warpcast.com');
     const { data: url } = useQuery({
