@@ -12,6 +12,7 @@ import { ActivityMintSuccessDialog } from '@/components/Activity/ActivityMintSuc
 import { useActivityClaimCondition } from '@/components/Activity/hooks/useActivityClaimCondition.js';
 import { useActivityPremiumList } from '@/components/Activity/hooks/useActivityPremiumList.js';
 import { useIsFollowTwitterInActivity } from '@/components/Activity/hooks/useIsFollowTwitterInActivity.js';
+import type { Chars } from '@/helpers/chars.js';
 import { classNames } from '@/helpers/classNames.js';
 import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
 import { getSnackbarMessageFromError } from '@/helpers/getSnackbarMessageFromError.js';
@@ -21,7 +22,15 @@ import { captureActivityEvent } from '@/providers/telemetry/captureActivityEvent
 import { ActivityStatus } from '@/providers/types/Firefly.js';
 import { EventId } from '@/providers/types/Telemetry.js';
 
-export function ActivityClaimButton({ status }: { status: ActivityStatus }) {
+interface Props {
+    status: ActivityStatus;
+    claimApiExtraParams?: Record<string, unknown>;
+    claimType?: string;
+    shareContent: Chars;
+    disabled?: boolean;
+}
+
+export function ActivityClaimButton({ shareContent, status, claimApiExtraParams, ...rest }: Props) {
     const { address, name, fireflyAccountId } = useContext(ActivityContext);
     const { data: authToken } = useFireflyBridgeAuthorization();
     const { data, refetch } = useActivityClaimCondition();
@@ -31,12 +40,16 @@ export function ActivityClaimButton({ status }: { status: ActivityStatus }) {
     const list = useActivityPremiumList();
 
     const isPremium = list.some((x) => x.verified);
-    const disabled = status === ActivityStatus.Ended || !data?.canClaim || !isFollowedFirefly || !address;
+    const disabled =
+        status === ActivityStatus.Ended || !data?.canClaim || !isFollowedFirefly || !address || !rest.disabled;
 
     const [{ loading }, claim] = useAsyncFn(async () => {
         if (disabled || !address) return;
         try {
-            const { hash, chainId } = await FireflyActivityProvider.claimActivitySBT(address, name, { authToken });
+            const { hash, chainId } = await FireflyActivityProvider.claimActivitySBT(address, name, {
+                authToken,
+                claimApiExtraParams,
+            });
             await refetch();
             setHash(hash);
             setChainId(chainId);
@@ -73,7 +86,13 @@ export function ActivityClaimButton({ status }: { status: ActivityStatus }) {
 
     return (
         <>
-            <ActivityMintSuccessDialog hash={hash} open={!!hash} chainId={chainId} onClose={() => setHash(undefined)} />
+            <ActivityMintSuccessDialog
+                shareContent={shareContent}
+                hash={hash}
+                open={!!hash}
+                chainId={chainId}
+                onClose={() => setHash(undefined)}
+            />
             <button
                 className="leading-12 relative flex h-12 w-full items-center justify-center rounded-full bg-main text-center text-base font-bold text-primaryBottom disabled:opacity-60"
                 disabled={disabled || loading}

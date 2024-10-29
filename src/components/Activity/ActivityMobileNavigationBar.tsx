@@ -18,7 +18,7 @@ import { SupportedMethod } from '@/types/bridge.js';
 
 interface Props extends HTMLProps<'div'> {}
 
-export function NavigationBar({ children, className }: Props) {
+export function ActivityMobileNavigationBar({ children, className }: Props) {
     const comeback = useComeBack();
     const { fireflyAccountId } = useContext(ActivityContext);
     const pathname = usePathname();

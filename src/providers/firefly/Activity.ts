@@ -71,8 +71,10 @@ class FireflyActivity implements Provider {
         activityName: string,
         {
             authToken,
+            claimApiExtraParams,
         }: {
             authToken?: string;
+            claimApiExtraParams?: Record<string, unknown>;
         } = {},
     ) {
         let claimPlatform: 'web' | 'ios' | 'android' = 'web';
@@ -85,6 +87,7 @@ class FireflyActivity implements Provider {
                     walletAddress: address,
                     claimPlatform,
                     activityName,
+                    ...claimApiExtraParams,
                 }),
                 ...(authToken
                     ? {
