@@ -1,7 +1,7 @@
 'use client';
 
 import { Tab, TabGroup, TabList, TabPanel, TabPanels } from '@headlessui/react';
-import { t, Trans } from '@lingui/macro';
+import { Trans } from '@lingui/macro';
 import { safeUnreachable } from '@masknet/kit';
 import { useState } from 'react';
 
