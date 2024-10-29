@@ -12,6 +12,8 @@ import LoadingIcon from '@/assets/loading.svg';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { config, particleConnector } from '@/configs/wagmiClient.js';
 import { ParticleSolanaWalletAdapter } from '@/connectors/ParticleSolanaWallet.js';
+import { STATUS } from '@/constants/enum.js';
+import { env } from '@/constants/env.js';
 import { enqueueErrorMessage, enqueueInfoMessage } from '@/helpers/enqueueMessage.js';
 import { formatSolanaAddress } from '@/helpers/formatAddress.js';
 import { getSnackbarMessageFromError } from '@/helpers/getSnackbarMessageFromError.js';
@@ -74,6 +76,8 @@ export function ConnectMPCWalletButton({ connection }: ConnectMPCWalletButtonPro
         },
         [connection, isFireflyWallet, wallet.connected, connection.address, wallet.disconnect],
     );
+
+    if (env.external.NEXT_PUBLIC_PARTICLE !== STATUS.Enabled) return null;
 
     if (loading) return <LoadingIcon className="animate-spin" width={20} height={20} />;
 
