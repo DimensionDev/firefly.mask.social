@@ -42,6 +42,9 @@ msgstr ""
 msgid "Onchain Activities"
 msgstr "鏈上活動"
 
+msgid "Tomorrow at {0}"
+msgstr ""
+
 msgid "Tip transaction completed!"
 msgstr ""
 
@@ -653,6 +656,9 @@ msgstr "無空投騙局"
 
 msgid "Reposted"
 msgstr "已轉發"
+
+msgid "Today at {0}"
+msgstr ""
 
 msgid "Add another post..."
 msgstr "加入另一則貼文..."

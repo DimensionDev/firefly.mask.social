@@ -42,6 +42,9 @@ msgstr ""
 msgid "Onchain Activities"
 msgstr ""
 
+msgid "Tomorrow at {0}"
+msgstr ""
+
 msgid "Tip transaction completed!"
 msgstr ""
 
@@ -652,6 +655,9 @@ msgid "No Airdrop Scam"
 msgstr ""
 
 msgid "Reposted"
+msgstr ""
+
+msgid "Today at {0}"
 msgstr ""
 
 msgid "Add another post..."

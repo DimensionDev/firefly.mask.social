@@ -42,7 +42,7 @@ export const TweetSpace = memo<Props>(function TweetSpace({ spaceId }) {
 
     if (!isLogin) {
         return (
-            <div className="bg-purple mt-3 flex min-h-[152px] w-full flex-col items-center justify-center space-y-3 rounded-2xl p-4 text-white">
+            <div className="mt-3 flex min-h-[152px] w-full flex-col items-center justify-center space-y-3 rounded-2xl bg-purple p-4 text-white">
                 <p className="text-[13px] font-semibold leading-6">
                     <Trans>Log in with your X account to view</Trans>
                 </p>
@@ -58,7 +58,7 @@ export const TweetSpace = memo<Props>(function TweetSpace({ spaceId }) {
 
     if (isLoading) {
         return (
-            <div className="bg-purple mt-3 flex min-h-[152px] w-full flex-col items-center justify-center space-y-3 rounded-2xl p-4 text-white">
+            <div className="mt-3 flex min-h-[152px] w-full flex-col items-center justify-center space-y-3 rounded-2xl bg-purple p-4 text-white">
                 <LoadingIcon className="animate-spin" width={24} height={24} />
             </div>
         );
@@ -66,7 +66,7 @@ export const TweetSpace = memo<Props>(function TweetSpace({ spaceId }) {
 
     if (error) {
         return (
-            <div className="bg-purple mt-3 flex min-h-[152px] w-full flex-col items-center justify-center space-y-3 rounded-2xl p-4 text-white">
+            <div className="mt-3 flex min-h-[152px] w-full flex-col items-center justify-center space-y-3 rounded-2xl bg-purple p-4 text-white">
                 <p className="text-[13px] font-semibold leading-6">
                     <Trans>Something went wrong</Trans>
                 </p>
@@ -82,7 +82,7 @@ export const TweetSpace = memo<Props>(function TweetSpace({ spaceId }) {
 
     if (!space) {
         return (
-            <div className="bg-purple mt-3 flex min-h-[152px] w-full flex-col items-center justify-center space-y-3 rounded-2xl p-4 text-white">
+            <div className="mt-3 flex min-h-[152px] w-full flex-col items-center justify-center space-y-3 rounded-2xl bg-purple p-4 text-white">
                 <EmptyStatusIcon className="h-[64px] w-[80px]" />
                 <p className="text-[13px] font-semibold leading-6">
                     <Trans>This space does not exist.</Trans>
@@ -154,7 +154,7 @@ export const TweetSpace = memo<Props>(function TweetSpace({ spaceId }) {
         <Link
             href={`https://x.com/i/spaces/${space.id}`}
             target="_blank"
-            className="bg-purple mt-3 flex w-full flex-col space-y-3 rounded-2xl p-4 text-white"
+            className="mt-3 flex w-full flex-col space-y-3 rounded-2xl bg-purple p-4 text-white"
         >
             <div className="flex items-center space-x-1">
                 {tags.map((tag, i) => (
