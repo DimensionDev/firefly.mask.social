@@ -93,7 +93,13 @@ export function ActivityElex24Tasks({ data }: { data: Pick<Required<ActivityInfo
                 <ActivityPremiumConditionList />
             </div>
             <div className="sticky bottom-0 mt-auto w-full bg-primaryBottom px-4 pt-1.5 pb-safe-or-4 sm:pb-safe-or-2">
-                <ActivityClaimButton status={data.status} shareContent={shareContent as Chars} claimType={vote} />
+                <ActivityClaimButton
+                    status={data.status}
+                    claimApiExtraParams={{ vote }}
+                    shareContent={shareContent as Chars}
+                    claimType={vote}
+                    disabled={!vote}
+                />
             </div>
         </>
     );

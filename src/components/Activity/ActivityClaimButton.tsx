@@ -27,9 +27,10 @@ interface Props {
     claimApiExtraParams?: Record<string, unknown>;
     claimType?: string;
     shareContent: Chars;
+    disabled?: boolean;
 }
 
-export function ActivityClaimButton({ shareContent, status, claimApiExtraParams }: Props) {
+export function ActivityClaimButton({ shareContent, status, claimApiExtraParams, ...rest }: Props) {
     const { address, name, fireflyAccountId } = useContext(ActivityContext);
     const { data: authToken } = useFireflyBridgeAuthorization();
     const { data, refetch } = useActivityClaimCondition();
@@ -39,7 +40,8 @@ export function ActivityClaimButton({ shareContent, status, claimApiExtraParams 
     const list = useActivityPremiumList();
 
     const isPremium = list.some((x) => x.verified);
-    const disabled = status === ActivityStatus.Ended || !data?.canClaim || !isFollowedFirefly || !address;
+    const disabled =
+        status === ActivityStatus.Ended || !data?.canClaim || !isFollowedFirefly || !address || !rest.disabled;
 
     const [{ loading }, claim] = useAsyncFn(async () => {
         if (disabled || !address) return;

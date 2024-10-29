@@ -1,11 +1,9 @@
 'use client';
 
 import { Trans } from '@lingui/macro';
-import { useContext } from 'react';
 
 import { ActivityClaimButton } from '@/components/Activity/ActivityClaimButton.js';
 import { ActivityConnectCard } from '@/components/Activity/ActivityConnectCard.js';
-import { ActivityElex24Context } from '@/components/Activity/ActivityElex24/ActivityElex24Context.js';
 import { ActivityFollowTargetCard } from '@/components/Activity/ActivityFollowTargetCard.js';
 import { ActivityPremiumConditionList } from '@/components/Activity/ActivityPremiumConditionList.js';
 import { ActivityTaskFollowCard } from '@/components/Activity/ActivityTaskFollowCard.js';
@@ -85,7 +83,6 @@ const barmstrongMention = {
 };
 
 export function ActivityHlblTasks({ data }: { data: Pick<Required<ActivityInfoResponse>['data'], 'status'> }) {
-    const { vote } = useContext(ActivityElex24Context);
     const list = useActivityPremiumList();
     const isPremium = list.some((x) => x.verified);
     const shareContent = !isPremium
@@ -136,7 +133,6 @@ export function ActivityHlblTasks({ data }: { data: Pick<Required<ActivityInfoRe
             <div className="sticky bottom-0 mt-auto w-full bg-primaryBottom px-4 pt-1.5 pb-safe-or-4 sm:pb-safe-or-2">
                 <ActivityClaimButton
                     status={data.status}
-                    claimApiExtraParams={{ vote }}
                     shareContent={shareContent as Chars}
                     claimType={isPremium ? 'premium' : 'base'}
                 />
