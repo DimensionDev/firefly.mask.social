@@ -1,10 +1,11 @@
 import { useQuery } from '@tanstack/react-query';
 import { useContext } from 'react';
-import { ActivityContext } from '@/components/Activity/ActivityContext.js';
 import urlcat from 'urlcat';
-import { settings } from '@/settings/index.js';
-import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
+
+import { ActivityContext } from '@/components/Activity/ActivityContext.js';
 import { useFireflyBridgeAuthorization } from '@/hooks/useFireflyBridgeAuthorization.js';
+import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
+import { settings } from '@/settings/index.js';
 
 export function useActivityElex24Involved() {
     const { name } = useContext(ActivityContext);

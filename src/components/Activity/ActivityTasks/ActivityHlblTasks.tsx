@@ -1,17 +1,17 @@
 'use client';
 
 import { Trans } from '@lingui/macro';
+import { useContext } from 'react';
 
 import { ActivityClaimButton } from '@/components/Activity/ActivityClaimButton.js';
 import { ActivityConnectCard } from '@/components/Activity/ActivityConnectCard.js';
+import { ActivityElex24Context } from '@/components/Activity/ActivityElex24/ActivityElex24Context.js';
 import { ActivityFollowTargetCard } from '@/components/Activity/ActivityFollowTargetCard.js';
 import { ActivityPremiumConditionList } from '@/components/Activity/ActivityPremiumConditionList.js';
 import { ActivityTaskFollowCard } from '@/components/Activity/ActivityTaskFollowCard.js';
 import { ActivityTwitterLoginButton } from '@/components/Activity/ActivityTwitterLoginButton.js';
 import { Source } from '@/constants/enum.js';
 import type { ActivityInfoResponse } from '@/providers/types/Firefly.js';
-import { useContext } from 'react';
-import { ActivityElex24Context } from '@/components/Activity/ActivityElex24/ActivityElex24Context.js';
 
 export function ActivityHlblTasks({ data }: { data: Pick<Required<ActivityInfoResponse>['data'], 'status'> }) {
     const { vote } = useContext(ActivityElex24Context);
