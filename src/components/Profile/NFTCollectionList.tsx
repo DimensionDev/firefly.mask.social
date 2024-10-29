@@ -43,7 +43,7 @@ function NFTCollectionItem({ collection, onClick }: NFTCollectionItemProps) {
     if (nftPreview && images.length === 1) {
         const tokenId = nftPreview.nft_id.split('.')?.[2];
         const name =
-            nftPreview.name ?? nftPreview?.contract?.name ? `${nftPreview.contract.name} #${tokenId}` : `#${tokenId}`;
+            (nftPreview.name ?? nftPreview?.contract?.name) ? `${nftPreview.contract.name} #${tokenId}` : `#${tokenId}`;
         return (
             <Link
                 href={resolveNftUrl(chainId ?? ChainId.Mainnet, nftPreview.contract_address, tokenId)}

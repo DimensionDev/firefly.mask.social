@@ -71,7 +71,7 @@ export function Title({
     };
 
     const displayName = walletProfile
-        ? walletProfile.primary_ens ?? formatEthereumAddress(walletProfile.address, 4)
+        ? (walletProfile.primary_ens ?? formatEthereumAddress(walletProfile.address, 4))
         : profile?.displayName;
 
     const hidden = !reached && !keepVisible;
