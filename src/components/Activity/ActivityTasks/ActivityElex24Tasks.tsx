@@ -68,7 +68,7 @@ export function ActivityElex24Tasks({ data }: { data: Pick<Required<ActivityInfo
 
     return (
         <>
-            <div className="w-full space-y-4 px-6 pt-4">
+            <div className="mb-4 w-full space-y-4 px-6 py-4">
                 <div className="flex w-full flex-col space-y-2">
                     <div className="flex h-8 items-center justify-between">
                         <h2 className="text-base font-semibold leading-6">
