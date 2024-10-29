@@ -205,6 +205,6 @@ export function formatTweetsPage(
     return createPageable(
         posts,
         createIndicator(currentIndicator),
-        data.meta.next_token ? createIndicator(undefined, data.meta.next_token) : undefined,
+        data.meta?.next_token ? createIndicator(undefined, data.meta.next_token) : undefined,
     );
 }

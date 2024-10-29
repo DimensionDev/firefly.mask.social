@@ -38,6 +38,6 @@ export function formatTwitterProfilePage(
     return createPageable(
         profiles,
         createIndicator(currentIndicator),
-        data.meta.next_token ? createIndicator(undefined, data.meta.next_token) : undefined,
+        data.meta?.next_token ? createIndicator(undefined, data.meta.next_token) : undefined,
     );
 }
