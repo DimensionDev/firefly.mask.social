@@ -26,7 +26,7 @@ export function AdvertisementSwiper({ items }: Props) {
     return (
         <Swiper
             className="ff-advertisement"
-            pagination
+            pagination={{ clickable: true }}
             loop
             modules={[Autoplay, Pagination, Navigation]}
             autoplay={{ delay: 8000 }}

@@ -403,6 +403,10 @@ body {
     pointer-events: none;
 }
 
+.ff-advertisement .swiper-pagination span {
+    pointer-events: visible;
+}
+
 .tippy-card {
     background: none !important;
 }
