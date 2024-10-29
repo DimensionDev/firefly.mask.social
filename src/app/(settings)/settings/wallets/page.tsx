@@ -10,13 +10,16 @@ import { WalletGroup } from '@/app/(settings)/components/WalletGroup.js';
 import LoadingIcon from '@/assets/loading.svg';
 import { Loading } from '@/components/Loading.js';
 import { NoResultsFallback } from '@/components/NoResultsFallback.js';
-import { WalletSource } from '@/constants/enum.js';
+import { STATUS, WalletSource } from '@/constants/enum.js';
+import { env } from '@/constants/env.js';
 import { EMPTY_LIST } from '@/constants/index.js';
 import { useNavigatorTitle } from '@/hooks/useNavigatorTitle.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 import type { FireflyWalletConnection } from '@/providers/types/Firefly.js';
 
 function filterMPCWallets(connections: FireflyWalletConnection[], noMPC = false) {
+    if (env.external.NEXT_PUBLIC_PARTICLE !== STATUS.Enabled) return noMPC ? connections : [];
+
     return connections.filter(({ source }) =>
         noMPC ? source !== WalletSource.Particle : source === WalletSource.Particle,
     );
