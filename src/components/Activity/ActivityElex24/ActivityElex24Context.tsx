@@ -2,10 +2,7 @@
 
 import { createContext, type PropsWithChildren, useMemo, useState } from 'react';
 
-export enum ActivityElex24VoteOption {
-    Trump = 'trump',
-    Harris = 'harris',
-}
+import type { ActivityElex24VoteOption } from '@/providers/types/Activity.js';
 
 interface ActivityElex24ContextValue {
     vote?: ActivityElex24VoteOption;

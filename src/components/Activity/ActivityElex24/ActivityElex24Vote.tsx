@@ -3,14 +3,14 @@
 import { useContext } from 'react';
 
 import TickSquareIcon from '@/assets/tick-square.svg';
-import {
-    ActivityElex24Context,
-    ActivityElex24VoteOption,
-} from '@/components/Activity/ActivityElex24/ActivityElex24Context.js';
+import { ActivityElex24Context } from '@/components/Activity/ActivityElex24/ActivityElex24Context.js';
+import { useActivityClaimCondition } from '@/components/Activity/hooks/useActivityClaimCondition.js';
 import { Image } from '@/components/Image.js';
+import { ActivityElex24VoteOption } from '@/providers/types/Activity.js';
 
 export function ActivityElex24Vote() {
     const { setVote, vote } = useContext(ActivityElex24Context);
+    const { data } = useActivityClaimCondition();
     const options = [
         {
             icon: '/image/activity/elex24/trump-basic.png',
@@ -32,8 +32,11 @@ export function ActivityElex24Vote() {
                     <button
                         key={option.name}
                         className="flex h-12 rounded-2xl bg-bg p-3 text-sm font-semibold leading-6 disabled:bg-success/10 disabled:dark:bg-success/20"
-                        disabled={vote === option.value}
-                        onClick={() => setVote(option.value)}
+                        disabled={vote === option.value || vote === data?.ext?.vote}
+                        onClick={() => {
+                            if (data?.ext?.vote) return;
+                            setVote(option.value);
+                        }}
                     >
                         <Image src={option.icon} alt={option.name} width={24} height={24} className="mr-2 h-6 w-6" />
                         <span>{option.name}</span>
