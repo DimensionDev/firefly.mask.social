@@ -241,8 +241,8 @@ msgid "Searching users"
 msgstr "查找用户中"
 
 msgid "Fake KYC."
-msgstr "虚假KYC。"
-
+msgstr "虚假 KYC。"
+ 
 msgid "Airdrop Scam"
 msgstr "空投骗局"
 
@@ -784,7 +784,7 @@ msgid "Follow more friends to continue exploring on {0}."
 msgstr "在 {0} 上去关注更多的人来继续浏览吧。"
 
 msgid "No fake KYC involved."
-msgstr "不涉及虚假KYC。"
+msgstr "不涉及虚假 KYC。"
 
 msgid "Session Validator"
 msgstr "会话验证器"
@@ -2457,6 +2457,9 @@ msgstr "创建帖子"
 msgid "{type, select, comment {Comments} mirror {{0}} reaction {Likes} act {Collects} other {Other}}"
 msgstr "{type, select, comment {评论} mirror {{0}} reaction {点赞} act {收藏} other {其他}}"
 
+msgid "Unverified: Failed to simulate, <0>try again</0>"
+msgstr "未验证：模拟失败，请重试。"
+
 msgid "You may lose your assets if giving approval to the website of this token."
 msgstr "如果您授权此通证给这个网站，您可能会丢失您的资产。"
 
@@ -2603,9 +2606,6 @@ msgstr "在 {0} 上关注了 <0>@{handle}</0>"
 
 msgid "View on explorer"
 msgstr "在区块链浏览器查看"
-
-msgid "Unverified: Failed to simulate,"
-msgstr "未验证：模拟失败，"
 
 msgid "Already logged in?<0/>Approve the <1>existing Farcaster signer</1> to Firefly or <2>sync</2> through the app"
 msgstr "已经登录？<0/>授权 <1>已经存在的 Farcaster signer</1> 给 Firefly 或者通过应用程序<2>同步</2>"
@@ -2856,9 +2856,6 @@ msgstr "清空"
 msgid "Continue"
 msgstr "继续"
 
-msgid "try again"
-msgstr "请重试"
-
 msgid "Cybercrime."
 msgstr "网络犯罪。"
 
@@ -2963,4 +2960,3 @@ msgstr "× {0}"
 
 msgid "Blink Validator"
 msgstr "Blink 验证器"
-

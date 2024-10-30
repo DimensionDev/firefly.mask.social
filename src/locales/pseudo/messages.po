@@ -2452,6 +2452,9 @@ msgstr ""
 msgid "{type, select, comment {Comments} mirror {{0}} reaction {Likes} act {Collects} other {Other}}"
 msgstr ""
 
+msgid "Unverified: Failed to simulate, <0>try again</0>"
+msgstr ""
+
 msgid "You may lose your assets if giving approval to the website of this token."
 msgstr ""
 
@@ -2597,9 +2600,6 @@ msgid "Followed <0>@{handle}</0> on {0}"
 msgstr ""
 
 msgid "View on explorer"
-msgstr ""
-
-msgid "Unverified: Failed to simulate,"
 msgstr ""
 
 msgid "Already logged in?<0/>Approve the <1>existing Farcaster signer</1> to Firefly or <2>sync</2> through the app"
@@ -2849,9 +2849,6 @@ msgid "Clear"
 msgstr ""
 
 msgid "Continue"
-msgstr ""
-
-msgid "try again"
 msgstr ""
 
 msgid "Cybercrime."
