@@ -5,6 +5,7 @@ import { EVMExplorerResolver } from '@masknet/web3-providers';
 import { ChainId } from '@masknet/web3-shared-evm';
 
 import LinkIcon from '@/assets/link-square.svg';
+import { VotingResultBanner } from '@/components/Activity/VotingResultBanner.js';
 import { ReportSpamButton } from '@/components/CollectionDetail/ReportSpamButton.js';
 import { CopyButton } from '@/components/CopyButton.js';
 import { Image } from '@/components/Image.js';
@@ -41,15 +42,22 @@ export function CollectionInfo(props: CollectionInfoProps) {
         collectionId,
     } = props;
 
+    // TODO: replace with real voting collection address when available
+    const isVotingCollection = address === 'voting-collection-address';
+
     return (
         <div className="w-full">
-            <Image
-                width={1000}
-                height={1000}
-                src={bannerImageUrl || '/image/nft-collection-fallback.webp'}
-                alt={name}
-                className="h-[150px] w-full object-cover"
-            />
+            {isVotingCollection ? (
+                <VotingResultBanner />
+            ) : (
+                <Image
+                    width={1000}
+                    height={1000}
+                    src={bannerImageUrl || '/image/nft-collection-fallback.webp'}
+                    alt={name}
+                    className="h-[150px] w-full object-cover"
+                />
+            )}
             <div className="flex w-full p-3">
                 <NFTImage
                     width={90}
