@@ -2,10 +2,9 @@ import { Tab, TabGroup, TabList, TabPanel, TabPanels } from '@headlessui/react';
 import { t, Trans } from '@lingui/macro';
 import { useQuery } from '@tanstack/react-query';
 import { isArray, isEqual, isNumber, isObject, isUndefined, sum, values } from 'lodash-es';
-import { useMemo, useRef, useState } from 'react';
+import { useCallback, useMemo, useRef, useState } from 'react';
 import { useAsyncFn } from 'react-use';
 import urlcat from 'urlcat';
-import { useUpdateEffect } from 'usehooks-ts';
 import { useAccount, useEnsName } from 'wagmi';
 
 import SnapshotIcon from '@/assets/snapshot.svg';
@@ -48,8 +47,12 @@ export function SnapshotBody({ snapshot, link, postId, activity }: Props) {
     const { choices, type, state, scores, symbol, scores_total, votes, space, author } = snapshot;
 
     const [currentTabIndex, setCurrentTabIndex] = useState(0);
-    const [selectedChoices, setSelectedChoices] = useState<SnapshotChoice | undefined>(snapshot.currentUserChoice);
-    const [isVoted, setIsVoted] = useState(false);
+    const [selectedChoices = snapshot.currentUserChoice, setSelectedChoices] = useState<SnapshotChoice | undefined>(
+        snapshot.currentUserChoice,
+    );
+    const [isVoted, setIsVoted] = useState(() => {
+        return isEqual(snapshot.currentUserChoice, selectedChoices);
+    });
 
     const account = useAccount();
 
@@ -161,32 +164,30 @@ export function SnapshotBody({ snapshot, link, postId, activity }: Props) {
                 });
             }
 
-            if (link && postId)
+            if (link && postId) {
                 queryClient.refetchQueries({
                     queryKey: ['post-embed', link, postId],
                 });
+                queryClient.refetchQueries({
+                    queryKey: ['snapshots'],
+                });
+            }
         } catch (error) {
             enqueueErrorMessage(getSnackbarMessageFromError(error, t`Failed to vote.`));
             throw error;
         }
     }, [snapshot, selectedChoices, disabled, link, postId]);
 
-    useUpdateEffect(() => {
-        if (!snapshot.currentUserChoice) return;
-        setSelectedChoices((prev) => {
-            if (!prev) return currentUserChoice.current;
-            return prev;
-        });
-    }, [snapshot.currentUserChoice]);
-
-    useUpdateEffect(() => {
-        setIsVoted((prev) => {
-            if (!!selectedChoices && !!currentUserChoice.current) {
-                return isEqual(selectedChoices, currentUserChoice.current);
+    const handleChange = useCallback(
+        (value?: SnapshotChoice) => {
+            if (!isUndefined(value)) {
+                setSelectedChoices(value);
+                const target = currentUserChoice.current ?? snapshot.currentUserChoice;
+                if (target) setIsVoted(isEqual(value, target));
             }
-            return prev;
-        });
-    }, [selectedChoices]);
+        },
+        [snapshot.currentUserChoice],
+    );
 
     return (
         <div className="link-preview">
@@ -276,9 +277,7 @@ export function SnapshotBody({ snapshot, link, postId, activity }: Props) {
                                 }
                                 choices={choices}
                                 disabled={isPending}
-                                onChange={(value) => {
-                                    if (!isUndefined(value)) setSelectedChoices(value);
-                                }}
+                                onChange={handleChange}
                             />
                         ) : null}
                         {type === 'approval' ? (
@@ -290,7 +289,7 @@ export function SnapshotBody({ snapshot, link, postId, activity }: Props) {
                                 }
                                 choices={snapshot.choices}
                                 disabled={isPending}
-                                onChange={(value) => setSelectedChoices(value)}
+                                onChange={handleChange}
                             />
                         ) : null}
                         {type === 'quadratic' || type === 'weighted' ? (
@@ -304,7 +303,7 @@ export function SnapshotBody({ snapshot, link, postId, activity }: Props) {
                                 }
                                 choices={choices}
                                 disabled={isPending}
-                                onChange={(value) => setSelectedChoices(value)}
+                                onChange={handleChange}
                             />
                         ) : null}
                         {type === 'ranked-choice' ? (
@@ -316,7 +315,7 @@ export function SnapshotBody({ snapshot, link, postId, activity }: Props) {
                                 }
                                 choices={choices}
                                 disabled={isPending}
-                                onChange={(value) => setSelectedChoices(value)}
+                                onChange={handleChange}
                             />
                         ) : null}
                         <ChainGuardButton
