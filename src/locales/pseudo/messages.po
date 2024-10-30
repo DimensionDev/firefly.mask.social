@@ -583,6 +583,9 @@ msgstr ""
 msgid "Failed to unfollow @{0} on {sourceName}."
 msgstr ""
 
+msgid "Muted {walletHandle}."
+msgstr ""
+
 msgid "Sanctioned address."
 msgstr ""
 
@@ -1003,9 +1006,6 @@ msgstr ""
 msgid "Confirm you want to mute /{0}?"
 msgstr ""
 
-msgid "{0}"
-msgstr ""
-
 msgid "Enter amount"
 msgstr ""
 
@@ -1295,9 +1295,6 @@ msgid "Bookmark"
 msgstr ""
 
 msgid "{handleOrEnsOrAddress} watched"
-msgstr ""
-
-msgid "{0} {walletHandle}."
 msgstr ""
 
 msgid "Circulating Supply"
@@ -2753,6 +2750,9 @@ msgid "Address on Watching Lists"
 msgstr ""
 
 msgid "FREE"
+msgstr ""
+
+msgid "Unmuted {walletHandle}."
 msgstr ""
 
 msgid "Ignore the warnings to continue"

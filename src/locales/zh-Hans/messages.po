@@ -242,7 +242,7 @@ msgstr "查找用户中"
 
 msgid "Fake KYC."
 msgstr "虚假 KYC。"
- 
+
 msgid "Airdrop Scam"
 msgstr "空投骗局"
 
@@ -587,6 +587,9 @@ msgstr "被 {0} 关注"
 
 msgid "Failed to unfollow @{0} on {sourceName}."
 msgstr "在 {sourceName} 上取消关注 @{0} 失败。"
+
+msgid "Muted {walletHandle}."
+msgstr ""
 
 msgid "Sanctioned address."
 msgstr ""
@@ -1008,9 +1011,6 @@ msgstr "转帖或者引用"
 msgid "Confirm you want to mute /{0}?"
 msgstr "您确定要隐藏 /{0} 吗？"
 
-msgid "{0}"
-msgstr ""
-
 msgid "Enter amount"
 msgstr "输入金额"
 
@@ -1301,9 +1301,6 @@ msgstr "收藏"
 
 msgid "{handleOrEnsOrAddress} watched"
 msgstr "{handleOrEnsOrAddress} 已关注"
-
-msgid "{0} {walletHandle}."
-msgstr "{0} {walletHandle}."
 
 msgid "Circulating Supply"
 msgstr "流通总量"
@@ -2759,6 +2756,9 @@ msgstr "已关注地址列表"
 
 msgid "FREE"
 msgstr "免费"
+
+msgid "Unmuted {walletHandle}."
+msgstr ""
 
 msgid "Ignore the warnings to continue"
 msgstr "忽略警告以继续"

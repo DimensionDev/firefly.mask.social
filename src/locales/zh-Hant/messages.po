@@ -588,6 +588,9 @@ msgstr ""
 msgid "Failed to unfollow @{0} on {sourceName}."
 msgstr "在 {sourceName} 上取消追蹤 @{0} 失敗。"
 
+msgid "Muted {walletHandle}."
+msgstr ""
+
 msgid "Sanctioned address."
 msgstr ""
 
@@ -1008,9 +1011,6 @@ msgstr ""
 msgid "Confirm you want to mute /{0}?"
 msgstr "確認對 @{0} 的靜音？"
 
-msgid "{0}"
-msgstr ""
-
 msgid "Enter amount"
 msgstr ""
 
@@ -1301,9 +1301,6 @@ msgstr "書籤"
 
 msgid "{handleOrEnsOrAddress} watched"
 msgstr "{handleOrEnsOrAddress} 觀察了"
-
-msgid "{0} {walletHandle}."
-msgstr ""
 
 msgid "Circulating Supply"
 msgstr ""
@@ -2759,6 +2756,9 @@ msgstr "在觀察列表上的地址"
 
 msgid "FREE"
 msgstr "免費"
+
+msgid "Unmuted {walletHandle}."
+msgstr ""
 
 msgid "Ignore the warnings to continue"
 msgstr ""
