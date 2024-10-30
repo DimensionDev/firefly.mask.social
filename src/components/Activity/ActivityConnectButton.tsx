@@ -25,7 +25,7 @@ export function ActivityConnectButton() {
     const { onChangeAddress, address, fireflyAccountId } = useContext(ActivityContext);
     const { refetch: refetchActivityClaimCondition, isRefetching } = useActivityClaimCondition();
     const { data: isLoggedIn } = useIsLoginTwitterInActivity();
-    const { data: { connected = EMPTY_LIST } = {}, isLoading } = useActivityConnections();
+    const { data: { connected = EMPTY_LIST } = {}, isLoading, refetch } = useActivityConnections();
     const [, bindAddress] = useActivityBindAddress();
 
     const addresses: Array<{ address: string; ens?: string }> = connected
@@ -52,7 +52,10 @@ export function ActivityConnectButton() {
                             : 'relative inline-flex items-center rounded-full bg-main px-4 leading-8 text-primaryBottom'
                     }
                     onClick={(e) => {
-                        if (isLoggedIn) return;
+                        if (isLoggedIn) {
+                            refetch();
+                            return;
+                        }
                         e.preventDefault();
                         enqueueWarningMessage(<Trans>Please sign in with X to continue</Trans>);
                     }}
