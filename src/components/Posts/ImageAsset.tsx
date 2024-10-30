@@ -6,6 +6,7 @@ import { useMounted } from '@/hooks/useMounted.js';
 
 export interface ImageAssetProps extends ImageProps {
     disableLoadHandler?: boolean;
+    overSize?: boolean;
 }
 
 const imageRatioCache = new Map<string, string>();
@@ -34,7 +35,7 @@ const getImageCacheKey = (src: ImageProps['src']) => {
     return src.default.src;
 };
 
-export const ImageAsset = memo<ImageAssetProps>(function ImageAsset({ disableLoadHandler, ...props }) {
+export const ImageAsset = memo<ImageAssetProps>(function ImageAsset({ disableLoadHandler, overSize = true, ...props }) {
     const cacheKey = getImageCacheKey(props.src);
     const ratioCache = getImageCache(cacheKey);
     const [imageProps, setImageProps] = useState<Partial<ImageProps>>(
@@ -45,9 +46,11 @@ export const ImageAsset = memo<ImageAssetProps>(function ImageAsset({ disableLoa
     const handleLoad = useCallback(
         (event: SyntheticEvent<HTMLImageElement>) => {
             if (disableLoadHandler) return;
-            const height = event.currentTarget.height;
 
-            if (height < 50 || height > 750) {
+            const width = event.currentTarget.naturalWidth || event.currentTarget.width;
+            const height = event.currentTarget.naturalHeight || event.currentTarget.height;
+
+            if (overSize && (height < 50 || height > 750)) {
                 setImageCache(cacheKey, '16 / 9');
                 setImageProps({
                     style: {
@@ -59,18 +62,20 @@ export const ImageAsset = memo<ImageAssetProps>(function ImageAsset({ disableLoa
                     },
                 });
             } else {
-                setImageCache(cacheKey, `${event.currentTarget.width} / ${height}`);
+                setImageCache(cacheKey, `${width} / ${height}`);
                 setImageProps({
                     style: {
-                        aspectRatio: `${event.currentTarget.width} / ${height}`,
+                        aspectRatio: `${width} / ${height}`,
                         minHeight: 50,
                         maxHeight: 750,
+                        maxWidth: '100%',
+                        width: width < 200 ? '100%' : undefined,
                         ...props.style,
                     },
                 });
             }
         },
-        [disableLoadHandler, props.style, cacheKey],
+        [disableLoadHandler, props.style, cacheKey, overSize],
     );
 
     if (!mounted) return;
