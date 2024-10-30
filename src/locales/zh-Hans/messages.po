@@ -1036,7 +1036,7 @@ msgid "Are you sure you want to report this post?"
 msgstr "您确定要举报这个帖子吗？"
 
 msgid "No fake KYC found."
-msgstr "不涉及虚假KYC。"
+msgstr "不涉及虚假 KYC。"
 
 msgid "No function found that retrieves ownership"
 msgstr "没有找到检索所有权的功能"
