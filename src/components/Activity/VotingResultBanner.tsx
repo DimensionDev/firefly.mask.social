@@ -9,16 +9,26 @@ import { Link } from '@/esm/Link.js';
 import { minus } from '@/helpers/number.js';
 import { useIsMedium, useIsSmall } from '@/hooks/useMediaQuery.js';
 import { FireflyActivityProvider } from '@/providers/firefly/Activity.js';
+import { ActivityStatus } from '@/providers/types/Firefly.js';
 
-interface VotingResultBannerProps {
-    ended?: boolean;
-}
+interface VotingResultBannerProps {}
 
-export function VotingResultBanner({ ended }: VotingResultBannerProps) {
+const activityName = 'elex24';
+
+export function VotingResultBanner(props: VotingResultBannerProps) {
     const isSmall = useIsSmall('max');
     const isMedium = useIsMedium('max');
 
     const enabled = env.external.NEXT_PUBLIC_VOTING_RESULT === STATUS.Enabled;
+
+    const { data: info } = useQuery({
+        queryKey: ['activity-info', activityName],
+        enabled,
+        async queryFn() {
+            return FireflyActivityProvider.getFireflyActivityInfo(activityName);
+        },
+    });
+    const ended = info?.status === ActivityStatus.Ended;
 
     // wait for image to load before showing the percentage
     const { isLoading } = useQuery({
@@ -63,7 +73,7 @@ export function VotingResultBanner({ ended }: VotingResultBannerProps) {
     const showPercent = !isLoading && !loadingResult && !!data;
 
     return (
-        <Link className="relative w-full" href={'/event/elex24'}>
+        <Link target="_blank" className="relative w-full" href={'/event/elex24'}>
             <div
                 className="bg-bgModal"
                 style={{
