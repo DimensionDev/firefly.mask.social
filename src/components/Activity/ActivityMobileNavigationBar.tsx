@@ -8,10 +8,10 @@ import NavigationBarBackIcon from '@/assets/navigation-bar-back.svg';
 import ShareIcon from '@/assets/share-navbar.svg';
 import { ActivityContext } from '@/components/Activity/ActivityContext.js';
 import { IS_ANDROID } from '@/constants/bowser.js';
-import { PageRoute, SourceInURL } from '@/constants/enum.js';
+import { PageRoute } from '@/constants/enum.js';
 import { SITE_URL } from '@/constants/index.js';
 import { classNames } from '@/helpers/classNames.js';
-import { resolveActivityUrl } from '@/helpers/resolveActivityUrl.js';
+import { ReferralAccountPlatform, resolveActivityUrl } from '@/helpers/resolveActivityUrl.js';
 import { useComeBack } from '@/hooks/useComeback.js';
 import { fireflyBridgeProvider } from '@/providers/firefly/Bridge.js';
 import { captureActivityEvent } from '@/providers/telemetry/captureActivityEvent.js';
@@ -25,10 +25,7 @@ export function ActivityMobileNavigationBar({ children, className }: Props) {
     const comeback = useComeBack();
     const { fireflyAccountId, name, xHandle } = useContext(ActivityContext);
     const pathname = usePathname();
-    const shareUrl = urlcat(
-        SITE_URL,
-        resolveActivityUrl(name, { referralCode: xHandle, platform: SourceInURL.Twitter }),
-    );
+
     return (
         <div
             className={classNames(
@@ -64,6 +61,13 @@ export function ActivityMobileNavigationBar({ children, className }: Props) {
                     captureActivityEvent(EventId.EVENT_SHARE_CLICK, {
                         firefly_account_id: fireflyAccountId,
                     });
+                    if (pathname === PageRoute.Events) {
+                        return fireflyBridgeProvider.request(SupportedMethod.SHARE, { text: window.location.href });
+                    }
+                    const shareUrl = urlcat(
+                        SITE_URL,
+                        resolveActivityUrl(name, { referralCode: xHandle, platform: ReferralAccountPlatform.X }),
+                    );
                     fireflyBridgeProvider.request(SupportedMethod.SHARE, { text: shareUrl });
                 }}
             >
