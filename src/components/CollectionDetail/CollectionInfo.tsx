@@ -12,8 +12,10 @@ import { Image } from '@/components/Image.js';
 import { ChainIcon } from '@/components/NFTDetail/ChainIcon.js';
 import { NFTImage } from '@/components/NFTImage.js';
 import { TextOverflowTooltip } from '@/components/TextOverflowTooltip.js';
+import { ELEX24_NFT_CONTRACT_ADDRESS } from '@/constants/index.js';
 import { formatEthereumAddress } from '@/helpers/formatAddress.js';
 import { nFormatter } from '@/helpers/formatCommentCounts.js';
+import { isSameEthereumAddress } from '@/helpers/isSameAddress.js';
 
 interface CollectionInfoProps {
     address: string;
@@ -43,7 +45,7 @@ export function CollectionInfo(props: CollectionInfoProps) {
     } = props;
 
     // TODO: replace with real voting collection address when available
-    const isVotingCollection = address === 'voting-collection-address';
+    const isVotingCollection = isSameEthereumAddress(address, ELEX24_NFT_CONTRACT_ADDRESS);
 
     return (
         <div className="w-full">
