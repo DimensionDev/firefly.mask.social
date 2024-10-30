@@ -997,6 +997,9 @@ msgstr "Up to 7 days can be set as the scheduled time. Please reset it"
 msgid "Enable development API version"
 msgstr "Enable development API version"
 
+msgid "Voted"
+msgstr "Voted"
+
 msgid "Reply"
 msgstr "Reply"
 

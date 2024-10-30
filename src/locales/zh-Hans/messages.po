@@ -1002,6 +1002,9 @@ msgstr ""
 msgid "Enable development API version"
 msgstr "启用开发环境接口"
 
+msgid "Voted"
+msgstr ""
+
 msgid "Reply"
 msgstr "回复"
 

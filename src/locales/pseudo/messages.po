@@ -997,6 +997,9 @@ msgstr ""
 msgid "Enable development API version"
 msgstr ""
 
+msgid "Voted"
+msgstr ""
+
 msgid "Reply"
 msgstr ""
 
