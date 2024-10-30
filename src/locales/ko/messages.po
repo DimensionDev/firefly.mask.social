@@ -8,7 +8,7 @@ msgstr ""
 "Language: ko\n"
 "Project-Id-Version: masksocial\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-10-18 00:05\n"
+"PO-Revision-Date: 2024-10-29 12:01\n"
 "Last-Translator: \n"
 "Language-Team: Korean\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
@@ -588,6 +588,9 @@ msgstr ""
 msgid "Failed to unfollow @{0} on {sourceName}."
 msgstr ""
 
+msgid "Muted {walletHandle}."
+msgstr ""
+
 msgid "Sanctioned address."
 msgstr ""
 
@@ -1008,9 +1011,6 @@ msgstr ""
 msgid "Confirm you want to mute /{0}?"
 msgstr ""
 
-msgid "{0}"
-msgstr ""
-
 msgid "Enter amount"
 msgstr ""
 
@@ -1300,9 +1300,6 @@ msgid "Bookmark"
 msgstr ""
 
 msgid "{handleOrEnsOrAddress} watched"
-msgstr ""
-
-msgid "{0} {walletHandle}."
 msgstr ""
 
 msgid "Circulating Supply"
@@ -2457,6 +2454,9 @@ msgstr ""
 msgid "{type, select, comment {Comments} mirror {{0}} reaction {Likes} act {Collects} other {Other}}"
 msgstr ""
 
+msgid "Unverified: Failed to simulate, <0>try again</0>"
+msgstr ""
+
 msgid "You may lose your assets if giving approval to the website of this token."
 msgstr ""
 
@@ -2602,9 +2602,6 @@ msgid "Followed <0>@{handle}</0> on {0}"
 msgstr ""
 
 msgid "View on explorer"
-msgstr ""
-
-msgid "Unverified: Failed to simulate,"
 msgstr ""
 
 msgid "Already logged in?<0/>Approve the <1>existing Farcaster signer</1> to Firefly or <2>sync</2> through the app"
@@ -2760,6 +2757,9 @@ msgstr ""
 msgid "FREE"
 msgstr ""
 
+msgid "Unmuted {walletHandle}."
+msgstr ""
+
 msgid "Ignore the warnings to continue"
 msgstr ""
 
@@ -2854,9 +2854,6 @@ msgid "Clear"
 msgstr ""
 
 msgid "Continue"
-msgstr ""
-
-msgid "try again"
 msgstr ""
 
 msgid "Cybercrime."

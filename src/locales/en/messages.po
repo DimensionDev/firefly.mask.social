@@ -583,6 +583,9 @@ msgstr "Followed by {0}"
 msgid "Failed to unfollow @{0} on {sourceName}."
 msgstr "Failed to unfollow @{0} on {sourceName}."
 
+msgid "Muted {walletHandle}."
+msgstr "Muted {walletHandle}."
+
 msgid "Sanctioned address."
 msgstr "Sanctioned address."
 
@@ -1003,9 +1006,6 @@ msgstr "Mirror or Quote"
 msgid "Confirm you want to mute /{0}?"
 msgstr "Confirm you want to mute /{0}?"
 
-msgid "{0}"
-msgstr "{0}"
-
 msgid "Enter amount"
 msgstr "Enter amount"
 
@@ -1296,9 +1296,6 @@ msgstr "Bookmark"
 
 msgid "{handleOrEnsOrAddress} watched"
 msgstr "{handleOrEnsOrAddress} watched"
-
-msgid "{0} {walletHandle}."
-msgstr "{0} {walletHandle}."
 
 msgid "Circulating Supply"
 msgstr "Circulating Supply"
@@ -2452,6 +2449,9 @@ msgstr "Create a Post"
 msgid "{type, select, comment {Comments} mirror {{0}} reaction {Likes} act {Collects} other {Other}}"
 msgstr "{type, select, comment {Comments} mirror {{0}} reaction {Likes} act {Collects} other {Other}}"
 
+msgid "Unverified: Failed to simulate, <0>try again</0>"
+msgstr "Unverified: Failed to simulate, <0>try again</0>"
+
 msgid "You may lose your assets if giving approval to the website of this token."
 msgstr "You may lose your assets if giving approval to the website of this token."
 
@@ -2598,9 +2598,6 @@ msgstr "Followed <0>@{handle}</0> on {0}"
 
 msgid "View on explorer"
 msgstr "View on explorer"
-
-msgid "Unverified: Failed to simulate,"
-msgstr "Unverified: Failed to simulate,"
 
 msgid "Already logged in?<0/>Approve the <1>existing Farcaster signer</1> to Firefly or <2>sync</2> through the app"
 msgstr "Already logged in?<0/>Approve the <1>existing Farcaster signer</1> to Firefly or <2>sync</2> through the app"
@@ -2755,6 +2752,9 @@ msgstr "Address on Watching Lists"
 msgid "FREE"
 msgstr "FREE"
 
+msgid "Unmuted {walletHandle}."
+msgstr "Unmuted {walletHandle}."
+
 msgid "Ignore the warnings to continue"
 msgstr "Ignore the warnings to continue"
 
@@ -2850,9 +2850,6 @@ msgstr "Clear"
 
 msgid "Continue"
 msgstr "Continue"
-
-msgid "try again"
-msgstr "try again"
 
 msgid "Cybercrime."
 msgstr "Cybercrime."
