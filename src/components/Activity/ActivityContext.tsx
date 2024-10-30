@@ -10,20 +10,25 @@ interface ActivityContext {
     name: string;
     onChangeAddress: (address: string) => void;
     fireflyAccountId: string | undefined;
+    xHandle: string | undefined;
     setFireflyAccountId: (fireflyAccountId: string) => void;
+    setXHandle: (fireflyAccountId: string) => void;
 }
 
 export const ActivityContext = createContext<ActivityContext>({
     address: undefined,
     fireflyAccountId: undefined,
+    xHandle: undefined,
     name: '',
     onChangeAddress() {},
     setFireflyAccountId() {},
+    setXHandle() {},
 });
 
 export function ActivityProvider({ name, children }: PropsWithChildren<Pick<ActivityContext, 'name'>>) {
     const [address, setAddress] = useState<ActivityContext['address']>(undefined);
     const [fireflyAccountId, setFireflyAccountId] = useState<ActivityContext['fireflyAccountId']>(undefined);
+    const [xHandle, setXHandle] = useState<ActivityContext['xHandle']>(undefined);
     const setFireflyAccountIdCallback = useCallback(
         (id: string) => {
             if (fireflyAccountId === id) return;
@@ -41,8 +46,10 @@ export function ActivityProvider({ name, children }: PropsWithChildren<Pick<Acti
             onChangeAddress: setAddress,
             fireflyAccountId,
             setFireflyAccountId: setFireflyAccountIdCallback,
+            xHandle,
+            setXHandle,
         }),
-        [address, fireflyAccountId, name, setFireflyAccountIdCallback],
+        [address, fireflyAccountId, name, setFireflyAccountIdCallback, xHandle],
     );
     return <ActivityContext.Provider value={ctxValue}>{children}</ActivityContext.Provider>;
 }
