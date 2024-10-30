@@ -15,7 +15,7 @@ import { ActivityTwitterLoginButton } from '@/components/Activity/ActivityTwitte
 import { Source, SourceInURL } from '@/constants/enum.js';
 import { SITE_URL } from '@/constants/index.js';
 import { CHAR_TAG, type Chars } from '@/helpers/chars.js';
-import { resolveActivityUrl } from '@/helpers/resolveActivityUrl.js';
+import { ReferralAccountPlatform, resolveActivityUrl } from '@/helpers/resolveActivityUrl.js';
 import { ActivityElex24VoteOption } from '@/providers/types/Activity.js';
 import type { ActivityInfoResponse, Profile } from '@/providers/types/Firefly.js';
 
@@ -56,7 +56,7 @@ export function ActivityElex24Tasks({ data }: { data: Pick<Required<ActivityInfo
     const { name, xHandle } = useContext(ActivityContext);
     const shareUrl = urlcat(
         SITE_URL,
-        resolveActivityUrl(name, { referralCode: xHandle, platform: SourceInURL.Twitter }),
+        resolveActivityUrl(name, { referralCode: xHandle, platform: ReferralAccountPlatform.X }),
     );
 
     const shareContent = vote

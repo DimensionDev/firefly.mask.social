@@ -1,11 +1,13 @@
 import urlcat from 'urlcat';
 
-import type { SourceInURL } from '@/constants/enum.js';
+export enum ReferralAccountPlatform {
+    X = 'x',
+}
 
 export function resolveActivityUrl(
     name: string,
     options?: {
-        platform?: SourceInURL;
+        platform?: ReferralAccountPlatform;
         referralCode?: string;
     },
 ) {
