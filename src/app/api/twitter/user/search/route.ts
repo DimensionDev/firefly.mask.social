@@ -32,7 +32,7 @@ export const GET = compose<(request: NextRequest, context?: NextRequestContext) 
 
         const userFields = TWITTER_USER_OPTIONS['user.fields'];
         const url = urlcat('users/search', {
-            query: queryParams.query,
+            query: queryParams.query.replace(/_/g, ''),
             'user.fields': Array.isArray(userFields) ? userFields.join(',') : undefined,
             next_token: queryParams.cursor ? queryParams.cursor : undefined,
             max_results: queryParams.limit,
