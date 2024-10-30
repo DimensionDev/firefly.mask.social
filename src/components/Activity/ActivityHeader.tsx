@@ -28,7 +28,7 @@ export function ActivityHeader({
             />
             <div className="w-full px-6 py-4">
                 <div className="w-full space-y-2 border-b border-line pb-4">
-                    <div className="flex h-6 items-center space-x-1.5 text-[13px] leading-6">
+                    <div className="flex h-6 items-center space-x-1.5 whitespace-nowrap text-[13px] leading-6">
                         <CalendarIcon className="h-4 w-4 shrink-0" />
                         <span>
                             {dayjs(data.start_time).utc().format(timeTemplate)} -{' '}
