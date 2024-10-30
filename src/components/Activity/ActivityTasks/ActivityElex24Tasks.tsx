@@ -65,15 +65,15 @@ export function ActivityElex24Tasks({ data }: { data: Pick<Required<ActivityInfo
                   'Just claimed the "Vote for Trump ❤️" collectible from ',
                   fireflyMention,
                   ' \n\n',
-                  `Be part of the movement—grab your FREE Special Edition Firefly NFT to support Former President Trump at ${shareUrl} 🇺🇲`,
-                  '\n\n #Election2024 #Trump #FireflySocial',
+                  `Be part of the movement—grab your FREE Exclusive NFT to support Former President #Trump at ${shareUrl} 🇺🇲`,
+                  '\n\n #Election2024 #FireflySocial',
               ],
               [ActivityElex24VoteOption.Harris]: [
                   'Just claimed the "Vote for Harris 💙" collectible from ',
                   fireflyMention,
                   ' \n\n',
-                  `Be part of the movement—grab your FREE Special Edition Firefly NFT to support Vice President Harris at ${shareUrl} 🇺🇲`,
-                  '\n\n #Election2024 #Harris #FireflySocial',
+                  `Be part of the movement—grab your FREE Exclusive NFT to support Vice President #Harris at ${shareUrl} 🇺🇲`,
+                  '\n\n #Election2024 #FireflySocial',
               ],
           }[vote]
         : '';
