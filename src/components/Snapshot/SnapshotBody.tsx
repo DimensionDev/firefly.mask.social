@@ -1,8 +1,9 @@
 import { Tab, TabGroup, TabList, TabPanel, TabPanels } from '@headlessui/react';
 import { t, Trans } from '@lingui/macro';
 import { useQuery } from '@tanstack/react-query';
+import { produce } from 'immer';
 import { isArray, isEqual, isNumber, isObject, isUndefined, sum, values } from 'lodash-es';
-import { useCallback, useMemo, useRef, useState } from 'react';
+import { useCallback, useMemo, useState } from 'react';
 import { useAsyncFn } from 'react-use';
 import urlcat from 'urlcat';
 import { useAccount, useEnsName } from 'wagmi';
@@ -42,17 +43,13 @@ interface Props {
 }
 
 export function SnapshotBody({ snapshot, link, postId, activity }: Props) {
-    const currentUserChoice = useRef(snapshot.currentUserChoice);
-
     const { choices, type, state, scores, symbol, scores_total, votes, space, author } = snapshot;
 
     const [currentTabIndex, setCurrentTabIndex] = useState(0);
     const [selectedChoices = snapshot.currentUserChoice, setSelectedChoices] = useState<SnapshotChoice | undefined>(
         snapshot.currentUserChoice,
     );
-    const [isVoted, setIsVoted] = useState(() => {
-        return isEqual(snapshot.currentUserChoice, selectedChoices);
-    });
+    const isVoted = isEqual(snapshot.currentUserChoice, selectedChoices);
 
     const account = useAccount();
 
@@ -136,9 +133,6 @@ export function SnapshotBody({ snapshot, link, postId, activity }: Props) {
 
             if (!result) return;
 
-            setIsVoted(true);
-            currentUserChoice.current = selectedChoices;
-
             const confirmed = await ConfirmModalRef.openAndWaitForClose({
                 title: t`Your vote is in!`,
                 content: (
@@ -168,26 +162,36 @@ export function SnapshotBody({ snapshot, link, postId, activity }: Props) {
                 queryClient.refetchQueries({
                     queryKey: ['post-embed', link, postId],
                 });
-                queryClient.refetchQueries({
-                    queryKey: ['snapshots'],
-                });
             }
+            queryClient.setQueriesData<{ pages: Array<{ data: SnapshotActivity[] }> }>(
+                {
+                    queryKey: ['snapshots', account.address],
+                },
+                (old) => {
+                    if (!old) return old;
+
+                    return produce(old, (draft) => {
+                        draft.pages.forEach((page) => {
+                            page.data.forEach((oldData) => {
+                                if (oldData.proposal_id === activity?.proposal_id && oldData.proposal) {
+                                    oldData.proposal.currentUserChoice = selectedChoices;
+                                }
+                            });
+                        });
+                    });
+                },
+            );
         } catch (error) {
             enqueueErrorMessage(getSnackbarMessageFromError(error, t`Failed to vote.`));
             throw error;
         }
     }, [snapshot, selectedChoices, disabled, link, postId]);
 
-    const handleChange = useCallback(
-        (value?: SnapshotChoice) => {
-            if (!isUndefined(value)) {
-                setSelectedChoices(value);
-                const target = currentUserChoice.current ?? snapshot.currentUserChoice;
-                if (target) setIsVoted(isEqual(value, target));
-            }
-        },
-        [snapshot.currentUserChoice],
-    );
+    const handleChange = useCallback((value?: SnapshotChoice) => {
+        if (!isUndefined(value)) {
+            setSelectedChoices(value);
+        }
+    }, []);
 
     return (
         <div className="link-preview">
