@@ -137,9 +137,10 @@ export const Attachments = memo<AttachmentsProps>(function Attachments({
                         >
                             <ImageAsset
                                 className={classNames('cursor-pointer rounded-lg object-cover', {
-                                    'w-full': !minimal,
+                                    'w-auto': !minimal,
                                     'h-[120px] w-[120px]': minimal,
                                 })}
+                                overSize={false}
                                 disableLoadHandler={minimal}
                                 width={minimal ? 120 : 1000}
                                 height={minimal ? 120 : 1000}
