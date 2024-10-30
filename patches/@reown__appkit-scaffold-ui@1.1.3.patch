@@ -1,5 +1,5 @@
 diff --git a/dist/esm/src/partials/w3m-connect-injected-widget/index.js b/dist/esm/src/partials/w3m-connect-injected-widget/index.js
-index 8834cda2346d8316a340b914f00e39bad9008192..8e63e3e27e1d44d2d175bf6a0cee9f435cdfa806 100644
+index 8834cda2346d8316a340b914f00e39bad9008192..0338aec6c21ea0395b85601a698807fcc8f0a16d 100644
 --- a/dist/esm/src/partials/w3m-connect-injected-widget/index.js
 +++ b/dist/esm/src/partials/w3m-connect-injected-widget/index.js
 @@ -20,7 +20,12 @@ let W3mConnectInjectedWidget = class W3mConnectInjectedWidget extends LitElement
@@ -24,6 +24,30 @@ index 8834cda2346d8316a340b914f00e39bad9008192..8e63e3e27e1d44d2d175bf6a0cee9f43
          return html `
        <wui-flex flexDirection="column" gap="xs">
          ${injectedConnectors.map(connector => {
+diff --git a/dist/esm/src/partials/w3m-connect-walletconnect-widget/index.js b/dist/esm/src/partials/w3m-connect-walletconnect-widget/index.js
+index a518866ac6bd84ec46379b4d1a8ab7794c628b02..2fd8e9e9aace23e872a278b78bd5fb4829daff9b 100644
+--- a/dist/esm/src/partials/w3m-connect-walletconnect-widget/index.js
++++ b/dist/esm/src/partials/w3m-connect-walletconnect-widget/index.js
+@@ -4,7 +4,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
+     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+     return c > 3 && r && Object.defineProperty(target, key, r), r;
+ };
+-import { AssetUtil, ChainController, ConnectorController, CoreHelperUtil, RouterController } from '@reown/appkit-core';
++import { AssetUtil, ChainController, ConnectorController, RouterController } from '@reown/appkit-core';
+ import { customElement } from '@reown/appkit-ui';
+ import { LitElement, html } from 'lit';
+ import { state } from 'lit/decorators.js';
+@@ -20,10 +20,6 @@ let W3mConnectWalletConnectWidget = class W3mConnectWalletConnectWidget extends
+         this.unsubscribe.forEach(unsubscribe => unsubscribe());
+     }
+     render() {
+-        if (CoreHelperUtil.isMobile()) {
+-            this.style.cssText = `display: none`;
+-            return null;
+-        }
+         const connector = this.connectors.find(c => c.id === 'walletConnect');
+         if (!connector) {
+             this.style.cssText = `display: none`;
 diff --git a/dist/esm/src/partials/w3m-connector-list/index.js b/dist/esm/src/partials/w3m-connector-list/index.js
 index 2b0524b6fe9c4621f6dbf2ab58e8fb61c76e70b6..002edc8fab5048a5396ff19ffd892708a974a0e4 100644
 --- a/dist/esm/src/partials/w3m-connector-list/index.js
