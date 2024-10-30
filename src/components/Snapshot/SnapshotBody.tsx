@@ -1,10 +1,11 @@
 import { Tab, TabGroup, TabList, TabPanel, TabPanels } from '@headlessui/react';
 import { t, Trans } from '@lingui/macro';
 import { useQuery } from '@tanstack/react-query';
-import { isArray, isNumber, isObject, isUndefined, sum, values } from 'lodash-es';
-import { useMemo, useState } from 'react';
+import { isArray, isEqual, isNumber, isObject, isUndefined, sum, values } from 'lodash-es';
+import { useMemo, useRef, useState } from 'react';
 import { useAsyncFn } from 'react-use';
 import urlcat from 'urlcat';
+import { useUpdateEffect } from 'usehooks-ts';
 import { useAccount, useEnsName } from 'wagmi';
 
 import SnapshotIcon from '@/assets/snapshot.svg';
@@ -42,10 +43,13 @@ interface Props {
 }
 
 export function SnapshotBody({ snapshot, link, postId, activity }: Props) {
+    const currentUserChoice = useRef(snapshot.currentUserChoice);
+
     const { choices, type, state, scores, symbol, scores_total, votes, space, author } = snapshot;
 
     const [currentTabIndex, setCurrentTabIndex] = useState(0);
     const [selectedChoices, setSelectedChoices] = useState<SnapshotChoice | undefined>(snapshot.currentUserChoice);
+    const [isVoted, setIsVoted] = useState(false);
 
     const account = useAccount();
 
@@ -129,6 +133,9 @@ export function SnapshotBody({ snapshot, link, postId, activity }: Props) {
 
             if (!result) return;
 
+            setIsVoted(true);
+            currentUserChoice.current = selectedChoices;
+
             const confirmed = await ConfirmModalRef.openAndWaitForClose({
                 title: t`Your vote is in!`,
                 content: (
@@ -163,6 +170,20 @@ export function SnapshotBody({ snapshot, link, postId, activity }: Props) {
             throw error;
         }
     }, [snapshot, selectedChoices, disabled, link, postId]);
+
+    useUpdateEffect(() => {
+        if (!snapshot.currentUserChoice) return;
+        setSelectedChoices((prev) => {
+            if (!prev) return currentUserChoice.current;
+            return prev;
+        });
+    }, [snapshot.currentUserChoice]);
+
+    useUpdateEffect(() => {
+        if (!!selectedChoices && !!currentUserChoice.current) {
+            setIsVoted(isEqual(selectedChoices, currentUserChoice.current));
+        }
+    }, [selectedChoices]);
 
     return (
         <div className="link-preview">
@@ -297,11 +318,17 @@ export function SnapshotBody({ snapshot, link, postId, activity }: Props) {
                         ) : null}
                         <ChainGuardButton
                             className="w-full"
-                            disabled={disabled}
+                            disabled={disabled || isVoted}
                             loading={queryVpLoading}
                             onClick={handleVote}
                         >
-                            {isNotEnoughVp ? t`No voting power` : t`Vote`}
+                            {isVoted ? (
+                                <Trans>Voted</Trans>
+                            ) : isNotEnoughVp ? (
+                                <Trans>No voting power</Trans>
+                            ) : (
+                                <Trans>Vote</Trans>
+                            )}
                         </ChainGuardButton>
                     </>
                 ) : null}
