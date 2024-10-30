@@ -229,6 +229,7 @@ export const TWITTER_TIMELINE_OPTIONS: TweetV2UserTimelineParams = {
         'lang',
         'public_metrics',
         'referenced_tweets',
+        'entities',
     ],
     'user.fields': ['description', 'username', 'name', 'profile_image_url', 'public_metrics', 'connection_status'],
     'poll.fields': ['duration_minutes', 'end_datetime', 'id', 'options', 'voting_status'],
