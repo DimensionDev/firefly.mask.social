@@ -38,7 +38,7 @@ export async function createMetadataPostById(source: SocialSourceInURL, postId: 
     const message = i18nContext
         ? t(i18nContext.i18n)`Posted by ${post.author.displayName} via Firefly`
         : t`Posted by ${post.author.displayName} via Firefly`;
-        
+
     const title = post?.author.displayName ? createPageTitleSSR(message) : SITE_NAME;
 
     return createSiteMetadata({
