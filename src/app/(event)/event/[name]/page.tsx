@@ -1,6 +1,7 @@
 'use client';
 
 import { useSuspenseQuery } from '@tanstack/react-query';
+import { notFound } from 'next/navigation.js';
 
 import { ActivityElex24Provider } from '@/components/Activity/ActivityElex24/ActivityElex24Context.js';
 import { ActivityHeader } from '@/components/Activity/ActivityHeader.js';
@@ -21,6 +22,8 @@ export default function Page({
             return FireflyActivityProvider.getFireflyActivityInfo(name);
         },
     });
+
+    if (!data) notFound();
 
     return (
         <ActivityElex24Provider>
