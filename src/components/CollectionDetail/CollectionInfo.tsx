@@ -44,7 +44,6 @@ export function CollectionInfo(props: CollectionInfoProps) {
         collectionId,
     } = props;
 
-    // TODO: replace with real voting collection address when available
     const isVotingCollection = isSameEthereumAddress(address, ELEX24_NFT_CONTRACT_ADDRESS);
 
     return (
