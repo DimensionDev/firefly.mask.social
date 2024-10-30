@@ -180,9 +180,12 @@ export function SnapshotBody({ snapshot, link, postId, activity }: Props) {
     }, [snapshot.currentUserChoice]);
 
     useUpdateEffect(() => {
-        if (!!selectedChoices && !!currentUserChoice.current) {
-            setIsVoted(isEqual(selectedChoices, currentUserChoice.current));
-        }
+        setIsVoted((prev) => {
+            if (!!selectedChoices && !!currentUserChoice.current) {
+                return isEqual(selectedChoices, currentUserChoice.current);
+            }
+            return prev;
+        });
     }, [selectedChoices]);
 
     return (
