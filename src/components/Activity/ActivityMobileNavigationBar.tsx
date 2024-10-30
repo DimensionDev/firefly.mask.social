@@ -62,7 +62,8 @@ export function ActivityMobileNavigationBar({ children, className }: Props) {
                         firefly_account_id: fireflyAccountId,
                     });
                     if (pathname === PageRoute.Events) {
-                        return fireflyBridgeProvider.request(SupportedMethod.SHARE, { text: window.location.href });
+                        fireflyBridgeProvider.request(SupportedMethod.SHARE, { text: window.location.href });
+                        return;
                     }
                     const shareUrl = urlcat(
                         SITE_URL,
