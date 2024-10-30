@@ -65,10 +65,10 @@ export function VotingResultBanner(props: VotingResultBannerProps) {
 
     const strokeWidth = isSmall ? 2 : isMedium ? 3 : 3.5;
 
-    const trumpRatePercent = new BigNumber((data?.trump || 0) * 100).toFixed(2);
+    const trumpRatePercent = new BigNumber((data?.trump || 0) * 100).toFixed(0);
     const HarrisRatePercent = data?.trump
-        ? minus(100, trumpRatePercent).toFixed(2)
-        : new BigNumber((data?.harris || 0) * 100).toFixed(2);
+        ? minus(100, trumpRatePercent).toFixed(0)
+        : new BigNumber((data?.harris || 0) * 100).toFixed(0);
 
     const showPercent = !isLoading && !loadingResult && !!data;
 
