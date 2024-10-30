@@ -2,13 +2,16 @@
 
 import { usePathname } from 'next/navigation.js';
 import { type HTMLProps, useContext } from 'react';
+import urlcat from 'urlcat';
 
 import NavigationBarBackIcon from '@/assets/navigation-bar-back.svg';
 import ShareIcon from '@/assets/share-navbar.svg';
 import { ActivityContext } from '@/components/Activity/ActivityContext.js';
 import { IS_ANDROID } from '@/constants/bowser.js';
-import { PageRoute } from '@/constants/enum.js';
+import { PageRoute, SourceInURL } from '@/constants/enum.js';
+import { SITE_URL } from '@/constants/index.js';
 import { classNames } from '@/helpers/classNames.js';
+import { resolveActivityUrl } from '@/helpers/resolveActivityUrl.js';
 import { useComeBack } from '@/hooks/useComeback.js';
 import { fireflyBridgeProvider } from '@/providers/firefly/Bridge.js';
 import { captureActivityEvent } from '@/providers/telemetry/captureActivityEvent.js';
@@ -20,8 +23,12 @@ interface Props extends HTMLProps<'div'> {}
 
 export function ActivityMobileNavigationBar({ children, className }: Props) {
     const comeback = useComeBack();
-    const { fireflyAccountId } = useContext(ActivityContext);
+    const { fireflyAccountId, name, xHandle } = useContext(ActivityContext);
     const pathname = usePathname();
+    const shareUrl = urlcat(
+        SITE_URL,
+        resolveActivityUrl(name, { referralCode: xHandle, platform: SourceInURL.Twitter }),
+    );
     return (
         <div
             className={classNames(
@@ -57,7 +64,7 @@ export function ActivityMobileNavigationBar({ children, className }: Props) {
                     captureActivityEvent(EventId.EVENT_SHARE_CLICK, {
                         firefly_account_id: fireflyAccountId,
                     });
-                    fireflyBridgeProvider.request(SupportedMethod.SHARE, { text: window.location.href });
+                    fireflyBridgeProvider.request(SupportedMethod.SHARE, { text: shareUrl });
                 }}
             >
                 <ShareIcon width={24} height={24} />

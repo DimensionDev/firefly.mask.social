@@ -15,11 +15,14 @@ import { settings } from '@/settings/index.js';
 export function useIsLoginTwitterInActivity() {
     const twitterProfile = useCurrentProfile(Source.Twitter);
     const { data: token } = useFireflyBridgeAuthorization();
-    const { setFireflyAccountId } = useContext(ActivityContext);
+    const { setFireflyAccountId, setXHandle } = useContext(ActivityContext);
     return useQuery({
         queryKey: ['is-logged-twitter', !!twitterProfile, token],
         async queryFn() {
-            if (!fireflyBridgeProvider.supported) return !!twitterProfile;
+            if (!fireflyBridgeProvider.supported) {
+                if (twitterProfile) setXHandle(twitterProfile.handle);
+                return !!twitterProfile;
+            }
             if (!token) return false;
             const url = urlcat(settings.FIREFLY_ROOT_URL, '/v2/wallet/profile');
             const response = await fetchJSON<WalletProfileResponse>(url, {
@@ -29,6 +32,7 @@ export function useIsLoginTwitterInActivity() {
             });
             const data = resolveFireflyResponseData(response);
             if (data.fireflyAccountId) setFireflyAccountId(data.fireflyAccountId);
+            if (data.twitterProfiles.length > 0) setXHandle(data.twitterProfiles[0].handle);
             return data.twitterProfiles.length > 0;
         },
     });
