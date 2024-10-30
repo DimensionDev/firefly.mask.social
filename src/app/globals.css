@@ -215,7 +215,7 @@ iframe {
 .markup > p,
 .markup > ul {
     @apply !leading-6 sm:!leading-5;
-    @apply [&:not(:last-child)]:mb-2;
+    @apply [&:not(:last-child)]:mb-6;
 }
 
 .lp-player {
