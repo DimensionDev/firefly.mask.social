@@ -4,14 +4,19 @@ import type { NonFungibleAsset } from '@masknet/web3-shared-base';
 import { ChainId, SchemaType } from '@masknet/web3-shared-evm';
 import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
 
-import { GridListInPage } from '@/components/GridListInPage.js';
+import { GridListInPage, type GridListInPageProps } from '@/components/GridListInPage.js';
 import { getNFTItemContent, POAPGridListComponent } from '@/components/Profile/POAPList.js';
 import { EMPTY_LIST } from '@/constants/index.js';
 import { createIndicator } from '@/helpers/pageable.js';
 import { SimpleHashWalletProfileProvider } from '@/providers/simplehash/WalletProfile.js';
 
-export function NFTList(props: { address: string; chainId?: ChainId }) {
-    const { address, chainId } = props;
+interface NFTListProps extends Partial<GridListInPageProps> {
+    address: string;
+    chainId?: ChainId;
+}
+
+export function NFTList(props: NFTListProps) {
+    const { address, chainId, ...rest } = props;
     const queryResult = useSuspenseInfiniteQuery({
         initialPageParam: '',
         queryKey: ['nft-list', address, chainId],
@@ -28,6 +33,7 @@ export function NFTList(props: { address: string; chainId?: ChainId }) {
 
     return (
         <GridListInPage
+            {...rest}
             queryResult={queryResult}
             className="mt-2"
             VirtualGridListProps={{
