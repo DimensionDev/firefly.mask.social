@@ -1,8 +1,9 @@
 import { Tab, TabGroup, TabList, TabPanel, TabPanels } from '@headlessui/react';
 import { t, Trans } from '@lingui/macro';
 import { useQuery } from '@tanstack/react-query';
-import { isArray, isNumber, isObject, isUndefined, sum, values } from 'lodash-es';
-import { useMemo, useState } from 'react';
+import { produce } from 'immer';
+import { isArray, isEqual, isNumber, isObject, isUndefined, sum, values } from 'lodash-es';
+import { useCallback, useMemo, useState } from 'react';
 import { useAsyncFn } from 'react-use';
 import urlcat from 'urlcat';
 import { useAccount, useEnsName } from 'wagmi';
@@ -45,7 +46,10 @@ export function SnapshotBody({ snapshot, link, postId, activity }: Props) {
     const { choices, type, state, scores, symbol, scores_total, votes, space, author } = snapshot;
 
     const [currentTabIndex, setCurrentTabIndex] = useState(0);
-    const [selectedChoices, setSelectedChoices] = useState<SnapshotChoice | undefined>(snapshot.currentUserChoice);
+    const [selectedChoices = snapshot.currentUserChoice, setSelectedChoices] = useState<SnapshotChoice | undefined>(
+        snapshot.currentUserChoice,
+    );
+    const isVoted = isEqual(snapshot.currentUserChoice, selectedChoices);
 
     const account = useAccount();
 
@@ -154,15 +158,40 @@ export function SnapshotBody({ snapshot, link, postId, activity }: Props) {
                 });
             }
 
-            if (link && postId)
+            if (link && postId) {
                 queryClient.refetchQueries({
                     queryKey: ['post-embed', link, postId],
                 });
+            }
+            queryClient.setQueriesData<{ pages: Array<{ data: SnapshotActivity[] }> }>(
+                {
+                    queryKey: ['snapshots', account.address],
+                },
+                (old) => {
+                    if (!old) return old;
+
+                    return produce(old, (draft) => {
+                        draft.pages.forEach((page) => {
+                            page.data.forEach((oldData) => {
+                                if (oldData.proposal_id === activity?.proposal_id && oldData.proposal) {
+                                    oldData.proposal.currentUserChoice = selectedChoices;
+                                }
+                            });
+                        });
+                    });
+                },
+            );
         } catch (error) {
             enqueueErrorMessage(getSnackbarMessageFromError(error, t`Failed to vote.`));
             throw error;
         }
     }, [snapshot, selectedChoices, disabled, link, postId]);
+
+    const handleChange = useCallback((value?: SnapshotChoice) => {
+        if (!isUndefined(value)) {
+            setSelectedChoices(value);
+        }
+    }, []);
 
     return (
         <div className="link-preview">
@@ -252,9 +281,7 @@ export function SnapshotBody({ snapshot, link, postId, activity }: Props) {
                                 }
                                 choices={choices}
                                 disabled={isPending}
-                                onChange={(value) => {
-                                    if (!isUndefined(value)) setSelectedChoices(value);
-                                }}
+                                onChange={handleChange}
                             />
                         ) : null}
                         {type === 'approval' ? (
@@ -266,7 +293,7 @@ export function SnapshotBody({ snapshot, link, postId, activity }: Props) {
                                 }
                                 choices={snapshot.choices}
                                 disabled={isPending}
-                                onChange={(value) => setSelectedChoices(value)}
+                                onChange={handleChange}
                             />
                         ) : null}
                         {type === 'quadratic' || type === 'weighted' ? (
@@ -280,7 +307,7 @@ export function SnapshotBody({ snapshot, link, postId, activity }: Props) {
                                 }
                                 choices={choices}
                                 disabled={isPending}
-                                onChange={(value) => setSelectedChoices(value)}
+                                onChange={handleChange}
                             />
                         ) : null}
                         {type === 'ranked-choice' ? (
@@ -292,16 +319,22 @@ export function SnapshotBody({ snapshot, link, postId, activity }: Props) {
                                 }
                                 choices={choices}
                                 disabled={isPending}
-                                onChange={(value) => setSelectedChoices(value)}
+                                onChange={handleChange}
                             />
                         ) : null}
                         <ChainGuardButton
                             className="w-full"
-                            disabled={disabled}
+                            disabled={disabled || isVoted}
                             loading={queryVpLoading}
                             onClick={handleVote}
                         >
-                            {isNotEnoughVp ? t`No voting power` : t`Vote`}
+                            {isVoted ? (
+                                <Trans>Voted</Trans>
+                            ) : isNotEnoughVp ? (
+                                <Trans>No voting power</Trans>
+                            ) : (
+                                <Trans>Vote</Trans>
+                            )}
                         </ChainGuardButton>
                     </>
                 ) : null}

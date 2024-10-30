@@ -3,6 +3,7 @@
 import { t } from '@lingui/macro';
 import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
 import { compact } from 'lodash-es';
+import { useAccount } from 'wagmi';
 
 import { ListInPage } from '@/components/ListInPage.js';
 import { getSnapshotItemContent } from '@/components/VirtualList/getSnapshotItemContent.js';
@@ -19,6 +20,7 @@ import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
 
 export function SnapshotBookmarkList() {
+    const account = useAccount();
     const currentSource = useGlobalState.use.currentSource();
     const currentSocialSource = narrowToSocialSource(currentSource);
     const currentProfileAll = useCurrentProfileAll();
@@ -26,6 +28,7 @@ export function SnapshotBookmarkList() {
     const query = useSuspenseInfiniteQuery({
         queryKey: [
             'snapshots',
+            account.address,
             Source.Snapshot,
             'bookmark',
             SORTED_SOCIAL_SOURCES.map((x) => currentProfileAll[x]?.profileId),
