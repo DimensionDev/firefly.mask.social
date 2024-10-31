@@ -27,12 +27,12 @@ export async function middleware(request: NextRequest) {
     const pathname = request.nextUrl.pathname;
     request.headers.set('X-URL', request.url);
 
-    if (request.nextUrl.host === 'cz.firefly.social') {
-        return NextResponse.redirect(urlcat(SITE_URL, '/event/cz_welcome_back_airdrop'));
-    }
-
     if (pathname === '/') {
         return NextResponse.redirect(new URL(resolveDiscoverUrl(DEFAULT_SOCIAL_SOURCE), request.url));
+    }
+
+    if (request.nextUrl.host === 'cz.firefly.social') {
+        return NextResponse.redirect(urlcat(SITE_URL, '/event/cz_welcome_back_airdrop'));
     }
 
     if (isMatchedDiscoverPage(pathname)) {
@@ -42,7 +42,6 @@ export async function middleware(request: NextRequest) {
     }
 
     const parsedOldDiscoverUrl = parseOldDiscoverUrl(request.nextUrl);
-
     if (parsedOldDiscoverUrl) {
         const destination = request.nextUrl.clone();
         destination.pathname = resolveDiscoverUrl(parsedOldDiscoverUrl.source, parsedOldDiscoverUrl.discover);
@@ -52,7 +51,6 @@ export async function middleware(request: NextRequest) {
     }
 
     const parsedOldNotificationUrl = parseOldNotification(request.nextUrl);
-
     if (parsedOldNotificationUrl) {
         const destination = request.nextUrl.clone();
         destination.pathname = resolveNotificationUrl(parsedOldNotificationUrl.source);
@@ -69,7 +67,6 @@ export async function middleware(request: NextRequest) {
     }
 
     const parsedOldBookmarkUrl = parseOldBookmarkUrl(request.nextUrl);
-
     if (parsedOldBookmarkUrl) {
         const destination = request.nextUrl.clone();
         destination.pathname = resolveBookmarkUrl(parsedOldBookmarkUrl.source);
@@ -137,7 +134,6 @@ export async function middleware(request: NextRequest) {
     }
 
     const parsedOldSettingsUrl = parseOldSettingsUrl(request.nextUrl);
-
     if (parsedOldSettingsUrl) {
         const destination = request.nextUrl.clone();
         destination.pathname = parsedOldSettingsUrl.pathname;

@@ -21,11 +21,7 @@ import type { FireflyIdentity } from '@/providers/types/Firefly.js';
 import { getProfileById } from '@/services/getProfileById.js';
 
 export async function ProfilePageLayout({ identity, children }: PropsWithChildren<{ identity: FireflyIdentity }>) {
-    const resolvedSource = narrowToSocialSource(identity.source);
-
     const profiles = await FireflyEndpointProvider.getAllPlatformProfileByIdentity(identity, false);
-
-    const { walletProfile } = resolveFireflyProfiles(identity, profiles);
 
     if (identity.source === Source.Twitter) {
         return (
@@ -36,6 +32,9 @@ export async function ProfilePageLayout({ identity, children }: PropsWithChildre
             </LoginRequiredGuard>
         );
     }
+
+    const resolvedSource = narrowToSocialSource(identity.source);
+    const { walletProfile } = resolveFireflyProfiles(identity, profiles);
 
     try {
         const profile =
