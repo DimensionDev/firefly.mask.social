@@ -11,16 +11,16 @@ export async function changeLocale(formData: FormData) {
     const localeValue = formData.get('locale');
 
     if (!localeValue || typeof localeValue !== 'string') {
-        return redirect('/');
+        redirect('/');
     }
 
     const isValidLocale = getEnumAsArray(Locale).some(({ value }) => value === localeValue);
 
     if (isValidLocale) {
         cookies().set('locale', localeValue);
-        return redirect('/');
+        redirect('/');
     } else {
         cookies().set('locale', defaultLocale);
-        return redirect('/');
+        redirect('/');
     }
 }

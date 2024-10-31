@@ -14,5 +14,5 @@ export async function generateMetadata() {
 }
 
 export default function Page() {
-    return redirect(resolveNotificationUrl(DEFAULT_SOCIAL_SOURCE), RedirectType.replace);
+    redirect(resolveNotificationUrl(DEFAULT_SOCIAL_SOURCE), RedirectType.replace);
 }

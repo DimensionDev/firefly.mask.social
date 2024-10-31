@@ -14,7 +14,7 @@ export function NFTCollectionPage({ chainId, address }: { chainId: ChainId; addr
     const { data } = useSuspenseQuery({
         queryKey: ['nft-collection', chainId, address],
         async queryFn() {
-            return await SimpleHashWalletProfileProvider.getCollection(address, { chainId });
+            return SimpleHashWalletProfileProvider.getCollection(address, { chainId });
         },
     });
 

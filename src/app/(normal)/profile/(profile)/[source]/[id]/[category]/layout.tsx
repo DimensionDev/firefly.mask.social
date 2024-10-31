@@ -50,7 +50,7 @@ export default function Layout({
     const source = resolveSourceFromUrl(params.source);
     const identity = { source, id };
 
-    if (!source || isFollowCategory(params.category)) return notFound();
+    if (!source || isFollowCategory(params.category)) notFound();
 
     return (
         <>

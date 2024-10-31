@@ -20,11 +20,11 @@ export default function Layout({
     const source = resolveSourceFromUrlNoFallback(params.source);
 
     if (!source || !isDiscoverSource(source)) {
-        return notFound();
+        notFound();
     }
 
     if (isSocialDiscoverSource(source) && getUrlFromHeaders()?.pathname === `/${params.source}`) {
-        return redirect(resolveDiscoverUrl(source, DiscoverType.Trending));
+        redirect(resolveDiscoverUrl(source, DiscoverType.Trending));
     }
 
     return (
