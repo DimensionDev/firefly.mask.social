@@ -32,10 +32,12 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     return createSiteMetadata();
 }
 
-export default async function Page(props: Props) {
+export default function Page(props: Props) {
     if (isBotRequest()) return null;
+
     const { params } = props;
     if (!isSocialSourceInUrl(params.source)) notFound();
+
     const source = resolveSocialSource(params.source);
 
     return (

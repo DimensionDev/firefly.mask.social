@@ -27,7 +27,6 @@ export default function Page({
     };
 }>) {
     const source = resolveSourceFromUrl(params.source);
-
     if (!isSocialSource(source)) notFound();
 
     const currentProfiles = useCurrentProfileAll();
@@ -44,7 +43,7 @@ export default function Page({
 
     // profile link should be shareable
     if (profile) {
-        return redirect(resolveProfileUrl(source, profile.id), RedirectType.replace);
+        redirect(resolveProfileUrl(source, profile.id), RedirectType.replace);
     }
 
     return (
