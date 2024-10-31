@@ -19,7 +19,7 @@ export async function generateMetadata({ params: { address, tokenId, ...params }
     return createSiteMetadata();
 }
 
-export default async function Page({ params: { address, tokenId, ...params } }: Props) {
+export default function Page({ params: { address, tokenId, ...params } }: Props) {
     const chainId = parseChainId(params.chainId);
     if (!chainId) notFound();
     return <NFTDetailPage chainId={chainId} tokenId={tokenId} address={address} />;

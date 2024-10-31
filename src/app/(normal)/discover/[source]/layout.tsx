@@ -24,7 +24,7 @@ export default function Layout({
     }
 
     if (isSocialDiscoverSource(source) && getUrlFromHeaders()?.pathname === `/${params.source}`) {
-        return redirect(resolveDiscoverUrl(source, DiscoverType.Trending));
+        redirect(resolveDiscoverUrl(source, DiscoverType.Trending));
     }
 
     return (
