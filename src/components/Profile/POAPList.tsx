@@ -4,6 +4,7 @@ import { Trans } from '@lingui/macro';
 import type { NonFungibleAsset } from '@masknet/web3-shared-base';
 import { ChainId, SchemaType } from '@masknet/web3-shared-evm';
 import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
+import { useRouter } from 'next/navigation.js';
 import { forwardRef } from 'react';
 import type { GridItemProps, GridListProps } from 'react-virtuoso';
 import { useEnsName } from 'wagmi';
@@ -52,33 +53,39 @@ function Owner({ address }: { address: `0x${string}` }) {
     );
 }
 
-export function getNFTItemContent(
-    index: number,
-    item: NonFungibleAsset<ChainId.Mainnet, SchemaType.ERC721>,
-    options?: {
-        isPoap?: boolean;
-        isShowOwner?: boolean;
-        isShowChainIcon?: boolean;
-        ownerCount?: number;
-    },
-) {
+function NFTItemContent({
+    index,
+    item,
+    ...props
+}: {
+    index: number;
+    item: NonFungibleAsset<ChainId.Mainnet, SchemaType.ERC721>;
+    isPoap?: boolean;
+    isShowOwner?: boolean;
+    isShowChainIcon?: boolean;
+    ownerCount?: number;
+}) {
+    const router = useRouter();
+
     return (
-        <Link
-            href={resolveNftUrl(item.chainId, item.id, item.tokenId)}
+        <div
+            onClick={() => {
+                router.push(resolveNftUrl(item.chainId, item.id, item.tokenId));
+            }}
             key={`${index}-${item.id}-${item.tokenId}`}
-            className="flex flex-col rounded-lg bg-bg pb-1 sm:rounded-2xl"
+            className="flex cursor-pointer flex-col rounded-lg bg-bg pb-1 sm:rounded-2xl"
         >
             <div className="relative aspect-square h-auto w-full overflow-hidden">
-                {options?.isShowChainIcon ? (
+                {props?.isShowChainIcon ? (
                     <ChainIcon chainId={item.chainId} size={20} className="absolute left-2 top-2 h-4 w-4" />
                 ) : null}
-                {options?.isPoap ? <PoapIcon className="absolute left-2 top-2 h-6 w-6" /> : null}
-                {options?.isShowOwner && item.owner?.address ? (
+                {props?.isPoap ? <PoapIcon className="absolute left-2 top-2 h-6 w-6" /> : null}
+                {props?.isShowOwner && item.owner?.address ? (
                     <Owner address={item.owner.address as `0x${string}`} />
                 ) : null}
-                {options?.ownerCount ? (
+                {props?.ownerCount ? (
                     <div className="absolute left-2 top-2 z-10 h-5 rounded-lg bg-primaryBottom px-1 text-xs font-bold leading-5">
-                        <Trans>× {nFormatter(options.ownerCount)}</Trans>
+                        <Trans>× {nFormatter(props.ownerCount)}</Trans>
                     </div>
                 ) : null}
                 <NFTImage
@@ -92,8 +99,21 @@ export function getNFTItemContent(
             <div className="mt-1 line-clamp-2 h-8 w-full px-1 text-center text-xs font-medium leading-4 sm:mt-2 sm:px-2 sm:py-0">
                 {item.metadata?.name}
             </div>
-        </Link>
+        </div>
     );
+}
+
+export function getNFTItemContent(
+    index: number,
+    item: NonFungibleAsset<ChainId.Mainnet, SchemaType.ERC721>,
+    options?: {
+        isPoap?: boolean;
+        isShowOwner?: boolean;
+        isShowChainIcon?: boolean;
+        ownerCount?: number;
+    },
+) {
+    return <NFTItemContent index={index} item={item} {...options} />;
 }
 
 export const POAPGridListComponent = {
