@@ -27,12 +27,12 @@ export async function middleware(request: NextRequest) {
     const pathname = request.nextUrl.pathname;
     request.headers.set('X-URL', request.url);
 
-    if (pathname === '/') {
-        return NextResponse.redirect(new URL(resolveDiscoverUrl(DEFAULT_SOCIAL_SOURCE), request.url));
+    if (request.nextUrl.host === 'cz.firefly.social' && pathname === '/') {
+        return NextResponse.redirect(urlcat(SITE_URL, '/event/cz_welcome_back_airdrop'));
     }
 
-    if (request.nextUrl.host === 'cz.firefly.social') {
-        return NextResponse.redirect(urlcat(SITE_URL, '/event/cz_welcome_back_airdrop'));
+    if (pathname === '/') {
+        return NextResponse.redirect(new URL(resolveDiscoverUrl(DEFAULT_SOCIAL_SOURCE), request.url));
     }
 
     if (isMatchedDiscoverPage(pathname)) {
