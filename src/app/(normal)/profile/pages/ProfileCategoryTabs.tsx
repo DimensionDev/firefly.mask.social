@@ -29,7 +29,7 @@ export function ProfileCategoryTabs({
         [WalletProfileCategory.POAPs]: <Trans>POAPs</Trans>,
         [WalletProfileCategory.NFTs]: <Trans>NFTs</Trans>,
         [WalletProfileCategory.Articles]: <Trans>Articles</Trans>,
-        [WalletProfileCategory.DAO]: <Trans>Articles</Trans>,
+        [WalletProfileCategory.DAO]: <Trans>DAO</Trans>,
     };
 
     const categories =

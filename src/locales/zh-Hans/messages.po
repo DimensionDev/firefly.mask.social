@@ -948,6 +948,9 @@ msgstr "此通证合约是开源代码。您可以检查合约代码了解详情
 msgid "Add account"
 msgstr "添加账户"
 
+msgid "DAO"
+msgstr ""
+
 msgid "{0} Comments"
 msgstr "{0} 评论"
 

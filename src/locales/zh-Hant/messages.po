@@ -948,6 +948,9 @@ msgstr ""
 msgid "Add account"
 msgstr "新增帳户"
 
+msgid "DAO"
+msgstr ""
+
 msgid "{0} Comments"
 msgstr "{0} 評論"
 
