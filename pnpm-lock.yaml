@@ -333,9 +333,6 @@ importers:
       react-qr-code:
         specifier: ^2.0.15
         version: 2.0.15(react@0.0.0-experimental-8039e6d0b-20231026)
-      react-tweet:
-        specifier: ^3.2.1
-        version: 3.2.1(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026)
       react-use:
         specifier: 17.5.1
         version: 17.5.1(patch_hash=jdgfodh3ixpexpgf3fwrwvcmtq)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026)
@@ -366,9 +363,6 @@ importers:
       tailwindcss-safe-area:
         specifier: ^0.6.0
         version: 0.6.0(tailwindcss@3.4.14)
-      ts-results-es:
-        specifier: ^4.2.0
-        version: 4.2.0
       twemoji-parser:
         specifier: ^14.0.0
         version: 14.0.0
@@ -30417,24 +30411,6 @@ packages:
       react-dom: 0.0.0-experimental-8039e6d0b-20231026(react@0.0.0-experimental-8039e6d0b-20231026)
     dev: false
 
-  /react-tweet@3.2.1(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026):
-    resolution: {integrity: sha512-dktP3RMuwRB4pnSDocKpSsW5Hq1IXRW6fONkHhxT5EBIXsKZzdQuI70qtub1XN2dtZdkJWWxfBm/Q+kN+vRYFA==}
-    peerDependencies:
-      react: 0.0.0-experimental-8039e6d0b-20231026 || 0.0.0-experimental-0a360642d-20230711
-      react-dom: 0.0.0-experimental-8039e6d0b-20231026 || 0.0.0-experimental-0a360642d-20230711
-    peerDependenciesMeta:
-      react:
-        optional: true
-      react-dom:
-        optional: true
-    dependencies:
-      '@swc/helpers': 0.5.11
-      clsx: 2.1.0
-      react: 0.0.0-experimental-8039e6d0b-20231026
-      react-dom: 0.0.0-experimental-8039e6d0b-20231026(react@0.0.0-experimental-8039e6d0b-20231026)
-      swr: 2.2.5(react@0.0.0-experimental-8039e6d0b-20231026)
-    dev: false
-
   /react-universal-interface@0.6.2(react@0.0.0-experimental-8039e6d0b-20231026)(tslib@2.6.2):
     resolution: {integrity: sha512-dg8yXdcQmvgR13RIlZbTRQOoUrDciFVoSBZILwjE2LFISxZZ8loVJKAkuzswl5js8BHda79bIb2b84ehU8IjXw==}
     peerDependencies:
@@ -32599,19 +32575,6 @@ packages:
     engines: {node: '>= 4.7.0'}
     dev: false
 
-  /swr@2.2.5(react@0.0.0-experimental-8039e6d0b-20231026):
-    resolution: {integrity: sha512-QtxqyclFeAsxEUeZIYmsaQ0UjimSq1RZ9Un7I68/0ClKK/U3LoyQunwkQfJZr2fc22DfIXLNDc2wFyTEikCUpg==}
-    peerDependencies:
-      react: 0.0.0-experimental-8039e6d0b-20231026 || 0.0.0-experimental-0a360642d-20230711
-    peerDependenciesMeta:
-      react:
-        optional: true
-    dependencies:
-      client-only: 0.0.1
-      react: 0.0.0-experimental-8039e6d0b-20231026
-      use-sync-external-store: 1.2.2(react@0.0.0-experimental-8039e6d0b-20231026)
-    dev: false
-
   /symbol-observable@4.0.0:
     resolution: {integrity: sha512-b19dMThMV4HVFynSAM1++gBHAbk2Tc/osgLIBZMKsyqh34jb2e8Os7T6ZW/Bt3pJFdBTd2JwAnAAEQV7rSNvcQ==}
     engines: {node: '>=0.10'}
@@ -33186,10 +33149,6 @@ packages:
 
   /ts-results-es@4.0.0:
     resolution: {integrity: sha512-v8vi0R4hu3Z5CugRPGA2qnIns4a4j+3/Bkh5Iak041AsBNOYA6DNjoijvHDli76Grt6KvihU6errHX03Fz9Jzw==}
-    dev: false
-
-  /ts-results-es@4.2.0:
-    resolution: {integrity: sha512-GfpRk+qvHxa/6gADH8WMN/jXvs5oHYbKtMQc6X9L3VhToy5Lri3iQowyYSytaRcvPDiTT2z3vurzQZXFQFXKRA==}
     dev: false
 
   /tsconfig-paths@3.15.0:
@@ -36111,7 +36070,6 @@ time:
   /swiper@11.1.14: '2024-09-12T21:40:42.310Z'
   /tailwindcss-safe-area@0.6.0: '2024-08-25T17:31:22.552Z'
   /tailwindcss@3.4.14: '2024-10-15T10:39:25.225Z'
-  /ts-results-es@4.2.0: '2024-05-28T09:14:13.577Z'
   /typescript@5.6.3: '2024-10-08T22:01:09.783Z'
   /unist-util-flatmap@1.0.0: '2018-07-21T19:29:06.641Z'
   /use-subscription@1.8.2: '2024-04-26T16:44:39.268Z'
