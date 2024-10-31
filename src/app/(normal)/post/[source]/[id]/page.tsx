@@ -35,7 +35,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 export default async function Page(props: Props) {
     if (isBotRequest()) return null;
     const { params } = props;
-    if (!isSocialSourceInUrl(params.source)) return notFound();
+    if (!isSocialSourceInUrl(params.source)) notFound();
     const source = resolveSocialSource(params.source);
 
     return (
