@@ -90,6 +90,7 @@ class FireflyBridgeProvider {
                 callNativeMethod(method, requestId, params as RequestArguments[T]);
             }),
             3 * 60 * 1000 /* 3 minute */,
+            `request ${method} timeout.`,
         ).finally(() => {
             this.callbacks.delete(requestId);
         });
