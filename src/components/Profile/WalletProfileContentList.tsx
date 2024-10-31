@@ -28,8 +28,6 @@ export const WalletProfileContentList = memo(function WalletProfileContentList({
             return <NFTs address={address} />;
         case WalletProfileCategory.OnChainActivities:
             return <FollowingNFTList walletAddress={address} />;
-        case WalletProfileCategory.DAO:
-            return null;
         default:
             safeUnreachable(type);
             return null;

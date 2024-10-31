@@ -943,9 +943,6 @@ msgstr ""
 msgid "Add account"
 msgstr ""
 
-msgid "DAO"
-msgstr ""
-
 msgid "{0} Comments"
 msgstr ""
 
