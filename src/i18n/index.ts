@@ -64,3 +64,7 @@ export function setLocale(locale: Locale) {
 export function getLocale(locale: Locale) {
     return messages[locale];
 }
+
+export function getI18n(locale: Locale) {
+    return allLocales[locale];
+}
