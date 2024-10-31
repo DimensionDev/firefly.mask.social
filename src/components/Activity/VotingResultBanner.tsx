@@ -71,7 +71,7 @@ export function VotingResultBanner(props: VotingResultBannerProps) {
     const showPercent = !!fontLoaded && !loadingResult && !!data;
 
     return (
-        <Link target="_blank" className="relative w-full" href={'/event/elex24'}>
+        <Link target="_blank" className="relative block w-full" href={'/event/elex24'}>
             <div
                 className="bg-bgModal"
                 style={{
