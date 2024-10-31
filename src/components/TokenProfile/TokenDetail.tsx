@@ -52,7 +52,7 @@ function InfoRow({ title, description, amount, asInfinite, value, extra }: InfoR
                 <div className="ml-auto">{extra}</div>
             ) : (
                 <div className="ml-auto font-inter text-medium font-bold text-main">
-                    {asInfinite ? '∞' : isNumber(value) ? `$${formatPrice(+value)}` : formatPrice(amount) ?? '-'}
+                    {asInfinite ? '∞' : isNumber(value) ? `$${formatPrice(+value)}` : (formatPrice(amount) ?? '-')}
                 </div>
             )}
         </div>
@@ -115,7 +115,7 @@ export const TokenDetail = memo<Props>(function TokenDetail({ symbol, children, 
     }
 
     if (!token) {
-        return notFound();
+        notFound();
     }
 
     return (
