@@ -1,3 +1,4 @@
+'use client';
 import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
 
 import { ListInPage } from '@/components/ListInPage.js';

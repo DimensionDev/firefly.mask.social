@@ -21,6 +21,7 @@ import {
 } from '@/providers/telemetry/captureAccountEvent.js';
 import { captureSyncModalEvent } from '@/providers/telemetry/captureSyncModalEvent.js';
 import { TwitterSession } from '@/providers/twitter/Session.js';
+import { TwitterSocialMediaProvider } from '@/providers/twitter/SocialMedia.js';
 import type { Account } from '@/providers/types/Account.js';
 import type { Session } from '@/providers/types/Session.js';
 import { SessionType } from '@/providers/types/SocialMedia.js';
@@ -73,15 +74,23 @@ async function updateState(accounts: Account[], overwrite = false) {
     });
 
     // set the first account as the current account if no current account is set
-    SORTED_SOCIAL_SOURCES.map((x) => {
-        const { state, sessionHolder } = getContext(x);
+    await Promise.all(
+        SORTED_SOCIAL_SOURCES.map(async (x) => {
+            const { state, sessionHolder } = getContext(x);
 
-        const account = first(state.accounts);
-        if (!account) return;
+            const account = first(state.accounts);
+            if (!account) return;
 
-        if (!state.currentProfile) state.updateCurrentAccount(account);
-        if (!sessionHolder?.session) sessionHolder?.resumeSession(account.session);
-    });
+            if (!state.currentProfile) state.updateCurrentAccount(account);
+            if (!sessionHolder?.session) {
+                sessionHolder?.resumeSession(account.session);
+
+                if (x === Source.Twitter && TwitterSession.isNextAuth(account.session)) {
+                    await TwitterSocialMediaProvider.login();
+                }
+            }
+        }),
+    );
 }
 
 /**

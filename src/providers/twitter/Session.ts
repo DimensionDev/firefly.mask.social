@@ -7,7 +7,7 @@ import { HIDDEN_SECRET } from '@/constants/index.js';
 import { BaseSession } from '@/providers/base/Session.js';
 import type { SessionPayload } from '@/providers/twitter/SessionPayload.js';
 import type { Session } from '@/providers/types/Session.js';
-import { type Profile, SessionType } from '@/providers/types/SocialMedia.js';
+import { SessionType } from '@/providers/types/SocialMedia.js';
 
 export class TwitterSession extends BaseSession implements Session {
     constructor(
@@ -33,9 +33,9 @@ export class TwitterSession extends BaseSession implements Session {
         return `${super.serialize()}:${btoa(JSON.stringify(this.payload))}`;
     }
 
-    static from(profile: Profile, payload: SessionPayload) {
+    static from(profileId: string, payload: SessionPayload) {
         const now = Date.now();
-        return new TwitterSession(profile.profileId, '', now, now, payload);
+        return new TwitterSession(profileId, '', now, now, payload);
     }
 
     static payloadFromHeaders(headers: Headers) {

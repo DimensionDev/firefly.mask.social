@@ -3,8 +3,7 @@ import { notFound } from 'next/navigation.js';
 import type React from 'react';
 
 import { PostDetailPage } from '@/app/(normal)/post/[source]/[id]/pages/DetailPage.js';
-import { TwitterPostDetailPage } from '@/app/(normal)/post/[source]/[id]/pages/TwitterDetailPage.js';
-import { LoginRequiredGuard } from '@/components/LoginRequiredGuard.js';
+import { NotLoginFallback } from '@/components/NotLoginFallback.js';
 import { KeyType, type SocialSourceInURL, Source } from '@/constants/enum.js';
 import { createMetadataPostById } from '@/helpers/createMetadataPostById.js';
 import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
@@ -12,7 +11,9 @@ import { isBotRequest } from '@/helpers/isBotRequest.js';
 import { isSocialSourceInUrl } from '@/helpers/isSocialSource.js';
 import { memoizeWithRedis } from '@/helpers/memoizeWithRedis.js';
 import { resolveSocialSource } from '@/helpers/resolveSource.js';
+import { setupTwitterSession } from '@/helpers/setupTwitterSession.js';
 import { setupLocaleForSSR } from '@/i18n/index.js';
+import { twitterSessionHolder } from '@/providers/twitter/SessionHolder.js';
 
 export const revalidate = 60;
 
@@ -34,22 +35,19 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     return createSiteMetadata();
 }
 
-export default function Page(props: Props) {
+export default async function Page(props: Props) {
+    setupLocaleForSSR();
+    await setupTwitterSession();
+
     if (isBotRequest()) return null;
 
     const { params } = props;
     if (!isSocialSourceInUrl(params.source)) return notFound();
 
-    setupLocaleForSSR();
-
     const source = resolveSocialSource(params.source);
 
-    if (source === Source.Twitter) {
-        return (
-            <LoginRequiredGuard source={source}>
-                <TwitterPostDetailPage id={params.id} source={source} />
-            </LoginRequiredGuard>
-        );
+    if (source === Source.Twitter && !twitterSessionHolder.session) {
+        return <NotLoginFallback source={source} />;
     }
 
     return <PostDetailPage id={params.id} source={source} />;

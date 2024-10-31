@@ -1,3 +1,4 @@
+'use client';
 import { Trans } from '@lingui/macro';
 import { type HTMLProps, memo } from 'react';
 
