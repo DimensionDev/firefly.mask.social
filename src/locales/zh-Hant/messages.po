@@ -447,6 +447,9 @@ msgstr ""
 msgid "Trading cooldown function."
 msgstr ""
 
+msgid "Event Ended!"
+msgstr ""
+
 msgid "<0>{0}</0><1>mirrored</1>"
 msgstr ""
 
@@ -697,6 +700,9 @@ msgid "Info"
 msgstr "資訊"
 
 msgid "Failed to bookmark article."
+msgstr ""
+
+msgid "The event has ended, but you can explore others in Exclusive Events."
 msgstr ""
 
 msgid "{seconds, plural, one {1 second left} other {{seconds} seconds left}}"
@@ -1336,6 +1342,9 @@ msgid "Please confirm the login with Warpcast."
 msgstr "請至 Warpcast 確認登錄"
 
 msgid "Verified"
+msgstr ""
+
+msgid "Redirecting..."
 msgstr ""
 
 msgid "Log in with recovery phrase"

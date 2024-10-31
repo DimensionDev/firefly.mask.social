@@ -442,6 +442,9 @@ msgstr "Signer key not found. Please approve a new one for us in Warpcast."
 msgid "Trading cooldown function."
 msgstr "Trading cooldown function."
 
+msgid "Event Ended!"
+msgstr "Event Ended!"
+
 msgid "<0>{0}</0><1>mirrored</1>"
 msgstr "<0>{0}</0><1>mirrored</1>"
 
@@ -693,6 +696,9 @@ msgstr "Info"
 
 msgid "Failed to bookmark article."
 msgstr "Failed to bookmark article."
+
+msgid "The event has ended, but you can explore others in Exclusive Events."
+msgstr "The event has ended, but you can explore others in Exclusive Events."
 
 msgid "{seconds, plural, one {1 second left} other {{seconds} seconds left}}"
 msgstr "{seconds, plural, one {1 second left} other {{seconds} seconds left}}"
@@ -1332,6 +1338,9 @@ msgstr "Please confirm the login with Warpcast."
 
 msgid "Verified"
 msgstr "Verified"
+
+msgid "Redirecting..."
+msgstr "Redirecting..."
 
 msgid "Log in with recovery phrase"
 msgstr "Log in with recovery phrase"
