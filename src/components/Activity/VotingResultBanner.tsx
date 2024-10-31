@@ -7,7 +7,6 @@ import { BigNumber } from 'bignumber.js';
 import { STATUS } from '@/constants/enum.js';
 import { env } from '@/constants/env.js';
 import { Link } from '@/esm/Link.js';
-import { fetch } from '@/helpers/fetch.js';
 import { minus } from '@/helpers/number.js';
 import { useIsMedium, useIsSmall } from '@/hooks/useMediaQuery.js';
 import { FireflyActivityProvider } from '@/providers/firefly/Activity.js';
@@ -39,10 +38,12 @@ export function VotingResultBanner(props: VotingResultBannerProps) {
         enabled,
         queryFn: async () => {
             try {
-                await fetch('/font/level-up.otf');
-                if (!document.fonts?.check?.('16px LevelUp')) {
+                const fontFace = document.fonts;
+                if (typeof fontFace?.load !== 'function') {
                     await delay(200);
+                    return true;
                 }
+                await fontFace.load('1em LevelUp');
                 return true;
             } catch {
                 return true;
