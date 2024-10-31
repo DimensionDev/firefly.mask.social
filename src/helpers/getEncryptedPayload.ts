@@ -1,4 +1,5 @@
-import { compact, first } from 'lodash-es';
+import { memoizePromise } from '@masknet/kit';
+import { compact, first, memoize } from 'lodash-es';
 
 import type { Attachment } from '@/providers/types/SocialMedia.js';
 import { steganographyDecodeImage } from '@/services/steganography.js';
@@ -18,28 +19,25 @@ export function getEncryptedPayloadFromText(text: string | undefined): Encrypted
     return;
 }
 
-const decodedCache = new Map<string, undefined | EncryptedPayload>();
+const decodeAttachment = memoizePromise(
+    memoize,
+    async (attachment: Attachment) => {
+        if (attachment.type !== 'Image') return;
+        if (!attachment.uri) return;
+
+        const decoded = await steganographyDecodeImage(attachment.uri);
+        if (!decoded) return;
+
+        return [decoded, '2', attachment.uri] as EncryptedPayload;
+    },
+    (x) => x.url,
+);
+
 export async function getEncryptedPayloadFromImageAttachment(
     attachments: Attachment[] | undefined,
 ): Promise<EncryptedPayload | undefined> {
     if (!attachments) return undefined;
-    const result = attachments.map(async (attachment) => {
-        if (attachment.type !== 'Image') return;
-        const uri = attachment.uri;
-        if (!uri) return;
-        if (decodedCache.has(uri)) return decodedCache.get(uri);
-
-        const decoded = await steganographyDecodeImage(uri);
-        if (!decoded) {
-            decodedCache.set(uri, undefined);
-            return;
-        }
-
-        const payload = [decoded, '2', uri] as EncryptedPayload;
-        decodedCache.set(uri, payload);
-        return payload;
-    });
-
+    const result = attachments.map(decodeAttachment);
     const allSettled = await Promise.allSettled(result);
     return first(compact(allSettled.map((x) => (x.status === 'fulfilled' ? x.value : null))));
 }
