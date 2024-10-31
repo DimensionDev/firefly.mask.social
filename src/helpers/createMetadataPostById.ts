@@ -10,10 +10,9 @@ import { getPostUrl } from '@/helpers/getPostUrl.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { resolveSocialSource } from '@/helpers/resolveSource.js';
 import { getI18n } from '@/i18n/index.js';
-import { getLocaleFromCookies } from '@/helpers/getLocaleFromCookies.js';
 
 export async function createMetadataPostById(source: SocialSourceInURL, postId: string) {
-    const i18n = getI18n(getLocaleFromCookies());
+    const i18n = getI18n();
     const provider = resolveSocialMediaProvider(resolveSocialSource(source));
     const post = await provider.getPostById(postId).catch(() => null);
     if (!post) return createSiteMetadata();
