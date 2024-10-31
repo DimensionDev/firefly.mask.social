@@ -1,4 +1,5 @@
-import { compact, first } from 'lodash-es';
+import { memoizePromise } from '@masknet/kit';
+import { compact, first, memoize } from 'lodash-es';
 
 import type { Attachment } from '@/providers/types/SocialMedia.js';
 import { steganographyDecodeImage } from '@/services/steganography.js';
@@ -18,11 +19,9 @@ export function getEncryptedPayloadFromText(text: string | undefined): Encrypted
     return;
 }
 
-export async function getEncryptedPayloadFromImageAttachment(
-    attachments: Attachment[] | undefined,
-): Promise<EncryptedPayload | undefined> {
-    if (!attachments) return undefined;
-    const result = attachments.map(async (attachment) => {
+const decodeAttachment = memoizePromise(
+    memoize,
+    async (attachment: Attachment) => {
         if (attachment.type !== 'Image') return;
         if (!attachment.uri) return;
 
@@ -30,8 +29,15 @@ export async function getEncryptedPayloadFromImageAttachment(
         if (!decoded) return;
 
         return [decoded, '2', attachment.uri] as EncryptedPayload;
-    });
+    },
+    (x) => x.url,
+);
 
+export async function getEncryptedPayloadFromImageAttachment(
+    attachments: Attachment[] | undefined,
+): Promise<EncryptedPayload | undefined> {
+    if (!attachments) return undefined;
+    const result = attachments.map(decodeAttachment);
     const allSettled = await Promise.allSettled(result);
     return first(compact(allSettled.map((x) => (x.status === 'fulfilled' ? x.value : null))));
 }
