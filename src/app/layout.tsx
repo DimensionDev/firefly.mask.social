@@ -1,7 +1,7 @@
 /* cspell:disable */
 
-import '@dialectlabs/blinks/index.css';
 import '@/app/globals.css';
+import '@dialectlabs/blinks/index.css';
 
 import { GoogleAnalytics } from '@next/third-parties/google';
 import { Inter } from 'next/font/google';
@@ -40,6 +40,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                 <Script src="/js/browser-detector.js" defer />
                 <Script src="/js/safary.js" defer />
                 <GoogleAnalytics gaId="G-61NFDTK6LT" />
+                <link rel="preload" as="font" href="/font/level-up.otf" />
                 <meta name="theme-color" content="#ffffff" />
             </head>
             <body className={`${inter.variable} font-inter`}>

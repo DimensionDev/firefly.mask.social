@@ -188,7 +188,16 @@
         "mutelist",
         "Powerbadge",
         "errormessage",
-        "webm"
+        "webm",
+        "cooldown",
+        "darkweb",
+        "cybercrime",
+        "selfdestruct",
+        "reinit",
+        "mutelist",
+        "tipjar",
+        "elex",
+        "hlbl"
     ],
     "flagWords": [],
     "ignorePaths": [

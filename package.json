@@ -1,13 +1,13 @@
 {
     "name": "mask.social",
     "type": "module",
-    "version": "6.2.10",
+    "version": "6.2.11",
     "private": true,
     "packageManager": "pnpm@8.15.8",
     "scripts": {
         "dev": "next dev",
         "debug": "NODE_OPTIONS='--inspect' next dev",
-        "build": "next build",
+        "build": "NODE_OPTIONS=--max_old_space_size=4096 next build",
         "build:sw": "node scripts/build-sw.mjs",
         "build:logs": "scripts/build-logs.sh",
         "build:polyfills": "scripts/build-polyfills.sh",

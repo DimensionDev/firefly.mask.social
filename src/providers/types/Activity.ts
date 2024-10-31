@@ -53,6 +53,11 @@ export interface Balance {
     level: Level;
 }
 
+export enum ActivityElex24VoteOption {
+    Trump = 'trump',
+    Harris = 'harris',
+}
+
 export type CheckResponse = Response<{
     alreadyClaimed: boolean;
     canClaim: boolean;
@@ -62,6 +67,9 @@ export type CheckResponse = Response<{
     firefly: Firefly;
     address: string;
     claimCondition: [];
+    ext?: {
+        vote?: ActivityElex24VoteOption;
+    };
 }>;
 
 export type MintActivitySBTResponse = Response<{

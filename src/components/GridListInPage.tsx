@@ -14,7 +14,7 @@ import { narrowToSocialSource } from '@/helpers/narrowToSocialSource.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
 
-interface GridListInPageProps<T = unknown, C = unknown> {
+export interface GridListInPageProps<T = unknown, C = unknown> {
     queryResult: UseSuspenseInfiniteQueryResult<T[]>;
     loginRequired?: boolean;
     noResultsFallbackRequired?: boolean;

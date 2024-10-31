@@ -60,6 +60,7 @@ const ExternalEnvSchema = z.object({
     NEXT_PUBLIC_DEVELOPERS: z.nativeEnum(STATUS).default(STATUS.Enabled),
     NEXT_PUBLIC_TELEMETRY: z.nativeEnum(STATUS).default(STATUS.Disabled),
     NEXT_PUBLIC_TELEMETRY_DEBUG: z.nativeEnum(STATUS).default(STATUS.Disabled),
+    NEXT_PUBLIC_VOTING_RESULT: z.nativeEnum(STATUS).default(STATUS.Disabled),
 
     // public use of hubble
     NEXT_PUBLIC_HUBBLE_URL: z.string(),
@@ -114,6 +115,7 @@ export const env = {
         NEXT_PUBLIC_TELEMETRY: process.env.NEXT_PUBLIC_TELEMETRY,
         NEXT_PUBLIC_TELEMETRY_DEBUG: process.env.NEXT_PUBLIC_TELEMETRY_DEBUG,
         NEXT_PUBLIC_DEVELOPERS: process.env.NEXT_PUBLIC_DEVELOPERS,
+        NEXT_PUBLIC_VOTING_RESULT: process.env.NEXT_PUBLIC_VOTING_RESULT,
 
         // hubble
         NEXT_PUBLIC_HUBBLE_URL: process.env.NEXT_PUBLIC_HUBBLE_URL,

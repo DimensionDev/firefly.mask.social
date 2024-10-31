@@ -215,7 +215,7 @@ iframe {
 .markup > p,
 .markup > ul {
     @apply !leading-6 sm:!leading-5;
-    @apply [&:not(:last-child)]:mb-2;
+    @apply [&:not(:last-child)]:mb-6;
 }
 
 .lp-player {
@@ -253,6 +253,12 @@ html.dark {
 html,
 body {
     scrollbar-gutter: stable;
+}
+
+@font-face {
+    font-family: 'LevelUp';
+    src: url('/font/level-up.otf');
+    font-weight: 400;
 }
 
 .SnackbarContainer-root {
