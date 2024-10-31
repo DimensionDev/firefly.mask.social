@@ -8,7 +8,6 @@ import {
 } from '@lexical/react/LexicalTypeaheadMenuPlugin.js';
 import { useQuery } from '@tanstack/react-query';
 import type { TextNode } from 'lexical';
-import { compact, first } from 'lodash-es';
 import { memo, useCallback, useMemo, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
 import { useDebounce, useOnClickOutside } from 'usehooks-ts';
@@ -20,10 +19,9 @@ import { Tooltip } from '@/components/Tooltip.js';
 import type { SocialSource } from '@/constants/enum.js';
 import { EMPTY_LIST, SORTED_SOCIAL_SOURCES } from '@/constants/index.js';
 import { classNames } from '@/helpers/classNames.js';
+import { formatSearchIdentities } from '@/helpers/formatSearchIdentities.js';
 import { getSafeMentionQueryText } from '@/helpers/getMentionOriginalText.js';
-import { getStampAvatarByProfileId } from '@/helpers/getStampAvatarByProfileId.js';
 import { resolveSocialSource } from '@/helpers/resolveSource.js';
-import { resolveSocialSourceInUrl } from '@/helpers/resolveSourceInUrl.js';
 import { useCompositePost } from '@/hooks/useCompositePost.js';
 import { useCurrentProfileAll } from '@/hooks/useCurrentProfile.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
@@ -193,31 +191,7 @@ export function MentionsPlugin(): JSX.Element | null {
             const data = await FireflyEndpointProvider.searchIdentity(debounceQuery, availableSources);
 
             if (!data) return EMPTY_LIST;
-            return data.list
-                .map((x) => {
-                    const target = SORTED_SOCIAL_SOURCES.map((source) => x[resolveSocialSourceInUrl(source)])
-                        .flatMap((value) => value ?? EMPTY_LIST)
-                        .find((profile) => profile.hit);
-                    if (!target) return;
-
-                    const allProfile = compact(
-                        SORTED_SOCIAL_SOURCES.map((source) => first(x[resolveSocialSourceInUrl(source)])).map((x) => {
-                            if (target.platform === x?.platform) return target;
-                            return x;
-                        }),
-                    );
-
-                    const platform = resolveSocialSource(target.platform);
-                    return {
-                        platform,
-                        profileId: target.platform_id,
-                        avatar: getStampAvatarByProfileId(platform, target.platform_id),
-                        handle: target.handle,
-                        name: target.name,
-                        allProfile,
-                    };
-                })
-                .filter((handle) => !!handle);
+            return formatSearchIdentities(data.list);
         },
     });
 
