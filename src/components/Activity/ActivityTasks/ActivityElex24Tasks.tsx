@@ -13,41 +13,10 @@ import { ActivityElex24Vote } from '@/components/Activity/ActivityElex24/Activit
 import { ActivityPremiumConditionList } from '@/components/Activity/ActivityPremiumConditionList.js';
 import { ActivityTaskFollowCard } from '@/components/Activity/ActivityTaskFollowCard.js';
 import { ActivityTwitterLoginButton } from '@/components/Activity/ActivityTwitterLoginButton.js';
-import { Source, SourceInURL } from '@/constants/enum.js';
-import { CHAR_TAG, type Chars } from '@/helpers/chars.js';
-import type { ActivityInfoResponse, Profile } from '@/providers/types/Firefly.js';
-
-const fireflyMention = {
-    tag: CHAR_TAG.MENTION,
-    visible: true,
-    content: `@thefireflyapp`,
-    profiles: [
-        {
-            platform_id: '1583361564479889408',
-            platform: SourceInURL.Twitter,
-            handle: 'thefireflyapp',
-            name: 'thefireflyapp',
-            hit: true,
-            score: 0,
-        },
-        {
-            platform_id: '16823',
-            platform: SourceInURL.Farcaster,
-            handle: 'fireflyapp',
-            name: 'Firefly App',
-            hit: true,
-            score: 0,
-        },
-        {
-            platform_id: '0x01b000',
-            platform: SourceInURL.Lens,
-            handle: 'fireflyapp',
-            name: 'fireflyapp',
-            hit: true,
-            score: 0,
-        },
-    ] as Profile[],
-};
+import { Source } from '@/constants/enum.js';
+import { FIREFLY_MENTION } from '@/constants/index.js';
+import { type Chars } from '@/helpers/chars.js';
+import type { ActivityInfoResponse } from '@/providers/types/Firefly.js';
 
 export function ActivityElex24Tasks({ data }: { data: Pick<Required<ActivityInfoResponse>['data'], 'status'> }) {
     const { vote } = useContext(ActivityElex24Context);
@@ -55,12 +24,12 @@ export function ActivityElex24Tasks({ data }: { data: Pick<Required<ActivityInfo
         ? {
               [ActivityElex24VoteOption.Trump]: [
                   'Just claimed the "Vote for Trump❤️" collectible from ',
-                  fireflyMention,
+                  FIREFLY_MENTION,
                   ' !\n\nClaim your free special edition Firefly NFT at https://firefly.mask.social/events/elex24 and support Trump to serve another four years as President.\n\n#election2024 #FireflySocial',
               ],
               [ActivityElex24VoteOption.Harris]: [
                   'Just claimed the "Vote for Harris❤️" collectible from ',
-                  fireflyMention,
+                  FIREFLY_MENTION,
                   ' !\n\nClaim your free special edition Firefly NFT at https://firefly.mask.social/events/elex24 and support Vice President Harris to serve next four years as President\n\n#election2024 #FireflySocial',
               ],
           }[vote]

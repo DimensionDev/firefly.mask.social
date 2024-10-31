@@ -14,10 +14,13 @@ import {
     SocialProfileCategory,
     type SocialSource,
     Source,
+    SourceInURL,
     VERCEL_NEV,
     WalletProfileCategory,
 } from '@/constants/enum.js';
 import { env } from '@/constants/env.js';
+import { CHAR_TAG } from '@/helpers/chars.js';
+import type { Profile } from '@/providers/types/Firefly.js';
 import type { Attachment } from '@/providers/types/SocialMedia.js';
 import { MediaSource } from '@/types/compose.js';
 
@@ -242,3 +245,35 @@ export const MIRROR_OLD_FACTOR_ADDRESSES = [
     '0x302f746eE2fDC10DDff63188f71639094717a766',
     '0x2d4b7Ec9923b9cf22d87Ced721e69E1f8eD96a0A',
 ];
+
+export const FIREFLY_MENTION = {
+    tag: CHAR_TAG.MENTION,
+    visible: true,
+    content: `@thefireflyapp`,
+    profiles: [
+        {
+            platform_id: '1583361564479889408',
+            platform: SourceInURL.Twitter,
+            handle: 'thefireflyapp',
+            name: 'thefireflyapp',
+            hit: true,
+            score: 0,
+        },
+        {
+            platform_id: '16823',
+            platform: SourceInURL.Farcaster,
+            handle: 'fireflyapp',
+            name: 'Firefly App',
+            hit: true,
+            score: 0,
+        },
+        {
+            platform_id: '0x01b000',
+            platform: SourceInURL.Lens,
+            handle: 'fireflyapp',
+            name: 'fireflyapp',
+            hit: true,
+            score: 0,
+        },
+    ] as Profile[],
+};
