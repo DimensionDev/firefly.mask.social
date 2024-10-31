@@ -1,11 +1,13 @@
 'use client';
 
+import { delay } from '@masknet/kit';
 import { useQuery } from '@tanstack/react-query';
 import { BigNumber } from 'bignumber.js';
 
 import { STATUS } from '@/constants/enum.js';
 import { env } from '@/constants/env.js';
 import { Link } from '@/esm/Link.js';
+import { fetch } from '@/helpers/fetch.js';
 import { minus } from '@/helpers/number.js';
 import { useIsMedium, useIsSmall } from '@/hooks/useMediaQuery.js';
 import { FireflyActivityProvider } from '@/providers/firefly/Activity.js';
@@ -30,30 +32,25 @@ export function VotingResultBanner(props: VotingResultBannerProps) {
     });
     const ended = info?.status === ActivityStatus.Ended;
 
-    // wait for image to load before showing the percentage
-    const { isLoading } = useQuery({
-        queryKey: ['voting-bg'],
-        staleTime: 10 * 60 * 1000,
+    // wait for font loaded
+    const { data: fontLoaded } = useQuery({
+        queryKey: ['font-loaded', 'level-up'],
+        staleTime: 0,
         enabled,
-        queryFn: () =>
-            new Promise((resolve) => {
-                try {
-                    const img = new Image();
-                    img.onload = () => resolve(img);
-                    img.onerror = () => resolve(null);
-
-                    img.src = '/image/voting-bg.png';
-                } catch {
-                    resolve(null);
+        queryFn: async () => {
+            try {
+                await fetch('/font/level-up.otf');
+                if (!document.fonts?.check?.('16px LevelUp')) {
+                    await delay(200);
                 }
-            }),
+                return true;
+            } catch {
+                return true;
+            }
+        },
     });
 
-    const {
-        isLoading: loadingResult,
-        data,
-        refetch,
-    } = useQuery({
+    const { isLoading: loadingResult, data } = useQuery({
         queryKey: ['voting-result'],
         staleTime: 0,
         enabled,
@@ -70,7 +67,7 @@ export function VotingResultBanner(props: VotingResultBannerProps) {
         ? minus(100, trumpRatePercent).toFixed(0)
         : new BigNumber((data?.harris || 0) * 100).toFixed(0);
 
-    const showPercent = !isLoading && !loadingResult && !!data;
+    const showPercent = !!fontLoaded && !loadingResult && !!data;
 
     return (
         <Link target="_blank" className="relative w-full" href={'/event/elex24'}>
