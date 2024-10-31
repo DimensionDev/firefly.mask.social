@@ -11,7 +11,7 @@ interface Props {
     searchParams: { source: SocialSourceInURL };
 }
 
-export default async function Photo({ params: { id: postId }, searchParams: { source } }: Props) {
+export default function Photo({ params: { id: postId }, searchParams: { source } }: Props) {
     redirect(urlcat('/post/:id', { id: postId, source }));
     return null;
 }

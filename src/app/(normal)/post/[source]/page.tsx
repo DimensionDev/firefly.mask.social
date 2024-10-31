@@ -27,7 +27,7 @@ export async function generateMetadata({ params, searchParams }: Props): Promise
     return createSiteMetadata();
 }
 
-export default async function Page({ params, searchParams }: Props) {
+export default function Page({ params, searchParams }: Props) {
     if (!searchParams.source) return notFound();
     if (!isSocialSourceInUrl(params.source)) {
         return redirect(resolvePostUrl(resolveSocialSource(searchParams.source), params.source));
