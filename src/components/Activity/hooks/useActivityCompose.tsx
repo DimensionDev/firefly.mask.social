@@ -1,4 +1,4 @@
-import { useAsyncFn } from 'react-use';
+import { useCallback } from 'react';
 
 import { type Chars } from '@/helpers/chars.js';
 import { ComposeModalRef } from '@/modals/controls.js';
@@ -6,7 +6,7 @@ import { fireflyBridgeProvider } from '@/providers/firefly/Bridge.js';
 import { type Mention, Platform, type RequestArguments, SupportedMethod } from '@/types/bridge.js';
 
 export function useActivityCompose() {
-    return useAsyncFn(async (chars: Chars) => {
+    return useCallback((chars: Chars) => {
         if (fireflyBridgeProvider.supported) {
             const params = Array.isArray(chars)
                 ? chars.reduce<Omit<RequestArguments[SupportedMethod.COMPOSE], 'activity'>>(
@@ -33,10 +33,12 @@ export function useActivityCompose() {
                       },
                   )
                 : { text: chars, mentions: [] };
-            return fireflyBridgeProvider.request(SupportedMethod.COMPOSE, {
+
+            fireflyBridgeProvider.request(SupportedMethod.COMPOSE, {
                 activity: `${window.location.origin}${window.location.pathname}`,
                 ...params,
             });
+            return;
         }
 
         ComposeModalRef.open({
