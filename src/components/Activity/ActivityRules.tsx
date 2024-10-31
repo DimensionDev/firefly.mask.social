@@ -1,5 +1,3 @@
-'use client';
-
 import { Trans } from '@lingui/macro';
 
 export function ActivityRules() {

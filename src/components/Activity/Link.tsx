@@ -15,20 +15,19 @@ export const Link = forwardRef<
             ref={ref}
             {...props}
             data-disable-nprogress
-            onClick={
-                fireflyBridgeProvider.supported
-                    ? (event) => {
-                          event.preventDefault();
-
-                          const url = !props.href.startsWith('https')
-                              ? urlcat(window.location.origin, props.href)
-                              : props.href;
-                          fireflyBridgeProvider.request(SupportedMethod.OPEN_URL, {
-                              url,
-                          });
-                      }
-                    : props.onClick
-            }
+            onClick={(event) => {
+                if (fireflyBridgeProvider.supported) {
+                    event.preventDefault();
+                    const url = !props.href.startsWith('https')
+                        ? urlcat(window.location.origin, props.href)
+                        : props.href;
+                    fireflyBridgeProvider.request(SupportedMethod.OPEN_URL, {
+                        url,
+                    });
+                } else {
+                    props.onClick?.(event);
+                }
+            }}
         >
             {children}
         </RawLink>

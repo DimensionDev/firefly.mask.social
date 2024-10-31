@@ -40,10 +40,13 @@ function Button({
         <button
             className={className}
             disabled={loading || logging}
-            onClick={(e) => {
-                if (isLoggedIn) return onClick?.();
-                e.preventDefault();
-                login();
+            onClick={(event) => {
+                if (isLoggedIn) {
+                    onClick?.();
+                } else {
+                    event.preventDefault();
+                    login();
+                }
             }}
         >
             {loading ? (

@@ -5,7 +5,6 @@ import { ChainId } from '@masknet/web3-shared-evm';
 
 import SuccessShieldIcon from '@/assets/success-shield.svg';
 import { useActivityCompose } from '@/components/Activity/hooks/useActivityCompose.js';
-import { useActivityPremiumList } from '@/components/Activity/hooks/useActivityPremiumList.js';
 import { Link } from '@/components/Activity/Link.js';
 import { CloseButton } from '@/components/CloseButton.js';
 import { Modal } from '@/components/Modal.js';
@@ -26,9 +25,7 @@ interface Props {
 
 export function ActivityMintSuccessDialog({ claimType, shareContent, open, onClose, hash, chainId }: Props) {
     const isMedium = useIsMedium();
-    const [{ loading }, shareAndPost] = useActivityCompose();
-    const list = useActivityPremiumList();
-    const isPremium = list.some((x) => x.verified);
+    const shareAndPost = useActivityCompose();
 
     const content = (
         <div className="flex w-full flex-col items-center text-center">
@@ -57,7 +54,6 @@ export function ActivityMintSuccessDialog({ claimType, shareContent, open, onClo
                     shareAndPost(shareContent);
                     onClose();
                 }}
-                disabled={loading}
             >
                 <Trans>Share in a Post</Trans>
             </button>

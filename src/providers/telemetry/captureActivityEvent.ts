@@ -1,3 +1,4 @@
+import { bom } from '@/helpers/bom.js';
 import { runInSafe } from '@/helpers/runInSafe.js';
 import { getPublicParameters } from '@/providers/telemetry/getPublicParameters.js';
 import { TelemetryProvider } from '@/providers/telemetry/index.js';
@@ -22,7 +23,7 @@ export function captureActivityEvent<
         TelemetryProvider.captureEvent(
             eventId,
             {
-                activity: window.location.href,
+                activity: bom.location?.href,
                 ...getPublicParameters(eventId, null),
                 ...params,
             } as Events[E]['parameters'],
