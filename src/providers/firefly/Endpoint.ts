@@ -492,12 +492,13 @@ export class FireflyEndpoint {
     }
 
     async disconnectAccount(identity: FireflyIdentity) {
-        const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/accountConnection', {
-            connectionPlatform: resolveSourceInUrl(identity.source),
-            connectionId: identity.id,
-        });
+        const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/accountConnection');
         await fireflySessionHolder.fetch<EmptyResponse>(url, {
             method: 'DELETE',
+            body: JSON.stringify({
+                connectionPlatform: resolveSourceInUrl(identity.source),
+                connectionId: identity.id,
+            }),
         });
     }
 
