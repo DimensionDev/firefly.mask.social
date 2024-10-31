@@ -78,7 +78,7 @@ class FireflyBridgeProvider {
             new Promise<RequestResult[T]>((resolve, reject) => {
                 this.callbacks.set(requestId, (response: string) => {
                     const parsed = parseJSON<{ result?: RequestResult[T]; error?: string }>(response);
-                    if (!parsed) throw new Error(`Failed to parse response: ${response}`);
+                    if (!parsed) throw new Error(`[bridge] failed to parse response: ${response}`);
 
                     const { error, result } = parsed;
                     if (error) reject(error);
@@ -90,7 +90,7 @@ class FireflyBridgeProvider {
                 callNativeMethod(method, requestId, params as RequestArguments[T]);
             }),
             3 * 60 * 1000 /* 3 minute */,
-            `request ${method} timeout.`,
+            `[bridge] request ${method} timeout.`,
         ).finally(() => {
             this.callbacks.delete(requestId);
         });
