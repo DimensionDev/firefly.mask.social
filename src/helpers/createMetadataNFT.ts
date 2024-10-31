@@ -13,7 +13,7 @@ export async function createMetadataNFT(address: string, tokenId: string, chainI
             chainId,
         },
         true,
-    );
+    ).catch(() => undefined);
     if (!data?.metadata) return createSiteMetadata({});
     const title = createPageTitleOG(data.metadata.name);
     const description = data.metadata.description;
@@ -37,7 +37,7 @@ export async function createMetadataNFT(address: string, tokenId: string, chainI
 }
 
 export async function createMetadataNFTCollection(address: string, chainId: ChainId) {
-    const data = await SimpleHashWalletProfileProvider.getCollection(address, { chainId });
+    const data = await SimpleHashWalletProfileProvider.getCollection(address, { chainId }).catch(() => undefined);
     if (!data) return createSiteMetadata({});
     const title = createPageTitleOG(data.name);
     const description = data.description;

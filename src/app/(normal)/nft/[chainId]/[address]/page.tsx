@@ -18,7 +18,7 @@ export async function generateMetadata({ params: { address, ...params } }: Props
     return createSiteMetadata();
 }
 
-export default async function Page({ params: { address, ...params } }: Props) {
+export default function Page({ params: { address, ...params } }: Props) {
     const chainId = parseChainId(params.chainId);
     if (!chainId) notFound();
 
