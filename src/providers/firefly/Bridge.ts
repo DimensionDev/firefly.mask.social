@@ -9,6 +9,7 @@ const NO_RETURN_METHODS = [
     SupportedMethod.COMPOSE,
     SupportedMethod.BACK,
     SupportedMethod.UPDATE_NAVIGATOR_BAR,
+    SupportedMethod.OPEN_URL,
 ];
 
 function callNativeMethod<T extends SupportedMethod>(method: T, id: string, params: RequestArguments[T]) {
