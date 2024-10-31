@@ -7,6 +7,7 @@ import { STATUS } from '@/constants/enum.js';
 import { env } from '@/constants/env.js';
 import { FIREFLY_DEV_ROOT_URL, FIREFLY_ROOT_URL } from '@/constants/index.js';
 import { createSelectors } from '@/helpers/createSelector.js';
+import { recordDevelopmentAPI } from '@/services/recordDevelopmentAPI.js';
 
 interface DeveloperSettingsState {
     developmentAPI: boolean;
@@ -33,6 +34,7 @@ const useDeveloperSettingsBase = create<
             updateDevelopmentAPI: (value: boolean) =>
                 set((state) => {
                     updateRedPacketApiRoot(value);
+                    recordDevelopmentAPI(value ? FIREFLY_DEV_ROOT_URL : FIREFLY_ROOT_URL);
                     state.developmentAPI = value;
                 }),
 
@@ -56,6 +58,7 @@ const useDeveloperSettingsBase = create<
                 telemetryDebug: state.telemetryDebug,
             }),
             onRehydrateStorage: (state) => {
+                recordDevelopmentAPI(state.developmentAPI ? FIREFLY_DEV_ROOT_URL : FIREFLY_ROOT_URL);
                 updateRedPacketApiRoot(state.developmentAPI);
             },
         },
