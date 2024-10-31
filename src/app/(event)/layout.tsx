@@ -1,12 +1,13 @@
 'use client';
 
 import { SuggestedChannels } from '@/components/Channel/SuggestedChannels.js';
+import { IfPathname } from '@/components/IfPathname.js';
 import { LinkCloud } from '@/components/LinkCloud.js';
 import { NavigatorBar } from '@/components/NavigatorBar/index.js';
 import { AsideSearchBar, HeaderSearchBar } from '@/components/Search/SearchBar.js';
 import { SideBar } from '@/components/SideBar/index.js';
 import { SuggestedFollowsCard } from '@/components/SuggestedFollows/SuggestedFollowsCard.js';
-import { Source } from '@/constants/enum.js';
+import { PageRoute, Source } from '@/constants/enum.js';
 import { fireflyBridgeProvider } from '@/providers/firefly/Bridge.js';
 
 export default function Layout({ children }: { children: React.ReactNode }) {
@@ -17,7 +18,9 @@ export default function Layout({ children }: { children: React.ReactNode }) {
             <main className="flex w-full flex-[1_1_100%] flex-col md:border-r md:border-line md:pl-[289px] lg:w-[888px] lg:max-w-[calc(100%-384px)]">
                 <div className="sticky top-0 z-40 bg-primaryBottom">
                     <HeaderSearchBar />
-                    <NavigatorBar />
+                    <IfPathname isOneOf={[PageRoute.Events]}>
+                        <NavigatorBar />
+                    </IfPathname>
                 </div>
                 {children}
             </main>
