@@ -1,36 +1,15 @@
-import { notFound, redirect } from 'next/navigation.js';
 import { type PropsWithChildren } from 'react';
 
 import { SourceTabs } from '@/components/SourceTabs/index.js';
 import { DiscoverType } from '@/constants/enum.js';
-import { DISCOVER_SOURCES } from '@/constants/index.js';
-import { getUrlFromHeaders } from '@/helpers/getUrlFromHeaders.js';
-import { isDiscoverSource, isSocialDiscoverSource } from '@/helpers/isDiscoverSource.js';
+import { DEFAULT_SOCIAL_SOURCE, DISCOVER_SOURCES } from '@/constants/index.js';
 import { resolveDiscoverUrl } from '@/helpers/resolveDiscoverUrl.js';
-import { resolveSourceFromUrlNoFallback } from '@/helpers/resolveSource.js';
 
-export default function Layout({
-    params,
-    children,
-}: PropsWithChildren<{
-    params: {
-        source: string;
-    };
-}>) {
-    const source = resolveSourceFromUrlNoFallback(params.source);
-
-    if (!source || !isDiscoverSource(source)) {
-        return notFound();
-    }
-
-    if (isSocialDiscoverSource(source) && getUrlFromHeaders()?.pathname === `/${params.source}`) {
-        return redirect(resolveDiscoverUrl(source, DiscoverType.Trending));
-    }
-
+export default function Layout({ children }: PropsWithChildren) {
     return (
         <>
             <SourceTabs
-                source={source}
+                source={DEFAULT_SOCIAL_SOURCE}
                 sources={DISCOVER_SOURCES}
                 href={(x) => resolveDiscoverUrl(x, DiscoverType.Trending)}
             />
