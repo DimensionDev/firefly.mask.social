@@ -139,15 +139,20 @@ class FireflyActivity implements Provider {
         authToken?: string;
     } = {}) {
         const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/accountConnection');
+        const headers: HeadersInit = {
+            'Cache-Control': 'no-cache',
+            Pragma: 'no-cache',
+        };
         const response = await fireflySessionHolder.fetch<GetAllConnectionsResponse>(url, {
             method: 'GET',
             ...(authToken
                 ? {
                       headers: {
                           Authorization: `Bearer ${authToken}`,
+                          ...headers,
                       },
                   }
-                : {}),
+                : { headers }),
         });
         const connections = resolveFireflyResponseData(response);
         return {
