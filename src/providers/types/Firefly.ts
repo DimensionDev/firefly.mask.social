@@ -1216,3 +1216,9 @@ export type ActivityInfoResponse = Response<{
     open_graph_url: string;
     status: ActivityStatus;
 }>;
+
+export type VotingResultResponse = Response<{
+    trump: number;
+    harris: number;
+    tokenIdCount: number;
+}>;

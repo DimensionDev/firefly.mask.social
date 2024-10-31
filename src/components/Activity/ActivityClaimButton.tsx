@@ -41,7 +41,7 @@ export function ActivityClaimButton({ shareContent, status, claimApiExtraParams,
 
     const isPremium = list.some((x) => x.verified);
     const disabled =
-        status === ActivityStatus.Ended || !data?.canClaim || !isFollowedFirefly || !address || !rest.disabled;
+        status === ActivityStatus.Ended || !data?.canClaim || !isFollowedFirefly || !address || rest.disabled;
 
     const [{ loading }, claim] = useAsyncFn(async () => {
         if (disabled || !address) return;

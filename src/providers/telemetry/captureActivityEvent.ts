@@ -1,8 +1,11 @@
 import { bom } from '@/helpers/bom.js';
+import { parseURL } from '@masknet/shared-base';
+
+import { ReferralAccountPlatform } from '@/helpers/resolveActivityUrl.js';
 import { runInSafe } from '@/helpers/runInSafe.js';
 import { getPublicParameters } from '@/providers/telemetry/getPublicParameters.js';
 import { TelemetryProvider } from '@/providers/telemetry/index.js';
-import { type EventId, type Events } from '@/providers/types/Telemetry.js';
+import { EventId, type Events } from '@/providers/types/Telemetry.js';
 
 export function captureActivityEvent<
     E extends
@@ -19,11 +22,28 @@ export function captureActivityEvent<
     },
 ) {
     if (!params.firefly_account_id) delete params.firefly_account_id; // filter undefined or null
+    const url = parseURL(window.location.href);
+    const referralCode = url?.searchParams.get('r');
+    const referralParams =
+        [
+            EventId.EVENT_CONNECT_WALLET_SUCCESS,
+            EventId.EVENT_CHANGE_WALLET_SUCCESS,
+            EventId.EVENT_CLAIM_BASIC_SUCCESS,
+            EventId.EVENT_CLAIM_PREMIUM_SUCCESS,
+        ].includes(eventId) &&
+        referralCode &&
+        url?.searchParams.get('p') === ReferralAccountPlatform.X
+            ? {
+                  referral_x_handle: referralCode,
+              }
+            : {};
+
     runInSafe(() => {
         TelemetryProvider.captureEvent(
             eventId,
             {
                 activity: bom.location?.href,
+                ...referralParams,
                 ...getPublicParameters(eventId, null),
                 ...params,
             } as Events[E]['parameters'],
