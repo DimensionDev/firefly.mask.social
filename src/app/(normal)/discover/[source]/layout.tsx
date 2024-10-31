@@ -20,7 +20,7 @@ export default function Layout({
     const source = resolveSourceFromUrlNoFallback(params.source);
 
     if (!source || !isDiscoverSource(source)) {
-        return notFound();
+        notFound();
     }
 
     if (isSocialDiscoverSource(source) && getUrlFromHeaders()?.pathname === `/${params.source}`) {

@@ -24,7 +24,7 @@ export default async function Layout({ params, children }: Props) {
     const provider = resolveSocialMediaProvider(source);
     const channel = await provider.getChannelById(params.id).catch(() => null);
 
-    if (!channel) return notFound();
+    if (!channel) notFound();
 
     return (
         <ChannelLayout channel={channel} id={params.id} type={params.type}>

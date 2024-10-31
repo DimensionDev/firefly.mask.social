@@ -17,7 +17,7 @@ export default function Layout({
     };
 }>) {
     const source = resolveSourceFromUrlNoFallback(params.source);
-    if (!source || !isSocialSource(source)) return notFound();
+    if (!source || !isSocialSource(source)) notFound();
     return (
         <EngagementLayout source={source} id={params.id} type={params.type}>
             {children}
