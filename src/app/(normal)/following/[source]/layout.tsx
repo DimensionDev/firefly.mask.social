@@ -25,7 +25,7 @@ export default function Layout({
     };
 }>) {
     const source = resolveSourceFromUrlNoFallback(params.source);
-    if (!source || !isDiscoverSource(source)) return notFound();
+    if (!source || !isDiscoverSource(source)) notFound();
     return (
         <>
             <SourceTabs source={source} sources={DISCOVER_SOURCES} href={resolveFollowingUrl} />

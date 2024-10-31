@@ -1,6 +1,7 @@
 'use client';
 
 import { Trans } from '@lingui/macro';
+import type { ReactNode } from 'react';
 
 import {
     type ProfilePageSource,
@@ -23,11 +24,12 @@ export function ProfileCategoryTabs({
     id: string;
     category: WalletProfileCategory | SocialProfileCategory;
 }) {
-    const tabTitles = {
+    const tabTitles: Record<WalletProfileCategory, ReactNode> = {
         [WalletProfileCategory.OnChainActivities]: <Trans>Onchain Activities</Trans>,
         [WalletProfileCategory.POAPs]: <Trans>POAPs</Trans>,
         [WalletProfileCategory.NFTs]: <Trans>NFTs</Trans>,
         [WalletProfileCategory.Articles]: <Trans>Articles</Trans>,
+        [WalletProfileCategory.DAO]: <Trans>Articles</Trans>,
     };
 
     const categories =
