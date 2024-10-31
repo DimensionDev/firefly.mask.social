@@ -18,26 +18,18 @@ export function getEncryptedPayloadFromText(text: string | undefined): Encrypted
     return;
 }
 
-const decodedCache = new Map<string, undefined | EncryptedPayload>();
 export async function getEncryptedPayloadFromImageAttachment(
     attachments: Attachment[] | undefined,
 ): Promise<EncryptedPayload | undefined> {
     if (!attachments) return undefined;
     const result = attachments.map(async (attachment) => {
         if (attachment.type !== 'Image') return;
-        const uri = attachment.uri;
-        if (!uri) return;
-        if (decodedCache.has(uri)) return decodedCache.get(uri);
+        if (!attachment.uri) return;
 
-        const decoded = await steganographyDecodeImage(uri);
-        if (!decoded) {
-            decodedCache.set(uri, undefined);
-            return;
-        }
+        const decoded = await steganographyDecodeImage(attachment.uri);
+        if (!decoded) return;
 
-        const payload = [decoded, '2', uri] as EncryptedPayload;
-        decodedCache.set(uri, payload);
-        return payload;
+        return [decoded, '2', attachment.uri] as EncryptedPayload;
     });
 
     const allSettled = await Promise.allSettled(result);
