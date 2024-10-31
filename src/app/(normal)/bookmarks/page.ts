@@ -13,5 +13,5 @@ export async function generateMetadata() {
 }
 
 export default function Page() {
-    return redirect(resolveBookmarkUrl(DEFAULT_SOCIAL_SOURCE), RedirectType.replace);
+    redirect(resolveBookmarkUrl(DEFAULT_SOCIAL_SOURCE), RedirectType.replace);
 }

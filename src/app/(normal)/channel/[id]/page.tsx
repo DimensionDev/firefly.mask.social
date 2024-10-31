@@ -34,5 +34,5 @@ export default function Page({ params, searchParams }: Props) {
         searchParams.channel_tab && [ChannelTabType.Recent, ChannelTabType.Trending].includes(searchParams.channel_tab)
             ? searchParams.channel_tab
             : ChannelTabType.Recent;
-    return redirect(resolveChannelUrl(params.id, type));
+    redirect(resolveChannelUrl(params.id, type));
 }

@@ -14,5 +14,5 @@ export async function generateMetadata() {
 }
 
 export default function Following() {
-    return redirect(resolveFollowingUrl(DEFAULT_SOCIAL_SOURCE), RedirectType.replace);
+    redirect(resolveFollowingUrl(DEFAULT_SOCIAL_SOURCE), RedirectType.replace);
 }

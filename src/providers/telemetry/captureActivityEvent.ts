@@ -1,6 +1,6 @@
-import { bom } from '@/helpers/bom.js';
 import { parseURL } from '@masknet/shared-base';
 
+import { bom } from '@/helpers/bom.js';
 import { ReferralAccountPlatform } from '@/helpers/resolveActivityUrl.js';
 import { runInSafe } from '@/helpers/runInSafe.js';
 import { getPublicParameters } from '@/providers/telemetry/getPublicParameters.js';
