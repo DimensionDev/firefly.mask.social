@@ -943,9 +943,6 @@ msgstr "This token contract is open source. You can check the contract code for 
 msgid "Add account"
 msgstr "Add account"
 
-msgid "DAO"
-msgstr "DAO"
-
 msgid "{0} Comments"
 msgstr "{0} Comments"
 
