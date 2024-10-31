@@ -44,6 +44,11 @@ export function setupLocaleForSSR() {
     setI18n(allLocales[getLocaleFromCookies()]);
 }
 
+export function getI18n() {
+    const locale = getLocaleFromCookies();
+    return allLocales[locale];
+}
+
 /**
  * set locale and dynamically import catalog
  * @param locale a supported locale string

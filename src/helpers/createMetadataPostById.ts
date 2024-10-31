@@ -9,8 +9,10 @@ import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
 import { getPostUrl } from '@/helpers/getPostUrl.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { resolveSocialSource } from '@/helpers/resolveSource.js';
+import { getI18n } from '@/i18n/index.js';
 
 export async function createMetadataPostById(source: SocialSourceInURL, postId: string) {
+    const i18n = getI18n();
     const provider = resolveSocialMediaProvider(resolveSocialSource(source));
     const post = await provider.getPostById(postId).catch(() => null);
     if (!post) return createSiteMetadata();
@@ -34,7 +36,7 @@ export async function createMetadataPostById(source: SocialSourceInURL, postId: 
     });
 
     const title = post?.author.displayName
-        ? createPageTitleSSR(t`Posted by ${post.author.displayName} via Firefly`)
+        ? createPageTitleSSR(t(i18n)`Posted by ${post.author.displayName} via Firefly`)
         : SITE_NAME;
 
     return createSiteMetadata({
