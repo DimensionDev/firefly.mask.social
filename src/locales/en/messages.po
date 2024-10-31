@@ -283,6 +283,9 @@ msgstr "Adding..."
 msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} <4>liked your </4><5>{1, select, Post {post} Comment {comment} Quote {quote} Mirror {mirror} other {post}}</5>"
 msgstr "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} <4>liked your </4><5>{1, select, Post {post} Comment {comment} Quote {quote} Mirror {mirror} other {post}}</5>"
 
+msgid "Donald Trump"
+msgstr "Donald Trump"
+
 msgid "Market Cap"
 msgstr "Market Cap"
 
@@ -882,6 +885,9 @@ msgstr "Send Feedback"
 
 msgid "Your draft was saved."
 msgstr "Your draft was saved."
+
+msgid "Kamala Harris"
+msgstr "Kamala Harris"
 
 msgid "Send telemetry events in debug mode."
 msgstr "Send telemetry events in debug mode."
