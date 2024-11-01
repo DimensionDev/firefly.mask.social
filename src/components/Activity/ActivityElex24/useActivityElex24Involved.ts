@@ -23,10 +23,10 @@ export function useActivityElex24Involved() {
                 {
                     ...(authToken
                         ? {
-                            headers: {
-                                Authorization: `Bearer ${authToken}`,
-                            },
-                        }
+                              headers: {
+                                  Authorization: `Bearer ${authToken}`,
+                              },
+                          }
                         : {}),
                 },
             );

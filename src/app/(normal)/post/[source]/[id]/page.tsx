@@ -38,7 +38,7 @@ export default function Page(props: Props) {
     if (isBotRequest()) return null;
 
     const { params } = props;
-    if (!isSocialSourceInUrl(params.source))  notFound();
+    if (!isSocialSourceInUrl(params.source)) notFound();
 
     setupLocaleForSSR();
     const source = resolveSocialSource(params.source);

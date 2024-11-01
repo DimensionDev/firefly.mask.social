@@ -37,17 +37,17 @@ export function ActivityMobileNavigationBar({ children, className }: Props) {
                 className={classNames(
                     'sticky top-0 z-30 grid h-[44px] w-full grid-cols-[24px_1fr_24px] items-center justify-between gap-2 bg-primaryBottom px-4 text-center text-lg font-bold',
                     'sticky top-0 z-20 grid h-[44px] w-full grid-cols-[24px_1fr_24px] items-center justify-between gap-2 bg-primaryBottom px-4 text-center text-lg font-bold',
-                className,
-                {
-                    'dark:bg-[#181a20]': IS_ANDROID,
-                },
-            )}
-        >
-            <div
-                className={classNames('absolute bottom-full left-0 h-[500px] w-full bg-primaryBottom', {
-                    'dark:bg-[#181a20]': IS_ANDROID,
-                })}
-            />
+                    className,
+                    {
+                        'dark:bg-[#181a20]': IS_ANDROID,
+                    },
+                )}
+            >
+                <div
+                    className={classNames('absolute bottom-full left-0 h-[500px] w-full bg-primaryBottom', {
+                        'dark:bg-[#181a20]': IS_ANDROID,
+                    })}
+                />
                 <button
                     className="h-6 w-6 cursor-pointer"
                     onClick={() => {
