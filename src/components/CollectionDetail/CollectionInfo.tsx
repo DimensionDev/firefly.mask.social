@@ -5,7 +5,7 @@ import { EVMExplorerResolver } from '@masknet/web3-providers';
 import { ChainId } from '@masknet/web3-shared-evm';
 
 import LinkIcon from '@/assets/link-square.svg';
-import { VotingResultBanner } from '@/components/Activity/VotingResultBanner.js';
+import { ActivityElex24ResultsBanner } from '@/components/Activity/ActivityElex24/ActivityElex24ResultsBanner.js';
 import { ReportSpamButton } from '@/components/CollectionDetail/ReportSpamButton.js';
 import { CopyTextButton } from '@/components/CopyTextButton.js';
 import { Image } from '@/components/Image.js';
@@ -49,7 +49,7 @@ export function CollectionInfo(props: CollectionInfoProps) {
     return (
         <div className="w-full">
             {isVotingCollection ? (
-                <VotingResultBanner />
+                <ActivityElex24ResultsBanner />
             ) : (
                 <Image
                     width={1000}

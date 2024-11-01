@@ -4,27 +4,20 @@ import { delay } from '@masknet/kit';
 import { useQuery } from '@tanstack/react-query';
 import { BigNumber } from 'bignumber.js';
 
-import { STATUS } from '@/constants/enum.js';
-import { env } from '@/constants/env.js';
 import { Link } from '@/esm/Link.js';
 import { minus } from '@/helpers/number.js';
 import { useIsMedium, useIsSmall } from '@/hooks/useMediaQuery.js';
 import { FireflyActivityProvider } from '@/providers/firefly/Activity.js';
 import { ActivityStatus } from '@/providers/types/Firefly.js';
 
-interface VotingResultBannerProps {}
-
 const activityName = 'elex24';
 
-export function VotingResultBanner(props: VotingResultBannerProps) {
+export function ActivityElex24ResultsBanner() {
     const isSmall = useIsSmall('max');
     const isMedium = useIsMedium('max');
 
-    const enabled = env.external.NEXT_PUBLIC_VOTING_RESULT === STATUS.Enabled;
-
     const { data: info } = useQuery({
         queryKey: ['activity-info', activityName],
-        enabled,
         async queryFn() {
             return FireflyActivityProvider.getFireflyActivityInfo(activityName);
         },
@@ -35,7 +28,6 @@ export function VotingResultBanner(props: VotingResultBannerProps) {
     const { data: fontLoaded } = useQuery({
         queryKey: ['font-loaded', 'level-up'],
         staleTime: 0,
-        enabled,
         queryFn: async () => {
             try {
                 const fontFace = document.fonts;
@@ -54,7 +46,6 @@ export function VotingResultBanner(props: VotingResultBannerProps) {
     const { isLoading: loadingResult, data } = useQuery({
         queryKey: ['voting-result'],
         staleTime: 0,
-        enabled,
         refetchInterval: !ended ? 1 * 60 * 1000 : false,
         queryFn: () => {
             return FireflyActivityProvider.getVotingResults();
