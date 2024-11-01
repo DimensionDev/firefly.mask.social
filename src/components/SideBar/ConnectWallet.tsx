@@ -3,7 +3,7 @@
 import { Trans } from '@lingui/macro';
 import { useNetworkDescriptor } from '@masknet/web3-hooks-base';
 import { ChainId as EVMChainId } from '@masknet/web3-shared-evm';
-import { ChainId as SolanaChainId, encodePublicKey } from '@masknet/web3-shared-solana';
+import { ChainId as SolanaChainId } from '@masknet/web3-shared-solana';
 import { useWallet as useSolanaWallet } from '@solana/wallet-adapter-react';
 import { useWalletModal as useConnectModalSolana } from '@solana/wallet-adapter-react-ui';
 import { useAccount as useEVMAccount, useEnsName } from 'wagmi';
@@ -60,7 +60,7 @@ export function ConnectWallet({ collapsed: sideBarCollapsed = false }: ConnectWa
             icon: solanaNetworkDescriptor?.icon,
             label: resolveValue(() => {
                 if (!solanaWallet.publicKey) return null;
-                const publicKey = encodePublicKey(solanaWallet.publicKey);
+                const publicKey = solanaWallet.publicKey.toBase58();
                 return formatSolanaAddress(publicKey, 4);
             }),
             onOpenConnectModal: () => connectModalSolana.setVisible(true),

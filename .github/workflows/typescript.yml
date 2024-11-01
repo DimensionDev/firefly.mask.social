@@ -1,0 +1,39 @@
+name: Typecheck
+
+on:
+  push:
+    branches:
+      - '**'
+      - '!main'
+      - '!released'
+  workflow_dispatch:
+
+jobs:
+  typecheck:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+        with:
+          submodules: 'true'
+
+      - name: Authenticate NPM
+        uses: DimensionDev/github-token-action@latest
+        with:
+          registry: true
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version-file: '.node-version'
+
+      - name: Setup Github Actions
+        run: ./scripts/setup-gh-actions.sh
+
+      - uses: pnpm/action-setup@v4
+      - name: Install dependencies
+        run: pnpm install
+
+      - name: Typecheck
+        run: npm run typecheck
