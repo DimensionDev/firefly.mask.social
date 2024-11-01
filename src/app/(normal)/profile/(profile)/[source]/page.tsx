@@ -28,7 +28,6 @@ export default function Page({
     };
 }>) {
     const source = resolveSourceFromUrl(params.source);
-
     if (!isSocialSource(source)) notFound();
 
     const currentProfiles = useCurrentProfileAll();

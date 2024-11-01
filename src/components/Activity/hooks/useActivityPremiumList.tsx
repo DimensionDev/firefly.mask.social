@@ -29,6 +29,7 @@ export function useActivityPremiumList() {
                             Get involved in the{' '}
                             <Link
                                 href="https://polymarket.com/event/presidential-election-winner-2024?tid=1729592888743"
+                                target="_blank"
                                 className="inline text-highlight"
                             >
                                 Presidential Election Winner 2024

@@ -5,14 +5,17 @@ import { EVMExplorerResolver } from '@masknet/web3-providers';
 import { ChainId } from '@masknet/web3-shared-evm';
 
 import LinkIcon from '@/assets/link-square.svg';
+import { VotingResultBanner } from '@/components/Activity/VotingResultBanner.js';
 import { ReportSpamButton } from '@/components/CollectionDetail/ReportSpamButton.js';
 import { CopyTextButton } from '@/components/CopyTextButton.js';
 import { Image } from '@/components/Image.js';
 import { ChainIcon } from '@/components/NFTDetail/ChainIcon.js';
 import { NFTImage } from '@/components/NFTImage.js';
 import { TextOverflowTooltip } from '@/components/TextOverflowTooltip.js';
+import { ELEX24_NFT_CONTRACT_ADDRESS } from '@/constants/index.js';
 import { formatEthereumAddress } from '@/helpers/formatAddress.js';
 import { nFormatter } from '@/helpers/formatCommentCounts.js';
+import { isSameEthereumAddress } from '@/helpers/isSameAddress.js';
 
 interface CollectionInfoProps {
     address: string;
@@ -41,15 +44,21 @@ export function CollectionInfo(props: CollectionInfoProps) {
         collectionId,
     } = props;
 
+    const isVotingCollection = isSameEthereumAddress(address, ELEX24_NFT_CONTRACT_ADDRESS);
+
     return (
         <div className="w-full">
-            <Image
-                width={1000}
-                height={1000}
-                src={bannerImageUrl || '/image/nft-collection-fallback.webp'}
-                alt={name}
-                className="h-[150px] w-full object-cover"
-            />
+            {isVotingCollection ? (
+                <VotingResultBanner />
+            ) : (
+                <Image
+                    width={1000}
+                    height={1000}
+                    src={bannerImageUrl || '/image/nft-collection-fallback.webp'}
+                    alt={name}
+                    className="h-[150px] w-full object-cover"
+                />
+            )}
             <div className="flex w-full p-3">
                 <NFTImage
                     width={90}
