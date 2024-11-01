@@ -1,8 +1,8 @@
-import { compact, first, memoize } from 'lodash-es';
+import { compact, first } from 'lodash-es';
 
+import { memoizePromise } from '@/helpers/memoizePromise.js';
 import type { Attachment } from '@/providers/types/SocialMedia.js';
 import { steganographyDecodeImage } from '@/services/steganography.js';
-import { memoizePromise } from '@/helpers/memoizePromise.js';
 
 export type EncryptedPayload = readonly [string | Uint8Array, '1' | '2', string | null];
 
