@@ -115,7 +115,7 @@ export const TokenDetail = memo<Props>(function TokenDetail({ symbol, children, 
     }
 
     if (!token) {
-        return notFound();
+        notFound();
     }
 
     return (

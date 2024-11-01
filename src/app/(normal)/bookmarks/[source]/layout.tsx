@@ -25,7 +25,7 @@ export default function Layout({
     };
 }>) {
     const source = resolveSourceFromUrlNoFallback(params.source);
-    if (!source || !isBookmarkSource(source)) return notFound();
+    if (!source || !isBookmarkSource(source)) notFound();
     return (
         <>
             <SourceTabs source={source} sources={BOOKMARK_SOURCES} href={resolveBookmarkUrl} />
