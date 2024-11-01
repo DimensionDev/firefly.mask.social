@@ -1,9 +1,10 @@
 import { notFound, redirect } from 'next/navigation.js';
-import React, { type PropsWithChildren } from 'react';
+import React, { type PropsWithChildren, useMemo } from 'react';
 
 import { SourceTabs } from '@/components/SourceTabs/index.js';
 import { DiscoverType } from '@/constants/enum.js';
 import { DISCOVER_SOURCES } from '@/constants/index.js';
+import { createTabUrlMap } from '@/helpers/createTabUrlMap.js';
 import { getUrlFromHeaders } from '@/helpers/getUrlFromHeaders.js';
 import { isDiscoverSource, isSocialDiscoverSource } from '@/helpers/isDiscoverSource.js';
 import { resolveDiscoverUrl } from '@/helpers/resolveDiscoverUrl.js';
@@ -27,13 +28,14 @@ export default function Layout({
         redirect(resolveDiscoverUrl(source, DiscoverType.Trending));
     }
 
+    const urlMap = useMemo(
+        () => createTabUrlMap(DISCOVER_SOURCES, (x) => resolveDiscoverUrl(x, DiscoverType.Trending)),
+        [],
+    );
+
     return (
         <>
-            <SourceTabs
-                source={source}
-                sources={DISCOVER_SOURCES}
-                href={(x) => resolveDiscoverUrl(x, DiscoverType.Trending)}
-            />
+            <SourceTabs source={source} sources={DISCOVER_SOURCES} urlMap={urlMap} />
             {children}
         </>
     );

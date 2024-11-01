@@ -1,7 +1,10 @@
 'use client';
 
+import { useMemo } from 'react';
+
 import { SourceTabs } from '@/components/SourceTabs/index.js';
 import { SORTED_PROFILE_SOURCES } from '@/constants/index.js';
+import { createTabUrlMap } from '@/helpers/createTabUrlMap.js';
 import { isSameFireflyIdentity } from '@/helpers/isSameFireflyIdentity.js';
 import { resolveProfileUrl } from '@/helpers/resolveProfileUrl.js';
 import { useCurrentFireflyProfilesAll } from '@/hooks/useCurrentFireflyProfiles.js';
@@ -18,6 +21,14 @@ export function ProfileSourceTabs({
     const isCurrentProfile = currentProfiles.some((x) => isSameFireflyIdentity(x.identity, identity));
 
     const profiles = isCurrentProfile ? currentProfiles : otherProfiles;
+    const urlMap = useMemo(
+        () =>
+            createTabUrlMap(SORTED_PROFILE_SOURCES, (x) => {
+                const profile = profiles.find((profile) => profile.identity.source === x);
+                return resolveProfileUrl(x, profile?.identity.id ?? identity.id);
+            }),
+        [profiles, identity.id],
+    );
 
     return (
         <SourceTabs
@@ -25,10 +36,7 @@ export function ProfileSourceTabs({
             sources={SORTED_PROFILE_SOURCES.filter((value) => {
                 return profiles.find((profile) => profile.identity.source === value);
             })}
-            href={(x) => {
-                const profile = profiles.find((profile) => profile.identity.source === x);
-                return resolveProfileUrl(x, profile?.identity.id ?? identity.id);
-            }}
+            urlMap={urlMap}
         />
     );
 }

@@ -13,6 +13,7 @@ import { ProfileInList } from '@/components/ProfileInList.js';
 import { SourceTabs } from '@/components/SourceTabs/index.js';
 import { ScrollListKey, SearchType, Source } from '@/constants/enum.js';
 import { SORTED_SEARCH_TYPE, SORTED_SOCIAL_SOURCES } from '@/constants/index.js';
+import { createTabUrlMap } from '@/helpers/createTabUrlMap.js';
 import { narrowToSocialSource } from '@/helpers/narrowToSocialSource.js';
 import { createIndicator } from '@/helpers/pageable.js';
 import { resolveSearchUrl } from '@/helpers/resolveSearchUrl.js';
@@ -92,13 +93,13 @@ export default function Page() {
     useNavigatorTitle(t`Search`);
 
     const listKey = `${ScrollListKey.Search}:${searchType}:${searchKeyword}:${source}`;
+    const urlMap = useMemo(
+        () => createTabUrlMap(sources, (source) => resolveSearchUrl(searchKeyword, searchType, source)),
+        [searchKeyword, searchType, sources],
+    );
     return (
         <>
-            <SourceTabs
-                source={source}
-                sources={sources}
-                href={(source) => resolveSearchUrl(searchKeyword, searchType, source)}
-            />
+            <SourceTabs source={source} sources={sources} urlMap={urlMap} />
             <ListInPage
                 source={source}
                 key={listKey}
