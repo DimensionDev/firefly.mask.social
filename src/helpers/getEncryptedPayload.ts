@@ -30,7 +30,7 @@ const decodeAttachment = memoizePromise(
 
         return [decoded, '2', attachment.uri] as EncryptedPayload;
     },
-    (x) => x.url,
+    (x) => x.uri,
 );
 
 export async function getEncryptedPayloadFromImageAttachment(
