@@ -11,7 +11,7 @@ interface Props {
 
 export default function Page({ searchParams }: Props) {
     if (!trimify(searchParams.text || '')) {
-        return redirect(resolveDiscoverUrl(DEFAULT_SOCIAL_SOURCE), RedirectType.replace);
+        redirect(resolveDiscoverUrl(DEFAULT_SOCIAL_SOURCE), RedirectType.replace);
     }
 
     return <ShareLinkPage {...searchParams} />;
