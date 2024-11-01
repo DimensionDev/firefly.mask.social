@@ -24,11 +24,11 @@ interface Props {
 }
 
 export async function PostDetailPage({ id: postId, source }: Props) {
-    if (!postId) return notFound();
+    if (!postId) notFound();
 
     const provider = resolveSocialMediaProvider(source);
     const post = await provider.getPostById(postId);
-    if (!post) return notFound();
+    if (!post) notFound();
 
     const threads = await getThreads(post, source);
     const allPosts = threads.data;

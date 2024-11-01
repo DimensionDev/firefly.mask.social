@@ -13,5 +13,5 @@ export async function generateMetadata() {
 }
 
 export default function Page() {
-    return redirect(resolveProfileUrl(Source.Farcaster));
+    redirect(resolveProfileUrl(Source.Farcaster));
 }

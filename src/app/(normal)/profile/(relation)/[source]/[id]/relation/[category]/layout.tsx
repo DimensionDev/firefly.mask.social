@@ -19,14 +19,14 @@ export default async function Layout({
         source: SourceInURL;
     };
 }>) {
-    if (!isFollowCategory(params.category)) return notFound();
+    if (!isFollowCategory(params.category)) notFound();
     const id = params.id;
     const source = resolveSourceFromUrlNoFallback(params.source);
-    if (!source || !isSocialSource(source) || source === Source.Twitter) return notFound();
+    if (!source || !isSocialSource(source) || source === Source.Twitter) notFound();
     const identity = { source, id };
     const profile = await resolveSocialMediaProvider(source).getProfileById(id);
 
-    if (!profile) return notFound();
+    if (!profile) notFound();
 
     return (
         <>

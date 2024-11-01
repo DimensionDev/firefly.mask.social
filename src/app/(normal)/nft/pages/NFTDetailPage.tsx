@@ -36,7 +36,7 @@ export function NFTDetailPage({ chainId, address, tokenId }: { chainId: ChainId;
     }
 
     if (!data?.metadata) {
-        return notFound();
+        notFound();
     }
     const poapAttendeesCount = poapEvent?.total ?? 0;
 

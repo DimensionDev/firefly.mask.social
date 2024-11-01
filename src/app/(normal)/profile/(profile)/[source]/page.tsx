@@ -46,7 +46,7 @@ export default function Page({
 
     // profile link should be shareable
     if (profile) {
-        return redirect(resolveProfileUrl(source, profile.id), RedirectType.replace);
+        redirect(resolveProfileUrl(source, profile.id), RedirectType.replace);
     }
 
     return (
