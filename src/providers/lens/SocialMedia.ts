@@ -23,8 +23,7 @@ import {
 import { MetadataAttributeType, profile as createProfileMetadata } from '@lens-protocol/metadata';
 import { t } from '@lingui/macro';
 import { sendTransaction } from '@wagmi/core';
-import { compact, first, flatMap, uniq, uniqWith } from 'lodash-es';
-import omitDeep from 'omit-deep';
+import { compact, first, flatMap, omit, uniq, uniqWith } from 'lodash-es';
 import urlcat from 'urlcat';
 import { v4 as uuid } from 'uuid';
 import type { Address, Hex, TypedDataDomain } from 'viem';
@@ -1001,10 +1000,10 @@ export class LensSocialMedia implements Provider {
 
         if (currentProfile.sponsor) {
             const signature = await client.signTypedData({
-                domain: omitDeep(typedData.domain, ['__typename']),
-                message: omitDeep(typedData.value, ['__typename']) as Record<string, unknown>,
-                primaryType: Object.keys(omitDeep(typedData.types, ['__typename']))[0],
-                types: omitDeep(typedData.types, ['__typename']) as Record<string, unknown>,
+                domain: omit(typedData.domain, ['__typename']) as Record<string, unknown>,
+                message: omit(typedData.value, ['__typename']) as Record<string, unknown>,
+                primaryType: Object.keys(omit(typedData.types, ['__typename']))[0],
+                types: omit(typedData.types, ['__typename']) as Record<string, unknown>,
             });
             const broadcastData = await lensSessionHolder.sdk.transaction.broadcastOnchain({
                 id,
