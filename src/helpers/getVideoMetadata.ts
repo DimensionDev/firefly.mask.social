@@ -1,5 +1,4 @@
-import { memoizePromise } from '@masknet/kit';
-import { memoize } from 'lodash-es';
+import { memoizePromise } from '@/helpers/memoizePromise.js';
 
 interface VideoMetadata {
     duration: number;
@@ -28,4 +27,7 @@ function resolver(file: File) {
     });
 }
 
-export const getVideoMetadata = memoizePromise(memoize, resolver, (file) => file);
+export const getVideoMetadata = memoizePromise(
+    resolver,
+    (file) => `${file.name}_${file.lastModified}_${file.webkitRelativePath}`,
+);
