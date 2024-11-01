@@ -77,6 +77,12 @@ export interface ComposeModalOpenProps {
     initialPath?: string;
 }
 
+export enum CloseAction {
+    Saved = 'saved',
+    Discard = 'discard',
+    None = 'none',
+}
+
 export type ComposeModalCloseProps = {
     disableClear?: boolean;
 } | void;
@@ -186,7 +192,7 @@ export const ComposeModalUI = forwardRef<SingletonModalRefCreator<ComposeModalOp
                     confirmButtonText: t`Save`,
                     variant: 'normal',
                 });
-                if (confirmed === null) return;
+                if (confirmed === null) return CloseAction.None;
 
                 if (confirmed) {
                     addDraft({
@@ -200,12 +206,14 @@ export const ComposeModalUI = forwardRef<SingletonModalRefCreator<ComposeModalOp
                     });
                     enqueueSuccessMessage(t`Your draft was saved.`);
                     ComposeModalRef.close();
+                    return CloseAction.Saved;
                 } else {
                     dispatch?.close();
                 }
             } else {
                 dispatch?.close();
             }
+            return CloseAction.Discard;
         }, [isSmall, currentProfileAll, dispatch]);
 
         const promoteLink = useMemo(() => {
