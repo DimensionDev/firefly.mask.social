@@ -5,7 +5,7 @@ import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
 import { FireflyActivityProvider } from '@/providers/firefly/Activity.js';
 
 export async function createMetadataEventDetailPage(eventName: string) {
-    const info = await FireflyActivityProvider.getFireflyActivityInfo(eventName).catch(() => undefined);
+    const info = await FireflyActivityProvider.getFireflyActivityInfo(eventName).catch(() => null);
     if (!info) return createSiteMetadata();
     const title = info.title;
     const description = info.sub_title;
