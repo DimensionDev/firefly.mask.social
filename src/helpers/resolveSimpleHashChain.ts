@@ -7,7 +7,7 @@ const EVM_CHAIN: { [key in ChainId]?: string } = {
     [ChainId.Mainnet]: 'ethereum',
     [ChainId.Base]: 'base',
     [ChainId.BSC]: 'bsc',
-    [ChainId.Matic]: 'polygon',
+    [ChainId.Polygon]: 'polygon',
     [ChainId.Arbitrum]: 'arbitrum',
     [ChainId.Optimism]: 'optimism',
     [ChainId.Avalanche]: 'avalanche',

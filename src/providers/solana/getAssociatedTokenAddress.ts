@@ -5,8 +5,8 @@ export async function getAssociatedTokenAddress(
     mint: PublicKey,
     owner: PublicKey,
     allowOwnerOffCurve = false,
-    programId = TOKEN_PROGRAM_ID,
-    associatedTokenProgramId = ASSOCIATED_TOKEN_PROGRAM_ID,
+    programId: PublicKey = TOKEN_PROGRAM_ID,
+    associatedTokenProgramId: PublicKey = ASSOCIATED_TOKEN_PROGRAM_ID,
 ): Promise<PublicKey> {
     if (!allowOwnerOffCurve && !PublicKey.isOnCurve(owner.toBuffer())) throw new Error('TokenOwnerOffCurveError');
 

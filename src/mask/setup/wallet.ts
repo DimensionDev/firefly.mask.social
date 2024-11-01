@@ -1,4 +1,3 @@
-import { WalletConnectQRCodeModal } from '@masknet/shared';
 import { initWallet } from '@masknet/web3-providers';
 import type { WalletAPI } from '@masknet/web3-providers/types';
 
@@ -24,14 +23,8 @@ const WalletIO: WalletAPI.IOContext = {
         hasPaymentPassword: createRejectCallback('hasPaymentPassword'),
     },
     WalletConnectContext: {
-        openWalletConnectDialog: async (uri: string) => {
-            await WalletConnectQRCodeModal.openAndWaitForClose({
-                uri,
-            });
-        },
-        closeWalletConnectDialog: () => {
-            WalletConnectQRCodeModal.close();
-        },
+        openWalletConnectDialog: createRejectCallback('openWalletConnectDialog'),
+        closeWalletConnectDialog: createRejectCallback('closeWalletConnectDialog'),
     },
     signWithPersona: createRejectCallback('signWithPersona'),
 };
