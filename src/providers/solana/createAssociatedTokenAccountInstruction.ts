@@ -6,8 +6,8 @@ export function createAssociatedTokenAccountInstruction(
     associatedToken: PublicKey,
     owner: PublicKey,
     mint: PublicKey,
-    programId = TOKEN_PROGRAM_ID,
-    associatedTokenProgramId = ASSOCIATED_TOKEN_PROGRAM_ID,
+    programId: PublicKey = TOKEN_PROGRAM_ID,
+    associatedTokenProgramId: PublicKey = ASSOCIATED_TOKEN_PROGRAM_ID,
 ): TransactionInstruction {
     const keys = [
         { pubkey: payer, isSigner: true, isWritable: true },

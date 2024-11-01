@@ -13,8 +13,8 @@ export async function getOrCreateAssociatedTokenAccount(
     signTransaction: (tx: Transaction) => Promise<Transaction>,
     allowOwnerOffCurve = false,
     commitment: Commitment = 'single',
-    programId = TOKEN_PROGRAM_ID,
-    associatedTokenProgramId = ASSOCIATED_TOKEN_PROGRAM_ID,
+    programId: PublicKey = TOKEN_PROGRAM_ID,
+    associatedTokenProgramId: PublicKey = ASSOCIATED_TOKEN_PROGRAM_ID,
 ) {
     const associatedToken = await getAssociatedTokenAddress(
         mint,

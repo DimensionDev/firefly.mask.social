@@ -121,7 +121,7 @@ importers:
         version: 5.15.12(patch_hash=pazpgmj4gmp6yuv75wbb5yvia4)(@emotion/react@11.11.1)(@emotion/styled@11.11.0)(@types/react@18.2.48)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026)
       '@mui/x-date-pickers':
         specifier: ^7.7.1
-        version: 7.7.1(@mui/material@5.15.12)(@types/react@18.2.48)(dayjs@1.11.13)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026)
+        version: 7.7.1(@mui/material@5.15.12)(@types/react@18.2.48)(date-fns@2.30.0)(dayjs@1.11.13)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026)
       '@napi-rs/image':
         specifier: 1.7.0
         version: 1.7.0
@@ -218,6 +218,9 @@ importers:
       d3:
         specifier: ^5.16.0
         version: 5.16.0
+      date-fns:
+        specifier: ^2.30.0
+        version: 2.30.0
       dayjs:
         specifier: ^1.11.13
         version: 1.11.13
@@ -9106,7 +9109,7 @@ packages:
       react-is: 18.3.1
     dev: false
 
-  /@mui/x-date-pickers@7.7.1(@mui/material@5.15.12)(@types/react@18.2.48)(dayjs@1.11.13)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026):
+  /@mui/x-date-pickers@7.7.1(@mui/material@5.15.12)(@types/react@18.2.48)(date-fns@2.30.0)(dayjs@1.11.13)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026):
     resolution: {integrity: sha512-p7/TY8QcdQd6RelNqzW5q89GeUFctvZnDHTfQVEC0l0nAy7ArE6u21uNF8QWGrijZoJXCM+OlIRzlZADaUPpWA==}
     engines: {node: '>=14.0.0'}
     peerDependencies:
@@ -9155,6 +9158,7 @@ packages:
       '@mui/utils': 5.15.20(@types/react@18.2.48)(react@0.0.0-experimental-8039e6d0b-20231026)
       '@types/react-transition-group': 4.4.10
       clsx: 2.1.1
+      date-fns: 2.30.0
       dayjs: 1.11.13
       prop-types: 15.8.1
       react: 0.0.0-experimental-8039e6d0b-20231026
