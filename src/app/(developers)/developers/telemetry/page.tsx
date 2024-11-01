@@ -5,6 +5,7 @@ import { Headline } from '@/app/(settings)/components/Headline.js';
 import { Section } from '@/app/(settings)/components/Section.js';
 import { ClickableArea } from '@/components/ClickableArea.js';
 import { classNames } from '@/helpers/classNames.js';
+import { setupLocaleForSSR } from '@/i18n/index.js';
 import { ProviderFilter } from '@/providers/types/Telemetry.js';
 import type { MethodItem } from '@/types/telemetry.js';
 
@@ -32,6 +33,8 @@ const items: Item[] = [
 ];
 
 export default function Page() {
+    setupLocaleForSSR();
+
     const renderItem = (item: Item) => {
         return <TelemetryMethodButton item={item} />;
     };
