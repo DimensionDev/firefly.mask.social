@@ -584,8 +584,6 @@ export interface Events extends Record<EventId, Event> {
         type: EventType.Interact;
         parameters: {
             firefly_account_id: string;
-            is_token_sync: string;
-            x_accounts: Array<[string, string]>;
             activity: string;
         };
     };
