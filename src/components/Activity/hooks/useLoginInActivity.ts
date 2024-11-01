@@ -24,6 +24,7 @@ export function useLoginInActivity() {
                 }
             } catch (error) {
                 enqueueErrorMessage(getSnackbarMessageFromError(error, t`Failed to login.`), { error });
+                throw error;
             }
             return;
         }
