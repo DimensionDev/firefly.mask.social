@@ -76,7 +76,7 @@ function AttendeesItem({ ownerAddress }: { ownerAddress: Address }) {
                     alt={ownerAddress}
                     width={30}
                     height={30}
-                    className="mr-2 min-w-[30px] rounded-full"
+                    className="mr-2 min-w-[30px] shrink-0 rounded-full"
                 />
                 <div className="flex max-w-[calc(100%-38px)] items-center text-left">
                     {ensName ? (
