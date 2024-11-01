@@ -42,10 +42,9 @@ export default async function Page(props: Props) {
     if (isBotRequest()) return null;
 
     const { params } = props;
-    if (!isSocialSourceInUrl(params.source)) return notFound();
+    if (!isSocialSourceInUrl(params.source)) notFound();
 
     const source = resolveSocialSource(params.source);
-
     if (source === Source.Twitter && !twitterSessionHolder.session) {
         return <NotLoginFallback source={source} />;
     }

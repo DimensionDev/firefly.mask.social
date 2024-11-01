@@ -15,6 +15,7 @@ import type {
     ActivityListItem,
     ActivityListResponse,
     GetAllConnectionsResponse,
+    VotingResultResponse,
 } from '@/providers/types/Firefly.js';
 import { settings } from '@/settings/index.js';
 
@@ -138,21 +139,33 @@ class FireflyActivity implements Provider {
         authToken?: string;
     } = {}) {
         const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/accountConnection');
+        const headers: HeadersInit = {
+            'Cache-Control': 'no-cache',
+            Pragma: 'no-cache',
+        };
         const response = await fireflySessionHolder.fetch<GetAllConnectionsResponse>(url, {
             method: 'GET',
             ...(authToken
                 ? {
                       headers: {
                           Authorization: `Bearer ${authToken}`,
+                          ...headers,
                       },
                   }
-                : {}),
+                : { headers }),
         });
         const connections = resolveFireflyResponseData(response);
         return {
             connected: formatWalletConnections(connections.wallet.connected, connections),
             related: formatWalletConnections(connections.wallet.unconnected, connections),
         };
+    }
+
+    async getVotingResults() {
+        const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/wallet_transaction/elex24/activity/ratio');
+
+        const response = await fetchJSON<VotingResultResponse>(url);
+        return resolveFireflyResponseData(response);
     }
 }
 

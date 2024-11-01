@@ -40,7 +40,15 @@ export function CollectionTabs({ address, chainId, totalQuantity }: CollectionTa
             <Suspense fallback={<Loading />}>
                 {
                     {
-                        items: <NFTList address={address} chainId={chainId} />,
+                        items: (
+                            <NFTList
+                                address={address}
+                                chainId={chainId}
+                                NoResultsFallbackProps={{
+                                    className: 'md:pt-[228px] max-md:py-20',
+                                }}
+                            />
+                        ),
                         topCollectors: (
                             <TopCollectors address={address} totalQuantity={totalQuantity} chainId={chainId} />
                         ),

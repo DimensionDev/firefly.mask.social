@@ -351,6 +351,9 @@ msgstr "添加中..."
 msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} <4>liked your </4><5>{1, select, Post {post} Comment {comment} Quote {quote} Mirror {mirror} other {post}}</5>"
 msgstr "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} <4>点赞了你的 </4><5>{1, select, Post {帖子} Comment {评论} Quote {引用} Mirror {转帖} other {帖子}}</5>"
 
+msgid "Donald Trump"
+msgstr "唐纳德·特朗普"
+
 msgid "Our transaction simulation and security detection found no issues. However, it is always crucial to double-check and proceed with caution."
 msgstr ""
 
@@ -1033,7 +1036,7 @@ msgid "The user canceled the operation."
 msgstr "用户已取消操作。"
 
 msgid "Your Farcaster account holds Power Badge"
-msgstr ""
+msgstr "您的 Farcaster 账户拥有 Power Badge"
 
 msgid "Failed to fetch space \"{id}\"."
 msgstr ""
@@ -1097,6 +1100,9 @@ msgstr "没有投票权"
 
 msgid "Your draft was saved."
 msgstr "草稿已被保存"
+
+msgid "Kamala Harris"
+msgstr "卡玛拉·哈里斯"
 
 msgid "Send telemetry events in debug mode."
 msgstr ""
@@ -1693,7 +1699,7 @@ msgid "Unable to read image."
 msgstr "获取图片失败。"
 
 msgid "Step 3 Select to vote"
-msgstr ""
+msgstr "第 3 步 选择候选人"
 
 msgid "Visit firefly.social"
 msgstr "访问 firefly.social"
@@ -1891,7 +1897,7 @@ msgid "Unknown transaction method: {method}."
 msgstr "未知交易方法：{method}。"
 
 msgid "Get involved in the <0>Presidential Election Winner 2024</0> on Polymarket"
-msgstr ""
+msgstr "您曾在 Polymarket 对 <0>Presidential Election Winner 2024</0> 进行投注"
 
 msgid "You are logging into a different Firefly account. Continuing will <0>overwrite</0> your current accounts."
 msgstr "您正在登录不同的 Firefly 账户。如果继续则会<0>覆盖</0>当前账号。"
@@ -2923,7 +2929,7 @@ msgid "Following"
 msgstr "正在关注"
 
 msgid "Your X account holds Premium status"
-msgstr ""
+msgstr "您的 X 账号属于 Premium 账号"
 
 msgid "Create a post to tell everyone about your participation. Votes can be changed while the proposal is active."
 msgstr ""

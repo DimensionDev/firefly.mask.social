@@ -13,6 +13,7 @@
                     "/nft/*",
                     "/article/*",
                     "/login/desktop/*",
+                    "/event/*",
                     "/*"
                 ],
                 "components": [
@@ -40,6 +41,10 @@
                     {
                         "/": "/article/*",
                         "comment": "Matches any URL with a path that starts with /article/."
+                    },
+                    {
+                        "/": "/event/*",
+                        "comment": "Matches any URL with a path that starts with /event/."
                     }
                 ]
             }

@@ -13,6 +13,7 @@ import urlcat from 'urlcat';
 
 import { FireflyPlatform, Source } from '@/constants/enum.js';
 import { NotImplementedError } from '@/constants/error.js';
+import { EMPTY_LIST } from '@/constants/index.js';
 import { SetQueryDataForActPost } from '@/decorators/SetQueryDataForActPost.js';
 import { SetQueryDataForBlockProfile } from '@/decorators/SetQueryDataForBlockProfile.js';
 import { SetQueryDataForBookmarkPost } from '@/decorators/SetQueryDataForBookmarkPost.js';
@@ -233,6 +234,8 @@ class TwitterSocialMedia implements Provider {
             }),
         });
         if (!response.success) throw new Error(response.error.message);
+        if (!response.data?.length) return EMPTY_LIST;
+
         return response.data.map(formatTwitterProfile);
     }
 

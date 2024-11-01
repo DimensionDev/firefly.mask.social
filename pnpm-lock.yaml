@@ -300,9 +300,6 @@ importers:
       notistack:
         specifier: 2.0.8
         version: 2.0.8(@emotion/react@11.11.1)(@mui/material@5.15.12)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026)
-      omit-deep:
-        specifier: ^0.3.0
-        version: 0.3.0
       plyr-react:
         specifier: ^5.3.0
         version: 5.3.0(plyr@3.7.8)(react@0.0.0-experimental-8039e6d0b-20231026)
@@ -454,9 +451,6 @@ importers:
       '@types/node':
         specifier: 20.11.9
         version: 20.11.9
-      '@types/omit-deep':
-        specifier: ^0.3.2
-        version: 0.3.2
       '@types/react':
         specifier: 18.2.48
         version: 18.2.48
@@ -15944,10 +15938,6 @@ packages:
   /@types/normalize-package-data@2.4.4:
     resolution: {integrity: sha512-37i+OaWTh9qeK4LSHPsyRC7NahnGotNuZvjLSgcPzblpHB3rrCJxAOgI5gCdKm7coonsaX1Of0ILiTcnZjbfxA==}
 
-  /@types/omit-deep@0.3.2:
-    resolution: {integrity: sha512-sNJTN6nxoicS3pwMqUU+ToO0Uf0RobYFr7hNjUnQTQ2WiQ6pyox4J05KTJm60Bn+XpmzWgmHwaogqcI3aJZENQ==}
-    dev: true
-
   /@types/parse-json@4.0.2:
     resolution: {integrity: sha512-dISoDXWWQwUquiKsyZ4Ng+HX2KsPL7LyHKHQwgGFEA3IaKac4Obd+h2a/a6waisAoepJlBcx9paWqjA8/HVjCw==}
 
@@ -28029,14 +28019,6 @@ packages:
     engines: {node: ^10.13.0 || >=12.0.0}
     dev: false
 
-  /omit-deep@0.3.0:
-    resolution: {integrity: sha512-Lbl/Ma59sss2b15DpnWnGmECBRL8cRl/PjPbPMVW+Y8zIQzRrwMaI65Oy6HvxyhYeILVKBJb2LWeG81bj5zbMg==}
-    engines: {node: '>=0.10.0'}
-    dependencies:
-      is-plain-object: 2.0.4
-      unset-value: 0.1.2
-    dev: false
-
   /on-exit-leak-free@0.2.0:
     resolution: {integrity: sha512-dqaz3u44QbRXQooZLTUKU41ZrzYrcvLISVgbrzbyCMxpmSLJvZ3ZamIJIZ29P6OhZIkNIQKosdeM6t1LYbA9hg==}
     dev: false
@@ -36027,7 +36009,6 @@ time:
   /@types/dompurify@3.0.2: '2023-04-19T20:32:44.559Z'
   /@types/dompurify@3.0.5: '2023-11-07T01:55:58.638Z'
   /@types/lodash-es@4.17.12: '2023-11-21T16:07:38.271Z'
-  /@types/omit-deep@0.3.2: '2023-11-07T12:19:41.211Z'
   /@types/react-avatar-editor@13.0.3: '2024-08-26T15:07:40.064Z'
   /@types/twitter-text@3.1.10: '2024-01-22T19:35:12.288Z'
   /@types/use-subscription@1.0.2: '2023-11-07T18:34:22.454Z'
@@ -36056,7 +36037,6 @@ time:
   /linkedom@0.18.5: '2024-09-17T19:26:30.102Z'
   /next-auth@4.24.8: '2024-09-25T15:48:34.538Z'
   /next-nprogress-bar@2.3.14: '2024-10-10T06:55:23.302Z'
-  /omit-deep@0.3.0: '2017-01-02T03:06:20.808Z'
   /postcss@8.4.47: '2024-09-14T14:37:54.761Z'
   /prettier-plugin-tailwindcss@0.6.8: '2024-09-24T17:33:34.874Z'
   /prettier@3.3.3: '2024-07-13T12:26:38.008Z'

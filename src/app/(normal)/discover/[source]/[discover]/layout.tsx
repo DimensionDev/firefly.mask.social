@@ -19,11 +19,11 @@ export default function Layout({
     const source = resolveSourceFromUrlNoFallback(params.source);
 
     if (!source || !isSocialDiscoverSource(source)) {
-        return notFound();
+        notFound();
     }
     const discoverTypes = DISCOVER_TYPES[source];
     if (!discoverTypes.includes(params.discover)) {
-        return notFound();
+        notFound();
     }
 
     return (

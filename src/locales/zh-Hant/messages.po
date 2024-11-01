@@ -351,6 +351,9 @@ msgstr "正在添加"
 msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} <4>liked your </4><5>{1, select, Post {post} Comment {comment} Quote {quote} Mirror {mirror} other {post}}</5>"
 msgstr ""
 
+msgid "Donald Trump"
+msgstr ""
+
 msgid "Our transaction simulation and security detection found no issues. However, it is always crucial to double-check and proceed with caution."
 msgstr ""
 
@@ -1097,6 +1100,9 @@ msgstr ""
 
 msgid "Your draft was saved."
 msgstr "你的草稿已被保存"
+
+msgid "Kamala Harris"
+msgstr ""
 
 msgid "Send telemetry events in debug mode."
 msgstr ""
