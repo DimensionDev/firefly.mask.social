@@ -1,3 +1,5 @@
+'use client';
+
 import { safeUnreachable } from '@masknet/kit';
 import { memo } from 'react';
 

@@ -1,5 +1,7 @@
 import { NextRequest } from 'next/server.js';
 
+import { NODE_ENV } from '@/constants/enum.js';
+import { env } from '@/constants/env.js';
 import { compose } from '@/helpers/compose.js';
 import { createSuccessResponseJSON } from '@/helpers/createResponseJSON.js';
 import { createTwitterSessionPayload } from '@/helpers/createTwitterSessionPayload.js';
@@ -13,6 +15,11 @@ export const POST = compose<(request: NextRequest) => Promise<Response>>(
     async (request) => {
         const payload = await createTwitterSessionPayload(request);
         if (!payload) return createSuccessResponseJSON(null);
-        return createSuccessResponseJSON(await TwitterSessionPayload.concealPayload(payload));
+        const data = await TwitterSessionPayload.concealPayload(payload);
+        return createSuccessResponseJSON(data, {
+            headers: {
+                'Set-Cookie': `twitterToken=${btoa(JSON.stringify(data))}; path=/; Max-Age=31536000; SameSite=Lax;${env.shared.NODE_ENV === NODE_ENV.Development ? ' httpOnly;' : 'Secure'}`,
+            },
+        });
     },
 );

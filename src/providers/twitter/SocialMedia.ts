@@ -1,4 +1,5 @@
 import { t } from '@lingui/macro';
+import { isServer } from '@tanstack/react-query';
 import { compact } from 'lodash-es';
 import type {
     SpaceV2SingleResult,
@@ -273,9 +274,10 @@ class TwitterSocialMedia implements Provider {
     async getProfileById(profileId: string): Promise<Profile> {
         const response = await twitterSessionHolder.fetch<ResponseJSON<UserV2>>(`/api/twitter/user/${profileId}`);
         if (!response.success) throw new Error(response.error.message);
-        response.data.url = response.data.url
-            ? ((await resolveTCOLink(response.data.url)) ?? response.data.url)
-            : response.data.url;
+        response.data.url =
+            response.data.url && !isServer
+                ? ((await resolveTCOLink(response.data.url)) ?? response.data.url)
+                : response.data.url;
         return formatTwitterProfile(response.data);
     }
 
@@ -284,18 +286,20 @@ class TwitterSocialMedia implements Provider {
             headers: TwitterSession.payloadToHeaders(payload),
         });
         if (!response.success) throw new Error(response.error.message);
-        response.data.url = response.data.url
-            ? ((await resolveTCOLink(response.data.url)) ?? response.data.url)
-            : response.data.url;
+        response.data.url =
+            response.data.url && !isServer
+                ? ((await resolveTCOLink(response.data.url)) ?? response.data.url)
+                : response.data.url;
         return formatTwitterProfile(response.data);
     }
 
     async getProfileByHandle(handle: string): Promise<Profile> {
         const response = await twitterSessionHolder.fetch<ResponseJSON<UserV2>>(`/api/twitter/username/${handle}`);
         if (!response.success) throw new Error(response.error.message);
-        response.data.url = response.data.url
-            ? ((await resolveTCOLink(response.data.url)) ?? response.data.url)
-            : response.data.url;
+        response.data.url =
+            response.data.url && !isServer
+                ? ((await resolveTCOLink(response.data.url)) ?? response.data.url)
+                : response.data.url;
         return formatTwitterProfile(response.data);
     }
 
@@ -390,13 +394,9 @@ class TwitterSocialMedia implements Provider {
     }
 
     async login(): Promise<SessionPayload | null> {
-        const response = await twitterSessionHolder.fetch<ResponseJSON<SessionPayload>>(
-            '/api/twitter/login',
-            {
-                method: 'POST',
-            },
-            false,
-        );
+        const response = await twitterSessionHolder.fetch<ResponseJSON<SessionPayload>>('/api/twitter/login', {
+            method: 'POST',
+        });
         if (!response.success) return null;
         return response.data;
     }

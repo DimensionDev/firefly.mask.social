@@ -308,7 +308,7 @@ const useTwitterStateBase = createState(
                     return;
                 }
 
-                const twitterSession = TwitterSession.from(profile, payload);
+                const twitterSession = TwitterSession.from(profile.profileId, payload);
 
                 await addAccount(
                     {

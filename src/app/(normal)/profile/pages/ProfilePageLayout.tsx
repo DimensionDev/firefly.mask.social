@@ -1,13 +1,12 @@
 import { StatusCodes } from 'http-status-codes';
 import React, { type PropsWithChildren } from 'react';
 
-import { LoginRequiredGuard } from '@/components/LoginRequiredGuard.js';
+import { NoSSR } from '@/components/NoSSR.js';
 import { Info } from '@/components/Profile/Info.js';
 import { ProfileNotFound } from '@/components/Profile/ProfileNotFound.js';
 import { ProfileSourceTabs } from '@/components/Profile/ProfileSourceTabs.js';
 import { ProfileTabs } from '@/components/Profile/ProfileTabs.js';
 import { Title } from '@/components/Profile/Title.js';
-import { TwitterProfileInfo } from '@/components/Profile/TwitterProfileInfo.js';
 import { WalletInfo } from '@/components/Profile/WalletInfo.js';
 import { ProfileDetailEffect } from '@/components/ProfileDetailEffect.js';
 import { SuspendedAccountFallback } from '@/components/SuspendedAccountFallback.js';
@@ -22,16 +21,6 @@ import { getProfileById } from '@/services/getProfileById.js';
 
 export async function ProfilePageLayout({ identity, children }: PropsWithChildren<{ identity: FireflyIdentity }>) {
     const profiles = await FireflyEndpointProvider.getAllPlatformProfileByIdentity(identity, false);
-
-    if (identity.source === Source.Twitter) {
-        return (
-            <LoginRequiredGuard source={identity.source}>
-                <TwitterProfileInfo profiles={profiles} identity={identity}>
-                    {children}
-                </TwitterProfileInfo>
-            </LoginRequiredGuard>
-        );
-    }
 
     const resolvedSource = narrowToSocialSource(identity.source);
     const { walletProfile } = resolveFireflyProfiles(identity, profiles);
@@ -53,7 +42,7 @@ export async function ProfilePageLayout({ identity, children }: PropsWithChildre
                     <Info profile={profile} />
                 ) : null}
                 <ProfileTabs profiles={profiles} identity={identity} />
-                {children}
+                <NoSSR>{children}</NoSSR>
                 <ProfileDetailEffect profile={profile} identity={identity} />
             </>
         );
