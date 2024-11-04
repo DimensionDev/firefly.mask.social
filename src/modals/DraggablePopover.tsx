@@ -1,6 +1,6 @@
 'use client';
 
-import { forwardRef, useState } from 'react';
+import { forwardRef, useRef, useState } from 'react';
 
 import { Popover } from '@/components/Popover.js';
 import { useSingletonModal } from '@/hooks/useSingletonModal.js';
@@ -16,9 +16,11 @@ export interface DraggablePopoverProps {
 export const DraggablePopover = forwardRef<SingletonModalRefCreator<DraggablePopoverProps>>(
     function DraggablePopover(_, ref) {
         const [props, setProps] = useState<DraggablePopoverProps>();
+        const timerRef = useRef<NodeJS.Timeout>();
 
         const [open, dispatch] = useSingletonModal(ref, {
             onOpen(props) {
+                clearTimeout(timerRef.current);
                 setProps({
                     ...props,
                     backdrop: props.backdrop ?? true,
@@ -27,7 +29,9 @@ export const DraggablePopover = forwardRef<SingletonModalRefCreator<DraggablePop
             },
             onClose() {
                 props?.onClose?.();
-                setProps(undefined);
+                timerRef.current = setTimeout(() => {
+                    setProps(undefined);
+                }, 200); // 200, duration of popover leaving
             },
         });
 
