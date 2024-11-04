@@ -1,6 +1,6 @@
 import { getAccount, http, readContracts, waitForTransactionReceipt, writeContract } from '@wagmi/core';
 import urlcat from 'urlcat';
-import { createPublicClient, zeroAddress } from 'viem';
+import { type Address, createPublicClient, zeroAddress } from 'viem';
 import { base, optimism, polygon, zora } from 'viem/chains';
 
 import { ParagraphABI, ParagraphMintABI } from '@/abis/Paragraph.js';
@@ -67,14 +67,14 @@ class Paragraph implements Provider {
                     contracts: [
                         {
                             abi: ParagraphABI,
-                            address: data.contractAddress as `0x${string}`,
+                            address: data.contractAddress as Address,
                             functionName: 'totalSupply',
                             chainId,
                         },
                         {
                             abi: ParagraphABI,
-                            address: data.contractAddress as `0x${string}`,
-                            args: [account.address as `0x${string}`],
+                            address: data.contractAddress as Address,
+                            args: [account.address as Address],
                             functionName: 'balanceOf',
                             chainId,
                         },
@@ -125,7 +125,7 @@ class Paragraph implements Provider {
 
         if (article.contractAddress) {
             return client.estimateContractGas({
-                address: article.contractAddress as `0x${string}`,
+                address: article.contractAddress as Address,
                 abi: ParagraphABI,
                 functionName: 'mintWithReferrer',
                 args: [account.address, article.referrerAddress ?? zeroAddress] as [HexString, HexString],
@@ -138,7 +138,7 @@ class Paragraph implements Provider {
 
         try {
             return await client.estimateContractGas({
-                address: address as `0x${string}`,
+                address: address as Address,
                 abi: ParagraphMintABI,
                 functionName: 'createAndMint',
                 args: [
@@ -166,7 +166,7 @@ class Paragraph implements Provider {
              */
             if (error instanceof Error && error.message.toLowerCase().includes('nft already exists')) {
                 return await client.estimateContractGas({
-                    address: address as `0x${string}`,
+                    address: address as Address,
                     abi: ParagraphMintABI,
                     functionName: 'createAndMint',
                     args: [
@@ -205,7 +205,7 @@ class Paragraph implements Provider {
         // factory contract has been deployed
         if (article.contractAddress) {
             const hash = await writeContract(config, {
-                address: article.contractAddress as `0x${string}`,
+                address: article.contractAddress as Address,
                 abi: ParagraphABI,
                 functionName: 'mintWithReferrer',
                 args: [account.address, article.referrerAddress ?? zeroAddress] as [HexString, HexString],
@@ -217,7 +217,7 @@ class Paragraph implements Provider {
 
         try {
             const hash = await writeContract(config, {
-                address: address as `0x${string}`,
+                address: address as Address,
                 abi: ParagraphMintABI,
                 functionName: 'createAndMint',
                 args: [
@@ -242,7 +242,7 @@ class Paragraph implements Provider {
         } catch (error) {
             if (error instanceof Error && error.message.toLowerCase().includes('nft already exists')) {
                 const hash = await writeContract(config, {
-                    address: address as `0x${string}`,
+                    address: address as Address,
                     abi: ParagraphMintABI,
                     functionName: 'createAndMint',
                     args: [
