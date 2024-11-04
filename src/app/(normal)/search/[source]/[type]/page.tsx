@@ -22,6 +22,7 @@ import { useNavigatorTitle } from '@/hooks/useNavigatorTitle.js';
 import type { Channel, Post, Profile } from '@/providers/types/SocialMedia.js';
 import { useTwitterStateStore } from '@/store/useProfileStore.js';
 import { useSearchStateStore } from '@/store/useSearchStore.js';
+import { createSourceTabs } from '@/helpers/createSourceTabs.js';
 
 const getSearchItemContent = (
     index: number,
@@ -93,13 +94,13 @@ export default function Page() {
     useNavigatorTitle(t`Search`);
 
     const listKey = `${ScrollListKey.Search}:${searchType}:${searchKeyword}:${source}`;
-    const urlMap = useMemo(
-        () => createTabUrlMap(sources, (source) => resolveSearchUrl(searchKeyword, searchType, source)),
+    const tabs = useMemo(
+        () => createSourceTabs(sources, (source) => resolveSearchUrl(searchKeyword, searchType, source)),
         [searchKeyword, searchType, sources],
     );
     return (
         <>
-            <SourceTabs source={source} sources={sources} urlMap={urlMap} />
+            <SourceTabs source={source} tabs={tabs} />
             <ListInPage
                 source={source}
                 key={listKey}

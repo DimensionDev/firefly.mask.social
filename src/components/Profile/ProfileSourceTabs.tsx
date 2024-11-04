@@ -21,22 +21,19 @@ export function ProfileSourceTabs({
     const isCurrentProfile = currentProfiles.some((x) => isSameFireflyIdentity(x.identity, identity));
 
     const profiles = isCurrentProfile ? currentProfiles : otherProfiles;
-    const urlMap = useMemo(
+    const tabs = useMemo(
         () =>
-            createTabUrlMap(SORTED_PROFILE_SOURCES, (x) => {
-                const profile = profiles.find((profile) => profile.identity.source === x);
-                return resolveProfileUrl(x, profile?.identity.id ?? identity.id);
-            }),
+            createTabUrlMap(
+                SORTED_PROFILE_SOURCES.filter((value) => {
+                    return profiles.find((profile) => profile.identity.source === value);
+                }),
+                (x) => {
+                    const profile = profiles.find((profile) => profile.identity.source === x);
+                    return resolveProfileUrl(x, profile?.identity.id ?? identity.id);
+                },
+            ),
         [profiles, identity.id],
     );
 
-    return (
-        <SourceTabs
-            source={identity.source}
-            sources={SORTED_PROFILE_SOURCES.filter((value) => {
-                return profiles.find((profile) => profile.identity.source === value);
-            })}
-            urlMap={urlMap}
-        />
-    );
+    return <SourceTabs source={identity.source} tabs={tabs} />;
 }

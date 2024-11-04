@@ -8,15 +8,17 @@ import { SourceTab } from '@/components/SourceTabs/SourceTab.js';
 import { IS_APPLE, IS_SAFARI } from '@/constants/bowser.js';
 import type { Source } from '@/constants/enum.js';
 import { classNames } from '@/helpers/classNames.js';
-import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 
-interface SourceTabsProps<S extends Source> {
-    sources: S[];
+interface SourceTabsProps {
     source: Source;
-    urlMap: Record<Source, string>;
+    tabs: Array<{
+        label: string;
+        url: string;
+        source: Source;
+    }>;
 }
 
-export function SourceTabs<S extends Source>({ sources, source, urlMap }: SourceTabsProps<S>) {
+export function SourceTabs({ tabs, source }: SourceTabsProps) {
     const [overflowed, setOverflowed] = useState(false);
     const navRef = useRef<HTMLElement>(null);
     const [leftActive, setLeftActive] = useState(false);
@@ -68,9 +70,9 @@ export function SourceTabs<S extends Source>({ sources, source, urlMap }: Source
                 ref={navRef}
                 onScroll={onScroll}
             >
-                {sources.map((x) => (
-                    <SourceTab key={x} href={urlMap[x]} isActive={x === source}>
-                        {resolveSourceName(x)}
+                {tabs.map((x) => (
+                    <SourceTab key={x.source} href={x.url} isActive={x.source === source}>
+                        {x.label}
                     </SourceTab>
                 ))}
             </nav>

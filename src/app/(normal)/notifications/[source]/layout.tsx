@@ -6,7 +6,7 @@ import { SourceTabs } from '@/components/SourceTabs/index.js';
 import { SOCIAL_DISCOVER_SOURCE } from '@/constants/index.js';
 import { createPageTitleSSR } from '@/helpers/createPageTitle.js';
 import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
-import { createTabUrlMap } from '@/helpers/createTabUrlMap.js';
+import { createSourceTabs } from '@/helpers/createSourceTabs.js';
 import { isDiscoverSource } from '@/helpers/isDiscoverSource.js';
 import { resolveNotificationUrl } from '@/helpers/resolveNotificationUrl.js';
 import { resolveSourceFromUrlNoFallback } from '@/helpers/resolveSource.js';
@@ -28,10 +28,10 @@ export default function Layout({
     const source = resolveSourceFromUrlNoFallback(params.source);
     if (!source || !isDiscoverSource(source)) notFound();
 
-    const urlMap = useMemo(() => createTabUrlMap(SOCIAL_DISCOVER_SOURCE, resolveNotificationUrl), []);
+    const tabs = useMemo(() => createSourceTabs(SOCIAL_DISCOVER_SOURCE, resolveNotificationUrl), []);
     return (
         <>
-            <SourceTabs source={source} sources={SOCIAL_DISCOVER_SOURCE} urlMap={urlMap} />
+            <SourceTabs source={source} tabs={tabs} />
             {children}
         </>
     );

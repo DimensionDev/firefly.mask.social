@@ -10,6 +10,7 @@ import { createTabUrlMap } from '@/helpers/createTabUrlMap.js';
 import { isDiscoverSource } from '@/helpers/isDiscoverSource.js';
 import { resolveFollowingUrl } from '@/helpers/resolveFollowingUrl.js';
 import { resolveSourceFromUrlNoFallback } from '@/helpers/resolveSource.js';
+import { createSourceTabs } from '@/helpers/createSourceTabs.js';
 
 export async function generateMetadata() {
     return createSiteMetadata({
@@ -27,10 +28,10 @@ export default function Layout({
 }>) {
     const source = resolveSourceFromUrlNoFallback(params.source);
     if (!source || !isDiscoverSource(source)) notFound();
-    const urlMap = useMemo(() => createTabUrlMap(DISCOVER_SOURCES, resolveFollowingUrl), []);
+    const tabs = useMemo(() => createSourceTabs(DISCOVER_SOURCES, resolveFollowingUrl), []);
     return (
         <>
-            <SourceTabs source={source} sources={DISCOVER_SOURCES} urlMap={urlMap} />
+            <SourceTabs source={source} tabs={tabs} />
             {children}
         </>
     );
