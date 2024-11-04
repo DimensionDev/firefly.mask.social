@@ -1,7 +1,5 @@
-import { memoizePromise } from '@masknet/kit';
-import { memoize } from 'lodash-es';
-
 import { fetchText } from '@/helpers/fetchText.js';
+import { memoizePromise } from '@/helpers/memoizePromise.js';
 
 const cache = new Map<string, string>();
 
@@ -23,4 +21,4 @@ async function resolver(u: string): Promise<string | null> {
 }
 
 /** Resolve a https://t.co/ link to it's real address. */
-export const resolveTCOLink = memoizePromise(memoize, resolver, (x) => x);
+export const resolveTCOLink = memoizePromise(resolver, (x) => x);

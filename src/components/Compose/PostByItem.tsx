@@ -1,5 +1,6 @@
 import { t, Trans } from '@lingui/macro';
 import { delay } from '@masknet/kit';
+import { rootRouteId, useRouteContext } from '@tanstack/react-router';
 import { useAsyncFn } from 'react-use';
 
 import LoadingIcon from '@/assets/loading.svg';
@@ -16,6 +17,7 @@ import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { useAccounts } from '@/hooks/useAccounts.js';
 import { useCompositePost } from '@/hooks/useCompositePost.js';
 import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
+import { CloseAction } from '@/modals/ComposeModal.js';
 import { ComposeModalRef, LoginModalRef } from '@/modals/controls.js';
 import type { Account } from '@/providers/types/Account.js';
 import { switchAccount } from '@/services/account.js';
@@ -27,6 +29,7 @@ interface PostByItemProps {
 }
 
 export function PostByItem({ source, disabled = false }: PostByItemProps) {
+    const routeContext = useRouteContext({ from: rootRouteId });
     const accounts = useAccounts(source);
     const currentProfile = useCurrentProfile(source);
 
@@ -62,7 +65,12 @@ export function PostByItem({ source, disabled = false }: PostByItemProps) {
                                 return;
                             }
 
-                            ComposeModalRef.close();
+                            if (routeContext.onClose && typeof routeContext.onClose === 'function') {
+                                const closeAction = await routeContext.onClose();
+                                if (closeAction === CloseAction.None) return;
+                            } else {
+                                ComposeModalRef.close();
+                            }
                             await delay(300);
                             LoginModalRef.open({
                                 source,

@@ -1,14 +1,16 @@
 import { t } from '@lingui/macro';
 import { notFound } from 'next/navigation.js';
-import React, { type PropsWithChildren } from 'react';
+import { type PropsWithChildren } from 'react';
 
 import { SourceTabs } from '@/components/SourceTabs/index.js';
+import { SourceTab } from '@/components/SourceTabs/SourceTab.js';
 import { BOOKMARK_SOURCES } from '@/constants/index.js';
 import { createPageTitleSSR } from '@/helpers/createPageTitle.js';
 import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
 import { isBookmarkSource } from '@/helpers/isBookmarkSource.js';
 import { resolveBookmarkUrl } from '@/helpers/resolveBookmarkUrl.js';
 import { resolveSourceFromUrlNoFallback } from '@/helpers/resolveSource.js';
+import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 
 export async function generateMetadata() {
     return createSiteMetadata({
@@ -28,7 +30,13 @@ export default function Layout({
     if (!source || !isBookmarkSource(source)) notFound();
     return (
         <>
-            <SourceTabs source={source} sources={BOOKMARK_SOURCES} href={resolveBookmarkUrl} />
+            <SourceTabs>
+                {BOOKMARK_SOURCES.map((x) => (
+                    <SourceTab key={x} href={resolveBookmarkUrl(x)} isActive={x === source}>
+                        {resolveSourceName(x)}
+                    </SourceTab>
+                ))}
+            </SourceTabs>
             {children}
         </>
     );

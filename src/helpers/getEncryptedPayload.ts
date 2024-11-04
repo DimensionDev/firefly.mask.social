@@ -1,6 +1,6 @@
-import { memoizePromise } from '@masknet/kit';
-import { compact, first, memoize } from 'lodash-es';
+import { compact, first } from 'lodash-es';
 
+import { memoizePromise } from '@/helpers/memoizePromise.js';
 import type { Attachment } from '@/providers/types/SocialMedia.js';
 import { steganographyDecodeImage } from '@/services/steganography.js';
 
@@ -20,7 +20,6 @@ export function getEncryptedPayloadFromText(text: string | undefined): Encrypted
 }
 
 const decodeAttachment = memoizePromise(
-    memoize,
     async (attachment: Attachment) => {
         if (attachment.type !== 'Image') return;
         if (!attachment.uri) return;
@@ -30,7 +29,7 @@ const decodeAttachment = memoizePromise(
 
         return [decoded, '2', attachment.uri] as EncryptedPayload;
     },
-    (x) => x.url,
+    (x) => x.uri,
 );
 
 export async function getEncryptedPayloadFromImageAttachment(

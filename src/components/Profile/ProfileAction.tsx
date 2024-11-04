@@ -1,5 +1,6 @@
 'use client';
 
+import { useQuery } from '@tanstack/react-query';
 import { useMemo } from 'react';
 
 import { EditProfileButton } from '@/components/EditProfile/EditProfileButton.js';
@@ -13,13 +14,23 @@ import { useCurrentFireflyProfilesAll } from '@/hooks/useCurrentFireflyProfiles.
 import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
 import { useIsSmall } from '@/hooks/useMediaQuery.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
+import { getProfileById } from '@/services/getProfileById.js';
 
 interface ProfileActionProps {
     profile: Profile;
     ProfileMoreActionProps?: Partial<ProfileMoreActionProps>;
 }
 
-export function ProfileAction({ profile, ProfileMoreActionProps }: ProfileActionProps) {
+export function ProfileAction({ profile: initialProfile, ProfileMoreActionProps }: ProfileActionProps) {
+    const { data } = useQuery({
+        queryKey: ['profile', initialProfile.source, initialProfile.profileId],
+        queryFn: async () => {
+            return getProfileById(initialProfile.source, initialProfile.profileId);
+        },
+    });
+
+    const profile = data ?? initialProfile;
+
     const profiles = useCurrentFireflyProfilesAll();
     const identity = resolveFireflyIdentity(profile);
     const isRelatedProfile = identity

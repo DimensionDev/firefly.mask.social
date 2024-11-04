@@ -71,18 +71,13 @@ export function ProfileCategoryTabs({
                             href={resolveProfileUrl(source, id, type)}
                             replace
                             className={classNames(
-                                'flex h-[46px] items-center whitespace-nowrap px-[14px] font-extrabold transition-all',
-                                category === type ? 'text-main' : 'text-third hover:text-main',
+                                'flex h-[45px] items-center whitespace-nowrap px-[14px] font-extrabold transition-all hover:text-highlight',
+                                category === type ? 'text-highlight' : 'text-third',
                             )}
                         >
                             {title}
                         </Link>
-                        <span
-                            className={classNames(
-                                'h-1 w-full rounded-full bg-fireflyBrand transition-all',
-                                category !== type ? 'hidden' : '',
-                            )}
-                        />
+                        {category === type ? <span className="h-1 w-full bg-highlight transition-all" /> : null}
                     </div>
                 );
             })}

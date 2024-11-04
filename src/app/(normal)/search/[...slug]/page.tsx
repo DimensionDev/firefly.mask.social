@@ -132,6 +132,7 @@ export default function Page() {
     useNavigatorTitle(t`Search`);
 
     const listKey = `${ScrollListKey.Search}:${searchType}:${searchKeyword}:${source}`;
+
     return (
         <>
             {searchType === SearchType.Posts ? (

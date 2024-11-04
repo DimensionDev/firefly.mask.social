@@ -1,9 +1,10 @@
+import { cookies } from 'next/headers.js';
 import type { NextRequest } from 'next/server.js';
 import { getToken, type JWT } from 'next-auth/jwt';
 
 import { env } from '@/constants/env.js';
 import { TwitterSession } from '@/providers/twitter/Session.js';
-import { TwitterSessionPayload } from '@/providers/twitter/SessionPayload.js';
+import { type SessionPayload, TwitterSessionPayload } from '@/providers/twitter/SessionPayload.js';
 
 async function createTwitterSessionPayloadFromHeaders(request: NextRequest) {
     const payload = TwitterSession.payloadFromHeaders(request.headers);
@@ -12,7 +13,7 @@ async function createTwitterSessionPayloadFromHeaders(request: NextRequest) {
     return TwitterSessionPayload.revealPayload(payload);
 }
 
-async function createTwitterSessionPayloadFromJWT(request: NextRequest) {
+export async function createTwitterSessionPayloadFromJWT(request: NextRequest) {
     const token: JWT | null = await getToken({
         req: request,
         secret: env.internal.NEXTAUTH_SECRET,
@@ -36,4 +37,11 @@ export async function createTwitterSessionPayload(request: NextRequest) {
     if (fromJWT) return fromJWT;
 
     return null;
+}
+
+export async function createTwitterSessionPayloadFromCookie() {
+    const tokenFromCookie = cookies().get('twitterToken');
+    if (!tokenFromCookie?.value) return null;
+    const token = JSON.parse(atob(tokenFromCookie.value)) as SessionPayload;
+    return TwitterSessionPayload.revealPayload(token);
 }
