@@ -5,10 +5,16 @@ import { SupportedMethod } from '@/types/bridge.js';
 
 export function useFireflyBridgeAuthorization() {
     return useQuery({
-        enabled: fireflyBridgeProvider.supported,
         queryKey: ['firefly-bridge-authorization'],
-        queryFn() {
+        async queryFn() {
+            if (!fireflyBridgeProvider.supported) return;
             return fireflyBridgeProvider.request(SupportedMethod.GET_AUTHORIZATION, {});
+        },
+        refetchInterval: (query) => {
+            const count = query.state.dataUpdateCount || query.state.errorUpdateCount;
+            if (query.state.data) return false;
+            if (count > 5) return false;
+            return 3000;
         },
     });
 }
