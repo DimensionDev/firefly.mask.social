@@ -24,10 +24,8 @@ export function NotificationFilter({ source, className, types, onTypesChange: se
     const tabs = useMemo(() => {
         const getClassNames = (active: boolean) => {
             return classNames(
-                'flex h-6 cursor-pointer items-center justify-center gap-x-1 whitespace-nowrap rounded-md bg-farcasterPrimary px-1.5 text-xs leading-6',
-                active
-                    ? 'text-bg dark:text-white'
-                    : 'cursor-pointer bg-opacity-10 text-farcasterPrimary dark:bg-opacity-30 dark:text-white',
+                'flex h-6 cursor-pointer items-center justify-center gap-x-1 whitespace-nowrap rounded-md px-1.5 text-xs leading-6',
+                active ? 'bg-highlight text-white' : 'bg-thirdMain text-second hover:text-highlight',
             );
         };
 
