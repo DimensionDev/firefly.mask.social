@@ -8,6 +8,7 @@ import { classNames } from '@/helpers/classNames.js';
 
 interface SourceTabProps extends PropsWithChildren<LinkProps> {
     isActive: boolean;
+    className?: string;
 }
 
 export function SourceTab({ isActive, ...rest }: SourceTabProps) {

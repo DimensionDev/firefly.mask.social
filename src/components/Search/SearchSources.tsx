@@ -2,9 +2,9 @@
 
 import { memo, useMemo } from 'react';
 
+import { SourceTab } from '@/components/SourceTabs/SourceTab.js';
 import { SearchType, Source } from '@/constants/enum.js';
 import { SORTED_SEARCH_TYPE, SORTED_SOCIAL_SOURCES } from '@/constants/index.js';
-import { Link } from '@/esm/Link.js';
 import { classNames } from '@/helpers/classNames.js';
 import { narrowToSocialSource } from '@/helpers/narrowToSocialSource.js';
 import { resolveSearchUrl } from '@/helpers/resolveSearchUrl.js';
@@ -41,7 +41,8 @@ export const SearchSources = memo<SearchSourcesProps>(function SearchSources({
                 const isActive = source === selectedSource;
 
                 return (
-                    <Link
+                    <SourceTab
+                        isActive={isActive}
                         className={classNames('h-6 rounded-md px-1.5 text-sm leading-6', {
                             'bg-highlight text-white': isActive,
                             'bg-input text-lightSecond': !isActive,
@@ -50,7 +51,7 @@ export const SearchSources = memo<SearchSourcesProps>(function SearchSources({
                         href={resolveSearchUrl(query, searchType, source)}
                     >
                         {resolveSourceName(source)}
-                    </Link>
+                    </SourceTab>
                 );
             })}
         </nav>
