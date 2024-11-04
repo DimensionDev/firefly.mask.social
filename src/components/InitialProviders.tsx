@@ -15,6 +15,7 @@ import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import { setLocale } from '@/i18n/index.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
 import { useLeafwatchPersistStore } from '@/store/useLeafwatchPersistStore.js';
+import { useThemeModeStore } from '@/store/useThemeModeStore.js';
 
 export const InitialProviders = memo(function Providers(props: { children: React.ReactNode }) {
     const isDarkMode = useIsDarkMode();
@@ -23,13 +24,16 @@ export const InitialProviders = memo(function Providers(props: { children: React
 
     const entryPathname = useRef('');
     const pathname = usePathname();
-
+    const themeMode = useThemeModeStore.use.themeMode();
     useLayoutEffect(() => {
         document.documentElement.classList.toggle('dark', isDarkMode);
 
+        if (themeMode === 'light') {
+            document.documentElement.classList.toggle('light', true);
+        }
         const meta = document.querySelector('meta[name="theme-color"]');
         meta?.setAttribute('content', isDarkMode ? '#030303' : '#ffffff');
-    }, [isDarkMode]);
+    }, [isDarkMode, themeMode]);
 
     useEffect(() => {
         const locale = getLocaleFromCookies();
