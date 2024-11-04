@@ -1,16 +1,16 @@
 import { t } from '@lingui/macro';
 import { notFound } from 'next/navigation.js';
-import { type PropsWithChildren, useMemo } from 'react';
+import { type PropsWithChildren } from 'react';
 
 import { SourceTabs } from '@/components/SourceTabs/index.js';
 import { SourceTab } from '@/components/SourceTabs/SourceTab.js';
 import { DISCOVER_SOURCES } from '@/constants/index.js';
 import { createPageTitleSSR } from '@/helpers/createPageTitle.js';
 import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
-import { createSourceTabs } from '@/helpers/createSourceTabs.js';
 import { isDiscoverSource } from '@/helpers/isDiscoverSource.js';
 import { resolveFollowingUrl } from '@/helpers/resolveFollowingUrl.js';
 import { resolveSourceFromUrlNoFallback } from '@/helpers/resolveSource.js';
+import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 
 export async function generateMetadata() {
     return createSiteMetadata({
@@ -28,13 +28,12 @@ export default function Layout({
 }>) {
     const source = resolveSourceFromUrlNoFallback(params.source);
     if (!source || !isDiscoverSource(source)) notFound();
-    const tabs = useMemo(() => createSourceTabs(DISCOVER_SOURCES, resolveFollowingUrl), []);
     return (
         <>
             <SourceTabs>
-                {tabs.map((x) => (
-                    <SourceTab key={x.source} href={x.url} isActive={x.source === source}>
-                        {x.label}
+                {DISCOVER_SOURCES.map((x) => (
+                    <SourceTab key={x} href={resolveFollowingUrl(x)} isActive={x === source}>
+                        {resolveSourceName(x)}
                     </SourceTab>
                 ))}
             </SourceTabs>

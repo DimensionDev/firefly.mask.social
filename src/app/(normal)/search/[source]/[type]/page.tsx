@@ -14,11 +14,11 @@ import { SourceTabs } from '@/components/SourceTabs/index.js';
 import { SourceTab } from '@/components/SourceTabs/SourceTab.js';
 import { ScrollListKey, SearchType, Source } from '@/constants/enum.js';
 import { SORTED_SEARCH_TYPE, SORTED_SOCIAL_SOURCES } from '@/constants/index.js';
-import { createSourceTabs } from '@/helpers/createSourceTabs.js';
 import { narrowToSocialSource } from '@/helpers/narrowToSocialSource.js';
 import { createIndicator } from '@/helpers/pageable.js';
 import { resolveSearchUrl } from '@/helpers/resolveSearchUrl.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
+import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { useNavigatorTitle } from '@/hooks/useNavigatorTitle.js';
 import type { Channel, Post, Profile } from '@/providers/types/SocialMedia.js';
 import { useTwitterStateStore } from '@/store/useProfileStore.js';
@@ -94,16 +94,13 @@ export default function Page() {
     useNavigatorTitle(t`Search`);
 
     const listKey = `${ScrollListKey.Search}:${searchType}:${searchKeyword}:${source}`;
-    const tabs = useMemo(
-        () => createSourceTabs(sources, (source) => resolveSearchUrl(searchKeyword, searchType, source)),
-        [searchKeyword, searchType, sources],
-    );
+
     return (
         <>
             <SourceTabs>
-                {tabs.map((x) => (
-                    <SourceTab key={x.source} href={x.url} isActive={x.source === source}>
-                        {x.label}
+                {sources.map((x) => (
+                    <SourceTab key={x} href={resolveSearchUrl(searchKeyword, searchType, x)} isActive={x === source}>
+                        {resolveSourceName(x)}
                     </SourceTab>
                 ))}
             </SourceTabs>
