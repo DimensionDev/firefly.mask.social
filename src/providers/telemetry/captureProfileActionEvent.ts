@@ -5,7 +5,7 @@ import { runInSafe } from '@/helpers/runInSafe.js';
 import { getEventParameters } from '@/providers/telemetry/getEventParameters.js';
 import { TelemetryProvider } from '@/providers/telemetry/index.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
-import { EventId, VersionFilter } from '@/providers/types/Telemetry.js';
+import { EventId } from '@/providers/types/Telemetry.js';
 
 type ProfileActionType = 'follow' | 'unfollow';
 
@@ -34,8 +34,6 @@ export function captureProfileActionEvent(action: ProfileActionType, profile: Pr
         const eventIds = resolveProfileActionEventIds(profile.source);
         const eventId = eventIds[action];
 
-        TelemetryProvider.captureEvent(eventId, getEventParameters(profile), {
-            version_filter: VersionFilter.Next,
-        });
+        TelemetryProvider.captureEvent(eventId, getEventParameters(profile));
     });
 }
