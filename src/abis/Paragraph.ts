@@ -334,7 +334,7 @@ export const ParagraphABI = [
         stateMutability: 'nonpayable',
         type: 'function',
     },
-];
+] as const;
 
 export const ParagraphMintABI = [
     {

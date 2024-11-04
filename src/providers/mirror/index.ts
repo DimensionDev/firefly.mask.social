@@ -1,6 +1,6 @@
 import { getAccount, readContract, waitForTransactionReceipt, writeContract } from '@wagmi/core';
 import urlcat from 'urlcat';
-import { createPublicClient, http, parseSignature, zeroAddress } from 'viem';
+import { type Address,createPublicClient, http, parseSignature, zeroAddress } from 'viem';
 import { polygon } from 'viem/chains';
 
 import { MirrorABI, MirrorFactoryABI, OldMirrorABI } from '@/abis/Mirror.js';
@@ -49,7 +49,7 @@ class Mirror implements Provider {
                 const account = getAccount(config);
                 const balance = await readContract(config, {
                     abi: MirrorABI,
-                    address: result.proxyAddress as `0x${string}`,
+                    address: result.proxyAddress as Address,
                     functionName: 'balanceOf',
                     args: [account.address],
                     chainId: result.network.chainId,
@@ -97,9 +97,9 @@ class Mirror implements Provider {
         const price = article.price ? BigInt(rightShift(article.price, 18).toString()) : 0n;
 
         if (isSameEthereumAddress(article.contractAddress, article.factorAddress) && article.deploymentSignature) {
-            const { r, s, v } = parseSignature(article.deploymentSignature as `0x${string}`);
+            const { r, s, v } = parseSignature(article.deploymentSignature as Address);
             return client.estimateContractGas({
-                address: article.factorAddress as `0x${string}`,
+                address: article.factorAddress as Address,
                 abi: MirrorFactoryABI,
                 functionName: 'createWithSignature',
                 args: [
@@ -131,7 +131,7 @@ class Mirror implements Provider {
         const ABI = isOld ? OldMirrorABI : MirrorABI;
 
         return client.estimateContractGas({
-            address: article.contractAddress as `0x${string}`,
+            address: article.contractAddress as Address,
             abi: ABI,
             functionName: 'purchase',
             args: isOld ? [account.address, ''] : [account.address, '', zeroAddress],
@@ -144,9 +144,9 @@ class Mirror implements Provider {
         const price = article.price ? BigInt(rightShift(article.price, 18).toString()) : 0n;
 
         if (isSameEthereumAddress(article.contractAddress, article.factorAddress) && article.deploymentSignature) {
-            const { r, s, v } = parseSignature(article.deploymentSignature as `0x${string}`);
+            const { r, s, v } = parseSignature(article.deploymentSignature as Address);
             const hash = await writeContract(config, {
-                address: article.factorAddress as `0x${string}`,
+                address: article.factorAddress as Address,
                 abi: MirrorFactoryABI,
                 functionName: 'createWithSignature',
                 args: [
@@ -183,7 +183,7 @@ class Mirror implements Provider {
 
         const hash = await writeContract(config, {
             abi: ABI,
-            address: article.contractAddress as `0x${string}`,
+            address: article.contractAddress as Address,
             functionName: 'purchase',
             args: isOld ? [account.address, ''] : [account.address, '', zeroAddress],
             value: article.fee + price,

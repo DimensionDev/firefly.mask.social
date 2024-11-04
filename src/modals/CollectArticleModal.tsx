@@ -1,5 +1,5 @@
 import { Trans } from '@lingui/macro';
-import { forwardRef, useState } from 'react';
+import { forwardRef, useRef, useState } from 'react';
 
 import { ArticleCollect } from '@/components/Article/ArticleCollect.js';
 import { CloseButton } from '@/components/CloseButton.js';
@@ -16,14 +16,16 @@ export interface CollectArticleModalOpenProps {
 export const CollectArticleModal = forwardRef<SingletonModalRefCreator<CollectArticleModalOpenProps>>(
     function CollectArticleModal(_, ref) {
         const [props, setProps] = useState<CollectArticleModalOpenProps>();
+        const timerRef = useRef<NodeJS.Timeout>();
         const [open, dispatch] = useSingletonModal(ref, {
             onOpen: (props) => {
-                setProps({
-                    article: props.article,
-                });
+                clearTimeout(timerRef.current);
+                setProps(props);
             },
             onClose: () => {
-                setProps(undefined);
+                timerRef.current = setTimeout(() => {
+                    setProps(undefined);
+                }, 200); // 200, duration of modal leaving
             },
         });
 
@@ -45,7 +47,7 @@ export const CollectArticleModal = forwardRef<SingletonModalRefCreator<CollectAr
                         <div className="relative h-6 w-6" />
                     </div>
 
-                    {props?.article ? <ArticleCollect article={props?.article} /> : null}
+                    {props?.article ? <ArticleCollect article={props.article} /> : null}
                 </div>
             </Modal>
         );
