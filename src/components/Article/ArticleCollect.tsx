@@ -19,7 +19,7 @@ import { getArticleDigest } from '@/helpers/getArticleDigest.js';
 import { getSnackbarMessageFromError } from '@/helpers/getSnackbarMessageFromError.js';
 import { multipliedBy, rightShift, ZERO } from '@/helpers/number.js';
 import { resolveArticleCollectProvider } from '@/helpers/resolveArticleCollectProvider.js';
-import { type Article } from '@/providers/types/Article.js';
+import { type Article, ArticlePlatform } from '@/providers/types/Article.js';
 
 export interface ArticleCollectProps {
     article: Article;
@@ -116,10 +116,11 @@ export function ArticleCollect({ article }: ArticleCollectProps) {
 
     const buttonText = useMemo(() => {
         if (isSoldOut) return t`Sold Out`;
+        if (data?.isCollected && platform !== ArticlePlatform.Paragraph) return t`Collected`;
         if (insufficientBalance) return t`Insufficient Balance`;
         if (!data?.price) return t`Free Collect`;
         return t`Collect for ${data.price} ${chain?.nativeCurrency.symbol}`;
-    }, [data, chain, isSoldOut, insufficientBalance]);
+    }, [data, chain, isSoldOut, insufficientBalance, platform]);
 
     if (!queryDetailLoading && !data) {
         return (
@@ -191,7 +192,11 @@ export function ArticleCollect({ article }: ArticleCollectProps) {
             <ChainGuardButton
                 targetChainId={data?.chainId}
                 className="mt-6 w-full max-md:mt-4"
-                disabled={isSoldOut || (account.isConnected && insufficientBalance)}
+                disabled={
+                    isSoldOut ||
+                    (account.isConnected && insufficientBalance) ||
+                    (data?.isCollected && platform !== ArticlePlatform.Paragraph)
+                }
                 loading={collectLoading || queryDetailLoading}
                 onClick={handleCollect}
             >
