@@ -1,4 +1,4 @@
-import { getAccount, http, readContract, waitForTransactionReceipt, writeContract } from '@wagmi/core';
+import { getAccount, http, readContracts, waitForTransactionReceipt, writeContract } from '@wagmi/core';
 import urlcat from 'urlcat';
 import { createPublicClient, zeroAddress } from 'viem';
 import { base, optimism, polygon, zora } from 'viem/chains';
@@ -55,21 +55,37 @@ class Paragraph implements Provider {
         if (!data) throw new Error('Failed to fetch article detail.');
 
         let soldCount = 0;
+        let isCollected = false;
 
         const chainId = resolveParagraphChain(data.chain);
         if (!chainId) throw new Error(`Unsupported chain: ${data.chain}`);
 
         if (data.contractAddress) {
             try {
-                const totalSupply = await readContract(config, {
-                    abi: ParagraphABI,
-                    address: data.contractAddress as `0x${string}`,
-                    functionName: 'totalSupply',
-                    chainId,
+                const account = getAccount(config);
+                const [totalSupply, balance] = await readContracts(config, {
+                    contracts: [
+                        {
+                            abi: ParagraphABI,
+                            address: data.contractAddress as `0x${string}`,
+                            functionName: 'totalSupply',
+                            chainId,
+                        },
+                        {
+                            abi: ParagraphABI,
+                            address: data.contractAddress as `0x${string}`,
+                            args: [account.address as `0x${string}`],
+                            functionName: 'balanceOf',
+                            chainId,
+                        },
+                    ],
                 });
 
-                if (totalSupply) {
-                    soldCount = Number(totalSupply);
+                if (totalSupply.status === 'success') {
+                    soldCount = Number(totalSupply.result);
+                }
+                if (balance.status === 'success') {
+                    isCollected = balance.result > 0;
                 }
             } catch {
                 soldCount = 0;
@@ -81,7 +97,7 @@ class Paragraph implements Provider {
             soldCount,
             chainId,
             contractAddress: data.contractAddress,
-            isCollected: false,
+            isCollected,
             price: data.costEth ? Number(data.costEth) : null,
             fee: chainId !== polygon.id ? PARAGRAPH_COLLECT_FEE : PARAGRAPH_COLLECT_FEE_IN_POLYGON,
             symbol: data.symbol,
@@ -112,7 +128,7 @@ class Paragraph implements Provider {
                 address: article.contractAddress as `0x${string}`,
                 abi: ParagraphABI,
                 functionName: 'mintWithReferrer',
-                args: [account.address, article.referrerAddress ?? zeroAddress],
+                args: [account.address, article.referrerAddress ?? zeroAddress] as [HexString, HexString],
                 value,
             });
         }
@@ -192,7 +208,7 @@ class Paragraph implements Provider {
                 address: article.contractAddress as `0x${string}`,
                 abi: ParagraphABI,
                 functionName: 'mintWithReferrer',
-                args: [account.address, article.referrerAddress ?? zeroAddress],
+                args: [account.address, article.referrerAddress ?? zeroAddress] as [HexString, HexString],
                 value,
             });
 

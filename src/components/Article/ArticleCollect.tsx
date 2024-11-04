@@ -25,31 +25,29 @@ export interface ArticleCollectProps {
     article: Article;
 }
 
-export function ArticleCollect(props: ArticleCollectProps) {
+export function ArticleCollect({ article }: ArticleCollectProps) {
     const account = useAccount();
     const chains = useChains();
 
-    const platform = props?.article.platform;
+    const platform = article.platform;
 
-    const queryKey = ['article', platform, props?.article.id, props?.article.origin, account.address];
+    const queryKey = ['article', platform, article.id, article.origin, account.address];
     const queryKeyRef = useRef(queryKey);
     queryKeyRef.current = queryKey;
     const { data: result, isLoading: queryDetailLoading } = useQuery({
-        enabled: !!props.article,
         queryKey,
         queryFn: async () => {
-            if (!props) return;
-            const digest = getArticleDigest(props?.article);
-            if (!digest) return;
+            const digest = getArticleDigest(article);
+            if (!digest) return null;
             const provider = resolveArticleCollectProvider(platform);
-            if (!provider) return;
+            if (!provider) return null;
 
             const data = await provider.getArticleCollectableByDigest(digest);
 
             if (!account.address)
                 return {
                     data,
-                    hasSufficientBalance: false,
+                    insufficientBalance: true,
                 };
 
             try {
@@ -73,31 +71,24 @@ export function ArticleCollect(props: ArticleCollectProps) {
                     : !gasPrice
                       ? ZERO
                       : multipliedBy(gasPrice.toString(), gasLimit.toString());
-
                 const price = data.price ? BigInt(rightShift(data.price, 18).toString()) : 0n;
 
-                const total = price + data.fee + BigInt(gasFee.toString());
+                const cost = price + data.fee + BigInt(gasFee.toString());
 
-                if (total > balance.value) {
-                    return {
-                        data,
-                        hasSufficientBalance: false,
-                    };
-                }
                 return {
                     data,
-                    hasSufficientBalance: true,
+                    insufficientBalance: cost > balance.value,
                 };
             } catch {
                 return {
                     data,
-                    hasSufficientBalance: false,
+                    insufficientBalance: true,
                 };
             }
         },
     });
 
-    const { data, hasSufficientBalance } = result ?? {};
+    const { data, insufficientBalance } = result ?? {};
 
     const [{ loading: collectLoading }, handleCollect] = useAsyncFn(async () => {
         if (!data || !platform) return;
@@ -125,11 +116,10 @@ export function ArticleCollect(props: ArticleCollectProps) {
 
     const buttonText = useMemo(() => {
         if (isSoldOut) return t`Sold Out`;
-        if (data?.isCollected) return t`Collected`;
-        if (!hasSufficientBalance) return t`Insufficient Balance`;
+        if (insufficientBalance) return t`Insufficient Balance`;
         if (!data?.price) return t`Free Collect`;
         return t`Collect for ${data.price} ${chain?.nativeCurrency.symbol}`;
-    }, [data, chain, isSoldOut, hasSufficientBalance]);
+    }, [data, chain, isSoldOut, insufficientBalance]);
 
     if (!queryDetailLoading && !data) {
         return (
@@ -141,21 +131,25 @@ export function ArticleCollect(props: ArticleCollectProps) {
         );
     }
 
-    return queryDetailLoading ? (
-        <div className="flex h-[198px] w-full items-center justify-center">
-            <LoadingIcon className="animate-spin text-main" width={24} height={24} />
-        </div>
-    ) : (
+    if (queryDetailLoading) {
+        return (
+            <div className="flex h-[198px] w-full items-center justify-center">
+                <LoadingIcon className="animate-spin text-main" width={24} height={24} />
+            </div>
+        );
+    }
+
+    return (
         <div className="overflow-x-hidden px-6 pb-6 max-md:px-0 max-md:pb-4">
             <div className="my-3 rounded-lg bg-lightBg px-3 py-2">
                 <div className="line-clamp-2 text-left text-base font-bold leading-5 text-fourMain">
-                    {props?.article.title}
+                    {article.title}
                 </div>
-                {props?.article.author ? (
+                {article.author ? (
                     <div className="mt-[6px] flex items-center gap-2">
-                        <Avatar src={props.article.author.avatar} size={20} alt={props.article.author.handle} />
+                        <Avatar src={article.author.avatar} size={20} alt={article.author.handle} />
                         <span className="text-medium leading-[24px] text-lightSecond">
-                            {props.article.author.handle ?? formatEthereumAddress(props.article.author.id, 4)}
+                            {article.author.handle ?? formatEthereumAddress(article.author.id, 4)}
                         </span>
                         {data?.isCollected ? (
                             <CollectFillIcon width={16} height={16} className="ml-auto mr-1.5" />
@@ -197,7 +191,7 @@ export function ArticleCollect(props: ArticleCollectProps) {
             <ChainGuardButton
                 targetChainId={data?.chainId}
                 className="mt-6 w-full max-md:mt-4"
-                disabled={data?.isCollected || isSoldOut || (account.isConnected && !hasSufficientBalance)}
+                disabled={isSoldOut || (account.isConnected && insufficientBalance)}
                 loading={collectLoading || queryDetailLoading}
                 onClick={handleCollect}
             >

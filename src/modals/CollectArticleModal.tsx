@@ -18,9 +18,7 @@ export const CollectArticleModal = forwardRef<SingletonModalRefCreator<CollectAr
         const [props, setProps] = useState<CollectArticleModalOpenProps>();
         const [open, dispatch] = useSingletonModal(ref, {
             onOpen: (props) => {
-                setProps({
-                    article: props.article,
-                });
+                setProps(props);
             },
             onClose: () => {
                 setProps(undefined);
@@ -45,7 +43,7 @@ export const CollectArticleModal = forwardRef<SingletonModalRefCreator<CollectAr
                         <div className="relative h-6 w-6" />
                     </div>
 
-                    {props?.article ? <ArticleCollect article={props?.article} /> : null}
+                    {props?.article ? <ArticleCollect article={props.article} /> : null}
                 </div>
             </Modal>
         );
