@@ -68,8 +68,6 @@ export function capturePostActionEvent(action: PostActionType, post: Post) {
         const eventIds = resolvePostActionEventIds(post.source);
         const eventId = eventIds[action];
 
-        TelemetryProvider.captureEvent(eventId, getPostEventParameters(post.postId, post.author), {
-            version_filter: VersionFilter.Latest,
-        });
+        TelemetryProvider.captureEvent(eventId, getPostEventParameters(post.postId, post.author));
     });
 }
