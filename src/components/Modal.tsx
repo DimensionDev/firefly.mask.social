@@ -4,7 +4,7 @@ import React, { Fragment, useRef } from 'react';
 
 import { classNames } from '@/helpers/classNames.js';
 
-interface ModalProps {
+export interface ModalProps {
     backdrop?: boolean;
     open: boolean;
     onClose: () => void;
