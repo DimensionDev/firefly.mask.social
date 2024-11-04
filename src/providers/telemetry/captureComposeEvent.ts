@@ -5,7 +5,7 @@ import { runInSafe } from '@/helpers/runInSafe.js';
 import { getComposeEventParameters, type Options } from '@/providers/telemetry/getComposeEventParameters.js';
 import { getPostEventId, getPostEventParameters } from '@/providers/telemetry/getPostEventParameters.js';
 import { TelemetryProvider } from '@/providers/telemetry/index.js';
-import { EventId, VersionFilter } from '@/providers/types/Telemetry.js';
+import { EventId } from '@/providers/types/Telemetry.js';
 import type { CompositePost } from '@/store/useComposeStore.js';
 import type { ComposeType } from '@/types/compose.js';
 

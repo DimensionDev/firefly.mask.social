@@ -5,7 +5,7 @@ import { runInSafe } from '@/helpers/runInSafe.js';
 import { getEventParameters } from '@/providers/telemetry/getEventParameters.js';
 import { TelemetryProvider } from '@/providers/telemetry/index.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
-import { EventId, VersionFilter } from '@/providers/types/Telemetry.js';
+import { EventId } from '@/providers/types/Telemetry.js';
 
 type ProfileActionType = 'follow' | 'unfollow';
 
