@@ -16,10 +16,11 @@ export function useIsLoginTwitterInActivity() {
     const twitterProfile = useCurrentProfile(Source.Twitter);
     const { data: token } = useFireflyBridgeAuthorization();
     const { setFireflyAccountId, setXHandle } = useContext(ActivityContext);
+    const isSupportedFireflyBridge = fireflyBridgeProvider.supported;
     return useQuery({
-        queryKey: ['is-logged-twitter', !!twitterProfile, token],
+        queryKey: ['is-logged-twitter', !!twitterProfile, token, isSupportedFireflyBridge],
         async queryFn() {
-            if (!fireflyBridgeProvider.supported) {
+            if (!isSupportedFireflyBridge) {
                 if (twitterProfile) setXHandle(twitterProfile.handle);
                 return !!twitterProfile;
             }
