@@ -5,7 +5,12 @@ import { COINGECKO_URL_BASE, CORS_HOST, DSEARCH_BASE_URL } from '@/constants/ind
 import { fetchJSON } from '@/helpers/fetchJSON.js';
 import { getCommunityLink } from '@/helpers/getCommunityLink.js';
 import { resolveCoinGeckoChainId } from '@/helpers/resolveCoingeckoChainId.js';
-import type { CoingeckoCoinInfo, CoingeckoPlatform, CoingeckoToken } from '@/providers/types/Coingecko.js';
+import type {
+    CoingeckoCoinInfo,
+    CoingeckoCoinMarketInfo,
+    CoingeckoPlatform,
+    CoingeckoToken,
+} from '@/providers/types/Coingecko.js';
 import { type Contract, type Trending, TrendingProvider } from '@/providers/types/Trending.js';
 
 export class Coingecko {
@@ -126,5 +131,16 @@ export class Coingecko {
                 return Object.fromEntries(entries);
             })(),
         };
+    }
+
+    static async getCoinsByIds(coinIds: string[]) {
+        return fetchJSON<CoingeckoCoinMarketInfo[]>(
+            urlcat(COINGECKO_URL_BASE, '/coins/markets', {
+                ids: coinIds.join(','),
+                vs_currency: 'usd',
+                per_page: 250,
+                page: 1,
+            }),
+        );
     }
 }
