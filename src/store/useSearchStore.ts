@@ -34,6 +34,13 @@ const useSearchStateBase = create<SearchTypeState, [['zustand/immer', never]]>(
 const useStore = createSelectors(useSearchStateBase);
 
 function getPathParams(path: string) {
+    if (isRoutePathname(path, '/search/:type', true)) {
+        return {
+            source: Source.Farcaster,
+            searchType: path.split('/')[2] as SearchType,
+        };
+    }
+
     if (isRoutePathname(path, '/search/:source/:type', true)) {
         return {
             source: resolveSourceFromUrl(path.split('/')[2]),

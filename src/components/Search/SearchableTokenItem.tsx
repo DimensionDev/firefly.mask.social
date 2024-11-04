@@ -24,7 +24,7 @@ export function SearchableTokenItem({ token }: SearchableTokenItemProps) {
                 className="h-11 w-11 shrink-0 rounded-full"
                 width={44}
                 height={44}
-                src={token.thumb}
+                src={token.large}
                 alt={token.symbol}
             />
             <div className="min-w-0 flex-1">

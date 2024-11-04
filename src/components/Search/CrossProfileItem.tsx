@@ -15,16 +15,16 @@ interface CrossProfileItemProps {
 export const CrossProfileItem = memo<CrossProfileItemProps>(function CrossProfileItem({ profile }) {
     return (
         <Link
-            className="flex items-center gap-x-2 border-b border-line p-3"
+            className="flex items-center gap-x-2 border-b border-line p-3 hover:bg-bg"
             href={resolveProfileUrl(
                 profile.platform,
                 profile.platform === Source.Lens ? profile.handle : profile.profileId,
             )}
         >
             <Avatar alt={profile.handle} className="h-7 w-7 rounded-full" src={profile.avatar} size={44} />
-            <div>
+            <div className="min-w-0 flex-1">
                 <div className="flex items-center gap-x-1">
-                    <span className="text-lg font-bold leading-6 text-lightMain">{profile.name}</span>
+                    <span className="truncate text-lg font-bold leading-6 text-lightMain">{profile.name}</span>
                     {profile.allProfile.map((x) => (
                         <SocialSourceIcon
                             key={x.platform}
@@ -35,7 +35,7 @@ export const CrossProfileItem = memo<CrossProfileItemProps>(function CrossProfil
                         />
                     ))}
                 </div>
-                <span className="text-medium leading-[22px] text-lightSecond">@{profile.handle}</span>
+                <div className="truncate text-medium leading-[22px] text-lightSecond">@{profile.handle}</div>
             </div>
         </Link>
     );

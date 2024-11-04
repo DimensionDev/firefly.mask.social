@@ -12,26 +12,46 @@ import { CrossProfileItem } from '@/components/Search/CrossProfileItem.js';
 import { SearchableNFTItem } from '@/components/Search/SearchableNFTItem.js';
 import { SearchableTokenItem } from '@/components/Search/SearchableTokenItem.js';
 import { SearchSources } from '@/components/Search/SearchSources.js';
+import { TokenMarketData } from '@/components/TokenProfile/TokenMarketData.js';
 import { ScrollListKey, SearchType } from '@/constants/enum.js';
 import { formatSearchIdentities } from '@/helpers/formatSearchIdentities.js';
 import { narrowToSocialSource } from '@/helpers/narrowToSocialSource.js';
 import { createIndicator } from '@/helpers/pageable.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { useNavigatorTitle } from '@/hooks/useNavigatorTitle.js';
-import { Coingecko } from '@/providers/coingecko/index.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
-import type { CoingeckoCoinMarketInfo } from '@/providers/types/Coingecko.js';
+import type { CoingeckoCoinMarketInfo, CoingeckoToken } from '@/providers/types/Coingecko.js';
 import type { FireflyCrossProfile, SearchableNFT, SearchableToken } from '@/providers/types/Firefly.js';
 import type { Channel, Post } from '@/providers/types/SocialMedia.js';
+import { searchTokens } from '@/services/searchTokens.js';
 import { useSearchStateStore } from '@/store/useSearchStore.js';
 
-type TokenWithMarket = SearchableToken & { market?: CoingeckoCoinMarketInfo };
+type TokenWithMarket = SearchableToken & { market?: CoingeckoCoinMarketInfo; hit?: boolean };
+
+function formatMarketToken(token: SearchableToken) {
+    return {
+        pluginID: 'string',
+        id: token.id,
+        symbol: token.symbol,
+        name: token.name,
+        source: '',
+        type: 'FungibleToken',
+        logoURL: token.thumb,
+        rank: token.market_cap_rank,
+        socialLinks: {
+            website: '',
+            twitter: '',
+            telegram: '',
+        },
+    } as CoingeckoToken;
+}
 
 const getSearchItemContent = (
     index: number,
     item: Post | FireflyCrossProfile | Channel | SearchableNFT | TokenWithMarket,
     searchType: SearchType,
     listKey: string,
+    keyword: string,
 ) => {
     switch (searchType) {
         case SearchType.Profiles:
@@ -48,7 +68,13 @@ const getSearchItemContent = (
             return <SearchableNFTItem key={nft.contract_address} nft={nft} />;
         case SearchType.Tokens:
             const token = item as TokenWithMarket;
-            return <SearchableTokenItem key={token.id} token={token} />;
+            return token.hit ? (
+                <div className="p-3">
+                    <TokenMarketData linkable token={formatMarketToken(token)} />
+                </div>
+            ) : (
+                <SearchableTokenItem key={token.id} token={token} />
+            );
         default:
             safeUnreachable(searchType);
             return null;
@@ -80,16 +106,7 @@ export default function Page() {
                 case SearchType.NFTs:
                     return FireflyEndpointProvider.searchNFTs(searchKeyword);
                 case SearchType.Tokens:
-                    const res = await FireflyEndpointProvider.searchTokens(searchKeyword);
-                    const ids = res.data.map((x) => x.id);
-                    const marketData = await Coingecko.getCoinsByIds(ids);
-                    return {
-                        ...res,
-                        data: (res.data || []).map((x) => ({
-                            ...x,
-                            market: marketData.find((market) => market.id === x.id),
-                        })),
-                    };
+                    return searchTokens(searchKeyword);
                 default:
                     safeUnreachable(searchType);
                     return;
@@ -146,7 +163,7 @@ export default function Page() {
                                 return index;
                         }
                     },
-                    itemContent: (index, item) => getSearchItemContent(index, item, searchType, listKey),
+                    itemContent: (index, item) => getSearchItemContent(index, item, searchType, listKey, searchKeyword),
                 }}
                 NoResultsFallbackProps={{
                     message: (
