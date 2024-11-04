@@ -2,6 +2,7 @@ import { notFound, redirect } from 'next/navigation.js';
 import { type PropsWithChildren, useMemo } from 'react';
 
 import { SourceTabs } from '@/components/SourceTabs/index.js';
+import { SourceTab } from '@/components/SourceTabs/SourceTab.js';
 import { DiscoverType } from '@/constants/enum.js';
 import { DISCOVER_SOURCES } from '@/constants/index.js';
 import { createSourceTabs } from '@/helpers/createSourceTabs.js';
@@ -35,7 +36,13 @@ export default function Layout({
 
     return (
         <>
-            <SourceTabs source={source} tabs={tabs} />
+            <SourceTabs>
+                {tabs.map((x) => (
+                    <SourceTab key={x.source} href={x.url} isActive={x.source === source}>
+                        {x.label}
+                    </SourceTab>
+                ))}
+            </SourceTabs>
             {children}
         </>
     );

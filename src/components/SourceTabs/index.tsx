@@ -1,24 +1,13 @@
 'use client';
 import { debounce } from 'lodash-es';
-import { useCallback, useLayoutEffect, useMemo, useRef, useState } from 'react';
+import { type PropsWithChildren, useCallback, useLayoutEffect, useMemo, useRef, useState } from 'react';
 
 import RightArrowIcon from '@/assets/right-arrow.svg';
 import { ClickableButton } from '@/components/ClickableButton.js';
-import { SourceTab } from '@/components/SourceTabs/SourceTab.js';
 import { IS_APPLE, IS_SAFARI } from '@/constants/bowser.js';
-import type { Source } from '@/constants/enum.js';
 import { classNames } from '@/helpers/classNames.js';
 
-interface SourceTabsProps {
-    source: Source;
-    tabs: Array<{
-        label: string;
-        url: string;
-        source: Source;
-    }>;
-}
-
-export function SourceTabs({ tabs, source }: SourceTabsProps) {
+export function SourceTabs({ children }: PropsWithChildren) {
     const [overflowed, setOverflowed] = useState(false);
     const navRef = useRef<HTMLElement>(null);
     const [leftActive, setLeftActive] = useState(false);
@@ -70,11 +59,7 @@ export function SourceTabs({ tabs, source }: SourceTabsProps) {
                 ref={navRef}
                 onScroll={onScroll}
             >
-                {tabs.map((x) => (
-                    <SourceTab key={x.source} href={x.url} isActive={x.source === source}>
-                        {x.label}
-                    </SourceTab>
-                ))}
+                {children}
             </nav>
             {overflowed ? (
                 <ClickableButton

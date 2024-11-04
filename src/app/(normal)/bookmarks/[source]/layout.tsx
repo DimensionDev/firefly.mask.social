@@ -3,6 +3,7 @@ import { notFound } from 'next/navigation.js';
 import { type PropsWithChildren, useMemo } from 'react';
 
 import { SourceTabs } from '@/components/SourceTabs/index.js';
+import { SourceTab } from '@/components/SourceTabs/SourceTab.js';
 import { BOOKMARK_SOURCES } from '@/constants/index.js';
 import { createPageTitleSSR } from '@/helpers/createPageTitle.js';
 import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
@@ -30,7 +31,13 @@ export default function Layout({
     if (!source || !isBookmarkSource(source)) notFound();
     return (
         <>
-            <SourceTabs tabs={tabs} source={source} />
+            <SourceTabs>
+                {tabs.map((x) => (
+                    <SourceTab key={x.source} href={x.url} isActive={x.source === source}>
+                        {x.label}
+                    </SourceTab>
+                ))}
+            </SourceTabs>
             {children}
         </>
     );

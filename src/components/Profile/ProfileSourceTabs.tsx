@@ -3,8 +3,9 @@
 import { useMemo } from 'react';
 
 import { SourceTabs } from '@/components/SourceTabs/index.js';
+import { SourceTab } from '@/components/SourceTabs/SourceTab.js';
 import { SORTED_PROFILE_SOURCES } from '@/constants/index.js';
-import { createTabUrlMap } from '@/helpers/createTabUrlMap.js';
+import { createSourceTabs } from '@/helpers/createSourceTabs.js';
 import { isSameFireflyIdentity } from '@/helpers/isSameFireflyIdentity.js';
 import { resolveProfileUrl } from '@/helpers/resolveProfileUrl.js';
 import { useCurrentFireflyProfilesAll } from '@/hooks/useCurrentFireflyProfiles.js';
@@ -23,7 +24,7 @@ export function ProfileSourceTabs({
     const profiles = isCurrentProfile ? currentProfiles : otherProfiles;
     const tabs = useMemo(
         () =>
-            createTabUrlMap(
+            createSourceTabs(
                 SORTED_PROFILE_SOURCES.filter((value) => {
                     return profiles.find((profile) => profile.identity.source === value);
                 }),
@@ -35,5 +36,13 @@ export function ProfileSourceTabs({
         [profiles, identity.id],
     );
 
-    return <SourceTabs source={identity.source} tabs={tabs} />;
+    return (
+        <SourceTabs>
+            {tabs.map((x) => (
+                <SourceTab key={x.source} href={x.url} isActive={x.source === identity.source}>
+                    {x.label}
+                </SourceTab>
+            ))}
+        </SourceTabs>
+    );
 }

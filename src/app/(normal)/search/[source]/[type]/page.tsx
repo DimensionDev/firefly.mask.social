@@ -11,9 +11,10 @@ import { ListInPage } from '@/components/ListInPage.js';
 import { SinglePost } from '@/components/Posts/SinglePost.js';
 import { ProfileInList } from '@/components/ProfileInList.js';
 import { SourceTabs } from '@/components/SourceTabs/index.js';
+import { SourceTab } from '@/components/SourceTabs/SourceTab.js';
 import { ScrollListKey, SearchType, Source } from '@/constants/enum.js';
 import { SORTED_SEARCH_TYPE, SORTED_SOCIAL_SOURCES } from '@/constants/index.js';
-import { createTabUrlMap } from '@/helpers/createTabUrlMap.js';
+import { createSourceTabs } from '@/helpers/createSourceTabs.js';
 import { narrowToSocialSource } from '@/helpers/narrowToSocialSource.js';
 import { createIndicator } from '@/helpers/pageable.js';
 import { resolveSearchUrl } from '@/helpers/resolveSearchUrl.js';
@@ -22,7 +23,6 @@ import { useNavigatorTitle } from '@/hooks/useNavigatorTitle.js';
 import type { Channel, Post, Profile } from '@/providers/types/SocialMedia.js';
 import { useTwitterStateStore } from '@/store/useProfileStore.js';
 import { useSearchStateStore } from '@/store/useSearchStore.js';
-import { createSourceTabs } from '@/helpers/createSourceTabs.js';
 
 const getSearchItemContent = (
     index: number,
@@ -100,7 +100,13 @@ export default function Page() {
     );
     return (
         <>
-            <SourceTabs source={source} tabs={tabs} />
+            <SourceTabs>
+                {tabs.map((x) => (
+                    <SourceTab key={x.source} href={x.url} isActive={x.source === source}>
+                        {x.label}
+                    </SourceTab>
+                ))}
+            </SourceTabs>
             <ListInPage
                 source={source}
                 key={listKey}

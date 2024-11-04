@@ -3,14 +3,14 @@ import { notFound } from 'next/navigation.js';
 import { type PropsWithChildren, useMemo } from 'react';
 
 import { SourceTabs } from '@/components/SourceTabs/index.js';
+import { SourceTab } from '@/components/SourceTabs/SourceTab.js';
 import { DISCOVER_SOURCES } from '@/constants/index.js';
 import { createPageTitleSSR } from '@/helpers/createPageTitle.js';
 import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
-import { createTabUrlMap } from '@/helpers/createTabUrlMap.js';
+import { createSourceTabs } from '@/helpers/createSourceTabs.js';
 import { isDiscoverSource } from '@/helpers/isDiscoverSource.js';
 import { resolveFollowingUrl } from '@/helpers/resolveFollowingUrl.js';
 import { resolveSourceFromUrlNoFallback } from '@/helpers/resolveSource.js';
-import { createSourceTabs } from '@/helpers/createSourceTabs.js';
 
 export async function generateMetadata() {
     return createSiteMetadata({
@@ -31,7 +31,13 @@ export default function Layout({
     const tabs = useMemo(() => createSourceTabs(DISCOVER_SOURCES, resolveFollowingUrl), []);
     return (
         <>
-            <SourceTabs source={source} tabs={tabs} />
+            <SourceTabs>
+                {tabs.map((x) => (
+                    <SourceTab key={x.source} href={x.url} isActive={x.source === source}>
+                        {x.label}
+                    </SourceTab>
+                ))}
+            </SourceTabs>
             {children}
         </>
     );
