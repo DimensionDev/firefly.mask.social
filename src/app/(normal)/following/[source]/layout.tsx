@@ -3,12 +3,14 @@ import { notFound } from 'next/navigation.js';
 import { type PropsWithChildren } from 'react';
 
 import { SourceTabs } from '@/components/SourceTabs/index.js';
+import { SourceTab } from '@/components/SourceTabs/SourceTab.js';
 import { DISCOVER_SOURCES } from '@/constants/index.js';
 import { createPageTitleSSR } from '@/helpers/createPageTitle.js';
 import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
 import { isDiscoverSource } from '@/helpers/isDiscoverSource.js';
 import { resolveFollowingUrl } from '@/helpers/resolveFollowingUrl.js';
 import { resolveSourceFromUrlNoFallback } from '@/helpers/resolveSource.js';
+import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 
 export async function generateMetadata() {
     return createSiteMetadata({
@@ -28,7 +30,13 @@ export default function Layout({
     if (!source || !isDiscoverSource(source)) notFound();
     return (
         <>
-            <SourceTabs source={source} sources={DISCOVER_SOURCES} href={resolveFollowingUrl} />
+            <SourceTabs>
+                {DISCOVER_SOURCES.map((x) => (
+                    <SourceTab key={x} href={resolveFollowingUrl(x)} isActive={x === source}>
+                        {resolveSourceName(x)}
+                    </SourceTab>
+                ))}
+            </SourceTabs>
             {children}
         </>
     );

@@ -11,12 +11,14 @@ import { ListInPage } from '@/components/ListInPage.js';
 import { SinglePost } from '@/components/Posts/SinglePost.js';
 import { ProfileInList } from '@/components/ProfileInList.js';
 import { SourceTabs } from '@/components/SourceTabs/index.js';
+import { SourceTab } from '@/components/SourceTabs/SourceTab.js';
 import { ScrollListKey, SearchType, Source } from '@/constants/enum.js';
 import { SORTED_SEARCH_TYPE, SORTED_SOCIAL_SOURCES } from '@/constants/index.js';
 import { narrowToSocialSource } from '@/helpers/narrowToSocialSource.js';
 import { createIndicator } from '@/helpers/pageable.js';
 import { resolveSearchUrl } from '@/helpers/resolveSearchUrl.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
+import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { useNavigatorTitle } from '@/hooks/useNavigatorTitle.js';
 import type { Channel, Post, Profile } from '@/providers/types/SocialMedia.js';
 import { useTwitterStateStore } from '@/store/useProfileStore.js';
@@ -92,13 +94,16 @@ export default function Page() {
     useNavigatorTitle(t`Search`);
 
     const listKey = `${ScrollListKey.Search}:${searchType}:${searchKeyword}:${source}`;
+
     return (
         <>
-            <SourceTabs
-                source={source}
-                sources={sources}
-                href={(source) => resolveSearchUrl(searchKeyword, searchType, source)}
-            />
+            <SourceTabs>
+                {sources.map((x) => (
+                    <SourceTab key={x} href={resolveSearchUrl(searchKeyword, searchType, x)} isActive={x === source}>
+                        {resolveSourceName(x)}
+                    </SourceTab>
+                ))}
+            </SourceTabs>
             <ListInPage
                 source={source}
                 key={listKey}
