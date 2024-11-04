@@ -79,6 +79,9 @@ msgstr ""
 msgid "Failed to translate post. Please retry later."
 msgstr ""
 
+msgid "Posts"
+msgstr ""
+
 msgid "Failed to fetch as Blob."
 msgstr ""
 
@@ -401,6 +404,9 @@ msgid "<0>Sent</0> an NFT"
 msgstr ""
 
 msgid "Report post"
+msgstr ""
+
+msgid "Tokens"
 msgstr ""
 
 msgid "Skip"
@@ -1459,6 +1465,9 @@ msgstr ""
 msgid "Tag {0} in a post to let them know you’ve sent an onchain tip to their wallet."
 msgstr ""
 
+msgid "{0}<0> Items</0>"
+msgstr ""
+
 msgid "Articles from {handleOrEnsOrAddress} will now be hidden in your home timeline"
 msgstr ""
 
@@ -2015,6 +2024,9 @@ msgid "Quotes"
 msgstr ""
 
 msgid "The user rejected the request."
+msgstr ""
+
+msgid "{0}{1}<0> Floor</0>"
 msgstr ""
 
 msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} <4>collected your </4><5>{1, select, Post {post} Comment {comment} Quote {quote} Mirror {mirror} other {post}}</5>"

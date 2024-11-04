@@ -12,8 +12,10 @@ export async function generateMetadata() {
 }
 
 export default function SearchLayout({ children }: PropsWithChildren) {
-    return <div>
-        <SearchTabs />
-        {children}
-    </div>;
+    return (
+        <div>
+            <SearchTabs />
+            {children}
+        </div>
+    );
 }
