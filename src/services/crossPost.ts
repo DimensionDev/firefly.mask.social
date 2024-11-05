@@ -21,6 +21,7 @@ import { resolveRedPacketPlatformType } from '@/helpers/resolveRedPacketPlatform
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { hasRpPayload } from '@/helpers/rpPayload.js';
 import { captureComposeEvent } from '@/providers/telemetry/captureComposeEvent.js';
+import { capturePollEvent } from '@/providers/telemetry/capturePollEvent.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 import { commitPoll } from '@/services/poll.js';
 import { reportCrossedPost } from '@/services/reportCrossedPost.js';
@@ -169,6 +170,8 @@ export async function crossPost(
     // create common poll for farcaster and lens
     if (poll && SUPPORTED_FRAME_SOURCES.some((x) => availableSources.includes(x))) {
         const pollId = await commitPoll(poll, readChars(compositePost.chars));
+
+        capturePollEvent(pollId);
 
         compositePost = {
             ...compositePost,
