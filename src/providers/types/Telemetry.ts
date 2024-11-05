@@ -251,7 +251,7 @@ export interface Events extends Record<EventId, Event> {
             target_wallet_address: string; // address all lowercased
             source_firefly_account_id: string;
             target_firefly_account_id?: string;
-            amount: number;
+            amount: string;
             currency: string;
             amount_usd?: number;
             chain_id: number;

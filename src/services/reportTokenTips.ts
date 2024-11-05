@@ -3,7 +3,7 @@ import urlcat from 'urlcat';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
 import { resolveFireflyIdentity } from '@/helpers/resolveFireflyProfileId.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
-import type { FireflyIdentity } from '@/providers/types/Firefly.js';
+import type { EmptyResponse, FireflyIdentity } from '@/providers/types/Firefly.js';
 import { settings } from '@/settings/index.js';
 import { useFarcasterStateStore, useLensStateStore, useTwitterStateStore } from '@/store/useProfileStore.js';
 
@@ -30,8 +30,8 @@ export interface UploadTokenTipsParams {
     tx_hash: string;
 }
 
-function report(params: UploadTokenTipsParams) {
-    return fetchJSON(urlcat(settings.FIREFLY_ROOT_URL, '/v1/token_tips/upload'), {
+async function report(params: UploadTokenTipsParams) {
+    await fetchJSON<EmptyResponse>(urlcat(settings.FIREFLY_ROOT_URL, '/v1/token_tips/upload'), {
         method: 'POST',
         body: JSON.stringify({ ...params, source: 'web' }),
     });
@@ -55,7 +55,7 @@ export async function reportTokenTips(identity: FireflyIdentity, params: UploadT
         .then((x) => x.data?.fireflyAccountId)
         .catch(() => undefined);
 
-    return report({
+    await report({
         from_account_id,
         to_account_id,
         ...params,
