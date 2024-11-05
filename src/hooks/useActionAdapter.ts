@@ -1,4 +1,4 @@
-import { ActionConfig as RawActionConfig, BlockchainIds } from '@dialectlabs/blinks';
+import { ActionConfig as RawActionConfig,BlockchainIds } from '@dialectlabs/blinks';
 import { t } from '@lingui/macro';
 import type { ChainId } from '@masknet/web3-shared-evm';
 import { useConnection, useWallet } from '@solana/wallet-adapter-react';
@@ -11,6 +11,7 @@ import { useAccount, useSendTransaction } from 'wagmi';
 
 import { simulate } from '@/components/TransactionSimulator/simulate.js';
 import { chains } from '@/configs/wagmiClient.js';
+import { UserRejectionError } from '@/constants/error.js';
 import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
 import { getSnackbarMessageFromError } from '@/helpers/getSnackbarMessageFromError.js';
 import { parseJSON } from '@/helpers/parseJSON.js';
@@ -58,6 +59,7 @@ export function useActionAdapter(url?: string) {
                     signature: JSON.stringify({ txHash, chainId }),
                 };
             } catch (error) {
+                if (error instanceof UserRejectionError && error.cause === 'simulation') return;
                 enqueueErrorMessage(getSnackbarMessageFromError(error, t`Signing failed.`));
                 return { error: t`Signing failed.` };
             }

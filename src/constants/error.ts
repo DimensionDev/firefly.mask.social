@@ -84,8 +84,8 @@ export class AuthenticationError extends Error {
 }
 
 export class UserRejectionError extends Error {
-    constructor(message?: string) {
-        super(message ?? 'User rejected.');
+    constructor(message?: string, cause?: unknown) {
+        super(message ?? 'User rejected.', { cause });
     }
 }
 

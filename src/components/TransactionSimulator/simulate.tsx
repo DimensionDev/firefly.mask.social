@@ -6,7 +6,7 @@ import { type TransactionSimulatorModalOpenProps } from '@/modals/TransactionSim
 export function simulate(props: TransactionSimulatorModalOpenProps) {
     return new Promise<void>((resolve, reject) => {
         const isMedium = window.matchMedia('(min-width: 990px)').matches;
-        const onCanceled = () => reject(new UserRejectionError('User canceled the simulation'));
+        const onCanceled = () => reject(new UserRejectionError('User canceled the simulation', 'simulation'));
 
         if (isMedium) {
             TransactionSimulatorModalRef.open({
