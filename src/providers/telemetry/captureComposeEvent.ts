@@ -45,7 +45,6 @@ export function captureComposeEvent(type: ComposeType, post: CompositePost, opti
                             getPostEventId(type, post),
                             getComposeEventParameters(post, options),
                         );
-                        break;
                     case 'reply':
                     case 'quote':
                         const source = post.availableSources[0];
@@ -60,7 +59,6 @@ export function captureComposeEvent(type: ComposeType, post: CompositePost, opti
                             getPostEventId(type, post),
                             getPostEventParameters(postId, profile),
                         );
-                        break;
                     default:
                         safeUnreachable(type);
                         throw new UnreachableError('type', type);
