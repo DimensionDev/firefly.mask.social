@@ -38,7 +38,7 @@ export function captureActivityEvent<
               }
             : {};
 
-    runInSafeAsync(() => {
+    return runInSafeAsync(() => {
         return TelemetryProvider.captureEvent(
             eventId,
             {

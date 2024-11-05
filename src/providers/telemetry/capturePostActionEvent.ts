@@ -64,7 +64,7 @@ const resolvePostActionEventIds = createLookupTableResolver<SocialSource, Record
 );
 
 export function capturePostActionEvent(action: PostActionType, post: Post) {
-    runInSafeAsync(() => {
+    return runInSafeAsync(() => {
         const eventIds = resolvePostActionEventIds(post.source);
         const eventId = eventIds[action];
 
