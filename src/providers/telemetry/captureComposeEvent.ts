@@ -72,8 +72,6 @@ export function captureComposeEvent(type: ComposeType, post: CompositePost, opti
                     EventId.COMPOSE_CROSS_POST_SEND_SUCCESS,
                     getComposeEventParameters(post, options),
                 );
-            } else {
-                throw new Error('No available source to post.');
             }
 
             throw new Error('Invalid post size.');
