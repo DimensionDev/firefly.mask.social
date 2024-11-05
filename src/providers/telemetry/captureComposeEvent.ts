@@ -1,4 +1,5 @@
 import { safeUnreachable } from '@masknet/kit';
+import dayjs from 'dayjs';
 
 import { UnreachableError } from '@/constants/error.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
@@ -8,6 +9,11 @@ import { TelemetryProvider } from '@/providers/telemetry/index.js';
 import { EventId } from '@/providers/types/Telemetry.js';
 import type { CompositePost } from '@/store/useComposeStore.js';
 import type { ComposeType } from '@/types/compose.js';
+
+function getTimeParameters(date = new Date()) {
+    const offset = new Date().getTimezoneOffset();
+    return `${dayjs(date).format('mm-dd-yyyy HH:mm:ss')}(GMT${offset < 0 ? '+' : '-'}${Math.abs(offset / 60)})`;
+}
 
 export function captureComposeEvent(type: ComposeType, post: CompositePost, options: Options = {}) {
     const capture = () => {
@@ -20,7 +26,7 @@ export function captureComposeEvent(type: ComposeType, post: CompositePost, opti
             return TelemetryProvider.captureEvent(EventId.COMPOSE_DRAFT_CREATE_SUCCESS, {
                 draft_id: draftId,
                 draft_time: date.getTime(),
-                draft_time_utc: date.toUTCString(),
+                draft_time_utc: getTimeParameters(),
                 ...getComposeEventParameters(post, options),
             });
         }
@@ -30,7 +36,7 @@ export function captureComposeEvent(type: ComposeType, post: CompositePost, opti
             return TelemetryProvider.captureEvent(EventId.COMPOSE_SCHEDULED_POST_CREATE_SUCCESS, {
                 schedule_id: scheduleId,
                 schedule_time: date.getTime(),
-                scheduled_time_utc: date.toUTCString(),
+                scheduled_time_utc: getTimeParameters(),
                 ...getComposeEventParameters(post, options),
             });
         }
