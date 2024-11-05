@@ -46,22 +46,20 @@ const SendTipsButton = memo<SendTipsButtonProps>(function SendTipsButton({ conne
             if (hashUrl) {
                 update((prev) => ({ ...prev, hash: hashUrl }));
             }
-            await runInSafeAsync(async () => {
-                await reportTokenTips(identity, {
-                    from_address: await network.getAccount(),
-                    to_address: recipient.address,
-                    chain_id: `${token.chainId}`,
-                    chain_name: token.chain,
-                    amount,
-                    token_symbol: token.symbol,
-                    token_icon: token.logo_url,
-                    token_address: token.id,
-                    token_type: transfer.isNativeToken(token)
-                        ? UploadTokenTipsToken.NativeToken
-                        : UploadTokenTipsToken.ERC20,
-                    tip_memos: '',
-                    tx_hash: hash,
-                });
+            reportTokenTips(identity, {
+                from_address: await network.getAccount(),
+                to_address: recipient.address,
+                chain_id: `${token.chainId}`,
+                chain_name: token.chain,
+                amount,
+                token_symbol: token.symbol,
+                token_icon: token.logo_url,
+                token_address: token.id,
+                token_type: transfer.isNativeToken(token)
+                    ? UploadTokenTipsToken.NativeToken
+                    : UploadTokenTipsToken.ERC20,
+                tip_memos: '',
+                tx_hash: hash,
             });
             router.navigate({ to: TipsRoutePath.SUCCESS });
         } catch (error) {
