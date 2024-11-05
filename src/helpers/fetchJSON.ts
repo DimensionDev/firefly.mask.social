@@ -13,10 +13,13 @@ export async function fetchJSON<T = unknown>(
     options?: NextFetchersOptions,
 ): Promise<T> {
     const { noDefaultContentType = false } = options ?? {};
-    const url = typeof input === 'string' && input.startsWith('/') && isServer ? urlcat(SITE_URL, input) : input;
+
+    const url = typeof input === 'string' ? input : input instanceof Request ? input.url : input.toString();
+
+    const target = isServer && url.startsWith('/') ? urlcat(SITE_URL, url) : url;
 
     const response = await fetch(
-        url,
+        target,
         {
             ...init,
             headers: noDefaultContentType
