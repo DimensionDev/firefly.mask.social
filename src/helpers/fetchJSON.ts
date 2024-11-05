@@ -1,3 +1,4 @@
+import { isServer } from '@tanstack/react-query';
 import urlcat from 'urlcat';
 
 import { SITE_URL } from '@/constants/index.js';
@@ -12,7 +13,7 @@ export async function fetchJSON<T = unknown>(
     options?: NextFetchersOptions,
 ): Promise<T> {
     const { noDefaultContentType = false } = options ?? {};
-    const url = typeof input === 'string' && input.startsWith('/') ? urlcat(SITE_URL, input) : input;
+    const url = typeof input === 'string' && input.startsWith('/') && isServer ? urlcat(SITE_URL, input) : input;
 
     const response = await fetch(
         url,
