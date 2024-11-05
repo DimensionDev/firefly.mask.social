@@ -32,7 +32,7 @@ import { polygon } from 'viem/chains';
 import { config } from '@/configs/wagmiClient.js';
 import { FireflyPlatform, Source, SourceInURL } from '@/constants/enum.js';
 import { InvalidResultError, NotImplementedError } from '@/constants/error.js';
-import { EMPTY_LIST } from '@/constants/index.js';
+import { EMPTY_LIST, SITE_URL } from '@/constants/index.js';
 import { SetQueryDataForActPost } from '@/decorators/SetQueryDataForActPost.js';
 import { SetQueryDataForApprovalLensModule } from '@/decorators/SetQueryDataForApprovalLensModule.js';
 import { SetQueryDataForBlockProfile } from '@/decorators/SetQueryDataForBlockProfile.js';
@@ -1320,7 +1320,7 @@ export class LensSocialMedia implements Provider {
     }
 
     async getThreadByPostId(postId: string) {
-        const response = await fetchJSON<ResponseJSON<string[]>>(urlcat('/api/thread', { id: postId }));
+        const response = await fetchJSON<ResponseJSON<string[]>>(urlcat(SITE_URL, '/api/thread', { id: postId }));
         if (!response.success) return EMPTY_LIST;
         const posts = await lensSessionHolder.sdk.publication.fetchAll({
             limit: LimitType.TwentyFive,
