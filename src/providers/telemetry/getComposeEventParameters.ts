@@ -3,6 +3,7 @@ import { compact } from 'lodash-es';
 import { Source } from '@/constants/enum.js';
 import type { ComposeEventParameters } from '@/providers/types/Telemetry.js';
 import type { CompositePost } from '@/store/useComposeStore.js';
+import { useFarcasterStateStore, useLensStateStore, useTwitterStateStore } from '@/store/useProfileStore.js';
 
 export interface Options {
     draftId?: string;
@@ -15,20 +16,24 @@ export function getComposeEventParameters(
     post: CompositePost,
     { draftId, scheduleId, luckyDropIds = [], thread = [post] }: Options = {},
 ): Omit<ComposeEventParameters, 'firefly_account_id'> {
+    const lensProfile = useLensStateStore.getState().currentProfile;
+    const farcasterProfile = useFarcasterStateStore.getState().currentProfile;
+    const xProfile = useTwitterStateStore.getState().currentProfile;
+
     return {
         include_lens_post: post.availableSources.includes(Source.Lens),
-        lens_id: post.parentPost[Source.Lens]?.author.profileId ?? undefined,
-        lens_handle: post.parentPost[Source.Lens]?.author.handle ?? undefined,
+        lens_id: lensProfile?.profileId,
+        lens_handle: lensProfile?.handle,
         lens_post_ids: compact(thread?.map((p) => p.postId[Source.Lens] ?? undefined)),
 
         include_farcaster_cast: post.availableSources.includes(Source.Farcaster),
-        farcaster_id: post.parentPost[Source.Farcaster]?.author.profileId ?? undefined,
-        farcaster_handle: post.parentPost[Source.Farcaster]?.author.handle ?? undefined,
+        farcaster_id: farcasterProfile?.profileId,
+        farcaster_handle: farcasterProfile?.handle,
         farcaster_cast_ids: compact(thread?.map((p) => p.postId[Source.Farcaster] ?? undefined)),
 
         include_x_post: post.availableSources.includes(Source.Twitter),
-        x_id: post.parentPost[Source.Twitter]?.author.profileId ?? undefined,
-        x_handle: post.parentPost[Source.Twitter]?.author.handle ?? undefined,
+        x_id: xProfile?.profileId,
+        x_handle: xProfile?.handle,
         x_post_ids: compact(thread?.map((p) => p.postId[Source.Twitter] ?? undefined)),
 
         is_thread: !!thread?.length && thread.length > 1,
