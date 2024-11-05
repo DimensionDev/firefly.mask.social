@@ -167,7 +167,9 @@ export const TweetSpace = memo<Props>(function TweetSpace({ spaceId }) {
                     </div>
                 ))}
             </div>
-            <h3 className="text-md line-clamp-2 min-h-12 font-semibold leading-6">{space.title}</h3>
+            <div className="flex h-12 flex-col items-start justify-center">
+                <h3 className="line-clamp-2 text-lg font-bold leading-6">{space.title}</h3>
+            </div>
             {creator ? (
                 <div className="flex h-6 items-center leading-6">
                     <Avatar className="mr-2 h-[18px] w-[18px]" src={creator.pfp} size={18} alt={creator.handle} />
