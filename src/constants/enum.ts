@@ -44,6 +44,7 @@ export enum Locale {
 export enum PageRoute {
     Home = '/',
     Following = '/following',
+    Explore = '/explore',
     Notifications = '/notifications',
     Profile = '/profile',
     Bookmarks = '/bookmarks',
@@ -87,11 +88,18 @@ export type SocialDiscoverSource = Source.Farcaster | Source.Lens;
 export type DiscoverSource = SocialDiscoverSource | Source.NFTs | Source.Article | Source.Snapshot;
 export type BookmarkSource = Source.Farcaster | Source.Lens | Source.Article | Source.Snapshot;
 export type FollowingSource = DiscoverSource | Source.Polymarket;
+export type ExploreSource = Source.Farcaster | Source.Lens;
 
 export enum DiscoverType {
     ForYou = 'for-you',
     Recent = 'recent',
     Trending = 'trending',
+    TopProfiles = 'top-profiles',
+    TopChannels = 'top-channels',
+}
+
+export enum ExploreType {
+    CryptoTrends = 'crypto-trends',
     TopProfiles = 'top-profiles',
     TopChannels = 'top-channels',
 }

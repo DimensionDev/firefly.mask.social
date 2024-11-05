@@ -10,6 +10,8 @@ import BookmarkIcon from '@/assets/bookmark.svg';
 import CircleShareIcon from '@/assets/circle-share.svg';
 import DiscoverSelectedIcon from '@/assets/discover.selected.svg';
 import DiscoverIcon from '@/assets/discover.svg';
+import ExploreSelectedIcon from '@/assets/explore.selected.svg';
+import ExploreIcon from '@/assets/explore.svg';
 import FollowingSelectedIcon from '@/assets/following.selected.svg';
 import FollowingIcon from '@/assets/following.svg';
 import NotificationSelectedIcon from '@/assets/notification.selected.svg';
@@ -27,12 +29,13 @@ import { Post } from '@/components/SideBar/Post.js';
 import { Profile } from '@/components/SideBar/Profile.js';
 import { Tooltip } from '@/components/Tooltip.js';
 import { PageRoute } from '@/constants/enum.js';
-import { DEFAULT_SOCIAL_SOURCE } from '@/constants/index.js';
+import { DEFAULT_EXPLORE_TYPE, DEFAULT_SOCIAL_SOURCE } from '@/constants/index.js';
 import { Link } from '@/esm/Link.js';
 import { classNames } from '@/helpers/classNames.js';
 import { isMatchedDiscoverPage } from '@/helpers/isMatchedDiscoverPage.js';
 import { isRoutePathname } from '@/helpers/isRoutePathname.js';
 import { resolveBookmarkUrl } from '@/helpers/resolveBookmarkUrl.js';
+import { resolveExploreUrl } from '@/helpers/resolveExploreUrl.js';
 import { resolveFollowingUrl } from '@/helpers/resolveFollowingUrl.js';
 import { resolveNotificationUrl } from '@/helpers/resolveNotificationUrl.js';
 import { useNavigatorState } from '@/store/useNavigatorStore.js';
@@ -63,6 +66,13 @@ export const Menu = memo(function Menu({ collapsed = false }: MenuProps) {
                                 icon: FollowingIcon,
                                 selectedIcon: FollowingSelectedIcon,
                                 match: () => pathname.startsWith(PageRoute.Following),
+                            },
+                            {
+                                href: resolveExploreUrl(DEFAULT_EXPLORE_TYPE),
+                                name: <Trans>Explore</Trans>,
+                                icon: ExploreIcon,
+                                selectedIcon: ExploreSelectedIcon,
+                                match: () => pathname.startsWith(PageRoute.Explore),
                             },
                             {
                                 href: resolveNotificationUrl(DEFAULT_SOCIAL_SOURCE),

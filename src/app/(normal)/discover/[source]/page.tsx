@@ -1,4 +1,4 @@
-import { DiscoverPage } from '@/app/(normal)/pages/Discover.js';
+import { DiscoverPage } from '@/app/(normal)/discover/pages/Discover.js';
 import { type DiscoverSource, type SourceInURL } from '@/constants/enum.js';
 import { resolveSourceFromUrl } from '@/helpers/resolveSource.js';
 

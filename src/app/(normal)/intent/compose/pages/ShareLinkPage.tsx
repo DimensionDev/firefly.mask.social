@@ -3,7 +3,7 @@
 import { useRouter } from 'next/navigation.js';
 import { useEffect } from 'react';
 
-import { DiscoverPage } from '@/app/(normal)/pages/Discover.js';
+import { DiscoverPage } from '@/app/(normal)/discover/pages/Discover.js';
 import { Source, SourceInURL } from '@/constants/enum.js';
 import { EMPTY_LIST } from '@/constants/index.js';
 import { CHAR_TAG } from '@/helpers/chars.js';
