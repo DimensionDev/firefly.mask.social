@@ -10,6 +10,7 @@ import { ClickableButton } from '@/components/ClickableButton.js';
 import { router, TipsRoutePath } from '@/components/Tips/TipsModalRouter.js';
 import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
 import { getSnackbarMessageFromError } from '@/helpers/getSnackbarMessageFromError.js';
+import { resolveCurrentFireflyAccountId, resolveFireflyAccountId } from '@/helpers/resolveFireflyProfileId.js';
 import { resolveNetworkProvider, resolveTransferProvider } from '@/helpers/resolveTokenTransfer.js';
 import { TipsContext } from '@/hooks/useTipsContext.js';
 import { useTipsValidation } from '@/hooks/useTipsValidation.js';
@@ -48,9 +49,15 @@ const SendTipsButton = memo<SendTipsButtonProps>(function SendTipsButton({ conne
             }
 
             {
-                const account = await network.getAccount();
+                const [account, fromAccountId, toAccountId] = await Promise.all([
+                    network.getAccount(),
+                    resolveCurrentFireflyAccountId(),
+                    resolveFireflyAccountId(identity),
+                ]);
 
-                reportTokenTips(identity, {
+                reportTokenTips({
+                    from_account_id: fromAccountId,
+                    to_account_id: toAccountId,
                     from_address: account,
                     to_address: recipient.address,
                     chain_id: `${token.chainId}`,
@@ -68,8 +75,8 @@ const SendTipsButton = memo<SendTipsButtonProps>(function SendTipsButton({ conne
                 captureTipsEvent({
                     source_wallet_address: account,
                     target_wallet_address: recipient.address,
-                    source_firefly_account_id: identity.id,
-                    target_firefly_account_id: recipient.identity.id,
+                    source_firefly_account_id: fromAccountId ?? '',
+                    target_firefly_account_id: toAccountId ?? '',
                     amount,
                     currency: token.symbol,
                     amount_usd: token.usdValue,
