@@ -1,4 +1,4 @@
-import { ActionConfig as RawActionConfig,BlockchainIds } from '@dialectlabs/blinks';
+import { ActionConfig as RawActionConfig, BlockchainIds } from '@dialectlabs/blinks';
 import { t } from '@lingui/macro';
 import type { ChainId } from '@masknet/web3-shared-evm';
 import { useConnection, useWallet } from '@solana/wallet-adapter-react';
