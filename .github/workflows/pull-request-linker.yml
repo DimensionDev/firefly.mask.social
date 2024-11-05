@@ -17,6 +17,8 @@ jobs:
 
     - name: Get PR description
       id: pr_description
+      env:
+        GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: |
         PR_BODY=$(gh pr view ${{ github.event.pull_request.number }} --json body -q ".body")
         echo "::set-output name=pr_body::${PR_BODY}"
@@ -30,6 +32,8 @@ jobs:
         echo "::set-output name=modified_pr_body::$MODIFIED_BODY"
 
     - name: Update PR description with modified content
+      env:
+        GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: |
         # Update the PR description with the modified content
         gh pr edit ${{ github.event.pull_request.number }} --body "${{ steps.modify_pr_description.outputs.modified_pr_body }}"
