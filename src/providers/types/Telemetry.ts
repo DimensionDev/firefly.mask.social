@@ -54,7 +54,7 @@ export enum EventId {
     FARCASTER_POST_REPOST_SUCCESS = 'farcaster_recast_cast_success', // ✅
     FARCASTER_POST_UNDO_REPOST_SUCCESS = 'farcaster_undo_recast_cast_success', // ✅
     FARCASTER_POST_DELETE_SUCCESS = 'farcaster_cast_delete_success', // ✅
-    FARCASTER_POST_QUOTE_SUCCESS = 'farcaster_quote_cast_success', // ✅
+    FARCASTER_POST_QUOTE_SUCCESS = 'farcaster_cast_quote_success', // ✅
     FARCASTER_POST_SHARE_SUCCESS = 'farcaster_share_cast_success', // ✅
     FARCASTER_POST_BOOKMARK_SUCCESS = 'farcaster_cast_bookmark_success', // ✅
     FARCASTER_POST_UNBOOKMARK_SUCCESS = 'farcaster_cast_unbookmark_success', // ✅
