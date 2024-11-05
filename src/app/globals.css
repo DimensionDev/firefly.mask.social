@@ -184,7 +184,7 @@
 }
 
 /* Please maintain this order, the light class (user settings) needs to be at the end, so that user settings will take priority. */
-· .light {
+.light {
     --foreground-rgb: 0 0 0;
     --background-start-rgb: 214, 219, 220;
     --background-end-rgb: 255, 255, 255;
