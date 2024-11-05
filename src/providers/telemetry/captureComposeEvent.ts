@@ -75,6 +75,8 @@ export function captureComposeEvent(type: ComposeType, post: CompositePost, opti
             } else {
                 throw new Error('No available source to post.');
             }
+
+            throw new Error('Invalid post size.');
         }
     };
 
