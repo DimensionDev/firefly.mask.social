@@ -35,7 +35,7 @@ export function resolveFireflyIdentity(profile: Profile | null): FireflyIdentity
     };
 }
 
-export function resolveCurrentFireflyAcountId() {
+export function resolveCurrentFireflyAccountId() {
     const profile =
         useLensStateStore.getState().currentProfile ||
         useFarcasterStateStore.getState().currentProfile ||

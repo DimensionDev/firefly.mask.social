@@ -10,7 +10,7 @@ import { ClickableButton } from '@/components/ClickableButton.js';
 import { router, TipsRoutePath } from '@/components/Tips/TipsModalRouter.js';
 import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
 import { getSnackbarMessageFromError } from '@/helpers/getSnackbarMessageFromError.js';
-import { resolveCurrentFireflyAcountId, resolveFireflyAccountId } from '@/helpers/resolveFireflyProfileId.js';
+import { resolveCurrentFireflyAccountId, resolveFireflyAccountId } from '@/helpers/resolveFireflyProfileId.js';
 import { resolveNetworkProvider, resolveTransferProvider } from '@/helpers/resolveTokenTransfer.js';
 import { TipsContext } from '@/hooks/useTipsContext.js';
 import { useTipsValidation } from '@/hooks/useTipsValidation.js';
@@ -51,7 +51,7 @@ const SendTipsButton = memo<SendTipsButtonProps>(function SendTipsButton({ conne
             {
                 const [account, fromAccountId, toAccountId] = await Promise.all([
                     network.getAccount(),
-                    resolveCurrentFireflyAcountId(),
+                    resolveCurrentFireflyAccountId(),
                     resolveFireflyAccountId(identity),
                 ]);
 
