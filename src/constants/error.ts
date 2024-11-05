@@ -155,3 +155,9 @@ export class SignlessRequireError extends Error {
         super(message);
     }
 }
+
+export class TransactionSimulationError extends Error {
+    constructor(message?: string) {
+        super(message ?? 'Transaction simulation failed.');
+    }
+}
