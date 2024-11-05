@@ -2,7 +2,7 @@ import { parseURL } from '@masknet/shared-base';
 
 import { bom } from '@/helpers/bom.js';
 import { ReferralAccountPlatform } from '@/helpers/resolveActivityUrl.js';
-import { runInSafe } from '@/helpers/runInSafe.js';
+import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { getPublicParameters } from '@/providers/telemetry/getPublicParameters.js';
 import { TelemetryProvider } from '@/providers/telemetry/index.js';
 import { EventId, type Events } from '@/providers/types/Telemetry.js';
@@ -38,8 +38,8 @@ export function captureActivityEvent<
               }
             : {};
 
-    runInSafe(() => {
-        TelemetryProvider.captureEvent(
+    runInSafeAsync(() => {
+        return TelemetryProvider.captureEvent(
             eventId,
             {
                 activity: bom.location?.href,
