@@ -9,7 +9,7 @@ import type { SearchableToken } from '@/providers/types/Firefly.js';
 export type TokenWithMarket = SearchableToken & { market?: CoingeckoCoinMarketInfo; hit?: boolean };
 
 function isSameTokenSymbol(symbol: string, keyword: string) {
-    return symbol.toLowerCase() === keyword.replace(/^$/, '').toLowerCase();
+    return symbol.toLowerCase() === keyword.replace(/^\$/, '').toLowerCase();
 }
 
 function sortTokensByKeyword(tokens: SearchableToken[], keyword: string) {
