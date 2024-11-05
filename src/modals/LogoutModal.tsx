@@ -67,7 +67,13 @@ export const LogoutModal = forwardRef<SingletonModalRefCreator<LogoutModalProps 
 
             dispatch?.close();
             await delay(300);
-            router.push('/');
+            router.push(
+                '/',
+                {},
+                {
+                    showProgressBar: false,
+                },
+            );
         },
     });
 
