@@ -3,22 +3,26 @@ import { EVMChainResolver } from '@masknet/web3-providers';
 import { useQuery } from '@tanstack/react-query';
 import { estimateFeesPerGas, getBalance } from '@wagmi/core';
 import { produce } from 'immer';
-import { useMemo, useRef } from 'react';
+import { useMemo, useRef, useState } from 'react';
 import { useAsyncFn } from 'react-use';
 import { useAccount, useChains } from 'wagmi';
 
 import CollectFillIcon from '@/assets/collect-fill.svg';
+import LinkIcon from '@/assets/link-square.svg';
 import LoadingIcon from '@/assets/loading.svg';
 import { Avatar } from '@/components/Avatar.js';
 import { ChainGuardButton } from '@/components/ChainGuardButton.js';
 import { queryClient } from '@/configs/queryClient.js';
 import { config } from '@/configs/wagmiClient.js';
+import { classNames } from '@/helpers/classNames.js';
 import { enqueueErrorMessage, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { formatEthereumAddress } from '@/helpers/formatAddress.js';
 import { getArticleDigest } from '@/helpers/getArticleDigest.js';
 import { getSnackbarMessageFromError } from '@/helpers/getSnackbarMessageFromError.js';
 import { multipliedBy, rightShift, ZERO } from '@/helpers/number.js';
+import { openWindow } from '@/helpers/openWindow.js';
 import { resolveArticleCollectProvider } from '@/helpers/resolveArticleCollectProvider.js';
+import { resolveExplorerLink } from '@/helpers/resolveExplorerLink.js';
 import { type Article, ArticlePlatform } from '@/providers/types/Article.js';
 
 export interface ArticleCollectProps {
@@ -90,6 +94,11 @@ export function ArticleCollect({ article }: ArticleCollectProps) {
 
     const { data, insufficientBalance } = result ?? {};
 
+    // User can collect again by reopen the modal
+    const [modalSessionCollected, setModalSessionCollected] = useState(false);
+    const [txUrl, setTxUrl] = useState<string>(
+        'https://basescan.org/tx/0x97ed1eb8aaff17bdf37ef4c38ba621e1bba79bdccac038f4e2f76f996ba68607',
+    );
     const [{ loading: collectLoading }, handleCollect] = useAsyncFn(async () => {
         if (!data || !platform) return;
 
@@ -98,10 +107,17 @@ export function ArticleCollect({ article }: ArticleCollectProps) {
         try {
             const confirmation = await provider.collect(data);
             if (!confirmation) return;
+            setModalSessionCollected(true);
+            const url = resolveExplorerLink(data.chainId, confirmation.transactionHash, 'tx');
+            if (url) {
+                setTxUrl(url);
+                openWindow(url);
+            }
             queryClient.setQueryData<typeof result>(queryKeyRef.current, (data) => {
                 if (!data) return data;
                 return produce(data, (draft) => {
                     draft.data.isCollected = true;
+                    draft.data.soldCount += 1;
                 });
             });
             enqueueSuccessMessage(t`Article collected successfully!`);
@@ -116,11 +132,11 @@ export function ArticleCollect({ article }: ArticleCollectProps) {
 
     const buttonText = useMemo(() => {
         if (isSoldOut) return t`Sold Out`;
-        if (data?.isCollected && platform !== ArticlePlatform.Paragraph) return t`Collected`;
+        if ((data?.isCollected && platform !== ArticlePlatform.Paragraph) || modalSessionCollected) return t`Collected`;
         if (insufficientBalance) return t`Insufficient Balance`;
         if (!data?.price) return t`Free Collect`;
         return t`Collect for ${data.price} ${chain?.nativeCurrency.symbol}`;
-    }, [data, chain, isSoldOut, insufficientBalance, platform]);
+    }, [data, chain, isSoldOut, insufficientBalance, platform, modalSessionCollected]);
 
     if (!queryDetailLoading && !data) {
         return (
@@ -140,6 +156,7 @@ export function ArticleCollect({ article }: ArticleCollectProps) {
         );
     }
 
+    const disabled = isSoldOut || (account.isConnected && insufficientBalance) || modalSessionCollected;
     return (
         <div className="overflow-x-hidden px-6 pb-6 max-md:px-0 max-md:pb-4">
             <div className="my-3 rounded-lg bg-lightBg px-3 py-2">
@@ -191,16 +208,25 @@ export function ArticleCollect({ article }: ArticleCollectProps) {
 
             <ChainGuardButton
                 targetChainId={data?.chainId}
-                className="mt-6 w-full max-md:mt-4"
-                disabled={
-                    isSoldOut ||
-                    (account.isConnected && insufficientBalance) ||
-                    (data?.isCollected && platform !== ArticlePlatform.Paragraph)
-                }
+                className={classNames(
+                    'mt-6 inline-flex w-full gap-1 max-md:mt-4',
+                    disabled ? 'cursor-not-allowed opacity-50' : '',
+                )}
                 loading={collectLoading || queryDetailLoading}
-                onClick={handleCollect}
+                onClick={disabled ? undefined : handleCollect}
             >
                 {buttonText}
+                {txUrl ? (
+                    <LinkIcon
+                        width={18}
+                        height={18}
+                        className="cursor-pointer"
+                        onClick={(e) => {
+                            e.stopPropagation();
+                            openWindow(txUrl);
+                        }}
+                    />
+                ) : null}
             </ChainGuardButton>
         </div>
     );
