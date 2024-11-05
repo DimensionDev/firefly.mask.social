@@ -13,7 +13,7 @@ import { simulate } from '@/components/TransactionSimulator/simulate.js';
 import { config } from '@/configs/wagmiClient.js';
 import { NODE_ENV, SimulateType, type SocialSource, Source } from '@/constants/enum.js';
 import { env } from '@/constants/env.js';
-import { MalformedError, UserRejectionError } from '@/constants/error.js';
+import { MalformedError, TransactionSimulationError } from '@/constants/error.js';
 import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
 import { getCurrentProfile } from '@/helpers/getCurrentProfile.js';
@@ -256,7 +256,7 @@ async function getNextFrame(
                 return;
         }
     } catch (error) {
-        if (error instanceof UserRejectionError && error.cause === 'simulation') return;
+        if (error instanceof TransactionSimulationError) return;
         enqueueErrorMessage(getSnackbarMessageFromError(error, t`Something went wrong. Please try again.`), {
             error,
         });

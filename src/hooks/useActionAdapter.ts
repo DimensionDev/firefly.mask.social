@@ -11,7 +11,7 @@ import { useAccount, useSendTransaction } from 'wagmi';
 
 import { simulate } from '@/components/TransactionSimulator/simulate.js';
 import { chains } from '@/configs/wagmiClient.js';
-import { UserRejectionError } from '@/constants/error.js';
+import { TransactionSimulationError } from '@/constants/error.js';
 import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
 import { getSnackbarMessageFromError } from '@/helpers/getSnackbarMessageFromError.js';
 import { parseJSON } from '@/helpers/parseJSON.js';
@@ -59,7 +59,7 @@ export function useActionAdapter(url?: string) {
                     signature: JSON.stringify({ txHash, chainId }),
                 };
             } catch (error) {
-                if (error instanceof UserRejectionError && error.cause === 'simulation') return;
+                if (error instanceof TransactionSimulationError) return;
                 enqueueErrorMessage(getSnackbarMessageFromError(error, t`Signing failed.`));
                 return { error: t`Signing failed.` };
             }

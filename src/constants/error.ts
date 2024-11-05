@@ -84,8 +84,8 @@ export class AuthenticationError extends Error {
 }
 
 export class UserRejectionError extends Error {
-    constructor(message?: string, cause?: unknown) {
-        super(message ?? 'User rejected.', { cause });
+    constructor(message?: string) {
+        super(message ?? 'User rejected.');
     }
 }
 
@@ -153,5 +153,11 @@ export class CreateScheduleError extends Error {
 export class SignlessRequireError extends Error {
     constructor(public override message: string) {
         super(message);
+    }
+}
+
+export class TransactionSimulationError extends Error {
+    constructor(message?: string) {
+        super(message ?? 'Transaction simulation failed.');
     }
 }
