@@ -34,7 +34,7 @@ export default function SearchLayout({
 }: PropsWithChildren<{
     params: { slug: string[] };
 }>) {
-    if (!checkSlug(params.slug)) return notFound();
+    if (!checkSlug(params.slug)) notFound();
 
     return (
         <div>

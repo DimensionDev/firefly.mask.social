@@ -1,8 +1,12 @@
 import { first } from 'lodash-es';
 
+import type { Pageable, PageIndicator } from '@/helpers/pageable.js';
 import { Coingecko } from '@/providers/coingecko/index.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
+import type { CoingeckoCoinMarketInfo } from '@/providers/types/Coingecko.js';
 import type { SearchableToken } from '@/providers/types/Firefly.js';
+
+export type TokenWithMarket = SearchableToken & { market?: CoingeckoCoinMarketInfo; hit?: boolean };
 
 function isSameTokenSymbol(symbol: string, keyword: string) {
     return symbol.toLowerCase() === keyword.replace(/^$/, '').toLowerCase();
@@ -33,7 +37,7 @@ function sortTokensByKeyword(tokens: SearchableToken[], keyword: string) {
     return tokens;
 }
 
-export async function searchTokens(searchKeyword: string) {
+export async function searchTokens(searchKeyword: string): Promise<Pageable<TokenWithMarket, PageIndicator>> {
     const res = await FireflyEndpointProvider.searchTokens(searchKeyword);
     const ids = res.data.map((x) => x.id);
     const marketData = await Coingecko.getCoinsByIds(ids);

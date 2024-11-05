@@ -20,13 +20,11 @@ import { createIndicator } from '@/helpers/pageable.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { useNavigatorTitle } from '@/hooks/useNavigatorTitle.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
-import type { CoingeckoCoinMarketInfo, CoingeckoToken } from '@/providers/types/Coingecko.js';
+import type { CoingeckoToken } from '@/providers/types/Coingecko.js';
 import type { FireflyCrossProfile, SearchableNFT, SearchableToken } from '@/providers/types/Firefly.js';
 import type { Channel, Post } from '@/providers/types/SocialMedia.js';
-import { searchTokens } from '@/services/searchTokens.js';
+import { searchTokens, type TokenWithMarket } from '@/services/searchTokens.js';
 import { useSearchStateStore } from '@/store/useSearchStore.js';
-
-type TokenWithMarket = SearchableToken & { market?: CoingeckoCoinMarketInfo; hit?: boolean };
 
 function formatMarketToken(token: SearchableToken) {
     return {

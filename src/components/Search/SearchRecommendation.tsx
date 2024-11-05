@@ -4,7 +4,6 @@ import { t, Trans } from '@lingui/macro';
 import { useQuery } from '@tanstack/react-query';
 import { first, uniqBy } from 'lodash-es';
 import { usePathname } from 'next/navigation.js';
-import { useCallback } from 'react';
 import { useDebounce } from 'usehooks-ts';
 
 import LoadingIcon from '@/assets/loading.svg';
@@ -35,6 +34,12 @@ interface SearchRecommendationProps {
     onSearch?: (state: SearchState) => void;
     onSelect?: (result: Profile | Channel) => void;
     onClear?: () => void;
+}
+
+function fixSearchUrl(isSearchPage: boolean, query: string, searchType: SearchType, source: Source) {
+    if (!isSearchPage) return resolveSearchUrl(query);
+
+    return resolveSearchUrl(query, searchType, source);
 }
 
 export function SearchRecommendation(props: SearchRecommendationProps) {
@@ -78,15 +83,6 @@ export function SearchRecommendation(props: SearchRecommendationProps) {
         enabled: !!debouncedKeyword,
     });
 
-    const fixSearchUrl = useCallback(
-        (query: string) => {
-            if (!isSearchPage) return resolveSearchUrl(query);
-
-            return resolveSearchUrl(query, searchType, source);
-        },
-        [isSearchPage, searchType, source],
-    );
-
     const visible = (records.length && !keyword) || !!keyword || isLoading || (!!profiles?.data && !!keyword);
     if (!visible) return null;
 
@@ -106,7 +102,7 @@ export function SearchRecommendation(props: SearchRecommendationProps) {
                 </h2>
                 <Link
                     className="flex cursor-pointer items-center px-4 py-4 text-left hover:bg-bg"
-                    href={fixSearchUrl(keyword)}
+                    href={fixSearchUrl(isSearchPage, keyword, searchType, source)}
                     onClick={() =>
                         onSearch?.({
                             q: keyword,
@@ -243,7 +239,7 @@ export function SearchRecommendation(props: SearchRecommendationProps) {
                         <Link
                             className="flex cursor-pointer items-center px-3 hover:bg-bg"
                             key={record}
-                            href={fixSearchUrl(record)}
+                            href={fixSearchUrl(isSearchPage, record, searchType, source)}
                             onClick={() => {
                                 addRecord(record);
                                 onSearch?.({ q: record });

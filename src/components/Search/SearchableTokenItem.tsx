@@ -5,11 +5,10 @@ import { Image } from '@/components/Image.js';
 import { Link } from '@/esm/Link.js';
 import { classNames } from '@/helpers/classNames.js';
 import { resolveTokenPageUrl } from '@/helpers/resolveTokenPageUrl.js';
-import type { CoingeckoCoinMarketInfo } from '@/providers/types/Coingecko.js';
-import type { SearchableToken } from '@/providers/types/Firefly.js';
+import type { TokenWithMarket } from '@/services/searchTokens.js';
 
 interface SearchableTokenItemProps {
-    token: SearchableToken & { market?: CoingeckoCoinMarketInfo };
+    token: TokenWithMarket;
 }
 
 export function SearchableTokenItem({ token }: SearchableTokenItemProps) {
