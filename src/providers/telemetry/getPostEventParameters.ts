@@ -55,9 +55,9 @@ export function getPostEventId(type: ComposeType, post: CompositePost) {
         case 'compose':
             return resolveComposeEventId(post.availableSources[0]);
         case 'quote':
-            return resolveReplyEventId(post.availableSources[0]);
-        case 'reply':
             return resolveQuoteEventId(post.availableSources[0]);
+        case 'reply':
+            return resolveReplyEventId(post.availableSources[0]);
         default:
             safeUnreachable(type);
             throw new UnreachableError('type', type);

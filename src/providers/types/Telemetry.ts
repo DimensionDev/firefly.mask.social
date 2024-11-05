@@ -47,7 +47,7 @@ export enum EventId {
     FARCASTER_LOG_IN_SUCCESS = 'farcaster_log_in_success', // ✅
     FARCASTER_LOG_OUT_SUCCESS = 'farcaster_log_out_success', // ✅
     FARCASTER_ACCOUNT_DISCONNECT_SUCCESS = 'farcaster_disconnect_account_success',
-    FARCASTER_POST_SEND_SUCCESS = 'farcaster_send_cast_success', // ✅
+    FARCASTER_POST_SEND_SUCCESS = 'farcaster_cast_send_success', // ✅
     FARCASTER_POST_LIKE_SUCCESS = 'farcaster_like_cast_success', // ✅
     FARCASTER_POST_UNLIKE_SUCCESS = 'farcaster_unlike_cast_success', // ✅
     FARCASTER_POST_REPLY_SUCCESS = 'farcaster_cast_reply_success', // ✅
@@ -65,7 +65,7 @@ export enum EventId {
     LENS_ACCOUNT_LOG_IN_SUCCESS = 'lens_log_in_success', // ✅
     LENS_ACCOUNT_LOG_OUT_SUCCESS = 'lens_log_out_success', // ✅
     LENS_ACCOUNT_DISCONNECT_SUCCESS = 'lens_disconnect_account_success',
-    LENS_POST_SEND_SUCCESS = 'lens_send_post_success', // ✅
+    LENS_POST_SEND_SUCCESS = 'lens_post_send_success', // ✅
     LENS_POST_LIKE_SUCCESS = 'lens_like_post_success', // ✅
     LENS_POST_UNLIKE_SUCCESS = 'lens_unlike_post_success', // ✅
     LENS_POST_REPLY_SUCCESS = 'lens_post_reply_success', // ✅
@@ -83,7 +83,7 @@ export enum EventId {
     X_ACCOUNT_LOG_IN_SUCCESS = 'x_log_in_success', // ✅
     X_ACCOUNT_LOG_OUT_SUCCESS = 'x_log_out_success', // ✅
     X_ACCOUNT_DISCONNECT_SUCCESS = 'x_disconnect_account_success',
-    X_POST_SEND_SUCCESS = 'x_send_post_success', // ✅
+    X_POST_SEND_SUCCESS = 'x_post_send_success', // ✅
     X_POST_LIKE_SUCCESS = 'x_like_post_success', // ✅
     X_POST_UNLIKE_SUCCESS = 'x_unlike_post_success', // ✅
     X_POST_REPLY_SUCCESS = 'x_post_reply_success', // ✅
