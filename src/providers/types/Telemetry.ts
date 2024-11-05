@@ -58,8 +58,8 @@ export enum EventId {
     FARCASTER_POST_SHARE_SUCCESS = 'farcaster_share_cast_success', // ✅
     FARCASTER_POST_BOOKMARK_SUCCESS = 'farcaster_bookmark_cast_success', // ✅
     FARCASTER_POST_UNBOOKMARK_SUCCESS = 'farcaster_unbookmark_cast_success', // ✅
-    FARCASTER_PROFILE_FOLLOW_SUCCESS = 'farcaster_follow_profile_success', // ✅
-    FARCASTER_PROFILE_UNFOLLOW_SUCCESS = 'farcaster_unfollow_profile_success', // ✅
+    FARCASTER_PROFILE_FOLLOW_SUCCESS = 'farcaster_follow_success', // ✅
+    FARCASTER_PROFILE_UNFOLLOW_SUCCESS = 'farcaster_unfollow_success', // ✅
 
     // lens
     LENS_ACCOUNT_LOG_IN_SUCCESS = 'lens_log_in_success', // ✅
@@ -74,10 +74,10 @@ export enum EventId {
     LENS_POST_DELETE_SUCCESS = 'lens_delete_post_success', // ✅
     LENS_POST_QUOTE_SUCCESS = 'lens_quote_post_success', // ✅
     LENS_POST_SHARE_SUCCESS = 'lens_share_post_success', // ✅
-    LENS_POST_BOOKMARK_SUCCESS = 'lens_bookmark_post_success', // ✅
-    LENS_POST_UNBOOKMARK_SUCCESS = 'lens_unbookmark_post_success', // ✅
-    LENS_PROFILE_FOLLOW_SUCCESS = 'lens_follow_profile_success', // ✅
-    LENS_PROFILE_UNFOLLOW_SUCCESS = 'lens_unfollow_profile_success', // ✅
+    LENS_POST_BOOKMARK_SUCCESS = 'lens_post_bookmark_success', // ✅
+    LENS_POST_UNBOOKMARK_SUCCESS = 'lens_post_unbookmark_success', // ✅
+    LENS_PROFILE_FOLLOW_SUCCESS = 'lens_follow_success', // ✅
+    LENS_PROFILE_UNFOLLOW_SUCCESS = 'lens_unfollow_success', // ✅
 
     // x
     X_ACCOUNT_LOG_IN_SUCCESS = 'x_log_in_success', // ✅
@@ -94,8 +94,8 @@ export enum EventId {
     X_POST_SHARE_SUCCESS = 'x_share_post_success', // ✅
     X_POST_BOOKMARK_SUCCESS = 'x_bookmark_post_success', // ✅
     X_POST_UNBOOKMARK_SUCCESS = 'x_unbookmark_post_success', // ✅
-    X_PROFILE_FOLLOW_SUCCESS = 'x_follow_profile_success', // ✅
-    X_PROFILE_UNFOLLOW_SUCCESS = 'x_unfollow_profile_success', // ✅
+    X_PROFILE_FOLLOW_SUCCESS = 'x_follow_success', // ✅
+    X_PROFILE_UNFOLLOW_SUCCESS = 'x_unfollow_success', // ✅
 
     // activity
     EVENT_SHARE_CLICK = 'event_share_click',
