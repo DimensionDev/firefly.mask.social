@@ -14,9 +14,9 @@ export async function fetchJSON<T = unknown>(
 ): Promise<T> {
     const { noDefaultContentType = false } = options ?? {};
 
-    const url = typeof input === 'string' ? input : input instanceof Request ? input.url : input.toString();
+    const url = typeof input === 'string' ? input : input instanceof Request ? input.url : undefined;
 
-    const target = isServer && url.startsWith('/') ? urlcat(SITE_URL, url) : url;
+    const target = isServer && url && url.startsWith('/') ? urlcat(SITE_URL, url) : input;
 
     const response = await fetch(
         target,
