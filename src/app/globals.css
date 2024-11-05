@@ -250,6 +250,10 @@
     --color-light-rebranding-bg: 245 245 249;
 }
 
+.light .sidebar-light-logo {
+    display: block;
+}
+
 .light .sidebar-dark-logo {
     display: none;
 }
