@@ -1,7 +1,7 @@
 import { type SocialSource, Source } from '@/constants/enum.js';
 import { UnreachableError } from '@/constants/error.js';
 import { createLookupTableResolver } from '@/helpers/createLookupTableResolver.js';
-import { runInSafe } from '@/helpers/runInSafe.js';
+import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { getEventParameters } from '@/providers/telemetry/getEventParameters.js';
 import { TelemetryProvider } from '@/providers/telemetry/index.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
@@ -30,10 +30,10 @@ const resolveProfileActionEventIds = createLookupTableResolver<SocialSource, Rec
 );
 
 export function captureProfileActionEvent(action: ProfileActionType, profile: Profile) {
-    runInSafe(() => {
+    return runInSafeAsync(() => {
         const eventIds = resolveProfileActionEventIds(profile.source);
         const eventId = eventIds[action];
 
-        TelemetryProvider.captureEvent(eventId, getEventParameters(profile));
+        return TelemetryProvider.captureEvent(eventId, getEventParameters(profile));
     });
 }
