@@ -21,6 +21,7 @@ import { resolveRedPacketPlatformType } from '@/helpers/resolveRedPacketPlatform
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { hasRpPayload } from '@/helpers/rpPayload.js';
 import { captureComposeEvent } from '@/providers/telemetry/captureComposeEvent.js';
+import { capturePollEvent } from '@/providers/telemetry/capturePollEvent.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 import { commitPoll } from '@/services/poll.js';
 import { reportCrossedPost } from '@/services/reportCrossedPost.js';
@@ -163,26 +164,27 @@ export async function crossPost(
         signal,
     }: CrossPostOptions = {},
 ) {
-    const { updatePostInThread } = useComposeStateStore.getState();
-    const { availableSources, poll, chars } = compositePost;
+    const { updatePostInThread, updateChars, updatePoll } = useComposeStateStore.getState();
+    const { availableSources, poll } = compositePost;
 
     // create common poll for farcaster and lens
     if (poll && SUPPORTED_FRAME_SOURCES.some((x) => availableSources.includes(x))) {
         const pollId = await commitPoll(poll, readChars(compositePost.chars));
 
-        compositePost = {
-            ...compositePost,
-            chars: (Array.isArray(chars) ? chars : [chars]).map((x) => {
+        capturePollEvent(pollId);
+
+        updateChars((chars) => {
+            return (Array.isArray(chars) ? chars : [chars]).map((x) => {
                 if (typeof x !== 'string' && x.tag === CHAR_TAG.FRAME) {
                     return { ...x, id: pollId };
                 }
                 return x;
-            }),
-            poll: {
-                ...poll,
-                id: pollId,
-            },
-        };
+            });
+        });
+        updatePoll({
+            ...poll,
+            id: pollId,
+        });
     }
 
     const allSettled = await Promise.allSettled(

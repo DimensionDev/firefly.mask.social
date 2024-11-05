@@ -35,8 +35,8 @@ export enum EventId {
     COMPOSE_SCHEDULED_POST_DELETE_SUCCESS = 'scheduled_post_delete_success',
     COMPOSE_DRAFT_CREATE_SUCCESS = 'draft_create_success', // ✅
 
-    TIPS_SEND_SUCCESS = 'send_tips_success',
-    POLL_CREATE_SUCCESS = 'create_poll_success',
+    TIPS_SEND_SUCCESS = 'send_tips_success', // ✅
+    POLL_CREATE_SUCCESS = 'create_poll_success', // ✅
     LUCKY_DROP_CREATE_SUCCESS = 'create_lucky_drop_success',
 
     // token sync dialog
