@@ -1,3 +1,6 @@
+import urlcat from 'urlcat';
+
+import { SITE_URL } from '@/constants/index.js';
 import { fetch } from '@/helpers/fetch.js';
 import { Duration } from '@/helpers/fetchCached.js';
 import { Expiration } from '@/helpers/fetchSquashed.js';
@@ -9,8 +12,10 @@ export async function fetchJSON<T = unknown>(
     options?: NextFetchersOptions,
 ): Promise<T> {
     const { noDefaultContentType = false } = options ?? {};
+    const url = typeof input === 'string' && input.startsWith('/') ? urlcat(SITE_URL, input) : input;
+
     const response = await fetch(
-        input,
+        url,
         {
             ...init,
             headers: noDefaultContentType
