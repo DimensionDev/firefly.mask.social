@@ -12,28 +12,37 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout repository
-      uses: actions/checkout@v3
+      - name: Checkout repository
+        uses: actions/checkout@v3
 
-    - name: Get PR description
-      id: pr_description
-      env:
-        GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      run: |
-        PR_BODY=$(gh pr view ${{ github.event.pull_request.number }} --json body -q ".body")
-        echo "::set-output name=pr_body::${PR_BODY}"
+      - name: Get PR description
+        id: pr_description
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          PR_BODY=$(gh pr view ${{ github.event.pull_request.number }} --json body -q ".body")
+          echo "::set-output name=pr_body::${PR_BODY}"
 
-    - name: Modify PR description with links
-      id: modify_pr_description
-      run: |
-        # The regex to find the Jira issue (e.g., FW-xxxx), avoiding FW-0000
-        PR_BODY="${{ steps.pr_description.outputs.pr_body }}"
-        MODIFIED_BODY=$(echo "$PR_BODY" | sed -E 's/\bFW-([1-9][0-9]{3})\b/[FW-\1](https:\/\/mask.atlassian.net\/browse\/FW-\1)/g')
-        echo "::set-output name=modified_pr_body::$MODIFIED_BODY"
+      - name: Modify PR description with links
+        id: modify_pr_description
+        run: |
+          PR_BODY="${{ steps.pr_description.outputs.pr_body }}"
 
-    - name: Update PR description with modified content
-      env:
-        GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      run: |
-        # Update the PR description with the modified content
-        gh pr edit ${{ github.event.pull_request.number }} --body "${{ steps.modify_pr_description.outputs.modified_pr_body }}"
+          # The regex to find the Jira issue (e.g., FW-xxxx), avoiding FW-0000
+          MODIFIED_BODY=$(echo "$PR_BODY" | sed -E 's/\bFW-([1-9][0-9]{3})\b/[FW-\1](https:\/\/mask.atlassian.net\/browse\/FW-\1)/g')
+
+          # Only modify if we found any FW-xxxx issue
+          if [[ "$PR_BODY" != "$MODIFIED_BODY" ]]; then
+            echo "Jira issues found and modified."
+            echo "::set-output name=modified_pr_body::$MODIFIED_BODY"
+          else
+            echo "No Jira issues found. Keeping original PR description."
+            echo "::set-output name=modified_pr_body::$PR_BODY"
+          fi
+
+      - name: Update PR description with modified content
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          # Update the PR description with the modified content (or keep original if no issues found)
+          gh pr edit ${{ github.event.pull_request.number }} --body "${{ steps.modify_pr_description.outputs.modified_pr_body }}"
