@@ -1,3 +1,7 @@
+import { isServer } from '@tanstack/react-query';
+import urlcat from 'urlcat';
+
+import { SITE_URL } from '@/constants/index.js';
 import { fetch } from '@/helpers/fetch.js';
 import { Duration } from '@/helpers/fetchCached.js';
 import { Expiration } from '@/helpers/fetchSquashed.js';
@@ -9,8 +13,11 @@ export async function fetchJSON<T = unknown>(
     options?: NextFetchersOptions,
 ): Promise<T> {
     const { noDefaultContentType = false } = options ?? {};
+
+    const url = typeof input === 'string' ? input : input instanceof Request ? input.url : undefined;
+
     const response = await fetch(
-        input,
+        isServer && url?.startsWith('/') ? urlcat(SITE_URL, url) : input,
         {
             ...init,
             headers: noDefaultContentType
