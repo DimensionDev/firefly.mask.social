@@ -60,6 +60,7 @@ export async function createAccountByRelayService(callback?: (url: string) => vo
     const profile = await FarcasterSocialMediaProvider.getProfileById(session.profileId);
 
     return {
+        origin: 'sync',
         session,
         profile,
         fireflySession,
