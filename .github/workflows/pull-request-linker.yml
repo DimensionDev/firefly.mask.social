@@ -28,10 +28,16 @@ jobs:
         run: |
           PR_BODY="${{ steps.pr_description.outputs.pr_body }}"
 
+          # debug pr body
+          echo $PR_BODY
+
           # The regex to find the Jira issue (e.g., FW-xxxx), avoiding FW-0000
           MODIFIED_BODY=$(echo "$PR_BODY" | sed -E 's/\bFW-([1-9][0-9]{3})\b/[FW-\1](https:\/\/mask.atlassian.net\/browse\/FW-\1)/g')
 
-          # Only modify if we found any FW-xxxx issue
+          # debug modified pr body
+          echo $MODIFIED_BODY
+
+          # Check if the PR description was modified
           if [[ "$PR_BODY" != "$MODIFIED_BODY" ]]; then
             echo "Jira issues found and modified."
             echo "::set-output name=modified_pr_body::$MODIFIED_BODY"
