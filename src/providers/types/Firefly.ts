@@ -1222,3 +1222,28 @@ export type VotingResultResponse = Response<{
     harris: number;
     tokenIdCount: number;
 }>;
+
+export type NotificationPushSwitchResponse = Response<{
+    push_switch: boolean;
+    list: Array<{
+        title: string;
+        device_id: string;
+        list: Array<{
+            account_id: string;
+            platform: string;
+            push_type: string;
+            title: string;
+            state: boolean;
+        }>;
+    }>;
+}>;
+
+export interface SetNotificationPushSwitchParams {
+    list: Array<{
+        device_id: string;
+        token: string;
+        platform: string;
+        push_type: string;
+        state: boolean;
+    }>;
+}
