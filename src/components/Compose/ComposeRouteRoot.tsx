@@ -8,7 +8,7 @@ import { CloseButton } from '@/components/CloseButton.js';
 import { ComposeSend } from '@/components/Compose/ComposeSend.js';
 import { Tooltip } from '@/components/Tooltip.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
-import { captureDraftClickEvent } from '@/providers/telemetry/captureDraftClickEvent.js';
+import { captureDraftClickEvent } from '@/providers/telemetry/captureClickEvent.js';
 
 export function ComposeRouteRoot() {
     const isMedium = useIsMedium();
