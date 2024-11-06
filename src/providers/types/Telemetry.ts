@@ -294,11 +294,11 @@ export interface Events extends Record<EventId, Event> {
             firefly_account_id: string;
             wallet_address: string; // address all lowercased
             lucky_drop_id: string;
-            amount: number;
+            amount: string;
             currency: string;
             amount_usd?: number;
             winners: number;
-            distribution_rule: string;
+            distribution_rule: 'random' | 'equal';
             chain_id: string;
             chain_name: string;
         };
