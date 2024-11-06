@@ -9,7 +9,7 @@ import { queryClient } from '@/configs/queryClient.js';
 import { NODE_ENV, type SocialSource } from '@/constants/enum.js';
 import { env } from '@/constants/env.js';
 import { SORTED_SOCIAL_SOURCES, SUPPORTED_FRAME_SOURCES } from '@/constants/index.js';
-import { CHAR_TAG, readChars } from '@/helpers/chars.js';
+import { CHAR_TAG, type Chars, readChars } from '@/helpers/chars.js';
 import { createDummyCommentPost } from '@/helpers/createDummyPost.js';
 import { enqueueErrorsMessage, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { getCompositePost } from '@/helpers/getCompositePost.js';
@@ -135,6 +135,15 @@ async function setQueryDataForQuote(post: CompositePost) {
     await queryClient.setQueryData([parentPost.source, 'post-detail', parentPost.postId], patched);
 }
 
+function updateCharsWithPoll(chars: Chars, pollId: string) {
+    return (Array.isArray(chars) ? chars : [chars]).map((x) => {
+        if (typeof x !== 'string' && x.tag === CHAR_TAG.FRAME) {
+            return { ...x, id: pollId };
+        }
+        return x;
+    });
+}
+
 interface CrossPostOptions {
     isRetry?: boolean;
     // skip if post is already published
@@ -165,7 +174,7 @@ export async function crossPost(
     }: CrossPostOptions = {},
 ) {
     const { updatePostInThread, updateChars, updatePoll } = useComposeStateStore.getState();
-    const { availableSources, poll } = compositePost;
+    const { availableSources, poll, chars } = compositePost;
 
     // create common poll for farcaster and lens
     if (poll && SUPPORTED_FRAME_SOURCES.some((x) => availableSources.includes(x))) {
@@ -173,18 +182,12 @@ export async function crossPost(
 
         capturePollEvent(pollId);
 
-        updateChars((chars) => {
-            return (Array.isArray(chars) ? chars : [chars]).map((x) => {
-                if (typeof x !== 'string' && x.tag === CHAR_TAG.FRAME) {
-                    return { ...x, id: pollId };
-                }
-                return x;
-            });
-        });
-        updatePoll({
-            ...poll,
-            id: pollId,
-        });
+        const newPoll = { ...poll, id: pollId };
+        updateChars((chars) => updateCharsWithPoll(chars, pollId));
+        updatePoll(newPoll);
+
+        // update post in current call stack
+        compositePost = { ...compositePost, chars: updateCharsWithPoll(chars, pollId), poll: newPoll };
     }
 
     const allSettled = await Promise.allSettled(
