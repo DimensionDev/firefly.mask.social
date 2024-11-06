@@ -51,6 +51,7 @@ import { useComposeScheduleStateStore } from '@/store/useComposeScheduleStore.js
 import { useComposeStateStore } from '@/store/useComposeStore.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
 import type { ComposeType } from '@/types/compose.js';
+import { EventId } from '@/providers/types/Telemetry.js';
 
 const initialConfig = {
     namespace: 'composer',
@@ -209,8 +210,9 @@ export const ComposeModalUI = forwardRef<SingletonModalRefCreator<ComposeModalOp
                     addDraft(draft);
                     ComposeModalRef.close();
                     enqueueSuccessMessage(t`Your draft was saved.`);
-                    captureComposeDraftPostEvent(posts[0], {
+                    captureComposeDraftPostEvent(EventId.COMPOSE_DRAFT_CREATE_SUCCESS, posts[0], {
                         draftId: draft.draftId,
+                        thread: posts,
                     });
                     return CloseAction.Saved;
                 } else {
