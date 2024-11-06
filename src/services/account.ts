@@ -199,7 +199,8 @@ export async function addAccount(account: Account, options?: AccountOptions) {
                 belongsTo,
                 accounts,
             });
-            captureSyncModalEvent(confirmed);
+
+            captureSyncModalEvent(fireflySession.profileId, confirmed);
 
             if (confirmed) {
                 await updateState(accounts, !belongsTo);
@@ -280,7 +281,8 @@ export async function restoreCurrentAccounts(signal?: AbortSignal) {
             belongsTo: true,
             accounts: accountsFiltered,
         });
-        captureSyncModalEvent(confirmed);
+
+        captureSyncModalEvent(session.profileId, confirmed);
 
         if (confirmed) {
             await updateState(accountsFiltered, false);
