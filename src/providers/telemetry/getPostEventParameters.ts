@@ -3,8 +3,11 @@ import { safeUnreachable } from '@masknet/kit';
 import { type SocialSource, Source } from '@/constants/enum.js';
 import { UnreachableError } from '@/constants/error.js';
 import { createLookupTableResolver } from '@/helpers/createLookupTableResolver.js';
-import { getProfileEventParameters } from '@/providers/telemetry/getProfileEventParameters.js';
-import type { Profile } from '@/providers/types/SocialMedia.js';
+import {
+    getProfileEventParameters,
+    getSelfProfileEventParameters,
+} from '@/providers/telemetry/getProfileEventParameters.js';
+import type { Post } from '@/providers/types/SocialMedia.js';
 import {
     EventId,
     type FarcasterEventParameters,
@@ -64,11 +67,35 @@ export function getPostEventId(type: ComposeType, post: CompositePost) {
     }
 }
 
-export function getPostEventParameters(postId: string, targetProfile: Profile) {
-    const source = targetProfile.source;
-    if (!source) throw new Error(`Not source found, source = ${source}.`);
+export function getSelfPostEventParameters(post: Post) {
+    const { source, postId } = post;
+    const parameters = getSelfProfileEventParameters(source);
 
-    const parameters = getProfileEventParameters(targetProfile);
+    switch (source) {
+        case Source.Farcaster:
+            return {
+                ...parameters,
+                farcaster_cast_id: postId,
+            };
+        case Source.Lens:
+            return {
+                ...parameters,
+                lens_post_id: postId,
+            };
+        case Source.Twitter:
+            return {
+                ...parameters,
+                x_post_id: postId,
+            };
+        default:
+            safeUnreachable(source);
+            throw new UnreachableError('source', source);
+    }
+}
+
+export function getPostEventParameters(post: Post) {
+    const { source, postId, author } = post;
+    const parameters = getProfileEventParameters(author);
 
     switch (source) {
         case Source.Farcaster:
