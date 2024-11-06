@@ -21,10 +21,12 @@ interface ArticleHeaderProps {
     className?: string;
 }
 export const ArticleHeader = memo<ArticleHeaderProps>(function ArticleHeader({ article, className }) {
-    const authorUrl = urlcat('/profile/:address', {
-        address: article.author.id,
-        source: SourceInURL.Wallet,
-    });
+    const authorUrl = article.author.id
+        ? urlcat('/profile/:address', {
+              address: article.author.id,
+              source: SourceInURL.Wallet,
+          })
+        : '';
 
     const Icon = resolveArticlePlatformIcon(article.platform);
 
