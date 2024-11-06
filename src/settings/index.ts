@@ -12,22 +12,21 @@ import {
 import { useDeveloperSettingsState } from '@/store/useDeveloperSettingsStore.js';
 
 class Settings {
+    get IS_DEV() {
+        return isServer
+            ? cookies().get('firefly_root_api')?.value === FIREFLY_DEV_ROOT_URL
+            : useDeveloperSettingsState.getState().developmentAPI;
+    }
     get FIREFLY_ROOT_URL() {
-        if (isServer) {
-            const apiUrl = cookies().get('firefly_root_api')?.value ?? FIREFLY_ROOT_URL;
-            return apiUrl;
-        }
-        return useDeveloperSettingsState.getState().developmentAPI ? FIREFLY_DEV_ROOT_URL : FIREFLY_ROOT_URL;
+        return settings.IS_DEV ? FIREFLY_DEV_ROOT_URL : FIREFLY_ROOT_URL;
     }
 
     get FRAME_SERVER_URL() {
-        return useDeveloperSettingsState.getState().developmentAPI ? FRAME_DEV_SERVER_URL : FRAME_SERVER_URL;
+        return settings.IS_DEV ? FRAME_DEV_SERVER_URL : FRAME_SERVER_URL;
     }
 
     get ADVERTISEMENT_JSON_URL() {
-        return useDeveloperSettingsState.getState().developmentAPI
-            ? ADVERTISEMENT_JSON_URL_DEV
-            : ADVERTISEMENT_JSON_URL;
+        return settings.IS_DEV ? ADVERTISEMENT_JSON_URL_DEV : ADVERTISEMENT_JSON_URL;
     }
 }
 
