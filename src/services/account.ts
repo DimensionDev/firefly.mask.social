@@ -351,6 +351,8 @@ export async function removeCurrentAccount(source: SocialSource) {
 }
 
 export async function removeAllAccounts() {
+    const allAccounts = SORTED_SOCIAL_SOURCES.flatMap((x) => getProfileState(x).accounts);
+
     SORTED_SOCIAL_SOURCES.forEach(async (x) => {
         const state = getProfileState(x);
         if (!state.accounts.length) return;
@@ -367,7 +369,7 @@ export async function removeAllAccounts() {
         }
     });
 
-    captureAccountLogoutAllEvent();
-
     await removeFireflyAccountIfNeeded();
+
+    captureAccountLogoutAllEvent(allAccounts);
 }

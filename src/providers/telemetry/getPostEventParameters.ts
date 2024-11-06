@@ -53,14 +53,14 @@ const resolveQuoteEventId = createLookupTableResolver<SocialSource, EventId>(
     },
 );
 
-export function getPostEventId(type: ComposeType, post: CompositePost) {
+export function getPostEventId(type: ComposeType, source: SocialSource, post: CompositePost) {
     switch (type) {
         case 'compose':
-            return resolveComposeEventId(post.availableSources[0]);
+            return resolveComposeEventId(source);
         case 'quote':
-            return resolveQuoteEventId(post.availableSources[0]);
+            return resolveQuoteEventId(source);
         case 'reply':
-            return resolveReplyEventId(post.availableSources[0]);
+            return resolveReplyEventId(source);
         default:
             safeUnreachable(type);
             throw new UnreachableError('type', type);

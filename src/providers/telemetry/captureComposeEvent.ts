@@ -83,33 +83,32 @@ export function captureComposeSchedulePostEvent(
 }
 
 export function captureComposeEvent(type: ComposeType, post: CompositePost, options: Options = {}) {
-    const capture = () => {
+    const capture = async () => {
         const size = post.availableSources.length;
 
         // post created
         {
+            // the default social source
+            const source = post.availableSources[0];
+
             // post to only one platform
             if (size === 1) {
                 switch (type) {
                     case 'compose':
                         return TelemetryProvider.captureEvent(
-                            getPostEventId(type, post),
+                            getPostEventId(type, source, post),
                             getComposeEventParameters(post, options),
                         );
                     case 'reply':
-                    case 'quote':
-                        const source = post.availableSources[0];
-
-                        const profile = post.parentPost[source]?.author;
-                        if (!profile) throw new Error(`Target profile is missing, source = ${source}.`);
-
-                        const postId = post.parentPost[source]?.postId;
-                        if (!postId) throw new Error(`Target post ID is missing, source = ${source}.`);
+                    case 'quote': {
+                        const parentPost = post.parentPost[source];
+                        if (!parentPost) throw new Error(`Parent post is missing, source = ${source}.`);
 
                         return TelemetryProvider.captureEvent(
-                            getPostEventId(type, post),
-                            getPostEventParameters(postId, profile),
+                            getPostEventId(type, source, post),
+                            getPostEventParameters(parentPost),
                         );
+                    }
                     default:
                         safeUnreachable(type);
                         throw new UnreachableError('type', type);
@@ -117,6 +116,14 @@ export function captureComposeEvent(type: ComposeType, post: CompositePost, opti
 
                 // crossed post
             } else if (size > 1) {
+                await Promise.all(
+                    post.availableSources.map((x) => {
+                        return TelemetryProvider.captureEvent(
+                            getPostEventId(type, x, post),
+                            getComposeEventParameters(post, options),
+                        );
+                    }),
+                );
                 return TelemetryProvider.captureEvent(
                     EventId.COMPOSE_CROSS_POST_SEND_SUCCESS,
                     getComposeEventParameters(post, options),
