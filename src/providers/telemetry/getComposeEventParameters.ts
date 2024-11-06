@@ -1,11 +1,10 @@
 import { compact } from 'lodash-es';
 
 import { Source } from '@/constants/enum.js';
+import { getRpMetadata } from '@/helpers/rpPayload.js';
 import type { ComposeEventParameters } from '@/providers/types/Telemetry.js';
 import type { CompositePost } from '@/store/useComposeStore.js';
 import { useFarcasterStateStore, useLensStateStore, useTwitterStateStore } from '@/store/useProfileStore.js';
-import { getTypedMessageRedPacket } from '@/helpers/getTypedMessage.js';
-import { getRpMetadata } from '@/helpers/rpPayload.js';
 
 export interface Options {
     draftId?: string;
