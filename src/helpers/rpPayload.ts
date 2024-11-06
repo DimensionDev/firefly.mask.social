@@ -11,7 +11,7 @@ export function hasRpPayload(message: TypedMessage | null) {
 
 export function getRpMetadata(message: TypedMessage | null) {
     const metadata = message?.meta?.get(RedPacketMetaKey) ?? null;
-    return metadata as RedPacketMetadata | undefined;
+    return metadata as RedPacketMetadata | null;
 }
 
 export function isRpEncrypted(message: TypedMessage | null) {
