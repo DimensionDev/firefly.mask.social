@@ -180,6 +180,7 @@ export async function downloadAccounts(session: FireflySession, signal?: AbortSi
         allSettled.map((x, i) =>
             x.status === 'fulfilled' && x.value
                 ? {
+                      origin: 'sync',
                       profile: x.value,
                       session: sessions[i],
                       fireflySession: session,
