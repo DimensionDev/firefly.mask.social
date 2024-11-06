@@ -12,7 +12,7 @@ import type { ComposeType } from '@/types/compose.js';
 
 function getTimeParameters(date = new Date()) {
     const offset = new Date().getTimezoneOffset();
-    return `${dayjs(date).format('mm-dd-yyyy HH:mm:ss')}(GMT${offset < 0 ? '+' : '-'}${Math.abs(offset / 60)})`;
+    return `${dayjs(date).format('MM-DD-YYYY HH:mm:ss')}(GMT${offset < 0 ? '+' : '-'}${Math.abs(offset / 60)})`;
 }
 
 export function captureComposeDraftPostEvent(
