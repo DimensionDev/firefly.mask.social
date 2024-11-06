@@ -22,12 +22,6 @@ export function getComposeEventParameters(
 
     const rp = post.typedMessage?.meta ? getRpMetadata(post.typedMessage) : null;
 
-    console.log('DEBUG: post');
-    console.log({
-        post,
-        rp,
-    });
-
     return {
         include_lens_post: post.availableSources.includes(Source.Lens),
         lens_id: lensProfile?.profileId,
