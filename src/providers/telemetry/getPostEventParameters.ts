@@ -75,7 +75,7 @@ export function getSelfPostEventParameters(post: Post) {
         case Source.Farcaster:
             return {
                 ...parameters,
-                farcaset_cast_id: postId,
+                farcaster_cast_id: postId,
             };
         case Source.Lens:
             return {
