@@ -7,7 +7,7 @@ import DOMPurify from 'dompurify';
 import { useRouter } from 'next/navigation.js';
 
 import { ArticleActions } from '@/components/Article/ArticleActions.js';
-import { ArticleAuthor } from '@/components/Article/ArticleAuthor.jsx';
+import { ArticleAuthor } from '@/components/Article/ArticleAuthor.js';
 import { ClickableArea } from '@/components/ClickableArea.js';
 import { ArticleMarkup } from '@/components/Markup/ArticleMarkup.js';
 import { ImageAsset } from '@/components/Posts/ImageAsset.js';
