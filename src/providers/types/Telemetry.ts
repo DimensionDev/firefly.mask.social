@@ -31,10 +31,10 @@ export enum EventId {
     // compose dialog
     COMPOSE_CROSS_POST_SEND_SUCCESS = 'cross_post_send_success', // ✅
     COMPOSE_SCHEDULED_POST_CREATE_SUCCESS = 'scheduled_post_create_success', // ✅
-    COMPOSE_SCHEDULED_POST_UPDATE_SUCCESS = 'scheduled_post_update_success',
-    COMPOSE_SCHEDULED_POST_DELETE_SUCCESS = 'scheduled_post_delete_success',
+    COMPOSE_SCHEDULED_POST_UPDATE_SUCCESS = 'scheduled_post_update_success', // ✅
+    COMPOSE_SCHEDULED_POST_DELETE_SUCCESS = 'scheduled_post_delete_success', // ✅
     COMPOSE_DRAFT_CREATE_SUCCESS = 'draft_create_success', // ✅
-    COMPOSE_DRAFT_BUTTON_CLICK = 'draft_button_click',
+    COMPOSE_DRAFT_BUTTON_CLICK = 'draft_button_click', // ✅
 
     // mute
     MUTE_ALL_SUCCESS = 'mute_all_success', // ✅
