@@ -4,6 +4,7 @@ import { useAsyncFn } from 'react-use';
 import { enqueueErrorMessage, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { getSnackbarMessageFromError } from '@/helpers/getSnackbarMessageFromError.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
+import { captureMuteEvent } from '@/providers/telemetry/captureMuteEvent.js';
 import type { Channel } from '@/providers/types/SocialMedia.js';
 
 /**
@@ -16,10 +17,12 @@ export function useToggleMutedChannel() {
             if (channel.blocked) {
                 const result = await provider.unblockChannel(channel.id);
                 enqueueSuccessMessage(t`Unmute successfully.`);
+                captureMuteEvent('unmute', channel);
                 return result;
             } else {
                 const result = await provider.blockChannel(channel.id);
                 enqueueSuccessMessage(t`Mute successfully.`);
+                captureMuteEvent('mute', channel);
                 return result;
             }
         } catch (error) {

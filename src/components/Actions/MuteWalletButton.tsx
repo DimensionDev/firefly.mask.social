@@ -11,6 +11,7 @@ import { type ClickableButtonProps } from '@/components/ClickableButton.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
 import { ConfirmModalRef, LoginModalRef } from '@/modals/controls.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
+import { captureMuteEvent } from '@/providers/telemetry/captureMuteEvent.js';
 
 interface Props extends Omit<ClickableButtonProps, 'children'> {
     handleOrEnsOrAddress: string;
@@ -24,12 +25,18 @@ export const MuteWalletButton = forwardRef<HTMLButtonElement, Props>(function Mu
 ) {
     const isLogin = useIsLogin();
     const mutation = useMutation({
-        mutationFn: () => {
-            if (isMuted) return FireflyEndpointProvider.unblockWallet(address);
-            return FireflyEndpointProvider.blockWallet(address);
+        mutationFn: async () => {
+            if (isMuted) {
+                const result = await FireflyEndpointProvider.unblockWallet(address);
+                captureMuteEvent('unmute', address);
+                return result;
+            } else {
+                const result = await FireflyEndpointProvider.blockWallet(address);
+                captureMuteEvent('mute', address);
+                return result;
+            }
         },
     });
-    const loading = mutation.isPending;
     return (
         <MenuButton
             {...rest}
@@ -58,7 +65,7 @@ export const MuteWalletButton = forwardRef<HTMLButtonElement, Props>(function Mu
             }}
             ref={ref}
         >
-            {loading ? (
+            {mutation.isPending ? (
                 <LoadingIcon width={18} height={18} className="mx-1 animate-spin" />
             ) : isMuted ? (
                 <UnmuteIcon width={18} height={18} />

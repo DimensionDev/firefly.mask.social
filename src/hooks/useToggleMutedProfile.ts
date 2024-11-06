@@ -8,6 +8,7 @@ import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
 import { isProfileMuted } from '@/hooks/useIsProfileMuted.js';
 import { LoginModalRef } from '@/modals/controls.js';
+import { captureMuteEvent } from '@/providers/telemetry/captureMuteEvent.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 
 /**
@@ -28,10 +29,12 @@ export function useToggleMutedProfile(operator: Profile | null) {
                 if (muted) {
                     const result = await provider.unblockProfile(profile.profileId);
                     enqueueSuccessMessage(t`Unmuted @${profile.handle} on ${sourceName}.`);
+                    captureMuteEvent('unmute', profile);
                     return result;
                 } else {
                     const result = await provider.blockProfile(profile.profileId);
                     enqueueSuccessMessage(t`Muted @${profile.handle} on ${sourceName}.`);
+                    captureMuteEvent('mute', profile);
                     return result;
                 }
             } catch (error) {
