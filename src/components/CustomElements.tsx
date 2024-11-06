@@ -41,6 +41,8 @@ export default function CustomElements() {
         return CrossIsolationMessages.events.compositionDialogEvent.on((event) => {
             if (!event.open) return;
 
+            console.log('DEBUG: compositionDialogEvent', event);
+
             updateTypedMessage(getTypedMessageRedPacket(event.options?.initialMetas));
             if (event.options?.pluginMeta?.payloadImage) {
                 updateRpPayload(event.options.pluginMeta);

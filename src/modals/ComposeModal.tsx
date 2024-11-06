@@ -9,7 +9,6 @@ import { encrypt, SteganographyPreset } from '@masknet/encryption';
 import { delay } from '@masknet/kit';
 import { ProfileIdentifier } from '@masknet/shared-base';
 import type { TypedMessageTextV1 } from '@masknet/typed-message';
-import type { FireflyRedPacketAPI } from '@masknet/web3-providers/types';
 import { RouterProvider } from '@tanstack/react-router';
 import { $getRoot } from 'lexical';
 import { compact, flatten, values } from 'lodash-es';
@@ -71,10 +70,6 @@ export interface ComposeModalOpenProps {
     source?: SocialSource | SocialSource[];
     post?: Post | null;
     typedMessage?: TypedMessageTextV1 | null;
-    rpPayload?: {
-        payloadImage: string;
-        claimRequirements: FireflyRedPacketAPI.StrategyPayload[];
-    };
     channel?: Channel | null;
     initialPath?: string;
 }
@@ -119,7 +114,7 @@ export const ComposeModalUI = forwardRef<SingletonModalRefCreator<ComposeModalOp
 
         const setEditorContent = useSetEditorContent();
         const [open, dispatch] = useSingletonModal(ref, {
-            onOpen: ({ type, source, typedMessage, post, chars, rpPayload, channel, initialPath }) => {
+            onOpen: ({ type, source, typedMessage, post, chars, channel, initialPath }) => {
                 updateType(type || 'compose');
                 updateAvailableSources(
                     source ? (Array.isArray(source) ? source : [source]) : getCurrentAvailableSources(),
@@ -130,7 +125,6 @@ export const ComposeModalUI = forwardRef<SingletonModalRefCreator<ComposeModalOp
                     updateChars(chars);
                     setEditorContent(chars);
                 }
-                if (rpPayload) updateRpPayload(rpPayload);
                 if (channel) updateChannel(channel);
                 if (initialPath) router.navigate({ to: initialPath });
             },
