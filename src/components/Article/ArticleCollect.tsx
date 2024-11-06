@@ -130,13 +130,14 @@ export function ArticleCollect({ article }: ArticleCollectProps) {
     const chain = chains.find((x) => x.id === data?.chainId);
     const isSoldOut = !!data?.quantity && data.soldCount >= data.quantity;
 
+    const isCollected = (data?.isCollected && platform !== ArticlePlatform.Paragraph) || modalSessionCollected;
     const buttonText = useMemo(() => {
         if (isSoldOut) return t`Sold Out`;
-        if ((data?.isCollected && platform !== ArticlePlatform.Paragraph) || modalSessionCollected) return t`Collected`;
+        if (isCollected) return t`Collected`;
         if (insufficientBalance) return t`Insufficient Balance`;
         if (!data?.price) return t`Free Collect`;
         return t`Collect for ${data.price} ${chain?.nativeCurrency.symbol}`;
-    }, [data, chain, isSoldOut, insufficientBalance, platform, modalSessionCollected]);
+    }, [isSoldOut, isCollected, insufficientBalance, data?.price, chain?.nativeCurrency.symbol]);
 
     if (!queryDetailLoading && !data) {
         return (
@@ -156,7 +157,7 @@ export function ArticleCollect({ article }: ArticleCollectProps) {
         );
     }
 
-    const disabled = isSoldOut || (account.isConnected && insufficientBalance) || modalSessionCollected;
+    const disabled = isSoldOut || (account.isConnected && insufficientBalance) || isCollected;
     return (
         <div className="overflow-x-hidden px-6 pb-6 max-md:px-0 max-md:pb-4">
             <div className="my-3 rounded-lg bg-lightBg px-3 py-2">
