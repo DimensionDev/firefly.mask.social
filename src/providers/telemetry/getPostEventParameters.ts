@@ -3,7 +3,7 @@ import { safeUnreachable } from '@masknet/kit';
 import { type SocialSource, Source } from '@/constants/enum.js';
 import { UnreachableError } from '@/constants/error.js';
 import { createLookupTableResolver } from '@/helpers/createLookupTableResolver.js';
-import { getEventParameters } from '@/providers/telemetry/getEventParameters.js';
+import { getProfileEventParameters } from '@/providers/telemetry/getProfileEventParameters.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 import {
     EventId,
@@ -68,7 +68,7 @@ export function getPostEventParameters(postId: string, targetProfile: Profile) {
     const source = targetProfile.source;
     if (!source) throw new Error(`Not source found, source = ${source}.`);
 
-    const parameters = getEventParameters(targetProfile);
+    const parameters = getProfileEventParameters(targetProfile);
 
     switch (source) {
         case Source.Farcaster:
