@@ -101,11 +101,8 @@ export function captureComposeEvent(type: ComposeType, post: CompositePost, opti
                         const source = post.availableSources[0];
                         const parentPost = post.parentPost[source];
 
-                        const profile = parentPost?.author;
-                        if (!profile) throw new Error(`Target profile is missing, source = ${source}.`);
-
-                        const postId = parentPost?.postId;
-                        if (!postId) throw new Error(`Target post ID is missing, source = ${source}.`);
+                        if (!parentPost?.author) throw new Error(`Target profile is missing, source = ${source}.`);
+                        if (!parentPost?.postId) throw new Error(`Target post ID is missing, source = ${source}.`);
 
                         return TelemetryProvider.captureEvent(
                             getPostEventId(type, post),
