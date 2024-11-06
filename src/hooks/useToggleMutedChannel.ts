@@ -6,6 +6,7 @@ import { getSnackbarMessageFromError } from '@/helpers/getSnackbarMessageFromErr
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { captureMuteEvent } from '@/providers/telemetry/captureMuteEvent.js';
 import type { Channel } from '@/providers/types/SocialMedia.js';
+import { EventId } from '@/providers/types/Telemetry.js';
 
 /**
  * Mute and unmute a channel
@@ -17,12 +18,12 @@ export function useToggleMutedChannel() {
             if (channel.blocked) {
                 const result = await provider.unblockChannel(channel.id);
                 enqueueSuccessMessage(t`Unmute successfully.`);
-                captureMuteEvent('unmute', channel);
+                captureMuteEvent(EventId.UNMUTE_SUCCESS, channel);
                 return result;
             } else {
                 const result = await provider.blockChannel(channel.id);
                 enqueueSuccessMessage(t`Mute successfully.`);
-                captureMuteEvent('mute', channel);
+                captureMuteEvent(EventId.MUTE_SUCCESS, channel);
                 return result;
             }
         } catch (error) {

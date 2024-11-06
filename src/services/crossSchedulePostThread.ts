@@ -14,6 +14,7 @@ import type { SchedulePayload } from '@/helpers/resolveCreateSchedulePostPayload
 import { EnableSignlessModalRef } from '@/modals/controls.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
 import { captureComposeSchedulePostEvent } from '@/providers/telemetry/captureComposeEvent.js';
+import { EventId } from '@/providers/types/Telemetry.js';
 import { createSchedulePostsPayload } from '@/services/crossSchedulePost.js';
 import { uploadSessions } from '@/services/metrics.js';
 import { schedulePost } from '@/services/post.js';
@@ -67,7 +68,10 @@ export async function crossPostScheduleThread(scheduleTime: Date, signal?: Abort
         if (!result) return;
 
         if (post) {
-            captureComposeSchedulePostEvent(post, { thread: posts, scheduleId: result });
+            captureComposeSchedulePostEvent(EventId.COMPOSE_SCHEDULED_POST_CREATE_SUCCESS, post, {
+                thread: posts,
+                scheduleId: result,
+            });
         }
 
         enqueueSuccessMessage(t`Your schedule thread has created successfully.`);
