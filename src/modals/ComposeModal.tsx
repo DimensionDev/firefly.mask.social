@@ -50,6 +50,7 @@ import { useComposeScheduleStateStore } from '@/store/useComposeScheduleStore.js
 import { useComposeStateStore } from '@/store/useComposeStore.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
 import type { ComposeType } from '@/types/compose.js';
+import { captureComposeEvent } from '@/providers/telemetry/captureComposeEvent.js';
 
 const initialConfig = {
     namespace: 'composer',
@@ -195,7 +196,7 @@ export const ComposeModalUI = forwardRef<SingletonModalRefCreator<ComposeModalOp
                 if (confirmed === null) return CloseAction.None;
 
                 if (confirmed) {
-                    addDraft({
+                    const draft = {
                         draftId: draftId || uuid(),
                         createdAt: new Date(),
                         cursor,
@@ -203,9 +204,12 @@ export const ComposeModalUI = forwardRef<SingletonModalRefCreator<ComposeModalOp
                         type,
                         availableProfiles: compact(values(currentProfileAll)).filter((x) => sources.includes(x.source)),
                         scheduleTime,
-                    });
-                    enqueueSuccessMessage(t`Your draft was saved.`);
+                    };
+
+                    addDraft(draft);
                     ComposeModalRef.close();
+                    enqueueSuccessMessage(t`Your draft was saved.`);
+                    captureComposeEvent('compose', posts[0], { draftId: draft.draftId });
                     return CloseAction.Saved;
                 } else {
                     dispatch?.close();

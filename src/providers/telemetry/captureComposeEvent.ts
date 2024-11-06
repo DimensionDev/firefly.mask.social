@@ -19,17 +19,7 @@ export function captureComposeEvent(type: ComposeType, post: CompositePost, opti
     const capture = () => {
         const date = new Date();
         const size = post.availableSources.length;
-        const { draftId, scheduleId } = options;
-
-        // draft created
-        if (draftId) {
-            return TelemetryProvider.captureEvent(EventId.COMPOSE_DRAFT_CREATE_SUCCESS, {
-                draft_id: draftId,
-                draft_time: date.getTime(),
-                draft_time_utc: getTimeParameters(),
-                ...getComposeEventParameters(post, options),
-            });
-        }
+        const { scheduleId } = options;
 
         // scheduled post created
         if (scheduleId) {
