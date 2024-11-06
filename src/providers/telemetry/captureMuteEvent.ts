@@ -15,7 +15,7 @@ const resolveEventId = createLookupTableResolver(
     },
 );
 
-export function captureMuteEvent(action: 'all' | 'mute' | 'unmute') {
+export function captureMuteEvent(action: 'all' | 'mute' | 'unmute', against: 'profile' | 'channel' | 'wallet') {
     return runInSafeAsync(async () => {
         const eventId = resolveEventId(action);
         return TelemetryProvider.captureEvent(eventId, {});
