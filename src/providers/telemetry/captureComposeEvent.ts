@@ -15,19 +15,24 @@ function getTimeParameters(date = new Date()) {
     return `${dayjs(date).format('mm-dd-yyyy HH:mm:ss')}(GMT${offset < 0 ? '+' : '-'}${Math.abs(offset / 60)})`;
 }
 
-export function captureComposeDraftPostEvent(post: CompositePost, options: Options = {}) {
+export function captureComposeDraftPostEvent(
+    eventId: EventId.COMPOSE_DRAFT_CREATE_SUCCESS,
+    post: CompositePost,
+    options: Options = {},
+) {
     return runInSafeAsync(async () => {
         const date = new Date();
 
         const draftId = options.draftId;
         if (!draftId) throw new Error('Draft ID is missing.');
 
-        return TelemetryProvider.captureEvent(EventId.COMPOSE_DRAFT_CREATE_SUCCESS, {
+        return TelemetryProvider.captureEvent(eventId, {
             draft_id: draftId,
             draft_time: date.getTime(),
             draft_time_utc: getTimeParameters(date),
             ...getComposeEventParameters(post, {
                 draftId,
+                thread: options.thread,
             }),
         });
     });
