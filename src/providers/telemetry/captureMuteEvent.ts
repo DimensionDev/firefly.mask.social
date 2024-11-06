@@ -4,6 +4,7 @@ import { UnreachableError } from '@/constants/error.js';
 import { createLookupTableResolver } from '@/helpers/createLookupTableResolver.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { TelemetryProvider } from '@/providers/telemetry/index.js';
+import type { FireflyIdentity } from '@/providers/types/Firefly.js';
 import type { Channel, Profile } from '@/providers/types/SocialMedia.js';
 import { EventId } from '@/providers/types/Telemetry.js';
 
@@ -18,7 +19,10 @@ const resolveEventId = createLookupTableResolver(
     },
 );
 
-export function captureMuteEvent(action: 'all' | 'mute' | 'unmute', against: Profile | Channel | Address) {
+export function captureMuteEvent(
+    action: 'all' | 'mute' | 'unmute',
+    against: FireflyIdentity | Profile | Channel | Address,
+) {
     return runInSafeAsync(async () => {
         return TelemetryProvider.captureEvent(resolveEventId(action), {});
     });
