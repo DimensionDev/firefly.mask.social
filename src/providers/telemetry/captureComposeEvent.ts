@@ -15,31 +15,45 @@ function getTimeParameters(date = new Date()) {
     return `${dayjs(date).format('mm-dd-yyyy HH:mm:ss')}(GMT${offset < 0 ? '+' : '-'}${Math.abs(offset / 60)})`;
 }
 
+export function captureComposeDraftPostEvent(post: CompositePost, options: Options = {}) {
+    return runInSafeAsync(async () => {
+        const date = new Date();
+
+        const draftId = options.draftId;
+        if (!draftId) throw new Error('Draft ID is missing.');
+
+        return TelemetryProvider.captureEvent(EventId.COMPOSE_DRAFT_CREATE_SUCCESS, {
+            draft_id: draftId,
+            draft_time: date.getTime(),
+            draft_time_utc: getTimeParameters(date),
+            ...getComposeEventParameters(post, {
+                draftId,
+            }),
+        });
+    });
+}
+
+export function captureComposeSchedulePostEvent(post: CompositePost, options: Options = {}) {
+    return runInSafeAsync(async () => {
+        const date = new Date();
+
+        const scheduleId = options.scheduleId;
+        if (!scheduleId) throw new Error('Schedule ID is missing.');
+
+        return TelemetryProvider.captureEvent(EventId.COMPOSE_SCHEDULED_POST_CREATE_SUCCESS, {
+            schedule_id: scheduleId,
+            schedule_time: date.getTime(),
+            scheduled_time_utc: getTimeParameters(date),
+            ...getComposeEventParameters(post, {
+                scheduleId,
+            }),
+        });
+    });
+}
+
 export function captureComposeEvent(type: ComposeType, post: CompositePost, options: Options = {}) {
     const capture = () => {
-        const date = new Date();
         const size = post.availableSources.length;
-        const { draftId, scheduleId } = options;
-
-        // draft created
-        if (draftId) {
-            return TelemetryProvider.captureEvent(EventId.COMPOSE_DRAFT_CREATE_SUCCESS, {
-                draft_id: draftId,
-                draft_time: date.getTime(),
-                draft_time_utc: getTimeParameters(),
-                ...getComposeEventParameters(post, options),
-            });
-        }
-
-        // scheduled post created
-        if (scheduleId) {
-            return TelemetryProvider.captureEvent(EventId.COMPOSE_SCHEDULED_POST_CREATE_SUCCESS, {
-                schedule_id: scheduleId,
-                schedule_time: date.getTime(),
-                scheduled_time_utc: getTimeParameters(),
-                ...getComposeEventParameters(post, options),
-            });
-        }
 
         // post created
         {

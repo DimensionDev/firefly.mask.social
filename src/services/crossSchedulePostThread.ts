@@ -13,7 +13,7 @@ import { getSnackbarMessageFromError } from '@/helpers/getSnackbarMessageFromErr
 import type { SchedulePayload } from '@/helpers/resolveCreateSchedulePostPayload.js';
 import { EnableSignlessModalRef } from '@/modals/controls.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
-import { captureComposeEvent } from '@/providers/telemetry/captureComposeEvent.js';
+import { captureComposeSchedulePostEvent } from '@/providers/telemetry/captureComposeEvent.js';
 import { createSchedulePostsPayload } from '@/services/crossSchedulePost.js';
 import { uploadSessions } from '@/services/metrics.js';
 import { schedulePost } from '@/services/post.js';
@@ -67,7 +67,7 @@ export async function crossPostScheduleThread(scheduleTime: Date, signal?: Abort
         if (!result) return;
 
         if (post) {
-            captureComposeEvent(type, post, { thread: posts, scheduleId: result });
+            captureComposeSchedulePostEvent(post, { thread: posts, scheduleId: result });
         }
 
         enqueueSuccessMessage(t`Your schedule thread has created successfully.`);

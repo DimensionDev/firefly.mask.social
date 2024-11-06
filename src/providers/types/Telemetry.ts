@@ -37,9 +37,9 @@ export enum EventId {
     COMPOSE_DRAFT_BUTTON_CLICK = 'draft_button_click',
 
     // mute
-    MUTE_ALL_SUCCESS = 'mute_all_success',
-    MUTE_SUCCESS = 'mute_success',
-    UNMUTE_SUCCESS = 'unmute_success',
+    MUTE_ALL_SUCCESS = 'mute_all_success', // ✅
+    MUTE_SUCCESS = 'mute_success', // ✅
+    UNMUTE_SUCCESS = 'unmute_success', // ✅
 
     TIPS_SEND_SUCCESS = 'tips_send_success', // ✅
     POLL_CREATE_SUCCESS = 'poll_create_success', // ✅
