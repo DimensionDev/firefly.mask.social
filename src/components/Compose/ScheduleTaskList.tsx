@@ -26,7 +26,9 @@ import { resolveSocialSource } from '@/helpers/resolveSource.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import { ConfirmModalRef, DraggablePopoverRef, SchedulePostModalRef } from '@/modals/controls.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
+import { captureComposeSchedulePostEvent } from '@/providers/telemetry/captureComposeEvent.js';
 import type { SchedulePostDisplayInfo, ScheduleTask } from '@/providers/types/Firefly.js';
+import { EventId } from '@/providers/types/Telemetry.js';
 import { deleteScheduledPost, getScheduledPosts } from '@/services/post.js';
 import { usePreferencesState } from '@/store/usePreferenceStore.js';
 
@@ -56,6 +58,7 @@ const ScheduleTaskItem = memo(function ScheduleTaskItem({ task }: { task: Schedu
     const [{ loading: removeLoading }, handleRemove] = useAsyncFn(async () => {
         try {
             if (!task.uuid) return;
+
             const confirmed = await ConfirmModalRef.openAndWaitForClose({
                 title: t`Delete`,
                 content: (
@@ -66,12 +69,17 @@ const ScheduleTaskItem = memo(function ScheduleTaskItem({ task }: { task: Schedu
                 confirmButtonText: t`Confirm`,
                 enableCancelButton: true,
             });
-
             if (!confirmed) return;
+
             const result = await deleteScheduledPost(task.uuid);
             if (!result) return;
+
             queryClient.refetchQueries({
                 queryKey: ['schedule-tasks', fireflySessionHolder.session?.profileId],
+            });
+
+            captureComposeSchedulePostEvent(EventId.COMPOSE_SCHEDULED_POST_DELETE_SUCCESS, null, {
+                scheduleId: task.uuid,
             });
         } catch (error) {
             enqueueErrorMessage(getSnackbarMessageFromError(error, t`Failed to delete scheduled post.`), {

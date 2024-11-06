@@ -31,15 +31,15 @@ export enum EventId {
     // compose dialog
     COMPOSE_CROSS_POST_SEND_SUCCESS = 'cross_post_send_success', // ✅
     COMPOSE_SCHEDULED_POST_CREATE_SUCCESS = 'scheduled_post_create_success', // ✅
-    COMPOSE_SCHEDULED_POST_UPDATE_SUCCESS = 'scheduled_post_update_success',
-    COMPOSE_SCHEDULED_POST_DELETE_SUCCESS = 'scheduled_post_delete_success',
+    COMPOSE_SCHEDULED_POST_UPDATE_SUCCESS = 'scheduled_post_update_success', // ✅
+    COMPOSE_SCHEDULED_POST_DELETE_SUCCESS = 'scheduled_post_delete_success', // ✅
     COMPOSE_DRAFT_CREATE_SUCCESS = 'draft_create_success', // ✅
-    COMPOSE_DRAFT_BUTTON_CLICK = 'draft_button_click',
+    COMPOSE_DRAFT_BUTTON_CLICK = 'draft_button_click', // ✅
 
     // mute
-    MUTE_ALL_SUCCESS = 'mute_all_success',
-    MUTE_SUCCESS = 'mute_success',
-    UNMUTE_SUCCESS = 'unmute_success',
+    MUTE_ALL_SUCCESS = 'mute_all_success', // ✅
+    MUTE_SUCCESS = 'mute_success', // ✅
+    UNMUTE_SUCCESS = 'unmute_success', // ✅
 
     TIPS_SEND_SUCCESS = 'tips_send_success', // ✅
     POLL_CREATE_SUCCESS = 'poll_create_success', // ✅
@@ -232,7 +232,7 @@ export interface Events extends Record<EventId, Event> {
             schedule_id: string;
             new_schedule_time: number;
             new_scheduled_time_utc: string; // mm-dd-yyyy hh:mm:ss(GMT+0)
-        } & ComposeEventParameters;
+        };
     };
     [EventId.COMPOSE_SCHEDULED_POST_DELETE_SUCCESS]: {
         type: EventType.Interact;
@@ -240,7 +240,7 @@ export interface Events extends Record<EventId, Event> {
             schedule_id: string;
             schedule_time: number;
             scheduled_time_utc: string; // mm-dd-yyyy hh:mm:ss(GMT+0)
-        } & ComposeEventParameters;
+        };
     };
     [EventId.COMPOSE_DRAFT_CREATE_SUCCESS]: {
         type: EventType.Interact;

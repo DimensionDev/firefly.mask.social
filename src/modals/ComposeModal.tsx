@@ -43,7 +43,7 @@ import { useSetEditorContent } from '@/hooks/useSetEditorContent.js';
 import { useSingletonModal } from '@/hooks/useSingletonModal.js';
 import type { SingletonModalRefCreator } from '@/libs/SingletonModal.js';
 import { ComposeModalRef, ConfirmModalRef } from '@/modals/controls.js';
-import { captureComposeEvent } from '@/providers/telemetry/captureComposeEvent.js';
+import { captureComposeDraftPostEvent } from '@/providers/telemetry/captureComposeEvent.js';
 import type { Channel, Post } from '@/providers/types/SocialMedia.js';
 import { steganographyEncodeImage } from '@/services/steganography.js';
 import { useComposeDraftStateStore } from '@/store/useComposeDraftStore.js';
@@ -209,7 +209,9 @@ export const ComposeModalUI = forwardRef<SingletonModalRefCreator<ComposeModalOp
                     addDraft(draft);
                     ComposeModalRef.close();
                     enqueueSuccessMessage(t`Your draft was saved.`);
-                    captureComposeEvent('compose', posts[0], { draftId: draft.draftId });
+                    captureComposeDraftPostEvent(posts[0], {
+                        draftId: draft.draftId,
+                    });
                     return CloseAction.Saved;
                 } else {
                     dispatch?.close();

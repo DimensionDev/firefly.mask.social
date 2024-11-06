@@ -12,6 +12,7 @@ import { useIsLogin } from '@/hooks/useIsLogin.js';
 import { ConfirmModalRef, LoginModalRef } from '@/modals/controls.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 import { captureMuteEvent } from '@/providers/telemetry/captureMuteEvent.js';
+import { EventId } from '@/providers/types/Telemetry.js';
 
 interface Props extends Omit<ClickableButtonProps, 'children'> {
     handleOrEnsOrAddress: string;
@@ -28,11 +29,11 @@ export const MuteWalletButton = forwardRef<HTMLButtonElement, Props>(function Mu
         mutationFn: async () => {
             if (isMuted) {
                 const result = await FireflyEndpointProvider.unblockWallet(address);
-                captureMuteEvent('unmute', address);
+                captureMuteEvent(EventId.UNMUTE_SUCCESS, address);
                 return result;
             } else {
                 const result = await FireflyEndpointProvider.blockWallet(address);
-                captureMuteEvent('mute', address);
+                captureMuteEvent(EventId.MUTE_SUCCESS, address);
                 return result;
             }
         },
