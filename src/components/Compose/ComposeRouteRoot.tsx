@@ -8,6 +8,7 @@ import { CloseButton } from '@/components/CloseButton.js';
 import { ComposeSend } from '@/components/Compose/ComposeSend.js';
 import { Tooltip } from '@/components/Tooltip.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
+import { captureDraftClickEvent } from '@/providers/telemetry/captureDraftClickEvent.js';
 
 export function ComposeRouteRoot() {
     const isMedium = useIsMedium();
@@ -43,15 +44,22 @@ export function ComposeRouteRoot() {
                             width={18}
                             height={18}
                             className="cursor-pointer text-fourMain"
-                            onClick={() => history.push('/draft')}
+                            onClick={() => {
+                                history.push('/draft');
+                                captureDraftClickEvent();
+                            }}
                         />
                     ) : null}
                 </span>
+
                 {isMedium && !isDraft && !isGif ? (
                     <Tooltip content={t`Drafts`} placement="top">
                         <DraftIcon
                             className="absolute right-4 top-1/2 -translate-y-1/2 cursor-pointer text-fourMain"
-                            onClick={() => history.push('/draft')}
+                            onClick={() => {
+                                history.push('/draft');
+                                captureDraftClickEvent();
+                            }}
                         />
                     </Tooltip>
                 ) : null}
