@@ -29,15 +29,15 @@ export enum EventId {
     ACCOUNT_LOG_OUT_ALL_SUCCESS = 'account_log_out_all_success', // ✅
 
     // compose dialog
-    COMPOSE_CROSS_POST_SEND_SUCCESS = 'send_cross_post_success', // ✅
-    COMPOSE_SCHEDULED_POST_CREATE_SUCCESS = 'create_scheduled_post_success', // ✅
+    COMPOSE_CROSS_POST_SEND_SUCCESS = 'cross_post_send_success', // ✅
+    COMPOSE_SCHEDULED_POST_CREATE_SUCCESS = 'scheduled_post_create_success', // ✅
     COMPOSE_SCHEDULED_POST_UPDATE_SUCCESS = 'scheduled_post_update_success',
     COMPOSE_SCHEDULED_POST_DELETE_SUCCESS = 'scheduled_post_delete_success',
     COMPOSE_DRAFT_CREATE_SUCCESS = 'draft_create_success', // ✅
 
-    TIPS_SEND_SUCCESS = 'send_tips_success', // ✅
-    POLL_CREATE_SUCCESS = 'create_poll_success', // ✅
-    LUCKY_DROP_CREATE_SUCCESS = 'create_lucky_drop_success',
+    TIPS_SEND_SUCCESS = 'tips_send_success', // ✅
+    POLL_CREATE_SUCCESS = 'poll_create_success', // ✅
+    LUCKY_DROP_CREATE_SUCCESS = 'lucky_drop_create_success',
 
     // token sync dialog
     TOKEN_SYNC_USE_YES = 'token_sync_use_yes', // ✅
@@ -46,16 +46,16 @@ export enum EventId {
     // farcaster
     FARCASTER_LOG_IN_SUCCESS = 'farcaster_log_in_success', // ✅
     FARCASTER_LOG_OUT_SUCCESS = 'farcaster_log_out_success', // ✅
-    FARCASTER_ACCOUNT_DISCONNECT_SUCCESS = 'farcaster_disconnect_account_success',
+    FARCASTER_ACCOUNT_DISCONNECT_SUCCESS = 'account_farcaster_disconnect_success',
     FARCASTER_POST_SEND_SUCCESS = 'farcaster_cast_send_success', // ✅
-    FARCASTER_POST_LIKE_SUCCESS = 'farcaster_like_cast_success', // ✅
-    FARCASTER_POST_UNLIKE_SUCCESS = 'farcaster_unlike_cast_success', // ✅
+    FARCASTER_POST_LIKE_SUCCESS = 'farcaster_cast_like_success', // ✅
+    FARCASTER_POST_UNLIKE_SUCCESS = 'farcaster_cast_unlike_success', // ✅
     FARCASTER_POST_REPLY_SUCCESS = 'farcaster_cast_reply_success', // ✅
-    FARCASTER_POST_REPOST_SUCCESS = 'farcaster_recast_cast_success', // ✅
-    FARCASTER_POST_UNDO_REPOST_SUCCESS = 'farcaster_undo_recast_cast_success', // ✅
+    FARCASTER_POST_REPOST_SUCCESS = 'farcaster_cast_recast_success', // ✅
+    FARCASTER_POST_UNDO_REPOST_SUCCESS = 'farcaster_cast_undo_recast_success', // ✅
     FARCASTER_POST_DELETE_SUCCESS = 'farcaster_cast_delete_success', // ✅
     FARCASTER_POST_QUOTE_SUCCESS = 'farcaster_cast_quote_success', // ✅
-    FARCASTER_POST_SHARE_SUCCESS = 'farcaster_share_cast_success', // ✅
+    FARCASTER_POST_SHARE_SUCCESS = 'farcaster_cast_share_success', // ✅
     FARCASTER_POST_BOOKMARK_SUCCESS = 'farcaster_cast_bookmark_success', // ✅
     FARCASTER_POST_UNBOOKMARK_SUCCESS = 'farcaster_cast_unbookmark_success', // ✅
     FARCASTER_PROFILE_FOLLOW_SUCCESS = 'farcaster_follow_success', // ✅
@@ -64,16 +64,16 @@ export enum EventId {
     // lens
     LENS_ACCOUNT_LOG_IN_SUCCESS = 'lens_log_in_success', // ✅
     LENS_ACCOUNT_LOG_OUT_SUCCESS = 'lens_log_out_success', // ✅
-    LENS_ACCOUNT_DISCONNECT_SUCCESS = 'lens_disconnect_account_success',
+    LENS_ACCOUNT_DISCONNECT_SUCCESS = 'account_lens_disconnect_success',
     LENS_POST_SEND_SUCCESS = 'lens_post_send_success', // ✅
-    LENS_POST_LIKE_SUCCESS = 'lens_like_post_success', // ✅
-    LENS_POST_UNLIKE_SUCCESS = 'lens_unlike_post_success', // ✅
+    LENS_POST_LIKE_SUCCESS = 'lens_post_like_success', // ✅
+    LENS_POST_UNLIKE_SUCCESS = 'lens_post_unlike_success', // ✅
     LENS_POST_REPLY_SUCCESS = 'lens_post_reply_success', // ✅
-    LENS_POST_REPOST_SUCCESS = 'lens_mirror_post_success', // ✅
-    LENS_POST_UNDO_REPOST_SUCCESS = 'lens_unmirror_post_success', // ✅
+    LENS_POST_REPOST_SUCCESS = 'lens_post_mirror_success', // ✅
+    LENS_POST_UNDO_REPOST_SUCCESS = 'lens_post_unmirror_success', // ✅
     LENS_POST_DELETE_SUCCESS = 'lens_post_delete_success', // ✅
     LENS_POST_QUOTE_SUCCESS = 'lens_post_quote_success', // ✅
-    LENS_POST_SHARE_SUCCESS = 'lens_share_post_success', // ✅
+    LENS_POST_SHARE_SUCCESS = 'lens_post_share_success', // ✅
     LENS_POST_BOOKMARK_SUCCESS = 'lens_post_bookmark_success', // ✅
     LENS_POST_UNBOOKMARK_SUCCESS = 'lens_post_unbookmark_success', // ✅
     LENS_PROFILE_FOLLOW_SUCCESS = 'lens_follow_success', // ✅
@@ -82,16 +82,16 @@ export enum EventId {
     // x
     X_ACCOUNT_LOG_IN_SUCCESS = 'x_log_in_success', // ✅
     X_ACCOUNT_LOG_OUT_SUCCESS = 'x_log_out_success', // ✅
-    X_ACCOUNT_DISCONNECT_SUCCESS = 'x_disconnect_account_success',
+    X_ACCOUNT_DISCONNECT_SUCCESS = 'account_x_disconnect_success',
     X_POST_SEND_SUCCESS = 'x_post_send_success', // ✅
-    X_POST_LIKE_SUCCESS = 'x_like_post_success', // ✅
-    X_POST_UNLIKE_SUCCESS = 'x_unlike_post_success', // ✅
+    X_POST_LIKE_SUCCESS = 'x_post_like_success', // ✅
+    X_POST_UNLIKE_SUCCESS = 'x_post_unlike_success', // ✅
     X_POST_REPLY_SUCCESS = 'x_post_reply_success', // ✅
-    X_POST_REPOST_SUCCESS = 'x_repost_post_success', // ✅
-    X_POST_UNDO_REPOST_SUCCESS = 'x_undo_repost_post_success', // ✅
+    X_POST_REPOST_SUCCESS = 'x_post_repost_success', // ✅
+    X_POST_UNDO_REPOST_SUCCESS = 'x_post_undo_repost_success', // ✅
     X_POST_DELETE_SUCCESS = 'x_post_delete_success', // ✅
     X_POST_QUOTE_SUCCESS = 'x_post_quote_success', // ✅
-    X_POST_SHARE_SUCCESS = 'x_share_post_success', // ✅
+    X_POST_SHARE_SUCCESS = 'x_post_share_success', // ✅
     X_POST_BOOKMARK_SUCCESS = 'x_post_bookmark_success', // ✅
     X_POST_UNBOOKMARK_SUCCESS = 'x_post_unbookmark_success', // ✅
     X_PROFILE_FOLLOW_SUCCESS = 'x_follow_success', // ✅
