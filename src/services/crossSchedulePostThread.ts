@@ -64,7 +64,6 @@ export async function crossPostScheduleThread(scheduleTime: Date, signal?: Abort
                 type,
             },
         );
-
         if (!result) return;
 
         if (post) {

@@ -232,7 +232,7 @@ export interface Events extends Record<EventId, Event> {
             schedule_id: string;
             new_schedule_time: number;
             new_scheduled_time_utc: string; // mm-dd-yyyy hh:mm:ss(GMT+0)
-        } & ComposeEventParameters;
+        };
     };
     [EventId.COMPOSE_SCHEDULED_POST_DELETE_SUCCESS]: {
         type: EventType.Interact;
@@ -240,7 +240,7 @@ export interface Events extends Record<EventId, Event> {
             schedule_id: string;
             schedule_time: number;
             scheduled_time_utc: string; // mm-dd-yyyy hh:mm:ss(GMT+0)
-        } & ComposeEventParameters;
+        };
     };
     [EventId.COMPOSE_DRAFT_CREATE_SUCCESS]: {
         type: EventType.Interact;

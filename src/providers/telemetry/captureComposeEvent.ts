@@ -38,7 +38,7 @@ export function captureComposeSchedulePostEvent(
         | EventId.COMPOSE_SCHEDULED_POST_CREATE_SUCCESS
         | EventId.COMPOSE_SCHEDULED_POST_DELETE_SUCCESS
         | EventId.COMPOSE_SCHEDULED_POST_UPDATE_SUCCESS,
-    post: CompositePost,
+    post: CompositePost | null,
     options: Options = {},
 ) {
     return runInSafeAsync(async () => {
@@ -47,21 +47,33 @@ export function captureComposeSchedulePostEvent(
         const scheduleId = options.scheduleId;
         if (!scheduleId) throw new Error('Schedule ID is missing.');
 
-        return TelemetryProvider.captureEvent(eventId, {
-            schedule_id: scheduleId,
-            ...(eventId === EventId.COMPOSE_SCHEDULED_POST_UPDATE_SUCCESS
-                ? {
-                      new_schedule_time: date.getTime(),
-                      new_scheduled_time_utc: getTimeParameters(date),
-                  }
-                : {
-                      schedule_time: date.getTime(),
-                      scheduled_time_utc: getTimeParameters(date),
-                  }),
-            ...getComposeEventParameters(post, {
-                scheduleId,
-            }),
-        });
+        switch (eventId) {
+            case EventId.COMPOSE_SCHEDULED_POST_DELETE_SUCCESS:
+                return TelemetryProvider.captureEvent(eventId, {
+                    schedule_id: scheduleId,
+                    schedule_time: date.getTime(),
+                    scheduled_time_utc: getTimeParameters(date),
+                });
+            case EventId.COMPOSE_SCHEDULED_POST_UPDATE_SUCCESS:
+                return TelemetryProvider.captureEvent(eventId, {
+                    schedule_id: scheduleId,
+                    new_schedule_time: date.getTime(),
+                    new_scheduled_time_utc: getTimeParameters(date),
+                });
+            case EventId.COMPOSE_SCHEDULED_POST_CREATE_SUCCESS:
+                if (!post) throw new Error('Post is missing.');
+                return TelemetryProvider.captureEvent(eventId, {
+                    schedule_id: scheduleId,
+                    schedule_time: date.getTime(),
+                    scheduled_time_utc: getTimeParameters(date),
+                    ...getComposeEventParameters(post, {
+                        scheduleId,
+                    }),
+                });
+            default:
+                safeUnreachable(eventId);
+                throw new UnreachableError('eventId', eventId);
+        }
     });
 }
 
