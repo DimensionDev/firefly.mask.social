@@ -34,6 +34,12 @@ export enum EventId {
     COMPOSE_SCHEDULED_POST_UPDATE_SUCCESS = 'scheduled_post_update_success',
     COMPOSE_SCHEDULED_POST_DELETE_SUCCESS = 'scheduled_post_delete_success',
     COMPOSE_DRAFT_CREATE_SUCCESS = 'draft_create_success', // ✅
+    COMPOSE_DRAFT_BUTTON_CLCIK = 'draft_button_click',
+
+    // mute
+    MUTE_ALL_SUCCESS = 'mute_all_success',
+    MUTE_SUCCESS = 'mute_success',
+    UNMUTE_SUCCESS = 'unmute_success',
 
     TIPS_SEND_SUCCESS = 'tips_send_success', // ✅
     POLL_CREATE_SUCCESS = 'poll_create_success', // ✅
@@ -243,6 +249,30 @@ export interface Events extends Record<EventId, Event> {
             draft_time: number;
             draft_time_utc: string; // mm-dd-yyyy hh:mm:ss(GMT+0)
         } & ComposeEventParameters;
+    };
+    [EventId.COMPOSE_DRAFT_BUTTON_CLCIK]: {
+        type: EventType.Interact;
+        parameters: {
+            firefly_account_id: string;
+        };
+    };
+    [EventId.MUTE_ALL_SUCCESS]: {
+        type: EventType.Interact;
+        parameters: {
+            firefly_account_id: string;
+        };
+    };
+    [EventId.MUTE_SUCCESS]: {
+        type: EventType.Interact;
+        parameters: {
+            firefly_account_id: string;
+        };
+    };
+    [EventId.UNMUTE_SUCCESS]: {
+        type: EventType.Interact;
+        parameters: {
+            firefly_account_id: string;
+        };
     };
     [EventId.TIPS_SEND_SUCCESS]: {
         type: EventType.Interact;
