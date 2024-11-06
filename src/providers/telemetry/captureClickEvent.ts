@@ -4,6 +4,6 @@ import { EventId } from '@/providers/types/Telemetry.js';
 
 export function captureDraftClickEvent() {
     return runInSafeAsync(async () => {
-        return TelemetryProvider.captureEvent(EventId.COMPOSE_DRAFT_BUTTON_CLCIK, {});
+        return TelemetryProvider.captureEvent(EventId.COMPOSE_DRAFT_BUTTON_CLICK, {});
     });
 }
