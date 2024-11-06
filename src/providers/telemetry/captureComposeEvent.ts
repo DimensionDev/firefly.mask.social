@@ -99,16 +99,17 @@ export function captureComposeEvent(type: ComposeType, post: CompositePost, opti
                     case 'reply':
                     case 'quote':
                         const source = post.availableSources[0];
+                        const parentPost = post.parentPost[source];
 
-                        const profile = post.parentPost[source]?.author;
+                        const profile = parentPost?.author;
                         if (!profile) throw new Error(`Target profile is missing, source = ${source}.`);
 
-                        const postId = post.parentPost[source]?.postId;
+                        const postId = parentPost?.postId;
                         if (!postId) throw new Error(`Target post ID is missing, source = ${source}.`);
 
                         return TelemetryProvider.captureEvent(
                             getPostEventId(type, post),
-                            getPostEventParameters(postId, profile),
+                            getPostEventParameters(parentPost),
                         );
                     default:
                         safeUnreachable(type);
