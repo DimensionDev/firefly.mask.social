@@ -55,7 +55,7 @@ export function ArticleBody({ cover, article, onClick }: Props) {
             as="article"
             onClick={onClick}
             className={classNames(
-                'relative mt-[6px] flex flex-col gap-2 rounded-2xl border border-secondaryLine bg-bg p-3',
+                'relative mt-[6px] flex flex-col gap-2 rounded-2xl border border-secondaryLine bg-bg p-3 text-left text-main',
                 {
                     'overflow-hidden': !!article.content,
                 },

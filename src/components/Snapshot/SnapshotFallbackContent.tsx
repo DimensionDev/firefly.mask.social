@@ -21,7 +21,7 @@ export function SnapshotFallbackContent({ title, body }: { title: string; body: 
 
     return (
         <div className="link-preview">
-            <ClickableArea className="relative mt-[6px] flex flex-col gap-2 rounded-2xl border border-line bg-bg p-3 text-commonMain">
+            <ClickableArea className="relative mt-[6px] flex flex-col gap-2 rounded-2xl border border-line bg-bg p-3 text-left text-commonMain">
                 <div
                     className={
                         'flex items-center gap-1 self-start rounded-full bg-secondary px-3 py-[2px] text-sm leading-[18px] text-white'

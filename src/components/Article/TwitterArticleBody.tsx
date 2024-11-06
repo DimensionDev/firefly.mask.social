@@ -13,7 +13,7 @@ interface Props {
 
 export function TwitterArticleBody({ cover, title, content }: Props) {
     return (
-        <article className="relative mt-[6px] flex flex-col gap-2 overflow-hidden rounded-2xl border border-line bg-bg p-3">
+        <article className="relative mt-[6px] flex flex-col gap-2 overflow-hidden rounded-2xl border border-line bg-bg p-3 text-left text-main">
             {cover ? (
                 <ImageAsset
                     disableLoadHandler
