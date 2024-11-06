@@ -4,21 +4,30 @@ import { Source } from '@/constants/enum.js';
 import type { ComposeEventParameters } from '@/providers/types/Telemetry.js';
 import type { CompositePost } from '@/store/useComposeStore.js';
 import { useFarcasterStateStore, useLensStateStore, useTwitterStateStore } from '@/store/useProfileStore.js';
+import { getTypedMessageRedPacket } from '@/helpers/getTypedMessage.js';
+import { getRpMetadata } from '@/helpers/rpPayload.js';
 
 export interface Options {
     draftId?: string;
     scheduleId?: string;
-    luckyDropIds?: string[];
     thread?: CompositePost[];
 }
 
 export function getComposeEventParameters(
     post: CompositePost,
-    { draftId, scheduleId, luckyDropIds = [], thread = [post] }: Options = {},
+    { draftId, scheduleId, thread = [post] }: Options = {},
 ): Omit<ComposeEventParameters, 'firefly_account_id'> {
     const lensProfile = useLensStateStore.getState().currentProfile;
     const farcasterProfile = useFarcasterStateStore.getState().currentProfile;
     const xProfile = useTwitterStateStore.getState().currentProfile;
+
+    const rp = post.typedMessage?.meta ? getRpMetadata(post.typedMessage) : null;
+
+    console.log('DEBUG: post');
+    console.log({
+        post,
+        rp,
+    });
 
     return {
         include_lens_post: post.availableSources.includes(Source.Lens),
@@ -45,7 +54,7 @@ export function getComposeEventParameters(
         schedule_id: scheduleId,
 
         include_lucky_drop: !!post.rpPayload,
-        lucky_drop_ids: luckyDropIds,
+        lucky_drop_ids: rp?.rpid ? [rp.rpid] : [],
 
         include_poll: !!post.poll,
         poll_id: post.poll?.id,
