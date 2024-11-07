@@ -1996,6 +1996,9 @@ msgstr "The amount of coins that are circulating in the market and are tradeable
 msgid "{0, plural, one {repost} other {reposts}}"
 msgstr "{0, plural, one {repost} other {reposts}}"
 
+msgid "Scan the QR code with your phone’s <0>Camera</0> in {count}s. <1/>Approve a new Farcaster signer to Firefly for free."
+msgstr "Scan the QR code with your phone’s <0>Camera</0> in {count}s. <1/>Approve a new Farcaster signer to Firefly for free."
+
 msgid "This does not appear to be a honeypot."
 msgstr "This does not appear to be a honeypot."
 

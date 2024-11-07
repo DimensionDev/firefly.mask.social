@@ -176,6 +176,7 @@ export enum FarcasterSignType {
     RelayService = 'relay_service',
     // recovery phrase
     RecoveryPhrase = 'recovery_phrase',
+    FireflySponsorship = 'firefly_sponsorship',
 }
 export enum BookmarkType {
     All = 'all',

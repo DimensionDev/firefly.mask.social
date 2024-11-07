@@ -23,6 +23,7 @@ import { useAbortController } from '@/hooks/useAbortController.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import { LoginModalRef } from '@/modals/controls.js';
 import type { Account } from '@/providers/types/Account.js';
+import { createAccountByFireflySponsorship } from '@/providers/warpcast/createAccountByFireflySponsorship.js';
 import { createAccountByGrantPermission } from '@/providers/warpcast/createAccountByGrantPermission.js';
 import { createAccountByRelayService } from '@/providers/warpcast/createAccountByRelayService.js';
 import { type AccountOptions, addAccount } from '@/services/account.js';
@@ -118,13 +119,36 @@ export function LoginFarcaster({ signType }: LoginFarcasterProps) {
 
                     if (!account.session.token) {
                         enqueueInfoMessage(t`Signer key not found. Please approve a new one for us in Warpcast.`);
-                        history.replace(`/farcaster?signType=${FarcasterSignType.GrantPermission}`);
+                        history.replace(`/farcaster?signType=${FarcasterSignType.FireflySponsorship}`);
                         throw new AbortError();
                     }
 
                     return account;
                 },
                 { signal: controller.current.signal },
+            );
+        } catch (error) {
+            enqueueErrorMessage(getSnackbarMessageFromError(error, t`Failed to login.`), {
+                error,
+            });
+            throw error;
+        }
+    }, [resetCountdown, startCountdown]);
+
+    const [, onLoginByFireflySponsorship] = useAsyncFn(async () => {
+        try {
+            await login(
+                () =>
+                    createAccountByFireflySponsorship((url) => {
+                        resetCountdown();
+                        startCountdown();
+                        setScanned(false);
+
+                        const device = getMobileDevice();
+                        if (device === 'unknown') setUrl(url);
+                        else location.href = url;
+                    }, controller.current.signal),
+                { skipReportFarcasterSigner: false, signal: controller.current.signal },
             );
         } catch (error) {
             enqueueErrorMessage(getSnackbarMessageFromError(error, t`Failed to login.`), {
@@ -142,6 +166,9 @@ export function LoginFarcaster({ signType }: LoginFarcasterProps) {
                 break;
             case SignType.RelayService:
                 onLoginByRelayService();
+                break;
+            case SignType.FireflySponsorship:
+                onLoginByFireflySponsorship();
                 break;
             case SignType.RecoveryPhrase:
                 throw new NotAllowedError();
@@ -237,6 +264,12 @@ export function LoginFarcaster({ signType }: LoginFarcasterProps) {
                                         {count}s.
                                         <br /> Approve the existing Farcaster signer to Firefly.
                                     </Trans>
+                                ) : signType === SignType.FireflySponsorship ? (
+                                    <Trans>
+                                        Scan the QR code with your phone’s <b className="font-bold">Camera</b> in{' '}
+                                        {count}s. <br />
+                                        Approve a new Farcaster signer to Firefly for free.
+                                    </Trans>
                                 ) : null}
                             </div>
                             <div
@@ -258,7 +291,7 @@ export function LoginFarcaster({ signType }: LoginFarcasterProps) {
                                 ) : null}
                             </div>
                             <div className="text-center text-xs leading-4 text-lightSecond">
-                                {signType === SignType.GrantPermission ? (
+                                {signType === SignType.GrantPermission || signType === SignType.FireflySponsorship ? (
                                     <Trans>
                                         Already logged in?
                                         <br />
@@ -281,7 +314,7 @@ export function LoginFarcaster({ signType }: LoginFarcasterProps) {
                                         <br />
                                         Approve a{' '}
                                         <Link
-                                            to={`/farcaster?signType=${SignType.GrantPermission}`}
+                                            to={`/farcaster?signType=${SignType.FireflySponsorship}`}
                                             className="font-bold hover:underline"
                                         >
                                             new connection with Warpcast

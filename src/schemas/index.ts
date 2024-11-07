@@ -60,3 +60,5 @@ export const TwitterEditProfile = z.object({
     location: z.string().min(0).max(MAX_PROFILE_LOCATION_SIZE[Source.Twitter]).optional(),
     url: z.string().min(0).max(MAX_PROFILE_WEBSITE_SIZE[Source.Twitter]).optional(),
 });
+
+export const HexString = z.string().startsWith('0x');
