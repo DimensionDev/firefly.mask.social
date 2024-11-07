@@ -102,6 +102,10 @@
     --color-light-rebranding-bg: 245 245 249;
 }
 
+.sidebar-dark-logo {
+    display: none;
+}
+
 @media (prefers-color-scheme: dark) {
     :root {
         --foreground-rgb: 255 255 255;
@@ -270,10 +274,6 @@
 .light .calendar-tab-list .activeTabItem {
     background-color: #fff;
     color: rgba(7 16 27);
-}
-
-.sidebar-dark-logo {
-    display: none;
 }
 
 .discover-tab {
