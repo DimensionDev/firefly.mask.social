@@ -3,16 +3,15 @@ import { StatusCodes } from 'http-status-codes';
 
 import type { FetchError } from '@/constants/error.js';
 import { parseJSON } from '@/helpers/parseJSON.js';
-import { runInSafe } from '@/helpers/runInSafe.js';
 
 export function getErrorMessageFromFetchError(error: FetchError): string {
     const parsedResponse = parseJSON<{
-        success: boolean
+        success: boolean;
         error: {
-            code: number
-            message: string
-        }
-    }>(error.text)
+            code: number;
+            message: string;
+        };
+    }>(error.text);
 
     if (typeof parsedResponse?.error?.message === 'string') {
         return parsedResponse.error.message;
@@ -33,9 +32,7 @@ export function getErrorMessageFromFetchError(error: FetchError): string {
             return t`Not Found. Please check your URL[${error.url}].`;
         case StatusCodes.INTERNAL_SERVER_ERROR:
             return t`Internal Server Error. Please try again later.`;
-        default: {
+        default:
             return t`Failed to fetch: ${error.status}. Please try again later.`;
-        }
-            
     }
 }
