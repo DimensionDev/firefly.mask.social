@@ -61,4 +61,4 @@ export const TwitterEditProfile = z.object({
     url: z.string().min(0).max(MAX_PROFILE_WEBSITE_SIZE[Source.Twitter]).optional(),
 });
 
-export const HexString = z.string().startsWith('0x');
+export const HexStringSchema = z.string().regex(/^0x[a-fA-F0-9]+$/);

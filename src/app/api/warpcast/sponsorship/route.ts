@@ -11,10 +11,10 @@ import { withRequestErrorHandler } from '@/helpers/withRequestErrorHandler.js';
 import { JWTGenerator } from '@/libs/JWTGenerator.js';
 import { generateFarcasterSignatures } from '@/providers/firefly/Auth.js';
 import { signedKeyRequests } from '@/providers/warpcast/signedKeyRequests.js';
-import { HexString } from '@/schemas/index.js';
+import { HexStringSchema } from '@/schemas/index.js';
 
 const BodySchema = z.object({
-    key: HexString,
+    key: HexStringSchema,
 });
 
 export const POST = compose(withRequestErrorHandler(), async (request: NextRequest) => {
