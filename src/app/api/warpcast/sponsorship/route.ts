@@ -5,7 +5,9 @@ import { type Hex } from 'viem';
 import { z } from 'zod';
 
 import { env } from '@/constants/env.js';
+import { compose } from '@/helpers/compose.js';
 import { createErrorResponseJSON, createSuccessResponseJSON } from '@/helpers/createResponseJSON.js';
+import { withRequestErrorHandler } from '@/helpers/withRequestErrorHandler.js';
 import { JWTGenerator } from '@/libs/JWTGenerator.js';
 import { generateFarcasterSignatures } from '@/providers/firefly/Auth.js';
 import { signedKeyRequests } from '@/providers/warpcast/signedKeyRequests.js';
@@ -15,7 +17,7 @@ const BodySchema = z.object({
     key: HexString,
 });
 
-export async function POST(request: NextRequest) {
+export const POST = compose(withRequestErrorHandler(), async (request: NextRequest) => {
     const parsed = BodySchema.safeParse(await request.json());
     if (!parsed.success) return createErrorResponseJSON(parsed.error.message, { status: StatusCodes.BAD_REQUEST });
 
@@ -60,4 +62,4 @@ export async function POST(request: NextRequest) {
         token: result.signedKeyRequest.token,
         fid: result.signedKeyRequest.requestFid,
     });
-}
+});
