@@ -1,12 +1,12 @@
 'use client';
 
+import { useAppKitAccount, useWalletInfo } from '@reown/appkit/react';
+import { useEffect } from 'react';
+import { isAddress } from 'viem';
 import { WagmiProvider as WagmiProviderSDK } from 'wagmi';
 
 import { config } from '@/configs/wagmiClient.js';
-import { useAppKitAccount, useWalletInfo } from '@reown/appkit/react';
-import { useEffect } from 'react';
 import { captureConnectWalletEvent } from '@/providers/telemetry/captureConnectWalletEvent.js';
-import { isAddress } from 'viem';
 import { EventId } from '@/providers/types/Telemetry.js';
 
 interface WagmiProviderProps {
@@ -47,14 +47,6 @@ function WagmiInsights() {
 
     useEffect(() => {
         if (!walletName) return;
-
-        console.log('DEBUG: connected');
-        console.log({
-            wallet,
-            walletName,
-            eventId: resolveEventId(walletName),
-            account,
-        });
 
         if (account.address && isAddress(account.address)) {
             captureConnectWalletEvent(resolveEventId(walletName), {
