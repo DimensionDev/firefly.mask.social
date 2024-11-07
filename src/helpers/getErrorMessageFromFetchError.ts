@@ -32,8 +32,7 @@ export function getErrorMessageFromFetchError(error: FetchError): string {
             return t`Not Found. Please check your URL[${error.url}].`;
         case StatusCodes.INTERNAL_SERVER_ERROR:
             return t`Internal Server Error. Please try again later.`;
-        default: {
+        default:
             return t`Failed to fetch: ${error.status}. Please try again later.`;
-        }
     }
 }
