@@ -17,7 +17,7 @@ export interface Draft {
     scheduleTime?: Date;
     type: ComposeType;
     posts: CompositePost[];
-    // tracking the current editable post
+    // tracking the currently editing post
     cursor: string;
 }
 
