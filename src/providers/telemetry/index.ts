@@ -5,11 +5,11 @@ import { isHex } from 'viem';
 import { STATUS } from '@/constants/enum.js';
 import { env } from '@/constants/env.js';
 import { AbortError, InvalidResultError, NotImplementedError } from '@/constants/error.js';
+import { retry } from '@/helpers/retry.js';
 import { getPublicParameters } from '@/providers/telemetry/getPublicParameters.js';
 import type { Safary } from '@/providers/types/Safary.js';
 import { type Events, EventType, Provider, ProviderFilter, VersionFilter } from '@/providers/types/Telemetry.js';
 import { useDeveloperSettingsState } from '@/store/useDeveloperSettingsStore.js';
-import { retry } from '@/helpers/retry.js';
 
 function formatParameter(key: string, value: unknown): [string, unknown] {
     if (typeof value === 'boolean') {
