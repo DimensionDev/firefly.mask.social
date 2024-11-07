@@ -3,7 +3,6 @@ import { StatusCodes } from 'http-status-codes';
 
 import type { FetchError } from '@/constants/error.js';
 import { parseJSON } from '@/helpers/parseJSON.js';
-import { runInSafe } from '@/helpers/runInSafe.js';
 
 export function getErrorMessageFromFetchError(error: FetchError): string {
     const parsedResponse = parseJSON<{
