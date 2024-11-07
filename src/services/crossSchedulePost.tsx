@@ -4,6 +4,7 @@ import dayjs from 'dayjs';
 import urlcat from 'urlcat';
 
 import { DraftPageTab } from '@/components/Compose/DraftPage.js';
+import type { SocialSource } from '@/constants/enum.js';
 import { CreateScheduleError, SignlessRequireError, UnauthorizedError } from '@/constants/error.js';
 import { SUPPORTED_FRAME_SOURCES } from '@/constants/index.js';
 import { CHAR_TAG, readChars } from '@/helpers/chars.js';
@@ -18,6 +19,7 @@ import { resolveSocialSourceInUrl } from '@/helpers/resolveSourceInUrl.js';
 import { ComposeModalRef, EnableSignlessModalRef } from '@/modals/controls.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
 import { captureComposeSchedulePostEvent } from '@/providers/telemetry/captureComposeEvent.js';
+import { capturePollEvent } from '@/providers/telemetry/capturePollEvent.js';
 import { EventId } from '@/providers/types/Telemetry.js';
 import { uploadSessions } from '@/services/metrics.js';
 import { commitPoll } from '@/services/poll.js';
@@ -35,6 +37,19 @@ export async function createSchedulePostsPayload(
     const { chars, poll, availableSources } = compositePost;
     if (poll && SUPPORTED_FRAME_SOURCES.some((x) => availableSources.includes(x))) {
         const pollId = await commitPoll(poll, readChars(chars));
+
+        capturePollEvent(pollId);
+
+        const idMap = SUPPORTED_FRAME_SOURCES.reduce<Partial<Record<SocialSource, string>>>(
+            (acc, x) => {
+                if (availableSources.includes(x)) {
+                    acc[x] = pollId;
+                }
+
+                return acc;
+            },
+            { ...poll.idMap },
+        );
         compositePost = {
             ...compositePost,
             chars: (Array.isArray(chars) ? chars : [chars]).map((x) => {
@@ -43,10 +58,7 @@ export async function createSchedulePostsPayload(
                 }
                 return x;
             }),
-            poll: {
-                ...poll,
-                id: pollId,
-            },
+            poll: { ...poll, idMap },
         };
     }
 
