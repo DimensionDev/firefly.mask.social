@@ -22,7 +22,6 @@ import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { hasRpPayload } from '@/helpers/rpPayload.js';
 import { captureComposeEvent } from '@/providers/telemetry/captureComposeEvent.js';
 import { capturePollEvent } from '@/providers/telemetry/capturePollEvent.js';
-import type { CompositePoll } from '@/providers/types/Poll.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 import { commitPoll } from '@/services/poll.js';
 import { reportCrossedPost } from '@/services/reportCrossedPost.js';
@@ -175,7 +174,7 @@ export async function crossPost(
     }: CrossPostOptions = {},
 ) {
     const { updatePostInThread, updateChars, updatePoll } = useComposeStateStore.getState();
-    const { availableSources, poll, chars } = compositePost;
+    const { availableSources, poll } = compositePost;
 
     // create common poll for farcaster and lens
     if (poll && SUPPORTED_FRAME_SOURCES.some((x) => availableSources.includes(x))) {
@@ -183,16 +182,12 @@ export async function crossPost(
 
         capturePollEvent(pollId);
 
-        const idMap = SUPPORTED_FRAME_SOURCES.reduce<Record<SocialSource, string | null>>(
+        const pollIds = SUPPORTED_FRAME_SOURCES.reduce<Record<SocialSource, string | null>>(
             (acc, x) => (availableSources.includes(x) ? { ...acc, [x]: pollId } : acc),
             poll.pollIds,
         );
-        const newPoll: CompositePoll = { ...poll, pollIds: idMap };
         updateChars((chars) => updateCharsWithPoll(chars, pollId));
-        updatePoll(newPoll);
-
-        // update post in current call stack
-        compositePost = { ...compositePost, chars: updateCharsWithPoll(chars, pollId), poll: newPoll };
+        updatePoll({ ...poll, pollIds });
     }
 
     const allSettled = await Promise.allSettled(
