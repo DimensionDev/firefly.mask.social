@@ -15,4 +15,5 @@ export enum WalletId {
     WalletConnect = 'walletconnect',
 
     Injected = 'injected',
+    Unknown = 'unknown',
 }

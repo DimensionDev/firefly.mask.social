@@ -177,8 +177,6 @@ export interface TwitterPostEventParameters extends TwitterEventParameters {
 }
 
 export interface ConnectWalletEventParameters {
-    wallet_type: 'all' | 'evm' | 'solana';
-    wallet_id: string;
     wallet_address?: string;
     solana_address?: string;
     firefly_account_id: string;
