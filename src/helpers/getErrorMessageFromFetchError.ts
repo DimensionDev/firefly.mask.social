@@ -7,12 +7,12 @@ import { runInSafe } from '@/helpers/runInSafe.js';
 
 export function getErrorMessageFromFetchError(error: FetchError): string {
     const parsedResponse = parseJSON<{
-        success: boolean
+        success: boolean;
         error: {
-            code: number
-            message: string
-        }
-    }>(error.text)
+            code: number;
+            message: string;
+        };
+    }>(error.text);
 
     if (typeof parsedResponse?.error?.message === 'string') {
         return parsedResponse.error.message;
@@ -36,6 +36,5 @@ export function getErrorMessageFromFetchError(error: FetchError): string {
         default: {
             return t`Failed to fetch: ${error.status}. Please try again later.`;
         }
-            
     }
 }
