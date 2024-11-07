@@ -21,7 +21,7 @@ type Options = Record<
 };
 
 export function createPostTo(source: SocialSource, options: Options) {
-    const { updatePostInThread, updatePoll } = useComposeStateStore.getState();
+    const { updatePostInThread, updateTwitterPollId } = useComposeStateStore.getState();
 
     return async (type: ComposeType, post: CompositePost) => {
         const uploadedImages: MediaObject[] = (await options.uploadImages?.()) ?? [];
@@ -58,15 +58,6 @@ export function createPostTo(source: SocialSource, options: Options) {
 
         const postId = await postTo();
 
-        // update poll id for twitter
-        if (source === Source.Twitter && postId && post.poll) {
-            const tweet = await runInSafeAsync(() => TwitterSocialMediaProvider.getPostById(postId));
-            if (tweet?.poll?.id) {
-                post.poll = { ...post.poll, idMap: { ...post.poll.idMap, [Source.Twitter]: tweet.poll.id } };
-                updatePoll({ ...post.poll });
-            }
-        }
-
         updatePostInThread(post.id, (post) => ({
             ...post,
             postId: {
@@ -74,6 +65,12 @@ export function createPostTo(source: SocialSource, options: Options) {
                 [source]: postId,
             },
         }));
+
+        if (source === Source.Twitter && postId && post.poll) {
+            const tweet = await runInSafeAsync(() => TwitterSocialMediaProvider.getPostById(postId));
+            if (tweet?.poll?.id) updateTwitterPollId(tweet.poll.id);
+        }
+
         return postId;
     };
 }

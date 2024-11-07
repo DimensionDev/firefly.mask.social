@@ -12,7 +12,7 @@ import type { Index } from '@/types/frame.js';
 class FarcasterPoll implements Provider {
     async createPoll(poll: CompositePoll, text = ''): Promise<Poll> {
         return {
-            id: poll.idMap?.Farcaster || (await commitPoll(poll, text)),
+            id: poll.pollIds?.Farcaster || (await commitPoll(poll, text)),
             options: poll.options,
             durationSeconds: getPollDurationSeconds(poll.duration),
             source: Source.Farcaster,
