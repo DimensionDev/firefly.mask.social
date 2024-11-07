@@ -1,8 +1,7 @@
-import { getPublicKey, utils } from '@noble/ed25519';
 import dayjs from 'dayjs';
 import { StatusCodes } from 'http-status-codes';
 import type { NextRequest } from 'next/server.js';
-import { type Hex, toHex } from 'viem';
+import { type Hex } from 'viem';
 import { z } from 'zod';
 
 import { env } from '@/constants/env.js';
@@ -17,8 +16,6 @@ const BodySchema = z.object({
 });
 
 export async function POST(request: NextRequest) {
-    const privateKey = utils.randomPrivateKey();
-    const publicKey: Hex = `0x${Buffer.from(await getPublicKey(privateKey)).toString('hex')}`;
     const parsed = BodySchema.safeParse(await request.json());
     if (!parsed.success) return createErrorResponseJSON(parsed.error.message, { status: StatusCodes.BAD_REQUEST });
 
@@ -32,9 +29,10 @@ export async function POST(request: NextRequest) {
         env.internal.FIREFLY_JWT_SECRET,
     );
 
+    const key = parsed.data.key as Hex;
     const { sponsorSignature, signedKeyRequestSignature, requestFid } = await generateFarcasterSignatures(
         {
-            key: parsed.data.key as Hex,
+            key,
             deadline,
         },
         jwt,
@@ -43,7 +41,7 @@ export async function POST(request: NextRequest) {
 
     const { result } = await signedKeyRequests(
         {
-            key: publicKey,
+            key,
             signature: signedKeyRequestSignature,
             deadline,
             requestFid,
@@ -61,6 +59,5 @@ export async function POST(request: NextRequest) {
         timestamp: Date.now(),
         token: result.signedKeyRequest.token,
         fid: result.signedKeyRequest.requestFid,
-        privateKey: toHex(privateKey),
     });
 }
