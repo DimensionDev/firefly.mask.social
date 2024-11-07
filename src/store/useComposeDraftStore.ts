@@ -7,13 +7,18 @@ import { EMPTY_LIST } from '@/constants/index.js';
 import { createPersistStorage } from '@/helpers/createPersistStorage.js';
 import { createSelectors } from '@/helpers/createSelector.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
-import type { ComposeBaseState } from '@/store/useComposeStore.js';
+import type { CompositePost } from '@/store/useComposeStore.js';
+import type { ComposeType } from '@/types/compose.js';
 
-export interface Draft extends ComposeBaseState {
+export interface Draft {
     draftId: string;
     createdAt: Date;
     availableProfiles: Profile[];
     scheduleTime?: Date;
+    type: ComposeType;
+    posts: CompositePost[];
+    // tracking the currently editing post
+    cursor: string;
 }
 
 interface ComposeDraftState {

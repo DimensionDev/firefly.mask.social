@@ -71,7 +71,7 @@ export interface ComposeBaseState {
     // tracking the current editable post
     cursor: Cursor;
     // tracking the current applied draft id
-    draftId?: string;
+    currentDraftId?: string;
 }
 
 interface ComposeState extends ComposeBaseState {
@@ -554,7 +554,7 @@ const useComposeStateBase = create<ComposeState, [['zustand/immer', unknown]]>(
                 const nextState = {
                     type: state.type,
                     cursor: id,
-                    draftId: undefined,
+                    currentDraftId: undefined,
                     posts: [createInitSinglePostState(id)],
                 } satisfies ComposeBaseState;
 
