@@ -3,6 +3,7 @@ import { compact } from 'lodash-es';
 import { Source } from '@/constants/enum.js';
 import { getRpMetadata } from '@/helpers/rpPayload.js';
 import type { ComposeEventParameters } from '@/providers/types/Telemetry.js';
+import { useComposeScheduleStateStore } from '@/store/useComposeScheduleStore.js';
 import type { CompositePost } from '@/store/useComposeStore.js';
 import { useFarcasterStateStore, useLensStateStore, useTwitterStateStore } from '@/store/useProfileStore.js';
 
@@ -19,6 +20,10 @@ export function getComposeEventParameters(
     const lensProfile = useLensStateStore.getState().currentProfile;
     const farcasterProfile = useFarcasterStateStore.getState().currentProfile;
     const xProfile = useTwitterStateStore.getState().currentProfile;
+
+    // schedule time indicates that the post is scheduled
+    // but only schedule id indicates that the post is scheduled and saved
+    const scheduleTime = useComposeScheduleStateStore.getState().scheduleTime;
 
     const rp = post.typedMessage?.meta ? getRpMetadata(post.typedMessage) : null;
 
@@ -43,7 +48,7 @@ export function getComposeEventParameters(
         is_draft: !!draftId,
         draft_id: draftId,
 
-        is_scheduled: !!scheduleId,
+        is_scheduled: !!scheduleId || !!scheduleTime,
         schedule_id: scheduleId,
 
         include_lucky_drop: !!post.rpPayload,
