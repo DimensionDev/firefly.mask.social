@@ -79,8 +79,9 @@ export function captureAccountLogoutEvent(account: Account) {
     });
 }
 
-export function captureAccountLogoutAllEvent() {
-    return runInSafeAsync(() => {
-        return TelemetryProvider.captureEvent(EventId.ACCOUNT_LOG_OUT_ALL_SUCCESS, {});
+export function captureAccountLogoutAllEvent(accounts: Account[]) {
+    return runInSafeAsync(async () => {
+        await Promise.all(accounts.map((account) => captureAccountLogoutEvent(account)));
+        await TelemetryProvider.captureEvent(EventId.ACCOUNT_LOG_OUT_ALL_SUCCESS, {});
     });
 }

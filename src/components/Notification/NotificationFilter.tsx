@@ -25,7 +25,7 @@ export function NotificationFilter({ source, className, types, onTypesChange: se
         const getClassNames = (active: boolean) => {
             return classNames(
                 'flex h-6 cursor-pointer items-center justify-center gap-x-1 whitespace-nowrap rounded-md px-1.5 text-xs leading-6',
-                active ? 'bg-highlight text-white' : 'bg-thirdMain text-second hover:text-highlight',
+                active ? 'bg-highlight text-primaryBottom' : 'bg-thirdMain text-second hover:text-highlight',
             );
         };
 

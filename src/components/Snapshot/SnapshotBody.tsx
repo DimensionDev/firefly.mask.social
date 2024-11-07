@@ -195,7 +195,7 @@ export function SnapshotBody({ snapshot, link, postId, activity }: Props) {
 
     return (
         <div className="link-preview">
-            <ClickableArea className="relative mt-[6px] flex flex-col gap-2 rounded-2xl border border-line bg-bg p-3 text-commonMain">
+            <ClickableArea className="relative mt-[6px] flex flex-col gap-2 rounded-2xl border border-line bg-bg p-3 text-left text-commonMain">
                 <SnapshotStatus status={state} className="self-start" />
                 <h1
                     className={classNames('line-clamp-2 text-left text-[18px] font-bold leading-[20px]', {

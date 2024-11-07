@@ -15,8 +15,10 @@ import { getSnackbarMessageFromError } from '@/helpers/getSnackbarMessageFromErr
 import { useFireflyIdentity } from '@/hooks/useFireflyIdentity.js';
 import { ConfirmModalRef } from '@/modals/controls.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
+import { captureMuteEvent } from '@/providers/telemetry/captureMuteEvent.js';
 import type { FireflyIdentity } from '@/providers/types/Firefly.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
+import { EventId } from '@/providers/types/Telemetry.js';
 
 interface MuteAllProfileBaseProps {
     identity: FireflyIdentity;
@@ -49,6 +51,7 @@ function MuteAllProfileBase({ handleOrEnsOrAddress, identity, onClose }: MuteAll
             if (!confirmed) return;
             await FireflyEndpointProvider.muteProfileAll(identity);
             enqueueSuccessMessage(t`All wallets and accounts are muted.`);
+            captureMuteEvent(EventId.MUTE_ALL_SUCCESS, identity);
         } catch (error) {
             enqueueErrorMessage(getSnackbarMessageFromError(error, t`Failed to mute all wallets and accounts.`), {
                 error,

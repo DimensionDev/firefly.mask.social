@@ -69,7 +69,9 @@ export function DiscoverTypeTabs({
                     replace
                     className={classNames(
                         'flex h-6 cursor-pointer list-none justify-center rounded-md px-1.5 text-xs leading-6 lg:flex-initial lg:justify-start',
-                        type === x ? 'bg-highlight text-white' : 'bg-thirdMain text-second hover:text-highlight',
+                        type === x
+                            ? 'bg-highlight text-primaryBottom'
+                            : 'bg-thirdMain text-second hover:text-highlight',
                     )}
                     aria-current={type === x ? 'page' : undefined}
                 >

@@ -9,7 +9,6 @@ import { encrypt, SteganographyPreset } from '@masknet/encryption';
 import { delay } from '@masknet/kit';
 import { ProfileIdentifier } from '@masknet/shared-base';
 import type { TypedMessageTextV1 } from '@masknet/typed-message';
-import type { FireflyRedPacketAPI } from '@masknet/web3-providers/types';
 import { RouterProvider } from '@tanstack/react-router';
 import { $getRoot } from 'lexical';
 import { compact, flatten, values } from 'lodash-es';
@@ -43,7 +42,9 @@ import { useSetEditorContent } from '@/hooks/useSetEditorContent.js';
 import { useSingletonModal } from '@/hooks/useSingletonModal.js';
 import type { SingletonModalRefCreator } from '@/libs/SingletonModal.js';
 import { ComposeModalRef, ConfirmModalRef } from '@/modals/controls.js';
+import { captureComposeDraftPostEvent } from '@/providers/telemetry/captureComposeEvent.js';
 import type { Channel, Post } from '@/providers/types/SocialMedia.js';
+import { EventId } from '@/providers/types/Telemetry.js';
 import { steganographyEncodeImage } from '@/services/steganography.js';
 import { useComposeDraftStateStore } from '@/store/useComposeDraftStore.js';
 import { useComposeScheduleStateStore } from '@/store/useComposeScheduleStore.js';
@@ -69,10 +70,6 @@ export interface ComposeModalOpenProps {
     source?: SocialSource | SocialSource[];
     post?: Post | null;
     typedMessage?: TypedMessageTextV1 | null;
-    rpPayload?: {
-        payloadImage: string;
-        claimRequirements: FireflyRedPacketAPI.StrategyPayload[];
-    };
     channel?: Channel | null;
     initialPath?: string;
 }
@@ -117,7 +114,7 @@ export const ComposeModalUI = forwardRef<SingletonModalRefCreator<ComposeModalOp
 
         const setEditorContent = useSetEditorContent();
         const [open, dispatch] = useSingletonModal(ref, {
-            onOpen: ({ type, source, typedMessage, post, chars, rpPayload, channel, initialPath }) => {
+            onOpen: ({ type, source, typedMessage, post, chars, channel, initialPath }) => {
                 updateType(type || 'compose');
                 updateAvailableSources(
                     source ? (Array.isArray(source) ? source : [source]) : getCurrentAvailableSources(),
@@ -128,7 +125,6 @@ export const ComposeModalUI = forwardRef<SingletonModalRefCreator<ComposeModalOp
                     updateChars(chars);
                     setEditorContent(chars);
                 }
-                if (rpPayload) updateRpPayload(rpPayload);
                 if (channel) updateChannel(channel);
                 if (initialPath) router.navigate({ to: initialPath });
             },
@@ -152,7 +148,7 @@ export const ComposeModalUI = forwardRef<SingletonModalRefCreator<ComposeModalOp
         const isSmall = useIsSmall('max');
         const onClose = useCallback(async () => {
             const { addDraft } = useComposeDraftStateStore.getState();
-            const { posts, cursor, draftId, type } = useComposeStateStore.getState();
+            const { posts, cursor, currentDraftId, type } = useComposeStateStore.getState();
             const { scheduleTime } = useComposeScheduleStateStore.getState();
             const compositePost = getCompositePost(cursor);
             const { availableSources = EMPTY_LIST } = compositePost ?? {};
@@ -195,17 +191,23 @@ export const ComposeModalUI = forwardRef<SingletonModalRefCreator<ComposeModalOp
                 if (confirmed === null) return CloseAction.None;
 
                 if (confirmed) {
-                    addDraft({
-                        draftId: draftId || uuid(),
+                    const draft = {
+                        draftId: currentDraftId || uuid(),
                         createdAt: new Date(),
                         cursor,
                         posts: hasError ? posts.map((x) => ({ ...x, availableSources: sources })) : posts,
                         type,
                         availableProfiles: compact(values(currentProfileAll)).filter((x) => sources.includes(x.source)),
                         scheduleTime,
-                    });
-                    enqueueSuccessMessage(t`Your draft was saved.`);
+                    };
+
+                    addDraft(draft);
                     ComposeModalRef.close();
+                    enqueueSuccessMessage(t`Your draft was saved.`);
+                    captureComposeDraftPostEvent(EventId.COMPOSE_DRAFT_CREATE_SUCCESS, posts[0], {
+                        draftId: draft.draftId,
+                        thread: posts,
+                    });
                     return CloseAction.Saved;
                 } else {
                     dispatch?.close();

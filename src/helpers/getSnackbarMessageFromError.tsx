@@ -6,7 +6,6 @@ import { EstimateGasExecutionError, UserRejectedRequestError } from 'viem';
 
 import { SnackbarErrorMessage } from '@/components/SnackbarErrorMessage.js';
 import { FarcasterInvalidSignerKey, FetchError, UserRejectionError } from '@/constants/error.js';
-import { IS_PRODUCTION } from '@/constants/index.js';
 import { getErrorMessageFromFetchError } from '@/helpers/getErrorMessageFromFetchError.js';
 
 /**
@@ -21,7 +20,7 @@ export function getSnackbarMessageFromError(error: unknown, fallback: string): S
         if (message) return message;
     }
 
-    if (error instanceof FetchError && IS_PRODUCTION) {
+    if (error instanceof FetchError) {
         return getErrorMessageFromFetchError(error);
     }
 

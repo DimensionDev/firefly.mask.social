@@ -9,7 +9,7 @@ import { queryClient } from '@/configs/queryClient.js';
 import { NODE_ENV, type SocialSource } from '@/constants/enum.js';
 import { env } from '@/constants/env.js';
 import { SORTED_SOCIAL_SOURCES, SUPPORTED_FRAME_SOURCES } from '@/constants/index.js';
-import { CHAR_TAG, readChars } from '@/helpers/chars.js';
+import { readChars } from '@/helpers/chars.js';
 import { createDummyCommentPost } from '@/helpers/createDummyPost.js';
 import { enqueueErrorsMessage, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { getCompositePost } from '@/helpers/getCompositePost.js';
@@ -164,46 +164,41 @@ export async function crossPost(
         signal,
     }: CrossPostOptions = {},
 ) {
-    const { updatePostInThread, updateChars, updatePoll } = useComposeStateStore.getState();
+    const { updatePostInThread, updatePollId } = useComposeStateStore.getState();
     const { availableSources, poll } = compositePost;
 
     // create common poll for farcaster and lens
     if (poll && SUPPORTED_FRAME_SOURCES.some((x) => availableSources.includes(x))) {
         const pollId = await commitPoll(poll, readChars(compositePost.chars));
 
+        updatePollId(pollId);
         capturePollEvent(pollId);
-
-        updateChars((chars) => {
-            return (Array.isArray(chars) ? chars : [chars]).map((x) => {
-                if (typeof x !== 'string' && x.tag === CHAR_TAG.FRAME) {
-                    return { ...x, id: pollId };
-                }
-                return x;
-            });
-        });
-        updatePoll({
-            ...poll,
-            id: pollId,
-        });
     }
 
     const allSettled = await Promise.allSettled(
         SORTED_SOCIAL_SOURCES.map(async (source) => {
             if (!availableSources.includes(source)) return null;
 
+            const updatedCompositePost = getCompositePost(compositePost.id);
+            if (!updatedCompositePost) throw new Error(`Post not found with id: ${compositePost.id}`);
+
             // post already published
-            if (skipIfPublishedPost && compositePost.postId[source]) {
+            if (skipIfPublishedPost && updatedCompositePost.postId[source]) {
                 return null;
             }
 
             // parent post is required for reply and quote
-            if ((type === 'reply' || type === 'quote') && skipIfNoParentPost && !compositePost.parentPost[source]) {
+            if (
+                (type === 'reply' || type === 'quote') &&
+                skipIfNoParentPost &&
+                !updatedCompositePost.parentPost[source]
+            ) {
                 return null;
             }
 
             try {
-                const result = await resolvePostTo(source)(type, compositePost, signal);
-                updatePostInThread(compositePost.id, (post) => ({
+                const result = await resolvePostTo(source)(type, updatedCompositePost, signal);
+                updatePostInThread(updatedCompositePost.id, (post) => ({
                     ...post,
                     postError: {
                         ...post.postError,
@@ -212,7 +207,7 @@ export async function crossPost(
                 }));
                 return result;
             } catch (error) {
-                updatePostInThread(compositePost.id, (post) => ({
+                updatePostInThread(updatedCompositePost.id, (post) => ({
                     ...post,
                     postError: {
                         ...post.postError,

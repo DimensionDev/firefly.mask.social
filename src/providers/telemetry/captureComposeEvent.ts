@@ -12,59 +12,103 @@ import type { ComposeType } from '@/types/compose.js';
 
 function getTimeParameters(date = new Date()) {
     const offset = new Date().getTimezoneOffset();
-    return `${dayjs(date).format('mm-dd-yyyy HH:mm:ss')}(GMT${offset < 0 ? '+' : '-'}${Math.abs(offset / 60)})`;
+    return `${dayjs(date).format('MM-DD-YYYY HH:mm:ss')}(GMT${offset < 0 ? '+' : '-'}${Math.abs(offset / 60)})`;
+}
+
+export function captureComposeDraftPostEvent(
+    eventId: EventId.COMPOSE_DRAFT_CREATE_SUCCESS,
+    post: CompositePost,
+    options: Options = {},
+) {
+    return runInSafeAsync(async () => {
+        const date = new Date();
+
+        const draftId = options.draftId;
+        if (!draftId) throw new Error('Draft ID is missing.');
+
+        return TelemetryProvider.captureEvent(eventId, {
+            draft_id: draftId,
+            draft_time: date.getTime(),
+            draft_time_utc: getTimeParameters(date),
+            ...getComposeEventParameters(post, {
+                draftId,
+                thread: options.thread,
+            }),
+        });
+    });
+}
+
+export function captureComposeSchedulePostEvent(
+    eventId:
+        | EventId.COMPOSE_SCHEDULED_POST_CREATE_SUCCESS
+        | EventId.COMPOSE_SCHEDULED_POST_DELETE_SUCCESS
+        | EventId.COMPOSE_SCHEDULED_POST_UPDATE_SUCCESS,
+    post: CompositePost | null,
+    options: Options = {},
+) {
+    return runInSafeAsync(async () => {
+        const date = new Date();
+
+        const scheduleId = options.scheduleId;
+        if (!scheduleId) throw new Error('Schedule ID is missing.');
+
+        switch (eventId) {
+            case EventId.COMPOSE_SCHEDULED_POST_DELETE_SUCCESS:
+                return TelemetryProvider.captureEvent(eventId, {
+                    schedule_id: scheduleId,
+                    schedule_time: date.getTime(),
+                    scheduled_time_utc: getTimeParameters(date),
+                });
+            case EventId.COMPOSE_SCHEDULED_POST_UPDATE_SUCCESS:
+                return TelemetryProvider.captureEvent(eventId, {
+                    schedule_id: scheduleId,
+                    new_schedule_time: date.getTime(),
+                    new_scheduled_time_utc: getTimeParameters(date),
+                });
+            case EventId.COMPOSE_SCHEDULED_POST_CREATE_SUCCESS:
+                if (!post) throw new Error('Post is missing.');
+                return TelemetryProvider.captureEvent(eventId, {
+                    schedule_id: scheduleId,
+                    schedule_time: date.getTime(),
+                    scheduled_time_utc: getTimeParameters(date),
+                    ...getComposeEventParameters(post, {
+                        scheduleId,
+                    }),
+                });
+            default:
+                safeUnreachable(eventId);
+                throw new UnreachableError('eventId', eventId);
+        }
+    });
 }
 
 export function captureComposeEvent(type: ComposeType, post: CompositePost, options: Options = {}) {
-    const capture = () => {
-        const date = new Date();
+    const capture = async () => {
         const size = post.availableSources.length;
-        const { draftId, scheduleId } = options;
-
-        // draft created
-        if (draftId) {
-            return TelemetryProvider.captureEvent(EventId.COMPOSE_DRAFT_CREATE_SUCCESS, {
-                draft_id: draftId,
-                draft_time: date.getTime(),
-                draft_time_utc: getTimeParameters(),
-                ...getComposeEventParameters(post, options),
-            });
-        }
-
-        // scheduled post created
-        if (scheduleId) {
-            return TelemetryProvider.captureEvent(EventId.COMPOSE_SCHEDULED_POST_CREATE_SUCCESS, {
-                schedule_id: scheduleId,
-                schedule_time: date.getTime(),
-                scheduled_time_utc: getTimeParameters(),
-                ...getComposeEventParameters(post, options),
-            });
-        }
 
         // post created
         {
+            // the default social source
+            const source = post.availableSources[0];
+
             // post to only one platform
             if (size === 1) {
                 switch (type) {
                     case 'compose':
                         return TelemetryProvider.captureEvent(
-                            getPostEventId(type, post),
+                            getPostEventId(type, source, post),
                             getComposeEventParameters(post, options),
                         );
                     case 'reply':
-                    case 'quote':
-                        const source = post.availableSources[0];
-
-                        const profile = post.parentPost[source]?.author;
-                        if (!profile) throw new Error(`Target profile is missing, source = ${source}.`);
-
-                        const postId = post.parentPost[source]?.postId;
-                        if (!postId) throw new Error(`Target post ID is missing, source = ${source}.`);
+                    case 'quote': {
+                        const parentPost = post.parentPost[source];
+                        if (!parentPost) throw new Error(`Parent post is missing, source = ${source}.`);
 
                         return TelemetryProvider.captureEvent(
-                            getPostEventId(type, post),
-                            getPostEventParameters(postId, profile),
+                            getPostEventId(type, source, post),
+                            getPostEventParameters(parentPost),
                         );
+                    }
                     default:
                         safeUnreachable(type);
                         throw new UnreachableError('type', type);
@@ -72,6 +116,14 @@ export function captureComposeEvent(type: ComposeType, post: CompositePost, opti
 
                 // crossed post
             } else if (size > 1) {
+                await Promise.all(
+                    post.availableSources.map((x) => {
+                        return TelemetryProvider.captureEvent(
+                            getPostEventId(type, x, post),
+                            getComposeEventParameters(post, options),
+                        );
+                    }),
+                );
                 return TelemetryProvider.captureEvent(
                     EventId.COMPOSE_CROSS_POST_SEND_SUCCESS,
                     getComposeEventParameters(post, options),

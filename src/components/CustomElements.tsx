@@ -9,6 +9,8 @@ import { NODE_ENV, VERCEL_NEV } from '@/constants/enum.js';
 import { env } from '@/constants/env.js';
 import { connectMaskWithWagmi } from '@/helpers/connectWagmiWithMask.js';
 import { getTypedMessageRedPacket } from '@/helpers/getTypedMessage.js';
+import { getRpMetadata } from '@/helpers/rpPayload.js';
+import { captureLuckyDropEvent } from '@/providers/telemetry/captureLuckyDropEvent.js';
 import { useComposeStateStore } from '@/store/useComposeStore.js';
 
 export default function CustomElements() {
@@ -41,10 +43,14 @@ export default function CustomElements() {
         return CrossIsolationMessages.events.compositionDialogEvent.on((event) => {
             if (!event.open) return;
 
-            updateTypedMessage(getTypedMessageRedPacket(event.options?.initialMetas));
-            if (event.options?.pluginMeta?.payloadImage) {
-                updateRpPayload(event.options.pluginMeta);
-            }
+            const message = getTypedMessageRedPacket(event.options?.initialMetas);
+            updateTypedMessage(message);
+
+            const pluginMeta = event.options?.pluginMeta;
+            if (pluginMeta?.payloadImage) updateRpPayload(pluginMeta);
+
+            const metadata = getRpMetadata(message);
+            if (metadata) captureLuckyDropEvent(metadata);
         });
     }, [updateRpPayload, updateTypedMessage, value]);
 
