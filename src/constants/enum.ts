@@ -64,6 +64,7 @@ export enum Source {
     Wallet = 'Wallet',
     NFTs = 'NFTs',
     Snapshot = 'Snapshot',
+    Polymarket = 'Polymarket',
 }
 
 export enum SourceInURL {
@@ -75,6 +76,7 @@ export enum SourceInURL {
     Wallet = 'wallet',
     NFTs = 'nfts',
     Snapshot = 'snapshot',
+    Polymarket = 'polymarket',
 }
 
 export type SocialSource = Source.Farcaster | Source.Lens | Source.Twitter;
@@ -84,6 +86,7 @@ export type SocialSourceInURL = SourceInURL.Farcaster | SourceInURL.Lens | Sourc
 export type SocialDiscoverSource = Source.Farcaster | Source.Lens;
 export type DiscoverSource = SocialDiscoverSource | Source.NFTs | Source.Article | Source.Snapshot;
 export type BookmarkSource = Source.Farcaster | Source.Lens | Source.Article | Source.Snapshot;
+export type FollowingSource = DiscoverSource | Source.Polymarket;
 
 export enum DiscoverType {
     ForYou = 'for-you',
@@ -131,6 +134,7 @@ export enum WalletProfileCategory {
     NFTs = 'nfts',
     OnChainActivities = 'activities',
     DAO = 'DAO',
+    Polymarket = 'polymarket',
 }
 
 export enum EngagementType {
@@ -167,6 +171,7 @@ export enum ScrollListKey {
     SchedulePosts = 'schedule-posts',
     SnapshotVotes = 'snapshot-votes',
     Activity = 'activity',
+    Polymarket = 'polymarket-list',
 }
 
 export enum FarcasterSignType {
@@ -318,4 +323,9 @@ export enum SnapshotState {
     Active = 'active',
     Closed = 'closed',
     Pending = 'pending',
+}
+
+export enum PolymarketBetType {
+    Buy = 'buy',
+    Sell = 'sell',
 }
