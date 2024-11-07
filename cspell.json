@@ -96,11 +96,13 @@
         "viem",
         "wagmi",
         "warpcast",
+        "walletconnect",
         "xdai",
         "zksync",
         "zora",
         "zustand",
         "reposted",
+        "zerion",
         "zustand"
     ],
     "ignoreWords": [
