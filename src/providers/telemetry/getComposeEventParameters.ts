@@ -49,12 +49,12 @@ export function getComposeEventParameters(
         include_lucky_drop: !!post.rpPayload,
         lucky_drop_ids: rp?.rpid ? [rp.rpid] : [],
 
-        include_farcaster_poll: !!post.poll?.idMap?.Farcaster,
-        farcaster_poll_id: post.poll?.idMap?.Farcaster,
-        include_lens_poll: !!post.poll?.idMap?.Lens,
-        lens_poll_id: post.poll?.idMap?.Lens,
-        include_x_poll: !!post.poll?.idMap?.Twitter,
-        x_poll_id: post.poll?.idMap?.Twitter,
+        include_farcaster_poll: !!post.poll?.pollIds?.Farcaster,
+        farcaster_poll_id: post.poll?.pollIds?.Farcaster,
+        include_lens_poll: !!post.poll?.pollIds?.Lens,
+        lens_poll_id: post.poll?.pollIds?.Lens,
+        include_x_poll: !!post.poll?.pollIds?.Twitter,
+        x_poll_id: post.poll?.pollIds?.Twitter,
 
         include_image: post.images.length > 0,
         include_video: !!post.video,

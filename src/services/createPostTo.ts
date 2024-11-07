@@ -62,7 +62,7 @@ export function createPostTo(source: SocialSource, options: Options) {
         if (source === Source.Twitter && postId && post.poll) {
             const tweet = await runInSafeAsync(() => TwitterSocialMediaProvider.getPostById(postId));
             if (tweet?.poll?.id) {
-                post.poll = { ...post.poll, idMap: { ...post.poll.idMap, [Source.Twitter]: tweet.poll.id } };
+                post.poll = { ...post.poll, pollIds: { ...post.poll.pollIds, [Source.Twitter]: tweet.poll.id } };
                 updatePoll({ ...post.poll });
             }
         }

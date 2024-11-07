@@ -25,7 +25,7 @@ export interface Poll {
 }
 
 export interface CompositePoll {
-    idMap?: Partial<Record<SocialSource, string>>;
+    pollIds: Record<SocialSource, string | null>;
     options: PollOption[];
     duration: {
         days: number;

@@ -183,17 +183,11 @@ export async function crossPost(
 
         capturePollEvent(pollId);
 
-        const idMap = SUPPORTED_FRAME_SOURCES.reduce<Partial<Record<SocialSource, string>>>(
-            (acc, x) => {
-                if (availableSources.includes(x)) {
-                    acc[x] = pollId;
-                }
-
-                return acc;
-            },
-            { ...poll.idMap },
+        const idMap = SUPPORTED_FRAME_SOURCES.reduce<Record<SocialSource, string | null>>(
+            (acc, x) => (availableSources.includes(x) ? { ...acc, [x]: pollId } : acc),
+            poll.pollIds,
         );
-        const newPoll: CompositePoll = { ...poll, idMap };
+        const newPoll: CompositePoll = { ...poll, pollIds: idMap };
         updateChars((chars) => updateCharsWithPoll(chars, pollId));
         updatePoll(newPoll);
 

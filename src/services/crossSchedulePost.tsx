@@ -40,15 +40,9 @@ export async function createSchedulePostsPayload(
 
         capturePollEvent(pollId);
 
-        const idMap = SUPPORTED_FRAME_SOURCES.reduce<Partial<Record<SocialSource, string>>>(
-            (acc, x) => {
-                if (availableSources.includes(x)) {
-                    acc[x] = pollId;
-                }
-
-                return acc;
-            },
-            { ...poll.idMap },
+        const pollIds = SUPPORTED_FRAME_SOURCES.reduce<Record<SocialSource, string | null>>(
+            (acc, x) => (availableSources.includes(x) ? { ...acc, [x]: pollId } : acc),
+            poll.pollIds,
         );
         compositePost = {
             ...compositePost,
@@ -58,7 +52,7 @@ export async function createSchedulePostsPayload(
                 }
                 return x;
             }),
-            poll: { ...poll, idMap },
+            poll: { ...poll, pollIds },
         };
     }
 
