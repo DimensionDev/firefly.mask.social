@@ -4,10 +4,9 @@ import dayjs from 'dayjs';
 import urlcat from 'urlcat';
 
 import { DraftPageTab } from '@/components/Compose/DraftPage.js';
-import type { SocialSource } from '@/constants/enum.js';
 import { CreateScheduleError, SignlessRequireError, UnauthorizedError } from '@/constants/error.js';
 import { SUPPORTED_FRAME_SOURCES } from '@/constants/index.js';
-import { CHAR_TAG, readChars } from '@/helpers/chars.js';
+import { readChars } from '@/helpers/chars.js';
 import { checkScheduleTime } from '@/helpers/checkScheduleTime.js';
 import { enqueueErrorMessage, enqueueInfoMessage, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { getCurrentProfileAll } from '@/helpers/getCurrentProfile.js';
@@ -24,7 +23,7 @@ import { EventId } from '@/providers/types/Telemetry.js';
 import { uploadSessions } from '@/services/metrics.js';
 import { commitPoll } from '@/services/poll.js';
 import { schedulePost } from '@/services/post.js';
-import type { CompositePost } from '@/store/useComposeStore.js';
+import { type CompositePost, useComposeStateStore } from '@/store/useComposeStore.js';
 import { useLensStateStore } from '@/store/useProfileStore.js';
 import type { ComposeType } from '@/types/compose.js';
 
@@ -34,26 +33,14 @@ export async function createSchedulePostsPayload(
     isThread = false,
     signal?: AbortSignal,
 ) {
+    const { updatePollId } = useComposeStateStore.getState();
     const { chars, poll, availableSources } = compositePost;
+
     if (poll && SUPPORTED_FRAME_SOURCES.some((x) => availableSources.includes(x))) {
         const pollId = await commitPoll(poll, readChars(chars));
 
+        updatePollId(pollId);
         capturePollEvent(pollId);
-
-        const pollIds = SUPPORTED_FRAME_SOURCES.reduce<Record<SocialSource, string | null>>(
-            (acc, x) => (availableSources.includes(x) ? { ...acc, [x]: pollId } : acc),
-            poll.pollIds,
-        );
-        compositePost = {
-            ...compositePost,
-            chars: (Array.isArray(chars) ? chars : [chars]).map((x) => {
-                if (typeof x !== 'string' && x.tag === CHAR_TAG.FRAME) {
-                    return { ...x, id: pollId };
-                }
-                return x;
-            }),
-            poll: { ...poll, pollIds },
-        };
     }
 
     const allProfiles = getCurrentProfileAll();

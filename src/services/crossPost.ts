@@ -9,7 +9,7 @@ import { queryClient } from '@/configs/queryClient.js';
 import { NODE_ENV, type SocialSource } from '@/constants/enum.js';
 import { env } from '@/constants/env.js';
 import { SORTED_SOCIAL_SOURCES, SUPPORTED_FRAME_SOURCES } from '@/constants/index.js';
-import { CHAR_TAG, type Chars, readChars } from '@/helpers/chars.js';
+import { readChars } from '@/helpers/chars.js';
 import { createDummyCommentPost } from '@/helpers/createDummyPost.js';
 import { enqueueErrorsMessage, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { getCompositePost } from '@/helpers/getCompositePost.js';
@@ -135,15 +135,6 @@ async function setQueryDataForQuote(post: CompositePost) {
     await queryClient.setQueryData([parentPost.source, 'post-detail', parentPost.postId], patched);
 }
 
-function updateCharsWithPoll(chars: Chars, pollId: string) {
-    return (Array.isArray(chars) ? chars : [chars]).map((x) => {
-        if (typeof x !== 'string' && x.tag === CHAR_TAG.FRAME) {
-            return { ...x, id: pollId };
-        }
-        return x;
-    });
-}
-
 interface CrossPostOptions {
     isRetry?: boolean;
     // skip if post is already published
@@ -173,21 +164,15 @@ export async function crossPost(
         signal,
     }: CrossPostOptions = {},
 ) {
-    const { updatePostInThread, updateChars, updatePoll } = useComposeStateStore.getState();
+    const { updatePostInThread, updatePollId } = useComposeStateStore.getState();
     const { availableSources, poll } = compositePost;
 
     // create common poll for farcaster and lens
     if (poll && SUPPORTED_FRAME_SOURCES.some((x) => availableSources.includes(x))) {
         const pollId = await commitPoll(poll, readChars(compositePost.chars));
 
+        updatePollId(pollId);
         capturePollEvent(pollId);
-
-        const pollIds = SUPPORTED_FRAME_SOURCES.reduce<Record<SocialSource, string | null>>(
-            (acc, x) => (availableSources.includes(x) ? { ...acc, [x]: pollId } : acc),
-            poll.pollIds,
-        );
-        updateChars((chars) => updateCharsWithPoll(chars, pollId));
-        updatePoll({ ...poll, pollIds });
     }
 
     const allSettled = await Promise.allSettled(
