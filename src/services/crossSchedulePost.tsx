@@ -26,6 +26,7 @@ import { schedulePost } from '@/services/post.js';
 import { type CompositePost, useComposeStateStore } from '@/store/useComposeStore.js';
 import { useLensStateStore } from '@/store/useProfileStore.js';
 import type { ComposeType } from '@/types/compose.js';
+import { getCompositePost } from '@/helpers/getCompositePost.js';
 
 export async function createSchedulePostsPayload(
     type: ComposeType,
@@ -44,12 +45,14 @@ export async function createSchedulePostsPayload(
     }
 
     const allProfiles = getCurrentProfileAll();
+    const updatedCompositePost = getCompositePost(compositePost.id);
+    if (!updatedCompositePost) throw new Error(`Post not found with id: ${compositePost.id}`);
 
     return Promise.all(
         availableSources.map(async (x) => {
             const profile = allProfiles[x];
             if (!profile) throw new UnauthorizedError();
-            const payload = await resolveCreateSchedulePostPayload(x)(type, compositePost, isThread, signal);
+            const payload = await resolveCreateSchedulePostPayload(x)(type, updatedCompositePost, isThread, signal);
 
             return {
                 platformUserId: profile.profileId,
