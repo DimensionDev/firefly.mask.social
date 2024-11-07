@@ -198,8 +198,12 @@ export interface ComposeEventParameters {
     lucky_drop_ids?: string[];
 
     // poll
-    include_poll: boolean;
-    poll_id?: string;
+    include_x_poll: boolean;
+    x_poll_id?: string;
+    include_lens_poll: boolean;
+    lens_poll_id?: string;
+    include_farcaster_poll: boolean;
+    farcaster_poll_id?: string;
 
     // flags
     include_image: boolean;
