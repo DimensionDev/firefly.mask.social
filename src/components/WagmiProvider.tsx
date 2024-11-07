@@ -1,3 +1,5 @@
+/* cspell:disable */
+
 'use client';
 
 import { useAppKitAccount, useWalletInfo } from '@reown/appkit/react';
@@ -17,7 +19,7 @@ export function WagmiProvider(props: WagmiProviderProps) {
     return (
         <WagmiProviderSDK config={config}>
             {props.children}
-            <WagmiInsights />
+            <Insights />
         </WagmiProviderSDK>
     );
 }
@@ -40,20 +42,19 @@ function resolveEventId(name_: string) {
     return EventId.CONNECT_WALLET_SUCCESS;
 }
 
-function WagmiInsights() {
+function Insights() {
     const account = useAppKitAccount();
     const wallet = useWalletInfo();
-    const walletName = wallet.walletInfo?.name;
+    const walletAddress = account.address;
+    const walletName = wallet.walletInfo?.name ?? 'unknown';
 
     useEffect(() => {
-        if (!walletName) return;
+        if (!walletAddress || !isAddress(walletAddress)) return;
 
-        if (account.address && isAddress(account.address)) {
-            captureConnectWalletEvent(resolveEventId(walletName), {
-                evmAddress: account.address,
-            });
-        }
-    }, [walletName]);
+        captureConnectWalletEvent(resolveEventId(walletName), {
+            evmAddress: walletAddress,
+        });
+    }, [walletAddress, walletName]);
 
     return null;
 }
