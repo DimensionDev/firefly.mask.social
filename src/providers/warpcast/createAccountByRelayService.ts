@@ -8,7 +8,7 @@ import { FarcasterSocialMediaProvider } from '@/providers/farcaster/SocialMedia.
 import type { Account } from '@/providers/types/Account.js';
 import { bindOrRestoreFireflySession } from '@/services/bindOrRestoreFireflySession.js';
 
-export interface FarcasterReplyResponse {
+interface FarcasterReplyResponse {
     channelToken: string;
     url: string;
     // the same as url
