@@ -193,7 +193,7 @@ export async function crossPost(
             },
             { ...poll.idMap },
         );
-        const newPoll: CompositePoll = { ...poll, id: pollId, idMap };
+        const newPoll: CompositePoll = { ...poll, idMap };
         updateChars((chars) => updateCharsWithPoll(chars, pollId));
         updatePoll(newPoll);
 
