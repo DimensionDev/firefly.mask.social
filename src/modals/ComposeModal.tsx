@@ -148,7 +148,7 @@ export const ComposeModalUI = forwardRef<SingletonModalRefCreator<ComposeModalOp
         const isSmall = useIsSmall('max');
         const onClose = useCallback(async () => {
             const { addDraft } = useComposeDraftStateStore.getState();
-            const { posts, cursor, draftId, type } = useComposeStateStore.getState();
+            const { posts, cursor, currentDraftId, type } = useComposeStateStore.getState();
             const { scheduleTime } = useComposeScheduleStateStore.getState();
             const compositePost = getCompositePost(cursor);
             const { availableSources = EMPTY_LIST } = compositePost ?? {};
@@ -192,7 +192,7 @@ export const ComposeModalUI = forwardRef<SingletonModalRefCreator<ComposeModalOp
 
                 if (confirmed) {
                     const draft = {
-                        draftId: draftId || uuid(),
+                        draftId: currentDraftId || uuid(),
                         createdAt: new Date(),
                         cursor,
                         posts: hasError ? posts.map((x) => ({ ...x, availableSources: sources })) : posts,
