@@ -126,6 +126,7 @@ interface ComposeState extends ComposeBaseState {
     createPoll: (cursor?: Cursor) => void;
     updatePoll: (poll: CompositePoll | null, cursor?: Cursor) => void;
     updatePollId: (pollId: string, cursor?: Cursor) => void;
+    updateTwitterPollId: (pollId: string, cursor?: Cursor) => void;
 
     // reset the editor
     apply: (state: ComposeBaseState) => void;
@@ -570,6 +571,25 @@ const useComposeStateBase = create<ComposeState, [['zustand/immer', unknown]]>(
                                       }
                                       return x;
                                   }),
+                              }
+                            : null,
+                    }),
+                    cursor,
+                ),
+            ),
+        updateTwitterPollId: (pollId, cursor) =>
+            set((state) =>
+                next(
+                    state,
+                    (post) => ({
+                        ...post,
+                        poll: post.poll
+                            ? {
+                                  ...post.poll,
+                                  pollIds: {
+                                      ...post.poll.pollIds,
+                                      [Source.Twitter]: pollId,
+                                  },
                               }
                             : null,
                     }),

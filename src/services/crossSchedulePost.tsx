@@ -9,6 +9,7 @@ import { SUPPORTED_FRAME_SOURCES } from '@/constants/index.js';
 import { readChars } from '@/helpers/chars.js';
 import { checkScheduleTime } from '@/helpers/checkScheduleTime.js';
 import { enqueueErrorMessage, enqueueInfoMessage, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
+import { getCompositePost } from '@/helpers/getCompositePost.js';
 import { getCurrentProfileAll } from '@/helpers/getCurrentProfile.js';
 import { getProfileSessionsAll } from '@/helpers/getProfileState.js';
 import { getScheduleTaskContent } from '@/helpers/getScheduleTaskContent.js';
@@ -26,7 +27,6 @@ import { schedulePost } from '@/services/post.js';
 import { type CompositePost, useComposeStateStore } from '@/store/useComposeStore.js';
 import { useLensStateStore } from '@/store/useProfileStore.js';
 import type { ComposeType } from '@/types/compose.js';
-import { getCompositePost } from '@/helpers/getCompositePost.js';
 
 export async function createSchedulePostsPayload(
     type: ComposeType,
