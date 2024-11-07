@@ -750,5 +750,5 @@
 }
 
 .limo-article a {
-    color: rgb(var(--color-link));
+    color: rgb(var(--color-highlight));
 }
