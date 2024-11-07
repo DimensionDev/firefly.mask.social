@@ -12,7 +12,7 @@ import type { Index } from '@/types/frame.js';
 class LensPoll implements Provider {
     async createPoll(poll: CompositePoll, text = ''): Promise<Poll> {
         return {
-            id: poll.id || (await commitPoll(poll, text)),
+            id: poll.pollIds?.Lens || (await commitPoll(poll, text)),
             options: poll.options,
             durationSeconds: getPollDurationSeconds(poll.duration),
             source: Source.Lens,

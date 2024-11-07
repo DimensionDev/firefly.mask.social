@@ -7,7 +7,13 @@ import { immer } from 'zustand/middleware/immer';
 
 import { HOME_CHANNEL } from '@/constants/channel.js';
 import { RestrictionType, type SocialSource, Source } from '@/constants/enum.js';
-import { EMPTY_LIST, MAX_FRAME_SIZE_PER_POST, SORTED_POLL_SOURCES, SORTED_SOCIAL_SOURCES } from '@/constants/index.js';
+import {
+    EMPTY_LIST,
+    MAX_FRAME_SIZE_PER_POST,
+    SORTED_POLL_SOURCES,
+    SORTED_SOCIAL_SOURCES,
+    SUPPORTED_FRAME_SOURCES,
+} from '@/constants/index.js';
 import { CHAR_TAG, type Chars, readChars } from '@/helpers/chars.js';
 import { createSelectors } from '@/helpers/createSelector.js';
 import { getCurrentAvailableSources } from '@/helpers/getCurrentAvailableSources.js';
@@ -119,6 +125,8 @@ interface ComposeState extends ComposeBaseState {
     loadComponentsFromChars: (cursor?: Cursor) => Promise<void>;
     createPoll: (cursor?: Cursor) => void;
     updatePoll: (poll: CompositePoll | null, cursor?: Cursor) => void;
+    updatePollId: (pollId: string, cursor?: Cursor) => void;
+    updateTwitterPollId: (pollId: string, cursor?: Cursor) => void;
 
     // reset the editor
     apply: (state: ComposeBaseState) => void;
@@ -540,6 +548,50 @@ const useComposeStateBase = create<ComposeState, [['zustand/immer', unknown]]>(
                                   (x) => typeof x === 'string' || x.tag !== CHAR_TAG.FRAME,
                               )
                             : post.chars,
+                    }),
+                    cursor,
+                ),
+            ),
+        updatePollId: (pollId, cursor) =>
+            set((state) =>
+                next(
+                    state,
+                    (post) => ({
+                        ...post,
+                        poll: post.poll
+                            ? {
+                                  ...post.poll,
+                                  pollIds: SUPPORTED_FRAME_SOURCES.reduce(
+                                      (acc, x) => (post.availableSources.includes(x) ? { ...acc, [x]: pollId } : acc),
+                                      post.poll?.pollIds,
+                                  ),
+                                  chars: (Array.isArray(post.chars) ? post.chars : [post.chars]).map((x) => {
+                                      if (typeof x !== 'string' && x.tag === CHAR_TAG.FRAME) {
+                                          return { ...x, id: pollId };
+                                      }
+                                      return x;
+                                  }),
+                              }
+                            : null,
+                    }),
+                    cursor,
+                ),
+            ),
+        updateTwitterPollId: (pollId, cursor) =>
+            set((state) =>
+                next(
+                    state,
+                    (post) => ({
+                        ...post,
+                        poll: post.poll
+                            ? {
+                                  ...post.poll,
+                                  pollIds: {
+                                      ...post.poll.pollIds,
+                                      [Source.Twitter]: pollId,
+                                  },
+                              }
+                            : null,
                     }),
                     cursor,
                 ),
