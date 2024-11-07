@@ -54,7 +54,7 @@ export function SourceTabs({ children }: PropsWithChildren) {
                 </ClickableButton>
             ) : null}
             <nav
-                className="no-scrollbar flex min-w-0 flex-grow space-x-4 overflow-x-auto text-xl"
+                className="no-scrollbar flex min-w-0 flex-grow gap-3 overflow-x-auto text-xl"
                 aria-label="Tabs"
                 ref={navRef}
                 onScroll={onScroll}
