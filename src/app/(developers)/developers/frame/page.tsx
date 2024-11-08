@@ -15,13 +15,16 @@ import { classNames } from '@/helpers/classNames.js';
 import { createDummyPost } from '@/helpers/createDummyPost.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
 import { isValidUrl } from '@/helpers/isValidUrl.js';
+import { getI18n } from '@/i18n/index.js';
 
 export default function Page() {
+    const i18n = getI18n();
+
     const [url, setUrl] = useState('');
     const post = useMemo(() => createDummyPost(Source.Farcaster, '', url, [url]), [url]);
 
     const [{ error, loading }, onSubmit] = useAsyncFn(async () => {
-        if (!isValidUrl(url)) throw new Error(t`Invalid URL`);
+        if (!isValidUrl(url)) throw new Error('Invalid URL');
 
         await fetchJSON(
             urlcat('/api/frame', {
@@ -49,7 +52,7 @@ export default function Page() {
                     type="text"
                     autoComplete="off"
                     spellCheck="false"
-                    placeholder={t`Your frame URL`}
+                    placeholder={t(i18n)`Your frame URL`}
                     onChange={(e) => setUrl(e.target.value)}
                 />
                 <ClickableButton

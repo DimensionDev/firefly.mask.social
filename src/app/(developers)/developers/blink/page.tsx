@@ -9,8 +9,11 @@ import { Blink } from '@/components/Blink/index.js';
 import { Source } from '@/constants/enum.js';
 import { Link } from '@/esm/Link.js';
 import { createDummyPost } from '@/helpers/createDummyPost.js';
+import { getI18n } from '@/i18n/index.js';
 
 export default function Page() {
+    const i18n = getI18n();
+
     const [url, setUrl] = useState('');
     const post = useMemo(() => createDummyPost(Source.Farcaster, url, url, [url]), [url]);
 
@@ -39,7 +42,7 @@ export default function Page() {
                     type="text"
                     autoComplete="off"
                     spellCheck="false"
-                    placeholder={t`Your Blink URL`}
+                    placeholder={t(i18n)`Your Blink URL`}
                     onChange={(e) => setUrl(e.target.value)}
                 />
             </div>

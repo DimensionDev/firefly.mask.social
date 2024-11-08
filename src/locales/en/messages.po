@@ -1177,9 +1177,6 @@ msgstr "Sold Out"
 msgid "Proxy contract"
 msgstr "Proxy contract"
 
-msgid "Failed to fetch profile."
-msgstr "Failed to fetch profile."
-
 msgid "The contract owner has the authority to modify the balance of tokens at other addresses, which may result in a loss of assets."
 msgstr "The contract owner has the authority to modify the balance of tokens at other addresses, which may result in a loss of assets."
 
@@ -1248,9 +1245,6 @@ msgstr "All wallets and accounts are muted."
 
 msgid "Disconnected from your social graph"
 msgstr "Disconnected from your social graph"
-
-msgid "Failed to upload."
-msgstr "Failed to upload."
 
 msgid "{attentionFactors, plural, one {# Attention item} other {# Attention items}}"
 msgstr "{attentionFactors, plural, one {# Attention item} other {# Attention items}}"
@@ -2607,9 +2601,6 @@ msgstr "Firefly Bridge"
 
 msgid "Oversupply minting."
 msgstr "Oversupply minting."
-
-msgid "Invalid URL"
-msgstr "Invalid URL"
 
 msgid "Followed <0>@{handle}</0> on {0}"
 msgstr "Followed <0>@{handle}</0> on {0}"
