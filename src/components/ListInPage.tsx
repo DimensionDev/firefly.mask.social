@@ -35,11 +35,11 @@ export function ListInPage<T = unknown, C = unknown>({
     className,
     source,
 }: ListInPageProps<T, C>) {
-    const isArticle = source === Source.Article;
+    const isNotSocialSource = source === Source.Article || source === Source.Snapshot;
 
     const { virtuosoState, setVirtuosoState } = useGlobalState();
     const currentSocialSource = narrowToSocialSource(source);
-    const isLogin = useIsLogin(isArticle ? undefined : currentSocialSource);
+    const isLogin = useIsLogin(isNotSocialSource ? undefined : currentSocialSource);
 
     const itemsRendered = useRef(false);
 
@@ -55,7 +55,7 @@ export function ListInPage<T = unknown, C = unknown>({
     }, [fetchNextPage, hasNextPage, isFetching, isFetchingNextPage]);
 
     if (loginRequired && !isLogin) {
-        return <NotLoginFallback source={isArticle ? source : currentSocialSource} />;
+        return <NotLoginFallback source={isNotSocialSource ? source : currentSocialSource} />;
     }
 
     if (noResultsFallbackRequired && !data.length) {
