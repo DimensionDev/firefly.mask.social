@@ -32,7 +32,7 @@ interface NotLoginFallbackProps extends HTMLProps<HTMLDivElement> {
 
 export const NotLoginFallback = memo<NotLoginFallbackProps>(function NotLoginFallback({ source, className }) {
     const fallbackImageUrl = resolveFallbackImageUrl(source);
-    const isNotSocialMedia = source === Source.Article || source === Source.Snapshot;
+    const isNotSocialSource = source === Source.Article || source === Source.Snapshot;
 
     return (
         <div
@@ -40,12 +40,12 @@ export const NotLoginFallback = memo<NotLoginFallbackProps>(function NotLoginFal
         >
             <Image
                 src={fallbackImageUrl}
-                width={isNotSocialMedia ? 302 : 200}
-                height={isNotSocialMedia ? 208 : 200}
+                width={isNotSocialSource ? 302 : 200}
+                height={isNotSocialSource ? 208 : 200}
                 alt={`${resolveSourceName(source)} login`}
             />
             <span className="leading-3.5 px-6 text-center text-base text-secondary">
-                {isNotSocialMedia ? (
+                {isNotSocialSource ? (
                     <Trans>Login to enable all features</Trans>
                 ) : (
                     <Trans>You need to connect your {resolveSourceName(source)} account to use this feature.</Trans>
@@ -57,10 +57,10 @@ export const NotLoginFallback = memo<NotLoginFallbackProps>(function NotLoginFal
                     source ? resolveConnectButtonClass(source) : undefined,
                 )}
                 onClick={() => {
-                    LoginModalRef.open({ source: isNotSocialMedia ? undefined : source });
+                    LoginModalRef.open({ source: isNotSocialSource ? undefined : source });
                 }}
             >
-                {isNotSocialMedia ? <Trans>Login</Trans> : <Trans>Connect to {resolveSourceName(source)}</Trans>}
+                {isNotSocialSource ? <Trans>Login</Trans> : <Trans>Connect to {resolveSourceName(source)}</Trans>}
             </ClickableButton>
         </div>
     );
