@@ -37,17 +37,20 @@ function toggleBookmark(source: Source, postId: string, status: boolean) {
         });
     });
 
-    queryClient.setQueriesData<{ pages: Array<{ data: SnapshotActivity[] }> }>({ queryKey: ['snapshots'] }, (old) => {
-        if (!old) return old;
+    queryClient.setQueriesData<{ pages: Array<{ data: SnapshotActivity[] } | null> }>(
+        { queryKey: ['snapshots'] },
+        (old) => {
+            if (!old) return old;
 
-        return produce(old, (draft) => {
-            draft.pages.forEach((page) => {
-                page.data.forEach((snapshot) => {
-                    if (snapshot.hash === postId) snapshot.hasBookmarked = status;
+            return produce(old, (draft) => {
+                draft.pages.forEach((page) => {
+                    page?.data.forEach((snapshot) => {
+                        if (snapshot.hash === postId) snapshot.hasBookmarked = status;
+                    });
                 });
             });
-        });
-    });
+        },
+    );
 
     queryClient.setQueryData<Article>(['article-detail', postId], (old) => {
         return produce(old, (draft) => {

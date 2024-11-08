@@ -49,7 +49,11 @@ export function SnapshotBody({ snapshot, link, postId, activity }: Props) {
     const [selectedChoices = snapshot.currentUserChoice, setSelectedChoices] = useState<SnapshotChoice | undefined>(
         snapshot.currentUserChoice,
     );
-    const isVoted = isEqual(snapshot.currentUserChoice, selectedChoices);
+
+    const isVoted =
+        !isUndefined(selectedChoices) &&
+        !isUndefined(snapshot.currentUserChoice) &&
+        isEqual(snapshot.currentUserChoice, selectedChoices);
 
     const account = useAccount();
 
