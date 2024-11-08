@@ -31,7 +31,7 @@ export default function Page() {
             const url = await uploadToDirectory(file, directory, () => name);
             setUrl(url);
         } catch (error) {
-            enqueueErrorMessage(t(i18n)`Failed to upload.`, { error });
+            enqueueErrorMessage('Failed to upload.', { error });
             throw error;
         }
     }, [file, directory, name, setUrl]);

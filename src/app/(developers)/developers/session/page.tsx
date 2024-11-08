@@ -28,7 +28,7 @@ export default function Page() {
         const session = SessionFactory.createSession(serializedSession);
 
         const profile = await getProfileBySession(session);
-        if (!profile) throw new Error(t(i18n)`Failed to fetch profile.`);
+        if (!profile) throw new Error('Failed to fetch profile.');
 
         setProfile(profile);
     }, [serializedSession]);

@@ -24,7 +24,7 @@ export default function Page() {
     const post = useMemo(() => createDummyPost(Source.Farcaster, '', url, [url]), [url]);
 
     const [{ error, loading }, onSubmit] = useAsyncFn(async () => {
-        if (!isValidUrl(url)) throw new Error(t(i18n)`Invalid URL`);
+        if (!isValidUrl(url)) throw new Error('Invalid URL');
 
         await fetchJSON(
             urlcat('/api/frame', {

@@ -1182,9 +1182,6 @@ msgstr "售罄"
 msgid "Proxy contract"
 msgstr "代理合約"
 
-msgid "Failed to fetch profile."
-msgstr ""
-
 msgid "The contract owner has the authority to modify the balance of tokens at other addresses, which may result in a loss of assets."
 msgstr ""
 
@@ -1253,9 +1250,6 @@ msgstr "所有錢包和帳戶都已靜音"
 
 msgid "Disconnected from your social graph"
 msgstr "從你的社交圖譜中取消連結"
-
-msgid "Failed to upload."
-msgstr "上傳失敗"
 
 msgid "{attentionFactors, plural, one {# Attention item} other {# Attention items}}"
 msgstr ""
@@ -2612,9 +2606,6 @@ msgstr ""
 
 msgid "Oversupply minting."
 msgstr ""
-
-msgid "Invalid URL"
-msgstr "無效的 URL"
 
 msgid "Followed <0>@{handle}</0> on {0}"
 msgstr ""
