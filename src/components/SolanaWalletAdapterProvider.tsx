@@ -57,7 +57,7 @@ function resolveEventId(name_: string) {
 
 function Insights() {
     const wallet = useWallet();
-    const walletAddress = wallet.publicKey?.toBase58();
+    const walletAddress = wallet.publicKey?.toBase58().toLowerCase();
     const walletName = wallet.wallet?.adapter.name.__brand__ ?? 'unknown';
 
     useEffect(() => {
