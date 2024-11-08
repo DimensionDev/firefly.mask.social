@@ -1,3 +1,5 @@
+// cspell:disable
+
 export enum VersionFilter {
     // the current working version
     Latest = 'latest',
@@ -48,6 +50,19 @@ export enum EventId {
     // token sync dialog
     TOKEN_SYNC_USE_YES = 'token_sync_use_yes', // ✅
     TOKEN_SYNC_USE_NO = 'token_sync_use_no', // ✅
+
+    // connect wallet
+    CONNECT_WALLET_SUCCESS = 'connect_wallet_success', // ✅
+    CONNECT_WALLET_SUCCESS_METAMASK = 'metamask_connect_wallet_success', // ✅
+    CONNECT_WALLET_SUCCESS_RABBY = 'rabby_connect_wallet_success', // ✅
+    CONNECT_WALLET_SUCCESS_WALLET_CONNECT = 'walletconnect_connect_wallet_success', // ✅
+    CONNECT_WALLET_SUCCESS_COINBASE = 'coinbase_connect_wallet_success', // ✅
+    CONNECT_WALLET_SUCCESS_PARTICLE = 'particle_generate_wallet_success', // ✅
+    CONNECT_WALLET_SUCCESS_BINANCE = 'binancewallet_connect_wallet_success', // ✅
+    CONNECT_WALLET_SUCCESS_OKX = 'okxwallet_connect_wallet_success', // ✅
+    CONNECT_WALLET_SUCCESS_ZERION = 'zerion_connect_wallet_success', // ✅
+    CONNECT_WALLET_SUCCESS_RAINBOW = 'rainbow_connect_wallet_success', // ✅
+    CONNECT_WALLET_SUCCESS_PHANTOM = 'phantom_connect_wallet_success', // ✅
 
     // farcaster
     FARCASTER_LOG_IN_SUCCESS = 'farcaster_log_in_success', // ✅
@@ -161,6 +176,13 @@ export interface TwitterPostEventParameters extends TwitterEventParameters {
     target_x_post_id: string;
 }
 
+export interface ConnectWalletEventParameters {
+    wallet_name: string;
+    wallet_address?: string;
+    solana_address?: string;
+    firefly_account_id: string;
+}
+
 export interface ComposeEventParameters {
     firefly_account_id: string;
 
@@ -201,6 +223,15 @@ export interface ComposeEventParameters {
     include_poll: boolean;
     poll_id?: string;
 
+    include_x_poll: boolean;
+    x_poll_id?: string;
+
+    include_lens_poll: boolean;
+    lens_poll_id?: string;
+
+    include_farcaster_poll: boolean;
+    farcaster_poll_id?: string;
+
     // flags
     include_image: boolean;
     include_video: boolean;
@@ -212,6 +243,51 @@ export interface Events extends Record<EventId, Event> {
         parameters: {
             message: string;
         };
+    };
+
+    [EventId.CONNECT_WALLET_SUCCESS]: {
+        type: EventType.Interact;
+        parameters: ConnectWalletEventParameters;
+    };
+    [EventId.CONNECT_WALLET_SUCCESS_METAMASK]: {
+        type: EventType.Interact;
+        parameters: ConnectWalletEventParameters;
+    };
+    [EventId.CONNECT_WALLET_SUCCESS_RABBY]: {
+        type: EventType.Interact;
+        parameters: ConnectWalletEventParameters;
+    };
+    [EventId.CONNECT_WALLET_SUCCESS_WALLET_CONNECT]: {
+        type: EventType.Interact;
+        parameters: ConnectWalletEventParameters;
+    };
+    [EventId.CONNECT_WALLET_SUCCESS_COINBASE]: {
+        type: EventType.Interact;
+        parameters: ConnectWalletEventParameters;
+    };
+    [EventId.CONNECT_WALLET_SUCCESS_PARTICLE]: {
+        type: EventType.Interact;
+        parameters: ConnectWalletEventParameters;
+    };
+    [EventId.CONNECT_WALLET_SUCCESS_BINANCE]: {
+        type: EventType.Interact;
+        parameters: ConnectWalletEventParameters;
+    };
+    [EventId.CONNECT_WALLET_SUCCESS_OKX]: {
+        type: EventType.Interact;
+        parameters: ConnectWalletEventParameters;
+    };
+    [EventId.CONNECT_WALLET_SUCCESS_ZERION]: {
+        type: EventType.Interact;
+        parameters: ConnectWalletEventParameters;
+    };
+    [EventId.CONNECT_WALLET_SUCCESS_RAINBOW]: {
+        type: EventType.Interact;
+        parameters: ConnectWalletEventParameters;
+    };
+    [EventId.CONNECT_WALLET_SUCCESS_PHANTOM]: {
+        type: EventType.Interact;
+        parameters: ConnectWalletEventParameters;
     };
 
     [EventId.COMPOSE_CROSS_POST_SEND_SUCCESS]: {

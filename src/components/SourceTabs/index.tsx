@@ -39,7 +39,7 @@ export function SourceTabs({ children }: PropsWithChildren) {
                 {
                     'top-[53px]': IS_APPLE && IS_SAFARI,
                 },
-                overflowed ? 'gap-1 px-2' : 'px-4',
+                overflowed ? 'gap-1 px-2' : 'px-3',
             )}
         >
             {overflowed ? (

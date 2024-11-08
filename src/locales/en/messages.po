@@ -79,6 +79,9 @@ msgstr "Sell Tax: {0}%"
 msgid "Failed to translate post. Please retry later."
 msgstr "Failed to translate post. Please retry later."
 
+msgid "Posts"
+msgstr "Posts"
+
 msgid "Failed to fetch as Blob."
 msgstr "Failed to fetch as Blob."
 
@@ -402,6 +405,9 @@ msgstr "<0>Sent</0> an NFT"
 
 msgid "Report post"
 msgstr "Report post"
+
+msgid "Tokens"
+msgstr "Tokens"
 
 msgid "Skip"
 msgstr "Skip"
@@ -1177,9 +1183,6 @@ msgstr "Sold Out"
 msgid "Proxy contract"
 msgstr "Proxy contract"
 
-msgid "Failed to fetch profile."
-msgstr "Failed to fetch profile."
-
 msgid "The contract owner has the authority to modify the balance of tokens at other addresses, which may result in a loss of assets."
 msgstr "The contract owner has the authority to modify the balance of tokens at other addresses, which may result in a loss of assets."
 
@@ -1248,9 +1251,6 @@ msgstr "All wallets and accounts are muted."
 
 msgid "Disconnected from your social graph"
 msgstr "Disconnected from your social graph"
-
-msgid "Failed to upload."
-msgstr "Failed to upload."
 
 msgid "{attentionFactors, plural, one {# Attention item} other {# Attention items}}"
 msgstr "{attentionFactors, plural, one {# Attention item} other {# Attention items}}"
@@ -1458,6 +1458,9 @@ msgstr "Owner can set a different tax rate for every assigned address."
 
 msgid "Tag {0} in a post to let them know you’ve sent an onchain tip to their wallet."
 msgstr "Tag {0} in a post to let them know you’ve sent an onchain tip to their wallet."
+
+msgid "{0}<0> Items</0>"
+msgstr "{0}<0> Items</0>"
 
 msgid "Articles from {handleOrEnsOrAddress} will now be hidden in your home timeline"
 msgstr "Articles from {handleOrEnsOrAddress} will now be hidden in your home timeline"
@@ -2019,6 +2022,9 @@ msgstr "Quotes"
 
 msgid "The user rejected the request."
 msgstr "The user rejected the request."
+
+msgid "{0}{1}<0> Floor</0>"
+msgstr "{0}{1}<0> Floor</0>"
 
 msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} <4>collected your </4><5>{1, select, Post {post} Comment {comment} Quote {quote} Mirror {mirror} other {post}}</5>"
 msgstr "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} <4>collected your </4><5>{1, select, Post {post} Comment {comment} Quote {quote} Mirror {mirror} other {post}}</5>"
@@ -2613,9 +2619,6 @@ msgstr "Firefly Bridge"
 
 msgid "Oversupply minting."
 msgstr "Oversupply minting."
-
-msgid "Invalid URL"
-msgstr "Invalid URL"
 
 msgid "Followed <0>@{handle}</0> on {0}"
 msgstr "Followed <0>@{handle}</0> on {0}"

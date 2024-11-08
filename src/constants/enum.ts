@@ -100,6 +100,8 @@ export enum SearchType {
     Profiles = 'users',
     Posts = 'posts',
     Channels = 'channels',
+    NFTs = 'nfts',
+    Tokens = 'tokens',
 }
 
 export enum KeyType {

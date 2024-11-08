@@ -84,6 +84,9 @@ msgstr ""
 msgid "Failed to translate post. Please retry later."
 msgstr "無法翻譯貼文。請稍候再嘗試"
 
+msgid "Posts"
+msgstr ""
+
 msgid "Failed to fetch as Blob."
 msgstr ""
 
@@ -407,6 +410,9 @@ msgstr "<0>發送</0>一個 NFT"
 
 msgid "Report post"
 msgstr "檢舉貼文"
+
+msgid "Tokens"
+msgstr ""
 
 msgid "Skip"
 msgstr "跳過"
@@ -1182,9 +1188,6 @@ msgstr "售罄"
 msgid "Proxy contract"
 msgstr "代理合約"
 
-msgid "Failed to fetch profile."
-msgstr ""
-
 msgid "The contract owner has the authority to modify the balance of tokens at other addresses, which may result in a loss of assets."
 msgstr ""
 
@@ -1253,9 +1256,6 @@ msgstr "所有錢包和帳戶都已靜音"
 
 msgid "Disconnected from your social graph"
 msgstr "從你的社交圖譜中取消連結"
-
-msgid "Failed to upload."
-msgstr "上傳失敗"
 
 msgid "{attentionFactors, plural, one {# Attention item} other {# Attention items}}"
 msgstr ""
@@ -1462,6 +1462,9 @@ msgid "Owner can set a different tax rate for every assigned address."
 msgstr ""
 
 msgid "Tag {0} in a post to let them know you’ve sent an onchain tip to their wallet."
+msgstr ""
+
+msgid "{0}<0> Items</0>"
 msgstr ""
 
 msgid "Articles from {handleOrEnsOrAddress} will now be hidden in your home timeline"
@@ -2024,6 +2027,9 @@ msgstr "引用"
 
 msgid "The user rejected the request."
 msgstr "用戶拒絕了請求"
+
+msgid "{0}{1}<0> Floor</0>"
+msgstr ""
 
 msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} <4>collected your </4><5>{1, select, Post {post} Comment {comment} Quote {quote} Mirror {mirror} other {post}}</5>"
 msgstr ""
@@ -2618,9 +2624,6 @@ msgstr ""
 
 msgid "Oversupply minting."
 msgstr ""
-
-msgid "Invalid URL"
-msgstr "無效的 URL"
 
 msgid "Followed <0>@{handle}</0> on {0}"
 msgstr ""

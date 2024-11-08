@@ -84,6 +84,9 @@ msgstr "售卖税率: {0}%"
 msgid "Failed to translate post. Please retry later."
 msgstr "翻译失败。请稍后重试。"
 
+msgid "Posts"
+msgstr ""
+
 msgid "Failed to fetch as Blob."
 msgstr "获取 Blob 失败。"
 
@@ -407,6 +410,9 @@ msgstr "<0>发送了</0> 一个 NFT"
 
 msgid "Report post"
 msgstr "举报帖子"
+
+msgid "Tokens"
+msgstr ""
 
 msgid "Skip"
 msgstr "跳过"
@@ -1182,9 +1188,6 @@ msgstr "售罄"
 msgid "Proxy contract"
 msgstr "代理合约"
 
-msgid "Failed to fetch profile."
-msgstr "未能获取个人资料。"
-
 msgid "The contract owner has the authority to modify the balance of tokens at other addresses, which may result in a loss of assets."
 msgstr "合约所有人有权修改其他地址的通证通证余额，这可能造成资产损失。"
 
@@ -1253,9 +1256,6 @@ msgstr "已隐藏所有的钱包和账户。"
 
 msgid "Disconnected from your social graph"
 msgstr "从您的社交图谱中断开"
-
-msgid "Failed to upload."
-msgstr "上传文件失败。"
 
 msgid "{attentionFactors, plural, one {# Attention item} other {# Attention items}}"
 msgstr "{attentionFactors, plural, one {# 风险条目} other {# 风险条目}}"
@@ -1463,6 +1463,9 @@ msgstr ""
 
 msgid "Tag {0} in a post to let them know you’ve sent an onchain tip to their wallet."
 msgstr "在帖子中标记 {0}，让他们知道你已经向他们的钱包发打赏了一笔小费。"
+
+msgid "{0}<0> Items</0>"
+msgstr ""
 
 msgid "Articles from {handleOrEnsOrAddress} will now be hidden in your home timeline"
 msgstr "{handleOrEnsOrAddress} 的文章会从您的时间线中隐藏。"
@@ -2024,6 +2027,9 @@ msgstr "引用"
 
 msgid "The user rejected the request."
 msgstr "用户取消了请求。"
+
+msgid "{0}{1}<0> Floor</0>"
+msgstr ""
 
 msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} <4>collected your </4><5>{1, select, Post {post} Comment {comment} Quote {quote} Mirror {mirror} other {post}}</5>"
 msgstr "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} <4>收集了你的 </4><5>{1, select, Post {发帖} Comment {评论} Quote {引用} Mirror {转帖} other {帖子}}</5>"
@@ -2618,9 +2624,6 @@ msgstr "Firefly 桥"
 
 msgid "Oversupply minting."
 msgstr "超出最大铸造数量。"
-
-msgid "Invalid URL"
-msgstr "无效的 URL"
 
 msgid "Followed <0>@{handle}</0> on {0}"
 msgstr "在 {0} 上关注了 <0>@{handle}</0>"

@@ -56,9 +56,9 @@ const fireflyMention = {
 
 async function searchIdentities(query: string) {
     const data = await FireflyEndpointProvider.searchIdentity(query);
-    if (!data?.list?.length) return [];
+    if (!data.data.length) return [];
 
-    return formatSearchIdentities(data.list);
+    return formatSearchIdentities(data.data);
 }
 
 async function openCompose(props: ShareLinkProps, onFinished: () => void) {
