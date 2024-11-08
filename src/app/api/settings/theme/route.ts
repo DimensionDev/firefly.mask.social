@@ -8,7 +8,7 @@ export async function POST(request: Request) {
     const { searchParams } = new URL(request.url);
 
     const rootClass = searchParams.get('root_class');
-    if (!rootClass) return createErrorResponseJSON('Missing paramater', { status: StatusCodes.BAD_REQUEST });
+    if (!rootClass) return createErrorResponseJSON('Missing parameter', { status: StatusCodes.BAD_REQUEST });
 
     return createSuccessResponseJSON(null, {
         headers: {
