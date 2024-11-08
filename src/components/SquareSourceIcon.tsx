@@ -44,6 +44,7 @@ export function SquareSourceIcon({ source, size = 20, forceLight, ...props }: Sq
         case Source.NFTs:
         case Source.Article:
         case Source.Snapshot:
+        case Source.Polymarket:
             return null;
         default:
             safeUnreachable(source);

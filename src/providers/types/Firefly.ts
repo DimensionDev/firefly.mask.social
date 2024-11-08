@@ -3,6 +3,7 @@ import type { Address, Hex } from 'viem';
 import {
     FireflyPlatform,
     NetworkType,
+    PolymarketBetType,
     S3ConvertStatus,
     type SocialSource,
     type SocialSourceInURL,
@@ -1222,6 +1223,45 @@ export type VotingResultResponse = Response<{
     trump: number;
     harris: number;
     tokenIdCount: number;
+}>;
+
+export type PolymarketActivity = {
+    asset: string;
+    blockNumber: number;
+    blockNumberSort: number;
+    conditionId: string;
+    conditionOutcomePrices: string[];
+    conditionOutcomes: string[];
+    conditionRawData: {};
+    displayInfo: {
+        avatarUrl: string;
+        ensHandle: string;
+    };
+    endDate: string;
+    eventSlug: string;
+    followingSources: string[];
+    icon: string;
+    image: string;
+    outcome: string;
+    outcomeIndex: number;
+    owner: string;
+    price: string;
+    proxyWallet: string;
+    side: PolymarketBetType;
+    size: string;
+    slug: string;
+    timestamp: number;
+    title: string;
+    transactionHash: string;
+    umaResolutionStatus: string;
+    usdcSize: string;
+    volume: string;
+    wallet: string;
+};
+
+export type PolymarketActivityTimeline = Response<{
+    result: PolymarketActivity[];
+    cursor?: string;
 }>;
 
 export type FireflyCrossProfile = {

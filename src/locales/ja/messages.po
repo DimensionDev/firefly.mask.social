@@ -1809,6 +1809,9 @@ msgstr ""
 msgid "View engagements"
 msgstr ""
 
+msgid "<0>worth ${0}</0><1>at Polymarket</1>"
+msgstr ""
+
 msgid "The contract owner has restrictions on selling."
 msgstr ""
 
@@ -2167,6 +2170,9 @@ msgid "Step 1 Sign in"
 msgstr ""
 
 msgid "Copy"
+msgstr ""
+
+msgid "Settled as {0}"
 msgstr ""
 
 msgid "No available wallet."
@@ -2661,6 +2667,9 @@ msgstr ""
 msgid "The scheduled time has passed."
 msgstr ""
 
+msgid "Place a bet"
+msgstr ""
+
 msgid "The connection has timed out. Please try again later."
 msgstr ""
 
@@ -2671,6 +2680,9 @@ msgid "Emoji"
 msgstr ""
 
 msgid "Failed to report spam NFT."
+msgstr ""
+
+msgid "Polymarket"
 msgstr ""
 
 msgid "Malformed twitter session payload."
@@ -2710,6 +2722,9 @@ msgid "Suspended account"
 msgstr ""
 
 msgid "No blackmail activities involved."
+msgstr ""
+
+msgid "Sold a bet"
 msgstr ""
 
 msgid "Final Step Claim Now!"

@@ -57,6 +57,7 @@ import {
     type IsMutedAllResponse,
     type MuteAllResponse,
     type NFTCollectionsResponse,
+    type PolymarketActivityTimeline,
     type RelationResponse,
     type Response,
     type SearchNFTResponse,
@@ -649,6 +650,51 @@ export class FireflyEndpoint {
         });
         if (!response.data) return false;
         return response.data.some((x) => x.is_followed && isSameEthereumAddress(x.address, address));
+    }
+
+    async getProfilePolymarketTimeline(
+        address: string,
+        platformFollowing: SourceInURL | 'all' = 'all',
+        indicator?: PageIndicator,
+    ) {
+        const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/user/timeline/polymarket');
+
+        const response = await fireflySessionHolder.fetch<PolymarketActivityTimeline>(url, {
+            method: 'POST',
+            body: JSON.stringify({
+                platformFollowing,
+                walletAddresses: [address],
+                size: 25,
+                cursor: indicator?.id,
+            }),
+        });
+        const data = resolveFireflyResponseData(response);
+
+        return createPageable(
+            data?.result || EMPTY_LIST,
+            createIndicator(indicator),
+            data?.cursor ? createNextIndicator(indicator, data.cursor) : undefined,
+        );
+    }
+
+    async getFollowingPolymarketTimeline(platformFollowing: SourceInURL | 'all' = 'all', indicator?: PageIndicator) {
+        const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/timeline/polymarket');
+
+        const response = await fireflySessionHolder.fetch<PolymarketActivityTimeline>(url, {
+            method: 'POST',
+            body: JSON.stringify({
+                platformFollowing,
+                size: 25,
+                cursor: indicator?.id,
+            }),
+        });
+        const data = resolveFireflyResponseData(response);
+
+        return createPageable(
+            data?.result || EMPTY_LIST,
+            createIndicator(indicator),
+            data?.cursor ? createNextIndicator(indicator, data.cursor) : undefined,
+        );
     }
 
     async searchTokens(query: string) {
