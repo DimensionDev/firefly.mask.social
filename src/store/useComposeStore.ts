@@ -558,6 +558,12 @@ const useComposeStateBase = create<ComposeState, [['zustand/immer', unknown]]>(
                     state,
                     (post) => ({
                         ...post,
+                        chars: (Array.isArray(post.chars) ? post.chars : [post.chars]).map((x) => {
+                            if (typeof x !== 'string' && x.tag === CHAR_TAG.FRAME) {
+                                return { ...x, id: pollId };
+                            }
+                            return x;
+                        }),
                         poll: post.poll
                             ? {
                                   ...post.poll,
@@ -565,12 +571,6 @@ const useComposeStateBase = create<ComposeState, [['zustand/immer', unknown]]>(
                                       (acc, x) => (post.availableSources.includes(x) ? { ...acc, [x]: pollId } : acc),
                                       post.poll?.pollIds,
                                   ),
-                                  chars: (Array.isArray(post.chars) ? post.chars : [post.chars]).map((x) => {
-                                      if (typeof x !== 'string' && x.tag === CHAR_TAG.FRAME) {
-                                          return { ...x, id: pollId };
-                                      }
-                                      return x;
-                                  }),
                               }
                             : null,
                     }),
