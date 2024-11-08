@@ -4,14 +4,13 @@ import '@/app/globals.css';
 import '@dialectlabs/blinks/index.css';
 
 import { GoogleAnalytics } from '@next/third-parties/google';
-import { isServer } from '@tanstack/react-query';
 import { Inter } from 'next/font/google';
-import { cookies } from 'next/headers.js';
 
 import { LayoutBody } from '@/app/layout-body.js';
 import { ErrorBoundary } from '@/components/ErrorBoundary/index.js';
 import { Script } from '@/esm/Script.js';
 import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
+import { getFromCookies } from '@/helpers/getLocaleFromCookies.js';
 
 const inter = Inter({
     subsets: ['latin'],
@@ -29,7 +28,7 @@ export const viewport = {
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
-    const rootClass = isServer ? cookies().get('firefly_root_class')?.value : undefined;
+    const rootClass = getFromCookies('firefly_root_class');
 
     return (
         <html className={rootClass}>
