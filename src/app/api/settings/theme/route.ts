@@ -5,12 +5,12 @@ import { createErrorResponseJSON, createSuccessResponseJSON } from '@/helpers/cr
 export async function POST(request: Request) {
     const { searchParams } = new URL(request.url);
 
-    const url = searchParams.get('url');
+    const rootClass = searchParams.get('root_class');
+    if (!rootClass) return createErrorResponseJSON('Missing parameter', { status: StatusCodes.BAD_REQUEST });
 
-    if (!url) return createErrorResponseJSON('Missing url', { status: StatusCodes.BAD_REQUEST });
     return createSuccessResponseJSON(null, {
         headers: {
-            'Set-Cookie': `firefly_root_api=${url}; path=/; Max-Age=315360000; SameSite=Lax; Secure}`,
+            'Set-Cookie': `firefly_root_class=${rootClass}; path=/; Max-Age=315360000; SameSite=Lax; Secure;`,
         },
     });
 }

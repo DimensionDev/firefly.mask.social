@@ -10,6 +10,7 @@ import { LayoutBody } from '@/app/layout-body.js';
 import { ErrorBoundary } from '@/components/ErrorBoundary/index.js';
 import { Script } from '@/esm/Script.js';
 import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
+import { getFromCookies } from '@/helpers/getLocaleFromCookies.js';
 
 const inter = Inter({
     subsets: ['latin'],
@@ -27,8 +28,10 @@ export const viewport = {
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
+    const rootClass = getFromCookies('firefly_root_class');
+
     return (
-        <html>
+        <html className={rootClass}>
             <head>
                 <Script src="/js/polyfills/base.js" strategy="beforeInteractive" />
                 <Script src="/js/polyfills/dom.js" strategy="beforeInteractive" />
