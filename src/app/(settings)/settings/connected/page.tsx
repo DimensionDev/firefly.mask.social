@@ -46,9 +46,9 @@ export default function Connected() {
                         LoginModalRef.open();
                     }}
                 >
-                    <div className="inline-flex h-10 items-center justify-center gap-2 self-stretch rounded-2xl bg-lightMain py-[11px]">
-                        <div className="w-full text-medium font-bold leading-[18px] text-primaryBottom">
-                            <Trans>Add account</Trans>
+                    <div className="inline-flex h-10 items-center justify-center gap-2 self-stretch rounded-2xl border border-current py-[11px] text-main">
+                        <div className="w-full text-medium font-bold leading-[18px]">
+                            <Trans>Add an existing account</Trans>
                         </div>
                     </div>
                 </ClickableButton>
@@ -60,8 +60,8 @@ export default function Connected() {
                             LogoutModalRef.open();
                         }}
                     >
-                        <div className="inline-flex h-10 items-center justify-center gap-2 self-stretch rounded-2xl bg-danger px-[18px] py-[11px]">
-                            <div className="text-medium font-bold leading-[18px] text-white dark:text-lightMain">
+                        <div className="inline-flex h-10 items-center justify-center gap-2 self-stretch rounded-2xl border border-current px-[18px] py-[11px] text-danger">
+                            <div className="text-[15px] font-bold leading-[18px]">
                                 <Trans>Log out all</Trans>
                             </div>
                         </div>

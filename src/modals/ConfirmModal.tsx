@@ -14,6 +14,7 @@ export interface ConfirmModalOpenProps {
     content: React.ReactNode;
     contentClass?: string;
     modalClass?: string;
+    confirmButtonClass?: string;
     confirmButtonText?: string;
     cancelButtonText?: string;
     enableConfirmButton?: boolean;
@@ -103,6 +104,7 @@ export const ConfirmModal = forwardRef<SingletonModalRefCreator<ConfirmModalOpen
                                                 'bg-commonDanger text-lightBottom': props.variant === 'danger',
                                                 'border border-main bg-bottom text-main': props.variant === 'secondary',
                                             },
+                                            props.confirmButtonClass,
                                         )}
                                         onClick={() => {
                                             props.onConfirm?.();

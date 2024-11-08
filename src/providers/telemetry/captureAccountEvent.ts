@@ -31,6 +31,17 @@ const resolveLogoutEventId = createLookupTableResolver<SocialSource, EventId>(
     },
 );
 
+const resolveDisconnectEventId = createLookupTableResolver<SocialSource, EventId>(
+    {
+        [Source.Farcaster]: EventId.FARCASTER_ACCOUNT_DISCONNECT_SUCCESS,
+        [Source.Lens]: EventId.LENS_ACCOUNT_DISCONNECT_SUCCESS,
+        [Source.Twitter]: EventId.X_ACCOUNT_DISCONNECT_SUCCESS,
+    },
+    (source) => {
+        throw new UnreachableError('source', source);
+    },
+);
+
 function getAccountEventParameters(account: Account) {
     const source = account.profile.source;
     const accounts = getProfileState(source).accounts.map((x) => [x.profile.profileId, x.profile.handle]) as Array<
@@ -65,6 +76,37 @@ function getAccountEventParameters(account: Account) {
     }
 }
 
+function getAccountDisconnectEventParameters(account: Account) {
+    const source = account.profile.source;
+    const accounts = getProfileState(source).accounts.map((x) => [x.profile.profileId, x.profile.handle]) as Array<
+        [string, string]
+    >;
+
+    switch (source) {
+        case Source.Farcaster:
+            return {
+                is_token_sync: account.origin === 'sync',
+                farcaster_id: account.profile.profileId,
+                farcaster_handle: account.profile.handle,
+            };
+        case Source.Lens:
+            return {
+                is_token_sync: account.origin === 'sync',
+                lens_id: account.profile.profileId,
+                lens_handle: account.profile.handle,
+            };
+        case Source.Twitter:
+            return {
+                is_token_sync: account.origin === 'sync',
+                x_id: account.profile.profileId,
+                x_handle: account.profile.handle,
+            };
+        default:
+            safeUnreachable(source);
+            throw new UnreachableError('source', source);
+    }
+}
+
 export function captureAccountLoginEvent(account: Account) {
     return runInSafeAsync(() => {
         const source = account.profile.source;
@@ -76,6 +118,16 @@ export function captureAccountLogoutEvent(account: Account) {
     return runInSafeAsync(() => {
         const source = account.profile.source;
         return TelemetryProvider.captureEvent(resolveLogoutEventId(source), getAccountEventParameters(account));
+    });
+}
+
+export function captureAccountDisconnectEvent(account: Account) {
+    return runInSafeAsync(() => {
+        const source = account.profile.source;
+        return TelemetryProvider.captureEvent(
+            resolveDisconnectEventId(source),
+            getAccountDisconnectEventParameters(account),
+        );
     });
 }
 

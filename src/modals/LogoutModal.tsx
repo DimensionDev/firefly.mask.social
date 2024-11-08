@@ -8,6 +8,7 @@ import { forwardRef } from 'react';
 
 import { ProfileInList } from '@/components/Login/ProfileInList.js';
 import { SORTED_SOCIAL_SOURCES } from '@/constants/index.js';
+import { classNames } from '@/helpers/classNames.js';
 import { getProfileState } from '@/helpers/getProfileState.js';
 import { useSingletonModal } from '@/hooks/useSingletonModal.js';
 import type { SingletonModalRefCreator } from '@/libs/SingletonModal.js';
@@ -30,29 +31,38 @@ export const LogoutModal = forwardRef<SingletonModalRefCreator<LogoutModalProps 
 
             const confirmed = await ConfirmModalRef.openAndWaitForClose({
                 title: t`Log out`,
+                contentClass: 'px-0 !pt-0',
+                confirmButtonClass: 'mx-6',
                 content: (
-                    <>
-                        <div className="text-medium font-medium leading-normal text-lightMain">
+                    <div className="flex flex-col gap-2">
+                        <div className="px-6 text-medium font-medium leading-normal text-lightMain">
                             {props?.account ? (
                                 <Trans>Confirm to log out this account?</Trans>
                             ) : (
                                 <Trans>Confirm to log out all accounts?</Trans>
                             )}
                         </div>
-                        <menu className="flex max-h-[192px] flex-col gap-3 overflow-auto pb-4 pt-2">
+                        <menu
+                            className={classNames(
+                                'flex max-h-[192px] flex-col gap-3 overflow-auto px-6 pt-2',
+                                accounts.length <= 1 ? 'pb-2' : 'pb-6',
+                            )}
+                        >
                             {accounts.map((account) => (
-                                <ProfileInList
-                                    key={account.profile.profileId}
-                                    selected
-                                    selectable={false}
-                                    profile={account.profile}
-                                    ProfileAvatarProps={{
-                                        enableSourceIcon: true,
-                                    }}
-                                />
+                                <div className="rounded-lg px-3 py-2 shadow-primary">
+                                    <ProfileInList
+                                        key={account.profile.profileId}
+                                        selected
+                                        selectable={false}
+                                        profile={account.profile}
+                                        ProfileAvatarProps={{
+                                            enableSourceIcon: true,
+                                        }}
+                                    />
+                                </div>
                             ))}
                         </menu>
-                    </>
+                    </div>
                 ),
             });
             if (!confirmed) return;
