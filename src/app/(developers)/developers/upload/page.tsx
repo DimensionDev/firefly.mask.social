@@ -13,9 +13,12 @@ import { IS_PRODUCTION } from '@/constants/index.js';
 import { Image } from '@/esm/Image.js';
 import { Link } from '@/esm/Link.js';
 import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
+import { getI18n } from '@/i18n/index.js';
 import { uploadToDirectory } from '@/services/uploadToS3.js';
 
 export default function Page() {
+    const i18n = getI18n();
+
     const fileInputRef = useRef<HTMLInputElement>(null);
     const [directory, setDirectory] = useState('');
     const [name, setName] = useState('');
@@ -28,7 +31,7 @@ export default function Page() {
             const url = await uploadToDirectory(file, directory, () => name);
             setUrl(url);
         } catch (error) {
-            enqueueErrorMessage(t`Failed to upload.`, { error });
+            enqueueErrorMessage(t(i18n)`Failed to upload.`, { error });
             throw error;
         }
     }, [file, directory, name, setUrl]);
@@ -56,13 +59,13 @@ export default function Page() {
                 value={directory}
                 onChange={(e) => setDirectory(e.target.value)}
                 className="h-10 w-full rounded-xl bg-bgModal"
-                placeholder={t`Directory`}
+                placeholder={t(i18n)`Directory`}
             />
             <input
                 value={name}
                 onChange={(e) => setName(e.target.value)}
                 className="h-10 w-full rounded-xl bg-bgModal"
-                placeholder={t`Name`}
+                placeholder={t(i18n)`Name`}
             />
             <ClickableButton
                 className="mt-6 flex w-full items-center justify-center rounded-2xl bg-main p-2 text-xl font-bold leading-6 text-primaryBottom"

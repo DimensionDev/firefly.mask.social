@@ -1,8 +1,8 @@
 'use client';
 
-import { t, Trans } from '@lingui/macro';
+import { Trans } from '@lingui/macro';
 import { safeUnreachable } from '@masknet/kit';
-import type { ChangeEvent } from 'react';
+import type { ChangeEvent, ReactNode } from 'react';
 
 import { Headline } from '@/app/(settings)/components/Headline.js';
 import { Section } from '@/app/(settings)/components/Section.js';
@@ -15,16 +15,16 @@ type Item =
     | {
           type: 'checkbox';
           value: boolean;
-          title: string;
-          description: string;
+          title: ReactNode;
+          description: ReactNode;
           onClick?: () => void;
       }
     | {
           type: 'select';
           value: string;
           items: Array<{ label: string; value: string }>;
-          title: string;
-          description: string;
+          title: ReactNode;
+          description: ReactNode;
           onChange?: (ev: ChangeEvent<HTMLSelectElement>) => void;
       };
 
@@ -36,8 +36,8 @@ export default function Page() {
         {
             type: 'checkbox',
             value: telemetry,
-            title: t`Enable logging telemetry events`,
-            description: t`Log telemetry events to the console.`,
+            title: <Trans>Enable logging telemetry events</Trans>,
+            description: <Trans>Log telemetry events to the console.</Trans>,
             onClick: () => {
                 updateTelemetry(!telemetry);
             },
@@ -45,8 +45,8 @@ export default function Page() {
         {
             type: 'checkbox',
             value: telemetryDebug,
-            title: t`Enable telemetry debug mode`,
-            description: t`Send telemetry events in debug mode.`,
+            title: <Trans>Enable telemetry debug mode</Trans>,
+            description: <Trans>Send telemetry events in debug mode.</Trans>,
             onClick: () => {
                 updateTelemetryDebug(!telemetryDebug);
             },
@@ -54,8 +54,8 @@ export default function Page() {
         {
             type: 'checkbox',
             value: developmentAPI,
-            title: t`Enable development API version`,
-            description: t`Switch to the development API version for testing new features.`,
+            title: <Trans>Enable development API version</Trans>,
+            description: <Trans>Switch to the development API version for testing new features.</Trans>,
             onClick: () => {
                 updateDevelopmentAPI(!developmentAPI);
             },
