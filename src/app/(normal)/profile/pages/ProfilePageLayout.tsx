@@ -41,8 +41,11 @@ export async function ProfilePageLayout({ identity, children }: PropsWithChildre
                 ) : profile ? (
                     <Info profile={profile} />
                 ) : null}
-                <ProfileTabs profiles={profiles} identity={identity} />
-                <NoSSR>{children}</NoSSR>
+
+                <NoSSR>
+                    <ProfileTabs profiles={profiles} identity={identity} />
+                    {children}
+                </NoSSR>
                 <ProfileDetailEffect profile={profile} identity={identity} />
             </>
         );
