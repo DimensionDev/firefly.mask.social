@@ -193,7 +193,14 @@ export async function crossPost(
                 const updatedCompositePost = getCompositePost(compositePost.id);
                 if (!updatedCompositePost) throw new Error(`Post not found with id: ${compositePost.id}`);
 
-                const result = await resolvePostTo(source)(type, updatedCompositePost, signal);
+                const result = await resolvePostTo(source)(
+                    type,
+                    {
+                        ...compositePost,
+                        poll: updatedCompositePost.poll,
+                    },
+                    signal,
+                );
                 updatePostInThread(compositePost.id, (post) => ({
                     ...post,
                     postError: {
