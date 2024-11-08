@@ -4,6 +4,7 @@ import {
     FireflyPlatform,
     NetworkType,
     S3ConvertStatus,
+    type SocialSource,
     type SocialSourceInURL,
     type Source,
     WalletSource,
@@ -282,7 +283,7 @@ export type CastsResponse = Response<{
 export type SearchCastsResponse = Response<Cast[]>;
 
 export type SearchProfileResponse = Response<{
-    list: Array<Record<SocialSourceInURL, Profile[] | null>>;
+    list: Array<Record<SocialSourceInURL | 'eth' | 'solana', Profile[] | null>>;
     cursor: number;
     size: number;
 }>;
@@ -1221,4 +1222,67 @@ export type VotingResultResponse = Response<{
     trump: number;
     harris: number;
     tokenIdCount: number;
+}>;
+
+export type FireflyCrossProfile = {
+    platform: SocialSource;
+    profileId: string;
+    avatar: string;
+    handle: string;
+    name: string;
+    allProfile: Profile[];
+    hasWallet: boolean;
+};
+
+export type SearchableNFT = {
+    amounts_total: number;
+    attributes: unknown[];
+    banner_url?: string;
+    collections_with_same_name: unknown[];
+    contract_address: string;
+    deploy_block_number: number;
+    description: string;
+    discord?: string;
+    email?: string;
+    erc_type: string;
+    featured_url: string;
+    floor_price: number;
+    github?: string;
+    instagram?: string;
+    is_spam: boolean;
+    items_total: number;
+    large_image_url: string;
+    logo_url: string;
+    medium?: string;
+    name: string;
+    opensea_floor_price: number;
+    opensea_slug: string;
+    opensea_verified: boolean;
+    owner: string;
+    owners_total: number;
+    price_symbol: string;
+    royalty: number;
+    symbol: string;
+    telegram?: string;
+    twitter?: string;
+    verified: boolean;
+    website?: string;
+};
+
+export type SearchNFTResponse = Response<{
+    list: SearchableNFT[];
+}>;
+
+export type SearchableToken = {
+    api_symbol: string;
+    id: string;
+    large: string;
+    market_cap_rank: number;
+    name: string;
+    symbol: string;
+    thumb: string;
+};
+
+export type SearchTokenResponse = Response<{
+    coins: SearchableToken[];
 }>;

@@ -3,6 +3,7 @@
 import { t, Trans } from '@lingui/macro';
 import { useQuery } from '@tanstack/react-query';
 import { first, uniqBy } from 'lodash-es';
+import { usePathname } from 'next/navigation.js';
 import { useDebounce } from 'usehooks-ts';
 
 import LoadingIcon from '@/assets/loading.svg';
@@ -11,12 +12,13 @@ import { Avatar } from '@/components/Avatar.js';
 import { ClearButton } from '@/components/ClearButton.js';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { SocialSourceIcon } from '@/components/SocialSourceIcon.js';
-import { SearchType, Source } from '@/constants/enum.js';
+import { PageRoute, SearchType, Source } from '@/constants/enum.js';
 import { MAX_RECOMMEND_PROFILE_SIZE } from '@/constants/index.js';
 import { Link } from '@/esm/Link.js';
 import { classNames } from '@/helpers/classNames.js';
 import { getChannelUrl } from '@/helpers/getChannelUrl.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
+import { isRoutePathname } from '@/helpers/isRoutePathname.js';
 import { createIndicator, type Pageable, type PageIndicator } from '@/helpers/pageable.js';
 import { resolveSearchUrl } from '@/helpers/resolveSearchUrl.js';
 import { FarcasterSocialMediaProvider } from '@/providers/farcaster/SocialMedia.js';
@@ -24,7 +26,7 @@ import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
 import type { Channel, Profile } from '@/providers/types/SocialMedia.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
 import { useSearchHistoryStateStore } from '@/store/useSearchHistoryStore.js';
-import { type SearchState } from '@/store/useSearchStore.js';
+import { type SearchState, useSearchStateStore } from '@/store/useSearchStore.js';
 
 interface SearchRecommendationProps {
     keyword: string;
@@ -34,7 +36,17 @@ interface SearchRecommendationProps {
     onClear?: () => void;
 }
 
+function fixSearchUrl(isSearchPage: boolean, query: string, searchType: SearchType, source: Source) {
+    if (!isSearchPage) return resolveSearchUrl(query);
+
+    return resolveSearchUrl(query, searchType, source);
+}
+
 export function SearchRecommendation(props: SearchRecommendationProps) {
+    const pathname = usePathname();
+    const isSearchPage = isRoutePathname(pathname, PageRoute.Search);
+    const { searchType, source } = useSearchStateStore();
+
     const { keyword, fullScreen = false, onSearch, onSelect, onClear } = props;
 
     const debouncedKeyword = useDebounce(keyword, 300);
@@ -82,7 +94,7 @@ export function SearchRecommendation(props: SearchRecommendationProps) {
         },
     );
 
-    if (keyword) {
+    if (keyword && !isSearchPage) {
         return (
             <div className={containerClasses}>
                 <h2 className="p-3 pb-2 text-sm">
@@ -90,7 +102,7 @@ export function SearchRecommendation(props: SearchRecommendationProps) {
                 </h2>
                 <Link
                     className="flex cursor-pointer items-center px-4 py-4 text-left hover:bg-bg"
-                    href={resolveSearchUrl(keyword)}
+                    href={fixSearchUrl(isSearchPage, keyword, searchType, source)}
                     onClick={() =>
                         onSearch?.({
                             q: keyword,
@@ -227,7 +239,7 @@ export function SearchRecommendation(props: SearchRecommendationProps) {
                         <Link
                             className="flex cursor-pointer items-center px-3 hover:bg-bg"
                             key={record}
-                            href={resolveSearchUrl(record)}
+                            href={fixSearchUrl(isSearchPage, record, searchType, source)}
                             onClick={() => {
                                 addRecord(record);
                                 onSearch?.({ q: record });

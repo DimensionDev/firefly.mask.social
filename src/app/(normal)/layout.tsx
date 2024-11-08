@@ -7,7 +7,6 @@ import { IfPathname } from '@/components/IfPathname.js';
 import { LinkCloud } from '@/components/LinkCloud.js';
 import { NavigatorBar } from '@/components/NavigatorBar/index.js';
 import { AsideSearchBar, HeaderSearchBar } from '@/components/Search/SearchBar.js';
-import { SearchFilter } from '@/components/Search/SearchFilter.js';
 import { Section } from '@/components/Semantic/Section.js';
 import { SuggestedFollowsCard } from '@/components/SuggestedFollows/SuggestedFollowsCard.js';
 import { PageRoute, Source } from '@/constants/enum.js';
@@ -52,12 +51,8 @@ export default function Layout({ children, modal }: { children: React.ReactNode;
                 </IfPathname>
 
                 <div className="no-scrollbar flex flex-1 flex-col gap-4 overflow-auto">
-                    <IfPathname isOneOf={[PageRoute.Search]}>
-                        <SearchFilter />
-                    </IfPathname>
-
-                    <IfPathname isNotOneOf={[PageRoute.Settings, PageRoute.Search]}>
-                        <Section title="Advertisement">
+                    <IfPathname isNotOneOf={[PageRoute.Settings]}>
+                        <Section title="Advertisement" className="mt-2.5">
                             <Advertisement />
                         </Section>
                     </IfPathname>

@@ -4,42 +4,75 @@ import { t, Trans } from '@lingui/macro';
 import { safeUnreachable } from '@masknet/kit';
 import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
 import { compact } from 'lodash-es';
-import { useMemo } from 'react';
 
 import { ChannelInList } from '@/components/ChannelInList.js';
 import { ListInPage } from '@/components/ListInPage.js';
 import { SinglePost } from '@/components/Posts/SinglePost.js';
-import { ProfileInList } from '@/components/ProfileInList.js';
-import { SourceTabs } from '@/components/SourceTabs/index.js';
-import { SourceTab } from '@/components/SourceTabs/SourceTab.js';
-import { ScrollListKey, SearchType, Source } from '@/constants/enum.js';
-import { SORTED_SEARCH_TYPE, SORTED_SOCIAL_SOURCES } from '@/constants/index.js';
+import { CrossProfileItem } from '@/components/Search/CrossProfileItem.js';
+import { SearchableNFTItem } from '@/components/Search/SearchableNFTItem.js';
+import { SearchableTokenItem } from '@/components/Search/SearchableTokenItem.js';
+import { SearchSources } from '@/components/Search/SearchSources.js';
+import { TokenMarketData } from '@/components/TokenProfile/TokenMarketData.js';
+import { ScrollListKey, SearchType } from '@/constants/enum.js';
+import { formatSearchIdentities } from '@/helpers/formatSearchIdentities.js';
 import { narrowToSocialSource } from '@/helpers/narrowToSocialSource.js';
 import { createIndicator } from '@/helpers/pageable.js';
-import { resolveSearchUrl } from '@/helpers/resolveSearchUrl.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
-import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { useNavigatorTitle } from '@/hooks/useNavigatorTitle.js';
-import type { Channel, Post, Profile } from '@/providers/types/SocialMedia.js';
-import { useTwitterStateStore } from '@/store/useProfileStore.js';
+import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
+import type { CoingeckoToken } from '@/providers/types/Coingecko.js';
+import type { FireflyCrossProfile, SearchableNFT, SearchableToken } from '@/providers/types/Firefly.js';
+import type { Channel, Post } from '@/providers/types/SocialMedia.js';
+import { searchTokens, type TokenWithMarket } from '@/services/searchTokens.js';
 import { useSearchStateStore } from '@/store/useSearchStore.js';
+
+function formatMarketToken(token: SearchableToken) {
+    return {
+        pluginID: 'string',
+        id: token.id,
+        symbol: token.symbol,
+        name: token.name,
+        source: '',
+        type: 'FungibleToken',
+        logoURL: token.thumb,
+        rank: token.market_cap_rank,
+        socialLinks: {
+            website: '',
+            twitter: '',
+            telegram: '',
+        },
+    } as CoingeckoToken;
+}
 
 const getSearchItemContent = (
     index: number,
-    item: Post | Profile | Channel,
+    item: Post | FireflyCrossProfile | Channel | SearchableNFT | TokenWithMarket,
     searchType: SearchType,
     listKey: string,
+    keyword: string,
 ) => {
     switch (searchType) {
         case SearchType.Profiles:
-            const profile = item as Profile;
-            return <ProfileInList key={profile.profileId} profile={profile} listKey={listKey} index={index} />;
+            const profile = item as FireflyCrossProfile;
+            return <CrossProfileItem profile={profile} key={`${profile.platform}_${profile.profileId}`} />;
         case SearchType.Posts:
             const post = item as Post;
             return <SinglePost key={post.postId} post={post} listKey={listKey} index={index} />;
         case SearchType.Channels:
             const channel = item as Channel;
             return <ChannelInList key={channel.id} channel={channel} listKey={listKey} index={index} />;
+        case SearchType.NFTs:
+            const nft = item as SearchableNFT;
+            return <SearchableNFTItem key={nft.contract_address} nft={nft} />;
+        case SearchType.Tokens:
+            const token = item as TokenWithMarket;
+            return token.hit ? (
+                <div className="p-3">
+                    <TokenMarketData linkable token={formatMarketToken(token)} />
+                </div>
+            ) : (
+                <SearchableTokenItem key={token.id} token={token} />
+            );
         default:
             safeUnreachable(searchType);
             return null;
@@ -48,19 +81,7 @@ const getSearchItemContent = (
 
 export default function Page() {
     const { searchKeyword, searchType, source } = useSearchStateStore();
-    const currentTwitterProfile = useTwitterStateStore.use.currentProfile();
     const currentSocialSource = narrowToSocialSource(source);
-
-    const sources = useMemo(() => {
-        return SORTED_SOCIAL_SOURCES.filter((x) => {
-            if (x === Source.Twitter && !currentTwitterProfile) return false;
-
-            const supportTypes = SORTED_SEARCH_TYPE[narrowToSocialSource(x)];
-            if (!supportTypes.includes(searchType)) return false;
-
-            return true;
-        });
-    }, [currentTwitterProfile, searchType]);
 
     const queryResult = useSuspenseInfiniteQuery({
         queryKey: ['search', searchType, searchKeyword, source],
@@ -71,11 +92,19 @@ export default function Page() {
 
             switch (searchType) {
                 case SearchType.Profiles:
-                    return provider.searchProfiles(searchKeyword, indicator);
+                    const data = await FireflyEndpointProvider.searchIdentity(searchKeyword, 25, indicator);
+                    return {
+                        ...data,
+                        data: formatSearchIdentities(data.data),
+                    };
                 case SearchType.Posts:
                     return provider.searchPosts(searchKeyword.replace(/^#/, ''), indicator);
                 case SearchType.Channels:
                     return provider.searchChannels(searchKeyword, indicator);
+                case SearchType.NFTs:
+                    return FireflyEndpointProvider.searchNFTs(searchKeyword);
+                case SearchType.Tokens:
+                    return searchTokens(searchKeyword);
                 default:
                     safeUnreachable(searchType);
                     return;
@@ -87,7 +116,14 @@ export default function Page() {
             return lastPage?.nextIndicator?.id;
         },
         select(data) {
-            return compact(data.pages.flatMap((x) => (x?.data ?? []) as Array<Profile | Post | Channel>));
+            return compact(
+                data.pages.flatMap(
+                    (x) =>
+                        (x?.data ?? []) as Array<
+                            FireflyCrossProfile | Post | Channel | SearchableNFT | TokenWithMarket
+                        >,
+                ),
+            );
         },
     });
 
@@ -97,13 +133,9 @@ export default function Page() {
 
     return (
         <>
-            <SourceTabs>
-                {sources.map((x) => (
-                    <SourceTab key={x} href={resolveSearchUrl(searchKeyword, searchType, x)} isActive={x === source}>
-                        {resolveSourceName(x)}
-                    </SourceTab>
-                ))}
-            </SourceTabs>
+            {searchType === SearchType.Posts ? (
+                <SearchSources source={source} query={searchKeyword} searchType={searchType} />
+            ) : null}
             <ListInPage
                 source={source}
                 key={listKey}
@@ -113,7 +145,7 @@ export default function Page() {
                     computeItemKey: (index, item) => {
                         switch (searchType) {
                             case SearchType.Profiles:
-                                const profile = item as Profile;
+                                const profile = item as FireflyCrossProfile;
                                 return `${profile.profileId}_${index}`;
                             case SearchType.Posts:
                                 const post = item as Post;
@@ -121,12 +153,16 @@ export default function Page() {
                             case SearchType.Channels:
                                 const channel = item as Channel;
                                 return `${channel.id}_${index}`;
+                            case SearchType.NFTs:
+                                return `${(item as SearchableNFT).contract_address}_${index}`;
+                            case SearchType.Tokens:
+                                return `${(item as TokenWithMarket).id}_${index}`;
                             default:
                                 safeUnreachable(searchType);
                                 return index;
                         }
                     },
-                    itemContent: (index, item) => getSearchItemContent(index, item, searchType, listKey),
+                    itemContent: (index, item) => getSearchItemContent(index, item, searchType, listKey, searchKeyword),
                 }}
                 NoResultsFallbackProps={{
                     message: (
