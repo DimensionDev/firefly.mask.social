@@ -10,7 +10,11 @@ function resolveLocale(locale: string): Locale {
     return getEnumAsArray(Locale).find(({ value }) => value === locale)?.value ?? defaultLocale;
 }
 
+export function getFromCookies(key: string) {
+    return bom.document ? getCookie(key) : cookies().get(key)?.value;
+}
+
 export function getLocaleFromCookies() {
-    const locale = bom.document ? getCookie('locale') : cookies().get('locale')?.value;
+    const locale = getFromCookies('locale');
     return locale ? resolveLocale(locale) : defaultLocale;
 }
