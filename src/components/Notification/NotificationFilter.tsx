@@ -1,7 +1,7 @@
 import { select, t } from '@lingui/macro';
 import { type Dispatch, type HTMLProps, type SetStateAction, useMemo } from 'react';
 
-import NotificationSelectedIcon from '@/assets/notification.selected.svg';
+import NotificationIcon from '@/assets/notification.svg';
 import { Source } from '@/constants/enum.js';
 import { EMPTY_LIST } from '@/constants/index.js';
 import { classNames } from '@/helpers/classNames.js';
@@ -37,7 +37,7 @@ export function NotificationFilter({ source, className, types, onTypesChange: se
                     setTypes(EMPTY_LIST);
                 }}
             >
-                <NotificationSelectedIcon width={14} height={14} />
+                <NotificationIcon width={14} height={14} />
                 {t`All notifications`}
             </div>,
             ...allTypes.map((type) => {
