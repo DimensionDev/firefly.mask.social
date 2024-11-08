@@ -2,7 +2,7 @@
 
 'use client';
 
-import { useAppKitAccount, useWalletInfo, type ConnectedWalletInfo } from '@reown/appkit/react';
+import {useAppKitAccount, useWalletInfo } from '@reown/appkit/react';
 import { useEffect } from 'react';
 import { isAddress } from 'viem';
 import { WagmiProvider as WagmiProviderSDK } from 'wagmi';
