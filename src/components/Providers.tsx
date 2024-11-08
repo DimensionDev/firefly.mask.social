@@ -6,9 +6,8 @@ import { ParticleProvider } from '@/components/ParticleProvider.js';
 import { QueryClientProviders } from '@/components/QueryClientProviders.js';
 import {
     SolanaWalletAdapterProvider,
-    type SolanaWalletAdapterProviderProps,
 } from '@/components/SolanaWalletAdapterProvider.js';
-import { WagmiProvider, type WagmiProviderProps } from '@/components/WagmiProvider.js';
+import { WagmiProvider } from '@/components/WagmiProvider.js';
 import { getLocaleFromCookies } from '@/helpers/getLocaleFromCookies.js';
 import { getLocale, setupLocaleForSSR } from '@/i18n/index.js';
 

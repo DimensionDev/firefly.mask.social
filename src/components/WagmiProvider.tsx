@@ -3,7 +3,7 @@
 'use client';
 
 import { useAppKitAccount, useWalletInfo } from '@reown/appkit/react';
-import { useEffect, useRef } from 'react';
+import { useEffect } from 'react';
 import { isAddress } from 'viem';
 import { WagmiProvider as WagmiProviderSDK } from 'wagmi';
 
@@ -50,12 +50,6 @@ function Insights() {
     const walletName = wallet.walletInfo?.name?.toLowerCase() ?? 'unknown';
 
     useEffect(() => {
-        console.log('DEBUG: changed');
-        console.log({
-            walletAddress,
-            walletName,
-        });
-
         if (!walletAddress || !isAddress(walletAddress)) return;
 
         captureConnectWalletEvent(resolveEventId(walletName), {
