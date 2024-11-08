@@ -10,19 +10,15 @@ import { ScrollListKey, Source } from '@/constants/enum.js';
 import { SORTED_SOCIAL_SOURCES } from '@/constants/index.js';
 import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
 import { getSnackbarMessageFromError } from '@/helpers/getSnackbarMessageFromError.js';
-import { narrowToSocialSource } from '@/helpers/narrowToSocialSource.js';
 import { createIndicator } from '@/helpers/pageable.js';
 import { useCurrentProfileAll } from '@/hooks/useCurrentProfile.js';
-import { useIsLogin } from '@/hooks/useIsLogin.js';
+import { useIsLoginFirefly } from '@/hooks/useIsLogin.js';
 import { useNavigatorTitle } from '@/hooks/useNavigatorTitle.js';
 import { FireflyArticleProvider } from '@/providers/firefly/Article.js';
-import { useGlobalState } from '@/store/useGlobalStore.js';
 
 export function ArticleBookmarkList() {
-    const currentSource = useGlobalState.use.currentSource();
-    const currentSocialSource = narrowToSocialSource(currentSource);
     const currentProfileAll = useCurrentProfileAll();
-    const isLogin = useIsLogin(currentSocialSource);
+    const isLogin = useIsLoginFirefly();
     const query = useSuspenseInfiniteQuery({
         queryKey: [
             'posts',
