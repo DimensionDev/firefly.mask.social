@@ -4,9 +4,7 @@ import { InitialProviders } from '@/components/InitialProviders.js';
 import { LinguiClientProvider } from '@/components/LinguiClientProvider.js';
 import { ParticleProvider } from '@/components/ParticleProvider.js';
 import { QueryClientProviders } from '@/components/QueryClientProviders.js';
-import {
-    SolanaWalletAdapterProvider,
-} from '@/components/SolanaWalletAdapterProvider.js';
+import { SolanaWalletAdapterProvider } from '@/components/SolanaWalletAdapterProvider.js';
 import { WagmiProvider } from '@/components/WagmiProvider.js';
 import { getLocaleFromCookies } from '@/helpers/getLocaleFromCookies.js';
 import { getLocale, setupLocaleForSSR } from '@/i18n/index.js';
