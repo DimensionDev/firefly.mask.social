@@ -52,6 +52,7 @@ function Insights() {
         if (!walletAddress || !isAddress(walletAddress)) return;
 
         captureConnectWalletEvent(resolveEventId(walletName), {
+            name: walletName,
             evmAddress: walletAddress,
         });
     }, [walletAddress, walletName]);

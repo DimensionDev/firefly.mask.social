@@ -5,7 +5,6 @@ import { EventId } from '@/providers/types/Telemetry.js';
 export function captureConnectWalletEvent(
     eventId:
         | EventId.CONNECT_WALLET_SUCCESS
-        | EventId.CONNECT_WALLET_SUCCESS
         | EventId.CONNECT_WALLET_SUCCESS_METAMASK
         | EventId.CONNECT_WALLET_SUCCESS_RABBY
         | EventId.CONNECT_WALLET_SUCCESS_WALLET_CONNECT
@@ -17,14 +16,22 @@ export function captureConnectWalletEvent(
         | EventId.CONNECT_WALLET_SUCCESS_PHANTOM
         | EventId.CONNECT_WALLET_SUCCESS_COINBASE,
     options?: {
+        name?: string;
         evmAddress?: string;
         solanaAddress?: string;
     },
 ) {
     return runInSafeAsync(async () => {
-        return TelemetryProvider.captureEvent(eventId, {
+        const parameters = {
+            wallet_name: options?.name ?? 'unknown',
             wallet_address: options?.evmAddress,
             solana_address: options?.solanaAddress,
-        });
+        };
+
+        if (eventId !== EventId.CONNECT_WALLET_SUCCESS) {
+            await TelemetryProvider.captureEvent(EventId.CONNECT_WALLET_SUCCESS, parameters);
+        }
+
+        return TelemetryProvider.captureEvent(eventId, parameters);
     });
 }
