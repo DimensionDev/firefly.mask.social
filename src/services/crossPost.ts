@@ -179,26 +179,22 @@ export async function crossPost(
         SORTED_SOCIAL_SOURCES.map(async (source) => {
             if (!availableSources.includes(source)) return null;
 
-            const updatedCompositePost = getCompositePost(compositePost.id);
-            if (!updatedCompositePost) throw new Error(`Post not found with id: ${compositePost.id}`);
-
             // post already published
-            if (skipIfPublishedPost && updatedCompositePost.postId[source]) {
+            if (skipIfPublishedPost && compositePost.postId[source]) {
                 return null;
             }
 
             // parent post is required for reply and quote
-            if (
-                (type === 'reply' || type === 'quote') &&
-                skipIfNoParentPost &&
-                !updatedCompositePost.parentPost[source]
-            ) {
+            if ((type === 'reply' || type === 'quote') && skipIfNoParentPost && !compositePost.parentPost[source]) {
                 return null;
             }
 
             try {
+                const updatedCompositePost = getCompositePost(compositePost.id);
+                if (!updatedCompositePost) throw new Error(`Post not found with id: ${compositePost.id}`);
+
                 const result = await resolvePostTo(source)(type, updatedCompositePost, signal);
-                updatePostInThread(updatedCompositePost.id, (post) => ({
+                updatePostInThread(compositePost.id, (post) => ({
                     ...post,
                     postError: {
                         ...post.postError,
@@ -207,7 +203,7 @@ export async function crossPost(
                 }));
                 return result;
             } catch (error) {
-                updatePostInThread(updatedCompositePost.id, (post) => ({
+                updatePostInThread(compositePost.id, (post) => ({
                     ...post,
                     postError: {
                         ...post.postError,

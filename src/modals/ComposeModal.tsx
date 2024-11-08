@@ -102,7 +102,6 @@ export const ComposeModalUI = forwardRef<SingletonModalRefCreator<ComposeModalOp
             updateParentPost,
             updateChars,
             updateTypedMessage,
-            updateRpPayload,
             updateChannel,
             clear,
         } = useComposeStateStore();
