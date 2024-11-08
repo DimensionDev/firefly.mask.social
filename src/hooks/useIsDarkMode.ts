@@ -1,7 +1,7 @@
 import { isServer } from '@tanstack/react-query';
 import { useMediaQuery } from 'usehooks-ts';
 
-import { getFromCookies } from '@/helpers/getLocaleFromCookies.js';
+import { getFromCookies } from '@/helpers/getFromCookies.js';
 import { useThemeModeStore } from '@/store/useThemeModeStore.js';
 
 export function useIsDarkMode() {
