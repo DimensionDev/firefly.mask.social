@@ -46,7 +46,7 @@ export interface CompositePost {
 
     // tracking the post id in specific platform if it's posted
     postId: Record<SocialSource, string | null>;
-    // tracking the parent post in specific platform
+    // tracking the parent post in specific platform (runtime only)
     parentPost: Record<SocialSource, OrphanPost | null>;
     // tracking error
     postError: Record<SocialSource, Error | null>;
