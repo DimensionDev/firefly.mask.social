@@ -10,7 +10,7 @@ import { LayoutBody } from '@/app/layout-body.js';
 import { ErrorBoundary } from '@/components/ErrorBoundary/index.js';
 import { Script } from '@/esm/Script.js';
 import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
-import { getFromCookies } from '@/helpers/getLocaleFromCookies.js';
+import { getFromCookies } from '@/helpers/getFromCookies.js';
 
 const inter = Inter({
     subsets: ['latin'],
