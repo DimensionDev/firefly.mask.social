@@ -19,7 +19,7 @@ import { useMount } from 'react-use';
 import { useAccount, useChainId } from 'wagmi';
 
 import { Locale } from '@/constants/enum.js';
-import { getLocaleFromCookies } from '@/helpers/getLocaleFromCookies.js';
+import { getLocaleFromCookies } from '@/helpers/getFromCookies.js';
 import { useMaskTheme } from '@/hooks/useMaskTheme.js';
 
 function resolveMaskLocale(locale: Locale) {

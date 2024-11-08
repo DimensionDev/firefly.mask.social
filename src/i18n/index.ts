@@ -3,7 +3,7 @@ import { setI18n } from '@lingui/react/server';
 import dayjs from 'dayjs';
 
 import { Locale } from '@/constants/enum.js';
-import { getLocaleFromCookies } from '@/helpers/getLocaleFromCookies.js';
+import { getLocaleFromCookies } from '@/helpers/getFromCookies.js';
 // @ts-ignore
 import { messages as en } from '@/locales/en/messages.mjs';
 // @ts-ignore
