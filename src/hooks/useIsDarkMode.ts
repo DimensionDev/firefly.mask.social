@@ -1,8 +1,8 @@
 import { isServer } from '@tanstack/react-query';
 import { useMediaQuery } from 'usehooks-ts';
 
-import { useThemeModeStore } from '@/store/useThemeModeStore.js';
 import { getFromCookies } from '@/helpers/getFromCookies.js';
+import { useThemeModeStore } from '@/store/useThemeModeStore.js';
 
 export function useIsDarkMode() {
     const rootClass = getFromCookies('firefly_root_class');
