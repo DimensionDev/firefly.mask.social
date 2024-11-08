@@ -96,9 +96,7 @@ export function ArticleCollect({ article }: ArticleCollectProps) {
 
     // User can collect again by reopen the modal
     const [modalSessionCollected, setModalSessionCollected] = useState(false);
-    const [txUrl, setTxUrl] = useState<string>(
-        'https://basescan.org/tx/0x97ed1eb8aaff17bdf37ef4c38ba621e1bba79bdccac038f4e2f76f996ba68607',
-    );
+    const [txUrl, setTxUrl] = useState<string>();
     const [{ loading: collectLoading }, handleCollect] = useAsyncFn(async () => {
         if (!data || !platform) return;
 
