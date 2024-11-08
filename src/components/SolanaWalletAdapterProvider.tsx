@@ -36,7 +36,7 @@ export function SolanaWalletAdapterProvider({ children }: PropsWithChildren) {
             <WalletProvider wallets={wallets} autoConnect localStorageKey={SOLANA_WALLET_CACHE_KEY}>
                 <WalletModalProvider>
                     {children}
-                    <Insides />
+                    <Insights />
                 </WalletModalProvider>
             </WalletProvider>
         </ConnectionProvider>
@@ -55,15 +55,16 @@ function resolveEventId(name_: string) {
     return EventId.CONNECT_WALLET_SUCCESS;
 }
 
-function Insides() {
+function Insights() {
     const wallet = useWallet();
-    const walletAddress = wallet.publicKey?.toBase58();
+    const walletAddress = wallet.publicKey?.toBase58().toLowerCase();
     const walletName = wallet.wallet?.adapter.name.__brand__ ?? 'unknown';
 
     useEffect(() => {
         if (!isValidSolanaAddress(walletAddress)) return;
 
         captureConnectWalletEvent(resolveEventId(walletName), {
+            name: walletName,
             solanaAddress: walletAddress,
         });
     }, [walletAddress, walletName]);
