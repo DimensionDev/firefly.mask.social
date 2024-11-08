@@ -101,7 +101,7 @@ export const PolymarketActivityItem = memo<PolymarketActivityProps>(function Pol
                             >
                                 {activity.outcome.toUpperCase()} - {floor(+activity.price * 100)}¢
                             </span>
-                            <span className="h-6 rounded-lg bg-lightBottom px-2 leading-6 text-lightMain">
+                            <span className="h-6 rounded-lg bg-lightBottom px-2 leading-6 text-lightMain dark:text-primaryBottom">
                                 ×{floor(formatAmount(activity.size))}
                             </span>
                         </div>
