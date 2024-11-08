@@ -1806,6 +1806,9 @@ msgstr "或者使用任意社交账户登录"
 msgid "View engagements"
 msgstr "查看互动"
 
+msgid "<0>worth ${0}</0><1>at Polymarket</1>"
+msgstr ""
+
 msgid "The contract owner has restrictions on selling."
 msgstr "合约所有者对销售有限制。"
 
@@ -2162,6 +2165,9 @@ msgstr "第 1 步 登录"
 
 msgid "Copy"
 msgstr "复制"
+
+msgid "Settled as {0}"
+msgstr ""
 
 msgid "No available wallet."
 msgstr "没有可用的钱包。"
@@ -2658,6 +2664,9 @@ msgstr "取消转帖"
 msgid "The scheduled time has passed."
 msgstr "定时任务的时间已过期。"
 
+msgid "Place a bet"
+msgstr ""
+
 msgid "The connection has timed out. Please try again later."
 msgstr "连接已经超时。请稍后重试。"
 
@@ -2669,6 +2678,9 @@ msgstr "表情符号"
 
 msgid "Failed to report spam NFT."
 msgstr "举报垃圾 NFT 失败。"
+
+msgid "Polymarket"
+msgstr ""
 
 msgid "Malformed twitter session payload."
 msgstr "错误的 twitter 会话。"
@@ -2708,6 +2720,9 @@ msgstr "被冻结账户"
 
 msgid "No blackmail activities involved."
 msgstr "未发现勒索行为。"
+
+msgid "Sold a bet"
+msgstr ""
 
 msgid "Final Step Claim Now!"
 msgstr "最后一步，立即领取！"

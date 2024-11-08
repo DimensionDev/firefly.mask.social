@@ -1801,6 +1801,9 @@ msgstr "Or login with any social account"
 msgid "View engagements"
 msgstr "View engagements"
 
+msgid "<0>worth ${0}</0><1>at Polymarket</1>"
+msgstr "<0>worth ${0}</0><1>at Polymarket</1>"
+
 msgid "The contract owner has restrictions on selling."
 msgstr "The contract owner has restrictions on selling."
 
@@ -2157,6 +2160,9 @@ msgstr "Step 1 Sign in"
 
 msgid "Copy"
 msgstr "Copy"
+
+msgid "Settled as {0}"
+msgstr "Settled as {0}"
 
 msgid "No available wallet."
 msgstr "No available wallet."
@@ -2653,6 +2659,9 @@ msgstr "Cancel Recast"
 msgid "The scheduled time has passed."
 msgstr "The scheduled time has passed."
 
+msgid "Place a bet"
+msgstr "Place a bet"
+
 msgid "The connection has timed out. Please try again later."
 msgstr "The connection has timed out. Please try again later."
 
@@ -2664,6 +2673,9 @@ msgstr "Emoji"
 
 msgid "Failed to report spam NFT."
 msgstr "Failed to report spam NFT."
+
+msgid "Polymarket"
+msgstr "Polymarket"
 
 msgid "Malformed twitter session payload."
 msgstr "Malformed twitter session payload."
@@ -2703,6 +2715,9 @@ msgstr "Suspended account"
 
 msgid "No blackmail activities involved."
 msgstr "No blackmail activities involved."
+
+msgid "Sold a bet"
+msgstr "Sold a bet"
 
 msgid "Final Step Claim Now!"
 msgstr "Final Step Claim Now!"
