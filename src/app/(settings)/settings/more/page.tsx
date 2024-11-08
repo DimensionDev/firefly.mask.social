@@ -36,12 +36,12 @@ export default function More() {
                 {[
                     {
                         href: 'https://mask.notion.site/Privacy-Policy-2e903bb2220e4dcfb7c3e8fcbd983d2a',
-                        title: t`Privacy Policy`,
+                        title: <Trans>Privacy Policy</Trans>,
                         icon: <SecurityIcon width={24} height={24} />,
                     },
                     {
                         href: 'https://mask.notion.site/Terms-of-Service-bd035d18f7814a79b9d4d7682d9d2d30',
-                        title: t`Terms of Service`,
+                        title: <Trans>Terms of Service</Trans>,
                         icon: <DocumentsIcon width={24} height={24} />,
                     },
                 ].map((document) => (
@@ -56,27 +56,27 @@ export default function More() {
             <div className="flex w-full flex-col gap-4">
                 {[
                     {
-                        content: t`Follow @thefireflyapp on X`,
+                        title: <Trans>Follow @thefireflyapp on X</Trans>,
                         link: 'https://x.com/intent/user?screen_name=thefireflyapp',
                         logo: SmallXIcon,
                     },
                     {
-                        content: t`Visit firefly.social`,
+                        title: <Trans>Visit firefly.social</Trans>,
                         link: 'https://firefly.social',
                         logo: FireflyRoundIcon,
                     },
                     {
-                        content: t`Join our Discord`,
+                        title: <Trans>Join our Discord</Trans>,
                         link: 'https://discord.com/invite/pufMbBGQZN',
                         logo: DiscordIcon,
                     },
                     {
-                        content: t`Join our Telegram`,
+                        title: <Trans>Join our Telegram</Trans>,
                         link: 'https://t.me/+mz9T_4YOYhoyYmYx',
                         logo: TelegramIcon,
                     },
-                ].map(({ content, link, logo }) => (
-                    <LinkCard key={link} content={content} link={link} logo={logo} />
+                ].map(({ title, link, logo }) => (
+                    <LinkCard key={link} title={title} link={link} logo={logo} />
                 ))}
             </div>
 
@@ -87,27 +87,27 @@ export default function More() {
             <div className="flex w-full flex-col gap-4">
                 {[
                     {
-                        content: t`Follow @realMaskNetwork on X`,
+                        title: <Trans>Follow @realMaskNetwork on X</Trans>,
                         link: 'https://x.com/intent/user?screen_name=realMaskNetwork',
                         logo: SmallXIcon,
                     },
                     {
-                        content: t`Visit mask.io`,
+                        title: <Trans>Visit mask.io</Trans>,
                         link: 'https://mask.io',
                         logo: MaskRoundIcon,
                     },
                     {
-                        content: t`Join our Discord`,
+                        title: <Trans>Join our Discord</Trans>,
                         link: 'https://discord.com/invite/4SVXvj7',
                         logo: DiscordIcon,
                     },
                     {
-                        content: t`Join our Telegram`,
+                        title: <Trans>Join our Telegram</Trans>,
                         link: 'https://t.me/maskbook_group#telegram',
                         logo: TelegramIcon,
                     },
-                ].map(({ content, link, logo }) => (
-                    <LinkCard key={link} content={content} link={link} logo={logo} />
+                ].map(({ title, link, logo }) => (
+                    <LinkCard key={link} title={title} link={link} logo={logo} />
                 ))}
             </div>
         </div>
