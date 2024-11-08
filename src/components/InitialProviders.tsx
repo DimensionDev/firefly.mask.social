@@ -13,6 +13,7 @@ import { getLocaleFromCookies } from '@/helpers/getLocaleFromCookies.js';
 import { useIsDarkMode } from '@/hooks/useIsDarkMode.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import { setLocale } from '@/i18n/index.js';
+import { recordUserThemeMode } from '@/services/recordUserThemeMode.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
 import { useLeafwatchPersistStore } from '@/store/useLeafwatchPersistStore.js';
 import { useThemeModeStore } from '@/store/useThemeModeStore.js';
@@ -33,6 +34,8 @@ export const InitialProviders = memo(function Providers(props: { children: React
         }
         const meta = document.querySelector('meta[name="theme-color"]');
         meta?.setAttribute('content', isDarkMode ? '#030303' : '#ffffff');
+
+        recordUserThemeMode(isDarkMode ? 'dark' : themeMode === 'light' ? 'light' : '');
     }, [isDarkMode, themeMode]);
 
     useEffect(() => {

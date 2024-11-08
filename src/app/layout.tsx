@@ -4,7 +4,9 @@ import '@/app/globals.css';
 import '@dialectlabs/blinks/index.css';
 
 import { GoogleAnalytics } from '@next/third-parties/google';
+import { isServer } from '@tanstack/react-query';
 import { Inter } from 'next/font/google';
+import { cookies } from 'next/headers.js';
 
 import { LayoutBody } from '@/app/layout-body.js';
 import { ErrorBoundary } from '@/components/ErrorBoundary/index.js';
@@ -27,8 +29,10 @@ export const viewport = {
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
+    const rootClass = isServer ? cookies().get('firefly_root_class')?.value : undefined;
+
     return (
-        <html>
+        <html className={rootClass}>
             <head>
                 <Script src="/js/polyfills/base.js" strategy="beforeInteractive" />
                 <Script src="/js/polyfills/dom.js" strategy="beforeInteractive" />
