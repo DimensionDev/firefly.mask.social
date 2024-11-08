@@ -12,7 +12,7 @@ import { OptionButton } from '@/app/(settings)/components/OptionButton.js';
 import { Section } from '@/app/(settings)/components/Section.js';
 import { Subtitle } from '@/app/(settings)/components/Subtitle.js';
 import { Locale } from '@/constants/enum.js';
-import { getFromCookies } from '@/helpers/getLocaleFromCookies.js';
+import { getFromCookies } from '@/helpers/getFromCookies.js';
 import { useNavigatorTitle } from '@/hooks/useNavigatorTitle.js';
 import { setLocale, supportedLocales } from '@/i18n/index.js';
 import { useLocale } from '@/store/useLocale.js';
