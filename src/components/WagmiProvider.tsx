@@ -11,7 +11,8 @@ import { config } from '@/configs/wagmiClient.js';
 import { captureConnectWalletEvent } from '@/providers/telemetry/captureConnectWalletEvent.js';
 import { EventId } from '@/providers/types/Telemetry.js';
 
-interface WagmiProviderProps {
+export interface WagmiProviderProps {
+    enableInsights?: boolean;
     children: React.ReactNode;
 }
 
@@ -19,7 +20,7 @@ export function WagmiProvider(props: WagmiProviderProps) {
     return (
         <WagmiProviderSDK config={config}>
             {props.children}
-            <Insights />
+            {props.enableInsights ? <Insights /> : null}
         </WagmiProviderSDK>
     );
 }

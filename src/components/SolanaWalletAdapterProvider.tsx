@@ -30,13 +30,17 @@ const wallets: Adapter[] = [
     }),
 ].filter((x) => !!x);
 
-export function SolanaWalletAdapterProvider({ children }: PropsWithChildren) {
+export type SolanaWalletAdapterProviderProps = PropsWithChildren<{
+    enableInsights?: boolean;
+}>;
+
+export function SolanaWalletAdapterProvider(props: SolanaWalletAdapterProviderProps) {
     return (
         <ConnectionProvider endpoint={env.external.NEXT_PUBLIC_SOLANA_RPC_URL}>
             <WalletProvider wallets={wallets} autoConnect localStorageKey={SOLANA_WALLET_CACHE_KEY}>
                 <WalletModalProvider>
-                    {children}
-                    <Insights />
+                    {props.children}
+                    {props.enableInsights ? <Insights /> : null}
                 </WalletModalProvider>
             </WalletProvider>
         </ConnectionProvider>
