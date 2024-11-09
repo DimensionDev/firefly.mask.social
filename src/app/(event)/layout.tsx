@@ -15,7 +15,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
     return (
         <>
             <SideBar />
-            <main className="flex w-full flex-[1_1_100%] flex-col md:border-r md:border-line md:pl-[289px] lg:w-[888px] lg:max-w-[calc(100%-384px)]">
+            <main className="flex w-full flex-[1_1_100%] flex-col md:border-r md:border-line md:pl-[235px] lg:w-[888px] lg:max-w-[calc(100%-384px)] lg:pl-[289px]">
                 <div className="sticky top-0 z-40 bg-primaryBottom">
                     <HeaderSearchBar />
                     <IfPathname isOneOf={[PageRoute.Events]}>
