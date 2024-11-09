@@ -4,7 +4,7 @@ import { NavigatorBar } from '@/components/NavigatorBar/index.js';
 export default function Layout({ children }: { children: React.ReactNode }) {
     return (
         <>
-            <main className="flex min-h-full w-full flex-1 flex-col pl-0 md:min-h-screen md:flex-row md:pl-[289px] lg:pl-72">
+            <main className="flex min-h-full w-full flex-1 flex-col pl-0 md:min-h-screen md:flex-row md:pl-[235px] lg:pl-[289px]">
                 {/* /!* desktop *!/ */}
                 <div className="sticky top-0 z-10 flex bg-primaryBottom md:hidden">
                     <NavigatorBar enableSearch={false} enableFixedBack />
