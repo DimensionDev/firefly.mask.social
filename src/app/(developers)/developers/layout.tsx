@@ -15,7 +15,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
     return (
         <>
             {/* desktop */}
-            <main className="hidden min-h-screen w-full flex-1 pl-0 md:flex md:pl-[289px] lg:pl-72">
+            <main className="hidden min-h-screen w-full flex-1 pl-0 md:flex md:pl-[235px] lg:pl-[289px]">
                 <ToolkitList />
                 {children}
             </main>

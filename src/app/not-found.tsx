@@ -21,7 +21,7 @@ export async function generateMetadata() {
 export default function NotFound() {
     return (
         <>
-            <BaseNotFound className="min-h-[100vh] flex-grow md:pl-[289px]">
+            <BaseNotFound className="min-h-[100vh] flex-grow md:pl-[235px] lg:pl-[289px]">
                 <div className="mt-11 text-sm font-bold">
                     <Trans>The page could not be found.</Trans>
                 </div>
