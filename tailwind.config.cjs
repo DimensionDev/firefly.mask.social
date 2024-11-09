@@ -95,6 +95,7 @@ module.exports = {
                 medium: '0.9375rem',
             },
         },
+        // please apply the same value in src/hooks/useMediaQuery.ts
         screens: {
             sm: '320px',
             md: '619px',
