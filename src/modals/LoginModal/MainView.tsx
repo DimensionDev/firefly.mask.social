@@ -26,7 +26,7 @@ export function MainView() {
     };
 
     return (
-        <div className="flex flex-col rounded-[12px] bg-primaryBottom md:w-[500px]">
+        <div className="m-auto flex flex-col rounded-[12px] bg-primaryBottom md:w-[500px]">
             <div className="flex w-full flex-col md:gap-3 md:p-6 md:pt-0">
                 {isMedium ? (
                     <>
