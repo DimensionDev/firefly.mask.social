@@ -1,4 +1,4 @@
-import { I18n, type Messages, setupI18n } from '@lingui/core';
+import { I18n, i18n as coreI18n, type Messages, setupI18n } from '@lingui/core';
 import { setI18n } from '@lingui/react/server';
 import dayjs from 'dayjs';
 
@@ -25,9 +25,7 @@ const allLocales = Object.fromEntries(
         setupI18n({
             locale,
             locales,
-            messages: {
-                [locale]: messages[locale],
-            },
+            messages,
         }) as unknown as Parameters<typeof setI18n>[0],
     ]),
 );
@@ -63,6 +61,9 @@ export function setLocale(i18n: I18n, locale: Locale) {
 
     i18n.load(locale, messages[locale]);
     i18n.activate(locale, locales);
+    // lingui macro uses the core i18n
+    coreI18n.load(locale, messages[locale]);
+    coreI18n.activate(locale, locales);
     dayjs.locale(locale);
 }
 

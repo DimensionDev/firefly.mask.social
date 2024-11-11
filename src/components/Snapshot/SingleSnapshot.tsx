@@ -42,7 +42,7 @@ export const SingleSnapshot = memo<SingleSnapshotProps>(function SingleSnapshot(
                             placement="top-start"
                             content={<Trans>{label} on a proposal</Trans>}
                         >
-                            <span className="text-secondary">
+                            <span className="line-clamp-2 text-secondary">
                                 <Trans>{label} on a proposal</Trans>
                             </span>
                         </TextOverflowTooltip>
