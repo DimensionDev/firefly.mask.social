@@ -1,3 +1,4 @@
+import { StatusCodes } from 'http-status-codes';
 import { NextRequest, NextResponse, userAgent } from 'next/server.js';
 import urlcat from 'urlcat';
 
@@ -63,7 +64,7 @@ export async function middleware(request: NextRequest) {
         const destination = request.nextUrl.clone();
         destination.pathname = resolveFollowingUrl(parsedOldFollowingUrl.source);
         destination.searchParams.delete('source');
-        return NextResponse.redirect(destination);
+        return NextResponse.redirect(destination, StatusCodes.PERMANENT_REDIRECT);
     }
 
     const parsedOldBookmarkUrl = parseOldBookmarkUrl(request.nextUrl);

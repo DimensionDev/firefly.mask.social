@@ -1,5 +1,5 @@
 import { Loading } from '@/components/Loading.js';
 
 export default function LoadingPage() {
-    return <Loading />;
+    return <Loading tag="following page" />;
 }
