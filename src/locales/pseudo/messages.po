@@ -178,9 +178,6 @@ msgstr ""
 msgid "<0>Market Cap = Current Price x Circulating Supply</0><1>Refers to the total market value of a cryptocurrency’s circulating supply. It is similar to the stock market’s measurement of multiplying price per share by shares readily available in the market (not held & locked by insiders, governments)</1>"
 msgstr ""
 
-msgid "🤑 Just voted “{0}”"
-msgstr ""
-
 msgid "Confirm to sync accounts"
 msgstr ""
 
@@ -575,6 +572,9 @@ msgid "Attendees"
 msgstr ""
 
 msgid "Connected accounts"
+msgstr ""
+
+msgid "<0>{0}</0> by <1>{1}</1>"
 msgstr ""
 
 msgid "Functions with retrievable ownership"
@@ -2297,6 +2297,9 @@ msgid "Will send on <0>{0} at <1>{1}</1></0>"
 msgstr ""
 
 msgid "Snapshot added to your Bookmarks"
+msgstr ""
+
+msgid "🤑 Just voted “{0}” on “{1}”"
 msgstr ""
 
 msgid "Failed to continue. Please allow Lens Manager for performing actions without the need to sign each transaction."

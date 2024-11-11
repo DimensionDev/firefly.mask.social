@@ -183,9 +183,6 @@ msgstr "允许 Lens 管理员执行发帖、点赞和评论等操作，而无需
 msgid "<0>Market Cap = Current Price x Circulating Supply</0><1>Refers to the total market value of a cryptocurrency’s circulating supply. It is similar to the stock market’s measurement of multiplying price per share by shares readily available in the market (not held & locked by insiders, governments)</1>"
 msgstr "<0>市值 = 当前价格 x 流通供应量</0><1>指加密货币流通供应量的总市值。它类似于股票市场的衡量标准，即将每股价格乘以市场上流通的股票（未被内部人员、政府持有和锁定）</1>"
 
-msgid "🤑 Just voted “{0}”"
-msgstr "🤑 投了 “{0}”"
-
 msgid "Confirm to sync accounts"
 msgstr "确认登陆"
 
@@ -581,6 +578,9 @@ msgstr "出席人数"
 
 msgid "Connected accounts"
 msgstr "已连接的账户"
+
+msgid "<0>{0}</0> by <1>{1}</1>"
+msgstr ""
 
 msgid "Functions with retrievable ownership"
 msgstr "具有可检索所有权的功能"
@@ -2303,6 +2303,9 @@ msgstr "将在 <0>{0} <1>{1}</1></0> 发送"
 
 msgid "Snapshot added to your Bookmarks"
 msgstr "Snapshot 已经添加到您的收藏中"
+
+msgid "🤑 Just voted “{0}” on “{1}”"
+msgstr ""
 
 msgid "Failed to continue. Please allow Lens Manager for performing actions without the need to sign each transaction."
 msgstr "无法继续。请允许 Lens Manager 执行操作，而无需对每笔交易进行签名。"

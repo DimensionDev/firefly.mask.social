@@ -178,9 +178,6 @@ msgstr "Allow Lens Manager to perform actions such as posting, liking, and comme
 msgid "<0>Market Cap = Current Price x Circulating Supply</0><1>Refers to the total market value of a cryptocurrency’s circulating supply. It is similar to the stock market’s measurement of multiplying price per share by shares readily available in the market (not held & locked by insiders, governments)</1>"
 msgstr "<0>Market Cap = Current Price x Circulating Supply</0><1>Refers to the total market value of a cryptocurrency’s circulating supply. It is similar to the stock market’s measurement of multiplying price per share by shares readily available in the market (not held & locked by insiders, governments)</1>"
 
-msgid "🤑 Just voted “{0}”"
-msgstr "🤑 Just voted “{0}”"
-
 msgid "Confirm to sync accounts"
 msgstr "Confirm to sync accounts"
 
@@ -576,6 +573,9 @@ msgstr "Attendees"
 
 msgid "Connected accounts"
 msgstr "Connected accounts"
+
+msgid "<0>{0}</0> by <1>{1}</1>"
+msgstr "<0>{0}</0> by <1>{1}</1>"
 
 msgid "Functions with retrievable ownership"
 msgstr "Functions with retrievable ownership"
@@ -2298,6 +2298,9 @@ msgstr "Will send on <0>{0} at <1>{1}</1></0>"
 
 msgid "Snapshot added to your Bookmarks"
 msgstr "Snapshot added to your Bookmarks"
+
+msgid "🤑 Just voted “{0}” on “{1}”"
+msgstr "🤑 Just voted “{0}” on “{1}”"
 
 msgid "Failed to continue. Please allow Lens Manager for performing actions without the need to sign each transaction."
 msgstr "Failed to continue. Please allow Lens Manager for performing actions without the need to sign each transaction."
