@@ -9,6 +9,7 @@ import { NavigatorBar } from '@/components/NavigatorBar/index.js';
 import { AsideSearchBar, HeaderSearchBar } from '@/components/Search/SearchBar.js';
 import { Section } from '@/components/Semantic/Section.js';
 import { SuggestedFollowsCard } from '@/components/SuggestedFollows/SuggestedFollowsCard.js';
+import { WithinDiscover } from '@/components/WithinDiscover.js';
 import { PageRoute, Source } from '@/constants/enum.js';
 import { DEFAULT_SOCIAL_SOURCE, DISCOVER_SOURCES, DISCOVER_TYPES, SOCIAL_DISCOVER_SOURCE } from '@/constants/index.js';
 import { resolveSourceInUrl } from '@/helpers/resolveSourceInUrl.js';
@@ -77,26 +78,11 @@ export default function Layout({ children, modal }: { children: React.ReactNode;
                         <SuggestedChannels source={Source.Farcaster} />
                     </IfPathname>
 
-                    <IfPathname
-                        isOneOf={[
-                            {
-                                r: '^/$',
-                                flags: 'i',
-                            },
-                            {
-                                r: `^/(${DISCOVER_SOURCES.map(resolveSourceInUrl).join('|')})$`,
-                                flags: 'i',
-                            },
-                            {
-                                r: `^/(${SOCIAL_DISCOVER_SOURCE.map(resolveSourceInUrl).join('|')})/(${DISCOVER_TYPES[DEFAULT_SOCIAL_SOURCE].join('|')})$`,
-                                flags: 'i',
-                            },
-                        ]}
-                    >
+                    <WithinDiscover>
                         <Section title="Web3 Calendar">
                             <CalendarContent />
                         </Section>
-                    </IfPathname>
+                    </WithinDiscover>
 
                     <LinkCloud />
                 </div>
