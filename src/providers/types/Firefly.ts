@@ -5,7 +5,6 @@ import {
     NetworkType,
     PolymarketBetType,
     S3ConvertStatus,
-    type SocialSource,
     type SocialSourceInURL,
     type Source,
     WalletSource,
@@ -1263,16 +1262,6 @@ export type PolymarketActivityTimeline = Response<{
     result: PolymarketActivity[];
     cursor?: string;
 }>;
-
-export type FireflyCrossProfile = {
-    platform: SocialSource;
-    profileId: string;
-    avatar: string;
-    handle: string;
-    name: string;
-    allProfile: Profile[];
-    hasWallet: boolean;
-};
 
 export type SearchableNFT = {
     amounts_total: number;

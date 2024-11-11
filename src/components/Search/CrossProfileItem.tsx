@@ -4,28 +4,30 @@ import { Avatar } from '@/components/Avatar.js';
 import { SocialSourceIcon } from '@/components/SocialSourceIcon.js';
 import { Source } from '@/constants/enum.js';
 import { Link } from '@/esm/Link.js';
+import { getStampAvatarByProfileId } from '@/helpers/getStampAvatarByProfileId.js';
 import { resolveProfileUrl } from '@/helpers/resolveProfileUrl.js';
 import { resolveSocialSource } from '@/helpers/resolveSource.js';
-import type { FireflyCrossProfile } from '@/providers/types/Firefly.js';
+import type { Profile } from '@/providers/types/Firefly.js';
 
 interface CrossProfileItemProps {
-    profile: FireflyCrossProfile;
+    profile: Profile;
+    related: Profile[];
 }
 
-export const CrossProfileItem = memo<CrossProfileItemProps>(function CrossProfileItem({ profile }) {
+export const CrossProfileItem = memo<CrossProfileItemProps>(function CrossProfileItem({ profile, related }) {
+    const source = resolveSocialSource(profile.platform);
+    const avatar = getStampAvatarByProfileId(source, profile.platform_id);
+
     return (
         <Link
             className="flex items-center gap-x-2 border-b border-line p-3 hover:bg-bg"
-            href={resolveProfileUrl(
-                profile.platform,
-                profile.platform === Source.Lens ? profile.handle : profile.profileId,
-            )}
+            href={resolveProfileUrl(source, source === Source.Lens ? profile.handle : profile.platform_id)}
         >
-            <Avatar alt={profile.handle} className="h-7 w-7 rounded-full" src={profile.avatar} size={44} />
+            <Avatar alt={profile.handle} className="h-7 w-7 rounded-full" src={avatar} size={44} />
             <div className="min-w-0 flex-1">
                 <div className="flex items-center gap-x-1">
                     <span className="truncate text-lg font-bold leading-6 text-lightMain">{profile.name}</span>
-                    {profile.allProfile.map((x) => (
+                    {related.map((x) => (
                         <SocialSourceIcon
                             key={x.platform}
                             mono
