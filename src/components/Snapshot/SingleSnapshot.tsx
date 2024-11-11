@@ -7,9 +7,9 @@ import { CollapsedContent } from '@/components/Posts/CollapsedContent.js';
 import { SingleSnapshotHeader } from '@/components/Snapshot/SingleSnapshotHeader.js';
 import { SnapshotBody } from '@/components/Snapshot/SnapshotBody.js';
 import { SnapshotFallbackContent } from '@/components/Snapshot/SnapshotFallbackContent.js';
-import { Tooltip } from '@/components/Tooltip.js';
 import { formatSnapshotChoice } from '@/helpers/formatSnapshotChoice.js';
 import type { SnapshotActivity } from '@/providers/snapshot/type.js';
+import { TextOverflowTooltip } from '@/components/TextOverflowTooltip.js';
 
 interface SingleSnapshotProps {
     data: SnapshotActivity;
@@ -19,17 +19,6 @@ export const SingleSnapshot = memo<SingleSnapshotProps>(function SingleSnapshot(
     const isMuted = data.author.isMuted;
 
     const label = data.proposal ? formatSnapshotChoice(data.choice, data.proposal.type, data.proposal.choices) : null;
-
-    const tabs = [
-        {
-            label: t`Proposal`,
-            value: 'proposal',
-        },
-        {
-            label: t`Votes`,
-            value: 'votes',
-        },
-    ] as const;
 
     return (
         <motion.article
@@ -48,15 +37,15 @@ export const SingleSnapshot = memo<SingleSnapshotProps>(function SingleSnapshot(
                         <span className="font-bold text-main">
                             <Trans>VOTED</Trans>
                         </span>
-                        <Tooltip
+                        <TextOverflowTooltip
                             className="max-sm:block"
                             placement="top-start"
                             content={<Trans>{label} on a proposal</Trans>}
                         >
-                            <span className="truncate text-secondary">
+                            <span className="text-secondary">
                                 <Trans>{label} on a proposal</Trans>
                             </span>
-                        </Tooltip>
+                        </TextOverflowTooltip>
                     </div>
 
                     {data.proposal ? (

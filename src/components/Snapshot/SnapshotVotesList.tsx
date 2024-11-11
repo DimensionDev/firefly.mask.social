@@ -20,6 +20,7 @@ import { createIndicator } from '@/helpers/pageable.js';
 import { sanitizeDStorageUrl } from '@/helpers/sanitizeDStorageUrl.js';
 import { Snapshot } from '@/providers/snapshot/index.js';
 import type { SnapshotVote } from '@/providers/snapshot/type.js';
+import { TextOverflowTooltip } from '@/components/TextOverflowTooltip.js';
 
 interface SnapshotVotesListItemProps {
     vote: SnapshotVote;
@@ -48,13 +49,17 @@ const SnapshotVotesListItem = memo<SnapshotVotesListItemProps>(function Snapshot
                     }
                     alt={ens || vote.voter}
                 />
-                <Tooltip className="max-sm:block" placement="top" content={ens || formatEthereumAddress(vote.voter, 4)}>
+                <TextOverflowTooltip
+                    className="max-sm:block"
+                    placement="top"
+                    content={ens || formatEthereumAddress(vote.voter, 4)}
+                >
                     <div className="truncate">{ens || formatEthereumAddress(vote.voter, 4)}</div>
-                </Tooltip>
+                </TextOverflowTooltip>
             </Link>
-            <Tooltip className="max-sm:block" placement="top-start" content={choiceLabel}>
+            <TextOverflowTooltip className="max-sm:block" placement="top-start" content={choiceLabel}>
                 <div className="flex-1 truncate">{choiceLabel}</div>
-            </Tooltip>
+            </TextOverflowTooltip>
 
             <div className="flex gap-1">
                 <span>{vote.vp > 1 ? nFormatter(vote.vp) : humanize(vote.vp)}</span>
