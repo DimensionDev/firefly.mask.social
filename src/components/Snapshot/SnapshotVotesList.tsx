@@ -1,6 +1,6 @@
 import { ChainId } from '@masknet/web3-shared-evm';
 import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
-import { memo, useCallback, useRef } from 'react';
+import { memo, useCallback, useMemo, useRef } from 'react';
 import urlcat from 'urlcat';
 import { useEnsName } from 'wagmi';
 
@@ -97,16 +97,19 @@ export const SnapshotVotesList = memo<SnapshotVotesListProps>(function SnapshotV
         await fetchNextPage();
     }, [fetchNextPage, hasNextPage, isFetching, isFetchingNextPage]);
 
+    const Context = useMemo(
+        () => ({
+            hasNextPage,
+            fetchNextPage,
+            isFetching,
+            itemsRendered: itemsRendered.current,
+        }),
+        [hasNextPage, fetchNextPage, isFetching],
+    );
+
     if (!data?.length) {
         return <NoResultsFallback className="h-[138px] justify-center" />;
     }
-
-    const Context = {
-        hasNextPage,
-        fetchNextPage,
-        isFetching,
-        itemsRendered: itemsRendered.current,
-    };
 
     return (
         <div className="h-[138px]">
