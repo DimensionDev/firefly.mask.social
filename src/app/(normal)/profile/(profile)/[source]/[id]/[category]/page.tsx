@@ -5,6 +5,7 @@ import { notFound } from 'next/navigation.js';
 import { Suspense, useMemo } from 'react';
 
 import { Loading } from '@/components/Loading.js';
+import { LoginRequiredGuard } from '@/components/LoginRequiredGuard.js';
 import { ProfilePageTimeline } from '@/components/Profile/ProfilePageTimeline.js';
 import { type ProfileCategory, Source, SourceInURL } from '@/constants/enum.js';
 import { isProfilePageSource } from '@/helpers/isProfilePageSource.js';
@@ -18,6 +19,8 @@ interface Props {
         source: SourceInURL;
     };
 }
+
+const REQUIRE_LOGIN_SOURCES = [Source.Twitter];
 
 export default function Page({ params }: Props) {
     const source = resolveSourceFromUrl(params.source);
@@ -37,9 +40,19 @@ export default function Page({ params }: Props) {
         [profile?.profileId, params.id, source],
     );
 
-    return (
+    const content = (
         <Suspense fallback={<Loading />}>
             <ProfilePageTimeline category={params.category} identity={identity} />
         </Suspense>
     );
+
+    if (REQUIRE_LOGIN_SOURCES.includes(source)) {
+        return (
+            <LoginRequiredGuard source={source} className="md:!pt-0">
+                {content}
+            </LoginRequiredGuard>
+        );
+    }
+
+    return content;
 }
