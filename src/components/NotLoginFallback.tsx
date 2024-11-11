@@ -9,6 +9,7 @@ import { classNames } from '@/helpers/classNames.js';
 import { createLookupTableResolver } from '@/helpers/createLookupTableResolver.js';
 import { resolveFallbackImageUrl } from '@/helpers/resolveFallbackImageUrl.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
+import { useAsyncStatus } from '@/hooks/useAsyncStatus.js';
 import { LoginModalRef } from '@/modals/controls.js';
 
 const resolveConnectButtonClass = createLookupTableResolver<SocialSource | Source.Article | Source.Snapshot, string>(
@@ -33,6 +34,8 @@ interface NotLoginFallbackProps extends HTMLProps<HTMLDivElement> {
 export const NotLoginFallback = memo<NotLoginFallbackProps>(function NotLoginFallback({ source, className }) {
     const fallbackImageUrl = resolveFallbackImageUrl(source);
     const isNotSocialSource = source === Source.Article || source === Source.Snapshot;
+
+    const connecting = useAsyncStatus(isNotSocialSource ? Source.Farcaster : source);
 
     return (
         <div
@@ -60,7 +63,13 @@ export const NotLoginFallback = memo<NotLoginFallbackProps>(function NotLoginFal
                     LoginModalRef.open({ source: isNotSocialSource ? undefined : source });
                 }}
             >
-                {isNotSocialSource ? <Trans>Login</Trans> : <Trans>Connect to {resolveSourceName(source)}</Trans>}
+                {isNotSocialSource ? (
+                    <Trans>Login</Trans>
+                ) : connecting ? (
+                    <Trans>Connecting...</Trans>
+                ) : (
+                    <Trans>Connect to {resolveSourceName(source)}</Trans>
+                )}
             </ClickableButton>
         </div>
     );
