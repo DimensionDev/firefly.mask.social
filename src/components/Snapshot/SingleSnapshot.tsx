@@ -1,4 +1,4 @@
-import { t, Trans } from '@lingui/macro';
+import { Trans } from '@lingui/macro';
 import { motion } from 'framer-motion';
 import { memo } from 'react';
 
@@ -7,9 +7,9 @@ import { CollapsedContent } from '@/components/Posts/CollapsedContent.js';
 import { SingleSnapshotHeader } from '@/components/Snapshot/SingleSnapshotHeader.js';
 import { SnapshotBody } from '@/components/Snapshot/SnapshotBody.js';
 import { SnapshotFallbackContent } from '@/components/Snapshot/SnapshotFallbackContent.js';
+import { TextOverflowTooltip } from '@/components/TextOverflowTooltip.js';
 import { formatSnapshotChoice } from '@/helpers/formatSnapshotChoice.js';
 import type { SnapshotActivity } from '@/providers/snapshot/type.js';
-import { TextOverflowTooltip } from '@/components/TextOverflowTooltip.js';
 
 interface SingleSnapshotProps {
     data: SnapshotActivity;

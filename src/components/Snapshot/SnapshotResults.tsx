@@ -3,10 +3,10 @@ import { memo, Suspense } from 'react';
 
 import { Loading } from '@/components/Loading.js';
 import { SnapshotVotesList } from '@/components/Snapshot/SnapshotVotesList.js';
+import { TextOverflowTooltip } from '@/components/TextOverflowTooltip.js';
 import { SnapshotState } from '@/constants/enum.js';
 import { nFormatter } from '@/helpers/formatCommentCounts.js';
 import { formatPercentage } from '@/helpers/formatPercentage.js';
-import { TextOverflowTooltip } from '@/components/TextOverflowTooltip.js';
 
 interface SnapshotResultsProps {
     status: SnapshotState;

@@ -6,7 +6,7 @@ import { useEnsName } from 'wagmi';
 
 import { Avatar } from '@/components/Avatar.js';
 import { NoResultsFallback } from '@/components/NoResultsFallback.js';
-import { Tooltip } from '@/components/Tooltip.js';
+import { TextOverflowTooltip } from '@/components/TextOverflowTooltip.js';
 import { VirtualList } from '@/components/VirtualList/VirtualList.js';
 import { VirtualListFooter } from '@/components/VirtualList/VirtualListFooter.js';
 import { ScrollListKey, Source, SourceInURL } from '@/constants/enum.js';
@@ -20,7 +20,6 @@ import { createIndicator } from '@/helpers/pageable.js';
 import { sanitizeDStorageUrl } from '@/helpers/sanitizeDStorageUrl.js';
 import { Snapshot } from '@/providers/snapshot/index.js';
 import type { SnapshotVote } from '@/providers/snapshot/type.js';
-import { TextOverflowTooltip } from '@/components/TextOverflowTooltip.js';
 
 interface SnapshotVotesListItemProps {
     vote: SnapshotVote;
