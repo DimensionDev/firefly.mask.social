@@ -5,6 +5,7 @@ import { COINGECKO_URL_BASE, CORS_HOST, DSEARCH_BASE_URL } from '@/constants/ind
 import { fetchJSON } from '@/helpers/fetchJSON.js';
 import { getCommunityLink } from '@/helpers/getCommunityLink.js';
 import { resolveCoinGeckoChainId } from '@/helpers/resolveCoingeckoChainId.js';
+import { CoinIdToChainId } from '@/providers/coingecko/constant.js';
 import type {
     CoingeckoCoinInfo,
     CoingeckoCoinMarketInfo,
@@ -142,5 +143,9 @@ export class Coingecko {
                 page: 1,
             }),
         );
+    }
+
+    static getChainIdByCoinId(coinId: string) {
+        return CoinIdToChainId[coinId];
     }
 }

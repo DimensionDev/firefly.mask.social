@@ -3,13 +3,12 @@
 import { t, Trans } from '@lingui/macro';
 import { first, isNumber } from 'lodash-es';
 import { notFound } from 'next/navigation.js';
-import { type HTMLProps, memo, type ReactNode, useState } from 'react';
+import { type HTMLProps, memo, type ReactNode } from 'react';
 
 import QuestionIcon from '@/assets/question.svg';
 import { CopyTextButton } from '@/components/CopyTextButton.js';
 import { Image } from '@/components/Image.js';
 import { Loading } from '@/components/Loading.js';
-import { SwapModal } from '@/components/SwapModal/index.js';
 import { CommunityLink } from '@/components/TokenProfile/CommunityLink.js';
 import { ContractList } from '@/components/TokenProfile/ContractList.js';
 import { TokenMarketData } from '@/components/TokenProfile/TokenMarketData.js';
@@ -76,7 +75,6 @@ export const TokenDetail = memo<Props>(function TokenDetail({ symbol, children, 
 
     const firstContract = first(contracts);
     const chain = useChainInfo(firstContract?.runtime, firstContract?.chainId);
-    const [openTrader, setOpenTrader] = useState(false);
 
     if (isLoading) {
         return <Loading />;
@@ -89,13 +87,7 @@ export const TokenDetail = memo<Props>(function TokenDetail({ symbol, children, 
     return (
         <>
             <div {...rest} className={classNames('flex flex-col gap-1.5 px-3 py-3 sm:px-6', rest.className)}>
-                <TokenMarketData
-                    token={token}
-                    tradable
-                    onTrade={() => {
-                        setOpenTrader(true);
-                    }}
-                />
+                <TokenMarketData token={token} />
 
                 <div className="mt-3 py-3">
                     <h2 className="font-inter font-bold text-main">
@@ -254,14 +246,6 @@ export const TokenDetail = memo<Props>(function TokenDetail({ symbol, children, 
                     </div>
                 </div>
             </div>
-            {openTrader ? (
-                <SwapModal
-                    open
-                    onClose={() => {
-                        setOpenTrader(false);
-                    }}
-                />
-            ) : null}
         </>
     );
 });

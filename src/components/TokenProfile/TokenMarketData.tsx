@@ -8,7 +8,9 @@ import PriceArrow from '@/assets/price-arrow.svg';
 import SwapIcon from '@/assets/swap.svg';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { Image } from '@/components/Image.js';
+import { SwapModal } from '@/components/SwapModal/index.js';
 import { TokenSecurityBar } from '@/components/TokenProfile/TokenSecurityBar.js';
+import { useTradeInfo } from '@/components/TokenProfile/useTradeInfo.js';
 import { EMPTY_LIST } from '@/constants/index.js';
 import { Link } from '@/esm/Link.js';
 import { classNames } from '@/helpers/classNames.js';
@@ -25,8 +27,6 @@ import type { CoingeckoToken } from '@/providers/types/Coingecko.js';
 interface TokenMarketDataProps {
     token: CoingeckoToken;
     linkable?: boolean;
-    tradable?: boolean;
-    onTrade?(token: CoingeckoToken): void;
 }
 
 const dimension: Dimension = {
@@ -38,13 +38,15 @@ const dimension: Dimension = {
     height: 175,
 };
 
-export function TokenMarketData({ linkable, token, tradable, onTrade }: TokenMarketDataProps) {
+export function TokenMarketData({ linkable, token }: TokenMarketDataProps) {
     const chartRef = useRef<SVGSVGElement>(null);
     const { data: price } = useTokenPrice(token.id);
     const { data: trending } = useCoinTrending(token.id);
     const { market, contracts } = trending ?? {};
     const contract = first(contracts);
     const { data: security } = useTokenSecurity(contract?.chainId, contract?.address);
+    const [openTrader, setOpenTrader] = useState(false);
+    const tradeInfo = useTradeInfo(token);
 
     const ranges = [
         { label: t`24h`, days: 1 },
@@ -105,18 +107,16 @@ export function TokenMarketData({ linkable, token, tradable, onTrade }: TokenMar
                     </div>
                     <TokenSecurityBar security={security} />
                 </div>
-                {tradable ? (
-                    <ClickableButton
-                        className="ml-auto inline-flex gap-[10px] rounded-full bg-main px-5 py-2 text-[15px] leading-4 text-primaryBottom"
-                        disabled={!onTrade}
-                        onClick={() => {
-                            onTrade?.(token);
-                        }}
-                    >
-                        <SwapIcon width={16} height={16} />
-                        {t`Swap`}
-                    </ClickableButton>
-                ) : null}
+                <ClickableButton
+                    className="ml-auto inline-flex gap-[10px] rounded-full bg-main px-5 py-2 text-[15px] leading-4 text-primaryBottom"
+                    disabled={!tradeInfo.tradable}
+                    onClick={() => {
+                        setOpenTrader(true);
+                    }}
+                >
+                    <SwapIcon width={16} height={16} />
+                    {t`Swap`}
+                </ClickableButton>
             </div>
             <div
                 className={classNames(
@@ -147,6 +147,16 @@ export function TokenMarketData({ linkable, token, tradable, onTrade }: TokenMar
                     </ClickableButton>
                 ))}
             </div>
+            {openTrader && tradeInfo.tradable ? (
+                <SwapModal
+                    open
+                    chainId={tradeInfo.chainId!}
+                    address={tradeInfo.address!}
+                    onClose={() => {
+                        setOpenTrader(false);
+                    }}
+                />
+            ) : null}
         </>
     );
 }
