@@ -1,11 +1,15 @@
 'use client';
 
 import { usePathname, useSelectedLayoutSegments } from 'next/navigation.js';
-import type { PropsWithChildren } from 'react';
+import type { PropsWithChildren, ReactNode } from 'react';
 
-export function WithinDiscover({ children }: PropsWithChildren) {
+interface Props extends PropsWithChildren {
+    otherwise?: ReactNode;
+}
+
+export function WithinDiscover({ children, otherwise }: Props) {
     const pathname = usePathname();
     const segments = useSelectedLayoutSegments();
     const withinDiscover = segments.includes('discover') || pathname === '/';
-    return withinDiscover ? children : null;
+    return withinDiscover ? children : otherwise;
 }
