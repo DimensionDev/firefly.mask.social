@@ -1,3 +1,4 @@
+import { isServer } from '@tanstack/react-query';
 import urlcat from 'urlcat';
 
 import { SITE_URL } from '@/constants/index.js';
@@ -5,6 +6,7 @@ import { bom } from '@/helpers/bom.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
 import { SessionHolder } from '@/providers/base/SessionHolder.js';
 import { TwitterSession } from '@/providers/twitter/Session.js';
+import { TwitterSocialMediaProvider } from '@/providers/twitter/SocialMedia.js';
 
 class TwitterSessionHolder extends SessionHolder<TwitterSession> {
     override resumeSession(session: TwitterSession) {
@@ -32,6 +34,11 @@ class TwitterSessionHolder extends SessionHolder<TwitterSession> {
         return fetchJSON<T>(input, options, {
             noDefaultContentType: true,
         });
+    }
+
+    override removeSession(): void {
+        super.removeSession();
+        if (!isServer) TwitterSocialMediaProvider.logout();
     }
 }
 
