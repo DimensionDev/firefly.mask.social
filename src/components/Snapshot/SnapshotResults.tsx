@@ -28,7 +28,7 @@ export const SnapshotResults = memo<SnapshotResultsProps>(function SnapshotResul
     votes,
 }) {
     return (
-        <div>
+        <div className="max-md:h-[270px] md:h-[374px]">
             <div className="text-base font-bold">
                 {status === SnapshotState.Closed ? <Trans>Results</Trans> : <Trans>Current Results</Trans>}
             </div>

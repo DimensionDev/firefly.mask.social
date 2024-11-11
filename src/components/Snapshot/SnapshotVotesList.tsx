@@ -1,6 +1,6 @@
 import { ChainId } from '@masknet/web3-shared-evm';
 import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
-import { memo, useCallback } from 'react';
+import { memo, useCallback, useRef } from 'react';
 import urlcat from 'urlcat';
 import { useEnsName } from 'wagmi';
 
@@ -73,6 +73,8 @@ function getSnapshotVotesItemContent(vote: SnapshotVote) {
 }
 
 export const SnapshotVotesList = memo<SnapshotVotesListProps>(function SnapshotVotesList({ id }) {
+    const itemsRendered = useRef(false);
+
     const { data, fetchNextPage, isFetching, isFetchingNextPage, hasNextPage } = useSuspenseInfiniteQuery({
         queryKey: ['snapshot', 'votes', id],
         queryFn: async ({ pageParam }) => {
@@ -95,6 +97,13 @@ export const SnapshotVotesList = memo<SnapshotVotesListProps>(function SnapshotV
         return <NoResultsFallback className="h-[138px] justify-center" />;
     }
 
+    const Context = {
+        hasNextPage,
+        fetchNextPage,
+        isFetching,
+        itemsRendered: itemsRendered.current,
+    };
+
     return (
         <div className="h-[138px]">
             <VirtualList
@@ -103,10 +112,15 @@ export const SnapshotVotesList = memo<SnapshotVotesListProps>(function SnapshotV
                 components={{
                     Footer: VirtualListFooter,
                 }}
+                itemSize={(el: HTMLElement) => {
+                    if (!itemsRendered.current) itemsRendered.current = true;
+                    return el.getBoundingClientRect().height;
+                }}
                 className={classNames('no-scrollbar h-full')}
                 listKey={`$${ScrollListKey.SnapshotVotes}`}
                 computeItemKey={(index, item) => item.ipfs}
                 itemContent={(index, vote) => getSnapshotVotesItemContent(vote)}
+                context={Context}
             />
         </div>
     );
