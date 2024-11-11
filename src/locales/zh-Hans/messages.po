@@ -8,7 +8,7 @@ msgstr ""
 "Language: zh\n"
 "Project-Id-Version: masksocial\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-11-05 12:01\n"
+"PO-Revision-Date: 2024-11-09 00:05\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
@@ -115,7 +115,7 @@ msgid "Failed to collect article."
 msgstr "收集文章失败。"
 
 msgid "Hold on! Meet any of the following to unlock a premium collectible:"
-msgstr ""
+msgstr "稍等！满足以下任一条件以解锁优质收藏品："
 
 msgid "Communities"
 msgstr "社区"
@@ -226,7 +226,7 @@ msgid "Ended"
 msgstr "已结束"
 
 msgid "Failed to follow @{handle} on X."
-msgstr ""
+msgstr "未能在 X 上关注 @{handle}。"
 
 msgid "No cryptocurrency mixer found."
 msgstr "未涉及加密货币混合器。"
@@ -262,7 +262,7 @@ msgid "Join our Discord"
 msgstr "加入我们的 Discord"
 
 msgid "The external call function is not included. If there is an external call function, the project owner may have the ability to control the contract."
-msgstr ""
+msgstr "未包含外部调用功能。如果存在外部调用功能，项目所有者可能有能力控制合约。"
 
 msgid "Found arweaveTxId is empty."
 msgstr "ArweaveTxId 为空。"
@@ -367,7 +367,7 @@ msgid "Contract source code verified"
 msgstr "已验证合约源代码"
 
 msgid "The contract owner has restrictions on personal slippage."
-msgstr ""
+msgstr "合约所有者对个人滑点有限制。"
 
 msgid "Anti whale can be modified."
 msgstr "反鲸鱼机制可以被修改。"
@@ -394,7 +394,7 @@ msgid "Scan the QR code with your phone’s <0>Camera</0> in {count}s. <1/>Appro
 msgstr "使用<0>摄像头</0> 在 {count} 内<1/> 来扫描您的二维码。授权 Farcaster singer 给 Firefly。"
 
 msgid "No malicious mining activities found."
-msgstr ""
+msgstr "未发现恶意挖矿活动。"
 
 msgid "Poll is currently only supported on {0}"
 msgstr "投票目前仅支持 {0}"
@@ -436,7 +436,7 @@ msgid "Show less"
 msgstr "收起"
 
 msgid "Follow <0>@{handle}</0> on {0}"
-msgstr ""
+msgstr "在 {0} 上关注 <0>@{handle}</0>"
 
 msgid "Proxy contract."
 msgstr "代理合约。"
@@ -682,7 +682,7 @@ msgid "1m left"
 msgstr "1分钟剩余"
 
 msgid "Core Asset Access: Unlock premium tokens, exclusive NFTs, and nodes for more investment opportunities."
-msgstr ""
+msgstr "核心资产访问：解锁优质代币、独家 NFT 和节点，以获得更多投资机会。"
 
 msgid "Items"
 msgstr "条目"
@@ -712,7 +712,7 @@ msgid "Failed to bookmark article."
 msgstr "收藏文章失败。"
 
 msgid "The event has ended, but you can explore others in Exclusive Events."
-msgstr ""
+msgstr "活动已结束，但您可以在独家活动中探索其他活动。"
 
 msgid "{seconds, plural, one {1 second left} other {{seconds} seconds left}}"
 msgstr "{seconds, plural, one {1 秒剩余} other {{seconds} 秒剩余}}"
@@ -1045,7 +1045,7 @@ msgid "Your Farcaster account holds Power Badge"
 msgstr "您的 Farcaster 账户拥有 Power Badge"
 
 msgid "Failed to fetch space \"{id}\"."
-msgstr ""
+msgstr "无法获取空间 \"{id}\"。"
 
 msgid "Owned By"
 msgstr "属于"
@@ -1111,7 +1111,7 @@ msgid "Kamala Harris"
 msgstr "卡玛拉·哈里斯"
 
 msgid "Send telemetry events in debug mode."
-msgstr ""
+msgstr "在调试模式下发送遥测事件。"
 
 msgid "The chainId mismatch."
 msgstr "chainId 不匹配"
@@ -1162,13 +1162,13 @@ msgid "Follow"
 msgstr "关注"
 
 msgid "Sorry, this wallet is already linked to another Firefly account. Please try a different one."
-msgstr ""
+msgstr "抱歉，此钱包已链接到另一个 Firefly 账户。请尝试使用其他钱包。"
 
 msgid "This token contract is open source. You can check the contract code for details. Unsourced token contracts are likely to have malicious functions to defraud their users of their assets."
 msgstr "此通证合约是开源代码。您可以检查合约代码了解详情。 未知来源的通证合同很可能带有恶意的功能来欺诈其用户的资产。"
 
 msgid "Darkweb transactions found."
-msgstr ""
+msgstr "发现暗网交易。"
 
 msgid "Add account"
 msgstr "添加账户"
@@ -1393,7 +1393,7 @@ msgid "{riskyFactors, plural, one {# Risky item} other {# Risky items}}"
 msgstr "{riskyFactors, plural, one {# 风险条目} other {# 风险条目}}"
 
 msgid "The self-destruct function is included. The project owner may have the ability to destroy the contract."
-msgstr ""
+msgstr "包含自毁功能。项目所有者可能有能力销毁合约。"
 
 msgid "Mute"
 msgstr "屏蔽"
@@ -1420,7 +1420,7 @@ msgid "There are videos that were not uploaded successfully."
 msgstr "视频上传失败。"
 
 msgid "NFT contract cant restrict the approval, resulting in NFT can not be traded on the NFT DEX."
-msgstr ""
+msgstr "NFT 合约无法限制授权，导致NFT无法在NFT去中心化交易所（DEX）上交易。"
 
 msgid "<0>Collected</0> a POAP"
 msgstr "<0>已收集</0>一个 POAP"
@@ -1444,7 +1444,7 @@ msgid "Are you sure you want to report this article?"
 msgstr "您确定要举报这篇文章吗？"
 
 msgid "NFT owner cant bypass the maximum amount of minting specified in the contract, and continue to mint NFTs beyond this limit."
-msgstr ""
+msgstr "NFT持有者无法绕过合约中规定的最大铸造数量限制，继续铸造超过此限制的NFT。"
 
 msgid "VOTED"
 msgstr "已投"
@@ -1459,7 +1459,7 @@ msgid "View on Explorer"
 msgstr "在 Explorer 上查看"
 
 msgid "Owner can set a different tax rate for every assigned address."
-msgstr ""
+msgstr "所有者可以为每个指定地址设置不同的税率。"
 
 msgid "Tag {0} in a post to let them know you’ve sent an onchain tip to their wallet."
 msgstr "在帖子中标记 {0}，让他们知道你已经向他们的钱包发打赏了一笔小费。"
@@ -1546,7 +1546,7 @@ msgid "Creator"
 msgstr "创建者"
 
 msgid "Holders can not sell all of the token."
-msgstr ""
+msgstr "持有者无法出售所有代币。"
 
 msgid "I want to hide this wallet address."
 msgstr "我想隐藏这个钱包地址。"
@@ -1657,7 +1657,7 @@ msgid "Select Token"
 msgstr "选择代币"
 
 msgid "This NFT contract doesn't have a proxy contract."
-msgstr ""
+msgstr "该 NFT 合约没有代理合约。"
 
 msgid "Your schedule thread has created successfully."
 msgstr "你设定的定时 thread 已经成功。"
@@ -1681,7 +1681,7 @@ msgid "No stealing attack involved."
 msgstr "未涉及盗窃攻击。"
 
 msgid "The contract owner has no restrictions on buying."
-msgstr ""
+msgstr "合约所有者对购买没有限制。"
 
 msgid "Financial crime."
 msgstr "金融犯罪。"
@@ -1693,7 +1693,7 @@ msgid "Article removed from your Bookmarks"
 msgstr "文章已经从您的收藏中移除"
 
 msgid "Powered by Tenderly and GoPlus"
-msgstr ""
+msgstr "Powered by Tenderly and GoPlus"
 
 msgid "Publications"
 msgstr "帖子"
@@ -1795,7 +1795,7 @@ msgid "Failed to create schedule thread posts."
 msgstr "创建定时 thread 失败。"
 
 msgid "This NFT contract has a proxy contract."
-msgstr ""
+msgstr "该 NFT 合约有代理合约。"
 
 msgid "Top Collectors"
 msgstr "热门收藏者"
@@ -1816,7 +1816,7 @@ msgid "The contract owner has restrictions on selling."
 msgstr "合约所有者对销售有限制。"
 
 msgid "The gas abuse function is not included. If there is a gas abuse function, the project owner may have the ability to control the contract."
-msgstr ""
+msgstr "未包含燃气滥用功能。如果存在燃气滥用功能，项目所有者可能有能力控制合约。"
 
 msgid "Translated"
 msgstr "已翻译"
@@ -2164,7 +2164,7 @@ msgid "Claimed"
 msgstr "已领取"
 
 msgid "The hidden owner function is included. The project owner may have the ability to control the contract."
-msgstr ""
+msgstr "包含隐藏所有者功能。项目所有者可能有能力控制合约。"
 
 msgid "Step 1 Sign in"
 msgstr "第 1 步 登录"
@@ -2233,7 +2233,7 @@ msgid "<0>You</0> reposted"
 msgstr "<0>你</0> 已转帖"
 
 msgid "NFT owner can bypass the maximum amount of minting specified in the contract, and continue to mint NFTs beyond this limit."
-msgstr ""
+msgstr "NFT 持有者可以绕过合约中规定的最大铸造数量限制，继续铸造超过此限制的NFT。"
 
 msgid "The contract may contain additional issuance functions, which could maybe generate a large number of tokens, resulting in significant fluctuations in token prices. It is recommended to confirm with the project team whether it complies with the token issuance instructions."
 msgstr "合约可能含有额外的发行功能，这可能会产生大量的通证，导致通证价格的重大波动。建议向项目组确认它是否遵守通证发行准则。"
@@ -2746,7 +2746,7 @@ msgid "Failed to parse transaction."
 msgstr "未能解析交易。"
 
 msgid "The metadata of this NFT is stored in IPFS, AR, generated by contract, or another decentralized way."
-msgstr ""
+msgstr "该 NFT 的元数据存储在 IPFS、AR、合约生成或其他去中心化方式中。"
 
 msgid "No anti_whale(Unlimited number of transactions)"
 msgstr "没有反鲸鱼（无限的交易次数）"
@@ -2815,7 +2815,7 @@ msgid "Please confirm the login with X."
 msgstr "请在 X 确认登陆。"
 
 msgid "Snapshot removed from your Bookmarks"
-msgstr ""
+msgstr "投票已经从您的收藏中移除"
 
 msgid "Max Supply"
 msgstr "最大供应量"
@@ -2996,3 +2996,4 @@ msgstr "× {0}"
 
 msgid "Blink Validator"
 msgstr "Blink 验证器"
+
