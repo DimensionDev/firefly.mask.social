@@ -197,6 +197,7 @@ export async function crossPost(
                     type,
                     {
                         ...compositePost,
+                        chars: updatedCompositePost.chars,
                         poll: updatedCompositePost.poll,
                     },
                     signal,
