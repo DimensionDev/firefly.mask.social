@@ -31,7 +31,6 @@ interface MirrorProps {
 export const Mirror = memo<MirrorProps>(function Mirror({
     shares = 0,
     source,
-    postId,
     disabled = false,
     post,
     hiddenCount = false,
