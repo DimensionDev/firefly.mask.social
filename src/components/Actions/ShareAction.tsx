@@ -3,9 +3,9 @@ import { t, Trans } from '@lingui/macro';
 import { motion } from 'framer-motion';
 import { memo } from 'react';
 
-import LinkIcon from '@/assets/link-classic.svg';
 import SendIcon from '@/assets/send.svg';
 import ShareIcon from '@/assets/share.svg';
+import LinkIcon from '@/assets/small-link.svg';
 import { MenuButton } from '@/components/Actions/MenuButton.js';
 import { MenuGroup } from '@/components/MenuGroup.js';
 import { MoreActionMenu } from '@/components/MoreActionMenu.js';
