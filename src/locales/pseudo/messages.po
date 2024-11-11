@@ -367,6 +367,9 @@ msgstr ""
 msgid "NFT Standard"
 msgstr ""
 
+msgid "🙌  Just voted “{0}” on “{1}”"
+msgstr ""
+
 msgid "Stealing attack."
 msgstr ""
 
@@ -2279,9 +2282,6 @@ msgid "Will send on <0>{0} at <1>{1}</1></0>"
 msgstr ""
 
 msgid "Snapshot added to your Bookmarks"
-msgstr ""
-
-msgid "🤑 Just voted “{0}” on “{1}”"
 msgstr ""
 
 msgid "Failed to continue. Please allow Lens Manager for performing actions without the need to sign each transaction."

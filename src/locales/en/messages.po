@@ -367,6 +367,9 @@ msgstr "Profile not found"
 msgid "NFT Standard"
 msgstr "NFT Standard"
 
+msgid "🙌  Just voted “{0}” on “{1}”"
+msgstr "🙌  Just voted “{0}” on “{1}”"
+
 msgid "Stealing attack."
 msgstr "Stealing attack."
 
@@ -2280,9 +2283,6 @@ msgstr "Will send on <0>{0} at <1>{1}</1></0>"
 
 msgid "Snapshot added to your Bookmarks"
 msgstr "Snapshot added to your Bookmarks"
-
-msgid "🤑 Just voted “{0}” on “{1}”"
-msgstr "🤑 Just voted “{0}” on “{1}”"
 
 msgid "Failed to continue. Please allow Lens Manager for performing actions without the need to sign each transaction."
 msgstr "Failed to continue. Please allow Lens Manager for performing actions without the need to sign each transaction."
