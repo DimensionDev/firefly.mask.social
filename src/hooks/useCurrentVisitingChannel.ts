@@ -18,7 +18,7 @@ export function useUpdateCurrentVisitingChannel(channel: Channel | null) {
 
 export function useCurrentVisitingChannel() {
     const pathname = usePathname();
-    const isChannelPage = isRoutePathname(pathname, '/channel');
+    const isChannelPage = isRoutePathname(pathname, '/channel/:name/:type');
     const channel = useValueRef(currentVisitingChannel);
     return isChannelPage ? channel : null;
 }
