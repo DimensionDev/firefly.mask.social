@@ -26,7 +26,8 @@ export const TextOverflowTooltip = memo(function TextOverflowTooltip({
                 'hidden !rounded-lg !text-xs !leading-6 tracking-wide',
                 overflow ? 'sm:block' : 'hidden',
             )}
-            delay={[withDelay ? 500 : 0, 0]}
+            // disable tooltip by setting very large delay.
+            delay={overflow ? [withDelay ? 500 : 0, 0] : [1000_000_000, 0]}
             {...rest}
         >
             {cloneElement(children, { ...children.props, ref, 'data-overflow': overflow })}
