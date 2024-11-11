@@ -21,6 +21,7 @@ import {
 } from '@/providers/telemetry/captureAccountEvent.js';
 import { captureSyncModalEvent } from '@/providers/telemetry/captureSyncModalEvent.js';
 import { TwitterSession } from '@/providers/twitter/Session.js';
+import { twitterSessionHolder } from '@/providers/twitter/SessionHolder.js';
 import { TwitterSocialMediaProvider } from '@/providers/twitter/SocialMedia.js';
 import type { Account } from '@/providers/types/Account.js';
 import type { Session } from '@/providers/types/Session.js';
@@ -322,6 +323,7 @@ async function removeAccount(account: Account, signal?: AbortSignal) {
                 redirect: false,
             });
         }
+        twitterSessionHolder.removeSession();
     });
 
     captureAccountLogoutEvent(account);
