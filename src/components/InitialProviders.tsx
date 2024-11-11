@@ -1,6 +1,7 @@
 'use client';
 
 import { useActionsRegistryInterval } from '@dialectlabs/blinks';
+import { useLingui } from '@lingui/react';
 import { usePathname } from 'next/navigation.js';
 import { SnackbarProvider } from 'notistack';
 import { memo, useEffect, useLayoutEffect, useRef } from 'react';
@@ -22,6 +23,7 @@ export const InitialProviders = memo(function Providers(props: { children: React
     const isDarkMode = useIsDarkMode();
     const isMedium = useIsMedium();
     useActionsRegistryInterval();
+    const lingui = useLingui();
 
     const entryPathname = useRef('');
     const pathname = usePathname();
@@ -41,8 +43,8 @@ export const InitialProviders = memo(function Providers(props: { children: React
     useEffect(() => {
         const locale = getLocaleFromCookies();
         console.info('set locale =', locale);
-        setLocale(getLocaleFromCookies());
-    }, []);
+        setLocale(lingui.i18n, getLocaleFromCookies());
+    }, [lingui.i18n]);
 
     const viewerId = useLeafwatchPersistStore.use.viewerId();
     const setViewerId = useLeafwatchPersistStore.use.setViewerId();

@@ -1,4 +1,4 @@
-import { i18n, type Messages, setupI18n } from '@lingui/core';
+import { I18n, type Messages, setupI18n } from '@lingui/core';
 import { setI18n } from '@lingui/react/server';
 import dayjs from 'dayjs';
 
@@ -53,7 +53,7 @@ export function getI18n() {
  * set locale and dynamically import catalog
  * @param locale a supported locale string
  */
-export function setLocale(locale: Locale) {
+export function setLocale(i18n: I18n, locale: Locale) {
     if (!supportedLocales.hasOwnProperty(locale)) {
         console.error(`[i18n]: unknown locale ${locale}`);
         locale = defaultLocale;
