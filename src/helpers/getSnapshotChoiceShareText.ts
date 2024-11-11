@@ -4,11 +4,11 @@ import type { SnapshotChoice } from '@/providers/snapshot/type.js';
 
 export function getSnapshotChoiceShareText(selectedChoices: SnapshotChoice, choices: string[], type: string) {
     if ((type === 'single-choice' || type === 'basic') && isNumber(selectedChoices)) {
-        return choices[selectedChoices];
+        return choices[selectedChoices - 1];
     } else if (type === 'approval' && isArray(selectedChoices)) {
         return compact(
             choices.map((value, index) => {
-                if (selectedChoices.includes(index)) return value;
+                if (selectedChoices.includes(index + 1)) return value;
                 return;
             }),
         ).join(', ');
@@ -19,14 +19,14 @@ export function getSnapshotChoiceShareText(selectedChoices: SnapshotChoice, choi
     ) {
         return compact(
             choices.map((value, index) => {
-                if (selectedChoices[index]) return value;
+                if (selectedChoices[index + 1]) return value;
                 return;
             }),
         ).join(', ');
     } else if (type === 'ranked-choice' && isArray(selectedChoices)) {
         return selectedChoices
             .map((index) => {
-                return choices[index];
+                return choices[index - 1];
             })
             .join(', ');
     }
