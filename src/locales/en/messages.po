@@ -1018,6 +1018,9 @@ msgstr "Mirror or Quote"
 msgid "Confirm you want to mute /{0}?"
 msgstr "Confirm you want to mute /{0}?"
 
+msgid "Connecting..."
+msgstr "Connecting..."
+
 msgid "Enter amount"
 msgstr "Enter amount"
 
