@@ -9,6 +9,7 @@ import { classNames } from '@/helpers/classNames.js';
 import { createLookupTableResolver } from '@/helpers/createLookupTableResolver.js';
 import { resolveFallbackImageUrl } from '@/helpers/resolveFallbackImageUrl.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
+import { useAsyncStatus } from '@/hooks/useAsyncStatus.js';
 import { LoginModalRef } from '@/modals/controls.js';
 
 const resolveConnectButtonClass = createLookupTableResolver<SocialSource | Source.Article | Source.Snapshot, string>(
@@ -34,6 +35,9 @@ export const NotLoginFallback = memo<NotLoginFallbackProps>(function NotLoginFal
     const fallbackImageUrl = resolveFallbackImageUrl(source);
     const isNotSocialSource = source === Source.Article || source === Source.Snapshot;
 
+    const asyncStatusTwitter = useAsyncStatus(Source.Twitter);
+    const isTwitterConnecting = source === Source.Twitter && asyncStatusTwitter;
+
     return (
         <div
             className={classNames('flex flex-grow flex-col items-center justify-center space-y-9 pt-[15vh]', className)}
@@ -56,11 +60,18 @@ export const NotLoginFallback = memo<NotLoginFallbackProps>(function NotLoginFal
                     'rounded-[10px] bg-transparent px-5 py-3.5 text-sm font-bold shadow-sm ring-1 ring-inset',
                     source ? resolveConnectButtonClass(source) : undefined,
                 )}
+                disabled={isTwitterConnecting}
                 onClick={() => {
                     LoginModalRef.open({ source: isNotSocialSource ? undefined : source });
                 }}
             >
-                {isNotSocialSource ? <Trans>Login</Trans> : <Trans>Connect to {resolveSourceName(source)}</Trans>}
+                {isNotSocialSource ? (
+                    <Trans>Login</Trans>
+                ) : isTwitterConnecting ? (
+                    <Trans>Connecting...</Trans>
+                ) : (
+                    <Trans>Connect to {resolveSourceName(source)}</Trans>
+                )}
             </ClickableButton>
         </div>
     );

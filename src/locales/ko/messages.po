@@ -1029,6 +1029,9 @@ msgstr ""
 msgid "Confirm you want to mute /{0}?"
 msgstr ""
 
+msgid "Connecting..."
+msgstr ""
+
 msgid "Enter amount"
 msgstr ""
 

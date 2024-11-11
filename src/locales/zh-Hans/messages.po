@@ -1029,6 +1029,9 @@ msgstr "转帖或者引用"
 msgid "Confirm you want to mute /{0}?"
 msgstr "您确定要隐藏 /{0} 吗？"
 
+msgid "Connecting..."
+msgstr ""
+
 msgid "Enter amount"
 msgstr "输入金额"
 
