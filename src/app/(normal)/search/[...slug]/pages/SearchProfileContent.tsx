@@ -8,7 +8,7 @@ import { Empty } from '@/components/Search/Empty.js';
 import { SearchableProfileItem } from '@/components/Search/SearchableProfileItem.js';
 import { ScrollListKey, Source, SourceInURL } from '@/constants/enum.js';
 import { formatSearchIdentities } from '@/helpers/formatSearchIdentities.js';
-import { createIndicator } from '@/helpers/pageable.js';
+import { createIndicator, createPageable } from '@/helpers/pageable.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
@@ -48,6 +48,8 @@ const getSearchItemContent = (item: ProfileWithRelated) => {
     );
 };
 
+const noNextPage = '__no_next_page__';
+
 export function SearchProfileContent() {
     const isTwitterLogin = useIsLogin(Source.Twitter);
     const { searchKeyword, searchType, source } = useSearchStateStore();
@@ -59,10 +61,16 @@ export function SearchProfileContent() {
             const fireflyIndicator = pageParam.firefly ? createIndicator(undefined, pageParam.firefly) : undefined;
             const twitterIndicator = pageParam.twitter ? createIndicator(undefined, pageParam.twitter) : undefined;
 
-            const data = await FireflyEndpointProvider.searchIdentity(searchKeyword, 25, fireflyIndicator);
-            const twitterProfiles = isTwitterLogin
-                ? await runInSafeAsync(() => TwitterSocialMediaProvider.searchProfiles(searchKeyword, twitterIndicator))
-                : undefined;
+            const data =
+                pageParam.firefly !== noNextPage
+                    ? await FireflyEndpointProvider.searchIdentity(searchKeyword, 25, fireflyIndicator)
+                    : createPageable([], createIndicator());
+            const twitterProfiles =
+                isTwitterLogin && pageParam.twitter !== noNextPage
+                    ? await runInSafeAsync(() =>
+                          TwitterSocialMediaProvider.searchProfiles(searchKeyword, twitterIndicator),
+                      )
+                    : undefined;
             return {
                 ...data,
                 twitterNextIndicator: twitterProfiles?.nextIndicator,
@@ -73,8 +81,8 @@ export function SearchProfileContent() {
         getNextPageParam: (lastPage) => {
             if (lastPage?.data.length === 0) return;
             return {
-                firefly: lastPage?.nextIndicator?.id ?? '',
-                twitter: lastPage?.twitterNextIndicator?.id ?? '',
+                firefly: lastPage?.nextIndicator?.id ?? noNextPage,
+                twitter: lastPage?.twitterNextIndicator?.id ?? noNextPage,
             };
         },
         select(data) {

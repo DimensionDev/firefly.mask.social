@@ -522,9 +522,6 @@ msgstr "靜音"
 msgid "NFTs"
 msgstr "非同質化代幣"
 
-msgid "No results for \"{searchKeyword}\""
-msgstr "“{searchKeyword}” 無搜尋結果"
-
 msgid "Page not found"
 msgstr "找不到網頁"
 
@@ -1721,6 +1718,9 @@ msgstr ""
 
 msgid "Mute successfully."
 msgstr "已成功靜音"
+
+msgid "No results for \"{keyword}\""
+msgstr ""
 
 msgid "If this function exists, it is possible for the project owner to regain ownership even after relinquishing it"
 msgstr ""

@@ -522,9 +522,6 @@ msgstr "隐藏"
 msgid "NFTs"
 msgstr "NFTs"
 
-msgid "No results for \"{searchKeyword}\""
-msgstr "{searchKeyword} 搜索无结果"
-
 msgid "Page not found"
 msgstr "找不到网页"
 
@@ -1721,6 +1718,9 @@ msgstr "提交已领取的地址"
 
 msgid "Mute successfully."
 msgstr "隐藏成功。"
+
+msgid "No results for \"{keyword}\""
+msgstr ""
 
 msgid "If this function exists, it is possible for the project owner to regain ownership even after relinquishing it"
 msgstr "如果存在此功能，项目所有者即使在放弃后也可以重新获得所有权。"

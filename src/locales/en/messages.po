@@ -517,9 +517,6 @@ msgstr "Mutes"
 msgid "NFTs"
 msgstr "NFTs"
 
-msgid "No results for \"{searchKeyword}\""
-msgstr "No results for \"{searchKeyword}\""
-
 msgid "Page not found"
 msgstr "Page not found"
 
@@ -1716,6 +1713,9 @@ msgstr "Submit claimed address"
 
 msgid "Mute successfully."
 msgstr "Mute successfully."
+
+msgid "No results for \"{keyword}\""
+msgstr "No results for \"{keyword}\""
 
 msgid "If this function exists, it is possible for the project owner to regain ownership even after relinquishing it"
 msgstr "If this function exists, it is possible for the project owner to regain ownership even after relinquishing it"
