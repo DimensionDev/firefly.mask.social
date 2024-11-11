@@ -5,7 +5,7 @@ import { useQuery } from '@tanstack/react-query';
 import { isUndefined } from 'lodash-es';
 import { notFound } from 'next/navigation.js';
 
-import Loading from '@/app/(normal)/loading.js';
+import { Loading } from '@/components/Loading.js';
 import { Attendees } from '@/components/NFTDetail/Attendees.js';
 import { NFTInfo } from '@/components/NFTDetail/NFTInfo.js';
 import { NFTOverflow } from '@/components/NFTDetail/NFTOverflow.js';
