@@ -108,11 +108,11 @@ export const SnapshotVotesList = memo<SnapshotVotesListProps>(function SnapshotV
     );
 
     if (!data?.length) {
-        return <NoResultsFallback className="h-[138px] justify-center" />;
+        return <NoResultsFallback className="h-[174px] justify-center" />;
     }
 
     return (
-        <div className="h-[138px]">
+        <div className="h-[174px]">
             <VirtualList
                 data={data}
                 endReached={onEndReached}

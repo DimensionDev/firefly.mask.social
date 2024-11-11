@@ -20,7 +20,10 @@ export async function setupTwitterSession() {
     } as unknown as NextRequest;
 
     const payload = (await createTwitterSessionPayloadFromJWT(req)) ?? (await createTwitterSessionPayloadFromCookie());
-    if (!payload) return;
+    if (!payload) {
+        if (twitterSessionHolder.session) twitterSessionHolder.removeSession();
+        return;
+    }
 
     twitterSessionHolder.resumeSession(TwitterSession.from(payload.clientId, payload));
 }

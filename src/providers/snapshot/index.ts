@@ -132,7 +132,7 @@ export class Snapshot {
         return createPageable(
             results,
             createIndicator(indicator),
-            createNextIndicator(indicator, plus(indicator?.id ?? 0, 20).toString()),
+            results.length ? createNextIndicator(indicator, plus(indicator?.id ?? 0, 20).toString()) : null,
         );
     }
 
