@@ -34,7 +34,7 @@ export const SingleSnapshot = memo<SingleSnapshotProps>(function SingleSnapshot(
                 <div className="-mt-2 pl-[52px]">
                     <div className="flex items-center gap-1 text-medium">
                         <VoteIcon width={18} height={18} className="min-w-[18px]" />
-                        <span className="font-bold text-main">
+                        <span className="shrink-0 whitespace-nowrap font-bold text-main">
                             <Trans>VOTED</Trans>
                         </span>
                         <TextOverflowTooltip
