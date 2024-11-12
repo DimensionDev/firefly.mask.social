@@ -68,7 +68,6 @@ export enum ChainId {
     Arbitrum = 42161,
     Base = 8453,
     Base_Sepolia = 84532,
-    Degen = 666666666,
     Gnosis = 100,
     Optimism = 10,
     Zora = 7777777,
