@@ -39,7 +39,8 @@ export const supportedLocales: Record<Locale, string> = {
 export const defaultLocale = Locale.en;
 
 export function setupLocaleForSSR() {
-    setI18n(allLocales[getLocaleFromCookies()]);
+    const i18n = allLocales[getLocaleFromCookies()];
+    setI18n(i18n);
 }
 
 export function getI18n() {
@@ -58,10 +59,6 @@ export function setLocale(locale: Locale) {
     } else {
         console.log(`[i18n]: locale ${locale}`);
     }
-
-    const i18n = allLocales[locale];
-    i18n.load(locale, messages[locale]);
-    i18n.activate(locale, locales);
 
     // lingui macro uses the core i18n
     coreI18n.load(locale, messages[locale]);
