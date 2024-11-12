@@ -43,7 +43,7 @@ export const InitialProviders = memo(function Providers(props: { children: React
     useEffect(() => {
         const locale = getLocaleFromCookies();
         console.info('set locale =', locale);
-        setLocale(lingui.i18n, getLocaleFromCookies());
+        setLocale(getLocaleFromCookies());
     }, [lingui.i18n]);
 
     const viewerId = useLeafwatchPersistStore.use.viewerId();

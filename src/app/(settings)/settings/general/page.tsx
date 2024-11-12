@@ -93,7 +93,7 @@ export default function General() {
                             const data = new FormData();
                             data.append('locale', option.value);
                             await changeLocale(data);
-                            setLocale(lingui.i18n, option.value);
+                            setLocale(option.value);
                         }}
                     />
                 ))}
