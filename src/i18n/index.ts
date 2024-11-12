@@ -60,10 +60,6 @@ export function setLocale(locale: Locale) {
         console.log(`[i18n]: locale ${locale}`);
     }
 
-    const i18n = allLocales[locale];
-    i18n.load(locale, messages[locale]);
-    i18n.activate(locale, locales);
-
     // lingui macro uses the core i18n
     coreI18n.load(locale, messages[locale]);
     coreI18n.activate(locale, locales);

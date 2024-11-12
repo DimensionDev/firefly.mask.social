@@ -6,6 +6,7 @@ import { ParticleProvider } from '@/components/ParticleProvider.js';
 import { QueryClientProviders } from '@/components/QueryClientProviders.js';
 import { SolanaWalletAdapterProvider } from '@/components/SolanaWalletAdapterProvider.js';
 import { WagmiProvider } from '@/components/WagmiProvider.js';
+import { getLocaleFromCookies } from '@/helpers/getFromCookies.js';
 import { setupLocaleForSSR } from '@/i18n/index.js';
 
 type ProviderProps = PropsWithChildren<{
@@ -15,8 +16,10 @@ type ProviderProps = PropsWithChildren<{
 export const Providers = memo(function RootProviders(props: ProviderProps) {
     setupLocaleForSSR();
 
+    const local = getLocaleFromCookies();
+
     return (
-        <LinguiClientProvider>
+        <LinguiClientProvider local={local}>
             <QueryClientProviders>
                 <InitialProviders>
                     <ParticleProvider>
