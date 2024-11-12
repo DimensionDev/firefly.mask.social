@@ -72,7 +72,7 @@ export const SnapshotResults = memo<SnapshotResultsProps>(function SnapshotResul
                 <span className="text-secondary">({votes.toLocaleString('en-US')})</span>
             </div>
 
-            <Suspense fallback={<Loading className="max-h-[174px] !min-h-[174px]" />}>
+            <Suspense fallback={<Loading className="max-h-[130px] !min-h-[130px]" />}>
                 <SnapshotVotesList id={id} />
             </Suspense>
         </div>
