@@ -41,7 +41,7 @@ export const SnapshotResults = memo<SnapshotResultsProps>(function SnapshotResul
                                 <TextOverflowTooltip className="max-sm:block" placement="top" content={choice}>
                                     <div className="overflow-hidden overflow-ellipsis whitespace-nowrap">{choice}</div>
                                 </TextOverflowTooltip>
-                                <div className="flex gap-1">
+                                <div className="flex gap-1 whitespace-nowrap">
                                     <span>{nFormatter(score)}</span>
                                     <span>{symbol}</span>
                                     <span>{scoreTotal ? formatPercentage(score / scoreTotal) : '0%'}</span>
