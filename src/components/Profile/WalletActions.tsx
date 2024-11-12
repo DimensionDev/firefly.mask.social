@@ -11,10 +11,12 @@ export function WalletActions({ profile }: { profile: WalletProfile }) {
     const isMedium = useIsMedium();
 
     if (!isMyWallets && isMedium) {
-        <>
-            <WatchButton className="ml-auto mr-1" address={profile.address} />
-            <WalletMoreAction profile={profile} />
-        </>;
+        return (
+            <>
+                <WatchButton className="ml-auto mr-1" address={profile.address} />
+                <WalletMoreAction profile={profile} />
+            </>
+        );
     }
 
     return null;

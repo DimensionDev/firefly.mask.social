@@ -28,6 +28,7 @@ export async function PostDetailPage({ id: postId, source }: Props) {
 
     const provider = resolveSocialMediaProvider(source);
     const post = await provider.getPostById(postId);
+
     if (!post) notFound();
 
     const threads = await getThreads(post, source);

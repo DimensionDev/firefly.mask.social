@@ -29,6 +29,7 @@ import { Link } from '@/esm/Link.js';
 import { classNames } from '@/helpers/classNames.js';
 import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
 import { formatEthereumAddress } from '@/helpers/formatAddress.js';
+import { formatSnapshotChoice } from '@/helpers/formatSnapshotChoice.js';
 import { getSnackbarMessageFromError } from '@/helpers/getSnackbarMessageFromError.js';
 import { getSnapshotChoiceShareText } from '@/helpers/getSnapshotChoiceShareText.js';
 import { stopPropagation } from '@/helpers/stopEvent.js';
@@ -160,7 +161,7 @@ export function SnapshotBody({ snapshot, link, postId, activity }: Props) {
                     type: 'compose',
                     chars: [
                         // eslint-disable-next-line no-irregular-whitespace
-                        t`🙌  Just voted “${getSnapshotChoiceShareText(selectedChoices, choices, type)}” on “${snapshot.title}”`,
+                        t`🙌  Just voted “${formatSnapshotChoice(selectedChoices, type, choices)}” on “${snapshot.title}”`,
                         `\n\n${snapshot.link}`,
                     ],
                 });
@@ -206,64 +207,66 @@ export function SnapshotBody({ snapshot, link, postId, activity }: Props) {
             <ClickableArea className="relative mt-[6px] flex flex-col gap-2 rounded-2xl border border-line bg-bg p-3 text-left text-commonMain">
                 <SnapshotStatus status={state} className="self-start" />
                 <h1
-                    className={classNames('line-clamp-2 text-left text-[18px] font-bold leading-[20px]', {
+                    className={classNames('line-clamp-2 text-left text-[20px] font-bold leading-[20px]', {
                         'max-h-[40px]': IS_SAFARI && IS_APPLE,
                     })}
                 >
                     {snapshot.title}
                 </h1>
-                <div className="flex items-center gap-2 max-md:flex md:hidden">
-                    <Link href={authorUrl} className="z-[1]">
-                        <Avatar
-                            className="h-[15px] w-[15px]"
-                            src={`https://cdn.stamp.fyi/space/s:${space.id}?s=40`}
-                            size={15}
-                            alt={space.name || space.id}
-                        />
-                    </Link>
-                    <Link
-                        href={authorUrl}
-                        onClick={stopPropagation}
-                        className="block truncate text-clip text-medium leading-5 text-secondary"
-                    >
-                        <Trans>
-                            <strong>{space.name}</strong> by{' '}
-                            <strong>{ensHandle.data || formatEthereumAddress(snapshot.author, 4)}</strong>
-                        </Trans>
-                    </Link>
-                </div>
-                <div className="flex items-center justify-between pb-[10px]">
-                    <div className="flex items-center gap-2">
-                        <div className="hidden items-center gap-2 md:flex">
-                            <Link href={authorUrl} className="z-[1]">
-                                <Avatar
-                                    className="h-[15px] w-[15px]"
-                                    src={`https://cdn.stamp.fyi/space/s:${space.id}?s=40`}
-                                    size={15}
-                                    alt={space.name || space.id}
-                                />
-                            </Link>
-                            <Link
-                                href={authorUrl}
-                                onClick={stopPropagation}
-                                className="block truncate text-clip text-medium leading-5 text-secondary"
-                            >
-                                <Trans>
-                                    <strong>{space.name}</strong> by{' '}
-                                    <strong>{ensHandle.data || formatEthereumAddress(snapshot.author, 4)}</strong>
-                                </Trans>
-                            </Link>
-                        </div>
-                        <Time
-                            dateTime={snapshot.created * 1000}
-                            className="whitespace-nowrap text-medium text-xs leading-4 text-secondary"
+                <div>
+                    <div className="flex items-center gap-2 max-md:flex md:hidden">
+                        <Link href={authorUrl} className="z-[1]">
+                            <Avatar
+                                className="h-[15px] w-[15px]"
+                                src={`https://cdn.stamp.fyi/space/s:${space.id}?s=40`}
+                                size={15}
+                                alt={space.name || space.id}
+                            />
+                        </Link>
+                        <Link
+                            href={authorUrl}
+                            onClick={stopPropagation}
+                            className="block truncate text-clip text-medium leading-5 text-secondary"
                         >
-                            <TimestampFormatter time={snapshot.created * 1000} />
-                        </Time>
-                        ·
-                        <SnapshotIcon width={15} height={15} />
+                            <Trans>
+                                <strong>{space.name}</strong> by{' '}
+                                <strong>{ensHandle.data || formatEthereumAddress(snapshot.author, 4)}</strong>
+                            </Trans>
+                        </Link>
                     </div>
-                    <SnapshotActions activity={activity} link={snapshot.link} />
+                    <div className="flex items-center justify-between">
+                        <div className="flex items-center gap-2">
+                            <div className="hidden items-center gap-2 md:flex">
+                                <Link href={authorUrl} className="z-[1]">
+                                    <Avatar
+                                        className="h-[15px] w-[15px]"
+                                        src={`https://cdn.stamp.fyi/space/s:${space.id}?s=40`}
+                                        size={15}
+                                        alt={space.name || space.id}
+                                    />
+                                </Link>
+                                <Link
+                                    href={authorUrl}
+                                    onClick={stopPropagation}
+                                    className="block truncate text-clip text-medium leading-5 text-secondary"
+                                >
+                                    <Trans>
+                                        <strong>{space.name}</strong> by{' '}
+                                        <strong>{ensHandle.data || formatEthereumAddress(snapshot.author, 4)}</strong>
+                                    </Trans>
+                                </Link>
+                            </div>
+                            <Time
+                                dateTime={snapshot.created * 1000}
+                                className="whitespace-nowrap text-medium leading-4 text-secondary"
+                            >
+                                <TimestampFormatter time={snapshot.created * 1000} />
+                            </Time>
+                            ·
+                            <SnapshotIcon width={15} height={15} />
+                        </div>
+                        <SnapshotActions activity={activity} link={snapshot.link} />
+                    </div>
                 </div>
 
                 <div>

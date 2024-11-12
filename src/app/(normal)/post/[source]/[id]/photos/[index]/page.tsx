@@ -12,6 +12,5 @@ interface Props {
 }
 
 export default function Photo({ params: { id: postId }, searchParams: { source } }: Props) {
-    redirect(urlcat('/post/:id', { id: postId, source }));
-    return null;
+    redirect(urlcat('/post/:source/:id', { id: postId, source }));
 }
