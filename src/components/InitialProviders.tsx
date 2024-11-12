@@ -1,6 +1,7 @@
 'use client';
 
 import { useActionsRegistryInterval } from '@dialectlabs/blinks';
+import { useLingui } from '@lingui/react';
 import { usePathname } from 'next/navigation.js';
 import { SnackbarProvider } from 'notistack';
 import { memo, useEffect, useLayoutEffect, useRef } from 'react';
@@ -9,10 +10,11 @@ import { v4 as uuid } from 'uuid';
 
 import { sentryClient } from '@/configs/sentryClient.js';
 import { classNames } from '@/helpers/classNames.js';
-import { getLocaleFromCookies } from '@/helpers/getLocaleFromCookies.js';
+import { getLocaleFromCookies } from '@/helpers/getFromCookies.js';
 import { useIsDarkMode } from '@/hooks/useIsDarkMode.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import { setLocale } from '@/i18n/index.js';
+import { recordUserThemeMode } from '@/services/recordUserThemeMode.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
 import { useLeafwatchPersistStore } from '@/store/useLeafwatchPersistStore.js';
 import { useThemeModeStore } from '@/store/useThemeModeStore.js';
@@ -21,6 +23,7 @@ export const InitialProviders = memo(function Providers(props: { children: React
     const isDarkMode = useIsDarkMode();
     const isMedium = useIsMedium();
     useActionsRegistryInterval();
+    const lingui = useLingui();
 
     const entryPathname = useRef('');
     const pathname = usePathname();
@@ -33,12 +36,14 @@ export const InitialProviders = memo(function Providers(props: { children: React
         }
         const meta = document.querySelector('meta[name="theme-color"]');
         meta?.setAttribute('content', isDarkMode ? '#030303' : '#ffffff');
+
+        recordUserThemeMode(isDarkMode ? 'dark' : themeMode === 'light' ? 'light' : '');
     }, [isDarkMode, themeMode]);
 
     useEffect(() => {
         const locale = getLocaleFromCookies();
-        console.info('set locale =', locale);
-        setLocale(getLocaleFromCookies());
+        console.info('[i18n] set locale =', locale);
+        setLocale(locale);
     }, []);
 
     const viewerId = useLeafwatchPersistStore.use.viewerId();

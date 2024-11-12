@@ -9,7 +9,7 @@ import { queryClient } from '@/configs/queryClient.js';
 import { NODE_ENV, type SocialSource } from '@/constants/enum.js';
 import { env } from '@/constants/env.js';
 import { SORTED_SOCIAL_SOURCES, SUPPORTED_FRAME_SOURCES } from '@/constants/index.js';
-import { CHAR_TAG, readChars } from '@/helpers/chars.js';
+import { readChars } from '@/helpers/chars.js';
 import { createDummyCommentPost } from '@/helpers/createDummyPost.js';
 import { enqueueErrorsMessage, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { getCompositePost } from '@/helpers/getCompositePost.js';
@@ -21,6 +21,7 @@ import { resolveRedPacketPlatformType } from '@/helpers/resolveRedPacketPlatform
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { hasRpPayload } from '@/helpers/rpPayload.js';
 import { captureComposeEvent } from '@/providers/telemetry/captureComposeEvent.js';
+import { capturePollEvent } from '@/providers/telemetry/capturePollEvent.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 import { commitPoll } from '@/services/poll.js';
 import { reportCrossedPost } from '@/services/reportCrossedPost.js';
@@ -163,26 +164,15 @@ export async function crossPost(
         signal,
     }: CrossPostOptions = {},
 ) {
-    const { updatePostInThread } = useComposeStateStore.getState();
-    const { availableSources, poll, chars } = compositePost;
+    const { updatePostInThread, updatePollId } = useComposeStateStore.getState();
+    const { availableSources, poll } = compositePost;
 
     // create common poll for farcaster and lens
     if (poll && SUPPORTED_FRAME_SOURCES.some((x) => availableSources.includes(x))) {
         const pollId = await commitPoll(poll, readChars(compositePost.chars));
 
-        compositePost = {
-            ...compositePost,
-            chars: (Array.isArray(chars) ? chars : [chars]).map((x) => {
-                if (typeof x !== 'string' && x.tag === CHAR_TAG.FRAME) {
-                    return { ...x, id: pollId };
-                }
-                return x;
-            }),
-            poll: {
-                ...poll,
-                id: pollId,
-            },
-        };
+        updatePollId(pollId);
+        capturePollEvent(pollId);
     }
 
     const allSettled = await Promise.allSettled(
@@ -200,7 +190,18 @@ export async function crossPost(
             }
 
             try {
-                const result = await resolvePostTo(source)(type, compositePost, signal);
+                const updatedCompositePost = getCompositePost(compositePost.id);
+                if (!updatedCompositePost) throw new Error(`Post not found with id: ${compositePost.id}`);
+
+                const result = await resolvePostTo(source)(
+                    type,
+                    {
+                        ...compositePost,
+                        chars: updatedCompositePost.chars,
+                        poll: updatedCompositePost.poll,
+                    },
+                    signal,
+                );
                 updatePostInThread(compositePost.id, (post) => ({
                     ...post,
                     postError: {

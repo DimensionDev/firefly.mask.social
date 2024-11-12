@@ -1,8 +1,8 @@
 import { type SocialSource, Source } from '@/constants/enum.js';
 import { UnreachableError } from '@/constants/error.js';
 import { createLookupTableResolver } from '@/helpers/createLookupTableResolver.js';
-import { runInSafe } from '@/helpers/runInSafe.js';
-import { getPostEventParameters } from '@/providers/telemetry/getPostEventParameters.js';
+import { runInSafeAsync } from '@/helpers/runInSafe.js';
+import { getPostEventParameters, getSelfPostEventParameters } from '@/providers/telemetry/getPostEventParameters.js';
 import { TelemetryProvider } from '@/providers/telemetry/index.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 import { EventId } from '@/providers/types/Telemetry.js';
@@ -64,10 +64,13 @@ const resolvePostActionEventIds = createLookupTableResolver<SocialSource, Record
 );
 
 export function capturePostActionEvent(action: PostActionType, post: Post) {
-    runInSafe(() => {
+    return runInSafeAsync(() => {
         const eventIds = resolvePostActionEventIds(post.source);
         const eventId = eventIds[action];
 
-        TelemetryProvider.captureEvent(eventId, getPostEventParameters(post.postId, post.author));
+        return TelemetryProvider.captureEvent(
+            eventId,
+            action === 'delete' ? getSelfPostEventParameters(post) : getPostEventParameters(post),
+        );
     });
 }

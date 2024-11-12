@@ -1,4 +1,4 @@
-import { t, Trans } from '@lingui/macro';
+import { Trans } from '@lingui/macro';
 import { motion } from 'framer-motion';
 import { memo } from 'react';
 
@@ -7,7 +7,7 @@ import { CollapsedContent } from '@/components/Posts/CollapsedContent.js';
 import { SingleSnapshotHeader } from '@/components/Snapshot/SingleSnapshotHeader.js';
 import { SnapshotBody } from '@/components/Snapshot/SnapshotBody.js';
 import { SnapshotFallbackContent } from '@/components/Snapshot/SnapshotFallbackContent.js';
-import { Tooltip } from '@/components/Tooltip.js';
+import { TextOverflowTooltip } from '@/components/TextOverflowTooltip.js';
 import { formatSnapshotChoice } from '@/helpers/formatSnapshotChoice.js';
 import type { SnapshotActivity } from '@/providers/snapshot/type.js';
 
@@ -19,17 +19,6 @@ export const SingleSnapshot = memo<SingleSnapshotProps>(function SingleSnapshot(
     const isMuted = data.author.isMuted;
 
     const label = data.proposal ? formatSnapshotChoice(data.choice, data.proposal.type, data.proposal.choices) : null;
-
-    const tabs = [
-        {
-            label: t`Proposal`,
-            value: 'proposal',
-        },
-        {
-            label: t`Votes`,
-            value: 'votes',
-        },
-    ] as const;
 
     return (
         <motion.article
@@ -45,18 +34,18 @@ export const SingleSnapshot = memo<SingleSnapshotProps>(function SingleSnapshot(
                 <div className="-mt-2 pl-[52px]">
                     <div className="flex items-center gap-1 text-medium">
                         <VoteIcon width={18} height={18} className="min-w-[18px]" />
-                        <span className="font-bold text-main">
+                        <span className="shrink-0 whitespace-nowrap font-bold text-main">
                             <Trans>VOTED</Trans>
                         </span>
-                        <Tooltip
+                        <TextOverflowTooltip
                             className="max-sm:block"
                             placement="top-start"
                             content={<Trans>{label} on a proposal</Trans>}
                         >
-                            <span className="truncate text-secondary">
+                            <span className="line-clamp-2 text-secondary">
                                 <Trans>{label} on a proposal</Trans>
                             </span>
-                        </Tooltip>
+                        </TextOverflowTooltip>
                     </div>
 
                     {data.proposal ? (

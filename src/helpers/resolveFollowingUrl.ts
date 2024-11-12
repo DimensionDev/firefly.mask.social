@@ -1,9 +1,9 @@
 import urlcat from 'urlcat';
 
-import type { DiscoverSource } from '@/constants/enum.js';
+import type { FollowingSource } from '@/constants/enum.js';
 import { resolveSourceInUrl } from '@/helpers/resolveSourceInUrl.js';
 
-export function resolveFollowingUrl(source: DiscoverSource) {
+export function resolveFollowingUrl(source: FollowingSource) {
     return urlcat(`/following/:source`, {
         source: resolveSourceInUrl(source),
     });

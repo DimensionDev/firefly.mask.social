@@ -3,11 +3,13 @@ import { type PropsWithChildren } from 'react';
 
 import { ProfilePageLayout } from '@/app/(normal)/profile/pages/ProfilePageLayout.js';
 import { NotLoginFallback } from '@/components/NotLoginFallback.js';
+import { ProfileSourceTabs } from '@/components/Profile/ProfileSourceTabs.js';
 import { Source, SourceInURL } from '@/constants/enum.js';
 import { isProfilePageSource } from '@/helpers/isProfilePageSource.js';
 import { resolveSourceFromUrlNoFallback } from '@/helpers/resolveSource.js';
 import { setupTwitterSession } from '@/helpers/setupTwitterSession.js';
 import { setupLocaleForSSR } from '@/i18n/index.js';
+import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 import { twitterSessionHolder } from '@/providers/twitter/SessionHolder.js';
 
 export default async function Layout({
@@ -26,9 +28,20 @@ export default async function Layout({
     if (!source || !isProfilePageSource(source)) notFound();
     const identity = { source, id };
 
+    const profiles = await FireflyEndpointProvider.getAllPlatformProfileByIdentity(identity, false);
+
     if (source === Source.Twitter && !twitterSessionHolder.session) {
-        return <NotLoginFallback source={source} />;
+        return (
+            <>
+                <ProfileSourceTabs profiles={profiles} identity={identity} />
+                <NotLoginFallback source={source} />
+            </>
+        );
     }
 
-    return <ProfilePageLayout identity={identity}>{children}</ProfilePageLayout>;
+    return (
+        <ProfilePageLayout identity={identity} profiles={profiles}>
+            {children}
+        </ProfilePageLayout>
+    );
 }

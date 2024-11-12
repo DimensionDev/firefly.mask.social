@@ -15,9 +15,9 @@ export async function schedulePost(
     posts: SchedulePostPayload[],
     displayInfo: { content: string; type: ComposeType },
 ) {
-    const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/post/schedule');
+    const url = urlcat(settings.FIREFLY_ROOT_URL, '/v2/post/schedule');
 
-    const response = await fireflySessionHolder.fetch<Response<string>>(
+    const response = await fireflySessionHolder.fetch<Response<{ taskId: string }>>(
         url,
         {
             method: 'POST',
@@ -31,7 +31,7 @@ export async function schedulePost(
         },
         true,
     );
-    if (response.data) return response.data;
+    if (response.data?.taskId) return response.data.taskId;
     throw new Error(t`Failed to create scheduled post.`);
 }
 

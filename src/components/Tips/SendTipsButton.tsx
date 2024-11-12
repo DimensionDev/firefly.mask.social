@@ -10,10 +10,12 @@ import { ClickableButton } from '@/components/ClickableButton.js';
 import { router, TipsRoutePath } from '@/components/Tips/TipsModalRouter.js';
 import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
 import { getSnackbarMessageFromError } from '@/helpers/getSnackbarMessageFromError.js';
+import { resolveCurrentFireflyAccountId, resolveFireflyAccountId } from '@/helpers/resolveFireflyProfileId.js';
 import { resolveNetworkProvider, resolveTransferProvider } from '@/helpers/resolveTokenTransfer.js';
 import { TipsContext } from '@/hooks/useTipsContext.js';
 import { useTipsValidation } from '@/hooks/useTipsValidation.js';
 import { ConnectModalRef } from '@/modals/controls.js';
+import { captureTipsEvent } from '@/providers/telemetry/captureTipsEvent.js';
 import { reportTokenTips, UploadTokenTipsToken } from '@/services/reportTokenTips.js';
 
 interface SendTipsButtonProps {
@@ -45,21 +47,44 @@ const SendTipsButton = memo<SendTipsButtonProps>(function SendTipsButton({ conne
             if (hashUrl) {
                 update((prev) => ({ ...prev, hash: hashUrl }));
             }
-            reportTokenTips(identity, {
-                from_address: await network.getAccount(),
-                to_address: recipient.address,
-                chain_id: `${token.chainId}`,
-                chain_name: token.chain,
-                amount,
-                token_symbol: token.symbol,
-                token_icon: token.logo_url,
-                token_address: token.id,
-                token_type: transfer.isNativeToken(token)
-                    ? UploadTokenTipsToken.NativeToken
-                    : UploadTokenTipsToken.ERC20,
-                tip_memos: '',
-                tx_hash: hash,
-            });
+
+            {
+                const [account, fromAccountId, toAccountId] = await Promise.all([
+                    network.getAccount(),
+                    resolveCurrentFireflyAccountId(),
+                    resolveFireflyAccountId(identity),
+                ]);
+
+                reportTokenTips({
+                    from_account_id: fromAccountId,
+                    to_account_id: toAccountId,
+                    from_address: account,
+                    to_address: recipient.address,
+                    chain_id: `${token.chainId}`,
+                    chain_name: token.chain,
+                    amount,
+                    token_symbol: token.symbol,
+                    token_icon: token.logo_url,
+                    token_address: token.id,
+                    token_type: transfer.isNativeToken(token)
+                        ? UploadTokenTipsToken.NativeToken
+                        : UploadTokenTipsToken.ERC20,
+                    tip_memos: '',
+                    tx_hash: hash,
+                });
+                captureTipsEvent({
+                    source_wallet_address: account,
+                    target_wallet_address: recipient.address,
+                    source_firefly_account_id: fromAccountId ?? '',
+                    target_firefly_account_id: toAccountId ?? '',
+                    amount,
+                    currency: token.symbol,
+                    amount_usd: token.usdValue,
+                    chain_id: token.chainId,
+                    chain_name: token.chain,
+                });
+            }
+
             router.navigate({ to: TipsRoutePath.SUCCESS });
         } catch (error) {
             enqueueErrorMessage(getSnackbarMessageFromError(error, t`Failed to send tip.`), { error });

@@ -642,6 +642,10 @@ export class LensSocialMedia implements Provider {
     }
 
     async getProfileByHandle(handle: string): Promise<Profile> {
+        // Improve tolerance.
+        if (handle.endsWith('.lens')) {
+            handle = handle.slice(0, -5);
+        }
         const result = await lensSessionHolder.sdk.profile.fetch({
             forHandle: `lens/${handle}`,
         });

@@ -20,7 +20,7 @@ export function Post({ collapsed = false }: PostProps) {
     const mounted = useMounted();
     const isLogin = useIsLogin();
     const pathname = usePathname();
-    const isChannelPage = isRoutePathname(pathname, '/channel');
+    const isChannelPage = isRoutePathname(pathname, '/channel/:name/:type');
 
     if (!mounted) return null;
 

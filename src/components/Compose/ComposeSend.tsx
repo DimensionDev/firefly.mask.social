@@ -38,7 +38,7 @@ export function ComposeSend(props: ComposeSendProps) {
     const controller = useAbortController();
 
     const post = useCompositePost();
-    const { type, posts, addPostInThread, draftId } = useComposeStateStore();
+    const { type, posts, addPostInThread, currentDraftId } = useComposeStateStore();
     const { scheduleTime } = useComposeScheduleStateStore();
     const { removeDraft } = useComposeDraftStateStore();
 
@@ -74,14 +74,14 @@ export function ComposeSend(props: ComposeSendProps) {
                 }
                 await delay(300);
                 // If the draft is applied and sent successfully, remove the draft.
-                if (draftId) removeDraft(draftId);
+                if (currentDraftId) removeDraft(currentDraftId);
                 ComposeModalRef.close();
             } catch (error) {
                 if (error instanceof ConnectorNotConnectedError) return;
                 throw error;
             }
         },
-        [type, post, posts.length > 1, checkPostMedias, draftId, removeDraft, scheduleTime],
+        [type, post, posts.length > 1, checkPostMedias, currentDraftId, removeDraft, scheduleTime],
     );
 
     const hasError = useMemo(() => {

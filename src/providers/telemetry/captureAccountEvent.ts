@@ -4,7 +4,7 @@ import { type SocialSource, Source } from '@/constants/enum.js';
 import { UnreachableError } from '@/constants/error.js';
 import { createLookupTableResolver } from '@/helpers/createLookupTableResolver.js';
 import { getProfileState } from '@/helpers/getProfileState.js';
-import { runInSafe } from '@/helpers/runInSafe.js';
+import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { TelemetryProvider } from '@/providers/telemetry/index.js';
 import type { Account } from '@/providers/types/Account.js';
 import { EventId } from '@/providers/types/Telemetry.js';
@@ -66,21 +66,22 @@ function getAccountEventParameters(account: Account) {
 }
 
 export function captureAccountLoginEvent(account: Account) {
-    runInSafe(() => {
+    return runInSafeAsync(() => {
         const source = account.profile.source;
-        TelemetryProvider.captureEvent(resolveLoginEventId(source), getAccountEventParameters(account));
+        return TelemetryProvider.captureEvent(resolveLoginEventId(source), getAccountEventParameters(account));
     });
 }
 
 export function captureAccountLogoutEvent(account: Account) {
-    runInSafe(() => {
+    return runInSafeAsync(() => {
         const source = account.profile.source;
-        TelemetryProvider.captureEvent(resolveLogoutEventId(source), getAccountEventParameters(account));
+        return TelemetryProvider.captureEvent(resolveLogoutEventId(source), getAccountEventParameters(account));
     });
 }
 
-export function captureAccountLogoutAllEvent() {
-    runInSafe(() => {
-        TelemetryProvider.captureEvent(EventId.ACCOUNT_LOG_OUT_ALL_SUCCESS, {});
+export function captureAccountLogoutAllEvent(accounts: Account[]) {
+    return runInSafeAsync(async () => {
+        await Promise.all(accounts.map((account) => captureAccountLogoutEvent(account)));
+        await TelemetryProvider.captureEvent(EventId.ACCOUNT_LOG_OUT_ALL_SUCCESS, {});
     });
 }

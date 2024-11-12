@@ -78,7 +78,7 @@ const SearchBar = memo(function SearchBar({ slot, className, ...rest }: SearchBa
                         onClear={() => setInputText('')}
                     />
                 </form>
-                {showRecommendation && !isSearchPage ? (
+                {showRecommendation ? (
                     <SearchRecommendation
                         keyword={inputText}
                         onSearch={() => setShowRecommendation(false)}

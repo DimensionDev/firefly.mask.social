@@ -26,17 +26,8 @@ export function tweetV2ToPost(item: TweetV2, includes?: ApiV2Includes): Post {
             return media ? formatTwitterMedia(media) : null;
         }),
     );
+    let entitiesUrls = item.entities?.urls;
     let content = item.note_tweet?.text || item.text || '';
-
-    item.entities?.urls?.forEach((url) => {
-        content = content.replaceAll(url.url, url.expanded_url);
-    });
-
-    const oembedUrls = getEmbedUrls(content, []);
-
-    if (repliedTweetId) {
-        content = content.replace(/^(@\w+\s*)+/, '');
-    }
 
     const ret: Post = {
         publicationId: item.id,
@@ -86,8 +77,6 @@ export function tweetV2ToPost(item: TweetV2, includes?: ApiV2Includes): Post {
                 content,
                 asset: attachments?.[0],
                 attachments,
-                oembedUrl: last(oembedUrls),
-                oembedUrls,
             },
             // @ts-ignore twitter-api-v2 doesn't have `tweet.article` yet
             article: item.article
@@ -105,6 +94,7 @@ export function tweetV2ToPost(item: TweetV2, includes?: ApiV2Includes): Post {
     if (repliedTweet) {
         ret.type = 'Comment';
         ret.commentOn = tweetV2ToPost(repliedTweet, includes);
+        content = content.replace(/^(@\w+\s*)+/, '');
         let endCommentOn = ret.commentOn;
         while (endCommentOn?.commentOn) {
             endCommentOn = endCommentOn?.commentOn;
@@ -141,8 +131,9 @@ export function tweetV2ToPost(item: TweetV2, includes?: ApiV2Includes): Post {
                       title: retweetedTweet.article.title,
                   }
                 : undefined;
+            content = retweetedTweet.note_tweet?.text || retweetedTweet.text;
+            if (retweetedTweet.entities?.urls) entitiesUrls = retweetedTweet.entities?.urls;
         }
-        const content = ret.metadata.content?.content ?? '';
         const mention = item.entities?.mentions.sort((a, b) => a.start - b.start)?.[0];
         if (mention) {
             if (content?.startsWith('RT @')) {
@@ -166,6 +157,7 @@ export function tweetV2ToPost(item: TweetV2, includes?: ApiV2Includes): Post {
                 source: Source.Twitter,
             };
         }
+        if (ret.metadata.content) ret.metadata.content.content = content;
     }
     if (item.attachments?.poll_ids?.length) {
         const poll = find(includes?.polls ?? [], (poll) => poll.id === first(item.attachments?.poll_ids));
@@ -183,6 +175,18 @@ export function tweetV2ToPost(item: TweetV2, includes?: ApiV2Includes): Post {
             };
         }
     }
+
+    entitiesUrls?.forEach((url) => {
+        content = content.replaceAll(url.url, url.expanded_url);
+    });
+    const oembedUrls = getEmbedUrls(content, []);
+    ret.metadata.content = {
+        ...ret.metadata.content,
+        oembedUrls,
+        oembedUrl: last(oembedUrls),
+        content,
+    };
+
     return ret;
 }
 

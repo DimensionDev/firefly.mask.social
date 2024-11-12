@@ -3,6 +3,7 @@
 import { startTransition } from 'react';
 
 import FireflyLogo from '@/assets/firefly.round.svg';
+import { SourceTabs } from '@/components/SourceTabs/index.js';
 import { SquareSourceIcon } from '@/components/SquareSourceIcon.js';
 import { Source } from '@/constants/enum.js';
 import { Link } from '@/esm/Link.js';
@@ -54,6 +55,7 @@ const resolveProfileTabColor = createLookupTableResolver<
         [Source.Wallet]: {},
         [Source.NFTs]: {},
         [Source.Snapshot]: {},
+        [Source.Polymarket]: {},
     },
     {},
 );
@@ -75,7 +77,7 @@ export function ProfileTabs({ profiles: otherProfiles, identity }: ProfileTabsPr
     if (profiles.length <= 1) return null;
 
     return (
-        <nav className="scrollable-tab flex gap-2 px-5">
+        <SourceTabs className="!static !z-0 !border-none !bg-transparent">
             {profiles.map((profile, index) => {
                 const colors = resolveProfileTabColor(profile.identity.source);
                 const isActive = isSameFireflyIdentity(profile.identity, identity);
@@ -127,6 +129,6 @@ export function ProfileTabs({ profiles: otherProfiles, identity }: ProfileTabsPr
                     </Link>
                 );
             })}
-        </nav>
+        </SourceTabs>
     );
 }

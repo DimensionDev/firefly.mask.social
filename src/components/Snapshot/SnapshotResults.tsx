@@ -3,7 +3,7 @@ import { memo, Suspense } from 'react';
 
 import { Loading } from '@/components/Loading.js';
 import { SnapshotVotesList } from '@/components/Snapshot/SnapshotVotesList.js';
-import { Tooltip } from '@/components/Tooltip.js';
+import { TextOverflowTooltip } from '@/components/TextOverflowTooltip.js';
 import { SnapshotState } from '@/constants/enum.js';
 import { nFormatter } from '@/helpers/formatCommentCounts.js';
 import { formatPercentage } from '@/helpers/formatPercentage.js';
@@ -28,7 +28,7 @@ export const SnapshotResults = memo<SnapshotResultsProps>(function SnapshotResul
     votes,
 }) {
     return (
-        <div>
+        <div className="no-scrollbar max-md:h-[270px] max-md:overflow-auto md:h-[374px]">
             <div className="text-base font-bold">
                 {status === SnapshotState.Closed ? <Trans>Results</Trans> : <Trans>Current Results</Trans>}
             </div>
@@ -38,10 +38,10 @@ export const SnapshotResults = memo<SnapshotResultsProps>(function SnapshotResul
                     return (
                         <div key={index}>
                             <div className="flex items-center justify-between">
-                                <Tooltip className="max-sm:block" placement="top" content={choice}>
+                                <TextOverflowTooltip className="max-sm:block" placement="top" content={choice}>
                                     <div className="overflow-hidden overflow-ellipsis whitespace-nowrap">{choice}</div>
-                                </Tooltip>
-                                <div className="flex gap-1">
+                                </TextOverflowTooltip>
+                                <div className="flex gap-1 whitespace-nowrap">
                                     <span>{nFormatter(score)}</span>
                                     <span>{symbol}</span>
                                     <span>{scoreTotal ? formatPercentage(score / scoreTotal) : '0%'}</span>
@@ -72,7 +72,7 @@ export const SnapshotResults = memo<SnapshotResultsProps>(function SnapshotResul
                 <span className="text-secondary">({votes.toLocaleString('en-US')})</span>
             </div>
 
-            <Suspense fallback={<Loading className="max-h-[138px] !min-h-[138px]" />}>
+            <Suspense fallback={<Loading className="max-h-[130px] !min-h-[130px]" />}>
                 <SnapshotVotesList id={id} />
             </Suspense>
         </div>

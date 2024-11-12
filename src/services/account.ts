@@ -21,6 +21,7 @@ import {
 } from '@/providers/telemetry/captureAccountEvent.js';
 import { captureSyncModalEvent } from '@/providers/telemetry/captureSyncModalEvent.js';
 import { TwitterSession } from '@/providers/twitter/Session.js';
+import { twitterSessionHolder } from '@/providers/twitter/SessionHolder.js';
 import { TwitterSocialMediaProvider } from '@/providers/twitter/SocialMedia.js';
 import type { Account } from '@/providers/types/Account.js';
 import type { Session } from '@/providers/types/Session.js';
@@ -199,7 +200,8 @@ export async function addAccount(account: Account, options?: AccountOptions) {
                 belongsTo,
                 accounts,
             });
-            captureSyncModalEvent(confirmed);
+
+            captureSyncModalEvent(fireflySession.profileId, confirmed);
 
             if (confirmed) {
                 await updateState(accounts, !belongsTo);
@@ -280,7 +282,8 @@ export async function restoreCurrentAccounts(signal?: AbortSignal) {
             belongsTo: true,
             accounts: accountsFiltered,
         });
-        captureSyncModalEvent(confirmed);
+
+        captureSyncModalEvent(session.profileId, confirmed);
 
         if (confirmed) {
             await updateState(accountsFiltered, false);
@@ -320,6 +323,7 @@ async function removeAccount(account: Account, signal?: AbortSignal) {
                 redirect: false,
             });
         }
+        twitterSessionHolder.removeSession();
     });
 
     captureAccountLogoutEvent(account);
@@ -349,6 +353,8 @@ export async function removeCurrentAccount(source: SocialSource) {
 }
 
 export async function removeAllAccounts() {
+    const allAccounts = SORTED_SOCIAL_SOURCES.flatMap((x) => getProfileState(x).accounts);
+
     SORTED_SOCIAL_SOURCES.forEach(async (x) => {
         const state = getProfileState(x);
         if (!state.accounts.length) return;
@@ -365,7 +371,7 @@ export async function removeAllAccounts() {
         }
     });
 
-    captureAccountLogoutAllEvent();
-
     await removeFireflyAccountIfNeeded();
+
+    captureAccountLogoutAllEvent(allAccounts);
 }

@@ -15,13 +15,14 @@ import { Source } from '@/constants/enum.js';
 import { FetchError } from '@/constants/error.js';
 import { narrowToSocialSource } from '@/helpers/narrowToSocialSource.js';
 import { resolveFireflyProfiles } from '@/helpers/resolveFireflyProfiles.js';
-import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
-import type { FireflyIdentity } from '@/providers/types/Firefly.js';
+import type { FireflyIdentity, FireflyProfile } from '@/providers/types/Firefly.js';
 import { getProfileById } from '@/services/getProfileById.js';
 
-export async function ProfilePageLayout({ identity, children }: PropsWithChildren<{ identity: FireflyIdentity }>) {
-    const profiles = await FireflyEndpointProvider.getAllPlatformProfileByIdentity(identity, false);
-
+export async function ProfilePageLayout({
+    identity,
+    children,
+    profiles,
+}: PropsWithChildren<{ identity: FireflyIdentity; profiles: FireflyProfile[] }>) {
     const resolvedSource = narrowToSocialSource(identity.source);
     const { walletProfile } = resolveFireflyProfiles(identity, profiles);
 

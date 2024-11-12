@@ -18,6 +18,7 @@ export function getStampAvatarByProfileId(source: Source, profileId: string) {
         case Source.NFTs:
         case Source.Article:
         case Source.Snapshot:
+        case Source.Polymarket:
             return urlcat(FIREFLY_STAMP_URL, '/:address', { address: profileId });
         default:
             safeUnreachable(source);

@@ -15,7 +15,9 @@ import { checkScheduleTime } from '@/helpers/checkScheduleTime.js';
 import { enqueueErrorMessage, enqueueInfoMessage } from '@/helpers/enqueueMessage.js';
 import { getSnackbarMessageFromError } from '@/helpers/getSnackbarMessageFromError.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
+import { captureComposeSchedulePostEvent } from '@/providers/telemetry/captureComposeEvent.js';
 import type { ScheduleTask } from '@/providers/types/Firefly.js';
+import { EventId } from '@/providers/types/Telemetry.js';
 import { updateScheduledPost } from '@/services/post.js';
 import { useComposeScheduleStateStore } from '@/store/useComposeScheduleStore.js';
 
@@ -47,6 +49,9 @@ export const SchedulePostSettings = memo<SchedulePostSettingsProps>(function Sch
                 if (!result) return;
                 queryClient.refetchQueries({
                     queryKey: ['schedule-tasks', fireflySessionHolder.session?.profileId],
+                });
+                captureComposeSchedulePostEvent(EventId.COMPOSE_SCHEDULED_POST_UPDATE_SUCCESS, null, {
+                    scheduleId: task.uuid,
                 });
             } else {
                 updateScheduleTime(value);

@@ -7,7 +7,7 @@ export function useDetectOverflow<T extends HTMLDivElement>(): [overflow: boolea
         if (!node) return;
         resizeObserver.current?.disconnect();
         resizeObserver.current = new ResizeObserver(() => {
-            setOverflow(node.offsetWidth !== node.scrollWidth);
+            setOverflow(node.offsetWidth !== node.scrollWidth || node.offsetHeight !== node.scrollHeight);
         });
         resizeObserver.current?.observe(node);
     }, []);

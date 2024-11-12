@@ -755,7 +755,7 @@
 }
 
 .paragraph-article .twitter-content-link {
-    color: rgb(var(--color-link)) !important;
+    color: rgb(var(--color-highlight)) !important;
 }
 
 .paragraph-article .twitter-emoji {
@@ -915,7 +915,7 @@
 }
 
 .paragraph-article a {
-    color: rgb(var(--color-link));
+    color: rgb(var(--color-highlight));
 }
 
 .paragraph-article .twitter-embed a {

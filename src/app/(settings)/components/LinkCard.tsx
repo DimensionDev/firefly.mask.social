@@ -1,15 +1,15 @@
-import type { FunctionComponent, SVGAttributes } from 'react';
+import type { FunctionComponent, ReactNode, SVGAttributes } from 'react';
 
 import LinkIcon from '@/assets/link.svg';
 import { Link } from '@/esm/Link.js';
 
 interface LinkCardProps {
-    logo: FunctionComponent<SVGAttributes<SVGElement>>;
+    title: ReactNode;
     link: string;
-    content: string;
+    logo: FunctionComponent<SVGAttributes<SVGElement>>;
 }
 
-export function LinkCard({ logo: Icon, link, content }: LinkCardProps) {
+export function LinkCard({ title, link, logo: Icon }: LinkCardProps) {
     return (
         <Link
             href={link}
@@ -18,7 +18,7 @@ export function LinkCard({ logo: Icon, link, content }: LinkCardProps) {
         >
             <Icon width={24} height={24} />
             <div className="inline-flex shrink grow basis-0 flex-col items-start justify-center gap-1">
-                <div className="text-medium font-bold leading-[18px] text-main">{content}</div>
+                <div className="text-medium font-bold leading-[18px] text-main">{title}</div>
             </div>
             <LinkIcon width={20} height={20} />
         </Link>

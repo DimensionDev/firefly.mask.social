@@ -1,11 +1,8 @@
 import urlcat from 'urlcat';
 
 import { fetchJSON } from '@/helpers/fetchJSON.js';
-import { resolveFireflyIdentity } from '@/helpers/resolveFireflyProfileId.js';
-import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
-import type { FireflyIdentity } from '@/providers/types/Firefly.js';
+import type { EmptyResponse } from '@/providers/types/Firefly.js';
 import { settings } from '@/settings/index.js';
-import { useFarcasterStateStore, useLensStateStore, useTwitterStateStore } from '@/store/useProfileStore.js';
 
 export enum UploadTokenTipsToken {
     NativeToken = 'native_token',
@@ -30,34 +27,9 @@ export interface UploadTokenTipsParams {
     tx_hash: string;
 }
 
-function report(params: UploadTokenTipsParams) {
-    return fetchJSON(urlcat(settings.FIREFLY_ROOT_URL, '/v1/token_tips/upload'), {
+export async function reportTokenTips(params: UploadTokenTipsParams) {
+    await fetchJSON<EmptyResponse>(urlcat(settings.FIREFLY_ROOT_URL, '/v1/token_tips/upload'), {
         method: 'POST',
         body: JSON.stringify({ ...params, source: 'web' }),
-    });
-}
-
-export async function reportTokenTips(identity: FireflyIdentity, params: UploadTokenTipsParams) {
-    const profile =
-        useLensStateStore.getState().currentProfile ||
-        useFarcasterStateStore.getState().currentProfile ||
-        useTwitterStateStore.getState().currentProfile;
-
-    const resolvedIdentity = resolveFireflyIdentity(profile);
-    if (!resolvedIdentity) throw new Error('No available profile.');
-
-    const from_account_id = profile
-        ? await FireflyEndpointProvider.getAllPlatformProfileFromFirefly(resolvedIdentity, false)
-              .then((x) => x.data?.fireflyAccountId)
-              .catch(() => undefined)
-        : undefined;
-    const to_account_id = await FireflyEndpointProvider.getAllPlatformProfileFromFirefly(identity, false)
-        .then((x) => x.data?.fireflyAccountId)
-        .catch(() => undefined);
-
-    return report({
-        from_account_id,
-        to_account_id,
-        ...params,
     });
 }

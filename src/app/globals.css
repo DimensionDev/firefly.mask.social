@@ -102,6 +102,24 @@
     --color-light-rebranding-bg: 245 245 249;
 }
 
+.sidebar-dark-logo {
+    display: none;
+}
+
+.discover-tab {
+    --tw-bg-opacity: 0.1;
+    color: rgb(var(--color-farcaster-primary));
+}
+
+.calendar-tab-list .tabItem {
+    color: #fff;
+}
+
+.calendar-tab-list .activeTabItem {
+    background-color: #fff;
+    color: rgba(7 16 27);
+}
+
 @media (prefers-color-scheme: dark) {
     :root {
         --foreground-rgb: 255 255 255;
@@ -184,7 +202,7 @@
 }
 
 /* Please maintain this order, the light class (user settings) needs to be at the end, so that user settings will take priority. */
-· .light {
+.light {
     --foreground-rgb: 0 0 0;
     --background-start-rgb: 214, 219, 220;
     --background-end-rgb: 255, 255, 255;
@@ -250,6 +268,10 @@
     --color-light-rebranding-bg: 245 245 249;
 }
 
+.light .sidebar-light-logo {
+    display: block;
+}
+
 .light .sidebar-dark-logo {
     display: none;
 }
@@ -264,24 +286,6 @@
 }
 
 .light .calendar-tab-list .activeTabItem {
-    background-color: #fff;
-    color: rgba(7 16 27);
-}
-
-.sidebar-dark-logo {
-    display: none;
-}
-
-.discover-tab {
-    --tw-bg-opacity: 0.1;
-    color: rgb(var(--color-farcaster-primary));
-}
-
-.calendar-tab-list .tabItem {
-    color: #fff;
-}
-
-.calendar-tab-list .activeTabItem {
     background-color: #fff;
     color: rgba(7 16 27);
 }

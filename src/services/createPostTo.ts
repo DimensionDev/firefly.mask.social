@@ -2,9 +2,11 @@ import { t } from '@lingui/macro';
 import { safeUnreachable } from '@masknet/kit';
 import { first } from 'lodash-es';
 
-import { type SocialSource } from '@/constants/enum.js';
+import { type SocialSource, Source } from '@/constants/enum.js';
 import { UnreachableError } from '@/constants/error.js';
 import { mergeMediaObjects } from '@/helpers/mergeMediaObjects.js';
+import { runInSafeAsync } from '@/helpers/runInSafe.js';
+import { TwitterSocialMediaProvider } from '@/providers/twitter/SocialMedia.js';
 import type { Poll } from '@/providers/types/Poll.js';
 import { type CompositePost, useComposeStateStore } from '@/store/useComposeStore.js';
 import type { ComposeType, MediaObject } from '@/types/compose.js';
@@ -19,7 +21,7 @@ type Options = Record<
 };
 
 export function createPostTo(source: SocialSource, options: Options) {
-    const { updatePostInThread } = useComposeStateStore.getState();
+    const { updatePostInThread, updateTwitterPollId } = useComposeStateStore.getState();
 
     return async (type: ComposeType, post: CompositePost) => {
         const uploadedImages: MediaObject[] = (await options.uploadImages?.()) ?? [];
@@ -63,6 +65,12 @@ export function createPostTo(source: SocialSource, options: Options) {
                 [source]: postId,
             },
         }));
+
+        if (source === Source.Twitter && postId && post.poll) {
+            const tweet = await runInSafeAsync(() => TwitterSocialMediaProvider.getPostById(postId));
+            if (tweet?.poll?.id) updateTwitterPollId(tweet.poll.id);
+        }
+
         return postId;
     };
 }
