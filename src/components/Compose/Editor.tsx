@@ -7,8 +7,9 @@ import { OnChangePlugin } from '@lexical/react/LexicalOnChangePlugin.js';
 import { PlainTextPlugin } from '@lexical/react/LexicalPlainTextPlugin.js';
 import { $dfs } from '@lexical/utils';
 import { Select, t, Trans } from '@lingui/macro';
-import { compact } from 'lodash-es';
-import { memo } from 'react';
+import type { EditorState } from 'lexical';
+import { compact, debounce } from 'lodash-es';
+import { memo, useMemo, useTransition } from 'react';
 import { useDebounce } from 'react-use';
 
 import { $isMentionNode, MentionNode } from '@/components/Lexical/nodes/MentionsNode.js';
@@ -26,6 +27,19 @@ function ErrorBoundaryComponent() {
     );
 }
 
+// TODO: these plugins slow down the editor
+export const EditorPlugins = memo(function EditorPlugins() {
+    return (
+        <>
+            <LexicalAutoLinkPlugin />
+            <HistoryPlugin />
+            <HashtagPlugin />
+            <MarkdownShortcutPlugin transformers={TEXT_FORMAT_TRANSFORMERS} />
+            <MentionsPlugin />
+        </>
+    );
+});
+
 interface EditorProps {
     post: CompositePost;
     replying: boolean;
@@ -33,6 +47,7 @@ interface EditorProps {
 
 export const Editor = memo(function Editor({ post, replying }: EditorProps) {
     const { type, posts, updateChars, loadComponentsFromChars } = useComposeStateStore();
+    const [, startTransition] = useTransition();
 
     const { chars } = post;
     const index = posts.findIndex((x) => x.id === post.id);
@@ -43,6 +58,42 @@ export const Editor = memo(function Editor({ post, replying }: EditorProps) {
         },
         300,
         [chars, loadComponentsFromChars],
+    );
+
+    const onChange = useMemo(
+        () =>
+            debounce((editorState: EditorState) => {
+                editorState.read(async () => {
+                    const markdown = $convertToMarkdownString(TEXT_FORMAT_TRANSFORMERS);
+                    const allNodes = $dfs();
+                    const mentionNodes = allNodes
+                        .filter((x) => $isMentionNode(x.node))
+                        .map((x) => x.node as MentionNode);
+                    // avoid empty content with paragraph node
+                    const newChars: Chars = compact(
+                        (markdown.replace('\n', '') === '' ? '' : markdown)
+                            .split(/(@[^\s()@:%+~#?&=,!?']+)/g)
+                            .filter(Boolean)
+                            .map((x) => {
+                                const targetMentionNode = mentionNodes.find((node) => node.__text === x);
+                                if (targetMentionNode)
+                                    return {
+                                        tag: CHAR_TAG.MENTION,
+                                        visible: true,
+                                        content: x,
+                                        profiles: targetMentionNode.__profiles,
+                                    } as ComplexChars;
+
+                                return x;
+                            }),
+                    );
+
+                    startTransition(() => {
+                        updateChars((chars) => writeChars(chars, newChars));
+                    });
+                });
+            }, 100),
+        [updateChars, startTransition],
     );
 
     return (
@@ -78,43 +129,9 @@ export const Editor = memo(function Editor({ post, replying }: EditorProps) {
                 }
                 ErrorBoundary={ErrorBoundaryComponent}
             />
-            <OnChangePlugin
-                onChange={(editorState) => {
-                    editorState.read(async () => {
-                        const markdown = $convertToMarkdownString(TEXT_FORMAT_TRANSFORMERS);
-                        const allNodes = $dfs();
-                        const mentionNodes = allNodes
-                            .filter((x) => $isMentionNode(x.node))
-                            .map((x) => x.node as MentionNode);
-                        // avoid empty content with paragraph node
-                        const newChars: Chars = compact(
-                            (markdown.replace('\n', '') === '' ? '' : markdown)
-                                .split(/(@[^\s()@:%+~#?&=,!?']+)/g)
-                                .filter(Boolean)
-                                .map((x) => {
-                                    const targetMentionNode = mentionNodes.find((node) => node.__text === x);
-                                    if (targetMentionNode)
-                                        return {
-                                            tag: CHAR_TAG.MENTION,
-                                            visible: true,
-                                            content: x,
-                                            profiles: targetMentionNode.__profiles,
-                                        } as ComplexChars;
+            <OnChangePlugin onChange={onChange} />
 
-                                    return x;
-                                }),
-                        );
-
-                        updateChars((chars) => writeChars(chars, newChars));
-                    });
-                }}
-            />
-
-            <LexicalAutoLinkPlugin />
-            <HistoryPlugin />
-            <HashtagPlugin />
-            <MentionsPlugin />
-            <MarkdownShortcutPlugin transformers={TEXT_FORMAT_TRANSFORMERS} />
+            <EditorPlugins />
         </>
     );
 });
