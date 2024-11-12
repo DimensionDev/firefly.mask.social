@@ -15,7 +15,7 @@ import { SymbolTag } from '@/components/Markup/MarkupLink/SymbolTag.js';
 import { TcoLink } from '@/components/Markup/MarkupLink/TcoLink.js';
 import { ProfileTippy } from '@/components/Profile/ProfileTippy.js';
 import { type SocialSource, Source } from '@/constants/enum.js';
-import { HEY_URL } from '@/constants/index.js';
+import { SITE_URL } from '@/constants/index.js';
 import { BIO_TWITTER_PROFILE_REGEX, EMAIL_REGEX, LENS_HANDLE_REGEXP } from '@/constants/regexp.js';
 import { Link } from '@/esm/Link.js';
 import { createDummyProfileFromLensHandle } from '@/helpers/createDummyProfile.js';
@@ -138,7 +138,7 @@ export const MarkupLink = memo<MarkupLinkProps>(function MarkupLink({ title, pos
         const handle = title.replace('.lens', '');
         return (
             <Link
-                href={urlcat(HEY_URL, '/u/:handle', { handle })}
+                href={urlcat(SITE_URL, '/profile/lens/:handle', { handle })}
                 className="text-link hover:underline"
                 onClick={stopPropagation}
                 target="_blank"
