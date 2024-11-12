@@ -66,15 +66,17 @@ async function openCompose(props: ShareLinkProps, onFinished: () => void) {
     const identities = query ? await searchIdentities(query) : [];
 
     const currentProfiles = getCurrentProfileAll();
-    const matchedIdentity = identities.find((x) => x.handle === query);
+    const matchedIdentity = identities.find((x) => x.profile.handle === query);
 
     const isLogin = Object.values(currentProfiles).some((x) => !!x?.profileId);
     if (!isLogin) {
-        LoginModalRef.open(matchedIdentity ? { source: matchedIdentity.platform } : undefined);
+        LoginModalRef.open(
+            matchedIdentity ? { source: resolveSocialSource(matchedIdentity.profile.platform) } : undefined,
+        );
         return;
     }
 
-    const expectedSources = matchedIdentity?.allProfile
+    const expectedSources = matchedIdentity?.related
         .map((x) => resolveSocialSource(x.platform))
         .filter((x) => !!currentProfiles[x]?.profileId);
 
@@ -89,7 +91,7 @@ async function openCompose(props: ShareLinkProps, onFinished: () => void) {
                       tag: CHAR_TAG.MENTION,
                       visible: true,
                       content: `@${query}`,
-                      profiles: matchedIdentity?.allProfile || EMPTY_LIST,
+                      profiles: matchedIdentity?.related || EMPTY_LIST,
                   }
                 : {
                       ...fireflyMention,

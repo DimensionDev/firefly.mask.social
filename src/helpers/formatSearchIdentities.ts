@@ -2,14 +2,12 @@ import { compact, first } from 'lodash-es';
 
 import type { SocialSourceInURL } from '@/constants/enum.js';
 import { EMPTY_LIST, SORTED_SOCIAL_SOURCES } from '@/constants/index.js';
-import { getStampAvatarByProfileId } from '@/helpers/getStampAvatarByProfileId.js';
-import { resolveSocialSource } from '@/helpers/resolveSource.js';
 import { resolveSocialSourceInUrl } from '@/helpers/resolveSourceInUrl.js';
-import type { FireflyCrossProfile, Profile } from '@/providers/types/Firefly.js';
+import type { Profile } from '@/providers/types/Firefly.js';
 
 export function formatSearchIdentities(
     identities: Array<Record<SocialSourceInURL | 'eth' | 'solana', Profile[] | null>>,
-): FireflyCrossProfile[] {
+): Array<{ profile: Profile; related: Profile[] }> {
     return identities
         .map((x) => {
             const target = SORTED_SOCIAL_SOURCES.map((source) => x[resolveSocialSourceInUrl(source)])
@@ -24,15 +22,9 @@ export function formatSearchIdentities(
                 }),
             );
 
-            const platform = resolveSocialSource(target.platform);
             return {
-                platform,
-                profileId: target.platform_id,
-                avatar: getStampAvatarByProfileId(platform, target.platform_id),
-                handle: target.handle,
-                name: target.name,
-                allProfile,
-                hasWallet: !!(x.eth?.length || x.solana?.length),
+                profile: target,
+                related: allProfile,
             };
         })
         .filter((handle) => !!handle);
