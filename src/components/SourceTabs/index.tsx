@@ -1,13 +1,13 @@
 'use client';
 import { debounce } from 'lodash-es';
-import { type PropsWithChildren, useCallback, useLayoutEffect, useMemo, useRef, useState } from 'react';
+import { type HTMLProps, type PropsWithChildren, useCallback, useLayoutEffect, useMemo, useRef, useState } from 'react';
 
 import RightArrowIcon from '@/assets/right-arrow.svg';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { IS_APPLE, IS_SAFARI } from '@/constants/bowser.js';
 import { classNames } from '@/helpers/classNames.js';
 
-export function SourceTabs({ children }: PropsWithChildren) {
+export function SourceTabs({ className, children }: PropsWithChildren<HTMLProps<HTMLDivElement>>) {
     const [overflowed, setOverflowed] = useState(false);
     const navRef = useRef<HTMLElement>(null);
     const [leftActive, setLeftActive] = useState(false);
@@ -40,6 +40,7 @@ export function SourceTabs({ children }: PropsWithChildren) {
                     'top-[53px]': IS_APPLE && IS_SAFARI,
                 },
                 overflowed ? 'gap-1 px-2' : 'px-3',
+                className,
             )}
         >
             {overflowed ? (
