@@ -1,7 +1,6 @@
 'use client';
 
 import { t, Trans } from '@lingui/macro';
-import { useLingui } from '@lingui/react';
 import { getEnumAsArray } from '@masknet/kit';
 import { Appearance } from '@masknet/public-api';
 import { isServer } from '@tanstack/react-query';
@@ -25,7 +24,6 @@ export default function General() {
     const isDarkOS = useMediaQuery('(prefers-color-scheme: dark)');
     const locale = useLocale();
     const rootClass = getFromCookies('firefly_root_class');
-    const lingui = useLingui();
 
     useNavigatorTitle(t`General`);
 
@@ -90,10 +88,13 @@ export default function General() {
                         }
                         label={supportedLocales[option.value]}
                         onClick={async () => {
+                            console.warn('[18n] change locale', option.value);
+
                             const data = new FormData();
                             data.append('locale', option.value);
+
+                            setLocale(option.value);
                             await changeLocale(data);
-                            setLocale(lingui.i18n, option.value);
                         }}
                     />
                 ))}
