@@ -37,7 +37,7 @@ export const Markup = memo<MarkupProps>(function Markup({ children, post, ...res
                 linkifyRegex(EMAIL_REGEX),
                 linkifyRegex(URL_REGEX),
                 // parsing handle after url
-                // for example https://images.lens.phaver.com/insecure/raw:t/plain/3daf21dbbf8ce530685bbfabf5de325d"
+                // for example https://images.lens.phaver.com/insecure/raw:t/plain/3daf21dbbf8ce530685bbfabf5de325d
                 linkifyRegex(LENS_HANDLE_REGEXP),
                 post?.source === Source.Farcaster ? linkifyRegex(CHANNEL_REGEX) : undefined,
                 linkifyRegex(HASHTAG_REGEX),
@@ -48,13 +48,13 @@ export const Markup = memo<MarkupProps>(function Markup({ children, post, ...res
         return compact([
             [stripMarkdown, { keep: ['strong', 'emphasis', 'inlineCode', 'list', 'listItem'] }],
             remarkBreaks,
-            linkifyRegex(LENS_HANDLE_REGEXP),
             linkifyRegex(EMAIL_REGEX),
             // Make sure Mention plugin is before URL plugin, to avoid matching
             // mentioned ens handle as url. For example, @mask.eth should be treat
             // as a mention rather than link
             linkifyRegex(mentionRe),
             linkifyRegex(URL_REGEX),
+            linkifyRegex(LENS_HANDLE_REGEXP),
             post?.source === Source.Farcaster ? linkifyRegex(CHANNEL_REGEX) : undefined,
             linkifyRegex(HASHTAG_REGEX),
             linkifyRegex(SYMBOL_REGEX),
