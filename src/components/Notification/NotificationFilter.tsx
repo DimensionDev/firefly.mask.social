@@ -2,6 +2,7 @@ import { select, t } from '@lingui/macro';
 import { type Dispatch, type HTMLProps, type SetStateAction, useMemo } from 'react';
 
 import NotificationSelectedIcon from '@/assets/notification.selected.svg';
+import { NotificationSettings } from '@/components/Notification/NotificationSettings.js';
 import { Source } from '@/constants/enum.js';
 import { EMPTY_LIST } from '@/constants/index.js';
 import { classNames } from '@/helpers/classNames.js';
@@ -68,8 +69,13 @@ export function NotificationFilter({ source, className, types, onTypesChange: se
         ];
     }, [allTypes, setTypes, source, types]);
     return (
-        <div className={classNames('no-scrollbar flex w-full gap-x-2 overflow-x-auto', className)} {...props}>
-            {tabs}
+        <div className="flex w-full items-center">
+            <div className={classNames('no-scrollbar flex w-full gap-x-2 overflow-x-auto', className)} {...props}>
+                {tabs}
+            </div>
+            <div className="ml-auto pr-4">
+                <NotificationSettings />
+            </div>
         </div>
     );
 }
