@@ -29,8 +29,8 @@ import { Link } from '@/esm/Link.js';
 import { classNames } from '@/helpers/classNames.js';
 import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
 import { formatEthereumAddress } from '@/helpers/formatAddress.js';
+import { formatSnapshotChoice } from '@/helpers/formatSnapshotChoice.js';
 import { getSnackbarMessageFromError } from '@/helpers/getSnackbarMessageFromError.js';
-import { getSnapshotChoiceShareText } from '@/helpers/getSnapshotChoiceShareText.js';
 import { stopPropagation } from '@/helpers/stopEvent.js';
 import { ComposeModalRef, ConfirmModalRef } from '@/modals/controls.js';
 import { Snapshot } from '@/providers/snapshot/index.js';
@@ -160,7 +160,7 @@ export function SnapshotBody({ snapshot, link, postId, activity }: Props) {
                     type: 'compose',
                     chars: [
                         // eslint-disable-next-line no-irregular-whitespace
-                        t`🙌  Just voted “${getSnapshotChoiceShareText(selectedChoices, choices, type)}” on “${snapshot.title}”`,
+                        t`🙌  Just voted “${formatSnapshotChoice(selectedChoices, type, choices)}” on “${snapshot.title}”`,
                         `\n\n${snapshot.link}`,
                     ],
                 });
