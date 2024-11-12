@@ -2,8 +2,7 @@ export class JWTGenerator {
     private async base64UrlEncode(input: string): Promise<string> {
         const encoder = new TextEncoder();
         const data = encoder.encode(input);
-        const base64String = btoa(String.fromCharCode(...new Uint8Array(data)));
-        return base64String.replace(/\+/g, '-').replace(/\//g, '_').replace(/[=]+$/, '');
+        return this.wordsToBase64Url(new Uint8Array(data));
     }
 
     private async wordsToBase64Url(words: Uint8Array): Promise<string> {
