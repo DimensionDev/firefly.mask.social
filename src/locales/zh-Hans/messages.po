@@ -375,6 +375,9 @@ msgstr "未找到个人信息"
 msgid "NFT Standard"
 msgstr "NFT 标准"
 
+msgid "🙌  Just voted “{0}” on “{1}”"
+msgstr ""
+
 msgid "Stealing attack."
 msgstr "窃取攻击。"
 
@@ -2303,9 +2306,6 @@ msgstr "将在 <0>{0} <1>{1}</1></0> 发送"
 
 msgid "Snapshot added to your Bookmarks"
 msgstr "Snapshot 已经添加到您的收藏中"
-
-msgid "🤑 Just voted “{0}” on “{1}”"
-msgstr ""
 
 msgid "Failed to continue. Please allow Lens Manager for performing actions without the need to sign each transaction."
 msgstr "无法继续。请允许 Lens Manager 执行操作，而无需对每笔交易进行签名。"
