@@ -26,7 +26,7 @@ const allLocales = Object.fromEntries(
             locale,
             locales,
             messages,
-        }),
+        }) as unknown as Parameters<typeof setI18n>[0],
     ]),
 );
 
@@ -40,7 +40,7 @@ export const defaultLocale = Locale.en;
 
 export function setupLocaleForSSR() {
     const i18n = allLocales[getLocaleFromCookies()];
-    setI18n(i18n as unknown as Parameters<typeof setI18n>[0]);
+    setI18n(i18n);
 }
 
 export function getI18n() {
