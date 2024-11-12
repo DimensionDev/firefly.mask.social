@@ -4,8 +4,8 @@ import { isHex } from 'viem';
 
 import { STATUS } from '@/constants/enum.js';
 import { env } from '@/constants/env.js';
-import { NotImplementedError } from '@/constants/error.js';
-import { bom } from '@/helpers/bom.js';
+import { AbortError, InvalidResultError, NotImplementedError } from '@/constants/error.js';
+import { retry } from '@/helpers/retry.js';
 import { getPublicParameters } from '@/providers/telemetry/getPublicParameters.js';
 import type { Safary } from '@/providers/types/Safary.js';
 import { type Events, EventType, Provider, ProviderFilter, VersionFilter } from '@/providers/types/Telemetry.js';
@@ -21,13 +21,23 @@ function formatParameter(key: string, value: unknown): [string, unknown] {
     }
 }
 
+async function getSafary(signal?: AbortSignal) {
+    return retry(
+        async () => {
+            if (typeof window === 'undefined') throw new AbortError();
+            if (typeof window.safary === 'undefined') throw new InvalidResultError();
+            return window.safary as Safary;
+        },
+        {
+            times: 5,
+            interval: 300,
+            signal,
+        },
+    );
+}
+
 class Telemetry extends Provider<Events, never> {
     private latestEventId: string | null = null;
-
-    private get safary() {
-        if (typeof bom.window?.safary === 'undefined') return null;
-        return bom.window.safary as Safary;
-    }
 
     override async captureEvent<T extends keyof Events>(
         name: T,
@@ -85,8 +95,10 @@ class Telemetry extends Provider<Events, never> {
 
         if (provider_filter === ProviderFilter.All || provider_filter === ProviderFilter.Safary) {
             try {
-                if (this.safary) {
-                    await this.safary.track(event);
+                const safary = await getSafary();
+
+                if (safary) {
+                    await safary.track(event);
                 } else {
                     console.error('[safary] safary SDK not available. failed to capture event:', name, parameters);
                 }

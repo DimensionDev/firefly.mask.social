@@ -12,10 +12,13 @@ import { ProfileAvatar } from '@/components/ProfileAvatar.js';
 import { ProfileName } from '@/components/ProfileName.js';
 import { classNames } from '@/helpers/classNames.js';
 import { getProfileBySession } from '@/helpers/getProfileBySession.js';
+import { getI18n } from '@/i18n/index.js';
 import { SessionFactory } from '@/providers/base/SessionFactory.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 
 export default function Page() {
+    const i18n = getI18n();
+
     const [serializedSession, setSerializedSession] = useState('');
     const [profile, setProfile] = useState<Profile | null>(null);
 
@@ -25,7 +28,7 @@ export default function Page() {
         const session = SessionFactory.createSession(serializedSession);
 
         const profile = await getProfileBySession(session);
-        if (!profile) throw new Error(t`Failed to fetch profile.`);
+        if (!profile) throw new Error('Failed to fetch profile.');
 
         setProfile(profile);
     }, [serializedSession]);
@@ -46,7 +49,7 @@ export default function Page() {
                     type="text"
                     autoComplete="off"
                     spellCheck="false"
-                    placeholder={t`Your serialized session`}
+                    placeholder={t(i18n)`Your serialized session`}
                     onChange={(e) => setSerializedSession(e.target.value)}
                 />
                 <ClickableButton

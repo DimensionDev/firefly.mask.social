@@ -1,6 +1,7 @@
 'use client';
 
 import { t, Trans } from '@lingui/macro';
+import { useLingui } from '@lingui/react';
 import { getEnumAsArray } from '@masknet/kit';
 import { Appearance } from '@masknet/public-api';
 import { useMediaQuery } from 'usehooks-ts';
@@ -21,6 +22,7 @@ export default function General() {
     const mode = useThemeModeStore.use.themeMode();
     const isDarkOS = useMediaQuery('(prefers-color-scheme: dark)');
     const locale = useLocale();
+    const lingui = useLingui();
 
     useNavigatorTitle(t`General`);
 
@@ -77,6 +79,7 @@ export default function General() {
                             data.append('locale', option.value);
                             await changeLocale(data);
                             setLocale(option.value);
+                            lingui.i18n.activate(option.value);
                         }}
                     />
                 ))}

@@ -79,6 +79,9 @@ msgstr ""
 msgid "Failed to translate post. Please retry later."
 msgstr ""
 
+msgid "Posts"
+msgstr ""
+
 msgid "Failed to fetch as Blob."
 msgstr ""
 
@@ -173,9 +176,6 @@ msgid "Allow Lens Manager to perform actions such as posting, liking, and commen
 msgstr ""
 
 msgid "<0>Market Cap = Current Price x Circulating Supply</0><1>Refers to the total market value of a cryptocurrency’s circulating supply. It is similar to the stock market’s measurement of multiplying price per share by shares readily available in the market (not held & locked by insiders, governments)</1>"
-msgstr ""
-
-msgid "🤑 Just voted “{0}”"
 msgstr ""
 
 msgid "Confirm to sync accounts"
@@ -370,6 +370,9 @@ msgstr ""
 msgid "NFT Standard"
 msgstr ""
 
+msgid "🙌  Just voted “{0}” on “{1}”"
+msgstr ""
+
 msgid "Stealing attack."
 msgstr ""
 
@@ -401,6 +404,9 @@ msgid "<0>Sent</0> an NFT"
 msgstr ""
 
 msgid "Report post"
+msgstr ""
+
+msgid "Tokens"
 msgstr ""
 
 msgid "Skip"
@@ -569,6 +575,9 @@ msgid "Attendees"
 msgstr ""
 
 msgid "Connected accounts"
+msgstr ""
+
+msgid "<0>{0}</0> by <1>{1}</1>"
 msgstr ""
 
 msgid "Functions with retrievable ownership"
@@ -1018,6 +1027,9 @@ msgstr ""
 msgid "Confirm you want to mute /{0}?"
 msgstr ""
 
+msgid "Connecting..."
+msgstr ""
+
 msgid "Enter amount"
 msgstr ""
 
@@ -1177,9 +1189,6 @@ msgstr ""
 msgid "Proxy contract"
 msgstr ""
 
-msgid "Failed to fetch profile."
-msgstr ""
-
 msgid "The contract owner has the authority to modify the balance of tokens at other addresses, which may result in a loss of assets."
 msgstr ""
 
@@ -1247,9 +1256,6 @@ msgid "All wallets and accounts are muted."
 msgstr ""
 
 msgid "Disconnected from your social graph"
-msgstr ""
-
-msgid "Failed to upload."
 msgstr ""
 
 msgid "{attentionFactors, plural, one {# Attention item} other {# Attention items}}"
@@ -1457,6 +1463,9 @@ msgid "Owner can set a different tax rate for every assigned address."
 msgstr ""
 
 msgid "Tag {0} in a post to let them know you’ve sent an onchain tip to their wallet."
+msgstr ""
+
+msgid "{0}<0> Items</0>"
 msgstr ""
 
 msgid "Articles from {handleOrEnsOrAddress} will now be hidden in your home timeline"
@@ -1801,6 +1810,9 @@ msgstr ""
 msgid "View engagements"
 msgstr ""
 
+msgid "<0>worth ${0}</0><1>at Polymarket</1>"
+msgstr ""
+
 msgid "The contract owner has restrictions on selling."
 msgstr ""
 
@@ -2020,6 +2032,9 @@ msgstr ""
 msgid "The user rejected the request."
 msgstr ""
 
+msgid "{0}{1}<0> Floor</0>"
+msgstr ""
+
 msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} <4>collected your </4><5>{1, select, Post {post} Comment {comment} Quote {quote} Mirror {mirror} other {post}}</5>"
 msgstr ""
 
@@ -2159,6 +2174,9 @@ msgid "Step 1 Sign in"
 msgstr ""
 
 msgid "Copy"
+msgstr ""
+
+msgid "Settled as {0}"
 msgstr ""
 
 msgid "No available wallet."
@@ -2611,9 +2629,6 @@ msgstr ""
 msgid "Oversupply minting."
 msgstr ""
 
-msgid "Invalid URL"
-msgstr ""
-
 msgid "Followed <0>@{handle}</0> on {0}"
 msgstr ""
 
@@ -2656,6 +2671,9 @@ msgstr ""
 msgid "The scheduled time has passed."
 msgstr ""
 
+msgid "Place a bet"
+msgstr ""
+
 msgid "The connection has timed out. Please try again later."
 msgstr ""
 
@@ -2666,6 +2684,9 @@ msgid "Emoji"
 msgstr ""
 
 msgid "Failed to report spam NFT."
+msgstr ""
+
+msgid "Polymarket"
 msgstr ""
 
 msgid "Malformed twitter session payload."
@@ -2705,6 +2726,9 @@ msgid "Suspended account"
 msgstr ""
 
 msgid "No blackmail activities involved."
+msgstr ""
+
+msgid "Sold a bet"
 msgstr ""
 
 msgid "Final Step Claim Now!"

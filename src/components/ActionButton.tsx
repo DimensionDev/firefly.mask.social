@@ -24,7 +24,7 @@ export const ActionButton = memo<ActionButtonProps>(function ActionButton({
                 'flex w-full flex-1 items-center justify-center rounded-full py-2 font-bold',
                 {
                     'bg-main text-primaryBottom': variant === 'primary',
-                    'text-fourMain': variant === 'secondary',
+                    'border border-main border-opacity-40 text-fourMain': variant === 'secondary',
                     'bg-commonDanger text-lightBottom': variant === 'danger',
                 },
                 props.className,

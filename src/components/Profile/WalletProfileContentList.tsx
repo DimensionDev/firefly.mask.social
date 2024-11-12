@@ -3,6 +3,7 @@ import { memo } from 'react';
 
 import { FollowingNFTList } from '@/components/NFTs/FollowingNFTList.js';
 import { NoResultsFallback } from '@/components/NoResultsFallback.js';
+import { PolymarketTimeLine } from '@/components/Polymarket/PolymarketTimeLine.js';
 import { ArticleList } from '@/components/Profile/ArticleList.js';
 import { NFTs } from '@/components/Profile/NFTs.js';
 import { POAPList } from '@/components/Profile/POAPList.js';
@@ -31,6 +32,8 @@ export const WalletProfileContentList = memo(function WalletProfileContentList({
             return <FollowingNFTList walletAddress={address} />;
         case WalletProfileCategory.DAO:
             return <FollowingSnapshotList walletAddress={address} />;
+        case WalletProfileCategory.Polymarket:
+            return <PolymarketTimeLine address={address} isFollowing={false} />;
         default:
             safeUnreachable(type);
             return null;

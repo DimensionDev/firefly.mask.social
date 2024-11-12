@@ -3,9 +3,9 @@ import { t, Trans } from '@lingui/macro';
 import { motion } from 'framer-motion';
 import { memo } from 'react';
 
-import LinkIcon from '@/assets/link.svg';
 import SendIcon from '@/assets/send.svg';
 import ShareIcon from '@/assets/share.svg';
+import LinkIcon from '@/assets/small-link.svg';
 import { MenuButton } from '@/components/Actions/MenuButton.js';
 import { MenuGroup } from '@/components/MenuGroup.js';
 import { MoreActionMenu } from '@/components/MoreActionMenu.js';
@@ -60,7 +60,7 @@ export const ShareAction = memo(function ShareAction({ link }: ShareActionProps)
                         >
                             <LinkIcon width={18} height={18} />
                             <span className="font-bold leading-[22px] text-main">
-                                <Trans>Copy</Trans>
+                                <Trans>Copy link</Trans>
                             </span>
                         </MenuButton>
                     )}

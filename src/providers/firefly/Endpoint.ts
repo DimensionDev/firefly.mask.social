@@ -4,7 +4,7 @@ import { type Address, type Hex, isAddress } from 'viem';
 
 import { queryClient } from '@/configs/queryClient.js';
 import { DEBANK_CHAIN_TO_CHAIN_ID_MAP, DEBANK_CHAINS } from '@/constants/chain.js';
-import { FireflyPlatform, NetworkType, type SocialSource, Source, SourceInURL } from '@/constants/enum.js';
+import { FireflyPlatform, NetworkType, Source, SourceInURL } from '@/constants/enum.js';
 import { EMPTY_LIST } from '@/constants/index.js';
 import { SetQueryDataForAddWallet } from '@/decorators/SetQueryDataForAddWallet.js';
 import { SetQueryDataForMuteAllProfiles } from '@/decorators/SetQueryDataForBlockProfile.js';
@@ -58,9 +58,12 @@ import {
     type IsMutedAllResponse,
     type MuteAllResponse,
     type NFTCollectionsResponse,
+    type PolymarketActivityTimeline,
     type RelationResponse,
     type Response,
+    type SearchNFTResponse,
     type SearchProfileResponse,
+    type SearchTokenResponse,
     type TwitterUserInfoResponse,
     type WalletProfile,
     type WalletProfileResponse,
@@ -413,15 +416,22 @@ export class FireflyEndpoint {
         return true;
     }
 
-    async searchIdentity(q: string, platforms?: SocialSource[]) {
+    async searchIdentity(q: string, size = 100, indicator?: PageIndicator) {
         const url = urlcat(settings.FIREFLY_ROOT_URL, '/v2/search/identity', {
             keyword: q,
-            size: 100,
+            size,
+            cursor: indicator?.id,
         });
         const response = await fireflySessionHolder.fetch<SearchProfileResponse>(url, {
             method: 'GET',
         });
-        return resolveFireflyResponseData(response);
+        const data = resolveFireflyResponseData(response);
+
+        return createPageable(
+            data?.list ?? EMPTY_LIST,
+            createIndicator(indicator),
+            data.cursor ? createNextIndicator(indicator, `${data.cursor}`) : undefined,
+        );
     }
 
     async discoverNFTs({
@@ -641,6 +651,74 @@ export class FireflyEndpoint {
         });
         if (!response.data) return false;
         return response.data.some((x) => x.is_followed && isSameEthereumAddress(x.address, address));
+    }
+
+    async getProfilePolymarketTimeline(
+        address: string,
+        platformFollowing: SourceInURL | 'all' = 'all',
+        indicator?: PageIndicator,
+    ) {
+        const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/user/timeline/polymarket');
+
+        const response = await fireflySessionHolder.fetch<PolymarketActivityTimeline>(url, {
+            method: 'POST',
+            body: JSON.stringify({
+                platformFollowing,
+                walletAddresses: [address],
+                size: 25,
+                cursor: indicator?.id,
+            }),
+        });
+        const data = resolveFireflyResponseData(response);
+
+        return createPageable(
+            data?.result || EMPTY_LIST,
+            createIndicator(indicator),
+            data?.cursor ? createNextIndicator(indicator, data.cursor) : undefined,
+        );
+    }
+
+    async getFollowingPolymarketTimeline(platformFollowing: SourceInURL | 'all' = 'all', indicator?: PageIndicator) {
+        const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/timeline/polymarket');
+
+        const response = await fireflySessionHolder.fetch<PolymarketActivityTimeline>(url, {
+            method: 'POST',
+            body: JSON.stringify({
+                platformFollowing,
+                size: 25,
+                cursor: indicator?.id,
+            }),
+        });
+        const data = resolveFireflyResponseData(response);
+
+        return createPageable(
+            data?.result || EMPTY_LIST,
+            createIndicator(indicator),
+            data?.cursor ? createNextIndicator(indicator, data.cursor) : undefined,
+        );
+    }
+
+    async searchTokens(query: string) {
+        const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/token/search_data', {
+            query,
+        });
+        const response = await fireflySessionHolder.fetch<SearchTokenResponse>(url);
+        const data = resolveFireflyResponseData(response);
+
+        return createPageable(data.coins ?? EMPTY_LIST, createIndicator(undefined));
+    }
+
+    async searchNFTs(keyword: string) {
+        const url = urlcat(settings.FIREFLY_ROOT_URL, '/v2/search/collectible', {
+            keyword,
+        });
+
+        const response = await fireflySessionHolder.fetch<SearchNFTResponse>(url, {
+            method: 'GET',
+        });
+        const data = resolveFireflyResponseData(response);
+
+        return createPageable(data.list ?? EMPTY_LIST, createIndicator(undefined));
     }
 
     async generateFarcasterSignatures(key: Hex, deadline: number, jwt: string, signal?: AbortSignal) {

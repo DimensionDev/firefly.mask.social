@@ -2,7 +2,7 @@ import urlcat from 'urlcat';
 
 import { type SocialSource } from '@/constants/enum.js';
 import { getCurrentProfile } from '@/helpers/getCurrentProfile.js';
-import { getLocaleFromCookies } from '@/helpers/getLocaleFromCookies.js';
+import { getLocaleFromCookies } from '@/helpers/getFromCookies.js';
 import { getMeaningfulThemeMode } from '@/helpers/getMeaningfulThemeMode.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { parseUrl } from '@/helpers/parseUrl.js';

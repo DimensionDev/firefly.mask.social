@@ -142,7 +142,7 @@ const DraftListItem = memo<DraftListItemProps>(function DraftListItem({ draft, h
 export const DraftList = memo(function DraftList() {
     const currentProfileAll = useCurrentProfileAll();
     const { drafts, removeDraft } = useComposeDraftStateStore();
-    const { updateChars, apply, draftId, clear } = useComposeStateStore();
+    const { updateChars, apply, currentDraftId, clear } = useComposeStateStore();
     const { updateScheduleTime } = useComposeScheduleStateStore();
     const setEditorContent = useSetEditorContent();
 
@@ -161,10 +161,10 @@ export const DraftList = memo(function DraftList() {
             });
 
             if (!confirmed) return;
-            if (draftId) clear();
+            if (currentDraftId) clear();
             removeDraft(id);
         },
-        [removeDraft, draftId, clear],
+        [removeDraft, currentDraftId, clear],
     );
 
     const handleApply = useCallback(

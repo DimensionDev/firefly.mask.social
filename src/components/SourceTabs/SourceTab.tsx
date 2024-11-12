@@ -8,6 +8,7 @@ import { classNames } from '@/helpers/classNames.js';
 
 interface SourceTabProps extends PropsWithChildren<LinkProps> {
     isActive: boolean;
+    className?: string;
 }
 
 export const SourceTab = memo(function SourceTab({ isActive, ...rest }: SourceTabProps) {
@@ -20,7 +21,7 @@ export const SourceTab = memo(function SourceTab({ isActive, ...rest }: SourceTa
     return (
         <Link
             className={classNames(
-                'h-[43px] cursor-pointer border-b-4 px-4 text-center font-bold leading-[43px] active:bg-main/10 md:h-[60px] md:py-[18px] md:leading-6 md:hover:text-highlight',
+                'h-[43px] cursor-pointer border-b-4 px-3 text-center font-bold leading-[43px] active:bg-main/10 md:h-[60px] md:py-[18px] md:leading-6 md:hover:text-highlight',
                 isActive ? 'border-highlight text-highlight' : 'border-transparent text-third',
             )}
             aria-current={isActive ? 'page' : undefined}

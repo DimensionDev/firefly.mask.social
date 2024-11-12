@@ -1,7 +1,7 @@
 import { select, t } from '@lingui/macro';
 import { type Dispatch, type HTMLProps, type SetStateAction, useMemo } from 'react';
 
-import NotificationSelectedIcon from '@/assets/notification.selected.svg';
+import NotificationIcon from '@/assets/notification.svg';
 import { Source } from '@/constants/enum.js';
 import { EMPTY_LIST } from '@/constants/index.js';
 import { classNames } from '@/helpers/classNames.js';
@@ -25,7 +25,7 @@ export function NotificationFilter({ source, className, types, onTypesChange: se
         const getClassNames = (active: boolean) => {
             return classNames(
                 'flex h-6 cursor-pointer items-center justify-center gap-x-1 whitespace-nowrap rounded-md px-1.5 text-xs leading-6',
-                active ? 'bg-highlight text-white' : 'bg-thirdMain text-second hover:text-highlight',
+                active ? 'bg-highlight text-primaryBottom' : 'bg-thirdMain text-second hover:text-highlight',
             );
         };
 
@@ -37,7 +37,7 @@ export function NotificationFilter({ source, className, types, onTypesChange: se
                     setTypes(EMPTY_LIST);
                 }}
             >
-                <NotificationSelectedIcon width={14} height={14} />
+                <NotificationIcon width={14} height={14} />
                 {t`All notifications`}
             </div>,
             ...allTypes.map((type) => {

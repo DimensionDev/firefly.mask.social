@@ -6,6 +6,7 @@ import {
     DiscoverType,
     EngagementType,
     FileMimeType,
+    type FollowingSource,
     NetworkType,
     NODE_ENV,
     type ProfilePageSource,
@@ -80,6 +81,7 @@ export const SORTED_PROFILE_TAB_TYPE: Record<SocialSource, SocialProfileCategory
 };
 export const WALLET_PROFILE_TAB_TYPES = [
     WalletProfileCategory.OnChainActivities,
+    WalletProfileCategory.Polymarket,
     WalletProfileCategory.POAPs,
     WalletProfileCategory.NFTs,
     WalletProfileCategory.Articles,
@@ -125,6 +127,13 @@ export const SUPPORTED_VIDEO_SOURCES: SocialSource[] = [Source.Farcaster, Source
 export const SOCIAL_DISCOVER_SOURCE: SocialDiscoverSource[] = [Source.Farcaster, Source.Lens] as const;
 export const DISCOVER_SOURCES: DiscoverSource[] = [
     ...SOCIAL_DISCOVER_SOURCE,
+    Source.NFTs,
+    Source.Article,
+    Source.Snapshot,
+] as const;
+export const FOLLOWING_SOURCES: FollowingSource[] = [
+    ...SOCIAL_DISCOVER_SOURCE,
+    Source.Polymarket,
     Source.NFTs,
     Source.Article,
     Source.Snapshot,

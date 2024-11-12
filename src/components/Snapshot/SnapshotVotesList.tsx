@@ -1,12 +1,12 @@
 import { ChainId } from '@masknet/web3-shared-evm';
 import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
-import { memo, useCallback } from 'react';
+import { memo, useCallback, useMemo, useRef } from 'react';
 import urlcat from 'urlcat';
 import { useEnsName } from 'wagmi';
 
 import { Avatar } from '@/components/Avatar.js';
 import { NoResultsFallback } from '@/components/NoResultsFallback.js';
-import { Tooltip } from '@/components/Tooltip.js';
+import { TextOverflowTooltip } from '@/components/TextOverflowTooltip.js';
 import { VirtualList } from '@/components/VirtualList/VirtualList.js';
 import { VirtualListFooter } from '@/components/VirtualList/VirtualListFooter.js';
 import { ScrollListKey, Source, SourceInURL } from '@/constants/enum.js';
@@ -48,13 +48,17 @@ const SnapshotVotesListItem = memo<SnapshotVotesListItemProps>(function Snapshot
                     }
                     alt={ens || vote.voter}
                 />
-                <Tooltip className="max-sm:block" placement="top" content={ens || formatEthereumAddress(vote.voter, 4)}>
+                <TextOverflowTooltip
+                    className="max-sm:block"
+                    placement="top"
+                    content={ens || formatEthereumAddress(vote.voter, 4)}
+                >
                     <div className="truncate">{ens || formatEthereumAddress(vote.voter, 4)}</div>
-                </Tooltip>
+                </TextOverflowTooltip>
             </Link>
-            <Tooltip className="max-sm:block" placement="top-start" content={choiceLabel}>
+            <TextOverflowTooltip className="max-sm:block" placement="top-start" content={choiceLabel}>
                 <div className="flex-1 truncate">{choiceLabel}</div>
-            </Tooltip>
+            </TextOverflowTooltip>
 
             <div className="flex gap-1">
                 <span>{vote.vp > 1 ? nFormatter(vote.vp) : humanize(vote.vp)}</span>
@@ -73,6 +77,8 @@ function getSnapshotVotesItemContent(vote: SnapshotVote) {
 }
 
 export const SnapshotVotesList = memo<SnapshotVotesListProps>(function SnapshotVotesList({ id }) {
+    const itemsRendered = useRef(false);
+
     const { data, fetchNextPage, isFetching, isFetchingNextPage, hasNextPage } = useSuspenseInfiniteQuery({
         queryKey: ['snapshot', 'votes', id],
         queryFn: async ({ pageParam }) => {
@@ -91,22 +97,37 @@ export const SnapshotVotesList = memo<SnapshotVotesListProps>(function SnapshotV
         await fetchNextPage();
     }, [fetchNextPage, hasNextPage, isFetching, isFetchingNextPage]);
 
+    const Context = useMemo(
+        () => ({
+            hasNextPage,
+            fetchNextPage,
+            isFetching,
+            itemsRendered: itemsRendered.current,
+        }),
+        [hasNextPage, fetchNextPage, isFetching],
+    );
+
     if (!data?.length) {
-        return <NoResultsFallback className="h-[138px] justify-center" />;
+        return <NoResultsFallback className="h-[174px] justify-center" />;
     }
 
     return (
-        <div className="h-[138px]">
+        <div className="h-[174px]">
             <VirtualList
                 data={data}
                 endReached={onEndReached}
                 components={{
                     Footer: VirtualListFooter,
                 }}
+                itemSize={(el: HTMLElement) => {
+                    if (!itemsRendered.current) itemsRendered.current = true;
+                    return el.getBoundingClientRect().height;
+                }}
                 className={classNames('no-scrollbar h-full')}
                 listKey={`$${ScrollListKey.SnapshotVotes}`}
                 computeItemKey={(index, item) => item.ipfs}
                 itemContent={(index, vote) => getSnapshotVotesItemContent(vote)}
+                context={Context}
             />
         </div>
     );

@@ -10,14 +10,18 @@ import { Link } from '@/esm/Link.js';
 import { classNames } from '@/helpers/classNames.js';
 import { isRoutePathname } from '@/helpers/isRoutePathname.js';
 import { useIsDarkMode } from '@/hooks/useIsDarkMode.js';
+import { useMounted } from '@/hooks/useMounted.js';
 
 export function ExclusiveEvents() {
+    const mounted = useMounted();
     const pathname = usePathname();
     const isSelected = isRoutePathname(pathname, PageRoute.Events);
     const isDarkMode = useIsDarkMode();
     const linkRef = useRef<HTMLAnchorElement | null>(null);
     const videoRef = useRef<HTMLVideoElement | null>(null);
     const isHovering = useHover(linkRef);
+
+    if (!mounted) return;
 
     return (
         <Link

@@ -3,12 +3,14 @@ import { type HTMLProps, useRef } from 'react';
 
 import { ClearButton } from '@/components/ClearButton.js';
 import { classNames } from '@/helpers/classNames.js';
+import { getI18n } from '@/i18n/index.js';
 
 interface SearchInputProps extends HTMLProps<HTMLInputElement> {
     onClear?: () => void;
 }
 
 export function SearchInput({ onClear, ref, ...rest }: SearchInputProps) {
+    const i18n = getI18n();
     const inputRef = useRef<HTMLInputElement>(null);
 
     return (
@@ -18,7 +20,7 @@ export function SearchInput({ onClear, ref, ...rest }: SearchInputProps) {
                 name="searchText"
                 autoComplete="off"
                 spellCheck="false"
-                placeholder={t`Search...`}
+                placeholder={t(i18n)`Search...`}
                 ref={inputRef}
                 {...rest}
                 className={classNames(

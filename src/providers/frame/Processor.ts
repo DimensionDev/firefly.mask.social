@@ -52,7 +52,7 @@ class Processor {
             buttons: [],
             // never refresh by default
             refreshPeriod: Number.MAX_SAFE_INTEGER,
-            protocol: getFrameClientProtocol(document),
+            protocol: getFrameClientProtocol(document, true),
         };
 
         const postUrl = getPostUrl(document);

@@ -102,6 +102,24 @@
     --color-light-rebranding-bg: 245 245 249;
 }
 
+.sidebar-dark-logo {
+    display: none;
+}
+
+.discover-tab {
+    --tw-bg-opacity: 0.1;
+    color: rgb(var(--color-farcaster-primary));
+}
+
+.calendar-tab-list .tabItem {
+    color: #fff;
+}
+
+.calendar-tab-list .activeTabItem {
+    background-color: #fff;
+    color: rgba(7 16 27);
+}
+
 @media (prefers-color-scheme: dark) {
     :root {
         --foreground-rgb: 255 255 255;
@@ -268,24 +286,6 @@
 }
 
 .light .calendar-tab-list .activeTabItem {
-    background-color: #fff;
-    color: rgba(7 16 27);
-}
-
-.sidebar-dark-logo {
-    display: none;
-}
-
-.discover-tab {
-    --tw-bg-opacity: 0.1;
-    color: rgb(var(--color-farcaster-primary));
-}
-
-.calendar-tab-list .tabItem {
-    color: #fff;
-}
-
-.calendar-tab-list .activeTabItem {
     background-color: #fff;
     color: rgba(7 16 27);
 }

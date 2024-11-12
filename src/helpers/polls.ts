@@ -1,6 +1,6 @@
 import { v4 as uuid } from 'uuid';
 
-import { type SocialSource } from '@/constants/enum.js';
+import { type SocialSource, Source } from '@/constants/enum.js';
 import {
     POLL_CHOICE_TYPE,
     POLL_DEFAULT_VALID_IN_DAYS,
@@ -17,6 +17,11 @@ export const createPollOption = (): PollOption => {
 
 export const createPoll = (): CompositePoll => {
     return {
+        pollIds: {
+            [Source.Farcaster]: null,
+            [Source.Lens]: null,
+            [Source.Twitter]: null,
+        },
         duration: {
             days: POLL_DEFAULT_VALID_IN_DAYS,
             hours: 0,

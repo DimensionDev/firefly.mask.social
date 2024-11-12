@@ -1,10 +1,12 @@
+import type { ReactNode } from 'react';
+
 import LinkIcon from '@/assets/link.svg';
 import { Link } from '@/esm/Link.js';
 
 interface DocumentCardProps {
     href: string;
-    title: string;
-    icon: React.ReactNode;
+    title: ReactNode;
+    icon: ReactNode;
 }
 
 export function DocumentCard({ title, href, icon }: DocumentCardProps) {
