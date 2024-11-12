@@ -9,7 +9,7 @@ import { compose } from '@/helpers/compose.js';
 import { createErrorResponseJSON, createSuccessResponseJSON } from '@/helpers/createResponseJSON.js';
 import { withRequestErrorHandler } from '@/helpers/withRequestErrorHandler.js';
 import { JWTGenerator } from '@/libs/JWTGenerator.js';
-import { generateFarcasterSignatures } from '@/providers/firefly/Auth.js';
+import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 import { signedKeyRequests } from '@/providers/warpcast/signedKeyRequests.js';
 import { HexStringSchema } from '@/schemas/index.js';
 
@@ -32,14 +32,8 @@ export const POST = compose(withRequestErrorHandler(), async (request: NextReque
     );
 
     const key = parsed.data.key as Hex;
-    const { sponsorSignature, signedKeyRequestSignature, requestFid } = await generateFarcasterSignatures(
-        {
-            key,
-            deadline,
-        },
-        jwt,
-        request.signal,
-    );
+    const { sponsorSignature, signedKeyRequestSignature, requestFid } =
+        await FireflyEndpointProvider.generateFarcasterSignatures(key, deadline, jwt, request.signal);
 
     const { result } = await signedKeyRequests(
         {

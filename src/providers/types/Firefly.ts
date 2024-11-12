@@ -1222,3 +1222,9 @@ export type VotingResultResponse = Response<{
     harris: number;
     tokenIdCount: number;
 }>;
+
+export type GenerateFarcasterSignatureResponse = Response<{
+    sponsorSignature: Hex;
+    signedKeyRequestSignature: Hex;
+    requestFid: number;
+}>;

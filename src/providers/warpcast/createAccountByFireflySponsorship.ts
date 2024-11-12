@@ -1,4 +1,5 @@
 import { getPublicKey, utils } from '@noble/ed25519';
+import { bytesToHex } from '@noble/hashes/utils';
 import { type Hex, toHex } from 'viem';
 
 import { fetchJSON } from '@/helpers/fetchJSON.js';
@@ -19,9 +20,9 @@ interface SponsorshipResponse extends SignedKeyRequestResponse {
 
 async function createSession(signal?: AbortSignal) {
     const privateKey = utils.randomPrivateKey();
-    const publicKey: Hex = `0x${Buffer.from(await getPublicKey(privateKey)).toString('hex')}`;
+    const publicKey: Hex = `0x${bytesToHex(await getPublicKey(privateKey))}`;
 
-    const response = await fetchJSON<ResponseJSON<SponsorshipResponse>>('/api/warpcast/sponsorship', {
+    const response = await fetchJSON<ResponseJSON<SponsorshipResponse>>('/api/firefly/sponsorship', {
         method: 'POST',
         signal,
         body: JSON.stringify({
@@ -32,7 +33,7 @@ async function createSession(signal?: AbortSignal) {
     if (!response.success) throw new Error(response.error.message);
 
     const farcasterSession = new FarcasterSession(
-        '',
+        `${response.data.fid}`,
         toHex(privateKey),
         response.data.timestamp,
         response.data.expiresAt,
