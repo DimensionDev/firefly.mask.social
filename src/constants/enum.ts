@@ -88,7 +88,8 @@ export type SocialDiscoverSource = Source.Farcaster | Source.Lens;
 export type DiscoverSource = SocialDiscoverSource | Source.NFTs | Source.Article | Source.Snapshot;
 export type BookmarkSource = Source.Farcaster | Source.Lens | Source.Article | Source.Snapshot;
 export type FollowingSource = DiscoverSource | Source.Polymarket;
-export type ExploreSource = Source.Farcaster | Source.Lens;
+export type ExploreSource = Source.Farcaster | Source.Lens | TrendingType;
+export type ExploreSourceInURL = SourceInURL.Farcaster | SourceInURL.Lens | TrendingType;
 
 export enum DiscoverType {
     ForYou = 'for-you',
@@ -102,6 +103,13 @@ export enum ExploreType {
     CryptoTrends = 'crypto-trends',
     TopProfiles = 'top-profiles',
     TopChannels = 'top-channels',
+}
+
+export enum TrendingType {
+    TopGainers = 'top-gainers',
+    TopLosers = 'top-losers',
+    Trending = 'trending',
+    Meme = 'meme',
 }
 
 export enum SearchType {
@@ -169,6 +177,7 @@ export enum ScrollListKey {
     MutualFollowers = 'mutual-followers-list',
     Notification = 'notification-list',
     Search = 'search-list',
+    TokenTrending = 'token-trending-list',
     Comment = 'comment-list',
     Channel = 'channel-post-list',
     Profile = 'profile-list',

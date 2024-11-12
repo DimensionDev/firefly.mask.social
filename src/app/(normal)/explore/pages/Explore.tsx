@@ -5,7 +5,8 @@ import { type ComponentType, memo } from 'react';
 
 import { ChannelList } from '@/components/Channel/ChannelList.js';
 import SuggestedFollowUsersList from '@/components/SuggestedFollows/SuggestedFollowUsersList.js';
-import { type ExploreSource, ExploreType, Source } from '@/constants/enum.js';
+import { TokenTrendingList } from '@/components/TokenTrendingList.js';
+import { type ExploreSource, ExploreType, type SocialSource, Source, TrendingType } from '@/constants/enum.js';
 
 interface Props {
     source: ExploreSource;
@@ -13,10 +14,14 @@ interface Props {
 }
 
 export function ExplorePage({ source, type }: Props) {
-    return <ExploreContentList source={source} type={type} />;
+    if (type === ExploreType.CryptoTrends) {
+        return <TokenTrendingList type={source as TrendingType} />;
+    } else {
+        return <ExploreContentList source={source as SocialSource} type={type} />;
+    }
 }
 
-export const ExploreContentList: ComponentType<{ type: ExploreType; source: ExploreSource }> = memo(
+export const ExploreContentList: ComponentType<{ type: ExploreType; source: SocialSource }> = memo(
     function ExploreContentList({ type, source }) {
         switch (type) {
             case ExploreType.TopProfiles:

@@ -1,11 +1,11 @@
-import { notFound } from 'next/navigation.js';
 import type { PropsWithChildren } from 'react';
 
-import { ExploreSourceTabs } from '@/components/ExploreSourceTabs.js';
-import type { ExploreType, SourceInURL } from '@/constants/enum.js';
+import { SourceNav } from '@/components/SourceNav.js';
+import { type ExploreSourceInURL, ExploreType } from '@/constants/enum.js';
 import { EXPLORE_SOURCES } from '@/constants/index.js';
-import { isExploreSource } from '@/helpers/isSocialSource.js';
-import { resolveSourceFromUrlNoFallback } from '@/helpers/resolveSource.js';
+import { resolveExploreUrl } from '@/helpers/resolveExploreUrl.js';
+import { resolveExploreSource } from '@/helpers/resolveSourceInUrl.js';
+import { resolveExploreSourceName } from '@/helpers/resolveSourceName.js';
 
 export default function Layout({
     params,
@@ -13,20 +13,22 @@ export default function Layout({
 }: PropsWithChildren<{
     params: {
         explore: ExploreType;
-        source: SourceInURL;
+        source: ExploreSourceInURL;
     };
 }>) {
-    const source = resolveSourceFromUrlNoFallback(params.source);
-
-    if (!source || !isExploreSource(source)) {
-        notFound();
-    }
-
-    const exploreSources = EXPLORE_SOURCES[params.explore];
+    const { source, explore } = params;
+    const sources = EXPLORE_SOURCES[explore];
 
     return (
         <>
-            <ExploreSourceTabs type={params.explore} source={source} sources={exploreSources} />
+            {sources ? (
+                <SourceNav
+                    source={resolveExploreSource(source)}
+                    sources={sources}
+                    urlResolver={(source) => resolveExploreUrl(explore, source)}
+                    nameResolver={(source) => resolveExploreSourceName(source)}
+                />
+            ) : null}
             {children}
         </>
     );

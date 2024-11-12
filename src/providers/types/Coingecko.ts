@@ -138,3 +138,39 @@ export interface CoingeckoCoinMarketInfo {
     total_supply: number;
     total_volume: number;
 }
+
+export interface CoingeckoGainsLoserInfo {
+    id: string;
+    symbol: string;
+    name: string;
+    image: string;
+    market_cap_rank: number;
+    usd: number;
+    usd_24h_vol: number;
+    usd_24h_change: number;
+}
+
+export interface CoingeckoCoinTrending {
+    id: string;
+    symbol: string;
+    name: string;
+    large: string;
+    thumb: string;
+    market_cap_rank: number;
+    data: {
+        price: number;
+        price_change_percentage_24h: {
+            usd: number;
+        };
+    };
+}
+
+export interface CoingeckoMemeCoinTrending {
+    id: string;
+    symbol: string;
+    name: string;
+    image: string;
+    market_cap_rank: number;
+    current_price: number;
+    price_change_percentage_24h: number;
+}

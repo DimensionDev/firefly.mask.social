@@ -1,4 +1,4 @@
-import { Trans } from '@lingui/macro';
+import { t, Trans } from '@lingui/macro';
 import { redirect } from 'next/navigation.js';
 import type { PropsWithChildren } from 'react';
 
@@ -6,10 +6,18 @@ import { SourceTabs } from '@/components/SourceTabs/index.js';
 import { SourceTab } from '@/components/SourceTabs/SourceTab.js';
 import { ExploreType, Source } from '@/constants/enum.js';
 import { EXPLORE_TYPES } from '@/constants/index.js';
+import { createPageTitleSSR } from '@/helpers/createPageTitle.js';
+import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
 import { getUrlFromHeaders } from '@/helpers/getUrlFromHeaders.js';
 import { isExploreType } from '@/helpers/isExploreType.js';
 import { resolveExploreUrl } from '@/helpers/resolveExploreUrl.js';
 import { setupLocaleForSSR } from '@/i18n/index.js';
+
+export async function generateMetadata() {
+    return createSiteMetadata({
+        title: createPageTitleSSR(t`Explore`),
+    });
+}
 
 export default function Layout({
     params,

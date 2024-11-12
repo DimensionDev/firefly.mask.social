@@ -2,10 +2,9 @@
 
 import { memo, useMemo } from 'react';
 
-import { SourceTab } from '@/components/SourceTabs/SourceTab.js';
+import { SourceNav } from '@/components/SourceNav.js';
 import { SearchType, Source } from '@/constants/enum.js';
 import { SORTED_SEARCH_TYPE, SORTED_SOCIAL_SOURCES } from '@/constants/index.js';
-import { classNames } from '@/helpers/classNames.js';
 import { narrowToSocialSource } from '@/helpers/narrowToSocialSource.js';
 import { resolveSearchUrl } from '@/helpers/resolveSearchUrl.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
@@ -36,24 +35,12 @@ export const SearchSources = memo<SearchSourcesProps>(function SearchSources({
     }, [isTwitterLoggedIn, searchType]);
 
     return (
-        <nav className="mt-3 flex gap-x-2 px-4">
-            {sources.map((source) => {
-                const isActive = source === selectedSource;
-
-                return (
-                    <SourceTab
-                        isActive={isActive}
-                        className={classNames('h-6 rounded-md px-1.5 text-sm leading-6', {
-                            'bg-highlight text-white': isActive,
-                            'bg-input text-lightSecond': !isActive,
-                        })}
-                        key={source}
-                        href={resolveSearchUrl(query, searchType, source)}
-                    >
-                        {resolveSourceName(source)}
-                    </SourceTab>
-                );
-            })}
-        </nav>
+        <SourceNav
+            source={selectedSource}
+            sources={sources}
+            urlResolver={(x) => resolveSearchUrl(query, searchType, x)}
+            nameResolver={(x) => resolveSourceName(x)}
+            className="flex gap-x-2 px-4"
+        />
     );
 });

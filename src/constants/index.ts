@@ -17,6 +17,7 @@ import {
     SocialProfileCategory,
     type SocialSource,
     Source,
+    TrendingType,
     VERCEL_NEV,
     WalletProfileCategory,
 } from '@/constants/enum.js';
@@ -159,6 +160,12 @@ export const EXPLORE_TYPES: ExploreType[] = [
 
 export const EXPLORE_SOURCES: Partial<Record<ExploreType, ExploreSource[]>> = {
     [ExploreType.TopProfiles]: [Source.Farcaster, Source.Lens],
+    [ExploreType.CryptoTrends]: [
+        TrendingType.TopGainers,
+        TrendingType.TopLosers,
+        TrendingType.Trending,
+        TrendingType.Meme,
+    ],
 };
 
 export const BOOKMARK_SOURCES: BookmarkSource[] = [Source.Farcaster, Source.Lens, Source.Article, Source.Snapshot];

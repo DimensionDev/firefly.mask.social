@@ -1,16 +1,23 @@
 import { ExplorePage } from '@/app/(normal)/explore/pages/Explore.js';
-import type { ExploreSource, ExploreType, SourceInURL } from '@/constants/enum.js';
+import { type ExploreSource, ExploreType, type SourceInURL, type TrendingType } from '@/constants/enum.js';
 import { resolveSourceFromUrl } from '@/helpers/resolveSource.js';
 
 interface Props {
     params: {
-        source: SourceInURL;
+        source: SourceInURL | TrendingType;
         explore: ExploreType;
     };
 }
 
 export default function Page({ params }: Props) {
-    const source = resolveSourceFromUrl(params.source) as ExploreSource;
-
-    return <ExplorePage source={source} type={params.explore} />;
+    return (
+        <ExplorePage
+            source={
+                params.explore === ExploreType.CryptoTrends
+                    ? (params.source as TrendingType)
+                    : (resolveSourceFromUrl(params.source) as ExploreSource)
+            }
+            type={params.explore}
+        />
+    );
 }

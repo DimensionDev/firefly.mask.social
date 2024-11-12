@@ -1,6 +1,7 @@
 import { uniq, uniqBy } from 'lodash-es';
 import urlcat from 'urlcat';
 
+import { TrendingType } from '@/constants/enum.js';
 import { COINGECKO_URL_BASE, CORS_HOST, DSEARCH_BASE_URL } from '@/constants/index.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
 import { getCommunityLink } from '@/helpers/getCommunityLink.js';
@@ -8,12 +9,32 @@ import { resolveCoinGeckoChainId } from '@/helpers/resolveCoingeckoChainId.js';
 import type {
     CoingeckoCoinInfo,
     CoingeckoCoinMarketInfo,
+    CoingeckoCoinTrending,
+    CoingeckoGainsLoserInfo,
+    CoingeckoMemeCoinTrending,
     CoingeckoPlatform,
     CoingeckoToken,
 } from '@/providers/types/Coingecko.js';
 import { type Contract, type Trending, TrendingProvider } from '@/providers/types/Trending.js';
+import type { TokenWithMarket } from '@/services/searchTokens.js';
 
 export class Coingecko {
+    static formatGainsOrLoser(info: CoingeckoGainsLoserInfo): TokenWithMarket {
+        return {
+            api_symbol: info.symbol,
+            id: info.id,
+            name: info.name,
+            large: info.image,
+            market_cap_rank: info.market_cap_rank,
+            symbol: info.symbol,
+            thumb: info.image,
+            market: {
+                current_price: info.usd,
+                price_change_percentage_24h: info.usd_24h_change,
+            },
+        };
+    }
+
     static getTokens() {
         const url = urlcat(DSEARCH_BASE_URL, '/fungible-tokens/coingecko.json');
         return fetchJSON<CoingeckoToken[]>(`${CORS_HOST}?${encodeURIComponent(url)}`, { mode: 'cors' });
@@ -142,5 +163,65 @@ export class Coingecko {
                 page: 1,
             }),
         );
+    }
+
+    static async getTopGainersOrLosers(
+        type: TrendingType.TopGainers | TrendingType.TopLosers,
+    ): Promise<TokenWithMarket[]> {
+        const response = await fetchJSON<{
+            top_gainers: CoingeckoGainsLoserInfo[];
+            top_losers: CoingeckoGainsLoserInfo[];
+        }>(urlcat(COINGECKO_URL_BASE, '/coins/top_gainers_losers', { vs_currency: 'usd' }));
+
+        const data = type === TrendingType.TopGainers ? response.top_gainers : response.top_losers;
+
+        return data.map((x) => Coingecko.formatGainsOrLoser(x));
+    }
+
+    static async getTopTrendingCoins() {
+        const response = await fetchJSON<{ coins: Array<{ item: CoingeckoCoinTrending }> }>(
+            urlcat(COINGECKO_URL_BASE, '/search/trending'),
+        );
+
+        return response.coins.map(({ item: info }) => {
+            return {
+                api_symbol: info.symbol,
+                id: info.id,
+                name: info.name,
+                large: info.large,
+                market_cap_rank: info.market_cap_rank,
+                symbol: info.symbol,
+                thumb: info.thumb,
+                market: {
+                    current_price: info.data.price,
+                    price_change_percentage_24h: info.data.price_change_percentage_24h.usd,
+                },
+            };
+        });
+    }
+
+    static async getTopMemeCoins() {
+        const response = await fetchJSON<CoingeckoMemeCoinTrending[]>(
+            urlcat(COINGECKO_URL_BASE, '/coins/markets', {
+                vs_currency: 'usd',
+                category: 'meme-token',
+            }),
+        );
+
+        return response.map((x) => {
+            return {
+                api_symbol: x.symbol,
+                id: x.id,
+                name: x.name,
+                large: x.image,
+                market_cap_rank: x.market_cap_rank,
+                symbol: x.symbol,
+                thumb: x.image,
+                market: {
+                    current_price: x.current_price,
+                    price_change_percentage_24h: x.price_change_percentage_24h,
+                },
+            };
+        });
     }
 }

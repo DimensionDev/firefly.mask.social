@@ -1,25 +1,22 @@
-import type { ExploreSource, ExploreType } from '@/constants/enum.js';
 import { Link } from '@/esm/Link.js';
 import { classNames } from '@/helpers/classNames.js';
-import { resolveExploreUrl } from '@/helpers/resolveExploreUrl.js';
-import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 
-export function ExploreSourceTabs({
-    source,
-    sources,
-    type,
-}: {
-    source: ExploreSource;
-    sources?: ExploreSource[];
-    type: ExploreType;
-}) {
+type SourceNavProps<T> = {
+    sources: T[];
+    source: T;
+    urlResolver: (source: T) => string;
+    nameResolver: (source: T) => string;
+    className?: string;
+};
+
+export function SourceNav<T>({ source, sources, urlResolver, className, nameResolver }: SourceNavProps<T>) {
     if (!sources) return null;
     return (
-        <nav className="flex space-x-2 px-1.5 pb-1.5 pt-3" aria-label="Tabs">
-            {sources.map((x) => (
+        <nav className={classNames('flex space-x-2 px-1.5 pb-1.5 pt-3', className)} aria-label="Tabs">
+            {sources.map((x, index) => (
                 <Link
-                    key={x}
-                    href={resolveExploreUrl(type, x)}
+                    key={index}
+                    href={urlResolver(x)}
                     replace
                     className={classNames(
                         'flex h-6 cursor-pointer list-none justify-center rounded-md px-1.5 text-xs leading-6 lg:flex-initial lg:justify-start',
@@ -27,7 +24,7 @@ export function ExploreSourceTabs({
                     )}
                     aria-current={source === x ? 'page' : undefined}
                 >
-                    {resolveSourceName(x)}
+                    {nameResolver(x)}
                 </Link>
             ))}
         </nav>

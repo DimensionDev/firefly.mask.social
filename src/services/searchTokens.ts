@@ -6,7 +6,7 @@ import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 import type { CoingeckoCoinMarketInfo } from '@/providers/types/Coingecko.js';
 import type { SearchableToken } from '@/providers/types/Firefly.js';
 
-export type TokenWithMarket = SearchableToken & { market?: CoingeckoCoinMarketInfo; hit?: boolean };
+export type TokenWithMarket = SearchableToken & { market?: Partial<CoingeckoCoinMarketInfo>; hit?: boolean };
 
 function isSameTokenSymbol(symbol: string, keyword: string) {
     return symbol.toLowerCase() === keyword.replace(/^\$/, '').toLowerCase();
