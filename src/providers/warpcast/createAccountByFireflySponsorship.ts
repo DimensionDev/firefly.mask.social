@@ -3,7 +3,7 @@ import { bytesToHex } from '@noble/hashes/utils';
 import { type Hex, toHex } from 'viem';
 
 import { fetchJSON } from '@/helpers/fetchJSON.js';
-import { FarcasterSession } from '@/providers/farcaster/Session.js';
+import { FarcasterSession, FarcasterSponsorship } from '@/providers/farcaster/Session.js';
 import { FarcasterSocialMediaProvider } from '@/providers/farcaster/SocialMedia.js';
 import type { Account } from '@/providers/types/Account.js';
 import type { SignedKeyRequestResponse } from '@/providers/types/Warpcast.js';
@@ -39,6 +39,7 @@ async function createSession(signal?: AbortSignal) {
         response.data.expiresAt,
         // the signer request token is one-time use
         response.data.token,
+        FarcasterSponsorship.Firefly,
     );
 
     return {
@@ -51,7 +52,7 @@ async function initialSignerRequestToken(callback?: (url: string) => void, signa
     const { deeplink, session } = await createSession(signal);
 
     // invalid session type
-    if (!FarcasterSession.isGrantByPermission(session)) throw new Error('Invalid session type');
+    if (!FarcasterSession.isSponsorship(session)) throw new Error('Invalid session type');
 
     // present QR code to the user or open the link in a new tab
     callback?.(deeplink);
