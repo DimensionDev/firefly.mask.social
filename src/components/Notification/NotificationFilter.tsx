@@ -73,7 +73,7 @@ export function NotificationFilter({ source, className, types, onTypesChange: se
             <div className={classNames('no-scrollbar flex w-full gap-x-2 overflow-x-auto', className)} {...props}>
                 {tabs}
             </div>
-            <div className="ml-auto pr-4">
+            <div className="ml-auto pr-2">
                 <NotificationSettings />
             </div>
         </div>
