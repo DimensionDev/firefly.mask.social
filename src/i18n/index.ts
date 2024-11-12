@@ -61,8 +61,11 @@ export function setLocale(locale: Locale) {
     }
 
     // lingui macro uses the core i18n
-    coreI18n.load(locale, messages[locale]);
-    coreI18n.activate(locale, locales);
+    coreI18n.loadAndActivate({
+        locale,
+        locales,
+        messages: messages[locale],
+    });
     dayjs.locale(locale);
 }
 
