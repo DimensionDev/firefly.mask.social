@@ -52,7 +52,7 @@ export function getI18n() {
  * set locale and dynamically import catalog
  * @param locale a supported locale string
  */
-export function setLocale(i18n: I18n, locale: Locale) {
+export function setLocale(locale: Locale) {
     if (!supportedLocales.hasOwnProperty(locale)) {
         console.error(`[i18n]: unknown locale ${locale}`);
         locale = defaultLocale;
