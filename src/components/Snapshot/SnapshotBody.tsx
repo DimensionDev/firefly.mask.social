@@ -160,7 +160,7 @@ export function SnapshotBody({ snapshot, link, postId, activity }: Props) {
                     type: 'compose',
                     chars: [
                         // eslint-disable-next-line no-irregular-whitespace
-                        t`🤑 Just voted “${getSnapshotChoiceShareText(selectedChoices, choices, type)}” on “${snapshot.title}”`,
+                        t`🙌  Just voted “${getSnapshotChoiceShareText(selectedChoices, choices, type)}” on “${snapshot.title}”`,
                         `\n\n${snapshot.link}`,
                     ],
                 });
