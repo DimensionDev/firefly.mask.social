@@ -5,11 +5,11 @@ export function useIsLarge(constraintType: 'min' | 'max' = 'min') {
 }
 
 export function useIsMedium(constraintType: 'min' | 'max' = 'min') {
-    const isMediumMatched = useMediaQuery(`(${constraintType}-width: 990px)`);
+    const isMediumMatched = useMediaQuery(`(${constraintType}-width: 619px)`);
     return isMediumMatched;
 }
 
 export function useIsSmall(constraintType: 'min' | 'max' = 'min') {
-    const isSmallMatched = useMediaQuery(`(${constraintType}-width: 640px)`);
+    const isSmallMatched = useMediaQuery(`(${constraintType}-width: 320px)`);
     return isSmallMatched;
 }

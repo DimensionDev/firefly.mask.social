@@ -7,7 +7,6 @@ import { IfPathname } from '@/components/IfPathname.js';
 import { LinkCloud } from '@/components/LinkCloud.js';
 import { NavigatorBar } from '@/components/NavigatorBar/index.js';
 import { AsideSearchBar, HeaderSearchBar } from '@/components/Search/SearchBar.js';
-import { SearchFilter } from '@/components/Search/SearchFilter.js';
 import { Section } from '@/components/Semantic/Section.js';
 import { SuggestedFollowsCard } from '@/components/SuggestedFollows/SuggestedFollowsCard.js';
 import { WithinDiscover } from '@/components/WithinDiscover.js';
@@ -16,7 +15,7 @@ import { PageRoute, Source } from '@/constants/enum.js';
 export default function Layout({ children, modal }: { children: React.ReactNode; modal: React.ReactNode }) {
     return (
         <>
-            <main className="flex w-full flex-[1_1_100%] flex-col md:border-r md:border-line md:pl-[289px] lg:w-[888px] lg:max-w-[calc(100%-384px)]">
+            <main className="flex w-full flex-[1_1_100%] flex-col md:border-r md:border-line md:pl-[235px] lg:w-[888px] lg:max-w-[calc(100%-384px)] lg:pl-[289px]">
                 <div className="sticky top-0 z-40 bg-primaryBottom">
                     <IfPathname
                         isNotOneOf={[
@@ -51,12 +50,8 @@ export default function Layout({ children, modal }: { children: React.ReactNode;
                 </IfPathname>
 
                 <div className="no-scrollbar flex flex-1 flex-col gap-4 overflow-auto">
-                    <IfPathname isOneOf={[PageRoute.Search]}>
-                        <SearchFilter />
-                    </IfPathname>
-
-                    <IfPathname isNotOneOf={[PageRoute.Settings, PageRoute.Search]}>
-                        <Section title="Advertisement">
+                    <IfPathname isNotOneOf={[PageRoute.Settings]}>
+                        <Section title="Advertisement" className="mt-2.5">
                             <Advertisement />
                         </Section>
                     </IfPathname>

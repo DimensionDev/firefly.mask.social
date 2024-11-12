@@ -3,6 +3,7 @@ import type { Address, Hex } from 'viem';
 import {
     FireflyPlatform,
     NetworkType,
+    PolymarketBetType,
     S3ConvertStatus,
     type SocialSourceInURL,
     type Source,
@@ -282,7 +283,7 @@ export type CastsResponse = Response<{
 export type SearchCastsResponse = Response<Cast[]>;
 
 export type SearchProfileResponse = Response<{
-    list: Array<Record<SocialSourceInURL, Profile[] | null>>;
+    list: Array<Record<SocialSourceInURL | 'eth' | 'solana', Profile[] | null>>;
     cursor: number;
     size: number;
 }>;
@@ -1221,4 +1222,96 @@ export type VotingResultResponse = Response<{
     trump: number;
     harris: number;
     tokenIdCount: number;
+}>;
+
+export type PolymarketActivity = {
+    asset: string;
+    blockNumber: number;
+    blockNumberSort: number;
+    conditionId: string;
+    conditionOutcomePrices: string[];
+    conditionOutcomes: string[];
+    conditionRawData: {};
+    displayInfo: {
+        avatarUrl: string;
+        ensHandle: string;
+    };
+    endDate: string;
+    eventSlug: string;
+    followingSources: string[];
+    icon: string;
+    image: string;
+    outcome: string;
+    outcomeIndex: number;
+    owner: string;
+    price: string;
+    proxyWallet: string;
+    side: PolymarketBetType;
+    size: string;
+    slug: string;
+    timestamp: number;
+    title: string;
+    transactionHash: string;
+    umaResolutionStatus: string;
+    usdcSize: string;
+    volume: string;
+    wallet: string;
+};
+
+export type PolymarketActivityTimeline = Response<{
+    result: PolymarketActivity[];
+    cursor?: string;
+}>;
+
+export type SearchableNFT = {
+    amounts_total: number;
+    attributes: unknown[];
+    banner_url?: string;
+    collections_with_same_name: unknown[];
+    contract_address: string;
+    deploy_block_number: number;
+    description: string;
+    discord?: string;
+    email?: string;
+    erc_type: string;
+    featured_url: string;
+    floor_price: number;
+    github?: string;
+    instagram?: string;
+    is_spam: boolean;
+    items_total: number;
+    large_image_url: string;
+    logo_url: string;
+    medium?: string;
+    name: string;
+    opensea_floor_price: number;
+    opensea_slug: string;
+    opensea_verified: boolean;
+    owner: string;
+    owners_total: number;
+    price_symbol: string;
+    royalty: number;
+    symbol: string;
+    telegram?: string;
+    twitter?: string;
+    verified: boolean;
+    website?: string;
+};
+
+export type SearchNFTResponse = Response<{
+    list: SearchableNFT[];
+}>;
+
+export type SearchableToken = {
+    api_symbol: string;
+    id: string;
+    large: string;
+    market_cap_rank: number;
+    name: string;
+    symbol: string;
+    thumb: string;
+};
+
+export type SearchTokenResponse = Response<{
+    coins: SearchableToken[];
 }>;

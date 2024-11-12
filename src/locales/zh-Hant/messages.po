@@ -8,7 +8,7 @@ msgstr ""
 "Language: zh\n"
 "Project-Id-Version: masksocial\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-11-01 12:01\n"
+"PO-Revision-Date: 2024-11-09 00:05\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Traditional\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
@@ -83,6 +83,9 @@ msgstr ""
 
 msgid "Failed to translate post. Please retry later."
 msgstr "無法翻譯貼文。請稍候再嘗試"
+
+msgid "Posts"
+msgstr ""
 
 msgid "Failed to fetch as Blob."
 msgstr ""
@@ -408,6 +411,9 @@ msgstr "<0>發送</0>一個 NFT"
 msgid "Report post"
 msgstr "檢舉貼文"
 
+msgid "Tokens"
+msgstr ""
+
 msgid "Skip"
 msgstr "跳過"
 
@@ -515,9 +521,6 @@ msgstr "靜音"
 
 msgid "NFTs"
 msgstr "非同質化代幣"
-
-msgid "No results for \"{searchKeyword}\""
-msgstr "“{searchKeyword}” 無搜尋結果"
 
 msgid "Page not found"
 msgstr "找不到網頁"
@@ -773,6 +776,9 @@ msgstr ""
 
 msgid "Confirmation"
 msgstr "確認"
+
+msgid "Search user"
+msgstr ""
 
 msgid "Failed to upload. Video is not supported yet."
 msgstr "上傳失敗。暫不接受影片上傳。"
@@ -1224,6 +1230,9 @@ msgstr "你成功給 <1>{2}</1> 發送了 <0>{amount} {0}{1}</0> 的小費！"
 msgid "This token is not issued by its declared team. Some scams will create a well-known token with the same name to defraud their users of their assets."
 msgstr ""
 
+msgid "Search post"
+msgstr ""
+
 msgid "Set"
 msgstr "設定"
 
@@ -1464,6 +1473,9 @@ msgstr ""
 msgid "Tag {0} in a post to let them know you’ve sent an onchain tip to their wallet."
 msgstr ""
 
+msgid "{0}<0> Items</0>"
+msgstr ""
+
 msgid "Articles from {handleOrEnsOrAddress} will now be hidden in your home timeline"
 msgstr ""
 
@@ -1546,6 +1558,9 @@ msgid "Holders can not sell all of the token."
 msgstr ""
 
 msgid "I want to hide this wallet address."
+msgstr ""
+
+msgid "Search token"
 msgstr ""
 
 msgid "Details"
@@ -1719,6 +1734,9 @@ msgstr ""
 msgid "Mute successfully."
 msgstr "已成功靜音"
 
+msgid "No results for \"{keyword}\""
+msgstr ""
+
 msgid "If this function exists, it is possible for the project owner to regain ownership even after relinquishing it"
 msgstr ""
 
@@ -1805,6 +1823,9 @@ msgstr ""
 
 msgid "View engagements"
 msgstr "查看互動數據"
+
+msgid "<0>worth ${0}</0><1>at Polymarket</1>"
+msgstr ""
 
 msgid "The contract owner has restrictions on selling."
 msgstr ""
@@ -2022,6 +2043,9 @@ msgstr "引用"
 msgid "The user rejected the request."
 msgstr "用戶拒絕了請求"
 
+msgid "{0}{1}<0> Floor</0>"
+msgstr ""
+
 msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} <4>collected your </4><5>{1, select, Post {post} Comment {comment} Quote {quote} Mirror {mirror} other {post}}</5>"
 msgstr ""
 
@@ -2162,6 +2186,9 @@ msgstr ""
 
 msgid "Copy"
 msgstr "複製"
+
+msgid "Settled as {0}"
+msgstr ""
 
 msgid "No available wallet."
 msgstr "沒有可用的錢包。"
@@ -2655,6 +2682,9 @@ msgstr ""
 msgid "The scheduled time has passed."
 msgstr ""
 
+msgid "Place a bet"
+msgstr ""
+
 msgid "The connection has timed out. Please try again later."
 msgstr "連結已超時。請稍候重試"
 
@@ -2665,6 +2695,9 @@ msgid "Emoji"
 msgstr ""
 
 msgid "Failed to report spam NFT."
+msgstr ""
+
+msgid "Polymarket"
 msgstr ""
 
 msgid "Malformed twitter session payload."
@@ -2704,6 +2737,9 @@ msgid "Suspended account"
 msgstr ""
 
 msgid "No blackmail activities involved."
+msgstr ""
+
+msgid "Sold a bet"
 msgstr ""
 
 msgid "Final Step Claim Now!"
@@ -2844,6 +2880,9 @@ msgstr ""
 msgid "Collect for {0} {1}"
 msgstr ""
 
+msgid "Search nft"
+msgstr ""
+
 msgid "Recast"
 msgstr ""
 
@@ -2861,6 +2900,9 @@ msgstr ""
 
 msgid "Followers"
 msgstr "追蹤者"
+
+msgid "Search channel"
+msgstr ""
 
 msgid "Mint function"
 msgstr "鑄造功能"

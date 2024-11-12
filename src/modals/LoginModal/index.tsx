@@ -57,19 +57,19 @@ export const LoginModal = forwardRef<SingletonModalRefCreator<LoginModalOpenProp
         },
     });
 
+    const Router = <RouterProvider router={routerRef.current} />;
+
     if (isMedium) {
         return (
             <Modal open={open} onClose={() => dispatch?.close()}>
-                <div>
-                    <RouterProvider router={routerRef.current} />
-                </div>
+                <div>{Router}</div>
             </Modal>
         );
     }
 
     return (
         <Popover open={open} onClose={() => dispatch?.close()} DialogPanelProps={{ className: '!p-0 !pt-6' }}>
-            <RouterProvider router={routerRef.current} />
+            {Router}
         </Popover>
     );
 });

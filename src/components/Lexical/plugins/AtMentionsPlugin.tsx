@@ -21,6 +21,7 @@ import { EMPTY_LIST, SORTED_SOCIAL_SOURCES } from '@/constants/index.js';
 import { classNames } from '@/helpers/classNames.js';
 import { formatSearchIdentities } from '@/helpers/formatSearchIdentities.js';
 import { getSafeMentionQueryText } from '@/helpers/getMentionOriginalText.js';
+import { getStampAvatarByProfileId } from '@/helpers/getStampAvatarByProfileId.js';
 import { resolveSocialSource } from '@/helpers/resolveSource.js';
 import { useCompositePost } from '@/hooks/useCompositePost.js';
 import { useCurrentProfileAll } from '@/hooks/useCurrentProfile.js';
@@ -188,10 +189,10 @@ export function MentionsPlugin(): JSX.Element | null {
         ],
         queryFn: async () => {
             if (!debounceQuery) return;
-            const data = await FireflyEndpointProvider.searchIdentity(debounceQuery, availableSources);
+            const data = await FireflyEndpointProvider.searchIdentity(debounceQuery);
 
             if (!data) return EMPTY_LIST;
-            return formatSearchIdentities(data.list);
+            return formatSearchIdentities(data.data);
         },
     });
 
@@ -199,8 +200,16 @@ export function MentionsPlugin(): JSX.Element | null {
         if (!data) return EMPTY_LIST;
 
         return data
-            .map(({ profileId, avatar, handle, name, allProfile, platform }) => {
-                return new MentionTypeaheadOption(profileId, name, handle, avatar, platform, allProfile);
+            .map(({ profile, related }) => {
+                const source = resolveSocialSource(profile.platform);
+                return new MentionTypeaheadOption(
+                    profile.platform_id,
+                    profile.name,
+                    profile.handle,
+                    getStampAvatarByProfileId(source, profile.platform_id),
+                    source,
+                    related,
+                );
             })
             .slice(0, SUGGESTION_LIST_LENGTH_LIMIT);
     }, [data]);
