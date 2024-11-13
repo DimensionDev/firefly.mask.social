@@ -3015,3 +3015,6 @@ msgstr "× {0}"
 
 msgid "Blink Validator"
 msgstr "Blink Validator"
+
+msgid "High-signal Filter"
+msgstr "High-signal Filter"

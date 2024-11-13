@@ -3,14 +3,14 @@ import { type Dispatch, type HTMLProps, type SetStateAction, useMemo } from 'rea
 
 import NotificationIcon from '@/assets/notification.svg';
 import { NotificationSettings } from '@/components/Notification/NotificationSettings.js';
-import { Source } from '@/constants/enum.js';
+import { type SocialSource, Source } from '@/constants/enum.js';
 import { EMPTY_LIST } from '@/constants/index.js';
 import { classNames } from '@/helpers/classNames.js';
 import { resolveNotificationIcon } from '@/helpers/resolveNotificationIcon.js';
 import { NotificationType } from '@/providers/types/SocialMedia.js';
 
 interface Props extends HTMLProps<HTMLDivElement> {
-    source: Source;
+    source: SocialSource;
     types: NotificationType[];
     onTypesChange: Dispatch<SetStateAction<NotificationType[]>>;
 }
@@ -74,7 +74,7 @@ export function NotificationFilter({ source, className, types, onTypesChange: se
                 {tabs}
             </div>
             <div className="ml-auto pr-2">
-                <NotificationSettings />
+                <NotificationSettings source={source} />
             </div>
         </div>
     );

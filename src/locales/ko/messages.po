@@ -3020,3 +3020,6 @@ msgstr ""
 
 msgid "Blink Validator"
 msgstr ""
+
+msgid "High-signal Filter"
+msgstr ""

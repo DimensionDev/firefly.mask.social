@@ -2,28 +2,62 @@
 
 import { Popover, PopoverButton, PopoverPanel, Switch } from '@headlessui/react';
 import { Trans } from '@lingui/macro';
-import { delay } from '@masknet/kit';
 import { useQuery } from '@tanstack/react-query';
-import { useState } from 'react';
+import { useMemo } from 'react';
 import { useAsyncFn } from 'react-use';
 
 import LoadingIcon from '@/assets/loading.svg';
 import SettingsIcon from '@/assets/setting.svg';
+import { type SocialSource, Source } from '@/constants/enum.js';
 import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
+import { NotificationPlatform, NotificationPushType, NotificationTitle } from '@/providers/types/Firefly.js';
 
-export function NotificationSettings() {
-    const [enabled, setEnabled] = useState(false); // TODO: enable from server
-    const [{ loading }, onSwitch] = useAsyncFn(async (checked: boolean) => {
-        await delay(1000); // TODO: replace to api call
-        setEnabled(checked);
-    }, []);
-
-    const { isLoading } = useQuery({
+export function NotificationSettings({ source }: { source: SocialSource }) {
+    const { data, isLoading, refetch } = useQuery({
         queryKey: ['notification-push-switch'],
         async queryFn() {
             return FireflySocialMediaProvider.getNotificationPushSwitch();
         },
     });
+
+    const enabled = useMemo(() => {
+        const item = data?.list.find((x) => x.title === NotificationTitle.NotificationsMode);
+        if (source === Source.Farcaster) {
+            return item?.list.find(
+                (x) => x.platform === NotificationPlatform.Priority && x.push_type === NotificationPushType.Priority,
+            )?.state;
+        }
+        if (source === Source.Lens) {
+            const r = item?.list.find(
+                (x) => x.platform === NotificationPlatform.Priority && x.push_type === NotificationPushType.Lens,
+            )?.state;
+            return r;
+        }
+        return false;
+    }, [data?.list, source]);
+
+    const [{ loading }, onSwitch] = useAsyncFn(
+        async (state: boolean) => {
+            if (source === Source.Twitter) return;
+            const pushType = {
+                [Source.Farcaster]: NotificationPushType.Priority,
+                [Source.Lens]: NotificationPushType.Lens,
+            }[source];
+            await FireflySocialMediaProvider.setNotificationPushSwitch({
+                list: [
+                    {
+                        platform: NotificationPlatform.Priority,
+                        push_type: pushType,
+                        state,
+                    },
+                ],
+            });
+            await refetch();
+        },
+        [source],
+    );
+
+    if (source === Source.Twitter) return null;
 
     return (
         <Popover className="relative flex items-center justify-center">
@@ -36,7 +70,12 @@ export function NotificationSettings() {
             >
                 <div className="flex items-center">
                     <div className="mr-3 text-sm font-bold leading-[18px]">
-                        <Trans>Priority Mode</Trans>
+                        {
+                            {
+                                [Source.Farcaster]: <Trans>Priority Mode</Trans>,
+                                [Source.Lens]: <Trans>High-signal Filter</Trans>,
+                            }[source]
+                        }
                     </div>
                     <Switch
                         disabled={isLoading || loading}
