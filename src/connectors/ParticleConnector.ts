@@ -1,3 +1,4 @@
+import { t } from '@lingui/macro';
 import { EthereumMethodType, isValidAddress } from '@masknet/web3-shared-evm';
 import { AuthType, connect, disconnect, EthereumProvider, particleAuth } from '@particle-network/auth-core';
 import { type Address, type Chain, numberToHex, RpcError, SwitchChainError, UserRejectedRequestError } from 'viem';
@@ -7,6 +8,7 @@ import { mainnet } from 'wagmi/chains';
 import { STATUS } from '@/constants/enum.js';
 import { env } from '@/constants/env.js';
 import { AbortError, AuthenticationError, InvalidResultError } from '@/constants/error.js';
+import { enqueueWarningMessage } from '@/helpers/enqueueMessage.js';
 import { retry } from '@/helpers/retry.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
@@ -81,6 +83,7 @@ export function createParticleConnector(options: ConnectorOptions) {
                 );
                 if (!wallets.length) {
                     console.error(`[particle] wallet not found`);
+                    enqueueWarningMessage(t`You haven't generated a Firefly wallet yet.`);
                     throw new AuthenticationError('Wallet not found');
                 }
 

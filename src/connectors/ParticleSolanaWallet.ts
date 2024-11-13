@@ -1,3 +1,4 @@
+import { t } from '@lingui/macro';
 import { AuthType, connect, SolanaWallet } from '@particle-network/auth-core';
 import type { SendTransactionOptions, WalletName } from '@solana/wallet-adapter-base';
 import {
@@ -26,6 +27,7 @@ import type {
 import { PublicKey } from '@solana/web3.js';
 
 import { AbortError, AuthenticationError, InvalidResultError } from '@/constants/error.js';
+import { enqueueWarningMessage } from '@/helpers/enqueueMessage.js';
 import { isValidSolanaAddress } from '@/helpers/isValidSolanaAddress.js';
 import { retry } from '@/helpers/retry.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
@@ -134,6 +136,7 @@ export class ParticleSolanaWalletAdapter extends BaseMessageSignerWalletAdapter 
                 );
                 if (!wallets.length) {
                     console.error(`[particle solana] wallet not found`);
+                    enqueueWarningMessage(t`You haven't generated a Firefly wallet yet.`);
                     throw new AuthenticationError('Wallet not found');
                 }
 

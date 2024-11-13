@@ -1993,6 +1993,9 @@ msgstr "Live"
 msgid "Send on schedule"
 msgstr "Send on schedule"
 
+msgid "You haven't generated a Firefly wallet yet."
+msgstr "You haven't generated a Firefly wallet yet."
+
 msgid "Your transaction will confirm shortly"
 msgstr "Your transaction will confirm shortly"
 
