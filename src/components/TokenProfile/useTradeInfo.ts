@@ -2,7 +2,7 @@ import { zeroAddress } from 'viem';
 
 import { useOkxSupportedChains } from '@/components/TokenProfile/useOkxSupportedChains.js';
 import { useCoinTrending } from '@/hooks/useCoinTrending.js';
-import { Coingecko } from '@/providers/coingecko/index.js';
+import { CoinGecko } from '@/providers/coingecko/index.js';
 import type { CoingeckoToken } from '@/providers/types/Coingecko.js';
 
 export function useTradeInfo(token: CoingeckoToken) {
@@ -11,7 +11,7 @@ export function useTradeInfo(token: CoingeckoToken) {
     const { contracts = [] } = trending ?? {};
     const chainIds = supportedChains.map((x) => x.chainId);
     const firstAvailable = contracts.find((x) => x.chainId && chainIds.includes(x.chainId));
-    const chainId = Coingecko.getChainIdByCoinId(token.id) || firstAvailable?.chainId;
+    const chainId = CoinGecko.getChainIdByCoinId(token.id) || firstAvailable?.chainId;
 
     if (!chainId || !chainIds.includes(chainId))
         return {
@@ -21,6 +21,6 @@ export function useTradeInfo(token: CoingeckoToken) {
     return {
         tradable: true,
         chainId,
-        address: Coingecko.getChainIdByCoinId(token.id) ? zeroAddress : firstAvailable?.address,
+        address: CoinGecko.getChainIdByCoinId(token.id) ? zeroAddress : firstAvailable?.address,
     };
 }

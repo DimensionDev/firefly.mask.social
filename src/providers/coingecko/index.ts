@@ -24,7 +24,7 @@ const CoinIdToChainId: Record<string, ChainId> = {
     'avalanche-2': ChainId.Avalanche,
 };
 
-export class Coingecko {
+export class CoinGecko {
     static getTokens() {
         const url = urlcat(DSEARCH_BASE_URL, '/fungible-tokens/coingecko.json');
         return fetchJSON<CoingeckoToken[]>(`${CORS_HOST}?${encodeURIComponent(url)}`, { mode: 'cors' });
