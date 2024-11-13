@@ -27,6 +27,7 @@ import type { Account } from '@/providers/types/Account.js';
 import type { Session } from '@/providers/types/Session.js';
 import { SessionType } from '@/providers/types/SocialMedia.js';
 import { downloadAccounts, downloadSessions, uploadSessions } from '@/services/metrics.js';
+import { restoreFireflySession } from '@/services/restoreFireflySession.js';
 import { usePreferencesState } from '@/store/usePreferenceStore.js';
 import { useFireflyStateStore } from '@/store/useProfileStore.js';
 
@@ -100,7 +101,7 @@ async function updateState(accounts: Account[], overwrite = false) {
  * @param signal
  */
 async function resumeFireflySession(account: Account, signal?: AbortSignal): Promise<void> {
-    const fireflySession = getFireflySession(account) ?? (await FireflySession.from(account.session, signal));
+    const fireflySession = getFireflySession(account) ?? (await restoreFireflySession(account.session, signal));
     const fireflyAccount = {
         profile: createDummyProfile(Source.Farcaster),
         session: fireflySession,

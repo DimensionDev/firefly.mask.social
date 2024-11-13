@@ -34,6 +34,7 @@ async function login(createAccount: () => Promise<Account>, options?: Omit<Accou
 
         const done = await addAccount(account, options);
         if (done) enqueueSuccessMessage(t`Your ${resolveSourceName(Source.Farcaster)} account is now connected.`);
+
         LoginModalRef.close();
     } catch (error) {
         // skip if the error is abort error
