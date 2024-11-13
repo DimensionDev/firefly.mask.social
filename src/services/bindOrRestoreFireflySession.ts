@@ -8,8 +8,7 @@ import { restoreFireflySession } from '@/services/restoreFireflySession.js';
 export async function bindOrRestoreFireflySession(session: Session, signal?: AbortSignal) {
     try {
         const farcasterSession = session as FarcasterSession;
-        if (FarcasterSession.isRelayService(farcasterSession) || FarcasterSession.isCustodyWallet(farcasterSession))
-            throw new NotAllowedError();
+        if (FarcasterSession.isCustodyWallet(farcasterSession)) throw new NotAllowedError();
 
         if (fireflySessionHolder.session) {
             await bindFireflySession(session, signal);
