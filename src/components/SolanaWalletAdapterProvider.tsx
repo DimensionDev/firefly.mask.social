@@ -5,7 +5,6 @@
 import '@solana/wallet-adapter-react-ui/styles.css';
 
 import { type Adapter, WalletAdapterNetwork } from '@solana/wallet-adapter-base';
-import { PhantomWalletAdapter } from '@solana/wallet-adapter-phantom';
 import { ConnectionProvider, useWallet, WalletProvider } from '@solana/wallet-adapter-react';
 import { WalletModalProvider } from '@solana/wallet-adapter-react-ui';
 import { WalletConnectWalletAdapter } from '@solana/wallet-adapter-walletconnect';
@@ -21,7 +20,6 @@ import { EventId } from '@/providers/types/Telemetry.js';
 
 const wallets: Adapter[] = [
     env.external.NEXT_PUBLIC_PARTICLE === STATUS.Enabled ? new ParticleSolanaWalletAdapter() : null,
-    new PhantomWalletAdapter(),
     new WalletConnectWalletAdapter({
         options: {
             projectId: env.external.NEXT_PUBLIC_W3M_PROJECT_ID,

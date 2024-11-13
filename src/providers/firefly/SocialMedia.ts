@@ -46,6 +46,7 @@ import {
     type FireflyFarcasterProfileResponse,
     type FireflySnapshotActivity,
     type FriendshipResponse,
+    type NotificationPushSwitchResponse,
     type NotificationResponse,
     NotificationType as FireflyNotificationType,
     type PostQuotesResponse,
@@ -53,6 +54,7 @@ import {
     type SearchCastsResponse,
     type SearchChannelsResponse,
     type SearchProfileResponse,
+    type SetNotificationPushSwitchParams,
     type ThreadResponse,
     type UserResponse,
     type UsersResponse,
@@ -1047,6 +1049,24 @@ export class FireflySocialMedia implements Provider {
                 data.cursor ? createNextIndicator(indicator, `${data.cursor}`) : undefined,
             );
         });
+    }
+
+    async getNotificationPushSwitch() {
+        const response = await fireflySessionHolder.fetch<NotificationPushSwitchResponse>(
+            urlcat(settings.FIREFLY_ROOT_URL, '/v1/notification/pushswitch/get'),
+        );
+        return resolveFireflyResponseData(response);
+    }
+
+    async setNotificationPushSwitch(params: SetNotificationPushSwitchParams) {
+        const response = await fireflySessionHolder.fetch<NotificationPushSwitchResponse>(
+            urlcat(settings.FIREFLY_ROOT_URL, '/v1/notification/pushswitch/set'),
+            {
+                method: 'POST',
+                body: JSON.stringify(params),
+            },
+        );
+        return resolveFireflyResponseData(response);
     }
 }
 
