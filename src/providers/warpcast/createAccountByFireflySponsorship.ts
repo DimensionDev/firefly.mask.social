@@ -3,7 +3,7 @@ import { bytesToHex } from '@noble/hashes/utils';
 import { type Hex, toHex } from 'viem';
 
 import { fetchJSON } from '@/helpers/fetchJSON.js';
-import { FarcasterSession, FarcasterSponsorship } from '@/providers/farcaster/Session.js';
+import { FarcasterSession } from '@/providers/farcaster/Session.js';
 import { FarcasterSocialMediaProvider } from '@/providers/farcaster/SocialMedia.js';
 import type { Account } from '@/providers/types/Account.js';
 import type { SignedKeyRequestResponse } from '@/providers/types/Warpcast.js';
@@ -16,6 +16,7 @@ interface SponsorshipResponse extends SignedKeyRequestResponse {
     timestamp: number;
     fid: number;
     token: string;
+    signature: string;
 }
 
 async function createSession(signal?: AbortSignal) {
@@ -29,7 +30,6 @@ async function createSession(signal?: AbortSignal) {
             key: publicKey,
         }),
     });
-
     if (!response.success) throw new Error(response.error.message);
 
     const farcasterSession = new FarcasterSession(
@@ -39,7 +39,7 @@ async function createSession(signal?: AbortSignal) {
         response.data.expiresAt,
         // the signer request token is one-time use
         response.data.token,
-        FarcasterSponsorship.Firefly,
+        response.data.signature,
     );
 
     return {
