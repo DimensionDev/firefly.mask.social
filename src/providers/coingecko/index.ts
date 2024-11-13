@@ -6,7 +6,7 @@ import { TrendingType } from '@/constants/enum.js';
 import { COINGECKO_URL_BASE, CORS_HOST, DSEARCH_BASE_URL } from '@/constants/index.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
 import { getCommunityLink } from '@/helpers/getCommunityLink.js';
-import { resolveCoinGeckoChainId } from '@/helpers/resolveCoingeckoChainId.js';
+import { resolveCoinGeckoChainId } from '@/helpers/resolveCoinGeckoChainId.js';
 import type {
     CoinGeckoCoinInfo,
     CoinGeckoCoinMarketInfo,
