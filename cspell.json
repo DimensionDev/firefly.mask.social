@@ -103,7 +103,8 @@
         "zustand",
         "reposted",
         "zerion",
-        "zustand"
+        "zustand",
+        "daos"
     ],
     "ignoreWords": [
         "DEVNET",

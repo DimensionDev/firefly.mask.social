@@ -77,6 +77,17 @@ export enum SourceInURL {
     DAOs = 'daos',
 }
 
+export enum FireflyPlatform {
+    Farcaster = 'farcaster',
+    Lens = 'lens',
+    Twitter = 'twitter',
+    Firefly = 'firefly',
+    Article = 'article',
+    Wallet = 'wallet',
+    NFTs = 'nfts',
+    DAOs = 'snapshot',
+}
+
 export type SocialSource = Source.Farcaster | Source.Lens | Source.Twitter;
 export type ProfileSource = Source.Farcaster | Source.Lens | Source.Twitter | Source.Firefly;
 export type ProfilePageSource = Source.Farcaster | Source.Lens | Source.Twitter | Source.Wallet;
@@ -188,8 +199,6 @@ export enum BookmarkType {
     Audio = 'audio',
     Image = 'image',
 }
-
-export { SourceInURL as FireflyPlatform };
 
 export enum MuteType {
     Profile = 'profile',

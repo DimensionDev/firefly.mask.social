@@ -11,7 +11,7 @@ import type {
 } from 'twitter-api-v2';
 import urlcat from 'urlcat';
 
-import { FireflyPlatform, Source } from '@/constants/enum.js';
+import { FireflyPlatform, Source, SourceInURL } from '@/constants/enum.js';
 import { NotImplementedError } from '@/constants/error.js';
 import { EMPTY_LIST } from '@/constants/index.js';
 import { SetQueryDataForActPost } from '@/decorators/SetQueryDataForActPost.js';
@@ -528,7 +528,7 @@ class TwitterSocialMedia implements Provider {
         return result;
     }
     async getBlockedProfiles(indicator?: PageIndicator): Promise<Pageable<Profile, PageIndicator>> {
-        return FireflySocialMediaProvider.getBlockedProfiles(indicator, FireflyPlatform.Twitter);
+        return FireflySocialMediaProvider.getBlockedProfiles(indicator, SourceInURL.Twitter);
     }
 
     async bookmark(tweetId: string): Promise<boolean> {
