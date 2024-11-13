@@ -76,37 +76,6 @@ function getAccountEventParameters(account: Account) {
     }
 }
 
-function getAccountDisconnectEventParameters(account: Account) {
-    const source = account.profile.source;
-    const accounts = getProfileState(source).accounts.map((x) => [x.profile.profileId, x.profile.handle]) as Array<
-        [string, string]
-    >;
-
-    switch (source) {
-        case Source.Farcaster:
-            return {
-                is_token_sync: account.origin === 'sync',
-                farcaster_id: account.profile.profileId,
-                farcaster_handle: account.profile.handle,
-            };
-        case Source.Lens:
-            return {
-                is_token_sync: account.origin === 'sync',
-                lens_id: account.profile.profileId,
-                lens_handle: account.profile.handle,
-            };
-        case Source.Twitter:
-            return {
-                is_token_sync: account.origin === 'sync',
-                x_id: account.profile.profileId,
-                x_handle: account.profile.handle,
-            };
-        default:
-            safeUnreachable(source);
-            throw new UnreachableError('source', source);
-    }
-}
-
 export function captureAccountLoginEvent(account: Account) {
     return runInSafeAsync(() => {
         const source = account.profile.source;
@@ -124,10 +93,7 @@ export function captureAccountLogoutEvent(account: Account) {
 export function captureAccountDisconnectEvent(account: Account) {
     return runInSafeAsync(() => {
         const source = account.profile.source;
-        return TelemetryProvider.captureEvent(
-            resolveDisconnectEventId(source),
-            getAccountDisconnectEventParameters(account),
-        );
+        return TelemetryProvider.captureEvent(resolveDisconnectEventId(source), getAccountEventParameters(account));
     });
 }
 

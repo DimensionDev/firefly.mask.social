@@ -49,7 +49,7 @@ export const LogoutModal = forwardRef<SingletonModalRefCreator<LogoutModalProps 
                             )}
                         >
                             {accounts.map((account) => (
-                                <div className="rounded-lg px-3 py-2 shadow-primary">
+                                <div className="rounded-lg px-3 py-2 shadow-primary" key={account.profile.profileId}>
                                     <ProfileInList
                                         key={account.profile.profileId}
                                         selected
