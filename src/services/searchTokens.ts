@@ -3,7 +3,7 @@ import { first } from 'lodash-es';
 import type { Pageable, PageIndicator } from '@/helpers/pageable.js';
 import { CoinGecko } from '@/providers/coingecko/index.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
-import type { CoingeckoCoinMarketInfo } from '@/providers/types/Coingecko.js';
+import type { CoingeckoCoinMarketInfo } from '@/providers/types/CoinGecko.js';
 import type { SearchableToken } from '@/providers/types/Firefly.js';
 
 export type TokenWithMarket = SearchableToken & { market?: CoingeckoCoinMarketInfo; hit?: boolean };
