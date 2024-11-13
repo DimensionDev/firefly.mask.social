@@ -103,14 +103,14 @@ export interface CoinGeckoCoinInfo {
     }>;
 }
 
-export interface CoingeckoPlatform {
+export interface CoinGeckoPlatform {
     id?: string;
     chain_identifier?: number;
     name: string;
     shortname: string;
 }
 
-export interface CoingeckoCoinMarketInfo {
+export interface CoinGeckoCoinMarketInfo {
     ath: number;
     ath_change_percentage: number;
     ath_date: string;
@@ -139,7 +139,7 @@ export interface CoingeckoCoinMarketInfo {
     total_volume: number;
 }
 
-export interface CoingeckoGainsLoserInfo {
+export interface CoinGeckoGainsLoserInfo {
     id: string;
     symbol: string;
     name: string;
@@ -150,7 +150,7 @@ export interface CoingeckoGainsLoserInfo {
     usd_24h_change: number;
 }
 
-export interface CoingeckoCoinTrending {
+export interface CoinGeckoCoinTrending {
     id: string;
     symbol: string;
     name: string;
@@ -165,7 +165,7 @@ export interface CoingeckoCoinTrending {
     };
 }
 
-export interface CoingeckoMemeCoinTrending {
+export interface CoinGeckoMemeCoinTrending {
     id: string;
     symbol: string;
     name: string;

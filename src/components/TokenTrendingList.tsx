@@ -5,7 +5,7 @@ import { NoResultsFallback } from '@/components/NoResultsFallback.js';
 import { SearchableTokenItem } from '@/components/Search/SearchableTokenItem.js';
 import { VirtualListFooterBottomText } from '@/components/VirtualList/VirtualListFooterBottomText.js';
 import { TrendingType } from '@/constants/enum.js';
-import { Coingecko } from '@/providers/coingecko/index.js';
+import { CoinGecko } from '@/providers/coingecko/index.js';
 import type { TokenWithMarket } from '@/services/searchTokens.js';
 
 export function TokenTrendingList({ type }: { type: TrendingType }) {
@@ -15,11 +15,11 @@ export function TokenTrendingList({ type }: { type: TrendingType }) {
             switch (type) {
                 case TrendingType.TopGainers:
                 case TrendingType.TopLosers:
-                    return Coingecko.getTopGainersOrLosers(type);
+                    return CoinGecko.getTopGainersOrLosers(type);
                 case TrendingType.Trending:
-                    return Coingecko.getTopTrendingCoins();
+                    return CoinGecko.getTopTrendingCoins();
                 case TrendingType.Meme:
-                    return Coingecko.getTopMemeCoins();
+                    return CoinGecko.getTopMemeCoins();
                 default:
                     safeUnreachable(type);
                     return [] as TokenWithMarket[];

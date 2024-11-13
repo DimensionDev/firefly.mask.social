@@ -9,17 +9,17 @@ import { getCommunityLink } from '@/helpers/getCommunityLink.js';
 import { resolveCoinGeckoChainId } from '@/helpers/resolveCoingeckoChainId.js';
 import type {
     CoinGeckoCoinInfo,
-    CoingeckoCoinMarketInfo,
-    CoingeckoCoinTrending,
-    CoingeckoGainsLoserInfo,
-    CoingeckoMemeCoinTrending,
-    CoingeckoPlatform,
+    CoinGeckoCoinMarketInfo,
+    CoinGeckoCoinTrending,
+    CoinGeckoGainsLoserInfo,
+    CoinGeckoMemeCoinTrending,
+    CoinGeckoPlatform,
     CoinGeckoToken,
 } from '@/providers/types/CoinGecko.js';
 import { type Contract, type Trending, TrendingProvider } from '@/providers/types/Trending.js';
 import type { TokenWithMarket } from '@/services/searchTokens.js';
 
-function formatGainsOrLoser(info: CoingeckoGainsLoserInfo): TokenWithMarket {
+function formatGainsOrLoser(info: CoinGeckoGainsLoserInfo): TokenWithMarket {
     return {
         api_symbol: info.symbol,
         id: info.id,
@@ -74,7 +74,7 @@ export class CoinGecko {
         );
     }
     private static async getSupportedPlatforms() {
-        const response = await fetchJSON<CoingeckoPlatform[]>(`${COINGECKO_URL_BASE}/asset_platforms`);
+        const response = await fetchJSON<CoinGeckoPlatform[]>(`${COINGECKO_URL_BASE}/asset_platforms`);
         return response.filter((x) => x.id && x.chain_identifier) ?? [];
     }
 
@@ -157,7 +157,7 @@ export class CoinGecko {
     }
 
     static async getCoinsByIds(coinIds: string[]) {
-        return fetchJSON<CoingeckoCoinMarketInfo[]>(
+        return fetchJSON<CoinGeckoCoinMarketInfo[]>(
             urlcat(COINGECKO_URL_BASE, '/coins/markets', {
                 ids: coinIds.join(','),
                 vs_currency: 'usd',
@@ -171,8 +171,8 @@ export class CoinGecko {
         type: TrendingType.TopGainers | TrendingType.TopLosers,
     ): Promise<TokenWithMarket[]> {
         const response = await fetchJSON<{
-            top_gainers: CoingeckoGainsLoserInfo[];
-            top_losers: CoingeckoGainsLoserInfo[];
+            top_gainers: CoinGeckoGainsLoserInfo[];
+            top_losers: CoinGeckoGainsLoserInfo[];
         }>(urlcat(COINGECKO_URL_BASE, '/coins/top_gainers_losers', { vs_currency: 'usd' }));
 
         const data = type === TrendingType.TopGainers ? response.top_gainers : response.top_losers;
@@ -180,7 +180,7 @@ export class CoinGecko {
     }
 
     static async getTopTrendingCoins() {
-        const response = await fetchJSON<{ coins: Array<{ item: CoingeckoCoinTrending }> }>(
+        const response = await fetchJSON<{ coins: Array<{ item: CoinGeckoCoinTrending }> }>(
             urlcat(COINGECKO_URL_BASE, '/search/trending'),
         );
 
@@ -202,7 +202,7 @@ export class CoinGecko {
     }
 
     static async getTopMemeCoins() {
-        const response = await fetchJSON<CoingeckoMemeCoinTrending[]>(
+        const response = await fetchJSON<CoinGeckoMemeCoinTrending[]>(
             urlcat(COINGECKO_URL_BASE, '/coins/markets', {
                 vs_currency: 'usd',
                 category: 'meme-token',
