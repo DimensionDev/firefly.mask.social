@@ -1,5 +1,5 @@
 import { Appearance } from '@masknet/public-api';
-import { ChainId, isNativeTokenAddress } from '@masknet/web3-shared-evm';
+import { ChainId, isNativeTokenAddress, isZeroAddress } from '@masknet/web3-shared-evm';
 import {
     createOkxSwapWidget,
     type EthereumProvider,
@@ -16,7 +16,6 @@ import { useEffect, useRef } from 'react';
 
 import { Modal, type ModalProps } from '@/components/Modal.js';
 import { LangMap, NATIVE_TOKEN_ADDRESS } from '@/constants/okx.js';
-import { toOkxNativeAddress } from '@/providers/okx/helper.js';
 import { useLocale } from '@/store/useLocale.js';
 import { useThemeModeStore } from '@/store/useThemeModeStore.js';
 
@@ -42,7 +41,7 @@ export function SwapModal({ chainId, address, ...rest }: Props) {
             ? {
                   fromChain: chainId,
                   toChain: chainId,
-                  fromToken: toOkxNativeAddress(address),
+                  fromToken: isZeroAddress(address) ? NATIVE_TOKEN_ADDRESS : address,
               }
             : {
                   fromChain: chainId,

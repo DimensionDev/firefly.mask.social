@@ -2,7 +2,6 @@ import urlcat from 'urlcat';
 
 import { OKX_HOST } from '@/constants/okx.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
-import { normalizeCode } from '@/providers/okx/helper.js';
 import type { SupportedChainResponse } from '@/providers/okx/types.js';
 /** request okx official API, and normalize the code */
 async function fetchFromOKX<T extends { code: number }>(input: RequestInfo | URL, init?: RequestInit) {
@@ -11,8 +10,11 @@ async function fetchFromOKX<T extends { code: number }>(input: RequestInfo | URL
             console.warn('Do you forget to convert to okx native address?', input);
         }
     }
-    const result = await fetchJSON<T>(input, init);
-    return normalizeCode(result);
+    const response = await fetchJSON<T>(input, init);
+    return {
+        ...response,
+        code: +response.code,
+    };
 }
 
 export class OKX {
