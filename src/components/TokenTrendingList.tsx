@@ -1,3 +1,4 @@
+import { safeUnreachable } from '@masknet/kit';
 import { useSuspenseQuery } from '@tanstack/react-query';
 
 import { NoResultsFallback } from '@/components/NoResultsFallback.js';
@@ -20,6 +21,7 @@ export function TokenTrendingList({ type }: { type: TrendingType }) {
                 case TrendingType.Meme:
                     return Coingecko.getTopMemeCoins();
                 default:
+                    safeUnreachable(type);
                     return [] as TokenWithMarket[];
             }
         },

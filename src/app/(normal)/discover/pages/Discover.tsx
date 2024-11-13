@@ -1,5 +1,6 @@
 'use client';
 
+import { safeUnreachable } from '@masknet/kit';
 import React from 'react';
 
 import { DiscoverArticleList } from '@/components/Article/DiscoverArticleList.js';
@@ -13,16 +14,18 @@ interface Props {
 }
 
 export function DiscoverPage({ source }: Props) {
-    if (source === Source.Snapshot) {
-        return <DiscoverSnapshotList />;
+    switch (source) {
+        case Source.Snapshot:
+            return <DiscoverSnapshotList />;
+        case Source.Article:
+            return <DiscoverArticleList />;
+        case Source.NFTs:
+            return <DiscoverNFTList />;
+        case Source.Farcaster:
+        case Source.Lens:
+            return <DiscoverPostList source={source} />;
+        default:
+            safeUnreachable(source);
+            return null;
     }
-    if (source === Source.Article) {
-        return <DiscoverArticleList />;
-    }
-
-    if (source === Source.NFTs) {
-        return <DiscoverNFTList />;
-    }
-
-    return <DiscoverPostList source={source} />;
 }
