@@ -1,10 +1,10 @@
 import { createPageTitleOG } from '@/helpers/createPageTitle.js';
 import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
 import { resolveTokenPageUrl } from '@/helpers/resolveTokenPageUrl.js';
-import { Coingecko } from '@/providers/coingecko/index.js';
+import { CoinGecko } from '@/providers/coingecko/index.js';
 
 export async function createMetadataToken(symbol: string) {
-    const tokens = await Coingecko.getTokens();
+    const tokens = await CoinGecko.getTokens();
     const sym = symbol.toLowerCase();
     const token = tokens.find((x) => x.symbol === sym) || null;
     if (!token) return createSiteMetadata();

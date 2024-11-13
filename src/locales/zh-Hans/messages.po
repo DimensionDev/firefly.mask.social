@@ -522,9 +522,6 @@ msgstr "隐藏"
 msgid "NFTs"
 msgstr "NFTs"
 
-msgid "No results for \"{searchKeyword}\""
-msgstr "{searchKeyword} 搜索无结果"
-
 msgid "Page not found"
 msgstr "找不到网页"
 
@@ -779,6 +776,9 @@ msgstr "日志侦测技术至控制台"
 
 msgid "Confirmation"
 msgstr "确认"
+
+msgid "Search user"
+msgstr ""
 
 msgid "Failed to upload. Video is not supported yet."
 msgstr "视频还未支持上传。"
@@ -1230,6 +1230,9 @@ msgstr "你成功发送了 <0>{amount} {0}{1}</0> 的打赏给 <1>{2}</1>！"
 msgid "This token is not issued by its declared team. Some scams will create a well-known token with the same name to defraud their users of their assets."
 msgstr "此通证不是由其声明的团队发布的。某些骗子将创建一个相同名称的通证来欺诈用户。"
 
+msgid "Search post"
+msgstr ""
+
 msgid "Set"
 msgstr "设置"
 
@@ -1557,6 +1560,9 @@ msgstr "持有者无法出售所有代币。"
 msgid "I want to hide this wallet address."
 msgstr "我想隐藏这个钱包地址。"
 
+msgid "Search token"
+msgstr ""
+
 msgid "Details"
 msgstr "详情"
 
@@ -1727,6 +1733,9 @@ msgstr "提交已领取的地址"
 
 msgid "Mute successfully."
 msgstr "隐藏成功。"
+
+msgid "No results for \"{keyword}\""
+msgstr ""
 
 msgid "If this function exists, it is possible for the project owner to regain ownership even after relinquishing it"
 msgstr "如果存在此功能，项目所有者即使在放弃后也可以重新获得所有权。"
@@ -2778,6 +2787,9 @@ msgstr "个人信息"
 msgid "QUOTE"
 msgstr "引用"
 
+msgid "Swap"
+msgstr ""
+
 msgid "Collect"
 msgstr "收藏"
 
@@ -2874,6 +2886,9 @@ msgstr "立即领取"
 msgid "Collect for {0} {1}"
 msgstr "收集 {0} {1}"
 
+msgid "Search nft"
+msgstr ""
+
 msgid "Recast"
 msgstr "转推"
 
@@ -2891,6 +2906,9 @@ msgstr "打赏"
 
 msgid "Followers"
 msgstr "关注者"
+
+msgid "Search channel"
+msgstr ""
 
 msgid "Mint function"
 msgstr "铸造功能"

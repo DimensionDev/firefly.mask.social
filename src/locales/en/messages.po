@@ -517,9 +517,6 @@ msgstr "Mutes"
 msgid "NFTs"
 msgstr "NFTs"
 
-msgid "No results for \"{searchKeyword}\""
-msgstr "No results for \"{searchKeyword}\""
-
 msgid "Page not found"
 msgstr "Page not found"
 
@@ -774,6 +771,9 @@ msgstr "Log telemetry events to the console."
 
 msgid "Confirmation"
 msgstr "Confirmation"
+
+msgid "Search user"
+msgstr "Search user"
 
 msgid "Failed to upload. Video is not supported yet."
 msgstr "Failed to upload. Video is not supported yet."
@@ -1225,6 +1225,9 @@ msgstr "You successfully sent <0>{amount} {0}{1}</0> tips to <1>{2}</1>!"
 msgid "This token is not issued by its declared team. Some scams will create a well-known token with the same name to defraud their users of their assets."
 msgstr "This token is not issued by its declared team. Some scams will create a well-known token with the same name to defraud their users of their assets."
 
+msgid "Search post"
+msgstr "Search post"
+
 msgid "Set"
 msgstr "Set"
 
@@ -1552,6 +1555,9 @@ msgstr "Holders can not sell all of the token."
 msgid "I want to hide this wallet address."
 msgstr "I want to hide this wallet address."
 
+msgid "Search token"
+msgstr "Search token"
+
 msgid "Details"
 msgstr "Details"
 
@@ -1722,6 +1728,9 @@ msgstr "Submit claimed address"
 
 msgid "Mute successfully."
 msgstr "Mute successfully."
+
+msgid "No results for \"{keyword}\""
+msgstr "No results for \"{keyword}\""
 
 msgid "If this function exists, it is possible for the project owner to regain ownership even after relinquishing it"
 msgstr "If this function exists, it is possible for the project owner to regain ownership even after relinquishing it"
@@ -2773,6 +2782,9 @@ msgstr "Profile"
 msgid "QUOTE"
 msgstr "QUOTE"
 
+msgid "Swap"
+msgstr "Swap"
+
 msgid "Collect"
 msgstr "Collect"
 
@@ -2869,6 +2881,9 @@ msgstr "Claim Now"
 msgid "Collect for {0} {1}"
 msgstr "Collect for {0} {1}"
 
+msgid "Search nft"
+msgstr "Search nft"
+
 msgid "Recast"
 msgstr "Recast"
 
@@ -2886,6 +2901,9 @@ msgstr "Tips"
 
 msgid "Followers"
 msgstr "Followers"
+
+msgid "Search channel"
+msgstr "Search channel"
 
 msgid "Mint function"
 msgstr "Mint function"

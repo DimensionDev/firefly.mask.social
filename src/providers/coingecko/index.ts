@@ -1,3 +1,4 @@
+import { ChainId } from '@masknet/web3-shared-evm';
 import { uniq, uniqBy } from 'lodash-es';
 import urlcat from 'urlcat';
 
@@ -6,17 +7,27 @@ import { fetchJSON } from '@/helpers/fetchJSON.js';
 import { getCommunityLink } from '@/helpers/getCommunityLink.js';
 import { resolveCoinGeckoChainId } from '@/helpers/resolveCoingeckoChainId.js';
 import type {
-    CoingeckoCoinInfo,
+    CoinGeckoCoinInfo,
     CoingeckoCoinMarketInfo,
     CoingeckoPlatform,
-    CoingeckoToken,
-} from '@/providers/types/Coingecko.js';
+    CoinGeckoToken,
+} from '@/providers/types/CoinGecko.js';
 import { type Contract, type Trending, TrendingProvider } from '@/providers/types/Trending.js';
 
-export class Coingecko {
+const CoinIdToChainId: Record<string, ChainId> = {
+    eth: ChainId.Mainnet,
+    pol: ChainId.Polygon,
+    bnb: ChainId.BSC,
+    fantom: ChainId.Fantom,
+    arbitrum: ChainId.Arbitrum,
+    scroll: ChainId.Scroll,
+    'avalanche-2': ChainId.Avalanche,
+};
+
+export class CoinGecko {
     static getTokens() {
         const url = urlcat(DSEARCH_BASE_URL, '/fungible-tokens/coingecko.json');
-        return fetchJSON<CoingeckoToken[]>(`${CORS_HOST}?${encodeURIComponent(url)}`, { mode: 'cors' });
+        return fetchJSON<CoinGeckoToken[]>(`${CORS_HOST}?${encodeURIComponent(url)}`, { mode: 'cors' });
     }
     static async getTokenPrice(coinId: string): Promise<number | undefined> {
         const url = urlcat(COINGECKO_URL_BASE, '/simple/price', { ids: coinId, vs_currencies: 'usd' });
@@ -38,7 +49,7 @@ export class Coingecko {
     }
     static getCoinInfo(coinId: string) {
         type CoinInfoResponse =
-            | CoingeckoCoinInfo
+            | CoinGeckoCoinInfo
             | {
                   error: string;
               };
@@ -71,7 +82,7 @@ export class Coingecko {
         const platforms = await this.getSupportedPlatforms();
         return {
             lastUpdated: info.last_updated,
-            provider: TrendingProvider.Coingecko,
+            provider: TrendingProvider.CoinGecko,
             contracts:
                 coinId === 'avalanche-2'
                     ? [
@@ -142,5 +153,9 @@ export class Coingecko {
                 page: 1,
             }),
         );
+    }
+
+    static getChainIdByCoinId(coinId: string) {
+        return CoinIdToChainId[coinId];
     }
 }

@@ -38,11 +38,11 @@ export const ArticleMoreAction = memo<MoreProps>(function ArticleMoreAction({ ar
             button={
                 isBusy ? (
                     <span className="inline-flex h-6 w-6 animate-spin items-center justify-center">
-                        <LoadingIcon width={16} height={16} />
+                        <LoadingIcon width={16} height={16} className="text-secondary" />
                     </span>
                 ) : (
                     <Tooltip content={t`More`} placement="top">
-                        <MoreIcon width={24} height={24} />
+                        <MoreIcon className="text-secondary" width={24} height={24} />
                     </Tooltip>
                 )
             }

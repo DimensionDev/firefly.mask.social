@@ -56,6 +56,7 @@ class FireflyBridgeProvider {
      * Return true if the application is opened in a native environment.
      */
     get supported() {
+        if (typeof window === 'undefined') return false;
         if (typeof window.FireflyApi?.callNativeMethod === 'function') return true;
         if (typeof window.webkit?.messageHandlers?.callNativeMethod?.postMessage === 'function') return true;
         return false;

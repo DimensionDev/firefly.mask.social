@@ -517,9 +517,6 @@ msgstr ""
 msgid "NFTs"
 msgstr ""
 
-msgid "No results for \"{searchKeyword}\""
-msgstr ""
-
 msgid "Page not found"
 msgstr ""
 
@@ -773,6 +770,9 @@ msgid "Log telemetry events to the console."
 msgstr ""
 
 msgid "Confirmation"
+msgstr ""
+
+msgid "Search user"
 msgstr ""
 
 msgid "Failed to upload. Video is not supported yet."
@@ -1225,6 +1225,9 @@ msgstr ""
 msgid "This token is not issued by its declared team. Some scams will create a well-known token with the same name to defraud their users of their assets."
 msgstr ""
 
+msgid "Search post"
+msgstr ""
+
 msgid "Set"
 msgstr ""
 
@@ -1552,6 +1555,9 @@ msgstr ""
 msgid "I want to hide this wallet address."
 msgstr ""
 
+msgid "Search token"
+msgstr ""
+
 msgid "Details"
 msgstr ""
 
@@ -1721,6 +1727,9 @@ msgid "Submit claimed address"
 msgstr ""
 
 msgid "Mute successfully."
+msgstr ""
+
+msgid "No results for \"{keyword}\""
 msgstr ""
 
 msgid "If this function exists, it is possible for the project owner to regain ownership even after relinquishing it"
@@ -2773,6 +2782,9 @@ msgstr ""
 msgid "QUOTE"
 msgstr ""
 
+msgid "Swap"
+msgstr ""
+
 msgid "Collect"
 msgstr ""
 
@@ -2869,6 +2881,9 @@ msgstr ""
 msgid "Collect for {0} {1}"
 msgstr ""
 
+msgid "Search nft"
+msgstr ""
+
 msgid "Recast"
 msgstr ""
 
@@ -2885,6 +2900,9 @@ msgid "Tips"
 msgstr ""
 
 msgid "Followers"
+msgstr ""
+
+msgid "Search channel"
 msgstr ""
 
 msgid "Mint function"
