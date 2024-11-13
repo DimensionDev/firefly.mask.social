@@ -2,6 +2,7 @@
 
 import { Popover, PopoverButton, PopoverPanel, Switch } from '@headlessui/react';
 import { Trans } from '@lingui/macro';
+import { safeUnreachable } from '@masknet/kit';
 import { useQuery } from '@tanstack/react-query';
 import { useMemo } from 'react';
 import { useAsyncFn } from 'react-use';
@@ -22,27 +23,41 @@ export function NotificationSettings({ source }: { source: SocialSource }) {
 
     const enabled = useMemo(() => {
         const item = data?.list.find((x) => x.title === NotificationTitle.NotificationsMode);
-        if (source === Source.Farcaster) {
-            return item?.list.find(
-                (x) => x.platform === NotificationPlatform.Priority && x.push_type === NotificationPushType.Priority,
-            )?.state;
+
+        switch (source) {
+            case Source.Farcaster:
+                return (
+                    item?.list.find(
+                        (x) =>
+                            x.platform === NotificationPlatform.Priority &&
+                            x.push_type === NotificationPushType.Priority,
+                    )?.state ?? false
+                );
+            case Source.Lens:
+                return (
+                    item?.list.find(
+                        (x) =>
+                            x.platform === NotificationPlatform.Priority && x.push_type === NotificationPushType.Lens,
+                    )?.state ?? false
+                );
+            case Source.Twitter:
+                return false;
+            default:
+                safeUnreachable(source);
+                return false;
         }
-        if (source === Source.Lens) {
-            const r = item?.list.find(
-                (x) => x.platform === NotificationPlatform.Priority && x.push_type === NotificationPushType.Lens,
-            )?.state;
-            return r;
-        }
-        return false;
     }, [data?.list, source]);
 
     const [{ loading }, onSwitch] = useAsyncFn(
         async (state: boolean) => {
-            if (source === Source.Twitter) return;
-            const pushType = {
+            const pushTypes: Record<SocialSource, NotificationPushType | undefined> = {
                 [Source.Farcaster]: NotificationPushType.Priority,
                 [Source.Lens]: NotificationPushType.Lens,
-            }[source];
+                [Source.Twitter]: undefined,
+            };
+            const pushType = pushTypes[source];
+            if (!pushType) return;
+
             await FireflySocialMediaProvider.setNotificationPushSwitch({
                 list: [
                     {
