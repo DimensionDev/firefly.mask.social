@@ -11,10 +11,10 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 
 import { AsideTitle } from '@/components/AsideTitle.js';
 import { ProfileSlide } from '@/components/SuggestedFollows/ProfileSlide.js';
-import { DiscoverType, Source } from '@/constants/enum.js';
+import { ExploreType, Source } from '@/constants/enum.js';
 import { Link } from '@/esm/Link.js';
 import { isSocialDiscoverSource } from '@/helpers/isDiscoverSource.js';
-import { resolveDiscoverUrl } from '@/helpers/resolveDiscoverUrl.js';
+import { resolveExploreUrl } from '@/helpers/resolveExploreUrl.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { useCurrentProfileAll } from '@/hooks/useCurrentProfile.js';
 import { useIsLarge } from '@/hooks/useMediaQuery.js';
@@ -60,14 +60,14 @@ export function SuggestedFollowsCard() {
         const isOnlyFarcaster = !!profileAll.Farcaster && !profileAll.Lens;
         const isOnlyLens = !profileAll.Farcaster && !!profileAll.Lens;
         if (isOnlyFarcaster) {
-            return resolveDiscoverUrl(Source.Farcaster, DiscoverType.TopProfiles);
+            return resolveExploreUrl(ExploreType.TopProfiles, Source.Farcaster);
         }
         if (isOnlyLens) {
-            return resolveDiscoverUrl(Source.Lens, DiscoverType.TopProfiles);
+            return resolveExploreUrl(ExploreType.TopProfiles, Source.Lens);
         }
-        return resolveDiscoverUrl(
+        return resolveExploreUrl(
+            ExploreType.TopProfiles,
             isSocialDiscoverSource(currentSource) ? currentSource : Source.Farcaster,
-            DiscoverType.TopProfiles,
         );
     }, [currentSource, profileAll.Farcaster, profileAll.Lens]);
 

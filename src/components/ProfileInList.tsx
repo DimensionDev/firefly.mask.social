@@ -1,3 +1,4 @@
+import { Plural } from '@lingui/macro';
 import { isUndefined } from 'lodash-es';
 
 import { Avatar } from '@/components/Avatar.js';
@@ -5,9 +6,13 @@ import { BioMarkup } from '@/components/Markup/BioMarkup.js';
 import { PlainParagraph, VoidLineBreak } from '@/components/Markup/overrides.js';
 import { FollowButton } from '@/components/Profile/FollowButton.js';
 import { SocialSourceIcon } from '@/components/SocialSourceIcon.js';
+import { FollowCategory, Source } from '@/constants/enum.js';
 import { Link } from '@/esm/Link.js';
+import { classNames } from '@/helpers/classNames.js';
+import { nFormatter } from '@/helpers/formatCommentCounts.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { isCurrentProfile } from '@/helpers/isCurrentProfile.js';
+import { resolveProfileUrl } from '@/helpers/resolveProfileUrl.js';
 import { useIsSmall } from '@/hooks/useMediaQuery.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
@@ -34,6 +39,9 @@ export function ProfileInList({ profile, noFollowButton, listKey, index }: Profi
 
     const profileUrl = getProfileUrl(profile);
 
+    const { source, profileId } = profile;
+    const followerCount = profile.followerCount || 0;
+
     return (
         <div className="flex-start flex gap-3 overflow-auto border-b border-secondaryLine p-3 hover:bg-bg dark:border-line">
             <Link onClick={handleClickOnLink} className="shrink-0" href={profileUrl}>
@@ -51,17 +59,38 @@ export function ProfileInList({ profile, noFollowButton, listKey, index }: Profi
                             <Link className="truncate text-xl" href={profileUrl}>
                                 {profile.displayName}
                             </Link>
-                            <SocialSourceIcon className="shrink-0" source={profile.source} />
+                            <SocialSourceIcon
+                                mono
+                                className="shrink-0 text-secondary"
+                                size={16}
+                                source={profile.source}
+                            />
                         </p>
-                        {profile.handle ? (
+                        <div className="flex items-center">
+                            {profile.handle ? (
+                                <Link
+                                    className="self-start text-sm leading-[22px] text-secondary"
+                                    href={profileUrl}
+                                    onClick={handleClickOnLink}
+                                >
+                                    @{profile.handle}
+                                </Link>
+                            ) : null}
+                            <span className="mx-1 leading-5 text-secondary">·</span>
                             <Link
-                                className="self-start text-sm text-secondary"
-                                href={profileUrl}
-                                onClick={handleClickOnLink}
+                                href={resolveProfileUrl(source, profileId, FollowCategory.Followers)}
+                                className={classNames('gap-1 leading-[22px] hover:underline', {
+                                    'pointer-events-none': source !== Source.Farcaster && source !== Source.Lens,
+                                })}
                             >
-                                @{profile.handle}
+                                <data value={followerCount}>
+                                    <span className="font-bold text-lightMain">{nFormatter(followerCount)} </span>
+                                    <span className="text-secondary">
+                                        <Plural value={followerCount} one="Follower" other="Followers" />
+                                    </span>
+                                </data>
                             </Link>
-                        ) : null}
+                        </div>
                     </div>
                     {!noFollowButton && !isCurrentProfile(profile) ? <FollowButton profile={profile} /> : null}
                 </div>

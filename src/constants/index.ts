@@ -5,6 +5,8 @@ import {
     type DiscoverSource,
     DiscoverType,
     EngagementType,
+    type ExploreSource,
+    ExploreType,
     FileMimeType,
     type FollowingSource,
     NetworkType,
@@ -15,6 +17,7 @@ import {
     SocialProfileCategory,
     type SocialSource,
     Source,
+    TrendingType,
     VERCEL_NEV,
     WalletProfileCategory,
 } from '@/constants/enum.js';
@@ -120,6 +123,9 @@ export const SORTED_MEDIA_SOURCES: MediaSource[] = [
     MediaSource.Giphy,
     MediaSource.Local,
 ];
+
+export const SORTED_EXPLORE_SOURCES: ExploreSource[] = [Source.Farcaster, Source.Lens];
+
 export const DEFAULT_SOCIAL_SOURCE = Source.Farcaster;
 export const SUPPORTED_FRAME_SOURCES: SocialSource[] = [Source.Farcaster, Source.Lens];
 export const SUPPORTED_PREVIEW_MEDIA_TYPES: Array<Attachment['type']> = ['Image', 'AnimatedGif'];
@@ -138,10 +144,30 @@ export const FOLLOWING_SOURCES: FollowingSource[] = [
     Source.Article,
     Source.Snapshot,
 ] as const;
+
 export const DISCOVER_TYPES = {
     [Source.Farcaster]: [DiscoverType.Trending, DiscoverType.TopProfiles, DiscoverType.TopChannels],
     [Source.Lens]: [DiscoverType.Trending, DiscoverType.TopProfiles],
 };
+
+export const DEFAULT_EXPLORE_TYPE = ExploreType.TopProfiles;
+
+export const EXPLORE_TYPES: ExploreType[] = [
+    ExploreType.TopProfiles,
+    ExploreType.CryptoTrends,
+    ExploreType.TopChannels,
+];
+
+export const EXPLORE_SOURCES: Partial<Record<ExploreType, ExploreSource[]>> = {
+    [ExploreType.TopProfiles]: [Source.Farcaster, Source.Lens],
+    [ExploreType.CryptoTrends]: [
+        TrendingType.TopGainers,
+        TrendingType.TopLosers,
+        TrendingType.Trending,
+        TrendingType.Meme,
+    ],
+};
+
 export const BOOKMARK_SOURCES: BookmarkSource[] = [Source.Farcaster, Source.Lens, Source.Article, Source.Snapshot];
 
 export const TIPS_SUPPORT_NETWORKS = [NetworkType.Ethereum];

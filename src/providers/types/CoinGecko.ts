@@ -103,14 +103,14 @@ export interface CoinGeckoCoinInfo {
     }>;
 }
 
-export interface CoingeckoPlatform {
+export interface CoinGeckoPlatform {
     id?: string;
     chain_identifier?: number;
     name: string;
     shortname: string;
 }
 
-export interface CoingeckoCoinMarketInfo {
+export interface CoinGeckoCoinMarketInfo {
     ath: number;
     ath_change_percentage: number;
     ath_date: string;
@@ -137,4 +137,40 @@ export interface CoingeckoCoinMarketInfo {
     symbol: string;
     total_supply: number;
     total_volume: number;
+}
+
+export interface CoinGeckoGainsLoserInfo {
+    id: string;
+    symbol: string;
+    name: string;
+    image: string;
+    market_cap_rank: number;
+    usd: number;
+    usd_24h_vol: number;
+    usd_24h_change: number;
+}
+
+export interface CoinGeckoCoinTrending {
+    id: string;
+    symbol: string;
+    name: string;
+    large: string;
+    thumb: string;
+    market_cap_rank: number;
+    data: {
+        price: number;
+        price_change_percentage_24h: {
+            usd: number;
+        };
+    };
+}
+
+export interface CoinGeckoMemeCoinTrending {
+    id: string;
+    symbol: string;
+    name: string;
+    image: string;
+    market_cap_rank: number;
+    current_price: number;
+    price_change_percentage_24h: number;
 }

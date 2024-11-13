@@ -16,6 +16,7 @@ import { parseOldProfileUrl, parseProfileUrl } from '@/helpers/parseProfileUrl.j
 import { resolveBookmarkUrl } from '@/helpers/resolveBookmarkUrl.js';
 import { resolveDiscoverUrl } from '@/helpers/resolveDiscoverUrl.js';
 import { resolveEngagementUrl } from '@/helpers/resolveEngagementUrl.js';
+import { resolveExploreUrl } from '@/helpers/resolveExploreUrl.js';
 import { resolveFollowingUrl } from '@/helpers/resolveFollowingUrl.js';
 import { resolveNftUrl } from '@/helpers/resolveNftUrl.js';
 import { resolveNotificationUrl } from '@/helpers/resolveNotificationUrl.js';
@@ -44,7 +45,9 @@ export async function middleware(request: NextRequest) {
     const parsedOldDiscoverUrl = parseOldDiscoverUrl(request.nextUrl);
     if (parsedOldDiscoverUrl) {
         const destination = request.nextUrl.clone();
-        destination.pathname = resolveDiscoverUrl(parsedOldDiscoverUrl.source, parsedOldDiscoverUrl.discover);
+        destination.pathname = parsedOldDiscoverUrl.exploreType
+            ? resolveExploreUrl(parsedOldDiscoverUrl.exploreType)
+            : resolveDiscoverUrl(parsedOldDiscoverUrl.source);
         destination.searchParams.delete('source');
         destination.searchParams.delete('discover');
         return NextResponse.redirect(destination);

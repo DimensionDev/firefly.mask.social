@@ -1,4 +1,4 @@
-import { Source } from '@/constants/enum.js';
+import { type ExploreSource, Source, TrendingType } from '@/constants/enum.js';
 import { UnreachableError } from '@/constants/error.js';
 import { createLookupTableResolver } from '@/helpers/createLookupTableResolver.js';
 
@@ -13,6 +13,20 @@ export const resolveSourceName = createLookupTableResolver<Source, string>(
         [Source.NFTs]: 'NFTs',
         [Source.Snapshot]: 'DAOs',
         [Source.Polymarket]: 'Polymarket',
+    },
+    (source) => {
+        throw new UnreachableError('source', source);
+    },
+);
+
+export const resolveExploreSourceName = createLookupTableResolver<ExploreSource, string>(
+    {
+        [Source.Lens]: 'Lens',
+        [Source.Farcaster]: 'Farcaster',
+        [TrendingType.TopGainers]: 'Top Gainers',
+        [TrendingType.TopLosers]: 'Top Losers',
+        [TrendingType.Trending]: 'Trending',
+        [TrendingType.Meme]: 'Meme',
     },
     (source) => {
         throw new UnreachableError('source', source);
