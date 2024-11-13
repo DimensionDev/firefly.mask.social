@@ -134,7 +134,7 @@ export enum WalletProfileCategory {
     Articles = 'articles',
     POAPs = 'poaps',
     NFTs = 'nfts',
-    OnChainActivities = 'activities',
+    Activities = 'activities',
     DAO = 'DAO',
     Polymarket = 'polymarket',
 }
