@@ -14,7 +14,7 @@ export default function Page({ params }: { params: { source: SourceInURL } }) {
     const mounted = useMounted();
     const source = resolveSource(params.source) as BookmarkSource;
 
-    if (source === Source.Snapshot) {
+    if (source === Source.DAOs) {
         return (
             <Suspense fallback={<Loading />}>
                 <SnapshotBookmarkList />

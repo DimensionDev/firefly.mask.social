@@ -127,13 +127,13 @@ export const DISCOVER_SOURCES: DiscoverSource[] = [
     ...SOCIAL_DISCOVER_SOURCE,
     Source.NFTs,
     Source.Article,
-    Source.Snapshot,
+    Source.DAOs,
 ] as const;
 export const DISCOVER_TYPES = {
     [Source.Farcaster]: [DiscoverType.Trending, DiscoverType.TopProfiles, DiscoverType.TopChannels],
     [Source.Lens]: [DiscoverType.Trending, DiscoverType.TopProfiles],
 };
-export const BOOKMARK_SOURCES: BookmarkSource[] = [Source.Farcaster, Source.Lens, Source.Article, Source.Snapshot];
+export const BOOKMARK_SOURCES: BookmarkSource[] = [Source.Farcaster, Source.Lens, Source.Article, Source.DAOs];
 
 export const TIPS_SUPPORT_NETWORKS = [NetworkType.Ethereum];
 

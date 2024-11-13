@@ -234,7 +234,7 @@ export function SnapshotBody({ snapshot, link, postId, activity }: Props) {
                         </Link>
                     </div>
                     <div className="flex items-center justify-between">
-                        <div className="flex items-center gap-2">
+                        <div className="flex flex-1 items-center gap-2 truncate">
                             <div className="hidden items-center gap-2 md:flex">
                                 <Link href={authorUrl} className="z-[1]">
                                     <Avatar
@@ -257,7 +257,7 @@ export function SnapshotBody({ snapshot, link, postId, activity }: Props) {
                             </div>
                             <Time
                                 dateTime={snapshot.created * 1000}
-                                className="whitespace-nowrap text-medium leading-4 text-secondary"
+                                className="truncate whitespace-nowrap text-medium leading-4 text-secondary"
                             >
                                 <TimestampFormatter time={snapshot.created * 1000} />
                             </Time>

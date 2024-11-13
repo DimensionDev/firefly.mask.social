@@ -26,7 +26,7 @@ export function SnapshotBookmarkList() {
         queryKey: [
             'snapshots',
             account.address,
-            Source.Snapshot,
+            Source.DAOs,
             'bookmark',
             SORTED_SOCIAL_SOURCES.map((x) => currentProfileAll[x]?.profileId),
         ],
@@ -54,14 +54,14 @@ export function SnapshotBookmarkList() {
 
     return (
         <ListInPage
-            source={Source.Snapshot}
+            source={Source.DAOs}
             queryResult={query}
             loginRequired
             NoResultsFallbackProps={{
                 className: 'md:pt-[228px] max-md:py-20',
             }}
             VirtualListProps={{
-                listKey: `${ScrollListKey.Following}:${Source.Snapshot}`,
+                listKey: `${ScrollListKey.Following}:${Source.DAOs}`,
                 computeItemKey: (index, snapshot) => `${snapshot.id}-${index}`,
                 itemContent: (index, snapshot) => getSnapshotItemContent(index, snapshot),
             }}

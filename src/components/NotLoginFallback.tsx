@@ -12,7 +12,7 @@ import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { useAsyncStatus } from '@/hooks/useAsyncStatus.js';
 import { LoginModalRef } from '@/modals/controls.js';
 
-const resolveConnectButtonClass = createLookupTableResolver<SocialSource | Source.Article | Source.Snapshot, string>(
+const resolveConnectButtonClass = createLookupTableResolver<SocialSource | Source.Article | Source.DAOs, string>(
     {
         [Source.Lens]:
             'text-lensPrimary ring-lensPrimary hover:bg-[rgba(154,227,42,0.20)] hover:shadow-[0_0_16px_0_rgba(101,119,134,0.20)]',
@@ -21,19 +21,19 @@ const resolveConnectButtonClass = createLookupTableResolver<SocialSource | Sourc
         [Source.Twitter]: 'w-[203px] text-main ring-main hover:bg-main/20 hover:shadow-[rgba(101,119,134,0.20)]',
         [Source.Article]:
             'w-[203px] text-[#AD7BFF] ring-[#AD7BFF] shadow-[0_0_16px_0_rgba(101,119,134,0.2)] hover:bg-[#AD7BFF33]/20',
-        [Source.Snapshot]:
+        [Source.DAOs]:
             'w-[203px] text-[#AD7BFF] ring-[#AD7BFF] shadow-[0_0_16px_0_rgba(101,119,134,0.2)] hover:bg-[#AD7BFF33]/20',
     },
     '',
 );
 
 interface NotLoginFallbackProps extends HTMLProps<HTMLDivElement> {
-    source: SocialSource | Source.Article | Source.Snapshot;
+    source: SocialSource | Source.Article | Source.DAOs;
 }
 
 export const NotLoginFallback = memo<NotLoginFallbackProps>(function NotLoginFallback({ source, className }) {
     const fallbackImageUrl = resolveFallbackImageUrl(source);
-    const isNotSocialSource = source === Source.Article || source === Source.Snapshot;
+    const isNotSocialSource = source === Source.Article || source === Source.DAOs;
 
     const asyncStatusTwitter = useAsyncStatus(Source.Twitter);
     const isTwitterConnecting = source === Source.Twitter && asyncStatusTwitter;

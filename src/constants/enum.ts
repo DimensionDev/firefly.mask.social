@@ -63,7 +63,7 @@ export enum Source {
     Article = 'Article',
     Wallet = 'Wallet',
     NFTs = 'NFTs',
-    Snapshot = 'Snapshot',
+    DAOs = 'DAOs',
 }
 
 export enum SourceInURL {
@@ -74,7 +74,7 @@ export enum SourceInURL {
     Article = 'article',
     Wallet = 'wallet',
     NFTs = 'nfts',
-    Snapshot = 'snapshot',
+    DAOs = 'daos',
 }
 
 export type SocialSource = Source.Farcaster | Source.Lens | Source.Twitter;
@@ -82,8 +82,12 @@ export type ProfileSource = Source.Farcaster | Source.Lens | Source.Twitter | So
 export type ProfilePageSource = Source.Farcaster | Source.Lens | Source.Twitter | Source.Wallet;
 export type SocialSourceInURL = SourceInURL.Farcaster | SourceInURL.Lens | SourceInURL.Twitter;
 export type SocialDiscoverSource = Source.Farcaster | Source.Lens;
-export type DiscoverSource = SocialDiscoverSource | Source.NFTs | Source.Article | Source.Snapshot;
-export type BookmarkSource = Source.Farcaster | Source.Lens | Source.Article | Source.Snapshot;
+
+export type DiscoverSource = SocialDiscoverSource | Source.NFTs | Source.Article | Source.DAOs;
+export type BookmarkSource = Source.Farcaster | Source.Lens | Source.Article | Source.DAOs;
+export type FollowingSource = DiscoverSource;
+export type ExploreSource = Source.Farcaster | Source.Lens;
+export type ExploreSourceInURL = SourceInURL.Farcaster | SourceInURL.Lens;
 
 export enum DiscoverType {
     ForYou = 'for-you',
