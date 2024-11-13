@@ -1,3 +1,4 @@
+import { ChainId } from '@masknet/web3-shared-evm';
 import { uniq, uniqBy } from 'lodash-es';
 import urlcat from 'urlcat';
 
@@ -5,7 +6,6 @@ import { COINGECKO_URL_BASE, CORS_HOST, DSEARCH_BASE_URL } from '@/constants/ind
 import { fetchJSON } from '@/helpers/fetchJSON.js';
 import { getCommunityLink } from '@/helpers/getCommunityLink.js';
 import { resolveCoinGeckoChainId } from '@/helpers/resolveCoingeckoChainId.js';
-import { CoinIdToChainId } from '@/providers/coingecko/constant.js';
 import type {
     CoingeckoCoinInfo,
     CoingeckoCoinMarketInfo,
@@ -13,6 +13,16 @@ import type {
     CoingeckoToken,
 } from '@/providers/types/Coingecko.js';
 import { type Contract, type Trending, TrendingProvider } from '@/providers/types/Trending.js';
+
+const CoinIdToChainId: Record<string, ChainId> = {
+    eth: ChainId.Mainnet,
+    pol: ChainId.Polygon,
+    bnb: ChainId.BSC,
+    fantom: ChainId.Fantom,
+    arbitrum: ChainId.Arbitrum,
+    scroll: ChainId.Scroll,
+    'avalanche-2': ChainId.Avalanche,
+};
 
 export class Coingecko {
     static getTokens() {
