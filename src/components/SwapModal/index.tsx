@@ -15,8 +15,7 @@ import { useAppKitProvider } from '@reown/appkit/react';
 import { useEffect, useRef } from 'react';
 
 import { Modal, type ModalProps } from '@/components/Modal.js';
-import { LangMap } from '@/constants/okx.js';
-import { NATIVE_TOKEN_ADDRESS } from '@/providers/okx/constant.js';
+import { LangMap, NATIVE_TOKEN_ADDRESS } from '@/constants/okx.js';
 import { toOkxNativeAddress } from '@/providers/okx/helper.js';
 import { useLocale } from '@/store/useLocale.js';
 import { useThemeModeStore } from '@/store/useThemeModeStore.js';

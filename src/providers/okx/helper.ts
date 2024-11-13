@@ -1,7 +1,7 @@
 import { isZeroAddress } from '@masknet/web3-shared-evm';
 
+import { NATIVE_TOKEN_ADDRESS } from '@/constants/okx.js';
 import { isSameEthereumAddress } from '@/helpers/isSameAddress.js';
-import { NATIVE_TOKEN_ADDRESS } from '@/providers/okx/constant.js';
 
 export function toOkxNativeAddress(address: string) {
     if (isZeroAddress(address)) return NATIVE_TOKEN_ADDRESS;
