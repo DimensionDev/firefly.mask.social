@@ -1,9 +1,9 @@
 import { first } from 'lodash-es';
 
 import type { Pageable, PageIndicator } from '@/helpers/pageable.js';
-import { Coingecko } from '@/providers/coingecko/index.js';
+import { CoinGecko } from '@/providers/coingecko/index.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
-import type { CoingeckoCoinMarketInfo } from '@/providers/types/Coingecko.js';
+import type { CoingeckoCoinMarketInfo } from '@/providers/types/CoinGecko.js';
 import type { SearchableToken } from '@/providers/types/Firefly.js';
 
 export type TokenWithMarket = SearchableToken & { market?: Partial<CoingeckoCoinMarketInfo>; hit?: boolean };
@@ -40,7 +40,7 @@ function sortTokensByKeyword(tokens: SearchableToken[], keyword: string) {
 export async function searchTokens(searchKeyword: string): Promise<Pageable<TokenWithMarket, PageIndicator>> {
     const res = await FireflyEndpointProvider.searchTokens(searchKeyword);
     const ids = res.data.map((x) => x.id);
-    const marketData = await Coingecko.getCoinsByIds(ids);
+    const marketData = await CoinGecko.getCoinsByIds(ids);
 
     return {
         ...res,

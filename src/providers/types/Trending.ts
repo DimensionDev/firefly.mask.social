@@ -145,7 +145,7 @@ export interface Ticker {
 }
 
 export enum TrendingProvider {
-    Coingecko = 'coingecko',
+    CoinGecko = 'coingecko',
 }
 
 export interface Trending {

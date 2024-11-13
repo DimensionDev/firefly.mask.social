@@ -39,9 +39,6 @@ msgstr "來留下第一條評論吧！"
 msgid "Failed to mute all wallets and accounts."
 msgstr ""
 
-msgid "Onchain Activities"
-msgstr "鏈上活動"
-
 msgid "Tomorrow at {0}"
 msgstr ""
 
@@ -265,6 +262,9 @@ msgid "Found arweaveTxId is empty."
 msgstr ""
 
 msgid "<0>You</0> and {0} others recasted"
+msgstr ""
+
+msgid "Activities"
 msgstr ""
 
 msgid "Change Wallet"
@@ -2019,6 +2019,9 @@ msgstr ""
 msgid "{0, plural, one {repost} other {reposts}}"
 msgstr ""
 
+msgid "Scan the QR code with your phone’s <0>Camera</0> in {count}s. <1/>Approve a new Farcaster signer to Firefly for free."
+msgstr ""
+
 msgid "This does not appear to be a honeypot."
 msgstr ""
 
@@ -2783,6 +2786,9 @@ msgstr "個人資料"
 
 msgid "QUOTE"
 msgstr "引用"
+
+msgid "Swap"
+msgstr ""
 
 msgid "Collect"
 msgstr "收集"

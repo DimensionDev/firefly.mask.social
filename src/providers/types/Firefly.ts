@@ -1315,3 +1315,9 @@ export type SearchableToken = {
 export type SearchTokenResponse = Response<{
     coins: SearchableToken[];
 }>;
+
+export type GenerateFarcasterSignatureResponse = Response<{
+    sponsorSignature: Hex;
+    signedKeyRequestSignature: Hex;
+    requestFid: number;
+}>;

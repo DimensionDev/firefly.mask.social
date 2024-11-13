@@ -1,63 +1,58 @@
 import { getPublicKey, utils } from '@noble/ed25519';
-import { toHex } from 'viem';
+import { bytesToHex } from '@noble/hashes/utils';
+import { type Hex, toHex } from 'viem';
 
 import { fetchJSON } from '@/helpers/fetchJSON.js';
-import { FarcasterSession } from '@/providers/farcaster/Session.js';
+import { FarcasterSession, FarcasterSponsorship } from '@/providers/farcaster/Session.js';
 import { FarcasterSocialMediaProvider } from '@/providers/farcaster/SocialMedia.js';
 import type { Account } from '@/providers/types/Account.js';
+import type { SignedKeyRequestResponse } from '@/providers/types/Warpcast.js';
 import { pollingSignerRequestToken } from '@/providers/warpcast/pollingSignerRequestToken.js';
 import { bindOrRestoreFireflySession } from '@/services/bindOrRestoreFireflySession.js';
 import type { ResponseJSON } from '@/types/index.js';
 
-interface WarpcastSignInResponse {
-    fid: string;
-    token: string;
-    timestamp: number;
+interface SponsorshipResponse extends SignedKeyRequestResponse {
     expiresAt: number;
-    // URL to present to user to scan
-    deeplinkUrl: string;
+    timestamp: number;
+    fid: number;
+    token: string;
+    signature: string;
 }
 
 async function createSession(signal?: AbortSignal) {
-    // create key pair in client side
     const privateKey = utils.randomPrivateKey();
-    const publicKey: `0x${string}` = `0x${Buffer.from(await getPublicKey(privateKey)).toString('hex')}`;
+    const publicKey: Hex = `0x${bytesToHex(await getPublicKey(privateKey))}`;
 
-    const response = await fetchJSON<ResponseJSON<WarpcastSignInResponse>>('/api/warpcast/signin', {
+    const response = await fetchJSON<ResponseJSON<SponsorshipResponse>>('/api/firefly/sponsorship', {
         method: 'POST',
+        signal,
         body: JSON.stringify({
             key: publicKey,
         }),
-        signal,
     });
     if (!response.success) throw new Error(response.error.message);
 
     const farcasterSession = new FarcasterSession(
-        // we don't posses the fid until the key request was signed
-        '',
+        `${response.data.fid}`,
         toHex(privateKey),
         response.data.timestamp,
         response.data.expiresAt,
         // the signer request token is one-time use
         response.data.token,
+        `${FarcasterSponsorship.Firefly}-${response.data.signature}`,
     );
 
     return {
-        deeplink: response.data.deeplinkUrl,
+        deeplink: response.data.result.signedKeyRequest.deeplinkUrl,
         session: farcasterSession,
     };
 }
 
-/**
- * Initiates the creation of a session by granting data access permission to another FID.
- * @param signal
- * @returns
- */
 async function initialSignerRequestToken(callback?: (url: string) => void, signal?: AbortSignal) {
     const { deeplink, session } = await createSession(signal);
 
     // invalid session type
-    if (!FarcasterSession.isGrantByPermission(session)) throw new Error('Invalid session type');
+    if (!FarcasterSession.isSponsorship(session)) throw new Error('Invalid session type');
 
     // present QR code to the user or open the link in a new tab
     callback?.(deeplink);
@@ -76,7 +71,7 @@ async function initialSignerRequestToken(callback?: (url: string) => void, signa
     return session;
 }
 
-export async function createAccountByGrantPermission(callback?: (url: string) => void, signal?: AbortSignal) {
+export async function createAccountByFireflySponsorship(callback?: (url: string) => void, signal?: AbortSignal) {
     const session = await initialSignerRequestToken(callback, signal);
 
     // polling for the session to be ready

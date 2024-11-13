@@ -39,9 +39,6 @@ msgstr "还没有人评论哦～快来抢沙发！"
 msgid "Failed to mute all wallets and accounts."
 msgstr "未能隐藏所有的钱包和账户。"
 
-msgid "Onchain Activities"
-msgstr "链上活动"
-
 msgid "Tomorrow at {0}"
 msgstr "明天 {0}"
 
@@ -266,6 +263,9 @@ msgstr "ArweaveTxId 为空。"
 
 msgid "<0>You</0> and {0} others recasted"
 msgstr "<0> 你 </0> 和 {0} 人都转发了"
+
+msgid "Activities"
+msgstr ""
 
 msgid "Change Wallet"
 msgstr "更换钱包"
@@ -2019,6 +2019,9 @@ msgstr "市场上流通并可供公众交易的货币数量。这相当于市场
 msgid "{0, plural, one {repost} other {reposts}}"
 msgstr "{0, plural, one {转帖} other {转帖}}"
 
+msgid "Scan the QR code with your phone’s <0>Camera</0> in {count}s. <1/>Approve a new Farcaster signer to Firefly for free."
+msgstr ""
+
 msgid "This does not appear to be a honeypot."
 msgstr "这看起来不像是一个陷阱。"
 
@@ -2783,6 +2786,9 @@ msgstr "个人信息"
 
 msgid "QUOTE"
 msgstr "引用"
+
+msgid "Swap"
+msgstr ""
 
 msgid "Collect"
 msgstr "收藏"

@@ -2,12 +2,12 @@ import dayjs from 'dayjs';
 import { NextRequest } from 'next/server.js';
 import urlcat from 'urlcat';
 import { mnemonicToAccount } from 'viem/accounts';
-import { z } from 'zod';
 
 import { env } from '@/constants/env.js';
 import { WARPCAST_ROOT_URL } from '@/constants/index.js';
 import { createSuccessResponseJSON } from '@/helpers/createResponseJSON.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
+import { HexStringSchema } from '@/schemas/index.js';
 
 const SIGNED_KEY_REQUEST_VALIDATOR_EIP_712_DOMAIN = {
     name: 'Farcaster SignedKeyRequestValidator',
@@ -21,8 +21,6 @@ const SIGNED_KEY_REQUEST_TYPE = [
     { name: 'key', type: 'bytes' },
     { name: 'deadline', type: 'uint256' },
 ] as const;
-
-const HexStringSchema = z.string().regex(/^0x[a-fA-F0-9]+$/);
 
 export async function POST(request: NextRequest) {
     const { key }: { key: string } = await request.json();

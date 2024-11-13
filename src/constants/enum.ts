@@ -150,7 +150,7 @@ export enum WalletProfileCategory {
     Articles = 'articles',
     POAPs = 'poaps',
     NFTs = 'nfts',
-    OnChainActivities = 'activities',
+    Activities = 'activities',
     DAO = 'DAO',
     Polymarket = 'polymarket',
 }
@@ -200,6 +200,7 @@ export enum FarcasterSignType {
     RelayService = 'relay_service',
     // recovery phrase
     RecoveryPhrase = 'recovery_phrase',
+    FireflySponsorship = 'firefly_sponsorship',
 }
 export enum BookmarkType {
     All = 'all',

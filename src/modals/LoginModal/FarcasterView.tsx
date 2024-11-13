@@ -27,6 +27,7 @@ function Title() {
 
     switch (signType) {
         case FarcasterSignType.GrantPermission:
+        case FarcasterSignType.FireflySponsorship:
             return <Trans>New connection with Warpcast</Trans>;
         case FarcasterSignType.RelayService:
             return <Trans>Login with Farcaster</Trans>;

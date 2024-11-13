@@ -9,6 +9,10 @@ import { SessionType } from '@/providers/types/SocialMedia.js';
 
 export const FAKE_SIGNER_REQUEST_TOKEN = 'fake_signer_request_token';
 
+export enum FarcasterSponsorship {
+    Firefly = 'firefly',
+}
+
 export class FarcasterSession extends BaseSession implements Session {
     constructor(
         /**
@@ -23,12 +27,18 @@ export class FarcasterSession extends BaseSession implements Session {
         expiresAt: number,
         public signerRequestToken?: string,
         public channelToken?: string,
+        public sponsorshipSignature?: string,
     ) {
         super(SessionType.Farcaster, profileId, token, createdAt, expiresAt);
     }
 
-    override serialize(): `${SessionType}:${string}:${string}` {
-        return `${super.serialize()}:${this.signerRequestToken ?? ''}:${this.channelToken ?? ''}`;
+    override serialize(): `${SessionType}:${string}:${string}:${string}` {
+        return [
+            super.serialize(),
+            this.signerRequestToken ?? '',
+            this.channelToken ?? '',
+            this.sponsorshipSignature ?? '',
+        ].join(':') as `${SessionType}:${string}:${string}:${string}`;
     }
 
     refresh(): Promise<void> {
@@ -73,6 +83,17 @@ export class FarcasterSession extends BaseSession implements Session {
             !!token &&
             // strict mode
             (strict ? token !== FAKE_SIGNER_REQUEST_TOKEN : true)
+        );
+    }
+
+    static isSponsorship(
+        session: Session | null,
+        strict = false,
+    ): session is FarcasterSession & { signerRequestToken: string; sponsorshipSignature: string } {
+        if (!session) return false;
+        return (
+            FarcasterSession.isGrantByPermission(session, strict) &&
+            !!(session as FarcasterSession).sponsorshipSignature
         );
     }
 

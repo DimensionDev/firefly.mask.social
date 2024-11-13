@@ -1,6 +1,6 @@
 import type { Runtime } from '@/providers/types/Trending.js';
 
-export interface CoingeckoToken {
+export interface CoinGeckoToken {
     pluginID: 'string';
     id: string;
     symbol: string;
@@ -17,7 +17,7 @@ export interface CoingeckoToken {
     };
 }
 
-export interface CoingeckoCoinInfo {
+export interface CoinGeckoCoinInfo {
     asset_platform_id: string;
     block_time_in_minutes: number;
     categories: string[];

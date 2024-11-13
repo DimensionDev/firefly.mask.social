@@ -1,3 +1,4 @@
+import { ChainId } from '@masknet/web3-shared-evm';
 import { uniq, uniqBy } from 'lodash-es';
 import urlcat from 'urlcat';
 
@@ -7,38 +8,39 @@ import { fetchJSON } from '@/helpers/fetchJSON.js';
 import { getCommunityLink } from '@/helpers/getCommunityLink.js';
 import { resolveCoinGeckoChainId } from '@/helpers/resolveCoingeckoChainId.js';
 import type {
-    CoingeckoCoinInfo,
+    CoinGeckoCoinInfo,
     CoingeckoCoinMarketInfo,
     CoingeckoCoinTrending,
     CoingeckoGainsLoserInfo,
     CoingeckoMemeCoinTrending,
     CoingeckoPlatform,
-    CoingeckoToken,
-} from '@/providers/types/Coingecko.js';
+    CoinGeckoToken,
+} from '@/providers/types/CoinGecko.js';
 import { type Contract, type Trending, TrendingProvider } from '@/providers/types/Trending.js';
 import type { TokenWithMarket } from '@/services/searchTokens.js';
 
-export class Coingecko {
-    static formatGainsOrLoser(info: CoingeckoGainsLoserInfo): TokenWithMarket {
-        return {
-            api_symbol: info.symbol,
-            id: info.id,
-            name: info.name,
-            large: info.image,
-            market_cap_rank: info.market_cap_rank,
-            symbol: info.symbol,
-            thumb: info.image,
-            market: {
-                current_price: info.usd,
-                price_change_percentage_24h: info.usd_24h_change,
-            },
-        };
-    }
+function formatGainsOrLoser(info: CoingeckoGainsLoserInfo): TokenWithMarket {
+    return {
+        api_symbol: info.symbol,
+        id: info.id,
+        name: info.name,
+        large: info.image,
+        market_cap_rank: info.market_cap_rank,
+        symbol: info.symbol,
+        thumb: info.image,
+        market: {
+            current_price: info.usd,
+            price_change_percentage_24h: info.usd_24h_change,
+        },
+    };
+}
 
+export class CoinGecko {
     static getTokens() {
         const url = urlcat(DSEARCH_BASE_URL, '/fungible-tokens/coingecko.json');
-        return fetchJSON<CoingeckoToken[]>(`${CORS_HOST}?${encodeURIComponent(url)}`, { mode: 'cors' });
+        return fetchJSON<CoinGeckoToken[]>(`${CORS_HOST}?${encodeURIComponent(url)}`, { mode: 'cors' });
     }
+
     static async getTokenPrice(coinId: string): Promise<number | undefined> {
         const url = urlcat(COINGECKO_URL_BASE, '/simple/price', { ids: coinId, vs_currencies: 'usd' });
         const price = await fetchJSON<Record<string, Record<string, number>>>(url);
@@ -59,7 +61,7 @@ export class Coingecko {
     }
     static getCoinInfo(coinId: string) {
         type CoinInfoResponse =
-            | CoingeckoCoinInfo
+            | CoinGeckoCoinInfo
             | {
                   error: string;
               };
@@ -92,7 +94,7 @@ export class Coingecko {
         const platforms = await this.getSupportedPlatforms();
         return {
             lastUpdated: info.last_updated,
-            provider: TrendingProvider.Coingecko,
+            provider: TrendingProvider.CoinGecko,
             contracts:
                 coinId === 'avalanche-2'
                     ? [
@@ -174,8 +176,7 @@ export class Coingecko {
         }>(urlcat(COINGECKO_URL_BASE, '/coins/top_gainers_losers', { vs_currency: 'usd' }));
 
         const data = type === TrendingType.TopGainers ? response.top_gainers : response.top_losers;
-
-        return data.map((x) => Coingecko.formatGainsOrLoser(x));
+        return data.map(formatGainsOrLoser);
     }
 
     static async getTopTrendingCoins() {
@@ -223,5 +224,18 @@ export class Coingecko {
                 },
             };
         });
+    }
+
+    static getChainIdByCoinId(coinId: string) {
+        const CoinIdToChainId: Record<string, ChainId> = {
+            eth: ChainId.Mainnet,
+            pol: ChainId.Polygon,
+            bnb: ChainId.BSC,
+            fantom: ChainId.Fantom,
+            arbitrum: ChainId.Arbitrum,
+            scroll: ChainId.Scroll,
+            'avalanche-2': ChainId.Avalanche,
+        };
+        return CoinIdToChainId[coinId];
     }
 }
