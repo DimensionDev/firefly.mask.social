@@ -25,7 +25,7 @@ export function ProfileCategoryTabs({
     category: WalletProfileCategory | SocialProfileCategory;
 }) {
     const tabTitles: Record<WalletProfileCategory, ReactNode> = {
-        [WalletProfileCategory.OnChainActivities]: <Trans>Onchain Activities</Trans>,
+        [WalletProfileCategory.Activities]: <Trans>Activities</Trans>,
         [WalletProfileCategory.POAPs]: <Trans>POAPs</Trans>,
         [WalletProfileCategory.NFTs]: <Trans>NFTs</Trans>,
         [WalletProfileCategory.Articles]: <Trans>Articles</Trans>,
@@ -63,7 +63,7 @@ export function ProfileCategoryTabs({
               ].filter((x) => SORTED_PROFILE_TAB_TYPE[source as SocialSource].includes(x.type));
 
     return (
-        <nav className="scrollable-tab flex border-b border-lightLineSecond px-3 dark:border-line">
+        <nav className="scrollable-tab flex gap-1.5 border-b border-lightLineSecond px-3 dark:border-line">
             {categories.map(({ type, title }) => {
                 return (
                     <div key={type} className="flex flex-col">

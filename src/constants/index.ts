@@ -79,7 +79,7 @@ export const SORTED_PROFILE_TAB_TYPE: Record<SocialSource, SocialProfileCategory
     [Source.Twitter]: [SocialProfileCategory.Feed, SocialProfileCategory.Replies],
 };
 export const WALLET_PROFILE_TAB_TYPES = [
-    WalletProfileCategory.OnChainActivities,
+    WalletProfileCategory.Activities,
     WalletProfileCategory.POAPs,
     WalletProfileCategory.NFTs,
     WalletProfileCategory.Articles,
