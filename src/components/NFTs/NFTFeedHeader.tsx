@@ -4,9 +4,9 @@ import urlcat from 'urlcat';
 import type { Address } from 'viem';
 
 import { ChainIcon } from '@/components/NFTDetail/ChainIcon.js';
-import { NFTMoreAction } from '@/components/NFTs/NFTMoreAction.js';
 import { Time } from '@/components/Semantic/Time.js';
 import { TimestampFormatter } from '@/components/TimeStampFormatter.js';
+import { WalletBaseMoreAction } from '@/components/WalletBaseMoreAction.js';
 import { SourceInURL } from '@/constants/enum.js';
 import { Link } from '@/esm/Link.js';
 import { classNames } from '@/helpers/classNames.js';
@@ -63,7 +63,7 @@ export function NFTFeedHeader({
                 <Time dateTime={time} className="whitespace-nowrap text-xs leading-4 text-secondary md:text-[13px]">
                     <TimestampFormatter time={time} />
                 </Time>
-                <NFTMoreAction
+                <WalletBaseMoreAction
                     address={address}
                     contractAddress={contractAddress}
                     tokenId={tokenId}

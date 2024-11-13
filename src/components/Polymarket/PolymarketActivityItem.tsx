@@ -7,10 +7,10 @@ import SellIcon from '@/assets/bet-sell.svg';
 import PolymarketIcon from '@/assets/polymarket.svg';
 import { Avatar } from '@/components/Avatar.js';
 import { Image } from '@/components/Image.js';
-import { PolymarketActivityMoreAction } from '@/components/Polymarket/PolymarketActivityMoreAction.js';
 import { PolymarketActivityRate } from '@/components/Polymarket/PolymarketActivityRate.js';
 import { PolymarketActivityResult } from '@/components/Polymarket/PolymarketActivityResult.js';
 import { TimestampFormatter } from '@/components/TimeStampFormatter.js';
+import { WalletBaseMoreAction } from '@/components/WalletBaseMoreAction.js';
 import { PolymarketBetType, Source } from '@/constants/enum.js';
 import { Link } from '@/esm/Link.js';
 import { classNames } from '@/helpers/classNames.js';
@@ -64,7 +64,7 @@ export const PolymarketActivityItem = memo<PolymarketActivityProps>(function Pol
                         </span>
                     ) : null}
                     <PolymarketIcon width={15} height={15} className="shrink-0" />
-                    <PolymarketActivityMoreAction address={activity.wallet as Address} />
+                    <WalletBaseMoreAction address={activity.wallet as Address} />
                 </div>
                 <Link
                     target="_blank"

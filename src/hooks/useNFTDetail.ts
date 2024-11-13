@@ -4,10 +4,13 @@ import { useQuery } from '@tanstack/react-query';
 import { SimpleHashWalletProfileProvider } from '@/providers/simplehash/WalletProfile.js';
 import { useInvalidNFTStore } from '@/store/useInvalidNFTStore.js';
 
-export function useNFTDetail(address: string, tokenId: string, chainId: ChainId = ChainId.Mainnet) {
+export function useNFTDetail(address?: string, tokenId?: string, chainId: ChainId = ChainId.Mainnet) {
+    const enabled = !!address && !!tokenId;
     return useQuery({
         queryKey: ['nft-detail', address, tokenId, chainId],
+        enabled,
         async queryFn() {
+            if (!enabled) return;
             const result = await SimpleHashWalletProfileProvider.getNFT(
                 address,
                 tokenId,

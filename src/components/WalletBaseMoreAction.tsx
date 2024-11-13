@@ -20,14 +20,13 @@ import { useIsWalletMuted } from '@/hooks/useIsWalletMuted.js';
 import { useNFTDetail } from '@/hooks/useNFTDetail.js';
 
 interface Props {
-    /** User address */
     address: Address;
-    contractAddress: Address;
-    tokenId: string;
-    chainId: ChainId;
+    contractAddress?: Address;
+    tokenId?: string;
+    chainId?: ChainId;
 }
 
-export function NFTMoreAction({ address, contractAddress, tokenId, chainId }: Props) {
+export function WalletBaseMoreAction({ address, contractAddress, tokenId, chainId }: Props) {
     const { data: ens } = useEnsName({ address });
     const { data } = useNFTDetail(contractAddress, tokenId, chainId);
     const { data: isMuted } = useIsWalletMuted(address);
