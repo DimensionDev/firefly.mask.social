@@ -34,9 +34,6 @@ msgstr ""
 msgid "Failed to mute all wallets and accounts."
 msgstr ""
 
-msgid "Onchain Activities"
-msgstr ""
-
 msgid "Tomorrow at {0}"
 msgstr ""
 
@@ -260,6 +257,9 @@ msgid "Found arweaveTxId is empty."
 msgstr ""
 
 msgid "<0>You</0> and {0} others recasted"
+msgstr ""
+
+msgid "Activities"
 msgstr ""
 
 msgid "Change Wallet"
@@ -554,6 +554,9 @@ msgid "Save Post?"
 msgstr ""
 
 msgid "Reconnect with Firefly"
+msgstr ""
+
+msgid "Explore"
 msgstr ""
 
 msgid "Only up to 2 images can be chosen."
@@ -905,9 +908,6 @@ msgid "Log in with your X account to view"
 msgstr ""
 
 msgid "Login to Firefly"
-msgstr ""
-
-msgid "Top Channels"
 msgstr ""
 
 msgid "Canceled"
@@ -1433,9 +1433,6 @@ msgid "This can’t be undone, and the scheduled send will be canceled."
 msgstr ""
 
 msgid "This contract is an Admin Upgradeability Proxy. The proxy contract means the contract owner can modify the function of the token and could possibly effect the price.There is possibly a way for the team to Rug or Scam. Please confirm the details with the project team before buying."
-msgstr ""
-
-msgid "For You"
 msgstr ""
 
 msgid "Failed to fetch bookmarks."
@@ -2020,6 +2017,9 @@ msgstr ""
 msgid "{0, plural, one {repost} other {reposts}}"
 msgstr ""
 
+msgid "Scan the QR code with your phone’s <0>Camera</0> in {count}s. <1/>Approve a new Farcaster signer to Firefly for free."
+msgstr ""
+
 msgid "This does not appear to be a honeypot."
 msgstr ""
 
@@ -2282,6 +2282,9 @@ msgid "<0>You</0> liked"
 msgstr ""
 
 msgid "You've hit rock bottom."
+msgstr ""
+
+msgid "Crypto Trends"
 msgstr ""
 
 msgid "Copy link to profile"
@@ -2780,6 +2783,9 @@ msgid "Profile"
 msgstr ""
 
 msgid "QUOTE"
+msgstr ""
+
+msgid "Swap"
 msgstr ""
 
 msgid "Collect"

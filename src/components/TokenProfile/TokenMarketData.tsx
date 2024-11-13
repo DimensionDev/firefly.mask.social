@@ -5,9 +5,12 @@ import { first } from 'lodash-es';
 import { useRef, useState } from 'react';
 
 import PriceArrow from '@/assets/price-arrow.svg';
+import SwapIcon from '@/assets/swap.svg';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { Image } from '@/components/Image.js';
+import { SwapModal } from '@/components/SwapModal/index.js';
 import { TokenSecurityBar } from '@/components/TokenProfile/TokenSecurityBar.js';
+import { useTradeInfo } from '@/components/TokenProfile/useTradeInfo.js';
 import { EMPTY_LIST } from '@/constants/index.js';
 import { Link } from '@/esm/Link.js';
 import { classNames } from '@/helpers/classNames.js';
@@ -19,10 +22,10 @@ import type { Dimension } from '@/hooks/useLineChart.js';
 import { usePriceLineChart } from '@/hooks/usePriceLineChart.js';
 import { useTokenPrice } from '@/hooks/useTokenPrice.js';
 import { useTokenSecurity } from '@/hooks/useTokenSecurity.js';
-import type { CoingeckoToken } from '@/providers/types/Coingecko.js';
+import type { CoinGeckoToken } from '@/providers/types/CoinGecko.js';
 
 interface TokenMarketDataProps {
-    token: CoingeckoToken;
+    token: CoinGeckoToken;
     linkable?: boolean;
 }
 
@@ -42,6 +45,8 @@ export function TokenMarketData({ linkable, token }: TokenMarketDataProps) {
     const { market, contracts } = trending ?? {};
     const contract = first(contracts);
     const { data: security } = useTokenSecurity(contract?.chainId, contract?.address);
+    const [openTrader, setOpenTrader] = useState(false);
+    const tradeInfo = useTradeInfo(token);
 
     const ranges = [
         { label: t`24h`, days: 1 },
@@ -73,32 +78,46 @@ export function TokenMarketData({ linkable, token }: TokenMarketDataProps) {
 
     return (
         <>
-            <div className="flex items-center gap-1 text-second">
-                {linkable ? (
-                    <Link prefetch className="contents" href={resolveTokenPageUrl(token.symbol)}>
-                        {baseInfo}
-                    </Link>
-                ) : (
-                    baseInfo
-                )}
-                <span className="inline-flex h-[14px] items-center rounded bg-[#8E96FF] px-1 py-0.5 text-[10px] text-white">
-                    <Trans>Rank #{token.rank}</Trans>
-                </span>
+            <div className="flex items-start">
+                <div className="flex flex-grow flex-col gap-1.5">
+                    <div className="flex items-center gap-1 text-second">
+                        {linkable ? (
+                            <Link prefetch className="contents" href={resolveTokenPageUrl(token.symbol)}>
+                                {baseInfo}
+                            </Link>
+                        ) : (
+                            baseInfo
+                        )}
+                        <span className="inline-flex h-[14px] items-center rounded bg-[#8E96FF] px-1 py-0.5 text-[10px] text-white">
+                            <Trans>Rank #{token.rank}</Trans>
+                        </span>
+                    </div>
+                    <div className="line-height-[22px] flex items-center gap-1">
+                        <strong className="text-2xl font-bold">${renderShrankPrice(formatPrice(price) ?? '-')}</strong>
+                        <PriceArrow
+                            width={20}
+                            height={20}
+                            className={classNames(isUp ? 'text-success' : 'rotate-180 text-fail')}
+                        />
+                        {market?.price_change_percentage_24h_in_currency !== undefined ? (
+                            <span className={isUp ? 'text-medium text-success' : 'text-medium text-fail'}>
+                                {market.price_change_percentage_24h_in_currency.toFixed(2)}%
+                            </span>
+                        ) : null}
+                    </div>
+                    <TokenSecurityBar security={security} />
+                </div>
+                <ClickableButton
+                    className="ml-auto inline-flex gap-[10px] rounded-full bg-main px-5 py-2 text-[15px] leading-4 text-primaryBottom"
+                    disabled={!tradeInfo.tradable}
+                    onClick={() => {
+                        setOpenTrader(true);
+                    }}
+                >
+                    <SwapIcon width={16} height={16} />
+                    {t`Swap`}
+                </ClickableButton>
             </div>
-            <div className="line-height-[22px] flex items-center gap-1">
-                <strong className="text-2xl font-bold">${renderShrankPrice(formatPrice(price) ?? '-')}</strong>
-                <PriceArrow
-                    width={20}
-                    height={20}
-                    className={classNames(isUp ? 'text-success' : 'rotate-180 text-fail')}
-                />
-                {market?.price_change_percentage_24h_in_currency !== undefined ? (
-                    <span className={isUp ? 'text-medium text-success' : 'text-medium text-fail'}>
-                        {market.price_change_percentage_24h_in_currency.toFixed(2)}%
-                    </span>
-                ) : null}
-            </div>
-            <TokenSecurityBar security={security} />
             <div
                 className={classNames(
                     'flex h-[175px] items-center justify-center overflow-auto',
@@ -128,6 +147,16 @@ export function TokenMarketData({ linkable, token }: TokenMarketDataProps) {
                     </ClickableButton>
                 ))}
             </div>
+            {openTrader && tradeInfo.tradable ? (
+                <SwapModal
+                    open
+                    chainId={tradeInfo.chainId!}
+                    address={tradeInfo.address!}
+                    onClose={() => {
+                        setOpenTrader(false);
+                    }}
+                />
+            ) : null}
         </>
     );
 }

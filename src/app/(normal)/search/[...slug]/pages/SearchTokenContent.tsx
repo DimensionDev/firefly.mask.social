@@ -8,7 +8,7 @@ import { Empty } from '@/components/Search/Empty.js';
 import { SearchableTokenItem } from '@/components/Search/SearchableTokenItem.js';
 import { TokenMarketData } from '@/components/TokenProfile/TokenMarketData.js';
 import { ScrollListKey } from '@/constants/enum.js';
-import type { CoingeckoToken } from '@/providers/types/Coingecko.js';
+import type { CoinGeckoToken } from '@/providers/types/CoinGecko.js';
 import type { SearchableToken } from '@/providers/types/Firefly.js';
 import { searchTokens, type TokenWithMarket } from '@/services/searchTokens.js';
 import { useSearchStateStore } from '@/store/useSearchStore.js';
@@ -28,7 +28,7 @@ function formatMarketToken(token: SearchableToken) {
             twitter: '',
             telegram: '',
         },
-    } as CoingeckoToken;
+    } as CoinGeckoToken;
 }
 
 const getSearchItemContent = (token: TokenWithMarket) => {

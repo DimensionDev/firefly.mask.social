@@ -4,6 +4,7 @@ import PriceArrow from '@/assets/price-arrow.svg';
 import { Image } from '@/components/Image.js';
 import { Link } from '@/esm/Link.js';
 import { classNames } from '@/helpers/classNames.js';
+import { formatPrice, renderShrankPrice } from '@/helpers/formatPrice.js';
 import { resolveTokenPageUrl } from '@/helpers/resolveTokenPageUrl.js';
 import type { TokenWithMarket } from '@/services/searchTokens.js';
 
@@ -37,7 +38,7 @@ export function SearchableTokenItem({ token }: SearchableTokenItemProps) {
                     ) : null}
                 </div>
                 <div className="text-lg leading-[22px] text-lightMain">
-                    {token.market?.current_price ? `$${token.market.current_price}` : ''}
+                    {renderShrankPrice(formatPrice(token.market?.current_price) ?? '')}
                 </div>
             </div>
             <data

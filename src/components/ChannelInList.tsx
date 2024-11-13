@@ -1,6 +1,6 @@
+import { Plural } from '@lingui/macro';
 import { isUndefined } from 'lodash-es';
 
-import UserIcon from '@/assets/user.svg';
 import { ToggleMutedChannelButton } from '@/components/Actions/ToggleMutedChannelButton.js';
 import { Avatar } from '@/components/Avatar.js';
 import { ChannelTippy } from '@/components/Channel/ChannelTippy.js';
@@ -81,21 +81,23 @@ export function ChannelInList({
                             </span>
                         </ChannelTippy>
                         <SocialSourceIcon
+                            mono
                             source={channel.source}
-                            size={isSmall || dense ? 16 : 20}
-                            className="flex-shrink-0"
+                            size={16}
+                            className="flex-shrink-0 text-secondary"
                         />
                     </div>
                     <div className="flex items-center gap-2 text-medium text-sm leading-[24px] text-secondary">
                         <ChannelTippy channel={channel}>
                             <p className="truncate">/{channel.id}</p>
                         </ChannelTippy>
-                        <UserIcon
-                            width={isSmall || dense ? 14 : 18}
-                            height={isSmall || dense ? 14 : 18}
-                            className="shrink-0"
-                        />
-                        <data value={channel.followerCount}>{nFormatter(channel.followerCount)}</data>
+                        <span className="mx-1 leading-5 text-secondary">·</span>
+                        <data value={channel.followerCount}>
+                            <span className="font-bold text-lightMain">{nFormatter(channel.followerCount)} </span>
+                            <span className="text-secondary">
+                                <Plural value={channel.followerCount} one="Follower" other="Followers" />
+                            </span>
+                        </data>
                     </div>
                     {!dense && channel.description ? (
                         <BioMarkup

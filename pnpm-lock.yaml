@@ -153,6 +153,9 @@ importers:
       '@noble/hashes':
         specifier: ^1.5.0
         version: 1.5.0
+      '@okxweb3/dex-widget':
+        specifier: ^1.3.3
+        version: 1.3.3(@tanstack/react-query@5.56.2)(@types/react@18.2.48)(@vercel/kv@1.0.1)(immer@10.1.1)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react-native@0.75.4)(react@0.0.0-experimental-8039e6d0b-20231026)(rollup@3.29.4)(typescript@5.6.3)(viem@2.21.27)(zod@3.23.8)
       '@particle-network/auth-core':
         specifier: 2.0.4
         version: 2.0.4(patch_hash=7366xd6hdjwbiu226ytexflsbm)(@aws-sdk/client-sso-oidc@3.670.0)
@@ -7976,7 +7979,7 @@ packages:
       '@ethereumjs/common': 3.2.0
       '@ethereumjs/rlp': 4.0.1
       '@ethereumjs/util': 8.1.0
-      ethereum-cryptography: 2.1.3
+      ethereum-cryptography: 2.2.1
     dev: false
 
   /@ethereumjs/util@8.1.0:
@@ -7984,7 +7987,7 @@ packages:
     engines: {node: '>=14'}
     dependencies:
       '@ethereumjs/rlp': 4.0.1
-      ethereum-cryptography: 2.1.3
+      ethereum-cryptography: 2.2.1
       micro-ftch: 0.3.1
     dev: false
 
@@ -9631,7 +9634,7 @@ packages:
       '@metamask/abi-utils': 2.0.4
       '@metamask/utils': 9.3.0
       '@scure/base': 1.1.9
-      ethereum-cryptography: 2.1.3
+      ethereum-cryptography: 2.2.1
       tweetnacl: 1.0.3
     transitivePeerDependencies:
       - supports-color
@@ -10851,6 +10854,53 @@ packages:
     dependencies:
       '@nodelib/fs.scandir': 3.0.0
       fastq: 1.17.1
+    dev: false
+
+  /@okxweb3/dex-widget@1.3.3(@tanstack/react-query@5.56.2)(@types/react@18.2.48)(@vercel/kv@1.0.1)(immer@10.1.1)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react-native@0.75.4)(react@0.0.0-experimental-8039e6d0b-20231026)(rollup@3.29.4)(typescript@5.6.3)(viem@2.21.27)(zod@3.23.8):
+    resolution: {integrity: sha512-ht59D+uNHbwDhM5uyns8vWkd2/9EWglsDuHLDNNybKSpJ9PI8clcMlInPRO8AXSz7C0aWHY/j/ydDXDniI7L2A==}
+    peerDependencies:
+      react: 0.0.0-experimental-8039e6d0b-20231026 || 0.0.0-experimental-0a360642d-20230711
+      react-dom: 0.0.0-experimental-8039e6d0b-20231026 || 0.0.0-experimental-0a360642d-20230711
+    peerDependenciesMeta:
+      react:
+        optional: true
+      react-dom:
+        optional: true
+    dependencies:
+      '@solana/web3.js': 1.95.3
+      bs58: 5.0.0
+      react: 0.0.0-experimental-8039e6d0b-20231026
+      react-dom: 0.0.0-experimental-8039e6d0b-20231026(react@0.0.0-experimental-8039e6d0b-20231026)
+      wagmi: 2.12.18(@tanstack/react-query@5.56.2)(@types/react@18.2.48)(@vercel/kv@1.0.1)(immer@10.1.1)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react-native@0.75.4)(react@0.0.0-experimental-8039e6d0b-20231026)(rollup@3.29.4)(typescript@5.6.3)(viem@2.21.27)(zod@3.23.8)
+      web3-utils: 4.3.1
+    transitivePeerDependencies:
+      - '@azure/app-configuration'
+      - '@azure/cosmos'
+      - '@azure/data-tables'
+      - '@azure/identity'
+      - '@azure/keyvault-secrets'
+      - '@azure/storage-blob'
+      - '@capacitor/preferences'
+      - '@netlify/blobs'
+      - '@planetscale/database'
+      - '@react-native-async-storage/async-storage'
+      - '@tanstack/query-core'
+      - '@tanstack/react-query'
+      - '@types/react'
+      - '@upstash/redis'
+      - '@vercel/kv'
+      - bufferutil
+      - encoding
+      - immer
+      - ioredis
+      - react-native
+      - rollup
+      - supports-color
+      - typescript
+      - uWebSockets.js
+      - utf-8-validate
+      - viem
+      - zod
     dev: false
 
   /@open-draft/until@1.0.3:
@@ -23646,6 +23696,7 @@ packages:
   /get-value@2.0.6:
     resolution: {integrity: sha512-Ln0UQDlxH1BapMu3GPtf7CuYNwRZf2gwCuPqbyG6pB8WfmFpzqcy4xtAaAMUhnNqjMKTiCPZG2oMT3YSx8U2NA==}
     engines: {node: '>=0.10.0'}
+    dev: true
 
   /getpass@0.1.7:
     resolution: {integrity: sha512-0fzj9JxOLfJ+XGLhR8ze3unN0KZCgZwiSSDz168VERjK8Wl8kVSdcu2kspd4s4wtAa1y/qrVRiAA0WclVsu0ng==}
@@ -24118,6 +24169,7 @@ packages:
       get-value: 2.0.6
       has-values: 0.1.4
       isobject: 2.1.0
+    dev: true
 
   /has-value@1.0.0:
     resolution: {integrity: sha512-IBXk4GTsLYdQ7Rvt+GRBrFSVEkmuOUy4re0Xjd9kJSUQpnTrWR4/y9RpfexN9vkAPMFuQoeWKwqzPozRTlasGw==}
@@ -24131,6 +24183,7 @@ packages:
   /has-values@0.1.4:
     resolution: {integrity: sha512-J8S0cEdWuQbqD9//tlZxiMuMNmxB8PlEwvYwuxsTmR1G5RXUePEX/SJn7aD0GMLieuZYSwNH0cQuJGwnYunXRQ==}
     engines: {node: '>=0.10.0'}
+    dev: true
 
   /has-values@1.0.0:
     resolution: {integrity: sha512-ODYZC64uqzmtfGMEAX/FvZiRyWLpAC3vYnNunURUnkGVTS+mI0smVsWaPydRBsE3g+ok7h960jChO8mFcWlHaQ==}
@@ -25212,6 +25265,7 @@ packages:
     engines: {node: '>=0.10.0'}
     dependencies:
       isarray: 1.0.0
+    dev: true
 
   /isobject@3.0.1:
     resolution: {integrity: sha512-WhB9zCku7EGTj/HQQRz5aUQEUeoQZH2bWcltRErOpymJ4boYE6wL9Tbr23krRPSZ+C5zqNSrSw+Cc7sZZ4b7vg==}
@@ -33702,14 +33756,6 @@ packages:
   /unraw@3.0.0:
     resolution: {integrity: sha512-08/DA66UF65OlpUDIQtbJyrqTR0jTAlJ+jsnkQ4jxR7+K5g5YG1APZKQSMCE1vqqmD+2pv6+IdEjmopFatacvg==}
 
-  /unset-value@0.1.2:
-    resolution: {integrity: sha512-yhv5I4TsldLdE3UcVQn0hD2T5sNCPv4+qm/CTUpRKIpwthYRIipsAPdsrNpOI79hPQa0rTTeW22Fq6JWRcTgNg==}
-    engines: {node: '>=0.10.0'}
-    dependencies:
-      has-value: 0.3.1
-      isobject: 3.0.1
-    dev: false
-
   /unset-value@1.0.0:
     resolution: {integrity: sha512-PcA2tsuGSF9cnySLHTLSh2qrQiJ70mn+r+Glzxv2TWZblxsxCC52BDlZoPCsz7STd9pN7EZetkWZBAvk4cgZdQ==}
     engines: {node: '>=0.10.0'}
@@ -34825,6 +34871,13 @@ packages:
       - supports-color
     dev: false
 
+  /web3-errors@1.3.0:
+    resolution: {integrity: sha512-j5JkAKCtuVMbY3F5PYXBqg1vWrtF4jcyyMY1rlw8a4PV67AkqlepjGgpzWJZd56Mt+TvHy6DA1F/3Id8LatDSQ==}
+    engines: {node: '>=14', npm: '>=6.12.0'}
+    dependencies:
+      web3-types: 1.8.0
+    dev: false
+
   /web3-eth-abi@1.10.2:
     resolution: {integrity: sha512-pY4fQUio7W7ZRSLf+vsYkaxJqaT/jHcALZjIxy+uBQaYAJ3t6zpQqMZkJB3Dw7HUODRJ1yI0NPEFGTnkYf/17A==}
     engines: {node: '>=8.0.0'}
@@ -35134,6 +35187,11 @@ packages:
       - supports-color
     dev: false
 
+  /web3-types@1.8.0:
+    resolution: {integrity: sha512-Z51wFLPGhZM/1uDxrxE8gzju3t2aEdRGn+YmLX463id5UjTuMEmP/9in1GFjqrsPB3m86czs8RnGBUt3ovueMw==}
+    engines: {node: '>=14', npm: '>=6.12.0'}
+    dev: false
+
   /web3-utils@1.10.2:
     resolution: {integrity: sha512-TdApdzdse5YR+5GCX/b/vQnhhbj1KSAtfrDtRW7YS0kcWp1gkJsN62gw6GzCaNTeXookB7UrLtmDUuMv65qgow==}
     engines: {node: '>=8.0.0'}
@@ -35160,6 +35218,28 @@ packages:
       number-to-bn: 1.7.0
       randombytes: 2.1.0
       utf8: 3.0.0
+    dev: false
+
+  /web3-utils@4.3.1:
+    resolution: {integrity: sha512-kGwOk8FxOLJ9DQC68yqNQc7AzN+k9YDLaW+ZjlAXs3qORhf8zXk5SxWAAGLbLykMs3vTeB0FTb1Exut4JEYfFA==}
+    engines: {node: '>=14', npm: '>=6.12.0'}
+    dependencies:
+      ethereum-cryptography: 2.2.1
+      eventemitter3: 5.0.1
+      web3-errors: 1.3.0
+      web3-types: 1.8.0
+      web3-validator: 2.0.6
+    dev: false
+
+  /web3-validator@2.0.6:
+    resolution: {integrity: sha512-qn9id0/l1bWmvH4XfnG/JtGKKwut2Vokl6YXP5Kfg424npysmtRLe9DgiNBM9Op7QL/aSiaA0TVXibuIuWcizg==}
+    engines: {node: '>=14', npm: '>=6.12.0'}
+    dependencies:
+      ethereum-cryptography: 2.2.1
+      util: 0.12.5
+      web3-errors: 1.3.0
+      web3-types: 1.8.0
+      zod: 3.23.8
     dev: false
 
   /web3@1.10.4:
@@ -35990,6 +36070,7 @@ time:
   /@mui/x-date-pickers@7.18.0: '2024-09-20T08:17:48.190Z'
   /@next/third-parties@14.2.15: '2024-10-08T20:58:34.969Z'
   /@noble/hashes@1.5.0: '2024-09-01T15:30:30.886Z'
+  /@okxweb3/dex-widget@1.3.3: '2024-10-15T07:38:11.113Z'
   /@particle-network/authkit@2.0.16: '2024-10-11T08:17:28.817Z'
   /@reown/appkit-adapter-wagmi@1.1.3: '2024-10-15T14:55:44.936Z'
   /@reown/appkit@1.1.3: '2024-10-15T14:55:45.209Z'

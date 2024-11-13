@@ -1,23 +1,46 @@
+import { ChainId } from '@masknet/web3-shared-evm';
 import { uniq, uniqBy } from 'lodash-es';
 import urlcat from 'urlcat';
 
+import { TrendingType } from '@/constants/enum.js';
 import { COINGECKO_URL_BASE, CORS_HOST, DSEARCH_BASE_URL } from '@/constants/index.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
 import { getCommunityLink } from '@/helpers/getCommunityLink.js';
 import { resolveCoinGeckoChainId } from '@/helpers/resolveCoingeckoChainId.js';
 import type {
-    CoingeckoCoinInfo,
-    CoingeckoCoinMarketInfo,
-    CoingeckoPlatform,
-    CoingeckoToken,
-} from '@/providers/types/Coingecko.js';
+    CoinGeckoCoinInfo,
+    CoinGeckoCoinMarketInfo,
+    CoinGeckoCoinTrending,
+    CoinGeckoGainsLoserInfo,
+    CoinGeckoMemeCoinTrending,
+    CoinGeckoPlatform,
+    CoinGeckoToken,
+} from '@/providers/types/CoinGecko.js';
 import { type Contract, type Trending, TrendingProvider } from '@/providers/types/Trending.js';
+import type { TokenWithMarket } from '@/services/searchTokens.js';
 
-export class Coingecko {
+function formatGainsOrLoser(info: CoinGeckoGainsLoserInfo): TokenWithMarket {
+    return {
+        api_symbol: info.symbol,
+        id: info.id,
+        name: info.name,
+        large: info.image,
+        market_cap_rank: info.market_cap_rank,
+        symbol: info.symbol,
+        thumb: info.image,
+        market: {
+            current_price: info.usd,
+            price_change_percentage_24h: info.usd_24h_change,
+        },
+    };
+}
+
+export class CoinGecko {
     static getTokens() {
         const url = urlcat(DSEARCH_BASE_URL, '/fungible-tokens/coingecko.json');
-        return fetchJSON<CoingeckoToken[]>(`${CORS_HOST}?${encodeURIComponent(url)}`, { mode: 'cors' });
+        return fetchJSON<CoinGeckoToken[]>(`${CORS_HOST}?${encodeURIComponent(url)}`, { mode: 'cors' });
     }
+
     static async getTokenPrice(coinId: string): Promise<number | undefined> {
         const url = urlcat(COINGECKO_URL_BASE, '/simple/price', { ids: coinId, vs_currencies: 'usd' });
         const price = await fetchJSON<Record<string, Record<string, number>>>(url);
@@ -38,7 +61,7 @@ export class Coingecko {
     }
     static getCoinInfo(coinId: string) {
         type CoinInfoResponse =
-            | CoingeckoCoinInfo
+            | CoinGeckoCoinInfo
             | {
                   error: string;
               };
@@ -51,7 +74,7 @@ export class Coingecko {
         );
     }
     private static async getSupportedPlatforms() {
-        const response = await fetchJSON<CoingeckoPlatform[]>(`${COINGECKO_URL_BASE}/asset_platforms`);
+        const response = await fetchJSON<CoinGeckoPlatform[]>(`${COINGECKO_URL_BASE}/asset_platforms`);
         return response.filter((x) => x.id && x.chain_identifier) ?? [];
     }
 
@@ -71,7 +94,7 @@ export class Coingecko {
         const platforms = await this.getSupportedPlatforms();
         return {
             lastUpdated: info.last_updated,
-            provider: TrendingProvider.Coingecko,
+            provider: TrendingProvider.CoinGecko,
             contracts:
                 coinId === 'avalanche-2'
                     ? [
@@ -134,7 +157,7 @@ export class Coingecko {
     }
 
     static async getCoinsByIds(coinIds: string[]) {
-        return fetchJSON<CoingeckoCoinMarketInfo[]>(
+        return fetchJSON<CoinGeckoCoinMarketInfo[]>(
             urlcat(COINGECKO_URL_BASE, '/coins/markets', {
                 ids: coinIds.join(','),
                 vs_currency: 'usd',
@@ -142,5 +165,77 @@ export class Coingecko {
                 page: 1,
             }),
         );
+    }
+
+    static async getTopGainersOrLosers(
+        type: TrendingType.TopGainers | TrendingType.TopLosers,
+    ): Promise<TokenWithMarket[]> {
+        const response = await fetchJSON<{
+            top_gainers: CoinGeckoGainsLoserInfo[];
+            top_losers: CoinGeckoGainsLoserInfo[];
+        }>(urlcat(COINGECKO_URL_BASE, '/coins/top_gainers_losers', { vs_currency: 'usd' }));
+
+        const data = type === TrendingType.TopGainers ? response.top_gainers : response.top_losers;
+        return data.map(formatGainsOrLoser);
+    }
+
+    static async getTopTrendingCoins() {
+        const response = await fetchJSON<{ coins: Array<{ item: CoinGeckoCoinTrending }> }>(
+            urlcat(COINGECKO_URL_BASE, '/search/trending'),
+        );
+
+        return response.coins.map(({ item: info }) => {
+            return {
+                api_symbol: info.symbol,
+                id: info.id,
+                name: info.name,
+                large: info.large,
+                market_cap_rank: info.market_cap_rank,
+                symbol: info.symbol,
+                thumb: info.thumb,
+                market: {
+                    current_price: info.data.price,
+                    price_change_percentage_24h: info.data.price_change_percentage_24h.usd,
+                },
+            };
+        });
+    }
+
+    static async getTopMemeCoins() {
+        const response = await fetchJSON<CoinGeckoMemeCoinTrending[]>(
+            urlcat(COINGECKO_URL_BASE, '/coins/markets', {
+                vs_currency: 'usd',
+                category: 'meme-token',
+            }),
+        );
+
+        return response.map((x) => {
+            return {
+                api_symbol: x.symbol,
+                id: x.id,
+                name: x.name,
+                large: x.image,
+                market_cap_rank: x.market_cap_rank,
+                symbol: x.symbol,
+                thumb: x.image,
+                market: {
+                    current_price: x.current_price,
+                    price_change_percentage_24h: x.price_change_percentage_24h,
+                },
+            };
+        });
+    }
+
+    static getChainIdByCoinId(coinId: string) {
+        const CoinIdToChainId: Record<string, ChainId> = {
+            eth: ChainId.Mainnet,
+            pol: ChainId.Polygon,
+            bnb: ChainId.BSC,
+            fantom: ChainId.Fantom,
+            arbitrum: ChainId.Arbitrum,
+            scroll: ChainId.Scroll,
+            'avalanche-2': ChainId.Avalanche,
+        };
+        return CoinIdToChainId[coinId];
     }
 }

@@ -39,9 +39,6 @@ msgstr "还没有人评论哦～快来抢沙发！"
 msgid "Failed to mute all wallets and accounts."
 msgstr "未能隐藏所有的钱包和账户。"
 
-msgid "Onchain Activities"
-msgstr "链上活动"
-
 msgid "Tomorrow at {0}"
 msgstr "明天 {0}"
 
@@ -266,6 +263,9 @@ msgstr "ArweaveTxId 为空。"
 
 msgid "<0>You</0> and {0} others recasted"
 msgstr "<0> 你 </0> 和 {0} 人都转发了"
+
+msgid "Activities"
+msgstr ""
 
 msgid "Change Wallet"
 msgstr "更换钱包"
@@ -560,6 +560,9 @@ msgstr "保存草稿？"
 
 msgid "Reconnect with Firefly"
 msgstr "使用 Firefly 重连"
+
+msgid "Explore"
+msgstr ""
 
 msgid "Only up to 2 images can be chosen."
 msgstr "至多可以选择 2 张图片。"
@@ -911,9 +914,6 @@ msgstr "使用您的X账户登录以查看"
 
 msgid "Login to Firefly"
 msgstr "登录到 Firefly"
-
-msgid "Top Channels"
-msgstr "热门频道"
 
 msgid "Canceled"
 msgstr "已取消"
@@ -1439,9 +1439,6 @@ msgstr "操作无法回滚，并且定时任务将会被取消。"
 
 msgid "This contract is an Admin Upgradeability Proxy. The proxy contract means the contract owner can modify the function of the token and could possibly effect the price.There is possibly a way for the team to Rug or Scam. Please confirm the details with the project team before buying."
 msgstr "此合约是一个管理升级代理合约。代理合约意味着合同所有者可以修改通证的功能，并且可能影响价格。这可能是团队跑路或者诈骗的一种方式。请在购买之前与项目团队确认细节。"
-
-msgid "For You"
-msgstr "为你推荐"
 
 msgid "Failed to fetch bookmarks."
 msgstr "获取收藏失败。"
@@ -2025,6 +2022,9 @@ msgstr "市场上流通并可供公众交易的货币数量。这相当于市场
 msgid "{0, plural, one {repost} other {reposts}}"
 msgstr "{0, plural, one {转帖} other {转帖}}"
 
+msgid "Scan the QR code with your phone’s <0>Camera</0> in {count}s. <1/>Approve a new Farcaster signer to Firefly for free."
+msgstr ""
+
 msgid "This does not appear to be a honeypot."
 msgstr "这看起来不像是一个陷阱。"
 
@@ -2288,6 +2288,9 @@ msgstr "<0>你</0> 已点赞"
 
 msgid "You've hit rock bottom."
 msgstr "你已经滑到底部啦～"
+
+msgid "Crypto Trends"
+msgstr ""
 
 msgid "Copy link to profile"
 msgstr "复制链接"
@@ -2786,6 +2789,9 @@ msgstr "个人信息"
 
 msgid "QUOTE"
 msgstr "引用"
+
+msgid "Swap"
+msgstr ""
 
 msgid "Collect"
 msgstr "收藏"

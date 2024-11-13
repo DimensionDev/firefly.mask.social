@@ -3,12 +3,12 @@ import { first, last } from 'lodash-es';
 import { useMemo } from 'react';
 
 import { EMPTY_LIST } from '@/constants/index.js';
-import { Coingecko } from '@/providers/coingecko/index.js';
+import { CoinGecko } from '@/providers/coingecko/index.js';
 
 export function useCoinPriceStats(coinId: string | undefined, days: number | undefined) {
     return useQuery({
         queryKey: ['coingecko', 'token-price-stats', coinId, days],
-        queryFn: coinId ? () => Coingecko.getPriceStats(coinId, days) : skipToken,
+        queryFn: coinId ? () => CoinGecko.getPriceStats(coinId, days) : skipToken,
         select(data) {
             return data.prices.map(([date, price]) => ({ date: new Date(date), value: price }));
         },

@@ -44,6 +44,7 @@ export enum Locale {
 export enum PageRoute {
     Home = '/',
     Following = '/following',
+    Explore = '/explore',
     Notifications = '/notifications',
     Profile = '/profile',
     Bookmarks = '/bookmarks',
@@ -87,6 +88,8 @@ export type SocialDiscoverSource = Source.Farcaster | Source.Lens;
 export type DiscoverSource = SocialDiscoverSource | Source.NFTs | Source.Article | Source.Snapshot;
 export type BookmarkSource = Source.Farcaster | Source.Lens | Source.Article | Source.Snapshot;
 export type FollowingSource = DiscoverSource | Source.Polymarket;
+export type ExploreSource = Source.Farcaster | Source.Lens | TrendingType;
+export type ExploreSourceInURL = SourceInURL.Farcaster | SourceInURL.Lens | TrendingType;
 
 export enum DiscoverType {
     ForYou = 'for-you',
@@ -94,6 +97,19 @@ export enum DiscoverType {
     Trending = 'trending',
     TopProfiles = 'top-profiles',
     TopChannels = 'top-channels',
+}
+
+export enum ExploreType {
+    CryptoTrends = 'crypto-trends',
+    TopProfiles = 'top-profiles',
+    TopChannels = 'top-channels',
+}
+
+export enum TrendingType {
+    TopGainers = 'top-gainers',
+    TopLosers = 'top-losers',
+    Trending = 'trending',
+    Meme = 'meme',
 }
 
 export enum SearchType {
@@ -134,7 +150,7 @@ export enum WalletProfileCategory {
     Articles = 'articles',
     POAPs = 'poaps',
     NFTs = 'nfts',
-    OnChainActivities = 'activities',
+    Activities = 'activities',
     DAO = 'DAO',
     Polymarket = 'polymarket',
 }
@@ -161,6 +177,7 @@ export enum ScrollListKey {
     MutualFollowers = 'mutual-followers-list',
     Notification = 'notification-list',
     Search = 'search-list',
+    TokenTrending = 'token-trending-list',
     Comment = 'comment-list',
     Channel = 'channel-post-list',
     Profile = 'profile-list',
@@ -183,6 +200,7 @@ export enum FarcasterSignType {
     RelayService = 'relay_service',
     // recovery phrase
     RecoveryPhrase = 'recovery_phrase',
+    FireflySponsorship = 'firefly_sponsorship',
 }
 export enum BookmarkType {
     All = 'all',

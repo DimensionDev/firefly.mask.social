@@ -1,12 +1,11 @@
 import { getPublicKey, utils } from '@noble/ed25519';
-import urlcat from 'urlcat';
 import { toHex } from 'viem';
 
 import { fetchJSON } from '@/helpers/fetchJSON.js';
 import { FarcasterSession } from '@/providers/farcaster/Session.js';
 import { FarcasterSocialMediaProvider } from '@/providers/farcaster/SocialMedia.js';
 import type { Account } from '@/providers/types/Account.js';
-import type { SignedKeyRequestResponse } from '@/providers/types/Warpcast.js';
+import { pollingSignerRequestToken } from '@/providers/warpcast/pollingSignerRequestToken.js';
 import { bindOrRestoreFireflySession } from '@/services/bindOrRestoreFireflySession.js';
 import type { ResponseJSON } from '@/types/index.js';
 
@@ -47,40 +46,6 @@ async function createSession(signal?: AbortSignal) {
         deeplink: response.data.deeplinkUrl,
         session: farcasterSession,
     };
-}
-
-async function pollingSignerRequestToken(token: string, signal?: AbortSignal) {
-    const query = async () => {
-        const signedKeyResponse = await fetchJSON<ResponseJSON<SignedKeyRequestResponse>>(
-            urlcat('/api/warpcast/signed-key', {
-                token,
-            }),
-            {
-                signal,
-            },
-        );
-        if (!signedKeyResponse.success) throw new Error(signedKeyResponse.error.message);
-        return signedKeyResponse.data;
-    };
-
-    // vercel serverless function has a timeout of 15 seconds by default
-    // we extended the timeout to 30 seconds and will retry 10 times
-    const queryTimes = async (times = 10) => {
-        let lastError = null;
-
-        for (let i = 0; i < times; i += 1) {
-            try {
-                return await query();
-            } catch (error) {
-                lastError = error;
-                continue;
-            }
-        }
-        throw lastError;
-    };
-
-    const { result } = await queryTimes();
-    return result.signedKeyRequest;
 }
 
 /**
