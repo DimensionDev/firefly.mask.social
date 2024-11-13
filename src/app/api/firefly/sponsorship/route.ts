@@ -31,13 +31,13 @@ export const POST = compose(withRequestErrorHandler(), async (request: NextReque
         env.internal.FIREFLY_JWT_SECRET,
     );
 
-    const key = parsed.data.key as Hex;
+    const publicKey = parsed.data.key as Hex;
     const { sponsorSignature, signedKeyRequestSignature, requestFid } =
-        await FireflyEndpointProvider.generateFarcasterSignatures(key, deadline, jwt, request.signal);
+        await FireflyEndpointProvider.generateFarcasterSignatures(publicKey, deadline, jwt, request.signal);
 
     const { result } = await signedKeyRequests(
         {
-            key,
+            key: publicKey,
             signature: signedKeyRequestSignature,
             deadline,
             requestFid,
@@ -55,5 +55,6 @@ export const POST = compose(withRequestErrorHandler(), async (request: NextReque
         timestamp: Date.now(),
         token: result.signedKeyRequest.token,
         fid: result.signedKeyRequest.requestFid,
+        signature: sponsorSignature,
     });
 });

@@ -27,13 +27,18 @@ export class FarcasterSession extends BaseSession implements Session {
         expiresAt: number,
         public signerRequestToken?: string,
         public channelToken?: string,
-        public sponsorship?: FarcasterSponsorship,
+        public sponsorshipSignature?: string,
     ) {
         super(SessionType.Farcaster, profileId, token, createdAt, expiresAt);
     }
 
-    override serialize(): `${SessionType}:${string}:${string}` {
-        return `${super.serialize()}:${this.signerRequestToken ?? ''}:${this.channelToken ?? ''}`;
+    override serialize(): `${SessionType}:${string}:${string}:${string}` {
+        return [
+            super.serialize(),
+            this.signerRequestToken ?? '',
+            this.channelToken ?? '',
+            this.sponsorshipSignature ?? '',
+        ].join(':') as `${SessionType}:${string}:${string}:${string}`;
     }
 
     refresh(): Promise<void> {
@@ -84,15 +89,11 @@ export class FarcasterSession extends BaseSession implements Session {
     static isSponsorship(
         session: Session | null,
         strict = false,
-    ): session is FarcasterSession & { signerRequestToken: string } {
+    ): session is FarcasterSession & { signerRequestToken: string; sponsorshipSignature: string } {
         if (!session) return false;
-        const token = (session as FarcasterSession).signerRequestToken;
         return (
-            session.type === SessionType.Farcaster &&
-            !!token &&
-            // strict mode
-            (strict ? token !== FAKE_SIGNER_REQUEST_TOKEN : true) &&
-            !!(session as FarcasterSession).sponsorship
+            FarcasterSession.isGrantByPermission(session, strict) &&
+            !!(session as FarcasterSession).sponsorshipSignature
         );
     }
 

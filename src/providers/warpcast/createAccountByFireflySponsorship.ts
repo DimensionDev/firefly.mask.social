@@ -16,6 +16,7 @@ interface SponsorshipResponse extends SignedKeyRequestResponse {
     timestamp: number;
     fid: number;
     token: string;
+    signature: string;
 }
 
 async function createSession(signal?: AbortSignal) {
@@ -29,7 +30,6 @@ async function createSession(signal?: AbortSignal) {
             key: publicKey,
         }),
     });
-
     if (!response.success) throw new Error(response.error.message);
 
     const farcasterSession = new FarcasterSession(
@@ -39,7 +39,7 @@ async function createSession(signal?: AbortSignal) {
         response.data.expiresAt,
         // the signer request token is one-time use
         response.data.token,
-        FarcasterSponsorship.Firefly,
+        `${FarcasterSponsorship.Firefly}-${response.data.signature}`,
     );
 
     return {
