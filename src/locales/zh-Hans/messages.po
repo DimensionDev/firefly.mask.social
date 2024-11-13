@@ -2784,6 +2784,9 @@ msgstr "个人信息"
 msgid "QUOTE"
 msgstr "引用"
 
+msgid "Swap"
+msgstr ""
+
 msgid "Collect"
 msgstr "收藏"
 

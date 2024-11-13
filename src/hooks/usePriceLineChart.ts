@@ -21,7 +21,7 @@ export function usePriceLineChart(
 ) {
     const startValue = first(data)?.value ?? 0;
     const endValue = last(data)?.value ?? 0;
-    const defaultColor = endValue > startValue ? 'var(--color-success)' : 'rgb(var(--color-fail))';
+    const defaultColor = endValue > startValue ? 'rgb(var(--color-success))' : 'rgb(var(--color-fail))';
 
     const { color = defaultColor, sign = CurrencyType.USD } = opts;
 

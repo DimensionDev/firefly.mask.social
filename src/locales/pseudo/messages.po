@@ -2779,6 +2779,9 @@ msgstr ""
 msgid "QUOTE"
 msgstr ""
 
+msgid "Swap"
+msgstr ""
+
 msgid "Collect"
 msgstr ""
 
