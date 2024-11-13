@@ -7,7 +7,7 @@ import { resolveSource } from '@/helpers/resolveSource.js';
 
 export default function Page({ params }: { params: { source: SourceInURL } }) {
     const source = resolveSource(params.source) as DiscoverSource;
-    if (source === Source.Snapshot) {
+    if (source === Source.DAOs) {
         return <FollowingSnapshotList />;
     }
     if (source === Source.Article) {

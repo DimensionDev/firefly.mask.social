@@ -29,7 +29,7 @@ interface Props {
 }
 
 export function DiscoverPage({ source, discover = DiscoverType.Trending }: Props) {
-    if (source === Source.Snapshot) {
+    if (source === Source.DAOs) {
         return <DiscoverSnapshotList />;
     }
     if (source === Source.Article) {

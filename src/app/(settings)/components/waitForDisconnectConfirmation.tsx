@@ -3,7 +3,7 @@ import { t, Trans } from '@lingui/macro';
 import { WalletItem } from '@/app/(settings)/components/WalletItem.js';
 import { ProfileAvatar } from '@/components/ProfileAvatar.js';
 import { ProfileName } from '@/components/ProfileName.js';
-import { FireflyPlatform, Source } from '@/constants/enum.js';
+import { Source, SourceInURL } from '@/constants/enum.js';
 import { ConfirmModalRef } from '@/modals/controls.js';
 import type { FireflyWalletConnection } from '@/providers/types/Firefly.js';
 import { getProfilesByIds } from '@/services/getProfilesByIds.js';
@@ -13,8 +13,8 @@ async function getRelatedProfiles({ identities }: FireflyWalletConnection) {
     const lensIds = identities.filter((x) => x.source === Source.Lens).map((x) => x.id);
     const farcasterIds = identities.filter((x) => x.source === Source.Farcaster).map((x) => x.id);
     return [
-        ...(lensIds.length ? await getProfilesByIds(FireflyPlatform.Lens, lensIds) : []),
-        ...(farcasterIds ? await getProfilesByIds(FireflyPlatform.Farcaster, farcasterIds) : []),
+        ...(lensIds.length ? await getProfilesByIds(SourceInURL.Lens, lensIds) : []),
+        ...(farcasterIds ? await getProfilesByIds(SourceInURL.Farcaster, farcasterIds) : []),
     ];
 }
 
