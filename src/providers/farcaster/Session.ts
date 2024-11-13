@@ -9,6 +9,10 @@ import { SessionType } from '@/providers/types/SocialMedia.js';
 
 export const FAKE_SIGNER_REQUEST_TOKEN = 'fake_signer_request_token';
 
+export enum FarcasterSponsorship {
+    Firefly = 'firefly',
+}
+
 export class FarcasterSession extends BaseSession implements Session {
     constructor(
         /**
