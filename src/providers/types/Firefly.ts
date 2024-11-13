@@ -324,6 +324,7 @@ export type FarcasterLoginResponse = Response<{
     farcaster_signer_public_key?: string;
     farcaster_signer_private_key?: string;
     fid: string | number;
+    isNew: boolean;
 }>;
 
 export type TwitterLoginResponse = Response<{
