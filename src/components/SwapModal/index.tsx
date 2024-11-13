@@ -15,9 +15,16 @@ import { useAppKitProvider } from '@reown/appkit/react';
 import { useEffect, useRef } from 'react';
 
 import { Modal, type ModalProps } from '@/components/Modal.js';
-import { LangMap, NATIVE_TOKEN_ADDRESS } from '@/constants/okx.js';
+import { Locale } from '@/constants/enum.js';
+import { NATIVE_TOKEN_ADDRESS } from '@/constants/okx.js';
 import { useLocale } from '@/store/useLocale.js';
 import { useThemeModeStore } from '@/store/useThemeModeStore.js';
+
+const LangMap = {
+    [Locale.en]: 'en_us',
+    [Locale.zhHans]: 'zh_cn',
+    [Locale.zhHant]: 'zh_tw',
+};
 
 interface Props extends ModalProps {
     chainId: ChainId;
