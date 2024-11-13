@@ -1321,3 +1321,51 @@ export type GenerateFarcasterSignatureResponse = Response<{
     signedKeyRequestSignature: Hex;
     requestFid: number;
 }>;
+
+export enum NotificationPushType {
+    All = 'all',
+    Follows = 'follows',
+    Recasts = 'recasts',
+    Likes = 'likes',
+    Mention = 'mention',
+    Reply = 'reply',
+    Lens = 'lens',
+    Farcaster = 'farcaster',
+    Priority = 'priority',
+}
+
+export enum NotificationPlatform {
+    Priority = 'priority',
+    Lens = 'lens',
+}
+
+export enum NotificationTitle {
+    NotificationsMode = 'Notifications Mode',
+    Farcaster = 'Farcaster',
+    Lens = 'Lens',
+}
+
+export type NotificationPushSwitchResponse = Response<{
+    push_switch: boolean;
+    list: Array<{
+        title: NotificationTitle;
+        device_id?: string;
+        list: Array<{
+            account_id: string;
+            platform: NotificationPlatform;
+            push_type: NotificationPushType;
+            title: string;
+            state: boolean;
+        }>;
+    }>;
+}>;
+
+export interface SetNotificationPushSwitchParams {
+    list: Array<{
+        device_id?: string;
+        token?: string;
+        platform: NotificationPlatform;
+        push_type: NotificationPushType;
+        state: boolean;
+    }>;
+}

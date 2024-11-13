@@ -203,7 +203,8 @@
         "mutelist",
         "tipjar",
         "elex",
-        "hlbl"
+        "hlbl",
+        "pushswitch"
     ],
     "flagWords": [],
     "ignorePaths": [
