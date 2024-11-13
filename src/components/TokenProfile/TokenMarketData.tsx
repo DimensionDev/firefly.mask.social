@@ -22,10 +22,10 @@ import type { Dimension } from '@/hooks/useLineChart.js';
 import { usePriceLineChart } from '@/hooks/usePriceLineChart.js';
 import { useTokenPrice } from '@/hooks/useTokenPrice.js';
 import { useTokenSecurity } from '@/hooks/useTokenSecurity.js';
-import type { CoingeckoToken } from '@/providers/types/Coingecko.js';
+import type { CoinGeckoToken } from '@/providers/types/CoinGecko.js';
 
 interface TokenMarketDataProps {
-    token: CoingeckoToken;
+    token: CoinGeckoToken;
     linkable?: boolean;
 }
 
