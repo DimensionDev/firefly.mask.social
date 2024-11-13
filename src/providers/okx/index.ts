@@ -1,7 +1,7 @@
 import urlcat from 'urlcat';
 
+import { OKX_HOST } from '@/constants/okx.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
-import { OKX_HOST } from '@/providers/okx/constant.js';
 import { normalizeCode } from '@/providers/okx/helper.js';
 import type { SupportedChainResponse } from '@/providers/okx/types.js';
 /** request okx official API, and normalize the code */
