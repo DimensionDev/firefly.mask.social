@@ -14,13 +14,13 @@ import { CountdownCircle } from '@/components/Compose/CountdownCircle.js';
 import { InteractiveTippy } from '@/components/InteractiveTippy.js';
 import { Tooltip } from '@/components/Tooltip.js';
 import { MAX_POST_SIZE_PER_THREAD } from '@/constants/index.js';
-import { measureChars } from '@/helpers/chars.js';
 import { classNames } from '@/helpers/classNames.js';
 import { isValidPost } from '@/helpers/isValidPost.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { useAbortController } from '@/hooks/useAbortController.js';
 import { useCheckPostMedias } from '@/hooks/useCheckPostMedias.js';
 import { useCompositePost } from '@/hooks/useCompositePost.js';
+import { useMeasureChars, useMeasureCharsVerifySources } from '@/hooks/useMeasureChars.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import { useSetEditorContent } from '@/hooks/useSetEditorContent.js';
 import { ComposeModalRef } from '@/modals/controls.js';
@@ -42,7 +42,7 @@ export function ComposeSend(props: ComposeSendProps) {
     const { scheduleTime } = useComposeScheduleStateStore();
     const { removeDraft } = useComposeDraftStateStore();
 
-    const { usedLength, availableLength } = measureChars(post);
+    const { usedLength, availableLength } = useMeasureChars(post);
 
     const isMedium = useIsMedium();
     const setEditorContent = useSetEditorContent();
@@ -88,7 +88,10 @@ export function ComposeSend(props: ComposeSendProps) {
         return posts.some((x) => !!compact(values(x.postError)).length);
     }, [posts]);
 
-    const disabled = loading || (posts.length > 1 ? posts.some((x) => !isValidPost(x)) : !isValidPost(post));
+    const verifiedSources = useMeasureCharsVerifySources();
+    const disabled =
+        loading ||
+        (posts.length > 1 ? posts.some((x) => !isValidPost(x, verifiedSources)) : !isValidPost(post, verifiedSources));
 
     if (!isMedium) {
         return (

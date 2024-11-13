@@ -4,7 +4,7 @@ import { v4 as uuid } from 'uuid';
 
 import { type SocialSource, Source } from '@/constants/enum.js';
 import { type RP_HASH_TAG } from '@/constants/index.js';
-import { MAX_CHAR_SIZE_PER_POST } from '@/constants/limitation.js';
+import { MAX_CHAR_SIZE_PER_POST, MAX_CHAR_SIZE_VERIFY_PER_POST } from '@/constants/limitation.js';
 import { getCurrentProfile } from '@/helpers/getCurrentProfile.js';
 import { getPollFrameUrl } from '@/helpers/getPollFrameUrl.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
@@ -125,8 +125,8 @@ export function writeChars(chars: Chars, newChars: Chars) {
     ];
 }
 
-function resolvePeerPostMaxChars(source: SocialSource, post: CompositePost) {
-    const currentMax = MAX_CHAR_SIZE_PER_POST[source];
+function resolvePeerPostMaxChars(source: SocialSource, post: CompositePost, isVerified?: boolean) {
+    const currentMax = isVerified ? MAX_CHAR_SIZE_VERIFY_PER_POST[source] : MAX_CHAR_SIZE_PER_POST[source];
 
     return post.poll
         ? Math.min(
@@ -136,7 +136,7 @@ function resolvePeerPostMaxChars(source: SocialSource, post: CompositePost) {
         : currentMax;
 }
 
-export function measureChars(post: CompositePost) {
+export function measureChars(post: CompositePost, verifiedSources?: { [key in SocialSource]?: boolean }) {
     const { chars, availableSources } = post;
 
     if (!availableSources.length) return { usedLength: 0, availableLength: 0 };
@@ -150,7 +150,7 @@ export function measureChars(post: CompositePost) {
         availableLength: Math.min(
             ...availableSources.map(
                 (source) =>
-                    resolvePeerPostMaxChars(source, post) -
+                    resolvePeerPostMaxChars(source, post, verifiedSources?.[source]) -
                     resolveLengthCalculator(source)(readChars(chars, 'invisible', source)),
             ),
         ),

@@ -21,12 +21,12 @@ import { Tooltip } from '@/components/Tooltip.js';
 import { NODE_ENV, Source, STATUS } from '@/constants/enum.js';
 import { env } from '@/constants/env.js';
 import { MAX_POST_SIZE_PER_THREAD, SORTED_CHANNEL_SOURCES, SORTED_SOCIAL_SOURCES } from '@/constants/index.js';
-import { measureChars } from '@/helpers/chars.js';
 import { classNames } from '@/helpers/classNames.js';
 import { connectMaskWithWagmi } from '@/helpers/connectWagmiWithMask.js';
 import { getCurrentPostImageLimits } from '@/helpers/getCurrentPostImageLimits.js';
 import { useCompositePost } from '@/hooks/useCompositePost.js';
 import { useCurrentProfileAll } from '@/hooks/useCurrentProfile.js';
+import { useMeasureChars } from '@/hooks/useMeasureChars.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import { useSetEditorContent } from '@/hooks/useSetEditorContent.js';
 import { ComposeModalRef, ConnectWalletModalRef } from '@/modals/controls.js';
@@ -45,7 +45,7 @@ export function ComposeActions(props: ComposeActionsProps) {
     const { availableSources, images, video, poll, rpPayload } = post;
 
     const { scheduleTime } = useComposeScheduleStateStore();
-    const { usedLength, availableLength } = measureChars(post);
+    const { usedLength, availableLength } = useMeasureChars(post);
 
     const setEditorContent = useSetEditorContent();
 
