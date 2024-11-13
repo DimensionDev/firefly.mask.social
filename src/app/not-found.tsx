@@ -5,7 +5,6 @@ import { SuggestedChannels } from '@/components/Channel/SuggestedChannels.js';
 import { IfPathname } from '@/components/IfPathname.js';
 import { LinkCloud } from '@/components/LinkCloud.js';
 import { AsideSearchBar } from '@/components/Search/SearchBar.js';
-import { SearchFilter } from '@/components/Search/SearchFilter.js';
 import { SuggestedFollowsCard } from '@/components/SuggestedFollows/SuggestedFollowsCard.js';
 import { PageRoute, Source } from '@/constants/enum.js';
 import { Link } from '@/esm/Link.js';
@@ -37,9 +36,6 @@ export default function NotFound() {
                     <AsideSearchBar />
                 </IfPathname>
                 <div className="no-scrollbar flex flex-1 flex-col gap-4 overflow-auto">
-                    <IfPathname isOneOf={[PageRoute.Search]}>
-                        <SearchFilter />
-                    </IfPathname>
                     <IfPathname isNotOneOf={[PageRoute.Home]} exact>
                         <SuggestedFollowsCard />
                         <SuggestedChannels source={Source.Farcaster} />
