@@ -25,6 +25,7 @@ async function login(createAccount: () => Promise<Account>, options?: { signal?:
     try {
         const done = await addAccount(await createAccount(), options);
         if (done) enqueueSuccessMessage(t`Your account is now connected.`);
+
         LoginModalRef.close();
     } catch (error) {
         // skip if the error is abort error
