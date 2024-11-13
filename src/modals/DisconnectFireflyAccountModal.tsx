@@ -49,6 +49,7 @@ export const DisconnectFireflyAccountModal = forwardRef<SingletonModalRefCreator
                 enqueueErrorMessage(getSnackbarMessageFromError(error, t`Failed to disconnect.`), {
                     error,
                 });
+                throw error;
             }
         }, [dispatch?.close, account]);
 
