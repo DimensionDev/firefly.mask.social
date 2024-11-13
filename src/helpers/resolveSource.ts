@@ -21,7 +21,7 @@ export const resolveSource = createLookupTableResolver<SourceInURL, Source>(
         [SourceInURL.Article]: Source.Article,
         [SourceInURL.Wallet]: Source.Wallet,
         [SourceInURL.NFTs]: Source.NFTs,
-        [SourceInURL.Snapshot]: Source.Snapshot,
+        [SourceInURL.DAOs]: Source.DAOs,
         [SourceInURL.Polymarket]: Source.Polymarket,
         [SourceInURL.Telegram]: Source.Telegram,
         [SourceInURL.Google]: Source.Google,

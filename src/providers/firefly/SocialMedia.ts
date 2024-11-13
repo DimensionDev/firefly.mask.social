@@ -1021,7 +1021,7 @@ export class FireflySocialMedia implements Provider {
         return farcasterSessionHolder.withSession(async (session) => {
             const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/bookmark/find', {
                 post_type: BookmarkType.All,
-                platforms: FireflyPlatform.Snapshot,
+                platforms: FireflyPlatform.DAOs,
                 limit: 25,
                 cursor: indicator?.id || undefined,
                 fid: session?.profileId,

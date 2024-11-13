@@ -64,11 +64,11 @@ export enum Source {
     Article = 'Article',
     Wallet = 'Wallet',
     NFTs = 'NFTs',
-    Snapshot = 'Snapshot',
     Polymarket = 'Polymarket',
     Telegram = 'Telegram',
     Google = 'Google',
     Apple = 'Apple',
+    DAOs = 'DAOs',
 }
 
 export enum SourceInURL {
@@ -79,11 +79,22 @@ export enum SourceInURL {
     Article = 'article',
     Wallet = 'wallet',
     NFTs = 'nfts',
-    Snapshot = 'snapshot',
     Polymarket = 'polymarket',
     Telegram = 'telegram',
     Google = 'google',
     Apple = 'apple',
+    DAOs = 'daos',
+}
+
+export enum FireflyPlatform {
+    Farcaster = 'farcaster',
+    Lens = 'lens',
+    Twitter = 'twitter',
+    Firefly = 'firefly',
+    Article = 'article',
+    Wallet = 'wallet',
+    NFTs = 'nfts',
+    DAOs = 'snapshot',
 }
 
 export type SocialSource = Source.Farcaster | Source.Lens | Source.Twitter;
@@ -105,12 +116,12 @@ export type LoginSource = SocialSource | ThirdPartySource;
 export type ProfilePageSource = Source.Farcaster | Source.Lens | Source.Twitter | Source.Wallet;
 export type SocialSourceInURL = SourceInURL.Farcaster | SourceInURL.Lens | SourceInURL.Twitter;
 export type SocialDiscoverSource = Source.Farcaster | Source.Lens;
-export type DiscoverSource = SocialDiscoverSource | Source.NFTs | Source.Article | Source.Snapshot;
-export type BookmarkSource = Source.Farcaster | Source.Lens | Source.Article | Source.Snapshot;
+export type DiscoverSource = SocialDiscoverSource | Source.NFTs | Source.Article | Source.DAOs;
+export type BookmarkSource = Source.Farcaster | Source.Lens | Source.Article | Source.DAOs;
 export type FollowingSource = DiscoverSource | Source.Polymarket;
 export type ExploreSource = Source.Farcaster | Source.Lens | TrendingType;
 export type ExploreSourceInURL = SourceInURL.Farcaster | SourceInURL.Lens | TrendingType;
-export type LoginFallbackSource = SocialSource | Source.Article | Source.Snapshot | Source.Polymarket;
+export type LoginFallbackSource = SocialSource | Source.Article | Source.DAOs | Source.Polymarket;
 
 export enum ExploreType {
     CryptoTrends = 'crypto-trends',
@@ -222,8 +233,6 @@ export enum BookmarkType {
     Audio = 'audio',
     Image = 'image',
 }
-
-export { SourceInURL as FireflyPlatform };
 
 export enum MuteType {
     Profile = 'profile',

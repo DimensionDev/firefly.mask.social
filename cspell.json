@@ -106,7 +106,9 @@
         "zerion",
         "zksync",
         "zora",
-        "zustand"
+        "reposted",
+        "zustand",
+        "daos"
     ],
     "ignoreWords": [
         "DEVNET",
