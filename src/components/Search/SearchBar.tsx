@@ -28,7 +28,7 @@ const SearchBar = memo(function SearchBar({ slot, className, ...rest }: SearchBa
 
     const pathname = usePathname();
     const isSearchPage = isRoutePathname(pathname, PageRoute.Search);
-
+    const isExplorePage = isRoutePathname(pathname, PageRoute.Explore);
     const rootRef = useRef(null);
     const inputRef = useRef<HTMLInputElement>(null);
     const [inputText, setInputText] = useState(searchKeyword);
@@ -49,11 +49,21 @@ const SearchBar = memo(function SearchBar({ slot, className, ...rest }: SearchBa
         setInputText(searchKeyword);
     }, [searchKeyword]);
 
-    if (slot === 'header' && !isSearchPage) return null;
-    if (slot === 'secondary' && isSearchPage) return null;
+    if (slot === 'header' && !isSearchPage && !isExplorePage) return null;
+    if (slot === 'secondary' && (isSearchPage || isExplorePage)) return null;
 
     return (
-        <div className={classNames('hidden items-center pt-[10px] md:flex', className)} {...rest} ref={rootRef}>
+        <div
+            className={classNames(
+                'hidden items-center pt-[10px] md:flex',
+                {
+                    sticky: isExplorePage,
+                },
+                className,
+            )}
+            {...rest}
+            ref={rootRef}
+        >
             {isSearchPage && slot === 'header' ? (
                 <LeftArrowIcon width={24} height={24} className="mr-7 cursor-pointer" onClick={comeback} />
             ) : null}
@@ -94,7 +104,8 @@ const SearchBar = memo(function SearchBar({ slot, className, ...rest }: SearchBa
 export function HeaderSearchBar() {
     const pathname = usePathname();
     const isSearchPage = isRoutePathname(pathname, PageRoute.Search);
-    return isSearchPage ? <SearchBar slot="header" className="px-4 py-[10px]" /> : null;
+    const isExplorePage = isRoutePathname(pathname, PageRoute.Explore);
+    return isSearchPage || isExplorePage ? <SearchBar slot="header" className="px-4 py-[10px]" /> : null;
 }
 
 export function AsideSearchBar() {

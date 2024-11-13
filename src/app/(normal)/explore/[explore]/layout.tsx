@@ -4,7 +4,7 @@ import type { PropsWithChildren } from 'react';
 
 import { SourceTabs } from '@/components/SourceTabs/index.js';
 import { SourceTab } from '@/components/SourceTabs/SourceTab.js';
-import { ExploreType, Source } from '@/constants/enum.js';
+import { ExploreType, Source, TrendingType } from '@/constants/enum.js';
 import { EXPLORE_TYPES } from '@/constants/index.js';
 import { createPageTitleSSR } from '@/helpers/createPageTitle.js';
 import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
@@ -29,10 +29,13 @@ export default function Layout({
 }>) {
     setupLocaleForSSR();
 
-    if (isExploreType(params.explore) && getUrlFromHeaders()?.pathname === `/${params.explore}`) {
-        if (params.explore !== ExploreType.CryptoTrends) {
-            redirect(resolveExploreUrl(params.explore, Source.Farcaster));
-        }
+    if (isExploreType(params.explore) && getUrlFromHeaders()?.pathname === `/explore/${params.explore}`) {
+        redirect(
+            resolveExploreUrl(
+                params.explore,
+                params.explore === ExploreType.TopProfiles ? Source.Farcaster : TrendingType.TopGainers,
+            ),
+        );
     }
 
     const labels: Record<ExploreType, React.ReactNode> = {
@@ -43,12 +46,15 @@ export default function Layout({
 
     return (
         <>
-            <SourceTabs>
+            <SourceTabs className="!z-20 md:!top-[57px]">
                 {EXPLORE_TYPES.map((x) => (
                     <SourceTab
-                        className="text-base"
+                        className="whitespace-nowrap text-base"
                         key={x}
-                        href={resolveExploreUrl(x, Source.Farcaster)}
+                        href={resolveExploreUrl(
+                            x,
+                            x === ExploreType.TopProfiles ? Source.Farcaster : TrendingType.TopGainers,
+                        )}
                         isActive={x === params.explore}
                     >
                         {labels[x]}
