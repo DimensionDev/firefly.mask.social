@@ -4,14 +4,12 @@ import { compact } from 'lodash-es';
 import { usePathname, useRouter } from 'next/navigation.js';
 import { memo, useEffect, useLayoutEffect, useRef, useState } from 'react';
 
-import AdjustmentsIcon from '@/assets/adjustments.svg';
 import FireflyIcon from '@/assets/firefly.svg';
 import MagnifierIcon from '@/assets/magnifier.svg';
 import MenuIcon from '@/assets/menu.svg';
 import { BackButton } from '@/components/BackButton.js';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { ProfileAvatar } from '@/components/ProfileAvatar.js';
-import { SearchFilter } from '@/components/Search/SearchFilter.js';
 import { SearchInput } from '@/components/Search/SearchInput.js';
 import { SearchRecommendation } from '@/components/Search/SearchRecommendation.js';
 import { IS_FIREFOX } from '@/constants/bowser.js';
@@ -20,7 +18,6 @@ import { SORTED_SOCIAL_SOURCES } from '@/constants/index.js';
 import { classNames } from '@/helpers/classNames.js';
 import { isRoutePathname } from '@/helpers/isRoutePathname.js';
 import { useCurrentProfileAll } from '@/hooks/useCurrentProfile.js';
-import { DraggablePopoverRef } from '@/modals/controls.js';
 import { useNavigatorState } from '@/store/useNavigatorStore.js';
 import { useSearchHistoryStateStore } from '@/store/useSearchHistoryStore.js';
 import { type SearchState, useSearchStateStore } from '@/store/useSearchStore.js';
@@ -151,30 +148,18 @@ export const NavigatorBarForMobile = memo(function NavigatorBarForMobile({
                         </>
                     )}
                 </h1>
-                <div className="flex h-[30px] w-[30px] justify-center">
-                    {enableSearch ? (
-                        searchMode ? (
-                            <ClickableButton
-                                onClick={() => {
-                                    DraggablePopoverRef.open({
-                                        content: <SearchFilter />,
-                                    });
-                                }}
-                            >
-                                <AdjustmentsIcon />
-                            </ClickableButton>
-                        ) : (
-                            <ClickableButton
-                                onClick={() => {
-                                    inputRef.current?.focus();
-                                    setSearchMode(true);
-                                }}
-                            >
-                                <MagnifierIcon />
-                            </ClickableButton>
-                        )
-                    ) : null}
-                </div>
+                {enableSearch && !searchMode ? (
+                    <div className="flex h-[30px] w-[30px] justify-center">
+                        <ClickableButton
+                            onClick={() => {
+                                inputRef.current?.focus();
+                                setSearchMode(true);
+                            }}
+                        >
+                            <MagnifierIcon />
+                        </ClickableButton>
+                    </div>
+                ) : null}
             </header>
             {showRecommendation && !isSearchPage ? (
                 <SearchRecommendation
