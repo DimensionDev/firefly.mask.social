@@ -38,7 +38,7 @@ export function SearchableTokenItem({ token }: SearchableTokenItemProps) {
                     ) : null}
                 </div>
                 <div className="text-lg leading-[22px] text-lightMain">
-                    {renderShrankPrice(formatPrice(token.market?.current_price) ?? '')}
+                    ${renderShrankPrice(formatPrice(token.market?.current_price) ?? '')}
                 </div>
             </div>
             <data
