@@ -46,6 +46,8 @@ export class SessionFactory {
         // for farcaster session, the third part is the channel token
         // for firefly session, the third part is the signature in base64 encoded
         const thirdPart = fragments[3] ?? '';
+        // for farcaster session, the fourth part is the sponsorship signature
+        const fourthPart = fragments[4] ?? '';
 
         const session = parseJSON<{
             type: SessionType;
@@ -81,6 +83,7 @@ export class SessionFactory {
                         session.expiresAt,
                         secondPart, // signer request token
                         thirdPart, // channel token
+                        fourthPart, // sponsorship signature
                     );
                 case SessionType.Twitter:
                     const parsed = TwitterSessionPayloadSchema.safeParse(parseJSON(atob(secondPart)));

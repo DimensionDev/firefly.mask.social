@@ -50,6 +50,7 @@ import {
     type FireflyIdentity,
     type FireflyProfile,
     type FireflyWalletConnection,
+    type GenerateFarcasterSignatureResponse,
     type GetAllConnectionsResponse,
     type GetFarcasterSuggestedFollowUserResponse,
     type GetLensSuggestedFollowUserResponse,
@@ -718,6 +719,21 @@ export class FireflyEndpoint {
         const data = resolveFireflyResponseData(response);
 
         return createPageable(data.list ?? EMPTY_LIST, createIndicator(undefined));
+    }
+
+    async generateFarcasterSignatures(key: Hex, deadline: number, jwt: string, signal?: AbortSignal) {
+        const response = await fetchJSON<GenerateFarcasterSignatureResponse>(
+            urlcat(settings.FIREFLY_ROOT_URL, '/v3/auth/v1/farcaster/generate-signatures'),
+            {
+                method: 'POST',
+                body: JSON.stringify({ key, deadline }),
+                headers: {
+                    authorization: `Bearer ${jwt}`,
+                },
+                signal,
+            },
+        );
+        return resolveFireflyResponseData(response);
     }
 }
 

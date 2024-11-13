@@ -2022,6 +2022,9 @@ msgstr "市场上流通并可供公众交易的货币数量。这相当于市场
 msgid "{0, plural, one {repost} other {reposts}}"
 msgstr "{0, plural, one {转帖} other {转帖}}"
 
+msgid "Scan the QR code with your phone’s <0>Camera</0> in {count}s. <1/>Approve a new Farcaster signer to Firefly for free."
+msgstr ""
+
 msgid "This does not appear to be a honeypot."
 msgstr "这看起来不像是一个陷阱。"
 

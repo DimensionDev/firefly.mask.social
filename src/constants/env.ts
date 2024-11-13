@@ -22,6 +22,8 @@ const InternalEnvSchema = z.object({
     FARCASTER_SIGNER_FID: z.string(),
     FARCASTER_SIGNER_MNEMONIC: z.string(),
 
+    FIREFLY_JWT_SECRET: z.string(),
+
     // internal use of hubble
     HUBBLE_URL: z.string(),
     HUBBLE_TOKEN: z.string().optional(),
