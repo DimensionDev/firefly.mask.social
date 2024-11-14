@@ -9,6 +9,7 @@ import { env } from '@/constants/env.js';
 import { AbortError, AuthenticationError, InvalidResultError } from '@/constants/error.js';
 import { retry } from '@/helpers/retry.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
+import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
 
@@ -84,6 +85,13 @@ export function createParticleConnector(options: ConnectorOptions) {
                 }
 
                 useGlobalState.getState().updateParticleReconnecting(false);
+
+                try {
+                    await FireflyEndpointProvider.reportParticle();
+                } catch (error) {
+                    console.error(`[particle] reportParticle error`, error);
+                    throw new Error('Failed to connect to Firefly');
+                }
 
                 return {
                     chainId: chain.id,
