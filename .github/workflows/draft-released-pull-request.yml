@@ -8,6 +8,10 @@ on:
         required: false
         default: 'patch'
 
+permissions:
+  contents: write
+  pull-requests: write
+
 jobs:
   draft-release-pr:
     runs-on: ubuntu-latest
@@ -43,8 +47,8 @@ jobs:
         uses: EndBug/add-and-commit@v9
         with:
           add: 'package.json'
-          new_branch: 'bump-version-${{ env.new_version }}'
           message: "chore: bump version to ${{ env.new_version }}"
+          new_branch: 'bump-version-${{ env.new_version }}'
 
       - name: Create pull request
         uses: peter-evans/create-pull-request@v5
