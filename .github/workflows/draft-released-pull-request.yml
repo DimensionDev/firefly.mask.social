@@ -90,6 +90,6 @@ jobs:
 
       - name: Create pull request
         run: |
-          gh pr create -B "${{ env.base_branch }}" -H "bump-version-${{ env.new_version }}" --title "${{ env.pr_title }}" --body "Closes MF-0000"
+          gh pr create -B "${{ env.base_branch }}" -H "bump-version-${{ env.new_version }}" --title "${{ env.pr_title }}" --body "Closes MF-0000" --draft
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
