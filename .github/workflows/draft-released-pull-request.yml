@@ -24,7 +24,7 @@ jobs:
 
       - name: Get current version
         id: version
-        run: echo "current_version=$(npm pkg get version)" >> $GITHUB_ENV
+        run: echo "current_version=$(npm pkg get version | tr -d '\"')" >> $GITHUB_ENV
 
       - name: Bump version
         id: bump_version
@@ -37,7 +37,7 @@ jobs:
           else
             npm version patch --git-tag-version false
           fi
-          echo "new_version=$(npm pkg get version)" >> $GITHUB_ENV
+          echo "new_version=$(npm pkg get version | tr -d '\"')" >> $GITHUB_ENV
 
       - name: Commit changes if any
         uses: EndBug/add-and-commit@v9
