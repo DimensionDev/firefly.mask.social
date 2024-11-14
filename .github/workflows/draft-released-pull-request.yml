@@ -31,6 +31,25 @@ jobs:
         id: version
         run: echo "current_version=$(npm pkg get version | tr -d '\"')" >> $GITHUB_ENV
 
+      - name: Determine Pull Request Title and Base Branch
+        id: base_branch
+        run: |
+          release_type="${{ github.event.inputs.release_type }}"
+
+          if [ "$release_type" = "major" ]; then
+            base_branch="main"
+          elif [ "$release_type" = "minor" ]; then
+            base_branch="main"
+          else
+            base_branch="released"
+          fi
+
+          echo "base_branch=$base_branch" >> $GITHUB_ENV
+
+      - name: Checkout to base branch
+        run: |
+          git checkout ${{ env.base_branch}}
+
       - name: Bump version
         id: bump_version
         run: |
@@ -45,7 +64,7 @@ jobs:
           echo "new_version=$(npm pkg get version | tr -d '\"')" >> $GITHUB_ENV
 
       - name: Determine Pull Request Title and Base Branch
-        id: pr_info
+        id: pr_title
         run: |
           current_version="${{ env.current_version }}"
           new_version="${{ env.new_version }}"
@@ -53,21 +72,16 @@ jobs:
 
           if [ "$release_type" = "major" ]; then
             pr_title="[Release] New release ${new_version} (major)"
-            base_branch="main"
           elif [ "$release_type" = "minor" ]; then
             pr_title="[Release] New release ${new_version} (minor)"
-            base_branch="main"
           else
             pr_title="[Release] Hotfix ${current_version} => ${new_version} (patch)"
-            base_branch="released"
           fi
 
           echo "pr_title=$pr_title" >> $GITHUB_ENV
-          echo "base_branch=$base_branch" >> $GITHUB_ENV
 
       - name: Commit and Push changes
         run: |
-          git checkout ${{ env.base_branch}}
           git add package.json
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
