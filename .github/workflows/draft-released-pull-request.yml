@@ -43,7 +43,10 @@ jobs:
       - name: Commit and Push changes
         run: |
           git add package.json
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
           git commit -m "chore: bump version to ${{ env.new_version }}"
+          git checkout -b 'bump-version-${{ env.new_version }}'
           git push origin 'bump-version-${{ env.new_version }}' -f
 
       - name: Create pull request
