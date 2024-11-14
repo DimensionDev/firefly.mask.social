@@ -15,7 +15,6 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
         with:
-          # 0 indicates all history for all branches and tags
           fetch-depth: 0
 
       - name: Set up Node.js
@@ -40,19 +39,39 @@ jobs:
           fi
           echo "new_version=$(npm pkg get version | tr -d '\"')" >> $GITHUB_ENV
 
+      - name: Determine Pull Request Title and Base Branch
+        id: pr_info
+        run: |
+          current_version="${{ env.current_version }}"
+          new_version="${{ env.new_version }}"
+          release_type="${{ github.event.inputs.release_type }}"
+
+          if [ "$release_type" = "major" ]; then
+            pr_title="[Release] New release ${new_version} (major)"
+            base_branch="main"
+          elif [ "$release_type" = "minor" ]; then
+            pr_title="[Release] New release ${new_version} (minor)"
+            base_branch="main"
+          else
+            pr_title="[Release] Hotfix ${current_version} => ${new_version} (patch)"
+            base_branch="released"
+          fi
+
+          echo "pr_title=$pr_title" >> $GITHUB_ENV
+          echo "base_branch=$base_branch" >> $GITHUB_ENV
+
       - name: Commit and Push changes
         run: |
-          git checkout main
+          git checkout ${{ env.base_branch}}
           git add package.json
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
           git commit -m "chore: bump version to ${{ env.new_version }}"
-          git checkout -b 'bump-version-${{ env.new_version }}'
-          git push origin 'bump-version-${{ env.new_version }}' -f
-          git fetch
+          git checkout -b "bump-version-${{ env.new_version }}"
+          git push origin "bump-version-${{ env.new_version }}" -f
 
       - name: Create pull request
         run: |
-          gh pr create -B main -H 'bump-version-${{ env.new_version }}' --title 'Test' --body 'Closes MF-0000'
+          gh pr create -B "${{ env.base_branch }}" -H "bump-version-${{ env.new_version }}" --title "${{ env.pr_title }}" --body "Closes MF-0000"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
