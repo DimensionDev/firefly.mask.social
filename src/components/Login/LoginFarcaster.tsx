@@ -194,7 +194,7 @@ export function LoginFarcaster({ signType }: LoginFarcasterProps) {
         const options = [
             {
                 label: t`New connect with Warpcast`,
-                type: FarcasterSignType.GrantPermission,
+                type: FarcasterSignType.FireflySponsorship,
                 developmentOnly: false,
                 isFreeOfTransactionFee: false,
             },
