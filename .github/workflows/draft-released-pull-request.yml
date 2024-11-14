@@ -44,6 +44,7 @@ jobs:
           message: "chore: bump version to ${{ env.new_version }}"
           new_branch: 'bump-version-${{ env.new_version }}'
           fetch: false
+          push: 'origin bump-version-${{ env.new_version }} --set-upstream --force'
 
       - name: Create pull request
         uses: peter-evans/create-pull-request@v5
