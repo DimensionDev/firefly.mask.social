@@ -1,7 +1,6 @@
 'use client';
 
 import { safeUnreachable } from '@masknet/kit';
-import { useQuery } from '@tanstack/react-query';
 import type { HTMLProps } from 'react';
 
 import PowerUserIcon from '@/assets/power-user.svg';
@@ -10,7 +9,7 @@ import { Image } from '@/components/Image.js';
 import { Source } from '@/constants/enum.js';
 import { Link } from '@/esm/Link.js';
 import { classNames } from '@/helpers/classNames.js';
-import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
+import { useProfileVerifyBadge } from '@/hooks/useProfileVerifyBadge.js';
 import { type Profile, ProfileBadgePresetColors } from '@/providers/types/SocialMedia.js';
 
 interface Props extends HTMLProps<HTMLDivElement> {
@@ -24,18 +23,7 @@ const presetColors: Record<string, string> = {
 };
 
 export function ProfileVerifyBadge({ profile, className }: Props) {
-    const { data: icons = [] } = useQuery({
-        queryKey: ['profile-badge', profile.handle, profile.source],
-        queryFn: async () => {
-            const provider = resolveSocialMediaProvider(profile.source);
-            return provider.getProfileBadges(profile);
-        },
-        enabled: [Source.Twitter, Source.Farcaster].includes(profile.source),
-        refetchOnMount: false,
-        refetchOnWindowFocus: false,
-        refetchOnReconnect: false,
-    });
-
+    const { data: icons = [] } = useProfileVerifyBadge(profile);
     if (!icons.length) return null;
 
     return (

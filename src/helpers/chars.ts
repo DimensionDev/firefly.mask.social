@@ -4,9 +4,10 @@ import { v4 as uuid } from 'uuid';
 
 import { type SocialSource, Source } from '@/constants/enum.js';
 import { type RP_HASH_TAG } from '@/constants/index.js';
-import { MAX_CHAR_SIZE_PER_POST } from '@/constants/limitation.js';
+import { MAX_CHAR_SIZE_PER_POST, MAX_CHAR_SIZE_VERIFY_PER_POST } from '@/constants/limitation.js';
 import { getCurrentProfile } from '@/helpers/getCurrentProfile.js';
 import { getPollFrameUrl } from '@/helpers/getPollFrameUrl.js';
+import { getProfileState } from '@/helpers/getProfileState.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { resolveSource } from '@/helpers/resolveSource.js';
 import type { Profile } from '@/providers/types/Firefly.js';
@@ -126,7 +127,8 @@ export function writeChars(chars: Chars, newChars: Chars) {
 }
 
 function resolvePeerPostMaxChars(source: SocialSource, post: CompositePost) {
-    const currentMax = MAX_CHAR_SIZE_PER_POST[source];
+    const profile = getProfileState(source).currentProfile;
+    const currentMax = profile?.verified ? MAX_CHAR_SIZE_VERIFY_PER_POST[source] : MAX_CHAR_SIZE_PER_POST[source];
 
     return post.poll
         ? Math.min(
