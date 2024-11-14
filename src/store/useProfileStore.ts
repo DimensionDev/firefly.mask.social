@@ -300,6 +300,10 @@ const useTwitterStateBase = createState(
 
                 const payload = foundNewSessionFromServer ? sessionPayloadFromServer : (session?.payload ?? null);
                 const profile = payload ? await TwitterSocialMediaProvider.getProfileById(payload.clientId) : null;
+                if (profile) {
+                    const badges = await TwitterSocialMediaProvider.getProfileBadges(profile);
+                    if (badges.length > 0) profile.verified = true;
+                }
 
                 if (!profile || !payload) {
                     console.warn('[twitter store] clean the local store because no session found from the server.');

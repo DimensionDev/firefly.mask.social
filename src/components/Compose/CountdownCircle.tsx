@@ -1,13 +1,13 @@
 import type { SVGAttributes } from 'react';
 
+import { measureChars } from '@/helpers/chars.js';
 import { useCompositePost } from '@/hooks/useCompositePost.js';
-import { useMeasureChars } from '@/hooks/useMeasureChars.js';
 
 interface Props extends SVGAttributes<SVGElement> {}
 
 export function CountdownCircle(props: Props) {
     const post = useCompositePost();
-    const { usedLength, availableLength } = useMeasureChars(post);
+    const { usedLength, availableLength } = measureChars(post);
     const safeLength = Math.floor(availableLength * 0.8);
     const dangerLength = Math.floor(availableLength * 0.9);
 
