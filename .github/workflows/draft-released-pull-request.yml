@@ -43,6 +43,7 @@ jobs:
         uses: EndBug/add-and-commit@v9
         with:
           add: 'package.json'
+          commit: --signoff
           new_branch: 'bump-version-${{ env.new_version }}'
           message: "chore: bump version to ${{ env.new_version }}"
 
