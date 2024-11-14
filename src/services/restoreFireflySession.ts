@@ -41,7 +41,8 @@ export async function restoreFireflySession(session: Session, signal?: AbortSign
 
             const isGrantByPermission = FarcasterSession.isGrantByPermission(session, true);
             const isRelayService = FarcasterSession.isRelayService(session);
-            if (!isGrantByPermission && !isRelayService) throw new NotAllowedError('Invalid farcaster session.');
+            if (!isGrantByPermission && !isRelayService)
+                throw new NotAllowedError('Only grant-by-permission or relay service sessions are allowed.');
 
             const url = urlcat(settings.FIREFLY_ROOT_URL, '/v3/auth/farcaster/login');
             const response = await fetch(url, {
