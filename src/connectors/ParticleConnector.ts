@@ -7,7 +7,7 @@ import { mainnet } from 'wagmi/chains';
 
 import { STATUS, WalletSource } from '@/constants/enum.js';
 import { env } from '@/constants/env.js';
-import { AbortError, AuthenticationError, InvalidResultError } from '@/constants/error.js';
+import { AbortError, AuthenticationError, InvalidResultError, NotAllowedError } from '@/constants/error.js';
 import { enqueueWarningMessage } from '@/helpers/enqueueMessage.js';
 import { retry } from '@/helpers/retry.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
@@ -74,7 +74,7 @@ export function createParticleConnector(options: ConnectorOptions) {
                 );
                 if (!connectedEthWallets?.length) {
                     enqueueWarningMessage(t`You haven't generated a Firefly wallet yet.`);
-                    throw new Error(t`You haven't generated a Firefly wallet yet.`);
+                    throw new NotAllowedError('[particle] Firefly wallet not found');
                 }
 
                 const chain = options.chains.find((x) => x.id === parameters?.chainId) ?? mainnet;
@@ -101,7 +101,7 @@ export function createParticleConnector(options: ConnectorOptions) {
                     await FireflyEndpointProvider.reportParticle();
                 } catch (error) {
                     console.error(`[particle] reportParticle error`, error);
-                    throw new Error('Failed to connect to Firefly');
+                    throw new Error('[particle] Failed to connect to Firefly');
                 }
 
                 return {
