@@ -39,6 +39,7 @@ async function createSession(signal?: AbortSignal) {
         response.data.expiresAt,
         // the signer request token is one-time use
         response.data.token,
+        undefined,
         `${FarcasterSponsorship.Firefly}-${response.data.signature}`,
     );
 
