@@ -31,11 +31,11 @@ jobs:
         run: |
           release_type="${{ github.event.inputs.release_type }}"
           if [ "$release_type" = "major" ]; then
-            npm version major
+            npm version major --git-tag-version false
           elif [ "$release_type" = "minor" ]; then
-            npm version minor
+            npm version minor --git-tag-version false
           else
-            npm version patch
+            npm version patch --git-tag-version false
           fi
           echo "new_version=$(npm pkg get version)" >> $GITHUB_ENV
 
