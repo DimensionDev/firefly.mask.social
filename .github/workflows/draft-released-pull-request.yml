@@ -14,6 +14,9 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
+        with:
+          # 0 indicates all history for all branches and tags
+          fetch-depth: 0
 
       - name: Set up Node.js
         uses: actions/setup-node@v2
@@ -44,7 +47,11 @@ jobs:
           message: "chore: bump version to ${{ env.new_version }}"
           new_branch: 'bump-version-${{ env.new_version }}'
           fetch: false
-          push: 'origin bump-version-${{ env.new_version }} --set-upstream --force'
+          push: false
+
+      - name: Push changes
+        run: |
+          git push origin 'bump-version-${{ env.new_version }}' -f
 
       - name: Create pull request
         uses: peter-evans/create-pull-request@v5
