@@ -26,6 +26,7 @@ import type {
 } from '@solana/web3.js';
 import { PublicKey } from '@solana/web3.js';
 
+import { WalletSource } from '@/constants/enum.js';
 import { AbortError, AuthenticationError, InvalidResultError } from '@/constants/error.js';
 import { enqueueWarningMessage } from '@/helpers/enqueueMessage.js';
 import { isValidSolanaAddress } from '@/helpers/isValidSolanaAddress.js';
@@ -123,6 +124,15 @@ export class ParticleSolanaWalletAdapter extends BaseMessageSignerWalletAdapter 
             if (!wallet.isConnected) {
                 if (!fireflySessionHolder.session) throw new AuthenticationError('Firefly session not found');
 
+                const connections = await FireflyEndpointProvider.getAccountConnections();
+                const connectedSolanaWallets = connections?.wallet.connected.filter(
+                    (x) => x.platform === 'solana' && x.source === WalletSource.Particle,
+                );
+                if (!connectedSolanaWallets?.length) {
+                    enqueueWarningMessage(t`You haven't generated a Firefly wallet yet.`);
+                    throw new Error(t`You haven't generated a Firefly wallet yet.`);
+                }
+
                 const user = await connect({
                     provider: AuthType.jwt,
                     // cspell: disable-next-line
@@ -136,7 +146,6 @@ export class ParticleSolanaWalletAdapter extends BaseMessageSignerWalletAdapter 
                 );
                 if (!wallets.length) {
                     console.error(`[particle solana] wallet not found`);
-                    enqueueWarningMessage(t`You haven't generated a Firefly wallet yet.`);
                     throw new AuthenticationError('Wallet not found');
                 }
 

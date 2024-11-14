@@ -51,6 +51,7 @@ import {
     type FireflyProfile,
     type FireflyWalletConnection,
     type GenerateFarcasterSignatureResponse,
+    type GetAccountConnectionsResponse,
     type GetAllConnectionsResponse,
     type GetFarcasterSuggestedFollowUserResponse,
     type GetLensSuggestedFollowUserResponse,
@@ -160,6 +161,14 @@ export class FireflyEndpoint {
                 post_id: article.id,
             }),
         });
+    }
+
+    async getAccountConnections() {
+        const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/accountConnection');
+        const res = await fireflySessionHolder.fetch<GetAccountConnectionsResponse>(url, {
+            method: 'GET',
+        });
+        return res.data;
     }
 
     /**

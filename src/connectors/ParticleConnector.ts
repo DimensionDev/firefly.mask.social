@@ -5,7 +5,7 @@ import { type Address, type Chain, numberToHex, RpcError, SwitchChainError, User
 import { ChainNotConfiguredError, createConnector } from 'wagmi';
 import { mainnet } from 'wagmi/chains';
 
-import { STATUS } from '@/constants/enum.js';
+import { STATUS, WalletSource } from '@/constants/enum.js';
 import { env } from '@/constants/env.js';
 import { AbortError, AuthenticationError, InvalidResultError } from '@/constants/error.js';
 import { enqueueWarningMessage } from '@/helpers/enqueueMessage.js';
@@ -68,6 +68,15 @@ export function createParticleConnector(options: ConnectorOptions) {
 
                 if (!fireflySessionHolder.session) throw new AuthenticationError('Firefly session not found');
 
+                const connections = await FireflyEndpointProvider.getAccountConnections();
+                const connectedEthWallets = connections?.wallet.connected.filter(
+                    (x) => x.platform === 'eth' && x.source === WalletSource.Particle,
+                );
+                if (!connectedEthWallets?.length) {
+                    enqueueWarningMessage(t`You haven't generated a Firefly wallet yet.`);
+                    throw new Error(t`You haven't generated a Firefly wallet yet.`);
+                }
+
                 const chain = options.chains.find((x) => x.id === parameters?.chainId) ?? mainnet;
                 const user = await connect({
                     chain,
@@ -83,7 +92,6 @@ export function createParticleConnector(options: ConnectorOptions) {
                 );
                 if (!wallets.length) {
                     console.error(`[particle] wallet not found`);
-                    enqueueWarningMessage(t`You haven't generated a Firefly wallet yet.`);
                     throw new AuthenticationError('Wallet not found');
                 }
 
