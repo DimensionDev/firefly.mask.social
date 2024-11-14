@@ -86,7 +86,12 @@ export function createParticleConnector(options: ConnectorOptions) {
 
                 useGlobalState.getState().updateParticleReconnecting(false);
 
-                await FireflyEndpointProvider.reportParticle();
+                try {
+                    await FireflyEndpointProvider.reportParticle();
+                } catch (error) {
+                    console.error(`[particle] reportParticle error`, error);
+                    throw new Error('Failed to connect to Firefly');
+                }
 
                 return {
                     chainId: chain.id,

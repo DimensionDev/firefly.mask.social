@@ -29,6 +29,7 @@ import { AbortError, AuthenticationError, InvalidResultError } from '@/constants
 import { isValidSolanaAddress } from '@/helpers/isValidSolanaAddress.js';
 import { retry } from '@/helpers/retry.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
+import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 
 async function getProvider(signal?: AbortSignal) {
     return retry(
@@ -134,6 +135,13 @@ export class ParticleSolanaWalletAdapter extends BaseMessageSignerWalletAdapter 
                 if (!wallets.length) {
                     console.error(`[particle solana] wallet not found`);
                     throw new AuthenticationError('Wallet not found');
+                }
+
+                try {
+                    await FireflyEndpointProvider.reportParticle();
+                } catch (error) {
+                    console.error(`[particle solana] reportParticle error`, error);
+                    throw new Error('Failed to connect to Firefly');
                 }
 
                 try {
