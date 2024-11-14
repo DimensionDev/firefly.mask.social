@@ -122,7 +122,8 @@ export class ParticleSolanaWalletAdapter extends BaseMessageSignerWalletAdapter 
             const wallet = await getProvider();
 
             if (!wallet.isConnected) {
-                if (!fireflySessionHolder.session) throw new AuthenticationError('Firefly session not found');
+                if (!fireflySessionHolder.session)
+                    throw new AuthenticationError('[particle] Firefly session not found');
 
                 const connections = await FireflyEndpointProvider.getAccountConnections();
                 const connectedSolanaWallets = connections?.wallet.connected.filter(
@@ -130,7 +131,7 @@ export class ParticleSolanaWalletAdapter extends BaseMessageSignerWalletAdapter 
                 );
                 if (!connectedSolanaWallets?.length) {
                     enqueueWarningMessage(t`You haven't generated a Firefly wallet yet.`);
-                    throw new NotAllowedError('[particle solana] Firefly wallet not found');
+                    throw new NotAllowedError('[particle solana] Wallet not found');
                 }
 
                 const user = await connect({
@@ -145,15 +146,13 @@ export class ParticleSolanaWalletAdapter extends BaseMessageSignerWalletAdapter 
                     (x) => x.chain_name === 'solana' && isValidSolanaAddress(x.public_address),
                 );
                 if (!wallets.length) {
-                    console.error(`[particle solana] wallet not found`);
-                    throw new AuthenticationError('Wallet not found');
+                    throw new AuthenticationError('[particle solana] Wallet not found');
                 }
 
                 try {
                     await FireflyEndpointProvider.reportParticle();
                 } catch (error) {
-                    console.error(`[particle solana] reportParticle error`, error);
-                    throw new Error('Failed to connect to Firefly');
+                    throw new Error('[particle solana] Failed to connect to Firefly');
                 }
 
                 try {

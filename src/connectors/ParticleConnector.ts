@@ -66,7 +66,8 @@ export function createParticleConnector(options: ConnectorOptions): CreateConnec
 
                 console.info(`[particle] connect`);
 
-                if (!fireflySessionHolder.session) throw new AuthenticationError('Firefly session not found');
+                if (!fireflySessionHolder.session)
+                    throw new AuthenticationError('[particle] Firefly session not found');
 
                 const connections = await FireflyEndpointProvider.getAccountConnections();
                 const connectedEthWallets = connections?.wallet.connected.filter(
@@ -74,7 +75,7 @@ export function createParticleConnector(options: ConnectorOptions): CreateConnec
                 );
                 if (!connectedEthWallets?.length) {
                     enqueueWarningMessage(t`You haven't generated a Firefly wallet yet.`);
-                    throw new NotAllowedError('[particle] Firefly wallet not found');
+                    throw new NotAllowedError('[particle] Wallet not found');
                 }
 
                 const chain = options.chains.find((x) => x.id === parameters?.chainId) ?? mainnet;
@@ -91,8 +92,7 @@ export function createParticleConnector(options: ConnectorOptions): CreateConnec
                     (x) => x.chain_name === 'evm_chain' && isValidAddress(x.public_address),
                 );
                 if (!wallets.length) {
-                    console.error(`[particle] wallet not found`);
-                    throw new AuthenticationError('Wallet not found');
+                    throw new AuthenticationError('[particle] Wallet not found');
                 }
 
                 useGlobalState.getState().updateParticleReconnecting(false);
@@ -100,8 +100,7 @@ export function createParticleConnector(options: ConnectorOptions): CreateConnec
                 try {
                     await FireflyEndpointProvider.reportParticle();
                 } catch (error) {
-                    console.error(`[particle] reportParticle error`, error);
-                    throw new Error('[particle] Failed to connect to Firefly');
+                    throw new NotAllowedError('[particle] Failed to connect to Firefly');
                 }
 
                 return {
