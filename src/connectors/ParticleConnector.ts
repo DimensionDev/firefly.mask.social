@@ -2,7 +2,7 @@ import { t } from '@lingui/macro';
 import { EthereumMethodType, isValidAddress } from '@masknet/web3-shared-evm';
 import { AuthType, connect, disconnect, EthereumProvider, particleAuth } from '@particle-network/auth-core';
 import { type Address, type Chain, numberToHex, RpcError, SwitchChainError, UserRejectedRequestError } from 'viem';
-import { ChainNotConfiguredError, createConnector } from 'wagmi';
+import { ChainNotConfiguredError, createConnector, type CreateConnectorFn } from 'wagmi';
 import { mainnet } from 'wagmi/chains';
 
 import { STATUS, WalletSource } from '@/constants/enum.js';
@@ -35,7 +35,7 @@ interface ConnectorOptions {
     chains: readonly Chain[];
 }
 
-export function createParticleConnector(options: ConnectorOptions) {
+export function createParticleConnector(options: ConnectorOptions): CreateConnectorFn | null {
     if (env.external.NEXT_PUBLIC_PARTICLE !== STATUS.Enabled) {
         return null;
     }
