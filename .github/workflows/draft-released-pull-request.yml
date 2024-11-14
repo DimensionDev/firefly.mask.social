@@ -54,4 +54,5 @@ jobs:
           title: |
             ${{ github.event.inputs.release_type == 'major' && '[Release] New release ' || github.event.inputs.release_type == 'minor' && '[Release] New release ' || '[Release] Hotfix ' }}${{ env.version }} => ${{ env.new_version }} ${{ github.event.inputs.release_type == 'patch' && '(patch)' || github.event.inputs.release_type == 'minor' && '(minor)' || '(major)' }}
           body: 'Closes MF-0000'
+          draft: true
           base: main
