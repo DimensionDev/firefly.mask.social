@@ -6,6 +6,8 @@ export const URL_INPUT_REGEX = new RegExp(`^${URL_REGEX.source.replace('(https?:
 export const EMAIL_REGEX =
     /(([^\s"(),.:;<>@[\\\]/]+(\.[^\s"(),.:;<>@[\\\]/]+)*)|(".+"))@((\[(?:\d{1,3}\.){3}\d{1,3}])|(([\dA-Za-z-]+\.)+[A-Za-z]{2,}))$/;
 
+export const LITE_EMAIL_REGEX = /^[\w.-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/i;
+
 export const MENTION_REGEX = /@[^\s()@:%+~#?&=,!?']+/g;
 
 export const HASHTAG_REGEX = /(^|\s)(#[^0-9][^\s#]+)/g;

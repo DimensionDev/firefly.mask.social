@@ -1,6 +1,7 @@
 import { first } from 'lodash-es';
 import { describe, expect, it } from 'vitest';
 
+import { LINK_MARK_RE } from '@/constants/linkRegExp.js';
 import {
     CHANNEL_REGEX,
     HASHTAG_REGEX,
@@ -9,6 +10,132 @@ import {
     URL_INPUT_REGEX,
     URL_REGEX,
 } from '@/constants/regexp.js';
+
+function matchUrl(regExp: RegExp) {
+    return () => {
+        const cases = [
+            [
+                `
+                    I almost never re-read any of my own writing
+    
+                    But there's one exception: this "Part Time Degen" essay
+            
+                    TLDR I tried to capture all my pain, seethe, mistakes & cope from the last crypto cycle in one spot
+            
+                    Check it out 👇 https://benroy.beehiiv.com/p/parttime-degen-notes-speculation-crypto-markets-20192022
+                `,
+                'https://benroy.beehiiv.com/p/parttime-degen-notes-speculation-crypto-markets-20192022',
+            ],
+            [
+                `
+                    hat matures, we're excited about supporting efforts to enshrine account abstraction into the protocol itself (e.g. 3074) — we prefer
+                `,
+                null,
+            ],
+            [
+                `
+                    {
+                        "p": "XRC20",
+                        "op": "deploy",
+                        "tick": "𝐅",
+                        "max": "21000000",
+                        "lim": "2000"
+                    }
+                    app.twitscription.xyz/tokens?v=2&mint=𝐅
+                    🌔🍰📂😇🚑
+                    https://frames.twitscription.xyz
+                `,
+                'app.twitscription.xyz/tokens?v=2&mint=𝐅',
+            ],
+            [
+                `
+                    Geth v1.13.14 out, featuring minor blob pool polishes and the reduction of the blob pool capacity from 10GB to 2.5GB to avoid unexpected surprises during/after the Cancun fork.
+                `,
+                null,
+            ],
+            [
+                'Update not critical, but recommended. https://github.com/ethereum/go-ethereum/releases/tag/v1.13.14',
+                'https://github.com/ethereum/go-ethereum/releases/tag/v1.13.14',
+            ],
+            [
+                `@lens/ris_707 - dance cult\n\nhttps://hey.xyz/posts/0x042e3c-0x01-DA-95038467\n\n#visualsound\n`,
+                'https://hey.xyz/posts/0x042e3c-0x01-DA-95038467',
+            ],
+            [
+                'the article can be read here:\nhttps://paragraph.xyz/@nfa/wildcard-reflections',
+                'https://paragraph.xyz/@nfa/wildcard-reflections',
+            ],
+        ] as Array<[string, string | null]>;
+
+        cases.forEach(([input, expectedOutput]) => {
+            regExp.lastIndex = 0;
+
+            const [matched] = input.match(regExp) ?? [null];
+            expect(matched).toBe(expectedOutput);
+        });
+    };
+}
+
+function matchCorrectUrl(regExp: RegExp) {
+    return () => {
+        const cases = [
+            [
+                `
+                    I almost never re-read any of my own writing
+
+                    But there's one exception: this "Part Time Degen" essay
+            
+                    TLDR I tried to capture all my pain, seethe, mistakes & cope from the last crypto cycle in one spot
+            
+                    Check it out 👇 https://benroy.beehiiv.com/p/parttime-degen-notes-speculation-crypto-markets-20192022 some text after link
+                `,
+                'https://benroy.beehiiv.com/p/parttime-degen-notes-speculation-crypto-markets-20192022',
+            ],
+            [
+                `
+                    {
+                        "p": "XRC20",
+                        "op": "deploy",
+                        "tick": "𝐅",
+                        "max": "21000000",
+                        "lim": "2000"
+                    }
+                    app.twitscription.xyz/tokens?v=2&mint=𝐅
+                    🌔🍰📂😇🚑
+                    https://frames.twitscription.xyz                
+                `,
+                'app.twitscription.xyz/tokens?v=2&mint=𝐅',
+            ],
+            [
+                `Update not critical, but recommended. https://github.com/ethereum/go-ethereum/releases/tag/v1.13.14`,
+                'https://github.com/ethereum/go-ethereum/releases/tag/v1.13.14',
+            ],
+            [
+                `jesse just called this the most consequential consumer web3 product in last five years. 
+
+                "- fully non-custodial
+                - fully open source (http://github.com/coinbase/smart-wallet)
+                - supporting best-in-class standards (e.g. 4337)"
+                
+                thank u @wilsoncusack`,
+                'http://github.com/coinbase/smart-wallet',
+            ],
+            [
+                `This is a post made with firefly.mask.social/, which posts to farcaster and lens at the same time.
+
+                Alternative clients are important, we should support them!`,
+                'firefly.mask.social/',
+            ],
+        ];
+
+        cases.forEach(([input, expectedOutput]) => {
+            regExp.lastIndex = 0;
+
+            const result = first(input.match(regExp) || []);
+            expect(result).toBe(expectedOutput);
+        });
+    };
+}
 
 describe('MENTION_REGEXP', () => {
     it('should match a mention', () => {
@@ -67,127 +194,15 @@ describe('HASHTAG_REGEXP', () => {
 });
 
 describe('URL_REGEX', () => {
-    it('should match a url', () => {
-        const cases = [
-            [
-                `
-                    I almost never re-read any of my own writing
+    it('should match a url', matchUrl(URL_REGEX));
 
-                    But there's one exception: this "Part Time Degen" essay
-            
-                    TLDR I tried to capture all my pain, seethe, mistakes & cope from the last crypto cycle in one spot
-            
-                    Check it out 👇 https://benroy.beehiiv.com/p/parttime-degen-notes-speculation-crypto-markets-20192022
-                `,
-                'https://benroy.beehiiv.com/p/parttime-degen-notes-speculation-crypto-markets-20192022',
-            ],
-            [
-                `
-                    hat matures, we're excited about supporting efforts to enshrine account abstraction into the protocol itself (e.g. 3074) — we prefer
-                `,
-                null,
-            ],
-            [
-                `
-                    {
-                        "p": "XRC20",
-                        "op": "deploy",
-                        "tick": "𝐅",
-                        "max": "21000000",
-                        "lim": "2000"
-                    }
-                    app.twitscription.xyz/tokens?v=2&mint=𝐅
-                    🌔🍰📂😇🚑
-                    https://frames.twitscription.xyz
-                `,
-                'app.twitscription.xyz/tokens?v=2&mint=𝐅',
-            ],
-            [
-                `
-                    Geth v1.13.14 out, featuring minor blob pool polishes and the reduction of the blob pool capacity from 10GB to 2.5GB to avoid unexpected surprises during/after the Cancun fork.
-                `,
-                null,
-            ],
-            [
-                'Update not critical, but recommended. https://github.com/ethereum/go-ethereum/releases/tag/v1.13.14',
-                'https://github.com/ethereum/go-ethereum/releases/tag/v1.13.14',
-            ],
-            [
-                `@lens/ris_707 - dance cult\n\nhttps://hey.xyz/posts/0x042e3c-0x01-DA-95038467\n\n#visualsound\n`,
-                'https://hey.xyz/posts/0x042e3c-0x01-DA-95038467',
-            ],
-            [
-                'the article can be read here:\nhttps://paragraph.xyz/@nfa/wildcard-reflections',
-                'https://paragraph.xyz/@nfa/wildcard-reflections',
-            ],
-        ] as Array<[string, string | null]>;
+    it('should match conrrect url', matchCorrectUrl(URL_REGEX));
+});
 
-        cases.forEach(([input, expectedOutput]) => {
-            URL_REGEX.lastIndex = 0;
+describe('LINK_MARK_RE', () => {
+    it('should match a url', matchUrl(LINK_MARK_RE));
 
-            const [matched] = input.match(URL_REGEX) ?? [null];
-            expect(matched).toBe(expectedOutput);
-        });
-    });
-
-    it('should match conrrect url', () => {
-        const cases = [
-            [
-                `
-                    I almost never re-read any of my own writing
-
-                    But there's one exception: this "Part Time Degen" essay
-            
-                    TLDR I tried to capture all my pain, seethe, mistakes & cope from the last crypto cycle in one spot
-            
-                    Check it out 👇 https://benroy.beehiiv.com/p/parttime-degen-notes-speculation-crypto-markets-20192022 some text after link
-                `,
-                'https://benroy.beehiiv.com/p/parttime-degen-notes-speculation-crypto-markets-20192022',
-            ],
-            [
-                `
-                    {
-                        "p": "XRC20",
-                        "op": "deploy",
-                        "tick": "𝐅",
-                        "max": "21000000",
-                        "lim": "2000"
-                    }
-                    app.twitscription.xyz/tokens?v=2&mint=𝐅
-                    🌔🍰📂😇🚑
-                    https://frames.twitscription.xyz                
-                `,
-                'app.twitscription.xyz/tokens?v=2&mint=𝐅',
-            ],
-            [
-                `Update not critical, but recommended. https://github.com/ethereum/go-ethereum/releases/tag/v1.13.14`,
-                'https://github.com/ethereum/go-ethereum/releases/tag/v1.13.14',
-            ],
-            [
-                `jesse just called this the most consequential consumer web3 product in last five years. 
-
-                "- fully non-custodial
-                - fully open source (http://github.com/coinbase/smart-wallet)
-                - supporting best-in-class standards (e.g. 4337)"
-                
-                thank u @wilsoncusack`,
-                'http://github.com/coinbase/smart-wallet',
-            ],
-            [
-                `This is a post made with firefly.mask.social/, which posts to farcaster and lens at the same time.
-
-                Alternative clients are important, we should support them!`,
-                'firefly.mask.social/',
-            ],
-        ];
-
-        cases.forEach(([input, expectedOutput]) => {
-            URL_REGEX.lastIndex = 0;
-
-            const result = first(input.match(URL_REGEX) || []);
-            expect(result).toBe(expectedOutput);
-        });
-    });
+    it('should match conrrect url', matchCorrectUrl(LINK_MARK_RE));
 });
 
 describe('CHANNEL_REGEX', () => {
