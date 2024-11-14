@@ -40,17 +40,10 @@ jobs:
           fi
           echo "new_version=$(npm pkg get version | tr -d '\"')" >> $GITHUB_ENV
 
-      - name: Commit changes if any
-        uses: EndBug/add-and-commit@v9
-        with:
-          add: 'package.json'
-          message: "chore: bump version to ${{ env.new_version }}"
-          new_branch: 'bump-version-${{ env.new_version }}'
-          fetch: false
-          push: false
-
-      - name: Push changes
+      - name: Commit and Push changes
         run: |
+          git add package.json
+          git commit -m "chore: bump version to ${{ env.new_version }}"
           git push origin 'bump-version-${{ env.new_version }}' -f
 
       - name: Create pull request
