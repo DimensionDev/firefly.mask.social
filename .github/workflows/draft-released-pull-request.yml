@@ -64,3 +64,5 @@ jobs:
       - name: Create pull request
         run: |
           gh pr create -B main -H 'bump-version-${{ env.new_version }}' --title 'Test' --body 'Closes MF-0000'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
