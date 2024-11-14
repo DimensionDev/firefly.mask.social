@@ -11,6 +11,7 @@ import { retry } from '@/helpers/retry.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
+import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 
 async function getProvider(signal?: AbortSignal) {
     return retry(
@@ -84,6 +85,8 @@ export function createParticleConnector(options: ConnectorOptions) {
                 }
 
                 useGlobalState.getState().updateParticleReconnecting(false);
+
+                await FireflyEndpointProvider.reportParticle();
 
                 return {
                     chainId: chain.id,
