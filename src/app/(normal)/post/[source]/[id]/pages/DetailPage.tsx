@@ -83,7 +83,13 @@ export async function PostDetailPage({ id: postId, source }: Props) {
             <Suspense fallback={<Loading />}>
                 <Section title="Post Comments">
                     <NoSSR>
-                        <CommentList postId={postId} source={source} excludePostIds={allPosts.map((x) => x.postId)} />
+                        <CommentList
+                            postId={postId}
+                            source={source}
+                            excludePostIds={
+                                allPosts.length >= MIN_POST_SIZE_PER_THREAD ? allPosts.map((x) => x.postId) : []
+                            }
+                        />
                     </NoSSR>
                 </Section>
             </Suspense>
