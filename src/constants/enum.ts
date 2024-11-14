@@ -341,8 +341,11 @@ export enum LinkDigestType {
 
 export enum SnapshotState {
     Active = 'active',
-    Closed = 'closed',
     Pending = 'pending',
+    Passed = 'passed',
+    Rejected = 'rejected',
+    Executed = 'executed',
+    Closed = 'closed',
 }
 
 export enum PolymarketBetType {

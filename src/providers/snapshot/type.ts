@@ -18,6 +18,7 @@ export type SnapshotProposal = {
     symbol: string;
     votes: number;
     type: string;
+    quorum: number;
     choices: string[];
     scores: number[];
     scores_by_strategy: number[][];
