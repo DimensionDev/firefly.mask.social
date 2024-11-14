@@ -340,6 +340,9 @@ msgstr "Trending Channels"
 msgid "Debug Console"
 msgstr "Debug Console"
 
+msgid "Profile Switched"
+msgstr "Profile Switched"
+
 msgid "Adding..."
 msgstr "Adding..."
 
@@ -676,6 +679,9 @@ msgstr "Today at {0}"
 msgid "Add another post..."
 msgstr "Add another post..."
 
+msgid "Failed to disconnect. Please leave at least 1 account or wallet address connected to keep your immersive experience in Firefly."
+msgstr "Failed to disconnect. Please leave at least 1 account or wallet address connected to keep your immersive experience in Firefly."
+
 msgid "1m left"
 msgstr "1m left"
 
@@ -985,9 +991,6 @@ msgstr "{label} on a proposal"
 msgid "Failed to enable signless"
 msgstr "Failed to enable signless"
 
-msgid "Connect another account"
-msgstr "Connect another account"
-
 msgid "Comment cannot be empty."
 msgstr "Comment cannot be empty."
 
@@ -1023,6 +1026,9 @@ msgstr "Reply"
 
 msgid "Mirror or Quote"
 msgstr "Mirror or Quote"
+
+msgid "Add an existing account"
+msgstr "Add an existing account"
 
 msgid "Confirm you want to mute /{0}?"
 msgstr "Confirm you want to mute /{0}?"
@@ -1170,9 +1176,6 @@ msgstr "This token contract is open source. You can check the contract code for 
 
 msgid "Darkweb transactions found."
 msgstr "Darkweb transactions found."
-
-msgid "Add account"
-msgstr "Add account"
 
 msgid "DAO"
 msgstr "DAO"
@@ -1456,6 +1459,9 @@ msgstr "Failed to upvote post."
 msgid "<0>Acquired</0> an NFT"
 msgstr "<0>Acquired</0> an NFT"
 
+msgid "Confirm to disconnect this account and related wallets from Firefly’s social graph?"
+msgstr "Confirm to disconnect this account and related wallets from Firefly’s social graph?"
+
 msgid "View on Explorer"
 msgstr "View on Explorer"
 
@@ -1680,6 +1686,9 @@ msgstr "Page not found. Please try again."
 
 msgid "Delegate Signing"
 msgstr "Delegate Signing"
+
+msgid "Failed to disconnect."
+msgstr "Failed to disconnect."
 
 msgid "No stealing attack involved."
 msgstr "No stealing attack involved."

@@ -31,6 +31,17 @@ const resolveLogoutEventId = createLookupTableResolver<SocialSource, EventId>(
     },
 );
 
+const resolveDisconnectEventId = createLookupTableResolver<SocialSource, EventId>(
+    {
+        [Source.Farcaster]: EventId.FARCASTER_ACCOUNT_DISCONNECT_SUCCESS,
+        [Source.Lens]: EventId.LENS_ACCOUNT_DISCONNECT_SUCCESS,
+        [Source.Twitter]: EventId.X_ACCOUNT_DISCONNECT_SUCCESS,
+    },
+    (source) => {
+        throw new UnreachableError('source', source);
+    },
+);
+
 function getAccountEventParameters(account: Account) {
     const source = account.profile.source;
     const accounts = getProfileState(source).accounts.map((x) => [x.profile.profileId, x.profile.handle]) as Array<
@@ -76,6 +87,13 @@ export function captureAccountLogoutEvent(account: Account) {
     return runInSafeAsync(() => {
         const source = account.profile.source;
         return TelemetryProvider.captureEvent(resolveLogoutEventId(source), getAccountEventParameters(account));
+    });
+}
+
+export function captureAccountDisconnectEvent(account: Account) {
+    return runInSafeAsync(() => {
+        const source = account.profile.source;
+        return TelemetryProvider.captureEvent(resolveDisconnectEventId(source), getAccountEventParameters(account));
     });
 }
 

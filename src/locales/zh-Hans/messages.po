@@ -345,6 +345,9 @@ msgstr "流行频道"
 msgid "Debug Console"
 msgstr "诊断命令行"
 
+msgid "Profile Switched"
+msgstr ""
+
 msgid "Adding..."
 msgstr "添加中..."
 
@@ -681,6 +684,9 @@ msgstr "今天 {0}"
 msgid "Add another post..."
 msgstr "添加另一个帖子..."
 
+msgid "Failed to disconnect. Please leave at least 1 account or wallet address connected to keep your immersive experience in Firefly."
+msgstr ""
+
 msgid "1m left"
 msgstr "1分钟剩余"
 
@@ -990,9 +996,6 @@ msgstr "提案上的 {label}"
 msgid "Failed to enable signless"
 msgstr "未能启用无签名功能"
 
-msgid "Connect another account"
-msgstr "登录另一个账户"
-
 msgid "Comment cannot be empty."
 msgstr "评论不能为空。"
 
@@ -1028,6 +1031,9 @@ msgstr "回复"
 
 msgid "Mirror or Quote"
 msgstr "转帖或者引用"
+
+msgid "Add an existing account"
+msgstr ""
 
 msgid "Confirm you want to mute /{0}?"
 msgstr "您确定要隐藏 /{0} 吗？"
@@ -1175,9 +1181,6 @@ msgstr "此通证合约是开源代码。您可以检查合约代码了解详情
 
 msgid "Darkweb transactions found."
 msgstr "发现暗网交易。"
-
-msgid "Add account"
-msgstr "添加账户"
 
 msgid "DAO"
 msgstr "DAO"
@@ -1461,6 +1464,9 @@ msgstr "无法对帖子进行投票。"
 msgid "<0>Acquired</0> an NFT"
 msgstr "<0>获取</0> 一个 NFT"
 
+msgid "Confirm to disconnect this account and related wallets from Firefly’s social graph?"
+msgstr ""
+
 msgid "View on Explorer"
 msgstr "在 Explorer 上查看"
 
@@ -1685,6 +1691,9 @@ msgstr "未找到页面。请重试。"
 
 msgid "Delegate Signing"
 msgstr "代理签名"
+
+msgid "Failed to disconnect."
+msgstr ""
 
 msgid "No stealing attack involved."
 msgstr "未涉及盗窃攻击。"

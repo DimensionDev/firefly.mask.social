@@ -345,6 +345,9 @@ msgstr "熱門頻道"
 msgid "Debug Console"
 msgstr ""
 
+msgid "Profile Switched"
+msgstr ""
+
 msgid "Adding..."
 msgstr "正在添加"
 
@@ -681,6 +684,9 @@ msgstr ""
 msgid "Add another post..."
 msgstr "加入另一則貼文..."
 
+msgid "Failed to disconnect. Please leave at least 1 account or wallet address connected to keep your immersive experience in Firefly."
+msgstr ""
+
 msgid "1m left"
 msgstr ""
 
@@ -990,9 +996,6 @@ msgstr ""
 msgid "Failed to enable signless"
 msgstr ""
 
-msgid "Connect another account"
-msgstr "連結另一個帳戶"
-
 msgid "Comment cannot be empty."
 msgstr "評論不可是空白"
 
@@ -1027,6 +1030,9 @@ msgid "Reply"
 msgstr "回覆"
 
 msgid "Mirror or Quote"
+msgstr ""
+
+msgid "Add an existing account"
 msgstr ""
 
 msgid "Confirm you want to mute /{0}?"
@@ -1175,9 +1181,6 @@ msgstr ""
 
 msgid "Darkweb transactions found."
 msgstr ""
-
-msgid "Add account"
-msgstr "新增帳户"
 
 msgid "DAO"
 msgstr ""
@@ -1461,6 +1464,9 @@ msgstr "上讚貼文失敗"
 msgid "<0>Acquired</0> an NFT"
 msgstr "<0>獲取了</0>一個 NFT"
 
+msgid "Confirm to disconnect this account and related wallets from Firefly’s social graph?"
+msgstr ""
+
 msgid "View on Explorer"
 msgstr ""
 
@@ -1684,6 +1690,9 @@ msgid "Page not found. Please try again."
 msgstr "未找到頁面。請重試"
 
 msgid "Delegate Signing"
+msgstr ""
+
+msgid "Failed to disconnect."
 msgstr ""
 
 msgid "No stealing attack involved."

@@ -8,6 +8,8 @@ import { usePathname } from 'next/navigation.js';
 import { useMount } from 'react-use';
 import urlcat from 'urlcat';
 
+import LogoutIcon from '@/assets/logout.svg';
+import UserAddIcon from '@/assets/user-add.svg';
 import { CircleCheckboxIcon } from '@/components/CircleCheckboxIcon.js';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { ProfileAvatar } from '@/components/ProfileAvatar.js';
@@ -49,12 +51,12 @@ export function ProfileSettings({ source, onClose }: ProfileSettingsProps) {
     if (!currentProfile) return null;
 
     return (
-        <div className="flex flex-col overflow-x-hidden bg-primaryBottom md:w-[290px] md:rounded-2xl md:border md:border-line">
+        <div className="mt-3 flex flex-col overflow-x-hidden bg-primaryBottom md:mt-0 md:w-[290px] md:rounded-2xl md:p-6 md:shadow-lightS3">
             <Reorder.Group
                 values={accounts}
                 draggable="false"
                 onReorder={noop}
-                className="no-scrollbar max-h-[calc(62.5px*4.5)] overflow-auto md:max-h-[calc(72px*7.5)]"
+                className="no-scrollbar max-h-[calc(62.5px*4.5)] space-y-3 overflow-auto md:max-h-[calc(72px*7.5)]"
             >
                 {accounts.map((account) => (
                     <Reorder.Item
@@ -63,7 +65,7 @@ export function ProfileSettings({ source, onClose }: ProfileSettingsProps) {
                         dragListener={false}
                     >
                         <ClickableButton
-                            className="flex w-full min-w-0 items-center justify-between gap-3 rounded px-2 py-2 hover:bg-bg md:rounded-none md:px-5"
+                            className="flex w-full min-w-0 items-center justify-between gap-3 rounded md:rounded-none"
                             onClick={async () => {
                                 if (!account.session) {
                                     onClose?.();
@@ -101,24 +103,23 @@ export function ProfileSettings({ source, onClose }: ProfileSettingsProps) {
                 ))}
             </Reorder.Group>
 
-            <hr className="mb-3 border-b border-t-0 border-line" />
-
-            <div className="flex flex-col md:mx-5">
+            <div className="mt-3 flex flex-col space-y-3">
                 {source !== Source.Twitter ? (
                     <ClickableButton
-                        className="flex w-full items-center rounded px-2 py-3 text-main hover:bg-bg"
+                        className="flex h-6 w-full items-center whitespace-nowrap rounded leading-6 text-main"
                         onClick={async () => {
                             LoginModalRef.open({ source });
                             onClose?.();
                         }}
                     >
-                        <span className="text-[17px] font-bold leading-[22px] text-main">
-                            <Trans>Connect another account</Trans>
+                        <UserAddIcon width={24} height={24} className="mr-2 h-6 w-6 shrink-0" />
+                        <span className="w-full text-left text-[17px] font-bold leading-[22px] text-main">
+                            <Trans>Add an existing account</Trans>
                         </span>
                     </ClickableButton>
                 ) : null}
                 <ClickableButton
-                    className="flex items-center overflow-hidden whitespace-nowrap rounded px-2 py-3 hover:bg-bg md:mb-3"
+                    className="flex h-6 items-center overflow-hidden whitespace-nowrap rounded leading-6"
                     onClick={() => {
                         LogoutModalRef.open({
                             account: accounts.find((x) => isSameProfile(x.profile, currentProfile)),
@@ -126,7 +127,8 @@ export function ProfileSettings({ source, onClose }: ProfileSettingsProps) {
                         onClose?.();
                     }}
                 >
-                    <span className="text-[17px] font-bold leading-[22px] text-danger">
+                    <LogoutIcon width={24} height={24} className="mr-2 h-6 w-6 shrink-0" />
+                    <span className="w-full truncate text-left text-[17px] font-bold leading-[22px] text-main">
                         <Trans>Log out @{currentProfile.handle}</Trans>
                     </span>
                 </ClickableButton>
