@@ -69,7 +69,7 @@ export function createParticleConnector(options: ConnectorOptions): CreateConnec
                 if (!fireflySessionHolder.session)
                     throw new AuthenticationError('[particle] Firefly session not found');
 
-                const connections = await FireflyEndpointProvider.getAccountConnections();
+                const connections = await FireflyEndpointProvider.getAllConnections();
                 const connectedEthWallets = connections?.wallet.connected.filter(
                     (x) => x.platform === 'eth' && x.source === WalletSource.Particle,
                 );

@@ -1370,5 +1370,3 @@ export interface SetNotificationPushSwitchParams {
         state: boolean;
     }>;
 }
-
-export type GetAccountConnectionsResponse = Response<AllConnections>;

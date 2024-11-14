@@ -125,7 +125,7 @@ export class ParticleSolanaWalletAdapter extends BaseMessageSignerWalletAdapter 
                 if (!fireflySessionHolder.session)
                     throw new AuthenticationError('[particle] Firefly session not found');
 
-                const connections = await FireflyEndpointProvider.getAccountConnections();
+                const connections = await FireflyEndpointProvider.getAllConnections();
                 const connectedSolanaWallets = connections?.wallet.connected.filter(
                     (x) => x.platform === 'solana' && x.source === WalletSource.Particle,
                 );

@@ -34,7 +34,7 @@ export default function Wallets() {
         isRefetching,
     } = useQuery({
         queryKey: ['my-wallet-connections'],
-        queryFn: () => FireflyEndpointProvider.getAllConnections(),
+        queryFn: () => FireflyEndpointProvider.getAllConnectionsFormatted(),
     });
 
     const mpcWallets = [connected, related].flatMap((connection) => filterMPCWallets(connection));
