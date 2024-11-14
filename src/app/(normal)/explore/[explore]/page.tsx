@@ -1,5 +1,7 @@
-import { ExplorePage } from '@/app/(normal)/explore/pages/Explore.js';
-import { type ExploreType, Source } from '@/constants/enum.js';
+import { redirect, RedirectType } from 'next/navigation.js';
+
+import { ExploreType, Source, TrendingType } from '@/constants/enum.js';
+import { resolveExploreUrl } from '@/helpers/resolveExploreUrl.js';
 
 interface Props {
     params: {
@@ -8,5 +10,11 @@ interface Props {
 }
 
 export default function Page({ params }: Props) {
-    return <ExplorePage type={params.explore} source={Source.Farcaster} />;
+    redirect(
+        resolveExploreUrl(
+            params.explore,
+            params.explore === ExploreType.CryptoTrends ? TrendingType.TopGainers : Source.Farcaster,
+        ),
+        RedirectType.replace,
+    );
 }

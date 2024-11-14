@@ -13,7 +13,7 @@ import { nFormatter } from '@/helpers/formatCommentCounts.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { isCurrentProfile } from '@/helpers/isCurrentProfile.js';
 import { resolveProfileUrl } from '@/helpers/resolveProfileUrl.js';
-import { useIsSmall } from '@/hooks/useMediaQuery.js';
+import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
 
@@ -29,7 +29,7 @@ const overrideComponents = {
     br: VoidLineBreak,
 };
 export function ProfileInList({ profile, noFollowButton, listKey, index }: ProfileInListProps) {
-    const isSmall = useIsSmall('max');
+    const isMedium = useIsMedium('max');
 
     const setScrollIndex = useGlobalState.use.setScrollIndex();
 
@@ -48,7 +48,7 @@ export function ProfileInList({ profile, noFollowButton, listKey, index }: Profi
                 <Avatar
                     className="rounded-full border"
                     src={profile.pfp}
-                    size={isSmall ? 40 : 44}
+                    size={isMedium ? 40 : 44}
                     alt={profile.displayName}
                 />
             </Link>
@@ -92,7 +92,13 @@ export function ProfileInList({ profile, noFollowButton, listKey, index }: Profi
                             </Link>
                         </div>
                     </div>
-                    {!noFollowButton && !isCurrentProfile(profile) ? <FollowButton profile={profile} /> : null}
+                    {!noFollowButton && !isCurrentProfile(profile) ? (
+                        <FollowButton
+                            profile={profile}
+                            variant={isMedium ? 'icon' : 'text'}
+                            className={isMedium ? 'w-[50px] max-w-[50px]' : ''}
+                        />
+                    ) : null}
                 </div>
                 {profile.bio ? (
                     <Link href={profileUrl} onClick={handleClickOnLink}>
