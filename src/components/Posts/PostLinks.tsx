@@ -13,7 +13,7 @@ import { Player } from '@/components/Oembed/Player.js';
 import { TweetSpace } from '@/components/Posts/TweetSpace.js';
 import { SnapshotBody } from '@/components/Snapshot/SnapshotBody.js';
 import { type SocialSource } from '@/constants/enum.js';
-import { URL_REGEX } from '@/constants/regexp.js';
+import { LINK_MARK_RE } from '@/constants/linkRegExp.js';
 import type { Chars } from '@/helpers/chars.js';
 import { readChars } from '@/helpers/chars.js';
 import { createDummyPost } from '@/helpers/createDummyPost.js';
@@ -115,7 +115,7 @@ export function PostLinksInCompose({
 }) {
     const post = useMemo(() => {
         const content = readChars(chars, 'visible');
-        const oembedUrls = content.match(URL_REGEX) || [];
+        const oembedUrls = content.match(LINK_MARK_RE) || [];
         const oembedUrl = last(oembedUrls);
 
         return {

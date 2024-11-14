@@ -1,12 +1,13 @@
 import { AutoLinkPlugin } from '@lexical/react/LexicalAutoLinkPlugin.js';
 
-import { EMAIL_REGEX, MENTION_REGEX, URL_REGEX } from '@/constants/regexp.js';
+import { LINK_MARK_RE } from '@/constants/linkRegExp.js';
+import { LITE_EMAIL_REGEX, MENTION_REGEX } from '@/constants/regexp.js';
 import { fixUrlProtocol } from '@/helpers/fixUrlProtocol.js';
 import { isTopLevelDomain } from '@/helpers/isTopLevelDomain.js';
 
 const MATCHERS = [
     (text: string) => {
-        const match = URL_REGEX.exec(text);
+        const match = LINK_MARK_RE.exec(text);
         if (match === null) return null;
 
         const fullMatch = match[0];
@@ -20,7 +21,7 @@ const MATCHERS = [
         };
     },
     (text: string) => {
-        const match = EMAIL_REGEX.exec(text);
+        const match = LITE_EMAIL_REGEX.exec(text);
         return (
             match && {
                 index: match.index,
