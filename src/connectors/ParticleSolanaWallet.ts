@@ -1,3 +1,4 @@
+import { t } from '@lingui/macro';
 import { AuthType, connect, SolanaWallet } from '@particle-network/auth-core';
 import type { SendTransactionOptions, WalletName } from '@solana/wallet-adapter-base';
 import {
@@ -25,7 +26,9 @@ import type {
 } from '@solana/web3.js';
 import { PublicKey } from '@solana/web3.js';
 
-import { AbortError, AuthenticationError, InvalidResultError } from '@/constants/error.js';
+import { WalletSource } from '@/constants/enum.js';
+import { AbortError, AuthenticationError, InvalidResultError, NotAllowedError } from '@/constants/error.js';
+import { enqueueWarningMessage } from '@/helpers/enqueueMessage.js';
 import { isValidSolanaAddress } from '@/helpers/isValidSolanaAddress.js';
 import { retry } from '@/helpers/retry.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
@@ -119,7 +122,17 @@ export class ParticleSolanaWalletAdapter extends BaseMessageSignerWalletAdapter 
             const wallet = await getProvider();
 
             if (!wallet.isConnected) {
-                if (!fireflySessionHolder.session) throw new AuthenticationError('Firefly session not found');
+                if (!fireflySessionHolder.session)
+                    throw new AuthenticationError('[particle] Firefly session not found');
+
+                const connections = await FireflyEndpointProvider.getAllConnections();
+                const connectedSolanaWallets = connections?.wallet.connected.filter(
+                    (x) => x.platform === 'solana' && x.source === WalletSource.Particle,
+                );
+                if (!connectedSolanaWallets?.length) {
+                    enqueueWarningMessage(t`You haven't generated a Firefly wallet yet.`);
+                    throw new NotAllowedError('[particle solana] Not generated a Firefly wallet before');
+                }
 
                 const user = await connect({
                     provider: AuthType.jwt,
@@ -133,15 +146,13 @@ export class ParticleSolanaWalletAdapter extends BaseMessageSignerWalletAdapter 
                     (x) => x.chain_name === 'solana' && isValidSolanaAddress(x.public_address),
                 );
                 if (!wallets.length) {
-                    console.error(`[particle solana] wallet not found`);
-                    throw new AuthenticationError('Wallet not found');
+                    throw new Error('[particle solana] Wallet not found');
                 }
 
                 try {
                     await FireflyEndpointProvider.reportParticle();
                 } catch (error) {
-                    console.error(`[particle solana] reportParticle error`, error);
-                    throw new Error('Failed to connect to Firefly');
+                    throw new Error('[particle solana] Failed to connect to Firefly');
                 }
 
                 try {

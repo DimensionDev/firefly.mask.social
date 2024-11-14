@@ -588,7 +588,12 @@ export class FireflyEndpoint {
         const response = await fireflySessionHolder.fetch<GetAllConnectionsResponse>(url, {
             method: 'GET',
         });
-        const connections = resolveFireflyResponseData(response);
+        const data = resolveFireflyResponseData(response);
+        return data;
+    }
+
+    async getAllConnectionsFormatted() {
+        const connections = await this.getAllConnections();
 
         return {
             connected: formatWalletConnections(connections.wallet.connected, connections),

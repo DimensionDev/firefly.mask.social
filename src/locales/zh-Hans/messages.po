@@ -2001,6 +2001,9 @@ msgstr "进行中"
 msgid "Send on schedule"
 msgstr "发送定时任务"
 
+msgid "You haven't generated a Firefly wallet yet."
+msgstr ""
+
 msgid "Your transaction will confirm shortly"
 msgstr "您的交易将很快确认"
 
