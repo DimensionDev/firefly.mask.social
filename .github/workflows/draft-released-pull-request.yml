@@ -20,6 +20,8 @@ jobs:
         uses: actions/checkout@v2
         with:
           submodules: 'true'
+          repository: ${{ github.event.pull_request.head.repo.full_name }}
+          ref: ${{ github.event.pull_request.head.ref }}
 
       - name: Set up Node.js
         uses: actions/setup-node@v2
@@ -49,6 +51,7 @@ jobs:
           add: 'package.json'
           message: "chore: bump version to ${{ env.new_version }}"
           new_branch: 'bump-version-${{ env.new_version }}'
+          push: 'origin bump-version-${{ env.new_version }} --set-upstream --force'
 
       - name: Create pull request
         uses: peter-evans/create-pull-request@v5
