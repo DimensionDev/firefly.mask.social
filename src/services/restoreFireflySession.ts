@@ -37,12 +37,15 @@ export async function restoreFireflySession(session: Session, signal?: AbortSign
             return new FireflySession(data.accountId, data.accessToken, session);
         }
         case SessionType.Farcaster: {
-            if (FarcasterSession.isCustodyWallet(session)) throw new NotAllowedError('Custody wallet is not allowed.');
+            if (FarcasterSession.isCustodyWallet(session))
+                throw new NotAllowedError('[restoreFireflySession] Custody wallet is not allowed.');
 
             const isGrantByPermission = FarcasterSession.isGrantByPermission(session, true);
             const isRelayService = FarcasterSession.isRelayService(session);
             if (!isGrantByPermission && !isRelayService)
-                throw new NotAllowedError('Only grant-by-permission or relay service sessions are allowed.');
+                throw new NotAllowedError(
+                    '[restoreFireflySession] Only grant-by-permission or relay service sessions are allowed.',
+                );
 
             const url = urlcat(settings.FIREFLY_ROOT_URL, '/v3/auth/farcaster/login');
             const response = await fetch(url, {
@@ -58,7 +61,8 @@ export async function restoreFireflySession(session: Session, signal?: AbortSign
             });
 
             const json: FarcasterLoginResponse = await response.json();
-            if (!response.ok && json.error?.includes('Farcaster login timed out')) throw new TimeoutError();
+            if (!response.ok && json.error?.includes('Farcaster login timed out'))
+                throw new TimeoutError('[restoreFireflySession] Farcaster login timed out.');
 
             const data = resolveFireflyResponseData(json);
             if (data.fid && data.accountId && data.accessToken) {
@@ -69,12 +73,12 @@ export async function restoreFireflySession(session: Session, signal?: AbortSign
                     farcasterSession.signerRequestToken = FAKE_SIGNER_REQUEST_TOKEN;
                     farcasterSession.token = data.farcaster_signer_private_key;
                 } else {
-                    console.warn(`[restore firefly session] No farcaster signer keys found in the response.`);
+                    console.warn(`[restoreFireflySession] No farcaster signer keys found in the response.`);
                 }
 
                 return new FireflySession(data.accountId, data.accessToken, session);
             }
-            throw new Error('Failed to restore firefly session.');
+            throw new Error('[restoreFireflySession] Failed to restore firefly session.');
         }
         case SessionType.Twitter: {
             const twitterSession = session as TwitterSession;
@@ -85,7 +89,10 @@ export async function restoreFireflySession(session: Session, signal?: AbortSign
                 headers: TwitterSession.payloadToHeaders(twitterSession.payload),
                 signal,
             });
-            if (!encrypted.success) throw new Error(`Failed to encrypt twitter session: ${encrypted.error.message}.`);
+            if (!encrypted.success)
+                throw new Error(
+                    `[restoreFireflySession] Failed to encrypt twitter session: ${encrypted.error.message}.`,
+                );
 
             const url = urlcat(settings.FIREFLY_ROOT_URL, '/v3/auth/exchange/twitter');
             const response = await fetchJSON<TwitterLoginResponse>(url, {
@@ -100,10 +107,10 @@ export async function restoreFireflySession(session: Session, signal?: AbortSign
             return new FireflySession(data.accountId, data.accessToken, session);
         }
         case SessionType.Firefly:
-            throw new NotAllowedError('Firefly session is not allowed.');
+            throw new NotAllowedError('[restoreFireflySession] Firefly session is not allowed.');
         default:
             safeUnreachable(session.type);
-            throw new UnreachableError('session type', session.type);
+            throw new UnreachableError('[restoreFireflySession] session type', session.type);
     }
 }
 
