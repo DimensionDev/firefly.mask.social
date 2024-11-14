@@ -24,7 +24,6 @@ const presetColors: Record<string, string> = {
 
 export function ProfileVerifyBadge({ profile, className }: Props) {
     const { data: icons = [] } = useProfileVerifyBadge(profile);
-
     if (!icons.length) return null;
 
     return (

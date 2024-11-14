@@ -13,6 +13,7 @@ import { createSessionStorage } from '@/helpers/createSessionStorage.js';
 import { isSameAccount } from '@/helpers/isSameAccount.js';
 import { isSameProfile } from '@/helpers/isSameProfile.js';
 import { isSameSessionPayload } from '@/helpers/isSameSession.js';
+import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import type { FarcasterSession } from '@/providers/farcaster/Session.js';
 import { farcasterSessionHolder } from '@/providers/farcaster/SessionHolder.js';
 import { FarcasterSocialMediaProvider } from '@/providers/farcaster/SocialMedia.js';
@@ -300,10 +301,6 @@ const useTwitterStateBase = createState(
 
                 const payload = foundNewSessionFromServer ? sessionPayloadFromServer : (session?.payload ?? null);
                 const profile = payload ? await TwitterSocialMediaProvider.getProfileById(payload.clientId) : null;
-                if (profile) {
-                    const badges = await TwitterSocialMediaProvider.getProfileBadges(profile);
-                    if (badges.length > 0) profile.verified = true;
-                }
 
                 if (!profile || !payload) {
                     console.warn('[twitter store] clean the local store because no session found from the server.');
@@ -311,6 +308,11 @@ const useTwitterStateBase = createState(
                     twitterSessionHolder.removeSession();
                     return;
                 }
+
+                runInSafeAsync(async () => {
+                    const badges = await TwitterSocialMediaProvider.getProfileBadges(profile);
+                    if (badges.length > 0) profile.verified = true;
+                });
 
                 const twitterSession = TwitterSession.from(profile.profileId, payload);
 
