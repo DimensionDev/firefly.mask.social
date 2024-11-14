@@ -29,6 +29,7 @@ import type { Profile, ProfileEditable } from '@/providers/types/SocialMedia.js'
 import { addAccount } from '@/services/account.js';
 import { bindOrRestoreFireflySession } from '@/services/bindOrRestoreFireflySession.js';
 import { restoreFireflySessionAll } from '@/services/restoreFireflySession.js';
+import { runInSafeAsync } from '@/helpers/runInSafe.js';
 
 export interface ProfileState {
     // indicate the store is ready or not
@@ -308,8 +309,10 @@ const useTwitterStateBase = createState(
                     return;
                 }
 
-                const badges = await TwitterSocialMediaProvider.getProfileBadges(profile);
-                if (badges.length > 0) profile.verified = true;
+                runInSafeAsync(async () => {
+                    const badges = await TwitterSocialMediaProvider.getProfileBadges(profile);
+                    if (badges.length > 0) profile.verified = true;
+                });
 
                 const twitterSession = TwitterSession.from(profile.profileId, payload);
 
