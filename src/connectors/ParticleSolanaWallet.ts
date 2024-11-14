@@ -28,8 +28,8 @@ import { PublicKey } from '@solana/web3.js';
 import { AbortError, AuthenticationError, InvalidResultError } from '@/constants/error.js';
 import { isValidSolanaAddress } from '@/helpers/isValidSolanaAddress.js';
 import { retry } from '@/helpers/retry.js';
-import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
+import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
 
 async function getProvider(signal?: AbortSignal) {
     return retry(
