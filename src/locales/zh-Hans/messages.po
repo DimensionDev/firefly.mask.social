@@ -1098,6 +1098,9 @@ msgstr "识别为合约地址。"
 msgid "Top Profiles"
 msgstr "热门用户"
 
+msgid "Executed"
+msgstr ""
+
 msgid "EVM"
 msgstr "EVM"
 
@@ -2061,6 +2064,9 @@ msgstr ""
 msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} <4>collected your </4><5>{1, select, Post {post} Comment {comment} Quote {quote} Mirror {mirror} other {post}}</5>"
 msgstr "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} <4>收集了你的 </4><5>{1, select, Post {发帖} Comment {评论} Quote {引用} Mirror {转帖} other {帖子}}</5>"
 
+msgid "Rejected"
+msgstr ""
+
 msgid "Recast or Quote"
 msgstr "转发或者引用"
 
@@ -2465,6 +2471,9 @@ msgstr "已保存在 {0}"
 
 msgid "Add another option"
 msgstr "添加另一个选项"
+
+msgid "Passed"
+msgstr ""
 
 msgid "1y"
 msgstr "1年"
