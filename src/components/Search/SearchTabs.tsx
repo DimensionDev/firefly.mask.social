@@ -28,12 +28,12 @@ export const SearchTabs = memo(function SearchTabs() {
     const tabs = useMemo<Array<{ label: JSX.Element; link: string }>>(() => {
         return [
             {
-                label: <Trans>Users</Trans>,
-                link: fixSearchUrl(searchKeyword, SearchType.Profiles, source),
-            },
-            {
                 label: <Trans>Posts</Trans>,
                 link: fixSearchUrl(searchKeyword, SearchType.Posts, source),
+            },
+            {
+                label: <Trans>Users</Trans>,
+                link: fixSearchUrl(searchKeyword, SearchType.Profiles, source),
             },
             {
                 label: <Trans>NFTs</Trans>,
