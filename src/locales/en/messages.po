@@ -1093,6 +1093,9 @@ msgstr "Contract address found."
 msgid "Top Profiles"
 msgstr "Top Profiles"
 
+msgid "Executed"
+msgstr "Executed"
+
 msgid "EVM"
 msgstr "EVM"
 
@@ -2056,6 +2059,9 @@ msgstr "{0}{1}<0> Floor</0>"
 msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} <4>collected your </4><5>{1, select, Post {post} Comment {comment} Quote {quote} Mirror {mirror} other {post}}</5>"
 msgstr "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} <4>collected your </4><5>{1, select, Post {post} Comment {comment} Quote {quote} Mirror {mirror} other {post}}</5>"
 
+msgid "Rejected"
+msgstr "Rejected"
+
 msgid "Recast or Quote"
 msgstr "Recast or Quote"
 
@@ -2460,6 +2466,9 @@ msgstr "Saved on {0}"
 
 msgid "Add another option"
 msgstr "Add another option"
+
+msgid "Passed"
+msgstr "Passed"
 
 msgid "1y"
 msgstr "1y"

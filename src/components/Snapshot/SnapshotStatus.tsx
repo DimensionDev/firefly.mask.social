@@ -42,7 +42,7 @@ export function SnapshotStatus({ status, className }: Props) {
                 {
                     'bg-highlight': isActiveOrPending,
                     'bg-secondary': status === SnapshotState.Passed,
-                    'bg-danger bg-opacity-50': status == SnapshotState.Rejected,
+                    'bg-danger bg-opacity-50': status === SnapshotState.Rejected,
                     'opacity-50': status === SnapshotState.Pending,
                 },
                 className,

@@ -3,6 +3,7 @@ import { getAccount } from '@wagmi/core';
 import { last, omit } from 'lodash-es';
 
 import { config } from '@/configs/wagmiClient.js';
+import { SnapshotState } from '@/constants/enum.js';
 import { SNAPSHOT_GRAPHQL_URL, SNAPSHOT_RELAY_URL, SNAPSHOT_SCORES_URL, SNAPSHOT_SEQ_URL } from '@/constants/index.js';
 import { SNAPSHOT_NEW_PROPOSAL_REGEXP, SNAPSHOT_PROPOSAL_REGEXP } from '@/constants/regexp.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
@@ -25,7 +26,6 @@ import {
     voteStringTypes,
     voteTypes,
 } from '@/providers/snapshot/type.js';
-import { SnapshotState } from '@/constants/enum.js';
 
 const NAME = 'snapshot';
 const VERSION = '0.1.4';

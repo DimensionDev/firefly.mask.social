@@ -1098,6 +1098,9 @@ msgstr ""
 msgid "Top Profiles"
 msgstr ""
 
+msgid "Executed"
+msgstr ""
+
 msgid "EVM"
 msgstr "EVM"
 
@@ -2061,6 +2064,9 @@ msgstr ""
 msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} <4>collected your </4><5>{1, select, Post {post} Comment {comment} Quote {quote} Mirror {mirror} other {post}}</5>"
 msgstr ""
 
+msgid "Rejected"
+msgstr ""
+
 msgid "Recast or Quote"
 msgstr "引用"
 
@@ -2464,6 +2470,9 @@ msgid "Saved on {0}"
 msgstr ""
 
 msgid "Add another option"
+msgstr ""
+
+msgid "Passed"
 msgstr ""
 
 msgid "1y"
