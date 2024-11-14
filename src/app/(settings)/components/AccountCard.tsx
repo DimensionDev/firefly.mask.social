@@ -25,6 +25,12 @@ interface AccountCardProps {
 
 function DisconnectButton({ account, accounts }: { account: Account; accounts: Account[] }) {
     const [{ loading }, disconnect] = useAsyncFn(async () => {
+        if (accounts.length <= 1) {
+            enqueueErrorMessage(
+                t`Failed to disconnect. Please leave at least 1 account or wallet address connected to keep your immersive experience in Firefly.`,
+            );
+            return;
+        }
         await DisconnectFireflyAccountModalRef.openAndWaitForClose({
             account,
         });
@@ -35,15 +41,7 @@ function DisconnectButton({ account, accounts }: { account: Account; accounts: A
             <ClickableButton
                 className="flex items-center text-medium font-bold leading-none text-main"
                 disabled={loading}
-                onClick={async () => {
-                    if (accounts.length <= 1) {
-                        enqueueErrorMessage(
-                            t`Failed to disconnect. Please leave at least 1 account or wallet address connected to keep your immersive experience in Firefly.`,
-                        );
-                        return;
-                    }
-                    await disconnect();
-                }}
+                onClick={disconnect}
             >
                 {loading ? (
                     <LoadingIcon width={20} height={20} className="h-5 w-5 shrink-0 animate-spin" />
