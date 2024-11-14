@@ -27,7 +27,7 @@ export const WalletProfileContentList = memo(function WalletProfileContentList({
             return <POAPList address={address} />;
         case WalletProfileCategory.NFTs:
             return <NFTs address={address} />;
-        case WalletProfileCategory.OnChainActivities:
+        case WalletProfileCategory.Activities:
             return <FollowingNFTList walletAddress={address} />;
         case WalletProfileCategory.DAO:
             return <FollowingSnapshotList walletAddress={address} />;

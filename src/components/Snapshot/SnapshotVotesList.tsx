@@ -36,7 +36,7 @@ const SnapshotVotesListItem = memo<SnapshotVotesListItemProps>(function Snapshot
     const choiceLabel = formatSnapshotChoice(vote.choice, vote.proposal.type, vote.proposal.choices);
 
     return (
-        <div className="mb-2 flex items-center gap-[14px] text-sm leading-[14px]">
+        <div className="mb-2 flex items-center gap-[14px] text-sm leading-[16px]">
             <Link href={authorUrl} className="z-[1] flex items-center gap-1 truncate max-md:w-1/4 md:w-[120px]">
                 <Avatar
                     className="h-[14px] w-[14px]"
@@ -112,7 +112,7 @@ export const SnapshotVotesList = memo<SnapshotVotesListProps>(function SnapshotV
     }
 
     return (
-        <div className="h-[130px]">
+        <div className="flex-1">
             <VirtualList
                 data={data}
                 endReached={onEndReached}

@@ -34,9 +34,6 @@ msgstr "Be the first one to comment!"
 msgid "Failed to mute all wallets and accounts."
 msgstr "Failed to mute all wallets and accounts."
 
-msgid "Onchain Activities"
-msgstr "Onchain Activities"
-
 msgid "Tomorrow at {0}"
 msgstr "Tomorrow at {0}"
 
@@ -258,6 +255,9 @@ msgstr "Found arweaveTxId is empty."
 
 msgid "<0>You</0> and {0} others recasted"
 msgstr "<0>You</0> and {0} others recasted"
+
+msgid "Activities"
+msgstr "Activities"
 
 msgid "Change Wallet"
 msgstr "Change Wallet"

@@ -1230,7 +1230,7 @@ export class LensSocialMedia implements Provider {
             }),
         );
         const blockList = await FireflyEndpointProvider.getBlockRelation(
-            profileIds.map((snsId) => ({ snsId, snsPlatform: SourceInURL.Lens })),
+            profileIds.map((snsId) => ({ snsId, snsPlatform: FireflyPlatform.Lens })),
         );
 
         const profileIdSet = new Set(blockList.filter((x) => x.blocked).map((x) => x.snsId));
@@ -1353,7 +1353,7 @@ export class LensSocialMedia implements Provider {
     }
 
     async getBlockedProfiles(indicator?: PageIndicator): Promise<Pageable<Profile, PageIndicator>> {
-        return FireflySocialMediaProvider.getBlockedProfiles(indicator, FireflyPlatform.Lens);
+        return FireflySocialMediaProvider.getBlockedProfiles(indicator, SourceInURL.Lens);
     }
 
     async getLikeReactors(postId: string, indicator?: PageIndicator) {
