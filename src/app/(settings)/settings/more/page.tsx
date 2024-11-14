@@ -66,11 +66,6 @@ export default function More() {
                         logo: FireflyRoundIcon,
                     },
                     {
-                        title: <Trans>Join our Discord</Trans>,
-                        link: 'https://discord.com/invite/pufMbBGQZN',
-                        logo: DiscordIcon,
-                    },
-                    {
                         title: <Trans>Join our Telegram</Trans>,
                         link: 'https://t.me/fireflyapp',
                         logo: TelegramIcon,
