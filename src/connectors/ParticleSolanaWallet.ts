@@ -131,7 +131,7 @@ export class ParticleSolanaWalletAdapter extends BaseMessageSignerWalletAdapter 
                 );
                 if (!connectedSolanaWallets?.length) {
                     enqueueWarningMessage(t`You haven't generated a Firefly wallet yet.`);
-                    throw new NotAllowedError('[particle solana] Wallet not found');
+                    throw new NotAllowedError('[particle solana] Not generated a Firefly wallet before');
                 }
 
                 const user = await connect({
@@ -146,7 +146,7 @@ export class ParticleSolanaWalletAdapter extends BaseMessageSignerWalletAdapter 
                     (x) => x.chain_name === 'solana' && isValidSolanaAddress(x.public_address),
                 );
                 if (!wallets.length) {
-                    throw new AuthenticationError('[particle solana] Wallet not found');
+                    throw new Error('[particle solana] Wallet not found');
                 }
 
                 try {

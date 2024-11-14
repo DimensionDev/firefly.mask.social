@@ -61,7 +61,7 @@ export function createParticleConnector(options: ConnectorOptions): CreateConnec
             async connect(parameters) {
                 if (parameters?.isReconnecting && useGlobalState.getState().particleReconnecting) {
                     console.info(`[particle] cancel reconnect`);
-                    throw new Error('Abort reconnecting.');
+                    throw new AbortError('[particle] Reconnecting');
                 }
 
                 console.info(`[particle] connect`);
@@ -75,7 +75,7 @@ export function createParticleConnector(options: ConnectorOptions): CreateConnec
                 );
                 if (!connectedEthWallets?.length) {
                     enqueueWarningMessage(t`You haven't generated a Firefly wallet yet.`);
-                    throw new NotAllowedError('[particle] Wallet not found');
+                    throw new NotAllowedError('[particle] Not generated a Firefly wallet before');
                 }
 
                 const chain = options.chains.find((x) => x.id === parameters?.chainId) ?? mainnet;
@@ -92,7 +92,7 @@ export function createParticleConnector(options: ConnectorOptions): CreateConnec
                     (x) => x.chain_name === 'evm_chain' && isValidAddress(x.public_address),
                 );
                 if (!wallets.length) {
-                    throw new AuthenticationError('[particle] Wallet not found');
+                    throw new Error('[particle] Wallet not found');
                 }
 
                 useGlobalState.getState().updateParticleReconnecting(false);
