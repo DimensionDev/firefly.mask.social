@@ -13,6 +13,7 @@ import { createSessionStorage } from '@/helpers/createSessionStorage.js';
 import { isSameAccount } from '@/helpers/isSameAccount.js';
 import { isSameProfile } from '@/helpers/isSameProfile.js';
 import { isSameSessionPayload } from '@/helpers/isSameSession.js';
+import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import type { FarcasterSession } from '@/providers/farcaster/Session.js';
 import { farcasterSessionHolder } from '@/providers/farcaster/SessionHolder.js';
 import { FarcasterSocialMediaProvider } from '@/providers/farcaster/SocialMedia.js';
@@ -29,7 +30,6 @@ import type { Profile, ProfileEditable } from '@/providers/types/SocialMedia.js'
 import { addAccount } from '@/services/account.js';
 import { bindOrRestoreFireflySession } from '@/services/bindOrRestoreFireflySession.js';
 import { restoreFireflySessionAll } from '@/services/restoreFireflySession.js';
-import { runInSafeAsync } from '@/helpers/runInSafe.js';
 
 export interface ProfileState {
     // indicate the store is ready or not
