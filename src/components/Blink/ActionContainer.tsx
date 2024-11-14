@@ -1,12 +1,15 @@
-import { Action, ActionContainer as RawActionContainer } from '@dialectlabs/blinks';
+import { Action, Blink } from '@dialectlabs/blinks';
 import { memo } from 'react';
 
 import { parseUrl } from '@/helpers/parseUrl.js';
+import { useActionAdapter } from '@/hooks/useActionAdapter.js';
 
 export const ActionContainer = memo<{
     action: Action;
-}>(function ActionContainer({ action }) {
+    url: string;
+}>(function ActionContainer({ action, url }) {
     const parsed = parseUrl(action.url);
+    const adapter = useActionAdapter(url);
 
     return (
         <div
@@ -15,7 +18,7 @@ export const ActionContainer = memo<{
                 e.stopPropagation();
             }}
         >
-            <RawActionContainer action={action} websiteUrl={parsed?.origin} websiteText={parsed?.host} />
+            <Blink action={action} adapter={adapter} websiteUrl={parsed?.origin} websiteText={parsed?.host} />
         </div>
     );
 });

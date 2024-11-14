@@ -5,7 +5,6 @@ import { useQuery } from '@tanstack/react-query';
 import { memo, useEffect } from 'react';
 
 import { ActionContainer } from '@/components/Blink/ActionContainer.js';
-import { useActionAdapter } from '@/hooks/useActionAdapter.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 import { getPostBlinkAction } from '@/services/getPostLinks.js';
 
@@ -31,13 +30,6 @@ export const Blink = memo<Props>(function Blink({ post, onData, onFailed, childr
         enabled: !!url,
     });
 
-    const actionAdapter = useActionAdapter(url);
-    useEffect(() => {
-        if (action) {
-            action.setAdapter(actionAdapter);
-        }
-    }, [actionAdapter, action]);
-
     useEffect(() => {
         if (action) onData?.(action);
     }, [onData, action]);
@@ -47,7 +39,7 @@ export const Blink = memo<Props>(function Blink({ post, onData, onFailed, childr
     }, [onFailed, error]);
 
     if (isLoading) return null;
-    if (error || !action) return children;
+    if (error || !action || !url) return children;
 
-    return <>{action ? <ActionContainer action={action} /> : null}</>;
+    return <>{action ? <ActionContainer action={action} url={url} /> : null}</>;
 });
