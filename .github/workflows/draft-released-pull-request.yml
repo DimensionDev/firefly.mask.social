@@ -39,15 +39,10 @@ jobs:
           fi
           echo "new_version=$(npm pkg get version)" >> $GITHUB_ENV
 
-      - name: Commit version bump
-        run: |
-          git config --local user.name "github-actions[bot]"
-          git config --local user.email "github-actions[bot]@users.noreply.github.com"
-          git add package.json
-          git commit -m "chore: bump version to ${{ env.new_version }}"
-
-      - name: Push changes
-        run: git push --set-upstream origin "bump-version-${{ env.new_version }}"
+      - name: Commit changes if any
+        uses: EndBug/add-and-commit@v9
+        with:
+          message: "chore: bump version to ${{ env.new_version }}"
 
       - name: Create pull request
         uses: peter-evans/create-pull-request@v5
