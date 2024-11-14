@@ -27,10 +27,6 @@ jobs:
         with:
           node-version-file: '.node-version'
 
-      - name: Get current version
-        id: version
-        run: echo "current_version=$(npm pkg get version | tr -d '\"')" >> $GITHUB_ENV
-
       - name: Determine Pull Request Title and Base Branch
         id: base_branch
         run: |
@@ -50,10 +46,15 @@ jobs:
         run: |
           git checkout ${{ env.base_branch}}
 
+      - name: Get current version
+        id: version
+        run: echo "current_version=$(npm pkg get version | tr -d '\"')" >> $GITHUB_ENV
+
       - name: Bump version
         id: bump_version
         run: |
           release_type="${{ github.event.inputs.release_type }}"
+
           if [ "$release_type" = "major" ]; then
             npm version major --git-tag-version false
           elif [ "$release_type" = "minor" ]; then
@@ -66,16 +67,14 @@ jobs:
       - name: Determine Pull Request Title and Base Branch
         id: pr_title
         run: |
-          current_version="${{ env.current_version }}"
-          new_version="${{ env.new_version }}"
           release_type="${{ github.event.inputs.release_type }}"
 
           if [ "$release_type" = "major" ]; then
-            pr_title="[Release] New release ${new_version} (major)"
+            pr_title="[Release] New release ${{ env.new_version }} (major)"
           elif [ "$release_type" = "minor" ]; then
-            pr_title="[Release] New release ${new_version} (minor)"
+            pr_title="[Release] New release ${{ env.new_version }} (minor)"
           else
-            pr_title="[Release] Hotfix ${current_version} => ${new_version} (patch)"
+            pr_title="[Release] Hotfix ${{ env.current_version }} => ${{ env.new_version }} (patch)"
           fi
 
           echo "pr_title=$pr_title" >> $GITHUB_ENV
