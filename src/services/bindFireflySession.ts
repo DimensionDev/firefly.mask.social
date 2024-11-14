@@ -33,7 +33,12 @@ async function bindLensToFirefly(session: LensSession, signal?: AbortSignal) {
 
 async function bindFarcasterSessionToFirefly(session: FarcasterSession, signal?: AbortSignal) {
     const isGrantByPermission = FarcasterSession.isGrantByPermission(session, true);
-    if (!isGrantByPermission) throw new NotAllowedError('Invalid farcaster session.');
+    const isRelayService = FarcasterSession.isRelayService(session);
+
+    if (!isGrantByPermission && !isRelayService)
+        throw new NotAllowedError(
+            '[bindFarcasterSessionToFirefly] Only grant-by-permission or relay service sessions are allowed.',
+        );
 
     const response = await fireflySessionHolder.fetch<BindResponse>(
         urlcat(settings.FIREFLY_ROOT_URL, '/v3/user/bindFarcaster'),
@@ -41,6 +46,7 @@ async function bindFarcasterSessionToFirefly(session: FarcasterSession, signal?:
             method: 'POST',
             body: JSON.stringify({
                 token: isGrantByPermission ? session.signerRequestToken : undefined,
+                channelToken: isRelayService ? session.channelToken : undefined,
                 isForce: false,
             }),
             signal,
@@ -57,7 +63,8 @@ async function bindTwitterSessionToFirefly(session: TwitterSession, signal?: Abo
         headers: TwitterSession.payloadToHeaders(session.payload),
         signal,
     });
-    if (!encrypted.success) throw new Error(`Failed to encrypt twitter session: ${encrypted.error.message}.`);
+    if (!encrypted.success)
+        throw new Error(`[bindTwitterSessionToFirefly] Failed to encrypt twitter session: ${encrypted.error.message}.`);
 
     const response = await fireflySessionHolder.fetch<BindResponse>(
         urlcat(settings.FIREFLY_ROOT_URL, '/exchange/bindTwitter'),
@@ -95,6 +102,6 @@ export async function bindFireflySession(session: Session, signal?: AbortSignal)
             throw new NotAllowedError();
         default:
             safeUnreachable(session.type);
-            throw new UnreachableError('session type', session.type);
+            throw new UnreachableError('[bindFireflySession] session type', session.type);
     }
 }
