@@ -42,6 +42,8 @@ jobs:
       - name: Commit changes if any
         uses: EndBug/add-and-commit@v9
         with:
+          add: 'package.json'
+          new_branch: 'bump-version-${{ env.new_version }}'
           message: "chore: bump version to ${{ env.new_version }}"
 
       - name: Create pull request
