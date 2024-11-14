@@ -37,9 +37,6 @@ export async function restoreFireflySession(session: Session, signal?: AbortSign
             return new FireflySession(data.accountId, data.accessToken, session);
         }
         case SessionType.Farcaster: {
-            if (FarcasterSession.isCustodyWallet(session))
-                throw new NotAllowedError('[restoreFireflySession] Custody wallet is not allowed.');
-
             const isGrantByPermission = FarcasterSession.isGrantByPermission(session, true);
             const isRelayService = FarcasterSession.isRelayService(session);
             if (!isGrantByPermission && !isRelayService)
