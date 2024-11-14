@@ -45,7 +45,6 @@ jobs:
           add: 'package.json'
           new_branch: 'bump-version-${{ env.new_version }}'
           message: "chore: bump version to ${{ env.new_version }}"
-          fetch: false
 
       - name: Create pull request
         uses: peter-evans/create-pull-request@v5
