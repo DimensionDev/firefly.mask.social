@@ -43,7 +43,7 @@ export function SearchableTokenItem({ token }: SearchableTokenItemProps) {
             </div>
             <data
                 className={classNames(
-                    'flex h-8 w-24 shrink-0 items-center justify-center gap-x-1 rounded text-medium font-bold text-white',
+                    'flex h-8 shrink-0 items-center justify-center gap-x-1 rounded px-1 text-medium font-bold text-white max-md:w-auto max-md:min-w-24 max-md:p-2 max-md:text-[10px] max-md:leading-[12px]',
                     {
                         'bg-success': priceChange >= 0,
                         'bg-danger': priceChange < 0,
@@ -51,7 +51,12 @@ export function SearchableTokenItem({ token }: SearchableTokenItemProps) {
                 )}
             >
                 {priceChange !== 0 ? (
-                    <PriceArrow width={20} height={20} className={priceChange < 0 ? 'rotate-180' : ''} />
+                    <PriceArrow
+                        className={classNames(
+                            'h-5 w-5 max-md:h-[10px] max-md:w-[10px]',
+                            priceChange < 0 ? 'rotate-180' : '',
+                        )}
+                    />
                 ) : null}
                 {priceChange.toFixed(2)}%
             </data>
