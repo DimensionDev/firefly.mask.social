@@ -72,7 +72,7 @@ export default function More() {
                     },
                     {
                         title: <Trans>Join our Telegram</Trans>,
-                        link: 'https://t.me/+mz9T_4YOYhoyYmYx',
+                        link: 'https://t.me/fireflyapp',
                         logo: TelegramIcon,
                     },
                 ].map(({ title, link, logo }) => (
