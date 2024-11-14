@@ -49,13 +49,13 @@ jobs:
           git checkout -b 'bump-version-${{ env.new_version }}'
           git push origin 'bump-version-${{ env.new_version }}' -f
 
-      - name: Create pull request
-        uses: peter-evans/create-pull-request@v5
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          branch: 'bump-version-${{ env.new_version }}'
-          title: |
-            ${{ github.event.inputs.release_type == 'major' && '[Release] New release ' || github.event.inputs.release_type == 'minor' && '[Release] New release ' || '[Release] Hotfix ' }}${{ env.version }} => ${{ env.new_version }} ${{ github.event.inputs.release_type == 'patch' && '(patch)' || github.event.inputs.release_type == 'minor' && '(minor)' || '(major)' }}
-          body: 'Closes MF-0000'
-          draft: true
-          base: main
+      # - name: Create pull request
+      #   uses: peter-evans/create-pull-request@v5
+      #   with:
+      #     token: ${{ secrets.GITHUB_TOKEN }}
+      #     branch: 'bump-version-${{ env.new_version }}'
+      #     title: |
+      #       ${{ github.event.inputs.release_type == 'major' && '[Release] New release ' || github.event.inputs.release_type == 'minor' && '[Release] New release ' || '[Release] Hotfix ' }}${{ env.version }} => ${{ env.new_version }} ${{ github.event.inputs.release_type == 'patch' && '(patch)' || github.event.inputs.release_type == 'minor' && '(minor)' || '(major)' }}
+      #     body: 'Closes MF-0000'
+      #     draft: true
+      #     base: main
