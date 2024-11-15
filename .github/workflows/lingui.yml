@@ -35,7 +35,10 @@ jobs:
             - name: Run Lingui
               run: npm run lingui
 
-            - name: Commit changes if any
-              uses: EndBug/add-and-commit@v9
-              with:
-                  message: 'chore: lingui extract'
+            - name: Commit and Push changes
+              run: |
+                  git add src/
+                  git config --global user.name "github-actions[bot]"
+                  git config --global user.email "github-actions[bot]@users.noreply.github.com"
+                  git commit -m "chore: extract messages from source files [bot]"
+                  git push origin
