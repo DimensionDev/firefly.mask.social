@@ -1,3 +1,5 @@
+name: Decode Issue
+
 on:
   issues:
     types: [opened, edited, labeled]
