@@ -44,7 +44,8 @@ export const TWEET_WEB_REGEX = /https:\/\/(x\.com|twitter\.com)\/i\/web\/status\
 
 export const TWEET_SPACE_REGEX = /https:\/\/(x\.com|twitter\.com)\/([a-zA-Z0-9_]*)\/spaces\/([a-zA-Z0-9_]*)/;
 
-export const LENS_HANDLE_REGEXP = /^[a-zA-Z0-9_]*\.lens$/;
+// https://www.lens.xyz/docs/best-practices/onboarding#choosing-a-handle
+export const LENS_HANDLE_REGEXP = /^[a-zA-Z_][a-zA-Z0-9_]{2,26}\.lens$/;
 
 export const NUMERIC_INPUT_REGEXP_PATTERN = '^[1-9]|^0(?![0-9])[.,。]?[0-9]*$';
 
