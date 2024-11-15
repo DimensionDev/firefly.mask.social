@@ -172,7 +172,7 @@ export const EXPLORE_DEFAULT_SOURCE: Record<ExploreType, ExploreSource> = {
     [ExploreType.TopProfiles]: Source.Farcaster,
     [ExploreType.CryptoTrends]: TrendingType.Trending,
     [ExploreType.TopChannels]: Source.Farcaster,
-}
+};
 
 export const BOOKMARK_SOURCES: BookmarkSource[] = [Source.Farcaster, Source.Lens, Source.Article, Source.Snapshot];
 
