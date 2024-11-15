@@ -1,8 +1,12 @@
-import type { BaseHubOptions, SimpleHash } from '@masknet/web3-providers/types';
+import { type BaseHubOptions, SimpleHash } from '@masknet/web3-providers/types';
 import type { NonFungibleAsset } from '@masknet/web3-shared-base';
 import type { ChainId, SchemaType } from '@masknet/web3-shared-evm';
 
 import type { Pageable, PageIndicator } from '@/helpers/pageable.js';
+
+export type SimpleHashCollection = SimpleHash.Collection & {
+    chains?: string[];
+};
 
 export interface Provider {
     /**
@@ -39,7 +43,13 @@ export interface Provider {
      * Retrieves a collection by its contract address.
      * @param contractAddress
      */
-    getCollection(contractAddress: string): Promise<SimpleHash.Collection | null>;
+    getCollection(contractAddress: string): Promise<SimpleHashCollection | null>;
+
+    /**
+     * Retrieves a collection by its ID.
+     * @param collectionId
+     */
+    getCollectionById(collectionId: string): Promise<SimpleHashCollection | null>;
 
     /**
      * Retrieves the top collectors of a collection.

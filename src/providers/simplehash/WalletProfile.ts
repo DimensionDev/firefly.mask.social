@@ -4,7 +4,7 @@ import type { NonFungibleAsset } from '@masknet/web3-shared-base';
 import type { ChainId, SchemaType } from '@masknet/web3-shared-evm';
 
 import type { Pageable, PageIndicator } from '@/helpers/pageable.js';
-import type { Provider } from '@/providers/types/WalletProfile.js';
+import type { Provider, SimpleHashCollection } from '@/providers/types/WalletProfile.js';
 
 class SimpleHashWalletProfile implements Provider {
     async getNFT(
@@ -32,8 +32,13 @@ class SimpleHashWalletProfile implements Provider {
     async getCollection(
         contractAddress: string,
         options?: BaseHubOptions<ChainId>,
-    ): Promise<SimpleHash.Collection | null> {
+    ): Promise<SimpleHashCollection | null> {
         const collection = await SimpleHashEVM.getCollectionByContractAddress(contractAddress, options);
+        return collection || null;
+    }
+
+    async getCollectionById(collectionId: string): Promise<SimpleHashCollection | null> {
+        const collection = await SimpleHashEVM.getSimpleHashCollection(collectionId);
         return collection || null;
     }
 

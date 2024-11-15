@@ -2,8 +2,11 @@ import { ChainId } from '@masknet/web3-shared-evm';
 
 import { createPageTitleOG } from '@/helpers/createPageTitle.js';
 import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
+import { resolveCollectionChain } from '@/helpers/resolveCollectionChain.js';
 import { resolveNftUrl } from '@/helpers/resolveNftUrl.js';
+import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { SimpleHashWalletProfileProvider } from '@/providers/simplehash/WalletProfile.js';
+import type { SimpleHashCollection } from '@/providers/types/WalletProfile.js';
 
 export async function createMetadataNFT(address: string, tokenId: string, chainId: ChainId) {
     const data = await SimpleHashWalletProfileProvider.getNFT(
@@ -37,13 +40,11 @@ export async function createMetadataNFT(address: string, tokenId: string, chainI
     });
 }
 
-export async function createMetadataNFTCollection(address: string, chainId: ChainId) {
-    const data = await SimpleHashWalletProfileProvider.getCollection(address, { chainId }).catch(() => null);
-    if (!data) return createSiteMetadata({});
-
+function createCollectionMetadata(data: SimpleHashCollection) {
     const title = createPageTitleOG(data.name);
     const description = data.description;
     const images = [data.image_url];
+    const { chainId, address } = resolveCollectionChain(data);
     return createSiteMetadata({
         title,
         description,
@@ -60,4 +61,18 @@ export async function createMetadataNFTCollection(address: string, chainId: Chai
             images,
         },
     });
+}
+
+export async function createMetadataNFTCollection(address: string, chainId: ChainId) {
+    const data = await runInSafeAsync(() => SimpleHashWalletProfileProvider.getCollection(address, { chainId }));
+    if (!data) return createSiteMetadata({});
+
+    return createCollectionMetadata(data);
+}
+
+export async function createMetadataNFTCollectionById(collectionId: string) {
+    const data = await runInSafeAsync(() => SimpleHashWalletProfileProvider.getCollectionById(collectionId));
+    if (!data) return createSiteMetadata({});
+
+    return createCollectionMetadata(data);
 }

@@ -4,10 +4,7 @@ import { ChainId } from '@masknet/web3-shared-evm';
 import { useSuspenseQuery } from '@tanstack/react-query';
 import { notFound } from 'next/navigation.js';
 
-import { CollectionInfo } from '@/components/CollectionDetail/CollectionInfo.js';
-import { CollectionTabs } from '@/components/CollectionDetail/CollectionTabs.js';
-import { NFTNavbar } from '@/components/NFTs/NFTNavbar.js';
-import { getFloorPrice } from '@/helpers/getFloorPrice.js';
+import { NFTCollection } from '@/components/CollectionDetail/NFTCollection.js';
 import { SimpleHashWalletProfileProvider } from '@/providers/simplehash/WalletProfile.js';
 
 export function NFTCollectionPage({ chainId, address }: { chainId: ChainId; address: string }) {
@@ -20,21 +17,18 @@ export function NFTCollectionPage({ chainId, address }: { chainId: ChainId; addr
 
     if (!data) notFound();
 
-    return (
-        <div className="min-h-screen">
-            <NFTNavbar>{data.name}</NFTNavbar>
-            <CollectionInfo
-                address={address}
-                name={data.name}
-                bannerImageUrl={data.banner_image_url}
-                imageUrl={data.image_url}
-                nftCount={data.distinct_nft_count}
-                ownerCount={data.distinct_owner_count}
-                floorPrice={getFloorPrice(data?.floor_prices)}
-                chainId={chainId}
-                collectionId={data.collection_id}
-            />
-            <CollectionTabs address={address} chainId={chainId} totalQuantity={data.total_quantity} />
-        </div>
-    );
+    return <NFTCollection collection={data} address={address} chainId={chainId} />;
+}
+
+export function NFTCollectionPageById({ collectionId }: { collectionId: string }) {
+    const { data } = useSuspenseQuery({
+        queryKey: ['nft-collection', collectionId],
+        async queryFn() {
+            return SimpleHashWalletProfileProvider.getCollectionById(collectionId);
+        },
+    });
+
+    if (!data) notFound();
+
+    return <NFTCollection collection={data} />;
 }
