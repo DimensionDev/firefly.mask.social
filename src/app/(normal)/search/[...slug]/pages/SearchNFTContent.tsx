@@ -15,6 +15,15 @@ const getSearchItemContent = (nft: SearchableNFT) => {
     return <SearchableNFTItem key={nft.contract_address} nft={nft} />;
 };
 
+function filterAndSortNFTs(nfts: SearchableNFT[], keyword: string) {
+    return nfts
+        .filter((nft) => nft.owners_total >= 100)
+        .sort((a, b) => {
+            if (a.name.toLowerCase() === keyword.toLowerCase()) return -1;
+            return b.items_total - a.items_total;
+        });
+}
+
 export function SearchNFTContent() {
     const { searchKeyword, searchType, source } = useSearchStateStore();
 
@@ -31,7 +40,7 @@ export function SearchNFTContent() {
             return lastPage?.nextIndicator?.id;
         },
         select(data) {
-            return compact(data.pages.flatMap((x) => x?.data ?? []));
+            return filterAndSortNFTs(compact(data.pages.flatMap((x) => x?.data ?? [])), searchKeyword);
         },
     });
 
