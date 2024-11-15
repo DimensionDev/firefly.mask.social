@@ -168,6 +168,12 @@ export const EXPLORE_SOURCES: Partial<Record<ExploreType, ExploreSource[]>> = {
     ],
 };
 
+export const EXPLORE_DEFAULT_SOURCE: Record<ExploreType, ExploreSource> = {
+    [ExploreType.TopProfiles]: Source.Farcaster,
+    [ExploreType.CryptoTrends]: TrendingType.Trending,
+    [ExploreType.TopChannels]: Source.Farcaster,
+}
+
 export const BOOKMARK_SOURCES: BookmarkSource[] = [Source.Farcaster, Source.Lens, Source.Article, Source.Snapshot];
 
 export const TIPS_SUPPORT_NETWORKS = [NetworkType.Ethereum];

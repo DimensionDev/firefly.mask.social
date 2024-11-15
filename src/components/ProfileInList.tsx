@@ -56,7 +56,7 @@ export function ProfileInList({ profile, noFollowButton, listKey, index }: Profi
                 <div className="flex-start flex gap-3">
                     <div className="flex-start flex flex-1 flex-col overflow-auto">
                         <p className="flex items-center gap-2 text-sm font-bold leading-5">
-                            <Link className="truncate text-xl" href={profileUrl}>
+                            <Link className="truncate text-lg leading-6" href={profileUrl}>
                                 {profile.displayName}
                             </Link>
                             <SocialSourceIcon
@@ -69,23 +69,25 @@ export function ProfileInList({ profile, noFollowButton, listKey, index }: Profi
                         <div className="flex items-center">
                             {profile.handle ? (
                                 <Link
-                                    className="self-start text-sm leading-[22px] text-secondary"
+                                    className="self-start text-[15px] leading-[22px] text-secondary"
                                     href={profileUrl}
                                     onClick={handleClickOnLink}
                                 >
                                     @{profile.handle}
                                 </Link>
                             ) : null}
-                            <span className="mx-1 leading-5 text-secondary">·</span>
+                            <span className="mx-1 leading-[22px] text-secondary">·</span>
                             <Link
                                 href={resolveProfileUrl(source, profileId, FollowCategory.Followers)}
-                                className={classNames('gap-1 leading-[22px] hover:underline', {
+                                className={classNames('gap-1 text-[15px] leading-[22px] hover:underline', {
                                     'pointer-events-none': source !== Source.Farcaster && source !== Source.Lens,
                                 })}
                             >
                                 <data value={followerCount}>
-                                    <span className="font-bold text-lightMain">{nFormatter(followerCount)} </span>
-                                    <span className="text-secondary">
+                                    <span className="font-bold leading-[22px] text-lightMain">
+                                        {nFormatter(followerCount)}{' '}
+                                    </span>
+                                    <span className="leading-[22px] text-secondary">
                                         <Plural value={followerCount} one="Follower" other="Followers" />
                                     </span>
                                 </data>
@@ -96,7 +98,7 @@ export function ProfileInList({ profile, noFollowButton, listKey, index }: Profi
                         <FollowButton
                             profile={profile}
                             variant={isMedium ? 'icon' : 'text'}
-                            className={isMedium ? 'w-[50px] max-w-[50px]' : ''}
+                            className={isMedium ? 'w-[50px] max-w-[50px]' : 'w-[88px] !min-w-0 max-w-[88px]'}
                         />
                     ) : null}
                 </div>

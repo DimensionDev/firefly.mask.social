@@ -206,6 +206,7 @@ export class CoinGecko {
             urlcat(COINGECKO_URL_BASE, '/coins/markets', {
                 vs_currency: 'usd',
                 category: 'meme-token',
+                per_page: 50,
             }),
         );
 
