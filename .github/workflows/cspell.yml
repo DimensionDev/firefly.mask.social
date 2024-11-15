@@ -1,31 +1,31 @@
 name: CSpell
 
 on:
-  push:
+    push:
 
 jobs:
-  spellcheck:
-    runs-on: ubuntu-latest
+    spellcheck:
+        runs-on: ubuntu-latest
 
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-        with:
-          submodules: 'true'
+        steps:
+            - name: Checkout code
+              uses: actions/checkout@v2
+              with:
+                  submodules: 'true'
 
-      - name: Authenticate NPM
-        uses: DimensionDev/github-token-action@latest
-        with:
-          registry: true
+            - name: Authenticate NPM
+              uses: DimensionDev/github-token-action@latest
+              with:
+                  registry: true
 
-      - name: Set up Node.js
-        uses: actions/setup-node@v2
-        with:
-          node-version-file: '.node-version'
+            - name: Set up Node.js
+              uses: actions/setup-node@v2
+              with:
+                  node-version-file: '.node-version'
 
-      - uses: pnpm/action-setup@v4
-      - name: Install dependencies
-        run: pnpm install
+            - uses: pnpm/action-setup@v4
+            - name: Install dependencies
+              run: pnpm install
 
-      - name: Run CSpell
-        run: npx cspell "**/*"
+            - name: Run CSpell
+              run: npx cspell "**/*"

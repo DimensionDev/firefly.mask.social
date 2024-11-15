@@ -1,53 +1,53 @@
 name: Sync Submodule
 
 on:
-  schedule:
-    - cron: '0 0 * * *' # every day at 00:00 (midnight)
-    - cron: '0 12 * * *' # every day at 12:00 PM (noon)
-  workflow_dispatch:
-    inputs:
-      submodule_branch:
-        description: 'The branch to sync the submodule with'
-        required: true
-        type: string
-        default: 'firefly'
+    schedule:
+        - cron: '0 0 * * *' # every day at 00:00 (midnight)
+        - cron: '0 12 * * *' # every day at 12:00 PM (noon)
+    workflow_dispatch:
+        inputs:
+            submodule_branch:
+                description: 'The branch to sync the submodule with'
+                required: true
+                type: string
+                default: 'firefly'
 
 jobs:
-  sync-submodule:
-    runs-on: ubuntu-latest
+    sync-submodule:
+        runs-on: ubuntu-latest
 
-    env:
-      SUBMODULE_BRANCH: ${{ inputs.submodule_branch }}
+        env:
+            SUBMODULE_BRANCH: ${{ inputs.submodule_branch }}
 
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v2
+        steps:
+            - name: Checkout repository
+              uses: actions/checkout@v2
 
-      - name: Checkout submodule
-        run: git submodule update --init --recursive
+            - name: Checkout submodule
+              run: git submodule update --init --recursive
 
-      - name: Fetch latest changes in submodule branch
-        run: git -C src/maskbook fetch origin $SUBMODULE_BRANCH
+            - name: Fetch latest changes in submodule branch
+              run: git -C src/maskbook fetch origin $SUBMODULE_BRANCH
 
-      - name: Get latest commit hash of submodule branch
-        id: get_latest_commit
-        run: |
-          latest_commit=$(git -C src/maskbook rev-parse $SUBMODULE_BRANCH)
-          echo "::set-output name=latest_commit::$latest_commit"
+            - name: Get latest commit hash of submodule branch
+              id: get_latest_commit
+              run: |
+                  latest_commit=$(git -C src/maskbook rev-parse $SUBMODULE_BRANCH)
+                  echo "::set-output name=latest_commit::$latest_commit"
 
-      - name: Update submodule to latest commit
-        if: steps.get_latest_commit.outputs.latest_commit != ''
-        run: |
-          git -C src/maskbook checkout ${{ steps.get_latest_commit.outputs.latest_commit }}
+            - name: Update submodule to latest commit
+              if: steps.get_latest_commit.outputs.latest_commit != ''
+              run: |
+                  git -C src/maskbook checkout ${{ steps.get_latest_commit.outputs.latest_commit }}
 
-      - name: Create pull request
-        if: steps.get_latest_commit.outputs.latest_commit != ''
-        uses: peter-evans/create-pull-request@v3
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          branch: sync-submodule-changes
-          title: 'Sync changes from submodule to target the ${{ inputs.submodule_branch }}'
-          body: 'This pull request syncs the changes from the submodule to target the ${{ inputs.submodule_branch }} branch. By @${{ github.actor }}.'
-          commit-message: 'chore: Sync submodule changes'
-          base: main
-          labels: 'automated'
+            - name: Create pull request
+              if: steps.get_latest_commit.outputs.latest_commit != ''
+              uses: peter-evans/create-pull-request@v3
+              with:
+                  token: ${{ secrets.GITHUB_TOKEN }}
+                  branch: sync-submodule-changes
+                  title: 'Sync changes from submodule to target the ${{ inputs.submodule_branch }}'
+                  body: 'This pull request syncs the changes from the submodule to target the ${{ inputs.submodule_branch }} branch. By @${{ github.actor }}.'
+                  commit-message: 'chore: Sync submodule changes'
+                  base: main
+                  labels: 'automated'
