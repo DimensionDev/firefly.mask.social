@@ -1,8 +1,10 @@
+import { Trans } from '@lingui/macro';
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation.js';
 import type React from 'react';
 
 import { PostDetailPage } from '@/app/(normal)/post/[source]/[id]/pages/DetailPage.js';
+import { Comeback } from '@/components/Comeback.js';
 import { NotLoginFallback } from '@/components/NotLoginFallback.js';
 import { KeyType, type SocialSourceInURL, Source } from '@/constants/enum.js';
 import { createMetadataPostById } from '@/helpers/createMetadataPostById.js';
@@ -46,7 +48,17 @@ export default async function Page(props: Props) {
 
     const source = resolveSocialSource(params.source);
     if (source === Source.Twitter && !twitterSessionHolder.session) {
-        return <NotLoginFallback source={source} />;
+        return (
+            <article className="min-h-screen">
+                <header className="sticky top-0 z-40 flex items-center border-b border-line bg-primaryBottom px-4 py-[18px]">
+                    <Comeback className="mr-8" />
+                    <h2 className="text-xl font-black leading-6">
+                        <Trans>Details</Trans>
+                    </h2>
+                </header>
+                <NotLoginFallback source={source} />
+            </article>
+        );
     }
 
     return <PostDetailPage id={params.id} source={source} />;
