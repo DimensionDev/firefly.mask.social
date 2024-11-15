@@ -1,42 +1,42 @@
 name: PR Issue Linker
 
 on:
-  pull_request:
-    types:
-      - opened
-      - edited
-      - synchronize
+    pull_request:
+        types:
+            - opened
+            - edited
+            - synchronize
 
 jobs:
-  pr-linker:
-    runs-on: ubuntu-latest
+    pr-linker:
+        runs-on: ubuntu-latest
 
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v3
+        steps:
+            - name: Checkout repository
+              uses: actions/checkout@v3
 
-      - name: Modify and update PR description with Jira links
-        id: pr_linker
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          # Get PR description
-          PR_BODY=$(gh pr view ${{ github.event.pull_request.number }} --json body -q ".body")
+            - name: Modify and update PR description with Jira links
+              id: pr_linker
+              env:
+                  GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+              run: |
+                  # Get PR description
+                  PR_BODY=$(gh pr view ${{ github.event.pull_request.number }} --json body -q ".body")
 
-          # Debug PR body
-          echo "Original PR Body: $PR_BODY"
+                  # Debug PR body
+                  echo "Original PR Body: $PR_BODY"
 
-          # Modify PR description by replacing Jira issue keys with links
-          MODIFIED_BODY=$(echo "$PR_BODY" | sed -E 's/Closes\sFW-([1-9][0-9]{0,3})\b/Closes [FW-\1](https:\/\/mask.atlassian.net\/browse\/FW-\1)/g')
+                  # Modify PR description by replacing Jira issue keys with links
+                  MODIFIED_BODY=$(echo "$PR_BODY" | sed -E 's/Closes\sFW-([1-9][0-9]{0,3})\b/Closes [FW-\1](https:\/\/mask.atlassian.net\/browse\/FW-\1)/g')
 
-          # Debug modified PR body
-          echo "Modified PR Body: $MODIFIED_BODY"
+                  # Debug modified PR body
+                  echo "Modified PR Body: $MODIFIED_BODY"
 
-          # Check if the description was modified and update PR description if needed
-          if [[ "$PR_BODY" != "$MODIFIED_BODY" ]]; then
-            echo "Jira issues found and modified."
-            gh pr edit ${{ github.event.pull_request.number }} --body "$MODIFIED_BODY"
-          else
-            echo "No Jira issues found. Keeping original PR description."
-            gh pr edit ${{ github.event.pull_request.number }} --body "$PR_BODY"
-          fi
+                  # Check if the description was modified and update PR description if needed
+                  if [[ "$PR_BODY" != "$MODIFIED_BODY" ]]; then
+                    echo "Jira issues found and modified."
+                    gh pr edit ${{ github.event.pull_request.number }} --body "$MODIFIED_BODY"
+                  else
+                    echo "No Jira issues found. Keeping original PR description."
+                    gh pr edit ${{ github.event.pull_request.number }} --body "$PR_BODY"
+                  fi

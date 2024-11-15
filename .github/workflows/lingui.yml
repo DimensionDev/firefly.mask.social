@@ -1,41 +1,41 @@
 name: Lingui
 
 on:
-  push:
-    branches:
-      - '**'
-      - '!main'
-      - '!released'
-  workflow_dispatch:
+    push:
+        branches:
+            - '**'
+            - '!main'
+            - '!released'
+    workflow_dispatch:
 
 jobs:
-  extract:
-    runs-on: ubuntu-latest
+    extract:
+        runs-on: ubuntu-latest
 
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-        with:
-          submodules: 'true'
+        steps:
+            - name: Checkout code
+              uses: actions/checkout@v2
+              with:
+                  submodules: 'true'
 
-      - name: Authenticate NPM
-        uses: DimensionDev/github-token-action@latest
-        with:
-          registry: true
+            - name: Authenticate NPM
+              uses: DimensionDev/github-token-action@latest
+              with:
+                  registry: true
 
-      - name: Set up Node.js
-        uses: actions/setup-node@v2
-        with:
-          node-version-file: '.node-version'
+            - name: Set up Node.js
+              uses: actions/setup-node@v2
+              with:
+                  node-version-file: '.node-version'
 
-      - uses: pnpm/action-setup@v4
-      - name: Install dependencies
-        run: pnpm install
+            - uses: pnpm/action-setup@v4
+            - name: Install dependencies
+              run: pnpm install
 
-      - name: Run Lingui
-        run: npm run lingui
+            - name: Run Lingui
+              run: npm run lingui
 
-      - name: Commit changes if any
-        uses: EndBug/add-and-commit@v9
-        with:
-          message: 'chore: lingui extract'
+            - name: Commit changes if any
+              uses: EndBug/add-and-commit@v9
+              with:
+                  message: 'chore: lingui extract'

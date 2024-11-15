@@ -1,71 +1,71 @@
 name: Pick Commit to Target Branch
 
 on:
-  workflow_dispatch:
-    inputs:
-      commit_hash:
-        description: 'Commit hash to be picked (at least six characters)'
-        required: true
-      target_branch:
-        description: 'Target branch to pick to (default is main)'
-        required: false
-        default: 'main'
+    workflow_dispatch:
+        inputs:
+            commit_hash:
+                description: 'Commit hash to be picked (at least six characters)'
+                required: true
+            target_branch:
+                description: 'Target branch to pick to (default is main)'
+                required: false
+                default: 'main'
 
 jobs:
-  pick-commit:
-    runs-on: ubuntu-latest
+    pick-commit:
+        runs-on: ubuntu-latest
 
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-        with:
-          # 0 indicates all history for all branches and tags
-          fetch-depth: 0
+        steps:
+            - name: Checkout code
+              uses: actions/checkout@v2
+              with:
+                  # 0 indicates all history for all branches and tags
+                  fetch-depth: 0
 
-      - name: Validate inputs
-        run: |
-          COMMIT_HASH=${{ github.event.inputs.commit_hash }}
-          TARGET_BRANCH=${{ github.event.inputs.target_branch }}
+            - name: Validate inputs
+              run: |
+                  COMMIT_HASH=${{ github.event.inputs.commit_hash }}
+                  TARGET_BRANCH=${{ github.event.inputs.target_branch }}
 
-          # Validate commit hash length
-          if [ ${#COMMIT_HASH} -lt 6 ] || [ ${#COMMIT_HASH} -gt 40 ]; then
-            echo "Commit hash must be between 6 and 40 characters long."
-            exit 1
-          fi
+                  # Validate commit hash length
+                  if [ ${#COMMIT_HASH} -lt 6 ] || [ ${#COMMIT_HASH} -gt 40 ]; then
+                    echo "Commit hash must be between 6 and 40 characters long."
+                    exit 1
+                  fi
 
-          # Check if target branch is the release branch
-          if [ "$TARGET_BRANCH" = "release" ]; then
-            echo "Cannot pick commit to release branch."
-            exit 1
-          fi
+                  # Check if target branch is the release branch
+                  if [ "$TARGET_BRANCH" = "release" ]; then
+                    echo "Cannot pick commit to release branch."
+                    exit 1
+                  fi
 
-          # Check if target branch exists
-          git fetch origin $TARGET_BRANCH || {
-            echo "Target branch $TARGET_BRANCH not found."
-            exit 1
-          }
+                  # Check if target branch exists
+                  git fetch origin $TARGET_BRANCH || {
+                    echo "Target branch $TARGET_BRANCH not found."
+                    exit 1
+                  }
 
-          # Check if the commit exists
-          git cat-file -e $COMMIT_HASH || {
-            echo "Commit $COMMIT_HASH not found."
-            exit 1
-          }
+                  # Check if the commit exists
+                  git cat-file -e $COMMIT_HASH || {
+                    echo "Commit $COMMIT_HASH not found."
+                    exit 1
+                  }
 
-      - name: Pick commit to target branch
-        run: |
-          COMMIT_HASH=${{ github.event.inputs.commit_hash }}
-          TARGET_BRANCH=${{ github.event.inputs.target_branch }}
+            - name: Pick commit to target branch
+              run: |
+                  COMMIT_HASH=${{ github.event.inputs.commit_hash }}
+                  TARGET_BRANCH=${{ github.event.inputs.target_branch }}
 
-          # Cherry-pick the commit to the target branch
-          git checkout $TARGET_BRANCH
-          git cherry-pick $COMMIT_HASH
+                  # Cherry-pick the commit to the target branch
+                  git checkout $TARGET_BRANCH
+                  git cherry-pick $COMMIT_HASH
 
-          # Check for conflicts
-          if git diff --check | grep -qE '^[+-]{7}'; then
-            echo "Conflicts found, aborting push."
-            git cherry-pick --abort
-            exit 1
-          fi
+                  # Check for conflicts
+                  if git diff --check | grep -qE '^[+-]{7}'; then
+                    echo "Conflicts found, aborting push."
+                    git cherry-pick --abort
+                    exit 1
+                  fi
 
-          # Push changes to the target branch
-          git push origin $TARGET_BRANCH
+                  # Push changes to the target branch
+                  git push origin $TARGET_BRANCH
