@@ -57,12 +57,12 @@ export function ChannelInList({
                 }}
                 href={getChannelUrl(channel)}
             >
-                <div className="mr-3 shrink-0 self-start">
+                <div className="mr-[10px] shrink-0 self-start">
                     <ChannelTippy channel={channel}>
                         <Avatar
                             className="rounded-full border"
                             src={channel.imageUrl}
-                            size={isSmall || dense ? 40 : 48}
+                            size={isSmall || dense ? 40 : 44}
                             alt={channel.name}
                         />
                     </ChannelTippy>
@@ -70,15 +70,8 @@ export function ChannelInList({
 
                 <div className="flex-start flex max-w-[calc(100%-40px-16px)] flex-1 flex-col overflow-auto">
                     <div className="flex-start flex items-center text-sm font-bold leading-5">
-                        <ChannelTippy channel={channel} className="mr-2 truncate">
-                            <span
-                                className={classNames({
-                                    'text-xl': !dense,
-                                    'text-l': dense,
-                                })}
-                            >
-                                {channel.name}
-                            </span>
+                        <ChannelTippy channel={channel} className="mr-1 truncate">
+                            <span className="text-[18px] leading-6">{channel.name}</span>
                         </ChannelTippy>
                         <SocialSourceIcon
                             mono
@@ -89,12 +82,14 @@ export function ChannelInList({
                     </div>
                     <div className="flex items-center gap-2 text-medium text-sm leading-[24px] text-secondary">
                         <ChannelTippy channel={channel}>
-                            <p className="truncate">/{channel.id}</p>
+                            <p className="truncate text-[15px] leading-[22px]">/{channel.id}</p>
                         </ChannelTippy>
-                        <span className="mx-1 leading-5 text-secondary">·</span>
+                        <span className="leading-[22px] text-secondary">·</span>
                         <data value={channel.followerCount}>
-                            <span className="font-bold text-lightMain">{nFormatter(channel.followerCount)} </span>
-                            <span className="text-secondary">
+                            <span className="font-bold leading-[22px] text-lightMain">
+                                {nFormatter(channel.followerCount)}{' '}
+                            </span>
+                            <span className="leading-[22px] text-secondary">
                                 <Plural value={channel.followerCount} one="Follower" other="Followers" />
                             </span>
                         </data>

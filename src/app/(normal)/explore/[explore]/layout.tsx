@@ -3,7 +3,7 @@ import type { PropsWithChildren } from 'react';
 
 import { SourceTabs } from '@/components/SourceTabs/index.js';
 import { SourceTab } from '@/components/SourceTabs/SourceTab.js';
-import { ExploreType, Source, TrendingType } from '@/constants/enum.js';
+import { ExploreType } from '@/constants/enum.js';
 import { EXPLORE_TYPES } from '@/constants/index.js';
 import { createPageTitleSSR } from '@/helpers/createPageTitle.js';
 import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
@@ -39,10 +39,7 @@ export default function Layout({
                     <SourceTab
                         className="whitespace-nowrap text-base md:h-[45px] md:px-4 md:py-[10px]"
                         key={x}
-                        href={resolveExploreUrl(
-                            x,
-                            x === ExploreType.TopProfiles ? Source.Farcaster : TrendingType.TopGainers,
-                        )}
+                        href={resolveExploreUrl(x)}
                         isActive={x === params.explore}
                     >
                         {labels[x]}
