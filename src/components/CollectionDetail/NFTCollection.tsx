@@ -30,7 +30,12 @@ export function NFTCollection({ collection, ...rest }: NFTCollectionProps) {
                 chainId={chainId}
                 collectionId={collection.collection_id}
             />
-            <CollectionTabs address={address} chainId={chainId} totalQuantity={collection.total_quantity} />
+            <CollectionTabs
+                collectionId={collection.collection_id}
+                address={address}
+                chainId={chainId}
+                totalQuantity={collection.total_quantity}
+            />
         </div>
     );
 }

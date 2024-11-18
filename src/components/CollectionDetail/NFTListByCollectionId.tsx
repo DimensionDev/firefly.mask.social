@@ -8,7 +8,7 @@ import { GridListInPage } from '@/components/GridListInPage.js';
 import { getNFTItemContent, POAPGridListComponent } from '@/components/Profile/POAPList.js';
 import { EMPTY_LIST } from '@/constants/index.js';
 import { createIndicator } from '@/helpers/pageable.js';
-import { SimpleHashWalletProfileProvider } from '@/providers/simplehash/WalletProfile.js';
+import { resolveWalletProfileProvider } from '@/helpers/resolveWalletProfileProvider.js';
 
 export function NFTListByCollectionId(props: { collectionId: string; owner: string; chainId?: ChainId }) {
     const { collectionId, owner, chainId } = props;
@@ -20,7 +20,8 @@ export function NFTListByCollectionId(props: { collectionId: string; owner: stri
                 pageParam ? { index: 1, id: pageParam, __type__: 'PageIndicator' } : undefined,
                 pageParam,
             );
-            return SimpleHashWalletProfileProvider.getNFTsByCollectionIdAndOwner(collectionId, owner, {
+            const provider = resolveWalletProfileProvider(chainId);
+            return provider.getNFTsByCollectionIdAndOwner(collectionId, owner, {
                 indicator,
                 chainId,
             });
