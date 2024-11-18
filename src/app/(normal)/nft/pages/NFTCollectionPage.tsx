@@ -5,13 +5,14 @@ import { useSuspenseQuery } from '@tanstack/react-query';
 import { notFound } from 'next/navigation.js';
 
 import { NFTCollection } from '@/components/CollectionDetail/NFTCollection.js';
-import { SimpleHashWalletProfileProvider } from '@/providers/simplehash/WalletProfile.js';
+import { resolveWalletProfileProvider } from '@/helpers/resolveWalletProfileProvider.js';
 
 export function NFTCollectionPage({ chainId, address }: { chainId: ChainId; address: string }) {
     const { data } = useSuspenseQuery({
         queryKey: ['nft-collection', chainId, address],
         async queryFn() {
-            return SimpleHashWalletProfileProvider.getCollection(address, { chainId });
+            const provider = resolveWalletProfileProvider(chainId);
+            return provider.getCollection(address, { chainId });
         },
     });
 
@@ -24,7 +25,8 @@ export function NFTCollectionPageById({ collectionId }: { collectionId: string }
     const { data } = useSuspenseQuery({
         queryKey: ['nft-collection', collectionId],
         async queryFn() {
-            return SimpleHashWalletProfileProvider.getCollectionById(collectionId);
+            const provider = resolveWalletProfileProvider();
+            return provider.getCollectionById(collectionId);
         },
     });
 

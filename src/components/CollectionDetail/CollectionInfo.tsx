@@ -1,7 +1,6 @@
 'use client';
 
 import { Trans } from '@lingui/macro';
-import { EVMExplorerResolver } from '@masknet/web3-providers';
 import { ChainId } from '@masknet/web3-shared-evm';
 
 import LinkIcon from '@/assets/link-square.svg';
@@ -13,9 +12,10 @@ import { ChainIcon } from '@/components/NFTDetail/ChainIcon.js';
 import { NFTImage } from '@/components/NFTImage.js';
 import { TextOverflowTooltip } from '@/components/TextOverflowTooltip.js';
 import { ELEX24_NFT_CONTRACT_ADDRESS } from '@/constants/index.js';
-import { formatEthereumAddress } from '@/helpers/formatAddress.js';
+import { formatAddress } from '@/helpers/formatAddress.js';
 import { nFormatter } from '@/helpers/formatCommentCounts.js';
 import { isSameEthereumAddress } from '@/helpers/isSameAddress.js';
+import { resolveAddressLink } from '@/helpers/resolveExplorer.js';
 
 interface CollectionInfoProps {
     address: string;
@@ -75,18 +75,16 @@ export function CollectionInfo(props: CollectionInfoProps) {
                         </TextOverflowTooltip>
                         {collectionId ? <ReportSpamButton collectionId={collectionId} /> : null}
                     </div>
-                    <div className="text-normal flex items-center text-sm leading-[14px] text-secondary">
-                        <span className="hidden sm:inline">{address}</span>
-                        <span className="inline sm:hidden">{formatEthereumAddress(address, 4)}</span>
-                        <CopyTextButton text={address} />
-                        <a
-                            className="ml-1.5 h-3 w-3"
-                            href={EVMExplorerResolver.addressLink(chainId, address)}
-                            target="_blank"
-                        >
-                            <LinkIcon className="h-3 w-3 text-secondary" />
-                        </a>
-                    </div>
+                    {address ? (
+                        <div className="text-normal flex items-center text-sm leading-[14px] text-secondary">
+                            <span className="hidden sm:inline">{address}</span>
+                            <span className="inline sm:hidden">{formatAddress(address, 4)}</span>
+                            <CopyTextButton text={address} />
+                            <a className="ml-1.5 h-3 w-3" href={resolveAddressLink(chainId, address)} target="_blank">
+                                <LinkIcon className="h-3 w-3 text-secondary" />
+                            </a>
+                        </div>
+                    ) : null}
                     <div className="flex items-center space-x-2 whitespace-nowrap text-sm leading-[22px]">
                         {nftCount ? (
                             <div>

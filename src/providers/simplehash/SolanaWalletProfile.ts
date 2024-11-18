@@ -1,55 +1,61 @@
-import { SimpleHashEVM } from '@masknet/web3-providers';
+import { SimpleHashSolana } from '@masknet/web3-providers';
 import type { BaseHubOptions, SimpleHash } from '@masknet/web3-providers/types';
 import type { NonFungibleAsset } from '@masknet/web3-shared-base';
-import type { ChainId, SchemaType } from '@masknet/web3-shared-evm';
+import type { ChainId, SchemaType } from '@masknet/web3-shared-solana';
 
 import type { Pageable, PageIndicator } from '@/helpers/pageable.js';
 import type { Provider, SimpleHashCollection } from '@/providers/types/WalletProfile.js';
 
-class SimpleHashWalletProfile implements Provider {
+class SimpleHashSolanaWalletProfile implements Provider<ChainId, SchemaType> {
     async getNFT(
         address: string,
         tokenId: string,
         options?: BaseHubOptions<ChainId>,
-        skipScoreCheck = false,
     ): Promise<NonFungibleAsset<ChainId, SchemaType> | null> {
-        const asset = await SimpleHashEVM.getAsset(address, tokenId, options, skipScoreCheck);
+        const asset = await SimpleHashSolana.getAsset(address, tokenId, options);
         return asset || null;
     }
 
     getNFTs(contractAddress: string, options?: BaseHubOptions<ChainId>, skipScoreCheck = false) {
-        return SimpleHashEVM.getAssetsByCollection(contractAddress, options, skipScoreCheck);
+        return SimpleHashSolana.getAssetsByCollection(contractAddress, options);
+    }
+
+    getNFTsByCollectionId(collectionId: string, options?: BaseHubOptions<ChainId>) {
+        return SimpleHashSolana.getAssetsByCollectionId(collectionId, options);
     }
 
     getNFTsByCollectionIdAndOwner(collectionId: string, owner: string, options?: BaseHubOptions<ChainId>) {
-        return SimpleHashEVM.getAssetsByCollectionAndOwner(collectionId, owner, options);
+        return SimpleHashSolana.getAssetsByCollectionAndOwner(collectionId, owner, options);
     }
 
     getPOAPs(address: string, options?: BaseHubOptions<ChainId> & { contractAddress?: string }) {
-        return SimpleHashEVM.getAssets(address, options);
+        return SimpleHashSolana.getAssets(address, options);
     }
 
     async getCollection(
         contractAddress: string,
         options?: BaseHubOptions<ChainId>,
     ): Promise<SimpleHashCollection | null> {
-        const collection = await SimpleHashEVM.getCollectionByContractAddress(contractAddress, options);
+        const collection = await SimpleHashSolana.getCollectionByContractAddress(contractAddress, options);
         return collection || null;
     }
 
     async getCollectionById(collectionId: string): Promise<SimpleHashCollection | null> {
-        const collection = await SimpleHashEVM.getSimpleHashCollection(collectionId);
+        const collection = await SimpleHashSolana.getSimpleHashCollection(collectionId);
         return collection || null;
     }
 
-    async getTopCollectors(contractAddress: string, options?: BaseHubOptions<ChainId>) {
-        const response = await SimpleHashEVM.getTopCollectorsByContract(contractAddress, options);
+    async getTopCollectors(
+        collectionId: string,
+        options?: BaseHubOptions<ChainId>,
+    ): Promise<Pageable<SimpleHash.TopCollector, PageIndicator>> {
+        const response = await SimpleHashSolana.getTopCollectorsByCollectionId(collectionId, options);
         return response as Pageable<SimpleHash.TopCollector, PageIndicator>;
     }
 
     async getPoapEvent(eventId: number, options: Omit<BaseHubOptions<ChainId>, 'chainId'> = {}) {
-        return SimpleHashEVM.getPoapEvent(eventId, options);
+        return SimpleHashSolana.getPoapEvent(eventId, options);
     }
 }
 
-export const SimpleHashWalletProfileProvider = new SimpleHashWalletProfile();
+export const SimpleHashSolanaWalletProfileProvider = new SimpleHashSolanaWalletProfile();

@@ -12,19 +12,20 @@ import { ScrollListKey, Source } from '@/constants/enum.js';
 import { EMPTY_LIST } from '@/constants/index.js';
 import { Link } from '@/esm/Link.js';
 import { classNames } from '@/helpers/classNames.js';
-import { formatEthereumAddress } from '@/helpers/formatAddress.js';
+import { formatAddress } from '@/helpers/formatAddress.js';
 import { nFormatter } from '@/helpers/formatCommentCounts.js';
 import { formatPercentage } from '@/helpers/formatPercentage.js';
 import { getStampAvatarByProfileId } from '@/helpers/getStampAvatarByProfileId.js';
 import { createIndicator } from '@/helpers/pageable.js';
 import { resolveProfileUrl } from '@/helpers/resolveProfileUrl.js';
+import { resolveWalletProfileProvider } from '@/helpers/resolveWalletProfileProvider.js';
 import { BlockScanExplorerResolver } from '@/providers/ethereum/ExplorerResolver.js';
-import { SimpleHashWalletProfileProvider } from '@/providers/simplehash/WalletProfile.js';
 
 interface TopCollectorsProps {
     address: string;
     chainId?: ChainId;
     totalQuantity?: number;
+    collectionId: string;
 }
 
 function getTopCollectorsItemContent(
@@ -58,8 +59,8 @@ function getTopCollectorsItemContent(
                                 <div className="w-full truncate">{item.owner_ens_name}</div>
                             </TextOverflowTooltip>
                         ) : (
-                            <Tooltip content={addressOrEns} placement="right">
-                                <span>{formatEthereumAddress(item.owner_address, 4)}</span>
+                            <Tooltip content={addressOrEns} placement="top" className="!max-w-[400px]">
+                                <div className="truncate">{formatAddress(item.owner_address, 4)}</div>
                             </Tooltip>
                         )}
                         <LinkIcon className="ml-1.5 h-3 w-3 text-secondary" />
@@ -87,12 +88,13 @@ function getTopCollectorsItemContent(
 }
 
 export function TopCollectors(props: TopCollectorsProps) {
-    const { address, chainId = ChainId.Mainnet, totalQuantity } = props;
+    const { address, chainId = ChainId.Mainnet, collectionId, totalQuantity } = props;
     const queryResult = useSuspenseInfiniteQuery({
-        queryKey: ['top-collectors', address],
+        queryKey: ['top-collectors', address, collectionId],
         async queryFn({ pageParam }) {
             const indicator = createIndicator(undefined, pageParam);
-            return SimpleHashWalletProfileProvider.getTopCollectors(address, { indicator, chainId });
+            const provider = resolveWalletProfileProvider(chainId);
+            return provider.getTopCollectors(collectionId, { indicator, chainId });
         },
         initialPageParam: '',
         getNextPageParam: (lastPage) => lastPage?.nextIndicator?.id,
