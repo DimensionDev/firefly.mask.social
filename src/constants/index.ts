@@ -52,7 +52,7 @@ export const SNAPSHOT_SCORES_URL = 'https://score.snapshot.org';
 export const SNAPSHOT_SEQ_URL = 'https://seq.snapshot.org';
 export const SNAPSHOT_RELAY_URL = 'https://relayer.snapshot.org';
 export const SNAPSHOT_IPFS_GATEWAY_URL = 'https://snapshot.4everland.link/ipfs/';
-export const SIMPLE_HASH_URL = 'https://simplehash-proxy.r2d2.to'
+export const SIMPLE_HASH_URL = 'https://simplehash-proxy.r2d2.to';
 
 export const ADVERTISEMENT_JSON_URL = 'https://media.firefly.land/advertisement/web.json';
 export const ADVERTISEMENT_JSON_URL_DEV = 'https://media.firefly.land/advertisement/web-dev.json';
