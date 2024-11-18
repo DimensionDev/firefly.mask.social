@@ -1,4 +1,4 @@
-name: Prettier
+name: Maintenance
 
 on:
     push:
@@ -9,7 +9,7 @@ on:
     workflow_dispatch:
 
 jobs:
-    prettier:
+    eslint:
         runs-on: ubuntu-latest
 
         steps:
@@ -29,16 +29,29 @@ jobs:
                   node-version-file: '.node-version'
 
             - uses: pnpm/action-setup@v4
+
             - name: Install dependencies
               run: pnpm install
 
-            - name: Check code style with Prettier
+            - name: Run Lingui
+              run: npm run lingui
+
+            - name: Run Prettier
               run: npx prettier . -w
 
-            - name: Commit and Push changes
+            - name: Run ESLint
               run: |
-                  git add src/
+                  npx eslint --fix . || echo "ESLint completed with warnings"
+
+            - name: Commit and Push changes if necessary
+              run: |
                   git config --global user.name "github-actions[bot]"
                   git config --global user.email "github-actions[bot]@users.noreply.github.com"
-                  git commit -m "chore: format code with Prettier [bot]"
-                  git push origin
+
+                  if [[ $(git status --porcelain) ]]; then
+                    git add src/
+                    git commit -m "chore: code maintainance [bot]"
+                    git push origin
+                  else
+                    echo "No changes to commit."
+                  fi
