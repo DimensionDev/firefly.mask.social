@@ -1,4 +1,4 @@
-name: ESLint, Prettier and Lingui
+name: Maintenance
 
 on:
     push:
