@@ -9,7 +9,8 @@ interface ActivityResultProps {
 }
 
 export function PolymarketActivityResult({ activity }: ActivityResultProps) {
-    const isYes = activity.outcome.toUpperCase() === 'YES';
+    const isYes = activity.conditionOutcomePrices[1] !== '1';
+    const outcome = isYes ? activity.conditionOutcomes[0] : activity.conditionOutcomes[1];
 
     return (
         <div className="mt-2 text-center">
@@ -19,11 +20,9 @@ export function PolymarketActivityResult({ activity }: ActivityResultProps) {
                     'bg-danger': !isYes,
                 })}
             >
-                <Trans>Settled as {activity.outcome.toUpperCase()}</Trans>
+                <Trans>Settled as {outcome.toUpperCase()}</Trans>
             </div>
-            <div className="mt-2 text-xs font-medium text-lightSecond">
-                ${computeVolume(activity, activity.outcomeIndex)}
-            </div>
+            <div className="mt-2 text-xs font-medium text-lightSecond">${computeVolume(activity, isYes ? 0 : 1)}</div>
         </div>
     );
 }

@@ -53,7 +53,7 @@ export function PolymarketTimeLine({ address, isFollowing }: PolymarketTimeLineP
     });
 
     if (!isLogin) {
-        return <NotLoginFallback source={Source.Farcaster} />;
+        return <NotLoginFallback source={Source.Polymarket} />;
     }
 
     return (

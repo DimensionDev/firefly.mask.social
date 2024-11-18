@@ -3,7 +3,7 @@ import { Trans } from '@lingui/macro';
 import { type HTMLProps, memo } from 'react';
 
 import { ClickableButton } from '@/components/ClickableButton.js';
-import { type SocialSource, Source } from '@/constants/enum.js';
+import { type LoginFallbackSource, type ProfileSource, Source } from '@/constants/enum.js';
 import { Image } from '@/esm/Image.js';
 import { classNames } from '@/helpers/classNames.js';
 import { createLookupTableResolver } from '@/helpers/createLookupTableResolver.js';
@@ -12,7 +12,7 @@ import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { useAsyncStatus } from '@/hooks/useAsyncStatus.js';
 import { LoginModalRef } from '@/modals/controls.js';
 
-const resolveConnectButtonClass = createLookupTableResolver<SocialSource | Source.Article | Source.Snapshot, string>(
+const resolveConnectButtonClass = createLookupTableResolver<LoginFallbackSource, string>(
     {
         [Source.Lens]:
             'text-lensPrimary ring-lensPrimary hover:bg-[rgba(154,227,42,0.20)] hover:shadow-[0_0_16px_0_rgba(101,119,134,0.20)]',
@@ -23,17 +23,19 @@ const resolveConnectButtonClass = createLookupTableResolver<SocialSource | Sourc
             'w-[203px] text-[#AD7BFF] ring-[#AD7BFF] shadow-[0_0_16px_0_rgba(101,119,134,0.2)] hover:bg-[#AD7BFF33]/20',
         [Source.Snapshot]:
             'w-[203px] text-[#AD7BFF] ring-[#AD7BFF] shadow-[0_0_16px_0_rgba(101,119,134,0.2)] hover:bg-[#AD7BFF33]/20',
+        [Source.Polymarket]:
+            'w-[203px] text-[#AD7BFF] ring-[#AD7BFF] shadow-[0_0_16px_0_rgba(101,119,134,0.2)] hover:bg-[#AD7BFF33]/20',
     },
     '',
 );
 
 interface NotLoginFallbackProps extends HTMLProps<HTMLDivElement> {
-    source: SocialSource | Source.Article | Source.Snapshot;
+    source: LoginFallbackSource;
 }
 
 export const NotLoginFallback = memo<NotLoginFallbackProps>(function NotLoginFallback({ source, className }) {
     const fallbackImageUrl = resolveFallbackImageUrl(source);
-    const isNotSocialSource = source === Source.Article || source === Source.Snapshot;
+    const isNotSocialSource = [Source.Article, Source.Snapshot, Source.Polymarket].includes(source);
 
     const asyncStatusTwitter = useAsyncStatus(Source.Twitter);
     const isTwitterConnecting = source === Source.Twitter && asyncStatusTwitter;
@@ -62,7 +64,7 @@ export const NotLoginFallback = memo<NotLoginFallbackProps>(function NotLoginFal
                 )}
                 disabled={isTwitterConnecting}
                 onClick={() => {
-                    LoginModalRef.open({ source: isNotSocialSource ? undefined : source });
+                    LoginModalRef.open({ source: isNotSocialSource ? undefined : (source as ProfileSource) });
                 }}
             >
                 {isNotSocialSource ? (
