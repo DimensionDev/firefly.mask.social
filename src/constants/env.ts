@@ -7,6 +7,14 @@ const InternalEnvSchema = z.object({
     TWITTER_CLIENT_ID: z.string(),
     TWITTER_CLIENT_SECRET: z.string(),
 
+    GOOGLE_CLIENT_ID: z.string(),
+    GOOGLE_CLIENT_SECRET: z.string(),
+
+    APPLE_KEY_ID: z.string(),
+    APPLE_TEAM_ID: z.string(),
+    APPLE_CLIENT_ID: z.string(),
+    APPLE_PRIVATE_KEY: z.string(),
+
     IMGUR_CLIENT_ID: z.string(),
     IMGUR_CLIENT_SECRET: z.string(),
 
