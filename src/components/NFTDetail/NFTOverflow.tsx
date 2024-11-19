@@ -3,7 +3,7 @@
 import { t, Trans } from '@lingui/macro';
 import { EVMExplorerResolver } from '@masknet/web3-providers';
 import { SchemaType } from '@masknet/web3-shared-evm';
-import { isValidChainId as isValidSolanaChainId } from '@masknet/web3-shared-solana';
+import { isValidChainId as isValidSolanaChainId, SchemaType as SolanaSchemaType } from '@masknet/web3-shared-solana';
 import { type ReactNode, useMemo } from 'react';
 
 import LinkIcon from '@/assets/link-square.svg';
@@ -80,11 +80,29 @@ interface NFTOverflowProps {
     mintingDate?: string;
     contractAddress?: string;
     chainId?: number;
-    schemaType?: SchemaType;
+    schemaType?: number;
 }
+
+const evmStandardMap: Record<number, string> = {
+    [SchemaType.Native]: 'Native',
+    [SchemaType.ERC721]: 'ERC721',
+    [SchemaType.ERC1155]: 'ERC1155',
+    [SchemaType.ERC20]: 'ERC20',
+    [SchemaType.SBT]: 'SBT',
+};
+const solanaStandardMap: Record<number, string> = {
+    [SolanaSchemaType.NonFungible]: 'Metaplex',
+    [SolanaSchemaType.Native]: 'Native',
+};
 
 export function NFTOverflow(props: NFTOverflowProps) {
     const description = useMemo(() => convertDescriptionToArray(props.description), [props.description]);
+    const standard = useMemo(() => {
+        if (!props.schemaType) return;
+        const isSolana = isValidSolanaChainId(props.chainId);
+        return isSolana ? solanaStandardMap[props.schemaType] : evmStandardMap[props.schemaType];
+    }, [props.schemaType, props.chainId]);
+
     return (
         <div className="space-y-8">
             {props.description ? (
@@ -102,22 +120,10 @@ export function NFTOverflow(props: NFTOverflowProps) {
                     <Trans>Details</Trans>
                 </h3>
                 <div className="space-y-4">
-                    {props.schemaType ? (
+                    {standard ? (
                         <DetailsGroup
                             field={t`NFT Standard`}
-                            value={
-                                <div className="flex items-center">
-                                    {
-                                        {
-                                            [SchemaType.Native]: 'Native',
-                                            [SchemaType.ERC721]: 'ERC721',
-                                            [SchemaType.ERC1155]: 'ERC1155',
-                                            [SchemaType.ERC20]: 'ERC20',
-                                            [SchemaType.SBT]: 'SBT',
-                                        }[props.schemaType]
-                                    }
-                                </div>
-                            }
+                            value={<div className="flex items-center">{standard}</div>}
                         />
                     ) : null}
                     {props.tokenId ? (
