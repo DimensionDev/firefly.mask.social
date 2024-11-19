@@ -1,6 +1,6 @@
 import { NotImplementedError } from '@/constants/error.js';
 import type { TelegramSession } from '@/providers/telegram/Session.js';
-import { telegramSessionHolder } from '@/providers/telegram/SessionHoder.js';
+import { telegramSessionHolder } from '@/providers/telegram/SessionHolder.js';
 import { type Provider } from '@/providers/types/NextAuthProvider.js';
 import { type Profile } from '@/providers/types/SocialMedia.js';
 import type { ResponseJSON } from '@/types/index.js';

@@ -32,6 +32,10 @@ export function isSameSession(session: Session | null, otherSession: Session | n
             return isSameSessionPayload(twitterSession.payload, otherTwitterSession.payload);
         case SessionType.Firefly:
             return session.token === otherSession.token;
+        case SessionType.Apple:
+        case SessionType.Google:
+        case SessionType.Telegram:
+            return session.token === otherSession.token;
         default:
             safeUnreachable(session.type);
             throw new UnreachableError('session type', session);
