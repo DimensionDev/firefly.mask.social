@@ -21,6 +21,7 @@ import type { FireflySession } from '@/providers/firefly/Session.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
 import { lensSessionHolder } from '@/providers/lens/SessionHolder.js';
 import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
+import { ThirdPartyAuthProvider } from '@/providers/third-party/Auth.js';
 import { TwitterAuthProvider } from '@/providers/twitter/Auth.js';
 import { TwitterSession } from '@/providers/twitter/Session.js';
 import { twitterSessionHolder } from '@/providers/twitter/SessionHolder.js';
@@ -343,6 +344,31 @@ const useTwitterStateBase = createState(
     },
 );
 
+const useThirdPartyStateBase = createState(
+    {},
+    {
+        name: 'third-party-state',
+        onRehydrateStorage: () => async (state) => {
+            if (!bom.window || !state) return;
+
+            state.upgrade();
+
+            try {
+                const sessionFromServer = await ThirdPartyAuthProvider.login();
+
+                if (sessionFromServer) state.__setStatus__(AsyncStatus.Pending);
+
+                // TODO: addAccount()
+            } catch (error) {
+                if (error instanceof FetchError) return;
+                state.clear();
+            } finally {
+                state.__setStatus__(AsyncStatus.Idle);
+            }
+        },
+    },
+);
+
 const useFireflyStateBase = createState(
     {},
     {
@@ -371,4 +397,5 @@ const useFireflyStateBase = createState(
 export const useLensStateStore = createSelectors(useLensStateBase);
 export const useFarcasterStateStore = createSelectors(useFarcasterStateBase);
 export const useTwitterStateStore = createSelectors(useTwitterStateBase);
+export const useThirdPartyStateStore = createSelectors(useThirdPartyStateBase);
 export const useFireflyStateStore = createSelectors(useFireflyStateBase);

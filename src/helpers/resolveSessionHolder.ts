@@ -5,7 +5,7 @@ import { SessionHolder } from '@/providers/base/SessionHolder.js';
 import { farcasterSessionHolder } from '@/providers/farcaster/SessionHolder.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
 import { lensSessionHolder } from '@/providers/lens/SessionHolder.js';
-import { telegramSessionHolder } from '@/providers/telegram/SessionHolder.js';
+import { thirdPartySessionHolder } from '@/providers/third-party/SessionHolder.js';
 import { twitterSessionHolder } from '@/providers/twitter/SessionHolder.js';
 import type { Session } from '@/providers/types/Session.js';
 import { SessionType } from '@/providers/types/SocialMedia.js';
@@ -27,9 +27,9 @@ export const resolveSessionHolderFromSessionType = createLookupTableResolver<Ses
         [SessionType.Lens]: lensSessionHolder,
         [SessionType.Firefly]: fireflySessionHolder,
         [SessionType.Twitter]: twitterSessionHolder,
-        [SessionType.Apple]: twitterSessionHolder,
-        [SessionType.Google]: twitterSessionHolder,
-        [SessionType.Telegram]: telegramSessionHolder,
+        [SessionType.Apple]: thirdPartySessionHolder,
+        [SessionType.Google]: thirdPartySessionHolder,
+        [SessionType.Telegram]: thirdPartySessionHolder,
     },
     (sessionType) => {
         throw new UnreachableError('sessionType', sessionType);

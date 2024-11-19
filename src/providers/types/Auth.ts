@@ -9,7 +9,7 @@ export interface Provider<T> {
     /**
      * Logout the user.
      */
-    logout(): Promise<null>;
+    logout(): Promise<void>;
 
     /**
      * Get the current logged in user.

@@ -14,11 +14,10 @@ class TwitterAuth implements Provider<SessionPayload> {
         return response.data;
     }
 
-    async logout(): Promise<null> {
+    async logout(): Promise<void> {
         await twitterSessionHolder.fetch<ResponseJSON<SessionPayload>>('/api/twitter/logout', {
             method: 'POST',
         });
-        return null;
     }
 
     async me(): Promise<Profile> {
