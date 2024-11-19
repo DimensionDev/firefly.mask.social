@@ -11,10 +11,13 @@ export const POST = compose<(request: NextRequest) => Promise<Response>>(
     async (request) => {
         // TODO: read third party oauth token for next-auth cookie
         // TODO: invoke firefly API along with the token to get the account details
-        return createSuccessResponseJSON({}, {
-            headers: {
-                'Set-Cookie': `thirdPartyToken=${btoa(JSON.stringify({}))}; path=/; Max-Age=31536000; SameSite=Lax; Secure;}`,
+        return createSuccessResponseJSON(
+            {},
+            {
+                headers: {
+                    'Set-Cookie': `thirdPartyToken=${btoa(JSON.stringify({}))}; path=/; Max-Age=31536000; SameSite=Lax; Secure;}`,
+                },
             },
-        });
+        );
     },
 );

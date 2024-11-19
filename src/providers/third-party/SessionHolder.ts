@@ -2,8 +2,8 @@ import { isServer } from '@tanstack/react-query';
 
 import { NotAllowedError } from '@/constants/error.js';
 import { SessionHolder } from '@/providers/base/SessionHolder.js';
+import { ThirdPartyAuthProvider } from '@/providers/third-party/Auth.js';
 import type { ThirdPartySession } from '@/providers/third-party/Session.js';
-import { TwitterAuthProvider } from '@/providers/twitter/Auth.js';
 
 class ThirdPartySessionHolder extends SessionHolder<ThirdPartySession> {
     override resumeSession(session: ThirdPartySession) {
@@ -20,7 +20,7 @@ class ThirdPartySessionHolder extends SessionHolder<ThirdPartySession> {
 
     override removeSession(): void {
         super.removeSession();
-        if (!isServer) TwitterAuthProvider.logout();
+        if (!isServer) ThirdPartyAuthProvider.logout();
     }
 }
 
