@@ -6,9 +6,9 @@ import type { Provider } from 'next-auth/providers/index';
 
 import { NODE_ENV } from '@/constants/enum.js';
 import { env } from '@/constants/env.js';
+import { AppleProvider } from '@/esm/AppleProvider.js';
 import { CredentialsProvider } from '@/esm/CredentialsProvider.js';
 import { TwitterProvider } from '@/esm/TwitterProvider.js';
-import { AppleProvider } from '@/esm/AppleProvider.js';
 
 const providers: Provider[] = [
     TwitterProvider({
