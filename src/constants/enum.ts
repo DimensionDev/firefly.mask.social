@@ -353,3 +353,9 @@ export enum PolymarketBetType {
     Buy = 'buy',
     Sell = 'sell',
 }
+
+export enum ThirdPartLoginType {
+    Google = 'google',
+    Telegram = 'telegram',
+    Apple = 'apple',
+}
