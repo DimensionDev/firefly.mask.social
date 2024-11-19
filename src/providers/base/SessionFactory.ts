@@ -7,6 +7,7 @@ import { parseJSON } from '@/helpers/parseJSON.js';
 import { FarcasterSession } from '@/providers/farcaster/Session.js';
 import { FireflySession, type FireflySessionSignature } from '@/providers/firefly/Session.js';
 import { LensSession } from '@/providers/lens/Session.js';
+import { ThirdPartySession } from '@/providers/third-party/Session.js';
 import { TwitterSession } from '@/providers/twitter/Session.js';
 import type { Session } from '@/providers/types/Session.js';
 import { SessionType } from '@/providers/types/SocialMedia.js';
@@ -101,6 +102,16 @@ export class SessionFactory {
                         session.token,
                         secondPart ? SessionFactory.createSession(atob(secondPart)) : null, // parent session
                         thirdPart ? parseJSON<FireflySessionSignature>(atob(thirdPart)) : undefined, // signature
+                    );
+                case SessionType.Apple:
+                case SessionType.Google:
+                case SessionType.Telegram:
+                    return new ThirdPartySession(
+                        type,
+                        session.profileId,
+                        session.token,
+                        session.createdAt,
+                        session.expiresAt,
                     );
                 default:
                     safeUnreachable(type);

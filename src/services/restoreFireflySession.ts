@@ -105,6 +105,10 @@ export async function restoreFireflySession(session: Session, signal?: AbortSign
         }
         case SessionType.Firefly:
             throw new NotAllowedError('[restoreFireflySession] Firefly session is not allowed.');
+        case SessionType.Apple:
+        case SessionType.Google:
+        case SessionType.Telegram:
+            throw new NotAllowedError();
         default:
             safeUnreachable(session.type);
             throw new UnreachableError('[restoreFireflySession] session type', session.type);

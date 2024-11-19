@@ -20,9 +20,9 @@ import {
     captureAccountLogoutEvent,
 } from '@/providers/telemetry/captureAccountEvent.js';
 import { captureSyncModalEvent } from '@/providers/telemetry/captureSyncModalEvent.js';
+import { TwitterAuthProvider } from '@/providers/twitter/Auth.js';
 import { TwitterSession } from '@/providers/twitter/Session.js';
 import { twitterSessionHolder } from '@/providers/twitter/SessionHolder.js';
-import { TwitterSocialMediaProvider } from '@/providers/twitter/SocialMedia.js';
 import type { Account } from '@/providers/types/Account.js';
 import type { Session } from '@/providers/types/Session.js';
 import { SessionType } from '@/providers/types/SocialMedia.js';
@@ -88,7 +88,7 @@ async function updateState(accounts: Account[], overwrite = false) {
                 sessionHolder?.resumeSession(account.session);
 
                 if (x === Source.Twitter && TwitterSession.isNextAuth(account.session)) {
-                    await TwitterSocialMediaProvider.login();
+                    await TwitterAuthProvider.login();
                 }
             }
         }),
