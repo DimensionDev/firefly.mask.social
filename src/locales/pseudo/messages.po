@@ -916,6 +916,9 @@ msgstr ""
 msgid "Login to Firefly"
 msgstr ""
 
+msgid "Apple ID"
+msgstr ""
+
 msgid "Canceled"
 msgstr ""
 
@@ -1258,6 +1261,9 @@ msgstr ""
 msgid "Description"
 msgstr ""
 
+msgid "Others"
+msgstr ""
+
 msgid "Muted wallets"
 msgstr ""
 
@@ -1460,6 +1466,9 @@ msgid "Failed to upvote post."
 msgstr ""
 
 msgid "<0>Acquired</0> an NFT"
+msgstr ""
+
+msgid "Telegram"
 msgstr ""
 
 msgid "Confirm to disconnect this account and related wallets from Firefly’s social graph?"
@@ -2069,6 +2078,9 @@ msgid "Recast or Quote"
 msgstr ""
 
 msgid "Sorry, we are not able to find a wallet for {0}."
+msgstr ""
+
+msgid "Google"
 msgstr ""
 
 msgid "Unwatch"
