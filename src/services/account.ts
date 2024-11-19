@@ -20,9 +20,9 @@ import {
     captureAccountLogoutEvent,
 } from '@/providers/telemetry/captureAccountEvent.js';
 import { captureSyncModalEvent } from '@/providers/telemetry/captureSyncModalEvent.js';
+import { TwitterNextAuthProvider } from '@/providers/twitter/NextAuth.js';
 import { TwitterSession } from '@/providers/twitter/Session.js';
 import { twitterSessionHolder } from '@/providers/twitter/SessionHolder.js';
-import { TwitterSocialMediaProvider } from '@/providers/twitter/SocialMedia.js';
 import type { Account } from '@/providers/types/Account.js';
 import type { Session } from '@/providers/types/Session.js';
 import { SessionType } from '@/providers/types/SocialMedia.js';
@@ -30,7 +30,6 @@ import { downloadAccounts, downloadSessions, uploadSessions } from '@/services/m
 import { restoreFireflySession } from '@/services/restoreFireflySession.js';
 import { usePreferencesState } from '@/store/usePreferenceStore.js';
 import { useFireflyStateStore } from '@/store/useProfileStore.js';
-import { TwitterNextAuthProvider } from '@/providers/twitter/NextAuth.js';
 
 function getContext(source: SocialSource) {
     return {

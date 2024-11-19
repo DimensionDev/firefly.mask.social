@@ -21,6 +21,7 @@ import type { FireflySession } from '@/providers/firefly/Session.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
 import { lensSessionHolder } from '@/providers/lens/SessionHolder.js';
 import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
+import { TwitterNextAuthProvider } from '@/providers/twitter/NextAuth.js';
 import { TwitterSession } from '@/providers/twitter/Session.js';
 import { twitterSessionHolder } from '@/providers/twitter/SessionHolder.js';
 import { TwitterSocialMediaProvider } from '@/providers/twitter/SocialMedia.js';
@@ -30,7 +31,6 @@ import type { Profile, ProfileEditable } from '@/providers/types/SocialMedia.js'
 import { addAccount } from '@/services/account.js';
 import { bindOrRestoreFireflySession } from '@/services/bindOrRestoreFireflySession.js';
 import { restoreFireflySessionAll } from '@/services/restoreFireflySession.js';
-import { TwitterNextAuthProvider } from '@/providers/twitter/NextAuth.js';
 
 export interface ProfileState {
     // indicate the store is ready or not
