@@ -28,7 +28,7 @@ export function NFTList(props: NFTListProps) {
             );
             const provider = resolveWalletProfileProvider(chainId);
             return collectionId
-                ? provider.getNFTsByCollectionId(collectionId, { indicator, chainId })
+                ? provider.getNFTsByCollectionId(collectionId, { indicator, chainId }, true)
                 : provider.getNFTs(address, { indicator, chainId }, true);
         },
         getNextPageParam: (lastPage) => lastPage?.nextIndicator?.id,
