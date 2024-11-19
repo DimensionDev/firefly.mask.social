@@ -1,11 +1,10 @@
-import type { SessionPayload } from '@/providers/twitter/SessionPayload.js';
-import type { Profile } from '@/providers/types/Firefly.js';
+import type { Profile } from '@/providers/types/SocialMedia.js';
 
-export interface Provider {
+export interface Provider<T> {
     /**
      * Login the user.
      */
-    login(): Promise<SessionPayload | null>;
+    login(): Promise<T | null>;
 
     /**
      * Logout the user.

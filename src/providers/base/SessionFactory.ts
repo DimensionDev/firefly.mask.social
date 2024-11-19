@@ -2,7 +2,7 @@ import { t } from '@lingui/macro';
 import { safeUnreachable } from '@masknet/kit';
 import z from 'zod';
 
-import { UnreachableError } from '@/constants/error.js';
+import { NotImplementedError, UnreachableError } from '@/constants/error.js';
 import { parseJSON } from '@/helpers/parseJSON.js';
 import { FarcasterSession } from '@/providers/farcaster/Session.js';
 import { FireflySession, type FireflySessionSignature } from '@/providers/firefly/Session.js';
@@ -102,6 +102,10 @@ export class SessionFactory {
                         secondPart ? SessionFactory.createSession(atob(secondPart)) : null, // parent session
                         thirdPart ? parseJSON<FireflySessionSignature>(atob(thirdPart)) : undefined, // signature
                     );
+                case SessionType.Apple:
+                case SessionType.Google:
+                case SessionType.Telegram:
+                    throw new NotImplementedError();
                 default:
                     safeUnreachable(type);
                     throw new UnreachableError('session type', type);

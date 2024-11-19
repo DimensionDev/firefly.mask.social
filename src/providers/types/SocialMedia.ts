@@ -6,6 +6,9 @@ import type { WalletProfile } from '@/providers/types/Firefly.js';
 import type { Poll } from '@/providers/types/Poll.js';
 
 export enum SessionType {
+    Apple = 'Apple',
+    Google = 'Google',
+    Telegram = 'Telegram',
     Twitter = 'Twitter',
     Lens = 'Lens',
     Farcaster = 'Farcaster',
