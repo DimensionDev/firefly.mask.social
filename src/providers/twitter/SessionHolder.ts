@@ -5,7 +5,7 @@ import { SITE_URL } from '@/constants/index.js';
 import { bom } from '@/helpers/bom.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
 import { SessionHolder } from '@/providers/base/SessionHolder.js';
-import { TwitterNextAuthProvider } from '@/providers/twitter/NextAuth.js';
+import { TwitterAuthProvider } from '@/providers/twitter/Auth.js';
 import { TwitterSession } from '@/providers/twitter/Session.js';
 
 class TwitterSessionHolder extends SessionHolder<TwitterSession> {
@@ -38,7 +38,7 @@ class TwitterSessionHolder extends SessionHolder<TwitterSession> {
 
     override removeSession(): void {
         super.removeSession();
-        if (!isServer) TwitterNextAuthProvider.logout();
+        if (!isServer) TwitterAuthProvider.logout();
     }
 }
 

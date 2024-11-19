@@ -105,6 +105,7 @@ export class SessionFactory {
                 case SessionType.Apple:
                 case SessionType.Google:
                 case SessionType.Telegram:
+                    // TODO:
                     throw new NotImplementedError();
                 default:
                     safeUnreachable(type);

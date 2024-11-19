@@ -1,10 +1,11 @@
 import { Source } from '@/constants/enum.js';
 import { twitterSessionHolder } from '@/providers/twitter/SessionHolder.js';
 import type { SessionPayload } from '@/providers/twitter/SessionPayload.js';
+import type { Provider } from '@/providers/types/Auth.js';
 import { type Profile, ProfileStatus } from '@/providers/types/SocialMedia.js';
 import type { ResponseJSON } from '@/types/index.js';
 
-class TwitterNextAuth {
+class TwitterAuth implements Provider<SessionPayload> {
     async login(): Promise<SessionPayload | null> {
         const response = await twitterSessionHolder.fetch<ResponseJSON<SessionPayload>>('/api/twitter/login', {
             method: 'POST',
@@ -46,4 +47,4 @@ class TwitterNextAuth {
     }
 }
 
-export const TwitterNextAuthProvider = new TwitterNextAuth();
+export const TwitterAuthProvider = new TwitterAuth();

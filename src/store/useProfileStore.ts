@@ -21,7 +21,7 @@ import type { FireflySession } from '@/providers/firefly/Session.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
 import { lensSessionHolder } from '@/providers/lens/SessionHolder.js';
 import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
-import { TwitterNextAuthProvider } from '@/providers/twitter/NextAuth.js';
+import { TwitterAuthProvider } from '@/providers/twitter/Auth.js';
 import { TwitterSession } from '@/providers/twitter/Session.js';
 import { twitterSessionHolder } from '@/providers/twitter/SessionHolder.js';
 import { TwitterSocialMediaProvider } from '@/providers/twitter/SocialMedia.js';
@@ -289,7 +289,7 @@ const useTwitterStateBase = createState(
                 // set temporary session for getProfileById
                 if (session) twitterSessionHolder.resumeSession(session);
 
-                const sessionPayloadFromServer = await TwitterNextAuthProvider.login();
+                const sessionPayloadFromServer = await TwitterAuthProvider.login();
                 const foundNewSessionFromServer = !!(
                     sessionPayloadFromServer &&
                     !state.accounts.some((x) =>
