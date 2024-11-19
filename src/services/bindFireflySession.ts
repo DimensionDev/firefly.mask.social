@@ -100,6 +100,10 @@ export async function bindFireflySession(session: Session, signal?: AbortSignal)
             return await bindTwitterSessionToFirefly(session as TwitterSession, signal);
         case SessionType.Firefly:
             throw new NotAllowedError();
+        case SessionType.Apple:
+        case SessionType.Google:
+        case SessionType.Telegram:
+            throw new NotAllowedError();
         default:
             safeUnreachable(session.type);
             throw new UnreachableError('[bindFireflySession] session type', session.type);
