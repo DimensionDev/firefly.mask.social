@@ -2,11 +2,12 @@ import { t } from '@lingui/macro';
 import { safeUnreachable } from '@masknet/kit';
 import z from 'zod';
 
-import { NotImplementedError, UnreachableError } from '@/constants/error.js';
+import { UnreachableError } from '@/constants/error.js';
 import { parseJSON } from '@/helpers/parseJSON.js';
 import { FarcasterSession } from '@/providers/farcaster/Session.js';
 import { FireflySession, type FireflySessionSignature } from '@/providers/firefly/Session.js';
 import { LensSession } from '@/providers/lens/Session.js';
+import { ThirdPartySession } from '@/providers/third-party/Session.js';
 import { TwitterSession } from '@/providers/twitter/Session.js';
 import type { Session } from '@/providers/types/Session.js';
 import { SessionType } from '@/providers/types/SocialMedia.js';
@@ -105,8 +106,13 @@ export class SessionFactory {
                 case SessionType.Apple:
                 case SessionType.Google:
                 case SessionType.Telegram:
-                    // TODO:
-                    throw new NotImplementedError();
+                    return new ThirdPartySession(
+                        type,
+                        session.profileId,
+                        session.token,
+                        session.createdAt,
+                        session.expiresAt,
+                    );
                 default:
                     safeUnreachable(type);
                     throw new UnreachableError('session type', type);
