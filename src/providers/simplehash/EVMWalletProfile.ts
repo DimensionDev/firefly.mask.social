@@ -21,8 +21,8 @@ class SimpleHashEVMWalletProfile implements Provider<ChainId, SchemaType> {
         return SimpleHashEVM.getAssetsByCollection(contractAddress, options, skipScoreCheck);
     }
 
-    getNFTsByCollectionId(collectionId: string, options?: BaseHubOptions<ChainId>) {
-        return SimpleHashEVM.getAssetsByCollectionId(collectionId, options);
+    getNFTsByCollectionId(collectionId: string, options?: BaseHubOptions<ChainId>, skipScoreCheck = false) {
+        return SimpleHashEVM.getAssetsByCollectionId(collectionId, options, skipScoreCheck);
     }
 
     getNFTsByCollectionIdAndOwner(collectionId: string, owner: string, options?: BaseHubOptions<ChainId>) {

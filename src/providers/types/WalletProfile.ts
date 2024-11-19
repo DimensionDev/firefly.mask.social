@@ -38,6 +38,7 @@ export interface Provider<ChainId, SchemaType> {
     getNFTsByCollectionId(
         collectionId: string,
         options?: BaseHubOptions<ChainId>,
+        skipScoreCheck?: boolean,
     ): Promise<Pageable<NonFungibleAsset<ChainId, SchemaType>, PageIndicator>>;
 
     /**
