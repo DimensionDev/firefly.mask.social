@@ -1,11 +1,12 @@
 import { Trans } from '@lingui/macro';
 import { useRouter } from '@tanstack/react-router';
+import { signIn } from 'next-auth/react';
 import urlcat from 'urlcat';
 
 import { LoginButton } from '@/components/Login/LoginButton.js';
 import { LoginFirefly } from '@/components/Login/LoginFirefly.js';
-import { FarcasterSignType, type SocialSource, Source } from '@/constants/enum.js';
-import { SORTED_SOCIAL_SOURCES } from '@/constants/index.js';
+import { AuthSource, FarcasterSignType, type SocialSource, Source } from '@/constants/enum.js';
+import { SORTED_AUTH_SOURCES, SORTED_SOCIAL_SOURCES } from '@/constants/index.js';
 import { resolveSourceInUrl } from '@/helpers/resolveSourceInUrl.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
 
@@ -25,6 +26,10 @@ export function MainView() {
         history.replace(path);
     };
 
+    const onAuthClick = (source: AuthSource) => {
+        signIn(source);
+    };
+
     return (
         <div className="flex flex-col rounded-[12px] bg-primaryBottom md:w-[500px]">
             <div className="flex w-full flex-col md:gap-3 md:p-6 md:pt-0">
@@ -36,9 +41,12 @@ export function MainView() {
                         </p>
                     </>
                 ) : null}
-                <div className="flex w-full flex-col md:flex-row md:gap-3">
+                <div className="flex w-full flex-col md:flex-row md:gap-5">
                     {SORTED_SOCIAL_SOURCES.map((source) => (
                         <LoginButton key={source} source={source} onClick={() => onClick(source)} />
+                    ))}
+                    {SORTED_AUTH_SOURCES.map((source) => (
+                        <LoginButton key={source} authSource={source} onClick={() => onAuthClick(source)} />
                     ))}
                 </div>
             </div>

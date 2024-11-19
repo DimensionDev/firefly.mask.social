@@ -92,6 +92,12 @@ export type ExploreSource = Source.Farcaster | Source.Lens | TrendingType;
 export type ExploreSourceInURL = SourceInURL.Farcaster | SourceInURL.Lens | TrendingType;
 export type LoginFallbackSource = SocialSource | Source.Article | Source.Snapshot | Source.Polymarket;
 
+export enum AuthSource {
+    Telegram = 'telegram',
+    Google = 'google',
+    Apple = 'apple',
+}
+
 export enum DiscoverType {
     ForYou = 'for-you',
     Recent = 'recent',

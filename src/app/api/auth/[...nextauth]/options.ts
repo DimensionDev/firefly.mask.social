@@ -8,12 +8,17 @@ import { NODE_ENV } from '@/constants/enum.js';
 import { env } from '@/constants/env.js';
 import { CredentialsProvider } from '@/esm/CredentialsProvider.js';
 import { TwitterProvider } from '@/esm/TwitterProvider.js';
+import { AppleProvider } from '@/esm/AppleProvider.js';
 
 const providers: Provider[] = [
     TwitterProvider({
         id: 'twitter',
         clientId: env.internal.TWITTER_CLIENT_ID,
         clientSecret: env.internal.TWITTER_CLIENT_SECRET,
+    }),
+    AppleProvider({
+        clientId: env.internal.APPLE_CLIENT_ID,
+        clientSecret: env.internal.APPLE_CLIENT_SECRET,
     }),
 ];
 

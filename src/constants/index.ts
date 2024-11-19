@@ -1,6 +1,7 @@
 /* cspell:disable */
 
 import {
+    AuthSource,
     type BookmarkSource,
     type DiscoverSource,
     DiscoverType,
@@ -113,6 +114,7 @@ export const SORTED_PROFILE_SOURCES: ProfilePageSource[] = [
     Source.Wallet,
 ];
 export const SORTED_SOCIAL_SOURCES = [Source.Farcaster, Source.Lens, Source.Twitter] as const;
+export const SORTED_AUTH_SOURCES = [AuthSource.Google, AuthSource.Telegram, AuthSource.Apple];
 export const SORTED_BOOKMARK_SOURCES =
     env.shared.NODE_ENV === NODE_ENV.Development
         ? [Source.Farcaster, Source.Lens, Source.Twitter, Source.Article]

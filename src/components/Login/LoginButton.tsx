@@ -1,28 +1,38 @@
 import LoadingIcon from '@/assets/loading.svg';
+import { AuthSourceIcon } from '@/components/AuthSourceIcon.js';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { ProfileSourceIcon } from '@/components/ProfileSourceIcon.js';
-import { type ProfileSource } from '@/constants/enum.js';
+import { AuthSource, type ProfileSource } from '@/constants/enum.js';
 import { classNames } from '@/helpers/classNames.js';
 
 interface LoginButtonProps {
-    source: ProfileSource;
+    source?: ProfileSource;
+    authSource?: AuthSource;
     loading?: boolean;
-    onClick?: (source: ProfileSource) => void;
+    onClick?: (source: ProfileSource | AuthSource) => void;
 }
 
 export function LoginButton(props: LoginButtonProps) {
-    const { source, loading = false, onClick } = props;
+    const { source, authSource, loading = false, onClick } = props;
     return (
         <ClickableButton
             className={classNames('group relative flex w-full flex-col outline-none hover:bg-lightBg md:rounded-lg', {
                 'hover:lightBg cursor-pointer': !loading,
             })}
             disabled={loading}
-            onClick={() => onClick?.(source)}
+            onClick={() => {
+                const targetSource = source || authSource;
+                if (targetSource && onClick) onClick(targetSource);
+            }}
         >
-            <div className="inline-flex w-full flex-col items-center justify-start gap-2 px-4 py-6 md:rounded-lg">
+            <div className="inline-flex w-full flex-col items-center justify-start gap-2 py-6 md:rounded-lg">
                 <div className="relative h-[48px] w-[48px]">
-                    <ProfileSourceIcon className="left-0 top-0 rounded-full" size={48} source={source} />
+                    {source ? (
+                        <ProfileSourceIcon className="left-0 top-0 rounded-full" size={48} source={source} />
+                    ) : null}
+                    {authSource ? (
+                        <AuthSourceIcon className="left-0 top-0 rounded-full" size={48} source={authSource} />
+                    ) : null}
                 </div>
             </div>
             {loading ? (
