@@ -30,6 +30,7 @@ import { downloadAccounts, downloadSessions, uploadSessions } from '@/services/m
 import { restoreFireflySession } from '@/services/restoreFireflySession.js';
 import { usePreferencesState } from '@/store/usePreferenceStore.js';
 import { useFireflyStateStore } from '@/store/useProfileStore.js';
+import { TwitterNextAuthProvider } from '@/providers/twitter/NextAuth.js';
 
 function getContext(source: SocialSource) {
     return {
@@ -88,7 +89,7 @@ async function updateState(accounts: Account[], overwrite = false) {
                 sessionHolder?.resumeSession(account.session);
 
                 if (x === Source.Twitter && TwitterSession.isNextAuth(account.session)) {
-                    await TwitterSocialMediaProvider.login();
+                    await TwitterNextAuthProvider.login();
                 }
             }
         }),

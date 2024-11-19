@@ -7,6 +7,7 @@ import { fetchJSON } from '@/helpers/fetchJSON.js';
 import { SessionHolder } from '@/providers/base/SessionHolder.js';
 import { TwitterSession } from '@/providers/twitter/Session.js';
 import { TwitterSocialMediaProvider } from '@/providers/twitter/SocialMedia.js';
+import { TwitterNextAuthProvider } from '@/providers/twitter/NextAuth.js';
 
 class TwitterSessionHolder extends SessionHolder<TwitterSession> {
     override resumeSession(session: TwitterSession) {
@@ -38,7 +39,7 @@ class TwitterSessionHolder extends SessionHolder<TwitterSession> {
 
     override removeSession(): void {
         super.removeSession();
-        if (!isServer) TwitterSocialMediaProvider.logout();
+        if (!isServer) TwitterNextAuthProvider.logout();
     }
 }
 

@@ -30,6 +30,7 @@ import type { Profile, ProfileEditable } from '@/providers/types/SocialMedia.js'
 import { addAccount } from '@/services/account.js';
 import { bindOrRestoreFireflySession } from '@/services/bindOrRestoreFireflySession.js';
 import { restoreFireflySessionAll } from '@/services/restoreFireflySession.js';
+import { TwitterNextAuthProvider } from '@/providers/twitter/NextAuth.js';
 
 export interface ProfileState {
     // indicate the store is ready or not
@@ -288,7 +289,7 @@ const useTwitterStateBase = createState(
                 // set temporary session for getProfileById
                 if (session) twitterSessionHolder.resumeSession(session);
 
-                const sessionPayloadFromServer = await TwitterSocialMediaProvider.login();
+                const sessionPayloadFromServer = await TwitterNextAuthProvider.login();
                 const foundNewSessionFromServer = !!(
                     sessionPayloadFromServer &&
                     !state.accounts.some((x) =>
