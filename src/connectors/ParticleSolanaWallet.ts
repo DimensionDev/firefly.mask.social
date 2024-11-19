@@ -106,11 +106,11 @@ export class ParticleSolanaWalletAdapter extends BaseMessageSignerWalletAdapter 
 
     override async autoConnect(): Promise<void> {
         if (this.readyState === WalletReadyState.Installed) {
-            await this.connect();
+            await this.connect(true);
         }
     }
 
-    async connect(): Promise<void> {
+    async connect(isAutoConnect?: boolean): Promise<void> {
         try {
             if (this.connected || this.connecting) return;
 
@@ -129,7 +129,7 @@ export class ParticleSolanaWalletAdapter extends BaseMessageSignerWalletAdapter 
                 const connectedSolanaWallets = connections?.wallet.connected.filter(
                     (x) => x.platform === 'solana' && x.source === WalletSource.Particle,
                 );
-                if (!connectedSolanaWallets?.length) {
+                if (!connectedSolanaWallets?.length && !isAutoConnect) {
                     enqueueWarningMessage(t`You haven't generated a Firefly wallet yet.`);
                     throw new NotAllowedError('[particle solana] Not generated a Firefly wallet before');
                 }

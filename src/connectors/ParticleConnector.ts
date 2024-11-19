@@ -73,7 +73,7 @@ export function createParticleConnector(options: ConnectorOptions): CreateConnec
                 const connectedEthWallets = connections?.wallet.connected.filter(
                     (x) => x.platform === 'eth' && x.source === WalletSource.Particle,
                 );
-                if (!connectedEthWallets?.length) {
+                if (!connectedEthWallets?.length && !parameters?.isReconnecting) {
                     enqueueWarningMessage(t`You haven't generated a Firefly wallet yet.`);
                     throw new NotAllowedError('[particle] Not generated a Firefly wallet before');
                 }
