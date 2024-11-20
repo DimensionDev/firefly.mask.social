@@ -50,7 +50,7 @@ jobs:
 
                   if [[ $(git status --porcelain) ]]; then
                     git add src/
-                    git commit -m "chore: code maintainance [bot]"
+                    git commit -m "chore: code maintenance [bot]"
                     git push origin
                   else
                     echo "No changes to commit."
