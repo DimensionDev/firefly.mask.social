@@ -1,6 +1,7 @@
 'use client';
 
 import { t, Trans } from '@lingui/macro';
+import { useAppKitProvider } from '@reown/appkit/react';
 import { first } from 'lodash-es';
 import { useRef, useState } from 'react';
 
@@ -22,6 +23,7 @@ import type { Dimension } from '@/hooks/useLineChart.js';
 import { usePriceLineChart } from '@/hooks/usePriceLineChart.js';
 import { useTokenPrice } from '@/hooks/useTokenPrice.js';
 import { useTokenSecurity } from '@/hooks/useTokenSecurity.js';
+import { ConnectModalRef } from '@/modals/controls.js';
 import type { CoinGeckoToken } from '@/providers/types/CoinGecko.js';
 
 interface TokenMarketDataProps {
@@ -47,6 +49,7 @@ export function TokenMarketData({ linkable, token }: TokenMarketDataProps) {
     const { data: security } = useTokenSecurity(contract?.chainId, contract?.address);
     const [openTrader, setOpenTrader] = useState(false);
     const tradeInfo = useTradeInfo(token);
+    const appKitProvider = useAppKitProvider('eip155');
 
     const ranges = [
         { label: t`24h`, days: 1 },
@@ -111,6 +114,10 @@ export function TokenMarketData({ linkable, token }: TokenMarketDataProps) {
                     className="ml-auto inline-flex gap-[10px] rounded-full bg-main px-5 py-2 text-[15px] leading-4 text-primaryBottom"
                     disabled={!tradeInfo.tradable}
                     onClick={() => {
+                        if (!appKitProvider.walletProvider) {
+                            ConnectModalRef.open();
+                            return;
+                        }
                         setOpenTrader(true);
                     }}
                 >
