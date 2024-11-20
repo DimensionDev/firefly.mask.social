@@ -14,6 +14,7 @@ import {
 import { useAppKitProvider } from '@reown/appkit/react';
 import { useEffect, useRef } from 'react';
 
+import { CloseButton } from '@/components/CloseButton.js';
 import { Modal, type ModalProps } from '@/components/Modal.js';
 import { Locale } from '@/constants/enum.js';
 import { NATIVE_TOKEN_ADDRESS } from '@/constants/okx.js';
@@ -88,7 +89,15 @@ export function SwapModal({ chainId, address, ...rest }: Props) {
 
     return (
         <Modal {...rest}>
-            <div className="z-10 overflow-hidden rounded-2xl border-line" ref={widgetRef} />
+            <div className="relative z-10 overflow-hidden rounded-2xl border-line bg-white p-2 dark:bg-black">
+                <CloseButton
+                    className="absolute left-1 top-1 text-main"
+                    onClick={() => {
+                        rest.onClose();
+                    }}
+                />
+                <div ref={widgetRef} />
+            </div>
         </Modal>
     );
 }
