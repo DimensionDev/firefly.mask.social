@@ -4,7 +4,6 @@ import { Trans } from '@lingui/macro';
 import type { NonFungibleAsset } from '@masknet/web3-shared-base';
 import { ChainId, SchemaType } from '@masknet/web3-shared-evm';
 import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
-import { useRouter } from 'next/navigation.js';
 import { forwardRef } from 'react';
 import type { GridItemProps, GridListProps } from 'react-virtuoso';
 import { useEnsName } from 'wagmi';
@@ -22,7 +21,7 @@ import { nFormatter } from '@/helpers/formatCommentCounts.js';
 import { createIndicator } from '@/helpers/pageable.js';
 import { resolveNftUrl } from '@/helpers/resolveNftUrl.js';
 import { resolveProfileUrl } from '@/helpers/resolveProfileUrl.js';
-import { SimpleHashWalletProfileProvider } from '@/providers/simplehash/WalletProfile.js';
+import { resolveWalletProfileProvider } from '@/helpers/resolveWalletProfileProvider.js';
 
 const GridList = forwardRef<HTMLDivElement, GridListProps>(function GridList({ className, children, ...props }, ref) {
     return (
@@ -65,13 +64,11 @@ function NFTItemContent({
     isShowChainIcon?: boolean;
     ownerCount?: number;
 }) {
-    const router = useRouter();
+    const nftUrl = resolveNftUrl(item.chainId, item.id, item.tokenId || '0');
 
     return (
-        <div
-            onClick={() => {
-                router.push(resolveNftUrl(item.chainId, item.id, item.tokenId));
-            }}
+        <Link
+            href={nftUrl}
             key={`${index}-${item.id}-${item.tokenId}`}
             className="flex cursor-pointer flex-col rounded-lg bg-bg pb-1 sm:rounded-2xl"
         >
@@ -99,7 +96,7 @@ function NFTItemContent({
             <div className="mt-1 line-clamp-2 h-8 w-full px-1 text-center text-xs font-medium leading-4 sm:mt-2 sm:px-2 sm:py-0">
                 {item.metadata?.name}
             </div>
-        </div>
+        </Link>
     );
 }
 
@@ -137,7 +134,8 @@ export function POAPList(props: { address: string }) {
                     : undefined,
                 pageParam,
             );
-            return SimpleHashWalletProfileProvider.getPOAPs(address, {
+            const provider = resolveWalletProfileProvider();
+            return provider.getPOAPs(address, {
                 indicator,
                 chainId: ChainId.xDai,
                 contractAddress: POAP_CONTRACT_ADDRESS,

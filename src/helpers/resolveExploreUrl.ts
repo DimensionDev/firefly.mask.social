@@ -1,6 +1,7 @@
 import urlcat from 'urlcat';
 
 import { type ExploreSource, ExploreType } from '@/constants/enum.js';
+import { EXPLORE_DEFAULT_SOURCE } from '@/constants/index.js';
 import { resolveExploreSourceInURL } from '@/helpers/resolveSourceInUrl.js';
 
 export function resolveExploreUrl(explore: ExploreType, source?: ExploreSource) {
@@ -11,7 +12,9 @@ export function resolveExploreUrl(explore: ExploreType, source?: ExploreSource) 
         });
     }
 
-    return urlcat(`/explore/:explore`, {
+    const target = EXPLORE_DEFAULT_SOURCE[explore];
+    return urlcat(`/explore/:explore/:source`, {
         explore,
+        source: target ? resolveExploreSourceInURL(target) : undefined,
     });
 }

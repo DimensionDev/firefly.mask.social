@@ -3,6 +3,7 @@
 import { t, Trans } from '@lingui/macro';
 import { EVMExplorerResolver } from '@masknet/web3-providers';
 import { SchemaType } from '@masknet/web3-shared-evm';
+import { isValidChainId as isValidSolanaChainId, SchemaType as SolanaSchemaType } from '@masknet/web3-shared-solana';
 import { type ReactNode, useMemo } from 'react';
 
 import LinkIcon from '@/assets/link-square.svg';
@@ -10,6 +11,8 @@ import { CopyTextButton } from '@/components/CopyTextButton.js';
 import { ChainIcon } from '@/components/NFTDetail/ChainIcon.js';
 import { Link } from '@/esm/Link.js';
 import { resolveSimpleHashChain } from '@/helpers/resolveSimpleHashChain.js';
+// eslint-disable-next-line no-restricted-imports
+import { SolanaExplorerResolver } from '@/maskbook/packages/web3-providers/src/Web3/Solana/apis/ResolverAPI.js';
 import { BlockScanExplorerResolver } from '@/providers/ethereum/ExplorerResolver.js';
 
 function DetailsGroup(props: { field: ReactNode; value: ReactNode }) {
@@ -21,30 +24,36 @@ function DetailsGroup(props: { field: ReactNode; value: ReactNode }) {
     );
 }
 
-function EVMExplorerLink(props: { address: string; type: 'address' | 'tx'; chainId?: number; useBlockScan?: boolean }) {
-    if (props.chainId) {
-        const ExplorerResolver = props.useBlockScan ? BlockScanExplorerResolver : EVMExplorerResolver;
-        const resolveExplorerLink = {
-            address: ExplorerResolver.addressLink.bind(ExplorerResolver),
-            tx: EVMExplorerResolver.transactionLink.bind(EVMExplorerResolver),
-        }[props.type];
-        return (
-            <span className="break-all">
-                {props.address}
-                <span className="ml-1">
-                    <CopyTextButton text={props.address} />
-                </span>
-                <a
-                    href={resolveExplorerLink(props.chainId, props.address)}
-                    target="_blank"
-                    className="ml-1 inline-block"
-                >
-                    <LinkIcon className="h-3 w-3" />
-                </a>
+function ExplorerLink(props: { address: string; type: 'address' | 'tx'; chainId?: number; useBlockScan?: boolean }) {
+    const { address, type, chainId, useBlockScan } = props;
+    const href = useMemo(() => {
+        if (!chainId) return;
+        const isSolana = isValidSolanaChainId(chainId);
+        if (type === 'tx') {
+            return isSolana
+                ? SolanaExplorerResolver.transactionLink(chainId, address)
+                : EVMExplorerResolver.transactionLink(chainId, address);
+        }
+
+        return useBlockScan
+            ? BlockScanExplorerResolver.addressLink(chainId, address)
+            : isSolana
+              ? SolanaExplorerResolver.addressLink(chainId, address)
+              : EVMExplorerResolver.addressLink(chainId, address);
+    }, [address, type, chainId, useBlockScan]);
+
+    if (!href) return <span className="break-all">{address}</span>;
+    return (
+        <span className="break-all">
+            {address}
+            <span className="ml-1">
+                <CopyTextButton text={address} />
             </span>
-        );
-    }
-    return <span className="break-all">{props.address}</span>;
+            <a href={href} target="_blank" className="ml-1 inline-block">
+                <LinkIcon className="h-3 w-3" />
+            </a>
+        </span>
+    );
 }
 
 function convertDescriptionToArray(description: string): ReactNode[] {
@@ -71,11 +80,29 @@ interface NFTOverflowProps {
     mintingDate?: string;
     contractAddress?: string;
     chainId?: number;
-    schemaType?: SchemaType;
+    schemaType?: number;
 }
+
+const evmStandardMap: Record<number, string> = {
+    [SchemaType.Native]: 'Native',
+    [SchemaType.ERC721]: 'ERC721',
+    [SchemaType.ERC1155]: 'ERC1155',
+    [SchemaType.ERC20]: 'ERC20',
+    [SchemaType.SBT]: 'SBT',
+};
+const solanaStandardMap: Record<number, string> = {
+    [SolanaSchemaType.NonFungible]: 'Metaplex',
+    [SolanaSchemaType.Native]: 'Native',
+};
 
 export function NFTOverflow(props: NFTOverflowProps) {
     const description = useMemo(() => convertDescriptionToArray(props.description), [props.description]);
+    const standard = useMemo(() => {
+        if (!props.schemaType) return;
+        const isSolana = isValidSolanaChainId(props.chainId);
+        return isSolana ? solanaStandardMap[props.schemaType] : evmStandardMap[props.schemaType];
+    }, [props.schemaType, props.chainId]);
+
     return (
         <div className="space-y-8">
             {props.description ? (
@@ -93,22 +120,10 @@ export function NFTOverflow(props: NFTOverflowProps) {
                     <Trans>Details</Trans>
                 </h3>
                 <div className="space-y-4">
-                    {props.schemaType ? (
+                    {standard ? (
                         <DetailsGroup
                             field={t`NFT Standard`}
-                            value={
-                                <div className="flex items-center">
-                                    {
-                                        {
-                                            [SchemaType.Native]: 'Native',
-                                            [SchemaType.ERC721]: 'ERC721',
-                                            [SchemaType.ERC1155]: 'ERC1155',
-                                            [SchemaType.ERC20]: 'ERC20',
-                                            [SchemaType.SBT]: 'SBT',
-                                        }[props.schemaType]
-                                    }
-                                </div>
-                            }
+                            value={<div className="flex items-center">{standard}</div>}
                         />
                     ) : null}
                     {props.tokenId ? (
@@ -131,11 +146,7 @@ export function NFTOverflow(props: NFTOverflowProps) {
                         <DetailsGroup
                             field={t`NFT Contract`}
                             value={
-                                <EVMExplorerLink
-                                    address={props.contractAddress}
-                                    type="address"
-                                    chainId={props.chainId}
-                                />
+                                <ExplorerLink address={props.contractAddress} type="address" chainId={props.chainId} />
                             }
                         />
                     ) : null}
@@ -143,7 +154,7 @@ export function NFTOverflow(props: NFTOverflowProps) {
                         <DetailsGroup
                             field={t`Creator`}
                             value={
-                                <EVMExplorerLink
+                                <ExplorerLink
                                     useBlockScan
                                     address={props.creator}
                                     type="address"
@@ -155,7 +166,7 @@ export function NFTOverflow(props: NFTOverflowProps) {
                     {props.mintingTxnHash ? (
                         <DetailsGroup
                             field={t`Minting Txn Hash`}
-                            value={<EVMExplorerLink address={props.mintingTxnHash} type="tx" chainId={props.chainId} />}
+                            value={<ExplorerLink address={props.mintingTxnHash} type="tx" chainId={props.chainId} />}
                         />
                     ) : null}
                     {props.mintingDate ? <DetailsGroup field={t`Minting Date`} value={props.mintingDate} /> : null}

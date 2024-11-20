@@ -6,6 +6,8 @@ export const URL_INPUT_REGEX = new RegExp(`^${URL_REGEX.source.replace('(https?:
 export const EMAIL_REGEX =
     /(([^\s"(),.:;<>@[\\\]/]+(\.[^\s"(),.:;<>@[\\\]/]+)*)|(".+"))@((\[(?:\d{1,3}\.){3}\d{1,3}])|(([\dA-Za-z-]+\.)+[A-Za-z]{2,}))$/;
 
+export const LITE_EMAIL_REGEX = /^[\w.-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/i;
+
 export const MENTION_REGEX = /@[^\s()@:%+~#?&=,!?']+/g;
 
 export const HASHTAG_REGEX = /(^|\s)(#[^0-9][^\s#]+)/g;
@@ -42,7 +44,8 @@ export const TWEET_WEB_REGEX = /https:\/\/(x\.com|twitter\.com)\/i\/web\/status\
 
 export const TWEET_SPACE_REGEX = /https:\/\/(x\.com|twitter\.com)\/([a-zA-Z0-9_]*)\/spaces\/([a-zA-Z0-9_]*)/;
 
-export const LENS_HANDLE_REGEXP = /^[a-zA-Z0-9_]*\.lens$/;
+// https://www.lens.xyz/docs/best-practices/onboarding#choosing-a-handle
+export const LENS_HANDLE_REGEXP = /^[a-zA-Z_][a-zA-Z0-9_]{2,26}\.lens$/;
 
 export const NUMERIC_INPUT_REGEXP_PATTERN = '^[1-9]|^0(?![0-9])[.,。]?[0-9]*$';
 
@@ -53,5 +56,6 @@ export const MIRROR_SUBDOMAIN_ARTICLE_REGEXP = /^https:\/\/.*\.mirror\.xyz\/(.*)
 export const PARAGRAPH_ARTICLE_REGEXP = /https?:\/\/paragraph\.xyz(\/view)?\/@([^/]+)\/(.+)/;
 
 export const SNAPSHOT_PROPOSAL_REGEXP = /https:\/\/snapshot\.org\/#\/.+?\/proposal\/([a-zA-Z0-9_]*)/;
+export const SNAPSHOT_NEW_PROPOSAL_REGEXP = /https:\/\/snapshot\.box\/#\/s:(.+)\/proposal\/(0x[a-fA-F0-9]{64})$/;
 
 export const TWITTER_PROFILE_REGEX = /https:\/\/(x\.com|twitter\.com)\/([a-zA-Z0-9_]*)\/?/;

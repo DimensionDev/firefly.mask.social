@@ -1,0 +1,95 @@
+name: Draft Release Pull Request
+
+on:
+    workflow_dispatch:
+        inputs:
+            release_type:
+                description: 'Type of release'
+                required: false
+                default: 'patch'
+                type: choice
+                options:
+                    - major
+                    - minor
+                    - patch
+
+jobs:
+    draft-release-pr:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Checkout code
+              uses: actions/checkout@v2
+              with:
+                  fetch-depth: 0
+
+            - name: Set up Node.js
+              uses: actions/setup-node@v2
+              with:
+                  node-version-file: '.node-version'
+
+            - name: Determine Pull Request Title and Base Branch
+              id: base_branch
+              run: |
+                  release_type="${{ github.event.inputs.release_type }}"
+
+                  if [ "$release_type" = "major" ]; then
+                    base_branch="main"
+                  elif [ "$release_type" = "minor" ]; then
+                    base_branch="main"
+                  else
+                    base_branch="released"
+                  fi
+
+                  echo "base_branch=$base_branch" >> $GITHUB_ENV
+
+            - name: Checkout to base branch
+              run: |
+                  git checkout ${{ env.base_branch}}
+
+            - name: Get current version
+              id: version
+              run: echo "current_version=$(npm pkg get version | tr -d '\"')" >> $GITHUB_ENV
+
+            - name: Bump version
+              id: bump_version
+              run: |
+                  release_type="${{ github.event.inputs.release_type }}"
+
+                  if [ "$release_type" = "major" ]; then
+                    npm version major --git-tag-version false
+                  elif [ "$release_type" = "minor" ]; then
+                    npm version minor --git-tag-version false
+                  else
+                    npm version patch --git-tag-version false
+                  fi
+                  echo "new_version=$(npm pkg get version | tr -d '\"')" >> $GITHUB_ENV
+
+            - name: Determine Pull Request Title and Base Branch
+              id: pr_title
+              run: |
+                  release_type="${{ github.event.inputs.release_type }}"
+
+                  if [ "$release_type" = "major" ]; then
+                    pr_title="[Release] New release ${{ env.new_version }} (major)"
+                  elif [ "$release_type" = "minor" ]; then
+                    pr_title="[Release] New release ${{ env.new_version }} (minor)"
+                  else
+                    pr_title="[Release] Hotfix ${{ env.current_version }} => ${{ env.new_version }} (patch)"
+                  fi
+
+                  echo "pr_title=$pr_title" >> $GITHUB_ENV
+
+            - name: Commit and Push changes
+              run: |
+                  git add package.json
+                  git config --global user.name "github-actions[bot]"
+                  git config --global user.email "github-actions[bot]@users.noreply.github.com"
+                  git commit -m "chore: bump version to ${{ env.new_version }}"
+                  git checkout -b "bump-version-${{ env.new_version }}"
+                  git push origin "bump-version-${{ env.new_version }}" -f
+
+            - name: Create pull request
+              run: |
+                  gh pr create -B "${{ env.base_branch }}" -H "bump-version-${{ env.new_version }}" --title "${{ env.pr_title }}" --body "Closes MF-0000" --draft
+              env:
+                  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

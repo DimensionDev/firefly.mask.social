@@ -42,6 +42,7 @@ export async function createTwitterSessionPayload(request: NextRequest) {
 export async function createTwitterSessionPayloadFromCookie() {
     const tokenFromCookie = cookies().get('twitterToken');
     if (!tokenFromCookie?.value) return null;
+
     const token = JSON.parse(atob(tokenFromCookie.value)) as SessionPayload;
     return TwitterSessionPayload.revealPayload(token);
 }

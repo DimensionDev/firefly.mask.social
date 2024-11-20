@@ -8,24 +8,28 @@ import { GridListInPage, type GridListInPageProps } from '@/components/GridListI
 import { getNFTItemContent, POAPGridListComponent } from '@/components/Profile/POAPList.js';
 import { EMPTY_LIST } from '@/constants/index.js';
 import { createIndicator } from '@/helpers/pageable.js';
-import { SimpleHashWalletProfileProvider } from '@/providers/simplehash/WalletProfile.js';
+import { resolveWalletProfileProvider } from '@/helpers/resolveWalletProfileProvider.js';
 
 interface NFTListProps extends Partial<GridListInPageProps> {
     address: string;
-    chainId?: ChainId;
+    chainId?: number;
+    collectionId?: string;
 }
 
 export function NFTList(props: NFTListProps) {
-    const { address, chainId, ...rest } = props;
+    const { address, chainId, collectionId, ...rest } = props;
     const queryResult = useSuspenseInfiniteQuery({
         initialPageParam: '',
-        queryKey: ['nft-list', address, chainId],
+        queryKey: ['nft-list', address, chainId, collectionId],
         async queryFn({ pageParam }) {
             const indicator = createIndicator(
                 pageParam ? { index: 1, id: pageParam, __type__: 'PageIndicator' } : undefined,
                 pageParam,
             );
-            return SimpleHashWalletProfileProvider.getNFTs(address, { indicator, chainId }, true);
+            const provider = resolveWalletProfileProvider(chainId);
+            return collectionId
+                ? provider.getNFTsByCollectionId(collectionId, { indicator, chainId }, true)
+                : provider.getNFTs(address, { indicator, chainId }, true);
         },
         getNextPageParam: (lastPage) => lastPage?.nextIndicator?.id,
         select: (data) => data.pages.flatMap((page) => page.data ?? EMPTY_LIST),

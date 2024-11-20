@@ -206,7 +206,7 @@ export function SnapshotBody({ snapshot, link, postId, activity }: Props) {
             <ClickableArea className="relative mt-[6px] flex flex-col gap-2 rounded-2xl border border-line bg-bg p-3 text-left text-commonMain">
                 <SnapshotStatus status={state} className="self-start" />
                 <h1
-                    className={classNames('line-clamp-2 text-left text-[20px] font-bold leading-[20px]', {
+                    className={classNames('line-clamp-2 text-left text-[20px] font-bold leading-[22px]', {
                         'max-h-[40px]': IS_SAFARI && IS_APPLE,
                     })}
                 >
@@ -264,7 +264,7 @@ export function SnapshotBody({ snapshot, link, postId, activity }: Props) {
                             ·
                             <SnapshotIcon width={15} height={15} />
                         </div>
-                        <SnapshotActions activity={activity} link={snapshot.link} />
+                        <SnapshotActions activity={activity} link={Snapshot.getProposalLink(snapshot)} />
                     </div>
                 </div>
 
@@ -306,7 +306,7 @@ export function SnapshotBody({ snapshot, link, postId, activity }: Props) {
                         </TabPanels>
                     </TabGroup>
                 </div>
-                {state !== SnapshotState.Closed ? (
+                {state === SnapshotState.Active || state === SnapshotState.Pending ? (
                     <>
                         {type === 'single-choice' || type === 'basic' ? (
                             <SnapshotSingleChoices

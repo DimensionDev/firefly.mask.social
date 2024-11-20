@@ -1,14 +1,17 @@
+import { t } from '@lingui/macro';
 import { EthereumMethodType, isValidAddress } from '@masknet/web3-shared-evm';
 import { AuthType, connect, disconnect, EthereumProvider, particleAuth } from '@particle-network/auth-core';
 import { type Address, type Chain, numberToHex, RpcError, SwitchChainError, UserRejectedRequestError } from 'viem';
-import { ChainNotConfiguredError, createConnector } from 'wagmi';
+import { ChainNotConfiguredError, createConnector, type CreateConnectorFn } from 'wagmi';
 import { mainnet } from 'wagmi/chains';
 
-import { STATUS } from '@/constants/enum.js';
+import { STATUS, WalletSource } from '@/constants/enum.js';
 import { env } from '@/constants/env.js';
-import { AbortError, AuthenticationError, InvalidResultError } from '@/constants/error.js';
+import { AbortError, AuthenticationError, InvalidResultError, NotAllowedError } from '@/constants/error.js';
+import { enqueueWarningMessage } from '@/helpers/enqueueMessage.js';
 import { retry } from '@/helpers/retry.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
+import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
 
@@ -32,7 +35,7 @@ interface ConnectorOptions {
     chains: readonly Chain[];
 }
 
-export function createParticleConnector(options: ConnectorOptions) {
+export function createParticleConnector(options: ConnectorOptions): CreateConnectorFn | null {
     if (env.external.NEXT_PUBLIC_PARTICLE !== STATUS.Enabled) {
         return null;
     }
@@ -58,12 +61,22 @@ export function createParticleConnector(options: ConnectorOptions) {
             async connect(parameters) {
                 if (parameters?.isReconnecting && useGlobalState.getState().particleReconnecting) {
                     console.info(`[particle] cancel reconnect`);
-                    throw new Error('Abort reconnecting.');
+                    throw new AbortError('[particle] Reconnecting');
                 }
 
                 console.info(`[particle] connect`);
 
-                if (!fireflySessionHolder.session) throw new AuthenticationError('Firefly session not found');
+                if (!fireflySessionHolder.session)
+                    throw new AuthenticationError('[particle] Firefly session not found');
+
+                const connections = await FireflyEndpointProvider.getAllConnections();
+                const connectedEthWallets = connections?.wallet.connected.filter(
+                    (x) => x.platform === 'eth' && x.source === WalletSource.Particle,
+                );
+                if (!connectedEthWallets?.length && !parameters?.isReconnecting) {
+                    enqueueWarningMessage(t`You haven't generated a Firefly wallet yet.`);
+                    throw new NotAllowedError('[particle] Not generated a Firefly wallet before');
+                }
 
                 const chain = options.chains.find((x) => x.id === parameters?.chainId) ?? mainnet;
                 const user = await connect({
@@ -79,11 +92,16 @@ export function createParticleConnector(options: ConnectorOptions) {
                     (x) => x.chain_name === 'evm_chain' && isValidAddress(x.public_address),
                 );
                 if (!wallets.length) {
-                    console.error(`[particle] wallet not found`);
-                    throw new AuthenticationError('Wallet not found');
+                    throw new Error('[particle] Wallet not found');
                 }
 
                 useGlobalState.getState().updateParticleReconnecting(false);
+
+                try {
+                    await FireflyEndpointProvider.reportParticle();
+                } catch (error) {
+                    throw new NotAllowedError('[particle] Failed to connect to Firefly');
+                }
 
                 return {
                     chainId: chain.id,

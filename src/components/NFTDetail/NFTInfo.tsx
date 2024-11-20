@@ -2,7 +2,7 @@
 
 import { Trans } from '@lingui/macro';
 import { ChainId } from '@masknet/web3-shared-evm';
-import type { ReactNode } from 'react';
+import { type ReactNode, useMemo } from 'react';
 import { useEnsName } from 'wagmi';
 
 import LinkIcon from '@/assets/link-square.svg';
@@ -16,8 +16,8 @@ import { TextOverflowTooltip } from '@/components/TextOverflowTooltip.js';
 import { Source } from '@/constants/enum.js';
 import { Link } from '@/esm/Link.js';
 import { classNames } from '@/helpers/classNames.js';
-import { formatEthereumAddress } from '@/helpers/formatAddress.js';
-import { resolveNftUrl } from '@/helpers/resolveNftUrl.js';
+import { formatAddress } from '@/helpers/formatAddress.js';
+import { resolveNftUrl, resolveNftUrlByCollection } from '@/helpers/resolveNftUrl.js';
 import { resolveProfileUrl } from '@/helpers/resolveProfileUrl.js';
 
 interface NFTInfoProps {
@@ -56,6 +56,14 @@ export function NFTInfo(props: NFTInfoProps) {
         address: props.ownerAddress as `0x${string}`,
     });
 
+    const collectionUrl = useMemo(() => {
+        return collection?.id
+            ? resolveNftUrlByCollection(collection.id)
+            : contractAddress
+              ? resolveNftUrl(chainId, contractAddress)
+              : '';
+    }, [collection?.id, contractAddress, chainId]);
+
     return (
         <div className="flex flex-col gap-2 sm:flex-row sm:gap-5">
             <div className="relative mx-auto flex h-[250px] w-[250px] items-center justify-center sm:min-w-[250px]">
@@ -78,7 +86,7 @@ export function NFTInfo(props: NFTInfoProps) {
                     <div className="flex w-full flex-col items-center justify-center space-y-3 sm:justify-start">
                         {!isPoap && collection ? (
                             <Link
-                                href={contractAddress ? resolveNftUrl(chainId, contractAddress) : ''}
+                                href={collectionUrl}
                                 className="flex h-5 w-full items-center justify-center text-base font-bold leading-6 sm:justify-start"
                             >
                                 {collection.icon ? (
@@ -120,12 +128,12 @@ export function NFTInfo(props: NFTInfoProps) {
                                     target="_blank"
                                     className="flex items-center text-base font-bold leading-[14px]"
                                 >
-                                    {ensName ? ensName : formatEthereumAddress(ownerAddress, 4)}
+                                    {ensName ? ensName : formatAddress(ownerAddress, 4)}
                                     <LinkIcon className="ml-1 h-4 w-4 text-secondary" />
                                 </Link>
                             ) : (
                                 <div className="text-base font-bold leading-[14px]">
-                                    {formatEthereumAddress(ownerAddress, 4)}
+                                    {formatAddress(ownerAddress, 4)}
                                 </div>
                             )}
                         </div>

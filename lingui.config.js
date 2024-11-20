@@ -16,6 +16,7 @@ export default {
                 'src/configs/**',
                 'src/components/**',
                 'src/constants/**',
+                'src/connectors/**',
                 'src/helpers/**',
                 'src/hooks/**',
                 'src/providers/**',

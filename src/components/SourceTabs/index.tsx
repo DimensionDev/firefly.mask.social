@@ -45,7 +45,7 @@ export function SourceTabs({ className, children }: PropsWithChildren<HTMLProps<
         >
             {overflowed ? (
                 <ClickableButton
-                    className={classNames('h-6 w-6 rotate-180', leftActive ? '' : 'opacity-50')}
+                    className="h-6 w-6 rotate-180 disabled:pointer-events-none disabled:!opacity-0"
                     disabled={!leftActive}
                     onClick={() => {
                         navRef.current?.scrollTo({ left: 0, behavior: 'smooth' });
@@ -64,7 +64,7 @@ export function SourceTabs({ className, children }: PropsWithChildren<HTMLProps<
             </nav>
             {overflowed ? (
                 <ClickableButton
-                    className={classNames('h-6 w-6', rightActive ? 'opacity-50' : '')}
+                    className="h-6 w-6 disabled:pointer-events-none disabled:!opacity-0"
                     disabled={rightActive}
                     onClick={() => {
                         const nav = navRef.current;

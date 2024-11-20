@@ -87,7 +87,7 @@ export function SearchRecommendation(props: SearchRecommendationProps) {
     if (!visible) return null;
 
     const containerClasses = classNames(
-        'absolute inset-x-0 top-10 z-[1000] flex w-full flex-col overflow-hidden bg-white shadow-[0_4px_30px_0_rgba(0,0,0,0.10)] dark:border dark:border-line dark:bg-primaryBottom',
+        'absolute -inset-x-[1px] top-10 z-[1000] flex w-[calc(100%_+_2px)] flex-col overflow-hidden bg-white shadow-[0_4px_30px_0_rgba(0,0,0,0.10)] dark:border dark:border-line dark:bg-primaryBottom',
         {
             'mt-2 rounded-2xl': !fullScreen,
             'bottom-0 mt-3 h-[calc(100vh-40px)] border-none': fullScreen,

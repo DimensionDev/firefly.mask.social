@@ -52,6 +52,7 @@ export const SNAPSHOT_SCORES_URL = 'https://score.snapshot.org';
 export const SNAPSHOT_SEQ_URL = 'https://seq.snapshot.org';
 export const SNAPSHOT_RELAY_URL = 'https://relayer.snapshot.org';
 export const SNAPSHOT_IPFS_GATEWAY_URL = 'https://snapshot.4everland.link/ipfs/';
+export const SIMPLE_HASH_URL = 'https://simplehash-proxy.r2d2.to';
 
 export const ADVERTISEMENT_JSON_URL = 'https://media.firefly.land/advertisement/web.json';
 export const ADVERTISEMENT_JSON_URL_DEV = 'https://media.firefly.land/advertisement/web-dev.json';
@@ -82,14 +83,17 @@ export const SORTED_PROFILE_TAB_TYPE: Record<SocialSource, SocialProfileCategory
     ],
     [Source.Twitter]: [SocialProfileCategory.Feed, SocialProfileCategory.Replies],
 };
-export const WALLET_PROFILE_TAB_TYPES = [
-    WalletProfileCategory.Activities,
-    WalletProfileCategory.Polymarket,
-    WalletProfileCategory.POAPs,
-    WalletProfileCategory.NFTs,
-    WalletProfileCategory.Articles,
-    WalletProfileCategory.DAO,
-];
+export const WALLET_PROFILE_TAB_TYPES: Record<NetworkType, WalletProfileCategory[]> = {
+    [NetworkType.Ethereum]: [
+        WalletProfileCategory.Activities,
+        WalletProfileCategory.Polymarket,
+        WalletProfileCategory.POAPs,
+        WalletProfileCategory.NFTs,
+        WalletProfileCategory.Articles,
+        WalletProfileCategory.DAO,
+    ],
+    [NetworkType.Solana]: [WalletProfileCategory.NFTs],
+};
 export const SORTED_ENGAGEMENT_TAB_TYPE: Record<SocialSource, EngagementType[]> = {
     [Source.Lens]: [EngagementType.Likes, EngagementType.Quotes, EngagementType.Mirrors],
     // TODO No API to fetch recasts for now.
@@ -166,6 +170,12 @@ export const EXPLORE_SOURCES: Partial<Record<ExploreType, ExploreSource[]>> = {
         TrendingType.Trending,
         TrendingType.Meme,
     ],
+};
+
+export const EXPLORE_DEFAULT_SOURCE: Record<ExploreType, ExploreSource> = {
+    [ExploreType.TopProfiles]: Source.Farcaster,
+    [ExploreType.CryptoTrends]: TrendingType.Trending,
+    [ExploreType.TopChannels]: Source.Farcaster,
 };
 
 export const BOOKMARK_SOURCES: BookmarkSource[] = [Source.Farcaster, Source.Lens, Source.Article, Source.Snapshot];

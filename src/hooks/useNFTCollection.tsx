@@ -1,13 +1,14 @@
 import { ChainId } from '@masknet/web3-shared-evm';
 import { useQuery } from '@tanstack/react-query';
 
-import { SimpleHashWalletProfileProvider } from '@/providers/simplehash/WalletProfile.js';
+import { resolveWalletProfileProvider } from '@/helpers/resolveWalletProfileProvider.js';
 
 export function useNFTCollection(address: string, chainId: ChainId = ChainId.Mainnet) {
     return useQuery({
         queryKey: ['nft-collection', address, chainId],
         async queryFn() {
-            return SimpleHashWalletProfileProvider.getCollection(address, {
+            const provider = resolveWalletProfileProvider(chainId);
+            return provider.getCollection(address, {
                 chainId,
             });
         },

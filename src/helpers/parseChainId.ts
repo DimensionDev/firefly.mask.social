@@ -1,11 +1,9 @@
-import { ChainId } from '@masknet/web3-shared-evm';
+import { isValidChainId as isValidEVMChainId } from '@masknet/web3-shared-evm';
+import { isValidChainId as isValidSolanaChainId } from '@masknet/web3-shared-solana';
 
-export function parseChainId(str?: string): ChainId | null {
+export function parseChainId(str?: string) {
     if (!str) return null;
     const chainId = Number.parseInt(str, 10);
-    const isValidChainId = Object.keys(ChainId)
-        .map((key) => ChainId[key as unknown as ChainId] as unknown as number)
-        .includes(chainId);
-    if (!isValidChainId) return null;
+    if (!isValidEVMChainId(chainId) && !isValidSolanaChainId(chainId)) return null;
     return chainId;
 }

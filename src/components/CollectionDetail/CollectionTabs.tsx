@@ -13,9 +13,10 @@ interface CollectionTabsProps {
     address: string;
     chainId?: ChainId;
     totalQuantity?: number;
+    collectionId: string;
 }
 
-export function CollectionTabs({ address, chainId, totalQuantity }: CollectionTabsProps) {
+export function CollectionTabs({ address, chainId, totalQuantity, collectionId }: CollectionTabsProps) {
     const tabs = [
         {
             label: t`Items`,
@@ -42,6 +43,7 @@ export function CollectionTabs({ address, chainId, totalQuantity }: CollectionTa
                     {
                         items: (
                             <NFTList
+                                collectionId={collectionId}
                                 address={address}
                                 chainId={chainId}
                                 NoResultsFallbackProps={{
@@ -50,7 +52,12 @@ export function CollectionTabs({ address, chainId, totalQuantity }: CollectionTa
                             />
                         ),
                         topCollectors: (
-                            <TopCollectors address={address} totalQuantity={totalQuantity} chainId={chainId} />
+                            <TopCollectors
+                                collectionId={collectionId}
+                                address={address}
+                                totalQuantity={totalQuantity}
+                                chainId={chainId}
+                            />
                         ),
                     }[currentTab]
                 }

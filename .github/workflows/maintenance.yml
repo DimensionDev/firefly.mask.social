@@ -1,0 +1,57 @@
+name: Maintenance
+
+on:
+    push:
+        branches:
+            - '**'
+            - '!main'
+            - '!released'
+    workflow_dispatch:
+
+jobs:
+    eslint:
+        runs-on: ubuntu-latest
+
+        steps:
+            - name: Checkout code
+              uses: actions/checkout@v2
+              with:
+                  submodules: 'true'
+
+            - name: Authenticate NPM
+              uses: DimensionDev/github-token-action@latest
+              with:
+                  registry: true
+
+            - name: Set up Node.js
+              uses: actions/setup-node@v2
+              with:
+                  node-version-file: '.node-version'
+
+            - uses: pnpm/action-setup@v4
+
+            - name: Install dependencies
+              run: pnpm install
+
+            - name: Run Lingui
+              run: npm run lingui
+
+            - name: Run Prettier
+              run: npx prettier . -w
+
+            - name: Run ESLint
+              run: |
+                  npx eslint --fix . || echo "ESLint completed with warnings"
+
+            - name: Commit and Push changes if necessary
+              run: |
+                  git config --global user.name "github-actions[bot]"
+                  git config --global user.email "github-actions[bot]@users.noreply.github.com"
+
+                  if [[ $(git status --porcelain) ]]; then
+                    git add ./
+                    git commit -m "chore: code maintenance [bot]"
+                    git push origin
+                  else
+                    echo "No changes to commit."
+                  fi

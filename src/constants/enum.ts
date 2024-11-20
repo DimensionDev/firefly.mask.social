@@ -90,6 +90,7 @@ export type BookmarkSource = Source.Farcaster | Source.Lens | Source.Article | S
 export type FollowingSource = DiscoverSource | Source.Polymarket;
 export type ExploreSource = Source.Farcaster | Source.Lens | TrendingType;
 export type ExploreSourceInURL = SourceInURL.Farcaster | SourceInURL.Lens | TrendingType;
+export type LoginFallbackSource = SocialSource | Source.Article | Source.Snapshot | Source.Polymarket;
 
 export enum DiscoverType {
     ForYou = 'for-you',
@@ -341,8 +342,11 @@ export enum LinkDigestType {
 
 export enum SnapshotState {
     Active = 'active',
-    Closed = 'closed',
     Pending = 'pending',
+    Passed = 'passed',
+    Rejected = 'rejected',
+    Executed = 'executed',
+    Closed = 'closed',
 }
 
 export enum PolymarketBetType {

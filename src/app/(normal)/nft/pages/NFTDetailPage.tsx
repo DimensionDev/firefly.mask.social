@@ -15,8 +15,8 @@ import { POAP_CONTRACT_ADDRESS } from '@/constants/index.js';
 import { classNames } from '@/helpers/classNames.js';
 import { getFloorPrice } from '@/helpers/getFloorPrice.js';
 import { isSameEthereumAddress } from '@/helpers/isSameAddress.js';
+import { resolveWalletProfileProvider } from '@/helpers/resolveWalletProfileProvider.js';
 import { useNFTDetail } from '@/hooks/useNFTDetail.js';
-import { SimpleHashWalletProfileProvider } from '@/providers/simplehash/WalletProfile.js';
 
 export function NFTDetailPage({ chainId, address, tokenId }: { chainId: ChainId; address: string; tokenId: string }) {
     const isPoap = isSameEthereumAddress(address, POAP_CONTRACT_ADDRESS);
@@ -26,7 +26,8 @@ export function NFTDetailPage({ chainId, address, tokenId }: { chainId: ChainId;
     const { data: poapEvent } = useQuery({
         queryKey: ['post-event', data?.metadata?.eventId],
         async queryFn() {
-            return SimpleHashWalletProfileProvider.getPoapEvent(data?.metadata?.eventId!);
+            const provider = resolveWalletProfileProvider(chainId);
+            return provider.getPoapEvent(data?.metadata?.eventId!);
         },
         enabled: !!data?.metadata?.eventId,
     });

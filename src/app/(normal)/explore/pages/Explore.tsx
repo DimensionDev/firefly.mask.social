@@ -1,11 +1,13 @@
 'use client';
 
+import { t } from '@lingui/macro';
 import { safeUnreachable } from '@masknet/kit';
 
 import { ChannelList } from '@/components/Channel/ChannelList.js';
 import SuggestedFollowUsersList from '@/components/SuggestedFollows/SuggestedFollowUsersList.js';
 import { TokenTrendingList } from '@/components/TokenTrendingList.js';
 import { type ExploreSource, ExploreType, type SocialSource, Source, TrendingType } from '@/constants/enum.js';
+import { useNavigatorTitle } from '@/hooks/useNavigatorTitle.js';
 
 interface Props {
     source: ExploreSource;
@@ -13,6 +15,8 @@ interface Props {
 }
 
 export function ExplorePage({ source, type }: Props) {
+    useNavigatorTitle(t`Explore`);
+
     switch (type) {
         case ExploreType.TopProfiles:
             return <SuggestedFollowUsersList source={source as SocialSource} />;

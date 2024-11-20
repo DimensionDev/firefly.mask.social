@@ -531,6 +531,9 @@ msgstr "找不到网页"
 msgid "Quote post"
 msgstr "引用"
 
+msgid "No more data available."
+msgstr ""
+
 msgid "The self-destruct function is not included. If there is a self-destruct function, the project owner may have the ability to destroy the contract."
 msgstr "未包含自毁功能。如果存在自毁功能，项目所有者可能有能力销毁合约。"
 
@@ -1097,6 +1100,9 @@ msgstr "识别为合约地址。"
 
 msgid "Top Profiles"
 msgstr "热门用户"
+
+msgid "Executed"
+msgstr ""
 
 msgid "EVM"
 msgstr "EVM"
@@ -1998,6 +2004,9 @@ msgstr "进行中"
 msgid "Send on schedule"
 msgstr "发送定时任务"
 
+msgid "You haven't generated a Firefly wallet yet."
+msgstr ""
+
 msgid "Your transaction will confirm shortly"
 msgstr "您的交易将很快确认"
 
@@ -2060,6 +2069,12 @@ msgstr ""
 
 msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} <4>collected your </4><5>{1, select, Post {post} Comment {comment} Quote {quote} Mirror {mirror} other {post}}</5>"
 msgstr "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} <4>收集了你的 </4><5>{1, select, Post {发帖} Comment {评论} Quote {引用} Mirror {转帖} other {帖子}}</5>"
+
+msgid "Rejected"
+msgstr ""
+
+msgid "No events"
+msgstr ""
 
 msgid "Recast or Quote"
 msgstr "转发或者引用"
@@ -2466,6 +2481,9 @@ msgstr "已保存在 {0}"
 msgid "Add another option"
 msgstr "添加另一个选项"
 
+msgid "Passed"
+msgstr ""
+
 msgid "1y"
 msgstr "1年"
 
@@ -2738,6 +2756,9 @@ msgstr "<0>从 </0> <1>{0}</1>"
 
 msgid "{hours}h left"
 msgstr "{hours} 小时剩余"
+
+msgid "Events"
+msgstr ""
 
 msgid "{0} Users"
 msgstr "{0} 用户"

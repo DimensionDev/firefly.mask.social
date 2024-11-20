@@ -531,6 +531,9 @@ msgstr "找不到網頁"
 msgid "Quote post"
 msgstr ""
 
+msgid "No more data available."
+msgstr ""
+
 msgid "The self-destruct function is not included. If there is a self-destruct function, the project owner may have the ability to destroy the contract."
 msgstr ""
 
@@ -1096,6 +1099,9 @@ msgid "Contract address found."
 msgstr ""
 
 msgid "Top Profiles"
+msgstr ""
+
+msgid "Executed"
 msgstr ""
 
 msgid "EVM"
@@ -1998,6 +2004,9 @@ msgstr ""
 msgid "Send on schedule"
 msgstr ""
 
+msgid "You haven't generated a Firefly wallet yet."
+msgstr ""
+
 msgid "Your transaction will confirm shortly"
 msgstr ""
 
@@ -2059,6 +2068,12 @@ msgid "{0}{1}<0> Floor</0>"
 msgstr ""
 
 msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} <4>collected your </4><5>{1, select, Post {post} Comment {comment} Quote {quote} Mirror {mirror} other {post}}</5>"
+msgstr ""
+
+msgid "Rejected"
+msgstr ""
+
+msgid "No events"
 msgstr ""
 
 msgid "Recast or Quote"
@@ -2466,6 +2481,9 @@ msgstr ""
 msgid "Add another option"
 msgstr ""
 
+msgid "Passed"
+msgstr ""
+
 msgid "1y"
 msgstr ""
 
@@ -2737,6 +2755,9 @@ msgid "<0>since </0> <1>{0}</1>"
 msgstr ""
 
 msgid "{hours}h left"
+msgstr ""
+
+msgid "Events"
 msgstr ""
 
 msgid "{0} Users"

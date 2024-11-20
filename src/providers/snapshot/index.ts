@@ -3,8 +3,9 @@ import { getAccount } from '@wagmi/core';
 import { last, omit } from 'lodash-es';
 
 import { config } from '@/configs/wagmiClient.js';
+import { SnapshotState } from '@/constants/enum.js';
 import { SNAPSHOT_GRAPHQL_URL, SNAPSHOT_RELAY_URL, SNAPSHOT_SCORES_URL, SNAPSHOT_SEQ_URL } from '@/constants/index.js';
-import { SNAPSHOT_PROPOSAL_REGEXP } from '@/constants/regexp.js';
+import { SNAPSHOT_NEW_PROPOSAL_REGEXP, SNAPSHOT_PROPOSAL_REGEXP } from '@/constants/regexp.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
 import { getWalletClientRequired } from '@/helpers/getWalletClientRequired.js';
 import { isSameEthereumAddress } from '@/helpers/isSameAddress.js';
@@ -30,10 +31,26 @@ const NAME = 'snapshot';
 const VERSION = '0.1.4';
 
 export class Snapshot {
+    static getProposalLink(proposal: SnapshotProposal) {
+        return `https://snapshot.box/#/s:${proposal.space.id}/proposal/${proposal.id}`;
+    }
+
+    static getProposalState(proposal: SnapshotProposal) {
+        if (proposal.state === SnapshotState.Closed) {
+            if (proposal.scores_total < proposal.quorum) return SnapshotState.Rejected;
+            return proposal.type !== 'basic' || proposal.scores[0] > proposal.scores[1]
+                ? SnapshotState.Passed
+                : SnapshotState.Rejected;
+        }
+
+        return proposal.state;
+    }
+
     static async getSnapshotByLink(link: string): Promise<SnapshotProposal | undefined> {
-        if (!SNAPSHOT_PROPOSAL_REGEXP.test(link)) return;
+        if (!SNAPSHOT_PROPOSAL_REGEXP.test(link) && !SNAPSHOT_NEW_PROPOSAL_REGEXP.test(link)) return;
         const match = link.match(SNAPSHOT_PROPOSAL_REGEXP);
-        const id = match ? match[1] : null;
+        const newMatch = link.match(SNAPSHOT_NEW_PROPOSAL_REGEXP);
+        const id = match ? match[1] : newMatch ? newMatch[1] : null;
         if (!id) return;
 
         const response = await fetchJSON<{ data: { proposal: SnapshotProposal } }>(SNAPSHOT_GRAPHQL_URL, {
@@ -50,15 +67,19 @@ export class Snapshot {
 
         const account = getAccount(config);
 
-        if (!account.address) return response.data.proposal;
+        const proposal = {
+            ...response.data.proposal,
+            state: Snapshot.getProposalState(response.data.proposal),
+        };
+        if (!account.address) return proposal;
 
         const votes = await Snapshot.pathQueryVoteResultsByVoter([response.data.proposal.id], account.address);
 
         const target = last(votes.data);
-        if (!target) return response.data.proposal;
+        if (!target) return proposal;
 
         return {
-            ...response.data.proposal,
+            ...proposal,
             currentUserChoice: target.choice,
         };
     }
@@ -87,6 +108,7 @@ export class Snapshot {
             const target = votes.data.find((vote) => vote.proposal.id === proposal.id);
             return {
                 ...proposal,
+                state: Snapshot.getProposalState(proposal),
                 currentUserChoice: target?.choice,
             };
         });

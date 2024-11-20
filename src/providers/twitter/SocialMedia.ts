@@ -45,7 +45,6 @@ import {
     type ProfileBadge,
     ProfileBadgePresetColors,
     type ProfileEditable,
-    ProfileStatus,
     type Provider,
     SessionType,
 } from '@/providers/types/SocialMedia.js';
@@ -391,46 +390,6 @@ class TwitterSocialMedia implements Provider {
             if (!response.success) throw new Error(response.error.message);
             return formatTweetsPage(response.data, indicator);
         });
-    }
-
-    async login(): Promise<SessionPayload | null> {
-        const response = await twitterSessionHolder.fetch<ResponseJSON<SessionPayload>>('/api/twitter/login', {
-            method: 'POST',
-        });
-        if (!response.success) return null;
-        return response.data;
-    }
-
-    async logout(): Promise<null> {
-        await twitterSessionHolder.fetch<ResponseJSON<SessionPayload>>('/api/twitter/logout', {
-            method: 'POST',
-        });
-        return null;
-    }
-
-    async me(): Promise<Profile> {
-        const response = await twitterSessionHolder.fetch<
-            ResponseJSON<{
-                id: string;
-                name: string;
-                username: string;
-                profile_image_url: string;
-            }>
-        >('/api/twitter/me');
-        if (!response.success) throw new Error('Failed to fetch user profile');
-
-        return {
-            profileId: response.data.id,
-            displayName: response.data.name,
-            handle: response.data.username,
-            fullHandle: response.data.username,
-            pfp: '',
-            followerCount: 0,
-            followingCount: 0,
-            status: ProfileStatus.Active,
-            verified: true,
-            source: Source.Twitter,
-        };
     }
 
     async quotePost(postId: string, post: Post): Promise<string> {

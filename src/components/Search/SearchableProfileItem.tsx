@@ -16,7 +16,7 @@ interface CrossProfileItemProps {
 
 export const SearchableProfileItem = memo<CrossProfileItemProps>(function SearchableProfileItem({ profile, related }) {
     const source = resolveSocialSource(profile.platform);
-    const avatar = getStampAvatarByProfileId(source, profile.platform_id);
+    const avatar = profile.avatar ?? getStampAvatarByProfileId(source, profile.platform_id);
 
     return (
         <Link

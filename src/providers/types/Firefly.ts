@@ -94,6 +94,7 @@ export interface Profile {
     name: string;
     hit: boolean;
     score: number;
+    avatar?: string;
 }
 
 export interface UsersData {
@@ -1239,7 +1240,7 @@ export type PolymarketActivity = {
     };
     endDate: string;
     eventSlug: string;
-    followingSources: string[];
+    followingSources: FollowingSource[];
     icon: string;
     image: string;
     outcome: string;

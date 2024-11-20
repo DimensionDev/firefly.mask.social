@@ -35,6 +35,7 @@ function composeTwitterProfiles(identities: ProfileWithRelated[], xProfiles: Pro
                 name: x.displayName,
                 hit: true,
                 score: 0,
+                avatar: x.pfp,
             };
             return { profile: matched, related: [matched] };
         }),

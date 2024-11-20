@@ -39,7 +39,7 @@ export function FollowingSnapshotList({ walletAddress }: { walletAddress?: strin
     });
 
     if (!profileIds.length) {
-        return <NotLoginFallback source={Source.Farcaster} />;
+        return <NotLoginFallback source={Source.Snapshot} />;
     }
 
     return (

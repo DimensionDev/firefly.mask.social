@@ -9,21 +9,20 @@ interface ActivityResultProps {
 }
 
 export function PolymarketActivityResult({ activity }: ActivityResultProps) {
-    const isYes = activity.outcome.toUpperCase() === 'YES';
+    const isLeft = activity.conditionOutcomePrices[0] === '1';
+    const outcome = isLeft ? activity.conditionOutcomes[0] : activity.conditionOutcomes[1];
 
     return (
         <div className="mt-2 text-center">
             <div
                 className={classNames('h-12 rounded-full text-sm font-bold leading-[48px] text-lightBottom', {
-                    'bg-success': isYes,
-                    'bg-danger': !isYes,
+                    'bg-success': isLeft,
+                    'bg-danger': !isLeft,
                 })}
             >
-                <Trans>Settled as {activity.outcome.toUpperCase()}</Trans>
+                <Trans>Settled as {outcome.toUpperCase()}</Trans>
             </div>
-            <div className="mt-2 text-xs font-medium text-lightSecond">
-                ${computeVolume(activity, activity.outcomeIndex)}
-            </div>
+            <div className="mt-2 text-xs font-medium text-lightSecond">${computeVolume(activity, isLeft ? 0 : 1)}</div>
         </div>
     );
 }

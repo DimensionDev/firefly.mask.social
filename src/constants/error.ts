@@ -1,8 +1,8 @@
 import { resolveValue } from '@/helpers/resolveValue.js';
 
 export class AbortError extends Error {
-    constructor() {
-        super('Aborted');
+    constructor(message = 'Aborted') {
+        super(message);
     }
 
     static is(error: unknown) {

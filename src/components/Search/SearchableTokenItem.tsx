@@ -28,7 +28,7 @@ export function SearchableTokenItem({ token }: SearchableTokenItemProps) {
                 alt={token.symbol}
             />
             <div className="min-w-0 flex-1">
-                <div className="flex items-center gap-x-1 text-medium font-bold text-lightSecond">
+                <div className="flex items-center gap-x-1 text-medium font-bold text-secondary">
                     <span className="truncate leading-6 text-lightMain">{token.name}</span>
                     <span>{token.symbol}</span>
                     {token.market_cap_rank ? (
@@ -43,7 +43,7 @@ export function SearchableTokenItem({ token }: SearchableTokenItemProps) {
             </div>
             <data
                 className={classNames(
-                    'flex h-8 shrink-0 items-center justify-center gap-x-1 rounded px-1 text-medium font-bold text-white max-md:w-auto max-md:min-w-24 max-md:p-2 max-md:text-[10px] max-md:leading-[12px]',
+                    'flex h-8 shrink-0 items-center justify-center gap-x-1 rounded px-1 text-medium font-bold text-white max-md:h-auto max-md:w-auto max-md:min-w-[60px] max-md:px-2 max-md:py-1 max-md:text-[10px] max-md:leading-[12px]',
                     {
                         'bg-success': priceChange >= 0,
                         'bg-danger': priceChange < 0,
@@ -58,7 +58,7 @@ export function SearchableTokenItem({ token }: SearchableTokenItemProps) {
                         )}
                     />
                 ) : null}
-                {priceChange.toFixed(2)}%
+                {priceChange.toFixed(1).replace('-', '')}%
             </data>
         </Link>
     );

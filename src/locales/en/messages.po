@@ -526,6 +526,9 @@ msgstr "Page not found"
 msgid "Quote post"
 msgstr "Quote post"
 
+msgid "No more data available."
+msgstr "No more data available."
+
 msgid "The self-destruct function is not included. If there is a self-destruct function, the project owner may have the ability to destroy the contract."
 msgstr "The self-destruct function is not included. If there is a self-destruct function, the project owner may have the ability to destroy the contract."
 
@@ -1092,6 +1095,9 @@ msgstr "Contract address found."
 
 msgid "Top Profiles"
 msgstr "Top Profiles"
+
+msgid "Executed"
+msgstr "Executed"
 
 msgid "EVM"
 msgstr "EVM"
@@ -1993,6 +1999,9 @@ msgstr "Live"
 msgid "Send on schedule"
 msgstr "Send on schedule"
 
+msgid "You haven't generated a Firefly wallet yet."
+msgstr "You haven't generated a Firefly wallet yet."
+
 msgid "Your transaction will confirm shortly"
 msgstr "Your transaction will confirm shortly"
 
@@ -2055,6 +2064,12 @@ msgstr "{0}{1}<0> Floor</0>"
 
 msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} <4>collected your </4><5>{1, select, Post {post} Comment {comment} Quote {quote} Mirror {mirror} other {post}}</5>"
 msgstr "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} <4>collected your </4><5>{1, select, Post {post} Comment {comment} Quote {quote} Mirror {mirror} other {post}}</5>"
+
+msgid "Rejected"
+msgstr "Rejected"
+
+msgid "No events"
+msgstr "No events"
 
 msgid "Recast or Quote"
 msgstr "Recast or Quote"
@@ -2461,6 +2476,9 @@ msgstr "Saved on {0}"
 msgid "Add another option"
 msgstr "Add another option"
 
+msgid "Passed"
+msgstr "Passed"
+
 msgid "1y"
 msgstr "1y"
 
@@ -2733,6 +2751,9 @@ msgstr "<0>since </0> <1>{0}</1>"
 
 msgid "{hours}h left"
 msgstr "{hours}h left"
+
+msgid "Events"
+msgstr "Events"
 
 msgid "{0} Users"
 msgstr "{0} Users"

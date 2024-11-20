@@ -2,14 +2,12 @@ import { safeUnreachable } from '@masknet/kit';
 import { memo } from 'react';
 
 import { FollowingNFTList } from '@/components/NFTs/FollowingNFTList.js';
-import { NoResultsFallback } from '@/components/NoResultsFallback.js';
 import { PolymarketTimeLine } from '@/components/Polymarket/PolymarketTimeLine.js';
 import { ArticleList } from '@/components/Profile/ArticleList.js';
 import { NFTs } from '@/components/Profile/NFTs.js';
 import { POAPList } from '@/components/Profile/POAPList.js';
 import { FollowingSnapshotList } from '@/components/Snapshot/FollowingSnapshotList.js';
-import { NetworkType, WalletProfileCategory } from '@/constants/enum.js';
-import { getAddressType } from '@/helpers/getAddressType.js';
+import { WalletProfileCategory } from '@/constants/enum.js';
 
 export const WalletProfileContentList = memo(function WalletProfileContentList({
     type,
@@ -18,9 +16,6 @@ export const WalletProfileContentList = memo(function WalletProfileContentList({
     type: WalletProfileCategory;
     address: string;
 }) {
-    if (getAddressType(address) !== NetworkType.Ethereum) {
-        return <NoResultsFallback className="max-md:py-20 md:pt-[228px]" />;
-    }
     switch (type) {
         case WalletProfileCategory.Articles:
             return <ArticleList address={address} />;

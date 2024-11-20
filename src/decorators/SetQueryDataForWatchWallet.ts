@@ -5,10 +5,13 @@ import { Source } from '@/constants/enum.js';
 import { isSameEthereumAddress } from '@/helpers/isSameAddress.js';
 import type { FireflyEndpoint } from '@/providers/firefly/Endpoint.js';
 import type { Article } from '@/providers/types/Article.js';
+import { type PolymarketActivity, WatchType } from '@/providers/types/Firefly.js';
 import type { ClassType } from '@/types/index.js';
 
+type PagesData = { pages: Array<{ data: Article[] }> };
+type PolymarketPagesData = { pages: Array<{ data: PolymarketActivity[] }> };
+
 function toggleWatch(address: string, status: boolean) {
-    type PagesData = { pages: Array<{ data: Article[] }> };
     const patcher = (old: Draft<PagesData> | undefined) => {
         if (!old) return old;
         return produce(old, (draft) => {
@@ -31,6 +34,26 @@ function toggleWatch(address: string, status: boolean) {
         });
     });
     queryClient.setQueryData(['follow-wallet', address.toLowerCase()], status);
+
+    const polymarketPatcher = (old: Draft<PolymarketPagesData> | undefined) => {
+        if (!old || status) return old;
+        return produce(old, (draft) => {
+            for (const page of draft.pages) {
+                if (!page) continue;
+                page.data = page.data.filter(({ followingSources }) => {
+                    if (
+                        followingSources?.length === 1 &&
+                        followingSources[0]?.type === WatchType.Wallet &&
+                        isSameEthereumAddress(followingSources[0].walletAddress, address)
+                    )
+                        return false;
+
+                    return true;
+                });
+            }
+        });
+    };
+    queryClient.setQueriesData<PolymarketPagesData>({ queryKey: ['polymarket', 'following'] }, polymarketPatcher);
 }
 
 const METHODS_BE_OVERRIDDEN = ['watchWallet', 'unwatchWallet'] as const;
