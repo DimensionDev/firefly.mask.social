@@ -39,7 +39,8 @@ export const PolymarketActivityItem = memo<PolymarketActivityProps>(function Pol
     const isSell = activity.side === PolymarketBetType.Sell;
     const TypeIcon = isSell ? SellIcon : BuyIcon;
     const typeText = isSell ? <Trans>Sold a bet</Trans> : <Trans>Place a bet</Trans>;
-    const isYes = activity.outcome.toUpperCase() === 'YES';
+    const isLeft = activity.outcomeIndex === 0;
+    const outcome = activity.conditionOutcomes[activity.outcomeIndex] || activity.outcome;
 
     return (
         <div className="border-b border-line px-4 py-3">
@@ -104,11 +105,11 @@ export const PolymarketActivityItem = memo<PolymarketActivityProps>(function Pol
                             <div className="mt-2 flex items-center gap-x-1 text-sm font-medium">
                                 <span
                                     className={classNames('rounded-lg border px-2 leading-6', {
-                                        'border-success text-success': isYes,
-                                        'border-danger text-danger': !isYes,
+                                        'border-success text-success': isLeft,
+                                        'border-danger text-danger': !isLeft,
                                     })}
                                 >
-                                    {activity.outcome.toUpperCase()} - {floor(+activity.price * 100)}¢
+                                    {outcome.toUpperCase()} - {floor(+activity.price * 100)}¢
                                 </span>
                                 <span className="h-6 rounded-lg bg-lightBottom px-2 leading-6 text-lightMain dark:text-primaryBottom">
                                     ×{floor(formatAmount(activity.size))}
