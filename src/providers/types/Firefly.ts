@@ -94,6 +94,7 @@ export interface Profile {
     name: string;
     hit: boolean;
     score: number;
+    avatar?: string;
 }
 
 export interface UsersData {
