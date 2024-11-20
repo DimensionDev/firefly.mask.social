@@ -3,21 +3,23 @@ import dayjs from 'dayjs';
 import { useCallback, useMemo } from 'react';
 
 import { EmptyStatus } from '@/components/Calendar/EmptyStatus.js';
+import { useNewsList } from '@/components/Calendar/hooks/useEventList.js';
 import { LoadingStatus } from '@/components/Calendar/LoadingStatus.js';
 import { Image } from '@/components/Image.js';
+import { EMPTY_OBJECT } from '@/constants/index.js';
 import { Link } from '@/esm/Link.js';
-import type { ParsedEvent } from '@/types/calendar.js';
 
 interface NewsListProps {
-    list: Record<string, ParsedEvent[]>;
-    isLoading: boolean;
     date: Date;
 }
 
-export function NewsList({ list, isLoading, date }: NewsListProps) {
+export function NewsList({ date }: NewsListProps) {
+    const { data: list = EMPTY_OBJECT, isPending } = useNewsList(date, true);
+
     const futureNewsList = useMemo(() => {
         return Object.keys(list).filter((key) => new Date(key) >= date);
     }, [list, date]);
+
     const empty = !futureNewsList.length;
     const listRef = useCallback((el: HTMLDivElement | null) => {
         el?.scrollTo({ top: 0 });
@@ -30,7 +32,7 @@ export function NewsList({ list, isLoading, date }: NewsListProps) {
             key={date.toISOString()}
         >
             <div>
-                {isLoading && empty ? (
+                {isPending && empty ? (
                     <div className="absolute left-1/2 top-1/2 flex -translate-x-1/2 -translate-y-1/2 transform flex-col gap-3 whitespace-nowrap text-second">
                         <LoadingStatus />
                     </div>

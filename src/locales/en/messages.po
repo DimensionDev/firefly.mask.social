@@ -526,6 +526,9 @@ msgstr "Page not found"
 msgid "Quote post"
 msgstr "Quote post"
 
+msgid "No more data available."
+msgstr "No more data available."
+
 msgid "The self-destruct function is not included. If there is a self-destruct function, the project owner may have the ability to destroy the contract."
 msgstr "The self-destruct function is not included. If there is a self-destruct function, the project owner may have the ability to destroy the contract."
 
@@ -2065,6 +2068,9 @@ msgstr "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} <4>colle
 msgid "Rejected"
 msgstr "Rejected"
 
+msgid "No events"
+msgstr "No events"
+
 msgid "Recast or Quote"
 msgstr "Recast or Quote"
 
@@ -2745,6 +2751,9 @@ msgstr "<0>since </0> <1>{0}</1>"
 
 msgid "{hours}h left"
 msgstr "{hours}h left"
+
+msgid "Events"
+msgstr "Events"
 
 msgid "{0} Users"
 msgstr "{0} Users"
