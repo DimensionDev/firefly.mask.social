@@ -13,6 +13,7 @@ import {
 } from '@okxweb3/dex-widget';
 import { useAppKitProvider } from '@reown/appkit/react';
 import { useEffect, useRef } from 'react';
+import { useMediaQuery } from 'usehooks-ts';
 
 import { CloseButton } from '@/components/CloseButton.js';
 import { Modal, type ModalProps } from '@/components/Modal.js';
@@ -29,10 +30,11 @@ const LangMap = {
 
 interface Props extends ModalProps {
     chainId: ChainId;
+    chainIds: number[];
     address: string;
 }
 
-export function SwapModal({ chainId, address, ...rest }: Props) {
+export function SwapModal({ chainId, chainIds, address, ...rest }: Props) {
     const widgetRef = useRef<HTMLDivElement>(null);
     const appKitProvider = useAppKitProvider('eip155');
     const provider = appKitProvider.walletProvider as EthereumProvider;
@@ -41,7 +43,8 @@ export function SwapModal({ chainId, address, ...rest }: Props) {
     const mode = useThemeModeStore.use.themeMode();
     const instanceRef = useRef<OkxSwapWidgetHandler | undefined>();
 
-    const theme = mode === Appearance.default ? undefined : mode === Appearance.dark ? THEME.DARK : THEME.LIGHT;
+    const isDark = useMediaQuery('(prefers-color-scheme: dark)');
+    const theme = isDark || mode === Appearance.dark ? THEME.DARK : THEME.LIGHT;
     useEffect(() => {
         if (!widgetRef.current) return;
 
@@ -63,6 +66,7 @@ export function SwapModal({ chainId, address, ...rest }: Props) {
             theme,
             width: 400,
             providerType: ProviderType.EVM,
+            chainIds: chainIds.map((x) => x.toString()),
             tokenPair,
         };
 
@@ -85,11 +89,11 @@ export function SwapModal({ chainId, address, ...rest }: Props) {
             instance.destroy();
             instanceRef.current = undefined;
         };
-    }, [address, chainId, locale, mode, provider, theme]);
+    }, [address, chainId, chainIds, locale, mode, provider, theme]);
 
     return (
         <Modal {...rest}>
-            <div className="relative z-10 overflow-hidden rounded-2xl border-line bg-white p-2 dark:bg-black">
+            <div className="relative z-10 overflow-hidden rounded-2xl border-line bg-white pt-2 dark:bg-black">
                 <CloseButton
                     className="absolute left-1 top-1 text-main"
                     onClick={() => {

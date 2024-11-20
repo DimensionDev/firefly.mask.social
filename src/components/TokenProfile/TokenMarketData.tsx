@@ -157,7 +157,8 @@ export function TokenMarketData({ linkable, token }: TokenMarketDataProps) {
             {openTrader && tradeInfo.tradable ? (
                 <SwapModal
                     open
-                    chainId={tradeInfo.chainId!}
+                    chainId={tradeInfo.chainId}
+                    chainIds={tradeInfo.supportedChainIds}
                     address={tradeInfo.address!}
                     onClose={() => {
                         setOpenTrader(false);
