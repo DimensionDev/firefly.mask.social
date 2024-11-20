@@ -207,7 +207,8 @@
         "tipjar",
         "elex",
         "hlbl",
-        "pushswitch"
+        "pushswitch",
+        "Luma"
     ],
     "flagWords": [],
     "ignorePaths": [
