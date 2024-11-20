@@ -45,6 +45,10 @@ export async function getProfileBySession(session: Session, signal?: AbortSignal
             return provider.getProfileById(farcasterSession.profileId);
         case SessionType.Firefly:
             throw new NotAllowedError();
+        case SessionType.Apple:
+        case SessionType.Google:
+        case SessionType.Telegram:
+            throw new NotAllowedError();
         default:
             safeUnreachable(session.type);
             throw new UnreachableError('session type', session);

@@ -531,6 +531,9 @@ msgstr "找不到網頁"
 msgid "Quote post"
 msgstr ""
 
+msgid "No more data available."
+msgstr ""
+
 msgid "The self-destruct function is not included. If there is a self-destruct function, the project owner may have the ability to destroy the contract."
 msgstr ""
 
@@ -2070,6 +2073,9 @@ msgstr ""
 msgid "Rejected"
 msgstr ""
 
+msgid "No events"
+msgstr ""
+
 msgid "Recast or Quote"
 msgstr "引用"
 
@@ -2749,6 +2755,9 @@ msgid "<0>since </0> <1>{0}</1>"
 msgstr ""
 
 msgid "{hours}h left"
+msgstr ""
+
+msgid "Events"
 msgstr ""
 
 msgid "{0} Users"

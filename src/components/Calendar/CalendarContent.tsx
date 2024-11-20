@@ -2,14 +2,12 @@
 
 import { Tab, TabGroup, TabList, TabPanel, TabPanels } from '@headlessui/react';
 import { Trans } from '@lingui/macro';
-import { safeUnreachable } from '@masknet/kit';
 import { useState } from 'react';
 
 import { DatePickerTab } from '@/components/Calendar/DatePickerTab.js';
-import { useNewsList, useNFTList } from '@/components/Calendar/hooks/useEventList.js';
+import { EventList } from '@/components/Calendar/EventList.js';
 import { NewsList } from '@/components/Calendar/NewsList.js';
-import { NFTList } from '@/components/Calendar/NFTList.js';
-import { EMPTY_OBJECT } from '@/constants/index.js';
+import { EMPTY_LIST } from '@/constants/index.js';
 import { classNames } from '@/helpers/classNames.js';
 
 export function CalendarContent() {
@@ -19,31 +17,16 @@ export function CalendarContent() {
             value: 'news',
         },
         {
-            label: <Trans>NFTs</Trans>,
-            value: 'nfts',
+            label: <Trans>Events</Trans>,
+            value: 'events',
         },
     ] as const;
 
     const [currentTabIndex, setCurrentTabIndex] = useState(0);
-    const [selectedDate, setSelectedDate] = useState(() => new Date());
+    const [date, setDate] = useState(() => new Date());
     const [open, setOpen] = useState(false);
 
-    const currentTab = tabs[currentTabIndex].value;
-
-    const { data: newsList = EMPTY_OBJECT, isPending: newsLoading } = useNewsList(selectedDate, currentTab === 'news');
-    const { data: nftList = EMPTY_OBJECT, isPending: nftLoading } = useNFTList(selectedDate, currentTab === 'nfts');
-
-    const getListItems = () => {
-        switch (currentTab) {
-            case 'news':
-                return newsList;
-            case 'nfts':
-                return nftList;
-            default:
-                safeUnreachable(currentTab);
-                return null;
-        }
-    };
+    const [allowedDates, setAllowedDates] = useState<string[]>(EMPTY_LIST);
 
     return (
         <div className="relative flex flex-col rounded-xl">
@@ -66,18 +49,17 @@ export function CalendarContent() {
                 </TabList>
                 <DatePickerTab
                     open={open}
-                    setOpen={setOpen}
-                    selectedDate={selectedDate}
-                    setSelectedDate={setSelectedDate}
-                    list={getListItems()}
-                    currentTab={currentTab}
+                    onToggle={setOpen}
+                    date={date}
+                    onChange={setDate}
+                    allowedDates={allowedDates}
                 />
                 <TabPanels className="rounded-b-xl border border-t-0 border-line px-2">
                     <TabPanel>
-                        <NewsList list={newsList} isLoading={newsLoading} date={selectedDate} />
+                        <NewsList date={date} />
                     </TabPanel>
                     <TabPanel>
-                        <NFTList list={nftList} isLoading={nftLoading} date={selectedDate} />
+                        <EventList date={date} onDatesUpdate={setAllowedDates} />
                     </TabPanel>
                 </TabPanels>
             </TabGroup>
