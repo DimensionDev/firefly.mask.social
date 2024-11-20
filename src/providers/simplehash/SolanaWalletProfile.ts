@@ -11,17 +11,18 @@ class SimpleHashSolanaWalletProfile implements Provider<ChainId, SchemaType> {
         address: string,
         tokenId: string,
         options?: BaseHubOptions<ChainId>,
+        skipScoreCheck = false,
     ): Promise<NonFungibleAsset<ChainId, SchemaType> | null> {
-        const asset = await SimpleHashSolana.getAsset(address, tokenId, options);
+        const asset = await SimpleHashSolana.getAsset(address, tokenId, options, skipScoreCheck);
         return asset || null;
     }
 
     getNFTs(contractAddress: string, options?: BaseHubOptions<ChainId>, skipScoreCheck = false) {
-        return SimpleHashSolana.getAssetsByCollection(contractAddress, options);
+        return SimpleHashSolana.getAssetsByCollection(contractAddress, options, skipScoreCheck);
     }
 
-    getNFTsByCollectionId(collectionId: string, options?: BaseHubOptions<ChainId>) {
-        return SimpleHashSolana.getAssetsByCollectionId(collectionId, options);
+    getNFTsByCollectionId(collectionId: string, options?: BaseHubOptions<ChainId>, skipScoreCheck = false) {
+        return SimpleHashSolana.getAssetsByCollectionId(collectionId, options, skipScoreCheck);
     }
 
     getNFTsByCollectionIdAndOwner(collectionId: string, owner: string, options?: BaseHubOptions<ChainId>) {
