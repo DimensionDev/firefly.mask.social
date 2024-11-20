@@ -1,4 +1,5 @@
 import { t } from '@lingui/macro';
+import { timeout } from '@masknet/kit';
 import { EthereumMethodType, isValidAddress } from '@masknet/web3-shared-evm';
 import { AuthType, connect, disconnect, EthereumProvider, particleAuth } from '@particle-network/auth-core';
 import { type Address, type Chain, numberToHex, RpcError, SwitchChainError } from 'viem';
@@ -125,6 +126,19 @@ export function createParticleConnector(options: ConnectorOptions): CreateConnec
                 try {
                     const provider = await getProvider();
                     await Promise.all([
+                        timeout(
+                            new Promise<void>((resolve, reject) => {
+                                const listener = ((data) => {
+                                    if ('chainId' in data && data.chainId === parameters.chainId) {
+                                        config.emitter.off('change', listener);
+                                        resolve();
+                                    }
+                                }) satisfies Parameters<typeof config.emitter.on>[1];
+                                config.emitter.on('change', listener);
+                            }),
+                            60 * 1000 * 3,
+                            '[particle] switchChain timeout',
+                        ),
                         provider
                             .request({
                                 method: EthereumMethodType.WALLET_SWITCH_ETHEREUM_CHAIN,
@@ -140,15 +154,6 @@ export function createParticleConnector(options: ConnectorOptions): CreateConnec
                                     config.emitter.emit('change', { chainId: parameters.chainId });
                                 }
                             }),
-                        new Promise<void>((resolve) => {
-                            const listener = ((data) => {
-                                if ('chainId' in data && data.chainId === parameters.chainId) {
-                                    config.emitter.off('change', listener);
-                                    resolve();
-                                }
-                            }) satisfies Parameters<typeof config.emitter.on>[1];
-                            config.emitter.on('change', listener);
-                        }),
                     ]);
 
                     return chain;
