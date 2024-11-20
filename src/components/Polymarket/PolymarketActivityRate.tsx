@@ -12,7 +12,6 @@ export function PolymarketActivityRate({ activity }: ActivityRateProps) {
             <div className="mt-2 flex h-12 gap-x-2 overflow-hidden rounded-full">
                 {activity.conditionOutcomes.map((outcome, index) => {
                     const rate = toFixedTrimmed((+activity.conditionOutcomePrices[index] || 0) * 100, 2);
-                    const isYes = outcome.toUpperCase() === 'YES';
                     const isFirst = index === 0;
                     const isLast = index === activity.conditionOutcomes.length - 1;
 
@@ -25,29 +24,29 @@ export function PolymarketActivityRate({ activity }: ActivityRateProps) {
                             style={{
                                 width: `${rate}%`,
                                 background: isFirst
-                                    ? `linear-gradient(to right, ${isYes ? '#3DC233' : '#FF3545'}, ${isYes ? '#3DC233' : '#FF3545'} 20px, transparent 20px)`
-                                    : index === activity.conditionOutcomes.length - 1
-                                      ? `linear-gradient(to left, ${isYes ? '#3DC233' : '#FF3545'}, ${isYes ? '#3DC233' : '#FF3545'} 20px, transparent 20px)`
+                                    ? `linear-gradient(to right, ${isFirst ? '#3DC233' : '#FF3545'}, ${isFirst ? '#3DC233' : '#FF3545'} 20px, transparent 20px)`
+                                    : isLast
+                                      ? `linear-gradient(to left, ${isFirst ? '#3DC233' : '#FF3545'}, ${isFirst ? '#3DC233' : '#FF3545'} 20px, transparent 20px)`
                                       : 'transparent',
                             }}
                             key={outcome}
                         >
                             <div
                                 className={classNames('h-full skew-x-[-30deg] rounded-lg', {
-                                    'bg-success': isYes,
-                                    'bg-danger': !isYes,
+                                    'bg-success': isFirst,
+                                    'bg-danger': !isFirst,
                                 })}
                             />
                             <div
                                 className={classNames(
-                                    'absolute bottom-0 top-0 flex flex-col justify-center font-bold text-white',
+                                    'absolute bottom-0 top-0 flex max-w-full flex-col justify-center font-bold text-white',
                                     {
                                         'right-0 pr-7 text-right': isLast,
                                         'left-0 pl-7': !isLast,
                                     },
                                 )}
                             >
-                                <span className="text-xs uppercase">{outcome}</span>
+                                <span className="truncate text-xs uppercase">{outcome}</span>
                                 <span className="text-sm">{rate}%</span>
                             </div>
                         </div>
