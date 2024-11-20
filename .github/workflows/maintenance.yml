@@ -49,7 +49,7 @@ jobs:
                   git config --global user.email "github-actions[bot]@users.noreply.github.com"
 
                   if [[ $(git status --porcelain) ]]; then
-                    git add src/
+                    git add ./
                     git commit -m "chore: code maintenance [bot]"
                     git push origin
                   else
