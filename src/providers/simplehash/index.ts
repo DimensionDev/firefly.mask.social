@@ -43,16 +43,18 @@ class SimpleHash {
     ) {
         const response = await SimpleHashProvider.getWalletsNFTCollections(params, chains);
         const nftIds = response.data.flatMap((collection) => collection.nft_ids ?? []);
-        const nfts = await SimpleHashProvider.getNFTByIds(nftIds);
+        const nfts = nftIds.length ? await SimpleHashProvider.getNFTByIds(nftIds) : [];
 
         return {
             ...response,
-            data: response.data.map((collection) => {
-                return {
-                    ...collection,
-                    nftPreviews: nfts.filter((nft) => collection.nft_ids?.includes(nft.nft_id)),
-                };
-            }),
+            data: nfts.length
+                ? response.data.map((collection) => {
+                      return {
+                          ...collection,
+                          nftPreviews: nfts.filter((nft) => collection.nft_ids?.includes(nft.nft_id)),
+                      };
+                  })
+                : response.data,
         };
     }
 }
