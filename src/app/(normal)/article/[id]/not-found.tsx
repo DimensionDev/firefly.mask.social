@@ -1,4 +1,4 @@
-import { t } from '@lingui/macro';
+import { t, Trans } from '@lingui/macro';
 
 import NotFound from '@/components/NotFound.js';
 import { SearchType } from '@/constants/enum.js';
@@ -9,9 +9,9 @@ export default function ArticleNotFound() {
 
     return (
         <NotFound
-            backText={t`Article`}
-            text={t`Article could not be found`}
-            search={{ text: t`Search article`, searchText: '', searchType: SearchType.Posts }}
+            backText={<Trans>Article</Trans>}
+            text={<Trans>Article could not be found</Trans>}
+            search={{ text: <Trans>Search article</Trans>, searchText: '', searchType: SearchType.Posts }}
         />
     );
 }
