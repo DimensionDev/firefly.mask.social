@@ -417,6 +417,12 @@ msgstr "举报帖子"
 msgid "Tokens"
 msgstr ""
 
+msgid "Search profile"
+msgstr ""
+
+msgid "Search {id}"
+msgstr ""
+
 msgid "Skip"
 msgstr "跳过"
 
@@ -678,6 +684,9 @@ msgstr "{minutes, plural, one {1 分钟剩余} other {{minutes} 分钟剩余}}"
 msgid "No Airdrop Scam"
 msgstr "没有空投骗局"
 
+msgid "Channel {id} could not be found."
+msgstr ""
+
 msgid "Reposted"
 msgstr "转帖"
 
@@ -771,6 +780,9 @@ msgstr "非黑名单地址。"
 msgid "Feed"
 msgstr "信息流"
 
+msgid "Search article"
+msgstr ""
+
 msgid "Failed to upload. Not a valid image type"
 msgstr "上传失败。图片格式不支持"
 
@@ -800,6 +812,9 @@ msgstr "白名单功能"
 
 msgid "Profile could not be found."
 msgstr "未找到相关个人信息。"
+
+msgid "Profile details"
+msgstr ""
 
 msgid "Failed to mute /{0}."
 msgstr "隐藏 /{0} 失败。"
@@ -1170,6 +1185,9 @@ msgstr "切换"
 msgid "Drafts"
 msgstr "草稿"
 
+msgid "Token {symbol} could not be found."
+msgstr ""
+
 msgid "About Airdrop"
 msgstr "关于空投"
 
@@ -1539,9 +1557,6 @@ msgstr "使用 Warpcast 连接"
 msgid "Updated profile successfully"
 msgstr "更新个人资料成功"
 
-msgid "Token ${symbol} could not be found."
-msgstr "未找到通证 ${symbol} 。"
-
 msgid "No cybercrime found."
 msgstr "不涉及网络犯罪。"
 
@@ -1724,6 +1739,9 @@ msgstr "帖子"
 
 msgid "Unable to read image."
 msgstr "获取图片失败。"
+
+msgid "Collectible could not be found."
+msgstr ""
 
 msgid "Step 3 Select to vote"
 msgstr "第 3 步 选择候选人"
@@ -2091,6 +2109,9 @@ msgstr "钱包"
 msgid "Articles from {walletHandle} will now be hidden in your home timeline"
 msgstr "来自 {walletHandle} 的文章现在将从您的首页时间线中隐藏。"
 
+msgid "Article"
+msgstr ""
+
 msgid "Please input the url to be revalidated."
 msgstr "请输入 URL 重新验证："
 
@@ -2168,6 +2189,9 @@ msgstr "点击上传"
 
 msgid "Internal Server Error. Please try again later."
 msgstr "内部服务错误。请稍后重试。"
+
+msgid "Post could not be found."
+msgstr ""
 
 msgid "No suspected malicious behavior found."
 msgstr "未发现疑似恶意行为。"
@@ -2432,6 +2456,9 @@ msgstr "{0} 和 其他"
 
 msgid "Please switch to Firefly Wallet."
 msgstr "请切换到 Firefly 钱包。"
+
+msgid "Post details"
+msgstr ""
 
 msgid "No money laundering involved."
 msgstr "不涉及洗钱。"
@@ -2982,6 +3009,9 @@ msgstr "转发"
 msgid "Terms of Service"
 msgstr "服务条款"
 
+msgid "Article could not be found"
+msgstr ""
+
 msgid "[Quote]"
 msgstr "[引用]"
 
@@ -3044,6 +3074,9 @@ msgstr "一条 thread 至少包含 2 个帖子。"
 
 msgid "{0, plural, one {like} other {likes}}"
 msgstr "{0, plural, one {点赞} other {点赞}}"
+
+msgid "Collectible"
+msgstr ""
 
 msgid "Are you sure you want to report this user?"
 msgstr "您确定要举报这个用户么？"

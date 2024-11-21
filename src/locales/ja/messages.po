@@ -417,6 +417,12 @@ msgstr ""
 msgid "Tokens"
 msgstr ""
 
+msgid "Search profile"
+msgstr ""
+
+msgid "Search {id}"
+msgstr ""
+
 msgid "Skip"
 msgstr ""
 
@@ -678,6 +684,9 @@ msgstr ""
 msgid "No Airdrop Scam"
 msgstr ""
 
+msgid "Channel {id} could not be found."
+msgstr ""
+
 msgid "Reposted"
 msgstr ""
 
@@ -771,6 +780,9 @@ msgstr ""
 msgid "Feed"
 msgstr ""
 
+msgid "Search article"
+msgstr ""
+
 msgid "Failed to upload. Not a valid image type"
 msgstr ""
 
@@ -799,6 +811,9 @@ msgid "Whitelist function"
 msgstr ""
 
 msgid "Profile could not be found."
+msgstr ""
+
+msgid "Profile details"
 msgstr ""
 
 msgid "Failed to mute /{0}."
@@ -1170,6 +1185,9 @@ msgstr ""
 msgid "Drafts"
 msgstr ""
 
+msgid "Token {symbol} could not be found."
+msgstr ""
+
 msgid "About Airdrop"
 msgstr ""
 
@@ -1539,9 +1557,6 @@ msgstr ""
 msgid "Updated profile successfully"
 msgstr ""
 
-msgid "Token ${symbol} could not be found."
-msgstr ""
-
 msgid "No cybercrime found."
 msgstr ""
 
@@ -1723,6 +1738,9 @@ msgid "Publications"
 msgstr ""
 
 msgid "Unable to read image."
+msgstr ""
+
+msgid "Collectible could not be found."
 msgstr ""
 
 msgid "Step 3 Select to vote"
@@ -2091,6 +2109,9 @@ msgstr ""
 msgid "Articles from {walletHandle} will now be hidden in your home timeline"
 msgstr ""
 
+msgid "Article"
+msgstr ""
+
 msgid "Please input the url to be revalidated."
 msgstr ""
 
@@ -2167,6 +2188,9 @@ msgid "Click to upload"
 msgstr ""
 
 msgid "Internal Server Error. Please try again later."
+msgstr ""
+
+msgid "Post could not be found."
 msgstr ""
 
 msgid "No suspected malicious behavior found."
@@ -2431,6 +2455,9 @@ msgid "{0} and others"
 msgstr ""
 
 msgid "Please switch to Firefly Wallet."
+msgstr ""
+
+msgid "Post details"
 msgstr ""
 
 msgid "No money laundering involved."
@@ -2982,6 +3009,9 @@ msgstr ""
 msgid "Terms of Service"
 msgstr ""
 
+msgid "Article could not be found"
+msgstr ""
+
 msgid "[Quote]"
 msgstr ""
 
@@ -3043,6 +3073,9 @@ msgid "A thread must have at least two posts."
 msgstr ""
 
 msgid "{0, plural, one {like} other {likes}}"
+msgstr ""
+
+msgid "Collectible"
 msgstr ""
 
 msgid "Are you sure you want to report this user?"
