@@ -4,7 +4,7 @@ import urlcat from 'urlcat';
 import { NotAllowedError, UnreachableError } from '@/constants/error.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
 import { resolveFireflyResponseData } from '@/helpers/resolveFireflyResponseData.js';
-import { FarcasterSession } from '@/providers/farcaster/Session.js';
+import { FAKE_SIGNER_REQUEST_TOKEN, FarcasterSession } from '@/providers/farcaster/Session.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
 import type { LensSession } from '@/providers/lens/Session.js';
 import { TwitterSession } from '@/providers/twitter/Session.js';
@@ -120,7 +120,12 @@ export async function bindOrRestoreFireflySession(session: Session, signal?: Abo
             const response = await bindFireflySession(session, signal);
 
             if (FarcasterSession.isRelayService(session)) {
-                session.profileId = response.fid;
+                session.profileId = `${response.fid}`;
+
+                if (response.farcaster_signer_private_key) {
+                    session.signerRequestToken = FAKE_SIGNER_REQUEST_TOKEN;
+                    session.token = response.farcaster_signer_private_key ?? '';
+                }
             }
 
             // this will return the existing session

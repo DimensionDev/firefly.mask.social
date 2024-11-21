@@ -340,7 +340,7 @@ export type MetricsDownloadResponse = Response<{
 export type MetricsUploadResponse = Response<void>;
 
 export type BindResponse = Response<{
-    fid: string;
+    fid: number;
     farcaster_signer_public_key?: string;
     farcaster_signer_private_key?: string;
     account_id: string;
