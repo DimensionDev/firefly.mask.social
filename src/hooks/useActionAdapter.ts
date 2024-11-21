@@ -1,13 +1,21 @@
-import { ActionConfig as RawActionConfig, BlockchainIds } from '@dialectlabs/blinks';
+import {
+    ActionConfig as RawActionConfig,
+    BlockchainIds,
+    createSignMessageText,
+    type SignMessageData,
+    type SignMessageVerificationOptions,
+    verifySignMessageData,
+} from '@dialectlabs/blinks';
 import { t } from '@lingui/macro';
 import type { ChainId } from '@masknet/web3-shared-evm';
 import { useConnection, useWallet } from '@solana/wallet-adapter-react';
 import { useWalletModal } from '@solana/wallet-adapter-react-ui';
 import { VersionedTransaction } from '@solana/web3.js';
+import bs58 from 'bs58';
 import { pick } from 'lodash-es';
 import { useCallback, useMemo } from 'react';
 import { type Hex, isHex, parseTransaction } from 'viem';
-import { useAccount, useSendTransaction } from 'wagmi';
+import { useAccount, useSendTransaction, useSignMessage } from 'wagmi';
 
 import { simulate } from '@/components/TransactionSimulator/simulate.js';
 import { chains } from '@/configs/wagmiClient.js';
@@ -37,6 +45,7 @@ export function useActionAdapter(url?: string) {
     const walletModal = useWalletModal();
     const { sendTransactionAsync } = useSendTransaction();
     const evmAccount = useAccount();
+    const { signMessageAsync } = useSignMessage();
 
     const signEvmTransaction = useCallback(
         async (txData: Hex) => {
@@ -84,7 +93,51 @@ export function useActionAdapter(url?: string) {
     );
 
     return useMemo(() => {
+        function verifySignDataValidity(data: string | SignMessageData, opts: SignMessageVerificationOptions) {
+            if (typeof data === 'string') {
+                return true;
+            }
+            const errors = verifySignMessageData(data, opts);
+            if (errors.length > 0) {
+                console.warn(`[@dialectlabs/blinks] Sign message data verification error: ${errors.join(', ')}`);
+            }
+            return errors.length === 0;
+        }
+
         return new ActionConfig(connection, {
+            async signMessage(data, context) {
+                const isEVM = context.action.metadata.blockchainIds?.some((x) => x.startsWith('eip155:'));
+                if (isEVM) {
+                    if (!evmAccount.isConnected) {
+                        ConnectModalRef.open();
+                        return { error: '' };
+                    }
+                    const signature = await signMessageAsync({
+                        message: data,
+                    });
+                    return { signature };
+                }
+                if (!wallet.signMessage || !wallet.publicKey) {
+                    walletModal.setVisible(true);
+                    return { error: '' };
+                }
+                try {
+                    // Optional data verification before signing
+                    const isSignDataValid = verifySignDataValidity(data, {
+                        expectedAddress: wallet.publicKey.toString(),
+                    });
+                    if (!isSignDataValid) {
+                        return { error: 'Signing failed.' };
+                    }
+                    const text = typeof data === 'string' ? data : createSignMessageText(data);
+                    const encoded = new TextEncoder().encode(text);
+                    const signed = await wallet.signMessage(encoded);
+                    const encodedSignature = bs58.encode(signed);
+                    return { signature: encodedSignature };
+                } catch (e) {
+                    return { error: 'Signing failed.' };
+                }
+            },
             metadata: {
                 supportedBlockchainIds: [
                     BlockchainIds.ETHEREUM_MAINNET,
@@ -122,6 +175,7 @@ export function useActionAdapter(url?: string) {
         evmAccount.address,
         evmAccount.isConnected,
         signEvmTransaction,
+        signMessageAsync,
         signSolanaTransaction,
         wallet,
         walletModal,
