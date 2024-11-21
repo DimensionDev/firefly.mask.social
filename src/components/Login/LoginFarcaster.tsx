@@ -77,7 +77,6 @@ export function LoginFarcaster({ signType }: LoginFarcasterProps) {
 
     const [, onLoginByGrantPermission] = useAsyncFn(async () => {
         controller.current.renew();
-
         try {
             await login(
                 () =>
@@ -137,17 +136,17 @@ export function LoginFarcaster({ signType }: LoginFarcasterProps) {
     }, [resetCountdown, startCountdown]);
 
     const [, onLoginByFireflySponsorship] = useAsyncFn(async () => {
+        controller.current.renew();
         try {
             await login(
                 () =>
                     createAccountByFireflySponsorship((url) => {
-                        resetCountdown();
-                        startCountdown();
-                        setScanned(false);
-
                         const device = getMobileDevice();
                         if (device === 'unknown') setUrl(url);
                         else location.href = url;
+
+                        resetCountdown();
+                        startCountdown();
                     }, controller.current.signal),
                 { skipReportFarcasterSigner: false, signal: controller.current.signal },
             );
