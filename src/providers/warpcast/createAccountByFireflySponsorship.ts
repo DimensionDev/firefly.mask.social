@@ -8,7 +8,7 @@ import { FarcasterSocialMediaProvider } from '@/providers/farcaster/SocialMedia.
 import type { Account } from '@/providers/types/Account.js';
 import type { SignedKeyRequestResponse } from '@/providers/types/Warpcast.js';
 import { pollingSignerRequestToken } from '@/providers/warpcast/pollingSignerRequestToken.js';
-import { bindOrRestoreFireflySession } from '@/services/bindOrRestoreFireflySession.js';
+import { bindOrRestoreFireflySession } from '@/services/bindFireflySession.js';
 import type { ResponseJSON } from '@/types/index.js';
 
 interface SponsorshipResponse extends SignedKeyRequestResponse {
