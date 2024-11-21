@@ -121,6 +121,7 @@ export async function bindOrRestoreFireflySession(session: Session, signal?: Abo
 
             if (FarcasterSession.isRelayService(session)) {
                 session.profileId = `${response.fid}`;
+                session.token = response.farcaster_signer_private_key ?? '';
             }
 
             // this will return the existing session
