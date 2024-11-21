@@ -1,6 +1,6 @@
 'use client';
 
-import { t, Trans } from '@lingui/macro';
+import { Trans } from '@lingui/macro';
 import { useParams } from 'next/navigation.js';
 
 import NotFound from '@/components/NotFound.js';

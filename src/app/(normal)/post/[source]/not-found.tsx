@@ -1,4 +1,4 @@
-import { t, Trans } from '@lingui/macro';
+import { Trans } from '@lingui/macro';
 
 import NotFound from '@/components/NotFound.js';
 import { SearchType } from '@/constants/enum.js';
