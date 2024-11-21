@@ -35,11 +35,8 @@ function NFTCollectionItem({ collection, onClick }: NFTCollectionItemProps) {
         return previewImages.map((preview) => preview.previews.image_small_url);
     }, [distinctNFTCount, collection.nftPreviews]);
 
-    const chainId: number | undefined = useMemo(() => {
-        const chain = first(collection.collection_details.chains);
-        if (!chain) return;
-        return resolveSimpleHashChainId(chain);
-    }, [collection.collection_details.chains]);
+    const chain = first(collection.collection_details.chains);
+    const chainId = chain ? resolveSimpleHashChainId(chain) : undefined;
 
     const nftPreview = first(collection.nftPreviews);
     if (nftPreview && images.length === 1) {
