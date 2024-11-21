@@ -1,5 +1,4 @@
 import { t } from '@lingui/macro';
-import { timeout } from '@masknet/kit';
 import { EthereumMethodType, isValidAddress } from '@masknet/web3-shared-evm';
 import { AuthType, connect, disconnect, EthereumProvider, particleAuth } from '@particle-network/auth-core';
 import { type Address, type Chain, numberToHex, RpcError, SwitchChainError } from 'viem';
