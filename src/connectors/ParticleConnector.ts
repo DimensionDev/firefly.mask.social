@@ -1,9 +1,8 @@
 import { t } from '@lingui/macro';
-import { timeout } from '@masknet/kit';
 import { EthereumMethodType, isValidAddress } from '@masknet/web3-shared-evm';
 import { AuthType, connect, disconnect, EthereumProvider, particleAuth } from '@particle-network/auth-core';
 import { type Address, type Chain, numberToHex, RpcError, SwitchChainError } from 'viem';
-import { ChainNotConfiguredError, createConnector, type CreateConnectorFn } from 'wagmi';
+import { ChainNotConfiguredError, ConnectorChainMismatchError, createConnector, type CreateConnectorFn } from 'wagmi';
 import { mainnet } from 'wagmi/chains';
 
 import { STATUS, WalletSource } from '@/constants/enum.js';
@@ -125,36 +124,25 @@ export function createParticleConnector(options: ConnectorOptions): CreateConnec
 
                 try {
                     const provider = await getProvider();
-                    await Promise.all([
-                        timeout(
-                            new Promise<void>((resolve, reject) => {
-                                const listener = ((data) => {
-                                    if ('chainId' in data && data.chainId === parameters.chainId) {
-                                        config.emitter.off('change', listener);
-                                        resolve();
-                                    }
-                                }) satisfies Parameters<typeof config.emitter.on>[1];
-                                config.emitter.on('change', listener);
-                            }),
-                            60 * 1000 * 3,
-                            '[particle] switchChain timeout',
-                        ),
-                        provider
-                            .request({
-                                method: EthereumMethodType.WALLET_SWITCH_ETHEREUM_CHAIN,
-                                params: [
-                                    {
-                                        chainId: numberToHex(parameters.chainId),
-                                    },
-                                ],
-                            })
-                            .then(async () => {
-                                const currentChainId = await this.getChainId();
-                                if (currentChainId === parameters.chainId) {
-                                    config.emitter.emit('change', { chainId: parameters.chainId });
-                                }
-                            }),
-                    ]);
+
+                    await provider.request({
+                        method: EthereumMethodType.WALLET_SWITCH_ETHEREUM_CHAIN,
+                        params: [
+                            {
+                                chainId: numberToHex(parameters.chainId),
+                            },
+                        ],
+                    });
+
+                    const currentChainId = await this.getChainId();
+                    if (currentChainId === parameters.chainId) {
+                        config.emitter.emit('change', { chainId: parameters.chainId });
+                    } else {
+                        throw new ConnectorChainMismatchError({
+                            connectionChainId: currentChainId,
+                            connectorChainId: parameters.chainId,
+                        });
+                    }
 
                     return chain;
                 } catch (error) {
