@@ -12,10 +12,12 @@ import { POAPGridListComponent } from '@/components/Profile/POAPList.js';
 import { EMPTY_LIST } from '@/constants/index.js';
 import { Link } from '@/esm/Link.js';
 import { classNames } from '@/helpers/classNames.js';
+import { isValidSolanaAddress } from '@/helpers/isValidSolanaAddress.js';
 import { createIndicator } from '@/helpers/pageable.js';
 import { resolveNftUrl } from '@/helpers/resolveNftUrl.js';
 import { resolveSimpleHashChainId } from '@/helpers/resolveSimpleHashChain.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
+import { SimpleHashProvider } from '@/providers/simplehash/index.js';
 import type { Collection } from '@/providers/types/Firefly.js';
 
 interface NFTCollectionItemProps {
@@ -33,7 +35,7 @@ function NFTCollectionItem({ collection, onClick }: NFTCollectionItemProps) {
         return previewImages.map((preview) => preview.previews.image_small_url);
     }, [distinctNFTCount, collection.nftPreviews]);
 
-    const chainId = useMemo(() => {
+    const chainId: number | undefined = useMemo(() => {
         const chain = first(collection.collection_details.chains);
         if (!chain) return;
         return resolveSimpleHashChainId(chain);
@@ -42,11 +44,12 @@ function NFTCollectionItem({ collection, onClick }: NFTCollectionItemProps) {
     const nftPreview = first(collection.nftPreviews);
     if (nftPreview && images.length === 1) {
         const tokenId = nftPreview.nft_id.split('.')?.[2];
+        const displayId = tokenId ? `#${tokenId}` : '';
         const name =
-            (nftPreview.name ?? nftPreview?.contract?.name) ? `${nftPreview.contract.name} #${tokenId}` : `#${tokenId}`;
+            (nftPreview.name ?? nftPreview?.contract?.name) ? `${nftPreview.contract.name} ${displayId}` : displayId;
         return (
             <Link
-                href={resolveNftUrl(chainId ?? ChainId.Mainnet, nftPreview.contract_address, tokenId)}
+                href={resolveNftUrl(chainId ?? ChainId.Mainnet, nftPreview.contract_address, tokenId || '0')}
                 className="relative flex flex-col rounded-lg bg-bg pb-1 sm:rounded-2xl"
             >
                 {chainId ? (
@@ -128,10 +131,10 @@ export function NFTCollectionList(props: NFTCollectionListProps) {
         queryKey: ['nft-collection-list', address],
         async queryFn({ pageParam }) {
             const indicator = createIndicator(undefined, pageParam);
-            const response = await FireflyEndpointProvider.getWalletsNFTCollections({
-                walletAddress: address,
-                indicator,
-            });
+            const params = { walletAddress: address, indicator };
+            const response = isValidSolanaAddress(address)
+                ? await SimpleHashProvider.getWalletsNFTCollectionsWithNFTs(params, 'solana')
+                : await FireflyEndpointProvider.getWalletsNFTCollections(params);
             return {
                 ...response,
                 data: response.data.flatMap((item) => {
