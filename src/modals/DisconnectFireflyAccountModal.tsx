@@ -16,9 +16,8 @@ import { stopEvent } from '@/helpers/stopEvent.js';
 import { useSingletonModal } from '@/hooks/useSingletonModal.js';
 import type { SingletonModalRefCreator } from '@/libs/SingletonModal.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
-import { captureAccountDisconnectEvent } from '@/providers/telemetry/captureAccountEvent.js';
 import type { Account } from '@/providers/types/Account.js';
-import { removeAccountByProfileId } from '@/services/account.js';
+import { disconnectAccountByProfileId } from '@/services/account.js';
 
 export interface DisconnectFireflyAccountModalProps {
     account: Account;
@@ -40,8 +39,7 @@ export const DisconnectFireflyAccountModal = forwardRef<SingletonModalRefCreator
                     source: account.profile.source,
                     id: account.profile.profileId,
                 });
-                await removeAccountByProfileId(account.profile.source, account.profile.profileId);
-                captureAccountDisconnectEvent(account);
+                await disconnectAccountByProfileId(account.profile.source, account.profile.profileId);
                 enqueueSuccessMessage(t`Disconnected from your social graph`);
 
                 dispatch?.close();
