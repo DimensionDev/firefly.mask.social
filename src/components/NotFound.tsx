@@ -1,3 +1,5 @@
+import type { ReactNode } from 'react';
+
 import GhostHoleIcon from '@/assets/ghost.svg';
 import { Comeback } from '@/components/Comeback.js';
 import { SearchType } from '@/constants/enum.js';
@@ -5,10 +7,10 @@ import { Link } from '@/esm/Link.js';
 import { resolveSearchUrl } from '@/helpers/resolveSearchUrl.js';
 
 interface NotFoundProps {
-    text?: string | JSX.Element;
-    backText?: string | JSX.Element;
+    text?: ReactNode;
+    backText?: ReactNode;
     search?: {
-        text: string;
+        text: ReactNode;
         searchType: SearchType;
         searchText: string;
     };

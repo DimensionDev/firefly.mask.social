@@ -1,6 +1,6 @@
 'use client';
 
-import { t } from '@lingui/macro';
+import { Trans } from '@lingui/macro';
 import { useParams } from 'next/navigation.js';
 
 import NotFound from '@/components/NotFound.js';
@@ -12,8 +12,8 @@ export default function NotFoundToken() {
 
     return (
         <NotFound
-            text={t`Token ${symbol} could not be found.`}
-            search={{ text: t`Search $${symbol}`, searchText: `$${symbol}`, searchType: SearchType.Tokens }}
+            text={<Trans>Token {symbol} could not be found.</Trans>}
+            search={{ text: <Trans>Search ${symbol}</Trans>, searchText: `$${symbol}`, searchType: SearchType.Tokens }}
         />
     );
 }

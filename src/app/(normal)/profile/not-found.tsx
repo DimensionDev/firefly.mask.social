@@ -1,4 +1,4 @@
-import { t } from '@lingui/macro';
+import { Trans } from '@lingui/macro';
 
 import NotFound from '@/components/NotFound.js';
 import { SearchType } from '@/constants/enum.js';
@@ -9,9 +9,9 @@ export default function ProfileNotFound() {
 
     return (
         <NotFound
-            backText={t`Profile details`}
-            text={t`Profile could not be found.`}
-            search={{ text: t`Search profile`, searchText: '', searchType: SearchType.Profiles }}
+            backText={<Trans>Profile details</Trans>}
+            text={<Trans>Profile could not be found.</Trans>}
+            search={{ text: <Trans>Search profile</Trans>, searchText: '', searchType: SearchType.Profiles }}
         />
     );
 }
