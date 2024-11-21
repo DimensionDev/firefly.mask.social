@@ -21,7 +21,6 @@ import { getArticleUrl } from '@/helpers/getArticleUrl.js';
 import { isLinkMatchingHost } from '@/helpers/isLinkMatchingHost.js';
 import { removeAtEnd } from '@/helpers/removeAtEnd.js';
 import { resolveOembedUrl } from '@/helpers/resolveOembedUrl.js';
-import { useActionAdapter } from '@/hooks/useActionAdapter.js';
 import { FireflyArticleProvider } from '@/providers/firefly/Article.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 import { getPostLinks } from '@/services/getPostLinks.js';
@@ -53,13 +52,6 @@ export function PostLinks({ post, setContent, isInCompose = false }: Props) {
             return FireflyArticleProvider.getArticleById(data.articleId);
         },
     });
-
-    const actionAdapter = useActionAdapter(url);
-    useEffect(() => {
-        if (data?.action) {
-            data.action.setAdapter(actionAdapter);
-        }
-    }, [actionAdapter, data?.action]);
 
     useEffect(() => {
         const content = post.metadata.content?.content;
@@ -95,7 +87,7 @@ export function PostLinks({ post, setContent, isInCompose = false }: Props) {
                 <Player html={data.html} isSpotify={isLinkMatchingHost(url, 'open.spotify.com', false)} />
             ) : null}
             {data.frame ? <FrameLayout frame={data.frame} post={post} /> : null}
-            {data.action ? <ActionContainer action={data.action} /> : null}
+            {data.action ? <ActionContainer action={data.action} url={url} /> : null}
             {data.oembed ? <OembedLayout data={data.oembed} post={post} /> : null}
             {data.spaceId ? <TweetSpace spaceId={data.spaceId} /> : null}
         </>

@@ -82,8 +82,8 @@ importers:
         specifier: ^3.658.1
         version: 3.658.1(@aws-sdk/client-s3@3.658.1)
       '@dialectlabs/blinks':
-        specifier: ^0.9.3
-        version: 0.9.3(@solana/wallet-adapter-react-ui@0.9.35)(@solana/wallet-adapter-react@0.15.35)(@solana/web3.js@1.95.3)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026)
+        specifier: ^0.15.1
+        version: 0.15.1(@solana/wallet-adapter-react-ui@0.9.35)(@solana/wallet-adapter-react@0.15.35)(@solana/web3.js@1.95.3)(bs58@5.0.0)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026)
       '@dimensiondev/holoflows-kit':
         specifier: 0.9.0-20240322092738-f9180f3
         version: 0.9.0-20240322092738-f9180f3
@@ -6908,12 +6908,30 @@ packages:
       - supports-color
     dev: true
 
-  /@dialectlabs/blinks@0.9.3(@solana/wallet-adapter-react-ui@0.9.35)(@solana/wallet-adapter-react@0.15.35)(@solana/web3.js@1.95.3)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026):
-    resolution: {integrity: sha512-eJYMYxd5nSuyc/yBCVDNru2zU+Vc+ngK+0pwwks7t2OqbMErswY2GGeM/xPsfOWFveUZN55dloP0W0t8kA1s/Q==}
+  /@dialectlabs/blinks-core@0.14.1(react@0.0.0-experimental-8039e6d0b-20231026):
+    resolution: {integrity: sha512-016R7GYUhStjebincDmYQMHheprhGG4T4Ru73o/T/szNje1mhCM1cyK1ibVnUZ5dZ+KC8qnKsJLfyNtzlnrsIQ==}
+    peerDependencies:
+      react: 0.0.0-experimental-8039e6d0b-20231026 || 0.0.0-experimental-0a360642d-20230711
+    peerDependenciesMeta:
+      react:
+        optional: true
+    dependencies:
+      '@solana/web3.js': 1.95.3
+      nanoid: 5.0.7
+      react: 0.0.0-experimental-8039e6d0b-20231026
+    transitivePeerDependencies:
+      - bufferutil
+      - encoding
+      - utf-8-validate
+    dev: false
+
+  /@dialectlabs/blinks@0.15.1(@solana/wallet-adapter-react-ui@0.9.35)(@solana/wallet-adapter-react@0.15.35)(@solana/web3.js@1.95.3)(bs58@5.0.0)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026):
+    resolution: {integrity: sha512-8m3h+HvF1eJ7mUjnwYkp6tcO+ofLwJA5+SUvAslHT9FmuzxbymEokdY8AjqNn1NOvUGTUzf6ke7MWndOgD8TLg==}
     peerDependencies:
       '@solana/wallet-adapter-react': ^0.15.0
       '@solana/wallet-adapter-react-ui': ^0.9.0
       '@solana/web3.js': ^1.95.1
+      bs58: ^5.0.0
       react: 0.0.0-experimental-8039e6d0b-20231026 || 0.0.0-experimental-0a360642d-20230711
       react-dom: 0.0.0-experimental-8039e6d0b-20231026 || 0.0.0-experimental-0a360642d-20230711
     peerDependenciesMeta:
@@ -6922,12 +6940,19 @@ packages:
       react-dom:
         optional: true
     dependencies:
+      '@dialectlabs/blinks-core': 0.14.1(react@0.0.0-experimental-8039e6d0b-20231026)
       '@solana/wallet-adapter-react': 0.15.35(@solana/web3.js@1.95.3)(bs58@5.0.0)(react-native@0.75.4)(react@0.0.0-experimental-8039e6d0b-20231026)
       '@solana/wallet-adapter-react-ui': 0.9.35(patch_hash=rxofiaoqnmdtl5fykz43uh5w7i)(@solana/web3.js@1.95.3)(bs58@5.0.0)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react-native@0.75.4)(react@0.0.0-experimental-8039e6d0b-20231026)
       '@solana/web3.js': 1.95.3
+      bs58: 5.0.0
       clsx: 2.1.1
+      markdown-to-jsx: 7.5.0(react@0.0.0-experimental-8039e6d0b-20231026)
       react: 0.0.0-experimental-8039e6d0b-20231026
       react-dom: 0.0.0-experimental-8039e6d0b-20231026(react@0.0.0-experimental-8039e6d0b-20231026)
+    transitivePeerDependencies:
+      - bufferutil
+      - encoding
+      - utf-8-validate
     dev: false
 
   /@dimensiondev/holoflows-kit@0.9.0-20240322092738-f9180f3:
@@ -26455,6 +26480,18 @@ packages:
       object-visit: 1.0.1
     dev: true
 
+  /markdown-to-jsx@7.5.0(react@0.0.0-experimental-8039e6d0b-20231026):
+    resolution: {integrity: sha512-RrBNcMHiFPcz/iqIj0n3wclzHXjwS7mzjBNWecKKVhNTIxQepIix6Il/wZCn2Cg5Y1ow2Qi84+eJrryFRWBEWw==}
+    engines: {node: '>= 10'}
+    peerDependencies:
+      react: 0.0.0-experimental-8039e6d0b-20231026 || 0.0.0-experimental-0a360642d-20230711
+    peerDependenciesMeta:
+      react:
+        optional: true
+    dependencies:
+      react: 0.0.0-experimental-8039e6d0b-20231026
+    dev: false
+
   /marky@1.2.5:
     resolution: {integrity: sha512-q9JtQJKjpsVxCRVgQ+WapguSbKC3SQ5HEzFGPAJMStgh3QjCawp00UKv3MTTAArTmGmmPUvllHZoNbZ3gs0I+Q==}
 
@@ -36044,7 +36081,7 @@ time:
   /@aws-sdk/client-s3@3.658.1: '2024-09-25T19:24:51.340Z'
   /@aws-sdk/lib-storage@3.658.1: '2024-09-25T19:26:22.245Z'
   /@crowdin/cli@4.2.0: '2024-09-23T11:55:47.235Z'
-  /@dialectlabs/blinks@0.9.3: '2024-08-29T11:36:13.031Z'
+  /@dialectlabs/blinks@0.15.1: '2024-11-06T17:16:01.791Z'
   /@emotion/styled@11.11.0: '2023-05-06T08:49:15.982Z'
   /@farcaster/core@0.15.5: '2024-10-14T23:43:14.672Z'
   /@giphy/js-fetch-api@5.6.0: '2024-05-28T16:39:28.633Z'
