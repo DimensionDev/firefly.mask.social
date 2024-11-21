@@ -41,22 +41,20 @@ class SimpleHash {
         params: { limit?: number; indicator?: PageIndicator; walletAddress: string },
         chains: string,
     ) {
-        const collectionsRes = await SimpleHashProvider.getWalletsNFTCollections(params, chains);
-        let collections = collectionsRes.data;
-        const nftIds = collections.flatMap((collection) => collection.nft_ids ?? []);
-        if (nftIds.length) {
-            const nfts = await SimpleHashProvider.getNFTByIds(nftIds);
-            collections = collections.map((collection) => {
-                return {
-                    ...collection,
-                    nftPreviews: nfts.filter((nft) => collection.nft_ids?.includes(nft.nft_id)),
-                };
-            });
-        }
+        const response = await SimpleHashProvider.getWalletsNFTCollections(params, chains);
+        const nftIds = response.data.flatMap((collection) => collection.nft_ids ?? []);
+        const nfts = nftIds.length ? await SimpleHashProvider.getNFTByIds(nftIds) : [];
 
         return {
-            ...collectionsRes,
-            data: collections,
+            ...response,
+            data: nfts.length
+                ? response.data.map((collection) => {
+                      return {
+                          ...collection,
+                          nftPreviews: nfts.filter((nft) => collection.nft_ids?.includes(nft.nft_id)),
+                      };
+                  })
+                : response.data,
         };
     }
 }
