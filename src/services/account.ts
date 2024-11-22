@@ -15,7 +15,6 @@ import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 import { FireflySession } from '@/providers/firefly/Session.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
 import {
-    captureAccountDisconnectEvent,
     captureAccountLoginEvent,
     captureAccountLogoutAllEvent,
     captureAccountLogoutEvent,
@@ -327,7 +326,6 @@ async function removeAccount(account: Account, signal?: AbortSignal) {
         }
         twitterSessionHolder.removeSession();
     });
-
     captureAccountLogoutEvent(account);
 }
 
@@ -342,33 +340,6 @@ export async function removeAccountByProfileId(source: SocialSource, profileId: 
     await removeAccount(account);
     await removeFireflyAccountIfNeeded();
     await removeFireflyMetricsIfNeeded([account.session]);
-}
-
-export async function disconnectAccountByProfileId(source: SocialSource, profileId: string, signal?: AbortSignal) {
-    const { accounts } = getProfileState(source);
-    const account = accounts.find((x) => x.profile.profileId === profileId);
-    if (!account) {
-        console.warn(`[disconnectAccountByProfileId] Account not found: ${profileId}`);
-        return;
-    }
-
-    const { state, sessionHolder } = getContext(account.profile.source);
-
-    // switch to next available account if the current account is removing.
-    if (isSameProfile(state.currentProfile, account.profile)) {
-        const nextAccount = state.accounts.find((x) => !isSameAccount(account, x));
-        if (nextAccount) {
-            await switchAccount(nextAccount, signal);
-            state.removeAccount(account);
-        } else {
-            state.removeAccount(account);
-            sessionHolder.removeSession();
-        }
-    } else {
-        state.removeAccount(account);
-    }
-
-    captureAccountDisconnectEvent(account);
 }
 
 export async function removeCurrentAccount(source: SocialSource) {
