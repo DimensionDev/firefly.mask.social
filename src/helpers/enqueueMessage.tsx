@@ -6,7 +6,7 @@ import { UserRejectedRequestError } from 'viem';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { ErrorReportSnackbar, type ErrorReportSnackbarProps } from '@/components/ErrorReportSnackbar.js';
 import { WarnSnackbar } from '@/components/WarnSnackbar.js';
-import { type NODE_ENV } from '@/constants/enum.js';
+import type { NODE_ENV } from '@/constants/enum.js';
 import { env } from '@/constants/env.js';
 import { getDetailedErrorMessage } from '@/helpers/getDetailedErrorMessage.js';
 import { SnackbarRef } from '@/modals/controls.js';
