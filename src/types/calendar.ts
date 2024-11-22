@@ -28,10 +28,17 @@ export interface Event {
     poster_url: string;
     project?: ProjectInfo;
     ext_info?: ExtensionInfo;
+    raw_data?: unknown;
 }
 
 export interface ParsedEvent extends Omit<Event, 'event_date'> {
     event_date: number;
+    event_city?: string;
+    event_country?: string;
+    event_full_location?: string;
+    host_name?: string;
+    /** avatar url */
+    host_avatar?: string;
 }
 
 interface Response<T> {
