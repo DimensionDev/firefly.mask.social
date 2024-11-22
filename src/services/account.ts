@@ -53,20 +53,22 @@ function hasFireflySession() {
 async function updateState(accounts: Account[], overwrite = false) {
     // remove all accounts if overwrite is true
     if (overwrite) {
-        SORTED_SOCIAL_SOURCES.forEach((source) => {
-            const { state, sessionHolder } = getContext(source);
+        await Promise.all(
+            SORTED_SOCIAL_SOURCES.map(async (source) => {
+                const { state, sessionHolder } = getContext(source);
 
-            // sign out from twitter if the next auth session is found
-            if (source === Source.Twitter && state.accounts.some((x) => TwitterSession.isNextAuth(x.session))) {
-                signOut({
-                    redirect: false,
-                });
-            }
+                // sign out from twitter if the next auth session is found
+                if (source === Source.Twitter && state.accounts.some((x) => TwitterSession.isNextAuth(x.session))) {
+                    await signOut({
+                        redirect: false,
+                    });
+                }
 
-            state.resetCurrentAccount();
-            state.updateAccounts([]);
-            sessionHolder.removeSession();
-        });
+                state.resetCurrentAccount();
+                state.updateAccounts([]);
+                sessionHolder.removeSession();
+            }),
+        );
     }
 
     // add accounts to the store
@@ -209,7 +211,7 @@ export async function addAccount(account: Account, options?: AccountOptions) {
             } else {
                 // sign out tw from server if needed
                 if (TwitterSession.isNextAuth(account.session)) {
-                    signOut({
+                    await signOut({
                         redirect: false,
                     });
                 }
