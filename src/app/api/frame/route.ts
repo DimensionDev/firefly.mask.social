@@ -19,7 +19,7 @@ const digestLinkRedis = memoizeWithRedis(FrameProcessor.digestDocumentUrl, {
 });
 
 // We are confident that these hosts will not be used for frame links
-const IGNORE_HOSTS = [/.+\.mask.social/, 'localhost:3000', 'x.com'];
+const IGNORE_HOSTS = [/.+\.mask\.social/, 'localhost:3000', 'x.com'];
 
 export async function GET(request: Request) {
     const { host, searchParams } = new URL(request.url);
