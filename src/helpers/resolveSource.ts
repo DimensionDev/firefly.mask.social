@@ -23,6 +23,9 @@ export const resolveSource = createLookupTableResolver<SourceInURL, Source>(
         [SourceInURL.NFTs]: Source.NFTs,
         [SourceInURL.Snapshot]: Source.Snapshot,
         [SourceInURL.Polymarket]: Source.Polymarket,
+        [SourceInURL.Telegram]: Source.Telegram,
+        [SourceInURL.Google]: Source.Google,
+        [SourceInURL.Apple]: Source.Apple,
     },
     (sourceInUrl) => {
         throw new UnreachableError('sourceInUrl', sourceInUrl);
