@@ -50,25 +50,12 @@ function environmentFilter(options?: MessageOptions) {
     return options.environment === env.shared.NODE_ENV;
 }
 
-function shouldShowWarningFilter(options?: MessageOptions) {
-    if (options && 'error' in options && options.error instanceof Error) {
-        const error = options.error;
-        if (error instanceof UserRejectedRequestError || error.cause instanceof UserRejectedRequestError) {
-            enqueueWarningMessage('The user rejected the request.');
-            return false;
-        }
-    }
-
-    return true;
-}
-
 /**
  * Filters for messages that should be displayed in the current environment.
  * A filter returns true means the message should be displayed.
  * A filter returns false means the message should be ignored.
  */
 const MESSAGE_FILTERS = [versionFilter, environmentFilter];
-const ERROR_MESSAGE_FILTERS = [versionFilter, environmentFilter, shouldShowWarningFilter];
 
 export function enqueueInfoMessage(message: SnackbarMessage, options?: MessageOptions) {
     if (MESSAGE_FILTERS.some((filter) => !filter(options))) return;
@@ -111,8 +98,13 @@ export function enqueueWarningMessage(message: SnackbarMessage, options?: Messag
 }
 
 export function enqueueErrorMessage(message: SnackbarMessage, options?: ErrorOptions) {
-    if (ERROR_MESSAGE_FILTERS.some((filter) => !filter(options))) return;
-
+    if (options && 'error' in options && options.error instanceof Error) {
+        const error = options.error;
+        if (error instanceof UserRejectedRequestError || error.cause instanceof UserRejectedRequestError) {
+            enqueueWarningMessage('The user rejected the request.');
+            return;
+        }
+    }
     const detail = options?.description || (options?.error ? getDetailedErrorMessage(options.error) : '') || '';
 
     SnackbarRef.open({
