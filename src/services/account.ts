@@ -211,7 +211,7 @@ export async function addAccount(account: Account, options?: AccountOptions) {
             } else {
                 // sign out tw from server if needed
                 if (TwitterSession.isNextAuth(account.session)) {
-                    signOut({
+                    await signOut({
                         redirect: false,
                     });
                 }
