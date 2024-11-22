@@ -99,6 +99,8 @@ export function enqueueWarningMessage(message: SnackbarMessage, options?: Messag
 }
 
 export function enqueueErrorMessage(message: SnackbarMessage, options?: ErrorOptions) {
+    if (MESSAGE_FILTERS.some((filter) => !filter(options))) return;
+
     if (options && 'error' in options && options.error instanceof Error) {
         const error = options.error;
         if (error instanceof UserRejectedRequestError || error.cause instanceof UserRejectedRequestError) {
