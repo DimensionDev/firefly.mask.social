@@ -34,7 +34,7 @@ export async function restoreFireflySession(session: Session, signal?: AbortSign
                 signal,
             });
             const data = resolveFireflyResponseData(response);
-            return new FireflySession(data.accountId, data.accessToken, session, undefined, data.isNew);
+            return new FireflySession(data.accountId, data.accessToken, session, null, data.isNew);
         }
         case SessionType.Farcaster: {
             const isGrantByPermission = FarcasterSession.isGrantByPermission(session, true);
@@ -73,7 +73,7 @@ export async function restoreFireflySession(session: Session, signal?: AbortSign
                     console.warn(`[restoreFireflySession] No farcaster signer keys found in the response.`);
                 }
 
-                return new FireflySession(data.accountId, data.accessToken, session, undefined, data.isNew);
+                return new FireflySession(data.accountId, data.accessToken, session, null, data.isNew);
             }
             throw new Error('[restoreFireflySession] Failed to restore firefly session.');
         }
@@ -101,7 +101,7 @@ export async function restoreFireflySession(session: Session, signal?: AbortSign
             });
 
             const data = resolveFireflyResponseData(response);
-            return new FireflySession(data.accountId, data.accessToken, session, undefined, data.isNew);
+            return new FireflySession(data.accountId, data.accessToken, session, null, data.isNew);
         }
         case SessionType.Firefly:
             throw new NotAllowedError('[restoreFireflySession] Firefly session is not allowed.');

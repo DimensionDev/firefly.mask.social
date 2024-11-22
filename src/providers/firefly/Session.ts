@@ -1,5 +1,3 @@
-import { isAddress } from 'viem';
-
 import { NotAllowedError } from '@/constants/error.js';
 import { BaseSession } from '@/providers/base/Session.js';
 import type { Session } from '@/providers/types/Session.js';
@@ -16,7 +14,7 @@ export class FireflySession extends BaseSession implements Session {
         accountId: string,
         accessToken: string,
         public parent: Session | null,
-        public signature?: FireflySessionSignature,
+        public signature: FireflySessionSignature | null,
         // indicate a new firefly binding when it was created
         public isNew?: boolean,
     ) {
@@ -41,17 +39,5 @@ export class FireflySession extends BaseSession implements Session {
 
     override async destroy(): Promise<void> {
         throw new NotAllowedError();
-    }
-
-    static isCustodyWallet(
-        session: Session | null,
-    ): session is FireflySession & { signature: FireflySessionSignature } {
-        if (!session) return false;
-        const fireflySession = session as FireflySession;
-        return (
-            session.type === SessionType.Firefly &&
-            fireflySession.signature !== undefined &&
-            isAddress(fireflySession.signature.address)
-        );
     }
 }

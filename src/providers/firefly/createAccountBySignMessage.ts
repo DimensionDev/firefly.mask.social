@@ -36,12 +36,18 @@ async function createSession(signal?: AbortSignal) {
     });
 
     // compose session
-    const { accessToken, accountId } = resolveFireflyResponseData(response_);
-    return new FireflySession(accountId, accessToken, null, {
-        address,
-        message,
-        signature,
-    });
+    const { accessToken, accountId, isNew } = resolveFireflyResponseData(response_);
+    return new FireflySession(
+        accountId,
+        accessToken,
+        null,
+        {
+            address,
+            message,
+            signature,
+        },
+        isNew,
+    );
 }
 
 export async function createAccountBySignMessage(signal?: AbortSignal) {

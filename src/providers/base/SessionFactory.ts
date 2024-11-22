@@ -102,7 +102,7 @@ export class SessionFactory {
                         session.profileId,
                         session.token,
                         secondPart ? SessionFactory.createSession(atob(secondPart)) : null, // parent session
-                        thirdPart ? parseJSON<FireflySessionSignature>(atob(thirdPart)) : undefined, // signature
+                        thirdPart ? (parseJSON<FireflySessionSignature>(atob(thirdPart)) ?? null) : null, // signature
                         fourthPart === '1', // isNew
                     );
                 case SessionType.Apple:
