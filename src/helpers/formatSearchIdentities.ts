@@ -1,29 +1,43 @@
 import { compact, first } from 'lodash-es';
 
-import type { SocialSourceInURL } from '@/constants/enum.js';
-import { EMPTY_LIST, SORTED_SOCIAL_SOURCES } from '@/constants/index.js';
+import { Source, SourceInURL } from '@/constants/enum.js';
+import { SORTED_PROFILE_SOURCES } from '@/constants/index.js';
 import { resolveSocialSourceInUrl } from '@/helpers/resolveSourceInUrl.js';
-import type { Profile } from '@/providers/types/Firefly.js';
+import type { Profile, SearchProfileResponse } from '@/providers/types/Firefly.js';
+
+const validPlatforms = [SourceInURL.Farcaster, SourceInURL.Lens, SourceInURL.Twitter];
+
+function fixProfilePlatform(profile: Profile) {
+    if (!validPlatforms.includes(profile.platform)) {
+        return { ...profile, platform: SourceInURL.Wallet } as Profile;
+    }
+
+    return profile;
+}
 
 export function formatSearchIdentities(
-    identities: Array<Record<SocialSourceInURL | 'eth' | 'solana', Profile[] | null>>,
+    identities: Required<SearchProfileResponse>['data']['list'],
 ): Array<{ profile: Profile; related: Profile[] }> {
     return identities
         .map((x) => {
-            const target = SORTED_SOCIAL_SOURCES.map((source) => x[resolveSocialSourceInUrl(source)])
-                .flatMap((value) => value ?? EMPTY_LIST)
-                .find((profile) => profile.hit);
+            const target = Object.values(x)
+                .flat()
+                .find((x) => x?.hit);
             if (!target) return;
 
             const allProfile = compact(
-                SORTED_SOCIAL_SOURCES.map((source) => first(x[resolveSocialSourceInUrl(source)])).map((x) => {
-                    if (target.platform === x?.platform) return target;
-                    return x;
+                SORTED_PROFILE_SOURCES.map((source) => {
+                    const profile =
+                        source === Source.Wallet
+                            ? first(x.ens || x.eth || x.solana)
+                            : first(x[resolveSocialSourceInUrl(source)]);
+                    if (target.platform === profile?.platform) return fixProfilePlatform(target);
+                    return profile ? fixProfilePlatform(profile) : null;
                 }),
             );
 
             return {
-                profile: target,
+                profile: fixProfilePlatform(target),
                 related: allProfile,
             };
         })

@@ -8,7 +8,8 @@ import { Link } from '@/esm/Link.js';
 import { CHAR_TAG } from '@/helpers/chars.js';
 import { formatEthereumAddress } from '@/helpers/formatAddress.js';
 import { getCurrentAvailableSources } from '@/helpers/getCurrentAvailableSources.js';
-import { resolveSocialSource } from '@/helpers/resolveSource.js';
+import { resolveSocialSourceFromPlatform } from '@/helpers/resolveSocialSourceFrom.js';
+import { resolveSource } from '@/helpers/resolveSource.js';
 import { useCurrentVisitingChannel } from '@/hooks/useCurrentVisitingChannel.js';
 import { TipsContext } from '@/hooks/useTipsContext.js';
 import { ComposeModalRef, LoginModalRef } from '@/modals/controls.js';
@@ -32,11 +33,11 @@ export function TipSuccess() {
         const expectedSources = getCurrentAvailableSources().filter((source) =>
             post
                 ? post.source === source
-                : socialProfiles.some((profile) => resolveSocialSource(profile.platform) === source),
+                : socialProfiles.some((profile) => resolveSource(profile.platform) === source),
         );
         if (!expectedSources.length) {
             LoginModalRef.open({
-                source: post ? post.source : resolveSocialSource(socialProfiles[0].platform),
+                source: post ? post.source : resolveSocialSourceFromPlatform(socialProfiles[0].platform),
             });
             return;
         }

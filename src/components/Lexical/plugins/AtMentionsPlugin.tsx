@@ -16,12 +16,13 @@ import { Avatar } from '@/components/Avatar.js';
 import { $createMentionNode } from '@/components/Lexical/nodes/MentionsNode.js';
 import { SocialSourceIcon } from '@/components/SocialSourceIcon.js';
 import { Tooltip } from '@/components/Tooltip.js';
-import type { SocialSource } from '@/constants/enum.js';
+import { type SocialSource, SourceInURL } from '@/constants/enum.js';
 import { EMPTY_LIST, SORTED_SOCIAL_SOURCES } from '@/constants/index.js';
 import { classNames } from '@/helpers/classNames.js';
 import { formatSearchIdentities } from '@/helpers/formatSearchIdentities.js';
 import { getSafeMentionQueryText } from '@/helpers/getMentionOriginalText.js';
 import { getStampAvatarByProfileId } from '@/helpers/getStampAvatarByProfileId.js';
+import { resolveSocialSourceFromPlatform } from '@/helpers/resolveSocialSourceFrom.js';
 import { resolveSocialSource } from '@/helpers/resolveSource.js';
 import { useCompositePost } from '@/hooks/useCompositePost.js';
 import { useCurrentProfileAll } from '@/hooks/useCurrentProfile.js';
@@ -140,7 +141,7 @@ const MentionsTypeaheadMenuItem = memo<MentionsTypeaheadMenuItemProps>(function 
                     </div>
                     <div className="flex items-center">
                         {option.allProfile.map((profile, index, self) => {
-                            return (
+                            return profile.platform === SourceInURL.Wallet ? null : (
                                 <Tooltip
                                     appendTo={() => document.body}
                                     placement="top"
@@ -201,7 +202,7 @@ export function MentionsPlugin(): JSX.Element | null {
 
         return data
             .map(({ profile, related }) => {
-                const source = resolveSocialSource(profile.platform);
+                const source = resolveSocialSourceFromPlatform(profile.platform);
                 return new MentionTypeaheadOption(
                     profile.platform_id,
                     profile.name,
