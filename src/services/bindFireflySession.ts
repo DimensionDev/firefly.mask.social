@@ -7,6 +7,7 @@ import { resolveFireflyResponseData } from '@/helpers/resolveFireflyResponseData
 import { FAKE_SIGNER_REQUEST_TOKEN, FarcasterSession } from '@/providers/farcaster/Session.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
 import type { LensSession } from '@/providers/lens/Session.js';
+import type { ThirdPartySession } from '@/providers/third-party/Session.js';
 import { TwitterSession } from '@/providers/twitter/Session.js';
 import type { BindResponse } from '@/providers/types/Firefly.js';
 import type { Session } from '@/providers/types/Session.js';
@@ -14,7 +15,6 @@ import { SessionType } from '@/providers/types/SocialMedia.js';
 import { restoreFireflySession } from '@/services/restoreFireflySession.js';
 import { settings } from '@/settings/index.js';
 import type { ResponseJSON } from '@/types/index.js';
-import type { ThirdPartySession } from '@/providers/third-party/Session.js';
 
 async function bindLensToFirefly(session: LensSession, signal?: AbortSignal) {
     const response = await fireflySessionHolder.fetch<BindResponse>(

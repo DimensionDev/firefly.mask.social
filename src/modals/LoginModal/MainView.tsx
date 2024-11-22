@@ -1,6 +1,6 @@
 import { Trans } from '@lingui/macro';
 import { useRouter } from '@tanstack/react-router';
-import { signIn, signOut } from 'next-auth/react';
+import { signIn } from 'next-auth/react';
 import urlcat from 'urlcat';
 
 import { LoginButton } from '@/components/Login/LoginButton.js';

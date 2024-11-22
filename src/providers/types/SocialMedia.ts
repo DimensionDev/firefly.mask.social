@@ -4,7 +4,6 @@ import type {
     BookmarkType,
     FireflyPlatform,
     LoginSource,
-    ProfileSource,
     RestrictionType,
     SocialSource,
 } from '@/constants/enum.js';

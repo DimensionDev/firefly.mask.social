@@ -1,10 +1,9 @@
 import { useMemo } from 'react';
 
-import { type ProfileSource, type SocialSource, Source } from '@/constants/enum.js';
+import { type SocialSource, Source } from '@/constants/enum.js';
 import {
     useFarcasterStateStore,
     useLensStateStore,
-    useThirdPartyStateStore,
     useTwitterStateStore,
 } from '@/store/useProfileStore.js';
 

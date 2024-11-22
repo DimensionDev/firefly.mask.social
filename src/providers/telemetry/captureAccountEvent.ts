@@ -1,6 +1,6 @@
 import { safeUnreachable } from '@masknet/kit';
 
-import { type LoginSource, type ProfileSource, type SocialSource, Source } from '@/constants/enum.js';
+import { type LoginSource, Source } from '@/constants/enum.js';
 import { UnreachableError } from '@/constants/error.js';
 import { createLookupTableResolver } from '@/helpers/createLookupTableResolver.js';
 import { getProfileState } from '@/helpers/getProfileState.js';
