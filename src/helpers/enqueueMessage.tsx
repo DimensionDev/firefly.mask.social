@@ -1,4 +1,5 @@
 import { XMarkIcon } from '@heroicons/react/24/outline';
+import { t } from '@lingui/macro';
 import { type OptionsObject, type SnackbarKey, type SnackbarMessage } from 'notistack';
 import { UserRejectedRequestError } from 'viem';
 
@@ -9,7 +10,6 @@ import { type NODE_ENV } from '@/constants/enum.js';
 import { env } from '@/constants/env.js';
 import { getDetailedErrorMessage } from '@/helpers/getDetailedErrorMessage.js';
 import { SnackbarRef } from '@/modals/controls.js';
-import { t } from '@lingui/macro';
 
 interface MessageOptions extends OptionsObject {
     version?: string;
