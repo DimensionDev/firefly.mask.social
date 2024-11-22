@@ -92,14 +92,6 @@ export type ExploreSource = Source.Farcaster | Source.Lens | TrendingType;
 export type ExploreSourceInURL = SourceInURL.Farcaster | SourceInURL.Lens | TrendingType;
 export type LoginFallbackSource = SocialSource | Source.Article | Source.Snapshot | Source.Polymarket;
 
-export enum DiscoverType {
-    ForYou = 'for-you',
-    Recent = 'recent',
-    Trending = 'trending',
-    TopProfiles = 'top-profiles',
-    TopChannels = 'top-channels',
-}
-
 export enum ExploreType {
     CryptoTrends = 'crypto-trends',
     TopProfiles = 'top-profiles',
