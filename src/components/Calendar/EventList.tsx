@@ -1,12 +1,12 @@
 import { Trans } from '@lingui/macro';
-import { ElementAnchor, EmptyStatus } from '@masknet/shared';
+import { ElementAnchor } from '@masknet/shared';
 import { EMPTY_LIST } from '@masknet/shared-base';
-import { LoadingBase } from '@masknet/theme';
 import { format } from 'date-fns';
 import dayjs from 'dayjs';
 import { uniq } from 'lodash-es';
 import { useEffect, useMemo } from 'react';
 
+import { EmptyStatus } from '@/components/Calendar/EmptyStatus.js';
 import { useLumaEvents } from '@/components/Calendar/hooks/useLumaEvents.js';
 import { ImageLoader } from '@/components/Calendar/ImageLoader.js';
 import { Image } from '@/components/Image.js';
@@ -98,7 +98,7 @@ export function EventList({ date, onDatesUpdate }: EventListProps) {
                 })}
                 {hasNextPage ? (
                     <ElementAnchor height={30} callback={() => fetchNextPage()}>
-                        {isFetching ? <LoadingBase className="text-main" /> : null}
+                        {isFetching ? <Loading className="text-main" /> : null}
                     </ElementAnchor>
                 ) : (
                     <p className="px-2 text-center text-second">

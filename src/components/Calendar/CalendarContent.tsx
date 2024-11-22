@@ -56,7 +56,7 @@ export function CalendarContent() {
                 />
                 <TabPanels className="rounded-b-xl border border-t-0 border-line px-2">
                     <TabPanel>
-                        <NewsList date={date} />
+                        <NewsList date={date} onDatesUpdate={setAllowedDates} />
                     </TabPanel>
                     <TabPanel>
                         <EventList date={date} onDatesUpdate={setAllowedDates} />
