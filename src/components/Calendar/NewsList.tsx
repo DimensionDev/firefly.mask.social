@@ -1,6 +1,6 @@
 import { Trans } from '@lingui/macro';
 import dayjs from 'dayjs';
-import { useCallback, useMemo } from 'react';
+import { useCallback, useEffect, useMemo } from 'react';
 
 import { EmptyStatus } from '@/components/Calendar/EmptyStatus.js';
 import { useNewsList } from '@/components/Calendar/hooks/useEventList.js';
@@ -11,14 +11,19 @@ import { Link } from '@/esm/Link.js';
 
 interface NewsListProps {
     date: Date;
+    onDatesUpdate(/** locale date string list */ dates: string[]): void;
 }
 
-export function NewsList({ date }: NewsListProps) {
+export function NewsList({ date, onDatesUpdate }: NewsListProps) {
     const { data: list = EMPTY_OBJECT, isPending } = useNewsList(date, true);
 
     const futureNewsList = useMemo(() => {
         return Object.keys(list).filter((key) => new Date(key) >= date);
     }, [list, date]);
+
+    useEffect(() => {
+        onDatesUpdate(Object.keys(list));
+    }, [list, onDatesUpdate]);
 
     const empty = !futureNewsList.length;
     const listRef = useCallback((el: HTMLDivElement | null) => {
