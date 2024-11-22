@@ -9,6 +9,7 @@ import { type NODE_ENV } from '@/constants/enum.js';
 import { env } from '@/constants/env.js';
 import { getDetailedErrorMessage } from '@/helpers/getDetailedErrorMessage.js';
 import { SnackbarRef } from '@/modals/controls.js';
+import { t } from '@lingui/macro';
 
 interface MessageOptions extends OptionsObject {
     version?: string;
@@ -101,7 +102,7 @@ export function enqueueErrorMessage(message: SnackbarMessage, options?: ErrorOpt
     if (options && 'error' in options && options.error instanceof Error) {
         const error = options.error;
         if (error instanceof UserRejectedRequestError || error.cause instanceof UserRejectedRequestError) {
-            enqueueWarningMessage('The user rejected the request.');
+            enqueueWarningMessage(t`The user rejected the request.`);
             return;
         }
     }
