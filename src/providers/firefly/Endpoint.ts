@@ -413,15 +413,17 @@ export class FireflyEndpoint {
     }
 
     async searchIdentity(q: string, platforms?: SocialSource[]) {
-        const platform = platforms?.map((x) => resolveSourceInUrl(x)).join(',');
-        const url = platform ? `${url}&platform=${platform}`; // There are commas here, without escaping
-        : urlcat(settings.FIREFLY_ROOT_URL, '/v2/search/identity', {
+        const url = urlcat(settings.FIREFLY_ROOT_URL, '/v2/search/identity', {
             keyword: q,
             size: 100,
         });
-        const response = await fireflySessionHolder.fetch<SearchProfileResponse>(url, {
-            method: 'GET',
-        });
+        const platform = platforms?.map((x) => resolveSourceInUrl(x)).join(','); // There are commas here, without escaping
+        const response = await fireflySessionHolder.fetch<SearchProfileResponse>(
+            platform ? `${url}&platform=${platform}` : url,
+            {
+                method: 'GET',
+            },
+        );
         return resolveFireflyResponseData(response);
     }
 
