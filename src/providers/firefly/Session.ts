@@ -17,6 +17,8 @@ export class FireflySession extends BaseSession implements Session {
         accessToken: string,
         public parent: Session | null,
         public signature?: FireflySessionSignature,
+        // indicate a new firefly binding when it was created
+        public isNew?: boolean,
     ) {
         super(SessionType.Firefly, accountId, accessToken, 0, 0);
     }
@@ -28,6 +30,8 @@ export class FireflySession extends BaseSession implements Session {
             this.parent ? btoa(this.parent.serialize()) : '',
             // signature if session created by signing a message
             this.signature ? btoa(JSON.stringify(this.signature)) : '',
+            // isNew flag
+            this.isNew ? '1' : '0',
         ].join(':') as `${SessionType}:${string}:${string}:${string}`;
     }
 

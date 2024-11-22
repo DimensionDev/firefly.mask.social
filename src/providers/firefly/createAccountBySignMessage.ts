@@ -26,7 +26,7 @@ async function createSession(signal?: AbortSignal) {
     // sign message and login
     const loginUrl = urlcat(settings.FIREFLY_ROOT_URL, '/v3/auth/wallet/login');
     const signature = await client.signMessage({ message });
-    const loginResponse = await fetchJSON<LoginResponse>(loginUrl, {
+    const response_ = await fetchJSON<LoginResponse>(loginUrl, {
         method: 'POST',
         body: JSON.stringify({
             address,
@@ -36,7 +36,7 @@ async function createSession(signal?: AbortSignal) {
     });
 
     // compose session
-    const { accessToken, accountId } = resolveFireflyResponseData(loginResponse);
+    const { accessToken, accountId } = resolveFireflyResponseData(response_);
     return new FireflySession(accountId, accessToken, null, {
         address,
         message,
