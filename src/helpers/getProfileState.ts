@@ -23,10 +23,5 @@ export function getProfileState(source: ProfileSource) {
 }
 
 export function getProfileSessionsAll() {
-    const result = [
-        ...SORTED_SOCIAL_SOURCES.flatMap((x) => getProfileState(x).accounts.map((x) => x.session)),
-        ...useThirdPartyStateStore.getState().accounts.map((x) => x.session),
-    ];
-
-    return result;
+    return SORTED_SOCIAL_SOURCES.flatMap((x) => getProfileState(x).accounts.map((x) => x.session));
 }

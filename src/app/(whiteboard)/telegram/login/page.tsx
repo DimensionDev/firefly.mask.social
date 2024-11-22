@@ -15,7 +15,7 @@ import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 import { ThirdPartySession } from '@/providers/third-party/Session.js';
 import { ProfileStatus, SessionType } from '@/providers/types/SocialMedia.js';
 import { addAccount } from '@/services/account.js';
-import { bindOrRestoreFireflySession } from '@/services/bindOrRestoreFireflySession.js';
+import { bindOrRestoreFireflySession } from '@/services/bindFireflySession.js';
 import { useThirdPartyStateStore } from '@/store/useProfileStore.js';
 import { DeviceType } from '@/types/device.js';
 
@@ -72,12 +72,17 @@ export default function Page({ searchParams }: PageProps) {
                         followerCount: 0,
                         followingCount: 0,
                         status: ProfileStatus.Active,
-                        source: Source.Telegram,
+                        source: Source.Farcaster,
+                        authSource: Source.Telegram,
                         verified: true,
                     },
                     session: thirdPartySession,
                     fireflySession: foundNewSessionFromServer
-                        ? await bindOrRestoreFireflySession(thirdPartySession)
+                        ? await bindOrRestoreFireflySession(thirdPartySession, undefined, {
+                              isNew: data.isNew,
+                              accountId: data.accountId,
+                              token: data.accessToken,
+                          })
                         : undefined,
                 },
                 {

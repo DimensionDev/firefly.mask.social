@@ -23,7 +23,15 @@ import type { ResponseJSON } from '@/types/index.js';
  * @param signal
  * @returns
  */
-export async function restoreFireflySession(session: Session, signal?: AbortSignal) {
+export async function restoreFireflySession(
+    session: Session,
+    signal?: AbortSignal,
+    tgOptions?: {
+        isNew: boolean;
+        accountId: string;
+        token: string;
+    },
+) {
     switch (session.type) {
         case SessionType.Lens: {
             const url = urlcat(settings.FIREFLY_ROOT_URL, '/v3/auth/lens/login');
@@ -117,7 +125,7 @@ export async function restoreFireflySession(session: Session, signal?: AbortSign
                 }),
             });
             const appleData = resolveFireflyResponseData(appleResponse);
-            return new FireflySession(appleData.accountId, appleData.accessToken, session);
+            return new FireflySession(appleData.accountId, appleData.accessToken, session, null, appleData.isNew);
         case SessionType.Google:
             const googleSession = session as ThirdPartySession;
             const googleUrl = urlcat(settings.FIREFLY_ROOT_URL, '/v3/auth/google/login');
@@ -129,12 +137,10 @@ export async function restoreFireflySession(session: Session, signal?: AbortSign
             });
 
             const googleData = resolveFireflyResponseData(googleResponse);
-            return new FireflySession(googleData.accountId, googleData.accessToken, session);
+            return new FireflySession(googleData.accountId, googleData.accessToken, session, null, googleData.isNew);
         case SessionType.Telegram:
-            const tgSession = session as ThirdPartySession;
-
-            if (!tgSession.fireflyToken || !tgSession.accountId) throw new NotAllowedError();
-            return new FireflySession(tgSession.accountId, tgSession.fireflyToken, session);
+            if (!tgOptions) throw new NotAllowedError();
+            return new FireflySession(tgOptions.accountId, tgOptions.token, session, null, tgOptions.isNew);
         default:
             safeUnreachable(session.type);
             throw new UnreachableError('[restoreFireflySession] session type', session.type);

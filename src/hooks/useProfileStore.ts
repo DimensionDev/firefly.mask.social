@@ -1,11 +1,7 @@
 import { useMemo } from 'react';
 
 import { type SocialSource, Source } from '@/constants/enum.js';
-import {
-    useFarcasterStateStore,
-    useLensStateStore,
-    useTwitterStateStore,
-} from '@/store/useProfileStore.js';
+import { useFarcasterStateStore, useLensStateStore, useTwitterStateStore } from '@/store/useProfileStore.js';
 
 export function useProfileStoreAll() {
     const lensStatus = useLensStateStore.use.status();

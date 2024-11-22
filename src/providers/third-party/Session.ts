@@ -20,6 +20,7 @@ export class ThirdPartySession extends BaseSession implements Session {
         // only for Telegram
         fireflyToken?: string,
         accountId?: string,
+        isNew?: boolean,
     ) {
         super(type, profileId, token, createdAt, expiresAt);
         this.nonce = nonce;

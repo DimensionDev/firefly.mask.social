@@ -1,7 +1,7 @@
 import { safeUnreachable } from '@masknet/kit';
 
 import { type LoginSource, Source } from '@/constants/enum.js';
-import { UnreachableError } from '@/constants/error.js';
+import { NotAllowedError, UnreachableError } from '@/constants/error.js';
 import { createLookupTableResolver } from '@/helpers/createLookupTableResolver.js';
 import { getProfileState } from '@/helpers/getProfileState.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
@@ -53,7 +53,8 @@ const resolveDisconnectEventId = createLookupTableResolver<LoginSource, EventId>
 );
 
 function getAccountEventParameters(account: Account) {
-    const source = account.profile.source;
+    const source = account.profile.authSource ?? account.profile.source;
+
     const accounts = getProfileState(source).accounts.map((x) => [x.profile.profileId, x.profile.handle]) as Array<
         [string, string]
     >;
@@ -87,7 +88,7 @@ function getAccountEventParameters(account: Account) {
                 google_handle: account.profile.handle,
                 google_accounts: useThirdPartyStateStore
                     .getState()
-                    .accounts.filter((x) => x.profile.source === Source.Google)
+                    .accounts.filter((x) => x.profile.authSource === Source.Google)
                     .map((x) => [x.profile.profileId, x.profile.handle]),
             };
         case Source.Apple:
@@ -97,7 +98,7 @@ function getAccountEventParameters(account: Account) {
                 apple_handle: account.profile.handle,
                 apple_accounts: useThirdPartyStateStore
                     .getState()
-                    .accounts.filter((x) => x.profile.source === Source.Apple)
+                    .accounts.filter((x) => x.profile.authSource === Source.Apple)
                     .map((x) => [x.profile.profileId, x.profile.handle]),
             };
         case Source.Telegram:
@@ -107,9 +108,11 @@ function getAccountEventParameters(account: Account) {
                 telegram_handle: account.profile.handle,
                 telegram_accounts: useThirdPartyStateStore
                     .getState()
-                    .accounts.filter((x) => x.profile.source === Source.Telegram)
+                    .accounts.filter((x) => x.profile.authSource === Source.Telegram)
                     .map((x) => [x.profile.profileId, x.profile.handle]),
             };
+        case Source.Firefly:
+            throw new NotAllowedError();
         default:
             safeUnreachable(source);
             throw new UnreachableError('source', source);

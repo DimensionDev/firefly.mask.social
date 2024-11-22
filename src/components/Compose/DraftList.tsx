@@ -7,6 +7,7 @@ import { memo, useCallback, useMemo } from 'react';
 import Trash from '@/assets/trash2.svg';
 import { NoResultsFallback } from '@/components/NoResultsFallback.js';
 import { SocialSourceIcon } from '@/components/SocialSourceIcon.js';
+import type { SocialSource } from '@/constants/enum.js';
 import { Link } from '@/esm/Link.js';
 import { readChars } from '@/helpers/chars.js';
 import { classNames } from '@/helpers/classNames.js';
@@ -198,7 +199,7 @@ export const DraftList = memo(function DraftList() {
                               parentPost: createInitPostState(),
                           }
                         : {}),
-                    availableSources: availableProfiles.map((x) => x.source),
+                    availableSources: availableProfiles.map((x) => x.source as SocialSource),
                 })),
             });
             const post = draft.posts.find((x) => x.id === draft.cursor);

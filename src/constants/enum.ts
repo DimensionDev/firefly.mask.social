@@ -81,6 +81,9 @@ export enum SourceInURL {
     NFTs = 'nfts',
     Snapshot = 'snapshot',
     Polymarket = 'polymarket',
+    Telegram = 'telegram',
+    Google = 'google',
+    Apple = 'apple',
 }
 
 export type SocialSource = Source.Farcaster | Source.Lens | Source.Twitter;

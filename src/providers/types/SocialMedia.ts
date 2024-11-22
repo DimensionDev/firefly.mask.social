@@ -1,12 +1,6 @@
 import type { OpenActionModuleType } from '@lens-protocol/client';
 
-import type {
-    BookmarkType,
-    FireflyPlatform,
-    LoginSource,
-    RestrictionType,
-    SocialSource,
-} from '@/constants/enum.js';
+import type { BookmarkType, FireflyPlatform, ProfileSource, RestrictionType, SocialSource } from '@/constants/enum.js';
 import type { Pageable, PageIndicator } from '@/helpers/pageable.js';
 import type { WalletProfile } from '@/providers/types/Firefly.js';
 import type { Poll } from '@/providers/types/Poll.js';
@@ -85,7 +79,8 @@ export interface Profile {
         networkType: NetworkType;
         address: string;
     };
-    source: LoginSource;
+    source: SocialSource;
+    authSource?: ProfileSource;
     // Farcaster only
     isPowerUser?: boolean;
     website?: string;
