@@ -89,7 +89,7 @@ export interface User {
 
 export interface Profile {
     platform_id: string;
-    platform: SocialSourceInURL;
+    platform: SocialSourceInURL | FireflyPlatform.Wallet;
     handle: string;
     name: string;
     hit: boolean;
@@ -284,7 +284,7 @@ export type CastsResponse = Response<{
 export type SearchCastsResponse = Response<Cast[]>;
 
 export type SearchProfileResponse = Response<{
-    list: Array<Record<SocialSourceInURL | 'eth' | 'solana', Profile[] | null>>;
+    list: Array<Record<SocialSourceInURL | 'eth' | 'solana' | 'ens', Profile[] | null>>;
     cursor: number;
     size: number;
 }>;
