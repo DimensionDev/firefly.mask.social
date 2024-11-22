@@ -323,10 +323,9 @@ async function removeAccount(account: Account, signal?: AbortSignal) {
             await signOut({
                 redirect: false,
             });
+            twitterSessionHolder.removeSession();
         }
-        twitterSessionHolder.removeSession();
     });
-
     captureAccountLogoutEvent(account);
 }
 
