@@ -7,6 +7,7 @@ import { ProfileSourceTabs } from '@/components/Profile/ProfileSourceTabs.js';
 import { Source, SourceInURL } from '@/constants/enum.js';
 import { isProfilePageSource } from '@/helpers/isProfilePageSource.js';
 import { resolveSourceFromUrlNoFallback } from '@/helpers/resolveSource.js';
+import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { setupTwitterSession } from '@/helpers/setupTwitterSession.js';
 import { setupLocaleForSSR } from '@/i18n/index.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
@@ -28,7 +29,11 @@ export default async function Layout({
     if (!source || !isProfilePageSource(source)) notFound();
     const identity = { source, id };
 
-    const profiles = await FireflyEndpointProvider.getAllPlatformProfileByIdentity(identity, false);
+    const profiles = await runInSafeAsync(() =>
+        FireflyEndpointProvider.getAllPlatformProfileByIdentity(identity, false),
+    );
+
+    if (!profiles?.length) notFound();
 
     if (source === Source.Twitter && !twitterSessionHolder.session) {
         return (

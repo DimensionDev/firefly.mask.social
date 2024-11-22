@@ -116,6 +116,17 @@ function getAccountEventParameters(account: Account) {
     }
 }
 
+export function captureAccountCreateSuccessEvent(account: Account) {
+    return runInSafeAsync(() => {
+        return TelemetryProvider.captureEvent(EventId.ACCOUNT_CREATE_SUCCESS, {
+            by_lens: account.profile.source === Source.Lens,
+            by_farcaster: account.profile.source === Source.Farcaster,
+            by_x: account.profile.source === Source.Twitter,
+            ...getAccountEventParameters(account),
+        });
+    });
+}
+
 export function captureAccountLoginEvent(account: Account) {
     return runInSafeAsync(() => {
         const source = account.profile.source;

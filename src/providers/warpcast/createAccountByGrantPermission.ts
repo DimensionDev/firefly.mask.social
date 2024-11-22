@@ -6,7 +6,7 @@ import { FarcasterSession } from '@/providers/farcaster/Session.js';
 import { FarcasterSocialMediaProvider } from '@/providers/farcaster/SocialMedia.js';
 import type { Account } from '@/providers/types/Account.js';
 import { pollingSignerRequestToken } from '@/providers/warpcast/pollingSignerRequestToken.js';
-import { bindOrRestoreFireflySession } from '@/services/bindOrRestoreFireflySession.js';
+import { bindOrRestoreFireflySession } from '@/services/bindFireflySession.js';
 import type { ResponseJSON } from '@/types/index.js';
 
 interface WarpcastSignInResponse {

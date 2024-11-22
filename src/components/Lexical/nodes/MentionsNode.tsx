@@ -3,6 +3,7 @@ import { type EditorConfig, type LexicalNode, type NodeKey, type SerializedTextN
 import { renderToStaticMarkup } from 'react-dom/server';
 
 import { SocialSourceIcon } from '@/components/SocialSourceIcon.js';
+import { SourceInURL } from '@/constants/enum.js';
 import { classNames } from '@/helpers/classNames.js';
 import { resolveSocialSource } from '@/helpers/resolveSource.js';
 import type { Profile } from '@/providers/types/Firefly.js';
@@ -31,7 +32,7 @@ export class MentionNode extends TextNode {
             const html = renderToStaticMarkup(
                 <>
                     {this.__profiles.map(({ platform, handle, platform_id }, index) => {
-                        return (
+                        return platform === SourceInURL.Wallet ? null : (
                             <span
                                 title={`@${handle}`}
                                 className={classNames('inline-flex items-center', {

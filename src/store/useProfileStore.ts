@@ -34,7 +34,7 @@ import type { Session } from '@/providers/types/Session.js';
 import { type Profile, type ProfileEditable, ProfileStatus } from '@/providers/types/SocialMedia.js';
 import type { ThirdPartySessionType } from '@/providers/types/ThirdParty.js';
 import { addAccount } from '@/services/account.js';
-import { bindOrRestoreFireflySession } from '@/services/bindOrRestoreFireflySession.js';
+import { bindOrRestoreFireflySession } from '@/services/bindFireflySession.js';
 import { restoreFireflySessionAll } from '@/services/restoreFireflySession.js';
 
 export interface ProfileState {

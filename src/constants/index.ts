@@ -3,7 +3,6 @@
 import {
     type BookmarkSource,
     type DiscoverSource,
-    DiscoverType,
     EngagementType,
     type ExploreSource,
     ExploreType,
@@ -149,11 +148,6 @@ export const FOLLOWING_SOURCES: FollowingSource[] = [
     Source.Article,
     Source.Snapshot,
 ] as const;
-
-export const DISCOVER_TYPES = {
-    [Source.Farcaster]: [DiscoverType.Trending, DiscoverType.TopProfiles, DiscoverType.TopChannels],
-    [Source.Lens]: [DiscoverType.Trending, DiscoverType.TopProfiles],
-};
 
 export const DEFAULT_EXPLORE_TYPE = ExploreType.TopProfiles;
 

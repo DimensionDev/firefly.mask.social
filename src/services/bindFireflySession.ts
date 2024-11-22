@@ -4,13 +4,14 @@ import urlcat from 'urlcat';
 import { NotAllowedError, UnreachableError } from '@/constants/error.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
 import { resolveFireflyResponseData } from '@/helpers/resolveFireflyResponseData.js';
-import { FarcasterSession } from '@/providers/farcaster/Session.js';
+import { FAKE_SIGNER_REQUEST_TOKEN, FarcasterSession } from '@/providers/farcaster/Session.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
 import type { LensSession } from '@/providers/lens/Session.js';
 import { TwitterSession } from '@/providers/twitter/Session.js';
 import type { BindResponse } from '@/providers/types/Firefly.js';
 import type { Session } from '@/providers/types/Session.js';
 import { SessionType } from '@/providers/types/SocialMedia.js';
+import { restoreFireflySession } from '@/services/restoreFireflySession.js';
 import { settings } from '@/settings/index.js';
 import type { ResponseJSON } from '@/types/index.js';
 import type { ThirdPartySession } from '@/providers/third-party/Session.js';
@@ -134,7 +135,7 @@ async function bindTelegramSessionToFirefly(session: ThirdPartySession, signal?:
  * @param signal
  * @returns
  */
-export async function bindFireflySession(session: Session, signal?: AbortSignal) {
+async function bindFireflySession(session: Session, signal?: AbortSignal) {
     // Ensure that the Firefly session is resumed before calling this function.
     fireflySessionHolder.assertSession();
 
@@ -156,5 +157,35 @@ export async function bindFireflySession(session: Session, signal?: AbortSignal)
         default:
             safeUnreachable(session.type);
             throw new UnreachableError('[bindFireflySession] session type', session.type);
+    }
+}
+
+export async function bindOrRestoreFireflySession(session: Session, signal?: AbortSignal) {
+    try {
+        const farcasterSession = session as FarcasterSession;
+        if (FarcasterSession.isCustodyWallet(farcasterSession)) throw new NotAllowedError();
+
+        if (fireflySessionHolder.session) {
+            const response = await bindFireflySession(session, signal);
+
+            if (FarcasterSession.isRelayService(session)) {
+                session.profileId = `${response.fid}`;
+
+                if (response.farcaster_signer_private_key) {
+                    session.signerRequestToken = FAKE_SIGNER_REQUEST_TOKEN;
+                    session.token = response.farcaster_signer_private_key ?? '';
+                }
+            }
+
+            // this will return the existing session
+            return fireflySessionHolder.assertSession();
+        } else {
+            throw new Error('Firefly session is not available');
+        }
+    } catch (error) {
+        console.error(`[bindOrRestoreFireflySession] failed to bind firefly session ${error}`);
+
+        // this will create a new session
+        return restoreFireflySession(session, signal);
     }
 }

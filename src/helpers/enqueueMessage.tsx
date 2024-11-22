@@ -1,5 +1,7 @@
 import { XMarkIcon } from '@heroicons/react/24/outline';
+import { t } from '@lingui/macro';
 import { type OptionsObject, type SnackbarKey, type SnackbarMessage } from 'notistack';
+import { UserRejectedRequestError } from 'viem';
 
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { ErrorReportSnackbar, type ErrorReportSnackbarProps } from '@/components/ErrorReportSnackbar.js';
@@ -99,6 +101,13 @@ export function enqueueWarningMessage(message: SnackbarMessage, options?: Messag
 export function enqueueErrorMessage(message: SnackbarMessage, options?: ErrorOptions) {
     if (MESSAGE_FILTERS.some((filter) => !filter(options))) return;
 
+    if (options && 'error' in options && options.error instanceof Error) {
+        const error = options.error;
+        if (error instanceof UserRejectedRequestError || error.cause instanceof UserRejectedRequestError) {
+            enqueueWarningMessage(t`The user rejected the request.`);
+            return;
+        }
+    }
     const detail = options?.description || (options?.error ? getDetailedErrorMessage(options.error) : '') || '';
 
     SnackbarRef.open({

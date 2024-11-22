@@ -1,8 +1,8 @@
 import { t } from '@lingui/macro';
 import { EthereumMethodType, isValidAddress } from '@masknet/web3-shared-evm';
 import { AuthType, connect, disconnect, EthereumProvider, particleAuth } from '@particle-network/auth-core';
-import { type Address, type Chain, numberToHex, RpcError, SwitchChainError, UserRejectedRequestError } from 'viem';
-import { ChainNotConfiguredError, createConnector, type CreateConnectorFn } from 'wagmi';
+import { type Address, type Chain, numberToHex, RpcError, SwitchChainError } from 'viem';
+import { ChainNotConfiguredError, ConnectorChainMismatchError, createConnector, type CreateConnectorFn } from 'wagmi';
 import { mainnet } from 'wagmi/chains';
 
 import { STATUS, WalletSource } from '@/constants/enum.js';
@@ -51,7 +51,7 @@ export function createParticleConnector(options: ConnectorOptions): CreateConnec
 
     console.info(`[particle] enabled`);
 
-    return createConnector(() => {
+    return createConnector((config) => {
         return {
             // override particle wallet from EIP6963
             id: 'network.particle',
@@ -124,6 +124,7 @@ export function createParticleConnector(options: ConnectorOptions): CreateConnec
 
                 try {
                     const provider = await getProvider();
+
                     await provider.request({
                         method: EthereumMethodType.WALLET_SWITCH_ETHEREUM_CHAIN,
                         params: [
@@ -134,15 +135,20 @@ export function createParticleConnector(options: ConnectorOptions): CreateConnec
                     });
 
                     const currentChainId = await this.getChainId();
-                    if (currentChainId !== parameters.chainId) {
-                        throw new UserRejectedRequestError(new Error('User rejected switch after adding network.'));
+                    if (currentChainId === parameters.chainId) {
+                        config.emitter.emit('change', { chainId: parameters.chainId });
+                    } else {
+                        throw new ConnectorChainMismatchError({
+                            connectionChainId: currentChainId,
+                            connectorChainId: parameters.chainId,
+                        });
                     }
+
+                    return chain;
                 } catch (error) {
                     console.error(`[particle] switchChain error`, error);
                     throw new SwitchChainError(error as RpcError);
                 }
-
-                return chain;
             },
             async getChainId() {
                 const provider = await getProvider();

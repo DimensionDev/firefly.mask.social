@@ -23,7 +23,7 @@ export function CalendarContent() {
     ] as const;
 
     const [currentTabIndex, setCurrentTabIndex] = useState(0);
-    const [date, setDate] = useState(() => new Date());
+    const [date, setDate] = useState(() => new Date(Math.floor(Date.now() / 1000) * 1000)); // round to seconds
     const [open, setOpen] = useState(false);
 
     const [allowedDates, setAllowedDates] = useState<string[]>(EMPTY_LIST);
@@ -56,7 +56,7 @@ export function CalendarContent() {
                 />
                 <TabPanels className="rounded-b-xl border border-t-0 border-line px-2">
                     <TabPanel>
-                        <NewsList date={date} />
+                        <NewsList date={date} onDatesUpdate={setAllowedDates} />
                     </TabPanel>
                     <TabPanel>
                         <EventList date={date} onDatesUpdate={setAllowedDates} />
