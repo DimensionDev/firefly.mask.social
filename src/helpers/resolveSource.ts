@@ -8,6 +8,8 @@ import {
 } from '@/constants/enum.js';
 import { UnreachableError } from '@/constants/error.js';
 import { createLookupTableResolver } from '@/helpers/createLookupTableResolver.js';
+import { narrowToSocialSource } from '@/helpers/narrowToSocialSource.js';
+import type { Profile as FireflyProfile } from '@/providers/types/Firefly.js';
 import { SessionType } from '@/providers/types/SocialMedia.js';
 
 export const resolveSource = createLookupTableResolver<SourceInURL, Source>(
@@ -113,3 +115,7 @@ export const resolveSourceFromWalletSource = createLookupTableResolver<WalletSou
         throw new UnreachableError('WalletSource', walletSource);
     },
 );
+
+export function resolveSocialSourceFromFireflyPlatform(platform: FireflyProfile['platform']): SocialSource {
+    return narrowToSocialSource(resolveSource(platform));
+}

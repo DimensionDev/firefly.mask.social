@@ -9,7 +9,7 @@ import { EMPTY_LIST } from '@/constants/index.js';
 import { CHAR_TAG } from '@/helpers/chars.js';
 import { formatSearchIdentities } from '@/helpers/formatSearchIdentities.js';
 import { getCurrentProfileAll } from '@/helpers/getCurrentProfile.js';
-import { resolveSocialSourceFromPlatform } from '@/helpers/resolveSocialSourceFrom.js';
+import { resolveSocialSourceFromFireflyPlatform } from '@/helpers/resolveSource.js';
 import { trimify } from '@/helpers/trimify.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
 import { ComposeModalRef, LoginModalRef } from '@/modals/controls.js';
@@ -71,13 +71,15 @@ async function openCompose(props: ShareLinkProps, onFinished: () => void) {
     const isLogin = Object.values(currentProfiles).some((x) => !!x?.profileId);
     if (!isLogin) {
         LoginModalRef.open(
-            matchedIdentity ? { source: resolveSocialSourceFromPlatform(matchedIdentity.profile.platform) } : undefined,
+            matchedIdentity
+                ? { source: resolveSocialSourceFromFireflyPlatform(matchedIdentity.profile.platform) }
+                : undefined,
         );
         return;
     }
 
     const expectedSources = matchedIdentity?.related
-        .map((x) => resolveSocialSourceFromPlatform(x.platform))
+        .map((x) => resolveSocialSourceFromFireflyPlatform(x.platform))
         .filter((x) => !!currentProfiles[x]?.profileId);
 
     await ComposeModalRef.openAndWaitForClose({

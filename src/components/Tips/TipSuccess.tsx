@@ -8,7 +8,7 @@ import { Link } from '@/esm/Link.js';
 import { CHAR_TAG } from '@/helpers/chars.js';
 import { formatEthereumAddress } from '@/helpers/formatAddress.js';
 import { getCurrentAvailableSources } from '@/helpers/getCurrentAvailableSources.js';
-import { resolveSocialSourceFromPlatform } from '@/helpers/resolveSocialSourceFrom.js';
+import { resolveSocialSourceFromFireflyPlatform } from '@/helpers/resolveSource.js';
 import { resolveSource } from '@/helpers/resolveSource.js';
 import { useCurrentVisitingChannel } from '@/hooks/useCurrentVisitingChannel.js';
 import { TipsContext } from '@/hooks/useTipsContext.js';
@@ -37,7 +37,7 @@ export function TipSuccess() {
         );
         if (!expectedSources.length) {
             LoginModalRef.open({
-                source: post ? post.source : resolveSocialSourceFromPlatform(socialProfiles[0].platform),
+                source: post ? post.source : resolveSocialSourceFromFireflyPlatform(socialProfiles[0].platform),
             });
             return;
         }

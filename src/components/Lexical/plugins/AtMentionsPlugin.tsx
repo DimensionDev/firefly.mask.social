@@ -22,7 +22,7 @@ import { classNames } from '@/helpers/classNames.js';
 import { formatSearchIdentities } from '@/helpers/formatSearchIdentities.js';
 import { getSafeMentionQueryText } from '@/helpers/getMentionOriginalText.js';
 import { getStampAvatarByProfileId } from '@/helpers/getStampAvatarByProfileId.js';
-import { resolveSocialSourceFromPlatform } from '@/helpers/resolveSocialSourceFrom.js';
+import { resolveSocialSourceFromFireflyPlatform } from '@/helpers/resolveSource.js';
 import { resolveSocialSource } from '@/helpers/resolveSource.js';
 import { useCompositePost } from '@/hooks/useCompositePost.js';
 import { useCurrentProfileAll } from '@/hooks/useCurrentProfile.js';
@@ -202,7 +202,7 @@ export function MentionsPlugin(): JSX.Element | null {
 
         return data
             .map(({ profile, related }) => {
-                const source = resolveSocialSourceFromPlatform(profile.platform);
+                const source = resolveSocialSourceFromFireflyPlatform(profile.platform);
                 return new MentionTypeaheadOption(
                     profile.platform_id,
                     profile.name,
