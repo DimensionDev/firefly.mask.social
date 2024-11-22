@@ -1,14 +1,21 @@
 import type { OpenActionModuleType } from '@lens-protocol/client';
 
-import type { BookmarkType, FireflyPlatform, RestrictionType, SocialSource } from '@/constants/enum.js';
+import type {
+    BookmarkType,
+    FireflyPlatform,
+    LoginSource,
+    ProfileSource,
+    RestrictionType,
+    SocialSource,
+} from '@/constants/enum.js';
 import type { Pageable, PageIndicator } from '@/helpers/pageable.js';
 import type { WalletProfile } from '@/providers/types/Firefly.js';
 import type { Poll } from '@/providers/types/Poll.js';
 
 export enum SessionType {
-    Apple = 'Apple',
-    Google = 'Google',
-    Telegram = 'Telegram',
+    Apple = 'apple',
+    Google = 'google',
+    Telegram = 'telegram',
     Twitter = 'Twitter',
     Lens = 'Lens',
     Farcaster = 'Farcaster',
@@ -79,7 +86,7 @@ export interface Profile {
         networkType: NetworkType;
         address: string;
     };
-    source: SocialSource;
+    source: LoginSource;
     // Farcaster only
     isPowerUser?: boolean;
     website?: string;

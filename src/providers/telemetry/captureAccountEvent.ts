@@ -1,6 +1,6 @@
 import { safeUnreachable } from '@masknet/kit';
 
-import { type SocialSource, Source } from '@/constants/enum.js';
+import { type LoginSource, type ProfileSource, type SocialSource, Source } from '@/constants/enum.js';
 import { UnreachableError } from '@/constants/error.js';
 import { createLookupTableResolver } from '@/helpers/createLookupTableResolver.js';
 import { getProfileState } from '@/helpers/getProfileState.js';
@@ -8,34 +8,44 @@ import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { TelemetryProvider } from '@/providers/telemetry/index.js';
 import type { Account } from '@/providers/types/Account.js';
 import { EventId } from '@/providers/types/Telemetry.js';
+import { useThirdPartyStateStore } from '@/store/useProfileStore.js';
 
-const resolveLoginEventId = createLookupTableResolver<SocialSource, EventId>(
+const resolveLoginEventId = createLookupTableResolver<LoginSource, EventId>(
     {
         [Source.Farcaster]: EventId.FARCASTER_LOG_IN_SUCCESS,
         [Source.Lens]: EventId.LENS_ACCOUNT_LOG_IN_SUCCESS,
         [Source.Twitter]: EventId.X_ACCOUNT_LOG_IN_SUCCESS,
+        [Source.Google]: EventId.GOOGLE_ACCOUNT_LOG_IN_SUCCESS,
+        [Source.Apple]: EventId.APPLE_ACCOUNT_LOG_IN_SUCCESS,
+        [Source.Telegram]: EventId.TELEGRAM_ACCOUNT_LOG_IN_SUCCESS,
     },
     (source) => {
         throw new UnreachableError('source', source);
     },
 );
 
-const resolveLogoutEventId = createLookupTableResolver<SocialSource, EventId>(
+const resolveLogoutEventId = createLookupTableResolver<LoginSource, EventId>(
     {
         [Source.Farcaster]: EventId.FARCASTER_LOG_OUT_SUCCESS,
         [Source.Lens]: EventId.LENS_ACCOUNT_LOG_OUT_SUCCESS,
         [Source.Twitter]: EventId.X_ACCOUNT_LOG_OUT_SUCCESS,
+        [Source.Apple]: EventId.APPLE_ACCOUNT_LOG_OUT_SUCCESS,
+        [Source.Google]: EventId.GOOGLE_ACCOUNT_LOG_OUT_SUCCESS,
+        [Source.Telegram]: EventId.TELEGRAM_ACCOUNT_LOG_OUT_SUCCESS,
     },
     (source) => {
         throw new UnreachableError('source', source);
     },
 );
 
-const resolveDisconnectEventId = createLookupTableResolver<SocialSource, EventId>(
+const resolveDisconnectEventId = createLookupTableResolver<LoginSource, EventId>(
     {
         [Source.Farcaster]: EventId.FARCASTER_ACCOUNT_DISCONNECT_SUCCESS,
         [Source.Lens]: EventId.LENS_ACCOUNT_DISCONNECT_SUCCESS,
         [Source.Twitter]: EventId.X_ACCOUNT_DISCONNECT_SUCCESS,
+        [Source.Apple]: EventId.APPLE_ACCOUNT_DISCONNECT_SUCCESS,
+        [Source.Google]: EventId.GOOGLE_ACCOUNT_DISCONNECT_SUCCESS,
+        [Source.Telegram]: EventId.TELEGRAM_ACCOUNT_DISCONNECT_SUCCESS,
     },
     (source) => {
         throw new UnreachableError('source', source);
@@ -69,6 +79,36 @@ function getAccountEventParameters(account: Account) {
                 x_id: account.profile.profileId,
                 x_handle: account.profile.handle,
                 x_accounts: accounts,
+            };
+        case Source.Google:
+            return {
+                is_token_sync: account.origin === 'sync',
+                google_id: account.profile.profileId,
+                google_handle: account.profile.handle,
+                google_accounts: useThirdPartyStateStore
+                    .getState()
+                    .accounts.filter((x) => x.profile.source === Source.Google)
+                    .map((x) => [x.profile.profileId, x.profile.handle]),
+            };
+        case Source.Apple:
+            return {
+                is_token_sync: account.origin === 'sync',
+                apple_id: account.profile.profileId,
+                apple_handle: account.profile.handle,
+                apple_accounts: useThirdPartyStateStore
+                    .getState()
+                    .accounts.filter((x) => x.profile.source === Source.Apple)
+                    .map((x) => [x.profile.profileId, x.profile.handle]),
+            };
+        case Source.Telegram:
+            return {
+                is_token_sync: account.origin === 'sync',
+                telegram_id: account.profile.profileId,
+                telegram_handle: account.profile.handle,
+                telegram_accounts: useThirdPartyStateStore
+                    .getState()
+                    .accounts.filter((x) => x.profile.source === Source.Telegram)
+                    .map((x) => [x.profile.profileId, x.profile.handle]),
             };
         default:
             safeUnreachable(source);

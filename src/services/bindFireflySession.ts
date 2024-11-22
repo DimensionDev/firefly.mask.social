@@ -13,6 +13,7 @@ import type { Session } from '@/providers/types/Session.js';
 import { SessionType } from '@/providers/types/SocialMedia.js';
 import { settings } from '@/settings/index.js';
 import type { ResponseJSON } from '@/types/index.js';
+import type { ThirdPartySession } from '@/providers/third-party/Session.js';
 
 async function bindLensToFirefly(session: LensSession, signal?: AbortSignal) {
     const response = await fireflySessionHolder.fetch<BindResponse>(
@@ -81,6 +82,52 @@ async function bindTwitterSessionToFirefly(session: TwitterSession, signal?: Abo
     return data;
 }
 
+async function bindAppleSessionToFirefly(session: ThirdPartySession, signal?: AbortSignal) {
+    const response = await fireflySessionHolder.fetch<BindResponse>(
+        urlcat(settings.FIREFLY_ROOT_URL, '/v3/user/bindApple'),
+        {
+            method: 'POST',
+            body: JSON.stringify({
+                idToken: session.token,
+                nonce: session.nonce,
+            }),
+        },
+    );
+
+    const data = resolveFireflyResponseData(response);
+    return data;
+}
+
+async function bindGoogleSessionToFirefly(session: ThirdPartySession, signal?: AbortSignal) {
+    const response = await fireflySessionHolder.fetch<BindResponse>(
+        urlcat(settings.FIREFLY_ROOT_URL, '/v3/user/bindGoogle'),
+        {
+            method: 'POST',
+            body: JSON.stringify({
+                idToken: session.token,
+            }),
+        },
+    );
+
+    const data = resolveFireflyResponseData(response);
+    return data;
+}
+
+async function bindTelegramSessionToFirefly(session: ThirdPartySession, signal?: AbortSignal) {
+    const response = await fireflySessionHolder.fetch<BindResponse>(
+        urlcat(settings.FIREFLY_ROOT_URL, '/v3/user/bindTelegram'),
+        {
+            method: 'POST',
+            body: JSON.stringify({
+                telegramToken: session.token,
+            }),
+        },
+    );
+
+    const data = resolveFireflyResponseData(response);
+    return data;
+}
+
 /**
  * Bind a lens or farcaster session to the currently logged-in Firefly session.
  * @param session
@@ -101,9 +148,11 @@ export async function bindFireflySession(session: Session, signal?: AbortSignal)
         case SessionType.Firefly:
             throw new NotAllowedError();
         case SessionType.Apple:
+            return await bindAppleSessionToFirefly(session as ThirdPartySession, signal);
         case SessionType.Google:
+            return await bindGoogleSessionToFirefly(session as ThirdPartySession, signal);
         case SessionType.Telegram:
-            throw new NotAllowedError();
+            return await bindTelegramSessionToFirefly(session as ThirdPartySession, signal);
         default:
             safeUnreachable(session.type);
             throw new UnreachableError('[bindFireflySession] session type', session.type);

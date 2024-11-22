@@ -19,7 +19,9 @@ const providers: Provider[] = [
     }),
     AppleProvider({
         clientId: env.internal.APPLE_CLIENT_ID,
+        // will expire at 2025/5/9
         clientSecret: env.internal.APPLE_CLIENT_SECRET,
+        checks: 'nonce',
     }),
     GoogleProvider({
         clientId: env.internal.GOOGLE_CLIENT_ID,
@@ -48,6 +50,15 @@ export const authOptions: AuthOptions = {
     debug: env.shared.NODE_ENV === NODE_ENV.Development,
     providers,
     cookies: {
+        nonce: {
+            name: 'next-auth.nonce',
+            options: {
+                httpOnly: true,
+                sameSite: 'none',
+                path: '/',
+                secure: true,
+            },
+        },
         pkceCodeVerifier: {
             name: 'next-auth.pkce.code_verifier',
             options: {
@@ -59,6 +70,21 @@ export const authOptions: AuthOptions = {
         },
     },
     callbacks: {
+        session: async ({ session, token, user }) => {
+            console.log('[session]:', { session, token, user });
+            return {
+                ...session,
+                user: {
+                    ...session.user,
+                    id: token.sub,
+                },
+                nonce: token.nonce,
+                id_token: token.id_token,
+                createdAt: token.iat,
+                expiresAt: token.exp,
+                type: token.type,
+            };
+        },
         jwt: async ({ token, account, session, ...rest }) => {
             console.log('[jwt]:', { token, account, session, ...rest });
 
@@ -87,7 +113,16 @@ export const authOptions: AuthOptions = {
                 token.id_token = account.id_token;
             }
 
-            console.log('[jwt]:', { token, account, session, ...rest });
+            // @ts-ignore
+            if (rest.profile?.nonce) {
+                // @ts-ignore
+                token.nonce = rest.profile.nonce;
+            }
+
+            if (account?.provider) {
+                token.type = account?.provider;
+            }
+
             return token;
         },
     },

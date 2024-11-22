@@ -1,14 +1,15 @@
 import { Trans } from '@lingui/macro';
 import { useRouter } from '@tanstack/react-router';
-import { signIn } from 'next-auth/react';
+import { signIn, signOut } from 'next-auth/react';
 import urlcat from 'urlcat';
 
 import { LoginButton } from '@/components/Login/LoginButton.js';
 import { LoginFirefly } from '@/components/Login/LoginFirefly.js';
-import { AuthSource, FarcasterSignType, type SocialSource, Source } from '@/constants/enum.js';
+import { FarcasterSignType, type SocialSource, Source } from '@/constants/enum.js';
 import { SORTED_AUTH_SOURCES, SORTED_SOCIAL_SOURCES } from '@/constants/index.js';
 import { resolveSourceInUrl } from '@/helpers/resolveSourceInUrl.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
+import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 
 export function MainView() {
     const router = useRouter();
@@ -26,8 +27,14 @@ export function MainView() {
         history.replace(path);
     };
 
-    const onAuthClick = (source: AuthSource) => {
-        signIn(source);
+    const onAuthClick = async (source: Source) => {
+        if (source === Source.Telegram) {
+            const url = await FireflyEndpointProvider.getTelegramLoginUrl();
+            if (!url) return;
+            window.location.href = url;
+        } else {
+            signIn(source);
+        }
     };
 
     return (
@@ -45,9 +52,9 @@ export function MainView() {
                     {SORTED_SOCIAL_SOURCES.map((source) => (
                         <LoginButton key={source} source={source} onClick={() => onClick(source)} />
                     ))}
-                    {SORTED_AUTH_SOURCES.map((source) => (
-                        <LoginButton key={source} authSource={source} onClick={() => onAuthClick(source)} />
-                    ))}
+                    {SORTED_AUTH_SOURCES.map((source) => {
+                        return <LoginButton key={source} source={source} onClick={() => onAuthClick(source)} />;
+                    })}
                 </div>
             </div>
         </div>

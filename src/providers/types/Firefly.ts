@@ -333,6 +333,25 @@ export type TwitterLoginResponse = Response<{
     accountId: string;
 }>;
 
+export type ThirdPartyLoginResponse = Response<{
+    accessToken: string;
+    accountId: string;
+    isNew: boolean;
+}>;
+
+export type TelegramLoginBotResponse = Response<{
+    url: string;
+    tgUrl: string;
+}>;
+
+export type TelegramLoginResponse = Response<{
+    accessToken: string;
+    accountId: string;
+    isNew: boolean;
+    telegram_user_id: string;
+    telegram_username: string;
+}>;
+
 export type MetricsDownloadResponse = Response<{
     ciphertext: string;
 } | null>;

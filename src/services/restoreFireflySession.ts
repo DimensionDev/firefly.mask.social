@@ -9,8 +9,14 @@ import { resolveFireflyResponseData } from '@/helpers/resolveFireflyResponseData
 import { resolveSessionHolder } from '@/helpers/resolveSessionHolder.js';
 import { FAKE_SIGNER_REQUEST_TOKEN, FarcasterSession } from '@/providers/farcaster/Session.js';
 import { FireflySession } from '@/providers/firefly/Session.js';
+import type { ThirdPartySession } from '@/providers/third-party/Session.js';
 import { TwitterSession } from '@/providers/twitter/Session.js';
-import type { FarcasterLoginResponse, LensLoginResponse, TwitterLoginResponse } from '@/providers/types/Firefly.js';
+import type {
+    FarcasterLoginResponse,
+    LensLoginResponse,
+    ThirdPartyLoginResponse,
+    TwitterLoginResponse,
+} from '@/providers/types/Firefly.js';
 import type { Session } from '@/providers/types/Session.js';
 import { SessionType } from '@/providers/types/SocialMedia.js';
 import { settings } from '@/settings/index.js';
@@ -106,9 +112,34 @@ export async function restoreFireflySession(session: Session, signal?: AbortSign
         case SessionType.Firefly:
             throw new NotAllowedError('[restoreFireflySession] Firefly session is not allowed.');
         case SessionType.Apple:
+            const appleSession = session as ThirdPartySession;
+            const appleUrl = urlcat(settings.FIREFLY_ROOT_URL, '/v3/auth/apple/login');
+            const appleResponse = await fetchJSON<ThirdPartyLoginResponse>(appleUrl, {
+                method: 'POST',
+                body: JSON.stringify({
+                    authorizationToken: appleSession.token,
+                    nonce: appleSession.nonce,
+                }),
+            });
+            const appleData = resolveFireflyResponseData(appleResponse);
+            return new FireflySession(appleData.accountId, appleData.accessToken, session);
         case SessionType.Google:
+            const googleSession = session as ThirdPartySession;
+            const googleUrl = urlcat(settings.FIREFLY_ROOT_URL, '/v3/auth/google/login');
+            const googleResponse = await fetchJSON<ThirdPartyLoginResponse>(googleUrl, {
+                method: 'POST',
+                body: JSON.stringify({
+                    idToken: googleSession.token,
+                }),
+            });
+
+            const googleData = resolveFireflyResponseData(googleResponse);
+            return new FireflySession(googleData.accountId, googleData.accessToken, session);
         case SessionType.Telegram:
-            throw new NotAllowedError();
+            const tgSession = session as ThirdPartySession;
+
+            if (!tgSession.fireflyToken || !tgSession.accountId) throw new NotAllowedError();
+            return new FireflySession(tgSession.accountId, tgSession.fireflyToken, session);
         default:
             safeUnreachable(session.type);
             throw new UnreachableError('[restoreFireflySession] session type', session.type);

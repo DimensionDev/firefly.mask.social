@@ -66,6 +66,9 @@ export enum Source {
     NFTs = 'NFTs',
     Snapshot = 'Snapshot',
     Polymarket = 'Polymarket',
+    Telegram = 'telegram',
+    Google = 'google',
+    Apple = 'apple',
 }
 
 export enum SourceInURL {
@@ -81,7 +84,23 @@ export enum SourceInURL {
 }
 
 export type SocialSource = Source.Farcaster | Source.Lens | Source.Twitter;
-export type ProfileSource = Source.Farcaster | Source.Lens | Source.Twitter | Source.Firefly;
+export type ProfileSource =
+    | Source.Farcaster
+    | Source.Lens
+    | Source.Twitter
+    | Source.Firefly
+    | Source.Telegram
+    | Source.Apple
+    | Source.Google;
+
+export type LoginSource =
+    | Source.Farcaster
+    | Source.Lens
+    | Source.Twitter
+    | Source.Telegram
+    | Source.Apple
+    | Source.Google;
+
 export type ProfilePageSource = Source.Farcaster | Source.Lens | Source.Twitter | Source.Wallet;
 export type SocialSourceInURL = SourceInURL.Farcaster | SourceInURL.Lens | SourceInURL.Twitter;
 export type SocialDiscoverSource = Source.Farcaster | Source.Lens;
@@ -91,12 +110,6 @@ export type FollowingSource = DiscoverSource | Source.Polymarket;
 export type ExploreSource = Source.Farcaster | Source.Lens | TrendingType;
 export type ExploreSourceInURL = SourceInURL.Farcaster | SourceInURL.Lens | TrendingType;
 export type LoginFallbackSource = SocialSource | Source.Article | Source.Snapshot | Source.Polymarket;
-
-export enum AuthSource {
-    Telegram = 'telegram',
-    Google = 'google',
-    Apple = 'apple',
-}
 
 export enum DiscoverType {
     ForYou = 'for-you',

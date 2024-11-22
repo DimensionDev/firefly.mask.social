@@ -1,3 +1,4 @@
+import { getSession } from 'next-auth/react';
 import { create } from 'zustand';
 import { persist, type PersistOptions } from 'zustand/middleware';
 import { immer } from 'zustand/middleware/immer';
@@ -12,7 +13,8 @@ import { createSelectors } from '@/helpers/createSelector.js';
 import { createSessionStorage } from '@/helpers/createSessionStorage.js';
 import { isSameAccount } from '@/helpers/isSameAccount.js';
 import { isSameProfile } from '@/helpers/isSameProfile.js';
-import { isSameSessionPayload } from '@/helpers/isSameSession.js';
+import { isSameSession, isSameSessionPayload } from '@/helpers/isSameSession.js';
+import { resolveSessionTypeToSource } from '@/helpers/resolveSessionTypeToSource.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import type { FarcasterSession } from '@/providers/farcaster/Session.js';
 import { farcasterSessionHolder } from '@/providers/farcaster/SessionHolder.js';
@@ -21,14 +23,16 @@ import type { FireflySession } from '@/providers/firefly/Session.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
 import { lensSessionHolder } from '@/providers/lens/SessionHolder.js';
 import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
-import { ThirdPartyAuthProvider } from '@/providers/third-party/Auth.js';
+import { ThirdPartySession } from '@/providers/third-party/Session.js';
+import { thirdPartySessionHolder } from '@/providers/third-party/SessionHolder.js';
 import { TwitterAuthProvider } from '@/providers/twitter/Auth.js';
 import { TwitterSession } from '@/providers/twitter/Session.js';
 import { twitterSessionHolder } from '@/providers/twitter/SessionHolder.js';
 import { TwitterSocialMediaProvider } from '@/providers/twitter/SocialMedia.js';
 import type { Account } from '@/providers/types/Account.js';
 import type { Session } from '@/providers/types/Session.js';
-import type { Profile, ProfileEditable } from '@/providers/types/SocialMedia.js';
+import { type Profile, type ProfileEditable, ProfileStatus } from '@/providers/types/SocialMedia.js';
+import type { ThirdPartySessionType } from '@/providers/types/ThirdParty.js';
 import { addAccount } from '@/services/account.js';
 import { bindOrRestoreFireflySession } from '@/services/bindOrRestoreFireflySession.js';
 import { restoreFireflySessionAll } from '@/services/restoreFireflySession.js';
@@ -274,7 +278,7 @@ const useTwitterStateBase = createState(
     {
         name: 'twitter-state',
         onRehydrateStorage: () => async (state) => {
-            if (!bom.window || !state) return;
+            if (!bom.window || !state || location.pathname.includes('/telegram/login')) return;
 
             state.upgrade();
 
@@ -349,19 +353,65 @@ const useThirdPartyStateBase = createState(
     {
         name: 'third-party-state',
         onRehydrateStorage: () => async (state) => {
-            if (!bom.window || !state) return;
+            if (!bom.window || !state || location.pathname.includes('/telegram/login')) return;
 
             state.upgrade();
 
             try {
-                const sessionFromServer = await ThirdPartyAuthProvider.login();
+                const session = (await getSession()) as unknown as ThirdPartySessionType;
 
-                if (sessionFromServer) state.__setStatus__(AsyncStatus.Pending);
+                if (!session.user) return;
 
-                // TODO: addAccount()
+                const thirdPartySession = session.user?.id
+                    ? new ThirdPartySession(
+                          session.type,
+                          session.user.id,
+                          session.id_token,
+                          session.createdAt,
+                          session.expiresAt,
+                          session.nonce,
+                      )
+                    : null;
+
+                if (!thirdPartySession) return;
+
+                const foundNewSessionFromServer = !!(
+                    thirdPartySession &&
+                    !state.accounts.some((x) => isSameSession(thirdPartySession, x.session as ThirdPartySession))
+                );
+
+                if (foundNewSessionFromServer) state.__setStatus__(AsyncStatus.Pending);
+
+                await addAccount(
+                    {
+                        profile: {
+                            profileId: session.user?.id ?? '',
+                            displayName: session.user?.email ?? '',
+                            handle: session.user?.email ?? '',
+                            fullHandle: session.user.email ?? '',
+                            pfp: session.user?.image ?? '',
+                            followerCount: 0,
+                            followingCount: 0,
+                            status: ProfileStatus.Active,
+                            source: resolveSessionTypeToSource(session.type),
+                            verified: true,
+                        },
+                        session: thirdPartySession,
+                        fireflySession: foundNewSessionFromServer
+                            ? await bindOrRestoreFireflySession(thirdPartySession)
+                            : undefined,
+                    },
+                    {
+                        skipBelongsToCheck: !foundNewSessionFromServer,
+                        skipResumeFireflyAccounts: !foundNewSessionFromServer,
+                        skipResumeFireflySession: !foundNewSessionFromServer,
+                        skipUploadFireflySession: !foundNewSessionFromServer,
+                    },
+                );
             } catch (error) {
                 if (error instanceof FetchError) return;
                 state.clear();
+                thirdPartySessionHolder.removeSession();
             } finally {
                 state.__setStatus__(AsyncStatus.Idle);
             }

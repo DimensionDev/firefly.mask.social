@@ -219,6 +219,12 @@ importers:
       '@tanstack/react-router':
         specifier: ^1.58.11
         version: 1.58.11(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026)
+      '@telegram-auth/react':
+        specifier: ^1.0.4
+        version: 1.0.4(react@0.0.0-experimental-8039e6d0b-20231026)
+      '@telegram-auth/server':
+        specifier: ^1.0.4
+        version: 1.0.4
       '@tippyjs/react':
         specifier: ^4.2.6
         version: 4.2.6(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026)
@@ -3474,6 +3480,7 @@ packages:
       '@babel/traverse': 7.25.7
     transitivePeerDependencies:
       - supports-color
+    dev: true
 
   /@babel/helper-module-transforms@7.25.7(@babel/core@7.25.8):
     resolution: {integrity: sha512-k/6f8dKG3yDz/qCwSM+RKovjMix563SLxQFo0UhRNo239SP6n9u5/eLtKD6EAjwta2JHJ49CsD8pms2HdNiMMQ==}
@@ -4864,7 +4871,7 @@ packages:
       '@babel/core':
         optional: true
     dependencies:
-      '@babel/helper-module-transforms': 7.25.7(@babel/core@7.24.3)
+      '@babel/helper-module-transforms': 7.25.7(@babel/core@7.25.8)
       '@babel/helper-plugin-utils': 7.25.7
     transitivePeerDependencies:
       - supports-color
@@ -4886,22 +4893,6 @@ packages:
     transitivePeerDependencies:
       - supports-color
     dev: true
-
-  /@babel/plugin-transform-modules-commonjs@7.25.7:
-    resolution: {integrity: sha512-L9Gcahi0kKFYXvweO6n0wc3ZG1ChpSFdgG+eV1WYZ3/dGbJK7vvk91FgGgak8YwRgrCuihF8tE/Xg07EkL5COg==}
-    engines: {node: '>=6.9.0'}
-    peerDependencies:
-      '@babel/core': ^7.0.0-0
-    peerDependenciesMeta:
-      '@babel/core':
-        optional: true
-    dependencies:
-      '@babel/helper-module-transforms': 7.25.7(@babel/core@7.24.3)
-      '@babel/helper-plugin-utils': 7.25.7
-      '@babel/helper-simple-access': 7.25.7
-    transitivePeerDependencies:
-      - supports-color
-    dev: false
 
   /@babel/plugin-transform-modules-commonjs@7.25.7(@babel/core@7.25.8):
     resolution: {integrity: sha512-L9Gcahi0kKFYXvweO6n0wc3ZG1ChpSFdgG+eV1WYZ3/dGbJK7vvk91FgGgak8YwRgrCuihF8tE/Xg07EkL5COg==}
@@ -4947,7 +4938,7 @@ packages:
       '@babel/core':
         optional: true
     dependencies:
-      '@babel/helper-module-transforms': 7.25.7(@babel/core@7.24.3)
+      '@babel/helper-module-transforms': 7.25.7(@babel/core@7.25.8)
       '@babel/helper-plugin-utils': 7.25.7
       '@babel/helper-validator-identifier': 7.25.7
       '@babel/traverse': 7.25.7
@@ -4980,7 +4971,7 @@ packages:
       '@babel/core':
         optional: true
     dependencies:
-      '@babel/helper-module-transforms': 7.25.7(@babel/core@7.24.3)
+      '@babel/helper-module-transforms': 7.25.7(@babel/core@7.25.8)
       '@babel/helper-plugin-utils': 7.25.7
     transitivePeerDependencies:
       - supports-color
@@ -5943,7 +5934,7 @@ packages:
       '@babel/plugin-transform-logical-assignment-operators': 7.25.8
       '@babel/plugin-transform-member-expression-literals': 7.25.7
       '@babel/plugin-transform-modules-amd': 7.25.7
-      '@babel/plugin-transform-modules-commonjs': 7.25.7
+      '@babel/plugin-transform-modules-commonjs': 7.25.7(@babel/core@7.25.8)
       '@babel/plugin-transform-modules-systemjs': 7.25.7
       '@babel/plugin-transform-modules-umd': 7.25.7
       '@babel/plugin-transform-named-capturing-groups-regex': 7.25.7
@@ -12484,7 +12475,7 @@ packages:
       '@babel/plugin-transform-function-name': 7.25.7
       '@babel/plugin-transform-literals': 7.25.7
       '@babel/plugin-transform-logical-assignment-operators': 7.25.8
-      '@babel/plugin-transform-modules-commonjs': 7.25.7
+      '@babel/plugin-transform-modules-commonjs': 7.25.7(@babel/core@7.25.8)
       '@babel/plugin-transform-named-capturing-groups-regex': 7.25.7
       '@babel/plugin-transform-nullish-coalescing-operator': 7.25.8
       '@babel/plugin-transform-numeric-separator': 7.25.8
@@ -15448,6 +15439,21 @@ packages:
 
   /@tanstack/virtual-core@3.10.8:
     resolution: {integrity: sha512-PBu00mtt95jbKFi6Llk9aik8bnR3tR/oQP1o3TSi+iG//+Q2RTIzCEgKkHG8BB86kxMNW6O8wku+Lmi+QFR6jA==}
+    dev: false
+
+  /@telegram-auth/react@1.0.4(react@0.0.0-experimental-8039e6d0b-20231026):
+    resolution: {integrity: sha512-VPCIrA6h5+w69S1QvB/k2PphmAA9E8BSqEX4WMSE1P7KxexKl/VRdoTRKSsSx1/In94S+R7FufbjLrRMnEGEKg==}
+    peerDependencies:
+      react: 0.0.0-experimental-8039e6d0b-20231026 || 0.0.0-experimental-0a360642d-20230711
+    peerDependenciesMeta:
+      react:
+        optional: true
+    dependencies:
+      react: 0.0.0-experimental-8039e6d0b-20231026
+    dev: false
+
+  /@telegram-auth/server@1.0.4:
+    resolution: {integrity: sha512-A0JysRmNhGnq8JZKoWx7KwEWTnHPI6GmSp7lzKWPanP//agFF/EBkOpnKcMhsvSlikYFRZKfNo+OvFX9zDEU4w==}
     dev: false
 
   /@testing-library/dom@10.4.0:
@@ -36084,6 +36090,8 @@ time:
   /@tanstack/react-query@5.56.2: '2024-09-12T18:06:26.839Z'
   /@tanstack/react-ranger@0.0.4: '2023-11-24T09:24:06.987Z'
   /@tanstack/react-router@1.58.11: '2024-09-26T16:34:04.776Z'
+  /@telegram-auth/react@1.0.4: '2024-08-31T04:47:57.140Z'
+  /@telegram-auth/server@1.0.4: '2024-08-03T03:45:54.750Z'
   /@testing-library/jest-dom@6.5.0: '2024-08-23T19:47:46.321Z'
   /@testing-library/react@16.0.1: '2024-08-29T09:30:39.733Z'
   /@types/bs58@4.0.4: '2023-11-07T19:50:29.016Z'

@@ -1,7 +1,6 @@
 /* cspell:disable */
 
 import {
-    AuthSource,
     type BookmarkSource,
     type DiscoverSource,
     DiscoverType,
@@ -38,7 +37,7 @@ export const SITE_URL = env.external.NEXT_PUBLIC_SITE_URL ?? 'https://firefly.ma
 export const FARCASTER_REPLY_URL = 'https://relay.farcaster.xyz';
 export const WARPCAST_ROOT_URL = 'https://api.warpcast.com/v2';
 export const WARPCAST_CLIENT_URL = 'https://client.warpcast.com/v2';
-export const FIREFLY_ROOT_URL = 'https://api.firefly.land';
+export const FIREFLY_ROOT_URL = 'https://api-dev.firefly.land';
 export const FIREFLY_DEV_ROOT_URL = 'https://api-dev.firefly.land';
 export const FIREFLY_STAMP_URL = 'https://stamp.firefly.land/avatar';
 export const HEY_IPFS_GW_URL = 'https://gw.ipfs-lens.dev/ipfs';
@@ -114,7 +113,7 @@ export const SORTED_PROFILE_SOURCES: ProfilePageSource[] = [
     Source.Wallet,
 ];
 export const SORTED_SOCIAL_SOURCES = [Source.Farcaster, Source.Lens, Source.Twitter] as const;
-export const SORTED_AUTH_SOURCES = [AuthSource.Google, AuthSource.Telegram, AuthSource.Apple];
+export const SORTED_AUTH_SOURCES = [Source.Google, Source.Telegram, Source.Apple] as const;
 export const SORTED_BOOKMARK_SOURCES =
     env.shared.NODE_ENV === NODE_ENV.Development
         ? [Source.Farcaster, Source.Lens, Source.Twitter, Source.Article]
