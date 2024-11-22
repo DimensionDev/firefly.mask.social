@@ -18,8 +18,14 @@ const digestLinkRedis = memoizeWithRedis(FrameProcessor.digestDocumentUrl, {
     ignoreCacheWhen: (result) => !result,
 });
 
+// We are confident that these hosts will not be used for frame links
+const IGNORE_HOSTS = [/.+\.mask.social/, 'beta.mask.social', 'localhost:3000', 'x.com'];
+
 export async function GET(request: Request) {
-    const { searchParams } = new URL(request.url);
+    const { host, searchParams } = new URL(request.url);
+    if (IGNORE_HOSTS.some((pattern) => (typeof pattern === 'string' ? pattern === host : pattern.test(host)))) {
+        return createErrorResponseJSON(`Ignore host = ${host}`, { status: StatusCodes.NOT_FOUND });
+    }
 
     const link = searchParams.get('link');
     if (!link) return createErrorResponseJSON('Missing link', { status: StatusCodes.BAD_REQUEST });
