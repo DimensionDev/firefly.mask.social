@@ -413,10 +413,12 @@ export class FireflyEndpoint {
     }
 
     async searchIdentity(q: string, platforms?: SocialSource[]) {
-        const url = urlcat(settings.FIREFLY_ROOT_URL, '/v2/search/identity', {
+        let url = urlcat(settings.FIREFLY_ROOT_URL, '/v2/search/identity', {
             keyword: q,
             size: 100,
         });
+        const platform = platforms?.map((x) => resolveSourceInUrl(x)).join(',');
+        if (platform) url = `${url}&platform=${platform}`; // There are commas here, without escaping
         const response = await fireflySessionHolder.fetch<SearchProfileResponse>(url, {
             method: 'GET',
         });
