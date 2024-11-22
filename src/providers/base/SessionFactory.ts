@@ -48,6 +48,7 @@ export class SessionFactory {
         // for firefly session, the third part is the signature in base64 encoded
         const thirdPart = fragments[3] ?? '';
         // for farcaster session, the fourth part is the sponsorship signature
+        // for firefly session, the fourth part is the isNew flag
         const fourthPart = fragments[4] ?? '';
 
         const session = parseJSON<{
@@ -101,7 +102,8 @@ export class SessionFactory {
                         session.profileId,
                         session.token,
                         secondPart ? SessionFactory.createSession(atob(secondPart)) : null, // parent session
-                        thirdPart ? parseJSON<FireflySessionSignature>(atob(thirdPart)) : undefined, // signature
+                        thirdPart ? (parseJSON<FireflySessionSignature>(atob(thirdPart)) ?? null) : null, // signature
+                        fourthPart === '1', // isNew
                     );
                 case SessionType.Apple:
                 case SessionType.Google:

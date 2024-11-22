@@ -10,7 +10,7 @@ import { resolveSessionHolder } from '@/helpers/resolveSessionHolder.js';
 import { FAKE_SIGNER_REQUEST_TOKEN, FarcasterSession } from '@/providers/farcaster/Session.js';
 import { FireflySession } from '@/providers/firefly/Session.js';
 import { TwitterSession } from '@/providers/twitter/Session.js';
-import type { FarcasterLoginResponse, LensLoginResponse, TwitterLoginResponse } from '@/providers/types/Firefly.js';
+import type { LoginResponse } from '@/providers/types/Firefly.js';
 import type { Session } from '@/providers/types/Session.js';
 import { SessionType } from '@/providers/types/SocialMedia.js';
 import { settings } from '@/settings/index.js';
@@ -26,7 +26,7 @@ export async function restoreFireflySession(session: Session, signal?: AbortSign
     switch (session.type) {
         case SessionType.Lens: {
             const url = urlcat(settings.FIREFLY_ROOT_URL, '/v3/auth/lens/login');
-            const response = await fetchJSON<LensLoginResponse>(url, {
+            const response = await fetchJSON<LoginResponse>(url, {
                 method: 'POST',
                 body: JSON.stringify({
                     accessToken: session.token,
@@ -34,7 +34,7 @@ export async function restoreFireflySession(session: Session, signal?: AbortSign
                 signal,
             });
             const data = resolveFireflyResponseData(response);
-            return new FireflySession(data.accountId, data.accessToken, session);
+            return new FireflySession(data.accountId, data.accessToken, session, null, data.isNew);
         }
         case SessionType.Farcaster: {
             const isGrantByPermission = FarcasterSession.isGrantByPermission(session, true);
@@ -57,7 +57,7 @@ export async function restoreFireflySession(session: Session, signal?: AbortSign
                 signal,
             });
 
-            const json: FarcasterLoginResponse = await response.json();
+            const json: LoginResponse = await response.json();
             if (!response.ok && json.error?.includes('Farcaster login timed out'))
                 throw new TimeoutError('[restoreFireflySession] Farcaster login timed out.');
 
@@ -73,7 +73,7 @@ export async function restoreFireflySession(session: Session, signal?: AbortSign
                     console.warn(`[restoreFireflySession] No farcaster signer keys found in the response.`);
                 }
 
-                return new FireflySession(data.accountId, data.accessToken, session);
+                return new FireflySession(data.accountId, data.accessToken, session, null, data.isNew);
             }
             throw new Error('[restoreFireflySession] Failed to restore firefly session.');
         }
@@ -92,7 +92,7 @@ export async function restoreFireflySession(session: Session, signal?: AbortSign
                 );
 
             const url = urlcat(settings.FIREFLY_ROOT_URL, '/v3/auth/exchange/twitter');
-            const response = await fetchJSON<TwitterLoginResponse>(url, {
+            const response = await fetchJSON<LoginResponse>(url, {
                 method: 'POST',
                 body: JSON.stringify({
                     data: encrypted.data,
@@ -101,7 +101,7 @@ export async function restoreFireflySession(session: Session, signal?: AbortSign
             });
 
             const data = resolveFireflyResponseData(response);
-            return new FireflySession(data.accountId, data.accessToken, session);
+            return new FireflySession(data.accountId, data.accessToken, session, null, data.isNew);
         }
         case SessionType.Firefly:
             throw new NotAllowedError('[restoreFireflySession] Firefly session is not allowed.');

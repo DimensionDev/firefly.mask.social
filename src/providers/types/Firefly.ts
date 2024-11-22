@@ -314,23 +314,15 @@ export type ThreadResponse = Response<{
     threads: Cast[];
 }>;
 
-export type LensLoginResponse = Response<{
+export type LoginResponse = Response<{
     accessToken: string;
     accountId: string;
-}>;
-
-export type FarcasterLoginResponse = Response<{
-    accessToken?: string;
-    accountId?: string;
     farcaster_signer_public_key?: string;
     farcaster_signer_private_key?: string;
-    fid: string | number;
     isNew: boolean;
-}>;
-
-export type TwitterLoginResponse = Response<{
-    accessToken: string;
-    accountId: string;
+    fid?: number;
+    telegram_username?: string;
+    telegram_user_id?: string;
 }>;
 
 export type MetricsDownloadResponse = Response<{
@@ -1010,11 +1002,6 @@ export type GetAllConnectionsResponse = Response<AllConnections>;
 
 export type MessageToSignResponse = Response<{
     message: string;
-}>;
-
-export type WalletLoginResponse = Response<{
-    accessToken: string;
-    accountId: string;
 }>;
 
 export type ConvertM3u8Response = Response<{

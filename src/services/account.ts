@@ -15,6 +15,7 @@ import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 import { FireflySession } from '@/providers/firefly/Session.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
 import {
+    captureAccountCreateSuccessEvent,
     captureAccountLoginEvent,
     captureAccountLogoutAllEvent,
     captureAccountLogoutEvent,
@@ -258,6 +259,7 @@ export async function addAccount(account: Account, options?: AccountOptions) {
     });
 
     captureAccountLoginEvent(account);
+    if (account.fireflySession?.isNew) captureAccountCreateSuccessEvent(account);
 
     // account has been added to the store
     return true;
