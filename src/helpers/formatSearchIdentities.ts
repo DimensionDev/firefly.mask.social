@@ -10,9 +10,9 @@ export function formatSearchIdentities(
 ): Array<{ profile: Profile; related: Profile[] }> {
     return identities
         .map((x) => {
-            const target = SORTED_SOCIAL_SOURCES.map((source) => x[resolveSocialSourceInUrl(source)])
-                .flatMap((value) => value ?? EMPTY_LIST)
-                .find((profile) => profile.hit);
+            const target = SORTED_SOCIAL_SOURCES.map((source) => x[resolveSocialSourceInUrl(source)]).flatMap(
+                (value) => value ?? EMPTY_LIST,
+            )[0];
             if (!target) return;
 
             const allProfile = compact(
