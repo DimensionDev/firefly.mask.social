@@ -21,8 +21,8 @@ export class CalendarProvider {
         const response = await fetchCachedJSON<EventResponse>(
             urlcat(BASE_URL, {
                 provider_type: 'coincarp',
-                start_date: startDate,
-                end_date: endDate ? endDate : 0,
+                start_date: Math.floor(startDate / 1000),
+                end_date: endDate ? Math.floor(endDate / 1000) : 0,
                 cursor: 0,
             }),
         );
@@ -30,12 +30,14 @@ export class CalendarProvider {
         return data?.events?.map(fixEvent);
     }
 
-    static async getEventList(indicator?: PageIndicator) {
+    static async getEventList(start_date: number, end_date: number, indicator?: PageIndicator) {
         const res = await fetchCachedJSON<EventResponse>(
             urlcat(BASE_URL, {
                 provider_type: 'luma',
                 size: 20,
                 cursor: indicator?.id,
+                start_date: Math.floor(start_date / 1000),
+                end_date: Math.floor(end_date / 1000),
             }),
         );
         if (!res?.data?.events.length) {
