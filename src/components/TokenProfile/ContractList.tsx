@@ -7,10 +7,10 @@ import QuestionIcon from '@/assets/question.svg';
 import { CopyTextButton } from '@/components/CopyTextButton.js';
 import { Image } from '@/components/Image.js';
 import { MoreActionMenu } from '@/components/MoreActionMenu.js';
-import { useChainInfo } from '@/components/TokenProfile/useChainInfo.js';
 import { Tooltip } from '@/components/Tooltip.js';
 import { classNames } from '@/helpers/classNames.js';
 import { formatEthereumAddress } from '@/helpers/formatAddress.js';
+import { getChainInfo } from '@/helpers/getChainInfo.js';
 import { stopEvent } from '@/helpers/stopEvent.js';
 import type { Contract, Trending } from '@/providers/types/Trending.js';
 
@@ -54,7 +54,7 @@ interface ContractItemProps extends HTMLProps<HTMLDivElement> {
     contract: Contract;
 }
 function ContractItem({ contract, ...rest }: ContractItemProps) {
-    const chain = useChainInfo(contract.runtime, contract.chainId);
+    const chain = getChainInfo(contract.runtime, contract.chainId);
     const name = chain?.name || contract.runtime;
 
     return (

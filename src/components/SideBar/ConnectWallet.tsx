@@ -1,7 +1,6 @@
 'use client';
 
 import { Trans } from '@lingui/macro';
-import { useNetworkDescriptor } from '@masknet/web3-hooks-base';
 import { ChainId as EVMChainId } from '@masknet/web3-shared-evm';
 import { ChainId as SolanaChainId } from '@masknet/web3-shared-solana';
 import { useWallet as useSolanaWallet } from '@solana/wallet-adapter-react';
@@ -20,6 +19,7 @@ import { NetworkPluginID } from '@/constants/enum.js';
 import { classNames } from '@/helpers/classNames.js';
 import { formatEthereumAddress, formatSolanaAddress } from '@/helpers/formatAddress.js';
 import { formatDomainName } from '@/helpers/formatDomainName.js';
+import { getNetworkDescriptor } from '@/helpers/getNetworkDescriptor.js';
 import { resolveValue } from '@/helpers/resolveValue.js';
 import { useMounted } from '@/hooks/useMounted.js';
 import { AccountModalRef, ConnectModalRef, ConnectWalletModalRef, SolanaAccountModalRef } from '@/modals/controls.js';
@@ -32,9 +32,10 @@ interface ConnectWalletProps {
 export function ConnectWallet({ collapsed: sideBarCollapsed = false }: ConnectWalletProps) {
     const mounted = useMounted();
 
-    const evmNetworkDescriptor = useNetworkDescriptor(NetworkPluginID.PLUGIN_EVM, EVMChainId.Mainnet);
+    const evmNetworkDescriptor = getNetworkDescriptor(NetworkPluginID.PLUGIN_EVM, EVMChainId.Mainnet);
+    const solanaNetworkDescriptor = getNetworkDescriptor(NetworkPluginID.PLUGIN_SOLANA, SolanaChainId.Mainnet);
+
     const connectModalSolana = useConnectModalSolana();
-    const solanaNetworkDescriptor = useNetworkDescriptor(NetworkPluginID.PLUGIN_SOLANA, SolanaChainId.Mainnet);
 
     const evmAccount = useEVMAccount();
     const solanaWallet = useSolanaWallet();
