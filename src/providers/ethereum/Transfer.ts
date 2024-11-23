@@ -1,4 +1,3 @@
-import { isGreaterThan, isLessThan, leftShift, rightShift } from '@masknet/web3-shared-base';
 import type { ChainId } from '@masknet/web3-shared-evm';
 import { getBalance, sendTransaction, writeContract } from '@wagmi/core';
 import { BigNumber } from 'bignumber.js';
@@ -7,7 +6,7 @@ import { type Address, type Hash, parseUnits } from 'viem';
 import { config } from '@/configs/wagmiClient.js';
 import { formatBalance } from '@/helpers/formatBalance.js';
 import { getTokenAbiForWagmi } from '@/helpers/getTokenAbiForWagmi.js';
-import { isZero, multipliedBy } from '@/helpers/number.js';
+import { isGreaterThan, isLessThan, isZero, leftShift, multipliedBy, rightShift } from '@/helpers/number.js';
 import { switchEthereumChain } from '@/helpers/switchEthereumChain.js';
 import { waitForEthereumTransaction } from '@/helpers/waitForEthereumTransaction.js';
 import { getAvailableBalance } from '@/providers/ethereum/getAvailableBalance.js';

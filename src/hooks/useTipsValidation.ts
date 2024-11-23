@@ -1,8 +1,8 @@
 import { t } from '@lingui/macro';
-import { isZero } from '@masknet/web3-shared-base';
 import { useAsync } from 'react-use';
 
 import { isSameEthereumAddress } from '@/helpers/isSameAddress.js';
+import { isZero } from '@/helpers/number.js';
 import { resolveNetworkProvider, resolveTransferProvider } from '@/helpers/resolveTokenTransfer.js';
 import { trimify } from '@/helpers/trimify.js';
 import { TipsContext } from '@/hooks/useTipsContext.js';
