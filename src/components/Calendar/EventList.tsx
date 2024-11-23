@@ -1,6 +1,5 @@
 import { Trans } from '@lingui/macro';
 import { ElementAnchor } from '@masknet/shared';
-import { EMPTY_LIST } from '@masknet/shared-base';
 import { format } from 'date-fns';
 import { uniq } from 'lodash-es';
 import { useEffect, useMemo } from 'react';
@@ -12,6 +11,7 @@ import { useLumaEvents } from '@/components/Calendar/hooks/useLumaEvents.js';
 import { ImageLoader } from '@/components/Calendar/ImageLoader.js';
 import { Image } from '@/components/Image.js';
 import { Loading } from '@/components/Loading.js';
+import { EMPTY_LIST } from '@/constants/index.js';
 import { Link } from '@/esm/Link.js';
 
 interface EventListProps {

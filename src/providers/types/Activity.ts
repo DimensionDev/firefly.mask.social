@@ -1,7 +1,6 @@
-import type { Pageable } from '@masknet/shared-base';
 import { ChainId } from '@masknet/web3-shared-evm';
 
-import type { PageIndicator } from '@/helpers/pageable.js';
+import type { Pageable, PageIndicator } from '@/helpers/pageable.js';
 import type {
     ActivityInfoResponse,
     ActivityListItem,

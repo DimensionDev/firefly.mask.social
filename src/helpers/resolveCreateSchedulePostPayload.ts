@@ -1,7 +1,6 @@
-import { createLookupTableResolver } from '@masknet/shared-base';
-
 import { type SocialSource, Source } from '@/constants/enum.js';
 import { UnreachableError } from '@/constants/error.js';
+import { createLookupTableResolver } from '@/helpers/createLookupTableResolver.js';
 import {
     createFarcasterSchedulePostPayload,
     type FarcasterSchedulePostPayload,

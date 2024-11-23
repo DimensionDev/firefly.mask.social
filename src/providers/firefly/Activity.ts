@@ -1,11 +1,16 @@
 import { IS_IOS } from '@lexical/utils';
-import type { Pageable } from '@masknet/shared-base';
 import urlcat from 'urlcat';
 
 import { EMPTY_LIST } from '@/constants/index.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
 import { formatWalletConnections } from '@/helpers/formatWalletConnection.js';
-import { createIndicator, createNextIndicator, createPageable, type PageIndicator } from '@/helpers/pageable.js';
+import {
+    createIndicator,
+    createNextIndicator,
+    createPageable,
+    type Pageable,
+    type PageIndicator,
+} from '@/helpers/pageable.js';
 import { resolveFireflyResponseData } from '@/helpers/resolveFireflyResponseData.js';
 import { fireflyBridgeProvider } from '@/providers/firefly/Bridge.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';

@@ -1,6 +1,6 @@
 /* cspell:disable */
 
-import { createLookupTableResolver } from '@masknet/shared-base';
+import { createLookupTableResolver } from '@/helpers/createLookupTableResolver.js';
 import { type SignerWalletAdapter, WalletAdapterNetwork } from '@solana/wallet-adapter-base';
 import { CoinbaseWalletAdapter, CoinbaseWalletName } from '@solana/wallet-adapter-coinbase';
 import { PhantomWalletAdapter, PhantomWalletName } from '@solana/wallet-adapter-phantom';
