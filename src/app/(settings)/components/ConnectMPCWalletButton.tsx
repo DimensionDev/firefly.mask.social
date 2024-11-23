@@ -1,6 +1,5 @@
 import { t, Trans } from '@lingui/macro';
 import { safeUnreachable } from '@masknet/kit';
-import { isSameAddress } from '@masknet/web3-shared-base';
 import { ChainId } from '@masknet/web3-shared-evm';
 import { useWallet } from '@solana/wallet-adapter-react';
 import { useWalletModal as useConnectModalSolana } from '@solana/wallet-adapter-react-ui';
@@ -17,7 +16,7 @@ import { env } from '@/constants/env.js';
 import { enqueueErrorMessage, enqueueInfoMessage } from '@/helpers/enqueueMessage.js';
 import { formatSolanaAddress } from '@/helpers/formatAddress.js';
 import { getSnackbarMessageFromError } from '@/helpers/getSnackbarMessageFromError.js';
-import { isSameSolanaAddress } from '@/helpers/isSameAddress.js';
+import { isSameEthereumAddress, isSameSolanaAddress } from '@/helpers/isSameAddress.js';
 import { resolveValue } from '@/helpers/resolveValue.js';
 import { SolanaAccountModalRef } from '@/modals/controls.js';
 import type { FireflyWalletConnection } from '@/providers/types/Firefly.js';
@@ -84,7 +83,7 @@ export function ConnectMPCWalletButton({ connection }: ConnectMPCWalletButtonPro
     const connected = resolveValue(() => {
         switch (connection.platform) {
             case 'eth':
-                if (isSameAddress(account.address, connection.address)) return true;
+                if (isSameEthereumAddress(account.address, connection.address)) return true;
                 return false;
             case 'solana':
                 if (isSameSolanaAddress(wallet.publicKey?.toBase58(), connection.address)) return true;

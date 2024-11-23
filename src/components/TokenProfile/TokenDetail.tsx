@@ -12,12 +12,12 @@ import { Loading } from '@/components/Loading.js';
 import { CommunityLink } from '@/components/TokenProfile/CommunityLink.js';
 import { ContractList } from '@/components/TokenProfile/ContractList.js';
 import { TokenMarketData } from '@/components/TokenProfile/TokenMarketData.js';
-import { useChainInfo } from '@/components/TokenProfile/useChainInfo.js';
 import { Tooltip } from '@/components/Tooltip.js';
 import { Link } from '@/esm/Link.js';
 import { classNames } from '@/helpers/classNames.js';
 import { formatEthereumAddress } from '@/helpers/formatAddress.js';
 import { formatPrice } from '@/helpers/formatPrice.js';
+import { getChainInfo } from '@/helpers/getChainInfo.js';
 import { useCoinTrending } from '@/hooks/useCoinTrending.js';
 import { useTokenInfo } from '@/hooks/useTokenInfo.js';
 import type { Contract } from '@/providers/types/Trending.js';
@@ -74,7 +74,7 @@ export const TokenDetail = memo<Props>(function TokenDetail({ symbol, children, 
     const { market, coin, contracts } = trending ?? {};
 
     const firstContract = first(contracts);
-    const chain = useChainInfo(firstContract?.runtime, firstContract?.chainId);
+    const chain = getChainInfo(firstContract?.runtime, firstContract?.chainId);
 
     if (isLoading) {
         return <Loading />;
