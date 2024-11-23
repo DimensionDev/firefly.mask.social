@@ -89,8 +89,6 @@
             "@masknet/typed-message-react": ["./src/maskbook/packages/typed-message/react/src/index.ts"],
             "@masknet/types": ["./src/maskbook/packages/types/src/index.ts"],
             "@masknet/web3-helpers": ["./src/maskbook/packages/web3-helpers/src/index.ts"],
-            "@masknet/web3-hooks-base": ["./src/maskbook/packages/web3-hooks/base/src/index.ts"],
-            "@masknet/web3-hooks-evm": ["./src/maskbook/packages/web3-hooks/evm/src/index.ts"],
             "@masknet/web3-providers": ["./src/maskbook/packages/web3-providers/src/entry.ts"],
             // disable cause of deep dependency chain
             // "@masknet/web3-providers/helpers": ["./src/maskbook/packages/web3-providers/src/entry-helpers.ts"],
