@@ -1,3 +1,5 @@
+import { parseHTML } from 'linkedom';
+
 import { resolveValue } from '@/helpers/resolveValue.js';
 
 export class AbortError extends Error {
@@ -44,7 +46,12 @@ export class FetchError extends Error {
     static async from(input: RequestInfo | URL | string, response: Response, message?: string) {
         const text = await resolveValue(async () => {
             try {
-                return await response.clone().text();
+                const text = await response.clone().text();
+                if (response.headers.get('content-type')?.includes('text/html')) {
+                    const dom = parseHTML(text);
+                    return dom.querySelector('title')?.textContent || '';
+                }
+                return text;
             } catch {
                 return '';
             }
