@@ -394,7 +394,7 @@ const useThirdPartyStateBase = createState(
                             followingCount: 0,
                             status: ProfileStatus.Active,
                             source: Source.Farcaster,
-                            authSource: resolveSessionTypeToSource(session.type),
+                            profileSource: resolveSessionTypeToSource(session.type),
                             verified: true,
                         },
                         session: thirdPartySession,

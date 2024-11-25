@@ -122,14 +122,17 @@ export enum EventId {
     APPLE_ACCOUNT_LOG_IN_SUCCESS = 'apple_log_in_success',
     APPLE_ACCOUNT_LOG_OUT_SUCCESS = 'apple_log_out_success',
     APPLE_ACCOUNT_DISCONNECT_SUCCESS = 'apple_disconnect_success',
+
     // google
     GOOGLE_ACCOUNT_LOG_IN_SUCCESS = 'google_log_in_success',
     GOOGLE_ACCOUNT_LOG_OUT_SUCCESS = 'google_log_out_success',
     GOOGLE_ACCOUNT_DISCONNECT_SUCCESS = 'google_disconnect_success',
+
     // telegram
     TELEGRAM_ACCOUNT_LOG_IN_SUCCESS = 'telegram_log_in_success',
     TELEGRAM_ACCOUNT_LOG_OUT_SUCCESS = 'telegram_log_out_success',
     TELEGRAM_ACCOUNT_DISCONNECT_SUCCESS = 'telegram_disconnect_success',
+
     // activity
     EVENT_SHARE_CLICK = 'event_share_click',
     EVENT_X_LOG_IN_SUCCESS = 'event_x_log_in_success',

@@ -58,6 +58,8 @@ export interface Friendship {
 export interface Profile {
     /** fid for Farcaster, twitter id for Twitter */
     profileId: string;
+    /** the source of profile's session */
+    profileSource?: ProfileSource;
     displayName: string;
     handle: string;
     fullHandle: string;
@@ -79,8 +81,8 @@ export interface Profile {
         networkType: NetworkType;
         address: string;
     };
+    /** the social media source that the profile belongs to */
     source: SocialSource;
-    authSource?: ProfileSource;
     // Farcaster only
     isPowerUser?: boolean;
     website?: string;
