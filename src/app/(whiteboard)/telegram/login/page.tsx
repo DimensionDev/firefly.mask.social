@@ -73,7 +73,7 @@ export default function Page({ searchParams }: PageProps) {
                         followingCount: 0,
                         status: ProfileStatus.Active,
                         source: Source.Farcaster,
-                        authSource: Source.Telegram,
+                        profileSource: Source.Telegram,
                         verified: true,
                     },
                     session: thirdPartySession,

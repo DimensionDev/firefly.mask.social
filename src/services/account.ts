@@ -167,7 +167,7 @@ export async function addAccount(account: Account, options?: AccountOptions) {
         signal,
     } = options ?? {};
 
-    const { state, sessionHolder } = getContext(account.profile.authSource ?? account.profile.source);
+    const { state, sessionHolder } = getContext(account.profile.profileSource ?? account.profile.source);
 
     const fireflySession = getFireflySession(account);
     const currentFireflySession = getProfileState(Source.Firefly).currentProfileSession;
@@ -190,7 +190,7 @@ export async function addAccount(account: Account, options?: AccountOptions) {
     if (!skipResumeFireflyAccounts && fireflySession) {
         const accountsSynced = await downloadAccounts(fireflySession, signal);
         const accountsFiltered = accountsSynced.filter((x) => {
-            const state = getProfileState(x.profile.authSource ?? x.profile.source);
+            const state = getProfileState(x.profile.profileSource ?? x.profile.source);
             return !state.accounts.find((y) => isSameAccount(x, y)) && !isSameAccount(x, account);
         });
         const accounts = (
