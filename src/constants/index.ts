@@ -112,6 +112,7 @@ export const SORTED_PROFILE_SOURCES: ProfilePageSource[] = [
     Source.Wallet,
 ];
 export const SORTED_SOCIAL_SOURCES = [Source.Farcaster, Source.Lens, Source.Twitter] as const;
+export const SORTED_THIRD_PARTY_SOURCES = [Source.Google, Source.Telegram, Source.Apple] as const;
 export const SORTED_BOOKMARK_SOURCES =
     env.shared.NODE_ENV === NODE_ENV.Development
         ? [Source.Farcaster, Source.Lens, Source.Twitter, Source.Article]

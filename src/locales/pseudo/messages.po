@@ -1291,6 +1291,9 @@ msgstr ""
 msgid "Malformed session."
 msgstr ""
 
+msgid "Malformed third-party session payload."
+msgstr ""
+
 msgid "Upload"
 msgstr ""
 

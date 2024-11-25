@@ -8,6 +8,7 @@ export function formatFarcasterProfileFromNeynar(user: NeynarProfile): Profile {
     return {
         fullHandle: user.username,
         profileId: user.fid.toString(),
+        profileSource: Source.Farcaster,
         handle: user.username,
         displayName: user.display_name,
         pfp: user.pfp_url,

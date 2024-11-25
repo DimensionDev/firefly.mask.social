@@ -1,4 +1,4 @@
-import { type SocialSource, Source } from '@/constants/enum.js';
+import { type ProfileSource, type SocialSource, Source } from '@/constants/enum.js';
 import { UnreachableError } from '@/constants/error.js';
 import { createLookupTableResolver } from '@/helpers/createLookupTableResolver.js';
 import { SessionHolder } from '@/providers/base/SessionHolder.js';
@@ -15,6 +15,21 @@ export const resolveSessionHolder = createLookupTableResolver<SocialSource, Sess
         [Source.Farcaster]: farcasterSessionHolder,
         [Source.Lens]: lensSessionHolder,
         [Source.Twitter]: twitterSessionHolder,
+    },
+    (source) => {
+        throw new UnreachableError('source', source);
+    },
+);
+
+export const resolveSessionHolderFromProfileSource = createLookupTableResolver<ProfileSource, SessionHolder<Session>>(
+    {
+        [Source.Farcaster]: farcasterSessionHolder,
+        [Source.Lens]: lensSessionHolder,
+        [Source.Twitter]: twitterSessionHolder,
+        [Source.Firefly]: fireflySessionHolder,
+        [Source.Google]: thirdPartySessionHolder,
+        [Source.Apple]: thirdPartySessionHolder,
+        [Source.Telegram]: thirdPartySessionHolder,
     },
     (source) => {
         throw new UnreachableError('source', source);

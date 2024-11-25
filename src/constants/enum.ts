@@ -66,6 +66,9 @@ export enum Source {
     NFTs = 'NFTs',
     Snapshot = 'Snapshot',
     Polymarket = 'Polymarket',
+    Telegram = 'Telegram',
+    Google = 'Google',
+    Apple = 'Apple',
 }
 
 export enum SourceInURL {
@@ -78,10 +81,27 @@ export enum SourceInURL {
     NFTs = 'nfts',
     Snapshot = 'snapshot',
     Polymarket = 'polymarket',
+    Telegram = 'telegram',
+    Google = 'google',
+    Apple = 'apple',
 }
 
 export type SocialSource = Source.Farcaster | Source.Lens | Source.Twitter;
-export type ProfileSource = Source.Farcaster | Source.Lens | Source.Twitter | Source.Firefly;
+
+export type ThirdPartySource = Source.Telegram | Source.Apple | Source.Google;
+
+// Strictly match the SessionType
+export type ProfileSource =
+    | Source.Farcaster
+    | Source.Lens
+    | Source.Twitter
+    | Source.Firefly
+    | Source.Telegram
+    | Source.Apple
+    | Source.Google;
+
+export type LoginSource = SocialSource | ThirdPartySource;
+
 export type ProfilePageSource = Source.Farcaster | Source.Lens | Source.Twitter | Source.Wallet;
 export type SocialSourceInURL = SourceInURL.Farcaster | SourceInURL.Lens | SourceInURL.Twitter;
 export type SocialDiscoverSource = Source.Farcaster | Source.Lens;
