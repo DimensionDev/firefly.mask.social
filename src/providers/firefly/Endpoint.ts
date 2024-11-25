@@ -412,10 +412,21 @@ export class FireflyEndpoint {
         return true;
     }
 
-    async searchIdentity(q: string, platforms?: SocialSource[]) {
+    async searchIdentity(
+        keyword: string,
+        {
+            platforms,
+            size = 100,
+            indicator,
+        }: {
+            platforms?: SocialSource[];
+            size?: number;
+            indicator?: PageIndicator;
+        } = {},
+    ) {
         const url = urlcat(settings.FIREFLY_ROOT_URL, '/v2/search/identity', {
-            keyword: q,
-            size: 100,
+            keyword,
+            size,
         });
         const platform = platforms?.map((x) => resolveSourceInUrl(x)).join(','); // There are commas here, without escaping
         const response = await fireflySessionHolder.fetch<SearchProfileResponse>(
@@ -424,7 +435,12 @@ export class FireflyEndpoint {
                 method: 'GET',
             },
         );
-        return resolveFireflyResponseData(response);
+        const data = resolveFireflyResponseData(response);
+        return createPageable(
+            data.list,
+            indicator,
+            data.cursor ? createNextIndicator(indicator, `${data.cursor}`) : undefined,
+        );
     }
 
     async discoverNFTs({

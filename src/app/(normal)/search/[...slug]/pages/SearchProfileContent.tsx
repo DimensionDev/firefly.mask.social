@@ -64,7 +64,10 @@ export function SearchProfileContent() {
 
             const data =
                 pageParam.firefly !== noNextPage
-                    ? await FireflyEndpointProvider.searchIdentity(searchKeyword, 25, fireflyIndicator)
+                    ? await FireflyEndpointProvider.searchIdentity(searchKeyword, {
+                          size: 25,
+                          indicator: fireflyIndicator,
+                      })
                     : createPageable([], createIndicator());
             const twitterProfiles =
                 isTwitterLogin && pageParam.twitter !== noNextPage
