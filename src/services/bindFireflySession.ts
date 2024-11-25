@@ -92,6 +92,7 @@ async function bindAppleSessionToFirefly(session: ThirdPartySession, signal?: Ab
                 idToken: session.token,
                 nonce: session.payload?.nonce,
             }),
+            signal,
         },
     );
 
@@ -107,6 +108,7 @@ async function bindGoogleSessionToFirefly(session: ThirdPartySession, signal?: A
             body: JSON.stringify({
                 idToken: session.token,
             }),
+            signal,
         },
     );
 
@@ -122,6 +124,7 @@ async function bindTelegramSessionToFirefly(session: ThirdPartySession, signal?:
             body: JSON.stringify({
                 telegramToken: session.token,
             }),
+            signal,
         },
     );
 
@@ -135,25 +138,25 @@ async function bindTelegramSessionToFirefly(session: ThirdPartySession, signal?:
  * @param signal
  * @returns
  */
-async function bindFireflySession(session: Session, signal?: AbortSignal) {
+function bindFireflySession(session: Session, signal?: AbortSignal) {
     // Ensure that the Firefly session is resumed before calling this function.
     fireflySessionHolder.assertSession();
 
     switch (session.type) {
         case SessionType.Farcaster:
-            return await bindFarcasterSessionToFirefly(session as FarcasterSession, signal);
+            return bindFarcasterSessionToFirefly(session as FarcasterSession, signal);
         case SessionType.Lens:
-            return await bindLensToFirefly(session as LensSession, signal);
+            return bindLensToFirefly(session as LensSession, signal);
         case SessionType.Twitter:
-            return await bindTwitterSessionToFirefly(session as TwitterSession, signal);
+            return bindTwitterSessionToFirefly(session as TwitterSession, signal);
         case SessionType.Firefly:
             throw new NotAllowedError();
         case SessionType.Apple:
-            return await bindAppleSessionToFirefly(session as ThirdPartySession, signal);
+            return bindAppleSessionToFirefly(session as ThirdPartySession, signal);
         case SessionType.Google:
-            return await bindGoogleSessionToFirefly(session as ThirdPartySession, signal);
+            return bindGoogleSessionToFirefly(session as ThirdPartySession, signal);
         case SessionType.Telegram:
-            return await bindTelegramSessionToFirefly(session as ThirdPartySession, signal);
+            return bindTelegramSessionToFirefly(session as ThirdPartySession, signal);
         default:
             safeUnreachable(session.type);
             throw new UnreachableError('[bindFireflySession] session type', session.type);
