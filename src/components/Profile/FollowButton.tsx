@@ -1,3 +1,5 @@
+'use client';
+
 import { t } from '@lingui/macro';
 import { memo, useCallback, useState } from 'react';
 
@@ -10,6 +12,7 @@ import { type ClickableButtonProps } from '@/components/ClickableButton.js';
 import { BaseToggleFollowButton } from '@/components/Profile/BaseToggleFollowButton.js';
 import { classNames } from '@/helpers/classNames.js';
 import { useIsProfileMuted } from '@/hooks/useIsProfileMuted.js';
+import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 
 enum State {
@@ -31,6 +34,7 @@ export const FollowButton = memo(function FollowButton({
     hasMutedButton = true,
     ...rest
 }: FollowButtonProps) {
+    const isMedium = useIsMedium();
     const [hovering, setHovering] = useState(false);
     const muted = useIsProfileMuted(profile.source, profile.profileId, profile.viewerContext?.blocking, hasMutedButton);
 
@@ -67,7 +71,7 @@ export const FollowButton = memo(function FollowButton({
         text: 'min-w-[112px] box-border px-5 whitespace-nowrap',
         icon: 'w-8 max-w-8',
     }[variant];
-    const buttonState = isFollowing ? (hovering ? State.Unfollow : State.Following) : State.Follow;
+    const buttonState = isFollowing ? (hovering && isMedium ? State.Unfollow : State.Following) : State.Follow;
 
     return (
         <BaseToggleFollowButton
