@@ -936,9 +936,6 @@ msgstr "使用您的X账户登录以查看"
 msgid "Login to Firefly"
 msgstr "登录到 Firefly"
 
-msgid "Apple ID"
-msgstr ""
-
 msgid "Canceled"
 msgstr "已取消"
 
@@ -1490,9 +1487,6 @@ msgstr "无法对帖子进行投票。"
 
 msgid "<0>Acquired</0> an NFT"
 msgstr "<0>获取</0> 一个 NFT"
-
-msgid "Telegram"
-msgstr ""
 
 msgid "Confirm to disconnect this account and related wallets from Firefly’s social graph?"
 msgstr ""
@@ -2105,9 +2099,6 @@ msgstr "转发或者引用"
 
 msgid "Sorry, we are not able to find a wallet for {0}."
 msgstr "对不起，我们未找到相关钱包 {0}."
-
-msgid "Google"
-msgstr ""
 
 msgid "Unwatch"
 msgstr "取消关注"

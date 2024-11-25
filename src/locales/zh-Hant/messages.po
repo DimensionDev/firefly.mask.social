@@ -936,9 +936,6 @@ msgstr ""
 msgid "Login to Firefly"
 msgstr "登錄 Firefly"
 
-msgid "Apple ID"
-msgstr ""
-
 msgid "Canceled"
 msgstr ""
 
@@ -1490,9 +1487,6 @@ msgstr "上讚貼文失敗"
 
 msgid "<0>Acquired</0> an NFT"
 msgstr "<0>獲取了</0>一個 NFT"
-
-msgid "Telegram"
-msgstr ""
 
 msgid "Confirm to disconnect this account and related wallets from Firefly’s social graph?"
 msgstr ""
@@ -2104,9 +2098,6 @@ msgid "Recast or Quote"
 msgstr "引用"
 
 msgid "Sorry, we are not able to find a wallet for {0}."
-msgstr ""
-
-msgid "Google"
 msgstr ""
 
 msgid "Unwatch"
