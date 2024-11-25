@@ -112,7 +112,7 @@ export const SnapshotVotesList = memo<SnapshotVotesListProps>(function SnapshotV
     }
 
     return (
-        <div className="flex-1">
+        <div className="min-h-[140px] flex-1">
             <VirtualList
                 data={data}
                 endReached={onEndReached}
