@@ -69,7 +69,7 @@ export function ChannelInList({
                 </div>
 
                 <div className="flex-start flex max-w-[calc(100%-40px-16px)] flex-1 flex-col overflow-auto">
-                    <div className="flex-start flex items-center text-sm font-bold leading-5">
+                    <div className="flex-start flex items-center gap-1 text-sm font-bold leading-5">
                         <ChannelTippy channel={channel} className="mr-1 truncate">
                             <span className="text-[18px] leading-6">{channel.name}</span>
                         </ChannelTippy>
@@ -90,7 +90,7 @@ export function ChannelInList({
                                 {nFormatter(channel.followerCount)}{' '}
                             </span>
                             <span className="leading-[22px] text-secondary">
-                                <Plural value={channel.followerCount} one="Follower" other="Followers" />
+                                <Plural value={channel.followerCount} one="Member" other="Members" />
                             </span>
                         </data>
                     </div>

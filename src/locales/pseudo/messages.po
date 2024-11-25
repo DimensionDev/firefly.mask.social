@@ -508,6 +508,9 @@ msgstr ""
 msgid "No hidden owner."
 msgstr ""
 
+msgid "{0, plural, one {Member} other {Members}}"
+msgstr ""
+
 msgid "Blockchain"
 msgstr ""
 
