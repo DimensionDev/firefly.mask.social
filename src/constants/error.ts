@@ -49,7 +49,7 @@ export class FetchError extends Error {
                 const text = await response.clone().text();
                 if (response.headers.get('content-type')?.includes('text/html')) {
                     const dom = parseHTML(text);
-                    return dom.querySelector('title')?.textContent || '';
+                    return dom.querySelector('title')?.textContent || 'Internal service error';
                 }
                 return text;
             } catch {
