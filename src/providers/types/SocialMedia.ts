@@ -1,18 +1,26 @@
 import type { OpenActionModuleType } from '@lens-protocol/client';
 
-import type { BookmarkType, FireflyPlatform, ProfileSource, RestrictionType, SocialSource } from '@/constants/enum.js';
+import {
+    Source,
+    type BookmarkType,
+    type FireflyPlatform,
+    type ProfileSource,
+    type RestrictionType,
+    type SocialSource,
+} from '@/constants/enum.js';
 import type { Pageable, PageIndicator } from '@/helpers/pageable.js';
 import type { WalletProfile } from '@/providers/types/Firefly.js';
 import type { Poll } from '@/providers/types/Poll.js';
 
+// Strictly match the ProfileSource
 export enum SessionType {
-    Apple = 'apple',
-    Google = 'google',
-    Telegram = 'telegram',
-    Twitter = 'Twitter',
-    Lens = 'Lens',
-    Farcaster = 'Farcaster',
-    Firefly = 'Firefly',
+    Apple = Source.Apple,
+    Google = Source.Google,
+    Telegram = Source.Telegram,
+    Twitter = Source.Twitter,
+    Lens = Source.Lens,
+    Farcaster = Source.Farcaster,
+    Firefly = Source.Firefly,
 }
 
 export enum NetworkType {
@@ -59,7 +67,7 @@ export interface Profile {
     /** fid for Farcaster, twitter id for Twitter */
     profileId: string;
     /** the source of profile's session */
-    profileSource?: ProfileSource;
+    profileSource: ProfileSource;
     displayName: string;
     handle: string;
     fullHandle: string;

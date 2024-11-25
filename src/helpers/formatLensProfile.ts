@@ -25,6 +25,7 @@ function getAvatar(profile: ProfileFragment, namedTransform = AVATAR) {
 export function formatLensProfile(result: ProfileFragment): Profile {
     return {
         profileId: result.id,
+        profileSource: Source.Lens,
         displayName: result.metadata?.displayName || result.handle?.localName || '',
         handle: (result.handle?.localName || result.metadata?.displayName) ?? '',
         fullHandle: result.handle?.fullHandle || '',
@@ -54,6 +55,7 @@ export function formatLensProfile(result: ProfileFragment): Profile {
 export function formatLensProfileByHandleInfo(result: HandleInfoFragment): Profile {
     return {
         profileId: result.id,
+        profileSource: Source.Lens,
         displayName: result.localName || '',
         handle: result.localName || '',
         fullHandle: result.fullHandle || '',
@@ -69,6 +71,7 @@ export function formatLensProfileByHandleInfo(result: HandleInfoFragment): Profi
 export function formatLensProfileFromSuggestedFollow(result: LensV3Profile): Profile {
     return {
         profileId: result.id,
+        profileSource: Source.Lens,
         displayName: result.localName || '',
         handle: result.localName || '',
         fullHandle: result.fullHandle || '',

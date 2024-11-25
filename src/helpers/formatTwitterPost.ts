@@ -37,6 +37,7 @@ export function tweetV2ToPost(item: TweetV2, includes?: ApiV2Includes): Post {
         canComment: true,
         author: {
             profileId: item.author_id!,
+            profileSource: Source.Twitter,
             displayName: user?.name ?? '',
             handle: user?.username!,
             fullHandle: user?.username!,
@@ -60,6 +61,7 @@ export function tweetV2ToPost(item: TweetV2, includes?: ApiV2Includes): Post {
         mentions: item?.entities?.mentions?.map((mention) => {
             return {
                 profileId: mention.id,
+                profileSource: Source.Twitter,
                 displayName: mention.username,
                 handle: mention.username,
                 fullHandle: mention.username,
@@ -146,6 +148,7 @@ export function tweetV2ToPost(item: TweetV2, includes?: ApiV2Includes): Post {
             ret.parentPostId = retweeted.id;
             ret.author = {
                 profileId: mention.id,
+                profileSource: Source.Twitter,
                 displayName: author?.name ?? mention?.username ?? '',
                 handle: mention?.username!,
                 fullHandle: mention?.username!,

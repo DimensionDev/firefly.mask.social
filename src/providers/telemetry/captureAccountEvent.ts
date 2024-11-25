@@ -53,7 +53,7 @@ const resolveDisconnectEventId = createLookupTableResolver<LoginSource, EventId>
 );
 
 function getAccountEventParameters(account: Account) {
-    const source = account.profile.profileSource ?? account.profile.source;
+    const source = account.profile.profileSource;
 
     const accounts = getProfileState(source).accounts.map((x) => [x.profile.profileId, x.profile.handle]) as Array<
         [string, string]

@@ -33,6 +33,7 @@ class TwitterAuth implements Provider<SessionPayload> {
 
         return {
             profileId: response.data.id,
+            profileSource: Source.Twitter,
             displayName: response.data.name,
             handle: response.data.username,
             fullHandle: response.data.username,

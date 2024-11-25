@@ -66,9 +66,9 @@ export enum Source {
     NFTs = 'NFTs',
     Snapshot = 'Snapshot',
     Polymarket = 'Polymarket',
-    Telegram = 'telegram',
-    Google = 'google',
-    Apple = 'apple',
+    Telegram = 'Telegram',
+    Google = 'Google',
+    Apple = 'Apple',
 }
 
 export enum SourceInURL {
@@ -87,6 +87,8 @@ export enum SourceInURL {
 }
 
 export type SocialSource = Source.Farcaster | Source.Lens | Source.Twitter;
+
+// Strictly match the SessionType
 export type ProfileSource =
     | Source.Farcaster
     | Source.Lens

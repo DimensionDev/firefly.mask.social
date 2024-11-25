@@ -54,6 +54,7 @@ export function formatWarpcastPost(cast: Cast): Post {
         author: {
             fullHandle: cast.author.username,
             profileId: cast.author.fid.toString(),
+            profileSource: Source.Farcaster,
             displayName: cast.author.displayName,
             pfp: cast.author.pfp?.url ?? '',
             handle: cast.author.username,
@@ -76,6 +77,7 @@ export function formatWarpcastPost(cast: Cast): Post {
         mirrors: cast.recasts.recasters?.map((x) => ({
             fullHandle: x.username,
             profileId: x.fid.toString(),
+            profileSource: Source.Farcaster,
             displayName: x.displayName,
             handle: x.username,
             pfp: '',
@@ -88,6 +90,7 @@ export function formatWarpcastPost(cast: Cast): Post {
         mentions: cast.mentions?.map((x) => ({
             fullHandle: x.username,
             profileId: x.fid.toString(),
+            profileSource: Source.Farcaster,
             displayName: x.displayName,
             handle: x.username,
             pfp: '',

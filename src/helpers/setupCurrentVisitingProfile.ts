@@ -13,6 +13,8 @@ import { type Profile, ProfileStatus } from '@/providers/types/SocialMedia.js';
 
 const fireflyappProfile: Profile = {
     profileId: 'fireflyapp',
+    source: Source.Farcaster,
+    profileSource: Source.Farcaster,
     handle: 'fireflyapp',
     displayName: 'Firefly App',
     fullHandle: 'fireflyapp',
@@ -20,7 +22,6 @@ const fireflyappProfile: Profile = {
     followerCount: 0,
     followingCount: 0,
     status: ProfileStatus.Active,
-    source: Source.Lens,
     verified: true,
 };
 
