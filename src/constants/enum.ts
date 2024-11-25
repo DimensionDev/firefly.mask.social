@@ -88,6 +88,8 @@ export enum SourceInURL {
 
 export type SocialSource = Source.Farcaster | Source.Lens | Source.Twitter;
 
+export type ThirdPartySource = Source.Telegram | Source.Apple | Source.Google;
+
 // Strictly match the SessionType
 export type ProfileSource =
     | Source.Farcaster
@@ -98,13 +100,7 @@ export type ProfileSource =
     | Source.Apple
     | Source.Google;
 
-export type LoginSource =
-    | Source.Farcaster
-    | Source.Lens
-    | Source.Twitter
-    | Source.Telegram
-    | Source.Apple
-    | Source.Google;
+export type LoginSource = SocialSource | ThirdPartySource;
 
 export type ProfilePageSource = Source.Farcaster | Source.Lens | Source.Twitter | Source.Wallet;
 export type SocialSourceInURL = SourceInURL.Farcaster | SourceInURL.Lens | SourceInURL.Twitter;

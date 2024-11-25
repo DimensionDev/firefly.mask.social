@@ -278,7 +278,7 @@ const useTwitterStateBase = createState(
     {
         name: 'twitter-state',
         onRehydrateStorage: () => async (state) => {
-            if (!bom.window || !state || bom.location.pathname.includes('/telegram/login')) return;
+            if (!bom.window || !state || bom.location?.pathname.includes('/telegram/login')) return;
 
             state.upgrade();
 
@@ -353,7 +353,7 @@ const useThirdPartyStateBase = createState(
     {
         name: 'third-party-state',
         onRehydrateStorage: () => async (state) => {
-            if (!bom.window || !state || bom.location.pathname.includes('/telegram/login')) return;
+            if (!bom.window || !state || bom.location?.pathname.includes('/telegram/login')) return;
 
             state.upgrade();
 

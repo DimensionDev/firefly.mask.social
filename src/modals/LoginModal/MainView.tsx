@@ -5,11 +5,18 @@ import urlcat from 'urlcat';
 
 import { LoginButton } from '@/components/Login/LoginButton.js';
 import { LoginFirefly } from '@/components/Login/LoginFirefly.js';
-import { FarcasterSignType, type SocialSource, Source } from '@/constants/enum.js';
-import { SORTED_AUTH_SOURCES, SORTED_SOCIAL_SOURCES } from '@/constants/index.js';
+import {
+    FarcasterSignType,
+    type LoginSource,
+    type SocialSource,
+    Source,
+    type ThirdPartySource,
+} from '@/constants/enum.js';
+import { SORTED_THIRD_PARTY_SOURCES, SORTED_SOCIAL_SOURCES } from '@/constants/index.js';
 import { resolveSourceInUrl } from '@/helpers/resolveSourceInUrl.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
+import { safeUnreachable } from '@masknet/kit';
 
 export function MainView() {
     const router = useRouter();
@@ -27,13 +34,19 @@ export function MainView() {
         history.replace(path);
     };
 
-    const onAuthClick = async (source: Source) => {
-        if (source === Source.Telegram) {
-            const url = await FireflyEndpointProvider.getTelegramLoginUrl();
-            if (!url) return;
-            window.location.href = url;
-        } else {
-            signIn(source);
+    const onAuthClick = async (source: ThirdPartySource) => {
+        switch (source) {
+            case Source.Telegram:
+                const url = await FireflyEndpointProvider.getTelegramLoginUrl();
+                if (!url) return;
+                window.location.href = url;
+                break;
+            case Source.Apple:
+            case Source.Google:
+                signIn(source);
+                break;
+            default:
+                safeUnreachable(source);
         }
     };
 
@@ -52,7 +65,7 @@ export function MainView() {
                     {SORTED_SOCIAL_SOURCES.map((source) => (
                         <LoginButton key={source} source={source} onClick={() => onClick(source)} />
                     ))}
-                    {SORTED_AUTH_SOURCES.map((source) => {
+                    {SORTED_THIRD_PARTY_SOURCES.map((source) => {
                         return <LoginButton key={source} source={source} onClick={() => onAuthClick(source)} />;
                     })}
                 </div>
