@@ -90,7 +90,7 @@ async function bindAppleSessionToFirefly(session: ThirdPartySession, signal?: Ab
             method: 'POST',
             body: JSON.stringify({
                 idToken: session.token,
-                nonce: session.nonce,
+                nonce: session.payload?.nonce,
             }),
         },
     );

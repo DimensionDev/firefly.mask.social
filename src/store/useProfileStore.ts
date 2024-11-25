@@ -278,7 +278,7 @@ const useTwitterStateBase = createState(
     {
         name: 'twitter-state',
         onRehydrateStorage: () => async (state) => {
-            if (!bom.window || !state || location.pathname.includes('/telegram/login')) return;
+            if (!bom.window || !state || bom.location.pathname.includes('/telegram/login')) return;
 
             state.upgrade();
 
@@ -353,13 +353,12 @@ const useThirdPartyStateBase = createState(
     {
         name: 'third-party-state',
         onRehydrateStorage: () => async (state) => {
-            if (!bom.window || !state || location.pathname.includes('/telegram/login')) return;
+            if (!bom.window || !state || bom.location.pathname.includes('/telegram/login')) return;
 
             state.upgrade();
 
             try {
                 const session = (await getSession()) as unknown as ThirdPartySessionType;
-
                 if (!session.user) return;
 
                 const thirdPartySession = session.user?.id
@@ -374,7 +373,6 @@ const useThirdPartyStateBase = createState(
                           },
                       )
                     : null;
-
                 if (!thirdPartySession) return;
 
                 const foundNewSessionFromServer = !!(
