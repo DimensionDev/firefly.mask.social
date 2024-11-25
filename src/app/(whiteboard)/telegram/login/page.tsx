@@ -78,7 +78,7 @@ export default function Page({ searchParams }: PageProps) {
                     },
                     session: thirdPartySession,
                     fireflySession: foundNewSessionFromServer
-                        ? await bindOrRestoreFireflySession(thirdPartySession, undefined)
+                        ? await bindOrRestoreFireflySession(thirdPartySession)
                         : undefined,
                 },
                 {

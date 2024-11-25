@@ -35,7 +35,7 @@ export default function DecryptedInspector({ post, payloads }: DecryptedInspecto
     if (!post || !payloads?.length) return null;
 
     return (
-        <Providers>
+        <Providers enableParticle={false}>
             <MaskProviders>
                 <DecryptedPost post={post} payloads={payloads} />
             </MaskProviders>
