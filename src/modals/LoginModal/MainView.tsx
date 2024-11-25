@@ -7,7 +7,7 @@ import urlcat from 'urlcat';
 import { LoginButton } from '@/components/Login/LoginButton.js';
 import { LoginFirefly } from '@/components/Login/LoginFirefly.js';
 import { FarcasterSignType, type SocialSource, Source, type ThirdPartySource } from '@/constants/enum.js';
-import { SORTED_SOCIAL_SOURCES,SORTED_THIRD_PARTY_SOURCES } from '@/constants/index.js';
+import { SORTED_SOCIAL_SOURCES, SORTED_THIRD_PARTY_SOURCES } from '@/constants/index.js';
 import { resolveSourceInUrl } from '@/helpers/resolveSourceInUrl.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
