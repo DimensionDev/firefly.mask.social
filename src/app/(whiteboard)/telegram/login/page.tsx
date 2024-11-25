@@ -40,10 +40,7 @@ export default function Page({ searchParams }: PageProps) {
 
         if (os === 'web' && token) {
             const data = await FireflyEndpointProvider.loginTelegram(token);
-
             if (!data) return;
-
-            const accounts = useThirdPartyStateStore.getState().accounts;
 
             const thirdPartySession = new ThirdPartySession(
                 SessionType.Telegram,
@@ -57,6 +54,7 @@ export default function Page({ searchParams }: PageProps) {
                 },
             );
 
+            const accounts = useThirdPartyStateStore.getState().accounts;
             const foundNewSessionFromServer = !!(
                 thirdPartySession &&
                 !accounts.some((x) => isSameSession(thirdPartySession, x.session as ThirdPartySession))

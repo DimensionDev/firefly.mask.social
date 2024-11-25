@@ -59,9 +59,9 @@ export function MainView() {
                     {SORTED_SOCIAL_SOURCES.map((source) => (
                         <LoginButton key={source} source={source} onClick={() => onClick(source)} />
                     ))}
-                    {SORTED_THIRD_PARTY_SOURCES.map((source) => {
-                        return <LoginButton key={source} source={source} onClick={() => onAuthClick(source)} />;
-                    })}
+                    {SORTED_THIRD_PARTY_SOURCES.map((source) => (
+                        <LoginButton key={source} source={source} onClick={() => onAuthClick(source)} />
+                    ))}
                 </div>
             </div>
         </div>
