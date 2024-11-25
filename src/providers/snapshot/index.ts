@@ -50,7 +50,7 @@ export class Snapshot {
         if (!SNAPSHOT_PROPOSAL_REGEXP.test(link) && !SNAPSHOT_NEW_PROPOSAL_REGEXP.test(link)) return;
         const match = link.match(SNAPSHOT_PROPOSAL_REGEXP);
         const newMatch = link.match(SNAPSHOT_NEW_PROPOSAL_REGEXP);
-        const id = match ? match[1] : newMatch ? newMatch[1] : null;
+        const id = match ? match[1] : newMatch ? newMatch[2] : null;
         if (!id) return;
 
         const response = await fetchJSON<{ data: { proposal: SnapshotProposal } }>(SNAPSHOT_GRAPHQL_URL, {

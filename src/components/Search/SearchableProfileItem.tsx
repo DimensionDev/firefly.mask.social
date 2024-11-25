@@ -30,7 +30,12 @@ export const SearchableProfileItem = memo<CrossProfileItemProps>(function Search
                     <span className="truncate text-lg font-bold leading-6 text-lightMain">{profile.name}</span>
                     {related.map((x) =>
                         x.platform === SourceInURL.Wallet ? (
-                            <WalletIcon key={x.platform} width={15} height={15} />
+                            <WalletIcon
+                                className="inline-block shrink-0 text-second"
+                                key={x.platform}
+                                width={15}
+                                height={15}
+                            />
                         ) : (
                             <SocialSourceIcon
                                 key={x.platform}
