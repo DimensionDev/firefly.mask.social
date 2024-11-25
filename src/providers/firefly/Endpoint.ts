@@ -50,6 +50,7 @@ import {
     type FireflyIdentity,
     type FireflyProfile,
     type FireflyWalletConnection,
+    type GenerateFarcasterSignatureResponse,
     type GetAllConnectionsResponse,
     type GetFarcasterSuggestedFollowUserResponse,
     type GetLensSuggestedFollowUserResponse,
@@ -602,7 +603,11 @@ export class FireflyEndpoint {
         const response = await fireflySessionHolder.fetch<GetAllConnectionsResponse>(url, {
             method: 'GET',
         });
-        const connections = resolveFireflyResponseData(response);
+        return resolveFireflyResponseData(response);
+    }
+
+    async getAllConnectionsFormatted() {
+        const connections = await this.getAllConnections();
 
         return {
             connected: formatWalletConnections(connections.wallet.connected, connections),
