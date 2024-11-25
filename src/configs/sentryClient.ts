@@ -1,9 +1,9 @@
-import * as Sentry from '@sentry/browser';
+import { onLoad, init, setTag, feedbackIntegration } from '@sentry/browser';
 
 import { env } from '@/constants/env.js';
 import { settings } from '@/settings/index.js';
 
-export const feedbackIntegration = Sentry.feedbackIntegration({
+export const feedback = feedbackIntegration({
     id: 'sentry-feedback',
     colorScheme: 'system',
     isNameRequired: false,
@@ -25,13 +25,13 @@ class SentryClient {
             rootURL: settings.FIREFLY_ROOT_URL,
         };
 
-        Sentry.onLoad(() => {
-            Sentry.init({
+        onLoad(() => {
+            init({
                 dsn: env.external.NEXT_PUBLIC_SENTRY_DSN,
 
                 release: process.version,
                 environment: env.shared.NODE_ENV,
-                integrations: [feedbackIntegration],
+                integrations: [feedback],
 
                 tracesSampleRate: 1.0,
                 tracePropagationTargets: [],
@@ -42,7 +42,7 @@ class SentryClient {
 
             // set initial tags
             Object.entries(tags).forEach(([key, value]) => {
-                Sentry.setTag(key, value);
+                setTag(key, value);
             });
 
             this.initialized = true;
