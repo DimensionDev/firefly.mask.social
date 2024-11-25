@@ -37,7 +37,7 @@ export default function Layout({
             <SourceTabs className="!z-20 md:!top-[57px]">
                 {EXPLORE_TYPES.map((x) => (
                     <SourceTab
-                        className="whitespace-nowrap text-base md:h-[45px] md:px-4 md:py-[10px]"
+                        className="whitespace-nowrap text-base md:!h-[45px] md:!px-4 md:!py-[10px]"
                         key={x}
                         href={resolveExploreUrl(x)}
                         isActive={x === params.explore}
