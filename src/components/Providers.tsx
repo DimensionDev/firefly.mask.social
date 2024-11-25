@@ -10,20 +10,24 @@ import { setupLocaleForSSR } from '@/i18n/index.js';
 
 type ProviderProps = PropsWithChildren<{
     enableInsights?: boolean;
+    showParticle?: boolean;
 }>;
 
 export const Providers = memo(function RootProviders(props: ProviderProps) {
     setupLocaleForSSR();
 
+    const showParticle = props.showParticle ?? true;
+    const children = (
+        <SolanaWalletAdapterProvider enableInsights={props.enableInsights}>
+            <WagmiProvider enableInsights={props.enableInsights}>{props.children}</WagmiProvider>
+        </SolanaWalletAdapterProvider>
+    );
+
     return (
         <LinguiClientProvider>
             <QueryClientProviders>
                 <InitialProviders>
-                    <ParticleProvider>
-                        <SolanaWalletAdapterProvider enableInsights={props.enableInsights}>
-                            <WagmiProvider enableInsights={props.enableInsights}>{props.children}</WagmiProvider>
-                        </SolanaWalletAdapterProvider>
-                    </ParticleProvider>
+                    {showParticle ? <ParticleProvider>{children}</ParticleProvider> : children}
                 </InitialProviders>
             </QueryClientProviders>
         </LinguiClientProvider>
