@@ -1177,9 +1177,6 @@ msgstr ""
 msgid "Drafts"
 msgstr ""
 
-msgid "Token {symbol} could not be found."
-msgstr ""
-
 msgid "About Airdrop"
 msgstr ""
 
@@ -1547,6 +1544,9 @@ msgid "New connection with Warpcast"
 msgstr ""
 
 msgid "Updated profile successfully"
+msgstr ""
+
+msgid "Token ${symbol} could not be found."
 msgstr ""
 
 msgid "No cybercrime found."
