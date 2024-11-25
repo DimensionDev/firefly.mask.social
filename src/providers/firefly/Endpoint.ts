@@ -164,6 +164,17 @@ export class FireflyEndpoint {
     }
 
     /**
+     * Kick off the process of connecting particle wallets with firefly account.
+     * @returns
+     */
+    async reportParticle() {
+        const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/user/report/particle/user');
+        return fireflySessionHolder.fetch<void>(url, {
+            method: 'GET',
+        });
+    }
+
+    /**
      * Retrieve all NFT collections from the linked wallets associated with a particular user.
      *
      * @param params
