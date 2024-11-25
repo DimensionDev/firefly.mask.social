@@ -1,4 +1,5 @@
 import { Trans } from '@lingui/macro';
+import { safeUnreachable } from '@masknet/kit';
 import { useRouter } from '@tanstack/react-router';
 import { signIn } from 'next-auth/react';
 import urlcat from 'urlcat';
@@ -6,11 +7,10 @@ import urlcat from 'urlcat';
 import { LoginButton } from '@/components/Login/LoginButton.js';
 import { LoginFirefly } from '@/components/Login/LoginFirefly.js';
 import { FarcasterSignType, type SocialSource, Source, type ThirdPartySource } from '@/constants/enum.js';
-import { SORTED_THIRD_PARTY_SOURCES, SORTED_SOCIAL_SOURCES } from '@/constants/index.js';
+import { SORTED_SOCIAL_SOURCES,SORTED_THIRD_PARTY_SOURCES } from '@/constants/index.js';
 import { resolveSourceInUrl } from '@/helpers/resolveSourceInUrl.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
-import { safeUnreachable } from '@masknet/kit';
 
 export function MainView() {
     const router = useRouter();
