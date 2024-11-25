@@ -183,7 +183,7 @@ export async function bindOrRestoreFireflySession(session: Session, signal?: Abo
             // this will return the existing session
             return fireflySessionHolder.assertSession();
         } else {
-            throw new Error('Firefly session is not available');
+            throw new Error('[bindOrRestoreFireflySession] firefly session is not available');
         }
     } catch (error) {
         console.error(`[bindOrRestoreFireflySession] failed to bind firefly session ${error}`);
