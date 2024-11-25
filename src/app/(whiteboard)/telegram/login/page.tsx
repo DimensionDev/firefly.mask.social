@@ -51,9 +51,10 @@ export default function Page({ searchParams }: PageProps) {
                 token,
                 Date.now(),
                 dayjs(Date.now()).add(1, 'y').unix(),
-                '',
-                data.accessToken,
-                data.accountId,
+                {
+                    accountId: data.accountId,
+                    isNew: data.isNew,
+                },
             );
 
             const foundNewSessionFromServer = !!(

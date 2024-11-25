@@ -369,7 +369,9 @@ const useThirdPartyStateBase = createState(
                           session.id_token,
                           session.createdAt,
                           session.expiresAt,
-                          session.nonce,
+                          {
+                              nonce: session.nonce,
+                          },
                       )
                     : null;
 

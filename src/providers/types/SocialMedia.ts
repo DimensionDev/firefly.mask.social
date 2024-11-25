@@ -14,13 +14,13 @@ import type { Poll } from '@/providers/types/Poll.js';
 
 // Strictly match the ProfileSource
 export enum SessionType {
-    Apple = Source.Apple,
-    Google = Source.Google,
-    Telegram = Source.Telegram,
-    Twitter = Source.Twitter,
-    Lens = Source.Lens,
-    Farcaster = Source.Farcaster,
-    Firefly = Source.Firefly,
+    Apple = 'Apple',
+    Google = 'Google',
+    Telegram = 'Telegram',
+    Twitter = 'Twitter',
+    Lens = 'Lens',
+    Farcaster = 'Farcaster',
+    Firefly = 'Firefly',
 }
 
 export enum NetworkType {

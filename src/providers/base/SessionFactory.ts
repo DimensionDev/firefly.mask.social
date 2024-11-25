@@ -27,6 +27,13 @@ const TwitterSessionPayloadSchema = z.object({
     consumerSecret: z.string(),
 });
 
+const ThirdPartySessionPayload = z.object({
+    nonce: z.string().optional(),
+    fireflyToken: z.string().optional(),
+    accountId: z.string().optional(),
+    isNew: z.boolean().optional(),
+});
+
 export class SessionFactory {
     /**
      * Creates a session instance based on the serialized session in string.
@@ -42,6 +49,7 @@ export class SessionFactory {
         // for farcaster session, the second part is the signer request token
         // for twitter session, the second part is payload in base64 encoded
         // for firefly session, the second part is the parent session in base64 encoded
+        // for third party session, the second part is the payload in base64 encoded
         const secondPart = fragments[2] ?? '';
         // for lens session, the third part is the wallet address
         // for farcaster session, the third part is the channel token
@@ -87,7 +95,7 @@ export class SessionFactory {
                         thirdPart, // channel token
                         fourthPart, // sponsorship signature
                     );
-                case SessionType.Twitter:
+                case SessionType.Twitter: {
                     const parsed = TwitterSessionPayloadSchema.safeParse(parseJSON(atob(secondPart)));
                     if (!parsed.success) throw new Error(t`Malformed twitter session payload.`);
                     return new TwitterSession(
@@ -97,6 +105,7 @@ export class SessionFactory {
                         session.expiresAt,
                         parsed.data, // payload
                     );
+                }
                 case SessionType.Firefly:
                     return new FireflySession(
                         session.profileId,
@@ -107,14 +116,19 @@ export class SessionFactory {
                     );
                 case SessionType.Apple:
                 case SessionType.Google:
-                case SessionType.Telegram:
+                case SessionType.Telegram: {
+                    const parsed = ThirdPartySessionPayload.safeParse(parseJSON(atob(secondPart)));
+                    if (!parsed.success) throw new Error(t`Malformed third-party session payload.`);
+
                     return new ThirdPartySession(
                         type,
                         session.profileId,
                         session.token,
                         session.createdAt,
                         session.expiresAt,
+                        parsed.data, // payload
                     );
+                }
                 default:
                     safeUnreachable(type);
                     throw new UnreachableError('session type', type);
