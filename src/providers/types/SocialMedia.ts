@@ -6,7 +6,6 @@ import {
     type ProfileSource,
     type RestrictionType,
     type SocialSource,
-    Source,
 } from '@/constants/enum.js';
 import type { Pageable, PageIndicator } from '@/helpers/pageable.js';
 import type { WalletProfile } from '@/providers/types/Firefly.js';

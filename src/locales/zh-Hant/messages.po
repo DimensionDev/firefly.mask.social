@@ -1299,6 +1299,9 @@ msgstr "隱藏更多評論"
 msgid "Malformed session."
 msgstr ""
 
+msgid "Malformed third-party session payload."
+msgstr ""
+
 msgid "Upload"
 msgstr "上傳"
 

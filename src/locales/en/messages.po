@@ -1294,6 +1294,9 @@ msgstr "Hide more comments"
 msgid "Malformed session."
 msgstr "Malformed session."
 
+msgid "Malformed third-party session payload."
+msgstr "Malformed third-party session payload."
+
 msgid "Upload"
 msgstr "Upload"
 
