@@ -7,6 +7,7 @@ import { parseJSON } from '@/helpers/parseJSON.js';
 import { FarcasterSession } from '@/providers/farcaster/Session.js';
 import { FireflySession, type FireflySessionSignature } from '@/providers/firefly/Session.js';
 import { LensSession } from '@/providers/lens/Session.js';
+import { ThirdPartySession } from '@/providers/third-party/Session.js';
 import { TwitterSession } from '@/providers/twitter/Session.js';
 import type { Session } from '@/providers/types/Session.js';
 import { SessionType } from '@/providers/types/SocialMedia.js';
@@ -26,6 +27,13 @@ const TwitterSessionPayloadSchema = z.object({
     consumerSecret: z.string(),
 });
 
+const ThirdPartySessionPayload = z.object({
+    nonce: z.string().optional(),
+    accessToken: z.string().optional(),
+    accountId: z.string().optional(),
+    isNew: z.boolean().optional(),
+});
+
 export class SessionFactory {
     /**
      * Creates a session instance based on the serialized session in string.
@@ -41,12 +49,14 @@ export class SessionFactory {
         // for farcaster session, the second part is the signer request token
         // for twitter session, the second part is payload in base64 encoded
         // for firefly session, the second part is the parent session in base64 encoded
+        // for third party session, the second part is the payload in base64 encoded
         const secondPart = fragments[2] ?? '';
         // for lens session, the third part is the wallet address
         // for farcaster session, the third part is the channel token
         // for firefly session, the third part is the signature in base64 encoded
         const thirdPart = fragments[3] ?? '';
         // for farcaster session, the fourth part is the sponsorship signature
+        // for firefly session, the fourth part is the isNew flag
         const fourthPart = fragments[4] ?? '';
 
         const session = parseJSON<{
@@ -85,7 +95,7 @@ export class SessionFactory {
                         thirdPart, // channel token
                         fourthPart, // sponsorship signature
                     );
-                case SessionType.Twitter:
+                case SessionType.Twitter: {
                     const parsed = TwitterSessionPayloadSchema.safeParse(parseJSON(atob(secondPart)));
                     if (!parsed.success) throw new Error(t`Malformed twitter session payload.`);
                     return new TwitterSession(
@@ -95,13 +105,30 @@ export class SessionFactory {
                         session.expiresAt,
                         parsed.data, // payload
                     );
+                }
                 case SessionType.Firefly:
                     return new FireflySession(
                         session.profileId,
                         session.token,
                         secondPart ? SessionFactory.createSession(atob(secondPart)) : null, // parent session
-                        thirdPart ? parseJSON<FireflySessionSignature>(atob(thirdPart)) : undefined, // signature
+                        thirdPart ? (parseJSON<FireflySessionSignature>(atob(thirdPart)) ?? null) : null, // signature
+                        fourthPart === '1', // isNew
                     );
+                case SessionType.Apple:
+                case SessionType.Google:
+                case SessionType.Telegram: {
+                    const parsed = ThirdPartySessionPayload.safeParse(parseJSON(atob(secondPart)));
+                    if (!parsed.success) throw new Error(t`Malformed third-party session payload.`);
+
+                    return new ThirdPartySession(
+                        type,
+                        session.profileId,
+                        session.token,
+                        session.createdAt,
+                        session.expiresAt,
+                        parsed.data, // payload
+                    );
+                }
                 default:
                     safeUnreachable(type);
                     throw new UnreachableError('session type', type);

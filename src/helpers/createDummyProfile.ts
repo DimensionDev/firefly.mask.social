@@ -5,6 +5,7 @@ export function createDummyProfile(source: SocialSource) {
     return {
         source,
         profileId: '',
+        profileSource: Source.Farcaster,
         handle: '',
         pfp: '',
         displayName: '',

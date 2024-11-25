@@ -1,6 +1,5 @@
-import { parseURL } from '@masknet/shared-base';
-
 import { bom } from '@/helpers/bom.js';
+import { parseUrl } from '@/helpers/parseUrl.js';
 import { ReferralAccountPlatform } from '@/helpers/resolveActivityUrl.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { getPublicParameters } from '@/providers/telemetry/getPublicParameters.js';
@@ -22,7 +21,7 @@ export function captureActivityEvent<
     },
 ) {
     if (!params.firefly_account_id) delete params.firefly_account_id; // filter undefined or null
-    const url = parseURL(window.location.href);
+    const url = parseUrl(window.location.href);
     const referralCode = url?.searchParams.get('r');
     const referralParams =
         [

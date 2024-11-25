@@ -1,4 +1,3 @@
-import { useNetworkDescriptor } from '@masknet/web3-hooks-base';
 import { ChainId as EVMChainId } from '@masknet/web3-shared-evm';
 import { ChainId as SolanaChainId } from '@masknet/web3-shared-solana';
 
@@ -16,6 +15,7 @@ import { NetworkPluginID, WalletSource } from '@/constants/enum.js';
 import { Link } from '@/esm/Link.js';
 import { classNames } from '@/helpers/classNames.js';
 import { formatEthereumAddress, formatSolanaAddress } from '@/helpers/formatAddress.js';
+import { getNetworkDescriptor } from '@/helpers/getNetworkDescriptor.js';
 import { useIsDarkMode } from '@/hooks/useIsDarkMode.js';
 import { BlockScanExplorerResolver } from '@/providers/ethereum/ExplorerResolver.js';
 import type { FireflyWalletConnection } from '@/providers/types/Firefly.js';
@@ -27,8 +27,8 @@ interface WalletItemProps {
 
 export function WalletItem({ connection, noAction = false }: WalletItemProps) {
     const isDark = useIsDarkMode();
-    const evmNetworkDescriptor = useNetworkDescriptor(NetworkPluginID.PLUGIN_EVM, EVMChainId.Mainnet);
-    const solanaNetworkDescriptor = useNetworkDescriptor(NetworkPluginID.PLUGIN_SOLANA, SolanaChainId.Mainnet);
+    const evmNetworkDescriptor = getNetworkDescriptor(NetworkPluginID.PLUGIN_EVM, EVMChainId.Mainnet);
+    const solanaNetworkDescriptor = getNetworkDescriptor(NetworkPluginID.PLUGIN_SOLANA, SolanaChainId.Mainnet);
 
     const chainIcon = {
         eth: evmNetworkDescriptor?.icon,

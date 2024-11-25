@@ -11,8 +11,9 @@ export function convertTwitterAvatar(url: string) {
 export function formatTwitterProfile(data: UserV2): Profile {
     const following = data?.connection_status?.some((status) => status === 'following');
     return {
-        fullHandle: data.name,
         profileId: data.id,
+        profileSource: Source.Twitter,
+        fullHandle: data.name,
         handle: data.username,
         displayName: data.name,
         pfp: convertTwitterAvatar(data.profile_image_url!),

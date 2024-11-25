@@ -11,6 +11,7 @@ import { type Channel, type Profile, ProfileStatus } from '@/providers/types/Soc
 export function formatChannelProfileFromFirefly(channelProfile: ChannelProfile): Profile {
     return {
         profileId: `${channelProfile.fid}`,
+        profileSource: Source.Farcaster,
         displayName: channelProfile.display_name,
         handle: channelProfile.username,
         fullHandle: channelProfile.username,
@@ -58,6 +59,7 @@ export function formatBriefChannelProfileFromFirefly(channelProfile: ChannelProf
         status: ProfileStatus.Active,
         verified: true,
         profileId: `${channelProfile.fid}`,
+        profileSource: Source.Farcaster,
         displayName: channelProfile.display_name,
         handle: channelProfile.username,
         fullHandle: channelProfile.username,
@@ -101,6 +103,7 @@ export function formatFireflyFarcasterProfile(profile: FireflyFarcasterProfile):
         status: ProfileStatus.Active,
         verified: true,
         profileId: `${profile.fid}`,
+        profileSource: Source.Farcaster,
         displayName: profile.display_name,
         handle: profile.username,
         fullHandle: profile.username,

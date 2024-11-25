@@ -1,5 +1,7 @@
 import { XMarkIcon } from '@heroicons/react/24/outline';
+import { t } from '@lingui/macro';
 import { type OptionsObject, type SnackbarKey, type SnackbarMessage } from 'notistack';
+import { UserRejectedRequestError } from 'viem';
 
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { ErrorReportSnackbar, type ErrorReportSnackbarProps } from '@/components/ErrorReportSnackbar.js';
@@ -96,8 +98,27 @@ export function enqueueWarningMessage(message: SnackbarMessage, options?: Messag
     });
 }
 
+function captureWarningMessageFromError(error: unknown) {
+    let currentError = error;
+    const visited = new Set();
+
+    // UserRejectedRequestError from viem
+    while (currentError instanceof Error && !visited.has(currentError)) {
+        visited.add(currentError);
+        if (currentError instanceof UserRejectedRequestError) {
+            enqueueWarningMessage(t`The user rejected the request.`);
+            return true;
+        }
+        currentError = currentError.cause;
+    }
+
+    return false;
+}
+
 export function enqueueErrorMessage(message: SnackbarMessage, options?: ErrorOptions) {
     if (MESSAGE_FILTERS.some((filter) => !filter(options))) return;
+
+    if (captureWarningMessageFromError(options?.error)) return;
 
     const detail = options?.description || (options?.error ? getDetailedErrorMessage(options.error) : '') || '';
 

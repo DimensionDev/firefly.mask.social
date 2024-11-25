@@ -1,8 +1,8 @@
-import { isGreaterThan, rightShift } from '@masknet/web3-shared-base';
 import { ChainId, isNativeTokenAddress } from '@masknet/web3-shared-solana';
 import { Connection, PublicKey, SystemProgram, Transaction } from '@solana/web3.js';
 
 import { env } from '@/constants/env.js';
+import { isGreaterThan, rightShift } from '@/helpers/number.js';
 import { createTransferInstruction } from '@/providers/solana/createTransferInstruction.js';
 import { getOrCreateAssociatedTokenAccount } from '@/providers/solana/getOrCreateAssociatedTokenAccount.js';
 import { getNativeTokenBalance, getTokenBalance } from '@/providers/solana/getTokenBalance.js';

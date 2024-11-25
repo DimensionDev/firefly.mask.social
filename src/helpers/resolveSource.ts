@@ -8,6 +8,8 @@ import {
 } from '@/constants/enum.js';
 import { UnreachableError } from '@/constants/error.js';
 import { createLookupTableResolver } from '@/helpers/createLookupTableResolver.js';
+import { narrowToSocialSource } from '@/helpers/narrowToSocialSource.js';
+import type { Profile as FireflyProfile } from '@/providers/types/Firefly.js';
 import { SessionType } from '@/providers/types/SocialMedia.js';
 
 export const resolveSource = createLookupTableResolver<SourceInURL, Source>(
@@ -21,6 +23,9 @@ export const resolveSource = createLookupTableResolver<SourceInURL, Source>(
         [SourceInURL.NFTs]: Source.NFTs,
         [SourceInURL.Snapshot]: Source.Snapshot,
         [SourceInURL.Polymarket]: Source.Polymarket,
+        [SourceInURL.Telegram]: Source.Telegram,
+        [SourceInURL.Google]: Source.Google,
+        [SourceInURL.Apple]: Source.Apple,
     },
     (sourceInUrl) => {
         throw new UnreachableError('sourceInUrl', sourceInUrl);
@@ -60,18 +65,24 @@ export const resolveSocialSourceFromProfileSource = createLookupTableResolver<Pr
         [Source.Lens]: Source.Lens,
         [Source.Twitter]: Source.Twitter,
         [Source.Firefly]: Source.Farcaster,
+        [Source.Telegram]: Source.Farcaster,
+        [Source.Apple]: Source.Farcaster,
+        [Source.Google]: Source.Farcaster,
     },
     (source) => {
         throw new UnreachableError('profile source', source);
     },
 );
 
-export const resolveSourceFromSessionType = createLookupTableResolver<SessionType, Source>(
+export const resolveSourceFromSessionType = createLookupTableResolver<SessionType, ProfileSource>(
     {
         [SessionType.Farcaster]: Source.Farcaster,
         [SessionType.Lens]: Source.Lens,
         [SessionType.Twitter]: Source.Twitter,
         [SessionType.Firefly]: Source.Firefly,
+        [SessionType.Apple]: Source.Firefly,
+        [SessionType.Google]: Source.Firefly,
+        [SessionType.Telegram]: Source.Firefly,
     },
     (sessionType) => {
         throw new UnreachableError('sessionType', sessionType);
@@ -85,6 +96,9 @@ export const resolveSocialSourceFromSessionType = createLookupTableResolver<Sess
         [SessionType.Twitter]: Source.Twitter,
         // not correct in some situations
         [SessionType.Firefly]: Source.Farcaster,
+        [SessionType.Apple]: Source.Farcaster,
+        [SessionType.Google]: Source.Farcaster,
+        [SessionType.Telegram]: Source.Farcaster,
     },
     (sessionType) => {
         throw new UnreachableError('sessionType', sessionType);
@@ -107,3 +121,7 @@ export const resolveSourceFromWalletSource = createLookupTableResolver<WalletSou
         throw new UnreachableError('WalletSource', walletSource);
     },
 );
+
+export function resolveSocialSourceFromFireflyPlatform(platform: FireflyProfile['platform']): SocialSource {
+    return narrowToSocialSource(resolveSource(platform));
+}

@@ -56,6 +56,9 @@ const resolveProfileTabColor = createLookupTableResolver<
         [Source.NFTs]: {},
         [Source.Snapshot]: {},
         [Source.Polymarket]: {},
+        [Source.Apple]: {},
+        [Source.Google]: {},
+        [Source.Telegram]: {},
     },
     {},
 );

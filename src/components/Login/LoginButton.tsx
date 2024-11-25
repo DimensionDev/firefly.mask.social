@@ -18,11 +18,15 @@ export function LoginButton(props: LoginButtonProps) {
                 'hover:lightBg cursor-pointer': !loading,
             })}
             disabled={loading}
-            onClick={() => onClick?.(source)}
+            onClick={() => {
+                if (source) onClick?.(source);
+            }}
         >
-            <div className="inline-flex w-full flex-col items-center justify-start gap-2 px-4 py-6 md:rounded-lg">
+            <div className="inline-flex w-full flex-col items-center justify-start gap-2 py-2 md:rounded-lg">
                 <div className="relative h-[48px] w-[48px]">
-                    <ProfileSourceIcon className="left-0 top-0 rounded-full" size={48} source={source} />
+                    {source ? (
+                        <ProfileSourceIcon className="left-0 top-0 rounded-full" size={48} source={source} />
+                    ) : null}
                 </div>
             </div>
             {loading ? (

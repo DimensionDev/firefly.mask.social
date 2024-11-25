@@ -15,6 +15,7 @@ import { getSnackbarMessageFromError } from '@/helpers/getSnackbarMessageFromErr
 import { isSameProfile } from '@/helpers/isSameProfile.js';
 import { useConnectedAccounts } from '@/hooks/useConnectedAccounts.js';
 import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
+import { useProfileStoreAll } from '@/hooks/useProfileStore.js';
 import { DisconnectFireflyAccountModalRef, LoginModalRef, LogoutModalRef } from '@/modals/controls.js';
 import type { Account } from '@/providers/types/Account.js';
 import { switchAccount } from '@/services/account.js';
@@ -23,8 +24,17 @@ interface AccountCardProps {
     source: SocialSource;
 }
 
-function DisconnectButton({ account, accounts }: { account: Account; accounts: Account[] }) {
+function DisconnectButton({ account }: { account: Account }) {
+    const all = useProfileStoreAll();
     const [{ loading }, disconnect] = useAsyncFn(async () => {
+        const accounts = Object.keys(all)
+            .map((k) => {
+                const key = k as SocialSource;
+                return all[key]?.accounts;
+            })
+            .filter((x) => x)
+            .flat();
+
         if (accounts.length <= 1) {
             enqueueErrorMessage(
                 t`Failed to disconnect. Please leave at least 1 account or wallet address connected to keep your immersive experience in Firefly.`,
@@ -34,7 +44,7 @@ function DisconnectButton({ account, accounts }: { account: Account; accounts: A
         await DisconnectFireflyAccountModalRef.openAndWaitForClose({
             account,
         });
-    }, [account]);
+    }, [all]);
 
     return (
         <Tooltip placement="top" content={<Trans>Disconnect</Trans>}>
@@ -77,7 +87,7 @@ export function AccountCard({ source }: AccountCardProps) {
                 >
                     <ProfileAvatar profile={account.profile} size={36} />
                     <ProfileName profile={account.profile} />
-                    <DisconnectButton account={account} accounts={accounts} />
+                    <DisconnectButton account={account} />
                     {isSameProfile(account.profile, profile) && account.session ? (
                         <ClickableButton
                             className="text-medium font-bold leading-none text-main"

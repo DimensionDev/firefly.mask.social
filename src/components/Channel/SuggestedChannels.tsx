@@ -2,15 +2,14 @@
 
 import { Trans } from '@lingui/macro';
 import { useQuery } from '@tanstack/react-query';
-import urlcat from 'urlcat';
 
 import { AsideTitle } from '@/components/AsideTitle.js';
 import { ChannelInList } from '@/components/ChannelInList.js';
-import { DiscoverType, PageRoute, type SocialSource, Source } from '@/constants/enum.js';
+import { ExploreType, type SocialSource } from '@/constants/enum.js';
 import { EMPTY_LIST } from '@/constants/index.js';
 import { Link } from '@/esm/Link.js';
+import { resolveExploreUrl } from '@/helpers/resolveExploreUrl.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
-import { resolveSocialSourceInUrl } from '@/helpers/resolveSourceInUrl.js';
 
 const SHOW_LENGTH = 3;
 
@@ -41,13 +40,7 @@ export function SuggestedChannels({ source }: SuggestedChannelsProps) {
                     <Trans>Trending Channels</Trans>
                 </span>
                 {showMore ? (
-                    <Link
-                        className="text-medium text-highlight"
-                        href={urlcat(PageRoute.Home, {
-                            discover: DiscoverType.TopChannels,
-                            source: resolveSocialSourceInUrl(Source.Farcaster),
-                        })}
-                    >
+                    <Link className="text-medium text-highlight" href={resolveExploreUrl(ExploreType.TopChannels)}>
                         <Trans>More</Trans>
                     </Link>
                 ) : null}

@@ -9,7 +9,7 @@ import { parseJSON } from '@/helpers/parseJSON.js';
 import { LensSession } from '@/providers/lens/Session.js';
 import type { Account } from '@/providers/types/Account.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
-import { bindOrRestoreFireflySession } from '@/services/bindOrRestoreFireflySession.js';
+import { bindOrRestoreFireflySession } from '@/services/bindFireflySession.js';
 
 export async function createAccountForProfileId(profile: Profile, signal?: AbortSignal) {
     const walletClient = await getWalletClientRequired(config, {
@@ -52,10 +52,11 @@ export async function createAccountForProfileId(profile: Profile, signal?: Abort
         parsed.data.refreshToken,
         address ?? ZERO_ADDRESS,
     );
+    const fireflySession = await bindOrRestoreFireflySession(session, signal);
 
     return {
         session,
         profile,
-        fireflySession: await bindOrRestoreFireflySession(session, signal),
+        fireflySession,
     } satisfies Account;
 }

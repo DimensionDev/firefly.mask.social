@@ -1,12 +1,13 @@
 import { memo } from 'react';
 
+import WalletIcon from '@/assets/wallet-circle.svg';
 import { Avatar } from '@/components/Avatar.js';
 import { SocialSourceIcon } from '@/components/SocialSourceIcon.js';
-import { Source } from '@/constants/enum.js';
+import { type ProfilePageSource, Source, SourceInURL } from '@/constants/enum.js';
 import { Link } from '@/esm/Link.js';
 import { getStampAvatarByProfileId } from '@/helpers/getStampAvatarByProfileId.js';
 import { resolveProfileUrl } from '@/helpers/resolveProfileUrl.js';
-import { resolveSocialSource } from '@/helpers/resolveSource.js';
+import { resolveSocialSource, resolveSource } from '@/helpers/resolveSource.js';
 import type { Profile } from '@/providers/types/Firefly.js';
 
 interface CrossProfileItemProps {
@@ -15,8 +16,8 @@ interface CrossProfileItemProps {
 }
 
 export const SearchableProfileItem = memo<CrossProfileItemProps>(function SearchableProfileItem({ profile, related }) {
-    const source = resolveSocialSource(profile.platform);
-    const avatar = getStampAvatarByProfileId(source, profile.platform_id);
+    const source = resolveSource(profile.platform) as ProfilePageSource;
+    const avatar = profile.avatar ?? getStampAvatarByProfileId(source, profile.platform_id);
 
     return (
         <Link
@@ -27,15 +28,19 @@ export const SearchableProfileItem = memo<CrossProfileItemProps>(function Search
             <div className="min-w-0 flex-1">
                 <div className="flex items-center gap-x-1">
                     <span className="truncate text-lg font-bold leading-6 text-lightMain">{profile.name}</span>
-                    {related.map((x) => (
-                        <SocialSourceIcon
-                            key={x.platform}
-                            mono
-                            className="inline-block shrink-0 text-second"
-                            source={resolveSocialSource(x.platform)}
-                            size={15}
-                        />
-                    ))}
+                    {related.map((x) =>
+                        x.platform === SourceInURL.Wallet ? (
+                            <WalletIcon key={x.platform} width={15} height={15} />
+                        ) : (
+                            <SocialSourceIcon
+                                key={x.platform}
+                                mono
+                                className="inline-block shrink-0 text-second"
+                                source={resolveSocialSource(x.platform)}
+                                size={15}
+                            />
+                        ),
+                    )}
                 </div>
                 <div className="truncate text-medium leading-[22px] text-lightSecond">@{profile.handle}</div>
             </div>

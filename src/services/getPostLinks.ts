@@ -1,4 +1,4 @@
-import { Action, type ActionGetResponse, setProxyUrl } from '@dialectlabs/blinks';
+import { Action, setProxyUrl } from '@dialectlabs/blinks';
 import { safeUnreachable } from '@masknet/kit';
 import urlcat from 'urlcat';
 
@@ -14,6 +14,7 @@ import { resolveTCOLink } from '@/helpers/resolveTCOLink.js';
 import { getPostIFrame } from '@/providers/og/readers/iframe.js';
 import { Snapshot } from '@/providers/snapshot/index.js';
 import type { SnapshotProposal } from '@/providers/snapshot/type.js';
+import type { ActionGetResponse } from '@/providers/types/Blink.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 import { getArticleIdFromUrl } from '@/services/getArticleIdFromUrl.js';
 import { settings } from '@/settings/index.js';

@@ -1,5 +1,4 @@
 import { Trans } from '@lingui/macro';
-import { useNetworkDescriptor } from '@masknet/web3-hooks-base';
 import { ChainId } from '@masknet/web3-shared-solana';
 import { useConnection, useWallet } from '@solana/wallet-adapter-react';
 import { useWalletModal as useConnectModalSolana } from '@solana/wallet-adapter-react-ui';
@@ -15,12 +14,12 @@ import { NetworkPluginID } from '@/constants/enum.js';
 import { classNames } from '@/helpers/classNames.js';
 import { formatSolanaAddress } from '@/helpers/formatAddress.js';
 import { formatBalance } from '@/helpers/formatBalance.js';
+import { getNetworkDescriptor } from '@/helpers/getNetworkDescriptor.js';
 import { useSingletonModal } from '@/hooks/useSingletonModal.js';
 import { type SingletonModalRefCreator } from '@/libs/SingletonModal.js';
 import { useNavigatorState } from '@/store/useNavigatorStore.js';
 
 export const SolanaAccountModal = forwardRef<SingletonModalRefCreator>(function SolanaAccountModal(_, ref) {
-    const solanaNetworkDescriptor = useNetworkDescriptor(NetworkPluginID.PLUGIN_SOLANA, ChainId.Mainnet);
     const connectModalSolana = useConnectModalSolana();
     const [open, dispatch] = useSingletonModal(ref, {
         onOpen() {
@@ -53,7 +52,7 @@ export const SolanaAccountModal = forwardRef<SingletonModalRefCreator>(function 
                         <Image
                             alt="wallet-icon"
                             src={wallet?.adapter.icon ?? ''}
-                            fallback={solanaNetworkDescriptor?.icon}
+                            fallback={getNetworkDescriptor(NetworkPluginID.PLUGIN_SOLANA, ChainId.Mainnet)?.icon}
                             width={67}
                             height={67}
                             className="h-[67px] w-[67px]"

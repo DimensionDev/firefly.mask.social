@@ -1,6 +1,5 @@
 /* cspell:disable */
 
-import { createLookupTableResolver } from '@masknet/shared-base';
 import { type SignerWalletAdapter, WalletAdapterNetwork } from '@solana/wallet-adapter-base';
 import { CoinbaseWalletAdapter, CoinbaseWalletName } from '@solana/wallet-adapter-coinbase';
 import { PhantomWalletAdapter, PhantomWalletName } from '@solana/wallet-adapter-phantom';
@@ -8,6 +7,7 @@ import { WalletConnectWalletAdapter, WalletConnectWalletName } from '@solana/wal
 
 import { env } from '@/constants/env.js';
 import { UnreachableError } from '@/constants/error.js';
+import { createLookupTableResolver } from '@/helpers/createLookupTableResolver.js';
 
 export const resolveSolanaWalletAdapter = createLookupTableResolver(
     {

@@ -41,14 +41,11 @@ function resolveInnerChainId<T extends number>(
     return typeof chainIdKey === 'string' ? (parseInt(chainIdKey, 10) as T) : undefined;
 }
 
-export const resolveSimpleHashChainId: (chainId: string) => ChainId | undefined = memoize(function resolveChainId(
+export const resolveSimpleHashChainId: (chainId: string) => number | undefined = memoize(function resolveChainId(
     chain: string,
-): ChainId | undefined {
-    return resolveInnerChainId<ChainId>(EVM_CHAIN, chain, EVM_CHAIN_ALIAS);
-});
+): number | undefined {
+    const evmChainId = resolveInnerChainId<ChainId>(EVM_CHAIN, chain, EVM_CHAIN_ALIAS);
+    if (evmChainId) return evmChainId;
 
-export const resolveSimpleHashSolanaChainId: (chainId: string) => SolanaChainId | undefined = memoize(
-    function resolveChainId(chain: string): SolanaChainId | undefined {
-        return resolveInnerChainId<SolanaChainId>(SOLANA_CHAIN, chain);
-    },
-);
+    return resolveInnerChainId<SolanaChainId>(SOLANA_CHAIN, chain);
+});

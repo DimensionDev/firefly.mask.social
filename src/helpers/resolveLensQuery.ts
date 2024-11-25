@@ -1,6 +1,5 @@
-import { createLookupTableResolver } from '@masknet/shared-base';
-
 import { UnreachableError } from '@/constants/error.js';
+import { createLookupTableResolver } from '@/helpers/createLookupTableResolver.js';
 import { type ComposeType } from '@/types/compose.js';
 
 export const resolveLensOperationName = createLookupTableResolver<

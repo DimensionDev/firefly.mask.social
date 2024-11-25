@@ -14,6 +14,9 @@ export const narrowToSocialSource = createLookupTableResolver<Source, SocialSour
         [Source.NFTs]: Source.Farcaster,
         [Source.Snapshot]: Source.Farcaster,
         [Source.Polymarket]: Source.Farcaster,
+        [Source.Telegram]: Source.Farcaster,
+        [Source.Google]: Source.Farcaster,
+        [Source.Apple]: Source.Farcaster,
     },
     (source) => {
         throw new UnreachableError('source', source);
@@ -32,6 +35,9 @@ export const narrowToSocialSourceInURL = createLookupTableResolver<SourceInURL, 
         [SourceInURL.NFTs]: SourceInURL.Farcaster,
         [SourceInURL.Snapshot]: SourceInURL.Farcaster,
         [SourceInURL.Polymarket]: SourceInURL.Farcaster,
+        [SourceInURL.Telegram]: SourceInURL.Farcaster,
+        [SourceInURL.Google]: SourceInURL.Farcaster,
+        [SourceInURL.Apple]: SourceInURL.Farcaster,
     },
     (sourceInUrl) => {
         throw new UnreachableError('sourceInUrl', sourceInUrl);

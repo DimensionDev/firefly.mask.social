@@ -8,7 +8,7 @@ import { queryClient } from '@/configs/queryClient.js';
 import { Source } from '@/constants/enum.js';
 import { enqueueErrorMessage, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { getSnackbarMessageFromError } from '@/helpers/getSnackbarMessageFromError.js';
-import { isSameEthereumAddress } from '@/helpers/isSameAddress.js';
+import { isSameEthereumAddress, isSameSolanaAddress } from '@/helpers/isSameAddress.js';
 import { resolveSimpleHashChainId } from '@/helpers/resolveSimpleHashChain.js';
 import { ConfirmModalRef } from '@/modals/controls.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
@@ -46,10 +46,15 @@ function filterOutActivities(collectionId: string) {
                         const chainId = resolveSimpleHashChainId(nft.network);
                         const action = nft.actions[0];
                         return (
-                            !isSameEthereumAddress(action.contract_address, contractAddress) || chainId !== nftChainId
+                            (!isSameEthereumAddress(action.contract_address, contractAddress) &&
+                                !isSameSolanaAddress(action.contract_address, contractAddress)) ||
+                            chainId !== nftChainId
                         );
                     } else {
-                        return !isSameEthereumAddress(nft.trans.token_address, nftDetail.address);
+                        return (
+                            !isSameEthereumAddress(nft.trans.token_address, nftDetail.address) &&
+                            !isSameSolanaAddress(nft.trans.token_address, nftDetail.address)
+                        );
                     }
                 }) as FollowingNFT[] | NFTFeed[];
             }

@@ -66,6 +66,9 @@ export enum Source {
     NFTs = 'NFTs',
     Snapshot = 'Snapshot',
     Polymarket = 'Polymarket',
+    Telegram = 'Telegram',
+    Google = 'Google',
+    Apple = 'Apple',
 }
 
 export enum SourceInURL {
@@ -78,10 +81,27 @@ export enum SourceInURL {
     NFTs = 'nfts',
     Snapshot = 'snapshot',
     Polymarket = 'polymarket',
+    Telegram = 'telegram',
+    Google = 'google',
+    Apple = 'apple',
 }
 
 export type SocialSource = Source.Farcaster | Source.Lens | Source.Twitter;
-export type ProfileSource = Source.Farcaster | Source.Lens | Source.Twitter | Source.Firefly;
+
+export type ThirdPartySource = Source.Telegram | Source.Apple | Source.Google;
+
+// Strictly match the SessionType
+export type ProfileSource =
+    | Source.Farcaster
+    | Source.Lens
+    | Source.Twitter
+    | Source.Firefly
+    | Source.Telegram
+    | Source.Apple
+    | Source.Google;
+
+export type LoginSource = SocialSource | ThirdPartySource;
+
 export type ProfilePageSource = Source.Farcaster | Source.Lens | Source.Twitter | Source.Wallet;
 export type SocialSourceInURL = SourceInURL.Farcaster | SourceInURL.Lens | SourceInURL.Twitter;
 export type SocialDiscoverSource = Source.Farcaster | Source.Lens;
@@ -91,14 +111,6 @@ export type FollowingSource = DiscoverSource | Source.Polymarket;
 export type ExploreSource = Source.Farcaster | Source.Lens | TrendingType;
 export type ExploreSourceInURL = SourceInURL.Farcaster | SourceInURL.Lens | TrendingType;
 export type LoginFallbackSource = SocialSource | Source.Article | Source.Snapshot | Source.Polymarket;
-
-export enum DiscoverType {
-    ForYou = 'for-you',
-    Recent = 'recent',
-    Trending = 'trending',
-    TopProfiles = 'top-profiles',
-    TopChannels = 'top-channels',
-}
 
 export enum ExploreType {
     CryptoTrends = 'crypto-trends',

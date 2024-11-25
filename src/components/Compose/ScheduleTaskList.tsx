@@ -1,6 +1,5 @@
 import { t, Trans } from '@lingui/macro';
 import { safeUnreachable } from '@masknet/kit';
-import { createIndicator } from '@masknet/shared-base';
 import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
 import dayjs from 'dayjs';
 import { uniq } from 'lodash-es';
@@ -22,6 +21,7 @@ import { ScrollListKey } from '@/constants/enum.js';
 import { classNames } from '@/helpers/classNames.js';
 import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
 import { getSnackbarMessageFromError } from '@/helpers/getSnackbarMessageFromError.js';
+import { createIndicator } from '@/helpers/pageable.js';
 import { resolveSocialSource } from '@/helpers/resolveSource.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import { ConfirmModalRef, DraggablePopoverRef, SchedulePostModalRef } from '@/modals/controls.js';

@@ -1,5 +1,4 @@
 import { Trans } from '@lingui/macro';
-import { useNetworkDescriptor } from '@masknet/web3-hooks-base';
 import { ChainId as EVMChainId } from '@masknet/web3-shared-evm';
 import { ChainId as SolanaChainId } from '@masknet/web3-shared-solana';
 import { useWalletModal as useConnectModalSolana } from '@solana/wallet-adapter-react-ui';
@@ -12,6 +11,7 @@ import { Image } from '@/components/Image.js';
 import { Modal } from '@/components/Modal.js';
 import { Popover } from '@/components/Popover.js';
 import { NetworkPluginID } from '@/constants/enum.js';
+import { getNetworkDescriptor } from '@/helpers/getNetworkDescriptor.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import { useSingletonModal } from '@/hooks/useSingletonModal.js';
 import { type SingletonModalRefCreator } from '@/libs/SingletonModal.js';
@@ -37,8 +37,8 @@ export const ConnectWalletModalUI = memo<ConnectWalletModalUIProps>(function Con
 }) {
     const isMedium = useIsMedium();
 
-    const evmNetworkDescriptor = useNetworkDescriptor(NetworkPluginID.PLUGIN_EVM, EVMChainId.Mainnet);
-    const solanaNetworkDescriptor = useNetworkDescriptor(NetworkPluginID.PLUGIN_SOLANA, SolanaChainId.Mainnet);
+    const evmNetworkDescriptor = getNetworkDescriptor(NetworkPluginID.PLUGIN_EVM, EVMChainId.Mainnet);
+    const solanaNetworkDescriptor = getNetworkDescriptor(NetworkPluginID.PLUGIN_SOLANA, SolanaChainId.Mainnet);
 
     const content = loading ? (
         <div className="flex h-[156px] items-center justify-center">

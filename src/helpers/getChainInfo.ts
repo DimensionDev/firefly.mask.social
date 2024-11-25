@@ -1,6 +1,5 @@
-import { useNetworkDescriptor } from '@masknet/web3-hooks-base';
-
 import { NetworkPluginID } from '@/constants/enum.js';
+import { getNetworkDescriptor } from '@/helpers/getNetworkDescriptor.js';
 import type { Runtime } from '@/providers/types/Trending.js';
 
 interface Chain {
@@ -14,7 +13,7 @@ const CHAINS: Chain[] = [
     {
         runtime: 'solana',
         name: 'Solana',
-        icon: new URL('../../assets/chains/solana.png', import.meta.url).href,
+        icon: new URL('../assets/chains/solana.png', import.meta.url).href,
     },
     {
         runtime: 'polkadot',
@@ -49,7 +48,7 @@ const CHAINS: Chain[] = [
     {
         runtime: 'arbitrum-one',
         name: 'Arbitrum-One',
-        icon: new URL('../../assets/chains/arbitrum-one.png', import.meta.url).href,
+        icon: new URL('../assets/chains/arbitrum-one.png', import.meta.url).href,
     },
     {
         runtime: 'polygon-pos',
@@ -59,7 +58,7 @@ const CHAINS: Chain[] = [
     {
         runtime: 'flow',
         name: 'Flow',
-        icon: new URL('../../assets/chains/flow.png', import.meta.url).href,
+        icon: new URL('../assets/chains/flow.png', import.meta.url).href,
     },
     {
         runtime: 'celo',
@@ -69,7 +68,7 @@ const CHAINS: Chain[] = [
     {
         runtime: 'the-open-network',
         name: 'Ton',
-        icon: new URL('../../assets/chains/ton.png', import.meta.url).href,
+        icon: new URL('../assets/chains/ton.png', import.meta.url).href,
     },
     {
         runtime: 'algorand',
@@ -79,17 +78,17 @@ const CHAINS: Chain[] = [
     {
         runtime: 'optimistic-ethereum',
         name: 'Optimistic-Ethereum',
-        icon: new URL('../../assets/chains/optimism.png', import.meta.url).href,
+        icon: new URL('../assets/chains/optimism.png', import.meta.url).href,
     },
     {
         runtime: 'avalanche',
         name: 'Avalanche',
-        icon: new URL('../../assets/chains/avalanche.png', import.meta.url).href,
+        icon: new URL('../assets/chains/avalanche.png', import.meta.url).href,
     },
     {
         runtime: 'base',
         name: 'Base',
-        icon: new URL('../../assets/chains/base.png', import.meta.url).href,
+        icon: new URL('../assets/chains/base.png', import.meta.url).href,
     },
     {
         runtime: 'kava',
@@ -98,8 +97,7 @@ const CHAINS: Chain[] = [
     },
 ];
 
-export function useChainInfo(runtime: Runtime | undefined, chainId: number | undefined) {
-    const chain = useNetworkDescriptor(NetworkPluginID.PLUGIN_EVM, chainId);
+export function getChainInfo(runtime: Runtime | undefined, chainId: number | undefined) {
     // runtime is more accurate than chainId
-    return CHAINS.find((x) => x.runtime === runtime) || chain;
+    return CHAINS.find((x) => x.runtime === runtime) || getNetworkDescriptor(NetworkPluginID.PLUGIN_EVM, chainId);
 }

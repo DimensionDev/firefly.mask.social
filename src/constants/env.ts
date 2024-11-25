@@ -13,7 +13,7 @@ const InternalEnvSchema = z.object({
     APPLE_KEY_ID: z.string(),
     APPLE_TEAM_ID: z.string(),
     APPLE_CLIENT_ID: z.string(),
-    APPLE_PRIVATE_KEY: z.string(),
+    APPLE_CLIENT_SECRET: z.string(),
 
     IMGUR_CLIENT_ID: z.string(),
     IMGUR_CLIENT_SECRET: z.string(),

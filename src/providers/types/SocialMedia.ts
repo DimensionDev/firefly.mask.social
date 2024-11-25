@@ -1,11 +1,21 @@
 import type { OpenActionModuleType } from '@lens-protocol/client';
 
-import type { BookmarkType, FireflyPlatform, RestrictionType, SocialSource } from '@/constants/enum.js';
+import {
+    type BookmarkType,
+    type FireflyPlatform,
+    type ProfileSource,
+    type RestrictionType,
+    type SocialSource,
+} from '@/constants/enum.js';
 import type { Pageable, PageIndicator } from '@/helpers/pageable.js';
 import type { WalletProfile } from '@/providers/types/Firefly.js';
 import type { Poll } from '@/providers/types/Poll.js';
 
+// Strictly match the ProfileSource
 export enum SessionType {
+    Apple = 'Apple',
+    Google = 'Google',
+    Telegram = 'Telegram',
     Twitter = 'Twitter',
     Lens = 'Lens',
     Farcaster = 'Farcaster',
@@ -55,6 +65,8 @@ export interface Friendship {
 export interface Profile {
     /** fid for Farcaster, twitter id for Twitter */
     profileId: string;
+    /** the source of profile's session */
+    profileSource: ProfileSource;
     displayName: string;
     handle: string;
     fullHandle: string;
@@ -76,6 +88,7 @@ export interface Profile {
         networkType: NetworkType;
         address: string;
     };
+    /** the social media source that the profile belongs to */
     source: SocialSource;
     // Farcaster only
     isPowerUser?: boolean;

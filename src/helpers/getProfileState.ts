@@ -4,6 +4,7 @@ import {
     useFarcasterStateStore,
     useFireflyStateStore,
     useLensStateStore,
+    useThirdPartyStateStore,
     useTwitterStateStore,
 } from '@/store/useProfileStore.js';
 
@@ -13,6 +14,9 @@ export function getProfileState(source: ProfileSource) {
         [Source.Lens]: useLensStateStore,
         [Source.Twitter]: useTwitterStateStore,
         [Source.Firefly]: useFireflyStateStore,
+        [Source.Google]: useThirdPartyStateStore,
+        [Source.Apple]: useThirdPartyStateStore,
+        [Source.Telegram]: useThirdPartyStateStore,
     }[source];
 
     return store.getState();

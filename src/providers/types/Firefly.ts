@@ -89,11 +89,12 @@ export interface User {
 
 export interface Profile {
     platform_id: string;
-    platform: SocialSourceInURL;
+    platform: SocialSourceInURL | FireflyPlatform.Wallet;
     handle: string;
     name: string;
     hit: boolean;
     score: number;
+    avatar?: string;
 }
 
 export interface UsersData {
@@ -283,7 +284,7 @@ export type CastsResponse = Response<{
 export type SearchCastsResponse = Response<Cast[]>;
 
 export type SearchProfileResponse = Response<{
-    list: Array<Record<SocialSourceInURL | 'eth' | 'solana', Profile[] | null>>;
+    list: Array<Record<SocialSourceInURL | 'eth' | 'solana' | 'ens', Profile[] | null>>;
     cursor: number;
     size: number;
 }>;
@@ -313,23 +314,34 @@ export type ThreadResponse = Response<{
     threads: Cast[];
 }>;
 
-export type LensLoginResponse = Response<{
+export type LoginResponse = Response<{
     accessToken: string;
     accountId: string;
-}>;
-
-export type FarcasterLoginResponse = Response<{
-    accessToken?: string;
-    accountId?: string;
     farcaster_signer_public_key?: string;
     farcaster_signer_private_key?: string;
-    fid: string | number;
+    isNew: boolean;
+    fid?: number;
+    telegram_username?: string;
+    telegram_user_id?: string;
+}>;
+
+export type ThirdPartyLoginResponse = Response<{
+    accessToken: string;
+    accountId: string;
     isNew: boolean;
 }>;
 
-export type TwitterLoginResponse = Response<{
+export type TelegramLoginBotResponse = Response<{
+    url: string;
+    tgUrl: string;
+}>;
+
+export type TelegramLoginResponse = Response<{
     accessToken: string;
     accountId: string;
+    isNew: boolean;
+    telegram_user_id: string;
+    telegram_username: string;
 }>;
 
 export type MetricsDownloadResponse = Response<{
@@ -339,6 +351,9 @@ export type MetricsDownloadResponse = Response<{
 export type MetricsUploadResponse = Response<void>;
 
 export type BindResponse = Response<{
+    fid: number;
+    farcaster_signer_public_key?: string;
+    farcaster_signer_private_key?: string;
     account_id: string;
     account_raw_id: number;
     twitters: Array<{
@@ -1008,11 +1023,6 @@ export type MessageToSignResponse = Response<{
     message: string;
 }>;
 
-export type WalletLoginResponse = Response<{
-    accessToken: string;
-    accountId: string;
-}>;
-
 export type ConvertM3u8Response = Response<{
     m3u8Url: string;
     jobId: string;
@@ -1239,7 +1249,7 @@ export type PolymarketActivity = {
     };
     endDate: string;
     eventSlug: string;
-    followingSources: string[];
+    followingSources: FollowingSource[];
     icon: string;
     image: string;
     outcome: string;

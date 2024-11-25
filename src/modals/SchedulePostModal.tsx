@@ -1,5 +1,4 @@
 import { Trans } from '@lingui/macro';
-import type { SingletonModalRefCreator } from '@masknet/shared-base';
 import { useSingletonModal } from '@masknet/shared-base-ui';
 import { forwardRef, useState } from 'react';
 
@@ -7,6 +6,7 @@ import { CloseButton } from '@/components/CloseButton.js';
 import { SchedulePostSettings } from '@/components/Compose/SchedulePostSettings.js';
 import { Modal } from '@/components/Modal.js';
 import { stopEvent } from '@/helpers/stopEvent.js';
+import type { SingletonModalRefCreator } from '@/libs/SingletonModal.js';
 import type { ScheduleTask } from '@/providers/types/Firefly.js';
 
 export interface SchedulePostModalOpenProps {

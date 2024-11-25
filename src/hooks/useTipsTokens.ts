@@ -1,9 +1,9 @@
-import { formatBalance, multipliedBy } from '@masknet/web3-shared-base';
 import { useQuery } from '@tanstack/react-query';
 import { useMemo } from 'react';
 
 import { chains } from '@/configs/wagmiClient.js';
-import { isGreaterThan } from '@/helpers/number.js';
+import { formatBalance } from '@/helpers/formatBalance.js';
+import { isGreaterThan, multipliedBy } from '@/helpers/number.js';
 import { resolveNetworkProvider } from '@/helpers/resolveTokenTransfer.js';
 import { TipsContext } from '@/hooks/useTipsContext.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';

@@ -519,12 +519,6 @@ body {
     scrollbar-gutter: stable;
 }
 
-@font-face {
-    font-family: 'LevelUp';
-    src: url('/font/level-up.otf');
-    font-weight: 400;
-}
-
 .SnackbarContainer-root {
     max-width: 100% !important;
 }

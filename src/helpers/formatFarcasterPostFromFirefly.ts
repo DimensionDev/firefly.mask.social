@@ -124,6 +124,7 @@ export function formatFarcasterPostFromFirefly(cast: Cast, type?: PostType): Pos
         mentions: cast.mentions_user.map<Profile>((x) => {
             return {
                 profileId: x.fid,
+                profileSource: Source.Farcaster,
                 displayName: x.handle,
                 handle: x.handle,
                 fullHandle: x.handle,

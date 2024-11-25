@@ -16,6 +16,7 @@ import { Section } from '@/components/Semantic/Section.js';
 import { type SocialSource } from '@/constants/enum.js';
 import { MIN_POST_SIZE_PER_THREAD } from '@/constants/index.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
+import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { getThreads } from '@/services/getThreads.js';
 
 interface Props {
@@ -27,7 +28,7 @@ export async function PostDetailPage({ id: postId, source }: Props) {
     if (!postId) notFound();
 
     const provider = resolveSocialMediaProvider(source);
-    const post = await provider.getPostById(postId);
+    const post = await runInSafeAsync(() => provider.getPostById(postId));
 
     if (!post) notFound();
 

@@ -1,11 +1,11 @@
 'use client';
 
-import { useNetworkDescriptor } from '@masknet/web3-hooks-base';
 import { isValidChainId as isValidSolanaChainId } from '@masknet/web3-shared-solana';
 import type { HTMLProps } from 'react';
 
 import { Image } from '@/components/Image.js';
 import { NetworkPluginID } from '@/constants/enum.js';
+import { getNetworkDescriptor } from '@/helpers/getNetworkDescriptor.js';
 
 interface ChainIconProps extends HTMLProps<HTMLImageElement> {
     chainId: number;
@@ -14,10 +14,10 @@ interface ChainIconProps extends HTMLProps<HTMLImageElement> {
 
 export function ChainIcon(props: ChainIconProps) {
     const { chainId, size = 22, className } = props;
-    const evmNetworkDescriptor = useNetworkDescriptor(NetworkPluginID.PLUGIN_EVM, chainId);
-    const solanaNetworkDescriptor = useNetworkDescriptor(NetworkPluginID.PLUGIN_SOLANA, chainId);
 
-    const networkDescriptor = isValidSolanaChainId(chainId) ? solanaNetworkDescriptor : evmNetworkDescriptor;
+    const networkDescriptor = isValidSolanaChainId(chainId)
+        ? getNetworkDescriptor(NetworkPluginID.PLUGIN_SOLANA, chainId)
+        : getNetworkDescriptor(NetworkPluginID.PLUGIN_EVM, chainId);
 
     return (
         <Image

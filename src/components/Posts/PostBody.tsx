@@ -70,6 +70,8 @@ export const PostBody = forwardRef<HTMLDivElement, PostBodyProps>(function PostB
     const router = useRouter();
     const { metadata, author } = post;
     const postRawContent = metadata.content?.content;
+    // ! liteRawContent is used for reply and quote, only shows the first 2000 characters, because the text is foldable
+    const liteRawContent = metadata.content?.content?.slice(0, 2000);
     const canShowMore = !!(postRawContent && postRawContent.length > 450) && showMore;
 
     const [postContent, setPostContent] = useState(postRawContent ?? '');
@@ -187,7 +189,7 @@ export const PostBody = forwardRef<HTMLDivElement, PostBodyProps>(function PostB
                         },
                     )}
                 >
-                    {postRawContent}
+                    {liteRawContent}
                 </NakedMarkup>
                 {EncryptedContent}
                 {showAttachments ? (
@@ -215,7 +217,7 @@ export const PostBody = forwardRef<HTMLDivElement, PostBodyProps>(function PostB
                     )}
                     components={overrideComponents}
                 >
-                    {postRawContent}
+                    {liteRawContent}
                 </NakedMarkup>
                 <div className="flex flex-col text-base text-main">
                     {post.metadata.content?.asset?.type ? (
