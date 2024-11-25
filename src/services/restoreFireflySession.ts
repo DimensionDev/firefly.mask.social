@@ -23,15 +23,7 @@ import type { ResponseJSON } from '@/types/index.js';
  * @param signal
  * @returns
  */
-export async function restoreFireflySession(
-    session: Session,
-    signal?: AbortSignal,
-    tgOptions?: {
-        isNew: boolean;
-        accountId: string;
-        token: string;
-    },
-) {
+export async function restoreFireflySession(session: Session, signal?: AbortSignal) {
     switch (session.type) {
         case SessionType.Lens: {
             const url = urlcat(settings.FIREFLY_ROOT_URL, '/v3/auth/lens/login');
@@ -121,7 +113,7 @@ export async function restoreFireflySession(
                 method: 'POST',
                 body: JSON.stringify({
                     authorizationToken: appleSession.token,
-                    nonce: appleSession.nonce,
+                    nonce: appleSession.payload?.nonce,
                 }),
             });
             const appleData = resolveFireflyResponseData(appleResponse);
@@ -139,8 +131,15 @@ export async function restoreFireflySession(
             const googleData = resolveFireflyResponseData(googleResponse);
             return new FireflySession(googleData.accountId, googleData.accessToken, session, null, googleData.isNew);
         case SessionType.Telegram:
-            if (!tgOptions) throw new NotAllowedError();
-            return new FireflySession(tgOptions.accountId, tgOptions.token, session, null, tgOptions.isNew);
+            const tgSession = session as ThirdPartySession;
+            if (!tgSession.payload?.accountId || !tgSession.payload.accessToken) throw new NotAllowedError();
+            return new FireflySession(
+                tgSession.payload.accountId,
+                tgSession.payload.accessToken,
+                session,
+                null,
+                tgSession.payload.isNew,
+            );
         default:
             safeUnreachable(session.type);
             throw new UnreachableError('[restoreFireflySession] session type', session.type);

@@ -74,7 +74,7 @@ export const resolveSocialSourceFromProfileSource = createLookupTableResolver<Pr
     },
 );
 
-export const resolveSourceFromSessionType = createLookupTableResolver<SessionType, Source>(
+export const resolveSourceFromSessionType = createLookupTableResolver<SessionType, ProfileSource>(
     {
         [SessionType.Farcaster]: Source.Farcaster,
         [SessionType.Lens]: Source.Lens,

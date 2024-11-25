@@ -160,15 +160,7 @@ async function bindFireflySession(session: Session, signal?: AbortSignal) {
     }
 }
 
-export async function bindOrRestoreFireflySession(
-    session: Session,
-    signal?: AbortSignal,
-    tgOptions?: {
-        isNew: boolean;
-        accountId: string;
-        token: string;
-    },
-) {
+export async function bindOrRestoreFireflySession(session: Session, signal?: AbortSignal) {
     try {
         const farcasterSession = session as FarcasterSession;
         if (FarcasterSession.isCustodyWallet(farcasterSession)) throw new NotAllowedError();
@@ -194,6 +186,6 @@ export async function bindOrRestoreFireflySession(
         console.error(`[bindOrRestoreFireflySession] failed to bind firefly session ${error}`);
 
         // this will create a new session
-        return restoreFireflySession(session, signal, tgOptions);
+        return restoreFireflySession(session, signal);
     }
 }

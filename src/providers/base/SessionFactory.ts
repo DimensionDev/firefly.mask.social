@@ -29,7 +29,7 @@ const TwitterSessionPayloadSchema = z.object({
 
 const ThirdPartySessionPayload = z.object({
     nonce: z.string().optional(),
-    fireflyToken: z.string().optional(),
+    accessToken: z.string().optional(),
     accountId: z.string().optional(),
     isNew: z.boolean().optional(),
 });

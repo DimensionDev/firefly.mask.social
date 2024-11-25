@@ -51,6 +51,7 @@ export default function Page({ searchParams }: PageProps) {
                 {
                     accountId: data.accountId,
                     isNew: data.isNew,
+                    accessToken: data.accessToken,
                 },
             );
 

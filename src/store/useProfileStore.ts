@@ -14,7 +14,7 @@ import { createSessionStorage } from '@/helpers/createSessionStorage.js';
 import { isSameAccount } from '@/helpers/isSameAccount.js';
 import { isSameProfile } from '@/helpers/isSameProfile.js';
 import { isSameSession, isSameSessionPayload } from '@/helpers/isSameSession.js';
-import { resolveSessionTypeToSource } from '@/helpers/resolveSessionTypeToSource.js';
+import { resolveSourceFromSessionType } from '@/helpers/resolveSource.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import type { FarcasterSession } from '@/providers/farcaster/Session.js';
 import { farcasterSessionHolder } from '@/providers/farcaster/SessionHolder.js';
@@ -394,7 +394,7 @@ const useThirdPartyStateBase = createState(
                             followingCount: 0,
                             status: ProfileStatus.Active,
                             source: Source.Farcaster,
-                            profileSource: resolveSessionTypeToSource(session.type),
+                            profileSource: resolveSourceFromSessionType(session.type),
                             verified: true,
                         },
                         session: thirdPartySession,

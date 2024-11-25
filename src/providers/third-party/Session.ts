@@ -8,7 +8,7 @@ import { SessionType } from '@/providers/types/SocialMedia.js';
 export interface ThirdPartySessionPayload {
     nonce?: string;
     // only for Telegram
-    fireflyToken?: string;
+    accessToken?: string;
     accountId?: string;
     isNew?: boolean;
 }
