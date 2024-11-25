@@ -29,11 +29,11 @@ export default function NotFound({ text, backText, search }: NotFoundProps) {
             ) : null}
             <div className="flex flex-col items-center py-12 text-secondary">
                 <GhostHoleIcon width={200} height={143} className="text-third" />
-                <div className="mt-3 break-words break-all text-center text-medium font-bold">
-                    {text ? <div className="mt-10">{text}</div> : null}
+                <div className="mt-3 break-words break-all text-center font-bold">
+                    {text ? <div className="mt-10 text-sm">{text}</div> : null}
                     {search ? (
                         <Link
-                            className="mt-3 flex h-8 items-center justify-center rounded-full bg-main px-4 text-sm font-semibold text-primaryBottom transition-all hover:opacity-80"
+                            className="mt-3 flex h-10 items-center justify-center rounded-full border border-main px-5 text-medium text-main transition-all hover:opacity-80"
                             href={resolveSearchUrl(search.searchText, search.searchType)}
                         >
                             {search.text}

@@ -12,7 +12,7 @@ export default function NotFoundToken() {
 
     return (
         <NotFound
-            text={<Trans>Token {symbol} could not be found.</Trans>}
+            text={<Trans>Token ${symbol} could not be found.</Trans>}
             search={{ text: <Trans>Search ${symbol}</Trans>, searchText: `$${symbol}`, searchType: SearchType.Tokens }}
         />
     );
