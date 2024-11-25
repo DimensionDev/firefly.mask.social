@@ -363,6 +363,9 @@ msgstr ""
 msgid "Market Cap"
 msgstr "市值"
 
+msgid "Eligible for Premium Collectible?"
+msgstr ""
+
 msgid "Contract source code verified"
 msgstr "合約源代碼已驗證"
 
@@ -480,6 +483,9 @@ msgstr "已被你跟隨的 {0}、{1} 和其他{2} 人跟隨"
 msgid "Confirm to disconnect this wallet from Firefly’s social graph?"
 msgstr "確認從 Firefly 的社交圖譜上取消該錢包的連接？"
 
+msgid "Check eligibility"
+msgstr ""
+
 msgid "Confirm"
 msgstr "確認"
 
@@ -559,6 +565,9 @@ msgid "Check out my LuckyDrop 🧧💰✨ on Firefly mobile app or {promoteLink}
 msgstr ""
 
 msgid "Token ID"
+msgstr ""
+
+msgid "Available to Farcaster ID under 100,000 or users of select third-party Farcaster apps as of our snapshot"
 msgstr ""
 
 msgid "{0, plural, one {mirror} other {mirrors}}"
@@ -689,6 +698,9 @@ msgstr ""
 
 msgid "Reposted"
 msgstr "已轉發"
+
+msgid "Login {0} successfully."
+msgstr ""
 
 msgid "Today at {0}"
 msgstr ""
@@ -1377,9 +1389,6 @@ msgstr "搜尋 ${symbol}"
 msgid "Failed to unmute /{0}."
 msgstr "對 @{0} 的解除靜音失敗"
 
-msgid "Login X successfully."
-msgstr ""
-
 msgid "Please confirm the login with Warpcast."
 msgstr "請至 Warpcast 確認登錄"
 
@@ -1514,6 +1523,9 @@ msgstr "用戶"
 
 msgid "Describe a bug or suggest an improvement"
 msgstr "描述錯誤或提供改進建議"
+
+msgid "Follow & Submit"
+msgstr ""
 
 msgid "Cryptocurrency mixer."
 msgstr ""

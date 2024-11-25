@@ -5,19 +5,19 @@ import { type ReactNode } from 'react';
 
 import LoadingIcon from '@/assets/loading.svg';
 import { ActivityVerifyText } from '@/components/Activity/ActivityVerifyText.js';
-import { useActivityFollowTwitter } from '@/components/Activity/hooks/useActivityFollowTwitter.js';
-import { useIsFollowTwitterInActivity } from '@/components/Activity/hooks/useIsFollowTwitterInActivity.js';
-import { useIsLoginTwitterInActivity } from '@/components/Activity/hooks/useIsLoginTwitterInActivity.js';
+import { useActivityFollowProfile } from '@/components/Activity/hooks/useActivityFollowProfile.js';
+import { useIsFollowInActivity } from '@/components/Activity/hooks/useIsFollowInActivity.js';
+import { useIsLoginInActivity } from '@/components/Activity/hooks/useIsLoginInActivity.js';
 import { useLoginInActivity } from '@/components/Activity/hooks/useLoginInActivity.js';
 import { Link } from '@/components/Activity/Link.js';
-import { type ProfilePageSource } from '@/constants/enum.js';
+import { type SocialSource, Source } from '@/constants/enum.js';
 import { classNames } from '@/helpers/classNames.js';
 import { enqueueWarningMessage } from '@/helpers/enqueueMessage.js';
 import { resolveProfileUrl } from '@/helpers/resolveProfileUrl.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 
 interface Props {
-    source: ProfilePageSource;
+    source: SocialSource;
     profileId: string;
     handle: string;
 }
@@ -45,7 +45,7 @@ function Button({
                     onClick?.();
                 } else {
                     event.preventDefault();
-                    login();
+                    login(Source.Twitter);
                 }
             }}
         >
@@ -66,19 +66,19 @@ function Button({
 }
 
 export function ActivityTaskFollowCard({ source, profileId, handle }: Props) {
-    const { data: isLoggedIn } = useIsLoginTwitterInActivity();
-    const [{ loading: isFollowingTwitter }, followTwitter] = useActivityFollowTwitter(profileId, handle);
+    const isLoggedIn = useIsLoginInActivity(source);
+    const [{ loading: isFollowing }, follow] = useActivityFollowProfile(source, profileId, handle);
     const {
         data: isFollowedFirefly,
         refetch,
         isRefetching,
         isLoading,
-    } = useIsFollowTwitterInActivity(profileId, handle);
+    } = useIsFollowInActivity(Source.Twitter, profileId, handle);
 
     return (
         <div
             className={classNames(
-                'flex w-full flex-col space-y-2 rounded-2xl p-3 text-sm font-semibold leading-6 sm:flex-row sm:items-center sm:space-y-0',
+                'flex min-h-[56px] w-full flex-col space-y-2 rounded-2xl p-3 text-sm font-semibold leading-6 sm:flex-row sm:items-center sm:space-y-0',
                 isFollowedFirefly ? 'bg-success/10 dark:bg-success/20' : 'bg-bg',
             )}
         >
@@ -107,9 +107,9 @@ export function ActivityTaskFollowCard({ source, profileId, handle }: Props) {
                 <div className="flex space-x-2">
                     <Button
                         className="relative inline-block whitespace-nowrap rounded-full bg-main px-4 leading-8 text-primaryBottom"
-                        loading={isFollowingTwitter}
+                        loading={isFollowing}
                         isLoggedIn={isLoggedIn}
-                        onClick={() => followTwitter()}
+                        onClick={() => follow()}
                     >
                         <Trans>Follow</Trans>
                     </Button>

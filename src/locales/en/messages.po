@@ -358,6 +358,9 @@ msgstr "Our transaction simulation and security detection found no issues. Howev
 msgid "Market Cap"
 msgstr "Market Cap"
 
+msgid "Eligible for Premium Collectible?"
+msgstr "Eligible for Premium Collectible?"
+
 msgid "Contract source code verified"
 msgstr "Contract source code verified"
 
@@ -475,6 +478,9 @@ msgstr "Followed by {0} , {1}, and {2} others you follow"
 msgid "Confirm to disconnect this wallet from Firefly’s social graph?"
 msgstr "Confirm to disconnect this wallet from Firefly’s social graph?"
 
+msgid "Check eligibility"
+msgstr "Check eligibility"
+
 msgid "Confirm"
 msgstr "Confirm"
 
@@ -555,6 +561,9 @@ msgstr "Check out my LuckyDrop 🧧💰✨ on Firefly mobile app or {promoteLink
 
 msgid "Token ID"
 msgstr "Token ID"
+
+msgid "Available to Farcaster ID under 100,000 or users of select third-party Farcaster apps as of our snapshot"
+msgstr "Available to Farcaster ID under 100,000 or users of select third-party Farcaster apps as of our snapshot"
 
 msgid "{0, plural, one {mirror} other {mirrors}}"
 msgstr "{0, plural, one {mirror} other {mirrors}}"
@@ -684,6 +693,9 @@ msgstr "Channel {id} could not be found."
 
 msgid "Reposted"
 msgstr "Reposted"
+
+msgid "Login {0} successfully."
+msgstr "Login {0} successfully."
 
 msgid "Today at {0}"
 msgstr "Today at {0}"
@@ -1372,9 +1384,6 @@ msgstr "Search ${symbol}"
 msgid "Failed to unmute /{0}."
 msgstr "Failed to unmute /{0}."
 
-msgid "Login X successfully."
-msgstr "Login X successfully."
-
 msgid "Please confirm the login with Warpcast."
 msgstr "Please confirm the login with Warpcast."
 
@@ -1509,6 +1518,9 @@ msgstr "Users"
 
 msgid "Describe a bug or suggest an improvement"
 msgstr "Describe a bug or suggest an improvement"
+
+msgid "Follow & Submit"
+msgstr "Follow & Submit"
 
 msgid "Cryptocurrency mixer."
 msgstr "Cryptocurrency mixer."

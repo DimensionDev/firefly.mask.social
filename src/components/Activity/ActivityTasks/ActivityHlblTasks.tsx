@@ -5,9 +5,9 @@ import { Trans } from '@lingui/macro';
 import { ActivityClaimButton } from '@/components/Activity/ActivityClaimButton.js';
 import { ActivityConnectCard } from '@/components/Activity/ActivityConnectCard.js';
 import { ActivityFollowTargetCard } from '@/components/Activity/ActivityFollowTargetCard.js';
+import { ActivityLoginButton } from '@/components/Activity/ActivityLoginButton.js';
 import { ActivityPremiumConditionList } from '@/components/Activity/ActivityPremiumConditionList.js';
 import { ActivityTaskFollowCard } from '@/components/Activity/ActivityTaskFollowCard.js';
-import { ActivityTwitterLoginButton } from '@/components/Activity/ActivityTwitterLoginButton.js';
 import { useActivityPremiumList } from '@/components/Activity/hooks/useActivityPremiumList.js';
 import { Source, SourceInURL } from '@/constants/enum.js';
 import { CHAR_TAG, type Chars } from '@/helpers/chars.js';
@@ -115,7 +115,7 @@ export function ActivityHlblTasks({ data }: { data: Pick<Required<ActivityInfoRe
                         <h2 className="text-base font-semibold leading-6">
                             <Trans>Step 1 Sign in</Trans>
                         </h2>
-                        <ActivityTwitterLoginButton />
+                        <ActivityLoginButton source={Source.Twitter} />
                     </div>
                     <ActivityFollowTargetCard handle="brian_armstrong" profileId="14379660" />
                 </div>
@@ -127,7 +127,7 @@ export function ActivityHlblTasks({ data }: { data: Pick<Required<ActivityInfoRe
                 <h2 className="text-base font-semibold leading-6">
                     <Trans>Step 2 Connect Wallet</Trans>
                 </h2>
-                <ActivityConnectCard />
+                <ActivityConnectCard source={Source.Twitter} />
                 <ActivityPremiumConditionList />
             </div>
             <div className="sticky bottom-0 mt-auto w-full bg-primaryBottom px-4 pt-1.5 pb-safe-or-4 sm:pb-safe-or-2">

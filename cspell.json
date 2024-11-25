@@ -208,7 +208,8 @@
         "elex",
         "hlbl",
         "pushswitch",
-        "Luma"
+        "Luma",
+        "frensgiving"
     ],
     "flagWords": [],
     "ignorePaths": [

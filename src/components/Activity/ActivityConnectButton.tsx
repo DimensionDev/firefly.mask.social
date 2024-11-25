@@ -10,23 +10,25 @@ import { ActivityContext } from '@/components/Activity/ActivityContext.js';
 import { useActivityBindAddress } from '@/components/Activity/hooks/useActivityBindAddress.js';
 import { useActivityClaimCondition } from '@/components/Activity/hooks/useActivityClaimCondition.js';
 import { useActivityConnections } from '@/components/Activity/hooks/useActivityConnections.js';
-import { useIsLoginTwitterInActivity } from '@/components/Activity/hooks/useIsLoginTwitterInActivity.js';
+import { useCaptureActivityEvent } from '@/components/Activity/hooks/useCaptureActivityEvent.js';
+import { useIsLoginInActivity } from '@/components/Activity/hooks/useIsLoginInActivity.js';
 import { ChainIcon } from '@/components/NFTDetail/ChainIcon.js';
+import { type SocialSource } from '@/constants/enum.js';
 import { EMPTY_LIST } from '@/constants/index.js';
 import { classNames } from '@/helpers/classNames.js';
 import { enqueueWarningMessage } from '@/helpers/enqueueMessage.js';
 import { formatAddress } from '@/helpers/formatAddress.js';
 import { fireflyBridgeProvider } from '@/providers/firefly/Bridge.js';
-import { captureActivityEvent } from '@/providers/telemetry/captureActivityEvent.js';
 import { EventId } from '@/providers/types/Telemetry.js';
 import { ChainId } from '@/types/frame.js';
 
-export function ActivityConnectButton() {
-    const { onChangeAddress, address, fireflyAccountId } = useContext(ActivityContext);
+export function ActivityConnectButton({ source }: { source: SocialSource }) {
+    const { onChangeAddress, address } = useContext(ActivityContext);
     const { refetch: refetchActivityClaimCondition, isRefetching } = useActivityClaimCondition();
-    const { data: isLoggedIn } = useIsLoginTwitterInActivity();
+    const isLoggedIn = useIsLoginInActivity(source);
     const { data: { connected = EMPTY_LIST } = {}, isLoading, refetch } = useActivityConnections();
     const [, bindAddress] = useActivityBindAddress();
+    const captureActivityEvent = useCaptureActivityEvent();
 
     const addresses: Array<{ address: string; ens?: string }> = connected
         .filter((x) => x.platform === 'eth')
@@ -87,7 +89,6 @@ export function ActivityConnectButton() {
                                     onChangeAddress(address);
                                     captureActivityEvent(EventId.EVENT_CHANGE_WALLET_SUCCESS, {
                                         wallet_address: address,
-                                        firefly_account_id: fireflyAccountId,
                                     });
                                     refetchActivityClaimCondition();
                                 }}

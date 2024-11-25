@@ -6,9 +6,10 @@ import { useContext } from 'react';
 import { ActivityConnectButton } from '@/components/Activity/ActivityConnectButton.js';
 import { ActivityContext } from '@/components/Activity/ActivityContext.js';
 import { ActivityVerifyText } from '@/components/Activity/ActivityVerifyText.js';
+import type { SocialSource } from '@/constants/enum.js';
 import { classNames } from '@/helpers/classNames.js';
 
-export function ActivityConnectCard() {
+export function ActivityConnectCard({ source }: { source: SocialSource }) {
     const { address } = useContext(ActivityContext);
     return (
         <div
@@ -30,7 +31,7 @@ export function ActivityConnectCard() {
                 </h3>
             </ActivityVerifyText>
             <div className="flex h-8 flex-shrink-0 space-x-2">
-                <ActivityConnectButton />
+                <ActivityConnectButton source={source} />
             </div>
         </div>
     );

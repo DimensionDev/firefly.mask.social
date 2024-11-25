@@ -9,9 +9,10 @@ import { ActivityConnectCard } from '@/components/Activity/ActivityConnectCard.j
 import { ActivityContext } from '@/components/Activity/ActivityContext.js';
 import { ActivityElex24Context } from '@/components/Activity/ActivityElex24/ActivityElex24Context.js';
 import { ActivityElex24Vote } from '@/components/Activity/ActivityElex24/ActivityElex24Vote.js';
+import { ActivityLoginButton } from '@/components/Activity/ActivityLoginButton.js';
 import { ActivityPremiumConditionList } from '@/components/Activity/ActivityPremiumConditionList.js';
 import { ActivityTaskFollowCard } from '@/components/Activity/ActivityTaskFollowCard.js';
-import { ActivityTwitterLoginButton } from '@/components/Activity/ActivityTwitterLoginButton.js';
+import { useActivityCurrentAccountHandle } from '@/components/Activity/hooks/useActivityCurrentAccountHandle.js';
 import { Source, SourceInURL } from '@/constants/enum.js';
 import { SITE_URL } from '@/constants/index.js';
 import { CHAR_TAG, type Chars } from '@/helpers/chars.js';
@@ -53,7 +54,8 @@ const fireflyMention = {
 
 export function ActivityElex24Tasks({ data }: { data: Pick<Required<ActivityInfoResponse>['data'], 'status'> }) {
     const { vote } = useContext(ActivityElex24Context);
-    const { name, xHandle } = useContext(ActivityContext);
+    const { name } = useContext(ActivityContext);
+    const xHandle = useActivityCurrentAccountHandle(Source.Twitter);
     const shareUrl = urlcat(
         SITE_URL,
         resolveActivityUrl(name, { referralCode: xHandle, platform: ReferralAccountPlatform.X }),
@@ -86,7 +88,7 @@ export function ActivityElex24Tasks({ data }: { data: Pick<Required<ActivityInfo
                         <h2 className="text-base font-semibold leading-6">
                             <Trans>Step 1 Sign in</Trans>
                         </h2>
-                        <ActivityTwitterLoginButton />
+                        <ActivityLoginButton source={Source.Twitter} />
                     </div>
                 </div>
                 <ActivityTaskFollowCard
@@ -97,7 +99,7 @@ export function ActivityElex24Tasks({ data }: { data: Pick<Required<ActivityInfo
                 <h2 className="text-base font-semibold leading-6">
                     <Trans>Step 2 Connect Wallet</Trans>
                 </h2>
-                <ActivityConnectCard />
+                <ActivityConnectCard source={Source.Twitter} />
                 <h2 className="text-base font-semibold leading-6">
                     <Trans>Step 3 Select to vote</Trans>
                 </h2>

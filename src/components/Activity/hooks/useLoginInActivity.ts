@@ -1,24 +1,33 @@
 import { t } from '@lingui/macro';
-import { signIn } from 'next-auth/react';
 import { useAsyncFn } from 'react-use';
 
+import { resolveSocialSourceToFireflyBridgePlatform } from '@/components/Activity/helpers/resolveSocialSourceToFireflyBridgePlatform.js';
+import { useCaptureActivityEvent } from '@/components/Activity/hooks/useCaptureActivityEvent.js';
+import { type SocialSource, Source } from '@/constants/enum.js';
 import { enqueueErrorMessage, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { getSnackbarMessageFromError } from '@/helpers/getSnackbarMessageFromError.js';
+import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { useFireflyBridgeAuthorization } from '@/hooks/useFireflyBridgeAuthorization.js';
+import { LoginModalRef } from '@/modals/controls.js';
 import { fireflyBridgeProvider } from '@/providers/firefly/Bridge.js';
-import { Platform, SupportedMethod } from '@/types/bridge.js';
+import { EventId } from '@/providers/types/Telemetry.js';
+import { SupportedMethod } from '@/types/bridge.js';
 
 export function useLoginInActivity() {
     const queryFireflyBridgeAuthorization = useFireflyBridgeAuthorization();
-    return useAsyncFn(async () => {
+    const captureActivityEvent = useCaptureActivityEvent();
+    return useAsyncFn(async (source: SocialSource) => {
         if (fireflyBridgeProvider.supported) {
             try {
                 const result = await fireflyBridgeProvider.request(SupportedMethod.LOGIN, {
-                    platform: Platform.TWITTER,
+                    platform: resolveSocialSourceToFireflyBridgePlatform(source),
                 });
                 await queryFireflyBridgeAuthorization.refetch();
                 if (result === 'true') {
-                    enqueueSuccessMessage(t`Login X successfully.`);
+                    if (source === Source.Twitter) {
+                        captureActivityEvent(EventId.EVENT_X_LOG_IN_SUCCESS, {});
+                    }
+                    enqueueSuccessMessage(t`Login ${resolveSourceName(source)} successfully.`);
                 } else {
                     enqueueErrorMessage(t`Failed to login.`);
                 }
@@ -28,8 +37,11 @@ export function useLoginInActivity() {
             }
             return;
         }
-        await signIn('twitter', {
-            redirect: false,
+        if (source === Source.Twitter) {
+            captureActivityEvent(EventId.EVENT_X_LOG_IN_SUCCESS, {});
+        }
+        LoginModalRef.open({
+            source,
         });
     });
 }

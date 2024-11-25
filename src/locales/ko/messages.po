@@ -363,6 +363,9 @@ msgstr ""
 msgid "Market Cap"
 msgstr ""
 
+msgid "Eligible for Premium Collectible?"
+msgstr ""
+
 msgid "Contract source code verified"
 msgstr ""
 
@@ -480,6 +483,9 @@ msgstr ""
 msgid "Confirm to disconnect this wallet from Firefly’s social graph?"
 msgstr ""
 
+msgid "Check eligibility"
+msgstr ""
+
 msgid "Confirm"
 msgstr ""
 
@@ -559,6 +565,9 @@ msgid "Check out my LuckyDrop 🧧💰✨ on Firefly mobile app or {promoteLink}
 msgstr ""
 
 msgid "Token ID"
+msgstr ""
+
+msgid "Available to Farcaster ID under 100,000 or users of select third-party Farcaster apps as of our snapshot"
 msgstr ""
 
 msgid "{0, plural, one {mirror} other {mirrors}}"
@@ -688,6 +697,9 @@ msgid "Channel {id} could not be found."
 msgstr ""
 
 msgid "Reposted"
+msgstr ""
+
+msgid "Login {0} successfully."
 msgstr ""
 
 msgid "Today at {0}"
@@ -1377,9 +1389,6 @@ msgstr ""
 msgid "Failed to unmute /{0}."
 msgstr ""
 
-msgid "Login X successfully."
-msgstr ""
-
 msgid "Please confirm the login with Warpcast."
 msgstr ""
 
@@ -1513,6 +1522,9 @@ msgid "Users"
 msgstr ""
 
 msgid "Describe a bug or suggest an improvement"
+msgstr ""
+
+msgid "Follow & Submit"
 msgstr ""
 
 msgid "Cryptocurrency mixer."

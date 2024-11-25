@@ -363,6 +363,9 @@ msgstr "我们的交易模拟和安全检测未发现问题。不过，始终仔
 msgid "Market Cap"
 msgstr "市值"
 
+msgid "Eligible for Premium Collectible?"
+msgstr ""
+
 msgid "Contract source code verified"
 msgstr "已验证合约源代码"
 
@@ -480,6 +483,9 @@ msgstr "被 {0} , {1}, 和 {2} 个其他的你正在关注的人关注"
 msgid "Confirm to disconnect this wallet from Firefly’s social graph?"
 msgstr "确认从 Firefly 的社交图谱中断链这个钱包？"
 
+msgid "Check eligibility"
+msgstr ""
+
 msgid "Confirm"
 msgstr "确认"
 
@@ -560,6 +566,9 @@ msgstr "在 Firefly 移动端或者 {promoteLink} 打开我的红包🧧💰✨ 
 
 msgid "Token ID"
 msgstr "通证 ID"
+
+msgid "Available to Farcaster ID under 100,000 or users of select third-party Farcaster apps as of our snapshot"
+msgstr ""
 
 msgid "{0, plural, one {mirror} other {mirrors}}"
 msgstr "{0, plural, one {转帖} other {转帖}}"
@@ -689,6 +698,9 @@ msgstr ""
 
 msgid "Reposted"
 msgstr "转帖"
+
+msgid "Login {0} successfully."
+msgstr ""
 
 msgid "Today at {0}"
 msgstr "今天 {0}"
@@ -1377,9 +1389,6 @@ msgstr "搜索 ${symbol}"
 msgid "Failed to unmute /{0}."
 msgstr "取消隐藏失败/{0}。"
 
-msgid "Login X successfully."
-msgstr "成功登录 X。"
-
 msgid "Please confirm the login with Warpcast."
 msgstr "请确认使用 Warpcast 登录。"
 
@@ -1514,6 +1523,9 @@ msgstr "用户"
 
 msgid "Describe a bug or suggest an improvement"
 msgstr "描述问题或者提出建议"
+
+msgid "Follow & Submit"
+msgstr ""
 
 msgid "Cryptocurrency mixer."
 msgstr "加密货币混合器。"

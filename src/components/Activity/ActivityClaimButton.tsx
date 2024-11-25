@@ -11,14 +11,15 @@ import { ActivityContext } from '@/components/Activity/ActivityContext.js';
 import { ActivityMintSuccessDialog } from '@/components/Activity/ActivityMintSuccessDialog.js';
 import { useActivityClaimCondition } from '@/components/Activity/hooks/useActivityClaimCondition.js';
 import { useActivityPremiumList } from '@/components/Activity/hooks/useActivityPremiumList.js';
-import { useIsFollowTwitterInActivity } from '@/components/Activity/hooks/useIsFollowTwitterInActivity.js';
+import { useCaptureActivityEvent } from '@/components/Activity/hooks/useCaptureActivityEvent.js';
+import { useIsFollowInActivity } from '@/components/Activity/hooks/useIsFollowInActivity.js';
+import { Source } from '@/constants/enum.js';
 import type { Chars } from '@/helpers/chars.js';
 import { classNames } from '@/helpers/classNames.js';
 import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
 import { getSnackbarMessageFromError } from '@/helpers/getSnackbarMessageFromError.js';
 import { useFireflyBridgeAuthorization } from '@/hooks/useFireflyBridgeAuthorization.js';
 import { FireflyActivityProvider } from '@/providers/firefly/Activity.js';
-import { captureActivityEvent } from '@/providers/telemetry/captureActivityEvent.js';
 import { ActivityStatus } from '@/providers/types/Firefly.js';
 import { EventId } from '@/providers/types/Telemetry.js';
 
@@ -31,13 +32,14 @@ interface Props {
 }
 
 export function ActivityClaimButton({ shareContent, status, claimApiExtraParams, ...rest }: Props) {
-    const { address, name, fireflyAccountId } = useContext(ActivityContext);
+    const { address, name } = useContext(ActivityContext);
     const { data: authToken } = useFireflyBridgeAuthorization();
     const { data, refetch } = useActivityClaimCondition();
     const [hash, setHash] = useState<string | undefined>(undefined);
     const [chainId, setChainId] = useState<ChainId | undefined>(undefined);
-    const { data: isFollowedFirefly } = useIsFollowTwitterInActivity('1583361564479889408', 'thefireflyapp');
+    const { data: isFollowedFirefly } = useIsFollowInActivity(Source.Twitter, '1583361564479889408', 'thefireflyapp');
     const list = useActivityPremiumList();
+    const captureActivityEvent = useCaptureActivityEvent();
 
     const isPremium = list.some((x) => x.verified);
     const disabled =
@@ -55,14 +57,13 @@ export function ActivityClaimButton({ shareContent, status, claimApiExtraParams,
             setChainId(chainId);
             captureActivityEvent(isPremium ? EventId.EVENT_CLAIM_PREMIUM_SUCCESS : EventId.EVENT_CLAIM_BASIC_SUCCESS, {
                 wallet_address: address,
-                firefly_account_id: fireflyAccountId ?? undefined,
             });
         } catch (error) {
             await refetch();
             enqueueErrorMessage(getSnackbarMessageFromError(error, t`Failed to claim token`), { error });
             throw error;
         }
-    }, [disabled, address, authToken, isPremium, fireflyAccountId]);
+    }, [disabled, address, authToken, isPremium]);
 
     const buttonText = (() => {
         switch (status) {
