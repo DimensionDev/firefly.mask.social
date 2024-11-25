@@ -26,7 +26,8 @@ function ThirdPartItem({ source, icon: PlatformIcon, iconClassName, iconWidth, i
 
     const connected = !!account;
 
-    console.log(source, account);
+    // For debugging
+    console.log('[Debug]: ', source, account);
 
     return (
         <div className="mt-6 inline-flex h-[63px] w-full items-center justify-start gap-3 rounded-lg bg-white bg-bottom px-3 py-2 shadow-primary backdrop-blur dark:bg-bg">
@@ -39,7 +40,7 @@ function ThirdPartItem({ source, icon: PlatformIcon, iconClassName, iconWidth, i
                 </span>
                 <span className="truncate text-medium text-lightSecond">{'wenluo@mask.io'}</span>
             </div>
-            {connected ? <ThirdPartDisconnectButton source={source} /> : <ThirdPartConnectButton source={source} />}
+            {connected ? <ThirdPartDisconnectButton account={account} /> : <ThirdPartConnectButton source={source} />}
         </div>
     );
 }

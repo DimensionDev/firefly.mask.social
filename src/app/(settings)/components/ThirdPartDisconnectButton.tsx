@@ -3,17 +3,19 @@ import { useAsyncFn } from 'react-use';
 import DisconnectIcon from '@/assets/disconnect.svg';
 import LoadingIcon from '@/assets/loading.svg';
 import { ClickableButton } from '@/components/ClickableButton.js';
-import type { ThirdPartySource } from '@/constants/enum.js';
-import { NotImplementedError } from '@/constants/error.js';
+import { DisconnectFireflyAccountModalRef } from '@/modals/controls.js';
+import type { Account } from '@/providers/types/Account.js';
 
 interface Props {
-    source: ThirdPartySource;
+    account: Account;
 }
 
-export function ThirdPartDisconnectButton({ source }: Props) {
+export function ThirdPartDisconnectButton({ account }: Props) {
     const [{ loading }, handleDisconnect] = useAsyncFn(async () => {
-        throw new NotImplementedError();
-    }, [source]);
+        await DisconnectFireflyAccountModalRef.openAndWaitForClose({
+            account,
+        });
+    }, [account]);
 
     if (loading) {
         return <LoadingIcon width={24} height={24} className="animate-spin text-lightMain" />;
