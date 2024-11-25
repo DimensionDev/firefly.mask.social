@@ -222,7 +222,7 @@ export const TokenDetail = memo<Props>(function TokenDetail({ symbol, children, 
                                                 key={url}
                                                 href={url}
                                                 target="_blank"
-                                                className="text-link hover:underline"
+                                                className="text-highlight hover:underline"
                                             >
                                                 {getHost(url)}
                                             </Link>
