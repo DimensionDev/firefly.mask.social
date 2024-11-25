@@ -1,4 +1,4 @@
-import { feedbackIntegration,init, onLoad, setTag } from '@sentry/browser';
+import { feedbackIntegration, init, onLoad, setTag } from '@sentry/browser';
 
 import { env } from '@/constants/env.js';
 import { settings } from '@/settings/index.js';
