@@ -111,6 +111,9 @@ export function ProfileTabs({ profiles: otherProfiles, identity }: ProfileTabsPr
                             color: isActive ? colors.activeColor : isDarkMode ? colors.darkColor : colors.color,
                         }}
                         key={index}
+                        ref={(node) => {
+                            if (isActive && node) node.scrollIntoView();
+                        }}
                     >
                         {isMPC ? (
                             <FireflyLogo width={14} height={14} />
