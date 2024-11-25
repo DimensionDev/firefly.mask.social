@@ -1,19 +1,42 @@
 import { Trans } from '@lingui/macro';
+import { safeUnreachable } from '@masknet/kit';
+import { signIn } from 'next-auth/react';
 import { useAsyncFn } from 'react-use';
 
 import LoadingIcon from '@/assets/loading.svg';
 import { ClickableButton } from '@/components/ClickableButton.js';
-import type { ThirdPartLoginType } from '@/constants/enum.js';
-import { NotImplementedError } from '@/constants/error.js';
+import { Source, type ThirdPartySource } from '@/constants/enum.js';
+import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
+import { getSnackbarMessageFromError } from '@/helpers/getSnackbarMessageFromError.js';
+import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 
 interface Props {
-    platform: ThirdPartLoginType;
+    source: ThirdPartySource;
 }
 
-export function ThirdPartConnectButton({ platform }: Props) {
+export function ThirdPartConnectButton({ source }: Props) {
     const [{ loading }, handleConnect] = useAsyncFn(async () => {
-        throw new NotImplementedError();
-    }, [platform]);
+        try {
+            switch (source) {
+                case Source.Telegram:
+                    const url = await FireflyEndpointProvider.getTelegramLoginUrl();
+                    if (!url) return;
+                    window.location.href = url;
+                    break;
+                case Source.Apple:
+                case Source.Google:
+                    signIn(source);
+                    break;
+                default:
+                    safeUnreachable(source);
+            }
+        } catch (error) {
+            enqueueErrorMessage(getSnackbarMessageFromError(error, `Failed to connect on ${source}`), {
+                error,
+            });
+            throw error;
+        }
+    }, [source]);
 
     if (loading) {
         return <LoadingIcon width={24} height={24} className="animate-spin text-lightMain" />;

@@ -1,29 +1,32 @@
-import { t, Trans } from '@lingui/macro';
+import { Trans } from '@lingui/macro';
 import type { FunctionComponent, SVGAttributes } from 'react';
 
 import { ThirdPartConnectButton } from '@/app/(settings)/components/ThirdPartConnectButton.js';
 import { ThirdPartDisconnectButton } from '@/app/(settings)/components/ThirdPartDisconnectButton.js';
-import AppleIcon from '@/assets/apple.svg';
-import GoogleIcon from '@/assets/google.svg';
+import AppleIcon from '@/assets/apple-small.svg';
+import GoogleIcon from '@/assets/google-small.svg';
 import TelegramIcon from '@/assets/telegram.svg';
-import { ThirdPartLoginType } from '@/constants/enum.js';
+import { Source, type ThirdPartySource } from '@/constants/enum.js';
 import { classNames } from '@/helpers/classNames.js';
+import { resolveSourceName } from '@/helpers/resolveSourceName.js';
+import { useThirdPartyStateStore } from '@/store/useProfileStore.js';
 
 interface ThirdPartItemProps {
-    platform: ThirdPartLoginType;
+    source: ThirdPartySource;
     icon: FunctionComponent<SVGAttributes<SVGElement>>;
     iconWidth: number;
     iconHeight: number;
     iconClassName?: string;
 }
 
-function ThirdPartItem({ platform, icon: PlatformIcon, iconClassName, iconWidth, iconHeight }: ThirdPartItemProps) {
-    const connected = true;
-    const platformName = {
-        [ThirdPartLoginType.Google]: t`Google`,
-        [ThirdPartLoginType.Telegram]: t`Telegram`,
-        [ThirdPartLoginType.Apple]: t`Apple ID`,
-    }[platform];
+function ThirdPartItem({ source, icon: PlatformIcon, iconClassName, iconWidth, iconHeight }: ThirdPartItemProps) {
+    const { accounts } = useThirdPartyStateStore();
+
+    const account = accounts.find((x) => x.profile.profileSource === source);
+
+    const connected = !!account;
+
+    console.log(source, account);
 
     return (
         <div className="mt-6 inline-flex h-[63px] w-full items-center justify-start gap-3 rounded-lg bg-white bg-bottom px-3 py-2 shadow-primary backdrop-blur dark:bg-bg">
@@ -31,40 +34,38 @@ function ThirdPartItem({ platform, icon: PlatformIcon, iconClassName, iconWidth,
                 <PlatformIcon width={iconWidth} height={iconHeight} />
             </div>
             <div className="flex min-w-0 flex-1 flex-col gap-0.5">
-                <span className="truncate text-base font-bold text-lightMain">{platformName}</span>
+                <span className="truncate text-base font-bold text-lightMain">
+                    {connected ? account.profile.displayName : resolveSourceName(source)}
+                </span>
                 <span className="truncate text-medium text-lightSecond">{'wenluo@mask.io'}</span>
             </div>
-            {connected ? (
-                <ThirdPartDisconnectButton platform={platform} />
-            ) : (
-                <ThirdPartConnectButton platform={platform} />
-            )}
+            {connected ? <ThirdPartDisconnectButton source={source} /> : <ThirdPartConnectButton source={source} />}
         </div>
     );
 }
 
-const platforms = [
+const platforms: ThirdPartItemProps[] = [
     {
-        platform: ThirdPartLoginType.Google,
+        source: Source.Google,
         icon: GoogleIcon,
         iconClassName: 'border border-[#E8E8FF] bg-white',
         iconWidth: 26,
         iconHeight: 25,
     },
     {
-        platform: ThirdPartLoginType.Telegram,
+        source: Source.Telegram,
         icon: TelegramIcon,
         iconWidth: 40,
         iconHeight: 40,
     },
     {
-        platform: ThirdPartLoginType.Apple,
+        source: Source.Apple,
         icon: AppleIcon,
         iconClassName: 'bg-black text-white dark:bg-white dark:text-black',
         iconWidth: 19,
         iconHeight: 24,
     },
-];
+] as const;
 
 export function ThirdPartAccounts() {
     return (
@@ -76,8 +77,8 @@ export function ThirdPartAccounts() {
             </div>
             {platforms.map((x) => (
                 <ThirdPartItem
-                    key={x.platform}
-                    platform={x.platform}
+                    key={x.source}
+                    source={x.source}
                     icon={x.icon}
                     iconWidth={x.iconWidth}
                     iconHeight={x.iconHeight}
