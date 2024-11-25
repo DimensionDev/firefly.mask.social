@@ -11,6 +11,7 @@ export function formatFarcasterProfileFromSuggestedFollow(user: FarcasterSuggest
         verified: false,
         fullHandle: user.username,
         profileId: `${user.fid}`,
+        profileSource: Source.Farcaster,
         handle: user.username,
         displayName: user.display_name,
         pfp: user.pfp,

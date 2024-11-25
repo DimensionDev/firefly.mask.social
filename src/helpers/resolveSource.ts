@@ -23,6 +23,9 @@ export const resolveSource = createLookupTableResolver<SourceInURL, Source>(
         [SourceInURL.NFTs]: Source.NFTs,
         [SourceInURL.Snapshot]: Source.Snapshot,
         [SourceInURL.Polymarket]: Source.Polymarket,
+        [SourceInURL.Telegram]: Source.Telegram,
+        [SourceInURL.Google]: Source.Google,
+        [SourceInURL.Apple]: Source.Apple,
     },
     (sourceInUrl) => {
         throw new UnreachableError('sourceInUrl', sourceInUrl);
@@ -62,13 +65,16 @@ export const resolveSocialSourceFromProfileSource = createLookupTableResolver<Pr
         [Source.Lens]: Source.Lens,
         [Source.Twitter]: Source.Twitter,
         [Source.Firefly]: Source.Farcaster,
+        [Source.Telegram]: Source.Farcaster,
+        [Source.Apple]: Source.Farcaster,
+        [Source.Google]: Source.Farcaster,
     },
     (source) => {
         throw new UnreachableError('profile source', source);
     },
 );
 
-export const resolveSourceFromSessionType = createLookupTableResolver<SessionType, Source>(
+export const resolveSourceFromSessionType = createLookupTableResolver<SessionType, ProfileSource>(
     {
         [SessionType.Farcaster]: Source.Farcaster,
         [SessionType.Lens]: Source.Lens,

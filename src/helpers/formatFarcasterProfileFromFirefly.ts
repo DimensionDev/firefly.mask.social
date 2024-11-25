@@ -8,6 +8,7 @@ export function formatFarcasterProfileFromFirefly(user: User): Profile {
     return {
         fullHandle: user.username || user.display_name,
         profileId: user.fid.toString(),
+        profileSource: Source.Farcaster,
         handle: user.username,
         displayName: user.display_name,
         pfp: user.pfp,

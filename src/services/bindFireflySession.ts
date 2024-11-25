@@ -7,6 +7,7 @@ import { resolveFireflyResponseData } from '@/helpers/resolveFireflyResponseData
 import { FAKE_SIGNER_REQUEST_TOKEN, FarcasterSession } from '@/providers/farcaster/Session.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
 import type { LensSession } from '@/providers/lens/Session.js';
+import type { ThirdPartySession } from '@/providers/third-party/Session.js';
 import { TwitterSession } from '@/providers/twitter/Session.js';
 import type { BindResponse } from '@/providers/types/Firefly.js';
 import type { Session } from '@/providers/types/Session.js';
@@ -82,6 +83,52 @@ async function bindTwitterSessionToFirefly(session: TwitterSession, signal?: Abo
     return data;
 }
 
+async function bindAppleSessionToFirefly(session: ThirdPartySession, signal?: AbortSignal) {
+    const response = await fireflySessionHolder.fetch<BindResponse>(
+        urlcat(settings.FIREFLY_ROOT_URL, '/v3/user/bindApple'),
+        {
+            method: 'POST',
+            body: JSON.stringify({
+                idToken: session.token,
+                nonce: session.payload?.nonce,
+            }),
+        },
+    );
+
+    const data = resolveFireflyResponseData(response);
+    return data;
+}
+
+async function bindGoogleSessionToFirefly(session: ThirdPartySession, signal?: AbortSignal) {
+    const response = await fireflySessionHolder.fetch<BindResponse>(
+        urlcat(settings.FIREFLY_ROOT_URL, '/v3/user/bindGoogle'),
+        {
+            method: 'POST',
+            body: JSON.stringify({
+                idToken: session.token,
+            }),
+        },
+    );
+
+    const data = resolveFireflyResponseData(response);
+    return data;
+}
+
+async function bindTelegramSessionToFirefly(session: ThirdPartySession, signal?: AbortSignal) {
+    const response = await fireflySessionHolder.fetch<BindResponse>(
+        urlcat(settings.FIREFLY_ROOT_URL, '/v3/user/bindTelegram'),
+        {
+            method: 'POST',
+            body: JSON.stringify({
+                telegramToken: session.token,
+            }),
+        },
+    );
+
+    const data = resolveFireflyResponseData(response);
+    return data;
+}
+
 /**
  * Bind a lens or farcaster session to the currently logged-in Firefly session.
  * @param session
@@ -102,9 +149,11 @@ async function bindFireflySession(session: Session, signal?: AbortSignal) {
         case SessionType.Firefly:
             throw new NotAllowedError();
         case SessionType.Apple:
+            return await bindAppleSessionToFirefly(session as ThirdPartySession, signal);
         case SessionType.Google:
+            return await bindGoogleSessionToFirefly(session as ThirdPartySession, signal);
         case SessionType.Telegram:
-            throw new NotAllowedError();
+            return await bindTelegramSessionToFirefly(session as ThirdPartySession, signal);
         default:
             safeUnreachable(session.type);
             throw new UnreachableError('[bindFireflySession] session type', session.type);

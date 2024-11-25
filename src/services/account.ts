@@ -1,14 +1,14 @@
 import { first, uniqBy } from 'lodash-es';
 import { signOut } from 'next-auth/react';
 
-import { type SocialSource, Source } from '@/constants/enum.js';
+import { type ProfileSource, type SocialSource, Source } from '@/constants/enum.js';
 import { SORTED_SOCIAL_SOURCES } from '@/constants/index.js';
 import { createDummyProfile } from '@/helpers/createDummyProfile.js';
 import { getProfileSessionsAll, getProfileState } from '@/helpers/getProfileState.js';
 import { isSameAccount } from '@/helpers/isSameAccount.js';
 import { isSameProfile } from '@/helpers/isSameProfile.js';
 import { isSameSession } from '@/helpers/isSameSession.js';
-import { resolveSessionHolder } from '@/helpers/resolveSessionHolder.js';
+import { resolveSessionHolder, resolveSessionHolderFromProfileSource } from '@/helpers/resolveSessionHolder.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { ConfirmFireflyModalRef, LoginModalRef } from '@/modals/controls.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
@@ -32,10 +32,10 @@ import { restoreFireflySession } from '@/services/restoreFireflySession.js';
 import { usePreferencesState } from '@/store/usePreferenceStore.js';
 import { useFireflyStateStore } from '@/store/useProfileStore.js';
 
-function getContext(source: SocialSource) {
+function getContext(source: ProfileSource) {
     return {
         state: getProfileState(source),
-        sessionHolder: resolveSessionHolder(source),
+        sessionHolder: resolveSessionHolderFromProfileSource(source),
     };
 }
 
@@ -167,7 +167,7 @@ export async function addAccount(account: Account, options?: AccountOptions) {
         signal,
     } = options ?? {};
 
-    const { state, sessionHolder } = getContext(account.profile.source);
+    const { state, sessionHolder } = getContext(account.profile.profileSource);
 
     const fireflySession = getFireflySession(account);
     const currentFireflySession = getProfileState(Source.Firefly).currentProfileSession;
@@ -190,7 +190,7 @@ export async function addAccount(account: Account, options?: AccountOptions) {
     if (!skipResumeFireflyAccounts && fireflySession) {
         const accountsSynced = await downloadAccounts(fireflySession, signal);
         const accountsFiltered = accountsSynced.filter((x) => {
-            const state = getProfileState(x.profile.source);
+            const state = getProfileState(x.profile.profileSource);
             return !state.accounts.find((y) => isSameAccount(x, y)) && !isSameAccount(x, account);
         });
         const accounts = (

@@ -1296,6 +1296,9 @@ msgstr "隐藏更多的评论"
 msgid "Malformed session."
 msgstr "会话格式错误。"
 
+msgid "Malformed third-party session payload."
+msgstr ""
+
 msgid "Upload"
 msgstr "上传"
 

@@ -64,6 +64,8 @@ import {
     type SearchNFTResponse,
     type SearchProfileResponse,
     type SearchTokenResponse,
+    type TelegramLoginBotResponse,
+    type TelegramLoginResponse,
     type TwitterUserInfoResponse,
     type WalletProfile,
     type WalletProfileResponse,
@@ -750,6 +752,30 @@ export class FireflyEndpoint {
             },
         );
         return resolveFireflyResponseData(response);
+    }
+
+    async getTelegramLoginUrl() {
+        const response = await fetchJSON<TelegramLoginBotResponse>(
+            urlcat(settings.FIREFLY_ROOT_URL, '/v3/auth/get/telegram/bot/url', { os: 'web' }),
+        );
+
+        const data = resolveFireflyResponseData(response);
+
+        return data.url;
+    }
+
+    async loginTelegram(telegramToken: string) {
+        const response = await fetchJSON<TelegramLoginResponse>(
+            urlcat(settings.FIREFLY_ROOT_URL, '/v3/auth/telegram/login'),
+            {
+                method: 'POST',
+                body: JSON.stringify({ telegramToken }),
+            },
+        );
+
+        const data = resolveFireflyResponseData(response);
+
+        return data;
     }
 }
 
