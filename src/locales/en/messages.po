@@ -1273,6 +1273,9 @@ msgstr "Sync"
 msgid "Description"
 msgstr "Description"
 
+msgid "Others"
+msgstr "Others"
+
 msgid "Muted wallets"
 msgstr "Muted wallets"
 
