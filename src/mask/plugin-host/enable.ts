@@ -9,7 +9,7 @@ import { BooleanPreference, createI18NBundle, i18NextInstance } from '@masknet/s
 import { Emitter } from '@servie/events';
 
 import { EnhanceableSite } from '@/constants/enum.js';
-import { createRejectCallback } from '@/helpers/createRejectCallback.js';
+import { createRejectCallback } from '@/mask/helpers/createRejectCallback.js';
 import { setupReactShadowRootEnvironment } from '@/mask/bindings/components.js';
 import { createMaskSiteAdaptorContext, createMaskUIContext } from '@/mask/helpers/createMaskContext.js';
 import { indexedDBStorage, inMemoryStorage } from '@/mask/setup/storage.js';

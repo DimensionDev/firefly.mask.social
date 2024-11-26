@@ -22,7 +22,7 @@ import { env } from '@/constants/env.js';
 import { MAX_POST_SIZE_PER_THREAD, SORTED_CHANNEL_SOURCES, SORTED_SOCIAL_SOURCES } from '@/constants/index.js';
 import { measureChars } from '@/helpers/chars.js';
 import { classNames } from '@/helpers/classNames.js';
-import { connectMaskWithWagmi } from '@/helpers/connectWagmiWithMask.js';
+import { connectMaskWithWagmi } from '@/mask/helpers/connectWagmiWithMask.js';
 import { getCurrentPostImageLimits } from '@/helpers/getCurrentPostImageLimits.js';
 import { useCompositePost } from '@/hooks/useCompositePost.js';
 import { useCurrentProfileAll } from '@/hooks/useCurrentProfile.js';

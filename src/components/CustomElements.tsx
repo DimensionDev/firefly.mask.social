@@ -6,7 +6,7 @@ import { useAccount, useChainId } from 'wagmi';
 
 import { NODE_ENV, VERCEL_NEV } from '@/constants/enum.js';
 import { env } from '@/constants/env.js';
-import { connectMaskWithWagmi } from '@/helpers/connectWagmiWithMask.js';
+import { connectMaskWithWagmi } from '@/mask/helpers/connectWagmiWithMask.js';
 import { getTypedMessageRedPacket } from '@/helpers/getTypedMessage.js';
 import { getRpMetadata } from '@/helpers/rpPayload.js';
 import { CrossIsolationMessages } from '@/mask/bindings/index.js';
@@ -17,7 +17,7 @@ export default function CustomElements() {
     const account = useAccount();
     const chainId = useChainId();
 
-    const { value } = useAsync(async () => {
+    const { value = false } = useAsync(async () => {
         await import('@masknet/flags/build-info').then((module) => {
             module.setupBuildInfoManually({
                 channel:
