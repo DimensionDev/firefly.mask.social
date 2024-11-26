@@ -28,7 +28,7 @@ export const SnapshotResults = memo<SnapshotResultsProps>(function SnapshotResul
     votes,
 }) {
     return (
-        <div className="no-scrollbar flex flex-col max-md:h-[270px] md:h-[374px]">
+        <div className="no-scrollbar flex flex-col overflow-auto max-md:h-[270px] md:h-[374px]">
             <div className="text-base font-bold">
                 {status === SnapshotState.Closed ? <Trans>Results</Trans> : <Trans>Current Results</Trans>}
             </div>

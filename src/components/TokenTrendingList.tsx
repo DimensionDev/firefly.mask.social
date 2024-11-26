@@ -27,6 +27,8 @@ export function TokenTrendingList({ type }: { type: TrendingType }) {
             }
         },
         networkMode: 'always',
+        staleTime: 0,
+        gcTime: 0,
     });
 
     if (!data.length && !isFetching) {

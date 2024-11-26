@@ -15,7 +15,10 @@ export function SourceTabs({ className, children }: PropsWithChildren<HTMLProps<
 
     const updateButtons = useCallback(() => {
         const nav = navRef.current;
-        if (!nav) return;
+        if (!nav) {
+            setOverflowed(false);
+            return;
+        }
         const threshold = 5;
         setOverflowed(nav.scrollWidth > nav.offsetWidth);
 
@@ -43,17 +46,15 @@ export function SourceTabs({ className, children }: PropsWithChildren<HTMLProps<
                 className,
             )}
         >
-            {overflowed ? (
-                <ClickableButton
-                    className="h-6 w-6 rotate-180 disabled:pointer-events-none disabled:!opacity-0"
-                    disabled={!leftActive}
-                    onClick={() => {
-                        navRef.current?.scrollTo({ left: 0, behavior: 'smooth' });
-                    }}
-                >
-                    <RightArrowIcon width={24} height={24} />
-                </ClickableButton>
-            ) : null}
+            <ClickableButton
+                className="hidden h-6 w-6 rotate-180 text-second disabled:pointer-events-none disabled:!opacity-0 md:inline-block"
+                disabled={!leftActive || !overflowed}
+                onClick={() => {
+                    navRef.current?.scrollTo({ left: 0, behavior: 'smooth' });
+                }}
+            >
+                <RightArrowIcon width={24} height={24} />
+            </ClickableButton>
             <nav
                 className="no-scrollbar flex min-w-0 flex-grow gap-3 overflow-x-auto text-xl"
                 aria-label="Tabs"
@@ -62,19 +63,17 @@ export function SourceTabs({ className, children }: PropsWithChildren<HTMLProps<
             >
                 {children}
             </nav>
-            {overflowed ? (
-                <ClickableButton
-                    className="h-6 w-6 disabled:pointer-events-none disabled:!opacity-0"
-                    disabled={rightActive}
-                    onClick={() => {
-                        const nav = navRef.current;
-                        if (!nav) return;
-                        nav.scrollTo({ left: nav.scrollWidth - nav.offsetWidth, behavior: 'smooth' });
-                    }}
-                >
-                    <RightArrowIcon width={24} height={24} />
-                </ClickableButton>
-            ) : null}
+            <ClickableButton
+                className="hidden h-6 w-6 text-second disabled:pointer-events-none disabled:!opacity-0 md:inline-block"
+                disabled={rightActive || !overflowed}
+                onClick={() => {
+                    const nav = navRef.current;
+                    if (!nav) return;
+                    nav.scrollTo({ left: nav.scrollWidth - nav.offsetWidth, behavior: 'smooth' });
+                }}
+            >
+                <RightArrowIcon width={24} height={24} />
+            </ClickableButton>
         </div>
     );
 }
