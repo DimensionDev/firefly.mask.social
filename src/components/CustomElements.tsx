@@ -6,10 +6,10 @@ import { useAccount, useChainId } from 'wagmi';
 
 import { NODE_ENV, VERCEL_NEV } from '@/constants/enum.js';
 import { env } from '@/constants/env.js';
-import { connectMaskWithWagmi } from '@/mask/helpers/connectWagmiWithMask.js';
 import { getTypedMessageRedPacket } from '@/helpers/getTypedMessage.js';
 import { getRpMetadata } from '@/helpers/rpPayload.js';
 import { CrossIsolationMessages } from '@/mask/bindings/index.js';
+import { connectMaskWithWagmi } from '@/mask/helpers/connectWagmiWithMask.js';
 import { captureLuckyDropEvent } from '@/providers/telemetry/captureLuckyDropEvent.js';
 import { useComposeStateStore } from '@/store/useComposeStore.js';
 

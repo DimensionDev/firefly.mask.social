@@ -1,7 +1,7 @@
 import { EMPTY_ARRAY } from '@/constants/subscription.js';
+import { initWallet, type WalletAPI } from '@/mask/bindings/index.js';
 import { connectMaskWithWagmi } from '@/mask/helpers/connectWagmiWithMask.js';
 import { createRejectCallback } from '@/mask/helpers/createRejectCallback.js';
-import { initWallet, type WalletAPI } from '@/mask/bindings/index.js';
 
 const WalletIO: WalletAPI.IOContext = {
     MaskWalletContext: {
