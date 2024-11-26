@@ -891,9 +891,6 @@ msgstr ""
 msgid "Active"
 msgstr ""
 
-msgid "Connection failed"
-msgstr ""
-
 msgid "Owner can't change balance"
 msgstr ""
 

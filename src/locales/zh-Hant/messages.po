@@ -891,9 +891,6 @@ msgstr "<0>已購買</0>一個 NFT"
 msgid "Active"
 msgstr ""
 
-msgid "Connection failed"
-msgstr "連結失敗"
-
 msgid "Owner can't change balance"
 msgstr "所有者無法更改餘額"
 

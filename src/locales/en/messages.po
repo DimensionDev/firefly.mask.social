@@ -886,9 +886,6 @@ msgstr "<0>Bought</0> an NFT"
 msgid "Active"
 msgstr "Active"
 
-msgid "Connection failed"
-msgstr "Connection failed"
-
 msgid "Owner can't change balance"
 msgstr "Owner can't change balance"
 
