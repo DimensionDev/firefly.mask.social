@@ -82,7 +82,6 @@
             ],
             "@masknet/shared": ["./src/maskbook/packages/shared/src/index.ts"],
             "@masknet/shared-base": ["./src/maskbook/packages/shared-base/src/index.ts"],
-            "@masknet/shared-base-ui": ["./src/maskbook/packages/shared-base-ui/src/index.ts"],
             "@masknet/theme": ["./src/maskbook/packages/theme/src/index.ts"],
             "@masknet/typed-message": ["./src/maskbook/packages/typed-message/base/src/index.ts"],
             "@masknet/typed-message/internal": ["./src/maskbook/packages/typed-message/base/src/internal.ts"],

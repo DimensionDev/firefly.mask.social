@@ -1,7 +1,6 @@
 import { formatBalance } from '@/helpers/formatBalance.js';
+import { multipliedBy } from '@/helpers/number.js';
 import { useCoinInfo } from '@/hooks/useCoinInfo.js';
-// eslint-disable-next-line no-restricted-imports
-import { multipliedBy } from '@/maskbook/packages/web3-shared/base/src/helpers/number.js';
 
 interface Props {
     value: number | string;
