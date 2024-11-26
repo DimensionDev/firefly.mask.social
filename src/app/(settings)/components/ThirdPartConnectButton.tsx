@@ -15,7 +15,7 @@ interface Props {
 }
 
 export function ThirdPartConnectButton({ source }: Props) {
-    const [{ loading }, handleConnect] = useAsyncFn(async () => {
+    const [{ loading }, handleConnect] = useAsyncFn(async (source: ThirdPartySource) => {
         try {
             switch (source) {
                 case Source.Telegram:
@@ -25,7 +25,7 @@ export function ThirdPartConnectButton({ source }: Props) {
                     break;
                 case Source.Apple:
                 case Source.Google:
-                    signIn(source);
+                    await signIn(source);
                     break;
                 default:
                     safeUnreachable(source);
@@ -36,7 +36,7 @@ export function ThirdPartConnectButton({ source }: Props) {
             });
             throw error;
         }
-    }, [source]);
+    }, []);
 
     if (loading) {
         return <LoadingIcon width={24} height={24} className="animate-spin text-lightMain" />;
@@ -46,7 +46,7 @@ export function ThirdPartConnectButton({ source }: Props) {
         <ClickableButton
             className="text-medium font-bold leading-4 text-lightMain"
             disabled={loading}
-            onClick={handleConnect}
+            onClick={() => handleConnect(source)}
         >
             <Trans>Connect</Trans>
         </ClickableButton>
