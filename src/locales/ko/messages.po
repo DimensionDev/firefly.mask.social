@@ -66,6 +66,9 @@ msgstr ""
 msgid "New connect with Warpcast"
 msgstr ""
 
+msgid "You have been detected as a loyal Farcaster user"
+msgstr ""
+
 msgid "Edit Image"
 msgstr ""
 
@@ -595,6 +598,9 @@ msgid "{0, select, Image {[Image]} Video {[Video]} Audio {[Audio]} Poll {[Poll]}
 msgstr ""
 
 msgid "Failed to follow @{0} on {sourceName}."
+msgstr ""
+
+msgid "Your assets on $DEGEN or $ANON exceed US$10,000"
 msgstr ""
 
 msgid "Attendees"
@@ -2497,6 +2503,9 @@ msgid "Developers"
 msgstr ""
 
 msgid "Share to"
+msgstr ""
+
+msgid "Meet any of the following to unlock a premium collectible and get more $ANON:"
 msgstr ""
 
 msgid "Non-sanctioned address."

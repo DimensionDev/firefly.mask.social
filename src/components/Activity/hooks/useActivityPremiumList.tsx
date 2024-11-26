@@ -12,49 +12,67 @@ export function useActivityPremiumList() {
     const { data } = useActivityClaimCondition();
     const { data: isInvolvedElex24 } = useActivityElex24Involved();
 
-    if (name === 'elex24') {
-        return [
-            {
-                label: <Trans>Your X account holds Premium status</Trans>,
-                verified: data?.x?.level === Level.Lv2,
-            },
-            {
-                label: <Trans>Your Farcaster account holds Power Badge</Trans>,
-                verified: data?.farcaster.isPowerUser,
-            },
-            {
-                label: (
-                    <span>
-                        <Trans>
-                            Get involved in the{' '}
-                            <Link
-                                href="https://polymarket.com/event/presidential-election-winner-2024?tid=1729592888743"
-                                target="_blank"
-                                className="inline text-highlight"
-                            >
-                                Presidential Election Winner 2024
-                            </Link>{' '}
-                            on Polymarket
-                        </Trans>
-                    </span>
-                ),
-                verified: isInvolvedElex24,
-            },
-        ];
+    switch (name) {
+        case 'elex24':
+            return [
+                {
+                    label: <Trans>Your X account holds Premium status</Trans>,
+                    verified: data?.x?.level === Level.Lv2,
+                },
+                {
+                    label: <Trans>Your Farcaster account holds Power Badge</Trans>,
+                    verified: data?.farcaster.isPowerUser,
+                },
+                {
+                    label: (
+                        <span>
+                            <Trans>
+                                Get involved in the{' '}
+                                <Link
+                                    href="https://polymarket.com/event/presidential-election-winner-2024?tid=1729592888743"
+                                    target="_blank"
+                                    className="inline text-highlight"
+                                >
+                                    Presidential Election Winner 2024
+                                </Link>{' '}
+                                on Polymarket
+                            </Trans>
+                        </span>
+                    ),
+                    verified: isInvolvedElex24,
+                },
+            ];
+        case 'hlbl':
+            return [
+                {
+                    label: <Trans>Your X account holds Premium status</Trans>,
+                    verified: data?.x?.level === Level.Lv2,
+                },
+                {
+                    label: <Trans>Your Farcaster account holds Power Badge</Trans>,
+                    verified: data?.farcaster.isPowerUser,
+                },
+                {
+                    label: <Trans>Your assets on Base Chain are worth over US$10,000</Trans>,
+                    verified: data?.balance?.level === Level.Lv2,
+                },
+            ];
+        case 'frensgiving':
+            return [
+                {
+                    label: <Trans>Your Farcaster account holds Power Badge</Trans>,
+                    verified: false,
+                },
+                {
+                    label: <Trans>You have been detected as a loyal Farcaster user</Trans>,
+                    verified: false,
+                },
+                {
+                    label: <Trans>Your assets on $DEGEN or $ANON exceed US$10,000</Trans>,
+                    verified: false,
+                },
+            ];
+        default:
+            return [];
     }
-
-    return [
-        {
-            label: <Trans>Your X account holds Premium status</Trans>,
-            verified: data?.x?.level === Level.Lv2,
-        },
-        {
-            label: <Trans>Your Farcaster account holds Power Badge</Trans>,
-            verified: data?.farcaster.isPowerUser,
-        },
-        {
-            label: <Trans>Your assets on Base Chain are worth over US$10,000</Trans>,
-            verified: data?.balance?.level === Level.Lv2,
-        },
-    ];
 }

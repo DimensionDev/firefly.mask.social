@@ -128,7 +128,14 @@ export function ActivityHlblTasks({ data }: { data: Pick<Required<ActivityInfoRe
                     <Trans>Step 2 Connect Wallet</Trans>
                 </h2>
                 <ActivityConnectCard source={Source.Twitter} />
-                <ActivityPremiumConditionList />
+                <div className="flex w-full flex-col space-y-2 text-sm font-semibold leading-6">
+                    <h2 className="text-base font-semibold leading-6">
+                        <Trans>Final Step Claim Now!</Trans>
+                    </h2>
+                    <ActivityPremiumConditionList
+                        title={<Trans>Hold on! Meet any of the following to unlock a premium collectible:</Trans>}
+                    />
+                </div>
             </div>
             <div className="sticky bottom-0 mt-auto w-full bg-primaryBottom px-4 pt-1.5 pb-safe-or-4 sm:pb-safe-or-2">
                 <ActivityClaimButton

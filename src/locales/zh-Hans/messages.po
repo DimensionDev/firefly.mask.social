@@ -66,6 +66,9 @@ msgstr "允许收藏"
 msgid "New connect with Warpcast"
 msgstr "使用 Warpcast 连接"
 
+msgid "You have been detected as a loyal Farcaster user"
+msgstr ""
+
 msgid "Edit Image"
 msgstr "修改图片"
 
@@ -596,6 +599,9 @@ msgstr "{0, select, Image {[图片]} Video {[视频]} Audio {[音频]} Poll {[�
 
 msgid "Failed to follow @{0} on {sourceName}."
 msgstr "在 {sourceName} 上关注 @{0} 失败。"
+
+msgid "Your assets on $DEGEN or $ANON exceed US$10,000"
+msgstr ""
 
 msgid "Attendees"
 msgstr "出席人数"
@@ -2498,6 +2504,9 @@ msgstr "开发者"
 
 msgid "Share to"
 msgstr "分享到"
+
+msgid "Meet any of the following to unlock a premium collectible and get more $ANON:"
+msgstr ""
 
 msgid "Non-sanctioned address."
 msgstr "非黑名单地址。"

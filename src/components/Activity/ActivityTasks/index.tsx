@@ -1,4 +1,3 @@
-/* cspell:disable */
 'use client';
 
 import { ActivityElex24Tasks } from '@/components/Activity/ActivityTasks/ActivityElex24Tasks.js';

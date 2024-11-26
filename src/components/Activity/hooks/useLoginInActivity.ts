@@ -1,7 +1,7 @@
 import { t } from '@lingui/macro';
 import { useAsyncFn } from 'react-use';
 
-import { resolveSocialSourceToFireflyBridgePlatform } from '@/components/Activity/helpers/resolveSocialSourceToFireflyBridgePlatform.js';
+import { resolveFireflyBridgePlatformFromSocialSource } from '@/components/Activity/helpers/resolveFireflyBridgePlatformFromSocialSource.js';
 import { useCaptureActivityEvent } from '@/components/Activity/hooks/useCaptureActivityEvent.js';
 import { type SocialSource, Source } from '@/constants/enum.js';
 import { enqueueErrorMessage, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
@@ -20,7 +20,7 @@ export function useLoginInActivity() {
         if (fireflyBridgeProvider.supported) {
             try {
                 const result = await fireflyBridgeProvider.request(SupportedMethod.LOGIN, {
-                    platform: resolveSocialSourceToFireflyBridgePlatform(source),
+                    platform: resolveFireflyBridgePlatformFromSocialSource(source),
                 });
                 await queryFireflyBridgeAuthorization.refetch();
                 if (result === 'true') {

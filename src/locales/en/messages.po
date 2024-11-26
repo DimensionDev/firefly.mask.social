@@ -61,6 +61,9 @@ msgstr "Allow Collect Module"
 msgid "New connect with Warpcast"
 msgstr "New connect with Warpcast"
 
+msgid "You have been detected as a loyal Farcaster user"
+msgstr "You have been detected as a loyal Farcaster user"
+
 msgid "Edit Image"
 msgstr "Edit Image"
 
@@ -591,6 +594,9 @@ msgstr "{0, select, Image {[Image]} Video {[Video]} Audio {[Audio]} Poll {[Poll]
 
 msgid "Failed to follow @{0} on {sourceName}."
 msgstr "Failed to follow @{0} on {sourceName}."
+
+msgid "Your assets on $DEGEN or $ANON exceed US$10,000"
+msgstr "Your assets on $DEGEN or $ANON exceed US$10,000"
 
 msgid "Attendees"
 msgstr "Attendees"
@@ -2493,6 +2499,9 @@ msgstr "Developers"
 
 msgid "Share to"
 msgstr "Share to"
+
+msgid "Meet any of the following to unlock a premium collectible and get more $ANON:"
+msgstr "Meet any of the following to unlock a premium collectible and get more $ANON:"
 
 msgid "Non-sanctioned address."
 msgstr "Non-sanctioned address."

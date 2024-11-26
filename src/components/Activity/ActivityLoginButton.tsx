@@ -2,13 +2,11 @@
 
 import { Trans } from '@lingui/macro';
 
-import FarcasterIcon from '@/assets/farcaster-fill.svg';
-import LensIcon from '@/assets/lens-fill.svg';
 import LoadingIcon from '@/assets/loading.svg';
-import TwitterIcon from '@/assets/x-fill.svg';
 import { useIsLoginInActivity } from '@/components/Activity/hooks/useIsLoginInActivity.js';
 import { useLoginInActivity } from '@/components/Activity/hooks/useLoginInActivity.js';
-import { type SocialSource, Source } from '@/constants/enum.js';
+import { SocialSourceIcon } from '@/components/SocialSourceIcon.js';
+import { type SocialSource } from '@/constants/enum.js';
 import { classNames } from '@/helpers/classNames.js';
 import { useAsyncStatus } from '@/hooks/useAsyncStatus.js';
 
@@ -40,13 +38,7 @@ export function ActivityLoginButton({ source }: { source: SocialSource }) {
                     'opacity-0': isLoading,
                 })}
             >
-                {
-                    {
-                        [Source.Farcaster]: <FarcasterIcon className="mr-2 h-4 w-4 shrink-0" />,
-                        [Source.Lens]: <LensIcon className="mr-2 h-4 w-4 shrink-0" />,
-                        [Source.Twitter]: <TwitterIcon className="mr-2 h-4 w-4 shrink-0" />,
-                    }[source]
-                }
+                <SocialSourceIcon size={16} className="mr-2 h-4 w-4 shrink-0" source={source} />
                 <Trans>Sign in</Trans>
             </span>
         </button>

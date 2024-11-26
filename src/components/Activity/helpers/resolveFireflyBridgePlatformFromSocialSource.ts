@@ -4,7 +4,7 @@ import { type SocialSource, Source } from '@/constants/enum.js';
 import { UnreachableError } from '@/constants/error.js';
 import { Platform } from '@/types/bridge.js';
 
-export const resolveSocialSourceToFireflyBridgePlatform = createLookupTableResolver<SocialSource, Platform>(
+export const resolveFireflyBridgePlatformFromSocialSource = createLookupTableResolver<SocialSource, Platform>(
     {
         [Source.Twitter]: Platform.TWITTER,
         [Source.Farcaster]: Platform.FARCASTER,
