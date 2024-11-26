@@ -38,7 +38,7 @@ export function SourceTabs({ className, children }: PropsWithChildren<HTMLProps<
     return (
         <div
             className={classNames(
-                'no-scrollbar sticky top-[54px] z-40 flex w-full items-center overflow-x-auto overflow-y-hidden border-b border-line bg-primaryBottom md:top-0',
+                'no-scrollbar sticky top-[54px] z-30 flex w-full items-center overflow-x-auto overflow-y-hidden border-b border-line bg-primaryBottom md:top-0',
                 {
                     'top-[53px]': IS_APPLE && IS_SAFARI,
                 },

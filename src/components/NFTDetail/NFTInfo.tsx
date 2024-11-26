@@ -1,6 +1,6 @@
 'use client';
 
-import { Trans } from '@lingui/macro';
+import { t, Trans } from '@lingui/macro';
 import { ChainId } from '@masknet/web3-shared-evm';
 import { type ReactNode, useMemo } from 'react';
 import { useEnsName } from 'wagmi';
@@ -83,7 +83,7 @@ export function NFTInfo(props: NFTInfoProps) {
             </div>
             <div className="flex w-full flex-1 flex-col sm:w-[calc(100%-20px-250px)]">
                 <div className="w-full space-y-3">
-                    <div className="flex w-full flex-col items-center justify-center space-y-3 sm:justify-start">
+                    <div className="flex w-full flex-col items-center justify-center gap-2 sm:justify-start">
                         {!isPoap && collection ? (
                             <Link
                                 href={collectionUrl}
@@ -100,7 +100,7 @@ export function NFTInfo(props: NFTInfoProps) {
                                 ) : null}
                                 <TextOverflowTooltip content={collection.name}>
                                     <div className="max-w-[calc(100%-20px-16px-8px-8px)] truncate">
-                                        {collection.name}
+                                        {collection.name || t`Unknown Collection`}
                                     </div>
                                 </TextOverflowTooltip>
                                 <LinkIcon className="ml-1 h-4 w-4 min-w-4 text-secondary" />
@@ -109,7 +109,7 @@ export function NFTInfo(props: NFTInfoProps) {
                         <TextOverflowTooltip content={name}>
                             <div
                                 className={classNames(
-                                    'mt-2 line-clamp-2 w-full text-center text-2xl font-bold leading-6 sm:text-left',
+                                    'line-clamp-2 w-full text-center text-2xl font-bold leading-8 sm:text-left',
                                     tokenNameClassName,
                                 )}
                             >

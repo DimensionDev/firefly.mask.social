@@ -417,9 +417,6 @@ msgstr ""
 msgid "Tokens"
 msgstr ""
 
-msgid "Search profile"
-msgstr ""
-
 msgid "Search {id}"
 msgstr ""
 
@@ -892,9 +889,6 @@ msgid "<0>Bought</0> an NFT"
 msgstr ""
 
 msgid "Active"
-msgstr ""
-
-msgid "Connection failed"
 msgstr ""
 
 msgid "Owner can't change balance"
@@ -1645,6 +1639,9 @@ msgid "Posts from @{0} will now be hidden in your home timeline"
 msgstr ""
 
 msgid "commented"
+msgstr ""
+
+msgid "Unknown Collection"
 msgstr ""
 
 msgid "Validate failed, please check your input."

@@ -417,9 +417,6 @@ msgstr "举报帖子"
 msgid "Tokens"
 msgstr ""
 
-msgid "Search profile"
-msgstr ""
-
 msgid "Search {id}"
 msgstr ""
 
@@ -893,9 +890,6 @@ msgstr "<0>购买</0> 一个 NFT"
 
 msgid "Active"
 msgstr "进行中"
-
-msgid "Connection failed"
-msgstr "连接失败"
 
 msgid "Owner can't change balance"
 msgstr "所有者不能更改余额"
@@ -1646,6 +1640,9 @@ msgstr "@{0} 的帖子会从您的时间线中隐藏"
 
 msgid "commented"
 msgstr "已回复"
+
+msgid "Unknown Collection"
+msgstr ""
 
 msgid "Validate failed, please check your input."
 msgstr "验证失败，请检查您的输入。"
