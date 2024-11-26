@@ -7,6 +7,7 @@ import { EstimateGasExecutionError, UserRejectedRequestError } from 'viem';
 import { SnackbarErrorMessage } from '@/components/SnackbarErrorMessage.js';
 import { FarcasterInvalidSignerKey, FetchError, UserRejectionError } from '@/constants/error.js';
 import { getErrorMessageFromFetchError } from '@/helpers/getErrorMessageFromFetchError.js';
+import { WarnSnackbar } from '@/components/WarnSnackbar.js';
 
 type SolanaError = {
     code: number;
@@ -47,12 +48,7 @@ export function getSnackbarMessageFromError(error: unknown, fallback: string): S
     }
 
     if (error instanceof UserRejectionError) {
-        return (
-            <SnackbarErrorMessage
-                title={<Trans>Canceled</Trans>}
-                message={<Trans>The user canceled the operation.</Trans>}
-            />
-        );
+        return <WarnSnackbar id="user-rejection" message={<Trans>The user rejected the request.</Trans>} />;
     }
 
     {
@@ -63,12 +59,7 @@ export function getSnackbarMessageFromError(error: unknown, fallback: string): S
             (error.message.includes(message) ||
                 ('error' in error && (error.error as SolanaError).message?.includes(message)))
         ) {
-            return (
-                <SnackbarErrorMessage
-                    title={<Trans>Rejected</Trans>}
-                    message={<Trans>The user rejected the request.</Trans>}
-                />
-            );
+            return <WarnSnackbar id="solana-user-rejection" message={<Trans>The user rejected the request.</Trans>} />;
         }
     }
 
@@ -81,10 +72,7 @@ export function getSnackbarMessageFromError(error: unknown, fallback: string): S
             visited.add(currentError);
             if (currentError instanceof UserRejectedRequestError) {
                 return (
-                    <SnackbarErrorMessage
-                        title={<Trans>Rejected</Trans>}
-                        message={<Trans>The user rejected the request.</Trans>}
-                    />
+                    <WarnSnackbar id="viem-user-rejection" message={<Trans>The user rejected the request.</Trans>} />
                 );
             }
             currentError = currentError.cause;
