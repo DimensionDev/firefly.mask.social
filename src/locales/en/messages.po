@@ -217,9 +217,6 @@ msgstr "This token is a gas abuser."
 msgid "Ended"
 msgstr "Ended"
 
-msgid "Failed to follow @{handle} on X."
-msgstr "Failed to follow @{handle} on X."
-
 msgid "No cryptocurrency mixer found."
 msgstr "No cryptocurrency mixer found."
 
@@ -321,6 +318,9 @@ msgstr "Scheduled"
 
 msgid "Pay"
 msgstr "Pay"
+
+msgid "Followed @{handle} on {0}."
+msgstr "Followed @{handle} on {0}."
 
 msgid "Failed to add wallet"
 msgstr "Failed to add wallet"
@@ -468,6 +468,9 @@ msgstr "<0>{0}</0><1>mirrored</1>"
 
 msgid "True Token"
 msgstr "True Token"
+
+msgid "Failed to follow @{handle} on {0}."
+msgstr "Failed to follow @{handle} on {0}."
 
 msgid "Bookmarks"
 msgstr "Bookmarks"
@@ -2217,9 +2220,6 @@ msgstr "Schedule"
 
 msgid "No cybercrime involved."
 msgstr "No cybercrime involved."
-
-msgid "Followed @{handle} on X."
-msgstr "Followed @{handle} on X."
 
 msgid "Casts + Replies"
 msgstr "Casts + Replies"

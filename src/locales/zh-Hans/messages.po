@@ -222,9 +222,6 @@ msgstr "该通证是一个燃料滥用者。"
 msgid "Ended"
 msgstr "已结束"
 
-msgid "Failed to follow @{handle} on X."
-msgstr "未能在 X 上关注 @{handle}。"
-
 msgid "No cryptocurrency mixer found."
 msgstr "未涉及加密货币混合器。"
 
@@ -326,6 +323,9 @@ msgstr "已定时"
 
 msgid "Pay"
 msgstr "付款"
+
+msgid "Followed @{handle} on {0}."
+msgstr ""
 
 msgid "Failed to add wallet"
 msgstr "添加钱包失败"
@@ -473,6 +473,9 @@ msgstr "<0>{0}</0><1>转帖</1>"
 
 msgid "True Token"
 msgstr "真实的通证"
+
+msgid "Failed to follow @{handle} on {0}."
+msgstr ""
 
 msgid "Bookmarks"
 msgstr "收藏"
@@ -2222,9 +2225,6 @@ msgstr "定时"
 
 msgid "No cybercrime involved."
 msgstr "不涉及网络犯罪。"
-
-msgid "Followed @{handle} on X."
-msgstr "在 X 上关注 @{handle}"
 
 msgid "Casts + Replies"
 msgstr "帖子+回复"
