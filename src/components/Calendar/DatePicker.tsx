@@ -1,32 +1,27 @@
-import { addMonths, endOfMonth, format, isAfter, startOfMonth } from 'date-fns';
+import { addMonths, endOfMonth, format, startOfMonth } from 'date-fns';
 import { range } from 'lodash-es';
-import { useMemo, useState } from 'react';
+import { useState } from 'react';
 
 import RightArrowIcon from '@/assets/right-arrow.svg';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { classNames } from '@/helpers/classNames.js';
 
-interface DatePickerProps {
+export interface DatePickerProps {
     open: boolean;
     onToggle: (x: boolean) => void;
     date: Date;
-    onChange: (date: Date) => void;
+    /** locale date string list */
     allowedDates: string[];
+    onChange: (date: Date) => void;
+    onMonthChange: (date: Date) => void;
 }
 
-export function DatePicker({ date, onChange, open, onToggle, allowedDates }: DatePickerProps) {
+export function DatePicker({ date, onChange, open, onToggle, allowedDates, onMonthChange }: DatePickerProps) {
     const [currentDate, setCurrentDate] = useState(date);
     const monthStart = startOfMonth(currentDate);
     const startingDayOfWeek = monthStart.getDay();
     const daysInMonth = endOfMonth(currentDate).getDate();
     const daysInPrevMonth = endOfMonth(addMonths(currentDate, -1)).getDate();
-
-    const isPrevMonthDisabled = useMemo(() => {
-        return !isAfter(currentDate, endOfMonth(new Date()));
-    }, [currentDate]);
-    const isNextMonthDisabled = useMemo(() => {
-        return isAfter(addMonths(currentDate, 1), addMonths(endOfMonth(new Date()), 2));
-    }, [currentDate]);
 
     const handleDateClick = (date: Date) => {
         onChange(date);
@@ -34,7 +29,9 @@ export function DatePicker({ date, onChange, open, onToggle, allowedDates }: Dat
     };
 
     const handleMonthClick = (amount: number) => {
-        setCurrentDate(addMonths(currentDate, amount));
+        const newDate = addMonths(currentDate, amount);
+        setCurrentDate(newDate);
+        onMonthChange(newDate);
     };
 
     if (!open) return null;
@@ -114,10 +111,10 @@ export function DatePicker({ date, onChange, open, onToggle, allowedDates }: Dat
             <div className="flex items-center justify-between">
                 <p className="pl-2 font-bold text-main">{format(currentDate, 'MMMM yyyy')}</p>
                 <div className="flex items-center">
-                    <ClickableButton onClick={() => handleMonthClick(-1)} disabled={isPrevMonthDisabled}>
+                    <ClickableButton onClick={() => handleMonthClick(-1)}>
                         <RightArrowIcon className="rotate-180" width={24} height={24} />
                     </ClickableButton>
-                    <ClickableButton onClick={() => handleMonthClick(1)} disabled={isNextMonthDisabled}>
+                    <ClickableButton onClick={() => handleMonthClick(1)}>
                         <RightArrowIcon width={24} height={24} />
                     </ClickableButton>
                 </div>

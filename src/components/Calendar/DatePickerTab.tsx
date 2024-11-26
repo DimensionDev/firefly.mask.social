@@ -3,19 +3,13 @@ import { eachDayOfInterval, endOfWeek, startOfWeek } from 'date-fns';
 import React, { useMemo } from 'react';
 
 import CalendarIcon from '@/assets/calendar.svg';
-import { DatePicker } from '@/components/Calendar/DatePicker.js';
+import { DatePicker, type DatePickerProps } from '@/components/Calendar/DatePicker.js';
 import { classNames } from '@/helpers/classNames.js';
 
-interface DatePickerTabProps {
-    open: boolean;
-    onToggle: (x: boolean) => void;
-    date: Date;
-    /** locale date string list */
-    allowedDates: string[];
-    onChange: (date: Date) => void;
-}
+interface DatePickerTabProps extends DatePickerProps {}
 
-export function DatePickerTab({ date, allowedDates, onChange, open, onToggle }: DatePickerTabProps) {
+export function DatePickerTab(props: DatePickerTabProps) {
+    const { date, allowedDates, onChange, open, onToggle } = props;
     const days = useMemo(() => {
         return eachDayOfInterval({ start: startOfWeek(date), end: endOfWeek(date) });
     }, [date]);
@@ -52,13 +46,7 @@ export function DatePickerTab({ date, allowedDates, onChange, open, onToggle }: 
                     >
                         <CalendarIcon className="cursor-pointer" width={24} height={24} />
                     </div>
-                    <DatePicker
-                        open={open}
-                        onToggle={onToggle}
-                        date={date}
-                        onChange={onChange}
-                        allowedDates={allowedDates}
-                    />
+                    <DatePicker {...props} />
                 </div>
             </ClickAwayListener>
         </div>

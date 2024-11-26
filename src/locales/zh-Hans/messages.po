@@ -2091,9 +2091,6 @@ msgstr "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} <4>收�
 msgid "Rejected"
 msgstr ""
 
-msgid "No events"
-msgstr ""
-
 msgid "Recast or Quote"
 msgstr "转发或者引用"
 
