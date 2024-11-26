@@ -8,14 +8,14 @@ import { Headline } from '@/app/(settings)/components/Headline.js';
 import { Section } from '@/app/(settings)/components/Section.js';
 import { ThirdPartAccounts } from '@/app/(settings)/components/ThirdPartAccounts.js';
 import { ClickableButton } from '@/components/ClickableButton.js';
+import { STATUS } from '@/constants/enum.js';
+import { env } from '@/constants/env.js';
 import { SORTED_SOCIAL_SOURCES } from '@/constants/index.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { useAccountsAll } from '@/hooks/useAccounts.js';
 import { useCurrentProfileAll } from '@/hooks/useCurrentProfile.js';
 import { useNavigatorTitle } from '@/hooks/useNavigatorTitle.js';
 import { LoginModalRef, LogoutModalRef } from '@/modals/controls.js';
-import { env } from '@/constants/env.js';
-import { STATUS } from '@/constants/enum.js';
 
 export default function Connected() {
     const accountsAll = useAccountsAll();
