@@ -18,7 +18,7 @@ export async function createTwitterSessionPayloadFromJWT(request: NextRequest) {
         req: request,
         secret: env.internal.NEXTAUTH_SECRET,
     });
-    if (!token?.twitter.oauthToken || !token?.twitter.oauthTokenSecret) return null;
+    if (!token?.twitter?.oauthToken || !token?.twitter?.oauthTokenSecret) return null;
 
     return {
         clientId: token.twitter.oauthToken.split('-')[0],
