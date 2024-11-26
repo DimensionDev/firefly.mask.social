@@ -18,6 +18,7 @@ import { EMPTY_LIST } from '@/constants/index.js';
 import { classNames } from '@/helpers/classNames.js';
 import { enqueueWarningMessage } from '@/helpers/enqueueMessage.js';
 import { formatAddress } from '@/helpers/formatAddress.js';
+import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { fireflyBridgeProvider } from '@/providers/firefly/Bridge.js';
 import { EventId } from '@/providers/types/Telemetry.js';
 import { ChainId } from '@/types/frame.js';
@@ -59,7 +60,9 @@ export function ActivityConnectButton({ source }: { source: SocialSource }) {
                             return;
                         }
                         e.preventDefault();
-                        enqueueWarningMessage(<Trans>Please sign in with X to continue</Trans>);
+                        enqueueWarningMessage(
+                            <Trans>Please sign in with {resolveSourceName(source)} to continue</Trans>,
+                        );
                     }}
                 >
                     {isRefetching || isLoading ? (

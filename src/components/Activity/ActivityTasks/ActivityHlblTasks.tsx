@@ -1,9 +1,11 @@
 'use client';
 
 import { Trans } from '@lingui/macro';
+import { useContext } from 'react';
 
 import { ActivityClaimButton } from '@/components/Activity/ActivityClaimButton.js';
 import { ActivityConnectCard } from '@/components/Activity/ActivityConnectCard.js';
+import { ActivityContext } from '@/components/Activity/ActivityContext.js';
 import { ActivityFollowTargetCard } from '@/components/Activity/ActivityFollowTargetCard.js';
 import { ActivityLoginButton } from '@/components/Activity/ActivityLoginButton.js';
 import { ActivityPremiumConditionList } from '@/components/Activity/ActivityPremiumConditionList.js';
@@ -106,6 +108,7 @@ export function ActivityHlblTasks({ data }: { data: Pick<Required<ActivityInfoRe
               ' on X or Farcaster before Oct 20, you’re eligible to claim yours at https://firefly.mask.social/event/hlbl .\n\n',
               '#Base #FireflySocial',
           ];
+    const { address } = useContext(ActivityContext);
 
     return (
         <>
@@ -127,7 +130,16 @@ export function ActivityHlblTasks({ data }: { data: Pick<Required<ActivityInfoRe
                 <h2 className="text-base font-semibold leading-6">
                     <Trans>Step 2 Connect Wallet</Trans>
                 </h2>
-                <ActivityConnectCard source={Source.Twitter} />
+                <ActivityConnectCard
+                    source={Source.Twitter}
+                    label={
+                        address ? (
+                            <Trans>Submit claimed address</Trans>
+                        ) : (
+                            <Trans>Connect your wallet to claim your NFT</Trans>
+                        )
+                    }
+                />
                 <div className="flex w-full flex-col space-y-2 text-sm font-semibold leading-6">
                     <h2 className="text-base font-semibold leading-6">
                         <Trans>Final Step Claim Now!</Trans>

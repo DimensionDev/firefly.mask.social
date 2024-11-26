@@ -1035,6 +1035,9 @@ msgstr "評論不可是空白"
 msgid "Days"
 msgstr "天"
 
+msgid "Submit a wallet to receive NFT and $ANON"
+msgstr ""
+
 msgid "<0/> mentioned you in a <1>{0, select, Post {post} Comment {comment} Quote {quote} Mirror {mirror} other {post}}</1>"
 msgstr "<0/> 在 <1> {0, select, Post {貼文} Comment {評論} Quote {引用} Mirror {鏡像} other {貼文}}</1> 中提到了你"
 
@@ -1968,6 +1971,9 @@ msgstr ""
 msgid "Unknown transaction method: {method}."
 msgstr ""
 
+msgid "Please sign in with {0} to continue"
+msgstr ""
+
 msgid "Get involved in the <0>Presidential Election Winner 2024</0> on Polymarket"
 msgstr ""
 
@@ -2567,9 +2573,6 @@ msgstr "深色模式"
 
 msgid "Article added to your Bookmarks"
 msgstr "文章已加入你的書籤"
-
-msgid "Please sign in with X to continue"
-msgstr ""
 
 msgid "Create a Post"
 msgstr ""

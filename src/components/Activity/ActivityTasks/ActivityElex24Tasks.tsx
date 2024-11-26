@@ -54,7 +54,7 @@ const fireflyMention = {
 
 export function ActivityElex24Tasks({ data }: { data: Pick<Required<ActivityInfoResponse>['data'], 'status'> }) {
     const { vote } = useContext(ActivityElex24Context);
-    const { name } = useContext(ActivityContext);
+    const { name, address } = useContext(ActivityContext);
     const xHandle = useActivityCurrentAccountHandle(Source.Twitter);
     const shareUrl = urlcat(
         SITE_URL,
@@ -99,7 +99,16 @@ export function ActivityElex24Tasks({ data }: { data: Pick<Required<ActivityInfo
                 <h2 className="text-base font-semibold leading-6">
                     <Trans>Step 2 Connect Wallet</Trans>
                 </h2>
-                <ActivityConnectCard source={Source.Twitter} />
+                <ActivityConnectCard
+                    source={Source.Twitter}
+                    label={
+                        address ? (
+                            <Trans>Submit claimed address</Trans>
+                        ) : (
+                            <Trans>Connect your wallet to claim your NFT</Trans>
+                        )
+                    }
+                />
                 <h2 className="text-base font-semibold leading-6">
                     <Trans>Step 3 Select to vote</Trans>
                 </h2>

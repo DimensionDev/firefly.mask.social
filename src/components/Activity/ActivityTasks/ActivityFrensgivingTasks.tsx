@@ -50,7 +50,10 @@ export function ActivityFrensgivingTasks({
                     <Trans>Follow & Submit</Trans>
                 </h2>
                 <ActivityTaskFollowCard handle="fireflyapp" source={Source.Farcaster} profileId="16823" />
-                <ActivityConnectCard source={Source.Farcaster} />
+                <ActivityConnectCard
+                    source={Source.Farcaster}
+                    label={<Trans>Submit a wallet to receive NFT and $ANON</Trans>}
+                />
                 <div className="flex w-full flex-col space-y-2 text-sm font-semibold leading-6">
                     <h2 className="text-base font-semibold leading-6">
                         <Trans>Eligible for Premium Collectible?</Trans>
