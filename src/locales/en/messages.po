@@ -2089,9 +2089,6 @@ msgstr "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} <4>colle
 msgid "Rejected"
 msgstr "Rejected"
 
-msgid "No events"
-msgstr "No events"
-
 msgid "Recast or Quote"
 msgstr "Recast or Quote"
 

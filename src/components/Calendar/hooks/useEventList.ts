@@ -3,20 +3,15 @@ import { addDays, startOfMonth } from 'date-fns';
 
 import { CalendarProvider } from '@/providers/calendar/index.js';
 
-export function useLumaEvents(date: Date, enabled = true) {
+export function useNewsList(date: Date, enabled = true) {
     const startTime = startOfMonth(date).getTime();
-    const endTime = Math.floor(addDays(date, 45).getTime());
-
+    const endTime = addDays(date, 45).getTime();
     return useInfiniteQuery({
         enabled,
-        queryKey: ['lumaEvents', startTime, endTime],
+        queryKey: ['calendar-news', startTime, endTime],
+        queryFn: async ({ pageParam }) => CalendarProvider.getNewsList(startTime, endTime, pageParam),
         initialPageParam: undefined as any,
-        queryFn: async ({ pageParam }) => {
-            return CalendarProvider.getEventList(startTime, endTime, pageParam);
-        },
-        getNextPageParam(page) {
-            return page.nextIndicator;
-        },
+        getNextPageParam: (page) => page.nextIndicator,
         select(data) {
             return data.pages.flatMap((x) => x.data);
         },

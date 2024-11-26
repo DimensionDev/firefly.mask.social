@@ -2089,9 +2089,6 @@ msgstr ""
 msgid "Rejected"
 msgstr ""
 
-msgid "No events"
-msgstr ""
-
 msgid "Recast or Quote"
 msgstr ""
 
