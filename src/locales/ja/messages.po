@@ -423,9 +423,6 @@ msgstr ""
 msgid "Tokens"
 msgstr ""
 
-msgid "Search profile"
-msgstr ""
-
 msgid "Search {id}"
 msgstr ""
 
@@ -912,9 +909,6 @@ msgstr ""
 msgid "Active"
 msgstr ""
 
-msgid "Connection failed"
-msgstr ""
-
 msgid "Owner can't change balance"
 msgstr ""
 
@@ -1299,6 +1293,9 @@ msgstr ""
 msgid "Description"
 msgstr ""
 
+msgid "Others"
+msgstr ""
+
 msgid "Muted wallets"
 msgstr ""
 
@@ -1660,6 +1657,9 @@ msgid "Posts from @{0} will now be hidden in your home timeline"
 msgstr ""
 
 msgid "commented"
+msgstr ""
+
+msgid "Unknown Collection"
 msgstr ""
 
 msgid "Validate failed, please check your input."
@@ -2107,9 +2107,6 @@ msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} <4>collec
 msgstr ""
 
 msgid "Rejected"
-msgstr ""
-
-msgid "No events"
 msgstr ""
 
 msgid "Recast or Quote"

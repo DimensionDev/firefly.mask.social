@@ -1,7 +1,6 @@
 import { BugAntIcon } from '@heroicons/react/24/outline';
 import { t, Trans } from '@lingui/macro';
 import { delay } from '@masknet/kit';
-import { CrossIsolationMessages } from '@masknet/shared-base';
 import { compact, values } from 'lodash-es';
 import { useMemo } from 'react';
 import { useAsyncFn } from 'react-use';
@@ -29,6 +28,8 @@ import { useCompositePost } from '@/hooks/useCompositePost.js';
 import { useCurrentProfileAll } from '@/hooks/useCurrentProfile.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import { useSetEditorContent } from '@/hooks/useSetEditorContent.js';
+// eslint-disable-next-line no-restricted-imports
+import { CrossIsolationMessages } from '@/maskbook/packages/shared-base/src/index.js';
 import { ComposeModalRef, ConnectWalletModalRef } from '@/modals/controls.js';
 import { useComposeScheduleStateStore } from '@/store/useComposeScheduleStore.js';
 import { useComposeStateStore } from '@/store/useComposeStore.js';

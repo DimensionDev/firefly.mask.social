@@ -1,7 +1,5 @@
 import { XMarkIcon } from '@heroicons/react/24/outline';
-import { t } from '@lingui/macro';
 import { type OptionsObject, type SnackbarKey, type SnackbarMessage } from 'notistack';
-import { UserRejectedRequestError } from 'viem';
 
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { ErrorReportSnackbar, type ErrorReportSnackbarProps } from '@/components/ErrorReportSnackbar.js';
@@ -41,14 +39,18 @@ function snackbarAction(key: SnackbarKey) {
     );
 }
 
-function versionFilter(options?: MessageOptions) {
+function versionFilter(message: SnackbarMessage, options?: MessageOptions) {
     if (!options?.version) return true;
     return options.version === env.shared.VERSION;
 }
 
-function environmentFilter(options?: MessageOptions) {
+function environmentFilter(message: SnackbarMessage, options?: MessageOptions) {
     if (!options?.environment) return true;
     return options.environment === env.shared.NODE_ENV;
+}
+
+function emptyMessageFilter(message: SnackbarMessage, options?: MessageOptions) {
+    return !!message;
 }
 
 /**
@@ -56,10 +58,10 @@ function environmentFilter(options?: MessageOptions) {
  * A filter returns true means the message should be displayed.
  * A filter returns false means the message should be ignored.
  */
-const MESSAGE_FILTERS = [versionFilter, environmentFilter];
+const MESSAGE_FILTERS = [emptyMessageFilter, versionFilter, environmentFilter];
 
 export function enqueueInfoMessage(message: SnackbarMessage, options?: MessageOptions) {
-    if (MESSAGE_FILTERS.some((filter) => !filter(options))) return;
+    if (MESSAGE_FILTERS.some((filter) => !filter(message, options))) return;
 
     SnackbarRef.open({
         message,
@@ -72,7 +74,7 @@ export function enqueueInfoMessage(message: SnackbarMessage, options?: MessageOp
 }
 
 export function enqueueSuccessMessage(message: SnackbarMessage, options?: MessageOptions) {
-    if (MESSAGE_FILTERS.some((filter) => !filter(options))) return;
+    if (MESSAGE_FILTERS.some((filter) => !filter(message, options))) return;
 
     SnackbarRef.open({
         message,
@@ -85,7 +87,7 @@ export function enqueueSuccessMessage(message: SnackbarMessage, options?: Messag
 }
 
 export function enqueueWarningMessage(message: SnackbarMessage, options?: MessageOptions) {
-    if (MESSAGE_FILTERS.some((filter) => !filter(options))) return;
+    if (MESSAGE_FILTERS.some((filter) => !filter(message, options))) return;
 
     SnackbarRef.open({
         message,
@@ -98,27 +100,8 @@ export function enqueueWarningMessage(message: SnackbarMessage, options?: Messag
     });
 }
 
-function captureWarningMessageFromError(error: unknown) {
-    let currentError = error;
-    const visited = new Set();
-
-    // UserRejectedRequestError from viem
-    while (currentError instanceof Error && !visited.has(currentError)) {
-        visited.add(currentError);
-        if (currentError instanceof UserRejectedRequestError) {
-            enqueueWarningMessage(t`The user rejected the request.`);
-            return true;
-        }
-        currentError = currentError.cause;
-    }
-
-    return false;
-}
-
 export function enqueueErrorMessage(message: SnackbarMessage, options?: ErrorOptions) {
-    if (MESSAGE_FILTERS.some((filter) => !filter(options))) return;
-
-    if (captureWarningMessageFromError(options?.error)) return;
+    if (MESSAGE_FILTERS.some((filter) => !filter(message, options))) return;
 
     const detail = options?.description || (options?.error ? getDetailedErrorMessage(options.error) : '') || '';
 
@@ -136,7 +119,7 @@ export function enqueueErrorMessage(message: SnackbarMessage, options?: ErrorOpt
 }
 
 export function enqueueErrorsMessage(message: SnackbarMessage, options?: ErrorsOptions) {
-    if (MESSAGE_FILTERS.some((filter) => !filter(options))) return;
+    if (MESSAGE_FILTERS.some((filter) => !filter(message, options))) return;
 
     const detailedMessage = options?.description || options?.errors?.map(getDetailedErrorMessage).join('\n').trim();
 

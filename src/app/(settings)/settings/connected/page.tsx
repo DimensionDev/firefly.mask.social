@@ -6,7 +6,10 @@ import { Fragment } from 'react';
 import { AccountCard } from '@/app/(settings)/components/AccountCard.js';
 import { Headline } from '@/app/(settings)/components/Headline.js';
 import { Section } from '@/app/(settings)/components/Section.js';
+import { ThirdPartAccounts } from '@/app/(settings)/components/ThirdPartAccounts.js';
 import { ClickableButton } from '@/components/ClickableButton.js';
+import { STATUS } from '@/constants/enum.js';
+import { env } from '@/constants/env.js';
 import { SORTED_SOCIAL_SOURCES } from '@/constants/index.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { useAccountsAll } from '@/hooks/useAccounts.js';
@@ -38,6 +41,8 @@ export default function Connected() {
                     </Fragment>
                 ) : null;
             })}
+
+            {env.external.NEXT_PUBLIC_THIRD_PARTY_AUTH === STATUS.Enabled ? <ThirdPartAccounts /> : null}
 
             <div className="flex w-full flex-col items-center justify-center gap-4 md:flex-row">
                 <ClickableButton

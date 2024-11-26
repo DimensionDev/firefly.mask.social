@@ -70,6 +70,7 @@ const ExternalEnvSchema = z.object({
     NEXT_PUBLIC_TELEMETRY_DEBUG: z.nativeEnum(STATUS).default(STATUS.Disabled),
     NEXT_PUBLIC_FIREFLY_DEV_API: z.nativeEnum(STATUS).default(STATUS.Disabled),
     NEXT_PUBLIC_PARTICLE: z.nativeEnum(STATUS).default(STATUS.Disabled),
+    NEXT_PUBLIC_THIRD_PARTY_AUTH: z.nativeEnum(STATUS).default(STATUS.Disabled),
 
     // hubble
     NEXT_PUBLIC_HUBBLE_URL: z.string().default('https://api.neynar.com:2281'),
@@ -117,6 +118,7 @@ export const env = {
         // features
         NEXT_PUBLIC_POLL: process.env.NEXT_PUBLIC_POLL,
         NEXT_PUBLIC_FRAME: process.env.NEXT_PUBLIC_FRAME,
+        NEXT_PUBLIC_THIRD_PARTY_AUTH: process.env.NEXT_PUBLIC_THIRD_PARTY_AUTH,
         NEXT_PUBLIC_BLINK: process.env.NEXT_PUBLIC_BLINK,
         NEXT_PUBLIC_OPENGRAPH: process.env.NEXT_PUBLIC_OPENGRAPH,
         NEXT_PUBLIC_MASK_WEB_COMPONENTS: process.env.NEXT_PUBLIC_MASK_WEB_COMPONENTS,

@@ -2,11 +2,13 @@ import { Trans } from '@lingui/macro';
 import { safeUnreachable } from '@masknet/kit';
 import { useRouter } from '@tanstack/react-router';
 import { signIn } from 'next-auth/react';
+import { useAsyncFn } from 'react-use';
 import urlcat from 'urlcat';
 
 import { LoginButton } from '@/components/Login/LoginButton.js';
 import { LoginFirefly } from '@/components/Login/LoginFirefly.js';
-import { FarcasterSignType, type SocialSource, Source, type ThirdPartySource } from '@/constants/enum.js';
+import { FarcasterSignType, type SocialSource, Source, STATUS, type ThirdPartySource } from '@/constants/enum.js';
+import { env } from '@/constants/env.js';
 import { SORTED_SOCIAL_SOURCES, SORTED_THIRD_PARTY_SOURCES } from '@/constants/index.js';
 import { resolveSourceInUrl } from '@/helpers/resolveSourceInUrl.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
@@ -28,7 +30,7 @@ export function MainView() {
         history.replace(path);
     };
 
-    const onAuthClick = async (source: ThirdPartySource) => {
+    const [{ loading }, onAuthClick] = useAsyncFn(async (source: ThirdPartySource) => {
         switch (source) {
             case Source.Telegram:
                 const url = await FireflyEndpointProvider.getTelegramLoginUrl();
@@ -37,12 +39,12 @@ export function MainView() {
                 break;
             case Source.Apple:
             case Source.Google:
-                signIn(source);
+                await signIn(source);
                 break;
             default:
                 safeUnreachable(source);
         }
-    };
+    }, []);
 
     return (
         <div className="flex flex-col rounded-[12px] bg-primaryBottom md:w-[500px]">
@@ -59,9 +61,16 @@ export function MainView() {
                     {SORTED_SOCIAL_SOURCES.map((source) => (
                         <LoginButton key={source} source={source} onClick={() => onClick(source)} />
                     ))}
-                    {SORTED_THIRD_PARTY_SOURCES.map((source) => (
-                        <LoginButton key={source} source={source} onClick={() => onAuthClick(source)} />
-                    ))}
+                    {env.external.NEXT_PUBLIC_THIRD_PARTY_AUTH === STATUS.Enabled
+                        ? SORTED_THIRD_PARTY_SOURCES.map((source) => (
+                              <LoginButton
+                                  key={source}
+                                  source={source}
+                                  loading={loading}
+                                  onClick={() => onAuthClick(source)}
+                              />
+                          ))
+                        : null}
                 </div>
             </div>
         </div>

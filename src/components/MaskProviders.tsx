@@ -1,7 +1,6 @@
 'use client';
 
 import { LanguageOptions } from '@masknet/public-api';
-import { SharedContextProvider } from '@masknet/shared';
 import { i18NextInstance, updateLanguage } from '@masknet/shared-base';
 import {
     CSSVariableInjector,
@@ -21,6 +20,8 @@ import { useAccount, useChainId } from 'wagmi';
 import { Locale } from '@/constants/enum.js';
 import { getLocaleFromCookies } from '@/helpers/getFromCookies.js';
 import { useMaskTheme } from '@/hooks/useMaskTheme.js';
+// eslint-disable-next-line no-restricted-imports
+import { SharedContextProvider } from '@/maskbook/packages/shared/src/index.js';
 
 function resolveMaskLocale(locale: Locale) {
     switch (locale) {

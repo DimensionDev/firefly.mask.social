@@ -1,5 +1,4 @@
 import { Trans } from '@lingui/macro';
-import { ElementAnchor } from '@masknet/shared';
 import { format } from 'date-fns';
 import { uniq } from 'lodash-es';
 import { useEffect, useMemo } from 'react';
@@ -9,6 +8,7 @@ import LocationIcon from '@/assets/location.svg';
 import { EmptyStatus } from '@/components/Calendar/EmptyStatus.js';
 import { useLumaEvents } from '@/components/Calendar/hooks/useLumaEvents.js';
 import { ImageLoader } from '@/components/Calendar/ImageLoader.js';
+import { ElementAnchor } from '@/components/ElementAnchor.js';
 import { Image } from '@/components/Image.js';
 import { Loading } from '@/components/Loading.js';
 import { EMPTY_LIST } from '@/constants/index.js';
@@ -20,7 +20,7 @@ interface EventListProps {
 }
 
 export function EventList({ date, onDatesUpdate }: EventListProps) {
-    const { isLoading, isFetching, data, hasNextPage, fetchNextPage } = useLumaEvents(date);
+    const { isPending, isFetching, data, hasNextPage, fetchNextPage } = useLumaEvents(date);
 
     const comingEvents = useMemo(() => {
         if (!data) return EMPTY_LIST;
@@ -32,7 +32,7 @@ export function EventList({ date, onDatesUpdate }: EventListProps) {
         onDatesUpdate(uniq(data.map((x) => new Date(x.event_date).toLocaleDateString())));
     }, [onDatesUpdate, data]);
 
-    if (isLoading) {
+    if (isPending && !comingEvents.length) {
         return (
             <div className="no-scrollbar relative flex h-[506px] w-full flex-col gap-[10px] overflow-y-scroll">
                 <div className="pt-3">
@@ -43,13 +43,14 @@ export function EventList({ date, onDatesUpdate }: EventListProps) {
             </div>
         );
     }
+
     if (!comingEvents.length) {
         return (
             <div className="no-scrollbar relative flex h-[506px] w-full flex-col gap-[10px] overflow-y-scroll">
                 <div className="pt-3">
                     <div className="absolute left-1/2 top-1/2 flex -translate-x-1/2 -translate-y-1/2 transform flex-col gap-3 whitespace-nowrap text-second">
                         <EmptyStatus>
-                            <Trans>No events</Trans>
+                            <Trans>No content for the last two weeks.</Trans>
                         </EmptyStatus>
                     </div>
                 </div>
@@ -97,11 +98,11 @@ export function EventList({ date, onDatesUpdate }: EventListProps) {
                     );
                 })}
                 {hasNextPage ? (
-                    <ElementAnchor height={30} callback={() => fetchNextPage()}>
+                    <ElementAnchor className="h-8" callback={() => fetchNextPage()}>
                         {isFetching ? <Loading className="text-main" /> : null}
                     </ElementAnchor>
                 ) : (
-                    <p className="px-2 text-center text-second">
+                    <p className="py-2 text-center text-xs text-second">
                         <Trans>No more data available.</Trans>
                     </p>
                 )}

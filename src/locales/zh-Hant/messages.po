@@ -423,9 +423,6 @@ msgstr "檢舉貼文"
 msgid "Tokens"
 msgstr ""
 
-msgid "Search profile"
-msgstr ""
-
 msgid "Search {id}"
 msgstr ""
 
@@ -912,9 +909,6 @@ msgstr "<0>已購買</0>一個 NFT"
 msgid "Active"
 msgstr ""
 
-msgid "Connection failed"
-msgstr "連結失敗"
-
 msgid "Owner can't change balance"
 msgstr "所有者無法更改餘額"
 
@@ -1299,6 +1293,9 @@ msgstr "同步"
 msgid "Description"
 msgstr "描述"
 
+msgid "Others"
+msgstr ""
+
 msgid "Muted wallets"
 msgstr ""
 
@@ -1661,6 +1658,9 @@ msgstr ""
 
 msgid "commented"
 msgstr "已評論"
+
+msgid "Unknown Collection"
+msgstr ""
 
 msgid "Validate failed, please check your input."
 msgstr ""
@@ -2107,9 +2107,6 @@ msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} <4>collec
 msgstr ""
 
 msgid "Rejected"
-msgstr ""
-
-msgid "No events"
 msgstr ""
 
 msgid "Recast or Quote"

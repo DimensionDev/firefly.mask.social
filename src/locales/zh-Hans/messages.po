@@ -423,9 +423,6 @@ msgstr "举报帖子"
 msgid "Tokens"
 msgstr ""
 
-msgid "Search profile"
-msgstr ""
-
 msgid "Search {id}"
 msgstr ""
 
@@ -912,9 +909,6 @@ msgstr "<0>购买</0> 一个 NFT"
 msgid "Active"
 msgstr "进行中"
 
-msgid "Connection failed"
-msgstr "连接失败"
-
 msgid "Owner can't change balance"
 msgstr "所有者不能更改余额"
 
@@ -1299,6 +1293,9 @@ msgstr "同步"
 msgid "Description"
 msgstr "介绍"
 
+msgid "Others"
+msgstr ""
+
 msgid "Muted wallets"
 msgstr "已隐藏的钱包"
 
@@ -1661,6 +1658,9 @@ msgstr "@{0} 的帖子会从您的时间线中隐藏"
 
 msgid "commented"
 msgstr "已回复"
+
+msgid "Unknown Collection"
+msgstr ""
 
 msgid "Validate failed, please check your input."
 msgstr "验证失败，请检查您的输入。"
@@ -2107,9 +2107,6 @@ msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} <4>collec
 msgstr "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} <4>收集了你的 </4><5>{1, select, Post {发帖} Comment {评论} Quote {引用} Mirror {转帖} other {帖子}}</5>"
 
 msgid "Rejected"
-msgstr ""
-
-msgid "No events"
 msgstr ""
 
 msgid "Recast or Quote"

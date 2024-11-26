@@ -69,7 +69,7 @@ export function useActionAdapter(url?: string) {
                 };
             } catch (error) {
                 if (error instanceof TransactionSimulationError) return;
-                enqueueErrorMessage(getSnackbarMessageFromError(error, t`Signing failed.`));
+                enqueueErrorMessage(getSnackbarMessageFromError(error, t`Signing failed.`), { error });
                 return { error: t`Signing failed.` };
             }
         },
@@ -85,7 +85,7 @@ export function useActionAdapter(url?: string) {
                 );
                 return { signature: tx };
             } catch (error) {
-                enqueueErrorMessage(getSnackbarMessageFromError(error, t`Signing failed.`));
+                enqueueErrorMessage(getSnackbarMessageFromError(error, t`Signing failed.`), { error });
                 return { error: t`Signing failed.` };
             }
         },

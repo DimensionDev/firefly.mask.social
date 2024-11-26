@@ -5,7 +5,7 @@ import { compact } from 'lodash-es';
 import { useRef } from 'react';
 import { useMount } from 'react-use';
 
-import { feedbackIntegration } from '@/configs/sentryClient.js';
+import { feedback } from '@/configs/sentryClient.js';
 import { STATUS } from '@/constants/enum.js';
 import { env } from '@/constants/env.js';
 import { Link } from '@/esm/Link.js';
@@ -17,7 +17,7 @@ export function LinkCloud() {
     useMount(() => {
         if (feedbackEl.current && !attached.current) {
             attached.current = true;
-            feedbackIntegration.attachTo(feedbackEl.current, {
+            feedback.attachTo(feedbackEl.current, {
                 formTitle: t`Feedback`,
                 nameLabel: t`Name (optional)`,
                 namePlaceholder: t`Your name`,

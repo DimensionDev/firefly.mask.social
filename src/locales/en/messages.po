@@ -418,9 +418,6 @@ msgstr "Report post"
 msgid "Tokens"
 msgstr "Tokens"
 
-msgid "Search profile"
-msgstr "Search profile"
-
 msgid "Search {id}"
 msgstr "Search {id}"
 
@@ -907,9 +904,6 @@ msgstr "<0>Bought</0> an NFT"
 msgid "Active"
 msgstr "Active"
 
-msgid "Connection failed"
-msgstr "Connection failed"
-
 msgid "Owner can't change balance"
 msgstr "Owner can't change balance"
 
@@ -1294,6 +1288,9 @@ msgstr "Sync"
 msgid "Description"
 msgstr "Description"
 
+msgid "Others"
+msgstr "Others"
+
 msgid "Muted wallets"
 msgstr "Muted wallets"
 
@@ -1656,6 +1653,9 @@ msgstr "Posts from @{0} will now be hidden in your home timeline"
 
 msgid "commented"
 msgstr "commented"
+
+msgid "Unknown Collection"
+msgstr "Unknown Collection"
 
 msgid "Validate failed, please check your input."
 msgstr "Validate failed, please check your input."
@@ -2103,9 +2103,6 @@ msgstr "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} <4>colle
 
 msgid "Rejected"
 msgstr "Rejected"
-
-msgid "No events"
-msgstr "No events"
 
 msgid "Recast or Quote"
 msgstr "Recast or Quote"

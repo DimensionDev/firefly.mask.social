@@ -1,4 +1,4 @@
-import { Trans } from '@lingui/macro';
+import { t, Trans } from '@lingui/macro';
 import { ClientError } from 'graphql-request';
 import { first } from 'lodash-es';
 import type { SnackbarMessage } from 'notistack';
@@ -6,7 +6,40 @@ import { EstimateGasExecutionError, UserRejectedRequestError } from 'viem';
 
 import { SnackbarErrorMessage } from '@/components/SnackbarErrorMessage.js';
 import { FarcasterInvalidSignerKey, FetchError, UserRejectionError } from '@/constants/error.js';
+import { enqueueWarningMessage } from '@/helpers/enqueueMessage.js';
 import { getErrorMessageFromFetchError } from '@/helpers/getErrorMessageFromFetchError.js';
+
+type SolanaError = {
+    code: number;
+    message: string;
+};
+function captureWarningMessageFromError(error: unknown) {
+    let currentError = error;
+    const visited = new Set();
+
+    // For solana wallet adapter
+    const message = 'user rejected the request';
+    if (
+        error instanceof Error &&
+        (error.message?.toLowerCase().includes(message) ||
+            ('error' in error && (error.error as SolanaError).message?.toLowerCase().includes(message)))
+    ) {
+        enqueueWarningMessage(t`The user rejected the request.`);
+        return true;
+    }
+
+    // UserRejectedRequestError from viem
+    while (currentError instanceof Error && !visited.has(currentError)) {
+        visited.add(currentError);
+        if (currentError instanceof UserRejectedRequestError) {
+            enqueueWarningMessage(t`The user rejected the request.`);
+            return true;
+        }
+        currentError = currentError.cause;
+    }
+
+    return false;
+}
 
 /**
  * Get a snackbar message from an error.
@@ -15,6 +48,10 @@ import { getErrorMessageFromFetchError } from '@/helpers/getErrorMessageFromFetc
  * @returns
  */
 export function getSnackbarMessageFromError(error: unknown, fallback: string): SnackbarMessage {
+    if (captureWarningMessageFromError(error)) {
+        return '';
+    }
+
     if (error instanceof ClientError) {
         const message = first(error.response.errors)?.message;
         if (message) return message;
@@ -33,15 +70,6 @@ export function getSnackbarMessageFromError(error: unknown, fallback: string): S
                         The signer is not authorized to perform the requested operation. Please approve again.
                     </Trans>
                 }
-            />
-        );
-    }
-
-    if (error instanceof UserRejectedRequestError) {
-        return (
-            <SnackbarErrorMessage
-                title={<Trans>Connection failed</Trans>}
-                message={<Trans>The user rejected the request.</Trans>}
             />
         );
     }
