@@ -4,7 +4,7 @@ import { compact } from 'lodash-es';
 import urlcat from 'urlcat';
 
 import { fetchCachedJSON } from '@/helpers/fetchJSON.js';
-import { createNextIndicator, createPageable, type PageIndicator } from '@/helpers/pageable.js';
+import { createIndicator, createNextIndicator, createPageable, type PageIndicator } from '@/helpers/pageable.js';
 import type { Event, EventResponse, ParsedEvent } from '@/types/calendar.js';
 
 const BASE_URL = 'https://mask-network-dev.firefly.land/v1/calendar/crypto_event_list';
@@ -64,34 +64,43 @@ function fixEvent(event: Event): ParsedEvent {
 
 export class CalendarProvider {
     static async getNewsList(startDate: number, endDate?: number, indicator?: PageIndicator) {
-        const response = await fetchCachedJSON<EventResponse>(
+        const res = await fetchCachedJSON<EventResponse>(
             urlcat(BASE_URL, {
                 provider_type: 'coincarp',
+                size: 100,
                 start_date: Math.floor(startDate / 1000),
                 end_date: endDate ? Math.floor(endDate / 1000) : 0,
                 cursor: indicator?.id,
             }),
         );
-        if (!response.data) return createPageable([], indicator, createNextIndicator(indicator));
-        const events = response.data.events.map(fixEventDate);
-        return createPageable(events, indicator, createNextIndicator(indicator, response.data.page.next));
+        if (!res.data?.events.length) return createPageable([], createIndicator(indicator));
+        const events = res.data.events.map(fixEventDate);
+        const next = res.data.page.next;
+        return createPageable(
+            events,
+            indicator,
+            createNextIndicator(indicator, next && next !== '0' ? next : undefined),
+        );
     }
 
     static async getEventList(start_date: number, end_date: number, indicator?: PageIndicator) {
         const res = await fetchCachedJSON<EventResponse>(
             urlcat(BASE_URL, {
                 provider_type: 'luma',
-                size: 20,
+                size: 100,
                 cursor: indicator?.id,
                 start_date: Math.floor(start_date / 1000),
                 end_date: Math.floor(end_date / 1000),
             }),
         );
-        if (!res?.data?.events.length) {
-            return createPageable([], indicator, createNextIndicator(indicator));
-        }
+        if (!res?.data?.events.length) return createPageable([], createIndicator(indicator));
 
         const events = res.data.events.map(fixEvent);
-        return createPageable(events, indicator, createNextIndicator(indicator, res.data.page.next));
+        const next = res.data.page.next;
+        return createPageable(
+            events,
+            indicator,
+            createNextIndicator(indicator, next && next !== '0' ? next : undefined),
+        );
     }
 }

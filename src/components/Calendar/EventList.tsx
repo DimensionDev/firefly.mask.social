@@ -20,7 +20,7 @@ interface EventListProps {
 }
 
 export function EventList({ date, onDatesUpdate }: EventListProps) {
-    const { isLoading, isFetching, data, hasNextPage, fetchNextPage } = useLumaEvents(date);
+    const { isPending, isFetching, data, hasNextPage, fetchNextPage } = useLumaEvents(date);
 
     const comingEvents = useMemo(() => {
         if (!data) return EMPTY_LIST;
@@ -32,7 +32,7 @@ export function EventList({ date, onDatesUpdate }: EventListProps) {
         onDatesUpdate(uniq(data.map((x) => new Date(x.event_date).toLocaleDateString())));
     }, [onDatesUpdate, data]);
 
-    if (isLoading) {
+    if (isPending && !comingEvents.length) {
         return (
             <div className="no-scrollbar relative flex h-[506px] w-full flex-col gap-[10px] overflow-y-scroll">
                 <div className="pt-3">
@@ -102,7 +102,7 @@ export function EventList({ date, onDatesUpdate }: EventListProps) {
                         {isFetching ? <Loading className="text-main" /> : null}
                     </ElementAnchor>
                 ) : (
-                    <p className="px-2 text-center text-second">
+                    <p className="py-2 text-center text-xs text-second">
                         <Trans>No more data available.</Trans>
                     </p>
                 )}
