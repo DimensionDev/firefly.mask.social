@@ -8,7 +8,7 @@ import { NoSSR } from '@/components/NoSSR.js';
 import { Providers } from '@/components/Providers.js';
 import { RouteProgressBar } from '@/components/RouteProgressBar.js';
 import { SideBar } from '@/components/SideBar/index.js';
-import { NODE_ENV, STATUS } from '@/constants/enum.js';
+import { STATUS } from '@/constants/enum.js';
 import { env } from '@/constants/env.js';
 import { CZ_ACTIVITY_HOSTNAME } from '@/constants/index.js';
 import { Script } from '@/esm/Script.js';
@@ -16,11 +16,7 @@ import { Modals } from '@/modals/index.js';
 
 // @ts-ignore
 const CustomElements = lazy(() => {
-    if (
-        env.shared.NODE_ENV !== NODE_ENV.Development ||
-        (env.shared.NODE_ENV === NODE_ENV.Development &&
-            env.external.NEXT_PUBLIC_MASK_WEB_COMPONENTS === STATUS.Enabled)
-    ) {
+    if (env.external.NEXT_PUBLIC_MASK_WEB_COMPONENTS === STATUS.Enabled) {
         return import('@/components/CustomElements.js');
     }
 

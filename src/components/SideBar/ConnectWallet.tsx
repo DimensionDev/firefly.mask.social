@@ -47,8 +47,8 @@ export function ConnectWallet({ collapsed: sideBarCollapsed = false }: ConnectWa
 
     console.log('DEBUG: accounts');
     console.log({
-        evmAccount,
-        solanaWallet,
+        evm: evmAccount.address,
+        solana: solanaWallet.publicKey?.toBase58(),
         ensName,
         collapsed,
     });
