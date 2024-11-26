@@ -14,6 +14,8 @@ import { useAccountsAll } from '@/hooks/useAccounts.js';
 import { useCurrentProfileAll } from '@/hooks/useCurrentProfile.js';
 import { useNavigatorTitle } from '@/hooks/useNavigatorTitle.js';
 import { LoginModalRef, LogoutModalRef } from '@/modals/controls.js';
+import { env } from '@/constants/env.js';
+import { STATUS } from '@/constants/enum.js';
 
 export default function Connected() {
     const accountsAll = useAccountsAll();
@@ -40,7 +42,7 @@ export default function Connected() {
                 ) : null;
             })}
 
-            <ThirdPartAccounts />
+            {env.external.NEXT_PUBLIC_THIRD_PARTY_AUTH === STATUS.Enabled ? <ThirdPartAccounts /> : null}
 
             <div className="flex w-full flex-col items-center justify-center gap-4 md:flex-row">
                 <ClickableButton

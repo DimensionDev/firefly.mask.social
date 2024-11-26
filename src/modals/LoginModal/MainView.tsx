@@ -7,11 +7,12 @@ import urlcat from 'urlcat';
 
 import { LoginButton } from '@/components/Login/LoginButton.js';
 import { LoginFirefly } from '@/components/Login/LoginFirefly.js';
-import { FarcasterSignType, type SocialSource, Source, type ThirdPartySource } from '@/constants/enum.js';
+import { FarcasterSignType, type SocialSource, Source, STATUS, type ThirdPartySource } from '@/constants/enum.js';
 import { SORTED_SOCIAL_SOURCES, SORTED_THIRD_PARTY_SOURCES } from '@/constants/index.js';
 import { resolveSourceInUrl } from '@/helpers/resolveSourceInUrl.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
+import { env } from '@/constants/env.js';
 
 export function MainView() {
     const router = useRouter();
@@ -60,14 +61,16 @@ export function MainView() {
                     {SORTED_SOCIAL_SOURCES.map((source) => (
                         <LoginButton key={source} source={source} onClick={() => onClick(source)} />
                     ))}
-                    {SORTED_THIRD_PARTY_SOURCES.map((source) => (
-                        <LoginButton
-                            key={source}
-                            source={source}
-                            loading={loading}
-                            onClick={() => onAuthClick(source)}
-                        />
-                    ))}
+                    {env.external.NEXT_PUBLIC_THIRD_PARTY_AUTH === STATUS.Enabled
+                        ? SORTED_THIRD_PARTY_SOURCES.map((source) => (
+                              <LoginButton
+                                  key={source}
+                                  source={source}
+                                  loading={loading}
+                                  onClick={() => onAuthClick(source)}
+                              />
+                          ))
+                        : null}
                 </div>
             </div>
         </div>
