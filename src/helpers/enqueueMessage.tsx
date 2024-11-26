@@ -98,9 +98,25 @@ export function enqueueWarningMessage(message: SnackbarMessage, options?: Messag
     });
 }
 
+type SolanaError = {
+    code: number;
+    message: string;
+};
+
 function captureWarningMessageFromError(error: unknown) {
     let currentError = error;
     const visited = new Set();
+
+    // For solana wallet adapter
+    const message = 'user rejected the request';
+    if (
+        error instanceof Error &&
+        (error.message.includes(message) ||
+            ('error' in error && (error.error as SolanaError).message?.includes(message)))
+    ) {
+        enqueueWarningMessage(t`The user rejected the request.`);
+        return true;
+    }
 
     // UserRejectedRequestError from viem
     while (currentError instanceof Error && !visited.has(currentError)) {
