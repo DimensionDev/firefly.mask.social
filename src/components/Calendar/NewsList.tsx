@@ -24,7 +24,7 @@ interface Group {
 }
 
 export function NewsList({ date, onDatesUpdate }: NewsListProps) {
-    const { data: newsList, isLoading, hasNextPage, isFetching, fetchNextPage } = useNewsList(date, true);
+    const { data: newsList, isPending, hasNextPage, isFetching, fetchNextPage } = useNewsList(date, true);
 
     const groups = useMemo(() => {
         if (!newsList?.length) return EMPTY_LIST;
@@ -49,7 +49,7 @@ export function NewsList({ date, onDatesUpdate }: NewsListProps) {
         onDatesUpdate(uniq(newsList.map((x) => new Date(x.event_date).toLocaleDateString())));
     }, [onDatesUpdate, newsList]);
 
-    if (isLoading) {
+    if (isPending && !groups.length) {
         return (
             <div className="no-scrollbar relative flex h-[506px] w-full flex-col gap-[10px] overflow-y-scroll">
                 <div className="pt-3">
@@ -117,7 +117,7 @@ export function NewsList({ date, onDatesUpdate }: NewsListProps) {
                     {isFetching ? <Loading className="text-main" /> : null}
                 </ElementAnchor>
             ) : (
-                <p className="px-2 text-center text-second">
+                <p className="py-2 text-center text-xs text-second">
                     <Trans>No more data available.</Trans>
                 </p>
             )}

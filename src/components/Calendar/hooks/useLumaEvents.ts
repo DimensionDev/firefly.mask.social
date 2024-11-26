@@ -1,13 +1,14 @@
 import { useInfiniteQuery } from '@tanstack/react-query';
 import { addDays, startOfMonth } from 'date-fns';
+import { useEffect } from 'react';
 
 import { CalendarProvider } from '@/providers/calendar/index.js';
 
 export function useLumaEvents(date: Date, enabled = true) {
     const startTime = startOfMonth(date).getTime();
-    const endTime = Math.floor(addDays(date, 45).getTime());
+    const endTime = addDays(startTime, 45).getTime();
 
-    return useInfiniteQuery({
+    const query = useInfiniteQuery({
         enabled,
         queryKey: ['lumaEvents', startTime, endTime],
         initialPageParam: undefined as any,
@@ -21,4 +22,12 @@ export function useLumaEvents(date: Date, enabled = true) {
             return data.pages.flatMap((x) => x.data);
         },
     });
+
+    const { hasNextPage, isFetchingNextPage, fetchNextPage } = query;
+    useEffect(() => {
+        if (hasNextPage && !isFetchingNextPage) {
+            fetchNextPage();
+        }
+    }, [hasNextPage, isFetchingNextPage, fetchNextPage]);
+    return query;
 }
