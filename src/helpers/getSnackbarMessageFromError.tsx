@@ -5,9 +5,9 @@ import type { SnackbarMessage } from 'notistack';
 import { EstimateGasExecutionError, UserRejectedRequestError } from 'viem';
 
 import { SnackbarErrorMessage } from '@/components/SnackbarErrorMessage.js';
+import { WarnSnackbar } from '@/components/WarnSnackbar.js';
 import { FarcasterInvalidSignerKey, FetchError, UserRejectionError } from '@/constants/error.js';
 import { getErrorMessageFromFetchError } from '@/helpers/getErrorMessageFromFetchError.js';
-import { WarnSnackbar } from '@/components/WarnSnackbar.js';
 
 type SolanaError = {
     code: number;

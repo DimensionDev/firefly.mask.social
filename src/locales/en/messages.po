@@ -1057,9 +1057,6 @@ msgstr "<0>Sold</0> an NFT worth {costEl}"
 msgid "Your vote is in!"
 msgstr "Your vote is in!"
 
-msgid "The user canceled the operation."
-msgstr "The user canceled the operation."
-
 msgid "Your Farcaster account holds Power Badge"
 msgstr "Your Farcaster account holds Power Badge"
 

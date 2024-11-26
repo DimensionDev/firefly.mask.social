@@ -1057,9 +1057,6 @@ msgstr ""
 msgid "Your vote is in!"
 msgstr ""
 
-msgid "The user canceled the operation."
-msgstr ""
-
 msgid "Your Farcaster account holds Power Badge"
 msgstr ""
 

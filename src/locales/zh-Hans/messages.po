@@ -1062,9 +1062,6 @@ msgstr "<0>出售了</0> 一个 NFT 价值 {costEl}"
 msgid "Your vote is in!"
 msgstr "投票成功！"
 
-msgid "The user canceled the operation."
-msgstr "用户已取消操作。"
-
 msgid "Your Farcaster account holds Power Badge"
 msgstr "您的 Farcaster 账户拥有 Power Badge"
 
