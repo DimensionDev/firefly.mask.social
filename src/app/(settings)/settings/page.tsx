@@ -17,7 +17,7 @@ export default function Settings() {
     useEffect(() => {
         if (!isSmall) router.replace('/settings/general');
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
+    }, [isSmall]);
 
     if (!isSmall) return null;
 

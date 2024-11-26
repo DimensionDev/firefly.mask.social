@@ -16,6 +16,7 @@ import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
 import { useNavigatorTitle } from '@/hooks/useNavigatorTitle.js';
 import { type Notification as NotificationObject, NotificationType } from '@/providers/types/SocialMedia.js';
+import { useNotificationSettings } from '@/hooks/useNotificationSettings.js';
 
 function useNotificationTypes(source: SocialSource) {
     const [typesMap, setTypesMap] = useState<Record<SocialSource, NotificationType[]>>({
@@ -50,12 +51,14 @@ export default function Notification({ params }: { params: { source: SourceInURL
 
     const [types, setTypes] = useNotificationTypes(source);
 
+    const { enabled } = useNotificationSettings(source);
+
     const queryResult = useSuspenseInfiniteQuery({
-        queryKey: ['notifications', source, isLogin, profile?.profileId],
+        queryKey: ['notifications', source, isLogin, profile?.profileId, enabled],
         queryFn: async ({ pageParam }) => {
             if (!isLogin) return;
             const provider = resolveSocialMediaProvider(source);
-            return provider.getNotifications(createIndicator(undefined, pageParam));
+            return provider.getNotifications(createIndicator(undefined, pageParam), enabled);
         },
         initialPageParam: '',
         getNextPageParam: (lastPage) => {

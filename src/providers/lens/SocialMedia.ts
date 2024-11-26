@@ -1123,10 +1123,14 @@ export class LensSocialMedia implements Provider {
         return result?.operations.isFollowingMe.value ?? false;
     }
 
-    async getNotifications(indicator?: PageIndicator): Promise<Pageable<Notification, PageIndicator>> {
+    async getNotifications(
+        indicator?: PageIndicator,
+        highSignalFilter?: boolean,
+    ): Promise<Pageable<Notification, PageIndicator>> {
         const response = await lensSessionHolder.sdk.notifications.fetch({
             where: {
                 customFilters: [CustomFiltersType.Gardeners],
+                highSignalFilter,
             },
             cursor: indicator?.id && !isZero(indicator.id) ? indicator.id : undefined,
         });
