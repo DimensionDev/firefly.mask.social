@@ -42,15 +42,10 @@
         "paths": {
             "@/*": ["./src/*"],
             "next/navigation.js": ["./src/esm/navigation.ts"],
-            "@masknet/backup-format": ["./src/maskbook/packages/backup-format/src/index.ts"],
             "@masknet/base": ["./src/maskbook/packages/base/src/index.ts"],
             "@masknet/encryption": ["./src/maskbook/packages/encryption/src/index.ts"],
             "@masknet/flags": ["./src/maskbook/packages/flags/src/index.ts"],
             "@masknet/flags/build-info": ["./src/maskbook/packages/flags/src/flags/buildInfo.ts"],
-            "@masknet/gun-utils": ["./src/maskbook/packages/gun-utils/src/index.ts"],
-            "@masknet/injected-script": ["./src/maskbook/packages/injected-script/sdk/index.ts"],
-            "@masknet/sdk": ["./src/maskbook/packages/mask-sdk/server/index.ts"],
-            "@masknet/sdk/shared": ["./src/maskbook/packages/mask-sdk/shared/index.ts"],
             "@masknet/plugin-infra/dom": ["./src/maskbook/packages/plugin-infra/src/entry-dom.ts"],
             "@masknet/plugin-infra/dom/context": ["./src/maskbook/packages/plugin-infra/src/dom/context.ts"],
             "@masknet/plugin-infra/background-worker": [
@@ -66,40 +61,16 @@
                 "./src/maskbook/packages/plugin-infra/src/entry-content-script.ts"
             ],
             "@masknet/plugin-infra": ["./src/maskbook/packages/plugin-infra/src/entry.ts"],
-            "@masknet/global-types/*": ["./src/maskbook/packages/polyfills/types/*"],
             "@masknet/public-api": ["./src/maskbook/packages/public-api/src/index.ts"],
-            "@masknet/sandboxed-plugin-runtime": [
-                "./src/maskbook/packages/sandboxed-plugin-runtime/src/runtime/export.ts"
-            ],
-            "@masknet/sandboxed-plugin-runtime/background": [
-                "./src/maskbook/packages/sandboxed-plugin-runtime/src/background/index.ts"
-            ],
-            "@masknet/sandboxed-plugin-runtime/site-adaptor": [
-                "./src/maskbook/packages/sandboxed-plugin-runtime/src/site-adaptor/index.ts"
-            ],
-            "@masknet/sandboxed-plugin-runtime/extension-page": [
-                "./src/maskbook/packages/sandboxed-plugin-runtime/src/extension-page"
-            ],
             "@masknet/shared": ["./src/maskbook/packages/shared/src/index.ts"],
             "@masknet/shared-base": ["./src/maskbook/packages/shared-base/src/index.ts"],
             "@masknet/theme": ["./src/maskbook/packages/theme/src/index.ts"],
             "@masknet/typed-message": ["./src/maskbook/packages/typed-message/base/src/index.ts"],
-            "@masknet/typed-message/internal": ["./src/maskbook/packages/typed-message/base/src/internal.ts"],
             "@masknet/typed-message-react": ["./src/maskbook/packages/typed-message/react/src/index.ts"],
-            "@masknet/types": ["./src/maskbook/packages/types/src/index.ts"],
-            "@masknet/web3-helpers": ["./src/maskbook/packages/web3-helpers/src/index.ts"],
             "@masknet/web3-hooks-base": ["./src/maskbook/packages/web3-hooks/base/src/index.ts"],
-            "@masknet/web3-providers": ["./src/maskbook/packages/web3-providers/src/entry.ts"],
-            // disable cause of deep dependency chain
-            // "@masknet/web3-providers/helpers": ["./src/maskbook/packages/web3-providers/src/entry-helpers.ts"],
-            "@masknet/web3-providers/types": ["./src/maskbook/packages/web3-providers/src/entry-types.ts"],
             "@masknet/web3-shared-base": ["./src/maskbook/packages/web3-shared/base/src/index.ts"],
             "@masknet/web3-shared-evm": ["./src/maskbook/packages/web3-shared/evm/src/index.ts"],
-            "@masknet/web3-shared-flow": ["./src/maskbook/packages/web3-shared/flow/src/index.ts"],
             "@masknet/web3-shared-solana": ["./src/maskbook/packages/web3-shared/solana/src/index.ts"],
-            "@masknet/web3-telemetry": ["./src/maskbook/packages/web3-telemetry/src/entry.ts"],
-            "@masknet/web3-telemetry/helpers": ["./src/maskbook/packages/web3-telemetry/src/entry-helpers.ts"],
-            "@masknet/web3-telemetry/types": ["./src/maskbook/packages/web3-telemetry/src/entry-types.ts"],
             "@masknet/plugin-redpacket": ["./src/maskbook/packages/plugins/RedPacket/src/index.ts"],
             "@masknet/plugin-redpacket/register": ["./src/maskbook/packages/plugins/RedPacket/src/register.ts"]
         }

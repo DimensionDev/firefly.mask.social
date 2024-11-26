@@ -1,8 +1,8 @@
-import type { BaseHubOptions, SimpleHash } from '@masknet/web3-providers/types';
 import type { NonFungibleAsset } from '@masknet/web3-shared-base';
 import type { ChainId, SchemaType } from '@masknet/web3-shared-evm';
 
 import type { Pageable, PageIndicator } from '@/helpers/pageable.js';
+import type { BaseHubOptions, SimpleHash } from '@/mask/bindings/index.js';
 import { SimpleHashEVM } from '@/mask/bindings/index.js';
 import type { Provider, SimpleHashCollection } from '@/providers/types/WalletProfile.js';
 

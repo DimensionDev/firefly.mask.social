@@ -1,6 +1,5 @@
-import type { FireflyRedPacketAPI } from '@masknet/web3-providers/types';
-
 import { getCSSPropertiesFromThemeSettings } from '@/helpers/getCSSPropertiesFromThemeSettings.js';
+import type { FireflyRedPacketAPI } from '@/mask/bindings/index.js';
 
 interface MessageTextProps {
     theme: FireflyRedPacketAPI.ThemeGroupSettings;

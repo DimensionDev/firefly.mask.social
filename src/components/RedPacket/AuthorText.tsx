@@ -1,8 +1,8 @@
 import { safeUnreachable } from '@masknet/kit';
-import type { FireflyRedPacketAPI } from '@masknet/web3-providers/types';
 
 import { formatEthereumAddress } from '@/helpers/formatAddress.js';
 import { getCSSPropertiesFromThemeSettings } from '@/helpers/getCSSPropertiesFromThemeSettings.js';
+import type { FireflyRedPacketAPI } from '@/mask/bindings/index.js';
 import { UsageType } from '@/types/rp.js';
 
 interface AuthorTextProps {
