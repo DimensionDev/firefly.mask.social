@@ -4,7 +4,7 @@ import { type Address, type Hex, isAddress } from 'viem';
 
 import { queryClient } from '@/configs/queryClient.js';
 import { DEBANK_CHAIN_TO_CHAIN_ID_MAP, DEBANK_CHAINS } from '@/constants/chain.js';
-import { FireflyPlatform, NetworkType, Source, SourceInURL } from '@/constants/enum.js';
+import { FireflyPlatform, NetworkType, type SocialSource, Source, SourceInURL } from '@/constants/enum.js';
 import { EMPTY_LIST } from '@/constants/index.js';
 import { SetQueryDataForAddWallet } from '@/decorators/SetQueryDataForAddWallet.js';
 import { SetQueryDataForMuteAllProfiles } from '@/decorators/SetQueryDataForBlockProfile.js';
@@ -429,20 +429,33 @@ export class FireflyEndpoint {
         return true;
     }
 
-    async searchIdentity(q: string, size = 100, indicator?: PageIndicator) {
+    async searchIdentity(
+        keyword: string,
+        {
+            platforms,
+            size = 100,
+            indicator,
+        }: {
+            platforms?: SocialSource[];
+            size?: number;
+            indicator?: PageIndicator;
+        } = {},
+    ) {
         const url = urlcat(settings.FIREFLY_ROOT_URL, '/v2/search/identity', {
-            keyword: q,
+            keyword,
             size,
-            cursor: indicator?.id,
         });
-        const response = await fireflySessionHolder.fetch<SearchProfileResponse>(url, {
-            method: 'GET',
-        });
+        const platform = platforms?.map((x) => resolveSourceInUrl(x)).join(','); // There are commas here, without escaping
+        const response = await fireflySessionHolder.fetch<SearchProfileResponse>(
+            platform ? `${url}&platform=${platform}` : url,
+            {
+                method: 'GET',
+            },
+        );
         const data = resolveFireflyResponseData(response);
-
         return createPageable(
-            data?.list ?? EMPTY_LIST,
-            createIndicator(indicator),
+            data.list,
+            indicator,
             data.cursor ? createNextIndicator(indicator, `${data.cursor}`) : undefined,
         );
     }
@@ -590,8 +603,7 @@ export class FireflyEndpoint {
         const response = await fireflySessionHolder.fetch<GetAllConnectionsResponse>(url, {
             method: 'GET',
         });
-        const data = resolveFireflyResponseData(response);
-        return data;
+        return resolveFireflyResponseData(response);
     }
 
     async getAllConnectionsFormatted() {

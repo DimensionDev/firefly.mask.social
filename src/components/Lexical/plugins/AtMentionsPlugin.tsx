@@ -189,7 +189,9 @@ export function MentionsPlugin(): JSX.Element | null {
         ],
         queryFn: async () => {
             if (!debounceQuery) return;
-            const data = await FireflyEndpointProvider.searchIdentity(debounceQuery);
+            const data = await FireflyEndpointProvider.searchIdentity(debounceQuery, {
+                platforms: availableSources,
+            });
 
             if (!data) return EMPTY_LIST;
             return formatSearchIdentities(data.data);
