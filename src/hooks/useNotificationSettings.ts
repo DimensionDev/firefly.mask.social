@@ -1,9 +1,10 @@
-import { Source, type SocialSource } from '@/constants/enum.js';
-import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
-import { NotificationTitle, NotificationPlatform, NotificationPushType } from '@/providers/types/Firefly.js';
 import { safeUnreachable } from '@masknet/kit';
 import { useQuery } from '@tanstack/react-query';
 import { useMemo } from 'react';
+
+import { type SocialSource,Source } from '@/constants/enum.js';
+import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
+import { NotificationPlatform, NotificationPushType,NotificationTitle } from '@/providers/types/Firefly.js';
 
 export function useNotificationSettings(source: SocialSource) {
     const { data, isLoading, refetch } = useQuery({

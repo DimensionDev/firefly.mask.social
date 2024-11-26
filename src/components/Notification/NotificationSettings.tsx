@@ -2,17 +2,14 @@
 
 import { Popover, PopoverButton, PopoverPanel, Switch } from '@headlessui/react';
 import { Trans } from '@lingui/macro';
-import { safeUnreachable } from '@masknet/kit';
-import { useQuery } from '@tanstack/react-query';
-import { useMemo } from 'react';
 import { useAsyncFn } from 'react-use';
 
 import LoadingIcon from '@/assets/loading.svg';
 import SettingsIcon from '@/assets/setting.svg';
 import { type SocialSource, Source } from '@/constants/enum.js';
-import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
-import { NotificationPlatform, NotificationPushType, NotificationTitle } from '@/providers/types/Firefly.js';
 import { useNotificationSettings } from '@/hooks/useNotificationSettings.js';
+import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
+import { NotificationPlatform, NotificationPushType } from '@/providers/types/Firefly.js';
 
 export function NotificationSettings({ source }: { source: SocialSource }) {
     const { enabled, isLoading, refetch } = useNotificationSettings(source);

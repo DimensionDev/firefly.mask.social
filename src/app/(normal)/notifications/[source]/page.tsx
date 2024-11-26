@@ -15,8 +15,8 @@ import { resolveSource } from '@/helpers/resolveSource.js';
 import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
 import { useNavigatorTitle } from '@/hooks/useNavigatorTitle.js';
-import { type Notification as NotificationObject, NotificationType } from '@/providers/types/SocialMedia.js';
 import { useNotificationSettings } from '@/hooks/useNotificationSettings.js';
+import { type Notification as NotificationObject, NotificationType } from '@/providers/types/SocialMedia.js';
 
 function useNotificationTypes(source: SocialSource) {
     const [typesMap, setTypesMap] = useState<Record<SocialSource, NotificationType[]>>({
