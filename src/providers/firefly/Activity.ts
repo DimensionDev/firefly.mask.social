@@ -1,6 +1,9 @@
 import { IS_IOS } from '@lexical/utils';
+import { safeUnreachable } from '@masknet/kit';
 import urlcat from 'urlcat';
 
+import { type SocialSource, Source } from '@/constants/enum.js';
+import { NotImplementedError } from '@/constants/error.js';
 import { EMPTY_LIST } from '@/constants/index.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
 import { formatWalletConnections } from '@/helpers/formatWalletConnection.js';
@@ -12,6 +15,7 @@ import {
     type PageIndicator,
 } from '@/helpers/pageable.js';
 import { resolveFireflyResponseData } from '@/helpers/resolveFireflyResponseData.js';
+import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { fireflyBridgeProvider } from '@/providers/firefly/Bridge.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
 import type { CheckResponse, MintActivitySBTResponse, Provider } from '@/providers/types/Activity.js';
@@ -23,6 +27,7 @@ import type {
     VotingResultResponse,
 } from '@/providers/types/Firefly.js';
 import { settings } from '@/settings/index.js';
+import { SupportedMethod } from '@/types/bridge.js';
 
 class FireflyActivity implements Provider {
     async getActivityClaimCondition(
@@ -171,6 +176,49 @@ class FireflyActivity implements Provider {
 
         const response = await fetchJSON<VotingResultResponse>(url);
         return resolveFireflyResponseData(response);
+    }
+
+    async follow(
+        source: SocialSource,
+        profileId: string,
+        options?: {
+            sourceFarcasterProfileId?: number;
+            authToken?: string;
+        },
+    ) {
+        if (fireflyBridgeProvider.supported) {
+            switch (source) {
+                case Source.Lens:
+                    throw new NotImplementedError();
+                case Source.Twitter:
+                    await fireflyBridgeProvider.request(SupportedMethod.FOLLOW_TWITTER_USER, {
+                        id: profileId,
+                    });
+                    break;
+                case Source.Farcaster:
+                    const url = urlcat(settings.FIREFLY_ROOT_URL, '/v2/farcaster-hub/follow');
+                    await fireflySessionHolder.fetch(url, {
+                        method: 'POST',
+                        body: JSON.stringify({
+                            targetFid: parseInt(profileId, 10),
+                            sourceFid: options?.sourceFarcasterProfileId,
+                        }),
+                        ...(options?.authToken
+                            ? {
+                                  headers: {
+                                      Authorization: `Bearer ${options.authToken}`,
+                                  },
+                              }
+                            : {}),
+                    });
+                    break;
+                default:
+                    safeUnreachable(source);
+                    return;
+            }
+            return;
+        }
+        await resolveSocialMediaProvider(source).follow(profileId);
     }
 }
 

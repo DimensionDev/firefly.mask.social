@@ -1,33 +1,33 @@
 import { t } from '@lingui/macro';
 import { useAsyncFn } from 'react-use';
 
+import { useActivityCurrentAccountProfileId } from '@/components/Activity/hooks/useActivityCurrentAccountHandle.js';
 import { useIsFollowInActivity } from '@/components/Activity/hooks/useIsFollowInActivity.js';
-import type { SocialSource } from '@/constants/enum.js';
+import { type SocialSource, Source } from '@/constants/enum.js';
 import { enqueueErrorMessage, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { getSnackbarMessageFromError } from '@/helpers/getSnackbarMessageFromError.js';
-import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
-import { fireflyBridgeProvider } from '@/providers/firefly/Bridge.js';
-import { SupportedMethod } from '@/types/bridge.js';
+import { resolveSourceName } from '@/helpers/resolveSourceName.js';
+import { FireflyActivityProvider } from '@/providers/firefly/Activity.js';
 
 export function useActivityFollowProfile(source: SocialSource, profileId: string, handle: string) {
     const { refetch } = useIsFollowInActivity(source, profileId, handle);
+    const farcasterProfileId = useActivityCurrentAccountProfileId(Source.Farcaster);
     return useAsyncFn(async () => {
         try {
-            if (fireflyBridgeProvider.supported) {
-                // TODO: farcaster follow
-                await fireflyBridgeProvider.request(SupportedMethod.FOLLOW_TWITTER_USER, {
-                    id: profileId,
-                });
-            } else {
-                await resolveSocialMediaProvider(source)?.follow(profileId);
-            }
-            await refetch();
-            enqueueSuccessMessage(t`Followed @${handle} on X.`);
-        } catch (error) {
-            enqueueErrorMessage(getSnackbarMessageFromError(error, t`Failed to follow @${handle} on X.`), {
-                error,
+            await FireflyActivityProvider.follow(source, profileId, {
+                sourceFarcasterProfileId:
+                    typeof farcasterProfileId === 'string' ? parseInt(farcasterProfileId, 10) : farcasterProfileId,
             });
+            await refetch();
+            enqueueSuccessMessage(t`Followed @${handle} on ${resolveSourceName(source)}.`);
+        } catch (error) {
+            enqueueErrorMessage(
+                getSnackbarMessageFromError(error, t`Failed to follow @${handle} on ${resolveSourceName(source)}.`),
+                {
+                    error,
+                },
+            );
             throw error;
         }
-    }, [profileId, handle, source]);
+    }, [profileId, handle, source, farcasterProfileId]);
 }
