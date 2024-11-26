@@ -1,6 +1,5 @@
 import { OpenActionModuleType } from '@lens-protocol/client';
 import { t, Trans } from '@lingui/macro';
-import { EVMExplorerResolver } from '@masknet/web3-providers';
 import { ZERO_ADDRESS } from '@masknet/web3-shared-evm';
 import { useQuery } from '@tanstack/react-query';
 import dayjs from 'dayjs';
@@ -35,6 +34,7 @@ import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import { useMirror } from '@/hooks/useMirror.js';
 import { useSuperFollowModule } from '@/hooks/useSuperFollow.js';
 import { useToggleFollow } from '@/hooks/useToggleFollow.js';
+import { EVMExplorerResolver } from '@/mask/bindings/index.js';
 import { DraggablePopoverRef, LoginModalRef, SuperFollowModalRef } from '@/modals/controls.js';
 import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
 import type { Post } from '@/providers/types/SocialMedia.js';

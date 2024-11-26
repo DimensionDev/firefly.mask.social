@@ -28,8 +28,7 @@ import { useCompositePost } from '@/hooks/useCompositePost.js';
 import { useCurrentProfileAll } from '@/hooks/useCurrentProfile.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import { useSetEditorContent } from '@/hooks/useSetEditorContent.js';
-// eslint-disable-next-line no-restricted-imports
-import { CrossIsolationMessages } from '@/maskbook/packages/shared-base/src/index.js';
+import { CrossIsolationMessages } from '@/mask/bindings/index.js';
 import { ComposeModalRef, ConnectWalletModalRef } from '@/modals/controls.js';
 import { useComposeScheduleStateStore } from '@/store/useComposeScheduleStore.js';
 import { useComposeStateStore } from '@/store/useComposeStore.js';

@@ -1,7 +1,6 @@
 'use client';
 
 import { t, Trans } from '@lingui/macro';
-import { EVMExplorerResolver } from '@masknet/web3-providers';
 import { SchemaType } from '@masknet/web3-shared-evm';
 import { isValidChainId as isValidSolanaChainId, SchemaType as SolanaSchemaType } from '@masknet/web3-shared-solana';
 import { type ReactNode, useMemo } from 'react';
@@ -11,8 +10,7 @@ import { CopyTextButton } from '@/components/CopyTextButton.js';
 import { ChainIcon } from '@/components/NFTDetail/ChainIcon.js';
 import { Link } from '@/esm/Link.js';
 import { resolveSimpleHashChain } from '@/helpers/resolveSimpleHashChain.js';
-// eslint-disable-next-line no-restricted-imports
-import { SolanaExplorerResolver } from '@/maskbook/packages/web3-providers/src/Web3/Solana/apis/ResolverAPI.js';
+import { EVMExplorerResolver, SolanaExplorerResolver } from '@/mask/bindings/index.js';
 import { BlockScanExplorerResolver } from '@/providers/ethereum/ExplorerResolver.js';
 
 function DetailsGroup(props: { field: ReactNode; value: ReactNode }) {
