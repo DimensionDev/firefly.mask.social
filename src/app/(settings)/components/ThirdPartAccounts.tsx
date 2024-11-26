@@ -26,9 +26,6 @@ function ThirdPartItem({ source, icon: PlatformIcon, iconClassName, iconWidth, i
 
     const connected = !!account;
 
-    // For debugging
-    console.log('[Debug]: ', source, account);
-
     return (
         <div className="mt-6 inline-flex h-[63px] w-full items-center justify-start gap-3 rounded-lg bg-white bg-bottom px-3 py-2 shadow-primary backdrop-blur dark:bg-bg">
             <div className={classNames('flex h-10 w-10 items-center justify-center rounded-full', iconClassName)}>
