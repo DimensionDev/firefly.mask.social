@@ -21,8 +21,8 @@ function captureWarningMessageFromError(error: unknown) {
     const message = 'user rejected the request';
     if (
         error instanceof Error &&
-        (error.message.includes(message) ||
-            ('error' in error && (error.error as SolanaError).message?.includes(message)))
+        (error.message?.toLowerCase().includes(message) ||
+            ('error' in error && (error.error as SolanaError).message?.toLowerCase().includes(message)))
     ) {
         enqueueWarningMessage(t`The user rejected the request.`);
         return true;
