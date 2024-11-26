@@ -47,15 +47,8 @@
             "@masknet/flags": ["./src/maskbook/packages/flags/src/index.ts"],
             "@masknet/flags/build-info": ["./src/maskbook/packages/flags/src/flags/buildInfo.ts"],
             "@masknet/plugin-infra/dom": ["./src/maskbook/packages/plugin-infra/src/entry-dom.ts"],
-            "@masknet/plugin-infra/dom/context": ["./src/maskbook/packages/plugin-infra/src/dom/context.ts"],
             "@masknet/plugin-infra/background-worker": [
                 "./src/maskbook/packages/plugin-infra/src/entry-background-worker.ts"
-            ],
-            "@masknet/plugin-infra/extension-page": [
-                "./src/maskbook/packages/plugin-infra/src/entry-extension-page.ts"
-            ],
-            "@masknet/plugin-infra/content-script/context": [
-                "./src/maskbook/packages/plugin-infra/src/site-adaptor/context.ts"
             ],
             "@masknet/plugin-infra/content-script": [
                 "./src/maskbook/packages/plugin-infra/src/entry-content-script.ts"
@@ -64,7 +57,6 @@
             "@masknet/public-api": ["./src/maskbook/packages/public-api/src/index.ts"],
             "@masknet/shared": ["./src/maskbook/packages/shared/src/index.ts"],
             "@masknet/shared-base": ["./src/maskbook/packages/shared-base/src/index.ts"],
-            "@masknet/theme": ["./src/maskbook/packages/theme/src/index.ts"],
             "@masknet/typed-message": ["./src/maskbook/packages/typed-message/base/src/index.ts"],
             "@masknet/typed-message-react": ["./src/maskbook/packages/typed-message/react/src/index.ts"],
             "@masknet/web3-hooks-base": ["./src/maskbook/packages/web3-hooks/base/src/index.ts"],

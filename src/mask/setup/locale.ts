@@ -1,8 +1,7 @@
-import { addSharedI18N } from '@masknet/shared';
 import { createI18NBundle, i18NextInstance } from '@masknet/shared-base';
 import { initReactI18next } from 'react-i18next';
 
-import { addShareBaseI18N } from '@/mask/bindings/index.js';
+import { addShareBaseI18N, addSharedI18N } from '@/mask/bindings/index.js';
 import en_US from '@/mask/setup/locales/en-US.json';
 import ja_JP from '@/mask/setup/locales/ja-JP.json';
 import ko_KR from '@/mask/setup/locales/ko-KR.json';

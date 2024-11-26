@@ -1,6 +1,5 @@
 'use client';
 
-import { CrossIsolationMessages } from '@masknet/shared-base';
 import { useEffect } from 'react';
 import { useAsync, useUpdateEffect } from 'react-use';
 import { useAccount, useChainId } from 'wagmi';
@@ -10,6 +9,7 @@ import { env } from '@/constants/env.js';
 import { connectMaskWithWagmi } from '@/helpers/connectWagmiWithMask.js';
 import { getTypedMessageRedPacket } from '@/helpers/getTypedMessage.js';
 import { getRpMetadata } from '@/helpers/rpPayload.js';
+import { CrossIsolationMessages } from '@/mask/bindings/index.js';
 import { captureLuckyDropEvent } from '@/providers/telemetry/captureLuckyDropEvent.js';
 import { useComposeStateStore } from '@/store/useComposeStore.js';
 

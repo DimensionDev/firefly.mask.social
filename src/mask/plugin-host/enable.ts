@@ -6,12 +6,12 @@ import {
     startPluginSiteAdaptor,
 } from '@masknet/plugin-infra/content-script';
 import { BooleanPreference, createI18NBundle, i18NextInstance } from '@masknet/shared-base';
-import { setupReactShadowRootEnvironment } from '@masknet/theme';
 import { Emitter } from '@servie/events';
 
 import { EnhanceableSite } from '@/constants/enum.js';
-import { createMaskSiteAdaptorContext, createMaskUIContext } from '@/helpers/createMaskContext.js';
 import { createRejectCallback } from '@/helpers/createRejectCallback.js';
+import { setupReactShadowRootEnvironment } from '@/mask/bindings/index.js';
+import { createMaskSiteAdaptorContext, createMaskUIContext } from '@/mask/helpers/createMaskContext.js';
 import { indexedDBStorage, inMemoryStorage } from '@/mask/setup/storage.js';
 
 __setUIContext__(createMaskUIContext());

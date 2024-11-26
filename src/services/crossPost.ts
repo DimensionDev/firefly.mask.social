@@ -1,5 +1,4 @@
 import { plural, t } from '@lingui/macro';
-import { RedPacketMetaKey } from '@masknet/plugin-redpacket';
 import { produce } from 'immer';
 import { compact } from 'lodash-es';
 
@@ -17,7 +16,7 @@ import { getPostFailedAt } from '@/helpers/getPostFailedAt.js';
 import { resolvePostTo } from '@/helpers/resolvePostTo.js';
 import { resolveRedPacketPlatformType } from '@/helpers/resolveRedPacketPlatformType.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
-import { hasRpPayload } from '@/helpers/rpPayload.js';
+import { hasRpPayload, RedPacketMetaKey } from '@/helpers/rpPayload.js';
 import { FireflyRedPacket, FireflyRedPacketAPI, type RedPacketJSONPayload } from '@/mask/bindings/index.js';
 import { captureComposeEvent } from '@/providers/telemetry/captureComposeEvent.js';
 import { capturePollEvent } from '@/providers/telemetry/capturePollEvent.js';

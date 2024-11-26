@@ -1,6 +1,4 @@
 import { delay } from '@masknet/kit';
-import type { __SiteAdaptorContext__ } from '@masknet/plugin-infra/content-script';
-import type { __UIContext__, IdentityResolved } from '@masknet/plugin-infra/dom';
 import { TransactionConfirmModal } from '@masknet/shared';
 import { PostIdentifier, ProfileIdentifier } from '@masknet/shared-base';
 
@@ -11,6 +9,7 @@ import { createRejectCallback } from '@/helpers/createRejectCallback.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
 import { createSubscriptionFromValueRef } from '@/helpers/subscription.js';
 import { ValueRef } from '@/libs/ValueRef.js';
+import type { __SiteAdaptorContext__, __UIContext__, IdentityResolved } from '@/mask/bindings/index.js';
 import { ComposeModalRef, LoginModalRef } from '@/modals/controls.js';
 
 export function createMaskUIContext(context?: Partial<__UIContext__>): __UIContext__ {
