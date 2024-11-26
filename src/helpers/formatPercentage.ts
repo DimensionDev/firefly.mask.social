@@ -1,5 +1,4 @@
-// eslint-disable-next-line no-restricted-imports
-import { isLessThan } from '@/maskbook/packages/web3-shared/base/src/helpers/number.js';
+import { isLessThan } from '@/helpers/number.js';
 
 /**
  * @param value 0-1

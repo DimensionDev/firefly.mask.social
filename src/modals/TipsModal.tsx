@@ -1,5 +1,4 @@
 import { t } from '@lingui/macro';
-import { useSingletonModal } from '@masknet/shared-base-ui';
 import { formatEthereumAddress } from '@masknet/web3-shared-evm';
 import { RouterProvider } from '@tanstack/react-router';
 import { forwardRef, useCallback } from 'react';
@@ -13,6 +12,7 @@ import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
 import { getSnackbarMessageFromError } from '@/helpers/getSnackbarMessageFromError.js';
 import { isSameEthereumAddress } from '@/helpers/isSameAddress.js';
 import { useIsSmall } from '@/hooks/useMediaQuery.js';
+import { useSingletonModal } from '@/hooks/useSingletonModal.js';
 import { TipsContext, type TipsProfile } from '@/hooks/useTipsContext.js';
 import type { SingletonModalRefCreator } from '@/libs/SingletonModal.js';
 import type { FireflyIdentity, FireflyProfile, Profile, WalletProfile } from '@/providers/types/Firefly.js';
