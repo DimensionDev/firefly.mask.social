@@ -23,7 +23,7 @@ export function ActivityConnectCard({ source, label }: { source: SocialSource; l
             <ActivityVerifyText verified={!!address}>
                 <h3>{label}</h3>
             </ActivityVerifyText>
-            <div className="flex h-8 flex-shrink-0 space-x-2">
+            <div className="ml-2 flex h-8 flex-shrink-0 space-x-2">
                 <ActivityConnectButton source={source} />
             </div>
         </div>
