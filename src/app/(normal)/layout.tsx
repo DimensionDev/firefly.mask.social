@@ -16,7 +16,7 @@ export default function Layout({ children, modal }: { children: React.ReactNode;
     return (
         <>
             <main className="flex w-full flex-[1_1_100%] flex-col md:border-r md:border-line md:pl-[235px] lg:w-[888px] lg:max-w-[calc(100%-384px)] lg:pl-[289px]">
-                <div className="sticky top-0 z-50 bg-primaryBottom">
+                <div className="sticky top-0 z-40 bg-primaryBottom">
                     <IfPathname
                         isNotOneOf={[
                             {
