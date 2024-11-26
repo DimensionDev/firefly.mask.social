@@ -45,14 +45,6 @@ export function ConnectWallet({ collapsed: sideBarCollapsed = false }: ConnectWa
     const collapsed = useGlobalState.use.collapsedConnectWallet();
     const setCollapsed = useGlobalState.use.updateCollapsedConnectWallet();
 
-    console.log('DEBUG: accounts');
-    console.log({
-        evm: evmAccount.address,
-        solana: solanaWallet.publicKey?.toBase58(),
-        ensName,
-        collapsed,
-    });
-
     const chainTypes = [
         {
             icon: evmNetworkDescriptor?.icon,
