@@ -222,9 +222,6 @@ msgstr ""
 msgid "Ended"
 msgstr ""
 
-msgid "Failed to follow @{handle} on X."
-msgstr ""
-
 msgid "No cryptocurrency mixer found."
 msgstr ""
 
@@ -325,6 +322,9 @@ msgid "Scheduled"
 msgstr ""
 
 msgid "Pay"
+msgstr ""
+
+msgid "Followed @{handle} on {0}."
 msgstr ""
 
 msgid "Failed to add wallet"
@@ -475,6 +475,9 @@ msgid "<0>{0}</0><1>mirrored</1>"
 msgstr ""
 
 msgid "True Token"
+msgstr ""
+
+msgid "Failed to follow @{handle} on {0}."
 msgstr ""
 
 msgid "Bookmarks"
@@ -2224,9 +2227,6 @@ msgid "Schedule"
 msgstr ""
 
 msgid "No cybercrime involved."
-msgstr ""
-
-msgid "Followed @{handle} on X."
 msgstr ""
 
 msgid "Casts + Replies"
