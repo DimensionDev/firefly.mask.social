@@ -417,9 +417,6 @@ msgstr "举报帖子"
 msgid "Tokens"
 msgstr ""
 
-msgid "Search profile"
-msgstr ""
-
 msgid "Search {id}"
 msgstr ""
 
@@ -1643,6 +1640,9 @@ msgstr "@{0} 的帖子会从您的时间线中隐藏"
 
 msgid "commented"
 msgstr "已回复"
+
+msgid "Unknown Collection"
+msgstr ""
 
 msgid "Validate failed, please check your input."
 msgstr "验证失败，请检查您的输入。"

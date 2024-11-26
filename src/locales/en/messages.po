@@ -412,9 +412,6 @@ msgstr "Report post"
 msgid "Tokens"
 msgstr "Tokens"
 
-msgid "Search profile"
-msgstr "Search profile"
-
 msgid "Search {id}"
 msgstr "Search {id}"
 
@@ -1638,6 +1635,9 @@ msgstr "Posts from @{0} will now be hidden in your home timeline"
 
 msgid "commented"
 msgstr "commented"
+
+msgid "Unknown Collection"
+msgstr "Unknown Collection"
 
 msgid "Validate failed, please check your input."
 msgstr "Validate failed, please check your input."

@@ -417,9 +417,6 @@ msgstr "檢舉貼文"
 msgid "Tokens"
 msgstr ""
 
-msgid "Search profile"
-msgstr ""
-
 msgid "Search {id}"
 msgstr ""
 
@@ -1643,6 +1640,9 @@ msgstr ""
 
 msgid "commented"
 msgstr "已評論"
+
+msgid "Unknown Collection"
+msgstr ""
 
 msgid "Validate failed, please check your input."
 msgstr ""
