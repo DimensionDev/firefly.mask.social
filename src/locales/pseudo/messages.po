@@ -1276,6 +1276,9 @@ msgstr ""
 msgid "Description"
 msgstr ""
 
+msgid "Others"
+msgstr ""
+
 msgid "Muted wallets"
 msgstr ""
 
