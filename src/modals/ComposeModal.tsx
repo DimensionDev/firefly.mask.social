@@ -7,7 +7,6 @@ import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext
 import { t, Trans } from '@lingui/macro';
 import { encrypt, SteganographyPreset } from '@masknet/encryption';
 import { delay } from '@masknet/kit';
-import { ProfileIdentifier } from '@masknet/shared-base';
 import type { TypedMessageTextV1 } from '@masknet/typed-message';
 import { RouterProvider } from '@tanstack/react-router';
 import { $getRoot } from 'lexical';
@@ -41,6 +40,7 @@ import { useIsSmall } from '@/hooks/useMediaQuery.js';
 import { useSetEditorContent } from '@/hooks/useSetEditorContent.js';
 import { useSingletonModal } from '@/hooks/useSingletonModal.js';
 import type { SingletonModalRefCreator } from '@/libs/SingletonModal.js';
+import { ProfileIdentifier } from '@/mask/bindings/index.js';
 import { ComposeModalRef, ConfirmModalRef } from '@/modals/controls.js';
 import { captureComposeDraftPostEvent } from '@/providers/telemetry/captureComposeEvent.js';
 import type { Channel, Post } from '@/providers/types/SocialMedia.js';

@@ -1,10 +1,10 @@
-import { EVMExplorerResolver } from '@masknet/web3-providers';
 import type { ChainId } from '@masknet/web3-shared-evm';
 import { getAccount, getChainId } from '@wagmi/core';
 import { type Address, type Hash } from 'viem';
 
 import { config } from '@/configs/wagmiClient.js';
 import { NotImplementedError } from '@/constants/error.js';
+import { EVMExplorerResolver } from '@/mask/bindings/index.js';
 import { BlockScanExplorerResolver } from '@/providers/ethereum/ExplorerResolver.js';
 import type { NetworkProvider } from '@/providers/types/Network.js';
 

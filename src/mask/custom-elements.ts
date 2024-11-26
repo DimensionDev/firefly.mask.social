@@ -11,15 +11,3 @@ import '@/mask/plugin-host/enable.js';
 // custom elements
 import '@/mask/custom-elements/PageInspector.js';
 import '@/mask/custom-elements/DecryptedPostInspector.js';
-
-// no plugin available for post inspector
-// import '@/mask/custom-elements/PostInspector.js';
-
-// import { setPluginDebuggerMessages } from '@/mask/message-host/index.js';
-
-// plugin messages
-// if (env.shared.NODE_ENV === NODE_ENV.Development) {
-//     await import('@masknet/plugin-debugger/messages').then((module) =>
-//         setPluginDebuggerMessages(module.PluginDebuggerMessages),
-//     );
-// }

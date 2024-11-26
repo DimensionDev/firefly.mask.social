@@ -24,4 +24,5 @@ src/specialFile.js
 
 # Ignore git submodule
 src/maskbook
+src/mask/bindings/*.ts
 pnpm-lock.yaml

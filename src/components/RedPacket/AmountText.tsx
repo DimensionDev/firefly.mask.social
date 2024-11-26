@@ -1,9 +1,8 @@
 /* eslint-disable @next/next/no-img-element */
 
-import type { FireflyRedPacketAPI } from '@masknet/web3-providers/types';
-
 import { formatBalance } from '@/helpers/formatBalance.js';
 import { getCSSPropertiesFromThemeSettings } from '@/helpers/getCSSPropertiesFromThemeSettings.js';
+import type { FireflyRedPacketAPI } from '@/mask/bindings/index.js';
 import { TokenType } from '@/types/rp.js';
 
 interface AmountTextProps {

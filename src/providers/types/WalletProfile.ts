@@ -1,7 +1,7 @@
-import { type BaseHubOptions, SimpleHash } from '@masknet/web3-providers/types';
 import type { NonFungibleAsset } from '@masknet/web3-shared-base';
 
 import type { Pageable, PageIndicator } from '@/helpers/pageable.js';
+import type { BaseHubOptions, SimpleHash } from '@/mask/bindings/index.js';
 
 export type SimpleHashCollection = SimpleHash.Collection & {
     chains?: string[];

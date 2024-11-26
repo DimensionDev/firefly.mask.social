@@ -1,8 +1,7 @@
 import { ChainId } from '@masknet/web3-shared-solana';
 import { WalletNotConnectedError } from '@solana/wallet-adapter-base';
 
-// eslint-disable-next-line no-restricted-imports
-import { SolanaExplorerResolver } from '@/maskbook/packages/web3-providers/src/Web3/Solana/apis/ResolverAPI.js';
+import { SolanaExplorerResolver } from '@/mask/bindings/index.js';
 import { resolveWalletAdapter } from '@/providers/solana/resolveWalletAdapter.js';
 import type { NetworkProvider as NetworkProvider } from '@/providers/types/Network.js';
 

@@ -1,10 +1,10 @@
 import { ProfileIdentifier } from '@masknet/base';
 import { safeUnreachable } from '@masknet/kit';
-import type { IdentityResolved } from '@masknet/plugin-infra';
 
 import { type SocialSource, Source } from '@/constants/enum.js';
 import { SITE_HOSTNAME } from '@/constants/index.js';
 import { getCurrentProfileAll } from '@/helpers/getCurrentProfile.js';
+import type { IdentityResolved } from '@/mask/bindings/index.js';
 import { farcasterSessionHolder } from '@/providers/farcaster/SessionHolder.js';
 import { lensSessionHolder } from '@/providers/lens/SessionHolder.js';
 import { generateSignaturePacket } from '@/services/generateSignaturePacket.js';

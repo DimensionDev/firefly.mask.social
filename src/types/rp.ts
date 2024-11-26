@@ -1,4 +1,4 @@
-import type { FireflyRedPacketAPI } from '@masknet/web3-providers/types';
+import type { FireflyRedPacketAPI } from '@/mask/bindings/index.js';
 
 export enum TokenType {
     Fungible = 'fungible',

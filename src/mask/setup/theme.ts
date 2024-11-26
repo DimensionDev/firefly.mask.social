@@ -1,5 +1,6 @@
 import { sharedUIComponentOverwrite } from '@masknet/shared';
-import { makeStyles, MaskColors } from '@masknet/theme';
+
+import { makeStyles, MaskColors } from '@/mask/bindings/index.js';
 
 const useInjectedDialogClassesOverwriteTwitter = makeStyles()((theme) => {
     const smallQuery = `@media (max-width: ${theme.breakpoints.values.sm}px)`;

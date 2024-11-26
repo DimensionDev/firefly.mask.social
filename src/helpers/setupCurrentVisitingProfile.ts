@@ -1,14 +1,14 @@
-import {
-    __setSiteAdaptorContext__,
-    type __SiteAdaptorContext__,
-    type IdentityResolved,
-} from '@masknet/plugin-infra/content-script';
 import { ProfileIdentifier } from '@masknet/shared-base';
 
 import { Source } from '@/constants/enum.js';
 import { SITE_HOSTNAME } from '@/constants/index.js';
-import { createMaskSiteAdaptorContext } from '@/helpers/createMaskContext.js';
 import { createConstantSubscription } from '@/helpers/subscription.js';
+import {
+    __setSiteAdaptorContext__,
+    type __SiteAdaptorContext__,
+    type IdentityResolved,
+} from '@/mask/bindings/index.js';
+import { createMaskSiteAdaptorContext } from '@/mask/helpers/createMaskContext.js';
 import { type Profile, ProfileStatus } from '@/providers/types/SocialMedia.js';
 
 const fireflyappProfile: Profile = {

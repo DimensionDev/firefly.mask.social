@@ -2,7 +2,6 @@
 import { Trans } from '@lingui/macro';
 import { PostInfoProvider, useActivatedPluginsSiteAdaptor } from '@masknet/plugin-infra/content-script';
 import { createInjectHooksRenderer } from '@masknet/plugin-infra/dom';
-import { MaskPostExtraPluginWrapper } from '@masknet/shared';
 import { RegistryContext, TypedMessageRender } from '@masknet/typed-message-react';
 import { first } from 'lodash-es';
 import { memo, type PropsWithChildren } from 'react';
@@ -11,6 +10,7 @@ import { useAsyncRetry } from 'react-use';
 
 import { ClickableArea } from '@/components/ClickableArea.js';
 import type { EncryptedPayload } from '@/helpers/getEncryptedPayload.js';
+import { MaskPostExtraPluginWrapper } from '@/mask/bindings/components.js';
 import { usePostInfo } from '@/mask/hooks/usePostInfo.js';
 import { registry } from '@/mask/typed-message/registry.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
