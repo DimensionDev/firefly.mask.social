@@ -168,3 +168,10 @@ export class TransactionSimulationError extends Error {
         super(message ?? 'Transaction simulation failed.');
     }
 }
+
+export class ParticleAuthError extends Error {
+    constructor(options?: { error_code?: number; extra?: string; message?: string; path?: string }) {
+        const message = options?.message ? `${options.message}${options.extra ? `: ${options.extra}` : ''}` : null;
+        super(message || 'Particle authentication failed.');
+    }
+}

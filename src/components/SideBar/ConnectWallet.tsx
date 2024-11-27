@@ -80,11 +80,14 @@ export function ConnectWallet({ collapsed: sideBarCollapsed = false }: ConnectWa
 
     if (!mounted) return null;
 
-    const icon = (
-        <div className="h-5 w-5 flex-shrink-0">
-            {collapsed ? <WalletSelectedIcon width={20} height={20} /> : <WalletIcon width={20} height={20} />}
-        </div>
-    );
+    const icon =
+        !collapsed && chainTypes.some((chain) => chain.isLoading) ? (
+            <LoadingIcon className="shrink-0 animate-spin" width={20} height={20} />
+        ) : (
+            <div className="h-5 w-5 flex-shrink-0">
+                {collapsed ? <WalletSelectedIcon width={20} height={20} /> : <WalletIcon width={20} height={20} />}
+            </div>
+        );
 
     return (
         <div
