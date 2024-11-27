@@ -21,6 +21,7 @@
         "canonicalize",
         "celo",
         "chainbase",
+        "coincarp",
         "datetime",
         "deeplink",
         "DSEARCH",
@@ -233,3 +234,4 @@
     ],
     "overrides": []
 }
+
