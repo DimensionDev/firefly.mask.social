@@ -1,79 +1,23 @@
 'use client';
-import { debounce } from 'lodash-es';
-import { type HTMLProps, type PropsWithChildren, useCallback, useLayoutEffect, useMemo, useRef, useState } from 'react';
+import { type HTMLProps, type PropsWithChildren } from 'react';
 
-import RightArrowIcon from '@/assets/right-arrow.svg';
-import { ClickableButton } from '@/components/ClickableButton.js';
 import { IS_APPLE, IS_SAFARI } from '@/constants/bowser.js';
 import { classNames } from '@/helpers/classNames.js';
 
 export function SourceTabs({ className, children }: PropsWithChildren<HTMLProps<HTMLDivElement>>) {
-    const [overflowed, setOverflowed] = useState(false);
-    const navRef = useRef<HTMLElement>(null);
-    const [leftActive, setLeftActive] = useState(false);
-    const [rightActive, setRightActive] = useState(false);
-
-    const updateButtons = useCallback(() => {
-        const nav = navRef.current;
-        if (!nav) {
-            setOverflowed(false);
-            return;
-        }
-        const threshold = 5;
-        setOverflowed(nav.scrollWidth > nav.offsetWidth);
-
-        setLeftActive(nav.scrollLeft > threshold);
-        setRightActive(Math.abs(nav.scrollWidth - nav.scrollLeft - nav.offsetWidth) < threshold);
-    }, []);
-
-    const onScroll = useMemo(() => debounce(updateButtons, 100), [updateButtons]);
-
-    useLayoutEffect(() => {
-        updateButtons();
-        const control = new AbortController();
-        window.addEventListener('resize', updateButtons, { signal: control.signal });
-        return () => control.abort();
-    }, [updateButtons]);
-
     return (
         <div
             className={classNames(
-                'no-scrollbar sticky top-[54px] z-30 flex w-full items-center overflow-x-auto overflow-y-hidden border-b border-line bg-primaryBottom md:top-0',
+                'no-scrollbar sticky top-[54px] z-30 flex w-full items-center overflow-x-auto overflow-y-hidden border-b border-line bg-primaryBottom px-3 md:top-0',
                 {
                     'top-[53px]': IS_APPLE && IS_SAFARI,
                 },
-                overflowed ? 'gap-1 px-2' : 'px-3',
                 className,
             )}
         >
-            <ClickableButton
-                className="hidden h-6 w-6 rotate-180 text-second disabled:pointer-events-none disabled:!opacity-0 md:inline-block"
-                disabled={!leftActive || !overflowed}
-                onClick={() => {
-                    navRef.current?.scrollTo({ left: 0, behavior: 'smooth' });
-                }}
-            >
-                <RightArrowIcon width={24} height={24} />
-            </ClickableButton>
-            <nav
-                className="no-scrollbar flex min-w-0 flex-grow gap-3 overflow-x-auto text-xl"
-                aria-label="Tabs"
-                ref={navRef}
-                onScroll={onScroll}
-            >
+            <nav className="no-scrollbar flex min-w-0 flex-grow gap-3 overflow-x-auto text-xl" aria-label="Tabs">
                 {children}
             </nav>
-            <ClickableButton
-                className="hidden h-6 w-6 text-second disabled:pointer-events-none disabled:!opacity-0 md:inline-block"
-                disabled={rightActive || !overflowed}
-                onClick={() => {
-                    const nav = navRef.current;
-                    if (!nav) return;
-                    nav.scrollTo({ left: nav.scrollWidth - nav.offsetWidth, behavior: 'smooth' });
-                }}
-            >
-                <RightArrowIcon width={24} height={24} />
-            </ClickableButton>
         </div>
     );
 }
