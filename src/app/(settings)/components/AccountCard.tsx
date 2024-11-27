@@ -2,6 +2,7 @@
 
 import { t, Trans } from '@lingui/macro';
 import { useQuery } from '@tanstack/react-query';
+import { uniqBy } from 'lodash-es';
 import { useAsyncFn } from 'react-use';
 import { useAccount } from 'wagmi';
 
@@ -26,7 +27,6 @@ import { DisconnectFireflyAccountModalRef, LoginModalRef, LogoutModalRef } from 
 import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
 import type { Account } from '@/providers/types/Account.js';
 import { switchAccount } from '@/services/account.js';
-import { uniqBy } from 'lodash-es';
 
 interface AccountCardProps {
     source: SocialSource;
