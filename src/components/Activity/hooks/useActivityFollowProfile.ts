@@ -16,7 +16,6 @@ export function useActivityFollowProfile(source: SocialSource, profileId: string
     const { data: authToken } = useFireflyBridgeAuthorization();
     return useAsyncFn(async () => {
         try {
-            enqueueSuccessMessage(`authToken: ${authToken}`);
             await FireflyActivityProvider.follow(source, profileId, {
                 sourceFarcasterProfileId:
                     typeof farcasterProfileId === 'string' ? parseInt(farcasterProfileId, 10) : farcasterProfileId,

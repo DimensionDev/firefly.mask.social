@@ -201,19 +201,15 @@ class FireflyActivity implements Provider {
                     return;
                 case Source.Farcaster:
                     const url = urlcat(settings.FIREFLY_ROOT_URL, '/v2/farcaster-hub/follow');
-                    await fireflySessionHolder.fetch(url, {
+                    await fetchJSON(url, {
                         method: 'POST',
                         body: JSON.stringify({
                             targetFid: parseInt(profileId, 10),
                             sourceFid: options?.sourceFarcasterProfileId,
                         }),
-                        ...(options?.authToken
-                            ? {
-                                  headers: {
-                                      Authorization: `Bearer ${options.authToken}`,
-                                  },
-                              }
-                            : {}),
+                        headers: {
+                            Authorization: `Bearer ${options?.authToken}`,
+                        },
                     });
                     return;
                 default:
