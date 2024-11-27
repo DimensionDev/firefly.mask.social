@@ -10,7 +10,7 @@ import { useIsFollowInActivity } from '@/components/Activity/hooks/useIsFollowIn
 import { useIsLoginInActivity } from '@/components/Activity/hooks/useIsLoginInActivity.js';
 import { useLoginInActivity } from '@/components/Activity/hooks/useLoginInActivity.js';
 import { Link } from '@/components/Activity/Link.js';
-import { type SocialSource, Source } from '@/constants/enum.js';
+import { type SocialSource } from '@/constants/enum.js';
 import { classNames } from '@/helpers/classNames.js';
 import { enqueueWarningMessage } from '@/helpers/enqueueMessage.js';
 import { resolveProfileUrl } from '@/helpers/resolveProfileUrl.js';
@@ -28,12 +28,14 @@ function Button({
     isLoggedIn,
     onClick,
     className,
+    source,
 }: {
     children: ReactNode;
     loading?: boolean;
     isLoggedIn?: boolean;
     onClick?: () => void;
     className?: string;
+    source: SocialSource;
 }) {
     const [{ loading: logging }, login] = useLoginInActivity();
     return (
@@ -45,7 +47,7 @@ function Button({
                     onClick?.();
                 } else {
                     event.preventDefault();
-                    login(Source.Twitter);
+                    login(source);
                 }
             }}
         >
@@ -108,6 +110,7 @@ export function ActivityTaskFollowCard({ source, profileId, handle }: Props) {
                     <Button
                         className="relative inline-block whitespace-nowrap rounded-full bg-main px-4 leading-8 text-primaryBottom"
                         loading={isFollowing}
+                        source={source}
                         isLoggedIn={isLoggedIn}
                         onClick={() => follow()}
                     >
@@ -116,6 +119,7 @@ export function ActivityTaskFollowCard({ source, profileId, handle }: Props) {
                     <Button
                         className="relative whitespace-nowrap rounded-full border border-current px-4 leading-[30px] disabled:opacity-60"
                         loading={isRefetching || isLoading}
+                        source={source}
                         isLoggedIn={isLoggedIn}
                         onClick={async () => {
                             const { data: isFollowed } = await refetch();

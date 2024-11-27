@@ -12,6 +12,8 @@ export function useCaptureActivityEvent() {
             E extends
                 | EventId.EVENT_SHARE_CLICK
                 | EventId.EVENT_X_LOG_IN_SUCCESS
+                | EventId.EVENT_FARCASTER_LOG_IN_SUCCESS
+                | EventId.EVENT_LENS_LOG_IN_SUCCESS
                 | EventId.EVENT_CONNECT_WALLET_SUCCESS
                 | EventId.EVENT_CHANGE_WALLET_SUCCESS
                 | EventId.EVENT_CLAIM_BASIC_SUCCESS

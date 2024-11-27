@@ -1,4 +1,5 @@
 import { t } from '@lingui/macro';
+import { safeUnreachable } from '@masknet/kit';
 import { useAsyncFn } from 'react-use';
 
 import { resolveFireflyBridgePlatformFromSocialSource } from '@/components/Activity/helpers/resolveFireflyBridgePlatformFromSocialSource.js';
@@ -17,6 +18,22 @@ export function useLoginInActivity() {
     const queryFireflyBridgeAuthorization = useFireflyBridgeAuthorization();
     const captureActivityEvent = useCaptureActivityEvent();
     return useAsyncFn(async (source: SocialSource) => {
+        function captureEvent() {
+            switch (source) {
+                case Source.Twitter:
+                    captureActivityEvent(EventId.EVENT_X_LOG_IN_SUCCESS, {});
+                    break;
+                case Source.Farcaster:
+                    captureActivityEvent(EventId.EVENT_FARCASTER_LOG_IN_SUCCESS, {});
+                    break;
+                case Source.Lens:
+                    captureActivityEvent(EventId.EVENT_LENS_LOG_IN_SUCCESS, {});
+                    break;
+                default:
+                    safeUnreachable(source);
+                    return;
+            }
+        }
         if (fireflyBridgeProvider.supported) {
             try {
                 const result = await fireflyBridgeProvider.request(SupportedMethod.LOGIN, {
@@ -24,9 +41,7 @@ export function useLoginInActivity() {
                 });
                 await queryFireflyBridgeAuthorization.refetch();
                 if (result === 'true') {
-                    if (source === Source.Twitter) {
-                        captureActivityEvent(EventId.EVENT_X_LOG_IN_SUCCESS, {});
-                    }
+                    captureEvent();
                     enqueueSuccessMessage(t`Login ${resolveSourceName(source)} successfully.`);
                 } else {
                     enqueueErrorMessage(t`Failed to login.`);
@@ -37,9 +52,7 @@ export function useLoginInActivity() {
             }
             return;
         }
-        if (source === Source.Twitter) {
-            captureActivityEvent(EventId.EVENT_X_LOG_IN_SUCCESS, {});
-        }
+        captureEvent();
         LoginModalRef.open({
             source,
         });
