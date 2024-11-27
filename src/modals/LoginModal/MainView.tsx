@@ -39,7 +39,7 @@ export function MainView() {
                 break;
             case Source.Apple:
             case Source.Google:
-                await signIn(source.toLowerCase());
+                await signIn(resolveSourceInUrl(source));
                 break;
             default:
                 safeUnreachable(source);

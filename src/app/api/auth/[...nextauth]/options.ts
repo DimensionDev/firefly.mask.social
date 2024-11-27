@@ -10,6 +10,7 @@ import { AppleProvider } from '@/esm/AppleProvider.js';
 import { CredentialsProvider } from '@/esm/CredentialsProvider.js';
 import { GoogleProvider } from '@/esm/GoogleProvider.js';
 import { TwitterProvider } from '@/esm/TwitterProvider.js';
+import { resolveSourceFromUrl } from '@/helpers/resolveSource.js';
 
 const providers: Provider[] = [
     TwitterProvider({
@@ -120,7 +121,7 @@ export const authOptions: AuthOptions = {
             }
 
             if (account?.provider) {
-                token.type = account.provider.charAt(0).toUpperCase() + account.provider.slice(1);
+                token.type = resolveSourceFromUrl(account.provider);
             }
 
             return token;
