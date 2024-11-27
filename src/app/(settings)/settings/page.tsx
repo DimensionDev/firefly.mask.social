@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation.js';
 import { useEffect } from 'react';
 
 import { SettingsList } from '@/app/(settings)/components/SettingsList.js';
-import { useIsMedium, useIsSmall } from '@/hooks/useMediaQuery.js';
+import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import { useNavigatorTitle } from '@/hooks/useNavigatorTitle.js';
 
 export default function Settings() {
