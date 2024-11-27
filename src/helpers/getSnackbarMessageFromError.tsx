@@ -13,16 +13,22 @@ type SolanaError = {
     code: number;
     message: string;
 };
+
+function isRejectedMessage(message: string) {
+    return !message
+        ? false
+        : ['user rejected the request', 'user denied request'].some((m) => message.toLowerCase().includes(m));
+}
+
 function captureWarningMessageFromError(error: unknown) {
     let currentError = error;
     const visited = new Set();
 
     // For solana wallet adapter
-    const message = 'user rejected the request';
     if (
         error instanceof Error &&
-        (error.message?.toLowerCase().includes(message) ||
-            ('error' in error && (error.error as SolanaError).message?.toLowerCase().includes(message)))
+        (isRejectedMessage(error.message) ||
+            ('error' in error && isRejectedMessage((error.error as SolanaError).message)))
     ) {
         enqueueWarningMessage(t`The user rejected the request.`);
         return true;
