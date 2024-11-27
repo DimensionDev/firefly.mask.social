@@ -2,7 +2,7 @@ import { first, uniqBy } from 'lodash-es';
 import { signOut } from 'next-auth/react';
 
 import { type ProfileSource, type SocialSource, Source } from '@/constants/enum.js';
-import { SORTED_SOCIAL_SOURCES, SORTED_THIRD_PARTY_SOURCES } from '@/constants/index.js';
+import { SORTED_SOCIAL_SOURCES } from '@/constants/index.js';
 import { createDummyProfile } from '@/helpers/createDummyProfile.js';
 import { getProfileSessionsAll, getProfileState } from '@/helpers/getProfileState.js';
 import { isSameAccount } from '@/helpers/isSameAccount.js';
