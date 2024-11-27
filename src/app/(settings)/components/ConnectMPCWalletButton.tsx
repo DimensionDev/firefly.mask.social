@@ -50,7 +50,6 @@ export function ConnectMPCWalletButton({ connection }: ConnectMPCWalletButtonPro
                     }
                     case 'solana':
                         if (!wallet.connected || !isFireflyWallet) {
-                            enqueueInfoMessage(t`Please switch to Firefly Wallet.`, { autoHideDuration: 1000 * 10 });
                             connectModalSolana.setVisible(true);
                             return;
                         }
@@ -78,7 +77,8 @@ export function ConnectMPCWalletButton({ connection }: ConnectMPCWalletButtonPro
 
     if (env.external.NEXT_PUBLIC_PARTICLE !== STATUS.Enabled) return null;
 
-    if (loading) return <LoadingIcon className="animate-spin" width={20} height={20} />;
+    const isConnecting = connection.platform === 'solana' ? wallet.connecting : account.isConnecting;
+    if (loading || isConnecting) return <LoadingIcon className="animate-spin" width={20} height={20} />;
 
     const connected = resolveValue(() => {
         switch (connection.platform) {

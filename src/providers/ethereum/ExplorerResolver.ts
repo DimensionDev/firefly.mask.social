@@ -1,7 +1,6 @@
 import type { ChainDescriptor } from '@masknet/web3-shared-base';
 
-// eslint-disable-next-line no-restricted-imports
-import { ExplorerResolver as Resolver } from '@/maskbook/packages/web3-providers/src/Web3/Base/apis/ExplorerResolver.js';
+import { ExplorerResolver as Resolver } from '@/mask/bindings/index.js';
 
 class ExplorerResolver<ChainId, SchemaType, NetworkType> extends Resolver<ChainId, SchemaType, NetworkType> {
     constructor(

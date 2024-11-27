@@ -2,16 +2,15 @@
 
 import { Tab, TabGroup, TabList, TabPanel, TabPanels } from '@headlessui/react';
 import { Trans } from '@lingui/macro';
-import { uniq } from 'lodash-es';
-import { useMemo, useState } from 'react';
+import { useState } from 'react';
 
 import { DatePickerTab } from '@/components/Calendar/DatePickerTab.js';
 import { EventList } from '@/components/Calendar/EventList.js';
-import { useNewsList } from '@/components/Calendar/hooks/useEventList.js';
-import { useLumaEvents } from '@/components/Calendar/hooks/useLumaEvents.js';
+import { useAvailableDates } from '@/components/Calendar/hooks/useAvailableDates.js';
 import { NewsList } from '@/components/Calendar/NewsList.js';
 import { EMPTY_LIST } from '@/constants/index.js';
 import { classNames } from '@/helpers/classNames.js';
+import { EventProvider } from '@/types/calendar.js';
 
 export function CalendarContent() {
     const tabs = [
@@ -26,19 +25,15 @@ export function CalendarContent() {
     ] as const;
 
     const [currentTabIndex, setCurrentTabIndex] = useState(0);
+    const isNews = currentTabIndex === 0;
     const [date, setDate] = useState(() => new Date(Math.floor(Date.now() / 1000) * 1000)); // round to seconds
     const [pickerDate, setPickerDate] = useState(date);
     const [open, setOpen] = useState(false);
 
-    const { data: newsList = EMPTY_LIST } = useNewsList(pickerDate, currentTabIndex === 0);
-    const { data: eventList = EMPTY_LIST } = useLumaEvents(pickerDate, currentTabIndex === 1);
-
-    const [allowedDates, setAllowedDates] = useState<string[]>(EMPTY_LIST);
-    const allAllowedDates = useMemo(() => {
-        const list = currentTabIndex === 0 ? newsList : eventList;
-        const dates = list.map((x) => new Date(x.event_date).toLocaleDateString());
-        return uniq([...dates, ...allowedDates]);
-    }, [allowedDates, newsList, eventList, currentTabIndex]);
+    const { data: allowedDates = EMPTY_LIST } = useAvailableDates(
+        isNews ? EventProvider.CoinCarp : EventProvider.Luma,
+        pickerDate,
+    );
 
     return (
         <div className="relative flex flex-col rounded-xl">
@@ -63,16 +58,16 @@ export function CalendarContent() {
                     open={open}
                     onToggle={setOpen}
                     date={date}
-                    allowedDates={allAllowedDates}
+                    allowedDates={allowedDates}
                     onChange={setDate}
                     onMonthChange={setPickerDate}
                 />
                 <TabPanels className="rounded-b-xl border border-t-0 border-line px-2">
                     <TabPanel>
-                        <NewsList date={date} onDatesUpdate={setAllowedDates} />
+                        <NewsList date={date} />
                     </TabPanel>
                     <TabPanel>
-                        <EventList date={date} onDatesUpdate={setAllowedDates} />
+                        <EventList date={date} />
                     </TabPanel>
                 </TabPanels>
             </TabGroup>

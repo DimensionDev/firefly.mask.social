@@ -1,6 +1,5 @@
 import { Trans } from '@lingui/macro';
-import { uniq } from 'lodash-es';
-import { useEffect, useMemo } from 'react';
+import { useMemo } from 'react';
 
 import { EmptyStatus } from '@/components/Calendar/EmptyStatus.js';
 import { useNewsList } from '@/components/Calendar/hooks/useEventList.js';
@@ -13,7 +12,6 @@ import type { ParsedEvent } from '@/types/calendar.js';
 
 interface NewsListProps {
     date: Date;
-    onDatesUpdate(/** locale date string list */ dates: string[]): void;
 }
 
 interface Group {
@@ -23,16 +21,14 @@ interface Group {
     events: ParsedEvent[];
 }
 
-export function NewsList({ date, onDatesUpdate }: NewsListProps) {
-    const { data: newsList, isPending, hasNextPage, isFetching, fetchNextPage } = useNewsList(date, true);
+export function NewsList({ date }: NewsListProps) {
+    const { data: newsList, isLoading, hasNextPage, isFetching, fetchNextPage } = useNewsList(date);
 
     const groups = useMemo(() => {
         if (!newsList?.length) return EMPTY_LIST;
         const groups: Group[] = [];
         newsList.forEach((event) => {
-            const eventDate = new Date(event.event_date);
-            if (eventDate < date) return;
-            const label = eventDate.toLocaleDateString();
+            const label = new Date(event.event_date).toLocaleDateString();
             const group: Group = groups.find((g) => g.label === label) || {
                 date: event.event_date,
                 label,
@@ -42,14 +38,9 @@ export function NewsList({ date, onDatesUpdate }: NewsListProps) {
             group.events.push(event);
         });
         return groups;
-    }, [newsList, date]);
+    }, [newsList]);
 
-    useEffect(() => {
-        if (!newsList) return onDatesUpdate(EMPTY_LIST);
-        onDatesUpdate(uniq(newsList.map((x) => new Date(x.event_date).toLocaleDateString())));
-    }, [onDatesUpdate, newsList]);
-
-    if (isPending && !groups.length) {
+    if (isLoading && !groups.length) {
         return (
             <div className="no-scrollbar relative flex h-[506px] w-full flex-col gap-[10px] overflow-y-scroll">
                 <div className="pt-3">

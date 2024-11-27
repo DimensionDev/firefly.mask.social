@@ -1,4 +1,3 @@
-import { FireflyRedPacket } from '@masknet/web3-providers';
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 import { immer } from 'zustand/middleware/immer';
@@ -7,6 +6,7 @@ import { STATUS } from '@/constants/enum.js';
 import { env } from '@/constants/env.js';
 import { FIREFLY_DEV_ROOT_URL, FIREFLY_ROOT_URL } from '@/constants/index.js';
 import { createSelectors } from '@/helpers/createSelector.js';
+import { FireflyRedPacket } from '@/mask/bindings/index.js';
 import { recordDevelopmentAPI } from '@/services/recordDevelopmentAPI.js';
 
 interface DeveloperSettingsState {

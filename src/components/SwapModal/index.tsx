@@ -1,4 +1,3 @@
-import { Appearance } from '@masknet/public-api';
 import { ChainId, isNativeTokenAddress, isZeroAddress } from '@masknet/web3-shared-evm';
 import {
     createOkxSwapWidget,
@@ -44,7 +43,7 @@ export function SwapModal({ chainId, chainIds, address, ...rest }: Props) {
     const instanceRef = useRef<OkxSwapWidgetHandler | undefined>();
 
     const isDark = useMediaQuery('(prefers-color-scheme: dark)');
-    const theme = isDark || mode === Appearance.dark ? THEME.DARK : THEME.LIGHT;
+    const theme = isDark || mode === 'dark' ? THEME.DARK : THEME.LIGHT;
     useEffect(() => {
         if (!widgetRef.current) return;
 

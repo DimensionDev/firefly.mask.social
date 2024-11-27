@@ -6,8 +6,8 @@ import { Modals } from '@masknet/shared';
 import { noop } from 'lodash-es';
 import { memo } from 'react';
 
-import { MaskProviders } from '@/components/MaskProviders.js';
 import { Providers } from '@/components/Providers.js';
+import { MaskProviders } from '@/mask/components/MaskProviders.js';
 
 const GlobalInjection = createInjectHooksRenderer(
     useActivatedPluginsSiteAdaptor.visibility.useAnyMode,

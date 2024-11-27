@@ -1,5 +1,4 @@
 import { t, Trans } from '@lingui/macro';
-import { EVMChainResolver } from '@masknet/web3-providers';
 import { useQuery } from '@tanstack/react-query';
 import { estimateFeesPerGas, getBalance } from '@wagmi/core';
 import { produce } from 'immer';
@@ -23,6 +22,7 @@ import { multipliedBy, rightShift, ZERO } from '@/helpers/number.js';
 import { openWindow } from '@/helpers/openWindow.js';
 import { resolveArticleCollectProvider } from '@/helpers/resolveArticleCollectProvider.js';
 import { resolveExplorerLink } from '@/helpers/resolveExplorerLink.js';
+import { EVMChainResolver } from '@/mask/bindings/index.js';
 import { type Article, ArticlePlatform } from '@/providers/types/Article.js';
 
 export interface ArticleCollectProps {

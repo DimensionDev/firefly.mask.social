@@ -1,6 +1,5 @@
-import { getRegisteredWeb3Networks } from '@masknet/web3-providers';
-
 import type { NetworkPluginID } from '@/constants/enum.js';
+import { getRegisteredWeb3Networks } from '@/mask/bindings/index.js';
 
 export function getNetworkDescriptor(
     expectedPluginID: NetworkPluginID,

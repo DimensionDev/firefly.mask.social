@@ -2475,9 +2475,6 @@ msgstr "红包"
 msgid "{0} and others"
 msgstr "{0} 和 其他"
 
-msgid "Please switch to Firefly Wallet."
-msgstr "请切换到 Firefly 钱包。"
-
 msgid "Post details"
 msgstr ""
 
@@ -2651,6 +2648,9 @@ msgstr "立即转帖以获得 25% 的推荐佣金！"
 
 msgid "Hide tokens with small balances"
 msgstr "隐藏小额通证"
+
+msgid "Failed to connect to Firefly."
+msgstr ""
 
 msgid "Proposal"
 msgstr "提案"

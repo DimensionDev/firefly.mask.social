@@ -1,9 +1,9 @@
-import { SimpleHashSolana } from '@masknet/web3-providers';
-import type { BaseHubOptions, SimpleHash } from '@masknet/web3-providers/types';
 import type { NonFungibleAsset } from '@masknet/web3-shared-base';
 import type { ChainId, SchemaType } from '@masknet/web3-shared-solana';
 
 import type { Pageable, PageIndicator } from '@/helpers/pageable.js';
+import type { BaseHubOptions, SimpleHash } from '@/mask/bindings/index.js';
+import { SimpleHashSolana } from '@/mask/bindings/index.js';
 import type { Provider, SimpleHashCollection } from '@/providers/types/WalletProfile.js';
 
 class SimpleHashSolanaWalletProfile implements Provider<ChainId, SchemaType> {

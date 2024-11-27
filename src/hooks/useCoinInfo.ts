@@ -1,7 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 
-// eslint-disable-next-line no-restricted-imports
-import { getCoinInfo } from '@/maskbook/packages/web3-providers/src/CoinGecko/apis/base.js';
+import { getCoinInfo } from '@/mask/bindings/index.js';
 
 export function useCoinInfo(coinId: string) {
     return useQuery({

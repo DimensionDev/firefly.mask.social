@@ -2,52 +2,17 @@
 
 import { Popover, PopoverButton, PopoverPanel, Switch } from '@headlessui/react';
 import { Trans } from '@lingui/macro';
-import { safeUnreachable } from '@masknet/kit';
-import { useQuery } from '@tanstack/react-query';
-import { useMemo } from 'react';
 import { useAsyncFn } from 'react-use';
 
 import LoadingIcon from '@/assets/loading.svg';
 import SettingsIcon from '@/assets/setting.svg';
 import { type SocialSource, Source } from '@/constants/enum.js';
+import { useNotificationSettings } from '@/hooks/useNotificationSettings.js';
 import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
-import { NotificationPlatform, NotificationPushType, NotificationTitle } from '@/providers/types/Firefly.js';
+import { NotificationPlatform, NotificationPushType } from '@/providers/types/Firefly.js';
 
 export function NotificationSettings({ source }: { source: SocialSource }) {
-    const { data, isLoading, refetch } = useQuery({
-        queryKey: ['notification-push-switch'],
-        async queryFn() {
-            return FireflySocialMediaProvider.getNotificationPushSwitch();
-        },
-    });
-
-    const enabled = useMemo(() => {
-        const item = data?.list.find((x) => x.title === NotificationTitle.NotificationsMode);
-
-        switch (source) {
-            case Source.Farcaster:
-                return (
-                    item?.list.find(
-                        (x) =>
-                            x.platform === NotificationPlatform.Priority &&
-                            x.push_type === NotificationPushType.Priority,
-                    )?.state ?? false
-                );
-            case Source.Lens:
-                return (
-                    item?.list.find(
-                        (x) =>
-                            x.platform === NotificationPlatform.Priority && x.push_type === NotificationPushType.Lens,
-                    )?.state ?? false
-                );
-            case Source.Twitter:
-                return false;
-            default:
-                safeUnreachable(source);
-                return false;
-        }
-    }, [data?.list, source]);
-
+    const { enabled, isLoading, refetch } = useNotificationSettings(source);
     const [{ loading }, onSwitch] = useAsyncFn(
         async (state: boolean) => {
             const pushTypes: Record<SocialSource, NotificationPushType | undefined> = {

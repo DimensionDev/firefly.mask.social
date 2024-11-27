@@ -1,12 +1,12 @@
 'use client';
 
-import type { IdentityResolved } from '@masknet/plugin-infra';
 import { useAsync } from 'react-use';
 
-import { MaskProviders } from '@/components/MaskProviders.js';
 import { Providers } from '@/components/Providers.js';
-import { getCurrentProfile, updateMyProfile } from '@/helpers/createMaskContext.js';
 import type { EncryptedPayload } from '@/helpers/getEncryptedPayload.js';
+import type { IdentityResolved } from '@/mask/bindings/index.js';
+import { MaskProviders } from '@/mask/components/MaskProviders.js';
+import { getCurrentProfile, updateMyProfile } from '@/mask/helpers/createMaskContext.js';
 import { DecryptedPost } from '@/mask/widgets/components/DecryptedPost.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 import { resolveIdentity } from '@/services/resolveIdentity.js';

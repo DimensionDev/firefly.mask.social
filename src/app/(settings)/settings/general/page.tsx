@@ -2,7 +2,6 @@
 
 import { t, Trans } from '@lingui/macro';
 import { getEnumAsArray } from '@masknet/kit';
-import { Appearance } from '@masknet/public-api';
 import { isServer } from '@tanstack/react-query';
 import { useMediaQuery } from 'usehooks-ts';
 
@@ -11,7 +10,7 @@ import { Headline } from '@/app/(settings)/components/Headline.js';
 import { OptionButton } from '@/app/(settings)/components/OptionButton.js';
 import { Section } from '@/app/(settings)/components/Section.js';
 import { Subtitle } from '@/app/(settings)/components/Subtitle.js';
-import { Locale } from '@/constants/enum.js';
+import { Locale, type ThemeMode } from '@/constants/enum.js';
 import { getFromCookies } from '@/helpers/getFromCookies.js';
 import { useNavigatorTitle } from '@/hooks/useNavigatorTitle.js';
 import { setLocale, supportedLocales } from '@/i18n/index.js';
@@ -40,31 +39,31 @@ export default function General() {
             <div className="flex min-h-[220px] flex-col gap-5">
                 {[
                     {
-                        value: Appearance.default,
+                        value: 'default',
                         label: <Trans>Follow System</Trans>,
                     },
                     {
-                        value: Appearance.light,
+                        value: 'light',
                         label: <Trans>Light Mode</Trans>,
                     },
                     {
-                        value: Appearance.dark,
+                        value: 'dark',
                         label: <Trans>Dark Mode</Trans>,
                     },
                 ].map((option, index) => (
                     <OptionButton
                         key={index}
                         darkMode={
-                            option.value === Appearance.default
+                            option.value === 'default'
                                 ? isServer
                                     ? rootClass === 'dark'
                                     : isDarkOS
-                                : option.value === Appearance.dark
+                                : option.value === 'dark'
                         }
                         selected={mode === option.value}
                         label={option.label}
                         onClick={() => {
-                            setThemeMode(option.value);
+                            setThemeMode(option.value as ThemeMode);
                         }}
                     />
                 ))}
@@ -79,13 +78,7 @@ export default function General() {
                     <OptionButton
                         key={index}
                         selected={option.value === locale}
-                        darkMode={
-                            mode === Appearance.default
-                                ? isServer
-                                    ? rootClass === 'dark'
-                                    : isDarkOS
-                                : mode === Appearance.dark
-                        }
+                        darkMode={mode === 'default' ? (isServer ? rootClass === 'dark' : isDarkOS) : mode === 'dark'}
                         label={supportedLocales[option.value]}
                         onClick={async () => {
                             console.warn('[18n] change locale', option.value);

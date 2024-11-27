@@ -1,9 +1,7 @@
-import { initWallet } from '@masknet/web3-providers';
-import type { WalletAPI } from '@masknet/web3-providers/types';
-
 import { EMPTY_ARRAY } from '@/constants/subscription.js';
-import { connectMaskWithWagmi } from '@/helpers/connectWagmiWithMask.js';
-import { createRejectCallback } from '@/helpers/createRejectCallback.js';
+import { initWallet, type WalletAPI } from '@/mask/bindings/index.js';
+import { connectMaskWithWagmi } from '@/mask/helpers/connectWagmiWithMask.js';
+import { createRejectCallback } from '@/mask/helpers/createRejectCallback.js';
 
 const WalletIO: WalletAPI.IOContext = {
     MaskWalletContext: {

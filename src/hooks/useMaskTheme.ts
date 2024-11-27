@@ -1,9 +1,9 @@
-import { MaskColors, MaskDarkTheme, MaskLightTheme } from '@masknet/theme';
 import type { Theme } from '@mui/material/styles';
 import { merge } from 'lodash-es';
 import { useMemo } from 'react';
 
 import { useIsDarkMode } from '@/hooks/useIsDarkMode.js';
+import { MaskColors, MaskDarkTheme, MaskLightTheme } from '@/mask/bindings/index.js';
 
 function createTheme(theme: Theme) {
     return merge(theme, {

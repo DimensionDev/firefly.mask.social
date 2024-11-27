@@ -40,23 +40,33 @@ export function ConnectWallet({ collapsed: sideBarCollapsed = false }: ConnectWa
     const evmAccount = useEVMAccount();
     const solanaWallet = useSolanaWallet();
 
-    const { data: ensName } = useEnsName({ address: evmAccount.address, chainId: mainnet.id });
+    const { data: ensName, isLoading } = useEnsName({ address: evmAccount.address, chainId: mainnet.id });
 
     const collapsed = useGlobalState.use.collapsedConnectWallet();
     const setCollapsed = useGlobalState.use.updateCollapsedConnectWallet();
 
-    const chainTypes = [
+    if (!mounted) return null;
+
+    // isConnected and isConnected could both true at the same time
+    const isEVMConnected = !!(
+        evmAccount.isConnected &&
+        !evmAccount.isConnecting &&
+        !evmAccount.isReconnecting &&
+        evmAccount.address
+    );
+
+    const connections = [
         {
             icon: evmNetworkDescriptor?.icon,
             label: resolveValue(() => {
-                if (!evmAccount.isConnected || !evmAccount.address || !mounted) return null;
+                if (!isEVMConnected || !evmAccount.address || isLoading || !mounted) return null;
                 if (ensName) return formatDomainName(ensName);
                 return formatEthereumAddress(evmAccount.address, 4);
             }),
             onOpenConnectModal: () => ConnectModalRef.open(),
             onOpenAccountModal: () => AccountModalRef.open(),
-            isConnected: evmAccount.isConnected,
-            isLoading: evmAccount.isConnecting || evmAccount.isReconnecting,
+            isConnected: isEVMConnected,
+            isLoading: evmAccount.isConnecting || evmAccount.isReconnecting || isLoading,
             type: 'EVM',
         },
         {
@@ -74,17 +84,17 @@ export function ConnectWallet({ collapsed: sideBarCollapsed = false }: ConnectWa
         },
     ];
 
-    const activeType = chainTypes.find((type) => type.isConnected);
-    const text = activeType?.label ?? <Trans>Connect Wallet</Trans>;
-    const isConnected = !!activeType;
+    const activeConnection = connections.find((connection) => connection.isConnected);
+    const text = activeConnection?.label ?? <Trans>Connect Wallet</Trans>;
 
-    if (!mounted) return null;
-
-    const icon = (
-        <div className="h-5 w-5 flex-shrink-0">
-            {collapsed ? <WalletSelectedIcon width={20} height={20} /> : <WalletIcon width={20} height={20} />}
-        </div>
-    );
+    const icon =
+        !collapsed && connections.some((connection) => connection.isLoading) ? (
+            <LoadingIcon className="shrink-0 animate-spin" width={20} height={20} />
+        ) : (
+            <div className="h-5 w-5 flex-shrink-0">
+                {collapsed ? <WalletSelectedIcon width={20} height={20} /> : <WalletIcon width={20} height={20} />}
+            </div>
+        );
 
     return (
         <div
@@ -100,7 +110,7 @@ export function ConnectWallet({ collapsed: sideBarCollapsed = false }: ConnectWa
                     'relative flex w-full cursor-pointer select-none items-center gap-x-3 overflow-hidden rounded-full text-xl',
                 )}
                 onClick={() => {
-                    if (isConnected) {
+                    if (activeConnection) {
                         setCollapsed(!collapsed);
                         return;
                     }
@@ -123,15 +133,15 @@ export function ConnectWallet({ collapsed: sideBarCollapsed = false }: ConnectWa
                         sideBarCollapsed ? 'hidden' : 'inline',
                     )}
                     onClick={(e) => {
-                        if (activeType?.isConnected) {
+                        if (activeConnection?.isConnected) {
                             e.stopPropagation();
-                            activeType.onOpenAccountModal();
+                            activeConnection.onOpenAccountModal();
                         }
                     }}
                 >
                     {text}
                 </span>
-                {isConnected ? (
+                {activeConnection ? (
                     <LineArrowUp
                         className={classNames('absolute right-0 top-1/2 -translate-y-1/2', {
                             'rotate-180': !collapsed,
@@ -139,37 +149,37 @@ export function ConnectWallet({ collapsed: sideBarCollapsed = false }: ConnectWa
                     />
                 ) : null}
             </div>
-            {isConnected && collapsed ? (
+            {activeConnection && collapsed ? (
                 <>
-                    {chainTypes
-                        .filter((type) => type !== activeType)
-                        .map((type) => {
+                    {connections
+                        .filter((connection) => connection !== activeConnection)
+                        .map((connection) => {
                             return (
                                 <ClickableButton
-                                    key={type.type}
+                                    key={connection.type}
                                     onClick={() => {
-                                        if (type.isLoading) return;
-                                        if (type.isConnected) {
-                                            type.onOpenAccountModal();
+                                        if (connection.isLoading) return;
+                                        if (connection.isConnected) {
+                                            connection.onOpenAccountModal();
                                             return;
                                         }
-                                        type.onOpenConnectModal();
+                                        connection.onOpenConnectModal();
                                     }}
                                     className="flex w-full flex-row items-center gap-3 text-xl font-bold leading-6"
                                 >
-                                    {type.isLoading ? (
+                                    {connection.isLoading ? (
                                         <LoadingIcon className="animate-spin" width={20} height={20} />
                                     ) : (
                                         <Image
-                                            src={type.icon ?? ''}
+                                            src={connection.icon ?? ''}
                                             alt="chain-icon"
                                             width={20}
                                             height={20}
                                             className="h-5 w-5"
                                         />
                                     )}
-                                    {type.isConnected ? (
-                                        <span>{type.label}</span>
+                                    {connection.isConnected ? (
+                                        <span>{connection.label}</span>
                                     ) : (
                                         <span>
                                             <Trans>Connect Wallet</Trans>

@@ -18,6 +18,7 @@ import { SocialSourceIcon } from '@/components/SocialSourceIcon.js';
 import { TimestampFormatter } from '@/components/TimeStampFormatter.js';
 import { Link } from '@/esm/Link.js';
 import { getPostUrl } from '@/helpers/getPostUrl.js';
+import { toProfileId } from '@/helpers/isSameProfile.js';
 import { resolveNotificationIcon } from '@/helpers/resolveNotificationIcon.js';
 import { isProfileMuted } from '@/hooks/useIsProfileMuted.js';
 import { type Notification, NotificationType } from '@/providers/types/SocialMedia.js';
@@ -43,7 +44,7 @@ export const NotificationItem = memo<NotificationItemProps>(function Notificatio
             case NotificationType.Mention:
                 return notification.post ? [notification.post.author] : undefined;
             case NotificationType.Mirror:
-                return uniqBy(notification.mirrors, (x) => x.profileId);
+                return uniqBy(notification.mirrors, toProfileId);
             case NotificationType.Act:
                 return notification.actions;
             default:
@@ -163,7 +164,7 @@ export const NotificationItem = memo<NotificationItemProps>(function Notificatio
                 );
             case NotificationType.Mirror:
                 // It's allow to mirror multiple times.
-                const mirrors = uniqBy(notification.mirrors, (x) => x.profileId);
+                const mirrors = uniqBy(notification.mirrors, toProfileId);
                 const firstMirror = first(mirrors);
                 if (!firstMirror || !notification.post?.type) return;
                 return (
@@ -326,7 +327,7 @@ export const NotificationItem = memo<NotificationItemProps>(function Notificatio
                 if (!follower) return null;
                 return <MoreAction source={notification.source} author={follower} />;
             case NotificationType.Mirror:
-                const mirrors = uniqBy(notification.mirrors, (x) => x.profileId);
+                const mirrors = uniqBy(notification.mirrors, toProfileId);
                 if (mirrors.length > 1) return null;
                 const reporter = first(mirrors);
                 if (!reporter) return null;

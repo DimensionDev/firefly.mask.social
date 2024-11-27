@@ -1,12 +1,11 @@
 import { createPageTitleOG } from '@/helpers/createPageTitle.js';
 import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
 import { resolveTokenPageUrl } from '@/helpers/resolveTokenPageUrl.js';
-import { CoinGecko } from '@/providers/coingecko/index.js';
+import { runInSafeAsync } from '@/helpers/runInSafe.js';
+import { getTokenFromCoinGecko } from '@/services/getTokenFromCoinGecko.js';
 
 export async function createMetadataToken(symbol: string) {
-    const tokens = await CoinGecko.getTokens();
-    const sym = symbol.toLowerCase();
-    const token = tokens.find((x) => x.symbol === sym) || null;
+    const token = await runInSafeAsync(() => getTokenFromCoinGecko(symbol));
     if (!token) return createSiteMetadata();
     const title = createPageTitleOG(`$${token.symbol}`);
     const description = token.name;
@@ -18,7 +17,7 @@ export async function createMetadataToken(symbol: string) {
             title,
             description,
             images,
-            url: resolveTokenPageUrl(symbol),
+            url: resolveTokenPageUrl(token.id),
         },
         twitter: {
             card: 'summary',

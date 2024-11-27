@@ -1,5 +1,6 @@
-import type { FireflyRedPacketAPI } from '@masknet/web3-providers/types';
 import type { CSSProperties } from 'react';
+
+import type { FireflyRedPacketAPI } from '@/mask/bindings/index.js';
 
 /**
  * Get CSS font properties from theme settings

@@ -2,6 +2,7 @@
 
 import { t, Trans } from '@lingui/macro';
 import { useQuery } from '@tanstack/react-query';
+import { uniqBy } from 'lodash-es';
 import { useAsyncFn } from 'react-use';
 import { useAccount } from 'wagmi';
 
@@ -18,7 +19,7 @@ import { enqueueErrorMessage, enqueueSuccessMessage } from '@/helpers/enqueueMes
 import { getProfileState } from '@/helpers/getProfileState.js';
 import { getSnackbarMessageFromError } from '@/helpers/getSnackbarMessageFromError.js';
 import { getWalletClientRequired } from '@/helpers/getWalletClientRequired.js';
-import { isSameProfile } from '@/helpers/isSameProfile.js';
+import { isSameProfile, toProfileId } from '@/helpers/isSameProfile.js';
 import { useConnectedAccounts } from '@/hooks/useConnectedAccounts.js';
 import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
 import { useProfileStoreAll } from '@/hooks/useProfileStore.js';
@@ -85,9 +86,10 @@ export function AccountCard({ source }: AccountCardProps) {
         }
     }, []);
 
+    const isLens = source === Source.Lens;
     const account = useAccount();
     const { data: profiles = EMPTY_LIST } = useQuery({
-        enabled: source === Source.Lens,
+        enabled: isLens,
         queryKey: ['lens', 'profiles', account.address],
         queryFn: async () => {
             try {
@@ -107,9 +109,11 @@ export function AccountCard({ source }: AccountCardProps) {
         },
     });
 
+    const allAccounts = isLens ? uniqBy([...accounts, ...profiles], (x) => toProfileId(x.profile)) : accounts;
+
     return (
         <div className="flex w-full flex-col gap-4">
-            {[...accounts, ...profiles].map((account) => (
+            {allAccounts.map((account) => (
                 <div
                     key={account.profile.profileId}
                     className="inline-flex h-[63px] w-full items-center justify-start gap-3 rounded-lg bg-white bg-bottom px-3 py-2 shadow-primary backdrop-blur dark:bg-bg"
