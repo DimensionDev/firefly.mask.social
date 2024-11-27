@@ -24,7 +24,6 @@ import { resolveValue } from '@/helpers/resolveValue.js';
 import { useMounted } from '@/hooks/useMounted.js';
 import { AccountModalRef, ConnectModalRef, ConnectWalletModalRef, SolanaAccountModalRef } from '@/modals/controls.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
-import { isAddress } from 'viem';
 
 interface ConnectWalletProps {
     collapsed?: boolean;
