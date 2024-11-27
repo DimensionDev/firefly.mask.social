@@ -80,7 +80,7 @@ export function ConnectWallet({ collapsed: sideBarCollapsed = false }: ConnectWa
     const text = activeConnection?.label ?? <Trans>Connect Wallet</Trans>;
 
     const icon =
-        !collapsed && chainTypes.some((chain) => chain.isLoading) ? (
+        !collapsed && connections.some((connection) => connection.isLoading) ? (
             <LoadingIcon className="shrink-0 animate-spin" width={20} height={20} />
         ) : (
             <div className="h-5 w-5 flex-shrink-0">
