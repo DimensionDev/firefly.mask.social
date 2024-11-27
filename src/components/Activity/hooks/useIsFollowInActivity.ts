@@ -1,26 +1,24 @@
 import { useQuery } from '@tanstack/react-query';
 
+import { useActivityCurrentAccountProfileId } from '@/components/Activity/hooks/useActivityCurrentAccountHandle.js';
 import { useIsLoginInActivity } from '@/components/Activity/hooks/useIsLoginInActivity.js';
 import { type SocialSource, Source } from '@/constants/enum.js';
-import { fireflyBridgeProvider } from '@/providers/firefly/Bridge.js';
-import { getProfileById } from '@/services/getProfileById.js';
-import { SupportedMethod } from '@/types/bridge.js';
+import { useFireflyBridgeAuthorization } from '@/hooks/useFireflyBridgeAuthorization.js';
+import { FireflyActivityProvider } from '@/providers/firefly/Activity.js';
 
 export function useIsFollowInActivity(source: SocialSource, profileId: string, handle: string) {
     const isLoggedIn = useIsLoginInActivity(source);
+    const { data: authToken } = useFireflyBridgeAuthorization();
+    const farcasterProfileId = useActivityCurrentAccountProfileId(Source.Farcaster);
     return useQuery({
         enabled: isLoggedIn,
-        queryKey: ['is-follow-twitter-activity', profileId, handle],
+        queryKey: ['is-follow-activity', source, profileId, handle, authToken, farcasterProfileId],
         queryFn: async () => {
-            if (fireflyBridgeProvider.supported && source === Source.Twitter) {
-                return (
-                    (await fireflyBridgeProvider.request(SupportedMethod.IS_TWITTER_USER_FOLLOWING, {
-                        id: profileId,
-                    })) === 'true'
-                );
-            }
-            const profile = await getProfileById(source, profileId);
-            return profile?.viewerContext?.following ?? false;
+            return FireflyActivityProvider.isFollowed(source, profileId, {
+                authToken,
+                sourceFarcasterProfileId:
+                    typeof farcasterProfileId === 'string' ? parseInt(farcasterProfileId, 10) : farcasterProfileId,
+            });
         },
     });
 }
