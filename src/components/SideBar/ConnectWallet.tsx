@@ -42,6 +42,15 @@ export function ConnectWallet({ collapsed: sideBarCollapsed = false }: ConnectWa
 
     const { data: ensName } = useEnsName({ address: evmAccount.address, chainId: mainnet.id });
 
+    console.log('DEBUG: connected wallet');
+    console.log({
+        evmAccount,
+        solanaWallet,
+        evm: evmAccount.address,
+        solana: solanaWallet.publicKey?.toBase58(),
+        ensName,
+    });
+
     const collapsed = useGlobalState.use.collapsedConnectWallet();
     const setCollapsed = useGlobalState.use.updateCollapsedConnectWallet();
 

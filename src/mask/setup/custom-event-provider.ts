@@ -103,6 +103,12 @@ document.addEventListener(
 config.subscribe(
     (s) => s,
     (state, previousState) => {
+        console.log('DEBUG: state');
+        console.log({
+            state,
+            previousState,
+        });
+
         const dispatchEvent = (type: string, payload?: unknown) => {
             console.info(`[custom-event-provider] ${type}`, payload);
             document.dispatchEvent(
