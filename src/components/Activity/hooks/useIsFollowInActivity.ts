@@ -14,7 +14,7 @@ export function useIsFollowInActivity(source: SocialSource, profileId: string, h
         queryFn: async () => {
             return FireflyActivityProvider.isFollowed(source, profileId, {
                 sourceFarcasterProfileId:
-                    typeof farcasterProfileId === 'string' ? parseInt(farcasterProfileId, 10) : farcasterProfileId,
+                    typeof farcasterProfileId === 'string' ? Number.parseInt(farcasterProfileId, 10) : farcasterProfileId,
             });
         },
     });
