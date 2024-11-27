@@ -1,7 +1,5 @@
 import { Trans } from '@lingui/macro';
 import { format } from 'date-fns';
-import { uniq } from 'lodash-es';
-import { useEffect, useMemo } from 'react';
 
 import CalendarIcon from '@/assets/calendar.svg';
 import LocationIcon from '@/assets/location.svg';
@@ -16,23 +14,12 @@ import { Link } from '@/esm/Link.js';
 
 interface EventListProps {
     date: Date;
-    onDatesUpdate(/** locale date string list */ dates: string[]): void;
 }
 
-export function EventList({ date, onDatesUpdate }: EventListProps) {
-    const { isPending, isFetching, data, hasNextPage, fetchNextPage } = useLumaEvents(date);
+export function EventList({ date }: EventListProps) {
+    const { isLoading, isFetching, data = EMPTY_LIST, hasNextPage, fetchNextPage } = useLumaEvents(date);
 
-    const comingEvents = useMemo(() => {
-        if (!data) return EMPTY_LIST;
-        return data.filter((x) => new Date(x.event_date) >= date);
-    }, [data, date]);
-
-    useEffect(() => {
-        if (!data) return onDatesUpdate(EMPTY_LIST);
-        onDatesUpdate(uniq(data.map((x) => new Date(x.event_date).toLocaleDateString())));
-    }, [onDatesUpdate, data]);
-
-    if (isPending && !comingEvents.length) {
+    if (isLoading) {
         return (
             <div className="no-scrollbar relative flex h-[506px] w-full flex-col gap-[10px] overflow-y-scroll">
                 <div className="pt-3">
@@ -44,7 +31,7 @@ export function EventList({ date, onDatesUpdate }: EventListProps) {
         );
     }
 
-    if (!comingEvents.length) {
+    if (!data.length) {
         return (
             <div className="no-scrollbar relative flex h-[506px] w-full flex-col gap-[10px] overflow-y-scroll">
                 <div className="pt-3">
@@ -61,7 +48,7 @@ export function EventList({ date, onDatesUpdate }: EventListProps) {
     return (
         <div className="no-scrollbar relative flex h-[506px] w-full flex-col gap-[10px] overflow-y-scroll">
             <div className="pt-3">
-                {comingEvents.map((event) => {
+                {data.map((event) => {
                     return (
                         <Link
                             key={event.event_id}
