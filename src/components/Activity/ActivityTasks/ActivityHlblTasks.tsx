@@ -11,6 +11,7 @@ import { ActivityLoginButton } from '@/components/Activity/ActivityLoginButton.j
 import { ActivityPremiumConditionList } from '@/components/Activity/ActivityPremiumConditionList.js';
 import { ActivityTaskFollowCard } from '@/components/Activity/ActivityTaskFollowCard.js';
 import { useActivityPremiumList } from '@/components/Activity/hooks/useActivityPremiumList.js';
+import { useIsFollowInActivity } from '@/components/Activity/hooks/useIsFollowInActivity.js';
 import { Source, SourceInURL } from '@/constants/enum.js';
 import { CHAR_TAG, type Chars } from '@/helpers/chars.js';
 import type { ActivityInfoResponse, Profile } from '@/providers/types/Firefly.js';
@@ -85,7 +86,7 @@ const barmstrongMention = {
 };
 
 export function ActivityHlblTasks({ data }: { data: Pick<Required<ActivityInfoResponse>['data'], 'status'> }) {
-    const list = useActivityPremiumList();
+    const list = useActivityPremiumList(Source.Twitter);
     const isPremium = list.some((x) => x.verified);
     const shareContent = !isPremium
         ? [
@@ -109,6 +110,7 @@ export function ActivityHlblTasks({ data }: { data: Pick<Required<ActivityInfoRe
               '#Base #FireflySocial',
           ];
     const { address } = useContext(ActivityContext);
+    const { data: isFollowedFirefly } = useIsFollowInActivity(Source.Twitter, '1583361564479889408', 'thefireflyapp');
 
     return (
         <>
@@ -146,6 +148,7 @@ export function ActivityHlblTasks({ data }: { data: Pick<Required<ActivityInfoRe
                     </h2>
                     <ActivityPremiumConditionList
                         title={<Trans>Hold on! Meet any of the following to unlock a premium collectible:</Trans>}
+                        source={Source.Twitter}
                     />
                 </div>
             </div>
@@ -154,6 +157,8 @@ export function ActivityHlblTasks({ data }: { data: Pick<Required<ActivityInfoRe
                     status={data.status}
                     shareContent={shareContent as Chars}
                     claimType={isPremium ? 'premium' : 'base'}
+                    disabled={!isFollowedFirefly}
+                    source={Source.Twitter}
                 />
             </div>
         </>

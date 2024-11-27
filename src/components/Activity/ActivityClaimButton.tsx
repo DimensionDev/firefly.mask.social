@@ -12,8 +12,7 @@ import { ActivityMintSuccessDialog } from '@/components/Activity/ActivityMintSuc
 import { useActivityClaimCondition } from '@/components/Activity/hooks/useActivityClaimCondition.js';
 import { useActivityPremiumList } from '@/components/Activity/hooks/useActivityPremiumList.js';
 import { useCaptureActivityEvent } from '@/components/Activity/hooks/useCaptureActivityEvent.js';
-import { useIsFollowInActivity } from '@/components/Activity/hooks/useIsFollowInActivity.js';
-import { Source } from '@/constants/enum.js';
+import type { SocialSource } from '@/constants/enum.js';
 import type { Chars } from '@/helpers/chars.js';
 import { classNames } from '@/helpers/classNames.js';
 import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
@@ -29,21 +28,20 @@ interface Props {
     claimType?: string;
     shareContent: Chars;
     disabled?: boolean;
+    source: SocialSource;
 }
 
-export function ActivityClaimButton({ shareContent, status, claimApiExtraParams, ...rest }: Props) {
+export function ActivityClaimButton({ source, shareContent, status, claimApiExtraParams, ...rest }: Props) {
     const { address, name } = useContext(ActivityContext);
     const { data: authToken } = useFireflyBridgeAuthorization();
-    const { data, refetch } = useActivityClaimCondition();
+    const { data, refetch } = useActivityClaimCondition(source);
     const [hash, setHash] = useState<string | undefined>(undefined);
     const [chainId, setChainId] = useState<ChainId | undefined>(undefined);
-    const { data: isFollowedFirefly } = useIsFollowInActivity(Source.Twitter, '1583361564479889408', 'thefireflyapp');
-    const list = useActivityPremiumList();
+    const list = useActivityPremiumList(source);
     const captureActivityEvent = useCaptureActivityEvent();
 
     const isPremium = list.some((x) => x.verified);
-    const disabled =
-        status === ActivityStatus.Ended || !data?.canClaim || !isFollowedFirefly || !address || rest.disabled;
+    const disabled = status === ActivityStatus.Ended || !data?.canClaim || !address || rest.disabled;
 
     const [{ loading }, claim] = useAsyncFn(async () => {
         if (disabled || !address) return;

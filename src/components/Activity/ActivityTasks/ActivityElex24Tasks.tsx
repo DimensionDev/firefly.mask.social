@@ -13,6 +13,7 @@ import { ActivityLoginButton } from '@/components/Activity/ActivityLoginButton.j
 import { ActivityPremiumConditionList } from '@/components/Activity/ActivityPremiumConditionList.js';
 import { ActivityTaskFollowCard } from '@/components/Activity/ActivityTaskFollowCard.js';
 import { useActivityCurrentAccountHandle } from '@/components/Activity/hooks/useActivityCurrentAccountHandle.js';
+import { useIsFollowInActivity } from '@/components/Activity/hooks/useIsFollowInActivity.js';
 import { Source, SourceInURL } from '@/constants/enum.js';
 import { SITE_URL } from '@/constants/index.js';
 import { CHAR_TAG, type Chars } from '@/helpers/chars.js';
@@ -60,6 +61,7 @@ export function ActivityElex24Tasks({ data }: { data: Pick<Required<ActivityInfo
         SITE_URL,
         resolveActivityUrl(name, { referralCode: xHandle, platform: ReferralAccountPlatform.X }),
     );
+    const { data: isFollowedFirefly } = useIsFollowInActivity(Source.Twitter, '1583361564479889408', 'thefireflyapp');
 
     const shareContent = vote
         ? {
@@ -119,6 +121,7 @@ export function ActivityElex24Tasks({ data }: { data: Pick<Required<ActivityInfo
                     </h2>
                     <ActivityPremiumConditionList
                         title={<Trans>Hold on! Meet any of the following to unlock a premium collectible:</Trans>}
+                        source={Source.Twitter}
                     />
                 </div>
             </div>
@@ -128,7 +131,8 @@ export function ActivityElex24Tasks({ data }: { data: Pick<Required<ActivityInfo
                     claimApiExtraParams={{ vote }}
                     shareContent={shareContent as Chars}
                     claimType={vote}
-                    disabled={!vote}
+                    disabled={!vote || !isFollowedFirefly}
+                    source={Source.Twitter}
                 />
             </div>
         </>

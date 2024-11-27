@@ -73,7 +73,7 @@ export function ActivityTaskFollowCard({ source, profileId, handle }: Props) {
         refetch,
         isRefetching,
         isLoading,
-    } = useIsFollowInActivity(Source.Twitter, profileId, handle);
+    } = useIsFollowInActivity(source, profileId, handle);
 
     return (
         <div

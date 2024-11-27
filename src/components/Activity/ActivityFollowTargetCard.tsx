@@ -10,7 +10,7 @@ import { classNames } from '@/helpers/classNames.js';
 import { resolveProfileUrl } from '@/helpers/resolveProfileUrl.js';
 
 export function ActivityFollowTargetCard({ handle, profileId }: { handle: string; profileId: string }) {
-    const { data } = useActivityClaimCondition();
+    const { data } = useActivityClaimCondition(Source.Twitter);
     const isFollowed = data?.x?.following || data?.farcaster.isFollowing;
     // cspell: disable-next-line
     const farcasterHandle = 'barmstrong';

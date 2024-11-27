@@ -8,27 +8,65 @@ import { ActivityConnectCard } from '@/components/Activity/ActivityConnectCard.j
 import { ActivityLoginButton } from '@/components/Activity/ActivityLoginButton.js';
 import { ActivityPremiumConditionList } from '@/components/Activity/ActivityPremiumConditionList.js';
 import { ActivityTaskFollowCard } from '@/components/Activity/ActivityTaskFollowCard.js';
-import { Source } from '@/constants/enum.js';
+import { useActivityCurrentAccountHandle } from '@/components/Activity/hooks/useActivityCurrentAccountHandle.js';
+import { useIsFollowInActivity } from '@/components/Activity/hooks/useIsFollowInActivity.js';
+import { Source, SourceInURL } from '@/constants/enum.js';
 import { SITE_URL } from '@/constants/index.js';
-import type { Chars } from '@/helpers/chars.js';
+import { CHAR_TAG, type Chars } from '@/helpers/chars.js';
 import { ReferralAccountPlatform, resolveActivityUrl } from '@/helpers/resolveActivityUrl.js';
-import type { ActivityInfoResponse } from '@/providers/types/Firefly.js';
+import type { ActivityInfoResponse, Profile } from '@/providers/types/Firefly.js';
+
+const fireflyMention = {
+    tag: CHAR_TAG.MENTION,
+    visible: true,
+    content: `@thefireflyapp`,
+    profiles: [
+        {
+            platform_id: '1583361564479889408',
+            platform: SourceInURL.Twitter,
+            handle: 'thefireflyapp',
+            name: 'thefireflyapp',
+            hit: true,
+            score: 0,
+        },
+        {
+            platform_id: '16823',
+            platform: SourceInURL.Farcaster,
+            handle: 'fireflyapp',
+            name: 'Firefly App',
+            hit: true,
+            score: 0,
+        },
+        {
+            platform_id: '0x01b000',
+            platform: SourceInURL.Lens,
+            handle: 'fireflyapp',
+            name: 'fireflyapp',
+            hit: true,
+            score: 0,
+        },
+    ] as Profile[],
+};
 
 export function ActivityFrensgivingTasks({
     data,
 }: {
     data: Pick<Required<ActivityInfoResponse>['data'], 'status' | 'name'>;
 }) {
-    const farcasterHandle = '';
+    const farcasterHandle = useActivityCurrentAccountHandle(Source.Farcaster);
     const shareUrl = urlcat(
         SITE_URL,
         resolveActivityUrl(data.name, { referralCode: farcasterHandle, platform: ReferralAccountPlatform.Farcaster }),
     );
-    const shareContent: Chars = [
-        'Just earned $ANON by minting the Firefly Farcaster Frensgiving 🦃✨ collectible from @thefireflyapp\n\nClaim here ',
+    const shareContent = [
+        'Just earned $ANON by minting the Firefly Farcaster Frensgiving 🦃✨ collectible from ',
+        fireflyMention,
+        '\n\nClaim here ',
         shareUrl,
         ' \n\n #Frensgiving #Thanksgiving #Farcaster #FireflySocial',
     ];
+    const { data: isFollowedFirefly } = useIsFollowInActivity(Source.Farcaster, '16823', 'fireflyapp');
+
     return (
         <>
             <div className="mb-4 w-full space-y-4 px-6 py-4">
@@ -62,11 +100,17 @@ export function ActivityFrensgivingTasks({
                         title={
                             <Trans>Meet any of the following to unlock a premium collectible and get more $ANON:</Trans>
                         }
+                        source={Source.Farcaster}
                     />
                 </div>
             </div>
             <div className="sticky bottom-0 mt-auto w-full bg-primaryBottom px-4 pt-1.5 pb-safe-or-4 sm:pb-safe-or-2">
-                <ActivityClaimButton status={data.status} shareContent={shareContent as Chars} />
+                <ActivityClaimButton
+                    status={data.status}
+                    shareContent={shareContent as Chars}
+                    disabled={!isFollowedFirefly}
+                    source={Source.Farcaster}
+                />
             </div>
         </>
     );

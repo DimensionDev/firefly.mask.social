@@ -3,14 +3,14 @@ import { useContext } from 'react';
 
 import { ActivityContext } from '@/components/Activity/ActivityContext.js';
 import { useIsLoginInActivity } from '@/components/Activity/hooks/useIsLoginInActivity.js';
-import { Source } from '@/constants/enum.js';
+import { type SocialSource } from '@/constants/enum.js';
 import { useFireflyBridgeAuthorization } from '@/hooks/useFireflyBridgeAuthorization.js';
 import { FireflyActivityProvider } from '@/providers/firefly/Activity.js';
 
-export function useActivityClaimCondition() {
+export function useActivityClaimCondition(source: SocialSource) {
     const { address, name } = useContext(ActivityContext);
     const { data: authToken } = useFireflyBridgeAuthorization();
-    const isLoggedIn = useIsLoginInActivity(Source.Twitter);
+    const isLoggedIn = useIsLoginInActivity(source);
     return useQuery({
         queryKey: ['activity-claim-condition', address, authToken, name],
         async queryFn() {

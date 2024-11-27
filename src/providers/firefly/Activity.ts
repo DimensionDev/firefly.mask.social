@@ -198,7 +198,7 @@ class FireflyActivity implements Provider {
                     await fireflyBridgeProvider.request(SupportedMethod.FOLLOW_TWITTER_USER, {
                         id: profileId,
                     });
-                    break;
+                    return;
                 case Source.Farcaster:
                     const url = urlcat(settings.FIREFLY_ROOT_URL, '/v2/farcaster-hub/follow');
                     await fireflySessionHolder.fetch(url, {
@@ -215,12 +215,11 @@ class FireflyActivity implements Provider {
                               }
                             : {}),
                     });
-                    break;
+                    return;
                 default:
                     safeUnreachable(source);
                     return;
             }
-            return;
         }
         await resolveSocialMediaProvider(source).follow(profileId);
     }
@@ -240,7 +239,13 @@ class FireflyActivity implements Provider {
             }
             case Source.Farcaster: {
                 return farcasterSessionHolder.withSession(async (session) => {
-                    if (!session) return null;
+                    const headers = options?.authToken
+                        ? {
+                              headers: {
+                                  Authorization: `Bearer ${options.authToken}`,
+                              },
+                          }
+                        : {};
                     const response = await fetchJSON<FriendshipResponse>(
                         urlcat(settings.FIREFLY_ROOT_URL, '/v2/farcaster-hub/user/friendship', {
                             sourceFid: options?.sourceFarcasterProfileId ?? session?.profileId,
@@ -248,13 +253,7 @@ class FireflyActivity implements Provider {
                         }),
                         {
                             method: 'GET',
-                            ...(options?.authToken
-                                ? {
-                                      headers: {
-                                          Authorization: `Bearer ${options.authToken}`,
-                                      },
-                                  }
-                                : {}),
+                            ...headers,
                         },
                     );
                     return resolveFireflyResponseData<Friendship>(response)?.isFollowing;

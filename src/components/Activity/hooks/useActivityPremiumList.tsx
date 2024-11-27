@@ -5,11 +5,12 @@ import { ActivityContext } from '@/components/Activity/ActivityContext.js';
 import { useActivityElex24Involved } from '@/components/Activity/ActivityElex24/useActivityElex24Involved.js';
 import { useActivityClaimCondition } from '@/components/Activity/hooks/useActivityClaimCondition.js';
 import { Link } from '@/components/Activity/Link.js';
+import type { SocialSource } from '@/constants/enum.js';
 import { Level } from '@/providers/types/CZ.js';
 
-export function useActivityPremiumList() {
+export function useActivityPremiumList(source: SocialSource) {
     const { name } = useContext(ActivityContext);
-    const { data } = useActivityClaimCondition();
+    const { data } = useActivityClaimCondition(source);
     const { data: isInvolvedElex24 } = useActivityElex24Involved();
 
     switch (name) {
@@ -61,15 +62,15 @@ export function useActivityPremiumList() {
             return [
                 {
                     label: <Trans>Your Farcaster account holds Power Badge</Trans>,
-                    verified: false,
+                    verified: data?.farcaster.isPowerUser,
                 },
                 {
                     label: <Trans>You have been detected as a loyal Farcaster user</Trans>,
-                    verified: false,
+                    verified: data?.farcaster.isSupercast || (data && parseInt(data.farcaster.fid, 10) <= 10000),
                 },
                 {
                     label: <Trans>Your assets on $DEGEN or $ANON exceed US$10,000</Trans>,
-                    verified: false,
+                    verified: data?.assets.valid,
                 },
             ];
         default:

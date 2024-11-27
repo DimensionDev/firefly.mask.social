@@ -29,6 +29,7 @@ export interface Farcaster {
     isPowerUser: boolean;
     valid: boolean;
     isFollowing: boolean;
+    isSupercast?: boolean;
 }
 
 export interface BnbId {
@@ -57,11 +58,20 @@ export enum ActivityElex24VoteOption {
     Harris = 'harris',
 }
 
+export interface Assets {
+    alreadyClaimed: boolean;
+    anonBalance: string;
+    degenBalance: string;
+    level: Level;
+    valid: boolean;
+}
+
 export type CheckResponse = Response<{
     alreadyClaimed: boolean;
     canClaim: boolean;
     x: X;
     farcaster: Farcaster;
+    assets: Assets;
     balance: Balance;
     firefly: Firefly;
     address: string;
