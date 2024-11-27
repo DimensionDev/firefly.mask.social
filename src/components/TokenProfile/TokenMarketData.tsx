@@ -85,7 +85,7 @@ export function TokenMarketData({ linkable, token }: TokenMarketDataProps) {
                 <div className="flex flex-grow flex-col gap-1.5">
                     <div className="flex items-center gap-1 text-second">
                         {linkable ? (
-                            <Link prefetch className="contents" href={resolveTokenPageUrl(token.symbol)}>
+                            <Link prefetch className="contents" href={resolveTokenPageUrl(token.id)}>
                                 {baseInfo}
                             </Link>
                         ) : (

@@ -1,11 +1,10 @@
 import { useQuery } from '@tanstack/react-query';
 
-import { CoinGecko } from '@/providers/coingecko/index.js';
+import { getTokenFromCoinGecko } from '@/services/getTokenFromCoinGecko.js';
 
-export function useTokenInfo(symbol: string) {
+export function useTokenInfo(symbolOrId: string) {
     return useQuery({
-        queryKey: ['coingecko', 'tokens'],
-        queryFn: () => CoinGecko.getTokens(),
-        select: (tokens) => tokens.find((x) => x.symbol === symbol.toLowerCase()) || null,
+        queryKey: ['coingecko', 'token', symbolOrId],
+        queryFn: () => getTokenFromCoinGecko(symbolOrId),
     });
 }

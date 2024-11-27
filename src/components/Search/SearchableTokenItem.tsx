@@ -18,7 +18,7 @@ export function SearchableTokenItem({ token }: SearchableTokenItemProps) {
     return (
         <Link
             className="flex items-center gap-x-2 border-b border-line p-3 hover:bg-bg"
-            href={resolveTokenPageUrl(token.symbol)}
+            href={resolveTokenPageUrl(token.id)}
         >
             <Image
                 className="h-11 w-11 shrink-0 rounded-full"

@@ -1,20 +1,25 @@
-'use client';
-import { useParams } from 'next/navigation.js';
 import type { PropsWithChildren } from 'react';
 
-import ComeBackIcon from '@/assets/comeback.svg';
-import { useComeBack } from '@/hooks/useComeback.js';
+import { Comeback } from '@/components/Comeback.js';
+import { runInSafeAsync } from '@/helpers/runInSafe.js';
+import { getTokenFromCoinGecko } from '@/services/getTokenFromCoinGecko.js';
 
-export default function TokenPageLayout({ children }: PropsWithChildren) {
-    const params = useParams<{ symbol: string }>();
+interface Props {
+    params: {
+        symbol: string;
+    };
+}
+
+export default async function TokenPageLayout({ params, children }: PropsWithChildren<Props>) {
     const symbol = decodeURIComponent(params.symbol);
-    const comeback = useComeBack();
+    const token = await runInSafeAsync(() => getTokenFromCoinGecko(symbol));
+
     return (
         <>
             <div className="sticky top-0 z-30 flex h-[60px] items-center justify-between border-b border-line bg-primaryBottom px-4">
                 <div className="flex items-center gap-7">
-                    <ComeBackIcon className="cursor-pointer text-lightMain" onClick={comeback} />
-                    <span className="text-xl font-black text-lightMain">${symbol}</span>
+                    <Comeback className="cursor-pointer text-lightMain" />
+                    <span className="text-xl font-black text-lightMain">${token?.symbol || symbol}</span>
                 </div>
             </div>
             {children}
