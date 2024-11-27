@@ -225,6 +225,7 @@ class FireflyActivity implements Provider {
         profileId: string,
         options?: {
             sourceFarcasterProfileId?: number;
+            authToken?: string;
         },
     ) {
         switch (source) {
@@ -241,6 +242,13 @@ class FireflyActivity implements Provider {
                         }),
                         {
                             method: 'GET',
+                            ...(options?.authToken
+                                ? {
+                                      headers: {
+                                          Authorization: `Bearer ${options.authToken}`,
+                                      },
+                                  }
+                                : {}),
                         },
                     );
                     return resolveFireflyResponseData<Friendship>(response)?.isFollowing;
