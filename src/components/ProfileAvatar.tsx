@@ -9,6 +9,7 @@ import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { useIsLarge } from '@/hooks/useMediaQuery.js';
 import { useSizeStyle } from '@/hooks/useSizeStyle.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
+import { ProfileSourceIcon } from '@/components/ProfileSourceIcon.js';
 
 export interface ProfileAvatarProps extends HTMLProps<HTMLElement> {
     profile: Profile;
@@ -46,10 +47,10 @@ export function ProfileAvatar({
                 </div>
             ) : null}
             {enableSourceIcon ? (
-                <SocialSourceIcon
-                    className="absolute -bottom-[1px] -right-[8px] z-10 h-4 w-4 rounded-full border border-white"
-                    source={profile.source}
+                <ProfileSourceIcon
+                    source={profile.profileSource}
                     size={16}
+                    className="absolute -bottom-[1px] -right-[8px] z-10 h-4 w-4 rounded-full border border-white"
                 />
             ) : null}
         </div>

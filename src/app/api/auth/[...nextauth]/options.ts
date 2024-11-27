@@ -120,7 +120,7 @@ export const authOptions: AuthOptions = {
             }
 
             if (account?.provider) {
-                token.type = account?.provider;
+                token.type = account.provider.charAt(0).toUpperCase() + account.provider.slice(1);
             }
 
             return token;

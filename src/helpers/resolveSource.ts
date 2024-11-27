@@ -80,9 +80,9 @@ export const resolveSourceFromSessionType = createLookupTableResolver<SessionTyp
         [SessionType.Lens]: Source.Lens,
         [SessionType.Twitter]: Source.Twitter,
         [SessionType.Firefly]: Source.Firefly,
-        [SessionType.Apple]: Source.Firefly,
-        [SessionType.Google]: Source.Firefly,
-        [SessionType.Telegram]: Source.Firefly,
+        [SessionType.Apple]: Source.Apple,
+        [SessionType.Google]: Source.Google,
+        [SessionType.Telegram]: Source.Telegram,
     },
     (sessionType) => {
         throw new UnreachableError('sessionType', sessionType);
