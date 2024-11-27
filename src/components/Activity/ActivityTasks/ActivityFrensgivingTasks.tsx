@@ -8,11 +8,14 @@ import { ActivityConnectCard } from '@/components/Activity/ActivityConnectCard.j
 import { ActivityLoginButton } from '@/components/Activity/ActivityLoginButton.js';
 import { ActivityPremiumConditionList } from '@/components/Activity/ActivityPremiumConditionList.js';
 import { ActivityTaskFollowCard } from '@/components/Activity/ActivityTaskFollowCard.js';
+import { ActivityVerifyText } from '@/components/Activity/ActivityVerifyText.js';
+import { useActivityClaimCondition } from '@/components/Activity/hooks/useActivityClaimCondition.js';
 import { useActivityCurrentAccountHandle } from '@/components/Activity/hooks/useActivityCurrentAccountHandle.js';
 import { useIsFollowInActivity } from '@/components/Activity/hooks/useIsFollowInActivity.js';
 import { Source, SourceInURL } from '@/constants/enum.js';
 import { SITE_URL } from '@/constants/index.js';
 import { CHAR_TAG, type Chars } from '@/helpers/chars.js';
+import { classNames } from '@/helpers/classNames.js';
 import { ReferralAccountPlatform, resolveActivityUrl } from '@/helpers/resolveActivityUrl.js';
 import type { ActivityInfoResponse, Profile } from '@/providers/types/Firefly.js';
 
@@ -66,6 +69,7 @@ export function ActivityFrensgivingTasks({
         '\n\n#Frensgiving #Thanksgiving #Farcaster #FireflySocial',
     ];
     const { data: isFollowedFirefly } = useIsFollowInActivity(Source.Farcaster, '16823', 'fireflyapp');
+    const { data: claimCondition } = useActivityClaimCondition(Source.Farcaster);
 
     return (
         <>
@@ -78,11 +82,18 @@ export function ActivityFrensgivingTasks({
                         <ActivityLoginButton source={Source.Farcaster} />
                     </div>
                 </div>
-                <div className="flex w-full flex-col space-y-2 rounded-2xl bg-bg p-3 text-sm font-semibold leading-6">
-                    <Trans>
-                        Available to users with Farcaster ID under 100,000 or users of select third-party Farcaster apps
-                        as of our snapshot
-                    </Trans>
+                <div
+                    className={classNames(
+                        'flex w-full flex-col space-y-2 rounded-2xl p-3 text-sm font-semibold leading-6',
+                        claimCondition?.farcaster.hasThirdpartSigner ? 'bg-success/10 dark:bg-success/20' : 'bg-bg',
+                    )}
+                >
+                    <ActivityVerifyText verified={!!claimCondition?.farcaster.hasThirdpartSigner}>
+                        <Trans>
+                            Available to users with Farcaster ID under 100,000 or users of select third-party Farcaster
+                            apps as of our snapshot
+                        </Trans>
+                    </ActivityVerifyText>
                 </div>
                 <h2 className="text-base font-semibold leading-6">
                     <Trans>Follow & Submit</Trans>

@@ -228,7 +228,6 @@ class FireflyActivity implements Provider {
         source: SocialSource,
         profileId: string,
         options?: {
-            authToken?: string;
             sourceFarcasterProfileId?: number;
         },
     ) {
@@ -239,13 +238,6 @@ class FireflyActivity implements Provider {
             }
             case Source.Farcaster: {
                 return farcasterSessionHolder.withSession(async (session) => {
-                    const headers = options?.authToken
-                        ? {
-                              headers: {
-                                  Authorization: `Bearer ${options.authToken}`,
-                              },
-                          }
-                        : {};
                     const response = await fetchJSON<FriendshipResponse>(
                         urlcat(settings.FIREFLY_ROOT_URL, '/v2/farcaster-hub/user/friendship', {
                             sourceFid: options?.sourceFarcasterProfileId ?? session?.profileId,
@@ -253,7 +245,6 @@ class FireflyActivity implements Provider {
                         }),
                         {
                             method: 'GET',
-                            ...headers,
                         },
                     );
                     return resolveFireflyResponseData<Friendship>(response)?.isFollowing;
