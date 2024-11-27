@@ -12,7 +12,7 @@ export function toProfileId(profile: Profile) {
     return `${profile.source}:${profile.profileId}`;
 }
 
-export function toFireflyProfileId(profile: FireflyProfile) {
+export function toFireflyPlatformId(profile: FireflyProfile) {
     return `${profile.platform}:${profile.platform_id}`;
 }
 

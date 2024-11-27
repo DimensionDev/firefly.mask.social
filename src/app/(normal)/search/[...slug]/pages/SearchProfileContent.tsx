@@ -8,7 +8,7 @@ import { Empty } from '@/components/Search/Empty.js';
 import { SearchableProfileItem } from '@/components/Search/SearchableProfileItem.js';
 import { ScrollListKey, Source, SourceInURL } from '@/constants/enum.js';
 import { formatSearchIdentities } from '@/helpers/formatSearchIdentities.js';
-import { toFireflyProfileId } from '@/helpers/isSameProfile.js';
+import { toFireflyPlatformId } from '@/helpers/isSameProfile.js';
 import { createIndicator, createPageable } from '@/helpers/pageable.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
@@ -45,7 +45,7 @@ function composeTwitterProfiles(identities: ProfileWithRelated[], xProfiles: Pro
 
 const getSearchItemContent = (item: ProfileWithRelated) => {
     const { profile, related } = item;
-    return <SearchableProfileItem profile={profile} related={related} key={toFireflyProfileId(profile)} />;
+    return <SearchableProfileItem profile={profile} related={related} key={toFireflyPlatformId(profile)} />;
 };
 
 const noNextPage = '__no_next_page__';
@@ -90,7 +90,7 @@ export function SearchProfileContent() {
         },
         select(data) {
             return uniqBy(compact(data.pages.flatMap((x) => x?.data ?? [])), ({ profile }) =>
-                toFireflyProfileId(profile),
+                toFireflyPlatformId(profile),
             );
         },
     });
