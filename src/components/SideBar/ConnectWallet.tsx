@@ -47,17 +47,25 @@ export function ConnectWallet({ collapsed: sideBarCollapsed = false }: ConnectWa
 
     if (!mounted) return null;
 
+    // isConnected and isConnected could both true at the same time
+    const isEVMConnected = !!(
+        evmAccount.isConnected &&
+        !evmAccount.isConnecting &&
+        !evmAccount.isReconnecting &&
+        evmAccount.address
+    );
+
     const connections = [
         {
             icon: evmNetworkDescriptor?.icon,
             label: resolveValue(() => {
-                if (!evmAccount.isConnected || !evmAccount.address || isLoading || !mounted) return null;
+                if (!isEVMConnected || !evmAccount.address || isLoading || !mounted) return null;
                 if (ensName) return formatDomainName(ensName);
                 return formatEthereumAddress(evmAccount.address, 4);
             }),
             onOpenConnectModal: () => ConnectModalRef.open(),
             onOpenAccountModal: () => AccountModalRef.open(),
-            isConnected: evmAccount.isConnected,
+            isConnected: isEVMConnected,
             isLoading: evmAccount.isConnecting || evmAccount.isReconnecting || isLoading,
             type: 'EVM',
         },
