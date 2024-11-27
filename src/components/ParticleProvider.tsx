@@ -4,8 +4,10 @@ import { AuthCoreContextProvider, PromptSettingType } from '@particle-network/au
 import { type ReactNode, useMemo } from 'react';
 
 import { chains } from '@/configs/wagmiClient.js';
-import { STATUS, VERCEL_NEV } from '@/constants/enum.js';
+import { Locale, STATUS, VERCEL_NEV } from '@/constants/enum.js';
 import { env } from '@/constants/env.js';
+import { useIsDarkMode } from '@/hooks/useIsDarkMode.js';
+import { useLocale } from '@/store/useLocale.js';
 
 type AuthCoreContextProviderOptions = Parameters<typeof AuthCoreContextProvider>[0]['options'];
 
@@ -13,7 +15,16 @@ interface ParticleProviderProps {
     children?: ReactNode;
 }
 
+const LangMap: Record<Locale, AuthCoreContextProviderOptions['language']> = {
+    [Locale.en]: 'en',
+    [Locale.zhHans]: 'zh-cn',
+    [Locale.zhHant]: 'zh-tw',
+};
+
 export function ParticleProvider({ children }: ParticleProviderProps) {
+    const isDark = useIsDarkMode();
+    const locale = useLocale();
+
     const options = useMemo(() => {
         if (env.external.NEXT_PUBLIC_PARTICLE === STATUS.Disabled) {
             console.warn(`[particle] disabled.`);
@@ -44,8 +55,10 @@ export function ParticleProvider({ children }: ParticleProviderProps) {
             },
             // Disable inject the wagmi connector
             supportEIP6963: true,
+            themeType: isDark ? 'dark' : 'light',
+            language: LangMap[locale],
         } satisfies AuthCoreContextProviderOptions;
-    }, []);
+    }, [isDark, locale]);
 
     if (!options) return children;
 
