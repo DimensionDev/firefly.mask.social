@@ -1,12 +1,12 @@
 import { useQuery } from '@tanstack/react-query';
 
 import { useIsLoginInActivity } from '@/components/Activity/hooks/useIsLoginInActivity.js';
-import { Source } from '@/constants/enum.js';
+import { type SocialSource } from '@/constants/enum.js';
 import { useFireflyBridgeAuthorization } from '@/hooks/useFireflyBridgeAuthorization.js';
 import { FireflyActivityProvider } from '@/providers/firefly/Activity.js';
 
-export function useActivityConnections() {
-    const isLoggedIn = useIsLoginInActivity(Source.Twitter);
+export function useActivityConnections(source: SocialSource) {
+    const isLoggedIn = useIsLoginInActivity(source);
     const { data: authToken } = useFireflyBridgeAuthorization();
     return useQuery({
         enabled: isLoggedIn,
