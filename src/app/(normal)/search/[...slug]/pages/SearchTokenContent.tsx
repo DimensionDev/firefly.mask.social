@@ -7,7 +7,7 @@ import { ListInPage } from '@/components/ListInPage.js';
 import { Empty } from '@/components/Search/Empty.js';
 import { SearchableTokenItem } from '@/components/Search/SearchableTokenItem.js';
 import { TokenMarketData } from '@/components/TokenProfile/TokenMarketData.js';
-import { ScrollListKey } from '@/constants/enum.js';
+import { NetworkPluginID, ScrollListKey } from '@/constants/enum.js';
 import type { CoinGeckoToken } from '@/providers/types/CoinGecko.js';
 import type { SearchableToken } from '@/providers/types/Firefly.js';
 import { searchTokens, type TokenWithMarket } from '@/services/searchTokens.js';
@@ -15,7 +15,7 @@ import { useSearchStateStore } from '@/store/useSearchStore.js';
 
 function formatMarketToken(token: SearchableToken) {
     return {
-        pluginID: 'string',
+        pluginID: NetworkPluginID.PLUGIN_EVM,
         id: token.id,
         symbol: token.symbol,
         name: token.name,

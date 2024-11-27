@@ -1,14 +1,15 @@
+import type { NetworkPluginID } from '@/constants/enum.js';
 import type { Runtime } from '@/providers/types/Trending.js';
 
 export interface CoinGeckoToken {
-    pluginID: 'string';
+    pluginID: NetworkPluginID;
     id: string;
     symbol: string;
     name: string;
     source: string;
     type: 'FungibleToken';
     logoURL: string;
-    rank: 1;
+    rank: number;
     socialLinks: {
         /** url */
         website: string;
