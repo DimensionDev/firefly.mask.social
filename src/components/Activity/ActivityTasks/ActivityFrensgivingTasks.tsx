@@ -85,7 +85,13 @@ export function ActivityFrensgivingTasks({
                         claimCondition?.farcaster.hasThirdpartSigner ? 'bg-success/10 dark:bg-success/20' : 'bg-bg',
                     )}
                 >
-                    <ActivityVerifyText verified={!!claimCondition?.farcaster.hasThirdpartSigner}>
+                    <ActivityVerifyText
+                        verified={
+                            claimCondition && !!claimCondition.farcaster.hasThirdpartSigner
+                                ? Number.parseInt(claimCondition.farcaster.fid, 10) <= 100_000
+                                : false
+                        }
+                    >
                         <Trans>
                             Available to users with Farcaster ID under 100,000 or users of select third-party Farcaster
                             apps as of our snapshot
