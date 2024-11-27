@@ -26,6 +26,7 @@ import { DisconnectFireflyAccountModalRef, LoginModalRef, LogoutModalRef } from 
 import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
 import type { Account } from '@/providers/types/Account.js';
 import { switchAccount } from '@/services/account.js';
+import { uniqBy } from 'lodash-es';
 
 interface AccountCardProps {
     source: SocialSource;
@@ -85,9 +86,10 @@ export function AccountCard({ source }: AccountCardProps) {
         }
     }, []);
 
+    const isLens = source === Source.Lens;
     const account = useAccount();
     const { data: profiles = EMPTY_LIST } = useQuery({
-        enabled: source === Source.Lens,
+        enabled: isLens,
         queryKey: ['lens', 'profiles', account.address],
         queryFn: async () => {
             try {
@@ -107,9 +109,11 @@ export function AccountCard({ source }: AccountCardProps) {
         },
     });
 
+    const allAccounts = isLens ? uniqBy([...accounts, ...profiles], (x) => x.profile.profileId) : accounts;
+
     return (
         <div className="flex w-full flex-col gap-4">
-            {[...accounts, ...profiles].map((account) => (
+            {allAccounts.map((account) => (
                 <div
                     key={account.profile.profileId}
                     className="inline-flex h-[63px] w-full items-center justify-start gap-3 rounded-lg bg-white bg-bottom px-3 py-2 shadow-primary backdrop-blur dark:bg-bg"
