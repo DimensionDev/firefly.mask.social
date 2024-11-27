@@ -2446,9 +2446,6 @@ msgstr "LuckyDrop"
 msgid "{0} and others"
 msgstr "{0} and others"
 
-msgid "Please switch to Firefly Wallet."
-msgstr "Please switch to Firefly Wallet."
-
 msgid "Post details"
 msgstr "Post details"
 
@@ -2622,6 +2619,9 @@ msgstr "Mirror now to get 25% referral fee!"
 
 msgid "Hide tokens with small balances"
 msgstr "Hide tokens with small balances"
+
+msgid "Failed to connect to Firefly."
+msgstr "Failed to connect to Firefly."
 
 msgid "Proposal"
 msgstr "Proposal"
