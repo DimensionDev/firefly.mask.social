@@ -1,6 +1,7 @@
 import { parseHTML } from 'linkedom';
 
 import { resolveValue } from '@/helpers/resolveValue.js';
+import { WalletError } from '@solana/wallet-adapter-base';
 
 export class AbortError extends Error {
     constructor(message = 'Aborted') {
@@ -169,9 +170,12 @@ export class TransactionSimulationError extends Error {
     }
 }
 
-export class ParticleAuthError extends Error {
-    constructor(options?: { error_code?: number; extra?: string; message?: string; path?: string }) {
-        const message = options?.message ? `${options.message}${options.extra ? `: ${options.extra}` : ''}` : null;
-        super(message || 'Particle authentication failed.');
+export class ParticleAuthError extends WalletError {
+    constructor(cause?: unknown) {
+        const error = cause as { error_code?: number; extra?: string; message?: string; path?: string };
+        const message = error?.message
+            ? `${error.message}${error.extra ? `: ${error.extra}` : ''}`
+            : 'Particle authentication failed.';
+        super(message, cause);
     }
 }
