@@ -1,3 +1,4 @@
+import { WalletError } from '@solana/wallet-adapter-base';
 import { parseHTML } from 'linkedom';
 
 import { resolveValue } from '@/helpers/resolveValue.js';
@@ -166,5 +167,15 @@ export class SignlessRequireError extends Error {
 export class TransactionSimulationError extends Error {
     constructor(message?: string) {
         super(message ?? 'Transaction simulation failed.');
+    }
+}
+
+export class ParticleAuthError extends WalletError {
+    constructor(cause?: unknown) {
+        const error = cause as { error_code?: number; extra?: string; message?: string; path?: string };
+        const message = error?.message
+            ? `${error.message}${error.extra ? `: ${error.extra}` : ''}`
+            : 'Particle authentication failed.';
+        super(message, cause);
     }
 }
