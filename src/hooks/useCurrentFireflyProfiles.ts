@@ -4,6 +4,7 @@ import { useMemo } from 'react';
 
 import { type SocialSource, Source } from '@/constants/enum.js';
 import { EMPTY_LIST, SORTED_SOCIAL_SOURCES } from '@/constants/index.js';
+import { toFireflyIdentityId } from '@/helpers/isSameProfile.js';
 import { resolveFireflyProfileId } from '@/helpers/resolveFireflyProfileId.js';
 import { useCurrentProfileAll } from '@/hooks/useCurrentProfile.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
@@ -83,11 +84,11 @@ export function useCurrentFireflyProfilesAll() {
                 ),
             ];
         },
-        select: (profiles) => uniqBy(profiles, (x) => `${x.identity.source}/${x.identity.id}`),
+        select: (profiles) => uniqBy(profiles, (x) => toFireflyIdentityId(x.identity)),
         staleTime: 1000 * 60 * 5,
     });
 
     return useMemo(() => {
-        return uniqBy([...currentFireflyProfiles, ...profiles], (x) => `${x.identity.source}/${x.identity.id}`);
+        return uniqBy([...currentFireflyProfiles, ...profiles], (x) => toFireflyIdentityId(x.identity));
     }, [currentFireflyProfiles, profiles]);
 }

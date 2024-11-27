@@ -6,7 +6,7 @@ import { SORTED_SOCIAL_SOURCES } from '@/constants/index.js';
 import { createDummyProfile } from '@/helpers/createDummyProfile.js';
 import { getProfileSessionsAll, getProfileState } from '@/helpers/getProfileState.js';
 import { isSameAccount } from '@/helpers/isSameAccount.js';
-import { isSameProfile } from '@/helpers/isSameProfile.js';
+import { isSameProfile, toProfileId } from '@/helpers/isSameProfile.js';
 import { isSameSession } from '@/helpers/isSameSession.js';
 import { resolveSessionHolder, resolveSessionHolderFromProfileSource } from '@/helpers/resolveSessionHolder.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
@@ -194,7 +194,7 @@ export async function addAccount(account: Account, options?: AccountOptions) {
             return !state.accounts.find((y) => isSameAccount(x, y)) && !isSameAccount(x, account);
         });
         const accounts = (
-            belongsTo ? accountsFiltered : uniqBy([account, ...accountsFiltered], (x) => x.profile.profileId)
+            belongsTo ? accountsFiltered : uniqBy([account, ...accountsFiltered], (x) => toProfileId(x.profile))
         ).filter((y) => y.session.type !== SessionType.Firefly);
 
         if (accounts.length) {

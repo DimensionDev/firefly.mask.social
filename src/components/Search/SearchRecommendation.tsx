@@ -19,6 +19,7 @@ import { classNames } from '@/helpers/classNames.js';
 import { getChannelUrl } from '@/helpers/getChannelUrl.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { isRoutePathname } from '@/helpers/isRoutePathname.js';
+import { toProfileId } from '@/helpers/isSameProfile.js';
 import { createIndicator, type Pageable, type PageIndicator } from '@/helpers/pageable.js';
 import { resolveSearchUrl } from '@/helpers/resolveSearchUrl.js';
 import { FarcasterSocialMediaProvider } from '@/providers/farcaster/SocialMedia.js';
@@ -183,7 +184,7 @@ export function SearchRecommendation(props: SearchRecommendationProps) {
                     </div>
                 ) : profiles?.data.length ? (
                     <div className="py-2">
-                        {uniqBy(profiles.data, (x) => `${x.source}/${x.handle}`)
+                        {uniqBy(profiles.data, toProfileId)
                             .slice(0, MAX_RECOMMEND_PROFILE_SIZE)
                             .map((profile) => (
                                 <Link
