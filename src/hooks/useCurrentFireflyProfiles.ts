@@ -8,6 +8,7 @@ import { resolveFireflyProfileId } from '@/helpers/resolveFireflyProfileId.js';
 import { useCurrentProfileAll } from '@/hooks/useCurrentProfile.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 import type { FireflyProfile } from '@/providers/types/Firefly.js';
+import { toFireflyIdentityId, toFireflyProfileId } from '@/helpers/isSameProfile.js';
 
 export function useCurrentFireflyProfiles() {
     const currentProfileAll = useCurrentProfileAll();
@@ -83,11 +84,11 @@ export function useCurrentFireflyProfilesAll() {
                 ),
             ];
         },
-        select: (profiles) => uniqBy(profiles, (x) => `${x.identity.source}/${x.identity.id}`),
+        select: (profiles) => uniqBy(profiles, (x) => toFireflyIdentityId(x.identity)),
         staleTime: 1000 * 60 * 5,
     });
 
     return useMemo(() => {
-        return uniqBy([...currentFireflyProfiles, ...profiles], (x) => `${x.identity.source}/${x.identity.id}`);
+        return uniqBy([...currentFireflyProfiles, ...profiles], (x) => toFireflyIdentityId(x.identity));
     }, [currentFireflyProfiles, profiles]);
 }

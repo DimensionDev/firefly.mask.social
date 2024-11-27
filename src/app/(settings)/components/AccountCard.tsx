@@ -19,7 +19,7 @@ import { enqueueErrorMessage, enqueueSuccessMessage } from '@/helpers/enqueueMes
 import { getProfileState } from '@/helpers/getProfileState.js';
 import { getSnackbarMessageFromError } from '@/helpers/getSnackbarMessageFromError.js';
 import { getWalletClientRequired } from '@/helpers/getWalletClientRequired.js';
-import { isSameProfile } from '@/helpers/isSameProfile.js';
+import { isSameProfile, toProfileId } from '@/helpers/isSameProfile.js';
 import { useConnectedAccounts } from '@/hooks/useConnectedAccounts.js';
 import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
 import { useProfileStoreAll } from '@/hooks/useProfileStore.js';
@@ -109,7 +109,7 @@ export function AccountCard({ source }: AccountCardProps) {
         },
     });
 
-    const allAccounts = isLens ? uniqBy([...accounts, ...profiles], (x) => x.profile.profileId) : accounts;
+    const allAccounts = isLens ? uniqBy([...accounts, ...profiles], (x) => toProfileId(x.profile)) : accounts;
 
     return (
         <div className="flex w-full flex-col gap-4">

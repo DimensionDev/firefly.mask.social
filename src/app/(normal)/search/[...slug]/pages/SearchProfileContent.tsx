@@ -16,6 +16,7 @@ import { TwitterSocialMediaProvider } from '@/providers/twitter/SocialMedia.js';
 import type { Profile as FireflyProfile } from '@/providers/types/Firefly.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 import { useSearchStateStore } from '@/store/useSearchStore.js';
+import { toFireflyProfileId } from '@/helpers/isSameProfile.js';
 
 type ProfileWithRelated = { profile: FireflyProfile; related: FireflyProfile[] };
 
@@ -44,9 +45,7 @@ function composeTwitterProfiles(identities: ProfileWithRelated[], xProfiles: Pro
 
 const getSearchItemContent = (item: ProfileWithRelated) => {
     const { profile, related } = item;
-    return (
-        <SearchableProfileItem profile={profile} related={related} key={`${profile.platform}_${profile.platform_id}`} />
-    );
+    return <SearchableProfileItem profile={profile} related={related} key={toFireflyProfileId(profile)} />;
 };
 
 const noNextPage = '__no_next_page__';
@@ -90,9 +89,8 @@ export function SearchProfileContent() {
             };
         },
         select(data) {
-            return uniqBy(
-                compact(data.pages.flatMap((x) => x?.data ?? [])),
-                ({ profile }) => `${profile.platform}_${profile.platform_id}`,
+            return uniqBy(compact(data.pages.flatMap((x) => x?.data ?? [])), ({ profile }) =>
+                toFireflyProfileId(profile),
             );
         },
     });

@@ -27,6 +27,7 @@ import type { Channel, Profile } from '@/providers/types/SocialMedia.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
 import { useSearchHistoryStateStore } from '@/store/useSearchHistoryStore.js';
 import { type SearchState, useSearchStateStore } from '@/store/useSearchStore.js';
+import { toProfileId } from '@/helpers/isSameProfile.js';
 
 interface SearchRecommendationProps {
     keyword: string;
@@ -183,7 +184,7 @@ export function SearchRecommendation(props: SearchRecommendationProps) {
                     </div>
                 ) : profiles?.data.length ? (
                     <div className="py-2">
-                        {uniqBy(profiles.data, (x) => `${x.source}/${x.handle}`)
+                        {uniqBy(profiles.data, toProfileId)
                             .slice(0, MAX_RECOMMEND_PROFILE_SIZE)
                             .map((profile) => (
                                 <Link
