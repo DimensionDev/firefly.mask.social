@@ -40,16 +40,7 @@ export function ConnectWallet({ collapsed: sideBarCollapsed = false }: ConnectWa
     const evmAccount = useEVMAccount();
     const solanaWallet = useSolanaWallet();
 
-    const { data: ensName } = useEnsName({ address: evmAccount.address, chainId: mainnet.id });
-
-    console.log('DEBUG: connected wallet');
-    console.log({
-        evmAccount,
-        solanaWallet,
-        evm: evmAccount.address,
-        solana: solanaWallet.publicKey?.toBase58(),
-        ensName,
-    });
+    const { data: ensName, isLoading } = useEnsName({ address: evmAccount.address, chainId: mainnet.id });
 
     const collapsed = useGlobalState.use.collapsedConnectWallet();
     const setCollapsed = useGlobalState.use.updateCollapsedConnectWallet();
@@ -60,14 +51,14 @@ export function ConnectWallet({ collapsed: sideBarCollapsed = false }: ConnectWa
         {
             icon: evmNetworkDescriptor?.icon,
             label: resolveValue(() => {
-                if (!evmAccount.isConnected || !evmAccount.address || !mounted) return null;
+                if (!evmAccount.isConnected || !evmAccount.address || isLoading || !mounted) return null;
                 if (ensName) return formatDomainName(ensName);
                 return formatEthereumAddress(evmAccount.address, 4);
             }),
             onOpenConnectModal: () => ConnectModalRef.open(),
             onOpenAccountModal: () => AccountModalRef.open(),
             isConnected: evmAccount.isConnected,
-            isLoading: evmAccount.isConnecting || evmAccount.isReconnecting,
+            isLoading: evmAccount.isConnecting || evmAccount.isReconnecting || isLoading,
             type: 'EVM',
         },
         {
