@@ -19,7 +19,7 @@ const solanaNetworkDescriptor = getNetworkDescriptor(NetworkPluginID.PLUGIN_SOLA
 
 export interface Connection {
     type: 'evm' | 'solana';
-    icon: ReactNode;
+    icon?: string;
     label: string | null;
     onOpenConnectModal: () => void;
     onOpenAccountModal: () => void;
