@@ -18,10 +18,10 @@ import { SocialSourceIcon } from '@/components/SocialSourceIcon.js';
 import { TimestampFormatter } from '@/components/TimeStampFormatter.js';
 import { Link } from '@/esm/Link.js';
 import { getPostUrl } from '@/helpers/getPostUrl.js';
+import { toProfileId } from '@/helpers/isSameProfile.js';
 import { resolveNotificationIcon } from '@/helpers/resolveNotificationIcon.js';
 import { isProfileMuted } from '@/hooks/useIsProfileMuted.js';
 import { type Notification, NotificationType } from '@/providers/types/SocialMedia.js';
-import { toProfileId } from '@/helpers/isSameProfile.js';
 
 interface NotificationItemProps {
     notification: Notification;

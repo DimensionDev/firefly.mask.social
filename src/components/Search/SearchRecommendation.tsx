@@ -19,6 +19,7 @@ import { classNames } from '@/helpers/classNames.js';
 import { getChannelUrl } from '@/helpers/getChannelUrl.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { isRoutePathname } from '@/helpers/isRoutePathname.js';
+import { toProfileId } from '@/helpers/isSameProfile.js';
 import { createIndicator, type Pageable, type PageIndicator } from '@/helpers/pageable.js';
 import { resolveSearchUrl } from '@/helpers/resolveSearchUrl.js';
 import { FarcasterSocialMediaProvider } from '@/providers/farcaster/SocialMedia.js';
@@ -27,7 +28,6 @@ import type { Channel, Profile } from '@/providers/types/SocialMedia.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
 import { useSearchHistoryStateStore } from '@/store/useSearchHistoryStore.js';
 import { type SearchState, useSearchStateStore } from '@/store/useSearchStore.js';
-import { toProfileId } from '@/helpers/isSameProfile.js';
 
 interface SearchRecommendationProps {
     keyword: string;

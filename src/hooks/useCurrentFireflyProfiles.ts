@@ -4,11 +4,11 @@ import { useMemo } from 'react';
 
 import { type SocialSource, Source } from '@/constants/enum.js';
 import { EMPTY_LIST, SORTED_SOCIAL_SOURCES } from '@/constants/index.js';
+import { toFireflyIdentityId } from '@/helpers/isSameProfile.js';
 import { resolveFireflyProfileId } from '@/helpers/resolveFireflyProfileId.js';
 import { useCurrentProfileAll } from '@/hooks/useCurrentProfile.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 import type { FireflyProfile } from '@/providers/types/Firefly.js';
-import { toFireflyIdentityId, toFireflyProfileId } from '@/helpers/isSameProfile.js';
 
 export function useCurrentFireflyProfiles() {
     const currentProfileAll = useCurrentProfileAll();

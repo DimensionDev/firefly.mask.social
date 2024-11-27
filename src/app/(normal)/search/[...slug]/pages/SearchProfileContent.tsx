@@ -8,6 +8,7 @@ import { Empty } from '@/components/Search/Empty.js';
 import { SearchableProfileItem } from '@/components/Search/SearchableProfileItem.js';
 import { ScrollListKey, Source, SourceInURL } from '@/constants/enum.js';
 import { formatSearchIdentities } from '@/helpers/formatSearchIdentities.js';
+import { toFireflyProfileId } from '@/helpers/isSameProfile.js';
 import { createIndicator, createPageable } from '@/helpers/pageable.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
@@ -16,7 +17,6 @@ import { TwitterSocialMediaProvider } from '@/providers/twitter/SocialMedia.js';
 import type { Profile as FireflyProfile } from '@/providers/types/Firefly.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 import { useSearchStateStore } from '@/store/useSearchStore.js';
-import { toFireflyProfileId } from '@/helpers/isSameProfile.js';
 
 type ProfileWithRelated = { profile: FireflyProfile; related: FireflyProfile[] };
 
