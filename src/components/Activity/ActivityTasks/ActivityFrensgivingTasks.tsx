@@ -80,8 +80,8 @@ export function ActivityFrensgivingTasks({
                 </div>
                 <div className="flex w-full flex-col space-y-2 rounded-2xl bg-bg p-3 text-sm font-semibold leading-6">
                     <Trans>
-                        Available to Farcaster ID under 100,000 or users of select third-party Farcaster apps as of our
-                        snapshot
+                        Available to users with Farcaster ID under 100,000 or users of select third-party Farcaster apps
+                        as of our snapshot
                     </Trans>
                 </div>
                 <h2 className="text-base font-semibold leading-6">
