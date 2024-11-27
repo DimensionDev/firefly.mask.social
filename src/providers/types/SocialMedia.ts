@@ -705,9 +705,10 @@ export interface Provider {
      * Retrieves notifications.
      *
      * @param indicator Optional PageIndicator for pagination.
+     * @param highSignalFilter Optional filter for high signal notifications. (only lens)
      * @returns A promise that resolves to a pageable list of Notification objects.
      */
-    getNotifications: (indicator?: PageIndicator) => Promise<Pageable<Notification>>;
+    getNotifications: (indicator?: PageIndicator, highSignalFilter?: boolean) => Promise<Pageable<Notification>>;
 
     /**
      * Retrieves suggested user profiles to follow.
