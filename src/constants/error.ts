@@ -1,7 +1,7 @@
+import { WalletError } from '@solana/wallet-adapter-base';
 import { parseHTML } from 'linkedom';
 
 import { resolveValue } from '@/helpers/resolveValue.js';
-import { WalletError } from '@solana/wallet-adapter-base';
 
 export class AbortError extends Error {
     constructor(message = 'Aborted') {
