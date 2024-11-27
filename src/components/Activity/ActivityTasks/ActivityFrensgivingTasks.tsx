@@ -61,9 +61,9 @@ export function ActivityFrensgivingTasks({
     const shareContent = [
         'Just earned $ANON by minting the Firefly Farcaster Frensgiving 🦃✨ collectible from ',
         fireflyMention,
-        '\n\nClaim here ',
+        '\n\nClaim here',
         shareUrl,
-        ' \n\n #Frensgiving #Thanksgiving #Farcaster #FireflySocial',
+        '\n\n#Frensgiving #Thanksgiving #Farcaster #FireflySocial',
     ];
     const { data: isFollowedFirefly } = useIsFollowInActivity(Source.Farcaster, '16823', 'fireflyapp');
 
