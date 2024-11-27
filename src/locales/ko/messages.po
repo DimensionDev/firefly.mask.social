@@ -570,9 +570,6 @@ msgstr ""
 msgid "Token ID"
 msgstr ""
 
-msgid "Available to Farcaster ID under 100,000 or users of select third-party Farcaster apps as of our snapshot"
-msgstr ""
-
 msgid "{0, plural, one {mirror} other {mirrors}}"
 msgstr ""
 
@@ -1651,6 +1648,9 @@ msgid "<0>Market Cap</0><1>{0}</1><2>Rank #{1}</2>"
 msgstr ""
 
 msgid "Invalid signer key"
+msgstr ""
+
+msgid "Available to users with Farcaster ID under 100,000 or users of select third-party Farcaster apps as of our snapshot"
 msgstr ""
 
 msgid "Unverified"

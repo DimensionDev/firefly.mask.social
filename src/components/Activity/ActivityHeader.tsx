@@ -13,7 +13,7 @@ export function ActivityHeader({
 }: {
     data: Pick<
         Required<ActivityInfoResponse>['data'],
-        'title' | 'sub_title' | 'start_time' | 'end_time' | 'status' | 'banner_url'
+        'title' | 'sub_title' | 'start_time' | 'end_time' | 'status' | 'banner_url' | 'description'
     >;
 }) {
     const timeTemplate = 'MMM DD, HH:mm';
@@ -37,7 +37,7 @@ export function ActivityHeader({
                         <ActivityStatusTag status={data.status} />
                     </div>
                     <h1 className="text-xl font-semibold leading-6">{data.title}</h1>
-                    <p className="line-clamp-2 text-sm leading-6">{data.sub_title}</p>
+                    <p className="line-clamp-2 text-sm leading-6">{data.description}</p>
                 </div>
             </div>
         </div>

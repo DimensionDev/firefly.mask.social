@@ -570,9 +570,6 @@ msgstr "在 Firefly 移动端或者 {promoteLink} 打开我的红包🧧💰✨ 
 msgid "Token ID"
 msgstr "通证 ID"
 
-msgid "Available to Farcaster ID under 100,000 or users of select third-party Farcaster apps as of our snapshot"
-msgstr ""
-
 msgid "{0, plural, one {mirror} other {mirrors}}"
 msgstr "{0, plural, one {转帖} other {转帖}}"
 
@@ -1652,6 +1649,9 @@ msgstr "<0>市值</0><1>{0}</1><2>排名 #{1}</2>"
 
 msgid "Invalid signer key"
 msgstr "无效的 singer key"
+
+msgid "Available to users with Farcaster ID under 100,000 or users of select third-party Farcaster apps as of our snapshot"
+msgstr ""
 
 msgid "Unverified"
 msgstr "未验证"

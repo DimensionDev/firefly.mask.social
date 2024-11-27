@@ -39,7 +39,7 @@ export function ActivityConnectButton({ source }: { source: SocialSource }) {
         <Trans>Change</Trans>
     ) : (
         <>
-            <ChainIcon className="mr-2 h-4 w-4 shrink-0" width={16} height={16} chainId={ChainId.Base} />
+            <ChainIcon className="mr-2 shrink-0" size={18} chainId={ChainId.Base} />
             <span>
                 <Trans>Connect</Trans>
             </span>
@@ -121,7 +121,7 @@ export function ActivityConnectButton({ source }: { source: SocialSource }) {
     if (address) {
         return (
             <div className="flex w-full items-center gap-2">
-                <ChainIcon className="h-5 w-5 shrink-0" chainId={ChainId.Base} />
+                <ChainIcon className="shrink-0" size={18} chainId={ChainId.Base} />
                 <span className="mr-auto text-base font-medium leading-6">
                     {addresses.find((x) => x.address === address)?.ens || formatAddress(address, 4)}
                 </span>

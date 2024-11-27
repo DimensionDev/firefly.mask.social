@@ -6,7 +6,7 @@ import LoadingIcon from '@/assets/loading.svg';
 import { useIsLoginInActivity } from '@/components/Activity/hooks/useIsLoginInActivity.js';
 import { useLoginInActivity } from '@/components/Activity/hooks/useLoginInActivity.js';
 import { SocialSourceIcon } from '@/components/SocialSourceIcon.js';
-import { type SocialSource } from '@/constants/enum.js';
+import { type SocialSource, Source } from '@/constants/enum.js';
 import { classNames } from '@/helpers/classNames.js';
 import { useAsyncStatus } from '@/hooks/useAsyncStatus.js';
 
@@ -38,7 +38,19 @@ export function ActivityLoginButton({ source }: { source: SocialSource }) {
                     'opacity-0': isLoading,
                 })}
             >
-                <SocialSourceIcon size={16} className="mr-2 h-4 w-4 shrink-0" source={source} />
+                <SocialSourceIcon
+                    size={18}
+                    className="mr-2 h-[18px] w-[18px] shrink-0"
+                    source={source}
+                    mono
+                    style={{
+                        color: {
+                            [Source.Lens]: '#00501e',
+                            [Source.Farcaster]: '#825ec6',
+                            [Source.Twitter]: '#000',
+                        }[source],
+                    }}
+                />
                 <Trans>Sign in</Trans>
             </span>
         </button>

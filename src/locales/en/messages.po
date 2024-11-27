@@ -565,9 +565,6 @@ msgstr "Check out my LuckyDrop 🧧💰✨ on Firefly mobile app or {promoteLink
 msgid "Token ID"
 msgstr "Token ID"
 
-msgid "Available to Farcaster ID under 100,000 or users of select third-party Farcaster apps as of our snapshot"
-msgstr "Available to Farcaster ID under 100,000 or users of select third-party Farcaster apps as of our snapshot"
-
 msgid "{0, plural, one {mirror} other {mirrors}}"
 msgstr "{0, plural, one {mirror} other {mirrors}}"
 
@@ -1647,6 +1644,9 @@ msgstr "<0>Market Cap</0><1>{0}</1><2>Rank #{1}</2>"
 
 msgid "Invalid signer key"
 msgstr "Invalid signer key"
+
+msgid "Available to users with Farcaster ID under 100,000 or users of select third-party Farcaster apps as of our snapshot"
+msgstr "Available to users with Farcaster ID under 100,000 or users of select third-party Farcaster apps as of our snapshot"
 
 msgid "Unverified"
 msgstr "Unverified"
