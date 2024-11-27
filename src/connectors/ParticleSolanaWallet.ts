@@ -187,7 +187,7 @@ export class ParticleSolanaWalletAdapter extends BaseMessageSignerWalletAdapter 
 
             this.emit('connect', publicKey);
         } catch (error: unknown) {
-            const newError = error instanceof Error ? error : new ParticleAuthError(error as { message?: string });
+            const newError = error instanceof Error ? error : new ParticleAuthError(error);
             this.emit('error', newError as WalletError);
             enqueueErrorMessage(getSnackbarMessageFromError(newError, t`Failed to connect to Firefly.`), {
                 error: newError,
