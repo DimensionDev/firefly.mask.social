@@ -1530,9 +1530,6 @@ msgstr "用戶"
 msgid "Describe a bug or suggest an improvement"
 msgstr "描述錯誤或提供改進建議"
 
-msgid "Follow & Submit"
-msgstr ""
-
 msgid "Cryptocurrency mixer."
 msgstr ""
 

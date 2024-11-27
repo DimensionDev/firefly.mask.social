@@ -1525,9 +1525,6 @@ msgstr "Users"
 msgid "Describe a bug or suggest an improvement"
 msgstr "Describe a bug or suggest an improvement"
 
-msgid "Follow & Submit"
-msgstr "Follow & Submit"
-
 msgid "Cryptocurrency mixer."
 msgstr "Cryptocurrency mixer."
 

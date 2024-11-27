@@ -7,11 +7,9 @@ import { ActivityClaimButton } from '@/components/Activity/ActivityClaimButton.j
 import { ActivityConnectCard } from '@/components/Activity/ActivityConnectCard.js';
 import { ActivityLoginButton } from '@/components/Activity/ActivityLoginButton.js';
 import { ActivityPremiumConditionList } from '@/components/Activity/ActivityPremiumConditionList.js';
-import { ActivityTaskFollowCard } from '@/components/Activity/ActivityTaskFollowCard.js';
 import { ActivityVerifyText } from '@/components/Activity/ActivityVerifyText.js';
 import { useActivityClaimCondition } from '@/components/Activity/hooks/useActivityClaimCondition.js';
 import { useActivityCurrentAccountHandle } from '@/components/Activity/hooks/useActivityCurrentAccountHandle.js';
-import { useIsFollowInActivity } from '@/components/Activity/hooks/useIsFollowInActivity.js';
 import { Source, SourceInURL } from '@/constants/enum.js';
 import { SITE_URL } from '@/constants/index.js';
 import { CHAR_TAG, type Chars } from '@/helpers/chars.js';
@@ -68,7 +66,6 @@ export function ActivityFrensgivingTasks({
         shareUrl,
         ' \n\n#Frensgiving #Thanksgiving #Farcaster #FireflySocial',
     ];
-    const { data: isFollowedFirefly } = useIsFollowInActivity(Source.Farcaster, '16823', 'fireflyapp');
     const { data: claimCondition } = useActivityClaimCondition(Source.Farcaster);
 
     return (
@@ -96,9 +93,8 @@ export function ActivityFrensgivingTasks({
                     </ActivityVerifyText>
                 </div>
                 <h2 className="text-base font-semibold leading-6">
-                    <Trans>Follow & Submit</Trans>
+                    <Trans>Connect Wallet</Trans>
                 </h2>
-                <ActivityTaskFollowCard handle="fireflyapp" source={Source.Farcaster} profileId="16823" />
                 <ActivityConnectCard
                     source={Source.Farcaster}
                     label={<Trans>Submit a wallet to receive NFT and $ANON</Trans>}
@@ -119,7 +115,6 @@ export function ActivityFrensgivingTasks({
                 <ActivityClaimButton
                     status={data.status}
                     shareContent={shareContent as Chars}
-                    disabled={!isFollowedFirefly}
                     source={Source.Farcaster}
                 />
             </div>
