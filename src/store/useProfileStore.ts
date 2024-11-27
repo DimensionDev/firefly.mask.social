@@ -373,6 +373,7 @@ const useThirdPartyStateBase = createState(
                           },
                       )
                     : null;
+
                 if (!thirdPartySession) return;
 
                 const foundNewSessionFromServer = !!(
