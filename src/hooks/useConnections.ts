@@ -12,17 +12,25 @@ import { getNetworkDescriptor } from '@/helpers/getNetworkDescriptor.js';
 import { resolveValue } from '@/helpers/resolveValue.js';
 import { useMounted } from '@/hooks/useMounted.js';
 import { AccountModalRef, ConnectModalRef, SolanaAccountModalRef } from '@/modals/controls.js';
+import type { ReactNode } from 'react';
 
 const evmNetworkDescriptor = getNetworkDescriptor(NetworkPluginID.PLUGIN_EVM, EVMChainId.Mainnet);
 const solanaNetworkDescriptor = getNetworkDescriptor(NetworkPluginID.PLUGIN_SOLANA, SolanaChainId.Mainnet);
 
-export function useConnections() {
+export interface Connection {
+    type: 'evm' | 'solana';
+    icon: ReactNode;
+    label: string | null;
+    onOpenConnectModal: () => void;
+    onOpenAccountModal: () => void;
+    isConnected: boolean;
+    isLoading: boolean;
+}
+
+export function useEVMConnection(): Connection {
     const mounted = useMounted();
 
     const evmAccount = useEVMAccount();
-    const solanaWallet = useSolanaWallet();
-
-    const connectModalSolana = useConnectModalSolana();
 
     const { data: ensName, isLoading } = useEnsName({ address: evmAccount.address, chainId: mainnet.id });
 
@@ -34,34 +42,43 @@ export function useConnections() {
         evmAccount.address
     );
 
-    const connections = [
-        {
-            icon: evmNetworkDescriptor?.icon,
-            label: resolveValue(() => {
-                if (!isEVMConnected || !evmAccount.address || isLoading || !mounted) return null;
-                if (ensName) return formatDomainName(ensName);
-                return formatEthereumAddress(evmAccount.address, 4);
-            }),
-            onOpenConnectModal: () => ConnectModalRef.open(),
-            onOpenAccountModal: () => AccountModalRef.open(),
-            isConnected: isEVMConnected,
-            isLoading: evmAccount.isConnecting || evmAccount.isReconnecting || isLoading,
-            type: 'EVM',
-        },
-        {
-            icon: solanaNetworkDescriptor?.icon,
-            label: resolveValue(() => {
-                if (!solanaWallet.publicKey) return null;
-                const address = solanaWallet.publicKey.toBase58();
-                return formatSolanaAddress(address, 4);
-            }),
-            onOpenConnectModal: () => connectModalSolana.setVisible(true),
-            onOpenAccountModal: () => SolanaAccountModalRef.open(),
-            isConnected: solanaWallet.connected,
-            isLoading: solanaWallet.connecting || solanaWallet.disconnecting,
-            type: 'Solana',
-        },
-    ];
+    return {
+        type: 'evm',
+        icon: evmNetworkDescriptor?.icon,
+        label: resolveValue(() => {
+            if (!isEVMConnected || !evmAccount.address || isLoading || !mounted) return null;
+            if (ensName) return formatDomainName(ensName);
+            return formatEthereumAddress(evmAccount.address, 4);
+        }),
+        onOpenConnectModal: () => ConnectModalRef.open(),
+        onOpenAccountModal: () => AccountModalRef.open(),
+        isConnected: isEVMConnected,
+        isLoading: evmAccount.isConnecting || evmAccount.isReconnecting || isLoading,
+    };
+}
 
-    return connections;
+export function useSolanaConnection(): Connection {
+    const solanaWallet = useSolanaWallet();
+    const connectModalSolana = useConnectModalSolana();
+
+    return {
+        type: 'solana',
+        icon: solanaNetworkDescriptor?.icon,
+        label: resolveValue(() => {
+            if (!solanaWallet.publicKey) return null;
+            const address = solanaWallet.publicKey.toBase58();
+            return formatSolanaAddress(address, 4);
+        }),
+        onOpenConnectModal: () => connectModalSolana.setVisible(true),
+        onOpenAccountModal: () => SolanaAccountModalRef.open(),
+        isConnected: solanaWallet.connected,
+        isLoading: solanaWallet.connecting || solanaWallet.disconnecting,
+    };
+}
+
+export function useConnections(): Connection[] {
+    const evm = useEVMConnection();
+    const solana = useSolanaConnection();
+
+    return [evm, solana];
 }
