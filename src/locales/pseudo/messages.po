@@ -664,6 +664,9 @@ msgstr ""
 msgid "Verified by {0}"
 msgstr ""
 
+msgid "Please sign in with {resolveSourceName(source)} to continue"
+msgstr ""
+
 msgid "Select Account"
 msgstr ""
 
@@ -1961,9 +1964,6 @@ msgid "{type, select, compose {{0}} quote {Add a comment} reply {Post your reply
 msgstr ""
 
 msgid "Unknown transaction method: {method}."
-msgstr ""
-
-msgid "Please sign in with {0} to continue"
 msgstr ""
 
 msgid "Get involved in the <0>Presidential Election Winner 2024</0> on Polymarket"

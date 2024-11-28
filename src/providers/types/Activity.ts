@@ -90,12 +90,7 @@ export type MintActivitySBTResponse = Response<{
 }>;
 
 export interface Provider {
-    getActivityClaimCondition: (
-        name: string,
-        options?: {
-            address?: string;
-        },
-    ) => Promise<CheckResponse['data']>;
+    getActivityClaimCondition: (name: string, address?: string) => Promise<CheckResponse['data']>;
 
     getActivityInfo: (name: string) => Promise<ActivityInfoResponse['data']>;
 
@@ -104,9 +99,7 @@ export interface Provider {
     claimActivitySBT: (
         address: string,
         activityName: string,
-        options?: {
-            claimApiExtraParams?: Record<string, unknown>;
-        },
+        claimApiExtraParams?: Record<string, unknown>,
     ) => Promise<MintActivitySBTResponse['data']>;
 
     getAllConnections: () => Promise<{ connected: FireflyWalletConnection[]; related: FireflyWalletConnection[] }>;

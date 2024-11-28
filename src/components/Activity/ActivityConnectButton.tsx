@@ -1,7 +1,7 @@
 'use client';
 
 import { Menu } from '@headlessui/react';
-import { Trans } from '@lingui/macro';
+import { t, Trans } from '@lingui/macro';
 import { type MouseEvent, useContext } from 'react';
 
 import AddCircleIcon from '@/assets/add-circle.svg';
@@ -17,7 +17,6 @@ import { EMPTY_LIST } from '@/constants/index.js';
 import { classNames } from '@/helpers/classNames.js';
 import { enqueueWarningMessage } from '@/helpers/enqueueMessage.js';
 import { formatAddress } from '@/helpers/formatAddress.js';
-import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { fireflyBridgeProvider } from '@/providers/firefly/Bridge.js';
 import { captureActivityEvent } from '@/providers/telemetry/captureActivityEvent.js';
 import { EventId } from '@/providers/types/Telemetry.js';
@@ -59,9 +58,7 @@ export function ActivityConnectButton({ source }: { source: SocialSource }) {
                             return;
                         }
                         e.preventDefault();
-                        enqueueWarningMessage(
-                            <Trans>Please sign in with {resolveSourceName(source)} to continue</Trans>,
-                        );
+                        enqueueWarningMessage(t`Please sign in with {resolveSourceName(source)} to continue`);
                     }}
                 >
                     {isRefetching || isLoading ? (

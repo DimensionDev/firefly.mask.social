@@ -19,6 +19,7 @@ class FireflySessionHolder extends SessionHolder<FireflySession> {
         const authToken = fireflyBridgeProvider.supported
             ? await fireflyBridgeProvider.request(SupportedMethod.GET_AUTHORIZATION, {})
             : this.sessionRequired.token;
+
         return fetchJSON<T>(
             url,
             {

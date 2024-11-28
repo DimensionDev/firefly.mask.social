@@ -12,7 +12,7 @@ export function useActivityClaimCondition(source: SocialSource) {
     return useQuery({
         queryKey: ['activity-claim-condition', address, name, isLoggedIn],
         async queryFn() {
-            return FireflyActivityProvider.getActivityClaimCondition(name, { address: address ?? '0x' });
+            return FireflyActivityProvider.getActivityClaimCondition(name, address);
         },
         enabled: isLoggedIn,
     });
