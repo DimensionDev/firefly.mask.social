@@ -19,18 +19,14 @@ const resolveReferralAccountPlatformFromSocialSource = createLookupTableResolver
 );
 
 export function useActivityShareUrl(name: string) {
-    let source: SocialSource = Source.Twitter;
-    switch (name) {
-        case 'hlbl':
-            source = Source.Twitter;
-            break;
-        case 'elex24':
-            source = Source.Twitter;
-            break;
-        case 'frensgiving':
-            source = Source.Farcaster;
-            break;
-    }
+    const source =
+        (
+            {
+                hlbl: Source.Twitter,
+                elex24: Source.Twitter,
+                frensgiving: Source.Farcaster,
+            } as Record<string, SocialSource>
+        )[name] ?? Source.Twitter;
     const handle = useActivityCurrentAccountHandle(source);
     return urlcat(
         SITE_URL,
