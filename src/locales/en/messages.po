@@ -2491,6 +2491,9 @@ msgstr "Only people you follow"
 msgid "The signer is not authorized to perform the requested operation. Please approve again."
 msgstr "The signer is not authorized to perform the requested operation. Please approve again."
 
+msgid "The account you are trying to log in with is already linked to a different Firefly account."
+msgstr "The account you are trying to log in with is already linked to a different Firefly account."
+
 msgid "Saved on {0}"
 msgstr "Saved on {0}"
 
