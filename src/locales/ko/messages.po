@@ -2259,6 +2259,9 @@ msgstr ""
 msgid "Non-contract address found."
 msgstr ""
 
+msgid "Confirm to disconnect this account from Firefly’s social graph?"
+msgstr ""
+
 msgid "The contract owner has no restrictions on selling."
 msgstr ""
 

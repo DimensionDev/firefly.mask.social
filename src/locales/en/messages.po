@@ -2254,6 +2254,9 @@ msgstr "Owner can change balance"
 msgid "Non-contract address found."
 msgstr "Non-contract address found."
 
+msgid "Confirm to disconnect this account from Firefly’s social graph?"
+msgstr "Confirm to disconnect this account from Firefly’s social graph?"
+
 msgid "The contract owner has no restrictions on selling."
 msgstr "The contract owner has no restrictions on selling."
 
