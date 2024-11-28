@@ -10,6 +10,7 @@ import { ActivityPremiumConditionList } from '@/components/Activity/ActivityPrem
 import { ActivityVerifyText } from '@/components/Activity/ActivityVerifyText.js';
 import { useActivityClaimCondition } from '@/components/Activity/hooks/useActivityClaimCondition.js';
 import { useActivityCurrentAccountHandle } from '@/components/Activity/hooks/useActivityCurrentAccountHandle.js';
+import { useActivityPremiumList } from '@/components/Activity/hooks/useActivityPremiumList.js';
 import { Source, SourceInURL } from '@/constants/enum.js';
 import { SITE_URL } from '@/constants/index.js';
 import { CHAR_TAG, type Chars } from '@/helpers/chars.js';
@@ -70,6 +71,8 @@ export function ActivityFrensgivingTasks({
     const verifiedBasic =
         claimCondition &&
         (!!claimCondition.farcaster.hasThirdpartSigner || Number.parseInt(claimCondition.farcaster.fid, 10) <= 100_000);
+    const list = useActivityPremiumList(Source.Farcaster);
+    const isPremium = list.some((x) => x.verified);
 
     return (
         <>
@@ -119,6 +122,7 @@ export function ActivityFrensgivingTasks({
                     status={data.status}
                     shareContent={shareContent as Chars}
                     source={Source.Farcaster}
+                    claimType={isPremium ? 'premium' : 'base'}
                 />
             </div>
         </>
