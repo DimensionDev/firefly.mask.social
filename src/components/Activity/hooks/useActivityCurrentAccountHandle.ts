@@ -1,21 +1,21 @@
 import { safeUnreachable } from '@masknet/kit';
 
-import { useActivityWalletProfiles } from '@/components/Activity/hooks/useActivityWalletProfiles.js';
+import { useActivityConnections } from '@/components/Activity/hooks/useActivityConnections.js';
 import { type SocialSource, Source } from '@/constants/enum.js';
 import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
 import { fireflyBridgeProvider } from '@/providers/firefly/Bridge.js';
 
 export function useActivityCurrentAccountHandle(source: SocialSource) {
     const profile = useCurrentProfile(source);
-    const { data: profiles } = useActivityWalletProfiles();
+    const { data } = useActivityConnections();
     if (fireflyBridgeProvider.supported) {
         switch (source) {
             case Source.Twitter:
-                return profiles?.twitterProfiles?.[0]?.handle;
+                return data?.rawConnections.twitter.connected[0]?.twitters?.[0].handle;
             case Source.Lens:
-                return profiles?.lensProfilesV3?.[0]?.fullHandle;
+                return data?.rawConnections.lens.connected[0]?.lens?.[0].fullHandle;
             case Source.Farcaster:
-                return profiles?.farcasterProfiles?.[0]?.username;
+                return data?.rawConnections.farcaster.connected[0]?.username;
             default:
                 safeUnreachable(source);
                 return;
@@ -26,15 +26,16 @@ export function useActivityCurrentAccountHandle(source: SocialSource) {
 
 export function useActivityCurrentAccountProfileId(source: SocialSource) {
     const profile = useCurrentProfile(source);
-    const { data: profiles } = useActivityWalletProfiles();
+    const { data } = useActivityConnections();
     if (fireflyBridgeProvider.supported) {
         switch (source) {
             case Source.Twitter:
-                return profiles?.twitterProfiles?.[0].twitter_id;
+                return data?.rawConnections.twitter.connected[0]?.twitters?.[0].id;
             case Source.Lens:
-                return profiles?.lensProfilesV3?.[0]?.id;
+                return data?.rawConnections.lens.connected[0]?.lens?.[0].id;
             case Source.Farcaster:
-                return profiles?.farcasterProfiles?.[0]?.id;
+                const fid = data?.rawConnections.farcaster.connected[0]?.fid;
+                return fid ? `${fid}` : fid;
             default:
                 safeUnreachable(source);
                 return;

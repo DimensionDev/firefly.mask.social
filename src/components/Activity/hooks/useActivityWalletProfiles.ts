@@ -13,15 +13,16 @@ export function useActivityWalletProfiles() {
         queryKey: ['activity-wallet-profile', token],
         async queryFn() {
             const url = urlcat(settings.FIREFLY_ROOT_URL, '/v2/wallet/profile');
-            const response = await fireflySessionHolder.fetchWithSession<WalletProfileResponse>(url, {
-                ...(token
+            const response = await fireflySessionHolder.fetch<WalletProfileResponse>(
+                url,
+                token
                     ? {
                           headers: {
                               Authorization: `Bearer ${token}`,
                           },
                       }
-                    : {}),
-            });
+                    : {},
+            );
             return resolveFireflyResponseData(response);
         },
     });
