@@ -3,14 +3,13 @@ import { useLastRecognizedIdentity, usePostInfoDetails, usePostLink } from '@mas
 import { requestLogin, share } from '@masknet/plugin-infra/content-script/context';
 import { LoadingStatus, TransactionConfirmModal } from '@masknet/shared';
 import { EMPTY_LIST, NetworkPluginID } from '@masknet/shared-base';
-import type { HappyRedPacketV4 } from '@masknet/web3-contracts/types/HappyRedPacketV4.js';
 import { useChainContext, useNetworkContext } from '@masknet/web3-hooks-base';
 import { formatBalance, isZero, TokenType } from '@masknet/web3-shared-base';
 import { ChainId } from '@masknet/web3-shared-evm';
 import { Card, Grow, Stack, Typography } from '@mui/material';
 import { memo, useCallback, useMemo, useState } from 'react';
 
-export { default as parseColor } from 'tinycolor2';
+import parseColor from 'tinycolor2';
 import { EVMChainResolver, makeStyles } from '@/mask/bindings/index.js';
 import { OperationFooter } from '@/mask/plugins/red-packet/components/RedPacket/OperationFooter.js';
 import { RequestLoginFooter } from '@/mask/plugins/red-packet/components/RedPacket/RequestLoginFooter.js';
@@ -22,6 +21,7 @@ import { useRedPacketContract } from '@/mask/plugins/red-packet/hooks/useRedPack
 import { useRefundCallback } from '@/mask/plugins/red-packet/hooks/useRefundCallback.js';
 import { FireflyRedPacket } from '@/providers/red-packet/index.js';
 import { type FireflyRedPacketAPI, type RedPacketJSONPayload, RedPacketStatus } from '@/providers/red-packet/types.js';
+import type { HappyRedPacketV4 } from '@/mask/bindings/constants.js';
 
 const useStyles = makeStyles<{ outdated: boolean }>()((theme, { outdated }) => {
     return {
@@ -205,6 +205,7 @@ export const RedPacket = memo(function RedPacket({ payload }: RedPacketProps) {
         },
         [link, t, platform, handle],
     );
+
     const claimedShareText = useMemo(() => getShareText(true), [getShareText]);
     const shareText = useMemo(() => {
         const hasClaimed = listOfStatus.includes(RedPacketStatus.claimed) || claimTxHash;

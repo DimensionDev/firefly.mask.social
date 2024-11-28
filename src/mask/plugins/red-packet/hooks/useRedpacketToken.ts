@@ -1,5 +1,5 @@
+import { HappyRedPacketV4ABI } from '@/mask/bindings/constants.js';
 import { NetworkPluginID } from '@masknet/shared-base';
-import HappyRedPacketV4ABI from '@masknet/web3-contracts/abis/HappyRedPacketV4.json';
 import { useWeb3, useWeb3Connection } from '@masknet/web3-hooks-base';
 import type { ChainId } from '@masknet/web3-shared-evm';
 import { useQuery } from '@tanstack/react-query';

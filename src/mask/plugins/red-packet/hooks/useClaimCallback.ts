@@ -1,6 +1,6 @@
 import type { NetworkPluginID } from '@masknet/shared-base';
-import type { HappyRedPacketV1 } from '@masknet/web3-contracts/types/HappyRedPacketV1.js';
-import type { HappyRedPacketV4 } from '@masknet/web3-contracts/types/HappyRedPacketV4.js';
+import type { HappyRedPacketV1 } from '@/mask/bindings/constants.js';
+import type { HappyRedPacketV4 } from '@/mask/bindings/constants.js';
 import { useChainContext } from '@masknet/web3-hooks-base';
 import { ContractTransaction } from '@masknet/web3-shared-evm';
 import { useAsyncFn } from 'react-use';

@@ -1,4 +1,4 @@
-import { Trans } from '@lingui/macro';
+import { t, Trans } from '@lingui/macro';
 import { makeStyles } from '@/mask/bindings/index.js';
 import { Box, InputBase, Typography } from '@mui/material';
 
@@ -43,7 +43,7 @@ export function RedpacketMessagePanel(props: RedpacketMessagePanelProps) {
                 <InputBase
                     className={classes.input}
                     onChange={(e) => onChange(e.target.value)}
-                    inputProps={{ maxLength: 100, placeholder: t.best_wishes() }}
+                    inputProps={{ maxLength: 100, placeholder: t`Best Wishes!` }}
                     value={message}
                 />
             </div>
