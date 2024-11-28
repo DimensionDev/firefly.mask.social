@@ -7,13 +7,11 @@ import { type SocialSource, Source } from '@/constants/enum.js';
 import { enqueueErrorMessage, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { getSnackbarMessageFromError } from '@/helpers/getSnackbarMessageFromError.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
-import { useFireflyBridgeAuthorization } from '@/hooks/useFireflyBridgeAuthorization.js';
 import { FireflyActivityProvider } from '@/providers/firefly/Activity.js';
 
 export function useActivityFollowProfile(source: SocialSource, profileId: string, handle: string) {
     const { refetch } = useIsFollowInActivity(source, profileId, handle);
     const farcasterProfileId = useActivityCurrentAccountProfileId(Source.Farcaster);
-    const { data: authToken } = useFireflyBridgeAuthorization();
     return useAsyncFn(async () => {
         try {
             await FireflyActivityProvider.follow(source, profileId, {
@@ -30,5 +28,5 @@ export function useActivityFollowProfile(source: SocialSource, profileId: string
             );
             throw error;
         }
-    }, [profileId, handle, source, farcasterProfileId, authToken]);
+    }, [profileId, handle, source, farcasterProfileId]);
 }
