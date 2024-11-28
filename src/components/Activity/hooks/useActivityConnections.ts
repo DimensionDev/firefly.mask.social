@@ -1,15 +1,11 @@
 import { useQuery } from '@tanstack/react-query';
 
-import { useIsLoginInActivity } from '@/components/Activity/hooks/useIsLoginInActivity.js';
-import { type SocialSource } from '@/constants/enum.js';
 import { useFireflyBridgeAuthorization } from '@/hooks/useFireflyBridgeAuthorization.js';
 import { FireflyActivityProvider } from '@/providers/firefly/Activity.js';
 
-export function useActivityConnections(source: SocialSource) {
-    const isLoggedIn = useIsLoginInActivity(source);
+export function useActivityConnections() {
     const { data: authToken } = useFireflyBridgeAuthorization();
     return useQuery({
-        enabled: isLoggedIn,
         queryKey: ['my-wallet-connections', authToken],
         async queryFn() {
             return FireflyActivityProvider.getAllConnections({ authToken });

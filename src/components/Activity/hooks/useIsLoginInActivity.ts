@@ -1,19 +1,17 @@
 import { safeUnreachable } from '@masknet/kit';
 
-import { useActivityWalletProfiles } from '@/components/Activity/hooks/useActivityWalletProfiles.js';
-import { type SocialSource, Source } from '@/constants/enum.js';
+import { useActivityConnections } from '@/components/Activity/hooks/useActivityConnections.js';
+import { type SocialSource, Source, WalletSource } from '@/constants/enum.js';
 
 export function useIsLoginInActivity(source: SocialSource) {
-    const { data: profiles } = useActivityWalletProfiles();
-    if (!profiles) return false;
-    const data = profiles;
+    const { data } = useActivityConnections();
     switch (source) {
         case Source.Farcaster:
-            return data.farcasterProfiles.length > 0;
+            return data?.connected.some((c) => c.source === WalletSource.Farcaster);
         case Source.Lens:
-            return data.lensProfilesV3.length > 0;
+            return data?.connected.some((c) => c.source === WalletSource.Lens);
         case Source.Twitter:
-            return data.twitterProfiles.length > 0;
+            return data?.connected.some((c) => c.source === WalletSource.Twitter);
         default:
             safeUnreachable(source);
             return false;

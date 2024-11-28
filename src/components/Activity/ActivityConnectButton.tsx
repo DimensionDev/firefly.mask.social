@@ -27,7 +27,7 @@ export function ActivityConnectButton({ source }: { source: SocialSource }) {
     const { onChangeAddress, address } = useContext(ActivityContext);
     const { refetch: refetchActivityClaimCondition, isRefetching } = useActivityClaimCondition(source);
     const isLoggedIn = useIsLoginInActivity(source);
-    const { data: { connected = EMPTY_LIST } = {}, isLoading, refetch } = useActivityConnections(source);
+    const { data: { connected = EMPTY_LIST } = {}, isLoading, refetch } = useActivityConnections();
     const [, bindAddress] = useActivityBindAddress(source);
     const captureActivityEvent = useCaptureActivityEvent();
 

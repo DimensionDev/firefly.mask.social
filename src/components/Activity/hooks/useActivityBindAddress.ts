@@ -19,7 +19,7 @@ export function useActivityBindAddress(source: SocialSource) {
     const { onChangeAddress } = useContext(ActivityContext);
     const captureActivityEvent = useCaptureActivityEvent();
     const { refetch: refetchActivityClaimCondition } = useActivityClaimCondition(source);
-    const { data: { connected = EMPTY_LIST } = {}, refetch } = useActivityConnections(source);
+    const { data: { connected = EMPTY_LIST } = {}, refetch } = useActivityConnections();
     return useAsyncFn(async () => {
         try {
             if (fireflyBridgeProvider.supported) {
