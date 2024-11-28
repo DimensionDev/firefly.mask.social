@@ -8,9 +8,6 @@
             "path": "./src/maskbook/packages/plugin-infra/tsconfig.json"
         },
         {
-            "path": "./src/maskbook/packages/plugins/RedPacket/tsconfig.json"
-        },
-        {
             "path": "./src/service-workers/tsconfig.json"
         },
         {
@@ -62,9 +59,7 @@
             "@masknet/web3-hooks-base": ["./src/maskbook/packages/web3-hooks/base/src/index.ts"],
             "@masknet/web3-shared-base": ["./src/maskbook/packages/web3-shared/base/src/index.ts"],
             "@masknet/web3-shared-evm": ["./src/maskbook/packages/web3-shared/evm/src/index.ts"],
-            "@masknet/web3-shared-solana": ["./src/maskbook/packages/web3-shared/solana/src/index.ts"],
-            "@masknet/plugin-redpacket": ["./src/maskbook/packages/plugins/RedPacket/src/index.ts"],
-            "@masknet/plugin-redpacket/register": ["./src/maskbook/packages/plugins/RedPacket/src/register.ts"]
+            "@masknet/web3-shared-solana": ["./src/maskbook/packages/web3-shared/solana/src/index.ts"]
         }
     },
     "include": ["csp.js", "globals.d.ts", "next-auth.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],

@@ -1,3 +1,4 @@
+import { usePortalShadowRoot } from '@/mask/bindings/components.js';
 import { makeStyles } from '@/mask/bindings/index.js';
 import { Trans } from '@lingui/macro';
 import { Icons } from '@masknet/icons';
