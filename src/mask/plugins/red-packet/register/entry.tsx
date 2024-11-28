@@ -2,8 +2,8 @@ import type { Plugin } from '@masknet/plugin-infra';
 import { usePluginWrapper } from '@masknet/plugin-infra/content-script';
 import { memo } from 'react';
 
-import { RedPacketInjection } from '@/mask/plugins/red-packet/components/RedPacketInjection.jsx';
-import { RedPacketInPost } from '@/mask/plugins/red-packet/components/RedPacketInPost.jsx';
+import { RedPacketInjection } from '@/mask/plugins/red-packet/components/RedPacketInjection.js';
+import { RedPacketInPost } from '@/mask/plugins/red-packet/components/RedPacketInPost.js';
 import {
     RedPacketMetadataReader,
     renderWithRedPacketMetadata,

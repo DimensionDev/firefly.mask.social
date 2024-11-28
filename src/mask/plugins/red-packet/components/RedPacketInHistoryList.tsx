@@ -3,16 +3,16 @@ import { NetworkPluginID } from '@masknet/shared-base';
 import { useEverSeen } from '@masknet/shared-base-ui';
 import { makeStyles } from '@masknet/theme';
 import { useChainContext, useFungibleToken, useNetworkDescriptor } from '@masknet/web3-hooks-base';
-import { FireflyRedPacketAPI, type RedPacketJSONPayload } from '@masknet/web3-providers/types';
 import { formatBalance } from '@masknet/web3-shared-base';
 import { ChainId, NETWORK_DESCRIPTORS } from '@masknet/web3-shared-evm';
 import { Box, ListItem, Typography } from '@mui/material';
 import { format, fromUnixTime } from 'date-fns';
 import { memo } from 'react';
 
-import { RedPacketActionButton } from '@/mask/plugins/red-packet/components/RedPacketActionButton.jsx';
+import { RedPacketActionButton } from '@/mask/plugins/red-packet/components/RedPacketActionButton.js';
 import { useRedpacketToken } from '@/mask/plugins/red-packet/hooks/useRedpacketToken.js';
 import { RedPacketTrans, useRedPacketTrans } from '@/mask/plugins/red-packet/locales/index.js';
+import { FireflyRedPacketAPI, type RedPacketJSONPayload } from '@/providers/red-packet/types.js';
 
 const DEFAULT_BACKGROUND = NETWORK_DESCRIPTORS.find((x) => x.chainId === ChainId.Mainnet)!.backgroundGradient!;
 const useStyles = makeStyles<{ listItemBackground?: string; listItemBackgroundIcon?: string }>()((

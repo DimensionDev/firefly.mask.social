@@ -6,7 +6,7 @@ import type { RedPacketRecord } from '@masknet/web3-providers/types';
 import { ThemeProvider } from '@mui/material';
 import { useEffect } from 'react';
 
-import { RedPacket, type RedPacketProps } from '@/mask/plugins/red-packet/components/components/index.jsx';
+import { RedPacket, type RedPacketProps } from '@/mask/plugins/red-packet/components/components/index.js';
 import { RedPacketRPC } from '@/mask/plugins/red-packet/messages.js';
 
 export function RedPacketInPost({ payload }: RedPacketProps) {

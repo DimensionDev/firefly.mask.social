@@ -7,8 +7,8 @@ import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
 import { first } from 'lodash-es';
 import { memo, useMemo } from 'react';
 
-import { FireflyRedPacketAccountItem } from '@/mask/plugins/red-packet/components/FireflyRedPacketAccountItem.jsx';
-import { FireflyRedPacketDetailsItem } from '@/mask/plugins/red-packet/components/FireflyRedPacketDetailsItem.jsx';
+import { FireflyRedPacketAccountItem } from '@/mask/plugins/red-packet/components/FireflyRedPacketAccountItem.js';
+import { FireflyRedPacketDetailsItem } from '@/mask/plugins/red-packet/components/FireflyRedPacketDetailsItem.js';
 import { useRedPacketTrans } from '@/mask/plugins/red-packet/locales/index.js';
 import { FireflyRedPacket } from '@/web3-providers/src/Firefly/RedPacket.js';
 

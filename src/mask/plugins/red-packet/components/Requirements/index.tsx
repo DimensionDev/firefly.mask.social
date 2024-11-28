@@ -3,15 +3,15 @@ import { usePostInfoDetails, usePostLink } from '@masknet/plugin-infra/content-s
 import { makeStyles, MaskColors } from '@masknet/theme';
 import { useWeb3Utils } from '@masknet/web3-hooks-base';
 import { NFTScanNonFungibleTokenEVM } from '@masknet/web3-providers';
-import { FireflyRedPacketAPI } from '@masknet/web3-providers/types';
 import { Box, type BoxProps, IconButton, Link, List, ListItem, Typography } from '@mui/material';
 import { useQueries } from '@tanstack/react-query';
 import { sortBy } from 'lodash-es';
 import { forwardRef, useMemo } from 'react';
 
-import { MentionLink } from '@/mask/plugins/red-packet/components/Requirements/MentionLink.jsx';
+import { MentionLink } from '@/mask/plugins/red-packet/components/Requirements/MentionLink.js';
 import { usePlatformType } from '@/mask/plugins/red-packet/hooks/usePlatformType.js';
 import { RedPacketTrans, useRedPacketTrans } from '@/mask/plugins/red-packet/locales/i18n_generated.js';
+import { FireflyRedPacketAPI } from '@/providers/red-packet/types.js';
 
 const useStyles = makeStyles()((theme) => ({
     box: {

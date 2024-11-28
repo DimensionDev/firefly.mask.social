@@ -12,15 +12,15 @@ import { ChainId } from '@masknet/web3-shared-evm';
 import { Card, Grow, Stack, Typography } from '@mui/material';
 import { memo, useCallback, useMemo, useState } from 'react';
 
-import { OperationFooter } from '@/mask/plugins/red-packet/components/RedPacket/OperationFooter.jsx';
-import { RequestLoginFooter } from '@/mask/plugins/red-packet/components/RedPacket/RequestLoginFooter.jsx';
+import { OperationFooter } from '@/mask/plugins/red-packet/components/RedPacket/OperationFooter.js';
+import { RequestLoginFooter } from '@/mask/plugins/red-packet/components/RedPacket/RequestLoginFooter.js';
 import { useRedPacketCover } from '@/mask/plugins/red-packet/components/RedPacket/useRedPacketCover.js';
 import { useAvailabilityComputed } from '@/mask/plugins/red-packet/hooks/useAvailabilityComputed.js';
 import { useClaimCallback } from '@/mask/plugins/red-packet/hooks/useClaimCallback.js';
 import { useRedPacketContract } from '@/mask/plugins/red-packet/hooks/useRedPacketContract.js';
 import { useRefundCallback } from '@/mask/plugins/red-packet/hooks/useRefundCallback.js';
 import { useRedPacketTrans } from '@/mask/plugins/red-packet/locales/index.js';
-import { Requirements } from '@/mask/plugins/red-packet/Requirements/index.jsx';
+import { Requirements } from '@/mask/plugins/red-packet/Requirements/index.js';
 
 const useStyles = makeStyles<{ outdated: boolean }>()((theme, { outdated }) => {
     return {

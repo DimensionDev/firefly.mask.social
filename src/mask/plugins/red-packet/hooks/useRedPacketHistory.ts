@@ -1,12 +1,13 @@
 import type { Pageable, PageIndicator } from '@masknet/shared-base';
 import { createIndicator } from '@masknet/shared-base';
-import { FireflyRedPacket } from '@masknet/web3-providers';
-import { FireflyRedPacketAPI } from '@masknet/web3-providers/types';
 import {
     type InfiniteData,
     useSuspenseInfiniteQuery,
     type UseSuspenseInfiniteQueryResult,
 } from '@tanstack/react-query';
+
+import { FireflyRedPacket } from '@/providers/red-packet/index.js';
+import { FireflyRedPacketAPI } from '@/providers/red-packet/types.js';
 
 export function useRedPacketHistory(
     address: string,

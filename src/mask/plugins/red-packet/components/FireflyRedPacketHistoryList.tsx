@@ -2,13 +2,13 @@ import { ElementAnchor, EmptyStatus } from '@masknet/shared';
 import { type NetworkPluginID } from '@masknet/shared-base';
 import { makeStyles } from '@masknet/theme';
 import { useChainContext } from '@masknet/web3-hooks-base';
-import { FireflyRedPacketAPI } from '@masknet/web3-providers/types';
 import { List } from '@mui/material';
 import { memo, useMemo } from 'react';
 
-import { FireflyRedPacketDetailsItem } from '@/mask/plugins/red-packet/components/FireflyRedPacketDetailsItem.jsx';
+import { FireflyRedPacketDetailsItem } from '@/mask/plugins/red-packet/components/FireflyRedPacketDetailsItem.js';
 import { useRedPacketHistory } from '@/mask/plugins/red-packet/hooks/useRedPacketHistory.js';
 import { RedPacketTrans, useRedPacketTrans } from '@/mask/plugins/red-packet/locales/index.js';
+import { FireflyRedPacketAPI } from '@/providers/red-packet/types.js';
 
 const useStyles = makeStyles()((theme) => {
     const smallQuery = `@media (max-width: ${theme.breakpoints.values.sm}px)`;

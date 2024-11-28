@@ -12,7 +12,7 @@ import {
     type MethodParameters,
     type ParamsObjType,
     type RedPacketSettings,
-} from '@/mask/plugins/red-packet/hooks/useCreateCallback.jsx';
+} from '@/mask/plugins/red-packet/hooks/useCreateCallback.js';
 import { useRedPacketContract } from '@/mask/plugins/red-packet/hooks/useRedPacketContract.js';
 
 export function useDefaultCreateGas(

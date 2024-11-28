@@ -1,9 +1,10 @@
 import { safeUnreachable } from '@masknet/kit';
 import { LoadingBase, makeStyles } from '@masknet/theme';
 import { FireflyTwitter } from '@masknet/web3-providers';
-import { FireflyRedPacketAPI } from '@masknet/web3-providers/types';
 import { Link } from '@mui/material';
 import { useQuery } from '@tanstack/react-query';
+
+import { FireflyRedPacketAPI } from '@/providers/red-packet/types.js';
 
 const useStyles = makeStyles()({
     textLink: {

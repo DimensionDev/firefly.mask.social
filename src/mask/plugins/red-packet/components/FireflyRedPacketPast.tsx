@@ -1,12 +1,12 @@
 import { LoadingStatus, PluginWalletStatusBar } from '@masknet/shared';
 import { NetworkPluginID } from '@masknet/shared-base';
 import { makeStyles } from '@masknet/theme';
-import { FireflyRedPacketAPI } from '@masknet/web3-providers/types';
 import { TabPanel } from '@mui/lab';
 import { Box } from '@mui/material';
 import { memo, Suspense } from 'react';
 
-import { FireflyRedPacketHistoryList } from '@/mask/plugins/red-packet/components/FireflyRedPacketHistoryList.jsx';
+import { FireflyRedPacketHistoryList } from '@/mask/plugins/red-packet/components/FireflyRedPacketHistoryList.js';
+import { FireflyRedPacketAPI } from '@/providers/red-packet/types.js';
 
 const useStyles = makeStyles()((theme) => ({
     tabWrapper: {

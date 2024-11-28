@@ -3,16 +3,16 @@ import { TokenIcon } from '@masknet/shared';
 import { NetworkPluginID } from '@masknet/shared-base';
 import { makeStyles } from '@masknet/theme';
 import { useChainContext, useNetworkDescriptor } from '@masknet/web3-hooks-base';
-import { FireflyRedPacketAPI } from '@masknet/web3-providers/types';
 import { formatBalance } from '@masknet/web3-shared-base';
 import { Box, ListItem, Typography } from '@mui/material';
 import { format, fromUnixTime } from 'date-fns';
 import { memo } from 'react';
 import urlcat from 'urlcat';
 
-import { FireflyRedPacketAccountItem } from '@/mask/plugins/red-packet/components/FireflyRedPacketAccountItem.jsx';
-import { RedPacketActionButton } from '@/mask/plugins/red-packet/components/RedPacketActionButton.jsx';
+import { FireflyRedPacketAccountItem } from '@/mask/plugins/red-packet/components/FireflyRedPacketAccountItem.js';
+import { RedPacketActionButton } from '@/mask/plugins/red-packet/components/RedPacketActionButton.js';
 import { RedPacketTrans, useRedPacketTrans } from '@/mask/plugins/red-packet/locales/index.js';
+import { FireflyRedPacketAPI } from '@/providers/red-packet/types.js';
 
 const useStyles = makeStyles<{ listItemBackground?: string; listItemBackgroundIcon?: string }>()((
     theme,
