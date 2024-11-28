@@ -16,7 +16,7 @@ import { fireflyBridgeProvider } from '@/providers/firefly/Bridge.js';
 export default function Layout({ children }: { children: React.ReactNode }) {
     useEffect(() => {
         setLocaleByFireflyBridge();
-    }, [fireflyBridgeProvider.supported]);
+    }, []);
     if (fireflyBridgeProvider.supported) return children;
     return (
         <>
