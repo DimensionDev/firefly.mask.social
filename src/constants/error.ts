@@ -79,6 +79,12 @@ export class FarcasterInvalidSignerKey extends Error {
     }
 }
 
+export class FarcasterAlreadyBoundError extends Error {
+    constructor() {
+        super('This Farcaster account has already bound to another Firefly account.');
+    }
+}
+
 export class ContentTypeError extends Error {
     constructor(message?: string) {
         super(message ?? 'Content-Type is not multipart/form-data');
