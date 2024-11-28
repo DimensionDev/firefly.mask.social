@@ -66,7 +66,7 @@ export function NewsList({ date }: NewsListProps) {
     }
 
     return (
-        <div className="no-scrollbar relative flex h-[506px] w-full flex-col gap-[10px] overflow-y-scroll">
+        <div className="no-scrollbar relative flex h-[506px] w-full flex-col gap-[10px] overflow-y-scroll overscroll-contain">
             {groups.map((group) => {
                 return (
                     <div className="text-sm" key={group.label}>

@@ -79,7 +79,7 @@ export class CalendarProvider {
         return createPageable(
             events,
             indicator,
-            createNextIndicator(indicator, next && next !== '0' ? next : undefined),
+            next && next !== '0' ? createNextIndicator(indicator, next) : undefined,
         );
     }
 
@@ -100,7 +100,7 @@ export class CalendarProvider {
         return createPageable(
             events,
             indicator,
-            createNextIndicator(indicator, next && next !== '0' ? next : undefined),
+            next && next !== '0' ? createNextIndicator(indicator, next) : undefined,
         );
     }
 
