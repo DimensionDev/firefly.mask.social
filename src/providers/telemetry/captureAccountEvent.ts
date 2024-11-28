@@ -1,6 +1,6 @@
 import { safeUnreachable } from '@masknet/kit';
 
-import { type LoginSource, type SocialSource, Source } from '@/constants/enum.js';
+import { type LoginSource, Source } from '@/constants/enum.js';
 import { NotAllowedError, UnreachableError } from '@/constants/error.js';
 import { createLookupTableResolver } from '@/helpers/createLookupTableResolver.js';
 import { getProfileState } from '@/helpers/getProfileState.js';
@@ -18,17 +18,6 @@ const resolveLoginEventId = createLookupTableResolver<LoginSource, EventId>(
         [Source.Google]: EventId.GOOGLE_ACCOUNT_LOG_IN_SUCCESS,
         [Source.Apple]: EventId.APPLE_ACCOUNT_LOG_IN_SUCCESS,
         [Source.Telegram]: EventId.TELEGRAM_ACCOUNT_LOG_IN_SUCCESS,
-    },
-    (source) => {
-        throw new UnreachableError('source', source);
-    },
-);
-
-const resolveActivityLoginEventId = createLookupTableResolver<SocialSource, EventId>(
-    {
-        [Source.Twitter]: EventId.EVENT_X_LOG_IN_SUCCESS,
-        [Source.Farcaster]: EventId.EVENT_FARCASTER_LOG_IN_SUCCESS,
-        [Source.Lens]: EventId.EVENT_LENS_LOG_IN_SUCCESS,
     },
     (source) => {
         throw new UnreachableError('source', source);
