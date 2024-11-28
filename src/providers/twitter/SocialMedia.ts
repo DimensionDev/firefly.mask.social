@@ -159,7 +159,13 @@ class TwitterSocialMedia implements Provider {
                 cursor: indicator?.id,
                 query: q,
             });
-            const response = await twitterSessionHolder.fetch<ResponseJSON<UserV2TimelineResult>>(url, {}, true);
+            const response = await twitterSessionHolder.fetch<ResponseJSON<UserV2TimelineResult>>(
+                url,
+                {},
+                {
+                    withSession: true,
+                },
+            );
             if (!response.success) throw new Error(response.error.message);
             return formatTwitterProfilePage(response.data, indicator);
         });
@@ -259,7 +265,13 @@ class TwitterSocialMedia implements Provider {
             limit: 25,
             cursor: indicator?.id,
         });
-        const response = await twitterSessionHolder.fetch<ResponseJSON<TweetV2PaginableTimelineResult>>(url, {}, true);
+        const response = await twitterSessionHolder.fetch<ResponseJSON<TweetV2PaginableTimelineResult>>(
+            url,
+            {},
+            {
+                withSession: true,
+            },
+        );
         if (!response.success) throw new Error(response.error.message);
         return formatTweetsPage(response.data, indicator);
     }
@@ -311,7 +323,13 @@ class TwitterSocialMedia implements Provider {
             limit: 25,
             cursor: indicator?.id,
         });
-        const response = await twitterSessionHolder.fetch<ResponseJSON<TweetV2PaginableTimelineResult>>(url, {}, true);
+        const response = await twitterSessionHolder.fetch<ResponseJSON<TweetV2PaginableTimelineResult>>(
+            url,
+            {},
+            {
+                withSession: true,
+            },
+        );
         if (!response.success) throw new Error(response.error.message);
         return formatTweetsPage(response.data, indicator);
     }
@@ -324,7 +342,13 @@ class TwitterSocialMedia implements Provider {
             limit: 25,
             cursor: indicator?.id,
         });
-        const response = await twitterSessionHolder.fetch<ResponseJSON<TweetV2PaginableTimelineResult>>(url, {}, true);
+        const response = await twitterSessionHolder.fetch<ResponseJSON<TweetV2PaginableTimelineResult>>(
+            url,
+            {},
+            {
+                withSession: true,
+            },
+        );
         if (!response.success) throw new Error(response.error.message);
 
         const postWithPageable = formatTweetsPage(response.data, indicator);
@@ -339,7 +363,13 @@ class TwitterSocialMedia implements Provider {
             limit: 25,
             cursor: indicator?.id,
         });
-        const response = await twitterSessionHolder.fetch<ResponseJSON<TweetV2PaginableTimelineResult>>(url, {}, true);
+        const response = await twitterSessionHolder.fetch<ResponseJSON<TweetV2PaginableTimelineResult>>(
+            url,
+            {},
+            {
+                withSession: true,
+            },
+        );
         if (!response.success) throw new Error(response.error.message);
         return formatTweetsPage(response.data, indicator);
     }
@@ -349,7 +379,13 @@ class TwitterSocialMedia implements Provider {
             limit: 25,
             cursor: indicator?.id,
         });
-        const response = await twitterSessionHolder.fetch<ResponseJSON<TweetV2PaginableTimelineResult>>(url, {}, true);
+        const response = await twitterSessionHolder.fetch<ResponseJSON<TweetV2PaginableTimelineResult>>(
+            url,
+            {},
+            {
+                withSession: true,
+            },
+        );
         if (!response.success) throw new Error(response.error.message);
         return formatTweetsPage(response.data, indicator);
     }
@@ -358,7 +394,9 @@ class TwitterSocialMedia implements Provider {
         const response = await twitterSessionHolder.fetch<ResponseJSON<Post[]>>(
             `/api/twitter/threadTweets/${postId}`,
             {},
-            true,
+            {
+                withSession: true,
+            },
         );
         if (!response.success) throw new Error(response.error.message);
         return response.data;
@@ -386,7 +424,13 @@ class TwitterSocialMedia implements Provider {
                 cursor: indicator?.id,
                 query: q,
             });
-            const response = await twitterSessionHolder.fetch<ResponseJSON<Tweetv2TimelineResult>>(url, {}, true);
+            const response = await twitterSessionHolder.fetch<ResponseJSON<Tweetv2TimelineResult>>(
+                url,
+                {},
+                {
+                    withSession: true,
+                },
+            );
             if (!response.success) throw new Error(response.error.message);
             return formatTweetsPage(response.data, indicator);
         });
@@ -465,7 +509,9 @@ class TwitterSocialMedia implements Provider {
                 {
                     method: 'POST',
                 },
-                true,
+                {
+                    withSession: true,
+                },
             ),
         );
         return result;
@@ -481,7 +527,9 @@ class TwitterSocialMedia implements Provider {
                         'Content-Type': 'application/json',
                     },
                 },
-                true,
+                {
+                    withSession: true,
+                },
             ),
         );
         return result;

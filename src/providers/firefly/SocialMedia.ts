@@ -993,7 +993,9 @@ export class FireflySocialMedia implements Provider {
                     walletAddresses,
                 }),
             },
-            !(walletAddresses && walletAddresses.length > 0),
+            {
+                withSession: !(walletAddresses && walletAddresses.length > 0),
+            },
         );
 
         const data = resolveFireflyResponseData(response);
