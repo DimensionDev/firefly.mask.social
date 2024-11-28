@@ -481,9 +481,6 @@ msgstr ""
 msgid "Confirm to disconnect this wallet from Firefly’s social graph?"
 msgstr ""
 
-msgid "Check eligibility"
-msgstr ""
-
 msgid "Confirm"
 msgstr ""
 
@@ -890,6 +887,9 @@ msgid "Domain"
 msgstr ""
 
 msgid "Failed to follow @{0} on Lens"
+msgstr ""
+
+msgid "Check Eligibility"
 msgstr ""
 
 msgid "You might like"

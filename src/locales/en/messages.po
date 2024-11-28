@@ -481,9 +481,6 @@ msgstr "Followed by {0} , {1}, and {2} others you follow"
 msgid "Confirm to disconnect this wallet from Firefly’s social graph?"
 msgstr "Confirm to disconnect this wallet from Firefly’s social graph?"
 
-msgid "Check eligibility"
-msgstr "Check eligibility"
-
 msgid "Confirm"
 msgstr "Confirm"
 
@@ -891,6 +888,9 @@ msgstr "Domain"
 
 msgid "Failed to follow @{0} on Lens"
 msgstr "Failed to follow @{0} on Lens"
+
+msgid "Check Eligibility"
+msgstr "Check Eligibility"
 
 msgid "You might like"
 msgstr "You might like"
