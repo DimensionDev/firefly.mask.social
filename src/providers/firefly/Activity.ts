@@ -172,6 +172,7 @@ class FireflyActivity implements Provider {
         return {
             connected: formatWalletConnections(connections.wallet.connected, connections),
             related: formatWalletConnections(connections.wallet.unconnected, connections),
+            rawConnections: connections,
         };
     }
 
