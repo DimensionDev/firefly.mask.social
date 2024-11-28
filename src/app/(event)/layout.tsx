@@ -1,5 +1,6 @@
 'use client';
 
+import { useActivityLanguage } from '@/components/Activity/hooks/useActivityLanguage.js';
 import { SuggestedChannels } from '@/components/Channel/SuggestedChannels.js';
 import { IfPathname } from '@/components/IfPathname.js';
 import { LinkCloud } from '@/components/LinkCloud.js';
@@ -11,6 +12,7 @@ import { PageRoute, Source } from '@/constants/enum.js';
 import { fireflyBridgeProvider } from '@/providers/firefly/Bridge.js';
 
 export default function Layout({ children }: { children: React.ReactNode }) {
+    useActivityLanguage();
     if (fireflyBridgeProvider.supported) return children;
     return (
         <>

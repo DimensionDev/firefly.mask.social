@@ -13,7 +13,7 @@ export function useActivityWalletProfiles() {
         queryKey: ['activity-wallet-profile', token],
         async queryFn() {
             const url = urlcat(settings.FIREFLY_ROOT_URL, '/v2/wallet/profile');
-            const response = await fireflySessionHolder.fetch<WalletProfileResponse>(url, {
+            const response = await fireflySessionHolder.fetchWithSession<WalletProfileResponse>(url, {
                 ...(token
                     ? {
                           headers: {

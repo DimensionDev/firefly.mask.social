@@ -486,9 +486,6 @@ msgstr "被 {0} , {1}, 和 {2} 个其他的你正在关注的人关注"
 msgid "Confirm to disconnect this wallet from Firefly’s social graph?"
 msgstr "确认从 Firefly 的社交图谱中断链这个钱包？"
 
-msgid "Check eligibility"
-msgstr ""
-
 msgid "Confirm"
 msgstr "确认"
 
@@ -896,6 +893,9 @@ msgstr "域名"
 
 msgid "Failed to follow @{0} on Lens"
 msgstr "在 Lens 上关注 @{0} 失败"
+
+msgid "Check Eligibility"
+msgstr ""
 
 msgid "You might like"
 msgstr "你也许感兴趣"
