@@ -1,1 +1,0 @@
-{"version":3,"file":"FireflyRedPacketAccountItem.d.ts","sourceRoot":"","sources":["../../src/SiteAdaptor/FireflyRedPacketAccountItem.tsx"],"names":[],"mappings":"AAEA,OAAO,EAAE,OAAO,EAAyC,MAAM,0BAA0B,CAAA;AAwBzF,UAAU,KAAK;IACX,OAAO,EAAE,MAAM,CAAA;IACf,GAAG,CAAC,EAAE,MAAM,CAAA;IACZ,OAAO,CAAC,EAAE,OAAO,CAAA;IACjB,UAAU,CAAC,EAAE,OAAO,CAAA;CACvB;AAED,eAAO,MAAM,2BAA2B,6CAoBtC,CAAA"}

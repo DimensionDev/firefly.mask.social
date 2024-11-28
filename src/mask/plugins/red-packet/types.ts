@@ -1,4 +1,4 @@
-import type { ChainId } from '@masknet/web3-shared-evm'
+import type { ChainId } from '@masknet/web3-shared-evm';
 
 export enum NFTSelectOption {
     All = 'All',
@@ -14,26 +14,26 @@ export enum RequirementType {
 }
 
 export type FireflyRedpacketSettings = {
-    requirements: RequirementType[]
-    nftHolderContract?: string
-    nftCollectionName?: string
-    nftChainId?: ChainId
-}
+    requirements: RequirementType[];
+    nftHolderContract?: string;
+    nftCollectionName?: string;
+    nftChainId?: ChainId;
+};
 
 export type FireflySocialProfile = {
-    profileId: string
-    displayName: string
-    handle: string
-    fullHandle: string
-    pfp: string
-    address?: string
-    ownedBy?: string
-}
+    profileId: string;
+    displayName: string;
+    handle: string;
+    fullHandle: string;
+    pfp: string;
+    address?: string;
+    ownedBy?: string;
+};
 
 export interface FireflyContext {
-    currentLensProfile?: FireflySocialProfile | null
-    currentFarcasterProfile?: FireflySocialProfile | null
-    currentTwitterProfile?: FireflySocialProfile | null
+    currentLensProfile?: FireflySocialProfile | null;
+    currentFarcasterProfile?: FireflySocialProfile | null;
+    currentTwitterProfile?: FireflySocialProfile | null;
 }
 
 export enum FireflyAccountSource {

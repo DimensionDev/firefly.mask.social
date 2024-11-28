@@ -1,1 +1,0 @@
-{"version":3,"file":"helpers.d.ts","sourceRoot":"","sources":["../../src/SiteAdaptor/helpers.ts"],"names":[],"mappings":"AAEA,OAAO,KAAK,EAAE,oBAAoB,EAAE,MAAM,+BAA+B,CAAA;AAEzE,OAAO,EAAM,KAAK,MAAM,EAAE,MAAM,eAAe,CAAA;AAK/C,wBAAgB,uBAAuB,CACnC,QAAQ,EAAE,WAAW,CAAC,MAAM,EAAE,OAAO,CAAC,GAAG,SAAS,GACnD,MAAM,CAAC,oBAAoB,EAAE,IAAI,CAAC,CAiBpC;AACD,eAAO,MAAM,2BAA2B,sJAAoD,CAAA"}

@@ -1,1 +1,0 @@
-{"version":3,"file":"useCreateNftRedpacketGas.d.ts","sourceRoot":"","sources":["../../../src/SiteAdaptor/hooks/useCreateNftRedpacketGas.ts"],"names":[],"mappings":"AAQA,OAAO,EAAY,KAAK,cAAc,EAAE,MAAM,uBAAuB,CAAA;AAErE,wBAAgB,wBAAwB,CACpC,OAAO,EAAE,MAAM,EACf,IAAI,EAAE,MAAM,EACZ,eAAe,EAAE,MAAM,EACvB,WAAW,EAAE,MAAM,EAAE,GACtB,cAAc,CAAC,MAAM,GAAG,SAAS,CAAC,CAqCpC"}
