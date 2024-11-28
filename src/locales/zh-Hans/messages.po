@@ -67,7 +67,7 @@ msgid "New connect with Warpcast"
 msgstr "使用 Warpcast 连接"
 
 msgid "You have been detected as a loyal Farcaster user"
-msgstr ""
+msgstr "您被检测到为 Farcaster 忠实用户"
 
 msgid "Edit Image"
 msgstr "修改图片"
@@ -367,7 +367,7 @@ msgid "Market Cap"
 msgstr "市值"
 
 msgid "Eligible for Premium Collectible?"
-msgstr ""
+msgstr "是否可解锁更高版本？"
 
 msgid "Contract source code verified"
 msgstr "已验证合约源代码"
@@ -595,7 +595,7 @@ msgid "Failed to follow @{0} on {sourceName}."
 msgstr "在 {sourceName} 上关注 @{0} 失败。"
 
 msgid "Your assets on $DEGEN or $ANON exceed US$10,000"
-msgstr ""
+msgstr "您所拥有的 $DEGEN 或 $ANON 的资产价值超过 $10,000 美元"
 
 msgid "Attendees"
 msgstr "出席人数"
@@ -895,7 +895,7 @@ msgid "Failed to follow @{0} on Lens"
 msgstr "在 Lens 上关注 @{0} 失败"
 
 msgid "Check Eligibility"
-msgstr ""
+msgstr "领取资格"
 
 msgid "You might like"
 msgstr "你也许感兴趣"
@@ -1033,7 +1033,7 @@ msgid "Days"
 msgstr "天"
 
 msgid "Submit a wallet to receive NFT and $ANON"
-msgstr ""
+msgstr "提交您的钱包以领取您的 NFT 和 $ANON"
 
 msgid "<0/> mentioned you in a <1>{0, select, Post {post} Comment {comment} Quote {quote} Mirror {mirror} other {post}}</1>"
 msgstr "<0/>提到了你的 <1>{0, select, Post {帖子} Comment {评论} Quote {引用} Mirror {引用} other {帖子}}</1>"
@@ -1648,7 +1648,7 @@ msgid "Invalid signer key"
 msgstr "无效的 singer key"
 
 msgid "Available to users with Farcaster ID under 100,000 or users of select third-party Farcaster apps as of our snapshot"
-msgstr ""
+msgstr "若您的 Farcaster ID 低于 100,000，或在快照中被识别为指定 Farcaster 第三方应用的用户，即可获得领取资格"
 
 msgid "Unverified"
 msgstr "未验证"
@@ -2503,7 +2503,7 @@ msgid "Share to"
 msgstr "分享到"
 
 msgid "Meet any of the following to unlock a premium collectible and get more $ANON:"
-msgstr ""
+msgstr "满足以下任意条件即可解锁高级版本的 NFT 和获得更多的 $ANON："
 
 msgid "Non-sanctioned address."
 msgstr "非黑名单地址。"
