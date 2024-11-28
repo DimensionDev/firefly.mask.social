@@ -7,32 +7,35 @@ import { fetchJSON } from '@/helpers/fetchJSON.js';
 import { SessionHolder } from '@/providers/base/SessionHolder.js';
 import { TwitterAuthProvider } from '@/providers/twitter/Auth.js';
 import { TwitterSession } from '@/providers/twitter/Session.js';
+import type { NextFetchersOptions } from '@/helpers/getNextFetchers.js';
 
 class TwitterSessionHolder extends SessionHolder<TwitterSession> {
     override resumeSession(session: TwitterSession) {
         this.internalSession = session;
     }
 
-    override fetchWithSession<T>(url: string, options?: RequestInit) {
+    override fetchWithSession<T>(url: string, init?: RequestInit, options?: NextFetchersOptions) {
         const input = bom.window ? url : urlcat(SITE_URL, url);
 
         return fetchJSON<T>(
             input,
             {
-                ...options,
+                ...init,
                 headers: TwitterSession.payloadToHeaders(this.sessionRequired.payload),
             },
             {
                 noDefaultContentType: true,
+                ...options,
             },
         );
     }
 
-    override fetchWithoutSession<T>(url: string, options?: RequestInit) {
+    override fetchWithoutSession<T>(url: string, init?: RequestInit, options?: NextFetchersOptions) {
         const input = bom.window ? url : urlcat(SITE_URL, url);
 
-        return fetchJSON<T>(input, options, {
+        return fetchJSON<T>(input, init, {
             noDefaultContentType: true,
+            ...options,
         });
     }
 

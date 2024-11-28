@@ -5,7 +5,7 @@ import { SITE_URL } from '@/constants/index.js';
 import { fetch } from '@/helpers/fetch.js';
 import { Duration } from '@/helpers/fetchCached.js';
 import { Expiration } from '@/helpers/fetchSquashed.js';
-import { getNextFetchers, type NextFetchersOptions } from '@/helpers/getNextFetchers.js';
+import type { NextFetchersOptions } from '@/helpers/getNextFetchers.js';
 
 export async function fetchJSON<T = unknown>(
     input: RequestInfo | URL,
@@ -27,7 +27,7 @@ export async function fetchJSON<T = unknown>(
                       ...init?.headers,
                   },
         },
-        getNextFetchers(options),
+        options,
     );
     return response.json();
 }

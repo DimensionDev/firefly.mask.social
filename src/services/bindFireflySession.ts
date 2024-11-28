@@ -58,6 +58,9 @@ async function bindFarcasterSessionToFirefly(session: FarcasterSession, signal?:
             }),
             signal,
         },
+        {
+            noStrictOK: true,
+        },
     );
 
     // If the farcaster is already bound to another account, throw an error.

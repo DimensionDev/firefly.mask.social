@@ -10,11 +10,11 @@ class ThirdPartySessionHolder extends SessionHolder<ThirdPartySession> {
         this.internalSession = session;
     }
 
-    override fetchWithSession<T>(url: string, options?: RequestInit): Promise<T> {
+    override fetchWithSession<T>(url: string, init?: RequestInit): Promise<T> {
         throw new NotAllowedError();
     }
 
-    override fetchWithoutSession<T>(url: string, options?: RequestInit): Promise<T> {
+    override fetchWithoutSession<T>(url: string, init?: RequestInit): Promise<T> {
         throw new NotAllowedError();
     }
 
