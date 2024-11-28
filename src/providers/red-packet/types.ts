@@ -4,6 +4,13 @@ import type { ChainId, SchemaType } from '@masknet/web3-shared-evm';
 type WithoutChainId<T> = Omit<T, 'chain_id'>;
 type WithNumberChainId<T> = WithoutChainId<T> & { chain_id: number };
 
+export enum RedPacketStatus {
+    claimed = 'claimed',
+    expired = 'expired',
+    empty = 'empty',
+    refunded = 'refunded',
+}
+
 interface RedPacketBasic {
     contract_address: string;
     rpid: string;

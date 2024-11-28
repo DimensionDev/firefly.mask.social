@@ -1,6 +1,6 @@
 import { LoadingStatus, PluginWalletStatusBar } from '@masknet/shared';
 import { NetworkPluginID } from '@masknet/shared-base';
-import { makeStyles } from '@masknet/theme';
+import { makeStyles } from '@/mask/bindings/index.js';
 import { TabPanel } from '@mui/lab';
 import { Box } from '@mui/material';
 import { memo, Suspense } from 'react';

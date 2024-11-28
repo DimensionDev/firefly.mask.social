@@ -1,5 +1,5 @@
 import { Trans } from '@lingui/macro';
-import { makeStyles } from '@masknet/theme';
+import { makeStyles } from '@/mask/bindings/index.js';
 import { Box, InputBase, Typography } from '@mui/material';
 
 const useStyles = makeStyles()((theme) => {

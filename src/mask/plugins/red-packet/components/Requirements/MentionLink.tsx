@@ -1,10 +1,11 @@
 import { safeUnreachable } from '@masknet/kit';
-import { LoadingBase, makeStyles } from '@masknet/theme';
-import { FireflyTwitter } from '@masknet/web3-providers';
+import { LoadingBase } from '@masknet/theme';
 import { Link } from '@mui/material';
 import { useQuery } from '@tanstack/react-query';
 
 import { FireflyRedPacketAPI } from '@/providers/red-packet/types.js';
+import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
+import { makeStyles } from '@/mask/bindings/index.js';
 
 const useStyles = makeStyles()({
     textLink: {
@@ -39,7 +40,7 @@ export function MentionLink({ platform, profileId, handle }: MentionLinkProps) {
         enabled: isTwitter && !handle,
         queryKey: ['twitter-user-info', profileId],
         queryFn: async () => {
-            return FireflyTwitter.getUserInfoById(profileId);
+            return FireflyEndpointProvider.getUserInfoById(profileId);
         },
         select(data) {
             return data?.username;

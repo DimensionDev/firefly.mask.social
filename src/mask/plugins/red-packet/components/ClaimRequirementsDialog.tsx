@@ -3,7 +3,6 @@ import { type GeneratedIcon, Icons } from '@masknet/icons';
 import { getEnumAsArray } from '@masknet/kit';
 import { Alert, SelectNonFungibleContractModal } from '@masknet/shared';
 import { EMPTY_LIST, NetworkPluginID } from '@masknet/shared-base';
-import { makeStyles } from '@masknet/theme';
 import { useChainContext } from '@masknet/web3-hooks-base';
 import type { NonFungibleCollection } from '@masknet/web3-shared-base';
 import { ChainId, SchemaType } from '@masknet/web3-shared-evm';
@@ -21,6 +20,7 @@ import {
 import { useCallback, useState } from 'react';
 
 import { type FireflyRedpacketSettings, RequirementType } from '@/mask/plugins/red-packet/types.js';
+import { makeStyles } from '@/mask/bindings/index.js';
 
 const useStyles = makeStyles()((theme) => ({
     container: {

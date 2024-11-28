@@ -14,7 +14,8 @@ import {
     WalletConnectedBoundary,
 } from '@masknet/shared';
 import { NetworkPluginID, PluginID } from '@masknet/shared-base';
-import { ActionButton, makeStyles, MaskTextField, RadioIndicator } from '@masknet/theme';
+import { ActionButton, MaskTextField, RadioIndicator } from '@/mask/bindings/components.js';
+import { makeStyles } from '@/mask/bindings/index.js';
 import { useChainContext, useEnvironmentContext, useNativeTokenPrice } from '@masknet/web3-hooks-base';
 import { useTransactionValue } from '@masknet/web3-hooks-evm';
 // import { EVMChainResolver, EVMWeb3 } from '@masknet/web3-providers';

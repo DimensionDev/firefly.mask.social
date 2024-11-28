@@ -1,7 +1,7 @@
 import { Trans } from '@lingui/macro';
 import { ElementAnchor, EmptyStatus } from '@masknet/shared';
 import { type NetworkPluginID } from '@masknet/shared-base';
-import { makeStyles } from '@masknet/theme';
+import { makeStyles } from '@/mask/bindings/index.js';
 import { useChainContext } from '@masknet/web3-hooks-base';
 import { List } from '@mui/material';
 import { memo, useMemo } from 'react';

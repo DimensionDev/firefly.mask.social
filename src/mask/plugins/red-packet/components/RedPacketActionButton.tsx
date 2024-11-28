@@ -1,5 +1,6 @@
 import { t } from '@lingui/macro';
-import { ActionButton, makeStyles } from '@masknet/theme';
+import { ActionButton } from '@/mask/bindings/components.js';
+import { makeStyles } from '@/mask/bindings/index.js';
 import type { ChainId } from '@masknet/web3-shared-evm';
 import { type Theme, useMediaQuery } from '@mui/material';
 import { memo, useCallback, useContext, useEffect, useState } from 'react';

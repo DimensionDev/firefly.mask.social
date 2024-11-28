@@ -363,6 +363,12 @@ importers:
       tailwindcss-safe-area:
         specifier: ^0.6.0
         version: 0.6.0(tailwindcss@3.4.14)
+      tinycolor2:
+        specifier: ^1.6.0
+        version: 1.6.0
+      ts-results-es:
+        specifier: ^4.0.0
+        version: 4.0.0
       twemoji-parser:
         specifier: ^14.0.0
         version: 14.0.0
@@ -466,6 +472,9 @@ importers:
       '@types/react-slick':
         specifier: ^0.23.13
         version: 0.23.13
+      '@types/tinycolor2':
+        specifier: ^1.4.3
+        version: 1.4.3
       '@types/twemoji-parser':
         specifier: ^13.1.4
         version: 13.1.4
@@ -869,69 +878,6 @@ importers:
       '@types/use-subscription':
         specifier: ^1.0.2
         version: 1.0.2
-
-  src/maskbook/packages/plugins/RedPacket:
-    dependencies:
-      '@masknet/icons':
-        specifier: workspace:^
-        version: link:../../icons
-      '@masknet/plugin-infra':
-        specifier: workspace:^
-        version: link:../../plugin-infra
-      '@masknet/shared':
-        specifier: workspace:^
-        version: link:../../shared
-      '@masknet/shared-base':
-        specifier: workspace:^
-        version: link:../../shared-base
-      '@masknet/shared-base-ui':
-        specifier: workspace:^
-        version: link:../../shared-base-ui
-      '@masknet/theme':
-        specifier: workspace:^
-        version: link:../../theme
-      '@masknet/typed-message-react':
-        specifier: workspace:^
-        version: link:../../typed-message/react
-      '@masknet/web3-contracts':
-        specifier: workspace:^
-        version: link:../../web3-contracts
-      '@masknet/web3-hooks-base':
-        specifier: workspace:^
-        version: link:../../web3-hooks/base
-      '@masknet/web3-hooks-evm':
-        specifier: workspace:^
-        version: link:../../web3-hooks/evm
-      '@masknet/web3-providers':
-        specifier: workspace:^
-        version: link:../../web3-providers
-      '@masknet/web3-shared-base':
-        specifier: workspace:^
-        version: link:../../web3-shared/base
-      '@masknet/web3-shared-evm':
-        specifier: workspace:^
-        version: link:../../web3-shared/evm
-      '@tanstack/react-query':
-        specifier: 5.56.2
-        version: 5.56.2(react@0.0.0-experimental-8039e6d0b-20231026)
-      bignumber.js:
-        specifier: 9.1.2
-        version: 9.1.2
-      date-fns:
-        specifier: ^2.30.0
-        version: 2.30.0
-      react-use:
-        specifier: 17.5.1
-        version: 17.5.1(patch_hash=jdgfodh3ixpexpgf3fwrwvcmtq)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026)
-      urlcat:
-        specifier: ^3.1.0
-        version: 3.1.0(patch_hash=5r5xyq4zgcnqugwsrx4lxq2i4e)
-      web3-core:
-        specifier: 1.10.2
-        version: 1.10.2(patch_hash=7c6knffilb7dxuf3r2r5ttgbem)
-      web3-utils:
-        specifier: 1.10.2
-        version: 1.10.2
 
   src/maskbook/packages/polyfills:
     dependencies:
@@ -36128,6 +36074,7 @@ time:
   /@types/dompurify@3.0.5: '2023-11-07T01:55:58.638Z'
   /@types/lodash-es@4.17.12: '2023-11-21T16:07:38.271Z'
   /@types/react-avatar-editor@13.0.3: '2024-08-26T15:07:40.064Z'
+  /@types/tinycolor2@1.4.3: '2021-07-02T19:42:46.758Z'
   /@types/twitter-text@3.1.10: '2024-01-22T19:35:12.288Z'
   /@types/use-subscription@1.0.2: '2023-11-07T18:34:22.454Z'
   /@vercel/speed-insights@1.0.12: '2024-06-12T08:11:09.277Z'
@@ -36168,6 +36115,8 @@ time:
   /swiper@11.1.14: '2024-09-12T21:40:42.310Z'
   /tailwindcss-safe-area@0.6.0: '2024-08-25T17:31:22.552Z'
   /tailwindcss@3.4.14: '2024-10-15T10:39:25.225Z'
+  /tinycolor2@1.6.0: '2023-02-03T23:33:07.774Z'
+  /ts-results-es@4.0.0: '2023-08-08T10:13:15.427Z'
   /typescript@5.6.3: '2024-10-08T22:01:09.783Z'
   /unist-util-flatmap@1.0.0: '2018-07-21T19:29:06.641Z'
   /use-subscription@1.8.2: '2024-04-26T16:44:39.268Z'

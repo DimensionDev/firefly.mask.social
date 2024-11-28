@@ -1,6 +1,7 @@
 import { Trans } from '@lingui/macro';
 import { usePostInfoDetails } from '@masknet/plugin-infra/content-script';
-import { ActionButton, makeStyles } from '@masknet/theme';
+import { ActionButton } from '@/mask/bindings/components.js';
+import { makeStyles } from '@/mask/bindings/index.js';
 import { Box } from '@mui/material';
 
 const useStyles = makeStyles()((theme) => {

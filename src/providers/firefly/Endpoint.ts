@@ -67,6 +67,7 @@ import {
     type TelegramLoginBotResponse,
     type TelegramLoginResponse,
     type TwitterUserInfoResponse,
+    type TwitterUserV2Response,
     type WalletProfile,
     type WalletProfileResponse,
     type WalletsFollowStatusResponse,
@@ -622,6 +623,15 @@ export class FireflyEndpoint {
         const response = await fetchJSON<TwitterUserInfoResponse>(url, {
             method: 'GET',
         });
+        return resolveFireflyResponseData(response);
+    }
+
+    async getUserInfoById(userId: string) {
+        if (!userId) return null;
+        const url = urlcat(settings.FIREFLY_ROOT_URL, '/api/twitter/user/:userId', {
+            userId,
+        });
+        const response = await fetchJSON<TwitterUserV2Response>(url);
         return resolveFireflyResponseData(response);
     }
 

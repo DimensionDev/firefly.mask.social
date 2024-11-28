@@ -7,6 +7,7 @@ import type { HappyRedPacketV2 } from '@masknet/web3-contracts/types/HappyRedPac
 import type { HappyRedPacketV3 } from '@masknet/web3-contracts/types/HappyRedPacketV3.js';
 import type { HappyRedPacketV4 } from '@masknet/web3-contracts/types/HappyRedPacketV4.js';
 import { useContract } from '@masknet/web3-hooks-evm';
+
 import { type ChainId, useRedPacketConstants } from '@masknet/web3-shared-evm';
 import type { AbiItem } from 'web3-utils';
 

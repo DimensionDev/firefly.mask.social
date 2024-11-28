@@ -8,7 +8,6 @@ import {
 } from '@masknet/plugin-infra/content-script';
 import { InjectedDialog, LoadingStatus, useCurrentLinkedPersona } from '@masknet/shared';
 import { EMPTY_LIST, NetworkPluginID, PluginID } from '@masknet/shared-base';
-import { makeStyles, MaskTabList, useTabs } from '@masknet/theme';
 import { useChainContext, useGasPrice } from '@masknet/web3-hooks-base';
 // import { type FireflyRedPacketAPI, type RedPacketJSONPayload } from '@masknet/web3-providers/types';
 import { ChainId, type GasConfig, GasEditor } from '@masknet/web3-shared-evm';
@@ -17,7 +16,7 @@ import { DialogContent, Tab, useTheme } from '@mui/material';
 import { Suspense, useCallback, useContext, useMemo, useState } from 'react';
 import * as web3_utils from /* webpackDefer: true */ 'web3-utils';
 
-import { EVMWeb3 } from '@/mask/bindings/index.js';
+import { EVMWeb3, makeStyles } from '@/mask/bindings/index.js';
 import { ClaimRequirementsDialog } from '@/mask/plugins/red-packet/components/ClaimRequirementsDialog.js';
 import { ClaimRequirementsRuleDialog } from '@/mask/plugins/red-packet/components/ClaimRequirementsRuleDialog.js';
 import { FireflyRedpacketConfirmDialog } from '@/mask/plugins/red-packet/components/FireflyRedpacketConfirmDialog.js';
@@ -31,6 +30,7 @@ import { reduceUselessPayloadInfo } from '@/mask/plugins/red-packet/helpers/redu
 import type { RedPacketSettings } from '@/mask/plugins/red-packet/hooks/useCreateCallback.js';
 import type { FireflyContext, FireflyRedpacketSettings } from '@/mask/plugins/red-packet/types.js';
 import type { FireflyRedPacketAPI, RedPacketJSONPayload } from '@/providers/red-packet/types.js';
+import { useTabs, MaskTabList } from '@/mask/bindings/components.js';
 
 const useStyles = makeStyles<{ scrollY: boolean; isDim: boolean }>()((theme, { isDim, scrollY }) => {
     // it's hard to set dynamic color, since the background color of the button is blended transparent

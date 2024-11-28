@@ -1,7 +1,7 @@
 import { Trans } from '@lingui/macro';
 import { ElementAnchor } from '@masknet/shared';
 import { createIndicator } from '@masknet/shared-base';
-import { makeStyles } from '@masknet/theme';
+import { makeStyles } from '@/mask/bindings/index.js';
 import { formatBalance } from '@masknet/web3-shared-base';
 import { Box, Typography } from '@mui/material';
 import { useSuspenseInfiniteQuery } from '@tanstack/react-query';

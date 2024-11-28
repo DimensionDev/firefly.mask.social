@@ -1,7 +1,7 @@
 import { Trans } from '@lingui/macro';
 import { TokenIcon } from '@masknet/shared';
 import { NetworkPluginID } from '@masknet/shared-base';
-import { makeStyles } from '@masknet/theme';
+import { makeStyles } from '@/mask/bindings/index.js';
 import { useChainContext, useFungibleToken, useNetworkDescriptor } from '@masknet/web3-hooks-base';
 import { formatBalance } from '@masknet/web3-shared-base';
 import { ChainId, NETWORK_DESCRIPTORS } from '@masknet/web3-shared-evm';

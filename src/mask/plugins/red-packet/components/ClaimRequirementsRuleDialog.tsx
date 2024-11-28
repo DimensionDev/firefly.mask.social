@@ -1,7 +1,7 @@
+import { makeStyles } from '@/mask/bindings/index.js';
 import { Trans } from '@lingui/macro';
 import { Icons } from '@masknet/icons';
 import { Alert } from '@masknet/shared';
-import { makeStyles, usePortalShadowRoot } from '@masknet/theme';
 import { Box, Dialog, DialogContent, DialogTitle, Typography } from '@mui/material';
 import { memo } from 'react';
 

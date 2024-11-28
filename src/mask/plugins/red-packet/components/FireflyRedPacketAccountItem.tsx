@@ -1,5 +1,5 @@
 import { Icons } from '@masknet/icons';
-import { makeStyles } from '@masknet/theme';
+import { makeStyles } from '@/mask/bindings/index.js';
 import { ChainId, formatEthereumAddress, isValidAddress } from '@masknet/web3-shared-evm';
 import { Box, Typography } from '@mui/material';
 import { memo } from 'react';

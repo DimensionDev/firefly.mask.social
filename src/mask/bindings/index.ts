@@ -1,5 +1,7 @@
 /* eslint-disable no-restricted-imports */
 
+
+
 /**
  * This file re-exports the bindings from the maskbook packages.
  * Always use absolute imports to ensure the dependencies tree is clean.
@@ -33,4 +35,4 @@
 /* packages/web3-providers/src/Web3/EVM/apis/ConnectionAPI.js */ export { EVMWeb3 } from '@/maskbook/packages/web3-providers/src/Web3/EVM/apis/ConnectionAPI.js';
 /* packages/web3-providers/src/Web3/EVM/apis/ResolverAPI.js */ export { EVMChainResolver, EVMExplorerResolver, EVMNetworkResolver } from '@/maskbook/packages/web3-providers/src/Web3/EVM/apis/ResolverAPI.js';
 /* packages/web3-providers/src/Web3/Solana/apis/ResolverAPI.js */ export { SolanaExplorerResolver } from '@/maskbook/packages/web3-providers/src/Web3/Solana/apis/ResolverAPI.js';
-
+/* packages/web3-providers/src/NFTScan/apis/NonFungibleTokenAPI_EVM.js */ export  { NFTScanNonFungibleTokenEVM } from '@/maskbook/packages/web3-providers/src/NFTScan/apis/NonFungibleTokenAPI_EVM.js';
