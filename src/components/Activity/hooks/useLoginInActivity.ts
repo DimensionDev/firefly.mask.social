@@ -10,7 +10,7 @@ import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { useFireflyBridgeAuthorization } from '@/hooks/useFireflyBridgeAuthorization.js';
 import { LoginModalRef } from '@/modals/controls.js';
 import { fireflyBridgeProvider } from '@/providers/firefly/Bridge.js';
-import { captureActivityLoginEvent } from '@/providers/telemetry/captureActivityEvent.js';
+import { captureActivityLoginEventBySocialSource } from '@/providers/telemetry/captureActivityEvent.js';
 import { SupportedMethod } from '@/types/bridge.js';
 
 export function useLoginInActivity() {
@@ -24,7 +24,7 @@ export function useLoginInActivity() {
                 });
                 await queryFireflyBridgeAuthorization.refetch();
                 if (result === 'true') {
-                    captureActivityLoginEvent(source);
+                    captureActivityLoginEventBySocialSource(source);
                     enqueueSuccessMessage(t`Login ${resolveSourceName(source)} successfully.`);
                 } else {
                     enqueueErrorMessage(t`Failed to login.`);

@@ -271,7 +271,7 @@ export async function addAccount(account: Account, options?: AccountOptions) {
     });
 
     captureAccountLoginEvent(account);
-    captureActivityLoginEvent(account.profile.source);
+    captureActivityLoginEvent(account);
     if (account.fireflySession?.isNew) captureAccountCreateSuccessEvent(account);
 
     // account has been added to the store

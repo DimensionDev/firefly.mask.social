@@ -12,8 +12,10 @@ import { resolveFireflyResponseData } from '@/helpers/resolveFireflyResponseData
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { fireflyBridgeProvider } from '@/providers/firefly/Bridge.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
+import { getAccountEventParameters } from '@/providers/telemetry/captureAccountEvent.js';
 import { getPublicParameters } from '@/providers/telemetry/getPublicParameters.js';
 import { TelemetryProvider } from '@/providers/telemetry/index.js';
+import type { Account } from '@/providers/types/Account.js';
 import type { WalletProfileResponse } from '@/providers/types/Firefly.js';
 import { EventId, type Events } from '@/providers/types/Telemetry.js';
 import { settings } from '@/settings/index.js';
@@ -80,9 +82,15 @@ export async function captureActivityEvent<E extends EventId>(
     });
 }
 
-export async function captureActivityLoginEvent(source: SocialSource) {
+export async function captureActivityLoginEvent(account: Account) {
     return runInSafeAsync(async () => {
-        const eventId = resolveActivityLoginEventId(source);
-        if (eventId) await captureActivityEvent(eventId, {});
+        const source = account.profile.source;
+        await captureActivityEvent(resolveActivityLoginEventId(source), getAccountEventParameters(account));
+    });
+}
+
+export async function captureActivityLoginEventBySocialSource(source: SocialSource) {
+    return runInSafeAsync(async () => {
+        await captureActivityEvent(resolveActivityLoginEventId(source), {});
     });
 }
