@@ -10,31 +10,23 @@ import {
     type PageIndicator,
 } from '@/helpers/pageable.js';
 import { FireflyRedPacketAPI } from '@/providers/red-packet/types.js';
+import { bom } from '@/helpers/bom.js';
+import { settings } from '@/settings/index.js';
 
-const SITE_URL = typeof location === 'undefined' ? '' : location.origin;
-let apiRoot = process.env.NEXT_PUBLIC_FIREFLY_API_URL || 'https://api.firefly.land';
-
-function fetchFireflyJSON<T>(url: string, init?: RequestInit): Promise<T> {
-    return fetchJSON<T>(url, {
-        ...init,
-        headers: {
-            'Content-Type': 'application/json',
-            ...init?.headers,
-        },
-    });
-}
+const SITE_URL = bom.location?.origin ?? '';
 
 export class FireflyRedPacket {
     static async parse(options: FireflyRedPacketAPI.ParseOptions) {
-        const url = urlcat(apiRoot, '/v1/misc/redpacket/parse');
-        const { data } = await fetchFireflyJSON<FireflyRedPacketAPI.ParseResponse>(url, {
+        const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/misc/redpacket/parse');
+        const { data } = await fetchJSON<FireflyRedPacketAPI.ParseResponse>(url, {
             method: 'POST',
             body: JSON.stringify(options),
         });
         return data;
     }
+
     static async getPayloadUrls(from: string, amount?: string, type?: string, symbol?: string, decimals?: number) {
-        const url = urlcat(apiRoot, '/v1/redpacket/themeList');
+        const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/redpacket/themeList');
         const { data } = await fetchJSON<FireflyRedPacketAPI.ThemeListResponse>(url);
 
         return data.list.map((theme) => ({
@@ -61,7 +53,7 @@ export class FireflyRedPacket {
         symbol?: string,
         decimals?: number,
     ) {
-        const url = urlcat(apiRoot, 'v1/redpacket/themeById', {
+        const url = urlcat(settings.FIREFLY_ROOT_URL, 'v1/redpacket/themeById', {
             themeId,
         });
         const { data } = await fetchJSON<FireflyRedPacketAPI.ThemeByIdResponse>(url);
@@ -93,7 +85,7 @@ export class FireflyRedPacket {
         remainingAmount?: string,
         remainingShares?: string,
     ) {
-        const url = urlcat(apiRoot, 'v1/redpacket/themeById', {
+        const url = urlcat(settings.FIREFLY_ROOT_URL, 'v1/redpacket/themeById', {
             rpid,
         });
         const { data } = await fetchJSON<FireflyRedPacketAPI.ThemeByIdResponse>(url);
@@ -124,8 +116,8 @@ export class FireflyRedPacket {
         shareFrom: string,
         payloads: FireflyRedPacketAPI.StrategyPayload[],
     ): Promise<HexString> {
-        const url = urlcat(apiRoot, '/v1/redpacket/createPublicKey');
-        const { data } = await fetchFireflyJSON<FireflyRedPacketAPI.PublicKeyResponse>(url, {
+        const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/redpacket/createPublicKey');
+        const { data } = await fetchJSON<FireflyRedPacketAPI.PublicKeyResponse>(url, {
             method: 'POST',
             body: JSON.stringify({
                 themeId,
@@ -144,8 +136,8 @@ export class FireflyRedPacket {
         postOn: FireflyRedPacketAPI.PostOn[],
         publicKey: string,
     ): Promise<void> {
-        const url = urlcat(apiRoot, '/v1/redpacket/updateClaimStrategy');
-        await fetchFireflyJSON(url, {
+        const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/redpacket/updateClaimStrategy');
+        await fetchJSON(url, {
             method: 'POST',
             body: JSON.stringify({
                 publicKey,
@@ -160,8 +152,8 @@ export class FireflyRedPacket {
     static async createClaimSignature(
         options: FireflyRedPacketAPI.CheckClaimStrategyStatusOptions,
     ): Promise<HexString> {
-        const url = urlcat(apiRoot, '/v1/redpacket/claim');
-        const { data } = await fetchFireflyJSON<FireflyRedPacketAPI.ClaimResponse>(url, {
+        const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/redpacket/claim');
+        const { data } = await fetchJSON<FireflyRedPacketAPI.ClaimResponse>(url, {
             method: 'POST',
             body: JSON.stringify(options),
         });
@@ -182,7 +174,7 @@ export class FireflyRedPacket {
         if (!from) {
             return createPageable(EMPTY_LIST, createIndicator(indicator));
         }
-        const url = urlcat(apiRoot, '/v1/redpacket/history', {
+        const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/redpacket/history', {
             address: from,
             redpacketType: actionType,
             claimFrom: platform,
@@ -203,7 +195,7 @@ export class FireflyRedPacket {
         redpacket_id: string,
         indicator?: PageIndicator,
     ): Promise<FireflyRedPacketAPI.RedPacketClaimListInfo> {
-        const url = urlcat(apiRoot, '/v1/redpacket/claimHistory', {
+        const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/redpacket/claimHistory', {
             redpacketId: redpacket_id,
             cursor: indicator?.id,
             size: 20,
@@ -215,8 +207,8 @@ export class FireflyRedPacket {
     }
 
     static async checkClaimStrategyStatus(options: FireflyRedPacketAPI.CheckClaimStrategyStatusOptions) {
-        const url = urlcat(apiRoot, '/v1/redpacket/checkClaimStrategyStatus');
-        return fetchFireflyJSON<FireflyRedPacketAPI.CheckClaimStrategyStatusResponse>(url, {
+        const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/redpacket/checkClaimStrategyStatus');
+        return fetchJSON<FireflyRedPacketAPI.CheckClaimStrategyStatusResponse>(url, {
             method: 'POST',
             body: JSON.stringify(options),
         });
@@ -228,8 +220,8 @@ export class FireflyRedPacket {
         handle: string,
         txHash: string,
     ) {
-        const url = urlcat(apiRoot, '/v1/redpacket/finishClaiming');
-        return fetchFireflyJSON<FireflyRedPacketAPI.Response<string>>(url, {
+        const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/redpacket/finishClaiming');
+        return fetchJSON<FireflyRedPacketAPI.Response<string>>(url, {
             method: 'POST',
             body: JSON.stringify({
                 rpid,
@@ -239,8 +231,5 @@ export class FireflyRedPacket {
                 txHash,
             }),
         });
-    }
-    static updateApiRoot(url: string) {
-        apiRoot = url;
     }
 }

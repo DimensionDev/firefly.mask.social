@@ -1,30 +1,8 @@
 import type { FungibleToken } from '@masknet/web3-shared-base';
 import type { ChainId, SchemaType } from '@masknet/web3-shared-evm';
-import type { BigNumber } from 'bignumber.js';
 
 type WithoutChainId<T> = Omit<T, 'chain_id'>;
 type WithNumberChainId<T> = WithoutChainId<T> & { chain_id: number };
-
-// #region erc20 red packet
-export interface RedPacketRecord {
-    id: string;
-    /** From twitter/facebook url */
-    from: string;
-    password?: string;
-    contract_version: number;
-}
-
-export interface RedPacketRecordInDatabase extends RedPacketRecord {
-    /** An unique record type in DB */
-    type: 'red-packet';
-}
-
-export enum RedPacketStatus {
-    claimed = 'claimed',
-    expired = 'expired',
-    empty = 'empty',
-    refunded = 'refunded',
-}
 
 interface RedPacketBasic {
     contract_address: string;
@@ -56,33 +34,6 @@ export interface RedPacketJSONPayload extends RedPacketBasic {
     token_type?: 0 | number;
     total_remaining?: string;
 }
-
-export interface RedPacketJSONPayloadFromChain extends Omit<RedPacketJSONPayload, 'token'> {
-    token_address: string;
-}
-
-export interface RedpacketAvailability {
-    token_address: string;
-    balance: string;
-    total: number;
-    claimed: number;
-    expired: boolean;
-    claimed_amount: string;
-}
-// #endregion
-
-export type CreateRedpacketParam = {
-    _duration: BigNumber;
-    _ifrandom: boolean;
-    _message: string;
-    _name: string;
-    _number: BigNumber;
-    _public_key: string;
-    _seed: string;
-    _token_addr: string;
-    _token_type: BigNumber;
-    _total_tokens: BigNumber;
-};
 
 export namespace FireflyRedPacketAPI {
     export enum PlatformType {
