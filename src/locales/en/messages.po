@@ -487,6 +487,9 @@ msgstr "The author is muted by you."
 msgid "Failed to report @{0}"
 msgstr "Failed to report @{0}"
 
+msgid "Plugin is loading..."
+msgstr "Plugin is loading..."
+
 msgid "Restricted approval."
 msgstr "Restricted approval."
 
@@ -573,6 +576,9 @@ msgstr "Only up to 2 images can be chosen."
 
 msgid "Follow to Collect"
 msgstr "Follow to Collect"
+
+msgid "This message is a e2e encrypted message. You can only decrypt this message when it is encrypted to you and decrypt it with Mask Network extension."
+msgstr "This message is a e2e encrypted message. You can only decrypt this message when it is encrypted to you and decrypt it with Mask Network extension."
 
 msgid "{0, select, Image {[Image]} Video {[Video]} Audio {[Audio]} Poll {[Poll]} other {}}"
 msgstr "{0, select, Image {[Image]} Video {[Video]} Audio {[Audio]} Poll {[Poll]} other {}}"
@@ -2799,6 +2805,9 @@ msgstr "No blackmail activities involved."
 
 msgid "Sold a bet"
 msgstr "Sold a bet"
+
+msgid "We encountered an error when try to decrypt this message: {0}"
+msgstr "We encountered an error when try to decrypt this message: {0}"
 
 msgid "Final Step Claim Now!"
 msgstr "Final Step Claim Now!"

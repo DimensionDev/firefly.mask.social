@@ -492,6 +492,9 @@ msgstr "此作者已被隐藏。"
 msgid "Failed to report @{0}"
 msgstr "举报 @{0} 失败"
 
+msgid "Plugin is loading..."
+msgstr ""
+
 msgid "Restricted approval."
 msgstr "限制性批准。"
 
@@ -578,6 +581,9 @@ msgstr "至多可以选择 2 张图片。"
 
 msgid "Follow to Collect"
 msgstr "关注并且收集"
+
+msgid "This message is a e2e encrypted message. You can only decrypt this message when it is encrypted to you and decrypt it with Mask Network extension."
+msgstr ""
 
 msgid "{0, select, Image {[Image]} Video {[Video]} Audio {[Audio]} Poll {[Poll]} other {}}"
 msgstr "{0, select, Image {[图片]} Video {[视频]} Audio {[音频]} Poll {[投票]} other {}}"
@@ -2803,6 +2809,9 @@ msgid "No blackmail activities involved."
 msgstr "未发现勒索行为。"
 
 msgid "Sold a bet"
+msgstr ""
+
+msgid "We encountered an error when try to decrypt this message: {0}"
 msgstr ""
 
 msgid "Final Step Claim Now!"
