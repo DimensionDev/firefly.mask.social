@@ -1,7 +1,7 @@
 import { type SocialSource, Source } from '@/constants/enum.js';
 import { UnreachableError } from '@/constants/error.js';
 import { createLookupTableResolver } from '@/helpers/createLookupTableResolver.js';
-import { FireflyRedPacketAPI } from '@/mask/bindings/index.js';
+import { FireflyRedPacketAPI } from '@/providers/red-packet/types.js';
 
 export const resolveRedPacketPlatformType = createLookupTableResolver<SocialSource, FireflyRedPacketAPI.PlatformType>(
     {

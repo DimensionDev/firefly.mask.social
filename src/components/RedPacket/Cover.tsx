@@ -3,7 +3,7 @@ import { AuthorText } from '@/components/RedPacket/AuthorText.js';
 import { ClaimProgressText } from '@/components/RedPacket/ClaimProgressText.js';
 import { CoverContainer } from '@/components/RedPacket/CoverContainer.js';
 import { MessageText } from '@/components/RedPacket/MessageText.js';
-import type { FireflyRedPacketAPI } from '@/mask/bindings/index.js';
+import type { FireflyRedPacketAPI } from '@/providers/red-packet/types.js';
 import { TokenType, UsageType } from '@/types/rp.js';
 
 interface CoverProps {

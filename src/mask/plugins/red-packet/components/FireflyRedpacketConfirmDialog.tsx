@@ -3,8 +3,6 @@ import { Alert, FormattedBalance, FormattedCurrency, TokenIcon } from '@masknet/
 import { EMPTY_LIST, NetworkPluginID } from '@masknet/shared-base';
 import { ActionButton, makeStyles, ShadowRootTooltip, usePortalShadowRoot } from '@masknet/theme';
 import { useChainContext, useFungibleTokenPrice, useReverseAddress } from '@masknet/web3-hooks-base';
-import { FireflyRedPacket } from '@masknet/web3-providers';
-import { FireflyRedPacketAPI, type RedPacketJSONPayload } from '@masknet/web3-providers/types';
 import { formatBalance, formatCurrency, leftShift } from '@masknet/web3-shared-base';
 import { formatEthereumAddress, type GasConfig, isValidAddress, isValidDomain } from '@masknet/web3-shared-evm';
 import { Box, Popover, Radio, Skeleton, Typography } from '@mui/material';
@@ -22,6 +20,8 @@ import {
     type FireflyRedpacketSettings,
     RequirementType,
 } from '@/mask/plugins/red-packet/types.js';
+import { FireflyRedPacket } from '@/providers/red-packet/index.js';
+import { FireflyRedPacketAPI, type RedPacketJSONPayload } from '@/providers/red-packet/types.js';
 
 const useStyles = makeStyles()((theme) => ({
     container: {

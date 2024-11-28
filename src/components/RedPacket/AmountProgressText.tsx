@@ -1,7 +1,7 @@
 import { formatBalance } from '@/helpers/formatBalance.js';
 import { getCSSPropertiesFromThemeSettings } from '@/helpers/getCSSPropertiesFromThemeSettings.js';
 import { isZero, minus } from '@/helpers/number.js';
-import type { FireflyRedPacketAPI } from '@/mask/bindings/index.js';
+import type { FireflyRedPacketAPI } from '@/providers/red-packet/types.js';
 import type { TokenType } from '@/types/rp.js';
 
 interface AmountProgressTextProps {

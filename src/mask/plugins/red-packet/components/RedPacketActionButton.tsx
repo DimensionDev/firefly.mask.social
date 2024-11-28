@@ -1,6 +1,4 @@
 import { ActionButton, makeStyles } from '@masknet/theme';
-import { FireflyRedPacket } from '@masknet/web3-providers';
-import { FireflyRedPacketAPI } from '@masknet/web3-providers/types';
 import type { ChainId } from '@masknet/web3-shared-evm';
 import { type Theme, useMediaQuery } from '@mui/material';
 import { memo, useCallback, useContext, useEffect, useState } from 'react';
@@ -11,6 +9,8 @@ import { RedPacketMetaKey } from '@/mask/plugins/red-packet/constants.js';
 import { openComposition } from '@/mask/plugins/red-packet/helpers/openComposition.js';
 import { useRefundCallback } from '@/mask/plugins/red-packet/hooks/useRefundCallback.js';
 import { useRedPacketTrans } from '@/mask/plugins/red-packet/locales/index.js';
+import { FireflyRedPacket } from '@/providers/red-packet/index.js';
+import { FireflyRedPacketAPI } from '@/providers/red-packet/types.js';
 
 const useStyles = makeStyles()((theme) => {
     const smallQuery = `@media (max-width: ${theme.breakpoints.values.sm}px)`;
