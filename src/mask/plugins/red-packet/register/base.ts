@@ -2,8 +2,7 @@ import type { Plugin } from '@masknet/plugin-infra';
 import { EnhanceableSite, NetworkPluginID } from '@masknet/shared-base';
 import { ChainId } from '@masknet/web3-shared-evm';
 
-import { RedPacketPluginID } from '@/mask/plugins/red-packet/constants.js';
-import { RedPacketMetaKey } from '@/mask/plugins/red-packet/helpers/rpPayload.js';
+import { RedPacketMetaKey, RedPacketPluginID } from '@/mask/plugins/red-packet/constants.js';
 
 export const base: Plugin.Shared.Definition = {
     ID: RedPacketPluginID,
