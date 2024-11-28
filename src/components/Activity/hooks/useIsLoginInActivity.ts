@@ -2,15 +2,9 @@ import { safeUnreachable } from '@masknet/kit';
 
 import { useActivityWalletProfiles } from '@/components/Activity/hooks/useActivityWalletProfiles.js';
 import { type SocialSource, Source } from '@/constants/enum.js';
-import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
-import { fireflyBridgeProvider } from '@/providers/firefly/Bridge.js';
 
 export function useIsLoginInActivity(source: SocialSource) {
-    const profile = useCurrentProfile(source);
     const { data: profiles } = useActivityWalletProfiles();
-    if (!fireflyBridgeProvider.supported) {
-        return !!profile;
-    }
     if (!profiles) return false;
     const data = profiles;
     switch (source) {
