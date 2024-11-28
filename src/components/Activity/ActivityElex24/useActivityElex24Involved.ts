@@ -20,15 +20,6 @@ export function useActivityElex24Involved() {
                     name,
                     address,
                 }),
-                {
-                    ...(authToken
-                        ? {
-                              headers: {
-                                  Authorization: `Bearer ${authToken}`,
-                              },
-                          }
-                        : {}),
-                },
             );
             return res.data.involved;
         },

@@ -16,7 +16,6 @@ import type { Chars } from '@/helpers/chars.js';
 import { classNames } from '@/helpers/classNames.js';
 import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
 import { getSnackbarMessageFromError } from '@/helpers/getSnackbarMessageFromError.js';
-import { useFireflyBridgeAuthorization } from '@/hooks/useFireflyBridgeAuthorization.js';
 import { FireflyActivityProvider } from '@/providers/firefly/Activity.js';
 import { captureActivityEvent } from '@/providers/telemetry/captureActivityEvent.js';
 import { ActivityStatus } from '@/providers/types/Firefly.js';
@@ -33,7 +32,6 @@ interface Props {
 
 export function ActivityClaimButton({ source, shareContent, status, claimApiExtraParams, ...rest }: Props) {
     const { address, name } = useContext(ActivityContext);
-    const { data: authToken } = useFireflyBridgeAuthorization();
     const { data, refetch } = useActivityClaimCondition(source);
     const [hash, setHash] = useState<string | undefined>(undefined);
     const [chainId, setChainId] = useState<ChainId | undefined>(undefined);
@@ -59,7 +57,7 @@ export function ActivityClaimButton({ source, shareContent, status, claimApiExtr
             enqueueErrorMessage(getSnackbarMessageFromError(error, t`Failed to claim token`), { error });
             throw error;
         }
-    }, [disabled, address, authToken, isPremium]);
+    }, [disabled, address, isPremium]);
 
     const buttonText = (() => {
         switch (status) {
