@@ -51,7 +51,7 @@ export const ConfirmFireflyModal = forwardRef<
                                         selected
                                         selectable={false}
                                         profile={profile}
-                                        ProfileAvatarProps={{
+                                        profileAvatarProps={{
                                             enableSourceIcon: true,
                                         }}
                                     />

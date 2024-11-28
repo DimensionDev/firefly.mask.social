@@ -1,7 +1,7 @@
 'use client';
 
 import { t, Trans } from '@lingui/macro';
-import React, { forwardRef, useState } from 'react';
+import { forwardRef, useState } from 'react';
 import { useAsyncFn } from 'react-use';
 
 import LoadingIcon from '@/assets/loading.svg';
@@ -9,6 +9,8 @@ import { ClickableButton } from '@/components/ClickableButton.js';
 import { CloseButton } from '@/components/CloseButton.js';
 import { ProfileInList } from '@/components/Login/ProfileInList.js';
 import { Modal } from '@/components/Modal.js';
+import type { ThirdPartySource } from '@/constants/enum.js';
+import { SORTED_THIRD_PARTY_SOURCES } from '@/constants/index.js';
 import { classNames } from '@/helpers/classNames.js';
 import { enqueueErrorMessage, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { getSnackbarMessageFromError } from '@/helpers/getSnackbarMessageFromError.js';
@@ -53,6 +55,10 @@ export const DisconnectFireflyAccountModal = forwardRef<SingletonModalRefCreator
             }
         }, [dispatch?.close, account]);
 
+        const isThirdPartyAccount =
+            !!account?.profile &&
+            SORTED_THIRD_PARTY_SOURCES.includes(account.profile.profileSource as ThirdPartySource);
+
         return (
             <Modal open={open} onClose={() => dispatch?.close()}>
                 <div
@@ -70,9 +76,14 @@ export const DisconnectFireflyAccountModal = forwardRef<SingletonModalRefCreator
                     <div className="flex flex-col gap-2 px-0 !pt-0 pb-6">
                         <div className="flex flex-col gap-2">
                             <div className="px-6 text-medium font-medium leading-normal text-lightMain">
-                                <Trans>
-                                    Confirm to disconnect this account and related wallets from Firefly’s social graph?
-                                </Trans>
+                                {isThirdPartyAccount ? (
+                                    <Trans>Confirm to disconnect this account from Firefly’s social graph?</Trans>
+                                ) : (
+                                    <Trans>
+                                        Confirm to disconnect this account and related wallets from Firefly’s social
+                                        graph?
+                                    </Trans>
+                                )}
                             </div>
                             <menu className="flex flex-col gap-3 px-6 pb-3 pt-2">
                                 {account ? (
@@ -82,8 +93,8 @@ export const DisconnectFireflyAccountModal = forwardRef<SingletonModalRefCreator
                                             selected
                                             selectable={false}
                                             profile={account.profile}
-                                            ProfileAvatarProps={{
-                                                enableSourceIcon: true,
+                                            profileAvatarProps={{
+                                                enableSourceIcon: !isThirdPartyAccount,
                                             }}
                                         />
                                     </div>
