@@ -60,7 +60,7 @@ export function WalletInfo({ profile, relations }: WalletInfoProps) {
                             <Image src={networkIcon} alt={networkType} width={18} height={18} />
                         ) : null}
                         <span className="text-xl font-black leading-[26px] text-lightMain">{displayName}</span>
-                        <WalletActions profile={profile} />
+                        {networkType === NetworkType.Ethereum ? <WalletActions profile={profile} /> : null}
                     </div>
                     <div className="flex gap-[10px]">
                         {profile.verifiedSources.map((x) => {
