@@ -3,9 +3,9 @@ import { type Subscription } from 'use-subscription';
 
 import { queryClient } from '@/configs/queryClient.js';
 import { NotImplementedError } from '@/constants/error.js';
+import type { NextFetchersOptions } from '@/helpers/getNextFetchers.js';
 import { resolveSourceFromSessionType } from '@/helpers/resolveSource.js';
 import type { Session } from '@/providers/types/Session.js';
-import type { NextFetchersOptions } from '@/helpers/getNextFetchers.js';
 
 export class SessionHolder<T extends Session> {
     protected emitter = new Emitter<{
@@ -87,9 +87,9 @@ export class SessionHolder<T extends Session> {
      * @param init
      * @param withSession
      */
-    fetch<T>(url: string, init?: RequestInit, options?: NextFetchersOptions, withSession?: boolean): Promise<T> {
-        if (withSession === true) return this.fetchWithSession<T>(url, init, options);
-        if (withSession === false) return this.fetchWithoutSession<T>(url, init, options);
+    fetch<T>(url: string, init?: RequestInit, options?: NextFetchersOptions & { withSession?: boolean }): Promise<T> {
+        if (options?.withSession === true) return this.fetchWithSession<T>(url, init, options);
+        if (options?.withSession === false) return this.fetchWithoutSession<T>(url, init, options);
         if (this.session) return this.fetchWithSession<T>(url, init, options);
         return this.fetchWithoutSession<T>(url, init, options);
     }

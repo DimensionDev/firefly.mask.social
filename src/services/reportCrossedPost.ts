@@ -70,7 +70,9 @@ async function report(post: CompositePost) {
                     method: 'POST',
                     body: JSON.stringify(x),
                 },
-                true,
+                {
+                    withSession: true,
+                },
             );
         }),
     );
