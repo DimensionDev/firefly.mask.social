@@ -67,10 +67,9 @@ export function ActivityFrensgivingTasks({
         ' \n\n#Frensgiving #Thanksgiving #Farcaster #FireflySocial',
     ];
     const { data: claimCondition } = useActivityClaimCondition(Source.Farcaster);
-    const verifiedThirdpartSigner =
-        claimCondition && !!claimCondition.farcaster.hasThirdpartSigner
-            ? Number.parseInt(claimCondition.farcaster.fid, 10) <= 100_000
-            : false;
+    const verifiedBasic =
+        claimCondition &&
+        (!!claimCondition.farcaster.hasThirdpartSigner || Number.parseInt(claimCondition.farcaster.fid, 10) <= 100_000);
 
     return (
         <>
@@ -86,10 +85,10 @@ export function ActivityFrensgivingTasks({
                 <div
                     className={classNames(
                         'flex w-full flex-col space-y-2 rounded-2xl p-3 text-sm font-semibold leading-6',
-                        verifiedThirdpartSigner ? 'bg-success/10 dark:bg-success/20' : 'bg-bg',
+                        verifiedBasic ? 'bg-success/10 dark:bg-success/20' : 'bg-bg',
                     )}
                 >
-                    <ActivityVerifyText verified={verifiedThirdpartSigner}>
+                    <ActivityVerifyText verified={verifiedBasic}>
                         <Trans>
                             Available to users with Farcaster ID under 100,000 or users of select third-party Farcaster
                             apps as of our snapshot
