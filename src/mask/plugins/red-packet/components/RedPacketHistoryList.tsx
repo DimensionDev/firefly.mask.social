@@ -6,7 +6,7 @@ import { FireflyRedPacketAPI, type RedPacketJSONPayload } from '@masknet/web3-pr
 import { List } from '@mui/material';
 import { type HTMLProps, memo, useMemo } from 'react';
 
-import { RedPacketInHistoryList } from '@/mask/plugins/red-packet/components/RedPacketInHistoryList.jsx';
+import { RedPacketInHistoryList } from '@/mask/plugins/red-packet/components/RedPacketInHistoryList.js';
 import { useRedPacketHistory } from '@/mask/plugins/red-packet/hooks/useRedPacketHistory.js';
 import { useRedPacketTrans } from '@/mask/plugins/red-packet/locales/index.js';
 

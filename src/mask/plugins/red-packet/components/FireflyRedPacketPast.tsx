@@ -6,7 +6,7 @@ import { TabPanel } from '@mui/lab';
 import { Box } from '@mui/material';
 import { memo, Suspense } from 'react';
 
-import { FireflyRedPacketHistoryList } from '@/mask/plugins/red-packet/components/FireflyRedPacketHistoryList.jsx';
+import { FireflyRedPacketHistoryList } from '@/mask/plugins/red-packet/components/FireflyRedPacketHistoryList.js';
 
 const useStyles = makeStyles()((theme) => ({
     tabWrapper: {

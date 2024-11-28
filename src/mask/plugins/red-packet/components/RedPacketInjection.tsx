@@ -3,7 +3,7 @@ import { CrossIsolationMessages, type PluginID } from '@masknet/shared-base';
 import { EVMWeb3ContextProvider } from '@masknet/web3-hooks-base';
 import { createContext, useCallback, useEffect, useState } from 'react';
 
-import RedPacketDialog from '@/mask/plugins/red-packet/components/RedPacketDialog.jsx';
+import RedPacketDialog from '@/mask/plugins/red-packet/components/RedPacketDialog.js';
 import type { FireflyContext } from '@/mask/plugins/red-packet/types.js';
 
 export const CompositionTypeContext = createContext<CompositionType>('timeline');

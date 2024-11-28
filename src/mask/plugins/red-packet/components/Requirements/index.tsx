@@ -9,7 +9,7 @@ import { useQueries } from '@tanstack/react-query';
 import { sortBy } from 'lodash-es';
 import { forwardRef, useMemo } from 'react';
 
-import { MentionLink } from '@/mask/plugins/red-packet/components/Requirements/MentionLink.jsx';
+import { MentionLink } from '@/mask/plugins/red-packet/components/Requirements/MentionLink.js';
 import { usePlatformType } from '@/mask/plugins/red-packet/hooks/usePlatformType.js';
 import { RedPacketTrans, useRedPacketTrans } from '@/mask/plugins/red-packet/locales/i18n_generated.js';
 

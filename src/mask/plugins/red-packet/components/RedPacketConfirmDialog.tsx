@@ -11,7 +11,7 @@ import { Grid, Link, Paper, Typography } from '@mui/material';
 import { useEffect, useMemo } from 'react';
 
 import { EVMChainResolver, EVMExplorerResolver, EVMWeb3 } from '@/mask/bindings/index.js';
-import { type RedPacketSettings } from '@/mask/plugins/red-packet/hooks/useCreateCallback.jsx';
+import { type RedPacketSettings } from '@/mask/plugins/red-packet/hooks/useCreateCallback.js';
 import { useCreateFTRedpacketCallback } from '@/mask/plugins/red-packet/hooks/useCreateFTRedpacketCallback.js';
 import { useRedPacketTrans } from '@/mask/plugins/red-packet/locales/index.js';
 

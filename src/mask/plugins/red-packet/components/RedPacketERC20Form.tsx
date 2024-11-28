@@ -38,7 +38,7 @@ import {
     RED_PACKET_MAX_SHARES,
     RED_PACKET_MIN_SHARES,
 } from '@/mask/plugins/red-packet/constants.js';
-import { type RedPacketSettings, useCreateParams } from '@/mask/plugins/red-packet/hooks/useCreateCallback.jsx';
+import { type RedPacketSettings, useCreateParams } from '@/mask/plugins/red-packet/hooks/useCreateCallback.js';
 import { useDefaultCreateGas } from '@/mask/plugins/red-packet/hooks/useDefaultCreateGas.js';
 import { useRedPacketTrans } from '@/mask/plugins/red-packet/locales/index.js';
 

@@ -13,7 +13,7 @@ import {
     type RedPacketSettings,
     useCreateCallback,
     useCreateParams,
-} from '@/mask/plugins/red-packet/hooks/useCreateCallback.jsx';
+} from '@/mask/plugins/red-packet/hooks/useCreateCallback.js';
 
 export function useCreateFTRedpacketCallback(
     publicKey: string,

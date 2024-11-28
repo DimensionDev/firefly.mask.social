@@ -6,7 +6,7 @@ import { type Theme, useMediaQuery } from '@mui/material';
 import { memo, useCallback, useContext, useEffect, useState } from 'react';
 import { useAsyncFn } from 'react-use';
 
-import { CompositionTypeContext } from '@/mask/plugins/red-packet/components/RedPacketInjection.jsx';
+import { CompositionTypeContext } from '@/mask/plugins/red-packet/components/RedPacketInjection.js';
 import { RedPacketMetaKey } from '@/mask/plugins/red-packet/constants.js';
 import { openComposition } from '@/mask/plugins/red-packet/helpers/openComposition.js';
 import { useRefundCallback } from '@/mask/plugins/red-packet/hooks/useRefundCallback.js';

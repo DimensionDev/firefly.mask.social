@@ -10,7 +10,7 @@ import { Box, ListItem, Typography } from '@mui/material';
 import { format, fromUnixTime } from 'date-fns';
 import { memo } from 'react';
 
-import { RedPacketActionButton } from '@/mask/plugins/red-packet/components/RedPacketActionButton.jsx';
+import { RedPacketActionButton } from '@/mask/plugins/red-packet/components/RedPacketActionButton.js';
 import { useRedpacketToken } from '@/mask/plugins/red-packet/hooks/useRedpacketToken.js';
 import { RedPacketTrans, useRedPacketTrans } from '@/mask/plugins/red-packet/locales/index.js';
 
