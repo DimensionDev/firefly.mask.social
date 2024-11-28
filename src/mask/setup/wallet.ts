@@ -1,7 +1,9 @@
+import { AsyncStatus } from '@/constants/enum.js';
 import { EMPTY_ARRAY } from '@/constants/subscription.js';
 import { initWallet, type WalletAPI } from '@/mask/bindings/index.js';
 import { connectMaskWithWagmi } from '@/mask/helpers/connectWagmiWithMask.js';
 import { createRejectCallback } from '@/mask/helpers/createRejectCallback.js';
+import { useGlobalState } from '@/store/useGlobalStore.js';
 
 const WalletIO: WalletAPI.IOContext = {
     MaskWalletContext: {
@@ -27,5 +29,11 @@ const WalletIO: WalletAPI.IOContext = {
     signWithPersona: createRejectCallback('signWithPersona'),
 };
 
-await initWallet(WalletIO);
-await connectMaskWithWagmi();
+try {
+    await initWallet(WalletIO);
+    await connectMaskWithWagmi();
+} catch (error) {
+    console.error('[mask] Failed to initialize wallet', error);
+} finally {
+    useGlobalState.getState().setWeb3StateAsyncStatus(AsyncStatus.Idle);
+}

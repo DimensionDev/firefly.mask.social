@@ -2,7 +2,7 @@ import type { HTMLProps } from 'react';
 
 import LoadingIcon from '@/assets/loading.svg';
 import { Avatar } from '@/components/Avatar.js';
-import { SocialSourceIcon } from '@/components/SocialSourceIcon.js';
+import { ProfileSourceIcon } from '@/components/ProfileSourceIcon.js';
 import { Link } from '@/esm/Link.js';
 import { classNames } from '@/helpers/classNames.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
@@ -46,10 +46,10 @@ export function ProfileAvatar({
                 </div>
             ) : null}
             {enableSourceIcon ? (
-                <SocialSourceIcon
-                    className="absolute -bottom-[1px] -right-[8px] z-10 h-4 w-4 rounded-full border border-white"
-                    source={profile.source}
+                <ProfileSourceIcon
+                    source={profile.profileSource}
                     size={16}
+                    className="absolute -bottom-[1px] -right-[8px] z-10 h-4 w-4 rounded-full border border-white"
                 />
             ) : null}
         </div>

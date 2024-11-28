@@ -17,7 +17,7 @@ import { SchedulePostEntryButton } from '@/components/Compose/SchedulePostEntryB
 import { GifEntryButton } from '@/components/Gif/GifEntryButton.js';
 import { PollButton } from '@/components/Poll/PollButton.js';
 import { Tooltip } from '@/components/Tooltip.js';
-import { NODE_ENV, Source, STATUS } from '@/constants/enum.js';
+import { AsyncStatus, NODE_ENV, Source, STATUS } from '@/constants/enum.js';
 import { env } from '@/constants/env.js';
 import { MAX_POST_SIZE_PER_THREAD, SORTED_CHANNEL_SOURCES, SORTED_SOCIAL_SOURCES } from '@/constants/index.js';
 import { measureChars } from '@/helpers/chars.js';
@@ -32,6 +32,7 @@ import { connectMaskWithWagmi } from '@/mask/helpers/connectWagmiWithMask.js';
 import { ComposeModalRef, ConnectWalletModalRef } from '@/modals/controls.js';
 import { useComposeScheduleStateStore } from '@/store/useComposeScheduleStore.js';
 import { useComposeStateStore } from '@/store/useComposeStore.js';
+import { useGlobalState } from '@/store/useGlobalStore.js';
 
 interface ComposeActionsProps {}
 
@@ -48,6 +49,7 @@ export function ComposeActions(props: ComposeActionsProps) {
     const { usedLength, availableLength } = measureChars(post);
 
     const setEditorContent = useSetEditorContent();
+    const web3StateAsyncState = useGlobalState.use.web3StateAsyncStatus();
 
     const [{ loading }, openRedPacketComposeDialog] = useAsyncFn(async () => {
         if (!account.isConnected) return ConnectWalletModalRef.open();
@@ -137,6 +139,7 @@ export function ComposeActions(props: ComposeActionsProps) {
                                 'cursor-pointer': !mediaDisabled,
                             },
                         )}
+                        disabled={web3StateAsyncState === AsyncStatus.Pending}
                         onClick={async () => {
                             if (loading || mediaDisabled) return;
                             openRedPacketComposeDialog();

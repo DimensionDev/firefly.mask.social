@@ -2275,6 +2275,9 @@ msgstr "Owner can change balance"
 msgid "Non-contract address found."
 msgstr "Non-contract address found."
 
+msgid "Confirm to disconnect this account from Firefly’s social graph?"
+msgstr "Confirm to disconnect this account from Firefly’s social graph?"
+
 msgid "The contract owner has no restrictions on selling."
 msgstr "The contract owner has no restrictions on selling."
 
@@ -2514,6 +2517,9 @@ msgstr "Only people you follow"
 
 msgid "The signer is not authorized to perform the requested operation. Please approve again."
 msgstr "The signer is not authorized to perform the requested operation. Please approve again."
+
+msgid "The account you are trying to log in with is already linked to a different Firefly account."
+msgstr "The account you are trying to log in with is already linked to a different Firefly account."
 
 msgid "Saved on {0}"
 msgstr "Saved on {0}"

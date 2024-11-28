@@ -12,10 +12,15 @@ import { ClickableButton } from '@/components/ClickableButton.js';
 import { ScannableQRCode } from '@/components/ScannableQRCode.js';
 import { IS_MOBILE_DEVICE } from '@/constants/bowser.js';
 import { FarcasterSignType, FarcasterSignType as SignType, Source } from '@/constants/enum.js';
-import { AbortError, NotAllowedError, TimeoutError } from '@/constants/error.js';
+import { AbortError, FarcasterAlreadyBoundError, NotAllowedError, TimeoutError } from '@/constants/error.js';
 import { FARCASTER_REPLY_COUNTDOWN } from '@/constants/index.js';
 import { classNames } from '@/helpers/classNames.js';
-import { enqueueErrorMessage, enqueueInfoMessage, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
+import {
+    enqueueErrorMessage,
+    enqueueInfoMessage,
+    enqueueSuccessMessage,
+    enqueueWarningMessage,
+} from '@/helpers/enqueueMessage.js';
 import { getMobileDevice } from '@/helpers/getMobileDevice.js';
 import { getSnackbarMessageFromError } from '@/helpers/getSnackbarMessageFromError.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
@@ -49,6 +54,15 @@ async function login(createAccount: () => Promise<Account>, options?: Omit<Accou
         // if any error occurs, close the modal
         // by this we don't need to do error handling in UI part.
         LoginModalRef.close();
+
+        // if the account is already bound to another account, show a warning message
+        if (error instanceof FarcasterAlreadyBoundError) {
+            enqueueWarningMessage(
+                t`The account you are trying to log in with is already linked to a different Firefly account.`,
+            );
+            return;
+        }
+
         throw error;
     }
 }

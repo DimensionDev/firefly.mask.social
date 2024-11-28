@@ -30,7 +30,7 @@ import { SessionType } from '@/providers/types/SocialMedia.js';
 import { downloadAccounts, downloadSessions, uploadSessions } from '@/services/metrics.js';
 import { restoreFireflySession } from '@/services/restoreFireflySession.js';
 import { usePreferencesState } from '@/store/usePreferenceStore.js';
-import { useFireflyStateStore } from '@/store/useProfileStore.js';
+import { useFireflyStateStore, useThirdPartyStateStore } from '@/store/useProfileStore.js';
 
 function getContext(source: ProfileSource) {
     return {
@@ -70,11 +70,22 @@ async function updateState(accounts: Account[], overwrite = false) {
                 sessionHolder.removeSession();
             }),
         );
+
+        const thirdPartyState = useThirdPartyStateStore.getState();
+        const thirdPartyAccounts = thirdPartyState.accounts;
+
+        if (thirdPartyAccounts.length) {
+            thirdPartyState.resetCurrentAccount();
+            thirdPartyState.updateAccounts([]);
+            signOut({
+                redirect: false,
+            });
+        }
     }
 
     // add accounts to the store
     accounts.forEach((account) => {
-        const { state } = getContext(account.profile.source);
+        const { state } = getContext(account.profile.profileSource);
         state.addAccount(account, false);
     });
 

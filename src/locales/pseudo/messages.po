@@ -2275,6 +2275,9 @@ msgstr ""
 msgid "Non-contract address found."
 msgstr ""
 
+msgid "Confirm to disconnect this account from Firefly’s social graph?"
+msgstr ""
+
 msgid "The contract owner has no restrictions on selling."
 msgstr ""
 
@@ -2513,6 +2516,9 @@ msgid "Only people you follow"
 msgstr ""
 
 msgid "The signer is not authorized to perform the requested operation. Please approve again."
+msgstr ""
+
+msgid "The account you are trying to log in with is already linked to a different Firefly account."
 msgstr ""
 
 msgid "Saved on {0}"

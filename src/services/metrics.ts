@@ -77,7 +77,9 @@ async function uploadMetrics(cipher: string, signal?: AbortSignal) {
             body: JSON.stringify({ ciphertext: cipher }),
             signal,
         },
-        true,
+        {
+            withSession: true,
+        },
     );
     const data = resolveFireflyResponseData(response);
     return data;

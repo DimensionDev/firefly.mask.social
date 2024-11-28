@@ -1,12 +1,6 @@
 'use client';
 
 import { Trans } from '@lingui/macro';
-import { ChainId as EVMChainId } from '@masknet/web3-shared-evm';
-import { ChainId as SolanaChainId } from '@masknet/web3-shared-solana';
-import { useWallet as useSolanaWallet } from '@solana/wallet-adapter-react';
-import { useWalletModal as useConnectModalSolana } from '@solana/wallet-adapter-react-ui';
-import { useAccount as useEVMAccount, useEnsName } from 'wagmi';
-import { mainnet } from 'wagmi/chains';
 
 import LineArrowUp from '@/assets/line-arrow-up.svg';
 import LoadingIcon from '@/assets/loading.svg';
@@ -15,14 +9,10 @@ import WalletIcon from '@/assets/wallet.svg';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { Image } from '@/components/Image.js';
 import { Tooltip } from '@/components/Tooltip.js';
-import { NetworkPluginID } from '@/constants/enum.js';
 import { classNames } from '@/helpers/classNames.js';
-import { formatEthereumAddress, formatSolanaAddress } from '@/helpers/formatAddress.js';
-import { formatDomainName } from '@/helpers/formatDomainName.js';
-import { getNetworkDescriptor } from '@/helpers/getNetworkDescriptor.js';
-import { resolveValue } from '@/helpers/resolveValue.js';
+import { useConnections } from '@/hooks/useConnections.js';
 import { useMounted } from '@/hooks/useMounted.js';
-import { AccountModalRef, ConnectModalRef, ConnectWalletModalRef, SolanaAccountModalRef } from '@/modals/controls.js';
+import { ConnectWalletModalRef } from '@/modals/controls.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
 
 interface ConnectWalletProps {
@@ -32,57 +22,12 @@ interface ConnectWalletProps {
 export function ConnectWallet({ collapsed: sideBarCollapsed = false }: ConnectWalletProps) {
     const mounted = useMounted();
 
-    const evmNetworkDescriptor = getNetworkDescriptor(NetworkPluginID.PLUGIN_EVM, EVMChainId.Mainnet);
-    const solanaNetworkDescriptor = getNetworkDescriptor(NetworkPluginID.PLUGIN_SOLANA, SolanaChainId.Mainnet);
-
-    const connectModalSolana = useConnectModalSolana();
-
-    const evmAccount = useEVMAccount();
-    const solanaWallet = useSolanaWallet();
-
-    const { data: ensName, isLoading } = useEnsName({ address: evmAccount.address, chainId: mainnet.id });
-
     const collapsed = useGlobalState.use.collapsedConnectWallet();
     const setCollapsed = useGlobalState.use.updateCollapsedConnectWallet();
 
+    const connections = useConnections();
+
     if (!mounted) return null;
-
-    // isConnected and isConnected could both true at the same time
-    const isEVMConnected = !!(
-        evmAccount.isConnected &&
-        !evmAccount.isConnecting &&
-        !evmAccount.isReconnecting &&
-        evmAccount.address
-    );
-
-    const connections = [
-        {
-            icon: evmNetworkDescriptor?.icon,
-            label: resolveValue(() => {
-                if (!isEVMConnected || !evmAccount.address || isLoading || !mounted) return null;
-                if (ensName) return formatDomainName(ensName);
-                return formatEthereumAddress(evmAccount.address, 4);
-            }),
-            onOpenConnectModal: () => ConnectModalRef.open(),
-            onOpenAccountModal: () => AccountModalRef.open(),
-            isConnected: isEVMConnected,
-            isLoading: evmAccount.isConnecting || evmAccount.isReconnecting || isLoading,
-            type: 'EVM',
-        },
-        {
-            icon: solanaNetworkDescriptor?.icon,
-            label: resolveValue(() => {
-                if (!solanaWallet.publicKey) return null;
-                const address = solanaWallet.publicKey.toBase58();
-                return formatSolanaAddress(address, 4);
-            }),
-            onOpenConnectModal: () => connectModalSolana.setVisible(true),
-            onOpenAccountModal: () => SolanaAccountModalRef.open(),
-            isConnected: solanaWallet.connected,
-            isLoading: solanaWallet.connecting || solanaWallet.disconnecting,
-            type: 'Solana',
-        },
-    ];
 
     const activeConnection = connections.find((connection) => connection.isConnected);
     const text = activeConnection?.label ?? <Trans>Connect Wallet</Trans>;

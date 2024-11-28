@@ -1,7 +1,12 @@
 import { safeUnreachable } from '@masknet/kit';
 import urlcat from 'urlcat';
 
-import { NotAllowedError, UnreachableError } from '@/constants/error.js';
+import {
+    AuthenticationError,
+    FarcasterAlreadyBoundError,
+    NotAllowedError,
+    UnreachableError,
+} from '@/constants/error.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
 import { resolveFireflyResponseData } from '@/helpers/resolveFireflyResponseData.js';
 import { FAKE_SIGNER_REQUEST_TOKEN, FarcasterSession } from '@/providers/farcaster/Session.js';
@@ -53,7 +58,15 @@ async function bindFarcasterSessionToFirefly(session: FarcasterSession, signal?:
             }),
             signal,
         },
+        {
+            noStrictOK: true,
+        },
     );
+
+    // If the farcaster is already bound to another account, throw an error.
+    if (response.error?.some((x) => x.includes('This farcaster already bound to the other account'))) {
+        throw new FarcasterAlreadyBoundError();
+    }
 
     const data = resolveFireflyResponseData(response);
     return data;
@@ -180,10 +193,15 @@ export async function bindOrRestoreFireflySession(session: Session, signal?: Abo
             // this will return the existing session
             return fireflySessionHolder.assertSession();
         } else {
-            throw new Error('Firefly session is not available');
+            throw new AuthenticationError('[bindOrRestoreFireflySession] Firefly session is not available.');
         }
     } catch (error) {
         console.error(`[bindOrRestoreFireflySession] failed to bind firefly session ${error}`);
+
+        // enqueue error message later
+        if (error instanceof FarcasterAlreadyBoundError) {
+            throw error;
+        }
 
         // this will create a new session
         return restoreFireflySession(session, signal);
