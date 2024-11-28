@@ -47,7 +47,6 @@ export function useLoginInActivity() {
             await refetch();
             return;
         }
-        captureEvent();
         await LoginModalRef.openAndWaitForClose({
             source,
         });
