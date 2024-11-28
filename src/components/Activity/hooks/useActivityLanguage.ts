@@ -1,6 +1,5 @@
 import { useEffect } from 'react';
 
-import { changeLocale } from '@/actions/changeLocale.js';
 import { Locale } from '@/constants/enum.js';
 import { setLocale } from '@/i18n/index.js';
 import { fireflyBridgeProvider } from '@/providers/firefly/Bridge.js';
@@ -21,7 +20,6 @@ export function useActivityLanguage() {
             data.append('locale', language);
 
             setLocale(locale);
-            await changeLocale(data);
         })();
     }, [supportedBridge]);
 }
