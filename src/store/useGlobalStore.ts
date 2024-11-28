@@ -27,6 +27,9 @@ interface GlobalState {
 
     particleReconnecting: boolean;
     updateParticleReconnecting: (reconnecting: boolean) => void;
+
+    web3StateAsyncStatus: AsyncStatus;
+    setWeb3StateAsyncStatus: (status: AsyncStatus) => void;
 }
 
 const useGlobalStateBase = create<GlobalState, [['zustand/persist', unknown], ['zustand/immer', never]]>(
@@ -83,6 +86,13 @@ const useGlobalStateBase = create<GlobalState, [['zustand/persist', unknown], ['
             updateParticleReconnecting(reconnecting) {
                 set((state) => {
                     state.particleReconnecting = reconnecting;
+                });
+            },
+
+            web3StateAsyncStatus: AsyncStatus.Pending,
+            setWeb3StateAsyncStatus(status) {
+                set((state) => {
+                    state.web3StateAsyncStatus = status;
                 });
             },
         })),

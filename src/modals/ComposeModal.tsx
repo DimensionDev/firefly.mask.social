@@ -106,8 +106,7 @@ export const ComposeModalUI = forwardRef<SingletonModalRefCreator<ComposeModalOp
             clear,
         } = useComposeStateStore();
         const { clearScheduleTime } = useComposeScheduleStateStore();
-        const compositePost = useCompositePost();
-        const { typedMessage, rpPayload, id, availableSources } = compositePost;
+        const { typedMessage, rpPayload, id, availableSources } = useCompositePost();
 
         const [editor] = useLexicalComposerContext();
 
@@ -145,6 +144,7 @@ export const ComposeModalUI = forwardRef<SingletonModalRefCreator<ComposeModalOp
         });
 
         const isSmall = useIsSmall('max');
+
         const onClose = useCallback(async () => {
             const { addDraft } = useComposeDraftStateStore.getState();
             const { posts, cursor, currentDraftId, type } = useComposeStateStore.getState();
