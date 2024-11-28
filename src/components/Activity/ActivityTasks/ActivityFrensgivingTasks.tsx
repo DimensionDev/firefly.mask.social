@@ -77,7 +77,7 @@ export function ActivityFrensgivingTasks({
                 <div className="flex w-full flex-col space-y-2">
                     <div className="flex h-8 items-center justify-between">
                         <h2 className="text-base font-semibold leading-6">
-                            <Trans>Check eligibility</Trans>
+                            <Trans>Check Eligibility</Trans>
                         </h2>
                         <ActivityLoginButton source={Source.Farcaster} />
                     </div>
