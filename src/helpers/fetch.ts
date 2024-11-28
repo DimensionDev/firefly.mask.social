@@ -22,7 +22,7 @@ export async function fetch(
 
     const response = await fetcher(input, init);
 
-    if (!response.ok && !options?.noDefaultContentType) {
+    if (!response.ok && !options?.noStrictOK) {
         const fetchError = await FetchError.from(input, response);
         fetchError.toThrow();
     }
