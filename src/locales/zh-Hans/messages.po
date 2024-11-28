@@ -2259,6 +2259,9 @@ msgstr "所有者可以更改余额"
 msgid "Non-contract address found."
 msgstr "发现非合约地址。"
 
+msgid "Confirm to disconnect this account from Firefly’s social graph?"
+msgstr ""
+
 msgid "The contract owner has no restrictions on selling."
 msgstr "合约所有者对销售没有限制。"
 

@@ -55,7 +55,7 @@ export const LogoutModal = forwardRef<SingletonModalRefCreator<LogoutModalProps 
                                         selected
                                         selectable={false}
                                         profile={account.profile}
-                                        ProfileAvatarProps={{
+                                        profileAvatarProps={{
                                             enableSourceIcon: true,
                                         }}
                                     />
