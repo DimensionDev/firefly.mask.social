@@ -1,7 +1,6 @@
 'use client';
 
 import { Trans } from '@lingui/macro';
-import urlcat from 'urlcat';
 
 import { ActivityClaimButton } from '@/components/Activity/ActivityClaimButton.js';
 import { ActivityConnectCard } from '@/components/Activity/ActivityConnectCard.js';
@@ -9,13 +8,11 @@ import { ActivityLoginButton } from '@/components/Activity/ActivityLoginButton.j
 import { ActivityPremiumConditionList } from '@/components/Activity/ActivityPremiumConditionList.js';
 import { ActivityVerifyText } from '@/components/Activity/ActivityVerifyText.js';
 import { useActivityClaimCondition } from '@/components/Activity/hooks/useActivityClaimCondition.js';
-import { useActivityCurrentAccountHandle } from '@/components/Activity/hooks/useActivityCurrentAccountHandle.js';
 import { useActivityPremiumList } from '@/components/Activity/hooks/useActivityPremiumList.js';
+import { useActivityShareUrl } from '@/components/Activity/hooks/useActivityShareUrl.js';
 import { Source, SourceInURL } from '@/constants/enum.js';
-import { SITE_URL } from '@/constants/index.js';
 import { CHAR_TAG, type Chars } from '@/helpers/chars.js';
 import { classNames } from '@/helpers/classNames.js';
-import { ReferralAccountPlatform, resolveActivityUrl } from '@/helpers/resolveActivityUrl.js';
 import type { ActivityInfoResponse, Profile } from '@/providers/types/Firefly.js';
 
 const fireflyMention = {
@@ -55,11 +52,7 @@ export function ActivityFrensgivingTasks({
 }: {
     data: Pick<Required<ActivityInfoResponse>['data'], 'status' | 'name'>;
 }) {
-    const farcasterHandle = useActivityCurrentAccountHandle(Source.Farcaster);
-    const shareUrl = urlcat(
-        SITE_URL,
-        resolveActivityUrl(data.name, { referralCode: farcasterHandle, platform: ReferralAccountPlatform.Farcaster }),
-    );
+    const shareUrl = useActivityShareUrl(data.name);
     const shareContent = [
         'Just earned $ANON by minting the Firefly Farcaster Frensgiving 🦃✨ collectible from ',
         fireflyMention,
