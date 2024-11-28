@@ -2,11 +2,9 @@ import { safeUnreachable } from '@masknet/kit';
 
 import { type LoginSource, Source } from '@/constants/enum.js';
 import { NotAllowedError, UnreachableError } from '@/constants/error.js';
-import { bom } from '@/helpers/bom.js';
 import { createLookupTableResolver } from '@/helpers/createLookupTableResolver.js';
 import { getProfileState } from '@/helpers/getProfileState.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
-import { captureActivityEvent } from '@/providers/telemetry/captureActivityEvent.js';
 import { TelemetryProvider } from '@/providers/telemetry/index.js';
 import type { Account } from '@/providers/types/Account.js';
 import { EventId } from '@/providers/types/Telemetry.js';
@@ -134,19 +132,8 @@ export function captureAccountCreateSuccessEvent(account: Account) {
 
 export async function captureAccountLoginEvent(account: Account) {
     return runInSafeAsync(async () => {
-        const parameters = getAccountEventParameters(account);
         const source = account.profile.source;
-        if (bom.location?.pathname.startsWith('/event/') || bom.location?.pathname.startsWith('/events')) {
-            const eventId = (
-                {
-                    [Source.Twitter]: EventId.EVENT_X_LOG_IN_SUCCESS,
-                    [Source.Farcaster]: EventId.EVENT_FARCASTER_LOG_IN_SUCCESS,
-                    [Source.Lens]: EventId.EVENT_LENS_LOG_IN_SUCCESS,
-                } as const
-            )[source];
-            if (eventId) await captureActivityEvent(eventId, parameters);
-        }
-        return TelemetryProvider.captureEvent(resolveLoginEventId(source), parameters);
+        return TelemetryProvider.captureEvent(resolveLoginEventId(source), getAccountEventParameters(account));
     });
 }
 

@@ -34,13 +34,7 @@ import { settings } from '@/settings/index.js';
 import { SupportedMethod } from '@/types/bridge.js';
 
 class FireflyActivity implements Provider {
-    async getActivityClaimCondition(
-        name: string,
-        options: {
-            address?: string;
-        } = {},
-    ) {
-        const { address = '0x' } = options;
+    async getActivityClaimCondition(name: string, address = '0x') {
         const url = urlcat(settings.FIREFLY_ROOT_URL, `/v1/activity/check/:name`, { name, address });
         const response = await fireflySessionHolder.fetchWithSession<CheckResponse>(url);
         return resolveFireflyResponseData(response);
@@ -71,15 +65,7 @@ class FireflyActivity implements Provider {
         );
     }
 
-    async claimActivitySBT(
-        address: string,
-        activityName: string,
-        {
-            claimApiExtraParams,
-        }: {
-            claimApiExtraParams?: Record<string, unknown>;
-        } = {},
-    ) {
+    async claimActivitySBT(address: string, activityName: string, claimApiExtraParams?: Record<string, unknown>) {
         let claimPlatform: 'web' | 'ios' | 'android' = 'web';
         if (fireflyBridgeProvider.supported) claimPlatform = IS_IOS ? 'ios' : 'android';
         const response = await fireflySessionHolder.fetchWithSession<MintActivitySBTResponse>(

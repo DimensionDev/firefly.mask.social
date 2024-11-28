@@ -664,6 +664,9 @@ msgstr "The blacklist function is included. Some addresses may not be able to tr
 msgid "Verified by {0}"
 msgstr "Verified by {0}"
 
+msgid "Please sign in with {resolveSourceName(source)} to continue"
+msgstr "Please sign in with {resolveSourceName(source)} to continue"
+
 msgid "Select Account"
 msgstr "Select Account"
 
@@ -1962,9 +1965,6 @@ msgstr "{type, select, compose {{0}} quote {Add a comment} reply {Post your repl
 
 msgid "Unknown transaction method: {method}."
 msgstr "Unknown transaction method: {method}."
-
-msgid "Please sign in with {0} to continue"
-msgstr "Please sign in with {0} to continue"
 
 msgid "Get involved in the <0>Presidential Election Winner 2024</0> on Polymarket"
 msgstr "Get involved in the <0>Presidential Election Winner 2024</0> on Polymarket"

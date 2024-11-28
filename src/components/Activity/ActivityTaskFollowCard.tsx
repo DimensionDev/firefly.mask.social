@@ -1,7 +1,7 @@
 'use client';
 
 import { t, Trans } from '@lingui/macro';
-import { type ReactNode } from 'react';
+import { type HTMLProps, type ReactNode } from 'react';
 
 import LoadingIcon from '@/assets/loading.svg';
 import { ActivityVerifyText } from '@/components/Activity/ActivityVerifyText.js';
@@ -16,27 +16,16 @@ import { enqueueWarningMessage } from '@/helpers/enqueueMessage.js';
 import { resolveProfileUrl } from '@/helpers/resolveProfileUrl.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 
-interface Props {
-    source: SocialSource;
-    profileId: string;
-    handle: string;
-}
-
-function Button({
-    children,
-    loading = false,
-    isLoggedIn,
-    onClick,
-    className,
-    source,
-}: {
+interface ButtonProps extends HTMLProps<HTMLButtonElement> {
     children: ReactNode;
     loading?: boolean;
     isLoggedIn?: boolean;
     onClick?: () => void;
     className?: string;
     source: SocialSource;
-}) {
+}
+
+function Button({ children, loading = false, isLoggedIn, onClick, className, source }: ButtonProps) {
     const [{ loading: logging }, login] = useLoginInActivity();
     return (
         <button
@@ -67,7 +56,13 @@ function Button({
     );
 }
 
-export function ActivityTaskFollowCard({ source, profileId, handle }: Props) {
+interface ActivityTaskFollowCardProps {
+    source: SocialSource;
+    profileId: string;
+    handle: string;
+}
+
+export function ActivityTaskFollowCard({ source, profileId, handle }: ActivityTaskFollowCardProps) {
     const isLoggedIn = useIsLoginInActivity(source);
     const [{ loading: isFollowing }, follow] = useActivityFollowProfile(source, profileId, handle);
     const {

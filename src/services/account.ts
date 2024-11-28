@@ -20,6 +20,7 @@ import {
     captureAccountLogoutAllEvent,
     captureAccountLogoutEvent,
 } from '@/providers/telemetry/captureAccountEvent.js';
+import { captureActivityLoginEvent } from '@/providers/telemetry/captureActivityEvent.js';
 import { captureSyncModalEvent } from '@/providers/telemetry/captureSyncModalEvent.js';
 import { TwitterAuthProvider } from '@/providers/twitter/Auth.js';
 import { TwitterSession } from '@/providers/twitter/Session.js';
@@ -270,6 +271,7 @@ export async function addAccount(account: Account, options?: AccountOptions) {
     });
 
     captureAccountLoginEvent(account);
+    captureActivityLoginEvent(account.profile.source);
     if (account.fireflySession?.isNew) captureAccountCreateSuccessEvent(account);
 
     // account has been added to the store

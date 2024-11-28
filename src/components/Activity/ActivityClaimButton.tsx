@@ -43,9 +43,11 @@ export function ActivityClaimButton({ source, shareContent, status, claimApiExtr
     const [{ loading }, claim] = useAsyncFn(async () => {
         if (disabled || !address) return;
         try {
-            const { hash, chainId } = await FireflyActivityProvider.claimActivitySBT(address, name, {
+            const { hash, chainId } = await FireflyActivityProvider.claimActivitySBT(
+                address,
+                name,
                 claimApiExtraParams,
-            });
+            );
             await refetch();
             setHash(hash);
             setChainId(chainId);
