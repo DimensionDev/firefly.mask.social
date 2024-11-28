@@ -20,8 +20,6 @@ interface ButtonProps extends HTMLProps<HTMLButtonElement> {
     children: ReactNode;
     loading?: boolean;
     isLoggedIn?: boolean;
-    onClick?: () => void;
-    className?: string;
     source: SocialSource;
 }
 
@@ -33,7 +31,7 @@ function Button({ children, loading = false, isLoggedIn, onClick, className, sou
             disabled={loading || logging}
             onClick={(event) => {
                 if (isLoggedIn) {
-                    onClick?.();
+                    onClick?.(event);
                 } else {
                     event.preventDefault();
                     login(source);
