@@ -1,13 +1,13 @@
 import { createRenderWithMetadata, createTypedMessageMetadataReader } from '@masknet/typed-message-react';
-import { EVMChainResolver } from '@masknet/web3-providers';
-import type { RedPacketJSONPayload } from '@masknet/web3-providers/types';
 import { ChainId } from '@masknet/web3-shared-evm';
 import { Ok, type Result } from 'ts-results-es';
 
+import { EVMChainResolver } from '@/mask/bindings/index.js';
 import { RedPacketMetaKey } from '@/mask/plugins/red-packet/constants.js';
-import schema from '@/mask/plugins/red-packet/schema.json';
+import Schema from '@/mask/plugins/red-packet/schema.json' assert { type: 'json' };
+import type { RedPacketJSONPayload } from '@/providers/red-packet/types.js';
 
-const reader = createTypedMessageMetadataReader<RedPacketJSONPayload>(RedPacketMetaKey, schema);
+const reader = createTypedMessageMetadataReader<RedPacketJSONPayload>(RedPacketMetaKey, Schema);
 
 export function RedPacketMetadataReader(
     metadata: ReadonlyMap<string, unknown> | undefined,

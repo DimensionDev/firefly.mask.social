@@ -16,7 +16,7 @@ import { NetworkPluginID, PluginID } from '@masknet/shared-base';
 import { ActionButton, makeStyles, MaskTextField, RadioIndicator } from '@masknet/theme';
 import { useChainContext, useEnvironmentContext, useNativeTokenPrice } from '@masknet/web3-hooks-base';
 import { useTransactionValue } from '@masknet/web3-hooks-evm';
-import { EVMChainResolver, EVMWeb3 } from '@masknet/web3-providers';
+// import { EVMChainResolver, EVMWeb3 } from '@masknet/web3-providers';
 import {
     formatBalance,
     type FungibleToken,
@@ -33,6 +33,7 @@ import { omit } from 'lodash-es';
 import { type ChangeEvent, useCallback, useMemo, useState } from 'react';
 import { useUpdateEffect } from 'react-use';
 
+import { EVMChainResolver, EVMWeb3 } from '@/mask/bindings/index.js';
 import {
     RED_PACKET_DEFAULT_SHARES,
     RED_PACKET_MAX_SHARES,

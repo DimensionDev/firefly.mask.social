@@ -1,16 +1,16 @@
 import { EMPTY_LIST } from '@masknet/shared-base';
-import { EVMNetworkResolver } from '@masknet/web3-providers';
-import { type RedPacketJSONPayload, RedPacketStatus } from '@masknet/web3-providers/types';
 import { isSameAddress } from '@masknet/web3-shared-base';
 import { ChainId, type NetworkType } from '@masknet/web3-shared-evm';
 import type { QueryObserverResult, RefetchOptions } from '@tanstack/react-query';
 import { compact } from 'lodash-es';
 import { useCallback } from 'react';
 
+import { EVMNetworkResolver } from '@/mask/bindings/index.js';
 import { useAvailability } from '@/mask/plugins/red-packet/hooks/useAvailability.js';
 import { useClaimStrategyStatus } from '@/mask/plugins/red-packet/hooks/useClaimStrategyStatus.js';
 import { useParseRedPacket } from '@/mask/plugins/red-packet/hooks/useParseRedPacket.js';
 import { useSignedMessage } from '@/mask/plugins/red-packet/hooks/useSignedMessage.js';
+import { type RedPacketJSONPayload, RedPacketStatus } from '@/providers/red-packet/types.js';
 
 /**
  * Fetch the red packet info from the chain

@@ -11,7 +11,10 @@ import { compact, flatten, uniqBy } from 'lodash-es';
 import { useMemo, useState } from 'react';
 import { useAsync, useStateList } from 'react-use';
 
-import { REQUIREMENT_ICON_MAP, REQUIREMENT_TITLE_MAP } from '@/mask/plugins/red-packet/ClaimRequirementsDialog.js';
+import {
+    REQUIREMENT_ICON_MAP,
+    REQUIREMENT_TITLE_MAP,
+} from '@/mask/plugins/red-packet/components/ClaimRequirementsDialog.js';
 import { type RedPacketSettings } from '@/mask/plugins/red-packet/hooks/useCreateCallback.js';
 import { useCreateFTRedpacketCallback } from '@/mask/plugins/red-packet/hooks/useCreateFTRedpacketCallback.js';
 import { useRedPacketTrans } from '@/mask/plugins/red-packet/locales/index.js';

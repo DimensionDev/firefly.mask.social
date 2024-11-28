@@ -1,9 +1,10 @@
 import { NetworkPluginID } from '@masknet/shared-base';
 import HappyRedPacketV4ABI from '@masknet/web3-contracts/abis/HappyRedPacketV4.json';
 import { useWeb3, useWeb3Connection } from '@masknet/web3-hooks-base';
-import { CREATE_LUCKY_DROP_TOPIC } from '@masknet/web3-providers';
 import type { ChainId } from '@masknet/web3-shared-evm';
 import { useQuery } from '@tanstack/react-query';
+
+const CREATE_LUCKY_DROP_TOPIC = '0x86af556fd7cfab9462285ad44f2d5913527c539ff549f74731ca9997ca534018';
 
 /**
  * Get redpacket token address from transaction logs

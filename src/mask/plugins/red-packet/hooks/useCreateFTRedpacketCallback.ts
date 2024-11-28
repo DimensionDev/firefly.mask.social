@@ -1,19 +1,18 @@
 import { NetworkPluginID } from '@masknet/shared-base';
 import { useBalance, useChainContext } from '@masknet/web3-hooks-base';
 import { useTransactionValue } from '@masknet/web3-hooks-evm';
-import { EVMChainResolver } from '@masknet/web3-providers';
-import type { RedPacketJSONPayload, RedPacketRecord } from '@masknet/web3-providers/types';
 import { formatBalance } from '@masknet/web3-shared-base';
 import { type GasConfig, isNativeTokenAddress, useRedPacketConstants } from '@masknet/web3-shared-evm';
 import { BigNumber } from 'bignumber.js';
 import { useCallback, useEffect, useRef } from 'react';
 
-import { RedPacketRPC } from '@/mask/plugins/messages.js';
+import { EVMChainResolver } from '@/mask/bindings/index.js';
 import {
     type RedPacketSettings,
     useCreateCallback,
     useCreateParams,
 } from '@/mask/plugins/red-packet/hooks/useCreateCallback.js';
+import type { RedPacketJSONPayload } from '@/providers/red-packet/types.js';
 
 export function useCreateFTRedpacketCallback(
     publicKey: string,
@@ -94,14 +93,6 @@ export function useCreateFTRedpacketCallback(
         payload.current.duration = settings.duration;
         payload.current.creation_time = Number.parseInt(CreationSuccess.creation_time, 10) * 1000;
         payload.current.token = settings.token;
-
-        const record: RedPacketRecord = {
-            id: receipt.transactionHash,
-            from: '',
-            password: privateKey,
-            contract_version,
-        };
-        RedPacketRPC.addRedPacket(record, chainId);
 
         // output the redpacket as JSON payload
         onCreated?.(payload.current);

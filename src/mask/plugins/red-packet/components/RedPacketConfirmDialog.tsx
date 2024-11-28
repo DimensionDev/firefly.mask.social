@@ -3,7 +3,6 @@ import { ChainBoundary, PluginWalletStatusBar, SelectGasSettingsToolbar } from '
 import { NetworkPluginID } from '@masknet/shared-base';
 import { ActionButton, makeStyles } from '@masknet/theme';
 import { useChainContext, useNativeTokenPrice } from '@masknet/web3-hooks-base';
-import { type RedPacketJSONPayload } from '@masknet/web3-providers/types';
 import { isZero } from '@masknet/web3-shared-base';
 import { type ChainId, type GasConfig } from '@masknet/web3-shared-evm';
 import { Launch as LaunchIcon } from '@mui/icons-material';
@@ -14,6 +13,7 @@ import { EVMChainResolver, EVMExplorerResolver, EVMWeb3 } from '@/mask/bindings/
 import { type RedPacketSettings } from '@/mask/plugins/red-packet/hooks/useCreateCallback.js';
 import { useCreateFTRedpacketCallback } from '@/mask/plugins/red-packet/hooks/useCreateFTRedpacketCallback.js';
 import { useRedPacketTrans } from '@/mask/plugins/red-packet/locales/index.js';
+import type { RedPacketJSONPayload } from '@/providers/red-packet/types.js';
 
 const useStyles = makeStyles()((theme) => ({
     link: {

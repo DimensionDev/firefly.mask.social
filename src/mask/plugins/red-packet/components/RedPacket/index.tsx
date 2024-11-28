@@ -5,22 +5,23 @@ import { EMPTY_LIST, NetworkPluginID } from '@masknet/shared-base';
 import { makeStyles, parseColor } from '@masknet/theme';
 import type { HappyRedPacketV4 } from '@masknet/web3-contracts/types/HappyRedPacketV4.js';
 import { useChainContext, useNetworkContext } from '@masknet/web3-hooks-base';
-import { EVMChainResolver, FireflyRedPacket } from '@masknet/web3-providers';
-import { type FireflyRedPacketAPI, type RedPacketJSONPayload, RedPacketStatus } from '@masknet/web3-providers/types';
+// import { EVMChainResolver, FireflyRedPacket } from '@masknet/web3-providers';
 import { formatBalance, isZero, TokenType } from '@masknet/web3-shared-base';
 import { ChainId } from '@masknet/web3-shared-evm';
 import { Card, Grow, Stack, Typography } from '@mui/material';
 import { memo, useCallback, useMemo, useState } from 'react';
 
+import { EVMChainResolver } from '@/mask/bindings/index.js';
 import { OperationFooter } from '@/mask/plugins/red-packet/components/RedPacket/OperationFooter.js';
 import { RequestLoginFooter } from '@/mask/plugins/red-packet/components/RedPacket/RequestLoginFooter.js';
 import { useRedPacketCover } from '@/mask/plugins/red-packet/components/RedPacket/useRedPacketCover.js';
+import { Requirements } from '@/mask/plugins/red-packet/components/Requirements/index.js';
 import { useAvailabilityComputed } from '@/mask/plugins/red-packet/hooks/useAvailabilityComputed.js';
 import { useClaimCallback } from '@/mask/plugins/red-packet/hooks/useClaimCallback.js';
 import { useRedPacketContract } from '@/mask/plugins/red-packet/hooks/useRedPacketContract.js';
 import { useRefundCallback } from '@/mask/plugins/red-packet/hooks/useRefundCallback.js';
 import { useRedPacketTrans } from '@/mask/plugins/red-packet/locales/index.js';
-import { Requirements } from '@/mask/plugins/red-packet/Requirements/index.js';
+import { type FireflyRedPacketAPI, type RedPacketJSONPayload, RedPacketStatus } from '@/providers/red-packet/types.js';
 
 const useStyles = makeStyles<{ outdated: boolean }>()((theme, { outdated }) => {
     return {

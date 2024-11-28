@@ -1,10 +1,10 @@
-import type { RedPacketJSONPayload } from '@masknet/web3-providers/types';
 import { minus, toFixed } from '@masknet/web3-shared-base';
 import { isValidAddress, isValidDomain } from '@masknet/web3-shared-evm';
 import { useQuery } from '@tanstack/react-query';
 
 import type { useAvailability } from '@/mask/plugins/red-packet/hooks/useAvailability.js';
 import { FireflyRedPacket } from '@/providers/red-packet/index.js';
+import type { RedPacketJSONPayload } from '@/providers/red-packet/types.js';
 
 type Availability = ReturnType<typeof useAvailability>['data'];
 export function useRedPacketCover(payload: RedPacketJSONPayload, availability: Availability) {

@@ -1,6 +1,5 @@
 import { TokenIcon } from '@masknet/shared';
 import { NetworkPluginID } from '@masknet/shared-base';
-import { useEverSeen } from '@masknet/shared-base-ui';
 import { makeStyles } from '@masknet/theme';
 import { useChainContext, useFungibleToken, useNetworkDescriptor } from '@masknet/web3-hooks-base';
 import { formatBalance } from '@masknet/web3-shared-base';
@@ -13,6 +12,7 @@ import { RedPacketActionButton } from '@/mask/plugins/red-packet/components/RedP
 import { useRedpacketToken } from '@/mask/plugins/red-packet/hooks/useRedpacketToken.js';
 import { RedPacketTrans, useRedPacketTrans } from '@/mask/plugins/red-packet/locales/index.js';
 import { FireflyRedPacketAPI, type RedPacketJSONPayload } from '@/providers/red-packet/types.js';
+import { useEverSeen } from '@/hooks/useEverSeen.js';
 
 const DEFAULT_BACKGROUND = NETWORK_DESCRIPTORS.find((x) => x.chainId === ChainId.Mainnet)!.backgroundGradient!;
 const useStyles = makeStyles<{ listItemBackground?: string; listItemBackgroundIcon?: string }>()((

@@ -10,7 +10,7 @@ import { memo, useMemo } from 'react';
 import { FireflyRedPacketAccountItem } from '@/mask/plugins/red-packet/components/FireflyRedPacketAccountItem.js';
 import { FireflyRedPacketDetailsItem } from '@/mask/plugins/red-packet/components/FireflyRedPacketDetailsItem.js';
 import { useRedPacketTrans } from '@/mask/plugins/red-packet/locales/index.js';
-import { FireflyRedPacket } from '@/web3-providers/src/Firefly/RedPacket.js';
+import { FireflyRedPacket } from '@/providers/red-packet/index.js';
 
 const useStyles = makeStyles()((theme) => ({
     container: {

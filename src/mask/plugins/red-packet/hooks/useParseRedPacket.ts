@@ -1,11 +1,11 @@
 import { useLastRecognizedIdentity, usePostInfoDetails } from '@masknet/plugin-infra/content-script';
 import { EnhanceableSite, NetworkPluginID } from '@masknet/shared-base';
 import { useChainContext, useNetworkContext } from '@masknet/web3-hooks-base';
-import type { FireflyRedPacketAPI } from '@masknet/web3-providers/types';
 import type { ChainId } from '@masknet/web3-shared-evm';
 import { useQuery } from '@tanstack/react-query';
 
 import { FireflyRedPacket } from '@/providers/red-packet/index.js';
+import type { FireflyRedPacketAPI } from '@/providers/red-packet/types.js';
 
 /**
  * Parse RedPacket with post info.

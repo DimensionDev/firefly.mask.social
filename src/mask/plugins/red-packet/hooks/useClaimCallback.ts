@@ -2,14 +2,14 @@ import type { NetworkPluginID } from '@masknet/shared-base';
 import type { HappyRedPacketV1 } from '@masknet/web3-contracts/types/HappyRedPacketV1.js';
 import type { HappyRedPacketV4 } from '@masknet/web3-contracts/types/HappyRedPacketV4.js';
 import { useChainContext } from '@masknet/web3-hooks-base';
-import { EVMChainResolver, EVMWeb3 } from '@masknet/web3-providers';
-import type { RedPacketJSONPayload } from '@masknet/web3-providers/types';
 import { ContractTransaction } from '@masknet/web3-shared-evm';
 import { useAsyncFn } from 'react-use';
 import * as web3_utils from /* webpackDefer: true */ 'web3-utils';
 
+import { EVMChainResolver, EVMWeb3 } from '@/mask/bindings/index.js';
 import { useRedPacketContract } from '@/mask/plugins/red-packet/hooks/useRedPacketContract.js';
 import { useSignedMessage } from '@/mask/plugins/red-packet/hooks/useSignedMessage.js';
+import type { RedPacketJSONPayload } from '@/providers/red-packet/types.js';
 
 /**
  * Claim fungible token red packet.

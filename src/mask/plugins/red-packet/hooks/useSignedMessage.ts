@@ -1,11 +1,10 @@
 import { useLastRecognizedIdentity } from '@masknet/plugin-infra/content-script';
-import { type RedPacketJSONPayload } from '@masknet/web3-providers/types';
 import { signMessage } from '@masknet/web3-shared-evm';
 import { useQuery } from '@tanstack/react-query';
 
-import { RedPacketRPC } from '@/mask/plugins/messages.js';
 import { usePlatformType } from '@/mask/plugins/red-packet/hooks/usePlatformType.js';
 import { FireflyRedPacket } from '@/providers/red-packet/index.js';
+import type { RedPacketJSONPayload } from '@/providers/red-packet/types.js';
 
 export function useSignedMessage(account: string, payload: RedPacketJSONPayload = {} as RedPacketJSONPayload) {
     const rpid = payload.rpid;
@@ -29,10 +28,6 @@ export function useSignedMessage(account: string, payload: RedPacketJSONPayload 
     return useQuery({
         queryKey: ['red-packet', 'signed-message', rpid, version, password, account, profile],
         queryFn: async () => {
-            try {
-                const record = await RedPacketRPC.getRedPacketRecord(payload.txid);
-                if (record?.password) return record.password;
-            } catch {}
             if (version <= 3) return password as string;
             if (password) return signMessage(account, password as string).signature;
             if (!profile || !account) return '';

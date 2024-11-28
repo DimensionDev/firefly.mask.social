@@ -1,11 +1,11 @@
 import { useLastRecognizedIdentity } from '@masknet/plugin-infra/content-script';
 import { NetworkPluginID } from '@masknet/shared-base';
 import { useChainContext, useNetworkContext } from '@masknet/web3-hooks-base';
-import type { RedPacketJSONPayload } from '@masknet/web3-providers/types';
 import { useQuery } from '@tanstack/react-query';
 
 import { usePlatformType } from '@/mask/plugins/red-packet/hooks/usePlatformType.js';
 import { FireflyRedPacket } from '@/providers/red-packet/index.js';
+import type { RedPacketJSONPayload } from '@/providers/red-packet/types.js';
 
 export function useClaimStrategyStatus(payload: RedPacketJSONPayload) {
     const platform = usePlatformType();

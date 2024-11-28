@@ -6,17 +6,17 @@ import {
     useSiteThemeMode,
 } from '@masknet/plugin-infra/content-script';
 import { InjectedDialog, LoadingStatus, useCurrentLinkedPersona } from '@masknet/shared';
-import { CrossIsolationMessages, EMPTY_LIST, NetworkPluginID, PluginID } from '@masknet/shared-base';
+import { EMPTY_LIST, NetworkPluginID, PluginID } from '@masknet/shared-base';
 import { makeStyles, MaskTabList, useTabs } from '@masknet/theme';
 import { useChainContext, useGasPrice } from '@masknet/web3-hooks-base';
-import { EVMWeb3 } from '@masknet/web3-providers';
-import { type FireflyRedPacketAPI, type RedPacketJSONPayload } from '@masknet/web3-providers/types';
+// import { type FireflyRedPacketAPI, type RedPacketJSONPayload } from '@masknet/web3-providers/types';
 import { ChainId, type GasConfig, GasEditor } from '@masknet/web3-shared-evm';
 import { TabContext } from '@mui/lab';
 import { DialogContent, Tab, useTheme } from '@mui/material';
 import { Suspense, useCallback, useContext, useMemo, useState } from 'react';
 import * as web3_utils from /* webpackDefer: true */ 'web3-utils';
 
+import { EVMWeb3 } from '@/mask/bindings/index.js';
 import { ClaimRequirementsDialog } from '@/mask/plugins/red-packet/components/ClaimRequirementsDialog.js';
 import { ClaimRequirementsRuleDialog } from '@/mask/plugins/red-packet/components/ClaimRequirementsRuleDialog.js';
 import { FireflyRedpacketConfirmDialog } from '@/mask/plugins/red-packet/components/FireflyRedpacketConfirmDialog.js';
@@ -26,10 +26,11 @@ import { RedPacketERC20Form } from '@/mask/plugins/red-packet/components/RedPack
 import { CompositionTypeContext } from '@/mask/plugins/red-packet/components/RedPacketInjection.js';
 import { RedPacketMetaKey } from '@/mask/plugins/red-packet/constants.js';
 import { openComposition } from '@/mask/plugins/red-packet/helpers/openComposition.js';
+import { reduceUselessPayloadInfo } from '@/mask/plugins/red-packet/helpers/reduceUselessPayloadInfo.js';
 import type { RedPacketSettings } from '@/mask/plugins/red-packet/hooks/useCreateCallback.js';
 import { useRedPacketTrans } from '@/mask/plugins/red-packet/locales/index.js';
 import type { FireflyContext, FireflyRedpacketSettings } from '@/mask/plugins/red-packet/types.js';
-import { reduceUselessPayloadInfo } from '@/mask/plugins/red-packet/utils/reduceUselessPayloadInfo.js';
+import type { FireflyRedPacketAPI, RedPacketJSONPayload } from '@/providers/red-packet/types.js';
 
 const useStyles = makeStyles<{ scrollY: boolean; isDim: boolean }>()((theme, { isDim, scrollY }) => {
     // it's hard to set dynamic color, since the background color of the button is blended transparent
@@ -174,11 +175,8 @@ export default function RedPacketDialog(props: RedPacketDialogProps) {
         }
         if (step === CreateRedPacketPageStep.NewRedPacketPage) {
             handleClose();
-            if (props.source === PluginID.SmartPay) {
-                CrossIsolationMessages.events.smartPayDialogEvent.sendToAll({ open: true });
-            }
         }
-    }, [step, props.source === PluginID.SmartPay, handleClose]);
+    }, [step, handleClose]);
     const isCreateStep = step === CreateRedPacketPageStep.NewRedPacketPage;
     const onNext = useCallback(() => {
         if (!isCreateStep) return;
