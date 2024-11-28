@@ -24,7 +24,7 @@ export function ActivityListItem({ data }: { data: TypeActivityListItem; index?:
                 <ActivityStatusTag status={data.status} />
             </div>
             <Image
-                src={data.banner_url}
+                src={data.cover_url}
                 alt={data.title}
                 className={classNames('aspect-[343/140] w-full rounded-t-2xl object-cover', {
                     'opacity-80': data.status === ActivityStatus.Ended,
