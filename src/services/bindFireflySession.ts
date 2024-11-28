@@ -64,7 +64,10 @@ async function bindFarcasterSessionToFirefly(session: FarcasterSession, signal?:
     );
 
     // If the farcaster is already bound to another account, throw an error.
-    if (response.error?.some((x) => x.includes('This farcaster already bound to the other account'))) {
+    if (
+        isRelayService &&
+        response.error?.some((x) => x.includes('This farcaster already bound to the other account'))
+    ) {
         throw new FarcasterAlreadyBoundError();
     }
 
