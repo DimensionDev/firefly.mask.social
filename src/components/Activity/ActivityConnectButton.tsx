@@ -1,7 +1,7 @@
 'use client';
 
 import { Menu } from '@headlessui/react';
-import { Trans } from '@lingui/macro';
+import { t, Trans } from '@lingui/macro';
 import { type MouseEvent, useContext } from 'react';
 
 import AddCircleIcon from '@/assets/add-circle.svg';
@@ -10,8 +10,9 @@ import { ActivityContext } from '@/components/Activity/ActivityContext.js';
 import { useActivityBindAddress } from '@/components/Activity/hooks/useActivityBindAddress.js';
 import { useActivityClaimCondition } from '@/components/Activity/hooks/useActivityClaimCondition.js';
 import { useActivityConnections } from '@/components/Activity/hooks/useActivityConnections.js';
-import { useIsLoginTwitterInActivity } from '@/components/Activity/hooks/useIsLoginTwitterInActivity.js';
+import { useIsLoginInActivity } from '@/components/Activity/hooks/useIsLoginInActivity.js';
 import { ChainIcon } from '@/components/NFTDetail/ChainIcon.js';
+import { type SocialSource } from '@/constants/enum.js';
 import { EMPTY_LIST } from '@/constants/index.js';
 import { classNames } from '@/helpers/classNames.js';
 import { enqueueWarningMessage } from '@/helpers/enqueueMessage.js';
@@ -21,12 +22,12 @@ import { captureActivityEvent } from '@/providers/telemetry/captureActivityEvent
 import { EventId } from '@/providers/types/Telemetry.js';
 import { ChainId } from '@/types/frame.js';
 
-export function ActivityConnectButton() {
-    const { onChangeAddress, address, fireflyAccountId } = useContext(ActivityContext);
-    const { refetch: refetchActivityClaimCondition, isRefetching } = useActivityClaimCondition();
-    const { data: isLoggedIn } = useIsLoginTwitterInActivity();
+export function ActivityConnectButton({ source }: { source: SocialSource }) {
+    const { onChangeAddress, address } = useContext(ActivityContext);
+    const { refetch: refetchActivityClaimCondition, isRefetching } = useActivityClaimCondition(source);
+    const isLoggedIn = useIsLoginInActivity(source);
     const { data: { connected = EMPTY_LIST } = {}, isLoading, refetch } = useActivityConnections();
-    const [, bindAddress] = useActivityBindAddress();
+    const [, bindAddress] = useActivityBindAddress(source);
 
     const addresses: Array<{ address: string; ens?: string }> = connected
         .filter((x) => x.platform === 'eth')
@@ -36,7 +37,7 @@ export function ActivityConnectButton() {
         <Trans>Change</Trans>
     ) : (
         <>
-            <ChainIcon className="mr-2 h-4 w-4 shrink-0" width={16} height={16} chainId={ChainId.Base} />
+            <ChainIcon className="mr-2 shrink-0" size={18} chainId={ChainId.Base} />
             <span>
                 <Trans>Connect</Trans>
             </span>
@@ -57,7 +58,7 @@ export function ActivityConnectButton() {
                             return;
                         }
                         e.preventDefault();
-                        enqueueWarningMessage(<Trans>Please sign in with X to continue</Trans>);
+                        enqueueWarningMessage(t`Please sign in with {resolveSourceName(source)} to continue`);
                     }}
                 >
                     {isRefetching || isLoading ? (
@@ -87,7 +88,6 @@ export function ActivityConnectButton() {
                                     onChangeAddress(address);
                                     captureActivityEvent(EventId.EVENT_CHANGE_WALLET_SUCCESS, {
                                         wallet_address: address,
-                                        firefly_account_id: fireflyAccountId,
                                     });
                                     refetchActivityClaimCondition();
                                 }}
@@ -117,7 +117,7 @@ export function ActivityConnectButton() {
     if (address) {
         return (
             <div className="flex w-full items-center gap-2">
-                <ChainIcon className="h-5 w-5 shrink-0" chainId={ChainId.Base} />
+                <ChainIcon className="shrink-0" size={18} chainId={ChainId.Base} />
                 <span className="mr-auto text-base font-medium leading-6">
                     {addresses.find((x) => x.address === address)?.ens || formatAddress(address, 4)}
                 </span>

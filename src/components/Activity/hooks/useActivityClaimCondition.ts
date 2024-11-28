@@ -2,19 +2,18 @@ import { useQuery } from '@tanstack/react-query';
 import { useContext } from 'react';
 
 import { ActivityContext } from '@/components/Activity/ActivityContext.js';
-import { useIsLoginTwitterInActivity } from '@/components/Activity/hooks/useIsLoginTwitterInActivity.js';
-import { useFireflyBridgeAuthorization } from '@/hooks/useFireflyBridgeAuthorization.js';
+import { useIsLoginInActivity } from '@/components/Activity/hooks/useIsLoginInActivity.js';
+import { type SocialSource } from '@/constants/enum.js';
 import { FireflyActivityProvider } from '@/providers/firefly/Activity.js';
 
-export function useActivityClaimCondition() {
+export function useActivityClaimCondition(source: SocialSource) {
     const { address, name } = useContext(ActivityContext);
-    const { data: authToken } = useFireflyBridgeAuthorization();
-    const { data: isLoggedTwitter } = useIsLoginTwitterInActivity();
+    const isLoggedIn = useIsLoginInActivity(source);
     return useQuery({
-        queryKey: ['activity-claim-condition', address, authToken, name],
+        queryKey: ['activity-claim-condition', address, name, isLoggedIn],
         async queryFn() {
-            return FireflyActivityProvider.getActivityClaimCondition(name, { authToken, address: address ?? '0x' });
+            return FireflyActivityProvider.getActivityClaimCondition(name, address);
         },
-        enabled: isLoggedTwitter,
+        enabled: isLoggedIn,
     });
 }

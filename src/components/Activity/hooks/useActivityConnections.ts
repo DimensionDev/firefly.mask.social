@@ -1,17 +1,18 @@
 import { useQuery } from '@tanstack/react-query';
 
-import { useIsLoginTwitterInActivity } from '@/components/Activity/hooks/useIsLoginTwitterInActivity.js';
+import { useCurrentProfileFirstAvailable } from '@/hooks/useCurrentProfile.js';
 import { useFireflyBridgeAuthorization } from '@/hooks/useFireflyBridgeAuthorization.js';
 import { FireflyActivityProvider } from '@/providers/firefly/Activity.js';
+import { fireflyBridgeProvider } from '@/providers/firefly/Bridge.js';
 
 export function useActivityConnections() {
-    const { data: isLoggedIn = false } = useIsLoginTwitterInActivity();
+    const currentProfileFirstAvailable = useCurrentProfileFirstAvailable();
     const { data: authToken } = useFireflyBridgeAuthorization();
     return useQuery({
-        enabled: isLoggedIn,
-        queryKey: ['my-wallet-connections', authToken],
+        queryKey: ['my-wallet-connections', currentProfileFirstAvailable, authToken],
         async queryFn() {
-            return FireflyActivityProvider.getAllConnections({ authToken });
+            if (!fireflyBridgeProvider.supported && !currentProfileFirstAvailable) return; // Not logged in on the web
+            return FireflyActivityProvider.getAllConnections();
         },
         refetchInterval: 600000,
     });

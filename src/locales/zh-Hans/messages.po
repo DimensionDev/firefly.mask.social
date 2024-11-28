@@ -66,6 +66,9 @@ msgstr "允许收藏"
 msgid "New connect with Warpcast"
 msgstr "使用 Warpcast 连接"
 
+msgid "You have been detected as a loyal Farcaster user"
+msgstr "您被检测到为 Farcaster 忠实用户"
+
 msgid "Edit Image"
 msgstr "修改图片"
 
@@ -219,9 +222,6 @@ msgstr "该通证是一个燃料滥用者。"
 msgid "Ended"
 msgstr "已结束"
 
-msgid "Failed to follow @{handle} on X."
-msgstr "未能在 X 上关注 @{handle}。"
-
 msgid "No cryptocurrency mixer found."
 msgstr "未涉及加密货币混合器。"
 
@@ -324,6 +324,9 @@ msgstr "已定时"
 msgid "Pay"
 msgstr "付款"
 
+msgid "Followed @{handle} on {0}."
+msgstr ""
+
 msgid "Failed to add wallet"
 msgstr "添加钱包失败"
 
@@ -362,6 +365,9 @@ msgstr "我们的交易模拟和安全检测未发现问题。不过，始终仔
 
 msgid "Market Cap"
 msgstr "市值"
+
+msgid "Eligible for Premium Collectible?"
+msgstr "是否可解锁更高版本？"
 
 msgid "Contract source code verified"
 msgstr "已验证合约源代码"
@@ -467,6 +473,9 @@ msgstr "<0>{0}</0><1>转帖</1>"
 
 msgid "True Token"
 msgstr "真实的通证"
+
+msgid "Failed to follow @{handle} on {0}."
+msgstr ""
 
 msgid "Bookmarks"
 msgstr "收藏"
@@ -585,6 +594,9 @@ msgstr "{0, select, Image {[图片]} Video {[视频]} Audio {[音频]} Poll {[�
 msgid "Failed to follow @{0} on {sourceName}."
 msgstr "在 {sourceName} 上关注 @{0} 失败。"
 
+msgid "Your assets on $DEGEN or $ANON exceed US$10,000"
+msgstr "您所拥有的 $DEGEN 或 $ANON 的资产价值超过 $10,000 美元"
+
 msgid "Attendees"
 msgstr "出席人数"
 
@@ -657,6 +669,9 @@ msgstr "黑名单功能已启用。有些地址可能无法正常交易（欺诈
 msgid "Verified by {0}"
 msgstr "由 {0} 校验"
 
+msgid "Please sign in with {resolveSourceName(source)} to continue"
+msgstr ""
+
 msgid "Select Account"
 msgstr "选择账号"
 
@@ -686,6 +701,9 @@ msgstr ""
 
 msgid "Reposted"
 msgstr "转帖"
+
+msgid "Login {0} successfully."
+msgstr ""
 
 msgid "Today at {0}"
 msgstr "今天 {0}"
@@ -879,6 +897,9 @@ msgstr "域名"
 msgid "Failed to follow @{0} on Lens"
 msgstr "在 Lens 上关注 @{0} 失败"
 
+msgid "Check Eligibility"
+msgstr "领取资格"
+
 msgid "You might like"
 msgstr "你也许感兴趣"
 
@@ -1013,6 +1034,9 @@ msgstr "评论不能为空。"
 
 msgid "Days"
 msgstr "天"
+
+msgid "Submit a wallet to receive NFT and $ANON"
+msgstr "提交您的钱包以领取您的 NFT 和 $ANON"
 
 msgid "<0/> mentioned you in a <1>{0, select, Post {post} Comment {comment} Quote {quote} Mirror {mirror} other {post}}</1>"
 msgstr "<0/>提到了你的 <1>{0, select, Post {帖子} Comment {评论} Quote {引用} Mirror {引用} other {帖子}}</1>"
@@ -1374,9 +1398,6 @@ msgstr "搜索 ${symbol}"
 msgid "Failed to unmute /{0}."
 msgstr "取消隐藏失败/{0}。"
 
-msgid "Login X successfully."
-msgstr "成功登录 X。"
-
 msgid "Please confirm the login with Warpcast."
 msgstr "请确认使用 Warpcast 登录。"
 
@@ -1628,6 +1649,9 @@ msgstr "<0>市值</0><1>{0}</1><2>排名 #{1}</2>"
 
 msgid "Invalid signer key"
 msgstr "无效的 singer key"
+
+msgid "Available to users with Farcaster ID under 100,000 or users of select third-party Farcaster apps as of our snapshot"
+msgstr "若您的 Farcaster ID 低于 100,000，或在快照中被识别为指定 Farcaster 第三方应用的用户，即可获得领取资格"
 
 msgid "Unverified"
 msgstr "未验证"
@@ -2205,9 +2229,6 @@ msgstr "定时"
 msgid "No cybercrime involved."
 msgstr "不涉及网络犯罪。"
 
-msgid "Followed @{handle} on X."
-msgstr "在 X 上关注 @{handle}"
-
 msgid "Casts + Replies"
 msgstr "帖子+回复"
 
@@ -2484,6 +2505,9 @@ msgstr "开发者"
 msgid "Share to"
 msgstr "分享到"
 
+msgid "Meet any of the following to unlock a premium collectible and get more $ANON:"
+msgstr "满足以下任意条件即可解锁高级版本的 NFT 和获得更多的 $ANON："
+
 msgid "Non-sanctioned address."
 msgstr "非黑名单地址。"
 
@@ -2549,9 +2573,6 @@ msgstr "深色模式"
 
 msgid "Article added to your Bookmarks"
 msgstr "文章已经添加到您的收藏中"
-
-msgid "Please sign in with X to continue"
-msgstr "请登陆 X 以继续"
 
 msgid "Create a Post"
 msgstr "创建帖子"

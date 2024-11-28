@@ -13,14 +13,14 @@ export function ActivityHeader({
 }: {
     data: Pick<
         Required<ActivityInfoResponse>['data'],
-        'title' | 'sub_title' | 'start_time' | 'end_time' | 'status' | 'banner_url'
+        'title' | 'sub_title' | 'start_time' | 'end_time' | 'status' | 'banner_url' | 'cover_url' | 'description'
     >;
 }) {
     const timeTemplate = 'MMM DD, HH:mm';
     return (
         <div className="flex w-full flex-col">
             <Image
-                src={data.banner_url}
+                src={data.cover_url || data.banner_url}
                 alt={data.title}
                 className={classNames('w-full object-cover')}
                 width={343}
@@ -37,7 +37,7 @@ export function ActivityHeader({
                         <ActivityStatusTag status={data.status} />
                     </div>
                     <h1 className="text-xl font-semibold leading-6">{data.title}</h1>
-                    <p className="line-clamp-2 text-sm leading-6">{data.sub_title}</p>
+                    <p className="line-clamp-2 text-sm leading-6">{data.description}</p>
                 </div>
             </div>
         </div>

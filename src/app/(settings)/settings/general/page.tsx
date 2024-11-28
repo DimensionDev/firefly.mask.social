@@ -83,10 +83,10 @@ export default function General() {
                         onClick={async () => {
                             console.warn('[18n] change locale', option.value);
 
+                            setLocale(option.value);
+
                             const data = new FormData();
                             data.append('locale', option.value);
-
-                            setLocale(option.value);
                             await changeLocale(data);
                         }}
                     />

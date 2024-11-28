@@ -130,8 +130,8 @@ export function captureAccountCreateSuccessEvent(account: Account) {
     });
 }
 
-export function captureAccountLoginEvent(account: Account) {
-    return runInSafeAsync(() => {
+export async function captureAccountLoginEvent(account: Account) {
+    return runInSafeAsync(async () => {
         const source = account.profile.source;
         return TelemetryProvider.captureEvent(resolveLoginEventId(source), getAccountEventParameters(account));
     });

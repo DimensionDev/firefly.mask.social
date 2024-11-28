@@ -22,8 +22,8 @@ export function ChainIcon(props: ChainIconProps) {
     return (
         <Image
             src={networkDescriptor?.icon ?? ''}
-            width={chainId}
-            height={chainId}
+            width={size}
+            height={size}
             style={{
                 width: `${size}px`,
                 height: `${size}px`,

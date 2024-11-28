@@ -1,14 +1,17 @@
 'use client';
 
 import { Trans } from '@lingui/macro';
+import { useContext } from 'react';
 
 import { ActivityClaimButton } from '@/components/Activity/ActivityClaimButton.js';
 import { ActivityConnectCard } from '@/components/Activity/ActivityConnectCard.js';
+import { ActivityContext } from '@/components/Activity/ActivityContext.js';
 import { ActivityFollowTargetCard } from '@/components/Activity/ActivityFollowTargetCard.js';
+import { ActivityLoginButton } from '@/components/Activity/ActivityLoginButton.js';
 import { ActivityPremiumConditionList } from '@/components/Activity/ActivityPremiumConditionList.js';
 import { ActivityTaskFollowCard } from '@/components/Activity/ActivityTaskFollowCard.js';
-import { ActivityTwitterLoginButton } from '@/components/Activity/ActivityTwitterLoginButton.js';
 import { useActivityPremiumList } from '@/components/Activity/hooks/useActivityPremiumList.js';
+import { useIsFollowInActivity } from '@/components/Activity/hooks/useIsFollowInActivity.js';
 import { Source, SourceInURL } from '@/constants/enum.js';
 import { CHAR_TAG, type Chars } from '@/helpers/chars.js';
 import type { ActivityInfoResponse, Profile } from '@/providers/types/Firefly.js';
@@ -83,7 +86,7 @@ const barmstrongMention = {
 };
 
 export function ActivityHlblTasks({ data }: { data: Pick<Required<ActivityInfoResponse>['data'], 'status'> }) {
-    const list = useActivityPremiumList();
+    const list = useActivityPremiumList(Source.Twitter);
     const isPremium = list.some((x) => x.verified);
     const shareContent = !isPremium
         ? [
@@ -106,6 +109,8 @@ export function ActivityHlblTasks({ data }: { data: Pick<Required<ActivityInfoRe
               ' on X or Farcaster before Oct 20, you’re eligible to claim yours at https://firefly.mask.social/event/hlbl .\n\n',
               '#Base #FireflySocial',
           ];
+    const { address } = useContext(ActivityContext);
+    const { data: isFollowedFirefly } = useIsFollowInActivity(Source.Twitter, '1583361564479889408', 'thefireflyapp');
 
     return (
         <>
@@ -115,7 +120,7 @@ export function ActivityHlblTasks({ data }: { data: Pick<Required<ActivityInfoRe
                         <h2 className="text-base font-semibold leading-6">
                             <Trans>Step 1 Sign in</Trans>
                         </h2>
-                        <ActivityTwitterLoginButton />
+                        <ActivityLoginButton source={Source.Twitter} />
                     </div>
                     <ActivityFollowTargetCard handle="brian_armstrong" profileId="14379660" />
                 </div>
@@ -127,14 +132,33 @@ export function ActivityHlblTasks({ data }: { data: Pick<Required<ActivityInfoRe
                 <h2 className="text-base font-semibold leading-6">
                     <Trans>Step 2 Connect Wallet</Trans>
                 </h2>
-                <ActivityConnectCard />
-                <ActivityPremiumConditionList />
+                <ActivityConnectCard
+                    source={Source.Twitter}
+                    label={
+                        address ? (
+                            <Trans>Submit claimed address</Trans>
+                        ) : (
+                            <Trans>Connect your wallet to claim your NFT</Trans>
+                        )
+                    }
+                />
+                <div className="flex w-full flex-col space-y-2 text-sm font-semibold leading-6">
+                    <h2 className="text-base font-semibold leading-6">
+                        <Trans>Final Step Claim Now!</Trans>
+                    </h2>
+                    <ActivityPremiumConditionList
+                        title={<Trans>Hold on! Meet any of the following to unlock a premium collectible:</Trans>}
+                        source={Source.Twitter}
+                    />
+                </div>
             </div>
             <div className="sticky bottom-0 mt-auto w-full bg-primaryBottom px-4 pt-1.5 pb-safe-or-4 sm:pb-safe-or-2">
                 <ActivityClaimButton
                     status={data.status}
                     shareContent={shareContent as Chars}
                     claimType={isPremium ? 'premium' : 'base'}
+                    disabled={!isFollowedFirefly}
+                    source={Source.Twitter}
                 />
             </div>
         </>

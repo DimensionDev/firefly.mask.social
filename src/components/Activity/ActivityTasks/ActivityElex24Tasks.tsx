@@ -9,9 +9,11 @@ import { ActivityConnectCard } from '@/components/Activity/ActivityConnectCard.j
 import { ActivityContext } from '@/components/Activity/ActivityContext.js';
 import { ActivityElex24Context } from '@/components/Activity/ActivityElex24/ActivityElex24Context.js';
 import { ActivityElex24Vote } from '@/components/Activity/ActivityElex24/ActivityElex24Vote.js';
+import { ActivityLoginButton } from '@/components/Activity/ActivityLoginButton.js';
 import { ActivityPremiumConditionList } from '@/components/Activity/ActivityPremiumConditionList.js';
 import { ActivityTaskFollowCard } from '@/components/Activity/ActivityTaskFollowCard.js';
-import { ActivityTwitterLoginButton } from '@/components/Activity/ActivityTwitterLoginButton.js';
+import { useActivityCurrentAccountHandle } from '@/components/Activity/hooks/useActivityCurrentAccountHandle.js';
+import { useIsFollowInActivity } from '@/components/Activity/hooks/useIsFollowInActivity.js';
 import { Source, SourceInURL } from '@/constants/enum.js';
 import { SITE_URL } from '@/constants/index.js';
 import { CHAR_TAG, type Chars } from '@/helpers/chars.js';
@@ -53,11 +55,13 @@ const fireflyMention = {
 
 export function ActivityElex24Tasks({ data }: { data: Pick<Required<ActivityInfoResponse>['data'], 'status'> }) {
     const { vote } = useContext(ActivityElex24Context);
-    const { name, xHandle } = useContext(ActivityContext);
+    const { name, address } = useContext(ActivityContext);
+    const xHandle = useActivityCurrentAccountHandle(Source.Twitter);
     const shareUrl = urlcat(
         SITE_URL,
         resolveActivityUrl(name, { referralCode: xHandle, platform: ReferralAccountPlatform.X }),
     );
+    const { data: isFollowedFirefly } = useIsFollowInActivity(Source.Twitter, '1583361564479889408', 'thefireflyapp');
 
     const shareContent = vote
         ? {
@@ -86,7 +90,7 @@ export function ActivityElex24Tasks({ data }: { data: Pick<Required<ActivityInfo
                         <h2 className="text-base font-semibold leading-6">
                             <Trans>Step 1 Sign in</Trans>
                         </h2>
-                        <ActivityTwitterLoginButton />
+                        <ActivityLoginButton source={Source.Twitter} />
                     </div>
                 </div>
                 <ActivityTaskFollowCard
@@ -97,12 +101,29 @@ export function ActivityElex24Tasks({ data }: { data: Pick<Required<ActivityInfo
                 <h2 className="text-base font-semibold leading-6">
                     <Trans>Step 2 Connect Wallet</Trans>
                 </h2>
-                <ActivityConnectCard />
+                <ActivityConnectCard
+                    source={Source.Twitter}
+                    label={
+                        address ? (
+                            <Trans>Submit claimed address</Trans>
+                        ) : (
+                            <Trans>Connect your wallet to claim your NFT</Trans>
+                        )
+                    }
+                />
                 <h2 className="text-base font-semibold leading-6">
                     <Trans>Step 3 Select to vote</Trans>
                 </h2>
                 <ActivityElex24Vote />
-                <ActivityPremiumConditionList />
+                <div className="flex w-full flex-col space-y-2 text-sm font-semibold leading-6">
+                    <h2 className="text-base font-semibold leading-6">
+                        <Trans>Final Step Claim Now!</Trans>
+                    </h2>
+                    <ActivityPremiumConditionList
+                        title={<Trans>Hold on! Meet any of the following to unlock a premium collectible:</Trans>}
+                        source={Source.Twitter}
+                    />
+                </div>
             </div>
             <div className="sticky bottom-0 mt-auto w-full bg-primaryBottom px-4 pt-1.5 pb-safe-or-4 sm:pb-safe-or-2">
                 <ActivityClaimButton
@@ -110,7 +131,8 @@ export function ActivityElex24Tasks({ data }: { data: Pick<Required<ActivityInfo
                     claimApiExtraParams={{ vote }}
                     shareContent={shareContent as Chars}
                     claimType={vote}
-                    disabled={!vote}
+                    disabled={!vote || !isFollowedFirefly}
+                    source={Source.Twitter}
                 />
             </div>
         </>

@@ -136,6 +136,8 @@ export enum EventId {
     // activity
     EVENT_SHARE_CLICK = 'event_share_click',
     EVENT_X_LOG_IN_SUCCESS = 'event_x_log_in_success',
+    EVENT_FARCASTER_LOG_IN_SUCCESS = 'event_far_log_in_success',
+    EVENT_LENS_LOG_IN_SUCCESS = 'event_lens_log_in_success',
     EVENT_CONNECT_WALLET_SUCCESS = 'event_connect_wallet_success',
     EVENT_CHANGE_WALLET_SUCCESS = 'event_change_wallet_success',
     EVENT_CLAIM_BASIC_SUCCESS = 'event_claim_basic_success',
