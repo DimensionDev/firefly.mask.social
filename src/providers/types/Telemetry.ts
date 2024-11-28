@@ -696,17 +696,34 @@ export interface Events extends Record<EventId, Event> {
     };
 
     // Activity
-    [EventId.EVENT_SHARE_CLICK]: {
-        type: EventType.Interact;
-        parameters: {
-            firefly_account_id?: string;
-            activity: string;
-        };
-    };
     [EventId.EVENT_X_LOG_IN_SUCCESS]: {
         type: EventType.Interact;
         parameters: {
             firefly_account_id: string;
+            is_token_sync: boolean;
+            x_accounts: Array<[string, string]>; // [id, handle]
+        };
+    };
+    [EventId.EVENT_LENS_LOG_IN_SUCCESS]: {
+        type: EventType.Interact;
+        parameters: {
+            firefly_account_id: string;
+            is_token_sync: boolean;
+            lens_accounts: Array<[string, string]>; // [id, handle]
+        };
+    };
+    [EventId.EVENT_FARCASTER_LOG_IN_SUCCESS]: {
+        type: EventType.Interact;
+        parameters: {
+            firefly_account_id: string;
+            is_token_sync: boolean;
+            farcaster_accounts: Array<[string, string]>; // [id, handle]
+        };
+    };
+    [EventId.EVENT_SHARE_CLICK]: {
+        type: EventType.Interact;
+        parameters: {
+            firefly_account_id?: string;
             activity: string;
         };
     };
