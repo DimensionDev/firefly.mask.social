@@ -2496,6 +2496,9 @@ msgstr "只有你关注的人"
 msgid "The signer is not authorized to perform the requested operation. Please approve again."
 msgstr "Signer key 未被授权。请重试。"
 
+msgid "The account you are trying to log in with is already linked to a different Firefly account."
+msgstr ""
+
 msgid "Saved on {0}"
 msgstr "已保存在 {0}"
 
