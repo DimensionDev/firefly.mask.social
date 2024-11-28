@@ -4,7 +4,10 @@ import { memo } from 'react';
 
 import { RedPacketInjection } from '@/mask/plugins/red-packet/components/RedPacketInjection.jsx';
 import { RedPacketInPost } from '@/mask/plugins/red-packet/components/RedPacketInPost.jsx';
-import { RedPacketMetadataReader, renderWithRedPacketMetadata } from '@/mask/plugins/red-packet/helpers/renderWithRedPacketMetadata.js';
+import {
+    RedPacketMetadataReader,
+    renderWithRedPacketMetadata,
+} from '@/mask/plugins/red-packet/helpers/renderWithRedPacketMetadata.js';
 import { base } from '@/mask/plugins/red-packet/register/base.js';
 
 function Render(

@@ -1,3 +1,4 @@
+import { safeUnreachable } from '@masknet/kit';
 import { LoadingBase, makeStyles } from '@masknet/theme';
 import { FireflyTwitter } from '@masknet/web3-providers';
 import { FireflyRedPacketAPI } from '@masknet/web3-providers/types';
@@ -18,6 +19,9 @@ function resolveProfileUrl(platform: FireflyRedPacketAPI.PlatformType, handle: s
             return `/profile/lens/${handle}`;
         case FireflyRedPacketAPI.PlatformType.twitter:
             return `/${handle}`;
+        default:
+            safeUnreachable(platform);
+            return '';
     }
 }
 

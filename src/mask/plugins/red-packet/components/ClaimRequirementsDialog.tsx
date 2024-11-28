@@ -1,11 +1,11 @@
-import { type GeneratedIcon,Icons } from '@masknet/icons';
+import { type GeneratedIcon, Icons } from '@masknet/icons';
 import { getEnumAsArray } from '@masknet/kit';
 import { Alert, SelectNonFungibleContractModal } from '@masknet/shared';
 import { EMPTY_LIST, NetworkPluginID, PluginID } from '@masknet/shared-base';
 import { makeStyles } from '@masknet/theme';
 import { useChainContext } from '@masknet/web3-hooks-base';
 import type { NonFungibleCollection } from '@masknet/web3-shared-base';
-import { ChainId,SchemaType } from '@masknet/web3-shared-evm';
+import { ChainId, SchemaType } from '@masknet/web3-shared-evm';
 import {
     Box,
     Button,
@@ -21,7 +21,7 @@ import { useCallback, useState } from 'react';
 import { Trans } from 'react-i18next';
 
 import { useRedPacketTrans } from '@/mask/plugins/red-packet/locales/index.js';
-import { type FireflyRedpacketSettings,RequirementType } from '@/mask/plugins/red-packet/types.js';
+import { type FireflyRedpacketSettings, RequirementType } from '@/mask/plugins/red-packet/types.js';
 
 const useStyles = makeStyles()((theme) => ({
     container: {

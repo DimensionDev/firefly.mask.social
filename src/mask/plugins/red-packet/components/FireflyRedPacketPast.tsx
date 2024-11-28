@@ -1,4 +1,4 @@
-import { LoadingStatus,PluginWalletStatusBar } from '@masknet/shared';
+import { LoadingStatus, PluginWalletStatusBar } from '@masknet/shared';
 import { NetworkPluginID } from '@masknet/shared-base';
 import { makeStyles } from '@masknet/theme';
 import { FireflyRedPacketAPI } from '@masknet/web3-providers/types';

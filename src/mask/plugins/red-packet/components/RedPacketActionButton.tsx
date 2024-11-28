@@ -2,8 +2,8 @@ import { ActionButton, makeStyles } from '@masknet/theme';
 import { FireflyRedPacket } from '@masknet/web3-providers';
 import { FireflyRedPacketAPI } from '@masknet/web3-providers/types';
 import type { ChainId } from '@masknet/web3-shared-evm';
-import { type Theme,useMediaQuery } from '@mui/material';
-import { memo, useCallback, useContext,useEffect, useState } from 'react';
+import { type Theme, useMediaQuery } from '@mui/material';
+import { memo, useCallback, useContext, useEffect, useState } from 'react';
 import { useAsyncFn } from 'react-use';
 
 import { CompositionTypeContext } from '@/mask/plugins/red-packet/components/RedPacketInjection.jsx';

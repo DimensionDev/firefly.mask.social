@@ -1,5 +1,5 @@
 import { Icons } from '@masknet/icons';
-import { ChainBoundary, SelectProviderModal,WalletConnectedBoundary } from '@masknet/shared';
+import { ChainBoundary, SelectProviderModal, WalletConnectedBoundary } from '@masknet/shared';
 import { NetworkPluginID } from '@masknet/shared-base';
 import { ActionButton, makeStyles } from '@masknet/theme';
 import { useChainContext } from '@masknet/web3-hooks-base';

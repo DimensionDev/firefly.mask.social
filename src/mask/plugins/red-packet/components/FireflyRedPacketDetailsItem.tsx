@@ -2,7 +2,7 @@ import { Icons } from '@masknet/icons';
 import { TokenIcon } from '@masknet/shared';
 import { NetworkPluginID } from '@masknet/shared-base';
 import { makeStyles } from '@masknet/theme';
-import { useChainContext,useNetworkDescriptor } from '@masknet/web3-hooks-base';
+import { useChainContext, useNetworkDescriptor } from '@masknet/web3-hooks-base';
 import { FireflyRedPacketAPI } from '@masknet/web3-providers/types';
 import { formatBalance } from '@masknet/web3-shared-base';
 import { Box, ListItem, Typography } from '@mui/material';

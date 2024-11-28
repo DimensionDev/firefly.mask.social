@@ -12,10 +12,10 @@ import { SearchInput } from '@/components/Search/SearchInput.js';
 import { classNames } from '@/helpers/classNames.js';
 import { nFormatter } from '@/helpers/formatCommentCounts.js';
 import { isSameChannel } from '@/helpers/isSameChannel.js';
-import { hasRpPayload } from '@/mask/plugins/red-packet/helpers/rpPayload.js';
 import { useCompositePost } from '@/hooks/useCompositePost.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import { useSearchChannels } from '@/hooks/useSearchChannel.js';
+import { hasRpPayload } from '@/mask/plugins/red-packet/helpers/rpPayload.js';
 import type { Channel } from '@/providers/types/SocialMedia.js';
 import { useComposeStateStore } from '@/store/useComposeStore.js';
 

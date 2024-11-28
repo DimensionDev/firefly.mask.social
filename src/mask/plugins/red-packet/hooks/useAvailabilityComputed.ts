@@ -1,6 +1,6 @@
 import { EMPTY_LIST } from '@masknet/shared-base';
 import { EVMNetworkResolver } from '@masknet/web3-providers';
-import { type RedPacketJSONPayload,RedPacketStatus } from '@masknet/web3-providers/types';
+import { type RedPacketJSONPayload, RedPacketStatus } from '@masknet/web3-providers/types';
 import { isSameAddress } from '@masknet/web3-shared-base';
 import { ChainId, type NetworkType } from '@masknet/web3-shared-evm';
 import type { QueryObserverResult, RefetchOptions } from '@tanstack/react-query';

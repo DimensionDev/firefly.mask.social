@@ -6,7 +6,7 @@ import { useChainContext, useFungibleTokenPrice, useReverseAddress } from '@mask
 import { FireflyRedPacket } from '@masknet/web3-providers';
 import { FireflyRedPacketAPI, type RedPacketJSONPayload } from '@masknet/web3-providers/types';
 import { formatBalance, formatCurrency, leftShift } from '@masknet/web3-shared-base';
-import { formatEthereumAddress, type GasConfig,isValidAddress, isValidDomain } from '@masknet/web3-shared-evm';
+import { formatEthereumAddress, type GasConfig, isValidAddress, isValidDomain } from '@masknet/web3-shared-evm';
 import { Box, Popover, Radio, Skeleton, Typography } from '@mui/material';
 import { BigNumber } from 'bignumber.js';
 import { compact, flatten, uniqBy } from 'lodash-es';
@@ -17,7 +17,11 @@ import { REQUIREMENT_ICON_MAP, REQUIREMENT_TITLE_MAP } from '@/mask/plugins/red-
 import { type RedPacketSettings } from '@/mask/plugins/red-packet/hooks/useCreateCallback.jsx';
 import { useCreateFTRedpacketCallback } from '@/mask/plugins/red-packet/hooks/useCreateFTRedpacketCallback.js';
 import { useRedPacketTrans } from '@/mask/plugins/red-packet/locales/index.js';
-import { type FireflyContext, type FireflyRedpacketSettings,RequirementType } from '@/mask/plugins/red-packet/types.js';
+import {
+    type FireflyContext,
+    type FireflyRedpacketSettings,
+    RequirementType,
+} from '@/mask/plugins/red-packet/types.js';
 
 const useStyles = makeStyles()((theme) => ({
     container: {

@@ -1,16 +1,16 @@
-import { type GeneratedIcon, type GeneratedIconProps,Icons } from '@masknet/icons';
+import { type GeneratedIcon, type GeneratedIconProps, Icons } from '@masknet/icons';
 import { usePostInfoDetails, usePostLink } from '@masknet/plugin-infra/content-script';
-import { makeStyles,MaskColors } from '@masknet/theme';
+import { makeStyles, MaskColors } from '@masknet/theme';
 import { useWeb3Utils } from '@masknet/web3-hooks-base';
 import { NFTScanNonFungibleTokenEVM } from '@masknet/web3-providers';
 import { FireflyRedPacketAPI } from '@masknet/web3-providers/types';
-import { Box, type BoxProps,IconButton, Link, List, ListItem, Typography } from '@mui/material';
+import { Box, type BoxProps, IconButton, Link, List, ListItem, Typography } from '@mui/material';
 import { useQueries } from '@tanstack/react-query';
 import { sortBy } from 'lodash-es';
 import { forwardRef, useMemo } from 'react';
 
-import { usePlatformType } from '@/mask/plugins/red-packet/components/hooks/usePlatformType.js';
 import { MentionLink } from '@/mask/plugins/red-packet/components/Requirements/MentionLink.jsx';
+import { usePlatformType } from '@/mask/plugins/red-packet/hooks/usePlatformType.js';
 import { RedPacketTrans, useRedPacketTrans } from '@/mask/plugins/red-packet/locales/i18n_generated.js';
 
 const useStyles = makeStyles()((theme) => ({

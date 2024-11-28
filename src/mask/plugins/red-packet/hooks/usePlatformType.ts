@@ -1,4 +1,4 @@
-import { type PostContextAuthor,usePostInfoDetails } from '@masknet/plugin-infra/content-script';
+import { type PostContextAuthor, usePostInfoDetails } from '@masknet/plugin-infra/content-script';
 import { FireflyRedPacketAPI as F } from '@masknet/web3-providers/types';
 
 const map: Record<NonNullable<PostContextAuthor['source']>, F.PlatformType> = {

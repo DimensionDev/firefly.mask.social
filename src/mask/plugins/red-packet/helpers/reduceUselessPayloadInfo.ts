@@ -1,7 +1,7 @@
 import { type RedPacketJSONPayload } from '@masknet/web3-providers/types';
 import type { FungibleToken } from '@masknet/web3-shared-base';
 import type { ChainId, SchemaType } from '@masknet/web3-shared-evm';
-import { omit,pick } from 'lodash-es';
+import { omit, pick } from 'lodash-es';
 
 export function reduceUselessPayloadInfo(payload: RedPacketJSONPayload): RedPacketJSONPayload {
     const token = pick(payload.token, ['decimals', 'symbol', 'address', 'chainId']) as FungibleToken<

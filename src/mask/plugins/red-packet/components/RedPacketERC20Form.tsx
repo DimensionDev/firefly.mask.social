@@ -33,7 +33,11 @@ import { omit } from 'lodash-es';
 import { type ChangeEvent, useCallback, useMemo, useState } from 'react';
 import { useUpdateEffect } from 'react-use';
 
-import { RED_PACKET_DEFAULT_SHARES, RED_PACKET_MAX_SHARES, RED_PACKET_MIN_SHARES } from '@/mask/plugins/red-packet/constants.js';
+import {
+    RED_PACKET_DEFAULT_SHARES,
+    RED_PACKET_MAX_SHARES,
+    RED_PACKET_MIN_SHARES,
+} from '@/mask/plugins/red-packet/constants.js';
 import { type RedPacketSettings, useCreateParams } from '@/mask/plugins/red-packet/hooks/useCreateCallback.jsx';
 import { useDefaultCreateGas } from '@/mask/plugins/red-packet/hooks/useDefaultCreateGas.js';
 import { useRedPacketTrans } from '@/mask/plugins/red-packet/locales/index.js';

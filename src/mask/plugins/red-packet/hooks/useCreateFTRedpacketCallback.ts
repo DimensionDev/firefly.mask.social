@@ -2,14 +2,18 @@ import { NetworkPluginID } from '@masknet/shared-base';
 import { useBalance, useChainContext } from '@masknet/web3-hooks-base';
 import { useTransactionValue } from '@masknet/web3-hooks-evm';
 import { EVMChainResolver } from '@masknet/web3-providers';
-import type { RedPacketJSONPayload,RedPacketRecord } from '@masknet/web3-providers/types';
+import type { RedPacketJSONPayload, RedPacketRecord } from '@masknet/web3-providers/types';
 import { formatBalance } from '@masknet/web3-shared-base';
 import { type GasConfig, isNativeTokenAddress, useRedPacketConstants } from '@masknet/web3-shared-evm';
 import { BigNumber } from 'bignumber.js';
-import { useCallback, useEffect,useRef } from 'react';
+import { useCallback, useEffect, useRef } from 'react';
 
 import { RedPacketRPC } from '@/mask/plugins/messages.js';
-import { type RedPacketSettings, useCreateCallback,useCreateParams } from '@/mask/plugins/red-packet/hooks/useCreateCallback.jsx';
+import {
+    type RedPacketSettings,
+    useCreateCallback,
+    useCreateParams,
+} from '@/mask/plugins/red-packet/hooks/useCreateCallback.jsx';
 
 export function useCreateFTRedpacketCallback(
     publicKey: string,
