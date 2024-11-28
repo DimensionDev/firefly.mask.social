@@ -1,7 +1,8 @@
+import { t, Trans } from '@lingui/macro';
 import { type GeneratedIcon, Icons } from '@masknet/icons';
 import { getEnumAsArray } from '@masknet/kit';
 import { Alert, SelectNonFungibleContractModal } from '@masknet/shared';
-import { EMPTY_LIST, NetworkPluginID, PluginID } from '@masknet/shared-base';
+import { EMPTY_LIST, NetworkPluginID } from '@masknet/shared-base';
 import { makeStyles } from '@masknet/theme';
 import { useChainContext } from '@masknet/web3-hooks-base';
 import type { NonFungibleCollection } from '@masknet/web3-shared-base';
@@ -18,9 +19,7 @@ import {
     Typography,
 } from '@mui/material';
 import { useCallback, useState } from 'react';
-import { Trans } from 'react-i18next';
 
-import { useRedPacketTrans } from '@/mask/plugins/red-packet/locales/index.js';
 import { type FireflyRedpacketSettings, RequirementType } from '@/mask/plugins/red-packet/types.js';
 
 const useStyles = makeStyles()((theme) => ({
@@ -117,15 +116,14 @@ export const REQUIREMENT_ICON_MAP: Record<RequirementType, GeneratedIcon> = {
 };
 
 export const REQUIREMENT_TITLE_MAP: Record<RequirementType, React.ReactNode> = {
-    [RequirementType.Follow]: <Trans ns={PluginID.RedPacket} i18nKey="follow_me" />,
-    [RequirementType.Like]: <Trans ns={PluginID.RedPacket} i18nKey="like" />,
-    [RequirementType.Repost]: <Trans ns={PluginID.RedPacket} i18nKey="repost" />,
-    [RequirementType.Comment]: <Trans ns={PluginID.RedPacket} i18nKey="comment" />,
-    [RequirementType.NFTHolder]: <Trans ns={PluginID.RedPacket} i18nKey="nft_holder" />,
+    [RequirementType.Follow]: t`Follow me`,
+    [RequirementType.Like]: t`Like`,
+    [RequirementType.Repost]: t`Repost`,
+    [RequirementType.Comment]: t`Comment`,
+    [RequirementType.NFTHolder]: t`NFT holder`,
 };
 
 export function ClaimRequirementsDialog(props: ClaimRequirementsDialogProps) {
-    const t = useRedPacketTrans();
     const [selectedRules, setSelectedRules] = useState(props.origin ?? [RequirementType.Follow]);
     const [selectedCollection, setSelectedCollection] = useState<NonFungibleCollection<ChainId, SchemaType>>();
     const { classes } = useStyles();
@@ -161,7 +159,9 @@ export function ClaimRequirementsDialog(props: ClaimRequirementsDialogProps) {
     return (
         <>
             <Box className={classes.container}>
-                <Alert open>{t.claim_requirements_tips()}</Alert>
+                <Alert open>
+                    <Trans>You can set one or multiple rules to be eligible to win a Lucky Drop.</Trans>
+                </Alert>
                 <List dense className={classes.list}>
                     {getEnumAsArray(RequirementType).map(({ value }) => {
                         const checked = selectedRules.includes(value);
@@ -207,7 +207,7 @@ export function ClaimRequirementsDialog(props: ClaimRequirementsDialogProps) {
                             </Box>
                         ) : (
                             <Typography className={classes.selectText}>
-                                {t.select_nft_collection_to_gate_access()}
+                                <Trans>Select NFT collection to gate access</Trans>
                             </Typography>
                         )}
                         <Icons.ArrowDrop size={18} />
@@ -220,7 +220,7 @@ export function ClaimRequirementsDialog(props: ClaimRequirementsDialogProps) {
                     disableRipple
                     disableElevation
                 >
-                    {t.clear_all_requirements()}
+                    <Trans>Clear all requirements</Trans>
                 </Button>
             </Box>
             <Box className={classes.footer}>
@@ -236,7 +236,7 @@ export function ClaimRequirementsDialog(props: ClaimRequirementsDialogProps) {
                         })
                     }
                 >
-                    {t.next_button()}
+                    <Trans>Next</Trans>
                 </Button>
             </Box>
         </>

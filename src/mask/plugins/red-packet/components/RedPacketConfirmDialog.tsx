@@ -1,3 +1,4 @@
+import { Trans } from '@lingui/macro';
 import { Icons } from '@masknet/icons';
 import { ChainBoundary, PluginWalletStatusBar, SelectGasSettingsToolbar } from '@masknet/shared';
 import { NetworkPluginID } from '@masknet/shared-base';
@@ -12,7 +13,6 @@ import { useEffect, useMemo } from 'react';
 import { EVMChainResolver, EVMExplorerResolver, EVMWeb3 } from '@/mask/bindings/index.js';
 import { type RedPacketSettings } from '@/mask/plugins/red-packet/hooks/useCreateCallback.js';
 import { useCreateFTRedpacketCallback } from '@/mask/plugins/red-packet/hooks/useCreateFTRedpacketCallback.js';
-import { useRedPacketTrans } from '@/mask/plugins/red-packet/locales/index.js';
 import type { RedPacketJSONPayload } from '@/providers/red-packet/types.js';
 
 const useStyles = makeStyles()((theme) => ({
@@ -66,13 +66,12 @@ interface ConfirmRedPacketFormProps {
 }
 
 export function RedPacketConfirmDialog(props: ConfirmRedPacketFormProps) {
-    const t = useRedPacketTrans();
     const { settings, onCreated, onClose, gasOption, onGasOptionChange, expectedChainId } = props;
     const { classes, cx } = useStyles();
     const { chainId } = useChainContext<NetworkPluginID.PLUGIN_EVM>({ chainId: expectedChainId });
     useEffect(() => {
         if (settings?.token?.chainId !== chainId) onClose();
-    }, [chainId, onClose]);
+    }, [chainId, onClose, settings?.token?.chainId]);
 
     const { account: publicKey, privateKey = '' } = useMemo(() => EVMWeb3.createAccount(), []);
 
@@ -99,18 +98,18 @@ export function RedPacketConfirmDialog(props: ConfirmRedPacketFormProps) {
                 </Grid>
                 <Grid item xs={6}>
                     <Typography variant="body1" color="textSecondary">
-                        {t.split_mode()}
+                        <Trans>Split Mode</Trans>
                     </Typography>
                 </Grid>
                 <Grid item xs={6}>
                     <Typography variant="body1" color="textPrimary" align="right">
-                        {settings?.isRandom ? t.random() : t.average()}
+                        {settings?.isRandom ? <Trans>Random</Trans> : <Trans>Identical</Trans>}
                     </Typography>
                 </Grid>
 
                 <Grid item xs={6}>
                     <Typography variant="body1" color="textSecondary">
-                        {t.share()}
+                        <Trans>Share</Trans>
                     </Typography>
                 </Grid>
                 <Grid item xs={6}>
@@ -123,7 +122,7 @@ export function RedPacketConfirmDialog(props: ConfirmRedPacketFormProps) {
                     <>
                         <Grid item xs={6}>
                             <Typography variant="body1" color="textSecondary">
-                                {t.amount_per_share()}
+                                <Trans>Amount per Share</Trans>
                             </Typography>
                         </Grid>
                         <Grid item xs={6}>
@@ -156,7 +155,7 @@ export function RedPacketConfirmDialog(props: ConfirmRedPacketFormProps) {
 
                 <Grid item xs={6}>
                     <Typography variant="body1" color="textSecondary">
-                        {t.total_cost()}
+                        <Trans>Total cost</Trans>
                     </Typography>
                 </Grid>
                 <Grid item xs={6}>
@@ -203,7 +202,9 @@ export function RedPacketConfirmDialog(props: ConfirmRedPacketFormProps) {
                             style={{ lineHeight: '18px' }}
                             fontSize="14px"
                         >
-                            {t.hint()}
+                            <Trans>
+                                You can withdraw the rest of your balances back 24h later after sending them out.
+                            </Trans>
                         </Typography>
                     </Paper>
                 </Grid>
@@ -216,7 +217,7 @@ export function RedPacketConfirmDialog(props: ConfirmRedPacketFormProps) {
                         onClick={createRedpacket}
                         disabled={isBalanceInsufficient || isWaitGasBeMinus || isCreating}
                     >
-                        {isCreating ? t.confirming() : t.confirm()}
+                        {isCreating ? <Trans>Confirming</Trans> : <Trans>Confirm</Trans>}
                     </ActionButton>
                 </ChainBoundary>
             </PluginWalletStatusBar>

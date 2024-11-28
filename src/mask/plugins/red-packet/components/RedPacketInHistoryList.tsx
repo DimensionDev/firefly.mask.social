@@ -1,3 +1,4 @@
+import { Trans } from '@lingui/macro';
 import { TokenIcon } from '@masknet/shared';
 import { NetworkPluginID } from '@masknet/shared-base';
 import { makeStyles } from '@masknet/theme';
@@ -8,11 +9,10 @@ import { Box, ListItem, Typography } from '@mui/material';
 import { format, fromUnixTime } from 'date-fns';
 import { memo } from 'react';
 
+import { useEverSeen } from '@/hooks/useEverSeen.js';
 import { RedPacketActionButton } from '@/mask/plugins/red-packet/components/RedPacketActionButton.js';
 import { useRedpacketToken } from '@/mask/plugins/red-packet/hooks/useRedpacketToken.js';
-import { RedPacketTrans, useRedPacketTrans } from '@/mask/plugins/red-packet/locales/index.js';
 import { FireflyRedPacketAPI, type RedPacketJSONPayload } from '@/providers/red-packet/types.js';
-import { useEverSeen } from '@/hooks/useEverSeen.js';
 
 const DEFAULT_BACKGROUND = NETWORK_DESCRIPTORS.find((x) => x.chainId === ChainId.Mainnet)!.backgroundGradient!;
 const useStyles = makeStyles<{ listItemBackground?: string; listItemBackgroundIcon?: string }>()((
@@ -69,7 +69,7 @@ const useStyles = makeStyles<{ listItemBackground?: string; listItemBackgroundIc
             width: '100%',
         },
         content: {
-            transform: 'RedPacketTransY(-4px)',
+            transform: 'translateY(-4px)',
             width: '100%',
             [smallQuery]: {
                 paddingLeft: theme.spacing(1.5),
@@ -165,7 +165,6 @@ export const RedPacketInHistoryList = memo(function RedPacketInHistoryList(props
     } = history;
     const [seen, redpacketRef] = useEverSeen();
     const chainId = history.chain_id;
-    const t = useRedPacketTrans();
 
     const { account } = useChainContext<NetworkPluginID.PLUGIN_EVM>();
     const networkDescriptor = useNetworkDescriptor(NetworkPluginID.PLUGIN_EVM, chainId);
@@ -189,12 +188,12 @@ export const RedPacketInHistoryList = memo(function RedPacketInHistoryList(props
                             <div className={classes.div}>
                                 <div className={classes.fullWidthBox}>
                                     <Typography variant="body1" className={cx(classes.title, classes.message)}>
-                                        {!rp_msg ? t.best_wishes() : rp_msg}
+                                        {!rp_msg ? <Trans>Best Wishes!</Trans> : rp_msg}
                                     </Typography>
                                 </div>
                                 <div className={classes.fullWidthBox}>
                                     <Typography variant="body1" className={cx(classes.infoTitle, classes.message)}>
-                                        {t.create_time()}
+                                        <Trans>Create time:</Trans>
                                     </Typography>
                                     <Typography
                                         variant="body1"
@@ -204,9 +203,7 @@ export const RedPacketInHistoryList = memo(function RedPacketInHistoryList(props
                                             redpacket_id ? '' : classes.invisible,
                                         )}
                                     >
-                                        {t.history_duration({
-                                            time: format(fromUnixTime(create_time), 'M/d/yyyy HH:mm'),
-                                        })}
+                                        <Trans>{format(fromUnixTime(create_time), 'M/d/yyyy HH:mm')} (UTC+8)</Trans>
                                     </Typography>
                                 </div>
                             </div>
@@ -233,24 +230,22 @@ export const RedPacketInHistoryList = memo(function RedPacketInHistoryList(props
 
                         <section className={classes.footer}>
                             <Typography variant="body1" className={classes.footerInfo}>
-                                <RedPacketTrans.history_claimed
-                                    components={{
-                                        span: <span />,
-                                    }}
-                                    values={{
-                                        claimedShares: String(claim_numbers),
-                                        shares: String(total_numbers),
-                                        amount: formatBalance(total_amounts, token_decimal ?? 18, {
-                                            significant: 2,
-                                            isPrecise: true,
-                                        }),
-                                        claimedAmount: formatBalance(claim_amounts, token_decimal, {
-                                            significant: 2,
-                                            isPrecise: true,
-                                        }),
-                                        symbol: tokenSymbol,
-                                    }}
-                                />
+                                <Trans>
+                                    Claimed:{' '}
+                                    <span>
+                                        {claim_numbers}/{total_numbers}
+                                    </span>{' '}
+                                    {formatBalance(claim_amounts, token_decimal, {
+                                        significant: 2,
+                                        isPrecise: true,
+                                    })}
+                                    /
+                                    {formatBalance(total_amounts, token_decimal ?? 18, {
+                                        significant: 2,
+                                        isPrecise: true,
+                                    })}{' '}
+                                    <span>{tokenSymbol}</span>
+                                </Trans>
                             </Typography>
                             {token_logo ? (
                                 <TokenIcon

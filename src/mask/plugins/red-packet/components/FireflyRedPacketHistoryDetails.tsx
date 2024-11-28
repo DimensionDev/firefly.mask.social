@@ -1,3 +1,4 @@
+import { Trans } from '@lingui/macro';
 import { ElementAnchor } from '@masknet/shared';
 import { createIndicator } from '@masknet/shared-base';
 import { makeStyles } from '@masknet/theme';
@@ -9,7 +10,6 @@ import { memo, useMemo } from 'react';
 
 import { FireflyRedPacketAccountItem } from '@/mask/plugins/red-packet/components/FireflyRedPacketAccountItem.js';
 import { FireflyRedPacketDetailsItem } from '@/mask/plugins/red-packet/components/FireflyRedPacketDetailsItem.js';
-import { useRedPacketTrans } from '@/mask/plugins/red-packet/locales/index.js';
 import { FireflyRedPacket } from '@/providers/red-packet/index.js';
 
 const useStyles = makeStyles()((theme) => ({
@@ -56,7 +56,6 @@ interface Props {
 
 export const FireflyRedPacketHistoryDetails = memo(function FireflyRedPacketHistoryDetails({ rpid }: Props) {
     const { classes } = useStyles();
-    const t = useRedPacketTrans();
     const { data: claimData, fetchNextPage } = useSuspenseInfiniteQuery({
         queryKey: ['fireflyClaimHistory', rpid],
         initialPageParam: '',
@@ -90,7 +89,9 @@ export const FireflyRedPacketHistoryDetails = memo(function FireflyRedPacketHist
                         </div>
                     ))
                 ) : (
-                    <div className={classes.noData}>{t.no_claim_data()}</div>
+                    <div className={classes.noData}>
+                        <Trans>No claims yet for this Lucky Drop</Trans>
+                    </div>
                 )}
                 <ElementAnchor callback={() => fetchNextPage()} height={10} />
             </Box>

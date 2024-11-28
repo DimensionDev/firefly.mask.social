@@ -1,3 +1,4 @@
+import { Trans } from '@lingui/macro';
 import { Icons } from '@masknet/icons';
 import { TokenIcon } from '@masknet/shared';
 import { NetworkPluginID } from '@masknet/shared-base';
@@ -11,7 +12,6 @@ import urlcat from 'urlcat';
 
 import { FireflyRedPacketAccountItem } from '@/mask/plugins/red-packet/components/FireflyRedPacketAccountItem.js';
 import { RedPacketActionButton } from '@/mask/plugins/red-packet/components/RedPacketActionButton.js';
-import { RedPacketTrans, useRedPacketTrans } from '@/mask/plugins/red-packet/locales/index.js';
 import { FireflyRedPacketAPI } from '@/providers/red-packet/types.js';
 
 const useStyles = makeStyles<{ listItemBackground?: string; listItemBackgroundIcon?: string }>()((
@@ -70,7 +70,7 @@ const useStyles = makeStyles<{ listItemBackground?: string; listItemBackgroundIc
             width: '100%',
         },
         content: {
-            transform: 'RedPacketTransY(-4px)',
+            transform: 'translateY(-4px)',
             width: '100%',
             [smallQuery]: {
                 paddingLeft: theme.spacing(1.5),
@@ -217,7 +217,6 @@ const PlatformButton = memo(function PlatformButton(props: {
     className: string;
 }) {
     const { platform, postId, className } = props;
-    console.log('PlatformButton', platform, postId, className);
     return (
         <a
             href={urlcat(SITE_URL, `/post/${platform}/${postId}`)}
@@ -254,8 +253,6 @@ export const FireflyRedPacketDetailsItem = memo(function FireflyRedPacketDetails
         theme_id,
         post_on,
     } = history;
-    const t = useRedPacketTrans();
-
     const { account } = useChainContext<NetworkPluginID.PLUGIN_EVM>();
     const networkDescriptor = useNetworkDescriptor(NetworkPluginID.PLUGIN_EVM, chain_id);
 
@@ -263,7 +260,7 @@ export const FireflyRedPacketDetailsItem = memo(function FireflyRedPacketDetails
         listItemBackground: networkDescriptor?.backgroundGradient,
         listItemBackgroundIcon: networkDescriptor ? `url("${networkDescriptor.icon}")` : undefined,
     });
-    const postReactionStrategy = claim_strategy?.find((x) => x.type === FireflyRedPacketAPI.StrategyType.postReaction);
+
     return (
         <ListItem className={classes.root}>
             <section className={classes.contentItem}>
@@ -273,12 +270,12 @@ export const FireflyRedPacketDetailsItem = memo(function FireflyRedPacketDetails
                             <div className={classes.div}>
                                 <div className={classes.fullWidthBox}>
                                     <Typography variant="body1" className={cx(classes.title, classes.message)}>
-                                        {!rp_msg ? t.best_wishes() : rp_msg}
+                                        {!rp_msg ? <Trans>Best Wishes!</Trans> : rp_msg}
                                     </Typography>
                                 </div>
                                 <div className={classes.fullWidthBox}>
                                     <Typography variant="body1" className={cx(classes.infoTitle, classes.message)}>
-                                        {create_time ? t.create_time() : t.received_time()}
+                                        {create_time ? <Trans>Create time:</Trans> : <Trans>Received time:</Trans>}
                                     </Typography>
                                     <Typography
                                         variant="body1"
@@ -288,25 +285,24 @@ export const FireflyRedPacketDetailsItem = memo(function FireflyRedPacketDetails
                                             redpacket_id ? '' : classes.invisible,
                                         )}
                                     >
-                                        {create_time
-                                            ? t.history_duration({
-                                                  time: format(fromUnixTime(create_time), 'M/d/yyyy HH:mm'),
-                                              })
-                                            : null}
-                                        {received_time
-                                            ? t.history_duration({
-                                                  time: format(
-                                                      fromUnixTime(Number.parseInt(received_time, 10)),
-                                                      'M/d/yyyy HH:mm',
-                                                  ),
-                                              })
-                                            : null}
+                                        {create_time ? (
+                                            <Trans>{format(fromUnixTime(create_time), 'M/d/yyyy HH:mm')} (UTC+8)</Trans>
+                                        ) : null}
+                                        {received_time ? (
+                                            <Trans>
+                                                {format(
+                                                    fromUnixTime(Number.parseInt(received_time, 10)),
+                                                    'M/d/yyyy HH:mm',
+                                                )}{' '}
+                                                (UTC+8)
+                                            </Trans>
+                                        ) : null}
                                     </Typography>
                                 </div>
                                 {creator ? (
                                     <div className={classes.fullWidthBox}>
                                         <Typography variant="body1" className={cx(classes.infoTitle, classes.message)}>
-                                            {t.creator()}
+                                            <Trans>Creator:</Trans>
                                         </Typography>
                                         <FireflyRedPacketAccountItem
                                             address={creator}
@@ -319,7 +315,7 @@ export const FireflyRedPacketDetailsItem = memo(function FireflyRedPacketDetails
                                 {post_on?.length && isDetail ? (
                                     <div className={classes.fullWidthBox}>
                                         <Typography variant="body1" className={cx(classes.infoTitle, classes.message)}>
-                                            {t.post_on()}
+                                            <Trans>Post on</Trans>
                                         </Typography>
                                         <div className={classes.icons}>
                                             {post_on
@@ -367,24 +363,24 @@ export const FireflyRedPacketDetailsItem = memo(function FireflyRedPacketDetails
                             {claim_numbers || total_numbers ? (
                                 <div style={{ display: 'flex', alignItems: 'center' }}>
                                     <Typography variant="body1" className={classes.claimFooterInfo}>
-                                        <RedPacketTrans.history_claimed_firefly
-                                            components={{
-                                                span: <span />,
-                                            }}
-                                            values={{
-                                                claimedShares: String(claim_numbers),
-                                                shares: String(total_numbers),
-                                                amount: formatBalance(total_amounts, token_decimal ?? 18, {
+                                        <Trans>
+                                            Claimed:{' '}
+                                            <span>
+                                                {claim_numbers}/{total_numbers}
+                                            </span>{' '}
+                                            <span>
+                                                {formatBalance(claim_amounts, token_decimal, {
                                                     significant: 2,
                                                     isPrecise: true,
-                                                }),
-                                                claimedAmount: formatBalance(claim_amounts, token_decimal, {
+                                                })}
+                                                /
+                                                {formatBalance(total_amounts, token_decimal ?? 18, {
                                                     significant: 2,
                                                     isPrecise: true,
-                                                }),
-                                                symbol: token_symbol,
-                                            }}
-                                        />
+                                                })}
+                                            </span>{' '}
+                                            <span>{token_symbol}</span>
+                                        </Trans>
                                     </Typography>
                                     {token_logo ? (
                                         <TokenIcon
@@ -399,7 +395,9 @@ export const FireflyRedPacketDetailsItem = memo(function FireflyRedPacketDetails
                             {token_amounts ? (
                                 <div style={{ display: 'flex', alignItems: 'center' }}>
                                     <Typography variant="body1" className={classes.footerInfo}>
-                                        <span>{t.received()}</span>
+                                        <span>
+                                            <Trans>Received</Trans>
+                                        </span>
                                         {formatBalance(token_amounts, token_decimal, {
                                             significant: 2,
                                             isPrecise: true,
@@ -424,7 +422,7 @@ export const FireflyRedPacketDetailsItem = memo(function FireflyRedPacketDetails
                                         handleOpenDetails(redpacket_id);
                                     }}
                                 >
-                                    {t.more_details()}
+                                    <Trans>More details</Trans>
                                 </button>
                             ) : null}
                         </section>

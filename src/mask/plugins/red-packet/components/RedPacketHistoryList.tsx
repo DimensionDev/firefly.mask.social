@@ -1,3 +1,4 @@
+import { Trans } from '@lingui/macro';
 import { ElementAnchor, EmptyStatus, LoadingStatus } from '@masknet/shared';
 import { type NetworkPluginID } from '@masknet/shared-base';
 import { makeStyles } from '@masknet/theme';
@@ -7,7 +8,6 @@ import { type HTMLProps, memo, useMemo } from 'react';
 
 import { RedPacketInHistoryList } from '@/mask/plugins/red-packet/components/RedPacketInHistoryList.js';
 import { useRedPacketHistory } from '@/mask/plugins/red-packet/hooks/useRedPacketHistory.js';
-import { useRedPacketTrans } from '@/mask/plugins/red-packet/locales/index.js';
 import { FireflyRedPacketAPI, type RedPacketJSONPayload } from '@/providers/red-packet/types.js';
 
 const useStyles = makeStyles()((theme) => {
@@ -44,7 +44,6 @@ export const RedPacketHistoryList = memo(function RedPacketHistoryList({
     onSelect,
     ...rest
 }: RedPacketHistoryListProps) {
-    const t = useRedPacketTrans();
     const { classes, cx } = useStyles();
     const { account, chainId } = useChainContext<NetworkPluginID.PLUGIN_EVM>();
     const {
@@ -56,7 +55,12 @@ export const RedPacketHistoryList = memo(function RedPacketHistoryList({
 
     if (isLoading) return <LoadingStatus className={classes.placeholder} iconSize={30} />;
 
-    if (!histories?.length) return <EmptyStatus className={classes.placeholder}>{t.search_no_result()}</EmptyStatus>;
+    if (!histories?.length)
+        return (
+            <EmptyStatus className={classes.placeholder}>
+                <Trans>No results</Trans>
+            </EmptyStatus>
+        );
 
     return (
         <div {...rest} className={cx(classes.root, rest.className)}>

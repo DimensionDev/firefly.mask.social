@@ -1,7 +1,6 @@
+import { Trans } from '@lingui/macro';
 import { makeStyles } from '@masknet/theme';
 import { Box, InputBase, Typography } from '@mui/material';
-
-import { useRedPacketTrans } from '@/mask/plugins/red-packet/locales/index.js';
 
 const useStyles = makeStyles()((theme) => {
     return {
@@ -32,12 +31,13 @@ interface RedpacketMessagePanelProps {
 export function RedpacketMessagePanel(props: RedpacketMessagePanelProps) {
     const { onChange, message } = props;
     const { classes, cx } = useStyles();
-    const t = useRedPacketTrans();
 
     return (
         <Box className={classes.root}>
             <div className={classes.wrapper}>
-                <Typography>{t.message_label()}</Typography>
+                <Typography>
+                    <Trans>Enclose a Message</Trans>
+                </Typography>
             </div>
             <div className={cx(classes.wrapper)}>
                 <InputBase

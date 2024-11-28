@@ -1,3 +1,4 @@
+import { t } from '@lingui/macro';
 import { Icons } from '@masknet/icons';
 import {
     useActivatedPluginSiteAdaptor,
@@ -28,7 +29,6 @@ import { RedPacketMetaKey } from '@/mask/plugins/red-packet/constants.js';
 import { openComposition } from '@/mask/plugins/red-packet/helpers/openComposition.js';
 import { reduceUselessPayloadInfo } from '@/mask/plugins/red-packet/helpers/reduceUselessPayloadInfo.js';
 import type { RedPacketSettings } from '@/mask/plugins/red-packet/hooks/useCreateCallback.js';
-import { useRedPacketTrans } from '@/mask/plugins/red-packet/locales/index.js';
 import type { FireflyContext, FireflyRedpacketSettings } from '@/mask/plugins/red-packet/types.js';
 import type { FireflyRedPacketAPI, RedPacketJSONPayload } from '@/providers/red-packet/types.js';
 
@@ -80,10 +80,9 @@ interface RedPacketDialogProps {
 }
 
 export default function RedPacketDialog(props: RedPacketDialogProps) {
-    const t = useRedPacketTrans();
     const [showHistory, setShowHistory] = useState(false);
     const [showDetails, setShowDetails] = useState(false);
-    const [rpid, setRpid] = useState<string>('');
+    const [rpid, setRpid] = useState('');
     const [showClaimRule, setShowClaimRule] = useState(false);
     const [gasOption, setGasOption] = useState<GasConfig>();
 
@@ -208,13 +207,13 @@ export default function RedPacketDialog(props: RedPacketDialogProps) {
     );
 
     const title = useMemo(() => {
-        if (showDetails) return t.more_details();
-        if (showHistory) return t.history();
-        if (openSelectNFTDialog) return t.nft_select_collection();
-        if (openNFTConfirmDialog) return t.confirm();
-        if (step === CreateRedPacketPageStep.NewRedPacketPage) return t.display_name();
-        if (step === CreateRedPacketPageStep.ClaimRequirementsPage) return t.claim_requirements_title();
-        return t.details();
+        if (showDetails) return t`More details`;
+        if (showHistory) return t`History`;
+        if (openSelectNFTDialog) return t`Choose your collection`;
+        if (openNFTConfirmDialog) return t`Confirm`;
+        if (step === CreateRedPacketPageStep.NewRedPacketPage) return t`Lucky Drop`;
+        if (step === CreateRedPacketPageStep.ClaimRequirementsPage) return t`Claim Requirements`;
+        return t`Confirm the Lucky Drop`;
     }, [showHistory, openSelectNFTDialog, openNFTConfirmDialog, step, showDetails]);
 
     const titleTail = useMemo(() => {
@@ -282,8 +281,8 @@ export default function RedPacketDialog(props: RedPacketDialogProps) {
                 titleTabs={
                     step === CreateRedPacketPageStep.NewRedPacketPage && showHistory && !showDetails ? (
                         <MaskTabList variant="base" onChange={onChangeHistoryTab} aria-label="Redpacket">
-                            <Tab label={t.claimed_tab_title()} value={historyTabs.claimed} />
-                            <Tab label={t.sent_tab_title()} value={historyTabs.sent} />
+                            <Tab label={t`Claimed`} value={historyTabs.claimed} />
+                            <Tab label={t`Sent`} value={historyTabs.sent} />
                         </MaskTabList>
                     ) : null
                 }

@@ -1,10 +1,9 @@
+import { Trans } from '@lingui/macro';
 import { Icons } from '@masknet/icons';
 import { Alert } from '@masknet/shared';
 import { makeStyles, usePortalShadowRoot } from '@masknet/theme';
 import { Box, Dialog, DialogContent, DialogTitle, Typography } from '@mui/material';
 import { memo } from 'react';
-
-import { useRedPacketTrans } from '@/mask/plugins/red-packet/locales/index.js';
 
 const useStyles = makeStyles()((theme) => ({
     paper: {
@@ -44,29 +43,50 @@ export const ClaimRequirementsRuleDialog = memo<ClaimRequirementsRuleDialogProps
     open,
     onClose,
 }) {
-    const t = useRedPacketTrans();
     const { classes } = useStyles();
 
     return usePortalShadowRoot((container) => (
         <Dialog container={container} open={open} onClose={onClose} classes={{ paper: classes.paper }}>
             <DialogTitle className={classes.dialogTitle}>
                 <Icons.Close onClick={onClose} />
-                <Typography className={classes.title}>{t.claim_requirements_title()}</Typography>
+                <Typography className={classes.title}>
+                    <Trans>Claim Requirements</Trans>
+                </Typography>
             </DialogTitle>
             <DialogContent>
-                <Alert open>{t.claim_requirements_rule_tips()}</Alert>
+                <Alert open>
+                    <Trans>
+                        Use Lucky Drop quests to grow your followers and engagement. Each requirement must be completed
+                        to be eligible to claim.
+                    </Trans>
+                </Alert>
                 <Box mt={3} display="flex" flexDirection="column" rowGap={3}>
                     <Box>
-                        <Typography className={classes.subtitle}>{t.follow_me()}</Typography>
-                        <Typography className={classes.description}>{t.follow_me_description()}</Typography>
+                        <Typography className={classes.subtitle}>
+                            <Trans>Follow me</Trans>
+                        </Typography>
+                        <Typography className={classes.description}>
+                            <Trans>
+                                User must follow your account. Note: When you cross-post a Lucky Drop to multiple social
+                                networks, following you on any social allows users to claim.
+                            </Trans>
+                        </Typography>
                     </Box>
                     <Box>
-                        <Typography className={classes.subtitle}>{t.reaction_title()}</Typography>
-                        <Typography className={classes.description}>{t.reaction_description()}</Typography>
+                        <Typography className={classes.subtitle}>
+                            <Trans>Like / Repost / Comment</Trans>
+                        </Typography>
+                        <Typography className={classes.description}>
+                            <Trans>Users must like, repost / quote tweet, or comment on your Lucky Drop post.</Trans>
+                        </Typography>
                     </Box>
                     <Box>
-                        <Typography className={classes.subtitle}>{t.nft_holder()}</Typography>
-                        <Typography className={classes.description}>{t.nft_holder_description()}</Typography>
+                        <Typography className={classes.subtitle}>
+                            <Trans>NFT holder</Trans>
+                        </Typography>
+                        <Typography className={classes.description}>
+                            <Trans>Users must hold one NFT from the collection you select.</Trans>
+                        </Typography>
                     </Box>
                 </Box>
             </DialogContent>

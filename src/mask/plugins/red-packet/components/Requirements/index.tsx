@@ -1,3 +1,4 @@
+import { Trans } from '@lingui/macro';
 import { type GeneratedIcon, type GeneratedIconProps, Icons } from '@masknet/icons';
 import { usePostInfoDetails, usePostLink } from '@masknet/plugin-infra/content-script';
 import { makeStyles, MaskColors } from '@masknet/theme';
@@ -6,11 +7,10 @@ import { NFTScanNonFungibleTokenEVM } from '@masknet/web3-providers';
 import { Box, type BoxProps, IconButton, Link, List, ListItem, Typography } from '@mui/material';
 import { useQueries } from '@tanstack/react-query';
 import { sortBy } from 'lodash-es';
-import { forwardRef, useMemo } from 'react';
+import { forwardRef, Fragment, useMemo } from 'react';
 
 import { MentionLink } from '@/mask/plugins/red-packet/components/Requirements/MentionLink.js';
 import { usePlatformType } from '@/mask/plugins/red-packet/hooks/usePlatformType.js';
-import { RedPacketTrans, useRedPacketTrans } from '@/mask/plugins/red-packet/locales/i18n_generated.js';
 import { FireflyRedPacketAPI } from '@/providers/red-packet/types.js';
 
 const useStyles = makeStyles()((theme) => ({
@@ -139,7 +139,7 @@ function NFTList({ nfts }: NFTListProps) {
             {queries.map((query, index) => {
                 const { data } = query;
                 const nft = nfts[index];
-                if (!data) return <>{nft.collectionName}</>;
+                if (!data) return <Fragment key={nft.chainId + nft.contractAddress}>{nft.collectionName}</Fragment>;
                 const url = Utils.explorerResolver.addressLink(nft.chainId, nft.contractAddress);
                 const name = nft.collectionName || data.name || data.symbol;
                 return (
@@ -171,7 +171,6 @@ export const Requirements = forwardRef<HTMLDivElement, Props>(function Requireme
     { onClose, statusList, showResults = true, ...props }: Props,
     ref,
 ) {
-    const t = useRedPacketTrans();
     const { classes, cx } = useStyles();
     const postLink = usePostLink();
     const postUrl = usePostInfoDetails.url();
@@ -183,20 +182,13 @@ export const Requirements = forwardRef<HTMLDivElement, Props>(function Requireme
         return orderedStatusList.flatMap((status) => {
             if (status.type === 'profileFollow') {
                 const payload = status.payload.filter((x) => x.platform === platform);
-                const handles = payload.map((x) => `@${x.handle}`);
                 return (
                     <ListItem className={classes.item} key={status.type}>
                         <Icons.UserPlus className={classes.icon} size={16} />
                         <Typography className={classes.text}>
-                            <RedPacketTrans.follow_somebody_on_somewhere
-                                values={{
-                                    handles: handles.join(', '),
-                                    platform,
-                                }}
-                                components={{
-                                    span: <FollowProfile platform={platform} payload={payload} />,
-                                }}
-                            />
+                            <Trans>
+                                Follow <FollowProfile payload={payload} platform={platform} /> on {platform}
+                            </Trans>
                         </Typography>
                         {showResults ? <ResultIcon className={classes.state} size={18} result={status.result} /> : null}
                     </ListItem>
@@ -230,7 +222,7 @@ export const Requirements = forwardRef<HTMLDivElement, Props>(function Requireme
                                         textTransform: 'capitalize',
                                     }}
                                 >
-                                    {condition.key === 'repost' ? t.repost({ context: platform }) : condition.key}
+                                    {condition.key}
                                 </Typography>
                                 <Link href={link} className={classes.link} target="_blank">
                                     <Icons.LinkOut size={16} className={classes.linkIcon} />
@@ -248,14 +240,9 @@ export const Requirements = forwardRef<HTMLDivElement, Props>(function Requireme
                     <ListItem className={classes.item} key={status.type}>
                         <Icons.FireflyNFT className={classes.icon} size={16} />
                         <Typography className={classes.text}>
-                            <RedPacketTrans.nft_holder_of
-                                values={{
-                                    names: collectionNames,
-                                }}
-                                components={{
-                                    nfts: <NFTList nfts={status.payload} />,
-                                }}
-                            />
+                            <Trans>
+                                NFT Holder of <NFTList nfts={status.payload} />
+                            </Trans>
                         </Typography>
                         {showResults ? <ResultIcon className={classes.state} size={18} result={status.result} /> : null}
                     </ListItem>
@@ -267,7 +254,7 @@ export const Requirements = forwardRef<HTMLDivElement, Props>(function Requireme
     return (
         <Box {...props} className={cx(classes.box, props.className)} ref={ref}>
             <Typography variant="h2" className={classes.header}>
-                {t.requirements()}
+                <Trans>Requirements</Trans>
                 <IconButton
                     className={classes.closeButton}
                     disableRipple

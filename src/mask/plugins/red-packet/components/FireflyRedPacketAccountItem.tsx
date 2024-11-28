@@ -4,8 +4,8 @@ import { ChainId, formatEthereumAddress, isValidAddress } from '@masknet/web3-sh
 import { Box, Typography } from '@mui/material';
 import { memo } from 'react';
 
-import { EVMExplorerResolver } from '@/mask/bindings/index.js';
 import { openWindow } from '@/helpers/openWindow.js';
+import { EVMExplorerResolver } from '@/mask/bindings/index.js';
 
 const useStyles = makeStyles<{ isDarkFont?: boolean }>()((theme, { isDarkFont }) => ({
     linkIcon: {

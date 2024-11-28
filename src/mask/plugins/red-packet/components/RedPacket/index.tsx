@@ -1,3 +1,4 @@
+import { t, Trans } from '@lingui/macro';
 import { useLastRecognizedIdentity, usePostInfoDetails, usePostLink } from '@masknet/plugin-infra/content-script';
 import { requestLogin, share } from '@masknet/plugin-infra/content-script/context';
 import { LoadingStatus, TransactionConfirmModal } from '@masknet/shared';
@@ -5,7 +6,6 @@ import { EMPTY_LIST, NetworkPluginID } from '@masknet/shared-base';
 import { makeStyles, parseColor } from '@masknet/theme';
 import type { HappyRedPacketV4 } from '@masknet/web3-contracts/types/HappyRedPacketV4.js';
 import { useChainContext, useNetworkContext } from '@masknet/web3-hooks-base';
-// import { EVMChainResolver, FireflyRedPacket } from '@masknet/web3-providers';
 import { formatBalance, isZero, TokenType } from '@masknet/web3-shared-base';
 import { ChainId } from '@masknet/web3-shared-evm';
 import { Card, Grow, Stack, Typography } from '@mui/material';
@@ -20,7 +20,7 @@ import { useAvailabilityComputed } from '@/mask/plugins/red-packet/hooks/useAvai
 import { useClaimCallback } from '@/mask/plugins/red-packet/hooks/useClaimCallback.js';
 import { useRedPacketContract } from '@/mask/plugins/red-packet/hooks/useRedPacketContract.js';
 import { useRefundCallback } from '@/mask/plugins/red-packet/hooks/useRefundCallback.js';
-import { useRedPacketTrans } from '@/mask/plugins/red-packet/locales/index.js';
+import { FireflyRedPacket } from '@/providers/red-packet/index.js';
 import { type FireflyRedPacketAPI, type RedPacketJSONPayload, RedPacketStatus } from '@/providers/red-packet/types.js';
 
 const useStyles = makeStyles<{ outdated: boolean }>()((theme, { outdated }) => {
@@ -162,7 +162,6 @@ export interface RedPacketProps {
 }
 
 export const RedPacket = memo(function RedPacket({ payload }: RedPacketProps) {
-    const t = useRedPacketTrans();
     const token = payload.token;
     const { pluginID } = useNetworkContext();
     const payloadChainId = token?.chainId ?? EVMChainResolver.chainId(payload.network ?? '') ?? ChainId.Mainnet;
@@ -231,14 +230,9 @@ export const RedPacket = memo(function RedPacket({ payload }: RedPacketProps) {
             amount: formatBalance(data.claimed_amount, token?.decimals, { significant: 2 }),
             token,
             tokenType: TokenType.Fungible,
-            messageTextForNFT: t.claim_nft_successful({
-                name: 'NFT',
-            }),
-            messageTextForFT: t.claim_token_successful({
-                amount: formatBalance(data.claimed_amount, token?.decimals, { significant: 2 }),
-                name: `$${token?.symbol}`,
-            }),
-            title: t.lucky_drop(),
+            messageTextForNFT: t`1 NFT claimed.`,
+            messageTextForFT: t`You claimed ${formatBalance(data.claimed_amount, token?.decimals, { significant: 2 })} $${token?.symbol}.`,
+            title: t`Lucky Drop`,
             share: (text) => share?.(text, source ? source : undefined),
         });
     }, [token, redPacketContract, payload.rpid, account, claimedShareText, source]);
@@ -286,14 +280,7 @@ export const RedPacket = memo(function RedPacket({ payload }: RedPacketProps) {
     const myStatus = useMemo(() => {
         if (!availability) return '';
         if (token && listOfStatus.includes(RedPacketStatus.claimed))
-            return t.description_claimed(
-                availability.claimed_amount
-                    ? {
-                          amount: formatBalance(availability.claimed_amount, token.decimals, { significant: 2 }),
-                          symbol: token.symbol,
-                      }
-                    : { amount: '-', symbol: '-' },
-            );
+            return t`You got ${availability.claimed_amount ? formatBalance(availability.claimed_amount, token.decimals, { significant: 2 }) : ''} ${availability.claimed_amount ? token.symbol : '-'}`;
         return '';
     }, [listOfStatus, t, token, availability?.claimed_amount]);
 
@@ -301,14 +288,11 @@ export const RedPacket = memo(function RedPacket({ payload }: RedPacketProps) {
         if (!availability || !token) return;
 
         if (listOfStatus.includes(RedPacketStatus.expired) && canRefund)
-            return t.description_refund({
-                balance: formatBalance(availability.balance, token.decimals, { significant: 2 }),
-                symbol: token.symbol ?? '-',
-            });
-        if (listOfStatus.includes(RedPacketStatus.refunded)) return t.description_refunded();
-        if (listOfStatus.includes(RedPacketStatus.expired)) return t.description_expired();
-        if (listOfStatus.includes(RedPacketStatus.empty)) return t.description_empty();
-        if (!payload.password) return t.description_broken();
+            return t`You could refund ${formatBalance(availability.balance, token.decimals, { significant: 2 })} ${token.symbol ?? '-'}.`;
+        if (listOfStatus.includes(RedPacketStatus.refunded)) return t`The Lucky Drop has been refunded.`;
+        if (listOfStatus.includes(RedPacketStatus.expired)) return t`The Lucky Drop is expired.`;
+        if (listOfStatus.includes(RedPacketStatus.empty)) return t`The Lucky Drop is empty.`;
+        if (!payload.password) return t`The Lucky Drop is broken.`;
         const i18nParams = {
             total: formatBalance(payload.total, token.decimals, { significant: 2 }),
             symbol: token.symbol ?? '-',
@@ -398,7 +382,7 @@ export const RedPacket = memo(function RedPacket({ payload }: RedPacketProps) {
                                 </Typography>
                             </div>
                             <Typography className={classes.from} variant="body1">
-                                {t.from({ name: payload.sender.name || '-' })}
+                                <Trans>From: @{payload.sender.name || '-'}</Trans>
                             </Typography>
                         </div>
                     </div>

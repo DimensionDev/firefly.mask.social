@@ -120,7 +120,7 @@ function useCreateParamsCallback(
             });
 
         return { gas: gas ? toFixed(gas) : undefined, params, paramsObj, gasError };
-    }, [redPacketSettings, account, redPacketContract]);
+    }, [redPacketSettings, account, redPacketContract, NATIVE_TOKEN_ADDRESS, publicKey, chainId]);
 
     return getCreateParams;
 }

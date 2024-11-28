@@ -1,3 +1,4 @@
+import { Trans } from '@lingui/macro';
 import { ElementAnchor, EmptyStatus } from '@masknet/shared';
 import { type NetworkPluginID } from '@masknet/shared-base';
 import { makeStyles } from '@masknet/theme';
@@ -7,7 +8,6 @@ import { memo, useMemo } from 'react';
 
 import { FireflyRedPacketDetailsItem } from '@/mask/plugins/red-packet/components/FireflyRedPacketDetailsItem.js';
 import { useRedPacketHistory } from '@/mask/plugins/red-packet/hooks/useRedPacketHistory.js';
-import { RedPacketTrans, useRedPacketTrans } from '@/mask/plugins/red-packet/locales/index.js';
 import { FireflyRedPacketAPI } from '@/providers/red-packet/types.js';
 
 const useStyles = makeStyles()((theme) => {
@@ -50,7 +50,6 @@ export const FireflyRedPacketHistoryList = memo(function RedPacketHistoryList({
     handleOpenDetails,
     historyType,
 }: RedPacketHistoryListProps) {
-    const t = useRedPacketTrans();
     const { classes } = useStyles();
     const { account } = useChainContext<NetworkPluginID.PLUGIN_EVM>();
     const { data: historiesData, fetchNextPage } = useRedPacketHistory(account, historyType);
@@ -60,13 +59,13 @@ export const FireflyRedPacketHistoryList = memo(function RedPacketHistoryList({
         return (
             <EmptyStatus className={classes.placeholder}>
                 {historyType === FireflyRedPacketAPI.ActionType.Claim ? (
-                    t.no_claim_history_data()
+                    <Trans>No Lucky Drops claimed</Trans>
                 ) : (
-                    <RedPacketTrans.no_sent_history_data
-                        components={{
-                            div: <div />,
-                        }}
-                    />
+                    <div>
+                        <Trans>
+                            No Lucky Drops created. Select 🎁 when you compose a post to start your first drop.
+                        </Trans>
+                    </div>
                 )}
             </EmptyStatus>
         );

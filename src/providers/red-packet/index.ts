@@ -1,6 +1,7 @@
 import urlcat from 'urlcat';
 
 import { EMPTY_LIST } from '@/constants/index.js';
+import { bom } from '@/helpers/bom.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
 import {
     createIndicator,
@@ -10,7 +11,6 @@ import {
     type PageIndicator,
 } from '@/helpers/pageable.js';
 import { FireflyRedPacketAPI } from '@/providers/red-packet/types.js';
-import { bom } from '@/helpers/bom.js';
 import { settings } from '@/settings/index.js';
 
 const SITE_URL = bom.location?.origin ?? '';

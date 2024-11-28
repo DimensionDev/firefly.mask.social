@@ -1,3 +1,4 @@
+import { t, Trans } from '@lingui/macro';
 import { Icons } from '@masknet/icons';
 import { ChainBoundary, SelectProviderModal, WalletConnectedBoundary } from '@masknet/shared';
 import { NetworkPluginID } from '@masknet/shared-base';
@@ -6,8 +7,6 @@ import { useChainContext } from '@masknet/web3-hooks-base';
 import { ChainId } from '@masknet/web3-shared-evm';
 import { Box, useTheme } from '@mui/material';
 import type { MouseEventHandler } from 'react';
-
-import { useRedPacketTrans } from '@/mask/plugins/red-packet/locales/index.js';
 
 const useStyles = makeStyles()((theme) => {
     return {
@@ -49,7 +48,6 @@ export function OperationFooter({
     onClaimOrRefund,
 }: OperationFooterProps) {
     const { classes } = useStyles();
-    const t = useRedPacketTrans();
     const { account, chainId: currentChainId } = useChainContext<NetworkPluginID.PLUGIN_EVM>({ chainId });
     const theme = useTheme();
 
@@ -57,7 +55,7 @@ export function OperationFooter({
         if (!account) {
             return (
                 <ActionButton fullWidth onClick={() => SelectProviderModal.open()} variant="roundedDark">
-                    {t.plugin_wallet_connect_a_wallet()}
+                    <Trans>Connect Wallet</Trans>
                 </ActionButton>
             );
         }
@@ -65,7 +63,7 @@ export function OperationFooter({
         if (!currentChainId) {
             return (
                 <ActionButton disabled fullWidth variant="roundedDark">
-                    {t.plugin_wallet_invalid_network()}
+                    <Trans>Invalid Network</Trans>
                 </ActionButton>
             );
         }
@@ -87,7 +85,17 @@ export function OperationFooter({
                 disabled={isLoading}
                 onClick={onClick}
             >
-                {canClaim ? (isClaiming ? t.claiming() : t.claim()) : isRefunding ? t.refunding() : t.refund()}
+                {canClaim ? (
+                    isClaiming ? (
+                        <Trans>Claiming...</Trans>
+                    ) : (
+                        <Trans>Claim</Trans>
+                    )
+                ) : isRefunding ? (
+                    <Trans>Refunding</Trans>
+                ) : (
+                    <Trans>Refund</Trans>
+                )}
             </ActionButton>
         );
     }
@@ -102,7 +110,7 @@ export function OperationFooter({
                         startIcon={<Icons.Shared size={18} />}
                         onClick={onShare}
                     >
-                        {t.share()}
+                        <Trans>Share</Trans>
                     </ActionButton>
                 )}
 
@@ -113,7 +121,7 @@ export function OperationFooter({
                         ActionButtonPromiseProps={{ variant: 'roundedDark' }}
                     >
                         <WalletConnectedBoundary
-                            noGasText={t.insufficient_balance()}
+                            noGasText={t`Insufficient Balance`}
                             hideRiskWarningConfirmed
                             expectedChainId={chainId ?? ChainId.Mainnet}
                             startIcon={<Icons.Wallet size={18} />}
