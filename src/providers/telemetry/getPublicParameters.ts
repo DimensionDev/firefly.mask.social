@@ -17,6 +17,10 @@ export function getPublicParameters(eventId: string, previousEventId: string | n
     const evmAccount = runInSafe(() => getAccount(config));
     const solanaAdaptor = runInSafe(() => resolveWalletAdapter());
     const fireflyAccountId = useFireflyStateStore.getState().currentProfileSession?.profileId;
+    const activity =
+        bom.location?.pathname?.startsWith('/events') || bom.location?.pathname?.startsWith('/event/')
+            ? bom.location.href
+            : undefined;
 
     return {
         public_uuid: eventId,
@@ -47,5 +51,7 @@ export function getPublicParameters(eventId: string, previousEventId: string | n
         twitter_username: useTwitterStateStore.getState().currentProfile?.handle,
         lens_handle: useLensStateStore.getState().currentProfile?.handle,
         farcaster_id: useFarcasterStateStore.getState().currentProfile?.profileId,
+
+        ...(activity ? { activity } : {}),
     };
 }

@@ -2,7 +2,6 @@
 
 import urlcat from 'urlcat';
 
-import { bom } from '@/helpers/bom.js';
 import { memoizePromise } from '@/helpers/memoizePromise.js';
 import { parseUrl } from '@/helpers/parseUrl.js';
 import { ReferralAccountPlatform } from '@/helpers/resolveActivityUrl.js';
@@ -66,7 +65,6 @@ export async function captureActivityEvent<
         return TelemetryProvider.captureEvent(
             eventId,
             {
-                activity: bom.location?.href,
                 ...referralParams,
                 ...getPublicParameters(eventId, null),
                 ...params,
