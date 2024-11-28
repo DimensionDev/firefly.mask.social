@@ -10,7 +10,6 @@ import { ActivityContext } from '@/components/Activity/ActivityContext.js';
 import { useActivityBindAddress } from '@/components/Activity/hooks/useActivityBindAddress.js';
 import { useActivityClaimCondition } from '@/components/Activity/hooks/useActivityClaimCondition.js';
 import { useActivityConnections } from '@/components/Activity/hooks/useActivityConnections.js';
-import { useCaptureActivityEvent } from '@/components/Activity/hooks/useCaptureActivityEvent.js';
 import { useIsLoginInActivity } from '@/components/Activity/hooks/useIsLoginInActivity.js';
 import { ChainIcon } from '@/components/NFTDetail/ChainIcon.js';
 import { type SocialSource } from '@/constants/enum.js';
@@ -20,6 +19,7 @@ import { enqueueWarningMessage } from '@/helpers/enqueueMessage.js';
 import { formatAddress } from '@/helpers/formatAddress.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { fireflyBridgeProvider } from '@/providers/firefly/Bridge.js';
+import { captureActivityEvent } from '@/providers/telemetry/captureActivityEvent.js';
 import { EventId } from '@/providers/types/Telemetry.js';
 import { ChainId } from '@/types/frame.js';
 
@@ -29,7 +29,6 @@ export function ActivityConnectButton({ source }: { source: SocialSource }) {
     const isLoggedIn = useIsLoginInActivity(source);
     const { data: { connected = EMPTY_LIST } = {}, isLoading, refetch } = useActivityConnections();
     const [, bindAddress] = useActivityBindAddress(source);
-    const captureActivityEvent = useCaptureActivityEvent();
 
     const addresses: Array<{ address: string; ens?: string }> = connected
         .filter((x) => x.platform === 'eth')

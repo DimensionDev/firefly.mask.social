@@ -8,7 +8,6 @@ import NavigationBarBackIcon from '@/assets/navigation-bar-back.svg';
 import ShareIcon from '@/assets/share-navbar.svg';
 import { ActivityContext } from '@/components/Activity/ActivityContext.js';
 import { useActivityCurrentAccountHandle } from '@/components/Activity/hooks/useActivityCurrentAccountHandle.js';
-import { useCaptureActivityEvent } from '@/components/Activity/hooks/useCaptureActivityEvent.js';
 import { IS_ANDROID } from '@/constants/bowser.js';
 import { PageRoute, Source } from '@/constants/enum.js';
 import { SITE_URL } from '@/constants/index.js';
@@ -16,6 +15,7 @@ import { classNames } from '@/helpers/classNames.js';
 import { ReferralAccountPlatform, resolveActivityUrl } from '@/helpers/resolveActivityUrl.js';
 import { useComeBack } from '@/hooks/useComeback.js';
 import { fireflyBridgeProvider } from '@/providers/firefly/Bridge.js';
+import { captureActivityEvent } from '@/providers/telemetry/captureActivityEvent.js';
 import { EventId } from '@/providers/types/Telemetry.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
 import { SupportedMethod } from '@/types/bridge.js';
@@ -27,7 +27,6 @@ export function ActivityMobileNavigationBar({ children, className }: Props) {
     const comeback = useComeBack();
     const xHandle = useActivityCurrentAccountHandle(Source.Twitter);
     const { name } = useContext(ActivityContext);
-    const captureActivityEvent = useCaptureActivityEvent();
 
     return (
         <>

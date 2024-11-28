@@ -24,7 +24,7 @@ export function useActivityCurrentAccountHandle(source: SocialSource) {
     return profile?.handle;
 }
 
-export function useActivityCurrentAccountProfileId(source: SocialSource) {
+export function useActivityCurrentAccountProfileId(source: SocialSource): string | undefined {
     const profile = useCurrentProfile(source);
     const { data } = useActivityConnections();
     if (fireflyBridgeProvider.supported) {
@@ -35,7 +35,7 @@ export function useActivityCurrentAccountProfileId(source: SocialSource) {
                 return data?.rawConnections.lens.connected[0]?.lens?.[0].id;
             case Source.Farcaster:
                 const fid = data?.rawConnections.farcaster.connected[0]?.fid;
-                return fid ? `${fid}` : fid;
+                return typeof fid === 'number' ? `${fid}` : fid;
             default:
                 safeUnreachable(source);
                 return;

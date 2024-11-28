@@ -1,9 +1,8 @@
 import { t } from '@lingui/macro';
-import { safeUnreachable } from '@masknet/kit';
 import { useAsyncFn } from 'react-use';
 
 import { resolveFireflyBridgePlatformFromSocialSource } from '@/components/Activity/helpers/resolveFireflyBridgePlatformFromSocialSource.js';
-import { useCaptureActivityEvent } from '@/components/Activity/hooks/useCaptureActivityEvent.js';
+import { useActivityConnections } from '@/components/Activity/hooks/useActivityConnections.js';
 import { type SocialSource, Source } from '@/constants/enum.js';
 import { enqueueErrorMessage, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { getSnackbarMessageFromError } from '@/helpers/getSnackbarMessageFromError.js';
@@ -11,28 +10,23 @@ import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { useFireflyBridgeAuthorization } from '@/hooks/useFireflyBridgeAuthorization.js';
 import { LoginModalRef } from '@/modals/controls.js';
 import { fireflyBridgeProvider } from '@/providers/firefly/Bridge.js';
+import { captureActivityEvent } from '@/providers/telemetry/captureActivityEvent.js';
 import { EventId } from '@/providers/types/Telemetry.js';
 import { SupportedMethod } from '@/types/bridge.js';
 
 export function useLoginInActivity() {
     const queryFireflyBridgeAuthorization = useFireflyBridgeAuthorization();
-    const captureActivityEvent = useCaptureActivityEvent();
+    const { refetch } = useActivityConnections();
     return useAsyncFn(async (source: SocialSource) => {
         function captureEvent() {
-            switch (source) {
-                case Source.Twitter:
-                    captureActivityEvent(EventId.EVENT_X_LOG_IN_SUCCESS, {});
-                    break;
-                case Source.Farcaster:
-                    captureActivityEvent(EventId.EVENT_FARCASTER_LOG_IN_SUCCESS, {});
-                    break;
-                case Source.Lens:
-                    captureActivityEvent(EventId.EVENT_LENS_LOG_IN_SUCCESS, {});
-                    break;
-                default:
-                    safeUnreachable(source);
-                    return;
-            }
+            const eventId = (
+                {
+                    [Source.Twitter]: EventId.EVENT_X_LOG_IN_SUCCESS,
+                    [Source.Farcaster]: EventId.EVENT_FARCASTER_LOG_IN_SUCCESS,
+                    [Source.Lens]: EventId.EVENT_LENS_LOG_IN_SUCCESS,
+                } as const
+            )[source];
+            if (eventId) captureActivityEvent(eventId, {});
         }
         if (fireflyBridgeProvider.supported) {
             try {
@@ -50,11 +44,13 @@ export function useLoginInActivity() {
                 enqueueErrorMessage(getSnackbarMessageFromError(error, t`Failed to login.`), { error });
                 throw error;
             }
+            await refetch();
             return;
         }
         captureEvent();
-        LoginModalRef.open({
+        await LoginModalRef.openAndWaitForClose({
             source,
         });
+        await refetch();
     });
 }

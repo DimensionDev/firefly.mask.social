@@ -3,16 +3,21 @@ import { NOT_DEPEND_HUBBLE_KEY } from '@/constants/index.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
 import { SessionHolder } from '@/providers/base/SessionHolder.js';
 import type { FarcasterSession } from '@/providers/farcaster/Session.js';
+import { fireflyBridgeProvider } from '@/providers/firefly/Bridge.js';
+import { SupportedMethod } from '@/types/bridge.js';
 
 class FarcasterSessionHolder extends SessionHolder<FarcasterSession> {
     override resumeSession(session: FarcasterSession) {
         this.internalSession = session;
     }
 
-    override fetchWithSession<T>(url: string, options?: RequestInit) {
+    override async fetchWithSession<T>(url: string, options?: RequestInit) {
+        const authToken = fireflyBridgeProvider.supported
+            ? await fireflyBridgeProvider.request(SupportedMethod.GET_AUTHORIZATION, {})
+            : this.sessionRequired.token;
         return fetchJSON<T>(url, {
             ...options,
-            headers: { ...options?.headers, Authorization: `Bearer ${this.sessionRequired.token}` },
+            headers: { ...options?.headers, Authorization: `Bearer ${authToken}` },
         });
     }
 

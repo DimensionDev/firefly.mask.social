@@ -1,16 +1,14 @@
 import { useQuery } from '@tanstack/react-query';
 
-import { useFireflyBridgeAuthorization } from '@/hooks/useFireflyBridgeAuthorization.js';
+import { useCurrentProfileAll } from '@/hooks/useCurrentProfile.js';
 import { FireflyActivityProvider } from '@/providers/firefly/Activity.js';
-import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
 
 export function useActivityConnections() {
-    const { data: authToken } = useFireflyBridgeAuthorization();
+    const allProfiles = useCurrentProfileAll();
     return useQuery({
-        queryKey: ['my-wallet-connections', authToken],
+        queryKey: ['my-wallet-connections', allProfiles],
         async queryFn() {
-            if (!fireflySessionHolder.session && !authToken) return;
-            return FireflyActivityProvider.getAllConnections({ authToken });
+            return FireflyActivityProvider.getAllConnections();
         },
         refetchInterval: 600000,
     });

@@ -94,7 +94,6 @@ export interface Provider {
         name: string,
         options?: {
             address?: string;
-            authToken?: string;
         },
     ) => Promise<CheckResponse['data']>;
 
@@ -106,11 +105,9 @@ export interface Provider {
         address: string,
         activityName: string,
         options?: {
-            authToken?: string;
+            claimApiExtraParams?: Record<string, unknown>;
         },
     ) => Promise<MintActivitySBTResponse['data']>;
 
-    getAllConnections: (params?: {
-        authToken?: string;
-    }) => Promise<{ connected: FireflyWalletConnection[]; related: FireflyWalletConnection[] }>;
+    getAllConnections: () => Promise<{ connected: FireflyWalletConnection[]; related: FireflyWalletConnection[] }>;
 }

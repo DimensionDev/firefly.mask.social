@@ -5,19 +5,18 @@ import { useAsyncFn } from 'react-use';
 import { ActivityContext } from '@/components/Activity/ActivityContext.js';
 import { useActivityClaimCondition } from '@/components/Activity/hooks/useActivityClaimCondition.js';
 import { useActivityConnections } from '@/components/Activity/hooks/useActivityConnections.js';
-import { useCaptureActivityEvent } from '@/components/Activity/hooks/useCaptureActivityEvent.js';
 import type { SocialSource } from '@/constants/enum.js';
 import { EMPTY_LIST } from '@/constants/index.js';
 import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
 import { getSnackbarMessageFromError } from '@/helpers/getSnackbarMessageFromError.js';
 import { AddWalletModalRef } from '@/modals/controls.js';
 import { fireflyBridgeProvider } from '@/providers/firefly/Bridge.js';
+import { captureActivityEvent } from '@/providers/telemetry/captureActivityEvent.js';
 import { EventId } from '@/providers/types/Telemetry.js';
 import { Network, SupportedMethod } from '@/types/bridge.js';
 
 export function useActivityBindAddress(source: SocialSource) {
     const { onChangeAddress } = useContext(ActivityContext);
-    const captureActivityEvent = useCaptureActivityEvent();
     const { refetch: refetchActivityClaimCondition } = useActivityClaimCondition(source);
     const { data: { connected = EMPTY_LIST } = {}, refetch } = useActivityConnections();
     return useAsyncFn(async () => {

@@ -11,7 +11,6 @@ import { ActivityContext } from '@/components/Activity/ActivityContext.js';
 import { ActivityMintSuccessDialog } from '@/components/Activity/ActivityMintSuccessDialog.js';
 import { useActivityClaimCondition } from '@/components/Activity/hooks/useActivityClaimCondition.js';
 import { useActivityPremiumList } from '@/components/Activity/hooks/useActivityPremiumList.js';
-import { useCaptureActivityEvent } from '@/components/Activity/hooks/useCaptureActivityEvent.js';
 import type { SocialSource } from '@/constants/enum.js';
 import type { Chars } from '@/helpers/chars.js';
 import { classNames } from '@/helpers/classNames.js';
@@ -19,6 +18,7 @@ import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
 import { getSnackbarMessageFromError } from '@/helpers/getSnackbarMessageFromError.js';
 import { useFireflyBridgeAuthorization } from '@/hooks/useFireflyBridgeAuthorization.js';
 import { FireflyActivityProvider } from '@/providers/firefly/Activity.js';
+import { captureActivityEvent } from '@/providers/telemetry/captureActivityEvent.js';
 import { ActivityStatus } from '@/providers/types/Firefly.js';
 import { EventId } from '@/providers/types/Telemetry.js';
 
@@ -38,7 +38,6 @@ export function ActivityClaimButton({ source, shareContent, status, claimApiExtr
     const [hash, setHash] = useState<string | undefined>(undefined);
     const [chainId, setChainId] = useState<ChainId | undefined>(undefined);
     const list = useActivityPremiumList(source);
-    const captureActivityEvent = useCaptureActivityEvent();
 
     const isPremium = list.some((x) => x.verified);
     const disabled = status === ActivityStatus.Ended || !data?.canClaim || !address || rest.disabled;
@@ -47,7 +46,6 @@ export function ActivityClaimButton({ source, shareContent, status, claimApiExtr
         if (disabled || !address) return;
         try {
             const { hash, chainId } = await FireflyActivityProvider.claimActivitySBT(address, name, {
-                authToken,
                 claimApiExtraParams,
             });
             await refetch();

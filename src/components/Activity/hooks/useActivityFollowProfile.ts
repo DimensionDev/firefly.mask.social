@@ -17,9 +17,7 @@ export function useActivityFollowProfile(source: SocialSource, profileId: string
     return useAsyncFn(async () => {
         try {
             await FireflyActivityProvider.follow(source, profileId, {
-                sourceFarcasterProfileId:
-                    typeof farcasterProfileId === 'string' ? parseInt(farcasterProfileId, 10) : farcasterProfileId,
-                authToken,
+                sourceFarcasterProfileId: farcasterProfileId ? Number.parseInt(farcasterProfileId, 10) : undefined,
             });
             await refetch();
             enqueueSuccessMessage(t`Followed @${handle} on ${resolveSourceName(source)}.`);
