@@ -8,8 +8,8 @@ import DOMPurify from 'dompurify';
 import { compact } from 'lodash-es';
 import { useRouter } from 'next/navigation.js';
 
-import ComeBack from '@/assets/comeback.svg';
 import { ArticleHeader } from '@/components/Article/ArticleHeader.js';
+import { Comeback } from '@/components/Comeback.js';
 import { ArticleMarkup } from '@/components/Markup/ArticleMarkup.js';
 import { CollapsedContent } from '@/components/Posts/CollapsedContent.js';
 import { ImageAsset } from '@/components/Posts/ImageAsset.js';
@@ -39,7 +39,7 @@ export function ArticleDetailContent({ article, cover }: ArticleDetailContentPro
     return (
         <div className="min-h-screen">
             <div className="sticky top-0 z-40 flex items-center bg-primaryBottom px-4 py-[18px]">
-                <ComeBack width={24} height={24} className="mr-8" />
+                <Comeback className="mr-8" />
                 <h2 className="text-xl font-black leading-6">
                     <Trans>Details</Trans>
                 </h2>
