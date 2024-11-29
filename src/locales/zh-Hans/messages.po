@@ -1122,9 +1122,6 @@ msgstr ""
 msgid "Confirm you want to mute /{0}?"
 msgstr "您确定要隐藏 /{0} 吗？"
 
-msgid "{0}"
-msgstr ""
-
 msgid "Refund"
 msgstr ""
 
