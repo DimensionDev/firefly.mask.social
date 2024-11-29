@@ -424,7 +424,6 @@ export const RedPacket = memo(function RedPacket({ payload }: RedPacketProps) {
                     chainId={payloadChainId}
                     canClaim={canClaim}
                     canRefund={canRefund}
-                    canShare={platform !== 'twitter'}
                     isClaiming={isClaiming || checkingClaimStatus}
                     isRefunding={isRefunding}
                     onShare={handleShare}
