@@ -31,6 +31,7 @@ export function ArticleBody({ cover, article, onClick }: Props) {
     const router = useRouter();
 
     const isDarkMode = useIsDarkMode();
+    const coverURL = cover ?? '/image/frame-fallback.png';
 
     return (
         <ClickableArea
@@ -43,27 +44,25 @@ export function ArticleBody({ cover, article, onClick }: Props) {
                 },
             )}
         >
-            {cover ? (
-                <ImageAsset
-                    disableLoadHandler
-                    src={cover}
-                    width={510}
-                    height={260}
-                    className="mb-3 w-full cursor-pointer rounded-lg object-cover"
-                    alt={cover}
-                    onClick={(event) => {
-                        event.stopPropagation();
-                        event.preventDefault();
+            <ImageAsset
+                disableLoadHandler
+                src={coverURL}
+                width={510}
+                height={260}
+                className="mb-3 max-h-[240px] w-full cursor-pointer rounded-lg object-cover"
+                alt={coverURL}
+                onClick={(event) => {
+                    event.stopPropagation();
+                    event.preventDefault();
 
-                        if (cover)
-                            PreviewMediaModalRef.open({
-                                medias: [{ type: 'Image', uri: cover }],
-                                index: 0,
-                                source: Source.Article,
-                            });
-                    }}
-                />
-            ) : null}
+                    if (cover)
+                        PreviewMediaModalRef.open({
+                            medias: [{ type: 'Image', uri: cover }],
+                            index: 0,
+                            source: Source.Article,
+                        });
+                }}
+            />
             <h1
                 className={classNames('line-clamp-2 text-left text-[18px] font-bold leading-[20px]', {
                     'max-h-[40px]': IS_SAFARI && IS_APPLE,
