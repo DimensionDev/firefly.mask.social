@@ -13,6 +13,7 @@ import { ScrollListKey, type SocialSource, Source } from '@/constants/enum.js';
 import { EMPTY_LIST } from '@/constants/index.js';
 import { createIndicator, createPageable } from '@/helpers/pageable.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
+import { useAsyncStatus } from '@/hooks/useAsyncStatus.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 import { useImpressionsStore } from '@/store/useImpressionsStore.js';
 
@@ -24,13 +25,16 @@ interface CommentListProps {
 
 export const CommentList = memo<CommentListProps>(function CommentList({ postId, source, excludePostIds = [] }) {
     const fetchAndStoreViews = useImpressionsStore.use.fetchAndStoreViews();
+    const twitterAsyncStatus = useAsyncStatus(Source.Twitter);
 
     const queryResult = useSuspenseInfiniteQuery({
-        queryKey: ['posts', source, 'comments', postId],
+        queryKey: ['posts', source, 'comments', postId, twitterAsyncStatus],
         queryFn: async ({ pageParam }) => {
             if (!postId) return createPageable<Post>(EMPTY_LIST, createIndicator());
 
             const provider = resolveSocialMediaProvider(source);
+            if (source === Source.Twitter && twitterAsyncStatus)
+                return createPageable<Post>(EMPTY_LIST, createIndicator(undefined, pageParam));
             const comments = await provider.getCommentsById(postId, createIndicator(undefined, pageParam));
 
             if (source === Source.Lens) {
