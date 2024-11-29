@@ -96,7 +96,19 @@ export function useCreateFTRedpacketCallback(
 
         // output the redpacket as JSON payload
         onCreated?.(payload.current);
-    }, [createCallback, settings, onCreated, currentAccount]);
+    }, [
+        createCallback,
+        settings.token,
+        settings.name,
+        settings.message,
+        settings.isRandom,
+        settings.shares,
+        settings.duration,
+        account,
+        currentAccount,
+        privateKey,
+        onCreated,
+    ]);
 
     const payload = useRef<RedPacketJSONPayload>({
         network: EVMChainResolver.chainName(chainId),
@@ -113,7 +125,7 @@ export function useCreateFTRedpacketCallback(
         payload.current.contract_address = contractAddress;
         payload.current.contract_version = contract_version;
         payload.current.network = EVMChainResolver.networkType(chainId);
-    }, [chainId, networkType, contract_version]);
+    }, [chainId, networkType, contract_version, HAPPY_RED_PACKET_ADDRESS_V4, onClose]);
 
     return {
         createRedpacket,

@@ -249,7 +249,18 @@ export const Requirements = forwardRef<HTMLDivElement, Props>(function Requireme
             }
             return null;
         });
-    }, [statusList, platform, showResults]);
+    }, [
+        statusList,
+        classes.item,
+        classes.icon,
+        classes.text,
+        classes.state,
+        classes.link,
+        classes.linkIcon,
+        platform,
+        showResults,
+        link,
+    ]);
     return (
         <Box {...props} className={cx(classes.box, props.className)} ref={ref}>
             <Typography variant="h2" className={classes.header}>

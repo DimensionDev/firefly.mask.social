@@ -117,7 +117,7 @@ export default function RedPacketDialog(props: RedPacketDialogProps) {
         setStep(CreateRedPacketPageStep.NewRedPacketPage);
         setSettings(undefined);
         props.onClose();
-    }, [props.onClose, step]);
+    }, [props]);
 
     const currentIdentity = useCurrentVisitingIdentity();
     const lastRecognized = useLastRecognizedIdentity();
@@ -161,7 +161,7 @@ export default function RedPacketDialog(props: RedPacketDialogProps) {
             });
             handleClose();
         },
-        [senderName, handleClose, compositionType],
+        [compositionType, handleClose, account],
     );
 
     const onBack = useCallback(() => {
@@ -238,7 +238,7 @@ export default function RedPacketDialog(props: RedPacketDialogProps) {
             return <Icons.Questions onClick={() => setShowClaimRule(true)} />;
         }
         return null;
-    }, [step, openNFTConfirmDialog, showHistory, showDetails]);
+    }, [step, openNFTConfirmDialog, showHistory, showDetails, account]);
 
     // #region gas config
     const [defaultGasPrice] = useGasPrice(NetworkPluginID.PLUGIN_EVM, { chainId });
@@ -263,7 +263,7 @@ export default function RedPacketDialog(props: RedPacketDialogProps) {
             setRpid(redpacket_id);
             setShowDetails(true);
         },
-        [setShowDetails, setRpid, setShowHistory],
+        [setShowDetails, setRpid],
     );
     const handleClaimRequirementsNext = useCallback((settings: FireflyRedpacketSettings) => {
         setFireflyRpSettings(settings);

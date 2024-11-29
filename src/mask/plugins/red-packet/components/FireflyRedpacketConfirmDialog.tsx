@@ -10,6 +10,7 @@ import { compact, flatten, uniqBy } from 'lodash-es';
 import { useMemo, useState } from 'react';
 import { useAsync, useStateList } from 'react-use';
 
+import { Image } from '@/esm/Image.js';
 import { ActionButton, Icons, ShadowRootTooltip, usePortalShadowRoot } from '@/mask/bindings/components.js';
 import { makeStyles } from '@/mask/bindings/index.js';
 import {
@@ -426,7 +427,8 @@ export function FireflyRedpacketConfirmDialog({
 
                     {state ? (
                         <Box py={2} display="flex" justifyContent="center">
-                            <img
+                            <Image
+                                alt={state.themeId}
                                 key={state.themeId}
                                 style={{
                                     width: 288,
@@ -464,8 +466,8 @@ export function FireflyRedpacketConfirmDialog({
                         </Typography>
                         <Typography className={classes.tips} sx={{ color: theme.palette.maskColor.danger, mt: 1.2 }}>
                             <Trans>
-                                By clicking \"Next\", you acknowledge the risk associated with decentralized networks
-                                and beta products.
+                                By clicking \&quot;Next\&quot;, you acknowledge the risk associated with decentralized
+                                networks and beta products.
                             </Trans>
                         </Typography>
                     </Alert>

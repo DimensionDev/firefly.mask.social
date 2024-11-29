@@ -18,6 +18,7 @@ import {
 } from '@mui/material';
 import { useCallback, useState } from 'react';
 
+import { Image } from '@/esm/Image.js';
 import { type GeneratedIcon, Icons } from '@/mask/bindings/components.js';
 import { makeStyles } from '@/mask/bindings/index.js';
 import { type FireflyRedpacketSettings, RequirementType } from '@/mask/plugins/red-packet/types.js';
@@ -197,7 +198,11 @@ export function ClaimRequirementsDialog(props: ClaimRequirementsDialogProps) {
                         {selectedCollection ? (
                             <Box className={classes.collection}>
                                 {selectedCollection?.iconURL ? (
-                                    <img className={classes.collectionIcon} src={selectedCollection.iconURL} />
+                                    <Image
+                                        alt={selectedCollection.name}
+                                        className={classes.collectionIcon}
+                                        src={selectedCollection.iconURL}
+                                    />
                                 ) : null}
                                 {selectedCollection?.name ? (
                                     <Typography className={classes.collectionName}>

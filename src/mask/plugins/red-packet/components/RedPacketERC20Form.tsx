@@ -134,7 +134,7 @@ export function RedPacketERC20Form(props: RedPacketFormProps) {
             onChainChange(picked.chainId as ChainId);
         }
         setToken(picked as FungibleToken<ChainId, SchemaType>);
-    }, [token?.address, chainId, onChainChange]);
+    }, [token, chainId, onChainChange]);
     // #endregion
 
     // #region packet settings
@@ -147,21 +147,18 @@ export function RedPacketERC20Form(props: RedPacketFormProps) {
 
     // shares
     const [shares, setShares] = useState<number | ''>(origin?.shares || RED_PACKET_DEFAULT_SHARES);
-    const onShareChange = useCallback(
-        (ev: ChangeEvent<HTMLInputElement>) => {
-            const shares_ = ev.currentTarget.value.replaceAll(/[,.]/g, '');
-            if (shares_ === '') setShares('');
-            else if (/^[1-9]+\d*$/.test(shares_)) {
-                const parsed = Number.parseInt(shares_, 10);
-                if (parsed >= RED_PACKET_MIN_SHARES && parsed <= RED_PACKET_MAX_SHARES) {
-                    setShares(Number.parseInt(shares_, 10));
-                } else if (parsed > RED_PACKET_MAX_SHARES) {
-                    setShares(RED_PACKET_MAX_SHARES);
-                }
+    const onShareChange = useCallback((ev: ChangeEvent<HTMLInputElement>) => {
+        const shares_ = ev.currentTarget.value.replaceAll(/[,.]/g, '');
+        if (shares_ === '') setShares('');
+        else if (/^[1-9]+\d*$/.test(shares_)) {
+            const parsed = Number.parseInt(shares_, 10);
+            if (parsed >= RED_PACKET_MIN_SHARES && parsed <= RED_PACKET_MAX_SHARES) {
+                setShares(Number.parseInt(shares_, 10));
+            } else if (parsed > RED_PACKET_MAX_SHARES) {
+                setShares(RED_PACKET_MAX_SHARES);
             }
-        },
-        [RED_PACKET_MIN_SHARES, RED_PACKET_MAX_SHARES],
-    );
+        }
+    }, []);
 
     // amount
     const [rawAmount, setRawAmount] = useState(
@@ -257,7 +254,7 @@ export function RedPacketERC20Form(props: RedPacketFormProps) {
         if (!isDivisible)
             return t`The minimum amount for each share is ${formatBalance(1, token.decimals)} ${token.symbol}`;
         return '';
-    }, [isRandom, account, amount, totalAmount, shares, token, balance, t, minTotalAmount]);
+    }, [token, account, shares, minTotalAmount, balance, totalAmount, amount, isDivisible, isRandom]);
 
     const gasValidationMessage = useMemo(() => {
         if (!token) return '';
@@ -268,7 +265,7 @@ export function RedPacketERC20Form(props: RedPacketFormProps) {
             return t`Insufficient Balance`;
 
         return '';
-    }, [isAvailableBalance, balance, token?.symbol, transactionValue, loadingTransactionValue, isGasSufficient]);
+    }, [token, isGasSufficient, loadingTransactionValue, transactionValue]);
 
     if (!token) return null;
 

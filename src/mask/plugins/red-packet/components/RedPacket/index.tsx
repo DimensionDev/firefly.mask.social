@@ -1,3 +1,4 @@
+/* eslint-disable no-irregular-whitespace */
 import { Plural, t, Trans } from '@lingui/macro';
 import { delay } from '@masknet/kit';
 import { useLastRecognizedIdentity, usePostInfoDetails, usePostLink } from '@masknet/plugin-infra/content-script';
@@ -12,6 +13,7 @@ import parseColor from 'tinycolor2';
 
 import type { SocialSource } from '@/constants/enum.js';
 import { SITE_URL } from '@/constants/index.js';
+import { Image } from '@/esm/Image.js';
 import type { HappyRedPacketV4 } from '@/mask/bindings/constants.js';
 import { EVMChainResolver, makeStyles } from '@/mask/bindings/index.js';
 import { OperationFooter } from '@/mask/plugins/red-packet/components/RedPacket/OperationFooter.js';
@@ -227,7 +229,7 @@ export const RedPacket = memo(function RedPacket({ payload }: RedPacketProps) {
                     return notClaimed + '\n' + t`Claim on: ${link}`;
             }
         },
-        [link, t, platform, handle],
+        [link, platform, handle],
     );
 
     const claimedShareText = useMemo(() => getShareText(true), [getShareText]);
@@ -292,14 +294,15 @@ export const RedPacket = memo(function RedPacket({ payload }: RedPacketProps) {
     }, [
         canClaim,
         canRefund,
-        platform,
-        claimCallback,
-        checkResult,
         recheckClaimStatus,
-        checkAvailability,
-        payload.rpid,
+        claimCallback,
+        platform,
         myProfileId,
         myHandle,
+        checkResult,
+        payload.rpid,
+        refundCallback,
+        checkAvailability,
     ]);
 
     const myStatus = useMemo(() => {
@@ -307,7 +310,7 @@ export const RedPacket = memo(function RedPacket({ payload }: RedPacketProps) {
         if (token && listOfStatus.includes(RedPacketStatus.claimed))
             return t`You got ${availability.claimed_amount ? formatBalance(availability.claimed_amount, token.decimals, { significant: 2 }) : ''} ${availability.claimed_amount ? token.symbol : '-'}`;
         return '';
-    }, [listOfStatus, t, token, availability?.claimed_amount]);
+    }, [availability, token, listOfStatus]);
 
     const subtitle = useMemo(() => {
         if (!availability || !token) return;
@@ -325,7 +328,7 @@ export const RedPacket = memo(function RedPacket({ payload }: RedPacketProps) {
                 {payload.shares} <Plural value={payload.shares} one="share" other="shares" /> / {total} ${symbol}
             </Trans>
         );
-    }, [availability, canRefund, token, t, payload, listOfStatus]);
+    }, [availability, canRefund, token, payload, listOfStatus]);
 
     const handleShare = async () => {
         if (!shareText) return;
@@ -361,8 +364,9 @@ export const RedPacket = memo(function RedPacket({ payload }: RedPacketProps) {
                         : undefined
                 }
             >
-                {cover ? <img className={classes.cover} src={cover.url!} /> : null}
-                <img
+                {cover ? <Image alt="cover" className={classes.cover} src={cover.url!} /> : null}
+                <Image
+                    alt="Token"
                     aria-label="Token"
                     src={new URL('@/mask/plugins/red-packet/assets/tokenLabel.png', import.meta.url).toString()}
                     className={classes.tokenLabel}

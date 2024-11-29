@@ -57,6 +57,7 @@
             "@masknet/typed-message": ["./src/maskbook/packages/typed-message/base/src/index.ts"],
             "@masknet/typed-message-react": ["./src/maskbook/packages/typed-message/react/src/index.ts"],
             "@masknet/web3-hooks-base": ["./src/maskbook/packages/web3-hooks/base/src/index.ts"],
+            "@masknet/web3-hooks-evm": ["./src/maskbook/packages/web3-hooks/evm/src/index.ts"],
             "@masknet/web3-shared-base": ["./src/maskbook/packages/web3-shared/base/src/index.ts"],
             "@masknet/web3-shared-evm": ["./src/maskbook/packages/web3-shared/evm/src/index.ts"],
             "@masknet/web3-shared-solana": ["./src/maskbook/packages/web3-shared/solana/src/index.ts"]

@@ -13,6 +13,7 @@ import {
 import { omit } from 'lodash-es';
 import { useCallback } from 'react';
 import { useAsync, useAsyncFn } from 'react-use';
+import type { AsyncFnReturn } from 'react-use/lib/useAsyncFn.js';
 import * as web3_utils from /* webpackDefer: true */ 'web3-utils';
 
 import type { HappyRedPacketV4 } from '@/mask/bindings/constants.js';
@@ -121,7 +122,7 @@ function useCreateParamsCallback(
             });
 
         return { gas: gas ? toFixed(gas) : undefined, params, paramsObj, gasError };
-    }, [redPacketSettings, account, redPacketContract, NATIVE_TOKEN_ADDRESS, publicKey, chainId]);
+    }, [redPacketSettings, account, redPacketContract, NATIVE_TOKEN_ADDRESS, publicKey]);
 
     return getCreateParams;
 }
@@ -142,7 +143,18 @@ export function useCreateCallback(
     version: number,
     publicKey: string,
     gasOption?: GasConfig,
-) {
+): AsyncFnReturn<
+    (...args: any[]) => Promise<
+        | {
+              hash: string;
+              receipt: TransactionReceipt;
+              events?: {
+                  [eventName: string]: any;
+              };
+          }
+        | undefined
+    >
+> {
     const { account, chainId } = useChainContext<NetworkPluginID.PLUGIN_EVM>({ chainId: expectedChainId });
     const redPacketContract = useRedPacketContract(chainId, version);
     const getCreateParams = useCreateParamsCallback(expectedChainId, redPacketSettings, version, publicKey);
