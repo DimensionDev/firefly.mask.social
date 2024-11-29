@@ -16,7 +16,10 @@ import { getPostFailedAt } from '@/helpers/getPostFailedAt.js';
 import { resolvePostTo } from '@/helpers/resolvePostTo.js';
 import { resolveRedPacketPlatformType } from '@/helpers/resolveRedPacketPlatformType.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
+import { RedPacketMetaKey } from '@/mask/plugins/red-packet/constants.js';
 import { hasRpPayload } from '@/mask/plugins/red-packet/helpers/rpPayload.js';
+import { FireflyRedPacket } from '@/providers/red-packet/index.js';
+import type { FireflyRedPacketAPI, RedPacketJSONPayload } from '@/providers/red-packet/types.js';
 import { captureComposeEvent } from '@/providers/telemetry/captureComposeEvent.js';
 import { capturePollEvent } from '@/providers/telemetry/capturePollEvent.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
@@ -24,9 +27,6 @@ import { commitPoll } from '@/services/poll.js';
 import { reportCrossedPost } from '@/services/reportCrossedPost.js';
 import { type CompositePost, useComposeStateStore } from '@/store/useComposeStore.js';
 import type { ComposeType } from '@/types/compose.js';
-import { RedPacketMetaKey } from '@/mask/plugins/red-packet/constants.js';
-import type { FireflyRedPacketAPI, RedPacketJSONPayload } from '@/providers/red-packet/types.js';
-import { FireflyRedPacket } from '@/providers/red-packet/index.js';
 
 async function refreshProfileFeed(source: SocialSource) {
     const currentProfileAll = getCurrentProfileAll();

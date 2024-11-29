@@ -931,9 +931,6 @@ msgstr "Domain"
 msgid "Failed to follow @{0} on Lens"
 msgstr "Failed to follow @{0} on Lens"
 
-msgid "No results"
-msgstr "No results"
-
 msgid "You might like"
 msgstr "You might like"
 
@@ -2340,9 +2337,6 @@ msgstr "24H Volume"
 
 msgid "<0>Minted</0> an NFT worth {costEl}"
 msgstr "<0>Minted</0> an NFT worth {costEl}"
-
-msgid "Claimed: <0>{claim_numbers}/{total_numbers}</0> {0}/{1} <1>{tokenSymbol}</1>"
-msgstr "Claimed: <0>{claim_numbers}/{total_numbers}</0> {0}/{1} <1>{tokenSymbol}</1>"
 
 msgid "Suspended"
 msgstr "Suspended"

@@ -936,9 +936,6 @@ msgstr "域名"
 msgid "Failed to follow @{0} on Lens"
 msgstr "在 Lens 上关注 @{0} 失败"
 
-msgid "No results"
-msgstr ""
-
 msgid "You might like"
 msgstr "你也许感兴趣"
 
@@ -2345,9 +2342,6 @@ msgstr "24小时的交易量"
 
 msgid "<0>Minted</0> an NFT worth {costEl}"
 msgstr "<0>铸造了</0> 一个 NFT 价值 {costEl}"
-
-msgid "Claimed: <0>{claim_numbers}/{total_numbers}</0> {0}/{1} <1>{tokenSymbol}</1>"
-msgstr ""
 
 msgid "Suspended"
 msgstr "已暂停"
