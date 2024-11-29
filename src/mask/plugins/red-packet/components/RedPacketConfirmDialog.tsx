@@ -2,8 +2,6 @@ import { Trans } from '@lingui/macro';
 import { Icons } from '@masknet/icons';
 import { ChainBoundary, PluginWalletStatusBar, SelectGasSettingsToolbar } from '@masknet/shared';
 import { NetworkPluginID } from '@masknet/shared-base';
-import { ActionButton } from '@/mask/bindings/components.js';
-import { makeStyles } from '@/mask/bindings/index.js';
 import { useChainContext, useNativeTokenPrice } from '@masknet/web3-hooks-base';
 import { isZero } from '@masknet/web3-shared-base';
 import { type ChainId, type GasConfig } from '@masknet/web3-shared-evm';
@@ -11,7 +9,8 @@ import { Launch as LaunchIcon } from '@mui/icons-material';
 import { Grid, Link, Paper, Typography } from '@mui/material';
 import { useEffect, useMemo } from 'react';
 
-import { EVMChainResolver, EVMExplorerResolver, EVMWeb3 } from '@/mask/bindings/index.js';
+import { ActionButton } from '@/mask/bindings/components.js';
+import { EVMChainResolver, EVMExplorerResolver, EVMWeb3, makeStyles } from '@/mask/bindings/index.js';
 import { type RedPacketSettings } from '@/mask/plugins/red-packet/hooks/useCreateCallback.js';
 import { useCreateFTRedpacketCallback } from '@/mask/plugins/red-packet/hooks/useCreateFTRedpacketCallback.js';
 import type { RedPacketJSONPayload } from '@/providers/red-packet/types.js';

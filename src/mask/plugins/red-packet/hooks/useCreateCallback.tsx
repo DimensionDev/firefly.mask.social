@@ -1,5 +1,4 @@
 import type { NetworkPluginID } from '@masknet/shared-base';
-import type { HappyRedPacketV4 } from '@/mask/bindings/constants.js';
 import { useChainContext } from '@masknet/web3-hooks-base';
 import { type FungibleToken, isLessThan, toFixed } from '@masknet/web3-shared-base';
 import {
@@ -15,6 +14,7 @@ import { useCallback } from 'react';
 import { useAsync, useAsyncFn } from 'react-use';
 import * as web3_utils from /* webpackDefer: true */ 'web3-utils';
 
+import type { HappyRedPacketV4 } from '@/mask/bindings/constants.js';
 import { EVMWeb3 } from '@/mask/bindings/index.js';
 import { useRedPacketContract } from '@/mask/plugins/red-packet/hooks/useRedPacketContract.js';
 

@@ -7,10 +7,10 @@ import { useQueries } from '@tanstack/react-query';
 import { sortBy } from 'lodash-es';
 import { forwardRef, Fragment, useMemo } from 'react';
 
+import { makeStyles, MaskColors, NFTScanNonFungibleTokenEVM } from '@/mask/bindings/index.js';
 import { MentionLink } from '@/mask/plugins/red-packet/components/Requirements/MentionLink.js';
 import { usePlatformType } from '@/mask/plugins/red-packet/hooks/usePlatformType.js';
 import { FireflyRedPacketAPI } from '@/providers/red-packet/types.js';
-import { makeStyles, MaskColors, NFTScanNonFungibleTokenEVM } from '@/mask/bindings/index.js';
 
 const useStyles = makeStyles()((theme) => ({
     box: {

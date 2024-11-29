@@ -1,8 +1,9 @@
-import { HappyRedPacketV4ABI } from '@/mask/bindings/constants.js';
 import { NetworkPluginID } from '@masknet/shared-base';
 import { useWeb3, useWeb3Connection } from '@masknet/web3-hooks-base';
 import type { ChainId } from '@masknet/web3-shared-evm';
 import { useQuery } from '@tanstack/react-query';
+
+import { HappyRedPacketV4ABI } from '@/mask/bindings/constants.js';
 
 const CREATE_LUCKY_DROP_TOPIC = '0x86af556fd7cfab9462285ad44f2d5913527c539ff549f74731ca9997ca534018';
 

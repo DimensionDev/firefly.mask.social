@@ -8,20 +8,20 @@ import { formatBalance, isZero, TokenType } from '@masknet/web3-shared-base';
 import { ChainId } from '@masknet/web3-shared-evm';
 import { Card, Grow, Stack, Typography } from '@mui/material';
 import { memo, useCallback, useMemo, useState } from 'react';
-
 import parseColor from 'tinycolor2';
+
+import type { HappyRedPacketV4 } from '@/mask/bindings/constants.js';
 import { EVMChainResolver, makeStyles } from '@/mask/bindings/index.js';
 import { OperationFooter } from '@/mask/plugins/red-packet/components/RedPacket/OperationFooter.js';
 import { RequestLoginFooter } from '@/mask/plugins/red-packet/components/RedPacket/RequestLoginFooter.js';
-import { useRedPacketCover } from '@/mask/plugins/red-packet/hooks/useRedPacketCover.js';
 import { Requirements } from '@/mask/plugins/red-packet/components/Requirements/index.js';
 import { useAvailabilityComputed } from '@/mask/plugins/red-packet/hooks/useAvailabilityComputed.js';
 import { useClaimCallback } from '@/mask/plugins/red-packet/hooks/useClaimCallback.js';
 import { useRedPacketContract } from '@/mask/plugins/red-packet/hooks/useRedPacketContract.js';
+import { useRedPacketCover } from '@/mask/plugins/red-packet/hooks/useRedPacketCover.js';
 import { useRefundCallback } from '@/mask/plugins/red-packet/hooks/useRefundCallback.js';
 import { FireflyRedPacket } from '@/providers/red-packet/index.js';
 import { type FireflyRedPacketAPI, type RedPacketJSONPayload, RedPacketStatus } from '@/providers/red-packet/types.js';
-import type { HappyRedPacketV4 } from '@/mask/bindings/constants.js';
 
 const useStyles = makeStyles<{ outdated: boolean }>()((theme, { outdated }) => {
     return {

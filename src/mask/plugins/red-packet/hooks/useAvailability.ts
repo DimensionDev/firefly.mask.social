@@ -1,9 +1,9 @@
 import type { NetworkPluginID } from '@masknet/shared-base';
-import type { HappyRedPacketV4 } from '@/mask/bindings/constants.js';
 import { useChainContext } from '@masknet/web3-hooks-base';
 import type { ChainId } from '@masknet/web3-shared-evm';
 import { useQuery } from '@tanstack/react-query';
 
+import type { HappyRedPacketV4 } from '@/mask/bindings/constants.js';
 import { useRedPacketContract } from '@/mask/plugins/red-packet/hooks/useRedPacketContract.js';
 
 export function useAvailability(

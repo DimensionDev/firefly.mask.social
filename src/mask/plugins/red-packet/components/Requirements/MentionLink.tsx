@@ -3,9 +3,9 @@ import { LoadingBase } from '@masknet/theme';
 import { Link } from '@mui/material';
 import { useQuery } from '@tanstack/react-query';
 
-import { FireflyRedPacketAPI } from '@/providers/red-packet/types.js';
-import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 import { makeStyles } from '@/mask/bindings/index.js';
+import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
+import { FireflyRedPacketAPI } from '@/providers/red-packet/types.js';
 
 const useStyles = makeStyles()({
     textLink: {

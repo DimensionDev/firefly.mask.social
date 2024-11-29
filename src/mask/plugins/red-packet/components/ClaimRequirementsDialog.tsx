@@ -19,8 +19,8 @@ import {
 } from '@mui/material';
 import { useCallback, useState } from 'react';
 
-import { type FireflyRedpacketSettings, RequirementType } from '@/mask/plugins/red-packet/types.js';
 import { makeStyles } from '@/mask/bindings/index.js';
+import { type FireflyRedpacketSettings, RequirementType } from '@/mask/plugins/red-packet/types.js';
 
 const useStyles = makeStyles()((theme) => ({
     container: {

@@ -1,11 +1,10 @@
 import type { NetworkPluginID } from '@masknet/shared-base';
-import type { HappyRedPacketV1 } from '@/mask/bindings/constants.js';
-import type { HappyRedPacketV4 } from '@/mask/bindings/constants.js';
 import { useChainContext } from '@masknet/web3-hooks-base';
 import { ContractTransaction } from '@masknet/web3-shared-evm';
 import { useAsyncFn } from 'react-use';
 import * as web3_utils from /* webpackDefer: true */ 'web3-utils';
 
+import type { HappyRedPacketV1, HappyRedPacketV4 } from '@/mask/bindings/constants.js';
 import { EVMChainResolver, EVMWeb3 } from '@/mask/bindings/index.js';
 import { useRedPacketContract } from '@/mask/plugins/red-packet/hooks/useRedPacketContract.js';
 import { useSignedMessage } from '@/mask/plugins/red-packet/hooks/useSignedMessage.js';

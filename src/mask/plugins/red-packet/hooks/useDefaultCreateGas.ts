@@ -1,5 +1,4 @@
 import type { NetworkPluginID } from '@masknet/shared-base';
-import type { HappyRedPacketV4 } from '@/mask/bindings/constants.js';
 import { useChainContext } from '@masknet/web3-hooks-base';
 import { toFixed, ZERO } from '@masknet/web3-shared-base';
 import { SchemaType, useTokenConstants } from '@masknet/web3-shared-evm';
@@ -7,6 +6,7 @@ import { omit } from 'lodash-es';
 import { useAsync } from 'react-use';
 import * as web3_utils from /* webpackDefer: true */ 'web3-utils';
 
+import type { HappyRedPacketV4 } from '@/mask/bindings/constants.js';
 import {
     checkParams,
     type MethodParameters,

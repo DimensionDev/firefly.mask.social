@@ -1,10 +1,11 @@
-import { usePortalShadowRoot } from '@/mask/bindings/components.js';
-import { makeStyles } from '@/mask/bindings/index.js';
 import { Trans } from '@lingui/macro';
 import { Icons } from '@masknet/icons';
 import { Alert } from '@masknet/shared';
 import { Box, Dialog, DialogContent, DialogTitle, Typography } from '@mui/material';
 import { memo } from 'react';
+
+import { usePortalShadowRoot } from '@/mask/bindings/components.js';
+import { makeStyles } from '@/mask/bindings/index.js';
 
 const useStyles = makeStyles()((theme) => ({
     paper: {

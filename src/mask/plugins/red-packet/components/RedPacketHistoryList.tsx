@@ -1,11 +1,11 @@
 import { Trans } from '@lingui/macro';
 import { ElementAnchor, EmptyStatus, LoadingStatus } from '@masknet/shared';
 import { type NetworkPluginID } from '@masknet/shared-base';
-import { makeStyles } from '@/mask/bindings/index.js';
 import { useChainContext } from '@masknet/web3-hooks-base';
 import { List } from '@mui/material';
 import { type HTMLProps, memo, useMemo } from 'react';
 
+import { makeStyles } from '@/mask/bindings/index.js';
 import { RedPacketInHistoryList } from '@/mask/plugins/red-packet/components/RedPacketInHistoryList.js';
 import { useRedPacketHistory } from '@/mask/plugins/red-packet/hooks/useRedPacketHistory.js';
 import { FireflyRedPacketAPI, type RedPacketJSONPayload } from '@/providers/red-packet/types.js';

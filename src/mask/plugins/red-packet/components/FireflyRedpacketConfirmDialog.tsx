@@ -2,8 +2,6 @@ import { t, Trans } from '@lingui/macro';
 import { Icons } from '@masknet/icons';
 import { Alert, FormattedBalance, FormattedCurrency, TokenIcon } from '@masknet/shared';
 import { EMPTY_LIST, NetworkPluginID } from '@masknet/shared-base';
-import { ActionButton, ShadowRootTooltip, usePortalShadowRoot } from '@/mask/bindings/components.js';
-import { makeStyles } from '@/mask/bindings/index.js';
 import { useChainContext, useFungibleTokenPrice, useReverseAddress } from '@masknet/web3-hooks-base';
 import { formatBalance, formatCurrency, leftShift } from '@masknet/web3-shared-base';
 import { formatEthereumAddress, type GasConfig, isValidAddress, isValidDomain } from '@masknet/web3-shared-evm';
@@ -13,6 +11,8 @@ import { compact, flatten, uniqBy } from 'lodash-es';
 import { useMemo, useState } from 'react';
 import { useAsync, useStateList } from 'react-use';
 
+import { ActionButton, ShadowRootTooltip, usePortalShadowRoot } from '@/mask/bindings/components.js';
+import { makeStyles } from '@/mask/bindings/index.js';
 import {
     REQUIREMENT_ICON_MAP,
     REQUIREMENT_TITLE_MAP,

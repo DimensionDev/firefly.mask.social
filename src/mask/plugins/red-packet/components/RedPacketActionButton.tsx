@@ -1,11 +1,11 @@
 import { t } from '@lingui/macro';
-import { ActionButton } from '@/mask/bindings/components.js';
-import { makeStyles } from '@/mask/bindings/index.js';
 import type { ChainId } from '@masknet/web3-shared-evm';
 import { type Theme, useMediaQuery } from '@mui/material';
 import { memo, useCallback, useContext, useEffect, useState } from 'react';
 import { useAsyncFn } from 'react-use';
 
+import { ActionButton } from '@/mask/bindings/components.js';
+import { makeStyles } from '@/mask/bindings/index.js';
 import { CompositionTypeContext } from '@/mask/plugins/red-packet/components/RedPacketInjection.js';
 import { RedPacketMetaKey } from '@/mask/plugins/red-packet/constants.js';
 import { openComposition } from '@/mask/plugins/red-packet/helpers/openComposition.js';

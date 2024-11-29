@@ -1,7 +1,6 @@
 import { Trans } from '@lingui/macro';
 import { TokenIcon } from '@masknet/shared';
 import { NetworkPluginID } from '@masknet/shared-base';
-import { makeStyles } from '@/mask/bindings/index.js';
 import { useChainContext, useFungibleToken, useNetworkDescriptor } from '@masknet/web3-hooks-base';
 import { formatBalance } from '@masknet/web3-shared-base';
 import { ChainId, NETWORK_DESCRIPTORS } from '@masknet/web3-shared-evm';
@@ -10,6 +9,7 @@ import { format, fromUnixTime } from 'date-fns';
 import { memo } from 'react';
 
 import { useEverSeen } from '@/hooks/useEverSeen.js';
+import { makeStyles } from '@/mask/bindings/index.js';
 import { RedPacketActionButton } from '@/mask/plugins/red-packet/components/RedPacketActionButton.js';
 import { useRedpacketToken } from '@/mask/plugins/red-packet/hooks/useRedpacketToken.js';
 import { FireflyRedPacketAPI, type RedPacketJSONPayload } from '@/providers/red-packet/types.js';

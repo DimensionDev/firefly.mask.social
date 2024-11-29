@@ -2,12 +2,13 @@ import { t, Trans } from '@lingui/macro';
 import { Icons } from '@masknet/icons';
 import { ChainBoundary, SelectProviderModal, WalletConnectedBoundary } from '@masknet/shared';
 import { NetworkPluginID } from '@masknet/shared-base';
-import { ActionButton } from '@/mask/bindings/components.js';
-import { makeStyles } from '@/mask/bindings/index.js';
 import { useChainContext } from '@masknet/web3-hooks-base';
 import { ChainId } from '@masknet/web3-shared-evm';
 import { Box, useTheme } from '@mui/material';
 import type { MouseEventHandler } from 'react';
+
+import { ActionButton } from '@/mask/bindings/components.js';
+import { makeStyles } from '@/mask/bindings/index.js';
 
 const useStyles = makeStyles()((theme) => {
     return {

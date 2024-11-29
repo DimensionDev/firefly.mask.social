@@ -14,8 +14,6 @@ import {
     WalletConnectedBoundary,
 } from '@masknet/shared';
 import { NetworkPluginID, PluginID } from '@masknet/shared-base';
-import { ActionButton, MaskTextField, RadioIndicator } from '@/mask/bindings/components.js';
-import { makeStyles } from '@/mask/bindings/index.js';
 import { useChainContext, useEnvironmentContext, useNativeTokenPrice } from '@masknet/web3-hooks-base';
 import { useTransactionValue } from '@masknet/web3-hooks-evm';
 // import { EVMChainResolver, EVMWeb3 } from '@masknet/web3-providers';
@@ -35,7 +33,8 @@ import { omit } from 'lodash-es';
 import { type ChangeEvent, useCallback, useMemo, useState } from 'react';
 import { useUpdateEffect } from 'react-use';
 
-import { EVMChainResolver, EVMWeb3 } from '@/mask/bindings/index.js';
+import { ActionButton, MaskTextField, RadioIndicator } from '@/mask/bindings/components.js';
+import { EVMChainResolver, EVMWeb3, makeStyles } from '@/mask/bindings/index.js';
 import {
     RED_PACKET_DEFAULT_SHARES,
     RED_PACKET_MAX_SHARES,
