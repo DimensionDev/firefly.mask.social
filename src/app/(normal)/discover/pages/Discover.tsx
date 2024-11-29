@@ -15,7 +15,7 @@ interface Props {
 
 export function DiscoverPage({ source }: Props) {
     switch (source) {
-        case Source.Snapshot:
+        case Source.DAOs:
             return <DiscoverSnapshotList />;
         case Source.Article:
             return <DiscoverArticleList />;

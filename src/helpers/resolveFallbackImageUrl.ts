@@ -7,7 +7,7 @@ export const resolveFallbackImageUrl = createLookupTableResolver<LoginFallbackSo
         [Source.Lens]: '/image/lens-fallback.png',
         [Source.Twitter]: '/image/x-fallback.png',
         [Source.Article]: '/image/article-fallback.png',
-        [Source.Snapshot]: '/image/article-fallback.png',
+        [Source.DAOs]: '/image/article-fallback.png',
         [Source.Polymarket]: '/image/article-fallback.png',
     },
     '',

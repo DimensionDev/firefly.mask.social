@@ -35,7 +35,7 @@ export function ListInPage<T = unknown, C = unknown>({
     className,
     source,
 }: ListInPageProps<T, C>) {
-    const isNotSocialSource = source === Source.Article || source === Source.Snapshot;
+    const isNotSocialSource = source === Source.Article || source === Source.DAOs;
 
     const { virtuosoState, setVirtuosoState } = useGlobalState();
     const currentSocialSource = narrowToSocialSource(source);

@@ -89,7 +89,7 @@ export interface User {
 
 export interface Profile {
     platform_id: string;
-    platform: SocialSourceInURL | FireflyPlatform.Wallet;
+    platform: FireflyPlatform;
     handle: string;
     name: string;
     hit: boolean;

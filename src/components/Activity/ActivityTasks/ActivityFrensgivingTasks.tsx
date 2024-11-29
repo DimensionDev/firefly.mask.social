@@ -10,7 +10,7 @@ import { ActivityVerifyText } from '@/components/Activity/ActivityVerifyText.js'
 import { useActivityClaimCondition } from '@/components/Activity/hooks/useActivityClaimCondition.js';
 import { useActivityPremiumList } from '@/components/Activity/hooks/useActivityPremiumList.js';
 import { useActivityShareUrl } from '@/components/Activity/hooks/useActivityShareUrl.js';
-import { Source, SourceInURL } from '@/constants/enum.js';
+import { FireflyPlatform, Source } from '@/constants/enum.js';
 import { CHAR_TAG, type Chars } from '@/helpers/chars.js';
 import { classNames } from '@/helpers/classNames.js';
 import type { ActivityInfoResponse, Profile } from '@/providers/types/Firefly.js';
@@ -22,7 +22,7 @@ const fireflyMention = {
     profiles: [
         {
             platform_id: '1583361564479889408',
-            platform: SourceInURL.Twitter,
+            platform: FireflyPlatform.Twitter,
             handle: 'thefireflyapp',
             name: 'thefireflyapp',
             hit: true,
@@ -30,7 +30,7 @@ const fireflyMention = {
         },
         {
             platform_id: '16823',
-            platform: SourceInURL.Farcaster,
+            platform: FireflyPlatform.Farcaster,
             handle: 'fireflyapp',
             name: 'Firefly App',
             hit: true,
@@ -38,7 +38,7 @@ const fireflyMention = {
         },
         {
             platform_id: '0x01b000',
-            platform: SourceInURL.Lens,
+            platform: FireflyPlatform.Lens,
             handle: 'fireflyapp',
             name: 'fireflyapp',
             hit: true,

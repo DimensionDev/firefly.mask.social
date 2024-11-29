@@ -20,7 +20,7 @@ export function FollowingSnapshotList({ walletAddress }: { walletAddress?: strin
 
     const queryKey = walletAddress
         ? ['snapshots', account.address, 'snapshots-of', walletAddress, profileIds]
-        : ['snapshots', account.address, 'following', Source.Snapshot, profileIds];
+        : ['snapshots', account.address, 'following', Source.DAOs, profileIds];
 
     const queryResult = useSuspenseInfiniteQuery({
         queryKey,
@@ -39,18 +39,18 @@ export function FollowingSnapshotList({ walletAddress }: { walletAddress?: strin
     });
 
     if (!profileIds.length) {
-        return <NotLoginFallback source={Source.Snapshot} />;
+        return <NotLoginFallback source={Source.DAOs} />;
     }
 
     return (
         <ListInPage
-            source={Source.Snapshot}
+            source={Source.DAOs}
             queryResult={queryResult}
             NoResultsFallbackProps={{
                 className: 'md:pt-[228px] max-md:py-20',
             }}
             VirtualListProps={{
-                listKey: `${ScrollListKey.Following}:${Source.Snapshot}`,
+                listKey: `${ScrollListKey.Following}:${Source.DAOs}`,
                 computeItemKey: (index, snapshot) => `${snapshot.id}-${index}`,
                 itemContent: (index, snapshot) => getSnapshotItemContent(index, snapshot),
             }}

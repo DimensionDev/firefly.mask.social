@@ -3,9 +3,9 @@ import { type EditorConfig, type LexicalNode, type NodeKey, type SerializedTextN
 import { renderToStaticMarkup } from 'react-dom/server';
 
 import { SocialSourceIcon } from '@/components/SocialSourceIcon.js';
-import { SourceInURL } from '@/constants/enum.js';
+import { FireflyPlatform } from '@/constants/enum.js';
 import { classNames } from '@/helpers/classNames.js';
-import { resolveSocialSource } from '@/helpers/resolveSource.js';
+import { resolveSocialSourceFromFireflyPlatform } from '@/helpers/resolveSource.js';
 import type { Profile } from '@/providers/types/Firefly.js';
 
 export class MentionNode extends TextNode {
@@ -32,7 +32,7 @@ export class MentionNode extends TextNode {
             const html = renderToStaticMarkup(
                 <>
                     {this.__profiles.map(({ platform, handle, platform_id }, index) => {
-                        return platform === SourceInURL.Wallet ? null : (
+                        return platform === FireflyPlatform.Wallet ? null : (
                             <span
                                 title={`@${handle}`}
                                 className={classNames('inline-flex items-center', {
@@ -40,7 +40,7 @@ export class MentionNode extends TextNode {
                                 })}
                                 key={platform_id}
                             >
-                                <SocialSourceIcon source={resolveSocialSource(platform)} size={16} />
+                                <SocialSourceIcon source={resolveSocialSourceFromFireflyPlatform(platform)} size={16} />
                             </span>
                         );
                     })}
