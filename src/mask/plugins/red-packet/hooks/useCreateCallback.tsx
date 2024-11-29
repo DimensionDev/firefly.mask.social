@@ -147,7 +147,16 @@ export function useCreateCallback(
     const redPacketContract = useRedPacketContract(chainId, version);
     const getCreateParams = useCreateParamsCallback(expectedChainId, redPacketSettings, version, publicKey);
 
-    return useAsyncFn(async () => {
+    return useAsyncFn(async (): Promise<
+        | {
+              hash: string;
+              receipt?: TransactionReceipt;
+              events?: {
+                  [eventName: string]: any;
+              };
+          }
+        | undefined
+    > => {
         const { token } = redPacketSettings;
         const createParams = await getCreateParams();
         if (!token || !redPacketContract || !createParams) return;
@@ -186,12 +195,6 @@ export function useCreateCallback(
                 hash,
                 receipt,
                 events,
-            } as {
-                hash: string;
-                receipt?: TransactionReceipt;
-                events: {
-                    [eventName: string]: unknown;
-                };
             };
         }
         return { hash, receipt };

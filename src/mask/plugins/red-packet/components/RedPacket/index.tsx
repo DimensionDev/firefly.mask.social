@@ -63,7 +63,7 @@ const useStyles = makeStyles<{ outdated: boolean }>()((theme, { outdated }) => {
         maskRoot: {
             marginTop: 'auto',
             height: 335,
-            backgroundImage: `url(${new URL('../assets/cover.png', import.meta.url)})`,
+            backgroundImage: `url(${new URL('@/mask/plugins/red-packet/assets/cover.png', import.meta.url)})`,
             backgroundSize: 'cover',
             backgroundRepeat: 'no-repeat',
         },
@@ -364,7 +364,7 @@ export const RedPacket = memo(function RedPacket({ payload }: RedPacketProps) {
                 {cover ? <img className={classes.cover} src={cover.url!} /> : null}
                 <img
                     aria-label="Token"
-                    src={new URL('../assets/tokenLabel.png', import.meta.url).toString()}
+                    src={new URL('@/mask/plugins/red-packet/assets/tokenLabel.png', import.meta.url).toString()}
                     className={classes.tokenLabel}
                 />
                 <div className={classes.header}>
