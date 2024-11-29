@@ -137,38 +137,26 @@ export function useCreateParams(
     return useAsync(() => getCreateParams(), [JSON.stringify(redPacketSettings), version, publicKey]);
 }
 
+interface CreateResult {
+    hash: string;
+    receipt: TransactionReceipt;
+    events?: {
+        [eventName: string]: any;
+    };
+}
+
 export function useCreateCallback(
     expectedChainId: ChainId,
     redPacketSettings: RedPacketSettings,
     version: number,
     publicKey: string,
     gasOption?: GasConfig,
-): AsyncFnReturn<
-    (...args: any[]) => Promise<
-        | {
-              hash: string;
-              receipt: TransactionReceipt;
-              events?: {
-                  [eventName: string]: any;
-              };
-          }
-        | undefined
-    >
-> {
+): AsyncFnReturn {
     const { account, chainId } = useChainContext<NetworkPluginID.PLUGIN_EVM>({ chainId: expectedChainId });
     const redPacketContract = useRedPacketContract(chainId, version);
     const getCreateParams = useCreateParamsCallback(expectedChainId, redPacketSettings, version, publicKey);
 
-    return useAsyncFn(async (): Promise<
-        | {
-              hash: string;
-              receipt?: TransactionReceipt;
-              events?: {
-                  [eventName: string]: any;
-              };
-          }
-        | undefined
-    > => {
+    return useAsyncFn(async () => {
         const { token } = redPacketSettings;
         const createParams = await getCreateParams();
         if (!token || !redPacketContract || !createParams) return;
@@ -207,8 +195,9 @@ export function useCreateCallback(
                 hash,
                 receipt,
                 events,
-            };
+            } as CreateResult;
+        } else {
+            return { hash, receipt } as CreateResult;
         }
-        return { hash, receipt };
     }, [account, redPacketContract, redPacketSettings, gasOption, chainId]);
 }
