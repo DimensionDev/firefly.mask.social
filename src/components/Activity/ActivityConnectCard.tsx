@@ -13,7 +13,7 @@ export function ActivityConnectCard({ source, label }: { source: SocialSource; l
     return (
         <div
             className={classNames(
-                'flex w-full flex-col space-y-2 rounded-2xl p-3 text-sm font-semibold leading-6',
+                'flex w-full flex-col space-y-2 rounded-2xl p-3 text-sm font-normal leading-6',
                 address ? 'bg-success/10 dark:bg-success/20' : 'bg-bg',
                 {
                     'sm:flex-row sm:items-center sm:space-y-0': !address,

@@ -18,7 +18,7 @@ export function ActivityPremiumConditionList({ title, source }: { title: ReactNo
             )}
         >
             <h3>{title}</h3>
-            <ul className="list-disc pl-4 text-sm font-medium leading-6">
+            <ul className="list-disc pl-4 text-sm font-normal leading-6">
                 {list.map((item, i) => (
                     <li key={i}>
                         <ActivityVerifyText verified={item.verified}>{item.label}</ActivityVerifyText>

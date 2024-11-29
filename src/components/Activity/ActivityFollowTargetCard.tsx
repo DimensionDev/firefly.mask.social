@@ -17,7 +17,7 @@ export function ActivityFollowTargetCard({ handle, profileId }: { handle: string
     return (
         <div
             className={classNames(
-                'w-full rounded-2xl p-3 text-sm font-semibold leading-6',
+                'w-full rounded-2xl p-3 text-sm font-normal leading-6',
                 isFollowed ? 'bg-success/10 dark:bg-success/20' : 'bg-bg',
             )}
         >

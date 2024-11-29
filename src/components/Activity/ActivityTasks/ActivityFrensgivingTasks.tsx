@@ -80,7 +80,7 @@ export function ActivityFrensgivingTasks({
                 </div>
                 <div
                     className={classNames(
-                        'flex w-full flex-col space-y-2 rounded-2xl p-3 text-sm font-semibold leading-6',
+                        'flex w-full flex-col space-y-2 rounded-2xl p-3 text-sm font-normal leading-6',
                         verifiedBasic ? 'bg-success/10 dark:bg-success/20' : 'bg-bg',
                     )}
                 >

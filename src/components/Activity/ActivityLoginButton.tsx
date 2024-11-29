@@ -3,6 +3,7 @@
 import { Trans } from '@lingui/macro';
 
 import LoadingIcon from '@/assets/loading.svg';
+import { useActivityConnections } from '@/components/Activity/hooks/useActivityConnections.js';
 import { useIsLoginInActivity } from '@/components/Activity/hooks/useIsLoginInActivity.js';
 import { useLoginInActivity } from '@/components/Activity/hooks/useLoginInActivity.js';
 import { SocialSourceIcon } from '@/components/SocialSourceIcon.js';
@@ -12,6 +13,7 @@ import { useAsyncStatus } from '@/hooks/useAsyncStatus.js';
 
 export function ActivityLoginButton({ source }: { source: SocialSource }) {
     const isLoggedIn = useIsLoginInActivity(source);
+    const { isLoading: isLoadingActivityConnections } = useActivityConnections();
     const [{ loading }, login] = useLoginInActivity();
     const asyncStatus = useAsyncStatus(source);
     if (isLoggedIn) {
@@ -21,7 +23,7 @@ export function ActivityLoginButton({ source }: { source: SocialSource }) {
             </button>
         );
     }
-    const isLoading = loading || asyncStatus;
+    const isLoading = loading || asyncStatus || isLoadingActivityConnections;
     return (
         <button
             className="relative h-8 rounded-full border border-current px-4 font-bold leading-8 text-[13x] disabled:opacity-60"
