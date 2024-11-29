@@ -29,7 +29,7 @@ import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import { useSetEditorContent } from '@/hooks/useSetEditorContent.js';
 import { CrossIsolationMessages } from '@/mask/bindings/index.js';
 import { connectMaskWithWagmi } from '@/mask/helpers/connectWagmiWithMask.js';
-import { ComposeModalRef, ConnectModalRef, ConnectWalletModalRef } from '@/modals/controls.js';
+import { ComposeModalRef, ConnectModalRef } from '@/modals/controls.js';
 import { useComposeScheduleStateStore } from '@/store/useComposeScheduleStore.js';
 import { useComposeStateStore } from '@/store/useComposeStore.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
