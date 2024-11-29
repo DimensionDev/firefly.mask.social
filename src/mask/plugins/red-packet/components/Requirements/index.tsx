@@ -1,5 +1,4 @@
 import { Trans } from '@lingui/macro';
-import { type GeneratedIcon, type GeneratedIconProps, Icons } from '@masknet/icons';
 import { usePostInfoDetails, usePostLink } from '@masknet/plugin-infra/content-script';
 import { useWeb3Utils } from '@masknet/web3-hooks-base';
 import { Box, type BoxProps, IconButton, Link, List, ListItem, Typography } from '@mui/material';
@@ -7,6 +6,7 @@ import { useQueries } from '@tanstack/react-query';
 import { sortBy } from 'lodash-es';
 import { forwardRef, Fragment, useMemo } from 'react';
 
+import { type GeneratedIcon, type GeneratedIconProps, Icons } from '@/mask/bindings/components.js';
 import { makeStyles, MaskColors, NFTScanNonFungibleTokenEVM } from '@/mask/bindings/index.js';
 import { MentionLink } from '@/mask/plugins/red-packet/components/Requirements/MentionLink.js';
 import { usePlatformType } from '@/mask/plugins/red-packet/hooks/usePlatformType.js';

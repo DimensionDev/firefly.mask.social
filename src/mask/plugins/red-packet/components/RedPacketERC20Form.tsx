@@ -1,5 +1,4 @@
 import { t, Trans } from '@lingui/macro';
-import { Icons } from '@masknet/icons';
 import { useLastRecognizedIdentity } from '@masknet/plugin-infra/content-script';
 import {
     ChainBoundary,
@@ -33,7 +32,7 @@ import { omit } from 'lodash-es';
 import { type ChangeEvent, useCallback, useMemo, useState } from 'react';
 import { useUpdateEffect } from 'react-use';
 
-import { ActionButton, MaskTextField, RadioIndicator } from '@/mask/bindings/components.js';
+import { ActionButton, Icons, MaskTextField, RadioIndicator } from '@/mask/bindings/components.js';
 import { EVMChainResolver, EVMWeb3, makeStyles } from '@/mask/bindings/index.js';
 import {
     RED_PACKET_DEFAULT_SHARES,

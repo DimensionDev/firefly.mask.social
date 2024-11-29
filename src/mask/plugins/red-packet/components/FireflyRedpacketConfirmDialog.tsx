@@ -1,5 +1,4 @@
 import { t, Trans } from '@lingui/macro';
-import { Icons } from '@masknet/icons';
 import { Alert, FormattedBalance, FormattedCurrency, TokenIcon } from '@masknet/shared';
 import { EMPTY_LIST, NetworkPluginID } from '@masknet/shared-base';
 import { useChainContext, useFungibleTokenPrice, useReverseAddress } from '@masknet/web3-hooks-base';
@@ -11,7 +10,7 @@ import { compact, flatten, uniqBy } from 'lodash-es';
 import { useMemo, useState } from 'react';
 import { useAsync, useStateList } from 'react-use';
 
-import { ActionButton, ShadowRootTooltip, usePortalShadowRoot } from '@/mask/bindings/components.js';
+import { ActionButton, Icons, ShadowRootTooltip, usePortalShadowRoot } from '@/mask/bindings/components.js';
 import { makeStyles } from '@/mask/bindings/index.js';
 import {
     REQUIREMENT_ICON_MAP,

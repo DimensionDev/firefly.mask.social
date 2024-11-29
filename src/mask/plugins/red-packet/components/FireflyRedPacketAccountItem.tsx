@@ -1,9 +1,9 @@
-import { Icons } from '@masknet/icons';
 import { ChainId, formatEthereumAddress, isValidAddress } from '@masknet/web3-shared-evm';
 import { Box, Typography } from '@mui/material';
 import { memo } from 'react';
 
 import { openWindow } from '@/helpers/openWindow.js';
+import { Icons } from '@/mask/bindings/components.js';
 import { EVMExplorerResolver, makeStyles } from '@/mask/bindings/index.js';
 
 const useStyles = makeStyles<{ isDarkFont?: boolean }>()((theme, { isDarkFont }) => ({

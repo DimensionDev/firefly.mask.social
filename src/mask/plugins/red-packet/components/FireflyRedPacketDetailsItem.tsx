@@ -1,5 +1,4 @@
 import { Trans } from '@lingui/macro';
-import { Icons } from '@masknet/icons';
 import { TokenIcon } from '@masknet/shared';
 import { NetworkPluginID } from '@masknet/shared-base';
 import { useChainContext, useNetworkDescriptor } from '@masknet/web3-hooks-base';
@@ -9,6 +8,7 @@ import { format, fromUnixTime } from 'date-fns';
 import { memo } from 'react';
 import urlcat from 'urlcat';
 
+import { Icons } from '@/mask/bindings/components.js';
 import { makeStyles } from '@/mask/bindings/index.js';
 import { FireflyRedPacketAccountItem } from '@/mask/plugins/red-packet/components/FireflyRedPacketAccountItem.js';
 import { RedPacketActionButton } from '@/mask/plugins/red-packet/components/RedPacketActionButton.js';

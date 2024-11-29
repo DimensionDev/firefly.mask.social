@@ -1,5 +1,4 @@
 import { t, Trans } from '@lingui/macro';
-import { type GeneratedIcon, Icons } from '@masknet/icons';
 import { getEnumAsArray } from '@masknet/kit';
 import { Alert, SelectNonFungibleContractModal } from '@masknet/shared';
 import { EMPTY_LIST, NetworkPluginID } from '@masknet/shared-base';
@@ -19,6 +18,7 @@ import {
 } from '@mui/material';
 import { useCallback, useState } from 'react';
 
+import { type GeneratedIcon, Icons } from '@/mask/bindings/components.js';
 import { makeStyles } from '@/mask/bindings/index.js';
 import { type FireflyRedpacketSettings, RequirementType } from '@/mask/plugins/red-packet/types.js';
 

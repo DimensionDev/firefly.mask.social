@@ -1,5 +1,4 @@
 import { t } from '@lingui/macro';
-import { Icons } from '@masknet/icons';
 import {
     useActivatedPluginSiteAdaptor,
     useCurrentVisitingIdentity,
@@ -16,7 +15,7 @@ import { DialogContent, Tab, useTheme } from '@mui/material';
 import { Suspense, useCallback, useContext, useMemo, useState } from 'react';
 import * as web3_utils from /* webpackDefer: true */ 'web3-utils';
 
-import { MaskTabList, useTabs } from '@/mask/bindings/components.js';
+import { Icons, MaskTabList, useTabs } from '@/mask/bindings/components.js';
 import { EVMWeb3, makeStyles } from '@/mask/bindings/index.js';
 import { ClaimRequirementsDialog } from '@/mask/plugins/red-packet/components/ClaimRequirementsDialog.js';
 import { ClaimRequirementsRuleDialog } from '@/mask/plugins/red-packet/components/ClaimRequirementsRuleDialog.js';
