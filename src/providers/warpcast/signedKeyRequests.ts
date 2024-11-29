@@ -10,7 +10,7 @@ interface SignedKeyRequestSponsorship {
     signature: string; // sponsorship signature by sponsorFid
 }
 
-export interface SignedKeyRequestBody {
+interface SignedKeyRequestBody {
     key: Hex;
     requestFid: number;
     deadline: number;

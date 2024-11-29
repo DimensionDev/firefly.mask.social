@@ -1,13 +1,11 @@
 import dayjs from 'dayjs';
 import { NextRequest } from 'next/server.js';
-import urlcat from 'urlcat';
 import { mnemonicToAccount } from 'viem/accounts';
 
 import { env } from '@/constants/env.js';
-import { WARPCAST_ROOT_URL } from '@/constants/index.js';
 import { createSuccessResponseJSON } from '@/helpers/createResponseJSON.js';
-import { fetchJSON } from '@/helpers/fetchJSON.js';
 import { HexStringSchema } from '@/schemas/index.js';
+import { signedKeyRequests } from '@/providers/warpcast/signedKeyRequests.js';
 
 const SIGNED_KEY_REQUEST_VALIDATOR_EIP_712_DOMAIN = {
     name: 'Farcaster SignedKeyRequestValidator',
@@ -42,28 +40,15 @@ export async function POST(request: NextRequest) {
         },
     });
 
-    const url = urlcat(WARPCAST_ROOT_URL, '/signed-key-requests');
-    const { result } = await fetchJSON<{
-        result: {
-            signedKeyRequest: {
-                token: string;
-                deeplinkUrl: string;
-                key: string;
-                requestFid: number;
-                state: 'pending' | 'approved' | 'completed';
-                isSponsored: boolean;
-            };
-        };
-    }>(url, {
-        method: 'POST',
-        body: JSON.stringify({
+    const { result } = await signedKeyRequests(
+        {
             key: publicKey,
-            requestFid: env.internal.FARCASTER_SIGNER_FID,
+            requestFid: Number.parseInt(env.internal.FARCASTER_SIGNER_FID, 10),
             signature,
             deadline,
-        }),
-        signal: request.signal,
-    });
+        },
+        request.signal,
+    );
 
     return createSuccessResponseJSON({
         fid: result.signedKeyRequest.requestFid,
