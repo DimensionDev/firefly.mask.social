@@ -3,11 +3,11 @@ import { memo } from 'react';
 import WalletIcon from '@/assets/wallet-circle.svg';
 import { Avatar } from '@/components/Avatar.js';
 import { SocialSourceIcon } from '@/components/SocialSourceIcon.js';
-import { type ProfilePageSource, Source, SourceInURL } from '@/constants/enum.js';
+import { FireflyPlatform, type ProfilePageSource, Source } from '@/constants/enum.js';
 import { Link } from '@/esm/Link.js';
 import { getStampAvatarByProfileId } from '@/helpers/getStampAvatarByProfileId.js';
 import { resolveProfileUrl } from '@/helpers/resolveProfileUrl.js';
-import { resolveSocialSource, resolveSource } from '@/helpers/resolveSource.js';
+import { resolveSocialSourceFromFireflyPlatform } from '@/helpers/resolveSource.js';
 import type { Profile } from '@/providers/types/Firefly.js';
 
 interface CrossProfileItemProps {
@@ -16,7 +16,7 @@ interface CrossProfileItemProps {
 }
 
 export const SearchableProfileItem = memo<CrossProfileItemProps>(function SearchableProfileItem({ profile, related }) {
-    const source = resolveSource(profile.platform) as ProfilePageSource;
+    const source = resolveSocialSourceFromFireflyPlatform(profile.platform) as ProfilePageSource;
     const avatar = profile.avatar ?? getStampAvatarByProfileId(source, profile.platform_id);
 
     return (
@@ -29,7 +29,7 @@ export const SearchableProfileItem = memo<CrossProfileItemProps>(function Search
                 <div className="flex items-center gap-x-1">
                     <span className="truncate text-lg font-bold leading-6 text-lightMain">{profile.name}</span>
                     {related.map((x) =>
-                        x.platform === SourceInURL.Wallet ? (
+                        x.platform === FireflyPlatform.Wallet ? (
                             <WalletIcon
                                 className="inline-block shrink-0 text-second"
                                 key={x.platform}
@@ -41,7 +41,7 @@ export const SearchableProfileItem = memo<CrossProfileItemProps>(function Search
                                 key={x.platform}
                                 mono
                                 className="inline-block shrink-0 text-second"
-                                source={resolveSocialSource(x.platform)}
+                                source={resolveSocialSourceFromFireflyPlatform(x.platform)}
                                 size={15}
                             />
                         ),

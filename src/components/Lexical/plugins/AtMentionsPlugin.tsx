@@ -16,13 +16,13 @@ import { Avatar } from '@/components/Avatar.js';
 import { $createMentionNode } from '@/components/Lexical/nodes/MentionsNode.js';
 import { SocialSourceIcon } from '@/components/SocialSourceIcon.js';
 import { Tooltip } from '@/components/Tooltip.js';
-import { type SocialSource, SourceInURL } from '@/constants/enum.js';
+import { FireflyPlatform, type SocialSource } from '@/constants/enum.js';
 import { EMPTY_LIST, SORTED_SOCIAL_SOURCES } from '@/constants/index.js';
 import { classNames } from '@/helpers/classNames.js';
 import { formatSearchIdentities } from '@/helpers/formatSearchIdentities.js';
 import { getSafeMentionQueryText } from '@/helpers/getMentionOriginalText.js';
 import { getStampAvatarByProfileId } from '@/helpers/getStampAvatarByProfileId.js';
-import { resolveSocialSource, resolveSocialSourceFromFireflyPlatform } from '@/helpers/resolveSource.js';
+import { resolveSocialSourceFromFireflyPlatform } from '@/helpers/resolveSource.js';
 import { useCompositePost } from '@/hooks/useCompositePost.js';
 import { useCurrentProfileAll } from '@/hooks/useCurrentProfile.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
@@ -140,7 +140,7 @@ const MentionsTypeaheadMenuItem = memo<MentionsTypeaheadMenuItemProps>(function 
                     </div>
                     <div className="flex items-center">
                         {option.allProfile.map((profile, index, self) => {
-                            return profile.platform === SourceInURL.Wallet ? null : (
+                            return profile.platform === FireflyPlatform.Wallet ? null : (
                                 <Tooltip
                                     appendTo={() => document.body}
                                     placement="top"
@@ -152,7 +152,7 @@ const MentionsTypeaheadMenuItem = memo<MentionsTypeaheadMenuItemProps>(function 
                                             className={classNames('inline-flex items-center', {
                                                 '-ml-1': index > 0 && self.length > 1,
                                             })}
-                                            source={resolveSocialSource(profile.platform)}
+                                            source={resolveSocialSourceFromFireflyPlatform(profile.platform)}
                                             size={20}
                                         />
                                     </span>
