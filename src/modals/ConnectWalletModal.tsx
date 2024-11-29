@@ -18,6 +18,9 @@ import { type SingletonModalRefCreator } from '@/libs/SingletonModal.js';
 import { ConnectModalRef } from '@/modals/controls.js';
 import { useNavigatorState } from '@/store/useNavigatorStore.js';
 
+const evmNetworkDescriptor = getNetworkDescriptor(NetworkPluginID.PLUGIN_EVM, EVMChainId.Mainnet);
+const solanaNetworkDescriptor = getNetworkDescriptor(NetworkPluginID.PLUGIN_SOLANA, SolanaChainId.Mainnet);
+
 interface ConnectWalletModalUIProps {
     onOpenEvmDialog: () => void;
     onOpenSolanaDialog: () => void;
@@ -36,9 +39,6 @@ export const ConnectWalletModalUI = memo<ConnectWalletModalUIProps>(function Con
     loading,
 }) {
     const isMedium = useIsMedium();
-
-    const evmNetworkDescriptor = getNetworkDescriptor(NetworkPluginID.PLUGIN_EVM, EVMChainId.Mainnet);
-    const solanaNetworkDescriptor = getNetworkDescriptor(NetworkPluginID.PLUGIN_SOLANA, SolanaChainId.Mainnet);
 
     const content = loading ? (
         <div className="flex h-[156px] items-center justify-center">
