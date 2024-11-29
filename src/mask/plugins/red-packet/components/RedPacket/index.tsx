@@ -1,6 +1,5 @@
 import { Plural, t, Trans } from '@lingui/macro';
 import { useLastRecognizedIdentity, usePostInfoDetails, usePostLink } from '@masknet/plugin-infra/content-script';
-import { requestLogin, share } from '@masknet/plugin-infra/content-script/context';
 import { LoadingStatus, TransactionConfirmModal } from '@masknet/shared';
 import { EMPTY_LIST, NetworkPluginID } from '@masknet/shared-base';
 import { useChainContext, useNetworkContext } from '@masknet/web3-hooks-base';
@@ -22,6 +21,19 @@ import { useRedPacketCover } from '@/mask/plugins/red-packet/hooks/useRedPacketC
 import { useRefundCallback } from '@/mask/plugins/red-packet/hooks/useRefundCallback.js';
 import { FireflyRedPacket } from '@/providers/red-packet/index.js';
 import { type FireflyRedPacketAPI, type RedPacketJSONPayload, RedPacketStatus } from '@/providers/red-packet/types.js';
+import { ComposeModalRef, LoginModalRef } from '@/modals/controls.js';
+import type { SocialSource } from '@/constants/enum.js';
+import { SITE_URL } from '@/constants/index.js';
+import { delay } from '@masknet/kit';
+
+async function share(text: string, source?: SocialSource) {
+    TransactionConfirmModal.close();
+    await delay(300);
+    ComposeModalRef.open({
+        chars: text.replaceAll(/mask\.io/gi, SITE_URL),
+        source,
+    });
+}
 
 const useStyles = makeStyles<{ outdated: boolean }>()((theme, { outdated }) => {
     return {
@@ -188,7 +200,7 @@ export const RedPacket = memo(function RedPacket({ payload }: RedPacketProps) {
     const postLink = usePostLink();
 
     const [{ loading: isClaiming, value: claimTxHash }, claimCallback] = useClaimCallback(account, payload);
-    const source = usePostInfoDetails.source();
+    const source = usePostInfoDetails.source() as SocialSource | null;
     const platform = source?.toLowerCase() as 'lens' | 'farcaster' | 'twitter';
     const postUrl = usePostInfoDetails.url();
     const handle = usePostInfoDetails.handle();
@@ -315,9 +327,10 @@ export const RedPacket = memo(function RedPacket({ payload }: RedPacketProps) {
         );
     }, [availability, canRefund, token, t, payload, listOfStatus]);
 
-    const handleShare = useCallback(() => {
-        if (shareText) share?.(shareText, source ? source : undefined);
-    }, [shareText, source]);
+    const handleShare = async () => {
+        if (!shareText) return;
+        await share(shareText.replaceAll(/mask\.io/gi, SITE_URL), source ? source : undefined);
+    };
 
     const isEmpty = listOfStatus.includes(RedPacketStatus.empty);
     const outdated = isEmpty || (!canRefund && listOfStatus.includes(RedPacketStatus.expired));
@@ -416,7 +429,7 @@ export const RedPacket = memo(function RedPacket({ payload }: RedPacketProps) {
             ) : (
                 <RequestLoginFooter
                     onRequest={() => {
-                        requestLogin?.(source);
+                        LoginModalRef.open({ source: source as SocialSource });
                     }}
                 />
             )}
