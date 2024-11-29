@@ -21,6 +21,7 @@ import { fireflyBridgeProvider } from '@/providers/firefly/Bridge.js';
 import { captureActivityEvent } from '@/providers/telemetry/captureActivityEvent.js';
 import { EventId } from '@/providers/types/Telemetry.js';
 import { ChainId } from '@/types/frame.js';
+import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 
 export function ActivityConnectButton({ source }: { source: SocialSource }) {
     const { onChangeAddress, address } = useContext(ActivityContext);
@@ -58,7 +59,7 @@ export function ActivityConnectButton({ source }: { source: SocialSource }) {
                             return;
                         }
                         e.preventDefault();
-                        enqueueWarningMessage(t`Please sign in with {resolveSourceName(source)} to continue`);
+                        enqueueWarningMessage(t`Please sign in with ${resolveSourceName(source)} to continue`);
                     }}
                 >
                     {isRefetching || isLoading ? (

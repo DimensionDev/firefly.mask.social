@@ -717,9 +717,6 @@ msgstr "黑名单功能已启用。有些地址可能无法正常交易（欺诈
 msgid "Verified by {0}"
 msgstr "由 {0} 校验"
 
-msgid "Please sign in with {resolveSourceName(source)} to continue"
-msgstr ""
-
 msgid "Select Account"
 msgstr "选择账号"
 
@@ -2151,6 +2148,9 @@ msgstr "{type, select, compose {{0}} quote {添加一条评论} reply {发布你
 msgid "Unknown transaction method: {method}."
 msgstr "未知交易方法：{method}。"
 
+msgid "Please sign in with {0} to continue"
+msgstr ""
+
 msgid "Get involved in the <0>Presidential Election Winner 2024</0> on Polymarket"
 msgstr "您曾在 Polymarket 对 <0>Presidential Election Winner 2024</0> 进行投注"
 
@@ -2423,9 +2423,6 @@ msgstr "定时"
 
 msgid "No cybercrime involved."
 msgstr "不涉及网络犯罪。"
-
-msgid "Followed @{handle} on X."
-msgstr "在 X 上关注 @{handle}"
 
 msgid "Sent"
 msgstr ""

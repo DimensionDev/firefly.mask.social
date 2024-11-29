@@ -717,9 +717,6 @@ msgstr ""
 msgid "Verified by {0}"
 msgstr ""
 
-msgid "Please sign in with {resolveSourceName(source)} to continue"
-msgstr ""
-
 msgid "Select Account"
 msgstr ""
 
@@ -2151,6 +2148,9 @@ msgstr ""
 msgid "Unknown transaction method: {method}."
 msgstr ""
 
+msgid "Please sign in with {0} to continue"
+msgstr ""
+
 msgid "Get involved in the <0>Presidential Election Winner 2024</0> on Polymarket"
 msgstr ""
 
@@ -2422,9 +2422,6 @@ msgid "Schedule"
 msgstr ""
 
 msgid "No cybercrime involved."
-msgstr ""
-
-msgid "Followed @{handle} on X."
 msgstr ""
 
 msgid "Sent"
