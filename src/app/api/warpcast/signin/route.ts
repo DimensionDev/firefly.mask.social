@@ -4,7 +4,6 @@ import { mnemonicToAccount } from 'viem/accounts';
 
 import { env } from '@/constants/env.js';
 import { createSuccessResponseJSON } from '@/helpers/createResponseJSON.js';
-import { signedKeyRequests } from '@/providers/warpcast/signedKeyRequests.js';
 import { HexStringSchema } from '@/schemas/index.js';
 
 const SIGNED_KEY_REQUEST_VALIDATOR_EIP_712_DOMAIN = {
@@ -40,21 +39,14 @@ export async function POST(request: NextRequest) {
         },
     });
 
-    const { result } = await signedKeyRequests(
-        {
+    return createSuccessResponseJSON({
+        body: {
             key: publicKey,
             requestFid: Number.parseInt(env.internal.FARCASTER_SIGNER_FID, 10),
             signature,
             deadline,
         },
-        request.signal,
-    );
-
-    return createSuccessResponseJSON({
-        fid: result.signedKeyRequest.requestFid,
-        token: result.signedKeyRequest.token,
         timestamp: Date.now(),
         expiresAt: deadline * 1000,
-        deeplinkUrl: result.signedKeyRequest.deeplinkUrl,
     });
 }

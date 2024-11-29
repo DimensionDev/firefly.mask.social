@@ -6,24 +6,22 @@ import { fetchJSON } from '@/helpers/fetchJSON.js';
 import { FarcasterSession, FarcasterSponsorship } from '@/providers/farcaster/Session.js';
 import { FarcasterSocialMediaProvider } from '@/providers/farcaster/SocialMedia.js';
 import type { Account } from '@/providers/types/Account.js';
-import type { SignedKeyRequestResponse } from '@/providers/types/Warpcast.js';
 import { pollingSignerRequestToken } from '@/providers/warpcast/pollingSignerRequestToken.js';
 import { bindOrRestoreFireflySession } from '@/services/bindFireflySession.js';
 import type { ResponseJSON } from '@/types/index.js';
+import { signedKeyRequests, type SignedKeyRequestBody } from '@/providers/warpcast/signedKeyRequests.js';
 
-interface SponsorshipResponse extends SignedKeyRequestResponse {
-    expiresAt: number;
+interface SignedSponership {
+    body: SignedKeyRequestBody;
     timestamp: number;
-    fid: number;
-    token: string;
-    signature: string;
+    expiresAt: number;
 }
 
 async function createSession(signal?: AbortSignal) {
     const privateKey = utils.randomPrivateKey();
     const publicKey: Hex = `0x${bytesToHex(await getPublicKey(privateKey))}`;
 
-    const response = await fetchJSON<ResponseJSON<SponsorshipResponse>>('/api/firefly/sponsorship', {
+    const response = await fetchJSON<ResponseJSON<SignedSponership>>('/api/firefly/sponsorship', {
         method: 'POST',
         signal,
         body: JSON.stringify({
@@ -32,19 +30,21 @@ async function createSession(signal?: AbortSignal) {
     });
     if (!response.success) throw new Error(response.error.message);
 
+    const keyResponse = await signedKeyRequests(response.data.body, signal);
+
     const farcasterSession = new FarcasterSession(
-        `${response.data.fid}`,
+        `${keyResponse.result.signedKeyRequest.requestFid}`,
         toHex(privateKey),
         response.data.timestamp,
         response.data.expiresAt,
         // the signer request token is one-time use
-        response.data.token,
+        keyResponse.result.signedKeyRequest.token,
         undefined,
-        `${FarcasterSponsorship.Firefly}-${response.data.signature}`,
+        `${FarcasterSponsorship.Firefly}-${response.data.body.sponsorship?.signature ?? '0x'}`,
     );
 
     return {
-        deeplink: response.data.result.signedKeyRequest.deeplinkUrl,
+        deeplink: keyResponse.result.signedKeyRequest.deeplinkUrl,
         session: farcasterSession,
     };
 }

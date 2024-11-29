@@ -8,14 +8,12 @@ import type { Account } from '@/providers/types/Account.js';
 import { pollingSignerRequestToken } from '@/providers/warpcast/pollingSignerRequestToken.js';
 import { bindOrRestoreFireflySession } from '@/services/bindFireflySession.js';
 import type { ResponseJSON } from '@/types/index.js';
+import { signedKeyRequests, type SignedKeyRequestBody } from '@/providers/warpcast/signedKeyRequests.js';
 
-interface WarpcastSignInResponse {
-    fid: string;
-    token: string;
+interface SignedBody {
+    body: SignedKeyRequestBody;
     timestamp: number;
     expiresAt: number;
-    // URL to present to user to scan
-    deeplinkUrl: string;
 }
 
 async function createSession(signal?: AbortSignal) {
@@ -23,7 +21,7 @@ async function createSession(signal?: AbortSignal) {
     const privateKey = utils.randomPrivateKey();
     const publicKey: `0x${string}` = `0x${Buffer.from(await getPublicKey(privateKey)).toString('hex')}`;
 
-    const response = await fetchJSON<ResponseJSON<WarpcastSignInResponse>>('/api/warpcast/signin', {
+    const response = await fetchJSON<ResponseJSON<SignedBody>>('/api/warpcast/signin', {
         method: 'POST',
         body: JSON.stringify({
             key: publicKey,
@@ -32,6 +30,8 @@ async function createSession(signal?: AbortSignal) {
     });
     if (!response.success) throw new Error(response.error.message);
 
+    const keyResponse = await signedKeyRequests(response.data.body, signal);
+
     const farcasterSession = new FarcasterSession(
         // we don't posses the fid until the key request was signed
         '',
@@ -39,11 +39,11 @@ async function createSession(signal?: AbortSignal) {
         response.data.timestamp,
         response.data.expiresAt,
         // the signer request token is one-time use
-        response.data.token,
+        keyResponse.result.signedKeyRequest.token,
     );
 
     return {
-        deeplink: response.data.deeplinkUrl,
+        deeplink: keyResponse.result.signedKeyRequest.deeplinkUrl,
         session: farcasterSession,
     };
 }

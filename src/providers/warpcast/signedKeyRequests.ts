@@ -10,7 +10,7 @@ interface SignedKeyRequestSponsorship {
     signature: string; // sponsorship signature by sponsorFid
 }
 
-interface SignedKeyRequestBody {
+export interface SignedKeyRequestBody {
     key: Hex;
     requestFid: number;
     deadline: number;
@@ -21,7 +21,7 @@ interface SignedKeyRequestBody {
 
 export async function signedKeyRequests(body: SignedKeyRequestBody, signal?: AbortSignal) {
     const url = urlcat(WARPCAST_ROOT_URL, '/signed-key-requests');
-    return await fetchJSON<SignedKeyRequestResponse>(url, {
+    return fetchJSON<SignedKeyRequestResponse>(url, {
         method: 'POST',
         body: JSON.stringify(body),
         signal,
