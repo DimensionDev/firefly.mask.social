@@ -356,6 +356,8 @@ export interface Channel {
     hosts?: Profile[];
     blocked?: boolean;
     __original__?: unknown;
+    // lazy load channel for Lens
+    __lazy__?: boolean;
 }
 
 export interface ProfileBadge {

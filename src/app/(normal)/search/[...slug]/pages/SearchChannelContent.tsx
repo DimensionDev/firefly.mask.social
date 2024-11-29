@@ -6,6 +6,7 @@ import { compact } from 'lodash-es';
 import { ChannelInList } from '@/components/ChannelInList.js';
 import { ListInPage } from '@/components/ListInPage.js';
 import { Empty } from '@/components/Search/Empty.js';
+import { SearchSources } from '@/components/Search/SearchSources.js';
 import { ScrollListKey } from '@/constants/enum.js';
 import { narrowToSocialSource } from '@/helpers/narrowToSocialSource.js';
 import { createIndicator } from '@/helpers/pageable.js';
@@ -43,18 +44,21 @@ export function SearchChannelContent() {
     const listKey = `${ScrollListKey.Search}:${searchType}:${searchKeyword}:${source}`;
 
     return (
-        <ListInPage
-            source={source}
-            key={listKey}
-            queryResult={queryResult}
-            VirtualListProps={{
-                listKey,
-                computeItemKey: (index, channel) => `${channel.id}_${index}`,
-                itemContent: (index, channel) => getSearchItemContent(channel, index, listKey),
-            }}
-            NoResultsFallbackProps={{
-                message: <Empty keyword={searchKeyword} />,
-            }}
-        />
+        <>
+            <SearchSources source={source} query={searchKeyword} searchType={searchType} />
+            <ListInPage
+                source={source}
+                key={listKey}
+                queryResult={queryResult}
+                VirtualListProps={{
+                    listKey,
+                    computeItemKey: (index, channel) => `${channel.id}_${index}`,
+                    itemContent: (index, channel) => getSearchItemContent(channel, index, listKey),
+                }}
+                NoResultsFallbackProps={{
+                    message: <Empty keyword={searchKeyword} />,
+                }}
+            />
+        </>
     );
 }

@@ -11,8 +11,8 @@ import stripMarkdown from 'strip-markdown';
 import { Code } from '@/components/Code.js';
 import type { MarkupProps } from '@/components/Markup/Markup.js';
 import { MarkupLink } from '@/components/Markup/MarkupLink/index.js';
-import { Source } from '@/constants/enum.js';
 import { CHANNEL_REGEX, HASHTAG_REGEX, URL_REGEX } from '@/constants/regexp.js';
+import { isChannelSupported } from '@/helpers/isChannelSupported.js';
 
 const trimify = (value: string): string => value.replace(/\n\n\s*\n/g, '\n\n').trim();
 
@@ -23,7 +23,7 @@ export const Markup = memo<MarkupProps>(function Markup({ children, post, ...res
                 [stripMarkdown, { keep: ['strong', 'emphasis', 'inlineCode', 'list', 'listItem'] }],
                 remarkBreaks,
                 linkifyRegex(URL_REGEX),
-                post?.source === Source.Farcaster ? linkifyRegex(CHANNEL_REGEX) : undefined,
+                isChannelSupported(post?.source) ? linkifyRegex(CHANNEL_REGEX) : undefined,
                 linkifyRegex(HASHTAG_REGEX),
             ]);
         const handles = post.mentions.map((x) => x.fullHandle);
@@ -36,7 +36,7 @@ export const Markup = memo<MarkupProps>(function Markup({ children, post, ...res
             // as a mention rather than link
             linkifyRegex(mentionRe),
             linkifyRegex(URL_REGEX),
-            post?.source === Source.Farcaster ? linkifyRegex(CHANNEL_REGEX) : undefined,
+            isChannelSupported(post.source) ? linkifyRegex(CHANNEL_REGEX) : undefined,
             linkifyRegex(HASHTAG_REGEX),
         ]);
     }, [post?.mentions, post?.source]);

@@ -95,6 +95,8 @@ const ExternalEnvSchema = z.object({
     NEXT_PUBLIC_PARTICLE_APP_ID: z.string().optional(),
     NEXT_PUBLIC_PARTICLE_PROJECT_ID: z.string().optional(),
     NEXT_PUBLIC_PARTICLE_CLIENT_KEY: z.string().optional(),
+
+    NEXT_PUBLIC_ORB_CLUB_API_TOKEN: z.string().default('invalid_orb_club_api_token'),
 });
 
 export const env = {
@@ -157,5 +159,7 @@ export const env = {
         NEXT_PUBLIC_PARTICLE_APP_ID: process.env.NEXT_PUBLIC_PARTICLE_APP_ID,
         NEXT_PUBLIC_PARTICLE_PROJECT_ID: process.env.NEXT_PUBLIC_PARTICLE_PROJECT_ID,
         NEXT_PUBLIC_PARTICLE_CLIENT_KEY: process.env.NEXT_PUBLIC_PARTICLE_CLIENT_KEY,
+
+        NEXT_PUBLIC_ORB_CLUB_API_TOKEN: process.env.NEXT_PUBLIC_ORB_CLUB_API_TOKEN,
     }),
 };

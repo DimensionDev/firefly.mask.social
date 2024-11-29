@@ -1,3 +1,6 @@
+'use client';
+
+import { useSuspenseQuery } from '@tanstack/react-query';
 import { type HTMLProps, memo } from 'react';
 
 import { Avatar } from '@/components/Avatar.js';
@@ -6,13 +9,33 @@ import { SocialSourceIcon } from '@/components/SocialSourceIcon.js';
 import { Link } from '@/esm/Link.js';
 import { classNames } from '@/helpers/classNames.js';
 import { getChannelUrl } from '@/helpers/getChannelUrl.js';
+import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
+import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import type { Channel } from '@/providers/types/SocialMedia.js';
 
 interface ChannelAnchorProps extends HTMLProps<HTMLDivElement> {
     channel: Channel;
 }
 
-export const ChannelAnchor = memo<ChannelAnchorProps>(function ChannelAnchor({ channel, onClick, ...rest }) {
+export const ChannelAnchor = memo<ChannelAnchorProps>(function ChannelAnchor({
+    channel: unresolvedChannel,
+    onClick,
+    ...rest
+}) {
+    const { id, source } = unresolvedChannel;
+    const { data: channel } = useSuspenseQuery({
+        queryKey: ['channel', source, id],
+        queryFn: () => {
+            if (!unresolvedChannel.__lazy__) {
+                return unresolvedChannel;
+            }
+
+            return runInSafeAsync(() => resolveSocialMediaProvider(source).getChannelById(id));
+        },
+    });
+
+    if (!channel) return null;
+
     return (
         <div
             {...rest}

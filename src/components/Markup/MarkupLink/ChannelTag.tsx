@@ -23,8 +23,8 @@ export const ChannelTag = memo<Omit<MarkupLinkProps, 'post'>>(function ChannelTa
 
     useEffect(() => {
         if (!title) return;
-        router.prefetch(resolveChannelUrl(title.trim().slice(1)));
-    }, [title, router]);
+        router.prefetch(resolveChannelUrl(title.trim().slice(1), undefined, source));
+    }, [title, router, source]);
 
     const data = useQuery({
         enabled: !!channelId && !!source && viewed,
@@ -51,13 +51,13 @@ export const ChannelTag = memo<Omit<MarkupLinkProps, 'post'>>(function ChannelTa
                 className="cursor-pointer text-highlight hover:underline"
                 as="span"
                 onClick={() => {
-                    router.push(resolveChannelUrl(channelId));
+                    router.push(resolveChannelUrl(channelId, undefined, source));
                 }}
             >
                 {title}
             </ClickableArea>
         );
-    }, [title, channelId, router]);
+    }, [title, channelId, router, source]);
 
     const insideTippy = useTippyContext();
 

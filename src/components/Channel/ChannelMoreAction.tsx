@@ -10,6 +10,7 @@ import { MenuButton } from '@/components/Actions/MenuButton.js';
 import { MuteChannelButton } from '@/components/Actions/MuteChannelButton.js';
 import { MenuGroup } from '@/components/MenuGroup.js';
 import { MoreActionMenu } from '@/components/MoreActionMenu.js';
+import { Source } from '@/constants/enum.js';
 import { getChannelUrl } from '@/helpers/getChannelUrl.js';
 import { useCopyText } from '@/hooks/useCopyText.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
@@ -56,7 +57,7 @@ export const ChannelMoreAction = memo<MoreProps>(function ChannelMoreAction({ ch
                         </MenuButton>
                     )}
                 </MenuItem>
-                {isLogin ? (
+                {isLogin && channel.source === Source.Farcaster ? (
                     <MenuItem>
                         {({ close }) => (
                             <MuteChannelButton channel={channel} onToggle={toggleBlockChannel} onClick={close} />
