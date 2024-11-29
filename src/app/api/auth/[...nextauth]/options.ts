@@ -72,7 +72,6 @@ export const authOptions: AuthOptions = {
     },
     callbacks: {
         session: async ({ session, token, user }) => {
-            console.log('[session]:', { session, token, user });
             return {
                 ...session,
                 user: {
@@ -87,7 +86,9 @@ export const authOptions: AuthOptions = {
             };
         },
         jwt: async ({ token, account, session, ...rest }) => {
-            console.log('[jwt]:', { token, account, session, ...rest });
+            if (process.env.NODE_ENV === NODE_ENV.Development) {
+                console.log('[jwt]:', { token, account, session, ...rest });
+            }
 
             // export tokens to session
             if (account && session) {
