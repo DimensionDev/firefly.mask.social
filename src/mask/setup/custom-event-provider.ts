@@ -13,6 +13,12 @@ import { config } from '@/configs/wagmiClient.js';
 import { isSameEthereumAddress } from '@/helpers/isSameAddress.js';
 import { ConnectWalletModalRef } from '@/modals/controls.js';
 
+function getConnectedAccount() {
+    const account = getAccount(config);
+    if (account.isConnected && !account.isConnecting) return account;
+    return null;
+}
+
 // @ts-expect-error TODO: define the custom event
 document.addEventListener(
     'mask_custom_event_provider_request',
@@ -37,22 +43,22 @@ document.addEventListener(
         try {
             switch (requestArguments.method) {
                 case EthereumMethodType.ETH_REQUEST_ACCOUNTS: {
-                    const accountFirstTry = getAccount(config);
-                    if (!accountFirstTry.isConnected) await ConnectWalletModalRef.openAndWaitForClose();
+                    const accountFirstTry = getConnectedAccount();
+                    if (!accountFirstTry?.isConnected) await ConnectWalletModalRef.openAndWaitForClose();
 
-                    const accountSecondTry = getAccount(config);
-                    if (!accountSecondTry.isConnected) dispatchEvent([], new Error('No wallet connected'));
+                    const accountSecondTry = getConnectedAccount();
+                    if (!accountSecondTry?.isConnected) dispatchEvent([], new Error('No wallet connected'));
                     else dispatchEvent(accountSecondTry.address ? [accountSecondTry.address] : []);
                     return;
                 }
                 case EthereumMethodType.ETH_ACCOUNTS: {
-                    const account = getAccount(config);
-                    dispatchEvent(isValidAddress(account.address) ? [account.address] : []);
+                    const account = getConnectedAccount();
+                    dispatchEvent(isValidAddress(account?.address) ? [account.address] : []);
                     return;
                 }
                 case EthereumMethodType.ETH_CHAIN_ID: {
-                    const account = getAccount(config);
-                    dispatchEvent(account.chain ? numberToHex(account.chain.id) : ChainId.Mainnet);
+                    const account = getConnectedAccount();
+                    dispatchEvent(account?.chain ? numberToHex(account.chain.id) : ChainId.Mainnet);
                     return;
                 }
                 case EthereumMethodType.PERSONAL_SIGN: {
