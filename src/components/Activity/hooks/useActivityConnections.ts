@@ -11,7 +11,11 @@ export function useActivityConnections() {
     return useQuery({
         queryKey: ['my-wallet-connections', currentProfileFirstAvailable, authToken],
         async queryFn() {
-            if (!fireflyBridgeProvider.supported && !currentProfileFirstAvailable) return; // Not logged in on the web
+            if (fireflyBridgeProvider.supported) {
+                if (!authToken) return; // Not logged in on the mobile
+            } else {
+                if (!currentProfileFirstAvailable) return; // Not logged in on the web
+            }
             return FireflyActivityProvider.getAllConnections();
         },
         refetchInterval: 600000,
