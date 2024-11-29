@@ -4,7 +4,7 @@ import { Ok, type Result } from 'ts-results-es';
 
 import { EVMChainResolver } from '@/mask/bindings/index.js';
 import { RedPacketMetaKey } from '@/mask/plugins/red-packet/constants.js';
-import Schema from '@/mask/plugins/red-packet/schema.json' assert { type: 'json' };
+import Schema from '@/mask/plugins/red-packet/schema.json' with { type: 'json' };
 import type { RedPacketJSONPayload } from '@/providers/red-packet/types.js';
 
 const reader = createTypedMessageMetadataReader<RedPacketJSONPayload>(RedPacketMetaKey, Schema);

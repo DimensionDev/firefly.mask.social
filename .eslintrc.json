@@ -43,10 +43,7 @@
         "no-regex-spaces": "error",
         "no-restricted-globals": ["error", "event", "name", "length", "closed"],
         "no-restricted-imports": [
-            "error",
-            {
-                "patterns": ["src/maskbook/*", "@/maskbook/*"]
-            }
+            "error"
         ],
         "no-script-url": "error",
         "no-self-assign": "error",
