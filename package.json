@@ -44,6 +44,8 @@
         "@lingui/react": "^4.13.0",
         "@livepeer/react": "4.2.7",
         "@masknet/kit": "^0.4.1",
+        "@mui/icons-material": "5.15.12",
+        "@mui/lab": "5.0.0-alpha.167",
         "@mui/material": "5.15.12",
         "@mui/x-date-pickers": "^7.18.0",
         "@napi-rs/image": "1.7.0",
@@ -133,6 +135,7 @@
         "uuid": "^9.0.0",
         "viem": "^2.21.27",
         "wagmi": "^2.12.18",
+        "web3-utils": "1.10.2",
         "zod": "^3.23.8",
         "zustand": "^4.5.5"
     },

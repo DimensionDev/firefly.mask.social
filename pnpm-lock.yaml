@@ -135,6 +135,12 @@ importers:
       '@masknet/kit':
         specifier: ^0.4.1
         version: 0.4.1
+      '@mui/icons-material':
+        specifier: 5.15.12
+        version: 5.15.12(@mui/material@5.15.12)(@types/react@18.2.48)(react@0.0.0-experimental-8039e6d0b-20231026)
+      '@mui/lab':
+        specifier: 5.0.0-alpha.167
+        version: 5.0.0-alpha.167(@emotion/react@11.11.1)(@emotion/styled@11.11.0)(@mui/material@5.15.12)(@types/react@18.2.48)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026)
       '@mui/material':
         specifier: 5.15.12
         version: 5.15.12(patch_hash=pazpgmj4gmp6yuv75wbb5yvia4)(@emotion/react@11.11.1)(@emotion/styled@11.11.0)(@types/react@18.2.48)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026)
@@ -402,6 +408,9 @@ importers:
       wagmi:
         specifier: ^2.12.18
         version: 2.12.18(@tanstack/react-query@5.56.2)(@types/react@18.2.48)(@vercel/kv@1.0.1)(immer@10.1.1)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react-native@0.75.4)(react@0.0.0-experimental-8039e6d0b-20231026)(rollup@3.29.4)(typescript@5.6.3)(viem@2.21.27)(zod@3.23.8)
+      web3-utils:
+        specifier: 1.10.2
+        version: 1.10.2
       zod:
         specifier: ^3.23.8
         version: 3.23.8
@@ -9947,9 +9956,9 @@ packages:
         optional: true
     dependencies:
       '@babel/runtime': 7.25.7
-      '@floating-ui/react-dom': 2.0.8(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026)
-      '@mui/types': 7.2.14(@types/react@18.2.48)
-      '@mui/utils': 5.15.14(@types/react@18.2.48)(react@0.0.0-experimental-8039e6d0b-20231026)
+      '@floating-ui/react-dom': 2.1.2(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026)
+      '@mui/types': 7.2.18(@types/react@18.2.48)
+      '@mui/utils': 5.16.6(@types/react@18.2.48)(react@0.0.0-experimental-8039e6d0b-20231026)
       '@popperjs/core': 2.11.8
       '@types/react': 18.2.48
       clsx: 2.1.1
@@ -9978,7 +9987,7 @@ packages:
       react:
         optional: true
     dependencies:
-      '@babel/runtime': 7.24.1
+      '@babel/runtime': 7.25.7
       '@mui/material': 5.15.12(patch_hash=pazpgmj4gmp6yuv75wbb5yvia4)(@emotion/react@11.11.1)(@emotion/styled@11.11.0)(@types/react@18.2.48)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026)
       '@types/react': 18.2.48
       react: 0.0.0-experimental-8039e6d0b-20231026
@@ -10008,16 +10017,16 @@ packages:
       react-dom:
         optional: true
     dependencies:
-      '@babel/runtime': 7.24.1
+      '@babel/runtime': 7.25.7
       '@emotion/react': 11.11.1(@types/react@18.2.48)(react@0.0.0-experimental-8039e6d0b-20231026)
       '@emotion/styled': 11.11.0(@emotion/react@11.11.1)(@types/react@18.2.48)(react@0.0.0-experimental-8039e6d0b-20231026)
       '@mui/base': 5.0.0-beta.38(patch_hash=oukor3tid7cl6jy4xpoprwzzym)(@types/react@18.2.48)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026)
       '@mui/material': 5.15.12(patch_hash=pazpgmj4gmp6yuv75wbb5yvia4)(@emotion/react@11.11.1)(@emotion/styled@11.11.0)(@types/react@18.2.48)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026)
       '@mui/system': 5.15.12(@emotion/react@11.11.1)(@emotion/styled@11.11.0)(@types/react@18.2.48)(react@0.0.0-experimental-8039e6d0b-20231026)
-      '@mui/types': 7.2.14(@types/react@18.2.48)
-      '@mui/utils': 5.15.14(@types/react@18.2.48)(react@0.0.0-experimental-8039e6d0b-20231026)
+      '@mui/types': 7.2.18(@types/react@18.2.48)
+      '@mui/utils': 5.16.6(@types/react@18.2.48)(react@0.0.0-experimental-8039e6d0b-20231026)
       '@types/react': 18.2.48
-      clsx: 2.1.0
+      clsx: 2.1.1
       prop-types: 15.8.1
       react: 0.0.0-experimental-8039e6d0b-20231026
       react-dom: 0.0.0-experimental-8039e6d0b-20231026(react@0.0.0-experimental-8039e6d0b-20231026)
@@ -10077,7 +10086,7 @@ packages:
         optional: true
     dependencies:
       '@babel/runtime': 7.25.7
-      '@mui/utils': 5.15.20(@types/react@18.2.48)(react@0.0.0-experimental-8039e6d0b-20231026)
+      '@mui/utils': 5.16.6(@types/react@18.2.48)(react@0.0.0-experimental-8039e6d0b-20231026)
       '@types/react': 18.2.48
       prop-types: 15.8.1
       react: 0.0.0-experimental-8039e6d0b-20231026
@@ -10173,8 +10182,8 @@ packages:
       '@emotion/styled': 11.11.0(@emotion/react@11.11.1)(@types/react@18.2.48)(react@0.0.0-experimental-8039e6d0b-20231026)
       '@mui/private-theming': 5.15.14(@types/react@18.2.48)(react@0.0.0-experimental-8039e6d0b-20231026)
       '@mui/styled-engine': 5.15.14(@emotion/react@11.11.1)(@emotion/styled@11.11.0)(react@0.0.0-experimental-8039e6d0b-20231026)
-      '@mui/types': 7.2.14(@types/react@18.2.48)
-      '@mui/utils': 5.15.14(@types/react@18.2.48)(react@0.0.0-experimental-8039e6d0b-20231026)
+      '@mui/types': 7.2.18(@types/react@18.2.48)
+      '@mui/utils': 5.16.6(@types/react@18.2.48)(react@0.0.0-experimental-8039e6d0b-20231026)
       '@types/react': 18.2.48
       clsx: 2.1.1
       csstype: 3.1.3
@@ -10223,17 +10232,6 @@ packages:
       '@types/react': 18.2.48
     dev: false
 
-  /@mui/types@7.2.17(@types/react@18.2.48):
-    resolution: {integrity: sha512-oyumoJgB6jDV8JFzRqjBo2daUuHpzDjoO/e3IrRhhHo/FxJlaVhET6mcNrKHUq2E+R+q3ql0qAtvQ4rfWHhAeQ==}
-    peerDependencies:
-      '@types/react': 18.2.48
-    peerDependenciesMeta:
-      '@types/react':
-        optional: true
-    dependencies:
-      '@types/react': 18.2.48
-    dev: false
-
   /@mui/types@7.2.18(@types/react@18.2.48):
     resolution: {integrity: sha512-uvK9dWeyCJl/3ocVnTOS6nlji/Knj8/tVqVX03UVTpdmTJYu/s4jtDd9Kvv0nRGE0CUSNW1UYAci7PYypjealg==}
     peerDependencies:
@@ -10258,27 +10256,7 @@ packages:
         optional: true
     dependencies:
       '@babel/runtime': 7.25.7
-      '@types/prop-types': 15.7.11
-      '@types/react': 18.2.48
-      prop-types: 15.8.1
-      react: 0.0.0-experimental-8039e6d0b-20231026
-      react-is: 18.3.1
-    dev: false
-
-  /@mui/utils@5.15.20(@types/react@18.2.48)(react@0.0.0-experimental-8039e6d0b-20231026):
-    resolution: {integrity: sha512-mAbYx0sovrnpAu1zHc3MDIhPqL8RPVC5W5xcO1b7PiSCJPtckIZmBkp8hefamAvUiAV8gpfMOM6Zb+eSisbI2A==}
-    engines: {node: '>=12.0.0'}
-    peerDependencies:
-      '@types/react': 18.2.48
-      react: 0.0.0-experimental-8039e6d0b-20231026 || 0.0.0-experimental-0a360642d-20230711
-    peerDependenciesMeta:
-      '@types/react':
-        optional: true
-      react:
-        optional: true
-    dependencies:
-      '@babel/runtime': 7.25.7
-      '@types/prop-types': 15.7.11
+      '@types/prop-types': 15.7.13
       '@types/react': 18.2.48
       prop-types: 15.8.1
       react: 0.0.0-experimental-8039e6d0b-20231026
@@ -10298,7 +10276,7 @@ packages:
         optional: true
     dependencies:
       '@babel/runtime': 7.25.7
-      '@mui/types': 7.2.17(@types/react@18.2.48)
+      '@mui/types': 7.2.18(@types/react@18.2.48)
       '@types/prop-types': 15.7.13
       '@types/react': 18.2.48
       clsx: 2.1.1
@@ -10739,12 +10717,6 @@ packages:
       '@noble/hashes': 1.3.2
     dev: false
 
-  /@noble/curves@1.3.0:
-    resolution: {integrity: sha512-t01iSXPuN+Eqzb4eBX0S5oubSqXbK/xXa1Ne18Hj8f9pStxztHCE2gfboSp/dZRLSqfuLpRK2nDXDK+W9puocA==}
-    dependencies:
-      '@noble/hashes': 1.3.3
-    dev: false
-
   /@noble/curves@1.4.2:
     resolution: {integrity: sha512-TavHr8qycMChk8UwMld0ZDRvatedkzWfH8IiaeGCfymOP5i0hSCozz9vHOL0nkwk7HRMlFnAiKpS2jrUmSybcw==}
     dependencies:
@@ -10770,11 +10742,6 @@ packages:
 
   /@noble/hashes@1.3.2:
     resolution: {integrity: sha512-MVC8EAQp7MvEcm30KWENFjgR+Mkmf+D189XJTkFIlwohU5hcBbn1ZkKq7KVTi2Hme3PMGF390DaL52beVrIihQ==}
-    engines: {node: '>= 16'}
-    dev: false
-
-  /@noble/hashes@1.3.3:
-    resolution: {integrity: sha512-V7/fPHgl+jsVPXqqeOzT8egNj2iBIVt+ECeMMG8TdcnTikP3oaBtUVqpT/gYCR68aEBJSF+XbYUxStjbFMqIIA==}
     engines: {node: '>= 16'}
     dev: false
 
@@ -13198,20 +13165,8 @@ packages:
     engines: {node: '>=16'}
     dev: false
 
-  /@scure/base@1.1.8:
-    resolution: {integrity: sha512-6CyAclxj3Nb0XT7GHK6K4zK6k2xJm6E4Ft0Ohjt4WgegiFUHEtFb2CGzmPmGBwoIhrLsqNLYfLr04Y1GePrzZg==}
-    dev: false
-
   /@scure/base@1.1.9:
     resolution: {integrity: sha512-8YKhl8GHiNI/pU2VMaofa2Tor7PJRAjwQLBBuilkJ9L5+13yVbC7JO/wS7piioAvPSwR3JKM1IJ/u4xQzbcXKg==}
-    dev: false
-
-  /@scure/bip32@1.3.3:
-    resolution: {integrity: sha512-LJaN3HwRbfQK0X1xFSi0Q9amqOgzQnnDngIt+ZlsBC3Bm7/nE7K0kwshZHyaru79yIVRv/e1mQAjZyuZG6jOFQ==}
-    dependencies:
-      '@noble/curves': 1.3.0
-      '@noble/hashes': 1.3.3
-      '@scure/base': 1.1.9
     dev: false
 
   /@scure/bip32@1.4.0:
@@ -13227,13 +13182,6 @@ packages:
     dependencies:
       '@noble/curves': 1.6.0
       '@noble/hashes': 1.5.0
-      '@scure/base': 1.1.8
-    dev: false
-
-  /@scure/bip39@1.2.2:
-    resolution: {integrity: sha512-HYf9TUXG80beW+hGAt3TRM8wU6pQoYur9iNypTROm42dorCGmLnFe3eWjz3gOq6G62H2WRh0FCzAR1PI+29zIA==}
-    dependencies:
-      '@noble/hashes': 1.3.3
       '@scure/base': 1.1.9
     dev: false
 
@@ -13248,7 +13196,7 @@ packages:
     resolution: {integrity: sha512-BEEm6p8IueV/ZTfQLp/0vhw4NPnT9oWf5+28nvmeUICjP99f4vr2d+qc7AVGDDtwRep6ifR43Yed9ERVmiITzw==}
     dependencies:
       '@noble/hashes': 1.5.0
-      '@scure/base': 1.1.8
+      '@scure/base': 1.1.9
     dev: false
 
   /@sentry-internal/feedback@7.112.2:
@@ -22586,12 +22534,6 @@ packages:
       fast-safe-stringify: 2.1.1
     dev: false
 
-  /ethereum-bloom-filters@1.0.10:
-    resolution: {integrity: sha512-rxJ5OFN3RwjQxDcFP2Z5+Q9ho4eIdEmSc2ht0fCu8Se9nbXjZ7/031uXoUYJ87KHCOdVeiUuwSnoS7hmYAGVHA==}
-    dependencies:
-      js-sha3: 0.8.0
-    dev: false
-
   /ethereum-bloom-filters@1.2.0:
     resolution: {integrity: sha512-28hyiE7HVsWubqhpVLVmZXFd4ITeHi+BUu05o9isf0GUpMtzBUi+8/gFrGaGYzvGAJQmJ3JKj77Mk9G98T84rA==}
     dependencies:
@@ -22616,15 +22558,6 @@ packages:
       scrypt-js: 3.0.1
       secp256k1: 4.0.3
       setimmediate: 1.0.5
-    dev: false
-
-  /ethereum-cryptography@2.1.3:
-    resolution: {integrity: sha512-BlwbIL7/P45W8FGW2r7LGuvoEZ+7PWsniMvQ4p5s2xCyw9tmaDlpfsN9HjAucbF+t/qpVHwZUisgfK24TCW8aA==}
-    dependencies:
-      '@noble/curves': 1.3.0
-      '@noble/hashes': 1.3.3
-      '@scure/bip32': 1.3.3
-      '@scure/bip39': 1.2.2
     dev: false
 
   /ethereum-cryptography@2.2.1:
@@ -35181,8 +35114,8 @@ packages:
     dependencies:
       '@ethereumjs/util': 8.1.0
       bn.js: 5.2.1
-      ethereum-bloom-filters: 1.0.10
-      ethereum-cryptography: 2.1.3
+      ethereum-bloom-filters: 1.2.0
+      ethereum-cryptography: 2.2.1
       ethjs-unit: 0.1.6
       number-to-bn: 1.7.0
       randombytes: 2.1.0
@@ -36050,6 +35983,8 @@ time:
   /@lingui/react@4.13.0: '2024-10-15T08:39:47.233Z'
   /@livepeer/react@4.2.7: '2024-08-21T17:54:54.147Z'
   /@masknet/kit@0.4.1: '2024-10-14T00:13:00.871Z'
+  /@mui/icons-material@5.15.12: '2024-03-05T15:33:26.507Z'
+  /@mui/lab@5.0.0-alpha.167: '2024-03-05T15:32:57.086Z'
   /@mui/x-date-pickers@7.18.0: '2024-09-20T08:17:48.190Z'
   /@next/third-parties@14.2.15: '2024-10-08T20:58:34.969Z'
   /@noble/hashes@1.5.0: '2024-09-01T15:30:30.886Z'
@@ -36124,5 +36059,6 @@ time:
   /viem@2.21.27: '2024-10-16T00:24:05.183Z'
   /vitest@2.1.3: '2024-10-14T11:05:52.965Z'
   /wagmi@2.12.18: '2024-10-15T21:13:05.636Z'
+  /web3-utils@1.10.2: '2023-08-28T12:56:10.815Z'
   /zod@3.23.8: '2024-05-08T19:13:04.545Z'
   /zustand@4.5.5: '2024-08-15T02:32:33.544Z'

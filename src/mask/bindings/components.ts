@@ -7,6 +7,7 @@ export { DialogStackingProvider } from '@/maskbook/packages/theme/src/Components
 export { RadioIndicator } from '@/maskbook/packages/theme/src/Components/RadioIndicator/index.js';
 export { MaskTabList} from '@/maskbook/packages/theme/src/Components/Tabs/index.js';
 export { MaskTextField } from '@/maskbook/packages/theme/src/Components/TextField/index.js';
+export { LoadingBase } from '@/maskbook/packages/theme/src/Components/LoadingBase/index.js';
 export { ShadowRootTooltip } from '@/maskbook/packages/theme/src/Components/WrappedComponents/ShadowRootTooltip.js';
 export { CSSVariableInjector } from '@/maskbook/packages/theme/src/CSSVariables/Injector.js';
 export { useTabs } from '@/maskbook/packages/theme/src/hooks/useTabs.js';
