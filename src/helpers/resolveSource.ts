@@ -1,4 +1,5 @@
 import {
+    FireflyPlatform,
     type ProfileSource,
     type SocialSource,
     type SocialSourceInURL,
@@ -9,7 +10,6 @@ import {
 import { UnreachableError } from '@/constants/error.js';
 import { createLookupTableResolver } from '@/helpers/createLookupTableResolver.js';
 import { narrowToSocialSource } from '@/helpers/narrowToSocialSource.js';
-import type { Profile as FireflyProfile } from '@/providers/types/Firefly.js';
 import { SessionType } from '@/providers/types/SocialMedia.js';
 
 export const resolveSource = createLookupTableResolver<SourceInURL, Source>(
@@ -122,6 +122,23 @@ export const resolveSourceFromWalletSource = createLookupTableResolver<WalletSou
     },
 );
 
-export function resolveSocialSourceFromFireflyPlatform(platform: FireflyProfile['platform']): SocialSource {
-    return narrowToSocialSource(resolveSource(platform));
+export const resolveSourceFromFireflyPlatform = createLookupTableResolver<FireflyPlatform, Source>(
+    {
+        [FireflyPlatform.Farcaster]: Source.Farcaster,
+        [FireflyPlatform.Lens]: Source.Lens,
+        [FireflyPlatform.Twitter]: Source.Twitter,
+        [FireflyPlatform.Firefly]: Source.Firefly,
+        [FireflyPlatform.Article]: Source.Article,
+        [FireflyPlatform.Wallet]: Source.Wallet,
+        [FireflyPlatform.NFTs]: Source.NFTs,
+        [FireflyPlatform.DAOs]: Source.DAOs,
+        [FireflyPlatform.Polymarket]: Source.Polymarket,
+    },
+    (walletSource) => {
+        throw new UnreachableError('FireflyPlatform', walletSource);
+    },
+);
+
+export function resolveSocialSourceFromFireflyPlatform(platform: FireflyPlatform): SocialSource {
+    return narrowToSocialSource(resolveSourceFromFireflyPlatform(platform));
 }

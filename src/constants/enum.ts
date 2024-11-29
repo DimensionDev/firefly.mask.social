@@ -95,6 +95,7 @@ export enum FireflyPlatform {
     Wallet = 'wallet',
     NFTs = 'nfts',
     DAOs = 'snapshot',
+    Polymarket = 'polymarket',
 }
 
 export type SocialSource = Source.Farcaster | Source.Lens | Source.Twitter;
