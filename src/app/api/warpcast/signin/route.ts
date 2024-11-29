@@ -4,8 +4,8 @@ import { mnemonicToAccount } from 'viem/accounts';
 
 import { env } from '@/constants/env.js';
 import { createSuccessResponseJSON } from '@/helpers/createResponseJSON.js';
-import { HexStringSchema } from '@/schemas/index.js';
 import { signedKeyRequests } from '@/providers/warpcast/signedKeyRequests.js';
+import { HexStringSchema } from '@/schemas/index.js';
 
 const SIGNED_KEY_REQUEST_VALIDATOR_EIP_712_DOMAIN = {
     name: 'Farcaster SignedKeyRequestValidator',
