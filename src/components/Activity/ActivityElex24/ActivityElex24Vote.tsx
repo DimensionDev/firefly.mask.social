@@ -7,11 +7,12 @@ import TickSquareIcon from '@/assets/tick-square.svg';
 import { ActivityElex24Context } from '@/components/Activity/ActivityElex24/ActivityElex24Context.js';
 import { useActivityClaimCondition } from '@/components/Activity/hooks/useActivityClaimCondition.js';
 import { Image } from '@/components/Image.js';
+import { Source } from '@/constants/enum.js';
 import { ActivityElex24VoteOption } from '@/providers/types/Activity.js';
 
 export function ActivityElex24Vote() {
     const { setVote, vote } = useContext(ActivityElex24Context);
-    const { data } = useActivityClaimCondition();
+    const { data } = useActivityClaimCondition(Source.Twitter);
     const options = [
         {
             icon: '/image/activity/elex24/trump-basic.png',

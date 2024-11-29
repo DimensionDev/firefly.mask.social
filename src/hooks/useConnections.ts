@@ -31,9 +31,9 @@ export function useEVMConnection(): Connection {
 
     const evmAccount = useEVMAccount();
 
-    const { data: ensName, isLoading } = useEnsName({ address: evmAccount.address, chainId: mainnet.id });
+    const { data: ensName } = useEnsName({ address: evmAccount.address, chainId: mainnet.id });
 
-    // isConnected and isConnected could both true at the same time
+    // isConnected and isConnecting could both true at the same time
     const isEVMConnected = !!(
         evmAccount.isConnected &&
         !evmAccount.isConnecting &&
@@ -45,14 +45,14 @@ export function useEVMConnection(): Connection {
         type: 'evm',
         icon: evmNetworkDescriptor?.icon,
         label: resolveValue(() => {
-            if (!isEVMConnected || !evmAccount.address || isLoading || !mounted) return null;
+            if (!isEVMConnected || !evmAccount.address || !mounted) return null;
             if (ensName) return formatDomainName(ensName);
             return formatEthereumAddress(evmAccount.address, 4);
         }),
         onOpenConnectModal: () => ConnectModalRef.open(),
         onOpenAccountModal: () => AccountModalRef.open(),
         isConnected: isEVMConnected,
-        isLoading: evmAccount.isConnecting || evmAccount.isReconnecting || isLoading,
+        isLoading: evmAccount.isConnecting,
     };
 }
 

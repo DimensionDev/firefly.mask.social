@@ -3,17 +3,19 @@
 import { Trans } from '@lingui/macro';
 
 import LoadingIcon from '@/assets/loading.svg';
-import TwitterIcon from '@/assets/x-fill.svg';
-import { useIsLoginTwitterInActivity } from '@/components/Activity/hooks/useIsLoginTwitterInActivity.js';
+import { useActivityConnections } from '@/components/Activity/hooks/useActivityConnections.js';
+import { useIsLoginInActivity } from '@/components/Activity/hooks/useIsLoginInActivity.js';
 import { useLoginInActivity } from '@/components/Activity/hooks/useLoginInActivity.js';
-import { Source } from '@/constants/enum.js';
+import { SocialSourceIcon } from '@/components/SocialSourceIcon.js';
+import { type SocialSource } from '@/constants/enum.js';
 import { classNames } from '@/helpers/classNames.js';
 import { useAsyncStatus } from '@/hooks/useAsyncStatus.js';
 
-export function ActivityTwitterLoginButton() {
-    const { data: isLoggedIn } = useIsLoginTwitterInActivity();
+export function ActivityLoginButton({ source }: { source: SocialSource }) {
+    const isLoggedIn = useIsLoginInActivity(source);
+    const { isLoading: isLoadingActivityConnections } = useActivityConnections();
     const [{ loading }, login] = useLoginInActivity();
-    const asyncStatus = useAsyncStatus(Source.Twitter);
+    const asyncStatus = useAsyncStatus(source);
     if (isLoggedIn) {
         return (
             <button className="flex h-8 items-center rounded-full border border-current px-4 font-bold leading-8 text-[13x]">
@@ -21,12 +23,12 @@ export function ActivityTwitterLoginButton() {
             </button>
         );
     }
-    const isLoading = loading || asyncStatus;
+    const isLoading = loading || asyncStatus || isLoadingActivityConnections;
     return (
         <button
             className="relative h-8 rounded-full border border-current px-4 font-bold leading-8 text-[13x] disabled:opacity-60"
             disabled={isLoading}
-            onClick={login}
+            onClick={() => login(source)}
         >
             {isLoading ? (
                 <span className="left-0 top-0 flex h-full w-full items-center justify-center">
@@ -38,7 +40,7 @@ export function ActivityTwitterLoginButton() {
                     'opacity-0': isLoading,
                 })}
             >
-                <TwitterIcon className="mr-2 h-4 w-4 shrink-0" />
+                <SocialSourceIcon size={18} className="mr-2 h-[18px] w-[18px] shrink-0" source={source} mono />
                 <Trans>Sign in</Trans>
             </span>
         </button>

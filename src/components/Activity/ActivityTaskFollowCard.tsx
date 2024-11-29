@@ -1,40 +1,29 @@
 'use client';
 
 import { t, Trans } from '@lingui/macro';
-import { type ReactNode } from 'react';
+import { type HTMLProps, type ReactNode } from 'react';
 
 import LoadingIcon from '@/assets/loading.svg';
 import { ActivityVerifyText } from '@/components/Activity/ActivityVerifyText.js';
-import { useActivityFollowTwitter } from '@/components/Activity/hooks/useActivityFollowTwitter.js';
-import { useIsFollowTwitterInActivity } from '@/components/Activity/hooks/useIsFollowTwitterInActivity.js';
-import { useIsLoginTwitterInActivity } from '@/components/Activity/hooks/useIsLoginTwitterInActivity.js';
+import { useActivityFollowProfile } from '@/components/Activity/hooks/useActivityFollowProfile.js';
+import { useIsFollowInActivity } from '@/components/Activity/hooks/useIsFollowInActivity.js';
+import { useIsLoginInActivity } from '@/components/Activity/hooks/useIsLoginInActivity.js';
 import { useLoginInActivity } from '@/components/Activity/hooks/useLoginInActivity.js';
 import { Link } from '@/components/Activity/Link.js';
-import { type ProfilePageSource } from '@/constants/enum.js';
+import { type SocialSource } from '@/constants/enum.js';
 import { classNames } from '@/helpers/classNames.js';
 import { enqueueWarningMessage } from '@/helpers/enqueueMessage.js';
 import { resolveProfileUrl } from '@/helpers/resolveProfileUrl.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 
-interface Props {
-    source: ProfilePageSource;
-    profileId: string;
-    handle: string;
-}
-
-function Button({
-    children,
-    loading = false,
-    isLoggedIn,
-    onClick,
-    className,
-}: {
+interface ButtonProps extends HTMLProps<HTMLButtonElement> {
     children: ReactNode;
     loading?: boolean;
     isLoggedIn?: boolean;
-    onClick?: () => void;
-    className?: string;
-}) {
+    source: SocialSource;
+}
+
+function Button({ children, loading = false, isLoggedIn, onClick, className, source }: ButtonProps) {
     const [{ loading: logging }, login] = useLoginInActivity();
     return (
         <button
@@ -42,10 +31,10 @@ function Button({
             disabled={loading || logging}
             onClick={(event) => {
                 if (isLoggedIn) {
-                    onClick?.();
+                    onClick?.(event);
                 } else {
                     event.preventDefault();
-                    login();
+                    login(source);
                 }
             }}
         >
@@ -65,20 +54,26 @@ function Button({
     );
 }
 
-export function ActivityTaskFollowCard({ source, profileId, handle }: Props) {
-    const { data: isLoggedIn } = useIsLoginTwitterInActivity();
-    const [{ loading: isFollowingTwitter }, followTwitter] = useActivityFollowTwitter(profileId, handle);
+interface ActivityTaskFollowCardProps {
+    source: SocialSource;
+    profileId: string;
+    handle: string;
+}
+
+export function ActivityTaskFollowCard({ source, profileId, handle }: ActivityTaskFollowCardProps) {
+    const isLoggedIn = useIsLoginInActivity(source);
+    const [{ loading: isFollowing }, follow] = useActivityFollowProfile(source, profileId, handle);
     const {
         data: isFollowedFirefly,
         refetch,
         isRefetching,
         isLoading,
-    } = useIsFollowTwitterInActivity(profileId, handle);
+    } = useIsFollowInActivity(source, profileId, handle);
 
     return (
         <div
             className={classNames(
-                'flex w-full flex-col space-y-2 rounded-2xl p-3 text-sm font-semibold leading-6 sm:flex-row sm:items-center sm:space-y-0',
+                'flex min-h-[56px] w-full flex-col space-y-2 rounded-2xl p-3 text-sm font-normal leading-6 sm:flex-row sm:items-center sm:space-y-0',
                 isFollowedFirefly ? 'bg-success/10 dark:bg-success/20' : 'bg-bg',
             )}
         >
@@ -107,15 +102,17 @@ export function ActivityTaskFollowCard({ source, profileId, handle }: Props) {
                 <div className="flex space-x-2">
                     <Button
                         className="relative inline-block whitespace-nowrap rounded-full bg-main px-4 leading-8 text-primaryBottom"
-                        loading={isFollowingTwitter}
+                        loading={isFollowing}
+                        source={source}
                         isLoggedIn={isLoggedIn}
-                        onClick={() => followTwitter()}
+                        onClick={() => follow()}
                     >
                         <Trans>Follow</Trans>
                     </Button>
                     <Button
                         className="relative whitespace-nowrap rounded-full border border-current px-4 leading-[30px] disabled:opacity-60"
                         loading={isRefetching || isLoading}
+                        source={source}
                         isLoggedIn={isLoggedIn}
                         onClick={async () => {
                             const { data: isFollowed } = await refetch();

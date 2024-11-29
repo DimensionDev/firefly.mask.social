@@ -209,7 +209,11 @@
         "elex",
         "hlbl",
         "pushswitch",
-        "Luma"
+        "Luma",
+        "frensgiving",
+        "DEGEN",
+        "supercast",
+        "Thirdpart"
     ],
     "flagWords": [],
     "ignorePaths": [

@@ -2,6 +2,8 @@ import urlcat from 'urlcat';
 
 export enum ReferralAccountPlatform {
     X = 'x',
+    Farcaster = 'f',
+    Lens = 'l',
 }
 
 export function resolveActivityUrl(

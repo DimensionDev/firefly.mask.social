@@ -252,7 +252,9 @@ class WarpcastSocialMedia implements Provider {
             {
                 method: 'GET',
             },
-            true,
+            {
+                withSession: true,
+            },
         );
         const data = result.feed.map(formatWarpcastPostFromFeed);
 
@@ -411,7 +413,9 @@ class WarpcastSocialMedia implements Provider {
             {
                 method: 'GET',
             },
-            true,
+            {
+                withSession: true,
+            },
         );
         const data = result.map(formatWarpcastProfile);
         return createPageable(
@@ -432,7 +436,9 @@ class WarpcastSocialMedia implements Provider {
             {
                 method: 'GET',
             },
-            true,
+            {
+                withSession: true,
+            },
         );
         const data = result.map(formatWarpcastProfile);
         return createPageable(
@@ -453,7 +459,9 @@ class WarpcastSocialMedia implements Provider {
             {
                 method: 'GET',
             },
-            true,
+            {
+                withSession: true,
+            },
         );
         const data = result.casts.map(formatWarpcastPost);
         return createPageable(
@@ -475,7 +483,9 @@ class WarpcastSocialMedia implements Provider {
             {
                 method: 'GET',
             },
-            true,
+            {
+                withSession: true,
+            },
         );
         const data = result.feed.map(formatWarpcastPostFromFeed).filter((post) => post.type === 'Comment');
         return createPageable(
@@ -495,7 +505,9 @@ class WarpcastSocialMedia implements Provider {
             {
                 method: 'GET',
             },
-            true,
+            {
+                withSession: true,
+            },
         );
         const data = result.notifications.map((notification) => formatWarpcastPost(notification.content.cast));
         return createPageable(
@@ -520,7 +532,9 @@ class WarpcastSocialMedia implements Provider {
                     channelKey: post.parentChannelKey,
                 }),
             },
-            true,
+            {
+                withSession: true,
+            },
         );
 
         return cast.hash;
@@ -534,7 +548,9 @@ class WarpcastSocialMedia implements Provider {
                 method: 'DELETE',
                 body: JSON.stringify({ castHash: postId }),
             },
-            true,
+            {
+                withSession: true,
+            },
         );
 
         return true;
@@ -548,7 +564,9 @@ class WarpcastSocialMedia implements Provider {
                 method: 'PUT',
                 body: JSON.stringify({ castHash: postId }),
             },
-            true,
+            {
+                withSession: true,
+            },
         );
         if (!reaction) throw new Error(`Something went wrong`);
     }
@@ -561,7 +579,9 @@ class WarpcastSocialMedia implements Provider {
                 method: 'DELETE',
                 body: JSON.stringify({ castHash: postId }),
             },
-            true,
+            {
+                withSession: true,
+            },
         );
     }
 
@@ -576,7 +596,9 @@ class WarpcastSocialMedia implements Provider {
                 method: 'POST',
                 body: JSON.stringify({ text: comment }),
             },
-            true,
+            {
+                withSession: true,
+            },
         );
         return response.result.cast.hash;
     }
@@ -589,7 +611,9 @@ class WarpcastSocialMedia implements Provider {
                 method: 'PUT',
                 body: JSON.stringify({ castHash: postId }),
             },
-            true,
+            {
+                withSession: true,
+            },
         );
 
         return response.result.castHash;
@@ -603,7 +627,9 @@ class WarpcastSocialMedia implements Provider {
                 method: 'DELETE',
                 body: JSON.stringify({ castHash: postId }),
             },
-            true,
+            {
+                withSession: true,
+            },
         );
     }
 
@@ -615,7 +641,9 @@ class WarpcastSocialMedia implements Provider {
                 method: 'PUT',
                 body: JSON.stringify({ targetFid: Number(profileId) }),
             },
-            true,
+            {
+                withSession: true,
+            },
         );
     }
 
@@ -629,7 +657,9 @@ class WarpcastSocialMedia implements Provider {
                 method: 'PUT',
                 body: JSON.stringify({ targetFid: Number(profileId) }),
             },
-            true,
+            {
+                withSession: true,
+            },
         );
         if (!success) throw new Error('Follow Failed');
         return true;
@@ -645,7 +675,9 @@ class WarpcastSocialMedia implements Provider {
                 method: 'DELETE',
                 body: JSON.stringify({ targetFid: Number(profileId) }),
             },
-            true,
+            {
+                withSession: true,
+            },
         );
 
         if (!success) throw new Error('Unfollow Failed');
@@ -697,7 +729,9 @@ class WarpcastSocialMedia implements Provider {
             {
                 method: 'GET',
             },
-            true,
+            {
+                withSession: true,
+            },
         );
         const data = result.map(formatWarpcastProfile);
         return createPageable(
@@ -717,7 +751,9 @@ class WarpcastSocialMedia implements Provider {
             {
                 method: 'GET',
             },
-            true,
+            {
+                withSession: true,
+            },
         );
         const data = compact(
             result.notifications.map<Notification | undefined>((notification) => {

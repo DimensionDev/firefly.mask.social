@@ -24,7 +24,7 @@ export function ActivityListItem({ data }: { data: TypeActivityListItem; index?:
                 <ActivityStatusTag status={data.status} />
             </div>
             <Image
-                src={data.banner_url}
+                src={data.cover_url || data.banner_url}
                 alt={data.title}
                 className={classNames('aspect-[343/140] w-full rounded-t-2xl object-cover', {
                     'opacity-80': data.status === ActivityStatus.Ended,
@@ -34,7 +34,7 @@ export function ActivityListItem({ data }: { data: TypeActivityListItem; index?:
             />
             <div className="w-full space-y-1 rounded-b-2xl p-2 text-lightMain">
                 <h4 className="truncate text-base font-semibold leading-6">{data.title}</h4>
-                {data.sub_title ? <p className="line-clamp-2 text-sm leading-6">{data.sub_title}</p> : null}
+                {data.description ? <p className="line-clamp-2 text-sm leading-6">{data.description}</p> : null}
                 <div className="flex h-6 items-center space-x-1.5 text-[13px] leading-6">
                     <CalendarIcon className="h-4 w-4 shrink-0" />
                     <span>

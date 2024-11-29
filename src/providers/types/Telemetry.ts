@@ -136,6 +136,8 @@ export enum EventId {
     // activity
     EVENT_SHARE_CLICK = 'event_share_click',
     EVENT_X_LOG_IN_SUCCESS = 'event_x_log_in_success',
+    EVENT_FARCASTER_LOG_IN_SUCCESS = 'event_far_log_in_success',
+    EVENT_LENS_LOG_IN_SUCCESS = 'event_lens_log_in_success',
     EVENT_CONNECT_WALLET_SUCCESS = 'event_connect_wallet_success',
     EVENT_CHANGE_WALLET_SUCCESS = 'event_change_wallet_success',
     EVENT_CLAIM_BASIC_SUCCESS = 'event_claim_basic_success',
@@ -694,17 +696,34 @@ export interface Events extends Record<EventId, Event> {
     };
 
     // Activity
-    [EventId.EVENT_SHARE_CLICK]: {
-        type: EventType.Interact;
-        parameters: {
-            firefly_account_id?: string;
-            activity: string;
-        };
-    };
     [EventId.EVENT_X_LOG_IN_SUCCESS]: {
         type: EventType.Interact;
         parameters: {
             firefly_account_id: string;
+            is_token_sync: boolean;
+            x_accounts: Array<[string, string]>; // [id, handle]
+        };
+    };
+    [EventId.EVENT_LENS_LOG_IN_SUCCESS]: {
+        type: EventType.Interact;
+        parameters: {
+            firefly_account_id: string;
+            is_token_sync: boolean;
+            lens_accounts: Array<[string, string]>; // [id, handle]
+        };
+    };
+    [EventId.EVENT_FARCASTER_LOG_IN_SUCCESS]: {
+        type: EventType.Interact;
+        parameters: {
+            firefly_account_id: string;
+            is_token_sync: boolean;
+            farcaster_accounts: Array<[string, string]>; // [id, handle]
+        };
+    };
+    [EventId.EVENT_SHARE_CLICK]: {
+        type: EventType.Interact;
+        parameters: {
+            firefly_account_id?: string;
             activity: string;
         };
     };

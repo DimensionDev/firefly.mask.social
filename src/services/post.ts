@@ -29,7 +29,9 @@ export async function schedulePost(
                 groupId: uuid(),
             }),
         },
-        true,
+        {
+            withSession: true,
+        },
     );
     if (response.data?.taskId) return response.data.taskId;
     throw new Error(t`Failed to create scheduled post.`);
@@ -47,7 +49,9 @@ export async function updateScheduledPost(id: string, scheduleTime: Date) {
                 ua_type: 'web',
             }),
         },
-        true,
+        {
+            withSession: true,
+        },
     );
     if (response.data) return response.data;
     throw new Error(t`Failed to update scheduled post.`);
@@ -63,7 +67,9 @@ export async function deleteScheduledPost(id: string) {
                 taskUUID: id,
             }),
         },
-        true,
+        {
+            withSession: true,
+        },
     );
     if (response.data) return true;
     throw new Error(t`Failed to delete scheduled post.`);

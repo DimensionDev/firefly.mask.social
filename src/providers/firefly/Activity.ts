@@ -1,6 +1,9 @@
 import { IS_IOS } from '@lexical/utils';
+import { safeUnreachable } from '@masknet/kit';
 import urlcat from 'urlcat';
 
+import { type SocialSource, Source } from '@/constants/enum.js';
+import { NotImplementedError } from '@/constants/error.js';
 import { EMPTY_LIST } from '@/constants/index.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
 import { formatWalletConnections } from '@/helpers/formatWalletConnection.js';
@@ -12,6 +15,8 @@ import {
     type PageIndicator,
 } from '@/helpers/pageable.js';
 import { resolveFireflyResponseData } from '@/helpers/resolveFireflyResponseData.js';
+import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
+import { farcasterSessionHolder } from '@/providers/farcaster/SessionHolder.js';
 import { fireflyBridgeProvider } from '@/providers/firefly/Bridge.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
 import type { CheckResponse, MintActivitySBTResponse, Provider } from '@/providers/types/Activity.js';
@@ -19,30 +24,19 @@ import type {
     ActivityInfoResponse,
     ActivityListItem,
     ActivityListResponse,
+    FriendshipResponse,
     GetAllConnectionsResponse,
     VotingResultResponse,
 } from '@/providers/types/Firefly.js';
+import type { Friendship } from '@/providers/types/SocialMedia.js';
+import { getProfileById } from '@/services/getProfileById.js';
 import { settings } from '@/settings/index.js';
+import { SupportedMethod } from '@/types/bridge.js';
 
 class FireflyActivity implements Provider {
-    async getActivityClaimCondition(
-        name: string,
-        options: {
-            address?: string;
-            authToken?: string;
-        } = {},
-    ) {
-        const { authToken, address = '0x' } = options;
+    async getActivityClaimCondition(name: string, address = '0x') {
         const url = urlcat(settings.FIREFLY_ROOT_URL, `/v1/activity/check/:name`, { name, address });
-        const response = await fireflySessionHolder.fetch<CheckResponse>(url, {
-            ...(authToken
-                ? {
-                      headers: {
-                          Authorization: `Bearer ${authToken}`,
-                      },
-                  }
-                : {}),
-        });
+        const response = await fireflySessionHolder.fetchWithSession<CheckResponse>(url);
         return resolveFireflyResponseData(response);
     }
 
@@ -71,20 +65,10 @@ class FireflyActivity implements Provider {
         );
     }
 
-    async claimActivitySBT(
-        address: string,
-        activityName: string,
-        {
-            authToken,
-            claimApiExtraParams,
-        }: {
-            authToken?: string;
-            claimApiExtraParams?: Record<string, unknown>;
-        } = {},
-    ) {
+    async claimActivitySBT(address: string, activityName: string, claimApiExtraParams?: Record<string, unknown>) {
         let claimPlatform: 'web' | 'ios' | 'android' = 'web';
         if (fireflyBridgeProvider.supported) claimPlatform = IS_IOS ? 'ios' : 'android';
-        const response = await fireflySessionHolder.fetch<MintActivitySBTResponse>(
+        const response = await fireflySessionHolder.fetchWithSession<MintActivitySBTResponse>(
             urlcat(settings.FIREFLY_ROOT_URL, '/v1/wallet_transaction/mint/activity/sbt'),
             {
                 method: 'POST',
@@ -94,13 +78,6 @@ class FireflyActivity implements Provider {
                     activityName,
                     ...claimApiExtraParams,
                 }),
-                ...(authToken
-                    ? {
-                          headers: {
-                              Authorization: `Bearer ${authToken}`,
-                          },
-                      }
-                    : {}),
             },
         );
         const data = resolveFireflyResponseData(response);
@@ -138,31 +115,16 @@ class FireflyActivity implements Provider {
         );
     }
 
-    async getAllConnections({
-        authToken,
-    }: {
-        authToken?: string;
-    } = {}) {
+    async getAllConnections() {
         const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/accountConnection');
-        const headers: HeadersInit = {
-            'Cache-Control': 'no-cache',
-            Pragma: 'no-cache',
-        };
-        const response = await fireflySessionHolder.fetch<GetAllConnectionsResponse>(url, {
+        const response = await fireflySessionHolder.fetchWithSession<GetAllConnectionsResponse>(url, {
             method: 'GET',
-            ...(authToken
-                ? {
-                      headers: {
-                          Authorization: `Bearer ${authToken}`,
-                          ...headers,
-                      },
-                  }
-                : { headers }),
         });
         const connections = resolveFireflyResponseData(response);
         return {
             connected: formatWalletConnections(connections.wallet.connected, connections),
             related: formatWalletConnections(connections.wallet.unconnected, connections),
+            rawConnections: connections,
         };
     }
 
@@ -171,6 +133,82 @@ class FireflyActivity implements Provider {
 
         const response = await fetchJSON<VotingResultResponse>(url);
         return resolveFireflyResponseData(response);
+    }
+
+    async follow(
+        source: SocialSource,
+        profileId: string,
+        options?: {
+            sourceFarcasterProfileId?: number;
+        },
+    ) {
+        if (fireflyBridgeProvider.supported) {
+            switch (source) {
+                case Source.Lens:
+                    throw new NotImplementedError();
+                case Source.Twitter:
+                    await fireflyBridgeProvider.request(SupportedMethod.FOLLOW_TWITTER_USER, {
+                        id: profileId,
+                    });
+                    return;
+                case Source.Farcaster:
+                    await fireflySessionHolder.fetchWithSession(
+                        urlcat(settings.FIREFLY_ROOT_URL, '/v2/farcaster-hub/follow'),
+                        {
+                            method: 'POST',
+                            body: JSON.stringify({
+                                targetFid: parseInt(profileId, 10),
+                                sourceFid: options?.sourceFarcasterProfileId,
+                            }),
+                        },
+                    );
+                    return;
+                default:
+                    safeUnreachable(source);
+                    return;
+            }
+        }
+        await resolveSocialMediaProvider(source).follow(profileId);
+    }
+
+    async isFollowed(
+        source: SocialSource,
+        profileId: string,
+        options?: {
+            sourceFarcasterProfileId?: number;
+        },
+    ) {
+        switch (source) {
+            case Source.Lens: {
+                const profile = await getProfileById(source, profileId);
+                return profile?.viewerContext?.following ?? false;
+            }
+            case Source.Farcaster: {
+                return farcasterSessionHolder.withSession(async (session) => {
+                    const response = await fireflySessionHolder.fetchWithSession<FriendshipResponse>(
+                        urlcat(settings.FIREFLY_ROOT_URL, '/v2/farcaster-hub/user/friendship', {
+                            sourceFid: options?.sourceFarcasterProfileId ?? session?.profileId,
+                            destFid: profileId,
+                        }),
+                        {
+                            method: 'GET',
+                        },
+                    );
+                    return resolveFireflyResponseData<Friendship>(response)?.isFollowing;
+                });
+            }
+            case Source.Twitter: {
+                if (fireflyBridgeProvider.supported) {
+                    return (
+                        (await fireflyBridgeProvider.request(SupportedMethod.IS_TWITTER_USER_FOLLOWING, {
+                            id: profileId,
+                        })) === 'true'
+                    );
+                }
+                const profile = await getProfileById(source, profileId);
+                return profile?.viewerContext?.following ?? false;
+            }
+        }
     }
 }
 

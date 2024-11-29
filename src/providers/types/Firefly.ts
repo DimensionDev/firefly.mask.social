@@ -95,6 +95,7 @@ export interface Profile {
     hit: boolean;
     score: number;
     avatar?: string;
+    owner?: string;
 }
 
 export interface UsersData {
@@ -1048,6 +1049,7 @@ export interface ActivityListItem {
     description: string;
     url: string;
     banner_url: string;
+    cover_url: string;
     icon_url: string;
     ext: string;
     start_time: string;
@@ -1261,6 +1263,7 @@ export type ActivityInfoResponse = Response<{
     description: string;
     url: string;
     banner_url: string;
+    cover_url: string;
     icon_url: string;
     ext: string;
     start_time: string;

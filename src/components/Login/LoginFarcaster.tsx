@@ -51,16 +51,18 @@ async function login(createAccount: () => Promise<Account>, options?: Omit<Accou
         // user rejected request
         if (error instanceof UserRejectedRequestError) return;
 
+        // if any error occurs, close the modal
+        // by this we don't need to do error handling in UI part.
+        LoginModalRef.close();
+
         // if the account is already bound to another account, show a warning message
         if (error instanceof FarcasterAlreadyBoundError) {
             enqueueWarningMessage(
                 t`The account you are trying to log in with is already linked to a different Firefly account.`,
             );
+            return;
         }
 
-        // if any error occurs, close the modal
-        // by this we don't need to do error handling in UI part.
-        LoginModalRef.close();
         throw error;
     }
 }

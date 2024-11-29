@@ -47,5 +47,10 @@ export function getPublicParameters(eventId: string, previousEventId: string | n
         twitter_username: useTwitterStateStore.getState().currentProfile?.handle,
         lens_handle: useLensStateStore.getState().currentProfile?.handle,
         farcaster_id: useFarcasterStateStore.getState().currentProfile?.profileId,
+
+        activity:
+            bom.location?.pathname?.startsWith('/events') || bom.location?.pathname?.startsWith('/event/')
+                ? bom.location.href
+                : undefined,
     };
 }

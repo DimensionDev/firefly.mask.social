@@ -5,6 +5,7 @@ import { useAsyncFn } from 'react-use';
 import { ActivityContext } from '@/components/Activity/ActivityContext.js';
 import { useActivityClaimCondition } from '@/components/Activity/hooks/useActivityClaimCondition.js';
 import { useActivityConnections } from '@/components/Activity/hooks/useActivityConnections.js';
+import type { SocialSource } from '@/constants/enum.js';
 import { EMPTY_LIST } from '@/constants/index.js';
 import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
 import { getSnackbarMessageFromError } from '@/helpers/getSnackbarMessageFromError.js';
@@ -14,9 +15,9 @@ import { captureActivityEvent } from '@/providers/telemetry/captureActivityEvent
 import { EventId } from '@/providers/types/Telemetry.js';
 import { Network, SupportedMethod } from '@/types/bridge.js';
 
-export function useActivityBindAddress() {
-    const { onChangeAddress, fireflyAccountId } = useContext(ActivityContext);
-    const { refetch: refetchActivityClaimCondition } = useActivityClaimCondition();
+export function useActivityBindAddress(source: SocialSource) {
+    const { onChangeAddress } = useContext(ActivityContext);
+    const { refetch: refetchActivityClaimCondition } = useActivityClaimCondition(source);
     const { data: { connected = EMPTY_LIST } = {}, refetch } = useActivityConnections();
     return useAsyncFn(async () => {
         try {
@@ -27,7 +28,6 @@ export function useActivityBindAddress() {
                 onChangeAddress(address);
                 captureActivityEvent(EventId.EVENT_CONNECT_WALLET_SUCCESS, {
                     wallet_address: address,
-                    firefly_account_id: fireflyAccountId,
                 });
                 await refetchActivityClaimCondition();
                 await refetch();

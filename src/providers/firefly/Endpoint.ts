@@ -129,7 +129,9 @@ export class FireflyEndpoint {
                     collection_id: collectionId,
                 }),
             },
-            true,
+            {
+                withSession: true,
+            },
         );
     }
 
@@ -148,7 +150,9 @@ export class FireflyEndpoint {
                     collection_id: collectionId,
                 }),
             },
-            true,
+            {
+                withSession: true,
+            },
         );
     }
 
@@ -248,7 +252,9 @@ export class FireflyEndpoint {
             {
                 method: 'GET',
             },
-            isTokenRequired,
+            {
+                withSession: isTokenRequired,
+            },
         );
     }
 
@@ -506,7 +512,9 @@ export class FireflyEndpoint {
                     walletAddresses,
                 }),
             },
-            !(walletAddresses && walletAddresses.length > 0),
+            {
+                withSession: !(walletAddresses && walletAddresses.length > 0),
+            },
         );
         return createPageable(
             response.data.result,

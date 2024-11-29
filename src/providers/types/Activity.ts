@@ -29,6 +29,8 @@ export interface Farcaster {
     isPowerUser: boolean;
     valid: boolean;
     isFollowing: boolean;
+    isSupercast?: boolean;
+    hasThirdpartSigner?: boolean;
 }
 
 export interface BnbId {
@@ -57,11 +59,20 @@ export enum ActivityElex24VoteOption {
     Harris = 'harris',
 }
 
+export interface Assets {
+    alreadyClaimed: boolean;
+    anonBalance: string;
+    degenBalance: string;
+    level: Level;
+    valid: boolean;
+}
+
 export type CheckResponse = Response<{
     alreadyClaimed: boolean;
     canClaim: boolean;
     x: X;
     farcaster: Farcaster;
+    assets: Assets;
     balance: Balance;
     firefly: Firefly;
     address: string;
@@ -79,13 +90,7 @@ export type MintActivitySBTResponse = Response<{
 }>;
 
 export interface Provider {
-    getActivityClaimCondition: (
-        name: string,
-        options?: {
-            address?: string;
-            authToken?: string;
-        },
-    ) => Promise<CheckResponse['data']>;
+    getActivityClaimCondition: (name: string, address?: string) => Promise<CheckResponse['data']>;
 
     getActivityInfo: (name: string) => Promise<ActivityInfoResponse['data']>;
 
@@ -94,12 +99,8 @@ export interface Provider {
     claimActivitySBT: (
         address: string,
         activityName: string,
-        options?: {
-            authToken?: string;
-        },
+        claimApiExtraParams?: Record<string, unknown>,
     ) => Promise<MintActivitySBTResponse['data']>;
 
-    getAllConnections: (params?: {
-        authToken?: string;
-    }) => Promise<{ connected: FireflyWalletConnection[]; related: FireflyWalletConnection[] }>;
+    getAllConnections: () => Promise<{ connected: FireflyWalletConnection[]; related: FireflyWalletConnection[] }>;
 }

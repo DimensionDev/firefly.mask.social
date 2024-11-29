@@ -1,29 +1,39 @@
 import { env } from '@/constants/env.js';
 import { NOT_DEPEND_HUBBLE_KEY } from '@/constants/index.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
+import type { NextFetchersOptions } from '@/helpers/getNextFetchers.js';
 import { SessionHolder } from '@/providers/base/SessionHolder.js';
 import type { FarcasterSession } from '@/providers/farcaster/Session.js';
+import { fireflyBridgeProvider } from '@/providers/firefly/Bridge.js';
+import { SupportedMethod } from '@/types/bridge.js';
 
 class FarcasterSessionHolder extends SessionHolder<FarcasterSession> {
     override resumeSession(session: FarcasterSession) {
         this.internalSession = session;
     }
 
-    override fetchWithSession<T>(url: string, options?: RequestInit) {
-        return fetchJSON<T>(url, {
-            ...options,
-            headers: { ...options?.headers, Authorization: `Bearer ${this.sessionRequired.token}` },
-        });
+    override async fetchWithSession<T>(url: string, init?: RequestInit, options?: NextFetchersOptions) {
+        const authToken = fireflyBridgeProvider.supported
+            ? await fireflyBridgeProvider.request(SupportedMethod.GET_AUTHORIZATION, {})
+            : this.sessionRequired.token;
+        return fetchJSON<T>(
+            url,
+            {
+                ...init,
+                headers: { ...init?.headers, Authorization: `Bearer ${authToken}` },
+            },
+            options,
+        );
     }
 
-    override fetchWithoutSession<T>(url: string, options?: RequestInit) {
-        return fetchJSON<T>(url, options);
+    override fetchWithoutSession<T>(url: string, init?: RequestInit, options?: NextFetchersOptions) {
+        return fetchJSON<T>(url, init, options);
     }
 
-    async fetchHubble<T>(url: string, options?: RequestInit) {
+    async fetchHubble<T>(url: string, init?: RequestInit, options?: NextFetchersOptions) {
         const headers = {
             'Content-Type': 'application/octet-stream',
-            ...options?.headers,
+            ...init?.headers,
             api_key: NOT_DEPEND_HUBBLE_KEY,
         };
 
@@ -35,16 +45,20 @@ class FarcasterSessionHolder extends SessionHolder<FarcasterSession> {
             throw new Error('token not found.');
         }
 
-        const response = await fetch(url, {
-            ...options,
-            headers: {
-                ...headers,
-                ...options?.headers,
+        return await fetchJSON<T>(
+            url,
+            {
+                ...init,
+                headers: {
+                    ...headers,
+                    ...init?.headers,
+                },
             },
-        });
-
-        const json = await response.json();
-        return json as T;
+            {
+                noStrictOK: true,
+                ...options,
+            },
+        );
     }
 }
 

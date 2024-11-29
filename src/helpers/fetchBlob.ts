@@ -1,14 +1,14 @@
 import { t } from '@lingui/macro';
 
 import { fetch } from '@/helpers/fetch.js';
-import { getNextFetchers, type NextFetchersOptions } from '@/helpers/getNextFetchers.js';
+import type { NextFetchersOptions } from '@/helpers/getNextFetchers.js';
 
 export async function fetchBlob(
     input: RequestInfo | URL,
     init?: RequestInit,
     options?: NextFetchersOptions,
 ): Promise<Blob> {
-    const response = await fetch(input, init, getNextFetchers(options));
+    const response = await fetch(input, init, options);
     if (!response.ok) throw new Error(t`Failed to fetch as Blob.`);
     return response.blob();
 }

@@ -9,7 +9,7 @@ interface ProfileInListProps {
     selectable?: boolean;
     profile: Profile;
     onSelect?: (profile: Profile) => void;
-    ProfileAvatarProps?: Partial<ProfileAvatarProps>;
+    profileAvatarProps?: Partial<ProfileAvatarProps>;
 }
 
 export function ProfileInList({
@@ -17,7 +17,7 @@ export function ProfileInList({
     selectable = true,
     profile,
     onSelect,
-    ProfileAvatarProps,
+    profileAvatarProps,
 }: ProfileInListProps) {
     const content = (
         <>
@@ -28,7 +28,7 @@ export function ProfileInList({
                         'radial-gradient(circle at center, rgba(255, 184, 224, 1), rgba(190, 158, 255, 1), rgba(136, 192, 252, 1), rgba(134, 255, 153, 1))',
                 }}
             >
-                <ProfileAvatar profile={profile} size={48} {...ProfileAvatarProps} />
+                <ProfileAvatar profile={profile} size={48} {...profileAvatarProps} />
             </div>
             <ProfileName profile={profile} />
             {selectable ? <CircleCheckboxIcon className="shrink-0" checked={selected} /> : null}

@@ -9,7 +9,12 @@ const validPlatforms = [SourceInURL.Farcaster, SourceInURL.Lens, SourceInURL.Twi
 
 function fixProfilePlatform(profile: Profile) {
     if (!validPlatforms.includes(profile.platform)) {
-        return { ...profile, platform: SourceInURL.Wallet } as Profile;
+        return {
+            ...profile,
+            platform: SourceInURL.Wallet,
+            // we use owner as platform_id for ens
+            platform_id: profile.owner || profile.platform_id,
+        } as Profile;
     }
 
     return profile;

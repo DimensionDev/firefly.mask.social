@@ -61,6 +61,9 @@ msgstr "Allow Collect Module"
 msgid "New connect with Warpcast"
 msgstr "New connect with Warpcast"
 
+msgid "You have been detected as a loyal Farcaster user"
+msgstr "You have been detected as a loyal Farcaster user"
+
 msgid "Edit Image"
 msgstr "Edit Image"
 
@@ -229,9 +232,6 @@ msgstr "Follow <0/> on {platform}"
 msgid "Ended"
 msgstr "Ended"
 
-msgid "Failed to follow @{handle} on X."
-msgstr "Failed to follow @{handle} on X."
-
 msgid "No cryptocurrency mixer found."
 msgstr "No cryptocurrency mixer found."
 
@@ -343,6 +343,9 @@ msgstr "Pay"
 msgid "Claim on Farcaster: {link}"
 msgstr "Claim on Farcaster: {link}"
 
+msgid "Followed @{handle} on {0}."
+msgstr "Followed @{handle} on {0}."
+
 msgid "Failed to add wallet"
 msgstr "Failed to add wallet"
 
@@ -387,6 +390,9 @@ msgstr "Market Cap"
 
 msgid "Claimed: <0>{claim_numbers}/{total_numbers}</0> <1>{0}/{1}</1> <2>{token_symbol}</2>"
 msgstr "Claimed: <0>{claim_numbers}/{total_numbers}</0> <1>{0}/{1}</1> <2>{token_symbol}</2>"
+
+msgid "Eligible for Premium Collectible?"
+msgstr "Eligible for Premium Collectible?"
 
 msgid "Contract source code verified"
 msgstr "Contract source code verified"
@@ -495,6 +501,9 @@ msgstr "<0>{0}</0><1>mirrored</1>"
 
 msgid "True Token"
 msgstr "True Token"
+
+msgid "Failed to follow @{handle} on {0}."
+msgstr "Failed to follow @{handle} on {0}."
 
 msgid "Bookmarks"
 msgstr "Bookmarks"
@@ -622,6 +631,9 @@ msgstr "{0, select, Image {[Image]} Video {[Video]} Audio {[Audio]} Poll {[Poll]
 msgid "Failed to follow @{0} on {sourceName}."
 msgstr "Failed to follow @{0} on {sourceName}."
 
+msgid "Your assets on $DEGEN or $ANON exceed US$10,000"
+msgstr "Your assets on $DEGEN or $ANON exceed US$10,000"
+
 msgid "Attendees"
 msgstr "Attendees"
 
@@ -700,6 +712,9 @@ msgstr "The blacklist function is included. Some addresses may not be able to tr
 msgid "Verified by {0}"
 msgstr "Verified by {0}"
 
+msgid "Please sign in with {resolveSourceName(source)} to continue"
+msgstr "Please sign in with {resolveSourceName(source)} to continue"
+
 msgid "Select Account"
 msgstr "Select Account"
 
@@ -732,6 +747,9 @@ msgstr "Channel {id} could not be found."
 
 msgid "Reposted"
 msgstr "Reposted"
+
+msgid "Login {0} successfully."
+msgstr "Login {0} successfully."
 
 msgid "Today at {0}"
 msgstr "Today at {0}"
@@ -931,6 +949,9 @@ msgstr "Domain"
 msgid "Failed to follow @{0} on Lens"
 msgstr "Failed to follow @{0} on Lens"
 
+msgid "Check Eligibility"
+msgstr "Check Eligibility"
+
 msgid "You might like"
 msgstr "You might like"
 
@@ -1077,6 +1098,9 @@ msgstr "Comment cannot be empty."
 
 msgid "Days"
 msgstr "Days"
+
+msgid "Submit a wallet to receive NFT and $ANON"
+msgstr "Submit a wallet to receive NFT and $ANON"
 
 msgid "<0/> mentioned you in a <1>{0, select, Post {post} Comment {comment} Quote {quote} Mirror {mirror} other {post}}</1>"
 msgstr "<0/> mentioned you in a <1>{0, select, Post {post} Comment {comment} Quote {quote} Mirror {mirror} other {post}}</1>"
@@ -1489,9 +1513,6 @@ msgstr "Search ${symbol}"
 msgid "Failed to unmute /{0}."
 msgstr "Failed to unmute /{0}."
 
-msgid "Login X successfully."
-msgstr "Login X successfully."
-
 msgid "Please confirm the login with Warpcast."
 msgstr "Please confirm the login with Warpcast."
 
@@ -1776,6 +1797,9 @@ msgstr "Invalid signer key"
 
 msgid "Connect to {source}"
 msgstr "Connect to {source}"
+
+msgid "Available to users with Farcaster ID under 100,000 or users of select third-party Farcaster apps as of our snapshot"
+msgstr "Available to users with Farcaster ID under 100,000 or users of select third-party Farcaster apps as of our snapshot"
 
 msgid "Unverified"
 msgstr "Unverified"
@@ -2473,6 +2497,9 @@ msgstr "Owner can change balance"
 msgid "Non-contract address found."
 msgstr "Non-contract address found."
 
+msgid "Confirm to disconnect this account from Firefly’s social graph?"
+msgstr "Confirm to disconnect this account from Firefly’s social graph?"
+
 msgid "The contract owner has no restrictions on selling."
 msgstr "The contract owner has no restrictions on selling."
 
@@ -2707,6 +2734,9 @@ msgstr "Developers"
 msgid "Share to"
 msgstr "Share to"
 
+msgid "Meet any of the following to unlock a premium collectible and get more $ANON:"
+msgstr "Meet any of the following to unlock a premium collectible and get more $ANON:"
+
 msgid "Non-sanctioned address."
 msgstr "Non-sanctioned address."
 
@@ -2781,9 +2811,6 @@ msgstr "Dark Mode"
 
 msgid "Article added to your Bookmarks"
 msgstr "Article added to your Bookmarks"
-
-msgid "Please sign in with X to continue"
-msgstr "Please sign in with X to continue"
 
 msgid "Create a Post"
 msgstr "Create a Post"

@@ -66,6 +66,9 @@ msgstr ""
 msgid "New connect with Warpcast"
 msgstr ""
 
+msgid "You have been detected as a loyal Farcaster user"
+msgstr ""
+
 msgid "Edit Image"
 msgstr ""
 
@@ -234,9 +237,6 @@ msgstr ""
 msgid "Ended"
 msgstr ""
 
-msgid "Failed to follow @{handle} on X."
-msgstr ""
-
 msgid "No cryptocurrency mixer found."
 msgstr ""
 
@@ -348,6 +348,9 @@ msgstr ""
 msgid "Claim on Farcaster: {link}"
 msgstr ""
 
+msgid "Followed @{handle} on {0}."
+msgstr ""
+
 msgid "Failed to add wallet"
 msgstr ""
 
@@ -391,6 +394,9 @@ msgid "Market Cap"
 msgstr ""
 
 msgid "Claimed: <0>{claim_numbers}/{total_numbers}</0> <1>{0}/{1}</1> <2>{token_symbol}</2>"
+msgstr ""
+
+msgid "Eligible for Premium Collectible?"
 msgstr ""
 
 msgid "Contract source code verified"
@@ -499,6 +505,9 @@ msgid "<0>{0}</0><1>mirrored</1>"
 msgstr ""
 
 msgid "True Token"
+msgstr ""
+
+msgid "Failed to follow @{handle} on {0}."
 msgstr ""
 
 msgid "Bookmarks"
@@ -627,6 +636,9 @@ msgstr ""
 msgid "Failed to follow @{0} on {sourceName}."
 msgstr ""
 
+msgid "Your assets on $DEGEN or $ANON exceed US$10,000"
+msgstr ""
+
 msgid "Attendees"
 msgstr ""
 
@@ -705,6 +717,9 @@ msgstr ""
 msgid "Verified by {0}"
 msgstr ""
 
+msgid "Please sign in with {resolveSourceName(source)} to continue"
+msgstr ""
+
 msgid "Select Account"
 msgstr ""
 
@@ -736,6 +751,9 @@ msgid "Channel {id} could not be found."
 msgstr ""
 
 msgid "Reposted"
+msgstr ""
+
+msgid "Login {0} successfully."
 msgstr ""
 
 msgid "Today at {0}"
@@ -936,6 +954,9 @@ msgstr ""
 msgid "Failed to follow @{0} on Lens"
 msgstr ""
 
+msgid "Check Eligibility"
+msgstr ""
+
 msgid "You might like"
 msgstr ""
 
@@ -1081,6 +1102,9 @@ msgid "Comment cannot be empty."
 msgstr ""
 
 msgid "Days"
+msgstr ""
+
+msgid "Submit a wallet to receive NFT and $ANON"
 msgstr ""
 
 msgid "<0/> mentioned you in a <1>{0, select, Post {post} Comment {comment} Quote {quote} Mirror {mirror} other {post}}</1>"
@@ -1494,9 +1518,6 @@ msgstr ""
 msgid "Failed to unmute /{0}."
 msgstr ""
 
-msgid "Login X successfully."
-msgstr ""
-
 msgid "Please confirm the login with Warpcast."
 msgstr ""
 
@@ -1780,6 +1801,9 @@ msgid "Invalid signer key"
 msgstr ""
 
 msgid "Connect to {source}"
+msgstr ""
+
+msgid "Available to users with Farcaster ID under 100,000 or users of select third-party Farcaster apps as of our snapshot"
 msgstr ""
 
 msgid "Unverified"
@@ -2478,6 +2502,9 @@ msgstr ""
 msgid "Non-contract address found."
 msgstr ""
 
+msgid "Confirm to disconnect this account from Firefly’s social graph?"
+msgstr ""
+
 msgid "The contract owner has no restrictions on selling."
 msgstr ""
 
@@ -2712,6 +2739,9 @@ msgstr ""
 msgid "Share to"
 msgstr ""
 
+msgid "Meet any of the following to unlock a premium collectible and get more $ANON:"
+msgstr ""
+
 msgid "Non-sanctioned address."
 msgstr ""
 
@@ -2785,9 +2815,6 @@ msgid "Dark Mode"
 msgstr ""
 
 msgid "Article added to your Bookmarks"
-msgstr ""
-
-msgid "Please sign in with X to continue"
 msgstr ""
 
 msgid "Create a Post"
