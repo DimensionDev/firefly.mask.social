@@ -16,7 +16,9 @@ export function useIsProfileMuted(source: Source, profileId: string, blocking?: 
         queryKey: ['profile-is-muted', source, profileId],
         staleTime: 600_000,
         queryFn: () => {
-            return FireflyEndpointProvider.isProfileMuted(resolveFireflyPlatform(source), profileId);
+            const platform = resolveFireflyPlatform(source);
+            if (!platform) return false;
+            return FireflyEndpointProvider.isProfileMuted(platform, profileId);
         },
     });
     return data ?? !!blocking;
