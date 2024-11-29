@@ -39,9 +39,7 @@ export function MentionLink({ platform, profileId, handle }: MentionLinkProps) {
     const { data: twitterHandle, isLoading } = useQuery({
         enabled: isTwitter && !handle,
         queryKey: ['twitter-user-info', profileId],
-        queryFn: async () => {
-            return FireflyEndpointProvider.getUserInfoById(profileId);
-        },
+        queryFn: () => FireflyEndpointProvider.getUserInfoById(profileId),
         select(data) {
             return data?.username;
         },
@@ -49,13 +47,14 @@ export function MentionLink({ platform, profileId, handle }: MentionLinkProps) {
 
     if (isLoading) return <LoadingBase size={12} />;
 
-    if (!handle) return <span>the creator</span>;
+    const screenName = isTwitter ? twitterHandle || handle : handle;
+    if (!screenName) return <span>the creator</span>;
 
     return (
         <Link
             href={resolveProfileUrl(
                 platform,
-                platform === FireflyRedPacketAPI.PlatformType.farcaster ? profileId : handle,
+                platform === FireflyRedPacketAPI.PlatformType.farcaster ? profileId : screenName,
             )}
             target="_blank"
             className={classes.textLink}
