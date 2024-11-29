@@ -31,7 +31,7 @@ import { twitterSessionHolder } from '@/providers/twitter/SessionHolder.js';
 import { TwitterSocialMediaProvider } from '@/providers/twitter/SocialMedia.js';
 import type { Account } from '@/providers/types/Account.js';
 import type { Session } from '@/providers/types/Session.js';
-import { type Profile, type ProfileEditable, ProfileStatus } from '@/providers/types/SocialMedia.js';
+import { type Profile, type ProfileEditable, ProfileStatus, SessionType } from '@/providers/types/SocialMedia.js';
 import type { ThirdPartySessionType } from '@/providers/types/ThirdParty.js';
 import { addAccount } from '@/services/account.js';
 import { bindOrRestoreFireflySession } from '@/services/bindFireflySession.js';
@@ -359,7 +359,7 @@ const useThirdPartyStateBase = createState(
 
             try {
                 const session = (await getSession()) as unknown as ThirdPartySessionType;
-                if (!session.user) return;
+                if (!session.user || session.type === SessionType.Twitter) return;
 
                 const thirdPartySession = session.user?.id
                     ? new ThirdPartySession(
