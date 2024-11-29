@@ -7,6 +7,7 @@ import {
     decodeEvents,
     type GasConfig,
     SchemaType,
+    type TransactionReceipt,
     useTokenConstants,
 } from '@masknet/web3-shared-evm';
 import { omit } from 'lodash-es';
@@ -185,6 +186,12 @@ export function useCreateCallback(
                 hash,
                 receipt,
                 events,
+            } as {
+                hash: string;
+                receipt?: TransactionReceipt;
+                events: {
+                    [eventName: string]: unknown;
+                };
             };
         }
         return { hash, receipt };

@@ -1,11 +1,11 @@
 import { NetworkPluginID } from '@masknet/shared-base';
 import { useBalance, useChainContext } from '@masknet/web3-hooks-base';
-import { useTransactionValue } from '@masknet/web3-hooks-evm';
 import { formatBalance } from '@masknet/web3-shared-base';
 import { type GasConfig, isNativeTokenAddress, useRedPacketConstants } from '@masknet/web3-shared-evm';
 import { BigNumber } from 'bignumber.js';
 import { useCallback, useEffect, useRef } from 'react';
 
+import { useTransactionValue } from '@/mask/bindings/hooks.js';
 import { EVMChainResolver } from '@/mask/bindings/index.js';
 import {
     type RedPacketSettings,

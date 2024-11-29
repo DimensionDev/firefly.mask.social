@@ -1,4 +1,3 @@
-import { useContract } from '@masknet/web3-hooks-evm';
 import { type ChainId, useRedPacketConstants } from '@masknet/web3-shared-evm';
 import type { AbiItem } from 'web3-utils';
 
@@ -12,6 +11,7 @@ import {
     type HappyRedPacketV4,
     HappyRedPacketV4ABI,
 } from '@/mask/bindings/constants.js';
+import { useContract } from '@/mask/bindings/hooks.js';
 
 export function useRedPacketContract(chainId: ChainId, version: number) {
     const {

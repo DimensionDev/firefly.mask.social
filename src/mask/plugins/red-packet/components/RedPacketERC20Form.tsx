@@ -14,7 +14,6 @@ import {
 } from '@masknet/shared';
 import { NetworkPluginID, PluginID } from '@masknet/shared-base';
 import { useChainContext, useEnvironmentContext, useNativeTokenPrice } from '@masknet/web3-hooks-base';
-import { useTransactionValue } from '@masknet/web3-hooks-evm';
 // import { EVMChainResolver, EVMWeb3 } from '@masknet/web3-providers';
 import {
     formatBalance,
@@ -33,6 +32,7 @@ import { type ChangeEvent, useCallback, useMemo, useState } from 'react';
 import { useUpdateEffect } from 'react-use';
 
 import { ActionButton, Icons, MaskTextField, RadioIndicator } from '@/mask/bindings/components.js';
+import { useTransactionValue } from '@/mask/bindings/hooks.js';
 import { EVMChainResolver, EVMWeb3, makeStyles } from '@/mask/bindings/index.js';
 import {
     RED_PACKET_DEFAULT_SHARES,
