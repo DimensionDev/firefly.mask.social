@@ -1,4 +1,4 @@
-import { t, Trans } from '@lingui/macro';
+import { Plural, t, Trans } from '@lingui/macro';
 import { useLastRecognizedIdentity, usePostInfoDetails, usePostLink } from '@masknet/plugin-infra/content-script';
 import { requestLogin, share } from '@masknet/plugin-infra/content-script/context';
 import { LoadingStatus, TransactionConfirmModal } from '@masknet/shared';
@@ -196,12 +196,24 @@ export const RedPacket = memo(function RedPacket({ payload }: RedPacketProps) {
 
     const getShareText = useCallback(
         (hasClaimed: boolean) => {
-            const context = hasClaimed ? (`${platform}_claimed` as const) : platform;
-            return t.share_on_firefly({
-                context,
-                sender: handle ?? '',
-                link: link!,
-            });
+            const sender = handle ?? '';
+            const farcaster_lens_claimed =
+                t`🤑 Just claimed a #LuckyDrop  🧧💰✨ on https://firefly.mask.social from @${sender} !` +
+                '\n\n' +
+                t`Claim on Lens: ${link}`;
+            const notClaimed =
+                t`🤑 Check this Lucky Drop  🧧💰✨ sent by @${sender}.` +
+                '\n\n' +
+                t`Grow your followers and engagement with Lucky Drop on Firefly mobile app or https://firefly.mask.social !`;
+            +'\n';
+            switch (platform) {
+                case 'farcaster':
+                    return hasClaimed ? farcaster_lens_claimed : notClaimed + '\n' + t`Claim on Farcaster: ${link}`;
+                case 'lens':
+                    return hasClaimed ? farcaster_lens_claimed : notClaimed + '\n' + t`Claim on Lens: ${link}`;
+                default:
+                    return notClaimed + '\n' + t`Claim on: ${link}`;
+            }
         },
         [link, t, platform, handle],
     );
@@ -294,12 +306,13 @@ export const RedPacket = memo(function RedPacket({ payload }: RedPacketProps) {
         if (listOfStatus.includes(RedPacketStatus.expired)) return t`The Lucky Drop is expired.`;
         if (listOfStatus.includes(RedPacketStatus.empty)) return t`The Lucky Drop is empty.`;
         if (!payload.password) return t`The Lucky Drop is broken.`;
-        const i18nParams = {
-            total: formatBalance(payload.total, token.decimals, { significant: 2 }),
-            symbol: token.symbol ?? '-',
-            count: payload.shares.toString() ?? '-',
-        };
-        return payload.shares > 1 ? t.description_failover_other(i18nParams) : t.description_failover_one(i18nParams);
+        const total = formatBalance(payload.total, token.decimals, { significant: 2 });
+        const symbol = token.symbol ?? '-';
+        return (
+            <Trans>
+                {payload.shares} <Plural value={payload.shares} one="share" other="shares" /> / {total} ${symbol}
+            </Trans>
+        );
     }, [availability, canRefund, token, t, payload, listOfStatus]);
 
     const handleShare = useCallback(() => {
