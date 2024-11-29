@@ -73,7 +73,7 @@ export function ActivityTaskFollowCard({ source, profileId, handle }: ActivityTa
     return (
         <div
             className={classNames(
-                'flex min-h-[56px] w-full flex-col space-y-2 rounded-2xl p-3 text-sm font-semibold leading-6 sm:flex-row sm:items-center sm:space-y-0',
+                'flex min-h-[56px] w-full flex-col space-y-2 rounded-2xl p-3 text-sm font-normal leading-6 sm:flex-row sm:items-center sm:space-y-0',
                 isFollowedFirefly ? 'bg-success/10 dark:bg-success/20' : 'bg-bg',
             )}
         >
