@@ -42,9 +42,7 @@
         "no-plusplus": "error",
         "no-regex-spaces": "error",
         "no-restricted-globals": ["error", "event", "name", "length", "closed"],
-        "no-restricted-imports": [
-            "error"
-        ],
+        "no-restricted-imports": ["error"],
         "no-script-url": "error",
         "no-self-assign": "error",
         "no-self-compare": "error",
