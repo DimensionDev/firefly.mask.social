@@ -68,10 +68,6 @@ export function useActivityPremiumList(source: SocialSource) {
                     label: <Trans>You have been detected as a loyal Farcaster user</Trans>,
                     verified: data?.farcaster.isSupercast || (data && parseInt(data.farcaster.fid, 10) <= 10000),
                 },
-                {
-                    label: <Trans>Your assets on $DEGEN or $ANON exceed US$10,000</Trans>,
-                    verified: data?.assets.valid,
-                },
             ];
         default:
             return [];
