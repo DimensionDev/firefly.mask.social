@@ -1,1 +1,1 @@
-import '@masknet/plugin-redpacket/register';
+import '@/mask/plugins/red-packet/register/index.js';

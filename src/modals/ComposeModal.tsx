@@ -33,7 +33,6 @@ import { getSnackbarMessageFromError } from '@/helpers/getSnackbarMessageFromErr
 import { isEmptyPost } from '@/helpers/isEmptyPost.js';
 import { narrowToSocialSource } from '@/helpers/narrowToSocialSource.js';
 import { createLocalMediaObject } from '@/helpers/resolveMediaObjectUrl.js';
-import { hasRpPayload, isRpEncrypted, updateRpEncrypted } from '@/helpers/rpPayload.js';
 import { useCompositePost } from '@/hooks/useCompositePost.js';
 import { useCurrentProfile, useCurrentProfileAll } from '@/hooks/useCurrentProfile.js';
 import { useIsSmall } from '@/hooks/useMediaQuery.js';
@@ -41,6 +40,7 @@ import { useSetEditorContent } from '@/hooks/useSetEditorContent.js';
 import { useSingletonModal } from '@/hooks/useSingletonModal.js';
 import type { SingletonModalRefCreator } from '@/libs/SingletonModal.js';
 import { ProfileIdentifier } from '@/mask/bindings/index.js';
+import { hasRpPayload, isRpEncrypted, updateRpEncrypted } from '@/mask/plugins/red-packet/helpers/rpPayload.js';
 import { ComposeModalRef, ConfirmModalRef } from '@/modals/controls.js';
 import { captureComposeDraftPostEvent } from '@/providers/telemetry/captureComposeEvent.js';
 import type { Channel, Post } from '@/providers/types/SocialMedia.js';

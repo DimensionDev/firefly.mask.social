@@ -1,16 +1,11 @@
-import { delay } from '@masknet/kit';
-import { TransactionConfirmModal } from '@masknet/shared';
 import { PostIdentifier, ProfileIdentifier } from '@masknet/shared-base';
 
-import type { SocialSource } from '@/constants/enum.js';
-import { SITE_URL } from '@/constants/index.js';
 import { EMPTY_ARRAY, UNDEFINED } from '@/constants/subscription.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
 import { createSubscriptionFromValueRef } from '@/helpers/subscription.js';
 import { ValueRef } from '@/libs/ValueRef.js';
 import type { __SiteAdaptorContext__, __UIContext__, IdentityResolved } from '@/mask/bindings/index.js';
 import { createRejectCallback } from '@/mask/helpers/createRejectCallback.js';
-import { ComposeModalRef, LoginModalRef } from '@/modals/controls.js';
 
 export function createMaskUIContext(context?: Partial<__UIContext__>): __UIContext__ {
     return {
@@ -56,23 +51,12 @@ export function createMaskSiteAdaptorContext(context?: Partial<__SiteAdaptorCont
         currentPersonaIdentifier: UNDEFINED,
         getPostURL: (identifier: PostIdentifier) => null,
         getProfileURL: (identifier: ProfileIdentifier) => null,
-        share: async (text: string, source?: string) => {
-            TransactionConfirmModal.close();
-            await delay(300);
-            ComposeModalRef.open({
-                chars: text.replaceAll(/mask\.io/gi, SITE_URL),
-                source: source as SocialSource,
-            });
-        },
         connectPersona: createRejectCallback('connectPersona'),
         getPostIdFromNewPostToast: undefined,
         getSearchedKeyword: undefined,
         getUserIdentity: undefined,
         postMessage: undefined,
         publishPost: undefined,
-        requestLogin: (source: SocialSource) => {
-            LoginModalRef.open({ source });
-        },
         ...context,
     };
 }
