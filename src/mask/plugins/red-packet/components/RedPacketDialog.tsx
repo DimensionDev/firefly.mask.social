@@ -8,7 +8,6 @@ import {
 import { InjectedDialog, LoadingStatus, useCurrentLinkedPersona } from '@masknet/shared';
 import { EMPTY_LIST, NetworkPluginID, PluginID } from '@masknet/shared-base';
 import { useChainContext, useGasPrice } from '@masknet/web3-hooks-base';
-// import { type FireflyRedPacketAPI, type RedPacketJSONPayload } from '@masknet/web3-providers/types';
 import { ChainId, type GasConfig, GasEditor } from '@masknet/web3-shared-evm';
 import { TabContext } from '@mui/lab';
 import { DialogContent, Tab, useTheme } from '@mui/material';
