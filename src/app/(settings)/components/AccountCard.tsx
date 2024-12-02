@@ -12,12 +12,10 @@ import { ClickableButton } from '@/components/ClickableButton.js';
 import { ProfileAvatar } from '@/components/ProfileAvatar.js';
 import { ProfileName } from '@/components/ProfileName.js';
 import { Tooltip } from '@/components/Tooltip.js';
-import { config } from '@/configs/wagmiClient.js';
 import { type SocialSource, Source } from '@/constants/enum.js';
 import { EMPTY_LIST } from '@/constants/index.js';
 import { enqueueErrorMessage, enqueueMessageFromError, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { getProfileState } from '@/helpers/getProfileState.js';
-import { getWalletClientRequired } from '@/helpers/getWalletClientRequired.js';
 import { isSameProfile, toProfileId } from '@/helpers/isSameProfile.js';
 import { useConnectedAccounts } from '@/hooks/useConnectedAccounts.js';
 import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
@@ -90,7 +88,7 @@ export function AccountCard({ source }: AccountCardProps) {
         queryKey: ['lens', 'profiles', account.address],
         queryFn: async () => {
             try {
-                const { account } = await getWalletClientRequired(config);
+                if (!account.address) return EMPTY_LIST;
                 const profiles = await LensSocialMediaProvider.getProfilesByAddress(account.address);
                 return profiles ?? EMPTY_LIST;
             } catch {
