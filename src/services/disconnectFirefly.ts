@@ -3,9 +3,13 @@ import { safeUnreachable } from '@masknet/kit';
 import { type SocialSource, Source, WalletSource } from '@/constants/enum.js';
 import { SORTED_SOCIAL_SOURCES } from '@/constants/index.js';
 import { resolveSourceFromWalletSource } from '@/helpers/resolveSource.js';
+import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
+import type { FireflySession } from '@/providers/firefly/Session.js';
 import type { FireflyIdentity, FireflyWalletConnection } from '@/providers/types/Firefly.js';
 import { removeAccountByProfileId } from '@/services/account.js';
+import { downloadSessions, uploadSessions } from '@/services/metrics.js';
+import { useFireflyStateStore } from '@/store/useProfileStore.js';
 
 function getIdentity(connection: FireflyWalletConnection): FireflyIdentity | null {
     switch (connection.source) {
@@ -31,6 +35,15 @@ function getIdentity(connection: FireflyWalletConnection): FireflyIdentity | nul
     }
 }
 
+async function removeFireflyMetrics(profileId: number | string, signal?: AbortSignal) {
+    const session = useFireflyStateStore.getState().currentProfileSession as FireflySession | null;
+    if (!session) return;
+
+    const syncedSessions = await downloadSessions(session, signal);
+    const sessions = syncedSessions.filter((x) => x.profileId !== profileId);
+    await uploadSessions('override', session, sessions, signal);
+}
+
 export async function disconnectFirefly(connection: FireflyWalletConnection) {
     const identity = getIdentity(connection);
     if (identity) await FireflyEndpointProvider.disconnectAccount(identity);
@@ -44,4 +57,8 @@ export async function disconnectFirefly(connection: FireflyWalletConnection) {
     if (SORTED_SOCIAL_SOURCES.includes(source)) {
         await removeAccountByProfileId(source, identity.id);
     }
+
+    await runInSafeAsync(async () => {
+        await removeFireflyMetrics(identity.id);
+    });
 }
