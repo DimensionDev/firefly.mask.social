@@ -20,7 +20,7 @@ import {
     PublicationType,
     ReferenceModuleType,
 } from '@lens-protocol/client';
-import { MetadataAttributeType,profile as createProfileMetadata } from '@lens-protocol/metadata';
+import { MetadataAttributeType, profile as createProfileMetadata } from '@lens-protocol/metadata';
 import { t } from '@lingui/macro';
 import { sendTransaction } from '@wagmi/core';
 import { compact, first, flatMap, omit, uniq, uniqWith } from 'lodash-es';
