@@ -19,6 +19,7 @@
         "cacheable",
         "CAIP",
         "canonicalize",
+        "cashtags",
         "celo",
         "chainbase",
         "coincarp",
@@ -79,9 +80,11 @@
         "swiper",
         "Thirdweb",
         "tiktok",
+        "tinycolor",
         "tokenomics",
         "Twitterbot",
         "Twmoji",
+        "txid",
         "unbookmark",
         "unfollow",
         "unfollowed",
@@ -106,7 +109,9 @@
         "zerion",
         "zksync",
         "zora",
-        "zustand"
+        "reposted",
+        "zustand",
+        "daos"
     ],
     "ignoreWords": [
         "DEVNET",

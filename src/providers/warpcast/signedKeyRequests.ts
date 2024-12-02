@@ -21,7 +21,7 @@ export interface SignedKeyRequestBody {
 
 export async function signedKeyRequests(body: SignedKeyRequestBody, signal?: AbortSignal) {
     const url = urlcat(WARPCAST_ROOT_URL, '/signed-key-requests');
-    return await fetchJSON<SignedKeyRequestResponse>(url, {
+    return fetchJSON<SignedKeyRequestResponse>(url, {
         method: 'POST',
         body: JSON.stringify(body),
         signal,

@@ -1,7 +1,7 @@
 import type { SessionType } from '@/providers/types/SocialMedia.js';
 
 export type ThirdPartySessionType = {
-    type: SessionType.Apple | SessionType.Google | SessionType.Telegram;
+    type: SessionType.Apple | SessionType.Google | SessionType.Telegram | SessionType.Twitter;
     nonce: string;
     id_token: string;
     createdAt: number;

@@ -6,7 +6,7 @@ import { compact, uniqBy } from 'lodash-es';
 import { ListInPage } from '@/components/ListInPage.js';
 import { Empty } from '@/components/Search/Empty.js';
 import { SearchableProfileItem } from '@/components/Search/SearchableProfileItem.js';
-import { ScrollListKey, Source, SourceInURL } from '@/constants/enum.js';
+import { FireflyPlatform, ScrollListKey, Source } from '@/constants/enum.js';
 import { formatSearchIdentities } from '@/helpers/formatSearchIdentities.js';
 import { toFireflyPlatformId } from '@/helpers/isSameProfile.js';
 import { createIndicator, createPageable } from '@/helpers/pageable.js';
@@ -25,12 +25,12 @@ function composeTwitterProfiles(identities: ProfileWithRelated[], xProfiles: Pro
         ...identities,
         ...xProfiles.map((x) => {
             const existed = identities.some(
-                ({ profile }) => profile.platform === SourceInURL.Twitter && profile.platform_id === x.profileId,
+                ({ profile }) => profile.platform === FireflyPlatform.Twitter && profile.platform_id === x.profileId,
             );
             if (existed) return null;
 
             const matched = {
-                platform: SourceInURL.Twitter as const,
+                platform: FireflyPlatform.Twitter as const,
                 platform_id: x.profileId,
                 handle: x.handle,
                 name: x.displayName,

@@ -8,7 +8,7 @@ msgstr ""
 "Language: ko\n"
 "Project-Id-Version: masksocial\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-11-09 00:05\n"
+"PO-Revision-Date: 2024-11-29 00:05\n"
 "Last-Translator: \n"
 "Language-Team: Korean\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
@@ -135,6 +135,9 @@ msgstr ""
 msgid "Followed @{0} on {sourceName}"
 msgstr ""
 
+msgid "Select a Token"
+msgstr ""
+
 msgid "{followerCount, plural, one {Follower} other {Followers}}"
 msgstr ""
 
@@ -165,6 +168,9 @@ msgstr ""
 msgid "Money laundering."
 msgstr ""
 
+msgid "History"
+msgstr ""
+
 msgid "This space does not exist."
 msgstr ""
 
@@ -175,6 +181,9 @@ msgid "Debug Connection"
 msgstr ""
 
 msgid "Blackmail activities found."
+msgstr ""
+
+msgid "No Lucky Drops claimed"
 msgstr ""
 
 msgid "Allow Lens Manager to perform actions such as posting, liking, and commenting without the need to sign each transaction."
@@ -210,6 +219,9 @@ msgstr ""
 msgid "Malicious mining activities found."
 msgstr ""
 
+msgid "No"
+msgstr ""
+
 msgid "Functions that can suspend trading"
 msgstr ""
 
@@ -220,6 +232,9 @@ msgid "This token is a gas abuser."
 msgstr ""
 
 msgid "Are you sure you want to leave /{0} ?"
+msgstr ""
+
+msgid "Follow <0/> on {platform}"
 msgstr ""
 
 msgid "Ended"
@@ -297,6 +312,9 @@ msgstr ""
 msgid "The token can be bought."
 msgstr ""
 
+msgid "Claim on: {link}"
+msgstr ""
+
 msgid "Trending"
 msgstr ""
 
@@ -321,6 +339,9 @@ msgstr ""
 msgid "Scan the QR code with your phone’s <0>Camera</0> in {count}s.<1/> Approve the existing Farcaster signer to Firefly."
 msgstr ""
 
+msgid "Image Preview"
+msgstr ""
+
 msgid "Poll"
 msgstr ""
 
@@ -328,6 +349,9 @@ msgid "Scheduled"
 msgstr ""
 
 msgid "Pay"
+msgstr ""
+
+msgid "Claim on Farcaster: {link}"
 msgstr ""
 
 msgid "Followed @{handle} on {0}."
@@ -346,6 +370,9 @@ msgid "Your account is now connected."
 msgstr ""
 
 msgid "Report submitted on {0}"
+msgstr ""
+
+msgid "The minimum amount for each share is {0} {1}"
 msgstr ""
 
 msgid "Trending Channels"
@@ -370,6 +397,9 @@ msgid "Our transaction simulation and security detection found no issues. Howeve
 msgstr ""
 
 msgid "Market Cap"
+msgstr ""
+
+msgid "Claimed: <0>{claim_numbers}/{total_numbers}</0> <1>{0}/{1}</1> <2>{token_symbol}</2>"
 msgstr ""
 
 msgid "Eligible for Premium Collectible?"
@@ -441,6 +471,9 @@ msgstr ""
 msgid "Copied"
 msgstr ""
 
+msgid "Invalid Network"
+msgstr ""
+
 msgid "Name"
 msgstr ""
 
@@ -510,6 +543,9 @@ msgstr ""
 msgid "Failed to report @{0}"
 msgstr ""
 
+msgid "Plugin is loading..."
+msgstr ""
+
 msgid "Restricted approval."
 msgstr ""
 
@@ -564,6 +600,9 @@ msgstr ""
 msgid "Honeypot related address."
 msgstr ""
 
+msgid "Select NFT collection to gate access"
+msgstr ""
+
 msgid "Password"
 msgstr ""
 
@@ -597,6 +636,9 @@ msgstr ""
 msgid "Follow to Collect"
 msgstr ""
 
+msgid "This message is a e2e encrypted message. You can only decrypt this message when it is encrypted to you and decrypt it with Mask Network extension."
+msgstr ""
+
 msgid "{0, select, Image {[Image]} Video {[Video]} Audio {[Audio]} Poll {[Poll]} other {}}"
 msgstr ""
 
@@ -619,6 +661,9 @@ msgid "Functions with retrievable ownership"
 msgstr ""
 
 msgid "No proxy contract."
+msgstr ""
+
+msgid "Identical"
 msgstr ""
 
 msgid "Search"
@@ -666,6 +711,9 @@ msgstr ""
 msgid "Failed to delete scheduled post."
 msgstr ""
 
+msgid "Confirm the Lucky Drop"
+msgstr ""
+
 msgid "The blacklist function is not included. If there is a blacklist, some addresses may not be able to trade normally (honeypot risk)."
 msgstr ""
 
@@ -676,9 +724,6 @@ msgid "The blacklist function is included. Some addresses may not be able to tra
 msgstr ""
 
 msgid "Verified by {0}"
-msgstr ""
-
-msgid "Please sign in with {resolveSourceName(source)} to continue"
 msgstr ""
 
 msgid "Select Account"
@@ -703,6 +748,9 @@ msgid "{minutes, plural, one {1 minute left} other {{minutes} minutes left}}"
 msgstr ""
 
 msgid "No Airdrop Scam"
+msgstr ""
+
+msgid "Users must like, repost / quote tweet, or comment on your Lucky Drop post."
 msgstr ""
 
 msgid "Channel {id} could not be found."
@@ -769,6 +817,9 @@ msgid "Mute all"
 msgstr ""
 
 msgid "Failed to generate signature packet with source = {source}."
+msgstr ""
+
+msgid "No Lucky Drops created. Select 🎁 when you compose a post to start your first drop."
 msgstr ""
 
 msgid "Save failed post?"
@@ -838,6 +889,9 @@ msgid "Profile could not be found."
 msgstr ""
 
 msgid "Profile details"
+msgstr ""
+
+msgid "{0} (UTC+8)"
 msgstr ""
 
 msgid "Failed to mute /{0}."
@@ -954,6 +1008,9 @@ msgstr ""
 msgid "Log out"
 msgstr ""
 
+msgid "Amount Each"
+msgstr ""
+
 msgid "No restricted approval."
 msgstr ""
 
@@ -978,6 +1035,12 @@ msgstr ""
 msgid "This token contract has a code that states that it cannot be sold. Maybe this is a honeypot."
 msgstr ""
 
+msgid "Winners"
+msgstr ""
+
+msgid "Refunding"
+msgstr ""
+
 msgid "REPLY to<0><1>@{0}</1></0>"
 msgstr ""
 
@@ -997,6 +1060,9 @@ msgid "Add Wallet"
 msgstr ""
 
 msgid "Followed by {0} and {1}"
+msgstr ""
+
+msgid "Insufficient {0} Balance"
 msgstr ""
 
 msgid "Try searching for something else."
@@ -1077,6 +1143,9 @@ msgstr ""
 msgid "Voted"
 msgstr ""
 
+msgid "Lucky Drop"
+msgstr ""
+
 msgid "Reply"
 msgstr ""
 
@@ -1087,6 +1156,9 @@ msgid "Add an existing account"
 msgstr ""
 
 msgid "Confirm you want to mute /{0}?"
+msgstr ""
+
+msgid "Refund"
 msgstr ""
 
 msgid "Connecting..."
@@ -1119,7 +1191,13 @@ msgstr ""
 msgid "No fake KYC found."
 msgstr ""
 
+msgid "Claim on Lens: {link}"
+msgstr ""
+
 msgid "No function found that retrieves ownership"
+msgstr ""
+
+msgid "🤑 Just claimed a #LuckyDrop  🧧💰✨ on https://firefly.mask.social from @{sender} !"
 msgstr ""
 
 msgid "Send"
@@ -1138,6 +1216,9 @@ msgid "<0>You</0> mirrored"
 msgstr ""
 
 msgid "Failed to create image payload."
+msgstr ""
+
+msgid "Random Amount"
 msgstr ""
 
 msgid "Network Fee"
@@ -1167,10 +1248,16 @@ msgstr ""
 msgid "Send Feedback"
 msgstr ""
 
+msgid "More details"
+msgstr ""
+
 msgid "No voting power"
 msgstr ""
 
 msgid "Your draft was saved."
+msgstr ""
+
+msgid "You can withdraw the rest of your balances back 24h later after sending them out."
 msgstr ""
 
 msgid "Kamala Harris"
@@ -1248,10 +1335,22 @@ msgstr ""
 msgid "No channel found with the id {channelId}"
 msgstr ""
 
+msgid "Best Wishes!"
+msgstr ""
+
 msgid "Sold Out"
 msgstr ""
 
 msgid "Proxy contract"
+msgstr ""
+
+msgid "Choose your collection"
+msgstr ""
+
+msgid "Total amount shared among all winners"
+msgstr ""
+
+msgid "Enter number of winners"
 msgstr ""
 
 msgid "The contract owner has the authority to modify the balance of tokens at other addresses, which may result in a loss of assets."
@@ -1260,7 +1359,13 @@ msgstr ""
 msgid "Failed to unmute @{0} on {sourceName}."
 msgstr ""
 
+msgid "Claiming..."
+msgstr ""
+
 msgid "Insufficient Balance"
+msgstr ""
+
+msgid "Empty"
 msgstr ""
 
 msgid "Tax cannot be modified"
@@ -1296,6 +1401,9 @@ msgstr ""
 msgid "Set"
 msgstr ""
 
+msgid "Enter Total Amount"
+msgstr ""
+
 msgid "[Poll]"
 msgstr ""
 
@@ -1323,6 +1431,9 @@ msgstr ""
 msgid "Muted wallets"
 msgstr ""
 
+msgid "From: @{0}"
+msgstr ""
+
 msgid "All wallets and accounts are muted."
 msgstr ""
 
@@ -1336,6 +1447,9 @@ msgid "Hide more comments"
 msgstr ""
 
 msgid "Malformed session."
+msgstr ""
+
+msgid "Like / Repost / Comment"
 msgstr ""
 
 msgid "Malformed third-party session payload."
@@ -1372,6 +1486,9 @@ msgid "Post with link"
 msgstr ""
 
 msgid "Your post has published successfully."
+msgstr ""
+
+msgid "Confirming"
 msgstr ""
 
 msgid "Login with Farcaster"
@@ -1425,6 +1542,9 @@ msgstr ""
 msgid "Redirecting..."
 msgstr ""
 
+msgid "Split Mode"
+msgstr ""
+
 msgid "Log in with recovery phrase"
 msgstr ""
 
@@ -1459,6 +1579,9 @@ msgid "Telemetry"
 msgstr ""
 
 msgid "Show more tokens with small balances"
+msgstr ""
+
+msgid "Requirements"
 msgstr ""
 
 msgid "{riskyFactors, plural, one {# Risky item} other {# Risky items}}"
@@ -1503,6 +1626,9 @@ msgstr ""
 msgid "This contract is an Admin Upgradeability Proxy. The proxy contract means the contract owner can modify the function of the token and could possibly effect the price.There is possibly a way for the team to Rug or Scam. Please confirm the details with the project team before buying."
 msgstr ""
 
+msgid "Grow your followers and engagement with Lucky Drop on Firefly mobile app or https://firefly.mask.social !"
+msgstr ""
+
 msgid "Failed to fetch bookmarks."
 msgstr ""
 
@@ -1515,13 +1641,22 @@ msgstr ""
 msgid "NFT owner cant bypass the maximum amount of minting specified in the contract, and continue to mint NFTs beyond this limit."
 msgstr ""
 
+msgid "Grant access to your {0} for the Lucky Drop Smart contract. You only have to do this once per token."
+msgstr ""
+
 msgid "VOTED"
+msgstr ""
+
+msgid "Enclose a Message"
 msgstr ""
 
 msgid "Failed to upvote post."
 msgstr ""
 
 msgid "<0>Acquired</0> an NFT"
+msgstr ""
+
+msgid "{0} {1, plural, one {share} other {shares}} / {total} ${symbol}"
 msgstr ""
 
 msgid "Confirm to disconnect this account and related wallets from Firefly’s social graph?"
@@ -1566,6 +1701,9 @@ msgstr ""
 msgid "No darkweb transactions found."
 msgstr ""
 
+msgid "By clicking \\\"Next\\\", you acknowledge the risk associated with decentralized networks and beta products."
+msgstr ""
+
 msgid "You need to connect your {0} account to use this feature."
 msgstr ""
 
@@ -1600,6 +1738,9 @@ msgid "No cybercrime found."
 msgstr ""
 
 msgid "Articles"
+msgstr ""
+
+msgid "Follow me"
 msgstr ""
 
 msgid "Connect to {0}"
@@ -1662,10 +1803,19 @@ msgstr ""
 msgid "Unwatch {handleOrEnsOrAddress}"
 msgstr ""
 
+msgid "You claimed {0} ${1}."
+msgstr ""
+
 msgid "<0>Market Cap</0><1>{0}</1><2>Rank #{1}</2>"
 msgstr ""
 
+msgid "Total amount"
+msgstr ""
+
 msgid "Invalid signer key"
+msgstr ""
+
+msgid "Connect to {source}"
 msgstr ""
 
 msgid "Available to users with Farcaster ID under 100,000 or users of select third-party Farcaster apps as of our snapshot"
@@ -1714,6 +1864,9 @@ msgid "What's happening..."
 msgstr ""
 
 msgid "Connect your wallet to claim your NFT"
+msgstr ""
+
+msgid "At most 255 recipients"
 msgstr ""
 
 msgid "24h"
@@ -1779,6 +1932,9 @@ msgstr ""
 msgid "Leave /{0} on {sourceName}."
 msgstr ""
 
+msgid "The Lucky Drop is expired."
+msgstr ""
+
 msgid "Powered by Tenderly and GoPlus"
 msgstr ""
 
@@ -1786,6 +1942,9 @@ msgid "Publications"
 msgstr ""
 
 msgid "Unable to read image."
+msgstr ""
+
+msgid "NFT Holder of <0/>"
 msgstr ""
 
 msgid "Collectible could not be found."
@@ -1845,6 +2004,9 @@ msgstr ""
 msgid "Show more comments"
 msgstr ""
 
+msgid "Equal Amount"
+msgstr ""
+
 msgid "Failed to parse session."
 msgstr ""
 
@@ -1893,6 +2055,9 @@ msgstr ""
 msgid "Top Collectors"
 msgstr ""
 
+msgid "Drop Type"
+msgstr ""
+
 msgid "Quote"
 msgstr ""
 
@@ -1900,6 +2065,9 @@ msgid "Or login with any social account"
 msgstr ""
 
 msgid "View engagements"
+msgstr ""
+
+msgid "User must follow your account. Note: When you cross-post a Lucky Drop to multiple social networks, following you on any social allows users to claim."
 msgstr ""
 
 msgid "<0>worth ${0}</0><1>at Polymarket</1>"
@@ -1914,10 +2082,16 @@ msgstr ""
 msgid "Translated"
 msgstr ""
 
+msgid "Insufficient Balance for Gas Fee"
+msgstr ""
+
 msgid "Failed to bookmark post."
 msgstr ""
 
 msgid "{0} muted users"
+msgstr ""
+
+msgid "Received time:"
 msgstr ""
 
 msgid "Remove Poll"
@@ -1977,6 +2151,9 @@ msgstr ""
 msgid "Please input the serialized session to be validated."
 msgstr ""
 
+msgid "1 NFT claimed."
+msgstr ""
+
 msgid "Failed to update profile."
 msgstr ""
 
@@ -1990,6 +2167,9 @@ msgid "{type, select, compose {{0}} quote {Add a comment} reply {Post your reply
 msgstr ""
 
 msgid "Unknown transaction method: {method}."
+msgstr ""
+
+msgid "Please sign in with {0} to continue"
 msgstr ""
 
 msgid "Get involved in the <0>Presidential Election Winner 2024</0> on Polymarket"
@@ -2014,6 +2194,9 @@ msgid "Follow @thefireflyapp on X"
 msgstr ""
 
 msgid "Wallets retrieved from public verifiable data registries or our entity algorithm can be reported for disconnection."
+msgstr ""
+
+msgid "You got {0} {1}"
 msgstr ""
 
 msgid "Step 2 Connect Wallet"
@@ -2070,6 +2253,9 @@ msgstr ""
 msgid "You haven't generated a Firefly wallet yet."
 msgstr ""
 
+msgid "Post on"
+msgstr ""
+
 msgid "Your transaction will confirm shortly"
 msgstr ""
 
@@ -2080,6 +2266,9 @@ msgid "will send on {0} at {1}"
 msgstr ""
 
 msgid "Failed to like the post."
+msgstr ""
+
+msgid "Enter the amount that each winner can claim"
 msgstr ""
 
 msgid "Failed to repost."
@@ -2172,6 +2361,9 @@ msgstr ""
 msgid "Something went wrong. Please try again."
 msgstr ""
 
+msgid "Received"
+msgstr ""
+
 msgid "Translated from {contentLanguage}"
 msgstr ""
 
@@ -2223,6 +2415,9 @@ msgstr ""
 msgid "Upload photo"
 msgstr ""
 
+msgid "The Lucky Drop is empty."
+msgstr ""
+
 msgid "You can save this to send later from your drafts."
 msgstr ""
 
@@ -2250,6 +2445,9 @@ msgstr ""
 msgid "No cybercrime involved."
 msgstr ""
 
+msgid "Sent"
+msgstr ""
+
 msgid "Casts + Replies"
 msgstr ""
 
@@ -2265,19 +2463,40 @@ msgstr ""
 msgid "No stealing attack found."
 msgstr ""
 
+msgid "Share From"
+msgstr ""
+
 msgid "Claimed"
 msgstr ""
 
 msgid "The hidden owner function is included. The project owner may have the ability to control the contract."
 msgstr ""
 
+msgid "Next"
+msgstr ""
+
 msgid "Step 1 Sign in"
+msgstr ""
+
+msgid "The Lucky Drop is broken."
 msgstr ""
 
 msgid "Copy"
 msgstr ""
 
+msgid "Enter Amount Each"
+msgstr ""
+
+msgid "Amount"
+msgstr ""
+
+msgid "Total cost"
+msgstr ""
+
 msgid "Settled as {0}"
+msgstr ""
+
+msgid "Claim"
 msgstr ""
 
 msgid "No available wallet."
@@ -2379,6 +2598,9 @@ msgstr ""
 msgid "You've hit rock bottom."
 msgstr ""
 
+msgid "View"
+msgstr ""
+
 msgid "Crypto Trends"
 msgstr ""
 
@@ -2398,6 +2620,9 @@ msgid "Muting..."
 msgstr ""
 
 msgid "{0, plural, one {comment} other {comments}}"
+msgstr ""
+
+msgid "The Lucky Drop has been refunded."
 msgstr ""
 
 msgid "The contract owner may contain the authority to modify the transaction tax. If the transaction tax is increased to more than 49%, the tokens will not be able to be traded (honeypot risk)."
@@ -2439,6 +2664,9 @@ msgstr ""
 msgid "Receive"
 msgstr ""
 
+msgid "NFT holder"
+msgstr ""
+
 msgid "Followed by {0} , {1}, and {2}"
 msgstr ""
 
@@ -2470,6 +2698,9 @@ msgid "Pay<0> {feeAmount} ${feeSymbol} </0>to follow and get some awesome perks!
 msgstr ""
 
 msgid "<0>Bought</0> an NFT worth {costEl}"
+msgstr ""
+
+msgid "Enter Number of Winners"
 msgstr ""
 
 msgid "Post from /{0} will be hidden in your home timeline"
@@ -2535,6 +2766,9 @@ msgstr ""
 msgid "Non-sanctioned address."
 msgstr ""
 
+msgid "You could refund {0} {1}."
+msgstr ""
+
 msgid "Failed to quote post."
 msgstr ""
 
@@ -2565,6 +2799,9 @@ msgstr ""
 msgid "Something went wrong"
 msgstr ""
 
+msgid "Create time:"
+msgstr ""
+
 msgid "Change"
 msgstr ""
 
@@ -2581,6 +2818,9 @@ msgid "Failed to bind address."
 msgstr ""
 
 msgid "Buy Tax: {0}%"
+msgstr ""
+
+msgid "Customize Lucky Drop sender. Select either Lens or Forecaster usernames, or use the currently connected wallet."
 msgstr ""
 
 msgid "Success!"
@@ -2604,7 +2844,13 @@ msgstr ""
 msgid "{type, select, comment {Comments} mirror {{0}} reaction {Likes} act {Collects} other {Other}}"
 msgstr ""
 
+msgid "Random"
+msgstr ""
+
 msgid "Unverified: Failed to simulate, <0>try again</0>"
+msgstr ""
+
+msgid "No claims yet for this Lucky Drop"
 msgstr ""
 
 msgid "You may lose your assets if giving approval to the website of this token."
@@ -2613,7 +2859,13 @@ msgstr ""
 msgid "Unfollow"
 msgstr ""
 
+msgid "You can set one or multiple rules to be eligible to win a Lucky Drop."
+msgstr ""
+
 msgid "Your {0} account is now connected."
+msgstr ""
+
+msgid "Use Lucky Drop quests to grow your followers and engagement. Each requirement must be completed to be eligible to claim."
 msgstr ""
 
 msgid "Not Found"
@@ -2697,6 +2949,9 @@ msgstr ""
 msgid "Failed to unmirror post."
 msgstr ""
 
+msgid "🤑 Check this Lucky Drop  🧧💰✨ sent by @{sender}."
+msgstr ""
+
 msgid "Failed to unlike the comment."
 msgstr ""
 
@@ -2733,7 +2988,13 @@ msgstr ""
 msgid "Cannot continue due to wallet mismatch."
 msgstr ""
 
+msgid "You can withdraw any unclaimed amount 24 hours after sending this lucky drop."
+msgstr ""
+
 msgid "your.email@example.org"
+msgstr ""
+
+msgid "Number of Winners"
 msgstr ""
 
 msgid "Unmute"
@@ -2743,6 +3004,12 @@ msgid "No available token"
 msgstr ""
 
 msgid "Firefly Bridge"
+msgstr ""
+
+msgid "Clear all requirements"
+msgstr ""
+
+msgid "Claim Requirements"
 msgstr ""
 
 msgid "Oversupply minting."
@@ -2853,6 +3120,9 @@ msgstr ""
 msgid "Sold a bet"
 msgstr ""
 
+msgid "We encountered an error when try to decrypt this message: {0}"
+msgstr ""
+
 msgid "Final Step Claim Now!"
 msgstr ""
 
@@ -2958,6 +3228,9 @@ msgstr ""
 msgid "NFT contract can restrict the approval, resulting in NFT can not be traded on the NFT DEX."
 msgstr ""
 
+msgid "Amount per Share"
+msgstr ""
+
 msgid "<0>You</0> recasted"
 msgstr ""
 
@@ -3027,6 +3300,9 @@ msgstr ""
 msgid "Clear"
 msgstr ""
 
+msgid "Message"
+msgstr ""
+
 msgid "Continue"
 msgstr ""
 
@@ -3081,6 +3357,9 @@ msgstr ""
 msgid "Post"
 msgstr ""
 
+msgid "Creator:"
+msgstr ""
+
 msgid "mirrored"
 msgstr ""
 
@@ -3129,6 +3408,9 @@ msgstr ""
 msgid "Collectible"
 msgstr ""
 
+msgid "Users must hold one NFT from the collection you select."
+msgstr ""
+
 msgid "Are you sure you want to report this user?"
 msgstr ""
 
@@ -3143,3 +3425,4 @@ msgstr ""
 
 msgid "High-signal Filter"
 msgstr ""
+

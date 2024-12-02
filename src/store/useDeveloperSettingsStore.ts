@@ -6,7 +6,6 @@ import { STATUS } from '@/constants/enum.js';
 import { env } from '@/constants/env.js';
 import { FIREFLY_DEV_ROOT_URL, FIREFLY_ROOT_URL } from '@/constants/index.js';
 import { createSelectors } from '@/helpers/createSelector.js';
-import { FireflyRedPacket } from '@/mask/bindings/index.js';
 import { recordDevelopmentAPI } from '@/services/recordDevelopmentAPI.js';
 
 interface DeveloperSettingsState {
@@ -20,10 +19,6 @@ interface DeveloperSettingsState {
     updateTelemetryDebug: (value: boolean) => void;
 }
 
-function updateRedPacketApiRoot(devMode: boolean) {
-    FireflyRedPacket.updateApiRoot(devMode ? FIREFLY_DEV_ROOT_URL : FIREFLY_ROOT_URL);
-}
-
 const useDeveloperSettingsBase = create<
     DeveloperSettingsState,
     [['zustand/persist', unknown], ['zustand/immer', never]]
@@ -33,7 +28,6 @@ const useDeveloperSettingsBase = create<
             developmentAPI: env.external.NEXT_PUBLIC_FIREFLY_DEV_API === STATUS.Enabled,
             updateDevelopmentAPI: (value: boolean) =>
                 set((state) => {
-                    updateRedPacketApiRoot(value);
                     recordDevelopmentAPI(value ? FIREFLY_DEV_ROOT_URL : FIREFLY_ROOT_URL);
                     state.developmentAPI = value;
                 }),
@@ -59,7 +53,6 @@ const useDeveloperSettingsBase = create<
             }),
             onRehydrateStorage: (state) => {
                 recordDevelopmentAPI(state.developmentAPI ? FIREFLY_DEV_ROOT_URL : FIREFLY_ROOT_URL);
-                updateRedPacketApiRoot(state.developmentAPI);
             },
         },
     ),

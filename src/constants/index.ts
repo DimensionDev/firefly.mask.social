@@ -148,14 +148,14 @@ export const DISCOVER_SOURCES: DiscoverSource[] = [
     ...SOCIAL_DISCOVER_SOURCE,
     Source.NFTs,
     Source.Article,
-    Source.Snapshot,
+    Source.DAOs,
 ] as const;
 export const FOLLOWING_SOURCES: FollowingSource[] = [
     ...SOCIAL_DISCOVER_SOURCE,
     Source.Polymarket,
     Source.NFTs,
     Source.Article,
-    Source.Snapshot,
+    Source.DAOs,
 ] as const;
 
 export const DEFAULT_EXPLORE_TYPE = ExploreType.TopProfiles;
@@ -182,7 +182,7 @@ export const EXPLORE_DEFAULT_SOURCE: Record<ExploreType, ExploreSource> = {
     [ExploreType.TopChannels]: Source.Farcaster,
 };
 
-export const BOOKMARK_SOURCES: BookmarkSource[] = [Source.Farcaster, Source.Lens, Source.Article, Source.Snapshot];
+export const BOOKMARK_SOURCES: BookmarkSource[] = [Source.Farcaster, Source.Lens, Source.Article, Source.DAOs];
 
 export const TIPS_SUPPORT_NETWORKS = [NetworkType.Ethereum];
 

@@ -89,7 +89,7 @@ export interface User {
 
 export interface Profile {
     platform_id: string;
-    platform: SocialSourceInURL | FireflyPlatform.Wallet;
+    platform: FireflyPlatform;
     handle: string;
     name: string;
     hit: boolean;
@@ -1212,6 +1212,46 @@ export type TwitterUserInfoResponse = Response<{
         };
     };
 }>;
+
+export interface UserV2 {
+    id: string;
+    name: string;
+    username: string;
+    created_at?: string;
+    protected?: boolean;
+    withheld?: {
+        country_codes?: string[];
+        scope?: 'user';
+    };
+    location?: string;
+    url?: string;
+    description?: string;
+    verified?: boolean;
+    verified_type?: 'none' | 'blue' | 'business' | 'government';
+    entities?: {
+        url?: {
+            urls: unknown[];
+        };
+        description: {
+            urls?: unknown[];
+            hashtags?: unknown[];
+            cashtags?: unknown[];
+            mentions?: unknown[];
+        };
+    };
+    profile_image_url?: string;
+    public_metrics?: {
+        followers_count?: number;
+        following_count?: number;
+        tweet_count?: number;
+        listed_count?: number;
+        like_count?: number;
+    };
+    pinned_tweet_id?: string;
+    connection_status?: string[];
+}
+
+export type TwitterUserV2Response = Response<UserV2>;
 
 export type ActivityInfoResponse = Response<{
     id: number;

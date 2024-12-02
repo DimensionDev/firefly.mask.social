@@ -10,7 +10,7 @@ import { UnreachableError } from '@/constants/error.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
 import { loadTwemojiUrls } from '@/helpers/loadTwemojiUrls.js';
 import { removeVS16s } from '@/helpers/removeVS16s.js';
-import type { FireflyRedPacketAPI } from '@/mask/bindings/index.js';
+import type { FireflyRedPacketAPI } from '@/providers/red-packet/types.js';
 import { getSatoriFonts } from '@/services/getSatoriFonts.js';
 import { settings } from '@/settings/index.js';
 import { TokenType, UsageType } from '@/types/rp.js';

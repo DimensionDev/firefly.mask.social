@@ -1,17 +1,17 @@
 import { compact, first } from 'lodash-es';
 
-import { Source, SourceInURL } from '@/constants/enum.js';
+import { FireflyPlatform, Source } from '@/constants/enum.js';
 import { SORTED_PROFILE_SOURCES } from '@/constants/index.js';
 import { resolveSocialSourceInUrl } from '@/helpers/resolveSourceInUrl.js';
 import type { Profile, SearchProfileResponse } from '@/providers/types/Firefly.js';
 
-const validPlatforms = [SourceInURL.Farcaster, SourceInURL.Lens, SourceInURL.Twitter];
+const validPlatforms = [FireflyPlatform.Farcaster, FireflyPlatform.Lens, FireflyPlatform.Twitter];
 
 function fixProfilePlatform(profile: Profile) {
     if (!validPlatforms.includes(profile.platform)) {
         return {
             ...profile,
-            platform: SourceInURL.Wallet,
+            platform: FireflyPlatform.Wallet,
             // we use owner as platform_id for ens
             platform_id: profile.owner || profile.platform_id,
         } as Profile;

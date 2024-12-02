@@ -14,7 +14,7 @@ import { ActivityPremiumConditionList } from '@/components/Activity/ActivityPrem
 import { ActivityTaskFollowCard } from '@/components/Activity/ActivityTaskFollowCard.js';
 import { useActivityCurrentAccountHandle } from '@/components/Activity/hooks/useActivityCurrentAccountHandle.js';
 import { useIsFollowInActivity } from '@/components/Activity/hooks/useIsFollowInActivity.js';
-import { Source, SourceInURL } from '@/constants/enum.js';
+import { FireflyPlatform, Source } from '@/constants/enum.js';
 import { SITE_URL } from '@/constants/index.js';
 import { CHAR_TAG, type Chars } from '@/helpers/chars.js';
 import { ReferralAccountPlatform, resolveActivityUrl } from '@/helpers/resolveActivityUrl.js';
@@ -28,7 +28,7 @@ const fireflyMention = {
     profiles: [
         {
             platform_id: '1583361564479889408',
-            platform: SourceInURL.Twitter,
+            platform: FireflyPlatform.Twitter,
             handle: 'thefireflyapp',
             name: 'thefireflyapp',
             hit: true,
@@ -36,7 +36,7 @@ const fireflyMention = {
         },
         {
             platform_id: '16823',
-            platform: SourceInURL.Farcaster,
+            platform: FireflyPlatform.Farcaster,
             handle: 'fireflyapp',
             name: 'Firefly App',
             hit: true,
@@ -44,7 +44,7 @@ const fireflyMention = {
         },
         {
             platform_id: '0x01b000',
-            platform: SourceInURL.Lens,
+            platform: FireflyPlatform.Lens,
             handle: 'fireflyapp',
             name: 'fireflyapp',
             hit: true,

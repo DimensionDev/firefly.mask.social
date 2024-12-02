@@ -2,13 +2,13 @@
     "extends": "./src/maskbook/packages/config/tsconfig.json",
     "references": [
         {
+            "path": "./src/maskbook/packages/shared/tsconfig.json"
+        },
+        {
             "path": "./src/maskbook/packages/shared-base/tsconfig.json"
         },
         {
             "path": "./src/maskbook/packages/plugin-infra/tsconfig.json"
-        },
-        {
-            "path": "./src/maskbook/packages/plugins/RedPacket/tsconfig.json"
         },
         {
             "path": "./src/service-workers/tsconfig.json"
@@ -18,6 +18,9 @@
         },
         {
             "path": "./src/maskbook/packages/web3-hooks/base/tsconfig.json"
+        },
+        {
+            "path": "./src/maskbook/packages/web3-hooks/evm/tsconfig.json"
         }
     ],
     "compilerOptions": {
@@ -46,6 +49,7 @@
             "@masknet/encryption": ["./src/maskbook/packages/encryption/src/index.ts"],
             "@masknet/flags": ["./src/maskbook/packages/flags/src/index.ts"],
             "@masknet/flags/build-info": ["./src/maskbook/packages/flags/src/flags/buildInfo.ts"],
+            "@masknet/plugin-infra": ["./src/maskbook/packages/plugin-infra/src/entry.ts"],
             "@masknet/plugin-infra/dom": ["./src/maskbook/packages/plugin-infra/src/entry-dom.ts"],
             "@masknet/plugin-infra/background-worker": [
                 "./src/maskbook/packages/plugin-infra/src/entry-background-worker.ts"
@@ -53,21 +57,19 @@
             "@masknet/plugin-infra/content-script": [
                 "./src/maskbook/packages/plugin-infra/src/entry-content-script.ts"
             ],
-            "@masknet/plugin-infra": ["./src/maskbook/packages/plugin-infra/src/entry.ts"],
             "@masknet/public-api": ["./src/maskbook/packages/public-api/src/index.ts"],
             "@masknet/shared": ["./src/maskbook/packages/shared/src/index.ts"],
             "@masknet/shared-base": ["./src/maskbook/packages/shared-base/src/index.ts"],
             "@masknet/typed-message": ["./src/maskbook/packages/typed-message/base/src/index.ts"],
             "@masknet/typed-message-react": ["./src/maskbook/packages/typed-message/react/src/index.ts"],
             "@masknet/web3-hooks-base": ["./src/maskbook/packages/web3-hooks/base/src/index.ts"],
+            "@masknet/web3-hooks-evm": ["./src/maskbook/packages/web3-hooks/evm/src/index.ts"],
             "@masknet/web3-shared-base": ["./src/maskbook/packages/web3-shared/base/src/index.ts"],
             "@masknet/web3-shared-evm": ["./src/maskbook/packages/web3-shared/evm/src/index.ts"],
-            "@masknet/web3-shared-solana": ["./src/maskbook/packages/web3-shared/solana/src/index.ts"],
-            "@masknet/plugin-redpacket": ["./src/maskbook/packages/plugins/RedPacket/src/index.ts"],
-            "@masknet/plugin-redpacket/register": ["./src/maskbook/packages/plugins/RedPacket/src/register.ts"]
+            "@masknet/web3-shared-solana": ["./src/maskbook/packages/web3-shared/solana/src/index.ts"]
         }
     },
-    "include": ["csp.js", "globals.d.ts", "next-auth.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
+    "include": ["csp.js", "globals.d.ts", "next-auth.d.ts", "**/*.ts", "**/*.tsx"],
     "exclude": [
         "node_modules",
         "src/service-workers",
