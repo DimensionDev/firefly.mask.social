@@ -1929,10 +1929,10 @@ msgstr "此操作无法撤销，您将丢失您的草稿。"
 msgid "Article removed from your Bookmarks"
 msgstr "文章已经从您的收藏中移除"
 
-msgid "Leave /{0} on {sourceName}."
+msgid "The Lucky Drop is expired."
 msgstr ""
 
-msgid "The Lucky Drop is expired."
+msgid "Leave /{0} on {sourceName}."
 msgstr ""
 
 msgid "Powered by Tenderly and GoPlus"
@@ -3425,4 +3425,3 @@ msgstr "Blink 验证器"
 
 msgid "High-signal Filter"
 msgstr "高质量过滤"
-

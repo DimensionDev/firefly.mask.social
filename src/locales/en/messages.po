@@ -1924,11 +1924,11 @@ msgstr "This can’t be undone and you’ll lose your draft."
 msgid "Article removed from your Bookmarks"
 msgstr "Article removed from your Bookmarks"
 
-msgid "Leave /{0} on {sourceName}."
-msgstr "Leave /{0} on {sourceName}."
-
 msgid "The Lucky Drop is expired."
 msgstr "The Lucky Drop is expired."
+
+msgid "Leave /{0} on {sourceName}."
+msgstr "Leave /{0} on {sourceName}."
 
 msgid "Powered by Tenderly and GoPlus"
 msgstr "Powered by Tenderly and GoPlus"

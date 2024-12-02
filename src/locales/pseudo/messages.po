@@ -1924,10 +1924,10 @@ msgstr ""
 msgid "Article removed from your Bookmarks"
 msgstr ""
 
-msgid "Leave /{0} on {sourceName}."
+msgid "The Lucky Drop is expired."
 msgstr ""
 
-msgid "The Lucky Drop is expired."
+msgid "Leave /{0} on {sourceName}."
 msgstr ""
 
 msgid "Powered by Tenderly and GoPlus"
