@@ -3,9 +3,11 @@ import { safeUnreachable } from '@masknet/kit';
 import { type SocialSource, Source, WalletSource } from '@/constants/enum.js';
 import { SORTED_SOCIAL_SOURCES } from '@/constants/index.js';
 import { resolveSourceFromWalletSource } from '@/helpers/resolveSource.js';
+import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 import type { FireflyIdentity, FireflyWalletConnection } from '@/providers/types/Firefly.js';
-import { removeAccountByProfileId } from '@/services/account.js';
+import { removeAccountByProfileId, removeFireflyMetricsIfNeeded } from '@/services/account.js';
+import { useFireflyStateStore } from '@/store/useProfileStore.js';
 
 function getIdentity(connection: FireflyWalletConnection): FireflyIdentity | null {
     switch (connection.source) {
@@ -44,4 +46,12 @@ export async function disconnectFirefly(connection: FireflyWalletConnection) {
     if (SORTED_SOCIAL_SOURCES.includes(source)) {
         await removeAccountByProfileId(source, identity.id);
     }
+
+    await runInSafeAsync(async () => {
+        const account = useFireflyStateStore
+            .getState()
+            .accounts.find((account) => account.profile.profileId === identity.id);
+        if (!account) return;
+        await removeFireflyMetricsIfNeeded([account.session]);
+    });
 }
