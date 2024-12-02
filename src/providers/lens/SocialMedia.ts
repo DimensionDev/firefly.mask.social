@@ -43,6 +43,7 @@ import {
     SetQueryDataForFollowProfile,
     SetQueryDataForSuperFollowProfile,
 } from '@/decorators/SetQueryDataForFollowProfile.js';
+import { SetQueryDataForJoinChannel } from '@/decorators/SetQueryDataForJoinChannel.js';
 import { SetQueryDataForLikePost } from '@/decorators/SetQueryDataForLikePost.js';
 import { SetQueryDataForMirrorPost } from '@/decorators/SetQueryDataForMirrorPost.js';
 import { SetQueryDataForPosts } from '@/decorators/SetQueryDataForPosts.js';
@@ -84,6 +85,7 @@ import {
     profilesManagedQuery,
     type ProfilesManagedRequest,
 } from '@/providers/types/LensGraphql/profileManagers.js';
+import type { Club } from '@/providers/types/Orb.js';
 import {
     type Channel,
     type Friendship,
@@ -113,6 +115,7 @@ const MOMOKA_ERROR_MSG = 'momoka publication is not allowed';
 @SetQueryDataForActPost(Source.Lens)
 @SetQueryDataForPosts
 @SetQueryDataForApprovalLensModule
+@SetQueryDataForJoinChannel(Source.Lens)
 export class LensSocialMedia implements Provider {
     get type() {
         return SessionType.Lens;
@@ -1617,6 +1620,24 @@ export class LensSocialMedia implements Provider {
         });
 
         await waitForEthereumTransaction(polygon.id, hash);
+    }
+
+    async joinChannel(channel: Channel): Promise<boolean> {
+        const club = channel.__original__ as Club;
+        if (!club?.id) {
+            throw new Error('Invalid channel to join');
+        }
+
+        return await OrbClubProvider.joinClub(club.id);
+    }
+
+    async leaveChannel(channel: Channel): Promise<boolean> {
+        const club = channel.__original__ as Club;
+        if (!club?.id) {
+            throw new Error('Invalid channel to join');
+        }
+
+        return await OrbClubProvider.leaveClub(club.id);
     }
 }
 

@@ -40,3 +40,14 @@ export type FetchClubsResponse = OrbResponse<{
         next?: string;
     };
 }>;
+
+export type JoinClubResponse = OrbResponse<{
+    added: boolean;
+    communityId: string;
+    profileId: string;
+}>;
+
+export type LeaveClubResponse = OrbResponse<{
+    communityId: string;
+    profileId: string;
+}>;

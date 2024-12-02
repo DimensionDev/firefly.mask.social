@@ -629,6 +629,14 @@ class HubbleSocialMedia implements Provider {
     async getProfileBadges(profile: Profile): Promise<ProfileBadge[]> {
         throw new NotImplementedError();
     }
+
+    async joinChannel(channel: Channel): Promise<boolean> {
+        throw new NotImplementedError();
+    }
+
+    async leaveChannel(channel: Channel): Promise<boolean> {
+        throw new NotImplementedError();
+    }
 }
 
 export const HubbleSocialMediaProvider = new HubbleSocialMedia();

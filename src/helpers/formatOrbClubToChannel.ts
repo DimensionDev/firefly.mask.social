@@ -13,6 +13,7 @@ export function formatOrbClubToChannel(club: Club): Channel {
         parentUrl: '',
         followerCount: club.totalMembers,
         timestamp: 0,
+        isMember: club.isMember,
         __original__: club,
     };
 }

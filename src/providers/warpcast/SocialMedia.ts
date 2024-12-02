@@ -841,6 +841,14 @@ class WarpcastSocialMedia implements Provider {
         );
         return result.predictions;
     }
+
+    async joinChannel(channel: Channel): Promise<boolean> {
+        throw new NotImplementedError();
+    }
+
+    async leaveChannel(channel: Channel): Promise<boolean> {
+        throw new NotImplementedError();
+    }
 }
 
 export const WarpcastSocialMediaProvider = new WarpcastSocialMedia();

@@ -383,6 +383,14 @@ class NeynarSocialMedia implements Provider {
             return createPageable(result, createIndicator(indicator));
         });
     }
+
+    async joinChannel(channel: Channel): Promise<boolean> {
+        throw new NotImplementedError();
+    }
+
+    async leaveChannel(channel: Channel): Promise<boolean> {
+        throw new NotImplementedError();
+    }
 }
 
 export const NeynarSocialMediaProvider = new NeynarSocialMedia();

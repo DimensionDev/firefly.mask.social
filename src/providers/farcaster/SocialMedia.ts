@@ -408,6 +408,14 @@ class FarcasterSocialMedia implements Provider {
               ]
             : [];
     }
+
+    async joinChannel(channel: Channel): Promise<boolean> {
+        throw new NotImplementedError();
+    }
+
+    async leaveChannel(channel: Channel): Promise<boolean> {
+        throw new NotImplementedError();
+    }
 }
 
 export const FarcasterSocialMediaProvider = new FarcasterSocialMedia();

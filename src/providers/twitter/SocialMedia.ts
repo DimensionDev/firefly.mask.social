@@ -638,6 +638,14 @@ class TwitterSocialMedia implements Provider {
         if (!response.success) throw new Error(t`Failed to fetch space "${id}".`);
         return response.data;
     }
+
+    async joinChannel(channel: Channel): Promise<boolean> {
+        throw new NotImplementedError();
+    }
+
+    async leaveChannel(channel: Channel): Promise<boolean> {
+        throw new NotImplementedError();
+    }
 }
 
 export const TwitterSocialMediaProvider = new TwitterSocialMedia();
