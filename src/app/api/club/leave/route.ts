@@ -28,7 +28,7 @@ export const POST = compose(withRequestErrorHandler(), async (request: NextReque
     });
 
     if (!response.success)
-        return createErrorResponseJSON(response.error ?? 'Orb club server error', {
+        return createErrorResponseJSON((response.error || response.msg) ?? 'Orb club server error', {
             status: StatusCodes.BAD_GATEWAY,
         });
 

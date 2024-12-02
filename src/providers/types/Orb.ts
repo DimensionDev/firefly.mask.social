@@ -10,6 +10,7 @@ export interface OrbResponse<T = unknown> {
     success: boolean;
     data: T;
     error?: string;
+    msg?: string;
 }
 
 export interface Club {
