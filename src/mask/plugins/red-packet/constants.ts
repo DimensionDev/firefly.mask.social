@@ -7,10 +7,6 @@ import { PluginID } from '@masknet/shared-base';
  */
 export const RedPacketMetaKey = `${PluginID.RedPacket}:1`;
 export const RedPacketEncryptedKey = `${RedPacketMetaKey}:encrypted`;
-/**
- * !! This ID is used to identify the stored plugin data. Change it will cause data lost.
- */
-export const RedPacketPluginID = PluginID.RedPacket;
 
 export const RED_PACKET_DEFAULT_SHARES = 5;
 export const RED_PACKET_MIN_SHARES = 1;

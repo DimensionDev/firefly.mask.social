@@ -2,6 +2,9 @@
     "extends": "./src/maskbook/packages/config/tsconfig.json",
     "references": [
         {
+            "path": "./src/maskbook/packages/shared/tsconfig.json"
+        },
+        {
             "path": "./src/maskbook/packages/shared-base/tsconfig.json"
         },
         {
@@ -15,6 +18,9 @@
         },
         {
             "path": "./src/maskbook/packages/web3-hooks/base/tsconfig.json"
+        },
+        {
+            "path": "./src/maskbook/packages/web3-hooks/evm/tsconfig.json"
         }
     ],
     "compilerOptions": {
