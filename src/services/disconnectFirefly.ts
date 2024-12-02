@@ -5,10 +5,8 @@ import { SORTED_SOCIAL_SOURCES } from '@/constants/index.js';
 import { resolveSourceFromWalletSource } from '@/helpers/resolveSource.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
-import type { FireflySession } from '@/providers/firefly/Session.js';
 import type { FireflyIdentity, FireflyWalletConnection } from '@/providers/types/Firefly.js';
-import { removeAccountByProfileId } from '@/services/account.js';
-import { downloadSessions, uploadSessions } from '@/services/metrics.js';
+import { removeAccountByProfileId, removeFireflyMetricsIfNeeded } from '@/services/account.js';
 import { useFireflyStateStore } from '@/store/useProfileStore.js';
 
 function getIdentity(connection: FireflyWalletConnection): FireflyIdentity | null {
@@ -35,15 +33,6 @@ function getIdentity(connection: FireflyWalletConnection): FireflyIdentity | nul
     }
 }
 
-async function removeFireflyMetrics(profileId: number | string, signal?: AbortSignal) {
-    const session = useFireflyStateStore.getState().currentProfileSession as FireflySession | null;
-    if (!session) return;
-
-    const syncedSessions = await downloadSessions(session, signal);
-    const sessions = syncedSessions.filter((x) => x.profileId !== profileId);
-    await uploadSessions('override', session, sessions, signal);
-}
-
 export async function disconnectFirefly(connection: FireflyWalletConnection) {
     const identity = getIdentity(connection);
     if (identity) await FireflyEndpointProvider.disconnectAccount(identity);
@@ -59,6 +48,10 @@ export async function disconnectFirefly(connection: FireflyWalletConnection) {
     }
 
     await runInSafeAsync(async () => {
-        await removeFireflyMetrics(identity.id);
+        const account = useFireflyStateStore
+            .getState()
+            .accounts.find((account) => account.profile.profileId === identity.id);
+        if (!account) return;
+        await removeFireflyMetricsIfNeeded([account.session]);
     });
 }

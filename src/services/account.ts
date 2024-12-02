@@ -142,7 +142,7 @@ async function removeFireflyAccountIfNeeded() {
     fireflySessionHolder.removeSession();
 }
 
-async function removeFireflyMetricsIfNeeded(sessions: Session[], signal?: AbortSignal) {
+export async function removeFireflyMetricsIfNeeded(sessions: Session[], signal?: AbortSignal) {
     const session = useFireflyStateStore.getState().currentProfileSession as FireflySession | null;
     if (!session) return;
 
