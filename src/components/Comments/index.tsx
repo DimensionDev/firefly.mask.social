@@ -15,6 +15,7 @@ import { createIndicator, createPageable } from '@/helpers/pageable.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 import { useImpressionsStore } from '@/store/useImpressionsStore.js';
+import { useTwitterStateStore } from '@/store/useProfileStore.js';
 
 interface CommentListProps {
     postId: string;
@@ -24,13 +25,15 @@ interface CommentListProps {
 
 export const CommentList = memo<CommentListProps>(function CommentList({ postId, source, excludePostIds = [] }) {
     const fetchAndStoreViews = useImpressionsStore.use.fetchAndStoreViews();
-
+    const currentTwitterProfileSession = useTwitterStateStore.use.currentProfileSession();
     const queryResult = useSuspenseInfiniteQuery({
-        queryKey: ['posts', source, 'comments', postId],
+        queryKey: ['posts', source, 'comments', postId, currentTwitterProfileSession],
         queryFn: async ({ pageParam }) => {
             if (!postId) return createPageable<Post>(EMPTY_LIST, createIndicator());
 
             const provider = resolveSocialMediaProvider(source);
+            if (source === Source.Twitter && !currentTwitterProfileSession)
+                return createPageable<Post>(EMPTY_LIST, createIndicator(undefined, pageParam));
             const comments = await provider.getCommentsById(postId, createIndicator(undefined, pageParam));
 
             if (source === Source.Lens) {

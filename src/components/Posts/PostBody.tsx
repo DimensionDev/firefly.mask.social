@@ -19,7 +19,7 @@ import { ContentTranslator } from '@/components/Posts/ContentTranslator.js';
 import { PostLinks } from '@/components/Posts/PostLinks.js';
 import { Quote } from '@/components/Posts/Quote.js';
 import { IS_APPLE, IS_SAFARI } from '@/constants/bowser.js';
-import { PageRoute, STATUS } from '@/constants/enum.js';
+import { PageRoute, Source, STATUS } from '@/constants/enum.js';
 import { env } from '@/constants/env.js';
 import { EMPTY_LIST } from '@/constants/index.js';
 import { Link } from '@/esm/Link.js';
@@ -37,6 +37,7 @@ import { useIsProfileMuted } from '@/hooks/useIsProfileMuted.js';
 import { useIsSmall } from '@/hooks/useMediaQuery.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 import { getPollIdFromLink } from '@/services/getPostLinks.js';
+import { useTwitterStateStore } from '@/store/useProfileStore.js';
 
 interface PostBodyProps {
     post: Post;
@@ -68,6 +69,7 @@ export const PostBody = forwardRef<HTMLDivElement, PostBodyProps>(function PostB
     ref,
 ) {
     const router = useRouter();
+    const currentTwitterProfileSession = useTwitterStateStore.use.currentProfileSession();
     const { metadata, author } = post;
     const postRawContent = metadata.content?.content;
     // ! liteRawContent is used for reply and quote, only shows the first 2000 characters, because the text is foldable
@@ -116,9 +118,11 @@ export const PostBody = forwardRef<HTMLDivElement, PostBodyProps>(function PostB
     const oembedUrl = resolveOembedUrl(post);
     const pollId = oembedUrl ? getPollIdFromLink(oembedUrl) : undefined;
 
-    const EncryptedContent = useMemo(
-        () =>
-            seen && hasEncryptedPayload ? (
+    const EncryptedContent = useMemo(() => {
+        if (post.source === Source.Twitter && !currentTwitterProfileSession) return null;
+
+        if (seen && hasEncryptedPayload) {
+            return (
                 <mask-decrypted-post
                     props={encodeURIComponent(
                         JSON.stringify({
@@ -127,9 +131,18 @@ export const PostBody = forwardRef<HTMLDivElement, PostBodyProps>(function PostB
                         }),
                     )}
                 />
-            ) : null,
-        [seen, hasEncryptedPayload, post, payloads?.payloadFromImageAttachment, payloads?.payloadFromText],
-    );
+            );
+        }
+
+        return null;
+    }, [
+        seen,
+        hasEncryptedPayload,
+        post,
+        payloads?.payloadFromImageAttachment,
+        payloads?.payloadFromText,
+        currentTwitterProfileSession,
+    ]);
 
     const LinksContent = useMemo(
         () =>

@@ -26,7 +26,7 @@ export function useToggleSnapshotBookmark() {
                 } else {
                     const result = await FarcasterSocialMediaProvider.bookmark(
                         snapshot.hash,
-                        FireflyPlatform.Snapshot,
+                        FireflyPlatform.DAOs,
                         snapshot.author.id,
                         BookmarkType.Text,
                     );
