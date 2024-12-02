@@ -10,7 +10,6 @@ import { createErrorResponseJSON, createSuccessResponseJSON } from '@/helpers/cr
 import { withRequestErrorHandler } from '@/helpers/withRequestErrorHandler.js';
 import { JWTGenerator } from '@/libs/JWTGenerator.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
-import { signedKeyRequests } from '@/providers/warpcast/signedKeyRequests.js';
 import { HexStringSchema } from '@/schemas/index.js';
 
 const BodySchema = z.object({
@@ -35,8 +34,8 @@ export const POST = compose(withRequestErrorHandler(), async (request: NextReque
     const { sponsorSignature, signedKeyRequestSignature, requestFid } =
         await FireflyEndpointProvider.generateFarcasterSignatures(publicKey, deadline, jwt, request.signal);
 
-    const { result } = await signedKeyRequests(
-        {
+    return createSuccessResponseJSON({
+        body: {
             key: publicKey,
             signature: signedKeyRequestSignature,
             deadline,
@@ -46,15 +45,7 @@ export const POST = compose(withRequestErrorHandler(), async (request: NextReque
                 signature: sponsorSignature,
             },
         },
-        request.signal,
-    );
-
-    return createSuccessResponseJSON({
-        result,
         expiresAt: deadline * 1000,
         timestamp: Date.now(),
-        token: result.signedKeyRequest.token,
-        fid: result.signedKeyRequest.requestFid,
-        signature: sponsorSignature,
     });
 });

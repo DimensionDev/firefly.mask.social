@@ -9,7 +9,7 @@ import { getCurrentProfile } from '@/helpers/getCurrentProfile.js';
 import { getPollFrameUrl } from '@/helpers/getPollFrameUrl.js';
 import { getProfileState } from '@/helpers/getProfileState.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
-import { resolveSource } from '@/helpers/resolveSource.js';
+import { resolveSourceFromFireflyPlatform } from '@/helpers/resolveSource.js';
 import type { Profile } from '@/providers/types/Firefly.js';
 import { resolveLengthCalculator } from '@/services/resolveLengthCalculator.js';
 import type { CompositePost } from '@/store/useComposeStore.js';
@@ -96,7 +96,9 @@ export function readChars(chars: Chars, strategy: 'both' | 'visible' | 'invisibl
                     return `${x.content}\n`;
                 case CHAR_TAG.MENTION:
                     if (source) {
-                        const target = x.profiles.find((profile) => source === resolveSource(profile.platform));
+                        const target = x.profiles.find(
+                            (profile) => source === resolveSourceFromFireflyPlatform(profile.platform),
+                        );
                         return target?.handle
                             ? `${source === Source.Lens ? '@lens/' : '@'}${target.handle}`
                             : x.content;

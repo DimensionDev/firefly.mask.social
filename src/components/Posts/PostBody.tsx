@@ -32,12 +32,12 @@ import { isValidUrl } from '@/helpers/isValidUrl.js';
 import { resolveOembedUrl } from '@/helpers/resolveOembedUrl.js';
 import { resolvePostArticleUrl } from '@/helpers/resolvePostArticleUrl.js';
 import { trimify } from '@/helpers/trimify.js';
-import { useAsyncStatus } from '@/hooks/useAsyncStatus.js';
 import { useEverSeen } from '@/hooks/useEverSeen.js';
 import { useIsProfileMuted } from '@/hooks/useIsProfileMuted.js';
 import { useIsSmall } from '@/hooks/useMediaQuery.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 import { getPollIdFromLink } from '@/services/getPostLinks.js';
+import { useTwitterStateStore } from '@/store/useProfileStore.js';
 
 interface PostBodyProps {
     post: Post;
@@ -69,7 +69,7 @@ export const PostBody = forwardRef<HTMLDivElement, PostBodyProps>(function PostB
     ref,
 ) {
     const router = useRouter();
-    const twitterAsyncStatus = useAsyncStatus(Source.Twitter);
+    const currentTwitterProfileSession = useTwitterStateStore.use.currentProfileSession();
     const { metadata, author } = post;
     const postRawContent = metadata.content?.content;
     // ! liteRawContent is used for reply and quote, only shows the first 2000 characters, because the text is foldable
@@ -119,7 +119,7 @@ export const PostBody = forwardRef<HTMLDivElement, PostBodyProps>(function PostB
     const pollId = oembedUrl ? getPollIdFromLink(oembedUrl) : undefined;
 
     const EncryptedContent = useMemo(() => {
-        if (post.source === Source.Twitter && twitterAsyncStatus) return null;
+        if (post.source === Source.Twitter && !currentTwitterProfileSession) return null;
 
         if (seen && hasEncryptedPayload) {
             return (
@@ -141,7 +141,7 @@ export const PostBody = forwardRef<HTMLDivElement, PostBodyProps>(function PostB
         post,
         payloads?.payloadFromImageAttachment,
         payloads?.payloadFromText,
-        twitterAsyncStatus,
+        currentTwitterProfileSession,
     ]);
 
     const LinksContent = useMemo(

@@ -4,7 +4,7 @@ import { useRouter } from 'next/navigation.js';
 import { useEffect } from 'react';
 
 import { DiscoverPage } from '@/app/(normal)/discover/pages/Discover.js';
-import { Source, SourceInURL } from '@/constants/enum.js';
+import { FireflyPlatform, Source } from '@/constants/enum.js';
 import { EMPTY_LIST } from '@/constants/index.js';
 import { CHAR_TAG } from '@/helpers/chars.js';
 import { formatSearchIdentities } from '@/helpers/formatSearchIdentities.js';
@@ -29,7 +29,7 @@ const fireflyMention = {
     profiles: [
         {
             platform_id: '1583361564479889408',
-            platform: SourceInURL.Twitter,
+            platform: FireflyPlatform.Twitter,
             handle: 'thefireflyapp',
             name: 'thefireflyapp',
             hit: true,
@@ -37,7 +37,7 @@ const fireflyMention = {
         },
         {
             platform_id: '16823',
-            platform: SourceInURL.Farcaster,
+            platform: FireflyPlatform.Farcaster,
             handle: 'fireflyapp',
             name: 'Firefly App',
             hit: true,
@@ -45,7 +45,7 @@ const fireflyMention = {
         },
         {
             platform_id: '0x01b000',
-            platform: SourceInURL.Lens,
+            platform: FireflyPlatform.Lens,
             handle: 'fireflyapp',
             name: 'fireflyapp',
             hit: true,
