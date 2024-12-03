@@ -828,3 +828,8 @@ body.not-support .fixed.inset-y-0 {
 .MuiInputBase-input:focus {
     box-shadow: none;
 }
+.MuiCheckbox-root [type='checkbox'],
+.MuiCheckbox-root [type='radio'] {
+    width: 100%;
+    height: 100%;
+}

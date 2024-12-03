@@ -1,9 +1,10 @@
+/* eslint-disable @next/next/no-img-element */
 import { t, Trans } from '@lingui/macro';
 import { getEnumAsArray } from '@masknet/kit';
-import { Alert, SelectNonFungibleContractModal } from '@masknet/shared';
-import { EMPTY_LIST, NetworkPluginID } from '@masknet/shared-base';
+import { Alert, SelectFungibleTokenModal, SelectNonFungibleContractModal, TokenIcon } from '@masknet/shared';
+import { EMPTY_LIST, NetworkPluginID, PluginID } from '@masknet/shared-base';
 import { useChainContext } from '@masknet/web3-hooks-base';
-import type { NonFungibleCollection } from '@masknet/web3-shared-base';
+import type { FungibleToken, NonFungibleCollection } from '@masknet/web3-shared-base';
 import { ChainId, SchemaType } from '@masknet/web3-shared-evm';
 import {
     Box,
@@ -16,9 +17,13 @@ import {
     ListItemText,
     Typography,
 } from '@mui/material';
-import { useCallback, useState } from 'react';
+import { Fragment, type FunctionComponent, type SVGAttributes, useCallback, useState } from 'react';
 
-import { Image } from '@/esm/Image.js';
+import EthIcon from '@/assets/eth-linear.svg';
+import FarcasterIcon from '@/assets/farcaster-fill.svg';
+import LensIcon from '@/assets/lens-fill.svg';
+import NFTIcon from '@/assets/nft.svg';
+import { ClickableButton } from '@/components/ClickableButton.js';
 import { type GeneratedIcon, Icons } from '@/mask/bindings/components.js';
 import { makeStyles } from '@/mask/bindings/index.js';
 import { type FireflyRedpacketSettings, RequirementType } from '@/mask/plugins/red-packet/types.js';
@@ -54,12 +59,6 @@ const useStyles = makeStyles()((theme) => ({
             height: 20,
         },
     },
-    clear: {
-        color: '#8E96FF',
-        ':hover': {
-            background: 'transparent',
-        },
-    },
     select: {
         background: theme.palette.maskColor.input,
         padding: theme.spacing(1.5),
@@ -82,12 +81,12 @@ const useStyles = makeStyles()((theme) => ({
         alignItems: 'center',
         columnGap: theme.spacing(1),
     },
-    collectionIcon: {
+    assetIcon: {
         width: 24,
         height: 24,
         borderRadius: 500,
     },
-    collectionName: {
+    assetName: {
         fontSize: 15,
         color: 'var(--color-light-main)',
         lineHeight: '20px',
@@ -108,12 +107,21 @@ interface ClaimRequirementsDialogProps {
     origin?: RequirementType[];
 }
 
+function wrapIcon(SvgIcon: FunctionComponent<SVGAttributes<SVGElement>>): GeneratedIcon {
+    return function WrappedIcon({ size }: { size: number }) {
+        return <SvgIcon style={{ width: size, height: size }} />;
+    } as GeneratedIcon;
+}
+
 export const REQUIREMENT_ICON_MAP: Record<RequirementType, GeneratedIcon> = {
     [RequirementType.Follow]: Icons.AddUser,
     [RequirementType.Like]: Icons.Like,
     [RequirementType.Repost]: Icons.Repost,
     [RequirementType.Comment]: Icons.Comment,
-    [RequirementType.NFTHolder]: Icons.NFTHolder,
+    [RequirementType.NFTHolder]: wrapIcon(NFTIcon),
+    [RequirementType.TokenHolder]: wrapIcon(EthIcon),
+    [RequirementType.FarcasterChannelMember]: wrapIcon(FarcasterIcon),
+    [RequirementType.LensClubMember]: wrapIcon(LensIcon),
 };
 
 export const REQUIREMENT_TITLE_MAP: Record<RequirementType, React.ReactNode> = {
@@ -122,6 +130,9 @@ export const REQUIREMENT_TITLE_MAP: Record<RequirementType, React.ReactNode> = {
     [RequirementType.Repost]: t`Repost`,
     [RequirementType.Comment]: t`Comment`,
     [RequirementType.NFTHolder]: t`NFT holder`,
+    [RequirementType.TokenHolder]: t`Token holder`,
+    [RequirementType.FarcasterChannelMember]: t`Farcaster channel member`,
+    [RequirementType.LensClubMember]: t`Lens club member`,
 };
 
 export function ClaimRequirementsDialog(props: ClaimRequirementsDialogProps) {
@@ -130,9 +141,7 @@ export function ClaimRequirementsDialog(props: ClaimRequirementsDialogProps) {
     const { classes } = useStyles();
     const { chainId } = useChainContext<NetworkPluginID.PLUGIN_EVM>();
 
-    const hasNFTHolder = selectedRules.includes(RequirementType.NFTHolder);
-
-    const handleClick = useCallback(() => {
+    const handleSelectCollection = useCallback(() => {
         SelectNonFungibleContractModal.open({
             pluginID: NetworkPluginID.PLUGIN_EVM,
             schemaType: SchemaType.ERC721,
@@ -155,6 +164,23 @@ export function ClaimRequirementsDialog(props: ClaimRequirementsDialogProps) {
         });
     }, [chainId]);
 
+    const [token, setToken] = useState<FungibleToken<ChainId, SchemaType>>();
+    const selectToken = async () => {
+        const picked = await SelectFungibleTokenModal.openAndWaitForClose({
+            disableNativeToken: false,
+            selectedTokens: token ? [token.address] : [],
+            chainId,
+            networkPluginID: NetworkPluginID.PLUGIN_EVM,
+            pluginID: PluginID.RedPacket,
+        });
+        if (picked) {
+            setToken(picked as FungibleToken<ChainId, SchemaType>);
+        }
+    };
+
+    const [channel, setChannel] = useState(0);
+    const [club, setClub] = useState(0);
+
     const disabled = selectedRules.includes(RequirementType.NFTHolder) && !selectedCollection;
 
     return (
@@ -168,7 +194,7 @@ export function ClaimRequirementsDialog(props: ClaimRequirementsDialogProps) {
                         const checked = selectedRules.includes(value);
                         const Icon = REQUIREMENT_ICON_MAP[value];
                         const title = REQUIREMENT_TITLE_MAP[value];
-                        return (
+                        const item = (
                             <ListItem key={value}>
                                 <ListItemIcon className={classes.icon}>
                                     <Icon size={20} />
@@ -191,42 +217,112 @@ export function ClaimRequirementsDialog(props: ClaimRequirementsDialogProps) {
                                 </ListItemSecondaryAction>
                             </ListItem>
                         );
+                        if (!checked) return item;
+                        if (value === RequirementType.NFTHolder) {
+                            return (
+                                <Fragment key={value}>
+                                    {item}
+                                    <Box className={classes.select} onClick={handleSelectCollection}>
+                                        {selectedCollection ? (
+                                            <Box className={classes.collection}>
+                                                {selectedCollection.iconURL ? (
+                                                    <img
+                                                        width={24}
+                                                        height={24}
+                                                        alt={selectedCollection.name}
+                                                        className="rounded-full"
+                                                        src={selectedCollection.iconURL}
+                                                    />
+                                                ) : null}
+                                                {selectedCollection?.name ? (
+                                                    <Typography className={classes.assetName}>
+                                                        {selectedCollection.name}
+                                                    </Typography>
+                                                ) : null}
+                                            </Box>
+                                        ) : (
+                                            <Typography className={classes.selectText}>
+                                                <Trans>Select NFT collection to gate access</Trans>
+                                            </Typography>
+                                        )}
+                                        <Icons.ArrowDrop size={18} />
+                                    </Box>
+                                </Fragment>
+                            );
+                        } else if (value === RequirementType.TokenHolder) {
+                            return (
+                                <Fragment key={value}>
+                                    {item}
+                                    <Box className={classes.select} onClick={selectToken}>
+                                        {token ? (
+                                            <Box className={classes.collection}>
+                                                <TokenIcon
+                                                    alt={token.name}
+                                                    address={token.address}
+                                                    className={classes.assetIcon}
+                                                    logoURL={token.logoURL}
+                                                />
+                                                {token.name ? (
+                                                    <Typography className={classes.assetName}>{token.name}</Typography>
+                                                ) : null}
+                                            </Box>
+                                        ) : (
+                                            <Typography className={classes.selectText}>
+                                                <Trans>Select token to gate access</Trans>
+                                            </Typography>
+                                        )}
+                                        <Icons.ArrowDrop size={18} />
+                                    </Box>
+                                </Fragment>
+                            );
+                        } else if (value === RequirementType.FarcasterChannelMember) {
+                            return (
+                                <Fragment key={value}>
+                                    {item}
+                                    <Box className={classes.select} onClick={() => setChannel((c) => c + 1)}>
+                                        {channel ? (
+                                            <Box className={classes.collection}>
+                                                <Typography className={classes.assetName}>{channel}</Typography>
+                                            </Box>
+                                        ) : (
+                                            <Typography className={classes.selectText}>
+                                                <Trans>Select /channel to gate access</Trans>
+                                            </Typography>
+                                        )}
+                                        <Icons.ArrowDrop size={18} />
+                                    </Box>
+                                </Fragment>
+                            );
+                        } else if (value === RequirementType.LensClubMember) {
+                            return (
+                                <Fragment key={value}>
+                                    {item}
+                                    <Box className={classes.select} onClick={() => setClub((c) => c + 1)}>
+                                        {club ? (
+                                            <Box className={classes.collection}>
+                                                <Typography className={classes.assetName}>{club}</Typography>
+                                            </Box>
+                                        ) : (
+                                            <Typography className={classes.selectText}>
+                                                <Trans>Select /channel to gate access</Trans>
+                                            </Typography>
+                                        )}
+                                        <Icons.ArrowDrop size={18} />
+                                    </Box>
+                                </Fragment>
+                            );
+                        }
+                        return item;
                     })}
                 </List>
-                {hasNFTHolder ? (
-                    <Box className={classes.select} onClick={handleClick}>
-                        {selectedCollection ? (
-                            <Box className={classes.collection}>
-                                {selectedCollection?.iconURL ? (
-                                    <Image
-                                        alt={selectedCollection.name}
-                                        className={classes.collectionIcon}
-                                        src={selectedCollection.iconURL}
-                                    />
-                                ) : null}
-                                {selectedCollection?.name ? (
-                                    <Typography className={classes.collectionName}>
-                                        {selectedCollection.name}
-                                    </Typography>
-                                ) : null}
-                            </Box>
-                        ) : (
-                            <Typography className={classes.selectText}>
-                                <Trans>Select NFT collection to gate access</Trans>
-                            </Typography>
-                        )}
-                        <Icons.ArrowDrop size={18} />
-                    </Box>
-                ) : null}
-                <Button
-                    variant="text"
-                    className={classes.clear}
-                    onClick={() => setSelectedRules(EMPTY_LIST)}
-                    disableRipple
-                    disableElevation
-                >
-                    <Trans>Clear all requirements</Trans>
-                </Button>
+                <div className="text-right">
+                    <ClickableButton
+                        className="text-base font-bold text-highlight hover:bg-transparent"
+                        onClick={() => setSelectedRules(EMPTY_LIST)}
+                    >
+                        <Trans>Clear all requirements</Trans>
+                    </ClickableButton>
+                </div>
             </Box>
             <Box className={classes.footer}>
                 <Button
