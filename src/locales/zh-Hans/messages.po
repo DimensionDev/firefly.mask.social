@@ -2623,6 +2623,9 @@ msgstr "{0, plural, one {评论} other {评论}}"
 msgid "The Lucky Drop has been refunded."
 msgstr ""
 
+msgid "Pinned"
+msgstr ""
+
 msgid "The contract owner may contain the authority to modify the transaction tax. If the transaction tax is increased to more than 49%, the tokens will not be able to be traded (honeypot risk)."
 msgstr "合约所有人也许拥有修改交易费用的权力。如果交易费用增加到超过49%，通证将无法交易（欺诈风险）。"
 

@@ -2622,6 +2622,9 @@ msgstr "{0, plural, one {comment} other {comments}}"
 msgid "The Lucky Drop has been refunded."
 msgstr "The Lucky Drop has been refunded."
 
+msgid "Pinned"
+msgstr "Pinned"
+
 msgid "The contract owner may contain the authority to modify the transaction tax. If the transaction tax is increased to more than 49%, the tokens will not be able to be traded (honeypot risk)."
 msgstr "The contract owner may contain the authority to modify the transaction tax. If the transaction tax is increased to more than 49%, the tokens will not be able to be traded (honeypot risk)."
 

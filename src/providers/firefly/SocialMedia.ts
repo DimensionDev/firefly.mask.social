@@ -1078,6 +1078,10 @@ export class FireflySocialMedia implements Provider {
     async leaveChannel(channel: Channel): Promise<boolean> {
         throw new NotImplementedError();
     }
+
+    async getPinnedPost(profileId: string): Promise<Post> {
+        throw new NotImplementedError();
+    }
 }
 
 export const FireflySocialMediaProvider = new FireflySocialMedia();
