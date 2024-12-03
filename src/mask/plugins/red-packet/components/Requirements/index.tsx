@@ -103,16 +103,6 @@ const IconMap: Record<FireflyRedPacketAPI.PostReactionKind, GeneratedIcon> = {
     collect: Icons.Heart,
 };
 
-function resolveProfileUrl(platform: FireflyRedPacketAPI.PlatformType, handle: string) {
-    switch (platform) {
-        case FireflyRedPacketAPI.PlatformType.farcaster:
-            return `/profile/farcaster/${handle}`;
-        case FireflyRedPacketAPI.PlatformType.lens:
-            return `/profile/lens/${handle}`;
-        case FireflyRedPacketAPI.PlatformType.twitter:
-            return `/${handle}`;
-    }
-}
 interface NFTListProps {
     nfts: Array<{
         chainId: number;
@@ -234,7 +224,6 @@ export const Requirements = forwardRef<HTMLDivElement, Props>(function Requireme
                     });
             }
             if (status.type === 'nftOwned') {
-                const collectionNames = status.payload.map((x) => x.collectionName).join(', ');
                 return (
                     <ListItem className={classes.item} key={status.type}>
                         <Icons.FireflyNFT className={classes.icon} size={16} />

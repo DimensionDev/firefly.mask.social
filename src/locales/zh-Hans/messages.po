@@ -312,9 +312,6 @@ msgstr "未识别到金融犯罪。"
 msgid "The token can be bought."
 msgstr "该代币可以被购买。"
 
-msgid "Claim on: {link}"
-msgstr ""
-
 msgid "Trending"
 msgstr "趋势"
 
@@ -350,9 +347,6 @@ msgstr "已定时"
 
 msgid "Pay"
 msgstr "付款"
-
-msgid "Claim on Farcaster: {link}"
-msgstr ""
 
 msgid "Followed @{handle} on {0}."
 msgstr ""
@@ -879,6 +873,14 @@ msgstr "确认"
 msgid "Search user"
 msgstr "搜索用户"
 
+msgid "{platform, select, farcaster {{0}} lens {{1}} twitter {{2}} other {{3}}}"
+msgstr ""
+
+msgid ""
+"🤑 Check this Lucky Drop  🧧💰✨ sent by @{sender}.\n"
+"Grow your followers and engagement with Lucky Drop on Firefly mobile app or https://firefly.mask.social !"
+msgstr ""
+
 msgid "Failed to upload. Video is not supported yet."
 msgstr "视频还未支持上传。"
 
@@ -1191,14 +1193,8 @@ msgstr "您确定要举报这个帖子吗？"
 msgid "No fake KYC found."
 msgstr "不涉及虚假 KYC。"
 
-msgid "Claim on Lens: {link}"
-msgstr ""
-
 msgid "No function found that retrieves ownership"
 msgstr "没有找到检索所有权的功能"
-
-msgid "🤑 Just claimed a #LuckyDrop  🧧💰✨ on https://firefly.mask.social from @{sender} !"
-msgstr ""
 
 msgid "Send"
 msgstr "发送"
@@ -1626,9 +1622,6 @@ msgstr "操作无法回滚，并且定时任务将会被取消。"
 msgid "This contract is an Admin Upgradeability Proxy. The proxy contract means the contract owner can modify the function of the token and could possibly effect the price.There is possibly a way for the team to Rug or Scam. Please confirm the details with the project team before buying."
 msgstr "此合约是一个管理升级代理合约。代理合约意味着合同所有者可以修改通证的功能，并且可能影响价格。这可能是团队跑路或者诈骗的一种方式。请在购买之前与项目团队确认细节。"
 
-msgid "Grow your followers and engagement with Lucky Drop on Firefly mobile app or https://firefly.mask.social !"
-msgstr ""
-
 msgid "Failed to fetch bookmarks."
 msgstr "获取收藏失败。"
 
@@ -1657,6 +1650,11 @@ msgid "<0>Acquired</0> an NFT"
 msgstr "<0>获取</0> 一个 NFT"
 
 msgid "{0} {1, plural, one {share} other {shares}} / {total} ${symbol}"
+msgstr ""
+
+msgid ""
+"🤑 Just claimed a #LuckyDrop  🧧💰✨ on https://firefly.mask.social from @{sender} !\n"
+"Claim on Lens: {link}"
 msgstr ""
 
 msgid "Confirm to disconnect this account and related wallets from Firefly’s social graph?"
@@ -1700,9 +1698,6 @@ msgstr "<0>修改了</0>文章"
 
 msgid "No darkweb transactions found."
 msgstr "未发现暗网交易。"
-
-msgid "By clicking \\\"Next\\\", you acknowledge the risk associated with decentralized networks and beta products."
-msgstr ""
 
 msgid "You need to connect your {0} account to use this feature."
 msgstr "您需要连接您的 {0} 账户来使用此功能。"
@@ -2568,6 +2563,9 @@ msgstr "合约可能含有额外的发行功能，这可能会产生大量的通
 msgid "Upcoming"
 msgstr "即将推出"
 
+msgid "By clicking \"Next\", you acknowledge the risk associated with decentralized networks and beta products."
+msgstr ""
+
 msgid "{handleOrEnsOrAddress} unwatched"
 msgstr "{handleOrEnsOrAddress} 取消关注"
 
@@ -2948,9 +2946,6 @@ msgstr "打赏失败，请稍后重试。"
 
 msgid "Failed to unmirror post."
 msgstr "未能取消转帖。"
-
-msgid "🤑 Check this Lucky Drop  🧧💰✨ sent by @{sender}."
-msgstr ""
 
 msgid "Failed to unlike the comment."
 msgstr "取消点赞失败。"
