@@ -1070,6 +1070,14 @@ export class FireflySocialMedia implements Provider {
         );
         return resolveFireflyResponseData(response);
     }
+
+    async joinChannel(channel: Channel): Promise<boolean> {
+        throw new NotImplementedError();
+    }
+
+    async leaveChannel(channel: Channel): Promise<boolean> {
+        throw new NotImplementedError();
+    }
 }
 
 export const FireflySocialMediaProvider = new FireflySocialMedia();

@@ -2,6 +2,7 @@
 
 import {
     type BookmarkSource,
+    ChannelTabType,
     type DiscoverSource,
     EngagementType,
     type ExploreSource,
@@ -52,6 +53,7 @@ export const SNAPSHOT_SEQ_URL = 'https://seq.snapshot.org';
 export const SNAPSHOT_RELAY_URL = 'https://relayer.snapshot.org';
 export const SNAPSHOT_IPFS_GATEWAY_URL = 'https://snapshot.4everland.link/ipfs/';
 export const SIMPLE_HASH_URL = 'https://simplehash-proxy.r2d2.to';
+export const ORB_CLUB_URL = 'https://us-central1-orbapp.cloudfunctions.net';
 
 export const ADVERTISEMENT_JSON_URL = 'https://media.firefly.land/advertisement/web.json';
 export const ADVERTISEMENT_JSON_URL_DEV = 'https://media.firefly.land/advertisement/web-dev.json';
@@ -66,6 +68,8 @@ export const RP_HASH_TAG = '#FireflyLuckyDrop';
 
 export const HIDDEN_SECRET = '[HIDE_FROM_CLIENT]';
 export const NOT_DEPEND_HUBBLE_KEY = '[TO_BE_REPLACED_LATER]';
+
+export const ORB_CLUB_TAG_PREFIX = 'orbcommunities';
 
 export const SORTED_PROFILE_TAB_TYPE: Record<SocialSource, SocialProfileCategory[]> = {
     [Source.Lens]: [
@@ -100,9 +104,14 @@ export const SORTED_ENGAGEMENT_TAB_TYPE: Record<SocialSource, EngagementType[]> 
     [Source.Twitter]: [EngagementType.Likes, EngagementType.Quotes],
 };
 export const SORTED_SEARCH_TYPE: Record<SocialSource, SearchType[]> = {
-    [Source.Lens]: [SearchType.Posts, SearchType.Profiles],
+    [Source.Lens]: [SearchType.Posts, SearchType.Profiles, SearchType.Channels],
     [Source.Farcaster]: [SearchType.Posts, SearchType.Profiles, SearchType.Channels],
     [Source.Twitter]: [SearchType.Posts, SearchType.Profiles],
+};
+export const CHANNEL_TAB_TYPE: Record<SocialSource, ChannelTabType[]> = {
+    [Source.Farcaster]: [ChannelTabType.Recent, ChannelTabType.Trending],
+    [Source.Lens]: [ChannelTabType.Recent],
+    [Source.Twitter]: [],
 };
 export const SORTED_HOME_SOURCES = [Source.Farcaster, Source.Lens, Source.NFTs, Source.Article] as const;
 export const SORTED_PROFILE_SOURCES: ProfilePageSource[] = [

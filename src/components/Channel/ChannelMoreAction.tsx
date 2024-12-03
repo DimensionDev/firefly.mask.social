@@ -1,5 +1,8 @@
+'use client';
+
 import { MenuItem, type MenuProps } from '@headlessui/react';
 import { Trans } from '@lingui/macro';
+import { useQuery } from '@tanstack/react-query';
 import { memo } from 'react';
 import urlcat from 'urlcat';
 
@@ -8,11 +11,15 @@ import MoreCircleIcon from '@/assets/more-circle.svg';
 import LinkIcon from '@/assets/small-link.svg';
 import { MenuButton } from '@/components/Actions/MenuButton.js';
 import { MuteChannelButton } from '@/components/Actions/MuteChannelButton.js';
+import { ToggleJoinChannel } from '@/components/Actions/ToggleJoinChannel.js';
 import { MenuGroup } from '@/components/MenuGroup.js';
 import { MoreActionMenu } from '@/components/MoreActionMenu.js';
+import { Source } from '@/constants/enum.js';
 import { getChannelUrl } from '@/helpers/getChannelUrl.js';
+import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
+import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { useCopyText } from '@/hooks/useCopyText.js';
-import { useIsLogin } from '@/hooks/useIsLogin.js';
+import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
 import { useToggleMutedChannel } from '@/hooks/useToggleMutedChannel.js';
 import type { Channel } from '@/providers/types/SocialMedia.js';
 
@@ -22,10 +29,15 @@ interface MoreProps extends Omit<MenuProps<'div'>, 'className'> {
 }
 
 export const ChannelMoreAction = memo<MoreProps>(function ChannelMoreAction({ channel }) {
-    const isLogin = useIsLogin(channel.source);
+    const profile = useCurrentProfile(channel.source);
     const [{ loading: channelBlocking }, toggleBlockChannel] = useToggleMutedChannel();
 
     const [, handleCopy] = useCopyText(urlcat(location.origin, getChannelUrl(channel)));
+
+    const { data } = useQuery({
+        queryKey: ['channel', channel.source, channel.id, profile?.profileId],
+        queryFn: () => runInSafeAsync(() => resolveSocialMediaProvider(channel.source).getChannelById(channel.id)),
+    });
 
     return (
         <MoreActionMenu
@@ -44,7 +56,7 @@ export const ChannelMoreAction = memo<MoreProps>(function ChannelMoreAction({ ch
                 <MenuItem>
                     {({ close }) => (
                         <MenuButton
-                            onClick={async () => {
+                            onClick={() => {
                                 close();
                                 handleCopy();
                             }}
@@ -56,12 +68,23 @@ export const ChannelMoreAction = memo<MoreProps>(function ChannelMoreAction({ ch
                         </MenuButton>
                     )}
                 </MenuItem>
-                {isLogin ? (
-                    <MenuItem>
-                        {({ close }) => (
-                            <MuteChannelButton channel={channel} onToggle={toggleBlockChannel} onClick={close} />
-                        )}
-                    </MenuItem>
+                {profile?.profileId ? (
+                    <>
+                        {channel.source === Source.Farcaster ? (
+                            <MenuItem>
+                                {({ close }) => (
+                                    <MuteChannelButton
+                                        channel={channel}
+                                        onToggle={toggleBlockChannel}
+                                        onClick={close}
+                                    />
+                                )}
+                            </MenuItem>
+                        ) : null}
+                        {channel.source === Source.Lens && data ? (
+                            <MenuItem>{({ close }) => <ToggleJoinChannel channel={data} onClick={close} />}</MenuItem>
+                        ) : null}
+                    </>
                 ) : null}
             </MenuGroup>
         </MoreActionMenu>

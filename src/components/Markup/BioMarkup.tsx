@@ -11,7 +11,7 @@ import stripMarkdown from 'strip-markdown';
 import { Code } from '@/components/Code.js';
 import type { MarkupProps } from '@/components/Markup/Markup.js';
 import { MarkupLink } from '@/components/Markup/MarkupLink/index.js';
-import { type SocialSource, Source } from '@/constants/enum.js';
+import { type SocialSource } from '@/constants/enum.js';
 import {
     BIO_TWITTER_PROFILE_REGEX,
     CHANNEL_REGEX,
@@ -20,6 +20,7 @@ import {
     SYMBOL_REGEX,
     URL_REGEX,
 } from '@/constants/regexp.js';
+import { isChannelSupported } from '@/helpers/isChannelSupported.js';
 import { trimify } from '@/helpers/trimify.js';
 
 interface BioMarkupProps extends MarkupProps {
@@ -36,7 +37,7 @@ export const BioMarkup = memo<BioMarkupProps>(function BioMarkup({ children, pos
             linkifyRegex(SYMBOL_REGEX),
             linkifyRegex(BIO_TWITTER_PROFILE_REGEX),
             linkifyRegex(URL_REGEX),
-            source === Source.Farcaster ? linkifyRegex(CHANNEL_REGEX) : undefined,
+            isChannelSupported(source) ? linkifyRegex(CHANNEL_REGEX) : undefined,
         ]);
     }, [source]);
 

@@ -231,6 +231,9 @@ msgstr "<0>加密货币生命周期存在的最大发行数量。它与股票市
 msgid "This token is a gas abuser."
 msgstr "该通证是一个燃料滥用者。"
 
+msgid "Are you sure you want to leave /{0} ?"
+msgstr ""
+
 msgid "Follow <0/> on {platform}"
 msgstr ""
 
@@ -275,6 +278,9 @@ msgstr "未包含外部调用功能。如果存在外部调用功能，项目所
 
 msgid "Found arweaveTxId is empty."
 msgstr "ArweaveTxId 为空。"
+
+msgid "{followerCount, plural, one {Member} other {Members}}"
+msgstr ""
 
 msgid "<0>You</0> and {0} others recasted"
 msgstr "<0> 你 </0> 和 {0} 人都转发了"
@@ -443,6 +449,9 @@ msgstr "<0>已创建的通证数量减去已销毁（从流通中移除）的通
 
 msgid "Username is required."
 msgstr "用户名为必填。"
+
+msgid "Failed to leave /{0} on {sourceName}."
+msgstr ""
 
 msgid "<0>Sent</0> an NFT"
 msgstr "<0>发送了</0> 一个 NFT"
@@ -918,6 +927,9 @@ msgstr "Frame 验证器"
 msgid "Priority Access: Holders get early access to future projects, beta tests, and airdrops. And they will also have a first look at the latest features and content."
 msgstr "优先访问：持有者将获得对未来项目、测试版和空投的提前访问权。同时，他们还将优先体验最新功能和内容。"
 
+msgid "Join /{0}"
+msgstr ""
+
 msgid "The token can not be bought."
 msgstr "该代币无法购买。"
 
@@ -971,6 +983,9 @@ msgstr "所有者不能更改余额"
 
 msgid "Join our Telegram"
 msgstr "加入我们的 Telegram"
+
+msgid "Leave /{0}"
+msgstr ""
 
 msgid "Non-contract address."
 msgstr "非合约地址。"
@@ -1316,6 +1331,9 @@ msgstr "{0} 评论"
 
 msgid "Schedule Post"
 msgstr "定时任务"
+
+msgid "No channel found with the id {channelId}"
+msgstr ""
 
 msgid "Best Wishes!"
 msgstr ""
@@ -1912,6 +1930,9 @@ msgid "Article removed from your Bookmarks"
 msgstr "文章已经从您的收藏中移除"
 
 msgid "The Lucky Drop is expired."
+msgstr ""
+
+msgid "Leave /{0} on {sourceName}."
 msgstr ""
 
 msgid "Powered by Tenderly and GoPlus"
@@ -2724,6 +2745,9 @@ msgstr "投票失败。 {0}"
 msgid "Confirm to log out all accounts?"
 msgstr "确认登出这些账户？"
 
+msgid "Failed to join /{0} on {sourceName}."
+msgstr ""
+
 msgid "Repost"
 msgstr "转帖"
 
@@ -3194,6 +3218,9 @@ msgstr "投票已经从您的收藏中移除"
 
 msgid "Max Supply"
 msgstr "最大供应量"
+
+msgid "Join /{0} on {sourceName}."
+msgstr ""
 
 msgid "Posted by {0} via Firefly"
 msgstr "由 {0} 使用 Firefly 发送"

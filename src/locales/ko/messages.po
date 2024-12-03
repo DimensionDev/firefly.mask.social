@@ -231,6 +231,9 @@ msgstr ""
 msgid "This token is a gas abuser."
 msgstr ""
 
+msgid "Are you sure you want to leave /{0} ?"
+msgstr ""
+
 msgid "Follow <0/> on {platform}"
 msgstr ""
 
@@ -274,6 +277,9 @@ msgid "The external call function is not included. If there is an external call 
 msgstr ""
 
 msgid "Found arweaveTxId is empty."
+msgstr ""
+
+msgid "{followerCount, plural, one {Member} other {Members}}"
 msgstr ""
 
 msgid "<0>You</0> and {0} others recasted"
@@ -442,6 +448,9 @@ msgid "<0>The amount of coins that have already been created, minus any coins th
 msgstr ""
 
 msgid "Username is required."
+msgstr ""
+
+msgid "Failed to leave /{0} on {sourceName}."
 msgstr ""
 
 msgid "<0>Sent</0> an NFT"
@@ -918,6 +927,9 @@ msgstr ""
 msgid "Priority Access: Holders get early access to future projects, beta tests, and airdrops. And they will also have a first look at the latest features and content."
 msgstr ""
 
+msgid "Join /{0}"
+msgstr ""
+
 msgid "The token can not be bought."
 msgstr ""
 
@@ -970,6 +982,9 @@ msgid "Owner can't change balance"
 msgstr ""
 
 msgid "Join our Telegram"
+msgstr ""
+
+msgid "Leave /{0}"
 msgstr ""
 
 msgid "Non-contract address."
@@ -1315,6 +1330,9 @@ msgid "{0} Comments"
 msgstr ""
 
 msgid "Schedule Post"
+msgstr ""
+
+msgid "No channel found with the id {channelId}"
 msgstr ""
 
 msgid "Best Wishes!"
@@ -1912,6 +1930,9 @@ msgid "Article removed from your Bookmarks"
 msgstr ""
 
 msgid "The Lucky Drop is expired."
+msgstr ""
+
+msgid "Leave /{0} on {sourceName}."
 msgstr ""
 
 msgid "Powered by Tenderly and GoPlus"
@@ -2724,6 +2745,9 @@ msgstr ""
 msgid "Confirm to log out all accounts?"
 msgstr ""
 
+msgid "Failed to join /{0} on {sourceName}."
+msgstr ""
+
 msgid "Repost"
 msgstr ""
 
@@ -3193,6 +3217,9 @@ msgid "Snapshot removed from your Bookmarks"
 msgstr ""
 
 msgid "Max Supply"
+msgstr ""
+
+msgid "Join /{0} on {sourceName}."
 msgstr ""
 
 msgid "Posted by {0} via Firefly"

@@ -355,7 +355,11 @@ export interface Channel {
     lead?: Profile;
     hosts?: Profile[];
     blocked?: boolean;
+    // joined or followed by the current user
+    isMember?: boolean;
     __original__?: unknown;
+    // lazy load channel for Lens
+    __lazy__?: boolean;
 }
 
 export interface ProfileBadge {
@@ -918,4 +922,14 @@ export interface Provider {
      * Get Profile Badges
      */
     getProfileBadges: (profile: Profile) => Promise<ProfileBadge[]>;
+
+    /**
+     * join a channel
+     */
+    joinChannel: (channel: Channel) => Promise<boolean>;
+
+    /**
+     * leave a channel
+     */
+    leaveChannel: (channel: Channel) => Promise<boolean>;
 }

@@ -41,7 +41,7 @@ import { safeUnreachable } from '@masknet/kit';
 import { compact, first, isEmpty, last } from 'lodash-es';
 
 import { Source } from '@/constants/enum.js';
-import { EMPTY_LIST } from '@/constants/index.js';
+import { EMPTY_LIST, ORB_CLUB_TAG_PREFIX } from '@/constants/index.js';
 import { URL_REGEX } from '@/constants/regexp.js';
 import { formatLensProfile, formatLensProfileByHandleInfo } from '@/helpers/formatLensProfile.js';
 import { getEmbedUrls } from '@/helpers/getEmbedUrls.js';
@@ -49,10 +49,27 @@ import { composePollFrameUrl, getPollFrameUrl } from '@/helpers/getPollFrameUrl.
 import { parseUrl } from '@/helpers/parseUrl.js';
 import { isValidPollFrameUrl } from '@/helpers/resolveEmbedMediaType.js';
 import { LensMetadataAttributeKey } from '@/providers/types/Lens.js';
-import type { Attachment, Post, Profile } from '@/providers/types/SocialMedia.js';
+import type { Attachment, Channel, Post, Profile } from '@/providers/types/SocialMedia.js';
 
 const PLACEHOLDER_IMAGE = 'https://static-assets.hey.xyz/images/placeholder.webp';
 const allowedTypes = ['SimpleCollectOpenActionModule', 'MultirecipientFeeCollectOpenActionModule'];
+
+type LensMetadata =
+    | ArticleMetadataV3Fragment
+    | AudioMetadataV3Fragment
+    | CheckingInMetadataV3Fragment
+    | EmbedMetadataV3Fragment
+    | EventMetadataV3Fragment
+    | ImageMetadataV3Fragment
+    | LinkMetadataV3Fragment
+    | LiveStreamMetadataV3Fragment
+    | MintMetadataV3Fragment
+    | SpaceMetadataV3Fragment
+    | StoryMetadataV3Fragment
+    | TextOnlyMetadataV3Fragment
+    | ThreeDMetadataV3Fragment
+    | TransactionMetadataV3Fragment
+    | VideoMetadataV3Fragment;
 
 function formatCollectModule(
     openActions: Array<
@@ -256,24 +273,7 @@ function formatContent(metadata: PublicationMetadataFragment, author: Profile) {
     }
 }
 
-function getMediaObjects(
-    metadata:
-        | ArticleMetadataV3Fragment
-        | AudioMetadataV3Fragment
-        | CheckingInMetadataV3Fragment
-        | EmbedMetadataV3Fragment
-        | EventMetadataV3Fragment
-        | ImageMetadataV3Fragment
-        | LinkMetadataV3Fragment
-        | LiveStreamMetadataV3Fragment
-        | MintMetadataV3Fragment
-        | SpaceMetadataV3Fragment
-        | StoryMetadataV3Fragment
-        | TextOnlyMetadataV3Fragment
-        | ThreeDMetadataV3Fragment
-        | TransactionMetadataV3Fragment
-        | VideoMetadataV3Fragment,
-) {
+function getMediaObjects(metadata: LensMetadata) {
     return metadata.__typename !== 'StoryMetadataV3' && metadata.__typename !== 'TextOnlyMetadataV3'
         ? (metadata.attachments?.map((attachment) => {
               const type = attachment.__typename;
@@ -302,6 +302,18 @@ function getMediaObjects(
               }
           }) ?? undefined)
         : undefined;
+}
+
+function formatOrbClub(metadata: LensMetadata) {
+    const orbTag = metadata.tags?.find((tag) => tag.startsWith(ORB_CLUB_TAG_PREFIX));
+    const clubHandle = orbTag?.replaceAll(ORB_CLUB_TAG_PREFIX, '');
+    if (!clubHandle) return;
+
+    return {
+        id: clubHandle,
+        source: Source.Lens,
+        __lazy__: true,
+    } as unknown as Channel;
 }
 
 export function formatLensQuoteOrComment(result: CommentBaseFragment | PostFragment | QuoteBaseFragment): Post {
@@ -425,6 +437,7 @@ export function formatLensPost(result: AnyPublicationFragment): Post {
                   }
                 : undefined,
             momoka: result.mirrorOn.momoka || undefined,
+            channel: formatOrbClub(result.mirrorOn.metadata),
         };
     }
 
@@ -438,6 +451,8 @@ export function formatLensPost(result: AnyPublicationFragment): Post {
     const canAct =
         !!result.openActionModules?.length &&
         result.openActionModules?.some((openAction) => allowedTypes.includes(openAction.type));
+
+    const channel = formatOrbClub(result.metadata);
 
     if (result.__typename === 'Quote') {
         return {
@@ -487,6 +502,7 @@ export function formatLensPost(result: AnyPublicationFragment): Post {
                       name: result.publishedOn.id,
                   }
                 : undefined,
+            channel,
         };
     } else if (result.__typename === 'Comment') {
         return {
@@ -541,6 +557,7 @@ export function formatLensPost(result: AnyPublicationFragment): Post {
                       name: result.publishedOn.id,
                   }
                 : undefined,
+            channel,
         };
     } else {
         return {
@@ -589,6 +606,7 @@ export function formatLensPost(result: AnyPublicationFragment): Post {
                       name: result.publishedOn.id,
                   }
                 : undefined,
+            channel,
         };
     }
 }

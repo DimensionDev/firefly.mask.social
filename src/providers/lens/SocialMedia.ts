@@ -32,7 +32,7 @@ import { polygon } from 'viem/chains';
 import { config } from '@/configs/wagmiClient.js';
 import { FireflyPlatform, Source, SourceInURL } from '@/constants/enum.js';
 import { InvalidResultError, NotImplementedError } from '@/constants/error.js';
-import { EMPTY_LIST } from '@/constants/index.js';
+import { EMPTY_LIST, ORB_CLUB_TAG_PREFIX } from '@/constants/index.js';
 import { SetQueryDataForActPost } from '@/decorators/SetQueryDataForActPost.js';
 import { SetQueryDataForApprovalLensModule } from '@/decorators/SetQueryDataForApprovalLensModule.js';
 import { SetQueryDataForBlockProfile } from '@/decorators/SetQueryDataForBlockProfile.js';
@@ -43,6 +43,7 @@ import {
     SetQueryDataForFollowProfile,
     SetQueryDataForSuperFollowProfile,
 } from '@/decorators/SetQueryDataForFollowProfile.js';
+import { SetQueryDataForJoinChannel } from '@/decorators/SetQueryDataForJoinChannel.js';
 import { SetQueryDataForLikePost } from '@/decorators/SetQueryDataForLikePost.js';
 import { SetQueryDataForMirrorPost } from '@/decorators/SetQueryDataForMirrorPost.js';
 import { SetQueryDataForPosts } from '@/decorators/SetQueryDataForPosts.js';
@@ -55,6 +56,7 @@ import {
     formatLensQuoteOrComment,
 } from '@/helpers/formatLensPost.js';
 import { formatLensProfile } from '@/helpers/formatLensProfile.js';
+import { formatOrbClubToChannel } from '@/helpers/formatOrbClubToChannel.js';
 import { getCurrentProfile } from '@/helpers/getCurrentProfile.js';
 import { getLensAllowanceModule } from '@/helpers/getLensAllowanceModule.js';
 import { getOpenActionActOnKey } from '@/helpers/getOpenActionActOnKey.js';
@@ -77,11 +79,13 @@ import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
 import { lensSessionHolder } from '@/providers/lens/SessionHolder.js';
 import { LensOpenRankProvider } from '@/providers/openrank/Lens.js';
+import { OrbClubProvider } from '@/providers/orb/Club.js';
 import {
     type LastLoggedInProfileRequest,
     profilesManagedQuery,
     type ProfilesManagedRequest,
 } from '@/providers/types/LensGraphql/profileManagers.js';
+import type { Club } from '@/providers/types/Orb.js';
 import {
     type Channel,
     type Friendship,
@@ -111,6 +115,7 @@ const MOMOKA_ERROR_MSG = 'momoka publication is not allowed';
 @SetQueryDataForActPost(Source.Lens)
 @SetQueryDataForPosts
 @SetQueryDataForApprovalLensModule
+@SetQueryDataForJoinChannel(Source.Lens)
 export class LensSocialMedia implements Provider {
     get type() {
         return SessionType.Lens;
@@ -120,8 +125,18 @@ export class LensSocialMedia implements Provider {
         throw new NotImplementedError();
     }
 
-    getChannelById(channelId: string): Promise<Channel> {
-        throw new NotImplementedError();
+    async getChannelById(channelId: string): Promise<Channel> {
+        const profile = getCurrentProfile(Source.Lens);
+        const response = await OrbClubProvider.fetchClubs({
+            club_handle: channelId,
+            profile_id: profile?.profileId,
+        });
+
+        if (response?.items.length) {
+            return formatOrbClubToChannel(response.items[0]);
+        }
+
+        throw new Error(t`No channel found with the id ${channelId}`);
     }
 
     getChannelByHandle(channelHandle: string): Promise<Channel> {
@@ -136,16 +151,36 @@ export class LensSocialMedia implements Provider {
         throw new NotImplementedError();
     }
 
-    getPostsByChannelId(channelId: string, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
-        throw new NotImplementedError();
+    async getPostsByChannelId(channelId: string, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
+        const result = await lensSessionHolder.sdk.publication.fetchAll({
+            cursor: indicator?.id && !isZero(indicator.id) ? indicator.id : undefined,
+            limit: LimitType.TwentyFive,
+            where: { metadata: { tags: { oneOf: [`${ORB_CLUB_TAG_PREFIX}${channelId}`] } } },
+        });
+
+        return createPageable(
+            filterFeeds(result.items).map(formatLensPost),
+            createIndicator(indicator),
+            result.pageInfo.next ? createNextIndicator(indicator, result.pageInfo.next) : undefined,
+        );
     }
 
     getPostsByChannelHandle(channelHandle: string, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
         throw new NotImplementedError();
     }
 
-    searchChannels(q: string, indicator?: PageIndicator): Promise<Pageable<Channel, PageIndicator>> {
-        throw new NotImplementedError();
+    async searchChannels(q: string, indicator?: PageIndicator): Promise<Pageable<Channel, PageIndicator>> {
+        const profile = getCurrentProfile(Source.Lens);
+        const response = await OrbClubProvider.fetchClubs({
+            query: q,
+            profile_id: profile?.profileId,
+        });
+
+        return createPageable(
+            response?.items.map(formatOrbClubToChannel) ?? EMPTY_LIST,
+            createIndicator(indicator),
+            response?.pageInfo.next ? createNextIndicator(indicator, `${response.pageInfo.next}`) : undefined,
+        );
     }
 
     getChannelTrendingPosts(channel: Channel, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
@@ -1585,6 +1620,24 @@ export class LensSocialMedia implements Provider {
         });
 
         await waitForEthereumTransaction(polygon.id, hash);
+    }
+
+    async joinChannel(channel: Channel): Promise<boolean> {
+        const club = channel.__original__ as Club;
+        if (!club?.id) {
+            throw new Error('Invalid channel to join');
+        }
+
+        return await OrbClubProvider.joinClub(club.id);
+    }
+
+    async leaveChannel(channel: Channel): Promise<boolean> {
+        const club = channel.__original__ as Club;
+        if (!club?.id) {
+            throw new Error('Invalid channel to join');
+        }
+
+        return await OrbClubProvider.leaveClub(club.id);
     }
 }
 

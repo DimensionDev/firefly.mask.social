@@ -1,7 +1,7 @@
 import { Trans } from '@lingui/macro';
 import dayjs from 'dayjs';
 import { useRouter } from 'next/navigation.js';
-import React, { memo, type MouseEvent, useCallback } from 'react';
+import { memo, type MouseEvent, useCallback } from 'react';
 
 import UserIcon from '@/assets/user.svg';
 import { Avatar } from '@/components/Avatar.js';
@@ -91,13 +91,15 @@ export const ChannelCard = memo<ChannelCardProps>(function ChannelCard({ channel
                         </div>
                     </div>
 
-                    <div className="flex gap-1">
-                        <Trans>
-                            <span className="text-secondary">since </span>{' '}
-                            <strong className="text-lightMain">
-                                {dayjs(channel.timestamp).format('MMM DD, YYYY')}
-                            </strong>
-                        </Trans>
+                    <div className="flex min-h-5 gap-1">
+                        {channel.timestamp ? (
+                            <Trans>
+                                <span className="text-secondary">since </span>{' '}
+                                <strong className="text-lightMain">
+                                    {dayjs(channel.timestamp).format('MMM DD, YYYY')}
+                                </strong>
+                            </Trans>
+                        ) : null}
                     </div>
                 </div>
             </div>

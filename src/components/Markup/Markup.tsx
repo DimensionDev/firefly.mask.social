@@ -2,8 +2,7 @@
 
 import { compact } from 'lodash-es';
 import { memo, useMemo } from 'react';
-import ReactMarkdown from 'react-markdown';
-import { type Options as ReactMarkdownOptions } from 'react-markdown';
+import ReactMarkdown, { type Options as ReactMarkdownOptions } from 'react-markdown';
 import remarkBreaks from 'remark-breaks';
 // @ts-expect-error
 import linkifyRegex from 'remark-linkify-regex';
@@ -11,7 +10,6 @@ import stripMarkdown from 'strip-markdown';
 
 import { Code } from '@/components/Code.js';
 import { MarkupLink } from '@/components/Markup/MarkupLink/index.js';
-import { Source } from '@/constants/enum.js';
 import {
     CHANNEL_REGEX,
     EMAIL_REGEX,
@@ -20,6 +18,7 @@ import {
     SYMBOL_REGEX,
     URL_REGEX,
 } from '@/constants/regexp.js';
+import { isChannelSupported } from '@/helpers/isChannelSupported.js';
 import { trimify } from '@/helpers/trimify.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 
@@ -39,7 +38,7 @@ export const Markup = memo<MarkupProps>(function Markup({ children, post, ...res
                 // parsing handle after url
                 // for example https://images.lens.phaver.com/insecure/raw:t/plain/3daf21dbbf8ce530685bbfabf5de325d
                 linkifyRegex(LENS_HANDLE_REGEXP),
-                post?.source === Source.Farcaster ? linkifyRegex(CHANNEL_REGEX) : undefined,
+                isChannelSupported(post?.source) ? linkifyRegex(CHANNEL_REGEX) : undefined,
                 linkifyRegex(HASHTAG_REGEX),
                 linkifyRegex(SYMBOL_REGEX),
             ]);
@@ -55,7 +54,7 @@ export const Markup = memo<MarkupProps>(function Markup({ children, post, ...res
             linkifyRegex(mentionRe),
             linkifyRegex(URL_REGEX),
             linkifyRegex(LENS_HANDLE_REGEXP),
-            post?.source === Source.Farcaster ? linkifyRegex(CHANNEL_REGEX) : undefined,
+            isChannelSupported(post.source) ? linkifyRegex(CHANNEL_REGEX) : undefined,
             linkifyRegex(HASHTAG_REGEX),
             linkifyRegex(SYMBOL_REGEX),
         ]);

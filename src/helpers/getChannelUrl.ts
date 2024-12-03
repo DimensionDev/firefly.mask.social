@@ -1,18 +1,15 @@
 import { safeUnreachable } from '@masknet/kit';
-import urlcat from 'urlcat';
 
 import { Source } from '@/constants/enum.js';
+import { resolveChannelUrl } from '@/helpers/resolveChannelUrl.js';
 import type { Channel } from '@/providers/types/SocialMedia.js';
 
 export function getChannelUrl(channel: Channel) {
     switch (channel.source) {
         case Source.Lens:
-            return '';
         case Source.Farcaster:
             if (!channel.id) return '';
-            return urlcat('/channel/:id', {
-                id: channel.id,
-            });
+            return resolveChannelUrl(channel.id, undefined, channel.source);
         case Source.Twitter:
             return '';
         default:

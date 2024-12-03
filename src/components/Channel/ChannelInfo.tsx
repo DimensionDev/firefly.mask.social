@@ -14,6 +14,8 @@ import { Link } from '@/esm/Link.js';
 import { classNames } from '@/helpers/classNames.js';
 import { nFormatter } from '@/helpers/formatCommentCounts.js';
 import { getChannelUrl } from '@/helpers/getChannelUrl.js';
+import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
+import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import type { Channel } from '@/providers/types/SocialMedia.js';
 
 interface InfoProps extends HTMLProps<HTMLDivElement> {
@@ -22,7 +24,13 @@ interface InfoProps extends HTMLProps<HTMLDivElement> {
     isChannelPage?: boolean;
 }
 
-export function ChannelInfo({ channel, source, isChannelPage = false, ...rest }: InfoProps) {
+export async function ChannelInfo({ channel: unresolvedChannel, source, isChannelPage = false, ...rest }: InfoProps) {
+    const channel = unresolvedChannel.__lazy__
+        ? await runInSafeAsync(() => resolveSocialMediaProvider(source).getChannelById(unresolvedChannel.id))
+        : unresolvedChannel;
+
+    if (!channel) return null;
+
     const followerCount = channel.followerCount ?? 0;
 
     const url = urlcat(SITE_URL, getChannelUrl(channel));
@@ -45,7 +53,7 @@ export function ChannelInfo({ channel, source, isChannelPage = false, ...rest }:
                 <div className="flex flex-col">
                     <h1 className="flex items-center gap-2">
                         {isChannelPage ? name : <Link href={url}>{name}</Link>}
-                        <SocialSourceIcon source={source} size={20} />
+                        <SocialSourceIcon mono source={source} size={20} />
                     </h1>
                     <div className="flex flex-row gap-1">
                         <span className="text-medium text-secondary">/{channel.id}</span>
@@ -53,7 +61,7 @@ export function ChannelInfo({ channel, source, isChannelPage = false, ...rest }:
                             <UserIcon width={18} height={18} />
                             <span className="text-lightMain">{nFormatter(followerCount)}</span>
                             <span className="text-secondary">
-                                <Plural value={followerCount} one="Follower" other="Followers" />
+                                <Plural value={followerCount} one="Member" other="Members" />
                             </span>
                         </data>
                     </div>

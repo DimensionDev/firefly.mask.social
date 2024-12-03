@@ -1,18 +1,16 @@
-import urlcat from 'urlcat';
-
 import type { SocialSourceInURL } from '@/constants/enum.js';
-import { Source } from '@/constants/enum.js';
-import { SITE_URL } from '@/constants/index.js';
 import { createPageTitle, createPageTitleOG } from '@/helpers/createPageTitle.js';
 import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
-import { getChannelUrl } from '@/helpers/getChannelUrl.js';
+import { isSocialSourceInUrl } from '@/helpers/isSocialSource.js';
 import { resolveChannelUrl } from '@/helpers/resolveChannelUrl.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { resolveSocialSource } from '@/helpers/resolveSource.js';
 
-export async function createMetadataChannel(channelId: string) {
-    const source = Source.Farcaster; // TODO: channel only farcaster
-    const provider = resolveSocialMediaProvider(source);
+export async function createMetadataChannel(source: SocialSourceInURL, channelId: string) {
+    if (!isSocialSourceInUrl(source)) return createSiteMetadata();
+
+    const socialSource = resolveSocialSource(source);
+    const provider = resolveSocialMediaProvider(socialSource);
     const channel = await provider.getChannelById(channelId).catch(() => null);
     if (!channel) return createSiteMetadata({});
     const title = createPageTitleOG(channel.name);
@@ -26,7 +24,7 @@ export async function createMetadataChannel(channelId: string) {
             description,
             images,
             type: 'profile',
-            url: resolveChannelUrl(channelId),
+            url: resolveChannelUrl(channelId, undefined, socialSource),
         },
         twitter: {
             card: 'summary',
@@ -38,7 +36,10 @@ export async function createMetadataChannel(channelId: string) {
 }
 
 export async function createMetadataChannelById(source: SocialSourceInURL, channelId: string) {
-    const provider = resolveSocialMediaProvider(resolveSocialSource(source));
+    if (!isSocialSourceInUrl(source)) return createSiteMetadata();
+
+    const socialSource = resolveSocialSource(source);
+    const provider = resolveSocialMediaProvider(socialSource);
     const channel = await provider.getChannelById(channelId);
     if (!channel) return createSiteMetadata();
 
@@ -55,7 +56,7 @@ export async function createMetadataChannelById(source: SocialSourceInURL, chann
         title,
         openGraph: {
             type: 'website',
-            url: urlcat(SITE_URL, getChannelUrl(channel)),
+            url: resolveChannelUrl(channel.id, undefined, socialSource),
             title,
             description,
             images,

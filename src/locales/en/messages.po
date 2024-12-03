@@ -226,6 +226,9 @@ msgstr "<0>The maximum number of coins coded to exist in the lifetime of the cry
 msgid "This token is a gas abuser."
 msgstr "This token is a gas abuser."
 
+msgid "Are you sure you want to leave /{0} ?"
+msgstr "Are you sure you want to leave /{0} ?"
+
 msgid "Follow <0/> on {platform}"
 msgstr "Follow <0/> on {platform}"
 
@@ -270,6 +273,9 @@ msgstr "The external call function is not included. If there is an external call
 
 msgid "Found arweaveTxId is empty."
 msgstr "Found arweaveTxId is empty."
+
+msgid "{followerCount, plural, one {Member} other {Members}}"
+msgstr "{followerCount, plural, one {Member} other {Members}}"
 
 msgid "<0>You</0> and {0} others recasted"
 msgstr "<0>You</0> and {0} others recasted"
@@ -438,6 +444,9 @@ msgstr "<0>The amount of coins that have already been created, minus any coins t
 
 msgid "Username is required."
 msgstr "Username is required."
+
+msgid "Failed to leave /{0} on {sourceName}."
+msgstr "Failed to leave /{0} on {sourceName}."
 
 msgid "<0>Sent</0> an NFT"
 msgstr "<0>Sent</0> an NFT"
@@ -913,6 +922,9 @@ msgstr "Frame Validator"
 msgid "Priority Access: Holders get early access to future projects, beta tests, and airdrops. And they will also have a first look at the latest features and content."
 msgstr "Priority Access: Holders get early access to future projects, beta tests, and airdrops. And they will also have a first look at the latest features and content."
 
+msgid "Join /{0}"
+msgstr "Join /{0}"
+
 msgid "The token can not be bought."
 msgstr "The token can not be bought."
 
@@ -966,6 +978,9 @@ msgstr "Owner can't change balance"
 
 msgid "Join our Telegram"
 msgstr "Join our Telegram"
+
+msgid "Leave /{0}"
+msgstr "Leave /{0}"
 
 msgid "Non-contract address."
 msgstr "Non-contract address."
@@ -1311,6 +1326,9 @@ msgstr "{0} Comments"
 
 msgid "Schedule Post"
 msgstr "Schedule Post"
+
+msgid "No channel found with the id {channelId}"
+msgstr "No channel found with the id {channelId}"
 
 msgid "Best Wishes!"
 msgstr "Best Wishes!"
@@ -1908,6 +1926,9 @@ msgstr "Article removed from your Bookmarks"
 
 msgid "The Lucky Drop is expired."
 msgstr "The Lucky Drop is expired."
+
+msgid "Leave /{0} on {sourceName}."
+msgstr "Leave /{0} on {sourceName}."
 
 msgid "Powered by Tenderly and GoPlus"
 msgstr "Powered by Tenderly and GoPlus"
@@ -2719,6 +2740,9 @@ msgstr "Failed to vote. {0}"
 msgid "Confirm to log out all accounts?"
 msgstr "Confirm to log out all accounts?"
 
+msgid "Failed to join /{0} on {sourceName}."
+msgstr "Failed to join /{0} on {sourceName}."
+
 msgid "Repost"
 msgstr "Repost"
 
@@ -3189,6 +3213,9 @@ msgstr "Snapshot removed from your Bookmarks"
 
 msgid "Max Supply"
 msgstr "Max Supply"
+
+msgid "Join /{0} on {sourceName}."
+msgstr "Join /{0} on {sourceName}."
 
 msgid "Posted by {0} via Firefly"
 msgstr "Posted by {0} via Firefly"
