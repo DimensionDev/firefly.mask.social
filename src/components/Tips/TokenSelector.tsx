@@ -1,99 +1,45 @@
-import { t, Trans } from '@lingui/macro';
-import { findIndex } from 'lodash-es';
-import { memo, useEffect, useMemo, useRef, useState } from 'react';
-import { useDebounce } from 'usehooks-ts';
+import { t } from '@lingui/macro';
+import { memo, useCallback } from 'react';
+import { useAsync } from 'react-use';
 
 import ArrowDown from '@/assets/arrow-down.svg';
-import LineArrowUp from '@/assets/line-arrow-up.svg';
 import { ClickableButton } from '@/components/ClickableButton.js';
-import { Loading } from '@/components/Loading.js';
-import { NoResultsFallback } from '@/components/NoResultsFallback.js';
-import { SearchInput } from '@/components/Search/SearchInput.js';
+import { SearchTipsTokenPanel } from '@/components/Search/SearchTipsTokenPanel.js';
 import { TipsModalHeader } from '@/components/Tips/TipsModalHeader.js';
 import { router, TipsRoutePath } from '@/components/Tips/TipsModalRouter.js';
 import { TokenIcon } from '@/components/Tips/TokenIcon.js';
-import { TokenItem } from '@/components/Tips/TokenItem.js';
 import { classNames } from '@/helpers/classNames.js';
-import { isSameEthereumAddress } from '@/helpers/isSameAddress.js';
-import { isGreaterThan, isLessThan } from '@/helpers/number.js';
+import { resolveNetworkProvider } from '@/helpers/resolveTokenTransfer.js';
 import { TipsContext } from '@/hooks/useTipsContext.js';
-import { useTipsTokens } from '@/hooks/useTipsTokens.js';
+import type { Token } from '@/providers/types/Transfer.js';
 
 export const TokenSelector = memo(function TokenSelector() {
-    const [search, setSearch] = useState('');
-    const [showSmall, setShowSmall] = useState(false);
-    const listRef = useRef<HTMLDivElement>(null);
-    const { tokens, isLoading } = useTipsTokens();
-    const { token } = TipsContext.useContainer();
+    const { recipient, token: selectedToken, update } = TipsContext.useContainer();
 
-    const debouncedSearch = useDebounce(search, 300);
+    const { value: address } = useAsync(async () => {
+        if (!recipient) return;
+        const network = resolveNetworkProvider(recipient?.networkType);
+        return await network.getAccount();
+    }, [recipient]);
 
-    useEffect(() => {
-        const index = findIndex(tokens, (t) => isSameEthereumAddress(t.id, token?.id));
-        if (index >= 0 && listRef.current) {
-            const selectedEl = listRef.current.children[index];
-            selectedEl?.scrollIntoView({ block: 'center' });
-        }
-    }, [tokens, token?.id]);
+    const onTokenSelected = useCallback(
+        (token: Token) => {
+            update((prev) => ({ ...prev, token, amount: token.id !== selectedToken?.id ? '' : prev.amount }));
+            router.navigate({ to: TipsRoutePath.TIPS, replace: true });
+        },
+        [selectedToken?.id, update],
+    );
 
-    const filteredTokens = useMemo(() => {
-        return tokens?.filter((token) => {
-            return [token.name, token.symbol].some((value) =>
-                value.toLowerCase().includes(debouncedSearch.toLowerCase()),
-            );
-        });
-    }, [tokens, debouncedSearch]);
-
-    const showMore = useMemo(() => {
-        if (!filteredTokens.length) return false;
-        return (
-            filteredTokens.some((token) => isGreaterThan(token.usdValue, 1)) &&
-            filteredTokens.some((token) => isLessThan(token.usdValue, 1))
-        );
-    }, [filteredTokens]);
-
-    const displayedTokens = useMemo(() => {
-        if (!showMore) return filteredTokens;
-        return showSmall ? filteredTokens : filteredTokens.filter((token) => isGreaterThan(token.usdValue, 1));
-    }, [filteredTokens, showSmall, showMore]);
+    const isSelected = useCallback((item: Token) => item.id === selectedToken?.id, [selectedToken]);
 
     return (
         <>
             <TipsModalHeader back title={t`Select Token`} />
-            {isLoading ? (
-                <Loading className="!min-h-[260px] sm:!min-h-[320px]" />
-            ) : (
-                <div>
-                    <div className="rounded-lg !bg-lightBg">
-                        <SearchInput
-                            value={search}
-                            onChange={(event) => setSearch(event.currentTarget.value)}
-                            onClear={() => setSearch('')}
-                        />
-                    </div>
-                    <div className="no-scrollbar mt-3 h-52 overflow-y-auto sm:h-80" ref={listRef}>
-                        {displayedTokens?.map((token) => (
-                            <TokenItem key={`${token.id}.${token.chain}`} token={token} />
-                        ))}
-                        {!filteredTokens?.length && !isLoading && <NoResultsFallback message={t`No available token`} />}
-                        {showMore ? (
-                            <ClickableButton
-                                className="mt-2 flex w-full items-center justify-center gap-0.5 rounded-lg py-2 text-sm font-bold text-highlight hover:bg-lightBg"
-                                onClick={() => setShowSmall((prev) => !prev)}
-                            >
-                                <span>
-                                    {showSmall ? (
-                                        <Trans>Hide tokens with small balances</Trans>
-                                    ) : (
-                                        <Trans>Show more tokens with small balances</Trans>
-                                    )}
-                                </span>
-                                <LineArrowUp width={20} height={20} className={showSmall ? '' : 'rotate-180'} />
-                            </ClickableButton>
-                        ) : null}
-                    </div>
+            {address ? (
+                <div className="h-[50vh] md:h-[526px]">
+                    <SearchTipsTokenPanel address={address} onSelected={onTokenSelected} isSelected={isSelected} />
                 </div>
-            )}
+            ) : null}
         </>
     );
 });

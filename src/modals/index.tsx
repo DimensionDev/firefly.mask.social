@@ -25,6 +25,7 @@ import { SchedulePostModal } from '@/modals/SchedulePostModal.js';
 import { Snackbar } from '@/modals/Snackbar.js';
 import { SuperFollowModal } from '@/modals/SuperFollowModal.js';
 import { TipsModal } from '@/modals/TipsModal.js';
+import { TokenSelectorModal } from '@/modals/TokenSelectorModal.js';
 import { TransactionSimulatorModal } from '@/modals/TransactionSimulatorModal.js';
 
 export const Modals = memo(function Modals() {
@@ -53,6 +54,7 @@ export const Modals = memo(function Modals() {
             <SuperFollowModal ref={controls.SuperFollowModalRef.register} />
             <TransactionSimulatorModal ref={controls.TransactionSimulatorModalRef.register} />
             <DisconnectFireflyAccountModal ref={controls.DisconnectFireflyAccountModalRef.register} />
+            <TokenSelectorModal ref={controls.TokenSelectorModalRef.register} />
         </>
     );
 });

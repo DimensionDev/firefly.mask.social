@@ -19,6 +19,7 @@ export interface ModalProps {
     disableDialogClose?: boolean;
     disableBackdropClose?: boolean;
     backdropClassName?: string;
+    modalClassName?: string;
 }
 
 export function Modal({
@@ -31,6 +32,7 @@ export function Modal({
     disableDialogClose = false,
     disableBackdropClose = false,
     backdropClassName,
+    modalClassName,
 }: ModalProps) {
     const ref = useRef<HTMLDivElement>(null);
 
@@ -39,7 +41,7 @@ export function Modal({
             <Dialog
                 initialFocus={ref}
                 as="div"
-                className="relative z-40"
+                className={classNames('relative z-40', modalClassName)}
                 onClose={disableDialogClose ? noop : onClose}
                 disableScrollLock={disableScrollLock}
             >
