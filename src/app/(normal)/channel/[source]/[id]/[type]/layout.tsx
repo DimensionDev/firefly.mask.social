@@ -16,8 +16,10 @@ import { resolveChannelUrl } from '@/helpers/resolveChannelUrl.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { resolveSocialSource } from '@/helpers/resolveSource.js';
 import { setupLocaleForSSR } from '@/i18n/index.js';
+import { isBotRequest } from '@/helpers/isBotRequest.js';
+import { runInSafeAsync } from '@/helpers/runInSafe.js';
 
-export const revalidate = 60;
+export const revalidate = 60; // revalidate every 60 seconds
 
 type Props = PropsWithChildren<{
     params: {
@@ -32,17 +34,18 @@ export async function generateMetadata({ params }: Props) {
 }
 
 export default async function Layout({ params, children }: Props) {
-    const source = isSocialSourceInUrl(params.source) ? resolveSocialSource(params.source) : Source.Farcaster;
+    setupLocaleForSSR();
+    if (isBotRequest()) return null;
+
+    if (!isSocialSourceInUrl(params.source)) notFound();
+
+    const source = resolveSocialSource(params.source);
     const provider = resolveSocialMediaProvider(source);
-    const channel = await provider.getChannelById(params.id).catch(() => null);
+    const channel = await runInSafeAsync(() => provider.getChannelById(params.id));
 
     if (!channel) notFound();
 
-    setupLocaleForSSR();
-
-    const id = params.id;
-    const type = params.type;
-
+    const { id, type } = params;
     const tabs = CHANNEL_TAB_TYPE[source];
 
     return (
