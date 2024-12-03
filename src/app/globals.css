@@ -821,3 +821,15 @@ body.not-support .fixed.inset-y-0 {
     margin-bottom: 1rem;
     color: rgb(var(--color-main));
 }
+
+.MuiInputBase-input {
+    background-color: transparent;
+}
+.MuiInputBase-input:focus {
+    box-shadow: none;
+}
+.MuiCheckbox-root [type='checkbox'],
+.MuiCheckbox-root [type='radio'] {
+    width: 100%;
+    height: 100%;
+}

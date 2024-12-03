@@ -312,9 +312,6 @@ msgstr ""
 msgid "The token can be bought."
 msgstr ""
 
-msgid "Claim on: {link}"
-msgstr ""
-
 msgid "Trending"
 msgstr ""
 
@@ -349,9 +346,6 @@ msgid "Scheduled"
 msgstr ""
 
 msgid "Pay"
-msgstr ""
-
-msgid "Claim on Farcaster: {link}"
 msgstr ""
 
 msgid "Followed @{handle} on {0}."
@@ -879,6 +873,14 @@ msgstr ""
 msgid "Search user"
 msgstr ""
 
+msgid "{platform, select, farcaster {{0}} lens {{1}} twitter {{2}} other {{3}}}"
+msgstr ""
+
+msgid ""
+"🤑 Check this Lucky Drop  🧧💰✨ sent by @{sender}.\n"
+"Grow your followers and engagement with Lucky Drop on Firefly mobile app or https://firefly.mask.social !"
+msgstr ""
+
 msgid "Failed to upload. Video is not supported yet."
 msgstr ""
 
@@ -1191,13 +1193,7 @@ msgstr ""
 msgid "No fake KYC found."
 msgstr ""
 
-msgid "Claim on Lens: {link}"
-msgstr ""
-
 msgid "No function found that retrieves ownership"
-msgstr ""
-
-msgid "🤑 Just claimed a #LuckyDrop  🧧💰✨ on https://firefly.mask.social from @{sender} !"
 msgstr ""
 
 msgid "Send"
@@ -1626,9 +1622,6 @@ msgstr ""
 msgid "This contract is an Admin Upgradeability Proxy. The proxy contract means the contract owner can modify the function of the token and could possibly effect the price.There is possibly a way for the team to Rug or Scam. Please confirm the details with the project team before buying."
 msgstr ""
 
-msgid "Grow your followers and engagement with Lucky Drop on Firefly mobile app or https://firefly.mask.social !"
-msgstr ""
-
 msgid "Failed to fetch bookmarks."
 msgstr ""
 
@@ -1657,6 +1650,11 @@ msgid "<0>Acquired</0> an NFT"
 msgstr ""
 
 msgid "{0} {1, plural, one {share} other {shares}} / {total} ${symbol}"
+msgstr ""
+
+msgid ""
+"🤑 Just claimed a #LuckyDrop  🧧💰✨ on https://firefly.mask.social from @{sender} !\n"
+"Claim on Lens: {link}"
 msgstr ""
 
 msgid "Confirm to disconnect this account and related wallets from Firefly’s social graph?"
@@ -1699,9 +1697,6 @@ msgid "<0>Revised</0>an article"
 msgstr ""
 
 msgid "No darkweb transactions found."
-msgstr ""
-
-msgid "By clicking \\\"Next\\\", you acknowledge the risk associated with decentralized networks and beta products."
 msgstr ""
 
 msgid "You need to connect your {0} account to use this feature."
@@ -2568,6 +2563,9 @@ msgstr ""
 msgid "Upcoming"
 msgstr ""
 
+msgid "By clicking \"Next\", you acknowledge the risk associated with decentralized networks and beta products."
+msgstr ""
+
 msgid "{handleOrEnsOrAddress} unwatched"
 msgstr ""
 
@@ -2947,9 +2945,6 @@ msgid "Failed to send tip. Please try again later."
 msgstr ""
 
 msgid "Failed to unmirror post."
-msgstr ""
-
-msgid "🤑 Check this Lucky Drop  🧧💰✨ sent by @{sender}."
 msgstr ""
 
 msgid "Failed to unlike the comment."

@@ -58,9 +58,7 @@ export const MaskProviders = memo(function MaskProviders({ children }: PropsWith
                                 <SharedContextProvider>
                                     <Suspense fallback={null}>
                                         <CSSVariableInjector />
-                                        <DisableShadowRootContext.Provider value={false}>
-                                            <ShadowRootIsolation>{children}</ShadowRootIsolation>
-                                        </DisableShadowRootContext.Provider>
+                                        <ShadowRootIsolation>{children}</ShadowRootIsolation>
                                     </Suspense>
                                 </SharedContextProvider>
                             </EVMWeb3ContextProvider>

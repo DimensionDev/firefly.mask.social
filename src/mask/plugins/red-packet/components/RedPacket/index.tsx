@@ -1,5 +1,5 @@
 /* eslint-disable no-irregular-whitespace */
-import { Plural, t, Trans } from '@lingui/macro';
+import { Plural, select, t, Trans } from '@lingui/macro';
 import { delay } from '@masknet/kit';
 import { useLastRecognizedIdentity, usePostInfoDetails, usePostLink } from '@masknet/plugin-infra/content-script';
 import { LoadingStatus, TransactionConfirmModal } from '@masknet/shared';
@@ -211,23 +211,19 @@ export const RedPacket = memo(function RedPacket({ payload }: RedPacketProps) {
     const getShareText = useCallback(
         (hasClaimed: boolean) => {
             const sender = handle ?? '';
-            const farcaster_lens_claimed =
-                t`🤑 Just claimed a #LuckyDrop  🧧💰✨ on https://firefly.mask.social from @${sender} !` +
-                '\n\n' +
-                t`Claim on Lens: ${link}`;
-            const notClaimed =
-                t`🤑 Check this Lucky Drop  🧧💰✨ sent by @${sender}.` +
-                '\n\n' +
-                t`Grow your followers and engagement with Lucky Drop on Firefly mobile app or https://firefly.mask.social !`;
-            +'\n';
-            switch (platform) {
-                case 'farcaster':
-                    return hasClaimed ? farcaster_lens_claimed : notClaimed + '\n' + t`Claim on Farcaster: ${link}`;
-                case 'lens':
-                    return hasClaimed ? farcaster_lens_claimed : notClaimed + '\n' + t`Claim on Lens: ${link}`;
-                default:
-                    return notClaimed + '\n' + t`Claim on: ${link}`;
-            }
+            const farcaster_lens_claimed = t`🤑 Just claimed a #LuckyDrop  🧧💰✨ on https://firefly.mask.social from @${sender} !
+
+Claim on Lens: ${link}`;
+            const notClaimed = t`🤑 Check this Lucky Drop  🧧💰✨ sent by @${sender}.
+
+Grow your followers and engagement with Lucky Drop on Firefly mobile app or https://firefly.mask.social !
+`;
+            return select(platform, {
+                farcaster: hasClaimed ? farcaster_lens_claimed : notClaimed + '\n' + t`Claim on Farcaster: ${link}`,
+                lens: hasClaimed ? farcaster_lens_claimed : notClaimed + '\n' + t`Claim on Lens: ${link}`,
+                twitter: notClaimed + '\n' + t`Claim on: ${link}`,
+                other: notClaimed + '\n' + t`Claim on: ${link}`,
+            });
         },
         [link, platform, handle],
     );
