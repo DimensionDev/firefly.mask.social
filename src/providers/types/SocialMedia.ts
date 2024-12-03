@@ -932,4 +932,9 @@ export interface Provider {
      * leave a channel
      */
     leaveChannel: (channel: Channel) => Promise<boolean>;
+
+    /**
+     * Get Pinned Post
+     */
+    getPinnedPost: (profileId: string) => Promise<Post>;
 }

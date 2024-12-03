@@ -1,5 +1,6 @@
 'use client';
 
+import { PinnedPost } from '@/components/Posts/PinnedPost.js';
 import { SocialProfileContentList } from '@/components/Profile/SocialProfileContentList.js';
 import { WalletProfileContentList } from '@/components/Profile/WalletProfileContentList.js';
 import { type ProfileCategory, SocialProfileCategory, Source, WalletProfileCategory } from '@/constants/enum.js';
@@ -18,11 +19,14 @@ export function ProfilePageTimeline({
     }
     if (identity && isSocialSource(identity.source)) {
         return (
-            <SocialProfileContentList
-                type={category as SocialProfileCategory}
-                source={identity.source}
-                profileId={identity.id}
-            />
+            <>
+                <PinnedPost profileId={identity.id} source={identity.source} />
+                <SocialProfileContentList
+                    type={category as SocialProfileCategory}
+                    source={identity.source}
+                    profileId={identity.id}
+                />
+            </>
         );
     }
     return null;

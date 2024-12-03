@@ -2618,6 +2618,9 @@ msgstr ""
 msgid "The Lucky Drop has been refunded."
 msgstr ""
 
+msgid "Pinned"
+msgstr ""
+
 msgid "The contract owner may contain the authority to modify the transaction tax. If the transaction tax is increased to more than 49%, the tokens will not be able to be traded (honeypot risk)."
 msgstr ""
 

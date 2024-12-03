@@ -646,6 +646,12 @@ class TwitterSocialMedia implements Provider {
     async leaveChannel(channel: Channel): Promise<boolean> {
         throw new NotImplementedError();
     }
+
+    async getPinnedPost(profileId: string): Promise<Post> {
+        const response = await twitterSessionHolder.fetch<ResponseJSON<Post>>(`/api/twitter/user/${profileId}/pinned`);
+        if (!response.success) throw new Error(response.error.message);
+        return response.data;
+    }
 }
 
 export const TwitterSocialMediaProvider = new TwitterSocialMedia();

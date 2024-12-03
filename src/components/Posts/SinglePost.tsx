@@ -4,7 +4,7 @@ import { Trans } from '@lingui/macro';
 import { motion } from 'framer-motion';
 import { isUndefined } from 'lodash-es';
 import { usePathname, useRouter } from 'next/navigation.js';
-import { type HTMLProps, memo, useMemo } from 'react';
+import { type HTMLProps, memo, type ReactNode, useMemo } from 'react';
 
 import { PostActions } from '@/components/Actions/index.js';
 import { NoSSR } from '@/components/NoSSR.js';
@@ -29,6 +29,7 @@ export interface SinglePostProps extends HTMLProps<HTMLDivElement> {
     index?: number;
     showTranslate?: boolean;
     showChannelTag?: boolean;
+    header?: ReactNode;
 }
 export const SinglePost = memo<SinglePostProps>(function SinglePost({
     post,
@@ -41,6 +42,7 @@ export const SinglePost = memo<SinglePostProps>(function SinglePost({
     listKey,
     index,
     className,
+    header,
 }) {
     const router = useRouter();
     const pathname = usePathname();
@@ -83,6 +85,7 @@ export const SinglePost = memo<SinglePostProps>(function SinglePost({
                 return;
             }}
         >
+            {header}
             <NoSSR>
                 {!isComment ? <FeedActionType isDetail={isDetail} post={post} listKey={listKey} index={index} /> : null}
             </NoSSR>
