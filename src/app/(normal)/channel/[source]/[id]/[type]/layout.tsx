@@ -6,18 +6,18 @@ import { ChannelInfo } from '@/components/Channel/ChannelInfo.js';
 import { ChannelProvider } from '@/components/Channel/ChannelProvider.js';
 import { Title } from '@/components/Channel/Title.js';
 import { NoSSR } from '@/components/NoSSR.js';
-import { ChannelTabType, type SocialSourceInURL, Source } from '@/constants/enum.js';
+import { ChannelTabType, type SocialSourceInURL } from '@/constants/enum.js';
 import { CHANNEL_TAB_TYPE } from '@/constants/index.js';
 import { Link } from '@/esm/Link.js';
 import { classNames } from '@/helpers/classNames.js';
 import { createMetadataChannel } from '@/helpers/createMetadataChannel.js';
+import { isBotRequest } from '@/helpers/isBotRequest.js';
 import { isSocialSourceInUrl } from '@/helpers/isSocialSource.js';
 import { resolveChannelUrl } from '@/helpers/resolveChannelUrl.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { resolveSocialSource } from '@/helpers/resolveSource.js';
-import { setupLocaleForSSR } from '@/i18n/index.js';
-import { isBotRequest } from '@/helpers/isBotRequest.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
+import { setupLocaleForSSR } from '@/i18n/index.js';
 
 export const revalidate = 60; // revalidate every 60 seconds
 

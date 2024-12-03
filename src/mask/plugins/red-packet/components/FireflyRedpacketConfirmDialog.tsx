@@ -12,6 +12,7 @@ import { useMemo, useState } from 'react';
 import { useAsync, useStateList } from 'react-use';
 
 import { Image } from '@/esm/Image.js';
+import { classNames } from '@/helpers/classNames.js';
 import { ActionButton, Icons, ShadowRootTooltip } from '@/mask/bindings/components.js';
 import { makeStyles } from '@/mask/bindings/index.js';
 import {
@@ -27,7 +28,6 @@ import {
 } from '@/mask/plugins/red-packet/types.js';
 import { FireflyRedPacket } from '@/providers/red-packet/index.js';
 import { FireflyRedPacketAPI, type RedPacketJSONPayload } from '@/providers/red-packet/types.js';
-import { classNames } from '@/helpers/classNames.js';
 
 const useStyles = makeStyles()((theme) => ({
     container: {
