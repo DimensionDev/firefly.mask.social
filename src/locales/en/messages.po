@@ -1264,6 +1264,9 @@ msgstr "Claim Premium"
 msgid "Share in a Post"
 msgstr "Share in a Post"
 
+msgid "Search by name or symbol"
+msgstr "Search by name or symbol"
+
 msgid "Forbidden. Please check your permissions."
 msgstr "Forbidden. Please check your permissions."
 
@@ -1554,9 +1557,6 @@ msgstr "Phishing activities."
 
 msgid "Telemetry"
 msgstr "Telemetry"
-
-msgid "Show more tokens with small balances"
-msgstr "Show more tokens with small balances"
 
 msgid "Requirements"
 msgstr "Requirements"
@@ -2854,6 +2854,9 @@ msgstr "Unmuted @{0} on {sourceName}."
 msgid "If a suspendable code is included, the token maybe neither be bought nor sold (honeypot risk)."
 msgstr "If a suspendable code is included, the token maybe neither be bought nor sold (honeypot risk)."
 
+msgid "All chains"
+msgstr "All chains"
+
 msgid "Display Name should not exceed {maxDisplayNameSize} characters"
 msgstr "Display Name should not exceed {maxDisplayNameSize} characters"
 
@@ -2895,9 +2898,6 @@ msgstr "The whitelist function is included. Some addresses may not be able to tr
 
 msgid "Mirror now to get 25% referral fee!"
 msgstr "Mirror now to get 25% referral fee!"
-
-msgid "Hide tokens with small balances"
-msgstr "Hide tokens with small balances"
 
 msgid "Failed to connect to Firefly."
 msgstr "Failed to connect to Firefly."
@@ -2970,9 +2970,6 @@ msgstr "Number of Winners"
 
 msgid "Unmute"
 msgstr "Unmute"
-
-msgid "No available token"
-msgstr "No available token"
 
 msgid "Firefly Bridge"
 msgstr "Firefly Bridge"

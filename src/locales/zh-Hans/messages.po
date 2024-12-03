@@ -1269,6 +1269,9 @@ msgstr "领取优质奖励"
 msgid "Share in a Post"
 msgstr "在帖子中分享"
 
+msgid "Search by name or symbol"
+msgstr ""
+
 msgid "Forbidden. Please check your permissions."
 msgstr "禁止！请检查您的权限。"
 
@@ -1559,9 +1562,6 @@ msgstr "钓鱼活动。"
 
 msgid "Telemetry"
 msgstr "遥测"
-
-msgid "Show more tokens with small balances"
-msgstr "展示更多的小额通证"
 
 msgid "Requirements"
 msgstr ""
@@ -2859,6 +2859,9 @@ msgstr "在 {sourceName} 上已取消对 @{0} 的隐藏。"
 msgid "If a suspendable code is included, the token maybe neither be bought nor sold (honeypot risk)."
 msgstr "如果包含可中止的代码，那么通证可能既不能被购买也不会被出售（欺诈风险）。"
 
+msgid "All chains"
+msgstr ""
+
 msgid "Display Name should not exceed {maxDisplayNameSize} characters"
 msgstr "显示名称不可以超过 {maxDisplayNameSize} 个字"
 
@@ -2900,9 +2903,6 @@ msgstr "白名单功能已启用。有些地址可能无法正常交易（欺诈
 
 msgid "Mirror now to get 25% referral fee!"
 msgstr "立即转帖以获得 25% 的推荐佣金！"
-
-msgid "Hide tokens with small balances"
-msgstr "隐藏小额通证"
 
 msgid "Failed to connect to Firefly."
 msgstr "未能链接 Firefly"
@@ -2975,9 +2975,6 @@ msgstr ""
 
 msgid "Unmute"
 msgstr "取消隐藏"
-
-msgid "No available token"
-msgstr "没有适合的代币"
 
 msgid "Firefly Bridge"
 msgstr "Firefly 桥"

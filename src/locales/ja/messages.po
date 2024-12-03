@@ -1269,6 +1269,9 @@ msgstr ""
 msgid "Share in a Post"
 msgstr ""
 
+msgid "Search by name or symbol"
+msgstr ""
+
 msgid "Forbidden. Please check your permissions."
 msgstr ""
 
@@ -1558,9 +1561,6 @@ msgid "Phishing activities."
 msgstr ""
 
 msgid "Telemetry"
-msgstr ""
-
-msgid "Show more tokens with small balances"
 msgstr ""
 
 msgid "Requirements"
@@ -2859,6 +2859,9 @@ msgstr ""
 msgid "If a suspendable code is included, the token maybe neither be bought nor sold (honeypot risk)."
 msgstr ""
 
+msgid "All chains"
+msgstr ""
+
 msgid "Display Name should not exceed {maxDisplayNameSize} characters"
 msgstr ""
 
@@ -2899,9 +2902,6 @@ msgid "The whitelist function is included. Some addresses may not be able to tra
 msgstr ""
 
 msgid "Mirror now to get 25% referral fee!"
-msgstr ""
-
-msgid "Hide tokens with small balances"
 msgstr ""
 
 msgid "Failed to connect to Firefly."
@@ -2974,9 +2974,6 @@ msgid "Number of Winners"
 msgstr ""
 
 msgid "Unmute"
-msgstr ""
-
-msgid "No available token"
 msgstr ""
 
 msgid "Firefly Bridge"
