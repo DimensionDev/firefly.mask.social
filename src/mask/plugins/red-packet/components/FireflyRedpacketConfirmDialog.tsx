@@ -1,3 +1,4 @@
+'use client';
 import { t, Trans } from '@lingui/macro';
 import { Alert, FormattedBalance, FormattedCurrency, TokenIcon } from '@masknet/shared';
 import { EMPTY_LIST, NetworkPluginID } from '@masknet/shared-base';
@@ -11,7 +12,7 @@ import { useMemo, useState } from 'react';
 import { useAsync, useStateList } from 'react-use';
 
 import { Image } from '@/esm/Image.js';
-import { ActionButton, Icons, ShadowRootTooltip, usePortalShadowRoot } from '@/mask/bindings/components.js';
+import { ActionButton, Icons, ShadowRootTooltip } from '@/mask/bindings/components.js';
 import { makeStyles } from '@/mask/bindings/index.js';
 import {
     REQUIREMENT_ICON_MAP,
@@ -26,6 +27,7 @@ import {
 } from '@/mask/plugins/red-packet/types.js';
 import { FireflyRedPacket } from '@/providers/red-packet/index.js';
 import { FireflyRedPacketAPI, type RedPacketJSONPayload } from '@/providers/red-packet/types.js';
+import { classNames } from '@/helpers/classNames.js';
 
 const useStyles = makeStyles()((theme) => ({
     container: {
@@ -296,12 +298,13 @@ export function FireflyRedpacketConfirmDialog({
         currentAccount,
     );
 
-    const popover = usePortalShadowRoot((container) => (
+    if (!settings) return null;
+
+    const popover = (
         <Popover
             open={!!anchorEl}
             onClose={() => setAnchorEl(null)}
             anchorEl={anchorEl}
-            container={container}
             disableScrollLock
             disableRestoreFocus
             anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}
@@ -329,9 +332,7 @@ export function FireflyRedpacketConfirmDialog({
                 );
             })}
         </Popover>
-    ));
-
-    if (!settings) return null;
+    );
 
     return (
         <>
@@ -427,17 +428,14 @@ export function FireflyRedpacketConfirmDialog({
 
                     {state ? (
                         <Box py={2} display="flex" justifyContent="center">
-                            <Image
-                                alt={state.themeId}
-                                key={state.themeId}
-                                style={{
-                                    width: 288,
-                                    height: 202,
-                                    borderRadius: 16,
-                                    display: imageLoading || fetchUrlsLoading ? 'none' : 'block',
-                                }}
-                                src={state.url}
-                            />
+                            <div
+                                className={classNames(
+                                    'relative h-[202px] w-[288px] overflow-hidden rounded-2xl',
+                                    imageLoading || fetchUrlsLoading ? 'hidden' : '',
+                                )}
+                            >
+                                <Image alt={state.themeId} key={state.themeId} fill unoptimized src={state.url} />
+                            </div>
                             {imageLoading || fetchUrlsLoading ? (
                                 <Skeleton style={{ width: 288, height: 202 }} variant="rounded" />
                             ) : null}
@@ -466,7 +464,7 @@ export function FireflyRedpacketConfirmDialog({
                         </Typography>
                         <Typography className={classes.tips} sx={{ color: theme.palette.maskColor.danger, mt: 1.2 }}>
                             <Trans>
-                                By clicking \&quot;Next\&quot;, you acknowledge the risk associated with decentralized
+                                By clicking &quot;Next&quot;, you acknowledge the risk associated with decentralized
                                 networks and beta products.
                             </Trans>
                         </Typography>

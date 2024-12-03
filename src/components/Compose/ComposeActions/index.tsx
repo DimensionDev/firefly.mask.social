@@ -138,8 +138,8 @@ export function ComposeActions(props: ComposeActionsProps) {
                         className={classNames(
                             'hidden h-6 items-center gap-x-2 rounded-[32px] border border-foreground px-3 py-1 md:flex',
                             {
-                                'opacity-50': loading || mediaDisabled,
-                                'cursor-not-allowed': mediaDisabled,
+                                'cursor-wait opacity-50': loading,
+                                'cursor-not-allowed opacity-50': !loading && mediaDisabled,
                                 'cursor-pointer': !mediaDisabled,
                             },
                         )}
