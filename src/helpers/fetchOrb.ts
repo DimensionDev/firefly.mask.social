@@ -10,9 +10,6 @@ export function fetchOrb<T = unknown>(
     init?: RequestInit,
     options?: NextFetchersOptions,
 ): Promise<T> {
-    if (!env.external.NEXT_PUBLIC_ORB_CLUB_API_TOKEN) {
-        throw new Error('Missing orb club API token');
-    }
     return fetchJSON(
         typeof input === 'string' && !input.startsWith('http') ? urlcat(ORB_CLUB_URL, input) : input,
         {

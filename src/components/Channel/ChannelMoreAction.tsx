@@ -56,7 +56,7 @@ export const ChannelMoreAction = memo<MoreProps>(function ChannelMoreAction({ ch
                 <MenuItem>
                     {({ close }) => (
                         <MenuButton
-                            onClick={async () => {
+                            onClick={() => {
                                 close();
                                 handleCopy();
                             }}
