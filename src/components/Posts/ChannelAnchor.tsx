@@ -1,6 +1,6 @@
 'use client';
 
-import { useSuspenseQuery } from '@tanstack/react-query';
+import { useQuery } from '@tanstack/react-query';
 import { type HTMLProps, memo } from 'react';
 
 import { Avatar } from '@/components/Avatar.js';
@@ -23,7 +23,7 @@ export const ChannelAnchor = memo<ChannelAnchorProps>(function ChannelAnchor({
     ...rest
 }) {
     const { id, source } = unresolvedChannel;
-    const { data: channel } = useSuspenseQuery({
+    const { data: channel } = useQuery({
         queryKey: ['channel', source, id],
         queryFn: () => {
             if (!unresolvedChannel.__lazy__) {

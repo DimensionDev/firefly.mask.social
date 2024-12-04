@@ -2,12 +2,10 @@
 
 import { PlusIcon } from '@heroicons/react/24/outline';
 import { Trans } from '@lingui/macro';
-import { usePathname } from 'next/navigation.js';
 
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { Tooltip } from '@/components/Tooltip.js';
-import { isRoutePathname } from '@/helpers/isRoutePathname.js';
-import { getCurrentVisitingChannel } from '@/hooks/useCurrentVisitingChannel.js';
+import { useCurrentVisitingChannel } from '@/hooks/useCurrentVisitingChannel.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
 import { useMounted } from '@/hooks/useMounted.js';
 import { ComposeModalRef } from '@/modals/controls.js';
@@ -19,8 +17,7 @@ interface PostProps {
 export function Post({ collapsed = false }: PostProps) {
     const mounted = useMounted();
     const isLogin = useIsLogin();
-    const pathname = usePathname();
-    const isChannelPage = isRoutePathname(pathname, '/channel/:name/:type');
+    const currentChannel = useCurrentVisitingChannel();
 
     if (!mounted) return null;
 
@@ -33,7 +30,7 @@ export function Post({ collapsed = false }: PostProps) {
                         onClick={() =>
                             ComposeModalRef.open({
                                 type: 'compose',
-                                channel: isChannelPage ? getCurrentVisitingChannel() : undefined,
+                                channel: currentChannel,
                             })
                         }
                     >
@@ -48,7 +45,7 @@ export function Post({ collapsed = false }: PostProps) {
                     onClick={() => {
                         ComposeModalRef.open({
                             type: 'compose',
-                            channel: isChannelPage ? getCurrentVisitingChannel() : undefined,
+                            channel: currentChannel,
                         });
                     }}
                 >
