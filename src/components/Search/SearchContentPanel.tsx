@@ -11,9 +11,10 @@ import { classNames } from '@/helpers/classNames.js';
 interface FilterPopoverProps<F> {
     defaultFilter: string;
     data: F[];
-    selected: number;
+    selected?: F;
     popoverClassName?: string;
-    onSelected: (index: number) => void;
+    isSelected?: (item: F, current: F) => boolean;
+    onSelected: (item?: F) => void;
     itemRenderer: (item: F, isTag?: boolean) => ReactNode;
 }
 
@@ -35,18 +36,27 @@ function FilterPopover<F>({
     data,
     selected,
     popoverClassName,
+    isSelected,
     onSelected,
     itemRenderer,
 }: FilterPopoverProps<F>) {
+    useEffect(() => {
+        if (selected && data) {
+            const index = data.findIndex((item) => isSelected?.(item, selected));
+            // data changed, but selected item is not in the list, so reset selected
+            if (index === -1) onSelected();
+        }
+    }, [selected, data, isSelected, onSelected]);
+
     const optionRenderer = (item: F, index: number, onClose: () => void) => (
         <div
             key={index}
             onClick={() => {
-                onSelected(index);
+                onSelected(index === -1 ? undefined : item);
                 onClose();
             }}
             className={classNames('cursor-pointer px-3 py-1 text-left text-xs text-main hover:bg-lightBg', {
-                'opacity-50': index === selected,
+                'opacity-50': selected ? (isSelected?.(item, selected) ?? false) : index === -1,
             })}
         >
             {index === -1 ? defaultFilter : itemRenderer(item)}
@@ -58,7 +68,7 @@ function FilterPopover<F>({
             {({ open, close }) => (
                 <>
                     <PopoverButton className="flex h-9 cursor-pointer items-center gap-1 rounded-lg border border-lightLineSecond px-2 text-xs text-main focus:outline-none disabled:cursor-default">
-                        {selected !== -1 ? itemRenderer?.(data[selected], true) : defaultFilter}
+                        {selected ? itemRenderer?.(selected, true) : defaultFilter}
                         <LineArrowUp
                             className={classNames('h-3 w-3 transition-all duration-200 ease-in-out', {
                                 'rotate-180': !open,
@@ -103,7 +113,7 @@ export function SearchContentPanel<T, F, O = unknown>({
     listKey,
     isSelected,
 }: PropsWithChildren<SearchContentPanelProps<T, F, O>>) {
-    const [filterIndex, setFilterIndex] = useState<number>(-1);
+    const [selectedFilter, setSelectedFilter] = useState<F>();
     const [searchText, setSearchText] = useState('');
     const listRef = useRef<HTMLDivElement>(null);
 
@@ -111,8 +121,8 @@ export function SearchContentPanel<T, F, O = unknown>({
 
     const { value, loading } = useAsync(async () => {
         if (isLoading) return [];
-        return await onSearch(debouncedSearch, filterProps.data[filterIndex], otherParams);
-    }, [debouncedSearch, filterIndex, isLoading, otherParams]);
+        return await onSearch(debouncedSearch, selectedFilter, otherParams);
+    }, [debouncedSearch, selectedFilter, isLoading, otherParams]);
 
     const selectedIndex = value?.findIndex((item) => isSelected?.(item)) ?? -1;
 
@@ -125,10 +135,10 @@ export function SearchContentPanel<T, F, O = unknown>({
     }, [value, selectedIndex]);
 
     return (
-        <div className="h-full w-full">
+        <div className="flex h-full w-full flex-col">
             <div className="flex items-center gap-2.5">
                 {showFilter ? (
-                    <FilterPopover {...filterProps} selected={filterIndex} onSelected={setFilterIndex} />
+                    <FilterPopover {...filterProps} selected={selectedFilter} onSelected={setSelectedFilter} />
                 ) : null}
                 <div className="flex-1 rounded-lg !bg-lightBg">
                     <SearchInput
@@ -140,7 +150,7 @@ export function SearchContentPanel<T, F, O = unknown>({
                     />
                 </div>
             </div>
-            <div ref={listRef} className="no-scrollbar mt-2 h-[calc(100%_-_44px)] overflow-y-auto">
+            <div ref={listRef} className="no-scrollbar mt-2 min-h-0 flex-1 overflow-y-auto">
                 {loading || isLoading ? (
                     <div className="flex h-full items-center justify-center">
                         <LoadingIcon className="animate-spin" width={24} height={24} />

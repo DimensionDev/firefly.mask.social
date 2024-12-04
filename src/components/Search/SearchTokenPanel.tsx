@@ -80,6 +80,7 @@ export const SearchTokenPanel = memo<SearchTokenPanelProps>(function SearchToken
                 data: chainIds,
                 popoverClassName: 'w-[150px]',
                 itemRenderer: (chainId, isTag) => getChainItem(chainId, isTag),
+                isSelected: (item, current) => item === current,
             }}
             onSearch={onSearch}
             itemRenderer={(token) => getTokenItem(token)}
