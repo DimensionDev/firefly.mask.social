@@ -1280,6 +1280,9 @@ msgstr ""
 msgid "Share in a Post"
 msgstr ""
 
+msgid "Search by name or symbol"
+msgstr ""
+
 msgid "Forbidden. Please check your permissions."
 msgstr ""
 
@@ -2884,6 +2887,9 @@ msgstr ""
 msgid "If a suspendable code is included, the token maybe neither be bought nor sold (honeypot risk)."
 msgstr ""
 
+msgid "All chains"
+msgstr ""
+
 msgid "Display Name should not exceed {maxDisplayNameSize} characters"
 msgstr ""
 
@@ -2996,9 +3002,6 @@ msgid "Number of Winners"
 msgstr ""
 
 msgid "Unmute"
-msgstr ""
-
-msgid "No available token"
 msgstr ""
 
 msgid "Firefly Bridge"

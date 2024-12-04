@@ -1277,6 +1277,9 @@ msgstr "Claim Premium"
 msgid "Share in a Post"
 msgstr "Share in a Post"
 
+msgid "Search by name or symbol"
+msgstr "Search by name or symbol"
+
 msgid "Forbidden. Please check your permissions."
 msgstr "Forbidden. Please check your permissions."
 
@@ -2883,6 +2886,9 @@ msgstr "Unmuted @{0} on {sourceName}."
 msgid "If a suspendable code is included, the token maybe neither be bought nor sold (honeypot risk)."
 msgstr "If a suspendable code is included, the token maybe neither be bought nor sold (honeypot risk)."
 
+msgid "All chains"
+msgstr "All chains"
+
 msgid "Display Name should not exceed {maxDisplayNameSize} characters"
 msgstr "Display Name should not exceed {maxDisplayNameSize} characters"
 
@@ -2996,9 +3002,6 @@ msgstr "Number of Winners"
 
 msgid "Unmute"
 msgstr "Unmute"
-
-msgid "No available token"
-msgstr "No available token"
 
 msgid "Firefly Bridge"
 msgstr "Firefly Bridge"

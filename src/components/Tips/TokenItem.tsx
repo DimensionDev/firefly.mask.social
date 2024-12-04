@@ -1,9 +1,6 @@
 import { ClickableButton } from '@/components/ClickableButton.js';
-import { router, TipsRoutePath } from '@/components/Tips/TipsModalRouter.js';
 import { TokenIcon } from '@/components/Tips/TokenIcon.js';
-import { classNames } from '@/helpers/classNames.js';
 import { multipliedBy } from '@/helpers/number.js';
-import { TipsContext } from '@/hooks/useTipsContext.js';
 import type { Token } from '@/providers/types/Transfer.js';
 
 interface TokenItemProps {
@@ -11,23 +8,13 @@ interface TokenItemProps {
 }
 
 export function TokenItem({ token }: TokenItemProps) {
-    const { token: selectedToken, update } = TipsContext.useContainer();
-
-    const handleSelectToken = async (token: Token) => {
-        update((prev) => ({ ...prev, token, amount: token.id !== selectedToken?.id ? '' : prev.amount }));
-        router.navigate({ to: TipsRoutePath.TIPS, replace: true });
-    };
-
     const usdtValue = +multipliedBy(token.price, token.amount).toFixed(2);
 
     return (
         <ClickableButton
             key={token.id}
-            className={classNames(
-                'flex w-full items-center justify-between rounded-lg px-3 py-2 font-bold text-lightMain hover:bg-lightBg',
-                token.id === selectedToken?.id ? 'opacity-50' : '',
-            )}
-            onClick={() => handleSelectToken(token)}
+            className="flex w-full items-center justify-between rounded-lg px-3 py-2 font-bold text-lightMain"
+            enablePropagate
         >
             <div className="flex items-center gap-x-2.5">
                 <TokenIcon token={token} />
