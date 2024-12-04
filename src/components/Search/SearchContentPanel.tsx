@@ -1,5 +1,5 @@
 import { Popover, PopoverButton, PopoverPanel, Transition } from '@headlessui/react';
-import { Fragment, type ReactNode, useEffect, useRef, useState } from 'react';
+import { Fragment, type PropsWithChildren, type ReactNode, useEffect, useRef, useState } from 'react';
 import { useAsync } from 'react-use';
 import { useDebounce } from 'usehooks-ts';
 
@@ -17,12 +17,13 @@ interface FilterPopoverProps<F> {
     itemRenderer: (item: F, isTag?: boolean) => ReactNode;
 }
 
-interface SearchContentPanelProps<T, F = never> {
+interface SearchContentPanelProps<T, F = never, O = unknown> {
     showFilter?: boolean;
     isLoading?: boolean;
     placeholder?: string;
     filterProps: Omit<FilterPopoverProps<F>, 'onSelected' | 'selected'>;
-    onSearch: (searchText: string, filterData?: F) => Promise<T[]>;
+    otherParams?: O;
+    onSearch: (searchText: string, filterData?: F, otherParams?: O) => Promise<T[]>;
     itemRenderer?: (item: T) => ReactNode;
     onSelected?: (selected: T) => void;
     listKey?: (item: T) => string;
@@ -89,17 +90,19 @@ function FilterPopover<F>({
     );
 }
 
-export function SearchContentPanel<T, F>({
+export function SearchContentPanel<T, F, O = unknown>({
     showFilter = true,
     isLoading,
     filterProps,
     placeholder,
+    otherParams,
+    children,
     itemRenderer,
     onSearch,
     onSelected,
     listKey,
     isSelected,
-}: SearchContentPanelProps<T, F>) {
+}: PropsWithChildren<SearchContentPanelProps<T, F, O>>) {
     const [filterIndex, setFilterIndex] = useState<number>(-1);
     const [searchText, setSearchText] = useState('');
     const listRef = useRef<HTMLDivElement>(null);
@@ -108,8 +111,8 @@ export function SearchContentPanel<T, F>({
 
     const { value, loading } = useAsync(async () => {
         if (isLoading) return [];
-        return await onSearch(debouncedSearch, filterProps.data[filterIndex]);
-    }, [debouncedSearch, filterIndex, isLoading]);
+        return await onSearch(debouncedSearch, filterProps.data[filterIndex], otherParams);
+    }, [debouncedSearch, filterIndex, isLoading, otherParams]);
 
     const selectedIndex = value?.findIndex((item) => isSelected?.(item)) ?? -1;
 
@@ -156,6 +159,7 @@ export function SearchContentPanel<T, F>({
                           </div>
                       ))
                     : null}
+                {children}
             </div>
         </div>
     );

@@ -60,7 +60,7 @@ const useStyles = makeStyles<{ scrollY: boolean; isDim: boolean }>()((theme, { i
             background: 'transparent !important',
             color: `${theme.palette.maskColor.third} !important`,
         },
-        diloagRoot: {
+        dialogRoot: {
             zIndex: 45,
         },
     };
@@ -275,7 +275,7 @@ export default function RedPacketDialog(props: RedPacketDialogProps) {
     return (
         <TabContext value={showHistory ? currentHistoryTab : ''}>
             <InjectedDialog
-                classes={{ root: classes.diloagRoot }}
+                classes={{ root: classes.dialogRoot }}
                 isOpenFromApplicationBoard={props.isOpenFromApplicationBoard}
                 open={props.open}
                 title={title}

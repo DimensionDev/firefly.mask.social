@@ -4,7 +4,7 @@ import { forwardRef, useState } from 'react';
 
 import LeftArrowIcon from '@/assets/left-arrow.svg';
 import { Modal } from '@/components/Modal.js';
-import { SearchTipsTokenPanel } from '@/components/Search/SearchTipsTokenPanel.js';
+import { SearchTokenPanel } from '@/components/Search/SearchTokenPanel.js';
 import { useSingletonModal } from '@/hooks/useSingletonModal.js';
 import type { SingletonModalRefCreator } from '@/libs/SingletonModal.js';
 import type { Token } from '@/providers/types/Transfer.js';
@@ -47,7 +47,7 @@ export const TokenSelectorModal = forwardRef<
                     </span>
                 </DialogTitle>
                 <div className="h-[calc(100%_-_56px)]">
-                    <SearchTipsTokenPanel
+                    <SearchTokenPanel
                         address={props.address}
                         isSelected={props.isSelected}
                         onSelected={(token) => dispatch?.close(token)}
