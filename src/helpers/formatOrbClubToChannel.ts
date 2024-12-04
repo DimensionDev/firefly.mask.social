@@ -14,6 +14,7 @@ export function formatOrbClubToChannel(club: Club): Channel {
         followerCount: club.totalMembers,
         timestamp: 0,
         isMember: club.isMember,
+        canJoin: club.isFreeToJoin,
         __original__: club,
     };
 }

@@ -81,7 +81,7 @@ export const ChannelMoreAction = memo<MoreProps>(function ChannelMoreAction({ ch
                                 )}
                             </MenuItem>
                         ) : null}
-                        {channel.source === Source.Lens && data ? (
+                        {channel.source === Source.Lens && data?.canJoin ? (
                             <MenuItem>{({ close }) => <ToggleJoinChannel channel={data} onClick={close} />}</MenuItem>
                         ) : null}
                     </>

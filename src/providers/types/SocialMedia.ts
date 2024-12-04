@@ -357,6 +357,7 @@ export interface Channel {
     blocked?: boolean;
     // joined or followed by the current user
     isMember?: boolean;
+    canJoin?: boolean;
     __original__?: unknown;
     // lazy load channel for Lens
     __lazy__?: boolean;
