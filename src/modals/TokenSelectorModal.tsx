@@ -31,12 +31,12 @@ export const TokenSelectorModal = forwardRef<
 
     return (
         <Modal
-            modalClassName="z-[99999]"
             open={open}
             disableBackdropClose={props.disableBackdropClose}
             onClose={() => dispatch?.close(null)}
+            modalClassName="z-50"
         >
-            <div className="z-40 h-[70vh] w-4/5 rounded-md bg-lightBottom p-4 pt-0 text-medium text-lightMain shadow-popover transition-all dark:bg-darkBottom md:h-[620px] md:w-[600px] md:rounded-xl">
+            <div className="z-50 h-[70vh] w-4/5 rounded-md bg-lightBottom p-4 pt-0 text-medium text-lightMain shadow-popover transition-all dark:bg-darkBottom md:h-[620px] md:w-[600px] md:rounded-xl">
                 <DialogTitle as="h3" className="relative h-14 shrink-0 pt-safe">
                     <LeftArrowIcon
                         onClick={() => dispatch?.close(null)}

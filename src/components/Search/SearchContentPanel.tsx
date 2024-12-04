@@ -1,5 +1,5 @@
 import { Popover, PopoverButton, PopoverPanel, Transition } from '@headlessui/react';
-import { Fragment, type ReactNode, useState } from 'react';
+import { Fragment, type ReactNode, useEffect, useRef, useState } from 'react';
 import { useAsync } from 'react-use';
 import { useDebounce } from 'usehooks-ts';
 
@@ -102,6 +102,7 @@ export function SearchContentPanel<T, F>({
 }: SearchContentPanelProps<T, F>) {
     const [filterIndex, setFilterIndex] = useState<number>(-1);
     const [searchText, setSearchText] = useState('');
+    const listRef = useRef<HTMLDivElement>(null);
 
     const debouncedSearch = useDebounce(searchText, 300);
 
@@ -109,6 +110,16 @@ export function SearchContentPanel<T, F>({
         if (isLoading) return [];
         return await onSearch(debouncedSearch, filterProps.data[filterIndex]);
     }, [debouncedSearch, filterIndex, isLoading]);
+
+    const selectedIndex = value?.findIndex((item) => isSelected?.(item)) ?? -1;
+
+    useEffect(() => {
+        // Scroll to the first selected item
+        if (selectedIndex >= 0 && listRef.current) {
+            const selectedEl = listRef.current.children[selectedIndex];
+            selectedEl?.scrollIntoView({ block: 'center' });
+        }
+    }, [value, selectedIndex]);
 
     return (
         <div className="h-full w-full">
@@ -126,7 +137,7 @@ export function SearchContentPanel<T, F>({
                     />
                 </div>
             </div>
-            <div className="no-scrollbar mt-2 h-[calc(100%_-_44px)] overflow-y-auto">
+            <div ref={listRef} className="no-scrollbar mt-2 h-[calc(100%_-_44px)] overflow-y-auto">
                 {loading || isLoading ? (
                     <div className="flex h-full items-center justify-center">
                         <LoadingIcon className="animate-spin" width={24} height={24} />
