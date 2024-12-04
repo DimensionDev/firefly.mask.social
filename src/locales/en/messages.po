@@ -1558,6 +1558,9 @@ msgstr "Phishing activities."
 msgid "Telemetry"
 msgstr "Telemetry"
 
+msgid "Show more tokens with small balances"
+msgstr "Show more tokens with small balances"
+
 msgid "Requirements"
 msgstr "Requirements"
 
@@ -2898,6 +2901,9 @@ msgstr "The whitelist function is included. Some addresses may not be able to tr
 
 msgid "Mirror now to get 25% referral fee!"
 msgstr "Mirror now to get 25% referral fee!"
+
+msgid "Hide tokens with small balances"
+msgstr "Hide tokens with small balances"
 
 msgid "Failed to connect to Firefly."
 msgstr "Failed to connect to Firefly."

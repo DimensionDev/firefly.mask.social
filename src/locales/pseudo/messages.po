@@ -1558,6 +1558,9 @@ msgstr ""
 msgid "Telemetry"
 msgstr ""
 
+msgid "Show more tokens with small balances"
+msgstr ""
+
 msgid "Requirements"
 msgstr ""
 
@@ -2897,6 +2900,9 @@ msgid "The whitelist function is included. Some addresses may not be able to tra
 msgstr ""
 
 msgid "Mirror now to get 25% referral fee!"
+msgstr ""
+
+msgid "Hide tokens with small balances"
 msgstr ""
 
 msgid "Failed to connect to Firefly."

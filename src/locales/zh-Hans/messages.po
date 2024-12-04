@@ -1563,6 +1563,9 @@ msgstr "钓鱼活动。"
 msgid "Telemetry"
 msgstr "遥测"
 
+msgid "Show more tokens with small balances"
+msgstr ""
+
 msgid "Requirements"
 msgstr ""
 
@@ -2903,6 +2906,9 @@ msgstr "白名单功能已启用。有些地址可能无法正常交易（欺诈
 
 msgid "Mirror now to get 25% referral fee!"
 msgstr "立即转帖以获得 25% 的推荐佣金！"
+
+msgid "Hide tokens with small balances"
+msgstr ""
 
 msgid "Failed to connect to Firefly."
 msgstr "未能链接 Firefly"
