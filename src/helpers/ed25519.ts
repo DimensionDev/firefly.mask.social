@@ -1,6 +1,6 @@
 import { NobleEd25519Signer } from '@farcaster/core';
 import { bytesToHex } from '@noble/hashes/utils';
-import { toBytes, type Hex } from 'viem';
+import { type Hex,toBytes } from 'viem';
 
 import type { FarcasterSession } from '@/providers/farcaster/Session.js';
 

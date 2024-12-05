@@ -1,7 +1,8 @@
+import type { Hex } from 'viem';
+
 import { parseJSON } from '@/helpers/parseJSON.js';
 import type { Cast } from '@/providers/types/Warpcast.js';
 import { type FarcasterPayload, type MirrorPayload, PayloadType } from '@/types/og.js';
-import type { Hex } from 'viem';
 
 interface Payload {
     props: {

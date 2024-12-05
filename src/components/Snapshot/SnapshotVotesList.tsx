@@ -2,6 +2,7 @@ import { ChainId } from '@masknet/web3-shared-evm';
 import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
 import { memo, useCallback, useMemo, useRef } from 'react';
 import urlcat from 'urlcat';
+import type { Hex } from 'viem';
 import { useEnsName } from 'wagmi';
 
 import { Avatar } from '@/components/Avatar.js';
@@ -20,7 +21,6 @@ import { createIndicator } from '@/helpers/pageable.js';
 import { sanitizeDStorageUrl } from '@/helpers/sanitizeDStorageUrl.js';
 import { Snapshot } from '@/providers/snapshot/index.js';
 import type { SnapshotVote } from '@/providers/snapshot/type.js';
-import type { Hex } from 'viem';
 
 interface SnapshotVotesListItemProps {
     vote: SnapshotVote;

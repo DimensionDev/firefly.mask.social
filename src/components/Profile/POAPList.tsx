@@ -6,6 +6,7 @@ import { ChainId, SchemaType } from '@masknet/web3-shared-evm';
 import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
 import { forwardRef } from 'react';
 import type { GridItemProps, GridListProps } from 'react-virtuoso';
+import type { Hex } from 'viem';
 import { useEnsName } from 'wagmi';
 
 import PoapIcon from '@/assets/poap.svg';
@@ -22,7 +23,6 @@ import { createIndicator } from '@/helpers/pageable.js';
 import { resolveNftUrl } from '@/helpers/resolveNftUrl.js';
 import { resolveProfileUrl } from '@/helpers/resolveProfileUrl.js';
 import { resolveWalletProfileProvider } from '@/helpers/resolveWalletProfileProvider.js';
-import type { Hex } from 'viem';
 
 const GridList = forwardRef<HTMLDivElement, GridListProps>(function GridList({ className, children, ...props }, ref) {
     return (

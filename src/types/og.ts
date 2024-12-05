@@ -1,6 +1,7 @@
+import type { Hex } from 'viem';
+
 import type { SocialSourceInURL } from '@/constants/enum.js';
 import type { Cast } from '@/providers/types/Warpcast.js';
-import type { Hex } from 'viem';
 
 export interface OpenGraphImage {
     url: string;

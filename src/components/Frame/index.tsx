@@ -5,7 +5,7 @@ import { getAccount } from '@wagmi/core';
 import { memo, type ReactNode, useEffect, useState } from 'react';
 import { useAsyncFn } from 'react-use';
 import urlcat from 'urlcat';
-import { encodePacked, isAddress, type Hex, type SignTypedDataParameters } from 'viem';
+import { encodePacked, type Hex, isAddress, type SignTypedDataParameters } from 'viem';
 import { z } from 'zod';
 
 import { Card } from '@/components/Frame/Card.js';

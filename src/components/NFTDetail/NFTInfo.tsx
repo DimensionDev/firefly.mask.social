@@ -3,6 +3,7 @@
 import { t, Trans } from '@lingui/macro';
 import { ChainId } from '@masknet/web3-shared-evm';
 import { type ReactNode, useMemo } from 'react';
+import type { Hex } from 'viem';
 import { useEnsName } from 'wagmi';
 
 import LinkIcon from '@/assets/link-square.svg';
@@ -19,7 +20,6 @@ import { classNames } from '@/helpers/classNames.js';
 import { formatAddress } from '@/helpers/formatAddress.js';
 import { resolveNftUrl, resolveNftUrlByCollection } from '@/helpers/resolveNftUrl.js';
 import { resolveProfileUrl } from '@/helpers/resolveProfileUrl.js';
-import type { Hex } from 'viem';
 
 interface NFTInfoProps {
     ownerAddress?: string;

@@ -6,6 +6,7 @@ import { isArray, isEqual, isNumber, isObject, isUndefined, sum, values } from '
 import { useCallback, useMemo, useState } from 'react';
 import { useAsyncFn } from 'react-use';
 import urlcat from 'urlcat';
+import type { Hex } from 'viem';
 import { useAccount, useEnsName } from 'wagmi';
 
 import SnapshotIcon from '@/assets/snapshot.svg';
@@ -34,7 +35,6 @@ import { stopPropagation } from '@/helpers/stopEvent.js';
 import { ComposeModalRef, ConfirmModalRef } from '@/modals/controls.js';
 import { Snapshot } from '@/providers/snapshot/index.js';
 import type { SnapshotActivity, SnapshotChoice, SnapshotProposal } from '@/providers/snapshot/type.js';
-import type { Hex } from 'viem';
 
 interface Props {
     activity?: SnapshotActivity;

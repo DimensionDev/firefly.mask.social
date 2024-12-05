@@ -1,11 +1,11 @@
 import dayjs from 'dayjs';
 import { NextRequest } from 'next/server.js';
+import type { Hex } from 'viem';
 import { mnemonicToAccount } from 'viem/accounts';
 
 import { env } from '@/constants/env.js';
 import { createSuccessResponseJSON } from '@/helpers/createResponseJSON.js';
 import { HexStringSchema } from '@/schemas/index.js';
-import type { Hex } from 'viem';
 
 const SIGNED_KEY_REQUEST_VALIDATOR_EIP_712_DOMAIN = {
     name: 'Farcaster SignedKeyRequestValidator',

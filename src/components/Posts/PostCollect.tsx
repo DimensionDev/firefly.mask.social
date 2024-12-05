@@ -7,6 +7,7 @@ import { StatusCodes } from 'http-status-codes';
 import { compact, first } from 'lodash-es';
 import { useMemo } from 'react';
 import { useAsyncFn } from 'react-use';
+import type { Hex } from 'viem';
 import { polygon } from 'viem/chains';
 import { useAccount, useBalance } from 'wagmi';
 
@@ -38,7 +39,6 @@ import { DraggablePopoverRef, LoginModalRef, SuperFollowModalRef } from '@/modal
 import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 import { getProfileById } from '@/services/getProfileById.js';
-import type { Hex } from 'viem';
 
 function formatTimeLeft(endTime: string) {
     const timeLeft = getTimeLeft(endTime);

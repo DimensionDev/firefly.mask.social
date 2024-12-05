@@ -1,6 +1,7 @@
 'use client';
 
 import { memo } from 'react';
+import type { Hex } from 'viem';
 import { useEnsAvatar, useEnsName } from 'wagmi';
 import { mainnet } from 'wagmi/chains';
 
@@ -12,7 +13,6 @@ import { Link } from '@/esm/Link.js';
 import { formatEthereumAddress } from '@/helpers/formatAddress.js';
 import { isSelfReference } from '@/helpers/isLinkMatchingHost.js';
 import { stopPropagation } from '@/helpers/stopEvent.js';
-import type { Hex } from 'viem';
 
 interface MirrorProps {
     address?: Hex;
