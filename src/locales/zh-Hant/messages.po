@@ -1439,6 +1439,9 @@ msgstr "所有錢包和帳戶都已靜音"
 msgid "Disconnected from your social graph"
 msgstr "從你的社交圖譜中取消連結"
 
+msgid "Failed to upload."
+msgstr ""
+
 msgid "{attentionFactors, plural, one {# Attention item} other {# Attention items}}"
 msgstr ""
 

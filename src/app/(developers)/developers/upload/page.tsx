@@ -13,9 +13,9 @@ import { IS_PRODUCTION } from '@/constants/index.js';
 import { Image } from '@/esm/Image.js';
 import { Link } from '@/esm/Link.js';
 import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
+import { getSnackbarMessageFromError } from '@/helpers/getSnackbarMessageFromError.jsx';
 import { getI18n } from '@/i18n/index.js';
 import { uploadToDirectory } from '@/services/uploadToS3.js';
-import { getSnackbarMessageFromError } from '@/helpers/getSnackbarMessageFromError.jsx';
 
 export default function Page() {
     const i18n = getI18n();

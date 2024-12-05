@@ -1439,6 +1439,9 @@ msgstr "已隐藏所有的钱包和账户。"
 msgid "Disconnected from your social graph"
 msgstr "从您的社交图谱中断开"
 
+msgid "Failed to upload."
+msgstr ""
+
 msgid "{attentionFactors, plural, one {# Attention item} other {# Attention items}}"
 msgstr "{attentionFactors, plural, one {# 风险条目} other {# 风险条目}}"
 
