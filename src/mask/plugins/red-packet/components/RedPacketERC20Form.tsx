@@ -53,6 +53,7 @@ import { type RedPacketSettings, useCreateParams } from '@/mask/plugins/red-pack
 import { useDefaultCreateGas } from '@/mask/plugins/red-packet/hooks/useDefaultCreateGas.js';
 import { TokenSelectorModalRef } from '@/modals/controls.js';
 import type { Token } from '@/providers/types/Transfer.js';
+import { createAccount } from '@/helpers/createAccount.js';
 
 // seconds of 1 day
 const duration = 60 * 60 * 24;
@@ -234,7 +235,7 @@ export function RedPacketERC20Form(props: RedPacketFormProps) {
     }, [creatingParams, onChange, onNext]);
 
     // #region gas
-    const { account: publicKey } = useMemo(() => EVMWeb3.createAccount(), []);
+    const { account: publicKey } = useMemo(createAccount, []);
     const contract_version = 4;
     const { value: params } = useCreateParams(chainId, creatingParams, contract_version, publicKey);
     // #endregion

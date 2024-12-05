@@ -14,6 +14,7 @@ import { EVMChainResolver, EVMExplorerResolver, EVMWeb3, makeStyles } from '@/ma
 import { type RedPacketSettings } from '@/mask/plugins/red-packet/hooks/useCreateCallback.js';
 import { useCreateFTRedpacketCallback } from '@/mask/plugins/red-packet/hooks/useCreateFTRedpacketCallback.js';
 import type { RedPacketJSONPayload } from '@/providers/red-packet/types.js';
+import { createAccount } from '@/helpers/createAccount.js';
 
 const useStyles = makeStyles()((theme) => ({
     link: {
@@ -74,7 +75,7 @@ export function RedPacketConfirmDialog(props: ConfirmRedPacketFormProps) {
         if (settings?.token?.chainId !== chainId) onClose();
     }, [chainId, onClose, settings?.token?.chainId]);
 
-    const { account: publicKey, privateKey = '' } = useMemo(() => EVMWeb3.createAccount(), []);
+    const { account: publicKey, privateKey = '' } = useMemo(createAccount, []);
 
     const {
         isBalanceInsufficient,

@@ -30,6 +30,8 @@ import { reduceUselessPayloadInfo } from '@/mask/plugins/red-packet/helpers/redu
 import type { RedPacketSettings } from '@/mask/plugins/red-packet/hooks/useCreateCallback.js';
 import type { FireflyContext, FireflyRedpacketSettings } from '@/mask/plugins/red-packet/types.js';
 import type { FireflyRedPacketAPI, RedPacketJSONPayload } from '@/providers/red-packet/types.js';
+import { signMessage } from '@wagmi/core';
+import { config } from '@/configs/wagmiClient.js';
 
 const useStyles = makeStyles<{ scrollY: boolean; isDim: boolean }>()((theme, { isDim, scrollY }) => {
     // it's hard to set dynamic color, since the background color of the button is blended transparent
@@ -146,8 +148,9 @@ export default function RedPacketDialog(props: RedPacketDialogProps) {
                     payload.password = prompt('Please enter the password of the lucky drop:', '') ?? '';
                 } else if (payload.contract_version > 1 && payload.contract_version < 4) {
                     // just sign out the password if it is lost.
-                    payload.password = await EVMWeb3.signMessage('message', keccak256(payload.sender.message as Hex), {
-                        account,
+                    payload.password = await signMessage(config, {
+                        message: keccak256(payload.sender.message as Hex),
+                        account: account as Hex,
                     });
                     payload.password = payload.password.slice(2);
                 }
