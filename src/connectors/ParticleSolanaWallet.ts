@@ -34,8 +34,7 @@ import {
     NotAllowedError,
     ParticleAuthError,
 } from '@/constants/error.js';
-import { enqueueErrorMessage, enqueueWarningMessage } from '@/helpers/enqueueMessage.js';
-import { getSnackbarMessageFromError } from '@/helpers/getSnackbarMessageFromError.js';
+import { enqueueMessageFromError, enqueueWarningMessage } from '@/helpers/enqueueMessage.js';
 import { isValidSolanaAddress } from '@/helpers/isValidSolanaAddress.js';
 import { retry } from '@/helpers/retry.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
@@ -189,9 +188,7 @@ export class ParticleSolanaWalletAdapter extends BaseMessageSignerWalletAdapter 
         } catch (error: unknown) {
             const newError = error instanceof Error ? error : new ParticleAuthError(error);
             this.emit('error', newError as WalletError);
-            enqueueErrorMessage(getSnackbarMessageFromError(newError, t`Failed to connect to Firefly.`), {
-                error: newError,
-            });
+            enqueueMessageFromError(newError, t`Failed to connect to Firefly.`);
             throw newError;
         } finally {
             this._connecting = false;

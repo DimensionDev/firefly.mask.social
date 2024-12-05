@@ -7,6 +7,7 @@ import { WarnSnackbar } from '@/components/WarnSnackbar.js';
 import type { NODE_ENV } from '@/constants/enum.js';
 import { env } from '@/constants/env.js';
 import { getDetailedErrorMessage } from '@/helpers/getDetailedErrorMessage.js';
+import { getErrorMessageFromError, getWarningMessageFromError } from '@/helpers/getSnackbarMessageFromError.jsx';
 import { SnackbarRef } from '@/modals/controls.js';
 
 interface MessageOptions extends OptionsObject {
@@ -49,16 +50,12 @@ function environmentFilter(message: SnackbarMessage, options?: MessageOptions) {
     return options.environment === env.shared.NODE_ENV;
 }
 
-function emptyMessageFilter(message: SnackbarMessage, options?: MessageOptions) {
-    return !!message;
-}
-
 /**
  * Filters for messages that should be displayed in the current environment.
  * A filter returns true means the message should be displayed.
  * A filter returns false means the message should be ignored.
  */
-const MESSAGE_FILTERS = [emptyMessageFilter, versionFilter, environmentFilter];
+const MESSAGE_FILTERS = [versionFilter, environmentFilter];
 
 export function enqueueInfoMessage(message: SnackbarMessage, options?: MessageOptions) {
     if (MESSAGE_FILTERS.some((filter) => !filter(message, options))) return;
@@ -134,4 +131,23 @@ export function enqueueErrorsMessage(message: SnackbarMessage, options?: ErrorsO
             ),
         },
     });
+}
+
+export function enqueueMessageFromError(error: unknown, fallback: string, options?: ErrorOptions) {
+    const options_ = { error, ...options };
+    const warningMessage = getWarningMessageFromError(error);
+
+    if (warningMessage) {
+        enqueueWarningMessage(warningMessage, options_);
+        return;
+    }
+
+    const errorMessage = getErrorMessageFromError(error);
+    if (errorMessage) {
+        enqueueErrorMessage(errorMessage, options_);
+        return;
+    }
+
+    // fallback message
+    enqueueErrorMessage(fallback, options_);
 }

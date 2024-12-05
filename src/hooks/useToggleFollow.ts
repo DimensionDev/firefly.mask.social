@@ -2,8 +2,7 @@ import { t } from '@lingui/macro';
 import { useIsMutating, useMutation } from '@tanstack/react-query';
 
 import { checkFarcasterInvalidSignerKey } from '@/helpers/checkFarcasterInvalidSignerKey.js';
-import { enqueueErrorMessage, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
-import { getSnackbarMessageFromError } from '@/helpers/getSnackbarMessageFromError.js';
+import { enqueueMessageFromError, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
@@ -43,14 +42,11 @@ export function useToggleFollow(profile: Profile) {
                 captureProfileActionEvent(following ? 'unfollow' : 'follow', profile);
                 return result;
             } catch (error) {
-                enqueueErrorMessage(
-                    getSnackbarMessageFromError(
-                        error,
-                        following
-                            ? t`Failed to unfollow @${profile.handle} on ${sourceName}.`
-                            : t`Failed to follow @${profile.handle} on ${sourceName}.`,
-                    ),
-                    { error },
+                enqueueMessageFromError(
+                    error,
+                    following
+                        ? t`Failed to unfollow @${profile.handle} on ${sourceName}.`
+                        : t`Failed to follow @${profile.handle} on ${sourceName}.`,
                 );
 
                 checkFarcasterInvalidSignerKey(error);

@@ -1262,6 +1262,9 @@ msgstr "Send telemetry events in debug mode."
 msgid "The chainId mismatch."
 msgstr "The chainId mismatch."
 
+msgid "Failed to connect on {source}"
+msgstr "Failed to connect on {source}"
+
 msgid "Open in Firefly App"
 msgstr "Open in Firefly App"
 
@@ -1436,6 +1439,9 @@ msgstr "All wallets and accounts are muted."
 msgid "Disconnected from your social graph"
 msgstr "Disconnected from your social graph"
 
+msgid "Failed to upload."
+msgstr "Failed to upload."
+
 msgid "{attentionFactors, plural, one {# Attention item} other {# Attention items}}"
 msgstr "{attentionFactors, plural, one {# Attention item} other {# Attention items}}"
 
@@ -1567,6 +1573,9 @@ msgstr "Email (optional)"
 
 msgid "NFT Contract"
 msgstr "NFT Contract"
+
+msgid "Failed to connect MPC wallet"
+msgstr "Failed to connect MPC wallet"
 
 msgid "Phishing activities."
 msgstr "Phishing activities."

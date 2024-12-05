@@ -1,4 +1,4 @@
-import { Trans } from '@lingui/macro';
+import { t, Trans } from '@lingui/macro';
 import { safeUnreachable } from '@masknet/kit';
 import { signIn } from 'next-auth/react';
 import { useAsyncFn } from 'react-use';
@@ -6,8 +6,7 @@ import { useAsyncFn } from 'react-use';
 import LoadingIcon from '@/assets/loading.svg';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { Source, type ThirdPartySource } from '@/constants/enum.js';
-import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
-import { getSnackbarMessageFromError } from '@/helpers/getSnackbarMessageFromError.js';
+import { enqueueMessageFromError } from '@/helpers/enqueueMessage.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 
 interface Props {
@@ -31,9 +30,7 @@ export function ThirdPartConnectButton({ source }: Props) {
                     safeUnreachable(source);
             }
         } catch (error) {
-            enqueueErrorMessage(getSnackbarMessageFromError(error, `Failed to connect on ${source}`), {
-                error,
-            });
+            enqueueMessageFromError(error, t`Failed to connect on ${source}`);
             throw error;
         }
     }, []);

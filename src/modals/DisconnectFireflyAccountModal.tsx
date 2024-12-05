@@ -12,8 +12,7 @@ import { Modal } from '@/components/Modal.js';
 import type { ThirdPartySource } from '@/constants/enum.js';
 import { SORTED_THIRD_PARTY_SOURCES } from '@/constants/index.js';
 import { classNames } from '@/helpers/classNames.js';
-import { enqueueErrorMessage, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
-import { getSnackbarMessageFromError } from '@/helpers/getSnackbarMessageFromError.js';
+import { enqueueMessageFromError, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { stopEvent } from '@/helpers/stopEvent.js';
 import { useSingletonModal } from '@/hooks/useSingletonModal.js';
 import type { SingletonModalRefCreator } from '@/libs/SingletonModal.js';
@@ -48,9 +47,7 @@ export const DisconnectFireflyAccountModal = forwardRef<SingletonModalRefCreator
 
                 dispatch?.close();
             } catch (error) {
-                enqueueErrorMessage(getSnackbarMessageFromError(error, t`Failed to disconnect.`), {
-                    error,
-                });
+                enqueueMessageFromError(error, t`Failed to disconnect.`);
                 throw error;
             }
         }, [dispatch?.close, account]);

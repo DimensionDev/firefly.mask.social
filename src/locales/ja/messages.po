@@ -1265,6 +1265,9 @@ msgstr ""
 msgid "The chainId mismatch."
 msgstr ""
 
+msgid "Failed to connect on {source}"
+msgstr ""
+
 msgid "Open in Firefly App"
 msgstr ""
 
@@ -1439,6 +1442,9 @@ msgstr ""
 msgid "Disconnected from your social graph"
 msgstr ""
 
+msgid "Failed to upload."
+msgstr ""
+
 msgid "{attentionFactors, plural, one {# Attention item} other {# Attention items}}"
 msgstr ""
 
@@ -1569,6 +1575,9 @@ msgid "Email (optional)"
 msgstr ""
 
 msgid "NFT Contract"
+msgstr ""
+
+msgid "Failed to connect MPC wallet"
 msgstr ""
 
 msgid "Phishing activities."

@@ -9,9 +9,8 @@ import { LoginLens } from '@/components/Login/LoginLens.js';
 import { config } from '@/configs/wagmiClient.js';
 import { Source } from '@/constants/enum.js';
 import { EMPTY_LIST } from '@/constants/index.js';
-import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
+import { enqueueMessageFromError } from '@/helpers/enqueueMessage.js';
 import { getProfileState } from '@/helpers/getProfileState.js';
-import { getSnackbarMessageFromError } from '@/helpers/getSnackbarMessageFromError.js';
 import { getWalletClientRequired } from '@/helpers/getWalletClientRequired.js';
 import { isSameProfile } from '@/helpers/isSameProfile.js';
 import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
@@ -44,7 +43,7 @@ export const LensView = memo(function LensView() {
                 const profiles = await LensSocialMediaProvider.getProfilesByAddress(account.address);
                 return profiles ?? EMPTY_LIST;
             } catch (error) {
-                enqueueErrorMessage(getSnackbarMessageFromError(error, t`Failed to fetch profiles.`));
+                enqueueMessageFromError(error, t`Failed to fetch profiles.`);
                 console.error('[login lens] Failed to fetch profiles', error);
 
                 history.replace('/main');

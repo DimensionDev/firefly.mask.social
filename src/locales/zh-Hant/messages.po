@@ -1265,6 +1265,9 @@ msgstr ""
 msgid "The chainId mismatch."
 msgstr ""
 
+msgid "Failed to connect on {source}"
+msgstr ""
+
 msgid "Open in Firefly App"
 msgstr "在 Firefly 應用程式中打開"
 
@@ -1439,6 +1442,9 @@ msgstr "所有錢包和帳戶都已靜音"
 msgid "Disconnected from your social graph"
 msgstr "從你的社交圖譜中取消連結"
 
+msgid "Failed to upload."
+msgstr ""
+
 msgid "{attentionFactors, plural, one {# Attention item} other {# Attention items}}"
 msgstr ""
 
@@ -1570,6 +1576,9 @@ msgstr "電子郵箱（非必須）"
 
 msgid "NFT Contract"
 msgstr "NFT合約"
+
+msgid "Failed to connect MPC wallet"
+msgstr ""
 
 msgid "Phishing activities."
 msgstr ""
