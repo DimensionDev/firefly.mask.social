@@ -88,6 +88,9 @@ msgstr ""
 msgid "Metadata not frozen."
 msgstr ""
 
+msgid "Lens users must be members of the club you select."
+msgstr ""
+
 msgid "Unmute successfully."
 msgstr ""
 
@@ -125,6 +128,9 @@ msgid "Please be cautious when connecting your wallet, as malicious websites may
 msgstr ""
 
 msgid "<0>Fully Diluted Valuation (FDV) = Current Price x Total Supply</0><1>Fully Diluted Valuation (FDV) is the theoretical market capitalization of a coin if the entirety of its supply is in circulation, based on its current market price. The FDV value is theoretical as increasing the circulating supply of a coin may impact its market price. Also depending on the tokenomics, emission schedule or lock-up period of a coin's supply, it may take a significant time before its entire supply is released into circulation.</1>"
+msgstr ""
+
+msgid "Select /club to gate access"
 msgstr ""
 
 msgid "Followed @{0} on {sourceName}"
@@ -433,6 +439,9 @@ msgstr ""
 msgid "Poll is currently only supported on {0}"
 msgstr ""
 
+msgid "Users must like, repost / quote tweet, or comment on your post containing Lucky Drop."
+msgstr ""
+
 msgid "<0>The amount of coins that have already been created, minus any coins that have been burned (removed from circulation). It is comparable to outstanding shares in the stock market.</0><1>Total Supply = Onchain supply - burned tokens</1>"
 msgstr ""
 
@@ -524,6 +533,9 @@ msgid "{0} muted channels"
 msgstr ""
 
 msgid "[Video]"
+msgstr ""
+
+msgid "Users must hold the token you select."
 msgstr ""
 
 msgid "The author is muted by you."
@@ -737,9 +749,6 @@ msgid "{minutes, plural, one {1 minute left} other {{minutes} minutes left}}"
 msgstr ""
 
 msgid "No Airdrop Scam"
-msgstr ""
-
-msgid "Users must like, repost / quote tweet, or comment on your Lucky Drop post."
 msgstr ""
 
 msgid "Channel {id} could not be found."
@@ -1955,6 +1964,9 @@ msgstr ""
 msgid "Step 3 Select to vote"
 msgstr ""
 
+msgid "Select Collection"
+msgstr ""
+
 msgid "Visit firefly.social"
 msgstr ""
 
@@ -1986,6 +1998,9 @@ msgid "Voting Rights: Participate in key decisions and shape the platform’s de
 msgstr ""
 
 msgid "Please switch to {0}"
+msgstr ""
+
+msgid "Farcaster channel member"
 msgstr ""
 
 msgid "Non-honeypot related address."
@@ -2069,9 +2084,6 @@ msgstr ""
 msgid "View engagements"
 msgstr ""
 
-msgid "User must follow your account. Note: When you cross-post a Lucky Drop to multiple social networks, following you on any social allows users to claim."
-msgstr ""
-
 msgid "<0>worth ${0}</0><1>at Polymarket</1>"
 msgstr ""
 
@@ -2115,6 +2127,9 @@ msgid "Failed to fetch profiles."
 msgstr ""
 
 msgid "Unliked"
+msgstr ""
+
+msgid "Farcaster users must be members of the channel you select."
 msgstr ""
 
 msgid "Visit mask.io"
@@ -2237,6 +2252,9 @@ msgstr ""
 msgid "The content of this account is currently unavailable"
 msgstr ""
 
+msgid "Select Club"
+msgstr ""
+
 msgid "Wallet added successfully"
 msgstr ""
 
@@ -2277,6 +2295,9 @@ msgid "Failed to repost."
 msgstr ""
 
 msgid "Download image"
+msgstr ""
+
+msgid "Lens club member"
 msgstr ""
 
 msgid "Mirrored"
@@ -2352,6 +2373,9 @@ msgid "Attendance"
 msgstr ""
 
 msgid "Show more"
+msgstr ""
+
+msgid "{0} items"
 msgstr ""
 
 msgid "Time Limit"
@@ -2645,6 +2669,9 @@ msgstr ""
 msgid "Snapshot added to your Bookmarks"
 msgstr ""
 
+msgid "Select token to gate access"
+msgstr ""
+
 msgid "Failed to continue. Please allow Lens Manager for performing actions without the need to sign each transaction."
 msgstr ""
 
@@ -2873,9 +2900,6 @@ msgstr ""
 msgid "Your {0} account is now connected."
 msgstr ""
 
-msgid "Use Lucky Drop quests to grow your followers and engagement. Each requirement must be completed to be eligible to claim."
-msgstr ""
-
 msgid "Not Found"
 msgstr ""
 
@@ -2907,6 +2931,9 @@ msgid "Connecting Wallet"
 msgstr ""
 
 msgid "{minutes}m left"
+msgstr ""
+
+msgid "User must follow your account.<0><1>Note:</1> When you cross-post a Lucky Drop to multiple social networks, following you on any social allows users to claim.</0>"
 msgstr ""
 
 msgid "Signature Request"
@@ -2967,6 +2994,9 @@ msgid "Failed to fetch as ArrayBuffer."
 msgstr ""
 
 msgid "Statistic"
+msgstr ""
+
+msgid "Select /channel to gate access"
 msgstr ""
 
 msgid "Failed to upload. Video length exceeds {minDuration}s ~ {maxDuration}s"
@@ -3162,6 +3192,9 @@ msgid "Download App"
 msgstr ""
 
 msgid "Failed to fetch the latest state after several attempts. Please try again later."
+msgstr ""
+
+msgid "Token holder"
 msgstr ""
 
 msgid "Profile"

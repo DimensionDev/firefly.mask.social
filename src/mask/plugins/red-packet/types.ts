@@ -10,7 +10,10 @@ export enum RequirementType {
     Like = 'Like',
     Repost = 'Repost',
     Comment = 'Comment',
+    TokenHolder = 'TokenHolder',
     NFTHolder = 'NFTHolder',
+    FarcasterChannelMember = 'FarcasterChannelMember',
+    LensClubMember = 'LensClubMember',
 }
 
 export type FireflyRedpacketSettings = {

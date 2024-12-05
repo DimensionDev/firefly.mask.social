@@ -5,6 +5,7 @@ import { memo } from 'react';
 import { SolanaAccountModal } from '@/components/SolanaAccountModal.js';
 import { AccountModal } from '@/modals/AccountModal.js';
 import { AddWalletModal } from '@/modals/AddWalletModal.js';
+import { ChannelSelectModal } from '@/modals/ChannelSelectModal/index.js';
 import { CollectArticleModal } from '@/modals/CollectArticleModal.js';
 import { CollectPostModal } from '@/modals/CollectPostModal.js';
 import { ComposeModal } from '@/modals/ComposeModal.js';
@@ -20,6 +21,7 @@ import { EditProfileModal } from '@/modals/EditProfileModal.js';
 import { EnableSignlessModal } from '@/modals/EnableSignlessModal.js';
 import { LoginModal } from '@/modals/LoginModal/index.js';
 import { LogoutModal } from '@/modals/LogoutModal.js';
+import { NonFungibleCollectionSelectModal } from '@/modals/NonFungibleCollectionSelectModal/index.js';
 import { PreviewMediaModal } from '@/modals/PreviewMediaModal.js';
 import { SchedulePostModal } from '@/modals/SchedulePostModal.js';
 import { Snackbar } from '@/modals/Snackbar.js';
@@ -55,6 +57,8 @@ export const Modals = memo(function Modals() {
             <TransactionSimulatorModal ref={controls.TransactionSimulatorModalRef.register} />
             <DisconnectFireflyAccountModal ref={controls.DisconnectFireflyAccountModalRef.register} />
             <TokenSelectorModal ref={controls.TokenSelectorModalRef.register} />
+            <NonFungibleCollectionSelectModal ref={controls.NonFungibleTokenCollectionSelectModalRef.register} />
+            <ChannelSelectModal ref={controls.ChannelSelectModalRef.register} />
         </>
     );
 });

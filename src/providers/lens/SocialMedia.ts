@@ -174,16 +174,15 @@ export class LensSocialMedia implements Provider {
     }
 
     async searchChannels(q: string, indicator?: PageIndicator): Promise<Pageable<Channel, PageIndicator>> {
-        const profile = getCurrentProfile(Source.Lens);
         const response = await OrbClubProvider.fetchClubs({
-            query: q,
-            profile_id: profile?.profileId,
+            query: q || undefined,
+            skip: indicator?.id ? +indicator.id : undefined,
         });
 
         return createPageable(
             response?.items.map(formatOrbClubToChannel) ?? EMPTY_LIST,
             createIndicator(indicator),
-            response?.pageInfo.next ? createNextIndicator(indicator, `${response.pageInfo.next}`) : undefined,
+            response?.pageInfo.next ? createNextIndicator(indicator, response.pageInfo.next) : undefined,
         );
     }
 

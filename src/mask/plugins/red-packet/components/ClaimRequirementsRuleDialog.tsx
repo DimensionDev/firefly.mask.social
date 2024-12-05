@@ -1,9 +1,8 @@
 import { Trans } from '@lingui/macro';
-import { Alert } from '@masknet/shared';
 import { Box, Dialog, DialogContent, DialogTitle, Typography } from '@mui/material';
 import { memo } from 'react';
 
-import { Icons, usePortalShadowRoot } from '@/mask/bindings/components.js';
+import { Icons } from '@/mask/bindings/components.js';
 import { makeStyles } from '@/mask/bindings/index.js';
 
 const useStyles = makeStyles()((theme) => ({
@@ -46,8 +45,8 @@ export const ClaimRequirementsRuleDialog = memo<ClaimRequirementsRuleDialogProps
 }) {
     const { classes } = useStyles();
 
-    return usePortalShadowRoot((container) => (
-        <Dialog container={container} open={open} onClose={onClose} classes={{ paper: classes.paper }}>
+    return (
+        <Dialog open={open} onClose={onClose} classes={{ paper: classes.paper }}>
             <DialogTitle className={classes.dialogTitle}>
                 <Icons.Close onClick={onClose} />
                 <Typography className={classes.title}>
@@ -55,21 +54,18 @@ export const ClaimRequirementsRuleDialog = memo<ClaimRequirementsRuleDialogProps
                 </Typography>
             </DialogTitle>
             <DialogContent>
-                <Alert open>
-                    <Trans>
-                        Use Lucky Drop quests to grow your followers and engagement. Each requirement must be completed
-                        to be eligible to claim.
-                    </Trans>
-                </Alert>
                 <Box mt={3} display="flex" flexDirection="column" rowGap={3}>
                     <Box>
                         <Typography className={classes.subtitle}>
                             <Trans>Follow me</Trans>
                         </Typography>
-                        <Typography className={classes.description}>
+                        <Typography className={classes.description} component="div">
                             <Trans>
-                                User must follow your account. Note: When you cross-post a Lucky Drop to multiple social
-                                networks, following you on any social allows users to claim.
+                                User must follow your account.
+                                <p className="italic">
+                                    <strong className="font-bold">Note:</strong> When you cross-post a Lucky Drop to
+                                    multiple social networks, following you on any social allows users to claim.
+                                </p>
                             </Trans>
                         </Typography>
                     </Box>
@@ -78,7 +74,9 @@ export const ClaimRequirementsRuleDialog = memo<ClaimRequirementsRuleDialogProps
                             <Trans>Like / Repost / Comment</Trans>
                         </Typography>
                         <Typography className={classes.description}>
-                            <Trans>Users must like, repost / quote tweet, or comment on your Lucky Drop post.</Trans>
+                            <Trans>
+                                Users must like, repost / quote tweet, or comment on your post containing Lucky Drop.
+                            </Trans>
                         </Typography>
                     </Box>
                     <Box>
@@ -89,8 +87,32 @@ export const ClaimRequirementsRuleDialog = memo<ClaimRequirementsRuleDialogProps
                             <Trans>Users must hold one NFT from the collection you select.</Trans>
                         </Typography>
                     </Box>
+                    <Box>
+                        <Typography className={classes.subtitle}>
+                            <Trans>Token holder</Trans>
+                        </Typography>
+                        <Typography className={classes.description}>
+                            <Trans>Users must hold the token you select.</Trans>
+                        </Typography>
+                    </Box>
+                    <Box>
+                        <Typography className={classes.subtitle}>
+                            <Trans>Farcaster channel member</Trans>
+                        </Typography>
+                        <Typography className={classes.description}>
+                            <Trans>Farcaster users must be members of the channel you select.</Trans>
+                        </Typography>
+                    </Box>
+                    <Box>
+                        <Typography className={classes.subtitle}>
+                            <Trans>Lens club member</Trans>
+                        </Typography>
+                        <Typography className={classes.description}>
+                            <Trans>Lens users must be members of the club you select.</Trans>
+                        </Typography>
+                    </Box>
                 </Box>
             </DialogContent>
         </Dialog>
-    ));
+    );
 });

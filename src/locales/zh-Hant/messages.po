@@ -93,6 +93,9 @@ msgstr ""
 msgid "Metadata not frozen."
 msgstr ""
 
+msgid "Lens users must be members of the club you select."
+msgstr ""
+
 msgid "Unmute successfully."
 msgstr "已成功取消靜音"
 
@@ -130,6 +133,9 @@ msgid "Please be cautious when connecting your wallet, as malicious websites may
 msgstr "連結錢包時請保持警惕，惡意網站可能會試圖存取您的資金。"
 
 msgid "<0>Fully Diluted Valuation (FDV) = Current Price x Total Supply</0><1>Fully Diluted Valuation (FDV) is the theoretical market capitalization of a coin if the entirety of its supply is in circulation, based on its current market price. The FDV value is theoretical as increasing the circulating supply of a coin may impact its market price. Also depending on the tokenomics, emission schedule or lock-up period of a coin's supply, it may take a significant time before its entire supply is released into circulation.</1>"
+msgstr ""
+
+msgid "Select /club to gate access"
 msgstr ""
 
 msgid "Followed @{0} on {sourceName}"
@@ -438,6 +444,9 @@ msgstr ""
 msgid "Poll is currently only supported on {0}"
 msgstr "投票功能目前僅在 {0} 支持"
 
+msgid "Users must like, repost / quote tweet, or comment on your post containing Lucky Drop."
+msgstr ""
+
 msgid "<0>The amount of coins that have already been created, minus any coins that have been burned (removed from circulation). It is comparable to outstanding shares in the stock market.</0><1>Total Supply = Onchain supply - burned tokens</1>"
 msgstr ""
 
@@ -530,6 +539,9 @@ msgstr "{0} 個已靜音的頻道"
 
 msgid "[Video]"
 msgstr "[影片]"
+
+msgid "Users must hold the token you select."
+msgstr ""
 
 msgid "The author is muted by you."
 msgstr "作者已經被您靜音"
@@ -743,9 +755,6 @@ msgstr ""
 
 msgid "No Airdrop Scam"
 msgstr "無空投騙局"
-
-msgid "Users must like, repost / quote tweet, or comment on your Lucky Drop post."
-msgstr ""
 
 msgid "Channel {id} could not be found."
 msgstr ""
@@ -1960,6 +1969,9 @@ msgstr ""
 msgid "Step 3 Select to vote"
 msgstr ""
 
+msgid "Select Collection"
+msgstr ""
+
 msgid "Visit firefly.social"
 msgstr "訪問 firefly.social"
 
@@ -1991,6 +2003,9 @@ msgid "Voting Rights: Participate in key decisions and shape the platform’s de
 msgstr ""
 
 msgid "Please switch to {0}"
+msgstr ""
+
+msgid "Farcaster channel member"
 msgstr ""
 
 msgid "Non-honeypot related address."
@@ -2074,9 +2089,6 @@ msgstr ""
 msgid "View engagements"
 msgstr "查看互動數據"
 
-msgid "User must follow your account. Note: When you cross-post a Lucky Drop to multiple social networks, following you on any social allows users to claim."
-msgstr ""
-
 msgid "<0>worth ${0}</0><1>at Polymarket</1>"
 msgstr ""
 
@@ -2121,6 +2133,9 @@ msgstr ""
 
 msgid "Unliked"
 msgstr "已取消喜歡"
+
+msgid "Farcaster users must be members of the channel you select."
+msgstr ""
 
 msgid "Visit mask.io"
 msgstr "訪問 mask.io"
@@ -2242,6 +2257,9 @@ msgstr "刪除"
 msgid "The content of this account is currently unavailable"
 msgstr "該帳戶的內容目前不可見"
 
+msgid "Select Club"
+msgstr ""
+
 msgid "Wallet added successfully"
 msgstr ""
 
@@ -2283,6 +2301,9 @@ msgstr ""
 
 msgid "Download image"
 msgstr "下載圖片"
+
+msgid "Lens club member"
+msgstr ""
 
 msgid "Mirrored"
 msgstr "已鏡像"
@@ -2358,6 +2379,9 @@ msgstr ""
 
 msgid "Show more"
 msgstr "顯示更多"
+
+msgid "{0} items"
+msgstr ""
 
 msgid "Time Limit"
 msgstr ""
@@ -2650,6 +2674,9 @@ msgstr ""
 msgid "Snapshot added to your Bookmarks"
 msgstr ""
 
+msgid "Select token to gate access"
+msgstr ""
+
 msgid "Failed to continue. Please allow Lens Manager for performing actions without the need to sign each transaction."
 msgstr ""
 
@@ -2878,9 +2905,6 @@ msgstr ""
 msgid "Your {0} account is now connected."
 msgstr "您的 {0} 帳戶現已連接。"
 
-msgid "Use Lucky Drop quests to grow your followers and engagement. Each requirement must be completed to be eligible to claim."
-msgstr ""
-
 msgid "Not Found"
 msgstr ""
 
@@ -2912,6 +2936,9 @@ msgid "Connecting Wallet"
 msgstr ""
 
 msgid "{minutes}m left"
+msgstr ""
+
+msgid "User must follow your account.<0><1>Note:</1> When you cross-post a Lucky Drop to multiple social networks, following you on any social allows users to claim.</0>"
 msgstr ""
 
 msgid "Signature Request"
@@ -2973,6 +3000,9 @@ msgstr ""
 
 msgid "Statistic"
 msgstr "統計數據"
+
+msgid "Select /channel to gate access"
+msgstr ""
 
 msgid "Failed to upload. Video length exceeds {minDuration}s ~ {maxDuration}s"
 msgstr ""
@@ -3168,6 +3198,9 @@ msgstr "下載應用程式"
 
 msgid "Failed to fetch the latest state after several attempts. Please try again later."
 msgstr "在多次嘗試後仍無法獲取最新動態。請稍候再嘗試。"
+
+msgid "Token holder"
+msgstr ""
 
 msgid "Profile"
 msgstr "個人資料"

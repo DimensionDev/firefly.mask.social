@@ -88,6 +88,9 @@ msgstr "Failed to fetch as Blob."
 msgid "Metadata not frozen."
 msgstr "Metadata not frozen."
 
+msgid "Lens users must be members of the club you select."
+msgstr "Lens users must be members of the club you select."
+
 msgid "Unmute successfully."
 msgstr "Unmute successfully."
 
@@ -126,6 +129,9 @@ msgstr "Please be cautious when connecting your wallet, as malicious websites ma
 
 msgid "<0>Fully Diluted Valuation (FDV) = Current Price x Total Supply</0><1>Fully Diluted Valuation (FDV) is the theoretical market capitalization of a coin if the entirety of its supply is in circulation, based on its current market price. The FDV value is theoretical as increasing the circulating supply of a coin may impact its market price. Also depending on the tokenomics, emission schedule or lock-up period of a coin's supply, it may take a significant time before its entire supply is released into circulation.</1>"
 msgstr "<0>Fully Diluted Valuation (FDV) = Current Price x Total Supply</0><1>Fully Diluted Valuation (FDV) is the theoretical market capitalization of a coin if the entirety of its supply is in circulation, based on its current market price. The FDV value is theoretical as increasing the circulating supply of a coin may impact its market price. Also depending on the tokenomics, emission schedule or lock-up period of a coin's supply, it may take a significant time before its entire supply is released into circulation.</1>"
+
+msgid "Select /club to gate access"
+msgstr "Select /club to gate access"
 
 msgid "Followed @{0} on {sourceName}"
 msgstr "Followed @{0} on {sourceName}"
@@ -433,6 +439,9 @@ msgstr "No malicious mining activities found."
 msgid "Poll is currently only supported on {0}"
 msgstr "Poll is currently only supported on {0}"
 
+msgid "Users must like, repost / quote tweet, or comment on your post containing Lucky Drop."
+msgstr "Users must like, repost / quote tweet, or comment on your post containing Lucky Drop."
+
 msgid "<0>The amount of coins that have already been created, minus any coins that have been burned (removed from circulation). It is comparable to outstanding shares in the stock market.</0><1>Total Supply = Onchain supply - burned tokens</1>"
 msgstr "<0>The amount of coins that have already been created, minus any coins that have been burned (removed from circulation). It is comparable to outstanding shares in the stock market.</0><1>Total Supply = Onchain supply - burned tokens</1>"
 
@@ -525,6 +534,9 @@ msgstr "{0} muted channels"
 
 msgid "[Video]"
 msgstr "[Video]"
+
+msgid "Users must hold the token you select."
+msgstr "Users must hold the token you select."
 
 msgid "The author is muted by you."
 msgstr "The author is muted by you."
@@ -738,9 +750,6 @@ msgstr "{minutes, plural, one {1 minute left} other {{minutes} minutes left}}"
 
 msgid "No Airdrop Scam"
 msgstr "No Airdrop Scam"
-
-msgid "Users must like, repost / quote tweet, or comment on your Lucky Drop post."
-msgstr "Users must like, repost / quote tweet, or comment on your Lucky Drop post."
 
 msgid "Channel {id} could not be found."
 msgstr "Channel {id} could not be found."
@@ -1959,6 +1968,9 @@ msgstr "Collectible could not be found."
 msgid "Step 3 Select to vote"
 msgstr "Step 3 Select to vote"
 
+msgid "Select Collection"
+msgstr "Select Collection"
+
 msgid "Visit firefly.social"
 msgstr "Visit firefly.social"
 
@@ -1991,6 +2003,9 @@ msgstr "Voting Rights: Participate in key decisions and shape the platform’s d
 
 msgid "Please switch to {0}"
 msgstr "Please switch to {0}"
+
+msgid "Farcaster channel member"
+msgstr "Farcaster channel member"
 
 msgid "Non-honeypot related address."
 msgstr "Non-honeypot related address."
@@ -2073,9 +2088,6 @@ msgstr "Or login with any social account"
 msgid "View engagements"
 msgstr "View engagements"
 
-msgid "User must follow your account. Note: When you cross-post a Lucky Drop to multiple social networks, following you on any social allows users to claim."
-msgstr "User must follow your account. Note: When you cross-post a Lucky Drop to multiple social networks, following you on any social allows users to claim."
-
 msgid "<0>worth ${0}</0><1>at Polymarket</1>"
 msgstr "<0>worth ${0}</0><1>at Polymarket</1>"
 
@@ -2120,6 +2132,9 @@ msgstr "Failed to fetch profiles."
 
 msgid "Unliked"
 msgstr "Unliked"
+
+msgid "Farcaster users must be members of the channel you select."
+msgstr "Farcaster users must be members of the channel you select."
 
 msgid "Visit mask.io"
 msgstr "Visit mask.io"
@@ -2241,6 +2256,9 @@ msgstr "Delete"
 msgid "The content of this account is currently unavailable"
 msgstr "The content of this account is currently unavailable"
 
+msgid "Select Club"
+msgstr "Select Club"
+
 msgid "Wallet added successfully"
 msgstr "Wallet added successfully"
 
@@ -2282,6 +2300,9 @@ msgstr "Failed to repost."
 
 msgid "Download image"
 msgstr "Download image"
+
+msgid "Lens club member"
+msgstr "Lens club member"
 
 msgid "Mirrored"
 msgstr "Mirrored"
@@ -2357,6 +2378,9 @@ msgstr "Attendance"
 
 msgid "Show more"
 msgstr "Show more"
+
+msgid "{0} items"
+msgstr "{0} items"
 
 msgid "Time Limit"
 msgstr "Time Limit"
@@ -2649,6 +2673,9 @@ msgstr "Will send on <0>{0} at <1>{1}</1></0>"
 msgid "Snapshot added to your Bookmarks"
 msgstr "Snapshot added to your Bookmarks"
 
+msgid "Select token to gate access"
+msgstr "Select token to gate access"
+
 msgid "Failed to continue. Please allow Lens Manager for performing actions without the need to sign each transaction."
 msgstr "Failed to continue. Please allow Lens Manager for performing actions without the need to sign each transaction."
 
@@ -2877,9 +2904,6 @@ msgstr "You can set one or multiple rules to be eligible to win a Lucky Drop."
 msgid "Your {0} account is now connected."
 msgstr "Your {0} account is now connected."
 
-msgid "Use Lucky Drop quests to grow your followers and engagement. Each requirement must be completed to be eligible to claim."
-msgstr "Use Lucky Drop quests to grow your followers and engagement. Each requirement must be completed to be eligible to claim."
-
 msgid "Not Found"
 msgstr "Not Found"
 
@@ -2912,6 +2936,9 @@ msgstr "Connecting Wallet"
 
 msgid "{minutes}m left"
 msgstr "{minutes}m left"
+
+msgid "User must follow your account.<0><1>Note:</1> When you cross-post a Lucky Drop to multiple social networks, following you on any social allows users to claim.</0>"
+msgstr "User must follow your account.<0><1>Note:</1> When you cross-post a Lucky Drop to multiple social networks, following you on any social allows users to claim.</0>"
 
 msgid "Signature Request"
 msgstr "Signature Request"
@@ -2972,6 +2999,9 @@ msgstr "Failed to fetch as ArrayBuffer."
 
 msgid "Statistic"
 msgstr "Statistic"
+
+msgid "Select /channel to gate access"
+msgstr "Select /channel to gate access"
 
 msgid "Failed to upload. Video length exceeds {minDuration}s ~ {maxDuration}s"
 msgstr "Failed to upload. Video length exceeds {minDuration}s ~ {maxDuration}s"
@@ -3167,6 +3197,9 @@ msgstr "Download App"
 
 msgid "Failed to fetch the latest state after several attempts. Please try again later."
 msgstr "Failed to fetch the latest state after several attempts. Please try again later."
+
+msgid "Token holder"
+msgstr "Token holder"
 
 msgid "Profile"
 msgstr "Profile"

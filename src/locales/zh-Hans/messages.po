@@ -93,6 +93,9 @@ msgstr "获取 Blob 失败。"
 msgid "Metadata not frozen."
 msgstr "元数据未冻结。"
 
+msgid "Lens users must be members of the club you select."
+msgstr ""
+
 msgid "Unmute successfully."
 msgstr "取消隐藏成功。"
 
@@ -131,6 +134,9 @@ msgstr "当您连接钱包时请务必小心，一些恶意网站会试图访问
 
 msgid "<0>Fully Diluted Valuation (FDV) = Current Price x Total Supply</0><1>Fully Diluted Valuation (FDV) is the theoretical market capitalization of a coin if the entirety of its supply is in circulation, based on its current market price. The FDV value is theoretical as increasing the circulating supply of a coin may impact its market price. Also depending on the tokenomics, emission schedule or lock-up period of a coin's supply, it may take a significant time before its entire supply is released into circulation.</1>"
 msgstr "<0>完全稀释估值 (FDV) = 当前价格 x 总供应量</0><1>完全稀释估值 (FDV) 是某种货币的全流通时基于当前市场价格的理论市值。FDV 值是理论上的，因为增加货币的流通量可能会影响其市场价格。此外，根据代币经济学、发行计划或货币供应量的锁定期，可能需要相当长的时间才能将其全部供应量释放到流通中。</1>"
+
+msgid "Select /club to gate access"
+msgstr ""
 
 msgid "Followed @{0} on {sourceName}"
 msgstr "在 {sourceName} 上关注 @{0}"
@@ -438,6 +444,9 @@ msgstr "未发现恶意挖矿活动。"
 msgid "Poll is currently only supported on {0}"
 msgstr "投票目前仅支持 {0}"
 
+msgid "Users must like, repost / quote tweet, or comment on your post containing Lucky Drop."
+msgstr ""
+
 msgid "<0>The amount of coins that have already been created, minus any coins that have been burned (removed from circulation). It is comparable to outstanding shares in the stock market.</0><1>Total Supply = Onchain supply - burned tokens</1>"
 msgstr "<0>已创建的通证数量减去已销毁（从流通中移除）的通证数量。它相当于股票市场上的流通股。</0><1>总供应量 = 链上供应量 - 已销毁的通证</1>"
 
@@ -530,6 +539,9 @@ msgstr "{0} 隐藏的频道"
 
 msgid "[Video]"
 msgstr "[视频]"
+
+msgid "Users must hold the token you select."
+msgstr ""
 
 msgid "The author is muted by you."
 msgstr "此作者已被隐藏。"
@@ -743,9 +755,6 @@ msgstr "{minutes, plural, one {1 分钟剩余} other {{minutes} 分钟剩余}}"
 
 msgid "No Airdrop Scam"
 msgstr "没有空投骗局"
-
-msgid "Users must like, repost / quote tweet, or comment on your Lucky Drop post."
-msgstr ""
 
 msgid "Channel {id} could not be found."
 msgstr "未找到频道 {id} 。"
@@ -1960,6 +1969,9 @@ msgstr "未找到相关 NFT。"
 msgid "Step 3 Select to vote"
 msgstr "第 3 步 选择候选人"
 
+msgid "Select Collection"
+msgstr ""
+
 msgid "Visit firefly.social"
 msgstr "访问 firefly.social"
 
@@ -1992,6 +2004,9 @@ msgstr "投票权：通过社区治理参与关键决策，塑造平台的发展
 
 msgid "Please switch to {0}"
 msgstr "请切换到 {0}"
+
+msgid "Farcaster channel member"
+msgstr ""
 
 msgid "Non-honeypot related address."
 msgstr "非钓鱼地址。"
@@ -2074,9 +2089,6 @@ msgstr "或者使用任意社交账户登录"
 msgid "View engagements"
 msgstr "查看互动"
 
-msgid "User must follow your account. Note: When you cross-post a Lucky Drop to multiple social networks, following you on any social allows users to claim."
-msgstr ""
-
 msgid "<0>worth ${0}</0><1>at Polymarket</1>"
 msgstr "<1>在 Polymarket</1><0>价值 ${0}</0>"
 
@@ -2121,6 +2133,9 @@ msgstr "未能获取个人资料。"
 
 msgid "Unliked"
 msgstr "已取消点赞"
+
+msgid "Farcaster users must be members of the channel you select."
+msgstr ""
 
 msgid "Visit mask.io"
 msgstr "访问 mask.io"
@@ -2242,6 +2257,9 @@ msgstr "删除"
 msgid "The content of this account is currently unavailable"
 msgstr "无法获取这个账户的内容"
 
+msgid "Select Club"
+msgstr ""
+
 msgid "Wallet added successfully"
 msgstr "添加钱包成功"
 
@@ -2283,6 +2301,9 @@ msgstr "转帖失败。"
 
 msgid "Download image"
 msgstr "下载图片"
+
+msgid "Lens club member"
+msgstr ""
 
 msgid "Mirrored"
 msgstr "已转发"
@@ -2358,6 +2379,9 @@ msgstr "出席"
 
 msgid "Show more"
 msgstr "显示更多"
+
+msgid "{0} items"
+msgstr ""
 
 msgid "Time Limit"
 msgstr "时间限制"
@@ -2650,6 +2674,9 @@ msgstr "将在 <0>{0} <1>{1}</1></0> 发送"
 msgid "Snapshot added to your Bookmarks"
 msgstr "Snapshot 已经添加到您的收藏中"
 
+msgid "Select token to gate access"
+msgstr ""
+
 msgid "Failed to continue. Please allow Lens Manager for performing actions without the need to sign each transaction."
 msgstr "无法继续。请允许 Lens Manager 执行操作，而无需对每笔交易进行签名。"
 
@@ -2878,9 +2905,6 @@ msgstr ""
 msgid "Your {0} account is now connected."
 msgstr "您的 {0} 账户已连接。"
 
-msgid "Use Lucky Drop quests to grow your followers and engagement. Each requirement must be completed to be eligible to claim."
-msgstr ""
-
 msgid "Not Found"
 msgstr "未发现"
 
@@ -2913,6 +2937,9 @@ msgstr "正在连接钱包"
 
 msgid "{minutes}m left"
 msgstr "{minutes} 分钟剩余"
+
+msgid "User must follow your account.<0><1>Note:</1> When you cross-post a Lucky Drop to multiple social networks, following you on any social allows users to claim.</0>"
+msgstr ""
 
 msgid "Signature Request"
 msgstr "签名请求"
@@ -2973,6 +3000,9 @@ msgstr "Failed to fetch as ArrayBuffer."
 
 msgid "Statistic"
 msgstr "统计"
+
+msgid "Select /channel to gate access"
+msgstr ""
 
 msgid "Failed to upload. Video length exceeds {minDuration}s ~ {maxDuration}s"
 msgstr "上传失败。视频时间超过限制 {minDuration}秒 ~ {maxDuration}秒"
@@ -3168,6 +3198,9 @@ msgstr "下载应用"
 
 msgid "Failed to fetch the latest state after several attempts. Please try again later."
 msgstr "获取状态失败。请稍后重试。"
+
+msgid "Token holder"
+msgstr ""
 
 msgid "Profile"
 msgstr "个人信息"
