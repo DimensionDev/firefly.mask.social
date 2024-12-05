@@ -1,0 +1,127 @@
+'use client';
+
+import { Trans } from '@lingui/macro';
+import type { NonFungibleAsset } from '@masknet/web3-shared-base';
+import { ChainId, type SchemaType } from '@masknet/web3-shared-evm';
+import dayjs from 'dayjs';
+import { isUndefined } from 'lodash-es';
+import { useMemo, useState } from 'react';
+
+import BookmarkIcon from '@/assets/bookmark.svg';
+import CalendarIcon from '@/assets/calendar.svg';
+import LocationIcon from '@/assets/location.svg';
+import { ClickableButton } from '@/components/ClickableButton.js';
+import { ChainIcon } from '@/components/NFTDetail/ChainIcon.js';
+import { NFTImage } from '@/components/NFTImage.js';
+import { TokenPrice } from '@/components/TokenPrice.js';
+import { Link } from '@/esm/Link.js';
+import { classNames } from '@/helpers/classNames.js';
+import { getFloorPrice } from '@/helpers/getFloorPrice.js';
+import { resolveCoinGeckoTokenSymbol } from '@/helpers/resolveCoinGeckoTokenSymbol.js';
+import { resolveNftUrl } from '@/helpers/resolveNftUrl.js';
+import { useNFTDetail } from '@/hooks/useNFTDetail.js';
+import { NFTFeedTransAction } from '@/providers/types/NFTs.js';
+
+interface Props {
+    address: string;
+    tokenId: string;
+    chainId: ChainId;
+    action: NFTFeedTransAction;
+}
+
+function PoapTags({ asset }: { asset: NonFungibleAsset<ChainId, SchemaType> }) {
+    const date = useMemo(() => {
+        if (!asset.traits) return null;
+        const startDate = asset.traits?.find((trait) => trait.type === 'startDate');
+        const endDate = asset.traits?.find((trait) => trait.type === 'endDate');
+        if (!startDate || !endDate) return null;
+        // cspell: disable-next-line
+        return `${dayjs(startDate.value).format('MMMDD')}-${dayjs(endDate.value).format('MMMDD')}`;
+    }, [asset.traits]);
+    const city = useMemo(() => asset.traits?.find((trait) => trait.type === 'city')?.value, [asset.traits]);
+
+    return (
+        <>
+            {city ? (
+                <div className="flex space-x-1 truncate rounded-lg bg-black/25 p-1.5 text-sm font-bold backdrop-blur-lg">
+                    <LocationIcon width={12} height={12} className="shrink-0" />
+                    {city}
+                </div>
+            ) : null}
+            {date ? (
+                <div className="flex space-x-1 truncate rounded-lg bg-black/25 p-1.5 text-sm font-bold backdrop-blur-lg">
+                    <CalendarIcon width={12} height={12} className="shrink-0" />
+                    {date}
+                </div>
+            ) : null}
+        </>
+    );
+}
+
+export function NFTsActivityCellCard(props: Props) {
+    const { address, tokenId, chainId, action } = props;
+    const { data, isLoading } = useNFTDetail(address, tokenId, chainId);
+    const metadata = data?.metadata;
+    const imageURL = metadata?.previewImageURL || metadata?.imageURL || '';
+    const [bookmarked, setBookmarked] = useState(false); // TODO
+    return (
+        <Link href={resolveNftUrl(chainId, address, tokenId)} className="relative flex w-auto shrink-0 flex-col">
+            <div className="relative">
+                <NFTImage
+                    src={imageURL}
+                    className="h-auto max-h-[500px] w-[250px] rounded-t-xl bg-lightBg object-cover dark:bg-bg md:w-[300px]"
+                    alt="nft-card"
+                    fallbackClassName=""
+                />
+                <div className="absolute bottom-0 left-0 flex max-w-[100%] flex-col space-y-1 px-[15px] pb-3">
+                    {action === NFTFeedTransAction.Poap && !isUndefined(data?.metadata?.eventId) ? (
+                        <PoapTags asset={data} />
+                    ) : (
+                        <div className="truncate rounded-lg bg-black/25 p-1.5 text-sm font-bold backdrop-blur-lg">
+                            {data?.metadata?.name || `#${tokenId}`}
+                        </div>
+                    )}
+                </div>
+            </div>
+            <div className="absolute left-0 top-0 flex w-full justify-between px-[14px] py-3">
+                <div className="flex size-8 items-center justify-center rounded-xl bg-black/25">
+                    <ChainIcon chainId={chainId} size={24} />
+                </div>
+                <ClickableButton
+                    className={classNames(
+                        'flex size-8 items-center justify-center rounded-xl bg-black/25',
+                        bookmarked
+                            ? 'text-warn'
+                            : 'hover:bg-warn/20 hover:text-warn active:bg-black/25 active:text-warn',
+                    )}
+                    onClick={() => setBookmarked((s) => !s)}
+                >
+                    <BookmarkIcon
+                        fill={bookmarked ? 'rgb(var(--color-warn))' : 'none'}
+                        width={20}
+                        height={20}
+                        className="size-5"
+                    />
+                </ClickableButton>
+            </div>
+
+            <div className="w-full rounded-b-xl bg-lightBg p-3 text-sm font-bold dark:bg-bg">
+                {data?.collection?.floorPrices?.length ? (
+                    <>
+                        {getFloorPrice(data.collection.floorPrices)}
+                        <TokenPrice
+                            value={data.collection.floorPrices[0].value}
+                            symbol={resolveCoinGeckoTokenSymbol(data.collection.floorPrices[0].payment_token.symbol)}
+                            prefix=" ($"
+                            suffix=")"
+                            decimals={data.collection.floorPrices[0].payment_token.decimals}
+                            target="usd"
+                        />
+                    </>
+                ) : (
+                    <Trans>Free</Trans>
+                )}
+            </div>
+        </Link>
+    );
+}

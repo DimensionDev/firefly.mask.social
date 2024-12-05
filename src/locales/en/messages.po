@@ -568,6 +568,9 @@ msgstr "{0, plural, one {Follower} other {Followers}}"
 msgid "Mutes"
 msgstr "Mutes"
 
+msgid "Bought"
+msgstr "Bought"
+
 msgid "NFTs"
 msgstr "NFTs"
 
@@ -1379,6 +1382,9 @@ msgstr "Comment"
 msgid "Only people you mention"
 msgstr "Only people you mention"
 
+msgid "Burn"
+msgstr "Burn"
+
 msgid "{0} turned in"
 msgstr "{0} turned in"
 
@@ -1504,6 +1510,9 @@ msgstr "{handleOrEnsOrAddress} watched"
 
 msgid "Circulating Supply"
 msgstr "Circulating Supply"
+
+msgid "from <0>{0}</0>"
+msgstr "from <0>{0}</0>"
 
 msgid "Post has been deleted"
 msgstr "Post has been deleted"
@@ -1685,6 +1694,9 @@ msgstr "Describe a bug or suggest an improvement"
 
 msgid "Cryptocurrency mixer."
 msgstr "Cryptocurrency mixer."
+
+msgid "to <0>{0}</0>"
+msgstr "to <0>{0}</0>"
 
 msgid "{shares, plural, one {Mirror or Quote} other {Mirrors or Quotes}}"
 msgstr "{shares, plural, one {Mirror or Quote} other {Mirrors or Quotes}}"
@@ -1916,6 +1928,9 @@ msgstr "The contract owner has no restrictions on buying."
 
 msgid "Financial crime."
 msgstr "Financial crime."
+
+msgid "Acquired"
+msgstr "Acquired"
 
 msgid "This can’t be undone and you’ll lose your draft."
 msgstr "This can’t be undone and you’ll lose your draft."
@@ -3012,6 +3027,9 @@ msgstr "Claim Requirements"
 msgid "Oversupply minting."
 msgstr "Oversupply minting."
 
+msgid "Sold"
+msgstr "Sold"
+
 msgid "Followed <0>@{handle}</0> on {0}"
 msgstr "Followed <0>@{handle}</0> on {0}"
 
@@ -3419,6 +3437,9 @@ msgstr "× {0}"
 
 msgid "Blink Validator"
 msgstr "Blink Validator"
+
+msgid "Minted"
+msgstr "Minted"
 
 msgid "High-signal Filter"
 msgstr "High-signal Filter"

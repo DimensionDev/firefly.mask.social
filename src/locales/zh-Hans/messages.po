@@ -573,6 +573,9 @@ msgstr "{0, plural, one {关注者} other {关注者}}"
 msgid "Mutes"
 msgstr "隐藏"
 
+msgid "Bought"
+msgstr ""
+
 msgid "NFTs"
 msgstr "NFTs"
 
@@ -1382,6 +1385,9 @@ msgstr "评论"
 msgid "Only people you mention"
 msgstr "只有你提及的人"
 
+msgid "Burn"
+msgstr ""
+
 msgid "{0} turned in"
 msgstr "{0} 提交了"
 
@@ -1507,6 +1513,9 @@ msgstr "{handleOrEnsOrAddress} 已关注"
 
 msgid "Circulating Supply"
 msgstr "流通总量"
+
+msgid "from <0>{0}</0>"
+msgstr ""
 
 msgid "Post has been deleted"
 msgstr "帖子已被删除"
@@ -1686,6 +1695,9 @@ msgstr "描述问题或者提出建议"
 
 msgid "Cryptocurrency mixer."
 msgstr "加密货币混合器。"
+
+msgid "to <0>{0}</0>"
+msgstr ""
 
 msgid "{shares, plural, one {Mirror or Quote} other {Mirrors or Quotes}}"
 msgstr "{shares, plural, one {转帖或引用} other {转帖或引用}}"
@@ -1917,6 +1929,9 @@ msgstr "合约所有者对购买没有限制。"
 
 msgid "Financial crime."
 msgstr "金融犯罪。"
+
+msgid "Acquired"
+msgstr ""
 
 msgid "This can’t be undone and you’ll lose your draft."
 msgstr "此操作无法撤销，您将丢失您的草稿。"
@@ -3013,6 +3028,9 @@ msgstr ""
 msgid "Oversupply minting."
 msgstr "超出最大铸造数量。"
 
+msgid "Sold"
+msgstr ""
+
 msgid "Followed <0>@{handle}</0> on {0}"
 msgstr "在 {0} 上关注了 <0>@{handle}</0>"
 
@@ -3420,6 +3438,9 @@ msgstr "× {0}"
 
 msgid "Blink Validator"
 msgstr "Blink 验证器"
+
+msgid "Minted"
+msgstr ""
 
 msgid "High-signal Filter"
 msgstr "高质量过滤"
