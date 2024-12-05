@@ -1,11 +1,11 @@
 /* eslint-disable @next/next/no-img-element */
 import { t, Trans } from '@lingui/macro';
 import { getEnumAsArray } from '@masknet/kit';
-import { Alert, SelectFungibleTokenModal, SelectNonFungibleContractModal, TokenIcon } from '@masknet/shared';
-import { EMPTY_LIST, NetworkPluginID, PluginID } from '@masknet/shared-base';
+import { Alert, TokenIcon } from '@masknet/shared';
+import { EMPTY_LIST, NetworkPluginID } from '@masknet/shared-base';
 import { useChainContext } from '@masknet/web3-hooks-base';
 import type { FungibleToken, NonFungibleCollection } from '@masknet/web3-shared-base';
-import { ChainId, SchemaType } from '@masknet/web3-shared-evm';
+import { ChainId, SchemaType, ZERO_ADDRESS } from '@masknet/web3-shared-evm';
 import {
     Box,
     Button,
@@ -18,15 +18,18 @@ import {
     Typography,
 } from '@mui/material';
 import { Fragment, type FunctionComponent, type SVGAttributes, useCallback, useState } from 'react';
+import { isAddress } from 'viem';
 
 import EthIcon from '@/assets/eth-linear.svg';
 import FarcasterIcon from '@/assets/farcaster-fill.svg';
 import LensIcon from '@/assets/lens-fill.svg';
 import NFTIcon from '@/assets/nft.svg';
 import { ClickableButton } from '@/components/ClickableButton.js';
+import { isSameEthereumAddress } from '@/helpers/isSameAddress.js';
 import { type GeneratedIcon, Icons } from '@/mask/bindings/components.js';
 import { makeStyles } from '@/mask/bindings/index.js';
 import { type FireflyRedpacketSettings, RequirementType } from '@/mask/plugins/red-packet/types.js';
+import { NonFungibleTokenCollectionSelectModalRef, TokenSelectorModalRef } from '@/modals/controls.js';
 
 const useStyles = makeStyles()((theme) => ({
     container: {
@@ -139,42 +142,26 @@ export function ClaimRequirementsDialog(props: ClaimRequirementsDialogProps) {
     const [selectedRules, setSelectedRules] = useState(props.origin ?? [RequirementType.Follow]);
     const [selectedCollection, setSelectedCollection] = useState<NonFungibleCollection<ChainId, SchemaType>>();
     const { classes } = useStyles();
-    const { chainId } = useChainContext<NetworkPluginID.PLUGIN_EVM>();
+    const { account } = useChainContext<NetworkPluginID.PLUGIN_EVM>();
 
-    const handleSelectCollection = useCallback(() => {
-        SelectNonFungibleContractModal.open({
-            pluginID: NetworkPluginID.PLUGIN_EVM,
-            schemaType: SchemaType.ERC721,
-            chainId,
-            onSubmit: (value: NonFungibleCollection<ChainId, SchemaType>) => setSelectedCollection(value),
-            collections:
-                chainId === ChainId.Base
-                    ? [
-                          {
-                              chainId: 8453,
-                              name: 'Firefly (Base) Friends',
-                              address: '0x577294402BA4679b6ba4A24B8e03Ce9d0C728e72',
-                              slug: 'Firefly (Base) Friends',
-                              symbol: '',
-                              iconURL:
-                                  'https://remote-image.decentralized-content.com/image?url=https%3A%2F%2Fipfs.decentralized-content.com%2Fipfs%2Fbafybeic5qugbigrxmb4vbyt4qk6cfyqlgmvembkwyrjj3go3lrt74aysci&w=1080&q=75',
-                          },
-                      ]
-                    : undefined,
+    const handleSelectCollection = useCallback(async () => {
+        const picked = await NonFungibleTokenCollectionSelectModalRef.openAndWaitForClose({
+            selected: selectedCollection,
         });
-    }, [chainId]);
+        if (picked) setSelectedCollection(picked);
+    }, [selectedCollection]);
 
     const [token, setToken] = useState<FungibleToken<ChainId, SchemaType>>();
     const selectToken = async () => {
-        const picked = await SelectFungibleTokenModal.openAndWaitForClose({
-            disableNativeToken: false,
-            selectedTokens: token ? [token.address] : [],
-            chainId,
-            networkPluginID: NetworkPluginID.PLUGIN_EVM,
-            pluginID: PluginID.RedPacket,
+        const picked = await TokenSelectorModalRef.openAndWaitForClose({
+            address: account,
+            isSelected(item) {
+                const address = isAddress(item.id) ? item.id : ZERO_ADDRESS;
+                return isSameEthereumAddress(address, token?.address) && item.chainId === token?.chainId;
+            },
         });
         if (picked) {
-            setToken(picked as FungibleToken<ChainId, SchemaType>);
+            setToken(picked);
         }
     };
 

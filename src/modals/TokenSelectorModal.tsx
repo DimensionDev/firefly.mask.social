@@ -1,6 +1,9 @@
 import { DialogTitle } from '@headlessui/react';
 import { Trans } from '@lingui/macro';
+import { type FungibleToken, TokenType } from '@masknet/web3-shared-base';
+import { ChainId, SchemaType, ZERO_ADDRESS } from '@masknet/web3-shared-evm';
 import { forwardRef, useState } from 'react';
+import { isAddress } from 'viem';
 
 import LeftArrowIcon from '@/assets/left-arrow.svg';
 import { Modal } from '@/components/Modal.js';
@@ -9,13 +12,31 @@ import { useSingletonModal } from '@/hooks/useSingletonModal.js';
 import type { SingletonModalRefCreator } from '@/libs/SingletonModal.js';
 import type { Token } from '@/providers/types/Transfer.js';
 
+function formatDebankToken(token: Token): FungibleToken<ChainId, SchemaType> {
+    // it is not a valid address if its native token
+    const address = isAddress(token.id) ? token.id : ZERO_ADDRESS;
+
+    return {
+        amount: token.raw_amount_hex_str,
+        name: token.name,
+        symbol: token.symbol,
+        decimals: token.decimals,
+        logoURL: token.logo_url,
+        id: address,
+        chainId: token.chainId,
+        type: TokenType.Fungible,
+        schema: SchemaType.ERC20,
+        address,
+    } as FungibleToken<ChainId, SchemaType>;
+}
+
 export interface TokenSelectorModalOpenProps {
     address: string;
     disableBackdropClose?: boolean;
     isSelected?: (item: Token) => boolean;
 }
 
-export type TokenSelectorModalCloseProps = Token | null;
+export type TokenSelectorModalCloseProps = FungibleToken<ChainId, SchemaType> | null;
 
 export const TokenSelectorModal = forwardRef<
     SingletonModalRefCreator<TokenSelectorModalOpenProps, TokenSelectorModalCloseProps>
@@ -43,14 +64,14 @@ export const TokenSelectorModal = forwardRef<
                         className="absolute left-0 top-1/2 -translate-y-1/2 cursor-pointer text-main"
                     />
                     <span className="flex h-full w-full items-center justify-center text-lg font-bold text-main">
-                        <Trans>Select Token </Trans>
+                        <Trans>Select Token</Trans>
                     </span>
                 </DialogTitle>
                 <div className="min-h-0 flex-1 overflow-hidden">
                     <SearchTokenPanel
                         address={props.address}
                         isSelected={props.isSelected}
-                        onSelected={(token) => dispatch?.close(token)}
+                        onSelected={(token) => dispatch?.close(formatDebankToken(token))}
                     />
                 </div>
             </div>
