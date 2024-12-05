@@ -828,6 +828,9 @@ msgstr ""
 msgid "Phishing activities found."
 msgstr ""
 
+msgid "LinkDigest Validator"
+msgstr ""
+
 msgid "No Lens profile found.<0/>Please change to another wallet."
 msgstr ""
 
@@ -2153,6 +2156,9 @@ msgid "1 NFT claimed."
 msgstr ""
 
 msgid "Failed to update profile."
+msgstr ""
+
+msgid "Your URL"
 msgstr ""
 
 msgid "Connected in Firefly"

@@ -823,6 +823,9 @@ msgstr "OpenGraph Validator"
 msgid "Phishing activities found."
 msgstr "Phishing activities found."
 
+msgid "LinkDigest Validator"
+msgstr "LinkDigest Validator"
+
 msgid "No Lens profile found.<0/>Please change to another wallet."
 msgstr "No Lens profile found.<0/>Please change to another wallet."
 
@@ -2153,6 +2156,9 @@ msgstr "1 NFT claimed."
 
 msgid "Failed to update profile."
 msgstr "Failed to update profile."
+
+msgid "Your URL"
+msgstr "Your URL"
 
 msgid "Connected in Firefly"
 msgstr "Connected in Firefly"
