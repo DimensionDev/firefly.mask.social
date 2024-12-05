@@ -14,7 +14,7 @@ import { omit } from 'lodash-es';
 import { useCallback } from 'react';
 import { useAsync, useAsyncFn } from 'react-use';
 import type { AsyncFnReturn } from 'react-use/lib/useAsyncFn.js';
-import * as web3_utils from /* webpackDefer: true */ 'web3-utils';
+import { type Hex, keccak256 } from 'viem';
 
 import type { HappyRedPacketV4 } from '@/mask/bindings/constants.js';
 import { EVMWeb3 } from '@/mask/bindings/index.js';
@@ -94,7 +94,7 @@ function useCreateParamsCallback(
             shares,
             isRandom,
             duration,
-            seed: web3_utils.sha3(seed)!,
+            seed: keccak256(seed as Hex),
             message,
             name,
             tokenType,

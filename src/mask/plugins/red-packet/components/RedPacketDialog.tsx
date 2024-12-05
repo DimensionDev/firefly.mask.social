@@ -12,7 +12,7 @@ import { ChainId, type GasConfig, GasEditor } from '@masknet/web3-shared-evm';
 import { TabContext } from '@mui/lab';
 import { DialogContent, Tab, useTheme } from '@mui/material';
 import { Suspense, useCallback, useContext, useMemo, useState } from 'react';
-import * as web3_utils from /* webpackDefer: true */ 'web3-utils';
+import { type Hex, keccak256 } from 'viem';
 
 import { Icons, MaskTabList, useTabs } from '@/mask/bindings/components.js';
 import { EVMWeb3, makeStyles } from '@/mask/bindings/index.js';
@@ -145,13 +145,9 @@ export default function RedPacketDialog(props: RedPacketDialogProps) {
                     payload.password = prompt('Please enter the password of the lucky drop:', '') ?? '';
                 } else if (payload.contract_version > 1 && payload.contract_version < 4) {
                     // just sign out the password if it is lost.
-                    payload.password = await EVMWeb3.signMessage(
-                        'message',
-                        web3_utils.sha3(payload.sender.message) ?? '',
-                        {
-                            account,
-                        },
-                    );
+                    payload.password = await EVMWeb3.signMessage('message', keccak256(payload.sender.message as Hex), {
+                        account,
+                    });
                     payload.password = payload.password.slice(2);
                 }
             }

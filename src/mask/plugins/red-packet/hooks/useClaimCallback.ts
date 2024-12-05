@@ -2,7 +2,7 @@ import type { NetworkPluginID } from '@masknet/shared-base';
 import { useChainContext } from '@masknet/web3-hooks-base';
 import { ContractTransaction } from '@masknet/web3-shared-evm';
 import { useAsyncFn } from 'react-use';
-import * as web3_utils from /* webpackDefer: true */ 'web3-utils';
+import { type Hex, keccak256 } from 'viem';
 
 import type { HappyRedPacketV1, HappyRedPacketV4 } from '@/mask/bindings/constants.js';
 import { EVMChainResolver, EVMWeb3 } from '@/mask/bindings/index.js';
@@ -43,7 +43,7 @@ export function useClaimCallback(account: string, payload: RedPacketJSONPayload 
                           rpid,
                           signedMsg,
                           account,
-                          web3_utils.sha3(account)!,
+                          keccak256(account as Hex),
                       ),
                       config,
                   );
