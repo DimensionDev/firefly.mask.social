@@ -2,6 +2,7 @@ import { formatBalance } from '@masknet/web3-shared-base';
 import { type GasConfig, isNativeTokenAddress, useRedPacketConstants } from '@masknet/web3-shared-evm';
 import { BigNumber } from 'bignumber.js';
 import { useCallback, useEffect, useRef } from 'react';
+import { useBalance } from 'wagmi';
 
 import { useChainContext } from '@/hooks/useChainContext.js';
 import { useTransactionValue } from '@/mask/bindings/hooks.js';
@@ -12,7 +13,6 @@ import {
     useCreateParams,
 } from '@/mask/plugins/red-packet/hooks/useCreateCallback.js';
 import type { RedPacketJSONPayload } from '@/providers/red-packet/types.js';
-import { useBalance } from 'wagmi';
 
 export function useCreateFTRedpacketCallback(
     publicKey: string,
