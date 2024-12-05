@@ -4,7 +4,7 @@ import { toFixed, ZERO } from '@masknet/web3-shared-base';
 import { SchemaType, useTokenConstants } from '@masknet/web3-shared-evm';
 import { omit } from 'lodash-es';
 import { useAsync } from 'react-use';
-import * as web3_utils from /* webpackDefer: true */ 'web3-utils';
+import { type Hex, keccak256 } from 'viem';
 
 import type { HappyRedPacketV4 } from '@/mask/bindings/constants.js';
 import {
@@ -40,7 +40,7 @@ export function useDefaultCreateGas(
             shares,
             isRandom,
             duration,
-            seed: web3_utils.sha3(seed)!,
+            seed: keccak256(seed as Hex),
             message,
             name,
             tokenType,
