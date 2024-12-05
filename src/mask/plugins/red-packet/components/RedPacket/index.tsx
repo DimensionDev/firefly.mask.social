@@ -3,8 +3,7 @@ import { Plural, select, t, Trans } from '@lingui/macro';
 import { delay } from '@masknet/kit';
 import { useLastRecognizedIdentity, usePostInfoDetails, usePostLink } from '@masknet/plugin-infra/content-script';
 import { LoadingStatus, TransactionConfirmModal } from '@masknet/shared';
-import { EMPTY_LIST, NetworkPluginID } from '@masknet/shared-base';
-import { useChainContext } from '@masknet/web3-hooks-base';
+import { EMPTY_LIST } from '@masknet/shared-base';
 import { formatBalance, isZero, TokenType } from '@masknet/web3-shared-base';
 import { ChainId } from '@masknet/web3-shared-evm';
 import { Card, Grow, Stack, Typography } from '@mui/material';
@@ -14,6 +13,7 @@ import parseColor from 'tinycolor2';
 import type { SocialSource } from '@/constants/enum.js';
 import { SITE_URL } from '@/constants/index.js';
 import { Image } from '@/esm/Image.js';
+import { useChainContext } from '@/hooks/useChainContext.js';
 import type { HappyRedPacketV4 } from '@/mask/bindings/constants.js';
 import { EVMChainResolver, makeStyles } from '@/mask/bindings/index.js';
 import { OperationFooter } from '@/mask/plugins/red-packet/components/RedPacket/OperationFooter.js';
@@ -178,9 +178,7 @@ export interface RedPacketProps {
 export const RedPacket = memo(function RedPacket({ payload }: RedPacketProps) {
     const token = payload.token;
     const payloadChainId = token?.chainId ?? EVMChainResolver.chainId(payload.network ?? '') ?? ChainId.Mainnet;
-    const { account } = useChainContext<NetworkPluginID.PLUGIN_EVM>({
-        chainId: payloadChainId,
-    });
+    const { account } = useChainContext();
 
     // #region token detailed
     const {

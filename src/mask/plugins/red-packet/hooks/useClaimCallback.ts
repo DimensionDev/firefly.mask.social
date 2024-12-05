@@ -1,9 +1,8 @@
-import type { NetworkPluginID } from '@masknet/shared-base';
-import { useChainContext } from '@masknet/web3-hooks-base';
 import { ContractTransaction } from '@masknet/web3-shared-evm';
 import { useAsyncFn } from 'react-use';
 import { type Hex, keccak256 } from 'viem';
 
+import { useChainContext } from '@/hooks/useChainContext.js';
 import type { HappyRedPacketV1, HappyRedPacketV4 } from '@/mask/bindings/constants.js';
 import { EVMChainResolver, EVMWeb3 } from '@/mask/bindings/index.js';
 import { useRedPacketContract } from '@/mask/plugins/red-packet/hooks/useRedPacketContract.js';
@@ -17,7 +16,7 @@ export function useClaimCallback(account: string, payload: RedPacketJSONPayload 
     const payloadChainId = payload.token?.chainId;
     const version = payload.contract_version;
     const rpid = payload.rpid;
-    const { chainId: contextChainId } = useChainContext<NetworkPluginID.PLUGIN_EVM>({ chainId: payloadChainId });
+    const { chainId: contextChainId } = useChainContext({ chainId: payloadChainId });
     const chainIdByName = EVMChainResolver.chainId('network' in payload ? payload.network! : '');
     const chainId = payloadChainId || chainIdByName || contextChainId;
     const redPacketContract = useRedPacketContract(chainId, version);

@@ -7,6 +7,7 @@ import { FireflyRedPacket } from '@/providers/red-packet/index.js';
 import type { RedPacketJSONPayload } from '@/providers/red-packet/types.js';
 
 type Availability = ReturnType<typeof useAvailability>['data'];
+
 export function useRedPacketCover(payload: RedPacketJSONPayload, availability: Availability) {
     const token = payload.token;
     const { data } = useQuery({

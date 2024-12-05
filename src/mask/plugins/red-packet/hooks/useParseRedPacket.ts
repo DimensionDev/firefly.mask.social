@@ -1,9 +1,9 @@
 import { useLastRecognizedIdentity, usePostInfoDetails } from '@masknet/plugin-infra/content-script';
-import { EnhanceableSite, NetworkPluginID } from '@masknet/shared-base';
-import { useChainContext } from '@masknet/web3-hooks-base';
+import { EnhanceableSite } from '@masknet/shared-base';
 import type { ChainId } from '@masknet/web3-shared-evm';
 import { useQuery } from '@tanstack/react-query';
 
+import { useChainContext } from '@/hooks/useChainContext.js';
 import { FireflyRedPacket } from '@/providers/red-packet/index.js';
 import type { FireflyRedPacketAPI } from '@/providers/red-packet/types.js';
 
@@ -13,7 +13,7 @@ import type { FireflyRedPacketAPI } from '@/providers/red-packet/types.js';
  */
 export function useParseRedPacket(chainId: ChainId) {
     const images = usePostInfoDetails.postMetadataImages();
-    const { account } = useChainContext<NetworkPluginID.PLUGIN_EVM>({
+    const { account } = useChainContext({
         chainId,
     });
     const source = usePostInfoDetails.source();
