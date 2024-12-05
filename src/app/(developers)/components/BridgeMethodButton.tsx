@@ -144,7 +144,7 @@ export function BridgeMethodButton({ item }: Props) {
                     break;
             }
         } catch (error) {
-            enqueueMessageFromError(error, t`Failed to execute method`);
+            enqueueMessageFromError(error, 'Failed to execute method');
             throw error;
         }
     });
