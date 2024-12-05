@@ -12,7 +12,7 @@ import {
     WalletConnectedBoundary,
 } from '@masknet/shared';
 import { NetworkPluginID } from '@masknet/shared-base';
-import { useEnvironmentContext, useNativeTokenPrice } from '@masknet/web3-hooks-base';
+import { useNativeTokenPrice } from '@masknet/web3-hooks-base';
 import {
     formatBalance,
     type FungibleToken,
@@ -138,8 +138,8 @@ export function RedPacketERC20Form(props: RedPacketFormProps) {
     const { origin, expectedChainId, gasOption, onChange, onNext, onGasOptionChange } = props;
     const { classes } = useStyles();
     const theme = useTheme();
+
     // context
-    const { pluginID } = useEnvironmentContext();
     const { account, chainId } = useChainContext({ chainId: expectedChainId });
     const { HAPPY_RED_PACKET_ADDRESS_V4 } = useRedPacketConstants(chainId);
 
@@ -398,17 +398,15 @@ export function RedPacketERC20Form(props: RedPacketFormProps) {
                 />
             </Box>
 
-            {pluginID === NetworkPluginID.PLUGIN_EVM ? (
-                <Box margin={2}>
-                    <SelectGasSettingsToolbar
-                        nativeToken={nativeTokenDetailed}
-                        nativeTokenPrice={nativeTokenPrice}
-                        gasConfig={gasOption}
-                        gasLimit={Number.parseInt(params?.gas ?? '0', 10)}
-                        onChange={onGasOptionChange}
-                    />
-                </Box>
-            ) : null}
+            <Box margin={2}>
+                <SelectGasSettingsToolbar
+                    nativeToken={nativeTokenDetailed}
+                    nativeTokenPrice={nativeTokenPrice}
+                    gasConfig={gasOption}
+                    gasLimit={Number.parseInt(params?.gas ?? '0', 10)}
+                    onChange={onGasOptionChange}
+                />
+            </Box>
 
             {rawTotalAmount && !isZero(rawTotalAmount) ? (
                 <TokenValue className={classes.tokenValue} token={token} amount={rawTotalAmount} />
@@ -418,7 +416,7 @@ export function RedPacketERC20Form(props: RedPacketFormProps) {
                 <PluginWalletStatusBar
                     expectedPluginID={NetworkPluginID.PLUGIN_EVM}
                     expectedChainId={chainId}
-                    actualPluginID={pluginID}
+                    actualPluginID={NetworkPluginID.PLUGIN_EVM}
                     disableSwitchAccount
                 >
                     <EthereumERC20TokenApprovedBoundary
