@@ -10,8 +10,7 @@ import { ClickableButton } from '@/components/ClickableButton.js';
 import { SocialSourceIcon } from '@/components/SocialSourceIcon.js';
 import { type SocialSource, Source } from '@/constants/enum.js';
 import { classNames } from '@/helpers/classNames.js';
-import { enqueueErrorMessage, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
-import { getSnackbarMessageFromError } from '@/helpers/getSnackbarMessageFromError.js';
+import { enqueueErrorMessage, enqueueMessageFromError, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { isSameProfile } from '@/helpers/isSameProfile.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { useAccounts } from '@/hooks/useAccounts.js';
@@ -41,9 +40,7 @@ export function PostByItem({ source, disabled = false }: PostByItemProps) {
             await switchAccount(account);
             enqueueSuccessMessage(t`Your ${resolveSourceName(account.profile.source)} account is now connected.`);
         } catch (error) {
-            enqueueErrorMessage(getSnackbarMessageFromError(error, t`Failed to login.`), {
-                error,
-            });
+            enqueueMessageFromError(error, t`Failed to login.`);
             throw error;
         }
     }, []);

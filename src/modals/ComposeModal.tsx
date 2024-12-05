@@ -24,12 +24,11 @@ import { FileMimeType, type SocialSource } from '@/constants/enum.js';
 import { UnreachableError } from '@/constants/error.js';
 import { EMPTY_LIST, RP_HASH_TAG, SITE_HOSTNAME, SITE_URL, SORTED_SOCIAL_SOURCES } from '@/constants/index.js';
 import { CHAR_TAG, type Chars } from '@/helpers/chars.js';
-import { enqueueErrorMessage, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
+import { enqueueMessageFromError, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { fetchImageAsPNG } from '@/helpers/fetchImageAsPNG.js';
 import { getCompositePost } from '@/helpers/getCompositePost.js';
 import { getCurrentAvailableSources } from '@/helpers/getCurrentAvailableSources.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
-import { getSnackbarMessageFromError } from '@/helpers/getSnackbarMessageFromError.js';
 import { isEmptyPost } from '@/helpers/isEmptyPost.js';
 import { narrowToSocialSource } from '@/helpers/narrowToSocialSource.js';
 import { createLocalMediaObject } from '@/helpers/resolveMediaObjectUrl.js';
@@ -281,9 +280,7 @@ export const ComposeModalUI = forwardRef<SingletonModalRefCreator<ComposeModalOp
                 );
                 updateTypedMessage(updateRpEncrypted(typedMessage));
             } catch (error) {
-                enqueueErrorMessage(getSnackbarMessageFromError(error, t`Failed to create image payload.`), {
-                    error,
-                });
+                enqueueMessageFromError(error, t`Failed to create image payload.`);
                 throw error;
             }
             // each time the typedMessage changes, we need to check if it has a red packet payload

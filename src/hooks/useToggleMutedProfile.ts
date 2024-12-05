@@ -2,7 +2,7 @@ import { t } from '@lingui/macro';
 import { useAsyncFn } from 'react-use';
 
 import { enqueueErrorMessage, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
-import { getSnackbarMessageFromError } from '@/helpers/getSnackbarMessageFromError.js';
+import { getErrorMessageFromError } from '@/helpers/getSnackbarMessageFromError.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
@@ -40,7 +40,7 @@ export function useToggleMutedProfile(operator: Profile | null) {
                 }
             } catch (error) {
                 enqueueErrorMessage(
-                    getSnackbarMessageFromError(
+                    getErrorMessageFromError(
                         error,
                         muted
                             ? t`Failed to unmute @${profile.handle} on ${sourceName}.`

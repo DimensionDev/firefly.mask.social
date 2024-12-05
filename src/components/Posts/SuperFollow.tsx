@@ -10,10 +10,9 @@ import { CloseButton } from '@/components/CloseButton.js';
 import { BioMarkup } from '@/components/Markup/BioMarkup.js';
 import { ProfileAvatar } from '@/components/ProfileAvatar.js';
 import { SocialSourceIcon } from '@/components/SocialSourceIcon.js';
-import { enqueueErrorMessage, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
+import { enqueueMessageFromError, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { formatEthereumAddress } from '@/helpers/formatAddress.js';
 import { nFormatter } from '@/helpers/formatCommentCounts.js';
-import { getSnackbarMessageFromError } from '@/helpers/getSnackbarMessageFromError.js';
 import { isSameEthereumAddress } from '@/helpers/isSameAddress.js';
 import { useSuperFollowData } from '@/hooks/useSuperFollow.js';
 import { ConnectModalRef } from '@/modals/controls.js';
@@ -74,9 +73,7 @@ export const SuperFollow = memo<SuperFollowProps>(function SuperFollow({ profile
             enqueueSuccessMessage(t`Followed @${profile.handle} on Lens`);
             onClose?.();
         } catch (error) {
-            enqueueErrorMessage(getSnackbarMessageFromError(error, t`Failed to follow @${profile.handle} on Lens`), {
-                error,
-            });
+            enqueueMessageFromError(error, t`Failed to follow @${profile.handle} on Lens`);
             throw error;
         }
     }, [

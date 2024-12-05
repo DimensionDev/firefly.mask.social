@@ -3,7 +3,7 @@ import { useIsMutating, useMutation } from '@tanstack/react-query';
 
 import { checkFarcasterInvalidSignerKey } from '@/helpers/checkFarcasterInvalidSignerKey.js';
 import { enqueueErrorMessage, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
-import { getSnackbarMessageFromError } from '@/helpers/getSnackbarMessageFromError.js';
+import { getErrorMessageFromError } from '@/helpers/getSnackbarMessageFromError.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
@@ -44,7 +44,7 @@ export function useToggleFollow(profile: Profile) {
                 return result;
             } catch (error) {
                 enqueueErrorMessage(
-                    getSnackbarMessageFromError(
+                    getErrorMessageFromError(
                         error,
                         following
                             ? t`Failed to unfollow @${profile.handle} on ${sourceName}.`

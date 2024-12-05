@@ -11,9 +11,8 @@ import { useAsyncFn } from 'react-use';
 import { config } from '@/configs/wagmiClient.js';
 import { FetchError } from '@/constants/error.js';
 import { EMPTY_LIST } from '@/constants/index.js';
-import { enqueueErrorMessage, enqueueInfoMessage, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
+import { enqueueInfoMessage, enqueueMessageFromError, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { formatEthereumAddress, formatSolanaAddress } from '@/helpers/formatAddress.js';
-import { getSnackbarMessageFromError } from '@/helpers/getSnackbarMessageFromError.js';
 import { getWalletClientRequired } from '@/helpers/getWalletClientRequired.js';
 import { isSameEthereumAddress, isSameSolanaAddress } from '@/helpers/isSameAddress.js';
 import { useSingletonModal } from '@/hooks/useSingletonModal.js';
@@ -121,9 +120,7 @@ export const AddWalletModal = forwardRef<SingletonModalRefCreator<AddWalletModal
                     }
 
                     const messageFromError = error instanceof FetchError ? error.text : '';
-                    enqueueErrorMessage(
-                        getSnackbarMessageFromError(error, messageFromError || t`Failed to add wallet`),
-                    );
+                    enqueueMessageFromError(error, messageFromError || t`Failed to add wallet`);
                     throw error;
                 }
             },

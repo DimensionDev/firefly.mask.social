@@ -12,8 +12,7 @@ import { ClickableButton } from '@/components/ClickableButton.js';
 import { IS_PRODUCTION } from '@/constants/index.js';
 import { Image } from '@/esm/Image.js';
 import { Link } from '@/esm/Link.js';
-import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
-import { getSnackbarMessageFromError } from '@/helpers/getSnackbarMessageFromError.jsx';
+import { enqueueMessageFromError } from '@/helpers/enqueueMessage.js';
 import { getI18n } from '@/i18n/index.js';
 import { uploadToDirectory } from '@/services/uploadToS3.js';
 
@@ -32,7 +31,7 @@ export default function Page() {
             const url = await uploadToDirectory(file, directory, () => name);
             setUrl(url);
         } catch (error) {
-            enqueueErrorMessage(getSnackbarMessageFromError(error, t`Failed to upload.`), { error });
+            enqueueMessageFromError(error, t`Failed to upload.`);
             throw error;
         }
     }, [file, directory, name, setUrl]);

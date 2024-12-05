@@ -3,7 +3,7 @@ import { useMutation } from '@tanstack/react-query';
 
 import { BookmarkType, FireflyPlatform } from '@/constants/enum.js';
 import { enqueueErrorMessage, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
-import { getSnackbarMessageFromError } from '@/helpers/getSnackbarMessageFromError.js';
+import { getErrorMessageFromError } from '@/helpers/getSnackbarMessageFromError.js';
 import { LoginModalRef } from '@/modals/controls.js';
 import { FarcasterSocialMediaProvider } from '@/providers/farcaster/SocialMedia.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
@@ -35,7 +35,7 @@ export function useToggleSnapshotBookmark() {
                 }
             } catch (error) {
                 enqueueErrorMessage(
-                    getSnackbarMessageFromError(
+                    getErrorMessageFromError(
                         error,
                         hasBookmarked ? t`Failed to un-bookmark snapshot.` : t`Failed to bookmark snapshot.`,
                     ),

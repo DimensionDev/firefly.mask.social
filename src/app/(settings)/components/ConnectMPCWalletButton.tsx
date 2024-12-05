@@ -13,9 +13,8 @@ import { config, particleConnector } from '@/configs/wagmiClient.js';
 import { ParticleSolanaWalletAdapter } from '@/connectors/ParticleSolanaWallet.js';
 import { STATUS } from '@/constants/enum.js';
 import { env } from '@/constants/env.js';
-import { enqueueErrorMessage, enqueueInfoMessage } from '@/helpers/enqueueMessage.js';
+import { enqueueInfoMessage, enqueueMessageFromError } from '@/helpers/enqueueMessage.js';
 import { formatSolanaAddress } from '@/helpers/formatAddress.js';
-import { getSnackbarMessageFromError } from '@/helpers/getSnackbarMessageFromError.js';
 import { isSameEthereumAddress, isSameSolanaAddress } from '@/helpers/isSameAddress.js';
 import { resolveValue } from '@/helpers/resolveValue.js';
 import { SolanaAccountModalRef } from '@/modals/controls.js';
@@ -66,9 +65,7 @@ export function ConnectMPCWalletButton({ connection }: ConnectMPCWalletButtonPro
                         safeUnreachable(connection.platform);
                 }
             } catch (error) {
-                enqueueErrorMessage(getSnackbarMessageFromError(error, 'Failed to connect MPC wallet'), {
-                    error,
-                });
+                enqueueMessageFromError(error, t`Failed to connect MPC wallet`);
                 throw error;
             }
         },

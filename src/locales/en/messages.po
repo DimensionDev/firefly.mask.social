@@ -1262,6 +1262,9 @@ msgstr "Send telemetry events in debug mode."
 msgid "The chainId mismatch."
 msgstr "The chainId mismatch."
 
+msgid "Failed to connect on {source}"
+msgstr "Failed to connect on {source}"
+
 msgid "Open in Firefly App"
 msgstr "Open in Firefly App"
 
@@ -1570,6 +1573,9 @@ msgstr "Email (optional)"
 
 msgid "NFT Contract"
 msgstr "NFT Contract"
+
+msgid "Failed to connect MPC wallet"
+msgstr "Failed to connect MPC wallet"
 
 msgid "Phishing activities."
 msgstr "Phishing activities."
@@ -2921,6 +2927,9 @@ msgstr "Your name"
 
 msgid "No tax changes found for personal addresses."
 msgstr "No tax changes found for personal addresses."
+
+msgid "Failed to execute method"
+msgstr "Failed to execute method"
 
 msgid "Owned"
 msgstr "Owned"

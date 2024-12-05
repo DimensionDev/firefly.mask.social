@@ -6,7 +6,6 @@ import { EstimateGasExecutionError, UserRejectedRequestError } from 'viem';
 
 import { SnackbarErrorMessage } from '@/components/SnackbarErrorMessage.js';
 import { FarcasterInvalidSignerKey, FetchError, UserRejectionError } from '@/constants/error.js';
-import { enqueueWarningMessage } from '@/helpers/enqueueMessage.js';
 import { getErrorMessageFromFetchError } from '@/helpers/getErrorMessageFromFetchError.js';
 
 type SolanaError = {
@@ -20,7 +19,7 @@ function isRejectedMessage(message: string) {
         : ['user rejected the request', 'user denied request'].some((m) => message.toLowerCase().includes(m));
 }
 
-function captureWarningMessageFromError(error: unknown) {
+export function getWarningMessageFromError(error: unknown, fallback?: string) {
     let currentError = error;
     const visited = new Set();
 
@@ -30,21 +29,19 @@ function captureWarningMessageFromError(error: unknown) {
         (isRejectedMessage(error.message) ||
             ('error' in error && isRejectedMessage((error.error as SolanaError).message)))
     ) {
-        enqueueWarningMessage(t`The user rejected the request.`);
-        return true;
+        return t`The user rejected the request.`;
     }
 
     // UserRejectedRequestError from viem
     while (currentError instanceof Error && !visited.has(currentError)) {
         visited.add(currentError);
         if (currentError instanceof UserRejectedRequestError) {
-            enqueueWarningMessage(t`The user rejected the request.`);
-            return true;
+            return t`The user rejected the request.`;
         }
         currentError = currentError.cause;
     }
 
-    return false;
+    return fallback;
 }
 
 /**
@@ -53,11 +50,7 @@ function captureWarningMessageFromError(error: unknown) {
  * @param fallback the fallback message if error is not an instance of Error
  * @returns
  */
-export function getSnackbarMessageFromError(error: unknown, fallback: string): SnackbarMessage {
-    if (captureWarningMessageFromError(error)) {
-        return '';
-    }
-
+export function getErrorMessageFromError(error: unknown, fallback?: string): SnackbarMessage {
     if (error instanceof ClientError) {
         const message = first(error.response.errors)?.message;
         if (message) return message;

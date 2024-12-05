@@ -6,10 +6,9 @@ import { first } from 'lodash-es';
 import type { SocialSourceInURL } from '@/constants/enum.js';
 import { CreateScheduleError, SignlessRequireError } from '@/constants/error.js';
 import { checkScheduleTime } from '@/helpers/checkScheduleTime.js';
-import { enqueueErrorMessage, enqueueInfoMessage, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
+import { enqueueInfoMessage, enqueueMessageFromError, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { getProfileSessionsAll } from '@/helpers/getProfileState.js';
 import { getScheduleTaskContent } from '@/helpers/getScheduleTaskContent.js';
-import { getSnackbarMessageFromError } from '@/helpers/getSnackbarMessageFromError.js';
 import type { SchedulePayload } from '@/helpers/resolveCreateSchedulePostPayload.js';
 import { EnableSignlessModalRef } from '@/modals/controls.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
@@ -81,9 +80,7 @@ export async function crossPostScheduleThread(scheduleTime: Date, signal?: Abort
             EnableSignlessModalRef.open();
         } else {
             if (error instanceof ConnectorNotConnectedError) throw error;
-            enqueueErrorMessage(getSnackbarMessageFromError(error, t`Failed to create schedule thread posts.`), {
-                error,
-            });
+            enqueueMessageFromError(error, t`Failed to create schedule thread posts.`);
         }
         throw error;
     }

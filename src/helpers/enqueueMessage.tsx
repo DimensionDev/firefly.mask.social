@@ -7,6 +7,7 @@ import { WarnSnackbar } from '@/components/WarnSnackbar.js';
 import type { NODE_ENV } from '@/constants/enum.js';
 import { env } from '@/constants/env.js';
 import { getDetailedErrorMessage } from '@/helpers/getDetailedErrorMessage.js';
+import { getErrorMessageFromError, getWarningMessageFromError } from '@/helpers/getSnackbarMessageFromError.jsx';
 import { SnackbarRef } from '@/modals/controls.js';
 
 interface MessageOptions extends OptionsObject {
@@ -16,6 +17,8 @@ interface MessageOptions extends OptionsObject {
 
 interface ErrorOptions extends OptionsObject, Pick<ErrorReportSnackbarProps, 'noReport'> {
     error?: unknown;
+    /** Display a fallback message when no error message */
+    fallback?: string;
     /** If you don't want to display error stack */
     description?: string;
 }
@@ -134,4 +137,23 @@ export function enqueueErrorsMessage(message: SnackbarMessage, options?: ErrorsO
             ),
         },
     });
+}
+
+export function enqueueMessageFromError(error: unknown, fallback: string, options?: ErrorOptions) {
+    const warningMessage = getWarningMessageFromError(error);
+    const options_ = { error, ...options };
+
+    if (warningMessage) {
+        enqueueWarningMessage(warningMessage, options_);
+        return;
+    }
+
+    const errorMessage = getErrorMessageFromError(error);
+    if (errorMessage) {
+        enqueueErrorMessage(errorMessage, options_);
+        return;
+    }
+
+    // fallback message
+    enqueueErrorMessage(fallback, options_);
 }

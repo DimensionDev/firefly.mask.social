@@ -2,7 +2,7 @@ import { t } from '@lingui/macro';
 import { useIsMutating, useMutation } from '@tanstack/react-query';
 
 import { enqueueErrorMessage, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
-import { getSnackbarMessageFromError } from '@/helpers/getSnackbarMessageFromError.js';
+import { getErrorMessageFromError } from '@/helpers/getSnackbarMessageFromError.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
@@ -39,7 +39,7 @@ export function useToggleJoinChannel(channel: Channel) {
                 return result;
             } catch (error) {
                 enqueueErrorMessage(
-                    getSnackbarMessageFromError(
+                    getErrorMessageFromError(
                         error,
                         joined
                             ? t`Failed to leave /${channel.id} on ${sourceName}.`

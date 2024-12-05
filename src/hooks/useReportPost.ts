@@ -1,8 +1,7 @@
 import { t } from '@lingui/macro';
 import { useAsyncFn } from 'react-use';
 
-import { enqueueErrorMessage, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
-import { getSnackbarMessageFromError } from '@/helpers/getSnackbarMessageFromError.js';
+import { enqueueMessageFromError, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 
@@ -19,9 +18,7 @@ export function useReportPost() {
             }
             return result;
         } catch (error) {
-            enqueueErrorMessage(getSnackbarMessageFromError(error, t`Failed to submit report on ${post.source}.`), {
-                error,
-            });
+            enqueueMessageFromError(error, t`Failed to submit report on ${post.source}.`);
             throw error;
         }
     }, []);

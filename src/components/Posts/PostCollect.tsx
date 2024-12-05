@@ -22,10 +22,9 @@ import { config } from '@/configs/wagmiClient.js';
 import { Source } from '@/constants/enum.js';
 import { FetchError } from '@/constants/error.js';
 import { Link } from '@/esm/Link.js';
-import { enqueueErrorMessage, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
+import { enqueueErrorMessage, enqueueMessageFromError, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { formatEthereumAddress } from '@/helpers/formatAddress.js';
 import { getTimeLeft } from '@/helpers/formatTimestamp.js';
-import { getSnackbarMessageFromError } from '@/helpers/getSnackbarMessageFromError.js';
 import { getWalletClientRequired } from '@/helpers/getWalletClientRequired.js';
 import { isSameEthereumAddress } from '@/helpers/isSameAddress.js';
 import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
@@ -155,7 +154,7 @@ export function PostCollect({ post, onClose }: PostCollectProps) {
 
             onClose?.();
         } catch (error) {
-            enqueueErrorMessage(getSnackbarMessageFromError(error, t`Failed to collect post.`), { error });
+            enqueueMessageFromError(error, t`Failed to collect post.`);
             throw error;
         }
     }, [post, onClose]);

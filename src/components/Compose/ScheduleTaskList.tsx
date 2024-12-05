@@ -19,8 +19,7 @@ import { VirtualListFooter } from '@/components/VirtualList/VirtualListFooter.js
 import { queryClient } from '@/configs/queryClient.js';
 import { ScrollListKey } from '@/constants/enum.js';
 import { classNames } from '@/helpers/classNames.js';
-import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
-import { getSnackbarMessageFromError } from '@/helpers/getSnackbarMessageFromError.js';
+import { enqueueMessageFromError } from '@/helpers/enqueueMessage.js';
 import { createIndicator } from '@/helpers/pageable.js';
 import { resolveSocialSource } from '@/helpers/resolveSource.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
@@ -82,9 +81,7 @@ const ScheduleTaskItem = memo(function ScheduleTaskItem({ task }: { task: Schedu
                 scheduleId: task.uuid,
             });
         } catch (error) {
-            enqueueErrorMessage(getSnackbarMessageFromError(error, t`Failed to delete scheduled post.`), {
-                error,
-            });
+            enqueueMessageFromError(error, t`Failed to delete scheduled post.`);
             throw error;
         }
     }, [task.uuid]);

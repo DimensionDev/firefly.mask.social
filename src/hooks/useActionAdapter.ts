@@ -20,8 +20,7 @@ import { useAccount, useSendTransaction, useSignMessage } from 'wagmi';
 import { simulate } from '@/components/TransactionSimulator/simulate.js';
 import { chains } from '@/configs/wagmiClient.js';
 import { TransactionSimulationError } from '@/constants/error.js';
-import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
-import { getSnackbarMessageFromError } from '@/helpers/getSnackbarMessageFromError.js';
+import { enqueueMessageFromError } from '@/helpers/enqueueMessage.js';
 import { parseJSON } from '@/helpers/parseJSON.js';
 import { switchEthereumChain } from '@/helpers/switchEthereumChain.js';
 import { waitForEthereumTransaction } from '@/helpers/waitForEthereumTransaction.js';
@@ -69,7 +68,7 @@ export function useActionAdapter(url?: string) {
                 };
             } catch (error) {
                 if (error instanceof TransactionSimulationError) return;
-                enqueueErrorMessage(getSnackbarMessageFromError(error, t`Signing failed.`), { error });
+                enqueueMessageFromError(error, t`Signing failed.`);
                 return { error: t`Signing failed.` };
             }
         },
@@ -85,7 +84,7 @@ export function useActionAdapter(url?: string) {
                 );
                 return { signature: tx };
             } catch (error) {
-                enqueueErrorMessage(getSnackbarMessageFromError(error, t`Signing failed.`), { error });
+                enqueueMessageFromError(error, t`Signing failed.`);
                 return { error: t`Signing failed.` };
             }
         },

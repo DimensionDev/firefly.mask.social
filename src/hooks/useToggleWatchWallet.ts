@@ -3,7 +3,7 @@ import { useMutation } from '@tanstack/react-query';
 import type { Address } from 'viem';
 
 import { enqueueErrorMessage, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
-import { getSnackbarMessageFromError } from '@/helpers/getSnackbarMessageFromError.js';
+import { getErrorMessageFromError } from '@/helpers/getSnackbarMessageFromError.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 
 interface Options {
@@ -29,7 +29,7 @@ export function useToggleWatchWallet({ handleOrEnsOrAddress, address, following 
                 return result;
             } catch (error) {
                 enqueueErrorMessage(
-                    getSnackbarMessageFromError(
+                    getErrorMessageFromError(
                         error,
                         following
                             ? t`Failed to unwatch ${handleOrEnsOrAddress}.`

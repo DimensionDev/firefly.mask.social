@@ -5,7 +5,7 @@ import { waitForDisconnectConfirmation } from '@/app/(settings)/components/waitF
 import DisconnectIcon from '@/assets/disconnect.svg';
 import LoadingIcon from '@/assets/loading.svg';
 import { enqueueErrorMessage, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
-import { getSnackbarMessageFromError } from '@/helpers/getSnackbarMessageFromError.js';
+import { getErrorMessageFromError } from '@/helpers/getSnackbarMessageFromError.js';
 import type { FireflyWalletConnection } from '@/providers/types/Firefly.js';
 import { disconnectFirefly } from '@/services/disconnectFirefly.js';
 
@@ -24,7 +24,7 @@ export function DisconnectButton({ connection }: DisconnectButtonProps) {
             enqueueSuccessMessage(t`Disconnected from your social graph`);
         } catch (error) {
             enqueueErrorMessage(
-                getSnackbarMessageFromError(error, t`Failed to disconnect wallet from your social graph.`),
+                getErrorMessageFromError(error, t`Failed to disconnect wallet from your social graph.`),
                 { error },
             );
             throw error;

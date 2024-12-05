@@ -1265,6 +1265,9 @@ msgstr ""
 msgid "The chainId mismatch."
 msgstr ""
 
+msgid "Failed to connect on {source}"
+msgstr ""
+
 msgid "Open in Firefly App"
 msgstr ""
 
@@ -1572,6 +1575,9 @@ msgid "Email (optional)"
 msgstr ""
 
 msgid "NFT Contract"
+msgstr ""
+
+msgid "Failed to connect MPC wallet"
 msgstr ""
 
 msgid "Phishing activities."
@@ -2921,6 +2927,9 @@ msgid "Your name"
 msgstr ""
 
 msgid "No tax changes found for personal addresses."
+msgstr ""
+
+msgid "Failed to execute method"
 msgstr ""
 
 msgid "Owned"

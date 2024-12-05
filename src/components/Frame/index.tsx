@@ -14,10 +14,9 @@ import { config } from '@/configs/wagmiClient.js';
 import { NODE_ENV, SimulateType, type SocialSource, Source } from '@/constants/enum.js';
 import { env } from '@/constants/env.js';
 import { MalformedError, TransactionSimulationError } from '@/constants/error.js';
-import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
+import { enqueueErrorMessage, enqueueMessageFromError } from '@/helpers/enqueueMessage.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
 import { getCurrentProfile } from '@/helpers/getCurrentProfile.js';
-import { getSnackbarMessageFromError } from '@/helpers/getSnackbarMessageFromError.js';
 import { getWalletClientRequired } from '@/helpers/getWalletClientRequired.js';
 import { interceptExternalUrl } from '@/helpers/interceptExternalUrl.js';
 import { openWindow } from '@/helpers/openWindow.js';
@@ -257,9 +256,7 @@ async function getNextFrame(
         }
     } catch (error) {
         if (error instanceof TransactionSimulationError) return;
-        enqueueErrorMessage(getSnackbarMessageFromError(error, t`Something went wrong. Please try again.`), {
-            error,
-        });
+        enqueueMessageFromError(error, t`Something went wrong. Please try again.`);
         throw error;
     }
 }

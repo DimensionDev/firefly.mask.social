@@ -2,7 +2,7 @@ import { t } from '@lingui/macro';
 import { useAsyncFn } from 'react-use';
 
 import { enqueueErrorMessage, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
-import { getSnackbarMessageFromError } from '@/helpers/getSnackbarMessageFromError.js';
+import { getErrorMessageFromError } from '@/helpers/getSnackbarMessageFromError.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { captureMuteEvent } from '@/providers/telemetry/captureMuteEvent.js';
 import type { Channel } from '@/providers/types/SocialMedia.js';
@@ -28,7 +28,7 @@ export function useToggleMutedChannel() {
             }
         } catch (error) {
             enqueueErrorMessage(
-                getSnackbarMessageFromError(
+                getErrorMessageFromError(
                     error,
                     channel.blocked ? t`Failed to unmute /${channel.name}.` : t`Failed to mute /${channel.name}.`,
                 ),

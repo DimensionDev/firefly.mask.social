@@ -9,7 +9,7 @@ import { router, TipsRoutePath } from '@/components/Tips/TipsModalRouter.js';
 import { Source } from '@/constants/enum.js';
 import { TIPS_SUPPORT_NETWORKS } from '@/constants/index.js';
 import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
-import { getSnackbarMessageFromError } from '@/helpers/getSnackbarMessageFromError.js';
+import { getErrorMessageFromError } from '@/helpers/getSnackbarMessageFromError.js';
 import { isSameEthereumAddress } from '@/helpers/isSameAddress.js';
 import { useIsSmall } from '@/hooks/useMediaQuery.js';
 import { useSingletonModal } from '@/hooks/useSingletonModal.js';
@@ -98,7 +98,7 @@ const TipsModalUI = forwardRef<SingletonModalRefCreator<TipsModalOpenProps, Tips
                     }
                 } catch (error) {
                     enqueueErrorMessage(
-                        getSnackbarMessageFromError(error, t`Failed to send tip. Please try again later.`),
+                        getErrorMessageFromError(error, t`Failed to send tip. Please try again later.`),
                         { error },
                     );
                     throw error;

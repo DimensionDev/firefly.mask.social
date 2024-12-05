@@ -3,8 +3,7 @@ import { useAsyncFn } from 'react-use';
 
 import LoadingIcon from '@/assets/loading.svg';
 import { ClickableButton } from '@/components/ClickableButton.js';
-import { enqueueErrorMessage, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
-import { getSnackbarMessageFromError } from '@/helpers/getSnackbarMessageFromError.js';
+import { enqueueMessageFromError, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { resolvePollProvider } from '@/helpers/resolvePollProvider.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
 import { LoginModalRef } from '@/modals/controls.js';
@@ -37,7 +36,7 @@ export function VoteButton({ option, post, frameUrl }: VoteButtonProps) {
             });
             enqueueSuccessMessage(res.is_success ? t`Voted successfully.` : t`Failed to vote.`);
         } catch (error) {
-            enqueueErrorMessage(getSnackbarMessageFromError(error, t`Failed to vote.`), { error });
+            enqueueMessageFromError(error, t`Failed to vote.`);
             throw error;
         }
     }, [post.source, pollId, frameUrl, isLogin]);

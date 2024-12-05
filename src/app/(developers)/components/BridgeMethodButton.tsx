@@ -2,14 +2,13 @@
 
 'use client';
 
-import { Trans } from '@lingui/macro';
+import { t, Trans } from '@lingui/macro';
 import { safeUnreachable } from '@masknet/kit';
 import { useAsyncFn } from 'react-use';
 
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { SITE_DESCRIPTION, SITE_NAME } from '@/constants/index.js';
-import { enqueueErrorMessage, enqueueInfoMessage } from '@/helpers/enqueueMessage.js';
-import { getSnackbarMessageFromError } from '@/helpers/getSnackbarMessageFromError.js';
+import { enqueueInfoMessage, enqueueMessageFromError } from '@/helpers/enqueueMessage.js';
 import { fireflyBridgeProvider } from '@/providers/firefly/Bridge.js';
 import { type Mention, type MethodItem, Network, Platform, SupportedMethod } from '@/types/bridge.js';
 
@@ -145,9 +144,7 @@ export function BridgeMethodButton({ item }: Props) {
                     break;
             }
         } catch (error) {
-            enqueueErrorMessage(getSnackbarMessageFromError(error, 'Failed to execute method'), {
-                error,
-            });
+            enqueueMessageFromError(error, t`Failed to execute method`);
             throw error;
         }
     });

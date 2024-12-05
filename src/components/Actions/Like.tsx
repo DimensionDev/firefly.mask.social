@@ -9,7 +9,7 @@ import { Tooltip } from '@/components/Tooltip.js';
 import { classNames } from '@/helpers/classNames.js';
 import { enqueueErrorMessage, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { nFormatter } from '@/helpers/formatCommentCounts.js';
-import { getSnackbarMessageFromError } from '@/helpers/getSnackbarMessageFromError.js';
+import { getErrorMessageFromError } from '@/helpers/getSnackbarMessageFromError.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
 import { LoginModalRef } from '@/modals/controls.js';
@@ -50,7 +50,7 @@ export const Like = memo<LikeProps>(function Like({ post, disabled = false, hidd
         } catch (error) {
             if (isComment) {
                 enqueueErrorMessage(
-                    getSnackbarMessageFromError(
+                    getErrorMessageFromError(
                         error,
                         hasLiked ? t`Failed to unlike the comment.` : t`Failed to like the comment.`,
                     ),
@@ -60,7 +60,7 @@ export const Like = memo<LikeProps>(function Like({ post, disabled = false, hidd
                 );
             } else {
                 enqueueErrorMessage(
-                    getSnackbarMessageFromError(
+                    getErrorMessageFromError(
                         error,
                         hasLiked ? t`Failed to unlike the post.` : t`Failed to like the post.`,
                     ),

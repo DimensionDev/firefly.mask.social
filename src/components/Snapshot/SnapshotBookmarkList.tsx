@@ -9,8 +9,7 @@ import { ListInPage } from '@/components/ListInPage.js';
 import { getSnapshotItemContent } from '@/components/VirtualList/getSnapshotItemContent.js';
 import { ScrollListKey, Source } from '@/constants/enum.js';
 import { SORTED_SOCIAL_SOURCES } from '@/constants/index.js';
-import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
-import { getSnackbarMessageFromError } from '@/helpers/getSnackbarMessageFromError.js';
+import { enqueueMessageFromError } from '@/helpers/enqueueMessage.js';
 import { createIndicator } from '@/helpers/pageable.js';
 import { useCurrentProfileAll } from '@/hooks/useCurrentProfile.js';
 import { useIsLoginFirefly } from '@/hooks/useIsLogin.js';
@@ -38,7 +37,7 @@ export function SnapshotBookmarkList() {
                 );
                 return result;
             } catch (error) {
-                enqueueErrorMessage(getSnackbarMessageFromError(error, t`Failed to fetch bookmarks.`), { error });
+                enqueueMessageFromError(error, t`Failed to fetch bookmarks.`);
                 throw error;
             }
         },

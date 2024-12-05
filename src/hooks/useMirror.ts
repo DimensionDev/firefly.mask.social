@@ -4,8 +4,7 @@ import { useAsyncFn } from 'react-use';
 
 import { Source } from '@/constants/enum.js';
 import { checkFarcasterInvalidSignerKey } from '@/helpers/checkFarcasterInvalidSignerKey.js';
-import { enqueueErrorMessage, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
-import { getSnackbarMessageFromError } from '@/helpers/getSnackbarMessageFromError.js';
+import { enqueueMessageFromError, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { FarcasterSocialMediaProvider } from '@/providers/farcaster/SocialMedia.js';
 import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
 import { capturePostActionEvent } from '@/providers/telemetry/capturePostActionEvent.js';
@@ -56,19 +55,13 @@ export function useMirror(post: Post) {
             } catch (error) {
                 switch (source) {
                     case Source.Farcaster:
-                        enqueueErrorMessage(getSnackbarMessageFromError(error, t`Failed to recast.`), {
-                            error,
-                        });
+                        enqueueMessageFromError(error, t`Failed to recast.`);
                         break;
                     case Source.Lens:
-                        enqueueErrorMessage(getSnackbarMessageFromError(error, t`Failed to mirror.`), {
-                            error,
-                        });
+                        enqueueMessageFromError(error, t`Failed to mirror.`);
                         break;
                     case Source.Twitter:
-                        enqueueErrorMessage(getSnackbarMessageFromError(error, t`Failed to repost.`), {
-                            error,
-                        });
+                        enqueueMessageFromError(error, t`Failed to repost.`);
                         break;
                     default:
                         safeUnreachable(source);
