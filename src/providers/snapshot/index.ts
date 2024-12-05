@@ -1,5 +1,5 @@
 import { t } from '@lingui/macro';
-import { getAccount } from '@wagmi/core';
+import { getAccount } from 'wagmi/actions';
 import { last, omit } from 'lodash-es';
 
 import { config } from '@/configs/wagmiClient.js';

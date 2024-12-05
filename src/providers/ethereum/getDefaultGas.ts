@@ -1,5 +1,5 @@
 import type { ChainId } from '@masknet/web3-shared-evm';
-import { estimateFeesPerGas, estimateGas } from '@wagmi/core';
+import { estimateFeesPerGas, estimateGas } from 'wagmi/actions';
 import { type Address } from 'viem';
 
 import { config } from '@/configs/wagmiClient.js';

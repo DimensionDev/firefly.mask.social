@@ -1,5 +1,5 @@
 import { toBytes } from 'viem';
-import type { GetWalletClientReturnType } from '@wagmi/core';
+import type { GetWalletClientReturnType } from 'wagmi/actions';
 
 import { canonicalize } from '@/esm/canonicalize.js';
 

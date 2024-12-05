@@ -3,7 +3,7 @@ import { safeUnreachable } from '@masknet/kit';
 import { ChainId } from '@masknet/web3-shared-evm';
 import { useWallet } from '@solana/wallet-adapter-react';
 import { useWalletModal as useConnectModalSolana } from '@solana/wallet-adapter-react-ui';
-import { connect, disconnect } from '@wagmi/core';
+import { connect, disconnect } from 'wagmi/actions';
 import { useAsyncFn } from 'react-use';
 import { useAccount } from 'wagmi';
 

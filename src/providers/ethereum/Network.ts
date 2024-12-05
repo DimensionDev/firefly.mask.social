@@ -1,5 +1,5 @@
 import type { ChainId } from '@masknet/web3-shared-evm';
-import { getAccount, getChainId } from '@wagmi/core';
+import { getAccount, getChainId } from 'wagmi/actions';
 import { type Address, type Hash } from 'viem';
 
 import { config } from '@/configs/wagmiClient.js';

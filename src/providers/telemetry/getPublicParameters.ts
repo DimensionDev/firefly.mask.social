@@ -1,5 +1,5 @@
 import { ChainId } from '@masknet/web3-shared-solana';
-import { getAccount } from '@wagmi/core';
+import { getAccount } from 'wagmi/actions';
 
 import { config } from '@/configs/wagmiClient.js';
 import { bom } from '@/helpers/bom.js';

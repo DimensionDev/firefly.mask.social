@@ -1,5 +1,5 @@
 import type { ChainId } from '@masknet/web3-shared-evm';
-import { getTransactionConfirmations, waitForTransactionReceipt } from '@wagmi/core';
+import { getTransactionConfirmations, waitForTransactionReceipt } from 'wagmi/actions';
 import { type Hash } from 'viem';
 
 import { config } from '@/configs/wagmiClient.js';

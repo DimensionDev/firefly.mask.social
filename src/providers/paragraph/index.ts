@@ -1,4 +1,5 @@
-import { getAccount, http, readContracts, waitForTransactionReceipt, writeContract } from '@wagmi/core';
+import { http } from '@wagmi/core';
+import { getAccount, readContracts, waitForTransactionReceipt, writeContract } from 'wagmi/actions';
 import urlcat from 'urlcat';
 import { type Address, createPublicClient, zeroAddress } from 'viem';
 import { base, optimism, polygon, zora } from 'viem/chains';

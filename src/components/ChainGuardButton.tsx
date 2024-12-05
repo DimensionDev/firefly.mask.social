@@ -1,5 +1,5 @@
 import { Trans } from '@lingui/macro';
-import { switchChain } from '@wagmi/core';
+import { switchChain } from 'wagmi/actions';
 import { memo, type MouseEvent } from 'react';
 import { useAsyncFn } from 'react-use';
 import { useAccount } from 'wagmi';

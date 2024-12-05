@@ -1,5 +1,5 @@
 import type { ChainId } from '@masknet/web3-shared-evm';
-import { getBalance, sendTransaction, writeContract } from '@wagmi/core';
+import { getBalance, sendTransaction, writeContract } from 'wagmi/actions';
 import { BigNumber } from 'bignumber.js';
 import { type Address, type Hash, parseUnits } from 'viem';
 

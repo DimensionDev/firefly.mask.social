@@ -7,7 +7,7 @@ import {
 } from '@masknet/web3-shared-evm';
 import { first } from 'lodash-es';
 import { hexToBigInt, hexToNumber, numberToHex } from 'viem';
-import { getAccount, sendTransaction, signMessage, switchNetwork } from '@wagmi/core';
+import { getAccount, sendTransaction, signMessage, switchNetwork } from 'wagmi/actions';
 
 import { config } from '@/configs/wagmiClient.js';
 import { isSameEthereumAddress } from '@/helpers/isSameAddress.js';

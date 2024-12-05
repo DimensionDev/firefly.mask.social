@@ -1,4 +1,4 @@
-import type { WaitForTransactionReceiptReturnType } from '@wagmi/core';
+import type { WaitForTransactionReceiptReturnType } from 'wagmi/actions';
 import { compact, first } from 'lodash-es';
 import urlcat from 'urlcat';
 

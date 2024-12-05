@@ -1,7 +1,7 @@
 import { t } from '@lingui/macro';
 import { safeUnreachable } from '@masknet/kit';
 import { useQuery } from '@tanstack/react-query';
-import { getAccount } from '@wagmi/core';
+import { getAccount } from 'wagmi/actions';
 import { memo, type ReactNode, useEffect, useState } from 'react';
 import { useAsyncFn } from 'react-use';
 import urlcat from 'urlcat';

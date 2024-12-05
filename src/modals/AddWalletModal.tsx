@@ -3,7 +3,7 @@ import { safeUnreachable } from '@masknet/kit';
 import { useWallet } from '@solana/wallet-adapter-react';
 import { useWalletModal } from '@solana/wallet-adapter-react-ui';
 import { useQueryClient } from '@tanstack/react-query';
-import { disconnect } from '@wagmi/core';
+import { disconnect } from 'wagmi/actions';
 import bs58 from 'bs58';
 import { forwardRef, useCallback, useState } from 'react';
 import { useAsyncFn } from 'react-use';

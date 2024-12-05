@@ -1,4 +1,4 @@
-import type { WaitForTransactionReceiptReturnType } from '@wagmi/core';
+import type { WaitForTransactionReceiptReturnType } from 'wagmi/actions';
 import type { Address } from 'viem';
 
 import type { Pageable, PageIndicator } from '@/helpers/pageable.js';

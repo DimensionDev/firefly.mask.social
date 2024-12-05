@@ -1,6 +1,6 @@
 import { keyRegistryABI } from '@farcaster/core';
 import { ChainId } from '@masknet/web3-shared-evm';
-import { readContract } from '@wagmi/core';
+import { readContract } from 'wagmi/actions';
 import { parseUnits } from 'viem';
 
 import { config } from '@/configs/wagmiClient.js';

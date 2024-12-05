@@ -1,4 +1,4 @@
-import { getAccount } from '@wagmi/core';
+import { getAccount } from 'wagmi/actions';
 import { multiply } from 'lodash-es';
 import { type Address, formatUnits } from 'viem';
 

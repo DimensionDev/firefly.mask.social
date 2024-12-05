@@ -1,6 +1,6 @@
 import { t, Trans } from '@lingui/macro';
 import { useQuery } from '@tanstack/react-query';
-import { estimateFeesPerGas, getBalance } from '@wagmi/core';
+import { estimateFeesPerGas, getBalance } from 'wagmi/actions';
 import { produce } from 'immer';
 import { useMemo, useRef, useState } from 'react';
 import { useAsyncFn } from 'react-use';
