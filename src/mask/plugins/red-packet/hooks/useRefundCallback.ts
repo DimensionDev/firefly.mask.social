@@ -1,9 +1,8 @@
-import type { NetworkPluginID } from '@masknet/shared-base';
-import { useChainContext } from '@/hooks/useChainContext.js';
 import { type ChainId, ContractTransaction } from '@masknet/web3-shared-evm';
 import { useState } from 'react';
 import { useAsyncFn } from 'react-use';
 
+import { useChainContext } from '@/hooks/useChainContext.js';
 import { EVMWeb3 } from '@/mask/bindings/index.js';
 import { useRedPacketContract } from '@/mask/plugins/red-packet/hooks/useRedPacketContract.js';
 

@@ -2,13 +2,13 @@ import { Trans } from '@lingui/macro';
 import { ChainBoundary, PluginWalletStatusBar, SelectGasSettingsToolbar } from '@masknet/shared';
 import { NetworkPluginID } from '@masknet/shared-base';
 import { useNativeTokenPrice } from '@masknet/web3-hooks-base';
-import { useChainContext } from '@/hooks/useChainContext.js';
 import { isZero } from '@masknet/web3-shared-base';
 import { type ChainId, type GasConfig } from '@masknet/web3-shared-evm';
 import { Launch as LaunchIcon } from '@mui/icons-material';
 import { Grid, Link, Paper, Typography } from '@mui/material';
 import { useEffect, useMemo } from 'react';
 
+import { useChainContext } from '@/hooks/useChainContext.js';
 import { ActionButton, Icons } from '@/mask/bindings/components.js';
 import { EVMChainResolver, EVMExplorerResolver, EVMWeb3, makeStyles } from '@/mask/bindings/index.js';
 import { type RedPacketSettings } from '@/mask/plugins/red-packet/hooks/useCreateCallback.js';

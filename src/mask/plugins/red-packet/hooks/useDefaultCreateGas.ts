@@ -1,11 +1,10 @@
-import type { NetworkPluginID } from '@masknet/shared-base';
-import { useChainContext } from '@/hooks/useChainContext.js';
 import { toFixed, ZERO } from '@masknet/web3-shared-base';
 import { SchemaType, useTokenConstants } from '@masknet/web3-shared-evm';
 import { omit } from 'lodash-es';
 import { useAsync } from 'react-use';
 import { type Hex, keccak256 } from 'viem';
 
+import { useChainContext } from '@/hooks/useChainContext.js';
 import type { HappyRedPacketV4 } from '@/mask/bindings/constants.js';
 import {
     checkParams,

@@ -2,7 +2,8 @@
 import { t, Trans } from '@lingui/macro';
 import { Alert, FormattedBalance, FormattedCurrency, TokenIcon } from '@masknet/shared';
 import { EMPTY_LIST, NetworkPluginID } from '@masknet/shared-base';
-import { useChainContext, useFungibleTokenPrice, useReverseAddress } from '@masknet/web3-hooks-base';
+import { useFungibleTokenPrice, useReverseAddress } from '@masknet/web3-hooks-base';
+import { useChainContext } from '@/hooks/useChainContext.js';
 import { formatBalance, formatCurrency, leftShift } from '@masknet/web3-shared-base';
 import { formatEthereumAddress, type GasConfig, isValidAddress, isValidDomain } from '@masknet/web3-shared-evm';
 import { Box, Popover, Radio, Skeleton, Typography } from '@mui/material';
@@ -28,6 +29,8 @@ import {
 } from '@/mask/plugins/red-packet/types.js';
 import { FireflyRedPacket } from '@/providers/red-packet/index.js';
 import { FireflyRedPacketAPI, type RedPacketJSONPayload } from '@/providers/red-packet/types.js';
+import { useEnsName } from 'wagmi';
+import type { Hex } from 'viem';
 
 const useStyles = makeStyles()((theme) => ({
     container: {
@@ -139,7 +142,7 @@ export function FireflyRedpacketConfirmDialog({
 }: FireflyRedpacketConfirmDialogProps) {
     const { currentFarcasterProfile, currentLensProfile, currentTwitterProfile } = fireflyContext || {};
     const { chainId, account } = useChainContext();
-    const { data: ensName } = useReverseAddress(NetworkPluginID.PLUGIN_EVM, account, true);
+    const { data: ensName } = useEnsName({ address: account as Hex });
     const { data: lensOwnerENS } = useReverseAddress(NetworkPluginID.PLUGIN_EVM, currentLensProfile?.ownedBy, true);
     const { data: farcasterOwnerENS } = useReverseAddress(
         NetworkPluginID.PLUGIN_EVM,

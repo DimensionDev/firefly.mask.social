@@ -1,8 +1,7 @@
 import { useLastRecognizedIdentity } from '@masknet/plugin-infra/content-script';
-import { NetworkPluginID } from '@masknet/shared-base';
-import { useChainContext } from '@/hooks/useChainContext.js';
 import { useQuery } from '@tanstack/react-query';
 
+import { useChainContext } from '@/hooks/useChainContext.js';
 import { usePlatformType } from '@/mask/plugins/red-packet/hooks/usePlatformType.js';
 import { FireflyRedPacket } from '@/providers/red-packet/index.js';
 import type { RedPacketJSONPayload } from '@/providers/red-packet/types.js';

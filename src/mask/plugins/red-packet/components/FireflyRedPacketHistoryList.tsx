@@ -1,10 +1,9 @@
 import { Trans } from '@lingui/macro';
 import { ElementAnchor, EmptyStatus } from '@masknet/shared';
-import { type NetworkPluginID } from '@masknet/shared-base';
-import { useChainContext } from '@/hooks/useChainContext.js';
 import { List } from '@mui/material';
 import { memo, useMemo } from 'react';
 
+import { useChainContext } from '@/hooks/useChainContext.js';
 import { makeStyles } from '@/mask/bindings/index.js';
 import { FireflyRedPacketDetailsItem } from '@/mask/plugins/red-packet/components/FireflyRedPacketDetailsItem.js';
 import { useRedPacketHistory } from '@/mask/plugins/red-packet/hooks/useRedPacketHistory.js';

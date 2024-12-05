@@ -13,7 +13,6 @@ import {
 } from '@masknet/shared';
 import { NetworkPluginID } from '@masknet/shared-base';
 import { useEnvironmentContext, useNativeTokenPrice } from '@masknet/web3-hooks-base';
-import { useChainContext } from '@/hooks/useChainContext.js';
 import {
     formatBalance,
     type FungibleToken,
@@ -32,13 +31,16 @@ import {
     ZERO_ADDRESS,
 } from '@masknet/web3-shared-evm';
 import { Box, InputBase, Typography, useTheme } from '@mui/material';
+import { switchChain } from '@wagmi/core';
 import { BigNumber } from 'bignumber.js';
 import { omit } from 'lodash-es';
 import { type ChangeEvent, useCallback, useMemo, useState } from 'react';
 import { useUpdateEffect } from 'react-use';
 import { isAddress } from 'viem';
 
+import { config } from '@/configs/wagmiClient.js';
 import { isSameEthereumAddress } from '@/helpers/isSameAddress.js';
+import { useChainContext } from '@/hooks/useChainContext.js';
 import { ActionButton, Icons, MaskTextField, RadioIndicator } from '@/mask/bindings/components.js';
 import { useTransactionValue } from '@/mask/bindings/hooks.js';
 import { EVMChainResolver, EVMWeb3, makeStyles } from '@/mask/bindings/index.js';
@@ -51,8 +53,6 @@ import { type RedPacketSettings, useCreateParams } from '@/mask/plugins/red-pack
 import { useDefaultCreateGas } from '@/mask/plugins/red-packet/hooks/useDefaultCreateGas.js';
 import { TokenSelectorModalRef } from '@/modals/controls.js';
 import type { Token } from '@/providers/types/Transfer.js';
-import { switchChain } from '@wagmi/core';
-import { config } from '@/configs/wagmiClient.js';
 
 // seconds of 1 day
 const duration = 60 * 60 * 24;

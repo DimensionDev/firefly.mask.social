@@ -5,10 +5,10 @@ import {
     useSuspenseInfiniteQuery,
     type UseSuspenseInfiniteQueryResult,
 } from '@tanstack/react-query';
+import type { Hex } from 'viem';
 
 import { FireflyRedPacket } from '@/providers/red-packet/index.js';
 import { FireflyRedPacketAPI } from '@/providers/red-packet/types.js';
-import type { Hex } from 'viem';
 
 export function useRedPacketHistory(
     address: string,

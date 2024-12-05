@@ -8,13 +8,13 @@ import {
 import { InjectedDialog, LoadingStatus, useCurrentLinkedPersona } from '@masknet/shared';
 import { EMPTY_LIST, NetworkPluginID, PluginID } from '@masknet/shared-base';
 import { useGasPrice } from '@masknet/web3-hooks-base';
-import { useChainContext } from '@/hooks/useChainContext.js';
 import { ChainId, type GasConfig, GasEditor } from '@masknet/web3-shared-evm';
 import { TabContext } from '@mui/lab';
 import { DialogContent, Tab, useTheme } from '@mui/material';
 import { Suspense, useCallback, useContext, useMemo, useState } from 'react';
 import { type Hex, keccak256 } from 'viem';
 
+import { useChainContext } from '@/hooks/useChainContext.js';
 import { Icons, MaskTabList, useTabs } from '@/mask/bindings/components.js';
 import { EVMWeb3, makeStyles } from '@/mask/bindings/index.js';
 import { ClaimRequirementsDialog } from '@/mask/plugins/red-packet/components/ClaimRequirementsDialog.js';
