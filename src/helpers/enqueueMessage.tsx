@@ -17,8 +17,6 @@ interface MessageOptions extends OptionsObject {
 
 interface ErrorOptions extends OptionsObject, Pick<ErrorReportSnackbarProps, 'noReport'> {
     error?: unknown;
-    /** Display a fallback message when no error message */
-    fallback?: string;
     /** If you don't want to display error stack */
     description?: string;
 }
