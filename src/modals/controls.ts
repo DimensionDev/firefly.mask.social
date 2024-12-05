@@ -11,6 +11,10 @@ import type { DraggablePopoverProps } from '@/modals/DraggablePopover.js';
 import type { EditProfileModalOpenProps } from '@/modals/EditProfileModal.js';
 import type { LoginModalOpenProps } from '@/modals/LoginModal/index.js';
 import type { LogoutModalProps } from '@/modals/LogoutModal.js';
+import type {
+    NonFungibleCollectioinSelectModalCloseProps,
+    NonFungibleCollectionSelectModalOpenProps,
+} from '@/modals/NonFungibleCollectionSelectModal/index.jsx';
 import type { PreviewMediaModalOpenProps } from '@/modals/PreviewMediaModal.js';
 import type { RedpacketModalOpenProps } from '@/modals/RedpacketModal/index.js';
 import type { SchedulePostModalOpenProps } from '@/modals/SchedulePostModal.js';
@@ -45,6 +49,10 @@ export const TransactionSimulatorModalRef = new SingletonModal<TransactionSimula
 export const DisconnectFireflyAccountModalRef = new SingletonModal<DisconnectFireflyAccountModalProps>();
 export const TokenSelectorModalRef = new SingletonModal<TokenSelectorModalOpenProps, TokenSelectorModalCloseProps>();
 export const RedpacketModalRef = new SingletonModal<RedpacketModalOpenProps | void>();
+export const NonFungibleTokenCollectionSelectModalRef = new SingletonModal<
+    NonFungibleCollectionSelectModalOpenProps,
+    NonFungibleCollectioinSelectModalCloseProps
+>();
 
 // CZ
 export const ActivityModalRef = new SingletonModal();

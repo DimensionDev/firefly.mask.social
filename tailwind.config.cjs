@@ -70,6 +70,7 @@ module.exports = {
                 bg02: 'rgb(var(--color-bg02) / <alpha-value>)',
                 bg03: 'rgb(var(--color-bg03) / <alpha-value>)',
                 lightRebrandingBg: 'rgb(var(--color-light-rebranding-bg) / <alpha-value>)',
+                lightTextMain: '#181818',
             },
             backgroundImage: {
                 'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',

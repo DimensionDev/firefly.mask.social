@@ -40,7 +40,6 @@ export function Modal({
         <Transition appear show={open} as={Fragment}>
             <Dialog
                 initialFocus={ref}
-                as="div"
                 className={classNames('relative z-40', modalClassName)}
                 onClose={disableDialogClose ? noop : onClose}
                 disableScrollLock={disableScrollLock}

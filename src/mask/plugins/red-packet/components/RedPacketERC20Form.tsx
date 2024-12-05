@@ -114,6 +114,7 @@ interface RedPacketFormProps {
     onNext: () => void;
     onGasOptionChange?: (config: GasConfig) => void;
     onChange(settings: RedPacketSettings): void;
+    onChainChange(newChainId: ChainId): void;
 }
 
 export function RedPacketERC20Form(props: RedPacketFormProps) {
@@ -146,8 +147,8 @@ export function RedPacketERC20Form(props: RedPacketFormProps) {
                 chainId: picked.chainId,
             });
         }
-        setToken(formatDebankTokenToFungbileToken(picked));
-    }, [token, chainId, account]);
+        setToken(picked);
+    }, [token, chainId, account, onChainChange]);
     // #endregion
 
     // #region packet settings

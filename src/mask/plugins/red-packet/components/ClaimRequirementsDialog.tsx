@@ -22,6 +22,7 @@ import { useChainContext } from '@/hooks/useChainContext.js';
 import { type GeneratedIcon, Icons } from '@/mask/bindings/components.js';
 import { makeStyles } from '@/mask/bindings/index.js';
 import { type FireflyRedpacketSettings, RequirementType } from '@/mask/plugins/red-packet/types.js';
+import { NonFungibleTokenCollectionSelectModalRef, TokenSelectorModalRef } from '@/modals/controls.js';
 
 const useStyles = makeStyles()((theme) => ({
     container: {

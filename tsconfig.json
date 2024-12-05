@@ -1,86 +1,129 @@
 {
-    "extends": "./src/maskbook/packages/config/tsconfig.json",
-    "references": [
-        {
-            "path": "./src/maskbook/packages/shared/tsconfig.json"
-        },
-        {
-            "path": "./src/maskbook/packages/shared-base/tsconfig.json"
-        },
-        {
-            "path": "./src/maskbook/packages/plugin-infra/tsconfig.json"
-        },
-        {
-            "path": "./src/service-workers/tsconfig.json"
-        },
-        {
-            "path": "./src/maskbook/packages/shared/tsconfig.json"
-        },
-        {
-            "path": "./src/maskbook/packages/web3-hooks/base/tsconfig.json"
-        },
-        {
-            "path": "./src/maskbook/packages/web3-hooks/evm/tsconfig.json"
-        }
-    ],
-    "compilerOptions": {
-        "noEmit": true,
-        "sourceMap": false,
-        "experimentalDecorators": true,
-        "declaration": true,
-        "declarationDir": "./src/types",
-        "declarationMap": false,
-        "composite": true,
-        "esModuleInterop": true,
-        "jsx": "preserve",
-        "downlevelIteration": true,
-        "resolveJsonModule": true,
-        "isolatedModules": true,
-        "allowSyntheticDefaultImports": true,
-        "plugins": [
-            {
-                "name": "next"
-            }
-        ],
-        "paths": {
-            "@/*": ["./src/*"],
-            "next/navigation.js": ["./src/esm/navigation.ts"],
-            "@masknet/base": ["./src/maskbook/packages/base/src/index.ts"],
-            "@masknet/encryption": ["./src/maskbook/packages/encryption/src/index.ts"],
-            "@masknet/flags": ["./src/maskbook/packages/flags/src/index.ts"],
-            "@masknet/flags/build-info": ["./src/maskbook/packages/flags/src/flags/buildInfo.ts"],
-            "@masknet/plugin-infra": ["./src/maskbook/packages/plugin-infra/src/entry.ts"],
-            "@masknet/plugin-infra/dom": ["./src/maskbook/packages/plugin-infra/src/entry-dom.ts"],
-            "@masknet/plugin-infra/background-worker": [
-                "./src/maskbook/packages/plugin-infra/src/entry-background-worker.ts"
-            ],
-            "@masknet/plugin-infra/content-script": [
-                "./src/maskbook/packages/plugin-infra/src/entry-content-script.ts"
-            ],
-            "@masknet/public-api": ["./src/maskbook/packages/public-api/src/index.ts"],
-            "@masknet/shared": ["./src/maskbook/packages/shared/src/index.ts"],
-            "@masknet/shared-base": ["./src/maskbook/packages/shared-base/src/index.ts"],
-            "@masknet/typed-message": ["./src/maskbook/packages/typed-message/base/src/index.ts"],
-            "@masknet/typed-message-react": ["./src/maskbook/packages/typed-message/react/src/index.ts"],
-            "@masknet/web3-hooks-base": ["./src/maskbook/packages/web3-hooks/base/src/index.ts"],
-            "@masknet/web3-hooks-evm": ["./src/maskbook/packages/web3-hooks/evm/src/index.ts"],
-            "@masknet/web3-shared-base": ["./src/maskbook/packages/web3-shared/base/src/index.ts"],
-            "@masknet/web3-shared-evm": ["./src/maskbook/packages/web3-shared/evm/src/index.ts"],
-            "@masknet/web3-shared-solana": ["./src/maskbook/packages/web3-shared/solana/src/index.ts"]
-        }
+  "extends": "./src/maskbook/packages/config/tsconfig.json",
+  "references": [
+    {
+      "path": "./src/maskbook/packages/shared/tsconfig.json"
     },
-    "include": ["csp.js", "globals.d.ts", "next-auth.d.ts", "**/*.ts", "**/*.tsx"],
-    "exclude": [
-        "node_modules",
-        "src/service-workers",
-        "src/maskbook",
-        "src/maskbook/packages/gun-utils",
-        "src/maskbook/packages/app",
-        "src/maskbook/packages/backup-format",
-        "src/maskbook/packages/gun-utils",
-        "src/maskbook/packages/mask-sdk",
-        "src/maskbook/packages/scripts",
-        "src/maskbook/packages/test-serializer",
-        "src/maskbook/packages/xcode"
-    ]
+    {
+      "path": "./src/maskbook/packages/shared-base/tsconfig.json"
+    },
+    {
+      "path": "./src/maskbook/packages/plugin-infra/tsconfig.json"
+    },
+    {
+      "path": "./src/service-workers/tsconfig.json"
+    },
+    {
+      "path": "./src/maskbook/packages/shared/tsconfig.json"
+    },
+    {
+      "path": "./src/maskbook/packages/web3-hooks/base/tsconfig.json"
+    },
+    {
+      "path": "./src/maskbook/packages/web3-hooks/evm/tsconfig.json"
+    }
+  ],
+  "compilerOptions": {
+    "noEmit": true,
+    "sourceMap": false,
+    "experimentalDecorators": true,
+    "declaration": true,
+    "declarationDir": "./src/types",
+    "declarationMap": false,
+    "composite": true,
+    "esModuleInterop": true,
+    "jsx": "preserve",
+    "downlevelIteration": true,
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "allowSyntheticDefaultImports": true,
+    "plugins": [
+      {
+        "name": "next"
+      }
+    ],
+    "paths": {
+      "@/*": [
+        "./src/*"
+      ],
+      "next/navigation.js": [
+        "./src/esm/navigation.ts"
+      ],
+      "@masknet/base": [
+        "./src/maskbook/packages/base/src/index.ts"
+      ],
+      "@masknet/encryption": [
+        "./src/maskbook/packages/encryption/src/index.ts"
+      ],
+      "@masknet/flags": [
+        "./src/maskbook/packages/flags/src/index.ts"
+      ],
+      "@masknet/flags/build-info": [
+        "./src/maskbook/packages/flags/src/flags/buildInfo.ts"
+      ],
+      "@masknet/plugin-infra": [
+        "./src/maskbook/packages/plugin-infra/src/entry.ts"
+      ],
+      "@masknet/plugin-infra/dom": [
+        "./src/maskbook/packages/plugin-infra/src/entry-dom.ts"
+      ],
+      "@masknet/plugin-infra/background-worker": [
+        "./src/maskbook/packages/plugin-infra/src/entry-background-worker.ts"
+      ],
+      "@masknet/plugin-infra/content-script": [
+        "./src/maskbook/packages/plugin-infra/src/entry-content-script.ts"
+      ],
+      "@masknet/public-api": [
+        "./src/maskbook/packages/public-api/src/index.ts"
+      ],
+      "@masknet/shared": [
+        "./src/maskbook/packages/shared/src/index.ts"
+      ],
+      "@masknet/shared-base": [
+        "./src/maskbook/packages/shared-base/src/index.ts"
+      ],
+      "@masknet/typed-message": [
+        "./src/maskbook/packages/typed-message/base/src/index.ts"
+      ],
+      "@masknet/typed-message-react": [
+        "./src/maskbook/packages/typed-message/react/src/index.ts"
+      ],
+      "@masknet/web3-hooks-base": [
+        "./src/maskbook/packages/web3-hooks/base/src/index.ts"
+      ],
+      "@masknet/web3-hooks-evm": [
+        "./src/maskbook/packages/web3-hooks/evm/src/index.ts"
+      ],
+      "@masknet/web3-shared-base": [
+        "./src/maskbook/packages/web3-shared/base/src/index.ts"
+      ],
+      "@masknet/web3-shared-evm": [
+        "./src/maskbook/packages/web3-shared/evm/src/index.ts"
+      ],
+      "@masknet/web3-shared-solana": [
+        "./src/maskbook/packages/web3-shared/solana/src/index.ts"
+      ]
+    }
+  },
+  "include": [
+    "csp.js",
+    "globals.d.ts",
+    "next-auth.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    ".next/types/**/*.ts"
+  ],
+  "exclude": [
+    "node_modules",
+    "src/service-workers",
+    "src/maskbook",
+    "src/maskbook/packages/gun-utils",
+    "src/maskbook/packages/app",
+    "src/maskbook/packages/backup-format",
+    "src/maskbook/packages/gun-utils",
+    "src/maskbook/packages/mask-sdk",
+    "src/maskbook/packages/scripts",
+    "src/maskbook/packages/test-serializer",
+    "src/maskbook/packages/xcode"
+  ]
 }

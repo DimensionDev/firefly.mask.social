@@ -2,6 +2,7 @@ import { Trans } from '@lingui/macro';
 import { createRootRoute, createRoute } from '@tanstack/react-router';
 
 import { ConfirmView } from '@/modals/RedpacketModal/ConfirmView.js';
+import { HistoryView } from '@/modals/RedpacketModal/HistoryView.js';
 import { MainView } from '@/modals/RedpacketModal/MainView.js';
 import { RootView } from '@/modals/RedpacketModal/RootView.js';
 
@@ -31,4 +32,15 @@ const confirmRoute = createRoute({
     },
 });
 
-export const routeTree = rootRoute.addChildren([mainRoute, confirmRoute]);
+const historyRoute = createRoute({
+    getParentRoute: () => rootRoute,
+    component: HistoryView,
+    path: '/history',
+    beforeLoad: () => {
+        return {
+            title: <Trans>History</Trans>,
+        };
+    },
+});
+
+export const routeTree = rootRoute.addChildren([mainRoute, confirmRoute, historyRoute]);

@@ -1,6 +1,6 @@
 import { t, Trans } from '@lingui/macro';
 import { uniq } from 'lodash-es';
-import { memo, useCallback, useState } from 'react';
+import { memo, useCallback, useMemo, useState } from 'react';
 
 import LineArrowUp from '@/assets/line-arrow-up.svg';
 import { ClickableButton } from '@/components/ClickableButton.js';
@@ -54,40 +54,42 @@ export const SearchTokenPanel = memo<SearchTokenPanelProps>(function SearchToken
         [isMedium],
     );
 
-    const onSearch = useCallback(
-        async (query: string, chainId?: number) => {
-            const result = tokens.filter(
-                (token) =>
-                    [token.name, token.symbol].some((value) => value.toLowerCase().includes(query.toLowerCase())) &&
-                    (!chainId || token.chainId === chainId),
-            );
-            const canExpand =
-                result.some((token) => isGreaterThan(token.usdValue, 1)) &&
-                result.some((token) => isLessThan(token.usdValue, 1));
-            setShowMore(canExpand);
+    const [chainId, setChainId] = useState<number>();
+    const [keyword, setKeyword] = useState('');
+    const filteredTokens = useMemo(() => {
+        const result = tokens.filter(
+            (token) =>
+                [token.name, token.symbol].some((value) => value.toLowerCase().includes(keyword.toLowerCase())) &&
+                (!chainId || token.chainId === chainId),
+        );
+        const canExpand =
+            result.some((token) => isGreaterThan(token.usdValue, 1)) &&
+            result.some((token) => isLessThan(token.usdValue, 1));
+        setShowMore(canExpand);
 
-            return showSmall || !canExpand ? result : result.filter((token) => isGreaterThan(token.usdValue, 1));
-        },
-        [tokens, showSmall],
-    );
+        return showSmall || !canExpand ? result : result.filter((token) => isGreaterThan(token.usdValue, 1));
+    }, [tokens, showSmall, chainId, keyword]);
 
     return (
-        <SearchContentPanel<Token, number, boolean>
+        <SearchContentPanel<Token, number>
             isLoading={isLoading}
             placeholder={t`Search by name or symbol`}
             filterProps={{
-                defaultFilter: t`All chains`,
+                placeholder: t`All chains`,
                 data: chainIds,
                 popoverClassName: 'w-[150px]',
                 itemRenderer: (chainId, isTag) => getChainItem(chainId, isTag),
                 isSelected: (item, current) => item === current,
+                selected: chainId,
+                onSelected: setChainId,
             }}
-            onSearch={onSearch}
+            keyword={keyword}
+            onSearch={setKeyword}
+            data={filteredTokens}
             itemRenderer={(token) => getTokenItem(token)}
             onSelected={onSelected}
             listKey={(token) => token.id}
             isSelected={isSelected}
-            otherParams={showSmall}
         >
             {showMore ? (
                 <ClickableButton
