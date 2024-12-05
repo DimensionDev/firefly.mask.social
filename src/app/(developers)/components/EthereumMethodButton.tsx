@@ -2,9 +2,9 @@
 
 import { Trans } from '@lingui/macro';
 import { EthereumMethodType } from '@masknet/web3-shared-evm';
-import { getAccount, getBalance, sendTransaction, signMessage } from '@wagmi/core';
 import { first } from 'lodash-es';
 import { useAsyncFn } from 'react-use';
+import { getAccount, getBalance, sendTransaction, signMessage } from 'wagmi/actions';
 
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { config } from '@/configs/wagmiClient.js';

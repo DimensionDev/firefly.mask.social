@@ -31,19 +31,20 @@ import {
     ZERO_ADDRESS,
 } from '@masknet/web3-shared-evm';
 import { Box, InputBase, Typography, useTheme } from '@mui/material';
-import { switchChain } from '@wagmi/core';
 import { BigNumber } from 'bignumber.js';
 import { omit } from 'lodash-es';
 import { type ChangeEvent, useCallback, useMemo, useState } from 'react';
 import { useUpdateEffect } from 'react-use';
 import { isAddress } from 'viem';
+import { switchChain } from 'wagmi/actions';
 
 import { config } from '@/configs/wagmiClient.js';
+import { createAccount } from '@/helpers/createAccount.js';
 import { isSameEthereumAddress } from '@/helpers/isSameAddress.js';
 import { useChainContext } from '@/hooks/useChainContext.js';
 import { ActionButton, Icons, MaskTextField, RadioIndicator } from '@/mask/bindings/components.js';
 import { useTransactionValue } from '@/mask/bindings/hooks.js';
-import { EVMChainResolver, EVMWeb3, makeStyles } from '@/mask/bindings/index.js';
+import { EVMChainResolver, makeStyles } from '@/mask/bindings/index.js';
 import {
     RED_PACKET_DEFAULT_SHARES,
     RED_PACKET_MAX_SHARES,
@@ -234,7 +235,7 @@ export function RedPacketERC20Form(props: RedPacketFormProps) {
     }, [creatingParams, onChange, onNext]);
 
     // #region gas
-    const { account: publicKey } = useMemo(() => EVMWeb3.createAccount(), []);
+    const { account: publicKey } = useMemo(createAccount, []);
     const contract_version = 4;
     const { value: params } = useCreateParams(chainId, creatingParams, contract_version, publicKey);
     // #endregion

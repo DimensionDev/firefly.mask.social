@@ -26,12 +26,12 @@ import {
     profile as createProfileMetadata,
 } from '@lens-protocol/metadata';
 import { t } from '@lingui/macro';
-import { sendTransaction } from '@wagmi/core';
 import { compact, first, flatMap, omit, uniq, uniqWith } from 'lodash-es';
 import urlcat from 'urlcat';
 import { v4 as uuid } from 'uuid';
 import type { Address, Hex, TypedDataDomain } from 'viem';
 import { polygon } from 'viem/chains';
+import { sendTransaction } from 'wagmi/actions';
 
 import { config } from '@/configs/wagmiClient.js';
 import { FireflyPlatform, Source, SourceInURL } from '@/constants/enum.js';

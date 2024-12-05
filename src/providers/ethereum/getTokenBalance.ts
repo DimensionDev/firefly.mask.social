@@ -1,6 +1,6 @@
 import type { ChainId } from '@masknet/web3-shared-evm';
-import { getBalance, readContracts } from '@wagmi/core';
 import { type Address } from 'viem';
+import { getBalance, readContracts } from 'wagmi/actions';
 
 import { queryClient } from '@/configs/queryClient.js';
 import { config } from '@/configs/wagmiClient.js';

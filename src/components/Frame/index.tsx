@@ -1,11 +1,11 @@
 import { t } from '@lingui/macro';
 import { safeUnreachable } from '@masknet/kit';
 import { useQuery } from '@tanstack/react-query';
-import { getAccount } from '@wagmi/core';
 import { memo, type ReactNode, useEffect, useState } from 'react';
 import { useAsyncFn } from 'react-use';
 import urlcat from 'urlcat';
 import { encodePacked, type Hex, isAddress, type SignTypedDataParameters } from 'viem';
+import { getAccount } from 'wagmi/actions';
 import { z } from 'zod';
 
 import { Card } from '@/components/Frame/Card.js';

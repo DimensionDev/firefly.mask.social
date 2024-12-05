@@ -1,10 +1,10 @@
 import { t, Trans } from '@lingui/macro';
 import { useQuery } from '@tanstack/react-query';
-import { estimateFeesPerGas, getBalance } from '@wagmi/core';
 import { produce } from 'immer';
 import { useMemo, useRef, useState } from 'react';
 import { useAsyncFn } from 'react-use';
 import { useAccount, useChains } from 'wagmi';
+import { estimateFeesPerGas, getBalance } from 'wagmi/actions';
 
 import CollectFillIcon from '@/assets/collect-fill.svg';
 import LinkIcon from '@/assets/link-square.svg';

@@ -1,6 +1,6 @@
 import { t } from '@lingui/macro';
-import { getAccount } from '@wagmi/core';
 import { last, omit } from 'lodash-es';
+import { getAccount } from 'wagmi/actions';
 
 import { config } from '@/configs/wagmiClient.js';
 import { SnapshotState } from '@/constants/enum.js';

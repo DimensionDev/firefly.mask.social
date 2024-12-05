@@ -13,10 +13,12 @@ import { TabContext } from '@mui/lab';
 import { DialogContent, Tab, useTheme } from '@mui/material';
 import { Suspense, useCallback, useContext, useMemo, useState } from 'react';
 import { type Hex, keccak256 } from 'viem';
+import { signMessage } from 'wagmi/actions';
 
+import { config } from '@/configs/wagmiClient.js';
 import { useChainContext } from '@/hooks/useChainContext.js';
 import { Icons, MaskTabList, useTabs } from '@/mask/bindings/components.js';
-import { EVMWeb3, makeStyles } from '@/mask/bindings/index.js';
+import { makeStyles } from '@/mask/bindings/index.js';
 import { ClaimRequirementsDialog } from '@/mask/plugins/red-packet/components/ClaimRequirementsDialog.js';
 import { ClaimRequirementsRuleDialog } from '@/mask/plugins/red-packet/components/ClaimRequirementsRuleDialog.js';
 import { FireflyRedpacketConfirmDialog } from '@/mask/plugins/red-packet/components/FireflyRedpacketConfirmDialog.js';
@@ -146,8 +148,9 @@ export default function RedPacketDialog(props: RedPacketDialogProps) {
                     payload.password = prompt('Please enter the password of the lucky drop:', '') ?? '';
                 } else if (payload.contract_version > 1 && payload.contract_version < 4) {
                     // just sign out the password if it is lost.
-                    payload.password = await EVMWeb3.signMessage('message', keccak256(payload.sender.message as Hex), {
-                        account,
+                    payload.password = await signMessage(config, {
+                        message: keccak256(payload.sender.message as Hex),
+                        account: account as Hex,
                     });
                     payload.password = payload.password.slice(2);
                 }
