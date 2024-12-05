@@ -38,6 +38,7 @@ import { DraggablePopoverRef, LoginModalRef, SuperFollowModalRef } from '@/modal
 import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 import { getProfileById } from '@/services/getProfileById.js';
+import type { Hex } from 'viem';
 
 function formatTimeLeft(endTime: string) {
     const timeLeft = getTimeLeft(endTime);
@@ -124,7 +125,7 @@ export function PostCollect({ post, onClose }: PostCollectProps) {
 
     const { data: balanceData, isLoading: queryBalanceLoading } = useBalance({
         address: account.address,
-        token: verifiedAssetAddress ? (collectModule?.assetAddress as `0x${string}`) : undefined,
+        token: verifiedAssetAddress ? (collectModule?.assetAddress as Hex) : undefined,
     });
 
     const hasEnoughBalance =

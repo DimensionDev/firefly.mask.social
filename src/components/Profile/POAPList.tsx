@@ -22,6 +22,7 @@ import { createIndicator } from '@/helpers/pageable.js';
 import { resolveNftUrl } from '@/helpers/resolveNftUrl.js';
 import { resolveProfileUrl } from '@/helpers/resolveProfileUrl.js';
 import { resolveWalletProfileProvider } from '@/helpers/resolveWalletProfileProvider.js';
+import type { Hex } from 'viem';
 
 const GridList = forwardRef<HTMLDivElement, GridListProps>(function GridList({ className, children, ...props }, ref) {
     return (
@@ -39,7 +40,7 @@ const GridItem = forwardRef<HTMLDivElement, GridItemProps>(function GridItem({ c
     return <div {...props}>{children}</div>;
 });
 
-function Owner({ address }: { address: `0x${string}` }) {
+function Owner({ address }: { address: Hex }) {
     const { data: ensName } = useEnsName({ address, chainId: ChainId.Mainnet });
     return (
         <Link
@@ -77,9 +78,7 @@ function NFTItemContent({
                     <ChainIcon chainId={item.chainId} size={20} className="absolute left-2 top-2 h-4 w-4" />
                 ) : null}
                 {props?.isPoap ? <PoapIcon className="absolute left-2 top-2 h-6 w-6" /> : null}
-                {props?.isShowOwner && item.owner?.address ? (
-                    <Owner address={item.owner.address as `0x${string}`} />
-                ) : null}
+                {props?.isShowOwner && item.owner?.address ? <Owner address={item.owner.address as Hex} /> : null}
                 {props?.ownerCount ? (
                     <div className="absolute left-2 top-2 z-10 h-5 rounded-lg bg-primaryBottom px-1 text-xs font-bold leading-5">
                         <Trans>× {nFormatter(props.ownerCount)}</Trans>

@@ -5,6 +5,7 @@ import { mnemonicToAccount } from 'viem/accounts';
 import { env } from '@/constants/env.js';
 import { createSuccessResponseJSON } from '@/helpers/createResponseJSON.js';
 import { HexStringSchema } from '@/schemas/index.js';
+import type { Hex } from 'viem';
 
 const SIGNED_KEY_REQUEST_VALIDATOR_EIP_712_DOMAIN = {
     name: 'Farcaster SignedKeyRequestValidator',
@@ -21,7 +22,7 @@ const SIGNED_KEY_REQUEST_TYPE = [
 
 export async function POST(request: NextRequest) {
     const { key }: { key: string } = await request.json();
-    const publicKey = HexStringSchema.parse(key) as `0x${string}`;
+    const publicKey = HexStringSchema.parse(key) as Hex;
 
     // valid for one year
     const deadline = dayjs(Date.now()).add(1, 'y').unix();

@@ -19,6 +19,7 @@ import { classNames } from '@/helpers/classNames.js';
 import { formatAddress } from '@/helpers/formatAddress.js';
 import { resolveNftUrl, resolveNftUrlByCollection } from '@/helpers/resolveNftUrl.js';
 import { resolveProfileUrl } from '@/helpers/resolveProfileUrl.js';
+import type { Hex } from 'viem';
 
 interface NFTInfoProps {
     ownerAddress?: string;
@@ -53,7 +54,7 @@ export function NFTInfo(props: NFTInfoProps) {
     } = props;
     const { data: ensName } = useEnsName({
         chainId: ChainId.Mainnet,
-        address: props.ownerAddress as `0x${string}`,
+        address: props.ownerAddress as Hex,
     });
 
     const collectionUrl = useMemo(() => {

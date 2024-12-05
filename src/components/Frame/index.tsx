@@ -5,7 +5,7 @@ import { getAccount } from '@wagmi/core';
 import { memo, type ReactNode, useEffect, useState } from 'react';
 import { useAsyncFn } from 'react-use';
 import urlcat from 'urlcat';
-import { encodePacked, isAddress, type SignTypedDataParameters } from 'viem';
+import { encodePacked, isAddress, type Hex, type SignTypedDataParameters } from 'viem';
 import { z } from 'zod';
 
 import { Card } from '@/components/Frame/Card.js';
@@ -217,11 +217,11 @@ async function getNextFrame(
                 switch (method) {
                     case MethodType.ETH_SEND_TRANSACTION: {
                         const params = {
-                            to: action.params.to as `0x${string}`,
+                            to: action.params.to as Hex,
                             data: (action.params.data ||
                                 (action.attribution !== false
                                     ? encodePacked(['byte1', 'uint32'], [0xfc, Number.parseInt(profile.profileId, 10)])
-                                    : undefined)) as `0x${string}` | undefined,
+                                    : undefined)) as Hex | undefined,
                             value: action.params.value ? BigInt(action.params.value) : BigInt(0),
                         };
                         await simulate({

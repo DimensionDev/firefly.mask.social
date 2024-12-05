@@ -20,6 +20,7 @@ import { createIndicator } from '@/helpers/pageable.js';
 import { sanitizeDStorageUrl } from '@/helpers/sanitizeDStorageUrl.js';
 import { Snapshot } from '@/providers/snapshot/index.js';
 import type { SnapshotVote } from '@/providers/snapshot/type.js';
+import type { Hex } from 'viem';
 
 interface SnapshotVotesListItemProps {
     vote: SnapshotVote;
@@ -31,7 +32,7 @@ const SnapshotVotesListItem = memo<SnapshotVotesListItemProps>(function Snapshot
         source: SourceInURL.Wallet,
     });
 
-    const { data: ens } = useEnsName({ address: vote.voter as `0x${string}`, chainId: ChainId.Mainnet });
+    const { data: ens } = useEnsName({ address: vote.voter as Hex, chainId: ChainId.Mainnet });
 
     const choiceLabel = formatSnapshotChoice(vote.choice, vote.proposal.type, vote.proposal.choices);
 

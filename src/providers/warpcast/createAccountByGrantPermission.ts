@@ -1,5 +1,5 @@
 import { getPublicKey, utils } from '@noble/ed25519';
-import { toHex } from 'viem';
+import { toHex, type Hex } from 'viem';
 
 import { fetchJSON } from '@/helpers/fetchJSON.js';
 import { FarcasterSession } from '@/providers/farcaster/Session.js';
@@ -19,7 +19,7 @@ interface SignedBody {
 async function createSession(signal?: AbortSignal) {
     // create key pair in client side
     const privateKey = utils.randomPrivateKey();
-    const publicKey: `0x${string}` = `0x${Buffer.from(await getPublicKey(privateKey)).toString('hex')}`;
+    const publicKey: Hex = `0x${Buffer.from(await getPublicKey(privateKey)).toString('hex')}`;
 
     const response = await fetchJSON<ResponseJSON<SignedBody>>('/api/warpcast/signin', {
         method: 'POST',

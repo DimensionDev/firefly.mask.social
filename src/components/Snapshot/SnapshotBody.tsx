@@ -34,6 +34,7 @@ import { stopPropagation } from '@/helpers/stopEvent.js';
 import { ComposeModalRef, ConfirmModalRef } from '@/modals/controls.js';
 import { Snapshot } from '@/providers/snapshot/index.js';
 import type { SnapshotActivity, SnapshotChoice, SnapshotProposal } from '@/providers/snapshot/type.js';
+import type { Hex } from 'viem';
 
 interface Props {
     activity?: SnapshotActivity;
@@ -97,7 +98,7 @@ export function SnapshotBody({ snapshot, link, postId, activity }: Props) {
         },
     });
 
-    const ensHandle = useEnsName({ address: author as `0x${string}` });
+    const ensHandle = useEnsName({ address: author as Hex });
 
     const isPending = state === SnapshotState.Pending;
     const isNotEnoughVp = vp === 0 && !queryVpLoading;
