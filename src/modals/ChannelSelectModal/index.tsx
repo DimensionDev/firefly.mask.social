@@ -1,38 +1,38 @@
 import { DialogTitle } from '@headlessui/react';
 import { Trans } from '@lingui/macro';
-import { type NonFungibleCollection } from '@masknet/web3-shared-base';
-import { ChainId, SchemaType } from '@masknet/web3-shared-evm';
 import { forwardRef, useCallback, useState } from 'react';
 
 import LeftArrowIcon from '@/assets/left-arrow.svg';
 import { Modal } from '@/components/Modal.js';
 import { useSingletonModal } from '@/hooks/useSingletonModal.js';
 import type { SingletonModalRefCreator } from '@/libs/SingletonModal.js';
-import { NonFungibleCollectionSelectPanel } from '@/modals/NonFungbileCollectionSelectModal/FungibleTokenSelectPanel.js';
-import type { Collection } from '@/modals/NonFungbileCollectionSelectModal/types.js';
+import { ChannelSelectPanel, type ChannelSelectPanelProps } from '@/modals/ChannelSelectModal/ChannelSelectPanel.js';
+import type { Channel } from '@/providers/types/SocialMedia.js';
 
-export interface NonFungibleCollectionSelectModalOpenProps {
-    selected?: NonFungibleCollection<ChainId, SchemaType>;
+export interface ChannelSelectModalOpenProps {
+    selected?: Channel;
+    source: ChannelSelectPanelProps['source'];
 }
 
-export type NonFungibleCollectioinSelectModalCloseProps = NonFungibleCollection<ChainId, SchemaType> | null;
+export type ChannelSelectModalCloseProps = Channel | null;
 
-export const NonFungibleCollectionSelectModal = forwardRef<
-    SingletonModalRefCreator<NonFungibleCollectionSelectModalOpenProps, NonFungibleCollectioinSelectModalCloseProps>
->(function NonFungibleCollectionSelectModal(_, ref) {
-    const [props, setProps] = useState<NonFungibleCollectionSelectModalOpenProps>();
+export const ChannelSelectModal = forwardRef<
+    SingletonModalRefCreator<ChannelSelectModalOpenProps, ChannelSelectModalCloseProps>
+>(function ChannelSelectModal(_, ref) {
+    const [props, setProps] = useState<ChannelSelectModalOpenProps>();
 
     const [open, dispatch] = useSingletonModal(ref, {
         onOpen: (props) => setProps(props),
         onClose: () => setProps(undefined),
     });
 
+    const selectedId = props?.selected?.id;
     const isSelected = useCallback(
-        (collection: Collection) => {
-            if (!props?.selected) return false;
-            return collection.chainId === props.selected.chainId && collection.address === props.selected.address;
+        (channel: Channel) => {
+            if (!selectedId) return false;
+            return channel.id === selectedId;
         },
-        [props?.selected],
+        [selectedId],
     );
 
     if (!props) return null;
@@ -46,13 +46,14 @@ export const NonFungibleCollectionSelectModal = forwardRef<
                         className="absolute left-0 top-1/2 -translate-y-1/2 cursor-pointer text-main"
                     />
                     <span className="flex h-full w-full items-center justify-center text-lg font-bold text-main">
-                        <Trans>Select Collection</Trans>
+                        <Trans>Select Club</Trans>
                     </span>
                 </DialogTitle>
                 <div className="min-h-0 flex-1 overflow-hidden">
-                    <NonFungibleCollectionSelectPanel
+                    <ChannelSelectPanel
+                        source={props.source}
                         isSelected={isSelected}
-                        onSelected={(collection) => dispatch?.close(collection)}
+                        onSelect={(channel) => dispatch?.close(channel)}
                     />
                 </div>
             </div>

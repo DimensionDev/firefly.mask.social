@@ -1,5 +1,6 @@
 import { SingletonModal } from '@/libs/SingletonModal.js';
 import type { AddWalletModalCloseProps, AddWalletModalProps } from '@/modals/AddWalletModal.js';
+import type { ChannelSelectModalCloseProps, ChannelSelectModalOpenProps } from '@/modals/ChannelSelectModal/index.jsx';
 import type { CollectArticleModalOpenProps } from '@/modals/CollectArticleModal.js';
 import type { CollectPostModalOpenProps } from '@/modals/CollectPostModal.js';
 import type { ComposeModalCloseProps, ComposeModalOpenProps } from '@/modals/ComposeModal.js';
@@ -9,13 +10,12 @@ import type { ConfirmModalCloseResult, ConfirmModalOpenProps } from '@/modals/Co
 import type { DisconnectFireflyAccountModalProps } from '@/modals/DisconnectFireflyAccountModal.js';
 import type { DraggablePopoverProps } from '@/modals/DraggablePopover.js';
 import type { EditProfileModalOpenProps } from '@/modals/EditProfileModal.js';
-import type { ChannelSelectModalCloseProps, ChannelSelectModalOpenProps } from '@/modals/LensClubSelectModal/index.jsx';
 import type { LoginModalOpenProps } from '@/modals/LoginModal/index.js';
 import type { LogoutModalProps } from '@/modals/LogoutModal.js';
 import type {
-    NonFungibleCollectioinSelectModalCloseProps,
+    NonFungibleCollectionSelectModalCloseProps,
     NonFungibleCollectionSelectModalOpenProps,
-} from '@/modals/NonFungbileCollectionSelectModal/index.js';
+} from '@/modals/NonFungibleCollectionSelectModal/index.js';
 import type { PreviewMediaModalOpenProps } from '@/modals/PreviewMediaModal.js';
 import type { SchedulePostModalOpenProps } from '@/modals/SchedulePostModal.js';
 import type { SnackbarCloseProps, SnackbarOpenProps } from '@/modals/Snackbar.js';
@@ -50,7 +50,7 @@ export const DisconnectFireflyAccountModalRef = new SingletonModal<DisconnectFir
 export const TokenSelectorModalRef = new SingletonModal<TokenSelectorModalOpenProps, TokenSelectorModalCloseProps>();
 export const NonFungibleTokenCollectionSelectModalRef = new SingletonModal<
     NonFungibleCollectionSelectModalOpenProps,
-    NonFungibleCollectioinSelectModalCloseProps
+    NonFungibleCollectionSelectModalCloseProps
 >();
 
 export const ChannelSelectModalRef = new SingletonModal<ChannelSelectModalOpenProps, ChannelSelectModalCloseProps>();
