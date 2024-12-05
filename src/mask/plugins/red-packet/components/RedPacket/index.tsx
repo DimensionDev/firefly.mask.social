@@ -4,7 +4,7 @@ import { delay } from '@masknet/kit';
 import { useLastRecognizedIdentity, usePostInfoDetails, usePostLink } from '@masknet/plugin-infra/content-script';
 import { LoadingStatus, TransactionConfirmModal } from '@masknet/shared';
 import { EMPTY_LIST, NetworkPluginID } from '@masknet/shared-base';
-import { useChainContext, useNetworkContext } from '@masknet/web3-hooks-base';
+import { useChainContext } from '@masknet/web3-hooks-base';
 import { formatBalance, isZero, TokenType } from '@masknet/web3-shared-base';
 import { ChainId } from '@masknet/web3-shared-evm';
 import { Card, Grow, Stack, Typography } from '@mui/material';
@@ -177,11 +177,9 @@ export interface RedPacketProps {
 
 export const RedPacket = memo(function RedPacket({ payload }: RedPacketProps) {
     const token = payload.token;
-    const { pluginID } = useNetworkContext();
     const payloadChainId = token?.chainId ?? EVMChainResolver.chainId(payload.network ?? '') ?? ChainId.Mainnet;
     const { account } = useChainContext<NetworkPluginID.PLUGIN_EVM>({
         chainId: payloadChainId,
-        account: pluginID === NetworkPluginID.PLUGIN_EVM ? undefined : '',
     });
 
     // #region token detailed
