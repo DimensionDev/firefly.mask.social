@@ -1,13 +1,12 @@
 import { Trans } from '@lingui/macro';
 import { usePostInfoDetails, usePostLink } from '@masknet/plugin-infra/content-script';
-import { useWeb3Utils } from '@masknet/web3-hooks-base';
 import { Box, type BoxProps, IconButton, Link, List, ListItem, Typography } from '@mui/material';
 import { useQueries } from '@tanstack/react-query';
 import { sortBy } from 'lodash-es';
 import { forwardRef, Fragment, useMemo } from 'react';
 
 import { type GeneratedIcon, type GeneratedIconProps, Icons } from '@/mask/bindings/components.js';
-import { makeStyles, MaskColors, NFTScanNonFungibleTokenEVM } from '@/mask/bindings/index.js';
+import { EVMExplorerResolver, makeStyles, MaskColors, NFTScanNonFungibleTokenEVM } from '@/mask/bindings/index.js';
 import { MentionLink } from '@/mask/plugins/red-packet/components/Requirements/MentionLink.js';
 import { usePlatformType } from '@/mask/plugins/red-packet/hooks/usePlatformType.js';
 import { FireflyRedPacketAPI } from '@/providers/red-packet/types.js';
@@ -122,14 +121,13 @@ function NFTList({ nfts }: NFTListProps) {
             },
         })),
     });
-    const Utils = useWeb3Utils();
     return (
         <Box component="span" mx="0.2em">
             {queries.map((query, index) => {
                 const { data } = query;
                 const nft = nfts[index];
                 if (!data) return <Fragment key={nft.chainId + nft.contractAddress}>{nft.collectionName}</Fragment>;
-                const url = Utils.explorerResolver.addressLink(nft.chainId, nft.contractAddress);
+                const url = EVMExplorerResolver.addressLink(nft.chainId, nft.contractAddress);
                 const name = nft.collectionName || data.name || data.symbol;
                 return (
                     <Link key={index} href={url!} target="_blank" className={classes.textLink}>

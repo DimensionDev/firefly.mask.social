@@ -1,7 +1,7 @@
 import { Trans } from '@lingui/macro';
 import { TokenIcon } from '@masknet/shared';
 import { NetworkPluginID } from '@masknet/shared-base';
-import { useChainContext, useNetworkDescriptor } from '@masknet/web3-hooks-base';
+import { useChainContext } from '@masknet/web3-hooks-base';
 import { formatBalance } from '@masknet/web3-shared-base';
 import { Box, ListItem, Typography } from '@mui/material';
 import { format, fromUnixTime } from 'date-fns';
@@ -13,6 +13,7 @@ import { makeStyles } from '@/mask/bindings/index.js';
 import { FireflyRedPacketAccountItem } from '@/mask/plugins/red-packet/components/FireflyRedPacketAccountItem.js';
 import { RedPacketActionButton } from '@/mask/plugins/red-packet/components/RedPacketActionButton.js';
 import { FireflyRedPacketAPI } from '@/providers/red-packet/types.js';
+import { getNetworkDescriptor } from '@/helpers/getNetworkDescriptor.js';
 
 const useStyles = makeStyles<{ listItemBackground?: string; listItemBackgroundIcon?: string }>()((
     theme,
@@ -254,7 +255,7 @@ export const FireflyRedPacketDetailsItem = memo(function FireflyRedPacketDetails
         post_on,
     } = history;
     const { account } = useChainContext<NetworkPluginID.PLUGIN_EVM>();
-    const networkDescriptor = useNetworkDescriptor(NetworkPluginID.PLUGIN_EVM, chain_id);
+    const networkDescriptor = getNetworkDescriptor(NetworkPluginID.PLUGIN_EVM, chain_id);
 
     const { classes, cx } = useStyles({
         listItemBackground: networkDescriptor?.backgroundGradient,
