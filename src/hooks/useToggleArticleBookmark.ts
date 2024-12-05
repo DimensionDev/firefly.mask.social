@@ -2,8 +2,7 @@ import { t } from '@lingui/macro';
 import { useMutation } from '@tanstack/react-query';
 
 import { BookmarkType, FireflyPlatform } from '@/constants/enum.js';
-import { enqueueErrorMessage, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
-import { getErrorMessageFromError } from '@/helpers/getSnackbarMessageFromError.js';
+import { enqueueMessageFromError, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { LoginModalRef } from '@/modals/controls.js';
 import { FarcasterSocialMediaProvider } from '@/providers/farcaster/SocialMedia.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
@@ -33,14 +32,9 @@ export function useToggleArticleBookmark() {
                     return result;
                 }
             } catch (error) {
-                enqueueErrorMessage(
-                    getErrorMessageFromError(
-                        error,
-                        hasBookmarked ? t`Failed to un-bookmark article.` : t`Failed to bookmark article.`,
-                    ),
-                    {
-                        error,
-                    },
+                enqueueMessageFromError(
+                    error,
+                    hasBookmarked ? t`Failed to un-bookmark article.` : t`Failed to bookmark article.`,
                 );
                 throw error;
             }

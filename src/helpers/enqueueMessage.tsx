@@ -140,8 +140,8 @@ export function enqueueErrorsMessage(message: SnackbarMessage, options?: ErrorsO
 }
 
 export function enqueueMessageFromError(error: unknown, fallback: string, options?: ErrorOptions) {
-    const warningMessage = getWarningMessageFromError(error);
     const options_ = { error, ...options };
+    const warningMessage = getWarningMessageFromError(error);
 
     if (warningMessage) {
         enqueueWarningMessage(warningMessage, options_);

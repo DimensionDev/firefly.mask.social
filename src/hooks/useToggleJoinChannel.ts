@@ -1,8 +1,7 @@
 import { t } from '@lingui/macro';
 import { useIsMutating, useMutation } from '@tanstack/react-query';
 
-import { enqueueErrorMessage, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
-import { getErrorMessageFromError } from '@/helpers/getSnackbarMessageFromError.js';
+import { enqueueMessageFromError, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
@@ -38,14 +37,11 @@ export function useToggleJoinChannel(channel: Channel) {
                 );
                 return result;
             } catch (error) {
-                enqueueErrorMessage(
-                    getErrorMessageFromError(
-                        error,
-                        joined
-                            ? t`Failed to leave /${channel.id} on ${sourceName}.`
-                            : t`Failed to join /${channel.id} on ${sourceName}.`,
-                    ),
-                    { error },
+                enqueueMessageFromError(
+                    error,
+                    joined
+                        ? t`Failed to leave /${channel.id} on ${sourceName}.`
+                        : t`Failed to join /${channel.id} on ${sourceName}.`,
                 );
                 throw error;
             }

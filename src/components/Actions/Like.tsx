@@ -7,9 +7,8 @@ import LikedIcon from '@/assets/liked.svg';
 import { ClickableArea } from '@/components/ClickableArea.js';
 import { Tooltip } from '@/components/Tooltip.js';
 import { classNames } from '@/helpers/classNames.js';
-import { enqueueErrorMessage, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
+import { enqueueMessageFromError, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { nFormatter } from '@/helpers/formatCommentCounts.js';
-import { getErrorMessageFromError } from '@/helpers/getSnackbarMessageFromError.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
 import { LoginModalRef } from '@/modals/controls.js';
@@ -49,25 +48,12 @@ export const Like = memo<LikeProps>(function Like({ post, disabled = false, hidd
             return;
         } catch (error) {
             if (isComment) {
-                enqueueErrorMessage(
-                    getErrorMessageFromError(
-                        error,
-                        hasLiked ? t`Failed to unlike the comment.` : t`Failed to like the comment.`,
-                    ),
-                    {
-                        error,
-                    },
+                enqueueMessageFromError(
+                    error,
+                    hasLiked ? t`Failed to unlike the comment.` : t`Failed to like the comment.`,
                 );
             } else {
-                enqueueErrorMessage(
-                    getErrorMessageFromError(
-                        error,
-                        hasLiked ? t`Failed to unlike the post.` : t`Failed to like the post.`,
-                    ),
-                    {
-                        error,
-                    },
-                );
+                enqueueMessageFromError(error, hasLiked ? t`Failed to unlike the post.` : t`Failed to like the post.`);
             }
             throw error;
         }
