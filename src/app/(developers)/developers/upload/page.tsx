@@ -15,6 +15,7 @@ import { Link } from '@/esm/Link.js';
 import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
 import { getI18n } from '@/i18n/index.js';
 import { uploadToDirectory } from '@/services/uploadToS3.js';
+import { getSnackbarMessageFromError } from '@/helpers/getSnackbarMessageFromError.jsx';
 
 export default function Page() {
     const i18n = getI18n();
@@ -31,7 +32,7 @@ export default function Page() {
             const url = await uploadToDirectory(file, directory, () => name);
             setUrl(url);
         } catch (error) {
-            enqueueErrorMessage('Failed to upload.', { error });
+            enqueueErrorMessage(getSnackbarMessageFromError(error, t`Failed to upload.`), { error });
             throw error;
         }
     }, [file, directory, name, setUrl]);
