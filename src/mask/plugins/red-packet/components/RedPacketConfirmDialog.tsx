@@ -8,13 +8,13 @@ import { Launch as LaunchIcon } from '@mui/icons-material';
 import { Grid, Link, Paper, Typography } from '@mui/material';
 import { useEffect, useMemo } from 'react';
 
+import { createAccount } from '@/helpers/createAccount.js';
 import { useChainContext } from '@/hooks/useChainContext.js';
 import { ActionButton, Icons } from '@/mask/bindings/components.js';
-import { EVMChainResolver, EVMExplorerResolver, EVMWeb3, makeStyles } from '@/mask/bindings/index.js';
+import { EVMChainResolver, EVMExplorerResolver, makeStyles } from '@/mask/bindings/index.js';
 import { type RedPacketSettings } from '@/mask/plugins/red-packet/hooks/useCreateCallback.js';
 import { useCreateFTRedpacketCallback } from '@/mask/plugins/red-packet/hooks/useCreateFTRedpacketCallback.js';
 import type { RedPacketJSONPayload } from '@/providers/red-packet/types.js';
-import { createAccount } from '@/helpers/createAccount.js';
 
 const useStyles = makeStyles()((theme) => ({
     link: {

@@ -39,11 +39,12 @@ import { useUpdateEffect } from 'react-use';
 import { isAddress } from 'viem';
 
 import { config } from '@/configs/wagmiClient.js';
+import { createAccount } from '@/helpers/createAccount.js';
 import { isSameEthereumAddress } from '@/helpers/isSameAddress.js';
 import { useChainContext } from '@/hooks/useChainContext.js';
 import { ActionButton, Icons, MaskTextField, RadioIndicator } from '@/mask/bindings/components.js';
 import { useTransactionValue } from '@/mask/bindings/hooks.js';
-import { EVMChainResolver, EVMWeb3, makeStyles } from '@/mask/bindings/index.js';
+import { EVMChainResolver, makeStyles } from '@/mask/bindings/index.js';
 import {
     RED_PACKET_DEFAULT_SHARES,
     RED_PACKET_MAX_SHARES,
@@ -53,7 +54,6 @@ import { type RedPacketSettings, useCreateParams } from '@/mask/plugins/red-pack
 import { useDefaultCreateGas } from '@/mask/plugins/red-packet/hooks/useDefaultCreateGas.js';
 import { TokenSelectorModalRef } from '@/modals/controls.js';
 import type { Token } from '@/providers/types/Transfer.js';
-import { createAccount } from '@/helpers/createAccount.js';
 
 // seconds of 1 day
 const duration = 60 * 60 * 24;

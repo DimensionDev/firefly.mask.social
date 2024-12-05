@@ -1,5 +1,5 @@
 import { getPublicKey, utils } from '@noble/ed25519';
-import { type Hex,toHex } from 'viem';
+import { type Hex, toHex } from 'viem';
 
 import { fetchJSON } from '@/helpers/fetchJSON.js';
 import { FarcasterSession } from '@/providers/farcaster/Session.js';
