@@ -50,16 +50,12 @@ function environmentFilter(message: SnackbarMessage, options?: MessageOptions) {
     return options.environment === env.shared.NODE_ENV;
 }
 
-function emptyMessageFilter(message: SnackbarMessage, options?: MessageOptions) {
-    return !!message;
-}
-
 /**
  * Filters for messages that should be displayed in the current environment.
  * A filter returns true means the message should be displayed.
  * A filter returns false means the message should be ignored.
  */
-const MESSAGE_FILTERS = [emptyMessageFilter, versionFilter, environmentFilter];
+const MESSAGE_FILTERS = [versionFilter, environmentFilter];
 
 export function enqueueInfoMessage(message: SnackbarMessage, options?: MessageOptions) {
     if (MESSAGE_FILTERS.some((filter) => !filter(message, options))) return;
