@@ -1,6 +1,6 @@
 import { first } from 'lodash-es';
 import urlcat from 'urlcat';
-import type { GetWalletClientReturnType } from 'wagmi/actions';
+import type { GetWalletClientReturnType } from '@wagmi/core';
 
 import { WARPCAST_ROOT_URL } from '@/constants/index.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';

@@ -1,6 +1,6 @@
 import { ConnectorNotConnectedError } from '@wagmi/core';
 import type { Config } from 'wagmi';
-import { getWalletClient, type GetWalletClientParameters, type GetWalletClientReturnType } from 'wagmi/actions';
+import { getWalletClient, type GetWalletClientParameters, type GetWalletClientReturnType } from '@wagmi/core';
 
 import { chains } from '@/configs/wagmiClient.js';
 import { SwitchChainError } from '@/constants/error.js';

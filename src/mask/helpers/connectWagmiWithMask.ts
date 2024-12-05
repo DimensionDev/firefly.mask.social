@@ -1,5 +1,5 @@
 import { ChainId, isValidChainId, ProviderType } from '@masknet/web3-shared-evm';
-import { getAccount } from 'wagmi/actions';
+import { getAccount } from '@wagmi/core';
 
 import { config } from '@/configs/wagmiClient.js';
 import { EVMWeb3 } from '@/mask/bindings/index.js';
