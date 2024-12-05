@@ -47,9 +47,10 @@ async function searchChannels(source: SocialSource, keyword: string, { hasRedPac
 export function useSearchChannels(keyword: string, hasRedPacket: boolean) {
     const debouncedKeyword = useDebounce(keyword, 300);
     const profiles = useCurrentProfileAll();
+    const profileIds = SORTED_CHANNEL_SOURCES.map((x) => profiles[x]?.profileId);
 
     return useQuery({
-        queryKey: ['searchChannels', debouncedKeyword, `${hasRedPacket}`],
+        queryKey: ['search-channels', profileIds, debouncedKeyword, hasRedPacket],
         queryFn: async () => {
             const allSettled = await Promise.allSettled(
                 SORTED_CHANNEL_SOURCES.map((x) =>

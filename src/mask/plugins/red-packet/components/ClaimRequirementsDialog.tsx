@@ -25,11 +25,17 @@ import FarcasterIcon from '@/assets/farcaster-fill.svg';
 import LensIcon from '@/assets/lens-fill.svg';
 import NFTIcon from '@/assets/nft.svg';
 import { ClickableButton } from '@/components/ClickableButton.js';
+import { Source } from '@/constants/enum.js';
 import { isSameEthereumAddress } from '@/helpers/isSameAddress.js';
 import { type GeneratedIcon, Icons } from '@/mask/bindings/components.js';
 import { makeStyles } from '@/mask/bindings/index.js';
 import { type FireflyRedpacketSettings, RequirementType } from '@/mask/plugins/red-packet/types.js';
-import { NonFungibleTokenCollectionSelectModalRef, TokenSelectorModalRef } from '@/modals/controls.js';
+import {
+    ChannelSelectModalRef,
+    NonFungibleTokenCollectionSelectModalRef,
+    TokenSelectorModalRef,
+} from '@/modals/controls.js';
+import type { Channel } from '@/providers/types/SocialMedia.js';
 
 const useStyles = makeStyles()((theme) => ({
     container: {
@@ -144,7 +150,7 @@ export function ClaimRequirementsDialog(props: ClaimRequirementsDialogProps) {
     const { classes } = useStyles();
     const { account } = useChainContext<NetworkPluginID.PLUGIN_EVM>();
 
-    const handleSelectCollection = useCallback(async () => {
+    const selectCollection = useCallback(async () => {
         const picked = await NonFungibleTokenCollectionSelectModalRef.openAndWaitForClose({
             selected: selectedCollection,
         });
@@ -165,8 +171,23 @@ export function ClaimRequirementsDialog(props: ClaimRequirementsDialogProps) {
         }
     };
 
-    const [channel, setChannel] = useState(0);
-    const [club, setClub] = useState(0);
+    const [channel, setChannel] = useState<Channel>();
+    const selectChannel = useCallback(async () => {
+        const picked = await ChannelSelectModalRef.openAndWaitForClose({
+            source: Source.Farcaster,
+            selected: channel,
+        });
+        if (picked) setChannel(picked);
+    }, [channel]);
+
+    const [club, setClub] = useState<Channel>();
+    const selectClub = useCallback(async () => {
+        const picked = await ChannelSelectModalRef.openAndWaitForClose({
+            source: Source.Lens,
+            selected: club,
+        });
+        if (picked) setClub(picked);
+    }, [club]);
 
     const disabled = selectedRules.includes(RequirementType.NFTHolder) && !selectedCollection;
 
@@ -209,7 +230,7 @@ export function ClaimRequirementsDialog(props: ClaimRequirementsDialogProps) {
                             return (
                                 <Fragment key={value}>
                                     {item}
-                                    <Box className={classes.select} onClick={handleSelectCollection}>
+                                    <Box className={classes.select} onClick={selectCollection}>
                                         {selectedCollection ? (
                                             <Box className={classes.collection}>
                                                 {selectedCollection.iconURL ? (
@@ -266,10 +287,17 @@ export function ClaimRequirementsDialog(props: ClaimRequirementsDialogProps) {
                             return (
                                 <Fragment key={value}>
                                     {item}
-                                    <Box className={classes.select} onClick={() => setChannel((c) => c + 1)}>
+                                    <Box className={classes.select} onClick={selectChannel}>
                                         {channel ? (
                                             <Box className={classes.collection}>
-                                                <Typography className={classes.assetName}>{channel}</Typography>
+                                                {/* eslint-disable-next-line jsx-a11y/alt-text */}
+                                                <img
+                                                    className={classes.assetIcon}
+                                                    width={24}
+                                                    height={24}
+                                                    src={channel.imageUrl}
+                                                />
+                                                <Typography className={classes.assetName}>{channel.name}</Typography>
                                             </Box>
                                         ) : (
                                             <Typography className={classes.selectText}>
@@ -284,14 +312,21 @@ export function ClaimRequirementsDialog(props: ClaimRequirementsDialogProps) {
                             return (
                                 <Fragment key={value}>
                                     {item}
-                                    <Box className={classes.select} onClick={() => setClub((c) => c + 1)}>
+                                    <Box className={classes.select} onClick={selectClub}>
                                         {club ? (
                                             <Box className={classes.collection}>
-                                                <Typography className={classes.assetName}>{club}</Typography>
+                                                {/* eslint-disable-next-line jsx-a11y/alt-text */}
+                                                <img
+                                                    className={classes.assetIcon}
+                                                    width={24}
+                                                    height={24}
+                                                    src={club.imageUrl}
+                                                />
+                                                <Typography className={classes.assetName}>{club.name}</Typography>
                                             </Box>
                                         ) : (
                                             <Typography className={classes.selectText}>
-                                                <Trans>Select /channel to gate access</Trans>
+                                                <Trans>Select /club to gate access</Trans>
                                             </Typography>
                                         )}
                                         <Icons.ArrowDrop size={18} />

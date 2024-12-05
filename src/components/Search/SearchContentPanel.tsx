@@ -20,7 +20,7 @@ interface SearchContentPanelProps<T, F = never> {
     showFilter?: boolean;
     isLoading?: boolean;
     placeholder?: string;
-    filterProps: FilterPopoverProps<F>;
+    filterProps?: FilterPopoverProps<F>;
     keyword: string;
     onSearch: (searchText: string) => void;
     data: T[];
@@ -99,7 +99,7 @@ function FilterPopover<F>({
     );
 }
 
-export function SearchContentPanel<T, F>({
+export function SearchContentPanel<T, F = void>({
     showFilter = true,
     isLoading,
     filterProps,
@@ -129,7 +129,7 @@ export function SearchContentPanel<T, F>({
     return (
         <div className="flex h-full w-full flex-col">
             <div className="flex items-center gap-2.5">
-                {showFilter ? (
+                {showFilter && filterProps ? (
                     <FilterPopover
                         {...filterProps}
                         selected={filterProps.selected ?? selectedFilter}

@@ -456,6 +456,7 @@ html {
     box-sizing: border-box !important;
     -webkit-text-size-adjust: 100% !important;
     -webkit-tap-highlight-color: rgba(0, 0, 0, 0) !important;
+    scrollbar-gutter: stable;
 }
 
 body {
