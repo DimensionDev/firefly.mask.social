@@ -1,7 +1,7 @@
 import { Trans } from '@lingui/macro';
 import { TokenIcon } from '@masknet/shared';
 import { NetworkPluginID } from '@masknet/shared-base';
-import { useChainContext } from '@masknet/web3-hooks-base';
+import { useChainContext } from '@/hooks/useChainContext.js';
 import { formatBalance } from '@masknet/web3-shared-base';
 import { Box, ListItem, Typography } from '@mui/material';
 import { format, fromUnixTime } from 'date-fns';
@@ -254,7 +254,7 @@ export const FireflyRedPacketDetailsItem = memo(function FireflyRedPacketDetails
         theme_id,
         post_on,
     } = history;
-    const { account } = useChainContext<NetworkPluginID.PLUGIN_EVM>();
+    const { account } = useChainContext();
     const networkDescriptor = getNetworkDescriptor(NetworkPluginID.PLUGIN_EVM, chain_id);
 
     const { classes, cx } = useStyles({
@@ -338,7 +338,8 @@ export const FireflyRedPacketDetailsItem = memo(function FireflyRedPacketDetails
                                     </div>
                                 ) : null}
                             </div>
-                            {redpacket_status &&
+                            {account &&
+                            redpacket_status &&
                             redpacket_status !== FireflyRedPacketAPI.RedPacketStatus.View &&
                             redpacket_status !== FireflyRedPacketAPI.RedPacketStatus.Send ? (
                                 <RedPacketActionButton

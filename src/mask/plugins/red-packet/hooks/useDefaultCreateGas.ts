@@ -1,5 +1,5 @@
 import type { NetworkPluginID } from '@masknet/shared-base';
-import { useChainContext } from '@masknet/web3-hooks-base';
+import { useChainContext } from '@/hooks/useChainContext.js';
 import { toFixed, ZERO } from '@masknet/web3-shared-base';
 import { SchemaType, useTokenConstants } from '@masknet/web3-shared-evm';
 import { omit } from 'lodash-es';
@@ -20,7 +20,7 @@ export function useDefaultCreateGas(
     version: number,
     publicKey: string,
 ) {
-    const { account, chainId } = useChainContext<NetworkPluginID.PLUGIN_EVM>();
+    const { account, chainId } = useChainContext();
     const { NATIVE_TOKEN_ADDRESS } = useTokenConstants(chainId);
     const redPacketContract = useRedPacketContract(chainId, version);
 

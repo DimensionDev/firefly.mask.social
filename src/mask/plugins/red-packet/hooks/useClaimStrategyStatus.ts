@@ -1,6 +1,6 @@
 import { useLastRecognizedIdentity } from '@masknet/plugin-infra/content-script';
 import { NetworkPluginID } from '@masknet/shared-base';
-import { useChainContext } from '@masknet/web3-hooks-base';
+import { useChainContext } from '@/hooks/useChainContext.js';
 import { useQuery } from '@tanstack/react-query';
 
 import { usePlatformType } from '@/mask/plugins/red-packet/hooks/usePlatformType.js';
@@ -11,7 +11,7 @@ export function useClaimStrategyStatus(payload: RedPacketJSONPayload) {
     const platform = usePlatformType();
     const rpid = payload.rpid;
 
-    const { account } = useChainContext<NetworkPluginID.PLUGIN_EVM>({
+    const { account } = useChainContext({
         chainId: payload.chainId,
     });
     const signedMessage = 'privateKey' in payload ? payload.privateKey : payload.password;

@@ -1,12 +1,13 @@
 import { NetworkPluginID } from '@masknet/shared-base';
-import { useBalance, useChainContext } from '@masknet/web3-hooks-base';
+import { useBalance } from '@masknet/web3-hooks-base';
+import { useChainContext } from '@/hooks/useChainContext.js';
 import { formatBalance } from '@masknet/web3-shared-base';
 import { type GasConfig, isNativeTokenAddress, useRedPacketConstants } from '@masknet/web3-shared-evm';
 import { BigNumber } from 'bignumber.js';
 import { useCallback, useEffect, useRef } from 'react';
 
 import { useTransactionValue } from '@/mask/bindings/hooks.js';
-import { EVMChainResolver } from '@/mask/bindings/index.js';
+import { EVMChainResolver, EVMNetworkResolver } from '@/mask/bindings/index.js';
 import {
     type RedPacketSettings,
     useCreateCallback,
@@ -27,7 +28,7 @@ export function useCreateFTRedpacketCallback(
     //  otherwise password in database would be different from creating red-packet.
     const contract_version = 4;
 
-    const { chainId, networkType, account } = useChainContext<NetworkPluginID.PLUGIN_EVM>();
+    const { chainId, account } = useChainContext();
     const { value: createParams } = useCreateParams(chainId, settings, contract_version, publicKey);
     const isNativeToken = isNativeTokenAddress(settings.token?.address);
     const { transactionValue, estimateGasFee } = useTransactionValue(
@@ -125,7 +126,7 @@ export function useCreateFTRedpacketCallback(
         payload.current.contract_address = contractAddress;
         payload.current.contract_version = contract_version;
         payload.current.network = EVMChainResolver.networkType(chainId);
-    }, [chainId, networkType, contract_version, HAPPY_RED_PACKET_ADDRESS_V4, onClose]);
+    }, [chainId, contract_version, HAPPY_RED_PACKET_ADDRESS_V4, onClose]);
 
     return {
         createRedpacket,

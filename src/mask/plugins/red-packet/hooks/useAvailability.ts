@@ -1,5 +1,5 @@
 import type { NetworkPluginID } from '@masknet/shared-base';
-import { useChainContext } from '@masknet/web3-hooks-base';
+import { useChainContext } from '@/hooks/useChainContext.js';
 import type { ChainId } from '@masknet/web3-shared-evm';
 import { useQuery } from '@tanstack/react-query';
 
@@ -14,7 +14,7 @@ export function useAvailability(
         chainId?: ChainId;
     },
 ) {
-    const { account, chainId } = useChainContext<NetworkPluginID.PLUGIN_EVM>({
+    const { account, chainId } = useChainContext({
         account: options?.account,
         chainId: options?.chainId,
     });

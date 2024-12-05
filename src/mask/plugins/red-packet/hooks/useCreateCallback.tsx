@@ -1,5 +1,5 @@
 import type { NetworkPluginID } from '@masknet/shared-base';
-import { useChainContext } from '@masknet/web3-hooks-base';
+import { useChainContext } from '@/hooks/useChainContext.js';
 import { type FungibleToken, isLessThan, toFixed } from '@masknet/web3-shared-base';
 import {
     type ChainId,
@@ -70,7 +70,7 @@ function useCreateParamsCallback(
     version: number,
     publicKey: string,
 ) {
-    const { account, chainId } = useChainContext<NetworkPluginID.PLUGIN_EVM>({ chainId: expectedChainId });
+    const { account, chainId } = useChainContext({ chainId: expectedChainId });
     const { NATIVE_TOKEN_ADDRESS } = useTokenConstants(chainId);
     const redPacketContract = useRedPacketContract(chainId, version);
     const getCreateParams = useCallback(async (): Promise<CreateParams | null> => {
@@ -152,7 +152,7 @@ export function useCreateCallback(
     publicKey: string,
     gasOption?: GasConfig,
 ): AsyncFnReturn {
-    const { account, chainId } = useChainContext<NetworkPluginID.PLUGIN_EVM>({ chainId: expectedChainId });
+    const { account, chainId } = useChainContext({ chainId: expectedChainId });
     const redPacketContract = useRedPacketContract(chainId, version);
     const getCreateParams = useCreateParamsCallback(expectedChainId, redPacketSettings, version, publicKey);
 

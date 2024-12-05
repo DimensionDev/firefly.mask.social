@@ -12,8 +12,8 @@ import {
     WalletConnectedBoundary,
 } from '@masknet/shared';
 import { NetworkPluginID } from '@masknet/shared-base';
-import { useChainContext, useEnvironmentContext, useNativeTokenPrice } from '@masknet/web3-hooks-base';
-// import { EVMChainResolver, EVMWeb3 } from '@masknet/web3-providers';
+import { useEnvironmentContext, useNativeTokenPrice } from '@masknet/web3-hooks-base';
+import { useChainContext } from '@/hooks/useChainContext.js';
 import {
     formatBalance,
     type FungibleToken,
@@ -51,6 +51,8 @@ import { type RedPacketSettings, useCreateParams } from '@/mask/plugins/red-pack
 import { useDefaultCreateGas } from '@/mask/plugins/red-packet/hooks/useDefaultCreateGas.js';
 import { TokenSelectorModalRef } from '@/modals/controls.js';
 import type { Token } from '@/providers/types/Transfer.js';
+import { switchChain } from '@wagmi/core';
+import { config } from '@/configs/wagmiClient.js';
 
 // seconds of 1 day
 const duration = 60 * 60 * 24;
@@ -112,7 +114,6 @@ interface RedPacketFormProps {
     onNext: () => void;
     onGasOptionChange?: (config: GasConfig) => void;
     onChange(settings: RedPacketSettings): void;
-    onChainChange(newChainId: ChainId): void;
 }
 
 function formatDebankToken(token: Token): FungibleToken<ChainId, SchemaType> {
@@ -134,12 +135,12 @@ function formatDebankToken(token: Token): FungibleToken<ChainId, SchemaType> {
 }
 
 export function RedPacketERC20Form(props: RedPacketFormProps) {
-    const { origin, expectedChainId, gasOption, onChange, onNext, onGasOptionChange, onChainChange } = props;
+    const { origin, expectedChainId, gasOption, onChange, onNext, onGasOptionChange } = props;
     const { classes } = useStyles();
     const theme = useTheme();
     // context
     const { pluginID } = useEnvironmentContext();
-    const { account, chainId } = useChainContext<NetworkPluginID.PLUGIN_EVM>({ chainId: expectedChainId });
+    const { account, chainId } = useChainContext({ chainId: expectedChainId });
     const { HAPPY_RED_PACKET_ADDRESS_V4 } = useRedPacketConstants(chainId);
 
     // #region select token
@@ -159,10 +160,12 @@ export function RedPacketERC20Form(props: RedPacketFormProps) {
         });
         if (!picked) return;
         if (chainId !== picked.chainId) {
-            onChainChange(picked.chainId as ChainId);
+            await switchChain(config, {
+                chainId: picked.chainId,
+            });
         }
         setToken(formatDebankToken(picked));
-    }, [token, chainId, account, onChainChange]);
+    }, [token, chainId, account]);
     // #endregion
 
     // #region packet settings

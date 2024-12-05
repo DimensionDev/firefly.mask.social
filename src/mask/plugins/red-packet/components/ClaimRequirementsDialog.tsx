@@ -2,7 +2,7 @@ import { t, Trans } from '@lingui/macro';
 import { getEnumAsArray } from '@masknet/kit';
 import { Alert, SelectNonFungibleContractModal } from '@masknet/shared';
 import { EMPTY_LIST, NetworkPluginID } from '@masknet/shared-base';
-import { useChainContext } from '@masknet/web3-hooks-base';
+import { useChainContext } from '@/hooks/useChainContext.js';
 import type { NonFungibleCollection } from '@masknet/web3-shared-base';
 import { ChainId, SchemaType } from '@masknet/web3-shared-evm';
 import {
@@ -128,7 +128,7 @@ export function ClaimRequirementsDialog(props: ClaimRequirementsDialogProps) {
     const [selectedRules, setSelectedRules] = useState(props.origin ?? [RequirementType.Follow]);
     const [selectedCollection, setSelectedCollection] = useState<NonFungibleCollection<ChainId, SchemaType>>();
     const { classes } = useStyles();
-    const { chainId } = useChainContext<NetworkPluginID.PLUGIN_EVM>();
+    const { chainId } = useChainContext();
 
     const hasNFTHolder = selectedRules.includes(RequirementType.NFTHolder);
 

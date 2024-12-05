@@ -1,7 +1,7 @@
 import { t, Trans } from '@lingui/macro';
 import { ChainBoundary, SelectProviderModal, WalletConnectedBoundary } from '@masknet/shared';
 import { NetworkPluginID } from '@masknet/shared-base';
-import { useChainContext } from '@masknet/web3-hooks-base';
+import { useChainContext } from '@/hooks/useChainContext.js';
 import { ChainId } from '@masknet/web3-shared-evm';
 import { Box, useTheme } from '@mui/material';
 import type { MouseEventHandler } from 'react';
@@ -47,7 +47,7 @@ export function OperationFooter({
     onClaimOrRefund,
 }: OperationFooterProps) {
     const { classes } = useStyles();
-    const { account, chainId: currentChainId } = useChainContext<NetworkPluginID.PLUGIN_EVM>({ chainId });
+    const { account, chainId: currentChainId } = useChainContext({ chainId });
     const theme = useTheme();
 
     function getObtainButton(onClick: MouseEventHandler<HTMLButtonElement>) {

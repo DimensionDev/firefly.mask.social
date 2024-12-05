@@ -1,5 +1,5 @@
 import type { NetworkPluginID } from '@masknet/shared-base';
-import { useChainContext } from '@masknet/web3-hooks-base';
+import { useChainContext } from '@/hooks/useChainContext.js';
 import { type ChainId, ContractTransaction } from '@masknet/web3-shared-evm';
 import { useState } from 'react';
 import { useAsyncFn } from 'react-use';
@@ -8,7 +8,7 @@ import { EVMWeb3 } from '@/mask/bindings/index.js';
 import { useRedPacketContract } from '@/mask/plugins/red-packet/hooks/useRedPacketContract.js';
 
 export function useRefundCallback(version: number, from: string, id?: string, expectedChainId?: ChainId) {
-    const { chainId } = useChainContext<NetworkPluginID.PLUGIN_EVM>({ chainId: expectedChainId });
+    const { chainId } = useChainContext({ chainId: expectedChainId });
     const [isRefunded, setIsRefunded] = useState(false);
     const redPacketContract = useRedPacketContract(chainId, version);
 

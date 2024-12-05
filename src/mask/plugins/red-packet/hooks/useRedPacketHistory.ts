@@ -8,6 +8,7 @@ import {
 
 import { FireflyRedPacket } from '@/providers/red-packet/index.js';
 import { FireflyRedPacketAPI } from '@/providers/red-packet/types.js';
+import type { Hex } from 'viem';
 
 export function useRedPacketHistory(
     address: string,
@@ -24,7 +25,7 @@ export function useRedPacketHistory(
         queryFn: async ({ pageParam }) => {
             const res = await FireflyRedPacket.getHistory(
                 historyType,
-                address as `0x${string}`,
+                address as Hex,
                 platform ? platform : FireflyRedPacketAPI.SourceType.All,
                 pageParam,
             );

@@ -1,7 +1,8 @@
 import { Trans } from '@lingui/macro';
 import { ChainBoundary, PluginWalletStatusBar, SelectGasSettingsToolbar } from '@masknet/shared';
 import { NetworkPluginID } from '@masknet/shared-base';
-import { useChainContext, useNativeTokenPrice } from '@masknet/web3-hooks-base';
+import { useNativeTokenPrice } from '@masknet/web3-hooks-base';
+import { useChainContext } from '@/hooks/useChainContext.js';
 import { isZero } from '@masknet/web3-shared-base';
 import { type ChainId, type GasConfig } from '@masknet/web3-shared-evm';
 import { Launch as LaunchIcon } from '@mui/icons-material';
@@ -67,7 +68,8 @@ interface ConfirmRedPacketFormProps {
 export function RedPacketConfirmDialog(props: ConfirmRedPacketFormProps) {
     const { settings, onCreated, onClose, gasOption, onGasOptionChange, expectedChainId } = props;
     const { classes, cx } = useStyles();
-    const { chainId } = useChainContext<NetworkPluginID.PLUGIN_EVM>({ chainId: expectedChainId });
+    const { chainId } = useChainContext({ chainId: expectedChainId });
+
     useEffect(() => {
         if (settings?.token?.chainId !== chainId) onClose();
     }, [chainId, onClose, settings?.token?.chainId]);

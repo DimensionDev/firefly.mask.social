@@ -138,7 +138,7 @@ export function FireflyRedpacketConfirmDialog({
     onClose,
 }: FireflyRedpacketConfirmDialogProps) {
     const { currentFarcasterProfile, currentLensProfile, currentTwitterProfile } = fireflyContext || {};
-    const { chainId, account } = useChainContext<NetworkPluginID.PLUGIN_EVM>();
+    const { chainId, account } = useChainContext();
     const { data: ensName } = useReverseAddress(NetworkPluginID.PLUGIN_EVM, account, true);
     const { data: lensOwnerENS } = useReverseAddress(NetworkPluginID.PLUGIN_EVM, currentLensProfile?.ownedBy, true);
     const { data: farcasterOwnerENS } = useReverseAddress(

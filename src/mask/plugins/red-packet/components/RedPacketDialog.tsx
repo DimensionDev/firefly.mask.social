@@ -7,7 +7,8 @@ import {
 } from '@masknet/plugin-infra/content-script';
 import { InjectedDialog, LoadingStatus, useCurrentLinkedPersona } from '@masknet/shared';
 import { EMPTY_LIST, NetworkPluginID, PluginID } from '@masknet/shared-base';
-import { useChainContext, useGasPrice } from '@masknet/web3-hooks-base';
+import { useGasPrice } from '@masknet/web3-hooks-base';
+import { useChainContext } from '@/hooks/useChainContext.js';
 import { ChainId, type GasConfig, GasEditor } from '@masknet/web3-shared-evm';
 import { TabContext } from '@mui/lab';
 import { DialogContent, Tab, useTheme } from '@mui/material';
@@ -89,7 +90,7 @@ export default function RedPacketDialog(props: RedPacketDialogProps) {
 
     const [step, setStep] = useState(CreateRedPacketPageStep.NewRedPacketPage);
 
-    const { account, chainId: contextChainId, setChainId } = useChainContext<NetworkPluginID.PLUGIN_EVM>();
+    const { account, chainId: contextChainId } = useChainContext();
     const definition = useActivatedPluginSiteAdaptor.visibility.useAnyMode(PluginID.RedPacket);
     const [currentHistoryTab, onChangeHistoryTab, historyTabs] = useTabs('claimed', 'sent');
     const theme = useTheme();
@@ -309,7 +310,6 @@ export default function RedPacketDialog(props: RedPacketDialogProps) {
                                     onNext={onNext}
                                     onChange={_onChange}
                                     onGasOptionChange={handleGasSettingChange}
-                                    onChainChange={setChainId}
                                 />
                             </div>
                             {showHistory && !showDetails ? (
