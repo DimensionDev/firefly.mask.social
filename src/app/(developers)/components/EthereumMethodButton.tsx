@@ -1,6 +1,6 @@
 'use client';
 
-import { t, Trans } from '@lingui/macro';
+import { Trans } from '@lingui/macro';
 import { EthereumMethodType } from '@masknet/web3-shared-evm';
 import { getAccount, getBalance, sendTransaction, signMessage } from '@wagmi/core';
 import { first } from 'lodash-es';

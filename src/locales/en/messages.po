@@ -2928,9 +2928,6 @@ msgstr "Your name"
 msgid "No tax changes found for personal addresses."
 msgstr "No tax changes found for personal addresses."
 
-msgid "Failed to execute method"
-msgstr "Failed to execute method"
-
 msgid "Owned"
 msgstr "Owned"
 

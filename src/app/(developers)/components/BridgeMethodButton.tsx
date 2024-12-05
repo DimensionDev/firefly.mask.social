@@ -2,7 +2,7 @@
 
 'use client';
 
-import { t, Trans } from '@lingui/macro';
+import { Trans } from '@lingui/macro';
 import { safeUnreachable } from '@masknet/kit';
 import { useAsyncFn } from 'react-use';
 
