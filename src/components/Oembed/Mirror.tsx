@@ -1,6 +1,7 @@
 'use client';
 
 import { memo } from 'react';
+import type { Hex } from 'viem';
 import { useEnsAvatar, useEnsName } from 'wagmi';
 import { mainnet } from 'wagmi/chains';
 
@@ -14,7 +15,7 @@ import { isSelfReference } from '@/helpers/isLinkMatchingHost.js';
 import { stopPropagation } from '@/helpers/stopEvent.js';
 
 interface MirrorProps {
-    address?: `0x${string}`;
+    address?: Hex;
     title: string | null;
     description: string;
     url: string;

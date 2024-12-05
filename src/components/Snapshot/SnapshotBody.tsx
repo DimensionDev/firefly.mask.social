@@ -6,6 +6,7 @@ import { isArray, isEqual, isNumber, isObject, isUndefined, sum, values } from '
 import { useCallback, useMemo, useState } from 'react';
 import { useAsyncFn } from 'react-use';
 import urlcat from 'urlcat';
+import type { Hex } from 'viem';
 import { useAccount, useEnsName } from 'wagmi';
 
 import SnapshotIcon from '@/assets/snapshot.svg';
@@ -97,7 +98,7 @@ export function SnapshotBody({ snapshot, link, postId, activity }: Props) {
         },
     });
 
-    const ensHandle = useEnsName({ address: author as `0x${string}` });
+    const ensHandle = useEnsName({ address: author as Hex });
 
     const isPending = state === SnapshotState.Pending;
     const isNotEnoughVp = vp === 0 && !queryVpLoading;

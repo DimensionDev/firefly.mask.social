@@ -1,4 +1,4 @@
-import { createWalletClient, custom, type EIP1193Parameters } from 'viem';
+import { createWalletClient, custom, type EIP1193Parameters, type Hex } from 'viem';
 import { foundry } from 'viem/chains';
 
 import { env } from '@/constants/env.js';
@@ -14,7 +14,7 @@ export function createWagmiTestWalletClient(request: (payload: EIP1193Parameters
             request,
         }),
         chain: foundry,
-        key: env.internal.VITE_ACCOUNT_KEY as `0x${string}`,
-        account: env.internal.VITE_ACCOUNT as `0x${string}`,
+        key: env.internal.VITE_ACCOUNT_KEY as Hex,
+        account: env.internal.VITE_ACCOUNT as Hex,
     });
 }

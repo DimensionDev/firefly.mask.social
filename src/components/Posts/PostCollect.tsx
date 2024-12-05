@@ -7,6 +7,7 @@ import { StatusCodes } from 'http-status-codes';
 import { compact, first } from 'lodash-es';
 import { useMemo } from 'react';
 import { useAsyncFn } from 'react-use';
+import type { Hex } from 'viem';
 import { polygon } from 'viem/chains';
 import { useAccount, useBalance } from 'wagmi';
 
@@ -124,7 +125,7 @@ export function PostCollect({ post, onClose }: PostCollectProps) {
 
     const { data: balanceData, isLoading: queryBalanceLoading } = useBalance({
         address: account.address,
-        token: verifiedAssetAddress ? (collectModule?.assetAddress as `0x${string}`) : undefined,
+        token: verifiedAssetAddress ? (collectModule?.assetAddress as Hex) : undefined,
     });
 
     const hasEnoughBalance =
