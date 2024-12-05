@@ -31,12 +31,12 @@ import {
     ZERO_ADDRESS,
 } from '@masknet/web3-shared-evm';
 import { Box, InputBase, Typography, useTheme } from '@mui/material';
-import { switchChain } from 'wagmi/actions';
 import { BigNumber } from 'bignumber.js';
 import { omit } from 'lodash-es';
 import { type ChangeEvent, useCallback, useMemo, useState } from 'react';
 import { useUpdateEffect } from 'react-use';
 import { isAddress } from 'viem';
+import { switchChain } from 'wagmi/actions';
 
 import { config } from '@/configs/wagmiClient.js';
 import { createAccount } from '@/helpers/createAccount.js';

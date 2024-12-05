@@ -1,8 +1,8 @@
 import { t, Trans } from '@lingui/macro';
 import { CHAIN_DESCRIPTORS } from '@masknet/web3-shared-evm';
-import { getAccount } from 'wagmi/actions';
 import type { FunctionComponent, SVGAttributes } from 'react';
 import { fromHex, isHex } from 'viem';
+import { getAccount } from 'wagmi/actions';
 
 import LoadingIcon from '@/assets/loading.svg';
 import ReceiveIcon from '@/assets/receive-token.svg';

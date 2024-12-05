@@ -1,8 +1,8 @@
 import { http } from '@wagmi/core';
-import { getAccount, readContracts, waitForTransactionReceipt, writeContract } from 'wagmi/actions';
 import urlcat from 'urlcat';
 import { type Address, createPublicClient, zeroAddress } from 'viem';
 import { base, optimism, polygon, zora } from 'viem/chains';
+import { getAccount, readContracts, waitForTransactionReceipt, writeContract } from 'wagmi/actions';
 
 import { ParagraphABI, ParagraphMintABI } from '@/abis/Paragraph.js';
 import { chains, config } from '@/configs/wagmiClient.js';

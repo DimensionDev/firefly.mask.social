@@ -1,5 +1,5 @@
-import type { WaitForTransactionReceiptReturnType } from 'wagmi/actions';
 import type { Address } from 'viem';
+import type { WaitForTransactionReceiptReturnType } from 'wagmi/actions';
 
 import type { Pageable, PageIndicator } from '@/helpers/pageable.js';
 import type { FollowingSource } from '@/providers/types/Firefly.js';

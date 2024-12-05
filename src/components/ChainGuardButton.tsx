@@ -1,8 +1,8 @@
 import { Trans } from '@lingui/macro';
-import { switchChain } from 'wagmi/actions';
 import { memo, type MouseEvent } from 'react';
 import { useAsyncFn } from 'react-use';
 import { useAccount } from 'wagmi';
+import { switchChain } from 'wagmi/actions';
 
 import { ActionButton, type ActionButtonProps } from '@/components/ActionButton.js';
 import { config } from '@/configs/wagmiClient.js';

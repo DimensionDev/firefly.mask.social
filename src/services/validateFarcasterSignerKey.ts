@@ -1,7 +1,7 @@
 import { keyRegistryABI } from '@farcaster/core';
 import { ChainId } from '@masknet/web3-shared-evm';
-import { readContract } from 'wagmi/actions';
 import { parseUnits } from 'viem';
+import { readContract } from 'wagmi/actions';
 
 import { config } from '@/configs/wagmiClient.js';
 import { FarcasterInvalidSignerKey, MalformedError } from '@/constants/error.js';

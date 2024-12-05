@@ -1,6 +1,6 @@
-import { getAccount } from 'wagmi/actions';
 import { multiply } from 'lodash-es';
 import { type Address, formatUnits } from 'viem';
+import { getAccount } from 'wagmi/actions';
 
 import { chains, config } from '@/configs/wagmiClient.js';
 import { DEBANK_CHAIN_TO_CHAIN_ID_MAP } from '@/constants/chain.js';

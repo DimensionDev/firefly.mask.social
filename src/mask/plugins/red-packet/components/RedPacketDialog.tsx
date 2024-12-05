@@ -11,9 +11,9 @@ import { useGasPrice } from '@masknet/web3-hooks-base';
 import { ChainId, type GasConfig, GasEditor } from '@masknet/web3-shared-evm';
 import { TabContext } from '@mui/lab';
 import { DialogContent, Tab, useTheme } from '@mui/material';
-import { signMessage } from 'wagmi/actions';
 import { Suspense, useCallback, useContext, useMemo, useState } from 'react';
 import { type Hex, keccak256 } from 'viem';
+import { signMessage } from 'wagmi/actions';
 
 import { config } from '@/configs/wagmiClient.js';
 import { useChainContext } from '@/hooks/useChainContext.js';
