@@ -358,10 +358,6 @@ export enum ExternalSiteDomain {
     Warpcast = 'warpcast.com',
 }
 
-export enum LinkDigestType {
-    Snapshot = 'snapshot',
-}
-
 export enum SnapshotState {
     Active = 'active',
     Pending = 'pending',
@@ -374,4 +370,23 @@ export enum SnapshotState {
 export enum PolymarketBetType {
     Buy = 'buy',
     Sell = 'sell',
+}
+
+export enum LinkDigestType {
+    NFT = 'nft',
+    LensPost = 'lensPost',
+    FarcasterPost = 'farcasterPost',
+    Mirror = 'mirror',
+    Paragraph = 'paragraph',
+    Snapshot = 'snapshot',
+    Twitter = 'twitter',
+    TwitterXQT = 'twitterXQT',
+    FarcasterFrames = 'farcasterFrames',
+}
+
+export enum NFTMarketplace {
+    Opensea = 'opensea',
+    Magiceden = 'magiceden',
+    Tensor = 'tensor',
+    Trove = 'trove',
 }

@@ -8,6 +8,7 @@ import { useEffect, useMemo } from 'react';
 import { ArticleBody } from '@/components/Article/ArticleBody.js';
 import { ActionContainer } from '@/components/Blink/ActionContainer.js';
 import { FrameLayout } from '@/components/Frame/index.js';
+import { CollectionPreviewer, NFTPreviewer } from '@/components/NFTs/NFTPreview.js';
 import { OembedLayout } from '@/components/Oembed/index.js';
 import { Player } from '@/components/Oembed/Player.js';
 import { TweetSpace } from '@/components/Posts/TweetSpace.js';
@@ -90,6 +91,8 @@ export function PostLinks({ post, setContent, isInCompose = false }: Props) {
             {data.action ? <ActionContainer action={data.action} url={url} /> : null}
             {data.oembed ? <OembedLayout data={data.oembed} post={post} /> : null}
             {data.spaceId ? <TweetSpace spaceId={data.spaceId} /> : null}
+            {data.nft ? <NFTPreviewer nft={data.nft} /> : null}
+            {data.collection ? <CollectionPreviewer collection={data.collection} /> : null}
         </>
     );
 }
