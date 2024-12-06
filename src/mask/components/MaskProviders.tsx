@@ -7,7 +7,6 @@ import { StyledEngineProvider } from '@mui/material';
 import { memo, type PropsWithChildren, Suspense } from 'react';
 import { I18nextProvider } from 'react-i18next';
 import { useMount } from 'react-use';
-import { useAccount, useChainId } from 'wagmi';
 
 import { Locale } from '@/constants/enum.js';
 import { getLocaleFromCookies } from '@/helpers/getFromCookies.js';
@@ -21,6 +20,7 @@ import {
     SharedContextProvider,
 } from '@/mask/bindings/components.js';
 import { i18NextInstance, updateLanguage } from '@/mask/bindings/index.js';
+import { useChainContext } from '@/hooks/useChainContext.js';
 
 function resolveMaskLocale(locale: Locale) {
     switch (locale) {
@@ -36,8 +36,7 @@ function resolveMaskLocale(locale: Locale) {
 }
 
 export const MaskProviders = memo(function MaskProviders({ children }: PropsWithChildren<{}>) {
-    const account = useAccount();
-    const chainId = useChainId();
+    const { account, chainId } = useChainContext();
 
     useMount(() => {
         updateLanguage(resolveMaskLocale(getLocaleFromCookies()));
@@ -50,7 +49,7 @@ export const MaskProviders = memo(function MaskProviders({ children }: PropsWith
                     <MaskThemeProvider useMaskIconPalette={(theme) => theme.palette.mode} useTheme={useMaskTheme}>
                         <I18nextProvider i18n={i18NextInstance}>
                             <EVMWeb3ContextProvider
-                                account={account.address ?? ''}
+                                account={account}
                                 chainId={chainId}
                                 providerType={ProviderType.CustomEvent}
                                 controlled
