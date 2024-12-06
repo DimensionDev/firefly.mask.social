@@ -1,11 +1,17 @@
 import { t } from '@lingui/macro';
 import { isValidChainId as isValidSolanaChainId } from '@masknet/web3-shared-solana';
+import dayjs from 'dayjs';
+import { compact } from 'lodash-es';
 import { memo, type ReactNode } from 'react';
 
+import CalendarIcon from '@/assets/calendar-small.svg';
+import PoapIcon from '@/assets/poap.svg';
 import { Image } from '@/components/Image.js';
 import { ChainIcon } from '@/components/NFTDetail/ChainIcon.js';
 import { BookmarkButton } from '@/components/NFTs/BookmarkButton.js';
+import { POAP_CONTRACT_ADDRESS } from '@/constants/index.js';
 import { Link } from '@/esm/Link.js';
+import { isSameEthereumAddress } from '@/helpers/isSameAddress.js';
 import { resolveNftUrl, resolveNftUrlByCollection } from '@/helpers/resolveNftUrl.js';
 import { resolveSimpleHashChainId } from '@/helpers/resolveSimpleHashChain.js';
 import { stopPropagation } from '@/helpers/stopEvent.js';
@@ -28,6 +34,10 @@ interface BasePreviewContentProps {
     bookmarkProps?: {
         nft: NftPreview;
     };
+}
+
+function formatDate(date: string) {
+    return dayjs(date).format('MMM D, YYYY');
 }
 
 function BasePreviewContent(props: BasePreviewContentProps) {
@@ -95,19 +105,44 @@ export const NFTPreviewer = memo(function NFTPreview({ nft }: NFTPreviewProps) {
     const collectionId = nft.collection.collection_id;
     const isSolanaChain = isValidSolanaChainId(chainId);
 
+    const isPoap = isSameEthereumAddress(nft.contract_address, POAP_CONTRACT_ADDRESS);
+    const startDate = isPoap
+        ? nft.extra_metadata?.attributes?.find((attr) => attr.trait_type === 'startDate')?.value
+        : undefined;
+    const endDate = isPoap
+        ? nft.extra_metadata?.attributes?.find((attr) => attr.trait_type === 'endDate')?.value
+        : undefined;
+
     return (
         <BasePreviewContent
             image={nft.image_url}
-            icon={chainId ? <ChainIcon className="rounded-full" size={24} chainId={chainId} /> : undefined}
+            icon={
+                isPoap ? (
+                    <PoapIcon width={24} height={24} />
+                ) : chainId ? (
+                    <ChainIcon className="rounded-full" size={24} chainId={chainId} />
+                ) : undefined
+            }
             link={
                 chainId ? resolveNftUrl(chainId, nft.contract_address, isSolanaChain ? '0' : nft.token_id) : undefined
             }
             footer={{
                 image: nft.collection.image_url,
-                name: nft.collection.name,
-                link: collectionId ? resolveNftUrlByCollection(collectionId) : undefined,
+                name: isPoap ? nft.name : nft.collection.name,
+                link: isPoap ? undefined : collectionId ? resolveNftUrlByCollection(collectionId) : undefined,
             }}
-            tags={[`#${nft.name}`]}
+            tags={
+                isPoap
+                    ? compact([
+                          startDate && endDate ? (
+                              <>
+                                  <CalendarIcon className="mr-1 inline-block align-sub" width={15} height={15} />
+                                  {formatDate(startDate)} - {formatDate(endDate)}
+                              </>
+                          ) : null,
+                      ])
+                    : [`#${nft.name}`]
+            }
             bookmarkProps={{ nft }}
         />
     );
