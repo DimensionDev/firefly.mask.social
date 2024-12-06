@@ -1,5 +1,5 @@
 import { t, Trans } from '@lingui/macro';
-import { ChainBoundary, SelectProviderModal, WalletConnectedBoundary } from '@masknet/shared';
+import { ChainBoundary, WalletConnectedBoundary } from '@masknet/shared';
 import { NetworkPluginID } from '@masknet/shared-base';
 import { ChainId } from '@masknet/web3-shared-evm';
 import { Box, useTheme } from '@mui/material';
@@ -53,7 +53,13 @@ export function OperationFooter({
     function getObtainButton(onClick: MouseEventHandler<HTMLButtonElement>) {
         if (!account) {
             return (
-                <ActionButton fullWidth onClick={() => SelectProviderModal.open()} variant="roundedDark">
+                <ActionButton
+                    fullWidth
+                    onClick={() => {
+                        throw new Error('Not implemented');
+                    }}
+                    variant="roundedDark"
+                >
                     <Trans>Connect Wallet</Trans>
                 </ActionButton>
             );
@@ -121,7 +127,6 @@ export function OperationFooter({
                     >
                         <WalletConnectedBoundary
                             noGasText={t`Insufficient Balance`}
-                            hideRiskWarningConfirmed
                             expectedChainId={chainId ?? ChainId.Mainnet}
                             startIcon={<Icons.Wallet size={18} />}
                             ActionButtonProps={{ variant: 'roundedDark' }}

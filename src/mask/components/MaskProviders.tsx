@@ -2,7 +2,6 @@
 
 import { LanguageOptions } from '@masknet/public-api';
 import { EVMWeb3ContextProvider } from '@masknet/web3-hooks-base';
-import { ProviderType } from '@masknet/web3-shared-evm';
 import { StyledEngineProvider } from '@mui/material';
 import { memo, type PropsWithChildren, Suspense } from 'react';
 import { I18nextProvider } from 'react-i18next';
@@ -49,12 +48,7 @@ export const MaskProviders = memo(function MaskProviders({ children }: PropsWith
                 <StyledEngineProvider injectFirst>
                     <MaskThemeProvider useMaskIconPalette={(theme) => theme.palette.mode} useTheme={useMaskTheme}>
                         <I18nextProvider i18n={i18NextInstance}>
-                            <EVMWeb3ContextProvider
-                                account={account.address ?? ''}
-                                chainId={chainId}
-                                providerType={ProviderType.CustomEvent}
-                                controlled
-                            >
+                            <EVMWeb3ContextProvider account={account.address ?? ''} chainId={chainId} controlled>
                                 <SharedContextProvider>
                                     <Suspense fallback={null}>
                                         <CSSVariableInjector />

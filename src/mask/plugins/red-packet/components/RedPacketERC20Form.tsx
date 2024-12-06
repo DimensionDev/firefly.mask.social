@@ -414,12 +414,7 @@ export function RedPacketERC20Form(props: RedPacketFormProps) {
             ) : null}
 
             <Box style={{ width: '100%', position: 'absolute', bottom: 0 }}>
-                <PluginWalletStatusBar
-                    expectedPluginID={NetworkPluginID.PLUGIN_EVM}
-                    expectedChainId={chainId}
-                    actualPluginID={NetworkPluginID.PLUGIN_EVM}
-                    disableSwitchAccount
-                >
+                <PluginWalletStatusBar actualPluginID={NetworkPluginID.PLUGIN_EVM}>
                     <EthereumERC20TokenApprovedBoundary
                         amount={totalAmount.toFixed()}
                         balance={balance}
@@ -443,7 +438,6 @@ export function RedPacketERC20Form(props: RedPacketFormProps) {
                             <WalletConnectedBoundary
                                 noGasText={t`Insufficient Balance for Gas Fee`}
                                 expectedChainId={chainId}
-                                hideRiskWarningConfirmed
                             >
                                 <ActionButton
                                     size="medium"
