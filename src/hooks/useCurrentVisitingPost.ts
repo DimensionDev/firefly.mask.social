@@ -21,5 +21,5 @@ export function useCurrentVisitingPost() {
     const pathname = usePathname();
     const isPostPage = isRoutePathname(pathname, PageRoute.PostDetail, true);
     const post = useValueRef(currentVisitingPost);
-    return isPostPage ? post : null;
+    return isPostPage && post ? post : null;
 }
