@@ -443,7 +443,6 @@ export function RedPacketERC20Form(props: RedPacketFormProps) {
                             <WalletConnectedBoundary
                                 noGasText={t`Insufficient Balance for Gas Fee`}
                                 expectedChainId={chainId}
-                                hideRiskWarningConfirmed
                             >
                                 <ActionButton
                                     size="medium"

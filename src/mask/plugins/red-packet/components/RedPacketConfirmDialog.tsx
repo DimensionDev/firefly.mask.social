@@ -190,7 +190,6 @@ export function RedPacketConfirmDialog(props: ConfirmRedPacketFormProps) {
                         gasLimit={Number.parseInt(gas ?? '0', 10)}
                         onChange={onGasOptionChange}
                         estimateGasFee={estimateGasFee}
-                        editMode
                     />
                 ) : null}
                 <Grid item xs={12}>
