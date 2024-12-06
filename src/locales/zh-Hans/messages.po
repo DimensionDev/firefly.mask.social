@@ -81,6 +81,9 @@ msgstr "报告 @{0}"
 msgid "Sell Tax: {0}%"
 msgstr "售卖税率: {0}%"
 
+msgid "Lucky drop"
+msgstr ""
+
 msgid "Failed to translate post. Please retry later."
 msgstr "翻译失败。请稍后重试。"
 
@@ -131,6 +134,9 @@ msgstr "当您连接钱包时请务必小心，一些恶意网站会试图访问
 
 msgid "<0>Fully Diluted Valuation (FDV) = Current Price x Total Supply</0><1>Fully Diluted Valuation (FDV) is the theoretical market capitalization of a coin if the entirety of its supply is in circulation, based on its current market price. The FDV value is theoretical as increasing the circulating supply of a coin may impact its market price. Also depending on the tokenomics, emission schedule or lock-up period of a coin's supply, it may take a significant time before its entire supply is released into circulation.</1>"
 msgstr "<0>完全稀释估值 (FDV) = 当前价格 x 总供应量</0><1>完全稀释估值 (FDV) 是某种货币的全流通时基于当前市场价格的理论市值。FDV 值是理论上的，因为增加货币的流通量可能会影响其市场价格。此外，根据代币经济学、发行计划或货币供应量的锁定期，可能需要相当长的时间才能将其全部供应量释放到流通中。</1>"
+
+msgid "Equal Split"
+msgstr ""
 
 msgid "Followed @{0} on {sourceName}"
 msgstr "在 {sourceName} 上关注 @{0}"
@@ -231,6 +237,9 @@ msgstr "<0>加密货币生命周期存在的最大发行数量。它与股票市
 msgid "This token is a gas abuser."
 msgstr "该通证是一个燃料滥用者。"
 
+msgid "Light"
+msgstr ""
+
 msgid "Are you sure you want to leave /{0} ?"
 msgstr ""
 
@@ -317,6 +326,9 @@ msgstr "趋势"
 
 msgid "Log out @{0}"
 msgstr "登出 @{0}"
+
+msgid "MAX"
+msgstr ""
 
 msgid "You can save the failed parts of posts and send them later from your Drafts."
 msgstr "您可以先保存发送的帖子并稍后发送。"
@@ -834,6 +846,9 @@ msgstr ""
 msgid "No Lens profile found.<0/>Please change to another wallet."
 msgstr "没有找到 Lens 账户，<0/>请连接另一个钱包。"
 
+msgid "Drop type"
+msgstr ""
+
 msgid "The contract owner has no restrictions on trading cooldown."
 msgstr "合约拥有者在交易冷却期上没有限制。"
 
@@ -1208,6 +1223,9 @@ msgstr "<0>价格</0><1>${0}</1><2/>{1}"
 msgid "Collected"
 msgstr "已收藏"
 
+msgid "Upload custom cover"
+msgstr ""
+
 msgid "Try again"
 msgstr "请重试"
 
@@ -1544,6 +1562,9 @@ msgstr "取消隐藏失败/{0}。"
 msgid "Please confirm the login with Warpcast."
 msgstr "请确认使用 Warpcast 登录。"
 
+msgid "Cover background"
+msgstr ""
+
 msgid "Verified"
 msgstr "已验证"
 
@@ -1573,6 +1594,9 @@ msgstr "<0>{0}</0> 点赞"
 
 msgid "Fully Diluted Valuation"
 msgstr "完全稀释估值"
+
+msgid "Customize Lucky Drop sender. Select either Lens or Forecaster handle, or use the currently connected wallet."
+msgstr ""
 
 msgid "Email (optional)"
 msgstr "邮箱（可选）"
@@ -1710,6 +1734,9 @@ msgstr "标准"
 
 msgid "<0>Revised</0>an article"
 msgstr "<0>修改了</0>文章"
+
+msgid "Data display"
+msgstr ""
 
 msgid "No darkweb transactions found."
 msgstr "未发现暗网交易。"
@@ -2104,6 +2131,9 @@ msgstr "{0} 隐藏的用户"
 msgid "Received time:"
 msgstr ""
 
+msgid "Random Split"
+msgstr ""
+
 msgid "Remove Poll"
 msgstr "删除投票"
 
@@ -2161,6 +2191,9 @@ msgstr "该网站是钓鱼网站。"
 msgid "Please input the serialized session to be validated."
 msgstr "请输入要验证的序列化会话。"
 
+msgid "Network cost"
+msgstr ""
+
 msgid "1 NFT claimed."
 msgstr ""
 
@@ -2202,6 +2235,9 @@ msgstr "签名"
 
 msgid "Failed to recast post"
 msgstr "发帖失败"
+
+msgid "Available Balance"
+msgstr ""
 
 msgid "Follow @thefireflyapp on X"
 msgstr "在 X 上关注 @thefireflyapp"
@@ -2397,6 +2433,9 @@ msgstr "24小时的交易量"
 
 msgid "<0>Minted</0> an NFT worth {costEl}"
 msgstr "<0>铸造了</0> 一个 NFT 价值 {costEl}"
+
+msgid "Balance"
+msgstr ""
 
 msgid "Suspended"
 msgstr "已暂停"
@@ -2875,6 +2914,9 @@ msgstr ""
 msgid "You may lose your assets if giving approval to the website of this token."
 msgstr "如果您授权此通证给这个网站，您可能会丢失您的资产。"
 
+msgid "Default"
+msgstr ""
+
 msgid "Unfollow"
 msgstr "取消关注"
 
@@ -2895,6 +2937,9 @@ msgstr "发布于 {0} <0>{sendFrom}</0>"
 
 msgid "The contract owner has no restrictions on personal slippage."
 msgstr "合约所有者对个人滑点没有限制。"
+
+msgid "Number of winners"
+msgstr ""
 
 msgid "Unmuted @{0} on {sourceName}."
 msgstr "在 {sourceName} 上已取消对 @{0} 的隐藏。"
@@ -2920,6 +2965,9 @@ msgstr "正在连接钱包"
 msgid "{minutes}m left"
 msgstr "{minutes} 分钟剩余"
 
+msgid "Dark"
+msgstr ""
+
 msgid "Signature Request"
 msgstr "签名请求"
 
@@ -2934,6 +2982,9 @@ msgstr "您的名字"
 
 msgid "No tax changes found for personal addresses."
 msgstr "未发现个人地址的税务变更。"
+
+msgid "Unlock {0}"
+msgstr ""
 
 msgid "Owned"
 msgstr "拥有"
@@ -2961,6 +3012,9 @@ msgstr "新闻"
 
 msgid "NFT ID"
 msgstr "NFT ID"
+
+msgid "Confirm Lucky drop"
+msgstr ""
 
 msgid "Farcaster channel"
 msgstr "Farcaster 频道"
