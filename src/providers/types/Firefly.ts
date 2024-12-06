@@ -1,6 +1,7 @@
 import type { Address, Hex } from 'viem';
 
 import {
+    BookmarkType,
     FireflyPlatform,
     NetworkType,
     PolymarketBetType,
@@ -813,6 +814,7 @@ export interface NftPreview {
     rarity: Rarity;
     royalty: Royalty[];
     extra_metadata: ExtraMetadata;
+    hasBookmarked?: boolean;
 }
 
 export interface Collection {
@@ -1436,4 +1438,14 @@ export type LinkDigestResponse = Response<{
     twitter?: unknown;
     twitterXQT?: unknown;
     farcasterFrames?: unknown;
+}>;
+
+export type GetBookmarksResponse = Response<{
+    list: Array<{
+        has_book_marked: boolean;
+        platform: string;
+        platform_id: string;
+        post_id: string;
+        post_type: BookmarkType;
+    }>;
 }>;
