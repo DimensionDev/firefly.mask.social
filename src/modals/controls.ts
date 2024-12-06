@@ -12,6 +12,7 @@ import type { EditProfileModalOpenProps } from '@/modals/EditProfileModal.js';
 import type { LoginModalOpenProps } from '@/modals/LoginModal/index.js';
 import type { LogoutModalProps } from '@/modals/LogoutModal.js';
 import type { PreviewMediaModalOpenProps } from '@/modals/PreviewMediaModal.js';
+import type { RedpacketModalOpenProps } from '@/modals/RedpacketModal/index.js';
 import type { SchedulePostModalOpenProps } from '@/modals/SchedulePostModal.js';
 import type { SnackbarCloseProps, SnackbarOpenProps } from '@/modals/Snackbar.js';
 import type { SuperFollowModalOpenProps } from '@/modals/SuperFollowModal.js';
@@ -43,6 +44,7 @@ export const SuperFollowModalRef = new SingletonModal<SuperFollowModalOpenProps>
 export const TransactionSimulatorModalRef = new SingletonModal<TransactionSimulatorModalOpenProps>();
 export const DisconnectFireflyAccountModalRef = new SingletonModal<DisconnectFireflyAccountModalProps>();
 export const TokenSelectorModalRef = new SingletonModal<TokenSelectorModalOpenProps, TokenSelectorModalCloseProps>();
+export const RedpacketModalRef = new SingletonModal<RedpacketModalOpenProps | void>();
 
 // CZ
 export const ActivityModalRef = new SingletonModal();

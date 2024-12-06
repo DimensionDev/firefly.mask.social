@@ -36,7 +36,7 @@ export function Tabs<T = string>(props: TabsProps<T>) {
     const variantClassName = {
         default: 'space-x-4',
         second: 'space-x-0',
-        solid: 'space-x-2',
+        solid: 'space-x-0 border border-secondaryLine py-1 px-[5px] rounded-[6px] min-w-0',
     }[variant];
 
     return (
@@ -57,7 +57,7 @@ export function Tab({ children, value, className, ...props }: TabProps) {
     const liVariantClassName = {
         default: 'flex-1 text-sm sm:text-xl',
         second: 'flex-1 text-sm sm:text-base',
-        solid: 'text-xs',
+        solid: 'text-[14px] leading-[20px]',
     }[variant];
     const variantClassName = {
         default: classNames(
@@ -69,10 +69,8 @@ export function Tab({ children, value, className, ...props }: TabProps) {
             currentTab === value ? 'border-farcasterPrimary text-main' : 'border-transparent text-third',
         ),
         solid: classNames(
-            'h-6 rounded-md bg-farcasterPrimary px-1.5 leading-6',
-            currentTab === value
-                ? 'text-bg dark:text-white'
-                : 'cursor-pointer bg-opacity-10 text-farcasterPrimary dark:bg-opacity-30 dark:text-white',
+            'h-8 rounded-[4px] px-[12px] py-[6px]',
+            currentTab === value ? 'bg-bg text-lightHighlight dark:text-white' : 'cursor-pointer text-secondary',
         ),
     }[variant];
 

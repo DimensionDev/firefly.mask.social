@@ -6,9 +6,10 @@ interface TokenIconProps {
     token: Token;
     tokenSize?: number;
     chainSize?: number;
+    disableChainIcon?: boolean;
 }
 
-export function TokenIcon({ token, tokenSize = 30, chainSize = 12 }: TokenIconProps) {
+export function TokenIcon({ token, tokenSize = 30, chainSize = 12, disableChainIcon = false }: TokenIconProps) {
     return (
         <span className="relative">
             {token.logo_url ? (
@@ -28,24 +29,26 @@ export function TokenIcon({ token, tokenSize = 30, chainSize = 12 }: TokenIconPr
                     }}
                 />
             )}
-            <span
-                className="absolute -bottom-[1px] overflow-hidden rounded-full bg-lightBottom p-[1px]"
-                style={{
-                    right: -chainSize / 2,
-                }}
-            >
-                {token.chainLogoUrl ? (
-                    <Image
-                        className="rounded-full"
-                        src={token.chainLogoUrl}
-                        width={chainSize}
-                        height={chainSize}
-                        alt={token.chain}
-                    />
-                ) : (
-                    <ChainIcon size={chainSize} chainId={token.chainId} />
-                )}
-            </span>
+            {!disableChainIcon ? (
+                <span
+                    className="absolute -bottom-[1px] overflow-hidden rounded-full bg-lightBottom p-[1px]"
+                    style={{
+                        right: -chainSize / 2,
+                    }}
+                >
+                    {token.chainLogoUrl ? (
+                        <Image
+                            className="rounded-full"
+                            src={token.chainLogoUrl}
+                            width={chainSize}
+                            height={chainSize}
+                            alt={token.chain}
+                        />
+                    ) : (
+                        <ChainIcon size={chainSize} chainId={token.chainId} />
+                    )}
+                </span>
+            ) : null}
         </span>
     );
 }
