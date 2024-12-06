@@ -5,15 +5,16 @@ import { AsyncStatus } from '@/constants/enum.js';
 import { createConstantSubscription, SubscriptionDebug } from '@/helpers/subscription.js';
 import { initWallet, type WalletAPI } from '@/mask/bindings/index.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
+import { getAccount, getChainId } from 'wagmi/actions';
 
 const WalletIO: WalletAPI.IOContext = {
     EVM: {
         chainId: SubscriptionDebug({
-            getCurrentValue: () => config.getClient().chain.id,
+            getCurrentValue: () => getChainId(config),
             subscribe: (sub) => config.subscribe((s) => s, sub),
         }),
         account: SubscriptionDebug({
-            getCurrentValue: () => config.getClient().account?.address ?? '',
+            getCurrentValue: () => getAccount(config).address ?? '',
             subscribe: (sub) => config.subscribe((s) => s, sub),
         }),
     },
