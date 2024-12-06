@@ -3,7 +3,6 @@ import { Upload } from '@aws-sdk/lib-storage';
 import urlcat from 'urlcat';
 import { v4 as uuid } from 'uuid';
 
-import { type SocialSourceInURL } from '@/constants/enum.js';
 import { SUFFIX_NAMES } from '@/constants/index.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
 import { resolveFireflyResponseData } from '@/helpers/resolveFireflyResponseData.js';
@@ -67,4 +66,4 @@ export async function uploadToDirectory(
     return promise;
 }
 
-export const uploadToS3 = (file: File, source: SocialSourceInURL) => uploadToDirectory(file, source.toLowerCase());
+export const uploadToS3 = (file: File, directory = 'web') => uploadToDirectory(file, directory.toLowerCase());

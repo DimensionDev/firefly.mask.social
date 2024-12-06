@@ -6,7 +6,7 @@ import { type ChainId, SchemaType, useRedPacketConstants } from '@masknet/web3-s
 import { useRouter } from '@tanstack/react-router';
 import { BigNumber } from 'bignumber.js';
 import { isUndefined, omit } from 'lodash-es';
-import { type ChangeEvent, useCallback, useContext, useMemo, useState } from 'react';
+import { type ChangeEvent, useCallback, useContext, useMemo } from 'react';
 import { useAsyncFn } from 'react-use';
 import { getChainId, switchChain, writeContract } from 'wagmi/actions';
 
@@ -27,7 +27,6 @@ import { useAvailableBalance } from '@/hooks/useAvailableBalance.js';
 import { useChainContext } from '@/hooks/useChainContext.js';
 import { useERC20TokenAllowance } from '@/hooks/useERC20Allowance.js';
 import { useNativeTokenPrice } from '@/hooks/useNativeTokenPrice.js';
-import { EVMChainResolver } from '@/mask/bindings/index.js';
 import {
     RED_PACKET_CONTRACT_VERSION,
     RED_PACKET_DURATION,
@@ -47,20 +46,14 @@ export function MainView() {
         setRandomType,
         shares,
         setShares,
-        token: selectedToken,
+        token,
         setToken,
-        setTotalAmount,
+        rawAmount,
+        setRawAmount,
     } = useContext(RedPacketContext);
 
-    const [rawAmount, setRawAmount] = useState('');
-
-    const { chainId } = useChainContext({
-        chainId: selectedToken?.chainId,
-    });
-
-    const nativeToken = useMemo(() => EVMChainResolver.nativeCurrency(chainId), [chainId]);
-
-    const token = selectedToken || nativeToken;
+    const { chainId: contextChainId } = useChainContext();
+    const chainId = token?.chainId || contextChainId;
 
     const { data: nativeTokenPrice = 0, isLoading: priceLoading } = useNativeTokenPrice({ chainId });
     const { HAPPY_RED_PACKET_ADDRESS_V4: redpacketContractAddress } = useRedPacketConstants(chainId);
@@ -94,8 +87,8 @@ export function MainView() {
         [rawAmount, isRandom, shares],
     );
 
-    const totalAmount = useMemo(() => multipliedBy(amount, isRandom ? 1 : (shares ?? '0')), [amount, shares, isRandom]);
-    const minTotalAmount = useMemo(() => new BigNumber(isRandom ? 1 : (shares ?? 0)), [shares, isRandom]);
+    const totalAmount = useMemo(() => multipliedBy(amount, isRandom ? 1 : shares), [amount, shares, isRandom]);
+    const minTotalAmount = useMemo(() => new BigNumber(isRandom ? 1 : shares), [shares, isRandom]);
     const isDivisible = !totalAmount.dividedBy(shares).isLessThan(1);
 
     const handleTokenChange = useCallback(
@@ -103,17 +96,17 @@ export function MainView() {
             setToken(token);
             setRawAmount('');
         },
-        [setToken, setRawAmount],
+        [setRawAmount, setToken],
     );
 
     const onShareChange = useCallback(
         (ev: ChangeEvent<HTMLInputElement>) => {
-            const shares_ = ev.currentTarget.value.replaceAll(/[,.]/g, '');
-            if (shares_ === '') setShares('');
-            else if (/^[1-9]+\d*$/.test(shares_)) {
-                const parsed = Number.parseInt(shares_, 10);
+            const inputShares = ev.currentTarget.value.replaceAll(/[,.]/g, '');
+            if (inputShares === '') setShares(0);
+            else if (/^[1-9]+\d*$/.test(inputShares)) {
+                const parsed = Number.parseInt(inputShares, 10);
                 if (parsed >= RED_PACKET_MIN_SHARES && parsed <= RED_PACKET_MAX_SHARES) {
-                    setShares(Number.parseInt(shares_, 10));
+                    setShares(Number.parseInt(inputShares, 10));
                 } else if (parsed > RED_PACKET_MAX_SHARES) {
                     setShares(RED_PACKET_MAX_SHARES);
                 }
@@ -133,8 +126,8 @@ export function MainView() {
     const cost = gasFee ? leftShift(gasFee, token.decimals).multipliedBy(nativeTokenPrice) : ZERO;
 
     // #region validation
-    const noShares = isZero(shares || '0');
-    const isGteMaxShares = isGreaterThan(shares || '0', 255);
+    const noShares = shares === 0;
+    const isGteMaxShares = shares > 255;
     const isInSufficientBalance =
         isGreaterThan(minTotalAmount, balance.toString()) || isGreaterThan(totalAmount, balance.toString());
     const noAmount = isZero(amount);
@@ -222,11 +215,8 @@ export function MainView() {
             return;
         }
 
-        setToken(token);
-        setTotalAmount(rawTotalAmount);
-
         history.push('/requirements');
-    }, [chainId, isNotEnoughAllowance, redpacketContractAddress, token, originBalance, rawTotalAmount]);
+    }, [chainId, isNotEnoughAllowance, redpacketContractAddress, originBalance, token.address]);
     // #endregion
 
     return (
@@ -244,7 +234,7 @@ export function MainView() {
                     <form className="w-full flex-1">
                         <label className="flex w-full flex-1 items-center">
                             <input
-                                value={shares}
+                                value={shares || ''}
                                 onChange={onShareChange}
                                 autoComplete="off"
                                 autoCorrect="off"
@@ -275,7 +265,7 @@ export function MainView() {
                     onTokenChange={handleTokenChange}
                     onAmountChange={setRawAmount}
                     balance={balance.toString()}
-                    maxAmountShares={isRandom || shares === '' ? 1 : shares}
+                    maxAmountShares={isRandom || shares === 0 ? 1 : shares}
                 />
 
                 <label className="self-start text-[14px] font-bold leading-[18px]">

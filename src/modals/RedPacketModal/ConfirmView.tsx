@@ -1,58 +1,76 @@
-import { Trans } from '@lingui/macro';
-import { formatCurrency, rightShift } from '@masknet/web3-shared-base';
+import { t, Trans } from '@lingui/macro';
+import { formatCurrency, multipliedBy, rightShift } from '@masknet/web3-shared-base';
 import { isValidAddress } from '@masknet/web3-shared-evm';
 import { BigNumber } from 'bignumber.js';
-import { compact, first, flatten } from 'lodash-es';
-import { useContext, useMemo } from 'react';
-import { useAsync, useStateList } from 'react-use';
-import { useUpdateEffect } from 'usehooks-ts';
+import { compact, flatten } from 'lodash-es';
+import { useCallback, useContext, useMemo, useRef, useState } from 'react';
+import { useAsync, useAsyncFn } from 'react-use';
 import { useEnsName } from 'wagmi';
 
-import ArrowCircle from '@/assets/arrow-circle.svg';
+import ArrowLeftIcon from '@/assets/arrow-circle-left.svg';
+import ArrowRightIcon from '@/assets/arrow-circle-right.svg';
 import ArrowDownIcon from '@/assets/arrow-down.svg';
 import InfoIcon from '@/assets/info.svg';
+import LoadingIcon from '@/assets/loading.svg';
 import QuestionIcon from '@/assets/question.svg';
 import { ActionButton } from '@/components/ActionButton.js';
-import { Image } from '@/components/Image.js';
-import { Loading } from '@/components/Loading.js';
+import { RedPacketEnvelope } from '@/components/RedPacket/RedPacketEnvelope.js';
 import { Tab, Tabs } from '@/components/Tabs/index.js';
 import { Tooltip } from '@/components/Tooltip.js';
-import { EMPTY_LIST } from '@/constants/index.js';
+import { ALLOWED_IMAGES_MIMES, EMPTY_LIST } from '@/constants/index.js';
 import { classNames } from '@/helpers/classNames.js';
+import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
 import { formatAddress } from '@/helpers/formatAddress.js';
 import { useChainContext } from '@/hooks/useChainContext.js';
 import { useCreateFTRedPacketCallback } from '@/hooks/useCreateFTRedPacketCallback.js';
 import { useFungibleTokenPrice } from '@/hooks/useFungibleTokenPrice.js';
 import { useProfileStoreAll } from '@/hooks/useProfileStore.js';
+import { useRedPacketThemes } from '@/hooks/useRedPacketThemes.js';
+import { useSelectFiles } from '@/hooks/useSelectFiles.js';
+import { DEFAULT_THEME_ID } from '@/mask/plugins/red-packet/constants.js';
 import { RequirementType } from '@/mask/plugins/red-packet/types.js';
+import { ImageEditorRef } from '@/modals/controls.js';
 import {
     RedPacketContext,
     redPacketCoverTabs,
-    redPacketDisplayTabs,
+    redPacketFontColorTabs,
 } from '@/modals/RedPacketModal/RedPacketContext.js';
 import { REQUIREMENT_ICON_MAP, REQUIREMENT_TITLE_MAP } from '@/modals/RedPacketModal/RequirementsView.js';
 import { ShareAccountsPopover } from '@/modals/RedPacketModal/ShareAccountsPopover.js';
 import { FireflyRedPacket } from '@/providers/red-packet/index.js';
 import { FireflyRedPacketAPI } from '@/providers/red-packet/types.js';
+import { uploadToS3 } from '@/services/uploadToS3.js';
+
+interface ThemeVariant {
+    neutral: FireflyRedPacketAPI.ThemeGroupSettings;
+    golden: FireflyRedPacketAPI.ThemeGroupSettings;
+}
 
 export function ConfirmView() {
     const {
+        message,
         coverType,
         setCoverType,
-        displayType,
-        setDisplayType,
+        fontColor,
+        setFontColor,
         shareFrom,
         setShareFrom,
         accounts,
         randomType,
         shares,
         token,
-        totalAmount,
+        rawAmount,
         rules,
         requireCollection,
-        message,
+        customThemes,
+        setCustomThemes,
     } = useContext(RedPacketContext);
     const { chainId, account } = useChainContext();
+    const { data: themes = EMPTY_LIST } = useRedPacketThemes();
+    const [theme = themes[0], setTheme] = useState<FireflyRedPacketAPI.ThemeGroupSettings>();
+    const themeId = theme?.tid || DEFAULT_THEME_ID;
+    const isCustomTheme = customThemes.some((t) => t.cover.bg_image === theme.cover.bg_image);
+    const themeIndex = themes.indexOf(theme);
 
     const {
         Lens: { currentProfile: currentLensProfile },
@@ -68,6 +86,11 @@ export function ConfirmView() {
         },
     });
 
+    const isRandom = randomType === 'random';
+    const totalAmount = useMemo(
+        () => (isRandom || !rawAmount ? rawAmount : multipliedBy(rawAmount, shares).toFixed()),
+        [rawAmount, isRandom, shares],
+    );
     const priceUSD = useMemo(() => {
         if (!tokenPrice || !totalAmount) return;
         return formatCurrency(new BigNumber(totalAmount).times(tokenPrice), 'USD', {
@@ -75,39 +98,7 @@ export function ConfirmView() {
         });
     }, [totalAmount, tokenPrice]);
 
-    const { value: urls, loading: fetchUrlsLoading } = useAsync(async () => {
-        if (!account) return EMPTY_LIST;
-        return FireflyRedPacket.getPayloadUrls(
-            shareFrom,
-            rightShift(totalAmount, token?.decimals).toString(),
-            'fungible',
-            token?.symbol,
-            token?.decimals,
-            message,
-        );
-    }, [account, shares, token, message]);
-
-    const { state, prev, next, isLast, isFirst, currentIndex, setState } = useStateList<
-        | {
-              themeId: string;
-              url: string;
-          }
-        | undefined
-    >(urls);
-
-    useUpdateEffect(() => {
-        if (!state && urls?.length) {
-            setState(first(urls));
-        }
-    }, [state, JSON.stringify(urls)]);
-
-    const { loading: imageLoading } = useAsync(async () => {
-        if (!state?.url) return;
-        await fetch(state.url);
-    }, [state?.url]);
-
     const { value, loading } = useAsync(async () => {
-        if (!state?.themeId) return;
         const postReactions = rules.filter((x) => x !== RequirementType.Follow && x !== RequirementType.NFTHolder);
 
         const payload = rules
@@ -166,17 +157,19 @@ export function ConfirmView() {
             : EMPTY_LIST;
 
         return {
-            publicKey: await FireflyRedPacket.createPublicKey(state?.themeId, account, payload),
+            publicKey: await FireflyRedPacket.createPublicKey(themeId, account, payload),
             claimRequirements: payload,
         };
     }, [
-        state?.themeId,
-        requireCollection,
         rules,
-        chainId,
-        currentFarcasterProfile,
         currentLensProfile,
+        currentFarcasterProfile,
         currentTwitterProfile,
+        requireCollection?.address,
+        requireCollection?.chainId,
+        requireCollection?.name,
+        chainId,
+        themeId,
         account,
     ]);
 
@@ -184,10 +177,73 @@ export function ConfirmView() {
         ? (shareFromEnsName ?? formatAddress(shareFrom, 4))
         : `${shareFrom}`;
 
-    const [{ loading: createLoading }, handleCreate] = useCreateFTRedPacketCallback(
+    const [{ loading: creatingRedPacket }, handleCreate] = useCreateFTRedPacketCallback(
         shareFromName,
         value?.publicKey ?? '',
         value?.claimRequirements,
+    );
+
+    const selectFiles = useSelectFiles(ALLOWED_IMAGES_MIMES.join(', '));
+    // We create two variants for each custom theme, one in default color and
+    // one in golden color, since we can't change the color after creation of the
+    // theme
+    const themeVariantsMapRef = useRef(new Map<string, ThemeVariant>());
+
+    const [{ loading: creatingTheme }, createTheme] = useAsyncFn(
+        async (file: File) => {
+            const blob = await ImageEditorRef.openAndWaitForClose({
+                image: file,
+                AvatarEditorProps: {
+                    border: [0, 30],
+                    borderRadius: 0,
+                    height: 336,
+                    width: 480,
+                    style: {
+                        borderRadius: 8,
+                    },
+                },
+            });
+            if (!blob) return false;
+            const url = await uploadToS3(blob, 'red-packet-cover');
+            // Create two variants for each custom theme
+            const [themeId, goldenThemeId] = await Promise.all([
+                FireflyRedPacket.createTheme({ font_color: '#ffffff', image: url }),
+                FireflyRedPacket.createTheme({ font_color: '#FFE4A6', image: url }),
+            ]);
+            const [theme, goldenTheme] = await Promise.all([
+                FireflyRedPacket.getTheme({ themeId }),
+                FireflyRedPacket.getTheme({ themeId: goldenThemeId }),
+            ]);
+            if (goldenTheme) {
+                themeVariantsMapRef.current.set(url, {
+                    neutral: theme,
+                    golden: goldenTheme,
+                });
+                setTheme(goldenTheme);
+                setFontColor('golden');
+                setCustomThemes((customThemes) => [...customThemes, goldenTheme]);
+            } else {
+                enqueueErrorMessage(t`Failed to create custom theme.`);
+                return false;
+            }
+            return true;
+        },
+        [setCustomThemes, setFontColor],
+    );
+
+    const handleTabChange = useCallback(
+        async (tab: 'default' | 'custom') => {
+            if (tab === 'custom') {
+                const files = await selectFiles();
+                if (files.length === 0) return;
+                const created = await createTheme(files[0]);
+                if (!created) return;
+            } else {
+                setTheme(themes[0]);
+            }
+            setCoverType(tab);
+        },
+        [createTheme, selectFiles, setCoverType, themes],
     );
 
     return (
@@ -195,11 +251,11 @@ export function ConfirmView() {
             <div className="flex flex-1 flex-col gap-y-4 bg-primaryBottom px-4 pt-2">
                 <div className="flex gap-x-4">
                     <div className="flex flex-1 flex-col gap-y-2">
-                        <label className="self-start text-[14px] font-bold leading-[18px]">
+                        <label className="self-start text-sm font-bold leading-[18px]">
                             <Trans>Cover background</Trans>
                         </label>
 
-                        <Tabs value={coverType} onChange={setCoverType} variant="solid" className="self-start">
+                        <Tabs value={coverType} onChange={handleTabChange} variant="solid" className="self-start">
                             {redPacketCoverTabs.map((tab) => (
                                 <Tab value={tab.value} key={tab.value}>
                                     {tab.label}
@@ -207,23 +263,33 @@ export function ConfirmView() {
                             ))}
                         </Tabs>
 
-                        <label className="self-start text-[14px] font-bold leading-[18px]">
-                            <Trans>Data display</Trans>
-                        </label>
-
-                        <Tabs value={displayType} onChange={setDisplayType} variant="solid" className="self-start">
-                            {redPacketDisplayTabs.map((tab) => (
-                                <Tab
-                                    value={tab.value}
-                                    key={tab.value}
-                                    disabled={tab.value === 'neutral' && coverType === 'default'}
+                        {isCustomTheme ? (
+                            <>
+                                <label className="self-start text-sm font-bold leading-[18px]">
+                                    <Trans>Font Color</Trans>
+                                </label>
+                                <Tabs
+                                    value={fontColor}
+                                    onChange={(variant) => {
+                                        const variants = themeVariantsMapRef.current.get(theme.cover.bg_image);
+                                        if (variants) {
+                                            setTheme(variant === 'golden' ? variants.golden : variants.neutral);
+                                        }
+                                        setFontColor(variant);
+                                    }}
+                                    variant="solid"
+                                    className="self-start"
                                 >
-                                    {tab.label}
-                                </Tab>
-                            ))}
-                        </Tabs>
+                                    {redPacketFontColorTabs.map((tab) => (
+                                        <Tab value={tab.value} key={tab.value}>
+                                            {tab.label}
+                                        </Tab>
+                                    ))}
+                                </Tabs>
+                            </>
+                        ) : null}
 
-                        <label className="flex items-center self-start text-[14px] font-bold leading-[18px]">
+                        <label className="flex items-center self-start text-sm font-bold leading-[18px]">
                             <Trans>Share From</Trans>
                             <Tooltip
                                 placement="top"
@@ -255,52 +321,66 @@ export function ConfirmView() {
                         </ShareAccountsPopover>
                     </div>
                     <div className="flex w-[220px] flex-col gap-2">
-                        <label className="flex h-[18px] justify-center text-[14px] font-bold text-secondary">
+                        <h2 className="text-sm font-bold text-secondary">
                             <Trans>Preview</Trans>
-                        </label>
-                        {state ? (
-                            <>
-                                {imageLoading || fetchUrlsLoading ? (
-                                    <Loading className="!min-h-[154px] w-full" />
-                                ) : (
-                                    <Image
-                                        width={220}
-                                        height={154}
-                                        alt={state.themeId}
-                                        key={state.themeId}
-                                        className="h-[154px] w-[220px] rounded-lg"
-                                        unoptimized
-                                        src={state.url}
-                                    />
-                                )}
-                                <div className="flex justify-center gap-3">
-                                    <ArrowCircle
-                                        onClick={prev}
-                                        className={classNames('h-6 w-6', {
-                                            'text-third': isFirst,
-                                            'text-second': !isFirst,
-                                            'cursor-pointer': !isFirst,
-                                            'cursor-not-allowed': isFirst,
-                                        })}
-                                    />
-                                    <ArrowCircle
-                                        onClick={next}
-                                        style={{
-                                            transform: 'rotate(180deg)',
-                                        }}
-                                        className={classNames('h-6 w-6', {
-                                            'text-third': isLast,
-                                            'text-second': !isLast,
-                                            'cursor-pointer': !isLast,
-                                            'cursor-not-allowed': isLast,
-                                        })}
+                        </h2>
+                        {creatingTheme ? (
+                            <div className="flex h-[154px] w-[220px] items-center justify-center">
+                                <LoadingIcon className="animate-spin" width={24} height={24} />
+                            </div>
+                        ) : theme ? (
+                            <div className="flex flex-col gap-2">
+                                <div className="h-[154px] w-[220px] overflow-hidden rounded-[18px]">
+                                    <RedPacketEnvelope
+                                        themeId={theme.tid}
+                                        token={token}
+                                        shares={shares}
+                                        total={rightShift(totalAmount, token.decimals ?? 0).toFixed(0)}
+                                        sender={shareFrom}
+                                        message={message}
+                                        usage="payload"
                                     />
                                 </div>
-                            </>
+                                {isCustomTheme ? (
+                                    <div
+                                        className="flex cursor-pointer justify-center gap-3 text-sm text-highlight"
+                                        onClick={async () => {
+                                            const files = await selectFiles();
+                                            if (files.length === 0) return;
+                                            await createTheme(files[0]);
+                                        }}
+                                    >
+                                        <Trans>Upload to change</Trans>
+                                    </div>
+                                ) : (
+                                    <div className="flex justify-center gap-3">
+                                        <ArrowLeftIcon
+                                            className={classNames('h-6 w-6', {
+                                                'cursor-not-allowed text-third': themeIndex === 0,
+                                                'cursor-pointer text-second': themeIndex !== 0,
+                                            })}
+                                            onClick={() => {
+                                                if (themeIndex === 0) return;
+                                                setTheme(themes[themeIndex - 1]);
+                                            }}
+                                        />
+                                        <ArrowRightIcon
+                                            className={classNames('h-6 w-6', {
+                                                'cursor-not-allowed text-third': themeIndex === themes.length - 1,
+                                                'cursor-pointer text-second': themeIndex !== themes.length - 1,
+                                            })}
+                                            onClick={() => {
+                                                if (themeIndex >= themes.length - 1) return;
+                                                setTheme(themes[themeIndex + 1]);
+                                            }}
+                                        />
+                                    </div>
+                                )}
+                            </div>
                         ) : null}
                     </div>
                 </div>
-                <div className="flex justify-between text-[14px] font-bold leading-[18px]">
+                <div className="flex justify-between text-sm font-bold leading-[18px]">
                     <label>
                         <Trans>Drop type</Trans>
                     </label>
@@ -308,13 +388,13 @@ export function ConfirmView() {
                         {randomType === 'random' ? <Trans>Random Split</Trans> : <Trans>Equal Split</Trans>}
                     </span>
                 </div>
-                <div className="flex justify-between text-[14px] font-bold leading-[18px]">
+                <div className="flex justify-between text-sm font-bold leading-[18px]">
                     <label>
                         <Trans>Number of winners</Trans>
                     </label>
                     <span className="text-secondary">{shares}</span>
                 </div>
-                <div className="flex justify-between text-[14px] font-bold leading-[18px]">
+                <div className="flex justify-between text-sm font-bold leading-[18px]">
                     <label>
                         <Trans>Total amount</Trans>
                     </label>
@@ -324,7 +404,7 @@ export function ConfirmView() {
                 </div>
 
                 {rules.length ? (
-                    <div className="flex justify-between text-[14px] font-bold leading-[18px]">
+                    <div className="flex justify-between text-sm font-bold leading-[18px]">
                         <label>
                             <Trans>Claim requirements</Trans>
                         </label>
@@ -360,7 +440,11 @@ export function ConfirmView() {
             <div className="flex-grow" />
 
             <div className="w-full bg-lightBottom80 p-4 shadow-primary backdrop-blur-lg dark:shadow-primaryDark">
-                <ActionButton className="rounded-lg" onClick={handleCreate} loading={createLoading || loading}>
+                <ActionButton
+                    className="rounded-lg"
+                    onClick={handleCreate}
+                    loading={creatingTheme || creatingRedPacket || loading}
+                >
                     <Trans>Next</Trans>
                 </ActionButton>
             </div>

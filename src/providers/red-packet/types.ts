@@ -345,5 +345,12 @@ export namespace FireflyRedPacketAPI {
         list: ThemeGroupSettings[];
     }>;
 
+    export type ThemeByIdOptions = { rpid: string } | { themeId: string };
     export type ThemeByIdResponse = Response<ThemeGroupSettings>;
+    export type CreateThemeOptions = {
+        font_color: string;
+        /** image url */
+        image: string;
+    };
+    export type CreateThemeResponse = Response<{ tid: string }>;
 }

@@ -82,8 +82,15 @@ export function RedPacketCard({ payload, post }: Props) {
     const { HAPPY_RED_PACKET_ADDRESS_V4: redpacketContractAddress } = useRedPacketConstants(parsedChainId);
 
     const { account } = useChainContext();
-    // RedPacket created from Mask has no cover settings
-    const cover = useRedPacketCover(payload, availability);
+
+    const { data: cover } = useRedPacketCover({
+        ...payload,
+        token: payload.token,
+        sender: payload.sender.name,
+        message: payload.sender.message,
+        claimedAmount: availability?.claimed_amount,
+        claimed: availability?.claimed,
+    });
 
     const { value: estimateGas = ZERO, loading: estimateLoading } = useAsync(async () => {
         if (!canClaim || !parsedChainId || !password || !account) return;

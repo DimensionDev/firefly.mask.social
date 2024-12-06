@@ -4,16 +4,16 @@ import type { FireflyRedPacketAPI } from '@/providers/red-packet/types.js';
 
 /**
  * Get CSS font properties from theme settings
- * @param theme
+ * @param settings
  * @param type
  * @param elementType
  * @returns
  */
-export function getCSSPropertiesFromThemeSettings(theme: FireflyRedPacketAPI.ThemeSettings['title1']) {
+export function getCSSPropertiesFromThemeSettings(settings: FireflyRedPacketAPI.ThemeSettings['title1']) {
     return {
-        color: theme.color,
-        fontSize: theme.font_size,
-        fontWeight: theme.font_weight,
-        lineHeight: `${theme.line_height}px`,
+        color: settings.color,
+        fontSize: settings.font_size,
+        fontWeight: settings.font_weight,
+        lineHeight: `${settings.line_height}px`,
     } satisfies CSSProperties;
 }
