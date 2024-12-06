@@ -1423,3 +1423,17 @@ export interface SetNotificationPushSwitchParams {
         state: boolean;
     }>;
 }
+
+export type LinkDigestResponse = Response<{
+    link: string;
+    type: string;
+    nft?: NftPreview;
+    lensPost?: unknown;
+    farcasterPost?: unknown;
+    mirror?: unknown;
+    paragraph?: unknown;
+    snapshot?: unknown;
+    twitter?: unknown;
+    twitterXQT?: unknown;
+    farcasterFrames?: unknown;
+}>;

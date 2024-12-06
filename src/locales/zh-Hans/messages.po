@@ -828,6 +828,9 @@ msgstr "OpenGraph 验证器"
 msgid "Phishing activities found."
 msgstr "发现钓鱼活动。"
 
+msgid "LinkDigest Validator"
+msgstr ""
+
 msgid "No Lens profile found.<0/>Please change to another wallet."
 msgstr "没有找到 Lens 账户，<0/>请连接另一个钱包。"
 
@@ -2163,6 +2166,9 @@ msgstr ""
 
 msgid "Failed to update profile."
 msgstr "更新个人资料失败。"
+
+msgid "Your URL"
+msgstr ""
 
 msgid "Connected in Firefly"
 msgstr "通过Firefly连接的"
