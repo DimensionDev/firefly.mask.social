@@ -10,6 +10,7 @@ import { useMount } from 'react-use';
 
 import { Locale } from '@/constants/enum.js';
 import { getLocaleFromCookies } from '@/helpers/getFromCookies.js';
+import { useChainContext } from '@/hooks/useChainContext.js';
 import { useMaskTheme } from '@/hooks/useMaskTheme.js';
 import {
     CSSVariableInjector,
@@ -20,7 +21,6 @@ import {
     SharedContextProvider,
 } from '@/mask/bindings/components.js';
 import { i18NextInstance, updateLanguage } from '@/mask/bindings/index.js';
-import { useChainContext } from '@/hooks/useChainContext.js';
 
 function resolveMaskLocale(locale: Locale) {
     switch (locale) {
