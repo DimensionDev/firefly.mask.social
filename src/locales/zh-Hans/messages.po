@@ -117,6 +117,9 @@ msgstr "收集文章失败。"
 msgid "Hold on! Meet any of the following to unlock a premium collectible:"
 msgstr "稍等！满足以下任一条件以解锁优质 NFT："
 
+msgid "Remove Bookmark"
+msgstr ""
+
 msgid "Communities"
 msgstr "社区"
 
@@ -576,6 +579,9 @@ msgstr "{0, plural, one {关注者} other {关注者}}"
 msgid "Mutes"
 msgstr "隐藏"
 
+msgid "Failed to bookmark NFT."
+msgstr ""
+
 msgid "NFTs"
 msgstr "NFTs"
 
@@ -780,6 +786,9 @@ msgstr "条目"
 msgid "Failed to upload. More than {maxImageCount} images."
 msgstr "上传失败。超过了最大 {maxImageCount} 的图片数量限制。"
 
+msgid "NFT bookmarks"
+msgstr ""
+
 msgid "Minting Txn Hash"
 msgstr "铸造交易哈希中"
 
@@ -872,6 +881,9 @@ msgstr "完全稀释估值"
 
 msgid "Log telemetry events to the console."
 msgstr "日志侦测技术至控制台"
+
+msgid "Failed to un-bookmark NFT."
+msgstr ""
 
 msgid "Confirmation"
 msgstr "确认"
@@ -1231,6 +1243,12 @@ msgstr "识别为合约地址。"
 
 msgid "Top Profiles"
 msgstr "热门用户"
+
+msgid "NFT added to your Bookmarks"
+msgstr ""
+
+msgid "Are you sure you want to remove this NFT from your bookmarks?"
+msgstr ""
 
 msgid "Executed"
 msgstr "已执行"
@@ -1806,6 +1824,9 @@ msgstr "发现疑似恶意地址。"
 
 msgid "Contract source code not verified"
 msgstr "合约源代码未验证"
+
+msgid "NFT removed from your Bookmarks"
+msgstr ""
 
 msgid "Not Started"
 msgstr "尚未开始"

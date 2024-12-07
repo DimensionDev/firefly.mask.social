@@ -1,14 +1,14 @@
 import { t } from '@lingui/macro';
 import { isValidChainId as isValidSolanaChainId } from '@masknet/web3-shared-solana';
 import dayjs from 'dayjs';
-import { compact } from 'lodash-es';
+import { compact, first } from 'lodash-es';
 import { memo, type ReactNode } from 'react';
 
 import CalendarIcon from '@/assets/calendar-small.svg';
 import PoapIcon from '@/assets/poap.svg';
 import { Image } from '@/components/Image.js';
 import { ChainIcon } from '@/components/NFTDetail/ChainIcon.js';
-import { BookmarkButton } from '@/components/NFTs/BookmarkButton.js';
+import { BookmarkInIcon } from '@/components/NFTs/BookmarkButton.js';
 import { POAP_CONTRACT_ADDRESS } from '@/constants/index.js';
 import { Link } from '@/esm/Link.js';
 import { isSameEthereumAddress } from '@/helpers/isSameAddress.js';
@@ -23,7 +23,7 @@ interface NFTPreviewProps {
 
 interface BasePreviewContentProps {
     image: string;
-    footer: {
+    footer?: {
         name: string;
         image?: string;
         link?: string;
@@ -32,7 +32,8 @@ interface BasePreviewContentProps {
     icon?: ReactNode;
     link?: string;
     bookmarkProps?: {
-        nft: NftPreview;
+        nftId: string;
+        ownerAddress?: string;
     };
 }
 
@@ -43,26 +44,32 @@ function formatDate(date: string) {
 function BasePreviewContent(props: BasePreviewContentProps) {
     const footer = (
         <>
-            {props.footer.image ? (
-                <Image className="rounded-md" width={18} height={18} src={props.footer.image} alt={props.footer.name} />
+            {props.footer?.image ? (
+                <Image
+                    className="rounded-md object-cover"
+                    width={18}
+                    height={18}
+                    src={props.footer.image}
+                    alt={props.footer.name}
+                />
             ) : null}
-            <h2 className="min-w-0 flex-1 truncate text-medium font-bold text-lightMain">{props.footer.name}</h2>
+            <h2 className="min-w-0 flex-1 truncate text-medium font-bold text-lightMain">{props.footer?.name}</h2>
         </>
     );
     const content = (
         <>
             <div className="relative h-[300px] w-[300px]">
-                <Image className="h-full w-full" width={300} height={300} src={props.image} alt={props.image} />
+                <Image
+                    className="h-full w-full object-cover"
+                    width={300}
+                    height={300}
+                    src={props.image}
+                    alt={props.image}
+                />
                 {props.icon ? (
                     <span className="absolute left-3.5 top-[18px] flex h-8 w-8 items-center justify-center rounded-xl bg-black/25">
                         {props.icon}
                     </span>
-                ) : null}
-                {props.bookmarkProps ? (
-                    <BookmarkButton
-                        {...props.bookmarkProps}
-                        className="absolute right-5 top-[18px] flex h-8 w-8 items-center justify-center rounded-xl bg-black/25"
-                    />
                 ) : null}
                 {props.tags.length ? (
                     <div className="absolute inset-x-3.5 bottom-2.5">
@@ -77,26 +84,29 @@ function BasePreviewContent(props: BasePreviewContentProps) {
                     </div>
                 ) : null}
             </div>
-            {props.footer.link ? (
-                <Link
-                    className="flex h-[42px] items-center gap-2 bg-lightBg px-3"
-                    href={props.footer.link}
-                    onClick={stopPropagation}
-                >
-                    {footer}
-                </Link>
-            ) : (
-                <div className="flex h-[42px] items-center gap-2 bg-lightBg px-3">{footer}</div>
-            )}
+            {props.footer ? (
+                props.footer.link ? (
+                    <Link
+                        className="flex h-[42px] items-center gap-2 px-3"
+                        href={props.footer.link}
+                        onClick={stopPropagation}
+                    >
+                        {footer}
+                    </Link>
+                ) : (
+                    <div className="flex h-[42px] items-center gap-2 px-3">{footer}</div>
+                )
+            ) : null}
         </>
     );
 
-    return props.link ? (
-        <Link className="block w-[300px] overflow-hidden rounded-xl text-left" href={props.link}>
-            {content}
-        </Link>
-    ) : (
-        <div className="w-[300px] overflow-hidden rounded-xl text-left">{content}</div>
+    return (
+        <div className="relative w-[300px] overflow-hidden rounded-xl bg-bg text-left">
+            {props.link ? <Link href={props.link}>{content}</Link> : content}
+            {props.bookmarkProps ? (
+                <BookmarkInIcon {...props.bookmarkProps} className="absolute right-5 top-[18px]" />
+            ) : null}
+        </div>
     );
 }
 
@@ -126,11 +136,15 @@ export const NFTPreviewer = memo(function NFTPreview({ nft }: NFTPreviewProps) {
             link={
                 chainId ? resolveNftUrl(chainId, nft.contract_address, isSolanaChain ? '0' : nft.token_id) : undefined
             }
-            footer={{
-                image: nft.collection.image_url,
-                name: isPoap ? nft.name : nft.collection.name,
-                link: isPoap ? undefined : collectionId ? resolveNftUrlByCollection(collectionId) : undefined,
-            }}
+            footer={
+                nft.collection?.collection_id
+                    ? {
+                          image: nft.collection.image_url,
+                          name: isPoap ? nft.name : nft.collection.name,
+                          link: isPoap ? undefined : collectionId ? resolveNftUrlByCollection(collectionId) : undefined,
+                      }
+                    : undefined
+            }
             tags={
                 isPoap
                     ? compact([
@@ -143,7 +157,7 @@ export const NFTPreviewer = memo(function NFTPreview({ nft }: NFTPreviewProps) {
                       ])
                     : [`#${nft.name}`]
             }
-            bookmarkProps={{ nft }}
+            bookmarkProps={{ nftId: nft.nft_id, ownerAddress: first(nft.owners)?.owner_address }}
         />
     );
 });
