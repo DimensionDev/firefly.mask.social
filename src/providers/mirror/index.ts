@@ -1,17 +1,17 @@
 import urlcat from 'urlcat';
-import { type Address, createPublicClient, http, parseSignature, zeroAddress } from 'viem';
+import { type Address, parseSignature, zeroAddress } from 'viem';
 import { polygon } from 'viem/chains';
 import { getAccount, readContract, waitForTransactionReceipt, writeContract } from 'wagmi/actions';
 
 import { MirrorABI, MirrorFactoryABI, OldMirrorABI } from '@/abis/Mirror.js';
-import { chains, config } from '@/configs/wagmiClient.js';
+import { config } from '@/configs/wagmiClient.js';
 import { NotImplementedError } from '@/constants/error.js';
 import { MIRROR_COLLECT_FEE, MIRROR_COLLECT_FEE_IN_POLYGON, MIRROR_OLD_FACTOR_ADDRESSES } from '@/constants/index.js';
+import { createPublicViemClient } from '@/helpers/createPublicViemClient.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
 import { isSameEthereumAddress } from '@/helpers/isSameAddress.js';
 import { rightShift } from '@/helpers/number.js';
 import type { Pageable, PageIndicator } from '@/helpers/pageable.js';
-import { resolveRPCUrl } from '@/helpers/resolveRPCUrl.js';
 import { WritingNFTQuery } from '@/providers/mirror/query.js';
 import { type MirrorArticleDetail } from '@/providers/mirror/type.js';
 import type { Article, ArticleCollectable, Provider } from '@/providers/types/Article.js';
@@ -86,13 +86,7 @@ class Mirror implements Provider {
 
     async estimateCollectGas(article: ArticleCollectable) {
         const account = getAccount(config);
-        const chain = chains.find((x) => x.id === article.chainId);
-        if (!chain) throw new Error('Unsupported chain');
-
-        const client = createPublicClient({
-            chain,
-            transport: http(resolveRPCUrl(chain.id), { batch: true }),
-        });
+        const client = createPublicViemClient(article.chainId);
 
         const price = article.price ? BigInt(rightShift(article.price, 18).toString()) : 0n;
 

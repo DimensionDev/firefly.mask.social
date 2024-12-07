@@ -81,6 +81,9 @@ msgstr ""
 msgid "Sell Tax: {0}%"
 msgstr ""
 
+msgid "Lucky drop"
+msgstr ""
+
 msgid "Failed to translate post. Please retry later."
 msgstr ""
 
@@ -136,6 +139,9 @@ msgid "Please be cautious when connecting your wallet, as malicious websites may
 msgstr ""
 
 msgid "<0>Fully Diluted Valuation (FDV) = Current Price x Total Supply</0><1>Fully Diluted Valuation (FDV) is the theoretical market capitalization of a coin if the entirety of its supply is in circulation, based on its current market price. The FDV value is theoretical as increasing the circulating supply of a coin may impact its market price. Also depending on the tokenomics, emission schedule or lock-up period of a coin's supply, it may take a significant time before its entire supply is released into circulation.</1>"
+msgstr ""
+
+msgid "Equal Split"
 msgstr ""
 
 msgid "Followed @{0} on {sourceName}"
@@ -237,6 +243,9 @@ msgstr ""
 msgid "This token is a gas abuser."
 msgstr ""
 
+msgid "Light"
+msgstr ""
+
 msgid "Are you sure you want to leave /{0} ?"
 msgstr ""
 
@@ -322,6 +331,9 @@ msgid "Trending"
 msgstr ""
 
 msgid "Log out @{0}"
+msgstr ""
+
+msgid "MAX"
 msgstr ""
 
 msgid "You can save the failed parts of posts and send them later from your Drafts."
@@ -846,6 +858,9 @@ msgstr ""
 msgid "No Lens profile found.<0/>Please change to another wallet."
 msgstr ""
 
+msgid "Drop type"
+msgstr ""
+
 msgid "The contract owner has no restrictions on trading cooldown."
 msgstr ""
 
@@ -1223,6 +1238,9 @@ msgstr ""
 msgid "Collected"
 msgstr ""
 
+msgid "Upload custom cover"
+msgstr ""
+
 msgid "Try again"
 msgstr ""
 
@@ -1565,6 +1583,9 @@ msgstr ""
 msgid "Please confirm the login with Warpcast."
 msgstr ""
 
+msgid "Cover background"
+msgstr ""
+
 msgid "Verified"
 msgstr ""
 
@@ -1593,6 +1614,9 @@ msgid "<0>{0}</0> liked"
 msgstr ""
 
 msgid "Fully Diluted Valuation"
+msgstr ""
+
+msgid "Customize Lucky Drop sender. Select either Lens or Forecaster handle, or use the currently connected wallet."
 msgstr ""
 
 msgid "Email (optional)"
@@ -1730,6 +1754,9 @@ msgid "Standard"
 msgstr ""
 
 msgid "<0>Revised</0>an article"
+msgstr ""
+
+msgid "Data display"
 msgstr ""
 
 msgid "No darkweb transactions found."
@@ -2128,6 +2155,9 @@ msgstr ""
 msgid "Received time:"
 msgstr ""
 
+msgid "Random Split"
+msgstr ""
+
 msgid "Remove Poll"
 msgstr ""
 
@@ -2185,6 +2215,9 @@ msgstr ""
 msgid "Please input the serialized session to be validated."
 msgstr ""
 
+msgid "Network cost"
+msgstr ""
+
 msgid "1 NFT claimed."
 msgstr ""
 
@@ -2225,6 +2258,9 @@ msgid "Sign"
 msgstr ""
 
 msgid "Failed to recast post"
+msgstr ""
+
+msgid "Available Balance"
 msgstr ""
 
 msgid "Follow @thefireflyapp on X"
@@ -2420,6 +2456,9 @@ msgid "24H Volume"
 msgstr ""
 
 msgid "<0>Minted</0> an NFT worth {costEl}"
+msgstr ""
+
+msgid "Balance"
 msgstr ""
 
 msgid "Suspended"
@@ -2899,6 +2938,9 @@ msgstr ""
 msgid "You may lose your assets if giving approval to the website of this token."
 msgstr ""
 
+msgid "Default"
+msgstr ""
+
 msgid "Unfollow"
 msgstr ""
 
@@ -2918,6 +2960,9 @@ msgid "Posted via {0} <0>{sendFrom}</0>"
 msgstr ""
 
 msgid "The contract owner has no restrictions on personal slippage."
+msgstr ""
+
+msgid "Number of winners"
 msgstr ""
 
 msgid "Unmuted @{0} on {sourceName}."
@@ -2944,6 +2989,9 @@ msgstr ""
 msgid "{minutes}m left"
 msgstr ""
 
+msgid "Dark"
+msgstr ""
+
 msgid "Signature Request"
 msgstr ""
 
@@ -2957,6 +3005,9 @@ msgid "Your name"
 msgstr ""
 
 msgid "No tax changes found for personal addresses."
+msgstr ""
+
+msgid "Unlock {0}"
 msgstr ""
 
 msgid "Owned"
@@ -2984,6 +3035,9 @@ msgid "News"
 msgstr ""
 
 msgid "NFT ID"
+msgstr ""
+
+msgid "Confirm Lucky drop"
 msgstr ""
 
 msgid "Farcaster channel"
