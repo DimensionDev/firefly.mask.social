@@ -117,6 +117,9 @@ msgstr ""
 msgid "Hold on! Meet any of the following to unlock a premium collectible:"
 msgstr ""
 
+msgid "Remove Bookmark"
+msgstr ""
+
 msgid "Communities"
 msgstr ""
 
@@ -573,6 +576,9 @@ msgstr ""
 msgid "Mutes"
 msgstr ""
 
+msgid "Failed to bookmark NFT."
+msgstr ""
+
 msgid "NFTs"
 msgstr ""
 
@@ -777,6 +783,9 @@ msgstr ""
 msgid "Failed to upload. More than {maxImageCount} images."
 msgstr ""
 
+msgid "NFT bookmarks"
+msgstr ""
+
 msgid "Minting Txn Hash"
 msgstr ""
 
@@ -868,6 +877,9 @@ msgid "Market Cap / FDV"
 msgstr ""
 
 msgid "Log telemetry events to the console."
+msgstr ""
+
+msgid "Failed to un-bookmark NFT."
 msgstr ""
 
 msgid "Confirmation"
@@ -1227,6 +1239,12 @@ msgid "Contract address found."
 msgstr ""
 
 msgid "Top Profiles"
+msgstr ""
+
+msgid "NFT added to your Bookmarks"
+msgstr ""
+
+msgid "Are you sure you want to remove this NFT from your bookmarks?"
 msgstr ""
 
 msgid "Executed"
@@ -1802,6 +1820,9 @@ msgid "Suspected malicious address found."
 msgstr ""
 
 msgid "Contract source code not verified"
+msgstr ""
+
+msgid "NFT removed from your Bookmarks"
 msgstr ""
 
 msgid "Not Started"
