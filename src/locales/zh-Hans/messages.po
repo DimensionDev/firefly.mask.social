@@ -126,6 +126,9 @@ msgstr "发现"
 msgid "Ask a question"
 msgstr "询问"
 
+msgid "There is no data available to select."
+msgstr ""
+
 msgid "Please be cautious when connecting your wallet, as malicious websites may attempt to access your funds."
 msgstr "当您连接钱包时请务必小心，一些恶意网站会试图访问您的钱包资产。"
 

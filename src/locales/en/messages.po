@@ -121,6 +121,9 @@ msgstr "Discover"
 msgid "Ask a question"
 msgstr "Ask a question"
 
+msgid "There is no data available to select."
+msgstr "There is no data available to select."
+
 msgid "Please be cautious when connecting your wallet, as malicious websites may attempt to access your funds."
 msgstr "Please be cautious when connecting your wallet, as malicious websites may attempt to access your funds."
 
