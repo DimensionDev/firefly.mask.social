@@ -3,8 +3,7 @@ import { ZERO_ADDRESS } from '@masknet/web3-shared-evm';
 import { useIsMutating, useMutation } from '@tanstack/react-query';
 
 import { FireflyPlatform } from '@/constants/enum.js';
-import { enqueueErrorMessage, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
-import { getErrorMessageFromError } from '@/helpers/getSnackbarMessageFromError.js';
+import { enqueueMessageFromError, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
 import { LoginModalRef } from '@/modals/controls.js';
 import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
@@ -36,12 +35,9 @@ export function useToggleNFTBookmark(options: { owner: string; nftId: string }) 
                 );
                 return result;
             } catch (error) {
-                enqueueErrorMessage(
-                    getErrorMessageFromError(
-                        error,
-                        hasBookmarked ? t`Failed to un-bookmark NFT.` : t`Failed to bookmark NFT.`,
-                    ),
-                    { error },
+                enqueueMessageFromError(
+                    error,
+                    hasBookmarked ? t`Failed to un-bookmark NFT.` : t`Failed to bookmark NFT.`,
                 );
                 throw error;
             }
