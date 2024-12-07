@@ -1,10 +1,13 @@
 import { Popover, PopoverButton, PopoverPanel, Transition } from '@headlessui/react';
+import { t } from '@lingui/macro';
 import { Fragment, type PropsWithChildren, type ReactNode, useEffect, useRef, useState } from 'react';
-import { useAsync } from 'react-use';
+import { useAsyncRetry } from 'react-use';
 import { useDebounce } from 'usehooks-ts';
 
 import LineArrowUp from '@/assets/line-arrow-up.svg';
 import LoadingIcon from '@/assets/loading.svg';
+import { ErrorHandler } from '@/components/ErrorHandler.js';
+import { NoResultsFallback, type NoResultsFallbackProps } from '@/components/NoResultsFallback.js';
 import { SearchInput } from '@/components/Search/SearchInput.js';
 import { classNames } from '@/helpers/classNames.js';
 
@@ -23,9 +26,10 @@ interface SearchContentPanelProps<T, F = never, O = unknown> {
     isLoading?: boolean;
     placeholder?: string;
     filterProps: Omit<FilterPopoverProps<F>, 'onSelected' | 'selected'>;
+    fallbackProps?: NoResultsFallbackProps;
     otherParams?: O;
     onSearch: (searchText: string, filterData?: F, otherParams?: O) => Promise<T[]>;
-    itemRenderer?: (item: T) => ReactNode;
+    itemRenderer: (item: T) => ReactNode;
     onSelected?: (selected: T) => void;
     listKey?: (item: T) => string;
     isSelected?: (item: T) => boolean;
@@ -105,6 +109,7 @@ export function SearchContentPanel<T, F, O = unknown>({
     isLoading,
     filterProps,
     placeholder,
+    fallbackProps,
     otherParams,
     children,
     itemRenderer,
@@ -119,7 +124,7 @@ export function SearchContentPanel<T, F, O = unknown>({
 
     const debouncedSearch = useDebounce(searchText, 300);
 
-    const { value, loading } = useAsync(async () => {
+    const { value, loading, error, retry } = useAsyncRetry(async () => {
         if (isLoading) return [];
         return await onSearch(debouncedSearch, selectedFilter, otherParams);
     }, [debouncedSearch, selectedFilter, isLoading, otherParams]);
@@ -155,20 +160,23 @@ export function SearchContentPanel<T, F, O = unknown>({
                     <div className="flex h-full items-center justify-center">
                         <LoadingIcon className="animate-spin" width={24} height={24} />
                     </div>
-                ) : null}
-                {itemRenderer
-                    ? value?.map((item, i) => (
-                          <div
-                              key={listKey ? listKey(item) : i}
-                              onClick={() => onSelected?.(item)}
-                              className={classNames('cursor-pointer hover:bg-lightBg', {
-                                  'opacity-50': isSelected?.(item) ?? false,
-                              })}
-                          >
-                              {itemRenderer(item)}
-                          </div>
-                      ))
-                    : null}
+                ) : error ? (
+                    <ErrorHandler className="!h-auto pt-12" error={error} reset={retry} />
+                ) : value?.length ? (
+                    value?.map((item, i) => (
+                        <div
+                            key={listKey ? listKey(item) : i}
+                            onClick={() => onSelected?.(item)}
+                            className={classNames('cursor-pointer hover:bg-lightBg', {
+                                'opacity-50': isSelected?.(item) ?? false,
+                            })}
+                        >
+                            {itemRenderer(item)}
+                        </div>
+                    ))
+                ) : (
+                    <NoResultsFallback message={t`There is no data available to select.`} {...fallbackProps} />
+                )}
                 {children}
             </div>
         </div>
