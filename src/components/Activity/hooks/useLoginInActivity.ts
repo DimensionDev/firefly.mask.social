@@ -4,8 +4,7 @@ import { useAsyncFn } from 'react-use';
 import { resolveFireflyBridgePlatformFromSocialSource } from '@/components/Activity/helpers/resolveFireflyBridgePlatformFromSocialSource.js';
 import { useActivityConnections } from '@/components/Activity/hooks/useActivityConnections.js';
 import { type SocialSource } from '@/constants/enum.js';
-import { enqueueErrorMessage, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
-import { getSnackbarMessageFromError } from '@/helpers/getSnackbarMessageFromError.js';
+import { enqueueErrorMessage, enqueueMessageFromError, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { useFireflyBridgeAuthorization } from '@/hooks/useFireflyBridgeAuthorization.js';
 import { LoginModalRef } from '@/modals/controls.js';
@@ -30,7 +29,7 @@ export function useLoginInActivity() {
                     enqueueErrorMessage(t`Failed to login.`);
                 }
             } catch (error) {
-                enqueueErrorMessage(getSnackbarMessageFromError(error, t`Failed to login.`), { error });
+                enqueueMessageFromError(error, t`Failed to login.`);
                 throw error;
             }
             await refetch();

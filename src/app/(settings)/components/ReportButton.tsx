@@ -3,8 +3,7 @@ import { useAsyncFn } from 'react-use';
 
 import { waitForSelectReportReason } from '@/app/(settings)/components/waitForSelectReportReason.js';
 import LoadingIcon from '@/assets/loading.svg';
-import { enqueueErrorMessage, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
-import { getSnackbarMessageFromError } from '@/helpers/getSnackbarMessageFromError.js';
+import { enqueueMessageFromError, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 import type { FireflyWalletConnection } from '@/providers/types/Firefly.js';
 
@@ -22,7 +21,7 @@ export function ReportButton({ connection }: ReportButtonProps) {
             await FireflyEndpointProvider.disconnectWallet(connection.address);
             enqueueSuccessMessage(t`Disconnected from your social graph`);
         } catch (error) {
-            enqueueErrorMessage(getSnackbarMessageFromError(error, t`Failed to disconnect`), { error });
+            enqueueMessageFromError(error, t`Failed to disconnect`);
             throw error;
         }
     }, [connection]);

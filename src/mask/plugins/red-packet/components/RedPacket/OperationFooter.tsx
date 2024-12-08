@@ -1,11 +1,11 @@
 import { t, Trans } from '@lingui/macro';
-import { ChainBoundary, SelectProviderModal, WalletConnectedBoundary } from '@masknet/shared';
+import { ChainBoundary, WalletConnectedBoundary } from '@masknet/shared';
 import { NetworkPluginID } from '@masknet/shared-base';
-import { useChainContext } from '@masknet/web3-hooks-base';
 import { ChainId } from '@masknet/web3-shared-evm';
 import { Box, useTheme } from '@mui/material';
 import type { MouseEventHandler } from 'react';
 
+import { useChainContext } from '@/hooks/useChainContext.js';
 import { ActionButton, Icons } from '@/mask/bindings/components.js';
 import { makeStyles } from '@/mask/bindings/index.js';
 
@@ -47,13 +47,19 @@ export function OperationFooter({
     onClaimOrRefund,
 }: OperationFooterProps) {
     const { classes } = useStyles();
-    const { account, chainId: currentChainId } = useChainContext<NetworkPluginID.PLUGIN_EVM>({ chainId });
+    const { account, chainId: currentChainId } = useChainContext({ chainId });
     const theme = useTheme();
 
     function getObtainButton(onClick: MouseEventHandler<HTMLButtonElement>) {
         if (!account) {
             return (
-                <ActionButton fullWidth onClick={() => SelectProviderModal.open()} variant="roundedDark">
+                <ActionButton
+                    fullWidth
+                    onClick={() => {
+                        throw new Error('Not implemented');
+                    }}
+                    variant="roundedDark"
+                >
                     <Trans>Connect Wallet</Trans>
                 </ActionButton>
             );
@@ -121,7 +127,6 @@ export function OperationFooter({
                     >
                         <WalletConnectedBoundary
                             noGasText={t`Insufficient Balance`}
-                            hideRiskWarningConfirmed
                             expectedChainId={chainId ?? ChainId.Mainnet}
                             startIcon={<Icons.Wallet size={18} />}
                             ActionButtonProps={{ variant: 'roundedDark' }}

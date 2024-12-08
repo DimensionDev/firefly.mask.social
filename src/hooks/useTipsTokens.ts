@@ -4,8 +4,6 @@ import { useMemo } from 'react';
 import { chains } from '@/configs/wagmiClient.js';
 import { formatBalance } from '@/helpers/formatBalance.js';
 import { isGreaterThan, multipliedBy } from '@/helpers/number.js';
-import { resolveNetworkProvider } from '@/helpers/resolveTokenTransfer.js';
-import { TipsContext } from '@/hooks/useTipsContext.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 import type { Token } from '@/providers/types/Transfer.js';
 
@@ -13,15 +11,13 @@ function sortTokensByUsdValue(tokens: Token[]) {
     return tokens.sort((a, b) => b.usdValue - a.usdValue);
 }
 
-export const useTipsTokens = () => {
-    const { recipient } = TipsContext.useContainer();
+export const useTipsTokens = (address?: string) => {
     const { data, isLoading } = useQuery({
-        queryKey: ['tokens', recipient?.address],
-        enabled: !!recipient,
+        queryKey: ['tokens', address],
+        enabled: !!address,
         queryFn: async () => {
-            if (!recipient) return [];
-            const network = resolveNetworkProvider(recipient.networkType);
-            return await FireflyEndpointProvider.getTokensByAddress(await network.getAccount());
+            if (!address) return [];
+            return await FireflyEndpointProvider.getTokensByAddress(address);
         },
     });
 

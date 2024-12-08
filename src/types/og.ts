@@ -1,3 +1,5 @@
+import type { Hex } from 'viem';
+
 import type { SocialSourceInURL } from '@/constants/enum.js';
 import type { Cast } from '@/providers/types/Warpcast.js';
 
@@ -29,7 +31,7 @@ export enum PayloadType {
 
 export interface MirrorPayload {
     type: PayloadType.Mirror;
-    address?: `0x${string}`;
+    address?: Hex;
     timestamp?: number;
     ens?: string;
     displayName?: string;

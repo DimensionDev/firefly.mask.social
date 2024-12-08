@@ -118,7 +118,7 @@ export type ProfilePageSource = Source.Farcaster | Source.Lens | Source.Twitter 
 export type SocialSourceInURL = SourceInURL.Farcaster | SourceInURL.Lens | SourceInURL.Twitter;
 export type SocialDiscoverSource = Source.Farcaster | Source.Lens;
 export type DiscoverSource = SocialDiscoverSource | Source.NFTs | Source.Article | Source.DAOs;
-export type BookmarkSource = Source.Farcaster | Source.Lens | Source.Article | Source.DAOs;
+export type BookmarkSource = Source.Farcaster | Source.Lens | Source.Article | Source.DAOs | Source.NFTs;
 export type FollowingSource = DiscoverSource | Source.Polymarket;
 export type ExploreSource = Source.Farcaster | Source.Lens | TrendingType;
 export type ExploreSourceInURL = SourceInURL.Farcaster | SourceInURL.Lens | TrendingType;
@@ -358,10 +358,6 @@ export enum ExternalSiteDomain {
     Warpcast = 'warpcast.com',
 }
 
-export enum LinkDigestType {
-    Snapshot = 'snapshot',
-}
-
 export enum SnapshotState {
     Active = 'active',
     Pending = 'pending',
@@ -374,4 +370,23 @@ export enum SnapshotState {
 export enum PolymarketBetType {
     Buy = 'buy',
     Sell = 'sell',
+}
+
+export enum LinkDigestType {
+    NFT = 'nft',
+    LensPost = 'lensPost',
+    FarcasterPost = 'farcasterPost',
+    Mirror = 'mirror',
+    Paragraph = 'paragraph',
+    Snapshot = 'snapshot',
+    Twitter = 'twitter',
+    TwitterXQT = 'twitterXQT',
+    FarcasterFrames = 'farcasterFrames',
+}
+
+export enum NFTMarketplace {
+    Opensea = 'opensea',
+    Magiceden = 'magiceden',
+    Tensor = 'tensor',
+    Trove = 'trove',
 }

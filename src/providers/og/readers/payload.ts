@@ -1,33 +1,35 @@
+import type { Hex } from 'viem';
+
 import { parseJSON } from '@/helpers/parseJSON.js';
 import type { Cast } from '@/providers/types/Warpcast.js';
 import { type FarcasterPayload, type MirrorPayload, PayloadType } from '@/types/og.js';
 
+interface Payload {
+    props: {
+        pageProps: {
+            __APOLLO_STATE__: Record<
+                string,
+                {
+                    publishedAtTimestamp: number;
+                    body: string;
+                    featuredImage?: {
+                        url: string;
+                    };
+                }
+            >;
+            digest: string;
+            publicationLayoutProject: {
+                address: Hex;
+                ens: string;
+                displayName: string;
+            };
+        };
+    };
+}
+
 export function getMirrorPayload(document: Document): MirrorPayload | null {
     const dataScript = document.getElementById('__NEXT_DATA__');
-    const data = dataScript?.innerText
-        ? parseJSON<{
-              props: {
-                  pageProps: {
-                      __APOLLO_STATE__: Record<
-                          string,
-                          {
-                              publishedAtTimestamp: number;
-                              body: string;
-                              featuredImage?: {
-                                  url: string;
-                              };
-                          }
-                      >;
-                      digest: string;
-                      publicationLayoutProject: {
-                          address: `0x${string}`;
-                          ens: string;
-                          displayName: string;
-                      };
-                  };
-              };
-          }>(dataScript.innerText)
-        : undefined;
+    const data = dataScript?.innerText ? parseJSON<Payload>(dataScript.innerText) : undefined;
     if (!data) return null;
 
     const address = data?.props?.pageProps?.publicationLayoutProject?.address;

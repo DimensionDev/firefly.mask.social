@@ -3,6 +3,7 @@
 import { usePathname } from 'next/navigation.js';
 import { useEffect } from 'react';
 
+import { Source } from '@/constants/enum.js';
 import { isRoutePathname } from '@/helpers/isRoutePathname.js';
 import { useValueRef } from '@/hooks/useValueRef.js';
 import { ValueRef } from '@/libs/ValueRef.js';
@@ -20,9 +21,5 @@ export function useCurrentVisitingChannel() {
     const pathname = usePathname();
     const isChannelPage = isRoutePathname(pathname, '/channel/:name/:type');
     const channel = useValueRef(currentVisitingChannel);
-    return isChannelPage ? channel : null;
-}
-
-export function getCurrentVisitingChannel() {
-    return currentVisitingChannel.value;
+    return isChannelPage && channel?.source === Source.Farcaster ? channel : null;
 }

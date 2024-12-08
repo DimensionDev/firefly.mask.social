@@ -6,8 +6,7 @@ import { useAsyncFn } from 'react-use';
 
 import { queryClient } from '@/configs/queryClient.js';
 import { Source } from '@/constants/enum.js';
-import { enqueueErrorMessage, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
-import { getSnackbarMessageFromError } from '@/helpers/getSnackbarMessageFromError.js';
+import { enqueueMessageFromError, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { isSameEthereumAddress, isSameSolanaAddress } from '@/helpers/isSameAddress.js';
 import { resolveSimpleHashChainId } from '@/helpers/resolveSimpleHashChain.js';
 import { ConfirmModalRef } from '@/modals/controls.js';
@@ -83,9 +82,7 @@ export function useReportSpamNFT() {
             await FireflyEndpointProvider.muteNFT(collectionId);
             enqueueSuccessMessage(t`Report submitted`);
         } catch (error) {
-            enqueueErrorMessage(getSnackbarMessageFromError(error, t`Failed to report spam NFT.`), {
-                error,
-            });
+            enqueueMessageFromError(error, t`Failed to report spam NFT.`);
             throw error;
         }
     }, []);

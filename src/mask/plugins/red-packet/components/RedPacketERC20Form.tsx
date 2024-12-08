@@ -5,16 +5,14 @@ import {
     EthereumERC20TokenApprovedBoundary,
     FungibleTokenInput,
     PluginWalletStatusBar,
-    SelectFungibleTokenModal,
     SelectGasSettingsToolbar,
     TokenValue,
     useAvailableBalance,
     useCurrentLinkedPersona,
     WalletConnectedBoundary,
 } from '@masknet/shared';
-import { NetworkPluginID, PluginID } from '@masknet/shared-base';
-import { useChainContext, useEnvironmentContext, useNativeTokenPrice } from '@masknet/web3-hooks-base';
-// import { EVMChainResolver, EVMWeb3 } from '@masknet/web3-providers';
+import { NetworkPluginID } from '@masknet/shared-base';
+import { useNativeTokenPrice } from '@masknet/web3-hooks-base';
 import {
     formatBalance,
     type FungibleToken,
@@ -22,18 +20,31 @@ import {
     isZero,
     multipliedBy,
     rightShift,
+    TokenType,
     ZERO,
 } from '@masknet/web3-shared-base';
-import { type ChainId, type GasConfig, SchemaType, useRedPacketConstants } from '@masknet/web3-shared-evm';
+import {
+    type ChainId,
+    type GasConfig,
+    SchemaType,
+    useRedPacketConstants,
+    ZERO_ADDRESS,
+} from '@masknet/web3-shared-evm';
 import { Box, InputBase, Typography, useTheme } from '@mui/material';
 import { BigNumber } from 'bignumber.js';
 import { omit } from 'lodash-es';
 import { type ChangeEvent, useCallback, useMemo, useState } from 'react';
 import { useUpdateEffect } from 'react-use';
+import { isAddress } from 'viem';
+import { switchChain } from 'wagmi/actions';
 
+import { config } from '@/configs/wagmiClient.js';
+import { createAccount } from '@/helpers/createAccount.js';
+import { isSameEthereumAddress } from '@/helpers/isSameAddress.js';
+import { useChainContext } from '@/hooks/useChainContext.js';
 import { ActionButton, Icons, MaskTextField, RadioIndicator } from '@/mask/bindings/components.js';
 import { useTransactionValue } from '@/mask/bindings/hooks.js';
-import { EVMChainResolver, EVMWeb3, makeStyles } from '@/mask/bindings/index.js';
+import { EVMChainResolver, makeStyles } from '@/mask/bindings/index.js';
 import {
     RED_PACKET_DEFAULT_SHARES,
     RED_PACKET_MAX_SHARES,
@@ -41,6 +52,8 @@ import {
 } from '@/mask/plugins/red-packet/constants.js';
 import { type RedPacketSettings, useCreateParams } from '@/mask/plugins/red-packet/hooks/useCreateCallback.js';
 import { useDefaultCreateGas } from '@/mask/plugins/red-packet/hooks/useDefaultCreateGas.js';
+import { TokenSelectorModalRef } from '@/modals/controls.js';
+import type { Token } from '@/providers/types/Transfer.js';
 
 // seconds of 1 day
 const duration = 60 * 60 * 24;
@@ -102,16 +115,33 @@ interface RedPacketFormProps {
     onNext: () => void;
     onGasOptionChange?: (config: GasConfig) => void;
     onChange(settings: RedPacketSettings): void;
-    onChainChange(newChainId: ChainId): void;
+}
+
+function formatDebankToken(token: Token): FungibleToken<ChainId, SchemaType> {
+    // it is not a valid address if its native token
+    const address = isAddress(token.id) ? token.id : ZERO_ADDRESS;
+
+    return {
+        amount: token.raw_amount_hex_str,
+        name: token.name,
+        symbol: token.symbol,
+        decimals: token.decimals,
+        logoURL: token.logo_url,
+        id: address,
+        chainId: token.chainId,
+        type: TokenType.Fungible,
+        schema: SchemaType.ERC20,
+        address,
+    } as FungibleToken<ChainId, SchemaType>;
 }
 
 export function RedPacketERC20Form(props: RedPacketFormProps) {
-    const { origin, expectedChainId, gasOption, onChange, onNext, onGasOptionChange, onChainChange } = props;
+    const { origin, expectedChainId, gasOption, onChange, onNext, onGasOptionChange } = props;
     const { classes } = useStyles();
     const theme = useTheme();
+
     // context
-    const { pluginID } = useEnvironmentContext();
-    const { account, chainId } = useChainContext<NetworkPluginID.PLUGIN_EVM>({ chainId: expectedChainId });
+    const { account, chainId } = useChainContext({ chainId: expectedChainId });
     const { HAPPY_RED_PACKET_ADDRESS_V4 } = useRedPacketConstants(chainId);
 
     // #region select token
@@ -122,19 +152,21 @@ export function RedPacketERC20Form(props: RedPacketFormProps) {
     );
 
     const onSelectTokenChipClick = useCallback(async () => {
-        const picked = await SelectFungibleTokenModal.openAndWaitForClose({
-            disableNativeToken: false,
-            selectedTokens: token ? [token.address] : [],
-            chainId,
-            networkPluginID: NetworkPluginID.PLUGIN_EVM,
-            pluginID: PluginID.RedPacket,
+        const picked = await TokenSelectorModalRef.openAndWaitForClose({
+            address: account,
+            isSelected: (item) => {
+                const address = isAddress(item.id) ? item.id : ZERO_ADDRESS;
+                return isSameEthereumAddress(address, token?.address) && item.chainId === token?.chainId;
+            },
         });
         if (!picked) return;
         if (chainId !== picked.chainId) {
-            onChainChange(picked.chainId as ChainId);
+            await switchChain(config, {
+                chainId: picked.chainId,
+            });
         }
-        setToken(picked as FungibleToken<ChainId, SchemaType>);
-    }, [token, chainId, onChainChange]);
+        setToken(formatDebankToken(picked));
+    }, [token, chainId, account]);
     // #endregion
 
     // #region packet settings
@@ -203,7 +235,7 @@ export function RedPacketERC20Form(props: RedPacketFormProps) {
     }, [creatingParams, onChange, onNext]);
 
     // #region gas
-    const { account: publicKey } = useMemo(() => EVMWeb3.createAccount(), []);
+    const { account: publicKey } = useMemo(createAccount, []);
     const contract_version = 4;
     const { value: params } = useCreateParams(chainId, creatingParams, contract_version, publicKey);
     // #endregion
@@ -367,29 +399,22 @@ export function RedPacketERC20Form(props: RedPacketFormProps) {
                 />
             </Box>
 
-            {pluginID === NetworkPluginID.PLUGIN_EVM ? (
-                <Box margin={2}>
-                    <SelectGasSettingsToolbar
-                        nativeToken={nativeTokenDetailed}
-                        nativeTokenPrice={nativeTokenPrice}
-                        gasConfig={gasOption}
-                        gasLimit={Number.parseInt(params?.gas ?? '0', 10)}
-                        onChange={onGasOptionChange}
-                    />
-                </Box>
-            ) : null}
+            <Box margin={2}>
+                <SelectGasSettingsToolbar
+                    nativeToken={nativeTokenDetailed}
+                    nativeTokenPrice={nativeTokenPrice}
+                    gasConfig={gasOption}
+                    gasLimit={Number.parseInt(params?.gas ?? '0', 10)}
+                    onChange={onGasOptionChange}
+                />
+            </Box>
 
             {rawTotalAmount && !isZero(rawTotalAmount) ? (
                 <TokenValue className={classes.tokenValue} token={token} amount={rawTotalAmount} />
             ) : null}
 
             <Box style={{ width: '100%', position: 'absolute', bottom: 0 }}>
-                <PluginWalletStatusBar
-                    expectedPluginID={NetworkPluginID.PLUGIN_EVM}
-                    expectedChainId={chainId}
-                    actualPluginID={pluginID}
-                    disableSwitchAccount
-                >
+                <PluginWalletStatusBar actualPluginID={NetworkPluginID.PLUGIN_EVM}>
                     <EthereumERC20TokenApprovedBoundary
                         amount={totalAmount.toFixed()}
                         balance={balance}
@@ -413,7 +438,6 @@ export function RedPacketERC20Form(props: RedPacketFormProps) {
                             <WalletConnectedBoundary
                                 noGasText={t`Insufficient Balance for Gas Fee`}
                                 expectedChainId={chainId}
-                                hideRiskWarningConfirmed
                             >
                                 <ActionButton
                                     size="medium"

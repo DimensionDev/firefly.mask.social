@@ -3,9 +3,9 @@ import { safeUnreachable } from '@masknet/kit';
 import { ChainId } from '@masknet/web3-shared-evm';
 import { useWallet } from '@solana/wallet-adapter-react';
 import { useWalletModal as useConnectModalSolana } from '@solana/wallet-adapter-react-ui';
-import { connect, disconnect } from '@wagmi/core';
 import { useAsyncFn } from 'react-use';
 import { useAccount } from 'wagmi';
+import { connect, disconnect } from 'wagmi/actions';
 
 import LoadingIcon from '@/assets/loading.svg';
 import { ClickableButton } from '@/components/ClickableButton.js';
@@ -13,9 +13,8 @@ import { config, particleConnector } from '@/configs/wagmiClient.js';
 import { ParticleSolanaWalletAdapter } from '@/connectors/ParticleSolanaWallet.js';
 import { STATUS } from '@/constants/enum.js';
 import { env } from '@/constants/env.js';
-import { enqueueErrorMessage, enqueueInfoMessage } from '@/helpers/enqueueMessage.js';
+import { enqueueInfoMessage, enqueueMessageFromError } from '@/helpers/enqueueMessage.js';
 import { formatSolanaAddress } from '@/helpers/formatAddress.js';
-import { getSnackbarMessageFromError } from '@/helpers/getSnackbarMessageFromError.js';
 import { isSameEthereumAddress, isSameSolanaAddress } from '@/helpers/isSameAddress.js';
 import { resolveValue } from '@/helpers/resolveValue.js';
 import { SolanaAccountModalRef } from '@/modals/controls.js';
@@ -66,9 +65,7 @@ export function ConnectMPCWalletButton({ connection }: ConnectMPCWalletButtonPro
                         safeUnreachable(connection.platform);
                 }
             } catch (error) {
-                enqueueErrorMessage(getSnackbarMessageFromError(error, 'Failed to connect MPC wallet'), {
-                    error,
-                });
+                enqueueMessageFromError(error, t`Failed to connect MPC wallet`);
                 throw error;
             }
         },

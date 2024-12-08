@@ -1,5 +1,6 @@
 import dayjs from 'dayjs';
 import { NextRequest } from 'next/server.js';
+import type { Hex } from 'viem';
 import { mnemonicToAccount } from 'viem/accounts';
 
 import { env } from '@/constants/env.js';
@@ -21,7 +22,7 @@ const SIGNED_KEY_REQUEST_TYPE = [
 
 export async function POST(request: NextRequest) {
     const { key }: { key: string } = await request.json();
-    const publicKey = HexStringSchema.parse(key) as `0x${string}`;
+    const publicKey = HexStringSchema.parse(key) as Hex;
 
     // valid for one year
     const deadline = dayjs(Date.now()).add(1, 'y').unix();

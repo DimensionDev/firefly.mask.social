@@ -2,7 +2,7 @@
 import { t, Trans } from '@lingui/macro';
 import { Alert, FormattedBalance, FormattedCurrency, TokenIcon } from '@masknet/shared';
 import { EMPTY_LIST, NetworkPluginID } from '@masknet/shared-base';
-import { useChainContext, useFungibleTokenPrice, useReverseAddress } from '@masknet/web3-hooks-base';
+import { useFungibleTokenPrice, useReverseAddress } from '@masknet/web3-hooks-base';
 import { formatBalance, formatCurrency, leftShift } from '@masknet/web3-shared-base';
 import { formatEthereumAddress, type GasConfig, isValidAddress, isValidDomain } from '@masknet/web3-shared-evm';
 import { Box, Popover, Radio, Skeleton, Typography } from '@mui/material';
@@ -10,9 +10,12 @@ import { BigNumber } from 'bignumber.js';
 import { compact, flatten, uniqBy } from 'lodash-es';
 import { useMemo, useState } from 'react';
 import { useAsync, useStateList } from 'react-use';
+import type { Hex } from 'viem';
+import { useEnsName } from 'wagmi';
 
 import { Image } from '@/esm/Image.js';
 import { classNames } from '@/helpers/classNames.js';
+import { useChainContext } from '@/hooks/useChainContext.js';
 import { ActionButton, Icons, ShadowRootTooltip } from '@/mask/bindings/components.js';
 import { makeStyles } from '@/mask/bindings/index.js';
 import {
@@ -138,8 +141,8 @@ export function FireflyRedpacketConfirmDialog({
     onClose,
 }: FireflyRedpacketConfirmDialogProps) {
     const { currentFarcasterProfile, currentLensProfile, currentTwitterProfile } = fireflyContext || {};
-    const { chainId, account } = useChainContext<NetworkPluginID.PLUGIN_EVM>();
-    const { data: ensName } = useReverseAddress(NetworkPluginID.PLUGIN_EVM, account, true);
+    const { chainId, account } = useChainContext();
+    const { data: ensName } = useEnsName({ address: account as Hex });
     const { data: lensOwnerENS } = useReverseAddress(NetworkPluginID.PLUGIN_EVM, currentLensProfile?.ownedBy, true);
     const { data: farcasterOwnerENS } = useReverseAddress(
         NetworkPluginID.PLUGIN_EVM,

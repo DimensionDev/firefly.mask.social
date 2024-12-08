@@ -2,7 +2,6 @@ import { t, Trans } from '@lingui/macro';
 import { getEnumAsArray } from '@masknet/kit';
 import { Alert, SelectNonFungibleContractModal } from '@masknet/shared';
 import { EMPTY_LIST, NetworkPluginID } from '@masknet/shared-base';
-import { useChainContext } from '@masknet/web3-hooks-base';
 import type { NonFungibleCollection } from '@masknet/web3-shared-base';
 import { ChainId, SchemaType } from '@masknet/web3-shared-evm';
 import {
@@ -19,6 +18,7 @@ import {
 import { useCallback, useState } from 'react';
 
 import { Image } from '@/esm/Image.js';
+import { useChainContext } from '@/hooks/useChainContext.js';
 import { type GeneratedIcon, Icons } from '@/mask/bindings/components.js';
 import { makeStyles } from '@/mask/bindings/index.js';
 import { type FireflyRedpacketSettings, RequirementType } from '@/mask/plugins/red-packet/types.js';
@@ -128,7 +128,7 @@ export function ClaimRequirementsDialog(props: ClaimRequirementsDialogProps) {
     const [selectedRules, setSelectedRules] = useState(props.origin ?? [RequirementType.Follow]);
     const [selectedCollection, setSelectedCollection] = useState<NonFungibleCollection<ChainId, SchemaType>>();
     const { classes } = useStyles();
-    const { chainId } = useChainContext<NetworkPluginID.PLUGIN_EVM>();
+    const { chainId } = useChainContext();
 
     const hasNFTHolder = selectedRules.includes(RequirementType.NFTHolder);
 

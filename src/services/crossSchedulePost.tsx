@@ -8,12 +8,11 @@ import { CreateScheduleError, SignlessRequireError, UnauthorizedError } from '@/
 import { SUPPORTED_FRAME_SOURCES } from '@/constants/index.js';
 import { readChars } from '@/helpers/chars.js';
 import { checkScheduleTime } from '@/helpers/checkScheduleTime.js';
-import { enqueueErrorMessage, enqueueInfoMessage, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
+import { enqueueInfoMessage, enqueueMessageFromError, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { getCompositePost } from '@/helpers/getCompositePost.js';
 import { getCurrentProfileAll } from '@/helpers/getCurrentProfile.js';
 import { getProfileSessionsAll } from '@/helpers/getProfileState.js';
 import { getScheduleTaskContent } from '@/helpers/getScheduleTaskContent.js';
-import { getSnackbarMessageFromError } from '@/helpers/getSnackbarMessageFromError.js';
 import { resolveCreateSchedulePostPayload } from '@/helpers/resolveCreateSchedulePostPayload.js';
 import { resolveSocialSourceInUrl } from '@/helpers/resolveSourceInUrl.js';
 import { ComposeModalRef, EnableSignlessModalRef } from '@/modals/controls.js';
@@ -119,9 +118,7 @@ export async function crossSchedulePost(
             EnableSignlessModalRef.open();
         } else {
             if (error instanceof ConnectorNotConnectedError) throw error;
-            enqueueErrorMessage(getSnackbarMessageFromError(error, t`Failed to create schedule post.`), {
-                error,
-            });
+            enqueueMessageFromError(error, t`Failed to create schedule post.`);
         }
         throw error;
     }

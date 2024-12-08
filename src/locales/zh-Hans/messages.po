@@ -117,6 +117,9 @@ msgstr "收集文章失败。"
 msgid "Hold on! Meet any of the following to unlock a premium collectible:"
 msgstr "稍等！满足以下任一条件以解锁优质 NFT："
 
+msgid "Remove Bookmark"
+msgstr ""
+
 msgid "Communities"
 msgstr "社区"
 
@@ -125,6 +128,9 @@ msgstr "发现"
 
 msgid "Ask a question"
 msgstr "询问"
+
+msgid "There is no data available to select."
+msgstr ""
 
 msgid "Please be cautious when connecting your wallet, as malicious websites may attempt to access your funds."
 msgstr "当您连接钱包时请务必小心，一些恶意网站会试图访问您的钱包资产。"
@@ -573,6 +579,9 @@ msgstr "隐藏"
 msgid "Bought"
 msgstr ""
 
+msgid "Failed to bookmark NFT."
+msgstr ""
+
 msgid "NFTs"
 msgstr "NFTs"
 
@@ -777,6 +786,9 @@ msgstr "条目"
 msgid "Failed to upload. More than {maxImageCount} images."
 msgstr "上传失败。超过了最大 {maxImageCount} 的图片数量限制。"
 
+msgid "NFT bookmarks"
+msgstr ""
+
 msgid "Minting Txn Hash"
 msgstr "铸造交易哈希中"
 
@@ -828,6 +840,9 @@ msgstr "OpenGraph 验证器"
 msgid "Phishing activities found."
 msgstr "发现钓鱼活动。"
 
+msgid "LinkDigest Validator"
+msgstr ""
+
 msgid "No Lens profile found.<0/>Please change to another wallet."
 msgstr "没有找到 Lens 账户，<0/>请连接另一个钱包。"
 
@@ -866,6 +881,9 @@ msgstr "完全稀释估值"
 
 msgid "Log telemetry events to the console."
 msgstr "日志侦测技术至控制台"
+
+msgid "Failed to un-bookmark NFT."
+msgstr ""
 
 msgid "Confirmation"
 msgstr "确认"
@@ -1226,6 +1244,12 @@ msgstr "识别为合约地址。"
 msgid "Top Profiles"
 msgstr "热门用户"
 
+msgid "NFT added to your Bookmarks"
+msgstr ""
+
+msgid "Are you sure you want to remove this NFT from your bookmarks?"
+msgstr ""
+
 msgid "Executed"
 msgstr "已执行"
 
@@ -1265,6 +1289,9 @@ msgstr "在调试模式下发送遥测事件。"
 msgid "The chainId mismatch."
 msgstr "chainId 不匹配"
 
+msgid "Failed to connect on {source}"
+msgstr ""
+
 msgid "Open in Firefly App"
 msgstr "打开 Firefly App"
 
@@ -1279,6 +1306,9 @@ msgstr "领取优质奖励"
 
 msgid "Share in a Post"
 msgstr "在帖子中分享"
+
+msgid "Search by name or symbol"
+msgstr ""
 
 msgid "Forbidden. Please check your permissions."
 msgstr "禁止！请检查您的权限。"
@@ -1439,6 +1469,9 @@ msgstr "已隐藏所有的钱包和账户。"
 msgid "Disconnected from your social graph"
 msgstr "从您的社交图谱中断开"
 
+msgid "Failed to upload."
+msgstr ""
+
 msgid "{attentionFactors, plural, one {# Attention item} other {# Attention items}}"
 msgstr "{attentionFactors, plural, one {# 风险条目} other {# 风险条目}}"
 
@@ -1574,6 +1607,9 @@ msgstr "邮箱（可选）"
 msgid "NFT Contract"
 msgstr "NFT 合约"
 
+msgid "Failed to connect MPC wallet"
+msgstr ""
+
 msgid "Phishing activities."
 msgstr "钓鱼活动。"
 
@@ -1581,7 +1617,7 @@ msgid "Telemetry"
 msgstr "遥测"
 
 msgid "Show more tokens with small balances"
-msgstr "展示更多的小额通证"
+msgstr ""
 
 msgid "Requirements"
 msgstr ""
@@ -1791,6 +1827,9 @@ msgstr "发现疑似恶意地址。"
 
 msgid "Contract source code not verified"
 msgstr "合约源代码未验证"
+
+msgid "NFT removed from your Bookmarks"
+msgstr ""
 
 msgid "Not Started"
 msgstr "尚未开始"
@@ -2160,6 +2199,9 @@ msgstr ""
 
 msgid "Failed to update profile."
 msgstr "更新个人资料失败。"
+
+msgid "Your URL"
+msgstr ""
 
 msgid "Connected in Firefly"
 msgstr "通过Firefly连接的"
@@ -2896,6 +2938,9 @@ msgstr "在 {sourceName} 上已取消对 @{0} 的隐藏。"
 msgid "If a suspendable code is included, the token maybe neither be bought nor sold (honeypot risk)."
 msgstr "如果包含可中止的代码，那么通证可能既不能被购买也不会被出售（欺诈风险）。"
 
+msgid "All chains"
+msgstr ""
+
 msgid "Display Name should not exceed {maxDisplayNameSize} characters"
 msgstr "显示名称不可以超过 {maxDisplayNameSize} 个字"
 
@@ -2939,7 +2984,7 @@ msgid "Mirror now to get 25% referral fee!"
 msgstr "立即转帖以获得 25% 的推荐佣金！"
 
 msgid "Hide tokens with small balances"
-msgstr "隐藏小额通证"
+msgstr ""
 
 msgid "Failed to connect to Firefly."
 msgstr "未能链接 Firefly"
@@ -3009,9 +3054,6 @@ msgstr ""
 
 msgid "Unmute"
 msgstr "取消隐藏"
-
-msgid "No available token"
-msgstr "没有适合的代币"
 
 msgid "Firefly Bridge"
 msgstr "Firefly 桥"

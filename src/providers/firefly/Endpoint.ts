@@ -56,6 +56,7 @@ import {
     type GetLensSuggestedFollowUserResponse,
     type HexResponse,
     type IsMutedAllResponse,
+    type LinkDigestResponse,
     type MuteAllResponse,
     type NFTCollectionsResponse,
     type PolymarketActivityTimeline,
@@ -803,6 +804,16 @@ export class FireflyEndpoint {
             },
         );
 
+        const data = resolveFireflyResponseData(response);
+
+        return data;
+    }
+
+    async linkDigest(link: string) {
+        const response = await fetchJSON<LinkDigestResponse>(urlcat(settings.FIREFLY_ROOT_URL, '/v2/misc/linkDigest'), {
+            method: 'POST',
+            body: JSON.stringify({ link }),
+        });
         const data = resolveFireflyResponseData(response);
 
         return data;

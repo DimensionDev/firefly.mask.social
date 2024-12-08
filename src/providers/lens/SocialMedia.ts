@@ -20,14 +20,18 @@ import {
     PublicationType,
     ReferenceModuleType,
 } from '@lens-protocol/client';
-import { MetadataAttributeType, profile as createProfileMetadata } from '@lens-protocol/metadata';
+import {
+    type MetadataAttribute,
+    MetadataAttributeType,
+    profile as createProfileMetadata,
+} from '@lens-protocol/metadata';
 import { t } from '@lingui/macro';
-import { sendTransaction } from '@wagmi/core';
 import { compact, first, flatMap, omit, uniq, uniqWith } from 'lodash-es';
 import urlcat from 'urlcat';
 import { v4 as uuid } from 'uuid';
 import type { Address, Hex, TypedDataDomain } from 'viem';
 import { polygon } from 'viem/chains';
+import { sendTransaction } from 'wagmi/actions';
 
 import { config } from '@/configs/wagmiClient.js';
 import { FireflyPlatform, Source, SourceInURL } from '@/constants/enum.js';
@@ -1554,17 +1558,16 @@ export class LensSocialMedia implements Provider {
         );
     }
     async updateProfile(profile: ProfileEditable): Promise<boolean> {
+        const attributes: MetadataAttribute[] = compact([
+            profile.website ? { type: MetadataAttributeType.STRING, key: 'website', value: profile.website } : null,
+            profile.location ? { type: MetadataAttributeType.STRING, key: 'location', value: profile.location } : null,
+        ]);
         const metadata = createProfileMetadata({
             id: uuid(),
             name: profile.displayName,
             bio: profile.bio,
             picture: profile.pfp,
-            attributes: compact([
-                profile.website ? { type: MetadataAttributeType.STRING, key: 'website', value: profile.website } : null,
-                profile.location
-                    ? { type: MetadataAttributeType.STRING, key: 'location', value: profile.location }
-                    : null,
-            ]),
+            attributes: attributes.length ? attributes : undefined,
         });
         const metadataURI = await uploadLensMetadataToS3(metadata);
         const result = await lensSessionHolder.sdk.profile.setProfileMetadata({

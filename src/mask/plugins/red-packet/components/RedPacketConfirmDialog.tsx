@@ -1,15 +1,17 @@
 import { Trans } from '@lingui/macro';
 import { ChainBoundary, PluginWalletStatusBar, SelectGasSettingsToolbar } from '@masknet/shared';
 import { NetworkPluginID } from '@masknet/shared-base';
-import { useChainContext, useNativeTokenPrice } from '@masknet/web3-hooks-base';
+import { useNativeTokenPrice } from '@masknet/web3-hooks-base';
 import { isZero } from '@masknet/web3-shared-base';
 import { type ChainId, type GasConfig } from '@masknet/web3-shared-evm';
 import { Launch as LaunchIcon } from '@mui/icons-material';
 import { Grid, Link, Paper, Typography } from '@mui/material';
 import { useEffect, useMemo } from 'react';
 
+import { createAccount } from '@/helpers/createAccount.js';
+import { useChainContext } from '@/hooks/useChainContext.js';
 import { ActionButton, Icons } from '@/mask/bindings/components.js';
-import { EVMChainResolver, EVMExplorerResolver, EVMWeb3, makeStyles } from '@/mask/bindings/index.js';
+import { EVMChainResolver, EVMExplorerResolver, makeStyles } from '@/mask/bindings/index.js';
 import { type RedPacketSettings } from '@/mask/plugins/red-packet/hooks/useCreateCallback.js';
 import { useCreateFTRedpacketCallback } from '@/mask/plugins/red-packet/hooks/useCreateFTRedpacketCallback.js';
 import type { RedPacketJSONPayload } from '@/providers/red-packet/types.js';
@@ -67,12 +69,13 @@ interface ConfirmRedPacketFormProps {
 export function RedPacketConfirmDialog(props: ConfirmRedPacketFormProps) {
     const { settings, onCreated, onClose, gasOption, onGasOptionChange, expectedChainId } = props;
     const { classes, cx } = useStyles();
-    const { chainId } = useChainContext<NetworkPluginID.PLUGIN_EVM>({ chainId: expectedChainId });
+    const { chainId } = useChainContext({ chainId: expectedChainId });
+
     useEffect(() => {
         if (settings?.token?.chainId !== chainId) onClose();
     }, [chainId, onClose, settings?.token?.chainId]);
 
-    const { account: publicKey, privateKey = '' } = useMemo(() => EVMWeb3.createAccount(), []);
+    const { account: publicKey, privateKey = '' } = useMemo(createAccount, []);
 
     const {
         isBalanceInsufficient,
@@ -187,7 +190,6 @@ export function RedPacketConfirmDialog(props: ConfirmRedPacketFormProps) {
                         gasLimit={Number.parseInt(gas ?? '0', 10)}
                         onChange={onGasOptionChange}
                         estimateGasFee={estimateGasFee}
-                        editMode
                     />
                 ) : null}
                 <Grid item xs={12}>

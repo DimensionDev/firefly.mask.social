@@ -5,6 +5,7 @@ import {
     useSuspenseInfiniteQuery,
     type UseSuspenseInfiniteQueryResult,
 } from '@tanstack/react-query';
+import type { Hex } from 'viem';
 
 import { FireflyRedPacket } from '@/providers/red-packet/index.js';
 import { FireflyRedPacketAPI } from '@/providers/red-packet/types.js';
@@ -24,7 +25,7 @@ export function useRedPacketHistory(
         queryFn: async ({ pageParam }) => {
             const res = await FireflyRedPacket.getHistory(
                 historyType,
-                address as `0x${string}`,
+                address as Hex,
                 platform ? platform : FireflyRedPacketAPI.SourceType.All,
                 pageParam,
             );

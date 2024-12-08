@@ -7,15 +7,18 @@ import {
 } from '@masknet/plugin-infra/content-script';
 import { InjectedDialog, LoadingStatus, useCurrentLinkedPersona } from '@masknet/shared';
 import { EMPTY_LIST, NetworkPluginID, PluginID } from '@masknet/shared-base';
-import { useChainContext, useGasPrice } from '@masknet/web3-hooks-base';
+import { useGasPrice } from '@masknet/web3-hooks-base';
 import { ChainId, type GasConfig, GasEditor } from '@masknet/web3-shared-evm';
 import { TabContext } from '@mui/lab';
 import { DialogContent, Tab, useTheme } from '@mui/material';
 import { Suspense, useCallback, useContext, useMemo, useState } from 'react';
-import * as web3_utils from /* webpackDefer: true */ 'web3-utils';
+import { type Hex, keccak256 } from 'viem';
+import { signMessage } from 'wagmi/actions';
 
+import { config } from '@/configs/wagmiClient.js';
+import { useChainContext } from '@/hooks/useChainContext.js';
 import { Icons, MaskTabList, useTabs } from '@/mask/bindings/components.js';
-import { EVMWeb3, makeStyles } from '@/mask/bindings/index.js';
+import { makeStyles } from '@/mask/bindings/index.js';
 import { ClaimRequirementsDialog } from '@/mask/plugins/red-packet/components/ClaimRequirementsDialog.js';
 import { ClaimRequirementsRuleDialog } from '@/mask/plugins/red-packet/components/ClaimRequirementsRuleDialog.js';
 import { FireflyRedpacketConfirmDialog } from '@/mask/plugins/red-packet/components/FireflyRedpacketConfirmDialog.js';
@@ -60,6 +63,9 @@ const useStyles = makeStyles<{ scrollY: boolean; isDim: boolean }>()((theme, { i
             background: 'transparent !important',
             color: `${theme.palette.maskColor.third} !important`,
         },
+        dialogRoot: {
+            zIndex: 45,
+        },
     };
 });
 
@@ -86,7 +92,7 @@ export default function RedPacketDialog(props: RedPacketDialogProps) {
 
     const [step, setStep] = useState(CreateRedPacketPageStep.NewRedPacketPage);
 
-    const { account, chainId: contextChainId, setChainId } = useChainContext<NetworkPluginID.PLUGIN_EVM>();
+    const { account, chainId: contextChainId } = useChainContext();
     const definition = useActivatedPluginSiteAdaptor.visibility.useAnyMode(PluginID.RedPacket);
     const [currentHistoryTab, onChangeHistoryTab, historyTabs] = useTabs('claimed', 'sent');
     const theme = useTheme();
@@ -142,13 +148,10 @@ export default function RedPacketDialog(props: RedPacketDialogProps) {
                     payload.password = prompt('Please enter the password of the lucky drop:', '') ?? '';
                 } else if (payload.contract_version > 1 && payload.contract_version < 4) {
                     // just sign out the password if it is lost.
-                    payload.password = await EVMWeb3.signMessage(
-                        'message',
-                        web3_utils.sha3(payload.sender.message) ?? '',
-                        {
-                            account,
-                        },
-                    );
+                    payload.password = await signMessage(config, {
+                        message: keccak256(payload.sender.message as Hex),
+                        account: account as Hex,
+                    });
                     payload.password = payload.password.slice(2);
                 }
             }
@@ -272,6 +275,7 @@ export default function RedPacketDialog(props: RedPacketDialogProps) {
     return (
         <TabContext value={showHistory ? currentHistoryTab : ''}>
             <InjectedDialog
+                classes={{ root: classes.dialogRoot }}
                 isOpenFromApplicationBoard={props.isOpenFromApplicationBoard}
                 open={props.open}
                 title={title}
@@ -309,7 +313,6 @@ export default function RedPacketDialog(props: RedPacketDialogProps) {
                                     onNext={onNext}
                                     onChange={_onChange}
                                     onGasOptionChange={handleGasSettingChange}
-                                    onChainChange={setChainId}
                                 />
                             </div>
                             {showHistory && !showDetails ? (

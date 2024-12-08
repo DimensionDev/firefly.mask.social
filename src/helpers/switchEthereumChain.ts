@@ -1,5 +1,5 @@
 import type { ChainId } from '@masknet/web3-shared-evm';
-import { switchChain } from '@wagmi/core';
+import { switchChain } from 'wagmi/actions';
 
 import { chains, config } from '@/configs/wagmiClient.js';
 

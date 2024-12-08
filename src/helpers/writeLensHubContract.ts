@@ -1,4 +1,4 @@
-import { writeContract } from '@wagmi/core';
+import { writeContract } from 'wagmi/actions';
 
 import { LensHub } from '@/abis/LensHub.js';
 import { config } from '@/configs/wagmiClient.js';

@@ -1,9 +1,10 @@
 import urlcat from 'urlcat';
 
+import type { NFTMarketplace } from '@/constants/enum.js';
 import { EMPTY_LIST, SIMPLE_HASH_URL } from '@/constants/index.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
 import { createIndicator, createNextIndicator, createPageable, type PageIndicator } from '@/helpers/pageable.js';
-import type { Collection, NftPreview } from '@/providers/types/Firefly.js';
+import type { Collection, NftPreview, NftPreviewCollection } from '@/providers/types/Firefly.js';
 
 class SimpleHash {
     async getWalletsNFTCollections(
@@ -56,6 +57,41 @@ class SimpleHash {
                   })
                 : response.data,
         };
+    }
+
+    async getNFTCollectionsByMarket(props: {
+        marketplace: NFTMarketplace;
+        chains?: string;
+        slugs?: string;
+        limit?: number;
+        indicator?: PageIndicator;
+    }) {
+        const url = urlcat(SIMPLE_HASH_URL, '/api/v0/nfts/collections/marketplace/:marketplace', {
+            marketplace: props.marketplace,
+            chains: props.chains || 'ethereum',
+            slugs: props.slugs,
+            limit: props.limit || 25,
+            cursor: props.indicator?.id || undefined,
+        });
+        const response = await fetchJSON<{ collections: NftPreviewCollection[]; next_cursor?: string }>(url);
+
+        return createPageable(
+            response?.collections ?? EMPTY_LIST,
+            createIndicator(props.indicator),
+            response?.next_cursor ? createNextIndicator(props.indicator, `${response.next_cursor}`) : undefined,
+        );
+    }
+
+    async getNFTByAddress(address: string, tokenId: string, chain: string) {
+        const url = urlcat(SIMPLE_HASH_URL, '/api/v0/nfts/:chain/:address/:tokenId', {
+            chain,
+            address,
+            tokenId,
+        });
+
+        const response = await fetchJSON<NftPreview>(url);
+
+        return response;
     }
 }
 

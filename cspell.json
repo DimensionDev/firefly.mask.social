@@ -135,6 +135,7 @@
         "imgur",
         "inview",
         "ittr",
+        "keccak",
         "linkify",
         "livepeer",
         "maskbook",
@@ -219,7 +220,9 @@
         "DEGEN",
         "supercast",
         "Thirdpart",
-        "orbcommunities"
+        "orbcommunities",
+        "Magiceden",
+        "linea"
     ],
     "flagWords": [],
     "ignorePaths": [

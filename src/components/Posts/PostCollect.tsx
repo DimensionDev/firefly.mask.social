@@ -7,6 +7,7 @@ import { StatusCodes } from 'http-status-codes';
 import { compact, first } from 'lodash-es';
 import { useMemo } from 'react';
 import { useAsyncFn } from 'react-use';
+import type { Hex } from 'viem';
 import { polygon } from 'viem/chains';
 import { useAccount, useBalance } from 'wagmi';
 
@@ -22,10 +23,9 @@ import { config } from '@/configs/wagmiClient.js';
 import { Source } from '@/constants/enum.js';
 import { FetchError } from '@/constants/error.js';
 import { Link } from '@/esm/Link.js';
-import { enqueueErrorMessage, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
+import { enqueueErrorMessage, enqueueMessageFromError, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { formatEthereumAddress } from '@/helpers/formatAddress.js';
 import { getTimeLeft } from '@/helpers/formatTimestamp.js';
-import { getSnackbarMessageFromError } from '@/helpers/getSnackbarMessageFromError.js';
 import { getWalletClientRequired } from '@/helpers/getWalletClientRequired.js';
 import { isSameEthereumAddress } from '@/helpers/isSameAddress.js';
 import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
@@ -125,7 +125,7 @@ export function PostCollect({ post, onClose }: PostCollectProps) {
 
     const { data: balanceData, isLoading: queryBalanceLoading } = useBalance({
         address: account.address,
-        token: verifiedAssetAddress ? (collectModule?.assetAddress as `0x${string}`) : undefined,
+        token: verifiedAssetAddress ? (collectModule?.assetAddress as Hex) : undefined,
     });
 
     const hasEnoughBalance =
@@ -155,7 +155,7 @@ export function PostCollect({ post, onClose }: PostCollectProps) {
 
             onClose?.();
         } catch (error) {
-            enqueueErrorMessage(getSnackbarMessageFromError(error, t`Failed to collect post.`), { error });
+            enqueueMessageFromError(error, t`Failed to collect post.`);
             throw error;
         }
     }, [post, onClose]);

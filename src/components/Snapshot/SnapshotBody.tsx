@@ -6,6 +6,7 @@ import { isArray, isEqual, isNumber, isObject, isUndefined, sum, values } from '
 import { useCallback, useMemo, useState } from 'react';
 import { useAsyncFn } from 'react-use';
 import urlcat from 'urlcat';
+import type { Hex } from 'viem';
 import { useAccount, useEnsName } from 'wagmi';
 
 import SnapshotIcon from '@/assets/snapshot.svg';
@@ -27,10 +28,9 @@ import { IS_APPLE, IS_SAFARI } from '@/constants/bowser.js';
 import { SnapshotState, SourceInURL } from '@/constants/enum.js';
 import { Link } from '@/esm/Link.js';
 import { classNames } from '@/helpers/classNames.js';
-import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
+import { enqueueMessageFromError } from '@/helpers/enqueueMessage.js';
 import { formatEthereumAddress } from '@/helpers/formatAddress.js';
 import { formatSnapshotChoice } from '@/helpers/formatSnapshotChoice.js';
-import { getSnackbarMessageFromError } from '@/helpers/getSnackbarMessageFromError.js';
 import { stopPropagation } from '@/helpers/stopEvent.js';
 import { ComposeModalRef, ConfirmModalRef } from '@/modals/controls.js';
 import { Snapshot } from '@/providers/snapshot/index.js';
@@ -98,7 +98,7 @@ export function SnapshotBody({ snapshot, link, postId, activity }: Props) {
         },
     });
 
-    const ensHandle = useEnsName({ address: author as `0x${string}` });
+    const ensHandle = useEnsName({ address: author as Hex });
 
     const isPending = state === SnapshotState.Pending;
     const isNotEnoughVp = vp === 0 && !queryVpLoading;
@@ -190,7 +190,7 @@ export function SnapshotBody({ snapshot, link, postId, activity }: Props) {
                 },
             );
         } catch (error) {
-            enqueueErrorMessage(getSnackbarMessageFromError(error, t`Failed to vote.`));
+            enqueueMessageFromError(error, t`Failed to vote.`);
             throw error;
         }
     }, [snapshot, selectedChoices, disabled, link, postId]);

@@ -1,10 +1,10 @@
 import { t, Trans } from '@lingui/macro';
 import { useQuery } from '@tanstack/react-query';
-import { estimateFeesPerGas, getBalance } from '@wagmi/core';
 import { produce } from 'immer';
 import { useMemo, useRef, useState } from 'react';
 import { useAsyncFn } from 'react-use';
 import { useAccount, useChains } from 'wagmi';
+import { estimateFeesPerGas, getBalance } from 'wagmi/actions';
 
 import CollectFillIcon from '@/assets/collect-fill.svg';
 import LinkIcon from '@/assets/link-square.svg';
@@ -14,10 +14,9 @@ import { ChainGuardButton } from '@/components/ChainGuardButton.js';
 import { queryClient } from '@/configs/queryClient.js';
 import { config } from '@/configs/wagmiClient.js';
 import { classNames } from '@/helpers/classNames.js';
-import { enqueueErrorMessage, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
+import { enqueueMessageFromError, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { formatEthereumAddress } from '@/helpers/formatAddress.js';
 import { getArticleDigest } from '@/helpers/getArticleDigest.js';
-import { getSnackbarMessageFromError } from '@/helpers/getSnackbarMessageFromError.js';
 import { multipliedBy, rightShift, ZERO } from '@/helpers/number.js';
 import { openWindow } from '@/helpers/openWindow.js';
 import { resolveArticleCollectProvider } from '@/helpers/resolveArticleCollectProvider.js';
@@ -120,7 +119,7 @@ export function ArticleCollect({ article }: ArticleCollectProps) {
             });
             enqueueSuccessMessage(t`Article collected successfully!`);
         } catch (error) {
-            enqueueErrorMessage(getSnackbarMessageFromError(error, t`Failed to collect article.`), { error });
+            enqueueMessageFromError(error, t`Failed to collect article.`);
             throw error;
         }
     }, [account, data, platform]);

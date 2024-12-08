@@ -16,13 +16,12 @@ import { AbortError, FarcasterAlreadyBoundError, NotAllowedError, TimeoutError }
 import { FARCASTER_REPLY_COUNTDOWN } from '@/constants/index.js';
 import { classNames } from '@/helpers/classNames.js';
 import {
-    enqueueErrorMessage,
     enqueueInfoMessage,
+    enqueueMessageFromError,
     enqueueSuccessMessage,
     enqueueWarningMessage,
 } from '@/helpers/enqueueMessage.js';
 import { getMobileDevice } from '@/helpers/getMobileDevice.js';
-import { getSnackbarMessageFromError } from '@/helpers/getSnackbarMessageFromError.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { useAbortController } from '@/hooks/useAbortController.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
@@ -105,9 +104,7 @@ export function LoginFarcaster({ signType }: LoginFarcasterProps) {
                 { skipReportFarcasterSigner: false, signal: controller.current.signal },
             );
         } catch (error) {
-            enqueueErrorMessage(getSnackbarMessageFromError(error, t`Failed to login.`), {
-                error,
-            });
+            enqueueMessageFromError(error, t`Failed to login.`);
             throw error;
         }
     }, [resetCountdown, startCountdown]);
@@ -142,9 +139,7 @@ export function LoginFarcaster({ signType }: LoginFarcasterProps) {
                 { signal: controller.current.signal },
             );
         } catch (error) {
-            enqueueErrorMessage(getSnackbarMessageFromError(error, t`Failed to login.`), {
-                error,
-            });
+            enqueueMessageFromError(error, t`Failed to login.`);
             throw error;
         }
     }, [resetCountdown, startCountdown]);
@@ -165,9 +160,7 @@ export function LoginFarcaster({ signType }: LoginFarcasterProps) {
                 { skipReportFarcasterSigner: false, signal: controller.current.signal },
             );
         } catch (error) {
-            enqueueErrorMessage(getSnackbarMessageFromError(error, t`Failed to login.`), {
-                error,
-            });
+            enqueueMessageFromError(error, t`Failed to login.`);
             throw error;
         }
     }, [resetCountdown, startCountdown]);

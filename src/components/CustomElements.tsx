@@ -1,22 +1,17 @@
 'use client';
 
 import { useEffect } from 'react';
-import { useAsync, useUpdateEffect } from 'react-use';
-import { useAccount, useChainId } from 'wagmi';
+import { useAsync } from 'react-use';
 
 import { NODE_ENV, VERCEL_NEV } from '@/constants/enum.js';
 import { env } from '@/constants/env.js';
 import { CrossIsolationMessages } from '@/mask/bindings/index.js';
-import { connectMaskWithWagmi } from '@/mask/helpers/connectWagmiWithMask.js';
 import { getTypedMessageRedPacket } from '@/mask/plugins/red-packet/helpers/getTypedMessage.js';
 import { getRpMetadata } from '@/mask/plugins/red-packet/helpers/rpPayload.js';
 import { captureLuckyDropEvent } from '@/providers/telemetry/captureLuckyDropEvent.js';
 import { useComposeStateStore } from '@/store/useComposeStore.js';
 
 export default function CustomElements() {
-    const account = useAccount();
-    const chainId = useChainId();
-
     const { value = false } = useAsync(async () => {
         await import('@masknet/flags/build-info').then((module) => {
             module.setupBuildInfoManually({
@@ -53,11 +48,6 @@ export default function CustomElements() {
             if (metadata) captureLuckyDropEvent(metadata);
         });
     }, [updateRpPayload, updateTypedMessage, value]);
-
-    useUpdateEffect(() => {
-        if (!account.address || !chainId || !value) return;
-        connectMaskWithWagmi();
-    }, [account.address, chainId, value]);
 
     return null;
 }

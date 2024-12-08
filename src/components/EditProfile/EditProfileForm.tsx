@@ -19,8 +19,7 @@ import {
     MAX_PROFILE_WEBSITE_SIZE,
 } from '@/constants/limitation.js';
 import { URL_INPUT_REGEX } from '@/constants/regexp.js';
-import { enqueueErrorMessage, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
-import { getSnackbarMessageFromError } from '@/helpers/getSnackbarMessageFromError.js';
+import { enqueueMessageFromError, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 import { resolveLengthCalculator } from '@/services/resolveLengthCalculator.js';
 import { updateProfile } from '@/services/updateProfile.js';
@@ -44,9 +43,7 @@ export function EditProfileForm() {
             onClose?.();
             enqueueSuccessMessage(t`Updated profile successfully`);
         } catch (error) {
-            enqueueErrorMessage(getSnackbarMessageFromError(error, t`Failed to update profile.`), {
-                error,
-            });
+            enqueueMessageFromError(error, t`Failed to update profile.`);
             throw error;
         }
     };

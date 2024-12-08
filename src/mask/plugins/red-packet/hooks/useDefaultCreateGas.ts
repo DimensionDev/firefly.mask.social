@@ -1,11 +1,10 @@
-import type { NetworkPluginID } from '@masknet/shared-base';
-import { useChainContext } from '@masknet/web3-hooks-base';
 import { toFixed, ZERO } from '@masknet/web3-shared-base';
 import { SchemaType, useTokenConstants } from '@masknet/web3-shared-evm';
 import { omit } from 'lodash-es';
 import { useAsync } from 'react-use';
-import * as web3_utils from /* webpackDefer: true */ 'web3-utils';
+import { type Hex, keccak256 } from 'viem';
 
+import { useChainContext } from '@/hooks/useChainContext.js';
 import type { HappyRedPacketV4 } from '@/mask/bindings/constants.js';
 import {
     checkParams,
@@ -20,7 +19,7 @@ export function useDefaultCreateGas(
     version: number,
     publicKey: string,
 ) {
-    const { account, chainId } = useChainContext<NetworkPluginID.PLUGIN_EVM>();
+    const { account, chainId } = useChainContext();
     const { NATIVE_TOKEN_ADDRESS } = useTokenConstants(chainId);
     const redPacketContract = useRedPacketContract(chainId, version);
 
@@ -40,7 +39,7 @@ export function useDefaultCreateGas(
             shares,
             isRandom,
             duration,
-            seed: web3_utils.sha3(seed)!,
+            seed: keccak256(seed as Hex),
             message,
             name,
             tokenType,

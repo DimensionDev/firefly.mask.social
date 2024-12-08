@@ -112,6 +112,9 @@ msgstr "Failed to collect article."
 msgid "Hold on! Meet any of the following to unlock a premium collectible:"
 msgstr "Hold on! Meet any of the following to unlock a premium collectible:"
 
+msgid "Remove Bookmark"
+msgstr "Remove Bookmark"
+
 msgid "Communities"
 msgstr "Communities"
 
@@ -120,6 +123,9 @@ msgstr "Discover"
 
 msgid "Ask a question"
 msgstr "Ask a question"
+
+msgid "There is no data available to select."
+msgstr "There is no data available to select."
 
 msgid "Please be cautious when connecting your wallet, as malicious websites may attempt to access your funds."
 msgstr "Please be cautious when connecting your wallet, as malicious websites may attempt to access your funds."
@@ -568,6 +574,9 @@ msgstr "Mutes"
 msgid "Bought"
 msgstr "Bought"
 
+msgid "Failed to bookmark NFT."
+msgstr "Failed to bookmark NFT."
+
 msgid "NFTs"
 msgstr "NFTs"
 
@@ -772,6 +781,9 @@ msgstr "Items"
 msgid "Failed to upload. More than {maxImageCount} images."
 msgstr "Failed to upload. More than {maxImageCount} images."
 
+msgid "NFT bookmarks"
+msgstr "NFT bookmarks"
+
 msgid "Minting Txn Hash"
 msgstr "Minting Txn Hash"
 
@@ -823,6 +835,9 @@ msgstr "OpenGraph Validator"
 msgid "Phishing activities found."
 msgstr "Phishing activities found."
 
+msgid "LinkDigest Validator"
+msgstr "LinkDigest Validator"
+
 msgid "No Lens profile found.<0/>Please change to another wallet."
 msgstr "No Lens profile found.<0/>Please change to another wallet."
 
@@ -861,6 +876,9 @@ msgstr "Market Cap / FDV"
 
 msgid "Log telemetry events to the console."
 msgstr "Log telemetry events to the console."
+
+msgid "Failed to un-bookmark NFT."
+msgstr "Failed to un-bookmark NFT."
 
 msgid "Confirmation"
 msgstr "Confirmation"
@@ -1223,6 +1241,12 @@ msgstr "Contract address found."
 msgid "Top Profiles"
 msgstr "Top Profiles"
 
+msgid "NFT added to your Bookmarks"
+msgstr "NFT added to your Bookmarks"
+
+msgid "Are you sure you want to remove this NFT from your bookmarks?"
+msgstr "Are you sure you want to remove this NFT from your bookmarks?"
+
 msgid "Executed"
 msgstr "Executed"
 
@@ -1262,6 +1286,9 @@ msgstr "Send telemetry events in debug mode."
 msgid "The chainId mismatch."
 msgstr "The chainId mismatch."
 
+msgid "Failed to connect on {source}"
+msgstr "Failed to connect on {source}"
+
 msgid "Open in Firefly App"
 msgstr "Open in Firefly App"
 
@@ -1276,6 +1303,9 @@ msgstr "Claim Premium"
 
 msgid "Share in a Post"
 msgstr "Share in a Post"
+
+msgid "Search by name or symbol"
+msgstr "Search by name or symbol"
 
 msgid "Forbidden. Please check your permissions."
 msgstr "Forbidden. Please check your permissions."
@@ -1436,6 +1466,9 @@ msgstr "All wallets and accounts are muted."
 msgid "Disconnected from your social graph"
 msgstr "Disconnected from your social graph"
 
+msgid "Failed to upload."
+msgstr "Failed to upload."
+
 msgid "{attentionFactors, plural, one {# Attention item} other {# Attention items}}"
 msgstr "{attentionFactors, plural, one {# Attention item} other {# Attention items}}"
 
@@ -1570,6 +1603,9 @@ msgstr "Email (optional)"
 
 msgid "NFT Contract"
 msgstr "NFT Contract"
+
+msgid "Failed to connect MPC wallet"
+msgstr "Failed to connect MPC wallet"
 
 msgid "Phishing activities."
 msgstr "Phishing activities."
@@ -1790,6 +1826,9 @@ msgstr "Suspected malicious address found."
 
 msgid "Contract source code not verified"
 msgstr "Contract source code not verified"
+
+msgid "NFT removed from your Bookmarks"
+msgstr "NFT removed from your Bookmarks"
 
 msgid "Not Started"
 msgstr "Not Started"
@@ -2159,6 +2198,9 @@ msgstr "1 NFT claimed."
 
 msgid "Failed to update profile."
 msgstr "Failed to update profile."
+
+msgid "Your URL"
+msgstr "Your URL"
 
 msgid "Connected in Firefly"
 msgstr "Connected in Firefly"
@@ -2895,6 +2937,9 @@ msgstr "Unmuted @{0} on {sourceName}."
 msgid "If a suspendable code is included, the token maybe neither be bought nor sold (honeypot risk)."
 msgstr "If a suspendable code is included, the token maybe neither be bought nor sold (honeypot risk)."
 
+msgid "All chains"
+msgstr "All chains"
+
 msgid "Display Name should not exceed {maxDisplayNameSize} characters"
 msgstr "Display Name should not exceed {maxDisplayNameSize} characters"
 
@@ -3008,9 +3053,6 @@ msgstr "Number of Winners"
 
 msgid "Unmute"
 msgstr "Unmute"
-
-msgid "No available token"
-msgstr "No available token"
 
 msgid "Firefly Bridge"
 msgstr "Firefly Bridge"

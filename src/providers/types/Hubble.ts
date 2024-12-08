@@ -1,6 +1,7 @@
 /* cspell:disable */
 
 import type { FarcasterNetwork } from '@farcaster/core';
+import type { Hex } from 'viem';
 
 export type Response<T> =
     | {
@@ -16,9 +17,9 @@ export type Response<T> =
     | T;
 
 export interface SignaturePacket {
-    signer: `0x${string}`;
-    messageHash: `0x${string}`;
-    messageSignature: `0x${string}`;
+    signer: Hex;
+    messageHash: Hex;
+    messageSignature: Hex;
 }
 
 export interface FrameSignaturePacket {

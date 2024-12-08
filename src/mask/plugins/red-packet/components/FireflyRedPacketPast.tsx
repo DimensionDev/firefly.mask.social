@@ -1,5 +1,4 @@
 import { LoadingStatus, PluginWalletStatusBar } from '@masknet/shared';
-import { NetworkPluginID } from '@masknet/shared-base';
 import { TabPanel } from '@mui/lab';
 import { Box } from '@mui/material';
 import { memo, Suspense } from 'react';
@@ -47,7 +46,7 @@ export const FireflyRedPacketPast = memo(function FireflyRedPacketPast({ tabs, h
                 </TabPanel>
             </div>
             <Box style={{ width: '100%', position: 'absolute', bottom: 0, zIndex: 99 }}>
-                <PluginWalletStatusBar requiredSupportPluginID={NetworkPluginID.PLUGIN_EVM} readonlyMode />
+                <PluginWalletStatusBar />
             </Box>
         </>
     );

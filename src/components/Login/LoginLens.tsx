@@ -15,8 +15,7 @@ import { ClickableButton } from '@/components/ClickableButton.js';
 import { ProfileInList } from '@/components/Login/ProfileInList.js';
 import { Source } from '@/constants/enum.js';
 import { AbortError } from '@/constants/error.js';
-import { enqueueErrorMessage, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
-import { getSnackbarMessageFromError } from '@/helpers/getSnackbarMessageFromError.js';
+import { enqueueMessageFromError, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { isSameEthereumAddress } from '@/helpers/isSameAddress.js';
 import { isSameProfile } from '@/helpers/isSameProfile.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
@@ -70,9 +69,7 @@ export function LoginLens({ profiles, currentAccount }: LoginLensProps) {
                 // skip if the error is abort error
                 if (AbortError.is(error)) return;
 
-                enqueueErrorMessage(getSnackbarMessageFromError(error, t`Failed to login.`), {
-                    error,
-                });
+                enqueueMessageFromError(error, t`Failed to login.`);
                 throw error;
             }
         },

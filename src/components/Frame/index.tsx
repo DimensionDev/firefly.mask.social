@@ -1,11 +1,11 @@
 import { t } from '@lingui/macro';
 import { safeUnreachable } from '@masknet/kit';
 import { useQuery } from '@tanstack/react-query';
-import { getAccount } from '@wagmi/core';
 import { memo, type ReactNode, useEffect, useState } from 'react';
 import { useAsyncFn } from 'react-use';
 import urlcat from 'urlcat';
-import { encodePacked, isAddress, type SignTypedDataParameters } from 'viem';
+import { encodePacked, type Hex, isAddress, type SignTypedDataParameters } from 'viem';
+import { getAccount } from 'wagmi/actions';
 import { z } from 'zod';
 
 import { Card } from '@/components/Frame/Card.js';
@@ -14,10 +14,9 @@ import { config } from '@/configs/wagmiClient.js';
 import { NODE_ENV, SimulateType, type SocialSource, Source } from '@/constants/enum.js';
 import { env } from '@/constants/env.js';
 import { MalformedError, TransactionSimulationError } from '@/constants/error.js';
-import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
+import { enqueueErrorMessage, enqueueMessageFromError } from '@/helpers/enqueueMessage.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
 import { getCurrentProfile } from '@/helpers/getCurrentProfile.js';
-import { getSnackbarMessageFromError } from '@/helpers/getSnackbarMessageFromError.js';
 import { getWalletClientRequired } from '@/helpers/getWalletClientRequired.js';
 import { interceptExternalUrl } from '@/helpers/interceptExternalUrl.js';
 import { openWindow } from '@/helpers/openWindow.js';
@@ -218,11 +217,11 @@ async function getNextFrame(
                 switch (method) {
                     case MethodType.ETH_SEND_TRANSACTION: {
                         const params = {
-                            to: action.params.to as `0x${string}`,
+                            to: action.params.to as Hex,
                             data: (action.params.data ||
                                 (action.attribution !== false
                                     ? encodePacked(['byte1', 'uint32'], [0xfc, Number.parseInt(profile.profileId, 10)])
-                                    : undefined)) as `0x${string}` | undefined,
+                                    : undefined)) as Hex | undefined,
                             value: action.params.value ? BigInt(action.params.value) : BigInt(0),
                         };
                         await simulate({
@@ -257,9 +256,7 @@ async function getNextFrame(
         }
     } catch (error) {
         if (error instanceof TransactionSimulationError) return;
-        enqueueErrorMessage(getSnackbarMessageFromError(error, t`Something went wrong. Please try again.`), {
-            error,
-        });
+        enqueueMessageFromError(error, t`Something went wrong. Please try again.`);
         throw error;
     }
 }

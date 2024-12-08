@@ -7,8 +7,7 @@ import { useAccount } from 'wagmi';
 import { ChainGuardButton } from '@/components/ChainGuardButton.js';
 import { CloseButton } from '@/components/CloseButton.js';
 import { Modal } from '@/components/Modal.js';
-import { enqueueErrorsMessage, enqueueInfoMessage } from '@/helpers/enqueueMessage.js';
-import { getSnackbarMessageFromError } from '@/helpers/getSnackbarMessageFromError.js';
+import { enqueueInfoMessage, enqueueMessageFromError } from '@/helpers/enqueueMessage.js';
 import { isSameEthereumAddress } from '@/helpers/isSameAddress.js';
 import { useSingletonModal } from '@/hooks/useSingletonModal.js';
 import type { SingletonModalRefCreator } from '@/libs/SingletonModal.js';
@@ -45,7 +44,7 @@ export const EnableSignlessModal = forwardRef<SingletonModalRefCreator<void, boo
 
                 dispatch?.close(true);
             } catch (error) {
-                enqueueErrorsMessage(getSnackbarMessageFromError(error, t`Failed to enable signless`));
+                enqueueMessageFromError(error, t`Failed to enable signless`);
                 throw error;
             }
         }, [currentProfileSession, currentProfile?.ownedBy?.address, account.address, dispatch?.close]);

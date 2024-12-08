@@ -4,6 +4,7 @@ import urlcat from 'urlcat';
 import { BookmarkType, FireflyPlatform, Source, SourceInURL } from '@/constants/enum.js';
 import { NotFoundError, NotImplementedError } from '@/constants/error.js';
 import { EMPTY_LIST } from '@/constants/index.js';
+import { SetQueryDataForBookmarkNFT } from '@/decorators/SetQueryDataForBookmarkNFT.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
 import {
     formatBriefChannelFromFirefly,
@@ -27,6 +28,7 @@ import { resolveSourceInUrl } from '@/helpers/resolveSourceInUrl.js';
 import { farcasterSessionHolder } from '@/providers/farcaster/SessionHolder.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
 import { NeynarSocialMediaProvider } from '@/providers/neynar/SocialMedia.js';
+import { SimpleHashProvider } from '@/providers/simplehash/index.js';
 import { Snapshot } from '@/providers/snapshot/index.js';
 import type { SnapshotActivity } from '@/providers/snapshot/type.js';
 import {
@@ -46,6 +48,8 @@ import {
     type FireflyFarcasterProfileResponse,
     type FireflySnapshotActivity,
     type FriendshipResponse,
+    type GetBookmarksResponse,
+    type NftPreview,
     type NotificationPushSwitchResponse,
     type NotificationResponse,
     NotificationType as FireflyNotificationType,
@@ -74,6 +78,7 @@ import {
 import { getProfilesByIds } from '@/services/getProfilesByIds.js';
 import { settings } from '@/settings/index.js';
 
+@SetQueryDataForBookmarkNFT()
 export class FireflySocialMedia implements Provider {
     get type() {
         return SessionType.Farcaster;
@@ -851,7 +856,7 @@ export class FireflySocialMedia implements Provider {
         const response = await fireflySessionHolder.fetch<string>(url, {
             method: 'POST',
             body: JSON.stringify({
-                platform: platform ?? FireflyPlatform.Farcaster,
+                platform: (platform === FireflyPlatform.NFTs ? 'nft' : platform) ?? FireflyPlatform.Farcaster,
                 platform_id: profileId,
                 post_type: postType,
                 post_id: postId,
@@ -1081,6 +1086,53 @@ export class FireflySocialMedia implements Provider {
 
     async getPinnedPost(profileId: string): Promise<Post> {
         throw new NotImplementedError();
+    }
+
+    async bookmarkNFT(nftId: string, owner?: string): Promise<boolean> {
+        return await FireflySocialMediaProvider.bookmark(nftId, FireflyPlatform.NFTs, owner, BookmarkType.All);
+    }
+
+    async unbookmarkNFT(nftId: string, owner?: string): Promise<boolean> {
+        return await FireflySocialMediaProvider.unbookmark(nftId);
+    }
+
+    async getNFTBookmarks(indicator?: PageIndicator): Promise<Pageable<NftPreview, PageIndicator>> {
+        const profile = getCurrentProfile(Source.Farcaster);
+        const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/bookmark/find', {
+            post_type: BookmarkType.All,
+            platforms: 'nft',
+            limit: 25,
+            cursor: indicator?.id || undefined,
+            fid: profile?.profileId,
+        });
+
+        const response = await fireflySessionHolder.fetch<BookmarkResponse<NftPreview>>(url);
+        const data = resolveFireflyResponseData(response);
+
+        const nftIds = data.list.map((x) => x.post_id);
+        const nfts = nftIds.length ? await SimpleHashProvider.getNFTByIds(nftIds) : [];
+
+        return createPageable(
+            nfts,
+            createIndicator(indicator),
+            data.cursor ? createNextIndicator(indicator, `${data.cursor}`) : undefined,
+        );
+    }
+
+    async getBookmarksByIds(platform: FireflyPlatform, ids: string[], postType = BookmarkType.All) {
+        const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/bookmark/query/ids');
+
+        const response = await fireflySessionHolder.fetch<GetBookmarksResponse>(url, {
+            method: 'POST',
+            body: JSON.stringify({
+                post_ids: ids,
+                platform: platform === FireflyPlatform.NFTs ? 'nft' : platform,
+                post_type: postType,
+            }),
+        });
+        const data = resolveFireflyResponseData(response);
+
+        return data.list;
     }
 }
 

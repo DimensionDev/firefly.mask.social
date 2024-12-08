@@ -1,8 +1,7 @@
-import type { NetworkPluginID } from '@masknet/shared-base';
-import { useChainContext } from '@masknet/web3-hooks-base';
 import type { ChainId } from '@masknet/web3-shared-evm';
 import { useQuery } from '@tanstack/react-query';
 
+import { useChainContext } from '@/hooks/useChainContext.js';
 import type { HappyRedPacketV4 } from '@/mask/bindings/constants.js';
 import { useRedPacketContract } from '@/mask/plugins/red-packet/hooks/useRedPacketContract.js';
 
@@ -14,7 +13,7 @@ export function useAvailability(
         chainId?: ChainId;
     },
 ) {
-    const { account, chainId } = useChainContext<NetworkPluginID.PLUGIN_EVM>({
+    const { account, chainId } = useChainContext({
         account: options?.account,
         chainId: options?.chainId,
     });

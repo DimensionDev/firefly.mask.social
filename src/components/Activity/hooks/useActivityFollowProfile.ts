@@ -4,8 +4,7 @@ import { useAsyncFn } from 'react-use';
 import { useActivityCurrentAccountProfileId } from '@/components/Activity/hooks/useActivityCurrentAccountHandle.js';
 import { useIsFollowInActivity } from '@/components/Activity/hooks/useIsFollowInActivity.js';
 import { type SocialSource, Source } from '@/constants/enum.js';
-import { enqueueErrorMessage, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
-import { getSnackbarMessageFromError } from '@/helpers/getSnackbarMessageFromError.js';
+import { enqueueMessageFromError, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { FireflyActivityProvider } from '@/providers/firefly/Activity.js';
 
@@ -20,12 +19,8 @@ export function useActivityFollowProfile(source: SocialSource, profileId: string
             await refetch();
             enqueueSuccessMessage(t`Followed @${handle} on ${resolveSourceName(source)}.`);
         } catch (error) {
-            enqueueErrorMessage(
-                getSnackbarMessageFromError(error, t`Failed to follow @${handle} on ${resolveSourceName(source)}.`),
-                {
-                    error,
-                },
-            );
+            enqueueMessageFromError(error, t`Failed to follow @${handle} on ${resolveSourceName(source)}.`);
+
             throw error;
         }
     }, [profileId, handle, source, farcasterProfileId]);

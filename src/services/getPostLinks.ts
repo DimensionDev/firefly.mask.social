@@ -15,8 +15,11 @@ import { getPostIFrame } from '@/providers/og/readers/iframe.js';
 import { Snapshot } from '@/providers/snapshot/index.js';
 import type { SnapshotProposal } from '@/providers/snapshot/type.js';
 import type { ActionGetResponse } from '@/providers/types/Blink.js';
+import type { NftPreview, NftPreviewCollection } from '@/providers/types/Firefly.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 import { getArticleIdFromUrl } from '@/services/getArticleIdFromUrl.js';
+import { getCollectionFromUrl } from '@/services/getCollectionFromUrl.js';
+import { getNFTFromUrl } from '@/services/getNFTFromUrl.js';
 import { settings } from '@/settings/index.js';
 import type { FireflyBlinkParserBlinkResponse } from '@/types/blink.js';
 import type { Frame, LinkDigestedResponse } from '@/types/frame.js';
@@ -93,6 +96,8 @@ export async function getPostLinks(url: string, post: Post) {
         articleId?: string;
         spaceId?: string;
         snapshot?: SnapshotProposal;
+        nft?: NftPreview;
+        collection?: NftPreviewCollection;
     } | null>(
         [
             async () => {
@@ -115,6 +120,16 @@ export async function getPostLinks(url: string, post: Post) {
                 if (!articleId) return null;
 
                 return { articleId };
+            },
+            // nft collection
+            async () => {
+                const collection = await getCollectionFromUrl(url);
+                return collection ? { collection } : null;
+            },
+            // nft
+            async () => {
+                const nft = await getNFTFromUrl(url);
+                return nft ? { nft } : null;
             },
             async () => {
                 // try iframe first. As we don't have to call other services if matched

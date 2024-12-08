@@ -1,13 +1,14 @@
 import { Trans } from '@lingui/macro';
 import { TokenIcon } from '@masknet/shared';
 import { NetworkPluginID } from '@masknet/shared-base';
-import { useChainContext, useNetworkDescriptor } from '@masknet/web3-hooks-base';
 import { formatBalance } from '@masknet/web3-shared-base';
 import { Box, ListItem, Typography } from '@mui/material';
 import { format, fromUnixTime } from 'date-fns';
 import { memo } from 'react';
 import urlcat from 'urlcat';
 
+import { getNetworkDescriptor } from '@/helpers/getNetworkDescriptor.js';
+import { useChainContext } from '@/hooks/useChainContext.js';
 import { Icons } from '@/mask/bindings/components.js';
 import { makeStyles } from '@/mask/bindings/index.js';
 import { FireflyRedPacketAccountItem } from '@/mask/plugins/red-packet/components/FireflyRedPacketAccountItem.js';
@@ -253,8 +254,8 @@ export const FireflyRedPacketDetailsItem = memo(function FireflyRedPacketDetails
         theme_id,
         post_on,
     } = history;
-    const { account } = useChainContext<NetworkPluginID.PLUGIN_EVM>();
-    const networkDescriptor = useNetworkDescriptor(NetworkPluginID.PLUGIN_EVM, chain_id);
+    const { account } = useChainContext();
+    const networkDescriptor = getNetworkDescriptor(NetworkPluginID.PLUGIN_EVM, chain_id);
 
     const { classes, cx } = useStyles({
         listItemBackground: networkDescriptor?.backgroundGradient,
@@ -337,7 +338,8 @@ export const FireflyRedPacketDetailsItem = memo(function FireflyRedPacketDetails
                                     </div>
                                 ) : null}
                             </div>
-                            {redpacket_status &&
+                            {account &&
+                            redpacket_status &&
                             redpacket_status !== FireflyRedPacketAPI.RedPacketStatus.View &&
                             redpacket_status !== FireflyRedPacketAPI.RedPacketStatus.Send ? (
                                 <RedPacketActionButton

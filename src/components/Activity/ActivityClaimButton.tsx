@@ -14,8 +14,7 @@ import { useActivityPremiumList } from '@/components/Activity/hooks/useActivityP
 import type { SocialSource } from '@/constants/enum.js';
 import type { Chars } from '@/helpers/chars.js';
 import { classNames } from '@/helpers/classNames.js';
-import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
-import { getSnackbarMessageFromError } from '@/helpers/getSnackbarMessageFromError.js';
+import { enqueueMessageFromError } from '@/helpers/enqueueMessage.js';
 import { FireflyActivityProvider } from '@/providers/firefly/Activity.js';
 import { captureActivityEvent } from '@/providers/telemetry/captureActivityEvent.js';
 import { ActivityStatus } from '@/providers/types/Firefly.js';
@@ -56,7 +55,7 @@ export function ActivityClaimButton({ source, shareContent, status, claimApiExtr
             });
         } catch (error) {
             await refetch();
-            enqueueErrorMessage(getSnackbarMessageFromError(error, t`Failed to claim token`), { error });
+            enqueueMessageFromError(error, t`Failed to claim token`);
             throw error;
         }
     }, [disabled, address, isPremium]);

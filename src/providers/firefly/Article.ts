@@ -1,6 +1,6 @@
-import type { WaitForTransactionReceiptReturnType } from '@wagmi/core';
 import { compact, first } from 'lodash-es';
 import urlcat from 'urlcat';
+import type { WaitForTransactionReceiptReturnType } from 'wagmi/actions';
 
 import { BookmarkType, FireflyPlatform } from '@/constants/enum.js';
 import { NotImplementedError } from '@/constants/error.js';

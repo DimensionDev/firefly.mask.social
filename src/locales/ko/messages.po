@@ -117,6 +117,9 @@ msgstr ""
 msgid "Hold on! Meet any of the following to unlock a premium collectible:"
 msgstr ""
 
+msgid "Remove Bookmark"
+msgstr ""
+
 msgid "Communities"
 msgstr ""
 
@@ -124,6 +127,9 @@ msgid "Discover"
 msgstr ""
 
 msgid "Ask a question"
+msgstr ""
+
+msgid "There is no data available to select."
 msgstr ""
 
 msgid "Please be cautious when connecting your wallet, as malicious websites may attempt to access your funds."
@@ -573,6 +579,9 @@ msgstr ""
 msgid "Bought"
 msgstr ""
 
+msgid "Failed to bookmark NFT."
+msgstr ""
+
 msgid "NFTs"
 msgstr ""
 
@@ -777,6 +786,9 @@ msgstr ""
 msgid "Failed to upload. More than {maxImageCount} images."
 msgstr ""
 
+msgid "NFT bookmarks"
+msgstr ""
+
 msgid "Minting Txn Hash"
 msgstr ""
 
@@ -828,6 +840,9 @@ msgstr ""
 msgid "Phishing activities found."
 msgstr ""
 
+msgid "LinkDigest Validator"
+msgstr ""
+
 msgid "No Lens profile found.<0/>Please change to another wallet."
 msgstr ""
 
@@ -865,6 +880,9 @@ msgid "Market Cap / FDV"
 msgstr ""
 
 msgid "Log telemetry events to the console."
+msgstr ""
+
+msgid "Failed to un-bookmark NFT."
 msgstr ""
 
 msgid "Confirmation"
@@ -1226,6 +1244,12 @@ msgstr ""
 msgid "Top Profiles"
 msgstr ""
 
+msgid "NFT added to your Bookmarks"
+msgstr ""
+
+msgid "Are you sure you want to remove this NFT from your bookmarks?"
+msgstr ""
+
 msgid "Executed"
 msgstr ""
 
@@ -1265,6 +1289,9 @@ msgstr ""
 msgid "The chainId mismatch."
 msgstr ""
 
+msgid "Failed to connect on {source}"
+msgstr ""
+
 msgid "Open in Firefly App"
 msgstr ""
 
@@ -1278,6 +1305,9 @@ msgid "Claim Premium"
 msgstr ""
 
 msgid "Share in a Post"
+msgstr ""
+
+msgid "Search by name or symbol"
 msgstr ""
 
 msgid "Forbidden. Please check your permissions."
@@ -1439,6 +1469,9 @@ msgstr ""
 msgid "Disconnected from your social graph"
 msgstr ""
 
+msgid "Failed to upload."
+msgstr ""
+
 msgid "{attentionFactors, plural, one {# Attention item} other {# Attention items}}"
 msgstr ""
 
@@ -1572,6 +1605,9 @@ msgid "Email (optional)"
 msgstr ""
 
 msgid "NFT Contract"
+msgstr ""
+
+msgid "Failed to connect MPC wallet"
 msgstr ""
 
 msgid "Phishing activities."
@@ -1790,6 +1826,9 @@ msgid "Suspected malicious address found."
 msgstr ""
 
 msgid "Contract source code not verified"
+msgstr ""
+
+msgid "NFT removed from your Bookmarks"
 msgstr ""
 
 msgid "Not Started"
@@ -2159,6 +2198,9 @@ msgid "1 NFT claimed."
 msgstr ""
 
 msgid "Failed to update profile."
+msgstr ""
+
+msgid "Your URL"
 msgstr ""
 
 msgid "Connected in Firefly"
@@ -2896,6 +2938,9 @@ msgstr ""
 msgid "If a suspendable code is included, the token maybe neither be bought nor sold (honeypot risk)."
 msgstr ""
 
+msgid "All chains"
+msgstr ""
+
 msgid "Display Name should not exceed {maxDisplayNameSize} characters"
 msgstr ""
 
@@ -3008,9 +3053,6 @@ msgid "Number of Winners"
 msgstr ""
 
 msgid "Unmute"
-msgstr ""
-
-msgid "No available token"
 msgstr ""
 
 msgid "Firefly Bridge"

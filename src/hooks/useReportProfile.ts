@@ -1,8 +1,7 @@
 import { t } from '@lingui/macro';
 import { useAsyncFn } from 'react-use';
 
-import { enqueueErrorMessage, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
-import { getSnackbarMessageFromError } from '@/helpers/getSnackbarMessageFromError.js';
+import { enqueueErrorMessage, enqueueMessageFromError, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 
@@ -18,7 +17,7 @@ export function useReportProfile() {
             else enqueueErrorMessage(t`Failed to report @${profile.handle}`);
             return result;
         } catch (error) {
-            enqueueErrorMessage(getSnackbarMessageFromError(error, t`Failed to report @${profile.handle}.`), { error });
+            enqueueMessageFromError(error, t`Failed to report @${profile.handle}.`);
             throw error;
         }
     }, []);

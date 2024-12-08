@@ -3,6 +3,7 @@
 import { t, Trans } from '@lingui/macro';
 import { ChainId } from '@masknet/web3-shared-evm';
 import { type ReactNode, useMemo } from 'react';
+import type { Hex } from 'viem';
 import { useEnsName } from 'wagmi';
 
 import LinkIcon from '@/assets/link-square.svg';
@@ -53,7 +54,7 @@ export function NFTInfo(props: NFTInfoProps) {
     } = props;
     const { data: ensName } = useEnsName({
         chainId: ChainId.Mainnet,
-        address: props.ownerAddress as `0x${string}`,
+        address: props.ownerAddress as Hex,
     });
 
     const collectionUrl = useMemo(() => {

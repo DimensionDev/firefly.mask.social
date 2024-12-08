@@ -28,7 +28,6 @@ import { useCurrentProfileAll } from '@/hooks/useCurrentProfile.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import { useSetEditorContent } from '@/hooks/useSetEditorContent.js';
 import { CrossIsolationMessages } from '@/mask/bindings/index.js';
-import { connectMaskWithWagmi } from '@/mask/helpers/connectWagmiWithMask.js';
 import { ComposeModalRef, ConnectModalRef } from '@/modals/controls.js';
 import { useComposeScheduleStateStore } from '@/store/useComposeScheduleStore.js';
 import { useComposeStateStore } from '@/store/useComposeStore.js';
@@ -43,6 +42,7 @@ export function ComposeActions(props: ComposeActionsProps) {
     const currentProfileAll = useCurrentProfileAll();
     const post = useCompositePost();
     const { type, posts, addPostInThread } = useComposeStateStore();
+
     const { availableSources, images, video, poll, rpPayload } = post;
 
     const { scheduleTime } = useComposeScheduleStateStore();
@@ -57,7 +57,6 @@ export function ComposeActions(props: ComposeActionsProps) {
             return;
         }
 
-        await connectMaskWithWagmi();
         // import dynamically to avoid the start up dependency issue of mask packages
         await import('@/helpers/setupCurrentVisitingProfile.js').then((module) =>
             module.setupCurrentVisitingProfileAsFireflyApp(),

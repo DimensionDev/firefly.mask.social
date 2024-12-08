@@ -16,6 +16,7 @@ import type { SchedulePostModalOpenProps } from '@/modals/SchedulePostModal.js';
 import type { SnackbarCloseProps, SnackbarOpenProps } from '@/modals/Snackbar.js';
 import type { SuperFollowModalOpenProps } from '@/modals/SuperFollowModal.js';
 import type { TipsModalCloseProps, TipsModalOpenProps } from '@/modals/TipsModal.js';
+import type { TokenSelectorModalCloseProps, TokenSelectorModalOpenProps } from '@/modals/TokenSelectorModal.js';
 import type { TransactionSimulatorModalOpenProps } from '@/modals/TransactionSimulatorModal.js';
 
 export const AccountModalRef = new SingletonModal();
@@ -41,6 +42,7 @@ export const AddWalletModalRef = new SingletonModal<AddWalletModalProps, AddWall
 export const SuperFollowModalRef = new SingletonModal<SuperFollowModalOpenProps>();
 export const TransactionSimulatorModalRef = new SingletonModal<TransactionSimulatorModalOpenProps>();
 export const DisconnectFireflyAccountModalRef = new SingletonModal<DisconnectFireflyAccountModalProps>();
+export const TokenSelectorModalRef = new SingletonModal<TokenSelectorModalOpenProps, TokenSelectorModalCloseProps>();
 
 // CZ
 export const ActivityModalRef = new SingletonModal();

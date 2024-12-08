@@ -7,8 +7,7 @@ import { useActivityClaimCondition } from '@/components/Activity/hooks/useActivi
 import { useActivityConnections } from '@/components/Activity/hooks/useActivityConnections.js';
 import type { SocialSource } from '@/constants/enum.js';
 import { EMPTY_LIST } from '@/constants/index.js';
-import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
-import { getSnackbarMessageFromError } from '@/helpers/getSnackbarMessageFromError.js';
+import { enqueueMessageFromError } from '@/helpers/enqueueMessage.js';
 import { AddWalletModalRef } from '@/modals/controls.js';
 import { fireflyBridgeProvider } from '@/providers/firefly/Bridge.js';
 import { captureActivityEvent } from '@/providers/telemetry/captureActivityEvent.js';
@@ -45,7 +44,7 @@ export function useActivityBindAddress(source: SocialSource) {
             }
             await refetch();
         } catch (error) {
-            enqueueErrorMessage(getSnackbarMessageFromError(error, t`Failed to bind address.`), {
+            enqueueMessageFromError(error, t`Failed to bind address.`, {
                 error,
             });
             throw error;

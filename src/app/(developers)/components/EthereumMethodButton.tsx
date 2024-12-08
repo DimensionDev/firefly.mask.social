@@ -2,16 +2,15 @@
 
 import { Trans } from '@lingui/macro';
 import { EthereumMethodType } from '@masknet/web3-shared-evm';
-import { getAccount, getBalance, sendTransaction, signMessage } from '@wagmi/core';
 import { first } from 'lodash-es';
 import { useAsyncFn } from 'react-use';
+import { getAccount, getBalance, sendTransaction, signMessage } from 'wagmi/actions';
 
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { config } from '@/configs/wagmiClient.js';
 import { SITE_DESCRIPTION } from '@/constants/index.js';
-import { enqueueErrorMessage, enqueueInfoMessage } from '@/helpers/enqueueMessage.js';
+import { enqueueErrorMessage, enqueueInfoMessage, enqueueMessageFromError } from '@/helpers/enqueueMessage.js';
 import { formatBalance } from '@/helpers/formatBalance.js';
-import { getSnackbarMessageFromError } from '@/helpers/getSnackbarMessageFromError.js';
 import type { MethodItem } from '@/types/ethereum.js';
 
 interface Props {
@@ -61,9 +60,7 @@ export function EthereumMethodButton({ item }: Props) {
                     break;
             }
         } catch (error) {
-            enqueueErrorMessage(getSnackbarMessageFromError(error, 'Failed to execute method'), {
-                error,
-            });
+            enqueueMessageFromError(error, 'Failed to execute method');
             throw error;
         }
     }, []);

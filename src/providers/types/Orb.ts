@@ -32,6 +32,9 @@ export interface Club {
         profile: ClubMember;
     };
     isMember: boolean;
+    isFreeToJoin: boolean;
+    isRequestToJoin: boolean;
+    joinClubCriteria: string;
 }
 
 export type FetchClubsResponse = OrbResponse<{
