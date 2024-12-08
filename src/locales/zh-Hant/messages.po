@@ -426,9 +426,6 @@ msgstr "按讚留言失敗"
 msgid "Sign in"
 msgstr ""
 
-msgid "<0>Posted</0>an article"
-msgstr "<0>發布</0>一篇文章"
-
 msgid "Scan the QR code with your phone’s <0>Camera</0> in {count}s. <1/>Approve a new Farcaster signer to Firefly."
 msgstr "使用手機<0>相機</0>在 {count} 秒內掃描 QR碼。允許新的 Farcaster 簽名使用 Firefly。"
 
@@ -1646,9 +1643,6 @@ msgstr ""
 msgid "Grant access to your {0} for the Lucky Drop Smart contract. You only have to do this once per token."
 msgstr ""
 
-msgid "VOTED"
-msgstr ""
-
 msgid "Enclose a Message"
 msgstr ""
 
@@ -1704,9 +1698,6 @@ msgstr ""
 
 msgid "Standard"
 msgstr ""
-
-msgid "<0>Revised</0>an article"
-msgstr "<0>校訂</0>一篇文章"
 
 msgid "No darkweb transactions found."
 msgstr ""
@@ -2125,6 +2116,9 @@ msgstr ""
 msgid "Unliked"
 msgstr "已取消喜歡"
 
+msgid "Revised"
+msgstr ""
+
 msgid "Visit mask.io"
 msgstr "訪問 mask.io"
 
@@ -2361,6 +2355,9 @@ msgstr ""
 
 msgid "Show more"
 msgstr "顯示更多"
+
+msgid "an article"
+msgstr ""
 
 msgid "Time Limit"
 msgstr ""
@@ -3110,6 +3107,9 @@ msgid "<0/> and <1>{0} others</1>"
 msgstr ""
 
 msgid "<0>since </0> <1>{0}</1>"
+msgstr ""
+
+msgid "Posted"
 msgstr ""
 
 msgid "{hours}h left"

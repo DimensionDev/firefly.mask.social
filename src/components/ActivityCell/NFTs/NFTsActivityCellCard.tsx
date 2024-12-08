@@ -7,9 +7,6 @@ import dayjs from 'dayjs';
 import { isUndefined } from 'lodash-es';
 import { useMemo } from 'react';
 
-// import BookmarkIcon from '@/assets/bookmark.svg';
-// import { ClickableButton } from '@/components/ClickableButton.js';
-// import { classNames } from '@/helpers/classNames.js';
 import CalendarIcon from '@/assets/calendar.svg';
 import LocationIcon from '@/assets/location.svg';
 import { ChainIcon } from '@/components/NFTDetail/ChainIcon.js';
@@ -63,7 +60,6 @@ export function NFTsActivityCellCard(props: Props) {
     const { data, isLoading } = useNFTDetail(address, tokenId, chainId);
     const metadata = data?.metadata;
     const imageURL = metadata?.previewImageURL || metadata?.imageURL || '';
-    // const [bookmarked, setBookmarked] = useState(false); // TODO
     return (
         <Link href={resolveNftUrl(chainId, address, tokenId)} className="relative flex w-auto shrink-0 flex-col">
             <div className="relative">
@@ -72,6 +68,8 @@ export function NFTsActivityCellCard(props: Props) {
                     className="h-auto max-h-[500px] min-h-[150px] w-[250px] rounded-t-xl bg-lightBg object-cover dark:bg-bg md:w-[300px]"
                     alt="nft-card"
                     fallbackClassName=""
+                    width={200}
+                    height={200}
                 />
                 <div className="absolute bottom-0 left-0 flex max-w-[100%] flex-col space-y-1 px-[15px] pb-3">
                     {action === NFTFeedTransAction.Poap && !isUndefined(data?.metadata?.eventId) ? (
@@ -87,22 +85,7 @@ export function NFTsActivityCellCard(props: Props) {
                 <div className="flex size-8 items-center justify-center rounded-xl bg-black/25">
                     <ChainIcon chainId={chainId} size={24} />
                 </div>
-                {/* <ClickableButton */}
-                {/*     className={classNames( */}
-                {/*         'flex size-8 items-center justify-center rounded-xl bg-black/25 text-white', */}
-                {/*         bookmarked */}
-                {/*             ? 'text-warn' */}
-                {/*             : 'hover:bg-warn/20 hover:text-warn active:bg-black/25 active:text-warn', */}
-                {/*     )} */}
-                {/*     onClick={() => setBookmarked((s) => !s)} */}
-                {/* > */}
-                {/*     <BookmarkIcon */}
-                {/*         fill={bookmarked ? 'rgb(var(--color-warn))' : 'none'} */}
-                {/*         width={20} */}
-                {/*         height={20} */}
-                {/*         className="size-5" */}
-                {/*     /> */}
-                {/* </ClickableButton> */}
+                {/* <NFTsBookmarkButton {...pick(props, 'chainId', 'address', 'tokenId')} /> */}
             </div>
 
             <div className="w-full rounded-b-xl bg-lightBg p-3 text-sm font-bold dark:bg-bg">

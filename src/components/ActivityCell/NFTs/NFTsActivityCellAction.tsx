@@ -34,7 +34,7 @@ interface Props {
     fromAddress?: string;
 }
 
-const tagClassName = 'flex items-center space-x-1 rounded-lg bg-bg px-2 h-6 leading-6 truncate';
+const tagClassName = 'flex items-center space-x-1 rounded-lg bg-bg px-2 h-6 leading-6 truncate cursor-pointer';
 
 function NFTsActivityCellActionCollectionName(props: Pick<Props, 'chainId' | 'address' | 'tokenId'>) {
     const { chainId, address, tokenId } = props;
@@ -49,6 +49,8 @@ function NFTsActivityCellActionCollectionName(props: Pick<Props, 'chainId' | 'ad
                     src={data.collection.iconURL}
                     alt={data.collection.name}
                     className="size-[18px] shrink-0 rounded-[6px]"
+                    width={18}
+                    height={18}
                 />
             ) : null}
             <div className="truncate">{data.collection.name}</div>
@@ -77,7 +79,7 @@ function NFTsActivityCellActionPoapName(props: Pick<Props, 'chainId' | 'address'
 }
 
 export function NFTsActivityCellAction(props: Props) {
-    const { action, toAddress, ownerAddress, fromAddress } = props;
+    const { action, toAddress, ownerAddress, fromAddress, tokenCount } = props;
     switch (action) {
         case NFTFeedTransAction.Mint:
             return (
@@ -86,6 +88,7 @@ export function NFTsActivityCellAction(props: Props) {
                         <Trans>Minted</Trans>
                     </ActivityCellActionTag>
                     <NFTsActivityCellActionCollectionName {...pick(props, 'chainId', 'address', 'tokenId')} />
+                    {tokenCount ? <div className={tagClassName}>× {tokenCount}</div> : null}
                 </ActivityCellAction>
             );
         case NFTFeedTransAction.Transfer:

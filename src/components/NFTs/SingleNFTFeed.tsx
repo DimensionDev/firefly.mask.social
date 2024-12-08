@@ -92,11 +92,13 @@ export const SingleNFTFeed = memo(function SingleNFTFeed({
                         toAddress={tokenList[0].action.toAddress}
                         fromAddress={tokenList[0].action.fromAddress}
                         ownerAddress={tokenList[0].action.ownerAddress}
+                        tokenCount={tokenList.length}
                     />
                     <div className="mt-1.5 flex w-full space-x-3 overflow-x-auto overflow-y-hidden">
                         {tokenList.map(({ id, action, contractAddress }) => {
                             return (
                                 <NFTsActivityCellCard
+                                    key={`${id}-${contractAddress}-${chainId}`}
                                     action={action.action}
                                     address={contractAddress}
                                     chainId={chainId}

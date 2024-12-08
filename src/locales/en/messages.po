@@ -421,9 +421,6 @@ msgstr "Failed to like the comment."
 msgid "Sign in"
 msgstr "Sign in"
 
-msgid "<0>Posted</0>an article"
-msgstr "<0>Posted</0>an article"
-
 msgid "Scan the QR code with your phone’s <0>Camera</0> in {count}s. <1/>Approve a new Farcaster signer to Firefly."
 msgstr "Scan the QR code with your phone’s <0>Camera</0> in {count}s. <1/>Approve a new Farcaster signer to Firefly."
 
@@ -1643,9 +1640,6 @@ msgstr "NFT owner cant bypass the maximum amount of minting specified in the con
 msgid "Grant access to your {0} for the Lucky Drop Smart contract. You only have to do this once per token."
 msgstr "Grant access to your {0} for the Lucky Drop Smart contract. You only have to do this once per token."
 
-msgid "VOTED"
-msgstr "VOTED"
-
 msgid "Enclose a Message"
 msgstr "Enclose a Message"
 
@@ -1703,9 +1697,6 @@ msgstr "{shares, plural, one {Mirror or Quote} other {Mirrors or Quotes}}"
 
 msgid "Standard"
 msgstr "Standard"
-
-msgid "<0>Revised</0>an article"
-msgstr "<0>Revised</0>an article"
 
 msgid "No darkweb transactions found."
 msgstr "No darkweb transactions found."
@@ -2124,6 +2115,9 @@ msgstr "Failed to fetch profiles."
 msgid "Unliked"
 msgstr "Unliked"
 
+msgid "Revised"
+msgstr "Revised"
+
 msgid "Visit mask.io"
 msgstr "Visit mask.io"
 
@@ -2360,6 +2354,9 @@ msgstr "Attendance"
 
 msgid "Show more"
 msgstr "Show more"
+
+msgid "an article"
+msgstr "an article"
 
 msgid "Time Limit"
 msgstr "Time Limit"
@@ -3110,6 +3107,9 @@ msgstr "<0/> and <1>{0} others</1>"
 
 msgid "<0>since </0> <1>{0}</1>"
 msgstr "<0>since </0> <1>{0}</1>"
+
+msgid "Posted"
+msgstr "Posted"
 
 msgid "{hours}h left"
 msgstr "{hours}h left"

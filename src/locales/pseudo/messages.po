@@ -421,9 +421,6 @@ msgstr ""
 msgid "Sign in"
 msgstr ""
 
-msgid "<0>Posted</0>an article"
-msgstr ""
-
 msgid "Scan the QR code with your phone’s <0>Camera</0> in {count}s. <1/>Approve a new Farcaster signer to Firefly."
 msgstr ""
 
@@ -1641,9 +1638,6 @@ msgstr ""
 msgid "Grant access to your {0} for the Lucky Drop Smart contract. You only have to do this once per token."
 msgstr ""
 
-msgid "VOTED"
-msgstr ""
-
 msgid "Enclose a Message"
 msgstr ""
 
@@ -1698,9 +1692,6 @@ msgid "{shares, plural, one {Mirror or Quote} other {Mirrors or Quotes}}"
 msgstr ""
 
 msgid "Standard"
-msgstr ""
-
-msgid "<0>Revised</0>an article"
 msgstr ""
 
 msgid "No darkweb transactions found."
@@ -2120,6 +2111,9 @@ msgstr ""
 msgid "Unliked"
 msgstr ""
 
+msgid "Revised"
+msgstr ""
+
 msgid "Visit mask.io"
 msgstr ""
 
@@ -2355,6 +2349,9 @@ msgid "Attendance"
 msgstr ""
 
 msgid "Show more"
+msgstr ""
+
+msgid "an article"
 msgstr ""
 
 msgid "Time Limit"
@@ -3105,6 +3102,9 @@ msgid "<0/> and <1>{0} others</1>"
 msgstr ""
 
 msgid "<0>since </0> <1>{0}</1>"
+msgstr ""
+
+msgid "Posted"
 msgstr ""
 
 msgid "{hours}h left"

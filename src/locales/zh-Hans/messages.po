@@ -426,9 +426,6 @@ msgstr "点赞失败。"
 msgid "Sign in"
 msgstr "登录"
 
-msgid "<0>Posted</0>an article"
-msgstr "<0>发布了</0>一篇文章"
-
 msgid "Scan the QR code with your phone’s <0>Camera</0> in {count}s. <1/>Approve a new Farcaster signer to Firefly."
 msgstr "使用<0>摄像头</0> 在 {count} 内<1/> 来扫描您的二维码。授权 Farcaster singer 给 Firefly。"
 
@@ -1110,7 +1107,7 @@ msgid "The hidden owner function is not included. If there is a hidden owner, th
 msgstr "未包含隐藏所有者功能。如果存在隐藏所有者，项目所有者可能有能力控制合约。"
 
 msgid "{label} on a proposal"
-msgstr "提案上的 {label}"
+msgstr ""
 
 msgid "Failed to enable signless"
 msgstr "未能启用无签名功能"
@@ -1646,9 +1643,6 @@ msgstr "NFT持有者无法绕过合约中规定的最大铸造数量限制，继
 msgid "Grant access to your {0} for the Lucky Drop Smart contract. You only have to do this once per token."
 msgstr ""
 
-msgid "VOTED"
-msgstr "已投"
-
 msgid "Enclose a Message"
 msgstr ""
 
@@ -1704,9 +1698,6 @@ msgstr "{shares, plural, one {转帖或引用} other {转帖或引用}}"
 
 msgid "Standard"
 msgstr "标准"
-
-msgid "<0>Revised</0>an article"
-msgstr "<0>修改了</0>文章"
 
 msgid "No darkweb transactions found."
 msgstr "未发现暗网交易。"
@@ -2125,6 +2116,9 @@ msgstr "未能获取个人资料。"
 msgid "Unliked"
 msgstr "已取消点赞"
 
+msgid "Revised"
+msgstr ""
+
 msgid "Visit mask.io"
 msgstr "访问 mask.io"
 
@@ -2361,6 +2355,9 @@ msgstr "出席"
 
 msgid "Show more"
 msgstr "显示更多"
+
+msgid "an article"
+msgstr ""
 
 msgid "Time Limit"
 msgstr "时间限制"
@@ -3111,6 +3108,9 @@ msgstr "<0/> 和 <1>{0} 其他的</1>"
 
 msgid "<0>since </0> <1>{0}</1>"
 msgstr "<0>从 </0> <1>{0}</1>"
+
+msgid "Posted"
+msgstr ""
 
 msgid "{hours}h left"
 msgstr "{hours} 小时剩余"
