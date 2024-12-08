@@ -571,11 +571,11 @@ msgstr "{0, plural, one {Follower} other {Followers}}"
 msgid "Mutes"
 msgstr "Mutes"
 
-msgid "Bought"
-msgstr "Bought"
-
 msgid "Failed to bookmark NFT."
 msgstr "Failed to bookmark NFT."
+
+msgid "Bought"
+msgstr "Bought"
 
 msgid "NFTs"
 msgstr "NFTs"

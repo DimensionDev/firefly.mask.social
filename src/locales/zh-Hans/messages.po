@@ -576,10 +576,10 @@ msgstr "{0, plural, one {关注者} other {关注者}}"
 msgid "Mutes"
 msgstr "隐藏"
 
-msgid "Bought"
+msgid "Failed to bookmark NFT."
 msgstr ""
 
-msgid "Failed to bookmark NFT."
+msgid "Bought"
 msgstr ""
 
 msgid "NFTs"

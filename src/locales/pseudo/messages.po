@@ -571,10 +571,10 @@ msgstr ""
 msgid "Mutes"
 msgstr ""
 
-msgid "Bought"
+msgid "Failed to bookmark NFT."
 msgstr ""
 
-msgid "Failed to bookmark NFT."
+msgid "Bought"
 msgstr ""
 
 msgid "NFTs"
