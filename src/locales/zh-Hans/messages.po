@@ -432,9 +432,6 @@ msgstr "点赞失败。"
 msgid "Sign in"
 msgstr "登录"
 
-msgid "<0>Posted</0>an article"
-msgstr "<0>发布了</0>一篇文章"
-
 msgid "Scan the QR code with your phone’s <0>Camera</0> in {count}s. <1/>Approve a new Farcaster signer to Firefly."
 msgstr "使用<0>摄像头</0> 在 {count} 内<1/> 来扫描您的二维码。授权 Farcaster singer 给 Firefly。"
 
@@ -580,6 +577,9 @@ msgid "Mutes"
 msgstr "隐藏"
 
 msgid "Failed to bookmark NFT."
+msgstr ""
+
+msgid "Bought"
 msgstr ""
 
 msgid "NFTs"
@@ -1125,7 +1125,7 @@ msgid "The hidden owner function is not included. If there is a hidden owner, th
 msgstr "未包含隐藏所有者功能。如果存在隐藏所有者，项目所有者可能有能力控制合约。"
 
 msgid "{label} on a proposal"
-msgstr "提案上的 {label}"
+msgstr ""
 
 msgid "Failed to enable signless"
 msgstr "未能启用无签名功能"
@@ -1412,6 +1412,9 @@ msgstr "评论"
 msgid "Only people you mention"
 msgstr "只有你提及的人"
 
+msgid "Burn"
+msgstr ""
+
 msgid "{0} turned in"
 msgstr "{0} 提交了"
 
@@ -1540,6 +1543,9 @@ msgstr "{handleOrEnsOrAddress} 已关注"
 
 msgid "Circulating Supply"
 msgstr "流通总量"
+
+msgid "from <0>{0}</0>"
+msgstr ""
 
 msgid "Post has been deleted"
 msgstr "帖子已被删除"
@@ -1673,9 +1679,6 @@ msgstr "NFT持有者无法绕过合约中规定的最大铸造数量限制，继
 msgid "Grant access to your {0} for the Lucky Drop Smart contract. You only have to do this once per token."
 msgstr ""
 
-msgid "VOTED"
-msgstr "已投"
-
 msgid "Enclose a Message"
 msgstr ""
 
@@ -1723,14 +1726,14 @@ msgstr "描述问题或者提出建议"
 msgid "Cryptocurrency mixer."
 msgstr "加密货币混合器。"
 
+msgid "to <0>{0}</0>"
+msgstr ""
+
 msgid "{shares, plural, one {Mirror or Quote} other {Mirrors or Quotes}}"
 msgstr "{shares, plural, one {转帖或引用} other {转帖或引用}}"
 
 msgid "Standard"
 msgstr "标准"
-
-msgid "<0>Revised</0>an article"
-msgstr "<0>修改了</0>文章"
 
 msgid "No darkweb transactions found."
 msgstr "未发现暗网交易。"
@@ -1957,6 +1960,9 @@ msgstr "合约所有者对购买没有限制。"
 msgid "Financial crime."
 msgstr "金融犯罪。"
 
+msgid "Acquired"
+msgstr ""
+
 msgid "This can’t be undone and you’ll lose your draft."
 msgstr "此操作无法撤销，您将丢失您的草稿。"
 
@@ -2148,6 +2154,9 @@ msgstr "未能获取个人资料。"
 
 msgid "Unliked"
 msgstr "已取消点赞"
+
+msgid "Revised"
+msgstr ""
 
 msgid "Visit mask.io"
 msgstr "访问 mask.io"
@@ -2388,6 +2397,9 @@ msgstr "出席"
 
 msgid "Show more"
 msgstr "显示更多"
+
+msgid "an article"
+msgstr ""
 
 msgid "Time Limit"
 msgstr "时间限制"
@@ -3055,6 +3067,9 @@ msgstr ""
 msgid "Oversupply minting."
 msgstr "超出最大铸造数量。"
 
+msgid "Sold"
+msgstr ""
+
 msgid "Followed <0>@{handle}</0> on {0}"
 msgstr "在 {0} 上关注了 <0>@{handle}</0>"
 
@@ -3135,6 +3150,9 @@ msgstr "<0/> 和 <1>{0} 其他的</1>"
 
 msgid "<0>since </0> <1>{0}</1>"
 msgstr "<0>从 </0> <1>{0}</1>"
+
+msgid "Posted"
+msgstr ""
 
 msgid "{hours}h left"
 msgstr "{hours} 小时剩余"
@@ -3462,6 +3480,9 @@ msgstr "× {0}"
 
 msgid "Blink Validator"
 msgstr "Blink 验证器"
+
+msgid "Minted"
+msgstr ""
 
 msgid "High-signal Filter"
 msgstr "高质量过滤"

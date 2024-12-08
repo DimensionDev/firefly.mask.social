@@ -2,7 +2,7 @@ import { Trans } from '@lingui/macro';
 import { motion } from 'framer-motion';
 import { memo } from 'react';
 
-import VoteIcon from '@/assets/snapshot/vote.svg';
+import { ActivityCellSnapshotAction } from '@/components/ActivityCell/Snapshot/ActivityCellSnapshotAction.js';
 import { CollapsedContent } from '@/components/Posts/CollapsedContent.js';
 import { SingleSnapshotHeader } from '@/components/Snapshot/SingleSnapshotHeader.js';
 import { SnapshotBody } from '@/components/Snapshot/SnapshotBody.js';
@@ -32,21 +32,17 @@ export const SingleSnapshot = memo<SingleSnapshotProps>(function SingleSnapshot(
                 <CollapsedContent className="mt-2 pl-[52px]" authorMuted isQuote={false} />
             ) : (
                 <div className="-mt-2 pl-[52px]">
-                    <div className="flex items-center gap-1 text-medium">
-                        <VoteIcon width={18} height={18} className="min-w-[18px]" />
-                        <span className="shrink-0 whitespace-nowrap font-bold text-main">
-                            <Trans>VOTED</Trans>
-                        </span>
+                    <ActivityCellSnapshotAction>
                         <TextOverflowTooltip
                             className="max-sm:block"
                             placement="top-start"
                             content={<Trans>{label} on a proposal</Trans>}
                         >
-                            <span className="line-clamp-2 text-secondary">
+                            <span>
                                 <Trans>{label} on a proposal</Trans>
                             </span>
                         </TextOverflowTooltip>
-                    </div>
+                    </ActivityCellSnapshotAction>
 
                     {data.proposal ? (
                         <div>

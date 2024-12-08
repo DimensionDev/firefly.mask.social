@@ -427,9 +427,6 @@ msgstr ""
 msgid "Sign in"
 msgstr ""
 
-msgid "<0>Posted</0>an article"
-msgstr ""
-
 msgid "Scan the QR code with your phone’s <0>Camera</0> in {count}s. <1/>Approve a new Farcaster signer to Firefly."
 msgstr ""
 
@@ -575,6 +572,9 @@ msgid "Mutes"
 msgstr ""
 
 msgid "Failed to bookmark NFT."
+msgstr ""
+
+msgid "Bought"
 msgstr ""
 
 msgid "NFTs"
@@ -1407,6 +1407,9 @@ msgstr ""
 msgid "Only people you mention"
 msgstr ""
 
+msgid "Burn"
+msgstr ""
+
 msgid "{0} turned in"
 msgstr ""
 
@@ -1534,6 +1537,9 @@ msgid "{handleOrEnsOrAddress} watched"
 msgstr ""
 
 msgid "Circulating Supply"
+msgstr ""
+
+msgid "from <0>{0}</0>"
 msgstr ""
 
 msgid "Post has been deleted"
@@ -1668,9 +1674,6 @@ msgstr ""
 msgid "Grant access to your {0} for the Lucky Drop Smart contract. You only have to do this once per token."
 msgstr ""
 
-msgid "VOTED"
-msgstr ""
-
 msgid "Enclose a Message"
 msgstr ""
 
@@ -1718,13 +1721,13 @@ msgstr ""
 msgid "Cryptocurrency mixer."
 msgstr ""
 
+msgid "to <0>{0}</0>"
+msgstr ""
+
 msgid "{shares, plural, one {Mirror or Quote} other {Mirrors or Quotes}}"
 msgstr ""
 
 msgid "Standard"
-msgstr ""
-
-msgid "<0>Revised</0>an article"
 msgstr ""
 
 msgid "No darkweb transactions found."
@@ -1952,6 +1955,9 @@ msgstr ""
 msgid "Financial crime."
 msgstr ""
 
+msgid "Acquired"
+msgstr ""
+
 msgid "This can’t be undone and you’ll lose your draft."
 msgstr ""
 
@@ -2142,6 +2148,9 @@ msgid "Failed to fetch profiles."
 msgstr ""
 
 msgid "Unliked"
+msgstr ""
+
+msgid "Revised"
 msgstr ""
 
 msgid "Visit mask.io"
@@ -2382,6 +2391,9 @@ msgid "Attendance"
 msgstr ""
 
 msgid "Show more"
+msgstr ""
+
+msgid "an article"
 msgstr ""
 
 msgid "Time Limit"
@@ -3050,6 +3062,9 @@ msgstr ""
 msgid "Oversupply minting."
 msgstr ""
 
+msgid "Sold"
+msgstr ""
+
 msgid "Followed <0>@{handle}</0> on {0}"
 msgstr ""
 
@@ -3129,6 +3144,9 @@ msgid "<0/> and <1>{0} others</1>"
 msgstr ""
 
 msgid "<0>since </0> <1>{0}</1>"
+msgstr ""
+
+msgid "Posted"
 msgstr ""
 
 msgid "{hours}h left"
@@ -3456,6 +3474,9 @@ msgid "× {0}"
 msgstr ""
 
 msgid "Blink Validator"
+msgstr ""
+
+msgid "Minted"
 msgstr ""
 
 msgid "High-signal Filter"

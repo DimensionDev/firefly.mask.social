@@ -432,9 +432,6 @@ msgstr "按讚留言失敗"
 msgid "Sign in"
 msgstr ""
 
-msgid "<0>Posted</0>an article"
-msgstr "<0>發布</0>一篇文章"
-
 msgid "Scan the QR code with your phone’s <0>Camera</0> in {count}s. <1/>Approve a new Farcaster signer to Firefly."
 msgstr "使用手機<0>相機</0>在 {count} 秒內掃描 QR碼。允許新的 Farcaster 簽名使用 Firefly。"
 
@@ -580,6 +577,9 @@ msgid "Mutes"
 msgstr "靜音"
 
 msgid "Failed to bookmark NFT."
+msgstr ""
+
+msgid "Bought"
 msgstr ""
 
 msgid "NFTs"
@@ -1412,6 +1412,9 @@ msgstr "評論"
 msgid "Only people you mention"
 msgstr "僅限你提及的帳戶"
 
+msgid "Burn"
+msgstr ""
+
 msgid "{0} turned in"
 msgstr ""
 
@@ -1539,6 +1542,9 @@ msgid "{handleOrEnsOrAddress} watched"
 msgstr "{handleOrEnsOrAddress} 觀察了"
 
 msgid "Circulating Supply"
+msgstr ""
+
+msgid "from <0>{0}</0>"
 msgstr ""
 
 msgid "Post has been deleted"
@@ -1673,9 +1679,6 @@ msgstr ""
 msgid "Grant access to your {0} for the Lucky Drop Smart contract. You only have to do this once per token."
 msgstr ""
 
-msgid "VOTED"
-msgstr ""
-
 msgid "Enclose a Message"
 msgstr ""
 
@@ -1723,14 +1726,14 @@ msgstr "描述錯誤或提供改進建議"
 msgid "Cryptocurrency mixer."
 msgstr ""
 
+msgid "to <0>{0}</0>"
+msgstr ""
+
 msgid "{shares, plural, one {Mirror or Quote} other {Mirrors or Quotes}}"
 msgstr ""
 
 msgid "Standard"
 msgstr ""
-
-msgid "<0>Revised</0>an article"
-msgstr "<0>校訂</0>一篇文章"
 
 msgid "No darkweb transactions found."
 msgstr ""
@@ -1957,6 +1960,9 @@ msgstr ""
 msgid "Financial crime."
 msgstr ""
 
+msgid "Acquired"
+msgstr ""
+
 msgid "This can’t be undone and you’ll lose your draft."
 msgstr "該行為無法撤銷，您會失去這份草稿"
 
@@ -2148,6 +2154,9 @@ msgstr ""
 
 msgid "Unliked"
 msgstr "已取消喜歡"
+
+msgid "Revised"
+msgstr ""
 
 msgid "Visit mask.io"
 msgstr "訪問 mask.io"
@@ -2388,6 +2397,9 @@ msgstr ""
 
 msgid "Show more"
 msgstr "顯示更多"
+
+msgid "an article"
+msgstr ""
 
 msgid "Time Limit"
 msgstr ""
@@ -3055,6 +3067,9 @@ msgstr ""
 msgid "Oversupply minting."
 msgstr ""
 
+msgid "Sold"
+msgstr ""
+
 msgid "Followed <0>@{handle}</0> on {0}"
 msgstr ""
 
@@ -3134,6 +3149,9 @@ msgid "<0/> and <1>{0} others</1>"
 msgstr ""
 
 msgid "<0>since </0> <1>{0}</1>"
+msgstr ""
+
+msgid "Posted"
 msgstr ""
 
 msgid "{hours}h left"
@@ -3461,6 +3479,9 @@ msgid "× {0}"
 msgstr ""
 
 msgid "Blink Validator"
+msgstr ""
+
+msgid "Minted"
 msgstr ""
 
 msgid "High-signal Filter"
