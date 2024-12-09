@@ -1,28 +1,32 @@
 import { t } from '@lingui/macro';
 import { useAsyncFn } from 'react-use';
+import { useAccount } from 'wagmi';
 
 import { Source } from '@/constants/enum.js';
-import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
-import { getErrorMessageFromError } from '@/helpers/getSnackbarMessageFromError.js';
+import { ENABLED_DECRYPT_SOURCES } from '@/constants/index.js';
+import { enqueueMessageFromError } from '@/helpers/enqueueMessage.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
+import { ConnectModalRef } from '@/modals/controls.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 
-const ENABLED_DECRYPT_SOURCES = [Source.Lens];
-
 export function useDecryptPost(post: Post) {
+    const account = useAccount();
+
     return useAsyncFn(async () => {
         try {
             if (!ENABLED_DECRYPT_SOURCES.includes(post.source)) return null;
 
+            if (post.source === Source.Lens && !account.address) {
+                ConnectModalRef.open();
+                return null;
+            }
+
             const provider = resolveSocialMediaProvider(post.source);
             return await provider.decryptPost(post);
         } catch (error) {
-            enqueueErrorMessage(
-                getErrorMessageFromError(error, t`Failed to decrypt post on ${resolveSourceName(post.source)}.`),
-                { error },
-            );
+            enqueueMessageFromError(error, t`Failed to decrypt post on ${resolveSourceName(post.source)}.`);
             return null;
         }
-    });
+    }, [account.address, post]);
 }

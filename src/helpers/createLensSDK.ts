@@ -95,7 +95,7 @@ export function createLensGatedSDK(storage: IStorageProvider) {
                 return account.address;
             },
             signMessage: async (message: string) => {
-                return await signMessage(config, { message });
+                return signMessage(config, { message });
             },
         },
     });
