@@ -1,8 +1,11 @@
+import { NetworkPluginID } from '@masknet/shared-base';
 import urlcat from 'urlcat';
 
+import { UnauthorizedError } from '@/constants/error.js';
 import { EMPTY_LIST } from '@/constants/index.js';
 import { bom } from '@/helpers/bom.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
+import { getCurrentProfileAll } from '@/helpers/getCurrentProfile.js';
 import {
     createIndicator,
     createNextIndicator,
@@ -10,6 +13,9 @@ import {
     type Pageable,
     type PageIndicator,
 } from '@/helpers/pageable.js';
+import { resolveSourceInUrl } from '@/helpers/resolveSourceInUrl.js';
+import type { Web3Helper } from '@/maskbook/packages/web3-helpers/src/index.js';
+import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
 import { FireflyRedPacketAPI } from '@/providers/red-packet/types.js';
 import { settings } from '@/settings/index.js';
 
@@ -232,4 +238,47 @@ export class FireflyRedPacket {
             }),
         });
     }
+
+    static async checkGasFreeStatus<T extends NetworkPluginID = NetworkPluginID>(
+        wallet: string,
+        chainId: Web3Helper.Definition[T]['ChainId'],
+    ) {
+        const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/redpacket/checkGasFreeRedPacketClaimStatus', {
+            wallet,
+            chainId,
+        });
+        const { data } = await fetchJSON<
+            FireflyRedPacketAPI.Response<{
+                substituteGasStatus: boolean;
+            }>
+        >(url);
+        return data.substituteGasStatus;
+    }
+
+    static async claimForGasFree(rpid: string, address: string) {
+        const profiles = getCurrentProfileAll();
+        const profile = Object.entries(profiles).find(([, profile]) => profile)?.[1];
+        if (!profile) throw new UnauthorizedError();
+        const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/redpacket/gasFreeClaimRedPacket');
+        const { data } = await fireflySessionHolder.fetchWithSession<
+            FireflyRedPacketAPI.Response<{
+                hash: string;
+            }>
+        >(url, {
+            method: 'POST',
+            body: JSON.stringify({
+                rpid,
+                wallet: {
+                    address,
+                },
+                profile: {
+                    profileId: profile.profileId,
+                    platform: resolveSourceInUrl(profile.source),
+                },
+            }),
+        });
+        return data.hash;
+    }
 }
+
+export const RedPacketAPI = FireflyRedPacket;

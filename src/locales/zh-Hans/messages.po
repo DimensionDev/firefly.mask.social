@@ -2497,6 +2497,9 @@ msgstr "不涉及网络犯罪。"
 msgid "Sent"
 msgstr ""
 
+msgid "No Enough Gas Fe"
+msgstr ""
+
 msgid "Casts + Replies"
 msgstr "帖子+回复"
 
@@ -2931,6 +2934,9 @@ msgstr "发布于 {0} <0>{sendFrom}</0>"
 
 msgid "The contract owner has no restrictions on personal slippage."
 msgstr "合约所有者对个人滑点没有限制。"
+
+msgid "Updating Gas Fee…"
+msgstr ""
 
 msgid "Unmuted @{0} on {sourceName}."
 msgstr "在 {sourceName} 上已取消对 @{0} 的隐藏。"

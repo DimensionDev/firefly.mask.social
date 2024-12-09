@@ -3,7 +3,7 @@
 export { type GeneratedIcon, type GeneratedIconProps, Icons } from '@/maskbook/packages/icons/index.js'
 export { SharedContextProvider } from '@/maskbook/packages/shared/src/index.js';
 export { MaskPostExtraPluginWrapper } from '@/maskbook/packages/shared/src/UI/components/MaskPluginWrapper/index.js';
-export { ActionButton } from '@/maskbook/packages/theme/src/Components/ActionButton/index.js';
+export { ActionButton, type ActionButtonProps } from '@/maskbook/packages/theme/src/Components/ActionButton/index.js';
 export { DialogStackingProvider } from '@/maskbook/packages/theme/src/Components/Dialogs/DialogStack.js';
 export { LoadingBase } from '@/maskbook/packages/theme/src/Components/LoadingBase/index.js';
 export { RadioIndicator } from '@/maskbook/packages/theme/src/Components/RadioIndicator/index.js';

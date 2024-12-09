@@ -2492,6 +2492,9 @@ msgstr ""
 msgid "Sent"
 msgstr ""
 
+msgid "No Enough Gas Fe"
+msgstr ""
+
 msgid "Casts + Replies"
 msgstr ""
 
@@ -2925,6 +2928,9 @@ msgid "Posted via {0} <0>{sendFrom}</0>"
 msgstr ""
 
 msgid "The contract owner has no restrictions on personal slippage."
+msgstr ""
+
+msgid "Updating Gas Fee…"
 msgstr ""
 
 msgid "Unmuted @{0} on {sourceName}."

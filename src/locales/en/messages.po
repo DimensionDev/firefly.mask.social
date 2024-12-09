@@ -2496,6 +2496,9 @@ msgstr "No cybercrime involved."
 msgid "Sent"
 msgstr "Sent"
 
+msgid "No Enough Gas Fe"
+msgstr "No Enough Gas Fe"
+
 msgid "Casts + Replies"
 msgstr "Casts + Replies"
 
@@ -2930,6 +2933,9 @@ msgstr "Posted via {0} <0>{sendFrom}</0>"
 
 msgid "The contract owner has no restrictions on personal slippage."
 msgstr "The contract owner has no restrictions on personal slippage."
+
+msgid "Updating Gas Fee…"
+msgstr "Updating Gas Fee…"
 
 msgid "Unmuted @{0} on {sourceName}."
 msgstr "Unmuted @{0} on {sourceName}."
