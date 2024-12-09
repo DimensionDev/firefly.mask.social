@@ -3,11 +3,15 @@ import { isValidChainId as isValidSolanaChainId } from '@masknet/web3-shared-sol
 
 import { resolveSimpleHashChain } from '@/helpers/resolveSimpleHashChain.js';
 
-export function resolveNFTIdFromAsset(asset: NonFungibleAsset<number, number>) {
-    if (isValidSolanaChainId(asset.chainId)) {
-        return `solana.${asset.address}`;
+export function resolveNFTId(chainId: number, address: string, tokenId: string) {
+    if (isValidSolanaChainId(chainId)) {
+        return `solana.${address}`;
     }
 
-    const chain = resolveSimpleHashChain(asset.chainId) || 'ethereum';
-    return `${chain}.${asset.address}.${asset.tokenId}`;
+    const chain = resolveSimpleHashChain(chainId) || 'ethereum';
+    return `${chain}.${address}.${tokenId}`;
+}
+
+export function resolveNFTIdFromAsset(asset: NonFungibleAsset<number, number>) {
+    return resolveNFTId(asset.chainId, asset.address, asset.tokenId);
 }
