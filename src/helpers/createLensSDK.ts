@@ -1,5 +1,9 @@
 import { type IStorageProvider, LensClient as LensClientSDK, production } from '@lens-protocol/client';
+import { LensClient as LensGatedClientSDK, production as gatedProduction } from '@lens-protocol/client/gated';
+import { ConnectorNotConnectedError } from '@wagmi/core';
+import { getAccount, signMessage } from 'wagmi/actions';
 
+import { config } from '@/configs/wagmiClient.js';
 import { bom } from '@/helpers/bom.js';
 import type { LensSession } from '@/providers/lens/Session.js';
 
@@ -71,4 +75,28 @@ export function createLensSDK(storage: IStorageProvider) {
 export function createLensSDKForSession(storage: IStorageProvider, session: LensSession) {
     setLensCredentials(storage, session);
     return createLensSDK(storage);
+}
+
+export function createLensGatedSDK(storage: IStorageProvider) {
+    return new LensGatedClientSDK({
+        environment: gatedProduction,
+        storage,
+        authentication: {
+            domain: bom.window?.location.hostname || '',
+            uri: bom.window?.location.href || '',
+        },
+        signer: {
+            getAddress: async () => {
+                const account = getAccount(config);
+                if (!account.address) {
+                    throw new ConnectorNotConnectedError();
+                }
+
+                return account.address;
+            },
+            signMessage: async (message: string) => {
+                return await signMessage(config, { message });
+            },
+        },
+    });
 }
