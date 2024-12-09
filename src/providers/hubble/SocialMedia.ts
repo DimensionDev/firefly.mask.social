@@ -641,6 +641,10 @@ class HubbleSocialMedia implements Provider {
     async getPinnedPost(profileId: string): Promise<Post> {
         throw new NotImplementedError();
     }
+
+    async decryptPost(post: Post): Promise<Post> {
+        throw new NotImplementedError();
+    }
 }
 
 export const HubbleSocialMediaProvider = new HubbleSocialMedia();

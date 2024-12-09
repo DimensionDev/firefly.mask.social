@@ -690,6 +690,9 @@ msgstr ""
 msgid "Sanctioned address."
 msgstr ""
 
+msgid "Failed to decrypt post on {0}."
+msgstr ""
+
 msgid "Host"
 msgstr ""
 
@@ -1287,6 +1290,9 @@ msgid "Kamala Harris"
 msgstr ""
 
 msgid "Send telemetry events in debug mode."
+msgstr ""
+
+msgid "Try decrypt"
 msgstr ""
 
 msgid "The chainId mismatch."
@@ -2147,6 +2153,9 @@ msgid "This token is not a gas abuser."
 msgstr ""
 
 msgid "Failed to fetch profiles."
+msgstr ""
+
+msgid "Post is decrypting..."
 msgstr ""
 
 msgid "Unliked"

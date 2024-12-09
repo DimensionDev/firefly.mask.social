@@ -182,6 +182,7 @@ export interface Post {
     canComment?: boolean;
     canMirror?: boolean;
     canAct?: boolean;
+    canDecrypt?: boolean;
     mentions?: Profile[];
     hasMirrored?: boolean;
     hasLiked?: boolean;
@@ -938,4 +939,9 @@ export interface Provider {
      * Get Pinned Post
      */
     getPinnedPost: (profileId: string) => Promise<Post>;
+
+    /**
+     * Decrypt post
+     */
+    decryptPost: (post: Post) => Promise<Post | null>;
 }

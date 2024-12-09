@@ -685,6 +685,9 @@ msgstr "Muted {walletHandle}."
 msgid "Sanctioned address."
 msgstr "Sanctioned address."
 
+msgid "Failed to decrypt post on {0}."
+msgstr "Failed to decrypt post on {0}."
+
 msgid "Host"
 msgstr "Host"
 
@@ -1285,6 +1288,9 @@ msgstr "Kamala Harris"
 
 msgid "Send telemetry events in debug mode."
 msgstr "Send telemetry events in debug mode."
+
+msgid "Try decrypt"
+msgstr "Try decrypt"
 
 msgid "The chainId mismatch."
 msgstr "The chainId mismatch."
@@ -2147,6 +2153,9 @@ msgstr "This token is not a gas abuser."
 
 msgid "Failed to fetch profiles."
 msgstr "Failed to fetch profiles."
+
+msgid "Post is decrypting..."
+msgstr "Post is decrypting..."
 
 msgid "Unliked"
 msgstr "Unliked"

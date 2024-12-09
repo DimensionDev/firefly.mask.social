@@ -395,6 +395,10 @@ class NeynarSocialMedia implements Provider {
     async getPinnedPost(profileId: string): Promise<Post> {
         throw new NotImplementedError();
     }
+
+    async decryptPost(post: Post): Promise<Post> {
+        throw new NotImplementedError();
+    }
 }
 
 export const NeynarSocialMediaProvider = new NeynarSocialMedia();
