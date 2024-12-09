@@ -280,5 +280,3 @@ export class FireflyRedPacket {
         return data.hash;
     }
 }
-
-export const RedPacketAPI = FireflyRedPacket;
