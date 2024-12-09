@@ -687,6 +687,9 @@ msgstr "隐藏 {walletHandle}。"
 msgid "Sanctioned address."
 msgstr "黑名单地址。"
 
+msgid "Failed to decrypt post on {0}."
+msgstr ""
+
 msgid "Host"
 msgstr "主持人"
 
@@ -1285,6 +1288,9 @@ msgstr "卡玛拉·哈里斯"
 
 msgid "Send telemetry events in debug mode."
 msgstr "在调试模式下发送遥测事件。"
+
+msgid "Try decrypt"
+msgstr ""
 
 msgid "The chainId mismatch."
 msgstr "chainId 不匹配"
@@ -2145,6 +2151,9 @@ msgstr "该代币不是一个燃料滥用者。"
 
 msgid "Failed to fetch profiles."
 msgstr "未能获取个人资料。"
+
+msgid "Post is decrypting..."
+msgstr ""
 
 msgid "Unliked"
 msgstr "已取消点赞"
