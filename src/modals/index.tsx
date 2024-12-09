@@ -20,7 +20,7 @@ import { EditProfileModal } from '@/modals/EditProfileModal.js';
 import { EnableSignlessModal } from '@/modals/EnableSignlessModal.js';
 import { LoginModal } from '@/modals/LoginModal/index.js';
 import { LogoutModal } from '@/modals/LogoutModal.js';
-import { NonFungibleCollectionSelectModal } from '@/modals/NonFungibleCollectionSelectModal/index.jsx';
+import { NonFungibleCollectionSelectModal } from '@/modals/NonFungibleCollectionSelectModal/index.js';
 import { PreviewMediaModal } from '@/modals/PreviewMediaModal.js';
 import { RedpacketModal } from '@/modals/RedpacketModal/index.js';
 import { SchedulePostModal } from '@/modals/SchedulePostModal.js';

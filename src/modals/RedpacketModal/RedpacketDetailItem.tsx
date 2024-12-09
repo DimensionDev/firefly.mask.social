@@ -1,4 +1,5 @@
 import { Trans } from '@lingui/macro';
+import { useRouter } from '@tanstack/react-router';
 import dayjs from 'dayjs';
 import { memo } from 'react';
 import urlcat from 'urlcat';
@@ -6,16 +7,15 @@ import urlcat from 'urlcat';
 import { SocialSourceIcon } from '@/components/SocialSourceIcon.js';
 import { FireflyPlatform, NetworkPluginID, type SocialSource } from '@/constants/enum.js';
 import { SITE_URL, SORTED_SOCIAL_SOURCES } from '@/constants/index.js';
+import { Image } from '@/esm/Image.js';
 import { classNames } from '@/helpers/classNames.js';
+import { formatBalance } from '@/helpers/formatBalance.js';
 import { getNetworkDescriptor } from '@/helpers/getNetworkDescriptor.js';
 import { resolveSourceFromFireflyPlatform } from '@/helpers/resolveSource.js';
 import { useChainContext } from '@/hooks/useChainContext.js';
 import { RedpacketAccountItem } from '@/modals/RedpacketModal/RedpacketAccountItem.js';
-import { FireflyRedPacketAPI } from '@/providers/red-packet/types.js';
 import { RedpacketActionButton } from '@/modals/RedpacketModal/RedpacketActionButton.js';
-import { formatBalance } from '@/helpers/formatBalance.js';
-import { TokenIcon } from '@/components/Tips/TokenIcon.js';
-import { Image } from '@/esm/Image.js';
+import { FireflyRedPacketAPI } from '@/providers/red-packet/types.js';
 
 interface HistoryInfo {
     rp_msg: string;
@@ -47,7 +47,6 @@ interface HistoryInfo {
 interface Props {
     history: HistoryInfo;
     isDetail?: boolean;
-    type: FireflyRedPacketAPI.ActionType;
 }
 
 const PlatformButton = memo(function PlatformButton(props: {
@@ -73,7 +72,7 @@ const PlatformButton = memo(function PlatformButton(props: {
 
 export const RedpacketDetailItem = memo<Props>(function RedpacketDetailItem({
     isDetail,
-    type,
+
     history: {
         creator,
         ens_name,
@@ -94,6 +93,7 @@ export const RedpacketDetailItem = memo<Props>(function RedpacketDetailItem({
         token_amounts,
     },
 }) {
+    const { history } = useRouter();
     const { account } = useChainContext();
     const networkDescriptor = getNetworkDescriptor(NetworkPluginID.PLUGIN_EVM, chain_id);
 
@@ -119,7 +119,7 @@ export const RedpacketDetailItem = memo<Props>(function RedpacketDetailItem({
                     <div className="flex justify-between">
                         <div>
                             <div className="flex w-full">
-                                <div className="text-lightTextMain truncate text-[14px] font-bold">
+                                <div className="truncate text-[14px] font-bold text-lightTextMain">
                                     {!rp_msg ? <Trans>Best Wishes!</Trans> : rp_msg}
                                 </div>
                             </div>
@@ -128,7 +128,7 @@ export const RedpacketDetailItem = memo<Props>(function RedpacketDetailItem({
                                     {create_time ? <Trans>Create time:</Trans> : <Trans>Received time:</Trans>}
                                 </div>
                                 <div
-                                    className={classNames('text-lightTextMain truncate', {
+                                    className={classNames('truncate text-lightTextMain', {
                                         hidden: !redpacket_id,
                                     })}
                                 >
@@ -157,11 +157,11 @@ export const RedpacketDetailItem = memo<Props>(function RedpacketDetailItem({
                                 </div>
                             ) : null}
                             {post_on?.length && isDetail ? (
-                                <div className="w-full text-[14px] leading-[18px]">
-                                    <div className="truncate font-bold text-lightSecond">
+                                <div className="flex items-center text-[14px] leading-[18px]">
+                                    <div className="mr-1 text-lightSecond">
                                         <Trans>Post on</Trans>
                                     </div>
-                                    <div className="text-lightTextMain flex">
+                                    <div className="flex text-lightTextMain">
                                         {post_on
                                             ?.sort((a, b) => {
                                                 if (a.platform === b.platform) return 0;
@@ -187,7 +187,6 @@ export const RedpacketDetailItem = memo<Props>(function RedpacketDetailItem({
                                 rpid={redpacket_id}
                                 account={account}
                                 chainId={chain_id}
-                                type={type}
                             />
                         ) : null}
                     </div>
@@ -195,7 +194,7 @@ export const RedpacketDetailItem = memo<Props>(function RedpacketDetailItem({
                     <section className="mt-[15px] flex w-full flex-nowrap items-center justify-between">
                         {claim_numbers || total_numbers ? (
                             <div style={{ display: 'flex', alignItems: 'center' }}>
-                                <div className="text-lightTextMain flex items-center gap-x-[2px] text-[14px]">
+                                <div className="flex items-center gap-x-[2px] text-[14px] text-lightTextMain">
                                     <Trans>
                                         <span className="text-lightSecond">Claimed: </span>
                                         <span>
@@ -228,9 +227,9 @@ export const RedpacketDetailItem = memo<Props>(function RedpacketDetailItem({
                         ) : null}
                         {token_amounts ? (
                             <div style={{ display: 'flex', alignItems: 'center' }}>
-                                <div className="text-lightTextMain flex items-center gap-x-[2px] text-[14px]">
+                                <div className="flex items-center gap-x-[2px] text-[14px] text-lightTextMain">
                                     <span className="text-lightSecond">
-                                        <Trans>ReceivCed</Trans>
+                                        <Trans>Received</Trans>
                                     </span>
                                     {formatBalance(token_amounts, token_decimal, {
                                         significant: 2,
@@ -249,14 +248,22 @@ export const RedpacketDetailItem = memo<Props>(function RedpacketDetailItem({
                                 ) : null}
                             </div>
                         ) : null}
-                        <button
-                            className={'flex cursor-pointer items-center justify-center bg-none p-0 text-xs font-bold'}
-                            onClick={() => {
-                                // handleOpenDetails(redpacket_id);
-                            }}
-                        >
-                            <Trans>More details</Trans>
-                        </button>
+                        {!isDetail ? (
+                            <button
+                                className={
+                                    'z-10 flex cursor-pointer items-center justify-center bg-none p-0 text-xs font-bold text-lightTextMain'
+                                }
+                                onClick={() => {
+                                    history.push(
+                                        urlcat('/detail', {
+                                            rpid: redpacket_id,
+                                        }),
+                                    );
+                                }}
+                            >
+                                <Trans>More details</Trans>
+                            </button>
+                        ) : null}
                     </section>
                 </div>
             </section>

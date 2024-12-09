@@ -12,7 +12,7 @@ import { chains } from '@/configs/wagmiClient.js';
 import { NetworkPluginID } from '@/constants/enum.js';
 import { EMPTY_LIST } from '@/constants/index.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
-import { CollectionItem } from '@/modals/NonFungibleCollectionSelectModal/CollectionItem.jsx';
+import { CollectionItem } from '@/modals/NonFungibleCollectionSelectModal/CollectionItem.js';
 import type { Collection } from '@/modals/NonFungibleCollectionSelectModal/types.js';
 
 interface FungibleTokenSelectPanelProps {

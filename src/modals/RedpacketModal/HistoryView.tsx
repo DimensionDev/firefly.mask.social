@@ -13,9 +13,8 @@ import { FireflyRedPacketAPI } from '@/providers/red-packet/types.js';
 
 function getRedpacketHistoryItem(
     history: FireflyRedPacketAPI.RedPacketClaimedInfo | FireflyRedPacketAPI.RedPacketSentInfo,
-    type: FireflyRedPacketAPI.ActionType,
 ) {
-    return <RedpacketDetailItem type={type} history={history} key={history.redpacket_id} />;
+    return <RedpacketDetailItem history={history} key={history.redpacket_id} />;
 }
 
 export function HistoryView() {
@@ -37,7 +36,6 @@ export function HistoryView() {
         }
         await fetchNextPage();
     }, [fetchNextPage, hasNextPage, isFetching, isFetchingNextPage]);
-    console.log(historiesData);
 
     return (
         <div className="flex flex-1 flex-grow flex-col bg-primaryBottom px-4 py-2">
@@ -59,9 +57,9 @@ export function HistoryView() {
                             Footer: VirtualListFooter,
                         }}
                         className="no-scrollbar box-border h-full min-h-0 flex-1"
-                        listKey={`$${ScrollListKey.RedpacketHistory}`}
+                        listKey={`${ScrollListKey.RedpacketHistory}`}
                         computeItemKey={(index, item) => item.redpacket_id}
-                        itemContent={(index, history) => getRedpacketHistoryItem(history, historyType)}
+                        itemContent={(index, history) => getRedpacketHistoryItem(history)}
                     />
                 ) : (
                     <NoResultsFallback className="h-[478px] justify-center" />

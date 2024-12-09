@@ -23,14 +23,12 @@ export function RootView() {
                     <CloseButton
                         onClick={() => {
                             RedpacketModalRef.close();
-                            // LoginModalRef.close();
                         }}
                     />
                 ) : (
                     <BackButton
                         onClick={() => {
-                            // history.back() is buggy, use .replace() instead.
-                            router.history.replace('/main');
+                            router.history.back();
                         }}
                     />
                 )}

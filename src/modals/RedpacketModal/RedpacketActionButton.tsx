@@ -5,7 +5,6 @@ import { useRefundCallback } from '@/hooks/useRefundCallback.js';
 import { FireflyRedPacketAPI } from '@/providers/red-packet/types.js';
 
 interface Props {
-    type: FireflyRedPacketAPI.ActionType;
     rpid: string;
     account: string;
     redpacketStatus: FireflyRedPacketAPI.RedPacketStatus;
@@ -13,7 +12,7 @@ interface Props {
 }
 
 export function RedpacketActionButton(props: Props) {
-    const { rpid, redpacketStatus, chainId, type } = props;
+    const { rpid, redpacketStatus, chainId } = props;
 
     const statusToTransMap = {
         [FireflyRedPacketAPI.RedPacketStatus.Send]: t`Send`,
@@ -28,10 +27,10 @@ export function RedpacketActionButton(props: Props) {
 
     return (
         <ActionButton
-            className="!bg-lightTextMain h-[32px] !w-[88px] min-w-[88px] !flex-grow-0 px-6 py-2 text-xs !text-lightBottom"
+            className="h-[32px] !w-[88px] min-w-[88px] !flex-grow-0 !bg-lightTextMain px-6 py-2 text-xs !text-lightBottom"
             loading={refundLoading}
             onClick={() => {
-                if (redpacketStatus === FireflyRedPacketAPI.RedPacketStatus.Refunding) refund(type);
+                if (redpacketStatus === FireflyRedPacketAPI.RedPacketStatus.Refunding) refund();
             }}
             disabled={[
                 FireflyRedPacketAPI.RedPacketStatus.Empty,

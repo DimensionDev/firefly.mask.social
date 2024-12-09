@@ -19,6 +19,7 @@ import {
     redpacketCoverTabs,
     redpacketDisplayTabs,
 } from '@/modals/RedpacketModal/RedpacketContext.js';
+import { REQUIREMENT_ICON_MAP, REQUIREMENT_TITLE_MAP } from '@/modals/RedpacketModal/RequirementsView.js';
 import { ShareAccountsPopover } from '@/modals/RedpacketModal/ShareAccountsPopover.js';
 
 export function ConfirmView() {
@@ -34,6 +35,7 @@ export function ConfirmView() {
         shares,
         token,
         totalAmount,
+        rules,
     } = useContext(RedpacketContext);
     const { chainId } = useChainContext();
 
@@ -52,8 +54,6 @@ export function ConfirmView() {
             onlyRemainTwoOrZeroDecimal: true,
         });
     }, [totalAmount, tokenPrice]);
-
-    console.log(priceUSD, tokenPrice, totalAmount, token?.address);
 
     return (
         <>
@@ -139,7 +139,25 @@ export function ConfirmView() {
                     </span>
                 </div>
 
-                {/* TODO: claim requirements */}
+                {rules.length ? (
+                    <div className="flex justify-between text-[14px] font-bold leading-[18px]">
+                        <label>
+                            <Trans>Claim requirements</Trans>
+                        </label>
+                        <div className="flex gap-2 text-secondary">
+                            {rules.map((rule) => {
+                                const Icon = REQUIREMENT_ICON_MAP[rule];
+                                const title = REQUIREMENT_TITLE_MAP[rule];
+
+                                return (
+                                    <Tooltip content={title} placement="top" key={rule}>
+                                        <Icon width={16} height={16} />
+                                    </Tooltip>
+                                );
+                            })}
+                        </div>
+                    </div>
+                ) : null}
 
                 <div className="flex max-w-[568px] gap-x-[6px] rounded-[4px] bg-bg p-3">
                     <InfoIcon width={20} height={20} />

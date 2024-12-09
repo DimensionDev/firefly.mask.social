@@ -38,8 +38,7 @@ import { useDefaultCreateGas } from '@/mask/plugins/red-packet/hooks/useDefaultC
 import { RedpacketContext, redpacketRandomTabs } from '@/modals/RedpacketModal/RedpacketContext.js';
 
 export function MainView() {
-    const router = useRouter();
-    const { history } = router;
+    const { history } = useRouter();
 
     const {
         message,
@@ -225,7 +224,7 @@ export function MainView() {
         setToken(token);
         setTotalAmount(rawTotalAmount);
 
-        history.push('/confirm');
+        history.push('/requirements');
     }, [chainId, isNotEnoughAllowance, redpacketContractAddress, token, originBalance, rawTotalAmount]);
     // #endregion
 

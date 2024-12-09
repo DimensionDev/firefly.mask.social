@@ -8,7 +8,7 @@ import LeftArrowIcon from '@/assets/left-arrow.svg';
 import { Modal } from '@/components/Modal.js';
 import { useSingletonModal } from '@/hooks/useSingletonModal.js';
 import type { SingletonModalRefCreator } from '@/libs/SingletonModal.js';
-import { NonFungibleCollectionSelectPanel } from '@/modals/NonFungibleCollectionSelectModal/FungibleTokenSelectPanel.jsx';
+import { NonFungibleCollectionSelectPanel } from '@/modals/NonFungibleCollectionSelectModal/NoFungibleTokenSelectPanel.js';
 import type { Collection } from '@/modals/NonFungibleCollectionSelectModal/types.js';
 
 export interface NonFungibleCollectionSelectModalOpenProps {

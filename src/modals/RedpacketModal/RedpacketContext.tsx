@@ -1,6 +1,6 @@
 import { Trans } from '@lingui/macro';
-import { type FungibleToken } from '@masknet/web3-shared-base';
-import { type ChainId, SchemaType } from '@masknet/web3-shared-evm';
+import type { FungibleToken, NonFungibleCollection } from '@masknet/web3-shared-base';
+import type { ChainId, SchemaType } from '@masknet/web3-shared-evm';
 import { compact, first, flatten, noop, uniqBy } from 'lodash-es';
 import { createContext, type PropsWithChildren, type ReactNode, useMemo, useState } from 'react';
 import { useAccount, useEnsName } from 'wagmi';
@@ -10,24 +10,29 @@ import { SocialSourceIcon } from '@/components/SocialSourceIcon.js';
 import { EMPTY_LIST, SORTED_SOCIAL_SOURCES } from '@/constants/index.js';
 import { useProfileStoreAll } from '@/hooks/useProfileStore.js';
 import { RED_PACKET_DEFAULT_SHARES } from '@/mask/plugins/red-packet/constants.js';
+import { RequirementType } from '@/mask/plugins/red-packet/types.js';
 
 interface RedpacketContextValue {
     message: string;
     token?: FungibleToken<ChainId, SchemaType>;
-    setToken: (token: FungibleToken<ChainId, SchemaType>) => void;
     randomType: 'random' | 'equal';
-    setRandomType: (tab: 'random' | 'equal') => void;
-    setMessage: (message: string) => void;
     shares: number | '';
-    setShares: (shares: number | '') => void;
     coverType: 'default' | 'custom';
-    setCoverType: (coverType: 'default' | 'custom') => void;
     displayType: 'light' | 'dark';
-    setDisplayType: (displayType: 'light' | 'dark') => void;
     accounts: Array<{ icon: ReactNode; name: string }>;
     shareFrom: string;
-    setShareFrom: (shareFrom: string) => void;
     totalAmount: string;
+    rules: RequirementType[];
+    requireCollection?: NonFungibleCollection<ChainId, SchemaType>;
+    setRequireCollection: (collection: NonFungibleCollection<ChainId, SchemaType> | undefined) => void;
+    setRules: (rules: RequirementType[]) => void;
+    setToken: (token: FungibleToken<ChainId, SchemaType>) => void;
+    setRandomType: (tab: 'random' | 'equal') => void;
+    setMessage: (message: string) => void;
+    setShares: (shares: number | '') => void;
+    setCoverType: (coverType: 'default' | 'custom') => void;
+    setDisplayType: (displayType: 'light' | 'dark') => void;
+    setShareFrom: (shareFrom: string) => void;
     setTotalAmount: (totalAmount: string) => void;
 }
 
@@ -40,6 +45,9 @@ export const initialRedpacketContextValue: RedpacketContextValue = {
     accounts: EMPTY_LIST,
     shareFrom: '',
     totalAmount: '',
+    setRequireCollection: noop,
+    rules: EMPTY_LIST,
+    setRules: noop,
     setShareFrom: noop,
     setRandomType: noop,
     setShares: noop,
@@ -97,6 +105,10 @@ export function RedpacketProvider({ children }: PropsWithChildren) {
     const [displayType, setDisplayType] = useState<'light' | 'dark'>('light');
     const [shareFrom, setShareFrom] = useState<string>('');
     const [totalAmount, setTotalAmount] = useState<string>('');
+    const [rules, setRules] = useState<RequirementType[]>([RequirementType.Follow]);
+    const [requireCollection, setRequireCollection] = useState<
+        NonFungibleCollection<ChainId, SchemaType> | undefined
+    >();
 
     const accounts = useMemo(() => {
         return uniqBy(
@@ -147,8 +159,24 @@ export function RedpacketProvider({ children }: PropsWithChildren) {
             setShareFrom,
             totalAmount,
             setTotalAmount,
+            rules,
+            setRules,
+            requireCollection,
+            setRequireCollection,
         }),
-        [message, shares, randomType, token, coverType, displayType, accounts, shareFrom, totalAmount],
+        [
+            message,
+            shares,
+            randomType,
+            token,
+            coverType,
+            displayType,
+            accounts,
+            shareFrom,
+            totalAmount,
+            rules,
+            requireCollection,
+        ],
     );
 
     return <RedpacketContext.Provider value={ctxValue}>{children}</RedpacketContext.Provider>;
