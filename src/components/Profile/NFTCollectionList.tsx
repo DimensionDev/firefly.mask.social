@@ -8,6 +8,7 @@ import { useMemo } from 'react';
 import { GridListInPage } from '@/components/GridListInPage.js';
 import { ChainIcon } from '@/components/NFTDetail/ChainIcon.js';
 import { NFTImage } from '@/components/NFTImage.js';
+import { BookmarkInIcon } from '@/components/NFTs/BookmarkButton.js';
 import { POAPGridListComponent } from '@/components/Profile/POAPList.js';
 import { EMPTY_LIST } from '@/constants/index.js';
 import { Link } from '@/esm/Link.js';
@@ -45,28 +46,35 @@ function NFTCollectionItem({ collection, onClick }: NFTCollectionItemProps) {
         const name =
             (nftPreview.name ?? nftPreview?.contract?.name) ? `${nftPreview.contract.name} ${displayId}` : displayId;
         return (
-            <Link
-                href={resolveNftUrl(chainId ?? ChainId.Mainnet, nftPreview.contract_address, tokenId || '0')}
-                className="relative flex flex-col rounded-lg bg-bg pb-1 sm:rounded-2xl"
-            >
-                {chainId ? (
-                    <div className="absolute left-1 top-1 z-10">
-                        <ChainIcon chainId={chainId} size={20} />
+            <div className="relative">
+                <Link
+                    href={resolveNftUrl(chainId ?? ChainId.Mainnet, nftPreview.contract_address, tokenId || '0')}
+                    className="relative flex flex-col rounded-lg bg-bg pb-1 sm:rounded-2xl"
+                >
+                    {chainId ? (
+                        <div className="absolute left-1 top-1 z-10">
+                            <ChainIcon chainId={chainId} size={20} />
+                        </div>
+                    ) : null}
+                    <div className="relative aspect-square h-auto w-full overflow-hidden">
+                        <NFTImage
+                            width={500}
+                            height={500}
+                            className="h-full w-full rounded-lg object-cover"
+                            src={nftPreview.previews.image_small_url}
+                            alt="nft_image"
+                        />
                     </div>
-                ) : null}
-                <div className="relative aspect-square h-auto w-full overflow-hidden">
-                    <NFTImage
-                        width={500}
-                        height={500}
-                        className="h-full w-full rounded-lg object-cover"
-                        src={nftPreview.previews.image_small_url}
-                        alt="nft_image"
-                    />
-                </div>
-                <div className="mt-1 line-clamp-2 h-8 w-full px-1 text-center text-xs font-medium leading-4 sm:mt-2 sm:px-2 sm:py-0">
-                    {name}
-                </div>
-            </Link>
+                    <div className="mt-1 line-clamp-2 h-8 w-full px-1 text-center text-xs font-medium leading-4 sm:mt-2 sm:px-2 sm:py-0">
+                        {name}
+                    </div>
+                </Link>
+                <BookmarkInIcon
+                    className="absolute right-1 top-1 z-10"
+                    nftId={nftPreview.nft_id}
+                    ownerAddress={first(nftPreview.owners)?.owner_address}
+                />
+            </div>
         );
     }
 
