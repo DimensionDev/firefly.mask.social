@@ -1,7 +1,9 @@
 'use client';
 
 import { Trans } from '@lingui/macro';
-import { ChainId } from '@masknet/web3-shared-evm';
+import { safeUnreachable } from '@masknet/kit';
+import type { NonFungibleAsset } from '@masknet/web3-shared-base';
+import { ChainId, SchemaType } from '@masknet/web3-shared-evm';
 import { pick } from 'lodash-es';
 
 import AcquiredIcon from '@/assets/acquired.svg';
@@ -36,50 +38,53 @@ interface Props {
 
 const tagClassName = 'flex items-center space-x-1 rounded-lg bg-bg px-2 h-6 leading-6 truncate cursor-pointer';
 
-function NFTsActivityCellActionCollectionName(props: Pick<Props, 'chainId' | 'address' | 'tokenId'>) {
-    const { chainId, address, tokenId } = props;
-    const { data, isLoading } = useNFTDetail(address, tokenId, chainId);
-
-    if (!data?.collection) return null;
+function NFTsActivityCellActionCollectionName({
+    asset,
+    chainId,
+    address,
+}: { asset?: NonFungibleAsset<ChainId, SchemaType> | null } & Pick<Props, 'chainId' | 'address'>) {
+    if (!asset?.collection) return null;
 
     return (
         <Link href={resolveNftUrl(chainId, address)} className={tagClassName}>
-            {data.collection.iconURL ? (
+            {asset.collection.iconURL ? (
                 <Image
-                    src={data.collection.iconURL}
-                    alt={data.collection.name}
+                    src={asset.collection.iconURL}
+                    alt={asset.collection.name}
                     className="size-[18px] shrink-0 rounded-[6px]"
                     width={18}
                     height={18}
                 />
             ) : null}
-            <div className="truncate">{data.collection.name}</div>
+            <div className="truncate">{asset.collection.name}</div>
         </Link>
     );
 }
 
-function NFTsActivityCellActionPoapName(props: Pick<Props, 'chainId' | 'address' | 'tokenId'>) {
-    const { chainId, address, tokenId } = props;
-    const { data, isLoading } = useNFTDetail(address, tokenId, chainId);
-
-    if (!data?.metadata) return null;
+function NFTsActivityCellActionPoapName({
+    asset,
+    chainId,
+    address,
+}: { asset?: NonFungibleAsset<ChainId, SchemaType> | null } & Pick<Props, 'chainId' | 'address'>) {
+    if (!asset?.metadata) return null;
 
     return (
-        <div className={tagClassName}>
-            {data.metadata.imageURL ? (
+        <Link href={resolveNftUrl(chainId, address)} className={tagClassName}>
+            {asset.metadata.imageURL ? (
                 <Image
-                    src={data.metadata.imageURL}
-                    alt={data.metadata.name}
+                    src={asset.metadata.imageURL}
+                    alt={asset.metadata.name}
                     className="size-[18px] shrink-0 rounded-[6px]"
                 />
             ) : null}
-            <div className="truncate">{data.metadata.name}</div>
-        </div>
+            <div className="truncate">{asset.metadata.name}</div>
+        </Link>
     );
 }
 
 export function NFTsActivityCellAction(props: Props) {
-    const { action, toAddress, ownerAddress, fromAddress, tokenCount } = props;
+    const { action, toAddress, ownerAddress, fromAddress, tokenCount, address, chainId, tokenId } = props;
+    const { data, isLoading } = useNFTDetail(address, tokenId, chainId);
     switch (action) {
         case NFTFeedTransAction.Mint:
             return (
@@ -87,23 +92,23 @@ export function NFTsActivityCellAction(props: Props) {
                     <ActivityCellActionTag icon={<MintIcon />}>
                         <Trans>Minted</Trans>
                     </ActivityCellActionTag>
-                    <NFTsActivityCellActionCollectionName {...pick(props, 'chainId', 'address', 'tokenId')} />
+                    <NFTsActivityCellActionCollectionName asset={data} {...pick(props, 'chainId', 'address')} />
                     {tokenCount ? <div className={tagClassName}>× {tokenCount}</div> : null}
                 </ActivityCellAction>
             );
         case NFTFeedTransAction.Transfer:
             const isAcquired = isSameEthereumAddress(toAddress, ownerAddress);
             if (isAcquired) {
-                return (
+                return fromAddress ? (
                     <ActivityCellAction>
-                        <ActivityCellActionTag icon={<AcquiredIcon />}>
-                            <Trans>Acquired</Trans>
-                        </ActivityCellActionTag>
-                        <NFTsActivityCellActionCollectionName {...pick(props, 'chainId', 'address', 'tokenId')} />
-                        {fromAddress ? (
+                        <Trans>
+                            <ActivityCellActionTag icon={<AcquiredIcon />}>
+                                <Trans>Acquired</Trans>
+                            </ActivityCellActionTag>
+                            <NFTsActivityCellActionCollectionName asset={data} {...pick(props, 'chainId', 'address')} />
+                            <span>from</span>
                             <ClickableArea className="whitespace-nowrap">
                                 <Trans>
-                                    from{' '}
                                     <Link
                                         href={resolveProfileUrl(Source.Wallet, fromAddress)}
                                         className="truncate text-highlight hover:underline"
@@ -112,29 +117,43 @@ export function NFTsActivityCellAction(props: Props) {
                                     </Link>
                                 </Trans>
                             </ClickableArea>
-                        ) : null}
+                        </Trans>
+                    </ActivityCellAction>
+                ) : (
+                    <ActivityCellAction>
+                        <ActivityCellActionTag icon={<AcquiredIcon />}>
+                            <Trans>Acquired</Trans>
+                        </ActivityCellActionTag>
+                        <NFTsActivityCellActionCollectionName asset={data} {...pick(props, 'chainId', 'address')} />
                     </ActivityCellAction>
                 );
             }
             return (
                 <ActivityCellAction>
-                    <ActivityCellActionTag icon={<SentIcon />}>
-                        <Trans>Sent</Trans>
-                    </ActivityCellActionTag>
-                    <NFTsActivityCellActionCollectionName {...pick(props, 'chainId', 'address', 'tokenId')} />
                     {toAddress ? (
-                        <ClickableArea className="whitespace-nowrap">
-                            <Trans>
-                                to{' '}
+                        <Trans>
+                            <ActivityCellActionTag icon={<SentIcon />}>
+                                <Trans>Sent</Trans>
+                            </ActivityCellActionTag>
+                            <NFTsActivityCellActionCollectionName asset={data} {...pick(props, 'chainId', 'address')} />
+                            <span>to</span>
+                            <ClickableArea className="whitespace-nowrap">
                                 <Link
                                     href={resolveProfileUrl(Source.Wallet, fromAddress)}
                                     className="truncate text-highlight hover:underline"
                                 >
                                     {formatEthereumAddress(toAddress, 4)}
                                 </Link>
-                            </Trans>
-                        </ClickableArea>
-                    ) : null}
+                            </ClickableArea>
+                        </Trans>
+                    ) : (
+                        <>
+                            <ActivityCellActionTag icon={<SentIcon />}>
+                                <Trans>Sent</Trans>
+                            </ActivityCellActionTag>
+                            <NFTsActivityCellActionCollectionName asset={data} {...pick(props, 'chainId', 'address')} />
+                        </>
+                    )}
                 </ActivityCellAction>
             );
         case NFTFeedTransAction.Burn:
@@ -143,7 +162,7 @@ export function NFTsActivityCellAction(props: Props) {
                     <ActivityCellActionTag icon={<BurnIcon />}>
                         <Trans>Burn</Trans>
                     </ActivityCellActionTag>
-                    <NFTsActivityCellActionCollectionName {...pick(props, 'chainId', 'address', 'tokenId')} />
+                    <NFTsActivityCellActionCollectionName asset={data} {...pick(props, 'chainId', 'address')} />
                 </ActivityCellAction>
             );
         case NFTFeedTransAction.Trade:
@@ -154,7 +173,7 @@ export function NFTsActivityCellAction(props: Props) {
                         <ActivityCellActionTag icon={<BoughtIcon />}>
                             <Trans>Bought</Trans>
                         </ActivityCellActionTag>
-                        <NFTsActivityCellActionCollectionName {...pick(props, 'chainId', 'address', 'tokenId')} />
+                        <NFTsActivityCellActionCollectionName asset={data} {...pick(props, 'chainId', 'address')} />
                     </ActivityCellAction>
                 );
             }
@@ -163,7 +182,7 @@ export function NFTsActivityCellAction(props: Props) {
                     <ActivityCellActionTag icon={<SoldIcon />}>
                         <Trans>Sold</Trans>
                     </ActivityCellActionTag>
-                    <NFTsActivityCellActionCollectionName {...pick(props, 'chainId', 'address', 'tokenId')} />
+                    <NFTsActivityCellActionCollectionName asset={data} {...pick(props, 'chainId', 'address')} />
                 </ActivityCellAction>
             );
         case NFTFeedTransAction.Poap:
@@ -172,10 +191,11 @@ export function NFTsActivityCellAction(props: Props) {
                     <ActivityCellActionTag icon={<MintIcon />}>
                         <Trans>Collect</Trans>
                     </ActivityCellActionTag>
-                    <NFTsActivityCellActionPoapName {...pick(props, 'chainId', 'address', 'tokenId')} />
+                    <NFTsActivityCellActionPoapName asset={data} {...pick(props, 'chainId', 'address')} />
                 </ActivityCellAction>
             );
         default:
+            safeUnreachable(action);
             return null;
     }
 }

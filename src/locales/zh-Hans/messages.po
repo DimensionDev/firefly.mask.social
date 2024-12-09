@@ -576,10 +576,10 @@ msgstr "{0, plural, one {关注者} other {关注者}}"
 msgid "Mutes"
 msgstr "隐藏"
 
-msgid "Bought"
+msgid "Failed to bookmark NFT."
 msgstr ""
 
-msgid "Failed to bookmark NFT."
+msgid "Bought"
 msgstr ""
 
 msgid "NFTs"
@@ -1136,6 +1136,9 @@ msgstr "评论不能为空。"
 msgid "Days"
 msgstr "天"
 
+msgid "<0>Acquired</0><1/><2>from</2><3><4>{0}</4></3>"
+msgstr ""
+
 msgid "Submit a wallet to receive NFT and $ANON"
 msgstr "提交您的钱包以领取您的 NFT 和 $ANON"
 
@@ -1544,9 +1547,6 @@ msgstr "{handleOrEnsOrAddress} 已关注"
 msgid "Circulating Supply"
 msgstr "流通总量"
 
-msgid "from <0>{0}</0>"
-msgstr ""
-
 msgid "Post has been deleted"
 msgstr "帖子已被删除"
 
@@ -1725,9 +1725,6 @@ msgstr "描述问题或者提出建议"
 
 msgid "Cryptocurrency mixer."
 msgstr "加密货币混合器。"
-
-msgid "to <0>{0}</0>"
-msgstr ""
 
 msgid "{shares, plural, one {Mirror or Quote} other {Mirrors or Quotes}}"
 msgstr "{shares, plural, one {转帖或引用} other {转帖或引用}}"
@@ -2398,9 +2395,6 @@ msgstr "出席"
 msgid "Show more"
 msgstr "显示更多"
 
-msgid "an article"
-msgstr ""
-
 msgid "Time Limit"
 msgstr "时间限制"
 
@@ -2736,6 +2730,9 @@ msgstr "收集文章"
 
 msgid "Firefly Wallets"
 msgstr "Firefly 钱包"
+
+msgid "<0>Sent</0><1/><2>to</2><3><4>{0}</4></3>"
+msgstr ""
 
 msgid "Channels"
 msgstr "频道"
@@ -3075,6 +3072,9 @@ msgstr "在 {0} 上关注了 <0>@{handle}</0>"
 
 msgid "View on explorer"
 msgstr "在区块链浏览器查看"
+
+msgid "<0>{name}</0><1>an article</1>"
+msgstr ""
 
 msgid "Already logged in?<0/>Approve the <1>existing Farcaster signer</1> to Firefly or <2>sync</2> through the app"
 msgstr "已经登录？<0/>授权 <1>已经存在的 Farcaster signer</1> 给 Firefly 或者通过应用程序<2>同步</2>"

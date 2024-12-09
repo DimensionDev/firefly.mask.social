@@ -15,10 +15,10 @@ export function ActivityCellArticleAction({ type }: Props) {
     const name = type === ArticleType.Revise ? <Trans>Revised</Trans> : <Trans>Posted</Trans>;
     return (
         <ActivityCellAction>
-            <ActivityCellActionTag icon={<PostedIcon />}>{name}</ActivityCellActionTag>
-            <span>
-                <Trans> an article</Trans>
-            </span>
+            <Trans>
+                <ActivityCellActionTag icon={<PostedIcon />}>{name}</ActivityCellActionTag>
+                <span>an article</span>
+            </Trans>
         </ActivityCellAction>
     );
 }

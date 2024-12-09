@@ -5,7 +5,7 @@ import type { NonFungibleAsset } from '@masknet/web3-shared-base';
 import { ChainId, type SchemaType } from '@masknet/web3-shared-evm';
 import dayjs from 'dayjs';
 import { isUndefined } from 'lodash-es';
-import { useMemo } from 'react';
+import { memo } from 'react';
 
 import CalendarIcon from '@/assets/calendar.svg';
 import LocationIcon from '@/assets/location.svg';
@@ -26,16 +26,14 @@ interface Props {
     action: NFTFeedTransAction;
 }
 
-function PoapTags({ asset }: { asset: NonFungibleAsset<ChainId, SchemaType> }) {
-    const date = useMemo(() => {
-        if (!asset.traits) return null;
-        const startDate = asset.traits?.find((trait) => trait.type === 'startDate');
-        const endDate = asset.traits?.find((trait) => trait.type === 'endDate');
-        if (!startDate || !endDate) return null;
-        // cspell: disable-next-line
-        return `${dayjs(startDate.value).format('MMMDD')}-${dayjs(endDate.value).format('MMMDD')}`;
-    }, [asset.traits]);
-    const city = useMemo(() => asset.traits?.find((trait) => trait.type === 'city')?.value, [asset.traits]);
+const PoapTags = memo(function PoapTags({ asset }: { asset: NonFungibleAsset<ChainId, SchemaType> }) {
+    const startDate = asset.traits?.find((trait) => trait.type === 'startDate');
+    const endDate = asset.traits?.find((trait) => trait.type === 'endDate');
+    const date =
+        startDate && endDate
+            ? `${dayjs(startDate.value).format('MMMDD')}-${dayjs(endDate.value).format('MMMDD')}`
+            : null;
+    const city = asset.traits?.find((trait) => trait.type === 'city')?.value;
 
     return (
         <>
@@ -53,7 +51,7 @@ function PoapTags({ asset }: { asset: NonFungibleAsset<ChainId, SchemaType> }) {
             ) : null}
         </>
     );
-}
+});
 
 export function NFTsActivityCellCard(props: Props) {
     const { address, tokenId, chainId, action } = props;

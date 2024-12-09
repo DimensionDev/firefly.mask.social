@@ -576,10 +576,10 @@ msgstr ""
 msgid "Mutes"
 msgstr ""
 
-msgid "Bought"
+msgid "Failed to bookmark NFT."
 msgstr ""
 
-msgid "Failed to bookmark NFT."
+msgid "Bought"
 msgstr ""
 
 msgid "NFTs"
@@ -1136,6 +1136,9 @@ msgstr ""
 msgid "Days"
 msgstr ""
 
+msgid "<0>Acquired</0><1/><2>from</2><3><4>{0}</4></3>"
+msgstr ""
+
 msgid "Submit a wallet to receive NFT and $ANON"
 msgstr ""
 
@@ -1544,9 +1547,6 @@ msgstr ""
 msgid "Circulating Supply"
 msgstr ""
 
-msgid "from <0>{0}</0>"
-msgstr ""
-
 msgid "Post has been deleted"
 msgstr ""
 
@@ -1724,9 +1724,6 @@ msgid "Describe a bug or suggest an improvement"
 msgstr ""
 
 msgid "Cryptocurrency mixer."
-msgstr ""
-
-msgid "to <0>{0}</0>"
 msgstr ""
 
 msgid "{shares, plural, one {Mirror or Quote} other {Mirrors or Quotes}}"
@@ -2398,9 +2395,6 @@ msgstr ""
 msgid "Show more"
 msgstr ""
 
-msgid "an article"
-msgstr ""
-
 msgid "Time Limit"
 msgstr ""
 
@@ -2735,6 +2729,9 @@ msgid "Collect Article"
 msgstr ""
 
 msgid "Firefly Wallets"
+msgstr ""
+
+msgid "<0>Sent</0><1/><2>to</2><3><4>{0}</4></3>"
 msgstr ""
 
 msgid "Channels"
@@ -3074,6 +3071,9 @@ msgid "Followed <0>@{handle}</0> on {0}"
 msgstr ""
 
 msgid "View on explorer"
+msgstr ""
+
+msgid "<0>{name}</0><1>an article</1>"
 msgstr ""
 
 msgid "Already logged in?<0/>Approve the <1>existing Farcaster signer</1> to Firefly or <2>sync</2> through the app"
