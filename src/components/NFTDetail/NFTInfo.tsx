@@ -129,11 +129,13 @@ export function NFTInfo(props: NFTInfoProps) {
                                     target="_blank"
                                     className="flex items-center text-base font-bold leading-[14px]"
                                 >
-                                    {ensName ? ensName : formatAddress(ownerAddress, 4)}
-                                    <LinkIcon className="ml-1 h-4 w-4 text-secondary" />
+                                    <span className="min-w-0 flex-grow truncate">
+                                        {ensName ? ensName : formatAddress(ownerAddress, 4)}
+                                    </span>
+                                    <LinkIcon className="ml-1 h-4 w-4 shrink-0 text-secondary" />
                                 </Link>
                             ) : (
-                                <div className="text-base font-bold leading-[14px]">
+                                <div className="truncate text-base font-bold leading-[14px]">
                                     {formatAddress(ownerAddress, 4)}
                                 </div>
                             )}

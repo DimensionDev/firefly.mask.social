@@ -101,7 +101,7 @@ function BasePreviewContent(props: BasePreviewContentProps) {
     );
 
     return (
-        <div className="relative w-[300px] overflow-hidden rounded-xl bg-bg text-left">
+        <div className="relative w-[300px] overflow-hidden rounded-xl bg-bg text-left" onClick={stopPropagation}>
             {props.link ? <Link href={props.link}>{content}</Link> : content}
             {props.bookmarkProps ? (
                 <BookmarkInIcon {...props.bookmarkProps} className="absolute right-5 top-[18px]" />

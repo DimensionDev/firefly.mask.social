@@ -52,8 +52,8 @@ export function NotificationSettings({ source }: { source: SocialSource }) {
                     <div className="mr-3 text-sm font-bold leading-[18px]">
                         {
                             {
-                                [Source.Farcaster]: <Trans>Priority Mode</Trans>,
-                                [Source.Lens]: <Trans>High-signal Filter</Trans>,
+                                [Source.Farcaster]: <Trans>Quality Filter</Trans>,
+                                [Source.Lens]: <Trans>Quality Filter</Trans>,
                             }[source]
                         }
                     </div>

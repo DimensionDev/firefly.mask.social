@@ -343,6 +343,9 @@ msgstr "Image Preview"
 msgid "Poll"
 msgstr "Poll"
 
+msgid "Bets"
+msgstr "Bets"
+
 msgid "Scheduled"
 msgstr "Scheduled"
 
@@ -2154,6 +2157,9 @@ msgstr "Unliked"
 msgid "Revised"
 msgstr "Revised"
 
+msgid "Quality Filter"
+msgstr "Quality Filter"
+
 msgid "Visit mask.io"
 msgstr "Visit mask.io"
 
@@ -2258,9 +2264,6 @@ msgstr "No phishing site."
 
 msgid "Followed <0>@{handle}</0> on X before Oct 12,2024, or followed <1>@{farcasterHandle}</1> on Farcaster before Oct 20, 2024"
 msgstr "Followed <0>@{handle}</0> on X before Oct 12,2024, or followed <1>@{farcasterHandle}</1> on Farcaster before Oct 20, 2024"
-
-msgid "Priority Mode"
-msgstr "Priority Mode"
 
 msgid "Connect your wallet to follow"
 msgstr "Connect your wallet to follow"
@@ -3125,9 +3128,6 @@ msgstr "Emoji"
 
 msgid "Failed to report spam NFT."
 msgstr "Failed to report spam NFT."
-
-msgid "Polymarket"
-msgstr "Polymarket"
 
 msgid "Malformed twitter session payload."
 msgstr "Malformed twitter session payload."
