@@ -39,7 +39,6 @@ import { switchChain } from 'wagmi/actions';
 
 import { config } from '@/configs/wagmiClient.js';
 import { createAccount } from '@/helpers/createAccount.js';
-import { formatDebankTokenToFungbileToken } from '@/helpers/formatToken.js';
 import { isSameEthereumAddress } from '@/helpers/isSameAddress.js';
 import { useChainContext } from '@/hooks/useChainContext.js';
 import { ActionButton, Icons, MaskTextField, RadioIndicator } from '@/mask/bindings/components.js';
