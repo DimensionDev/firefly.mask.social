@@ -348,6 +348,9 @@ msgstr ""
 msgid "Poll"
 msgstr "投票"
 
+msgid "Bets"
+msgstr ""
+
 msgid "Scheduled"
 msgstr "已排程"
 
@@ -2149,6 +2152,9 @@ msgstr ""
 msgid "Unliked"
 msgstr "已取消喜歡"
 
+msgid "Quality Filter"
+msgstr ""
+
 msgid "Visit mask.io"
 msgstr "訪問 mask.io"
 
@@ -2252,9 +2258,6 @@ msgid "No phishing site."
 msgstr ""
 
 msgid "Followed <0>@{handle}</0> on X before Oct 12,2024, or followed <1>@{farcasterHandle}</1> on Farcaster before Oct 20, 2024"
-msgstr ""
-
-msgid "Priority Mode"
 msgstr ""
 
 msgid "Connect your wallet to follow"
@@ -3112,9 +3115,6 @@ msgstr ""
 msgid "Failed to report spam NFT."
 msgstr ""
 
-msgid "Polymarket"
-msgstr ""
-
 msgid "Malformed twitter session payload."
 msgstr ""
 
@@ -3461,7 +3461,4 @@ msgid "× {0}"
 msgstr ""
 
 msgid "Blink Validator"
-msgstr ""
-
-msgid "High-signal Filter"
 msgstr ""
