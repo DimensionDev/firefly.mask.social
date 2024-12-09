@@ -101,6 +101,7 @@ export const SingleNFTFeed = memo(function SingleNFTFeed({
                                     key={`${id}-${contractAddress}-${chainId}`}
                                     action={action.action}
                                     address={contractAddress}
+                                    ownerAddress={ownerAddress}
                                     chainId={chainId}
                                     tokenId={id}
                                 />

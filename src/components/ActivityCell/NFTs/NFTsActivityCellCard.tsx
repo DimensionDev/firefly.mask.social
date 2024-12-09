@@ -9,6 +9,7 @@ import { useMemo } from 'react';
 
 import CalendarIcon from '@/assets/calendar.svg';
 import LocationIcon from '@/assets/location.svg';
+import { NFTsBookmarkButton } from '@/components/ActivityCell/NFTs/NFTsBookmarkButton.js';
 import { ChainIcon } from '@/components/NFTDetail/ChainIcon.js';
 import { NFTImage } from '@/components/NFTImage.js';
 import { TokenPrice } from '@/components/TokenPrice.js';
@@ -24,6 +25,7 @@ interface Props {
     tokenId: string;
     chainId: ChainId;
     action: NFTFeedTransAction;
+    ownerAddress: string;
 }
 
 function PoapTags({ asset }: { asset: NonFungibleAsset<ChainId, SchemaType> }) {
@@ -56,55 +58,58 @@ function PoapTags({ asset }: { asset: NonFungibleAsset<ChainId, SchemaType> }) {
 }
 
 export function NFTsActivityCellCard(props: Props) {
-    const { address, tokenId, chainId, action } = props;
+    const { address, tokenId, chainId, action, ownerAddress } = props;
     const { data, isLoading } = useNFTDetail(address, tokenId, chainId);
     const metadata = data?.metadata;
     const imageURL = metadata?.previewImageURL || metadata?.imageURL || '';
     return (
-        <Link href={resolveNftUrl(chainId, address, tokenId)} className="relative flex w-auto shrink-0 flex-col">
-            <div className="relative">
-                <NFTImage
-                    src={imageURL}
-                    className="h-auto max-h-[500px] min-h-[150px] w-[250px] rounded-t-xl bg-lightBg object-cover dark:bg-bg md:w-[300px]"
-                    alt="nft-card"
-                    fallbackClassName=""
-                    width={200}
-                    height={200}
-                />
-                <div className="absolute bottom-0 left-0 flex max-w-[100%] flex-col space-y-1 px-[15px] pb-3">
-                    {action === NFTFeedTransAction.Poap && !isUndefined(data?.metadata?.eventId) ? (
-                        <PoapTags asset={data} />
-                    ) : (
-                        <div className="truncate rounded-lg bg-black/25 p-1.5 text-sm font-bold text-white backdrop-blur-lg">
-                            {data?.metadata?.name || `#${tokenId}`}
-                        </div>
-                    )}
+        <div className="relative">
+            <Link href={resolveNftUrl(chainId, address, tokenId)} className="relative flex w-auto shrink-0 flex-col">
+                <div className="relative">
+                    <NFTImage
+                        src={imageURL}
+                        className="h-auto max-h-[500px] min-h-[150px] w-[250px] rounded-t-xl bg-lightBg object-cover dark:bg-bg md:w-[300px]"
+                        alt="nft-card"
+                        fallbackClassName=""
+                        width={200}
+                        height={200}
+                    />
+                    <div className="absolute bottom-0 left-0 flex max-w-[100%] flex-col space-y-1 px-[15px] pb-3">
+                        {action === NFTFeedTransAction.Poap && !isUndefined(data?.metadata?.eventId) ? (
+                            <PoapTags asset={data} />
+                        ) : (
+                            <div className="truncate rounded-lg bg-black/25 p-1.5 text-sm font-bold text-white backdrop-blur-lg">
+                                {data?.metadata?.name || `#${tokenId}`}
+                            </div>
+                        )}
+                    </div>
                 </div>
-            </div>
-            <div className="absolute left-0 top-0 flex w-full justify-between px-[14px] py-3">
-                <div className="flex size-8 items-center justify-center rounded-xl bg-black/25">
+                <div className="absolute left-[14px] top-3 flex size-8 items-center justify-center rounded-xl bg-black/25">
                     <ChainIcon chainId={chainId} size={24} />
                 </div>
-                {/* <NFTsBookmarkButton {...pick(props, 'chainId', 'address', 'tokenId')} /> */}
+                <div className="w-full rounded-b-xl bg-lightBg p-3 text-sm font-bold dark:bg-bg">
+                    {data?.collection?.floorPrices?.length ? (
+                        <>
+                            {getFloorPrice(data.collection.floorPrices)}
+                            <TokenPrice
+                                value={data.collection.floorPrices[0].value}
+                                symbol={resolveCoinGeckoTokenSymbol(
+                                    data.collection.floorPrices[0].payment_token.symbol,
+                                )}
+                                prefix=" ($"
+                                suffix=")"
+                                decimals={data.collection.floorPrices[0].payment_token.decimals}
+                                target="usd"
+                            />
+                        </>
+                    ) : (
+                        <Trans>Free</Trans>
+                    )}
+                </div>
+            </Link>
+            <div className="absolute right-[14px] top-3">
+                <NFTsBookmarkButton address={address} chainId={chainId} tokenId={tokenId} ownerAddress={ownerAddress} />
             </div>
-
-            <div className="w-full rounded-b-xl bg-lightBg p-3 text-sm font-bold dark:bg-bg">
-                {data?.collection?.floorPrices?.length ? (
-                    <>
-                        {getFloorPrice(data.collection.floorPrices)}
-                        <TokenPrice
-                            value={data.collection.floorPrices[0].value}
-                            symbol={resolveCoinGeckoTokenSymbol(data.collection.floorPrices[0].payment_token.symbol)}
-                            prefix=" ($"
-                            suffix=")"
-                            decimals={data.collection.floorPrices[0].payment_token.decimals}
-                            target="usd"
-                        />
-                    </>
-                ) : (
-                    <Trans>Free</Trans>
-                )}
-            </div>
-        </Link>
+        </div>
     );
 }
