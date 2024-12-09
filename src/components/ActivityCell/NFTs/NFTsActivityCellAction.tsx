@@ -99,32 +99,36 @@ export function NFTsActivityCellAction(props: Props) {
         case NFTFeedTransAction.Transfer:
             const isAcquired = isSameEthereumAddress(toAddress, ownerAddress);
             if (isAcquired) {
-                return fromAddress ? (
+                return (
                     <ActivityCellAction>
-                        <Trans>
-                            <ActivityCellActionTag icon={<AcquiredIcon />}>
-                                <Trans>Acquired</Trans>
-                            </ActivityCellActionTag>
-                            <NFTsActivityCellActionCollectionName asset={data} {...pick(props, 'chainId', 'address')} />
-                            <span>from</span>
-                            <ClickableArea className="whitespace-nowrap">
-                                <Trans>
+                        {fromAddress ? (
+                            <Trans>
+                                <ActivityCellActionTag icon={<AcquiredIcon />}>Acquired</ActivityCellActionTag>
+                                <NFTsActivityCellActionCollectionName
+                                    asset={data}
+                                    {...pick(props, 'chainId', 'address')}
+                                />
+                                <span>from</span>
+                                <ClickableArea className="whitespace-nowrap">
                                     <Link
                                         href={resolveProfileUrl(Source.Wallet, fromAddress)}
                                         className="truncate text-highlight hover:underline"
                                     >
                                         {formatEthereumAddress(fromAddress, 4)}
                                     </Link>
-                                </Trans>
-                            </ClickableArea>
-                        </Trans>
-                    </ActivityCellAction>
-                ) : (
-                    <ActivityCellAction>
-                        <ActivityCellActionTag icon={<AcquiredIcon />}>
-                            <Trans>Acquired</Trans>
-                        </ActivityCellActionTag>
-                        <NFTsActivityCellActionCollectionName asset={data} {...pick(props, 'chainId', 'address')} />
+                                </ClickableArea>
+                            </Trans>
+                        ) : (
+                            <>
+                                <ActivityCellActionTag icon={<AcquiredIcon />}>
+                                    <Trans>Acquired</Trans>
+                                </ActivityCellActionTag>
+                                <NFTsActivityCellActionCollectionName
+                                    asset={data}
+                                    {...pick(props, 'chainId', 'address')}
+                                />
+                            </>
+                        )}
                     </ActivityCellAction>
                 );
             }
@@ -132,9 +136,7 @@ export function NFTsActivityCellAction(props: Props) {
                 <ActivityCellAction>
                     {toAddress ? (
                         <Trans>
-                            <ActivityCellActionTag icon={<SentIcon />}>
-                                <Trans>Sent</Trans>
-                            </ActivityCellActionTag>
+                            <ActivityCellActionTag icon={<SentIcon />}>Sent</ActivityCellActionTag>
                             <NFTsActivityCellActionCollectionName asset={data} {...pick(props, 'chainId', 'address')} />
                             <span>to</span>
                             <ClickableArea className="whitespace-nowrap">

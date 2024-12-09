@@ -2155,10 +2155,10 @@ msgstr "未能获取个人资料。"
 msgid "Unliked"
 msgstr "已取消点赞"
 
-msgid "Revised"
+msgid "Quality Filter"
 msgstr ""
 
-msgid "Quality Filter"
+msgid "Revised"
 msgstr ""
 
 msgid "Visit mask.io"
@@ -3481,5 +3481,5 @@ msgstr "× {0}"
 msgid "Blink Validator"
 msgstr "Blink 验证器"
 
-msgid "High-signal Filter"
-msgstr "高质量过滤"
+msgid "Minted"
+msgstr ""

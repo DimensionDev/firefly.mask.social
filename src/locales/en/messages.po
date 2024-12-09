@@ -2154,11 +2154,11 @@ msgstr "Failed to fetch profiles."
 msgid "Unliked"
 msgstr "Unliked"
 
-msgid "Revised"
-msgstr "Revised"
-
 msgid "Quality Filter"
 msgstr "Quality Filter"
+
+msgid "Revised"
+msgstr "Revised"
 
 msgid "Visit mask.io"
 msgstr "Visit mask.io"
@@ -3482,6 +3482,3 @@ msgstr "Blink Validator"
 
 msgid "Minted"
 msgstr "Minted"
-
-msgid "High-signal Filter"
-msgstr "High-signal Filter"

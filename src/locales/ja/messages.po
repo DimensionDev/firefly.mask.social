@@ -2155,10 +2155,10 @@ msgstr ""
 msgid "Unliked"
 msgstr ""
 
-msgid "Revised"
+msgid "Quality Filter"
 msgstr ""
 
-msgid "Quality Filter"
+msgid "Revised"
 msgstr ""
 
 msgid "Visit mask.io"
