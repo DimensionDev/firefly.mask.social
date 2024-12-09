@@ -33,7 +33,8 @@ const PoapTags = memo(function PoapTags({ asset }: { asset: NonFungibleAsset<Cha
     const endDate = asset.traits?.find((trait) => trait.type === 'endDate');
     const date =
         startDate && endDate
-            ? `${dayjs(startDate.value).format('MMMDD')}-${dayjs(endDate.value).format('MMMDD')}`
+            ? // cspell: disable-next-line
+              `${dayjs(startDate.value).format('MMMDD')}-${dayjs(endDate.value).format('MMMDD')}`
             : null;
     const city = asset.traits?.find((trait) => trait.type === 'city')?.value;
 
