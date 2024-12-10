@@ -25,10 +25,9 @@ import { useIsMyRelatedProfile } from '@/hooks/useIsMyRelatedProfile.js';
 import { useProfileStore } from '@/hooks/useProfileStore.js';
 import { useUpdateParams } from '@/hooks/useUpdateParams.js';
 import { LoginModalRef, LogoutModalRef } from '@/modals/controls.js';
+import type { Account } from '@/providers/types/Account.js';
 import { switchAccount } from '@/services/account.js';
 import { useFireflyIdentityState } from '@/store/useFireflyIdentityStore.js';
-import { useCallback } from 'react';
-import type { Account } from '@/providers/types/Account.js';
 
 interface ProfileSettingsProps {
     source: SocialSource;

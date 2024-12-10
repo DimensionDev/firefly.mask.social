@@ -8,11 +8,11 @@ import { Inter } from 'next/font/google';
 
 import { LayoutBody } from '@/app/layout-body.js';
 import { ErrorBoundary } from '@/components/ErrorBoundary/index.js';
+import { NODE_ENV } from '@/constants/enum.js';
+import { env } from '@/constants/env.js';
 import { Script } from '@/esm/Script.js';
 import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
 import { getFromCookies } from '@/helpers/getFromCookies.js';
-import { env } from '@/constants/env.js';
-import { NODE_ENV } from '@/constants/enum.js';
 
 const inter = Inter({
     subsets: ['latin'],
