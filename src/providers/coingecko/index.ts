@@ -1,4 +1,4 @@
-import { ChainId } from '@masknet/web3-shared-evm';
+import { ChainId, getCoinGeckoConstants, isNativeTokenAddress, isValidAddress } from '@masknet/web3-shared-evm';
 import { uniq, uniqBy } from 'lodash-es';
 import urlcat from 'urlcat';
 
@@ -15,6 +15,7 @@ import type {
     CoinGeckoMemeCoinTrending,
     CoinGeckoPlatform,
     CoinGeckoToken,
+    Price,
 } from '@/providers/types/CoinGecko.js';
 import { type Contract, type Trending, TrendingProvider } from '@/providers/types/Trending.js';
 import type { TokenWithMarket } from '@/services/searchTokens.js';
@@ -45,6 +46,31 @@ export class CoinGecko {
         const url = urlcat(COINGECKO_URL_BASE, '/simple/price', { ids: coinId, vs_currencies: 'usd' });
         const price = await fetchJSON<Record<string, Record<string, number>>>(url);
         return price[coinId]?.usd;
+    }
+
+    static getFungibleTokenPrice(chainId: ChainId, address: string) {
+        const { PLATFORM_ID = '', COIN_ID = '' } = getCoinGeckoConstants(chainId);
+
+        if (isNativeTokenAddress(address) || !isValidAddress(address)) {
+            return CoinGecko.getTokenPrice(COIN_ID);
+        }
+        return CoinGecko.getTokenPriceByAddress(PLATFORM_ID, address);
+    }
+
+    static async getTokenPriceByAddress(platform_id: string, address: string) {
+        const price = await CoinGecko.getTokenPrices(platform_id, [address]);
+        const currencies = price[address.toLowerCase()];
+        return currencies?.usd ? Number(currencies.usd) : undefined;
+    }
+
+    static async getTokenPrices(platform_id: string, contractAddresses: string[]) {
+        const url = urlcat(COINGECKO_URL_BASE, '/simple/token_price/:platform_id', {
+            platform_id,
+            contract_addresses: contractAddresses.join(','),
+            vs_currencies: 'usd',
+        });
+
+        return fetchJSON<Record<string, Price>>(url);
     }
 
     static async getPriceStats(coinId: string, days?: number) {
