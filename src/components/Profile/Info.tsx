@@ -1,4 +1,7 @@
+'use client';
+
 import { Plural, Trans } from '@lingui/macro';
+import { useQuery } from '@tanstack/react-query';
 
 import { Avatar } from '@/components/Avatar.js';
 import { BioMarkup } from '@/components/Markup/BioMarkup.js';
@@ -13,14 +16,25 @@ import { Link } from '@/esm/Link.js';
 import { classNames } from '@/helpers/classNames.js';
 import { nFormatter } from '@/helpers/formatCommentCounts.js';
 import { getLargeTwitterAvatar } from '@/helpers/getLargeTwitterAvatar.js';
+import { resolveFireflyProfileId } from '@/helpers/resolveFireflyProfileId.js';
 import { resolveProfileUrl } from '@/helpers/resolveProfileUrl.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
+import { getProfileById } from '@/services/getProfileById.js';
 
 interface InfoProps {
     profile: Profile;
 }
 
-export function Info({ profile }: InfoProps) {
+export function Info(props: InfoProps) {
+    const handleOrProfileId = resolveFireflyProfileId(props.profile)!;
+    const { data: profile } = useQuery({
+        queryKey: ['profile', props.profile.source, handleOrProfileId],
+        async queryFn() {
+            return (await getProfileById(props.profile.source, handleOrProfileId))!;
+        },
+        initialData: props.profile,
+    });
+
     const profileId = profile.profileId;
 
     const source = profile.source;
