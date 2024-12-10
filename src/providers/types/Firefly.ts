@@ -1,3 +1,5 @@
+import type { NonFungibleAsset } from '@masknet/web3-shared-base';
+import { ChainId, SchemaType } from '@masknet/web3-shared-evm';
 import type { Address, Hex } from 'viem';
 
 import {
@@ -816,6 +818,10 @@ export interface NftPreview {
     extra_metadata: ExtraMetadata;
     hasBookmarked?: boolean;
 }
+
+export type NFTAsset = NonFungibleAsset<ChainId.Mainnet, SchemaType.ERC721> & {
+    hasBookmarked?: boolean;
+};
 
 export interface Collection {
     collection_id: string;

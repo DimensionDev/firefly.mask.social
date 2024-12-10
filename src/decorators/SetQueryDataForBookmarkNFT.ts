@@ -1,11 +1,47 @@
+import { type Draft, produce } from 'immer';
+
 import { queryClient } from '@/configs/queryClient.js';
 import { FireflyPlatform } from '@/constants/enum.js';
+import { resolveNFTIdFromAsset } from '@/helpers/resolveNFTIdFromAsset.js';
 import type { FireflySocialMedia } from '@/providers/firefly/SocialMedia.js';
+import type { Collection, NFTAsset } from '@/providers/types/Firefly.js';
 import type { ClassType } from '@/types/index.js';
 
 const METHODS_BE_OVERRIDDEN = ['bookmarkNFT', 'unbookmarkNFT'] as const;
 
+type PageData<T> = { pages: Array<{ data: T[] }> };
+
+function createUpdater<T>(updater: (item: Draft<T>) => void) {
+    return (old?: PageData<T>) => {
+        if (!old) return old;
+
+        return produce(old, (draft) => {
+            draft.pages.forEach((page) => {
+                page.data.forEach((item) => {
+                    updater(item);
+                });
+            });
+        });
+    };
+}
+
 function toggleBlock(id: string, status: boolean) {
+    queryClient.setQueriesData<PageData<Collection>>(
+        { queryKey: ['nft-collection-list'] },
+        createUpdater<Collection>((collection) => {
+            collection.nftPreviews?.forEach((preview) => {
+                if (preview.nft_id === id) preview.hasBookmarked = status;
+            });
+        }),
+    );
+    queryClient.setQueriesData<PageData<NFTAsset>>(
+        { queryKey: ['poap-list'] },
+        createUpdater<NFTAsset>((item) => {
+            if (resolveNFTIdFromAsset(item) === id) {
+                item.hasBookmarked = status;
+            }
+        }),
+    );
     queryClient.setQueryData(['has-bookmarked', FireflyPlatform.NFTs, id], status);
 }
 
