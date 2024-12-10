@@ -112,9 +112,6 @@ msgstr "Failed to collect article."
 msgid "Hold on! Meet any of the following to unlock a premium collectible:"
 msgstr "Hold on! Meet any of the following to unlock a premium collectible:"
 
-msgid "Remove Bookmark"
-msgstr "Remove Bookmark"
-
 msgid "Communities"
 msgstr "Communities"
 
@@ -1250,9 +1247,6 @@ msgstr "Top Profiles"
 msgid "NFT added to your Bookmarks"
 msgstr "NFT added to your Bookmarks"
 
-msgid "Are you sure you want to remove this NFT from your bookmarks?"
-msgstr "Are you sure you want to remove this NFT from your bookmarks?"
-
 msgid "Executed"
 msgstr "Executed"
 
@@ -2346,6 +2340,9 @@ msgstr "Scan the QR code with your phone’s <0>Camera</0> in {count}s. <1/>Appr
 msgid "This does not appear to be a honeypot."
 msgstr "This does not appear to be a honeypot."
 
+msgid "Are you sure you want to remove this NFT from your bookmark?"
+msgstr "Are you sure you want to remove this NFT from your bookmark?"
+
 msgid "Failed to publish post."
 msgstr "Failed to publish post."
 
@@ -2378,6 +2375,9 @@ msgstr "Recast or Quote"
 
 msgid "Sorry, we are not able to find a wallet for {0}."
 msgstr "Sorry, we are not able to find a wallet for {0}."
+
+msgid "Remove from bookmark"
+msgstr "Remove from bookmark"
 
 msgid "Unwatch"
 msgstr "Unwatch"

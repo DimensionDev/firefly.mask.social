@@ -117,9 +117,6 @@ msgstr "收集文章失败。"
 msgid "Hold on! Meet any of the following to unlock a premium collectible:"
 msgstr "稍等！满足以下任一条件以解锁优质 NFT："
 
-msgid "Remove Bookmark"
-msgstr ""
-
 msgid "Communities"
 msgstr "社区"
 
@@ -1253,9 +1250,6 @@ msgstr "热门用户"
 msgid "NFT added to your Bookmarks"
 msgstr ""
 
-msgid "Are you sure you want to remove this NFT from your bookmarks?"
-msgstr ""
-
 msgid "Executed"
 msgstr "已执行"
 
@@ -2347,6 +2341,9 @@ msgstr "在 {count} 秒内，用手机的 <0>相机</0> 扫描二维码。<1/>�
 msgid "This does not appear to be a honeypot."
 msgstr "这看起来不像是一个陷阱。"
 
+msgid "Are you sure you want to remove this NFT from your bookmark?"
+msgstr ""
+
 msgid "Failed to publish post."
 msgstr "发布帖子失败"
 
@@ -2379,6 +2376,9 @@ msgstr "转发或者引用"
 
 msgid "Sorry, we are not able to find a wallet for {0}."
 msgstr "对不起，我们未找到相关钱包 {0}."
+
+msgid "Remove from bookmark"
+msgstr ""
 
 msgid "Unwatch"
 msgstr "取消关注"
