@@ -12,7 +12,7 @@ import type { EditProfileModalOpenProps } from '@/modals/EditProfileModal.js';
 import type { LoginModalOpenProps } from '@/modals/LoginModal/index.js';
 import type { LogoutModalProps } from '@/modals/LogoutModal.js';
 import type {
-    NonFungibleCollectioinSelectModalCloseProps,
+    NonFungibleCollectionSelectModalCloseProps,
     NonFungibleCollectionSelectModalOpenProps,
 } from '@/modals/NonFungibleCollectionSelectModal/index.jsx';
 import type { PreviewMediaModalOpenProps } from '@/modals/PreviewMediaModal.js';
@@ -51,7 +51,7 @@ export const TokenSelectorModalRef = new SingletonModal<TokenSelectorModalOpenPr
 export const RedpacketModalRef = new SingletonModal<RedpacketModalOpenProps | void>();
 export const NonFungibleTokenCollectionSelectModalRef = new SingletonModal<
     NonFungibleCollectionSelectModalOpenProps,
-    NonFungibleCollectioinSelectModalCloseProps
+    NonFungibleCollectionSelectModalCloseProps
 >();
 
 // CZ

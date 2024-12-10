@@ -15,10 +15,10 @@ export interface NonFungibleCollectionSelectModalOpenProps {
     selected?: NonFungibleCollection<ChainId, SchemaType>;
 }
 
-export type NonFungibleCollectioinSelectModalCloseProps = NonFungibleCollection<ChainId, SchemaType> | null;
+export type NonFungibleCollectionSelectModalCloseProps = NonFungibleCollection<ChainId, SchemaType> | null;
 
 export const NonFungibleCollectionSelectModal = forwardRef<
-    SingletonModalRefCreator<NonFungibleCollectionSelectModalOpenProps, NonFungibleCollectioinSelectModalCloseProps>
+    SingletonModalRefCreator<NonFungibleCollectionSelectModalOpenProps, NonFungibleCollectionSelectModalCloseProps>
 >(function NonFungibleCollectionSelectModal(_, ref) {
     const [props, setProps] = useState<NonFungibleCollectionSelectModalOpenProps>();
 

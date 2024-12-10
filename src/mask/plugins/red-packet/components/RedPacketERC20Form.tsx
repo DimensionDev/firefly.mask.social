@@ -146,7 +146,7 @@ export function RedPacketERC20Form(props: RedPacketFormProps) {
             });
         }
         setToken(picked);
-    }, [token, chainId, account, onChainChange]);
+    }, [token, chainId, account]);
     // #endregion
 
     // #region packet settings

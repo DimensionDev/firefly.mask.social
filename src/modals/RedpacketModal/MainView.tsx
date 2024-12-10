@@ -23,7 +23,7 @@ import { formatBalance } from '@/helpers/formatBalance.js';
 import { getTokenAbiForWagmi } from '@/helpers/getTokenAbiForWagmi.js';
 import { isGreaterThan, isZero, leftShift, multipliedBy, rightShift, ZERO } from '@/helpers/number.js';
 import { waitForEthereumTransaction } from '@/helpers/waitForEthereumTransaction.js';
-import { useAvailableBalance } from '@/hooks/useAvailableBalancec.js';
+import { useAvailableBalance } from '@/hooks/useAvailableBalance.js';
 import { useChainContext } from '@/hooks/useChainContext.js';
 import { useERC20TokenAllowance } from '@/hooks/useERC20Allowance.js';
 import { useNativeTokenPrice } from '@/hooks/useNativeTokenPrice.js';

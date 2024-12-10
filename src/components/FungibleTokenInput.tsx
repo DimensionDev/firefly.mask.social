@@ -10,7 +10,7 @@ import ArrowDown from '@/assets/arrow-down.svg';
 import { TokenIcon } from '@/components/Tips/TokenIcon.js';
 import { NUMERIC_INPUT_REGEXP_PATTERN } from '@/constants/regexp.js';
 import { formatBalance } from '@/helpers/formatBalance.js';
-import { formatDebankTokenToFungbileToken, formatFungbileTokenToDebankToken } from '@/helpers/formatToken.js';
+import { formatFungibleTokenToDebankToken } from '@/helpers/formatToken.js';
 import { isSameEthereumAddress } from '@/helpers/isSameAddress.js';
 import { isZero, leftShift } from '@/helpers/number.js';
 import { TokenSelectorModalRef } from '@/modals/controls.js';
@@ -50,7 +50,7 @@ export const FungibleTokenInput = memo<FungibleTokenInputProps>(function Fungibl
             },
         });
         if (!picked) return;
-        onTokenChange(formatDebankTokenToFungbileToken(picked));
+        onTokenChange(picked);
     }, [account.address, token, onTokenChange]);
 
     const isNativeToken = isNativeTokenAddress(token?.address);
@@ -118,7 +118,7 @@ export const FungibleTokenInput = memo<FungibleTokenInputProps>(function Fungibl
 
                 {token ? (
                     <div className="flex cursor-pointer items-center gap-x-3" onClick={handleTokenChange}>
-                        <TokenIcon token={formatFungbileTokenToDebankToken(token)} />
+                        <TokenIcon token={formatFungibleTokenToDebankToken(token)} />
                         <span className="text-sm font-bold leading-[18px]">{token.symbol}</span>
                         <ArrowDown width={24} height={24} />
                     </div>

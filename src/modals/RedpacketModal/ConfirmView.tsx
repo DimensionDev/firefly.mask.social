@@ -13,7 +13,7 @@ import { Tab, Tabs } from '@/components/Tabs/index.js';
 import { Tooltip } from '@/components/Tooltip.js';
 import { formatAddress } from '@/helpers/formatAddress.js';
 import { useChainContext } from '@/hooks/useChainContext.js';
-import { useFungibleTokenPrice } from '@/hooks/useFungbileTokenPrice.js';
+import { useFungibleTokenPrice } from '@/hooks/useFungibleTokenPrice.js';
 import {
     RedpacketContext,
     redpacketCoverTabs,

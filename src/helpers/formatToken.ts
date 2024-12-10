@@ -4,7 +4,7 @@ import { isAddress } from 'viem';
 
 import type { Token } from '@/providers/types/Transfer.js';
 
-export function formatDebankTokenToFungbileToken(token: Token): FungibleToken<ChainId, SchemaType> {
+export function formatDebankTokenToFungibleToken(token: Token): FungibleToken<ChainId, SchemaType> {
     // it is not a valid address if its native token
     const address = isAddress(token.id) ? token.id : ZERO_ADDRESS;
 
@@ -21,7 +21,7 @@ export function formatDebankTokenToFungbileToken(token: Token): FungibleToken<Ch
     } as FungibleToken<ChainId, SchemaType>;
 }
 
-export function formatFungbileTokenToDebankToken(token: FungibleToken<ChainId, SchemaType>) {
+export function formatFungibleTokenToDebankToken(token: FungibleToken<ChainId, SchemaType>) {
     return {
         name: token.name,
         symbol: token.symbol,

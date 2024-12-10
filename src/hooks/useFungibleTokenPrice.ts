@@ -8,7 +8,7 @@ export function useFungibleTokenPrice(address?: string, override?: ChainContextO
 
     return useQuery({
         enabled: !!address,
-        queryKey: ['fungbile', 'token-price', chainId, address],
+        queryKey: ['fungible', 'token-price', chainId, address],
         queryFn: async () => (address ? CoinGecko.getFungibleTokenPrice(chainId, address) : 0),
     });
 }
