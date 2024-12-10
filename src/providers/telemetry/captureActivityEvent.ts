@@ -1,7 +1,5 @@
 'use client';
 
-import urlcat from 'urlcat';
-
 import { type SocialSource, Source } from '@/constants/enum.js';
 import { UnreachableError } from '@/constants/error.js';
 import { createLookupTableResolver } from '@/helpers/createLookupTableResolver.js';
@@ -11,14 +9,12 @@ import { ReferralAccountPlatform } from '@/helpers/resolveActivityUrl.js';
 import { resolveFireflyResponseData } from '@/helpers/resolveFireflyResponseData.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { fireflyBridgeProvider } from '@/providers/firefly/Bridge.js';
-import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
+import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 import { getAccountEventParameters } from '@/providers/telemetry/captureAccountEvent.js';
 import { getPublicParameters } from '@/providers/telemetry/getPublicParameters.js';
 import { TelemetryProvider } from '@/providers/telemetry/index.js';
 import type { Account } from '@/providers/types/Account.js';
-import type { WalletProfileResponse } from '@/providers/types/Firefly.js';
 import { EventId, type Events } from '@/providers/types/Telemetry.js';
-import { settings } from '@/settings/index.js';
 
 const resolveActivityLoginEventId = createLookupTableResolver<SocialSource, EventId>(
     {
@@ -33,8 +29,7 @@ const resolveActivityLoginEventId = createLookupTableResolver<SocialSource, Even
 
 const getFireflyWalletProfile = memoizePromise(
     async function getFireflyWalletProfile() {
-        const url = urlcat(settings.FIREFLY_ROOT_URL, '/v2/wallet/profile');
-        const response = await fireflySessionHolder.fetchWithSession<WalletProfileResponse>(url);
+        const response = await FireflyEndpointProvider.getAllRelatedProfiles(undefined, true);
         return resolveFireflyResponseData(response);
     },
     () => 'firefly-wallet-profile',
