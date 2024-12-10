@@ -30,7 +30,7 @@ export function Info(props: InfoProps) {
     const { data: profile } = useQuery({
         queryKey: ['profile', props.profile.source, handleOrProfileId],
         async queryFn() {
-            return (await getProfileById(props.profile.source, handleOrProfileId))!;
+            return getProfileById(props.profile.source, handleOrProfileId);
         },
         initialData: props.profile,
     });
