@@ -1310,9 +1310,6 @@ msgstr ""
 msgid "Send telemetry events in debug mode."
 msgstr ""
 
-msgid "Try decrypt"
-msgstr ""
-
 msgid "The chainId mismatch."
 msgstr ""
 
@@ -2647,6 +2644,9 @@ msgstr ""
 msgid "Back"
 msgstr ""
 
+msgid "Decrypt"
+msgstr ""
+
 msgid "Article collected successfully!"
 msgstr ""
 
@@ -3509,6 +3509,9 @@ msgid "Create a post to tell everyone about your participation. Votes can be cha
 msgstr ""
 
 msgid "Hours"
+msgstr ""
+
+msgid "Post decrypted successfully!"
 msgstr ""
 
 msgid "Logging out will cause scheduled posts to fail. To ensure that posts are sent as scheduled, please make sure that your Firefly account remains logged in."
