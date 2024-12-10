@@ -12,7 +12,7 @@ export const resolveSourceName = createLookupTableResolver<Source, string>(
         [Source.Wallet]: 'Wallets',
         [Source.NFTs]: 'NFTs',
         [Source.DAOs]: 'DAOs',
-        [Source.Polymarket]: 'Polymarket',
+        [Source.Polymarket]: 'Bets',
         [Source.Telegram]: 'Telegram',
         [Source.Google]: 'Google',
         [Source.Apple]: 'Apple',
