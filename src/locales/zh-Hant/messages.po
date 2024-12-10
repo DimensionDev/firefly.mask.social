@@ -123,9 +123,6 @@ msgstr ""
 msgid "Hold on! Meet any of the following to unlock a premium collectible:"
 msgstr ""
 
-msgid "Remove Bookmark"
-msgstr ""
-
 msgid "Communities"
 msgstr "社群"
 
@@ -1277,9 +1274,6 @@ msgstr ""
 msgid "NFT added to your Bookmarks"
 msgstr ""
 
-msgid "Are you sure you want to remove this NFT from your bookmarks?"
-msgstr ""
-
 msgid "Executed"
 msgstr ""
 
@@ -2392,6 +2386,9 @@ msgstr ""
 msgid "This does not appear to be a honeypot."
 msgstr ""
 
+msgid "Are you sure you want to remove this NFT from your bookmark?"
+msgstr ""
+
 msgid "Failed to publish post."
 msgstr "發布貼文失敗"
 
@@ -2423,6 +2420,9 @@ msgid "Recast or Quote"
 msgstr "引用"
 
 msgid "Sorry, we are not able to find a wallet for {0}."
+msgstr ""
+
+msgid "Remove from bookmark"
 msgstr ""
 
 msgid "Unwatch"

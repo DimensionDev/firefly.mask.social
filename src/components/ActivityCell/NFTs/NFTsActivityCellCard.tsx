@@ -9,13 +9,14 @@ import { memo } from 'react';
 
 import CalendarIcon from '@/assets/calendar.svg';
 import LocationIcon from '@/assets/location.svg';
-import { NFTsBookmarkButton } from '@/components/ActivityCell/NFTs/NFTsBookmarkButton.js';
 import { ChainIcon } from '@/components/NFTDetail/ChainIcon.js';
 import { NFTImage } from '@/components/NFTImage.js';
+import { BookmarkInIcon } from '@/components/NFTs/BookmarkButton.js';
 import { TokenPrice } from '@/components/TokenPrice.js';
 import { Link } from '@/esm/Link.js';
 import { getFloorPrice } from '@/helpers/getFloorPrice.js';
 import { resolveCoinGeckoTokenSymbol } from '@/helpers/resolveCoinGeckoTokenSymbol.js';
+import { resolveNFTId } from '@/helpers/resolveNFTIdFromAsset.js';
 import { resolveNftUrl } from '@/helpers/resolveNftUrl.js';
 import { useNFTDetail } from '@/hooks/useNFTDetail.js';
 import { NFTFeedTransAction } from '@/providers/types/NFTs.js';
@@ -107,7 +108,7 @@ export function NFTsActivityCellCard(props: Props) {
                 </div>
             </Link>
             <div className="absolute right-[14px] top-3">
-                <NFTsBookmarkButton address={address} chainId={chainId} tokenId={tokenId} ownerAddress={ownerAddress} />
+                <BookmarkInIcon nftId={resolveNFTId(chainId, address, tokenId)} ownerAddress={ownerAddress} />
             </div>
         </div>
     );
