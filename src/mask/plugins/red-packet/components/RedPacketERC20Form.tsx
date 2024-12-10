@@ -112,7 +112,6 @@ interface RedPacketFormProps {
     onNext: () => void;
     onGasOptionChange?: (config: GasConfig) => void;
     onChange(settings: RedPacketSettings): void;
-    onChainChange(newChainId: ChainId): void;
 }
 
 export function RedPacketERC20Form(props: RedPacketFormProps) {

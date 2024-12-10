@@ -1,7 +1,7 @@
 import { DialogTitle } from '@headlessui/react';
 import { Trans } from '@lingui/macro';
-import { type FungibleToken, TokenType } from '@masknet/web3-shared-base';
-import { ChainId, SchemaType, ZERO_ADDRESS } from '@masknet/web3-shared-evm';
+import { type FungibleToken } from '@masknet/web3-shared-base';
+import { ChainId, SchemaType } from '@masknet/web3-shared-evm';
 import { forwardRef, useState } from 'react';
 import { useAccount } from 'wagmi';
 
@@ -9,28 +9,11 @@ import LeftArrowIcon from '@/assets/left-arrow.svg';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { Modal } from '@/components/Modal.js';
 import { SearchTokenPanel } from '@/components/Search/SearchTokenPanel.js';
+import { formatDebankTokenToFungibleToken } from '@/helpers/formatToken.js';
 import { useSingletonModal } from '@/hooks/useSingletonModal.js';
 import type { SingletonModalRefCreator } from '@/libs/SingletonModal.js';
 import { ConnectModalRef } from '@/modals/controls.js';
 import type { Token } from '@/providers/types/Transfer.js';
-
-function formatDebankToken(token: Token): FungibleToken<ChainId, SchemaType> {
-    // it is not a valid address if its native token
-    const address = isAddress(token.id) ? token.id : ZERO_ADDRESS;
-
-    return {
-        amount: token.raw_amount_hex_str,
-        name: token.name,
-        symbol: token.symbol,
-        decimals: token.decimals,
-        logoURL: token.logo_url,
-        id: address,
-        chainId: token.chainId,
-        type: TokenType.Fungible,
-        schema: SchemaType.ERC20,
-        address,
-    } as FungibleToken<ChainId, SchemaType>;
-}
 
 export interface TokenSelectorModalOpenProps {
     address: string;
@@ -75,7 +58,7 @@ export const TokenSelectorModal = forwardRef<
                         <SearchTokenPanel
                             address={props.address}
                             isSelected={props.isSelected}
-                            onSelected={(token) => dispatch?.close(token)}
+                            onSelected={(token) => dispatch?.close(formatDebankTokenToFungibleToken(token))}
                         />
                     ) : (
                         <div className="flex h-full w-full items-center justify-center">
