@@ -528,6 +528,17 @@ export interface WalletProfiles {
     fireflyAccountId?: string;
 }
 
+export type PlatformIdentityKey =
+    | 'twitterId'
+    | 'twitterHandle'
+    | 'walletAddress'
+    | 'lensHandle'
+    | 'farcasterUsername'
+    | 'fid'
+    | 'lensProfileId'
+    | 'ens'
+    | 'solanaAddress';
+
 export type WalletProfileResponse = Response<WalletProfiles>;
 
 export interface FireflyProfile {
