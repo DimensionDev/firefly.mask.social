@@ -29,7 +29,6 @@ export function useClaimCallback(account: string, payload: RedPacketJSONPayload 
             const hash = await FireflyRedPacket.claimForGasFree(rpid, account);
             return hash;
         }
-        debugger;
         const { data: signedMsg } = await refetch();
         if (!signedMsg) return;
         const config = {
