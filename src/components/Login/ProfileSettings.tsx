@@ -107,7 +107,7 @@ export function ProfileSettings({ source, onClose }: ProfileSettingsProps) {
                 {source !== Source.Twitter ? (
                     <ClickableButton
                         className="flex h-6 w-full items-center whitespace-nowrap rounded leading-6 text-main"
-                        onClick={async () => {
+                        onClick={() => {
                             LoginModalRef.open({ source });
                             onClose?.();
                         }}

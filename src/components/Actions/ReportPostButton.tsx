@@ -33,9 +33,9 @@ export const ReportPostButton = forwardRef<HTMLButtonElement, Props>(function Re
                 });
                 if (!confirmed || !onReport) return;
                 const result = await onReport(post);
-                if (result === false) {
-                    enqueueErrorMessage(t`Failed to submit report on ${post.source}`);
-                }
+                if (result) return;
+
+                enqueueErrorMessage(t`Failed to submit report on ${post.source}`);
             }}
             ref={ref}
         >

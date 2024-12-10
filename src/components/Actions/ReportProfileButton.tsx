@@ -36,9 +36,8 @@ export const ReportProfileButton = forwardRef<HTMLButtonElement, Props>(function
                 onConfirm?.();
                 if (!onReport) return;
                 const result = await onReport(profile);
-                if (result === false) {
-                    enqueueErrorMessage(t`Failed to report @${profile.handle}`);
-                }
+                if (result) return;
+                enqueueErrorMessage(t`Failed to report @${profile.handle}`);
             }}
             ref={ref}
         >
