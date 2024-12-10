@@ -9,7 +9,7 @@ export function useCheckSponsorableGasFee<T extends NetworkPluginID>(
     walletAddress?: string,
 ) {
     return useQuery({
-        queryKey: ['sponsorable-gas-fee', walletAddress, chainId],
+        queryKey: ['firefly-red-packet-sponsorable-gas-fee', walletAddress, chainId],
         queryFn() {
             if (!walletAddress || !chainId) return false;
             return FireflyRedPacket.checkGasFreeStatus(walletAddress, chainId);
