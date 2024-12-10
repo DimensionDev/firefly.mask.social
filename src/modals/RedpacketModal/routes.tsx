@@ -74,4 +74,3 @@ export const routeTree = rootRoute.addChildren([
     requirementsRoute,
     historyDetailRoute,
 ]);
-console.log(routeTree);
