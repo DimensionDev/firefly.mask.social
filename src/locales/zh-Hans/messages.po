@@ -117,6 +117,9 @@ msgstr "隐藏 /{0}"
 msgid "Blackmail activities."
 msgstr "勒索行为。"
 
+msgid "Template"
+msgstr ""
+
 msgid "Failed to collect article."
 msgstr "收集文章失败。"
 
@@ -239,9 +242,6 @@ msgstr "<0>加密货币生命周期存在的最大发行数量。它与股票市
 
 msgid "This token is a gas abuser."
 msgstr "该通证是一个燃料滥用者。"
-
-msgid "Light"
-msgstr ""
 
 msgid "Are you sure you want to leave /{0} ?"
 msgstr ""
@@ -612,6 +612,9 @@ msgstr "铸造功能是透明的或不存在的。隐藏的铸造功能可能会
 msgid "Honeypot related address."
 msgstr "可能是钓鱼地址。"
 
+msgid "Custom"
+msgstr ""
+
 msgid "Select NFT collection to gate access"
 msgstr ""
 
@@ -620,9 +623,6 @@ msgstr "密码"
 
 msgid "Liked"
 msgstr "已点赞"
-
-msgid "Check out my LuckyDrop 🧧💰✨ on Firefly mobile app or {promoteLink} !"
-msgstr "在 Firefly 移动端或者 {promoteLink} 打开我的红包🧧💰✨ ！"
 
 msgid "Token ID"
 msgstr "通证 ID"
@@ -1249,9 +1249,6 @@ msgstr "<0>价格</0><1>${0}</1><2/>{1}"
 
 msgid "Collected"
 msgstr "已收藏"
-
-msgid "Upload custom cover"
-msgstr ""
 
 msgid "Try again"
 msgstr "请重试"
@@ -2326,6 +2323,9 @@ msgstr "免费收集"
 msgid "Delete"
 msgstr "删除"
 
+msgid "Check out my LuckyDrop 🧧💰✨ on Firefly mobile app or desktop {promoteLink} !"
+msgstr ""
+
 msgid "The content of this account is currently unavailable"
 msgstr "无法获取这个账户的内容"
 
@@ -3031,9 +3031,6 @@ msgstr "正在连接钱包"
 msgid "{minutes}m left"
 msgstr "{minutes} 分钟剩余"
 
-msgid "Dark"
-msgstr ""
-
 msgid "Signature Request"
 msgstr "签名请求"
 
@@ -3564,3 +3561,6 @@ msgstr "× {0}"
 
 msgid "Blink Validator"
 msgstr "Blink 验证器"
+
+msgid "Golden"
+msgstr ""

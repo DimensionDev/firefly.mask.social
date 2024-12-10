@@ -117,6 +117,9 @@ msgstr "將 @{0} 靜音"
 msgid "Blackmail activities."
 msgstr ""
 
+msgid "Template"
+msgstr ""
+
 msgid "Failed to collect article."
 msgstr ""
 
@@ -238,9 +241,6 @@ msgid "<0>The maximum number of coins coded to exist in the lifetime of the cryp
 msgstr ""
 
 msgid "This token is a gas abuser."
-msgstr ""
-
-msgid "Light"
 msgstr ""
 
 msgid "Are you sure you want to leave /{0} ?"
@@ -612,6 +612,9 @@ msgstr ""
 msgid "Honeypot related address."
 msgstr ""
 
+msgid "Custom"
+msgstr ""
+
 msgid "Select NFT collection to gate access"
 msgstr ""
 
@@ -620,9 +623,6 @@ msgstr "密碼"
 
 msgid "Liked"
 msgstr "已喜歡"
-
-msgid "Check out my LuckyDrop 🧧💰✨ on Firefly mobile app or {promoteLink} !"
-msgstr ""
 
 msgid "Token ID"
 msgstr ""
@@ -1248,9 +1248,6 @@ msgid "<0>Price</0><1>${0}</1><2/>{1}"
 msgstr ""
 
 msgid "Collected"
-msgstr ""
-
-msgid "Upload custom cover"
 msgstr ""
 
 msgid "Try again"
@@ -2326,6 +2323,9 @@ msgstr ""
 msgid "Delete"
 msgstr "刪除"
 
+msgid "Check out my LuckyDrop 🧧💰✨ on Firefly mobile app or desktop {promoteLink} !"
+msgstr ""
+
 msgid "The content of this account is currently unavailable"
 msgstr "該帳戶的內容目前不可見"
 
@@ -3031,9 +3031,6 @@ msgstr ""
 msgid "{minutes}m left"
 msgstr ""
 
-msgid "Dark"
-msgstr ""
-
 msgid "Signature Request"
 msgstr ""
 
@@ -3563,4 +3560,7 @@ msgid "× {0}"
 msgstr ""
 
 msgid "Blink Validator"
+msgstr ""
+
+msgid "Golden"
 msgstr ""

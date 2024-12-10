@@ -112,6 +112,9 @@ msgstr "Mute /{0}"
 msgid "Blackmail activities."
 msgstr "Blackmail activities."
 
+msgid "Template"
+msgstr "Template"
+
 msgid "Failed to collect article."
 msgstr "Failed to collect article."
 
@@ -234,9 +237,6 @@ msgstr "<0>The maximum number of coins coded to exist in the lifetime of the cry
 
 msgid "This token is a gas abuser."
 msgstr "This token is a gas abuser."
-
-msgid "Light"
-msgstr "Light"
 
 msgid "Are you sure you want to leave /{0} ?"
 msgstr "Are you sure you want to leave /{0} ?"
@@ -607,6 +607,9 @@ msgstr "Mint function is transparent or non-existent. Hidden mint functions may 
 msgid "Honeypot related address."
 msgstr "Honeypot related address."
 
+msgid "Custom"
+msgstr "Custom"
+
 msgid "Select NFT collection to gate access"
 msgstr "Select NFT collection to gate access"
 
@@ -615,9 +618,6 @@ msgstr "Password"
 
 msgid "Liked"
 msgstr "Liked"
-
-msgid "Check out my LuckyDrop 🧧💰✨ on Firefly mobile app or {promoteLink} !"
-msgstr "Check out my LuckyDrop 🧧💰✨ on Firefly mobile app or {promoteLink} !"
 
 msgid "Token ID"
 msgstr "Token ID"
@@ -1246,9 +1246,6 @@ msgstr "<0>Price</0><1>${0}</1><2/>{1}"
 
 msgid "Collected"
 msgstr "Collected"
-
-msgid "Upload custom cover"
-msgstr "Upload custom cover"
 
 msgid "Try again"
 msgstr "Try again"
@@ -2325,6 +2322,9 @@ msgstr "Free Collect"
 msgid "Delete"
 msgstr "Delete"
 
+msgid "Check out my LuckyDrop 🧧💰✨ on Firefly mobile app or desktop {promoteLink} !"
+msgstr "Check out my LuckyDrop 🧧💰✨ on Firefly mobile app or desktop {promoteLink} !"
+
 msgid "The content of this account is currently unavailable"
 msgstr "The content of this account is currently unavailable"
 
@@ -3030,9 +3030,6 @@ msgstr "Connecting Wallet"
 msgid "{minutes}m left"
 msgstr "{minutes}m left"
 
-msgid "Dark"
-msgstr "Dark"
-
 msgid "Signature Request"
 msgstr "Signature Request"
 
@@ -3563,3 +3560,6 @@ msgstr "× {0}"
 
 msgid "Blink Validator"
 msgstr "Blink Validator"
+
+msgid "Golden"
+msgstr "Golden"
