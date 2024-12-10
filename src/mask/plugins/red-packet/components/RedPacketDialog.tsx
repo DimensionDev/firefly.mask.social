@@ -5,7 +5,7 @@ import {
     useLastRecognizedIdentity,
     useSiteThemeMode,
 } from '@masknet/plugin-infra/content-script';
-import { InjectedDialog, LoadingStatus, useCurrentLinkedPersona } from '@masknet/shared';
+import { InjectedDialog, LoadingStatus } from '@masknet/shared';
 import { EMPTY_LIST, NetworkPluginID, PluginID } from '@masknet/shared-base';
 import { useGasPrice } from '@masknet/web3-hooks-base';
 import { ChainId, type GasConfig, GasEditor } from '@masknet/web3-shared-evm';
@@ -126,9 +126,7 @@ export default function RedPacketDialog(props: RedPacketDialogProps) {
 
     const currentIdentity = useCurrentVisitingIdentity();
     const lastRecognized = useLastRecognizedIdentity();
-    const linkedPersona = useCurrentLinkedPersona();
-    const senderName =
-        lastRecognized?.identifier?.userId ?? currentIdentity?.identifier?.userId ?? linkedPersona?.nickname;
+    const senderName = lastRecognized?.identifier?.userId ?? currentIdentity?.identifier?.userId;
 
     const compositionType = useContext(CompositionTypeContext);
     const onCreateOrSelect = useCallback(

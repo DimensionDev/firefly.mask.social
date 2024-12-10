@@ -66,14 +66,29 @@ function BookmarkButtonIcon({ hasBookmarked, isLoading }: { hasBookmarked: boole
     );
 }
 
-export const BookmarkInIcon = memo(function BookmarkInIcon({ className, ...rest }: BookmarkButtonProps) {
+export const BookmarkInIcon = memo(function BookmarkInIcon({ ...rest }: BookmarkButtonProps) {
     return (
-        <BookmarkButton
-            className={classNames('flex h-8 w-8 items-center justify-center rounded-xl bg-black/25', className)}
-            {...rest}
-        >
-            {(hasBookmarked: boolean, isLoading: boolean, fetching: boolean) => (
-                <BookmarkButtonIcon hasBookmarked={hasBookmarked} isLoading={isLoading || fetching} />
+        <BookmarkButton {...rest}>
+            {(bookmarked: boolean, isLoading: boolean, fetching: boolean) => (
+                <span
+                    className={classNames(
+                        'flex size-8 items-center justify-center rounded-xl bg-black/25 text-white',
+                        bookmarked
+                            ? 'text-warn'
+                            : 'hover:bg-warn/20 hover:text-warn active:bg-black/25 active:text-warn',
+                    )}
+                >
+                    {isLoading || fetching ? (
+                        <LoadingIcon className="animate-spin" width={20} height={20} />
+                    ) : (
+                        <BookmarkIcon
+                            fill={bookmarked ? 'rgb(var(--color-warn))' : 'none'}
+                            width={20}
+                            height={20}
+                            className="size-5"
+                        />
+                    )}
+                </span>
             )}
         </BookmarkButton>
     );

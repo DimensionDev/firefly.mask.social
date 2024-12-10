@@ -190,6 +190,8 @@ export const BOOKMARK_SOURCES: BookmarkSource[] = [
     Source.NFTs,
 ];
 
+export const ENABLED_DECRYPT_SOURCES = [Source.Lens];
+
 export const TIPS_SUPPORT_NETWORKS = [NetworkType.Ethereum];
 
 // Lens

@@ -81,6 +81,9 @@ msgstr "檢舉 @{0}"
 msgid "Sell Tax: {0}%"
 msgstr ""
 
+msgid "Lucky drop"
+msgstr ""
+
 msgid "Failed to translate post. Please retry later."
 msgstr "無法翻譯貼文。請稍候再嘗試"
 
@@ -100,6 +103,9 @@ msgid "Simulating"
 msgstr ""
 
 msgid "Your frame URL"
+msgstr ""
+
+msgid "Refunded"
 msgstr ""
 
 msgid "Send a tip"
@@ -129,13 +135,13 @@ msgstr "發現"
 msgid "Ask a question"
 msgstr "提問"
 
-msgid "There is no data available to select."
-msgstr ""
-
 msgid "Please be cautious when connecting your wallet, as malicious websites may attempt to access your funds."
 msgstr "連結錢包時請保持警惕，惡意網站可能會試圖存取您的資金。"
 
 msgid "<0>Fully Diluted Valuation (FDV) = Current Price x Total Supply</0><1>Fully Diluted Valuation (FDV) is the theoretical market capitalization of a coin if the entirety of its supply is in circulation, based on its current market price. The FDV value is theoretical as increasing the circulating supply of a coin may impact its market price. Also depending on the tokenomics, emission schedule or lock-up period of a coin's supply, it may take a significant time before its entire supply is released into circulation.</1>"
+msgstr ""
+
+msgid "Equal Split"
 msgstr ""
 
 msgid "Followed @{0} on {sourceName}"
@@ -189,9 +195,6 @@ msgstr "除錯連接"
 msgid "Blackmail activities found."
 msgstr ""
 
-msgid "No Lucky Drops claimed"
-msgstr ""
-
 msgid "Allow Lens Manager to perform actions such as posting, liking, and commenting without the need to sign each transaction."
 msgstr "允許 Lens Manager 無需在每次互動時都簽名，即可進行貼文發佈、按讚、留言等操作。"
 
@@ -235,6 +238,9 @@ msgid "<0>The maximum number of coins coded to exist in the lifetime of the cryp
 msgstr ""
 
 msgid "This token is a gas abuser."
+msgstr ""
+
+msgid "Light"
 msgstr ""
 
 msgid "Are you sure you want to leave /{0} ?"
@@ -323,6 +329,9 @@ msgstr "流行趨勢"
 
 msgid "Log out @{0}"
 msgstr "退出 @{0} 的登錄"
+
+msgid "MAX"
+msgstr ""
 
 msgid "You can save the failed parts of posts and send them later from your Drafts."
 msgstr "您可以將發送失敗的部分貼文保存，並在之後從草稿箱中發送"
@@ -434,6 +443,9 @@ msgstr "按讚留言失敗"
 
 msgid "Sign in"
 msgstr ""
+
+msgid "<0>Posted</0>an article"
+msgstr "<0>發布</0>一篇文章"
 
 msgid "Scan the QR code with your phone’s <0>Camera</0> in {count}s. <1/>Approve a new Farcaster signer to Firefly."
 msgstr "使用手機<0>相機</0>在 {count} 秒內掃描 QR碼。允許新的 Farcaster 簽名使用 Firefly。"
@@ -687,6 +699,12 @@ msgstr ""
 msgid "Sanctioned address."
 msgstr ""
 
+msgid "Claim requirements"
+msgstr ""
+
+msgid "Failed to decrypt post on {0}."
+msgstr ""
+
 msgid "Host"
 msgstr ""
 
@@ -825,9 +843,6 @@ msgstr "靜音所有"
 msgid "Failed to generate signature packet with source = {source}."
 msgstr ""
 
-msgid "No Lucky Drops created. Select 🎁 when you compose a post to start your first drop."
-msgstr ""
-
 msgid "Save failed post?"
 msgstr "保存失敗的貼文？"
 
@@ -845,6 +860,9 @@ msgstr ""
 
 msgid "No Lens profile found.<0/>Please change to another wallet."
 msgstr "未找到 Lens 帳戶。<0/> 請切換至其他錢包。"
+
+msgid "Drop type"
+msgstr ""
 
 msgid "The contract owner has no restrictions on trading cooldown."
 msgstr ""
@@ -951,6 +969,9 @@ msgid "Join /{0}"
 msgstr ""
 
 msgid "The token can not be bought."
+msgstr ""
+
+msgid "More Details"
 msgstr ""
 
 msgid "No proxy"
@@ -1136,17 +1157,11 @@ msgstr "評論不可是空白"
 msgid "Days"
 msgstr "天"
 
-msgid "<0>Acquired</0><1/><2>from</2><3><4>{0}</4></3>"
-msgstr ""
-
 msgid "Submit a wallet to receive NFT and $ANON"
 msgstr "提交您的錢包以領取您的 NFT 和 $ANON"
 
 msgid "<0/> mentioned you in a <1>{0, select, Post {post} Comment {comment} Quote {quote} Mirror {mirror} other {post}}</1>"
 msgstr "<0/> 在 <1> {0, select, Post {貼文} Comment {評論} Quote {引用} Mirror {鏡像} other {貼文}}</1> 中提到了你"
-
-msgid "<0>Bought</0><1/>"
-msgstr ""
 
 msgid "The current connected wallet does not match, Please switch to {0}"
 msgstr ""
@@ -1165,9 +1180,6 @@ msgstr ""
 
 msgid "Enable development API version"
 msgstr "開啟開發API版本"
-
-msgid "<0>Sent</0><1/>"
-msgstr ""
 
 msgid "Voted"
 msgstr ""
@@ -1232,6 +1244,9 @@ msgstr ""
 msgid "Collected"
 msgstr ""
 
+msgid "Upload custom cover"
+msgstr ""
+
 msgid "Try again"
 msgstr ""
 
@@ -1292,10 +1307,10 @@ msgstr ""
 msgid "Kamala Harris"
 msgstr ""
 
-msgid "<0>Revised</0><1>an article</1>"
+msgid "Send telemetry events in debug mode."
 msgstr ""
 
-msgid "Send telemetry events in debug mode."
+msgid "Try decrypt"
 msgstr ""
 
 msgid "The chainId mismatch."
@@ -1454,6 +1469,9 @@ msgstr "允許來自 的回覆"
 msgid "No one likes this post yet."
 msgstr "還沒有人按讚這條貼文"
 
+msgid "<0>Claimed: </0><1>{claim_numbers}/{total_numbers}</1> <2>{0}/{1}</2> <3>{token_symbol}</3>"
+msgstr ""
+
 msgid "Your posts have published successfully on {0}."
 msgstr "你的貼文已成功發布在 {0} 上。"
 
@@ -1577,6 +1595,9 @@ msgstr "對 @{0} 的解除靜音失敗"
 msgid "Please confirm the login with Warpcast."
 msgstr "請至 Warpcast 確認登錄"
 
+msgid "Cover background"
+msgstr ""
+
 msgid "Verified"
 msgstr ""
 
@@ -1605,6 +1626,9 @@ msgid "<0>{0}</0> liked"
 msgstr "<0>{0}</0> 喜歡了"
 
 msgid "Fully Diluted Valuation"
+msgstr ""
+
+msgid "Customize Lucky Drop sender. Select either Lens or Forecaster handle, or use the currently connected wallet."
 msgstr ""
 
 msgid "Email (optional)"
@@ -1685,6 +1709,9 @@ msgstr ""
 msgid "Grant access to your {0} for the Lucky Drop Smart contract. You only have to do this once per token."
 msgstr ""
 
+msgid "VOTED"
+msgstr ""
+
 msgid "Enclose a Message"
 msgstr ""
 
@@ -1736,6 +1763,12 @@ msgid "{shares, plural, one {Mirror or Quote} other {Mirrors or Quotes}}"
 msgstr ""
 
 msgid "Standard"
+msgstr ""
+
+msgid "<0>Revised</0>an article"
+msgstr "<0>校訂</0>一篇文章"
+
+msgid "Data display"
 msgstr ""
 
 msgid "No darkweb transactions found."
@@ -1993,6 +2026,9 @@ msgstr ""
 msgid "Step 3 Select to vote"
 msgstr ""
 
+msgid "Select Collection"
+msgstr ""
+
 msgid "Visit firefly.social"
 msgstr "訪問 firefly.social"
 
@@ -2134,6 +2170,9 @@ msgstr "{0} 位已靜音的用戶"
 msgid "Received time:"
 msgstr ""
 
+msgid "Random Split"
+msgstr ""
+
 msgid "Remove Poll"
 msgstr "移除投票"
 
@@ -2150,6 +2189,9 @@ msgid "This token is not a gas abuser."
 msgstr ""
 
 msgid "Failed to fetch profiles."
+msgstr ""
+
+msgid "Post is decrypting..."
 msgstr ""
 
 msgid "Unliked"
@@ -2194,6 +2236,9 @@ msgstr ""
 msgid "Please input the serialized session to be validated."
 msgstr ""
 
+msgid "Network cost"
+msgstr ""
+
 msgid "1 NFT claimed."
 msgstr ""
 
@@ -2234,6 +2279,9 @@ msgid "Sign"
 msgstr "簽署"
 
 msgid "Failed to recast post"
+msgstr ""
+
+msgid "Available Balance"
 msgstr ""
 
 msgid "Follow @thefireflyapp on X"
@@ -2395,6 +2443,9 @@ msgstr ""
 msgid "Show more"
 msgstr "顯示更多"
 
+msgid "{0} items"
+msgstr ""
+
 msgid "Time Limit"
 msgstr ""
 
@@ -2426,6 +2477,9 @@ msgid "24H Volume"
 msgstr "24 小時交易量"
 
 msgid "<0>Minted</0> an NFT worth {costEl}"
+msgstr ""
+
+msgid "Balance"
 msgstr ""
 
 msgid "Suspended"
@@ -2489,6 +2543,9 @@ msgid "No cybercrime involved."
 msgstr ""
 
 msgid "Sent"
+msgstr ""
+
+msgid "No Enough Gas Fe"
 msgstr ""
 
 msgid "Casts + Replies"
@@ -2629,9 +2686,6 @@ msgstr ""
 msgid "Your post will be sent on {0} at {1} <0>View</0>"
 msgstr ""
 
-msgid "<0>Sold</0><1/>"
-msgstr ""
-
 msgid "Failed to create scheduled post."
 msgstr ""
 
@@ -2651,9 +2705,6 @@ msgid "View"
 msgstr ""
 
 msgid "Crypto Trends"
-msgstr ""
-
-msgid "<0>Acquired</0><1/>"
 msgstr ""
 
 msgid "Copy link to profile"
@@ -2735,9 +2786,6 @@ msgid "Collect Article"
 msgstr ""
 
 msgid "Firefly Wallets"
-msgstr ""
-
-msgid "<0>Sent</0><1/><2>to</2><3><4>{0}</4></3>"
 msgstr ""
 
 msgid "Channels"
@@ -2842,9 +2890,6 @@ msgstr ""
 msgid "The account you are trying to log in with is already linked to a different Firefly account."
 msgstr ""
 
-msgid "<0>Minted</0><1/>{0}"
-msgstr ""
-
 msgid "Saved on {0}"
 msgstr ""
 
@@ -2917,6 +2962,9 @@ msgstr ""
 msgid "You may lose your assets if giving approval to the website of this token."
 msgstr ""
 
+msgid "Default"
+msgstr ""
+
 msgid "Unfollow"
 msgstr "取消追蹤"
 
@@ -2936,6 +2984,12 @@ msgid "Posted via {0} <0>{sendFrom}</0>"
 msgstr ""
 
 msgid "The contract owner has no restrictions on personal slippage."
+msgstr ""
+
+msgid "Number of winners"
+msgstr ""
+
+msgid "Updating Gas Fee…"
 msgstr ""
 
 msgid "Unmuted @{0} on {sourceName}."
@@ -2962,6 +3016,9 @@ msgstr ""
 msgid "{minutes}m left"
 msgstr ""
 
+msgid "Dark"
+msgstr ""
+
 msgid "Signature Request"
 msgstr ""
 
@@ -2975,6 +3032,9 @@ msgid "Your name"
 msgstr ""
 
 msgid "No tax changes found for personal addresses."
+msgstr ""
+
+msgid "Unlock {0}"
 msgstr ""
 
 msgid "Owned"
@@ -3003,6 +3063,9 @@ msgstr "资讯"
 
 msgid "NFT ID"
 msgstr "NFT ID"
+
+msgid "Confirm Lucky drop"
+msgstr ""
 
 msgid "Farcaster channel"
 msgstr "Farcaster 頻道"
@@ -3322,9 +3385,6 @@ msgstr ""
 msgid "Claim Now"
 msgstr ""
 
-msgid "<0>Collect</0><1/>"
-msgstr ""
-
 msgid "Collect for {0} {1}"
 msgstr ""
 
@@ -3365,9 +3425,6 @@ msgid "Continue"
 msgstr ""
 
 msgid "Cybercrime."
-msgstr ""
-
-msgid "<0>Burn</0><1/>"
 msgstr ""
 
 msgid "<0>Sent</0> an NFT to <1>{0}</1>"
@@ -3440,9 +3497,6 @@ msgid "Logging out will cause scheduled posts to fail. To ensure that posts are 
 msgstr ""
 
 msgid "Failed to create schedule post."
-msgstr ""
-
-msgid "<0>Post</0><1>an article</1>"
 msgstr ""
 
 msgid "<0>{0}</0> recasted"

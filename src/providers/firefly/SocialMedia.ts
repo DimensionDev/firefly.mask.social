@@ -1134,6 +1134,10 @@ export class FireflySocialMedia implements Provider {
 
         return data.list;
     }
+
+    async decryptPost(post: Post): Promise<Post> {
+        throw new NotImplementedError();
+    }
 }
 
 export const FireflySocialMediaProvider = new FireflySocialMedia();

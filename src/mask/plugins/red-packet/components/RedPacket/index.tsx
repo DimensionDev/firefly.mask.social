@@ -362,6 +362,8 @@ Grow your followers and engagement with Lucky Drop on Firefly mobile app or http
                     aria-label="Token"
                     src={new URL('@/mask/plugins/red-packet/assets/tokenLabel.png', import.meta.url).toString()}
                     className={classes.tokenLabel}
+                    width={188}
+                    height={188}
                 />
                 <div className={classes.header}>
                     {/* it might be fontSize: 12 on twitter based on theme? */}

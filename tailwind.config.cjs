@@ -70,6 +70,7 @@ module.exports = {
                 bg02: 'rgb(var(--color-bg02) / <alpha-value>)',
                 bg03: 'rgb(var(--color-bg03) / <alpha-value>)',
                 lightRebrandingBg: 'rgb(var(--color-light-rebranding-bg) / <alpha-value>)',
+                lightTextMain: '#181818',
             },
             backgroundImage: {
                 'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
@@ -84,6 +85,7 @@ module.exports = {
                 lightS3: '0px 10px 24px 0px rgba(0, 0, 0, 0.06)',
                 inputDanger: '0 0 0 3px rgba(255, 53, 69, 0.20)',
                 primary: '0px 0px 20px 0px rgba(0, 0, 0, 0.05)',
+                primaryDark: '0px 0px 20px rgba(255, 255, 255, 0.12)',
             },
             fontFamily: {
                 inter: ['var(--font-inter)'],

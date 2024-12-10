@@ -111,7 +111,8 @@
         "zora",
         "reposted",
         "zustand",
-        "daos"
+        "daos",
+        "sponsorable"
     ],
     "ignoreWords": [
         "DEVNET",
