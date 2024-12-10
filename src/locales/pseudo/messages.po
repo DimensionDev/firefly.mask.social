@@ -439,9 +439,6 @@ msgstr ""
 msgid "Sign in"
 msgstr ""
 
-msgid "<0>Posted</0>an article"
-msgstr ""
-
 msgid "Scan the QR code with your phone’s <0>Camera</0> in {count}s. <1/>Approve a new Farcaster signer to Firefly."
 msgstr ""
 
@@ -1152,10 +1149,16 @@ msgstr ""
 msgid "Days"
 msgstr ""
 
+msgid "<0>Acquired</0><1/><2>from</2><3><4>{0}</4></3>"
+msgstr ""
+
 msgid "Submit a wallet to receive NFT and $ANON"
 msgstr ""
 
 msgid "<0/> mentioned you in a <1>{0, select, Post {post} Comment {comment} Quote {quote} Mirror {mirror} other {post}}</1>"
+msgstr ""
+
+msgid "<0>Bought</0><1/>"
 msgstr ""
 
 msgid "The current connected wallet does not match, Please switch to {0}"
@@ -1174,6 +1177,9 @@ msgid "Up to 7 days can be set as the scheduled time. Please reset it"
 msgstr ""
 
 msgid "Enable development API version"
+msgstr ""
+
+msgid "<0>Sent</0><1/>"
 msgstr ""
 
 msgid "Voted"
@@ -1300,6 +1306,9 @@ msgid "You can withdraw the rest of your balances back 24h later after sending t
 msgstr ""
 
 msgid "Kamala Harris"
+msgstr ""
+
+msgid "<0>Revised</0><1>an article</1>"
 msgstr ""
 
 msgid "Send telemetry events in debug mode."
@@ -1704,9 +1713,6 @@ msgstr ""
 msgid "Grant access to your {0} for the Lucky Drop Smart contract. You only have to do this once per token."
 msgstr ""
 
-msgid "VOTED"
-msgstr ""
-
 msgid "Enclose a Message"
 msgstr ""
 
@@ -1758,9 +1764,6 @@ msgid "{shares, plural, one {Mirror or Quote} other {Mirrors or Quotes}}"
 msgstr ""
 
 msgid "Standard"
-msgstr ""
-
-msgid "<0>Revised</0>an article"
 msgstr ""
 
 msgid "Data display"
@@ -2681,6 +2684,9 @@ msgstr ""
 msgid "Your post will be sent on {0} at {1} <0>View</0>"
 msgstr ""
 
+msgid "<0>Sold</0><1/>"
+msgstr ""
+
 msgid "Failed to create scheduled post."
 msgstr ""
 
@@ -2700,6 +2706,9 @@ msgid "View"
 msgstr ""
 
 msgid "Crypto Trends"
+msgstr ""
+
+msgid "<0>Acquired</0><1/>"
 msgstr ""
 
 msgid "Copy link to profile"
@@ -2781,6 +2790,9 @@ msgid "Collect Article"
 msgstr ""
 
 msgid "Firefly Wallets"
+msgstr ""
+
+msgid "<0>Sent</0><1/><2>to</2><3><4>{0}</4></3>"
 msgstr ""
 
 msgid "Channels"
@@ -2883,6 +2895,9 @@ msgid "The signer is not authorized to perform the requested operation. Please a
 msgstr ""
 
 msgid "The account you are trying to log in with is already linked to a different Firefly account."
+msgstr ""
+
+msgid "<0>Minted</0><1/>{0}"
 msgstr ""
 
 msgid "Saved on {0}"
@@ -3380,6 +3395,9 @@ msgstr ""
 msgid "Claim Now"
 msgstr ""
 
+msgid "<0>Collect</0><1/>"
+msgstr ""
+
 msgid "Collect for {0} {1}"
 msgstr ""
 
@@ -3420,6 +3438,9 @@ msgid "Continue"
 msgstr ""
 
 msgid "Cybercrime."
+msgstr ""
+
+msgid "<0>Burn</0><1/>"
 msgstr ""
 
 msgid "<0>Sent</0> an NFT to <1>{0}</1>"
@@ -3492,6 +3513,9 @@ msgid "Logging out will cause scheduled posts to fail. To ensure that posts are 
 msgstr ""
 
 msgid "Failed to create schedule post."
+msgstr ""
+
+msgid "<0>Post</0><1>an article</1>"
 msgstr ""
 
 msgid "<0>{0}</0> recasted"

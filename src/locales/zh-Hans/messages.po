@@ -444,9 +444,6 @@ msgstr "点赞失败。"
 msgid "Sign in"
 msgstr "登录"
 
-msgid "<0>Posted</0>an article"
-msgstr "<0>发布了</0>一篇文章"
-
 msgid "Scan the QR code with your phone’s <0>Camera</0> in {count}s. <1/>Approve a new Farcaster signer to Firefly."
 msgstr "使用<0>摄像头</0> 在 {count} 内<1/> 来扫描您的二维码。授权 Farcaster singer 给 Firefly。"
 
@@ -1157,11 +1154,17 @@ msgstr "评论不能为空。"
 msgid "Days"
 msgstr "天"
 
+msgid "<0>Acquired</0><1/><2>from</2><3><4>{0}</4></3>"
+msgstr ""
+
 msgid "Submit a wallet to receive NFT and $ANON"
 msgstr "提交您的钱包以领取您的 NFT 和 $ANON"
 
 msgid "<0/> mentioned you in a <1>{0, select, Post {post} Comment {comment} Quote {quote} Mirror {mirror} other {post}}</1>"
 msgstr "<0/>提到了你的 <1>{0, select, Post {帖子} Comment {评论} Quote {引用} Mirror {引用} other {帖子}}</1>"
+
+msgid "<0>Bought</0><1/>"
+msgstr ""
 
 msgid "The current connected wallet does not match, Please switch to {0}"
 msgstr "当前连接的钱包不匹配，请切换到 {0}。"
@@ -1180,6 +1183,9 @@ msgstr "可以将预定时间设置为最长 7 天。请重新设置。"
 
 msgid "Enable development API version"
 msgstr "启用开发环境接口"
+
+msgid "<0>Sent</0><1/>"
+msgstr ""
 
 msgid "Voted"
 msgstr "已投票"
@@ -1306,6 +1312,9 @@ msgstr ""
 
 msgid "Kamala Harris"
 msgstr "卡玛拉·哈里斯"
+
+msgid "<0>Revised</0><1>an article</1>"
+msgstr ""
 
 msgid "Send telemetry events in debug mode."
 msgstr "在调试模式下发送遥测事件。"
@@ -1709,9 +1718,6 @@ msgstr "NFT持有者无法绕过合约中规定的最大铸造数量限制，继
 msgid "Grant access to your {0} for the Lucky Drop Smart contract. You only have to do this once per token."
 msgstr ""
 
-msgid "VOTED"
-msgstr "已投"
-
 msgid "Enclose a Message"
 msgstr ""
 
@@ -1764,9 +1770,6 @@ msgstr "{shares, plural, one {转帖或引用} other {转帖或引用}}"
 
 msgid "Standard"
 msgstr "标准"
-
-msgid "<0>Revised</0>an article"
-msgstr "<0>修改了</0>文章"
 
 msgid "Data display"
 msgstr ""
@@ -2686,6 +2689,9 @@ msgstr "调用"
 msgid "Your post will be sent on {0} at {1} <0>View</0>"
 msgstr "帖子将在 {1} {0} 上发送 <0>查看</0>"
 
+msgid "<0>Sold</0><1/>"
+msgstr ""
+
 msgid "Failed to create scheduled post."
 msgstr "创建定时任务失败"
 
@@ -2706,6 +2712,9 @@ msgstr ""
 
 msgid "Crypto Trends"
 msgstr "加密货币趋势"
+
+msgid "<0>Acquired</0><1/>"
+msgstr ""
 
 msgid "Copy link to profile"
 msgstr "复制链接"
@@ -2787,6 +2796,9 @@ msgstr "收集文章"
 
 msgid "Firefly Wallets"
 msgstr "Firefly 钱包"
+
+msgid "<0>Sent</0><1/><2>to</2><3><4>{0}</4></3>"
+msgstr ""
 
 msgid "Channels"
 msgstr "频道"
@@ -2888,6 +2900,9 @@ msgid "The signer is not authorized to perform the requested operation. Please a
 msgstr "Signer key 未被授权。请重试。"
 
 msgid "The account you are trying to log in with is already linked to a different Firefly account."
+msgstr ""
+
+msgid "<0>Minted</0><1/>{0}"
 msgstr ""
 
 msgid "Saved on {0}"
@@ -3385,6 +3400,9 @@ msgstr "在 Lens 上关注了 @{0}"
 msgid "Claim Now"
 msgstr "立即领取"
 
+msgid "<0>Collect</0><1/>"
+msgstr ""
+
 msgid "Collect for {0} {1}"
 msgstr "收集 {0} {1}"
 
@@ -3426,6 +3444,9 @@ msgstr "继续"
 
 msgid "Cybercrime."
 msgstr "网络犯罪。"
+
+msgid "<0>Burn</0><1/>"
+msgstr ""
 
 msgid "<0>Sent</0> an NFT to <1>{0}</1>"
 msgstr "<0>发送</0> 一个 NFT 至 <1>{0}</1>"
@@ -3498,6 +3519,9 @@ msgstr "登出将导致定时发布的帖子失败。请确保您的 Firefly 账
 
 msgid "Failed to create schedule post."
 msgstr "创建定时任务失败"
+
+msgid "<0>Post</0><1>an article</1>"
+msgstr ""
 
 msgid "<0>{0}</0> recasted"
 msgstr "<0>{0}</0> 已转发"

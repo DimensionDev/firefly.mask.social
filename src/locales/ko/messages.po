@@ -1771,9 +1771,6 @@ msgstr ""
 msgid "Standard"
 msgstr ""
 
-msgid "<0>Revised</0>an article"
-msgstr ""
-
 msgid "Data display"
 msgstr ""
 
