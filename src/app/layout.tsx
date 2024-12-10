@@ -11,6 +11,8 @@ import { ErrorBoundary } from '@/components/ErrorBoundary/index.js';
 import { Script } from '@/esm/Script.js';
 import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
 import { getFromCookies } from '@/helpers/getFromCookies.js';
+import { env } from '@/constants/env.js';
+import { NODE_ENV } from '@/constants/enum.js';
 
 const inter = Inter({
     subsets: ['latin'],
@@ -33,7 +35,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     return (
         <html className={rootClass}>
             <head>
-                <script src="https://unpkg.com/react-scan/dist/auto.global.js" async />
+                {env.shared.NODE_ENV === NODE_ENV.Development ? (
+                    <script src="https://unpkg.com/react-scan/dist/auto.global.js" async />
+                ) : null}
                 <Script src="/js/polyfills/base.js" strategy="beforeInteractive" />
                 <Script src="/js/polyfills/dom.js" strategy="beforeInteractive" />
                 <Script src="/js/polyfills/ecmascript.js" strategy="beforeInteractive" />
