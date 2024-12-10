@@ -417,6 +417,7 @@ export function formatLensPost(result: AnyPublicationFragment): Post {
             },
             canComment: result.mirrorOn.operations.canComment === 'YES',
             canMirror: result.mirrorOn.operations.canMirror === 'YES',
+            canDecrypt: result.mirrorOn.operations.canDecrypt.result,
             hasMirrored: result.mirrorOn.operations.hasMirrored,
             hasQuoted: result.mirrorOn.operations.hasQuoted,
             hasActed: result.mirrorOn.operations.hasActed.value,
@@ -453,6 +454,7 @@ export function formatLensPost(result: AnyPublicationFragment): Post {
         result.openActionModules?.some((openAction) => allowedTypes.includes(openAction.type));
 
     const channel = formatOrbClub(result.metadata);
+    const canDecrypt = result.operations.canDecrypt.result;
 
     if (result.__typename === 'Quote') {
         return {
@@ -484,6 +486,7 @@ export function formatLensPost(result: AnyPublicationFragment): Post {
             __original__: result,
             canComment: result.operations.canComment === 'YES',
             canMirror: result.operations.canMirror === 'YES',
+            canDecrypt,
             hasMirrored: result.operations.hasMirrored,
             hasQuoted: result.operations.hasQuoted,
             hasActed: result.operations.hasActed.value,
@@ -535,6 +538,7 @@ export function formatLensPost(result: AnyPublicationFragment): Post {
             commentOn: formatLensQuoteOrComment(result.commentOn),
             canComment: result.operations.canComment === 'YES',
             canMirror: result.operations.canMirror === 'YES',
+            canDecrypt,
             hasMirrored: result.operations.hasMirrored,
             hasQuoted: result.operations.hasQuoted,
             hasActed: result.operations.hasActed.value,
@@ -588,6 +592,7 @@ export function formatLensPost(result: AnyPublicationFragment): Post {
             },
             canComment: result.operations.canComment === 'YES',
             canMirror: result.operations.canMirror === 'YES',
+            canDecrypt,
             canAct,
             collectModule: canAct
                 ? formatCollectModule(result.openActionModules, result.stats.countOpenActions)

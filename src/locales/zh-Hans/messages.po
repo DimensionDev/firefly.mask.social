@@ -123,6 +123,9 @@ msgstr "收集文章失败。"
 msgid "Hold on! Meet any of the following to unlock a premium collectible:"
 msgstr "稍等！满足以下任一条件以解锁优质 NFT："
 
+msgid "Remove Bookmark"
+msgstr ""
+
 msgid "Communities"
 msgstr "社区"
 
@@ -353,6 +356,9 @@ msgstr ""
 
 msgid "Poll"
 msgstr "投票"
+
+msgid "Bets"
+msgstr ""
 
 msgid "Scheduled"
 msgstr "已定时"
@@ -585,6 +591,9 @@ msgstr "{0, plural, one {关注者} other {关注者}}"
 msgid "Mutes"
 msgstr "隐藏"
 
+msgid "Failed to bookmark NFT."
+msgstr ""
+
 msgid "NFTs"
 msgstr "NFTs"
 
@@ -693,6 +702,9 @@ msgstr "黑名单地址。"
 msgid "Claim requirements"
 msgstr ""
 
+msgid "Failed to decrypt post on {0}."
+msgstr ""
+
 msgid "Host"
 msgstr "主持人"
 
@@ -792,6 +804,9 @@ msgstr "条目"
 msgid "Failed to upload. More than {maxImageCount} images."
 msgstr "上传失败。超过了最大 {maxImageCount} 的图片数量限制。"
 
+msgid "NFT bookmarks"
+msgstr ""
+
 msgid "Minting Txn Hash"
 msgstr "铸造交易哈希中"
 
@@ -884,6 +899,9 @@ msgstr "完全稀释估值"
 
 msgid "Log telemetry events to the console."
 msgstr "日志侦测技术至控制台"
+
+msgid "Failed to un-bookmark NFT."
+msgstr ""
 
 msgid "Confirmation"
 msgstr "确认"
@@ -1250,6 +1268,12 @@ msgstr "识别为合约地址。"
 msgid "Top Profiles"
 msgstr "热门用户"
 
+msgid "NFT added to your Bookmarks"
+msgstr ""
+
+msgid "Are you sure you want to remove this NFT from your bookmarks?"
+msgstr ""
+
 msgid "Executed"
 msgstr "已执行"
 
@@ -1285,6 +1309,9 @@ msgstr "卡玛拉·哈里斯"
 
 msgid "Send telemetry events in debug mode."
 msgstr "在调试模式下发送遥测事件。"
+
+msgid "Try decrypt"
+msgstr ""
 
 msgid "The chainId mismatch."
 msgstr "chainId 不匹配"
@@ -1837,6 +1864,9 @@ msgstr "发现疑似恶意地址。"
 msgid "Contract source code not verified"
 msgstr "合约源代码未验证"
 
+msgid "NFT removed from your Bookmarks"
+msgstr ""
+
 msgid "Not Started"
 msgstr "尚未开始"
 
@@ -2161,8 +2191,14 @@ msgstr "该代币不是一个燃料滥用者。"
 msgid "Failed to fetch profiles."
 msgstr "未能获取个人资料。"
 
+msgid "Post is decrypting..."
+msgstr ""
+
 msgid "Unliked"
 msgstr "已取消点赞"
+
+msgid "Quality Filter"
+msgstr ""
 
 msgid "Visit mask.io"
 msgstr "访问 mask.io"
@@ -2274,9 +2310,6 @@ msgstr "未发现钓鱼网站。"
 
 msgid "Followed <0>@{handle}</0> on X before Oct 12,2024, or followed <1>@{farcasterHandle}</1> on Farcaster before Oct 20, 2024"
 msgstr "在 2024 年 10 月 12 日之前在 X 上关注了 <0>@{handle}</0>，或在 2024 年 10 月 20 日之前在 Farcaster 上关注了 <1>@{farcasterHandle}</1>"
-
-msgid "Priority Mode"
-msgstr "优先模式"
 
 msgid "Connect your wallet to follow"
 msgstr "连接钱包并关注"
@@ -2510,6 +2543,9 @@ msgid "No cybercrime involved."
 msgstr "不涉及网络犯罪。"
 
 msgid "Sent"
+msgstr ""
+
+msgid "No Enough Gas Fe"
 msgstr ""
 
 msgid "Casts + Replies"
@@ -2953,6 +2989,9 @@ msgstr "合约所有者对个人滑点没有限制。"
 msgid "Number of winners"
 msgstr ""
 
+msgid "Updating Gas Fee…"
+msgstr ""
+
 msgid "Unmuted @{0} on {sourceName}."
 msgstr "在 {sourceName} 上已取消对 @{0} 的隐藏。"
 
@@ -3153,9 +3192,6 @@ msgstr "表情符号"
 
 msgid "Failed to report spam NFT."
 msgstr "举报垃圾 NFT 失败。"
-
-msgid "Polymarket"
-msgstr "Polymarket"
 
 msgid "Malformed twitter session payload."
 msgstr "错误的 twitter 会话。"
@@ -3504,6 +3540,3 @@ msgstr "× {0}"
 
 msgid "Blink Validator"
 msgstr "Blink 验证器"
-
-msgid "High-signal Filter"
-msgstr "高质量过滤"

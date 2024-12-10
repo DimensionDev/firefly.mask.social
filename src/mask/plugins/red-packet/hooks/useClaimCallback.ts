@@ -7,6 +7,7 @@ import type { HappyRedPacketV1, HappyRedPacketV4 } from '@/mask/bindings/constan
 import { EVMChainResolver, EVMWeb3 } from '@/mask/bindings/index.js';
 import { useRedPacketContract } from '@/mask/plugins/red-packet/hooks/useRedPacketContract.js';
 import { useSignedMessage } from '@/mask/plugins/red-packet/hooks/useSignedMessage.js';
+import { FireflyRedPacket } from '@/providers/red-packet/index.js';
 import type { RedPacketJSONPayload } from '@/providers/red-packet/types.js';
 
 /**
@@ -23,6 +24,11 @@ export function useClaimCallback(account: string, payload: RedPacketJSONPayload 
     const { refetch } = useSignedMessage(account, payload);
     return useAsyncFn(async () => {
         if (!redPacketContract || !rpid) return;
+        const sponsorable = await FireflyRedPacket.checkGasFreeStatus(account, chainId);
+        if (sponsorable) {
+            const hash = await FireflyRedPacket.claimForGasFree(rpid, account);
+            return hash;
+        }
         const { data: signedMsg } = await refetch();
         if (!signedMsg) return;
         const config = {

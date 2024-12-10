@@ -3,13 +3,15 @@ import { Trans } from '@lingui/macro';
 import { type FungibleToken, TokenType } from '@masknet/web3-shared-base';
 import { ChainId, SchemaType, ZERO_ADDRESS } from '@masknet/web3-shared-evm';
 import { forwardRef, useState } from 'react';
-import { isAddress } from 'viem';
+import { useAccount } from 'wagmi';
 
 import LeftArrowIcon from '@/assets/left-arrow.svg';
+import { ClickableButton } from '@/components/ClickableButton.js';
 import { Modal } from '@/components/Modal.js';
 import { SearchTokenPanel } from '@/components/Search/SearchTokenPanel.js';
 import { useSingletonModal } from '@/hooks/useSingletonModal.js';
 import type { SingletonModalRefCreator } from '@/libs/SingletonModal.js';
+import { ConnectModalRef } from '@/modals/controls.js';
 import type { Token } from '@/providers/types/Transfer.js';
 
 function formatDebankToken(token: Token): FungibleToken<ChainId, SchemaType> {
@@ -41,6 +43,7 @@ export type TokenSelectorModalCloseProps = FungibleToken<ChainId, SchemaType> | 
 export const TokenSelectorModal = forwardRef<
     SingletonModalRefCreator<TokenSelectorModalOpenProps, TokenSelectorModalCloseProps>
 >(function TokenSelectorModal(_, ref) {
+    const account = useAccount();
     const [props, setProps] = useState<TokenSelectorModalOpenProps>();
 
     const [open, dispatch] = useSingletonModal(ref, {
@@ -68,11 +71,24 @@ export const TokenSelectorModal = forwardRef<
                     </span>
                 </DialogTitle>
                 <div className="min-h-0 flex-1 overflow-hidden">
-                    <SearchTokenPanel
-                        address={props.address}
-                        isSelected={props.isSelected}
-                        onSelected={(token) => dispatch?.close(formatDebankToken(token))}
-                    />
+                    {account.isConnected ? (
+                        <SearchTokenPanel
+                            address={props.address}
+                            isSelected={props.isSelected}
+                            onSelected={(token) => dispatch?.close(token)}
+                        />
+                    ) : (
+                        <div className="flex h-full w-full items-center justify-center">
+                            <ClickableButton
+                                className="h-10 rounded-full border border-main px-3 text-lg font-bold leading-10 text-main"
+                                onClick={() => {
+                                    ConnectModalRef.open();
+                                }}
+                            >
+                                <Trans>Connect Wallet</Trans>
+                            </ClickableButton>
+                        </div>
+                    )}
                 </div>
             </div>
         </Modal>

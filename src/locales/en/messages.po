@@ -118,6 +118,9 @@ msgstr "Failed to collect article."
 msgid "Hold on! Meet any of the following to unlock a premium collectible:"
 msgstr "Hold on! Meet any of the following to unlock a premium collectible:"
 
+msgid "Remove Bookmark"
+msgstr "Remove Bookmark"
+
 msgid "Communities"
 msgstr "Communities"
 
@@ -348,6 +351,9 @@ msgstr "Image Preview"
 
 msgid "Poll"
 msgstr "Poll"
+
+msgid "Bets"
+msgstr "Bets"
 
 msgid "Scheduled"
 msgstr "Scheduled"
@@ -580,6 +586,9 @@ msgstr "{0, plural, one {Follower} other {Followers}}"
 msgid "Mutes"
 msgstr "Mutes"
 
+msgid "Failed to bookmark NFT."
+msgstr "Failed to bookmark NFT."
+
 msgid "NFTs"
 msgstr "NFTs"
 
@@ -688,6 +697,9 @@ msgstr "Sanctioned address."
 msgid "Claim requirements"
 msgstr "Claim requirements"
 
+msgid "Failed to decrypt post on {0}."
+msgstr "Failed to decrypt post on {0}."
+
 msgid "Host"
 msgstr "Host"
 
@@ -787,6 +799,9 @@ msgstr "Items"
 msgid "Failed to upload. More than {maxImageCount} images."
 msgstr "Failed to upload. More than {maxImageCount} images."
 
+msgid "NFT bookmarks"
+msgstr "NFT bookmarks"
+
 msgid "Minting Txn Hash"
 msgstr "Minting Txn Hash"
 
@@ -879,6 +894,9 @@ msgstr "Market Cap / FDV"
 
 msgid "Log telemetry events to the console."
 msgstr "Log telemetry events to the console."
+
+msgid "Failed to un-bookmark NFT."
+msgstr "Failed to un-bookmark NFT."
 
 msgid "Confirmation"
 msgstr "Confirmation"
@@ -1247,6 +1265,12 @@ msgstr "Contract address found."
 msgid "Top Profiles"
 msgstr "Top Profiles"
 
+msgid "NFT added to your Bookmarks"
+msgstr "NFT added to your Bookmarks"
+
+msgid "Are you sure you want to remove this NFT from your bookmarks?"
+msgstr "Are you sure you want to remove this NFT from your bookmarks?"
+
 msgid "Executed"
 msgstr "Executed"
 
@@ -1282,6 +1306,9 @@ msgstr "Kamala Harris"
 
 msgid "Send telemetry events in debug mode."
 msgstr "Send telemetry events in debug mode."
+
+msgid "Try decrypt"
+msgstr "Try decrypt"
 
 msgid "The chainId mismatch."
 msgstr "The chainId mismatch."
@@ -1836,6 +1863,9 @@ msgstr "Suspected malicious address found."
 msgid "Contract source code not verified"
 msgstr "Contract source code not verified"
 
+msgid "NFT removed from your Bookmarks"
+msgstr "NFT removed from your Bookmarks"
+
 msgid "Not Started"
 msgstr "Not Started"
 
@@ -2160,8 +2190,14 @@ msgstr "This token is not a gas abuser."
 msgid "Failed to fetch profiles."
 msgstr "Failed to fetch profiles."
 
+msgid "Post is decrypting..."
+msgstr "Post is decrypting..."
+
 msgid "Unliked"
 msgstr "Unliked"
+
+msgid "Quality Filter"
+msgstr "Quality Filter"
 
 msgid "Visit mask.io"
 msgstr "Visit mask.io"
@@ -2273,9 +2309,6 @@ msgstr "No phishing site."
 
 msgid "Followed <0>@{handle}</0> on X before Oct 12,2024, or followed <1>@{farcasterHandle}</1> on Farcaster before Oct 20, 2024"
 msgstr "Followed <0>@{handle}</0> on X before Oct 12,2024, or followed <1>@{farcasterHandle}</1> on Farcaster before Oct 20, 2024"
-
-msgid "Priority Mode"
-msgstr "Priority Mode"
 
 msgid "Connect your wallet to follow"
 msgstr "Connect your wallet to follow"
@@ -2510,6 +2543,9 @@ msgstr "No cybercrime involved."
 
 msgid "Sent"
 msgstr "Sent"
+
+msgid "No Enough Gas Fe"
+msgstr "No Enough Gas Fe"
 
 msgid "Casts + Replies"
 msgstr "Casts + Replies"
@@ -2952,6 +2988,9 @@ msgstr "The contract owner has no restrictions on personal slippage."
 msgid "Number of winners"
 msgstr "Number of winners"
 
+msgid "Updating Gas Fee…"
+msgstr "Updating Gas Fee…"
+
 msgid "Unmuted @{0} on {sourceName}."
 msgstr "Unmuted @{0} on {sourceName}."
 
@@ -3152,9 +3191,6 @@ msgstr "Emoji"
 
 msgid "Failed to report spam NFT."
 msgstr "Failed to report spam NFT."
-
-msgid "Polymarket"
-msgstr "Polymarket"
 
 msgid "Malformed twitter session payload."
 msgstr "Malformed twitter session payload."
@@ -3503,6 +3539,3 @@ msgstr "× {0}"
 
 msgid "Blink Validator"
 msgstr "Blink Validator"
-
-msgid "High-signal Filter"
-msgstr "High-signal Filter"

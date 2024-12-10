@@ -7,7 +7,6 @@ import { usePathname, useRouter } from 'next/navigation.js';
 import { forwardRef, type HTMLProps, useMemo, useState } from 'react';
 import { useAsync } from 'react-use';
 
-import Lock from '@/assets/lock.svg';
 import { TwitterArticleBody } from '@/components/Article/TwitterArticleBody.js';
 import { NakedMarkup } from '@/components/Markup/NakedMarkup.js';
 import { PostMarkup } from '@/components/Markup/PostMarkup.js';
@@ -16,6 +15,7 @@ import { PollCard } from '@/components/Poll/PollCard.js';
 import { Attachments } from '@/components/Posts/Attachment.js';
 import { CollapsedContent } from '@/components/Posts/CollapsedContent.js';
 import { ContentTranslator } from '@/components/Posts/ContentTranslator.js';
+import { EncryptedPost } from '@/components/Posts/EncryptedPost.js';
 import { PostLinks } from '@/components/Posts/PostLinks.js';
 import { Quote } from '@/components/Posts/Quote.js';
 import { IS_APPLE, IS_SAFARI } from '@/constants/bowser.js';
@@ -39,7 +39,7 @@ import type { Post } from '@/providers/types/SocialMedia.js';
 import { getPollIdFromLink } from '@/services/getPostLinks.js';
 import { useTwitterStateStore } from '@/store/useProfileStore.js';
 
-interface PostBodyProps {
+export interface PostBodyProps {
     post: Post;
     isQuote?: boolean;
     isReply?: boolean;
@@ -48,6 +48,7 @@ interface PostBodyProps {
     showMore?: boolean;
     disablePadding?: boolean;
     showTranslate?: boolean;
+    disableDecrypt?: boolean;
 }
 
 const overrideComponents = {
@@ -56,8 +57,8 @@ const overrideComponents = {
     },
 };
 
-export const PostBody = forwardRef<HTMLDivElement, PostBodyProps>(function PostBody(
-    {
+export const PostBody = forwardRef<HTMLDivElement, PostBodyProps>(function PostBody(props, ref) {
+    const {
         post,
         isQuote = false,
         isReply = false,
@@ -65,9 +66,9 @@ export const PostBody = forwardRef<HTMLDivElement, PostBodyProps>(function PostB
         showMore = !isDetail,
         disablePadding = false,
         showTranslate = false,
-    },
-    ref,
-) {
+        disableDecrypt = false,
+    } = props;
+
     const router = useRouter();
     const currentTwitterProfileSession = useTwitterStateStore.use.currentProfileSession();
     const { metadata, author } = post;
@@ -154,25 +155,17 @@ export const PostBody = forwardRef<HTMLDivElement, PostBodyProps>(function PostB
 
     if (post.isEncrypted) {
         return (
-            <div
+            <EncryptedPost
+                post={post}
+                postBodyProps={props}
+                isQuote={isQuote}
+                disableDecrypt={disableDecrypt}
                 className={classNames({
                     '-mt-3 pl-[52px]': !noLeftPadding,
                     'my-2': !isQuote,
                 })}
                 ref={ref}
-            >
-                <div
-                    className={classNames(
-                        'flex items-center gap-1 rounded-lg border-primaryMain px-3 py-[6px] text-medium',
-                        {
-                            border: !isQuote,
-                        },
-                    )}
-                >
-                    <Lock width={16} height={16} />
-                    <Trans>Post has been encrypted</Trans>
-                </div>
-            </div>
+            />
         );
     }
 

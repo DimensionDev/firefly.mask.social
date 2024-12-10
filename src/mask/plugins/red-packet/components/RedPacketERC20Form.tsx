@@ -8,7 +8,6 @@ import {
     SelectGasSettingsToolbar,
     TokenValue,
     useAvailableBalance,
-    useCurrentLinkedPersona,
     WalletConnectedBoundary,
 } from '@masknet/shared';
 import { NetworkPluginID } from '@masknet/shared-base';
@@ -154,9 +153,8 @@ export function RedPacketERC20Form(props: RedPacketFormProps) {
     const [isRandom, setRandom] = useState(!origin ? 1 : origin.isRandom ? 1 : 0);
     const [message, setMessage] = useState(origin?.message || '');
     const myIdentity = useLastRecognizedIdentity();
-    const linkedPersona = useCurrentLinkedPersona();
 
-    const senderName = myIdentity?.identifier?.userId || linkedPersona?.nickname || 'Unknown User';
+    const senderName = myIdentity?.identifier?.userId || 'Unknown User';
 
     // shares
     const [shares, setShares] = useState<number | ''>(origin?.shares || RED_PACKET_DEFAULT_SHARES);

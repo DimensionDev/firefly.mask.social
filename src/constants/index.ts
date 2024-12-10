@@ -182,7 +182,15 @@ export const EXPLORE_DEFAULT_SOURCE: Record<ExploreType, ExploreSource> = {
     [ExploreType.TopChannels]: Source.Farcaster,
 };
 
-export const BOOKMARK_SOURCES: BookmarkSource[] = [Source.Farcaster, Source.Lens, Source.Article, Source.DAOs];
+export const BOOKMARK_SOURCES: BookmarkSource[] = [
+    Source.Farcaster,
+    Source.Lens,
+    Source.Article,
+    Source.DAOs,
+    Source.NFTs,
+];
+
+export const ENABLED_DECRYPT_SOURCES = [Source.Lens];
 
 export const TIPS_SUPPORT_NETWORKS = [NetworkType.Ethereum];
 

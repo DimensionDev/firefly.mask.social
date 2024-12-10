@@ -13,6 +13,7 @@ import PoapIcon from '@/assets/poap.svg';
 import { GridListInPage } from '@/components/GridListInPage.js';
 import { ChainIcon } from '@/components/NFTDetail/ChainIcon.js';
 import { NFTImage } from '@/components/NFTImage.js';
+import { BookmarkInIcon } from '@/components/NFTs/BookmarkButton.js';
 import { Source } from '@/constants/enum.js';
 import { EMPTY_LIST, POAP_CONTRACT_ADDRESS } from '@/constants/index.js';
 import { Link } from '@/esm/Link.js';
@@ -20,6 +21,7 @@ import { classNames } from '@/helpers/classNames.js';
 import { formatEthereumAddress } from '@/helpers/formatAddress.js';
 import { nFormatter } from '@/helpers/formatCommentCounts.js';
 import { createIndicator } from '@/helpers/pageable.js';
+import { resolveNFTIdFromAsset } from '@/helpers/resolveNFTIdFromAsset.js';
 import { resolveNftUrl } from '@/helpers/resolveNftUrl.js';
 import { resolveProfileUrl } from '@/helpers/resolveProfileUrl.js';
 import { resolveWalletProfileProvider } from '@/helpers/resolveWalletProfileProvider.js';
@@ -68,34 +70,41 @@ function NFTItemContent({
     const nftUrl = resolveNftUrl(item.chainId, item.id, item.tokenId || '0');
 
     return (
-        <Link
-            href={nftUrl}
-            key={`${index}-${item.id}-${item.tokenId}`}
-            className="flex cursor-pointer flex-col rounded-lg bg-bg pb-1 sm:rounded-2xl"
-        >
-            <div className="relative aspect-square h-auto w-full overflow-hidden">
-                {props?.isShowChainIcon ? (
-                    <ChainIcon chainId={item.chainId} size={20} className="absolute left-2 top-2 h-4 w-4" />
-                ) : null}
-                {props?.isPoap ? <PoapIcon className="absolute left-2 top-2 h-6 w-6" /> : null}
-                {props?.isShowOwner && item.owner?.address ? <Owner address={item.owner.address as Hex} /> : null}
-                {props?.ownerCount ? (
-                    <div className="absolute left-2 top-2 z-10 h-5 rounded-lg bg-primaryBottom px-1 text-xs font-bold leading-5">
-                        <Trans>× {nFormatter(props.ownerCount)}</Trans>
-                    </div>
-                ) : null}
-                <NFTImage
-                    width={500}
-                    height={500}
-                    className="h-full w-full rounded-lg object-cover"
-                    src={item.metadata?.imageURL ?? ''}
-                    alt="nft_image"
-                />
-            </div>
-            <div className="mt-1 line-clamp-2 h-8 w-full px-1 text-center text-xs font-medium leading-4 sm:mt-2 sm:px-2 sm:py-0">
-                {item.metadata?.name}
-            </div>
-        </Link>
+        <div className="relative">
+            <Link
+                href={nftUrl}
+                key={`${index}-${item.id}-${item.tokenId}`}
+                className="flex cursor-pointer flex-col rounded-lg bg-bg pb-1 sm:rounded-2xl"
+            >
+                <div className="relative aspect-square h-auto w-full overflow-hidden">
+                    {props?.isShowChainIcon ? (
+                        <ChainIcon chainId={item.chainId} size={20} className="absolute left-2 top-2 h-4 w-4" />
+                    ) : null}
+                    {props?.isPoap ? <PoapIcon className="absolute left-2 top-2 h-6 w-6" /> : null}
+                    {props?.isShowOwner && item.owner?.address ? <Owner address={item.owner.address as Hex} /> : null}
+                    {props?.ownerCount ? (
+                        <div className="absolute left-2 top-2 z-10 h-5 rounded-lg bg-primaryBottom px-1 text-xs font-bold leading-5">
+                            <Trans>× {nFormatter(props.ownerCount)}</Trans>
+                        </div>
+                    ) : null}
+                    <NFTImage
+                        width={500}
+                        height={500}
+                        className="h-full w-full rounded-lg object-cover"
+                        src={item.metadata?.imageURL ?? ''}
+                        alt="nft_image"
+                    />
+                </div>
+                <div className="mt-1 line-clamp-2 h-8 w-full px-1 text-center text-xs font-medium leading-4 sm:mt-2 sm:px-2 sm:py-0">
+                    {item.metadata?.name}
+                </div>
+            </Link>
+            <BookmarkInIcon
+                className="absolute right-2 top-2 z-10"
+                nftId={resolveNFTIdFromAsset(item)}
+                ownerAddress={item.owner?.address}
+            />
+        </div>
     );
 }
 
