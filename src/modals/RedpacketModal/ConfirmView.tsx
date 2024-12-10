@@ -1,13 +1,10 @@
-import { t, Trans } from '@lingui/macro';
+import { Trans } from '@lingui/macro';
 import { formatCurrency } from '@masknet/web3-shared-base';
-import { type FungibleToken } from '@masknet/web3-shared-base';
 import { isValidAddress } from '@masknet/web3-shared-evm';
-import { type ChainId, SchemaType } from '@masknet/web3-shared-evm';
 import { BigNumber } from 'bignumber.js';
-import { compact, flatten, omit } from 'lodash-es';
+import { compact, flatten } from 'lodash-es';
 import { useContext, useMemo } from 'react';
 import { useAsync } from 'react-use';
-import urlcat from 'urlcat';
 import { useEnsName } from 'wagmi';
 
 import ArrowDownIcon from '@/assets/arrow-down.svg';
@@ -16,14 +13,13 @@ import QuestionIcon from '@/assets/question.svg';
 import { ActionButton } from '@/components/ActionButton.js';
 import { Tab, Tabs } from '@/components/Tabs/index.js';
 import { Tooltip } from '@/components/Tooltip.js';
-import { EMPTY_LIST, SITE_URL } from '@/constants/index.js';
+import { EMPTY_LIST } from '@/constants/index.js';
 import { formatAddress } from '@/helpers/formatAddress.js';
-import { rightShift } from '@/helpers/number.js';
 import { useChainContext } from '@/hooks/useChainContext.js';
 import { useCreateFTRedpacketCallback } from '@/hooks/useCreateFTRedpacketCallback.js';
 import { useFungibleTokenPrice } from '@/hooks/useFungibleTokenPrice.js';
 import { useProfileStoreAll } from '@/hooks/useProfileStore.js';
-import { DEFAULT_THEME_ID, RED_PACKET_DURATION } from '@/mask/plugins/red-packet/constants.js';
+import { DEFAULT_THEME_ID } from '@/mask/plugins/red-packet/constants.js';
 import { RequirementType } from '@/mask/plugins/red-packet/types.js';
 import {
     RedpacketContext,
@@ -153,27 +149,8 @@ export function ConfirmView() {
         : `${shareFrom}`;
 
     const [{ loading: createLoading }, handleCreate] = useCreateFTRedpacketCallback(
-        {
-            duration: RED_PACKET_DURATION,
-            isRandom: randomType === 'random',
-            name: shareFromName,
-            message: message || t`Best Wishes!`,
-            shares: shares || 0,
-            token: token
-                ? (omit(token, ['logoURI']) as FungibleToken<ChainId, SchemaType.ERC20 | SchemaType.Native>)
-                : undefined,
-            total: rightShift(totalAmount, token?.decimals).toFixed(),
-        },
+        shareFromName,
         value?.publicKey ?? '',
-        urlcat(SITE_URL, '/api/rp', {
-            'theme-id': DEFAULT_THEME_ID,
-            usage: 'payload',
-            from: shareFromName,
-            amount: rightShift(totalAmount, token?.decimals).toString(),
-            type: 'fungible',
-            symbol: token?.symbol,
-            decimals: token?.decimals,
-        }),
         value?.claimRequirements,
     );
 

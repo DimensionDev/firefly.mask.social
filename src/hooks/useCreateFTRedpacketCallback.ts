@@ -1,18 +1,27 @@
-import { toFixed } from '@masknet/web3-shared-base';
-import { SchemaType, useRedPacketConstants, useTokenConstants } from '@masknet/web3-shared-evm';
+import { t } from '@lingui/macro';
+import { type FungibleToken, toFixed } from '@masknet/web3-shared-base';
+import { ChainId, SchemaType, useRedPacketConstants, useTokenConstants } from '@masknet/web3-shared-evm';
 import { first, omit } from 'lodash-es';
+import { useContext, useMemo } from 'react';
 import { useAsyncFn } from 'react-use';
+import urlcat from 'urlcat';
 import { type Address, decodeEventLog, type Hex, keccak256, parseEventLogs } from 'viem';
 import { getTransactionReceipt, writeContract } from 'wagmi/actions';
 
 import { config } from '@/configs/wagmiClient.js';
-import { EMPTY_LIST } from '@/constants/index.js';
+import { EMPTY_LIST, SITE_URL } from '@/constants/index.js';
+import { rightShift } from '@/helpers/number.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { waitForEthereumTransaction } from '@/helpers/waitForEthereumTransaction.js';
 import { useChainContext } from '@/hooks/useChainContext.js';
 import { HappyRedPacketV4ABI } from '@/mask/bindings/constants.js';
 import { EVMChainResolver } from '@/mask/bindings/index.js';
-import { RED_PACKET_CONTRACT_VERSION, RedPacketMetaKey } from '@/mask/plugins/red-packet/constants.js';
+import {
+    DEFAULT_THEME_ID,
+    RED_PACKET_CONTRACT_VERSION,
+    RED_PACKET_DURATION,
+    RedPacketMetaKey,
+} from '@/mask/plugins/red-packet/constants.js';
 import { getTypedMessageRedPacket } from '@/mask/plugins/red-packet/helpers/getTypedMessage.js';
 import { reduceUselessPayloadInfo } from '@/mask/plugins/red-packet/helpers/reduceUselessPayloadInfo.js';
 import { getRpMetadata } from '@/mask/plugins/red-packet/helpers/rpPayload.js';
@@ -20,19 +29,48 @@ import {
     checkParams,
     type MethodParameters,
     type ParamsObjType,
-    type RedPacketSettings,
 } from '@/mask/plugins/red-packet/hooks/useCreateCallback.js';
 import { RedpacketModalRef } from '@/modals/controls.js';
+import { RedpacketContext } from '@/modals/RedpacketModal/RedpacketContext.jsx';
 import type { FireflyRedPacketAPI } from '@/providers/red-packet/types.js';
 import { captureLuckyDropEvent } from '@/providers/telemetry/captureLuckyDropEvent.js';
 import { useComposeStateStore } from '@/store/useComposeStore.js';
 
 export function useCreateFTRedpacketCallback(
-    redPacketSettings: RedPacketSettings,
+    shareFromName: string,
     publicKey: string,
-    coverImage?: string,
     claimRequirements?: FireflyRedPacketAPI.StrategyPayload[],
 ) {
+    const { randomType, message, shares, token, totalAmount } = useContext(RedpacketContext);
+
+    const redPacketSettings = useMemo(() => {
+        return {
+            duration: RED_PACKET_DURATION,
+            isRandom: randomType === 'random',
+            name: shareFromName,
+            message: message || t`Best Wishes!`,
+            shares: shares || 0,
+            token: token
+                ? (omit(token, ['logoURI']) as FungibleToken<ChainId, SchemaType.ERC20 | SchemaType.Native>)
+                : undefined,
+            total: rightShift(totalAmount, token?.decimals).toFixed(),
+        };
+    }, [message, randomType, shareFromName, shares, token, totalAmount]);
+
+    const coverImage = useMemo(
+        () =>
+            urlcat(SITE_URL, '/api/rp', {
+                'theme-id': DEFAULT_THEME_ID,
+                usage: 'payload',
+                from: shareFromName,
+                amount: rightShift(totalAmount, token?.decimals).toString(),
+                type: 'fungible',
+                symbol: token?.symbol,
+                decimals: token?.decimals,
+            }),
+        [shareFromName, totalAmount, token?.decimals, token?.symbol],
+    );
+
     const { chainId, account } = useChainContext();
     const { HAPPY_RED_PACKET_ADDRESS_V4: redpacketContractAddress } = useRedPacketConstants(chainId);
     const { NATIVE_TOKEN_ADDRESS } = useTokenConstants(chainId);
@@ -169,5 +207,5 @@ export function useCreateFTRedpacketCallback(
         }
 
         RedpacketModalRef.close();
-    }, [redPacketSettings, chainId, redpacketContractAddress, NATIVE_TOKEN_ADDRESS, publicKey]);
+    }, [redPacketSettings, chainId, redpacketContractAddress, NATIVE_TOKEN_ADDRESS, publicKey, redPacketSettings]);
 }
