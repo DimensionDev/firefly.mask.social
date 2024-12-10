@@ -11,9 +11,10 @@ interface ShareAccountsPopoverProps extends PropsWithChildren {
     accounts: Array<{ icon: ReactNode; name: string }>;
     onClick: (name: string) => void;
     className?: string;
+    selected?: string;
 }
 
-export function ShareAccountsPopover({ accounts, children, onClick, className }: ShareAccountsPopoverProps) {
+export function ShareAccountsPopover({ accounts, children, onClick, className, selected }: ShareAccountsPopoverProps) {
     return (
         <Popover as="div" className="relative">
             {({ close }) => (
@@ -42,6 +43,7 @@ export function ShareAccountsPopover({ accounts, children, onClick, className }:
                                         key={name}
                                         icon={icon}
                                         name={name}
+                                        disabled={selected === name}
                                         onClick={(name: string) => {
                                             onClick(name);
                                             close();
@@ -61,10 +63,12 @@ export function ShareAccountsPopoverItem({
     icon,
     name,
     onClick,
+    disabled = false,
 }: {
     icon: ReactNode;
     name: string;
     onClick: (name: string) => void;
+    disabled?: boolean;
 }) {
     const { data: ensName } = useEnsName({
         address: name as `0x${string}`,
@@ -75,7 +79,10 @@ export function ShareAccountsPopoverItem({
 
     return (
         <ClickableArea
-            className="shrink-0 cursor-pointer"
+            className={classNames('shrink-0', {
+                'cursor-pointer': !disabled,
+                'opacity-40': disabled,
+            })}
             onClick={() => {
                 onClick(name);
             }}
