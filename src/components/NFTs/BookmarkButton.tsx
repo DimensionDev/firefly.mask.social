@@ -14,20 +14,24 @@ import { ConfirmModalRef } from '@/modals/controls.js';
 interface BookmarkButtonProps extends Omit<ClickableButtonProps, 'ref' | 'children'> {
     nftId: string;
     ownerAddress?: string;
+    bookmarked?: boolean;
     children?: (hasBookmarked: boolean, isLoading: boolean, fetching: boolean) => React.ReactNode;
     onClick?: () => void;
 }
 
 const BookmarkButton = forwardRef<HTMLButtonElement, BookmarkButtonProps>(function BookmarkButton(
-    { children, nftId, ownerAddress = '', onClick, ...rest },
+    { children, nftId, ownerAddress = '', bookmarked, onClick, ...rest },
     ref,
 ) {
-    const { isLoading, data: hasBookmarked = false } = useHasBookmarked(FireflyPlatform.NFTs, nftId);
+    const disableFetch = bookmarked !== undefined;
+    const { isLoading, data = false } = useHasBookmarked(FireflyPlatform.NFTs, nftId, undefined, disableFetch);
 
     const [isMutating, mutation] = useToggleNFTBookmark({
         owner: ownerAddress,
         nftId,
     });
+
+    const hasBookmarked = disableFetch ? bookmarked : data;
 
     return (
         <ClickableButton
@@ -37,10 +41,10 @@ const BookmarkButton = forwardRef<HTMLButtonElement, BookmarkButtonProps>(functi
             onClick={async () => {
                 const confirmed = hasBookmarked
                     ? await ConfirmModalRef.openAndWaitForClose({
-                          title: t`Remove Bookmark`,
+                          title: t`Remove from bookmark`,
                           content: (
                               <div className="text-main">
-                                  <Trans>Are you sure you want to remove this NFT from your bookmarks?</Trans>
+                                  <Trans>Are you sure you want to remove this NFT from your bookmark?</Trans>
                               </div>
                           ),
                           variant: 'normal',
