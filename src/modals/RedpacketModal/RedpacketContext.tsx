@@ -71,22 +71,22 @@ export const redpacketRandomTabs = [
 
 export const redpacketCoverTabs = [
     {
-        label: <Trans>Default</Trans>,
+        label: <Trans>Template</Trans>,
         value: 'default',
     },
     {
-        label: <Trans>Upload custom cover</Trans>,
+        label: <Trans>Custom</Trans>,
         value: 'custom',
     },
 ];
 
 export const redpacketDisplayTabs = [
     {
-        label: <Trans>Light</Trans>,
+        label: <Trans>Default</Trans>,
         value: 'light',
     },
     {
-        label: <Trans>Dark</Trans>,
+        label: <Trans>Golden</Trans>,
         value: 'dark',
     },
 ];

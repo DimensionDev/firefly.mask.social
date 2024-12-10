@@ -1,8 +1,13 @@
-import { Trans } from '@lingui/macro';
+import { t, Trans } from '@lingui/macro';
 import { formatCurrency } from '@masknet/web3-shared-base';
+import { type FungibleToken } from '@masknet/web3-shared-base';
 import { isValidAddress } from '@masknet/web3-shared-evm';
+import { type ChainId, SchemaType } from '@masknet/web3-shared-evm';
 import { BigNumber } from 'bignumber.js';
+import { compact, flatten, omit } from 'lodash-es';
 import { useContext, useMemo } from 'react';
+import { useAsync } from 'react-use';
+import urlcat from 'urlcat';
 import { useEnsName } from 'wagmi';
 
 import ArrowDownIcon from '@/assets/arrow-down.svg';
@@ -11,9 +16,15 @@ import QuestionIcon from '@/assets/question.svg';
 import { ActionButton } from '@/components/ActionButton.js';
 import { Tab, Tabs } from '@/components/Tabs/index.js';
 import { Tooltip } from '@/components/Tooltip.js';
+import { EMPTY_LIST, SITE_URL } from '@/constants/index.js';
 import { formatAddress } from '@/helpers/formatAddress.js';
+import { rightShift } from '@/helpers/number.js';
 import { useChainContext } from '@/hooks/useChainContext.js';
+import { useCreateFTRedpacketCallback } from '@/hooks/useCreateFTRedpacketCallback.js';
 import { useFungibleTokenPrice } from '@/hooks/useFungibleTokenPrice.js';
+import { useProfileStoreAll } from '@/hooks/useProfileStore.js';
+import { RED_PACKET_DURATION } from '@/mask/plugins/red-packet/constants.js';
+import { RequirementType } from '@/mask/plugins/red-packet/types.js';
 import {
     RedpacketContext,
     redpacketCoverTabs,
@@ -21,6 +32,8 @@ import {
 } from '@/modals/RedpacketModal/RedpacketContext.js';
 import { REQUIREMENT_ICON_MAP, REQUIREMENT_TITLE_MAP } from '@/modals/RedpacketModal/RequirementsView.js';
 import { ShareAccountsPopover } from '@/modals/RedpacketModal/ShareAccountsPopover.js';
+import { FireflyRedPacket } from '@/providers/red-packet/index.js';
+import { FireflyRedPacketAPI } from '@/providers/red-packet/types.js';
 
 export function ConfirmView() {
     const {
@@ -36,9 +49,16 @@ export function ConfirmView() {
         token,
         totalAmount,
         rules,
+        requireCollection,
+        message,
     } = useContext(RedpacketContext);
-    const { chainId } = useChainContext();
+    const { chainId, account } = useChainContext();
 
+    const {
+        Lens: { currentProfile: currentLensProfile },
+        Farcaster: { currentProfile: currentFarcasterProfile },
+        Twitter: { currentProfile: currentTwitterProfile },
+    } = useProfileStoreAll();
     const { data: tokenPrice = 0 } = useFungibleTokenPrice(token?.address, { chainId });
 
     const { data: shareFromEnsName } = useEnsName({
@@ -54,6 +74,108 @@ export function ConfirmView() {
             onlyRemainTwoOrZeroDecimal: true,
         });
     }, [totalAmount, tokenPrice]);
+
+    const { value, loading } = useAsync(async () => {
+        const postReactions = rules.filter((x) => x !== RequirementType.Follow && x !== RequirementType.NFTHolder);
+
+        const payload = rules
+            ? compact([
+                  rules.includes(RequirementType.Follow)
+                      ? {
+                            type: FireflyRedPacketAPI.StrategyType.profileFollow,
+                            payload: compact([
+                                currentLensProfile
+                                    ? {
+                                          platform: FireflyRedPacketAPI.PlatformType.lens,
+                                          profileId: currentLensProfile.profileId,
+                                      }
+                                    : undefined,
+                                currentFarcasterProfile
+                                    ? {
+                                          platform: FireflyRedPacketAPI.PlatformType.farcaster,
+                                          profileId: currentFarcasterProfile.profileId,
+                                      }
+                                    : undefined,
+                                currentTwitterProfile
+                                    ? {
+                                          platform: FireflyRedPacketAPI.PlatformType.twitter,
+                                          profileId: currentTwitterProfile.profileId,
+                                      }
+                                    : undefined,
+                            ]),
+                        }
+                      : undefined,
+                  postReactions?.length
+                      ? {
+                            type: FireflyRedPacketAPI.StrategyType.postReaction,
+                            payload: {
+                                reactions: flatten(
+                                    postReactions.map((x) => {
+                                        if (x === RequirementType.Repost) return ['repost', 'quote'];
+                                        return x.toLowerCase();
+                                    }),
+                                ),
+                            },
+                        }
+                      : undefined,
+                  rules.includes(RequirementType.NFTHolder) && requireCollection?.address
+                      ? {
+                            type: FireflyRedPacketAPI.StrategyType.nftOwned,
+                            payload: [
+                                {
+                                    chainId: requireCollection.chainId ?? chainId,
+                                    contractAddress: requireCollection.address,
+                                    collectionName: requireCollection.name,
+                                },
+                            ],
+                        }
+                      : undefined,
+              ])
+            : EMPTY_LIST;
+
+        return {
+            // TODO: replace the theme id
+            publicKey: await FireflyRedPacket.createPublicKey('e171b936-b5f5-415c-8938-fa1b74d1d612', account, payload),
+            claimRequirements: payload,
+        };
+    }, [
+        requireCollection,
+        rules,
+        chainId,
+        currentFarcasterProfile,
+        currentLensProfile,
+        currentTwitterProfile,
+        account,
+    ]);
+
+    const shareFromName = isValidAddress(shareFrom)
+        ? (shareFromEnsName ?? formatAddress(shareFrom, 4))
+        : `${shareFrom}`;
+
+    const [{ loading: createLoading }, handleCreate] = useCreateFTRedpacketCallback(
+        {
+            duration: RED_PACKET_DURATION,
+            isRandom: randomType === 'random',
+            name: shareFromName,
+            message: message || t`Best Wishes!`,
+            shares: shares || 0,
+            token: token
+                ? (omit(token, ['logoURI']) as FungibleToken<ChainId, SchemaType.ERC20 | SchemaType.Native>)
+                : undefined,
+            total: rightShift(totalAmount, token?.decimals).toFixed(),
+        },
+        value?.publicKey ?? '',
+        urlcat(SITE_URL, '/api/rp', {
+            'theme-id': 'e171b936-b5f5-415c-8938-fa1b74d1d612',
+            usage: 'payload',
+            from: shareFromName,
+            amount: rightShift(totalAmount, token?.decimals).toString(),
+            type: 'fungible',
+            symbol: token?.symbol,
+            decimals: token?.decimals,
+        }),
+        value?.claimRequirements,
+    );
 
     return (
         <>
@@ -100,6 +222,7 @@ export function ConfirmView() {
                         </label>
 
                         <ShareAccountsPopover
+                            selected={shareFrom}
                             className="w-full"
                             accounts={accounts}
                             onClick={(name) => setShareFrom(name)}
@@ -176,8 +299,7 @@ export function ConfirmView() {
             <div className="flex-grow" />
 
             <div className="w-full bg-lightBottom80 p-4 shadow-primary backdrop-blur-lg dark:shadow-primaryDark">
-                {/* TODO: create redpacket */}
-                <ActionButton className="rounded-lg">
+                <ActionButton className="rounded-lg" onClick={handleCreate} loading={createLoading || loading}>
                     <Trans>Next</Trans>
                 </ActionButton>
             </div>

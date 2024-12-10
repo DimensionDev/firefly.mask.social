@@ -255,7 +255,8 @@ export const ComposeModalUI = forwardRef<SingletonModalRefCreator<ComposeModalOp
                     SteganographyPreset.Preset2023_Firefly,
                 );
 
-                const promoteMessage = t`Check out my LuckyDrop 🧧💰✨ on Firefly mobile app or ${promoteLink} !`;
+                // eslint-disable-next-line no-irregular-whitespace
+                const promoteMessage = t`Check out my LuckyDrop 🧧💰✨ on Firefly mobile app or desktop ${promoteLink} !`;
 
                 const chars: Chars = [
                     {
