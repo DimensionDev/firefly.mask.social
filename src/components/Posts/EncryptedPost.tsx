@@ -5,10 +5,13 @@ import { forwardRef, type HTMLProps } from 'react';
 
 import Lock from '@/assets/lock.svg';
 import { ClickableButton } from '@/components/ClickableButton.js';
-import { PostBody, type PostBodyProps } from '@/components/Posts/PostBody.js';
+import { type PostBodyProps } from '@/components/Posts/PostBody.js';
+import { dynamic } from '@/esm/dynamic.js';
 import { classNames } from '@/helpers/classNames.js';
 import { useDecryptPost } from '@/hooks/useDecryptPost.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
+
+const PostBody = dynamic(() => import('@/components/Posts/PostBody.js').then((m) => m.PostBody), { ssr: false });
 
 interface EncryptedPostProps extends HTMLProps<HTMLDivElement> {
     post: Post;
