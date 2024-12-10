@@ -216,6 +216,7 @@ export enum ScrollListKey {
     SnapshotVotes = 'snapshot-votes',
     Activity = 'activity',
     Polymarket = 'polymarket-list',
+    RedpacketHistory = 'redpacket-history',
 }
 
 export enum FarcasterSignType {

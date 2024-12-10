@@ -76,6 +76,9 @@ msgstr ""
 msgid "Sell Tax: {0}%"
 msgstr ""
 
+msgid "Lucky drop"
+msgstr ""
+
 msgid "Failed to translate post. Please retry later."
 msgstr ""
 
@@ -95,6 +98,9 @@ msgid "Simulating"
 msgstr ""
 
 msgid "Your frame URL"
+msgstr ""
+
+msgid "Refunded"
 msgstr ""
 
 msgid "Send a tip"
@@ -121,13 +127,13 @@ msgstr ""
 msgid "Ask a question"
 msgstr ""
 
-msgid "There is no data available to select."
-msgstr ""
-
 msgid "Please be cautious when connecting your wallet, as malicious websites may attempt to access your funds."
 msgstr ""
 
 msgid "<0>Fully Diluted Valuation (FDV) = Current Price x Total Supply</0><1>Fully Diluted Valuation (FDV) is the theoretical market capitalization of a coin if the entirety of its supply is in circulation, based on its current market price. The FDV value is theoretical as increasing the circulating supply of a coin may impact its market price. Also depending on the tokenomics, emission schedule or lock-up period of a coin's supply, it may take a significant time before its entire supply is released into circulation.</1>"
+msgstr ""
+
+msgid "Equal Split"
 msgstr ""
 
 msgid "Followed @{0} on {sourceName}"
@@ -181,9 +187,6 @@ msgstr ""
 msgid "Blackmail activities found."
 msgstr ""
 
-msgid "No Lucky Drops claimed"
-msgstr ""
-
 msgid "Allow Lens Manager to perform actions such as posting, liking, and commenting without the need to sign each transaction."
 msgstr ""
 
@@ -227,6 +230,9 @@ msgid "<0>The maximum number of coins coded to exist in the lifetime of the cryp
 msgstr ""
 
 msgid "This token is a gas abuser."
+msgstr ""
+
+msgid "Light"
 msgstr ""
 
 msgid "Are you sure you want to leave /{0} ?"
@@ -314,6 +320,9 @@ msgid "Trending"
 msgstr ""
 
 msgid "Log out @{0}"
+msgstr ""
+
+msgid "MAX"
 msgstr ""
 
 msgid "You can save the failed parts of posts and send them later from your Drafts."
@@ -425,9 +434,6 @@ msgid "Failed to like the comment."
 msgstr ""
 
 msgid "Sign in"
-msgstr ""
-
-msgid "<0>Posted</0>an article"
 msgstr ""
 
 msgid "Scan the QR code with your phone’s <0>Camera</0> in {count}s. <1/>Approve a new Farcaster signer to Firefly."
@@ -682,6 +688,9 @@ msgstr ""
 msgid "Sanctioned address."
 msgstr ""
 
+msgid "Claim requirements"
+msgstr ""
+
 msgid "Failed to decrypt post on {0}."
 msgstr ""
 
@@ -823,9 +832,6 @@ msgstr ""
 msgid "Failed to generate signature packet with source = {source}."
 msgstr ""
 
-msgid "No Lucky Drops created. Select 🎁 when you compose a post to start your first drop."
-msgstr ""
-
 msgid "Save failed post?"
 msgstr ""
 
@@ -842,6 +848,9 @@ msgid "LinkDigest Validator"
 msgstr ""
 
 msgid "No Lens profile found.<0/>Please change to another wallet."
+msgstr ""
+
+msgid "Drop type"
 msgstr ""
 
 msgid "The contract owner has no restrictions on trading cooldown."
@@ -949,6 +958,9 @@ msgid "Join /{0}"
 msgstr ""
 
 msgid "The token can not be bought."
+msgstr ""
+
+msgid "More Details"
 msgstr ""
 
 msgid "No proxy"
@@ -1134,10 +1146,16 @@ msgstr ""
 msgid "Days"
 msgstr ""
 
+msgid "<0>Acquired</0><1/><2>from</2><3><4>{0}</4></3>"
+msgstr ""
+
 msgid "Submit a wallet to receive NFT and $ANON"
 msgstr ""
 
 msgid "<0/> mentioned you in a <1>{0, select, Post {post} Comment {comment} Quote {quote} Mirror {mirror} other {post}}</1>"
+msgstr ""
+
+msgid "<0>Bought</0><1/>"
 msgstr ""
 
 msgid "The current connected wallet does not match, Please switch to {0}"
@@ -1156,6 +1174,9 @@ msgid "Up to 7 days can be set as the scheduled time. Please reset it"
 msgstr ""
 
 msgid "Enable development API version"
+msgstr ""
+
+msgid "<0>Sent</0><1/>"
 msgstr ""
 
 msgid "Voted"
@@ -1221,6 +1242,9 @@ msgstr ""
 msgid "Collected"
 msgstr ""
 
+msgid "Upload custom cover"
+msgstr ""
+
 msgid "Try again"
 msgstr ""
 
@@ -1276,6 +1300,9 @@ msgid "You can withdraw the rest of your balances back 24h later after sending t
 msgstr ""
 
 msgid "Kamala Harris"
+msgstr ""
+
+msgid "<0>Revised</0><1>an article</1>"
 msgstr ""
 
 msgid "Send telemetry events in debug mode."
@@ -1440,6 +1467,9 @@ msgstr ""
 msgid "No one likes this post yet."
 msgstr ""
 
+msgid "<0>Claimed: </0><1>{claim_numbers}/{total_numbers}</1> <2>{0}/{1}</2> <3>{token_symbol}</3>"
+msgstr ""
+
 msgid "Your posts have published successfully on {0}."
 msgstr ""
 
@@ -1563,6 +1593,9 @@ msgstr ""
 msgid "Please confirm the login with Warpcast."
 msgstr ""
 
+msgid "Cover background"
+msgstr ""
+
 msgid "Verified"
 msgstr ""
 
@@ -1591,6 +1624,9 @@ msgid "<0>{0}</0> liked"
 msgstr ""
 
 msgid "Fully Diluted Valuation"
+msgstr ""
+
+msgid "Customize Lucky Drop sender. Select either Lens or Forecaster handle, or use the currently connected wallet."
 msgstr ""
 
 msgid "Email (optional)"
@@ -1671,9 +1707,6 @@ msgstr ""
 msgid "Grant access to your {0} for the Lucky Drop Smart contract. You only have to do this once per token."
 msgstr ""
 
-msgid "VOTED"
-msgstr ""
-
 msgid "Enclose a Message"
 msgstr ""
 
@@ -1727,7 +1760,7 @@ msgstr ""
 msgid "Standard"
 msgstr ""
 
-msgid "<0>Revised</0>an article"
+msgid "Data display"
 msgstr ""
 
 msgid "No darkweb transactions found."
@@ -1985,6 +2018,9 @@ msgstr ""
 msgid "Step 3 Select to vote"
 msgstr ""
 
+msgid "Select Collection"
+msgstr ""
+
 msgid "Visit firefly.social"
 msgstr ""
 
@@ -2126,6 +2162,9 @@ msgstr ""
 msgid "Received time:"
 msgstr ""
 
+msgid "Random Split"
+msgstr ""
+
 msgid "Remove Poll"
 msgstr ""
 
@@ -2189,6 +2228,9 @@ msgstr ""
 msgid "Please input the serialized session to be validated."
 msgstr ""
 
+msgid "Network cost"
+msgstr ""
+
 msgid "1 NFT claimed."
 msgstr ""
 
@@ -2229,6 +2271,9 @@ msgid "Sign"
 msgstr ""
 
 msgid "Failed to recast post"
+msgstr ""
+
+msgid "Available Balance"
 msgstr ""
 
 msgid "Follow @thefireflyapp on X"
@@ -2396,6 +2441,9 @@ msgstr ""
 msgid "Show more"
 msgstr ""
 
+msgid "{0} items"
+msgstr ""
+
 msgid "Time Limit"
 msgstr ""
 
@@ -2427,6 +2475,9 @@ msgid "24H Volume"
 msgstr ""
 
 msgid "<0>Minted</0> an NFT worth {costEl}"
+msgstr ""
+
+msgid "Balance"
 msgstr ""
 
 msgid "Suspended"
@@ -2490,6 +2541,9 @@ msgid "No cybercrime involved."
 msgstr ""
 
 msgid "Sent"
+msgstr ""
+
+msgid "No Enough Gas Fe"
 msgstr ""
 
 msgid "Casts + Replies"
@@ -2630,6 +2684,9 @@ msgstr ""
 msgid "Your post will be sent on {0} at {1} <0>View</0>"
 msgstr ""
 
+msgid "<0>Sold</0><1/>"
+msgstr ""
+
 msgid "Failed to create scheduled post."
 msgstr ""
 
@@ -2649,6 +2706,9 @@ msgid "View"
 msgstr ""
 
 msgid "Crypto Trends"
+msgstr ""
+
+msgid "<0>Acquired</0><1/>"
 msgstr ""
 
 msgid "Copy link to profile"
@@ -2730,6 +2790,9 @@ msgid "Collect Article"
 msgstr ""
 
 msgid "Firefly Wallets"
+msgstr ""
+
+msgid "<0>Sent</0><1/><2>to</2><3><4>{0}</4></3>"
 msgstr ""
 
 msgid "Channels"
@@ -2834,6 +2897,9 @@ msgstr ""
 msgid "The account you are trying to log in with is already linked to a different Firefly account."
 msgstr ""
 
+msgid "<0>Minted</0><1/>{0}"
+msgstr ""
+
 msgid "Saved on {0}"
 msgstr ""
 
@@ -2906,6 +2972,9 @@ msgstr ""
 msgid "You may lose your assets if giving approval to the website of this token."
 msgstr ""
 
+msgid "Default"
+msgstr ""
+
 msgid "Unfollow"
 msgstr ""
 
@@ -2925,6 +2994,12 @@ msgid "Posted via {0} <0>{sendFrom}</0>"
 msgstr ""
 
 msgid "The contract owner has no restrictions on personal slippage."
+msgstr ""
+
+msgid "Number of winners"
+msgstr ""
+
+msgid "Updating Gas Fee…"
 msgstr ""
 
 msgid "Unmuted @{0} on {sourceName}."
@@ -2951,6 +3026,9 @@ msgstr ""
 msgid "{minutes}m left"
 msgstr ""
 
+msgid "Dark"
+msgstr ""
+
 msgid "Signature Request"
 msgstr ""
 
@@ -2964,6 +3042,9 @@ msgid "Your name"
 msgstr ""
 
 msgid "No tax changes found for personal addresses."
+msgstr ""
+
+msgid "Unlock {0}"
 msgstr ""
 
 msgid "Owned"
@@ -2991,6 +3072,9 @@ msgid "News"
 msgstr ""
 
 msgid "NFT ID"
+msgstr ""
+
+msgid "Confirm Lucky drop"
 msgstr ""
 
 msgid "Farcaster channel"
@@ -3311,6 +3395,9 @@ msgstr ""
 msgid "Claim Now"
 msgstr ""
 
+msgid "<0>Collect</0><1/>"
+msgstr ""
+
 msgid "Collect for {0} {1}"
 msgstr ""
 
@@ -3351,6 +3438,9 @@ msgid "Continue"
 msgstr ""
 
 msgid "Cybercrime."
+msgstr ""
+
+msgid "<0>Burn</0><1/>"
 msgstr ""
 
 msgid "<0>Sent</0> an NFT to <1>{0}</1>"
@@ -3423,6 +3513,9 @@ msgid "Logging out will cause scheduled posts to fail. To ensure that posts are 
 msgstr ""
 
 msgid "Failed to create schedule post."
+msgstr ""
+
+msgid "<0>Post</0><1>an article</1>"
 msgstr ""
 
 msgid "<0>{0}</0> recasted"

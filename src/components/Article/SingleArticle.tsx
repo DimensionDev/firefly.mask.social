@@ -1,4 +1,3 @@
-import { Trans } from '@lingui/macro';
 import { useQuery } from '@tanstack/react-query';
 import { motion } from 'framer-motion';
 import { first, isUndefined } from 'lodash-es';
@@ -7,7 +6,7 @@ import { memo, useCallback } from 'react';
 import { useMount } from 'react-use';
 import urlcat from 'urlcat';
 
-import ArticleAnchorIcon from '@/assets/article-anchor.svg';
+import { ActivityCellArticleAction } from '@/components/ActivityCell/Article/ActivityCellArticleAction.js';
 import { ArticleBody } from '@/components/Article/ArticleBody.js';
 import { SingleArticleHeader } from '@/components/Article/SingleArticleHeader.js';
 import { FeedFollowSource } from '@/components/FeedFollowSource.js';
@@ -16,7 +15,7 @@ import { queryClient } from '@/configs/queryClient.js';
 import { classNames } from '@/helpers/classNames.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
 import { getArticleUrl } from '@/helpers/getArticleUrl.js';
-import { type Article, ArticlePlatform, ArticleType } from '@/providers/types/Article.js';
+import { type Article, ArticlePlatform } from '@/providers/types/Article.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
 import type { ResponseJSON } from '@/types/index.js';
 import { type LinkDigested, PayloadType } from '@/types/og.js';
@@ -93,24 +92,7 @@ export const SingleArticle = memo<SingleArticleProps>(function SingleArticleProp
                 <CollapsedContent className="mt-2 pl-[52px]" authorMuted isQuote={false} />
             ) : (
                 <div className="-mt-2 pl-[52px]">
-                    {!isBookmark ? (
-                        <div className="flex items-center gap-1 text-medium">
-                            <ArticleAnchorIcon width={18} height={18} />
-                            <span className="flex items-center gap-1 text-secondary">
-                                {article.type === ArticleType.Revise ? (
-                                    <Trans>
-                                        <strong className="text-main">Revised</strong>
-                                        an article
-                                    </Trans>
-                                ) : (
-                                    <Trans>
-                                        <strong className="text-main">Posted</strong>
-                                        an article
-                                    </Trans>
-                                )}
-                            </span>
-                        </div>
-                    ) : null}
+                    {!isBookmark ? <ActivityCellArticleAction type={article.type} /> : null}
                     <ArticleBody onClick={handleClick} cover={cover?.data ?? undefined} article={article} />
                 </div>
             )}

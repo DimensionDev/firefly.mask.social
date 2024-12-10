@@ -1,18 +1,13 @@
 import { Popover, PopoverButton, PopoverPanel, Transition } from '@headlessui/react';
-import { t } from '@lingui/macro';
 import { Fragment, type PropsWithChildren, type ReactNode, useEffect, useRef, useState } from 'react';
-import { useAsyncRetry } from 'react-use';
-import { useDebounce } from 'usehooks-ts';
 
 import LineArrowUp from '@/assets/line-arrow-up.svg';
 import LoadingIcon from '@/assets/loading.svg';
-import { ErrorHandler } from '@/components/ErrorHandler.js';
-import { NoResultsFallback, type NoResultsFallbackProps } from '@/components/NoResultsFallback.js';
 import { SearchInput } from '@/components/Search/SearchInput.js';
 import { classNames } from '@/helpers/classNames.js';
 
 interface FilterPopoverProps<F> {
-    defaultFilter: string;
+    placeholder: string;
     data: F[];
     selected?: F;
     popoverClassName?: string;
@@ -21,22 +16,22 @@ interface FilterPopoverProps<F> {
     itemRenderer: (item: F, isTag?: boolean) => ReactNode;
 }
 
-interface SearchContentPanelProps<T, F = never, O = unknown> {
+interface SearchContentPanelProps<T, F = never> {
     showFilter?: boolean;
     isLoading?: boolean;
     placeholder?: string;
-    filterProps: Omit<FilterPopoverProps<F>, 'onSelected' | 'selected'>;
-    fallbackProps?: NoResultsFallbackProps;
-    otherParams?: O;
-    onSearch: (searchText: string, filterData?: F, otherParams?: O) => Promise<T[]>;
-    itemRenderer: (item: T) => ReactNode;
+    filterProps: FilterPopoverProps<F>;
+    keyword: string;
+    onSearch: (searchText: string) => void;
+    data: T[];
+    itemRenderer?: (item: T) => ReactNode;
     onSelected?: (selected: T) => void;
     listKey?: (item: T) => string;
     isSelected?: (item: T) => boolean;
 }
 
 function FilterPopover<F>({
-    defaultFilter,
+    placeholder,
     data,
     selected,
     popoverClassName,
@@ -63,7 +58,7 @@ function FilterPopover<F>({
                 'opacity-50': selected ? (isSelected?.(item, selected) ?? false) : index === -1,
             })}
         >
-            {index === -1 ? defaultFilter : itemRenderer(item)}
+            {index === -1 ? placeholder : itemRenderer(item)}
         </div>
     );
 
@@ -72,7 +67,7 @@ function FilterPopover<F>({
             {({ open, close }) => (
                 <>
                     <PopoverButton className="flex h-9 cursor-pointer items-center gap-1 rounded-lg border border-lightLineSecond px-2 text-xs text-main focus:outline-none disabled:cursor-default">
-                        {selected ? itemRenderer?.(selected, true) : defaultFilter}
+                        {selected ? itemRenderer?.(selected, true) : placeholder}
                         <LineArrowUp
                             className={classNames('h-3 w-3 transition-all duration-200 ease-in-out', {
                                 'rotate-180': !open,
@@ -104,32 +99,24 @@ function FilterPopover<F>({
     );
 }
 
-export function SearchContentPanel<T, F, O = unknown>({
+export function SearchContentPanel<T, F>({
     showFilter = true,
     isLoading,
     filterProps,
     placeholder,
-    fallbackProps,
-    otherParams,
     children,
     itemRenderer,
+    keyword,
     onSearch,
+    data,
     onSelected,
     listKey,
     isSelected,
-}: PropsWithChildren<SearchContentPanelProps<T, F, O>>) {
+}: PropsWithChildren<SearchContentPanelProps<T, F>>) {
     const [selectedFilter, setSelectedFilter] = useState<F>();
-    const [searchText, setSearchText] = useState('');
     const listRef = useRef<HTMLDivElement>(null);
 
-    const debouncedSearch = useDebounce(searchText, 300);
-
-    const { value, loading, error, retry } = useAsyncRetry(async () => {
-        if (isLoading) return [];
-        return await onSearch(debouncedSearch, selectedFilter, otherParams);
-    }, [debouncedSearch, selectedFilter, isLoading, otherParams]);
-
-    const selectedIndex = value?.findIndex((item) => isSelected?.(item)) ?? -1;
+    const selectedIndex = data?.findIndex((item) => isSelected?.(item)) ?? -1;
 
     useEffect(() => {
         // Scroll to the first selected item
@@ -137,46 +124,47 @@ export function SearchContentPanel<T, F, O = unknown>({
             const selectedEl = listRef.current.children[selectedIndex];
             selectedEl?.scrollIntoView({ block: 'center' });
         }
-    }, [value, selectedIndex]);
+    }, [data, selectedIndex]);
 
     return (
         <div className="flex h-full w-full flex-col">
             <div className="flex items-center gap-2.5">
                 {showFilter ? (
-                    <FilterPopover {...filterProps} selected={selectedFilter} onSelected={setSelectedFilter} />
+                    <FilterPopover
+                        {...filterProps}
+                        selected={filterProps.selected ?? selectedFilter}
+                        onSelected={filterProps.onSelected ?? setSelectedFilter}
+                    />
                 ) : null}
                 <div className="flex-1 rounded-lg !bg-lightBg">
                     <SearchInput
                         placeholder={placeholder}
                         className="!focus:border-highlight rounded-lg !border border-transparent !py-1.5 px-3 transition-all"
-                        value={searchText}
-                        onChange={(event) => setSearchText(event.currentTarget.value)}
-                        onClear={() => setSearchText('')}
+                        value={keyword}
+                        onChange={(event) => onSearch(event.currentTarget.value)}
+                        onClear={() => onSearch('')}
                     />
                 </div>
             </div>
             <div ref={listRef} className="no-scrollbar mt-2 min-h-0 flex-1 overflow-y-auto">
-                {loading || isLoading ? (
+                {isLoading ? (
                     <div className="flex h-full items-center justify-center">
                         <LoadingIcon className="animate-spin" width={24} height={24} />
                     </div>
-                ) : error ? (
-                    <ErrorHandler className="!h-auto pt-12" error={error} reset={retry} />
-                ) : value?.length ? (
-                    value?.map((item, i) => (
-                        <div
-                            key={listKey ? listKey(item) : i}
-                            onClick={() => onSelected?.(item)}
-                            className={classNames('cursor-pointer hover:bg-lightBg', {
-                                'opacity-50': isSelected?.(item) ?? false,
-                            })}
-                        >
-                            {itemRenderer(item)}
-                        </div>
-                    ))
-                ) : (
-                    <NoResultsFallback message={t`There is no data available to select.`} {...fallbackProps} />
-                )}
+                ) : null}
+                {itemRenderer
+                    ? data.map((item, i) => (
+                          <div
+                              key={listKey ? listKey(item) : i}
+                              onClick={() => onSelected?.(item)}
+                              className={classNames('cursor-pointer hover:bg-lightBg', {
+                                  'opacity-50': isSelected?.(item) ?? false,
+                              })}
+                          >
+                              {itemRenderer(item)}
+                          </div>
+                      ))
+                    : null}
                 {children}
             </div>
         </div>
