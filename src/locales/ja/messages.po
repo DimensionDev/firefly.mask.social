@@ -8,7 +8,7 @@ msgstr ""
 "Language: ja\n"
 "Project-Id-Version: masksocial\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-11-29 00:05\n"
+"PO-Revision-Date: 2024-12-09 12:01\n"
 "Last-Translator: \n"
 "Language-Team: Japanese\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
@@ -900,8 +900,7 @@ msgstr ""
 msgid "{platform, select, farcaster {{0}} lens {{1}} twitter {{2}} other {{3}}}"
 msgstr ""
 
-msgid ""
-"🤑 Check this Lucky Drop  🧧💰✨ sent by @{sender}.\n"
+msgid "🤑 Check this Lucky Drop  🧧💰✨ sent by @{sender}.\n"
 "Grow your followers and engagement with Lucky Drop on Firefly mobile app or https://firefly.mask.social !"
 msgstr ""
 
@@ -1697,8 +1696,7 @@ msgstr ""
 msgid "{0} {1, plural, one {share} other {shares}} / {total} ${symbol}"
 msgstr ""
 
-msgid ""
-"🤑 Just claimed a #LuckyDrop  🧧💰✨ on https://firefly.mask.social from @{sender} !\n"
+msgid "🤑 Just claimed a #LuckyDrop  🧧💰✨ on https://firefly.mask.social from @{sender} !\n"
 "Claim on Lens: {link}"
 msgstr ""
 
@@ -3471,3 +3469,4 @@ msgstr ""
 
 msgid "Blink Validator"
 msgstr ""
+
