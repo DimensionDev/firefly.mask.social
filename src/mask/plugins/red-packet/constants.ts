@@ -13,3 +13,4 @@ export const RED_PACKET_MIN_SHARES = 1;
 export const RED_PACKET_MAX_SHARES = 255;
 export const RED_PACKET_DURATION = 60 * 60 * 24;
 export const RED_PACKET_CONTRACT_VERSION = 4;
+export const DEFAULT_THEME_ID = 'e171b936-b5f5-415c-8938-fa1b74d1d612';

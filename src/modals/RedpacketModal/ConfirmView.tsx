@@ -23,7 +23,7 @@ import { useChainContext } from '@/hooks/useChainContext.js';
 import { useCreateFTRedpacketCallback } from '@/hooks/useCreateFTRedpacketCallback.js';
 import { useFungibleTokenPrice } from '@/hooks/useFungibleTokenPrice.js';
 import { useProfileStoreAll } from '@/hooks/useProfileStore.js';
-import { RED_PACKET_DURATION } from '@/mask/plugins/red-packet/constants.js';
+import { DEFAULT_THEME_ID, RED_PACKET_DURATION } from '@/mask/plugins/red-packet/constants.js';
 import { RequirementType } from '@/mask/plugins/red-packet/types.js';
 import {
     RedpacketContext,
@@ -135,7 +135,7 @@ export function ConfirmView() {
 
         return {
             // TODO: replace the theme id
-            publicKey: await FireflyRedPacket.createPublicKey('e171b936-b5f5-415c-8938-fa1b74d1d612', account, payload),
+            publicKey: await FireflyRedPacket.createPublicKey(DEFAULT_THEME_ID, account, payload),
             claimRequirements: payload,
         };
     }, [
@@ -166,7 +166,7 @@ export function ConfirmView() {
         },
         value?.publicKey ?? '',
         urlcat(SITE_URL, '/api/rp', {
-            'theme-id': 'e171b936-b5f5-415c-8938-fa1b74d1d612',
+            'theme-id': DEFAULT_THEME_ID,
             usage: 'payload',
             from: shareFromName,
             amount: rightShift(totalAmount, token?.decimals).toString(),
