@@ -582,9 +582,6 @@ msgstr "隐藏"
 msgid "Failed to bookmark NFT."
 msgstr ""
 
-msgid "Bought"
-msgstr ""
-
 msgid "NFTs"
 msgstr "NFTs"
 
@@ -1148,6 +1145,9 @@ msgstr "提交您的钱包以领取您的 NFT 和 $ANON"
 msgid "<0/> mentioned you in a <1>{0, select, Post {post} Comment {comment} Quote {quote} Mirror {mirror} other {post}}</1>"
 msgstr "<0/>提到了你的 <1>{0, select, Post {帖子} Comment {评论} Quote {引用} Mirror {引用} other {帖子}}</1>"
 
+msgid "<0>Bought</0><1/>"
+msgstr ""
+
 msgid "The current connected wallet does not match, Please switch to {0}"
 msgstr "当前连接的钱包不匹配，请切换到 {0}。"
 
@@ -1165,6 +1165,9 @@ msgstr "可以将预定时间设置为最长 7 天。请重新设置。"
 
 msgid "Enable development API version"
 msgstr "启用开发环境接口"
+
+msgid "<0>Sent</0><1/>"
+msgstr ""
 
 msgid "Voted"
 msgstr "已投票"
@@ -1288,6 +1291,9 @@ msgstr ""
 
 msgid "Kamala Harris"
 msgstr "卡玛拉·哈里斯"
+
+msgid "<0>Revised</0><1>an article</1>"
+msgstr ""
 
 msgid "Send telemetry events in debug mode."
 msgstr "在调试模式下发送遥测事件。"
@@ -1417,9 +1423,6 @@ msgstr "评论"
 
 msgid "Only people you mention"
 msgstr "只有你提及的人"
-
-msgid "Burn"
-msgstr ""
 
 msgid "{0} turned in"
 msgstr "{0} 提交了"
@@ -1960,9 +1963,6 @@ msgstr "合约所有者对购买没有限制。"
 msgid "Financial crime."
 msgstr "金融犯罪。"
 
-msgid "Acquired"
-msgstr ""
-
 msgid "This can’t be undone and you’ll lose your draft."
 msgstr "此操作无法撤销，您将丢失您的草稿。"
 
@@ -2156,9 +2156,6 @@ msgid "Unliked"
 msgstr "已取消点赞"
 
 msgid "Quality Filter"
-msgstr ""
-
-msgid "Revised"
 msgstr ""
 
 msgid "Visit mask.io"
@@ -2632,6 +2629,9 @@ msgstr "调用"
 msgid "Your post will be sent on {0} at {1} <0>View</0>"
 msgstr "帖子将在 {1} {0} 上发送 <0>查看</0>"
 
+msgid "<0>Sold</0><1/>"
+msgstr ""
+
 msgid "Failed to create scheduled post."
 msgstr "创建定时任务失败"
 
@@ -2652,6 +2652,9 @@ msgstr ""
 
 msgid "Crypto Trends"
 msgstr "加密货币趋势"
+
+msgid "<0>Acquired</0><1/>"
+msgstr ""
 
 msgid "Copy link to profile"
 msgstr "复制链接"
@@ -2837,6 +2840,9 @@ msgid "The signer is not authorized to perform the requested operation. Please a
 msgstr "Signer key 未被授权。请重试。"
 
 msgid "The account you are trying to log in with is already linked to a different Firefly account."
+msgstr ""
+
+msgid "<0>Minted</0><1/>{0}"
 msgstr ""
 
 msgid "Saved on {0}"
@@ -3067,17 +3073,11 @@ msgstr ""
 msgid "Oversupply minting."
 msgstr "超出最大铸造数量。"
 
-msgid "Sold"
-msgstr ""
-
 msgid "Followed <0>@{handle}</0> on {0}"
 msgstr "在 {0} 上关注了 <0>@{handle}</0>"
 
 msgid "View on explorer"
 msgstr "在区块链浏览器查看"
-
-msgid "<0>{name}</0><1>an article</1>"
-msgstr ""
 
 msgid "Already logged in?<0/>Approve the <1>existing Farcaster signer</1> to Firefly or <2>sync</2> through the app"
 msgstr "已经登录？<0/>授权 <1>已经存在的 Farcaster signer</1> 给 Firefly 或者通过应用程序<2>同步</2>"
@@ -3150,9 +3150,6 @@ msgstr "<0/> 和 <1>{0} 其他的</1>"
 
 msgid "<0>since </0> <1>{0}</1>"
 msgstr "<0>从 </0> <1>{0}</1>"
-
-msgid "Posted"
-msgstr ""
 
 msgid "{hours}h left"
 msgstr "{hours} 小时剩余"
@@ -3325,6 +3322,9 @@ msgstr "在 Lens 上关注了 @{0}"
 msgid "Claim Now"
 msgstr "立即领取"
 
+msgid "<0>Collect</0><1/>"
+msgstr ""
+
 msgid "Collect for {0} {1}"
 msgstr "收集 {0} {1}"
 
@@ -3366,6 +3366,9 @@ msgstr "继续"
 
 msgid "Cybercrime."
 msgstr "网络犯罪。"
+
+msgid "<0>Burn</0><1/>"
+msgstr ""
 
 msgid "<0>Sent</0> an NFT to <1>{0}</1>"
 msgstr "<0>发送</0> 一个 NFT 至 <1>{0}</1>"
@@ -3439,6 +3442,9 @@ msgstr "登出将导致定时发布的帖子失败。请确保您的 Firefly 账
 msgid "Failed to create schedule post."
 msgstr "创建定时任务失败"
 
+msgid "<0>Post</0><1>an article</1>"
+msgstr ""
+
 msgid "<0>{0}</0> recasted"
 msgstr "<0>{0}</0> 已转发"
 
@@ -3480,6 +3486,3 @@ msgstr "× {0}"
 
 msgid "Blink Validator"
 msgstr "Blink 验证器"
-
-msgid "Minted"
-msgstr ""

@@ -89,11 +89,11 @@ export function NFTsActivityCellAction(props: Props) {
         case NFTFeedTransAction.Mint:
             return (
                 <ActivityCellAction>
-                    <ActivityCellActionTag icon={<MintIcon />}>
-                        <Trans>Minted</Trans>
-                    </ActivityCellActionTag>
-                    <NFTsActivityCellActionCollectionName asset={data} {...pick(props, 'chainId', 'address')} />
-                    {tokenCount ? <div className={tagClassName}>× {tokenCount}</div> : null}
+                    <Trans>
+                        <ActivityCellActionTag icon={<MintIcon />}>Minted</ActivityCellActionTag>
+                        <NFTsActivityCellActionCollectionName asset={data} {...pick(props, 'chainId', 'address')} />
+                        {tokenCount ? <div className={tagClassName}>× {tokenCount}</div> : null}
+                    </Trans>
                 </ActivityCellAction>
             );
         case NFTFeedTransAction.Transfer:
@@ -119,15 +119,13 @@ export function NFTsActivityCellAction(props: Props) {
                                 </ClickableArea>
                             </Trans>
                         ) : (
-                            <>
-                                <ActivityCellActionTag icon={<AcquiredIcon />}>
-                                    <Trans>Acquired</Trans>
-                                </ActivityCellActionTag>
+                            <Trans>
+                                <ActivityCellActionTag icon={<AcquiredIcon />}>Acquired</ActivityCellActionTag>
                                 <NFTsActivityCellActionCollectionName
                                     asset={data}
                                     {...pick(props, 'chainId', 'address')}
                                 />
-                            </>
+                            </Trans>
                         )}
                     </ActivityCellAction>
                 );
@@ -149,22 +147,20 @@ export function NFTsActivityCellAction(props: Props) {
                             </ClickableArea>
                         </Trans>
                     ) : (
-                        <>
-                            <ActivityCellActionTag icon={<SentIcon />}>
-                                <Trans>Sent</Trans>
-                            </ActivityCellActionTag>
+                        <Trans>
+                            <ActivityCellActionTag icon={<SentIcon />}>Sent</ActivityCellActionTag>
                             <NFTsActivityCellActionCollectionName asset={data} {...pick(props, 'chainId', 'address')} />
-                        </>
+                        </Trans>
                     )}
                 </ActivityCellAction>
             );
         case NFTFeedTransAction.Burn:
             return (
                 <ActivityCellAction>
-                    <ActivityCellActionTag icon={<BurnIcon />}>
-                        <Trans>Burn</Trans>
-                    </ActivityCellActionTag>
-                    <NFTsActivityCellActionCollectionName asset={data} {...pick(props, 'chainId', 'address')} />
+                    <Trans>
+                        <ActivityCellActionTag icon={<BurnIcon />}>Burn</ActivityCellActionTag>
+                        <NFTsActivityCellActionCollectionName asset={data} {...pick(props, 'chainId', 'address')} />
+                    </Trans>
                 </ActivityCellAction>
             );
         case NFTFeedTransAction.Trade:
@@ -172,28 +168,28 @@ export function NFTsActivityCellAction(props: Props) {
             if (isBuy) {
                 return (
                     <ActivityCellAction>
-                        <ActivityCellActionTag icon={<BoughtIcon />}>
-                            <Trans>Bought</Trans>
-                        </ActivityCellActionTag>
-                        <NFTsActivityCellActionCollectionName asset={data} {...pick(props, 'chainId', 'address')} />
+                        <Trans>
+                            <ActivityCellActionTag icon={<BoughtIcon />}>Bought</ActivityCellActionTag>
+                            <NFTsActivityCellActionCollectionName asset={data} {...pick(props, 'chainId', 'address')} />
+                        </Trans>
                     </ActivityCellAction>
                 );
             }
             return (
                 <ActivityCellAction>
-                    <ActivityCellActionTag icon={<SoldIcon />}>
-                        <Trans>Sold</Trans>
-                    </ActivityCellActionTag>
-                    <NFTsActivityCellActionCollectionName asset={data} {...pick(props, 'chainId', 'address')} />
+                    <Trans>
+                        <ActivityCellActionTag icon={<SoldIcon />}>Sold</ActivityCellActionTag>
+                        <NFTsActivityCellActionCollectionName asset={data} {...pick(props, 'chainId', 'address')} />
+                    </Trans>
                 </ActivityCellAction>
             );
         case NFTFeedTransAction.Poap:
             return (
                 <ActivityCellAction>
-                    <ActivityCellActionTag icon={<MintIcon />}>
-                        <Trans>Collect</Trans>
-                    </ActivityCellActionTag>
-                    <NFTsActivityCellActionPoapName asset={data} {...pick(props, 'chainId', 'address')} />
+                    <Trans>
+                        <ActivityCellActionTag icon={<MintIcon />}>Collect</ActivityCellActionTag>
+                        <NFTsActivityCellActionPoapName asset={data} {...pick(props, 'chainId', 'address')} />
+                    </Trans>
                 </ActivityCellAction>
             );
         default:

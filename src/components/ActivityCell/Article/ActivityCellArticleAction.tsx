@@ -1,6 +1,8 @@
 'use client';
 
 import { Trans } from '@lingui/macro';
+import { safeUnreachable } from '@masknet/kit';
+import type { ReactNode } from 'react';
 
 import PostedIcon from '@/assets/posted.svg';
 import { ActivityCellAction } from '@/components/ActivityCell/ActivityCellAction.js';
@@ -12,13 +14,27 @@ interface Props {
 }
 
 export function ActivityCellArticleAction({ type }: Props) {
-    const name = type === ArticleType.Revise ? <Trans>Revised</Trans> : <Trans>Posted</Trans>;
-    return (
-        <ActivityCellAction>
-            <Trans>
-                <ActivityCellActionTag icon={<PostedIcon />}>{name}</ActivityCellActionTag>
-                <span>an article</span>
-            </Trans>
-        </ActivityCellAction>
-    );
+    let action: ReactNode = null;
+    switch (type) {
+        case ArticleType.Revise:
+            action = (
+                <Trans>
+                    <ActivityCellActionTag icon={<PostedIcon />}>Revised</ActivityCellActionTag>
+                    <span>an article</span>
+                </Trans>
+            );
+            break;
+        case ArticleType.Post:
+            action = (
+                <Trans>
+                    <ActivityCellActionTag icon={<PostedIcon />}>Post</ActivityCellActionTag>
+                    <span>an article</span>
+                </Trans>
+            );
+            break;
+        default:
+            safeUnreachable(type);
+            return null;
+    }
+    return <ActivityCellAction>{action}</ActivityCellAction>;
 }
