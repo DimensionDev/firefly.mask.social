@@ -2,12 +2,14 @@ import { ChainId } from '@masknet/web3-shared-evm';
 import { motion } from 'framer-motion';
 import { first, isUndefined } from 'lodash-es';
 import { useRouter } from 'next/navigation.js';
-import { memo, useMemo, useState } from 'react';
+import { memo, useMemo } from 'react';
 import type { Address } from 'viem';
 
+import { NFTsActivityCellAction } from '@/components/ActivityCell/NFTs/NFTsActivityCellAction.js';
+import { NFTsActivityCellCard } from '@/components/ActivityCell/NFTs/NFTsActivityCellCard.js';
 import { Avatar } from '@/components/Avatar.js';
 import { FeedFollowSource } from '@/components/FeedFollowSource.js';
-import { NFTFeedBody, type NFTFeedBodyProps } from '@/components/NFTs/NFTFeedBody.js';
+import { type NFTFeedBodyProps } from '@/components/NFTs/NFTFeedBody.js';
 import { NFTFeedHeader } from '@/components/NFTs/NFTFeedHeader.js';
 import { Source } from '@/constants/enum.js';
 import { Link } from '@/esm/Link.js';
@@ -44,8 +46,7 @@ export const SingleNFTFeed = memo(function SingleNFTFeed({
 }: SingleNFTFeedProps) {
     const setScrollIndex = useGlobalState.use.setScrollIndex();
     const router = useRouter();
-    const [activeTokenIndex, setActiveTokenIndex] = useState(0);
-    const token = tokenList[activeTokenIndex];
+    const token = tokenList[0];
     const nftUrl = useMemo(() => {
         if (!token) return null;
         return resolveNftUrl(chainId, token.contractAddress, token.id);
@@ -83,12 +84,30 @@ export const SingleNFTFeed = memo(function SingleNFTFeed({
                         displayInfo={displayInfo}
                         time={time}
                     />
-                    <NFTFeedBody
-                        index={activeTokenIndex}
-                        onChangeIndex={setActiveTokenIndex}
-                        tokenList={tokenList}
+                    <NFTsActivityCellAction
+                        address={tokenList[0].contractAddress}
                         chainId={chainId}
+                        tokenId={tokenList[0].id}
+                        action={tokenList[0].action.action}
+                        toAddress={tokenList[0].action.toAddress}
+                        fromAddress={tokenList[0].action.fromAddress}
+                        ownerAddress={tokenList[0].action.ownerAddress}
+                        tokenCount={tokenList.length}
                     />
+                    <div className="mt-1.5 flex w-full space-x-3 overflow-x-auto overflow-y-hidden">
+                        {tokenList.map(({ id, action, contractAddress }) => {
+                            return (
+                                <NFTsActivityCellCard
+                                    key={`${id}-${contractAddress}-${chainId}`}
+                                    action={action.action}
+                                    address={contractAddress}
+                                    ownerAddress={ownerAddress}
+                                    chainId={chainId}
+                                    tokenId={id}
+                                />
+                            );
+                        })}
+                    </div>
                 </article>
             </div>
         </motion.article>
