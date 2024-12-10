@@ -18,7 +18,7 @@ interface BookmarkButtonProps extends Omit<ClickableButtonProps, 'ref' | 'childr
     onClick?: () => void;
 }
 
-const BookmarkButton = forwardRef<HTMLButtonElement, BookmarkButtonProps>(function BookmarkButton(
+export const BookmarkButton = forwardRef<HTMLButtonElement, BookmarkButtonProps>(function BookmarkButton(
     { children, nftId, ownerAddress = '', onClick, ...rest },
     ref,
 ) {
