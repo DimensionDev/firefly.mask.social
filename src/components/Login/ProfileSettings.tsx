@@ -5,7 +5,7 @@ import { delay } from '@masknet/kit';
 import { Reorder } from 'framer-motion';
 import { noop } from 'lodash-es';
 import { usePathname } from 'next/navigation.js';
-import { useMount } from 'react-use';
+import { useAsyncFn, useMount } from 'react-use';
 import urlcat from 'urlcat';
 
 import LogoutIcon from '@/assets/logout.svg';
@@ -25,6 +25,7 @@ import { useIsMyRelatedProfile } from '@/hooks/useIsMyRelatedProfile.js';
 import { useProfileStore } from '@/hooks/useProfileStore.js';
 import { useUpdateParams } from '@/hooks/useUpdateParams.js';
 import { LoginModalRef, LogoutModalRef } from '@/modals/controls.js';
+import type { Account } from '@/providers/types/Account.js';
 import { switchAccount } from '@/services/account.js';
 import { useFireflyIdentityState } from '@/store/useFireflyIdentityStore.js';
 
@@ -48,6 +49,29 @@ export function ProfileSettings({ source, onClose }: ProfileSettingsProps) {
         getProfileState(source).refreshAccounts();
     });
 
+    const [{ loading }, onSwitchAccount] = useAsyncFn(async (account: Account) => {
+        if (!account.session) {
+            onClose?.();
+            await delay(300);
+            LoginModalRef.open({
+                source,
+                options: { expectedProfile: account.profile.profileId },
+            });
+            return;
+        }
+        await switchAccount({ ...account, session: account.session });
+        if (isMyProfilePage && identity.source === source && identity.id !== resolveFireflyProfileId(account.profile)) {
+            updateParams(
+                new URLSearchParams({
+                    source: resolveSourceInUrl(account.profile.source),
+                }),
+                isPureProfilePage
+                    ? undefined
+                    : urlcat('/profile/:id', { id: resolveFireflyProfileId(account.profile) }),
+            );
+        }
+    }, []);
+
     if (!currentProfile) return null;
 
     return (
@@ -66,32 +90,8 @@ export function ProfileSettings({ source, onClose }: ProfileSettingsProps) {
                     >
                         <ClickableButton
                             className="flex w-full min-w-0 items-center justify-between gap-3 rounded md:rounded-none"
-                            onClick={async () => {
-                                if (!account.session) {
-                                    onClose?.();
-                                    await delay(300);
-                                    LoginModalRef.open({
-                                        source,
-                                        options: { expectedProfile: account.profile.profileId },
-                                    });
-                                    return;
-                                }
-                                await switchAccount({ ...account, session: account.session });
-                                if (
-                                    isMyProfilePage &&
-                                    identity.source === source &&
-                                    identity.id !== resolveFireflyProfileId(account.profile)
-                                ) {
-                                    updateParams(
-                                        new URLSearchParams({
-                                            source: resolveSourceInUrl(account.profile.source),
-                                        }),
-                                        isPureProfilePage
-                                            ? undefined
-                                            : urlcat('/profile/:id', { id: resolveFireflyProfileId(account.profile) }),
-                                    );
-                                }
-                            }}
+                            disabled={loading}
+                            onClick={() => onSwitchAccount(account)}
                         >
                             <ProfileAvatar profile={account.profile} clickable linkable />
                             <ProfileName profile={account.profile} />
@@ -107,7 +107,7 @@ export function ProfileSettings({ source, onClose }: ProfileSettingsProps) {
                 {source !== Source.Twitter ? (
                     <ClickableButton
                         className="flex h-6 w-full items-center whitespace-nowrap rounded leading-6 text-main"
-                        onClick={async () => {
+                        onClick={() => {
                             LoginModalRef.open({ source });
                             onClose?.();
                         }}
