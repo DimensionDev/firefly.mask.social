@@ -31,7 +31,7 @@ import {
     type ParamsObjType,
 } from '@/mask/plugins/red-packet/hooks/useCreateCallback.js';
 import { RedpacketModalRef } from '@/modals/controls.js';
-import { RedpacketContext } from '@/modals/RedpacketModal/RedpacketContext.jsx';
+import { RedpacketContext } from '@/modals/RedpacketModal/RedpacketContext.js';
 import type { FireflyRedPacketAPI } from '@/providers/red-packet/types.js';
 import { captureLuckyDropEvent } from '@/providers/telemetry/captureLuckyDropEvent.js';
 import { useComposeStateStore } from '@/store/useComposeStore.js';
