@@ -8,8 +8,6 @@ import { Inter } from 'next/font/google';
 
 import { LayoutBody } from '@/app/layout-body.js';
 import { ErrorBoundary } from '@/components/ErrorBoundary/index.js';
-import { NODE_ENV } from '@/constants/enum.js';
-import { env } from '@/constants/env.js';
 import { Script } from '@/esm/Script.js';
 import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
 import { getFromCookies } from '@/helpers/getFromCookies.js';
@@ -35,9 +33,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     return (
         <html className={rootClass}>
             <head>
-                {env.shared.NODE_ENV === NODE_ENV.Development ? (
-                    <script src="https://unpkg.com/react-scan/dist/auto.global.js" async />
-                ) : null}
                 <Script src="/js/polyfills/base.js" strategy="beforeInteractive" />
                 <Script src="/js/polyfills/dom.js" strategy="beforeInteractive" />
                 <Script src="/js/polyfills/ecmascript.js" strategy="beforeInteractive" />
