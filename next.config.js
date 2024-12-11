@@ -1,5 +1,6 @@
 /* cspell:disable */
 
+import MillionLint from '@million/lint';
 import { execSync } from 'child_process';
 import CopyPlugin from 'copy-webpack-plugin';
 import { createRequire } from 'module';
@@ -14,7 +15,7 @@ const outputPath = fileURLToPath(new URL('./public', import.meta.url));
 const polyfillsFolderPath = join(outputPath, './js/polyfills');
 
 /** @type {import('next').NextConfig} */
-export default {
+const config = {
     productionBrowserSourceMaps: false,
 
     // Note: we run tsc and eslint in other places
@@ -196,6 +197,7 @@ export default {
                 resourceQuery: { not: [/url/] }, // exclude react component if *.svg?url
                 options: {
                     ref: true,
+                    memo: true,
                     svgoConfig: {
                         plugins: [
                             {
@@ -232,3 +234,9 @@ export default {
         return config;
     },
 };
+
+export default process.env.NODE_ENV === 'development'
+    ? MillionLint.next({
+          rsc: true,
+      })(config)
+    : config;

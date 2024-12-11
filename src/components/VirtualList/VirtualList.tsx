@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { useMemo } from 'react';
 import { useWindowSize } from 'react-use';
 import { Virtuoso, type VirtuosoHandle, type VirtuosoProps } from 'react-virtuoso';
 
@@ -15,5 +15,8 @@ export function VirtualList<ItemData = unknown, Context = unknown>({
     ...rest
 }: VirtualListProps<ItemData, Context>) {
     const { height } = useWindowSize();
-    return <Virtuoso overscan={height} increaseViewportBy={height} {...rest} ref={virtuosoRef} />;
+    return useMemo(
+        () => <Virtuoso overscan={height} increaseViewportBy={height} {...rest} ref={virtuosoRef} />,
+        [height, rest, virtuosoRef],
+    );
 }

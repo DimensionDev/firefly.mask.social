@@ -1,5 +1,5 @@
 import { t, Trans } from '@lingui/macro';
-import { forwardRef } from 'react';
+import { forwardRef, memo } from 'react';
 import { useAsyncFn } from 'react-use';
 import { polygon } from 'viem/chains';
 import { useAccount } from 'wagmi';
@@ -15,8 +15,8 @@ import type { LensSession } from '@/providers/lens/Session.js';
 import { updateSignless } from '@/providers/lens/updateSignless.js';
 import { useLensStateStore } from '@/store/useProfileStore.js';
 
-export const EnableSignlessModal = forwardRef<SingletonModalRefCreator<void, boolean>>(
-    function EnableSignlessModal(_, ref) {
+export const EnableSignlessModal = memo(
+    forwardRef<SingletonModalRefCreator<void, boolean>>(function EnableSignlessModal(_, ref) {
         const account = useAccount();
         const currentProfile = useLensStateStore.use.currentProfile();
         const currentProfileSession = useLensStateStore.use.currentProfileSession();
@@ -79,5 +79,5 @@ export const EnableSignlessModal = forwardRef<SingletonModalRefCreator<void, boo
                 </div>
             </Modal>
         );
-    },
+    }),
 );

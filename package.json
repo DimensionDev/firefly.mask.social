@@ -146,6 +146,7 @@
         "@lingui/loader": "^4.13.0",
         "@lingui/macro": "^4.13.0",
         "@lingui/swc-plugin": "^4.0.4",
+        "@million/lint": "^1.0.13",
         "@sinonjs/text-encoding": "^0.7.3",
         "@svgr/webpack": "^8.1.0",
         "@testing-library/jest-dom": "^6.5.0",

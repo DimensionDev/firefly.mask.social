@@ -8,6 +8,5 @@ interface NoSSRProps {
 
 export function NoSSR({ children }: NoSSRProps) {
     const mounted = useMounted();
-
     return mounted ? children : null;
 }

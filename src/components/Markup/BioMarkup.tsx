@@ -58,17 +58,20 @@ export const BioMarkup = memo<BioMarkupProps>(function BioMarkup({ children, pos
 
     if (!children) return null;
 
-    return (
-        <ReactMarkdown
-            {...rest}
-            remarkPlugins={bioPlugins}
-            components={{
-                a: LinkComponent,
-                code: Code,
-                ...rest.components,
-            }}
-        >
-            {trimify(children)}
-        </ReactMarkdown>
+    return useMemo(
+        () => (
+            <ReactMarkdown
+                {...rest}
+                remarkPlugins={bioPlugins}
+                components={{
+                    a: LinkComponent,
+                    code: Code,
+                    ...rest.components,
+                }}
+            >
+                {trimify(children)}
+            </ReactMarkdown>
+        ),
+        [rest, bioPlugins, LinkComponent, children],
     );
 });

@@ -6,6 +6,7 @@ import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 
 import { safeUnreachable } from '@masknet/kit';
+import { memo } from 'react';
 import { Autoplay, Navigation, Pagination } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
@@ -22,7 +23,7 @@ interface Props extends React.HTMLProps<'div'> {
     items: Advertisement[];
 }
 
-export function AdvertisementSwiper({ items }: Props) {
+export const AdvertisementSwiper = memo(function AdvertisementSwiper({ items }: Props) {
     return (
         <Swiper
             className="ff-advertisement"
@@ -78,4 +79,4 @@ export function AdvertisementSwiper({ items }: Props) {
             ))}
         </Swiper>
     );
-}
+});

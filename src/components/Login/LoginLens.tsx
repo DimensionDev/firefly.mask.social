@@ -4,7 +4,7 @@ import { Switch } from '@headlessui/react';
 import { t, Trans } from '@lingui/macro';
 import { delay } from '@masknet/kit';
 import { first } from 'lodash-es';
-import { useEffect, useState } from 'react';
+import React, { memo, useCallback,useEffect, useState } from 'react';
 import { useAsyncFn } from 'react-use';
 import { useAccount } from 'wagmi';
 
@@ -32,7 +32,7 @@ interface LoginLensProps {
     currentAccount: string;
 }
 
-export function LoginLens({ profiles, currentAccount }: LoginLensProps) {
+export const LoginLens = memo(function LoginLens({ profiles, currentAccount }: LoginLensProps) {
     const controller = useAbortController();
 
     const [selectedProfile, setSelectedProfile] = useState<Profile>();
@@ -40,6 +40,13 @@ export function LoginLens({ profiles, currentAccount }: LoginLensProps) {
 
     const account = useAccount();
     const currentProfile = selectedProfile || first(profiles);
+
+    const onChangeWallet = useCallback(async () => {
+        LoginModalRef.close();
+        await delay(300);
+        if (account.isConnected) AccountModalRef.open();
+        else ConnectWalletModalRef.open();
+    }, [account.isConnected]);
 
     const [{ loading }, login] = useAsyncFn(
         async (signless: boolean) => {
@@ -155,15 +162,7 @@ export function LoginLens({ profiles, currentAccount }: LoginLensProps) {
                         boxShadow: '-1px 0 20px 0 rgba(0, 0, 0, 0.05)',
                     }}
                 >
-                    <ClickableButton
-                        className="flex items-center gap-2 py-[11px]"
-                        onClick={async () => {
-                            LoginModalRef.close();
-                            await delay(300);
-                            if (account.isConnected) AccountModalRef.open();
-                            else ConnectWalletModalRef.open();
-                        }}
-                    >
+                    <ClickableButton className="flex items-center gap-2 py-[11px]" onClick={onChangeWallet}>
                         <WalletIcon width={20} height={20} />
                         <span className="text-sm font-bold leading-[18px] text-second">
                             <Trans>Change Wallet</Trans>
@@ -184,4 +183,4 @@ export function LoginLens({ profiles, currentAccount }: LoginLensProps) {
             </div>
         </div>
     );
-}
+});

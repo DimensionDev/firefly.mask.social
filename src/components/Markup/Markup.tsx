@@ -60,26 +60,27 @@ export const Markup = memo<MarkupProps>(function Markup({ children, post, ...res
         ]);
     }, [post?.mentions, post?.source]);
 
-    if (!children) return null;
-
-    return (
-        <ReactMarkdown
-            {...rest}
-            remarkPlugins={plugins}
-            components={{
-                // @ts-ignore
-                // eslint-disable-next-line react/no-unstable-nested-components
-                a: (props) => <MarkupLink title={props.title} post={post} source={post.source} />,
-                code: Code,
-                // @ts-ignore
-                // eslint-disable-next-line react/no-unstable-nested-components
-                ol: (props) => (
-                    <ol {...props} style={{ counterReset: `list-counter ${props.start ? props.start - 1 : ''}` }} />
-                ),
-                ...rest.components,
-            }}
-        >
-            {trimify(children)}
-        </ReactMarkdown>
-    );
+    return useMemo(() => {
+        if (!children) return null;
+        return (
+            <ReactMarkdown
+                {...rest}
+                remarkPlugins={plugins}
+                components={{
+                    // @ts-ignore
+                    // eslint-disable-next-line react/no-unstable-nested-components
+                    a: (props) => <MarkupLink title={props.title} post={post} source={post.source} />,
+                    code: Code,
+                    // @ts-ignore
+                    // eslint-disable-next-line react/no-unstable-nested-components
+                    ol: (props) => (
+                        <ol {...props} style={{ counterReset: `list-counter ${props.start ? props.start - 1 : ''}` }} />
+                    ),
+                    ...rest.components,
+                }}
+            >
+                {trimify(children)}
+            </ReactMarkdown>
+        );
+    }, [rest, plugins, post, children]);
 });
