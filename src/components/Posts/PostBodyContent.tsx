@@ -47,7 +47,6 @@ export interface PostBodyContentProps {
     showMore?: boolean;
     disablePadding?: boolean;
     showTranslate?: boolean;
-    disableDecrypt?: boolean;
 }
 
 const overrideComponents = {

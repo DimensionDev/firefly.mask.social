@@ -5,10 +5,19 @@ import { useAccount } from 'wagmi';
 import { Source } from '@/constants/enum.js';
 import { ENABLED_DECRYPT_SOURCES } from '@/constants/index.js';
 import { enqueueMessageFromError, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
+import { memoizePromise } from '@/helpers/memoizePromise.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { ConnectModalRef } from '@/modals/controls.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
+
+const resolver = memoizePromise(
+    async (post: Post) => {
+        const provider = resolveSocialMediaProvider(post.source);
+        return provider.decryptPost(post);
+    },
+    (post) => `${post.source}-${post.postId}`,
+);
 
 export function useDecryptPost(post: Post) {
     const account = useAccount();
@@ -22,8 +31,7 @@ export function useDecryptPost(post: Post) {
                 return null;
             }
 
-            const provider = resolveSocialMediaProvider(post.source);
-            const result = await provider.decryptPost(post);
+            const result = await resolver(post);
             if (result) {
                 enqueueSuccessMessage(t`Post decrypted successfully!`);
             }

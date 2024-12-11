@@ -24,6 +24,7 @@ export const POST = compose(withRequestErrorHandler(), async (request: NextReque
     const response = await fetchOrb<FetchClubsResponse>('/fetch-clubs', {
         method: 'POST',
         body: JSON.stringify(parsed.data),
+        signal: request.signal,
     });
 
     if (!response.success)

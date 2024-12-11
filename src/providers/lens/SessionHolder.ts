@@ -18,18 +18,14 @@ class LensSessionHolder extends SessionHolder<LensSession> {
 
     get sdk() {
         if (!this.lensClientSDK) {
-            const storage = new LocalStorageProvider();
-            this.lensClientSDK = createLensSDK(storage);
-            this.lensGatedClientSDK = createLensGatedSDK(storage);
+            this.lensClientSDK = createLensSDK(new LocalStorageProvider());
         }
         return this.lensClientSDK;
     }
 
     get gatedSDK() {
         if (!this.lensGatedClientSDK) {
-            const storage = new LocalStorageProvider();
-            this.lensClientSDK = createLensSDK(storage);
-            this.lensGatedClientSDK = createLensGatedSDK(storage);
+            this.lensGatedClientSDK = createLensGatedSDK(new LocalStorageProvider());
         }
         return this.lensGatedClientSDK;
     }
