@@ -669,6 +669,9 @@ msgstr "已連接的帳戶"
 msgid "<0>{0}</0> by <1>{1}</1>"
 msgstr ""
 
+msgid "Limo"
+msgstr ""
+
 msgid "Functions with retrievable ownership"
 msgstr ""
 
@@ -1004,6 +1007,9 @@ msgstr ""
 msgid "Check Eligibility"
 msgstr "領取資格"
 
+msgid "<0>Post</0><1>an article on <2/></1>"
+msgstr ""
+
 msgid "You might like"
 msgstr "你也許會喜歡"
 
@@ -1304,9 +1310,6 @@ msgstr ""
 msgid "Kamala Harris"
 msgstr ""
 
-msgid "<0>Revised</0><1>an article</1>"
-msgstr ""
-
 msgid "Send telemetry events in debug mode."
 msgstr ""
 
@@ -1321,6 +1324,9 @@ msgstr "在 Firefly 應用程式中打開"
 
 msgid "Privacy Policy"
 msgstr "隱私政策"
+
+msgid "<0>Revised</0><1>an article on <2/></1>"
+msgstr ""
 
 msgid "Holders can sell all of the token."
 msgstr ""
@@ -2237,6 +2243,9 @@ msgid "Failed to update profile."
 msgstr ""
 
 msgid "Your URL"
+msgstr ""
+
+msgid "Paragraph"
 msgstr ""
 
 msgid "Connected in Firefly"
@@ -3515,9 +3524,6 @@ msgid "Logging out will cause scheduled posts to fail. To ensure that posts are 
 msgstr ""
 
 msgid "Failed to create schedule post."
-msgstr ""
-
-msgid "<0>Post</0><1>an article</1>"
 msgstr ""
 
 msgid "<0>{0}</0> recasted"

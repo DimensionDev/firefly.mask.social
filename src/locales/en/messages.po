@@ -664,6 +664,9 @@ msgstr "Connected accounts"
 msgid "<0>{0}</0> by <1>{1}</1>"
 msgstr "<0>{0}</0> by <1>{1}</1>"
 
+msgid "Limo"
+msgstr "Limo"
+
 msgid "Functions with retrievable ownership"
 msgstr "Functions with retrievable ownership"
 
@@ -1001,6 +1004,9 @@ msgstr "Failed to follow @{0} on Lens"
 msgid "Check Eligibility"
 msgstr "Check Eligibility"
 
+msgid "<0>Post</0><1>an article on <2/></1>"
+msgstr "<0>Post</0><1>an article on <2/></1>"
+
 msgid "You might like"
 msgstr "You might like"
 
@@ -1301,9 +1307,6 @@ msgstr "You can withdraw the rest of your balances back 24h later after sending 
 msgid "Kamala Harris"
 msgstr "Kamala Harris"
 
-msgid "<0>Revised</0><1>an article</1>"
-msgstr "<0>Revised</0><1>an article</1>"
-
 msgid "Send telemetry events in debug mode."
 msgstr "Send telemetry events in debug mode."
 
@@ -1318,6 +1321,9 @@ msgstr "Open in Firefly App"
 
 msgid "Privacy Policy"
 msgstr "Privacy Policy"
+
+msgid "<0>Revised</0><1>an article on <2/></1>"
+msgstr "<0>Revised</0><1>an article on <2/></1>"
 
 msgid "Holders can sell all of the token."
 msgstr "Holders can sell all of the token."
@@ -2237,6 +2243,9 @@ msgstr "Failed to update profile."
 
 msgid "Your URL"
 msgstr "Your URL"
+
+msgid "Paragraph"
+msgstr "Paragraph"
 
 msgid "Connected in Firefly"
 msgstr "Connected in Firefly"
@@ -3515,9 +3524,6 @@ msgstr "Logging out will cause scheduled posts to fail. To ensure that posts are
 
 msgid "Failed to create schedule post."
 msgstr "Failed to create schedule post."
-
-msgid "<0>Post</0><1>an article</1>"
-msgstr "<0>Post</0><1>an article</1>"
 
 msgid "<0>{0}</0> recasted"
 msgstr "<0>{0}</0> recasted"
