@@ -25,6 +25,7 @@ export const ChannelAnchor = memo<ChannelAnchorProps>(function ChannelAnchor({
     const { id, source } = unresolvedChannel;
     const { data: channel } = useQuery({
         queryKey: ['channel', source, id],
+        staleTime: 1000 * 60 * 5, // 5 minutes
         queryFn: () => {
             if (!unresolvedChannel.__lazy__) {
                 return unresolvedChannel;

@@ -25,6 +25,7 @@ export const POST = compose(withRequestErrorHandler(), async (request: NextReque
         headers: {
             'X-Identity-Token': lensToken,
         },
+        signal: request.signal,
     });
 
     if (!response.success)

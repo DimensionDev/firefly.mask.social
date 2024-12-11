@@ -1,4 +1,7 @@
+'use client';
+
 import { Trans } from '@lingui/macro';
+import { useSuspenseQuery } from '@tanstack/react-query';
 import { notFound } from 'next/navigation.js';
 import { Suspense } from 'react';
 
@@ -16,7 +19,6 @@ import { Section } from '@/components/Semantic/Section.js';
 import { type SocialSource } from '@/constants/enum.js';
 import { MIN_POST_SIZE_PER_THREAD } from '@/constants/index.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
-import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { getThreads } from '@/services/getThreads.js';
 
 interface Props {
@@ -24,16 +26,27 @@ interface Props {
     source: SocialSource;
 }
 
-export async function PostDetailPage({ id: postId, source }: Props) {
+export function PostDetailPage({ id: postId, source }: Props) {
     if (!postId) notFound();
 
-    const provider = resolveSocialMediaProvider(source);
-    const post = await runInSafeAsync(() => provider.getPostById(postId));
+    const { data: post } = useSuspenseQuery({
+        queryKey: [source, 'post-detail', postId],
+        queryFn: async () => {
+            const provider = resolveSocialMediaProvider(source);
+            return provider.getPostById(postId);
+        },
+    });
+    const { data: threads } = useSuspenseQuery({
+        queryKey: [source, 'post-thread', postId],
+        queryFn: async () => {
+            if (!post) return;
+            return getThreads(post, source);
+        },
+    });
 
     if (!post) notFound();
 
-    const threads = await getThreads(post, source);
-    const allPosts = threads.data;
+    const allPosts = threads?.data || [];
 
     return (
         <article className="min-h-screen">
