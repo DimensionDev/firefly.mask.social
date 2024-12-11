@@ -282,6 +282,9 @@ msgstr "税率可以被修改"
 msgid "<0>Burned</0><1/>"
 msgstr ""
 
+msgid "🤑 Just claimed a #FireflyLuckyDrop 🧧💰✨ on {postUrl} !"
+msgstr ""
+
 msgid "Join our Discord"
 msgstr "加入我们的 Discord"
 
@@ -1283,6 +1286,9 @@ msgstr "已执行"
 msgid "EVM"
 msgstr "EVM"
 
+msgid "{0}d {1}h {2}m {3}s"
+msgstr ""
+
 msgid "[LuckyDrop]"
 msgstr "[红包]"
 
@@ -1305,6 +1311,9 @@ msgid "Your draft was saved."
 msgstr "草稿已被保存"
 
 msgid "You can withdraw the rest of your balances back 24h later after sending them out."
+msgstr ""
+
+msgid "Verify and Claim"
 msgstr ""
 
 msgid "Kamala Harris"
@@ -2686,6 +2695,9 @@ msgstr ""
 msgid "{handleOrEnsOrAddress} unwatched"
 msgstr "{handleOrEnsOrAddress} 取消关注"
 
+msgid "🤑 Check this #FireflyLuckyDrop 🧧💰✨ on {postUrl} !"
+msgstr ""
+
 msgid "Saved on {0} at {1}"
 msgstr "保存于 {1} {0}"
 
@@ -3085,6 +3097,9 @@ msgstr "新闻"
 msgid "NFT ID"
 msgstr "NFT ID"
 
+msgid "Your claimed {0} {1}."
+msgstr ""
+
 msgid "Confirm Lucky drop"
 msgstr ""
 
@@ -3147,6 +3162,9 @@ msgstr "取消隐藏"
 
 msgid "Firefly Bridge"
 msgstr "Firefly 桥"
+
+msgid "Congratulations!"
+msgstr ""
 
 msgid "Clear all requirements"
 msgstr ""
