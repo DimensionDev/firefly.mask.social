@@ -3,7 +3,7 @@
 import { useQuery } from '@tanstack/react-query';
 import { last } from 'lodash-es';
 import { useRouter } from 'next/navigation.js';
-import { useEffect, useMemo } from 'react';
+import { memo, useEffect, useMemo } from 'react';
 
 import { ArticleBody } from '@/components/Article/ArticleBody.js';
 import { ActionContainer } from '@/components/Blink/ActionContainer.js';
@@ -33,7 +33,7 @@ interface Props {
     isInCompose?: boolean;
 }
 
-export function PostLinks({ post, setContent, isInCompose = false }: Props) {
+export const PostLinks = memo(function PostLinks({ post, setContent, isInCompose = false }: Props) {
     const router = useRouter();
     const url = resolveOembedUrl(post);
     const { isLoading, error, data } = useQuery({
@@ -95,7 +95,7 @@ export function PostLinks({ post, setContent, isInCompose = false }: Props) {
             {data.collection ? <CollectionPreviewer collection={data.collection} /> : null}
         </>
     );
-}
+});
 
 export function PostLinksInCompose({
     type,

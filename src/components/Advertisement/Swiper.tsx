@@ -17,12 +17,13 @@ import { openWindow } from '@/helpers/openWindow.js';
 import { ActivityModalRef, LoginModalRef } from '@/modals/controls.js';
 import { fireflyBridgeProvider } from '@/providers/firefly/Bridge.js';
 import type { Advertisement } from '@/types/advertisement.js';
+import { memo } from 'react';
 
 interface Props extends React.HTMLProps<'div'> {
     items: Advertisement[];
 }
 
-export function AdvertisementSwiper({ items }: Props) {
+export const AdvertisementSwiper = memo(function AdvertisementSwiper({ items }: Props) {
     return (
         <Swiper
             className="ff-advertisement"
@@ -78,4 +79,4 @@ export function AdvertisementSwiper({ items }: Props) {
             ))}
         </Swiper>
     );
-}
+});

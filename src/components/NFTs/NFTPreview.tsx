@@ -110,57 +110,66 @@ function BasePreviewContent(props: BasePreviewContentProps) {
     );
 }
 
-export const NFTPreviewer = memo(function NFTPreview({ nft }: NFTPreviewProps) {
-    const chainId = resolveSimpleHashChainId(nft.chain);
-    const collectionId = nft.collection.collection_id;
-    const isSolanaChain = isValidSolanaChainId(chainId);
+export const NFTPreviewer = memo(
+    function NFTPreview({ nft }: NFTPreviewProps) {
+        const chainId = resolveSimpleHashChainId(nft.chain);
+        const collectionId = nft.collection.collection_id;
+        const isSolanaChain = isValidSolanaChainId(chainId);
 
-    const isPoap = isSameEthereumAddress(nft.contract_address, POAP_CONTRACT_ADDRESS);
-    const startDate = isPoap
-        ? nft.extra_metadata?.attributes?.find((attr) => attr.trait_type === 'startDate')?.value
-        : undefined;
-    const endDate = isPoap
-        ? nft.extra_metadata?.attributes?.find((attr) => attr.trait_type === 'endDate')?.value
-        : undefined;
+        const isPoap = isSameEthereumAddress(nft.contract_address, POAP_CONTRACT_ADDRESS);
+        const startDate = isPoap
+            ? nft.extra_metadata?.attributes?.find((attr) => attr.trait_type === 'startDate')?.value
+            : undefined;
+        const endDate = isPoap
+            ? nft.extra_metadata?.attributes?.find((attr) => attr.trait_type === 'endDate')?.value
+            : undefined;
 
-    return (
-        <BasePreviewContent
-            image={nft.image_url}
-            icon={
-                isPoap ? (
-                    <PoapIcon width={24} height={24} />
-                ) : chainId ? (
-                    <ChainIcon className="rounded-full" size={24} chainId={chainId} />
-                ) : undefined
-            }
-            link={
-                chainId ? resolveNftUrl(chainId, nft.contract_address, isSolanaChain ? '0' : nft.token_id) : undefined
-            }
-            footer={
-                nft.collection?.collection_id
-                    ? {
-                          image: nft.collection.image_url,
-                          name: isPoap ? nft.name : nft.collection.name,
-                          link: isPoap ? undefined : collectionId ? resolveNftUrlByCollection(collectionId) : undefined,
-                      }
-                    : undefined
-            }
-            tags={
-                isPoap
-                    ? compact([
-                          startDate && endDate ? (
-                              <>
-                                  <CalendarIcon className="mr-1 inline-block align-sub" width={15} height={15} />
-                                  {formatDate(startDate)} - {formatDate(endDate)}
-                              </>
-                          ) : null,
-                      ])
-                    : [`#${nft.name}`]
-            }
-            bookmarkProps={{ nftId: nft.nft_id, ownerAddress: first(nft.owners)?.owner_address }}
-        />
-    );
-});
+        return (
+            <BasePreviewContent
+                image={nft.image_url}
+                icon={
+                    isPoap ? (
+                        <PoapIcon width={24} height={24} />
+                    ) : chainId ? (
+                        <ChainIcon className="rounded-full" size={24} chainId={chainId} />
+                    ) : undefined
+                }
+                link={
+                    chainId
+                        ? resolveNftUrl(chainId, nft.contract_address, isSolanaChain ? '0' : nft.token_id)
+                        : undefined
+                }
+                footer={
+                    nft.collection?.collection_id
+                        ? {
+                              image: nft.collection.image_url,
+                              name: isPoap ? nft.name : nft.collection.name,
+                              link: isPoap
+                                  ? undefined
+                                  : collectionId
+                                    ? resolveNftUrlByCollection(collectionId)
+                                    : undefined,
+                          }
+                        : undefined
+                }
+                tags={
+                    isPoap
+                        ? compact([
+                              startDate && endDate ? (
+                                  <>
+                                      <CalendarIcon className="mr-1 inline-block align-sub" width={15} height={15} />
+                                      {formatDate(startDate)} - {formatDate(endDate)}
+                                  </>
+                              ) : null,
+                          ])
+                        : [`#${nft.name}`]
+                }
+                bookmarkProps={{ nftId: nft.nft_id, ownerAddress: first(nft.owners)?.owner_address }}
+            />
+        );
+    },
+    (a, b) => a.nft.nft_id === b.nft.nft_id,
+);
 
 export const CollectionPreviewer = memo(function CollectionPreviewer({
     collection,

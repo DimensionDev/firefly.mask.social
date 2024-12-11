@@ -1,5 +1,5 @@
 import { Trans } from '@lingui/macro';
-import { forwardRef, useState } from 'react';
+import { forwardRef, useState, memo } from 'react';
 
 import { ClickableArea } from '@/components/ClickableArea.js';
 import { CloseButton } from '@/components/CloseButton.js';
@@ -13,8 +13,8 @@ export interface CollectPostModalOpenProps {
     post: Post;
 }
 
-export const CollectPostModal = forwardRef<SingletonModalRefCreator<CollectPostModalOpenProps>>(
-    function CollectPostModal(_, ref) {
+export const CollectPostModal = memo(
+    forwardRef<SingletonModalRefCreator<CollectPostModalOpenProps>>(function CollectPostModal(_, ref) {
         const [props, setProps] = useState<CollectPostModalOpenProps>();
         const [open, dispatch] = useSingletonModal(ref, {
             onOpen: (props) => {
@@ -43,5 +43,5 @@ export const CollectPostModal = forwardRef<SingletonModalRefCreator<CollectPostM
                 </ClickableArea>
             </Modal>
         );
-    },
+    }),
 );

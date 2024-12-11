@@ -31,101 +31,106 @@ export interface SinglePostProps extends HTMLProps<HTMLDivElement> {
     showChannelTag?: boolean;
     header?: ReactNode;
 }
-export const SinglePost = memo<SinglePostProps>(function SinglePost({
-    post,
-    disableAnimate = false,
-    showMore = false,
-    isComment = false,
-    isDetail = false,
-    showTranslate = false,
-    showChannelTag = true,
-    listKey,
-    index,
-    className,
-    header,
-}) {
-    const router = useRouter();
-    const pathname = usePathname();
-    const isPostPage = isRoutePathname(pathname, '/post/:source');
-    const isProfilePage = isRoutePathname(pathname, '/profile/:source');
-    const isChannelPage = isRoutePathname(pathname, '/channel/:detail');
-    const postLink = getPostUrl(post);
-    const muted = useIsProfileMuted(post.author.source, post.author.profileId) || post.channel?.blocked;
+export const SinglePost = memo<SinglePostProps>(
+    function SinglePost({
+        className,
+        post,
+        disableAnimate = false,
+        showMore = false,
+        isComment = false,
+        isDetail = false,
+        showTranslate = false,
+        showChannelTag = true,
+        listKey,
+        index,
+        header,
+    }) {
+        const router = useRouter();
+        const pathname = usePathname();
+        const isPostPage = isRoutePathname(pathname, '/post/:source');
+        const isProfilePage = isRoutePathname(pathname, '/profile/:source');
+        const isChannelPage = isRoutePathname(pathname, '/channel/:detail');
+        const postLink = getPostUrl(post);
+        const muted = useIsProfileMuted(post.author.source, post.author.profileId) || post.channel?.blocked;
 
-    const show = useMemo(() => {
-        if (post.source === Source.Twitter) return false;
-        if (!post.isThread || isPostPage) return false;
-        if (post.source === Source.Farcaster && post.stats?.comments === 0) return false;
-        return true;
-    }, [post, isPostPage]);
+        const show = useMemo(() => {
+            if (post.source === Source.Twitter) return false;
+            if (!post.isThread || isPostPage) return false;
+            if (post.source === Source.Farcaster && post.stats?.comments === 0) return false;
+            return true;
+        }, [post, isPostPage]);
 
-    if (!isProfilePage && !isDetail && muted) return null;
+        if (!isProfilePage && !isDetail && muted) return null;
 
-    const showPostAction = !isDetail && (isProfilePage || !post.isHidden || !muted);
+        const showPostAction = !isDetail && (isProfilePage || !post.isHidden || !muted);
 
-    return (
-        <motion.article
-            initial={!disableAnimate ? { opacity: 0 } : false}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className={classNames(
-                'cursor-pointer border-b border-line bg-bottom px-3 py-2 md:px-4 md:py-3',
-                className,
-                {
-                    'hover:bg-bg': !isDetail,
-                },
-            )}
-            onClick={() => {
-                const selection = window.getSelection();
-                if (selection && selection.toString().length !== 0) return;
-                if (!isPostPage || isComment) {
-                    if (listKey && !isUndefined(index)) useGlobalState.getState().setScrollIndex(listKey, index);
-                    router.push(postLink);
-                }
-                return;
-            }}
-        >
-            {header}
-            <NoSSR>
-                {!isComment ? <FeedActionType isDetail={isDetail} post={post} listKey={listKey} index={index} /> : null}
-            </NoSSR>
-
-            <PostHeader
-                isComment={isComment}
-                post={post}
-                onClickProfileLink={() => {
-                    if (listKey && !isUndefined(index)) useGlobalState.getState().setScrollIndex(listKey, index);
+        return (
+            <motion.article
+                initial={!disableAnimate ? { opacity: 0 } : false}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                className={classNames(
+                    'cursor-pointer border-b border-line bg-bottom px-3 py-2 md:px-4 md:py-3',
+                    className,
+                    {
+                        'hover:bg-bg': !isDetail,
+                    },
+                )}
+                onClick={() => {
+                    const selection = window.getSelection();
+                    if (selection && selection.toString().length !== 0) return;
+                    if (!isPostPage || isComment) {
+                        if (listKey && !isUndefined(index)) useGlobalState.getState().setScrollIndex(listKey, index);
+                        router.push(postLink);
+                    }
+                    return;
                 }}
-            />
+            >
+                {header}
+                <NoSSR>
+                    {!isComment ? (
+                        <FeedActionType isDetail={isDetail} post={post} listKey={listKey} index={index} />
+                    ) : null}
+                </NoSSR>
 
-            <PostBody
-                post={post}
-                showMore={showMore}
-                showTranslate={showTranslate}
-                isDetail={isDetail}
-                isComment={isComment}
-            />
-            <NoSSR>
-                {showPostAction ? (
-                    <PostActions
-                        post={post}
-                        disabled={post.isHidden}
-                        showChannelTag={!isComment && !isChannelPage && showChannelTag}
-                        onSetScrollIndex={() => {
-                            if (listKey && !isUndefined(index))
-                                useGlobalState.getState().setScrollIndex(listKey, index);
-                        }}
-                    />
-                ) : null}
-            </NoSSR>
+                <PostHeader
+                    isComment={isComment}
+                    post={post}
+                    onClickProfileLink={() => {
+                        if (listKey && !isUndefined(index)) useGlobalState.getState().setScrollIndex(listKey, index);
+                    }}
+                />
 
-            {show ? (
-                <div className="mt-2 w-full cursor-pointer text-center text-medium font-bold text-highlight">
-                    <div>
-                        <Trans>Show More</Trans>
+                <PostBody
+                    post={post}
+                    showMore={showMore}
+                    showTranslate={showTranslate}
+                    isDetail={isDetail}
+                    isComment={isComment}
+                />
+                <NoSSR>
+                    {showPostAction ? (
+                        <PostActions
+                            post={post}
+                            disabled={post.isHidden}
+                            showChannelTag={!isComment && !isChannelPage && showChannelTag}
+                            onSetScrollIndex={() => {
+                                if (listKey && !isUndefined(index))
+                                    useGlobalState.getState().setScrollIndex(listKey, index);
+                            }}
+                        />
+                    ) : null}
+                </NoSSR>
+
+                {show ? (
+                    <div className="mt-2 w-full cursor-pointer text-center text-medium font-bold text-highlight">
+                        <div>
+                            <Trans>Show More</Trans>
+                        </div>
                     </div>
-                </div>
-            ) : null}
-        </motion.article>
-    );
-});
+                ) : null}
+            </motion.article>
+        );
+    },
+    (a, b) => a.post.postId === b.post.postId,
+);
