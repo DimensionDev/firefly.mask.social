@@ -34,6 +34,7 @@ yarn-error.log*
 
 # vercel
 .vercel
+.million
 
 # typescript
 *.tsbuildinfo

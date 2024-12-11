@@ -4,7 +4,7 @@ import { Select, t, Trans } from '@lingui/macro';
 import { useForkRef } from '@mui/material';
 import { compact } from 'lodash-es';
 import { usePathname, useRouter } from 'next/navigation.js';
-import { forwardRef, type HTMLProps, useMemo, useState } from 'react';
+import { forwardRef, memo, type HTMLProps, useMemo, useState } from 'react';
 import { useAsync } from 'react-use';
 
 import { TwitterArticleBody } from '@/components/Article/TwitterArticleBody.js';
@@ -56,224 +56,226 @@ const overrideComponents = {
     },
 };
 
-export const PostBodyContent = forwardRef<HTMLDivElement, PostBodyContentProps>(function PostBodyContent(props, ref) {
-    const {
-        post,
-        isQuote = false,
-        isReply = false,
-        isDetail = false,
-        showMore = !isDetail,
-        disablePadding = false,
-        showTranslate = false,
-    } = props;
+export const PostBodyContent = memo(
+    forwardRef<HTMLDivElement, PostBodyContentProps>(function PostBodyContent(props, ref) {
+        const {
+            post,
+            isQuote = false,
+            isReply = false,
+            isDetail = false,
+            showMore = !isDetail,
+            disablePadding = false,
+            showTranslate = false,
+        } = props;
 
-    const router = useRouter();
-    const currentTwitterProfileSession = useTwitterStateStore.use.currentProfileSession();
-    const { metadata, author } = post;
-    const postRawContent = metadata.content?.content;
-    // ! liteRawContent is used for reply and quote, only shows the first 2000 characters, because the text is foldable
-    const liteRawContent = metadata.content?.content?.slice(0, 2000);
-    const canShowMore = !!(postRawContent && postRawContent.length > 450) && showMore;
+        const router = useRouter();
+        const currentTwitterProfileSession = useTwitterStateStore.use.currentProfileSession();
+        const { metadata, author } = post;
+        const postRawContent = metadata.content?.content;
+        // ! liteRawContent is used for reply and quote, only shows the first 2000 characters, because the text is foldable
+        const liteRawContent = metadata.content?.content?.slice(0, 2000);
+        const canShowMore = !!(postRawContent && postRawContent.length > 450) && showMore;
 
-    const [postContent, setPostContent] = useState(postRawContent ?? '');
-    const [seen, seenRef] = useEverSeen({ rootMargin: '300px 0px' });
-    const mergedRef = useForkRef(ref, seenRef);
+        const [postContent, setPostContent] = useState(postRawContent ?? '');
+        const [seen, seenRef] = useEverSeen({ rootMargin: '300px 0px' });
+        const mergedRef = useForkRef(ref, seenRef);
 
-    const attachments = metadata.content?.attachments ?? EMPTY_LIST;
-    const { value: payloads, loading: decodingImage } = useAsync(async () => {
-        // decode the image upon post viewing, to reduce unnecessary load of images
-        if (!seen) return;
+        const attachments = metadata.content?.attachments ?? EMPTY_LIST;
+        const { value: payloads, loading: decodingImage } = useAsync(async () => {
+            // decode the image upon post viewing, to reduce unnecessary load of images
+            if (!seen) return;
 
-        // mask web components are disabled
-        if (env.external.NEXT_PUBLIC_MASK_WEB_COMPONENTS === STATUS.Disabled) return;
+            // mask web components are disabled
+            if (env.external.NEXT_PUBLIC_MASK_WEB_COMPONENTS === STATUS.Disabled) return;
 
-        return {
-            payloadFromText: getEncryptedPayloadFromText(postRawContent),
-            payloadFromImageAttachment: await getEncryptedPayloadFromImageAttachment(attachments),
-        };
-    }, [postRawContent, attachments, seen]);
+            return {
+                payloadFromText: getEncryptedPayloadFromText(postRawContent),
+                payloadFromImageAttachment: await getEncryptedPayloadFromImageAttachment(attachments),
+            };
+        }, [postRawContent, attachments, seen]);
 
-    const muted = useIsProfileMuted(author.source, author.profileId, author.viewerContext?.blocking, isDetail);
+        const muted = useIsProfileMuted(author.source, author.profileId, author.viewerContext?.blocking, isDetail);
 
-    const isSmall = useIsSmall('max');
+        const isSmall = useIsSmall('max');
 
-    const pathname = usePathname();
-    const isProfilePage = pathname === PageRoute.Profile || isRoutePathname(pathname, PageRoute.Profile);
+        const pathname = usePathname();
+        const isProfilePage = pathname === PageRoute.Profile || isRoutePathname(pathname, PageRoute.Profile);
 
-    const payloadFromImageAttachment = payloads?.payloadFromImageAttachment;
-    const payloadImageUrl = payloadFromImageAttachment?.[2];
-    const hasEncryptedPayload = payloads?.payloadFromImageAttachment || payloads?.payloadFromText;
+        const payloadFromImageAttachment = payloads?.payloadFromImageAttachment;
+        const payloadImageUrl = payloadFromImageAttachment?.[2];
+        const hasEncryptedPayload = payloads?.payloadFromImageAttachment || payloads?.payloadFromText;
 
-    // if payload image attachment is available, we don't need to show the attachments
-    const availableAttachments = useMemo(() => {
-        if (!payloadImageUrl) return attachments;
-        return attachments.filter((x) => x.uri !== payloadImageUrl);
-    }, [attachments, payloadImageUrl]);
+        // if payload image attachment is available, we don't need to show the attachments
+        const availableAttachments = useMemo(() => {
+            if (!payloadImageUrl) return attachments;
+            return attachments.filter((x) => x.uri !== payloadImageUrl);
+        }, [attachments, payloadImageUrl]);
 
-    const showAttachments = (availableAttachments.length > 0 || !!metadata.content?.asset) && !decodingImage;
+        const showAttachments = (availableAttachments.length > 0 || !!metadata.content?.asset) && !decodingImage;
 
-    const noLeftPadding = isDetail || isSmall || disablePadding;
+        const noLeftPadding = isDetail || isSmall || disablePadding;
 
-    const oembedUrl = resolveOembedUrl(post);
-    const pollId = oembedUrl ? getPollIdFromLink(oembedUrl) : undefined;
+        const oembedUrl = resolveOembedUrl(post);
+        const pollId = oembedUrl ? getPollIdFromLink(oembedUrl) : undefined;
 
-    const EncryptedContent = useMemo(() => {
-        if (post.source === Source.Twitter && !currentTwitterProfileSession) return null;
+        const EncryptedContent = useMemo(() => {
+            if (post.source === Source.Twitter && !currentTwitterProfileSession) return null;
 
-        if (seen && hasEncryptedPayload) {
+            if (seen && hasEncryptedPayload) {
+                return (
+                    <mask-decrypted-post
+                        props={encodeURIComponent(
+                            JSON.stringify({
+                                post,
+                                payloads: compact([payloads.payloadFromImageAttachment, payloads.payloadFromText]),
+                            }),
+                        )}
+                    />
+                );
+            }
+
+            return null;
+        }, [
+            seen,
+            hasEncryptedPayload,
+            post,
+            payloads?.payloadFromImageAttachment,
+            payloads?.payloadFromText,
+            currentTwitterProfileSession,
+        ]);
+
+        const LinksContent = useMemo(
+            () =>
+                !hasEncryptedPayload && !decodingImage && !pollId ? (
+                    <PostLinks post={post} setContent={setPostContent} />
+                ) : null,
+            [hasEncryptedPayload, decodingImage, pollId, post, setPostContent],
+        );
+
+        if (post.isHidden || (muted && !isProfilePage)) {
             return (
-                <mask-decrypted-post
-                    props={encodeURIComponent(
-                        JSON.stringify({
-                            post,
-                            payloads: compact([payloads.payloadFromImageAttachment, payloads.payloadFromText]),
-                        }),
-                    )}
+                <CollapsedContent
+                    className={classNames({
+                        ['-mt-3 pl-[52px]']: !noLeftPadding,
+                        'my-2': !isQuote,
+                    })}
+                    ref={ref}
+                    authorMuted={muted}
+                    isQuote={isQuote}
                 />
             );
         }
 
-        return null;
-    }, [
-        seen,
-        hasEncryptedPayload,
-        post,
-        payloads?.payloadFromImageAttachment,
-        payloads?.payloadFromText,
-        currentTwitterProfileSession,
-    ]);
-
-    const LinksContent = useMemo(
-        () =>
-            !hasEncryptedPayload && !decodingImage && !pollId ? (
-                <PostLinks post={post} setContent={setPostContent} />
-            ) : null,
-        [hasEncryptedPayload, decodingImage, pollId, post, setPostContent],
-    );
-
-    if (post.isHidden || (muted && !isProfilePage)) {
-        return (
-            <CollapsedContent
-                className={classNames({
-                    ['-mt-3 pl-[52px]']: !noLeftPadding,
-                    'my-2': !isQuote,
-                })}
-                ref={ref}
-                authorMuted={muted}
-                isQuote={isQuote}
-            />
-        );
-    }
-
-    if (isQuote) {
-        return (
-            <div className="my-2 break-words text-base text-main">
-                <NakedMarkup
-                    post={post}
-                    className={classNames(
-                        'linkify line-clamp-5 w-full self-stretch break-words text-left text-medium opacity-75',
-                        {
-                            'max-h-[7.8rem]': IS_SAFARI && IS_APPLE,
-                        },
-                    )}
-                >
-                    {liteRawContent}
-                </NakedMarkup>
-                {EncryptedContent}
-                {showAttachments ? (
-                    <Attachments
+        if (isQuote) {
+            return (
+                <div className="my-2 break-words text-base text-main">
+                    <NakedMarkup
                         post={post}
-                        attachments={availableAttachments}
-                        isQuote={!!metadata.content?.content?.length}
-                    />
-                ) : null}
-                {LinksContent}
-            </div>
-        );
-    }
-
-    if (isReply) {
-        return (
-            <div>
-                <NakedMarkup
-                    post={post}
-                    className={classNames(
-                        'single-post line-clamp-3 w-full self-stretch break-words text-base text-main',
-                        {
-                            'max-h-[7.8rem]': IS_SAFARI && IS_APPLE,
-                        },
-                    )}
-                    components={overrideComponents}
-                >
-                    {liteRawContent}
-                </NakedMarkup>
-                <div className="flex flex-col text-base text-main">
-                    {post.metadata.content?.asset?.type ? (
-                        <Select
-                            value={post.metadata.content.asset.type}
-                            _Image="[Image]"
-                            _Video="[Video]"
-                            _Audio="[Audio]"
-                            _Poll="[Poll]"
-                            other=""
+                        className={classNames(
+                            'linkify line-clamp-5 w-full self-stretch break-words text-left text-medium opacity-75',
+                            {
+                                'max-h-[7.8rem]': IS_SAFARI && IS_APPLE,
+                            },
+                        )}
+                    >
+                        {liteRawContent}
+                    </NakedMarkup>
+                    {EncryptedContent}
+                    {showAttachments ? (
+                        <Attachments
+                            post={post}
+                            attachments={availableAttachments}
+                            isQuote={!!metadata.content?.content?.length}
                         />
                     ) : null}
-                    {post.quoteOn ? <span>{t`[Quote]`}</span> : null}
+                    {LinksContent}
                 </div>
-            </div>
-        );
-    }
+            );
+        }
 
-    return (
-        <article
-            className={classNames('mb-1.5 break-words text-base text-main', {
-                '-mt-2 pl-[52px]': !noLeftPadding,
-                'mt-1.5': noLeftPadding,
-            })}
-            ref={mergedRef}
-        >
-            <PostMarkup post={post} canShowMore={canShowMore} content={postContent} />
-
-            {post.metadata.article ? (
-                <Link href={resolvePostArticleUrl(post)} target="_blank" onClick={(e) => e.stopPropagation()}>
-                    <TwitterArticleBody {...post.metadata.article} />
-                </Link>
-            ) : null}
-
-            {showTranslate && trimify(postContent) ? (
-                <ContentTranslator content={trimify(postContent)} canShowMore={canShowMore} post={post} />
-            ) : null}
-
-            {EncryptedContent}
-
-            {canShowMore ? (
-                <div className="text-medium font-bold text-highlight">
-                    <div
-                        onClick={() => {
-                            router.push(getPostUrl(post));
-                        }}
+        if (isReply) {
+            return (
+                <div>
+                    <NakedMarkup
+                        post={post}
+                        className={classNames(
+                            'single-post line-clamp-3 w-full self-stretch break-words text-base text-main',
+                            {
+                                'max-h-[7.8rem]': IS_SAFARI && IS_APPLE,
+                            },
+                        )}
+                        components={overrideComponents}
                     >
-                        <Trans>Show More</Trans>
+                        {liteRawContent}
+                    </NakedMarkup>
+                    <div className="flex flex-col text-base text-main">
+                        {post.metadata.content?.asset?.type ? (
+                            <Select
+                                value={post.metadata.content.asset.type}
+                                _Image="[Image]"
+                                _Video="[Video]"
+                                _Audio="[Audio]"
+                                _Poll="[Poll]"
+                                other=""
+                            />
+                        ) : null}
+                        {post.quoteOn ? <span>{t`[Quote]`}</span> : null}
                     </div>
                 </div>
-            ) : null}
+            );
+        }
 
-            {/* Poll */}
-            {!hasEncryptedPayload && !decodingImage ? (
-                pollId && oembedUrl ? (
-                    <FramePoll post={post} pollId={pollId} frameUrl={oembedUrl} />
-                ) : post.poll ? (
-                    <PollCard post={post} frameUrl={''} />
-                ) : null
-            ) : null}
+        return (
+            <article
+                className={classNames('mb-1.5 break-words text-base text-main', {
+                    '-mt-2 pl-[52px]': !noLeftPadding,
+                    'mt-1.5': noLeftPadding,
+                })}
+                ref={mergedRef}
+            >
+                <PostMarkup post={post} canShowMore={canShowMore} content={postContent} />
 
-            {showAttachments ? (
-                <Attachments post={post} attachments={availableAttachments} isDetail={isDetail} />
-            ) : null}
+                {post.metadata.article ? (
+                    <Link href={resolvePostArticleUrl(post)} target="_blank" onClick={(e) => e.stopPropagation()}>
+                        <TwitterArticleBody {...post.metadata.article} />
+                    </Link>
+                ) : null}
 
-            {LinksContent}
+                {showTranslate && trimify(postContent) ? (
+                    <ContentTranslator content={trimify(postContent)} canShowMore={canShowMore} post={post} />
+                ) : null}
 
-            {!!post.quoteOn && !isQuote ? <Quote post={post.quoteOn} /> : null}
-        </article>
-    );
-});
+                {EncryptedContent}
+
+                {canShowMore ? (
+                    <div className="text-medium font-bold text-highlight">
+                        <div
+                            onClick={() => {
+                                router.push(getPostUrl(post));
+                            }}
+                        >
+                            <Trans>Show More</Trans>
+                        </div>
+                    </div>
+                ) : null}
+
+                {/* Poll */}
+                {!hasEncryptedPayload && !decodingImage ? (
+                    pollId && oembedUrl ? (
+                        <FramePoll post={post} pollId={pollId} frameUrl={oembedUrl} />
+                    ) : post.poll ? (
+                        <PollCard post={post} frameUrl={''} />
+                    ) : null
+                ) : null}
+
+                {showAttachments ? (
+                    <Attachments post={post} attachments={availableAttachments} isDetail={isDetail} />
+                ) : null}
+
+                {LinksContent}
+
+                {!!post.quoteOn && !isQuote ? <Quote post={post.quoteOn} /> : null}
+            </article>
+        );
+    }),
+);

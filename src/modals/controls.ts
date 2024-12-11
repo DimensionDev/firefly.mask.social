@@ -14,7 +14,7 @@ import type { LogoutModalProps } from '@/modals/LogoutModal.js';
 import type {
     NonFungibleCollectionSelectModalCloseProps,
     NonFungibleCollectionSelectModalOpenProps,
-} from '@/modals/NonFungibleCollectionSelectModal/index.jsx';
+} from '@/modals/NonFungibleCollectionSelectModal/index.js';
 import type { PreviewMediaModalOpenProps } from '@/modals/PreviewMediaModal.js';
 import type { RedpacketModalOpenProps } from '@/modals/RedpacketModal/index.js';
 import type { SchedulePostModalOpenProps } from '@/modals/SchedulePostModal.js';
