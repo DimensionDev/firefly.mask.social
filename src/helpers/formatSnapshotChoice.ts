@@ -8,7 +8,7 @@ export function formatSnapshotChoice(choice: SnapshotChoice, type: string, choic
         const target = choices[choice - 1];
         return target;
     } else if (type === 'approval' && Array.isArray(choice)) {
-        return choice.map((c) => `Option ${choices[c - 1]}`).join(', ');
+        return choice.map((c) => choices[c - 1]).join(', ');
     } else if (type === 'ranked-choice' && Array.isArray(choice)) {
         return choice.map((c, index) => `(${ordinal_suffix_of(index + 1)}) ${choices[c - 1]}`).join(', ');
     } else if (['quadratic', 'weighted'].includes(type) && typeof choice === 'object') {

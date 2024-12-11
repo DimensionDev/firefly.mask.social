@@ -158,7 +158,7 @@ export function NFTsActivityCellAction(props: Props) {
             return (
                 <ActivityCellAction>
                     <Trans>
-                        <ActivityCellActionTag icon={<BurnIcon />}>Burn</ActivityCellActionTag>
+                        <ActivityCellActionTag icon={<BurnIcon />}>Burned</ActivityCellActionTag>
                         <NFTsActivityCellActionCollectionName asset={data} {...pick(props, 'chainId', 'address')} />
                     </Trans>
                 </ActivityCellAction>

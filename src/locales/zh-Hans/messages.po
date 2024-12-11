@@ -279,6 +279,9 @@ msgstr "覆盖"
 msgid "Tax can be modified"
 msgstr "税率可以被修改"
 
+msgid "<0>Burned</0><1/>"
+msgstr ""
+
 msgid "Join our Discord"
 msgstr "加入我们的 Discord"
 
@@ -666,6 +669,9 @@ msgstr "已连接的账户"
 msgid "<0>{0}</0> by <1>{1}</1>"
 msgstr "<0>{0}</0> 由 <1>{1}</1>"
 
+msgid "Limo"
+msgstr ""
+
 msgid "Functions with retrievable ownership"
 msgstr "具有可检索所有权的功能"
 
@@ -1001,6 +1007,9 @@ msgstr "在 Lens 上关注 @{0} 失败"
 msgid "Check Eligibility"
 msgstr "领取资格"
 
+msgid "<0>Post</0><1>an article on <2/></1>"
+msgstr ""
+
 msgid "You might like"
 msgstr "你也许感兴趣"
 
@@ -1138,9 +1147,6 @@ msgstr "频道"
 
 msgid "The hidden owner function is not included. If there is a hidden owner, the project owner may have the ability to control the contract."
 msgstr "未包含隐藏所有者功能。如果存在隐藏所有者，项目所有者可能有能力控制合约。"
-
-msgid "{label} on a proposal"
-msgstr "提案上的 {label}"
 
 msgid "Failed to enable signless"
 msgstr "未能启用无签名功能"
@@ -1304,9 +1310,6 @@ msgstr ""
 msgid "Kamala Harris"
 msgstr "卡玛拉·哈里斯"
 
-msgid "<0>Revised</0><1>an article</1>"
-msgstr ""
-
 msgid "Send telemetry events in debug mode."
 msgstr "在调试模式下发送遥测事件。"
 
@@ -1321,6 +1324,9 @@ msgstr "打开 Firefly App"
 
 msgid "Privacy Policy"
 msgstr "隐私条款"
+
+msgid "<0>Revised</0><1>an article on <2/></1>"
+msgstr ""
 
 msgid "Holders can sell all of the token."
 msgstr "持有者可以出售所有代币。"
@@ -2237,6 +2243,9 @@ msgid "Failed to update profile."
 msgstr "更新个人资料失败。"
 
 msgid "Your URL"
+msgstr ""
+
+msgid "Paragraph"
 msgstr ""
 
 msgid "Connected in Firefly"
@@ -3442,9 +3451,6 @@ msgstr "继续"
 msgid "Cybercrime."
 msgstr "网络犯罪。"
 
-msgid "<0>Burn</0><1/>"
-msgstr ""
-
 msgid "<0>Sent</0> an NFT to <1>{0}</1>"
 msgstr "<0>发送</0> 一个 NFT 至 <1>{0}</1>"
 
@@ -3519,9 +3525,6 @@ msgstr "登出将导致定时发布的帖子失败。请确保您的 Firefly 账
 
 msgid "Failed to create schedule post."
 msgstr "创建定时任务失败"
-
-msgid "<0>Post</0><1>an article</1>"
-msgstr ""
 
 msgid "<0>{0}</0> recasted"
 msgstr "<0>{0}</0> 已转发"

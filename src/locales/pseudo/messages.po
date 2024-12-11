@@ -274,6 +274,9 @@ msgstr ""
 msgid "Tax can be modified"
 msgstr ""
 
+msgid "<0>Burned</0><1/>"
+msgstr ""
+
 msgid "Join our Discord"
 msgstr ""
 
@@ -661,6 +664,9 @@ msgstr ""
 msgid "<0>{0}</0> by <1>{1}</1>"
 msgstr ""
 
+msgid "Limo"
+msgstr ""
+
 msgid "Functions with retrievable ownership"
 msgstr ""
 
@@ -996,6 +1002,9 @@ msgstr ""
 msgid "Check Eligibility"
 msgstr ""
 
+msgid "<0>Post</0><1>an article on <2/></1>"
+msgstr ""
+
 msgid "You might like"
 msgstr ""
 
@@ -1132,9 +1141,6 @@ msgid "Channel"
 msgstr ""
 
 msgid "The hidden owner function is not included. If there is a hidden owner, the project owner may have the ability to control the contract."
-msgstr ""
-
-msgid "{label} on a proposal"
 msgstr ""
 
 msgid "Failed to enable signless"
@@ -1299,9 +1305,6 @@ msgstr ""
 msgid "Kamala Harris"
 msgstr ""
 
-msgid "<0>Revised</0><1>an article</1>"
-msgstr ""
-
 msgid "Send telemetry events in debug mode."
 msgstr ""
 
@@ -1315,6 +1318,9 @@ msgid "Open in Firefly App"
 msgstr ""
 
 msgid "Privacy Policy"
+msgstr ""
+
+msgid "<0>Revised</0><1>an article on <2/></1>"
 msgstr ""
 
 msgid "Holders can sell all of the token."
@@ -2232,6 +2238,9 @@ msgid "Failed to update profile."
 msgstr ""
 
 msgid "Your URL"
+msgstr ""
+
+msgid "Paragraph"
 msgstr ""
 
 msgid "Connected in Firefly"
@@ -3437,9 +3446,6 @@ msgstr ""
 msgid "Cybercrime."
 msgstr ""
 
-msgid "<0>Burn</0><1/>"
-msgstr ""
-
 msgid "<0>Sent</0> an NFT to <1>{0}</1>"
 msgstr ""
 
@@ -3513,9 +3519,6 @@ msgid "Logging out will cause scheduled posts to fail. To ensure that posts are 
 msgstr ""
 
 msgid "Failed to create schedule post."
-msgstr ""
-
-msgid "<0>Post</0><1>an article</1>"
 msgstr ""
 
 msgid "<0>{0}</0> recasted"

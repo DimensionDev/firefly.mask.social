@@ -92,7 +92,7 @@ export const SingleArticle = memo<SingleArticleProps>(function SingleArticleProp
                 <CollapsedContent className="mt-2 pl-[52px]" authorMuted isQuote={false} />
             ) : (
                 <div className="-mt-2 pl-[52px]">
-                    {!isBookmark ? <ActivityCellArticleAction type={article.type} /> : null}
+                    {!isBookmark ? <ActivityCellArticleAction type={article.type} platform={article.platform} /> : null}
                     <ArticleBody onClick={handleClick} cover={cover?.data ?? undefined} article={article} />
                 </div>
             )}

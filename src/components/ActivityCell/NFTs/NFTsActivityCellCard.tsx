@@ -68,7 +68,7 @@ export function NFTsActivityCellCard(props: Props) {
                 <div className="relative">
                     <NFTImage
                         src={imageURL}
-                        className="h-auto max-h-[500px] min-h-[150px] w-[250px] rounded-t-xl bg-lightBg object-cover dark:bg-bg md:w-[300px]"
+                        className="h-auto max-h-[500px] min-h-[150px] w-[250px] min-w-[150px] rounded-t-xl bg-lightBg object-cover dark:bg-bg md:w-[300px]"
                         alt="nft-card"
                         fallbackClassName=""
                         width={200}
