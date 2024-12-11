@@ -53,5 +53,13 @@ export function useRefundCallback(id?: string, overrideChainContext?: ChainConte
                 });
             },
         );
+
+        queryClient.refetchQueries({
+            queryKey: ['red-packet', 'claim', id],
+        });
+
+        queryClient.refetchQueries({
+            queryKey: ['red-packet', 'check-availability', chainId, 4, id, account],
+        });
     }, [chainId, redpacketContractAddress, id]);
 }

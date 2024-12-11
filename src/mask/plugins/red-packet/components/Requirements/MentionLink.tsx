@@ -1,17 +1,10 @@
 import { safeUnreachable } from '@masknet/kit';
-import { Link } from '@mui/material';
 import { useQuery } from '@tanstack/react-query';
 
+import { Link } from '@/esm/Link.js';
 import { LoadingBase } from '@/mask/bindings/components.js';
-import { makeStyles } from '@/mask/bindings/index.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 import { FireflyRedPacketAPI } from '@/providers/red-packet/types.js';
-
-const useStyles = makeStyles()({
-    textLink: {
-        color: '#8E96FF',
-    },
-});
 
 function resolveProfileUrl(platform: FireflyRedPacketAPI.PlatformType, handle: string) {
     switch (platform) {
@@ -34,7 +27,6 @@ interface MentionLinkProps {
 }
 
 export function MentionLink({ platform, profileId, handle }: MentionLinkProps) {
-    const { classes } = useStyles();
     const isTwitter = platform === FireflyRedPacketAPI.PlatformType.twitter;
     const { data: twitterHandle, isLoading } = useQuery({
         enabled: isTwitter && !handle,
@@ -57,7 +49,7 @@ export function MentionLink({ platform, profileId, handle }: MentionLinkProps) {
                 platform === FireflyRedPacketAPI.PlatformType.farcaster ? profileId : screenName,
             )}
             target="_blank"
-            className={classes.textLink}
+            className="text-base leading-[18px] text-highlight"
         >
             @{isTwitter ? twitterHandle || handle : handle}
         </Link>

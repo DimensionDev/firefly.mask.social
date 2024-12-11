@@ -60,7 +60,7 @@ export function getTwitterFormat(date: Date | string | number) {
     return dayjs(new Date(date)).twitter();
 }
 
-export function getTimeLeft(endDatetime: string, startDatetime = new Date().toISOString()) {
+export function getTimeLeft(endDatetime: string | number, startDatetime: string | number = new Date().toISOString()) {
     const timeLeft = dayjs(endDatetime).diff(dayjs(startDatetime));
     if (timeLeft < 0) return;
 

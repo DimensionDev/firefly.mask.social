@@ -27,6 +27,7 @@ import { useRefundCallback } from '@/mask/plugins/red-packet/hooks/useRefundCall
 import { ComposeModalRef, LoginModalRef } from '@/modals/controls.js';
 import { FireflyRedPacket } from '@/providers/red-packet/index.js';
 import { type FireflyRedPacketAPI, type RedPacketJSONPayload, RedPacketStatus } from '@/providers/red-packet/types.js';
+import type { Post } from '@/providers/types/SocialMedia.js';
 
 async function share(text: string, source?: SocialSource) {
     TransactionConfirmModal.close();
@@ -173,9 +174,10 @@ const useStyles = makeStyles<{ outdated: boolean }>()((theme, { outdated }) => {
 
 export interface RedPacketProps {
     payload: RedPacketJSONPayload;
+    post: Post;
 }
 
-export const RedPacket = memo(function RedPacket({ payload }: RedPacketProps) {
+export const RedPacket = memo(function RedPacket({ payload, post }: RedPacketProps) {
     const token = payload.token;
     const payloadChainId = token?.chainId ?? EVMChainResolver.chainId(payload.network ?? '') ?? ChainId.Mainnet;
     const { account } = useChainContext();
@@ -188,7 +190,7 @@ export const RedPacket = memo(function RedPacket({ payload }: RedPacketProps) {
         claimStrategyStatus,
         recheckClaimStatus,
         checkingClaimStatus,
-    } = useAvailabilityComputed(account, payload);
+    } = useAvailabilityComputed(payload, post);
 
     // #endregion
 
@@ -197,7 +199,11 @@ export const RedPacket = memo(function RedPacket({ payload }: RedPacketProps) {
     // #region remote controlled transaction dialog
     const postLink = usePostLink();
 
-    const [{ loading: isClaiming, value: claimTxHash }, claimCallback] = useClaimCallback(account, payload);
+    const [{ loading: isClaiming, value: claimTxHash }, claimCallback] = useClaimCallback(
+        account,
+        payload,
+        post.source,
+    );
     const source = usePostInfoDetails.source() as SocialSource | null;
     const platform = source?.toLowerCase() as 'lens' | 'farcaster' | 'twitter';
     const postUrl = usePostInfoDetails.url();
