@@ -455,6 +455,7 @@ export class FireflyEndpoint {
         const url = urlcat(settings.FIREFLY_ROOT_URL, '/v2/search/identity', {
             keyword,
             size,
+            cursor: indicator?.id,
         });
         const platform = platforms?.map((x) => resolveSourceInUrl(x)).join(','); // There are commas here, without escaping
         const response = await fireflySessionHolder.fetch<SearchProfileResponse>(
