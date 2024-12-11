@@ -13,9 +13,7 @@ import { ClickableArea } from '@/components/ClickableArea.js';
 import { Image } from '@/components/Image.js';
 import { AdFunctionType, AdvertisementType } from '@/constants/enum.js';
 import { Link } from '@/esm/Link.js';
-import { openWindow } from '@/helpers/openWindow.js';
-import { ActivityModalRef, LoginModalRef } from '@/modals/controls.js';
-import { fireflyBridgeProvider } from '@/providers/firefly/Bridge.js';
+import { LoginModalRef } from '@/modals/controls.js';
 import type { Advertisement } from '@/types/advertisement.js';
 
 interface Props extends React.HTMLProps<'div'> {
@@ -50,14 +48,6 @@ export function AdvertisementSwiper({ items }: Props) {
                                 switch (ad.function) {
                                     case AdFunctionType.OpenScan:
                                         LoginModalRef.open();
-                                        break;
-                                    case AdFunctionType.OpenActivity:
-                                        // native
-                                        if (fireflyBridgeProvider.supported) {
-                                            openWindow('https://cz.firefly.social/');
-                                        } else {
-                                            ActivityModalRef.open();
-                                        }
                                         break;
                                     default:
                                         safeUnreachable(ad.function);
