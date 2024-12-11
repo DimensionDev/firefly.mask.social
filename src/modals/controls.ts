@@ -53,7 +53,3 @@ export const NonFungibleTokenCollectionSelectModalRef = new SingletonModal<
     NonFungibleCollectionSelectModalOpenProps,
     NonFungibleCollectionSelectModalCloseProps
 >();
-
-// CZ
-export const ActivityModalRef = new SingletonModal();
-export const ActivityClaimSuccessModalRef = new SingletonModal<{ hash: string }>();
