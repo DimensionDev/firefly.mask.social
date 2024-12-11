@@ -1,4 +1,3 @@
-import { Trans } from '@lingui/macro';
 import { motion } from 'framer-motion';
 import { memo } from 'react';
 
@@ -33,14 +32,8 @@ export const SingleSnapshot = memo<SingleSnapshotProps>(function SingleSnapshot(
             ) : (
                 <div className="-mt-2 pl-[52px]">
                     <ActivityCellSnapshotAction>
-                        <TextOverflowTooltip
-                            className="max-sm:block"
-                            placement="top-start"
-                            content={<Trans>{label} on a proposal</Trans>}
-                        >
-                            <span>
-                                <Trans>{label} on a proposal</Trans>
-                            </span>
+                        <TextOverflowTooltip className="max-sm:block" placement="top-start" content={label}>
+                            <span className="truncate">{label}</span>
                         </TextOverflowTooltip>
                     </ActivityCellSnapshotAction>
 

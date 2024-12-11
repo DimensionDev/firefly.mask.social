@@ -279,6 +279,9 @@ msgstr "覆寫"
 msgid "Tax can be modified"
 msgstr ""
 
+msgid "<0>Burned</0><1/>"
+msgstr ""
+
 msgid "Join our Discord"
 msgstr "加入我們的 Discord 社群"
 
@@ -1137,9 +1140,6 @@ msgid "Channel"
 msgstr "頻道"
 
 msgid "The hidden owner function is not included. If there is a hidden owner, the project owner may have the ability to control the contract."
-msgstr ""
-
-msgid "{label} on a proposal"
 msgstr ""
 
 msgid "Failed to enable signless"
@@ -3440,9 +3440,6 @@ msgid "Continue"
 msgstr ""
 
 msgid "Cybercrime."
-msgstr ""
-
-msgid "<0>Burn</0><1/>"
 msgstr ""
 
 msgid "<0>Sent</0> an NFT to <1>{0}</1>"

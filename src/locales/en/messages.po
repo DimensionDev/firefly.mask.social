@@ -274,6 +274,9 @@ msgstr "Overwrite"
 msgid "Tax can be modified"
 msgstr "Tax can be modified"
 
+msgid "<0>Burned</0><1/>"
+msgstr "<0>Burned</0><1/>"
+
 msgid "Join our Discord"
 msgstr "Join our Discord"
 
@@ -1135,9 +1138,6 @@ msgstr "Channel"
 
 msgid "The hidden owner function is not included. If there is a hidden owner, the project owner may have the ability to control the contract."
 msgstr "The hidden owner function is not included. If there is a hidden owner, the project owner may have the ability to control the contract."
-
-msgid "{label} on a proposal"
-msgstr "{label} on a proposal"
 
 msgid "Failed to enable signless"
 msgstr "Failed to enable signless"
@@ -3440,9 +3440,6 @@ msgstr "Continue"
 
 msgid "Cybercrime."
 msgstr "Cybercrime."
-
-msgid "<0>Burn</0><1/>"
-msgstr "<0>Burn</0><1/>"
 
 msgid "<0>Sent</0> an NFT to <1>{0}</1>"
 msgstr "<0>Sent</0> an NFT to <1>{0}</1>"

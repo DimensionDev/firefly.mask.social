@@ -279,6 +279,9 @@ msgstr "覆盖"
 msgid "Tax can be modified"
 msgstr "税率可以被修改"
 
+msgid "<0>Burned</0><1/>"
+msgstr ""
+
 msgid "Join our Discord"
 msgstr "加入我们的 Discord"
 
@@ -1138,9 +1141,6 @@ msgstr "频道"
 
 msgid "The hidden owner function is not included. If there is a hidden owner, the project owner may have the ability to control the contract."
 msgstr "未包含隐藏所有者功能。如果存在隐藏所有者，项目所有者可能有能力控制合约。"
-
-msgid "{label} on a proposal"
-msgstr "提案上的 {label}"
 
 msgid "Failed to enable signless"
 msgstr "未能启用无签名功能"
@@ -3441,9 +3441,6 @@ msgstr "继续"
 
 msgid "Cybercrime."
 msgstr "网络犯罪。"
-
-msgid "<0>Burn</0><1/>"
-msgstr ""
 
 msgid "<0>Sent</0> an NFT to <1>{0}</1>"
 msgstr "<0>发送</0> 一个 NFT 至 <1>{0}</1>"
