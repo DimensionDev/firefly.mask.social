@@ -197,6 +197,7 @@ const config = {
                 resourceQuery: { not: [/url/] }, // exclude react component if *.svg?url
                 options: {
                     ref: true,
+                    memo: true,
                     svgoConfig: {
                         plugins: [
                             {
