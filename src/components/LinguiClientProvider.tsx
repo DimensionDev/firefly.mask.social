@@ -2,7 +2,7 @@
 
 import type { I18n } from '@lingui/core';
 import { I18nProvider } from '@lingui/react';
-import { useMemo, type PropsWithChildren } from 'react';
+import { type PropsWithChildren,useMemo } from 'react';
 
 import { getI18n } from '@/i18n/index.js';
 

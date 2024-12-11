@@ -6,6 +6,7 @@ import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 
 import { safeUnreachable } from '@masknet/kit';
+import { memo } from 'react';
 import { Autoplay, Navigation, Pagination } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
@@ -17,7 +18,6 @@ import { openWindow } from '@/helpers/openWindow.js';
 import { ActivityModalRef, LoginModalRef } from '@/modals/controls.js';
 import { fireflyBridgeProvider } from '@/providers/firefly/Bridge.js';
 import type { Advertisement } from '@/types/advertisement.js';
-import { memo } from 'react';
 
 interface Props extends React.HTMLProps<'div'> {
     items: Advertisement[];

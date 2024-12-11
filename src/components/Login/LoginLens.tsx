@@ -4,7 +4,7 @@ import { Switch } from '@headlessui/react';
 import { t, Trans } from '@lingui/macro';
 import { delay } from '@masknet/kit';
 import { first } from 'lodash-es';
-import React, { useEffect, useState, memo, useCallback } from 'react';
+import React, { memo, useCallback,useEffect, useState } from 'react';
 import { useAsyncFn } from 'react-use';
 import { useAccount } from 'wagmi';
 

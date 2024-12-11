@@ -4,7 +4,7 @@ import { Select, t, Trans } from '@lingui/macro';
 import { useForkRef } from '@mui/material';
 import { compact } from 'lodash-es';
 import { usePathname, useRouter } from 'next/navigation.js';
-import { forwardRef, memo, type HTMLProps, useMemo, useState } from 'react';
+import { forwardRef, type HTMLProps, memo, useMemo, useState } from 'react';
 import { useAsync } from 'react-use';
 
 import { TwitterArticleBody } from '@/components/Article/TwitterArticleBody.js';

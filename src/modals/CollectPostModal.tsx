@@ -1,5 +1,5 @@
 import { Trans } from '@lingui/macro';
-import { forwardRef, useState, memo } from 'react';
+import { forwardRef, memo,useState } from 'react';
 
 import { ClickableArea } from '@/components/ClickableArea.js';
 import { CloseButton } from '@/components/CloseButton.js';

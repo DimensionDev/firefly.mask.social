@@ -60,11 +60,8 @@ export function ParticleProvider({ children }: ParticleProviderProps) {
         } satisfies AuthCoreContextProviderOptions;
     }, [isDark, locale]);
 
-    return useMemo(
-        () => {
-            if (!options) return children;
-            return <AuthCoreContextProvider options={options}>{children}</AuthCoreContextProvider>
-        },
-        [options, children],
-    );
+    return useMemo(() => {
+        if (!options) return children;
+        return <AuthCoreContextProvider options={options}>{children}</AuthCoreContextProvider>;
+    }, [options, children]);
 }

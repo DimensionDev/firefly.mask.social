@@ -2,7 +2,7 @@
 
 import type { ImageProps as NextImageProps } from 'next/image.js';
 import type { SyntheticEvent } from 'react';
-import { forwardRef, useCallback, useEffect, useState, memo } from 'react';
+import { forwardRef, memo,useCallback, useEffect, useState } from 'react';
 
 import { Image as NextImage } from '@/esm/Image.js';
 import { classNames } from '@/helpers/classNames.js';
