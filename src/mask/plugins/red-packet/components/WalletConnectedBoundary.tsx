@@ -2,11 +2,11 @@
 
 import { Trans } from '@lingui/macro';
 
-import { ActionButton, type ActionButtonProps } from '@/mask/bindings/components.js';
-import { makeStyles } from '@/mask/bindings/index.js';
 import { isZero } from '@/helpers/number.js';
 import { useChainContext } from '@/hooks/useChainContext.js';
+import { ActionButton, type ActionButtonProps } from '@/mask/bindings/components.js';
 import { useNativeTokenBalance } from '@/mask/bindings/hooks.js';
+import { makeStyles } from '@/mask/bindings/index.js';
 
 const useStyles = makeStyles()({
     button: {

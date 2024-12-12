@@ -10,8 +10,8 @@ import { useChainContext } from '@/hooks/useChainContext.js';
 import { HappyRedPacketV4ABI } from '@/mask/bindings/constants.js';
 import { EVMChainResolver } from '@/mask/bindings/index.js';
 import { useSignedMessage } from '@/mask/plugins/red-packet/hooks/useSignedMessage.js';
-import type { RedPacketJSONPayload } from '@/providers/red-packet/types.js';
 import { FireflyRedPacket } from '@/providers/red-packet/index.js';
+import type { RedPacketJSONPayload } from '@/providers/red-packet/types.js';
 
 /**
  * Claim fungible token red packet.
