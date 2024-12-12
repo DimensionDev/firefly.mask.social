@@ -2563,9 +2563,6 @@ msgstr "不涉及网络犯罪。"
 msgid "Sent"
 msgstr ""
 
-msgid "No Enough Gas Fe"
-msgstr ""
-
 msgid "Casts + Replies"
 msgstr "帖子+回复"
 
@@ -3023,9 +3020,6 @@ msgid "The contract owner has no restrictions on personal slippage."
 msgstr "合约所有者对个人滑点没有限制。"
 
 msgid "Number of winners"
-msgstr ""
-
-msgid "Updating Gas Fee…"
 msgstr ""
 
 msgid "Unmuted @{0} on {sourceName}."
