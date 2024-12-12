@@ -13,7 +13,7 @@ import type { Address } from 'viem';
 import HourGlassIcon from '@/assets/hourglass.svg';
 import RedPacketIcon from '@/assets/red-packet.svg';
 import { ClickableArea } from '@/components/ClickableArea.js';
-import { RedpacketCardFooter } from '@/components/RedPacket/RedPacketCardFooter.js';
+import { RedPacketCardFooter } from '@/components/RedPacket/RedPacketCardFooter.js';
 import { RequirementsModal } from '@/components/RedPacket/RequirementsModal.js';
 import { SITE_URL } from '@/constants/index.js';
 import { Image } from '@/esm/Image.js';
@@ -63,7 +63,7 @@ interface Props {
     post: Post;
 }
 
-export function RedpacketCard({ payload, post }: Props) {
+export function RedPacketCard({ payload, post }: Props) {
     const [requirementOpen, setRequirementOpen] = useState(false);
 
     // #region token detailed
@@ -184,7 +184,7 @@ export function RedpacketCard({ payload, post }: Props) {
             </div>
 
             {cover ? (
-                <RedpacketCardFooter
+                <RedPacketCardFooter
                     post={post}
                     payload={payload}
                     isClaimed={isClaimed}

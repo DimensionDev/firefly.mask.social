@@ -26,7 +26,7 @@ interface Props {
     payload: RedPacketJSONPayload;
     handleClaim: () => void;
 }
-export const RedpacketCardFooter = memo<Props>(function RedpacketCardFooter({
+export const RedPacketCardFooter = memo<Props>(function RedPacketCardFooter({
     post,
     canClaim,
     isClaimed,

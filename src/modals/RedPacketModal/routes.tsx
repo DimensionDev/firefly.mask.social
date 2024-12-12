@@ -1,12 +1,12 @@
 import { Trans } from '@lingui/macro';
 import { createRootRoute, createRoute } from '@tanstack/react-router';
 
-import { ConfirmView } from '@/modals/RedpacketModal/ConfirmView.js';
-import { HistoryDetailView } from '@/modals/RedpacketModal/HistoryDetailView.js';
-import { HistoryView } from '@/modals/RedpacketModal/HistoryView.js';
-import { MainView } from '@/modals/RedpacketModal/MainView.js';
-import { RequirementsView } from '@/modals/RedpacketModal/RequirementsView.js';
-import { RootView } from '@/modals/RedpacketModal/RootView.js';
+import { ConfirmView } from '@/modals/RedPacketModal/ConfirmView.js';
+import { HistoryDetailView } from '@/modals/RedPacketModal/HistoryDetailView.js';
+import { HistoryView } from '@/modals/RedPacketModal/HistoryView.js';
+import { MainView } from '@/modals/RedPacketModal/MainView.js';
+import { RequirementsView } from '@/modals/RedPacketModal/RequirementsView.js';
+import { RootView } from '@/modals/RedPacketModal/RootView.js';
 
 const rootRoute = createRootRoute({
     component: RootView,

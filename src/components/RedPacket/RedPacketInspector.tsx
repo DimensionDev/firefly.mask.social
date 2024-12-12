@@ -4,7 +4,7 @@ import { Trans } from '@lingui/macro';
 import { first } from 'lodash-es';
 import { useAsyncRetry } from 'react-use';
 
-import { RedpacketCard } from '@/components/RedPacket/RedPacketCard.js';
+import { RedPacketCard } from '@/components/RedPacket/RedPacketCard.js';
 import type { EncryptedPayload } from '@/helpers/getEncryptedPayload.js';
 import { RedPacketMetadataReader } from '@/mask/plugins/red-packet/helpers/renderWithRedPacketMetadata.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
@@ -15,7 +15,7 @@ interface Props {
     payloads?: EncryptedPayload[];
 }
 
-export function RedpacketInspector({ payloads, post }: Props) {
+export function RedPacketInspector({ payloads, post }: Props) {
     const payload = first(payloads);
 
     const { value: [error, isE2E, message] = [null, false, null] } = useAsyncRetry(async () => {
@@ -46,7 +46,7 @@ export function RedpacketInspector({ payloads, post }: Props) {
     const result = RedPacketMetadataReader(meta);
     if (result.isOk()) {
         const payload = result.unwrap();
-        return <RedpacketCard payload={payload} post={post} />;
+        return <RedPacketCard payload={payload} post={post} />;
     }
 
     return null;

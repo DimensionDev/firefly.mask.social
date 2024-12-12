@@ -12,7 +12,7 @@ import { useProfileStoreAll } from '@/hooks/useProfileStore.js';
 import { RED_PACKET_DEFAULT_SHARES } from '@/mask/plugins/red-packet/constants.js';
 import { RequirementType } from '@/mask/plugins/red-packet/types.js';
 
-interface RedpacketContextValue {
+interface RedPacketContextValue {
     message: string;
     token?: FungibleToken<ChainId, SchemaType>;
     randomType: 'random' | 'equal';
@@ -36,7 +36,7 @@ interface RedpacketContextValue {
     setTotalAmount: (totalAmount: string) => void;
 }
 
-export const initialRedpacketContextValue: RedpacketContextValue = {
+export const initialRedPacketContextValue: RedPacketContextValue = {
     message: '',
     shares: RED_PACKET_DEFAULT_SHARES,
     randomType: 'random',
@@ -58,7 +58,7 @@ export const initialRedpacketContextValue: RedpacketContextValue = {
     setTotalAmount: noop,
 };
 
-export const redpacketRandomTabs = [
+export const redPacketRandomTabs = [
     {
         label: <Trans>Random Split</Trans>,
         value: 'random',
@@ -69,7 +69,7 @@ export const redpacketRandomTabs = [
     },
 ] as const;
 
-export const redpacketCoverTabs = [
+export const redPacketCoverTabs = [
     {
         label: <Trans>Template</Trans>,
         value: 'default',
@@ -80,7 +80,7 @@ export const redpacketCoverTabs = [
     },
 ];
 
-export const redpacketDisplayTabs = [
+export const redPacketDisplayTabs = [
     {
         label: <Trans>Default</Trans>,
         value: 'light',
@@ -91,9 +91,9 @@ export const redpacketDisplayTabs = [
     },
 ];
 
-export const RedpacketContext = createContext<RedpacketContextValue>(initialRedpacketContextValue);
+export const RedPacketContext = createContext<RedPacketContextValue>(initialRedPacketContextValue);
 
-export function RedpacketProvider({ children }: PropsWithChildren) {
+export function RedPacketProvider({ children }: PropsWithChildren) {
     const account = useAccount();
     const { data: ensName } = useEnsName({ address: account.address });
     const allProfile = useProfileStoreAll();
@@ -179,5 +179,5 @@ export function RedpacketProvider({ children }: PropsWithChildren) {
         ],
     );
 
-    return <RedpacketContext.Provider value={ctxValue}>{children}</RedpacketContext.Provider>;
+    return <RedPacketContext.Provider value={ctxValue}>{children}</RedPacketContext.Provider>;
 }

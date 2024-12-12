@@ -27,7 +27,7 @@ import { useCompositePost } from '@/hooks/useCompositePost.js';
 import { useCurrentProfileAll } from '@/hooks/useCurrentProfile.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import { useSetEditorContent } from '@/hooks/useSetEditorContent.js';
-import { ComposeModalRef, ConnectModalRef, RedpacketModalRef } from '@/modals/controls.js';
+import { ComposeModalRef, ConnectModalRef, RedPacketModalRef } from '@/modals/controls.js';
 import { useComposeScheduleStateStore } from '@/store/useComposeScheduleStore.js';
 import { useComposeStateStore } from '@/store/useComposeStore.js';
 
@@ -55,7 +55,7 @@ export function ComposeActions(props: ComposeActionsProps) {
         }
 
         // TODO: get redpacket data
-        RedpacketModalRef.open();
+        RedPacketModalRef.open();
     }, [account.isConnected, currentProfileAll]);
 
     const maxImageCount = getCurrentPostImageLimits(type, availableSources);

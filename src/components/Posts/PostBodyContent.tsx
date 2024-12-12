@@ -17,7 +17,7 @@ import { CollapsedContent } from '@/components/Posts/CollapsedContent.js';
 import { ContentTranslator } from '@/components/Posts/ContentTranslator.js';
 import { PostLinks } from '@/components/Posts/PostLinks.js';
 import { Quote } from '@/components/Posts/Quote.js';
-import { RedpacketInspector } from '@/components/RedPacket/RedpacketInspector.js';
+import { RedPacketInspector } from '@/components/RedPacket/RedPacketInspector.js';
 import { IS_APPLE, IS_SAFARI } from '@/constants/bowser.js';
 import { PageRoute, Source, STATUS } from '@/constants/enum.js';
 import { env } from '@/constants/env.js';
@@ -121,7 +121,7 @@ export const PostBodyContent = forwardRef<HTMLDivElement, PostBodyContentProps>(
         if (post.source === Source.Twitter && !currentTwitterProfileSession) return null;
 
         if (seen && hasEncryptedPayload) {
-            return <RedpacketInspector post={post} payloads={compact(Object.values(payloads))} />;
+            return <RedPacketInspector post={post} payloads={compact(Object.values(payloads))} />;
         }
 
         return null;

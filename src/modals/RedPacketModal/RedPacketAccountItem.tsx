@@ -15,7 +15,7 @@ interface Props {
     isDarkFont?: boolean;
 }
 
-export const RedpacketAccountItem = memo(function RedpacketAccountItem({
+export const RedPacketAccountItem = memo(function RedPacketAccountItem({
     address,
     ens,
     chainId = mainnet.id,

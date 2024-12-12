@@ -16,7 +16,7 @@ import type {
     NonFungibleCollectionSelectModalOpenProps,
 } from '@/modals/NonFungibleCollectionSelectModal/index.js';
 import type { PreviewMediaModalOpenProps } from '@/modals/PreviewMediaModal.js';
-import type { RedpacketModalOpenProps } from '@/modals/RedpacketModal/index.js';
+import type { RedPacketModalOpenProps } from '@/modals/RedPacketModal/index.js';
 import type { SchedulePostModalOpenProps } from '@/modals/SchedulePostModal.js';
 import type { SnackbarCloseProps, SnackbarOpenProps } from '@/modals/Snackbar.js';
 import type { SuperFollowModalOpenProps } from '@/modals/SuperFollowModal.js';
@@ -48,7 +48,7 @@ export const SuperFollowModalRef = new SingletonModal<SuperFollowModalOpenProps>
 export const TransactionSimulatorModalRef = new SingletonModal<TransactionSimulatorModalOpenProps>();
 export const DisconnectFireflyAccountModalRef = new SingletonModal<DisconnectFireflyAccountModalProps>();
 export const TokenSelectorModalRef = new SingletonModal<TokenSelectorModalOpenProps, TokenSelectorModalCloseProps>();
-export const RedpacketModalRef = new SingletonModal<RedpacketModalOpenProps | void>();
+export const RedPacketModalRef = new SingletonModal<RedPacketModalOpenProps | void>();
 export const NonFungibleTokenCollectionSelectModalRef = new SingletonModal<
     NonFungibleCollectionSelectModalOpenProps,
     NonFungibleCollectionSelectModalCloseProps

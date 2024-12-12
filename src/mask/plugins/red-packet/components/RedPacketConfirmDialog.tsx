@@ -13,7 +13,7 @@ import { useChainContext } from '@/hooks/useChainContext.js';
 import { ActionButton, Icons } from '@/mask/bindings/components.js';
 import { EVMChainResolver, EVMExplorerResolver, makeStyles } from '@/mask/bindings/index.js';
 import { type RedPacketSettings } from '@/mask/plugins/red-packet/hooks/useCreateCallback.js';
-import { useCreateFTRedpacketCallback } from '@/mask/plugins/red-packet/hooks/useCreateFTRedpacketCallback.js';
+import { useCreateFTRedPacketCallback } from '@/mask/plugins/red-packet/hooks/useCreateFTRedPacketCallback.js';
 import type { RedPacketJSONPayload } from '@/providers/red-packet/types.js';
 
 const useStyles = makeStyles()((theme) => ({
@@ -85,8 +85,8 @@ export function RedPacketConfirmDialog(props: ConfirmRedPacketFormProps) {
         gas,
         isCreating,
         isWaitGasBeMinus,
-        createRedpacket,
-    } = useCreateFTRedpacketCallback(publicKey, privateKey, settings, gasOption, onCreated, onClose);
+        createRedPacket,
+    } = useCreateFTRedPacketCallback(publicKey, privateKey, settings, gasOption, onCreated, onClose);
     const nativeTokenDetailed = useMemo(() => EVMChainResolver.nativeCurrency(chainId), [chainId]);
     const { data: nativeTokenPrice = 0 } = useNativeTokenPrice(NetworkPluginID.PLUGIN_EVM, { chainId });
 
@@ -215,7 +215,7 @@ export function RedPacketConfirmDialog(props: ConfirmRedPacketFormProps) {
                     <ActionButton
                         loading={isCreating || isWaitGasBeMinus}
                         fullWidth
-                        onClick={createRedpacket}
+                        onClick={createRedPacket}
                         disabled={isBalanceInsufficient || isWaitGasBeMinus || isCreating}
                     >
                         {isCreating ? <Trans>Confirming</Trans> : <Trans>Confirm</Trans>}

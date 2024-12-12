@@ -13,8 +13,8 @@ import { formatBalance } from '@/helpers/formatBalance.js';
 import { getNetworkDescriptor } from '@/helpers/getNetworkDescriptor.js';
 import { resolveSourceFromFireflyPlatform } from '@/helpers/resolveSource.js';
 import { useChainContext } from '@/hooks/useChainContext.js';
-import { RedpacketAccountItem } from '@/modals/RedpacketModal/RedPacketAccountItem.js';
-import { RedpacketActionButton } from '@/modals/RedpacketModal/RedPacketActionButton.js';
+import { RedPacketAccountItem } from '@/modals/RedPacketModal/RedPacketAccountItem.js';
+import { RedPacketActionButton } from '@/modals/RedPacketModal/RedPacketActionButton.js';
 import { FireflyRedPacketAPI } from '@/providers/red-packet/types.js';
 
 interface HistoryInfo {
@@ -70,7 +70,7 @@ const PlatformButton = memo(function PlatformButton(props: {
     );
 });
 
-export const RedpacketDetailItem = memo<Props>(function RedpacketDetailItem({
+export const RedPacketDetailItem = memo<Props>(function RedPacketDetailItem({
     isDetail,
 
     history: {
@@ -148,7 +148,7 @@ export const RedpacketDetailItem = memo<Props>(function RedpacketDetailItem({
                                     <div className="mr-1 text-lightSecond">
                                         <Trans>Creator:</Trans>
                                     </div>
-                                    <RedpacketAccountItem
+                                    <RedPacketAccountItem
                                         address={creator}
                                         ens={ens_name}
                                         chainId={chain_id}
@@ -182,7 +182,7 @@ export const RedpacketDetailItem = memo<Props>(function RedpacketDetailItem({
                             ) : null}
                         </div>
                         {redpacket_status ? (
-                            <RedpacketActionButton
+                            <RedPacketActionButton
                                 redpacketStatus={redpacket_status}
                                 rpid={redpacket_id}
                                 account={account}

@@ -4,7 +4,7 @@ import { Outlet, useRouter, useRouterState } from '@tanstack/react-router';
 import HistoryIcon from '@/assets/history.svg';
 import { BackButton } from '@/components/BackButton.js';
 import { CloseButton } from '@/components/CloseButton.js';
-import { RedpacketModalRef } from '@/modals/controls.js';
+import { RedPacketModalRef } from '@/modals/controls.js';
 
 export function RootView() {
     const router = useRouter();
@@ -22,7 +22,7 @@ export function RootView() {
                 {isMain ? (
                     <CloseButton
                         onClick={() => {
-                            RedpacketModalRef.close();
+                            RedPacketModalRef.close();
                         }}
                     />
                 ) : (
