@@ -3,9 +3,9 @@ import type { QueryObserverResult, RefetchOptions } from '@tanstack/react-query'
 import { compact, first } from 'lodash-es';
 import { useCallback } from 'react';
 
-import { useChainContext } from '@/hooks/useChainContext.js';
 import { EMPTY_LIST } from '@/constants/index.js';
 import { isSameEthereumAddress } from '@/helpers/isSameAddress.js';
+import { useChainContext } from '@/hooks/useChainContext.js';
 import { EVMNetworkResolver } from '@/mask/bindings/index.js';
 import { useAvailability } from '@/mask/plugins/red-packet/hooks/useAvailability.js';
 import { useCheckSponsorableGasFee } from '@/mask/plugins/red-packet/hooks/useCheckSponsorableGasFee.js';

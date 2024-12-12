@@ -1,6 +1,4 @@
-import {
-    useSuspenseInfiniteQuery,
-} from '@tanstack/react-query';
+import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
 import type { Hex } from 'viem';
 
 import { createIndicator } from '@/helpers/pageable.js';
