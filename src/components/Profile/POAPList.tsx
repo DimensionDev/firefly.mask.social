@@ -13,7 +13,7 @@ import { GridListInPage } from '@/components/GridListInPage.js';
 import { ChainIcon } from '@/components/NFTDetail/ChainIcon.js';
 import { NFTImage } from '@/components/NFTImage.js';
 import { BookmarkInIcon } from '@/components/NFTs/BookmarkButton.js';
-import { FireflyPlatform, Source } from '@/constants/enum.js';
+import { Source } from '@/constants/enum.js';
 import { EMPTY_LIST, POAP_CONTRACT_ADDRESS } from '@/constants/index.js';
 import { Link } from '@/esm/Link.js';
 import { classNames } from '@/helpers/classNames.js';
@@ -24,9 +24,8 @@ import { resolveNFTIdFromAsset } from '@/helpers/resolveNFTIdFromAsset.js';
 import { resolveNftUrl } from '@/helpers/resolveNftUrl.js';
 import { resolveProfileUrl } from '@/helpers/resolveProfileUrl.js';
 import { resolveWalletProfileProvider } from '@/helpers/resolveWalletProfileProvider.js';
-import { runInSafeAsync } from '@/helpers/runInSafe.js';
-import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
 import type { NFTAsset } from '@/providers/types/Firefly.js';
+import { fillBookmarkStatusForPagination } from '@/services/fillBookmarkStatusForNFT.js';
 
 const GridList = forwardRef<HTMLDivElement, GridListProps>(function GridList({ className, children, ...props }, ref) {
     return (
@@ -151,18 +150,8 @@ export function POAPList(props: { address: string }) {
                 chainId: ChainId.xDai,
                 contractAddress: POAP_CONTRACT_ADDRESS,
             });
-            const nftIds = response.data.map((item) => resolveNFTIdFromAsset(item));
-            const bookmarkData = nftIds.length
-                ? await runInSafeAsync(() => FireflySocialMediaProvider.getBookmarksByIds(FireflyPlatform.NFTs, nftIds))
-                : [];
-            response.data = response.data.map((item) => ({
-                ...item,
-                hasBookmarked: bookmarkData?.some(
-                    (bookmark) => bookmark.post_id === resolveNFTIdFromAsset(item) && !!bookmark.has_book_marked,
-                ),
-            }));
 
-            return response;
+            return fillBookmarkStatusForPagination(response);
         },
         getNextPageParam: (lastPage) => lastPage?.nextIndicator?.id,
         select: (data) => data.pages.flatMap((page) => page.data ?? EMPTY_LIST),

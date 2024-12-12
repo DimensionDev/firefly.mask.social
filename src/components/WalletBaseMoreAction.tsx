@@ -10,12 +10,10 @@ import { NFTReportSpamButton } from '@/components/Actions/NFTReportSpamButton.js
 import { WatchWalletButton } from '@/components/Actions/WatchWalletButton.js';
 import { MenuGroup } from '@/components/MenuGroup.js';
 import { MoreActionMenu } from '@/components/MoreActionMenu.js';
-import { BookmarkInMenu } from '@/components/NFTs/BookmarkButton.js';
 import { Tips } from '@/components/Tips/index.js';
 import { Tooltip } from '@/components/Tooltip.js';
 import { Source } from '@/constants/enum.js';
 import { formatEthereumAddress } from '@/helpers/formatAddress.js';
-import { resolveNFTIdFromAsset } from '@/helpers/resolveNFTIdFromAsset.js';
 import { useFireflyIdentity } from '@/hooks/useFireflyIdentity.js';
 import { useIsMyRelatedProfile } from '@/hooks/useIsMyRelatedProfile.js';
 import { useIsWalletMuted } from '@/hooks/useIsWalletMuted.js';
@@ -74,17 +72,6 @@ export function WalletBaseMoreAction({ address, contractAddress, tokenId, chainI
                 {collectionId ? (
                     <MenuItem>
                         {({ close }) => <NFTReportSpamButton onClick={close} collectionId={collectionId} />}
-                    </MenuItem>
-                ) : null}
-                {data?.id ? (
-                    <MenuItem>
-                        {({ close }) => (
-                            <BookmarkInMenu
-                                onClick={close}
-                                nftId={resolveNFTIdFromAsset(data)}
-                                ownerAddress={data.owner?.address}
-                            />
-                        )}
                     </MenuItem>
                 ) : null}
                 <MenuItem>
