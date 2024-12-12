@@ -37,7 +37,7 @@ export function RedPacketCover({
                 color: '#000',
             }}
         >
-            <div style={{ display: 'flex', flexDirection: 'column', rowGap: 8 }}>
+            <div style={{ display: 'flex', flexDirection: 'column', rowGap: 8, maxWidth: '50%' }}>
                 <MessageText theme={theme} message={message} />
                 <AuthorText theme={theme} usage={UsageType.Cover} from={from} />
             </div>

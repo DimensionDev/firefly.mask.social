@@ -13,9 +13,7 @@ export function MessageText({ theme, message, ...props }: MessageTextProps) {
             style={{
                 ...getCSSPropertiesFromThemeSettings(theme.normal.title1),
                 display: 'flex',
-                textAlign: 'center',
-                alignItems: 'center',
-                justifyContent: 'center',
+                fontSize: 40,
                 ...props.ContainerStyle,
             }}
         >
@@ -23,7 +21,8 @@ export function MessageText({ theme, message, ...props }: MessageTextProps) {
                 style={{
                     maxWidth: '100%',
                     overflow: 'hidden',
-                    whiteSpace: 'nowrap',
+                    WebkitLineClamp: 2,
+                    boxOrient: 'vertical',
                     textOverflow: 'ellipsis',
                 }}
             >

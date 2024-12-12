@@ -11,7 +11,6 @@ export function CoverContainer({ children, ...props }: CoverContainerProps) {
                 height: '100%',
                 display: 'flex',
                 justifyContent: 'space-between',
-
                 fontSize: 30,
                 fontWeight: 400,
                 fontFamily: 'Inter',
