@@ -78,7 +78,7 @@ export function AmountProgressText({
                 />
             ) : null}
             <div style={{ margin: '0px 22px', display: 'flex' }}>
-                {totalAmount > 1 ? nFormatter(leftShift(amount, decimals).toNumber(), 6) : totalAmountText} {symbol}
+                {totalAmount > 1 ? nFormatter(leftShift(amount, decimals).toNumber()) : totalAmountText} {symbol}
             </div>
         </div>
     );

@@ -276,7 +276,7 @@ export const ComposeModalUI = forwardRef<SingletonModalRefCreator<ComposeModalOp
                 updateChars(chars);
                 setEditorContent(chars);
                 insertImage(
-                    createLocalMediaObject(new File([secretImage], 'image.png', { type: FileMimeType.PNG })),
+                    createLocalMediaObject(new File([secretImage], 'image.png', { type: FileMimeType.PNG }), true),
                     0,
                 );
                 updateTypedMessage(updateRpEncrypted(typedMessage));

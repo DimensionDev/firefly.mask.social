@@ -31,12 +31,13 @@ export function PayloadContainer({ theme, children, ...props }: PayloadContainer
         >
             <div
                 style={{
+                    borderWidth: 0,
                     position: 'absolute',
                     bottom: 0,
                     left: 0,
-                    background: 'linear-gradient(to bottom, rgba(16,16,16,0) 0%, rgba(16,16,16,0.5) 50%)',
+                    background: `linear-gradient(to bottom, rgba(16,16,16,0) 436px, rgba(16,16,16,0.5) 100%)`,
                     width: 1200,
-                    height: 404,
+                    height: 840,
                 }}
             />
             {children}
