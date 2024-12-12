@@ -136,9 +136,6 @@ importers:
       '@masknet/kit':
         specifier: ^0.4.1
         version: 0.4.1
-      '@mui/icons-material':
-        specifier: 5.15.12
-        version: 5.15.12(@mui/material@5.15.12)(@types/react@18.2.48)(react@0.0.0-experimental-8039e6d0b-20231026)
       '@mui/lab':
         specifier: 5.0.0-alpha.167
         version: 5.0.0-alpha.167(@emotion/react@11.11.1)(@emotion/styled@11.11.0)(@mui/material@5.15.12)(@types/react@18.2.48)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026)
