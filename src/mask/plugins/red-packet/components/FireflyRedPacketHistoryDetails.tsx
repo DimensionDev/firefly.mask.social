@@ -1,6 +1,5 @@
 import { Trans } from '@lingui/macro';
 import { ElementAnchor } from '@masknet/shared';
-import { createIndicator } from '@masknet/shared-base';
 import { formatBalance } from '@masknet/web3-shared-base';
 import { Box, Typography } from '@mui/material';
 import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
@@ -11,6 +10,7 @@ import { makeStyles } from '@/mask/bindings/index.js';
 import { FireflyRedPacketAccountItem } from '@/mask/plugins/red-packet/components/FireflyRedPacketAccountItem.js';
 import { FireflyRedPacketDetailsItem } from '@/mask/plugins/red-packet/components/FireflyRedPacketDetailsItem.js';
 import { FireflyRedPacket } from '@/providers/red-packet/index.js';
+import { createIndicator } from '@/helpers/pageable.js';
 
 const useStyles = makeStyles()((theme) => ({
     container: {

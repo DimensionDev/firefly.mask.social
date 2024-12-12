@@ -6,7 +6,7 @@ import {
     useSiteThemeMode,
 } from '@masknet/plugin-infra/content-script';
 import { InjectedDialog, LoadingStatus } from '@masknet/shared';
-import { EMPTY_LIST, NetworkPluginID, PluginID } from '@masknet/shared-base';
+import { PluginID } from '@masknet/shared-base';
 import { useGasPrice } from '@masknet/web3-hooks-base';
 import { ChainId, type GasConfig, GasEditor } from '@masknet/web3-shared-evm';
 import { TabContext } from '@mui/lab';
@@ -32,6 +32,8 @@ import { reduceUselessPayloadInfo } from '@/mask/plugins/red-packet/helpers/redu
 import type { RedPacketSettings } from '@/mask/plugins/red-packet/hooks/useCreateCallback.js';
 import type { FireflyContext, FireflyRedPacketSettings } from '@/mask/plugins/red-packet/types.js';
 import type { FireflyRedPacketAPI, RedPacketJSONPayload } from '@/providers/red-packet/types.js';
+import { NetworkPluginID } from '@/constants/enum.js';
+import { EMPTY_LIST } from '@/constants/index.js';
 
 const useStyles = makeStyles<{ scrollY: boolean; isDim: boolean }>()((theme, { isDim, scrollY }) => {
     // it's hard to set dynamic color, since the background color of the button is blended transparent

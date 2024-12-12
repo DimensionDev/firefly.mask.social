@@ -1,4 +1,4 @@
-import { NetworkPluginID } from '@masknet/shared-base';
+import { NetworkPluginID } from '@/constants/enum.js';
 import urlcat from 'urlcat';
 
 import { UnauthorizedError } from '@/constants/error.js';

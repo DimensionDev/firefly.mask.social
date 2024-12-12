@@ -1,4 +1,3 @@
-import { createIndicator } from '@masknet/shared-base';
 import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
 import { useLocation } from '@tanstack/react-router';
 import { first } from 'lodash-es';
@@ -13,6 +12,7 @@ import { RedPacketAccountItem } from '@/modals/RedPacketModal/RedPacketAccountIt
 import { RedPacketDetailItem } from '@/modals/RedPacketModal/RedPacketDetailItem.js';
 import { FireflyRedPacket } from '@/providers/red-packet/index.js';
 import type { FireflyRedPacketAPI } from '@/providers/red-packet/types.js';
+import { createIndicator } from '@/helpers/pageable.js';
 
 function ClaimHistoryItem({ data }: { data: FireflyRedPacketAPI.ClaimList }) {
     const { data: ens } = useEnsName({ address: data.creator as Address });

@@ -1,4 +1,3 @@
-import { EMPTY_LIST } from '@masknet/shared-base';
 import { isSameAddress } from '@masknet/web3-shared-base';
 import { ChainId, type NetworkType } from '@masknet/web3-shared-evm';
 import type { QueryObserverResult, RefetchOptions } from '@tanstack/react-query';
@@ -14,6 +13,7 @@ import { useParseRedPacket } from '@/mask/plugins/red-packet/hooks/useParseRedPa
 import { useSignedMessage } from '@/mask/plugins/red-packet/hooks/useSignedMessage.js';
 import { type RedPacketJSONPayload, RedPacketStatus } from '@/providers/red-packet/types.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
+import { EMPTY_LIST } from '@/constants/index.js';
 
 /**
  * Fetch the red packet info from the chain

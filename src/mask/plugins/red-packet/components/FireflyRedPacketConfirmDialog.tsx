@@ -1,7 +1,8 @@
 'use client';
 import { t, Trans } from '@lingui/macro';
 import { Alert, FormattedBalance, FormattedCurrency, TokenIcon } from '@masknet/shared';
-import { EMPTY_LIST, NetworkPluginID } from '@masknet/shared-base';
+import { NetworkPluginID } from '@/constants/enum.js';
+import { EMPTY_LIST } from '@/constants/index.js';
 import { useFungibleTokenPrice, useReverseAddress } from '@masknet/web3-hooks-base';
 import { formatBalance, formatCurrency, leftShift } from '@masknet/web3-shared-base';
 import { formatEthereumAddress, type GasConfig, isValidAddress, isValidDomain } from '@masknet/web3-shared-evm';

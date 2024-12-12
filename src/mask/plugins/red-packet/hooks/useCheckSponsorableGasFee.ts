@@ -1,4 +1,4 @@
-import { NetworkPluginID } from '@masknet/shared-base';
+import { NetworkPluginID } from '@/constants/enum.js';
 import { useQuery } from '@tanstack/react-query';
 
 import type { Web3Helper } from '@/maskbook/packages/web3-helpers/src/index.js';

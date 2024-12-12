@@ -1,4 +1,4 @@
-import { createLookupTableResolver } from '@masknet/shared-base';
+import { createLookupTableResolver } from '@/helpers/createLookupTableResolver.js';
 
 import { type SocialSource, Source } from '@/constants/enum.js';
 import { UnreachableError } from '@/constants/error.js';

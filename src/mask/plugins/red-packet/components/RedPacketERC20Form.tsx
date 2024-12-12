@@ -10,7 +10,7 @@ import {
     useAvailableBalance,
     WalletConnectedBoundary,
 } from '@masknet/shared';
-import { NetworkPluginID } from '@masknet/shared-base';
+import { NetworkPluginID } from '@/constants/enum.js';
 import { useNativeTokenPrice } from '@masknet/web3-hooks-base';
 import {
     formatBalance,
