@@ -1,6 +1,7 @@
 /* cspell:disable */
 
 import { StatusCodes } from 'http-status-codes';
+import { toArray } from 'lodash-es';
 import { type NextRequest } from 'next/server.js';
 import { z } from 'zod';
 
@@ -23,7 +24,9 @@ const CoverSchema = z.object({
     message: z
         .string()
         .transform((x) => (x ? decodeURIComponent(x) : x))
-        .refine((x) => (x ? x.length < 100 : true), { message: 'Message cannot be longer than 100 characters' }),
+        .refine((x) => (x ? toArray(x).length < 100 : true), {
+            message: 'Message cannot be longer than 100 characters',
+        }),
     amount: z.coerce
         .bigint()
         .nonnegative()
