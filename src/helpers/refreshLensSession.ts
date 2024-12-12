@@ -1,4 +1,4 @@
-import type { LensClient } from '@lens-protocol/client';
+import type { LensClient } from '@lens-protocol/client/gated';
 import { ZERO_ADDRESS } from '@masknet/web3-shared-evm';
 
 import { THIRTY_DAYS } from '@/constants/index.js';

@@ -1,4 +1,4 @@
-import { type LensClient, LensTransactionStatusType } from '@lens-protocol/client';
+import { type LensClient, LensTransactionStatusType } from '@lens-protocol/client/gated';
 
 /**
  * Waits a transaction to complete (for lens only).

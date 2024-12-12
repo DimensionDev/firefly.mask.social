@@ -1,4 +1,4 @@
-import type { HandleInfoFragment, ProfileFragment } from '@lens-protocol/client';
+import type { HandleInfoFragment, ProfileFragment } from '@lens-protocol/client/gated';
 
 import { Source } from '@/constants/enum.js';
 import { AVATAR } from '@/constants/index.js';

@@ -1,4 +1,4 @@
-import { OpenActionModuleType } from '@lens-protocol/client';
+import { OpenActionModuleType } from '@lens-protocol/client/gated';
 /**
  * Returns the name of the specified module to be used in the actOn key.
  *

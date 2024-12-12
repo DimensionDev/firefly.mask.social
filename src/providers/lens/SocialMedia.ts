@@ -9,6 +9,7 @@ import {
     FollowModuleType,
     HiddenCommentsType,
     isCreateMomokaPublicationResult,
+    isEncryptedPublicationMetadata,
     isRelaySuccess,
     LimitType,
     OpenActionModuleType,
@@ -20,8 +21,7 @@ import {
     PublicationReportingSpamSubreason,
     PublicationType,
     ReferenceModuleType,
-} from '@lens-protocol/client';
-import { isEncryptedPublicationMetadata } from '@lens-protocol/client/gated';
+} from '@lens-protocol/client/gated';
 import {
     type MetadataAttribute,
     MetadataAttributeType,
@@ -1656,9 +1656,7 @@ export class LensSocialMedia implements Provider {
 
         const originalPost = post.__original__ as AnyPublicationFragment;
         if ('metadata' in originalPost && isEncryptedPublicationMetadata(originalPost.metadata)) {
-            const result = await lensSessionHolder.gatedSDK.gated.decryptPublicationMetadataFragment(
-                originalPost.metadata,
-            );
+            const result = await lensSessionHolder.sdk.gated.decryptPublicationMetadataFragment(originalPost.metadata);
             if (result.isFailure()) {
                 throw result.error;
             }

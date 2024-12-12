@@ -1,4 +1,4 @@
-import { OpenActionModuleType } from '@lens-protocol/client';
+import { OpenActionModuleType } from '@lens-protocol/client/gated';
 import { t, Trans } from '@lingui/macro';
 import { ZERO_ADDRESS } from '@masknet/web3-shared-evm';
 import { useQuery } from '@tanstack/react-query';

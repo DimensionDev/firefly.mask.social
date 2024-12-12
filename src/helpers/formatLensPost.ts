@@ -36,7 +36,7 @@ import type {
     TransactionMetadataV3Fragment,
     UnknownOpenActionModuleSettingsFragment,
     VideoMetadataV3Fragment,
-} from '@lens-protocol/client';
+} from '@lens-protocol/client/gated';
 import { safeUnreachable } from '@masknet/kit';
 import { compact, first, isEmpty, last } from 'lodash-es';
 
