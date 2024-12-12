@@ -1,4 +1,7 @@
+'use client';
+
 import { Plural, Trans } from '@lingui/macro';
+import { useQuery } from '@tanstack/react-query';
 
 import { Avatar } from '@/components/Avatar.js';
 import { BioMarkup } from '@/components/Markup/BioMarkup.js';
@@ -13,21 +16,31 @@ import { Link } from '@/esm/Link.js';
 import { classNames } from '@/helpers/classNames.js';
 import { nFormatter } from '@/helpers/formatCommentCounts.js';
 import { getLargeTwitterAvatar } from '@/helpers/getLargeTwitterAvatar.js';
+import { resolveFireflyProfileId } from '@/helpers/resolveFireflyProfileId.js';
 import { resolveProfileUrl } from '@/helpers/resolveProfileUrl.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
+import { getProfileById } from '@/services/getProfileById.js';
 
 interface InfoProps {
     profile: Profile;
 }
 
-export function Info({ profile }: InfoProps) {
-    const profileId = profile.profileId;
+export function Info(props: InfoProps) {
+    const handleOrProfileId = resolveFireflyProfileId(props.profile)!;
+    const { data: profile } = useQuery({
+        queryKey: ['profile', props.profile.source, handleOrProfileId],
+        async queryFn() {
+            try {
+                const fetched = await getProfileById(props.profile.source, handleOrProfileId);
+                return fetched ?? props.profile;
+            } catch {
+                return props.profile;
+            }
+        },
+        initialData: props.profile,
+    });
 
-    const source = profile.source;
-
-    const followingCount = profile.followingCount || 0;
-    const followerCount = profile.followerCount || 0;
-    const showAction = !!profile;
+    const { source, profileId, followerCount = 0, followingCount = 0 } = profile;
 
     return (
         <div className="grid grid-cols-[80px_calc(100%-80px-12px)] gap-3 p-3">
@@ -53,7 +66,9 @@ export function Info({ profile }: InfoProps) {
                         </TextOverflowTooltip>
                         <ProfileVerifyBadge className="flex flex-shrink-0 items-center space-x-1" profile={profile} />
                         <div className="ml-auto flex items-center gap-2">
-                            <NoSSR>{showAction ? <ProfileAction profile={profile} /> : null}</NoSSR>
+                            <NoSSR>
+                                <ProfileAction profile={profile} />
+                            </NoSSR>
                         </div>
                     </div>
                     <span className="text-medium text-secondary">@{profile.handle}</span>
