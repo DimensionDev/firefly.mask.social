@@ -1055,6 +1055,9 @@ msgstr "Log out"
 msgid "Amount Each"
 msgstr "Amount Each"
 
+msgid "{0}d: {1}h: {2}m: {3}s"
+msgstr "{0}d: {1}h: {2}m: {3}s"
+
 msgid "No restricted approval."
 msgstr "No restricted approval."
 
@@ -1282,9 +1285,6 @@ msgstr "Executed"
 
 msgid "EVM"
 msgstr "EVM"
-
-msgid "{0}d {1}h {2}m {3}s"
-msgstr "{0}d {1}h {2}m {3}s"
 
 msgid "[LuckyDrop]"
 msgstr "[LuckyDrop]"
