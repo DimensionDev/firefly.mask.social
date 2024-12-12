@@ -1058,6 +1058,9 @@ msgstr "登出"
 msgid "Amount Each"
 msgstr ""
 
+msgid "{0}d: {1}h: {2}m: {3}s"
+msgstr ""
+
 msgid "No restricted approval."
 msgstr "没有限制性批准。"
 
@@ -1285,9 +1288,6 @@ msgstr "已执行"
 
 msgid "EVM"
 msgstr "EVM"
-
-msgid "{0}d {1}h {2}m {3}s"
-msgstr ""
 
 msgid "[LuckyDrop]"
 msgstr "[红包]"

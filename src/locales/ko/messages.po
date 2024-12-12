@@ -1058,6 +1058,9 @@ msgstr ""
 msgid "Amount Each"
 msgstr ""
 
+msgid "{0}d: {1}h: {2}m: {3}s"
+msgstr ""
+
 msgid "No restricted approval."
 msgstr ""
 
@@ -1284,9 +1287,6 @@ msgid "Executed"
 msgstr ""
 
 msgid "EVM"
-msgstr ""
-
-msgid "{0}d {1}h {2}m {3}s"
 msgstr ""
 
 msgid "[LuckyDrop]"

@@ -51,7 +51,7 @@ function Timer({ endTime }: { endTime: number }) {
             <HourGlassIcon width={12} height={12} />
             <span className="flex-1 text-xs leading-4">
                 <Trans>
-                    {timeLeft?.days}d {timeLeft?.hours}h {timeLeft?.minutes}m {timeLeft?.seconds}s
+                    {timeLeft.days}d: {timeLeft.hours}h: {timeLeft.minutes}m: {timeLeft.seconds}s
                 </Trans>
             </span>
         </div>
