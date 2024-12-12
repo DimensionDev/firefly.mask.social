@@ -44,7 +44,14 @@ export function RedPacketCover({
 
             <div style={{ display: 'flex', flexDirection: 'column', rowGap: 8 }}>
                 <ClaimProgressText theme={theme} shares={shares} remainingShares={remainingShares} />
-                <AmountProgressText theme={theme} amount={amount} remainingAmount={remainingAmount} token={token} />
+                <AmountProgressText
+                    theme={theme}
+                    amount={amount}
+                    remainingAmount={remainingAmount}
+                    token={token}
+                    shares={shares}
+                    remainingShares={remainingShares}
+                />
             </div>
         </CoverContainer>
     );

@@ -10,6 +10,7 @@ export function PayloadContainer({ theme, children, ...props }: PayloadContainer
     return (
         <div
             style={{
+                position: 'relative',
                 width: '100%',
                 height: '100%',
                 display: 'flex',
@@ -28,6 +29,16 @@ export function PayloadContainer({ theme, children, ...props }: PayloadContainer
                 ...props.ContainerStyle,
             }}
         >
+            <div
+                style={{
+                    position: 'absolute',
+                    bottom: 0,
+                    left: 0,
+                    background: 'linear-gradient(to bottom, rgba(16,16,16,0) 0%, rgba(16,16,16,0.5) 50%)',
+                    width: 1200,
+                    height: 404,
+                }}
+            />
             {children}
         </div>
     );
