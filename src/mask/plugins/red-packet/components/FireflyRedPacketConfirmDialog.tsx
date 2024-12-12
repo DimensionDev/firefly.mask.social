@@ -1,7 +1,6 @@
 'use client';
 import { t, Trans } from '@lingui/macro';
 import { Alert, FormattedBalance, FormattedCurrency, TokenIcon } from '@masknet/shared';
-import { EMPTY_LIST, NetworkPluginID } from '@masknet/shared-base';
 import { useFungibleTokenPrice, useReverseAddress } from '@masknet/web3-hooks-base';
 import { formatBalance, formatCurrency, leftShift } from '@masknet/web3-shared-base';
 import { formatEthereumAddress, type GasConfig, isValidAddress, isValidDomain } from '@masknet/web3-shared-evm';
@@ -13,6 +12,8 @@ import { useAsync, useStateList } from 'react-use';
 import type { Hex } from 'viem';
 import { useEnsName } from 'wagmi';
 
+import { NetworkPluginID } from '@/constants/enum.js';
+import { EMPTY_LIST } from '@/constants/index.js';
 import { Image } from '@/esm/Image.js';
 import { classNames } from '@/helpers/classNames.js';
 import { useChainContext } from '@/hooks/useChainContext.js';

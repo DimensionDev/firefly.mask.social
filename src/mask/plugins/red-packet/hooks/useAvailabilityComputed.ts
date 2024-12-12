@@ -1,10 +1,10 @@
-import { EMPTY_LIST } from '@masknet/shared-base';
-import { isSameAddress } from '@masknet/web3-shared-base';
 import { ChainId, type NetworkType } from '@masknet/web3-shared-evm';
 import type { QueryObserverResult, RefetchOptions } from '@tanstack/react-query';
 import { compact, first } from 'lodash-es';
 import { useCallback } from 'react';
 
+import { EMPTY_LIST } from '@/constants/index.js';
+import { isSameEthereumAddress } from '@/helpers/isSameAddress.js';
 import { useChainContext } from '@/hooks/useChainContext.js';
 import { EVMNetworkResolver } from '@/mask/bindings/index.js';
 import { useAvailability } from '@/mask/plugins/red-packet/hooks/useAvailability.js';
@@ -93,7 +93,7 @@ export function useAvailabilityComputed(payload: RedPacketJSONPayload, post: Pos
     const isExpired = availability.expired;
     const isClaimed = parsed?.redpacket?.isClaimed || availability.claimed_amount !== '0';
     const isRefunded = isEmpty && availability.claimed < availability.total;
-    const isCreator = isSameAddress(payload?.sender.address ?? '', account);
+    const isCreator = isSameEthereumAddress(payload?.sender.address ?? '', account);
     const isPasswordValid = !!(password && password !== 'PASSWORD INVALID');
     // For a central RedPacket, we don't need to check about if the password is valid
     const canClaimByContract = !isExpired && !isEmpty && !isClaimed;

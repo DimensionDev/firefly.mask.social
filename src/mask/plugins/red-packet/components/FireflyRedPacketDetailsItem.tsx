@@ -1,12 +1,12 @@
 import { Trans } from '@lingui/macro';
 import { TokenIcon } from '@masknet/shared';
-import { NetworkPluginID } from '@masknet/shared-base';
 import { formatBalance } from '@masknet/web3-shared-base';
 import { Box, ListItem, Typography } from '@mui/material';
 import { format, fromUnixTime } from 'date-fns';
 import { memo } from 'react';
 import urlcat from 'urlcat';
 
+import { NetworkPluginID } from '@/constants/enum.js';
 import { getNetworkDescriptor } from '@/helpers/getNetworkDescriptor.js';
 import { useChainContext } from '@/hooks/useChainContext.js';
 import { Icons } from '@/mask/bindings/components.js';
