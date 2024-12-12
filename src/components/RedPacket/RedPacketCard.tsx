@@ -13,7 +13,7 @@ import type { Address } from 'viem';
 import HourGlassIcon from '@/assets/hourglass.svg';
 import RedPacketIcon from '@/assets/red-packet.svg';
 import { ClickableArea } from '@/components/ClickableArea.js';
-import { RedpacketCardFooter } from '@/components/RedPacket/RedpacketCardFooter.js';
+import { RedPacketCardFooter } from '@/components/RedPacket/RedPacketCardFooter.js';
 import { RequirementsModal } from '@/components/RedPacket/RequirementsModal.js';
 import { SITE_URL } from '@/constants/index.js';
 import { Image } from '@/esm/Image.js';
@@ -37,16 +37,15 @@ function Timer({ endTime }: { endTime: number }) {
     const [now, setNow] = useState(Date.now());
 
     const timeLeft = getTimeLeft(endTime, now);
-
-    const isExpire = dayjs(now).isAfter(endTime);
+    const isExpired = dayjs(now).isAfter(endTime);
 
     useInterval(
         () => {
             setNow(Date.now());
         },
-        !isExpire ? 1000 : null,
+        !isExpired ? 1000 : null,
     );
-    if (isExpire) return null;
+    if (isExpired || !timeLeft) return null;
     return (
         <div className="flex w-[146px] items-center justify-center gap-[6px] rounded-full bg-[#E8E8FF] px-[13px] py-[7px] opacity-75 backdrop-blur-[5px]">
             <HourGlassIcon width={12} height={12} />
@@ -64,7 +63,7 @@ interface Props {
     post: Post;
 }
 
-export function RedpacketCard({ payload, post }: Props) {
+export function RedPacketCard({ payload, post }: Props) {
     const [requirementOpen, setRequirementOpen] = useState(false);
 
     // #region token detailed
@@ -185,7 +184,7 @@ export function RedpacketCard({ payload, post }: Props) {
             </div>
 
             {cover ? (
-                <RedpacketCardFooter
+                <RedPacketCardFooter
                     post={post}
                     payload={payload}
                     isClaimed={isClaimed}

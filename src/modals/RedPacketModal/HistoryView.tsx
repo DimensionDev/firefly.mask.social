@@ -8,13 +8,13 @@ import { VirtualListFooter } from '@/components/VirtualList/VirtualListFooter.js
 import { ScrollListKey } from '@/constants/enum.js';
 import { useChainContext } from '@/hooks/useChainContext.js';
 import { useRedPacketHistory } from '@/mask/plugins/red-packet/hooks/useRedPacketHistory.js';
-import { RedpacketDetailItem } from '@/modals/RedpacketModal/RedpacketDetailItem.js';
+import { RedPacketDetailItem } from '@/modals/RedPacketModal/RedPacketDetailItem.js';
 import { FireflyRedPacketAPI } from '@/providers/red-packet/types.js';
 
-function getRedpacketHistoryItem(
+function getRedPacketHistoryItem(
     history: FireflyRedPacketAPI.RedPacketClaimedInfo | FireflyRedPacketAPI.RedPacketSentInfo,
 ) {
-    return <RedpacketDetailItem history={history} key={history.redpacket_id} />;
+    return <RedPacketDetailItem history={history} key={history.redpacket_id} />;
 }
 
 export function HistoryView() {
@@ -57,9 +57,9 @@ export function HistoryView() {
                             Footer: VirtualListFooter,
                         }}
                         className="no-scrollbar box-border h-full min-h-0 flex-1"
-                        listKey={`${ScrollListKey.RedpacketHistory}`}
+                        listKey={`${ScrollListKey.RedPacketHistory}`}
                         computeItemKey={(index, item) => item.redpacket_id}
-                        itemContent={(index, history) => getRedpacketHistoryItem(history)}
+                        itemContent={(index, history) => getRedPacketHistoryItem(history)}
                     />
                 ) : (
                     <NoResultsFallback className="h-[478px] justify-center" />

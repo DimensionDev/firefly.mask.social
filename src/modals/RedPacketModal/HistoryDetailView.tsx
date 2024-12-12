@@ -9,8 +9,8 @@ import { useEnsName } from 'wagmi';
 import { VirtualList } from '@/components/VirtualList/VirtualList.js';
 import { VirtualListFooter } from '@/components/VirtualList/VirtualListFooter.js';
 import { formatBalance } from '@/helpers/formatBalance.js';
-import { RedpacketAccountItem } from '@/modals/RedpacketModal/RedpacketAccountItem.js';
-import { RedpacketDetailItem } from '@/modals/RedpacketModal/RedpacketDetailItem.js';
+import { RedPacketAccountItem } from '@/modals/RedPacketModal/RedPacketAccountItem.js';
+import { RedPacketDetailItem } from '@/modals/RedPacketModal/RedPacketDetailItem.js';
 import { FireflyRedPacket } from '@/providers/red-packet/index.js';
 import type { FireflyRedPacketAPI } from '@/providers/red-packet/types.js';
 
@@ -19,7 +19,7 @@ function ClaimHistoryItem({ data }: { data: FireflyRedPacketAPI.ClaimList }) {
 
     return (
         <div className="mt-3 flex items-center justify-between px-3 text-[14px] font-bold leading-[18px]">
-            <RedpacketAccountItem ens={ens ?? ''} address={data.creator} />
+            <RedPacketAccountItem ens={ens ?? ''} address={data.creator} />
             <div className="flex gap-1">
                 {formatBalance(data.token_amounts, data.token_decimal, {
                     significant: 6,
@@ -70,7 +70,7 @@ export function HistoryDetailView() {
 
     return (
         <div className="flex flex-grow flex-col overflow-auto px-4 py-3">
-            {claimInfo ? <RedpacketDetailItem history={{ ...claimInfo, redpacket_id: rpid }} isDetail /> : null}
+            {claimInfo ? <RedPacketDetailItem history={{ ...claimInfo, redpacket_id: rpid }} isDetail /> : null}
             {claimList.length ? (
                 <VirtualList
                     data={claimList}

@@ -35,7 +35,7 @@ import {
     RED_PACKET_MIN_SHARES,
 } from '@/mask/plugins/red-packet/constants.js';
 import { useDefaultCreateGas } from '@/mask/plugins/red-packet/hooks/useDefaultCreateGas.js';
-import { RedpacketContext, redpacketRandomTabs } from '@/modals/RedpacketModal/RedpacketContext.js';
+import { RedPacketContext, redPacketRandomTabs } from '@/modals/RedPacketModal/RedPacketContext.js';
 
 export function MainView() {
     const { history } = useRouter();
@@ -50,7 +50,7 @@ export function MainView() {
         token: selectedToken,
         setToken,
         setTotalAmount,
-    } = useContext(RedpacketContext);
+    } = useContext(RedPacketContext);
 
     const [rawAmount, setRawAmount] = useState('');
 
@@ -232,7 +232,7 @@ export function MainView() {
         <>
             <div className="flex flex-1 flex-col gap-y-4 bg-primaryBottom px-4 pt-2">
                 <Tabs value={randomType} onChange={setRandomType} variant="solid" className="self-start">
-                    {redpacketRandomTabs.map((tab) => (
+                    {redPacketRandomTabs.map((tab) => (
                         <Tab value={tab.value} key={tab.value}>
                             {tab.label}
                         </Tab>

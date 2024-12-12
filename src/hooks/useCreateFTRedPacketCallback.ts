@@ -30,18 +30,18 @@ import {
     type MethodParameters,
     type ParamsObjType,
 } from '@/mask/plugins/red-packet/hooks/useCreateCallback.js';
-import { RedpacketModalRef } from '@/modals/controls.js';
-import { RedpacketContext } from '@/modals/RedpacketModal/RedpacketContext.js';
+import { RedPacketModalRef } from '@/modals/controls.js';
+import { RedPacketContext } from '@/modals/RedPacketModal/RedPacketContext.js';
 import type { FireflyRedPacketAPI } from '@/providers/red-packet/types.js';
 import { captureLuckyDropEvent } from '@/providers/telemetry/captureLuckyDropEvent.js';
 import { useComposeStateStore } from '@/store/useComposeStore.js';
 
-export function useCreateFTRedpacketCallback(
+export function useCreateFTRedPacketCallback(
     shareFromName: string,
     publicKey: string,
     claimRequirements?: FireflyRedPacketAPI.StrategyPayload[],
 ) {
-    const { randomType, message, shares, token, totalAmount } = useContext(RedpacketContext);
+    const { randomType, message, shares, token, totalAmount } = useContext(RedPacketContext);
 
     const redPacketSettings = useMemo(() => {
         return {
@@ -206,6 +206,6 @@ export function useCreateFTRedpacketCallback(
             });
         }
 
-        RedpacketModalRef.close();
+        RedPacketModalRef.close();
     }, [redPacketSettings, chainId, redpacketContractAddress, NATIVE_TOKEN_ADDRESS, publicKey, redPacketSettings]);
 }

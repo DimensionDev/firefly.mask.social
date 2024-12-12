@@ -16,18 +16,18 @@ import { Tooltip } from '@/components/Tooltip.js';
 import { EMPTY_LIST } from '@/constants/index.js';
 import { formatAddress } from '@/helpers/formatAddress.js';
 import { useChainContext } from '@/hooks/useChainContext.js';
-import { useCreateFTRedpacketCallback } from '@/hooks/useCreateFTRedpacketCallback.js';
+import { useCreateFTRedPacketCallback } from '@/hooks/useCreateFTRedPacketCallback.js';
 import { useFungibleTokenPrice } from '@/hooks/useFungibleTokenPrice.js';
 import { useProfileStoreAll } from '@/hooks/useProfileStore.js';
 import { DEFAULT_THEME_ID } from '@/mask/plugins/red-packet/constants.js';
 import { RequirementType } from '@/mask/plugins/red-packet/types.js';
 import {
-    RedpacketContext,
-    redpacketCoverTabs,
-    redpacketDisplayTabs,
-} from '@/modals/RedpacketModal/RedpacketContext.js';
-import { REQUIREMENT_ICON_MAP, REQUIREMENT_TITLE_MAP } from '@/modals/RedpacketModal/RequirementsView.js';
-import { ShareAccountsPopover } from '@/modals/RedpacketModal/ShareAccountsPopover.js';
+    RedPacketContext,
+    redPacketCoverTabs,
+    redPacketDisplayTabs,
+} from '@/modals/RedPacketModal/RedPacketContext.js';
+import { REQUIREMENT_ICON_MAP, REQUIREMENT_TITLE_MAP } from '@/modals/RedPacketModal/RequirementsView.js';
+import { ShareAccountsPopover } from '@/modals/RedPacketModal/ShareAccountsPopover.js';
 import { FireflyRedPacket } from '@/providers/red-packet/index.js';
 import { FireflyRedPacketAPI } from '@/providers/red-packet/types.js';
 
@@ -47,7 +47,7 @@ export function ConfirmView() {
         rules,
         requireCollection,
         message,
-    } = useContext(RedpacketContext);
+    } = useContext(RedPacketContext);
     const { chainId, account } = useChainContext();
 
     const {
@@ -148,7 +148,7 @@ export function ConfirmView() {
         ? (shareFromEnsName ?? formatAddress(shareFrom, 4))
         : `${shareFrom}`;
 
-    const [{ loading: createLoading }, handleCreate] = useCreateFTRedpacketCallback(
+    const [{ loading: createLoading }, handleCreate] = useCreateFTRedPacketCallback(
         shareFromName,
         value?.publicKey ?? '',
         value?.claimRequirements,
@@ -164,7 +164,7 @@ export function ConfirmView() {
                         </label>
 
                         <Tabs value={coverType} onChange={setCoverType} variant="solid" className="self-start">
-                            {redpacketCoverTabs.map((tab) => (
+                            {redPacketCoverTabs.map((tab) => (
                                 <Tab value={tab.value} key={tab.value}>
                                     {tab.label}
                                 </Tab>
@@ -176,7 +176,7 @@ export function ConfirmView() {
                         </label>
 
                         <Tabs value={displayType} onChange={setDisplayType} variant="solid" className="self-start">
-                            {redpacketDisplayTabs.map((tab) => (
+                            {redPacketDisplayTabs.map((tab) => (
                                 <Tab value={tab.value} key={tab.value}>
                                     {tab.label}
                                 </Tab>

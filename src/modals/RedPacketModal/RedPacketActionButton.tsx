@@ -11,7 +11,7 @@ interface Props {
     chainId: number;
 }
 
-export function RedpacketActionButton(props: Props) {
+export function RedPacketActionButton(props: Props) {
     const { rpid, redpacketStatus, chainId } = props;
 
     const statusToTransMap = {

@@ -21,7 +21,7 @@ import { Image } from '@/esm/Image.js';
 import { useChainContext } from '@/hooks/useChainContext.js';
 import { type GeneratedIcon, Icons } from '@/mask/bindings/components.js';
 import { makeStyles } from '@/mask/bindings/index.js';
-import { type FireflyRedpacketSettings, RequirementType } from '@/mask/plugins/red-packet/types.js';
+import { type FireflyRedPacketSettings, RequirementType } from '@/mask/plugins/red-packet/types.js';
 
 const useStyles = makeStyles()((theme) => ({
     container: {
@@ -104,7 +104,7 @@ const useStyles = makeStyles()((theme) => ({
 }));
 
 interface ClaimRequirementsDialogProps {
-    onNext: (settings: FireflyRedpacketSettings) => void;
+    onNext: (settings: FireflyRedPacketSettings) => void;
     origin?: RequirementType[];
 }
 

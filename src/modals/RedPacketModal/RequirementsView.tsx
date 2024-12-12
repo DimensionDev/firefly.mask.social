@@ -16,7 +16,7 @@ import { EMPTY_LIST } from '@/constants/index.js';
 import { Image } from '@/esm/Image.js';
 import { RequirementType } from '@/mask/plugins/red-packet/types.js';
 import { NonFungibleTokenCollectionSelectModalRef } from '@/modals/controls.js';
-import { RedpacketContext } from '@/modals/RedpacketModal/RedpacketContext.js';
+import { RedPacketContext } from '@/modals/RedPacketModal/RedPacketContext.js';
 
 export const REQUIREMENT_ICON_MAP: Record<RequirementType, React.FunctionComponent<React.SVGAttributes<SVGElement>>> = {
     [RequirementType.Follow]: AddUser,
@@ -36,7 +36,7 @@ export const REQUIREMENT_TITLE_MAP: Record<RequirementType, React.ReactNode> = {
 
 export function RequirementsView() {
     const { history } = useRouter();
-    const { rules, setRules, requireCollection, setRequireCollection } = useContext(RedpacketContext);
+    const { rules, setRules, requireCollection, setRequireCollection } = useContext(RedPacketContext);
 
     const hasNFTHolder = rules.includes(RequirementType.NFTHolder);
 
