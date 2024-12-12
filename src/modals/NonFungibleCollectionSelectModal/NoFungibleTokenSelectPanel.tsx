@@ -1,15 +1,11 @@
 import { t } from '@lingui/macro';
-import { useNonFungibleCollections } from '@masknet/web3-hooks-base';
-import { SchemaType } from '@masknet/web3-shared-evm';
 import Fuse from 'fuse.js';
 import { uniq } from 'lodash-es';
 import { memo, useCallback, useMemo, useState } from 'react';
-import { useAccount } from 'wagmi';
 
 import { ChainIcon } from '@/components/NFTDetail/ChainIcon.js';
 import { SearchContentPanel } from '@/components/Search/SearchContentPanel.js';
 import { chains } from '@/configs/wagmiClient.js';
-import { NetworkPluginID } from '@/constants/enum.js';
 import { EMPTY_LIST } from '@/constants/index.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import { CollectionItem } from '@/modals/NonFungibleCollectionSelectModal/CollectionItem.js';
@@ -28,13 +24,9 @@ export const NonFungibleCollectionSelectPanel = memo<FungibleTokenSelectPanelPro
     function NonFungibleCollectionSelectPanel({ onSelected, isSelected }) {
         const isMedium = useIsMedium('max');
         const [chainId, setChainId] = useState<number>();
-        const account = useAccount();
 
-        const { data: collections = EMPTY_LIST, isLoading } = useNonFungibleCollections(NetworkPluginID.PLUGIN_EVM, {
-            chainId,
-            schemaType: SchemaType.ERC721,
-            account: account.address,
-        });
+        const collections = EMPTY_LIST as Collection[];
+        const isLoading = false;
         const chainIds = useMemo(() => uniq(collections.map((collection) => collection.chainId)), [collections]);
 
         const getChainItem = useCallback(
