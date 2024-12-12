@@ -1,12 +1,12 @@
 'use client';
 
 import { Trans } from '@lingui/macro';
-import { useChainContext, useNativeTokenBalance } from '@masknet/web3-hooks-base';
-import { isZero } from '@masknet/web3-shared-base';
 
 import { ActionButton, type ActionButtonProps } from '@/mask/bindings/components.js';
 import { makeStyles } from '@/mask/bindings/index.js';
-import type { Web3Helper } from '@/maskbook/packages/web3-helpers/src/index.js';
+import { isZero } from '@/helpers/number.js';
+import { useChainContext } from '@/hooks/useChainContext.js';
+import { useNativeTokenBalance } from '@/mask/bindings/hooks.js';
 
 const useStyles = makeStyles()({
     button: {
@@ -17,7 +17,7 @@ const useStyles = makeStyles()({
 export interface WalletConnectedBoundaryProps extends withClasses<'connectWallet' | 'button'> {
     offChain?: boolean;
     children?: React.ReactNode;
-    expectedChainId: Web3Helper.ChainIdAll;
+    expectedChainId: number;
     ActionButtonProps?: ActionButtonProps;
     startIcon?: React.ReactNode;
     noGasText?: string;
