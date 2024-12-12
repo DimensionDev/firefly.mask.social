@@ -6,7 +6,7 @@ import {
     useSiteThemeMode,
 } from '@masknet/plugin-infra/content-script';
 import { InjectedDialog, LoadingStatus } from '@masknet/shared';
-import { EMPTY_LIST, NetworkPluginID, PluginID } from '@masknet/shared-base';
+import { PluginID } from '@masknet/shared-base';
 import { useGasPrice } from '@masknet/web3-hooks-base';
 import { ChainId, type GasConfig, GasEditor } from '@masknet/web3-shared-evm';
 import { TabContext } from '@mui/lab';
@@ -16,6 +16,8 @@ import { type Hex, keccak256 } from 'viem';
 import { signMessage } from 'wagmi/actions';
 
 import { config } from '@/configs/wagmiClient.js';
+import { NetworkPluginID } from '@/constants/enum.js';
+import { EMPTY_LIST } from '@/constants/index.js';
 import { useChainContext } from '@/hooks/useChainContext.js';
 import { Icons, MaskTabList, useTabs } from '@/mask/bindings/components.js';
 import { makeStyles } from '@/mask/bindings/index.js';
