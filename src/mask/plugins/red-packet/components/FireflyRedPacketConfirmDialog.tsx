@@ -1,7 +1,6 @@
 'use client';
 import { t, Trans } from '@lingui/macro';
 import { Alert, FormattedBalance, FormattedCurrency, TokenIcon } from '@masknet/shared';
-import { EMPTY_LIST, NetworkPluginID } from '@masknet/shared-base';
 import { useFungibleTokenPrice, useReverseAddress } from '@masknet/web3-hooks-base';
 import { formatBalance, formatCurrency, leftShift } from '@masknet/web3-shared-base';
 import { formatEthereumAddress, type GasConfig, isValidAddress, isValidDomain } from '@masknet/web3-shared-evm';
@@ -13,6 +12,8 @@ import { useAsync, useStateList } from 'react-use';
 import type { Hex } from 'viem';
 import { useEnsName } from 'wagmi';
 
+import { NetworkPluginID } from '@/constants/enum.js';
+import { EMPTY_LIST } from '@/constants/index.js';
 import { Image } from '@/esm/Image.js';
 import { classNames } from '@/helpers/classNames.js';
 import { useChainContext } from '@/hooks/useChainContext.js';
@@ -23,10 +24,10 @@ import {
     REQUIREMENT_TITLE_MAP,
 } from '@/mask/plugins/red-packet/components/ClaimRequirementsDialog.js';
 import { type RedPacketSettings } from '@/mask/plugins/red-packet/hooks/useCreateCallback.js';
-import { useCreateFTRedpacketCallback } from '@/mask/plugins/red-packet/hooks/useCreateFTRedpacketCallback.js';
+import { useCreateFTRedPacketCallback } from '@/mask/plugins/red-packet/hooks/useCreateFTRedPacketCallback.js';
 import {
     type FireflyContext,
-    type FireflyRedpacketSettings,
+    type FireflyRedPacketSettings,
     RequirementType,
 } from '@/mask/plugins/red-packet/types.js';
 import { FireflyRedPacket } from '@/providers/red-packet/index.js';
@@ -111,9 +112,9 @@ const useStyles = makeStyles()((theme) => ({
     },
 }));
 
-export interface FireflyRedpacketConfirmDialogProps {
+export interface FireflyRedPacketConfirmDialogProps {
     settings: RedPacketSettings;
-    fireflySettings?: FireflyRedpacketSettings;
+    fireflySettings?: FireflyRedPacketSettings;
     fireflyContext: FireflyContext;
     gasOption?: GasConfig;
     onCreated: (
@@ -132,14 +133,14 @@ function formatAccountName(account?: string) {
     return `@${account}`;
 }
 
-export function FireflyRedpacketConfirmDialog({
+export function FireflyRedPacketConfirmDialog({
     settings,
     fireflySettings,
     fireflyContext,
     gasOption,
     onCreated,
     onClose,
-}: FireflyRedpacketConfirmDialogProps) {
+}: FireflyRedPacketConfirmDialogProps) {
     const { currentFarcasterProfile, currentLensProfile, currentTwitterProfile } = fireflyContext || {};
     const { chainId, account } = useChainContext();
     const { data: ensName } = useEnsName({ address: account as Hex });
@@ -291,7 +292,7 @@ export function FireflyRedpacketConfirmDialog({
         currentAccount,
     ]);
 
-    const { createRedpacket, isCreating } = useCreateFTRedpacketCallback(
+    const { createRedPacket, isCreating } = useCreateFTRedPacketCallback(
         value?.publicKey ?? '',
         '',
         settings,
@@ -475,7 +476,7 @@ export function FireflyRedpacketConfirmDialog({
                 </Box>
             </Box>
             <Box className={classes.footer}>
-                <ActionButton loading={isCreating || loading || fetchUrlsLoading} onClick={createRedpacket} fullWidth>
+                <ActionButton loading={isCreating || loading || fetchUrlsLoading} onClick={createRedPacket} fullWidth>
                     <Trans>Next</Trans>
                 </ActionButton>
             </Box>

@@ -35,7 +35,7 @@ export function MoreActionMenu({
                 as={motion.button}
                 className="flex flex-shrink-0 items-center text-lightMain"
                 aria-label="More"
-                onClick={async (event: MouseEvent) => {
+                onClick={(event: MouseEvent) => {
                     event.stopPropagation();
                     if (!isLogin && loginRequired) {
                         event.preventDefault();

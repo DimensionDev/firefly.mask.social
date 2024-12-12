@@ -225,7 +225,7 @@ export const ComposeModalUI = forwardRef<SingletonModalRefCreator<ComposeModalOp
             return urlcat(location.origin, getProfileUrl(preferProfile));
         }, [currentProfileAll, availableSources]);
 
-        // Avoid recreating post content for Redpacket
+        // Avoid recreating post content for red packet
         const { loading: encryptRedPacketLoading } = useAsync(async () => {
             const { cursor } = useComposeStateStore.getState();
             const compositePost = getCompositePost(cursor);
@@ -255,7 +255,8 @@ export const ComposeModalUI = forwardRef<SingletonModalRefCreator<ComposeModalOp
                     SteganographyPreset.Preset2023_Firefly,
                 );
 
-                const promoteMessage = t`Check out my LuckyDrop 🧧💰✨ on Firefly mobile app or ${promoteLink} !`;
+                // eslint-disable-next-line no-irregular-whitespace
+                const promoteMessage = t`Check out my LuckyDrop 🧧💰✨ on Firefly mobile app or desktop ${promoteLink} !`;
 
                 const chars: Chars = [
                     {

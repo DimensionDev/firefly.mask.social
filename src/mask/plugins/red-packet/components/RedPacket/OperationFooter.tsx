@@ -1,13 +1,14 @@
 import { t, Trans } from '@lingui/macro';
 import { ChainBoundary, WalletConnectedBoundary } from '@masknet/shared';
-import { NetworkPluginID } from '@masknet/shared-base';
 import { ChainId } from '@masknet/web3-shared-evm';
 import { Box, useTheme } from '@mui/material';
 import type { MouseEventHandler } from 'react';
 
+import { NetworkPluginID } from '@/constants/enum.js';
 import { useChainContext } from '@/hooks/useChainContext.js';
 import { ActionButton, Icons } from '@/mask/bindings/components.js';
 import { makeStyles } from '@/mask/bindings/index.js';
+import { useCheckSponsorableGasFee } from '@/mask/plugins/red-packet/hooks/useCheckSponsorableGasFee.js';
 
 const useStyles = makeStyles()((theme) => {
     return {
@@ -105,6 +106,8 @@ export function OperationFooter({
         );
     }
 
+    const { data: isSponsorable = false } = useCheckSponsorableGasFee(chainId ?? ChainId.Mainnet, account);
+
     return (
         <Box style={{ flex: 1, padding: 12 }}>
             <Box className={classes.footer}>
@@ -130,6 +133,7 @@ export function OperationFooter({
                             expectedChainId={chainId ?? ChainId.Mainnet}
                             startIcon={<Icons.Wallet size={18} />}
                             ActionButtonProps={{ variant: 'roundedDark' }}
+                            isIgnoreGasCheck={isSponsorable}
                         >
                             {getObtainButton(onClaimOrRefund)}
                         </WalletConnectedBoundary>

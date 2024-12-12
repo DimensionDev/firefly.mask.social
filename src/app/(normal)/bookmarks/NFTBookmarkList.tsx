@@ -17,6 +17,7 @@ import { Link } from '@/esm/Link.js';
 import { classNames } from '@/helpers/classNames.js';
 import { enqueueMessageFromError } from '@/helpers/enqueueMessage.js';
 import { createIndicator } from '@/helpers/pageable.js';
+import { resolveNFTImageUrl } from '@/helpers/resolveNFTImageUrl.js';
 import { resolveNftUrl } from '@/helpers/resolveNftUrl.js';
 import { resolveSimpleHashChainId } from '@/helpers/resolveSimpleHashChain.js';
 import { useCurrentProfileAll } from '@/hooks/useCurrentProfile.js';
@@ -32,7 +33,7 @@ function getNFTItemContent(nft: NftPreview) {
         <>
             <div className="relative aspect-square h-auto w-full overflow-hidden">
                 <Image
-                    src={nft.image_url}
+                    src={resolveNFTImageUrl(nft)}
                     alt={nft.name}
                     width={500}
                     height={500}

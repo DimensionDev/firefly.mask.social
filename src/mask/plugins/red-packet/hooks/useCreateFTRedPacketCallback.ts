@@ -14,7 +14,7 @@ import {
 } from '@/mask/plugins/red-packet/hooks/useCreateCallback.js';
 import type { RedPacketJSONPayload } from '@/providers/red-packet/types.js';
 
-export function useCreateFTRedpacketCallback(
+export function useCreateFTRedPacketCallback(
     publicKey: string,
     privateKey: string,
     settings: RedPacketSettings,
@@ -59,7 +59,7 @@ export function useCreateFTRedpacketCallback(
         gasOption,
     );
 
-    const createRedpacket = useCallback(async () => {
+    const createRedPacket = useCallback(async () => {
         const result = await createCallback();
         const { hash, receipt, events } = result ?? {};
         if (typeof hash !== 'string') return;
@@ -127,7 +127,7 @@ export function useCreateFTRedpacketCallback(
     }, [chainId, contract_version, HAPPY_RED_PACKET_ADDRESS_V4, onClose]);
 
     return {
-        createRedpacket,
+        createRedPacket,
         isCreating,
         formatAvg,
         formatTotal,

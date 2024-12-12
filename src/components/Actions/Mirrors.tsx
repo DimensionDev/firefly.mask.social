@@ -156,7 +156,7 @@ export const Mirror = memo<MirrorProps>(function Mirror({
             <motion.div
                 whileTap={{ scale: 0.9 }}
                 aria-label="Mirror"
-                onClick={async (event) => {
+                onClick={(event) => {
                     event.preventDefault();
                     event.stopPropagation();
 

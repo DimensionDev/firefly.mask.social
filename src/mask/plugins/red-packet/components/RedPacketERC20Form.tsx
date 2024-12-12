@@ -10,7 +10,6 @@ import {
     useAvailableBalance,
     WalletConnectedBoundary,
 } from '@masknet/shared';
-import { NetworkPluginID } from '@masknet/shared-base';
 import { useNativeTokenPrice } from '@masknet/web3-hooks-base';
 import {
     formatBalance,
@@ -19,7 +18,6 @@ import {
     isZero,
     multipliedBy,
     rightShift,
-    TokenType,
     ZERO,
 } from '@masknet/web3-shared-base';
 import {
@@ -38,6 +36,7 @@ import { isAddress } from 'viem';
 import { switchChain } from 'wagmi/actions';
 
 import { config } from '@/configs/wagmiClient.js';
+import { NetworkPluginID } from '@/constants/enum.js';
 import { createAccount } from '@/helpers/createAccount.js';
 import { isSameEthereumAddress } from '@/helpers/isSameAddress.js';
 import { useChainContext } from '@/hooks/useChainContext.js';
@@ -52,7 +51,6 @@ import {
 import { type RedPacketSettings, useCreateParams } from '@/mask/plugins/red-packet/hooks/useCreateCallback.js';
 import { useDefaultCreateGas } from '@/mask/plugins/red-packet/hooks/useDefaultCreateGas.js';
 import { TokenSelectorModalRef } from '@/modals/controls.js';
-import type { Token } from '@/providers/types/Transfer.js';
 
 // seconds of 1 day
 const duration = 60 * 60 * 24;
@@ -116,24 +114,6 @@ interface RedPacketFormProps {
     onChange(settings: RedPacketSettings): void;
 }
 
-function formatDebankToken(token: Token): FungibleToken<ChainId, SchemaType> {
-    // it is not a valid address if its native token
-    const address = isAddress(token.id) ? token.id : ZERO_ADDRESS;
-
-    return {
-        amount: token.raw_amount_hex_str,
-        name: token.name,
-        symbol: token.symbol,
-        decimals: token.decimals,
-        logoURL: token.logo_url,
-        id: address,
-        chainId: token.chainId,
-        type: TokenType.Fungible,
-        schema: SchemaType.ERC20,
-        address,
-    } as FungibleToken<ChainId, SchemaType>;
-}
-
 export function RedPacketERC20Form(props: RedPacketFormProps) {
     const { origin, expectedChainId, gasOption, onChange, onNext, onGasOptionChange } = props;
     const { classes } = useStyles();
@@ -164,7 +144,7 @@ export function RedPacketERC20Form(props: RedPacketFormProps) {
                 chainId: picked.chainId,
             });
         }
-        setToken(formatDebankToken(picked));
+        setToken(picked);
     }, [token, chainId, account]);
     // #endregion
 

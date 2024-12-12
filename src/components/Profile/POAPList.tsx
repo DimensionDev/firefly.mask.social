@@ -1,8 +1,7 @@
 'use client';
 
 import { Trans } from '@lingui/macro';
-import type { NonFungibleAsset } from '@masknet/web3-shared-base';
-import { ChainId, SchemaType } from '@masknet/web3-shared-evm';
+import { ChainId } from '@masknet/web3-shared-evm';
 import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
 import { forwardRef } from 'react';
 import type { GridItemProps, GridListProps } from 'react-virtuoso';
@@ -25,6 +24,8 @@ import { resolveNFTIdFromAsset } from '@/helpers/resolveNFTIdFromAsset.js';
 import { resolveNftUrl } from '@/helpers/resolveNftUrl.js';
 import { resolveProfileUrl } from '@/helpers/resolveProfileUrl.js';
 import { resolveWalletProfileProvider } from '@/helpers/resolveWalletProfileProvider.js';
+import type { NFTAsset } from '@/providers/types/Firefly.js';
+import { fillBookmarkStatusForNonFungibleAssets } from '@/services/fillBookmarkStatusForNFT.js';
 
 const GridList = forwardRef<HTMLDivElement, GridListProps>(function GridList({ className, children, ...props }, ref) {
     return (
@@ -61,7 +62,7 @@ function NFTItemContent({
     ...props
 }: {
     index: number;
-    item: NonFungibleAsset<ChainId.Mainnet, SchemaType.ERC721>;
+    item: NFTAsset;
     isPoap?: boolean;
     isShowOwner?: boolean;
     isShowChainIcon?: boolean;
@@ -103,6 +104,7 @@ function NFTItemContent({
                 className="absolute right-2 top-2 z-10"
                 nftId={resolveNFTIdFromAsset(item)}
                 ownerAddress={item.owner?.address}
+                bookmarked={item.hasBookmarked}
             />
         </div>
     );
@@ -110,7 +112,7 @@ function NFTItemContent({
 
 export function getNFTItemContent(
     index: number,
-    item: NonFungibleAsset<ChainId.Mainnet, SchemaType.ERC721>,
+    item: NFTAsset,
     options?: {
         isPoap?: boolean;
         isShowOwner?: boolean;
@@ -143,11 +145,16 @@ export function POAPList(props: { address: string }) {
                 pageParam,
             );
             const provider = resolveWalletProfileProvider();
-            return provider.getPOAPs(address, {
+            const response = await provider.getPOAPs(address, {
                 indicator,
                 chainId: ChainId.xDai,
                 contractAddress: POAP_CONTRACT_ADDRESS,
             });
+
+            return {
+                ...response,
+                data: await fillBookmarkStatusForNonFungibleAssets(response.data),
+            };
         },
         getNextPageParam: (lastPage) => lastPage?.nextIndicator?.id,
         select: (data) => data.pages.flatMap((page) => page.data ?? EMPTY_LIST),
@@ -161,7 +168,7 @@ export function POAPList(props: { address: string }) {
                 VirtualGridListProps={{
                     components: POAPGridListComponent,
                     itemContent: (index, item) => {
-                        return getNFTItemContent(index, item as NonFungibleAsset<ChainId.Mainnet, SchemaType.ERC721>, {
+                        return getNFTItemContent(index, item as NFTAsset, {
                             isPoap: true,
                         });
                     },

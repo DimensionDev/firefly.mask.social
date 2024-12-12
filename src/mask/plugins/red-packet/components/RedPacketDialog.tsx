@@ -6,7 +6,7 @@ import {
     useSiteThemeMode,
 } from '@masknet/plugin-infra/content-script';
 import { InjectedDialog, LoadingStatus } from '@masknet/shared';
-import { EMPTY_LIST, NetworkPluginID, PluginID } from '@masknet/shared-base';
+import { PluginID } from '@masknet/shared-base';
 import { useGasPrice } from '@masknet/web3-hooks-base';
 import { ChainId, type GasConfig, GasEditor } from '@masknet/web3-shared-evm';
 import { TabContext } from '@mui/lab';
@@ -16,12 +16,14 @@ import { type Hex, keccak256 } from 'viem';
 import { signMessage } from 'wagmi/actions';
 
 import { config } from '@/configs/wagmiClient.js';
+import { NetworkPluginID } from '@/constants/enum.js';
+import { EMPTY_LIST } from '@/constants/index.js';
 import { useChainContext } from '@/hooks/useChainContext.js';
 import { Icons, MaskTabList, useTabs } from '@/mask/bindings/components.js';
 import { makeStyles } from '@/mask/bindings/index.js';
 import { ClaimRequirementsDialog } from '@/mask/plugins/red-packet/components/ClaimRequirementsDialog.js';
 import { ClaimRequirementsRuleDialog } from '@/mask/plugins/red-packet/components/ClaimRequirementsRuleDialog.js';
-import { FireflyRedpacketConfirmDialog } from '@/mask/plugins/red-packet/components/FireflyRedpacketConfirmDialog.js';
+import { FireflyRedPacketConfirmDialog } from '@/mask/plugins/red-packet/components/FireflyRedPacketConfirmDialog.js';
 import { FireflyRedPacketHistoryDetails } from '@/mask/plugins/red-packet/components/FireflyRedPacketHistoryDetails.js';
 import { FireflyRedPacketPast } from '@/mask/plugins/red-packet/components/FireflyRedPacketPast.js';
 import { RedPacketERC20Form } from '@/mask/plugins/red-packet/components/RedPacketERC20Form.js';
@@ -30,7 +32,7 @@ import { RedPacketMetaKey } from '@/mask/plugins/red-packet/constants.js';
 import { openComposition } from '@/mask/plugins/red-packet/helpers/openComposition.js';
 import { reduceUselessPayloadInfo } from '@/mask/plugins/red-packet/helpers/reduceUselessPayloadInfo.js';
 import type { RedPacketSettings } from '@/mask/plugins/red-packet/hooks/useCreateCallback.js';
-import type { FireflyContext, FireflyRedpacketSettings } from '@/mask/plugins/red-packet/types.js';
+import type { FireflyContext, FireflyRedPacketSettings } from '@/mask/plugins/red-packet/types.js';
 import type { FireflyRedPacketAPI, RedPacketJSONPayload } from '@/providers/red-packet/types.js';
 
 const useStyles = makeStyles<{ scrollY: boolean; isDim: boolean }>()((theme, { isDim, scrollY }) => {
@@ -110,7 +112,7 @@ export default function RedPacketDialog(props: RedPacketDialogProps) {
     // #endregion
 
     // #region firefly redpacket
-    const [fireflyRpSettings, setFireflyRpSettings] = useState<FireflyRedpacketSettings>();
+    const [fireflyRpSettings, setFireflyRpSettings] = useState<FireflyRedPacketSettings>();
     // #endregion
 
     // #region nft lucky drop
@@ -265,7 +267,7 @@ export default function RedPacketDialog(props: RedPacketDialogProps) {
         },
         [setShowDetails, setRpid],
     );
-    const handleClaimRequirementsNext = useCallback((settings: FireflyRedpacketSettings) => {
+    const handleClaimRequirementsNext = useCallback((settings: FireflyRedPacketSettings) => {
         setFireflyRpSettings(settings);
         setStep(CreateRedPacketPageStep.ConfirmPage);
     }, []);
@@ -280,7 +282,7 @@ export default function RedPacketDialog(props: RedPacketDialogProps) {
                 titleTail={titleTail}
                 titleTabs={
                     step === CreateRedPacketPageStep.NewRedPacketPage && showHistory && !showDetails ? (
-                        <MaskTabList variant="base" onChange={onChangeHistoryTab} aria-label="Redpacket">
+                        <MaskTabList variant="base" onChange={onChangeHistoryTab} aria-label="RedPacket">
                             <Tab label={t`Claimed`} value={historyTabs.claimed} />
                             <Tab label={t`Sent`} value={historyTabs.sent} />
                         </MaskTabList>
@@ -326,7 +328,7 @@ export default function RedPacketDialog(props: RedPacketDialogProps) {
                     ) : null}
 
                     {step === CreateRedPacketPageStep.ConfirmPage && settings ? (
-                        <FireflyRedpacketConfirmDialog
+                        <FireflyRedPacketConfirmDialog
                             onClose={handleClose}
                             onCreated={handleCreated}
                             fireflyContext={props.fireflyContext}

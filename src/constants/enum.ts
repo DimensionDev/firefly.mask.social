@@ -216,6 +216,7 @@ export enum ScrollListKey {
     SnapshotVotes = 'snapshot-votes',
     Activity = 'activity',
     Polymarket = 'polymarket-list',
+    RedPacketHistory = 'redpacket-history',
 }
 
 export enum FarcasterSignType {
@@ -296,7 +297,6 @@ export enum AdvertisementType {
 
 export enum AdFunctionType {
     OpenScan = 'openScan',
-    OpenActivity = 'openActivity',
 }
 
 export enum UploadMediaStatus {

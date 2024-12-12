@@ -1,8 +1,6 @@
 import { LensClient as LensClientSDK } from '@lens-protocol/client';
-import { LensClient as LensGatedClientSDK } from '@lens-protocol/client/gated';
 
 import {
-    createLensGatedSDK,
     createLensSDK,
     LocalStorageProvider,
     removeLensCredentials,
@@ -14,24 +12,12 @@ import { LensSession } from '@/providers/lens/Session.js';
 
 class LensSessionHolder extends SessionHolder<LensSession> {
     private lensClientSDK: LensClientSDK | null = null;
-    private lensGatedClientSDK: LensGatedClientSDK | null = null;
 
     get sdk() {
         if (!this.lensClientSDK) {
-            const storage = new LocalStorageProvider();
-            this.lensClientSDK = createLensSDK(storage);
-            this.lensGatedClientSDK = createLensGatedSDK(storage);
+            this.lensClientSDK = createLensSDK(new LocalStorageProvider());
         }
         return this.lensClientSDK;
-    }
-
-    get gatedSDK() {
-        if (!this.lensGatedClientSDK) {
-            const storage = new LocalStorageProvider();
-            this.lensClientSDK = createLensSDK(storage);
-            this.lensGatedClientSDK = createLensGatedSDK(storage);
-        }
-        return this.lensGatedClientSDK;
     }
 
     override assertSession(message?: string): LensSession {
@@ -53,7 +39,6 @@ class LensSessionHolder extends SessionHolder<LensSession> {
 
             // renew the sdk instance, since it could possess the old credentials
             this.lensClientSDK = createLensSDK(storage);
-            this.lensGatedClientSDK = createLensGatedSDK(storage);
         }
         super.resumeSession(session);
     }

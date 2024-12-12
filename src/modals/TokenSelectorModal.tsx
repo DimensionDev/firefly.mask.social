@@ -1,5 +1,7 @@
 import { DialogTitle } from '@headlessui/react';
 import { Trans } from '@lingui/macro';
+import { type FungibleToken } from '@masknet/web3-shared-base';
+import { ChainId, SchemaType } from '@masknet/web3-shared-evm';
 import { forwardRef, useState } from 'react';
 import { useAccount } from 'wagmi';
 
@@ -7,6 +9,7 @@ import LeftArrowIcon from '@/assets/left-arrow.svg';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { Modal } from '@/components/Modal.js';
 import { SearchTokenPanel } from '@/components/Search/SearchTokenPanel.js';
+import { formatDebankTokenToFungibleToken } from '@/helpers/formatToken.js';
 import { useSingletonModal } from '@/hooks/useSingletonModal.js';
 import type { SingletonModalRefCreator } from '@/libs/SingletonModal.js';
 import { ConnectModalRef } from '@/modals/controls.js';
@@ -18,7 +21,7 @@ export interface TokenSelectorModalOpenProps {
     isSelected?: (item: Token) => boolean;
 }
 
-export type TokenSelectorModalCloseProps = Token | null;
+export type TokenSelectorModalCloseProps = FungibleToken<ChainId, SchemaType> | null;
 
 export const TokenSelectorModal = forwardRef<
     SingletonModalRefCreator<TokenSelectorModalOpenProps, TokenSelectorModalCloseProps>
@@ -47,7 +50,7 @@ export const TokenSelectorModal = forwardRef<
                         className="absolute left-0 top-1/2 -translate-y-1/2 cursor-pointer text-main"
                     />
                     <span className="flex h-full w-full items-center justify-center text-lg font-bold text-main">
-                        <Trans>Select Token </Trans>
+                        <Trans>Select Token</Trans>
                     </span>
                 </DialogTitle>
                 <div className="min-h-0 flex-1 overflow-hidden">
@@ -55,7 +58,7 @@ export const TokenSelectorModal = forwardRef<
                         <SearchTokenPanel
                             address={props.address}
                             isSelected={props.isSelected}
-                            onSelected={(token) => dispatch?.close(token)}
+                            onSelected={(token) => dispatch?.close(formatDebankTokenToFungibleToken(token))}
                         />
                     ) : (
                         <div className="flex h-full w-full items-center justify-center">

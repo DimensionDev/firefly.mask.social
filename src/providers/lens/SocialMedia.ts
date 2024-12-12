@@ -1,5 +1,4 @@
 import {
-    type AnyPublicationFragment,
     type ApprovedAllowanceAmountResultFragment,
     CommentRankingFilterType,
     CustomFiltersType,
@@ -21,7 +20,6 @@ import {
     PublicationType,
     ReferenceModuleType,
 } from '@lens-protocol/client';
-import { isEncryptedPublicationMetadata } from '@lens-protocol/client/gated';
 import {
     type MetadataAttribute,
     MetadataAttributeType,
@@ -1650,28 +1648,7 @@ export class LensSocialMedia implements Provider {
     }
 
     async decryptPost(post: Post): Promise<Post | null> {
-        if (!post.__original__) {
-            throw new Error('Original post not found');
-        }
-
-        const originalPost = post.__original__ as AnyPublicationFragment;
-        if ('metadata' in originalPost && isEncryptedPublicationMetadata(originalPost.metadata)) {
-            const result = await lensSessionHolder.gatedSDK.gated.decryptPublicationMetadataFragment(
-                originalPost.metadata,
-            );
-            if (result.isFailure()) {
-                throw result.error;
-            }
-
-            const decryptedPost = formatLensPost({
-                ...originalPost,
-                metadata: result.value,
-            });
-
-            return { ...decryptedPost, isEncrypted: false };
-        }
-
-        return null;
+        throw new NotImplementedError();
     }
 }
 

@@ -185,9 +185,9 @@ export const EXPLORE_DEFAULT_SOURCE: Record<ExploreType, ExploreSource> = {
 export const BOOKMARK_SOURCES: BookmarkSource[] = [
     Source.Farcaster,
     Source.Lens,
+    Source.NFTs,
     Source.Article,
     Source.DAOs,
-    Source.NFTs,
 ];
 
 export const ENABLED_DECRYPT_SOURCES = [Source.Lens];

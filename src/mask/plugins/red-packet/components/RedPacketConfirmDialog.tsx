@@ -1,19 +1,19 @@
+import { RocketLaunchIcon } from '@heroicons/react/24/outline';
 import { Trans } from '@lingui/macro';
 import { ChainBoundary, PluginWalletStatusBar, SelectGasSettingsToolbar } from '@masknet/shared';
-import { NetworkPluginID } from '@masknet/shared-base';
 import { useNativeTokenPrice } from '@masknet/web3-hooks-base';
 import { isZero } from '@masknet/web3-shared-base';
 import { type ChainId, type GasConfig } from '@masknet/web3-shared-evm';
-import { Launch as LaunchIcon } from '@mui/icons-material';
 import { Grid, Link, Paper, Typography } from '@mui/material';
 import { useEffect, useMemo } from 'react';
 
+import { NetworkPluginID } from '@/constants/enum.js';
 import { createAccount } from '@/helpers/createAccount.js';
 import { useChainContext } from '@/hooks/useChainContext.js';
 import { ActionButton, Icons } from '@/mask/bindings/components.js';
 import { EVMChainResolver, EVMExplorerResolver, makeStyles } from '@/mask/bindings/index.js';
 import { type RedPacketSettings } from '@/mask/plugins/red-packet/hooks/useCreateCallback.js';
-import { useCreateFTRedpacketCallback } from '@/mask/plugins/red-packet/hooks/useCreateFTRedpacketCallback.js';
+import { useCreateFTRedPacketCallback } from '@/mask/plugins/red-packet/hooks/useCreateFTRedPacketCallback.js';
 import type { RedPacketJSONPayload } from '@/providers/red-packet/types.js';
 
 const useStyles = makeStyles()((theme) => ({
@@ -85,8 +85,8 @@ export function RedPacketConfirmDialog(props: ConfirmRedPacketFormProps) {
         gas,
         isCreating,
         isWaitGasBeMinus,
-        createRedpacket,
-    } = useCreateFTRedpacketCallback(publicKey, privateKey, settings, gasOption, onCreated, onClose);
+        createRedPacket,
+    } = useCreateFTRedPacketCallback(publicKey, privateKey, settings, gasOption, onCreated, onClose);
     const nativeTokenDetailed = useMemo(() => EVMChainResolver.nativeCurrency(chainId), [chainId]);
     const { data: nativeTokenPrice = 0 } = useNativeTokenPrice(NetworkPluginID.PLUGIN_EVM, { chainId });
 
@@ -147,7 +147,7 @@ export function RedPacketConfirmDialog(props: ConfirmRedPacketFormProps) {
                                     rel="noopener noreferrer"
                                     onClick={stop}
                                 >
-                                    <LaunchIcon fontSize="small" />
+                                    <RocketLaunchIcon fontSize="small" />
                                 </Link>
                                 {isBalanceInsufficient ? '0' : formatAvg} {settings?.token?.symbol}
                             </Typography>
@@ -177,7 +177,7 @@ export function RedPacketConfirmDialog(props: ConfirmRedPacketFormProps) {
                             rel="noopener noreferrer"
                             onClick={stop}
                         >
-                            <LaunchIcon fontSize="small" />
+                            <RocketLaunchIcon fontSize="small" />
                         </Link>
                         {formatTotal} {settings?.token?.symbol}
                     </Typography>
@@ -215,7 +215,7 @@ export function RedPacketConfirmDialog(props: ConfirmRedPacketFormProps) {
                     <ActionButton
                         loading={isCreating || isWaitGasBeMinus}
                         fullWidth
-                        onClick={createRedpacket}
+                        onClick={createRedPacket}
                         disabled={isBalanceInsufficient || isWaitGasBeMinus || isCreating}
                     >
                         {isCreating ? <Trans>Confirming</Trans> : <Trans>Confirm</Trans>}

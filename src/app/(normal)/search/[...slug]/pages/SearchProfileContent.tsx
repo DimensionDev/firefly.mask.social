@@ -84,8 +84,8 @@ export function SearchProfileContent() {
         getNextPageParam: (lastPage) => {
             if (lastPage?.data.length === 0) return;
             return {
-                firefly: lastPage?.nextIndicator?.id ?? noNextPage,
-                twitter: lastPage?.twitterNextIndicator?.id ?? noNextPage,
+                firefly: lastPage?.nextIndicator?.id || noNextPage,
+                twitter: lastPage?.twitterNextIndicator?.id || noNextPage,
             };
         },
         select(data) {

@@ -2,7 +2,7 @@
 
 import { ChainId } from '@masknet/web3-shared-evm';
 import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
-import { first } from 'lodash-es';
+import { compact, first } from 'lodash-es';
 import { useMemo } from 'react';
 
 import { GridListInPage } from '@/components/GridListInPage.js';
@@ -10,6 +10,7 @@ import { ChainIcon } from '@/components/NFTDetail/ChainIcon.js';
 import { NFTImage } from '@/components/NFTImage.js';
 import { BookmarkInIcon } from '@/components/NFTs/BookmarkButton.js';
 import { POAPGridListComponent } from '@/components/Profile/POAPList.js';
+import { FireflyPlatform } from '@/constants/enum.js';
 import { EMPTY_LIST } from '@/constants/index.js';
 import { Link } from '@/esm/Link.js';
 import { classNames } from '@/helpers/classNames.js';
@@ -17,7 +18,9 @@ import { isValidSolanaAddress } from '@/helpers/isValidSolanaAddress.js';
 import { createIndicator } from '@/helpers/pageable.js';
 import { resolveNftUrl } from '@/helpers/resolveNftUrl.js';
 import { resolveSimpleHashChainId } from '@/helpers/resolveSimpleHashChain.js';
+import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
+import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
 import { SimpleHashProvider } from '@/providers/simplehash/index.js';
 import type { Collection } from '@/providers/types/Firefly.js';
 
@@ -72,6 +75,7 @@ function NFTCollectionItem({ collection, onClick }: NFTCollectionItemProps) {
                 <BookmarkInIcon
                     className="absolute right-1 top-1 z-10"
                     nftId={nftPreview.nft_id}
+                    bookmarked={nftPreview.hasBookmarked}
                     ownerAddress={first(nftPreview.owners)?.owner_address}
                 />
             </div>
@@ -140,6 +144,21 @@ export function NFTCollectionList(props: NFTCollectionListProps) {
             const response = isValidSolanaAddress(address)
                 ? await SimpleHashProvider.getWalletsNFTCollectionsWithNFTs(params, 'solana')
                 : await FireflyEndpointProvider.getWalletsNFTCollections(params);
+
+            const nftIds = compact(response.data.map((item) => first(item.nftPreviews)?.nft_id));
+            const bookmarkData = nftIds.length
+                ? await runInSafeAsync(() => FireflySocialMediaProvider.getBookmarksByIds(FireflyPlatform.NFTs, nftIds))
+                : [];
+            response.data = response.data.map((item) => ({
+                ...item,
+                nftPreviews: item.nftPreviews?.map((preview) => ({
+                    ...preview,
+                    hasBookmarked: bookmarkData?.some(
+                        (bookmark) => bookmark.post_id === preview.nft_id && !!bookmark.has_book_marked,
+                    ),
+                })),
+            }));
+
             return {
                 ...response,
                 data: response.data.flatMap((item) => {

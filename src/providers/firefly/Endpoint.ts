@@ -59,6 +59,7 @@ import {
     type LinkDigestResponse,
     type MuteAllResponse,
     type NFTCollectionsResponse,
+    type PlatformIdentityKey,
     type PolymarketActivityTimeline,
     type RelationResponse,
     type Response,
@@ -227,7 +228,7 @@ export class FireflyEndpoint {
                 case Source.Farcaster:
                     return 'fid';
                 case Source.Twitter:
-                    return 'twitterId';
+                    return /^\d+$/.test(identity.id) ? 'twitterId' : 'twitterHandle';
                 case Source.Wallet:
                     switch (getAddressType(identity.id)) {
                         case NetworkType.Ethereum:
@@ -242,20 +243,11 @@ export class FireflyEndpoint {
             }
         });
 
-        const url = urlcat(
-            settings.FIREFLY_ROOT_URL,
-            '/v2/wallet/profile',
-            queryKey ? { [`${queryKey}`]: identity.id } : {},
-        );
-
-        return fireflySessionHolder.fetch<WalletProfileResponse>(
-            url,
+        return FireflyEndpointProvider.getAllRelatedProfiles(
             {
-                method: 'GET',
+                [`${queryKey}`]: identity.id,
             },
-            {
-                withSession: isTokenRequired,
-            },
+            isTokenRequired,
         );
     }
 
@@ -341,18 +333,29 @@ export class FireflyEndpoint {
     }
 
     async getAllPlatformProfiles(lensHandle?: string, fid?: string, twitterId?: string): Promise<FireflyProfile[]> {
-        const url = urlcat(settings.FIREFLY_ROOT_URL, '/v2/wallet/profile', {
-            twitterId,
+        const isTwitterId = /^\d+$/.test(twitterId || '');
+        const response = await FireflyEndpointProvider.getAllRelatedProfiles({
+            twitterId: isTwitterId ? twitterId : undefined,
+            twitterHandle: isTwitterId ? undefined : twitterId,
             lensHandle,
             fid,
         });
 
-        const response = await fireflySessionHolder.fetch<WalletProfileResponse>(url, {
-            method: 'GET',
-        });
-
         const profiles = resolveFireflyResponseData(response);
         return formatFireflyProfilesFromWalletProfiles(profiles);
+    }
+
+    async getAllRelatedProfiles(options?: Partial<Record<PlatformIdentityKey, string>>, isTokenRequired?: boolean) {
+        const url = urlcat(settings.FIREFLY_ROOT_URL, '/v2/wallet/profile', { ...options });
+        return fireflySessionHolder.fetch<WalletProfileResponse>(
+            url,
+            {
+                method: 'GET',
+            },
+            {
+                withSession: isTokenRequired,
+            },
+        );
     }
 
     async getNextIDRelations(platform: string, identity: string) {
@@ -452,6 +455,7 @@ export class FireflyEndpoint {
         const url = urlcat(settings.FIREFLY_ROOT_URL, '/v2/search/identity', {
             keyword,
             size,
+            cursor: indicator?.id,
         });
         const platform = platforms?.map((x) => resolveSourceInUrl(x)).join(','); // There are commas here, without escaping
         const response = await fireflySessionHolder.fetch<SearchProfileResponse>(

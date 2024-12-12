@@ -12,6 +12,7 @@ import { BookmarkInIcon } from '@/components/NFTs/BookmarkButton.js';
 import { POAP_CONTRACT_ADDRESS } from '@/constants/index.js';
 import { Link } from '@/esm/Link.js';
 import { isSameEthereumAddress } from '@/helpers/isSameAddress.js';
+import { resolveNFTImageUrl } from '@/helpers/resolveNFTImageUrl.js';
 import { resolveNftUrl, resolveNftUrlByCollection } from '@/helpers/resolveNftUrl.js';
 import { resolveSimpleHashChainId } from '@/helpers/resolveSimpleHashChain.js';
 import { stopPropagation } from '@/helpers/stopEvent.js';
@@ -125,7 +126,7 @@ export const NFTPreviewer = memo(function NFTPreview({ nft }: NFTPreviewProps) {
 
     return (
         <BasePreviewContent
-            image={nft.image_url}
+            image={resolveNFTImageUrl(nft)}
             icon={
                 isPoap ? (
                     <PoapIcon width={24} height={24} />

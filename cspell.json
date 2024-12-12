@@ -111,7 +111,8 @@
         "zora",
         "reposted",
         "zustand",
-        "daos"
+        "daos",
+        "sponsorable"
     ],
     "ignoreWords": [
         "DEVNET",
@@ -222,7 +223,8 @@
         "Thirdpart",
         "orbcommunities",
         "Magiceden",
-        "linea"
+        "linea",
+        "ifrandom"
     ],
     "flagWords": [],
     "ignorePaths": [

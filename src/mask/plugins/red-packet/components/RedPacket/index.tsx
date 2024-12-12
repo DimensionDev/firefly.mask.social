@@ -3,7 +3,6 @@ import { Plural, select, t, Trans } from '@lingui/macro';
 import { delay } from '@masknet/kit';
 import { useLastRecognizedIdentity, usePostInfoDetails, usePostLink } from '@masknet/plugin-infra/content-script';
 import { LoadingStatus, TransactionConfirmModal } from '@masknet/shared';
-import { EMPTY_LIST } from '@masknet/shared-base';
 import { formatBalance, isZero, TokenType } from '@masknet/web3-shared-base';
 import { ChainId } from '@masknet/web3-shared-evm';
 import { Card, Grow, Stack, Typography } from '@mui/material';
@@ -11,7 +10,7 @@ import { memo, useCallback, useMemo, useState } from 'react';
 import parseColor from 'tinycolor2';
 
 import type { SocialSource } from '@/constants/enum.js';
-import { SITE_URL } from '@/constants/index.js';
+import { EMPTY_LIST, SITE_URL } from '@/constants/index.js';
 import { Image } from '@/esm/Image.js';
 import { useChainContext } from '@/hooks/useChainContext.js';
 import type { HappyRedPacketV4 } from '@/mask/bindings/constants.js';
@@ -27,6 +26,7 @@ import { useRefundCallback } from '@/mask/plugins/red-packet/hooks/useRefundCall
 import { ComposeModalRef, LoginModalRef } from '@/modals/controls.js';
 import { FireflyRedPacket } from '@/providers/red-packet/index.js';
 import { type FireflyRedPacketAPI, type RedPacketJSONPayload, RedPacketStatus } from '@/providers/red-packet/types.js';
+import type { Post } from '@/providers/types/SocialMedia.js';
 
 async function share(text: string, source?: SocialSource) {
     TransactionConfirmModal.close();
@@ -173,9 +173,10 @@ const useStyles = makeStyles<{ outdated: boolean }>()((theme, { outdated }) => {
 
 export interface RedPacketProps {
     payload: RedPacketJSONPayload;
+    post: Post;
 }
 
-export const RedPacket = memo(function RedPacket({ payload }: RedPacketProps) {
+export const RedPacket = memo(function RedPacket({ payload, post }: RedPacketProps) {
     const token = payload.token;
     const payloadChainId = token?.chainId ?? EVMChainResolver.chainId(payload.network ?? '') ?? ChainId.Mainnet;
     const { account } = useChainContext();
@@ -188,7 +189,7 @@ export const RedPacket = memo(function RedPacket({ payload }: RedPacketProps) {
         claimStrategyStatus,
         recheckClaimStatus,
         checkingClaimStatus,
-    } = useAvailabilityComputed(account, payload);
+    } = useAvailabilityComputed(payload, post);
 
     // #endregion
 
@@ -197,7 +198,11 @@ export const RedPacket = memo(function RedPacket({ payload }: RedPacketProps) {
     // #region remote controlled transaction dialog
     const postLink = usePostLink();
 
-    const [{ loading: isClaiming, value: claimTxHash }, claimCallback] = useClaimCallback(account, payload);
+    const [{ loading: isClaiming, value: claimTxHash }, claimCallback] = useClaimCallback(
+        account,
+        payload,
+        post.source,
+    );
     const source = usePostInfoDetails.source() as SocialSource | null;
     const platform = source?.toLowerCase() as 'lens' | 'farcaster' | 'twitter';
     const postUrl = usePostInfoDetails.url();
@@ -362,6 +367,8 @@ Grow your followers and engagement with Lucky Drop on Firefly mobile app or http
                     aria-label="Token"
                     src={new URL('@/mask/plugins/red-packet/assets/tokenLabel.png', import.meta.url).toString()}
                     className={classes.tokenLabel}
+                    width={188}
+                    height={188}
                 />
                 <div className={classes.header}>
                     {/* it might be fontSize: 12 on twitter based on theme? */}
