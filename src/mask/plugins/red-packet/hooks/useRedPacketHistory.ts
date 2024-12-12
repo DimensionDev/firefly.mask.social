@@ -1,5 +1,3 @@
-import type { Pageable, PageIndicator } from '@masknet/shared-base';
-import { createIndicator } from '@masknet/shared-base';
 import {
     type InfiniteData,
     useSuspenseInfiniteQuery,
@@ -7,6 +5,7 @@ import {
 } from '@tanstack/react-query';
 import type { Hex } from 'viem';
 
+import { createIndicator, type Pageable, type PageIndicator } from '@/helpers/pageable.js';
 import { FireflyRedPacket } from '@/providers/red-packet/index.js';
 import { FireflyRedPacketAPI } from '@/providers/red-packet/types.js';
 

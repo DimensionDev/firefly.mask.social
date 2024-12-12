@@ -24,7 +24,7 @@ export function useClaimCallback(account: string, payload: RedPacketJSONPayload 
     const { refetch } = useSignedMessage(account, payload);
     return useAsyncFn(async () => {
         if (!redPacketContract || !rpid) return;
-        const sponsorable = await FireflyRedPacket.checkGasFreeStatus(account, chainId);
+        const sponsorable = await FireflyRedPacket.checkGasFreeStatus(chainId, account);
         if (sponsorable) {
             const hash = await FireflyRedPacket.claimForGasFree(rpid, account);
             return hash;

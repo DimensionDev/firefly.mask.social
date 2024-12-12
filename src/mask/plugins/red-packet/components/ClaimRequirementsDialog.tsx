@@ -1,7 +1,6 @@
 import { t, Trans } from '@lingui/macro';
 import { getEnumAsArray } from '@masknet/kit';
 import { Alert, SelectNonFungibleContractModal } from '@masknet/shared';
-import { EMPTY_LIST, NetworkPluginID } from '@masknet/shared-base';
 import type { NonFungibleCollection } from '@masknet/web3-shared-base';
 import { ChainId, SchemaType } from '@masknet/web3-shared-evm';
 import {
@@ -17,6 +16,8 @@ import {
 } from '@mui/material';
 import { useCallback, useState } from 'react';
 
+import { NetworkPluginID } from '@/constants/enum.js';
+import { EMPTY_LIST } from '@/constants/index.js';
 import { Image } from '@/esm/Image.js';
 import { useChainContext } from '@/hooks/useChainContext.js';
 import { type GeneratedIcon, Icons } from '@/mask/bindings/components.js';

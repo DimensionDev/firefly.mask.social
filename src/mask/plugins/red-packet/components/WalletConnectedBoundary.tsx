@@ -1,12 +1,12 @@
 'use client';
 
 import { Trans } from '@lingui/macro';
-import { useChainContext, useNativeTokenBalance } from '@masknet/web3-hooks-base';
-import { isZero } from '@masknet/web3-shared-base';
+import type { ChainId } from '@masknet/web3-shared-evm';
+import { useBalance } from 'wagmi';
 
+import { useChainContext } from '@/hooks/useChainContext.js';
 import { ActionButton, type ActionButtonProps } from '@/mask/bindings/components.js';
 import { makeStyles } from '@/mask/bindings/index.js';
-import type { Web3Helper } from '@/maskbook/packages/web3-helpers/src/index.js';
 
 const useStyles = makeStyles()({
     button: {
@@ -17,7 +17,7 @@ const useStyles = makeStyles()({
 export interface WalletConnectedBoundaryProps extends withClasses<'connectWallet' | 'button'> {
     offChain?: boolean;
     children?: React.ReactNode;
-    expectedChainId: Web3Helper.ChainIdAll;
+    expectedChainId: ChainId;
     ActionButtonProps?: ActionButtonProps;
     startIcon?: React.ReactNode;
     noGasText?: string;
@@ -31,7 +31,7 @@ export function WalletConnectedBoundary(props: WalletConnectedBoundaryProps) {
 
     const { account, chainId: chainIdValid } = useChainContext({ chainId: expectedChainId });
 
-    const nativeTokenBalance = useNativeTokenBalance(undefined, {
+    const nativeTokenBalance = useBalance({
         chainId: chainIdValid,
     });
 
@@ -44,17 +44,19 @@ export function WalletConnectedBoundary(props: WalletConnectedBoundaryProps) {
             </ActionButton>
         );
 
-    if (!isIgnoreGasCheck && isZero(nativeTokenBalance.value ?? '0') && !offChain)
+    if (!isIgnoreGasCheck && !(nativeTokenBalance.data?.value ?? 0n) && !offChain)
         return (
             <ActionButton
                 className={buttonClass}
                 disabled
                 fullWidth
                 variant="contained"
-                onClick={nativeTokenBalance.retry}
+                onClick={async () => {
+                    await nativeTokenBalance.refetch();
+                }}
                 {...props.ActionButtonProps}
             >
-                {nativeTokenBalance.loading ? (
+                {nativeTokenBalance.isLoading ? (
                     <Trans>Updating Gas Fee…</Trans>
                 ) : (
                     (noGasText ?? <Trans>No Enough Gas Fe</Trans>)
