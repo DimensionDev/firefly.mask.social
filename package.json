@@ -44,7 +44,6 @@
         "@lingui/react": "^4.13.0",
         "@livepeer/react": "4.2.7",
         "@masknet/kit": "^0.4.1",
-        "@mui/icons-material": "5.15.12",
         "@mui/lab": "5.0.0-alpha.167",
         "@mui/material": "5.15.12",
         "@mui/x-date-pickers": "^7.18.0",

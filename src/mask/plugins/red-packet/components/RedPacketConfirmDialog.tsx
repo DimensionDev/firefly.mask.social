@@ -4,7 +4,7 @@ import { NetworkPluginID } from '@masknet/shared-base';
 import { useNativeTokenPrice } from '@masknet/web3-hooks-base';
 import { isZero } from '@masknet/web3-shared-base';
 import { type ChainId, type GasConfig } from '@masknet/web3-shared-evm';
-import { Launch as LaunchIcon } from '@mui/icons-material';
+import { RocketLaunchIcon } from '@heroicons/react/24/outline';
 import { Grid, Link, Paper, Typography } from '@mui/material';
 import { useEffect, useMemo } from 'react';
 
@@ -147,7 +147,7 @@ export function RedPacketConfirmDialog(props: ConfirmRedPacketFormProps) {
                                     rel="noopener noreferrer"
                                     onClick={stop}
                                 >
-                                    <LaunchIcon fontSize="small" />
+                                    <RocketLaunchIcon fontSize="small" />
                                 </Link>
                                 {isBalanceInsufficient ? '0' : formatAvg} {settings?.token?.symbol}
                             </Typography>
@@ -177,7 +177,7 @@ export function RedPacketConfirmDialog(props: ConfirmRedPacketFormProps) {
                             rel="noopener noreferrer"
                             onClick={stop}
                         >
-                            <LaunchIcon fontSize="small" />
+                            <RocketLaunchIcon fontSize="small" />
                         </Link>
                         {formatTotal} {settings?.token?.symbol}
                     </Typography>
