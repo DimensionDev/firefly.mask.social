@@ -1,7 +1,9 @@
-import { createIndicator } from '@masknet/shared-base';
-import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
+import {
+    useSuspenseInfiniteQuery,
+} from '@tanstack/react-query';
 import type { Hex } from 'viem';
 
+import { createIndicator } from '@/helpers/pageable.js';
 import { FireflyRedPacket } from '@/providers/red-packet/index.js';
 import { FireflyRedPacketAPI } from '@/providers/red-packet/types.js';
 

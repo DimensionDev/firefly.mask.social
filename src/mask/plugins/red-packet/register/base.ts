@@ -1,7 +1,8 @@
 import type { Plugin } from '@masknet/plugin-infra';
-import { EnhanceableSite, NetworkPluginID, PluginID } from '@masknet/shared-base';
+import { EnhanceableSite, PluginID } from '@masknet/shared-base';
 import { ChainId } from '@masknet/web3-shared-evm';
 
+import { NetworkPluginID } from '@/constants/enum.js';
 import { RedPacketMetaKey } from '@/mask/plugins/red-packet/constants.js';
 
 export const base: Plugin.Shared.Definition = {

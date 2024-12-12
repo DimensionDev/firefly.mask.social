@@ -1,10 +1,10 @@
-import { createLookupTableResolver } from '@masknet/shared-base';
 import urlcat from 'urlcat';
 
 import { useActivityCurrentAccountHandle } from '@/components/Activity/hooks/useActivityCurrentAccountHandle.js';
 import { PageRoute, type SocialSource, Source } from '@/constants/enum.js';
 import { UnreachableError } from '@/constants/error.js';
 import { SITE_URL } from '@/constants/index.js';
+import { createLookupTableResolver } from '@/helpers/createLookupTableResolver.js';
 import { ReferralAccountPlatform, resolveActivityUrl } from '@/helpers/resolveActivityUrl.js';
 
 const resolveReferralAccountPlatformFromSocialSource = createLookupTableResolver<SocialSource, ReferralAccountPlatform>(

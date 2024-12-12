@@ -36,7 +36,7 @@ export function useClaimCallback(
         if (globalChainId !== chainId) await switchChain(config, { chainId });
 
         if (!redpacketContractAddress || !rpid) return;
-        const sponsorable = await FireflyRedPacket.checkGasFreeStatus(account, chainId);
+        const sponsorable = await FireflyRedPacket.checkGasFreeStatus(chainId, account);
         if (sponsorable) {
             const hash = await FireflyRedPacket.claimForGasFree(rpid, account);
             return hash;

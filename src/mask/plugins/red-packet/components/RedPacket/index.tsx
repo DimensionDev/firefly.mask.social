@@ -3,7 +3,6 @@ import { Plural, select, t, Trans } from '@lingui/macro';
 import { delay } from '@masknet/kit';
 import { useLastRecognizedIdentity, usePostInfoDetails, usePostLink } from '@masknet/plugin-infra/content-script';
 import { LoadingStatus, TransactionConfirmModal } from '@masknet/shared';
-import { EMPTY_LIST } from '@masknet/shared-base';
 import { formatBalance, isZero, TokenType } from '@masknet/web3-shared-base';
 import { ChainId } from '@masknet/web3-shared-evm';
 import { Card, Grow, Stack, Typography } from '@mui/material';
@@ -11,7 +10,7 @@ import { memo, useCallback, useMemo, useState } from 'react';
 import parseColor from 'tinycolor2';
 
 import type { SocialSource } from '@/constants/enum.js';
-import { SITE_URL } from '@/constants/index.js';
+import { EMPTY_LIST, SITE_URL } from '@/constants/index.js';
 import { Image } from '@/esm/Image.js';
 import { useChainContext } from '@/hooks/useChainContext.js';
 import type { HappyRedPacketV4 } from '@/mask/bindings/constants.js';
