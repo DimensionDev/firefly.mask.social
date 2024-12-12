@@ -34,9 +34,6 @@ export default {
         scrollRestoration: true,
         serverSourceMaps: false,
         swcPlugins: [['@lingui/swc-plugin', {}]],
-        serverActions: {
-            bodySizeLimit: '80mb',
-        },
     },
     images: {
         dangerouslyAllowSVG: false,
