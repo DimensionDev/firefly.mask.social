@@ -3,11 +3,6 @@ import { usePluginWrapper } from '@masknet/plugin-infra/content-script';
 import { memo } from 'react';
 
 import { RedPacketInjection } from '@/mask/plugins/red-packet/components/RedPacketInjection.js';
-import { RedPacketInPost } from '@/mask/plugins/red-packet/components/RedPacketInPost.js';
-import {
-    RedPacketMetadataReader,
-    renderWithRedPacketMetadata,
-} from '@/mask/plugins/red-packet/helpers/renderWithRedPacketMetadata.js';
 import { base } from '@/mask/plugins/red-packet/register/base.js';
 
 function Render(
@@ -24,14 +19,14 @@ const site: Plugin.SiteAdaptor.Definition = {
     DecryptedInspector: memo(function RedPacketInspector(props) {
         const meta = props.message.meta;
 
-        if (RedPacketMetadataReader(meta).isOk())
-            return (
-                <Render name="Lucky Drop">
-                    {renderWithRedPacketMetadata(meta, (r) => (
-                        <RedPacketInPost payload={r} />
-                    ))}
-                </Render>
-            );
+        // if (RedPacketMetadataReader(meta).isOk())
+        //     return (
+        //         <Render name="Lucky Drop">
+        //             {renderWithRedPacketMetadata(meta, (r) => (
+        //                 // <RedPacketInPost payload={r} />
+        //             ))}
+        //         </Render>
+        //     );
 
         return null;
     }),

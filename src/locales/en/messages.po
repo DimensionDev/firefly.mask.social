@@ -277,6 +277,9 @@ msgstr "Tax can be modified"
 msgid "<0>Burned</0><1/>"
 msgstr "<0>Burned</0><1/>"
 
+msgid "🤑 Just claimed a #FireflyLuckyDrop 🧧💰✨ on {postUrl} !"
+msgstr "🤑 Just claimed a #FireflyLuckyDrop 🧧💰✨ on {postUrl} !"
+
 msgid "Join our Discord"
 msgstr "Join our Discord"
 
@@ -1280,6 +1283,9 @@ msgstr "Executed"
 msgid "EVM"
 msgstr "EVM"
 
+msgid "{0}d {1}h {2}m {3}s"
+msgstr "{0}d {1}h {2}m {3}s"
+
 msgid "[LuckyDrop]"
 msgstr "[LuckyDrop]"
 
@@ -1303,6 +1309,9 @@ msgstr "Your draft was saved."
 
 msgid "You can withdraw the rest of your balances back 24h later after sending them out."
 msgstr "You can withdraw the rest of your balances back 24h later after sending them out."
+
+msgid "Verify and Claim"
+msgstr "Verify and Claim"
 
 msgid "Kamala Harris"
 msgstr "Kamala Harris"
@@ -2685,6 +2694,9 @@ msgstr "By clicking \"Next\", you acknowledge the risk associated with decentral
 msgid "{handleOrEnsOrAddress} unwatched"
 msgstr "{handleOrEnsOrAddress} unwatched"
 
+msgid "🤑 Check this #FireflyLuckyDrop 🧧💰✨ on {postUrl} !"
+msgstr "🤑 Check this #FireflyLuckyDrop 🧧💰✨ on {postUrl} !"
+
 msgid "Saved on {0} at {1}"
 msgstr "Saved on {0} at {1}"
 
@@ -3084,6 +3096,9 @@ msgstr "News"
 msgid "NFT ID"
 msgstr "NFT ID"
 
+msgid "Your claimed {0} {1}."
+msgstr "Your claimed {0} {1}."
+
 msgid "Confirm Lucky drop"
 msgstr "Confirm Lucky drop"
 
@@ -3146,6 +3161,9 @@ msgstr "Unmute"
 
 msgid "Firefly Bridge"
 msgstr "Firefly Bridge"
+
+msgid "Congratulations!"
+msgstr "Congratulations!"
 
 msgid "Clear all requirements"
 msgstr "Clear all requirements"

@@ -40,8 +40,8 @@ export function useAvailableBalance(address: `0x${string}`, gas: number, overrid
         const result = balance.value - BigInt(gasFee.toNumber());
         return {
             ...balance,
-            formatted: formatBalance(result.toString(), balance.decimals),
-            value: result,
+            formatted: result < 0 ? '0' : formatBalance(result.toString(), balance.decimals),
+            value: result < 0 ? 0 : result,
             gasFee,
             origin: balance,
         };

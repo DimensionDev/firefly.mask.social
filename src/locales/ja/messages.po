@@ -282,6 +282,9 @@ msgstr ""
 msgid "<0>Burned</0><1/>"
 msgstr ""
 
+msgid "🤑 Just claimed a #FireflyLuckyDrop 🧧💰✨ on {postUrl} !"
+msgstr ""
+
 msgid "Join our Discord"
 msgstr ""
 
@@ -1283,6 +1286,9 @@ msgstr ""
 msgid "EVM"
 msgstr ""
 
+msgid "{0}d {1}h {2}m {3}s"
+msgstr ""
+
 msgid "[LuckyDrop]"
 msgstr ""
 
@@ -1305,6 +1311,9 @@ msgid "Your draft was saved."
 msgstr ""
 
 msgid "You can withdraw the rest of your balances back 24h later after sending them out."
+msgstr ""
+
+msgid "Verify and Claim"
 msgstr ""
 
 msgid "Kamala Harris"
@@ -2686,6 +2695,9 @@ msgstr ""
 msgid "{handleOrEnsOrAddress} unwatched"
 msgstr ""
 
+msgid "🤑 Check this #FireflyLuckyDrop 🧧💰✨ on {postUrl} !"
+msgstr ""
+
 msgid "Saved on {0} at {1}"
 msgstr ""
 
@@ -3085,6 +3097,9 @@ msgstr ""
 msgid "NFT ID"
 msgstr ""
 
+msgid "Your claimed {0} {1}."
+msgstr ""
+
 msgid "Confirm Lucky drop"
 msgstr ""
 
@@ -3146,6 +3161,9 @@ msgid "Unmute"
 msgstr ""
 
 msgid "Firefly Bridge"
+msgstr ""
+
+msgid "Congratulations!"
 msgstr ""
 
 msgid "Clear all requirements"
