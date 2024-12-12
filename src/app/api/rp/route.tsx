@@ -50,6 +50,7 @@ const PayloadSchema = z.object({
         .nonnegative()
         .transform((x) => x.toString(10)),
     token: TokenSchema,
+    message: z.string(),
 });
 
 function parseParams(params: URLSearchParams) {
@@ -83,6 +84,7 @@ function parseParams(params: URLSearchParams) {
                 amount: params.get('amount') ?? '0',
                 from,
                 token,
+                message: params.get('message') ?? 'Best Wishes!',
             });
         default:
             return;
