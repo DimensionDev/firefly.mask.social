@@ -14,6 +14,7 @@ export function MessageText({ theme, message, ...props }: MessageTextProps) {
                 ...getCSSPropertiesFromThemeSettings(theme.normal.title1),
                 display: 'flex',
                 fontSize: 40,
+                lineHeight: '47.5px',
                 ...props.ContainerStyle,
             }}
         >
