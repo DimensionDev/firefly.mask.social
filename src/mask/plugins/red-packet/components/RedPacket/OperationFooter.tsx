@@ -1,5 +1,5 @@
 import { t, Trans } from '@lingui/macro';
-import { ChainBoundary } from '@masknet/shared';
+import { ChainBoundary, WalletConnectedBoundary } from '@masknet/shared';
 import { ChainId } from '@masknet/web3-shared-evm';
 import { Box, useTheme } from '@mui/material';
 import type { MouseEventHandler } from 'react';
