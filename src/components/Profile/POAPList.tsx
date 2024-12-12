@@ -25,7 +25,7 @@ import { resolveNftUrl } from '@/helpers/resolveNftUrl.js';
 import { resolveProfileUrl } from '@/helpers/resolveProfileUrl.js';
 import { resolveWalletProfileProvider } from '@/helpers/resolveWalletProfileProvider.js';
 import type { NFTAsset } from '@/providers/types/Firefly.js';
-import { fillBookmarkStatusForPagination } from '@/services/fillBookmarkStatusForNFT.js';
+import { fillBookmarkStatusForNonFungibleAssets } from '@/services/fillBookmarkStatusForNFT.js';
 
 const GridList = forwardRef<HTMLDivElement, GridListProps>(function GridList({ className, children, ...props }, ref) {
     return (
@@ -151,7 +151,10 @@ export function POAPList(props: { address: string }) {
                 contractAddress: POAP_CONTRACT_ADDRESS,
             });
 
-            return fillBookmarkStatusForPagination(response);
+            return {
+                ...response,
+                data: await fillBookmarkStatusForNonFungibleAssets(response.data),
+            };
         },
         getNextPageParam: (lastPage) => lastPage?.nextIndicator?.id,
         select: (data) => data.pages.flatMap((page) => page.data ?? EMPTY_LIST),

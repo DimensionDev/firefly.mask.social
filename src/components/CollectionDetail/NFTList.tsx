@@ -9,7 +9,7 @@ import { getNFTItemContent, POAPGridListComponent } from '@/components/Profile/P
 import { EMPTY_LIST } from '@/constants/index.js';
 import { createIndicator } from '@/helpers/pageable.js';
 import { resolveWalletProfileProvider } from '@/helpers/resolveWalletProfileProvider.js';
-import { fillBookmarkStatusForPagination } from '@/services/fillBookmarkStatusForNFT.js';
+import { fillBookmarkStatusForNonFungibleAssets } from '@/services/fillBookmarkStatusForNFT.js';
 
 interface NFTListProps extends Partial<GridListInPageProps> {
     address: string;
@@ -32,7 +32,10 @@ export function NFTList(props: NFTListProps) {
                 ? await provider.getNFTsByCollectionId(collectionId, { indicator, chainId }, true)
                 : await provider.getNFTs(address, { indicator, chainId }, true);
 
-            return fillBookmarkStatusForPagination(response);
+            return {
+                ...response,
+                data: await fillBookmarkStatusForNonFungibleAssets(response.data),
+            };
         },
         getNextPageParam: (lastPage) => lastPage?.nextIndicator?.id,
         select: (data) => data.pages.flatMap((page) => page.data ?? EMPTY_LIST),
