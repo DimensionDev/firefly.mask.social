@@ -37,16 +37,15 @@ function Timer({ endTime }: { endTime: number }) {
     const [now, setNow] = useState(Date.now());
 
     const timeLeft = getTimeLeft(endTime, now);
-
-    const isExpire = dayjs(now).isAfter(endTime);
+    const isExpired = dayjs(now).isAfter(endTime);
 
     useInterval(
         () => {
             setNow(Date.now());
         },
-        !isExpire ? 1000 : null,
+        !isExpired ? 1000 : null,
     );
-    if (isExpire) return null;
+    if (isExpired || !timeLeft) return null;
     return (
         <div className="flex w-[146px] items-center justify-center gap-[6px] rounded-full bg-[#E8E8FF] px-[13px] py-[7px] opacity-75 backdrop-blur-[5px]">
             <HourGlassIcon width={12} height={12} />
