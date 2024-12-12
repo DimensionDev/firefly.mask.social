@@ -33,31 +33,19 @@ export function RedPacketCover({
 }: CoverProps) {
     return (
         <CoverContainer
-            theme={theme}
             ContainerStyle={{
                 color: '#000',
             }}
         >
-            <MessageText theme={theme} message={message} ContainerStyle={{ top: 520 }} />
+            <div style={{ display: 'flex', flexDirection: 'column', rowGap: 8 }}>
+                <MessageText theme={theme} message={message} />
+                <AuthorText theme={theme} usage={UsageType.Cover} from={from} />
+            </div>
 
-            <AmountProgressText theme={theme} amount={amount} remainingAmount={remainingAmount} token={token} />
-
-            <ClaimProgressText
-                theme={theme}
-                shares={shares}
-                remainingShares={remainingShares}
-                ContainerStyle={{ left: 60, bottom: 37.5 }}
-            />
-
-            <AuthorText
-                theme={theme}
-                usage={UsageType.Cover}
-                from={from}
-                ContainerStyle={{
-                    right: 60,
-                    bottom: 37.5,
-                }}
-            />
+            <div style={{ display: 'flex', flexDirection: 'column', rowGap: 8 }}>
+                <ClaimProgressText theme={theme} shares={shares} remainingShares={remainingShares} />
+                <AmountProgressText theme={theme} amount={amount} remainingAmount={remainingAmount} token={token} />
+            </div>
         </CoverContainer>
     );
 }
