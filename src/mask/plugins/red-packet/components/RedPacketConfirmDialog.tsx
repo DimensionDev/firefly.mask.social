@@ -1,10 +1,10 @@
+import { RocketLaunchIcon } from '@heroicons/react/24/outline';
 import { Trans } from '@lingui/macro';
 import { ChainBoundary, PluginWalletStatusBar, SelectGasSettingsToolbar } from '@masknet/shared';
 import { NetworkPluginID } from '@masknet/shared-base';
 import { useNativeTokenPrice } from '@masknet/web3-hooks-base';
 import { isZero } from '@masknet/web3-shared-base';
 import { type ChainId, type GasConfig } from '@masknet/web3-shared-evm';
-import { RocketLaunchIcon } from '@heroicons/react/24/outline';
 import { Grid, Link, Paper, Typography } from '@mui/material';
 import { useEffect, useMemo } from 'react';
 
