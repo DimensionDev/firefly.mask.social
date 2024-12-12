@@ -13,7 +13,7 @@ import type { Address } from 'viem';
 import HourGlassIcon from '@/assets/hourglass.svg';
 import RedPacketIcon from '@/assets/red-packet.svg';
 import { ClickableArea } from '@/components/ClickableArea.js';
-import { RedpacketCardFooter } from '@/components/RedPacket/RedpacketCardFooter.js';
+import { RedpacketCardFooter } from '@/components/RedPacket/RedPacketCardFooter.js';
 import { RequirementsModal } from '@/components/RedPacket/RequirementsModal.js';
 import { SITE_URL } from '@/constants/index.js';
 import { Image } from '@/esm/Image.js';

@@ -23,7 +23,7 @@ import {
     REQUIREMENT_TITLE_MAP,
 } from '@/mask/plugins/red-packet/components/ClaimRequirementsDialog.js';
 import { type RedPacketSettings } from '@/mask/plugins/red-packet/hooks/useCreateCallback.js';
-import { useCreateFTRedpacketCallback } from '@/mask/plugins/red-packet/hooks/useCreateFTRedpacketCallback.js';
+import { useCreateFTRedpacketCallback } from '@/mask/plugins/red-packet/hooks/useCreateFTRedPacketCallback.js';
 import {
     type FireflyContext,
     type FireflyRedpacketSettings,

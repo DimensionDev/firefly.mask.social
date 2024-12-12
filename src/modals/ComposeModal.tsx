@@ -225,7 +225,7 @@ export const ComposeModalUI = forwardRef<SingletonModalRefCreator<ComposeModalOp
             return urlcat(location.origin, getProfileUrl(preferProfile));
         }, [currentProfileAll, availableSources]);
 
-        // Avoid recreating post content for Redpacket
+        // Avoid recreating post content for red packet
         const { loading: encryptRedPacketLoading } = useAsync(async () => {
             const { cursor } = useComposeStateStore.getState();
             const compositePost = getCompositePost(cursor);

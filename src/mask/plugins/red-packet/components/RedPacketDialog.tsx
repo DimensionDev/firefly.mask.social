@@ -21,7 +21,7 @@ import { Icons, MaskTabList, useTabs } from '@/mask/bindings/components.js';
 import { makeStyles } from '@/mask/bindings/index.js';
 import { ClaimRequirementsDialog } from '@/mask/plugins/red-packet/components/ClaimRequirementsDialog.js';
 import { ClaimRequirementsRuleDialog } from '@/mask/plugins/red-packet/components/ClaimRequirementsRuleDialog.js';
-import { FireflyRedpacketConfirmDialog } from '@/mask/plugins/red-packet/components/FireflyRedpacketConfirmDialog.js';
+import { FireflyRedpacketConfirmDialog } from '@/mask/plugins/red-packet/components/FireflyRedPacketConfirmDialog.js';
 import { FireflyRedPacketHistoryDetails } from '@/mask/plugins/red-packet/components/FireflyRedPacketHistoryDetails.js';
 import { FireflyRedPacketPast } from '@/mask/plugins/red-packet/components/FireflyRedPacketPast.js';
 import { RedPacketERC20Form } from '@/mask/plugins/red-packet/components/RedPacketERC20Form.js';
@@ -280,7 +280,7 @@ export default function RedPacketDialog(props: RedPacketDialogProps) {
                 titleTail={titleTail}
                 titleTabs={
                     step === CreateRedPacketPageStep.NewRedPacketPage && showHistory && !showDetails ? (
-                        <MaskTabList variant="base" onChange={onChangeHistoryTab} aria-label="Redpacket">
+                        <MaskTabList variant="base" onChange={onChangeHistoryTab} aria-label="RedPacket">
                             <Tab label={t`Claimed`} value={historyTabs.claimed} />
                             <Tab label={t`Sent`} value={historyTabs.sent} />
                         </MaskTabList>

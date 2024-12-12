@@ -4,7 +4,7 @@ import { Trans } from '@lingui/macro';
 import { first } from 'lodash-es';
 import { useAsyncRetry } from 'react-use';
 
-import { RedpacketCard } from '@/components/RedPacket/RedpacketCard.js';
+import { RedpacketCard } from '@/components/RedPacket/RedPacketCard.js';
 import type { EncryptedPayload } from '@/helpers/getEncryptedPayload.js';
 import { RedPacketMetadataReader } from '@/mask/plugins/red-packet/helpers/renderWithRedPacketMetadata.js';
 import type { Post } from '@/providers/types/SocialMedia.js';

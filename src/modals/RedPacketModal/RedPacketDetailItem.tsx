@@ -13,8 +13,8 @@ import { formatBalance } from '@/helpers/formatBalance.js';
 import { getNetworkDescriptor } from '@/helpers/getNetworkDescriptor.js';
 import { resolveSourceFromFireflyPlatform } from '@/helpers/resolveSource.js';
 import { useChainContext } from '@/hooks/useChainContext.js';
-import { RedpacketAccountItem } from '@/modals/RedpacketModal/RedpacketAccountItem.js';
-import { RedpacketActionButton } from '@/modals/RedpacketModal/RedpacketActionButton.js';
+import { RedpacketAccountItem } from '@/modals/RedpacketModal/RedPacketAccountItem.js';
+import { RedpacketActionButton } from '@/modals/RedpacketModal/RedPacketActionButton.js';
 import { FireflyRedPacketAPI } from '@/providers/red-packet/types.js';
 
 interface HistoryInfo {
