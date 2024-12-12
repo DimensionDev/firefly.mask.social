@@ -87,10 +87,10 @@ importers:
         version: 0.15.1(@solana/wallet-adapter-react-ui@0.9.35)(@solana/wallet-adapter-react@0.15.35)(@solana/web3.js@1.95.8)(bs58@5.0.0)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026)
       '@dimensiondev/holoflows-kit':
         specifier: 0.9.0-20240322092738-f9180f3
-        version: 0.9.0-20240322092738-f9180f3(@types/webextension-polyfill@0.10.7)
+        version: 0.9.0-20240322092738-f9180f3
       '@farcaster/core':
         specifier: ^0.15.6
-        version: 0.15.6(typescript@5.6.3)(zod@3.23.8)
+        version: 0.15.6(typescript@5.7.2)(zod@3.23.8)
       '@giphy/js-fetch-api':
         specifier: ^5.6.0
         version: 5.6.0
@@ -159,7 +159,7 @@ importers:
         version: 1.5.0
       '@okxweb3/dex-widget':
         specifier: ^1.3.3
-        version: 1.3.3(@tanstack/react-query@5.56.2)(@types/react@18.2.48)(@vercel/kv@1.0.1)(immer@10.1.1)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react-native@0.76.4)(react@0.0.0-experimental-8039e6d0b-20231026)(rollup@3.28.1)(typescript@5.6.3)(viem@2.21.54)(zod@3.23.8)
+        version: 1.3.3(@tanstack/react-query@5.56.2)(@types/react@18.2.48)(@vercel/kv@1.0.1)(immer@10.1.1)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react-native@0.76.4)(react@0.0.0-experimental-8039e6d0b-20231026)(rollup@3.28.1)(typescript@5.7.2)(viem@2.21.54)(zod@3.23.8)
       '@particle-network/auth-core':
         specifier: 2.0.4
         version: 2.0.4(patch_hash=7366xd6hdjwbiu226ytexflsbm)(@aws-sdk/client-sso-oidc@3.699.0)
@@ -168,10 +168,10 @@ importers:
         version: 2.0.16(patch_hash=av7zexp6hbco5a3dqlzwedo56u)(@aws-sdk/client-sso-oidc@3.699.0)(@particle-network/wallet@2.0.8)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026)(viem@2.21.54)
       '@reown/appkit':
         specifier: ^1.1.3
-        version: 1.1.3(@types/react@18.2.48)(@vercel/kv@1.0.1)(react@0.0.0-experimental-8039e6d0b-20231026)(typescript@5.6.3)(zod@3.23.8)
+        version: 1.1.3(@types/react@18.2.48)(@vercel/kv@1.0.1)(react@0.0.0-experimental-8039e6d0b-20231026)(typescript@5.7.2)(zod@3.23.8)
       '@reown/appkit-adapter-wagmi':
         specifier: ^1.1.3
-        version: 1.1.3(@coinbase/wallet-sdk@4.0.3)(@types/react@18.2.48)(@vercel/kv@1.0.1)(@wagmi/connectors@5.5.3)(@wagmi/core@2.13.8)(react@0.0.0-experimental-8039e6d0b-20231026)(typescript@5.6.3)(viem@2.21.54)(wagmi@2.12.18)(zod@3.23.8)
+        version: 1.1.3(@coinbase/wallet-sdk@4.0.3)(@types/react@18.2.48)(@vercel/kv@1.0.1)(@wagmi/connectors@5.5.3)(@wagmi/core@2.13.8)(react@0.0.0-experimental-8039e6d0b-20231026)(typescript@5.7.2)(viem@2.21.54)(wagmi@2.12.18)(zod@3.23.8)
       '@sentry/browser':
         specifier: ^7.112.2
         version: 7.112.2
@@ -183,7 +183,7 @@ importers:
         version: 4.0.1
       '@solana/spl-token':
         specifier: ^0.4.9
-        version: 0.4.9(@solana/web3.js@1.95.8)(fastestsmallesttextencoderdecoder@1.0.22)(typescript@5.6.3)
+        version: 0.4.9(@solana/web3.js@1.95.8)(fastestsmallesttextencoderdecoder@1.0.22)(typescript@5.7.2)
       '@solana/wallet-adapter-base':
         specifier: ^0.9.23
         version: 0.9.23(@solana/web3.js@1.95.8)
@@ -211,9 +211,6 @@ importers:
       '@tanstack/react-query':
         specifier: 5.56.2
         version: 5.56.2(react@0.0.0-experimental-8039e6d0b-20231026)
-      '@tanstack/react-query-devtools':
-        specifier: 5.58.0
-        version: 5.58.0(@tanstack/react-query@5.56.2)(react@0.0.0-experimental-8039e6d0b-20231026)
       '@tanstack/react-query-next-experimental':
         specifier: 5.56.2
         version: 5.56.2(@tanstack/react-query@5.56.2)(next@14.1.4)(react@0.0.0-experimental-8039e6d0b-20231026)
@@ -234,7 +231,7 @@ importers:
         version: 1.0.12(next@14.1.4)(react@0.0.0-experimental-8039e6d0b-20231026)
       '@wagmi/core':
         specifier: ^2.13.8
-        version: 2.13.8(@types/react@18.2.48)(immer@10.1.1)(react@0.0.0-experimental-8039e6d0b-20231026)(typescript@5.6.3)(viem@2.21.54)
+        version: 2.13.8(@types/react@18.2.48)(immer@10.1.1)(react@0.0.0-experimental-8039e6d0b-20231026)(typescript@5.7.2)(viem@2.21.54)
       async-call-rpc:
         specifier: ^6.4.2
         version: 6.4.2
@@ -271,6 +268,12 @@ importers:
       fuse.js:
         specifier: ^7.0.0
         version: 7.0.0
+      graphql:
+        specifier: ^16.9.0
+        version: 16.9.0
+      graphql-request:
+        specifier: ^6.0.0
+        version: 6.0.0(graphql@16.9.0)
       http-status-codes:
         specifier: ^2.3.0
         version: 2.3.0
@@ -383,8 +386,8 @@ importers:
         specifier: ^1.17.2
         version: 1.17.2
       typescript:
-        specifier: 5.6.3
-        version: 5.6.3
+        specifier: 5.7.2
+        version: 5.7.2
       unist-util-flatmap:
         specifier: ^1.0.0
         version: 1.0.0
@@ -394,9 +397,6 @@ importers:
       urlcat:
         specifier: ^3.1.0
         version: 3.1.0(patch_hash=5r5xyq4zgcnqugwsrx4lxq2i4e)
-      use-subscription:
-        specifier: ^1.8.2
-        version: 1.8.2(react@0.0.0-experimental-8039e6d0b-20231026)
       usehooks-ts:
         specifier: ^2.9.5
         version: 2.9.5(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026)
@@ -405,10 +405,10 @@ importers:
         version: 9.0.0
       viem:
         specifier: ^2.21.54
-        version: 2.21.54(typescript@5.6.3)(zod@3.23.8)
+        version: 2.21.54(typescript@5.7.2)(zod@3.23.8)
       wagmi:
         specifier: ^2.12.18
-        version: 2.12.18(@tanstack/react-query@5.56.2)(@types/react@18.2.48)(@vercel/kv@1.0.1)(immer@10.1.1)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react-native@0.76.4)(react@0.0.0-experimental-8039e6d0b-20231026)(rollup@3.28.1)(typescript@5.6.3)(viem@2.21.54)(zod@3.23.8)
+        version: 2.12.18(@tanstack/react-query@5.56.2)(@types/react@18.2.48)(@vercel/kv@1.0.1)(immer@10.1.1)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react-native@0.76.4)(react@0.0.0-experimental-8039e6d0b-20231026)(rollup@3.28.1)(typescript@5.7.2)(viem@2.21.54)(zod@3.23.8)
       zod:
         specifier: ^3.23.8
         version: 3.23.8
@@ -421,16 +421,16 @@ importers:
         version: 4.2.0
       '@lingui/cli':
         specifier: ^4.13.0
-        version: 4.13.0(typescript@5.6.3)
+        version: 4.13.0(typescript@5.7.2)
       '@lingui/conf':
         specifier: ^4.13.0
-        version: 4.13.0(typescript@5.6.3)
+        version: 4.13.0(typescript@5.7.2)
       '@lingui/loader':
         specifier: ^4.13.0
-        version: 4.13.0(typescript@5.6.3)
+        version: 4.13.0(typescript@5.7.2)
       '@lingui/macro':
         specifier: ^4.13.0
-        version: 4.13.0(@lingui/react@4.13.0)(babel-plugin-macros@3.1.0)(typescript@5.6.3)
+        version: 4.13.0(@lingui/react@4.13.0)(babel-plugin-macros@3.1.0)(typescript@5.7.2)
       '@lingui/swc-plugin':
         specifier: ^4.0.4
         version: 4.0.4(@lingui/macro@4.13.0)(next@14.1.4)
@@ -439,7 +439,7 @@ importers:
         version: 0.7.3
       '@svgr/webpack':
         specifier: ^8.1.0
-        version: 8.1.0(typescript@5.6.3)
+        version: 8.1.0(typescript@5.7.2)
       '@testing-library/jest-dom':
         specifier: ^6.5.0
         version: 6.5.0
@@ -496,10 +496,10 @@ importers:
         version: 9.0.3
       '@typescript-eslint/eslint-plugin':
         specifier: ^6.10.0
-        version: 6.10.0(@typescript-eslint/parser@6.5.0)(eslint@8.57.0)(typescript@5.6.3)
+        version: 6.10.0(@typescript-eslint/parser@6.5.0)(eslint@8.57.0)(typescript@5.7.2)
       '@typescript-eslint/parser':
         specifier: ^6.5.0
-        version: 6.5.0(eslint@8.57.0)(typescript@5.6.3)
+        version: 6.5.0(eslint@8.57.0)(typescript@5.7.2)
       '@typescript/lib-dom':
         specifier: npm:@types/web@^0.0.119
         version: /@types/web@0.0.119
@@ -532,7 +532,7 @@ importers:
         version: 8.57.0
       eslint-config-next:
         specifier: 13.5.2
-        version: 13.5.2(eslint@8.57.0)(typescript@5.6.3)
+        version: 13.5.2(eslint@8.57.0)(typescript@5.7.2)
       eslint-plugin-import:
         specifier: ^2.30.0
         version: 2.30.0(@typescript-eslint/parser@6.5.0)(eslint-import-resolver-typescript@3.7.0)(eslint@8.57.0)
@@ -554,12 +554,6 @@ importers:
       eslint-plugin-unused-imports:
         specifier: ^3.0.0
         version: 3.1.0(@typescript-eslint/eslint-plugin@6.10.0)(eslint@8.57.0)
-      graphql:
-        specifier: ^16.9.0
-        version: 16.9.0
-      graphql-request:
-        specifier: ^6.0.0
-        version: 6.0.0(graphql@16.9.0)
       html-webpack-plugin:
         specifier: ^5.6.3
         version: 5.6.3
@@ -601,7 +595,7 @@ importers:
     dependencies:
       '@dimensiondev/holoflows-kit':
         specifier: 0.9.0-20240322092738-f9180f3
-        version: 0.9.0-20240322092738-f9180f3(@types/webextension-polyfill@0.10.7)
+        version: 0.9.0-20240322092738-f9180f3
       '@emotion/cache':
         specifier: 11.11.0
         version: 11.11.0
@@ -812,7 +806,7 @@ importers:
     dependencies:
       '@dimensiondev/holoflows-kit':
         specifier: 0.9.0-20240322092738-f9180f3
-        version: 0.9.0-20240322092738-f9180f3(@types/webextension-polyfill@0.10.7)
+        version: 0.9.0-20240322092738-f9180f3
       urlcat:
         specifier: ^3.1.0
         version: 3.1.0(patch_hash=5r5xyq4zgcnqugwsrx4lxq2i4e)
@@ -1244,10 +1238,10 @@ importers:
     dependencies:
       '@typechain/web3-v1':
         specifier: ^6.0.2
-        version: 6.0.2(typechain@8.3.1)(typescript@5.6.3)(web3-core@1.10.2)(web3-eth-contract@1.10.2)(web3@1.10.4)
+        version: 6.0.2(typechain@8.3.1)(typescript@5.7.2)(web3-core@1.10.2)(web3-eth-contract@1.10.2)(web3@1.10.4)
       typechain:
         specifier: ^8.3.1
-        version: 8.3.1(typescript@5.6.3)
+        version: 8.3.1(typescript@5.7.2)
       web3-core:
         specifier: 1.10.2
         version: 1.10.2(patch_hash=7c6knffilb7dxuf3r2r5ttgbem)
@@ -4781,13 +4775,13 @@ packages:
       '@types/node': 20.11.9
       chalk: 4.1.2
       cosmiconfig: 8.3.6(typescript@5.5.0-beta)
-      cosmiconfig-typescript-loader: 4.4.0(@types/node@20.11.9)(cosmiconfig@8.3.6)(ts-node@10.9.2)(typescript@5.6.3)
+      cosmiconfig-typescript-loader: 4.4.0(@types/node@20.11.9)(cosmiconfig@8.3.6)(ts-node@10.9.2)(typescript@5.7.2)
       lodash.isplainobject: 4.0.6
       lodash.merge: 4.6.2
       lodash.uniq: 4.5.0
       resolve-from: 5.0.0
       ts-node: 10.9.2(@swc/core@1.3.106)(@types/node@20.11.9)(typescript@5.5.0-beta)
-      typescript: 5.6.3
+      typescript: 5.7.2
     transitivePeerDependencies:
       - '@swc/core'
       - '@swc/wasm'
@@ -5246,13 +5240,15 @@ packages:
       - utf-8-validate
     dev: false
 
-  /@dimensiondev/holoflows-kit@0.9.0-20240322092738-f9180f3(@types/webextension-polyfill@0.10.7):
+  /@dimensiondev/holoflows-kit@0.9.0-20240322092738-f9180f3:
     resolution: {integrity: sha512-VRnXRqsYNXq1jzNf6piJnUamtgVGuL5/8dVXl/Qy7xGyHBqLaHbQ6QKDCc/qf9Z3gFzFSjIZZle+pNPJ925psA==, tarball: https://npm.pkg.github.com/download/@DimensionDev/holoflows-kit/0.9.0-20240322092738-f9180f3/1d2e9df5c5cd2a733c547ceafed4860973f10836}
     peerDependencies:
       '@types/webextension-polyfill': ^0.10.0
+    peerDependenciesMeta:
+      '@types/webextension-polyfill':
+        optional: true
     dependencies:
       '@servie/events': 3.0.0
-      '@types/webextension-polyfill': 0.10.7
       lodash-es: 4.17.21
       tslib: 2.8.1
     dev: false
@@ -6632,7 +6628,7 @@ packages:
     engines: {node: '>=14.0.0', npm: '>=6.0.0'}
     dev: false
 
-  /@farcaster/core@0.15.6(typescript@5.6.3)(zod@3.23.8):
+  /@farcaster/core@0.15.6(typescript@5.7.2)(zod@3.23.8):
     resolution: {integrity: sha512-Vxq2JhqdZYEMjH4PIwPXQkalY46S4Mol2oCSHUafXenDx6WSoQJqF/4an4KyxGQbmA7Cf8+hl6zuNzkkHXEUyQ==}
     dependencies:
       '@faker-js/faker': 7.6.0
@@ -6640,7 +6636,7 @@ packages:
       '@noble/hashes': 1.5.0
       bs58: 5.0.0
       neverthrow: 6.2.2
-      viem: 2.21.54(typescript@5.6.3)(zod@3.23.8)
+      viem: 2.21.54(typescript@5.7.2)(zod@3.23.8)
     transitivePeerDependencies:
       - bufferutil
       - typescript
@@ -6768,6 +6764,7 @@ packages:
       graphql: ^0.8.0 || ^0.9.0 || ^0.10.0 || ^0.11.0 || ^0.12.0 || ^0.13.0 || ^14.0.0 || ^15.0.0 || ^16.0.0 || ^17.0.0
     dependencies:
       graphql: 16.9.0
+    dev: false
 
   /@headlessui/react@2.1.10(patch_hash=sxmmxbdm2j6wwsctvuk6kkdsda)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026):
     resolution: {integrity: sha512-6mLa2fjMDAFQi+/R10B+zU3edsUk/MDtENB2zHho0lqKU1uzhAfJLUduWds4nCo8wbl3vULtC5rJfZAQ1yqIng==}
@@ -7396,7 +7393,7 @@ packages:
     engines: {node: '>=16.0.0'}
     dev: true
 
-  /@lingui/cli@4.13.0(typescript@5.6.3):
+  /@lingui/cli@4.13.0(typescript@5.7.2):
     resolution: {integrity: sha512-NqQJmm2b3sf+Fb/blhcS2C6kqzkHVmS4m9VzQZZT0UvxN0Mw5S6hu0aAy/ndXBfRelNqMpdTFGBlrJn/IC6GjQ==}
     engines: {node: '>=16.0.0'}
     hasBin: true
@@ -7407,9 +7404,9 @@ packages:
       '@babel/runtime': 7.26.0
       '@babel/types': 7.26.3
       '@lingui/babel-plugin-extract-messages': 4.13.0
-      '@lingui/conf': 4.13.0(typescript@5.6.3)
+      '@lingui/conf': 4.13.0(typescript@5.7.2)
       '@lingui/core': 4.13.0
-      '@lingui/format-po': 4.13.0(typescript@5.6.3)
+      '@lingui/format-po': 4.13.0(typescript@5.7.2)
       '@lingui/message-utils': 4.13.0
       babel-plugin-macros: 3.1.0
       chalk: 4.1.2
@@ -7435,13 +7432,13 @@ packages:
       - typescript
     dev: true
 
-  /@lingui/conf@4.13.0(typescript@5.6.3):
+  /@lingui/conf@4.13.0(typescript@5.7.2):
     resolution: {integrity: sha512-7NSinlzgSMKBezLsSM7DMwr0IpTHKr8nuSDpTZpI79+BhW+Xq38jPRQqMXdzItW8Cl/Lsdr3Y3MnYJIl8tADsQ==}
     engines: {node: '>=16.0.0'}
     dependencies:
       '@babel/runtime': 7.26.0
       chalk: 4.1.2
-      cosmiconfig: 8.3.6(typescript@5.6.3)
+      cosmiconfig: 8.3.6(typescript@5.7.2)
       jest-validate: 29.7.0
       jiti: 1.21.6
       lodash.get: 4.4.2
@@ -7457,11 +7454,11 @@ packages:
       '@lingui/message-utils': 4.13.0
       unraw: 3.0.0
 
-  /@lingui/format-po@4.13.0(typescript@5.6.3):
+  /@lingui/format-po@4.13.0(typescript@5.7.2):
     resolution: {integrity: sha512-G//WCCXi0cZ9SGuZ0gwm7JCZEiKvENZViqceX8Qjid0r/Lwom3SGeZhVaqzWGQR5YoA8KBQ9elJrbcVJnKh97g==}
     engines: {node: '>=16.0.0'}
     dependencies:
-      '@lingui/conf': 4.13.0(typescript@5.6.3)
+      '@lingui/conf': 4.13.0(typescript@5.7.2)
       '@lingui/message-utils': 4.13.0
       date-fns: 3.6.0
       pofile: 1.1.4
@@ -7469,21 +7466,21 @@ packages:
       - typescript
     dev: true
 
-  /@lingui/loader@4.13.0(typescript@5.6.3):
+  /@lingui/loader@4.13.0(typescript@5.7.2):
     resolution: {integrity: sha512-uGtZ42hGzSTDCUulr1Qz+k3OZTvEZbSyQyTSsIeIa4aNf1j82cGIw9AzJ7UrutxkAhaWXK89eeh6gWCoOg4/rQ==}
     engines: {node: '>=16.0.0'}
     peerDependencies:
       webpack: Jack-Works/webpack#528c91e564d5756e21c9c462b607d913452af770
     dependencies:
       '@babel/runtime': 7.26.0
-      '@lingui/cli': 4.13.0(typescript@5.6.3)
-      '@lingui/conf': 4.13.0(typescript@5.6.3)
+      '@lingui/cli': 4.13.0(typescript@5.7.2)
+      '@lingui/conf': 4.13.0(typescript@5.7.2)
     transitivePeerDependencies:
       - supports-color
       - typescript
     dev: true
 
-  /@lingui/macro@4.13.0(@lingui/react@4.13.0)(babel-plugin-macros@3.1.0)(typescript@5.6.3):
+  /@lingui/macro@4.13.0(@lingui/react@4.13.0)(babel-plugin-macros@3.1.0)(typescript@5.7.2):
     resolution: {integrity: sha512-OjhaWOWbTCXHOOHNaGI0shMP3qrPjNZ19tpEx/iStAmJq64fkevx/HbDPI0uuqLX8v1NFWG/SzBMIQzJb5YOvA==}
     engines: {node: '>=16.0.0'}
     peerDependencies:
@@ -7492,7 +7489,7 @@ packages:
     dependencies:
       '@babel/runtime': 7.26.0
       '@babel/types': 7.26.3
-      '@lingui/conf': 4.13.0(typescript@5.6.3)
+      '@lingui/conf': 4.13.0(typescript@5.7.2)
       '@lingui/core': 4.13.0
       '@lingui/message-utils': 4.13.0
       '@lingui/react': 4.13.0(react@0.0.0-experimental-8039e6d0b-20231026)
@@ -7533,7 +7530,7 @@ packages:
       next:
         optional: true
     dependencies:
-      '@lingui/macro': 4.13.0(@lingui/react@4.13.0)(babel-plugin-macros@3.1.0)(typescript@5.6.3)
+      '@lingui/macro': 4.13.0(@lingui/react@4.13.0)(babel-plugin-macros@3.1.0)(typescript@5.7.2)
       next: 14.1.4(babel-plugin-macros@3.1.0)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026)
     dev: true
 
@@ -8207,7 +8204,7 @@ packages:
     dependencies:
       '@ethereumjs/tx': 4.2.0
       '@metamask/superstruct': 3.1.0
-      '@noble/hashes': 1.5.0
+      '@noble/hashes': 1.6.1
       '@scure/base': 1.2.1
       '@types/debug': 4.1.12
       debug: 4.4.0
@@ -8224,7 +8221,7 @@ packages:
     dependencies:
       '@ethereumjs/tx': 4.2.0
       '@metamask/superstruct': 3.1.0
-      '@noble/hashes': 1.5.0
+      '@noble/hashes': 1.6.1
       '@scure/base': 1.2.1
       '@types/debug': 4.1.12
       debug: 4.4.0
@@ -9163,7 +9160,7 @@ packages:
     engines: {node: '>=12.4.0'}
     dev: true
 
-  /@okxweb3/dex-widget@1.3.3(@tanstack/react-query@5.56.2)(@types/react@18.2.48)(@vercel/kv@1.0.1)(immer@10.1.1)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react-native@0.76.4)(react@0.0.0-experimental-8039e6d0b-20231026)(rollup@3.28.1)(typescript@5.6.3)(viem@2.21.54)(zod@3.23.8):
+  /@okxweb3/dex-widget@1.3.3(@tanstack/react-query@5.56.2)(@types/react@18.2.48)(@vercel/kv@1.0.1)(immer@10.1.1)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react-native@0.76.4)(react@0.0.0-experimental-8039e6d0b-20231026)(rollup@3.28.1)(typescript@5.7.2)(viem@2.21.54)(zod@3.23.8):
     resolution: {integrity: sha512-ht59D+uNHbwDhM5uyns8vWkd2/9EWglsDuHLDNNybKSpJ9PI8clcMlInPRO8AXSz7C0aWHY/j/ydDXDniI7L2A==}
     peerDependencies:
       react: 0.0.0-experimental-8039e6d0b-20231026 || 0.0.0-experimental-0a360642d-20230711
@@ -9178,7 +9175,7 @@ packages:
       bs58: 5.0.0
       react: 0.0.0-experimental-8039e6d0b-20231026
       react-dom: 0.0.0-experimental-8039e6d0b-20231026(react@0.0.0-experimental-8039e6d0b-20231026)
-      wagmi: 2.12.18(@tanstack/react-query@5.56.2)(@types/react@18.2.48)(@vercel/kv@1.0.1)(immer@10.1.1)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react-native@0.76.4)(react@0.0.0-experimental-8039e6d0b-20231026)(rollup@3.28.1)(typescript@5.6.3)(viem@2.21.54)(zod@3.23.8)
+      wagmi: 2.12.18(@tanstack/react-query@5.56.2)(@types/react@18.2.48)(@vercel/kv@1.0.1)(immer@10.1.1)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react-native@0.76.4)(react@0.0.0-experimental-8039e6d0b-20231026)(rollup@3.28.1)(typescript@5.7.2)(viem@2.21.54)(zod@3.23.8)
       web3-utils: 4.3.3
     transitivePeerDependencies:
       - '@azure/app-configuration'
@@ -9427,7 +9424,7 @@ packages:
       react-copy-to-clipboard: 5.1.0(react@0.0.0-experimental-8039e6d0b-20231026)
       react-shadow: 20.5.0(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react@0.0.0-experimental-8039e6d0b-20231026)
       uuid: 8.3.2
-      viem: 2.21.54(typescript@5.6.3)(zod@3.23.8)
+      viem: 2.21.54(typescript@5.7.2)(zod@3.23.8)
     transitivePeerDependencies:
       - '@aws-sdk/client-sso-oidc'
       - aws-crt
@@ -10470,7 +10467,7 @@ packages:
       react: 0.0.0-experimental-8039e6d0b-20231026
     dev: false
 
-  /@reown/appkit-adapter-wagmi@1.1.3(@coinbase/wallet-sdk@4.0.3)(@types/react@18.2.48)(@vercel/kv@1.0.1)(@wagmi/connectors@5.5.3)(@wagmi/core@2.13.8)(react@0.0.0-experimental-8039e6d0b-20231026)(typescript@5.6.3)(viem@2.21.54)(wagmi@2.12.18)(zod@3.23.8):
+  /@reown/appkit-adapter-wagmi@1.1.3(@coinbase/wallet-sdk@4.0.3)(@types/react@18.2.48)(@vercel/kv@1.0.1)(@wagmi/connectors@5.5.3)(@wagmi/core@2.13.8)(react@0.0.0-experimental-8039e6d0b-20231026)(typescript@5.7.2)(viem@2.21.54)(wagmi@2.12.18)(zod@3.23.8):
     resolution: {integrity: sha512-A3JYzELchsF6lhe7cqG9Q+VfapKUpWlFf0K3NAYH9pt8UsuGAjLl1mJziSyNI7rTb7d8Zu0PZiWtrPJGIDBbFg==}
     peerDependencies:
       '@coinbase/wallet-sdk': 4.0.3
@@ -10480,22 +10477,22 @@ packages:
       wagmi: '>=2.12'
     dependencies:
       '@coinbase/wallet-sdk': 4.0.3
-      '@reown/appkit': 1.1.3(@types/react@18.2.48)(@vercel/kv@1.0.1)(react@0.0.0-experimental-8039e6d0b-20231026)(typescript@5.6.3)(zod@3.23.8)
-      '@reown/appkit-common': 1.1.3(typescript@5.6.3)(zod@3.23.8)
-      '@reown/appkit-core': 1.1.3(@types/react@18.2.48)(@vercel/kv@1.0.1)(react@0.0.0-experimental-8039e6d0b-20231026)(typescript@5.6.3)(zod@3.23.8)
+      '@reown/appkit': 1.1.3(@types/react@18.2.48)(@vercel/kv@1.0.1)(react@0.0.0-experimental-8039e6d0b-20231026)(typescript@5.7.2)(zod@3.23.8)
+      '@reown/appkit-common': 1.1.3(typescript@5.7.2)(zod@3.23.8)
+      '@reown/appkit-core': 1.1.3(@types/react@18.2.48)(@vercel/kv@1.0.1)(react@0.0.0-experimental-8039e6d0b-20231026)(typescript@5.7.2)(zod@3.23.8)
       '@reown/appkit-polyfills': 1.1.3
-      '@reown/appkit-scaffold-ui': 1.1.3(patch_hash=vpakmxndftcat7zcfew6wjd4eq)(@types/react@18.2.48)(@vercel/kv@1.0.1)(react@0.0.0-experimental-8039e6d0b-20231026)(typescript@5.6.3)(valtio@1.11.2)(zod@3.23.8)
-      '@reown/appkit-siwe': 1.1.3(@types/react@18.2.48)(@vercel/kv@1.0.1)(react@0.0.0-experimental-8039e6d0b-20231026)(typescript@5.6.3)(zod@3.23.8)
+      '@reown/appkit-scaffold-ui': 1.1.3(patch_hash=vpakmxndftcat7zcfew6wjd4eq)(@types/react@18.2.48)(@vercel/kv@1.0.1)(react@0.0.0-experimental-8039e6d0b-20231026)(typescript@5.7.2)(valtio@1.11.2)(zod@3.23.8)
+      '@reown/appkit-siwe': 1.1.3(@types/react@18.2.48)(@vercel/kv@1.0.1)(react@0.0.0-experimental-8039e6d0b-20231026)(typescript@5.7.2)(zod@3.23.8)
       '@reown/appkit-ui': 1.1.3
-      '@reown/appkit-utils': 1.1.3(@types/react@18.2.48)(@vercel/kv@1.0.1)(react@0.0.0-experimental-8039e6d0b-20231026)(typescript@5.6.3)(valtio@1.11.2)(zod@3.23.8)
-      '@reown/appkit-wallet': 1.1.3(typescript@5.6.3)
-      '@wagmi/connectors': 5.5.3(@types/react@18.2.48)(@vercel/kv@1.0.1)(@wagmi/core@2.13.8)(react@0.0.0-experimental-8039e6d0b-20231026)(typescript@5.6.3)(viem@2.21.54)(zod@3.23.8)
-      '@wagmi/core': 2.13.8(@types/react@18.2.48)(immer@10.1.1)(react@0.0.0-experimental-8039e6d0b-20231026)(typescript@5.6.3)(viem@2.21.54)
+      '@reown/appkit-utils': 1.1.3(@types/react@18.2.48)(@vercel/kv@1.0.1)(react@0.0.0-experimental-8039e6d0b-20231026)(typescript@5.7.2)(valtio@1.11.2)(zod@3.23.8)
+      '@reown/appkit-wallet': 1.1.3(typescript@5.7.2)
+      '@wagmi/connectors': 5.5.3(@types/react@18.2.48)(@vercel/kv@1.0.1)(@wagmi/core@2.13.8)(react@0.0.0-experimental-8039e6d0b-20231026)(typescript@5.7.2)(viem@2.21.54)(zod@3.23.8)
+      '@wagmi/core': 2.13.8(@types/react@18.2.48)(immer@10.1.1)(react@0.0.0-experimental-8039e6d0b-20231026)(typescript@5.7.2)(viem@2.21.54)
       '@walletconnect/universal-provider': 2.17.0(@vercel/kv@1.0.1)
       '@walletconnect/utils': 2.17.0(@vercel/kv@1.0.1)
       valtio: 1.11.2(@types/react@18.2.48)(react@0.0.0-experimental-8039e6d0b-20231026)
-      viem: 2.21.54(typescript@5.6.3)(zod@3.23.8)
-      wagmi: 2.12.18(@tanstack/react-query@5.56.2)(@types/react@18.2.48)(@vercel/kv@1.0.1)(immer@10.1.1)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react-native@0.76.4)(react@0.0.0-experimental-8039e6d0b-20231026)(rollup@3.28.1)(typescript@5.6.3)(viem@2.21.54)(zod@3.23.8)
+      viem: 2.21.54(typescript@5.7.2)(zod@3.23.8)
+      wagmi: 2.12.18(@tanstack/react-query@5.56.2)(@types/react@18.2.48)(@vercel/kv@1.0.1)(immer@10.1.1)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react-native@0.76.4)(react@0.0.0-experimental-8039e6d0b-20231026)(rollup@3.28.1)(typescript@5.7.2)(viem@2.21.54)(zod@3.23.8)
     transitivePeerDependencies:
       - '@azure/app-configuration'
       - '@azure/cosmos'
@@ -10519,12 +10516,12 @@ packages:
       - zod
     dev: false
 
-  /@reown/appkit-common@1.1.3(typescript@5.6.3)(zod@3.22.4):
+  /@reown/appkit-common@1.1.3(typescript@5.7.2)(zod@3.22.4):
     resolution: {integrity: sha512-NzccdAoQKSf0dacIoPpVsyyMEH1D4A643MACn/VfmiMHcuEHMja3RXs2MFiC1ztlDr6EaM4B/1jyZ6qEzk+okw==}
     dependencies:
       bignumber.js: 9.1.2
       dayjs: 1.11.10
-      viem: 2.21.54(typescript@5.6.3)(zod@3.22.4)
+      viem: 2.21.54(typescript@5.7.2)(zod@3.22.4)
     transitivePeerDependencies:
       - bufferutil
       - typescript
@@ -10532,12 +10529,12 @@ packages:
       - zod
     dev: false
 
-  /@reown/appkit-common@1.1.3(typescript@5.6.3)(zod@3.23.8):
+  /@reown/appkit-common@1.1.3(typescript@5.7.2)(zod@3.23.8):
     resolution: {integrity: sha512-NzccdAoQKSf0dacIoPpVsyyMEH1D4A643MACn/VfmiMHcuEHMja3RXs2MFiC1ztlDr6EaM4B/1jyZ6qEzk+okw==}
     dependencies:
       bignumber.js: 9.1.2
       dayjs: 1.11.10
-      viem: 2.21.54(typescript@5.6.3)(zod@3.23.8)
+      viem: 2.21.54(typescript@5.7.2)(zod@3.23.8)
     transitivePeerDependencies:
       - bufferutil
       - typescript
@@ -10545,14 +10542,14 @@ packages:
       - zod
     dev: false
 
-  /@reown/appkit-core@1.1.3(@types/react@18.2.48)(@vercel/kv@1.0.1)(react@0.0.0-experimental-8039e6d0b-20231026)(typescript@5.6.3)(zod@3.23.8):
+  /@reown/appkit-core@1.1.3(@types/react@18.2.48)(@vercel/kv@1.0.1)(react@0.0.0-experimental-8039e6d0b-20231026)(typescript@5.7.2)(zod@3.23.8):
     resolution: {integrity: sha512-SPb3B+1a4r8iNzLp/8KOC01Y1TShgCycf/2//L0gvokDuB+lnNhth4KUA8Nnycku1s0FeQJiunhgwINlGXXPng==}
     dependencies:
-      '@reown/appkit-common': 1.1.3(typescript@5.6.3)(zod@3.23.8)
-      '@reown/appkit-wallet': 1.1.3(typescript@5.6.3)
+      '@reown/appkit-common': 1.1.3(typescript@5.7.2)(zod@3.23.8)
+      '@reown/appkit-wallet': 1.1.3(typescript@5.7.2)
       '@walletconnect/universal-provider': 2.17.0(@vercel/kv@1.0.1)
       valtio: 1.11.2(@types/react@18.2.48)(react@0.0.0-experimental-8039e6d0b-20231026)
-      viem: 2.21.54(typescript@5.6.3)(zod@3.23.8)
+      viem: 2.21.54(typescript@5.7.2)(zod@3.23.8)
     transitivePeerDependencies:
       - '@azure/app-configuration'
       - '@azure/cosmos'
@@ -10582,15 +10579,15 @@ packages:
       buffer: 6.0.3
     dev: false
 
-  /@reown/appkit-scaffold-ui@1.1.3(patch_hash=vpakmxndftcat7zcfew6wjd4eq)(@types/react@18.2.48)(@vercel/kv@1.0.1)(react@0.0.0-experimental-8039e6d0b-20231026)(typescript@5.6.3)(valtio@1.11.2)(zod@3.23.8):
+  /@reown/appkit-scaffold-ui@1.1.3(patch_hash=vpakmxndftcat7zcfew6wjd4eq)(@types/react@18.2.48)(@vercel/kv@1.0.1)(react@0.0.0-experimental-8039e6d0b-20231026)(typescript@5.7.2)(valtio@1.11.2)(zod@3.23.8):
     resolution: {integrity: sha512-dGiHcoMCjyXmYW+XftjTa1cKSmw92fHV04O3OqohA3WAipwu7pOr4+uyVdg5fpZZt26sv3cuFlYknbX9a1tUdA==}
     dependencies:
-      '@reown/appkit-common': 1.1.3(typescript@5.6.3)(zod@3.23.8)
-      '@reown/appkit-core': 1.1.3(@types/react@18.2.48)(@vercel/kv@1.0.1)(react@0.0.0-experimental-8039e6d0b-20231026)(typescript@5.6.3)(zod@3.23.8)
-      '@reown/appkit-siwe': 1.1.3(@types/react@18.2.48)(@vercel/kv@1.0.1)(react@0.0.0-experimental-8039e6d0b-20231026)(typescript@5.6.3)(zod@3.23.8)
+      '@reown/appkit-common': 1.1.3(typescript@5.7.2)(zod@3.23.8)
+      '@reown/appkit-core': 1.1.3(@types/react@18.2.48)(@vercel/kv@1.0.1)(react@0.0.0-experimental-8039e6d0b-20231026)(typescript@5.7.2)(zod@3.23.8)
+      '@reown/appkit-siwe': 1.1.3(@types/react@18.2.48)(@vercel/kv@1.0.1)(react@0.0.0-experimental-8039e6d0b-20231026)(typescript@5.7.2)(zod@3.23.8)
       '@reown/appkit-ui': 1.1.3
-      '@reown/appkit-utils': 1.1.3(@types/react@18.2.48)(@vercel/kv@1.0.1)(react@0.0.0-experimental-8039e6d0b-20231026)(typescript@5.6.3)(valtio@1.11.2)(zod@3.23.8)
-      '@reown/appkit-wallet': 1.1.3(typescript@5.6.3)
+      '@reown/appkit-utils': 1.1.3(@types/react@18.2.48)(@vercel/kv@1.0.1)(react@0.0.0-experimental-8039e6d0b-20231026)(typescript@5.7.2)(valtio@1.11.2)(zod@3.23.8)
+      '@reown/appkit-wallet': 1.1.3(typescript@5.7.2)
       lit: 3.1.0
     transitivePeerDependencies:
       - '@azure/app-configuration'
@@ -10617,14 +10614,14 @@ packages:
     dev: false
     patched: true
 
-  /@reown/appkit-siwe@1.1.3(@types/react@18.2.48)(@vercel/kv@1.0.1)(react@0.0.0-experimental-8039e6d0b-20231026)(typescript@5.6.3)(zod@3.23.8):
+  /@reown/appkit-siwe@1.1.3(@types/react@18.2.48)(@vercel/kv@1.0.1)(react@0.0.0-experimental-8039e6d0b-20231026)(typescript@5.7.2)(zod@3.23.8):
     resolution: {integrity: sha512-5TM0KgT/pOXIBzT43FdpsVwJYZCfUKyHolY8E+Dn8/O/p4i3OSms2W8DbM8IHkL8vj0H2RBfEd1eXnO16PHkIg==}
     dependencies:
-      '@reown/appkit-common': 1.1.3(typescript@5.6.3)(zod@3.23.8)
-      '@reown/appkit-core': 1.1.3(@types/react@18.2.48)(@vercel/kv@1.0.1)(react@0.0.0-experimental-8039e6d0b-20231026)(typescript@5.6.3)(zod@3.23.8)
+      '@reown/appkit-common': 1.1.3(typescript@5.7.2)(zod@3.23.8)
+      '@reown/appkit-core': 1.1.3(@types/react@18.2.48)(@vercel/kv@1.0.1)(react@0.0.0-experimental-8039e6d0b-20231026)(typescript@5.7.2)(zod@3.23.8)
       '@reown/appkit-ui': 1.1.3
-      '@reown/appkit-utils': 1.1.3(@types/react@18.2.48)(@vercel/kv@1.0.1)(react@0.0.0-experimental-8039e6d0b-20231026)(typescript@5.6.3)(valtio@1.11.2)(zod@3.23.8)
-      '@reown/appkit-wallet': 1.1.3(typescript@5.6.3)
+      '@reown/appkit-utils': 1.1.3(@types/react@18.2.48)(@vercel/kv@1.0.1)(react@0.0.0-experimental-8039e6d0b-20231026)(typescript@5.7.2)(valtio@1.11.2)(zod@3.23.8)
+      '@reown/appkit-wallet': 1.1.3(typescript@5.7.2)
       '@walletconnect/utils': 2.17.0(@vercel/kv@1.0.1)
       lit: 3.1.0
       valtio: 1.11.2(@types/react@18.2.48)(react@0.0.0-experimental-8039e6d0b-20231026)
@@ -10658,19 +10655,19 @@ packages:
       qrcode: 1.5.3
     dev: false
 
-  /@reown/appkit-utils@1.1.3(@types/react@18.2.48)(@vercel/kv@1.0.1)(react@0.0.0-experimental-8039e6d0b-20231026)(typescript@5.6.3)(valtio@1.11.2)(zod@3.23.8):
+  /@reown/appkit-utils@1.1.3(@types/react@18.2.48)(@vercel/kv@1.0.1)(react@0.0.0-experimental-8039e6d0b-20231026)(typescript@5.7.2)(valtio@1.11.2)(zod@3.23.8):
     resolution: {integrity: sha512-5zh6HMSLVr40CibE9/wReSyEI6Va9sN8yoxXcdwzcOBSoT1QEBD6r3bl9koSCmzGVLqsmeXBulzcnuQXg9Axyw==}
     peerDependencies:
       valtio: 1.11.2
     dependencies:
-      '@reown/appkit-common': 1.1.3(typescript@5.6.3)(zod@3.23.8)
-      '@reown/appkit-core': 1.1.3(@types/react@18.2.48)(@vercel/kv@1.0.1)(react@0.0.0-experimental-8039e6d0b-20231026)(typescript@5.6.3)(zod@3.23.8)
+      '@reown/appkit-common': 1.1.3(typescript@5.7.2)(zod@3.23.8)
+      '@reown/appkit-core': 1.1.3(@types/react@18.2.48)(@vercel/kv@1.0.1)(react@0.0.0-experimental-8039e6d0b-20231026)(typescript@5.7.2)(zod@3.23.8)
       '@reown/appkit-polyfills': 1.1.3
-      '@reown/appkit-wallet': 1.1.3(typescript@5.6.3)
+      '@reown/appkit-wallet': 1.1.3(typescript@5.7.2)
       '@walletconnect/logger': 2.1.2
       '@walletconnect/universal-provider': 2.17.0(@vercel/kv@1.0.1)
       valtio: 1.11.2(@types/react@18.2.48)(react@0.0.0-experimental-8039e6d0b-20231026)
-      viem: 2.21.54(typescript@5.6.3)(zod@3.23.8)
+      viem: 2.21.54(typescript@5.7.2)(zod@3.23.8)
     transitivePeerDependencies:
       - '@azure/app-configuration'
       - '@azure/cosmos'
@@ -10694,10 +10691,10 @@ packages:
       - zod
     dev: false
 
-  /@reown/appkit-wallet@1.1.3(typescript@5.6.3):
+  /@reown/appkit-wallet@1.1.3(typescript@5.7.2):
     resolution: {integrity: sha512-t0dPFcP6LSXoMR9mIX/FNL2BAiM8qvIT1SQQTjfkpbFUGdtEqwlTR1Y8KaN8F5RKwf2kKStl/eM8ktcA9vIu1w==}
     dependencies:
-      '@reown/appkit-common': 1.1.3(typescript@5.6.3)(zod@3.22.4)
+      '@reown/appkit-common': 1.1.3(typescript@5.7.2)(zod@3.22.4)
       '@reown/appkit-polyfills': 1.1.3
       '@walletconnect/logger': 2.1.2
       zod: 3.22.4
@@ -10707,22 +10704,22 @@ packages:
       - utf-8-validate
     dev: false
 
-  /@reown/appkit@1.1.3(@types/react@18.2.48)(@vercel/kv@1.0.1)(react@0.0.0-experimental-8039e6d0b-20231026)(typescript@5.6.3)(zod@3.23.8):
+  /@reown/appkit@1.1.3(@types/react@18.2.48)(@vercel/kv@1.0.1)(react@0.0.0-experimental-8039e6d0b-20231026)(typescript@5.7.2)(zod@3.23.8):
     resolution: {integrity: sha512-P6iOaLziN/KRAro48RLU8/GciFsYmuBZ/bgpQFnVU2Ug+d8pJ+tKA9DAou3eu43umCZUoMvoT+WDC1FNovHbHg==}
     dependencies:
-      '@reown/appkit-common': 1.1.3(typescript@5.6.3)(zod@3.23.8)
-      '@reown/appkit-core': 1.1.3(@types/react@18.2.48)(@vercel/kv@1.0.1)(react@0.0.0-experimental-8039e6d0b-20231026)(typescript@5.6.3)(zod@3.23.8)
+      '@reown/appkit-common': 1.1.3(typescript@5.7.2)(zod@3.23.8)
+      '@reown/appkit-core': 1.1.3(@types/react@18.2.48)(@vercel/kv@1.0.1)(react@0.0.0-experimental-8039e6d0b-20231026)(typescript@5.7.2)(zod@3.23.8)
       '@reown/appkit-polyfills': 1.1.3
-      '@reown/appkit-scaffold-ui': 1.1.3(patch_hash=vpakmxndftcat7zcfew6wjd4eq)(@types/react@18.2.48)(@vercel/kv@1.0.1)(react@0.0.0-experimental-8039e6d0b-20231026)(typescript@5.6.3)(valtio@1.11.2)(zod@3.23.8)
-      '@reown/appkit-siwe': 1.1.3(@types/react@18.2.48)(@vercel/kv@1.0.1)(react@0.0.0-experimental-8039e6d0b-20231026)(typescript@5.6.3)(zod@3.23.8)
+      '@reown/appkit-scaffold-ui': 1.1.3(patch_hash=vpakmxndftcat7zcfew6wjd4eq)(@types/react@18.2.48)(@vercel/kv@1.0.1)(react@0.0.0-experimental-8039e6d0b-20231026)(typescript@5.7.2)(valtio@1.11.2)(zod@3.23.8)
+      '@reown/appkit-siwe': 1.1.3(@types/react@18.2.48)(@vercel/kv@1.0.1)(react@0.0.0-experimental-8039e6d0b-20231026)(typescript@5.7.2)(zod@3.23.8)
       '@reown/appkit-ui': 1.1.3
-      '@reown/appkit-utils': 1.1.3(@types/react@18.2.48)(@vercel/kv@1.0.1)(react@0.0.0-experimental-8039e6d0b-20231026)(typescript@5.6.3)(valtio@1.11.2)(zod@3.23.8)
-      '@reown/appkit-wallet': 1.1.3(typescript@5.6.3)
+      '@reown/appkit-utils': 1.1.3(@types/react@18.2.48)(@vercel/kv@1.0.1)(react@0.0.0-experimental-8039e6d0b-20231026)(typescript@5.7.2)(valtio@1.11.2)(zod@3.23.8)
+      '@reown/appkit-wallet': 1.1.3(typescript@5.7.2)
       '@walletconnect/types': 2.17.0(@vercel/kv@1.0.1)
       '@walletconnect/universal-provider': 2.17.0(@vercel/kv@1.0.1)
       '@walletconnect/utils': 2.17.0(@vercel/kv@1.0.1)
       valtio: 1.11.2(@types/react@18.2.48)(react@0.0.0-experimental-8039e6d0b-20231026)
-      viem: 2.21.54(typescript@5.6.3)(zod@3.23.8)
+      viem: 2.21.54(typescript@5.7.2)(zod@3.23.8)
     transitivePeerDependencies:
       - '@azure/app-configuration'
       - '@azure/cosmos'
@@ -10995,10 +10992,10 @@ packages:
     resolution: {integrity: sha512-WJgX9nzTqknM393q1QJDJmoW28kUfEnybeTfVNcNAPnIx210RXm2DiXiHzfNPJNIUUb1tJnz/l4QGtJ30PgWmA==}
     dev: true
 
-  /@safe-global/safe-apps-provider@0.18.3(typescript@5.6.3)(zod@3.23.8):
+  /@safe-global/safe-apps-provider@0.18.3(typescript@5.7.2)(zod@3.23.8):
     resolution: {integrity: sha512-f/0cNv3S4v7p8rowAjj0hDCg8Q8P/wBjp5twkNWeBdvd0RDr7BuRBPPk74LCqmjQ82P+1ltLlkmVFSmxTIT7XQ==}
     dependencies:
-      '@safe-global/safe-apps-sdk': 9.1.0(typescript@5.6.3)(zod@3.23.8)
+      '@safe-global/safe-apps-sdk': 9.1.0(typescript@5.7.2)(zod@3.23.8)
       events: 3.3.0
     transitivePeerDependencies:
       - bufferutil
@@ -11007,10 +11004,10 @@ packages:
       - zod
     dev: false
 
-  /@safe-global/safe-apps-provider@0.18.4(typescript@5.6.3)(zod@3.23.8):
+  /@safe-global/safe-apps-provider@0.18.4(typescript@5.7.2)(zod@3.23.8):
     resolution: {integrity: sha512-SWYeG3gyTO6wGHMSokfHakZ9isByn2mHsM0VohIorYFFEyGGmJ89btnTm+DqDUSoQtvWAatZB7XNy6CaYMvqtg==}
     dependencies:
-      '@safe-global/safe-apps-sdk': 9.1.0(typescript@5.6.3)(zod@3.23.8)
+      '@safe-global/safe-apps-sdk': 9.1.0(typescript@5.7.2)(zod@3.23.8)
       events: 3.3.0
     transitivePeerDependencies:
       - bufferutil
@@ -11019,11 +11016,11 @@ packages:
       - zod
     dev: false
 
-  /@safe-global/safe-apps-sdk@9.1.0(typescript@5.6.3)(zod@3.23.8):
+  /@safe-global/safe-apps-sdk@9.1.0(typescript@5.7.2)(zod@3.23.8):
     resolution: {integrity: sha512-N5p/ulfnnA2Pi2M3YeWjULeWbjo7ei22JwU/IXnhoHzKq3pYCN6ynL9mJBOlvDVv892EgLPCWCOwQk/uBT2v0Q==}
     dependencies:
       '@safe-global/safe-gateway-typescript-sdk': 3.22.4
-      viem: 2.21.54(typescript@5.6.3)(zod@3.23.8)
+      viem: 2.21.54(typescript@5.7.2)(zod@3.23.8)
     transitivePeerDependencies:
       - bufferutil
       - typescript
@@ -11775,7 +11772,7 @@ packages:
       buffer: 6.0.3
     dev: false
 
-  /@solana/codecs-core@2.0.0-rc.1(typescript@5.6.3):
+  /@solana/codecs-core@2.0.0-rc.1(typescript@5.7.2):
     resolution: {integrity: sha512-bauxqMfSs8EHD0JKESaNmNuNvkvHSuN3bbWAF5RjOfDu2PugxHrvRebmYauvSumZ3cTfQ4HJJX6PG5rN852qyQ==}
     peerDependencies:
       typescript: '>=5 || 5'
@@ -11783,11 +11780,11 @@ packages:
       typescript:
         optional: true
     dependencies:
-      '@solana/errors': 2.0.0-rc.1(typescript@5.6.3)
-      typescript: 5.6.3
+      '@solana/errors': 2.0.0-rc.1(typescript@5.7.2)
+      typescript: 5.7.2
     dev: false
 
-  /@solana/codecs-data-structures@2.0.0-rc.1(typescript@5.6.3):
+  /@solana/codecs-data-structures@2.0.0-rc.1(typescript@5.7.2):
     resolution: {integrity: sha512-rinCv0RrAVJ9rE/rmaibWJQxMwC5lSaORSZuwjopSUE6T0nb/MVg6Z1siNCXhh/HFTOg0l8bNvZHgBcN/yvXog==}
     peerDependencies:
       typescript: '>=5 || 5'
@@ -11795,13 +11792,13 @@ packages:
       typescript:
         optional: true
     dependencies:
-      '@solana/codecs-core': 2.0.0-rc.1(typescript@5.6.3)
-      '@solana/codecs-numbers': 2.0.0-rc.1(typescript@5.6.3)
-      '@solana/errors': 2.0.0-rc.1(typescript@5.6.3)
-      typescript: 5.6.3
+      '@solana/codecs-core': 2.0.0-rc.1(typescript@5.7.2)
+      '@solana/codecs-numbers': 2.0.0-rc.1(typescript@5.7.2)
+      '@solana/errors': 2.0.0-rc.1(typescript@5.7.2)
+      typescript: 5.7.2
     dev: false
 
-  /@solana/codecs-numbers@2.0.0-rc.1(typescript@5.6.3):
+  /@solana/codecs-numbers@2.0.0-rc.1(typescript@5.7.2):
     resolution: {integrity: sha512-J5i5mOkvukXn8E3Z7sGIPxsThRCgSdgTWJDQeZvucQ9PT6Y3HiVXJ0pcWiOWAoQ3RX8e/f4I3IC+wE6pZiJzDQ==}
     peerDependencies:
       typescript: '>=5 || 5'
@@ -11809,12 +11806,12 @@ packages:
       typescript:
         optional: true
     dependencies:
-      '@solana/codecs-core': 2.0.0-rc.1(typescript@5.6.3)
-      '@solana/errors': 2.0.0-rc.1(typescript@5.6.3)
-      typescript: 5.6.3
+      '@solana/codecs-core': 2.0.0-rc.1(typescript@5.7.2)
+      '@solana/errors': 2.0.0-rc.1(typescript@5.7.2)
+      typescript: 5.7.2
     dev: false
 
-  /@solana/codecs-strings@2.0.0-rc.1(fastestsmallesttextencoderdecoder@1.0.22)(typescript@5.6.3):
+  /@solana/codecs-strings@2.0.0-rc.1(fastestsmallesttextencoderdecoder@1.0.22)(typescript@5.7.2):
     resolution: {integrity: sha512-9/wPhw8TbGRTt6mHC4Zz1RqOnuPTqq1Nb4EyuvpZ39GW6O2t2Q7Q0XxiB3+BdoEjwA2XgPw6e2iRfvYgqty44g==}
     peerDependencies:
       fastestsmallesttextencoderdecoder: ^1.0.22
@@ -11823,14 +11820,14 @@ packages:
       typescript:
         optional: true
     dependencies:
-      '@solana/codecs-core': 2.0.0-rc.1(typescript@5.6.3)
-      '@solana/codecs-numbers': 2.0.0-rc.1(typescript@5.6.3)
-      '@solana/errors': 2.0.0-rc.1(typescript@5.6.3)
+      '@solana/codecs-core': 2.0.0-rc.1(typescript@5.7.2)
+      '@solana/codecs-numbers': 2.0.0-rc.1(typescript@5.7.2)
+      '@solana/errors': 2.0.0-rc.1(typescript@5.7.2)
       fastestsmallesttextencoderdecoder: 1.0.22
-      typescript: 5.6.3
+      typescript: 5.7.2
     dev: false
 
-  /@solana/codecs@2.0.0-rc.1(fastestsmallesttextencoderdecoder@1.0.22)(typescript@5.6.3):
+  /@solana/codecs@2.0.0-rc.1(fastestsmallesttextencoderdecoder@1.0.22)(typescript@5.7.2):
     resolution: {integrity: sha512-qxoR7VybNJixV51L0G1RD2boZTcxmwUWnKCaJJExQ5qNKwbpSyDdWfFJfM5JhGyKe9DnPVOZB+JHWXnpbZBqrQ==}
     peerDependencies:
       typescript: '>=5 || 5'
@@ -11838,17 +11835,17 @@ packages:
       typescript:
         optional: true
     dependencies:
-      '@solana/codecs-core': 2.0.0-rc.1(typescript@5.6.3)
-      '@solana/codecs-data-structures': 2.0.0-rc.1(typescript@5.6.3)
-      '@solana/codecs-numbers': 2.0.0-rc.1(typescript@5.6.3)
-      '@solana/codecs-strings': 2.0.0-rc.1(fastestsmallesttextencoderdecoder@1.0.22)(typescript@5.6.3)
-      '@solana/options': 2.0.0-rc.1(fastestsmallesttextencoderdecoder@1.0.22)(typescript@5.6.3)
-      typescript: 5.6.3
+      '@solana/codecs-core': 2.0.0-rc.1(typescript@5.7.2)
+      '@solana/codecs-data-structures': 2.0.0-rc.1(typescript@5.7.2)
+      '@solana/codecs-numbers': 2.0.0-rc.1(typescript@5.7.2)
+      '@solana/codecs-strings': 2.0.0-rc.1(fastestsmallesttextencoderdecoder@1.0.22)(typescript@5.7.2)
+      '@solana/options': 2.0.0-rc.1(fastestsmallesttextencoderdecoder@1.0.22)(typescript@5.7.2)
+      typescript: 5.7.2
     transitivePeerDependencies:
       - fastestsmallesttextencoderdecoder
     dev: false
 
-  /@solana/errors@2.0.0-rc.1(typescript@5.6.3):
+  /@solana/errors@2.0.0-rc.1(typescript@5.7.2):
     resolution: {integrity: sha512-ejNvQ2oJ7+bcFAYWj225lyRkHnixuAeb7RQCixm+5mH4n1IA4Qya/9Bmfy5RAAHQzxK43clu3kZmL5eF9VGtYQ==}
     hasBin: true
     peerDependencies:
@@ -11859,10 +11856,10 @@ packages:
     dependencies:
       chalk: 5.3.0
       commander: 12.1.0
-      typescript: 5.6.3
+      typescript: 5.7.2
     dev: false
 
-  /@solana/options@2.0.0-rc.1(fastestsmallesttextencoderdecoder@1.0.22)(typescript@5.6.3):
+  /@solana/options@2.0.0-rc.1(fastestsmallesttextencoderdecoder@1.0.22)(typescript@5.7.2):
     resolution: {integrity: sha512-mLUcR9mZ3qfHlmMnREdIFPf9dpMc/Bl66tLSOOWxw4ml5xMT2ohFn7WGqoKcu/UHkT9CrC6+amEdqCNvUqI7AA==}
     peerDependencies:
       typescript: '>=5 || 5'
@@ -11870,43 +11867,43 @@ packages:
       typescript:
         optional: true
     dependencies:
-      '@solana/codecs-core': 2.0.0-rc.1(typescript@5.6.3)
-      '@solana/codecs-data-structures': 2.0.0-rc.1(typescript@5.6.3)
-      '@solana/codecs-numbers': 2.0.0-rc.1(typescript@5.6.3)
-      '@solana/codecs-strings': 2.0.0-rc.1(fastestsmallesttextencoderdecoder@1.0.22)(typescript@5.6.3)
-      '@solana/errors': 2.0.0-rc.1(typescript@5.6.3)
-      typescript: 5.6.3
+      '@solana/codecs-core': 2.0.0-rc.1(typescript@5.7.2)
+      '@solana/codecs-data-structures': 2.0.0-rc.1(typescript@5.7.2)
+      '@solana/codecs-numbers': 2.0.0-rc.1(typescript@5.7.2)
+      '@solana/codecs-strings': 2.0.0-rc.1(fastestsmallesttextencoderdecoder@1.0.22)(typescript@5.7.2)
+      '@solana/errors': 2.0.0-rc.1(typescript@5.7.2)
+      typescript: 5.7.2
     transitivePeerDependencies:
       - fastestsmallesttextencoderdecoder
     dev: false
 
-  /@solana/spl-token-group@0.0.7(@solana/web3.js@1.95.8)(fastestsmallesttextencoderdecoder@1.0.22)(typescript@5.6.3):
+  /@solana/spl-token-group@0.0.7(@solana/web3.js@1.95.8)(fastestsmallesttextencoderdecoder@1.0.22)(typescript@5.7.2):
     resolution: {integrity: sha512-V1N/iX7Cr7H0uazWUT2uk27TMqlqedpXHRqqAbVO2gvmJyT0E0ummMEAVQeXZ05ZhQ/xF39DLSdBp90XebWEug==}
     engines: {node: '>=16'}
     peerDependencies:
       '@solana/web3.js': ^1.95.3
     dependencies:
-      '@solana/codecs': 2.0.0-rc.1(fastestsmallesttextencoderdecoder@1.0.22)(typescript@5.6.3)
+      '@solana/codecs': 2.0.0-rc.1(fastestsmallesttextencoderdecoder@1.0.22)(typescript@5.7.2)
       '@solana/web3.js': 1.95.8
     transitivePeerDependencies:
       - fastestsmallesttextencoderdecoder
       - typescript
     dev: false
 
-  /@solana/spl-token-metadata@0.1.6(@solana/web3.js@1.95.8)(fastestsmallesttextencoderdecoder@1.0.22)(typescript@5.6.3):
+  /@solana/spl-token-metadata@0.1.6(@solana/web3.js@1.95.8)(fastestsmallesttextencoderdecoder@1.0.22)(typescript@5.7.2):
     resolution: {integrity: sha512-7sMt1rsm/zQOQcUWllQX9mD2O6KhSAtY1hFR2hfFwgqfFWzSY9E9GDvFVNYUI1F0iQKcm6HmePU9QbKRXTEBiA==}
     engines: {node: '>=16'}
     peerDependencies:
       '@solana/web3.js': ^1.95.3
     dependencies:
-      '@solana/codecs': 2.0.0-rc.1(fastestsmallesttextencoderdecoder@1.0.22)(typescript@5.6.3)
+      '@solana/codecs': 2.0.0-rc.1(fastestsmallesttextencoderdecoder@1.0.22)(typescript@5.7.2)
       '@solana/web3.js': 1.95.8
     transitivePeerDependencies:
       - fastestsmallesttextencoderdecoder
       - typescript
     dev: false
 
-  /@solana/spl-token@0.4.9(@solana/web3.js@1.95.8)(fastestsmallesttextencoderdecoder@1.0.22)(typescript@5.6.3):
+  /@solana/spl-token@0.4.9(@solana/web3.js@1.95.8)(fastestsmallesttextencoderdecoder@1.0.22)(typescript@5.7.2):
     resolution: {integrity: sha512-g3wbj4F4gq82YQlwqhPB0gHFXfgsC6UmyGMxtSLf/BozT/oKd59465DbnlUK8L8EcimKMavxsVAMoLcEdeCicg==}
     engines: {node: '>=16'}
     peerDependencies:
@@ -11914,8 +11911,8 @@ packages:
     dependencies:
       '@solana/buffer-layout': 4.0.1
       '@solana/buffer-layout-utils': 0.2.0
-      '@solana/spl-token-group': 0.0.7(@solana/web3.js@1.95.8)(fastestsmallesttextencoderdecoder@1.0.22)(typescript@5.6.3)
-      '@solana/spl-token-metadata': 0.1.6(@solana/web3.js@1.95.8)(fastestsmallesttextencoderdecoder@1.0.22)(typescript@5.6.3)
+      '@solana/spl-token-group': 0.0.7(@solana/web3.js@1.95.8)(fastestsmallesttextencoderdecoder@1.0.22)(typescript@5.7.2)
+      '@solana/spl-token-metadata': 0.1.6(@solana/web3.js@1.95.8)(fastestsmallesttextencoderdecoder@1.0.22)(typescript@5.7.2)
       '@solana/web3.js': 1.95.8
       buffer: 6.0.3
     transitivePeerDependencies:
@@ -12180,7 +12177,7 @@ packages:
   /@spruceid/siwe-parser@2.1.2:
     resolution: {integrity: sha512-d/r3S1LwJyMaRAKQ0awmo9whfXeE88Qt00vRj91q5uv5ATtWIQEGJ67Yr5eSZw5zp1/fZCXZYuEckt8lSkereQ==}
     dependencies:
-      '@noble/hashes': 1.5.0
+      '@noble/hashes': 1.6.1
       apg-js: 4.4.0
       uri-js: 4.4.1
       valid-url: 1.0.9
@@ -12418,14 +12415,14 @@ packages:
       '@svgr/babel-plugin-transform-svg-component': 8.0.0(@babel/core@7.26.0)
     dev: true
 
-  /@svgr/core@8.1.0(typescript@5.6.3):
+  /@svgr/core@8.1.0(typescript@5.7.2):
     resolution: {integrity: sha512-8QqtOQT5ACVlmsvKOJNEaWmRPmcojMOzCz4Hs2BGG/toAp/K38LcsMRyLp349glq5AzJbCEeimEoxaX6v/fLrA==}
     engines: {node: '>=14'}
     dependencies:
       '@babel/core': 7.26.0
       '@svgr/babel-preset': 8.1.0(@babel/core@7.26.0)
       camelcase: 6.3.0
-      cosmiconfig: 8.3.6(typescript@5.6.3)
+      cosmiconfig: 8.3.6(typescript@5.7.2)
       snake-case: 3.0.4
     transitivePeerDependencies:
       - supports-color
@@ -12448,28 +12445,28 @@ packages:
     dependencies:
       '@babel/core': 7.26.0
       '@svgr/babel-preset': 8.1.0(@babel/core@7.26.0)
-      '@svgr/core': 8.1.0(typescript@5.6.3)
+      '@svgr/core': 8.1.0(typescript@5.7.2)
       '@svgr/hast-util-to-babel-ast': 8.0.0
       svg-parser: 2.0.4
     transitivePeerDependencies:
       - supports-color
     dev: true
 
-  /@svgr/plugin-svgo@8.1.0(@svgr/core@8.1.0)(typescript@5.6.3):
+  /@svgr/plugin-svgo@8.1.0(@svgr/core@8.1.0)(typescript@5.7.2):
     resolution: {integrity: sha512-Ywtl837OGO9pTLIN/onoWLmDQ4zFUycI1g76vuKGEz6evR/ZTJlJuz3G/fIkb6OVBJ2g0o6CGJzaEjfmEo3AHA==}
     engines: {node: '>=14'}
     peerDependencies:
       '@svgr/core': '*'
     dependencies:
-      '@svgr/core': 8.1.0(typescript@5.6.3)
-      cosmiconfig: 8.3.6(typescript@5.6.3)
+      '@svgr/core': 8.1.0(typescript@5.7.2)
+      cosmiconfig: 8.3.6(typescript@5.7.2)
       deepmerge: 4.3.1
       svgo: 3.3.2
     transitivePeerDependencies:
       - typescript
     dev: true
 
-  /@svgr/webpack@8.1.0(typescript@5.6.3):
+  /@svgr/webpack@8.1.0(typescript@5.7.2):
     resolution: {integrity: sha512-LnhVjMWyMQV9ZmeEy26maJk+8HTIbd59cH4F2MJ439k9DqejRisfFNGAPvRYlKETuh9LrImlS8aKsBgKjMA8WA==}
     engines: {node: '>=14'}
     dependencies:
@@ -12478,9 +12475,9 @@ packages:
       '@babel/preset-env': 7.26.0(@babel/core@7.26.0)
       '@babel/preset-react': 7.26.3(@babel/core@7.26.0)
       '@babel/preset-typescript': 7.26.0(@babel/core@7.26.0)
-      '@svgr/core': 8.1.0(typescript@5.6.3)
+      '@svgr/core': 8.1.0(typescript@5.7.2)
       '@svgr/plugin-jsx': 8.1.0(@svgr/core@8.1.0)
-      '@svgr/plugin-svgo': 8.1.0(@svgr/core@8.1.0)(typescript@5.6.3)
+      '@svgr/plugin-svgo': 8.1.0(@svgr/core@8.1.0)(typescript@5.7.2)
     transitivePeerDependencies:
       - supports-color
       - typescript
@@ -12694,27 +12691,9 @@ packages:
     resolution: {integrity: sha512-gor0RI3/R5rVV3gXfddh1MM+hgl0Z4G7tj6Xxpq6p2I03NGPaJ8dITY9Gz05zYYb/EJq9vPas/T4wn9EaDPd4Q==}
     dev: false
 
-  /@tanstack/query-devtools@5.58.0:
-    resolution: {integrity: sha512-iFdQEFXaYYxqgrv63ots+65FGI+tNp5ZS5PdMU1DWisxk3fez5HG3FyVlbUva+RdYS5hSLbxZ9aw3yEs97GNTw==}
-    dev: false
-
   /@tanstack/ranger@0.0.3:
     resolution: {integrity: sha512-RYpW7MnEMxKLuskfadeyBfxpU8cUTGrtp5TnCV9PKEgMfrR6vwlk9/1/eU2EvJfYZbDAr1inphL4TGWCcRLAXQ==}
     engines: {node: '>=12'}
-    dev: false
-
-  /@tanstack/react-query-devtools@5.58.0(@tanstack/react-query@5.56.2)(react@0.0.0-experimental-8039e6d0b-20231026):
-    resolution: {integrity: sha512-qF0xCyBeVuNLygTO1sAl1X4Gv52w52SeaDdbjYQmtTOooUJ3aAVlBEtiRJFfJblWQ9p/UQG8NIcC/65RjX8Jkw==}
-    peerDependencies:
-      '@tanstack/react-query': 5.56.2
-      react: 0.0.0-experimental-8039e6d0b-20231026 || 0.0.0-experimental-0a360642d-20230711
-    peerDependenciesMeta:
-      react:
-        optional: true
-    dependencies:
-      '@tanstack/query-devtools': 5.58.0
-      '@tanstack/react-query': 5.56.2(react@0.0.0-experimental-8039e6d0b-20231026)
-      react: 0.0.0-experimental-8039e6d0b-20231026
     dev: false
 
   /@tanstack/react-query-next-experimental@5.56.2(@tanstack/react-query@5.56.2)(next@14.1.4)(react@0.0.0-experimental-8039e6d0b-20231026):
@@ -12920,7 +12899,7 @@ packages:
     resolution: {integrity: sha512-vxhUy4J8lyeyinH7Azl1pdd43GJhZH/tP2weN8TntQblOY+A0XbT8DJk1/oCPuOOyg/Ja757rG0CgHcWC8OfMA==}
     dev: true
 
-  /@typechain/web3-v1@6.0.2(typechain@8.3.1)(typescript@5.6.3)(web3-core@1.10.2)(web3-eth-contract@1.10.2)(web3@1.10.4):
+  /@typechain/web3-v1@6.0.2(typechain@8.3.1)(typescript@5.7.2)(web3-core@1.10.2)(web3-eth-contract@1.10.2)(web3@1.10.4):
     resolution: {integrity: sha512-jiI15w1yZwXbXpcL4bHmtpOFWrOgmWQAeNHtzPiC2fHYNzxcJWB8E1KdWf30TAR2I9uT5fx10butLZYeHV1lNQ==}
     peerDependencies:
       typechain: ^8.1.1
@@ -12929,8 +12908,8 @@ packages:
       web3-eth-contract: ^1
     dependencies:
       lodash: 4.17.21
-      ts-essentials: 7.0.3(typescript@5.6.3)
-      typechain: 8.3.1(typescript@5.6.3)
+      ts-essentials: 7.0.3(typescript@5.7.2)
+      typechain: 8.3.1(typescript@5.7.2)
       web3: 1.10.4
       web3-core: 1.10.2(patch_hash=7c6knffilb7dxuf3r2r5ttgbem)
       web3-eth-contract: 1.10.2
@@ -13587,7 +13566,7 @@ packages:
       '@types/node': 20.11.9
     dev: true
 
-  /@typescript-eslint/eslint-plugin@6.10.0(@typescript-eslint/parser@6.5.0)(eslint@8.57.0)(typescript@5.6.3):
+  /@typescript-eslint/eslint-plugin@6.10.0(@typescript-eslint/parser@6.5.0)(eslint@8.57.0)(typescript@5.7.2):
     resolution: {integrity: sha512-uoLj4g2OTL8rfUQVx2AFO1hp/zja1wABJq77P6IclQs6I/m9GLrm7jCdgzZkvWdDCQf1uEvoa8s8CupsgWQgVg==}
     engines: {node: ^16.0.0 || >=18.0.0}
     peerDependencies:
@@ -13599,10 +13578,10 @@ packages:
         optional: true
     dependencies:
       '@eslint-community/regexpp': 4.12.1
-      '@typescript-eslint/parser': 6.5.0(eslint@8.57.0)(typescript@5.6.3)
+      '@typescript-eslint/parser': 6.5.0(eslint@8.57.0)(typescript@5.7.2)
       '@typescript-eslint/scope-manager': 6.10.0
-      '@typescript-eslint/type-utils': 6.10.0(eslint@8.57.0)(typescript@5.6.3)
-      '@typescript-eslint/utils': 6.10.0(eslint@8.57.0)(typescript@5.6.3)
+      '@typescript-eslint/type-utils': 6.10.0(eslint@8.57.0)(typescript@5.7.2)
+      '@typescript-eslint/utils': 6.10.0(eslint@8.57.0)(typescript@5.7.2)
       '@typescript-eslint/visitor-keys': 6.10.0
       debug: 4.4.0
       eslint: 8.57.0
@@ -13610,8 +13589,8 @@ packages:
       ignore: 5.3.2
       natural-compare: 1.4.0
       semver: 7.6.3
-      ts-api-utils: 1.4.3(typescript@5.6.3)
-      typescript: 5.6.3
+      ts-api-utils: 1.4.3(typescript@5.7.2)
+      typescript: 5.7.2
     transitivePeerDependencies:
       - supports-color
     dev: true
@@ -13645,7 +13624,7 @@ packages:
       - supports-color
     dev: true
 
-  /@typescript-eslint/parser@6.5.0(eslint@8.57.0)(typescript@5.6.3):
+  /@typescript-eslint/parser@6.5.0(eslint@8.57.0)(typescript@5.7.2):
     resolution: {integrity: sha512-LMAVtR5GN8nY0G0BadkG0XIe4AcNMeyEy3DyhKGAh9k4pLSMBO7rF29JvDBpZGCmp5Pgz5RLHP6eCpSYZJQDuQ==}
     engines: {node: ^16.0.0 || >=18.0.0}
     peerDependencies:
@@ -13657,11 +13636,11 @@ packages:
     dependencies:
       '@typescript-eslint/scope-manager': 6.5.0
       '@typescript-eslint/types': 6.5.0
-      '@typescript-eslint/typescript-estree': 6.5.0(typescript@5.6.3)
+      '@typescript-eslint/typescript-estree': 6.5.0(typescript@5.7.2)
       '@typescript-eslint/visitor-keys': 6.5.0
       debug: 4.4.0
       eslint: 8.57.0
-      typescript: 5.6.3
+      typescript: 5.7.2
     transitivePeerDependencies:
       - supports-color
     dev: true
@@ -13719,7 +13698,7 @@ packages:
       '@typescript-eslint/visitor-keys': 7.1.1
     dev: true
 
-  /@typescript-eslint/type-utils@6.10.0(eslint@8.57.0)(typescript@5.6.3):
+  /@typescript-eslint/type-utils@6.10.0(eslint@8.57.0)(typescript@5.7.2):
     resolution: {integrity: sha512-wYpPs3hgTFblMYwbYWPT3eZtaDOjbLyIYuqpwuLBBqhLiuvJ+9sEp2gNRJEtR5N/c9G1uTtQQL5AhV0fEPJYcg==}
     engines: {node: ^16.0.0 || >=18.0.0}
     peerDependencies:
@@ -13729,12 +13708,12 @@ packages:
       typescript:
         optional: true
     dependencies:
-      '@typescript-eslint/typescript-estree': 6.10.0(typescript@5.6.3)
-      '@typescript-eslint/utils': 6.10.0(eslint@8.57.0)(typescript@5.6.3)
+      '@typescript-eslint/typescript-estree': 6.10.0(typescript@5.7.2)
+      '@typescript-eslint/utils': 6.10.0(eslint@8.57.0)(typescript@5.7.2)
       debug: 4.4.0
       eslint: 8.57.0
-      ts-api-utils: 1.4.3(typescript@5.6.3)
-      typescript: 5.6.3
+      ts-api-utils: 1.4.3(typescript@5.7.2)
+      typescript: 5.7.2
     transitivePeerDependencies:
       - supports-color
     dev: true
@@ -13779,7 +13758,7 @@ packages:
     engines: {node: ^16.0.0 || >=18.0.0}
     dev: true
 
-  /@typescript-eslint/typescript-estree@6.10.0(typescript@5.6.3):
+  /@typescript-eslint/typescript-estree@6.10.0(typescript@5.7.2):
     resolution: {integrity: sha512-ek0Eyuy6P15LJVeghbWhSrBCj/vJpPXXR+EpaRZqou7achUWL8IdYnMSC5WHAeTWswYQuP2hAZgij/bC9fanBg==}
     engines: {node: ^16.0.0 || >=18.0.0}
     peerDependencies:
@@ -13794,8 +13773,8 @@ packages:
       globby: 11.1.0
       is-glob: 4.0.3
       semver: 7.6.3
-      ts-api-utils: 1.4.3(typescript@5.6.3)
-      typescript: 5.6.3
+      ts-api-utils: 1.4.3(typescript@5.7.2)
+      typescript: 5.7.2
     transitivePeerDependencies:
       - supports-color
     dev: true
@@ -13822,7 +13801,7 @@ packages:
       - supports-color
     dev: true
 
-  /@typescript-eslint/typescript-estree@6.5.0(typescript@5.6.3):
+  /@typescript-eslint/typescript-estree@6.5.0(typescript@5.7.2):
     resolution: {integrity: sha512-q0rGwSe9e5Kk/XzliB9h2LBc9tmXX25G0833r7kffbl5437FPWb2tbpIV9wAATebC/018pGa9fwPDuvGN+LxWQ==}
     engines: {node: ^16.0.0 || >=18.0.0}
     peerDependencies:
@@ -13837,8 +13816,8 @@ packages:
       globby: 11.1.0
       is-glob: 4.0.3
       semver: 7.6.3
-      ts-api-utils: 1.4.3(typescript@5.6.3)
-      typescript: 5.6.3
+      ts-api-utils: 1.4.3(typescript@5.7.2)
+      typescript: 5.7.2
     transitivePeerDependencies:
       - supports-color
     dev: true
@@ -13865,7 +13844,7 @@ packages:
       - supports-color
     dev: true
 
-  /@typescript-eslint/utils@6.10.0(eslint@8.57.0)(typescript@5.6.3):
+  /@typescript-eslint/utils@6.10.0(eslint@8.57.0)(typescript@5.7.2):
     resolution: {integrity: sha512-v+pJ1/RcVyRc0o4wAGux9x42RHmAjIGzPRo538Z8M1tVx6HOnoQBCX/NoadHQlZeC+QO2yr4nNSFWOoraZCAyg==}
     engines: {node: ^16.0.0 || >=18.0.0}
     peerDependencies:
@@ -13876,7 +13855,7 @@ packages:
       '@types/semver': 7.5.8
       '@typescript-eslint/scope-manager': 6.10.0
       '@typescript-eslint/types': 6.10.0
-      '@typescript-eslint/typescript-estree': 6.10.0(typescript@5.6.3)
+      '@typescript-eslint/typescript-estree': 6.10.0(typescript@5.7.2)
       eslint: 8.57.0
       semver: 7.6.3
     transitivePeerDependencies:
@@ -14120,7 +14099,7 @@ packages:
       tinyrainbow: 1.2.0
     dev: true
 
-  /@wagmi/connectors@5.2.0(@types/react@18.2.48)(@vercel/kv@1.0.1)(@wagmi/core@2.13.8)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react-native@0.76.4)(react@0.0.0-experimental-8039e6d0b-20231026)(rollup@3.28.1)(typescript@5.6.3)(viem@2.21.54)(zod@3.23.8):
+  /@wagmi/connectors@5.2.0(@types/react@18.2.48)(@vercel/kv@1.0.1)(@wagmi/core@2.13.8)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react-native@0.76.4)(react@0.0.0-experimental-8039e6d0b-20231026)(rollup@3.28.1)(typescript@5.7.2)(viem@2.21.54)(zod@3.23.8):
     resolution: {integrity: sha512-djj4vhGdc0wslD2q3jj4myojQJdHssgUJ3WEicYhuLRlBH4yssWclt4QUKGbLoaNE/ciJMKa2Qe2bLx5Vo+urg==}
     peerDependencies:
       '@wagmi/core': 2.13.8
@@ -14132,14 +14111,14 @@ packages:
     dependencies:
       '@coinbase/wallet-sdk': 4.0.4
       '@metamask/sdk': 0.29.2(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react-native@0.76.4)(react@0.0.0-experimental-8039e6d0b-20231026)(rollup@3.28.1)
-      '@safe-global/safe-apps-provider': 0.18.3(typescript@5.6.3)(zod@3.23.8)
-      '@safe-global/safe-apps-sdk': 9.1.0(typescript@5.6.3)(zod@3.23.8)
-      '@wagmi/core': 2.13.8(@types/react@18.2.48)(immer@10.1.1)(react@0.0.0-experimental-8039e6d0b-20231026)(typescript@5.6.3)(viem@2.21.54)
+      '@safe-global/safe-apps-provider': 0.18.3(typescript@5.7.2)(zod@3.23.8)
+      '@safe-global/safe-apps-sdk': 9.1.0(typescript@5.7.2)(zod@3.23.8)
+      '@wagmi/core': 2.13.8(@types/react@18.2.48)(immer@10.1.1)(react@0.0.0-experimental-8039e6d0b-20231026)(typescript@5.7.2)(viem@2.21.54)
       '@walletconnect/ethereum-provider': 2.17.0(@types/react@18.2.48)(@vercel/kv@1.0.1)(react@0.0.0-experimental-8039e6d0b-20231026)
       '@walletconnect/modal': 2.7.0(@types/react@18.2.48)(react@0.0.0-experimental-8039e6d0b-20231026)
       cbw-sdk: /@coinbase/wallet-sdk@3.9.3
-      typescript: 5.6.3
-      viem: 2.21.54(typescript@5.6.3)(zod@3.23.8)
+      typescript: 5.7.2
+      viem: 2.21.54(typescript@5.7.2)(zod@3.23.8)
     transitivePeerDependencies:
       - '@azure/app-configuration'
       - '@azure/cosmos'
@@ -14166,7 +14145,7 @@ packages:
       - zod
     dev: false
 
-  /@wagmi/connectors@5.5.3(@types/react@18.2.48)(@vercel/kv@1.0.1)(@wagmi/core@2.13.8)(react@0.0.0-experimental-8039e6d0b-20231026)(typescript@5.6.3)(viem@2.21.54)(zod@3.23.8):
+  /@wagmi/connectors@5.5.3(@types/react@18.2.48)(@vercel/kv@1.0.1)(@wagmi/core@2.13.8)(react@0.0.0-experimental-8039e6d0b-20231026)(typescript@5.7.2)(viem@2.21.54)(zod@3.23.8):
     resolution: {integrity: sha512-ADXcNuNtONh4PNzs5tWiYzl77P4UohXC7ozYecGvbn3Fkdk6x4tfsF9Wy3Ag5WcVbbp89MPpJ2+VK2ckBgtLAg==}
     peerDependencies:
       '@wagmi/core': 2.15.2
@@ -14178,13 +14157,13 @@ packages:
     dependencies:
       '@coinbase/wallet-sdk': 4.2.3
       '@metamask/sdk': 0.31.1
-      '@safe-global/safe-apps-provider': 0.18.4(typescript@5.6.3)(zod@3.23.8)
-      '@safe-global/safe-apps-sdk': 9.1.0(typescript@5.6.3)(zod@3.23.8)
-      '@wagmi/core': 2.13.8(@types/react@18.2.48)(immer@10.1.1)(react@0.0.0-experimental-8039e6d0b-20231026)(typescript@5.6.3)(viem@2.21.54)
+      '@safe-global/safe-apps-provider': 0.18.4(typescript@5.7.2)(zod@3.23.8)
+      '@safe-global/safe-apps-sdk': 9.1.0(typescript@5.7.2)(zod@3.23.8)
+      '@wagmi/core': 2.13.8(@types/react@18.2.48)(immer@10.1.1)(react@0.0.0-experimental-8039e6d0b-20231026)(typescript@5.7.2)(viem@2.21.54)
       '@walletconnect/ethereum-provider': 2.17.0(@types/react@18.2.48)(@vercel/kv@1.0.1)(react@0.0.0-experimental-8039e6d0b-20231026)
       cbw-sdk: /@coinbase/wallet-sdk@3.9.3
-      typescript: 5.6.3
-      viem: 2.21.54(typescript@5.6.3)(zod@3.23.8)
+      typescript: 5.7.2
+      viem: 2.21.54(typescript@5.7.2)(zod@3.23.8)
     transitivePeerDependencies:
       - '@azure/app-configuration'
       - '@azure/cosmos'
@@ -14208,7 +14187,7 @@ packages:
       - zod
     dev: false
 
-  /@wagmi/core@2.13.8(@types/react@18.2.48)(immer@10.1.1)(react@0.0.0-experimental-8039e6d0b-20231026)(typescript@5.6.3)(viem@2.21.54):
+  /@wagmi/core@2.13.8(@types/react@18.2.48)(immer@10.1.1)(react@0.0.0-experimental-8039e6d0b-20231026)(typescript@5.7.2)(viem@2.21.54):
     resolution: {integrity: sha512-bX84cpLq3WWQgGthJlSgcWPAOdLzrP/W0jnbz5XowkCUn6j/T77WyxN5pBb+HmLoJf3ei9tkX9zWhMpczTc3cA==}
     peerDependencies:
       '@tanstack/query-core': '>=5.0.0'
@@ -14221,9 +14200,9 @@ packages:
         optional: true
     dependencies:
       eventemitter3: 5.0.1
-      mipd: 0.0.7(typescript@5.6.3)
-      typescript: 5.6.3
-      viem: 2.21.54(typescript@5.6.3)(zod@3.23.8)
+      mipd: 0.0.7(typescript@5.7.2)
+      typescript: 5.7.2
+      viem: 2.21.54(typescript@5.7.2)(zod@3.23.8)
       zustand: 4.4.1(@types/react@18.2.48)(immer@10.1.1)(react@0.0.0-experimental-8039e6d0b-20231026)
     transitivePeerDependencies:
       - '@types/react'
@@ -14940,7 +14919,7 @@ packages:
       jsonparse: 1.3.1
       through: 2.3.8
 
-  /abitype@1.0.7(typescript@5.6.3)(zod@3.22.4):
+  /abitype@1.0.7(typescript@5.7.2)(zod@3.22.4):
     resolution: {integrity: sha512-ZfYYSktDQUwc2eduYu8C4wOs+RDPmnRYMh7zNfzeMtGGgb0U+6tLGjixUic6mXf5xKKCcgT5Qp6cv39tOARVFw==}
     peerDependencies:
       typescript: '>=5.0.4 || 5'
@@ -14951,11 +14930,11 @@ packages:
       zod:
         optional: true
     dependencies:
-      typescript: 5.6.3
+      typescript: 5.7.2
       zod: 3.22.4
     dev: false
 
-  /abitype@1.0.7(typescript@5.6.3)(zod@3.23.8):
+  /abitype@1.0.7(typescript@5.7.2)(zod@3.23.8):
     resolution: {integrity: sha512-ZfYYSktDQUwc2eduYu8C4wOs+RDPmnRYMh7zNfzeMtGGgb0U+6tLGjixUic6mXf5xKKCcgT5Qp6cv39tOARVFw==}
     peerDependencies:
       typescript: '>=5.0.4 || 5'
@@ -14966,7 +14945,7 @@ packages:
       zod:
         optional: true
     dependencies:
-      typescript: 5.6.3
+      typescript: 5.7.2
       zod: 3.23.8
     dev: false
 
@@ -15626,7 +15605,7 @@ packages:
   /asn1.js@4.10.1:
     resolution: {integrity: sha512-p32cOF5q0Zqs9uBiONKYLm6BClCoBCM5O9JfeUSlnQLBTxYdTK+pW+nXflm8UkKd2UYlEbYz5qEi0JuZR9ckSw==}
     dependencies:
-      bn.js: 4.12.0
+      bn.js: 4.12.1
       inherits: 2.0.4
       minimalistic-assert: 1.0.1
     dev: true
@@ -17336,7 +17315,7 @@ packages:
       vary: 1.1.2
     dev: false
 
-  /cosmiconfig-typescript-loader@4.4.0(@types/node@20.11.9)(cosmiconfig@8.3.6)(ts-node@10.9.2)(typescript@5.6.3):
+  /cosmiconfig-typescript-loader@4.4.0(@types/node@20.11.9)(cosmiconfig@8.3.6)(ts-node@10.9.2)(typescript@5.7.2):
     resolution: {integrity: sha512-BabizFdC3wBHhbI4kJh0VkQP9GkBfoHPydD0COMce1nJ1kJAB3F2TmJ/I7diULBKtmEWSwEbuN/KDtgnmUUVmw==}
     engines: {node: '>=v14.21.3'}
     peerDependencies:
@@ -17353,7 +17332,7 @@ packages:
       '@types/node': 20.11.9
       cosmiconfig: 8.3.6(typescript@5.5.0-beta)
       ts-node: 10.9.2(@swc/core@1.3.106)(@types/node@20.11.9)(typescript@5.5.0-beta)
-      typescript: 5.6.3
+      typescript: 5.7.2
     dev: true
 
   /cosmiconfig@5.2.1:
@@ -17402,7 +17381,7 @@ packages:
       typescript: 5.5.0-beta
     dev: true
 
-  /cosmiconfig@8.3.6(typescript@5.6.3):
+  /cosmiconfig@8.3.6(typescript@5.7.2):
     resolution: {integrity: sha512-kcZ6+W5QzcJ3P1Mt+83OUv/oHFqZHIx8DuxG6eZ5RGMERoLqp4BuGjhHLYGK+Kf5XVkQvqBSmAy/nGWN3qDgEA==}
     engines: {node: '>=14'}
     peerDependencies:
@@ -17415,7 +17394,7 @@ packages:
       js-yaml: 4.1.0
       parse-json: 5.2.0
       path-type: 4.0.0
-      typescript: 5.6.3
+      typescript: 5.7.2
     dev: true
 
   /country-flag-icons@1.5.13:
@@ -17464,6 +17443,7 @@ packages:
       node-fetch: 2.7.0
     transitivePeerDependencies:
       - encoding
+    dev: false
 
   /cross-fetch@4.0.0:
     resolution: {integrity: sha512-e4a5N8lVvuLgAWgnCrLr2PP0YyDOTHa9H/Rj54dirp61qXnNq46m82bRhNqIA5VccJtWBvPTFRV3TtvHUKPB1g==}
@@ -18633,7 +18613,7 @@ packages:
   /elliptic@6.5.4:
     resolution: {integrity: sha512-iLhC6ULemrljPZb+QutR5TQGB+pdW6KGD5RSegS+8sorOZT+rdQFbsQFJgvN3eRqNALqJer4oQ16YvJHlU8hzQ==}
     dependencies:
-      bn.js: 4.12.0
+      bn.js: 4.12.1
       brorand: 1.1.0
       hash.js: 1.1.7
       hmac-drbg: 1.0.1
@@ -18645,7 +18625,7 @@ packages:
   /elliptic@6.6.0:
     resolution: {integrity: sha512-dpwoQcLc/2WLQvJvLRHKZ+f9FgOdjnq11rurqwekGQygGPsYSK29OMMD2WalatiqQ+XGFDglTNixpPfI+lpaAA==}
     dependencies:
-      bn.js: 4.12.0
+      bn.js: 4.12.1
       brorand: 1.1.0
       hash.js: 1.1.7
       hmac-drbg: 1.0.1
@@ -19064,7 +19044,7 @@ packages:
     engines: {node: '>=12'}
     dev: false
 
-  /eslint-config-next@13.5.2(eslint@8.57.0)(typescript@5.6.3):
+  /eslint-config-next@13.5.2(eslint@8.57.0)(typescript@5.7.2):
     resolution: {integrity: sha512-kCF7k7fHBtFtxfP6J6AP6Mo0vW3CrFeoIuoZ7NHGIvLFc/RUaIspJ6inO/R33zE1o9t/lbJgTnsqnRB++sxCUQ==}
     peerDependencies:
       eslint: ^7.23.0 || ^8.0.0
@@ -19075,7 +19055,7 @@ packages:
     dependencies:
       '@next/eslint-plugin-next': 13.5.2
       '@rushstack/eslint-patch': 1.10.4
-      '@typescript-eslint/parser': 6.5.0(eslint@8.57.0)(typescript@5.6.3)
+      '@typescript-eslint/parser': 6.5.0(eslint@8.57.0)(typescript@5.7.2)
       eslint: 8.57.0
       eslint-import-resolver-node: 0.3.9
       eslint-import-resolver-typescript: 3.7.0(eslint-plugin-import@2.30.0)(eslint@8.57.0)
@@ -19083,7 +19063,7 @@ packages:
       eslint-plugin-jsx-a11y: 6.10.2(eslint@8.57.0)
       eslint-plugin-react: 7.37.2(eslint@8.57.0)
       eslint-plugin-react-hooks: 4.6.2(eslint@8.57.0)
-      typescript: 5.6.3
+      typescript: 5.7.2
     transitivePeerDependencies:
       - eslint-import-resolver-webpack
       - eslint-plugin-import-x
@@ -19171,7 +19151,7 @@ packages:
       eslint-import-resolver-webpack:
         optional: true
     dependencies:
-      '@typescript-eslint/parser': 6.5.0(eslint@8.57.0)(typescript@5.6.3)
+      '@typescript-eslint/parser': 6.5.0(eslint@8.57.0)(typescript@5.7.2)
       debug: 3.2.7
       eslint: 8.57.0
       eslint-import-resolver-node: 0.3.9
@@ -19243,7 +19223,7 @@ packages:
         optional: true
     dependencies:
       '@rtsao/scc': 1.1.0
-      '@typescript-eslint/parser': 6.5.0(eslint@8.57.0)(typescript@5.6.3)
+      '@typescript-eslint/parser': 6.5.0(eslint@8.57.0)(typescript@5.7.2)
       array-includes: 3.1.8
       array.prototype.findlastindex: 1.2.5
       array.prototype.flat: 1.3.2
@@ -19453,7 +19433,7 @@ packages:
       '@typescript-eslint/eslint-plugin':
         optional: true
     dependencies:
-      '@typescript-eslint/eslint-plugin': 6.10.0(@typescript-eslint/parser@6.5.0)(eslint@8.57.0)(typescript@5.6.3)
+      '@typescript-eslint/eslint-plugin': 6.10.0(@typescript-eslint/parser@6.5.0)(eslint@8.57.0)(typescript@5.7.2)
       eslint: 8.57.0
       eslint-rule-composer: 0.3.0
     dev: true
@@ -20047,7 +20027,7 @@ packages:
     resolution: {integrity: sha512-an2S5quJMiy5bnZKEf6AkfH/7r8CzHvhchU40gxN+OM6HPhe7Z9T1FUychcf2M9PpPOO0Hf7BAEfJkw2TDIBDw==}
     engines: {node: '>=12.0.0'}
     dependencies:
-      readable-stream: 3.6.2
+      readable-stream: 4.5.2
       webextension-polyfill: 0.10.0
     dev: false
 
@@ -21116,7 +21096,7 @@ packages:
       graphql: 16.9.0
     transitivePeerDependencies:
       - encoding
-    dev: true
+    dev: false
 
   /graphql-request@6.1.0(graphql@16.9.0):
     resolution: {integrity: sha512-p+XPfS4q7aIpKVcgmnZKhMNqhltk20hfXtkaIkTfjjmiKMJ5xrt5c743cL03y/K7y1rg3WrIC49xGiEQ4mxdNw==}
@@ -24403,7 +24383,7 @@ packages:
       yallist: 4.0.0
     dev: true
 
-  /mipd@0.0.7(typescript@5.6.3):
+  /mipd@0.0.7(typescript@5.7.2):
     resolution: {integrity: sha512-aAPZPNDQ3uMTdKbuO2YmAw2TxLHO0moa4YKAyETM/DTj5FloZo+a+8tU+iv4GmW+sOxKLSRwcSFuczk+Cpt6fg==}
     peerDependencies:
       typescript: '>=5.0.4 || 5'
@@ -24411,7 +24391,7 @@ packages:
       typescript:
         optional: true
     dependencies:
-      typescript: 5.6.3
+      typescript: 5.7.2
     dev: false
 
   /mixin-deep@1.3.2:
@@ -25330,7 +25310,7 @@ packages:
     resolution: {integrity: sha512-+Sl2UErvtsoajRDKCE5/dBz4DIvHXQQnAxtQTF04OJxY0+DyZXSo5P5Bb7XYWOh81syohlYL24hbDwxedPUJCA==}
     dev: true
 
-  /ox@0.1.2(typescript@5.6.3)(zod@3.22.4):
+  /ox@0.1.2(typescript@5.7.2)(zod@3.22.4):
     resolution: {integrity: sha512-ak/8K0Rtphg9vnRJlbOdaX9R7cmxD2MiSthjWGaQdMk3D7hrAlDoM+6Lxn7hN52Za3vrXfZ7enfke/5WjolDww==}
     peerDependencies:
       typescript: '>=5.4.0 || 5'
@@ -25343,14 +25323,14 @@ packages:
       '@noble/hashes': 1.5.0
       '@scure/bip32': 1.6.0
       '@scure/bip39': 1.5.0
-      abitype: 1.0.7(typescript@5.6.3)(zod@3.22.4)
+      abitype: 1.0.7(typescript@5.7.2)(zod@3.22.4)
       eventemitter3: 5.0.1
-      typescript: 5.6.3
+      typescript: 5.7.2
     transitivePeerDependencies:
       - zod
     dev: false
 
-  /ox@0.1.2(typescript@5.6.3)(zod@3.23.8):
+  /ox@0.1.2(typescript@5.7.2)(zod@3.23.8):
     resolution: {integrity: sha512-ak/8K0Rtphg9vnRJlbOdaX9R7cmxD2MiSthjWGaQdMk3D7hrAlDoM+6Lxn7hN52Za3vrXfZ7enfke/5WjolDww==}
     peerDependencies:
       typescript: '>=5.4.0 || 5'
@@ -25363,9 +25343,9 @@ packages:
       '@noble/hashes': 1.5.0
       '@scure/bip32': 1.6.0
       '@scure/bip39': 1.5.0
-      abitype: 1.0.7(typescript@5.6.3)(zod@3.23.8)
+      abitype: 1.0.7(typescript@5.7.2)(zod@3.23.8)
       eventemitter3: 5.0.1
-      typescript: 5.6.3
+      typescript: 5.7.2
     transitivePeerDependencies:
       - zod
     dev: false
@@ -30121,7 +30101,7 @@ packages:
       typescript: 5.5.0-beta
     dev: true
 
-  /ts-api-utils@1.4.3(typescript@5.6.3):
+  /ts-api-utils@1.4.3(typescript@5.7.2):
     resolution: {integrity: sha512-i3eMG77UTMD0hZhgRS562pv83RC6ukSAC2GMNWc+9dieh/+jDM5u5YG+NHX6VNDRHQcHwmsTHctP9LhbC3WxVw==}
     engines: {node: '>=16'}
     peerDependencies:
@@ -30130,7 +30110,7 @@ packages:
       typescript:
         optional: true
     dependencies:
-      typescript: 5.6.3
+      typescript: 5.7.2
     dev: true
 
   /ts-command-line-args@2.5.1:
@@ -30147,7 +30127,7 @@ packages:
     resolution: {integrity: sha512-Z86EW+fFFh/IFB1fqQ3/+7Zpf9t2ebOAxNI/V6Wo7r5gqiqtxmgTlQ1qbqQcjLKYeSHPTsEmvlJUDg/EuL0uHQ==}
     dev: false
 
-  /ts-essentials@7.0.3(typescript@5.6.3):
+  /ts-essentials@7.0.3(typescript@5.7.2):
     resolution: {integrity: sha512-8+gr5+lqO3G84KdiTSMRLtuyJ+nTBVRKuCrK4lidMPdVeEp0uqC875uE5NMcaA7YYMN7XsNiFQuMvasF8HT/xQ==}
     peerDependencies:
       typescript: '>=3.7.0 || 5'
@@ -30155,7 +30135,7 @@ packages:
       typescript:
         optional: true
     dependencies:
-      typescript: 5.6.3
+      typescript: 5.7.2
     dev: false
 
   /ts-interface-checker@0.1.13:
@@ -30378,7 +30358,7 @@ packages:
   /type@2.7.3:
     resolution: {integrity: sha512-8j+1QmAbPvLZow5Qpi6NCaN8FB60p/6x8/vfNqOk/hC+HuvFZhL4+WfekuhQLiqFZXOgQdrs3B+XxEmCc6b3FQ==}
 
-  /typechain@8.3.1(typescript@5.6.3):
+  /typechain@8.3.1(typescript@5.7.2):
     resolution: {integrity: sha512-fA7clol2IP/56yq6vkMTR+4URF1nGjV82Wx6Rf09EsqD4tkzMAvEaqYxVFCavJm/1xaRga/oD55K+4FtuXwQOQ==}
     hasBin: true
     peerDependencies:
@@ -30396,8 +30376,8 @@ packages:
       mkdirp: 1.0.4
       prettier: 2.8.8
       ts-command-line-args: 2.5.1
-      ts-essentials: 7.0.3(typescript@5.6.3)
-      typescript: 5.6.3
+      ts-essentials: 7.0.3(typescript@5.7.2)
+      typescript: 5.7.2
     transitivePeerDependencies:
       - supports-color
     dev: false
@@ -30487,8 +30467,8 @@ packages:
     engines: {node: '>=14.17'}
     hasBin: true
 
-  /typescript@5.6.3:
-    resolution: {integrity: sha512-hjcS1mhfuyi4WW8IWtjP7brDrG2cuDZukyrYrSauoXGNgx0S7zceP07adYkJycEr56BOUTNPzbInooiN3fn1qw==}
+  /typescript@5.7.2:
+    resolution: {integrity: sha512-i5t66RHxDvVN40HfDd1PsEThGNnlMCMT3jMUuoh9/0TaqWevNontacunWyN02LA9/fIbEWlcHZcgTKb9QoaLfg==}
     engines: {node: '>=14.17'}
     hasBin: true
 
@@ -31196,7 +31176,7 @@ packages:
       vfile-message: 4.0.2
     dev: false
 
-  /viem@2.21.54(typescript@5.6.3)(zod@3.22.4):
+  /viem@2.21.54(typescript@5.7.2)(zod@3.22.4):
     resolution: {integrity: sha512-G9mmtbua3UtnVY9BqAtWdNp+3AO+oWhD0B9KaEsZb6gcrOWgmA4rz02yqEMg+qW9m6KgKGie7q3zcHqJIw6AqA==}
     peerDependencies:
       typescript: '>=5.0.4 || 5'
@@ -31208,10 +31188,10 @@ packages:
       '@noble/hashes': 1.6.1
       '@scure/bip32': 1.6.0
       '@scure/bip39': 1.5.0
-      abitype: 1.0.7(typescript@5.6.3)(zod@3.22.4)
+      abitype: 1.0.7(typescript@5.7.2)(zod@3.22.4)
       isows: 1.0.6(ws@8.18.0)
-      ox: 0.1.2(typescript@5.6.3)(zod@3.22.4)
-      typescript: 5.6.3
+      ox: 0.1.2(typescript@5.7.2)(zod@3.22.4)
+      typescript: 5.7.2
       webauthn-p256: 0.0.10
       ws: 8.18.0(bufferutil@4.0.8)(utf-8-validate@5.0.10)
     transitivePeerDependencies:
@@ -31220,7 +31200,7 @@ packages:
       - zod
     dev: false
 
-  /viem@2.21.54(typescript@5.6.3)(zod@3.23.8):
+  /viem@2.21.54(typescript@5.7.2)(zod@3.23.8):
     resolution: {integrity: sha512-G9mmtbua3UtnVY9BqAtWdNp+3AO+oWhD0B9KaEsZb6gcrOWgmA4rz02yqEMg+qW9m6KgKGie7q3zcHqJIw6AqA==}
     peerDependencies:
       typescript: '>=5.0.4 || 5'
@@ -31232,10 +31212,10 @@ packages:
       '@noble/hashes': 1.6.1
       '@scure/bip32': 1.6.0
       '@scure/bip39': 1.5.0
-      abitype: 1.0.7(typescript@5.6.3)(zod@3.23.8)
+      abitype: 1.0.7(typescript@5.7.2)(zod@3.23.8)
       isows: 1.0.6(ws@8.18.0)
-      ox: 0.1.2(typescript@5.6.3)(zod@3.23.8)
-      typescript: 5.6.3
+      ox: 0.1.2(typescript@5.7.2)(zod@3.23.8)
+      typescript: 5.7.2
       webauthn-p256: 0.0.10
       ws: 8.18.0(bufferutil@4.0.8)(utf-8-validate@5.0.10)
     transitivePeerDependencies:
@@ -31570,7 +31550,7 @@ packages:
       xml-name-validator: 5.0.0
     dev: true
 
-  /wagmi@2.12.18(@tanstack/react-query@5.56.2)(@types/react@18.2.48)(@vercel/kv@1.0.1)(immer@10.1.1)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react-native@0.76.4)(react@0.0.0-experimental-8039e6d0b-20231026)(rollup@3.28.1)(typescript@5.6.3)(viem@2.21.54)(zod@3.23.8):
+  /wagmi@2.12.18(@tanstack/react-query@5.56.2)(@types/react@18.2.48)(@vercel/kv@1.0.1)(immer@10.1.1)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react-native@0.76.4)(react@0.0.0-experimental-8039e6d0b-20231026)(rollup@3.28.1)(typescript@5.7.2)(viem@2.21.54)(zod@3.23.8):
     resolution: {integrity: sha512-ddW67eFmFyPSzW5L2Q11bROhNDOnPJZcbleIsBMfP5Vpk5FC0AjfTOhLesjW0y74lWzpmInlaWFZPlDsEijxJg==}
     peerDependencies:
       '@tanstack/react-query': 5.56.2
@@ -31584,12 +31564,12 @@ packages:
         optional: true
     dependencies:
       '@tanstack/react-query': 5.56.2(react@0.0.0-experimental-8039e6d0b-20231026)
-      '@wagmi/connectors': 5.2.0(@types/react@18.2.48)(@vercel/kv@1.0.1)(@wagmi/core@2.13.8)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react-native@0.76.4)(react@0.0.0-experimental-8039e6d0b-20231026)(rollup@3.28.1)(typescript@5.6.3)(viem@2.21.54)(zod@3.23.8)
-      '@wagmi/core': 2.13.8(@types/react@18.2.48)(immer@10.1.1)(react@0.0.0-experimental-8039e6d0b-20231026)(typescript@5.6.3)(viem@2.21.54)
+      '@wagmi/connectors': 5.2.0(@types/react@18.2.48)(@vercel/kv@1.0.1)(@wagmi/core@2.13.8)(react-dom@0.0.0-experimental-8039e6d0b-20231026)(react-native@0.76.4)(react@0.0.0-experimental-8039e6d0b-20231026)(rollup@3.28.1)(typescript@5.7.2)(viem@2.21.54)(zod@3.23.8)
+      '@wagmi/core': 2.13.8(@types/react@18.2.48)(immer@10.1.1)(react@0.0.0-experimental-8039e6d0b-20231026)(typescript@5.7.2)(viem@2.21.54)
       react: 0.0.0-experimental-8039e6d0b-20231026
-      typescript: 5.6.3
+      typescript: 5.7.2
       use-sync-external-store: 1.2.0(react@0.0.0-experimental-8039e6d0b-20231026)
-      viem: 2.21.54(typescript@5.6.3)(zod@3.23.8)
+      viem: 2.21.54(typescript@5.7.2)(zod@3.23.8)
     transitivePeerDependencies:
       - '@azure/app-configuration'
       - '@azure/cosmos'
@@ -33058,7 +33038,6 @@ time:
   /@swc/core@1.3.106: '2024-01-25T06:26:44.205Z'
   /@tailwindcss/forms@0.5.9: '2024-09-05T13:53:09.872Z'
   /@tanstack/eslint-plugin-query@5.28.11: '2024-04-02T11:19:05.198Z'
-  /@tanstack/react-query-devtools@5.58.0: '2024-09-25T01:40:46.721Z'
   /@tanstack/react-query-next-experimental@5.56.2: '2024-09-12T18:06:38.236Z'
   /@tanstack/react-query@5.56.2: '2024-09-12T18:06:26.839Z'
   /@tanstack/react-ranger@0.0.4: '2023-11-24T09:24:06.987Z'
@@ -33212,7 +33191,7 @@ time:
   /typechain@8.3.1: '2023-07-24T07:52:39.458Z'
   /typescript-eslint@7.1.1: '2024-03-04T17:18:57.715Z'
   /typescript@5.5.0-beta: '2024-04-25T19:03:19.484Z'
-  /typescript@5.6.3: '2024-10-08T22:01:09.783Z'
+  /typescript@5.7.2: '2024-11-22T17:16:09.621Z'
   /typeson-registry@8.0.0: '2023-08-13T19:05:18.535Z'
   /typeson@9.0.3: '2023-06-09T16:06:00.595Z'
   /unist-util-flatmap@1.0.0: '2018-07-21T19:29:06.641Z'

@@ -1,7 +1,20 @@
 import { noop } from 'lodash-es';
-import type { Subscription } from 'use-subscription';
 
 import type { ValueRef } from '@/libs/ValueRef.js';
+
+export type Unsubscribe = () => void;
+
+export interface Subscription<T> {
+    /**
+     * (Synchronously) returns the current value of our subscription.
+     */
+    getCurrentValue: () => T;
+    /**
+     * This function is passed an event handler to attach to the subscription.
+     * It must return an unsubscribe function that removes the handler.
+     */
+    subscribe: (callback: () => void) => Unsubscribe;
+}
 
 export function createConstantSubscription<T>(value: T): Subscription<T> {
     return {
