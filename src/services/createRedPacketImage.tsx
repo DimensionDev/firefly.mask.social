@@ -38,6 +38,7 @@ interface Payload {
     usage: UsageType.Payload;
     from: string;
     amount: string;
+    message: string;
     token: {
         type: TokenType;
         symbol: string;
@@ -63,11 +64,11 @@ export async function createRedPacketImage(coverOrPayload: Cover | Payload, sign
     const { usage, themeId } = coverOrPayload;
     const [fonts, theme] = await Promise.all([getSatoriFonts(signal), getTheme(themeId, signal)]);
 
+    // satori might not support VS16s, so we remove them here
+    coverOrPayload.message = removeVS16s(coverOrPayload.message);
+
     switch (usage) {
         case UsageType.Cover:
-            // satori might not support VS16s, so we remove them here
-            coverOrPayload.message = removeVS16s(coverOrPayload.message);
-
             return satori(<RedPacketCover theme={theme} {...coverOrPayload} />, {
                 width: 1200,
                 height: 840,
@@ -79,6 +80,7 @@ export async function createRedPacketImage(coverOrPayload: Cover | Payload, sign
                 width: 1200,
                 height: 840,
                 fonts,
+                graphemeImages: await loadTwemojiUrls(coverOrPayload.message),
             });
         default:
             safeUnreachable(usage);

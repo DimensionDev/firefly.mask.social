@@ -1,3 +1,5 @@
+'use client'
+
 /* eslint-disable no-restricted-imports */
 
 /**
