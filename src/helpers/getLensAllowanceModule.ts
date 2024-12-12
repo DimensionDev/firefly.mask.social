@@ -1,4 +1,4 @@
-import { FollowModuleType, OpenActionModuleType } from '@lens-protocol/client';
+import { FollowModuleType, OpenActionModuleType } from '@lens-protocol/client/gated';
 
 export const getLensAllowanceModule = (
     name: string,

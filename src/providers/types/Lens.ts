@@ -1,4 +1,4 @@
-import { type FrameLensManagerEip712Request } from '@lens-protocol/client';
+import { type FrameLensManagerEip712Request } from '@lens-protocol/client/gated';
 
 export interface FrameSignaturePacket {
     clientProtocol: string;

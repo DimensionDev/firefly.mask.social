@@ -1,4 +1,4 @@
-import type { ApprovedAllowanceAmountResultFragment } from '@lens-protocol/client';
+import type { ApprovedAllowanceAmountResultFragment } from '@lens-protocol/client/gated';
 
 import { queryClient } from '@/configs/queryClient.js';
 import { Source } from '@/constants/enum.js';

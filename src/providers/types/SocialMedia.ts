@@ -1,4 +1,4 @@
-import type { OpenActionModuleType } from '@lens-protocol/client';
+import type { OpenActionModuleType } from '@lens-protocol/client/gated';
 
 import {
     type BookmarkType,

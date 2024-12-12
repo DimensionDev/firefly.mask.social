@@ -1,4 +1,4 @@
-import { type FeeFollowModuleSettingsFragment, FollowModuleType } from '@lens-protocol/client';
+import { type FeeFollowModuleSettingsFragment, FollowModuleType } from '@lens-protocol/client/gated';
 import { useQuery } from '@tanstack/react-query';
 import { type Address, erc20Abi, formatUnits } from 'viem';
 import { useAccount, useReadContract } from 'wagmi';
