@@ -10,7 +10,6 @@ import {
     useAvailableBalance,
     WalletConnectedBoundary,
 } from '@masknet/shared';
-import { NetworkPluginID } from '@/constants/enum.js';
 import { useNativeTokenPrice } from '@masknet/web3-hooks-base';
 import {
     formatBalance,
@@ -37,6 +36,7 @@ import { isAddress } from 'viem';
 import { switchChain } from 'wagmi/actions';
 
 import { config } from '@/configs/wagmiClient.js';
+import { NetworkPluginID } from '@/constants/enum.js';
 import { createAccount } from '@/helpers/createAccount.js';
 import { isSameEthereumAddress } from '@/helpers/isSameAddress.js';
 import { useChainContext } from '@/hooks/useChainContext.js';

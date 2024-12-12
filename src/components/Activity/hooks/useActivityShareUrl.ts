@@ -4,8 +4,8 @@ import { useActivityCurrentAccountHandle } from '@/components/Activity/hooks/use
 import { PageRoute, type SocialSource, Source } from '@/constants/enum.js';
 import { UnreachableError } from '@/constants/error.js';
 import { SITE_URL } from '@/constants/index.js';
-import { ReferralAccountPlatform, resolveActivityUrl } from '@/helpers/resolveActivityUrl.js';
 import { createLookupTableResolver } from '@/helpers/createLookupTableResolver.js';
+import { ReferralAccountPlatform, resolveActivityUrl } from '@/helpers/resolveActivityUrl.js';
 
 const resolveReferralAccountPlatformFromSocialSource = createLookupTableResolver<SocialSource, ReferralAccountPlatform>(
     {

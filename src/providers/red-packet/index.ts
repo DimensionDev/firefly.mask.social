@@ -1,6 +1,6 @@
-import { NetworkPluginID } from '@/constants/enum.js';
 import urlcat from 'urlcat';
 
+import { NetworkPluginID } from '@/constants/enum.js';
 import { UnauthorizedError } from '@/constants/error.js';
 import { EMPTY_LIST } from '@/constants/index.js';
 import { bom } from '@/helpers/bom.js';

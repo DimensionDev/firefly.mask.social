@@ -6,6 +6,7 @@ import { format, fromUnixTime } from 'date-fns';
 import { memo } from 'react';
 import urlcat from 'urlcat';
 
+import { NetworkPluginID } from '@/constants/enum.js';
 import { getNetworkDescriptor } from '@/helpers/getNetworkDescriptor.js';
 import { useChainContext } from '@/hooks/useChainContext.js';
 import { Icons } from '@/mask/bindings/components.js';
@@ -13,7 +14,6 @@ import { makeStyles } from '@/mask/bindings/index.js';
 import { FireflyRedPacketAccountItem } from '@/mask/plugins/red-packet/components/FireflyRedPacketAccountItem.js';
 import { RedPacketActionButton } from '@/mask/plugins/red-packet/components/RedPacketActionButton.js';
 import { FireflyRedPacketAPI } from '@/providers/red-packet/types.js';
-import { NetworkPluginID } from '@/constants/enum.js';
 
 const useStyles = makeStyles<{ listItemBackground?: string; listItemBackgroundIcon?: string }>()((
     theme,

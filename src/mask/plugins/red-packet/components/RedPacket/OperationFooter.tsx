@@ -1,10 +1,10 @@
 import { t, Trans } from '@lingui/macro';
 import { ChainBoundary } from '@masknet/shared';
-import { NetworkPluginID } from '@/constants/enum.js';
 import { ChainId } from '@masknet/web3-shared-evm';
 import { Box, useTheme } from '@mui/material';
 import type { MouseEventHandler } from 'react';
 
+import { NetworkPluginID } from '@/constants/enum.js';
 import { useChainContext } from '@/hooks/useChainContext.js';
 import { ActionButton, Icons } from '@/mask/bindings/components.js';
 import { makeStyles } from '@/mask/bindings/index.js';

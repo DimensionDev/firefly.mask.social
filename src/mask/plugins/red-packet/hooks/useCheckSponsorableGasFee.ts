@@ -1,6 +1,6 @@
-import { NetworkPluginID } from '@/constants/enum.js';
 import { useQuery } from '@tanstack/react-query';
 
+import { NetworkPluginID } from '@/constants/enum.js';
 import type { Web3Helper } from '@/maskbook/packages/web3-helpers/src/index.js';
 import { FireflyRedPacket } from '@/providers/red-packet/index.js';
 

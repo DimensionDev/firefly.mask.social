@@ -6,11 +6,11 @@ import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
 import { first } from 'lodash-es';
 import { memo, useMemo } from 'react';
 
+import { createIndicator } from '@/helpers/pageable.js';
 import { makeStyles } from '@/mask/bindings/index.js';
 import { FireflyRedPacketAccountItem } from '@/mask/plugins/red-packet/components/FireflyRedPacketAccountItem.js';
 import { FireflyRedPacketDetailsItem } from '@/mask/plugins/red-packet/components/FireflyRedPacketDetailsItem.js';
 import { FireflyRedPacket } from '@/providers/red-packet/index.js';
-import { createIndicator } from '@/helpers/pageable.js';
 
 const useStyles = makeStyles()((theme) => ({
     container: {

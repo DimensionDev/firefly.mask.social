@@ -4,6 +4,7 @@ import type { QueryObserverResult, RefetchOptions } from '@tanstack/react-query'
 import { compact, first } from 'lodash-es';
 import { useCallback } from 'react';
 
+import { EMPTY_LIST } from '@/constants/index.js';
 import { useChainContext } from '@/hooks/useChainContext.js';
 import { EVMNetworkResolver } from '@/mask/bindings/index.js';
 import { useAvailability } from '@/mask/plugins/red-packet/hooks/useAvailability.js';
@@ -13,7 +14,6 @@ import { useParseRedPacket } from '@/mask/plugins/red-packet/hooks/useParseRedPa
 import { useSignedMessage } from '@/mask/plugins/red-packet/hooks/useSignedMessage.js';
 import { type RedPacketJSONPayload, RedPacketStatus } from '@/providers/red-packet/types.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
-import { EMPTY_LIST } from '@/constants/index.js';
 
 /**
  * Fetch the red packet info from the chain
