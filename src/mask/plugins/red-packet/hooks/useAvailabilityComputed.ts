@@ -1,10 +1,10 @@
-import { EMPTY_LIST } from '@masknet/shared-base';
 import { isSameAddress } from '@masknet/web3-shared-base';
 import { ChainId, type NetworkType } from '@masknet/web3-shared-evm';
 import type { QueryObserverResult, RefetchOptions } from '@tanstack/react-query';
 import { compact, first } from 'lodash-es';
 import { useCallback } from 'react';
 
+import { EMPTY_LIST } from '@/constants/index.js';
 import { useChainContext } from '@/hooks/useChainContext.js';
 import { EVMNetworkResolver } from '@/mask/bindings/index.js';
 import { useAvailability } from '@/mask/plugins/red-packet/hooks/useAvailability.js';
