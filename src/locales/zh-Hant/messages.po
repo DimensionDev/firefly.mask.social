@@ -2197,9 +2197,6 @@ msgstr ""
 msgid "Failed to fetch profiles."
 msgstr ""
 
-msgid "Post is decrypting..."
-msgstr ""
-
 msgid "Unliked"
 msgstr "已取消喜歡"
 
@@ -2658,9 +2655,6 @@ msgstr "通知"
 
 msgid "Back"
 msgstr "返回"
-
-msgid "Decrypt"
-msgstr ""
 
 msgid "Article collected successfully!"
 msgstr ""
