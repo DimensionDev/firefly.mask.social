@@ -30,20 +30,17 @@ export function Info(props: InfoProps) {
     const { data: profile } = useQuery({
         queryKey: ['profile', props.profile.source, handleOrProfileId],
         async queryFn() {
-            const pf = await getProfileById(props.profile.source, handleOrProfileId);
-            if (pf) return pf;
-            return props.profile;
+            try {
+                const fetched = await getProfileById(props.profile.source, handleOrProfileId);
+                return fetched ?? props.profile;
+            } catch {
+                return props.profile;
+            }
         },
         initialData: props.profile,
     });
 
-    const profileId = profile.profileId;
-
-    const source = profile.source;
-
-    const followingCount = profile.followingCount || 0;
-    const followerCount = profile.followerCount || 0;
-    const showAction = !!profile;
+    const { source, profileId, followerCount = 0, followingCount = 0 } = profile;
 
     return (
         <div className="grid grid-cols-[80px_calc(100%-80px-12px)] gap-3 p-3">
@@ -69,7 +66,9 @@ export function Info(props: InfoProps) {
                         </TextOverflowTooltip>
                         <ProfileVerifyBadge className="flex flex-shrink-0 items-center space-x-1" profile={profile} />
                         <div className="ml-auto flex items-center gap-2">
-                            <NoSSR>{showAction ? <ProfileAction profile={profile} /> : null}</NoSSR>
+                            <NoSSR>
+                                <ProfileAction profile={profile} />
+                            </NoSSR>
                         </div>
                     </div>
                     <span className="text-medium text-secondary">@{profile.handle}</span>
