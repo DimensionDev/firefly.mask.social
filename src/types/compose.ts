@@ -15,4 +15,5 @@ export interface MediaObject {
     mimeType: string;
     urls?: Partial<Record<MediaSource, string>>;
     uploadIds?: Partial<Record<MediaSource, string>>;
+    isRpPayloadImage?: boolean;
 }

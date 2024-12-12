@@ -38,19 +38,19 @@ export const nFormatter = (num: number, digits = 1): string => {
         return num >= item.value;
     });
 
-    // Format the number with the appropriate SI prefix and number of digits
-    if (item) {
-        if (num < 1000) {
-            return humanize(num);
-        } else {
-            const value = new BigNumber(num).dividedBy(item.value);
-            let str = value.toFixed();
-            if (str.length > digits && num >= 1e18) {
-                str = str.slice(0, digits) + '...';
-            }
-            return str + item.symbol;
+    if (num >= 1e18 && item) {
+        const value = new BigNumber(num).dividedBy(item.value);
+        let str = value.toFixed(digits);
+        if (str.length > 6) {
+            str = str.slice(0, 6) + '...';
         }
-    } else {
-        return '0';
+        return str + item.symbol;
     }
+
+    // Format the number with the appropriate SI prefix and number of digits
+    return item
+        ? num < 1000
+            ? humanize(num)
+            : (num / item.value).toFixed(digits).replace(rx, '$1') + item.symbol
+        : '0';
 };
