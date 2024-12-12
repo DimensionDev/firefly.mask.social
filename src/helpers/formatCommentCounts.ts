@@ -45,7 +45,7 @@ export const nFormatter = (num: number, digits = 1): string => {
         } else {
             const value = new BigNumber(num).dividedBy(item.value);
             let str = value.toFixed();
-            if (str.length > digits) {
+            if (str.length > digits && num >= 1e18) {
                 str = str.slice(0, digits) + '...';
             }
             return str + item.symbol;

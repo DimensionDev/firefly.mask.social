@@ -80,6 +80,7 @@ export async function createRedPacketImage(coverOrPayload: Cover | Payload, sign
                 width: 1200,
                 height: 840,
                 fonts,
+                graphemeImages: await loadTwemojiUrls(coverOrPayload.message),
             });
         default:
             safeUnreachable(usage);

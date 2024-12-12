@@ -2,7 +2,7 @@ import { formatBalance } from '@/helpers/formatBalance.js';
 import { nFormatter } from '@/helpers/formatCommentCounts.js';
 import { getCSSPropertiesFromThemeSettings } from '@/helpers/getCSSPropertiesFromThemeSettings.js';
 import { hexToRGBA } from '@/helpers/hexToRGBA.js';
-import { leftShift, minus } from '@/helpers/number.js';
+import { dividedBy, leftShift } from '@/helpers/number.js';
 import type { FireflyRedPacketAPI } from '@/mask/bindings/index.js';
 import type { TokenType } from '@/types/rp.js';
 
@@ -10,6 +10,8 @@ interface AmountProgressTextProps {
     theme: FireflyRedPacketAPI.ThemeGroupSettings;
     amount: string; // bigint in str
     remainingAmount?: string; // bigint in str
+    shares?: number;
+    remainingShares?: number;
     token: {
         type: TokenType;
         symbol: string;
@@ -20,12 +22,23 @@ interface AmountProgressTextProps {
     SymbolTextStyle?: React.CSSProperties;
 }
 
-export function AmountProgressText({ theme, amount, remainingAmount, token, ...props }: AmountProgressTextProps) {
+export function AmountProgressText({
+    theme,
+    amount,
+    remainingAmount,
+    token,
+    shares,
+    remainingShares,
+    ...props
+}: AmountProgressTextProps) {
     const { symbol, decimals = 0 } = token;
 
-    const progress = remainingAmount
-        ? minus(amount, remainingAmount).div(amount).multipliedBy(100).toNumber()
-        : undefined;
+    const progress =
+        remainingShares !== undefined && shares
+            ? dividedBy(shares - remainingShares, shares)
+                  .multipliedBy(100)
+                  .toNumber()
+            : undefined;
 
     const totalAmountText = formatBalance(amount, decimals, {
         isFixed: true,
@@ -42,10 +55,10 @@ export function AmountProgressText({ theme, amount, remainingAmount, token, ...p
                 justifyContent: 'center',
                 position: 'relative',
                 width: '100%',
-
                 border: `1px solid ${getCSSPropertiesFromThemeSettings(theme.normal.title2).color}`,
                 borderRadius: 16,
-                padding: '12px 22px',
+                boxSizing: 'border-box',
+                padding: '12px 0px',
                 color: getCSSPropertiesFromThemeSettings(theme.normal.title2).color,
                 backgroundColor: hexToRGBA(getCSSPropertiesFromThemeSettings(theme.normal.title2).color, 0.2),
                 ...props.ContainerStyle,
@@ -64,8 +77,9 @@ export function AmountProgressText({ theme, amount, remainingAmount, token, ...p
                     }}
                 />
             ) : null}
-            {totalAmount > 1 ? nFormatter(leftShift(amount, decimals).toNumber(), 6) : totalAmountText}{' '}
-            {symbol.length > 6 ? symbol.slice(0, 6) + '...' : symbol}
+            <div style={{ margin: '0px 22px', display: 'flex' }}>
+                {totalAmount > 1 ? nFormatter(leftShift(amount, decimals).toNumber(), 6) : totalAmountText} {symbol}
+            </div>
         </div>
     );
 }
