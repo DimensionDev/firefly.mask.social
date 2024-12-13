@@ -87,7 +87,7 @@ export function AmountProgressText({
                     </div>
                 ) : (
                     totalAmountText
-                )}
+                )}{' '}
                 {symbol}
             </div>
         </div>

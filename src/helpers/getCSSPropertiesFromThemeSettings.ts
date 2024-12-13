@@ -15,5 +15,6 @@ export function getCSSPropertiesFromThemeSettings(theme: FireflyRedPacketAPI.The
         fontSize: theme.font_size,
         fontWeight: theme.font_weight,
         lineHeight: `${theme.line_height}px`,
+        fontStyle: theme.font_family,
     } satisfies CSSProperties;
 }
