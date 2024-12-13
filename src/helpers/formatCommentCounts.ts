@@ -1,3 +1,5 @@
+import { BigNumber } from 'bignumber.js';
+
 /**
  * Returns the specified number as a string with commas added to separate groups of three digits.
  *
@@ -26,8 +28,6 @@ export const nFormatter = (num: number, digits = 1): string => {
         { value: 1e6, symbol: 'M' },
         { value: 1e9, symbol: 'B' },
         { value: 1e12, symbol: 'T' },
-        { value: 1e15, symbol: 'P' },
-        { value: 1e18, symbol: 'E' },
     ];
 
     // Remove trailing zeros and round to the specified number of digits
@@ -37,6 +37,15 @@ export const nFormatter = (num: number, digits = 1): string => {
     const item = [...lookup].reverse().find(function (item) {
         return num >= item.value;
     });
+
+    if (num >= 1e18 && item) {
+        const value = new BigNumber(num).dividedBy(item.value);
+        let str = value.toFixed(digits);
+        if (str.length > 6) {
+            str = str.slice(0, 6) + '...';
+        }
+        return str + item.symbol;
+    }
 
     // Format the number with the appropriate SI prefix and number of digits
     return item

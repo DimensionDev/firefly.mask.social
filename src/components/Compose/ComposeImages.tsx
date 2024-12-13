@@ -1,3 +1,4 @@
+import { first } from 'lodash-es';
 import { type HTMLProps, memo } from 'react';
 
 import { ImageAsset } from '@/components/Posts/ImageAsset.js';
@@ -49,17 +50,20 @@ export const ComposeImages = memo(function ComposeImages({ images, readonly = fa
     const showSize = Math.min(size, 9);
 
     if (size === 1) {
+        const target = first(images);
+        if (!target) return null;
         return (
             <div {...rest} className={classNames('relative', rest.className)}>
                 <ImageAsset
                     className={'w-full cursor-pointer rounded-lg object-cover'}
                     width={1000}
                     height={1000}
-                    src={sanitizeDStorageUrl(resolveMediaObjectUrl(images[0]))}
-                    alt={images[0].file.name}
+                    src={sanitizeDStorageUrl(resolveMediaObjectUrl(target))}
+                    alt={target.file.name}
+                    overSize={!target.isRpPayloadImage}
                 />
                 {!readonly ? (
-                    <RemoveButton className="absolute right-1 top-1 z-10" onClick={() => removeImage(images[0])} />
+                    <RemoveButton className="absolute right-1 top-1 z-10" onClick={() => removeImage(target)} />
                 ) : null}
             </div>
         );

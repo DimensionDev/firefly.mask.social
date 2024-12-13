@@ -34,7 +34,9 @@ export function renderShrankPrice(shrank: string) {
     return (
         <>
             {parts[1]}
-            <sub className="text-[0.66em]">{parts[2]}</sub>
+            <sub className="text-[0.66em]" style={{ fontSize: '0.66em' }}>
+                {parts[2]}
+            </sub>
             {parts[3]}
         </>
     );

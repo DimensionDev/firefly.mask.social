@@ -1,33 +1,38 @@
-import type { FireflyRedPacketAPI } from '@/mask/bindings/index.js';
-
 interface CoverContainerProps {
-    theme: FireflyRedPacketAPI.ThemeGroupSettings;
     children: React.ReactNode;
     ContainerStyle?: React.CSSProperties;
 }
 
-export function CoverContainer({ theme, children, ...props }: CoverContainerProps) {
+export function CoverContainer({ children, ...props }: CoverContainerProps) {
     return (
         <div
             style={{
                 width: '100%',
                 height: '100%',
                 display: 'flex',
-                flexDirection: 'column',
-                alignItems: 'center',
-                justifyContent: 'center',
+                justifyContent: 'space-between',
                 fontSize: 30,
                 fontWeight: 400,
                 fontFamily: 'Inter',
-                // Disabled because of reduced performance
-                // backgroundSize: '100% 100%',
-                // backgroundImage: theme.normal.bg_image ? `url("${theme.normal.bg_image}")` : '',
-                // backgroundColor: theme.normal.bg_color ?? 'transparent',
-                backgroundRepeat: 'no-repeat',
-                borderRadius: 45,
+                paddingLeft: 68,
+                paddingRight: 68,
+                alignItems: 'flex-end',
+                position: 'relative',
+                paddingBottom: 54,
                 ...props.ContainerStyle,
             }}
         >
+            <div
+                style={{
+                    borderWidth: 0,
+                    position: 'absolute',
+                    bottom: 0,
+                    left: 0,
+                    background: `linear-gradient(to bottom, rgba(16,16,16,0) 436px, rgba(16,16,16,0.5) 100%)`,
+                    width: 1200,
+                    height: 840,
+                }}
+            />
             {children}
         </div>
     );
