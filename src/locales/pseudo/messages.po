@@ -2192,6 +2192,9 @@ msgstr ""
 msgid "Failed to fetch profiles."
 msgstr ""
 
+msgid "Post is decrypting..."
+msgstr ""
+
 msgid "Unliked"
 msgstr ""
 
@@ -2649,6 +2652,9 @@ msgid "Notifications"
 msgstr ""
 
 msgid "Back"
+msgstr ""
+
+msgid "Decrypt"
 msgstr ""
 
 msgid "Article collected successfully!"
