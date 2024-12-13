@@ -1,5 +1,6 @@
 import { formatBalance } from '@/helpers/formatBalance.js';
 import { nFormatter } from '@/helpers/formatCommentCounts.js';
+import { formatPrice } from '@/helpers/formatPrice.js';
 import { getCSSPropertiesFromThemeSettings } from '@/helpers/getCSSPropertiesFromThemeSettings.js';
 import { hexToRGBA } from '@/helpers/hexToRGBA.js';
 import { dividedBy, leftShift } from '@/helpers/number.js';
@@ -77,9 +78,33 @@ export function AmountProgressText({
                     }}
                 />
             ) : null}
-            <div style={{ margin: '0px 22px', display: 'flex' }}>
-                {totalAmount > 1 ? nFormatter(leftShift(amount, decimals).toNumber()) : totalAmountText} {symbol}
+            <div style={{ margin: '0px 22px', display: 'flex', alignItems: 'center', columnGap: '8px' }}>
+                {totalAmount > 1 ? (
+                    nFormatter(leftShift(amount, decimals).toNumber())
+                ) : totalAmount < 0.0001 ? (
+                    <div style={{ display: 'flex', alignItems: 'center' }}>
+                        <ShrankPrice shrank={formatPrice(totalAmount) ?? '-'} />
+                    </div>
+                ) : (
+                    totalAmountText
+                )}
+                {symbol}
             </div>
+        </div>
+    );
+}
+
+function ShrankPrice({ shrank }: { shrank: string }) {
+    if (!shrank.includes('{')) return shrank;
+    const parts = shrank.match(/(^.+){(\d+)}(.+$)/);
+    if (!parts) return shrank;
+    return (
+        <div style={{ display: 'flex', alignItems: 'flex-end' }}>
+            {parts[1]}
+            <sub className="text-[0.66em]" style={{ fontSize: '0.66em' }}>
+                {parts[2]}
+            </sub>
+            {parts[3]}
         </div>
     );
 }
