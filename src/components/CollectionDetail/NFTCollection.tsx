@@ -3,10 +3,10 @@ import { CollectionTabs } from '@/components/CollectionDetail/CollectionTabs.js'
 import { NFTNavbar } from '@/components/NFTs/NFTNavbar.js';
 import { getFloorPrice } from '@/helpers/getFloorPrice.js';
 import { resolveCollectionChain } from '@/helpers/resolveCollectionChain.js';
-import type { SimpleHashCollection } from '@/providers/types/WalletProfile.js';
+import type { CollectionDetails } from '@/providers/types/Firefly.js';
 
 interface NFTCollectionProps {
-    collection: SimpleHashCollection;
+    collection: CollectionDetails;
     address?: string;
     chainId?: number;
 }

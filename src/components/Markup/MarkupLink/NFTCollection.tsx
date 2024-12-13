@@ -31,7 +31,7 @@ export const NFTCollection = memo<NFTCollectionProps>(function NFTCard({ contrac
         >
             <div className="max-w-[250px] rounded-lg bg-bg">
                 <NFTImage
-                    src={collection.banner_image_url}
+                    src={collection.banner_image_url || ''}
                     width={120}
                     height={120}
                     className="aspect-square h-full w-full rounded-xl object-cover sm:mb-0 sm:w-auto"

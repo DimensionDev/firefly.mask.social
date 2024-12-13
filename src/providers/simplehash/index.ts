@@ -1,10 +1,23 @@
+import { ChainId as EVMChainId, SchemaType } from '@masknet/web3-shared-evm';
+import { compact } from 'lodash-es';
 import urlcat from 'urlcat';
 
 import type { NFTMarketplace } from '@/constants/enum.js';
 import { EMPTY_LIST, SIMPLE_HASH_URL } from '@/constants/index.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
 import { createIndicator, createNextIndicator, createPageable, type PageIndicator } from '@/helpers/pageable.js';
-import type { Collection, NftPreview, NftPreviewCollection } from '@/providers/types/Firefly.js';
+import { resolveSimpleHashChain } from '@/helpers/resolveSimpleHashChain.js';
+import type { BaseHubOptions } from '@/mask/bindings/index.js';
+import { formatSimpleHashNFT } from '@/providers/simplehash/formatSimpleHashNFT.js';
+import type {
+    Collection,
+    CollectionDetails,
+    NFTAsset,
+    NFTOwnership,
+    NftPreview,
+    NftPreviewCollection,
+    TopCollector,
+} from '@/providers/types/Firefly.js';
 
 class SimpleHash {
     async getWalletsNFTCollections(
@@ -92,6 +105,185 @@ class SimpleHash {
         const response = await fetchJSON<NftPreview>(url);
 
         return response;
+    }
+
+    async getNFT(
+        address: string,
+        tokenId: string,
+        options?: BaseHubOptions<number>,
+        skipScoreCheck = false,
+    ): Promise<NFTAsset<number, number> | null> {
+        const chain = resolveSimpleHashChain(options?.chainId || EVMChainId.Mainnet);
+        if (!chain || !address || !tokenId) return null;
+        const path = urlcat(SIMPLE_HASH_URL, '/api/v0/nfts/:chain/:address/:tokenId', {
+            chain,
+            address,
+            tokenId,
+        });
+        const response = await fetchJSON<NftPreview>(path);
+        const asset = formatSimpleHashNFT(response, skipScoreCheck);
+
+        if (chain !== 'solana' && asset?.schema === SchemaType.ERC1155 && options?.account) {
+            const pathToQueryOwner = urlcat(SIMPLE_HASH_URL, '/api/v0/nfts/contracts', {
+                chains: chain,
+                wallet_addresses: options.account,
+                contract_addresses: asset.address,
+            });
+
+            const ownershipResponse = await fetchJSON<{ wallets: NFTOwnership[] }>(pathToQueryOwner);
+
+            if (ownershipResponse.wallets?.[0]?.contracts?.[0].token_ids?.includes(asset.tokenId)) {
+                asset.owner = { address: options.account };
+            }
+        }
+
+        return asset || null;
+    }
+
+    async getNFTs(contractAddress: string, options?: BaseHubOptions<number>, skipScoreCheck = false) {
+        const indicator = options?.indicator;
+        const chain = resolveSimpleHashChain(options?.chainId || EVMChainId.Mainnet);
+        if (!chain || !contractAddress) {
+            return createPageable(EMPTY_LIST, createIndicator(indicator));
+        }
+
+        const path = urlcat(SIMPLE_HASH_URL, `/api/v0/nfts/${chain}/:address`, {
+            address: contractAddress,
+            cursor: typeof indicator?.index !== 'undefined' && indicator.index !== 0 ? indicator.id : undefined,
+        });
+
+        const response = await fetchJSON<{ next_cursor: string; nfts: NftPreview[] }>(path);
+
+        const assets = compact(response.nfts.map((x) => formatSimpleHashNFT(x, skipScoreCheck)));
+
+        return createPageable(
+            assets,
+            createIndicator(indicator),
+            response.next_cursor ? createNextIndicator(indicator, response.next_cursor) : undefined,
+        );
+    }
+
+    async getNFTsByCollectionId(collectionId: string, options?: BaseHubOptions<number>, skipScoreCheck = false) {
+        const indicator = options?.indicator;
+        const chain = resolveSimpleHashChain(options?.chainId || EVMChainId.Mainnet);
+        if (!collectionId || !chain) {
+            return createPageable(EMPTY_LIST, createIndicator(indicator));
+        }
+        const path = urlcat(SIMPLE_HASH_URL, '/api/v0/nfts/collection/:collectionId', {
+            chains: chain,
+            collectionId,
+            cursor: typeof indicator?.index !== 'undefined' && indicator.index !== 0 ? indicator.id : undefined,
+        });
+
+        const response = await fetchJSON<{ next_cursor: string; nfts: NftPreview[] }>(path);
+        const assets = compact(response.nfts.map((x) => formatSimpleHashNFT(x, skipScoreCheck)));
+
+        return createPageable(
+            assets,
+            createIndicator(indicator),
+            response.next_cursor ? createNextIndicator(indicator, response.next_cursor) : undefined,
+        );
+    }
+
+    async getNFTsByCollectionIdAndOwner(collectionId: string, owner: string, options?: BaseHubOptions<number>) {
+        const indicator = options?.indicator;
+        const chain = resolveSimpleHashChain(options?.chainId || EVMChainId.Mainnet);
+        if (!chain || !collectionId || !owner) return createPageable(EMPTY_LIST, createIndicator(indicator));
+
+        const path = urlcat(SIMPLE_HASH_URL, '/api/v0/nfts/owners', {
+            chains: chain,
+            wallet_addresses: owner,
+            collection_ids: collectionId,
+            cursor: typeof indicator?.index !== 'undefined' && indicator.index !== 0 ? indicator.id : undefined,
+            limit: options?.size || 50,
+        });
+
+        const response = await fetchJSON<{ nfts: NftPreview[]; next_cursor: string }>(path);
+
+        const assets = compact(response.nfts.map((x) => formatSimpleHashNFT(x)));
+
+        return createPageable(
+            assets,
+            createIndicator(indicator),
+            response.next_cursor ? createNextIndicator(indicator, response.next_cursor) : undefined,
+        );
+    }
+
+    async getPOAPs(address: string, options?: BaseHubOptions<number> & { contractAddress?: string }) {
+        const indicator = options?.indicator;
+        const chain = resolveSimpleHashChain(options?.chainId || EVMChainId.Mainnet);
+        if (!address || !chain) {
+            return createPageable(EMPTY_LIST, createIndicator(indicator));
+        }
+        const path = urlcat(SIMPLE_HASH_URL, '/api/v0/nfts/owners', {
+            chains: chain,
+            wallet_addresses: address,
+            contract_addresses: options?.contractAddress,
+            cursor: typeof indicator?.index !== 'undefined' && indicator.index !== 0 ? indicator.id : undefined,
+        });
+
+        const response = await fetchJSON<{ next_cursor: string; nfts: NftPreview[] }>(path);
+        const assets = compact(response.nfts.map((x) => formatSimpleHashNFT(x)));
+
+        return createPageable(
+            assets,
+            indicator,
+            response.next_cursor ? createNextIndicator(indicator, response.next_cursor) : undefined,
+        );
+    }
+
+    async getCollection(contractAddress: string, options?: BaseHubOptions<number>): Promise<CollectionDetails | null> {
+        const chain = resolveSimpleHashChain(options?.chainId || EVMChainId.Mainnet);
+        if (!chain || !contractAddress) return null;
+        const path = urlcat(SIMPLE_HASH_URL, '/api/v0/nfts/collections/:chain/:address', {
+            chain,
+            address: contractAddress,
+        });
+
+        const { collections } = await fetchJSON<{ collections: CollectionDetails[] }>(path);
+
+        return collections[0];
+    }
+
+    async getCollectionById(collectionId: string): Promise<CollectionDetails | null> {
+        const path = urlcat(SIMPLE_HASH_URL, '/api/v0/nfts/collections/ids', {
+            collection_ids: collectionId,
+        });
+        const response = await fetchJSON<{ collections: CollectionDetails[] }>(path);
+        return response.collections[0];
+    }
+
+    async getTopCollectors(collectionId: string, options?: BaseHubOptions<number>) {
+        const indicator = options?.indicator;
+        const path = urlcat(SIMPLE_HASH_URL, '/api/v0/nfts/top_collectors/collection/:collectionId', {
+            collectionId,
+            cursor: indicator?.id || undefined,
+            limit: options?.size || 20,
+            include_owner_image: '1',
+        });
+        const response = await fetchJSON<{ next_cursor: string; top_collectors: TopCollector[] }>(path);
+        return createPageable(
+            response.top_collectors,
+            indicator,
+            response.next_cursor ? createNextIndicator(indicator, response.next_cursor) : undefined,
+        );
+    }
+
+    async getPoapEvent(eventId: number, options: Omit<BaseHubOptions<number>, 'chainId'> = {}) {
+        const indicator = options.indicator;
+        const path = urlcat(SIMPLE_HASH_URL, '/api/v0/nfts/poap_event/:event_id', {
+            cursor: indicator?.id || undefined,
+            limit: options.size || 20,
+            event_id: eventId,
+            count: 1,
+        });
+        const response = await fetchJSON<{ next_cursor: string; nfts: NftPreview[]; count?: number }>(path);
+        return createPageable(
+            response.nfts,
+            indicator,
+            response.next_cursor ? createNextIndicator(indicator, response.next_cursor) : undefined,
+            response.count,
+        );
     }
 }
 

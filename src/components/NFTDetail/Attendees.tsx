@@ -20,7 +20,7 @@ import { formatEthereumAddress } from '@/helpers/formatAddress.js';
 import { getStampAvatarByProfileId } from '@/helpers/getStampAvatarByProfileId.js';
 import { createIndicator } from '@/helpers/pageable.js';
 import { resolveProfileUrl } from '@/helpers/resolveProfileUrl.js';
-import { resolveWalletProfileProvider } from '@/helpers/resolveWalletProfileProvider.js';
+import { SimpleHashProvider } from '@/providers/simplehash/index.js';
 
 interface AttendeesProps {
     eventId: number;
@@ -31,8 +31,7 @@ export function Attendees({ eventId }: AttendeesProps) {
         queryKey: ['poap-event-owners', eventId],
         async queryFn({ pageParam }) {
             const indicator = createIndicator(undefined, pageParam);
-            const provider = resolveWalletProfileProvider();
-            const result = await provider.getPoapEvent(eventId, { indicator });
+            const result = await SimpleHashProvider.getPoapEvent(eventId, { indicator });
             const owners = uniq(result.data.flatMap((asset) => asset.owners.map((owner) => owner.owner_address)));
             return {
                 ...result,

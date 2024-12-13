@@ -1,7 +1,7 @@
 import { ChainId } from '@masknet/web3-shared-evm';
 import { useQuery } from '@tanstack/react-query';
 
-import { resolveWalletProfileProvider } from '@/helpers/resolveWalletProfileProvider.js';
+import { SimpleHashProvider } from '@/providers/simplehash/index.js';
 import { useInvalidNFTStore } from '@/store/useInvalidNFTStore.js';
 
 export function useNFTDetail(address?: string, tokenId?: string, chainId: ChainId = ChainId.Mainnet) {
@@ -11,8 +11,7 @@ export function useNFTDetail(address?: string, tokenId?: string, chainId: ChainI
         enabled,
         async queryFn() {
             if (!enabled) return;
-            const provider = resolveWalletProfileProvider(chainId);
-            const result = await provider.getNFT(
+            const result = await SimpleHashProvider.getNFT(
                 address,
                 tokenId,
                 {

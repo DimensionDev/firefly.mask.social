@@ -691,6 +691,7 @@ export interface ExtraMetadata {
     segment_length?: number;
     last_request_date?: number;
     properties?: Properties;
+    event_id?: number;
 }
 
 export interface Owner {
@@ -733,13 +734,13 @@ export interface PaymentToken {
     payment_token_id: string;
     name: string;
     symbol: string;
-    address?: string;
+    address: string | null;
     decimals: number;
 }
 
 export interface FloorPrice {
-    marketplace_id: string;
-    marketplace_name: string;
+    marketplace_id: LiteralUnion<'blur' | 'looksrare' | 'opensea' | 'x2y2'>;
+    marketplace_name: LiteralUnion<'Blur' | 'LooksRare' | 'OpenSea' | 'X2Y2'>;
     value: number;
     payment_token: PaymentToken;
     value_usd_cents: number;
@@ -830,7 +831,20 @@ export interface NftPreview {
     hasBookmarked?: boolean;
 }
 
-export type NFTAsset = NonFungibleAsset<ChainId.Mainnet, SchemaType.ERC721> & {
+export interface NFTOwnership {
+    wallet_address: string;
+    contracts: Array<{ contract_address: string; token_ids: string[] }>;
+}
+
+export interface TopCollector {
+    owner_address: string;
+    owner_ens_name: string | null;
+    owner_image: string;
+    distinct_nfts_owned: number;
+    total_copies_owned: number;
+}
+
+export type NFTAsset<C = ChainId.Mainnet, T = SchemaType.ERC721> = NonFungibleAsset<C, T> & {
     hasBookmarked?: boolean;
 };
 

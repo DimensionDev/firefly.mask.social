@@ -2,9 +2,9 @@ import { ChainId } from '@masknet/web3-shared-evm';
 import { first } from 'lodash-es';
 
 import { resolveSimpleHashChainId } from '@/helpers/resolveSimpleHashChain.js';
-import type { SimpleHashCollection } from '@/providers/types/WalletProfile.js';
+import type { CollectionDetails } from '@/providers/types/Firefly.js';
 
-export function resolveCollectionChain(collection: SimpleHashCollection): {
+export function resolveCollectionChain(collection: CollectionDetails): {
     address: string;
     chainId: number;
 } {
