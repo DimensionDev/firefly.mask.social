@@ -9,8 +9,8 @@ import { createIndicator, createNextIndicator, createPageable, type PageIndicato
 import { resolveSimpleHashChain } from '@/helpers/resolveSimpleHashChain.js';
 import type { BaseHubOptions } from '@/mask/bindings/index.js';
 import { formatSimpleHashNFT } from '@/providers/simplehash/formatSimpleHashNFT.js';
-import type { NFTAsset } from '@/providers/types/Firefly.js';
 import type { SimpleHash } from '@/providers/simplehash/type.js';
+import type { NFTAsset } from '@/providers/types/Firefly.js';
 
 class SimpleHashFactory {
     async getWalletsNFTCollections(

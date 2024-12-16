@@ -29,6 +29,7 @@ import { farcasterSessionHolder } from '@/providers/farcaster/SessionHolder.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
 import { NeynarSocialMediaProvider } from '@/providers/neynar/SocialMedia.js';
 import { SimpleHashProvider } from '@/providers/simplehash/index.js';
+import type { SimpleHash } from '@/providers/simplehash/type.js';
 import { Snapshot } from '@/providers/snapshot/index.js';
 import type { SnapshotActivity } from '@/providers/snapshot/type.js';
 import {
@@ -62,7 +63,6 @@ import {
     type UserResponse,
     type UsersResponse,
 } from '@/providers/types/Firefly.js';
-import type { SimpleHash } from '@/providers/simplehash/type.js';
 import {
     type Channel,
     type Friendship,
