@@ -8,11 +8,11 @@ import { useEnsName } from 'wagmi';
 import { VirtualList } from '@/components/VirtualList/VirtualList.js';
 import { VirtualListFooter } from '@/components/VirtualList/VirtualListFooter.js';
 import { formatBalance } from '@/helpers/formatBalance.js';
+import { createIndicator } from '@/helpers/pageable.js';
 import { RedPacketAccountItem } from '@/modals/RedPacketModal/RedPacketAccountItem.js';
 import { RedPacketDetailItem } from '@/modals/RedPacketModal/RedPacketDetailItem.js';
 import { FireflyRedPacket } from '@/providers/red-packet/index.js';
 import type { FireflyRedPacketAPI } from '@/providers/red-packet/types.js';
-import { createIndicator } from '@/helpers/pageable.js';
 
 function ClaimHistoryItem({ data }: { data: FireflyRedPacketAPI.ClaimList }) {
     const { data: ens } = useEnsName({ address: data.creator as Address });
