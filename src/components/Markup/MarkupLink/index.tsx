@@ -139,7 +139,7 @@ export const MarkupLink = memo<MarkupLinkProps>(function MarkupLink({ title, pos
         return (
             <Link
                 href={urlcat(SITE_URL, '/profile/lens/:handle', { handle })}
-                className="text-link hover:underline"
+                className="text-highlight hover:underline"
                 onClick={stopPropagation}
                 target="_blank"
                 rel="noreferrer noopener"
