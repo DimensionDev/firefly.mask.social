@@ -1,5 +1,4 @@
 import { useRedPacketConstants } from '@masknet/web3-shared-evm';
-import { useCallback } from 'react';
 import { useAsyncFn } from 'react-use';
 import { type Address } from 'viem';
 import { getChainId, switchChain, writeContract } from 'wagmi/actions';
@@ -35,8 +34,13 @@ export function useClaimCallback(
 
     const { refetch } = useSignedMessage(account, payload, source);
     const { data: me } = useCurrentClaimProfile(source);
-    const tryToClaimWithSponsor = useCallback(async (): Promise<string | undefined> => {
-        return runInSafeAsync(async () => {
+
+    return useAsyncFn(async () => {
+        const globalChainId = getChainId(config);
+        if (globalChainId !== chainId) await switchChain(config, { chainId });
+        if (!redpacketContractAddress || !rpid) return;
+
+        const claimWithSponsorHash = await runInSafeAsync(async () => {
             const sponsorable = await FireflyRedPacket.checkGasFreeStatus(chainId, account);
             if (!sponsorable || !me?.profileId) return;
             return FireflyRedPacket.claimForGasFree(rpid, account, {
@@ -50,14 +54,6 @@ export function useClaimCallback(
                 farcasterSignature: me?.farcasterSignature as HexString,
             });
         });
-    }, []);
-
-    return useAsyncFn(async () => {
-        const globalChainId = getChainId(config);
-        if (globalChainId !== chainId) await switchChain(config, { chainId });
-        if (!redpacketContractAddress || !rpid) return;
-
-        const claimWithSponsorHash = await tryToClaimWithSponsor();
         if (claimWithSponsorHash) return claimWithSponsorHash;
 
         const { data: signedMsg } = await refetch();
@@ -73,5 +69,5 @@ export function useClaimCallback(
 
         await waitForEthereumTransaction(chainId, hash);
         return hash;
-    }, [rpid, account, chainId, redpacketContractAddress, version, refetch]);
+    }, [rpid, account, chainId, redpacketContractAddress, version, refetch, me, source]);
 }
