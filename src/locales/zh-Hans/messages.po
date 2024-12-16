@@ -1944,7 +1944,7 @@ msgid "Connect your wallet to claim your NFT"
 msgstr "连接钱包并且领取你的 NFT"
 
 msgid "At most 255 recipients"
-msgstr "最多255个领取者"
+msgstr "最多 255 个领取者"
 
 msgid "24h"
 msgstr "24小时"
@@ -3510,7 +3510,7 @@ msgid "Post"
 msgstr "发帖"
 
 msgid "Creator:"
-msgstr "创建者:"
+msgstr "创建者："
 
 msgid "mirrored"
 msgstr "已转发"
@@ -3564,7 +3564,7 @@ msgid "Collectible"
 msgstr "NFT"
 
 msgid "Users must hold one NFT from the collection you select."
-msgstr "用户必须持有您选择的系列中的一枚NFT。"
+msgstr "用户必须持有您选择的系列中的一枚 NFT。"
 
 msgid "Are you sure you want to report this user?"
 msgstr "您确定要举报这个用户么？"
