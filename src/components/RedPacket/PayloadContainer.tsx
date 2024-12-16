@@ -1,4 +1,4 @@
-import type { FireflyRedPacketAPI } from '@/mask/bindings/index.js';
+import type { FireflyRedPacketAPI } from '@/providers/red-packet/types.js';
 
 interface PayloadContainerProps {
     theme: FireflyRedPacketAPI.ThemeGroupSettings;

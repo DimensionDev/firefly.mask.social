@@ -2,7 +2,7 @@ import { AmountProgressText } from '@/components/RedPacket/AmountProgressText.js
 import { AuthorText } from '@/components/RedPacket/AuthorText.js';
 import { MessageText } from '@/components/RedPacket/MessageText.js';
 import { PayloadContainer } from '@/components/RedPacket/PayloadContainer.js';
-import type { FireflyRedPacketAPI } from '@/mask/bindings/index.js';
+import type { FireflyRedPacketAPI } from '@/providers/red-packet/types.js';
 import { TokenType, UsageType } from '@/types/rp.js';
 
 interface PayloadProps {

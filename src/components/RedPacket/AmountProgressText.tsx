@@ -4,7 +4,7 @@ import { formatPrice } from '@/helpers/formatPrice.js';
 import { getCSSPropertiesFromThemeSettings } from '@/helpers/getCSSPropertiesFromThemeSettings.js';
 import { hexToRGBA } from '@/helpers/hexToRGBA.js';
 import { dividedBy, leftShift } from '@/helpers/number.js';
-import type { FireflyRedPacketAPI } from '@/mask/bindings/index.js';
+import type { FireflyRedPacketAPI } from '@/providers/red-packet/types.js';
 import type { TokenType } from '@/types/rp.js';
 
 interface AmountProgressTextProps {
