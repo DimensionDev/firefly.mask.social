@@ -549,6 +549,9 @@ msgstr "{0} 個已靜音的頻道"
 msgid "[Video]"
 msgstr "[影片]"
 
+msgid "🤑 Just claimed a #LuckyDrop  🧧💰✨ on https://firefly.mask.social from @{sender} !{bl}{bl}Claim on Lens: {link}"
+msgstr ""
+
 msgid "The author is muted by you."
 msgstr "作者已經被您靜音"
 
@@ -913,11 +916,6 @@ msgid "Search user"
 msgstr ""
 
 msgid "{platform, select, farcaster {{0}} lens {{1}} twitter {{2}} other {{3}}}"
-msgstr ""
-
-msgid ""
-"🤑 Check this Lucky Drop  🧧💰✨ sent by @{sender}.\n"
-"Grow your followers and engagement with Lucky Drop on Firefly mobile app or https://firefly.mask.social !"
 msgstr ""
 
 msgid "Failed to upload. Video is not supported yet."
@@ -1731,11 +1729,6 @@ msgid "<0>Acquired</0> an NFT"
 msgstr "<0>獲取了</0>一個 NFT"
 
 msgid "{0} {1, plural, one {share} other {shares}} / {total} ${symbol}"
-msgstr ""
-
-msgid ""
-"🤑 Just claimed a #LuckyDrop  🧧💰✨ on https://firefly.mask.social from @{sender} !\n"
-"Claim on Lens: {link}"
 msgstr ""
 
 msgid "Confirm to disconnect this account and related wallets from Firefly’s social graph?"
@@ -3164,6 +3157,9 @@ msgid "Clear all requirements"
 msgstr ""
 
 msgid "Claim Requirements"
+msgstr ""
+
+msgid "🤑 Check this Lucky Drop  🧧💰✨ sent by @{sender}.{bl}{bl}Grow your followers and engagement with Lucky Drop on Firefly mobile app or https://firefly.mask.social !{bl}"
 msgstr ""
 
 msgid "Oversupply minting."
