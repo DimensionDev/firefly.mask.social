@@ -317,7 +317,7 @@ export function MainView() {
                 ) : null}
             </div>
             <div className="flex-grow" />
-            <div className="dark:shadow-primaryDark w-full bg-lightBottom80 p-4 shadow-primary backdrop-blur-lg">
+            <div className="w-full bg-lightBottom80 p-4 shadow-primary backdrop-blur-lg dark:shadow-primaryDark">
                 <ChainGuardButton
                     targetChainId={chainId}
                     className="rounded-lg"

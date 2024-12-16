@@ -5,6 +5,7 @@ import { BigNumber } from 'bignumber.js';
 import { compact, first, flatten } from 'lodash-es';
 import { useContext, useMemo } from 'react';
 import { useAsync, useStateList } from 'react-use';
+import { useUpdateEffect } from 'usehooks-ts';
 import { useEnsName } from 'wagmi';
 
 import ArrowCircle from '@/assets/arrow-circle.svg';
@@ -33,7 +34,6 @@ import { REQUIREMENT_ICON_MAP, REQUIREMENT_TITLE_MAP } from '@/modals/RedPacketM
 import { ShareAccountsPopover } from '@/modals/RedPacketModal/ShareAccountsPopover.js';
 import { FireflyRedPacket } from '@/providers/red-packet/index.js';
 import { FireflyRedPacketAPI } from '@/providers/red-packet/types.js';
-import { useUpdateEffect } from 'usehooks-ts';
 
 export function ConfirmView() {
     const {
@@ -359,7 +359,7 @@ export function ConfirmView() {
 
             <div className="flex-grow" />
 
-            <div className="dark:shadow-primaryDark w-full bg-lightBottom80 p-4 shadow-primary backdrop-blur-lg">
+            <div className="w-full bg-lightBottom80 p-4 shadow-primary backdrop-blur-lg dark:shadow-primaryDark">
                 <ActionButton className="rounded-lg" onClick={handleCreate} loading={createLoading || loading}>
                     <Trans>Next</Trans>
                 </ActionButton>
