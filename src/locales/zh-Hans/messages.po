@@ -3129,6 +3129,9 @@ msgstr "独家活动"
 msgid "Post added to your Bookmarks"
 msgstr "帖子已经添加到您的收藏中"
 
+msgid "Preview"
+msgstr ""
+
 msgid "Cancel mirror successfully"
 msgstr "取消转发成功"
 

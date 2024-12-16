@@ -18,7 +18,7 @@ interface RedPacketContextValue {
     randomType: 'random' | 'equal';
     shares: number | '';
     coverType: 'default' | 'custom';
-    displayType: 'light' | 'dark';
+    displayType: 'golden' | 'neutral';
     accounts: Array<{ icon: ReactNode; name: string }>;
     shareFrom: string;
     totalAmount: string;
@@ -31,7 +31,7 @@ interface RedPacketContextValue {
     setMessage: (message: string) => void;
     setShares: (shares: number | '') => void;
     setCoverType: (coverType: 'default' | 'custom') => void;
-    setDisplayType: (displayType: 'light' | 'dark') => void;
+    setDisplayType: (displayType: 'golden' | 'neutral') => void;
     setShareFrom: (shareFrom: string) => void;
     setTotalAmount: (totalAmount: string) => void;
 }
@@ -41,7 +41,7 @@ export const initialRedPacketContextValue: RedPacketContextValue = {
     shares: RED_PACKET_DEFAULT_SHARES,
     randomType: 'random',
     coverType: 'default',
-    displayType: 'light',
+    displayType: 'golden',
     accounts: EMPTY_LIST,
     shareFrom: '',
     totalAmount: '',
@@ -102,7 +102,7 @@ export function RedPacketProvider({ children }: PropsWithChildren) {
     const [randomType, setRandomType] = useState<'random' | 'equal'>('random');
     const [token, setToken] = useState<FungibleToken<ChainId, SchemaType>>();
     const [coverType, setCoverType] = useState<'default' | 'custom'>('default');
-    const [displayType, setDisplayType] = useState<'light' | 'dark'>('light');
+    const [displayType, setDisplayType] = useState<'golden' | 'neutral'>('golden');
     const [shareFrom, setShareFrom] = useState<string>('');
     const [totalAmount, setTotalAmount] = useState<string>('');
     const [rules, setRules] = useState<RequirementType[]>([RequirementType.Follow]);

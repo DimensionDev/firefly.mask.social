@@ -13,20 +13,17 @@ export function MessageText({ theme, message, ...props }: MessageTextProps) {
             style={{
                 ...getCSSPropertiesFromThemeSettings(theme.normal.title1),
                 display: 'flex',
-                textAlign: 'center',
-                alignItems: 'center',
-                justifyContent: 'center',
-                position: 'absolute',
+                fontSize: 40,
+                lineHeight: '47.5px',
                 ...props.ContainerStyle,
             }}
         >
             <div
                 style={{
                     maxWidth: '100%',
-                    paddingLeft: 60,
-                    paddingRight: 60,
                     overflow: 'hidden',
-                    whiteSpace: 'nowrap',
+                    WebkitLineClamp: 2,
+                    boxOrient: 'vertical',
                     textOverflow: 'ellipsis',
                 }}
             >

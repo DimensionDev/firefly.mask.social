@@ -57,6 +57,7 @@ export function MainView() {
     const { chainId } = useChainContext({
         chainId: selectedToken?.chainId,
     });
+
     const nativeToken = useMemo(() => EVMChainResolver.nativeCurrency(chainId), [chainId]);
 
     const token = selectedToken || nativeToken;
