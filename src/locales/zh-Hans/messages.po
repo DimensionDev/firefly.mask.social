@@ -318,6 +318,9 @@ msgstr "使用<0>摄像头</0> 在 {count} 内<1/> 来扫描您的二维码。�
 msgid "Poll"
 msgstr "投票"
 
+msgid "Bets"
+msgstr ""
+
 msgid "Scheduled"
 msgstr "已定时"
 
@@ -2777,9 +2780,6 @@ msgstr "表情符号"
 
 msgid "Failed to report spam NFT."
 msgstr "举报垃圾 NFT 失败。"
-
-msgid "Polymarket"
-msgstr ""
 
 msgid "Malformed twitter session payload."
 msgstr "错误的 twitter 会话。"

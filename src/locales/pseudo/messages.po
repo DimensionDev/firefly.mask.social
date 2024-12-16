@@ -313,6 +313,9 @@ msgstr ""
 msgid "Poll"
 msgstr ""
 
+msgid "Bets"
+msgstr ""
+
 msgid "Scheduled"
 msgstr ""
 
@@ -2771,9 +2774,6 @@ msgid "Emoji"
 msgstr ""
 
 msgid "Failed to report spam NFT."
-msgstr ""
-
-msgid "Polymarket"
 msgstr ""
 
 msgid "Malformed twitter session payload."
