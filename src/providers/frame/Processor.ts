@@ -3,6 +3,7 @@ import { parseHTML } from 'linkedom';
 import { FetchError } from '@/constants/error.js';
 import { anySignal } from '@/helpers/anySignal.js';
 import { getFrameClientProtocol } from '@/helpers/getFrameClientProtocol.js';
+import { parseJSON } from '@/helpers/parseJSON.js';
 import { parseUrl } from '@/helpers/parseUrl.js';
 import {
     getAspectRatio,
@@ -17,15 +18,10 @@ import {
     getVersion,
 } from '@/providers/frame/readers/metadata.js';
 import { OpenGraphProcessor } from '@/providers/og/Processor.js';
-import type { Frame, LinkDigestedResponse } from '@/types/frame.js';
+import type { FrameV1, FrameV2, LinkDigestedResponse } from '@/types/frame.js';
 
 class Processor {
-    digestDocument = async (url: string, html: string, signal?: AbortSignal): Promise<LinkDigestedResponse | null> => {
-        const { document } = parseHTML(html);
-
-        const version = getVersion(document);
-        if (!version) throw new Error('Version not found');
-
+    digestDocumentV1 = async (url: string, document: Document, signal?: AbortSignal): Promise<FrameV1 | null> => {
         const imageUrl = getImageUrl(document);
         const imageAlt = getImageAlt(document);
         const digestedImage = imageUrl ? await OpenGraphProcessor.digestImageUrl(imageUrl, signal) : null;
@@ -37,7 +33,7 @@ class Processor {
             height: 640,
         };
 
-        const frame: Frame = {
+        const frame: FrameV1 = {
             url,
             title: getTitle(document) ?? 'Untitled Frame',
             version: 'vNext',
@@ -69,9 +65,36 @@ class Processor {
         if (aspectRatio) frame.aspectRatio = aspectRatio;
         if (state) frame.state = state;
 
-        return {
-            frame,
-        };
+        return frame;
+    };
+
+    digestDocumentV2 = async (url: string, version: string, signal?: AbortSignal): Promise<FrameV2 | null> => {
+        const payload = parseJSON<FrameV2>(version);
+
+        return null;
+    };
+
+    digestDocument = async (url: string, html: string, signal?: AbortSignal): Promise<LinkDigestedResponse | null> => {
+        const { document } = parseHTML(html);
+
+        const version = getVersion(document);
+        if (!version) throw new Error('Version not found');
+
+        // v2
+        if (version.includes('version')) {
+            return {
+                frame: await this.digestDocumentV2(url, version, signal),
+            };
+        }
+
+        // v1
+        if (version === 'vNext') {
+            return {
+                frame: await this.digestDocumentV1(url, document, signal),
+            };
+        }
+
+        return null;
     };
 
     digestDocumentUrl = async (documentUrl: string, signal?: AbortSignal): Promise<LinkDigestedResponse | null> => {
