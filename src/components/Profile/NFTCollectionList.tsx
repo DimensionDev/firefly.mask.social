@@ -22,7 +22,7 @@ import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
 import { SimpleHashProvider } from '@/providers/simplehash/index.js';
-import type { SimpleHash } from '@/providers/types/SimpleHash.js';
+import type { SimpleHash } from '@/providers/simplehash/type.js';
 
 interface NFTCollectionItemProps {
     collection: SimpleHash.LiteCollection;

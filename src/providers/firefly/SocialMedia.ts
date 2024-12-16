@@ -62,7 +62,7 @@ import {
     type UserResponse,
     type UsersResponse,
 } from '@/providers/types/Firefly.js';
-import type { SimpleHash } from '@/providers/types/SimpleHash.js';
+import type { SimpleHash } from '@/providers/simplehash/type.js';
 import {
     type Channel,
     type Friendship,

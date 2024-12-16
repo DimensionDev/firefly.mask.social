@@ -3,7 +3,7 @@ import { CollectionTabs } from '@/components/CollectionDetail/CollectionTabs.js'
 import { NFTNavbar } from '@/components/NFTs/NFTNavbar.js';
 import { getFloorPrice } from '@/helpers/getFloorPrice.js';
 import { resolveCollectionChain } from '@/helpers/resolveCollectionChain.js';
-import type { SimpleHash } from '@/providers/types/SimpleHash.js';
+import type { SimpleHash } from '@/providers/simplehash/type.js';
 
 interface NFTCollectionProps {
     collection: SimpleHash.Collection;

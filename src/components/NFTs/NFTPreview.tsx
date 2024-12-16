@@ -16,7 +16,7 @@ import { resolveNFTImageUrl } from '@/helpers/resolveNFTImageUrl.js';
 import { resolveNftUrl, resolveNftUrlByCollection } from '@/helpers/resolveNftUrl.js';
 import { resolveSimpleHashChainId } from '@/helpers/resolveSimpleHashChain.js';
 import { stopPropagation } from '@/helpers/stopEvent.js';
-import type { SimpleHash } from '@/providers/types/SimpleHash.js';
+import type { SimpleHash } from '@/providers/simplehash/type.js';
 
 interface NFTPreviewProps {
     nft: SimpleHash.NFT;

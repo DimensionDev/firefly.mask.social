@@ -10,7 +10,7 @@ import { NFTListByCollectionId } from '@/components/CollectionDetail/NFTListByCo
 import { Image } from '@/components/Image.js';
 import { NFTCollectionList } from '@/components/Profile/NFTCollectionList.js';
 import { Tooltip } from '@/components/Tooltip.js';
-import type { SimpleHash } from '@/providers/types/SimpleHash.js';
+import type { SimpleHash } from '@/providers/simplehash/type.js';
 
 interface SelectedCollection {
     chainId: ChainId;

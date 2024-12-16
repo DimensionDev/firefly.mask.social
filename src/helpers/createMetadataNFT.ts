@@ -6,7 +6,7 @@ import { resolveCollectionChain } from '@/helpers/resolveCollectionChain.js';
 import { resolveNftUrl } from '@/helpers/resolveNftUrl.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { SimpleHashProvider } from '@/providers/simplehash/index.js';
-import type { SimpleHash } from '@/providers/types/SimpleHash.js';
+import type { SimpleHash } from '@/providers/simplehash/type.js';
 
 export async function createMetadataNFT(address: string, tokenId: string, chainId: ChainId) {
     const data = await SimpleHashProvider.getNFT(

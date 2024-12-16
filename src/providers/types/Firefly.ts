@@ -14,7 +14,7 @@ import {
 import type { SnapshotChoice } from '@/providers/snapshot/type.js';
 import type { ArticlePlatform, ArticleType } from '@/providers/types/Article.js';
 import type { Token as DebankToken } from '@/providers/types/Debank.js';
-import type { SimpleHash } from '@/providers/types/SimpleHash.js';
+import type { SimpleHash } from '@/providers/simplehash/type.js';
 import type { ComposeType } from '@/types/compose.js';
 
 export enum EmbedMediaType {

@@ -5,7 +5,7 @@ import { FireflyPlatform } from '@/constants/enum.js';
 import { resolveNFTIdFromAsset } from '@/helpers/resolveNFTIdFromAsset.js';
 import type { FireflySocialMedia } from '@/providers/firefly/SocialMedia.js';
 import type { NFTAsset } from '@/providers/types/Firefly.js';
-import type { SimpleHash } from '@/providers/types/SimpleHash.js';
+import type { SimpleHash } from '@/providers/simplehash/type.js';
 import type { ClassType } from '@/types/index.js';
 
 const METHODS_BE_OVERRIDDEN = ['bookmarkNFT', 'unbookmarkNFT'] as const;
