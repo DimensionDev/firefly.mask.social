@@ -16,7 +16,7 @@ import { classNames } from '@/helpers/classNames.js';
 import { nFormatter } from '@/helpers/formatCommentCounts.js';
 import { getLargeTwitterAvatar } from '@/helpers/getLargeTwitterAvatar.js';
 import { resolveProfileUrl } from '@/helpers/resolveProfileUrl.js';
-import { useProfileWithSSR } from '@/hooks/useProfileWithSSR.js';
+import { useRefreshedProfile } from '@/hooks/useRefreshedProfile.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 
 interface InfoProps {
@@ -24,7 +24,7 @@ interface InfoProps {
 }
 
 export function Info(props: InfoProps) {
-    const { data: profile = props.profile } = useProfileWithSSR(props.profile);
+    const { data: profile = props.profile } = useRefreshedProfile(props.profile);
 
     const { source, profileId, followerCount = 0, followingCount = 0 } = profile;
 

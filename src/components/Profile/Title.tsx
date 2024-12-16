@@ -16,7 +16,7 @@ import { resolveFireflyProfiles } from '@/helpers/resolveFireflyProfiles.js';
 import { useComeBack } from '@/hooks/useComeback.js';
 import { useCurrentFireflyProfiles } from '@/hooks/useCurrentFireflyProfiles.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
-import { useProfileWithSSR } from '@/hooks/useProfileWithSSR.js';
+import { useRefreshedProfile } from '@/hooks/useRefreshedProfile.js';
 import type { FireflyProfile } from '@/providers/types/Firefly.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 import { useFireflyIdentityState } from '@/store/useFireflyIdentityStore.js';
@@ -56,7 +56,7 @@ export function Title({
 
     const { walletProfile } = resolveFireflyProfiles(identity, profiles);
 
-    const { data: profile } = useProfileWithSSR(propsProfile);
+    const { data: profile } = useRefreshedProfile(propsProfile);
 
     if ((profiles.length > 1 || !isOthersProfile) && !reached && isMedium && !sticky) return null;
 
