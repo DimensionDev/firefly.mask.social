@@ -224,7 +224,8 @@
         "orbcommunities",
         "Magiceden",
         "linea",
-        "ifrandom"
+        "ifrandom",
+        "Encryptable"
     ],
     "flagWords": [],
     "ignorePaths": [
