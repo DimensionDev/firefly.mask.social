@@ -1,13 +1,18 @@
 import { formatBalance } from '@/helpers/formatBalance.js';
+import { nFormatter } from '@/helpers/formatCommentCounts.js';
+import { formatPrice } from '@/helpers/formatPrice.js';
 import { getCSSPropertiesFromThemeSettings } from '@/helpers/getCSSPropertiesFromThemeSettings.js';
-import { isZero, minus } from '@/helpers/number.js';
-import type { FireflyRedPacketAPI } from '@/providers/red-packet/types.js';
+import { hexToRGBA } from '@/helpers/hexToRGBA.js';
+import { dividedBy, leftShift } from '@/helpers/number.js';
+import type { FireflyRedPacketAPI } from '@/mask/bindings/index.js';
 import type { TokenType } from '@/types/rp.js';
 
 interface AmountProgressTextProps {
     theme: FireflyRedPacketAPI.ThemeGroupSettings;
     amount: string; // bigint in str
-    remainingAmount: string; // bigint in str
+    remainingAmount?: string; // bigint in str
+    shares?: number;
+    remainingShares?: number;
     token: {
         type: TokenType;
         symbol: string;
@@ -18,104 +23,88 @@ interface AmountProgressTextProps {
     SymbolTextStyle?: React.CSSProperties;
 }
 
-export function AmountProgressText({ theme, amount, remainingAmount, token, ...props }: AmountProgressTextProps) {
+export function AmountProgressText({
+    theme,
+    amount,
+    remainingAmount,
+    token,
+    shares,
+    remainingShares,
+    ...props
+}: AmountProgressTextProps) {
     const { symbol, decimals = 0 } = token;
 
-    const claimedAmountText = formatBalance(minus(amount, remainingAmount), decimals, {
-        isFixed: true,
-        significant: 6,
-        fixedDecimals: 6,
-    });
+    const progress =
+        remainingShares !== undefined && shares
+            ? dividedBy(shares - remainingShares, shares)
+                  .multipliedBy(100)
+                  .toNumber()
+            : undefined;
+
     const totalAmountText = formatBalance(amount, decimals, {
         isFixed: true,
         significant: 6,
         fixedDecimals: 6,
     });
 
+    const totalAmount = leftShift(amount, decimals).toNumber();
+
     return (
         <div
             style={{
                 display: 'flex',
                 justifyContent: 'center',
-                flexWrap: 'wrap',
-                top: 608,
+                position: 'relative',
                 width: '100%',
-                position: 'absolute',
-                paddingLeft: 60,
-                paddingRight: 60,
-                overflow: 'hidden',
-                maxHeight: 160,
+                border: `1px solid ${getCSSPropertiesFromThemeSettings(theme.normal.title2).color}`,
+                borderRadius: 16,
+                boxSizing: 'border-box',
+                padding: '12px 0px',
+                color: getCSSPropertiesFromThemeSettings(theme.normal.title2).color,
+                backgroundColor: hexToRGBA(getCSSPropertiesFromThemeSettings(theme.normal.title2).color, 0.2),
                 ...props.ContainerStyle,
             }}
         >
-            {!isZero(claimedAmountText) ? (
-                <div style={{ display: 'flex', alignItems: 'flex-end' }}>
-                    <div
-                        style={{
-                            display: 'flex',
-                            alignItems: 'flex-end',
-                            whiteSpace: 'nowrap',
-                        }}
-                    >
-                        <div
-                            style={{
-                                ...getCSSPropertiesFromThemeSettings(theme.normal.title2),
-                                ...props.AmountTextStyle,
-                            }}
-                        >
-                            {claimedAmountText}
-                        </div>
-                        <div
-                            style={{
-                                ...getCSSPropertiesFromThemeSettings(theme.normal.title_symbol),
-                                marginLeft: 8,
-                                position: 'relative',
-                                top: -6,
-                                ...props.SymbolTextStyle,
-                            }}
-                        >
-                            {symbol}
-                        </div>
-                    </div>
-                    <div
-                        style={{
-                            ...getCSSPropertiesFromThemeSettings(theme.normal.title2),
-                            marginLeft: 8,
-                            ...props.AmountTextStyle,
-                        }}
-                    >
-                        /
-                    </div>
-                </div>
+            {progress !== undefined ? (
+                <div
+                    style={{
+                        position: 'absolute',
+                        left: 0,
+                        top: 0,
+                        height: 62,
+                        borderRadius: progress === 100 ? 16 : '16px 0 0 16px',
+                        backgroundColor: hexToRGBA(getCSSPropertiesFromThemeSettings(theme.normal.title2).color, 0.4),
+                        width: `${progress}%`,
+                    }}
+                />
             ) : null}
-            <div
-                style={{
-                    display: 'flex',
-                    alignItems: 'flex-end',
-                    whiteSpace: 'nowrap',
-                }}
-            >
-                <div
-                    style={{
-                        ...getCSSPropertiesFromThemeSettings(theme.normal.title2),
-                        marginLeft: 8,
-                        ...props.AmountTextStyle,
-                    }}
-                >
-                    {totalAmountText}
-                </div>
-                <div
-                    style={{
-                        ...getCSSPropertiesFromThemeSettings(theme.normal.title_symbol),
-                        marginLeft: 8,
-                        position: 'relative',
-                        top: -6,
-                        ...props.SymbolTextStyle,
-                    }}
-                >
-                    {symbol}
-                </div>
+            <div style={{ margin: '0px 22px', display: 'flex', alignItems: 'center', columnGap: '8px' }}>
+                {totalAmount > 1 ? (
+                    nFormatter(leftShift(amount, decimals).toNumber())
+                ) : totalAmount < 0.0001 ? (
+                    <div style={{ display: 'flex', alignItems: 'center' }}>
+                        <ShrankPrice shrank={formatPrice(totalAmount) ?? '-'} />
+                    </div>
+                ) : (
+                    totalAmountText
+                )}{' '}
+                {symbol}
             </div>
+        </div>
+    );
+}
+
+function ShrankPrice({ shrank }: { shrank: string }) {
+    if (!shrank.includes('{')) return shrank;
+    const parts = shrank.match(/(^.+){(\d+)}(.+$)/);
+    if (!parts) return shrank;
+    return (
+        <div style={{ display: 'flex', alignItems: 'flex-end' }}>
+            {parts[1]}
+            <sub className="text-[0.66em]" style={{ fontSize: '0.66em' }}>
+                {parts[2]}
+            </sub>
+            {parts[3]}
         </div>
     );
 }

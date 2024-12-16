@@ -2,7 +2,7 @@ import { safeUnreachable } from '@masknet/kit';
 
 import { formatEthereumAddress } from '@/helpers/formatAddress.js';
 import { getCSSPropertiesFromThemeSettings } from '@/helpers/getCSSPropertiesFromThemeSettings.js';
-import type { FireflyRedPacketAPI } from '@/providers/red-packet/types.js';
+import type { FireflyRedPacketAPI } from '@/mask/bindings/index.js';
 import { UsageType } from '@/types/rp.js';
 
 interface AuthorTextProps {
@@ -19,9 +19,6 @@ export function AuthorText({ theme, usage, from = 'unknown', ...props }: AuthorT
                 <div
                     style={{
                         ...getCSSPropertiesFromThemeSettings(theme.normal.title3),
-                        position: 'absolute',
-                        right: 40,
-                        bottom: 40,
                         ...props.ContainerStyle,
                     }}
                 >

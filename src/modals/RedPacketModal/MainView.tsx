@@ -57,6 +57,7 @@ export function MainView() {
     const { chainId } = useChainContext({
         chainId: selectedToken?.chainId,
     });
+
     const nativeToken = useMemo(() => EVMChainResolver.nativeCurrency(chainId), [chainId]);
 
     const token = selectedToken || nativeToken;
@@ -316,7 +317,7 @@ export function MainView() {
                 ) : null}
             </div>
             <div className="flex-grow" />
-            <div className="w-full bg-lightBottom80 p-4 shadow-primary backdrop-blur-lg dark:shadow-primaryDark">
+            <div className="dark:shadow-primaryDark w-full bg-lightBottom80 p-4 shadow-primary backdrop-blur-lg">
                 <ChainGuardButton
                     targetChainId={chainId}
                     className="rounded-lg"

@@ -10,7 +10,7 @@ import { UnreachableError } from '@/constants/error.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
 import { loadTwemojiUrls } from '@/helpers/loadTwemojiUrls.js';
 import { removeVS16s } from '@/helpers/removeVS16s.js';
-import type { FireflyRedPacketAPI } from '@/providers/red-packet/types.js';
+import type { FireflyRedPacketAPI } from '@/mask/bindings/index.js';
 import { getSatoriFonts } from '@/services/getSatoriFonts.js';
 import { settings } from '@/settings/index.js';
 import { TokenType, UsageType } from '@/types/rp.js';
@@ -38,6 +38,7 @@ interface Payload {
     usage: UsageType.Payload;
     from: string;
     amount: string;
+    message: string;
     token: {
         type: TokenType;
         symbol: string;
@@ -63,11 +64,11 @@ export async function createRedPacketImage(coverOrPayload: Cover | Payload, sign
     const { usage, themeId } = coverOrPayload;
     const [fonts, theme] = await Promise.all([getSatoriFonts(signal), getTheme(themeId, signal)]);
 
+    // satori might not support VS16s, so we remove them here
+    coverOrPayload.message = removeVS16s(coverOrPayload.message);
+
     switch (usage) {
         case UsageType.Cover:
-            // satori might not support VS16s, so we remove them here
-            coverOrPayload.message = removeVS16s(coverOrPayload.message);
-
             return satori(<RedPacketCover theme={theme} {...coverOrPayload} />, {
                 width: 1200,
                 height: 840,
@@ -79,6 +80,7 @@ export async function createRedPacketImage(coverOrPayload: Cover | Payload, sign
                 width: 1200,
                 height: 840,
                 fonts,
+                graphemeImages: await loadTwemojiUrls(coverOrPayload.message),
             });
         default:
             safeUnreachable(usage);
