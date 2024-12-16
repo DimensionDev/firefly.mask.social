@@ -9,8 +9,8 @@ import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
 import { parseChainId } from '@/helpers/parseChainId.js';
 import { resolveCollectionChain } from '@/helpers/resolveCollectionChain.js';
 import { resolveNftUrl } from '@/helpers/resolveNftUrl.js';
-import { resolveWalletProfileProvider } from '@/helpers/resolveWalletProfileProvider.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
+import { SimpleHashProvider } from '@/providers/simplehash/index.js';
 
 interface Props {
     params: {
@@ -28,8 +28,7 @@ function isNFTDetailPage(chainIdOrCollectionId: string, addressOrTokenId: string
 
 export async function generateMetadata({ params: { addressOrTokenId, chainIdOrCollectionId } }: Props) {
     if (isNFTDetailPage(chainIdOrCollectionId, addressOrTokenId)) {
-        const provider = resolveWalletProfileProvider(+chainIdOrCollectionId);
-        const collection = await runInSafeAsync(() => provider.getCollectionById(chainIdOrCollectionId));
+        const collection = await runInSafeAsync(() => SimpleHashProvider.getCollectionById(chainIdOrCollectionId));
         if (collection) {
             const { address, chainId } = resolveCollectionChain(collection);
             return createMetadataNFT(address, addressOrTokenId, chainId);
@@ -45,8 +44,7 @@ export default async function Page({ params: { addressOrTokenId, chainIdOrCollec
         redirect(resolveNftUrl(ChainId.Mainnet, addressOrTokenId, '0'));
     }
     if (isNFTDetailPage(chainIdOrCollectionId, addressOrTokenId)) {
-        const provider = resolveWalletProfileProvider(+chainIdOrCollectionId);
-        const collection = await provider.getCollectionById(chainIdOrCollectionId);
+        const collection = await SimpleHashProvider.getCollectionById(chainIdOrCollectionId);
         if (collection) {
             const { address, chainId } = resolveCollectionChain(collection);
             return <NFTDetailPage chainId={chainId} tokenId={addressOrTokenId} address={address} />;

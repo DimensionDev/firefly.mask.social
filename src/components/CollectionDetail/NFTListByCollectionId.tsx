@@ -1,14 +1,13 @@
 'use client';
 
-import type { NonFungibleAsset } from '@masknet/web3-shared-base';
-import { ChainId, SchemaType } from '@masknet/web3-shared-evm';
+import { ChainId } from '@masknet/web3-shared-evm';
 import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
 
 import { GridListInPage } from '@/components/GridListInPage.js';
 import { getNFTItemContent, POAPGridListComponent } from '@/components/Profile/POAPList.js';
 import { EMPTY_LIST } from '@/constants/index.js';
 import { createIndicator } from '@/helpers/pageable.js';
-import { resolveWalletProfileProvider } from '@/helpers/resolveWalletProfileProvider.js';
+import { SimpleHashProvider } from '@/providers/simplehash/index.js';
 
 export function NFTListByCollectionId(props: { collectionId: string; owner: string; chainId?: ChainId }) {
     const { collectionId, owner, chainId } = props;
@@ -20,8 +19,7 @@ export function NFTListByCollectionId(props: { collectionId: string; owner: stri
                 pageParam ? { index: 1, id: pageParam, __type__: 'PageIndicator' } : undefined,
                 pageParam,
             );
-            const provider = resolveWalletProfileProvider(chainId);
-            return provider.getNFTsByCollectionIdAndOwner(collectionId, owner, {
+            return SimpleHashProvider.getNFTsByCollectionIdAndOwner(collectionId, owner, {
                 indicator,
                 chainId,
             });
@@ -37,7 +35,7 @@ export function NFTListByCollectionId(props: { collectionId: string; owner: stri
             VirtualGridListProps={{
                 components: POAPGridListComponent,
                 itemContent: (index, item) => {
-                    return getNFTItemContent(index, item as NonFungibleAsset<ChainId.Mainnet, SchemaType.ERC721>, {
+                    return getNFTItemContent(index, item, {
                         isShowChainIcon: true,
                     });
                 },

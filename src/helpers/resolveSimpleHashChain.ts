@@ -1,10 +1,10 @@
 /* cspell:disable */
 
 import { ChainId } from '@masknet/web3-shared-evm';
-import { ChainId as SolanaChainId } from '@masknet/web3-shared-solana';
+import { ChainId as SolanaChainId, isValidChainId as isValidSolanaChainId } from '@masknet/web3-shared-solana';
 import { first, memoize } from 'lodash-es';
 
-const EVM_CHAIN: { [key in ChainId]?: string } = {
+const EVM_CHAIN: Record<number, string> = {
     [ChainId.Mainnet]: 'ethereum',
     [ChainId.Base]: 'base',
     [ChainId.BSC]: 'bsc',
@@ -20,7 +20,7 @@ const EVM_CHAIN: { [key in ChainId]?: string } = {
     [ChainId.Linea]: 'linea',
 };
 
-const SOLANA_CHAIN: { [key in SolanaChainId]?: string } = {
+const SOLANA_CHAIN: Record<number, string> = {
     [SolanaChainId.Mainnet]: 'solana',
 };
 
@@ -28,8 +28,8 @@ const EVM_CHAIN_ALIAS: Record<string, string> = {
     binance_smart_chain: 'bsc',
 };
 
-export function resolveSimpleHashChain(chain: ChainId) {
-    return EVM_CHAIN[chain] ?? undefined;
+export function resolveSimpleHashChain(chain: number) {
+    return isValidSolanaChainId(chain) ? SOLANA_CHAIN[chain] : EVM_CHAIN[chain];
 }
 
 function resolveInnerChainId<T extends number>(

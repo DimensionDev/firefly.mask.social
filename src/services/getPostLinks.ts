@@ -12,10 +12,10 @@ import { parseUrl } from '@/helpers/parseUrl.js';
 import { isValidPollFrameUrl } from '@/helpers/resolveEmbedMediaType.js';
 import { resolveTCOLink } from '@/helpers/resolveTCOLink.js';
 import { getPostIFrame } from '@/providers/og/readers/iframe.js';
+import type { SimpleHash } from '@/providers/simplehash/type.js';
 import { Snapshot } from '@/providers/snapshot/index.js';
 import type { SnapshotProposal } from '@/providers/snapshot/type.js';
 import type { ActionGetResponse } from '@/providers/types/Blink.js';
-import type { NftPreview, NftPreviewCollection } from '@/providers/types/Firefly.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 import { getArticleIdFromUrl } from '@/services/getArticleIdFromUrl.js';
 import { getCollectionFromUrl } from '@/services/getCollectionFromUrl.js';
@@ -96,8 +96,8 @@ export async function getPostLinks(url: string, post: Post) {
         articleId?: string;
         spaceId?: string;
         snapshot?: SnapshotProposal;
-        nft?: NftPreview;
-        collection?: NftPreviewCollection;
+        nft?: SimpleHash.NFT;
+        collection?: SimpleHash.Collection;
     } | null>(
         [
             async () => {
