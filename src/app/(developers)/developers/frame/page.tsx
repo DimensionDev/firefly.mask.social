@@ -9,7 +9,7 @@ import urlcat from 'urlcat';
 import { Headline } from '@/app/(settings)/components/Headline.js';
 import { Section } from '@/app/(settings)/components/Section.js';
 import { ClickableButton } from '@/components/ClickableButton.js';
-import { Frame as FrameUI } from '@/components/Frame/index.js';
+import { FrameLayoutWithPost } from '@/components/Frame/LayoutWithPost.js';
 import { Source } from '@/constants/enum.js';
 import { classNames } from '@/helpers/classNames.js';
 import { createDummyPost } from '@/helpers/createDummyPost.js';
@@ -72,7 +72,7 @@ export default function Page() {
             </div>
 
             <div className="w-full max-w-[500px]">
-                <FrameUI post={post} />
+                <FrameLayoutWithPost post={post} />
             </div>
             {error ? <div className="w-full">{error.message}</div> : null}
         </Section>

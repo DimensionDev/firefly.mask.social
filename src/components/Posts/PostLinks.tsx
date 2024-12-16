@@ -7,7 +7,7 @@ import { useEffect, useMemo } from 'react';
 
 import { ArticleBody } from '@/components/Article/ArticleBody.js';
 import { ActionContainer } from '@/components/Blink/ActionContainer.js';
-import { FrameLayout } from '@/components/Frame/index.js';
+import { FrameLayout } from '@/components/Frame/Layout.js';
 import { CollectionPreviewer, NFTPreviewer } from '@/components/NFTs/NFTPreview.js';
 import { OembedLayout } from '@/components/Oembed/index.js';
 import { Player } from '@/components/Oembed/Player.js';

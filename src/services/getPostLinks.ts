@@ -7,6 +7,7 @@ import { env } from '@/constants/env.js';
 import { TWEET_SPACE_REGEX } from '@/constants/regexp.js';
 import { attemptUntil } from '@/helpers/attemptUntil.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
+import { isFrameV1 } from '@/helpers/frame.js';
 import { isValidDomain } from '@/helpers/isValidDomain.js';
 import { parseUrl } from '@/helpers/parseUrl.js';
 import { isValidPollFrameUrl } from '@/helpers/resolveEmbedMediaType.js';
@@ -144,7 +145,7 @@ export async function getPostLinks(url: string, post: Post) {
                     case Source.Farcaster:
                         return { frame };
                     case Source.Lens:
-                        return frame.protocol === FrameProtocol.OpenFrame ? { frame } : null;
+                        return isFrameV1(frame) && frame.protocol === FrameProtocol.OpenFrame ? { frame } : null;
                     case Source.Twitter:
                         return null;
                     default:

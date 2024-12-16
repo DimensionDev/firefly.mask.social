@@ -5,6 +5,7 @@ import { toBytes } from 'viem';
 import { Source, SourceInURL } from '@/constants/enum.js';
 import { MAX_IMAGE_SIZE_PER_POST } from '@/constants/limitation.js';
 import { readChars } from '@/helpers/chars.js';
+import { isFrameV1 } from '@/helpers/frame.js';
 import { getAllMentionsForFarcaster } from '@/helpers/getAllMentionsForFarcaster.js';
 import { getPollFrameUrl } from '@/helpers/getPollFrameUrl.js';
 import { isHomeChannel } from '@/helpers/isSameChannel.js';
@@ -74,7 +75,7 @@ export async function createFarcasterSchedulePostPayload(
                 url: resolveVideoUrl(Source.Farcaster, media),
                 mimeType: media.mimeType,
             })),
-            ...frames.map((frame) => ({ title: frame.title, url: frame.url })),
+            ...frames.filter(isFrameV1).map((frame) => ({ title: frame.title, url: frame.url })),
             ...openGraphs.map((openGraph) => ({ title: openGraph.title!, url: openGraph.url })),
             ...pollResults.map((poll) => ({
                 url: getPollFrameUrl(poll.id, Source.Farcaster),
