@@ -30,15 +30,7 @@ interface TitleProps extends HTMLProps<HTMLDivElement> {
     disableActions?: boolean;
 }
 
-export function Title({
-    profile: propsProfile,
-    profiles = EMPTY_LIST,
-    sticky,
-    keepVisible,
-    disableActions,
-    className,
-    ...rest
-}: TitleProps) {
+export function Title({ profiles = EMPTY_LIST, sticky, keepVisible, disableActions, className, ...rest }: TitleProps) {
     const isMedium = useIsMedium();
     const currentProfiles = useCurrentFireflyProfiles();
 
@@ -56,7 +48,7 @@ export function Title({
 
     const { walletProfile } = resolveFireflyProfiles(identity, profiles);
 
-    const { data: profile } = useRefreshedProfile(propsProfile);
+    const { data: profile } = useRefreshedProfile(rest.profile);
 
     if ((profiles.length > 1 || !isOthersProfile) && !reached && isMedium && !sticky) return null;
 
