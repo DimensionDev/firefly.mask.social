@@ -8,7 +8,7 @@ msgstr ""
 "Language: zh\n"
 "Project-Id-Version: masksocial\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-12-12 12:01\n"
+"PO-Revision-Date: 2024-12-16 11:13\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
@@ -82,7 +82,7 @@ msgid "Sell Tax: {0}%"
 msgstr "售卖税率: {0}%"
 
 msgid "Lucky drop"
-msgstr ""
+msgstr "红包"
 
 msgid "Failed to translate post. Please retry later."
 msgstr "翻译失败。请稍后重试。"
@@ -106,7 +106,7 @@ msgid "Your frame URL"
 msgstr "您 Frame 的 URL"
 
 msgid "Refunded"
-msgstr ""
+msgstr "已退款"
 
 msgid "Send a tip"
 msgstr "发送打赏"
@@ -118,7 +118,7 @@ msgid "Blackmail activities."
 msgstr "勒索行为。"
 
 msgid "Template"
-msgstr ""
+msgstr "模版"
 
 msgid "Failed to collect article."
 msgstr "收集文章失败。"
@@ -142,13 +142,13 @@ msgid "<0>Fully Diluted Valuation (FDV) = Current Price x Total Supply</0><1>Ful
 msgstr "<0>完全稀释估值 (FDV) = 当前价格 x 总供应量</0><1>完全稀释估值 (FDV) 是某种货币的全流通时基于当前市场价格的理论市值。FDV 值是理论上的，因为增加货币的流通量可能会影响其市场价格。此外，根据代币经济学、发行计划或货币供应量的锁定期，可能需要相当长的时间才能将其全部供应量释放到流通中。</1>"
 
 msgid "Equal Split"
-msgstr ""
+msgstr "均分金额"
 
 msgid "Followed @{0} on {sourceName}"
 msgstr "在 {sourceName} 上关注 @{0}"
 
 msgid "Select a Token"
-msgstr ""
+msgstr "选择 Token"
 
 msgid "{followerCount, plural, one {Follower} other {Followers}}"
 msgstr "{followerCount, plural, one {关注者} other {关注者}}"
@@ -181,7 +181,7 @@ msgid "Money laundering."
 msgstr "洗钱。"
 
 msgid "History"
-msgstr ""
+msgstr "历史"
 
 msgid "This space does not exist."
 msgstr "该空间不存在。"
@@ -229,7 +229,7 @@ msgid "Malicious mining activities found."
 msgstr "发现恶意挖矿行为。"
 
 msgid "No"
-msgstr ""
+msgstr "不是"
 
 msgid "Functions that can suspend trading"
 msgstr "可以暂停交易的功能"
@@ -241,10 +241,10 @@ msgid "This token is a gas abuser."
 msgstr "该通证是一个燃料滥用者。"
 
 msgid "Are you sure you want to leave /{0} ?"
-msgstr ""
+msgstr "您确定要离开 /{0} 吗?"
 
 msgid "Follow <0/> on {platform}"
-msgstr ""
+msgstr "在 {platform} 关注 <0/>"
 
 msgid "Ended"
 msgstr "已结束"
@@ -280,7 +280,7 @@ msgid "Tax can be modified"
 msgstr "税率可以被修改"
 
 msgid "<0>Burned</0><1/>"
-msgstr ""
+msgstr "<0>已销毁</0><1/>"
 
 msgid "🤑 Just claimed a #FireflyLuckyDrop 🧧💰✨ on {postUrl} !"
 msgstr ""
@@ -334,7 +334,7 @@ msgid "Log out @{0}"
 msgstr "登出 @{0}"
 
 msgid "MAX"
-msgstr ""
+msgstr "最大"
 
 msgid "You can save the failed parts of posts and send them later from your Drafts."
 msgstr "您可以先保存发送的帖子并稍后发送。"
@@ -355,13 +355,13 @@ msgid "Scan the QR code with your phone’s <0>Camera</0> in {count}s.<1/> Appro
 msgstr "使用<0>摄像头</0> 在 {count} 内<1/> 来扫描您的二维码。授权 Farcaster singer 给 Firefly。"
 
 msgid "Image Preview"
-msgstr ""
+msgstr "图片预览"
 
 msgid "Poll"
 msgstr "投票"
 
 msgid "Bets"
-msgstr ""
+msgstr "打赌"
 
 msgid "Scheduled"
 msgstr "已定时"
@@ -370,7 +370,7 @@ msgid "Pay"
 msgstr "付款"
 
 msgid "Followed @{handle} on {0}."
-msgstr ""
+msgstr "在 {0} 上关注 @{handle}。"
 
 msgid "Failed to add wallet"
 msgstr "添加钱包失败"
@@ -463,7 +463,7 @@ msgid "Username is required."
 msgstr "用户名为必填。"
 
 msgid "Failed to leave /{0} on {sourceName}."
-msgstr ""
+msgstr "未能在 {sourceName} 上离开 /{0}。"
 
 msgid "<0>Sent</0> an NFT"
 msgstr "<0>发送了</0> 一个 NFT"
@@ -484,7 +484,7 @@ msgid "Copied"
 msgstr "已复制"
 
 msgid "Invalid Network"
-msgstr ""
+msgstr "无效网络"
 
 msgid "Name"
 msgstr "名称"
@@ -529,7 +529,7 @@ msgid "True Token"
 msgstr "真实的通证"
 
 msgid "Failed to follow @{handle} on {0}."
-msgstr ""
+msgstr "在 {0} 上关注 @{handle} 失败。"
 
 msgid "Bookmarks"
 msgstr "收藏"
@@ -556,7 +556,7 @@ msgid "Failed to report @{0}"
 msgstr "举报 @{0} 失败"
 
 msgid "Plugin is loading..."
-msgstr ""
+msgstr "插件加载中..."
 
 msgid "Restricted approval."
 msgstr "限制性批准。"
@@ -592,7 +592,7 @@ msgid "Mutes"
 msgstr "隐藏"
 
 msgid "Failed to bookmark NFT."
-msgstr ""
+msgstr "收藏 NFT 失败。"
 
 msgid "NFTs"
 msgstr "NFTs"
@@ -616,7 +616,7 @@ msgid "Honeypot related address."
 msgstr "可能是钓鱼地址。"
 
 msgid "Custom"
-msgstr ""
+msgstr "自定义"
 
 msgid "Select NFT collection to gate access"
 msgstr ""
@@ -673,7 +673,7 @@ msgid "<0>{0}</0> by <1>{1}</1>"
 msgstr "<0>{0}</0> 由 <1>{1}</1>"
 
 msgid "Limo"
-msgstr ""
+msgstr "Limo"
 
 msgid "Functions with retrievable ownership"
 msgstr "具有可检索所有权的功能"
@@ -682,7 +682,7 @@ msgid "No proxy contract."
 msgstr "没有代理合约。"
 
 msgid "Identical"
-msgstr ""
+msgstr "平分"
 
 msgid "Search"
 msgstr "搜索"
@@ -703,7 +703,7 @@ msgid "Sanctioned address."
 msgstr "黑名单地址。"
 
 msgid "Claim requirements"
-msgstr ""
+msgstr "领取条件"
 
 msgid "Failed to decrypt post on {0}."
 msgstr ""
@@ -736,7 +736,7 @@ msgid "Failed to delete scheduled post."
 msgstr "删除定时任务失败。"
 
 msgid "Confirm the Lucky Drop"
-msgstr ""
+msgstr "确认您的红包"
 
 msgid "The blacklist function is not included. If there is a blacklist, some addresses may not be able to trade normally (honeypot risk)."
 msgstr "黑名单功能未启用。如果启用，有些地址可能无法正常交易（欺诈风险）。"
@@ -784,7 +784,7 @@ msgid "Reposted"
 msgstr "转帖"
 
 msgid "Login {0} successfully."
-msgstr ""
+msgstr "登录 {0} 成功。"
 
 msgid "Today at {0}"
 msgstr "今天 {0}"
@@ -808,7 +808,7 @@ msgid "Failed to upload. More than {maxImageCount} images."
 msgstr "上传失败。超过了最大 {maxImageCount} 的图片数量限制。"
 
 msgid "NFT bookmarks"
-msgstr ""
+msgstr "NFT 收藏"
 
 msgid "Minting Txn Hash"
 msgstr "铸造交易哈希中"
@@ -859,13 +859,13 @@ msgid "Phishing activities found."
 msgstr "发现钓鱼活动。"
 
 msgid "LinkDigest Validator"
-msgstr ""
+msgstr "链接解析验证"
 
 msgid "No Lens profile found.<0/>Please change to another wallet."
 msgstr "没有找到 Lens 账户，<0/>请连接另一个钱包。"
 
 msgid "Drop type"
-msgstr ""
+msgstr "红包类型"
 
 msgid "The contract owner has no restrictions on trading cooldown."
 msgstr "合约拥有者在交易冷却期上没有限制。"
@@ -904,7 +904,7 @@ msgid "Log telemetry events to the console."
 msgstr "日志侦测技术至控制台"
 
 msgid "Failed to un-bookmark NFT."
-msgstr ""
+msgstr "取消收藏 NFT 失败。"
 
 msgid "Confirmation"
 msgstr "确认"
@@ -915,8 +915,7 @@ msgstr "搜索用户"
 msgid "{platform, select, farcaster {{0}} lens {{1}} twitter {{2}} other {{3}}}"
 msgstr ""
 
-msgid ""
-"🤑 Check this Lucky Drop  🧧💰✨ sent by @{sender}.\n"
+msgid "🤑 Check this Lucky Drop  🧧💰✨ sent by @{sender}.\n"
 "Grow your followers and engagement with Lucky Drop on Firefly mobile app or https://firefly.mask.social !"
 msgstr ""
 
@@ -933,7 +932,7 @@ msgid "Profile details"
 msgstr "个人信息明细"
 
 msgid "{0} (UTC+8)"
-msgstr ""
+msgstr "{0} (UTC+8)"
 
 msgid "Failed to mute /{0}."
 msgstr "隐藏 /{0} 失败。"
@@ -969,13 +968,13 @@ msgid "Priority Access: Holders get early access to future projects, beta tests,
 msgstr "优先访问：持有者将获得对未来项目、测试版和空投的提前访问权。同时，他们还将优先体验最新功能和内容。"
 
 msgid "Join /{0}"
-msgstr ""
+msgstr "加入 /{0}"
 
 msgid "The token can not be bought."
 msgstr "该代币无法购买。"
 
 msgid "More Details"
-msgstr ""
+msgstr "详细信息"
 
 msgid "No proxy"
 msgstr "无代理"
@@ -1032,7 +1031,7 @@ msgid "Join our Telegram"
 msgstr "加入我们的 Telegram"
 
 msgid "Leave /{0}"
-msgstr ""
+msgstr "离开 /{0}"
 
 msgid "Non-contract address."
 msgstr "非合约地址。"
@@ -1056,10 +1055,10 @@ msgid "Log out"
 msgstr "登出"
 
 msgid "Amount Each"
-msgstr ""
+msgstr "每笔金额"
 
 msgid "{0}d: {1}h: {2}m: {3}s"
-msgstr ""
+msgstr "{0}天: {1}时: {2}分: {3}秒"
 
 msgid "No restricted approval."
 msgstr "没有限制性批准。"
@@ -1086,10 +1085,10 @@ msgid "This token contract has a code that states that it cannot be sold. Maybe 
 msgstr "这个通证合约提到它不能出售。也许这是一个欺诈行为。"
 
 msgid "Winners"
-msgstr ""
+msgstr "中间者"
 
 msgid "Refunding"
-msgstr ""
+msgstr "退款中"
 
 msgid "REPLY to<0><1>@{0}</1></0>"
 msgstr "回复给<0><1>@{0}</1></0>"
@@ -1113,7 +1112,7 @@ msgid "Followed by {0} and {1}"
 msgstr "被 {0} 和 {1} 关注"
 
 msgid "Insufficient {0} Balance"
-msgstr ""
+msgstr "{0} 余额不足"
 
 msgid "Try searching for something else."
 msgstr "试试搜索其他东西。"
@@ -1173,7 +1172,7 @@ msgid "<0/> mentioned you in a <1>{0, select, Post {post} Comment {comment} Quot
 msgstr "<0/>提到了你的 <1>{0, select, Post {帖子} Comment {评论} Quote {引用} Mirror {引用} other {帖子}}</1>"
 
 msgid "<0>Bought</0><1/>"
-msgstr ""
+msgstr "<0>购买</0><1/>"
 
 msgid "The current connected wallet does not match, Please switch to {0}"
 msgstr "当前连接的钱包不匹配，请切换到 {0}。"
@@ -1194,13 +1193,13 @@ msgid "Enable development API version"
 msgstr "启用开发环境接口"
 
 msgid "<0>Sent</0><1/>"
-msgstr ""
+msgstr "<0>发送</0><1/>"
 
 msgid "Voted"
 msgstr "已投票"
 
 msgid "Lucky Drop"
-msgstr ""
+msgstr "红包"
 
 msgid "Reply"
 msgstr "回复"
@@ -1215,7 +1214,7 @@ msgid "Confirm you want to mute /{0}?"
 msgstr "您确定要隐藏 /{0} 吗？"
 
 msgid "Refund"
-msgstr ""
+msgstr "退款"
 
 msgid "Connecting..."
 msgstr "正在连接…"
@@ -1269,7 +1268,7 @@ msgid "Failed to create image payload."
 msgstr "创建图片内容失败"
 
 msgid "Random Amount"
-msgstr ""
+msgstr "随机金额"
 
 msgid "Network Fee"
 msgstr "网络费"
@@ -1281,7 +1280,7 @@ msgid "Top Profiles"
 msgstr "热门用户"
 
 msgid "NFT added to your Bookmarks"
-msgstr ""
+msgstr "NFT 已经添加到您的收藏中"
 
 msgid "Executed"
 msgstr "已执行"
@@ -1302,7 +1301,7 @@ msgid "Send Feedback"
 msgstr "提交反馈"
 
 msgid "More details"
-msgstr ""
+msgstr "详细信息"
 
 msgid "No voting power"
 msgstr "没有投票权"
@@ -1314,7 +1313,7 @@ msgid "You can withdraw the rest of your balances back 24h later after sending t
 msgstr ""
 
 msgid "Verify and Claim"
-msgstr ""
+msgstr "校验并且领取"
 
 msgid "Kamala Harris"
 msgstr "卡玛拉·哈里斯"
@@ -1326,7 +1325,7 @@ msgid "The chainId mismatch."
 msgstr "chainId 不匹配"
 
 msgid "Failed to connect on {source}"
-msgstr ""
+msgstr "在 {source} 上连接失败。"
 
 msgid "Open in Firefly App"
 msgstr "打开 Firefly App"
@@ -1347,7 +1346,7 @@ msgid "Share in a Post"
 msgstr "在帖子中分享"
 
 msgid "Search by name or symbol"
-msgstr ""
+msgstr "按名称或符号搜索"
 
 msgid "Forbidden. Please check your permissions."
 msgstr "禁止！请检查您的权限。"
@@ -1401,7 +1400,7 @@ msgid "No channel found with the id {channelId}"
 msgstr ""
 
 msgid "Best Wishes!"
-msgstr ""
+msgstr "最美好的祝愿！"
 
 msgid "Sold Out"
 msgstr "售罄"
@@ -1410,13 +1409,13 @@ msgid "Proxy contract"
 msgstr "代理合约"
 
 msgid "Choose your collection"
-msgstr ""
+msgstr "选择您的 NFT 系列"
 
 msgid "Total amount shared among all winners"
 msgstr ""
 
 msgid "Enter number of winners"
-msgstr ""
+msgstr "输入获奖人数"
 
 msgid "The contract owner has the authority to modify the balance of tokens at other addresses, which may result in a loss of assets."
 msgstr "合约所有人有权修改其他地址的通证通证余额，这可能造成资产损失。"
@@ -1425,13 +1424,13 @@ msgid "Failed to unmute @{0} on {sourceName}."
 msgstr "在 {sourceName} 上取消隐藏 @{0} 失败。"
 
 msgid "Claiming..."
-msgstr ""
+msgstr "领取中..."
 
 msgid "Insufficient Balance"
 msgstr "余额不足"
 
 msgid "Empty"
-msgstr ""
+msgstr "空的"
 
 msgid "Tax cannot be modified"
 msgstr "不能修改税"
@@ -1467,7 +1466,7 @@ msgid "Set"
 msgstr "设置"
 
 msgid "Enter Total Amount"
-msgstr ""
+msgstr "请输入总金额"
 
 msgid "[Poll]"
 msgstr "[投票]"
@@ -1500,7 +1499,7 @@ msgid "Muted wallets"
 msgstr "已隐藏的钱包"
 
 msgid "From: @{0}"
-msgstr ""
+msgstr "来自：@{0}"
 
 msgid "All wallets and accounts are muted."
 msgstr "已隐藏所有的钱包和账户。"
@@ -1509,7 +1508,7 @@ msgid "Disconnected from your social graph"
 msgstr "从您的社交图谱中断开"
 
 msgid "Failed to upload."
-msgstr ""
+msgstr "上传失败。"
 
 msgid "{attentionFactors, plural, one {# Attention item} other {# Attention items}}"
 msgstr "{attentionFactors, plural, one {# 风险条目} other {# 风险条目}}"
@@ -1521,7 +1520,7 @@ msgid "Malformed session."
 msgstr "会话格式错误。"
 
 msgid "Like / Repost / Comment"
-msgstr ""
+msgstr "点赞/转帖/评论"
 
 msgid "Malformed third-party session payload."
 msgstr "第三方会话负载格式不正确。"
@@ -1560,7 +1559,7 @@ msgid "Your post has published successfully."
 msgstr "发布成功。"
 
 msgid "Confirming"
-msgstr ""
+msgstr "确认中"
 
 msgid "Login with Farcaster"
 msgstr "使用 Farcaster 登录"
@@ -1608,7 +1607,7 @@ msgid "Please confirm the login with Warpcast."
 msgstr "请确认使用 Warpcast 登录。"
 
 msgid "Cover background"
-msgstr ""
+msgstr "封面背景"
 
 msgid "Verified"
 msgstr "已验证"
@@ -1617,7 +1616,7 @@ msgid "Redirecting..."
 msgstr "跳转中..."
 
 msgid "Split Mode"
-msgstr ""
+msgstr "拆分模式"
 
 msgid "Log in with recovery phrase"
 msgstr "使用助记词登录"
@@ -1650,7 +1649,7 @@ msgid "NFT Contract"
 msgstr "NFT 合约"
 
 msgid "Failed to connect MPC wallet"
-msgstr ""
+msgstr "连接 MPC 钱包失败。"
 
 msgid "Phishing activities."
 msgstr "钓鱼活动。"
@@ -1662,7 +1661,7 @@ msgid "Show more tokens with small balances"
 msgstr "展示更多的小额通证"
 
 msgid "Requirements"
-msgstr ""
+msgstr "条件"
 
 msgid "{riskyFactors, plural, one {# Risky item} other {# Risky items}}"
 msgstr "{riskyFactors, plural, one {# 风险条目} other {# 风险条目}}"
@@ -1722,7 +1721,7 @@ msgid "Grant access to your {0} for the Lucky Drop Smart contract. You only have
 msgstr ""
 
 msgid "Enclose a Message"
-msgstr ""
+msgstr "附上一条消息"
 
 msgid "Failed to upvote post."
 msgstr "无法对帖子进行投票。"
@@ -1733,8 +1732,7 @@ msgstr "<0>获取</0> 一个 NFT"
 msgid "{0} {1, plural, one {share} other {shares}} / {total} ${symbol}"
 msgstr ""
 
-msgid ""
-"🤑 Just claimed a #LuckyDrop  🧧💰✨ on https://firefly.mask.social from @{sender} !\n"
+msgid "🤑 Just claimed a #LuckyDrop  🧧💰✨ on https://firefly.mask.social from @{sender} !\n"
 "Claim on Lens: {link}"
 msgstr ""
 
@@ -1775,7 +1773,7 @@ msgid "Standard"
 msgstr "标准"
 
 msgid "Data display"
-msgstr ""
+msgstr "数据展示"
 
 msgid "No darkweb transactions found."
 msgstr "未发现暗网交易。"
@@ -1817,7 +1815,7 @@ msgid "Articles"
 msgstr "文章"
 
 msgid "Follow me"
-msgstr ""
+msgstr "关注我"
 
 msgid "Connect to {0}"
 msgstr "连接到 {0}"
@@ -1871,7 +1869,7 @@ msgid "Contract source code not verified"
 msgstr "合约源代码未验证"
 
 msgid "NFT removed from your Bookmarks"
-msgstr ""
+msgstr "NFT 已经从您的收藏中移除"
 
 msgid "Not Started"
 msgstr "尚未开始"
@@ -1883,19 +1881,19 @@ msgid "Unwatch {handleOrEnsOrAddress}"
 msgstr "取消关注 {handleOrEnsOrAddress}"
 
 msgid "You claimed {0} ${1}."
-msgstr ""
+msgstr "您领取了{0} ${1}。"
 
 msgid "<0>Market Cap</0><1>{0}</1><2>Rank #{1}</2>"
 msgstr "<0>市值</0><1>{0}</1><2>排名 #{1}</2>"
 
 msgid "Total amount"
-msgstr ""
+msgstr "总金额"
 
 msgid "Invalid signer key"
 msgstr "无效的 singer key"
 
 msgid "Connect to {source}"
-msgstr ""
+msgstr "连接到 {source}"
 
 msgid "Available to users with Farcaster ID under 100,000 or users of select third-party Farcaster apps as of our snapshot"
 msgstr "若您的 Farcaster ID 低于 100,000，或在快照中被识别为指定 Farcaster 第三方应用的用户，即可获得领取资格"
@@ -1946,7 +1944,7 @@ msgid "Connect your wallet to claim your NFT"
 msgstr "连接钱包并且领取你的 NFT"
 
 msgid "At most 255 recipients"
-msgstr ""
+msgstr "最多255个领取者"
 
 msgid "24h"
 msgstr "24小时"
@@ -2009,10 +2007,10 @@ msgid "Article removed from your Bookmarks"
 msgstr "文章已经从您的收藏中移除"
 
 msgid "The Lucky Drop is expired."
-msgstr ""
+msgstr "此红包已过期。"
 
 msgid "Leave /{0} on {sourceName}."
-msgstr ""
+msgstr "在 {sourceName} 上离开 @{0}"
 
 msgid "Powered by Tenderly and GoPlus"
 msgstr "Powered by Tenderly and GoPlus"
@@ -2024,7 +2022,7 @@ msgid "Unable to read image."
 msgstr "获取图片失败。"
 
 msgid "NFT Holder of <0/>"
-msgstr ""
+msgstr "<0/>的 NFT持有者"
 
 msgid "Collectible could not be found."
 msgstr "未找到相关 NFT。"
@@ -2033,7 +2031,7 @@ msgid "Step 3 Select to vote"
 msgstr "第 3 步 选择候选人"
 
 msgid "Select Collection"
-msgstr ""
+msgstr "选择 NFT 系列"
 
 msgid "Visit firefly.social"
 msgstr "访问 firefly.social"
@@ -2087,7 +2085,7 @@ msgid "Show more comments"
 msgstr "展示更多评论"
 
 msgid "Equal Amount"
-msgstr ""
+msgstr "均分金额"
 
 msgid "Failed to parse session."
 msgstr "未能解析会话"
@@ -2138,7 +2136,7 @@ msgid "Top Collectors"
 msgstr "热门收藏者"
 
 msgid "Drop Type"
-msgstr ""
+msgstr "红包类型"
 
 msgid "Quote"
 msgstr "引用"
@@ -2165,7 +2163,7 @@ msgid "Translated"
 msgstr "已翻译"
 
 msgid "Insufficient Balance for Gas Fee"
-msgstr ""
+msgstr "没有足够的 Gas 费"
 
 msgid "Failed to bookmark post."
 msgstr "收藏帖子失败。"
@@ -2174,10 +2172,10 @@ msgid "{0} muted users"
 msgstr "{0} 隐藏的用户"
 
 msgid "Received time:"
-msgstr ""
+msgstr "接收时间："
 
 msgid "Random Split"
-msgstr ""
+msgstr "随机金额"
 
 msgid "Remove Poll"
 msgstr "删除投票"
@@ -2243,19 +2241,19 @@ msgid "Please input the serialized session to be validated."
 msgstr "请输入要验证的序列化会话。"
 
 msgid "Network cost"
-msgstr ""
+msgstr "网络费用"
 
 msgid "1 NFT claimed."
-msgstr ""
+msgstr "已领取 1 个 NFT"
 
 msgid "Failed to update profile."
 msgstr "更新个人资料失败。"
 
 msgid "Your URL"
-msgstr ""
+msgstr "您的 URL"
 
 msgid "Paragraph"
-msgstr ""
+msgstr "Paragraph"
 
 msgid "Connected in Firefly"
 msgstr "通过Firefly连接的"
@@ -2270,7 +2268,7 @@ msgid "Unknown transaction method: {method}."
 msgstr "未知交易方法：{method}。"
 
 msgid "Please sign in with {0} to continue"
-msgstr ""
+msgstr "请登陆 {0} 以继续"
 
 msgid "Get involved in the <0>Presidential Election Winner 2024</0> on Polymarket"
 msgstr "您曾在 Polymarket 对 <0>Presidential Election Winner 2024</0> 进行投注"
@@ -2291,7 +2289,7 @@ msgid "Failed to recast post"
 msgstr "发帖失败"
 
 msgid "Available Balance"
-msgstr ""
+msgstr "可用余额"
 
 msgid "Follow @thefireflyapp on X"
 msgstr "在 X 上关注 @thefireflyapp"
@@ -2300,7 +2298,7 @@ msgid "Wallets retrieved from public verifiable data registries or our entity al
 msgstr "从公开可验证数据注册表中或我们的实体算法中检索到的钱包可以被举报从而断开连接。"
 
 msgid "You got {0} {1}"
-msgstr ""
+msgstr "您得到了 {0} {1}"
 
 msgid "Step 2 Connect Wallet"
 msgstr "第 2 步 连接钱包"
@@ -2357,7 +2355,7 @@ msgid "You haven't generated a Firefly wallet yet."
 msgstr "您还没有生成 Firefly 钱包。"
 
 msgid "Post on"
-msgstr ""
+msgstr "发帖者"
 
 msgid "Your transaction will confirm shortly"
 msgstr "您的交易将很快确认"
@@ -2438,7 +2436,7 @@ msgid "Sorry, we are not able to find a wallet for {0}."
 msgstr "对不起，我们未找到相关钱包 {0}."
 
 msgid "Remove from bookmark"
-msgstr ""
+msgstr "取消收藏"
 
 msgid "Unwatch"
 msgstr "取消关注"
@@ -2462,7 +2460,7 @@ msgid "Show more"
 msgstr "显示更多"
 
 msgid "{0} items"
-msgstr ""
+msgstr "{0} 项目"
 
 msgid "Time Limit"
 msgstr "时间限制"
@@ -2474,7 +2472,7 @@ msgid "Something went wrong. Please try again."
 msgstr "出现错误，请重试。"
 
 msgid "Received"
-msgstr ""
+msgstr "收到"
 
 msgid "Translated from {contentLanguage}"
 msgstr "翻译自 {contentLanguage}"
@@ -2498,7 +2496,7 @@ msgid "<0>Minted</0> an NFT worth {costEl}"
 msgstr "<0>铸造了</0> 一个 NFT 价值 {costEl}"
 
 msgid "Balance"
-msgstr ""
+msgstr "余额"
 
 msgid "Suspended"
 msgstr "已暂停"
@@ -2531,7 +2529,7 @@ msgid "Upload photo"
 msgstr "上传照片"
 
 msgid "The Lucky Drop is empty."
-msgstr ""
+msgstr "此红包已经领完。"
 
 msgid "You can save this to send later from your drafts."
 msgstr "您可以先保存至草稿后再发送。"
@@ -2561,7 +2559,7 @@ msgid "No cybercrime involved."
 msgstr "不涉及网络犯罪。"
 
 msgid "Sent"
-msgstr ""
+msgstr "发送"
 
 msgid "Casts + Replies"
 msgstr "帖子+回复"
@@ -2579,7 +2577,7 @@ msgid "No stealing attack found."
 msgstr "未涉及盗窃攻击。"
 
 msgid "Share From"
-msgstr ""
+msgstr "分享自"
 
 msgid "Claimed"
 msgstr "已领取"
@@ -2588,31 +2586,31 @@ msgid "The hidden owner function is included. The project owner may have the abi
 msgstr "包含隐藏所有者功能。项目所有者可能有能力控制合约。"
 
 msgid "Next"
-msgstr ""
+msgstr "下一步"
 
 msgid "Step 1 Sign in"
 msgstr "第 1 步 登录"
 
 msgid "The Lucky Drop is broken."
-msgstr ""
+msgstr "此红包已被损坏。"
 
 msgid "Copy"
 msgstr "复制"
 
 msgid "Enter Amount Each"
-msgstr ""
+msgstr "输入每个金额"
 
 msgid "Amount"
-msgstr ""
+msgstr "金额"
 
 msgid "Total cost"
-msgstr ""
+msgstr "总花费"
 
 msgid "Settled as {0}"
 msgstr "确定为 {0}"
 
 msgid "Claim"
-msgstr ""
+msgstr "领取"
 
 msgid "No available wallet."
 msgstr "没有可用的钱包。"
@@ -2708,7 +2706,7 @@ msgid "Your post will be sent on {0} at {1} <0>View</0>"
 msgstr "帖子将在 {1} {0} 上发送 <0>查看</0>"
 
 msgid "<0>Sold</0><1/>"
-msgstr ""
+msgstr "<0>出售</0><1/>"
 
 msgid "Failed to create scheduled post."
 msgstr "创建定时任务失败"
@@ -2726,13 +2724,13 @@ msgid "You've hit rock bottom."
 msgstr "你已经滑到底部啦～"
 
 msgid "View"
-msgstr ""
+msgstr "查看"
 
 msgid "Crypto Trends"
 msgstr "加密货币趋势"
 
 msgid "<0>Acquired</0><1/>"
-msgstr ""
+msgstr "<0>获得</0><1/>"
 
 msgid "Copy link to profile"
 msgstr "复制链接"
@@ -2753,10 +2751,10 @@ msgid "{0, plural, one {comment} other {comments}}"
 msgstr "{0, plural, one {评论} other {评论}}"
 
 msgid "The Lucky Drop has been refunded."
-msgstr ""
+msgstr "此红包已退款。"
 
 msgid "Pinned"
-msgstr ""
+msgstr "已置顶"
 
 msgid "The contract owner may contain the authority to modify the transaction tax. If the transaction tax is increased to more than 49%, the tokens will not be able to be traded (honeypot risk)."
 msgstr "合约所有人也许拥有修改交易费用的权力。如果交易费用增加到超过49%，通证将无法交易（欺诈风险）。"
@@ -2798,7 +2796,7 @@ msgid "Receive"
 msgstr "接收"
 
 msgid "NFT holder"
-msgstr ""
+msgstr "NFT 持有者"
 
 msgid "Followed by {0} , {1}, and {2}"
 msgstr "被 {0} 和 {1} 和 {2} 关注"
@@ -2816,7 +2814,7 @@ msgid "Firefly Wallets"
 msgstr "Firefly 钱包"
 
 msgid "<0>Sent</0><1/><2>to</2><3><4>{0}</4></3>"
-msgstr ""
+msgstr "<0>发送</0><1/><2>to</2><3><4>{0}</4></3>"
 
 msgid "Channels"
 msgstr "频道"
@@ -2837,7 +2835,7 @@ msgid "<0>Bought</0> an NFT worth {costEl}"
 msgstr "<0>购买</0> 一个 NFT 价值 {costEl}"
 
 msgid "Enter Number of Winners"
-msgstr ""
+msgstr "输入获奖人数"
 
 msgid "Post from /{0} will be hidden in your home timeline"
 msgstr "来自 /{0} 的帖子会从您的时间线中隐藏"
@@ -2882,7 +2880,7 @@ msgid "Confirm to log out all accounts?"
 msgstr "确认登出这些账户？"
 
 msgid "Failed to join /{0} on {sourceName}."
-msgstr ""
+msgstr "未能在 {sourceName} 上加入 @{0}。"
 
 msgid "Repost"
 msgstr "转帖"
@@ -2903,7 +2901,7 @@ msgid "Non-sanctioned address."
 msgstr "非黑名单地址。"
 
 msgid "You could refund {0} {1}."
-msgstr ""
+msgstr "您可以退款 {0} {1}。"
 
 msgid "Failed to quote post."
 msgstr "引用帖子失败。"
@@ -2921,7 +2919,7 @@ msgid "The account you are trying to log in with is already linked to a differen
 msgstr ""
 
 msgid "<0>Minted</0><1/>{0}"
-msgstr ""
+msgstr "<0>铸造</0><1/>{0}"
 
 msgid "Saved on {0}"
 msgstr "已保存在 {0}"
@@ -2939,7 +2937,7 @@ msgid "Something went wrong"
 msgstr "发生未知错误。"
 
 msgid "Create time:"
-msgstr ""
+msgstr "创建时间："
 
 msgid "Change"
 msgstr "切换"
@@ -2984,19 +2982,19 @@ msgid "{type, select, comment {Comments} mirror {{0}} reaction {Likes} act {Coll
 msgstr "{type, select, comment {评论} mirror {{0}} reaction {点赞} act {收藏} other {其他}}"
 
 msgid "Random"
-msgstr ""
+msgstr "随机"
 
 msgid "Unverified: Failed to simulate, <0>try again</0>"
 msgstr "未验证：模拟失败，请重试。"
 
 msgid "No claims yet for this Lucky Drop"
-msgstr ""
+msgstr "还没有人领取这个红包"
 
 msgid "You may lose your assets if giving approval to the website of this token."
 msgstr "如果您授权此通证给这个网站，您可能会丢失您的资产。"
 
 msgid "Default"
-msgstr ""
+msgstr "默认"
 
 msgid "Unfollow"
 msgstr "取消关注"
@@ -3008,7 +3006,7 @@ msgid "Your {0} account is now connected."
 msgstr "您的 {0} 账户已连接。"
 
 msgid "Use Lucky Drop quests to grow your followers and engagement. Each requirement must be completed to be eligible to claim."
-msgstr ""
+msgstr "使用红包任务来增加您的关注者和互动率。每项要求都必须完成，才能有资格领取。"
 
 msgid "Not Found"
 msgstr "未发现"
@@ -3020,7 +3018,7 @@ msgid "The contract owner has no restrictions on personal slippage."
 msgstr "合约所有者对个人滑点没有限制。"
 
 msgid "Number of winners"
-msgstr ""
+msgstr "获奖人数"
 
 msgid "Unmuted @{0} on {sourceName}."
 msgstr "在 {sourceName} 上已取消对 @{0} 的隐藏。"
@@ -3029,7 +3027,7 @@ msgid "If a suspendable code is included, the token maybe neither be bought nor 
 msgstr "如果包含可中止的代码，那么通证可能既不能被购买也不会被出售（欺诈风险）。"
 
 msgid "All chains"
-msgstr ""
+msgstr "所有链"
 
 msgid "Display Name should not exceed {maxDisplayNameSize} characters"
 msgstr "显示名称不可以超过 {maxDisplayNameSize} 个字"
@@ -3062,7 +3060,7 @@ msgid "No tax changes found for personal addresses."
 msgstr "未发现个人地址的税务变更。"
 
 msgid "Unlock {0}"
-msgstr ""
+msgstr "解锁 {0}"
 
 msgid "Owned"
 msgstr "拥有"
@@ -3092,10 +3090,10 @@ msgid "NFT ID"
 msgstr "NFT ID"
 
 msgid "Your claimed {0} {1}."
-msgstr ""
+msgstr "您领取了{0} {1}。"
 
 msgid "Confirm Lucky drop"
-msgstr ""
+msgstr "确认您的红包"
 
 msgid "Farcaster channel"
 msgstr "Farcaster 频道"
@@ -3143,13 +3141,13 @@ msgid "Cannot continue due to wallet mismatch."
 msgstr "钱包不匹配无法继续。"
 
 msgid "You can withdraw any unclaimed amount 24 hours after sending this lucky drop."
-msgstr ""
+msgstr "您可以在发送此红包24小时后提取任何未领取的金额。"
 
 msgid "your.email@example.org"
 msgstr "your.email@example.org"
 
 msgid "Number of Winners"
-msgstr ""
+msgstr "获奖人数"
 
 msgid "Unmute"
 msgstr "取消隐藏"
@@ -3158,13 +3156,13 @@ msgid "Firefly Bridge"
 msgstr "Firefly 桥"
 
 msgid "Congratulations!"
-msgstr ""
+msgstr "祝贺您！"
 
 msgid "Clear all requirements"
-msgstr ""
+msgstr "清除所有任务"
 
 msgid "Claim Requirements"
-msgstr ""
+msgstr "领取条件"
 
 msgid "Oversupply minting."
 msgstr "超出最大铸造数量。"
@@ -3272,7 +3270,7 @@ msgid "Sold a bet"
 msgstr "出售赌注"
 
 msgid "We encountered an error when try to decrypt this message: {0}"
-msgstr ""
+msgstr "我们在尝试解密此消息时遇到了一个错误：{0}"
 
 msgid "Final Step Claim Now!"
 msgstr "最后一步，立即领取！"
@@ -3371,7 +3369,7 @@ msgid "Max Supply"
 msgstr "最大供应量"
 
 msgid "Join /{0} on {sourceName}."
-msgstr ""
+msgstr "在 {sourceName} 上加入 /{0}"
 
 msgid "Posted by {0} via Firefly"
 msgstr "由 {0} 使用 Firefly 发送"
@@ -3380,7 +3378,7 @@ msgid "NFT contract can restrict the approval, resulting in NFT can not be trade
 msgstr "NFT 合约可以限制授权，导致NFT无法在NFT去中心化交易所（DEX）上交易。"
 
 msgid "Amount per Share"
-msgstr ""
+msgstr "单个份额"
 
 msgid "<0>You</0> recasted"
 msgstr "<0>你</0> 已转帖"
@@ -3419,7 +3417,7 @@ msgid "Claim Now"
 msgstr "立即领取"
 
 msgid "<0>Collect</0><1/>"
-msgstr ""
+msgstr "<0>收藏</0><1/>"
 
 msgid "Collect for {0} {1}"
 msgstr "收集 {0} {1}"
@@ -3455,7 +3453,7 @@ msgid "Clear"
 msgstr "清空"
 
 msgid "Message"
-msgstr ""
+msgstr "信息"
 
 msgid "Continue"
 msgstr "继续"
@@ -3512,7 +3510,7 @@ msgid "Post"
 msgstr "发帖"
 
 msgid "Creator:"
-msgstr ""
+msgstr "创建者:"
 
 msgid "mirrored"
 msgstr "已转发"
@@ -3530,7 +3528,7 @@ msgid "Hours"
 msgstr "小时"
 
 msgid "Post decrypted successfully!"
-msgstr ""
+msgstr "帖子加密成功！"
 
 msgid "Logging out will cause scheduled posts to fail. To ensure that posts are sent as scheduled, please make sure that your Firefly account remains logged in."
 msgstr "登出将导致定时发布的帖子失败。请确保您的 Firefly 账户保持登录状态，以确保帖子按计划发送。"
@@ -3566,7 +3564,7 @@ msgid "Collectible"
 msgstr "NFT"
 
 msgid "Users must hold one NFT from the collection you select."
-msgstr ""
+msgstr "用户必须持有您选择的系列中的一枚NFT。"
 
 msgid "Are you sure you want to report this user?"
 msgstr "您确定要举报这个用户么？"
@@ -3581,4 +3579,5 @@ msgid "Blink Validator"
 msgstr "Blink 验证器"
 
 msgid "Golden"
-msgstr ""
+msgstr "金色的"
+
