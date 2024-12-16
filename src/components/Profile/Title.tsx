@@ -16,6 +16,7 @@ import { resolveFireflyProfiles } from '@/helpers/resolveFireflyProfiles.js';
 import { useComeBack } from '@/hooks/useComeback.js';
 import { useCurrentFireflyProfiles } from '@/hooks/useCurrentFireflyProfiles.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
+import { useRefreshedProfile } from '@/hooks/useRefreshedProfile.js';
 import type { FireflyProfile } from '@/providers/types/Firefly.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 import { useFireflyIdentityState } from '@/store/useFireflyIdentityStore.js';
@@ -29,15 +30,7 @@ interface TitleProps extends HTMLProps<HTMLDivElement> {
     disableActions?: boolean;
 }
 
-export function Title({
-    profile,
-    profiles = EMPTY_LIST,
-    sticky,
-    keepVisible,
-    disableActions,
-    className,
-    ...rest
-}: TitleProps) {
+export function Title({ profiles = EMPTY_LIST, sticky, keepVisible, disableActions, className, ...rest }: TitleProps) {
     const isMedium = useIsMedium();
     const currentProfiles = useCurrentFireflyProfiles();
 
@@ -54,6 +47,8 @@ export function Title({
     const isOthersProfile = !currentProfiles.some((x) => isSameFireflyIdentity(x.identity, identity));
 
     const { walletProfile } = resolveFireflyProfiles(identity, profiles);
+
+    const { data: profile } = useRefreshedProfile(rest.profile);
 
     if ((profiles.length > 1 || !isOthersProfile) && !reached && isMedium && !sticky) return null;
 
