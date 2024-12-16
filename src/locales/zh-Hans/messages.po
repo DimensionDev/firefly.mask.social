@@ -8,7 +8,7 @@ msgstr ""
 "Language: zh\n"
 "Project-Id-Version: masksocial\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-12-16 12:01\n"
+"PO-Revision-Date: 2024-12-16 14:16\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
@@ -361,7 +361,7 @@ msgid "Poll"
 msgstr "投票"
 
 msgid "Bets"
-msgstr "打赌"
+msgstr "下注"
 
 msgid "Scheduled"
 msgstr "已定时"
@@ -2809,7 +2809,7 @@ msgid "Firefly Wallets"
 msgstr "Firefly 钱包"
 
 msgid "<0>Sent</0><1/><2>to</2><3><4>{0}</4></3>"
-msgstr "<0>发送</0><1/><2>to</2><3><4>{0}</4></3>"
+msgstr "<0>发送</0><1/><2>至</2><3><4>{0}</4></3>"
 
 msgid "Channels"
 msgstr "频道"
@@ -3581,3 +3581,4 @@ msgstr "Blink 验证器"
 
 msgid "Golden"
 msgstr "金色的"
+
