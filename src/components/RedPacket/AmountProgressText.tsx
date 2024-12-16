@@ -96,7 +96,7 @@ export function AmountProgressText({
 
 function ShrankPrice({ shrank }: { shrank: string }) {
     if (!shrank.includes('{')) return shrank;
-    const parts = shrank.match(/(^.+){(\d+)}(.+$)/);
+    const parts = shrank.match(/^(.+){(\d+)}(.+)$/);
     if (!parts) return shrank;
     return (
         <div style={{ display: 'flex', alignItems: 'flex-end' }}>
