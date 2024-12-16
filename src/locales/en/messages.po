@@ -2196,6 +2196,9 @@ msgstr "This token is not a gas abuser."
 msgid "Failed to fetch profiles."
 msgstr "Failed to fetch profiles."
 
+msgid "Post is decrypting..."
+msgstr "Post is decrypting..."
+
 msgid "Unliked"
 msgstr "Unliked"
 
@@ -2654,6 +2657,9 @@ msgstr "Notifications"
 
 msgid "Back"
 msgstr "Back"
+
+msgid "Decrypt"
+msgstr "Decrypt"
 
 msgid "Article collected successfully!"
 msgstr "Article collected successfully!"
