@@ -17,9 +17,9 @@ import { formatPercentage } from '@/helpers/formatPercentage.js';
 import { getStampAvatarByProfileId } from '@/helpers/getStampAvatarByProfileId.js';
 import { createIndicator } from '@/helpers/pageable.js';
 import { resolveProfileUrl } from '@/helpers/resolveProfileUrl.js';
-import type { SimpleHash } from '@/mask/bindings/index.js';
 import { BlockScanExplorerResolver } from '@/providers/ethereum/ExplorerResolver.js';
 import { SimpleHashProvider } from '@/providers/simplehash/index.js';
+import type { SimpleHash } from '@/providers/types/SimpleHash.js';
 
 interface TopCollectorsProps {
     address: string;

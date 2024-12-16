@@ -6,7 +6,7 @@ import { resolveCollectionChain } from '@/helpers/resolveCollectionChain.js';
 import { resolveNftUrl } from '@/helpers/resolveNftUrl.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { SimpleHashProvider } from '@/providers/simplehash/index.js';
-import type { CollectionDetails } from '@/providers/types/Firefly.js';
+import type { SimpleHash } from '@/providers/types/SimpleHash.js';
 
 export async function createMetadataNFT(address: string, tokenId: string, chainId: ChainId) {
     const data = await SimpleHashProvider.getNFT(
@@ -40,7 +40,7 @@ export async function createMetadataNFT(address: string, tokenId: string, chainI
     });
 }
 
-function createCollectionMetadata(data: CollectionDetails) {
+function createCollectionMetadata(data: SimpleHash.Collection) {
     const title = createPageTitleOG(data.name);
     const description = data.description;
     const images = [data.image_url];

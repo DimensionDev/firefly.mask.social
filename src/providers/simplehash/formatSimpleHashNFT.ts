@@ -10,7 +10,8 @@ import { first, isEmpty } from 'lodash-es';
 import { resolveNFTImageUrl } from '@/helpers/resolveNFTImageUrl.js';
 import { resolveSimpleHashChainId } from '@/helpers/resolveSimpleHashChain.js';
 import { EVMChainResolver } from '@/mask/bindings/index.js';
-import type { NFTAsset, NftPreview } from '@/providers/types/Firefly.js';
+import type { NFTAsset } from '@/providers/types/Firefly.js';
+import type { SimpleHash } from '@/providers/types/SimpleHash.js';
 
 export const SPAM_SCORE = 50;
 
@@ -38,7 +39,7 @@ export function getAssetFullName(contract_address: string, contractName = '', na
     return `${contractName} #${first}`;
 }
 
-export function formatSimpleHashNFT(nft: NftPreview, skipScoreCheck = false): NFTAsset<number, number> | undefined {
+export function formatSimpleHashNFT(nft: SimpleHash.NFT, skipScoreCheck = false): NFTAsset | undefined {
     if (isEmpty(nft)) return;
 
     const chainId = resolveSimpleHashChainId(nft.chain);

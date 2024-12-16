@@ -9,17 +9,10 @@ import { createIndicator, createNextIndicator, createPageable, type PageIndicato
 import { resolveSimpleHashChain } from '@/helpers/resolveSimpleHashChain.js';
 import type { BaseHubOptions } from '@/mask/bindings/index.js';
 import { formatSimpleHashNFT } from '@/providers/simplehash/formatSimpleHashNFT.js';
-import type {
-    Collection,
-    CollectionDetails,
-    NFTAsset,
-    NFTOwnership,
-    NftPreview,
-    NftPreviewCollection,
-    TopCollector,
-} from '@/providers/types/Firefly.js';
+import type { NFTAsset } from '@/providers/types/Firefly.js';
+import type { SimpleHash } from '@/providers/types/SimpleHash.js';
 
-class SimpleHash {
+class SimpleHashFactory {
     async getWalletsNFTCollections(
         params: { limit?: number; indicator?: PageIndicator; walletAddress: string },
         chains: string,
@@ -34,7 +27,7 @@ class SimpleHash {
             include_escrowed_nfts: '1',
         });
 
-        const response = await fetchJSON<{ collections: Collection[]; next_cursor?: string }>(url);
+        const response = await fetchJSON<{ collections: SimpleHash.LiteCollection[]; next_cursor?: string }>(url);
         return createPageable(
             response?.collections ?? EMPTY_LIST,
             createIndicator(indicator),
@@ -47,7 +40,7 @@ class SimpleHash {
             nft_ids: nftIds.join(','),
         });
 
-        const response = await fetchJSON<{ nfts: NftPreview[] }>(url);
+        const response = await fetchJSON<{ nfts: SimpleHash.NFT[] }>(url);
         return response?.nfts ?? EMPTY_LIST;
     }
 
@@ -86,7 +79,7 @@ class SimpleHash {
             limit: props.limit || 25,
             cursor: props.indicator?.id || undefined,
         });
-        const response = await fetchJSON<{ collections: NftPreviewCollection[]; next_cursor?: string }>(url);
+        const response = await fetchJSON<{ collections: SimpleHash.Collection[]; next_cursor?: string }>(url);
 
         return createPageable(
             response?.collections ?? EMPTY_LIST,
@@ -102,7 +95,7 @@ class SimpleHash {
             tokenId,
         });
 
-        const response = await fetchJSON<NftPreview>(url);
+        const response = await fetchJSON<SimpleHash.NFT>(url);
 
         return response;
     }
@@ -112,7 +105,7 @@ class SimpleHash {
         tokenId: string,
         options?: BaseHubOptions<number>,
         skipScoreCheck = false,
-    ): Promise<NFTAsset<number, number> | null> {
+    ): Promise<NFTAsset | null> {
         const chain = resolveSimpleHashChain(options?.chainId || EVMChainId.Mainnet);
         if (!chain || !address || !tokenId) return null;
         const path = urlcat(SIMPLE_HASH_URL, '/api/v0/nfts/:chain/:address/:tokenId', {
@@ -120,7 +113,7 @@ class SimpleHash {
             address,
             tokenId,
         });
-        const response = await fetchJSON<NftPreview>(path);
+        const response = await fetchJSON<SimpleHash.NFT>(path);
         const asset = formatSimpleHashNFT(response, skipScoreCheck);
 
         if (chain !== 'solana' && asset?.schema === SchemaType.ERC1155 && options?.account) {
@@ -130,7 +123,7 @@ class SimpleHash {
                 contract_addresses: asset.address,
             });
 
-            const ownershipResponse = await fetchJSON<{ wallets: NFTOwnership[] }>(pathToQueryOwner);
+            const ownershipResponse = await fetchJSON<{ wallets: SimpleHash.NFTOwnership[] }>(pathToQueryOwner);
 
             if (ownershipResponse.wallets?.[0]?.contracts?.[0].token_ids?.includes(asset.tokenId)) {
                 asset.owner = { address: options.account };
@@ -152,7 +145,7 @@ class SimpleHash {
             cursor: typeof indicator?.index !== 'undefined' && indicator.index !== 0 ? indicator.id : undefined,
         });
 
-        const response = await fetchJSON<{ next_cursor: string; nfts: NftPreview[] }>(path);
+        const response = await fetchJSON<{ next_cursor: string; nfts: SimpleHash.NFT[] }>(path);
 
         const assets = compact(response.nfts.map((x) => formatSimpleHashNFT(x, skipScoreCheck)));
 
@@ -175,7 +168,7 @@ class SimpleHash {
             cursor: typeof indicator?.index !== 'undefined' && indicator.index !== 0 ? indicator.id : undefined,
         });
 
-        const response = await fetchJSON<{ next_cursor: string; nfts: NftPreview[] }>(path);
+        const response = await fetchJSON<{ next_cursor: string; nfts: SimpleHash.NFT[] }>(path);
         const assets = compact(response.nfts.map((x) => formatSimpleHashNFT(x, skipScoreCheck)));
 
         return createPageable(
@@ -198,7 +191,7 @@ class SimpleHash {
             limit: options?.size || 50,
         });
 
-        const response = await fetchJSON<{ nfts: NftPreview[]; next_cursor: string }>(path);
+        const response = await fetchJSON<{ nfts: SimpleHash.NFT[]; next_cursor: string }>(path);
 
         const assets = compact(response.nfts.map((x) => formatSimpleHashNFT(x)));
 
@@ -222,7 +215,7 @@ class SimpleHash {
             cursor: typeof indicator?.index !== 'undefined' && indicator.index !== 0 ? indicator.id : undefined,
         });
 
-        const response = await fetchJSON<{ next_cursor: string; nfts: NftPreview[] }>(path);
+        const response = await fetchJSON<{ next_cursor: string; nfts: SimpleHash.NFT[] }>(path);
         const assets = compact(response.nfts.map((x) => formatSimpleHashNFT(x)));
 
         return createPageable(
@@ -232,7 +225,10 @@ class SimpleHash {
         );
     }
 
-    async getCollection(contractAddress: string, options?: BaseHubOptions<number>): Promise<CollectionDetails | null> {
+    async getCollection(
+        contractAddress: string,
+        options?: BaseHubOptions<number>,
+    ): Promise<SimpleHash.Collection | null> {
         const chain = resolveSimpleHashChain(options?.chainId || EVMChainId.Mainnet);
         if (!chain || !contractAddress) return null;
         const path = urlcat(SIMPLE_HASH_URL, '/api/v0/nfts/collections/:chain/:address', {
@@ -240,16 +236,16 @@ class SimpleHash {
             address: contractAddress,
         });
 
-        const { collections } = await fetchJSON<{ collections: CollectionDetails[] }>(path);
+        const { collections } = await fetchJSON<{ collections: SimpleHash.Collection[] }>(path);
 
         return collections[0];
     }
 
-    async getCollectionById(collectionId: string): Promise<CollectionDetails | null> {
+    async getCollectionById(collectionId: string): Promise<SimpleHash.Collection | null> {
         const path = urlcat(SIMPLE_HASH_URL, '/api/v0/nfts/collections/ids', {
             collection_ids: collectionId,
         });
-        const response = await fetchJSON<{ collections: CollectionDetails[] }>(path);
+        const response = await fetchJSON<{ collections: SimpleHash.Collection[] }>(path);
         return response.collections[0];
     }
 
@@ -261,7 +257,7 @@ class SimpleHash {
             limit: options?.size || 20,
             include_owner_image: '1',
         });
-        const response = await fetchJSON<{ next_cursor: string; top_collectors: TopCollector[] }>(path);
+        const response = await fetchJSON<{ next_cursor: string; top_collectors: SimpleHash.TopCollector[] }>(path);
         return createPageable(
             response.top_collectors,
             indicator,
@@ -277,7 +273,7 @@ class SimpleHash {
             event_id: eventId,
             count: 1,
         });
-        const response = await fetchJSON<{ next_cursor: string; nfts: NftPreview[]; count?: number }>(path);
+        const response = await fetchJSON<{ next_cursor: string; nfts: SimpleHash.NFT[]; count?: number }>(path);
         return createPageable(
             response.nfts,
             indicator,
@@ -287,4 +283,4 @@ class SimpleHash {
     }
 }
 
-export const SimpleHashProvider = new SimpleHash();
+export const SimpleHashProvider = new SimpleHashFactory();

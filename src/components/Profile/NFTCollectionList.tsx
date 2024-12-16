@@ -22,11 +22,11 @@ import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 import { FireflySocialMediaProvider } from '@/providers/firefly/SocialMedia.js';
 import { SimpleHashProvider } from '@/providers/simplehash/index.js';
-import type { Collection } from '@/providers/types/Firefly.js';
+import type { SimpleHash } from '@/providers/types/SimpleHash.js';
 
 interface NFTCollectionItemProps {
-    collection: Collection;
-    onClick?: (chainId: ChainId, collectionId: string, collection: Collection) => void;
+    collection: SimpleHash.LiteCollection;
+    onClick?: (chainId: ChainId, collectionId: string, collection: SimpleHash.LiteCollection) => void;
 }
 
 function NFTCollectionItem({ collection, onClick }: NFTCollectionItemProps) {
