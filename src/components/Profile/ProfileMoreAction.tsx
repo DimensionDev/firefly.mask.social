@@ -90,7 +90,7 @@ export const ProfileMoreAction = memo<ProfileMoreActionProps>(function ProfileMo
                     </>
                 ) : null}
 
-                {SORTED_SEARCHABLE_POST_BY_PROFILE_SOURCES.some((x) => x === profile.source) ? (
+                {SORTED_SEARCHABLE_POST_BY_PROFILE_SOURCES.includes(profile.source) ? (
                     <MenuItem>
                         {({ close }) => (
                             <MenuButton
