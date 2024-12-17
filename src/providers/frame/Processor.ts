@@ -1,8 +1,8 @@
 import { parseHTML } from 'linkedom';
+import { z } from 'zod';
 
 import { FetchError } from '@/constants/error.js';
 import { anySignal } from '@/helpers/anySignal.js';
-import { getFrameClientProtocol } from '@/helpers/getFrameClientProtocol.js';
 import { parseJSON } from '@/helpers/parseJSON.js';
 import { parseUrl } from '@/helpers/parseUrl.js';
 import {
@@ -12,6 +12,7 @@ import {
     getImageUrl,
     getInput,
     getPostUrl,
+    getProtocol,
     getRefreshPeriod,
     getState,
     getTitle,
@@ -19,6 +20,21 @@ import {
 } from '@/providers/frame/readers/metadata.js';
 import { OpenGraphProcessor } from '@/providers/og/Processor.js';
 import type { FrameV1, FrameV2, LinkDigestedResponse } from '@/types/frame.js';
+
+const FrameV2Schema = z.object({
+    version: z.string(),
+    imageUrl: z.string().max(512, 'Max 512 characters'),
+    button: z.object({
+        title: z.string().max(32, 'Max length of 32 characters'),
+        action: z.object({
+            type: z.literal('launch_frame'),
+            name: z.string().max(32, 'Max length of 32 characters'),
+            url: z.string().max(512, 'Max 512 characters'),
+            splashImageUrl: z.string().max(512, 'Max 512 characters'),
+            splashBackgroundColor: z.string().regex(/^#(?:[0-9a-f]{3}|[0-9a-f]{6})$/, 'Hex color code'),
+        }),
+    }),
+});
 
 class Processor {
     digestDocumentV1 = async (url: string, document: Document, signal?: AbortSignal): Promise<FrameV1 | null> => {
@@ -48,7 +64,7 @@ class Processor {
             buttons: [],
             // never refresh by default
             refreshPeriod: Number.MAX_SAFE_INTEGER,
-            protocol: getFrameClientProtocol(document, true),
+            protocol: getProtocol(document, true),
         };
 
         const postUrl = getPostUrl(document);
@@ -70,8 +86,14 @@ class Processor {
 
     digestDocumentV2 = async (url: string, version: string, signal?: AbortSignal): Promise<FrameV2 | null> => {
         const payload = parseJSON<FrameV2>(version);
+        const parsed = FrameV2Schema.safeParse(payload);
+        if (!parsed.success) throw new Error(parsed.error.message);
 
-        return null;
+        const frame: FrameV2 = {
+            x_url: url,
+            ...parsed.data,
+        };
+        return frame;
     };
 
     digestDocument = async (url: string, html: string, signal?: AbortSignal): Promise<LinkDigestedResponse | null> => {
