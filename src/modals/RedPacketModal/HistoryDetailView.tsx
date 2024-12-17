@@ -1,3 +1,4 @@
+import { createIndicator } from '@masknet/shared-base';
 import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
 import { useLocation } from '@tanstack/react-router';
 import { first } from 'lodash-es';
@@ -8,7 +9,6 @@ import { useEnsName } from 'wagmi';
 import { VirtualList } from '@/components/VirtualList/VirtualList.js';
 import { VirtualListFooter } from '@/components/VirtualList/VirtualListFooter.js';
 import { formatBalance } from '@/helpers/formatBalance.js';
-import { createIndicator } from '@/helpers/pageable.js';
 import { RedPacketAccountItem } from '@/modals/RedPacketModal/RedPacketAccountItem.js';
 import { RedPacketDetailItem } from '@/modals/RedPacketModal/RedPacketDetailItem.js';
 import { FireflyRedPacket } from '@/providers/red-packet/index.js';
