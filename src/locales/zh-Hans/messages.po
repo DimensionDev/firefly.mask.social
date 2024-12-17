@@ -2964,9 +2964,6 @@ msgstr "还没有人领取这个红包"
 msgid "You may lose your assets if giving approval to the website of this token."
 msgstr "如果您授权此通证给这个网站，您可能会丢失您的资产。"
 
-msgid "Default"
-msgstr "默认"
-
 msgid "Unfollow"
 msgstr "取消关注"
 
@@ -3014,6 +3011,9 @@ msgstr "正在连接钱包"
 
 msgid "{minutes}m left"
 msgstr "{minutes} 分钟剩余"
+
+msgid "Neutral"
+msgstr ""
 
 msgid "Signature Request"
 msgstr "签名请求"

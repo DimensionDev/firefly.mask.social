@@ -2959,9 +2959,6 @@ msgstr ""
 msgid "You may lose your assets if giving approval to the website of this token."
 msgstr ""
 
-msgid "Default"
-msgstr ""
-
 msgid "Unfollow"
 msgstr ""
 
@@ -3008,6 +3005,9 @@ msgid "Connecting Wallet"
 msgstr ""
 
 msgid "{minutes}m left"
+msgstr ""
+
+msgid "Neutral"
 msgstr ""
 
 msgid "Signature Request"
