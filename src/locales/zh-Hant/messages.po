@@ -666,6 +666,9 @@ msgstr ""
 msgid "Failed to follow @{0} on {sourceName}."
 msgstr "在 {sourceName} 上追蹤 @{0} 失敗。"
 
+msgid "Failed to decrypt post on {sourceName}."
+msgstr ""
+
 msgid "Your assets on $DEGEN or $ANON exceed US$10,000"
 msgstr "您所擁有的 $DEGEN 或 $ANON 的資產價值超過 $10,000 美元"
 
@@ -709,9 +712,6 @@ msgid "Sanctioned address."
 msgstr ""
 
 msgid "Claim requirements"
-msgstr ""
-
-msgid "Failed to decrypt post on {0}."
 msgstr ""
 
 msgid "Host"
@@ -1129,6 +1129,9 @@ msgid "Report spam"
 msgstr "檢舉垃圾訊息"
 
 msgid "Failed to un-bookmark post."
+msgstr ""
+
+msgid "You are not eligible to decrypt this post, try again with eligible {sourceName} account."
 msgstr ""
 
 msgid "Failed to submit report on {0}"

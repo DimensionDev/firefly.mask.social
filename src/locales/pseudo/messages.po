@@ -661,6 +661,9 @@ msgstr ""
 msgid "Failed to follow @{0} on {sourceName}."
 msgstr ""
 
+msgid "Failed to decrypt post on {sourceName}."
+msgstr ""
+
 msgid "Your assets on $DEGEN or $ANON exceed US$10,000"
 msgstr ""
 
@@ -704,9 +707,6 @@ msgid "Sanctioned address."
 msgstr ""
 
 msgid "Claim requirements"
-msgstr ""
-
-msgid "Failed to decrypt post on {0}."
 msgstr ""
 
 msgid "Host"
@@ -1124,6 +1124,9 @@ msgid "Report spam"
 msgstr ""
 
 msgid "Failed to un-bookmark post."
+msgstr ""
+
+msgid "You are not eligible to decrypt this post, try again with eligible {sourceName} account."
 msgstr ""
 
 msgid "Failed to submit report on {0}"
