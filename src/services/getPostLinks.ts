@@ -27,6 +27,9 @@ import type { Frame, LinkDigestedResponse } from '@/types/frame.js';
 import type { ResponseJSON } from '@/types/index.js';
 import type { LinkDigested } from '@/types/og.js';
 
+// We are confident that these hosts will not be used for frame links
+const IGNORE_HOSTS = [/^.+\.mask\.social$/, 'localhost:3000', 'x.com'];
+
 function isValidPostLink(url: string) {
     const parsed = parseUrl(url);
     if (!parsed) return false;
@@ -37,6 +40,15 @@ function isValidPostLink(url: string) {
     // file extension
     // The ipfs link can sometimes be domain/pathname?fileName=xxx.jpg.
     if (/\.\w{1,6}$/i.test(url)) return false;
+
+    // ignore hosts
+    if (
+        IGNORE_HOSTS.some((pattern) =>
+            typeof pattern === 'string' ? pattern === parsed.host : pattern.test(parsed.host),
+        )
+    ) {
+        return false;
+    }
 
     return true;
 }

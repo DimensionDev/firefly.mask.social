@@ -97,7 +97,7 @@ export class SessionFactory {
                     );
                 case SessionType.Twitter: {
                     const parsed = TwitterSessionPayloadSchema.safeParse(parseJSON(atob(secondPart)));
-                    if (!parsed.success) throw new Error(t`Malformed twitter session payload.`);
+                    if (!parsed.success) throw new Error(parsed.error.message);
                     return new TwitterSession(
                         session.profileId,
                         session.token,
@@ -118,7 +118,7 @@ export class SessionFactory {
                 case SessionType.Google:
                 case SessionType.Telegram: {
                     const parsed = ThirdPartySessionPayload.safeParse(parseJSON(atob(secondPart)));
-                    if (!parsed.success) throw new Error(t`Malformed third-party session payload.`);
+                    if (!parsed.success) throw new Error(parsed.error.message);
 
                     return new ThirdPartySession(
                         type,

@@ -1,9 +1,29 @@
 import { compact, last } from 'lodash-es';
 
-import { getFrameClientProtocol } from '@/helpers/getFrameClientProtocol.js';
-import { getFrameMetaContent } from '@/helpers/getFrameMetaContent.js';
-import { qsAll } from '@/helpers/q.js';
+import { FrameProtocol } from '@/constants/enum.js';
+import { getMetaContent } from '@/helpers/getMetaContent.js';
+import { q, qsAll } from '@/helpers/q.js';
 import { ActionType, type FrameButton, type FrameInput } from '@/types/frame.js';
+
+/**
+ * Get content of frame meta tag with frame client protocol
+ * @param document
+ * @param criteria
+ * @returns
+ */
+function getFrameMetaContent(
+    document: Document,
+    criteria: Record<Exclude<ReturnType<typeof getProtocol>, undefined>, string> & { og?: string },
+) {
+    const protocol = getProtocol(document);
+    if (!protocol) return null;
+
+    const selector = criteria[protocol];
+    const content = getMetaContent(document, selector);
+    if (content) return content;
+
+    return criteria.og ? getMetaContent(document, criteria.og) : null;
+}
 
 export function getTitle(document: Document): string | null {
     return (
@@ -70,7 +90,7 @@ export function getInput(document: Document): FrameInput | null {
 }
 
 export function getButtons(document: Document): FrameButton[] {
-    const protocol = getFrameClientProtocol(document);
+    const protocol = getProtocol(document);
     if (!protocol) return [];
 
     const metas = qsAll(document, protocol === 'fc' ? `${protocol}:frame:button:` : `${protocol}:button:`);
@@ -129,4 +149,22 @@ export function getState(document: Document) {
         of: 'of:state',
         fc: 'fc:frame:state',
     });
+}
+
+export function getProtocol(document: Document, strict = false) {
+    const ofVersion = q(document, 'of:version')?.getAttribute('content');
+    if (ofVersion) {
+        if (!strict) {
+            const ofButtons = qsAll(document, 'of:button:');
+            const fcButtons = qsAll(document, 'fc:frame:button:');
+            if (!ofButtons.length && fcButtons.length) return FrameProtocol.Farcaster; // farcaster
+        }
+
+        return FrameProtocol.OpenFrame; // open frame
+    }
+
+    const fcVersion = q(document, 'fc:frame')?.getAttribute('content');
+    if (fcVersion) return FrameProtocol.Farcaster; // farcaster
+
+    return;
 }

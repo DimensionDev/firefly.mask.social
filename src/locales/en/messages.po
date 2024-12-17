@@ -337,6 +337,9 @@ msgstr "You can save the failed parts of posts and send them later from your Dra
 msgid "The external call function is included. The project owner may have the ability to control the contract."
 msgstr "The external call function is included. The project owner may have the ability to control the contract."
 
+msgid "Search in profile"
+msgstr "Search in profile"
+
 msgid "Please confirm the login with Firefly."
 msgstr "Please confirm the login with Firefly."
 
@@ -1515,9 +1518,6 @@ msgstr "Malformed session."
 
 msgid "Like / Repost / Comment"
 msgstr "Like / Repost / Comment"
-
-msgid "Malformed third-party session payload."
-msgstr "Malformed third-party session payload."
 
 msgid "Upload"
 msgstr "Upload"
@@ -3219,9 +3219,6 @@ msgstr "Emoji"
 
 msgid "Failed to report spam NFT."
 msgstr "Failed to report spam NFT."
-
-msgid "Malformed twitter session payload."
-msgstr "Malformed twitter session payload."
 
 msgid "Sorry, there is no wallet address available for tipping."
 msgstr "Sorry, there is no wallet address available for tipping."

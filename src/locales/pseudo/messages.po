@@ -337,6 +337,9 @@ msgstr ""
 msgid "The external call function is included. The project owner may have the ability to control the contract."
 msgstr ""
 
+msgid "Search in profile"
+msgstr ""
+
 msgid "Please confirm the login with Firefly."
 msgstr ""
 
@@ -1514,9 +1517,6 @@ msgid "Malformed session."
 msgstr ""
 
 msgid "Like / Repost / Comment"
-msgstr ""
-
-msgid "Malformed third-party session payload."
 msgstr ""
 
 msgid "Upload"
@@ -3218,9 +3218,6 @@ msgid "Emoji"
 msgstr ""
 
 msgid "Failed to report spam NFT."
-msgstr ""
-
-msgid "Malformed twitter session payload."
 msgstr ""
 
 msgid "Sorry, there is no wallet address available for tipping."

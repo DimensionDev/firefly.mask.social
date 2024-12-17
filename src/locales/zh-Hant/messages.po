@@ -342,6 +342,9 @@ msgstr "您可以將發送失敗的部分貼文保存，並在之後從草稿箱
 msgid "The external call function is included. The project owner may have the ability to control the contract."
 msgstr ""
 
+msgid "Search in profile"
+msgstr ""
+
 msgid "Please confirm the login with Firefly."
 msgstr "請用 Firefly 確認登錄"
 
@@ -1519,9 +1522,6 @@ msgid "Malformed session."
 msgstr ""
 
 msgid "Like / Repost / Comment"
-msgstr ""
-
-msgid "Malformed third-party session payload."
 msgstr ""
 
 msgid "Upload"
@@ -3223,9 +3223,6 @@ msgid "Emoji"
 msgstr ""
 
 msgid "Failed to report spam NFT."
-msgstr ""
-
-msgid "Malformed twitter session payload."
 msgstr ""
 
 msgid "Sorry, there is no wallet address available for tipping."

@@ -342,6 +342,9 @@ msgstr "您可以先保存发送的帖子并稍后发送。"
 msgid "The external call function is included. The project owner may have the ability to control the contract."
 msgstr "包含外部调用功能。项目所有者可能有能力控制合约。"
 
+msgid "Search in profile"
+msgstr ""
+
 msgid "Please confirm the login with Firefly."
 msgstr "请在 Firefly 上确认登录。"
 
@@ -1520,9 +1523,6 @@ msgstr "会话格式错误。"
 
 msgid "Like / Repost / Comment"
 msgstr "点赞/转帖/评论"
-
-msgid "Malformed third-party session payload."
-msgstr "第三方会话负载格式不正确。"
 
 msgid "Upload"
 msgstr "上传"
@@ -3224,9 +3224,6 @@ msgstr "表情符号"
 
 msgid "Failed to report spam NFT."
 msgstr "举报垃圾 NFT 失败。"
-
-msgid "Malformed twitter session payload."
-msgstr "错误的 twitter 会话。"
 
 msgid "Sorry, there is no wallet address available for tipping."
 msgstr "对不起，未找到合适的地址用来打赏。"

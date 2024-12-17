@@ -59,9 +59,11 @@ export interface FrameV1 {
 }
 
 export interface FrameV2 {
+    x_url: string;
+
     // Frame spec version. Required.
     // Example: "next"
-    version: 'next';
+    version: Omit<string, 'next'> | 'next';
 
     // Frame image.
     // Max 512 characters.

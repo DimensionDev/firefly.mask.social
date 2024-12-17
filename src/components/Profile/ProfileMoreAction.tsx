@@ -1,9 +1,11 @@
 import { MenuItem, type MenuProps } from '@headlessui/react';
 import { Trans } from '@lingui/macro';
+import { useRouter } from 'next/navigation.js';
 import { memo } from 'react';
 import urlcat from 'urlcat';
 
 import MoreCircleIcon from '@/assets/more-circle.svg';
+import SearchIcon from '@/assets/search.svg';
 import LinkIcon from '@/assets/small-link.svg';
 import { MenuButton } from '@/components/Actions/MenuButton.js';
 import { MuteAllByProfile } from '@/components/Actions/MuteAllProfile.js';
@@ -11,10 +13,12 @@ import { MuteProfileButton } from '@/components/Actions/MuteProfileButton.js';
 import { ReportProfileButton } from '@/components/Actions/ReportProfileButton.js';
 import { MenuGroup } from '@/components/MenuGroup.js';
 import { MoreActionMenu } from '@/components/MoreActionMenu.js';
-import { Source } from '@/constants/enum.js';
+import { SearchType, Source } from '@/constants/enum.js';
+import { SORTED_SEARCHABLE_POST_BY_PROFILE_SOURCES } from '@/constants/index.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { isSameFireflyIdentity } from '@/helpers/isSameFireflyIdentity.js';
 import { resolveFireflyProfileId } from '@/helpers/resolveFireflyProfileId.js';
+import { resolveSearchUrl } from '@/helpers/resolveSearchUrl.js';
 import { useCopyText } from '@/hooks/useCopyText.js';
 import { useCurrentFireflyProfilesAll } from '@/hooks/useCurrentFireflyProfiles.js';
 import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
@@ -33,6 +37,7 @@ export const ProfileMoreAction = memo<ProfileMoreActionProps>(function ProfileMo
     const [, reportProfile] = useReportProfile();
     const [, toggleMutedProfile] = useToggleMutedProfile(currentProfile);
     const [, handleCopy] = useCopyText(urlcat(location.origin, getProfileUrl(profile)));
+    const router = useRouter();
 
     const isRelatedProfile = profiles.some((x) => {
         const profileId = resolveFireflyProfileId(profile);
@@ -83,6 +88,26 @@ export const ProfileMoreAction = memo<ProfileMoreActionProps>(function ProfileMo
                         </MenuItem>
                         <MenuItem>{({ close }) => <MuteAllByProfile profile={profile} onClose={close} />}</MenuItem>
                     </>
+                ) : null}
+
+                {SORTED_SEARCHABLE_POST_BY_PROFILE_SOURCES.includes(profile.source) ? (
+                    <MenuItem>
+                        {({ close }) => (
+                            <MenuButton
+                                onClick={() => {
+                                    close();
+                                    router.push(
+                                        resolveSearchUrl(`from: ${profile.handle} `, SearchType.Posts, profile.source),
+                                    );
+                                }}
+                            >
+                                <SearchIcon width={18} height={18} />
+                                <span className="font-bold leading-[22px] text-main">
+                                    <Trans>Search in profile</Trans>
+                                </span>
+                            </MenuButton>
+                        )}
+                    </MenuItem>
                 ) : null}
             </MenuGroup>
         </MoreActionMenu>
