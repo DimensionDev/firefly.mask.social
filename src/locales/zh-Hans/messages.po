@@ -231,6 +231,9 @@ msgstr "发现恶意挖矿行为。"
 msgid "No"
 msgstr "不是"
 
+msgid "Oops... Network issue. Please try again"
+msgstr ""
+
 msgid "Functions that can suspend trading"
 msgstr "可以暂停交易的功能"
 
@@ -446,6 +449,9 @@ msgstr "🙌 刚刚在 ‘{1}’上投了 ‘{0}’ 票"
 
 msgid "Stealing attack."
 msgstr "窃取攻击。"
+
+msgid "Claimed lucky drop with {amount} {0} successfully"
+msgstr ""
 
 msgid "Failed to like the comment."
 msgstr "点赞失败。"
@@ -1491,6 +1497,9 @@ msgstr "其他"
 msgid "Muted wallets"
 msgstr "已隐藏的钱包"
 
+msgid "Your claimed {amount} {0}."
+msgstr ""
+
 msgid "All wallets and accounts are muted."
 msgstr "已隐藏所有的钱包和账户。"
 
@@ -1895,6 +1904,9 @@ msgstr "<0>当前市值与满足最大供应量时的市值之比。</0><1>Mkt C
 
 msgid "Minting Date"
 msgstr "铸造日期"
+
+msgid "Failed to create red packet"
+msgstr ""
 
 msgid "This profile doesn't enable super follow"
 msgstr "用户未开放超级关注。"
@@ -2535,6 +2547,9 @@ msgstr "图片"
 msgid "Failed to delete post."
 msgstr "删除帖子失败。"
 
+msgid "Lucky drop created successfully"
+msgstr ""
+
 msgid "Financial crime found."
 msgstr "识别为金融犯罪。"
 
@@ -2823,6 +2838,9 @@ msgstr "帖子明细"
 msgid "No money laundering involved."
 msgstr "不涉及洗钱。"
 
+msgid "Claims"
+msgstr ""
+
 msgid "Failed to bookmark snapshot."
 msgstr "收藏 snapshot 失败。"
 
@@ -3042,9 +3060,6 @@ msgstr "新闻"
 msgid "NFT ID"
 msgstr "NFT ID"
 
-msgid "Your claimed {0} {1}."
-msgstr "您领取了{0} {1}。"
-
 msgid "Confirm Lucky drop"
 msgstr "确认您的红包"
 
@@ -3215,6 +3230,9 @@ msgstr "最终结果"
 
 msgid "Suspended account"
 msgstr "被冻结账户"
+
+msgid "Oops... Not all the requirements have been meet"
+msgstr ""
 
 msgid "No blackmail activities involved."
 msgstr "未发现勒索行为。"

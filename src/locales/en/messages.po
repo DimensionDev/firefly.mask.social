@@ -226,6 +226,9 @@ msgstr "Malicious mining activities found."
 msgid "No"
 msgstr "No"
 
+msgid "Oops... Network issue. Please try again"
+msgstr "Oops... Network issue. Please try again"
+
 msgid "Functions that can suspend trading"
 msgstr "Functions that can suspend trading"
 
@@ -441,6 +444,9 @@ msgstr "🙌  Just voted “{0}” on “{1}”"
 
 msgid "Stealing attack."
 msgstr "Stealing attack."
+
+msgid "Claimed lucky drop with {amount} {0} successfully"
+msgstr "Claimed lucky drop with {amount} {0} successfully"
 
 msgid "Failed to like the comment."
 msgstr "Failed to like the comment."
@@ -1486,6 +1492,9 @@ msgstr "Others"
 msgid "Muted wallets"
 msgstr "Muted wallets"
 
+msgid "Your claimed {amount} {0}."
+msgstr "Your claimed {amount} {0}."
+
 msgid "All wallets and accounts are muted."
 msgstr "All wallets and accounts are muted."
 
@@ -1890,6 +1899,9 @@ msgstr "<0>The proportion of current market capitalization compares to market ca
 
 msgid "Minting Date"
 msgstr "Minting Date"
+
+msgid "Failed to create red packet"
+msgstr "Failed to create red packet"
 
 msgid "This profile doesn't enable super follow"
 msgstr "This profile doesn't enable super follow"
@@ -2530,6 +2542,9 @@ msgstr "Image"
 msgid "Failed to delete post."
 msgstr "Failed to delete post."
 
+msgid "Lucky drop created successfully"
+msgstr "Lucky drop created successfully"
+
 msgid "Financial crime found."
 msgstr "Financial crime found."
 
@@ -2818,6 +2833,9 @@ msgstr "Post details"
 msgid "No money laundering involved."
 msgstr "No money laundering involved."
 
+msgid "Claims"
+msgstr "Claims"
+
 msgid "Failed to bookmark snapshot."
 msgstr "Failed to bookmark snapshot."
 
@@ -3037,9 +3055,6 @@ msgstr "News"
 msgid "NFT ID"
 msgstr "NFT ID"
 
-msgid "Your claimed {0} {1}."
-msgstr "Your claimed {0} {1}."
-
 msgid "Confirm Lucky drop"
 msgstr "Confirm Lucky drop"
 
@@ -3210,6 +3225,9 @@ msgstr "Final results"
 
 msgid "Suspended account"
 msgstr "Suspended account"
+
+msgid "Oops... Not all the requirements have been meet"
+msgstr "Oops... Not all the requirements have been meet"
 
 msgid "No blackmail activities involved."
 msgstr "No blackmail activities involved."

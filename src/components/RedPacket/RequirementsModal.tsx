@@ -25,6 +25,7 @@ import { queryClient } from '@/configs/queryClient.js';
 import { config } from '@/configs/wagmiClient.js';
 import { Link } from '@/esm/Link.js';
 import { classNames } from '@/helpers/classNames.js';
+import { enqueueErrorMessage, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { formatBalance } from '@/helpers/formatBalance.js';
 import { resolveRedPacketPlatformType } from '@/helpers/resolveRedPacketPlatformType.js';
 import { useChainContext } from '@/hooks/useChainContext.js';
@@ -113,7 +114,9 @@ export const TitleMap = {
 export function RequirementsModal({ open, onClose, payload, post, showResults }: RequirementsModalProps) {
     const { account } = useChainContext();
 
-    const { data, isLoading, isFetching, refetch } = useClaimStrategyStatus(payload, post.source);
+    const { data, isLoading, isFetching, refetch } = useClaimStrategyStatus(payload, post.source, () => {
+        enqueueErrorMessage(t`Oops... Network issue. Please try again`);
+    });
     const { data: currentClaimProfile } = useCurrentClaimProfile(post.source);
     const requirements = useMemo(() => {
         const orders = getEnumAsArray(FireflyRedPacketAPI.StrategyType).map((x) => x.value);
@@ -128,7 +131,10 @@ export function RequirementsModal({ open, onClose, payload, post, showResults }:
 
     const [{ loading }, handleClick] = useAsyncFn(async () => {
         const { data } = await refetch();
-        if (!data?.data.canClaim) return;
+        if (!data?.data.canClaim) {
+            enqueueErrorMessage(t`Oops... Not all the requirements have been meet`);
+            return;
+        }
 
         const hash = await claimCallback();
         if (hash && currentClaimProfile?.profileId && currentClaimProfile.handle) {
@@ -155,6 +161,7 @@ export function RequirementsModal({ open, onClose, payload, post, showResults }:
 
         const claimed_amount = last(availability) as bigint;
 
+        const amount = formatBalance(claimed_amount.toString(), payload.token?.decimals, { significant: 2 });
         ConfirmModalRef.open({
             title: t`Lucky Drop`,
             content: (
@@ -165,9 +172,7 @@ export function RequirementsModal({ open, onClose, payload, post, showResults }:
                     </div>
                     <div className="mt-10 text-base font-bold leading-5 text-main">
                         <Trans>
-                            Your claimed{' '}
-                            {formatBalance(claimed_amount.toString(), payload.token?.decimals, { significant: 2 })}{' '}
-                            {payload.token?.symbol}.
+                            Your claimed {amount} {payload.token?.symbol}.
                         </Trans>
                     </div>
                 </div>
@@ -177,6 +182,8 @@ export function RequirementsModal({ open, onClose, payload, post, showResults }:
             variant: 'normal',
             confirmButtonText: t`Share`,
         });
+
+        enqueueSuccessMessage(t`Claimed lucky drop with ${amount} ${payload.token?.symbol} successfully`);
         onClose();
     }, [claimCallback, currentClaimProfile]);
 

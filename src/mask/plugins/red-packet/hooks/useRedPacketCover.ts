@@ -50,6 +50,7 @@ export function useRedPacketCover({
             const name = sender;
             const remainingAmount = toFixed(minus(total, claimedAmount ?? '0'));
             return {
+                theme,
                 themeId: theme.tid,
                 backgroundImageUrl: theme.normal.bg_image,
                 backgroundColor: theme.normal.bg_color,

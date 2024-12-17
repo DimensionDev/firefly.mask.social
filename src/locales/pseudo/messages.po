@@ -226,6 +226,9 @@ msgstr ""
 msgid "No"
 msgstr ""
 
+msgid "Oops... Network issue. Please try again"
+msgstr ""
+
 msgid "Functions that can suspend trading"
 msgstr ""
 
@@ -440,6 +443,9 @@ msgid "🙌  Just voted “{0}” on “{1}”"
 msgstr ""
 
 msgid "Stealing attack."
+msgstr ""
+
+msgid "Claimed lucky drop with {amount} {0} successfully"
 msgstr ""
 
 msgid "Failed to like the comment."
@@ -1486,6 +1492,9 @@ msgstr ""
 msgid "Muted wallets"
 msgstr ""
 
+msgid "Your claimed {amount} {0}."
+msgstr ""
+
 msgid "All wallets and accounts are muted."
 msgstr ""
 
@@ -1889,6 +1898,9 @@ msgid "<0>The proportion of current market capitalization compares to market cap
 msgstr ""
 
 msgid "Minting Date"
+msgstr ""
+
+msgid "Failed to create red packet"
 msgstr ""
 
 msgid "This profile doesn't enable super follow"
@@ -2530,6 +2542,9 @@ msgstr ""
 msgid "Failed to delete post."
 msgstr ""
 
+msgid "Lucky drop created successfully"
+msgstr ""
+
 msgid "Financial crime found."
 msgstr ""
 
@@ -2818,6 +2833,9 @@ msgstr ""
 msgid "No money laundering involved."
 msgstr ""
 
+msgid "Claims"
+msgstr ""
+
 msgid "Failed to bookmark snapshot."
 msgstr ""
 
@@ -3037,9 +3055,6 @@ msgstr ""
 msgid "NFT ID"
 msgstr ""
 
-msgid "Your claimed {0} {1}."
-msgstr ""
-
 msgid "Confirm Lucky drop"
 msgstr ""
 
@@ -3209,6 +3224,9 @@ msgid "Final results"
 msgstr ""
 
 msgid "Suspended account"
+msgstr ""
+
+msgid "Oops... Not all the requirements have been meet"
 msgstr ""
 
 msgid "No blackmail activities involved."

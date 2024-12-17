@@ -44,5 +44,14 @@ export async function getSatoriFonts(signal?: AbortSignal) {
             weight: 700,
             style: 'normal',
         },
+        {
+            name: 'Helvetica',
+            weight: 400,
+            style: 'normal',
+            data: await fetchArrayBuffer(urlcat(SITE_URL, '/font/Helvetica.ttf'), {
+                cache: 'force-cache',
+                signal,
+            }),
+        },
     ] satisfies Font[];
 }

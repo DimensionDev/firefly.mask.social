@@ -4,6 +4,7 @@ import { t, Trans } from '@lingui/macro';
 import { useRedPacketConstants } from '@masknet/web3-shared-evm';
 import { BigNumber } from 'bignumber.js';
 import dayjs from 'dayjs';
+import localFont from 'next/font/local';
 import { useCallback, useMemo, useState } from 'react';
 import { useAsync } from 'react-use';
 import urlcat from 'urlcat';
@@ -13,14 +14,16 @@ import type { Address } from 'viem';
 import HourGlassIcon from '@/assets/hourglass.svg';
 import RedPacketIcon from '@/assets/red-packet.svg';
 import { ClickableArea } from '@/components/ClickableArea.js';
+import { AmountProgressText } from '@/components/RedPacket/AmountProgressText.js';
 import { RedPacketCardFooter } from '@/components/RedPacket/RedPacketCardFooter.js';
 import { RequirementsModal } from '@/components/RedPacket/RequirementsModal.js';
 import { SITE_URL } from '@/constants/index.js';
 import { Image } from '@/esm/Image.js';
+import { classNames } from '@/helpers/classNames.js';
 import { createPublicViemClient } from '@/helpers/createPublicViemClient.js';
 import { getTimeLeft } from '@/helpers/formatTimestamp.js';
 import { getPostUrl } from '@/helpers/getPostUrl.js';
-import { ZERO } from '@/helpers/number.js';
+import { minus, ZERO } from '@/helpers/number.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { useAvailableBalance } from '@/hooks/useAvailableBalance.js';
 import { useChainContext } from '@/hooks/useChainContext.js';
@@ -32,7 +35,12 @@ import { useRedPacketCover } from '@/mask/plugins/red-packet/hooks/useRedPacketC
 import { ComposeModalRef } from '@/modals/controls.js';
 import { type RedPacketJSONPayload, RedPacketStatus } from '@/providers/red-packet/types.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
+import { TokenType } from '@/types/rp.js';
 
+// @ts-ignore
+export const HelveticaFont = localFont({
+    src: '../../../public/font/Helvetica.ttf',
+});
 function Timer({ endTime }: { endTime: number }) {
     const [now, setNow] = useState(Date.now());
 
@@ -47,7 +55,7 @@ function Timer({ endTime }: { endTime: number }) {
     );
     if (isExpired || !timeLeft) return null;
     return (
-        <div className="flex w-[146px] items-center justify-center gap-[6px] rounded-full bg-[#E8E8FF] px-[13px] py-[7px] opacity-75 backdrop-blur-[5px]">
+        <div className="flex w-[150px] items-center justify-center gap-[6px] rounded-full bg-[#E8E8FF] px-[13px] py-[7px] opacity-75 backdrop-blur-[5px]">
             <HourGlassIcon width={12} height={12} />
             <span className="flex-1 text-xs leading-4">
                 <Trans>
@@ -136,6 +144,7 @@ export function RedPacketCard({ payload, post }: Props) {
 
     const [{ loading: refundLoading }, refund] = useRefundCallback(payload.rpid, { chainId: parsedChainId });
 
+    const remainingShares = availability ? minus(payload.shares, availability.claimed || 0).toNumber() : undefined;
     return (
         <div
             className="my-2 min-h-[438px] rounded-2xl p-3 text-lightTextMain"
@@ -155,7 +164,10 @@ export function RedPacketCard({ payload, post }: Props) {
             </div>
 
             <div
-                className="relative my-3 w-full rounded-[18px]"
+                className={classNames(
+                    'relative my-3 flex w-full items-end justify-between rounded-[18px] px-[27px] pb-[22px]',
+                    HelveticaFont.className,
+                )}
                 style={
                     cover
                         ? {
@@ -164,6 +176,7 @@ export function RedPacketCard({ payload, post }: Props) {
                               backgroundImage: `url(${cover.backgroundImageUrl})`,
                               backgroundColor: cover.backgroundColor,
                               aspectRatio: '10 / 7',
+                              color: cover.theme.normal.title1.color,
                           }
                         : undefined
                 }
@@ -187,7 +200,55 @@ export function RedPacketCard({ payload, post }: Props) {
                         <span>{resolveRedPacketStatus(listOfStatus)}</span>
                     </ClickableArea>
                 ) : null}
-                {cover ? <Image alt="cover" fill src={cover.url!} /> : null}
+                <div
+                    style={{
+                        borderWidth: 0,
+                        position: 'absolute',
+                        top: '50%',
+                        left: 0,
+                        background: 'linear-gradient(to bottom, rgba(16,16,16,0) 0%, rgba(16,16,16,0.5) 100%)',
+                        width: '100%',
+                        height: '50%',
+                        borderRadius: '0 0 18px 18px',
+                    }}
+                />
+                <div className="z-10 max-w-[50%]">
+                    <div className="mb-2 line-clamp-2 max-w-[100%] text-[20px] font-bold">{payload.sender.message}</div>
+                    <div className="text-[15px] opacity-80">@{payload.sender.name}</div>
+                </div>
+
+                {cover && payload.token && availability ? (
+                    <div className="z-10 flex max-w-[50%] flex-col items-end gap-2">
+                        <div className="flex w-full justify-center text-[12px] font-bold">
+                            {remainingShares} / {payload.shares} <Trans>Claims</Trans>
+                        </div>
+                        <AmountProgressText
+                            theme={cover?.theme}
+                            amount={payload.total}
+                            remainingAmount={payload.total_remaining}
+                            token={{
+                                type: TokenType.Fungible,
+                                symbol: payload.token?.symbol,
+                                decimals: payload.token?.decimals,
+                            }}
+                            shares={payload.shares}
+                            remainingShares={minus(payload.shares, availability.claimed || 0).toNumber()}
+                            ContainerStyle={{
+                                padding: '7px 0',
+
+                                borderRadius: 8,
+                            }}
+                            AmountTextStyle={{
+                                height: 28,
+                            }}
+                            SymbolTextStyle={{
+                                fontSize: 12,
+                                fontWeight: 700,
+                                lineHeight: '14px',
+                            }}
+                        />
+                    </div>
+                ) : null}
             </div>
 
             {cover ? (

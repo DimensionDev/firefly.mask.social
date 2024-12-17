@@ -30,6 +30,8 @@ export function AmountProgressText({
     token,
     shares,
     remainingShares,
+    AmountTextStyle,
+    SymbolTextStyle,
     ...props
 }: AmountProgressTextProps) {
     const { symbol, decimals = 0 } = token;
@@ -75,10 +77,19 @@ export function AmountProgressText({
                         borderRadius: progress === 100 ? 16 : '16px 0 0 16px',
                         backgroundColor: hexToRGBA(getCSSPropertiesFromThemeSettings(theme.normal.title2).color, 0.4),
                         width: `${progress}%`,
+                        ...AmountTextStyle,
                     }}
                 />
             ) : null}
-            <div style={{ margin: '0px 22px', display: 'flex', alignItems: 'center', columnGap: '8px' }}>
+            <div
+                style={{
+                    margin: '0px 22px',
+                    display: 'flex',
+                    alignItems: 'center',
+                    columnGap: '8px',
+                    ...SymbolTextStyle,
+                }}
+            >
                 {totalAmount > 1 ? (
                     nFormatter(leftShift(amount, decimals).toNumber())
                 ) : totalAmount < 0.0001 ? (

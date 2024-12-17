@@ -1,6 +1,5 @@
+'use client'
 /* eslint-disable no-restricted-imports */
-
-
 
 /**
  * This file re-exports the bindings from the maskbook packages.

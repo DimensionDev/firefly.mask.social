@@ -9,7 +9,7 @@ import type { TwitterMediaResponse } from '@/services/uploadToTwitter.js';
 import { type MediaObject, MediaSource } from '@/types/compose.js';
 import type { IGif } from '@/types/giphy.js';
 
-export function createLocalMediaObject(file: File): MediaObject {
+export function createLocalMediaObject(file: File, isRpPayloadImage = false): MediaObject {
     return {
         id: uuid(),
         file,
@@ -17,6 +17,7 @@ export function createLocalMediaObject(file: File): MediaObject {
         urls: {
             [MediaSource.Local]: URL.createObjectURL(file),
         },
+        isRpPayloadImage,
     };
 }
 
