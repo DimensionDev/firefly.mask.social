@@ -2,7 +2,7 @@ import { compact, last } from 'lodash-es';
 
 import { FrameProtocol } from '@/constants/enum.js';
 import { getFrameMetaContent } from '@/helpers/getFrameMetaContent.js';
-import { q,qsAll  } from '@/helpers/q.js';
+import { q, qsAll } from '@/helpers/q.js';
 import { ActionType, type FrameButton, type FrameInput } from '@/types/frame.js';
 
 export function getTitle(document: Document): string | null {
