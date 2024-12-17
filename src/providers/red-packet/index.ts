@@ -27,7 +27,14 @@ export class FireflyRedPacket {
         return data;
     }
 
-    static async getPayloadUrls(from: string, amount?: string, type?: string, symbol?: string, decimals?: number) {
+    static async getPayloadUrls(
+        from: string,
+        amount?: string,
+        type?: string,
+        symbol?: string,
+        decimals?: number,
+        message?: string,
+    ) {
         const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/redpacket/themeList');
         const { data } = await fetchJSON<FireflyRedPacketAPI.ThemeListResponse>(url);
 
@@ -43,6 +50,7 @@ export class FireflyRedPacket {
                 type,
                 symbol,
                 decimals,
+                message,
             }),
         }));
     }

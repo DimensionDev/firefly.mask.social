@@ -10,12 +10,12 @@ import { NFTListByCollectionId } from '@/components/CollectionDetail/NFTListByCo
 import { Image } from '@/components/Image.js';
 import { NFTCollectionList } from '@/components/Profile/NFTCollectionList.js';
 import { Tooltip } from '@/components/Tooltip.js';
-import type { Collection } from '@/providers/types/Firefly.js';
+import type { SimpleHash } from '@/providers/simplehash/type.js';
 
 interface SelectedCollection {
     chainId: ChainId;
     collectionId: string;
-    collection: Collection;
+    collection: SimpleHash.LiteCollection;
 }
 
 export function NFTs(props: { address: string }) {

@@ -33,7 +33,6 @@ export function RedPacketCover({
 }: CoverProps) {
     return (
         <CoverContainer
-            theme={theme}
             ContainerStyle={{
                 color: '#000',
             }}

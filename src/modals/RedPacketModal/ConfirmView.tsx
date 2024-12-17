@@ -1,25 +1,29 @@
 import { Trans } from '@lingui/macro';
-import { formatCurrency } from '@masknet/web3-shared-base';
+import { formatCurrency, rightShift } from '@masknet/web3-shared-base';
 import { isValidAddress } from '@masknet/web3-shared-evm';
 import { BigNumber } from 'bignumber.js';
-import { compact, flatten } from 'lodash-es';
+import { compact, first, flatten } from 'lodash-es';
 import { useContext, useMemo } from 'react';
-import { useAsync } from 'react-use';
+import { useAsync, useStateList } from 'react-use';
+import { useUpdateEffect } from 'usehooks-ts';
 import { useEnsName } from 'wagmi';
 
+import ArrowCircle from '@/assets/arrow-circle.svg';
 import ArrowDownIcon from '@/assets/arrow-down.svg';
 import InfoIcon from '@/assets/info.svg';
 import QuestionIcon from '@/assets/question.svg';
 import { ActionButton } from '@/components/ActionButton.js';
+import { Image } from '@/components/Image.js';
+import { Loading } from '@/components/Loading.js';
 import { Tab, Tabs } from '@/components/Tabs/index.js';
 import { Tooltip } from '@/components/Tooltip.js';
 import { EMPTY_LIST } from '@/constants/index.js';
+import { classNames } from '@/helpers/classNames.js';
 import { formatAddress } from '@/helpers/formatAddress.js';
 import { useChainContext } from '@/hooks/useChainContext.js';
 import { useCreateFTRedPacketCallback } from '@/hooks/useCreateFTRedPacketCallback.js';
 import { useFungibleTokenPrice } from '@/hooks/useFungibleTokenPrice.js';
 import { useProfileStoreAll } from '@/hooks/useProfileStore.js';
-import { DEFAULT_THEME_ID } from '@/mask/plugins/red-packet/constants.js';
 import { RequirementType } from '@/mask/plugins/red-packet/types.js';
 import {
     RedPacketContext,
@@ -71,7 +75,39 @@ export function ConfirmView() {
         });
     }, [totalAmount, tokenPrice]);
 
+    const { value: urls, loading: fetchUrlsLoading } = useAsync(async () => {
+        if (!account) return EMPTY_LIST;
+        return FireflyRedPacket.getPayloadUrls(
+            shareFrom,
+            rightShift(totalAmount, token?.decimals).toString(),
+            'fungible',
+            token?.symbol,
+            token?.decimals,
+            message,
+        );
+    }, [account, shares, token, message]);
+
+    const { state, prev, next, isLast, isFirst, currentIndex, setState } = useStateList<
+        | {
+              themeId: string;
+              url: string;
+          }
+        | undefined
+    >(urls);
+
+    useUpdateEffect(() => {
+        if (!state && urls?.length) {
+            setState(first(urls));
+        }
+    }, [state, JSON.stringify(urls)]);
+
+    const { loading: imageLoading } = useAsync(async () => {
+        if (!state?.url) return;
+        await fetch(state.url);
+    }, [state?.url]);
+
     const { value, loading } = useAsync(async () => {
+        if (!state?.themeId) return;
         const postReactions = rules.filter((x) => x !== RequirementType.Follow && x !== RequirementType.NFTHolder);
 
         const payload = rules
@@ -130,11 +166,11 @@ export function ConfirmView() {
             : EMPTY_LIST;
 
         return {
-            // TODO: replace the theme id
-            publicKey: await FireflyRedPacket.createPublicKey(DEFAULT_THEME_ID, account, payload),
+            publicKey: await FireflyRedPacket.createPublicKey(state?.themeId, account, payload),
             claimRequirements: payload,
         };
     }, [
+        state?.themeId,
         requireCollection,
         rules,
         chainId,
@@ -177,7 +213,11 @@ export function ConfirmView() {
 
                         <Tabs value={displayType} onChange={setDisplayType} variant="solid" className="self-start">
                             {redPacketDisplayTabs.map((tab) => (
-                                <Tab value={tab.value} key={tab.value}>
+                                <Tab
+                                    value={tab.value}
+                                    key={tab.value}
+                                    disabled={tab.value === 'neutral' && coverType === 'default'}
+                                >
                                     {tab.label}
                                 </Tab>
                             ))}
@@ -214,7 +254,51 @@ export function ConfirmView() {
                             </div>
                         </ShareAccountsPopover>
                     </div>
-                    <div className="w-[220px]">{/* TODO: cover */}</div>
+                    <div className="flex w-[220px] flex-col gap-2">
+                        <label className="flex h-[18px] justify-center text-[14px] font-bold text-secondary">
+                            <Trans>Preview</Trans>
+                        </label>
+                        {state ? (
+                            <>
+                                {imageLoading || fetchUrlsLoading ? (
+                                    <Loading className="!min-h-[154px] w-full" />
+                                ) : (
+                                    <Image
+                                        width={220}
+                                        height={154}
+                                        alt={state.themeId}
+                                        key={state.themeId}
+                                        className="h-[154px] w-[220px] rounded-lg"
+                                        unoptimized
+                                        src={state.url}
+                                    />
+                                )}
+                                <div className="flex justify-center gap-3">
+                                    <ArrowCircle
+                                        onClick={prev}
+                                        className={classNames('h-6 w-6', {
+                                            'text-third': isFirst,
+                                            'text-second': !isFirst,
+                                            'cursor-pointer': !isFirst,
+                                            'cursor-not-allowed': isFirst,
+                                        })}
+                                    />
+                                    <ArrowCircle
+                                        onClick={next}
+                                        style={{
+                                            transform: 'rotate(180deg)',
+                                        }}
+                                        className={classNames('h-6 w-6', {
+                                            'text-third': isLast,
+                                            'text-second': !isLast,
+                                            'cursor-pointer': !isLast,
+                                            'cursor-not-allowed': isLast,
+                                        })}
+                                    />
+                                </div>
+                            </>
+                        ) : null}
+                    </div>
                 </div>
                 <div className="flex justify-between text-[14px] font-bold leading-[18px]">
                     <label>

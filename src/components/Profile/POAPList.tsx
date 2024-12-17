@@ -23,7 +23,7 @@ import { createIndicator } from '@/helpers/pageable.js';
 import { resolveNFTIdFromAsset } from '@/helpers/resolveNFTIdFromAsset.js';
 import { resolveNftUrl } from '@/helpers/resolveNftUrl.js';
 import { resolveProfileUrl } from '@/helpers/resolveProfileUrl.js';
-import { resolveWalletProfileProvider } from '@/helpers/resolveWalletProfileProvider.js';
+import { SimpleHashProvider } from '@/providers/simplehash/index.js';
 import type { NFTAsset } from '@/providers/types/Firefly.js';
 import { fillBookmarkStatusForNonFungibleAssets } from '@/services/fillBookmarkStatusForNFT.js';
 
@@ -144,8 +144,7 @@ export function POAPList(props: { address: string }) {
                     : undefined,
                 pageParam,
             );
-            const provider = resolveWalletProfileProvider();
-            const response = await provider.getPOAPs(address, {
+            const response = await SimpleHashProvider.getPOAPs(address, {
                 indicator,
                 chainId: ChainId.xDai,
                 contractAddress: POAP_CONTRACT_ADDRESS,

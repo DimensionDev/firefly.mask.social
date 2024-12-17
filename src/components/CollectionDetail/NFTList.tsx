@@ -1,14 +1,13 @@
 'use client';
 
-import type { NonFungibleAsset } from '@masknet/web3-shared-base';
-import { ChainId, SchemaType } from '@masknet/web3-shared-evm';
+import { SchemaType } from '@masknet/web3-shared-evm';
 import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
 
 import { GridListInPage, type GridListInPageProps } from '@/components/GridListInPage.js';
 import { getNFTItemContent, POAPGridListComponent } from '@/components/Profile/POAPList.js';
 import { EMPTY_LIST } from '@/constants/index.js';
 import { createIndicator } from '@/helpers/pageable.js';
-import { resolveWalletProfileProvider } from '@/helpers/resolveWalletProfileProvider.js';
+import { SimpleHashProvider } from '@/providers/simplehash/index.js';
 import { fillBookmarkStatusForNonFungibleAssets } from '@/services/fillBookmarkStatusForNFT.js';
 
 interface NFTListProps extends Partial<GridListInPageProps> {
@@ -27,10 +26,9 @@ export function NFTList(props: NFTListProps) {
                 pageParam ? { index: 1, id: pageParam, __type__: 'PageIndicator' } : undefined,
                 pageParam,
             );
-            const provider = resolveWalletProfileProvider(chainId);
             const response = collectionId
-                ? await provider.getNFTsByCollectionId(collectionId, { indicator, chainId }, true)
-                : await provider.getNFTs(address, { indicator, chainId }, true);
+                ? await SimpleHashProvider.getNFTsByCollectionId(collectionId, { indicator, chainId }, true)
+                : await SimpleHashProvider.getNFTs(address, { indicator, chainId }, true);
 
             return {
                 ...response,
@@ -49,7 +47,7 @@ export function NFTList(props: NFTListProps) {
             VirtualGridListProps={{
                 components: POAPGridListComponent,
                 itemContent: (index, item) => {
-                    return getNFTItemContent(index, item as NonFungibleAsset<ChainId.Mainnet, SchemaType.ERC721>, {
+                    return getNFTItemContent(index, item, {
                         ownerCount: item.schema === SchemaType.ERC1155 ? item.tokenCount : undefined,
                     });
                 },

@@ -4,15 +4,19 @@ import { Trans } from '@lingui/macro';
 import { forwardRef } from 'react';
 
 import Lock from '@/assets/lock.svg';
+import { ClickableButton } from '@/components/ClickableButton.js';
 import { PostBodyContent, type PostBodyContentProps } from '@/components/Posts/PostBodyContent.js';
 import { classNames } from '@/helpers/classNames.js';
+import { useDecryptPost } from '@/hooks/useDecryptPost.js';
 import { useIsSmall } from '@/hooks/useMediaQuery.js';
 
 export const PostBody = forwardRef<HTMLDivElement, PostBodyContentProps>(function PostBody(props, ref) {
     const isSmall = useIsSmall('max');
 
+    const [{ loading, value: decryptedPost }, decryptPost] = useDecryptPost(props.post);
+
     const noLeftPadding = props.isDetail || isSmall || props.disablePadding;
-    const post = props.post;
+    const post = decryptedPost || props.post;
 
     if (!post.isEncrypted) {
         return <PostBodyContent {...props} post={post} ref={ref} />;
@@ -36,8 +40,13 @@ export const PostBody = forwardRef<HTMLDivElement, PostBodyContentProps>(functio
             >
                 <div className="flex items-center gap-1">
                     <Lock width={16} height={16} />
-                    <Trans>Post has been encrypted</Trans>
+                    {loading ? <Trans>Post is decrypting...</Trans> : <Trans>Post has been encrypted</Trans>}
                 </div>
+                {!loading && post.canDecrypt ? (
+                    <ClickableButton onClick={decryptPost} className="text-base text-highlight">
+                        <Trans>Decrypt</Trans>
+                    </ClickableButton>
+                ) : null}
             </div>
         </div>
     );

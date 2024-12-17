@@ -212,13 +212,9 @@ export const RedPacket = memo(function RedPacket({ payload, post }: RedPacketPro
     const getShareText = useCallback(
         (hasClaimed: boolean) => {
             const sender = handle ?? '';
-            const farcaster_lens_claimed = t`🤑 Just claimed a #LuckyDrop  🧧💰✨ on https://firefly.mask.social from @${sender} !
-
-Claim on Lens: ${link}`;
-            const notClaimed = t`🤑 Check this Lucky Drop  🧧💰✨ sent by @${sender}.
-
-Grow your followers and engagement with Lucky Drop on Firefly mobile app or https://firefly.mask.social !
-`;
+            const bl = '\n';
+            const farcaster_lens_claimed = t`🤑 Just claimed a #LuckyDrop  🧧💰✨ on https://firefly.mask.social from @${sender} !${bl}${bl}Claim on Lens: ${link}`;
+            const notClaimed = t`🤑 Check this Lucky Drop  🧧💰✨ sent by @${sender}.${bl}${bl}Grow your followers and engagement with Lucky Drop on Firefly mobile app or https://firefly.mask.social !${bl}`;
             return select(platform, {
                 farcaster: hasClaimed ? farcaster_lens_claimed : notClaimed + '\n' + t`Claim on Farcaster: ${link}`,
                 lens: hasClaimed ? farcaster_lens_claimed : notClaimed + '\n' + t`Claim on Lens: ${link}`,

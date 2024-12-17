@@ -1,6 +1,7 @@
 /* cspell:disable */
 
 import { StatusCodes } from 'http-status-codes';
+import { toArray } from 'lodash-es';
 import { type NextRequest } from 'next/server.js';
 import { z } from 'zod';
 
@@ -23,7 +24,9 @@ const CoverSchema = z.object({
     message: z
         .string()
         .transform((x) => (x ? decodeURIComponent(x) : x))
-        .refine((x) => (x ? x.length < 100 : true), { message: 'Message cannot be longer than 100 characters' }),
+        .refine((x) => (x ? toArray(x).length < 100 : true), {
+            message: 'Message cannot be longer than 100 characters',
+        }),
     amount: z.coerce
         .bigint()
         .nonnegative()
@@ -50,6 +53,7 @@ const PayloadSchema = z.object({
         .nonnegative()
         .transform((x) => x.toString(10)),
     token: TokenSchema,
+    message: z.string(),
 });
 
 function parseParams(params: URLSearchParams) {
@@ -83,6 +87,7 @@ function parseParams(params: URLSearchParams) {
                 amount: params.get('amount') ?? '0',
                 from,
                 token,
+                message: params.get('message') || 'Best Wishes!',
             });
         default:
             return;

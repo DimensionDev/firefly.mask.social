@@ -9,16 +9,17 @@ interface ClaimProgressTextProps {
 }
 
 export function ClaimProgressText({ theme, shares, remainingShares, ...props }: ClaimProgressTextProps) {
-    const claimProgressText = `${shares - remainingShares} of ${shares} Claimed`;
+    const claimProgressText = `${shares - remainingShares}/${shares} Claims`;
 
     return (
         <div
             style={{
                 ...getCSSPropertiesFromThemeSettings(theme.normal.title3),
-                position: 'absolute',
-                left: 40,
-                bottom: 40,
                 ...props.ContainerStyle,
+                fontSize: 22,
+                fontWeight: 700,
+                display: 'flex',
+                justifyContent: 'center',
             }}
         >
             {claimProgressText}

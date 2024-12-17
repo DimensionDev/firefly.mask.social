@@ -1,4 +1,6 @@
 import {
+    type AnyEncryptablePublicationMetadataFragment,
+    type AnyPublicationFragment,
     type ApprovedAllowanceAmountResultFragment,
     CommentRankingFilterType,
     CustomFiltersType,
@@ -52,6 +54,7 @@ import { SetQueryDataForLikePost } from '@/decorators/SetQueryDataForLikePost.js
 import { SetQueryDataForMirrorPost } from '@/decorators/SetQueryDataForMirrorPost.js';
 import { SetQueryDataForPosts } from '@/decorators/SetQueryDataForPosts.js';
 import { assertLensAccountOwner } from '@/helpers/assertLensAccountOwner.js';
+import { createLensGatedSDKWithSession } from '@/helpers/createLensGatedSDK.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
 import {
     filterFeeds,
@@ -1648,7 +1651,28 @@ export class LensSocialMedia implements Provider {
     }
 
     async decryptPost(post: Post): Promise<Post | null> {
-        throw new NotImplementedError();
+        if (!post.__original__) {
+            throw new Error('Original post not found');
+        }
+
+        const originalPost = post.__original__ as AnyPublicationFragment;
+        if ('metadata' in originalPost && !!originalPost.metadata.encryptedWith) {
+            const gatedSDK = await createLensGatedSDKWithSession();
+            const metadata = originalPost.metadata as AnyEncryptablePublicationMetadataFragment;
+            const result = await gatedSDK.gated.decryptPublicationMetadataFragment(metadata);
+            if (result.isFailure()) {
+                throw result.error;
+            }
+
+            const decryptedPost = formatLensPost({
+                ...originalPost,
+                metadata: result.value,
+            } as AnyPublicationFragment);
+
+            return { ...decryptedPost, isEncrypted: false };
+        }
+
+        return null;
     }
 }
 

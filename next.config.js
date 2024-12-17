@@ -33,6 +33,7 @@ export default {
         esmExternals: true,
         scrollRestoration: true,
         serverSourceMaps: false,
+        webpackBuildWorker: true,
         swcPlugins: [['@lingui/swc-plugin', {}]],
         serverActions: {
             bodySizeLimit: '80mb',

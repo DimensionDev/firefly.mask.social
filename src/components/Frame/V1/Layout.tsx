@@ -1,14 +1,13 @@
 import { t } from '@lingui/macro';
 import { safeUnreachable } from '@masknet/kit';
-import { useQuery } from '@tanstack/react-query';
-import { memo, type ReactNode, useEffect, useState } from 'react';
+import { memo, type ReactNode, useState } from 'react';
 import { useAsyncFn } from 'react-use';
 import urlcat from 'urlcat';
 import { encodePacked, type Hex, isAddress, type SignTypedDataParameters } from 'viem';
 import { getAccount } from 'wagmi/actions';
 import { z } from 'zod';
 
-import { Card } from '@/components/Frame/Card.js';
+import { Card } from '@/components/Frame/V1/Card.js';
 import { simulate } from '@/components/TransactionSimulator/simulate.js';
 import { config } from '@/configs/wagmiClient.js';
 import { NODE_ENV, SimulateType, type SocialSource, Source } from '@/constants/enum.js';
@@ -28,12 +27,11 @@ import { LensFrameProvider } from '@/providers/lens/Frame.js';
 import type { Additional } from '@/providers/types/Frame.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 import { getFrameMintTransaction } from '@/services/getFrameMintTransaction.js';
-import { getPostFrame } from '@/services/getPostLinks.js';
 import { validateMessage } from '@/services/validateMessage.js';
 import {
     ActionType,
-    type Frame as FrameType,
     type FrameButton,
+    type FrameV1,
     type LinkDigestedResponse,
     MethodType,
     type RedirectUrlResponse,
@@ -78,8 +76,8 @@ const WalletActionSchema = z.union([TransactionSchema, SignTypedDataV4Schema]);
 async function getNextFrame(
     source: SocialSource,
     postId: string,
-    frame: FrameType,
-    latestFrame: FrameType | null,
+    frame: FrameV1,
+    latestFrame: FrameV1 | null,
     button: FrameButton,
     input?: string,
 ) {
@@ -132,12 +130,12 @@ async function getNextFrame(
     try {
         switch (button.action) {
             case ActionType.Post: {
-                const response = await postAction<LinkDigestedResponse>();
-                const nextFrame = response.success ? response.data.frame : null;
+                const response = await postAction<LinkDigestedResponse<FrameV1>>();
+                const nextFrame = response.success ? (response.data.frame as FrameV1) : null;
 
                 if (!nextFrame) {
                     enqueueErrorMessage(t`The frame server failed to process the request.`);
-                    return;
+                    return null;
                 }
 
                 // in case the image loaded after loading state is set to false
@@ -156,21 +154,21 @@ async function getNextFrame(
                 const redirectUrl = response.success ? response.data.redirectUrl : null;
                 if (!redirectUrl) {
                     enqueueErrorMessage(t`The frame server failed to process the request.`);
-                    return;
+                    return null;
                 }
 
                 if (await ConfirmLeavingModalRef.openAndWaitForClose(redirectUrl)) openWindow(redirectUrl, '_blank');
-                return;
+                return null;
             }
             case ActionType.Link:
-                if (!button.target) return;
+                if (!button.target) return null;
 
                 const intercepted = await interceptExternalUrl(button.target);
-                if (intercepted) return;
+                if (intercepted) return null;
 
                 if (await ConfirmLeavingModalRef.openAndWaitForClose(button.target))
                     openWindow(button.target, '_blank');
-                return;
+                return null;
             case ActionType.Mint: {
                 const mintTx = await getFrameMintTransaction(frame, button);
                 if (mintTx && button.target) {
@@ -186,17 +184,17 @@ async function getNextFrame(
                         transaction: mintTx,
                     });
                     await client.sendTransaction(mintTx);
-                    return;
+                    return null;
                 }
 
                 if (await ConfirmLeavingModalRef.openAndWaitForClose(frame.url)) openWindow(frame.url, '_blank');
-                return;
+                return null;
             }
             case ActionType.Transaction:
                 const address = getAccount(config)?.address;
                 if (!address) {
                     await getWalletClientRequired(config);
-                    return;
+                    return null;
                 }
                 const walletAction = await postAction<z.infer<typeof WalletActionSchema>>({
                     address,
@@ -230,7 +228,7 @@ async function getNextFrame(
                             transaction: params,
                         });
                         const transactionId = await client.sendTransaction(params);
-                        const response = await postAction<LinkDigestedResponse>({
+                        const response = await postAction<LinkDigestedResponse<FrameV1>>({
                             address,
                             transactionId,
                         });
@@ -239,7 +237,7 @@ async function getNextFrame(
                     case MethodType.ETH_SIGN_TYPED_DATA_V4: {
                         await simulate({ type: SimulateType.Signature, url: frame.url, chainId });
                         const signature = await client.signTypedData(action.params as SignTypedDataParameters);
-                        const response = await postAction<LinkDigestedResponse>({
+                        const response = await postAction<LinkDigestedResponse<FrameV1>>({
                             address,
                             transactionId: signature,
                         });
@@ -248,28 +246,28 @@ async function getNextFrame(
                     default:
                         safeUnreachable(method);
                         enqueueErrorMessage(t`Unknown transaction method: ${method}.`);
-                        return;
+                        return null;
                 }
             default:
                 safeUnreachable(button.action);
-                return;
+                return null;
         }
     } catch (error) {
-        if (error instanceof TransactionSimulationError) return;
+        if (error instanceof TransactionSimulationError) return null;
         enqueueMessageFromError(error, t`Something went wrong. Please try again.`);
         throw error;
     }
 }
 
 interface FrameLayoutProps {
-    frame: FrameType;
+    frame: FrameV1;
     post: Post;
     children?: ReactNode;
 }
 
 export const FrameLayout = memo<FrameLayoutProps>(function FrameLayout({ children, post, ...props }) {
     const { source, postId } = post;
-    const [latestFrame, setLatestFrame] = useState<FrameType | null>(null);
+    const [latestFrame, setLatestFrame] = useState<FrameV1 | null>(null);
     const frame = latestFrame ?? props.frame;
 
     const [{ loading: isLoadingNextFrame }, handleClick] = useAsyncFn(
@@ -292,39 +290,4 @@ export const FrameLayout = memo<FrameLayoutProps>(function FrameLayout({ childre
     if (!frame) return children;
 
     return <Card frame={frame} source={source} loading={isLoadingNextFrame} onButtonClick={handleClick} />;
-});
-
-interface FrameProps {
-    post: Post;
-    onData?: (frame: FrameType) => void;
-    children?: ReactNode;
-}
-
-export const Frame = memo<FrameProps>(function Frame({ post, onData, children }) {
-    const url = post.metadata.content?.oembedUrl;
-    const {
-        data: frame,
-        isLoading,
-        error,
-    } = useQuery({
-        queryKey: ['frame', url],
-        queryFn: () => getPostFrame(url!),
-        refetchOnMount: false,
-        refetchOnWindowFocus: false,
-        retry: false,
-        enabled: !!url,
-    });
-
-    useEffect(() => {
-        if (frame) onData?.(frame);
-    }, [frame, onData]);
-
-    if (isLoading) return null;
-    if (error || !frame) return children;
-
-    return (
-        <FrameLayout post={post} frame={frame}>
-            {children}
-        </FrameLayout>
-    );
 });

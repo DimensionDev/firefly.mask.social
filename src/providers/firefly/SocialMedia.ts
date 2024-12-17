@@ -29,6 +29,7 @@ import { farcasterSessionHolder } from '@/providers/farcaster/SessionHolder.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
 import { NeynarSocialMediaProvider } from '@/providers/neynar/SocialMedia.js';
 import { SimpleHashProvider } from '@/providers/simplehash/index.js';
+import type { SimpleHash } from '@/providers/simplehash/type.js';
 import { Snapshot } from '@/providers/snapshot/index.js';
 import type { SnapshotActivity } from '@/providers/snapshot/type.js';
 import {
@@ -49,7 +50,6 @@ import {
     type FireflySnapshotActivity,
     type FriendshipResponse,
     type GetBookmarksResponse,
-    type NftPreview,
     type NotificationPushSwitchResponse,
     type NotificationResponse,
     NotificationType as FireflyNotificationType,
@@ -1096,7 +1096,7 @@ export class FireflySocialMedia implements Provider {
         return await FireflySocialMediaProvider.unbookmark(nftId);
     }
 
-    async getNFTBookmarks(indicator?: PageIndicator): Promise<Pageable<NftPreview, PageIndicator>> {
+    async getNFTBookmarks(indicator?: PageIndicator): Promise<Pageable<SimpleHash.NFT, PageIndicator>> {
         const profile = getCurrentProfile(Source.Farcaster);
         const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/bookmark/find', {
             post_type: BookmarkType.All,
@@ -1106,7 +1106,7 @@ export class FireflySocialMedia implements Provider {
             fid: profile?.profileId,
         });
 
-        const response = await fireflySessionHolder.fetch<BookmarkResponse<NftPreview>>(url);
+        const response = await fireflySessionHolder.fetch<BookmarkResponse<SimpleHash.NFT>>(url);
         const data = resolveFireflyResponseData(response);
 
         const nftIds = data.list.map((x) => x.post_id);

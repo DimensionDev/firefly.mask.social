@@ -4,6 +4,7 @@ import { uniqBy } from 'lodash-es';
 import { Source, SourceInURL } from '@/constants/enum.js';
 import { MAX_IMAGE_SIZE_PER_POST } from '@/constants/limitation.js';
 import { readChars } from '@/helpers/chars.js';
+import { isFrameV1 } from '@/helpers/frame.js';
 import { getPollFrameUrl } from '@/helpers/getPollFrameUrl.js';
 import { isHomeChannel } from '@/helpers/isSameChannel.js';
 import { createS3MediaObject, resolveImageUrl, resolveVideoUrl } from '@/helpers/resolveMediaObjectUrl.js';
@@ -63,7 +64,7 @@ export async function postToFarcaster(type: ComposeType, compositePost: Composit
                         url: resolveImageUrl(Source.Farcaster, media),
                         mimeType: media.mimeType,
                     })),
-                    ...frames.map((frame) => ({ title: frame.title, url: frame.url })),
+                    ...frames.filter(isFrameV1).map((frame) => ({ title: frame.title, url: frame.url })),
                     ...openGraphs.map((openGraph) => ({ title: openGraph.title!, url: openGraph.url })),
                     ...(polls ?? []).map((poll) => ({
                         url: getPollFrameUrl(poll.id, Source.Farcaster),

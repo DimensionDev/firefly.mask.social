@@ -544,6 +544,9 @@ msgstr ""
 msgid "[Video]"
 msgstr ""
 
+msgid "🤑 Just claimed a #LuckyDrop  🧧💰✨ on https://firefly.mask.social from @{sender} !{bl}{bl}Claim on Lens: {link}"
+msgstr ""
+
 msgid "The author is muted by you."
 msgstr ""
 
@@ -908,11 +911,6 @@ msgid "Search user"
 msgstr ""
 
 msgid "{platform, select, farcaster {{0}} lens {{1}} twitter {{2}} other {{3}}}"
-msgstr ""
-
-msgid ""
-"🤑 Check this Lucky Drop  🧧💰✨ sent by @{sender}.\n"
-"Grow your followers and engagement with Lucky Drop on Firefly mobile app or https://firefly.mask.social !"
 msgstr ""
 
 msgid "Failed to upload. Video is not supported yet."
@@ -1728,11 +1726,6 @@ msgstr ""
 msgid "{0} {1, plural, one {share} other {shares}} / {total} ${symbol}"
 msgstr ""
 
-msgid ""
-"🤑 Just claimed a #LuckyDrop  🧧💰✨ on https://firefly.mask.social from @{sender} !\n"
-"Claim on Lens: {link}"
-msgstr ""
-
 msgid "Confirm to disconnect this account and related wallets from Firefly’s social graph?"
 msgstr ""
 
@@ -2192,6 +2185,9 @@ msgstr ""
 msgid "Failed to fetch profiles."
 msgstr ""
 
+msgid "Post is decrypting..."
+msgstr ""
+
 msgid "Unliked"
 msgstr ""
 
@@ -2649,6 +2645,9 @@ msgid "Notifications"
 msgstr ""
 
 msgid "Back"
+msgstr ""
+
+msgid "Decrypt"
 msgstr ""
 
 msgid "Article collected successfully!"
@@ -3125,6 +3124,9 @@ msgstr ""
 msgid "Post added to your Bookmarks"
 msgstr ""
 
+msgid "Preview"
+msgstr ""
+
 msgid "Cancel mirror successfully"
 msgstr ""
 
@@ -3153,6 +3155,9 @@ msgid "Clear all requirements"
 msgstr ""
 
 msgid "Claim Requirements"
+msgstr ""
+
+msgid "🤑 Check this Lucky Drop  🧧💰✨ sent by @{sender}.{bl}{bl}Grow your followers and engagement with Lucky Drop on Firefly mobile app or https://firefly.mask.social !{bl}"
 msgstr ""
 
 msgid "Oversupply minting."

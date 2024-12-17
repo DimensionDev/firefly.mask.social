@@ -19,9 +19,6 @@ export function AuthorText({ theme, usage, from = 'unknown', ...props }: AuthorT
                 <div
                     style={{
                         ...getCSSPropertiesFromThemeSettings(theme.normal.title3),
-                        position: 'absolute',
-                        right: 40,
-                        bottom: 40,
                         ...props.ContainerStyle,
                     }}
                 >

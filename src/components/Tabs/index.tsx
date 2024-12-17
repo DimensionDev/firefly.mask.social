@@ -50,9 +50,10 @@ export function Tabs<T = string>(props: TabsProps<T>) {
 
 export interface TabProps extends HTMLProps<HTMLLIElement> {
     value: string;
+    disabled?: boolean;
 }
 
-export function Tab({ children, value, className, ...props }: TabProps) {
+export function Tab({ children, value, className, disabled, ...props }: TabProps) {
     const { value: currentTab, onChange, variant } = useContext(TabContext);
     const liVariantClassName = {
         default: 'flex-1 text-sm sm:text-xl',
@@ -78,6 +79,9 @@ export function Tab({ children, value, className, ...props }: TabProps) {
         <li
             className={classNames(
                 'flex list-none justify-center lg:flex-initial lg:justify-start',
+                {
+                    'opacity-40': !!disabled,
+                },
                 liVariantClassName,
                 className,
             )}
@@ -86,7 +90,10 @@ export function Tab({ children, value, className, ...props }: TabProps) {
             <a
                 className={variantClassName}
                 aria-current={currentTab === value ? 'page' : undefined}
-                onClick={() => onChange?.(value)}
+                onClick={() => {
+                    if (disabled) return;
+                    onChange?.(value);
+                }}
             >
                 {children}
             </a>

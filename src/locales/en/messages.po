@@ -544,6 +544,9 @@ msgstr "{0} muted channels"
 msgid "[Video]"
 msgstr "[Video]"
 
+msgid "🤑 Just claimed a #LuckyDrop  🧧💰✨ on https://firefly.mask.social from @{sender} !{bl}{bl}Claim on Lens: {link}"
+msgstr "🤑 Just claimed a #LuckyDrop  🧧💰✨ on https://firefly.mask.social from @{sender} !{bl}{bl}Claim on Lens: {link}"
+
 msgid "The author is muted by you."
 msgstr "The author is muted by you."
 
@@ -909,13 +912,6 @@ msgstr "Search user"
 
 msgid "{platform, select, farcaster {{0}} lens {{1}} twitter {{2}} other {{3}}}"
 msgstr "{platform, select, farcaster {{0}} lens {{1}} twitter {{2}} other {{3}}}"
-
-msgid ""
-"🤑 Check this Lucky Drop  🧧💰✨ sent by @{sender}.\n"
-"Grow your followers and engagement with Lucky Drop on Firefly mobile app or https://firefly.mask.social !"
-msgstr ""
-"🤑 Check this Lucky Drop  🧧💰✨ sent by @{sender}.\n"
-"Grow your followers and engagement with Lucky Drop on Firefly mobile app or https://firefly.mask.social !"
 
 msgid "Failed to upload. Video is not supported yet."
 msgstr "Failed to upload. Video is not supported yet."
@@ -1730,13 +1726,6 @@ msgstr "<0>Acquired</0> an NFT"
 msgid "{0} {1, plural, one {share} other {shares}} / {total} ${symbol}"
 msgstr "{0} {1, plural, one {share} other {shares}} / {total} ${symbol}"
 
-msgid ""
-"🤑 Just claimed a #LuckyDrop  🧧💰✨ on https://firefly.mask.social from @{sender} !\n"
-"Claim on Lens: {link}"
-msgstr ""
-"🤑 Just claimed a #LuckyDrop  🧧💰✨ on https://firefly.mask.social from @{sender} !\n"
-"Claim on Lens: {link}"
-
 msgid "Confirm to disconnect this account and related wallets from Firefly’s social graph?"
 msgstr "Confirm to disconnect this account and related wallets from Firefly’s social graph?"
 
@@ -2196,6 +2185,9 @@ msgstr "This token is not a gas abuser."
 msgid "Failed to fetch profiles."
 msgstr "Failed to fetch profiles."
 
+msgid "Post is decrypting..."
+msgstr "Post is decrypting..."
+
 msgid "Unliked"
 msgstr "Unliked"
 
@@ -2654,6 +2646,9 @@ msgstr "Notifications"
 
 msgid "Back"
 msgstr "Back"
+
+msgid "Decrypt"
+msgstr "Decrypt"
 
 msgid "Article collected successfully!"
 msgstr "Article collected successfully!"
@@ -3129,6 +3124,9 @@ msgstr "Exclusive Events"
 msgid "Post added to your Bookmarks"
 msgstr "Post added to your Bookmarks"
 
+msgid "Preview"
+msgstr "Preview"
+
 msgid "Cancel mirror successfully"
 msgstr "Cancel mirror successfully"
 
@@ -3158,6 +3156,9 @@ msgstr "Clear all requirements"
 
 msgid "Claim Requirements"
 msgstr "Claim Requirements"
+
+msgid "🤑 Check this Lucky Drop  🧧💰✨ sent by @{sender}.{bl}{bl}Grow your followers and engagement with Lucky Drop on Firefly mobile app or https://firefly.mask.social !{bl}"
+msgstr "🤑 Check this Lucky Drop  🧧💰✨ sent by @{sender}.{bl}{bl}Grow your followers and engagement with Lucky Drop on Firefly mobile app or https://firefly.mask.social !{bl}"
 
 msgid "Oversupply minting."
 msgstr "Oversupply minting."

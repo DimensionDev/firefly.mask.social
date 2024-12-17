@@ -17,9 +17,9 @@ import { formatPercentage } from '@/helpers/formatPercentage.js';
 import { getStampAvatarByProfileId } from '@/helpers/getStampAvatarByProfileId.js';
 import { createIndicator } from '@/helpers/pageable.js';
 import { resolveProfileUrl } from '@/helpers/resolveProfileUrl.js';
-import { resolveWalletProfileProvider } from '@/helpers/resolveWalletProfileProvider.js';
-import type { SimpleHash } from '@/mask/bindings/index.js';
 import { BlockScanExplorerResolver } from '@/providers/ethereum/ExplorerResolver.js';
+import { SimpleHashProvider } from '@/providers/simplehash/index.js';
+import type { SimpleHash } from '@/providers/simplehash/type.js';
 
 interface TopCollectorsProps {
     address: string;
@@ -93,8 +93,7 @@ export function TopCollectors(props: TopCollectorsProps) {
         queryKey: ['top-collectors', address, collectionId],
         async queryFn({ pageParam }) {
             const indicator = createIndicator(undefined, pageParam);
-            const provider = resolveWalletProfileProvider(chainId);
-            return provider.getTopCollectors(collectionId, { indicator, chainId });
+            return SimpleHashProvider.getTopCollectors(collectionId, { indicator, chainId });
         },
         initialPageParam: '',
         getNextPageParam: (lastPage) => lastPage?.nextIndicator?.id,

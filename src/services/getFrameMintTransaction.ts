@@ -1,9 +1,9 @@
 import type { Address, Hex } from 'viem';
 
-import type { Frame, FrameButton } from '@/types/frame.js';
+import type { FrameButton, FrameV1 } from '@/types/frame.js';
 
 export async function getFrameMintTransaction(
-    frame: Frame,
+    frame: FrameV1,
     button: FrameButton,
 ): Promise<{
     to: Address;

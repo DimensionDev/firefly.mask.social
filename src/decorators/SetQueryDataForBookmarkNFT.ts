@@ -4,7 +4,8 @@ import { queryClient } from '@/configs/queryClient.js';
 import { FireflyPlatform } from '@/constants/enum.js';
 import { resolveNFTIdFromAsset } from '@/helpers/resolveNFTIdFromAsset.js';
 import type { FireflySocialMedia } from '@/providers/firefly/SocialMedia.js';
-import type { Collection, NFTAsset } from '@/providers/types/Firefly.js';
+import type { SimpleHash } from '@/providers/simplehash/type.js';
+import type { NFTAsset } from '@/providers/types/Firefly.js';
 import type { ClassType } from '@/types/index.js';
 
 const METHODS_BE_OVERRIDDEN = ['bookmarkNFT', 'unbookmarkNFT'] as const;
@@ -26,9 +27,9 @@ function createUpdater<T>(updater: (item: Draft<T>) => void) {
 }
 
 function toggleBlock(id: string, status: boolean) {
-    queryClient.setQueriesData<PageData<Collection>>(
+    queryClient.setQueriesData<PageData<SimpleHash.LiteCollection>>(
         { queryKey: ['nft-collection-list'] },
-        createUpdater<Collection>((collection) => {
+        createUpdater<SimpleHash.LiteCollection>((collection) => {
             collection.nftPreviews?.forEach((preview) => {
                 if (preview.nft_id === id) preview.hasBookmarked = status;
             });

@@ -16,10 +16,10 @@ import { resolveNFTImageUrl } from '@/helpers/resolveNFTImageUrl.js';
 import { resolveNftUrl, resolveNftUrlByCollection } from '@/helpers/resolveNftUrl.js';
 import { resolveSimpleHashChainId } from '@/helpers/resolveSimpleHashChain.js';
 import { stopPropagation } from '@/helpers/stopEvent.js';
-import type { NftPreview, NftPreviewCollection } from '@/providers/types/Firefly.js';
+import type { SimpleHash } from '@/providers/simplehash/type.js';
 
 interface NFTPreviewProps {
-    nft: NftPreview;
+    nft: SimpleHash.NFT;
 }
 
 interface BasePreviewContentProps {
@@ -166,7 +166,7 @@ export const NFTPreviewer = memo(function NFTPreview({ nft }: NFTPreviewProps) {
 export const CollectionPreviewer = memo(function CollectionPreviewer({
     collection,
 }: {
-    collection: NftPreviewCollection;
+    collection: SimpleHash.Collection;
 }) {
     const chainId = resolveSimpleHashChainId(collection.chains[0]);
 
