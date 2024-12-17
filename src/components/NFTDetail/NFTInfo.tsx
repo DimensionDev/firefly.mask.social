@@ -11,8 +11,8 @@ import PoapIcon from '@/assets/poap.svg';
 import { Image } from '@/components/Image.js';
 import { ChainIcon } from '@/components/NFTDetail/ChainIcon.js';
 import { DownloadImageButton } from '@/components/NFTDetail/DownloadImageButton.js';
+import { NFTInfoPreview } from '@/components/NFTDetail/NFTInfoPreview.js';
 import { ReportSpamButton } from '@/components/NFTDetail/ReportSpamButton.js';
-import { NFTImage } from '@/components/NFTImage.js';
 import { TextOverflowTooltip } from '@/components/TextOverflowTooltip.js';
 import { Source } from '@/constants/enum.js';
 import { Link } from '@/esm/Link.js';
@@ -20,6 +20,7 @@ import { classNames } from '@/helpers/classNames.js';
 import { formatAddress } from '@/helpers/formatAddress.js';
 import { resolveNftUrl, resolveNftUrlByCollection } from '@/helpers/resolveNftUrl.js';
 import { resolveProfileUrl } from '@/helpers/resolveProfileUrl.js';
+import type { SimpleHash } from '@/providers/simplehash/type.js';
 
 interface NFTInfoProps {
     ownerAddress?: string;
@@ -37,6 +38,10 @@ interface NFTInfoProps {
     attendance?: number;
     tokenNameClassName?: string;
     isPoap?: boolean;
+    video?: {
+        properties: SimpleHash.VideoProperties;
+        url: string;
+    };
 }
 
 export function NFTInfo(props: NFTInfoProps) {
@@ -51,6 +56,7 @@ export function NFTInfo(props: NFTInfoProps) {
         attendance,
         tokenNameClassName,
         isPoap = false,
+        video,
     } = props;
     const { data: ensName } = useEnsName({
         chainId: ChainId.Mainnet,
@@ -74,13 +80,7 @@ export function NFTInfo(props: NFTInfoProps) {
                     </div>
                 ) : null}
                 {isPoap ? <PoapIcon className="absolute left-3 top-3 h-6 w-6" /> : null}
-                <NFTImage
-                    width={250}
-                    height={250}
-                    src={imageURL}
-                    alt={name}
-                    className="h-full w-full max-w-[250px] rounded-[20px] object-cover shadow-lightS3"
-                />
+                <NFTInfoPreview name={name} imageURL={imageURL} video={video} />
             </div>
             <div className="flex w-full flex-1 flex-col sm:w-[calc(100%-20px-250px)]">
                 <div className="w-full space-y-3">

@@ -117,6 +117,16 @@ export namespace SimpleHash {
         name: string;
     }
 
+    export interface VideoProperties {
+        audio_coding: string;
+        duration: number;
+        height: number;
+        mime_type: string;
+        size: number;
+        video_coding: string | null;
+        width: number;
+    }
+
     interface ExtraMetadata {
         attributes: Attribute[];
         canvas_url?: string;
@@ -166,6 +176,8 @@ export namespace SimpleHash {
         royalty: Royalty[];
         extra_metadata: ExtraMetadata;
         hasBookmarked?: boolean;
+        video_properties?: VideoProperties;
+        video_url: string;
     }
 
     export interface Collection {

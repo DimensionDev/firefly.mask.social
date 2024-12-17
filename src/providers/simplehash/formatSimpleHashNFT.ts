@@ -96,6 +96,10 @@ export function formatSimpleHashNFT(nft: SimpleHash.NFT, skipScoreCheck = false)
             blurhash: nft.previews.blurhash,
             mediaURL: defaultImage,
             eventId: nft.extra_metadata?.event_id,
+            video:
+                nft.video_url && nft.video_properties
+                    ? { url: nft.video_url, properties: nft.video_properties }
+                    : undefined,
         },
         contract: {
             chainId,
