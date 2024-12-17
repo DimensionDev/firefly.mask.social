@@ -183,7 +183,7 @@ export function ConfirmView() {
         value?.claimRequirements,
     );
 
-    const selectFiles = useSelectFiles(ALLOWED_IMAGES_MIMES.join(', '));
+    const selectFiles = useSelectFiles();
     // We create two variants for each custom theme, one in default color and
     // one in golden color, since we can't change the color after creation of the
     // theme
@@ -234,7 +234,7 @@ export function ConfirmView() {
     const handleTabChange = useCallback(
         async (tab: 'default' | 'custom') => {
             if (tab === 'custom') {
-                const files = await selectFiles();
+                const files = await selectFiles(ALLOWED_IMAGES_MIMES.join(', '));
                 if (files.length === 0) return;
                 const created = await createTheme(files[0]);
                 if (!created) return;
@@ -345,7 +345,7 @@ export function ConfirmView() {
                                     <div
                                         className="flex cursor-pointer justify-center gap-3 text-sm text-highlight"
                                         onClick={async () => {
-                                            const files = await selectFiles();
+                                            const files = await selectFiles(ALLOWED_IMAGES_MIMES.join(', '));
                                             if (files.length === 0) return;
                                             await createTheme(files[0]);
                                         }}

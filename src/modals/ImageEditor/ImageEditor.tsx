@@ -32,9 +32,7 @@ export function ImageEditor({ image, onSave, AvatarEditorProps = EMPTY_OBJECT, .
 
     const handleSave = useCallback(async () => {
         if (!editor) return;
-        editor.getImageScaledToCanvas().toBlob(async (blob) => {
-            return onSave?.(blob);
-        }, 'image/png');
+        editor.getImageScaledToCanvas().toBlob((blob) => onSave?.(blob), 'image/png');
     }, [editor, onSave]);
 
     if (!image) return null;

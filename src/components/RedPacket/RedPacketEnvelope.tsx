@@ -52,7 +52,7 @@ export function RedPacketEnvelope({
             {isLoadingCover ? (
                 <Loading className="min-h-auto h-full w-full" />
             ) : cover ? (
-                <img alt="cover" key={cover.url} className="h-full w-full object-cover" src={cover.url!} />
+                <img alt="cover" key={cover.url} className="h-full w-full object-cover" src={cover.url} />
             ) : null}
         </div>
     );
