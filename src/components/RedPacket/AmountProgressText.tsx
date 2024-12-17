@@ -51,6 +51,8 @@ export function AmountProgressText({
 
     const totalAmount = leftShift(amount, decimals).toNumber();
 
+    const progressBorderRadius = AmountTextStyle?.borderRadius ?? 16;
+
     return (
         <div
             style={{
@@ -74,10 +76,13 @@ export function AmountProgressText({
                         left: 0,
                         top: 0,
                         height: 62,
-                        borderRadius: progress === 100 ? 16 : '16px 0 0 16px',
                         backgroundColor: hexToRGBA(getCSSPropertiesFromThemeSettings(theme.normal.title2).color, 0.4),
                         width: `${progress}%`,
                         ...AmountTextStyle,
+                        borderRadius:
+                            progress === 100
+                                ? progressBorderRadius
+                                : `${progressBorderRadius}px 0 0 ${progressBorderRadius}px`,
                     }}
                 />
             ) : null}

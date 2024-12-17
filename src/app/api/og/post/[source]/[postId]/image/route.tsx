@@ -127,7 +127,7 @@ export const GET = compose(
                                     borderRadius: '16px',
                                     width: '556px',
                                     height: '455px',
-                                    objectFit: 'cover',
+                                    objectFit: 'contain',
                                     marginLeft: 'auto',
                                 }}
                             />

@@ -21,6 +21,7 @@ import { SITE_URL } from '@/constants/index.js';
 import { Image } from '@/esm/Image.js';
 import { classNames } from '@/helpers/classNames.js';
 import { createPublicViemClient } from '@/helpers/createPublicViemClient.js';
+import { fetch } from '@/helpers/fetch.js';
 import { getTimeLeft } from '@/helpers/formatTimestamp.js';
 import { getPostUrl } from '@/helpers/getPostUrl.js';
 import { minus, ZERO } from '@/helpers/number.js';
@@ -144,7 +145,11 @@ export function RedPacketCard({ payload, post }: Props) {
 
     const [{ loading: refundLoading }, refund] = useRefundCallback(payload.rpid, { chainId: parsedChainId });
 
-    const remainingShares = availability ? minus(payload.shares, availability.claimed || 0).toNumber() : undefined;
+    const { loading: imageLoading } = useAsync(async () => {
+        if (!cover?.backgroundImageUrl) return;
+        return fetch(cover.backgroundImageUrl);
+    }, [cover?.backgroundImageUrl]);
+
     return (
         <div
             className="my-2 min-h-[438px] rounded-2xl p-3 text-lightTextMain"
@@ -163,110 +168,113 @@ export function RedPacketCard({ payload, post }: Props) {
                 <Timer endTime={payload.creation_time + payload.duration * 1000} />
             </div>
 
-            <div
-                className={classNames(
-                    'relative my-3 flex w-full items-end justify-between rounded-[18px] px-[27px] pb-[22px]',
-                    HelveticaFont.className,
-                )}
-                style={
-                    cover
-                        ? {
-                              backgroundSize: 'contain',
-                              backgroundRepeat: 'no-repeat',
-                              backgroundImage: `url(${cover.backgroundImageUrl})`,
-                              backgroundColor: cover.backgroundColor,
-                              aspectRatio: '10 / 7',
-                              color: cover.theme.normal.title1.color,
-                          }
-                        : undefined
-                }
-            >
-                {isSponsorable ? (
-                    <Image
-                        alt="gasless"
-                        arial-label="gasless"
-                        src="/image/gasless.png"
-                        className="absolute left-0 top-0 h-[48px] w-[48px] rounded-tl-[18px]"
-                        width={48}
-                        height={48}
-                    />
-                ) : null}
-                {listOfStatus.length ? (
-                    <ClickableArea
-                        className="absolute right-5 top-4 z-20 flex cursor-pointer items-center rounded-full px-3 py-[6px] text-xs leading-3 text-white"
-                        style={{ background: 'rgba(0, 0, 0, 0.25)', backdropFilter: 'blur(5px)' }}
-                        onClick={() => setRequirementOpen(true)}
+            {cover && !imageLoading ? (
+                <>
+                    <div
+                        className={classNames(
+                            'relative my-3 flex w-full items-end justify-between rounded-[18px] px-[27px] pb-[22px]',
+                            HelveticaFont.className,
+                        )}
+                        style={
+                            cover
+                                ? {
+                                      backgroundSize: 'contain',
+                                      backgroundRepeat: 'no-repeat',
+                                      backgroundImage: `url(${cover.backgroundImageUrl})`,
+                                      backgroundColor: cover.backgroundColor,
+                                      aspectRatio: '10 / 7',
+                                      color: cover.theme.normal.title1.color,
+                                  }
+                                : undefined
+                        }
                     >
-                        <span>{resolveRedPacketStatus(listOfStatus)}</span>
-                    </ClickableArea>
-                ) : null}
-                <div
-                    style={{
-                        borderWidth: 0,
-                        position: 'absolute',
-                        top: '50%',
-                        left: 0,
-                        background: 'linear-gradient(to bottom, rgba(16,16,16,0) 0%, rgba(16,16,16,0.5) 100%)',
-                        width: '100%',
-                        height: '50%',
-                        borderRadius: '0 0 18px 18px',
-                    }}
-                />
-                <div className="z-10 max-w-[50%]">
-                    <div className="mb-2 line-clamp-2 max-w-[100%] text-[20px] font-bold">{payload.sender.message}</div>
-                    <div className="text-[15px] opacity-80">@{payload.sender.name}</div>
-                </div>
-
-                {cover && payload.token && availability ? (
-                    <div className="z-10 flex max-w-[50%] flex-col items-end gap-2">
-                        <div className="flex w-full justify-center text-[12px] font-bold">
-                            {remainingShares} / {payload.shares} <Trans>Claims</Trans>
-                        </div>
-                        <AmountProgressText
-                            theme={cover?.theme}
-                            amount={payload.total}
-                            remainingAmount={payload.total_remaining}
-                            token={{
-                                type: TokenType.Fungible,
-                                symbol: payload.token?.symbol,
-                                decimals: payload.token?.decimals,
-                            }}
-                            shares={payload.shares}
-                            remainingShares={minus(payload.shares, availability.claimed || 0).toNumber()}
-                            ContainerStyle={{
-                                padding: '7px 0',
-
-                                borderRadius: 8,
-                            }}
-                            AmountTextStyle={{
-                                height: 28,
-                            }}
-                            SymbolTextStyle={{
-                                fontSize: 12,
-                                fontWeight: 700,
-                                lineHeight: '14px',
+                        {isSponsorable ? (
+                            <Image
+                                alt="gasless"
+                                arial-label="gasless"
+                                src="/image/gasless.png"
+                                className="absolute left-0 top-0 h-[48px] w-[48px] rounded-tl-[18px]"
+                                width={48}
+                                height={48}
+                            />
+                        ) : null}
+                        {listOfStatus.length ? (
+                            <ClickableArea
+                                className="absolute right-5 top-4 z-20 flex cursor-pointer items-center rounded-full px-3 py-[6px] text-xs leading-3 text-white"
+                                style={{ background: 'rgba(0, 0, 0, 0.25)', backdropFilter: 'blur(5px)' }}
+                                onClick={() => setRequirementOpen(true)}
+                            >
+                                <span>{resolveRedPacketStatus(listOfStatus)}</span>
+                            </ClickableArea>
+                        ) : null}
+                        <div
+                            style={{
+                                borderWidth: 0,
+                                position: 'absolute',
+                                top: '50%',
+                                left: 0,
+                                background: 'linear-gradient(to bottom, rgba(16,16,16,0) 0%, rgba(16,16,16,0.5) 100%)',
+                                width: '100%',
+                                height: '50%',
+                                borderRadius: '0 0 18px 18px',
                             }}
                         />
-                    </div>
-                ) : null}
-            </div>
+                        <div className="z-10 max-w-[50%]">
+                            <div className="mb-2 line-clamp-2 max-w-[100%] text-[20px] font-bold">
+                                {payload.sender.message}
+                            </div>
+                            <div className="text-[15px] opacity-80">@{payload.sender.name}</div>
+                        </div>
 
-            {cover ? (
-                <RedPacketCardFooter
-                    post={post}
-                    payload={payload}
-                    isClaimed={isClaimed}
-                    isEmpty={isEmpty}
-                    isExpired={isExpired}
-                    canRefund={canRefund}
-                    handleShare={handleShare}
-                    handleRefund={refund}
-                    refundLoading={refundLoading}
-                    canClaim={canClaim}
-                    balance={balance}
-                    estimateLoading={estimateLoading}
-                    handleClaim={() => setRequirementOpen(true)}
-                />
+                        {cover && payload.token && availability ? (
+                            <div className="z-10 flex max-w-[50%] flex-col items-end gap-2">
+                                <div className="flex w-full justify-center text-[12px] font-bold">
+                                    {availability.claimed || 0} / {payload.shares} <Trans>Claims</Trans>
+                                </div>
+                                <AmountProgressText
+                                    theme={cover?.theme}
+                                    amount={payload.total}
+                                    remainingAmount={payload.total_remaining}
+                                    token={{
+                                        type: TokenType.Fungible,
+                                        symbol: payload.token?.symbol,
+                                        decimals: payload.token?.decimals,
+                                    }}
+                                    shares={payload.shares}
+                                    remainingShares={minus(payload.shares, availability.claimed || 0).toNumber()}
+                                    ContainerStyle={{
+                                        padding: '7px 0',
+                                        borderRadius: 8,
+                                    }}
+                                    AmountTextStyle={{
+                                        height: 28,
+                                        borderRadius: 8,
+                                    }}
+                                    SymbolTextStyle={{
+                                        fontSize: 12,
+                                        fontWeight: 700,
+                                        lineHeight: '14px',
+                                    }}
+                                />
+                            </div>
+                        ) : null}
+                    </div>
+                    <RedPacketCardFooter
+                        post={post}
+                        payload={payload}
+                        isClaimed={isClaimed}
+                        isEmpty={isEmpty}
+                        isExpired={isExpired}
+                        canRefund={canRefund}
+                        handleShare={handleShare}
+                        handleRefund={refund}
+                        refundLoading={refundLoading}
+                        canClaim={canClaim}
+                        balance={balance}
+                        estimateLoading={estimateLoading}
+                        handleClaim={() => setRequirementOpen(true)}
+                    />
+                </>
             ) : null}
 
             {requirementOpen ? (
