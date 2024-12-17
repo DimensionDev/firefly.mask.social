@@ -2887,7 +2887,7 @@ msgid "The signer is not authorized to perform the requested operation. Please a
 msgstr "Signer key 未被授权。请重试。"
 
 msgid "The account you are trying to log in with is already linked to a different Firefly account."
-msgstr "您尝试登录的账户已链接到另一个Firefly账户。"
+msgstr "您尝试登录的账户已链接到另一个 Firefly 账户。"
 
 msgid "<0>Minted</0><1/>{0}"
 msgstr "<0>铸造</0><1/>{0}"
