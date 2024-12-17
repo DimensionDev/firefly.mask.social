@@ -1,11 +1,9 @@
 import type { ChainId } from '@masknet/web3-shared-evm';
 import urlcat from 'urlcat';
 
-import { UnauthorizedError } from '@/constants/error.js';
 import { EMPTY_LIST } from '@/constants/index.js';
 import { bom } from '@/helpers/bom.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
-import { getCurrentProfileAll } from '@/helpers/getCurrentProfile.js';
 import {
     createIndicator,
     createNextIndicator,
@@ -13,7 +11,6 @@ import {
     type Pageable,
     type PageIndicator,
 } from '@/helpers/pageable.js';
-import { resolveSourceInUrl } from '@/helpers/resolveSourceInUrl.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
 import { FireflyRedPacketAPI } from '@/providers/red-packet/types.js';
 import { settings } from '@/settings/index.js';
@@ -259,10 +256,31 @@ export class FireflyRedPacket {
         return data.substituteGasStatus;
     }
 
-    static async claimForGasFree(rpid: string, address: string) {
-        const profiles = getCurrentProfileAll();
-        const profile = Object.entries(profiles).find(([, profile]) => profile)?.[1];
-        if (!profile) throw new UnauthorizedError();
+    static async claimForGasFree(
+        rpid: string,
+        address: string,
+        profile: (
+            | {
+                  platform: FireflyRedPacketAPI.PlatformType.farcaster;
+                  profileId: string;
+                  farcasterSignature: string;
+                  farcasterSigner: string;
+                  farcasterMessage: string;
+              }
+            | {
+                  platform: FireflyRedPacketAPI.PlatformType.twitter;
+                  profileId: string;
+              }
+            | {
+                  platform: FireflyRedPacketAPI.PlatformType.lens;
+                  profileId: string;
+                  lensToken?: string;
+              }
+        ) & {
+            needLensAndFarcasterHandle: boolean;
+            handle?: string;
+        },
+    ) {
         const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/redpacket/gasFreeClaimRedPacket');
         const { data } = await fireflySessionHolder.fetchWithSession<
             FireflyRedPacketAPI.Response<{
@@ -275,10 +293,7 @@ export class FireflyRedPacket {
                 wallet: {
                     address,
                 },
-                profile: {
-                    profileId: profile.profileId,
-                    platform: resolveSourceInUrl(profile.source),
-                },
+                profile,
             }),
         });
         return data.hash;
