@@ -2941,9 +2941,6 @@ msgstr "No claims yet for this Lucky Drop"
 msgid "You may lose your assets if giving approval to the website of this token."
 msgstr "You may lose your assets if giving approval to the website of this token."
 
-msgid "Default"
-msgstr "Default"
-
 msgid "Unfollow"
 msgstr "Unfollow"
 
@@ -2991,6 +2988,9 @@ msgstr "Connecting Wallet"
 
 msgid "{minutes}m left"
 msgstr "{minutes}m left"
+
+msgid "Neutral"
+msgstr "Neutral"
 
 msgid "Signature Request"
 msgstr "Signature Request"

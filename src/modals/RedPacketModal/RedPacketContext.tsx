@@ -18,6 +18,7 @@ import { SocialSourceIcon } from '@/components/SocialSourceIcon.js';
 import { EMPTY_LIST, SORTED_SOCIAL_SOURCES } from '@/constants/index.js';
 import { useChainContext } from '@/hooks/useChainContext.js';
 import { useProfileStoreAll } from '@/hooks/useProfileStore.js';
+import { useRedPacketThemes } from '@/hooks/useRedPacketThemes.js';
 import { EVMChainResolver } from '@/mask/bindings/index.js';
 import { RED_PACKET_DEFAULT_SHARES } from '@/mask/plugins/red-packet/constants.js';
 import { RequirementType } from '@/mask/plugins/red-packet/types.js';
@@ -47,12 +48,12 @@ export const redPacketCoverTabs = [
 
 export const redPacketFontColorTabs = [
     {
-        label: <Trans>Default</Trans>,
-        value: 'neutral',
-    },
-    {
         label: <Trans>Golden</Trans>,
         value: 'golden',
+    },
+    {
+        label: <Trans>Neutral</Trans>,
+        value: 'neutral',
     },
 ] as const;
 
@@ -85,6 +86,9 @@ interface RedPacketContextValue {
     setShareFrom: Dispatch<SetStateAction<string>>;
     customThemes: FireflyRedPacketAPI.ThemeGroupSettings[];
     setCustomThemes: Dispatch<SetStateAction<FireflyRedPacketAPI.ThemeGroupSettings[]>>;
+    themes: FireflyRedPacketAPI.ThemeGroupSettings[];
+    theme: FireflyRedPacketAPI.ThemeGroupSettings;
+    setTheme: Dispatch<SetStateAction<FireflyRedPacketAPI.ThemeGroupSettings | undefined>>;
 }
 
 export const initialRedPacketContextValue: RedPacketContextValue = {
@@ -111,6 +115,9 @@ export const initialRedPacketContextValue: RedPacketContextValue = {
     setRawAmount: noop,
     customThemes: EMPTY_LIST,
     setCustomThemes: noop,
+    themes: EMPTY_LIST,
+    theme: null!,
+    setTheme: noop,
 };
 
 export const RedPacketContext = createContext<RedPacketContextValue>(initialRedPacketContextValue);
@@ -123,6 +130,8 @@ export function RedPacketProvider({ children }: PropsWithChildren) {
     const [shares, setShares] = useState<number>(RED_PACKET_DEFAULT_SHARES);
     const [randomType, setRandomType] = useState<RandomType>('random');
     const [customThemes, setCustomThemes] = useState<FireflyRedPacketAPI.ThemeGroupSettings[]>([]);
+    const { data: themes = EMPTY_LIST } = useRedPacketThemes();
+    const [theme = themes[0], setTheme] = useState<FireflyRedPacketAPI.ThemeGroupSettings>();
 
     const { chainId } = useChainContext();
     const nativeToken = useMemo(() => EVMChainResolver.nativeCurrency(chainId), [chainId]);
@@ -198,6 +207,9 @@ export function RedPacketProvider({ children }: PropsWithChildren) {
             setRawAmount,
             customThemes,
             setCustomThemes,
+            themes,
+            theme,
+            setTheme,
         }),
         [
             message,
@@ -213,6 +225,8 @@ export function RedPacketProvider({ children }: PropsWithChildren) {
             requireCollection,
             rawAmount,
             customThemes,
+            themes,
+            theme,
         ],
     );
 
