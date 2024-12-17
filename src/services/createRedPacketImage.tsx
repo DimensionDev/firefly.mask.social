@@ -73,14 +73,20 @@ export async function createRedPacketImage(coverOrPayload: Cover | Payload, sign
                 width: 1200,
                 height: 840,
                 fonts,
-                graphemeImages: await loadTwemojiUrls(coverOrPayload.message),
+                graphemeImages: {
+                    ...(await loadTwemojiUrls(coverOrPayload.message)),
+                    ...(await loadTwemojiUrls(coverOrPayload.from)),
+                },
             });
         case UsageType.Payload:
             return satori(<RedPacketPayload theme={theme} {...coverOrPayload} />, {
                 width: 1200,
                 height: 840,
                 fonts,
-                graphemeImages: await loadTwemojiUrls(coverOrPayload.message),
+                graphemeImages: {
+                    ...(await loadTwemojiUrls(coverOrPayload.message)),
+                    ...(await loadTwemojiUrls(coverOrPayload.from)),
+                },
             });
         default:
             safeUnreachable(usage);
