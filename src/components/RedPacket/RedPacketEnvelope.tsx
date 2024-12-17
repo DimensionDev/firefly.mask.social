@@ -5,7 +5,7 @@ import { useAsync } from 'react-use';
 import { Loading } from '@/components/Loading.js';
 import { fetch } from '@/helpers/fetch.js';
 import { type RedPacketCoverOptions, useRedPacketCover } from '@/mask/plugins/red-packet/hooks/useRedPacketCover.js';
-
+import { Image } from '@/components/Image.js';
 interface Props extends HTMLProps<HTMLDivElement>, RedPacketCoverOptions {}
 
 export function RedPacketEnvelope({
@@ -36,18 +36,9 @@ export function RedPacketEnvelope({
         usage,
     });
 
-    const { loading: imageLoading } = useAsync(async () => {
-        if (!cover?.url) return;
-        await fetch(cover.url);
-    }, [cover?.url]);
-
     return (
-        <div className="h-full" {...rest}>
-            {isLoadingCover || imageLoading ? (
-                <Loading className="flex !h-full !min-h-[auto] w-full items-center justify-center" />
-            ) : cover ? (
-                <img alt="cover" key={cover.url} className="h-full w-full object-cover" src={cover.url} />
-            ) : null}
+        <div className="h-full w-full" {...rest}>
+            {cover ? <Image alt="cover" width={220} height={154} src={cover?.url} /> : null}
         </div>
     );
 }
