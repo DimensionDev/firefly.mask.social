@@ -43,7 +43,7 @@ export const PostBody = forwardRef<HTMLDivElement, PostBodyContentProps>(functio
                     {loading ? <Trans>Post is decrypting...</Trans> : <Trans>Post has been encrypted</Trans>}
                 </div>
                 {!loading && post.canDecrypt ? (
-                    <ClickableButton onClick={decryptPost} className="text-base text-highlight">
+                    <ClickableButton onClick={decryptPost} className="text-highlight">
                         <Trans>Decrypt</Trans>
                     </ClickableButton>
                 ) : null}
