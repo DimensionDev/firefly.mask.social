@@ -2,9 +2,9 @@ import { t, Trans } from '@lingui/macro';
 import { formatCurrency, multipliedBy, rightShift } from '@masknet/web3-shared-base';
 import { isValidAddress } from '@masknet/web3-shared-evm';
 import { BigNumber } from 'bignumber.js';
-import { compact, first, flatten } from 'lodash-es';
+import { compact, flatten } from 'lodash-es';
 import { useCallback, useContext, useMemo, useRef, useState } from 'react';
-import { useAsync, useAsyncFn, useStateList, useUpdateEffect } from 'react-use';
+import { useAsync, useAsyncFn } from 'react-use';
 import { useEnsName } from 'wagmi';
 
 import ArrowLeftIcon from '@/assets/arrow-circle-left.svg';
@@ -97,37 +97,6 @@ export function ConfirmView() {
             onlyRemainTwoOrZeroDecimal: true,
         });
     }, [totalAmount, tokenPrice]);
-
-    const { value: urls, loading: fetchUrlsLoading } = useAsync(async () => {
-        if (!account) return EMPTY_LIST;
-        return FireflyRedPacket.getPayloadUrls(
-            shareFrom,
-            rightShift(totalAmount, token?.decimals).toString(),
-            'fungible',
-            token?.symbol,
-            token?.decimals,
-            message,
-        );
-    }, [account, shares, token, message]);
-
-    const { state, prev, next, isLast, isFirst, setState } = useStateList<
-        | {
-              themeId: string;
-              url: string;
-          }
-        | undefined
-    >(urls);
-
-    useUpdateEffect(() => {
-        if (!state && urls?.length) {
-            setState(first(urls));
-        }
-    }, [state, JSON.stringify(urls)]);
-
-    const { loading: imageLoading } = useAsync(async () => {
-        if (!state?.url) return;
-        await fetch(state.url);
-    }, [state?.url]);
 
     const { value, loading } = useAsync(async () => {
         const postReactions = rules.filter((x) => x !== RequirementType.Follow && x !== RequirementType.NFTHolder);
@@ -294,32 +263,31 @@ export function ConfirmView() {
                             ))}
                         </Tabs>
 
-                        {isCustomTheme ? (
-                            <>
-                                <label className="self-start text-sm font-bold leading-[18px]">
-                                    <Trans>Font Color</Trans>
-                                </label>
-                                <Tabs
-                                    value={fontColor}
-                                    onChange={(variant) => {
-                                        const variants = themeVariantsMapRef.current.get(theme.cover.bg_image);
-                                        if (variants) {
-                                            setTheme(variant === 'golden' ? variants.golden : variants.neutral);
-                                        }
-                                        setFontColor(variant);
-                                    }}
-                                    variant="solid"
-                                    className="self-start"
+                        <label className="self-start text-sm font-bold leading-[18px]">
+                            <Trans>Font Color</Trans>
+                        </label>
+                        <Tabs
+                            value={fontColor}
+                            onChange={(variant) => {
+                                const variants = themeVariantsMapRef.current.get(theme.cover.bg_image);
+                                if (variants) {
+                                    setTheme(variant === 'golden' ? variants.golden : variants.neutral);
+                                }
+                                setFontColor(variant);
+                            }}
+                            variant="solid"
+                            className="self-start"
+                        >
+                            {redPacketFontColorTabs.map((tab) => (
+                                <Tab
+                                    value={tab.value}
+                                    key={tab.value}
+                                    disabled={tab.value === 'neutral' && coverType === 'default'}
                                 >
-                                    {redPacketFontColorTabs.map((tab) => (
-                                        <Tab value={tab.value} key={tab.value}>
-                                            {tab.label}
-                                        </Tab>
-                                    ))}
-                                </Tabs>
-                            </>
-                        ) : null}
-
+                                    {tab.label}
+                                </Tab>
+                            ))}
+                        </Tabs>
                         <label className="flex items-center self-start text-sm font-bold leading-[18px]">
                             <Trans>Share From</Trans>
                             <Tooltip
@@ -474,7 +442,7 @@ export function ConfirmView() {
                 <ActionButton
                     className="rounded-lg"
                     onClick={handleCreate}
-                    loading={creatingRedPacket || creatingTheme || loading || fetchUrlsLoading}
+                    loading={creatingRedPacket || creatingTheme || loading}
                 >
                     <Trans>Next</Trans>
                 </ActionButton>
