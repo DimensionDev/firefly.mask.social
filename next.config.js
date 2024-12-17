@@ -86,6 +86,9 @@ export default {
                 protocol: 'https',
                 hostname: 'media.firefly.land',
             },
+            {
+                hostname: 'imagedelivery.net',
+            },
         ],
     },
     async headers() {
