@@ -136,10 +136,10 @@ export function SearchContentPanel<T, F>({
                         onSelected={filterProps.onSelected ?? setSelectedFilter}
                     />
                 ) : null}
-                <div className="flex-1 rounded-lg !bg-lightBg">
+                <div className="flex-1 rounded-lg !border border-transparent !bg-lightBg transition-all focus-within:border-highlight">
                     <SearchInput
                         placeholder={placeholder}
-                        className="!focus:border-highlight rounded-lg !border border-transparent !py-1.5 px-3 transition-all"
+                        className="!py-1.5 px-3"
                         value={keyword}
                         onChange={(event) => onSearch(event.currentTarget.value)}
                         onClear={() => onSearch('')}
