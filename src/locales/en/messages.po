@@ -337,6 +337,9 @@ msgstr "You can save the failed parts of posts and send them later from your Dra
 msgid "The external call function is included. The project owner may have the ability to control the contract."
 msgstr "The external call function is included. The project owner may have the ability to control the contract."
 
+msgid "Search in profile"
+msgstr "Search in profile"
+
 msgid "Please confirm the login with Firefly."
 msgstr "Please confirm the login with Firefly."
 

@@ -342,6 +342,9 @@ msgstr "您可以先保存发送的帖子并稍后发送。"
 msgid "The external call function is included. The project owner may have the ability to control the contract."
 msgstr "包含外部调用功能。项目所有者可能有能力控制合约。"
 
+msgid "Search in profile"
+msgstr ""
+
 msgid "Please confirm the login with Firefly."
 msgstr "请在 Firefly 上确认登录。"
 
