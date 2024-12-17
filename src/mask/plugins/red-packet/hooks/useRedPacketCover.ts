@@ -1,38 +1,74 @@
 import { minus, toFixed } from '@masknet/web3-shared-base';
 import { isValidAddress, isValidDomain } from '@masknet/web3-shared-evm';
 import { useQuery } from '@tanstack/react-query';
+import urlcat from 'urlcat';
 
-import type { useAvailability } from '@/mask/plugins/red-packet/hooks/useAvailability.js';
+import { bom } from '@/helpers/bom.js';
 import { FireflyRedPacket } from '@/providers/red-packet/index.js';
-import type { RedPacketJSONPayload } from '@/providers/red-packet/types.js';
+import type { FireflyRedPacketAPI, RedPacketJSONPayload } from '@/providers/red-packet/types.js';
 
-type Availability = ReturnType<typeof useAvailability>['data'];
+/** pass rpid or themeId */
+export interface RedPacketCoverOptions {
+    rpid?: RedPacketJSONPayload['rpid'];
+    themeId?: string;
+    token: RedPacketJSONPayload['token'];
+    shares: RedPacketJSONPayload['shares'];
+    total: RedPacketJSONPayload['total'];
+    /** sender.name */
+    sender: string;
+    message: string;
+    claimedAmount?: string;
+    claimed?: string;
+    usage?: 'cover' | 'payload';
+    type?: string;
+}
 
-export function useRedPacketCover(payload: RedPacketJSONPayload, availability: Availability) {
-    const token = payload.token;
-    const { data } = useQuery({
-        enabled: !!availability && !!payload.rpid && !!token?.symbol,
-        queryKey: ['red-packet', 'theme-id', payload.rpid, availability?.balance, availability?.claimed],
+export function useRedPacketCover({
+    rpid,
+    themeId,
+    token,
+    shares,
+    total,
+    sender,
+    message,
+    claimed = '0',
+    claimedAmount = '0',
+    usage = 'cover',
+    type = 'fungible',
+}: RedPacketCoverOptions) {
+    return useQuery({
+        enabled: !!rpid || !!themeId,
+        queryKey: ['red-packet', 'theme', rpid, themeId],
         queryFn: async () => {
-            if (!token || !availability) return null;
-            const name = payload.sender.name;
-
-            // Once a redpacket is refunded, its balance will be 0, that's not the remaining amount
-            const remainingAmount = toFixed(minus(payload.total, availability.claimed_amount));
-            return FireflyRedPacket.getCoverUrlByRpid(
-                payload.rpid,
-                token.symbol,
-                token.decimals,
-                payload.shares,
-                payload.total,
-                [isValidAddress, isValidDomain, (n: string) => n.startsWith('@')].some((f) => f(name))
-                    ? name
-                    : `@${name}`,
-                payload.sender.message,
-                remainingAmount,
-                toFixed(minus(payload.shares, availability.claimed || 0)),
-            );
+            if (!rpid && !themeId) return null;
+            const theme = await FireflyRedPacket.getTheme({ rpid, themeId } as FireflyRedPacketAPI.ThemeByIdOptions);
+            return theme;
+        },
+        select(theme) {
+            if (!theme) return null;
+            const SITE_URL = bom.location?.origin ?? '';
+            const name = sender;
+            const remainingAmount = toFixed(minus(total, claimedAmount ?? '0'));
+            return {
+                themeId: theme.tid,
+                backgroundImageUrl: theme.normal.bg_image,
+                backgroundColor: theme.normal.bg_color,
+                url: urlcat(SITE_URL, '/api/rp', {
+                    'theme-id': theme.tid,
+                    usage,
+                    type,
+                    symbol: token?.symbol ?? '--',
+                    decimals: token?.decimals ?? 1,
+                    shares,
+                    amount: total,
+                    from: [isValidAddress, isValidDomain, (n: string) => n.startsWith('@')].some((f) => f(name))
+                        ? name
+                        : `@${name}`,
+                    message,
+                    'remaining-amount': remainingAmount,
+                    'remaining-shares': toFixed(minus(shares, claimed || 0)),
+                }),
+            };
         },
     });
-    return data;
 }

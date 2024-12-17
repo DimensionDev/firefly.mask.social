@@ -390,6 +390,9 @@ msgstr ""
 msgid "Report submitted on {0}"
 msgstr ""
 
+msgid "Failed to create custom theme."
+msgstr ""
+
 msgid "The minimum amount for each share is {0} {1}"
 msgstr ""
 
@@ -486,9 +489,6 @@ msgstr ""
 msgid "Copied"
 msgstr ""
 
-msgid "Invalid Network"
-msgstr ""
-
 msgid "Name"
 msgstr ""
 
@@ -550,9 +550,6 @@ msgid "{0} muted channels"
 msgstr ""
 
 msgid "[Video]"
-msgstr ""
-
-msgid "🤑 Just claimed a #LuckyDrop  🧧💰✨ on https://firefly.mask.social from @{sender} !{bl}{bl}Claim on Lens: {link}"
 msgstr ""
 
 msgid "The author is muted by you."
@@ -918,9 +915,6 @@ msgstr ""
 msgid "Search user"
 msgstr ""
 
-msgid "{platform, select, farcaster {{0}} lens {{1}} twitter {{2}} other {{3}}}"
-msgstr ""
-
 msgid "Failed to upload. Video is not supported yet."
 msgstr ""
 
@@ -1087,9 +1081,6 @@ msgid "This token contract has a code that states that it cannot be sold. Maybe 
 msgstr ""
 
 msgid "Winners"
-msgstr ""
-
-msgid "Refunding"
 msgstr ""
 
 msgid "REPLY to<0><1>@{0}</1></0>"
@@ -1428,9 +1419,6 @@ msgstr ""
 msgid "Failed to unmute @{0} on {sourceName}."
 msgstr ""
 
-msgid "Claiming..."
-msgstr ""
-
 msgid "Insufficient Balance"
 msgstr ""
 
@@ -1501,9 +1489,6 @@ msgid "Others"
 msgstr ""
 
 msgid "Muted wallets"
-msgstr ""
-
-msgid "From: @{0}"
 msgstr ""
 
 msgid "All wallets and accounts are muted."
@@ -1731,9 +1716,6 @@ msgstr ""
 msgid "<0>Acquired</0> an NFT"
 msgstr ""
 
-msgid "{0} {1, plural, one {share} other {shares}} / {total} ${symbol}"
-msgstr ""
-
 msgid "Confirm to disconnect this account and related wallets from Firefly’s social graph?"
 msgstr ""
 
@@ -1768,9 +1750,6 @@ msgid "{shares, plural, one {Mirror or Quote} other {Mirrors or Quotes}}"
 msgstr ""
 
 msgid "Standard"
-msgstr ""
-
-msgid "Data display"
 msgstr ""
 
 msgid "No darkweb transactions found."
@@ -1822,6 +1801,9 @@ msgid "Followers you know"
 msgstr ""
 
 msgid "Settings"
+msgstr ""
+
+msgid "Font Color"
 msgstr ""
 
 msgid "Unsent posts"
@@ -1878,9 +1860,6 @@ msgstr ""
 msgid "Unwatch {handleOrEnsOrAddress}"
 msgstr ""
 
-msgid "You claimed {0} ${1}."
-msgstr ""
-
 msgid "<0>Market Cap</0><1>{0}</1><2>Rank #{1}</2>"
 msgstr ""
 
@@ -1888,9 +1867,6 @@ msgid "Total amount"
 msgstr ""
 
 msgid "Invalid signer key"
-msgstr ""
-
-msgid "Connect to {source}"
 msgstr ""
 
 msgid "Available to users with Farcaster ID under 100,000 or users of select third-party Farcaster apps as of our snapshot"
@@ -2002,9 +1978,6 @@ msgid "This can’t be undone and you’ll lose your draft."
 msgstr ""
 
 msgid "Article removed from your Bookmarks"
-msgstr ""
-
-msgid "The Lucky Drop is expired."
 msgstr ""
 
 msgid "Leave /{0} on {sourceName}."
@@ -2241,9 +2214,6 @@ msgstr ""
 msgid "Network cost"
 msgstr ""
 
-msgid "1 NFT claimed."
-msgstr ""
-
 msgid "Failed to update profile."
 msgstr ""
 
@@ -2293,9 +2263,6 @@ msgid "Follow @thefireflyapp on X"
 msgstr ""
 
 msgid "Wallets retrieved from public verifiable data registries or our entity algorithm can be reported for disconnection."
-msgstr ""
-
-msgid "You got {0} {1}"
 msgstr ""
 
 msgid "Step 2 Connect Wallet"
@@ -2457,6 +2424,9 @@ msgstr ""
 msgid "Show more"
 msgstr ""
 
+msgid "Upload to change"
+msgstr ""
+
 msgid "{0} items"
 msgstr ""
 
@@ -2526,9 +2496,6 @@ msgstr ""
 msgid "Upload photo"
 msgstr ""
 
-msgid "The Lucky Drop is empty."
-msgstr ""
-
 msgid "You can save this to send later from your drafts."
 msgstr ""
 
@@ -2589,9 +2556,6 @@ msgstr ""
 msgid "Step 1 Sign in"
 msgstr ""
 
-msgid "The Lucky Drop is broken."
-msgstr ""
-
 msgid "Copy"
 msgstr ""
 
@@ -2605,9 +2569,6 @@ msgid "Total cost"
 msgstr ""
 
 msgid "Settled as {0}"
-msgstr ""
-
-msgid "Claim"
 msgstr ""
 
 msgid "No available wallet."
@@ -2746,9 +2707,6 @@ msgid "Muting..."
 msgstr ""
 
 msgid "{0, plural, one {comment} other {comments}}"
-msgstr ""
-
-msgid "The Lucky Drop has been refunded."
 msgstr ""
 
 msgid "Pinned"
@@ -2896,9 +2854,6 @@ msgid "Meet any of the following to unlock a premium collectible and get more $A
 msgstr ""
 
 msgid "Non-sanctioned address."
-msgstr ""
-
-msgid "You could refund {0} {1}."
 msgstr ""
 
 msgid "Failed to quote post."
@@ -3163,9 +3118,6 @@ msgid "Clear all requirements"
 msgstr ""
 
 msgid "Claim Requirements"
-msgstr ""
-
-msgid "🤑 Check this Lucky Drop  🧧💰✨ sent by @{sender}.{bl}{bl}Grow your followers and engagement with Lucky Drop on Firefly mobile app or https://firefly.mask.social !{bl}"
 msgstr ""
 
 msgid "Oversupply minting."

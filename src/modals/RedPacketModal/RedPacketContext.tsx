@@ -1,62 +1,27 @@
 import { Trans } from '@lingui/macro';
-import type { FungibleToken, NonFungibleCollection } from '@masknet/web3-shared-base';
+import { type FungibleToken, multipliedBy, type NonFungibleCollection } from '@masknet/web3-shared-base';
 import type { ChainId, SchemaType } from '@masknet/web3-shared-evm';
 import { compact, first, flatten, noop, uniqBy } from 'lodash-es';
-import { createContext, type PropsWithChildren, type ReactNode, useMemo, useState } from 'react';
+import {
+    createContext,
+    type Dispatch,
+    type PropsWithChildren,
+    type ReactNode,
+    type SetStateAction,
+    useMemo,
+    useState,
+} from 'react';
 import { useAccount, useEnsName } from 'wagmi';
 
 import WalletIcon from '@/assets/wallet.svg';
 import { SocialSourceIcon } from '@/components/SocialSourceIcon.js';
 import { EMPTY_LIST, SORTED_SOCIAL_SOURCES } from '@/constants/index.js';
+import { useChainContext } from '@/hooks/useChainContext.js';
 import { useProfileStoreAll } from '@/hooks/useProfileStore.js';
+import { EVMChainResolver } from '@/mask/bindings/index.js';
 import { RED_PACKET_DEFAULT_SHARES } from '@/mask/plugins/red-packet/constants.js';
 import { RequirementType } from '@/mask/plugins/red-packet/types.js';
-
-interface RedPacketContextValue {
-    message: string;
-    token?: FungibleToken<ChainId, SchemaType>;
-    randomType: 'random' | 'equal';
-    shares: number | '';
-    coverType: 'default' | 'custom';
-    displayType: 'golden' | 'neutral';
-    accounts: Array<{ icon: ReactNode; name: string }>;
-    shareFrom: string;
-    totalAmount: string;
-    rules: RequirementType[];
-    requireCollection?: NonFungibleCollection<ChainId, SchemaType>;
-    setRequireCollection: (collection: NonFungibleCollection<ChainId, SchemaType> | undefined) => void;
-    setRules: (rules: RequirementType[]) => void;
-    setToken: (token: FungibleToken<ChainId, SchemaType>) => void;
-    setRandomType: (tab: 'random' | 'equal') => void;
-    setMessage: (message: string) => void;
-    setShares: (shares: number | '') => void;
-    setCoverType: (coverType: 'default' | 'custom') => void;
-    setDisplayType: (displayType: 'golden' | 'neutral') => void;
-    setShareFrom: (shareFrom: string) => void;
-    setTotalAmount: (totalAmount: string) => void;
-}
-
-export const initialRedPacketContextValue: RedPacketContextValue = {
-    message: '',
-    shares: RED_PACKET_DEFAULT_SHARES,
-    randomType: 'random',
-    coverType: 'default',
-    displayType: 'golden',
-    accounts: EMPTY_LIST,
-    shareFrom: '',
-    totalAmount: '',
-    setRequireCollection: noop,
-    rules: EMPTY_LIST,
-    setRules: noop,
-    setShareFrom: noop,
-    setRandomType: noop,
-    setShares: noop,
-    setMessage: noop,
-    setToken: noop,
-    setCoverType: noop,
-    setDisplayType: noop,
-    setTotalAmount: noop,
-};
+import type { FireflyRedPacketAPI } from '@/maskbook/packages/web3-providers/src/entry-types.js';
 
 export const redPacketRandomTabs = [
     {
@@ -78,18 +43,75 @@ export const redPacketCoverTabs = [
         label: <Trans>Custom</Trans>,
         value: 'custom',
     },
-];
+] as const;
 
-export const redPacketDisplayTabs = [
+export const redPacketFontColorTabs = [
     {
         label: <Trans>Default</Trans>,
-        value: 'light',
+        value: 'neutral',
     },
     {
         label: <Trans>Golden</Trans>,
-        value: 'dark',
+        value: 'golden',
     },
-];
+] as const;
+
+type RandomType = (typeof redPacketRandomTabs)[number]['value'];
+type CoverTabType = (typeof redPacketCoverTabs)[number]['value'];
+type FontColorTabType = (typeof redPacketFontColorTabs)[number]['value'];
+
+interface RedPacketContextValue {
+    message: string;
+    token: FungibleToken<ChainId, SchemaType>;
+    randomType: RandomType;
+    shares: number;
+    coverType: CoverTabType;
+    fontColor: FontColorTabType;
+    accounts: Array<{ icon: ReactNode; name: string }>;
+    shareFrom: string;
+    rawAmount: string;
+    setRawAmount: Dispatch<SetStateAction<string>>;
+    totalAmount: string;
+    rules: RequirementType[];
+    requireCollection?: NonFungibleCollection<ChainId, SchemaType>;
+    setRequireCollection: Dispatch<SetStateAction<NonFungibleCollection<ChainId, SchemaType> | undefined>>;
+    setRules: Dispatch<SetStateAction<RequirementType[]>>;
+    setToken: Dispatch<SetStateAction<FungibleToken<ChainId, SchemaType> | undefined>>;
+    setRandomType: Dispatch<SetStateAction<RandomType>>;
+    setMessage: Dispatch<SetStateAction<string>>;
+    setShares: Dispatch<SetStateAction<number>>;
+    setCoverType: Dispatch<SetStateAction<CoverTabType>>;
+    setFontColor: Dispatch<SetStateAction<FontColorTabType>>;
+    setShareFrom: Dispatch<SetStateAction<string>>;
+    customThemes: FireflyRedPacketAPI.ThemeGroupSettings[];
+    setCustomThemes: Dispatch<SetStateAction<FireflyRedPacketAPI.ThemeGroupSettings[]>>;
+}
+
+export const initialRedPacketContextValue: RedPacketContextValue = {
+    message: '',
+    shares: RED_PACKET_DEFAULT_SHARES,
+    randomType: redPacketRandomTabs[0].value,
+    coverType: redPacketCoverTabs[0].value,
+    fontColor: redPacketFontColorTabs[0].value,
+    accounts: EMPTY_LIST,
+    shareFrom: '',
+    token: null!,
+    totalAmount: '',
+    setRequireCollection: noop,
+    rules: EMPTY_LIST,
+    setRules: noop,
+    setShareFrom: noop,
+    setRandomType: noop,
+    setShares: noop,
+    setMessage: noop,
+    setToken: noop,
+    setCoverType: noop,
+    setFontColor: noop,
+    rawAmount: '',
+    setRawAmount: noop,
+    customThemes: EMPTY_LIST,
+    setCustomThemes: noop,
+};
 
 export const RedPacketContext = createContext<RedPacketContextValue>(initialRedPacketContextValue);
 
@@ -98,17 +120,27 @@ export function RedPacketProvider({ children }: PropsWithChildren) {
     const { data: ensName } = useEnsName({ address: account.address });
     const allProfile = useProfileStoreAll();
     const [message, setMessage] = useState('');
-    const [shares, setShares] = useState<number | ''>(RED_PACKET_DEFAULT_SHARES);
-    const [randomType, setRandomType] = useState<'random' | 'equal'>('random');
-    const [token, setToken] = useState<FungibleToken<ChainId, SchemaType>>();
-    const [coverType, setCoverType] = useState<'default' | 'custom'>('default');
-    const [displayType, setDisplayType] = useState<'golden' | 'neutral'>('golden');
+    const [shares, setShares] = useState<number>(RED_PACKET_DEFAULT_SHARES);
+    const [randomType, setRandomType] = useState<RandomType>('random');
+    const [customThemes, setCustomThemes] = useState<FireflyRedPacketAPI.ThemeGroupSettings[]>([]);
+
+    const { chainId } = useChainContext();
+    const nativeToken = useMemo(() => EVMChainResolver.nativeCurrency(chainId), [chainId]);
+    const [token = nativeToken, setToken] = useState<FungibleToken<ChainId, SchemaType>>();
+    const [coverType, setCoverType] = useState<CoverTabType>('default');
+    const [fontColor, setFontColor] = useState<FontColorTabType>('golden');
     const [shareFrom, setShareFrom] = useState<string>('');
-    const [totalAmount, setTotalAmount] = useState<string>('');
     const [rules, setRules] = useState<RequirementType[]>([RequirementType.Follow]);
     const [requireCollection, setRequireCollection] = useState<
         NonFungibleCollection<ChainId, SchemaType> | undefined
     >();
+
+    const [rawAmount, setRawAmount] = useState('');
+    const isRandom = randomType === 'random';
+    const totalAmount = useMemo(
+        () => (isRandom || !rawAmount ? rawAmount : multipliedBy(rawAmount, shares).toFixed()),
+        [rawAmount, isRandom, shares],
+    );
 
     const accounts = useMemo(() => {
         return uniqBy(
@@ -152,17 +184,20 @@ export function RedPacketProvider({ children }: PropsWithChildren) {
             setToken,
             coverType,
             setCoverType,
-            displayType,
-            setDisplayType,
+            fontColor,
+            setFontColor,
             accounts,
             shareFrom: shareFrom || first(accounts)?.name || '',
             setShareFrom,
             totalAmount,
-            setTotalAmount,
             rules,
             setRules,
             requireCollection,
             setRequireCollection,
+            rawAmount,
+            setRawAmount,
+            customThemes,
+            setCustomThemes,
         }),
         [
             message,
@@ -170,12 +205,14 @@ export function RedPacketProvider({ children }: PropsWithChildren) {
             randomType,
             token,
             coverType,
-            displayType,
+            fontColor,
             accounts,
             shareFrom,
             totalAmount,
             rules,
             requireCollection,
+            rawAmount,
+            customThemes,
         ],
     );
 

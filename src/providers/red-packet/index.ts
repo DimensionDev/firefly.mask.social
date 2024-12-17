@@ -27,6 +27,12 @@ export class FireflyRedPacket {
         return data;
     }
 
+    static async getThemes() {
+        const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/redpacket/themeList');
+        const { data } = await fetchJSON<FireflyRedPacketAPI.ThemeListResponse>(url);
+        return data.list;
+    }
+
     static async getPayloadUrls(
         from: string,
         amount?: string,
@@ -35,10 +41,9 @@ export class FireflyRedPacket {
         decimals?: number,
         message?: string,
     ) {
-        const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/redpacket/themeList');
-        const { data } = await fetchJSON<FireflyRedPacketAPI.ThemeListResponse>(url);
+        const themes = await FireflyRedPacket.getThemes();
 
-        return data.list.map((theme) => ({
+        return themes.map((theme) => ({
             themeId: theme.tid,
             backgroundImageUrl: theme.cover.bg_image,
             backgroundColor: theme.cover.bg_color,
@@ -84,6 +89,24 @@ export class FireflyRedPacket {
         };
     }
 
+    static async getTheme(options: FireflyRedPacketAPI.ThemeByIdOptions) {
+        const url = urlcat(settings.FIREFLY_ROOT_URL, 'v1/redpacket/themeById', options);
+        const { data } = await fetchJSON<FireflyRedPacketAPI.ThemeByIdResponse>(url);
+        return data;
+    }
+
+    static async createTheme(options: FireflyRedPacketAPI.CreateThemeOptions) {
+        const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/redpacket/createTheme');
+        const res = await fetchJSON<FireflyRedPacketAPI.CreateThemeResponse>(url, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(options),
+        });
+        return res.data.tid;
+    }
+
     static async getCoverUrlByRpid(
         rpid: string,
         symbol?: string,
@@ -95,19 +118,14 @@ export class FireflyRedPacket {
         remainingAmount?: string,
         remainingShares?: string,
     ) {
-        const url = urlcat(settings.FIREFLY_ROOT_URL, 'v1/redpacket/themeById', {
-            rpid,
-        });
-        const { data } = await fetchJSON<FireflyRedPacketAPI.ThemeByIdResponse>(url);
-        // Just discard default theme, and this RedPacket will be treated as created from Mask
-        if (data.is_default) return null;
+        const theme = await FireflyRedPacket.getTheme({ rpid });
 
         return {
-            themeId: data.tid,
-            backgroundImageUrl: data.normal.bg_image,
-            backgroundColor: data.normal.bg_color,
+            themeId: theme.tid,
+            backgroundImageUrl: theme.normal.bg_image,
+            backgroundColor: theme.normal.bg_color,
             url: urlcat(SITE_URL, '/api/rp', {
-                'theme-id': data.tid,
+                'theme-id': theme.tid,
                 usage: 'cover',
                 symbol,
                 decimals,

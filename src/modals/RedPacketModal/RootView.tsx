@@ -17,7 +17,7 @@ export function RootView() {
     const title = contextTitle ?? <Trans>Lucky Drop</Trans>;
 
     return (
-        <div className="flex min-h-[620px] min-w-[600px] transform flex-col rounded-[12px] bg-primaryBottom transition-all">
+        <div className="flex min-h-[620px] min-w-[600px] transform flex-col overflow-hidden rounded-[12px] bg-primaryBottom transition-all">
             <div className="flex items-center justify-center gap-2 rounded-t-[12px] p-4">
                 {isMain ? (
                     <CloseButton
