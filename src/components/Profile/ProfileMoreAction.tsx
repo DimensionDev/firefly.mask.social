@@ -24,13 +24,12 @@ import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
 import { useReportProfile } from '@/hooks/useReportProfile.js';
 import { useToggleMutedProfile } from '@/hooks/useToggleMutedProfile.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
+import { SORTED_SEARCHABLE_POST_BY_PROFILE_SOURCES } from '@/constants/index.js';
 
 export interface ProfileMoreActionProps extends Omit<MenuProps<'div'>, 'className'> {
     className?: string;
     profile: Profile;
 }
-
-const SEARCHABLE_POST_BY_PROFILE_SOURCES = [Source.Farcaster];
 
 export const ProfileMoreAction = memo<ProfileMoreActionProps>(function ProfileMoreAction({ className, profile }) {
     const currentProfile = useCurrentProfile(profile.source);
@@ -91,7 +90,7 @@ export const ProfileMoreAction = memo<ProfileMoreActionProps>(function ProfileMo
                     </>
                 ) : null}
 
-                {SEARCHABLE_POST_BY_PROFILE_SOURCES.some((x) => x === profile.source) ? (
+                {SORTED_SEARCHABLE_POST_BY_PROFILE_SOURCES.some((x) => x === profile.source) ? (
                     <MenuItem>
                         {({ close }) => (
                             <MenuButton
