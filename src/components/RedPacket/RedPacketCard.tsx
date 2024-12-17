@@ -21,6 +21,7 @@ import { SITE_URL } from '@/constants/index.js';
 import { Image } from '@/esm/Image.js';
 import { classNames } from '@/helpers/classNames.js';
 import { createPublicViemClient } from '@/helpers/createPublicViemClient.js';
+import { fetch } from '@/helpers/fetch.js';
 import { getTimeLeft } from '@/helpers/formatTimestamp.js';
 import { getPostUrl } from '@/helpers/getPostUrl.js';
 import { minus, ZERO } from '@/helpers/number.js';
@@ -36,7 +37,6 @@ import { ComposeModalRef } from '@/modals/controls.js';
 import { type RedPacketJSONPayload, RedPacketStatus } from '@/providers/red-packet/types.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 import { TokenType } from '@/types/rp.js';
-import { fetch } from '@/helpers/fetch.js';
 
 // @ts-ignore
 export const HelveticaFont = localFont({
