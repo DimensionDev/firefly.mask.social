@@ -41,7 +41,7 @@ export function useCreateFTRedPacketCallback(
     publicKey: string,
     claimRequirements?: FireflyRedPacketAPI.StrategyPayload[],
 ) {
-    const { randomType, message, shares, token, totalAmount } = useContext(RedPacketContext);
+    const { randomType, message, shares, token, totalAmount, theme } = useContext(RedPacketContext);
 
     const redPacketSettings = useMemo(() => {
         return {
@@ -60,7 +60,7 @@ export function useCreateFTRedPacketCallback(
     const coverImage = useMemo(
         () =>
             urlcat(SITE_URL, '/api/rp', {
-                'theme-id': DEFAULT_THEME_ID,
+                'theme-id': theme?.tid ?? DEFAULT_THEME_ID,
                 usage: 'payload',
                 from: shareFromName,
                 amount: rightShift(totalAmount, token?.decimals).toString(),
@@ -68,7 +68,7 @@ export function useCreateFTRedPacketCallback(
                 symbol: token?.symbol,
                 decimals: token?.decimals,
             }),
-        [shareFromName, totalAmount, token?.decimals, token?.symbol],
+        [shareFromName, totalAmount, token?.decimals, token?.symbol, theme?.tid],
     );
 
     const { chainId, account } = useChainContext();

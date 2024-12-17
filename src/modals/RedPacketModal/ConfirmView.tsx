@@ -64,10 +64,11 @@ export function ConfirmView() {
         requireCollection,
         customThemes,
         setCustomThemes,
+        themes,
+        theme,
+        setTheme,
     } = useContext(RedPacketContext);
     const { chainId, account } = useChainContext();
-    const { data: themes = EMPTY_LIST } = useRedPacketThemes();
-    const [theme = themes[0], setTheme] = useState<FireflyRedPacketAPI.ThemeGroupSettings>();
     const themeId = theme?.tid || DEFAULT_THEME_ID;
     const isCustomTheme = customThemes.some((t) => t.cover.bg_image === theme.cover.bg_image);
     const themeIndex = themes.indexOf(theme);
