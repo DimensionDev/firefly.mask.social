@@ -1,4 +1,5 @@
 import { describe, expect, it } from 'vitest';
+
 import { resolveSearchKeyword } from '@/helpers/resolveSearchKeyword.js';
 
 describe('resolveSearchKeyword', () => {
