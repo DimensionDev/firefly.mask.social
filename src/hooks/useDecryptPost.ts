@@ -4,7 +4,7 @@ import { useAccount } from 'wagmi';
 
 import { Source } from '@/constants/enum.js';
 import { ENABLED_DECRYPT_SOURCES } from '@/constants/index.js';
-import { enqueueMessageFromError, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
+import { enqueueMessageFromError, enqueueSuccessMessage, enqueueWarningMessage } from '@/helpers/enqueueMessage.js';
 import { memoizePromise } from '@/helpers/memoizePromise.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
@@ -38,7 +38,14 @@ export function useDecryptPost(post: Post) {
 
             return result;
         } catch (error) {
-            enqueueMessageFromError(error, t`Failed to decrypt post on ${resolveSourceName(post.source)}.`);
+            const sourceName = resolveSourceName(post.source);
+            if (error instanceof Error && error.name === 'CannotDecryptError') {
+                enqueueWarningMessage(
+                    t`You are not eligible to decrypt this post, try again with eligible ${sourceName} account.`,
+                );
+            } else {
+                enqueueMessageFromError(error, t`Failed to decrypt post on ${sourceName}.`);
+            }
             return null;
         }
     }, [account.address, post]);
