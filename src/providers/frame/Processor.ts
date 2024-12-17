@@ -7,11 +7,11 @@ import { parseUrl } from '@/helpers/parseUrl.js';
 import {
     getAspectRatio,
     getButtons,
-    getProtocol,
     getImageAlt,
     getImageUrl,
     getInput,
     getPostUrl,
+    getProtocol,
     getRefreshPeriod,
     getState,
     getTitle,

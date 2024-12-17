@@ -1,7 +1,8 @@
 import { compact, last } from 'lodash-es';
 
+import { FrameProtocol } from '@/constants/enum.js';
 import { getFrameMetaContent } from '@/helpers/getFrameMetaContent.js';
-import { qsAll } from '@/helpers/q.js';
+import { q,qsAll  } from '@/helpers/q.js';
 import { ActionType, type FrameButton, type FrameInput } from '@/types/frame.js';
 
 export function getTitle(document: Document): string | null {
@@ -129,9 +130,6 @@ export function getState(document: Document) {
         fc: 'fc:frame:state',
     });
 }
-
-import { FrameProtocol } from '@/constants/enum.js';
-import { q } from '@/helpers/q.js';
 
 export function getProtocol(document: Document, strict = false) {
     const ofVersion = q(document, 'of:version')?.getAttribute('content');
