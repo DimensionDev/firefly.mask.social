@@ -337,6 +337,9 @@ msgstr ""
 msgid "The external call function is included. The project owner may have the ability to control the contract."
 msgstr ""
 
+msgid "Search in profile"
+msgstr ""
+
 msgid "Please confirm the login with Firefly."
 msgstr ""
 
