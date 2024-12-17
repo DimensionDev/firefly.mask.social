@@ -666,6 +666,9 @@ msgstr "{0, select, Image {[图片]} Video {[视频]} Audio {[音频]} Poll {[�
 msgid "Failed to follow @{0} on {sourceName}."
 msgstr "在 {sourceName} 上关注 @{0} 失败。"
 
+msgid "Failed to decrypt post on {sourceName}."
+msgstr ""
+
 msgid "Your assets on $DEGEN or $ANON exceed US$10,000"
 msgstr "您所拥有的 $DEGEN 或 $ANON 的资产价值超过 $10,000 美元"
 
@@ -710,9 +713,6 @@ msgstr "黑名单地址。"
 
 msgid "Claim requirements"
 msgstr "领取条件"
-
-msgid "Failed to decrypt post on {0}."
-msgstr ""
 
 msgid "Host"
 msgstr "主持人"
@@ -1130,6 +1130,9 @@ msgstr "举报垃圾"
 
 msgid "Failed to un-bookmark post."
 msgstr "取消收藏帖子失败。"
+
+msgid "You are not eligible to decrypt this post, try again with eligible {sourceName} account."
+msgstr ""
 
 msgid "Failed to submit report on {0}"
 msgstr "在 {0} 上提交报告失败"
