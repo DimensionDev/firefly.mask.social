@@ -1012,7 +1012,7 @@ msgid "Check Eligibility"
 msgstr "领取资格"
 
 msgid "<0>Post</0><1>an article on <2/></1>"
-msgstr "<0>发布了</0><1>一片文章于 <2/></1>"
+msgstr "<0>发布了</0><1>一篇文章于 <2/></1>"
 
 msgid "You might like"
 msgstr "你也许感兴趣"
@@ -1129,7 +1129,7 @@ msgid "Failed to un-bookmark post."
 msgstr "取消收藏帖子失败。"
 
 msgid "You are not eligible to decrypt this post, try again with eligible {sourceName} account."
-msgstr "您没有资格解密此帖子，请使用符合条件的{sourceName}账户重试。"
+msgstr "您没有资格解密此帖子，请使用符合条件的 {sourceName} 账户重试。"
 
 msgid "Failed to submit report on {0}"
 msgstr "在 {0} 上提交报告失败"
@@ -1336,7 +1336,7 @@ msgid "Privacy Policy"
 msgstr "隐私条款"
 
 msgid "<0>Revised</0><1>an article on <2/></1>"
-msgstr "<0>更新</0><1>一片文章于 <2/></1>"
+msgstr "<0>更新</0><1>一篇文章于 <2/></1>"
 
 msgid "Holders can sell all of the token."
 msgstr "持有者可以出售所有代币。"
@@ -1399,7 +1399,7 @@ msgid "Schedule Post"
 msgstr "定时任务"
 
 msgid "No channel found with the id {channelId}"
-msgstr "未找到ID为{channelId}的频道"
+msgstr "未找到 ID 为 {channelId} 的频道"
 
 msgid "Best Wishes!"
 msgstr "最美好的祝愿！"
@@ -1636,7 +1636,7 @@ msgid "Fully Diluted Valuation"
 msgstr "完全稀释估值"
 
 msgid "Customize Lucky Drop sender. Select either Lens or Forecaster handle, or use the currently connected wallet."
-msgstr "自定义红包发送者名称。请选择Lens或Farcaster用户名，或者使用当前连接的钱包。"
+msgstr "自定义红包发送者名称。请选择 Lens 或 Farcaster 用户名，或者使用当前连接的钱包。"
 
 msgid "Email (optional)"
 msgstr "邮箱（可选）"
@@ -1714,7 +1714,7 @@ msgid "NFT owner cant bypass the maximum amount of minting specified in the cont
 msgstr "NFT持有者无法绕过合约中规定的最大铸造数量限制，继续铸造超过此限制的NFT。"
 
 msgid "Grant access to your {0} for the Lucky Drop Smart contract. You only have to do this once per token."
-msgstr "授予Lucky Drop智能合约访问您的 {0} 权限。每个代币只需执行一次。"
+msgstr "授予 Lucky Drop 智能合约访问您的 {0} 权限。每个代币只需执行一次。"
 
 msgid "Enclose a Message"
 msgstr "附上一条消息"
@@ -2608,7 +2608,7 @@ msgid "Non-contract address found."
 msgstr "发现非合约地址。"
 
 msgid "Confirm to disconnect this account from Firefly’s social graph?"
-msgstr "确认将此账户从Firefly的社交图谱中断开连接吗？"
+msgstr "确认将此账户从 Firefly 的社交图谱中断开连接吗？"
 
 msgid "The contract owner has no restrictions on selling."
 msgstr "合约所有者对销售没有限制。"
@@ -2929,7 +2929,7 @@ msgid "Buy Tax: {0}%"
 msgstr "购买税率: {0}%"
 
 msgid "Customize Lucky Drop sender. Select either Lens or Forecaster usernames, or use the currently connected wallet."
-msgstr "自定义红包发送者名称。请选择Lens或Farcaster用户名，或者使用当前连接的钱包。"
+msgstr "自定义红包发送者名称。请选择 Lens 或 Farcaster 用户名，或者使用当前连接的钱包。"
 
 msgid "Success!"
 msgstr "成功！"
