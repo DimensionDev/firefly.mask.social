@@ -3,7 +3,7 @@ import { formatCurrency, multipliedBy, rightShift } from '@masknet/web3-shared-b
 import { isValidAddress } from '@masknet/web3-shared-evm';
 import { BigNumber } from 'bignumber.js';
 import { compact, flatten } from 'lodash-es';
-import { useCallback, useContext, useMemo, useRef, useState } from 'react';
+import { useCallback, useContext, useMemo, useRef } from 'react';
 import { useAsync, useAsyncFn } from 'react-use';
 import { useEnsName } from 'wagmi';
 
@@ -25,7 +25,6 @@ import { useChainContext } from '@/hooks/useChainContext.js';
 import { useCreateFTRedPacketCallback } from '@/hooks/useCreateFTRedPacketCallback.js';
 import { useFungibleTokenPrice } from '@/hooks/useFungibleTokenPrice.js';
 import { useProfileStoreAll } from '@/hooks/useProfileStore.js';
-import { useRedPacketThemes } from '@/hooks/useRedPacketThemes.js';
 import { useSelectFiles } from '@/hooks/useSelectFiles.js';
 import { DEFAULT_THEME_ID } from '@/mask/plugins/red-packet/constants.js';
 import { RequirementType } from '@/mask/plugins/red-packet/types.js';
