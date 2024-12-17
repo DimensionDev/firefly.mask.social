@@ -2,9 +2,9 @@ import { t, Trans } from '@lingui/macro';
 import { formatCurrency, multipliedBy, rightShift } from '@masknet/web3-shared-base';
 import { isValidAddress } from '@masknet/web3-shared-evm';
 import { BigNumber } from 'bignumber.js';
-import { compact, flatten } from 'lodash-es';
+import { compact, first, flatten } from 'lodash-es';
 import { useCallback, useContext, useMemo, useRef, useState } from 'react';
-import { useAsync, useAsyncFn } from 'react-use';
+import { useAsync, useAsyncFn, useStateList, useUpdateEffect } from 'react-use';
 import { useEnsName } from 'wagmi';
 
 import ArrowLeftIcon from '@/assets/arrow-circle-left.svg';
@@ -97,6 +97,37 @@ export function ConfirmView() {
             onlyRemainTwoOrZeroDecimal: true,
         });
     }, [totalAmount, tokenPrice]);
+
+    const { value: urls, loading: fetchUrlsLoading } = useAsync(async () => {
+        if (!account) return EMPTY_LIST;
+        return FireflyRedPacket.getPayloadUrls(
+            shareFrom,
+            rightShift(totalAmount, token?.decimals).toString(),
+            'fungible',
+            token?.symbol,
+            token?.decimals,
+            message,
+        );
+    }, [account, shares, token, message]);
+
+    const { state, prev, next, isLast, isFirst, setState } = useStateList<
+        | {
+              themeId: string;
+              url: string;
+          }
+        | undefined
+    >(urls);
+
+    useUpdateEffect(() => {
+        if (!state && urls?.length) {
+            setState(first(urls));
+        }
+    }, [state, JSON.stringify(urls)]);
+
+    const { loading: imageLoading } = useAsync(async () => {
+        if (!state?.url) return;
+        await fetch(state.url);
+    }, [state?.url]);
 
     const { value, loading } = useAsync(async () => {
         const postReactions = rules.filter((x) => x !== RequirementType.Follow && x !== RequirementType.NFTHolder);
@@ -443,7 +474,7 @@ export function ConfirmView() {
                 <ActionButton
                     className="rounded-lg"
                     onClick={handleCreate}
-                    loading={creatingTheme || creatingRedPacket || loading}
+                    loading={creatingRedPacket || creatingTheme || loading || fetchUrlsLoading}
                 >
                     <Trans>Next</Trans>
                 </ActionButton>

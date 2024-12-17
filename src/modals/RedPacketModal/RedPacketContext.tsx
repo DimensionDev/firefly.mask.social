@@ -48,11 +48,11 @@ export const redPacketCoverTabs = [
 export const redPacketFontColorTabs = [
     {
         label: <Trans>Default</Trans>,
-        value: 'neutral',
+        value: 'golden',
     },
     {
         label: <Trans>Golden</Trans>,
-        value: 'golden',
+        value: 'neutral',
     },
 ] as const;
 
