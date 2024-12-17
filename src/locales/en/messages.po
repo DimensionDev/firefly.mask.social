@@ -1519,9 +1519,6 @@ msgstr "Malformed session."
 msgid "Like / Repost / Comment"
 msgstr "Like / Repost / Comment"
 
-msgid "Malformed third-party session payload."
-msgstr "Malformed third-party session payload."
-
 msgid "Upload"
 msgstr "Upload"
 
@@ -3222,9 +3219,6 @@ msgstr "Emoji"
 
 msgid "Failed to report spam NFT."
 msgstr "Failed to report spam NFT."
-
-msgid "Malformed twitter session payload."
-msgstr "Malformed twitter session payload."
 
 msgid "Sorry, there is no wallet address available for tipping."
 msgstr "Sorry, there is no wallet address available for tipping."

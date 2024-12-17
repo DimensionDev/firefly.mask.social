@@ -1,4 +1,5 @@
 import { parseHTML } from 'linkedom';
+import { z } from 'zod';
 
 import { FetchError } from '@/constants/error.js';
 import { anySignal } from '@/helpers/anySignal.js';
@@ -19,7 +20,6 @@ import {
 } from '@/providers/frame/readers/metadata.js';
 import { OpenGraphProcessor } from '@/providers/og/Processor.js';
 import type { FrameV1, FrameV2, LinkDigestedResponse } from '@/types/frame.js';
-import { z } from 'zod';
 
 const FrameV2Schema = z.object({
     version: z.string(),
