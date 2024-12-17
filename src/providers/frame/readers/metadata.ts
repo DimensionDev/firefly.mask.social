@@ -1,9 +1,9 @@
 import { compact, last } from 'lodash-es';
 
 import { FrameProtocol } from '@/constants/enum.js';
+import { getMetaContent } from '@/helpers/getMetaContent.js';
 import { q, qsAll } from '@/helpers/q.js';
 import { ActionType, type FrameButton, type FrameInput } from '@/types/frame.js';
-import { getMetaContent } from '@/helpers/getMetaContent.js';
 
 /**
  * Get content of frame meta tag with frame client protocol
