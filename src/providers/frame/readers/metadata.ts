@@ -1,6 +1,5 @@
 import { compact, last } from 'lodash-es';
 
-import { getFrameClientProtocol } from '@/helpers/getFrameClientProtocol.js';
 import { getFrameMetaContent } from '@/helpers/getFrameMetaContent.js';
 import { qsAll } from '@/helpers/q.js';
 import { ActionType, type FrameButton, type FrameInput } from '@/types/frame.js';
@@ -70,7 +69,7 @@ export function getInput(document: Document): FrameInput | null {
 }
 
 export function getButtons(document: Document): FrameButton[] {
-    const protocol = getFrameClientProtocol(document);
+    const protocol = getProtocol(document);
     if (!protocol) return [];
 
     const metas = qsAll(document, protocol === 'fc' ? `${protocol}:frame:button:` : `${protocol}:button:`);
@@ -129,4 +128,25 @@ export function getState(document: Document) {
         of: 'of:state',
         fc: 'fc:frame:state',
     });
+}
+
+import { FrameProtocol } from '@/constants/enum.js';
+import { q } from '@/helpers/q.js';
+
+export function getProtocol(document: Document, strict = false) {
+    const ofVersion = q(document, 'of:version')?.getAttribute('content');
+    if (ofVersion) {
+        if (!strict) {
+            const ofButtons = qsAll(document, 'of:button:');
+            const fcButtons = qsAll(document, 'fc:frame:button:');
+            if (!ofButtons.length && fcButtons.length) return FrameProtocol.Farcaster; // farcaster
+        }
+
+        return FrameProtocol.OpenFrame; // open frame
+    }
+
+    const fcVersion = q(document, 'fc:frame')?.getAttribute('content');
+    if (fcVersion) return FrameProtocol.Farcaster; // farcaster
+
+    return;
 }

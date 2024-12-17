@@ -2,12 +2,12 @@ import { parseHTML } from 'linkedom';
 
 import { FetchError } from '@/constants/error.js';
 import { anySignal } from '@/helpers/anySignal.js';
-import { getFrameClientProtocol } from '@/helpers/getFrameClientProtocol.js';
 import { parseJSON } from '@/helpers/parseJSON.js';
 import { parseUrl } from '@/helpers/parseUrl.js';
 import {
     getAspectRatio,
     getButtons,
+    getProtocol,
     getImageAlt,
     getImageUrl,
     getInput,
@@ -48,7 +48,7 @@ class Processor {
             buttons: [],
             // never refresh by default
             refreshPeriod: Number.MAX_SAFE_INTEGER,
-            protocol: getFrameClientProtocol(document, true),
+            protocol: getProtocol(document, true),
         };
 
         const postUrl = getPostUrl(document);
