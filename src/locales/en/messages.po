@@ -313,6 +313,9 @@ msgstr "Scan the QR code with your phone’s <0>Camera</0> in {count}s.<1/> Appr
 msgid "Poll"
 msgstr "Poll"
 
+msgid "Bets"
+msgstr "Bets"
+
 msgid "Scheduled"
 msgstr "Scheduled"
 
@@ -2772,9 +2775,6 @@ msgstr "Emoji"
 
 msgid "Failed to report spam NFT."
 msgstr "Failed to report spam NFT."
-
-msgid "Polymarket"
-msgstr "Polymarket"
 
 msgid "Malformed twitter session payload."
 msgstr "Malformed twitter session payload."
