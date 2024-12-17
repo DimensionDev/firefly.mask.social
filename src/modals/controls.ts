@@ -9,7 +9,7 @@ import type { ConfirmModalCloseResult, ConfirmModalOpenProps } from '@/modals/Co
 import type { DisconnectFireflyAccountModalProps } from '@/modals/DisconnectFireflyAccountModal.js';
 import type { DraggablePopoverProps } from '@/modals/DraggablePopover.js';
 import type { EditProfileModalOpenProps } from '@/modals/EditProfileModal.js';
-import type { ImageEditorCloseProps, ImageEditorOpenProps } from '@/modals/ImageEditor/index.jsx';
+import type { ImageEditorCloseProps, ImageEditorOpenProps } from '@/modals/ImageEditor/index.js';
 import type { LoginModalOpenProps } from '@/modals/LoginModal/index.js';
 import type { LogoutModalProps } from '@/modals/LogoutModal.js';
 import type {
