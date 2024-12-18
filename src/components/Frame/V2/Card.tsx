@@ -2,8 +2,8 @@ import { memo } from 'react';
 
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { Image } from '@/components/Image.js';
-import { NotImplementedError } from '@/constants/error.js';
 import type { FrameV2 } from '@/types/frame.js';
+import { FrameV2ModalRef } from '@/modals/controls.js';
 
 interface CardProps {
     frame: FrameV2;
@@ -11,7 +11,9 @@ interface CardProps {
 
 export const Card = memo<CardProps>(function Card({ frame }) {
     const onClick = () => {
-        throw new NotImplementedError();
+        FrameV2ModalRef.open({
+            frame,
+        });
     };
 
     return (
