@@ -672,9 +672,6 @@ msgstr "在 {sourceName} 上关注 @{0} 失败。"
 msgid "Failed to decrypt post on {sourceName}."
 msgstr "无法解密 {sourceName} 上的帖子。"
 
-msgid "Your assets on $DEGEN or $ANON exceed US$10,000"
-msgstr "您所拥有的 $DEGEN 或 $ANON 的资产价值超过 $10,000 美元"
-
 msgid "Attendees"
 msgstr "出席人数"
 
