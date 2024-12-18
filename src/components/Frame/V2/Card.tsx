@@ -15,7 +15,7 @@ export const Card = memo<CardProps>(function Card({ frame }) {
     };
 
     return (
-        <div className="flex flex-col">
+        <div className="broder flex flex-col overflow-hidden rounded-xl border-line">
             <Image width={530} height={350} src={frame.imageUrl} alt={frame.x_url} />
             <ClickableButton className="" onClick={onClick}>
                 {frame.button.action.name}
