@@ -6,7 +6,7 @@ import { useAccount } from 'wagmi';
 import LoadingIcon from '@/assets/loading.svg';
 import UserIcon from '@/assets/user.svg';
 import { ClickableButton } from '@/components/ClickableButton.js';
-import { CloseButton } from '@/components/CloseButton.js';
+import { CloseButton } from '@/components/IconButton.js';
 import { BioMarkup } from '@/components/Markup/BioMarkup.js';
 import { ProfileAvatar } from '@/components/ProfileAvatar.js';
 import { SocialSourceIcon } from '@/components/SocialSourceIcon.js';

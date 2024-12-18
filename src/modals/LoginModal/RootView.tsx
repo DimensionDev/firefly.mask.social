@@ -2,7 +2,7 @@ import { Trans } from '@lingui/macro';
 import { Outlet, useRouter, useRouterState } from '@tanstack/react-router';
 
 import { BackButton } from '@/components/BackButton.js';
-import { CloseButton } from '@/components/CloseButton.js';
+import { CloseButton } from '@/components/IconButton.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import { LoginModalRef } from '@/modals/controls.js';
 

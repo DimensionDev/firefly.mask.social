@@ -3,7 +3,7 @@ import { Outlet, useRouter, useRouterState } from '@tanstack/react-router';
 
 import HistoryIcon from '@/assets/history.svg';
 import { BackButton } from '@/components/BackButton.js';
-import { CloseButton } from '@/components/CloseButton.js';
+import { CloseButton } from '@/components/IconButton.js';
 import { RedPacketModalRef } from '@/modals/controls.js';
 
 export function RootView() {

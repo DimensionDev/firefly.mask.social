@@ -1,7 +1,7 @@
 import { t } from '@lingui/macro';
 
 import YesIcon from '@/assets/green-yes.svg';
-import { CloseButton } from '@/components/CloseButton.js';
+import { CloseButton } from '@/components/IconButton.js';
 import { ComposeContent } from '@/components/Compose/ComposeContent.js';
 import { ProfileAvatar } from '@/components/ProfileAvatar.js';
 import { classNames } from '@/helpers/classNames.js';

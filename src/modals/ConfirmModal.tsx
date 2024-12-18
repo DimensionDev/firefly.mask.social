@@ -2,7 +2,7 @@ import { t, Trans } from '@lingui/macro';
 import React, { forwardRef, useState } from 'react';
 
 import { ClickableButton } from '@/components/ClickableButton.js';
-import { CloseButton } from '@/components/CloseButton.js';
+import { CloseButton } from '@/components/IconButton.js';
 import { Modal } from '@/components/Modal.js';
 import { classNames } from '@/helpers/classNames.js';
 import { stopEvent } from '@/helpers/stopEvent.js';

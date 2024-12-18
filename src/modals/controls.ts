@@ -8,7 +8,6 @@ import type { ConfirmLeavingModalCloseProps, ConfirmLeavingModalOpenProps } from
 import type { ConfirmModalCloseResult, ConfirmModalOpenProps } from '@/modals/ConfirmModal.js';
 import type { DisconnectFireflyAccountModalProps } from '@/modals/DisconnectFireflyAccountModal.js';
 import type { DraggablePopoverProps } from '@/modals/DraggablePopover.js';
-import type { EditProfileModalOpenProps } from '@/modals/EditProfileModal.js';
 import type { FrameViewerModalCloseProps, FrameViewerModalOpenProps } from '@/modals/FrameViewerModal/index.js';
 import type { ImageEditorCloseProps, ImageEditorOpenProps } from '@/modals/ImageEditor/index.js';
 import type { LoginModalOpenProps } from '@/modals/LoginModal/index.js';
@@ -41,7 +40,6 @@ export const TipsModalRef = new SingletonModal<TipsModalOpenProps, TipsModalClos
 export const SolanaAccountModalRef = new SingletonModal();
 export const PreviewMediaModalRef = new SingletonModal<PreviewMediaModalOpenProps>();
 export const SchedulePostModalRef = new SingletonModal<SchedulePostModalOpenProps>();
-export const EditProfileModalRef = new SingletonModal<EditProfileModalOpenProps>();
 export const CollectArticleModalRef = new SingletonModal<CollectArticleModalOpenProps>();
 export const EnableSignlessModalRef = new SingletonModal<void, boolean>();
 export const CollectPostModalRef = new SingletonModal<CollectPostModalOpenProps>();

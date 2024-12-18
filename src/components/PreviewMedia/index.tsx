@@ -10,7 +10,7 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 
 import { PostActionsWithGrid } from '@/components/Actions/index.js';
 import { ClickableButton } from '@/components/ClickableButton.js';
-import { CloseButton } from '@/components/CloseButton.js';
+import { CloseButton } from '@/components/IconButton.js';
 import { Modal } from '@/components/Modal.js';
 import { PreviewContent } from '@/components/PreviewMedia/PreviewContent.js';
 import type { Source } from '@/constants/enum.js';

@@ -1,7 +1,7 @@
 import { Trans } from '@lingui/macro';
 import { forwardRef, useState } from 'react';
 
-import { CloseButton } from '@/components/CloseButton.js';
+import { CloseButton } from '@/components/IconButton.js';
 import { SchedulePostSettings } from '@/components/Compose/SchedulePostSettings.js';
 import { Modal } from '@/components/Modal.js';
 import { stopEvent } from '@/helpers/stopEvent.js';
