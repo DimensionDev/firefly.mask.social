@@ -57,6 +57,7 @@ async function getTheme(themeId: string, signal?: AbortSignal) {
         },
         signal,
     });
+    console.info(`Get theme ${themeId}`, url, response.data);
     return response.data;
 }
 
@@ -64,6 +65,9 @@ export async function createRedPacketImage(coverOrPayload: Cover | Payload, sign
     const { usage, themeId } = coverOrPayload;
     const [fonts, theme] = await Promise.all([getSatoriFonts(signal), getTheme(themeId, signal)]);
 
+    if (!theme) {
+        throw new Error(`Failed to get theme: ${themeId}`);
+    }
     // satori might not support VS16s, so we remove them here
     coverOrPayload.message = removeVS16s(coverOrPayload.message);
 
