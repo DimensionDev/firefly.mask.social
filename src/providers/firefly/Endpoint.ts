@@ -54,9 +54,11 @@ import {
     type GetAllConnectionsResponse,
     type GetFarcasterSuggestedFollowUserResponse,
     type GetLensSuggestedFollowUserResponse,
+    type GetSponsorMintStatusResponse,
     type HexResponse,
     type IsMutedAllResponse,
     type LinkDigestResponse,
+    type MintBySponsorResponse,
     type MuteAllResponse,
     type NFTCollectionsResponse,
     type PlatformIdentityKey,
@@ -66,6 +68,7 @@ import {
     type SearchNFTResponse,
     type SearchProfileResponse,
     type SearchTokenResponse,
+    type SponsorMintOptions,
     type TelegramLoginBotResponse,
     type TelegramLoginResponse,
     type TwitterUserInfoResponse,
@@ -819,6 +822,29 @@ export class FireflyEndpoint {
             body: JSON.stringify({ link }),
         });
         const data = resolveFireflyResponseData(response);
+
+        return data;
+    }
+
+    async getSponsorMintStatus(options: SponsorMintOptions) {
+        const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/wallet_transaction/platform/mint/status');
+        const response = await fireflySessionHolder.fetch<GetSponsorMintStatusResponse>(url, {
+            method: 'POST',
+            body: JSON.stringify(options),
+        });
+
+        return resolveFireflyResponseData(response);
+    }
+
+    async mintNFTBySponsor(options: SponsorMintOptions) {
+        const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/wallet_transaction/mint/platform');
+        const response = await fireflySessionHolder.fetch<MintBySponsorResponse>(url, {
+            method: 'POST',
+            body: JSON.stringify(options),
+        });
+
+        const data = resolveFireflyResponseData(response);
+        if (!data.status) throw new Error(data.errormessage || 'Failed to mint');
 
         return data;
     }
