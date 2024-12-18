@@ -667,9 +667,6 @@ msgstr ""
 msgid "Failed to decrypt post on {sourceName}."
 msgstr ""
 
-msgid "Your assets on $DEGEN or $ANON exceed US$10,000"
-msgstr ""
-
 msgid "Attendees"
 msgstr ""
 
