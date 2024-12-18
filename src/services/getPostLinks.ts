@@ -39,7 +39,7 @@ function isValidPostLink(url: string) {
 
     // file extension
     // The ipfs link can sometimes be domain/pathname?fileName=xxx.jpg.
-    if (/\.\w{1,6}$/i.test(url)) return false;
+    if (/\.\w{1,6}$/i.test(parsed.pathname)) return false;
 
     // ignore hosts
     if (
