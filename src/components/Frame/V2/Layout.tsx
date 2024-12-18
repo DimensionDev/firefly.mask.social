@@ -11,5 +11,9 @@ interface FrameLayoutProps {
 }
 
 export const FrameLayout = memo<FrameLayoutProps>(function FrameLayout({ frame, post, children }) {
-    return <Card frame={frame} />;
+    return (
+        <div className="pt-2">
+            <Card frame={frame} />
+        </div>
+    );
 });
