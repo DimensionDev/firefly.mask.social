@@ -1,7 +1,8 @@
+import { memo } from 'react';
+
 import MoreIcon from '@/assets/more.svg';
 import { CloseButton } from '@/components/CloseButton.js';
 import type { FrameV2 } from '@/types/frame.js';
-import { memo } from 'react';
 
 interface FrameViewerProps {
     frame: FrameV2;

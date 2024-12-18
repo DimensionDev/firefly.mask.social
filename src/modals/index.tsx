@@ -18,6 +18,7 @@ import { DisconnectFireflyAccountModal } from '@/modals/DisconnectFireflyAccount
 import { DraggablePopover } from '@/modals/DraggablePopover.js';
 import { EditProfileModal } from '@/modals/EditProfileModal.js';
 import { EnableSignlessModal } from '@/modals/EnableSignlessModal.js';
+import { FrameV2Modal } from '@/modals/FrameV2Modal/index.js';
 import { ImageEditorModal } from '@/modals/ImageEditor/index.js';
 import { LoginModal } from '@/modals/LoginModal/index.js';
 import { LogoutModal } from '@/modals/LogoutModal.js';
@@ -30,7 +31,6 @@ import { SuperFollowModal } from '@/modals/SuperFollowModal.js';
 import { TipsModal } from '@/modals/TipsModal.js';
 import { TokenSelectorModal } from '@/modals/TokenSelectorModal.js';
 import { TransactionSimulatorModal } from '@/modals/TransactionSimulatorModal.js';
-import { FrameV2Modal } from '@/modals/FrameV2Modal/index.js';
 
 export const Modals = memo(function Modals() {
     return (
