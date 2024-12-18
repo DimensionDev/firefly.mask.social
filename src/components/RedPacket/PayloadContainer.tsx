@@ -26,6 +26,7 @@ export function PayloadContainer({ theme, children, ...props }: PayloadContainer
                 backgroundImage: theme.cover.bg_image ? `url("${theme.cover.bg_image}")` : '',
                 backgroundColor: theme.cover.bg_color ?? 'transparent',
                 backgroundRepeat: 'no-repeat',
+                borderRadius: 48,
                 ...props.ContainerStyle,
             }}
         >
@@ -38,6 +39,7 @@ export function PayloadContainer({ theme, children, ...props }: PayloadContainer
                     background: `linear-gradient(to bottom, rgba(16,16,16,0) 436px, rgba(16,16,16,0.5) 100%)`,
                     width: 1200,
                     height: 840,
+                    borderRadius: 48,
                 }}
             />
             {children}
