@@ -21,7 +21,7 @@ import { RedPacketInspector } from '@/components/RedPacket/RedPacketInspector.js
 import { IS_APPLE, IS_SAFARI } from '@/constants/bowser.js';
 import { PageRoute, Source, STATUS } from '@/constants/enum.js';
 import { env } from '@/constants/env.js';
-import { EMPTY_LIST } from '@/constants/index.js';
+import { EMPTY_LIST, RP_HASH_TAG } from '@/constants/index.js';
 import { Link } from '@/esm/Link.js';
 import { classNames } from '@/helpers/classNames.js';
 import { formatUrl } from '@/helpers/formatUrl.js';
@@ -55,6 +55,12 @@ const overrideComponents = {
         return <span>{title && isValidUrl(title) ? formatUrl(title, 30) : title}</span>;
     },
 };
+
+function canSkipWaitingForPayload(post: Post) {
+    const content = post.metadata.content?.content;
+
+    return !(content?.includes(RP_HASH_TAG) || !!getEncryptedPayloadFromText(content));
+}
 
 export const PostBodyContent = forwardRef<HTMLDivElement, PostBodyContentProps>(function PostBodyContent(props, ref) {
     const {
@@ -110,7 +116,9 @@ export const PostBodyContent = forwardRef<HTMLDivElement, PostBodyContentProps>(
         return attachments.filter((x) => x.uri !== payloadImageUrl);
     }, [attachments, payloadImageUrl]);
 
-    const showAttachments = (availableAttachments.length > 0 || !!metadata.content?.asset) && !decodingImage;
+    const showAttachments =
+        (availableAttachments.length > 0 || !!metadata.content?.asset) &&
+        (!decodingImage || canSkipWaitingForPayload(post));
 
     const noLeftPadding = isDetail || isSmall || disablePadding;
 
