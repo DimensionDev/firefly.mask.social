@@ -147,6 +147,7 @@ export function ActivityPenguTasks({
                     claimType={isPremium ? 'premium' : 'base'}
                     disabled={!isFollowedFirefly}
                     source={Source.Twitter}
+                    buttonText={claimCondition?.participationBlocked ? <Trans>Participation Blocked</Trans> : undefined}
                 />
             </div>
         </>

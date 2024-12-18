@@ -95,7 +95,7 @@ export function useActivityPremiumList(source: SocialSource) {
                             </Trans>
                         </p>
                     ),
-                    verified: false, // TODO
+                    verified: data?.nft?.ownPudgy || data?.nft?.ownLil,
                 },
                 {
                     label: (
@@ -119,7 +119,7 @@ export function useActivityPremiumList(source: SocialSource) {
                             </Trans>
                         </p>
                     ),
-                    verified: false, // TODO
+                    verified: data?.nft?.ownPudgy || data?.nft?.ownPenguPins,
                 },
             ];
         default:

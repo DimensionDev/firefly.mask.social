@@ -34,8 +34,14 @@ import { settings } from '@/settings/index.js';
 import { SupportedMethod } from '@/types/bridge.js';
 
 class FireflyActivity implements Provider {
-    async getActivityClaimCondition(name: string, address = '0x') {
-        const url = urlcat(settings.FIREFLY_ROOT_URL, `/v1/activity/check/:name`, { name, address });
+    async getActivityClaimCondition(
+        name: string,
+        address = '0x',
+        options?: {
+            premiumAddress?: string;
+        },
+    ) {
+        const url = urlcat(settings.FIREFLY_ROOT_URL, `/v1/activity/check/:name`, { name, address, ...options });
         const response = await fireflySessionHolder.fetchWithSession<CheckResponse>(url);
         return resolveFireflyResponseData(response);
     }
