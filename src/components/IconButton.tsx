@@ -26,7 +26,7 @@ function IconButton({ size = 24, tooltip, children, ref, ...props }: IconButtonP
 
 export function MoreButton({ size = 24, tooltip = t`More`, ref, ...props }: IconButtonProps) {
     return (
-        <IconButton tooltip={t`More`}>
+        <IconButton tooltip={t`More`} {...props}>
             <MoreIcon
                 className={classNames('text-main', {
                     'cursor-pointer': !props.disabled,
@@ -40,7 +40,7 @@ export function MoreButton({ size = 24, tooltip = t`More`, ref, ...props }: Icon
 
 export function CloseButton({ size = 24, tooltip = t`Close`, ref, ...props }: IconButtonProps) {
     return (
-        <IconButton tooltip={t`Close`}>
+        <IconButton tooltip={t`Close`} {...props}>
             <CloseIcon
                 className={classNames('text-main', {
                     'cursor-pointer': !props.disabled,
@@ -54,7 +54,7 @@ export function CloseButton({ size = 24, tooltip = t`Close`, ref, ...props }: Ic
 
 export function ClearButton({ size = 24, tooltip = t`Clear`, ref, ...props }: IconButtonProps) {
     return (
-        <IconButton tooltip="Clear">
+        <IconButton tooltip="Clear" {...props}>
             <CloseCircleIcon width={size} height={size} className="text-inherit" />
         </IconButton>
     );
