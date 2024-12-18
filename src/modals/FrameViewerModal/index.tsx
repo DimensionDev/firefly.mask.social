@@ -13,50 +13,50 @@ export type FrameViewerModalOpenProps = {
 };
 export type FrameViewerModalCloseProps = void;
 
-export const FrameViewerModal = forwardRef<
-    SingletonModalRefCreator<FrameViewerModalOpenProps>
->(function FrameViewerModal(_, ref) {
-    const [props, setProps] = useState<FrameViewerModalOpenProps | null>(null);
+export const FrameViewerModal = forwardRef<SingletonModalRefCreator<FrameViewerModalOpenProps>>(
+    function FrameViewerModal(_, ref) {
+        const [props, setProps] = useState<FrameViewerModalOpenProps | null>(null);
 
-    const [open, dispatch] = useSingletonModal(ref, {
-        onOpen(p) {
-            setProps(p);
-        },
-        onClose() {
-            setProps(null);
-        },
-    });
+        const [open, dispatch] = useSingletonModal(ref, {
+            onOpen(p) {
+                setProps(p);
+            },
+            onClose() {
+                setProps(null);
+            },
+        });
 
-    if (!open || !props) return null;
+        if (!open || !props) return null;
 
-    const { frame } = props;
-    const u = parseUrl(frame.button.action.url);
+        const { frame } = props;
+        const u = parseUrl(frame.button.action.url);
 
-    return (
-        <Modal disableDialogClose open={open} onClose={() => dispatch?.close()}>
-            <div className="relative h-[695px] w-[424px] overflow-hidden rounded-xl">
-                <div className="bg-elevated-nohover flex h-[60px] items-center justify-between bg-fireflyBrand px-4 py-3">
-                    <div className="cursor-pointer">
-                        <CloseButton onClick={() => dispatch?.close()} />
+        return (
+            <Modal disableDialogClose open={open} onClose={() => dispatch?.close()}>
+                <div className="relative h-[695px] w-[424px] overflow-hidden rounded-xl">
+                    <div className="bg-elevated-nohover flex h-[60px] items-center justify-between bg-fireflyBrand px-4 py-3">
+                        <div className="cursor-pointer">
+                            <CloseButton onClick={() => dispatch?.close()} />
+                        </div>
+                        <div className="mx-4 max-w-[280px] flex-1 text-center">
+                            <div className="font-semibold">{frame.button.action.name}</div>
+                            {u ? <div className="text-faint text-xs">{u.host}</div> : null}
+                        </div>
+                        <div className="text-muted cursor-pointer rounded-full px-1 hover:bg-gray-200">
+                            <MoreAction />
+                        </div>
                     </div>
-                    <div className="mx-4 max-w-[280px] flex-1 text-center">
-                        <div className="font-semibold">{frame.button.action.name}</div>
-                        {u ? <div className="text-faint text-xs">{u.host}</div> : null}
-                    </div>
-                    <div className="text-muted cursor-pointer rounded-full px-1 hover:bg-gray-200">
-                        <MoreAction />
-                    </div>
+                    <iframe
+                        className="scrollbar-hide h-full w-full opacity-100"
+                        src={frame.button.action.url}
+                        allow="clipboard-write 'src'"
+                        sandbox="allow-forms allow-scripts allow-same-origin"
+                        style={{
+                            backgroundColor: frame.button.action.splashBackgroundColor,
+                        }}
+                    />
                 </div>
-                <iframe
-                    className="scrollbar-hide h-full w-full opacity-100"
-                    src={frame.button.action.url}
-                    allow="clipboard-write 'src'"
-                    sandbox="allow-forms allow-scripts allow-same-origin"
-                    style={{
-                        backgroundColor: frame.button.action.splashBackgroundColor,
-                    }}
-                />
-            </div>
-        </Modal>
-    );
-});
+            </Modal>
+        );
+    },
+);
