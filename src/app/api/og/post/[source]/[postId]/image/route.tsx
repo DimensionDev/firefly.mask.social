@@ -60,7 +60,7 @@ export const GET = compose(
                     style={{
                         width: '100%',
                         height: '100%',
-                        backgroundColor: '#F9F9F9',
+                        backgroundColor: '#F5F5F9',
                         padding: '30px',
                         display: 'flex',
                         flexDirection: 'column',
