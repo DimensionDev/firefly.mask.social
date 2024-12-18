@@ -30,6 +30,7 @@ import { SuperFollowModal } from '@/modals/SuperFollowModal.js';
 import { TipsModal } from '@/modals/TipsModal.js';
 import { TokenSelectorModal } from '@/modals/TokenSelectorModal.js';
 import { TransactionSimulatorModal } from '@/modals/TransactionSimulatorModal.js';
+import { FrameV2Modal } from '@/modals/FrameV2Modal/index.js';
 
 export const Modals = memo(function Modals() {
     return (
@@ -61,6 +62,7 @@ export const Modals = memo(function Modals() {
             <RedPacketModal ref={controls.RedPacketModalRef.register} />
             <NonFungibleCollectionSelectModal ref={controls.NonFungibleTokenCollectionSelectModalRef.register} />
             <ImageEditorModal ref={controls.ImageEditorRef.register} />
+            <FrameV2Modal ref={controls.FrameV2ModalRef.register} />
         </>
     );
 });

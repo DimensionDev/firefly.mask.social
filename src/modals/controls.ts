@@ -9,6 +9,7 @@ import type { ConfirmModalCloseResult, ConfirmModalOpenProps } from '@/modals/Co
 import type { DisconnectFireflyAccountModalProps } from '@/modals/DisconnectFireflyAccountModal.js';
 import type { DraggablePopoverProps } from '@/modals/DraggablePopover.js';
 import type { EditProfileModalOpenProps } from '@/modals/EditProfileModal.js';
+import type { FrameV2ModalCloseProps, FrameV2ModalProps } from '@/modals/FrameV2Modal/index.js';
 import type { ImageEditorCloseProps, ImageEditorOpenProps } from '@/modals/ImageEditor/index.js';
 import type { LoginModalOpenProps } from '@/modals/LoginModal/index.js';
 import type { LogoutModalProps } from '@/modals/LogoutModal.js';
@@ -55,3 +56,4 @@ export const NonFungibleTokenCollectionSelectModalRef = new SingletonModal<
     NonFungibleCollectionSelectModalCloseProps
 >();
 export const ImageEditorRef = new SingletonModal<ImageEditorOpenProps, ImageEditorCloseProps>();
+export const FrameV2ModalRef = new SingletonModal<FrameV2ModalProps, FrameV2ModalCloseProps>();
