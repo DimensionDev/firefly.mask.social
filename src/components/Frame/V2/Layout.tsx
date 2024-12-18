@@ -1,5 +1,6 @@
 import { memo, type ReactNode } from 'react';
 
+import { Card } from '@/components/Frame/V2/Card.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 import type { FrameV2 } from '@/types/frame.js';
 
@@ -9,6 +10,6 @@ interface FrameLayoutProps {
     children?: ReactNode;
 }
 
-export const FrameLayout = memo<FrameLayoutProps>(function FrameLayout({ post, children }) {
-    return null;
+export const FrameLayout = memo<FrameLayoutProps>(function FrameLayout({ frame, post, children }) {
+    return <Card frame={frame} />;
 });
