@@ -295,6 +295,9 @@ msgstr ""
 msgid "{followerCount, plural, one {Member} other {Members}}"
 msgstr ""
 
+msgid "Mint Ended"
+msgstr ""
+
 msgid "<0>You</0> and {0} others recasted"
 msgstr ""
 
@@ -412,6 +415,9 @@ msgstr ""
 msgid "Donald Trump"
 msgstr ""
 
+msgid "Mint"
+msgstr ""
+
 msgid "Our transaction simulation and security detection found no issues. However, it is always crucial to double-check and proceed with caution."
 msgstr ""
 
@@ -515,6 +521,9 @@ msgid "Verification unsuccessful"
 msgstr ""
 
 msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} {1, select, Lens {mirrored your} Farcaster {recasted your} other {mirrored your}} <4>{2, select, Post {post} Comment {comment} Quote {quote} Mirror {mirror} other {post}}</4>"
+msgstr ""
+
+msgid "Total"
 msgstr ""
 
 msgid "Signer key not found. Please approve a new one for us in Warpcast."
@@ -1174,6 +1183,9 @@ msgstr ""
 msgid "The current connected wallet does not match, Please switch to {0}"
 msgstr ""
 
+msgid "Mint price"
+msgstr ""
+
 msgid "Cost"
 msgstr ""
 
@@ -1217,6 +1229,9 @@ msgid "Connecting..."
 msgstr ""
 
 msgid "Enter amount"
+msgstr ""
+
+msgid "Platform fee"
 msgstr ""
 
 msgid "<0>Sold</0> an NFT worth {costEl}"
@@ -1370,6 +1385,9 @@ msgid "About Airdrop"
 msgstr ""
 
 msgid "No financial crime involved."
+msgstr ""
+
+msgid "Mint NFT"
 msgstr ""
 
 msgid "Follow"
@@ -2851,6 +2869,9 @@ msgstr ""
 msgid "Failed to join /{0} on {sourceName}."
 msgstr ""
 
+msgid "Mint Again"
+msgstr ""
+
 msgid "Repost"
 msgstr ""
 
@@ -3542,6 +3563,9 @@ msgid "× {0}"
 msgstr ""
 
 msgid "Blink Validator"
+msgstr ""
+
+msgid "Minted"
 msgstr ""
 
 msgid "Golden"
