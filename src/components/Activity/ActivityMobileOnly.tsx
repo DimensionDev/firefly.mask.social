@@ -17,12 +17,14 @@ export function ActivityMobileOnly({ children, disabled = false }: PropsWithChil
             <div className="flex w-full gap-2">
                 <Link
                     href={FIREFLY_APP_APP_STORE_URL}
+                    target="_blank"
                     className="leading-11 flex h-11 flex-1 items-center justify-center rounded-lg border border-current text-base font-bold uppercase"
                 >
                     <Trans>App store</Trans>
                 </Link>
                 <Link
                     href={FIREFLY_APP_GOOGLE_PLAY_URL}
+                    target="_blank"
                     className="leading-11 flex h-11 flex-1 items-center justify-center rounded-lg border border-current text-base font-bold uppercase"
                 >
                     <Trans>Google Play</Trans>
