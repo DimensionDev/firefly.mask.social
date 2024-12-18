@@ -1,11 +1,12 @@
-import { memo } from 'react';
-import { MoreActionMenu } from '@/components/MoreActionMenu.js';
 import { MenuItem } from '@headlessui/react';
-import { MenuButton } from '@/components/Actions/MenuButton.js';
-import { MenuGroup } from '@/components/MenuGroup.js';
-import SendIcon from '@/assets/send.svg';
 import { Trans } from '@lingui/macro';
+import { memo } from 'react';
+
+import SendIcon from '@/assets/send.svg';
+import { MenuButton } from '@/components/Actions/MenuButton.js';
 import { MoreButton } from '@/components/IconButton.js';
+import { MenuGroup } from '@/components/MenuGroup.js';
+import { MoreActionMenu } from '@/components/MoreActionMenu.js';
 
 export const MoreAction = memo(function MoreAction() {
     return (

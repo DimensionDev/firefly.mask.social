@@ -3183,6 +3183,9 @@ msgstr ""
 msgid "The connection has timed out. Please try again later."
 msgstr ""
 
+msgid "Reload page"
+msgstr ""
+
 msgid "Phishing site."
 msgstr ""
 

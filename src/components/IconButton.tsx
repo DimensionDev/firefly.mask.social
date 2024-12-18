@@ -1,9 +1,9 @@
 import { t } from '@lingui/macro';
-import type { HTMLProps, ReactNode } from 'react';
+import type { ReactNode } from 'react';
 
-import MoreIcon from '@/assets/more.svg';
 import CloseIcon from '@/assets/close.svg';
 import CloseCircleIcon from '@/assets/close-circle.svg';
+import MoreIcon from '@/assets/more.svg';
 import { ClickableButton, type ClickableButtonProps } from '@/components/ClickableButton.js';
 import { Tooltip } from '@/components/Tooltip.js';
 import { classNames } from '@/helpers/classNames.js';

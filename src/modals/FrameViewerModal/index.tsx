@@ -1,12 +1,12 @@
 import { forwardRef, useState } from 'react';
 
+import { CloseButton } from '@/components/IconButton.js';
 import { Modal } from '@/components/Modal.js';
+import { parseUrl } from '@/helpers/parseUrl.js';
 import { useSingletonModal } from '@/hooks/useSingletonModal.js';
 import type { SingletonModalRefCreator } from '@/libs/SingletonModal.js';
-import type { FrameV2 } from '@/types/frame.js';
-import { parseUrl } from '@/helpers/parseUrl.js';
-import { CloseButton } from '@/components/IconButton.js';
 import { MoreAction } from '@/modals/FrameViewerModal/MoreActionMenu.js';
+import type { FrameV2 } from '@/types/frame.js';
 
 export type FrameViewerModalOpenProps = {
     frame: FrameV2;
@@ -14,7 +14,7 @@ export type FrameViewerModalOpenProps = {
 export type FrameViewerModalCloseProps = void;
 
 export const FrameViewerModal = forwardRef<
-    SingletonModalRefCreator<FrameViewerModalOpenProps, FrameViewerModalCloseProps>
+    SingletonModalRefCreator<FrameViewerModalOpenProps>
 >(function FrameViewerModal(_, ref) {
     const [props, setProps] = useState<FrameViewerModalOpenProps | null>(null);
 

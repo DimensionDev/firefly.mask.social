@@ -3178,6 +3178,9 @@ msgstr "Place a bet"
 msgid "The connection has timed out. Please try again later."
 msgstr "The connection has timed out. Please try again later."
 
+msgid "Reload page"
+msgstr "Reload page"
+
 msgid "Phishing site."
 msgstr "Phishing site."
 
