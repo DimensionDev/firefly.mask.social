@@ -1,8 +1,9 @@
+import { memo } from 'react';
+
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { Image } from '@/components/Image.js';
 import { NotImplementedError } from '@/constants/error.js';
 import type { FrameV2 } from '@/types/frame.js';
-import { memo } from 'react';
 
 interface CardProps {
     frame: FrameV2;
