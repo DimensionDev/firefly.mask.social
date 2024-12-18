@@ -1,6 +1,7 @@
+import { memo, type ReactNode } from 'react';
+
 import type { Post } from '@/providers/types/SocialMedia.js';
 import type { FrameV2 } from '@/types/frame.js';
-import { memo, type ReactNode } from 'react';
 
 interface FrameLayoutProps {
     post: Post;
