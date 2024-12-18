@@ -58,6 +58,9 @@ export const ORB_CLUB_URL = 'https://us-central1-orbapp.cloudfunctions.net';
 export const ADVERTISEMENT_JSON_URL = 'https://media.firefly.land/advertisement/web.json';
 export const ADVERTISEMENT_JSON_URL_DEV = 'https://media.firefly.land/advertisement/web-dev.json';
 
+export const FIREFLY_APP_APP_STORE_URL = 'https://apps.apple.com/us/app/firefly-web3-nft-explorer/id1640183078';
+export const FIREFLY_APP_GOOGLE_PLAY_URL = 'https://play.google.com/store/apps/details?id=io.dimension.firefly';
+
 export const FARCASTER_REPLY_COUNTDOWN = 50; // in seconds
 export const FIREFLY_SCAN_QR_CODE_COUNTDOWN = 5 * 60; // in seconds
 

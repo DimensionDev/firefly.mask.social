@@ -1,4 +1,5 @@
 import { Trans } from '@lingui/macro';
+import { ChainId } from '@masknet/web3-shared-evm';
 import { useContext } from 'react';
 
 import { ActivityContext } from '@/components/Activity/ActivityContext.js';
@@ -6,6 +7,7 @@ import { useActivityElex24Involved } from '@/components/Activity/ActivityElex24/
 import { useActivityClaimCondition } from '@/components/Activity/hooks/useActivityClaimCondition.js';
 import { Link } from '@/components/Activity/Link.js';
 import type { SocialSource } from '@/constants/enum.js';
+import { resolveNftUrl } from '@/helpers/resolveNftUrl.js';
 import { Level } from '@/providers/types/CZ.js';
 
 export function useActivityPremiumList(source: SocialSource) {
@@ -67,6 +69,57 @@ export function useActivityPremiumList(source: SocialSource) {
                 {
                     label: <Trans>You have been detected as a loyal Farcaster user</Trans>,
                     verified: data?.farcaster.isSupercast || (data && parseInt(data.farcaster.fid, 10) <= 10000),
+                },
+            ];
+        case 'pengu':
+            return [
+                {
+                    label: (
+                        <p>
+                            <Trans>
+                                You are holder of{' '}
+                                <Link
+                                    href={resolveNftUrl(ChainId.Mainnet, '0xbd3531da5cf5857e7cfaa92426877b022e612cf8')}
+                                    className="inline text-highlight"
+                                >
+                                    Pudgy Penguins
+                                </Link>{' '}
+                                or{' '}
+                                <Link
+                                    href={resolveNftUrl(ChainId.Mainnet, '0x524cab2ec69124574082676e6f654a18df49a048')}
+                                    className="inline text-highlight"
+                                >
+                                    Lil Pudgy
+                                </Link>{' '}
+                                NFTs
+                            </Trans>
+                        </p>
+                    ),
+                    verified: false, // TODO
+                },
+                {
+                    label: (
+                        <p>
+                            <Trans>
+                                You are holder of{' '}
+                                <Link
+                                    href={resolveNftUrl(ChainId.Mainnet, '0x1f63796fd993c0ade182ec018f60ae6b74e6966c')}
+                                    className="inline text-highlight"
+                                >
+                                    truePengu
+                                </Link>{' '}
+                                or{' '}
+                                <Link
+                                    href={resolveNftUrl(ChainId.Mainnet, '0x1d8305e851182e3ca4df42d2ca8f3e441141aa8f')}
+                                    className="inline text-highlight"
+                                >
+                                    penguPins
+                                </Link>{' '}
+                                Soulbound NFTs
+                            </Trans>
+                        </p>
+                    ),
+                    verified: false, // TODO
                 },
             ];
         default:

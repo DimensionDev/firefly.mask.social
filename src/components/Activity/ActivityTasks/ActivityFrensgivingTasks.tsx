@@ -1,6 +1,7 @@
 'use client';
 
 import { Trans } from '@lingui/macro';
+import { ChainId } from '@masknet/web3-shared-evm';
 
 import { ActivityClaimButton } from '@/components/Activity/ActivityClaimButton.js';
 import { ActivityConnectCard } from '@/components/Activity/ActivityConnectCard.js';
@@ -96,6 +97,7 @@ export function ActivityFrensgivingTasks({
                 </h2>
                 <ActivityConnectCard
                     source={Source.Farcaster}
+                    chainId={ChainId.Base}
                     label={<Trans>Submit a wallet to receive NFT and $ANON</Trans>}
                 />
                 <div className="flex w-full flex-col space-y-2 text-sm font-semibold leading-6">

@@ -23,8 +23,8 @@ import { fireflyBridgeProvider } from '@/providers/firefly/Bridge.js';
 import { captureActivityEvent } from '@/providers/telemetry/captureActivityEvent.js';
 import { EventId } from '@/providers/types/Telemetry.js';
 
-export function ActivityConnectButton({ source, chainId }: { source: SocialSource; chainId: number }) {
-    const { onChangeAddress, address } = useContext(ActivityContext);
+export function ActivityPremiumAddressVerifyButton({ source, chainId }: { source: SocialSource; chainId: number }) {
+    const { onChangePremiumAddress, premiumAddress } = useContext(ActivityContext);
     const { refetch: refetchActivityClaimCondition, isRefetching } = useActivityClaimCondition(source);
     const isLoggedIn = useIsLoginInActivity(source);
     const { data: { connected = EMPTY_LIST } = {}, isLoading, refetch } = useActivityConnections();
@@ -34,7 +34,7 @@ export function ActivityConnectButton({ source, chainId }: { source: SocialSourc
         .filter((x) => x.platform === (isValidSolanaChainId(chainId) ? 'solana' : 'eth'))
         .map((x) => ({ address: x.address, ens: x.ens?.[0] }));
 
-    const buttonText = address ? (
+    const buttonText = premiumAddress ? (
         <Trans>Change</Trans>
     ) : (
         <>
@@ -49,7 +49,7 @@ export function ActivityConnectButton({ source, chainId }: { source: SocialSourc
             <Menu>
                 <Menu.Button
                     className={
-                        address
+                        premiumAddress
                             ? 'relative inline-flex items-center rounded-full border border-current bg-transparent px-4 leading-[30px] text-main'
                             : 'relative inline-flex items-center rounded-full bg-main px-4 leading-8 text-primaryBottom'
                     }
@@ -78,7 +78,7 @@ export function ActivityConnectButton({ source, chainId }: { source: SocialSourc
                 <Menu.Items
                     className={classNames(
                         'absolute bottom-[calc(100%+12px)] z-50 flex max-h-[200px] w-[200px] flex-col overflow-y-auto rounded-[12px] border border-line bg-primaryBottom shadow-lg',
-                        address ? 'right-0' : 'left-0 sm:left-[unset] sm:right-0',
+                        premiumAddress ? 'right-0' : 'left-0 sm:left-[unset] sm:right-0',
                     )}
                 >
                     {addresses.map(({ address, ens }) => (
@@ -86,10 +86,10 @@ export function ActivityConnectButton({ source, chainId }: { source: SocialSourc
                             <button
                                 className="cursor-pointer px-4 py-2 text-left text-sm font-semibold leading-6 hover:bg-main/10"
                                 onClick={() => {
-                                    onChangeAddress(address);
+                                    onChangePremiumAddress(address);
                                     captureActivityEvent(EventId.EVENT_CHANGE_WALLET_SUCCESS, {
                                         wallet_address: address,
-                                    });
+                                    }); // TODO: capture
                                     refetchActivityClaimCondition();
                                 }}
                             >
@@ -115,12 +115,12 @@ export function ActivityConnectButton({ source, chainId }: { source: SocialSourc
         </div>
     );
 
-    if (address) {
+    if (premiumAddress) {
         return (
             <div className="flex w-full items-center gap-2">
                 <ChainIcon className="shrink-0" size={18} chainId={chainId} />
                 <span className="mr-auto text-base font-medium leading-6">
-                    {addresses.find((x) => x.address === address)?.ens || formatAddress(address, 4)}
+                    {addresses.find((x) => x.address === premiumAddress)?.ens || formatAddress(premiumAddress, 4)}
                 </span>
                 {button}
             </div>

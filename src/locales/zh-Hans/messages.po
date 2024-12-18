@@ -243,6 +243,9 @@ msgstr "<0>加密货币生命周期存在的最大发行数量。它与股票市
 msgid "This token is a gas abuser."
 msgstr "该通证是一个燃料滥用者。"
 
+msgid "Meet any of the following to unlock a premium collectible and get more $PENGU:"
+msgstr ""
+
 msgid "Are you sure you want to leave /{0} ?"
 msgstr "您确定要离开 /{0} 吗?"
 
@@ -386,6 +389,9 @@ msgstr "Solana"
 
 msgid "Casts"
 msgstr "帖子"
+
+msgid "Followed <0>@{0}</0> on X before Dec 17, 2024"
+msgstr ""
 
 msgid "Your account is now connected."
 msgstr "您的账户已连接。"
@@ -599,6 +605,9 @@ msgstr "{0, plural, one {关注者} other {关注者}}"
 
 msgid "Mutes"
 msgstr "隐藏"
+
+msgid "Submit an evm wallet to check"
+msgstr ""
 
 msgid "Failed to bookmark NFT."
 msgstr "收藏 NFT 失败。"
@@ -1055,6 +1064,9 @@ msgstr "登出"
 
 msgid "Amount Each"
 msgstr "每笔金额"
+
+msgid "You are holder of <0>Pudgy Penguins</0> or <1>Lil Pudgy</1> NFTs"
+msgstr ""
 
 msgid "{0}d: {1}h: {2}m: {3}s"
 msgstr "{0}天: {1}时: {2}分: {3}秒"
@@ -1656,6 +1668,9 @@ msgstr "展示更多的小额通证"
 msgid "Requirements"
 msgstr "条件"
 
+msgid "*This event is only available on the mobile app. Download Firefly now!"
+msgstr ""
+
 msgid "{riskyFactors, plural, one {# Risky item} other {# Risky items}}"
 msgstr "{riskyFactors, plural, one {# 风险条目} other {# 风险条目}}"
 
@@ -2184,6 +2199,9 @@ msgstr "已取消点赞"
 msgid "Quality Filter"
 msgstr "质量筛选"
 
+msgid "App store"
+msgstr ""
+
 msgid "Visit mask.io"
 msgstr "访问 mask.io"
 
@@ -2543,6 +2561,9 @@ msgstr "图片"
 
 msgid "Failed to delete post."
 msgstr "删除帖子失败。"
+
+msgid "Google Play"
+msgstr ""
 
 msgid "Lucky drop created successfully"
 msgstr "成功创建红包"
@@ -3255,6 +3276,9 @@ msgstr "已转发"
 msgid "No phishing activities involved."
 msgstr "未发现钓鱼活动。"
 
+msgid "Submit a wallet to receive NFT and $PENGU"
+msgstr ""
+
 msgid "Failed to parse transaction."
 msgstr "未能解析交易。"
 
@@ -3440,6 +3464,9 @@ msgstr "没有交易冷却功能"
 
 msgid "Media"
 msgstr "多媒体"
+
+msgid "You are holder of <0>truePengu</0> or <1>penguPins</1> Soulbound NFTs"
+msgstr ""
 
 msgid "No content to publish."
 msgstr "没有发布的内容。"

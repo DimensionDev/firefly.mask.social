@@ -238,6 +238,9 @@ msgstr "<0>The maximum number of coins coded to exist in the lifetime of the cry
 msgid "This token is a gas abuser."
 msgstr "This token is a gas abuser."
 
+msgid "Meet any of the following to unlock a premium collectible and get more $PENGU:"
+msgstr "Meet any of the following to unlock a premium collectible and get more $PENGU:"
+
 msgid "Are you sure you want to leave /{0} ?"
 msgstr "Are you sure you want to leave /{0} ?"
 
@@ -381,6 +384,9 @@ msgstr "Solana"
 
 msgid "Casts"
 msgstr "Casts"
+
+msgid "Followed <0>@{0}</0> on X before Dec 17, 2024"
+msgstr "Followed <0>@{0}</0> on X before Dec 17, 2024"
 
 msgid "Your account is now connected."
 msgstr "Your account is now connected."
@@ -594,6 +600,9 @@ msgstr "{0, plural, one {Follower} other {Followers}}"
 
 msgid "Mutes"
 msgstr "Mutes"
+
+msgid "Submit an evm wallet to check"
+msgstr "Submit an evm wallet to check"
 
 msgid "Failed to bookmark NFT."
 msgstr "Failed to bookmark NFT."
@@ -1050,6 +1059,9 @@ msgstr "Log out"
 
 msgid "Amount Each"
 msgstr "Amount Each"
+
+msgid "You are holder of <0>Pudgy Penguins</0> or <1>Lil Pudgy</1> NFTs"
+msgstr "You are holder of <0>Pudgy Penguins</0> or <1>Lil Pudgy</1> NFTs"
 
 msgid "{0}d: {1}h: {2}m: {3}s"
 msgstr "{0}d: {1}h: {2}m: {3}s"
@@ -1651,6 +1663,9 @@ msgstr "Show more tokens with small balances"
 msgid "Requirements"
 msgstr "Requirements"
 
+msgid "*This event is only available on the mobile app. Download Firefly now!"
+msgstr "*This event is only available on the mobile app. Download Firefly now!"
+
 msgid "{riskyFactors, plural, one {# Risky item} other {# Risky items}}"
 msgstr "{riskyFactors, plural, one {# Risky item} other {# Risky items}}"
 
@@ -2179,6 +2194,9 @@ msgstr "Unliked"
 msgid "Quality Filter"
 msgstr "Quality Filter"
 
+msgid "App store"
+msgstr "App store"
+
 msgid "Visit mask.io"
 msgstr "Visit mask.io"
 
@@ -2538,6 +2556,9 @@ msgstr "Image"
 
 msgid "Failed to delete post."
 msgstr "Failed to delete post."
+
+msgid "Google Play"
+msgstr "Google Play"
 
 msgid "Lucky drop created successfully"
 msgstr "Lucky drop created successfully"
@@ -3250,6 +3271,9 @@ msgstr "Recasted"
 msgid "No phishing activities involved."
 msgstr "No phishing activities involved."
 
+msgid "Submit a wallet to receive NFT and $PENGU"
+msgstr "Submit a wallet to receive NFT and $PENGU"
+
 msgid "Failed to parse transaction."
 msgstr "Failed to parse transaction."
 
@@ -3435,6 +3459,9 @@ msgstr "No trading cooldown function."
 
 msgid "Media"
 msgstr "Media"
+
+msgid "You are holder of <0>truePengu</0> or <1>penguPins</1> Soulbound NFTs"
+msgstr "You are holder of <0>truePengu</0> or <1>penguPins</1> Soulbound NFTs"
 
 msgid "No content to publish."
 msgstr "No content to publish."
