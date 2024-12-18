@@ -1,5 +1,6 @@
 import { forwardRef, useState } from 'react';
 
+import { Modal } from '@/components/Modal.js';
 import { useSingletonModal } from '@/hooks/useSingletonModal.js';
 import type { SingletonModalRefCreator } from '@/libs/SingletonModal.js';
 import { FrameViewer } from '@/modals/FrameV2Modal/FrameViewer.js';
@@ -19,8 +20,15 @@ export const FrameV2Modal = forwardRef<SingletonModalRefCreator<FrameV2ModalProp
                 setProps(p);
             },
         });
+
+        const onClose = () => dispatch?.close();
+
         if (!open || !props) return null;
 
-        return <FrameViewer {...props} onClose={() => dispatch?.close()} />;
+        return (
+            <Modal open={open} onClose={onClose}>
+                <FrameViewer frame={props.frame} onClose={onClose} />
+            </Modal>
+        );
     },
 );
