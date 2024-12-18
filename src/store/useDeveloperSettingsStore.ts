@@ -7,6 +7,7 @@ import { env } from '@/constants/env.js';
 import { FIREFLY_DEV_ROOT_URL, FIREFLY_ROOT_URL } from '@/constants/index.js';
 import { createSelectors } from '@/helpers/createSelector.js';
 import { recordDevelopmentAPI } from '@/services/recordDevelopmentAPI.js';
+import { parseJSON } from '@/helpers/parseJSON.js';
 
 interface DeveloperSettingsState {
     developmentAPI: boolean;
@@ -53,7 +54,7 @@ const useDeveloperSettingsBase = create<
             }),
             onRehydrateStorage: (state) => {
                 const data = localStorage.getItem('developer-settings');
-                const parsed: { state?: { developmentAPI?: boolean } } = data ? JSON.parse(data) : {};
+                const parsed = parseJSON<{ state?: { developmentAPI?: boolean } }>(data);
                 const enableDevelopmentAPI = parsed?.state?.developmentAPI ?? state.developmentAPI;
                 recordDevelopmentAPI(enableDevelopmentAPI ? FIREFLY_DEV_ROOT_URL : FIREFLY_ROOT_URL);
             },
