@@ -1359,6 +1359,9 @@ msgstr "在帖子中分享"
 msgid "Search by name or symbol"
 msgstr "按名称或符号搜索"
 
+msgid "Participation Blocked"
+msgstr ""
+
 msgid "Forbidden. Please check your permissions."
 msgstr "禁止！请检查您的权限。"
 

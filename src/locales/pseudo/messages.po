@@ -1354,6 +1354,9 @@ msgstr ""
 msgid "Search by name or symbol"
 msgstr ""
 
+msgid "Participation Blocked"
+msgstr ""
+
 msgid "Forbidden. Please check your permissions."
 msgstr ""
 
