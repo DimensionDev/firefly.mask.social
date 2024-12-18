@@ -20,8 +20,6 @@ import { enqueueWarningMessage } from '@/helpers/enqueueMessage.js';
 import { formatAddress } from '@/helpers/formatAddress.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { fireflyBridgeProvider } from '@/providers/firefly/Bridge.js';
-import { captureActivityEvent } from '@/providers/telemetry/captureActivityEvent.js';
-import { EventId } from '@/providers/types/Telemetry.js';
 
 export function ActivityPremiumAddressVerifyButton({ source, chainId }: { source: SocialSource; chainId: number }) {
     const { onChangePremiumAddress, premiumAddress } = useContext(ActivityContext);
@@ -87,9 +85,6 @@ export function ActivityPremiumAddressVerifyButton({ source, chainId }: { source
                                 className="cursor-pointer px-4 py-2 text-left text-sm font-semibold leading-6 hover:bg-main/10"
                                 onClick={() => {
                                     onChangePremiumAddress(address);
-                                    captureActivityEvent(EventId.EVENT_CHANGE_WALLET_SUCCESS, {
-                                        wallet_address: address,
-                                    }); // TODO: capture
                                     refetchActivityClaimCondition();
                                 }}
                             >

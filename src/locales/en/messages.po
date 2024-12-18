@@ -1354,6 +1354,9 @@ msgstr "Share in a Post"
 msgid "Search by name or symbol"
 msgstr "Search by name or symbol"
 
+msgid "Participation Blocked"
+msgstr "Participation Blocked"
+
 msgid "Forbidden. Please check your permissions."
 msgstr "Forbidden. Please check your permissions."
 

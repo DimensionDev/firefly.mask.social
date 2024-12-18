@@ -41,7 +41,11 @@ class FireflyActivity implements Provider {
             premiumAddress?: string;
         },
     ) {
-        const url = urlcat(settings.FIREFLY_ROOT_URL, `/v1/activity/check/:name`, { name, address, ...options });
+        const params =
+            name === 'pengu'
+                ? { name, solAddress: address, evmAddress: options?.premiumAddress }
+                : { name, address, ...options };
+        const url = urlcat(settings.FIREFLY_ROOT_URL, `/v1/activity/check/:name`, params);
         const response = await fireflySessionHolder.fetchWithSession<CheckResponse>(url);
         return resolveFireflyResponseData(response);
     }
