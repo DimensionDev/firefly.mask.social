@@ -6,8 +6,8 @@ import { STATUS } from '@/constants/enum.js';
 import { env } from '@/constants/env.js';
 import { FIREFLY_DEV_ROOT_URL, FIREFLY_ROOT_URL } from '@/constants/index.js';
 import { createSelectors } from '@/helpers/createSelector.js';
-import { recordDevelopmentAPI } from '@/services/recordDevelopmentAPI.js';
 import { parseJSON } from '@/helpers/parseJSON.js';
+import { recordDevelopmentAPI } from '@/services/recordDevelopmentAPI.js';
 
 interface DeveloperSettingsState {
     developmentAPI: boolean;
