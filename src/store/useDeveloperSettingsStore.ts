@@ -54,7 +54,7 @@ const useDeveloperSettingsBase = create<
             onRehydrateStorage: (state) => {
                 const data = localStorage.getItem('developer-settings');
                 const parsed = data ? JSON.parse(data) : {};
-                const enableDevelopmentAPI = parsed.state.developmentAPI ?? state.developmentAPI;
+                const enableDevelopmentAPI = parsed?.state?.developmentAPI ?? state.developmentAPI;
                 recordDevelopmentAPI(enableDevelopmentAPI ? FIREFLY_DEV_ROOT_URL : FIREFLY_ROOT_URL);
             },
         },
