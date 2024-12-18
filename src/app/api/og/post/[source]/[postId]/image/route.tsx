@@ -60,8 +60,8 @@ export const GET = compose(
                     style={{
                         width: '100%',
                         height: '100%',
-                        backgroundColor: '#F9F9F9',
                         padding: '130px',
+                        backgroundColor: '#F5F5F9',
                         display: 'flex',
                         flexDirection: 'column',
                         color: '#181818',
