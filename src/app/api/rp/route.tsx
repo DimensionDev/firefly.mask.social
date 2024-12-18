@@ -119,6 +119,8 @@ export async function GET(request: NextRequest) {
             },
         });
     } catch (error) {
-        return new Response('Failed to create image.', { status: StatusCodes.INTERNAL_SERVER_ERROR });
+        return new Response(`Failed to create image: ${(error as Error).message}`, {
+            status: StatusCodes.INTERNAL_SERVER_ERROR,
+        });
     }
 }

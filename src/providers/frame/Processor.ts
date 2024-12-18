@@ -100,7 +100,7 @@ class Processor {
         const { document } = parseHTML(html);
 
         const version = getVersion(document);
-        if (!version) throw new Error('Version not found');
+        if (!version) throw new Error(`Version not found: ${url}`);
 
         // v2
         if (version.includes('version')) {
