@@ -52,7 +52,10 @@ const useDeveloperSettingsBase = create<
                 telemetryDebug: state.telemetryDebug,
             }),
             onRehydrateStorage: (state) => {
-                recordDevelopmentAPI(state.developmentAPI ? FIREFLY_DEV_ROOT_URL : FIREFLY_ROOT_URL);
+                const data = localStorage.getItem('developer-settings');
+                const parsed = data ? JSON.parse(data) : {};
+                const enableDevelopmentAPI = parsed.state.developmentAPI ?? state.developmentAPI;
+                recordDevelopmentAPI(enableDevelopmentAPI ? FIREFLY_DEV_ROOT_URL : FIREFLY_ROOT_URL);
             },
         },
     ),
