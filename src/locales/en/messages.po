@@ -667,9 +667,6 @@ msgstr "Failed to follow @{0} on {sourceName}."
 msgid "Failed to decrypt post on {sourceName}."
 msgstr "Failed to decrypt post on {sourceName}."
 
-msgid "Your assets on $DEGEN or $ANON exceed US$10,000"
-msgstr "Your assets on $DEGEN or $ANON exceed US$10,000"
-
 msgid "Attendees"
 msgstr "Attendees"
 
