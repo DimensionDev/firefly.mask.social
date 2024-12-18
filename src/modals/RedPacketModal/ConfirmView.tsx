@@ -243,7 +243,7 @@ export function ConfirmView() {
             }
             setCoverType(tab);
         },
-        [createTheme, selectFiles, setCoverType, themes],
+        [createTheme, setTheme, selectFiles, setCoverType, themes],
     );
 
     return (
