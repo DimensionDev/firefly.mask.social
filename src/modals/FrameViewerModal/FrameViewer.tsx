@@ -3,7 +3,7 @@ import { memo } from 'react';
 import { CloseButton } from '@/components/CloseButton.js';
 import { parseUrl } from '@/helpers/parseUrl.js';
 import type { FrameV2 } from '@/types/frame.js';
-import { MoreAction } from '@/modals/FrameV2Modal/MoreActionMenu.js';
+import { MoreAction } from '@/modals/FrameViewerModal/MoreActionMenu.js';
 
 interface FrameViewerProps {
     frame: FrameV2;

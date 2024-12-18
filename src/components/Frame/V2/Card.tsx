@@ -2,7 +2,7 @@ import { memo } from 'react';
 
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { Image } from '@/components/Image.js';
-import { FrameV2ModalRef } from '@/modals/controls.js';
+import { FrameViewerModalRef } from '@/modals/controls.js';
 import type { FrameV2 } from '@/types/frame.js';
 
 interface CardProps {
@@ -11,7 +11,7 @@ interface CardProps {
 
 export const Card = memo<CardProps>(function Card({ frame }) {
     const onClick = () => {
-        FrameV2ModalRef.open({
+        FrameViewerModalRef.open({
             frame,
         });
     };

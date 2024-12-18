@@ -18,7 +18,7 @@ import { DisconnectFireflyAccountModal } from '@/modals/DisconnectFireflyAccount
 import { DraggablePopover } from '@/modals/DraggablePopover.js';
 import { EditProfileModal } from '@/modals/EditProfileModal.js';
 import { EnableSignlessModal } from '@/modals/EnableSignlessModal.js';
-import { FrameV2Modal } from '@/modals/FrameV2Modal/index.js';
+import { FrameViewerModal } from '@/modals/FrameViewerModal/index.js';
 import { ImageEditorModal } from '@/modals/ImageEditor/index.js';
 import { LoginModal } from '@/modals/LoginModal/index.js';
 import { LogoutModal } from '@/modals/LogoutModal.js';
@@ -62,7 +62,7 @@ export const Modals = memo(function Modals() {
             <RedPacketModal ref={controls.RedPacketModalRef.register} />
             <NonFungibleCollectionSelectModal ref={controls.NonFungibleTokenCollectionSelectModalRef.register} />
             <ImageEditorModal ref={controls.ImageEditorRef.register} />
-            <FrameV2Modal ref={controls.FrameV2ModalRef.register} />
+            <FrameViewerModal ref={controls.FrameViewerModalRef.register} />
         </>
     );
 });
