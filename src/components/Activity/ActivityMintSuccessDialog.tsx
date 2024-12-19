@@ -18,7 +18,7 @@ interface Props {
     open: boolean;
     onClose: () => void;
     hash?: string;
-    chainId?: ChainId;
+    chainId?: ChainId | 'solana';
     shareContent: Chars;
     claimType?: string;
 }
@@ -34,7 +34,11 @@ export function ActivityMintSuccessDialog({ claimType, shareContent, open, onClo
             </p>
             {chainId && hash ? (
                 <Link
-                    href={resolveExplorerLink(chainId, hash, 'tx')!}
+                    href={
+                        chainId === 'solana'
+                            ? `https://solscan.io/tx/${hash}`
+                            : resolveExplorerLink(chainId, hash, 'tx')!
+                    }
                     target="_blank"
                     className="mt-2 text-sm font-bold leading-6 text-highlight"
                 >
