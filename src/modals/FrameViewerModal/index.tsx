@@ -42,7 +42,7 @@ export const FrameViewerModal = forwardRef<SingletonModalRefCreator<FrameViewerM
                             <div className="font-semibold">{frame.button.action.name}</div>
                             {u ? <div className="text-faint text-xs">{u.host}</div> : null}
                         </div>
-                        <div className="text-muted cursor-pointer rounded-full px-1 hover:bg-gray-200">
+                        <div>
                             <MoreAction />
                         </div>
                     </div>

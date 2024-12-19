@@ -33,45 +33,45 @@ interface ButtonProps extends Omit<IconButtonProps, 'children'> {
     IconProps?: HTMLProps<SVGElement>;
 }
 
-export function CloseButton({ IconProps, ...rest }: ButtonProps) {
+export function CloseButton({ size = 24, IconProps, ...rest }: ButtonProps) {
     return (
-        <IconButton tooltip={t`Close`} {...rest}>
+        <IconButton size={size} tooltip={t`Close`} {...rest}>
             <CloseIcon
                 {...IconProps}
                 className={classNames('text-main', IconProps?.className, {
                     'cursor-pointer': !rest.disabled,
                 })}
-                width={rest.size}
-                height={rest.size}
+                width={size}
+                height={size}
             />
         </IconButton>
     );
 }
 
-export function ClearButton({ IconProps, ...rest }: ButtonProps) {
+export function ClearButton({ size = 24, IconProps, ...rest }: ButtonProps) {
     return (
-        <IconButton tooltip={t`Clear`} {...rest}>
+        <IconButton size={size} tooltip={t`Clear`} {...rest}>
             <CloseCircleIcon
                 {...IconProps}
                 className={classNames('text-main', IconProps?.className, {
                     'cursor-pointer': !rest.disabled,
                 })}
-                width={rest.size}
-                height={rest.size}
+                width={size}
+                height={size}
             />
         </IconButton>
     );
 }
 
-export function MoreButton({ IconProps, ...rest }: ButtonProps) {
+export function MoreButton({ size = 24, IconProps, ...rest }: ButtonProps) {
     return (
-        <IconButton tooltip={t`More`} {...rest}>
+        <IconButton size={size} tooltip={t`More`} {...rest}>
             <MoreIcon
                 className={classNames('text-main', IconProps?.className, {
                     'cursor-pointer': !rest.disabled,
                 })}
-                width={rest.size}
-                height={rest.size}
+                width={size}
+                height={size}
             />
         </IconButton>
     );

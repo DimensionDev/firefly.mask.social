@@ -10,7 +10,7 @@ import { MoreActionMenu } from '@/components/MoreActionMenu.js';
 
 export const MoreAction = memo(function MoreAction() {
     return (
-        <MoreActionMenu button={<MoreButton />}>
+        <MoreActionMenu loginRequired={false} button={<MoreButton />}>
             <MenuGroup>
                 <MenuItem>
                     {({ close }) => (
