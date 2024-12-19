@@ -7,6 +7,7 @@ import { useSingletonModal } from '@/hooks/useSingletonModal.js';
 import type { SingletonModalRefCreator } from '@/libs/SingletonModal.js';
 import { MoreAction } from '@/modals/FrameViewerModal/MoreActionMenu.js';
 import type { FrameV2 } from '@/types/frame.js';
+import { NotImplementedError } from '@/constants/error.js';
 
 export type FrameViewerModalOpenProps = {
     frame: FrameV2;
@@ -43,7 +44,11 @@ export const FrameViewerModal = forwardRef<SingletonModalRefCreator<FrameViewerM
                             {u ? <div className="text-faint text-xs">{u.host}</div> : null}
                         </div>
                         <div>
-                            <MoreAction />
+                            <MoreAction
+                                onReload={() => {
+                                    throw new NotImplementedError();
+                                }}
+                            />
                         </div>
                     </div>
                     <iframe
