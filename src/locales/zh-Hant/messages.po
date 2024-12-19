@@ -387,6 +387,9 @@ msgstr "Solana"
 msgid "Casts"
 msgstr ""
 
+msgid "Followed <0>@{0}</0> on X before Dec 17, 2024"
+msgstr ""
+
 msgid "Your account is now connected."
 msgstr "您的帳戶現已連接。"
 
@@ -599,6 +602,9 @@ msgstr ""
 
 msgid "Mutes"
 msgstr "靜音"
+
+msgid "Submit an evm wallet to check"
+msgstr ""
 
 msgid "Failed to bookmark NFT."
 msgstr ""
@@ -1056,6 +1062,9 @@ msgstr "登出"
 msgid "Amount Each"
 msgstr ""
 
+msgid "You are holder of <0>Pudgy Penguins</0> or <1>Lil Pudgy</1> NFTs"
+msgstr ""
+
 msgid "{0}d: {1}h: {2}m: {3}s"
 msgstr ""
 
@@ -1345,6 +1354,9 @@ msgid "Share in a Post"
 msgstr ""
 
 msgid "Search by name or symbol"
+msgstr ""
+
+msgid "Participation Blocked"
 msgstr ""
 
 msgid "Forbidden. Please check your permissions."
@@ -1654,6 +1666,9 @@ msgid "Show more tokens with small balances"
 msgstr ""
 
 msgid "Requirements"
+msgstr ""
+
+msgid "*This event is only available on the mobile app. Download Firefly now!"
 msgstr ""
 
 msgid "{riskyFactors, plural, one {# Risky item} other {# Risky items}}"
@@ -2421,6 +2436,9 @@ msgstr ""
 msgid "Articles from {walletHandle} will now be hidden in your home timeline"
 msgstr ""
 
+msgid "Meet any of the following to unlock a premium collectible:"
+msgstr ""
+
 msgid "Article"
 msgstr ""
 
@@ -2542,6 +2560,9 @@ msgid "Image"
 msgstr "圖片"
 
 msgid "Failed to delete post."
+msgstr ""
+
+msgid "Google Play"
 msgstr ""
 
 msgid "Lucky drop created successfully"
@@ -2797,6 +2818,9 @@ msgid "Switching..."
 msgstr "切換中..."
 
 msgid "Pay<0> {feeAmount} ${feeSymbol} </0>to follow and get some awesome perks!"
+msgstr ""
+
+msgid "App Store"
 msgstr ""
 
 msgid "<0>Bought</0> an NFT worth {costEl}"
@@ -3135,6 +3159,9 @@ msgstr ""
 msgid "Oversupply minting."
 msgstr ""
 
+msgid "*Note: Each NFT can only be used once."
+msgstr ""
+
 msgid "Followed <0>@{handle}</0> on {0}"
 msgstr ""
 
@@ -3253,6 +3280,9 @@ msgid "Recasted"
 msgstr ""
 
 msgid "No phishing activities involved."
+msgstr ""
+
+msgid "Submit a wallet to receive NFT and $PENGU"
 msgstr ""
 
 msgid "Failed to parse transaction."
@@ -3441,6 +3471,9 @@ msgstr ""
 msgid "Media"
 msgstr "多媒體"
 
+msgid "You are holder of <0>truePengu</0> or <1>penguPins</1> Soulbound NFTs"
+msgstr ""
+
 msgid "No content to publish."
 msgstr "沒有可發布的內容"
 
@@ -3529,6 +3562,12 @@ msgid "{0, plural, one {like} other {likes}}"
 msgstr ""
 
 msgid "Collectible"
+msgstr ""
+
+msgid ""
+"Just claimed the \"Holiday Skates with $PENGU⛸️🐧⛸️\" collectible from {fireflyMention}\n"
+"Check your eligibility and claim here {shareUrl}\n"
+"#PENGU #FireflySocial"
 msgstr ""
 
 msgid "Users must hold one NFT from the collection you select."

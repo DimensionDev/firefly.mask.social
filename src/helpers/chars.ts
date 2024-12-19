@@ -39,7 +39,7 @@ interface RP_Chars extends Segment {
     content: typeof RP_HASH_TAG;
 }
 
-interface MentionChars extends Segment {
+export interface MentionChars extends Segment {
     tag: CHAR_TAG.MENTION;
     visible: boolean;
     content: string;

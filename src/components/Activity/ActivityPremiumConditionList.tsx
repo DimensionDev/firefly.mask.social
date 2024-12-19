@@ -1,13 +1,17 @@
 'use client';
 
-import type { ReactNode } from 'react';
+import type { PropsWithChildren, ReactNode } from 'react';
 
 import { ActivityVerifyText } from '@/components/Activity/ActivityVerifyText.js';
 import { useActivityPremiumList } from '@/components/Activity/hooks/useActivityPremiumList.js';
 import type { SocialSource } from '@/constants/enum.js';
 import { classNames } from '@/helpers/classNames.js';
 
-export function ActivityPremiumConditionList({ title, source }: { title: ReactNode; source: SocialSource }) {
+export function ActivityPremiumConditionList({
+    title,
+    source,
+    children,
+}: PropsWithChildren<{ title: ReactNode; source: SocialSource }>) {
     const list = useActivityPremiumList(source);
 
     return (
@@ -25,6 +29,7 @@ export function ActivityPremiumConditionList({ title, source }: { title: ReactNo
                     </li>
                 ))}
             </ul>
+            {children}
         </div>
     );
 }

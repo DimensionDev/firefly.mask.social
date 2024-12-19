@@ -1,6 +1,7 @@
 'use client';
 
 import { Trans } from '@lingui/macro';
+import { ChainId } from '@masknet/web3-shared-evm';
 import { useContext } from 'react';
 import urlcat from 'urlcat';
 
@@ -14,44 +15,13 @@ import { ActivityPremiumConditionList } from '@/components/Activity/ActivityPrem
 import { ActivityTaskFollowCard } from '@/components/Activity/ActivityTaskFollowCard.js';
 import { useActivityCurrentAccountHandle } from '@/components/Activity/hooks/useActivityCurrentAccountHandle.js';
 import { useIsFollowInActivity } from '@/components/Activity/hooks/useIsFollowInActivity.js';
-import { FireflyPlatform, Source } from '@/constants/enum.js';
+import { Source } from '@/constants/enum.js';
 import { SITE_URL } from '@/constants/index.js';
-import { CHAR_TAG, type Chars } from '@/helpers/chars.js';
+import { FIREFLY_MENTION, FIREFLY_TWITTER_PROFILE } from '@/constants/mentions.js';
+import { type Chars } from '@/helpers/chars.js';
 import { ReferralAccountPlatform, resolveActivityUrl } from '@/helpers/resolveActivityUrl.js';
 import { ActivityElex24VoteOption } from '@/providers/types/Activity.js';
-import type { ActivityInfoResponse, Profile } from '@/providers/types/Firefly.js';
-
-const fireflyMention = {
-    tag: CHAR_TAG.MENTION,
-    visible: true,
-    content: `@thefireflyapp`,
-    profiles: [
-        {
-            platform_id: '1583361564479889408',
-            platform: FireflyPlatform.Twitter,
-            handle: 'thefireflyapp',
-            name: 'thefireflyapp',
-            hit: true,
-            score: 0,
-        },
-        {
-            platform_id: '16823',
-            platform: FireflyPlatform.Farcaster,
-            handle: 'fireflyapp',
-            name: 'Firefly App',
-            hit: true,
-            score: 0,
-        },
-        {
-            platform_id: '0x01b000',
-            platform: FireflyPlatform.Lens,
-            handle: 'fireflyapp',
-            name: 'fireflyapp',
-            hit: true,
-            score: 0,
-        },
-    ] as Profile[],
-};
+import type { ActivityInfoResponse } from '@/providers/types/Firefly.js';
 
 export function ActivityElex24Tasks({ data }: { data: Pick<Required<ActivityInfoResponse>['data'], 'status'> }) {
     const { vote } = useContext(ActivityElex24Context);
@@ -61,20 +31,23 @@ export function ActivityElex24Tasks({ data }: { data: Pick<Required<ActivityInfo
         SITE_URL,
         resolveActivityUrl(name, { referralCode: xHandle, platform: ReferralAccountPlatform.X }),
     );
-    const { data: isFollowedFirefly } = useIsFollowInActivity(Source.Twitter, '1583361564479889408', 'thefireflyapp');
-
+    const { data: isFollowedFirefly } = useIsFollowInActivity(
+        Source.Twitter,
+        FIREFLY_TWITTER_PROFILE.platform_id,
+        FIREFLY_TWITTER_PROFILE.handle,
+    );
     const shareContent = vote
         ? {
               [ActivityElex24VoteOption.Trump]: [
                   'Just claimed the "Vote for Trump ❤️" collectible from ',
-                  fireflyMention,
+                  FIREFLY_MENTION,
                   ' \n\n',
                   `Be part of the movement—grab your FREE Exclusive NFT to support Former President #Trump at ${shareUrl} 🇺🇲`,
                   '\n\n #Election2024 #FireflySocial',
               ],
               [ActivityElex24VoteOption.Harris]: [
                   'Just claimed the "Vote for Harris 💙" collectible from ',
-                  fireflyMention,
+                  FIREFLY_MENTION,
                   ' \n\n',
                   `Be part of the movement—grab your FREE Exclusive NFT to support Vice President #Harris at ${shareUrl} 🇺🇲`,
                   '\n\n #Election2024 #FireflySocial',
@@ -94,15 +67,16 @@ export function ActivityElex24Tasks({ data }: { data: Pick<Required<ActivityInfo
                     </div>
                 </div>
                 <ActivityTaskFollowCard
-                    handle="thefireflyapp"
                     source={Source.Twitter}
-                    profileId="1583361564479889408"
+                    handle={FIREFLY_TWITTER_PROFILE.handle}
+                    profileId={FIREFLY_TWITTER_PROFILE.platform_id}
                 />
                 <h2 className="text-base font-semibold leading-6">
                     <Trans>Step 2 Connect Wallet</Trans>
                 </h2>
                 <ActivityConnectCard
                     source={Source.Twitter}
+                    chainId={ChainId.Base}
                     label={
                         address ? (
                             <Trans>Submit claimed address</Trans>
