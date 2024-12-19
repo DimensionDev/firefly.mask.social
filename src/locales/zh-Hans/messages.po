@@ -2199,9 +2199,6 @@ msgstr "已取消点赞"
 msgid "Quality Filter"
 msgstr "质量筛选"
 
-msgid "App store"
-msgstr ""
-
 msgid "Visit mask.io"
 msgstr "访问 mask.io"
 
@@ -2822,6 +2819,9 @@ msgstr "切换中..."
 
 msgid "Pay<0> {feeAmount} ${feeSymbol} </0>to follow and get some awesome perks!"
 msgstr "支付<0>{feeAmount} ${feeSymbol}</0>以关注并获得一些精彩的福利！"
+
+msgid "App Store"
+msgstr ""
 
 msgid "<0>Bought</0> an NFT worth {costEl}"
 msgstr "<0>购买</0> 一个 NFT 价值 {costEl}"
