@@ -3256,9 +3256,6 @@ msgstr "Final results"
 msgid "Suspended account"
 msgstr "Suspended account"
 
-msgid "Oops... Not all the requirements have been meet"
-msgstr "Oops... Not all the requirements have been meet"
-
 msgid "No blackmail activities involved."
 msgstr "No blackmail activities involved."
 

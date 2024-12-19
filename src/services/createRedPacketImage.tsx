@@ -57,7 +57,7 @@ async function getTheme(themeId: string, signal?: AbortSignal) {
         },
         signal,
     });
-    console.info(`Get theme ${themeId}`, url, response.data);
+    console.info(`Get theme ${themeId}`, url, response.data.cover.bg_image);
     return response.data;
 }
 
