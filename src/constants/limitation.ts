@@ -82,6 +82,12 @@ export const MAX_PROFILE_BIO_SIZE: Limitation = {
     [Source.Twitter]: 160,
 };
 
+export const MIN_PROFILE_BIO_SIZE: Limitation = {
+    [Source.Farcaster]: 0,
+    [Source.Lens]: 1,
+    [Source.Twitter]: 0,
+};
+
 export const MAX_PROFILE_DISPLAY_NAME_SIZE: Limitation = {
     [Source.Farcaster]: 32,
     [Source.Lens]: 100,

@@ -2199,6 +2199,9 @@ msgstr ""
 msgid "Quality Filter"
 msgstr ""
 
+msgid "Bio should be at least {minBioSize} characters"
+msgstr ""
+
 msgid "Visit mask.io"
 msgstr ""
 
