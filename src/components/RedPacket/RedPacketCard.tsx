@@ -277,8 +277,8 @@ export function RedPacketCard({ payload, post }: Props) {
                         balance={balance}
                         estimateLoading={estimateLoading}
                         onClaim={async () => {
-                            const canClaim = await verifyAndClaim();
-                            if (!canClaim) setRequirementOpen(true);
+                            const result = await verifyAndClaim();
+                            if (!result) setRequirementOpen(true);
                         }}
                     />
                 </>
@@ -293,7 +293,10 @@ export function RedPacketCard({ payload, post }: Props) {
                     isVerifying={isVerifying}
                     isClaiming={isClaiming}
                     onClose={() => setRequirementOpen(false)}
-                    onVerifyAndClaim={verifyAndClaim}
+                    onVerifyAndClaim={async () => {
+                        const result = await verifyAndClaim();
+                        if (result) setRequirementOpen(false);
+                    }}
                 />
             ) : null}
         </div>

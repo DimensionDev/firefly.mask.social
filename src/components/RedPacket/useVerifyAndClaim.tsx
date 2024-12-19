@@ -32,6 +32,7 @@ export function useVerifyAndClaim(payload: RedPacketJSONPayload, source: SocialS
         const { data, error } = await recheckClaimStatus();
         if (error) {
             enqueueErrorMessage(t`Oops... Network issue. Please try again`);
+            return false;
         }
         if (!data?.data.canClaim) {
             enqueueErrorMessage(t`Oops... Network issue. Please try again`);
