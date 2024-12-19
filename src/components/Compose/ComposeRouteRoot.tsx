@@ -4,7 +4,7 @@ import { Outlet, rootRouteId, useMatch, useRouter } from '@tanstack/react-router
 
 import DraftIcon from '@/assets/draft.svg';
 import LeftArrowIcon from '@/assets/left-arrow.svg';
-import { CloseButton } from '@/components/CloseButton.js';
+import { CloseButton } from '@/components/IconButton.js';
 import { ComposeSend } from '@/components/Compose/ComposeSend.js';
 import { Tooltip } from '@/components/Tooltip.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';

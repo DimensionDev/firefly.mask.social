@@ -18,7 +18,7 @@ import Repost from '@/assets/repost.svg';
 import NFTHolder from '@/assets/rp-nft-holder.svg';
 import TickSquareIcon from '@/assets/tick-square.svg';
 import { ActionButton } from '@/components/ActionButton.js';
-import { CloseButton } from '@/components/CloseButton.js';
+import { CloseButton } from '@/components/IconButton.js';
 import { Loading } from '@/components/Loading.js';
 import { Modal } from '@/components/Modal.js';
 import { queryClient } from '@/configs/queryClient.js';

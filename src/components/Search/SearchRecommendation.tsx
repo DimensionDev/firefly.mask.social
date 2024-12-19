@@ -9,7 +9,7 @@ import { useDebounce } from 'usehooks-ts';
 import LoadingIcon from '@/assets/loading.svg';
 import SearchIcon from '@/assets/search.svg';
 import { Avatar } from '@/components/Avatar.js';
-import { ClearButton } from '@/components/ClearButton.js';
+import { ClearButton } from '@/components/IconButton.js';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { SocialSourceIcon } from '@/components/SocialSourceIcon.js';
 import { PageRoute, SearchType, Source } from '@/constants/enum.js';
@@ -251,6 +251,7 @@ export function SearchRecommendation(props: SearchRecommendationProps) {
                             <ClearButton
                                 size={16}
                                 className="ml-auto text-second"
+                                IconProps={{ className: 'text-inherit' }}
                                 tooltip={t`Remove`}
                                 onClick={() => {
                                     removeRecord(record);

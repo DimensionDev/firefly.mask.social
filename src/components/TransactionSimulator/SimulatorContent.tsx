@@ -2,7 +2,7 @@ import { Trans } from '@lingui/macro';
 import { useQuery } from '@tanstack/react-query';
 import { useAccount } from 'wagmi';
 
-import { CloseButton } from '@/components/CloseButton.js';
+import { CloseButton } from '@/components/IconButton.js';
 import { ContinueButton } from '@/components/TransactionSimulator/ContinueButton.js';
 import { DataPanel } from '@/components/TransactionSimulator/DataPanel.js';
 import { simulateAndCheckSecurity } from '@/components/TransactionSimulator/simulateAndCheckSecurity.js';
