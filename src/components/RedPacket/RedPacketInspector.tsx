@@ -43,7 +43,9 @@ export function RedPacketInspector({ payloads, post }: Props) {
     if (!message) return null;
 
     const meta = message.meta;
+    console.time('RedPacketInspector');
     const result = RedPacketMetadataReader(meta);
+    console.timeEnd('RedPacketInspector');
     if (result.isOk()) {
         const payload = result.unwrap();
         return <RedPacketCard payload={payload} post={post} />;

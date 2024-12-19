@@ -17,6 +17,7 @@ import { ClickableArea } from '@/components/ClickableArea.js';
 import { AmountProgressText } from '@/components/RedPacket/AmountProgressText.js';
 import { RedPacketCardFooter } from '@/components/RedPacket/RedPacketCardFooter.js';
 import { RequirementsModal } from '@/components/RedPacket/RequirementsModal.js';
+import { useVerifyAndClaim } from '@/components/RedPacket/useVerifyAndClaim.js';
 import { SITE_URL } from '@/constants/index.js';
 import { Image } from '@/esm/Image.js';
 import { classNames } from '@/helpers/classNames.js';
@@ -150,6 +151,8 @@ export function RedPacketCard({ payload, post }: Props) {
         return fetch(cover.backgroundImageUrl);
     }, [cover?.backgroundImageUrl]);
 
+    const [{ isVerifying, isClaiming, claimStrategyStatus }, verifyAndClaim] = useVerifyAndClaim(payload, post.source);
+
     return (
         <div
             className="my-2 min-h-[438px] rounded-2xl p-3 text-lightTextMain"
@@ -265,6 +268,7 @@ export function RedPacketCard({ payload, post }: Props) {
                         isClaimed={isClaimed}
                         isEmpty={isEmpty}
                         isExpired={isExpired}
+                        isClaiming={isClaiming}
                         canRefund={canRefund}
                         handleShare={handleShare}
                         handleRefund={refund}
@@ -272,7 +276,10 @@ export function RedPacketCard({ payload, post }: Props) {
                         canClaim={canClaim}
                         balance={balance}
                         estimateLoading={estimateLoading}
-                        handleClaim={() => setRequirementOpen(true)}
+                        onClaim={async () => {
+                            const canClaim = await verifyAndClaim();
+                            if (!canClaim) setRequirementOpen(true);
+                        }}
                     />
                 </>
             ) : null}
@@ -280,10 +287,13 @@ export function RedPacketCard({ payload, post }: Props) {
             {requirementOpen ? (
                 <RequirementsModal
                     open
-                    onClose={() => setRequirementOpen(false)}
-                    payload={payload}
                     post={post}
+                    claimStrategyStatus={claimStrategyStatus}
                     showResults={listOfStatus.length === 0}
+                    isVerifying={isVerifying}
+                    isClaiming={isClaiming}
+                    onClose={() => setRequirementOpen(false)}
+                    onVerifyAndClaim={verifyAndClaim}
                 />
             ) : null}
         </div>

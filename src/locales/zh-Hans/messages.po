@@ -3261,9 +3261,6 @@ msgstr "最终结果"
 msgid "Suspended account"
 msgstr "被冻结账户"
 
-msgid "Oops... Not all the requirements have been meet"
-msgstr "哎呀... 并未满足所有要求"
-
 msgid "No blackmail activities involved."
 msgstr "未发现勒索行为。"
 
