@@ -19,6 +19,7 @@ import { Source } from '@/constants/enum.js';
 import { SITE_URL } from '@/constants/index.js';
 import { FIREFLY_MENTION } from '@/constants/mentions.js';
 import { type Chars } from '@/helpers/chars.js';
+import { getProfileFromMention } from '@/helpers/getProfileFromMention.js';
 import { ReferralAccountPlatform, resolveActivityUrl } from '@/helpers/resolveActivityUrl.js';
 import { ActivityElex24VoteOption } from '@/providers/types/Activity.js';
 import type { ActivityInfoResponse } from '@/providers/types/Firefly.js';
@@ -31,8 +32,11 @@ export function ActivityElex24Tasks({ data }: { data: Pick<Required<ActivityInfo
         SITE_URL,
         resolveActivityUrl(name, { referralCode: xHandle, platform: ReferralAccountPlatform.X }),
     );
-    const { data: isFollowedFirefly } = useIsFollowInActivity(Source.Twitter, '1583361564479889408', 'thefireflyapp');
-
+    const { data: isFollowedFirefly } = useIsFollowInActivity(
+        Source.Twitter,
+        getProfileFromMention(FIREFLY_MENTION, Source.Twitter)!.platform_id,
+        getProfileFromMention(FIREFLY_MENTION, Source.Twitter)!.handle,
+    );
     const shareContent = vote
         ? {
               [ActivityElex24VoteOption.Trump]: [
@@ -64,9 +68,9 @@ export function ActivityElex24Tasks({ data }: { data: Pick<Required<ActivityInfo
                     </div>
                 </div>
                 <ActivityTaskFollowCard
-                    handle="thefireflyapp"
                     source={Source.Twitter}
-                    profileId="1583361564479889408"
+                    handle={getProfileFromMention(FIREFLY_MENTION, Source.Twitter)!.handle}
+                    profileId={getProfileFromMention(FIREFLY_MENTION, Source.Twitter)!.platform_id}
                 />
                 <h2 className="text-base font-semibold leading-6">
                     <Trans>Step 2 Connect Wallet</Trans>

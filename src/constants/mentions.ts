@@ -1,5 +1,5 @@
 import { FireflyPlatform } from '@/constants/enum.js';
-import { CHAR_TAG } from '@/helpers/chars.js';
+import { CHAR_TAG, type MentionChars } from '@/helpers/chars.js';
 import type { Profile } from '@/providers/types/Firefly.js';
 
 export const FIREFLY_MENTION = {
@@ -32,9 +32,8 @@ export const FIREFLY_MENTION = {
             score: 0,
         },
     ] as Profile[],
-};
+} satisfies MentionChars;
 
-// cspell: disable-next-line
 export const BARMSTRONG_MENTION = {
     tag: CHAR_TAG.MENTION,
     visible: true,
@@ -45,7 +44,6 @@ export const BARMSTRONG_MENTION = {
             platform: FireflyPlatform.Lens,
             handle: 'brian',
             name: 'brian',
-            namespace: 'lens',
             hit: false,
             score: 0,
         },
@@ -55,7 +53,6 @@ export const BARMSTRONG_MENTION = {
             // cspell: disable-next-line
             handle: 'barmstrong',
             name: 'Brian Armstrong',
-            namespace: '',
             hit: false,
             score: 0,
         },
@@ -64,12 +61,11 @@ export const BARMSTRONG_MENTION = {
             platform: FireflyPlatform.Twitter,
             handle: 'brian_armstrong',
             name: 'brian_armstrong',
-            namespace: '',
             hit: true,
             score: 0.062500186,
         },
     ],
-};
+} satisfies MentionChars;
 
 export const PUDGY_PENGUINS_MENTION = {
     tag: CHAR_TAG.MENTION,
@@ -78,12 +74,11 @@ export const PUDGY_PENGUINS_MENTION = {
     profiles: [
         {
             platform_id: '1415078650039443456',
-            platform: 'twitter',
+            platform: FireflyPlatform.Twitter,
             handle: 'pudgypenguins',
             name: 'pudgypenguins',
-            namespace: '',
             hit: true,
             score: 0.07142878,
         },
     ],
-};
+} satisfies MentionChars;

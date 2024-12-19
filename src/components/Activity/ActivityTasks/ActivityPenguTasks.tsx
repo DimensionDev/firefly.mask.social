@@ -15,9 +15,10 @@ import { useActivityShareUrl } from '@/components/Activity/hooks/useActivityShar
 import { useIsFollowInActivity } from '@/components/Activity/hooks/useIsFollowInActivity.js';
 import { Link } from '@/components/Activity/Link.js';
 import { Source } from '@/constants/enum.js';
-import { FIREFLY_MENTION } from '@/constants/mentions.js';
+import { FIREFLY_MENTION, PUDGY_PENGUINS_MENTION } from '@/constants/mentions.js';
 import { type Chars } from '@/helpers/chars.js';
 import { classNames } from '@/helpers/classNames.js';
+import { getProfileFromMention } from '@/helpers/getProfileFromMention.js';
 import { replaceObjectInStringArray } from '@/helpers/replaceObjectInStringArray.js';
 import { resolveProfileUrl } from '@/helpers/resolveProfileUrl.js';
 import { runInSafe } from '@/helpers/runInSafe.js';
@@ -32,12 +33,15 @@ export function ActivityPenguTasks({
     const list = useActivityPremiumList(Source.Twitter);
     const isPremium = list.some((x) => x.verified);
     const followPenguTwitterProfile = {
-        // cspell: disable-next-line
-        handle: 'pudgypenguins',
-        profileId: '1415078650039443456',
+        handle: getProfileFromMention(PUDGY_PENGUINS_MENTION, Source.Twitter)?.handle,
+        profileId: getProfileFromMention(PUDGY_PENGUINS_MENTION, Source.Twitter)?.platform_id,
         following: claimCondition?.x?.followingPudge,
     };
-    const { data: isFollowedFirefly } = useIsFollowInActivity(Source.Twitter, '1583361564479889408', 'thefireflyapp');
+    const { data: isFollowedFirefly } = useIsFollowInActivity(
+        Source.Twitter,
+        getProfileFromMention(FIREFLY_MENTION, Source.Twitter)!.platform_id,
+        getProfileFromMention(FIREFLY_MENTION, Source.Twitter)!.handle,
+    );
     const shareUrl = useActivityShareUrl(data.name);
     const shareContent = runInSafe(() => {
         const fireflyMention = 'FIREFLY_MENTION';
@@ -87,9 +91,9 @@ Check your eligibility and claim here ${shareUrl}
                     </ActivityVerifyText>
                 </div>
                 <ActivityTaskFollowCard
-                    handle="thefireflyapp"
                     source={Source.Twitter}
-                    profileId="1583361564479889408"
+                    handle={getProfileFromMention(FIREFLY_MENTION, Source.Twitter)!.handle}
+                    profileId={getProfileFromMention(FIREFLY_MENTION, Source.Twitter)!.platform_id}
                 />
                 <h2 className="text-base font-semibold leading-6">
                     <Trans>Connect Wallet</Trans>

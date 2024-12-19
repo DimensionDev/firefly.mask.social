@@ -16,6 +16,7 @@ import { useIsFollowInActivity } from '@/components/Activity/hooks/useIsFollowIn
 import { Source } from '@/constants/enum.js';
 import { BARMSTRONG_MENTION, FIREFLY_MENTION } from '@/constants/mentions.js';
 import { type Chars } from '@/helpers/chars.js';
+import { getProfileFromMention } from '@/helpers/getProfileFromMention.js';
 import type { ActivityInfoResponse } from '@/providers/types/Firefly.js';
 
 export function ActivityHlblTasks({ data }: { data: Pick<Required<ActivityInfoResponse>['data'], 'status'> }) {
@@ -43,7 +44,11 @@ export function ActivityHlblTasks({ data }: { data: Pick<Required<ActivityInfoRe
               '#Base #FireflySocial',
           ];
     const { address } = useContext(ActivityContext);
-    const { data: isFollowedFirefly } = useIsFollowInActivity(Source.Twitter, '1583361564479889408', 'thefireflyapp');
+    const { data: isFollowedFirefly } = useIsFollowInActivity(
+        Source.Twitter,
+        getProfileFromMention(FIREFLY_MENTION, Source.Twitter)!.platform_id,
+        getProfileFromMention(FIREFLY_MENTION, Source.Twitter)!.handle,
+    );
 
     return (
         <>
@@ -55,12 +60,15 @@ export function ActivityHlblTasks({ data }: { data: Pick<Required<ActivityInfoRe
                         </h2>
                         <ActivityLoginButton source={Source.Twitter} />
                     </div>
-                    <ActivityFollowTargetCard handle="brian_armstrong" profileId="14379660" />
+                    <ActivityFollowTargetCard
+                        handle={getProfileFromMention(BARMSTRONG_MENTION, Source.Farcaster)!.handle}
+                        profileId={getProfileFromMention(BARMSTRONG_MENTION, Source.Farcaster)!.platform_id}
+                    />
                 </div>
                 <ActivityTaskFollowCard
-                    handle="thefireflyapp"
                     source={Source.Twitter}
-                    profileId="1583361564479889408"
+                    handle={getProfileFromMention(FIREFLY_MENTION, Source.Twitter)!.handle}
+                    profileId={getProfileFromMention(FIREFLY_MENTION, Source.Twitter)!.platform_id}
                 />
                 <h2 className="text-base font-semibold leading-6">
                     <Trans>Step 2 Connect Wallet</Trans>
