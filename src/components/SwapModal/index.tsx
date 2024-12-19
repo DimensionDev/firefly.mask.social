@@ -14,7 +14,7 @@ import { useAppKitProvider } from '@reown/appkit/react';
 import { useEffect, useRef } from 'react';
 import { useMediaQuery } from 'usehooks-ts';
 
-import { CloseButton } from '@/components/CloseButton.js';
+import { CloseButton } from '@/components/IconButton.js';
 import { Modal, type ModalProps } from '@/components/Modal.js';
 import { Locale } from '@/constants/enum.js';
 import { NATIVE_TOKEN_ADDRESS } from '@/constants/okx.js';

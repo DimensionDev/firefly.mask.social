@@ -1,7 +1,7 @@
 import { t } from '@lingui/macro';
 import { type HTMLProps, useRef } from 'react';
 
-import { ClearButton } from '@/components/ClearButton.js';
+import { ClearButton } from '@/components/IconButton.js';
 import { classNames } from '@/helpers/classNames.js';
 import { getI18n } from '@/i18n/index.js';
 
@@ -32,6 +32,7 @@ export function SearchInput({ onClear, ref, ...rest }: SearchInputProps) {
                 <ClearButton
                     type="button"
                     className="text-highlight"
+                    IconProps={{ className: 'text-inherit' }}
                     size={16}
                     onClick={() => {
                         onClear?.();

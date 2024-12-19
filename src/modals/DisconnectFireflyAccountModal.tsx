@@ -6,7 +6,7 @@ import { useAsyncFn } from 'react-use';
 
 import LoadingIcon from '@/assets/loading.svg';
 import { ClickableButton } from '@/components/ClickableButton.js';
-import { CloseButton } from '@/components/CloseButton.js';
+import { CloseButton } from '@/components/IconButton.js';
 import { ProfileInList } from '@/components/Login/ProfileInList.js';
 import { Modal } from '@/components/Modal.js';
 import type { ThirdPartySource } from '@/constants/enum.js';

@@ -2,7 +2,7 @@ import { Trans } from '@lingui/macro';
 import { forwardRef, useRef, useState } from 'react';
 
 import { ArticleCollect } from '@/components/Article/ArticleCollect.js';
-import { CloseButton } from '@/components/CloseButton.js';
+import { CloseButton } from '@/components/IconButton.js';
 import { Modal } from '@/components/Modal.js';
 import { stopEvent } from '@/helpers/stopEvent.js';
 import { useSingletonModal } from '@/hooks/useSingletonModal.js';
