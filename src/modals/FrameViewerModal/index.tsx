@@ -2,12 +2,12 @@ import { forwardRef, useState } from 'react';
 
 import { CloseButton } from '@/components/IconButton.js';
 import { Modal } from '@/components/Modal.js';
+import { NotImplementedError } from '@/constants/error.js';
 import { parseUrl } from '@/helpers/parseUrl.js';
 import { useSingletonModal } from '@/hooks/useSingletonModal.js';
 import type { SingletonModalRefCreator } from '@/libs/SingletonModal.js';
 import { MoreAction } from '@/modals/FrameViewerModal/MoreActionMenu.js';
 import type { FrameV2 } from '@/types/frame.js';
-import { NotImplementedError } from '@/constants/error.js';
 
 export type FrameViewerModalOpenProps = {
     frame: FrameV2;
@@ -35,7 +35,7 @@ export const FrameViewerModal = forwardRef<SingletonModalRefCreator<FrameViewerM
         return (
             <Modal disableDialogClose open={open} onClose={() => dispatch?.close()}>
                 <div className="relative h-[695px] w-[424px] overflow-hidden rounded-xl">
-                    <div className=" bg-fireflyBrand flex h-[60px] items-center justify-between px-4 py-3">
+                    <div className="flex h-[60px] items-center justify-between bg-fireflyBrand px-4 py-3">
                         <div className="cursor-pointer">
                             <CloseButton onClick={() => dispatch?.close()} />
                         </div>

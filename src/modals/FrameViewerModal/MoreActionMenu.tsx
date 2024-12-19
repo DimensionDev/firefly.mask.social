@@ -1,8 +1,8 @@
 import { MenuItem } from '@headlessui/react';
 import { Trans } from '@lingui/macro';
-import MoreIcon from '@/assets/more.svg';
 import { memo } from 'react';
 
+import MoreIcon from '@/assets/more.svg';
 import ReloadIcon from '@/assets/reload.svg';
 import { MenuButton } from '@/components/Actions/MenuButton.js';
 import { MenuGroup } from '@/components/MenuGroup.js';
