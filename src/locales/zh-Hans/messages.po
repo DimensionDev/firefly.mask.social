@@ -3210,6 +3210,9 @@ msgstr "出价"
 msgid "The connection has timed out. Please try again later."
 msgstr "连接已经超时。请稍后重试。"
 
+msgid "Reload page"
+msgstr ""
+
 msgid "Phishing site."
 msgstr "钓鱼网站。"
 

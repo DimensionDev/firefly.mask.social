@@ -3210,6 +3210,9 @@ msgstr ""
 msgid "The connection has timed out. Please try again later."
 msgstr "連結已超時。請稍候重試"
 
+msgid "Reload page"
+msgstr ""
+
 msgid "Phishing site."
 msgstr ""
 
