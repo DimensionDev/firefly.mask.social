@@ -2199,6 +2199,9 @@ msgstr "已取消喜歡"
 msgid "Quality Filter"
 msgstr ""
 
+msgid "Bio should be at least {minBioSize} characters"
+msgstr ""
+
 msgid "Visit mask.io"
 msgstr "訪問 mask.io"
 

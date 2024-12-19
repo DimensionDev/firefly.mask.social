@@ -2194,6 +2194,9 @@ msgstr "Unliked"
 msgid "Quality Filter"
 msgstr "Quality Filter"
 
+msgid "Bio should be at least {minBioSize} characters"
+msgstr "Bio should be at least {minBioSize} characters"
+
 msgid "Visit mask.io"
 msgstr "Visit mask.io"
 
