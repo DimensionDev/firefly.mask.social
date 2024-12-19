@@ -14,43 +14,12 @@ import { useActivityPremiumList } from '@/components/Activity/hooks/useActivityP
 import { useActivityShareUrl } from '@/components/Activity/hooks/useActivityShareUrl.js';
 import { useIsFollowInActivity } from '@/components/Activity/hooks/useIsFollowInActivity.js';
 import { Link } from '@/components/Activity/Link.js';
-import { FireflyPlatform, Source } from '@/constants/enum.js';
-import { CHAR_TAG, type Chars } from '@/helpers/chars.js';
+import { Source } from '@/constants/enum.js';
+import { FIREFLY_MENTION } from '@/constants/mentions.js';
+import { type Chars } from '@/helpers/chars.js';
 import { classNames } from '@/helpers/classNames.js';
 import { resolveProfileUrl } from '@/helpers/resolveProfileUrl.js';
-import type { ActivityInfoResponse, Profile } from '@/providers/types/Firefly.js';
-
-const fireflyMention = {
-    tag: CHAR_TAG.MENTION,
-    visible: true,
-    content: `@thefireflyapp`,
-    profiles: [
-        {
-            platform_id: '1583361564479889408',
-            platform: FireflyPlatform.Twitter,
-            handle: 'thefireflyapp',
-            name: 'thefireflyapp',
-            hit: true,
-            score: 0,
-        },
-        {
-            platform_id: '16823',
-            platform: FireflyPlatform.Farcaster,
-            handle: 'fireflyapp',
-            name: 'Firefly App',
-            hit: true,
-            score: 0,
-        },
-        {
-            platform_id: '0x01b000',
-            platform: FireflyPlatform.Lens,
-            handle: 'fireflyapp',
-            name: 'fireflyapp',
-            hit: true,
-            score: 0,
-        },
-    ] as Profile[],
-};
+import type { ActivityInfoResponse } from '@/providers/types/Firefly.js';
 
 export function ActivityPenguTasks({
     data,
@@ -60,18 +29,17 @@ export function ActivityPenguTasks({
     const { data: claimCondition } = useActivityClaimCondition(Source.Twitter);
     const list = useActivityPremiumList(Source.Twitter);
     const isPremium = list.some((x) => x.verified);
-    const followProfile = {
+    const followPenguTwitterProfile = {
         // cspell: disable-next-line
         handle: 'pudgypenguins',
         profileId: '1415078650039443456',
-        source: Source.Twitter,
-        following: claimCondition?.x?.following,
+        following: claimCondition?.x?.followingPudge,
     };
     const { data: isFollowedFirefly } = useIsFollowInActivity(Source.Twitter, '1583361564479889408', 'thefireflyapp');
     const shareUrl = useActivityShareUrl(data.name);
     const shareContent = [
         'Just claimed the "Holiday Skates with $PENGU⛸️🐧⛸️" collectible from ',
-        fireflyMention,
+        FIREFLY_MENTION,
         ' \n\nCheck your eligibility and claim here ',
         shareUrl,
         '\n\n#PENGU #FireflySocial',
@@ -91,18 +59,18 @@ export function ActivityPenguTasks({
                 <div
                     className={classNames(
                         'w-full rounded-2xl p-3 text-sm font-normal leading-6',
-                        followProfile.following ? 'bg-success/10 dark:bg-success/20' : 'bg-bg',
+                        followPenguTwitterProfile.following ? 'bg-success/10 dark:bg-success/20' : 'bg-bg',
                     )}
                 >
-                    <ActivityVerifyText verified={followProfile.following}>
+                    <ActivityVerifyText verified={followPenguTwitterProfile.following}>
                         <h3>
                             <Trans>
                                 Followed{' '}
                                 <Link
                                     className="inline text-highlight"
-                                    href={resolveProfileUrl(Source.Twitter, followProfile.profileId)}
+                                    href={resolveProfileUrl(Source.Twitter, followPenguTwitterProfile.profileId)}
                                 >
-                                    @{followProfile.handle}
+                                    @{followPenguTwitterProfile.handle}
                                 </Link>{' '}
                                 on X before Dec 17, 2024
                             </Trans>

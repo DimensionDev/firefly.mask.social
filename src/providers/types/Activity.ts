@@ -20,6 +20,7 @@ export interface X {
     hasVerified: boolean;
     valid: boolean;
     level: Level;
+    followingPudge?: boolean;
 }
 
 export interface Farcaster {
