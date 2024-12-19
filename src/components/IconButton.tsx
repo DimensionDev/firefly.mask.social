@@ -32,7 +32,7 @@ interface ButtonProps extends Omit<IconButtonProps, 'children'> {
 
 export function CloseButton({ IconProps, ...rest }: ButtonProps) {
     return (
-        <IconButton {...rest}>
+        <IconButton tooltip={t`Close`} {...rest}>
             <CloseIcon
                 {...IconProps}
                 className={classNames('text-main', IconProps?.className, {
@@ -49,7 +49,7 @@ import CloseCircleIcon from '@/assets/close-circle.svg';
 
 export function ClearButton({ IconProps, ...rest }: ButtonProps) {
     return (
-        <IconButton {...rest}>
+        <IconButton tooltip={t`Clear`} {...rest}>
             <CloseCircleIcon
                 {...IconProps}
                 className={classNames('text-main', IconProps?.className, {
@@ -63,10 +63,11 @@ export function ClearButton({ IconProps, ...rest }: ButtonProps) {
 }
 
 import MoreIcon from '@/assets/more.svg';
+import { t } from '@lingui/macro';
 
 export function MoreButton({ IconProps, ...rest }: ButtonProps) {
     return (
-        <IconButton {...rest}>
+        <IconButton tooltip={t`More`} {...rest}>
             <MoreIcon
                 className={classNames('text-main', IconProps?.className, {
                     'cursor-pointer': !rest.disabled,
