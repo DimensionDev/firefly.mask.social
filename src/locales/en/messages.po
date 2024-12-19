@@ -2194,9 +2194,6 @@ msgstr "Unliked"
 msgid "Quality Filter"
 msgstr "Quality Filter"
 
-msgid "App store"
-msgstr "App store"
-
 msgid "Visit mask.io"
 msgstr "Visit mask.io"
 
@@ -2817,6 +2814,9 @@ msgstr "Switching..."
 
 msgid "Pay<0> {feeAmount} ${feeSymbol} </0>to follow and get some awesome perks!"
 msgstr "Pay<0> {feeAmount} ${feeSymbol} </0>to follow and get some awesome perks!"
+
+msgid "App Store"
+msgstr "App Store"
 
 msgid "<0>Bought</0> an NFT worth {costEl}"
 msgstr "<0>Bought</0> an NFT worth {costEl}"

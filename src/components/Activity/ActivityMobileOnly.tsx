@@ -20,7 +20,7 @@ export function ActivityMobileOnly({ children, disabled = false }: PropsWithChil
                     target="_blank"
                     className="leading-11 flex h-11 flex-1 items-center justify-center rounded-lg border border-current text-base font-bold uppercase"
                 >
-                    <Trans>App store</Trans>
+                    <Trans>App Store</Trans>
                 </Link>
                 <Link
                     href={FIREFLY_APP_GOOGLE_PLAY_URL}
