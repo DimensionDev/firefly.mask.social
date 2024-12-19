@@ -11,7 +11,7 @@ export function ActivityMobileOnly({ children, disabled = false }: PropsWithChil
     if (disabled || fireflyBridgeProvider.supported) return children;
     return (
         <div className="flex w-full flex-col px-6">
-            <h4 className="mb-6 text-base font-semibold leading-normal text-lightHighlight">
+            <h4 className="mb-6 text-base font-semibold leading-normal text-highlight">
                 <Trans>*This event is only available on the mobile app. Download Firefly now!</Trans>
             </h4>
             <div className="flex w-full gap-2">
