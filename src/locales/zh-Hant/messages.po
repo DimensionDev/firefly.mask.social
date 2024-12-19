@@ -3564,6 +3564,12 @@ msgstr ""
 msgid "Collectible"
 msgstr ""
 
+msgid ""
+"Just claimed the \"Holiday Skates with $PENGU⛸️🐧⛸️\" collectible from {fireflyMention}\n"
+"Check your eligibility and claim here {shareUrl}\n"
+"#PENGU #FireflySocial"
+msgstr ""
+
 msgid "Users must hold one NFT from the collection you select."
 msgstr ""
 

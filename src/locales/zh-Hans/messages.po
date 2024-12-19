@@ -3564,6 +3564,12 @@ msgstr "{0, plural, one {点赞} other {点赞}}"
 msgid "Collectible"
 msgstr "NFT"
 
+msgid ""
+"Just claimed the \"Holiday Skates with $PENGU⛸️🐧⛸️\" collectible from {fireflyMention}\n"
+"Check your eligibility and claim here {shareUrl}\n"
+"#PENGU #FireflySocial"
+msgstr ""
+
 msgid "Users must hold one NFT from the collection you select."
 msgstr "用户必须持有您选择的系列中的一枚 NFT。"
 

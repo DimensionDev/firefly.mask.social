@@ -70,3 +70,20 @@ export const BARMSTRONG_MENTION = {
         },
     ],
 };
+
+export const PUDGY_PENGUINS_MENTION = {
+    tag: CHAR_TAG.MENTION,
+    visible: true,
+    content: '@pudgypenguins',
+    profiles: [
+        {
+            platform_id: '1415078650039443456',
+            platform: 'twitter',
+            handle: 'pudgypenguins',
+            name: 'pudgypenguins',
+            namespace: '',
+            hit: true,
+            score: 0.07142878,
+        },
+    ],
+};

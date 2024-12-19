@@ -3559,6 +3559,15 @@ msgstr "{0, plural, one {like} other {likes}}"
 msgid "Collectible"
 msgstr "Collectible"
 
+msgid ""
+"Just claimed the \"Holiday Skates with $PENGU⛸️🐧⛸️\" collectible from {fireflyMention}\n"
+"Check your eligibility and claim here {shareUrl}\n"
+"#PENGU #FireflySocial"
+msgstr ""
+"Just claimed the \"Holiday Skates with $PENGU⛸️🐧⛸️\" collectible from {fireflyMention}\n"
+"Check your eligibility and claim here {shareUrl}\n"
+"#PENGU #FireflySocial"
+
 msgid "Users must hold one NFT from the collection you select."
 msgstr "Users must hold one NFT from the collection you select."
 

@@ -1,4 +1,4 @@
-import { Trans } from '@lingui/macro';
+import { t, Trans } from '@lingui/macro';
 import { ChainId } from '@masknet/web3-shared-evm';
 import { ChainId as SolChainId } from '@masknet/web3-shared-solana';
 
@@ -18,7 +18,9 @@ import { Source } from '@/constants/enum.js';
 import { FIREFLY_MENTION } from '@/constants/mentions.js';
 import { type Chars } from '@/helpers/chars.js';
 import { classNames } from '@/helpers/classNames.js';
+import { replaceObjectInStringArray } from '@/helpers/replaceObjectInStringArray.js';
 import { resolveProfileUrl } from '@/helpers/resolveProfileUrl.js';
+import { runInSafe } from '@/helpers/runInSafe.js';
 import type { ActivityInfoResponse } from '@/providers/types/Firefly.js';
 
 export function ActivityPenguTasks({
@@ -37,13 +39,20 @@ export function ActivityPenguTasks({
     };
     const { data: isFollowedFirefly } = useIsFollowInActivity(Source.Twitter, '1583361564479889408', 'thefireflyapp');
     const shareUrl = useActivityShareUrl(data.name);
-    const shareContent = [
-        'Just claimed the "Holiday Skates with $PENGU⛸️🐧⛸️" collectible from ',
-        FIREFLY_MENTION,
-        ' \n\nCheck your eligibility and claim here ',
-        shareUrl,
-        '\n\n#PENGU #FireflySocial',
-    ];
+    const shareContent = runInSafe(() => {
+        const fireflyMention = 'FIREFLY_MENTION';
+        return replaceObjectInStringArray(
+            t`Just claimed the "Holiday Skates with $PENGU⛸️🐧⛸️" collectible from ${fireflyMention}
+
+Check your eligibility and claim here ${shareUrl}
+
+#PENGU #FireflySocial
+    `,
+            {
+                [fireflyMention]: FIREFLY_MENTION,
+            },
+        );
+    });
 
     return (
         <>
