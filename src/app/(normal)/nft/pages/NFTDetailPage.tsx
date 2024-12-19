@@ -10,6 +10,7 @@ import { Attendees } from '@/components/NFTDetail/Attendees.js';
 import { NFTInfo } from '@/components/NFTDetail/NFTInfo.js';
 import { NFTOverflow } from '@/components/NFTDetail/NFTOverflow.js';
 import { NFTProperties } from '@/components/NFTDetail/NFTProperties.js';
+import { FreeMintButton } from '@/components/NFTs/FreeMintButton.js';
 import { NFTNavbar } from '@/components/NFTs/NFTNavbar.js';
 import { POAP_CONTRACT_ADDRESS } from '@/constants/index.js';
 import { classNames } from '@/helpers/classNames.js';
@@ -62,6 +63,7 @@ export function NFTDetailPage({ chainId, address, tokenId }: { chainId: ChainId;
                     attendance={poapAttendeesCount}
                     tokenNameClassName={classNames({ '!line-clamp-3': isPoap })}
                 />
+                <FreeMintButton nft={data} />
                 {data.traits && data.traits.length > 0 ? <NFTProperties items={data.traits} /> : null}
                 <NFTOverflow
                     description={data.metadata.description ?? ''}

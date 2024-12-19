@@ -1228,3 +1228,42 @@ export type GetBookmarksResponse = Response<{
         post_type: BookmarkType;
     }>;
 }>;
+
+export type SponsorMintOptions = {
+    platformType?: string;
+    walletAddress: string;
+    contractAddress: string;
+    tokenId: number;
+    chainId: number;
+    buyCount: number;
+    vectorId?: number;
+    color?: string;
+    contractExt?: unknown;
+};
+
+export type MintMetadata = {
+    mintStatus: number;
+    mintPrice: string;
+    platformFee: string;
+    txData: {
+        gasLimit: string;
+        inputData: string;
+        to: string;
+        value: string;
+    };
+    mintCount: number;
+    perLimitCount: number;
+    chainId: number;
+    gasStatus: boolean;
+    tokenPrice: unknown;
+    nativePrice: number;
+};
+
+export type GetSponsorMintStatusResponse = Response<MintMetadata>;
+
+export type MintBySponsorResponse = Response<{
+    status: boolean;
+    hash: string;
+    errormessage: string;
+    gasStatus: boolean;
+}>;
