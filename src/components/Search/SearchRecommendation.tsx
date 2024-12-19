@@ -251,6 +251,7 @@ export function SearchRecommendation(props: SearchRecommendationProps) {
                             <ClearButton
                                 size={16}
                                 className="ml-auto text-second"
+                                IconProps={{ className: 'text-inherit' }}
                                 tooltip={t`Remove`}
                                 onClick={() => {
                                     removeRecord(record);

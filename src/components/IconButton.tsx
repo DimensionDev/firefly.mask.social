@@ -1,61 +1,78 @@
 import { t } from '@lingui/macro';
-import type { ReactNode } from 'react';
+import type { HTMLProps, ReactNode } from 'react';
 
 import CloseIcon from '@/assets/close.svg';
 import CloseCircleIcon from '@/assets/close-circle.svg';
 import MoreIcon from '@/assets/more.svg';
-import { ClickableButton, type ClickableButtonProps } from '@/components/ClickableButton.js';
+import { ClickableButton } from '@/components/ClickableButton.js';
 import { Tooltip } from '@/components/Tooltip.js';
 import { classNames } from '@/helpers/classNames.js';
 
-interface IconButtonProps extends ClickableButtonProps {
-    size?: number;
+interface IconButtonProps extends HTMLProps<HTMLButtonElement> {
     tooltip?: string;
+    size?: number;
     children?: ReactNode;
 }
 
 function IconButton({ size = 24, tooltip, children, ref, ...props }: IconButtonProps) {
+    const Button = (
+        <ClickableButton {...props} className={classNames('rounded p-1 hover:bg-lightBg', props.className)}>
+            {children}
+        </ClickableButton>
+    );
+
+    if (!tooltip) return Button;
     return (
         <Tooltip content={tooltip} placement="top">
-            <ClickableButton {...props} className={classNames('rounded p-1 hover:bg-lightBg', props.className)}>
-                {children}
-            </ClickableButton>
+            {Button}
         </Tooltip>
     );
 }
 
-export function MoreButton({ size = 24, tooltip = t`More`, ref, ...props }: IconButtonProps) {
-    return (
-        <IconButton tooltip={t`More`} {...props}>
-            <MoreIcon
-                className={classNames('text-main', {
-                    'cursor-pointer': !props.disabled,
-                })}
-                width={size}
-                height={size}
-            />
-        </IconButton>
-    );
+interface ButtonProps extends Omit<IconButtonProps, 'children'> {
+    IconProps?: HTMLProps<SVGElement>;
 }
 
-export function CloseButton({ size = 24, tooltip = t`Close`, ref, ...props }: IconButtonProps) {
+export function CloseButton({ IconProps, ...rest }: ButtonProps) {
     return (
-        <IconButton tooltip={t`Close`} {...props}>
+        <IconButton tooltip={t`Close`} {...rest}>
             <CloseIcon
-                className={classNames('text-main', {
-                    'cursor-pointer': !props.disabled,
+                {...IconProps}
+                className={classNames('text-main', IconProps?.className, {
+                    'cursor-pointer': !rest.disabled,
                 })}
-                width={size}
-                height={size}
+                width={rest.size}
+                height={rest.size}
             />
         </IconButton>
     );
 }
 
-export function ClearButton({ size = 24, tooltip = t`Clear`, ref, ...props }: IconButtonProps) {
+export function ClearButton({ IconProps, ...rest }: ButtonProps) {
     return (
-        <IconButton tooltip="Clear" {...props}>
-            <CloseCircleIcon width={size} height={size} className="text-inherit" />
+        <IconButton tooltip={t`Clear`} {...rest}>
+            <CloseCircleIcon
+                {...IconProps}
+                className={classNames('text-main', IconProps?.className, {
+                    'cursor-pointer': !rest.disabled,
+                })}
+                width={rest.size}
+                height={rest.size}
+            />
+        </IconButton>
+    );
+}
+
+export function MoreButton({ IconProps, ...rest }: ButtonProps) {
+    return (
+        <IconButton tooltip={t`More`} {...rest}>
+            <MoreIcon
+                className={classNames('text-main', IconProps?.className, {
+                    'cursor-pointer': !rest.disabled,
+                })}
+                width={rest.size}
+                height={rest.size}
+            />
         </IconButton>
     );
 }

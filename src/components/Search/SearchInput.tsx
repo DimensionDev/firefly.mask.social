@@ -32,6 +32,7 @@ export function SearchInput({ onClear, ref, ...rest }: SearchInputProps) {
                 <ClearButton
                     type="button"
                     className="text-highlight"
+                    IconProps={{ className: 'text-inherit' }}
                     size={16}
                     onClick={() => {
                         onClear?.();
