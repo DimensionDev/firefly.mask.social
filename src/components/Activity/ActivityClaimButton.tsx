@@ -35,7 +35,7 @@ export function ActivityClaimButton({ source, shareContent, status, claimApiExtr
     const { address, name } = useContext(ActivityContext);
     const { data, refetch } = useActivityClaimCondition(source);
     const [hash, setHash] = useState<string | undefined>(undefined);
-    const [chainId, setChainId] = useState<ChainId | undefined>(undefined);
+    const [chainId, setChainId] = useState<ChainId | 'solana' | undefined>(undefined);
     const list = useActivityPremiumList(source);
 
     const isPremium = list.some((x) => x.verified);

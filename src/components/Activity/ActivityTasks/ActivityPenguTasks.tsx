@@ -1,9 +1,11 @@
 import { t, Trans } from '@lingui/macro';
 import { ChainId } from '@masknet/web3-shared-evm';
 import { ChainId as SolChainId } from '@masknet/web3-shared-solana';
+import { useContext } from 'react';
 
 import { ActivityClaimButton } from '@/components/Activity/ActivityClaimButton.js';
 import { ActivityConnectCard } from '@/components/Activity/ActivityConnectCard.js';
+import { ActivityContext } from '@/components/Activity/ActivityContext.js';
 import { ActivityLoginButton } from '@/components/Activity/ActivityLoginButton.js';
 import { ActivityPremiumAddressVerifyCard } from '@/components/Activity/ActivityPremiumAddressVerifyCard.js';
 import { ActivityPremiumConditionList } from '@/components/Activity/ActivityPremiumConditionList.js';
@@ -28,6 +30,7 @@ export function ActivityPenguTasks({
 }: {
     data: Pick<Required<ActivityInfoResponse>['data'], 'status' | 'name'>;
 }) {
+    const { address, premiumAddress } = useContext(ActivityContext);
     const { data: claimCondition } = useActivityClaimCondition(Source.Twitter);
     const list = useActivityPremiumList(Source.Twitter);
     const isPremium = list.some((x) => x.verified);
@@ -128,6 +131,10 @@ Check your eligibility and claim here ${shareUrl}
                     disabled={!isFollowedFirefly}
                     source={Source.Twitter}
                     buttonText={claimCondition?.participationBlocked ? <Trans>Participation Blocked</Trans> : undefined}
+                    claimApiExtraParams={{
+                        evmWalletAddress: premiumAddress,
+                        solanaWalletAddress: address,
+                    }}
                 />
             </div>
         </>

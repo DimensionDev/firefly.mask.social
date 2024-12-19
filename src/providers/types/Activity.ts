@@ -101,7 +101,7 @@ export type MintActivitySBTResponse = Response<{
     status: boolean;
     hash: string;
     errormessage?: string;
-    chainId: ChainId;
+    chainId: ChainId | 'solana';
 }>;
 
 export interface Provider {
