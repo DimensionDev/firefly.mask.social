@@ -43,7 +43,7 @@ class FireflyActivity implements Provider {
     ) {
         const params =
             name === 'pengu'
-                ? { name, solAddress: address, evmAddress: options?.premiumAddress }
+                ? { name, solAddress: address || '0x', evmAddress: options?.premiumAddress || '0x' }
                 : { name, address, ...options };
         const url = urlcat(settings.FIREFLY_ROOT_URL, `/v1/activity/check/:name`, params);
         const response = await fireflySessionHolder.fetchWithSession<CheckResponse>(url);
