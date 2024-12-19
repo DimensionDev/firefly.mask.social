@@ -6,15 +6,14 @@ import { ActivityVerifyText } from '@/components/Activity/ActivityVerifyText.js'
 import { useActivityClaimCondition } from '@/components/Activity/hooks/useActivityClaimCondition.js';
 import { Link } from '@/components/Activity/Link.js';
 import { Source } from '@/constants/enum.js';
-import { BARMSTRONG_MENTION } from '@/constants/mentions.js';
+import { BRIAN_FARCASTER_PROFILE } from '@/constants/mentions.js';
 import { classNames } from '@/helpers/classNames.js';
-import { getProfileFromMention } from '@/helpers/getProfileFromMention.js';
 import { resolveProfileUrl } from '@/helpers/resolveProfileUrl.js';
 
 export function ActivityFollowTargetCard({ handle, profileId }: { handle: string; profileId: string }) {
     const { data } = useActivityClaimCondition(Source.Twitter);
     const isFollowed = data?.x?.following || data?.farcaster.isFollowing;
-    const farcasterHandle = getProfileFromMention(BARMSTRONG_MENTION, Source.Farcaster)!.handle;
+    const farcasterHandle = BRIAN_FARCASTER_PROFILE.handle;
     return (
         <div
             className={classNames(

@@ -14,9 +14,13 @@ import { ActivityTaskFollowCard } from '@/components/Activity/ActivityTaskFollow
 import { useActivityPremiumList } from '@/components/Activity/hooks/useActivityPremiumList.js';
 import { useIsFollowInActivity } from '@/components/Activity/hooks/useIsFollowInActivity.js';
 import { Source } from '@/constants/enum.js';
-import { BARMSTRONG_MENTION, FIREFLY_MENTION } from '@/constants/mentions.js';
+import {
+    BARMSTRONG_MENTION,
+    BRIAN_FARCASTER_PROFILE,
+    FIREFLY_MENTION,
+    FIREFLY_TWITTER_PROFILE,
+} from '@/constants/mentions.js';
 import { type Chars } from '@/helpers/chars.js';
-import { getProfileFromMention } from '@/helpers/getProfileFromMention.js';
 import type { ActivityInfoResponse } from '@/providers/types/Firefly.js';
 
 export function ActivityHlblTasks({ data }: { data: Pick<Required<ActivityInfoResponse>['data'], 'status'> }) {
@@ -46,8 +50,8 @@ export function ActivityHlblTasks({ data }: { data: Pick<Required<ActivityInfoRe
     const { address } = useContext(ActivityContext);
     const { data: isFollowedFirefly } = useIsFollowInActivity(
         Source.Twitter,
-        getProfileFromMention(FIREFLY_MENTION, Source.Twitter)!.platform_id,
-        getProfileFromMention(FIREFLY_MENTION, Source.Twitter)!.handle,
+        FIREFLY_TWITTER_PROFILE.platform_id,
+        FIREFLY_TWITTER_PROFILE.handle,
     );
 
     return (
@@ -61,14 +65,14 @@ export function ActivityHlblTasks({ data }: { data: Pick<Required<ActivityInfoRe
                         <ActivityLoginButton source={Source.Twitter} />
                     </div>
                     <ActivityFollowTargetCard
-                        handle={getProfileFromMention(BARMSTRONG_MENTION, Source.Farcaster)!.handle}
-                        profileId={getProfileFromMention(BARMSTRONG_MENTION, Source.Farcaster)!.platform_id}
+                        handle={BRIAN_FARCASTER_PROFILE.handle}
+                        profileId={BRIAN_FARCASTER_PROFILE.platform_id}
                     />
                 </div>
                 <ActivityTaskFollowCard
                     source={Source.Twitter}
-                    handle={getProfileFromMention(FIREFLY_MENTION, Source.Twitter)!.handle}
-                    profileId={getProfileFromMention(FIREFLY_MENTION, Source.Twitter)!.platform_id}
+                    handle={FIREFLY_TWITTER_PROFILE.handle}
+                    profileId={FIREFLY_TWITTER_PROFILE.platform_id}
                 />
                 <h2 className="text-base font-semibold leading-6">
                     <Trans>Step 2 Connect Wallet</Trans>
