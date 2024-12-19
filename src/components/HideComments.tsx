@@ -23,7 +23,7 @@ interface ShowMoreCommentsProps {
 export function HideComments(props: ShowMoreCommentsProps) {
     const { postId, fallback = null, className, excludePostIds = [], source } = props;
     const queryResult = useInfiniteQuery({
-        queryKey: ['hidden-comments', source, postId],
+        queryKey: ['posts', source, 'hidden-comments', postId],
         async queryFn({ pageParam }) {
             if (!postId) return createPageable<Post>(EMPTY_LIST, createIndicator());
             const provider = resolveSocialMediaProvider(source);

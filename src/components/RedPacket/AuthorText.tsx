@@ -20,6 +20,7 @@ export function AuthorText({ theme, usage, from = 'unknown', ...props }: AuthorT
                     style={{
                         ...getCSSPropertiesFromThemeSettings(theme.normal.title3),
                         ...props.ContainerStyle,
+                        fontWeight: 400,
                     }}
                 >
                     {`From ${formatEthereumAddress(from, 4)}`}
@@ -34,6 +35,7 @@ export function AuthorText({ theme, usage, from = 'unknown', ...props }: AuthorT
                         alignItems: 'center',
                         position: 'absolute',
                         top: 440,
+                        fontWeight: 400,
                         ...props.ContainerStyle,
                     }}
                 >

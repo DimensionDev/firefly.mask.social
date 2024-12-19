@@ -1,4 +1,5 @@
 import { t } from '@lingui/macro';
+import { isValidChainId as isValidSolanaChainId } from '@masknet/web3-shared-solana';
 import { useContext } from 'react';
 import { useAsyncFn } from 'react-use';
 
@@ -15,7 +16,7 @@ import { captureActivityEvent } from '@/providers/telemetry/captureActivityEvent
 import { EventId } from '@/providers/types/Telemetry.js';
 import { Network, SupportedMethod } from '@/types/bridge.js';
 
-export function useActivityBindAddress(source: SocialSource) {
+export function useActivityBindAddress(source: SocialSource, chainId: number) {
     const { onChangeAddress } = useContext(ActivityContext);
     const { refetch: refetchActivityClaimCondition } = useActivityClaimCondition(source);
     const { data: { connected = EMPTY_LIST } = {}, refetch } = useActivityConnections();
@@ -23,7 +24,7 @@ export function useActivityBindAddress(source: SocialSource) {
         try {
             if (fireflyBridgeProvider.supported) {
                 const address = await fireflyBridgeProvider.request(SupportedMethod.BIND_WALLET, {
-                    type: Network.EVM,
+                    type: isValidSolanaChainId(chainId) ? Network.Solana : Network.EVM,
                 });
                 onChangeAddress(address);
                 captureActivityEvent(EventId.EVENT_CONNECT_WALLET_SUCCESS, {
@@ -35,7 +36,7 @@ export function useActivityBindAddress(source: SocialSource) {
             }
             const { response } = await AddWalletModalRef.openAndWaitForClose({
                 connections: connected,
-                platform: 'evm',
+                platform: isValidSolanaChainId(chainId) ? 'solana' : 'evm',
             });
             if (response?.address) {
                 onChangeAddress(response.address);
@@ -50,5 +51,5 @@ export function useActivityBindAddress(source: SocialSource) {
             });
             throw error;
         }
-    }, []);
+    }, [chainId, connected]);
 }
