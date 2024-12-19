@@ -1,3 +1,4 @@
+// cSpell:disable
 import { Trans } from '@lingui/macro';
 import { ChainId } from '@masknet/web3-shared-evm';
 import { useContext } from 'react';

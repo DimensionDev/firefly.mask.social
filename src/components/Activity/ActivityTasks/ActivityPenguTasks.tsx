@@ -61,6 +61,7 @@ export function ActivityPenguTasks({
     const list = useActivityPremiumList(Source.Twitter);
     const isPremium = list.some((x) => x.verified);
     const followProfile = {
+        // cspell: disable-next-line
         handle: 'pudgypenguins',
         profileId: '1415078650039443456',
         source: Source.Twitter,
