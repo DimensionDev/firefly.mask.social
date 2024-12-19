@@ -1,6 +1,9 @@
+import { t } from '@lingui/macro';
 import type { HTMLProps, ReactNode } from 'react';
 
 import CloseIcon from '@/assets/close.svg';
+import CloseCircleIcon from '@/assets/close-circle.svg';
+import MoreIcon from '@/assets/more.svg';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { Tooltip } from '@/components/Tooltip.js';
 import { classNames } from '@/helpers/classNames.js';
@@ -45,8 +48,6 @@ export function CloseButton({ IconProps, ...rest }: ButtonProps) {
     );
 }
 
-import CloseCircleIcon from '@/assets/close-circle.svg';
-
 export function ClearButton({ IconProps, ...rest }: ButtonProps) {
     return (
         <IconButton tooltip={t`Clear`} {...rest}>
@@ -61,9 +62,6 @@ export function ClearButton({ IconProps, ...rest }: ButtonProps) {
         </IconButton>
     );
 }
-
-import MoreIcon from '@/assets/more.svg';
-import { t } from '@lingui/macro';
 
 export function MoreButton({ IconProps, ...rest }: ButtonProps) {
     return (
