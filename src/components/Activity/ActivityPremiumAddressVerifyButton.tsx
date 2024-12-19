@@ -2,6 +2,7 @@
 
 import { Menu } from '@headlessui/react';
 import { t, Trans } from '@lingui/macro';
+import { isSameAddress } from '@masknet/web3-shared-base';
 import { isValidChainId as isValidSolanaChainId } from '@masknet/web3-shared-solana';
 import { type MouseEvent, useContext } from 'react';
 
@@ -26,7 +27,7 @@ export function ActivityPremiumAddressVerifyButton({ source, chainId }: { source
     const { refetch: refetchActivityClaimCondition, isRefetching } = useActivityClaimCondition(source);
     const isLoggedIn = useIsLoginInActivity(source);
     const { data: { connected = EMPTY_LIST } = {}, isLoading, refetch } = useActivityConnections();
-    const [, bindAddress] = useActivityBindAddress(source);
+    const [, bindAddress] = useActivityBindAddress(source, chainId);
 
     const addresses: Array<{ address: string; ens?: string }> = connected
         .filter((x) => x.platform === (isValidSolanaChainId(chainId) ? 'solana' : 'eth'))
@@ -115,7 +116,8 @@ export function ActivityPremiumAddressVerifyButton({ source, chainId }: { source
             <div className="flex w-full items-center gap-2">
                 <ChainIcon className="shrink-0" size={18} chainId={chainId} />
                 <span className="mr-auto text-base font-medium leading-6">
-                    {addresses.find((x) => x.address === premiumAddress)?.ens || formatAddress(premiumAddress, 4)}
+                    {addresses.find((x) => isSameAddress(x.address, premiumAddress))?.ens ||
+                        formatAddress(premiumAddress, 4)}
                 </span>
                 {button}
             </div>
