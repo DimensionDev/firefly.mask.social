@@ -7,12 +7,12 @@ import { type SocialSource } from '@/constants/enum.js';
 import { FireflyActivityProvider } from '@/providers/firefly/Activity.js';
 
 export function useActivityClaimCondition(source: SocialSource) {
-    const { address, name } = useContext(ActivityContext);
+    const { address, name, premiumAddress } = useContext(ActivityContext);
     const isLoggedIn = useIsLoginInActivity(source);
     return useQuery({
-        queryKey: ['activity-claim-condition', address, name, isLoggedIn],
+        queryKey: ['activity-claim-condition', address, name, isLoggedIn, premiumAddress],
         async queryFn() {
-            return FireflyActivityProvider.getActivityClaimCondition(name, address);
+            return FireflyActivityProvider.getActivityClaimCondition(name, address, { premiumAddress });
         },
         enabled: isLoggedIn,
     });
