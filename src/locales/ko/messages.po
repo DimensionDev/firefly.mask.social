@@ -543,9 +543,6 @@ msgstr ""
 msgid "Submit an evm wallet to check"
 msgstr ""
 
-msgid "Failed to bookmark NFT."
-msgstr ""
-
 msgid "NFTs"
 msgstr ""
 
@@ -945,13 +942,7 @@ msgstr ""
 msgid "Log out"
 msgstr ""
 
-msgid "Amount Each"
-msgstr ""
-
 msgid "You are holder of <0>Pudgy Penguins</0> or <1>Lil Pudgy</1> NFTs"
-msgstr ""
-
-msgid "{0}d: {1}h: {2}m: {3}s"
 msgstr ""
 
 msgid "No restricted approval."
@@ -1195,9 +1186,6 @@ msgid "Claim Premium"
 msgstr ""
 
 msgid "Share in a Post"
-msgstr ""
-
-msgid "Search by name or symbol"
 msgstr ""
 
 msgid "Participation Blocked"
@@ -1462,9 +1450,6 @@ msgid "Telemetry"
 msgstr ""
 
 msgid "Show more tokens with small balances"
-msgstr ""
-
-msgid "Requirements"
 msgstr ""
 
 msgid "*This event is only available on the mobile app. Download Firefly now!"
