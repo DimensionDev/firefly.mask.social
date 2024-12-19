@@ -50,8 +50,7 @@ export function ActivityPenguTasks({
 
 Check your eligibility and claim here ${shareUrl}
 
-#PENGU #FireflySocial
-    `,
+#PENGU #FireflySocial`,
             {
                 [fireflyMention]: FIREFLY_MENTION,
             },
