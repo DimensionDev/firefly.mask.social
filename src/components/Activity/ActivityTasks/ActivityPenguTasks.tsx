@@ -69,9 +69,9 @@ export function ActivityPenguTasks({
     const { data: isFollowedFirefly } = useIsFollowInActivity(Source.Twitter, '1583361564479889408', 'thefireflyapp');
     const shareUrl = useActivityShareUrl(data.name);
     const shareContent = [
-        "Can't wait to receive $PENGU and Holiday Skates with $PENGU 🐧✨ collectible from ",
+        'Just claimed the "Holiday Skates with $PENGU⛸️🐧⛸️" collectible from ',
         fireflyMention,
-        ' \n\nClaim here ',
+        ' \n\nCheck your eligibility and claim here ',
         shareUrl,
         '\n\n#PENGU #FireflySocial',
     ];
@@ -131,13 +131,13 @@ export function ActivityPenguTasks({
                 />
                 <div className="flex w-full flex-col space-y-2 text-sm font-semibold leading-6">
                     <ActivityPremiumConditionList
-                        title={
-                            <Trans>
-                                Meet any of the following to unlock a premium collectible and get more $PENGU:
-                            </Trans>
-                        }
+                        title={<Trans>Meet any of the following to unlock a premium collectible:</Trans>}
                         source={Source.Twitter}
-                    />
+                    >
+                        <p className="pt-4 text-sm font-normal leading-6">
+                            <Trans>*Note: Each NFT can only be used once.</Trans>
+                        </p>
+                    </ActivityPremiumConditionList>
                 </div>
             </div>
             <div className="sticky bottom-0 mt-auto w-full bg-primaryBottom px-4 pt-1.5 pb-safe-or-4 sm:pb-safe-or-2">

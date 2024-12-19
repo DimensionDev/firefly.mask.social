@@ -238,9 +238,6 @@ msgstr "<0>The maximum number of coins coded to exist in the lifetime of the cry
 msgid "This token is a gas abuser."
 msgstr "This token is a gas abuser."
 
-msgid "Meet any of the following to unlock a premium collectible and get more $PENGU:"
-msgstr "Meet any of the following to unlock a premium collectible and get more $PENGU:"
-
 msgid "Are you sure you want to leave /{0} ?"
 msgstr "Are you sure you want to leave /{0} ?"
 
@@ -2437,6 +2434,9 @@ msgstr "Wallets"
 msgid "Articles from {walletHandle} will now be hidden in your home timeline"
 msgstr "Articles from {walletHandle} will now be hidden in your home timeline"
 
+msgid "Meet any of the following to unlock a premium collectible:"
+msgstr "Meet any of the following to unlock a premium collectible:"
+
 msgid "Article"
 msgstr "Article"
 
@@ -3153,6 +3153,9 @@ msgstr "Claim Requirements"
 
 msgid "Oversupply minting."
 msgstr "Oversupply minting."
+
+msgid "*Note: Each NFT can only be used once."
+msgstr "*Note: Each NFT can only be used once."
 
 msgid "Followed <0>@{handle}</0> on {0}"
 msgstr "Followed <0>@{handle}</0> on {0}"

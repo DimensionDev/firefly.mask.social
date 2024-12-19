@@ -22,7 +22,7 @@ export function ActivityTasks({ name, data }: Props) {
             return <ActivityFrensgivingTasks data={data} />;
         case 'pengu':
             return (
-                <ActivityMobileOnly>
+                <ActivityMobileOnly disabled>
                     <ActivityPenguTasks data={data} />
                 </ActivityMobileOnly>
             );

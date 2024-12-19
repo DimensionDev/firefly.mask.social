@@ -238,9 +238,6 @@ msgstr ""
 msgid "This token is a gas abuser."
 msgstr ""
 
-msgid "Meet any of the following to unlock a premium collectible and get more $PENGU:"
-msgstr ""
-
 msgid "Are you sure you want to leave /{0} ?"
 msgstr ""
 
@@ -2437,6 +2434,9 @@ msgstr ""
 msgid "Articles from {walletHandle} will now be hidden in your home timeline"
 msgstr ""
 
+msgid "Meet any of the following to unlock a premium collectible:"
+msgstr ""
+
 msgid "Article"
 msgstr ""
 
@@ -3152,6 +3152,9 @@ msgid "Claim Requirements"
 msgstr ""
 
 msgid "Oversupply minting."
+msgstr ""
+
+msgid "*Note: Each NFT can only be used once."
 msgstr ""
 
 msgid "Followed <0>@{handle}</0> on {0}"
