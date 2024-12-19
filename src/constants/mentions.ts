@@ -1,3 +1,5 @@
+/* cspell:disable */
+
 import { FireflyPlatform } from '@/constants/enum.js';
 import { CHAR_TAG, type MentionChars } from '@/helpers/chars.js';
 import type { Profile } from '@/providers/types/Firefly.js';
