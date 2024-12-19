@@ -20,6 +20,7 @@ export interface X {
     hasVerified: boolean;
     valid: boolean;
     level: Level;
+    followingPudge?: boolean;
 }
 
 export interface Farcaster {
@@ -67,10 +68,24 @@ export interface Assets {
     valid: boolean;
 }
 
+export interface NFT {
+    address: string;
+    valid: boolean;
+    level: Level;
+    alreadyClaimed: boolean;
+    ownPudgy: boolean;
+    ownLil: boolean;
+    ownTruePengu: boolean;
+    ownPenguPins: boolean;
+    participationBlocked: boolean;
+}
+
 export type CheckResponse = Response<{
     alreadyClaimed: boolean;
     canClaim: boolean;
     x: X;
+    nft?: NFT;
+    participationBlocked?: boolean;
     farcaster: Farcaster;
     assets: Assets;
     balance: Balance;

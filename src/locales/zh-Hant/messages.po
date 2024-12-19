@@ -8,7 +8,7 @@ msgstr ""
 "Language: zh\n"
 "Project-Id-Version: masksocial\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-11-09 00:05\n"
+"PO-Revision-Date: 2024-12-17 12:03\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Traditional\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
@@ -339,6 +339,9 @@ msgstr "Solana"
 msgid "Casts"
 msgstr ""
 
+msgid "Followed <0>@{0}</0> on X before Dec 17, 2024"
+msgstr ""
+
 msgid "Your account is now connected."
 msgstr "您的帳戶現已連接。"
 
@@ -400,7 +403,7 @@ msgid "Sign in"
 msgstr ""
 
 msgid "<0>Posted</0>an article"
-msgstr "<0>發布</0>一篇文章"
+msgstr ""
 
 msgid "Scan the QR code with your phone’s <0>Camera</0> in {count}s. <1/>Approve a new Farcaster signer to Firefly."
 msgstr "使用手機<0>相機</0>在 {count} 秒內掃描 QR碼。允許新的 Farcaster 簽名使用 Firefly。"
@@ -536,6 +539,9 @@ msgstr ""
 
 msgid "Mutes"
 msgstr "靜音"
+
+msgid "Submit an evm wallet to check"
+msgstr ""
 
 msgid "NFTs"
 msgstr "非同質化代幣"
@@ -936,6 +942,9 @@ msgstr ""
 msgid "Log out"
 msgstr "登出"
 
+msgid "You are holder of <0>Pudgy Penguins</0> or <1>Lil Pudgy</1> NFTs"
+msgstr ""
+
 msgid "No restricted approval."
 msgstr ""
 
@@ -1177,6 +1186,9 @@ msgid "Claim Premium"
 msgstr ""
 
 msgid "Share in a Post"
+msgstr ""
+
+msgid "Participation Blocked"
 msgstr ""
 
 msgid "Forbidden. Please check your permissions."
@@ -1440,6 +1452,9 @@ msgstr ""
 msgid "Show more tokens with small balances"
 msgstr ""
 
+msgid "*This event is only available on the mobile app. Download Firefly now!"
+msgstr ""
+
 msgid "{riskyFactors, plural, one {# Risky item} other {# Risky items}}"
 msgstr ""
 
@@ -1540,7 +1555,7 @@ msgid "Standard"
 msgstr ""
 
 msgid "<0>Revised</0>an article"
-msgstr "<0>校訂</0>一篇文章"
+msgstr ""
 
 msgid "No darkweb transactions found."
 msgstr ""
@@ -2130,6 +2145,9 @@ msgstr ""
 msgid "Articles from {walletHandle} will now be hidden in your home timeline"
 msgstr ""
 
+msgid "Meet any of the following to unlock a premium collectible:"
+msgstr ""
+
 msgid "Article"
 msgstr ""
 
@@ -2236,6 +2254,9 @@ msgid "Image"
 msgstr "圖片"
 
 msgid "Failed to delete post."
+msgstr ""
+
+msgid "Google Play"
 msgstr ""
 
 msgid "Financial crime found."
@@ -2446,6 +2467,9 @@ msgid "Switching..."
 msgstr "切換中..."
 
 msgid "Pay<0> {feeAmount} ${feeSymbol} </0>to follow and get some awesome perks!"
+msgstr ""
+
+msgid "App Store"
 msgstr ""
 
 msgid "<0>Bought</0> an NFT worth {costEl}"
@@ -2724,6 +2748,9 @@ msgstr ""
 msgid "Oversupply minting."
 msgstr ""
 
+msgid "*Note: Each NFT can only be used once."
+msgstr ""
+
 msgid "Followed <0>@{handle}</0> on {0}"
 msgstr ""
 
@@ -2839,6 +2866,9 @@ msgid "Recasted"
 msgstr ""
 
 msgid "No phishing activities involved."
+msgstr ""
+
+msgid "Submit a wallet to receive NFT and $PENGU"
 msgstr ""
 
 msgid "Failed to parse transaction."
@@ -3015,6 +3045,9 @@ msgstr ""
 msgid "Media"
 msgstr "多媒體"
 
+msgid "You are holder of <0>truePengu</0> or <1>penguPins</1> Soulbound NFTs"
+msgstr ""
+
 msgid "No content to publish."
 msgstr "沒有可發布的內容"
 
@@ -3097,6 +3130,12 @@ msgid "{0, plural, one {like} other {likes}}"
 msgstr ""
 
 msgid "Collectible"
+msgstr ""
+
+msgid ""
+"Just claimed the \"Holiday Skates with $PENGU⛸️🐧⛸️\" collectible from {fireflyMention}\n"
+"Check your eligibility and claim here {shareUrl}\n"
+"#PENGU #FireflySocial"
 msgstr ""
 
 msgid "Are you sure you want to report this user?"

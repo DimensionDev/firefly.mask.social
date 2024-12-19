@@ -8,7 +8,7 @@ msgstr ""
 "Language: zh\n"
 "Project-Id-Version: masksocial\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-12-16 14:16\n"
+"PO-Revision-Date: 2024-12-17 12:03\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
@@ -70,7 +70,7 @@ msgid "You have been detected as a loyal Farcaster user"
 msgstr "您被检测到为 Farcaster 忠实用户"
 
 msgid "Edit Image"
-msgstr "修改图片"
+msgstr "编辑图片"
 
 msgid "Failed to upload. File type is not supported on X."
 msgstr "图片格式 X 不支持。上传失败。"
@@ -339,6 +339,9 @@ msgstr "Solana"
 msgid "Casts"
 msgstr "帖子"
 
+msgid "Followed <0>@{0}</0> on X before Dec 17, 2024"
+msgstr ""
+
 msgid "Your account is now connected."
 msgstr "您的账户已连接。"
 
@@ -388,7 +391,7 @@ msgid "NFT Standard"
 msgstr "NFT 标准"
 
 msgid "🙌  Just voted “{0}” on “{1}”"
-msgstr ""
+msgstr "🙌 刚刚在 ‘{1}’上投了 ‘{0}’ 票"
 
 msgid "Stealing attack."
 msgstr "窃取攻击。"
@@ -536,6 +539,9 @@ msgstr "{0, plural, one {关注者} other {关注者}}"
 
 msgid "Mutes"
 msgstr "隐藏"
+
+msgid "Submit an evm wallet to check"
+msgstr ""
 
 msgid "NFTs"
 msgstr "NFTs"
@@ -936,6 +942,9 @@ msgstr "未发现钓鱼网站。"
 msgid "Log out"
 msgstr "登出"
 
+msgid "You are holder of <0>Pudgy Penguins</0> or <1>Lil Pudgy</1> NFTs"
+msgstr ""
+
 msgid "No restricted approval."
 msgstr "没有限制性批准。"
 
@@ -1179,6 +1188,9 @@ msgstr "领取优质奖励"
 msgid "Share in a Post"
 msgstr "在帖子中分享"
 
+msgid "Participation Blocked"
+msgstr ""
+
 msgid "Forbidden. Please check your permissions."
 msgstr "禁止！请检查您的权限。"
 
@@ -1318,7 +1330,7 @@ msgid "Malformed session."
 msgstr "会话格式错误。"
 
 msgid "Malformed third-party session payload."
-msgstr "第三方会话负载格式不正确。"
+msgstr ""
 
 msgid "Upload"
 msgstr "上传"
@@ -1439,6 +1451,9 @@ msgstr "遥测"
 
 msgid "Show more tokens with small balances"
 msgstr "展示更多的小额通证"
+
+msgid "*This event is only available on the mobile app. Download Firefly now!"
+msgstr ""
 
 msgid "{riskyFactors, plural, one {# Risky item} other {# Risky items}}"
 msgstr "{riskyFactors, plural, one {# 风险条目} other {# 风险条目}}"
@@ -2130,6 +2145,9 @@ msgstr "钱包"
 msgid "Articles from {walletHandle} will now be hidden in your home timeline"
 msgstr "来自 {walletHandle} 的文章现在将从您的首页时间线中隐藏。"
 
+msgid "Meet any of the following to unlock a premium collectible:"
+msgstr ""
+
 msgid "Article"
 msgstr "文章"
 
@@ -2238,6 +2256,9 @@ msgstr "图片"
 msgid "Failed to delete post."
 msgstr "删除帖子失败。"
 
+msgid "Google Play"
+msgstr ""
+
 msgid "Financial crime found."
 msgstr "识别为金融犯罪。"
 
@@ -2281,7 +2302,7 @@ msgid "Non-contract address found."
 msgstr "发现非合约地址。"
 
 msgid "Confirm to disconnect this account from Firefly’s social graph?"
-msgstr ""
+msgstr "确认将此账户从 Firefly 的社交图谱中断开连接吗？"
 
 msgid "The contract owner has no restrictions on selling."
 msgstr "合约所有者对销售没有限制。"
@@ -2448,6 +2469,9 @@ msgstr "切换中..."
 msgid "Pay<0> {feeAmount} ${feeSymbol} </0>to follow and get some awesome perks!"
 msgstr "支付<0>{feeAmount} ${feeSymbol}</0>以关注并获得一些精彩的福利！"
 
+msgid "App Store"
+msgstr ""
+
 msgid "<0>Bought</0> an NFT worth {costEl}"
 msgstr "<0>购买</0> 一个 NFT 价值 {costEl}"
 
@@ -2524,7 +2548,7 @@ msgid "The signer is not authorized to perform the requested operation. Please a
 msgstr "Signer key 未被授权。请重试。"
 
 msgid "The account you are trying to log in with is already linked to a different Firefly account."
-msgstr ""
+msgstr "您尝试登录的账户已链接到另一个 Firefly 账户。"
 
 msgid "Saved on {0}"
 msgstr "已保存在 {0}"
@@ -2724,6 +2748,9 @@ msgstr "Firefly 桥"
 msgid "Oversupply minting."
 msgstr "超出最大铸造数量。"
 
+msgid "*Note: Each NFT can only be used once."
+msgstr ""
+
 msgid "Followed <0>@{handle}</0> on {0}"
 msgstr "在 {0} 上关注了 <0>@{handle}</0>"
 
@@ -2782,7 +2809,7 @@ msgid "Failed to report spam NFT."
 msgstr "举报垃圾 NFT 失败。"
 
 msgid "Malformed twitter session payload."
-msgstr "错误的 twitter 会话。"
+msgstr ""
 
 msgid "Sorry, there is no wallet address available for tipping."
 msgstr "对不起，未找到合适的地址用来打赏。"
@@ -2840,6 +2867,9 @@ msgstr "已转发"
 
 msgid "No phishing activities involved."
 msgstr "未发现钓鱼活动。"
+
+msgid "Submit a wallet to receive NFT and $PENGU"
+msgstr ""
 
 msgid "Failed to parse transaction."
 msgstr "未能解析交易。"
@@ -3015,6 +3045,9 @@ msgstr "没有交易冷却功能"
 msgid "Media"
 msgstr "多媒体"
 
+msgid "You are holder of <0>truePengu</0> or <1>penguPins</1> Soulbound NFTs"
+msgstr ""
+
 msgid "No content to publish."
 msgstr "没有发布的内容。"
 
@@ -3098,6 +3131,12 @@ msgstr "{0, plural, one {点赞} other {点赞}}"
 
 msgid "Collectible"
 msgstr "NFT"
+
+msgid ""
+"Just claimed the \"Holiday Skates with $PENGU⛸️🐧⛸️\" collectible from {fireflyMention}\n"
+"Check your eligibility and claim here {shareUrl}\n"
+"#PENGU #FireflySocial"
+msgstr ""
 
 msgid "Are you sure you want to report this user?"
 msgstr "您确定要举报这个用户么？"

@@ -1,6 +1,7 @@
 'use client';
 
 import { Trans } from '@lingui/macro';
+import { ChainId } from '@masknet/web3-shared-evm';
 
 import { ActivityClaimButton } from '@/components/Activity/ActivityClaimButton.js';
 import { ActivityConnectCard } from '@/components/Activity/ActivityConnectCard.js';
@@ -10,42 +11,11 @@ import { ActivityVerifyText } from '@/components/Activity/ActivityVerifyText.js'
 import { useActivityClaimCondition } from '@/components/Activity/hooks/useActivityClaimCondition.js';
 import { useActivityPremiumList } from '@/components/Activity/hooks/useActivityPremiumList.js';
 import { useActivityShareUrl } from '@/components/Activity/hooks/useActivityShareUrl.js';
-import { FireflyPlatform, Source } from '@/constants/enum.js';
-import { CHAR_TAG, type Chars } from '@/helpers/chars.js';
+import { Source } from '@/constants/enum.js';
+import { FIREFLY_MENTION } from '@/constants/mentions.js';
+import { type Chars } from '@/helpers/chars.js';
 import { classNames } from '@/helpers/classNames.js';
-import type { ActivityInfoResponse, Profile } from '@/providers/types/Firefly.js';
-
-const fireflyMention = {
-    tag: CHAR_TAG.MENTION,
-    visible: true,
-    content: `@thefireflyapp`,
-    profiles: [
-        {
-            platform_id: '1583361564479889408',
-            platform: FireflyPlatform.Twitter,
-            handle: 'thefireflyapp',
-            name: 'thefireflyapp',
-            hit: true,
-            score: 0,
-        },
-        {
-            platform_id: '16823',
-            platform: FireflyPlatform.Farcaster,
-            handle: 'fireflyapp',
-            name: 'Firefly App',
-            hit: true,
-            score: 0,
-        },
-        {
-            platform_id: '0x01b000',
-            platform: FireflyPlatform.Lens,
-            handle: 'fireflyapp',
-            name: 'fireflyapp',
-            hit: true,
-            score: 0,
-        },
-    ] as Profile[],
-};
+import type { ActivityInfoResponse } from '@/providers/types/Firefly.js';
 
 export function ActivityFrensgivingTasks({
     data,
@@ -55,7 +25,7 @@ export function ActivityFrensgivingTasks({
     const shareUrl = useActivityShareUrl(data.name);
     const shareContent = [
         'Just earned $ANON by minting the Firefly Farcaster Frensgiving 🦃✨ collectible from ',
-        fireflyMention,
+        FIREFLY_MENTION,
         '\n\nClaim here ',
         shareUrl,
         ' \n\n#Frensgiving #Thanksgiving #Farcaster #FireflySocial',
@@ -96,6 +66,7 @@ export function ActivityFrensgivingTasks({
                 </h2>
                 <ActivityConnectCard
                     source={Source.Farcaster}
+                    chainId={ChainId.Base}
                     label={<Trans>Submit a wallet to receive NFT and $ANON</Trans>}
                 />
                 <div className="flex w-full flex-col space-y-2 text-sm font-semibold leading-6">
