@@ -102,6 +102,7 @@ export function useVerifyAndClaim(payload: RedPacketJSONPayload, source: SocialS
             isVerifying: isFetching,
             isClaiming,
             claimStrategyStatus: data?.data.claimStrategyStatus,
+            recheckClaimStatus,
         },
         verifyAndClaim,
     ] as const;

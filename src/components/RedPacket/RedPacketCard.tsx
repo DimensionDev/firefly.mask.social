@@ -150,7 +150,10 @@ export function RedPacketCard({ payload, post }: Props) {
         return fetch(cover.backgroundImageUrl);
     }, [cover?.backgroundImageUrl]);
 
-    const [{ isVerifying, isClaiming, claimStrategyStatus }, verifyAndClaim] = useVerifyAndClaim(payload, post.source);
+    const [{ isVerifying, isClaiming, claimStrategyStatus, recheckClaimStatus }, verifyAndClaim] = useVerifyAndClaim(
+        payload,
+        post.source,
+    );
 
     return (
         <div
@@ -180,9 +183,9 @@ export function RedPacketCard({ payload, post }: Props) {
                         style={
                             cover
                                 ? {
-                                      backgroundSize: 'contain',
+                                      backgroundSize: 'cover',
                                       backgroundRepeat: 'no-repeat',
-                                      backgroundImage: `url(${cover.backgroundImageUrl})`,
+                                      backgroundImage: `url("${encodeURI(cover.backgroundImageUrl)}")`,
                                       backgroundColor: cover.backgroundColor,
                                       aspectRatio: '10 / 7',
                                       color: cover.theme.normal.title1.color,
@@ -202,9 +205,12 @@ export function RedPacketCard({ payload, post }: Props) {
                         ) : null}
                         {listOfStatus.length ? (
                             <ClickableArea
-                                className="absolute right-5 top-4 z-20 flex cursor-pointer items-center rounded-full px-3 py-[6px] text-xs leading-3 text-white"
+                                className="absolute right-5 top-4 z-20 flex cursor-pointer items-center rounded-full px-3 py-[6px] text-xs leading-3 text-white disabled:cursor-not-allowed"
                                 style={{ background: 'rgba(0, 0, 0, 0.25)', backdropFilter: 'blur(5px)' }}
-                                onClick={() => setRequirementOpen(true)}
+                                disabled={isVerifying}
+                                onClick={async () => {
+                                    if (claimStrategyStatus?.length) setRequirementOpen(true);
+                                }}
                             >
                                 <span>{resolveRedPacketStatus(listOfStatus)}</span>
                             </ClickableArea>
