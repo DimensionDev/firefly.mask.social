@@ -2,6 +2,7 @@ import { Trans } from '@lingui/macro';
 import { safeUnreachable } from '@masknet/kit';
 import { useRouter } from '@tanstack/react-router';
 import { signIn } from 'next-auth/react';
+import { useState } from 'react';
 import { useAsyncFn } from 'react-use';
 import urlcat from 'urlcat';
 
@@ -13,7 +14,6 @@ import { SORTED_SOCIAL_SOURCES, SORTED_THIRD_PARTY_SOURCES } from '@/constants/i
 import { resolveSourceInUrl } from '@/helpers/resolveSourceInUrl.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
-import { useState } from 'react';
 
 export function MainView() {
     const router = useRouter();

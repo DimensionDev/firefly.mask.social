@@ -501,6 +501,9 @@ msgstr "发布成功。"
 msgid "Retry"
 msgstr "重试"
 
+msgid "Or login in with other platforms"
+msgstr ""
+
 msgid "Show less"
 msgstr "收起"
 
@@ -1650,9 +1653,6 @@ msgstr "NFT 合约"
 msgid "Failed to connect MPC wallet"
 msgstr "连接 MPC 钱包失败。"
 
-msgid "Customize Lucky Drop sender. Select either Lens or Farecaster handle, or use the currently connected wallet."
-msgstr ""
-
 msgid "Phishing activities."
 msgstr "钓鱼活动。"
 
@@ -2133,9 +2133,6 @@ msgstr "红包类型"
 msgid "Quote"
 msgstr "引用"
 
-msgid "Or login with any social account"
-msgstr "或者使用任意社交账户登录"
-
 msgid "View engagements"
 msgstr "查看互动"
 
@@ -2330,6 +2327,9 @@ msgstr "添加钱包成功"
 
 msgid "There is no data available for display."
 msgstr "没有可显示的数据。"
+
+msgid "Customize Lucky Drop sender. Select either Lens or Farcaster handle, or use the currently connected wallet."
+msgstr ""
 
 msgid "Cancel"
 msgstr "取消"

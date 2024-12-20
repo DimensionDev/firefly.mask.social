@@ -7,8 +7,8 @@ import LoadingIcon from '@/assets/loading.svg';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { Source, type ThirdPartySource } from '@/constants/enum.js';
 import { enqueueMessageFromError } from '@/helpers/enqueueMessage.js';
-import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 import { resolveSourceInUrl } from '@/helpers/resolveSourceInUrl.js';
+import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 
 interface Props {
     source: ThirdPartySource;
