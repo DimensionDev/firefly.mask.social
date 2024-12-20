@@ -8,6 +8,7 @@ import { ClickableButton } from '@/components/ClickableButton.js';
 import { Source, type ThirdPartySource } from '@/constants/enum.js';
 import { enqueueMessageFromError } from '@/helpers/enqueueMessage.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
+import { resolveSourceInUrl } from '@/helpers/resolveSourceInUrl.js';
 
 interface Props {
     source: ThirdPartySource;
@@ -24,7 +25,7 @@ export function ThirdPartConnectButton({ source }: Props) {
                     break;
                 case Source.Apple:
                 case Source.Google:
-                    await signIn(source);
+                    await signIn(resolveSourceInUrl(source));
                     break;
                 default:
                     safeUnreachable(source);

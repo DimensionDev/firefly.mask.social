@@ -13,11 +13,13 @@ import { SORTED_SOCIAL_SOURCES, SORTED_THIRD_PARTY_SOURCES } from '@/constants/i
 import { resolveSourceInUrl } from '@/helpers/resolveSourceInUrl.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
+import { useState } from 'react';
 
 export function MainView() {
     const router = useRouter();
     const { history } = router;
     const isMedium = useIsMedium();
+    const [selectedSource, setSelectedSource] = useState<ThirdPartySource>();
 
     const onClick = (source: SocialSource) => {
         const signType = source === Source.Farcaster && isMedium ? FarcasterSignType.RelayService : undefined;
@@ -31,19 +33,23 @@ export function MainView() {
     };
 
     const [{ loading }, onAuthClick] = useAsyncFn(async (source: ThirdPartySource) => {
+        setSelectedSource(source);
         switch (source) {
             case Source.Telegram:
                 const url = await FireflyEndpointProvider.getTelegramLoginUrl();
                 if (!url) return;
                 window.location.href = url;
+
                 break;
             case Source.Apple:
             case Source.Google:
                 await signIn(resolveSourceInUrl(source));
+
                 break;
             default:
                 safeUnreachable(source);
         }
+        setSelectedSource(undefined);
     }, []);
 
     return (
@@ -53,7 +59,7 @@ export function MainView() {
                     <>
                         <LoginFirefly />
                         <p className="text-center text-xs leading-4 text-second">
-                            <Trans>Or login with any social account</Trans>
+                            <Trans>Or login in with other platforms</Trans>
                         </p>
                     </>
                 ) : null}
@@ -66,7 +72,7 @@ export function MainView() {
                               <LoginButton
                                   key={source}
                                   source={source}
-                                  loading={loading}
+                                  loading={selectedSource === source && loading}
                                   onClick={() => onAuthClick(source)}
                               />
                           ))
