@@ -201,10 +201,10 @@ interface User {
         ethereum: string[];
         solana: string[];
     };
-    connectedAccounts: {
+    connectedAccounts: Array<{
         platform: string;
         username: string;
-    }[];
+    }>;
 }
 
 interface Cast {
