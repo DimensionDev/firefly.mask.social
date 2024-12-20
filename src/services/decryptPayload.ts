@@ -16,10 +16,10 @@ import type { EncryptedPayload } from '@/helpers/getEncryptedPayload.js';
 const cache = new Map<string, AESCryptoKey>();
 
 async function parsePayloadText(encoded: string) {
-    let payload = TwitterDecoder(
-        'https://mask.io/?PostData_v1=' +
-            encodeURI(encoded).replaceAll(/@$/g, '%40').replaceAll('%2F', '/').replaceAll('%3D', '='),
-    ).unwrapOr('');
+    const content = encoded.endsWith('%40')
+        ? encoded
+        : encodeURI(encoded).replaceAll(/@$/g, '%40').replaceAll('%2F', '/').replaceAll('%3D', '=');
+    let payload = TwitterDecoder('https://mask.io/?PostData_v1=' + content).unwrapOr('');
     if (typeof payload === 'string') {
         payload = payload.replaceAll('%20', '+');
     }

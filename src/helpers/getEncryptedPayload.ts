@@ -6,10 +6,12 @@ import { steganographyDecodeImage } from '@/services/steganography.js';
 
 export type EncryptedPayload = readonly [string | Uint8Array, '1' | '2', string | null];
 
+const POST_DATA_REGEX = /(?:.*)PostData_(v1|v2)=(.*)/;
+
 export function getEncryptedPayloadFromText(text: string | undefined): EncryptedPayload | undefined {
     if (!text) return;
 
-    const matched = text.match(/(?:.*)PostData_(v1|v2)=(.*)/);
+    const matched = text.match(POST_DATA_REGEX);
     if (!matched) return;
 
     const [, version, payload] = matched;
@@ -26,6 +28,14 @@ const decodeAttachment = memoizePromise(
 
         const decoded = await steganographyDecodeImage(attachment.uri);
         if (!decoded) return;
+
+        if (typeof decoded === 'string' && decoded.match(POST_DATA_REGEX)) {
+            const reDecoded = getEncryptedPayloadFromText(decoded);
+            if (reDecoded) {
+                const [decoded, version] = reDecoded;
+                return [decoded, version, attachment.uri] as EncryptedPayload;
+            }
+        }
 
         return [decoded, '2', attachment.uri] as EncryptedPayload;
     },
