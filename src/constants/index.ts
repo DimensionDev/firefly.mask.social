@@ -256,6 +256,8 @@ export const ALLOWED_IMAGES_MIMES = [
     FileMimeType.BMP,
 ] as const;
 
+export const ALLOWED_COVER_MIMES = [FileMimeType.PNG, FileMimeType.JPEG] as const;
+
 export const ALLOWED_VIDEO_MIMES = [
     FileMimeType.MP4,
     FileMimeType.MPEG,
