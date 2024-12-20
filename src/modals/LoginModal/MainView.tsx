@@ -33,23 +33,28 @@ export function MainView() {
     };
 
     const [{ loading }, onAuthClick] = useAsyncFn(async (source: ThirdPartySource) => {
-        setSelectedSource(source);
-        switch (source) {
-            case Source.Telegram:
-                const url = await FireflyEndpointProvider.getTelegramLoginUrl();
-                if (!url) return;
-                window.location.href = url;
+        try {
+            setSelectedSource(source);
+            switch (source) {
+                case Source.Telegram:
+                    const url = await FireflyEndpointProvider.getTelegramLoginUrl();
+                    if (!url) return;
+                    window.location.href = url;
 
-                break;
-            case Source.Apple:
-            case Source.Google:
-                await signIn(resolveSourceInUrl(source));
+                    break;
+                case Source.Apple:
+                case Source.Google:
+                    await signIn(resolveSourceInUrl(source));
 
-                break;
-            default:
-                safeUnreachable(source);
+                    break;
+                default:
+                    safeUnreachable(source);
+            }
+        } catch (error) {
+            throw error;
+        } finally {
+            setSelectedSource(undefined);
         }
-        setSelectedSource(undefined);
     }, []);
 
     return (
