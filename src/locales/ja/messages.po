@@ -81,9 +81,6 @@ msgstr ""
 msgid "Sell Tax: {0}%"
 msgstr ""
 
-msgid "Lucky drop"
-msgstr ""
-
 msgid "Failed to translate post. Please retry later."
 msgstr ""
 
@@ -709,6 +706,9 @@ msgid "Failed to unfollow @{0} on {sourceName}."
 msgstr ""
 
 msgid "Muted {walletHandle}."
+msgstr ""
+
+msgid "Confirm Lucky Drop"
 msgstr ""
 
 msgid "Sanctioned address."
@@ -1641,9 +1641,6 @@ msgstr ""
 msgid "Fully Diluted Valuation"
 msgstr ""
 
-msgid "Customize Lucky Drop sender. Select either Lens or Forecaster handle, or use the currently connected wallet."
-msgstr ""
-
 msgid "Email (optional)"
 msgstr ""
 
@@ -1651,6 +1648,9 @@ msgid "NFT Contract"
 msgstr ""
 
 msgid "Failed to connect MPC wallet"
+msgstr ""
+
+msgid "Customize Lucky Drop sender. Select either Lens or Farecaster handle, or use the currently connected wallet."
 msgstr ""
 
 msgid "Phishing activities."
@@ -3088,9 +3088,6 @@ msgid "News"
 msgstr ""
 
 msgid "NFT ID"
-msgstr ""
-
-msgid "Confirm Lucky drop"
 msgstr ""
 
 msgid "Farcaster channel"

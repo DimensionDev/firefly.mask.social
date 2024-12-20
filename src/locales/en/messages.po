@@ -76,9 +76,6 @@ msgstr "Report @{0}"
 msgid "Sell Tax: {0}%"
 msgstr "Sell Tax: {0}%"
 
-msgid "Lucky drop"
-msgstr "Lucky drop"
-
 msgid "Failed to translate post. Please retry later."
 msgstr "Failed to translate post. Please retry later."
 
@@ -705,6 +702,9 @@ msgstr "Failed to unfollow @{0} on {sourceName}."
 
 msgid "Muted {walletHandle}."
 msgstr "Muted {walletHandle}."
+
+msgid "Confirm Lucky Drop"
+msgstr "Confirm Lucky Drop"
 
 msgid "Sanctioned address."
 msgstr "Sanctioned address."
@@ -1636,9 +1636,6 @@ msgstr "<0>{0}</0> liked"
 msgid "Fully Diluted Valuation"
 msgstr "Fully Diluted Valuation"
 
-msgid "Customize Lucky Drop sender. Select either Lens or Forecaster handle, or use the currently connected wallet."
-msgstr "Customize Lucky Drop sender. Select either Lens or Forecaster handle, or use the currently connected wallet."
-
 msgid "Email (optional)"
 msgstr "Email (optional)"
 
@@ -1647,6 +1644,9 @@ msgstr "NFT Contract"
 
 msgid "Failed to connect MPC wallet"
 msgstr "Failed to connect MPC wallet"
+
+msgid "Customize Lucky Drop sender. Select either Lens or Farecaster handle, or use the currently connected wallet."
+msgstr "Customize Lucky Drop sender. Select either Lens or Farecaster handle, or use the currently connected wallet."
 
 msgid "Phishing activities."
 msgstr "Phishing activities."
@@ -3084,9 +3084,6 @@ msgstr "News"
 
 msgid "NFT ID"
 msgstr "NFT ID"
-
-msgid "Confirm Lucky drop"
-msgstr "Confirm Lucky drop"
 
 msgid "Farcaster channel"
 msgstr "Farcaster channel"

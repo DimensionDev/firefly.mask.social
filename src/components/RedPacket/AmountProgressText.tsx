@@ -117,7 +117,7 @@ function ShrankPrice({ shrank }: { shrank: string }) {
     return (
         <div style={{ display: 'flex', alignItems: 'flex-end' }}>
             {parts[1]}
-            <sub className="text-[0.66em]" style={{ fontSize: '0.66em' }}>
+            <sub className="text-[0.66em]" style={{ fontSize: '0.66em', bottom: 0, lineHeight: 1 }}>
                 {parts[2]}
             </sub>
             {parts[3]}

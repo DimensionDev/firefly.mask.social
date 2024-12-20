@@ -34,7 +34,7 @@ import {
     redPacketCoverTabs,
     redPacketFontColorTabs,
 } from '@/modals/RedPacketModal/RedPacketContext.js';
-import { REQUIREMENT_ICON_MAP, REQUIREMENT_TITLE_MAP } from '@/modals/RedPacketModal/RequirementsView.js';
+import { REQUIREMENT_ICON_MAP } from '@/modals/RedPacketModal/RequirementsView.js';
 import { ShareAccountsPopover } from '@/modals/RedPacketModal/ShareAccountsPopover.js';
 import { FireflyRedPacket } from '@/providers/red-packet/index.js';
 import { FireflyRedPacketAPI } from '@/providers/red-packet/types.js';
@@ -46,6 +46,13 @@ interface ThemeVariant {
 }
 
 export function ConfirmView() {
+    const REQUIREMENT_TITLE_MAP: Record<RequirementType, React.ReactNode> = {
+        [RequirementType.Follow]: t`Follow me`,
+        [RequirementType.Like]: t`Like`,
+        [RequirementType.Repost]: t`Repost`,
+        [RequirementType.Comment]: t`Comment`,
+        [RequirementType.NFTHolder]: t`NFT holder`,
+    };
     const {
         message,
         coverType,
@@ -294,7 +301,7 @@ export function ConfirmView() {
                                 placement="top"
                                 content={
                                     <Trans>
-                                        Customize Lucky Drop sender. Select either Lens or Forecaster handle, or use the
+                                        Customize Lucky Drop sender. Select either Lens or Farecaster handle, or use the
                                         currently connected wallet.
                                     </Trans>
                                 }

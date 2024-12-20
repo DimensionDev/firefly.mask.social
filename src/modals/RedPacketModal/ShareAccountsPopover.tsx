@@ -1,5 +1,5 @@
 import { Popover, PopoverButton, PopoverPanel, Transition } from '@headlessui/react';
-import { isValidAddress } from '@masknet/web3-shared-evm';
+import { isValidAddress, isValidDomain } from '@masknet/web3-shared-evm';
 import { Fragment, type PropsWithChildren, type ReactNode } from 'react';
 import { useEnsName } from 'wagmi';
 
@@ -36,8 +36,13 @@ export function ShareAccountsPopover({ accounts, children, onClick, className, s
                         leaveFrom="opacity-100"
                         leaveTo="opacity-0 translate-y-1"
                     >
-                        <PopoverPanel className="no-scrollbar absolute bottom-full right-0 z-10 flex max-h-[275px] w-[280px] -translate-y-3 flex-col gap-2 overflow-y-auto rounded-lg bg-lightBottom py-3 text-medium shadow-popover dark:border dark:border-line dark:bg-darkBottom dark:shadow-none md:max-h-[370px]">
-                            <div>
+                        <PopoverPanel
+                            anchor="bottom"
+                            portal
+                            modal
+                            className="absolute bottom-full right-0 z-10 w-[280px] -translate-y-3"
+                        >
+                            <div className="flex flex-col gap-2 overflow-y-auto rounded-lg bg-lightBottom py-3 text-medium shadow-popover dark:border dark:border-line dark:bg-darkBottom dark:shadow-none">
                                 {accounts.map(({ icon, name }) => (
                                     <ShareAccountsPopoverItem
                                         key={name}
@@ -57,6 +62,13 @@ export function ShareAccountsPopover({ accounts, children, onClick, className, s
             )}
         </Popover>
     );
+}
+
+function formatAccountName(account?: string) {
+    if (!account) return account;
+    if (isValidAddress(account)) return formatAddress(account, 4);
+    if (isValidDomain(account)) return account;
+    return `@${account}`;
 }
 
 export function ShareAccountsPopoverItem({
@@ -90,9 +102,7 @@ export function ShareAccountsPopoverItem({
             <div className="box-content flex h-12 items-center justify-between px-3 hover:bg-bg">
                 <div className="flex items-center gap-2 text-main">
                     {icon}
-                    <span className="font-bold text-main">
-                        {isValidAddress(name) ? (ensName ?? formatAddress(name, 4)) : name}
-                    </span>
+                    <span className="font-bold text-main">{formatAccountName(ensName ?? name)}</span>
                 </div>
             </div>
         </ClickableArea>

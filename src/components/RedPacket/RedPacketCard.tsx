@@ -134,11 +134,10 @@ export function RedPacketCard({ payload, post }: Props) {
         const postUrl = urlcat(SITE_URL, getPostUrl(post));
         ComposeModalRef.open({
             type: 'compose',
-
             chars: [
-                isClaimed
+                !isClaimed
                     ? t`🤑 Check this #FireflyLuckyDrop 🧧💰✨ on ${postUrl} !`
-                    : t`🤑 Just claimed a #FireflyLuckyDrop 🧧💰✨ on ${postUrl} !`,
+                    : t`🤑 Just claimed a #FireflyLuckyDrop 🧧💰✨ on ${postUrl} from @${post.author.handle}!`,
                 ' \n\n Grow your followers and engagement with Lucky Drop on Firefly!',
             ],
         });
@@ -275,6 +274,7 @@ export function RedPacketCard({ payload, post }: Props) {
                         refundLoading={refundLoading}
                         canClaim={canClaim}
                         balance={balance}
+                        isRefunded={listOfStatus.includes(RedPacketStatus.refunded)}
                         estimateLoading={estimateLoading}
                         onClaim={async () => {
                             const result = await verifyAndClaim();

@@ -81,9 +81,6 @@ msgstr "檢舉 @{0}"
 msgid "Sell Tax: {0}%"
 msgstr ""
 
-msgid "Lucky drop"
-msgstr ""
-
 msgid "Failed to translate post. Please retry later."
 msgstr "無法翻譯貼文。請稍候再嘗試"
 
@@ -709,6 +706,9 @@ msgid "Failed to unfollow @{0} on {sourceName}."
 msgstr "在 {sourceName} 上取消追蹤 @{0} 失敗。"
 
 msgid "Muted {walletHandle}."
+msgstr ""
+
+msgid "Confirm Lucky Drop"
 msgstr ""
 
 msgid "Sanctioned address."
@@ -1641,9 +1641,6 @@ msgstr "<0>{0}</0> 喜歡了"
 msgid "Fully Diluted Valuation"
 msgstr ""
 
-msgid "Customize Lucky Drop sender. Select either Lens or Forecaster handle, or use the currently connected wallet."
-msgstr ""
-
 msgid "Email (optional)"
 msgstr "電子郵箱（非必須）"
 
@@ -1651,6 +1648,9 @@ msgid "NFT Contract"
 msgstr "NFT合約"
 
 msgid "Failed to connect MPC wallet"
+msgstr ""
+
+msgid "Customize Lucky Drop sender. Select either Lens or Farecaster handle, or use the currently connected wallet."
 msgstr ""
 
 msgid "Phishing activities."
@@ -3089,9 +3089,6 @@ msgstr "资讯"
 
 msgid "NFT ID"
 msgstr "NFT ID"
-
-msgid "Confirm Lucky drop"
-msgstr ""
 
 msgid "Farcaster channel"
 msgstr "Farcaster 頻道"

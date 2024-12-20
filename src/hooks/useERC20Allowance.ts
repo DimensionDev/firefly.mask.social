@@ -9,8 +9,9 @@ import { type ChainContextOverride, useChainContext } from '@/hooks/useChainCont
 export function useERC20TokenAllowance(address?: `0x${string}`, spender?: string, override?: ChainContextOverride) {
     const { account, chainId } = useChainContext(override);
     const isNativeToken = isNativeTokenAddress(address);
+
     return useQuery({
-        enabled: isNativeToken,
+        enabled: !isNativeToken,
         queryKey: ['erc20-allowance', address, account, spender],
         queryFn: async () => {
             if (!account || !address || !spender || isNativeToken) return undefined;

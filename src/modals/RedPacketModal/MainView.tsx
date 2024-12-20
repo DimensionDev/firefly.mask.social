@@ -35,6 +35,7 @@ import {
 } from '@/mask/plugins/red-packet/constants.js';
 import { useDefaultCreateGas } from '@/mask/plugins/red-packet/hooks/useDefaultCreateGas.js';
 import { RedPacketContext, redPacketRandomTabs } from '@/modals/RedPacketModal/RedPacketContext.js';
+import { EVMChainResolver } from '@/mask/bindings/index.js';
 
 export function MainView() {
     const { history } = useRouter();
@@ -54,7 +55,7 @@ export function MainView() {
 
     const { chainId: contextChainId } = useChainContext();
     const chainId = token?.chainId || contextChainId;
-
+    const nativeToken = useMemo(() => EVMChainResolver.nativeCurrency(chainId), [chainId]);
     const { data: nativeTokenPrice = 0, isLoading: priceLoading } = useNativeTokenPrice({ chainId });
     const { HAPPY_RED_PACKET_ADDRESS_V4: redpacketContractAddress } = useRedPacketConstants(chainId);
 
@@ -123,7 +124,7 @@ export function MainView() {
         chainId,
     });
 
-    const cost = gasFee ? leftShift(gasFee, token.decimals).multipliedBy(nativeTokenPrice) : ZERO;
+    const cost = gasFee ? leftShift(gasFee, nativeToken.decimals).multipliedBy(nativeTokenPrice) : ZERO;
 
     // #region validation
     const noShares = shares === 0;
