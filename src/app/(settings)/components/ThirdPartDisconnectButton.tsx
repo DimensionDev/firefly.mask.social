@@ -8,14 +8,16 @@ import type { Account } from '@/providers/types/Account.js';
 
 interface Props {
     account: Account;
+    onSucceed?: () => void;
 }
 
-export function ThirdPartDisconnectButton({ account }: Props) {
+export function ThirdPartDisconnectButton({ account, onSucceed }: Props) {
     const [{ loading }, handleDisconnect] = useAsyncFn(async () => {
         await DisconnectFireflyAccountModalRef.openAndWaitForClose({
             account,
         });
-    }, [account]);
+        onSucceed?.();
+    }, [account, onSucceed]);
 
     if (loading) {
         return <LoadingIcon width={24} height={24} className="animate-spin text-lightMain" />;
