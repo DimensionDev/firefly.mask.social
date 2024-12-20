@@ -72,7 +72,10 @@ export function ActivityNormalSuccessDialog({ claimType, shareContent, open, onC
                         <Trans>Success!</Trans>
                     </div>
                 </div>
-                <div className="px-4 pb-4">{content}</div>
+                <div className="flex w-full flex-col items-center">
+                    <SuccessShieldIcon className="h-[64px] w-[64px] text-success" />
+                    <div className="px-4 pb-4">{content}</div>
+                </div>
             </div>
         </Modal>
     );
