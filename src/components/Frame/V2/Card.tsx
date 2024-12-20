@@ -5,8 +5,10 @@ import { ClickableButton } from '@/components/ClickableButton.js';
 import { Image } from '@/components/Image.js';
 import { FrameViewerModalRef } from '@/modals/controls.js';
 import type { FrameV2 } from '@/types/frame.js';
+import type { Post } from '@/providers/types/SocialMedia.js';
 
 interface CardProps {
+    post: Post;
     frame: FrameV2;
 }
 

@@ -10,10 +10,10 @@ interface FrameLayoutProps {
     children?: ReactNode;
 }
 
-export const FrameLayout = memo<FrameLayoutProps>(function FrameLayout({ frame }) {
+export const FrameLayout = memo<FrameLayoutProps>(function FrameLayout({ post, frame }) {
     return (
         <div className="pt-2">
-            <Card frame={frame} />
+            <Card post={post} frame={frame} />
         </div>
     );
 });
