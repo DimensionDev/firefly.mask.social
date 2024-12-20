@@ -150,7 +150,10 @@ export function RedPacketCard({ payload, post }: Props) {
         return fetch(cover.backgroundImageUrl);
     }, [cover?.backgroundImageUrl]);
 
-    const [{ isVerifying, isClaiming, claimStrategyStatus }, verifyAndClaim] = useVerifyAndClaim(payload, post.source);
+    const [{ isVerifying, isClaiming, claimStrategyStatus, recheckClaimStatus }, verifyAndClaim] = useVerifyAndClaim(
+        payload,
+        post.source,
+    );
 
     return (
         <div
@@ -204,7 +207,14 @@ export function RedPacketCard({ payload, post }: Props) {
                             <ClickableArea
                                 className="absolute right-5 top-4 z-20 flex cursor-pointer items-center rounded-full px-3 py-[6px] text-xs leading-3 text-white"
                                 style={{ background: 'rgba(0, 0, 0, 0.25)', backdropFilter: 'blur(5px)' }}
-                                onClick={() => setRequirementOpen(true)}
+                                onClick={async () => {
+                                    let length = claimStrategyStatus?.length;
+                                    if (claimStrategyStatus === undefined) {
+                                        const { data } = await recheckClaimStatus();
+                                        length = data?.data.claimStrategyStatus.length;
+                                    }
+                                    if (length) setRequirementOpen(true);
+                                }}
                             >
                                 <span>{resolveRedPacketStatus(listOfStatus)}</span>
                             </ClickableArea>
