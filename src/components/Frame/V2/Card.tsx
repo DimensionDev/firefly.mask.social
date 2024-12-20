@@ -13,6 +13,8 @@ export const Card = memo<CardProps>(function Card({ frame }) {
     const onClick = () => {
         FrameViewerModalRef.open({
             frame,
+            // TODO
+            frameHost: null!,
         });
     };
 
