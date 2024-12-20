@@ -3570,7 +3570,8 @@ msgstr ""
 msgid "Collectible"
 msgstr ""
 
-msgid "Just claimed the \"Holiday Skates with $PENGU⛸️🐧⛸️\" collectible from {fireflyMention}\n"
+msgid ""
+"Just claimed the \"Holiday Skates with $PENGU⛸️🐧⛸️\" collectible from {fireflyMention}\n"
 "Check your eligibility and claim here {shareUrl}\n"
 "#PENGU #FireflySocial"
 msgstr ""
@@ -3592,4 +3593,3 @@ msgstr ""
 
 msgid "Golden"
 msgstr ""
-

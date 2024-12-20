@@ -3570,7 +3570,8 @@ msgstr "{0, plural, one {点赞} other {点赞}}"
 msgid "Collectible"
 msgstr "NFT"
 
-msgid "Just claimed the \"Holiday Skates with $PENGU⛸️🐧⛸️\" collectible from {fireflyMention}\n"
+msgid ""
+"Just claimed the \"Holiday Skates with $PENGU⛸️🐧⛸️\" collectible from {fireflyMention}\n"
 "Check your eligibility and claim here {shareUrl}\n"
 "#PENGU #FireflySocial"
 msgstr ""
@@ -3592,4 +3593,3 @@ msgstr "Blink 验证器"
 
 msgid "Golden"
 msgstr "金色的"
-
