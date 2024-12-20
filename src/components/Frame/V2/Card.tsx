@@ -1,10 +1,10 @@
+import type { SetPrimaryButton } from '@farcaster/frame-host';
 import { memo, useState } from 'react';
 
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { Image } from '@/components/Image.js';
 import { FrameViewerModalRef } from '@/modals/controls.js';
 import type { FrameV2 } from '@/types/frame.js';
-import type { SetPrimaryButton } from '@farcaster/frame-host';
 
 interface CardProps {
     frame: FrameV2;
