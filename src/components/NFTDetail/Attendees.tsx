@@ -78,7 +78,7 @@ function AttendeesItem({ ownerAddress }: { ownerAddress: Address }) {
                     height={30}
                     className="mr-2 min-w-[30px] shrink-0 rounded-full"
                 />
-                <div className="flex max-w-[calc(100%-38px)] items-center text-left">
+                <div className="flex max-w-[calc(100%-38px)] items-center gap-1.5 text-left">
                     {ensName ? (
                         <TextOverflowTooltip content={addressOrEns} placement="top">
                             <div className="w-full truncate">{ensName}</div>
@@ -88,7 +88,7 @@ function AttendeesItem({ ownerAddress }: { ownerAddress: Address }) {
                             <span>{formatEthereumAddress(ownerAddress, 4)}</span>
                         </Tooltip>
                     )}
-                    <LinkIcon className="ml-1.5 h-3 w-3 text-secondary" />
+                    <LinkIcon width={14} height={14} className="shrink-0 text-secondary" />
                 </div>
             </Link>
             <WatchButton address={ownerAddress} className="h-8 leading-8" />
