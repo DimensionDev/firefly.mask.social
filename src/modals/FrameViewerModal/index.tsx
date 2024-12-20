@@ -1,5 +1,5 @@
 import { forwardRef, useEffect, useRef, useState } from 'react';
-import { exposeToIframe } from '@farcaster/frame-host';
+import { exposeToIframe, type FrameHost } from '@farcaster/frame-host';
 import { CloseButton } from '@/components/IconButton.js';
 import { Modal } from '@/components/Modal.js';
 import { NotImplementedError } from '@/constants/error.js';
@@ -10,9 +10,11 @@ import { MoreAction } from '@/modals/FrameViewerModal/MoreActionMenu.js';
 import type { FrameV2 } from '@/types/frame.js';
 import { bom } from '@/helpers/bom.js';
 import { SITE_HOSTNAME } from '@/constants/index.js';
+import { createEIP1193Provider } from '@/helpers/createEIP1193Provider.js';
 
 export type FrameViewerModalOpenProps = {
     frame: FrameV2;
+    frameHost: Omit<FrameHost, 'ethProviderRequestV2'>;
 };
 export type FrameViewerModalCloseProps = void;
 
@@ -33,12 +35,13 @@ export const FrameViewerModal = forwardRef<SingletonModalRefCreator<FrameViewerM
         useEffect(() => {
             if (!frameRef.current) return;
 
+            // frame host is required
+            if (!props?.frameHost) return;
+
             const result = exposeToIframe({
                 iframe: frameRef.current,
-                // TODO
-                sdk: null!,
-                // TODO
-                ethProvider: null!,
+                sdk: props.frameHost,
+                ethProvider: createEIP1193Provider(),
                 frameOrigin: bom.window?.origin ?? SITE_HOSTNAME,
             });
 
