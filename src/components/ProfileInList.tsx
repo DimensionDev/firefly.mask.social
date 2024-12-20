@@ -22,13 +22,14 @@ interface ProfileInListProps {
     noFollowButton?: boolean;
     listKey?: string;
     index?: number;
+    hideFollowers?: boolean;
 }
 
 const overrideComponents = {
     p: PlainParagraph,
     br: VoidLineBreak,
 };
-export function ProfileInList({ profile, noFollowButton, listKey, index }: ProfileInListProps) {
+export function ProfileInList({ profile, noFollowButton, listKey, index, hideFollowers = false }: ProfileInListProps) {
     const isMedium = useIsMedium('max');
 
     const setScrollIndex = useGlobalState.use.setScrollIndex();
@@ -76,22 +77,27 @@ export function ProfileInList({ profile, noFollowButton, listKey, index }: Profi
                                     @{profile.handle}
                                 </Link>
                             ) : null}
-                            <span className="mx-1 leading-[22px] text-secondary">·</span>
-                            <Link
-                                href={resolveProfileUrl(source, profileId, FollowCategory.Followers)}
-                                className={classNames('gap-1 text-[15px] leading-[22px] hover:underline', {
-                                    'pointer-events-none': source !== Source.Farcaster && source !== Source.Lens,
-                                })}
-                            >
-                                <data value={followerCount}>
-                                    <span className="font-bold leading-[22px] text-lightMain">
-                                        {nFormatter(followerCount)}{' '}
-                                    </span>
-                                    <span className="leading-[22px] text-secondary">
-                                        <Plural value={followerCount} one="Follower" other="Followers" />
-                                    </span>
-                                </data>
-                            </Link>
+                            {hideFollowers ? null : (
+                                <>
+                                    <span className="mx-1 leading-[22px] text-secondary">·</span>
+                                    <Link
+                                        href={resolveProfileUrl(source, profileId, FollowCategory.Followers)}
+                                        className={classNames('gap-1 text-[15px] leading-[22px] hover:underline', {
+                                            'pointer-events-none':
+                                                source !== Source.Farcaster && source !== Source.Lens,
+                                        })}
+                                    >
+                                        <data value={followerCount}>
+                                            <span className="font-bold leading-[22px] text-lightMain">
+                                                {nFormatter(followerCount)}{' '}
+                                            </span>
+                                            <span className="leading-[22px] text-secondary">
+                                                <Plural value={followerCount} one="Follower" other="Followers" />
+                                            </span>
+                                        </data>
+                                    </Link>
+                                </>
+                            )}
                         </div>
                     </div>
                     {!noFollowButton && !isCurrentProfile(profile) ? (
