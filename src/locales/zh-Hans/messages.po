@@ -387,9 +387,6 @@ msgstr "Solana"
 msgid "Casts"
 msgstr "帖子"
 
-msgid "Followed <0>@{0}</0> on X before Dec 17, 2024"
-msgstr ""
-
 msgid "Your account is now connected."
 msgstr "您的账户已连接。"
 
@@ -604,7 +601,7 @@ msgid "Mutes"
 msgstr "隐藏"
 
 msgid "Submit an evm wallet to check"
-msgstr ""
+msgstr "提交您的 EVM 钱包以检测资格"
 
 msgid "Failed to bookmark NFT."
 msgstr "收藏 NFT 失败。"
@@ -1063,7 +1060,7 @@ msgid "Amount Each"
 msgstr "每笔金额"
 
 msgid "You are holder of <0>Pudgy Penguins</0> or <1>Lil Pudgy</1> NFTs"
-msgstr ""
+msgstr "您是 <0>Pudgy Penguins</0> 或 <1>Lil Pudgy</1> NFT 系列的持有者"
 
 msgid "{0}d: {1}h: {2}m: {3}s"
 msgstr "{0}天: {1}时: {2}分: {3}秒"
@@ -2385,6 +2382,9 @@ msgstr "市场上流通并可供公众交易的货币数量。这相当于市场
 msgid "{0, plural, one {repost} other {reposts}}"
 msgstr "{0, plural, one {转帖} other {转帖}}"
 
+msgid "Wallet submitted"
+msgstr ""
+
 msgid "Scan the QR code with your phone’s <0>Camera</0> in {count}s. <1/>Approve a new Farcaster signer to Firefly for free."
 msgstr "在 {count} 秒内，用手机的 <0>相机</0> 扫描二维码。<1/>免费授权一个新的 Farcaster 签名加入 Firefly。"
 
@@ -2440,7 +2440,7 @@ msgid "Articles from {walletHandle} will now be hidden in your home timeline"
 msgstr "来自 {walletHandle} 的文章现在将从您的首页时间线中隐藏。"
 
 msgid "Meet any of the following to unlock a premium collectible:"
-msgstr ""
+msgstr "满足以下任意条件即可解锁高级版本的NFT"
 
 msgid "Article"
 msgstr "文章"
@@ -2603,6 +2603,9 @@ msgstr "金额"
 
 msgid "Total cost"
 msgstr "总花费"
+
+msgid "Submit a wallet to receive NFT"
+msgstr "提交您的钱包以领取您的 NFT"
 
 msgid "Settled as {0}"
 msgstr "确定为 {0}"
@@ -3042,6 +3045,9 @@ msgstr "中性"
 msgid "Signature Request"
 msgstr "签名请求"
 
+msgid "Followed <0>@{0}</0> on X before Dec 16, 2024"
+msgstr "您在2024年12月16日快照中识别为 X 账号 <0>@{0}</0> 的关注者"
+
 msgid "Total Supply"
 msgstr "总供应量"
 
@@ -3163,7 +3169,7 @@ msgid "Oversupply minting."
 msgstr "超出最大铸造数量。"
 
 msgid "*Note: Each NFT can only be used once."
-msgstr ""
+msgstr "*注意：每个NFT只能使用一次。"
 
 msgid "Followed <0>@{handle}</0> on {0}"
 msgstr "在 {0} 上关注了 <0>@{handle}</0>"
@@ -3284,9 +3290,6 @@ msgstr "已转发"
 
 msgid "No phishing activities involved."
 msgstr "未发现钓鱼活动。"
-
-msgid "Submit a wallet to receive NFT and $PENGU"
-msgstr ""
 
 msgid "Failed to parse transaction."
 msgstr "未能解析交易。"
@@ -3475,7 +3478,7 @@ msgid "Media"
 msgstr "多媒体"
 
 msgid "You are holder of <0>truePengu</0> or <1>penguPins</1> Soulbound NFTs"
-msgstr ""
+msgstr "您是 <0>truePengu</0> 或 <1>penguPins</1> 灵魂绑定NFT系列的持有者"
 
 msgid "No content to publish."
 msgstr "没有发布的内容。"

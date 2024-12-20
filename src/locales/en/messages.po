@@ -382,9 +382,6 @@ msgstr "Solana"
 msgid "Casts"
 msgstr "Casts"
 
-msgid "Followed <0>@{0}</0> on X before Dec 17, 2024"
-msgstr "Followed <0>@{0}</0> on X before Dec 17, 2024"
-
 msgid "Your account is now connected."
 msgstr "Your account is now connected."
 
@@ -2380,6 +2377,9 @@ msgstr "The amount of coins that are circulating in the market and are tradeable
 msgid "{0, plural, one {repost} other {reposts}}"
 msgstr "{0, plural, one {repost} other {reposts}}"
 
+msgid "Wallet submitted"
+msgstr "Wallet submitted"
+
 msgid "Scan the QR code with your phone’s <0>Camera</0> in {count}s. <1/>Approve a new Farcaster signer to Firefly for free."
 msgstr "Scan the QR code with your phone’s <0>Camera</0> in {count}s. <1/>Approve a new Farcaster signer to Firefly for free."
 
@@ -2598,6 +2598,9 @@ msgstr "Amount"
 
 msgid "Total cost"
 msgstr "Total cost"
+
+msgid "Submit a wallet to receive NFT"
+msgstr "Submit a wallet to receive NFT"
 
 msgid "Settled as {0}"
 msgstr "Settled as {0}"
@@ -3037,6 +3040,9 @@ msgstr "Neutral"
 msgid "Signature Request"
 msgstr "Signature Request"
 
+msgid "Followed <0>@{0}</0> on X before Dec 16, 2024"
+msgstr "Followed <0>@{0}</0> on X before Dec 16, 2024"
+
 msgid "Total Supply"
 msgstr "Total Supply"
 
@@ -3279,9 +3285,6 @@ msgstr "Recasted"
 
 msgid "No phishing activities involved."
 msgstr "No phishing activities involved."
-
-msgid "Submit a wallet to receive NFT and $PENGU"
-msgstr "Submit a wallet to receive NFT and $PENGU"
 
 msgid "Failed to parse transaction."
 msgstr "Failed to parse transaction."

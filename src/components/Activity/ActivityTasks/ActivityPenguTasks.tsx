@@ -86,7 +86,7 @@ Check your eligibility and claim here ${shareUrl}
                                 >
                                     @{followPenguTwitterProfile.handle}
                                 </Link>{' '}
-                                on X before Dec 17, 2024
+                                on X before Dec 16, 2024
                             </Trans>
                         </h3>
                     </ActivityVerifyText>
@@ -102,7 +102,7 @@ Check your eligibility and claim here ${shareUrl}
                 <ActivityConnectCard
                     chainId={SolChainId.Mainnet}
                     source={Source.Twitter}
-                    label={<Trans>Submit a wallet to receive NFT and $PENGU</Trans>}
+                    label={address ? <Trans>Wallet submitted</Trans> : <Trans>Submit a wallet to receive NFT</Trans>}
                 />
                 <h2 className="text-base font-semibold leading-6">
                     <Trans>Eligible for Premium Collectible?</Trans>
@@ -110,7 +110,9 @@ Check your eligibility and claim here ${shareUrl}
                 <ActivityPremiumAddressVerifyCard
                     chainId={ChainId.Mainnet}
                     source={Source.Twitter}
-                    label={<Trans>Submit an evm wallet to check</Trans>}
+                    label={
+                        premiumAddress ? <Trans>Wallet submitted</Trans> : <Trans>Submit an evm wallet to check</Trans>
+                    }
                 />
                 <div className="flex w-full flex-col space-y-2 text-sm font-semibold leading-6">
                     <ActivityPremiumConditionList
