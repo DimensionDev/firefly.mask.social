@@ -289,7 +289,7 @@ export async function restoreCurrentAccounts(signal?: AbortSignal) {
 
     const accountsSynced = await downloadAccounts(session, signal);
     const accountsFiltered = accountsSynced.filter((x) => {
-        const state = getProfileState(x.profile.source);
+        const state = getProfileState(x.profile.profileSource);
         return !state.accounts.find((y) => isSameAccount(x, y));
     });
 
@@ -312,14 +312,14 @@ export async function restoreCurrentAccounts(signal?: AbortSignal) {
 }
 
 export async function switchAccount(account: Account, signal?: AbortSignal) {
-    const { state, sessionHolder } = getContext(account.profile.source);
+    const { state, sessionHolder } = getContext(account.profile.profileSource);
 
     state.addAccount(account, true);
     sessionHolder.resumeSession(account.session);
 }
 
 async function removeAccount(account: Account, signal?: AbortSignal) {
-    const { state, sessionHolder } = getContext(account.profile.source);
+    const { state, sessionHolder } = getContext(account.profile.profileSource);
 
     // switch to next available account if the current account is removing.
     if (isSameProfile(state.currentProfile, account.profile)) {
@@ -346,7 +346,7 @@ async function removeAccount(account: Account, signal?: AbortSignal) {
     captureAccountLogoutEvent(account);
 }
 
-export async function removeAccountByProfileId(source: SocialSource, profileId: string) {
+export async function removeAccountByProfileId(source: ProfileSource, profileId: string) {
     const { accounts } = getProfileState(source);
     const account = accounts.find((x) => x.profile.profileId === profileId);
     if (!account) {
