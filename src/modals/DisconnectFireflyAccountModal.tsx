@@ -37,11 +37,12 @@ export const DisconnectFireflyAccountModal = forwardRef<SingletonModalRefCreator
         const [{ loading }, confirm] = useAsyncFn(async () => {
             try {
                 if (!account) return;
+                const source = account.profile.profileSource;
                 await FireflyEndpointProvider.disconnectAccount({
-                    source: account.profile.source,
+                    source,
                     id: account.profile.profileId,
                 });
-                await removeAccountByProfileId(account.profile.source, account.profile.profileId);
+                await removeAccountByProfileId(source, account.profile.profileId);
                 captureAccountDisconnectEvent(account);
                 enqueueSuccessMessage(t`Disconnected from your social graph`);
 
