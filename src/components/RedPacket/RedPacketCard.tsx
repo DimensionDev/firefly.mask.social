@@ -183,9 +183,9 @@ export function RedPacketCard({ payload, post }: Props) {
                         style={
                             cover
                                 ? {
-                                      backgroundSize: 'contain',
+                                      backgroundSize: 'cover',
                                       backgroundRepeat: 'no-repeat',
-                                      backgroundImage: `url(${cover.backgroundImageUrl})`,
+                                      backgroundImage: `url("${encodeURI(cover.backgroundImageUrl)}")`,
                                       backgroundColor: cover.backgroundColor,
                                       aspectRatio: '10 / 7',
                                       color: cover.theme.normal.title1.color,
