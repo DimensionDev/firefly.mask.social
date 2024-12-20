@@ -496,6 +496,9 @@ msgstr "Your posts have published successfully."
 msgid "Retry"
 msgstr "Retry"
 
+msgid "Or login in with other platforms"
+msgstr "Or login in with other platforms"
+
 msgid "Show less"
 msgstr "Show less"
 
@@ -1645,9 +1648,6 @@ msgstr "NFT Contract"
 msgid "Failed to connect MPC wallet"
 msgstr "Failed to connect MPC wallet"
 
-msgid "Customize Lucky Drop sender. Select either Lens or Farecaster handle, or use the currently connected wallet."
-msgstr "Customize Lucky Drop sender. Select either Lens or Farecaster handle, or use the currently connected wallet."
-
 msgid "Phishing activities."
 msgstr "Phishing activities."
 
@@ -2128,9 +2128,6 @@ msgstr "Drop Type"
 msgid "Quote"
 msgstr "Quote"
 
-msgid "Or login with any social account"
-msgstr "Or login with any social account"
-
 msgid "View engagements"
 msgstr "View engagements"
 
@@ -2325,6 +2322,9 @@ msgstr "Wallet added successfully"
 
 msgid "There is no data available for display."
 msgstr "There is no data available for display."
+
+msgid "Customize Lucky Drop sender. Select either Lens or Farcaster handle, or use the currently connected wallet."
+msgstr "Customize Lucky Drop sender. Select either Lens or Farcaster handle, or use the currently connected wallet."
 
 msgid "Cancel"
 msgstr "Cancel"
