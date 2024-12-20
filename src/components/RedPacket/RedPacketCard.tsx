@@ -205,15 +205,11 @@ export function RedPacketCard({ payload, post }: Props) {
                         ) : null}
                         {listOfStatus.length ? (
                             <ClickableArea
-                                className="absolute right-5 top-4 z-20 flex cursor-pointer items-center rounded-full px-3 py-[6px] text-xs leading-3 text-white"
+                                className="absolute right-5 top-4 z-20 flex cursor-pointer items-center rounded-full px-3 py-[6px] text-xs leading-3 text-white disabled:cursor-not-allowed"
                                 style={{ background: 'rgba(0, 0, 0, 0.25)', backdropFilter: 'blur(5px)' }}
+                                disabled={isVerifying}
                                 onClick={async () => {
-                                    let length = claimStrategyStatus?.length;
-                                    if (claimStrategyStatus === undefined) {
-                                        const { data } = await recheckClaimStatus();
-                                        length = data?.data.claimStrategyStatus.length;
-                                    }
-                                    if (length) setRequirementOpen(true);
+                                    if (claimStrategyStatus?.length) setRequirementOpen(true);
                                 }}
                             >
                                 <span>{resolveRedPacketStatus(listOfStatus)}</span>
