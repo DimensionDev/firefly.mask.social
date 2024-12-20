@@ -186,6 +186,54 @@ export interface FarcasterManifest {
 // didn't find the type definition for Mention
 type Mention = unknown;
 
+interface Cast {
+    fid: number;
+    hash: string;
+    text: string;
+    embeds: string[];
+    mentions: Mention[];
+}
+
+export interface CastLaunchContext {
+    type: 'cast';
+    triggerId: string; // from TriggerConfig
+    cast: Cast;
+}
+
+interface Notification {
+    title: string;
+    body: string;
+    id: string;
+}
+
+export interface NotificationLaunchContext {
+    type: 'notification';
+    notification: Notification;
+}
+
+interface SemiCast {
+    parent?: string;
+    text?: string;
+    embeds?: string[];
+}
+
+export interface ComposerLaunchContext {
+    type: 'composer';
+    triggerId: string; // from TriggerConfig
+    cast: SemiCast;
+}
+
+interface Channel {
+    key: string;
+    name: string;
+    imageUrl: string;
+}
+
+export interface ChannelLaunchContext {
+    type: 'channel';
+    channel: Channel;
+}
+
 interface User {
     fid: number;
     username?: string;
@@ -207,28 +255,18 @@ interface User {
     }>;
 }
 
-interface Cast {
-    fid: number;
-    hash: string;
-    text: string;
-    embeds: string[];
-    mentions: Mention[];
+export interface UserLaunchContext {
+    type: 'user';
+    profile: User;
 }
 
-export interface CastEmbedLaunchContext {
-    type: 'cast' | 'embed' | 'direct_cast_embed';
-    cast: Cast;
+export interface LinkLaunchContext {
+    type: 'link';
+    url: string;
 }
 
-interface Notification {
-    title: string;
-    body: string;
-    id: string;
-}
-
-export interface NotificationLaunchContext {
-    type: 'notification';
-    notification: Notification;
+export interface DirectCastEmbedLaunchContext {
+    type: 'direct_cast_embed';
 }
 
 /**
@@ -300,6 +338,7 @@ export type CloseAction = (options: {
     };
 }) => Promise<void>;
 
+// Feature: Auth
 export type RequestAuthTokenAction = (
     options: Partial<{
         /**
@@ -310,12 +349,13 @@ export type RequestAuthTokenAction = (
     }>,
 ) => Promise<string>;
 
+// Feature: Add Frame
 type FrameNotificationDetails = {
     url: string;
     token: string;
 };
 
-export type AddFrameResult =
+type AddFrameResult =
     | {
           type: 'success';
           notificationDetails?: FrameNotificationDetails;
@@ -326,6 +366,9 @@ export type AddFrameResult =
       };
 
 export type AddFrameAction = () => Promise<AddFrameResult>;
+
+// Feature: Primary Button
+export type SetPrimaryButton = (options: { text: string; enabled?: boolean; hidden?: boolean }) => Promise<void>;
 // #endregion
 
 export type Frame = FrameV1 | FrameV2;
