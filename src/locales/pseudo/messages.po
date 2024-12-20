@@ -1645,9 +1645,6 @@ msgstr ""
 msgid "Failed to connect MPC wallet"
 msgstr ""
 
-msgid "Customize Lucky Drop sender. Select either Lens or Farecaster handle, or use the currently connected wallet."
-msgstr ""
-
 msgid "Phishing activities."
 msgstr ""
 
@@ -2324,6 +2321,9 @@ msgid "Wallet added successfully"
 msgstr ""
 
 msgid "There is no data available for display."
+msgstr ""
+
+msgid "Customize Lucky Drop sender. Select either Lens or Farcaster handle, or use the currently connected wallet."
 msgstr ""
 
 msgid "Cancel"
