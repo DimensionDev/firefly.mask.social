@@ -1,16 +1,17 @@
-import { forwardRef, useEffect, useRef, useState } from 'react';
 import { exposeToIframe, type FrameHost } from '@farcaster/frame-host';
+import { forwardRef, useEffect, useRef, useState } from 'react';
+
 import { CloseButton } from '@/components/IconButton.js';
 import { Modal } from '@/components/Modal.js';
 import { NotImplementedError } from '@/constants/error.js';
+import { SITE_HOSTNAME } from '@/constants/index.js';
+import { bom } from '@/helpers/bom.js';
+import { createEIP1193Provider } from '@/helpers/createEIP1193Provider.js';
 import { parseUrl } from '@/helpers/parseUrl.js';
 import { useSingletonModal } from '@/hooks/useSingletonModal.js';
 import type { SingletonModalRefCreator } from '@/libs/SingletonModal.js';
 import { MoreAction } from '@/modals/FrameViewerModal/MoreActionMenu.js';
 import type { FrameV2 } from '@/types/frame.js';
-import { bom } from '@/helpers/bom.js';
-import { SITE_HOSTNAME } from '@/constants/index.js';
-import { createEIP1193Provider } from '@/helpers/createEIP1193Provider.js';
 
 export type FrameViewerModalOpenProps = {
     frame: FrameV2;
