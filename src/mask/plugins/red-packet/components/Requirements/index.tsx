@@ -181,7 +181,7 @@ export const Requirements = forwardRef<HTMLDivElement, Props>(function Requireme
                     </ListItem>
                 );
             }
-            if (status.type === 'postReaction') {
+            if (status.type === 'postReaction' && typeof status.result === 'object') {
                 // discard `collect` for now
                 const conditions = status.result.conditions.filter((x) => x.key !== 'collect');
                 const hasRepost = !!conditions.find((x) => (x.key === 'quote' || x.key === 'repost') && x.value);
