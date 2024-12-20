@@ -94,6 +94,15 @@ msgstr "Unmute successfully."
 msgid "Simulating"
 msgstr "Simulating"
 
+msgid ""
+"Just submitted my wallet to receive my Christmas gift. Let's skate into the holiday season with $PENGU on {fireflyMention}\n"
+"Submit here {shareUrl}\n"
+"#PENGU #FireflySocial"
+msgstr ""
+"Just submitted my wallet to receive my Christmas gift. Let's skate into the holiday season with $PENGU on {fireflyMention}\n"
+"Submit here {shareUrl}\n"
+"#PENGU #FireflySocial"
+
 msgid "Your frame URL"
 msgstr "Your frame URL"
 
@@ -336,6 +345,9 @@ msgstr "Casts"
 
 msgid "Your account is now connected."
 msgstr "Your account is now connected."
+
+msgid "Participate Basic"
+msgstr "Participate Basic"
 
 msgid "Report submitted on {0}"
 msgstr "Report submitted on {0}"
@@ -958,6 +970,9 @@ msgstr "Canceled"
 msgid "No content for the last two weeks."
 msgstr "No content for the last two weeks."
 
+msgid "Participate Now"
+msgstr "Participate Now"
+
 msgid "This token contract has a code that states that it cannot be sold. Maybe this is a honeypot."
 msgstr "This token contract has a code that states that it cannot be sold. Maybe this is a honeypot."
 
@@ -1339,6 +1354,9 @@ msgstr "Unlike"
 msgid "No blacklist"
 msgstr "No blacklist"
 
+msgid "Participate Premium"
+msgstr "Participate Premium"
+
 msgid "Post was deleted"
 msgstr "Post was deleted"
 
@@ -1617,6 +1635,9 @@ msgstr "Details"
 
 msgid "Unmute {handleOrEnsOrAddress}"
 msgstr "Unmute {handleOrEnsOrAddress}"
+
+msgid "Participated"
+msgstr "Participated"
 
 msgid "Failed to disconnect wallet from your social graph."
 msgstr "Failed to disconnect wallet from your social graph."
@@ -3129,15 +3150,6 @@ msgstr "{0, plural, one {like} other {likes}}"
 
 msgid "Collectible"
 msgstr "Collectible"
-
-msgid ""
-"Just claimed the \"Holiday Skates with $PENGU⛸️🐧⛸️\" collectible from {fireflyMention}\n"
-"Check your eligibility and claim here {shareUrl}\n"
-"#PENGU #FireflySocial"
-msgstr ""
-"Just claimed the \"Holiday Skates with $PENGU⛸️🐧⛸️\" collectible from {fireflyMention}\n"
-"Check your eligibility and claim here {shareUrl}\n"
-"#PENGU #FireflySocial"
 
 msgid "Are you sure you want to report this user?"
 msgstr "Are you sure you want to report this user?"

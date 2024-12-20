@@ -99,6 +99,12 @@ msgstr ""
 msgid "Simulating"
 msgstr ""
 
+msgid ""
+"Just submitted my wallet to receive my Christmas gift. Let's skate into the holiday season with $PENGU on {fireflyMention}\n"
+"Submit here {shareUrl}\n"
+"#PENGU #FireflySocial"
+msgstr ""
+
 msgid "Your frame URL"
 msgstr ""
 
@@ -340,6 +346,9 @@ msgid "Casts"
 msgstr ""
 
 msgid "Your account is now connected."
+msgstr ""
+
+msgid "Participate Basic"
 msgstr ""
 
 msgid "Report submitted on {0}"
@@ -963,6 +972,9 @@ msgstr ""
 msgid "No content for the last two weeks."
 msgstr ""
 
+msgid "Participate Now"
+msgstr ""
+
 msgid "This token contract has a code that states that it cannot be sold. Maybe this is a honeypot."
 msgstr ""
 
@@ -1344,6 +1356,9 @@ msgstr ""
 msgid "No blacklist"
 msgstr ""
 
+msgid "Participate Premium"
+msgstr ""
+
 msgid "Post was deleted"
 msgstr ""
 
@@ -1621,6 +1636,9 @@ msgid "Details"
 msgstr ""
 
 msgid "Unmute {handleOrEnsOrAddress}"
+msgstr ""
+
+msgid "Participated"
 msgstr ""
 
 msgid "Failed to disconnect wallet from your social graph."
@@ -3133,12 +3151,6 @@ msgid "{0, plural, one {like} other {likes}}"
 msgstr ""
 
 msgid "Collectible"
-msgstr ""
-
-msgid ""
-"Just claimed the \"Holiday Skates with $PENGU⛸️🐧⛸️\" collectible from {fireflyMention}\n"
-"Check your eligibility and claim here {shareUrl}\n"
-"#PENGU #FireflySocial"
 msgstr ""
 
 msgid "Are you sure you want to report this user?"
