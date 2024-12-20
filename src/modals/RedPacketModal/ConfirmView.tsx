@@ -301,7 +301,7 @@ export function ConfirmView() {
                                 placement="top"
                                 content={
                                     <Trans>
-                                        Customize Lucky Drop sender. Select either Lens or Farecaster handle, or use the
+                                        Customize Lucky Drop sender. Select either Lens or Farcaster handle, or use the
                                         currently connected wallet.
                                     </Trans>
                                 }
