@@ -2602,7 +2602,10 @@ msgid "Amount"
 msgstr ""
 
 msgid "Total cost"
+msgstr ""
+
 msgid "Submit a wallet to receive NFT"
+msgstr ""
 
 msgid "Settled as {0}"
 msgstr ""
