@@ -43,7 +43,7 @@ export function NFTDetailPage({ chainId, address, tokenId }: { chainId: ChainId;
     return (
         <div className="min-h-screen">
             <NFTNavbar>{data.metadata.name}</NFTNavbar>
-            <div className="space-y-6 p-5">
+            <div className="space-y-4 px-4 py-3">
                 <NFTInfo
                     imageURL={data.metadata.imageURL ?? ''}
                     video={data.metadata.video}
@@ -61,6 +61,7 @@ export function NFTDetailPage({ chainId, address, tokenId }: { chainId: ChainId;
                     chainId={chainId}
                     attendance={poapAttendeesCount}
                     tokenNameClassName={classNames({ '!line-clamp-3': isPoap })}
+                    link={data.link}
                 />
                 {data.traits && data.traits.length > 0 ? <NFTProperties items={data.traits} /> : null}
                 <NFTOverflow

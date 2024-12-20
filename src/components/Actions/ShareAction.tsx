@@ -5,12 +5,11 @@ import { memo } from 'react';
 
 import SendIcon from '@/assets/send.svg';
 import ShareIcon from '@/assets/share.svg';
-import LinkIcon from '@/assets/small-link.svg';
+import { CopyLinkButton } from '@/components/Actions/CopyLinkButton.js';
 import { MenuButton } from '@/components/Actions/MenuButton.js';
 import { MenuGroup } from '@/components/MenuGroup.js';
 import { MoreActionMenu } from '@/components/MoreActionMenu.js';
 import { Tooltip } from '@/components/Tooltip.js';
-import { useCopyText } from '@/hooks/useCopyText.js';
 import { ComposeModalRef } from '@/modals/controls.js';
 
 interface ShareActionProps {
@@ -18,7 +17,6 @@ interface ShareActionProps {
 }
 
 export const ShareAction = memo(function ShareAction({ link }: ShareActionProps) {
-    const [, handleCopy] = useCopyText(link ?? '');
     return (
         <MoreActionMenu
             button={
@@ -50,21 +48,7 @@ export const ShareAction = memo(function ShareAction({ link }: ShareActionProps)
                         </MenuButton>
                     )}
                 </MenuItem>
-                <MenuItem>
-                    {({ close }) => (
-                        <MenuButton
-                            onClick={() => {
-                                handleCopy();
-                                close();
-                            }}
-                        >
-                            <LinkIcon width={18} height={18} />
-                            <span className="font-bold leading-[22px] text-main">
-                                <Trans>Copy link</Trans>
-                            </span>
-                        </MenuButton>
-                    )}
-                </MenuItem>
+                <MenuItem>{({ close }) => <CopyLinkButton link={link || ''} onClick={close} />}</MenuItem>
             </MenuGroup>
         </MoreActionMenu>
     );

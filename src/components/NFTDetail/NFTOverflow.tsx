@@ -45,10 +45,10 @@ function ExplorerLink(props: { address: string; type: 'address' | 'tx'; chainId?
         <span className="break-all">
             {address}
             <span className="ml-1">
-                <CopyTextButton text={address} />
+                <CopyTextButton size={14} text={address} />
             </span>
             <a href={href} target="_blank" className="ml-1 inline-block">
-                <LinkIcon className="h-3 w-3" />
+                <LinkIcon width={14} height={14} />
             </a>
         </span>
     );

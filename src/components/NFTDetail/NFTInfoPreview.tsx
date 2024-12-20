@@ -24,7 +24,7 @@ export function NFTInfoPreview({
     const [isPlaying, setIsPlaying] = useState(false);
     const ref = useRef<HTMLVideoElement | null>(null);
     return (
-        <div className="relative h-full w-full max-w-[250px] overflow-hidden rounded-[20px] object-cover shadow-lightS3">
+        <div className="relative h-full w-full max-w-[230px] overflow-hidden rounded-[20px] object-cover shadow-lightS3">
             {!isStarted || !isPlaying ? (
                 <ClickableButton
                     className="absolute left-1/2 top-1/2 flex size-8 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-lg bg-black/25"
@@ -61,7 +61,7 @@ export function NFTInfoPreview({
                     }}
                 />
             ) : (
-                <NFTImage width={250} height={250} src={imageURL} alt={name} className="h-full w-full object-cover" />
+                <NFTImage width={230} height={230} src={imageURL} alt={name} className="h-full w-full object-cover" />
             )}
         </div>
     );
