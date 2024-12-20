@@ -1,5 +1,5 @@
 import { Trans } from '@lingui/macro';
-import { memo, useMemo } from 'react';
+import { memo } from 'react';
 
 import SendIcon from '@/assets/send.svg';
 import WalletIcon from '@/assets/wallet.svg';
@@ -17,6 +17,7 @@ interface Props {
     isClaimed: boolean;
     isEmpty: boolean;
     isExpired: boolean;
+    isClaiming: boolean;
     canRefund: boolean;
     handleShare: () => void;
     handleRefund: () => void;
@@ -24,7 +25,7 @@ interface Props {
     balance: number | bigint;
     estimateLoading: boolean;
     payload: RedPacketJSONPayload;
-    handleClaim: () => void;
+    onClaim: () => void;
 }
 export const RedPacketCardFooter = memo<Props>(function RedPacketCardFooter({
     post,
@@ -32,36 +33,41 @@ export const RedPacketCardFooter = memo<Props>(function RedPacketCardFooter({
     isClaimed,
     isEmpty,
     isExpired,
+    isClaiming,
     canRefund,
     handleShare,
     handleRefund,
     refundLoading,
     balance,
     estimateLoading,
-    handleClaim,
+    onClaim,
 }) {
     const { currentProfile } = useProfileStore(post.source);
     const isLogin = useIsLogin();
     const { account } = useChainContext();
 
-    const footer = useMemo(() => {
-        if (!currentProfile)
-            return (
+    if (!currentProfile)
+        return (
+            <div className="light">
                 <ActionButton className="w-full">
                     <Trans>Connect to {resolveSourceName(post.source)}</Trans>
                 </ActionButton>
-            );
-        if (!account && canClaim) {
-            return (
+            </div>
+        );
+    if (!account && canClaim) {
+        return (
+            <div className="light">
                 <ActionButton className="flex w-full items-center justify-center gap-1">
                     <WalletIcon width={16} height={14} />
                     <Trans>Connect Wallet</Trans>
                 </ActionButton>
-            );
-        }
+            </div>
+        );
+    }
 
-        if (isExpired && canRefund) {
-            return (
+    if (isExpired && canRefund) {
+        return (
+            <div className="light">
                 <ActionButton
                     className="flex w-full items-center justify-center"
                     onClick={handleRefund}
@@ -69,11 +75,13 @@ export const RedPacketCardFooter = memo<Props>(function RedPacketCardFooter({
                 >
                     <Trans>Refund</Trans>
                 </ActionButton>
-            );
-        }
+            </div>
+        );
+    }
 
-        if ((!canClaim || isClaimed || isEmpty || isExpired) && isLogin && !canRefund) {
-            return (
+    if ((!canClaim || isClaimed || isEmpty || isExpired) && isLogin && !canRefund) {
+        return (
+            <div className="light">
                 <ActionButton
                     variant="secondary"
                     className="flex w-full items-center justify-center gap-x-1"
@@ -82,60 +90,38 @@ export const RedPacketCardFooter = memo<Props>(function RedPacketCardFooter({
                     <SendIcon width={16} height={16} />
                     <Trans>Share</Trans>
                 </ActionButton>
-            );
-        }
-
-        return (
-            <div className="light flex gap-3">
-                <ActionButton
-                    variant="secondary"
-                    className="flex w-full items-center justify-center gap-x-1 text-sm leading-[18px]"
-                    onClick={handleShare}
-                >
-                    <SendIcon width={16} height={16} />
-                    <Trans>Share</Trans>
-                </ActionButton>
-                {balance > 0 ? (
-                    <ActionButton
-                        loading={estimateLoading}
-                        onClick={handleClaim}
-                        className="flex w-full items-center justify-center gap-x-1 text-sm leading-[18px]"
-                    >
-                        <WalletIcon width={16} height={14} />
-                        <Trans>Claim Now</Trans>
-                    </ActionButton>
-                ) : (
-                    <ActionButton
-                        className="flex w-full items-center justify-center gap-x-1 text-sm leading-[18px]"
-                        loading={estimateLoading}
-                        disabled
-                    >
-                        <Trans>Insufficient Balance for Gas Fee</Trans>
-                    </ActionButton>
-                )}
             </div>
         );
-    }, [
-        account,
-        balance,
-        canClaim,
-        canRefund,
-        currentProfile,
-        estimateLoading,
-        handleRefund,
-        handleShare,
-        isClaimed,
-        isEmpty,
-        isExpired,
-        isLogin,
-        post.source,
-        refundLoading,
-        handleClaim,
-    ]);
+    }
 
     return (
-        <>
-            <div className="light">{footer}</div>
-        </>
+        <div className="light flex gap-3">
+            <ActionButton
+                variant="secondary"
+                className="flex w-full items-center justify-center gap-x-1 text-sm leading-[18px]"
+                onClick={handleShare}
+            >
+                <SendIcon width={16} height={16} />
+                <Trans>Share</Trans>
+            </ActionButton>
+            {balance > 0 ? (
+                <ActionButton
+                    loading={estimateLoading || isClaiming}
+                    onClick={onClaim}
+                    className="flex w-full items-center justify-center gap-x-1 text-sm leading-[18px]"
+                >
+                    <WalletIcon width={16} height={14} />
+                    <Trans>Claim Now</Trans>
+                </ActionButton>
+            ) : (
+                <ActionButton
+                    className="flex w-full items-center justify-center gap-x-1 text-sm leading-[18px]"
+                    loading={estimateLoading}
+                    disabled
+                >
+                    <Trans>Insufficient Balance for Gas Fee</Trans>
+                </ActionButton>
+            )}
+        </div>
     );
 });
