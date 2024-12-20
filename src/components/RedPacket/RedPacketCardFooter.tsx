@@ -8,6 +8,7 @@ import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { useChainContext } from '@/hooks/useChainContext.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
 import { useProfileStore } from '@/hooks/useProfileStore.js';
+import { ConnectModalRef, LoginModalRef } from '@/modals/controls.js';
 import type { RedPacketJSONPayload } from '@/providers/red-packet/types.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 
@@ -18,6 +19,7 @@ interface Props {
     isEmpty: boolean;
     isExpired: boolean;
     isClaiming: boolean;
+    isRefunded: boolean;
     canRefund: boolean;
     handleShare: () => void;
     handleRefund: () => void;
@@ -34,6 +36,7 @@ export const RedPacketCardFooter = memo<Props>(function RedPacketCardFooter({
     isEmpty,
     isExpired,
     isClaiming,
+    isRefunded,
     canRefund,
     handleShare,
     handleRefund,
@@ -49,7 +52,7 @@ export const RedPacketCardFooter = memo<Props>(function RedPacketCardFooter({
     if (!currentProfile)
         return (
             <div className="light">
-                <ActionButton className="w-full">
+                <ActionButton className="w-full" onClick={() => LoginModalRef.open({ source: post.source })}>
                     <Trans>Connect to {resolveSourceName(post.source)}</Trans>
                 </ActionButton>
             </div>
@@ -57,7 +60,10 @@ export const RedPacketCardFooter = memo<Props>(function RedPacketCardFooter({
     if (!account && canClaim) {
         return (
             <div className="light">
-                <ActionButton className="flex w-full items-center justify-center gap-1">
+                <ActionButton
+                    className="flex w-full items-center justify-center gap-1"
+                    onClick={() => ConnectModalRef.open()}
+                >
                     <WalletIcon width={16} height={14} />
                     <Trans>Connect Wallet</Trans>
                 </ActionButton>
@@ -78,6 +84,8 @@ export const RedPacketCardFooter = memo<Props>(function RedPacketCardFooter({
             </div>
         );
     }
+
+    if (isRefunded) return null;
 
     if ((!canClaim || isClaimed || isEmpty || isExpired) && isLogin && !canRefund) {
         return (

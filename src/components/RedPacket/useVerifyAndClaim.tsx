@@ -29,13 +29,9 @@ export function useVerifyAndClaim(payload: RedPacketJSONPayload, source: SocialS
     const { HAPPY_RED_PACKET_ADDRESS_V4: redpacketContractAddress } = useRedPacketConstants(payload.chainId);
 
     const verifyAndClaim = useCallback(async () => {
-        const { data, error } = await recheckClaimStatus();
-        if (error) {
-            enqueueErrorMessage(t`Oops... Network issue. Please try again`);
-            return false;
-        }
+        const { data } = await recheckClaimStatus();
         if (!data?.data.canClaim) {
-            enqueueErrorMessage(t`Oops... Network issue. Please try again`);
+            enqueueErrorMessage(t`Oops... Not all the requirements have been met`);
             return false;
         }
 

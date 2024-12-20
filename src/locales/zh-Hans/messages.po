@@ -81,9 +81,6 @@ msgstr "报告 @{0}"
 msgid "Sell Tax: {0}%"
 msgstr "售卖税率: {0}%"
 
-msgid "Lucky drop"
-msgstr "红包"
-
 msgid "Failed to translate post. Please retry later."
 msgstr "翻译失败。请稍后重试。"
 
@@ -231,9 +228,6 @@ msgstr "发现恶意挖矿行为。"
 msgid "No"
 msgstr "不是"
 
-msgid "Oops... Network issue. Please try again"
-msgstr "哎呀... 网络问题。请再试一次"
-
 msgid "Functions that can suspend trading"
 msgstr "可以暂停交易的功能"
 
@@ -284,9 +278,6 @@ msgstr "税率可以被修改"
 
 msgid "<0>Burned</0><1/>"
 msgstr "<0>已销毁</0><1/>"
-
-msgid "🤑 Just claimed a #FireflyLuckyDrop 🧧💰✨ on {postUrl} !"
-msgstr "刚刚在 {postUrl} 上领取了一个 #FireflyLuckyDrop 🧧💰✨"
 
 msgid "Join our Discord"
 msgstr "加入我们的 Discord"
@@ -374,6 +365,9 @@ msgstr "已定时"
 
 msgid "Pay"
 msgstr "付款"
+
+msgid "🤑 Just claimed a #FireflyLuckyDrop 🧧💰✨ on {postUrl} from @{0}!"
+msgstr ""
 
 msgid "Followed @{handle} on {0}."
 msgstr "在 {0} 上关注 @{handle}。"
@@ -710,6 +704,9 @@ msgstr "在 {sourceName} 上取消关注 @{0} 失败。"
 
 msgid "Muted {walletHandle}."
 msgstr "隐藏 {walletHandle}。"
+
+msgid "Confirm Lucky Drop"
+msgstr ""
 
 msgid "Sanctioned address."
 msgstr "黑名单地址。"
@@ -1059,6 +1056,9 @@ msgstr "登出"
 msgid "Amount Each"
 msgstr "每笔金额"
 
+msgid "Oops... Not all the requirements have been met"
+msgstr ""
+
 msgid "You are holder of <0>Pudgy Penguins</0> or <1>Lil Pudgy</1> NFTs"
 msgstr "您是 <0>Pudgy Penguins</0> 或 <1>Lil Pudgy</1> NFT 系列的持有者"
 
@@ -1090,7 +1090,7 @@ msgid "This token contract has a code that states that it cannot be sold. Maybe 
 msgstr "这个通证合约提到它不能出售。也许这是一个欺诈行为。"
 
 msgid "Winners"
-msgstr "中间者"
+msgstr "红包数量"
 
 msgid "REPLY to<0><1>@{0}</1></0>"
 msgstr "回复给<0><1>@{0}</1></0>"
@@ -1641,9 +1641,6 @@ msgstr "<0>{0}</0> 点赞"
 msgid "Fully Diluted Valuation"
 msgstr "完全稀释估值"
 
-msgid "Customize Lucky Drop sender. Select either Lens or Forecaster handle, or use the currently connected wallet."
-msgstr "自定义红包发送者名称。请选择 Lens 或 Farcaster 用户名，或者使用当前连接的钱包。"
-
 msgid "Email (optional)"
 msgstr "邮箱（可选）"
 
@@ -1652,6 +1649,9 @@ msgstr "NFT 合约"
 
 msgid "Failed to connect MPC wallet"
 msgstr "连接 MPC 钱包失败。"
+
+msgid "Customize Lucky Drop sender. Select either Lens or Farecaster handle, or use the currently connected wallet."
+msgstr ""
 
 msgid "Phishing activities."
 msgstr "钓鱼活动。"
@@ -3089,9 +3089,6 @@ msgstr "新闻"
 
 msgid "NFT ID"
 msgstr "NFT ID"
-
-msgid "Confirm Lucky drop"
-msgstr "确认您的红包"
 
 msgid "Farcaster channel"
 msgstr "Farcaster 频道"

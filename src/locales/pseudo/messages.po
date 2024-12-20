@@ -76,9 +76,6 @@ msgstr ""
 msgid "Sell Tax: {0}%"
 msgstr ""
 
-msgid "Lucky drop"
-msgstr ""
-
 msgid "Failed to translate post. Please retry later."
 msgstr ""
 
@@ -226,9 +223,6 @@ msgstr ""
 msgid "No"
 msgstr ""
 
-msgid "Oops... Network issue. Please try again"
-msgstr ""
-
 msgid "Functions that can suspend trading"
 msgstr ""
 
@@ -278,9 +272,6 @@ msgid "Tax can be modified"
 msgstr ""
 
 msgid "<0>Burned</0><1/>"
-msgstr ""
-
-msgid "🤑 Just claimed a #FireflyLuckyDrop 🧧💰✨ on {postUrl} !"
 msgstr ""
 
 msgid "Join our Discord"
@@ -368,6 +359,9 @@ msgid "Scheduled"
 msgstr ""
 
 msgid "Pay"
+msgstr ""
+
+msgid "🤑 Just claimed a #FireflyLuckyDrop 🧧💰✨ on {postUrl} from @{0}!"
 msgstr ""
 
 msgid "Followed @{handle} on {0}."
@@ -704,6 +698,9 @@ msgid "Failed to unfollow @{0} on {sourceName}."
 msgstr ""
 
 msgid "Muted {walletHandle}."
+msgstr ""
+
+msgid "Confirm Lucky Drop"
 msgstr ""
 
 msgid "Sanctioned address."
@@ -1052,6 +1049,9 @@ msgid "Log out"
 msgstr ""
 
 msgid "Amount Each"
+msgstr ""
+
+msgid "Oops... Not all the requirements have been met"
 msgstr ""
 
 msgid "You are holder of <0>Pudgy Penguins</0> or <1>Lil Pudgy</1> NFTs"
@@ -1636,9 +1636,6 @@ msgstr ""
 msgid "Fully Diluted Valuation"
 msgstr ""
 
-msgid "Customize Lucky Drop sender. Select either Lens or Forecaster handle, or use the currently connected wallet."
-msgstr ""
-
 msgid "Email (optional)"
 msgstr ""
 
@@ -1646,6 +1643,9 @@ msgid "NFT Contract"
 msgstr ""
 
 msgid "Failed to connect MPC wallet"
+msgstr ""
+
+msgid "Customize Lucky Drop sender. Select either Lens or Farecaster handle, or use the currently connected wallet."
 msgstr ""
 
 msgid "Phishing activities."
@@ -3083,9 +3083,6 @@ msgid "News"
 msgstr ""
 
 msgid "NFT ID"
-msgstr ""
-
-msgid "Confirm Lucky drop"
 msgstr ""
 
 msgid "Farcaster channel"

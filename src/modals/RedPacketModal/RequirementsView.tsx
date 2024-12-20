@@ -26,15 +26,15 @@ export const REQUIREMENT_ICON_MAP: Record<RequirementType, React.FunctionCompone
     [RequirementType.NFTHolder]: NFTHolder,
 };
 
-export const REQUIREMENT_TITLE_MAP: Record<RequirementType, React.ReactNode> = {
-    [RequirementType.Follow]: t`Follow me`,
-    [RequirementType.Like]: t`Like`,
-    [RequirementType.Repost]: t`Repost`,
-    [RequirementType.Comment]: t`Comment`,
-    [RequirementType.NFTHolder]: t`NFT holder`,
-};
-
 export function RequirementsView() {
+    const REQUIREMENT_TITLE_MAP: Record<RequirementType, React.ReactNode> = {
+        [RequirementType.Follow]: t`Follow me`,
+        [RequirementType.Like]: t`Like`,
+        [RequirementType.Repost]: t`Repost`,
+        [RequirementType.Comment]: t`Comment`,
+        [RequirementType.NFTHolder]: t`NFT holder`,
+    };
+
     const { history } = useRouter();
     const { rules, setRules, requireCollection, setRequireCollection } = useContext(RedPacketContext);
 

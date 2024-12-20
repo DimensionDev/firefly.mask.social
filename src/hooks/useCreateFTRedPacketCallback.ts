@@ -67,8 +67,9 @@ export function useCreateFTRedPacketCallback(
                 type: 'fungible',
                 symbol: token?.symbol,
                 decimals: token?.decimals,
+                message,
             }),
-        [shareFromName, totalAmount, token?.decimals, token?.symbol, theme?.tid],
+        [shareFromName, totalAmount, token?.decimals, token?.symbol, theme?.tid, message],
     );
 
     const { chainId, account } = useChainContext();
