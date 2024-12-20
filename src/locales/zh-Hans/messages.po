@@ -228,9 +228,6 @@ msgstr "发现恶意挖矿行为。"
 msgid "No"
 msgstr "不是"
 
-msgid "Oops... Network issue. Please try again"
-msgstr "哎呀... 网络问题。请再试一次"
-
 msgid "Functions that can suspend trading"
 msgstr "可以暂停交易的功能"
 
@@ -281,9 +278,6 @@ msgstr "税率可以被修改"
 
 msgid "<0>Burned</0><1/>"
 msgstr "<0>已销毁</0><1/>"
-
-msgid "🤑 Just claimed a #FireflyLuckyDrop 🧧💰✨ on {postUrl} !"
-msgstr "刚刚在 {postUrl} 上领取了一个 #FireflyLuckyDrop 🧧💰✨"
 
 msgid "Join our Discord"
 msgstr "加入我们的 Discord"
@@ -371,6 +365,9 @@ msgstr "已定时"
 
 msgid "Pay"
 msgstr "付款"
+
+msgid "🤑 Just claimed a #FireflyLuckyDrop 🧧💰✨ on {postUrl} from @{0}!"
+msgstr ""
 
 msgid "Followed @{handle} on {0}."
 msgstr "在 {0} 上关注 @{handle}。"
@@ -1058,6 +1055,9 @@ msgstr "登出"
 
 msgid "Amount Each"
 msgstr "每笔金额"
+
+msgid "Oops... Not all the requirements have been met"
+msgstr ""
 
 msgid "You are holder of <0>Pudgy Penguins</0> or <1>Lil Pudgy</1> NFTs"
 msgstr "您是 <0>Pudgy Penguins</0> 或 <1>Lil Pudgy</1> NFT 系列的持有者"

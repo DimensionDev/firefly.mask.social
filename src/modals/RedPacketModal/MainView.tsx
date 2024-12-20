@@ -27,6 +27,7 @@ import { useAvailableBalance } from '@/hooks/useAvailableBalance.js';
 import { useChainContext } from '@/hooks/useChainContext.js';
 import { useERC20TokenAllowance } from '@/hooks/useERC20Allowance.js';
 import { useNativeTokenPrice } from '@/hooks/useNativeTokenPrice.js';
+import { EVMChainResolver } from '@/mask/bindings/index.js';
 import {
     RED_PACKET_CONTRACT_VERSION,
     RED_PACKET_DURATION,
@@ -35,7 +36,6 @@ import {
 } from '@/mask/plugins/red-packet/constants.js';
 import { useDefaultCreateGas } from '@/mask/plugins/red-packet/hooks/useDefaultCreateGas.js';
 import { RedPacketContext, redPacketRandomTabs } from '@/modals/RedPacketModal/RedPacketContext.js';
-import { EVMChainResolver } from '@/mask/bindings/index.js';
 
 export function MainView() {
     const { history } = useRouter();

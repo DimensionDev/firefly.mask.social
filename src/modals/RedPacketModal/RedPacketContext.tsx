@@ -11,6 +11,7 @@ import {
     useMemo,
     useState,
 } from 'react';
+import { mainnet } from 'viem/chains';
 import { useAccount, useEnsName } from 'wagmi';
 
 import WalletIcon from '@/assets/wallet2.svg';
@@ -23,7 +24,6 @@ import { EVMChainResolver } from '@/mask/bindings/index.js';
 import { RED_PACKET_DEFAULT_SHARES } from '@/mask/plugins/red-packet/constants.js';
 import { RequirementType } from '@/mask/plugins/red-packet/types.js';
 import type { FireflyRedPacketAPI } from '@/maskbook/packages/web3-providers/src/entry-types.js';
-import { mainnet } from 'viem/chains';
 
 export const redPacketRandomTabs = [
     {

@@ -228,9 +228,6 @@ msgstr ""
 msgid "No"
 msgstr ""
 
-msgid "Oops... Network issue. Please try again"
-msgstr ""
-
 msgid "Functions that can suspend trading"
 msgstr ""
 
@@ -280,9 +277,6 @@ msgid "Tax can be modified"
 msgstr ""
 
 msgid "<0>Burned</0><1/>"
-msgstr ""
-
-msgid "🤑 Just claimed a #FireflyLuckyDrop 🧧💰✨ on {postUrl} !"
 msgstr ""
 
 msgid "Join our Discord"
@@ -370,6 +364,9 @@ msgid "Scheduled"
 msgstr "已排程"
 
 msgid "Pay"
+msgstr ""
+
+msgid "🤑 Just claimed a #FireflyLuckyDrop 🧧💰✨ on {postUrl} from @{0}!"
 msgstr ""
 
 msgid "Followed @{handle} on {0}."
@@ -1057,6 +1054,9 @@ msgid "Log out"
 msgstr "登出"
 
 msgid "Amount Each"
+msgstr ""
+
+msgid "Oops... Not all the requirements have been met"
 msgstr ""
 
 msgid "You are holder of <0>Pudgy Penguins</0> or <1>Lil Pudgy</1> NFTs"
