@@ -532,6 +532,9 @@ msgstr "{0, plural, one {Follower} other {Followers}}"
 msgid "Mutes"
 msgstr "Mutes"
 
+msgid "Submit an evm wallet to check"
+msgstr "Submit an evm wallet to check"
+
 msgid "NFTs"
 msgstr "NFTs"
 
@@ -931,6 +934,9 @@ msgstr "No phishing site found."
 msgid "Log out"
 msgstr "Log out"
 
+msgid "You are holder of <0>Pudgy Penguins</0> or <1>Lil Pudgy</1> NFTs"
+msgstr "You are holder of <0>Pudgy Penguins</0> or <1>Lil Pudgy</1> NFTs"
+
 msgid "No restricted approval."
 msgstr "No restricted approval."
 
@@ -1173,6 +1179,9 @@ msgstr "Claim Premium"
 
 msgid "Share in a Post"
 msgstr "Share in a Post"
+
+msgid "Participation Blocked"
+msgstr "Participation Blocked"
 
 msgid "Forbidden. Please check your permissions."
 msgstr "Forbidden. Please check your permissions."
@@ -1434,6 +1443,9 @@ msgstr "Telemetry"
 
 msgid "Show more tokens with small balances"
 msgstr "Show more tokens with small balances"
+
+msgid "*This event is only available on the mobile app. Download Firefly now!"
+msgstr "*This event is only available on the mobile app. Download Firefly now!"
 
 msgid "{riskyFactors, plural, one {# Risky item} other {# Risky items}}"
 msgstr "{riskyFactors, plural, one {# Risky item} other {# Risky items}}"
@@ -2077,6 +2089,9 @@ msgstr "The amount of coins that are circulating in the market and are tradeable
 msgid "{0, plural, one {repost} other {reposts}}"
 msgstr "{0, plural, one {repost} other {reposts}}"
 
+msgid "Wallet submitted"
+msgstr "Wallet submitted"
+
 msgid "Scan the QR code with your phone’s <0>Camera</0> in {count}s. <1/>Approve a new Farcaster signer to Firefly for free."
 msgstr "Scan the QR code with your phone’s <0>Camera</0> in {count}s. <1/>Approve a new Farcaster signer to Firefly for free."
 
@@ -2124,6 +2139,9 @@ msgstr "Wallets"
 
 msgid "Articles from {walletHandle} will now be hidden in your home timeline"
 msgstr "Articles from {walletHandle} will now be hidden in your home timeline"
+
+msgid "Meet any of the following to unlock a premium collectible:"
+msgstr "Meet any of the following to unlock a premium collectible:"
 
 msgid "Article"
 msgstr "Article"
@@ -2233,6 +2251,9 @@ msgstr "Image"
 msgid "Failed to delete post."
 msgstr "Failed to delete post."
 
+msgid "Google Play"
+msgstr "Google Play"
+
 msgid "Financial crime found."
 msgstr "Financial crime found."
 
@@ -2250,6 +2271,9 @@ msgstr "Step 1 Sign in"
 
 msgid "Copy"
 msgstr "Copy"
+
+msgid "Submit a wallet to receive NFT"
+msgstr "Submit a wallet to receive NFT"
 
 msgid "Settled as {0}"
 msgstr "Settled as {0}"
@@ -2443,6 +2467,9 @@ msgstr "Switching..."
 msgid "Pay<0> {feeAmount} ${feeSymbol} </0>to follow and get some awesome perks!"
 msgstr "Pay<0> {feeAmount} ${feeSymbol} </0>to follow and get some awesome perks!"
 
+msgid "App Store"
+msgstr "App Store"
+
 msgid "<0>Bought</0> an NFT worth {costEl}"
 msgstr "<0>Bought</0> an NFT worth {costEl}"
 
@@ -2620,6 +2647,9 @@ msgstr "{minutes}m left"
 msgid "Signature Request"
 msgstr "Signature Request"
 
+msgid "Followed <0>@{0}</0> on X before Dec 16, 2024"
+msgstr "Followed <0>@{0}</0> on X before Dec 16, 2024"
+
 msgid "Total Supply"
 msgstr "Total Supply"
 
@@ -2718,6 +2748,9 @@ msgstr "Firefly Bridge"
 
 msgid "Oversupply minting."
 msgstr "Oversupply minting."
+
+msgid "*Note: Each NFT can only be used once."
+msgstr "*Note: Each NFT can only be used once."
 
 msgid "Followed <0>@{handle}</0> on {0}"
 msgstr "Followed <0>@{handle}</0> on {0}"
@@ -3010,6 +3043,9 @@ msgstr "No trading cooldown function."
 msgid "Media"
 msgstr "Media"
 
+msgid "You are holder of <0>truePengu</0> or <1>penguPins</1> Soulbound NFTs"
+msgstr "You are holder of <0>truePengu</0> or <1>penguPins</1> Soulbound NFTs"
+
 msgid "No content to publish."
 msgstr "No content to publish."
 
@@ -3093,6 +3129,15 @@ msgstr "{0, plural, one {like} other {likes}}"
 
 msgid "Collectible"
 msgstr "Collectible"
+
+msgid ""
+"Just claimed the \"Holiday Skates with $PENGU⛸️🐧⛸️\" collectible from {fireflyMention}\n"
+"Check your eligibility and claim here {shareUrl}\n"
+"#PENGU #FireflySocial"
+msgstr ""
+"Just claimed the \"Holiday Skates with $PENGU⛸️🐧⛸️\" collectible from {fireflyMention}\n"
+"Check your eligibility and claim here {shareUrl}\n"
+"#PENGU #FireflySocial"
 
 msgid "Are you sure you want to report this user?"
 msgstr "Are you sure you want to report this user?"
