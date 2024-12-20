@@ -334,9 +334,6 @@ msgstr ""
 msgid "Casts"
 msgstr ""
 
-msgid "Followed <0>@{0}</0> on X before Dec 17, 2024"
-msgstr ""
-
 msgid "Your account is now connected."
 msgstr ""
 
@@ -2092,6 +2089,9 @@ msgstr ""
 msgid "{0, plural, one {repost} other {reposts}}"
 msgstr ""
 
+msgid "Wallet submitted"
+msgstr ""
+
 msgid "Scan the QR code with your phone’s <0>Camera</0> in {count}s. <1/>Approve a new Farcaster signer to Firefly for free."
 msgstr ""
 
@@ -2270,6 +2270,9 @@ msgid "Step 1 Sign in"
 msgstr ""
 
 msgid "Copy"
+msgstr ""
+
+msgid "Submit a wallet to receive NFT"
 msgstr ""
 
 msgid "Settled as {0}"
@@ -2644,6 +2647,9 @@ msgstr ""
 msgid "Signature Request"
 msgstr ""
 
+msgid "Followed <0>@{0}</0> on X before Dec 16, 2024"
+msgstr ""
+
 msgid "Total Supply"
 msgstr ""
 
@@ -2861,9 +2867,6 @@ msgid "Recasted"
 msgstr ""
 
 msgid "No phishing activities involved."
-msgstr ""
-
-msgid "Submit a wallet to receive NFT and $PENGU"
 msgstr ""
 
 msgid "Failed to parse transaction."
