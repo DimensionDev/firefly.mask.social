@@ -1254,3 +1254,12 @@ export type GetBookmarksResponse = Response<{
         post_type: BookmarkType;
     }>;
 }>;
+
+export interface GetFollowingCountByNFTParams {
+    collectionAddress: string;
+    chainName: string;
+}
+
+export type GetFollowingCountByNFTResponse = Response<{
+    count: number;
+}>;
