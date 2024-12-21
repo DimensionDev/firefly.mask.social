@@ -8,7 +8,7 @@ msgstr ""
 "Language: zh\n"
 "Project-Id-Version: masksocial\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-12-20 12:01\n"
+"PO-Revision-Date: 2024-12-21 12:01\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
@@ -367,7 +367,7 @@ msgid "Pay"
 msgstr "付款"
 
 msgid "🤑 Just claimed a #FireflyLuckyDrop 🧧💰✨ on {postUrl} from @{0}!"
-msgstr ""
+msgstr "🤑 刚刚通过 @{0} 在 {postUrl} 领取了一个 #FireflyLuckyDrop 🧧💰✨！"
 
 msgid "Followed @{handle} on {0}."
 msgstr "在 {0} 上关注 @{handle}。"
@@ -502,7 +502,7 @@ msgid "Retry"
 msgstr "重试"
 
 msgid "Or login in with other platforms"
-msgstr ""
+msgstr "或者登录其他平台"
 
 msgid "Show less"
 msgstr "收起"
@@ -709,7 +709,7 @@ msgid "Muted {walletHandle}."
 msgstr "隐藏 {walletHandle}。"
 
 msgid "Confirm Lucky Drop"
-msgstr ""
+msgstr "确认您的红包"
 
 msgid "Sanctioned address."
 msgstr "黑名单地址。"
@@ -892,7 +892,7 @@ msgid "Non-sanctioned address found."
 msgstr "非黑名单地址。"
 
 msgid "Feed"
-msgstr "信息流"
+msgstr "帖子"
 
 msgid "Search article"
 msgstr "搜索文章"
@@ -1060,7 +1060,7 @@ msgid "Amount Each"
 msgstr "每笔金额"
 
 msgid "Oops... Not all the requirements have been met"
-msgstr ""
+msgstr "哎呀... 并未满足所有要求"
 
 msgid "You are holder of <0>Pudgy Penguins</0> or <1>Lil Pudgy</1> NFTs"
 msgstr "您是 <0>Pudgy Penguins</0> 或 <1>Lil Pudgy</1> NFT 系列的持有者"
@@ -1216,7 +1216,7 @@ msgid "Mirror or Quote"
 msgstr "转帖或者引用"
 
 msgid "Add an existing account"
-msgstr "添加一个已经存在的账号"
+msgstr "添加一个已有的账号"
 
 msgid "Confirm you want to mute /{0}?"
 msgstr "您确定要隐藏 /{0} 吗？"
@@ -1357,7 +1357,7 @@ msgid "Search by name or symbol"
 msgstr "按名称或符号搜索"
 
 msgid "Participation Blocked"
-msgstr ""
+msgstr "禁止参与"
 
 msgid "Forbidden. Please check your permissions."
 msgstr "禁止！请检查您的权限。"
@@ -1666,7 +1666,7 @@ msgid "Requirements"
 msgstr "条件"
 
 msgid "*This event is only available on the mobile app. Download Firefly now!"
-msgstr ""
+msgstr "*此活动仅在移动应用程序上提供。立即下载 Firefly！"
 
 msgid "{riskyFactors, plural, one {# Risky item} other {# Risky items}}"
 msgstr "{riskyFactors, plural, one {# 风险条目} other {# 风险条目}}"
@@ -2194,7 +2194,7 @@ msgid "Quality Filter"
 msgstr "质量筛选"
 
 msgid "Bio should be at least {minBioSize} characters"
-msgstr ""
+msgstr "个人简介应至少包含 {minBioSize} 个字符"
 
 msgid "Visit mask.io"
 msgstr "访问 mask.io"
@@ -2329,7 +2329,7 @@ msgid "There is no data available for display."
 msgstr "没有可显示的数据。"
 
 msgid "Customize Lucky Drop sender. Select either Lens or Farcaster handle, or use the currently connected wallet."
-msgstr ""
+msgstr "自定义红包发送者。请选择 Lens 或 Farcaster 账号，或使用当前连接的钱包。"
 
 msgid "Cancel"
 msgstr "取消"
@@ -2383,7 +2383,7 @@ msgid "{0, plural, one {repost} other {reposts}}"
 msgstr "{0, plural, one {转帖} other {转帖}}"
 
 msgid "Wallet submitted"
-msgstr ""
+msgstr "已提交钱包"
 
 msgid "Scan the QR code with your phone’s <0>Camera</0> in {count}s. <1/>Approve a new Farcaster signer to Firefly for free."
 msgstr "在 {count} 秒内，用手机的 <0>相机</0> 扫描二维码。<1/>免费授权一个新的 Farcaster 签名加入 Firefly。"
@@ -2566,7 +2566,7 @@ msgid "Failed to delete post."
 msgstr "删除帖子失败。"
 
 msgid "Google Play"
-msgstr ""
+msgstr "谷歌商店"
 
 msgid "Lucky drop created successfully"
 msgstr "成功创建红包"
@@ -2827,7 +2827,7 @@ msgid "Pay<0> {feeAmount} ${feeSymbol} </0>to follow and get some awesome perks!
 msgstr "支付<0>{feeAmount} ${feeSymbol}</0>以关注并获得一些精彩的福利！"
 
 msgid "App Store"
-msgstr ""
+msgstr "苹果商店"
 
 msgid "<0>Bought</0> an NFT worth {costEl}"
 msgstr "<0>购买</0> 一个 NFT 价值 {costEl}"
@@ -3217,7 +3217,7 @@ msgid "The connection has timed out. Please try again later."
 msgstr "连接已经超时。请稍后重试。"
 
 msgid "Reload page"
-msgstr ""
+msgstr "重新加载"
 
 msgid "Phishing site."
 msgstr "钓鱼网站。"
@@ -3570,7 +3570,9 @@ msgstr "NFT"
 msgid "Just claimed the \"Holiday Skates with $PENGU⛸️🐧⛸️\" collectible from {fireflyMention}\n"
 "Check your eligibility and claim here {shareUrl}\n"
 "#PENGU #FireflySocial"
-msgstr ""
+msgstr "刚刚从 {fireflyMention} 领取了“Holiday Skates with $PENGU⛸️🐧⛸️” NFT ！\n"
+"查看您的资格并在此领取：{shareUrl}\n"
+"#PENGU #FireflySocial"
 
 msgid "Users must hold one NFT from the collection you select."
 msgstr "用户必须持有您选择的系列中的一枚 NFT。"
