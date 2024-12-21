@@ -1,18 +1,25 @@
-import { memo } from 'react';
+import type { SetPrimaryButton } from '@farcaster/frame-host';
+import { memo, useState } from 'react';
 
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { Image } from '@/components/Image.js';
 import { FrameViewerModalRef } from '@/modals/controls.js';
+import type { Post } from '@/providers/types/SocialMedia.js';
 import type { FrameV2 } from '@/types/frame.js';
 
 interface CardProps {
+    post: Post;
     frame: FrameV2;
 }
 
 export const Card = memo<CardProps>(function Card({ frame }) {
+    const [primaryButton, setPrimaryButton] = useState<Parameters<SetPrimaryButton>[0] | null>(null);
+
     const onClick = () => {
         FrameViewerModalRef.open({
             frame,
+            // TODO
+            frameHost: null!,
         });
     };
 
@@ -26,9 +33,15 @@ export const Card = memo<CardProps>(function Card({ frame }) {
                 src={frame.imageUrl}
                 alt={frame.x_url}
             />
-            <ClickableButton className="bg-fireflyBrand px-1 py-3 font-bold text-white" onClick={onClick}>
-                {frame.button.action.name}
-            </ClickableButton>
+            {primaryButton?.hidden ? null : (
+                <ClickableButton
+                    className="bg-fireflyBrand px-1 py-3 font-bold text-white"
+                    disabled={primaryButton?.loading || primaryButton?.disabled}
+                    onClick={onClick}
+                >
+                    {primaryButton?.text ?? frame.button.action.name}
+                </ClickableButton>
+            )}
         </div>
     );
 });

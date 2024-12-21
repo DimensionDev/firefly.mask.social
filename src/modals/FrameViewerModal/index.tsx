@@ -1,8 +1,12 @@
-import { forwardRef, useState } from 'react';
+import { exposeToIframe, type FrameHost } from '@farcaster/frame-host';
+import { forwardRef, useEffect, useRef, useState } from 'react';
 
 import { CloseButton } from '@/components/IconButton.js';
 import { Modal } from '@/components/Modal.js';
 import { NotImplementedError } from '@/constants/error.js';
+import { SITE_HOSTNAME } from '@/constants/index.js';
+import { bom } from '@/helpers/bom.js';
+import { createEIP1193Provider } from '@/helpers/createEIP1193Provider.js';
 import { parseUrl } from '@/helpers/parseUrl.js';
 import { useSingletonModal } from '@/hooks/useSingletonModal.js';
 import type { SingletonModalRefCreator } from '@/libs/SingletonModal.js';
@@ -11,11 +15,13 @@ import type { FrameV2 } from '@/types/frame.js';
 
 export type FrameViewerModalOpenProps = {
     frame: FrameV2;
+    frameHost: Omit<FrameHost, 'ethProviderRequestV2'>;
 };
 export type FrameViewerModalCloseProps = void;
 
 export const FrameViewerModal = forwardRef<SingletonModalRefCreator<FrameViewerModalOpenProps>>(
     function FrameViewerModal(_, ref) {
+        const frameRef = useRef<HTMLIFrameElement | null>(null);
         const [props, setProps] = useState<FrameViewerModalOpenProps | null>(null);
 
         const [open, dispatch] = useSingletonModal(ref, {
@@ -26,6 +32,24 @@ export const FrameViewerModal = forwardRef<SingletonModalRefCreator<FrameViewerM
                 setProps(null);
             },
         });
+
+        useEffect(() => {
+            if (!frameRef.current) return;
+
+            // frame host is required
+            if (!props?.frameHost) return;
+
+            const result = exposeToIframe({
+                iframe: frameRef.current,
+                sdk: props.frameHost,
+                ethProvider: createEIP1193Provider(),
+                frameOrigin: bom.window?.origin ?? SITE_HOSTNAME,
+            });
+
+            return () => {
+                result?.cleanup();
+            };
+        }, [frameRef.current]);
 
         if (!open || !props) return null;
 
@@ -53,6 +77,7 @@ export const FrameViewerModal = forwardRef<SingletonModalRefCreator<FrameViewerM
                     </div>
                     <iframe
                         className="scrollbar-hide h-full w-full opacity-100"
+                        ref={frameRef}
                         src={frame.button.action.url}
                         allow="clipboard-write 'src'"
                         sandbox="allow-forms allow-scripts allow-same-origin"
