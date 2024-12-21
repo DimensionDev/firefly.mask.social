@@ -76,9 +76,6 @@ Submit here ${shareUrl}
                 if (claimCondition?.alreadyClaimed) {
                     return <Trans>Participated</Trans>;
                 }
-                if (!disabled || claimCondition?.canClaim) {
-                    return isPremium ? <Trans>Participate Premium</Trans> : <Trans>Participate Basic</Trans>;
-                }
                 return <Trans>Participate Now</Trans>;
             default:
                 safeUnreachable(status);
