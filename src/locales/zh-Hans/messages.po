@@ -99,6 +99,12 @@ msgstr "取消隐藏成功。"
 msgid "Simulating"
 msgstr "模拟中"
 
+msgid ""
+"Just submitted my wallet to receive my Christmas gift. Let's skate into the holiday season with $PENGU on {fireflyMention}\n"
+"Submit here {shareUrl}\n"
+"#PENGU #FireflySocial"
+msgstr ""
+
 msgid "Your frame URL"
 msgstr "您 Frame 的 URL"
 
@@ -963,6 +969,9 @@ msgstr "已取消"
 msgid "No content for the last two weeks."
 msgstr "最近两周没有内容。"
 
+msgid "Participate Now"
+msgstr ""
+
 msgid "This token contract has a code that states that it cannot be sold. Maybe this is a honeypot."
 msgstr "这个通证合约提到它不能出售。也许这是一个欺诈行为。"
 
@@ -1622,6 +1631,9 @@ msgstr "详情"
 
 msgid "Unmute {handleOrEnsOrAddress}"
 msgstr "取消隐藏 {handleOrEnsOrAddress}"
+
+msgid "Participated"
+msgstr ""
 
 msgid "Failed to disconnect wallet from your social graph."
 msgstr "未能从您的社交图谱中断链。"
@@ -3134,12 +3146,6 @@ msgstr "{0, plural, one {点赞} other {点赞}}"
 
 msgid "Collectible"
 msgstr "NFT"
-
-msgid ""
-"Just claimed the \"Holiday Skates with $PENGU⛸️🐧⛸️\" collectible from {fireflyMention}\n"
-"Check your eligibility and claim here {shareUrl}\n"
-"#PENGU #FireflySocial"
-msgstr ""
 
 msgid "Are you sure you want to report this user?"
 msgstr "您确定要举报这个用户么？"
