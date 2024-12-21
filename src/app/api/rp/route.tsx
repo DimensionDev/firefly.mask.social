@@ -116,6 +116,7 @@ export async function GET(request: NextRequest) {
             headers: {
                 'Content-Type': 'image/svg+xml',
                 'Cache-Control': CACHE_AGE_INDEFINITE_ON_DISK,
+                'Access-Control-Allow-Origin': '*',
             },
         });
     } catch (error) {
