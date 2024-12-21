@@ -348,9 +348,6 @@ msgstr "帖子"
 msgid "Your account is now connected."
 msgstr "您的账户已连接。"
 
-msgid "Participate Basic"
-msgstr ""
-
 msgid "Report submitted on {0}"
 msgstr "举报已提交 {0}"
 
@@ -1355,9 +1352,6 @@ msgstr "取消点赞"
 
 msgid "No blacklist"
 msgstr "无黑名单"
-
-msgid "Participate Premium"
-msgstr ""
 
 msgid "Post was deleted"
 msgstr "帖子已被删除"

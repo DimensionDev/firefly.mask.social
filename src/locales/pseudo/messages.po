@@ -343,9 +343,6 @@ msgstr ""
 msgid "Your account is now connected."
 msgstr ""
 
-msgid "Participate Basic"
-msgstr ""
-
 msgid "Report submitted on {0}"
 msgstr ""
 
@@ -1349,9 +1346,6 @@ msgid "Unlike"
 msgstr ""
 
 msgid "No blacklist"
-msgstr ""
-
-msgid "Participate Premium"
 msgstr ""
 
 msgid "Post was deleted"

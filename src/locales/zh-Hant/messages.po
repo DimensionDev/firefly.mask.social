@@ -348,9 +348,6 @@ msgstr ""
 msgid "Your account is now connected."
 msgstr "您的帳戶現已連接。"
 
-msgid "Participate Basic"
-msgstr ""
-
 msgid "Report submitted on {0}"
 msgstr "檢舉已於{0} 提交"
 
@@ -1355,9 +1352,6 @@ msgstr "取消按讚"
 
 msgid "No blacklist"
 msgstr "無黑名單"
-
-msgid "Participate Premium"
-msgstr ""
 
 msgid "Post was deleted"
 msgstr "貼文被刪除"
