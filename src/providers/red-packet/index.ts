@@ -17,6 +17,7 @@ import { settings } from '@/settings/index.js';
 
 const SITE_URL = bom.location?.origin ?? '';
 
+// biome-ignore lint/complexity/noStaticOnlyClass: <explanation>
 export class FireflyRedPacket {
     static async parse(options: FireflyRedPacketAPI.ParseOptions) {
         const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/misc/redpacket/parse');
