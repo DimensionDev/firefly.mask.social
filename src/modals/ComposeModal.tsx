@@ -250,7 +250,7 @@ export const ComposeModalUI = forwardRef<SingletonModalRefCreator<ComposeModalOp
                 if (typeof encrypted.output === 'string') throw new Error('Expected binary data.');
 
                 const secretImage = await steganographyEncodeImage(
-                    await fetchImageAsPNG(rpPayload.payloadImage),
+                    await fetchImageAsPNG(rpPayload.payloadImage, true),
                     encrypted.output,
                     SteganographyPreset.Preset2023_Firefly,
                 );

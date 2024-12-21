@@ -1,8 +1,9 @@
 import { FileMimeType } from '@/constants/enum.js';
 
-function fetchImage(url: string): Promise<HTMLImageElement> {
+function fetchImage(url: string, cors?: boolean): Promise<HTMLImageElement> {
     return new Promise((resolve, reject) => {
         const img = new Image();
+        if (cors) img.crossOrigin = 'anonymous';
 
         img.onload = () => {
             resolve(img);
@@ -35,7 +36,7 @@ async function drawImageOnCanvas(img: HTMLImageElement) {
     });
 }
 
-export async function fetchImageAsPNG(url: string): Promise<Blob> {
-    const img = await fetchImage(url);
+export async function fetchImageAsPNG(url: string, cors?: boolean): Promise<Blob> {
+    const img = await fetchImage(url, cors);
     return drawImageOnCanvas(img);
 }
