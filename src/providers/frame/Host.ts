@@ -1,5 +1,3 @@
-import { NotImplementedError } from '@/constants/error.js';
-import { openWindow } from '@/helpers/openWindow.js';
 import type {
     AddFrame,
     EthProviderRequest,
@@ -11,6 +9,9 @@ import type {
     SignInOptions,
 } from '@farcaster/frame-host';
 import { noop } from 'lodash-es';
+
+import { NotImplementedError } from '@/constants/error.js';
+import { openWindow } from '@/helpers/openWindow.js';
 
 export class FarcasterFrameHost implements FrameHost {
     get context() {
