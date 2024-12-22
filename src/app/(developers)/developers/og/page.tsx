@@ -15,6 +15,7 @@ import { classNames } from '@/helpers/classNames.js';
 import { createDummyPost } from '@/helpers/createDummyPost.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
 import { isValidUrl } from '@/helpers/isValidUrl.js';
+import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { getI18n } from '@/i18n/index.js';
 
 export default function Page() {
@@ -25,6 +26,17 @@ export default function Page() {
 
     const [{ error, loading }, onSubmit] = useAsyncFn(async () => {
         if (!isValidUrl(url)) throw new Error('Invalid URL');
+
+        await runInSafeAsync(async () => {
+            await fetchJSON(
+                urlcat('/api/og', {
+                    url,
+                }),
+                {
+                    method: 'DELETE',
+                },
+            );
+        });
 
         await fetchJSON(
             urlcat('/api/oembed', {
