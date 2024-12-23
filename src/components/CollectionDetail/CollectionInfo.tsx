@@ -4,7 +4,8 @@ import { Trans } from '@lingui/macro';
 import { ChainId } from '@masknet/web3-shared-evm';
 
 import LinkIcon from '@/assets/link-square.svg';
-import { ReportSpamButton } from '@/components/CollectionDetail/ReportSpamButton.js';
+import { CollectionMore } from '@/components/Actions/CollectionMore.js';
+import { ClickableButton } from '@/components/ClickableButton.js';
 import { CopyTextButton } from '@/components/CopyTextButton.js';
 import { Image } from '@/components/Image.js';
 import { ChainIcon } from '@/components/NFTDetail/ChainIcon.js';
@@ -25,6 +26,7 @@ interface CollectionInfoProps {
     name: string;
     chainId?: ChainId;
     collectionId?: string;
+    externalUrl?: string;
 }
 
 export function CollectionInfo(props: CollectionInfoProps) {
@@ -39,6 +41,7 @@ export function CollectionInfo(props: CollectionInfoProps) {
         floorPrice,
         chainId = ChainId.Mainnet,
         collectionId,
+        externalUrl,
     } = props;
     return (
         <div className="w-full">
@@ -51,26 +54,29 @@ export function CollectionInfo(props: CollectionInfoProps) {
             />
             <div className="flex w-full p-3">
                 <NFTImage
-                    width={90}
-                    height={90}
-                    className="h-[90px] w-[90px] rounded-lg object-cover"
+                    width={115}
+                    height={115}
+                    className="h-[115px] w-[115px] rounded-lg object-cover"
                     src={imageUrl}
                     alt={name}
                 />
-                <div className="ml-2.5 w-full max-w-[calc(100%-100px)] flex-1 space-y-1">
-                    <div className="flex w-full items-center text-xl font-bold leading-6">
-                        <ChainIcon chainId={chainId} size={24} />
+                <div className="ml-2.5 flex h-[115px] min-w-0 flex-1 flex-col justify-between">
+                    <div className="flex w-full gap-2 text-xl font-bold leading-6">
                         <TextOverflowTooltip content={name}>
-                            <div className="ml-2 w-[calc(100%-32px-32px)] truncate">{name}</div>
+                            <div className="line-clamp-2 w-full">{name}</div>
                         </TextOverflowTooltip>
-                        {collectionId ? <ReportSpamButton collectionId={collectionId} /> : null}
+                        <ClickableButton className="-mt-1 h-8 rounded-full bg-main px-5 text-sm font-bold leading-8 text-lightBottom">
+                            <Trans>Mint</Trans>
+                        </ClickableButton>
+                        <CollectionMore collectionId={collectionId} externalUrl={externalUrl} />
                     </div>
                     {address ? (
-                        <div className="text-normal flex items-center text-sm leading-[14px] text-secondary">
-                            <span className="hidden sm:inline">{address}</span>
+                        <div className="text-normal flex items-center text-base leading-[14px] text-secondary">
+                            <ChainIcon className="mr-1 shrink-0" chainId={chainId} size={14} />
+                            <span className="hidden min-w-0 truncate sm:inline">{address}</span>
                             <span className="inline sm:hidden">{formatAddress(address, 4)}</span>
                             <CopyTextButton text={address} />
-                            <a className="ml-1.5 h-3 w-3" href={resolveAddressLink(chainId, address)} target="_blank">
+                            <a className="ml-1 h-3 w-3" href={resolveAddressLink(chainId, address)} target="_blank">
                                 <LinkIcon className="h-3 w-3 text-secondary" />
                             </a>
                         </div>

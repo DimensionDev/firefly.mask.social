@@ -12,7 +12,6 @@ import { NFTOverflow } from '@/components/NFTDetail/NFTOverflow.js';
 import { NFTProperties } from '@/components/NFTDetail/NFTProperties.js';
 import { NFTNavbar } from '@/components/NFTs/NFTNavbar.js';
 import { POAP_CONTRACT_ADDRESS } from '@/constants/index.js';
-import { classNames } from '@/helpers/classNames.js';
 import { getFloorPrice } from '@/helpers/getFloorPrice.js';
 import { isSameEthereumAddress } from '@/helpers/isSameAddress.js';
 import { useNFTDetail } from '@/hooks/useNFTDetail.js';
@@ -43,7 +42,7 @@ export function NFTDetailPage({ chainId, address, tokenId }: { chainId: ChainId;
     return (
         <div className="min-h-screen">
             <NFTNavbar>{data.metadata.name}</NFTNavbar>
-            <div className="space-y-6 p-5">
+            <div className="space-y-4 px-4 py-3">
                 <NFTInfo
                     imageURL={data.metadata.imageURL ?? ''}
                     video={data.metadata.video}
@@ -60,9 +59,10 @@ export function NFTDetailPage({ chainId, address, tokenId }: { chainId: ChainId;
                     floorPrice={getFloorPrice(data?.collection?.floorPrices)}
                     chainId={chainId}
                     attendance={poapAttendeesCount}
-                    tokenNameClassName={classNames({ '!line-clamp-3': isPoap })}
+                    link={data.link}
+                    traits={data.traits ?? []}
                 />
-                {data.traits && data.traits.length > 0 ? <NFTProperties items={data.traits} /> : null}
+                {!isPoap && data.traits?.length ? <NFTProperties items={data.traits} /> : null}
                 <NFTOverflow
                     description={data.metadata.description ?? ''}
                     tokenId={data.tokenId}

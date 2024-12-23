@@ -1,11 +1,12 @@
 import { SourceType, TokenType } from '@masknet/web3-shared-base';
-import { isENSContractAddress, isLens, SchemaType as EVMSchemaType, WNATIVE } from '@masknet/web3-shared-evm';
+import { ChainId, isENSContractAddress, isLens, SchemaType as EVMSchemaType, WNATIVE } from '@masknet/web3-shared-evm';
 import {
     isValidChainId as isValidSolanaChainId,
     isValidDomain as isValidSolanaDomain,
     SchemaType as SolanaSchemaType,
 } from '@masknet/web3-shared-solana';
 import { first, isEmpty } from 'lodash-es';
+import urlcat from 'urlcat';
 
 import { resolveNFTImageUrl } from '@/helpers/resolveNFTImageUrl.js';
 import { resolveSimpleHashChainId } from '@/helpers/resolveSimpleHashChain.js';
@@ -15,7 +16,7 @@ import type { NFTAsset } from '@/providers/types/Firefly.js';
 
 export const SPAM_SCORE = 50;
 
-export function getAssetFullName(contract_address: string, contractName = '', name?: string, tokenId?: string) {
+function getAssetFullName(contract_address: string, contractName = '', name?: string, tokenId?: string) {
     if (!name)
         return tokenId && contractName
             ? `${contractName} #${tokenId}`
@@ -37,6 +38,44 @@ export function getAssetFullName(contract_address: string, contractName = '', na
     if (!contractName && tokenId) return `${first} #${tokenId}`;
 
     return `${contractName} #${first}`;
+}
+
+function resolveNFTScanHostName(chainId: number) {
+    switch (chainId) {
+        case ChainId.Mainnet:
+            return 'https://www.nftscan.com';
+        case ChainId.Polygon:
+            return 'https://polygon.nftscan.com';
+        case ChainId.BSC:
+            return 'https://bnb.nftscan.com';
+        case ChainId.Arbitrum:
+            return 'https://arbitrum.nftscan.com';
+        case ChainId.Avalanche:
+            return 'https://avax.nftscan.com';
+        case ChainId.Optimism:
+            return 'https://optimism.nftscan.com';
+        case ChainId.xDai:
+            return 'https://gnosis.nftscan.com';
+        case ChainId.Moonbeam:
+            return 'https://moonbeam.nftscan.com';
+        default:
+            return 'https://www.nftscan.com';
+    }
+}
+
+function resolveNFTScanLink(nft: SimpleHash.NFT) {
+    const chainId = resolveSimpleHashChainId(nft.chain);
+    if (!chainId) return;
+
+    if (isValidSolanaChainId(chainId))
+        return urlcat('https://solana.nftscan.com/:address', {
+            address: nft.contract_address,
+        });
+
+    return urlcat(resolveNFTScanHostName(chainId), '/:address/:tokenId', {
+        address: nft.contract_address,
+        tokenId: nft.token_id,
+    });
 }
 
 export function formatSimpleHashNFT(nft: SimpleHash.NFT, skipScoreCheck = false): NFTAsset | undefined {
@@ -64,7 +103,7 @@ export function formatSimpleHashNFT(nft: SimpleHash.NFT, skipScoreCheck = false)
     return {
         id: address,
         chainId,
-        link: '',
+        link: resolveNFTScanLink(nft),
         tokenId: nft.token_id,
         type: TokenType.NonFungible,
         address,
