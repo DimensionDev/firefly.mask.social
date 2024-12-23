@@ -1846,7 +1846,7 @@ msgid "Show more comments"
 msgstr "展示更多评论"
 
 msgid "*Note: Each NFT can only be submitted once."
-msgstr ""
+msgstr "*注意：每个NFT只能提交一次。"
 
 msgid "Failed to parse session."
 msgstr "未能解析会话"
