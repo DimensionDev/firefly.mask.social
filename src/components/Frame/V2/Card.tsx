@@ -3,10 +3,12 @@ import { memo, useState } from 'react';
 
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { Image } from '@/components/Image.js';
-import { FrameViewerModalRef } from '@/modals/controls.js';
+import { FrameViewerModalRef, LoginModalRef } from '@/modals/controls.js';
 import { FarcasterFrameHost } from '@/providers/frame/Host.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 import type { FrameV2 } from '@/types/frame.js';
+import { getCurrentProfile } from '@/helpers/getCurrentProfile.js';
+import { Source } from '@/constants/enum.js';
 
 interface CardProps {
     post: Post;
@@ -32,6 +34,14 @@ export const Card = memo<CardProps>(function Card({ post, frame }) {
     );
 
     const onClick = () => {
+        const profile = getCurrentProfile(Source.Farcaster);
+        if (!profile) {
+            LoginModalRef.open({
+                source: Source.Farcaster,
+            });
+            return;
+        }
+
         FrameViewerModalRef.open({
             ready: false,
             frame,
