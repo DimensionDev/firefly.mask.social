@@ -93,6 +93,7 @@ export const DisconnectFireflyAccountModal = forwardRef<SingletonModalRefCreator
                                             profile={account.profile}
                                             profileAvatarProps={{
                                                 enableSourceIcon: !isThirdPartyAccount,
+                                                enableDefaultAvatar: true,
                                             }}
                                         />
                                     </div>
