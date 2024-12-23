@@ -6,8 +6,8 @@ import { useQuery } from '@tanstack/react-query';
 import { forwardRef } from 'react';
 
 import { ClickableButton } from '@/components/ClickableButton.js';
-import { CloseButton } from '@/components/CloseButton.js';
 import { CopyTextButton } from '@/components/CopyTextButton.js';
+import { CloseButton } from '@/components/IconButton.js';
 import { Image } from '@/components/Image.js';
 import { Modal } from '@/components/Modal.js';
 import { NetworkPluginID } from '@/constants/enum.js';

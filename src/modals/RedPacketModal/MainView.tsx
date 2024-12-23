@@ -27,6 +27,7 @@ import { useAvailableBalance } from '@/hooks/useAvailableBalance.js';
 import { useChainContext } from '@/hooks/useChainContext.js';
 import { useERC20TokenAllowance } from '@/hooks/useERC20Allowance.js';
 import { useNativeTokenPrice } from '@/hooks/useNativeTokenPrice.js';
+import { EVMChainResolver } from '@/mask/bindings/index.js';
 import {
     RED_PACKET_CONTRACT_VERSION,
     RED_PACKET_DURATION,
@@ -54,7 +55,7 @@ export function MainView() {
 
     const { chainId: contextChainId } = useChainContext();
     const chainId = token?.chainId || contextChainId;
-
+    const nativeToken = useMemo(() => EVMChainResolver.nativeCurrency(chainId), [chainId]);
     const { data: nativeTokenPrice = 0, isLoading: priceLoading } = useNativeTokenPrice({ chainId });
     const { HAPPY_RED_PACKET_ADDRESS_V4: redpacketContractAddress } = useRedPacketConstants(chainId);
 
@@ -123,7 +124,7 @@ export function MainView() {
         chainId,
     });
 
-    const cost = gasFee ? leftShift(gasFee, token.decimals).multipliedBy(nativeTokenPrice) : ZERO;
+    const cost = gasFee ? leftShift(gasFee, nativeToken.decimals).multipliedBy(nativeTokenPrice) : ZERO;
 
     // #region validation
     const noShares = shares === 0;

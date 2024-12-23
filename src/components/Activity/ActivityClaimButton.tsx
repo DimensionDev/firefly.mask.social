@@ -3,7 +3,7 @@
 import { t, Trans } from '@lingui/macro';
 import { safeUnreachable } from '@masknet/kit';
 import { ChainId } from '@masknet/web3-shared-evm';
-import { useContext, useState } from 'react';
+import { type ReactNode, useContext, useState } from 'react';
 import { useAsyncFn } from 'react-use';
 
 import LoadingIcon from '@/assets/loading.svg';
@@ -27,13 +27,14 @@ interface Props {
     shareContent: Chars;
     disabled?: boolean;
     source: SocialSource;
+    buttonText?: ReactNode;
 }
 
 export function ActivityClaimButton({ source, shareContent, status, claimApiExtraParams, ...rest }: Props) {
     const { address, name } = useContext(ActivityContext);
     const { data, refetch } = useActivityClaimCondition(source);
     const [hash, setHash] = useState<string | undefined>(undefined);
-    const [chainId, setChainId] = useState<ChainId | undefined>(undefined);
+    const [chainId, setChainId] = useState<ChainId | 'solana' | undefined>(undefined);
     const list = useActivityPremiumList(source);
 
     const isPremium = list.some((x) => x.verified);
@@ -104,7 +105,7 @@ export function ActivityClaimButton({ source, shareContent, status, claimApiExtr
                         'opacity-0': loading,
                     })}
                 >
-                    {buttonText}
+                    {rest.buttonText || buttonText}
                 </span>
             </button>
         </>

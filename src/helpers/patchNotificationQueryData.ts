@@ -9,15 +9,18 @@ import { type Notification, NotificationType, type Post, type Profile } from '@/
 type Patcher = (old: Draft<Notification>) => void;
 
 function patchNotificationQueryData(source: Source, patcher: Patcher) {
-    queryClient.setQueryData<{ pages: Array<{ data: Notification[] }> }>(['notifications', source, true], (old) => {
-        if (!old) return old;
+    queryClient.setQueriesData<{ pages: Array<{ data: Notification[] }> }>(
+        { queryKey: ['notifications', source, true] },
+        (old) => {
+            if (!old) return old;
 
-        return produce(old, (draft) => {
-            draft.pages.forEach((page) => {
-                page.data.forEach(patcher);
+            return produce(old, (draft) => {
+                draft.pages.forEach((page) => {
+                    page.data.forEach(patcher);
+                });
             });
-        });
-    });
+        },
+    );
 }
 
 type PostPatcher = (old: Draft<Post>) => void;

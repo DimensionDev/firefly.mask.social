@@ -17,6 +17,7 @@ import { ClickableArea } from '@/components/ClickableArea.js';
 import { AmountProgressText } from '@/components/RedPacket/AmountProgressText.js';
 import { RedPacketCardFooter } from '@/components/RedPacket/RedPacketCardFooter.js';
 import { RequirementsModal } from '@/components/RedPacket/RequirementsModal.js';
+import { useVerifyAndClaim } from '@/components/RedPacket/useVerifyAndClaim.js';
 import { SITE_URL } from '@/constants/index.js';
 import { Image } from '@/esm/Image.js';
 import { classNames } from '@/helpers/classNames.js';
@@ -133,11 +134,10 @@ export function RedPacketCard({ payload, post }: Props) {
         const postUrl = urlcat(SITE_URL, getPostUrl(post));
         ComposeModalRef.open({
             type: 'compose',
-
             chars: [
-                isClaimed
+                !isClaimed
                     ? t`🤑 Check this #FireflyLuckyDrop 🧧💰✨ on ${postUrl} !`
-                    : t`🤑 Just claimed a #FireflyLuckyDrop 🧧💰✨ on ${postUrl} !`,
+                    : t`🤑 Just claimed a #FireflyLuckyDrop 🧧💰✨ on ${postUrl} from @${post.author.handle}!`,
                 ' \n\n Grow your followers and engagement with Lucky Drop on Firefly!',
             ],
         });
@@ -149,6 +149,11 @@ export function RedPacketCard({ payload, post }: Props) {
         if (!cover?.backgroundImageUrl) return;
         return fetch(cover.backgroundImageUrl);
     }, [cover?.backgroundImageUrl]);
+
+    const [{ isVerifying, isClaiming, claimStrategyStatus, recheckClaimStatus }, verifyAndClaim] = useVerifyAndClaim(
+        payload,
+        post.source,
+    );
 
     return (
         <div
@@ -178,9 +183,9 @@ export function RedPacketCard({ payload, post }: Props) {
                         style={
                             cover
                                 ? {
-                                      backgroundSize: 'contain',
+                                      backgroundSize: 'cover',
                                       backgroundRepeat: 'no-repeat',
-                                      backgroundImage: `url(${cover.backgroundImageUrl})`,
+                                      backgroundImage: `url("${encodeURI(cover.backgroundImageUrl)}")`,
                                       backgroundColor: cover.backgroundColor,
                                       aspectRatio: '10 / 7',
                                       color: cover.theme.normal.title1.color,
@@ -200,9 +205,12 @@ export function RedPacketCard({ payload, post }: Props) {
                         ) : null}
                         {listOfStatus.length ? (
                             <ClickableArea
-                                className="absolute right-5 top-4 z-20 flex cursor-pointer items-center rounded-full px-3 py-[6px] text-xs leading-3 text-white"
+                                className="absolute right-5 top-4 z-20 flex cursor-pointer items-center rounded-full px-3 py-[6px] text-xs leading-3 text-white disabled:cursor-not-allowed"
                                 style={{ background: 'rgba(0, 0, 0, 0.25)', backdropFilter: 'blur(5px)' }}
-                                onClick={() => setRequirementOpen(true)}
+                                disabled={isVerifying}
+                                onClick={async () => {
+                                    if (claimStrategyStatus?.length) setRequirementOpen(true);
+                                }}
                             >
                                 <span>{resolveRedPacketStatus(listOfStatus)}</span>
                             </ClickableArea>
@@ -265,14 +273,19 @@ export function RedPacketCard({ payload, post }: Props) {
                         isClaimed={isClaimed}
                         isEmpty={isEmpty}
                         isExpired={isExpired}
+                        isClaiming={isClaiming}
                         canRefund={canRefund}
                         handleShare={handleShare}
                         handleRefund={refund}
                         refundLoading={refundLoading}
                         canClaim={canClaim}
                         balance={balance}
+                        isRefunded={listOfStatus.includes(RedPacketStatus.refunded)}
                         estimateLoading={estimateLoading}
-                        handleClaim={() => setRequirementOpen(true)}
+                        onClaim={async () => {
+                            const result = await verifyAndClaim();
+                            if (!result) setRequirementOpen(true);
+                        }}
                     />
                 </>
             ) : null}
@@ -280,10 +293,16 @@ export function RedPacketCard({ payload, post }: Props) {
             {requirementOpen ? (
                 <RequirementsModal
                     open
-                    onClose={() => setRequirementOpen(false)}
-                    payload={payload}
                     post={post}
+                    claimStrategyStatus={claimStrategyStatus}
                     showResults={listOfStatus.length === 0}
+                    isVerifying={isVerifying}
+                    isClaiming={isClaiming}
+                    onClose={() => setRequirementOpen(false)}
+                    onVerifyAndClaim={async () => {
+                        const result = await verifyAndClaim();
+                        if (result) setRequirementOpen(false);
+                    }}
                 />
             ) : null}
         </div>

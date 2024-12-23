@@ -6,7 +6,7 @@ import { useOnClickOutside } from 'usehooks-ts';
 
 import DarkLogo from '@/assets/logo.dark.svg';
 import LightLogo from '@/assets/logo.light.svg';
-import { CloseButton } from '@/components/CloseButton.js';
+import { CloseButton } from '@/components/IconButton.js';
 import { Menu } from '@/components/SideBar/Menu.js';
 import { useDisableScrollPassive } from '@/hooks/useDisableScrollPassive.js';
 import { useIsDarkMode } from '@/hooks/useIsDarkMode.js';

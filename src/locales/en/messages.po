@@ -76,9 +76,6 @@ msgstr "Report @{0}"
 msgid "Sell Tax: {0}%"
 msgstr "Sell Tax: {0}%"
 
-msgid "Lucky drop"
-msgstr "Lucky drop"
-
 msgid "Failed to translate post. Please retry later."
 msgstr "Failed to translate post. Please retry later."
 
@@ -226,9 +223,6 @@ msgstr "Malicious mining activities found."
 msgid "No"
 msgstr "No"
 
-msgid "Oops... Network issue. Please try again"
-msgstr "Oops... Network issue. Please try again"
-
 msgid "Functions that can suspend trading"
 msgstr "Functions that can suspend trading"
 
@@ -279,9 +273,6 @@ msgstr "Tax can be modified"
 
 msgid "<0>Burned</0><1/>"
 msgstr "<0>Burned</0><1/>"
-
-msgid "🤑 Just claimed a #FireflyLuckyDrop 🧧💰✨ on {postUrl} !"
-msgstr "🤑 Just claimed a #FireflyLuckyDrop 🧧💰✨ on {postUrl} !"
 
 msgid "Join our Discord"
 msgstr "Join our Discord"
@@ -369,6 +360,9 @@ msgstr "Scheduled"
 
 msgid "Pay"
 msgstr "Pay"
+
+msgid "🤑 Just claimed a #FireflyLuckyDrop 🧧💰✨ on {postUrl} from @{0}!"
+msgstr "🤑 Just claimed a #FireflyLuckyDrop 🧧💰✨ on {postUrl} from @{0}!"
 
 msgid "Followed @{handle} on {0}."
 msgstr "Followed @{handle} on {0}."
@@ -505,6 +499,9 @@ msgstr "Your posts have published successfully."
 msgid "Retry"
 msgstr "Retry"
 
+msgid "Or login in with other platforms"
+msgstr "Or login in with other platforms"
+
 msgid "Show less"
 msgstr "Show less"
 
@@ -597,6 +594,9 @@ msgstr "{0, plural, one {Follower} other {Followers}}"
 
 msgid "Mutes"
 msgstr "Mutes"
+
+msgid "Submit an evm wallet to check"
+msgstr "Submit an evm wallet to check"
 
 msgid "Failed to bookmark NFT."
 msgstr "Failed to bookmark NFT."
@@ -705,6 +705,9 @@ msgstr "Failed to unfollow @{0} on {sourceName}."
 
 msgid "Muted {walletHandle}."
 msgstr "Muted {walletHandle}."
+
+msgid "Confirm Lucky Drop"
+msgstr "Confirm Lucky Drop"
 
 msgid "Sanctioned address."
 msgstr "Sanctioned address."
@@ -1054,6 +1057,12 @@ msgstr "Log out"
 msgid "Amount Each"
 msgstr "Amount Each"
 
+msgid "Oops... Not all the requirements have been met"
+msgstr "Oops... Not all the requirements have been met"
+
+msgid "You are holder of <0>Pudgy Penguins</0> or <1>Lil Pudgy</1> NFTs"
+msgstr "You are holder of <0>Pudgy Penguins</0> or <1>Lil Pudgy</1> NFTs"
+
 msgid "{0}d: {1}h: {2}m: {3}s"
 msgstr "{0}d: {1}h: {2}m: {3}s"
 
@@ -1348,6 +1357,9 @@ msgstr "Search by name or symbol"
 msgid "Collected by"
 msgstr "Collected by"
 
+msgid "Participation Blocked"
+msgstr "Participation Blocked"
+
 msgid "Forbidden. Please check your permissions."
 msgstr "Forbidden. Please check your permissions."
 
@@ -1633,9 +1645,6 @@ msgstr "<0>{0}</0> liked"
 msgid "Fully Diluted Valuation"
 msgstr "Fully Diluted Valuation"
 
-msgid "Customize Lucky Drop sender. Select either Lens or Forecaster handle, or use the currently connected wallet."
-msgstr "Customize Lucky Drop sender. Select either Lens or Forecaster handle, or use the currently connected wallet."
-
 msgid "Email (optional)"
 msgstr "Email (optional)"
 
@@ -1656,6 +1665,9 @@ msgstr "Show more tokens with small balances"
 
 msgid "Requirements"
 msgstr "Requirements"
+
+msgid "*This event is only available on the mobile app. Download Firefly now!"
+msgstr "*This event is only available on the mobile app. Download Firefly now!"
 
 msgid "{riskyFactors, plural, one {# Risky item} other {# Risky items}}"
 msgstr "{riskyFactors, plural, one {# Risky item} other {# Risky items}}"
@@ -2128,9 +2140,6 @@ msgstr "Drop Type"
 msgid "Quote"
 msgstr "Quote"
 
-msgid "Or login with any social account"
-msgstr "Or login with any social account"
-
 msgid "View engagements"
 msgstr "View engagements"
 
@@ -2190,6 +2199,9 @@ msgstr "Unliked"
 
 msgid "Quality Filter"
 msgstr "Quality Filter"
+
+msgid "Bio should be at least {minBioSize} characters"
+msgstr "Bio should be at least {minBioSize} characters"
 
 msgid "Visit mask.io"
 msgstr "Visit mask.io"
@@ -2323,6 +2335,9 @@ msgstr "Wallet added successfully"
 msgid "There is no data available for display."
 msgstr "There is no data available for display."
 
+msgid "Customize Lucky Drop sender. Select either Lens or Farcaster handle, or use the currently connected wallet."
+msgstr "Customize Lucky Drop sender. Select either Lens or Farcaster handle, or use the currently connected wallet."
+
 msgid "Cancel"
 msgstr "Cancel"
 
@@ -2370,6 +2385,9 @@ msgstr "The amount of coins that are circulating in the market and are tradeable
 
 msgid "{0, plural, one {repost} other {reposts}}"
 msgstr "{0, plural, one {repost} other {reposts}}"
+
+msgid "Wallet submitted"
+msgstr "Wallet submitted"
 
 msgid "Scan the QR code with your phone’s <0>Camera</0> in {count}s. <1/>Approve a new Farcaster signer to Firefly for free."
 msgstr "Scan the QR code with your phone’s <0>Camera</0> in {count}s. <1/>Approve a new Farcaster signer to Firefly for free."
@@ -2424,6 +2442,9 @@ msgstr "Wallets"
 
 msgid "Articles from {walletHandle} will now be hidden in your home timeline"
 msgstr "Articles from {walletHandle} will now be hidden in your home timeline"
+
+msgid "Meet any of the following to unlock a premium collectible:"
+msgstr "Meet any of the following to unlock a premium collectible:"
 
 msgid "Article"
 msgstr "Article"
@@ -2548,6 +2569,9 @@ msgstr "Image"
 msgid "Failed to delete post."
 msgstr "Failed to delete post."
 
+msgid "Google Play"
+msgstr "Google Play"
+
 msgid "Lucky drop created successfully"
 msgstr "Lucky drop created successfully"
 
@@ -2583,6 +2607,9 @@ msgstr "Amount"
 
 msgid "Total cost"
 msgstr "Total cost"
+
+msgid "Submit a wallet to receive NFT"
+msgstr "Submit a wallet to receive NFT"
 
 msgid "Settled as {0}"
 msgstr "Settled as {0}"
@@ -2803,6 +2830,9 @@ msgstr "Switching..."
 msgid "Pay<0> {feeAmount} ${feeSymbol} </0>to follow and get some awesome perks!"
 msgstr "Pay<0> {feeAmount} ${feeSymbol} </0>to follow and get some awesome perks!"
 
+msgid "App Store"
+msgstr "App Store"
+
 msgid "<0>Bought</0> an NFT worth {costEl}"
 msgstr "<0>Bought</0> an NFT worth {costEl}"
 
@@ -3019,6 +3049,9 @@ msgstr "Neutral"
 msgid "Signature Request"
 msgstr "Signature Request"
 
+msgid "Followed <0>@{0}</0> on X before Dec 16, 2024"
+msgstr "Followed <0>@{0}</0> on X before Dec 16, 2024"
+
 msgid "Total Supply"
 msgstr "Total Supply"
 
@@ -3060,9 +3093,6 @@ msgstr "News"
 
 msgid "NFT ID"
 msgstr "NFT ID"
-
-msgid "Confirm Lucky drop"
-msgstr "Confirm Lucky drop"
 
 msgid "Farcaster channel"
 msgstr "Farcaster channel"
@@ -3139,6 +3169,9 @@ msgstr "Claim Requirements"
 msgid "Oversupply minting."
 msgstr "Oversupply minting."
 
+msgid "*Note: Each NFT can only be used once."
+msgstr "*Note: Each NFT can only be used once."
+
 msgid "Followed <0>@{handle}</0> on {0}"
 msgstr "Followed <0>@{handle}</0> on {0}"
 
@@ -3187,6 +3220,9 @@ msgstr "Place a bet"
 msgid "The connection has timed out. Please try again later."
 msgstr "The connection has timed out. Please try again later."
 
+msgid "Reload page"
+msgstr "Reload page"
+
 msgid "Phishing site."
 msgstr "Phishing site."
 
@@ -3231,9 +3267,6 @@ msgstr "Final results"
 
 msgid "Suspended account"
 msgstr "Suspended account"
-
-msgid "Oops... Not all the requirements have been meet"
-msgstr "Oops... Not all the requirements have been meet"
 
 msgid "No blackmail activities involved."
 msgstr "No blackmail activities involved."
@@ -3448,6 +3481,9 @@ msgstr "No trading cooldown function."
 msgid "Media"
 msgstr "Media"
 
+msgid "You are holder of <0>truePengu</0> or <1>penguPins</1> Soulbound NFTs"
+msgstr "You are holder of <0>truePengu</0> or <1>penguPins</1> Soulbound NFTs"
+
 msgid "No content to publish."
 msgstr "No content to publish."
 
@@ -3537,6 +3573,15 @@ msgstr "{0, plural, one {like} other {likes}}"
 
 msgid "Collectible"
 msgstr "Collectible"
+
+msgid ""
+"Just claimed the \"Holiday Skates with $PENGU⛸️🐧⛸️\" collectible from {fireflyMention}\n"
+"Check your eligibility and claim here {shareUrl}\n"
+"#PENGU #FireflySocial"
+msgstr ""
+"Just claimed the \"Holiday Skates with $PENGU⛸️🐧⛸️\" collectible from {fireflyMention}\n"
+"Check your eligibility and claim here {shareUrl}\n"
+"#PENGU #FireflySocial"
 
 msgid "Users must hold one NFT from the collection you select."
 msgstr "Users must hold one NFT from the collection you select."

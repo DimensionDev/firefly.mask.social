@@ -8,7 +8,7 @@ msgstr ""
 "Language: zh\n"
 "Project-Id-Version: masksocial\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-12-17 12:03\n"
+"PO-Revision-Date: 2024-12-20 12:01\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Traditional\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
@@ -79,9 +79,6 @@ msgid "Report @{0}"
 msgstr "檢舉 @{0}"
 
 msgid "Sell Tax: {0}%"
-msgstr ""
-
-msgid "Lucky drop"
 msgstr ""
 
 msgid "Failed to translate post. Please retry later."
@@ -231,9 +228,6 @@ msgstr ""
 msgid "No"
 msgstr ""
 
-msgid "Oops... Network issue. Please try again"
-msgstr ""
-
 msgid "Functions that can suspend trading"
 msgstr ""
 
@@ -283,9 +277,6 @@ msgid "Tax can be modified"
 msgstr ""
 
 msgid "<0>Burned</0><1/>"
-msgstr ""
-
-msgid "🤑 Just claimed a #FireflyLuckyDrop 🧧💰✨ on {postUrl} !"
 msgstr ""
 
 msgid "Join our Discord"
@@ -373,6 +364,9 @@ msgid "Scheduled"
 msgstr "已排程"
 
 msgid "Pay"
+msgstr ""
+
+msgid "🤑 Just claimed a #FireflyLuckyDrop 🧧💰✨ on {postUrl} from @{0}!"
 msgstr ""
 
 msgid "Followed @{handle} on {0}."
@@ -510,6 +504,9 @@ msgstr "你的貼文已成功發佈"
 msgid "Retry"
 msgstr "重試"
 
+msgid "Or login in with other platforms"
+msgstr ""
+
 msgid "Show less"
 msgstr "顯示更少"
 
@@ -602,6 +599,9 @@ msgstr ""
 
 msgid "Mutes"
 msgstr "靜音"
+
+msgid "Submit an evm wallet to check"
+msgstr ""
 
 msgid "Failed to bookmark NFT."
 msgstr ""
@@ -709,6 +709,9 @@ msgid "Failed to unfollow @{0} on {sourceName}."
 msgstr "在 {sourceName} 上取消追蹤 @{0} 失敗。"
 
 msgid "Muted {walletHandle}."
+msgstr ""
+
+msgid "Confirm Lucky Drop"
 msgstr ""
 
 msgid "Sanctioned address."
@@ -1059,6 +1062,12 @@ msgstr "登出"
 msgid "Amount Each"
 msgstr ""
 
+msgid "Oops... Not all the requirements have been met"
+msgstr ""
+
+msgid "You are holder of <0>Pudgy Penguins</0> or <1>Lil Pudgy</1> NFTs"
+msgstr ""
+
 msgid "{0}d: {1}h: {2}m: {3}s"
 msgstr ""
 
@@ -1353,6 +1362,9 @@ msgstr ""
 msgid "Collected by"
 msgstr ""
 
+msgid "Participation Blocked"
+msgstr ""
+
 msgid "Forbidden. Please check your permissions."
 msgstr "禁止。請檢查您的權限"
 
@@ -1638,9 +1650,6 @@ msgstr "<0>{0}</0> 喜歡了"
 msgid "Fully Diluted Valuation"
 msgstr ""
 
-msgid "Customize Lucky Drop sender. Select either Lens or Forecaster handle, or use the currently connected wallet."
-msgstr ""
-
 msgid "Email (optional)"
 msgstr "電子郵箱（非必須）"
 
@@ -1660,6 +1669,9 @@ msgid "Show more tokens with small balances"
 msgstr ""
 
 msgid "Requirements"
+msgstr ""
+
+msgid "*This event is only available on the mobile app. Download Firefly now!"
 msgstr ""
 
 msgid "{riskyFactors, plural, one {# Risky item} other {# Risky items}}"
@@ -2133,9 +2145,6 @@ msgstr ""
 msgid "Quote"
 msgstr "引用"
 
-msgid "Or login with any social account"
-msgstr ""
-
 msgid "View engagements"
 msgstr "查看互動數據"
 
@@ -2194,6 +2203,9 @@ msgid "Unliked"
 msgstr "已取消喜歡"
 
 msgid "Quality Filter"
+msgstr ""
+
+msgid "Bio should be at least {minBioSize} characters"
 msgstr ""
 
 msgid "Visit mask.io"
@@ -2328,6 +2340,9 @@ msgstr ""
 msgid "There is no data available for display."
 msgstr "沒有可供展示的數據"
 
+msgid "Customize Lucky Drop sender. Select either Lens or Farcaster handle, or use the currently connected wallet."
+msgstr ""
+
 msgid "Cancel"
 msgstr "取消"
 
@@ -2374,6 +2389,9 @@ msgid "The amount of coins that are circulating in the market and are tradeable 
 msgstr ""
 
 msgid "{0, plural, one {repost} other {reposts}}"
+msgstr ""
+
+msgid "Wallet submitted"
 msgstr ""
 
 msgid "Scan the QR code with your phone’s <0>Camera</0> in {count}s. <1/>Approve a new Farcaster signer to Firefly for free."
@@ -2428,6 +2446,9 @@ msgid "Wallets"
 msgstr ""
 
 msgid "Articles from {walletHandle} will now be hidden in your home timeline"
+msgstr ""
+
+msgid "Meet any of the following to unlock a premium collectible:"
 msgstr ""
 
 msgid "Article"
@@ -2553,6 +2574,9 @@ msgstr "圖片"
 msgid "Failed to delete post."
 msgstr ""
 
+msgid "Google Play"
+msgstr ""
+
 msgid "Lucky drop created successfully"
 msgstr ""
 
@@ -2587,6 +2611,9 @@ msgid "Amount"
 msgstr ""
 
 msgid "Total cost"
+msgstr ""
+
+msgid "Submit a wallet to receive NFT"
 msgstr ""
 
 msgid "Settled as {0}"
@@ -2808,6 +2835,9 @@ msgstr "切換中..."
 msgid "Pay<0> {feeAmount} ${feeSymbol} </0>to follow and get some awesome perks!"
 msgstr ""
 
+msgid "App Store"
+msgstr ""
+
 msgid "<0>Bought</0> an NFT worth {costEl}"
 msgstr ""
 
@@ -3024,6 +3054,9 @@ msgstr ""
 msgid "Signature Request"
 msgstr ""
 
+msgid "Followed <0>@{0}</0> on X before Dec 16, 2024"
+msgstr ""
+
 msgid "Total Supply"
 msgstr ""
 
@@ -3065,9 +3098,6 @@ msgstr "资讯"
 
 msgid "NFT ID"
 msgstr "NFT ID"
-
-msgid "Confirm Lucky drop"
-msgstr ""
 
 msgid "Farcaster channel"
 msgstr "Farcaster 頻道"
@@ -3144,6 +3174,9 @@ msgstr ""
 msgid "Oversupply minting."
 msgstr ""
 
+msgid "*Note: Each NFT can only be used once."
+msgstr ""
+
 msgid "Followed <0>@{handle}</0> on {0}"
 msgstr ""
 
@@ -3192,6 +3225,9 @@ msgstr ""
 msgid "The connection has timed out. Please try again later."
 msgstr "連結已超時。請稍候重試"
 
+msgid "Reload page"
+msgstr ""
+
 msgid "Phishing site."
 msgstr ""
 
@@ -3235,9 +3271,6 @@ msgid "Final results"
 msgstr ""
 
 msgid "Suspended account"
-msgstr ""
-
-msgid "Oops... Not all the requirements have been meet"
 msgstr ""
 
 msgid "No blackmail activities involved."
@@ -3453,6 +3486,9 @@ msgstr ""
 msgid "Media"
 msgstr "多媒體"
 
+msgid "You are holder of <0>truePengu</0> or <1>penguPins</1> Soulbound NFTs"
+msgstr ""
+
 msgid "No content to publish."
 msgstr "沒有可發布的內容"
 
@@ -3543,6 +3579,11 @@ msgstr ""
 msgid "Collectible"
 msgstr ""
 
+msgid "Just claimed the \"Holiday Skates with $PENGU⛸️🐧⛸️\" collectible from {fireflyMention}\n"
+"Check your eligibility and claim here {shareUrl}\n"
+"#PENGU #FireflySocial"
+msgstr ""
+
 msgid "Users must hold one NFT from the collection you select."
 msgstr ""
 
@@ -3560,3 +3601,4 @@ msgstr ""
 
 msgid "Golden"
 msgstr ""
+

@@ -8,7 +8,15 @@ import { ActivityVerifyText } from '@/components/Activity/ActivityVerifyText.js'
 import type { SocialSource } from '@/constants/enum.js';
 import { classNames } from '@/helpers/classNames.js';
 
-export function ActivityConnectCard({ source, label }: { source: SocialSource; label?: ReactNode }) {
+export function ActivityConnectCard({
+    source,
+    label,
+    chainId,
+}: {
+    source: SocialSource;
+    label?: ReactNode;
+    chainId: number;
+}) {
     const { address } = useContext(ActivityContext);
     return (
         <div
@@ -24,7 +32,7 @@ export function ActivityConnectCard({ source, label }: { source: SocialSource; l
                 <h3>{label}</h3>
             </ActivityVerifyText>
             <div className="ml-2 flex h-8 flex-shrink-0 space-x-2">
-                <ActivityConnectButton source={source} />
+                <ActivityConnectButton source={source} chainId={chainId} />
             </div>
         </div>
     );

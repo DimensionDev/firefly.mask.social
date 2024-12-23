@@ -6,7 +6,7 @@ import { useCurrentClaimProfile } from '@/mask/plugins/red-packet/hooks/useCurre
 import { FireflyRedPacket } from '@/providers/red-packet/index.js';
 import type { RedPacketJSONPayload } from '@/providers/red-packet/types.js';
 
-export function useClaimStrategyStatus(payload: RedPacketJSONPayload, source: SocialSource, callback?: () => void) {
+export function useClaimStrategyStatus(payload: RedPacketJSONPayload, source: SocialSource) {
     const rpid = payload.rpid;
 
     const { account } = useChainContext({
@@ -20,19 +20,14 @@ export function useClaimStrategyStatus(payload: RedPacketJSONPayload, source: So
         enabled: !signedMessage,
         queryKey: ['red-packet', 'claim-strategy', rpid, profile?.profileId, account],
         queryFn: async () => {
-            try {
-                if (!profile || !account) return null;
-                return FireflyRedPacket.checkClaimStrategyStatus({
-                    rpid,
-                    profile,
-                    wallet: {
-                        address: account,
-                    },
-                });
-            } catch (error) {
-                callback?.();
-                throw error;
-            }
+            if (!profile || !account) return null;
+            return FireflyRedPacket.checkClaimStrategyStatus({
+                rpid,
+                profile,
+                wallet: {
+                    address: account,
+                },
+            });
         },
     });
 }

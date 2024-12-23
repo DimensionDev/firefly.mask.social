@@ -16,8 +16,8 @@ import { ConnectWalletModal } from '@/modals/ConnectWalletModal.js';
 import * as controls from '@/modals/controls.js';
 import { DisconnectFireflyAccountModal } from '@/modals/DisconnectFireflyAccountModal.js';
 import { DraggablePopover } from '@/modals/DraggablePopover.js';
-import { EditProfileModal } from '@/modals/EditProfileModal.js';
 import { EnableSignlessModal } from '@/modals/EnableSignlessModal.js';
+import { FrameViewerModal } from '@/modals/FrameViewerModal/index.js';
 import { ImageEditorModal } from '@/modals/ImageEditor/index.js';
 import { LoginModal } from '@/modals/LoginModal/index.js';
 import { LogoutModal } from '@/modals/LogoutModal.js';
@@ -49,7 +49,6 @@ export const Modals = memo(function Modals() {
             <TipsModal ref={controls.TipsModalRef.register} />
             <PreviewMediaModal ref={controls.PreviewMediaModalRef.register} />
             <SchedulePostModal ref={controls.SchedulePostModalRef.register} />
-            <EditProfileModal ref={controls.EditProfileModalRef.register} />
             <CollectArticleModal ref={controls.CollectArticleModalRef.register} />
             <EnableSignlessModal ref={controls.EnableSignlessModalRef.register} />
             <CollectPostModal ref={controls.CollectPostModalRef.register} />
@@ -61,6 +60,7 @@ export const Modals = memo(function Modals() {
             <RedPacketModal ref={controls.RedPacketModalRef.register} />
             <NonFungibleCollectionSelectModal ref={controls.NonFungibleTokenCollectionSelectModalRef.register} />
             <ImageEditorModal ref={controls.ImageEditorRef.register} />
+            <FrameViewerModal ref={controls.FrameViewerModalRef.register} />
         </>
     );
 });

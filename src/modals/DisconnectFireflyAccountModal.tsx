@@ -6,7 +6,7 @@ import { useAsyncFn } from 'react-use';
 
 import LoadingIcon from '@/assets/loading.svg';
 import { ClickableButton } from '@/components/ClickableButton.js';
-import { CloseButton } from '@/components/CloseButton.js';
+import { CloseButton } from '@/components/IconButton.js';
 import { ProfileInList } from '@/components/Login/ProfileInList.js';
 import { Modal } from '@/components/Modal.js';
 import type { ThirdPartySource } from '@/constants/enum.js';
@@ -37,11 +37,12 @@ export const DisconnectFireflyAccountModal = forwardRef<SingletonModalRefCreator
         const [{ loading }, confirm] = useAsyncFn(async () => {
             try {
                 if (!account) return;
+                const source = account.profile.profileSource;
                 await FireflyEndpointProvider.disconnectAccount({
-                    source: account.profile.source,
+                    source,
                     id: account.profile.profileId,
                 });
-                await removeAccountByProfileId(account.profile.source, account.profile.profileId);
+                await removeAccountByProfileId(source, account.profile.profileId);
                 captureAccountDisconnectEvent(account);
                 enqueueSuccessMessage(t`Disconnected from your social graph`);
 

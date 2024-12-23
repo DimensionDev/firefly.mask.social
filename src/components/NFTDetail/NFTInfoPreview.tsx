@@ -2,9 +2,11 @@
 
 import { useRef, useState } from 'react';
 
+import PauseIcon from '@/assets/pause.svg';
 import PlayIcon from '@/assets/play.svg';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { NFTImage } from '@/components/NFTImage.js';
+import { classNames } from '@/helpers/classNames.js';
 import type { SimpleHash } from '@/providers/simplehash/type.js';
 
 export function NFTInfoPreview({
@@ -34,6 +36,18 @@ export function NFTInfoPreview({
                     }}
                 >
                     <PlayIcon className={iconClassName} />
+                </ClickableButton>
+            ) : null}
+            {isPlaying ? (
+                <ClickableButton
+                    className="absolute left-0 top-0 z-10 flex h-full w-full cursor-pointer items-center justify-center opacity-0 duration-100 hover:opacity-100"
+                    onClick={() => {
+                        ref.current?.pause();
+                    }}
+                >
+                    <div className="flex size-8 items-center justify-center rounded-lg bg-black/25">
+                        <PauseIcon className={classNames(iconClassName, 'shadow-lg')} />
+                    </div>
                 </ClickableButton>
             ) : null}
             {video ? (

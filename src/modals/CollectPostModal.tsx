@@ -2,7 +2,7 @@ import { Trans } from '@lingui/macro';
 import { forwardRef, useState } from 'react';
 
 import { ClickableArea } from '@/components/ClickableArea.js';
-import { CloseButton } from '@/components/CloseButton.js';
+import { CloseButton } from '@/components/IconButton.js';
 import { Modal } from '@/components/Modal.js';
 import { PostCollect } from '@/components/Posts/PostCollect.js';
 import { useSingletonModal } from '@/hooks/useSingletonModal.js';

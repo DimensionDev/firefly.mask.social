@@ -2,6 +2,8 @@
 
 import { Menu } from '@headlessui/react';
 import { t, Trans } from '@lingui/macro';
+import { isSameAddress } from '@masknet/web3-shared-base';
+import { isValidChainId as isValidSolanaChainId } from '@masknet/web3-shared-solana';
 import { type MouseEvent, useContext } from 'react';
 
 import AddCircleIcon from '@/assets/add-circle.svg';
@@ -21,24 +23,23 @@ import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { fireflyBridgeProvider } from '@/providers/firefly/Bridge.js';
 import { captureActivityEvent } from '@/providers/telemetry/captureActivityEvent.js';
 import { EventId } from '@/providers/types/Telemetry.js';
-import { ChainId } from '@/types/frame.js';
 
-export function ActivityConnectButton({ source }: { source: SocialSource }) {
+export function ActivityConnectButton({ source, chainId }: { source: SocialSource; chainId: number }) {
     const { onChangeAddress, address } = useContext(ActivityContext);
     const { refetch: refetchActivityClaimCondition, isRefetching } = useActivityClaimCondition(source);
     const isLoggedIn = useIsLoginInActivity(source);
     const { data: { connected = EMPTY_LIST } = {}, isLoading, refetch } = useActivityConnections();
-    const [, bindAddress] = useActivityBindAddress(source);
+    const [, bindAddress] = useActivityBindAddress(source, chainId);
 
     const addresses: Array<{ address: string; ens?: string }> = connected
-        .filter((x) => x.platform === 'eth')
+        .filter((x) => x.platform === (isValidSolanaChainId(chainId) ? 'solana' : 'eth'))
         .map((x) => ({ address: x.address, ens: x.ens?.[0] }));
 
     const buttonText = address ? (
         <Trans>Change</Trans>
     ) : (
         <>
-            <ChainIcon className="mr-2 shrink-0" size={18} chainId={ChainId.Base} />
+            <ChainIcon className="mr-2 shrink-0" size={18} chainId={chainId} />
             <span>
                 <Trans>Connect</Trans>
             </span>
@@ -118,9 +119,9 @@ export function ActivityConnectButton({ source }: { source: SocialSource }) {
     if (address) {
         return (
             <div className="flex w-full items-center gap-2">
-                <ChainIcon className="shrink-0" size={18} chainId={ChainId.Base} />
+                <ChainIcon className="shrink-0" size={18} chainId={chainId} />
                 <span className="mr-auto text-base font-medium leading-6">
-                    {addresses.find((x) => x.address === address)?.ens || formatAddress(address, 4)}
+                    {addresses.find((x) => isSameAddress(x.address, address))?.ens || formatAddress(address, 4)}
                 </span>
                 {button}
             </div>

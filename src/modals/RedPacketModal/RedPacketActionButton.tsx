@@ -25,6 +25,12 @@ export function RedPacketActionButton(props: Props) {
 
     const [{ loading: refundLoading }, refund] = useRefundCallback(rpid, { chainId });
 
+    if (
+        redpacketStatus === FireflyRedPacketAPI.RedPacketStatus.Send ||
+        redpacketStatus === FireflyRedPacketAPI.RedPacketStatus.View
+    )
+        return;
+
     return (
         <ActionButton
             className="h-[32px] !w-[88px] min-w-[88px] !flex-grow-0 !bg-lightTextMain px-6 py-2 text-xs !text-lightBottom"
