@@ -12,8 +12,17 @@ import { noop } from 'lodash-es';
 
 import { NotImplementedError } from '@/constants/error.js';
 import { openWindow } from '@/helpers/openWindow.js';
+import type { Profile } from '@/providers/types/Firefly.js';
+import type { Post } from '@/providers/types/SocialMedia.js';
 
 export class FarcasterFrameHost implements FrameHost {
+    constructor(
+        private post: Post,
+        private options?: {
+            setPrimaryButton?: SetPrimaryButton;
+        },
+    ) {}
+
     get context() {
         return null!;
     }

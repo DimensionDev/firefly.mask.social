@@ -6,14 +6,22 @@ import { Image } from '@/components/Image.js';
 import { FrameViewerModalRef } from '@/modals/controls.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 import type { FrameV2 } from '@/types/frame.js';
+import { FarcasterFrameHost } from '@/providers/frame/Host.js';
 
 interface CardProps {
     post: Post;
     frame: FrameV2;
 }
 
-export const Card = memo<CardProps>(function Card({ frame }) {
+export const Card = memo<CardProps>(function Card({ post, frame }) {
     const [primaryButton, setPrimaryButton] = useState<Parameters<SetPrimaryButton>[0] | null>(null);
+
+    const [host] = useState(
+        () =>
+            new FarcasterFrameHost(post, {
+                setPrimaryButton,
+            }),
+    );
 
     const onClick = () => {
         FrameViewerModalRef.open({
