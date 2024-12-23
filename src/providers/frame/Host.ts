@@ -4,7 +4,6 @@ import type {
     FrameContext,
     FrameHost,
     ReadyOptions,
-    RpcTransport,
     SetPrimaryButton,
     SignIn,
     SignInOptions,
@@ -14,11 +13,12 @@ import { noop } from 'lodash-es';
 import { NotImplementedError } from '@/constants/error.js';
 import { SITE_NAME } from '@/constants/index.js';
 import { openWindow } from '@/helpers/openWindow.js';
+import { resolveValue } from '@/helpers/resolveValue.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 import { useFarcasterStateStore } from '@/store/useProfileStore.js';
 import type { FrameV2 } from '@/types/frame.js';
 
-export class FarcasterFrameHost implements FrameHost {
+export class FarcasterFrameHost implements Omit<FrameHost, 'ethProviderRequestV2'> {
     constructor(
         private frame: FrameV2,
         private post: Post,
@@ -30,7 +30,7 @@ export class FarcasterFrameHost implements FrameHost {
         },
     ) {}
 
-    get context() {
+    context = resolveValue(() => {
         const profile = useFarcasterStateStore.getState().currentProfile;
 
         return {
@@ -55,39 +55,38 @@ export class FarcasterFrameHost implements FrameHost {
                 clientFid: 0,
             },
         } satisfies FrameContext;
-    }
+    });
 
-    async addFrame(): ReturnType<AddFrame> {
+    addFrame = (): ReturnType<AddFrame> => {
         if (this.options?.debug) console.log('[frame host] add frame');
         throw new NotImplementedError();
-    }
+    };
 
-    close() {
+    close = () => {
         if (this.options?.debug) console.log('[frame host] close');
         this.options?.close?.();
-    }
+    };
 
-    openUrl(url: string) {
+    openUrl = (url: string) => {
         if (this.options?.debug) console.log('[frame host] openUrl', url);
         openWindow(url);
-    }
+    };
 
-    ready(options?: Partial<ReadyOptions>) {
+    ready = (options?: Partial<ReadyOptions>) => {
         if (this.options?.debug) console.log('[frame host] ready', options);
         this.options?.ready?.(options);
-    }
+    };
 
-    setPrimaryButton(options: Parameters<SetPrimaryButton>[0]) {
+    setPrimaryButton = (options: Parameters<SetPrimaryButton>[0]) => {
         if (this.options?.debug) console.log('[frame host] set primary button', options);
         this.options?.setPrimaryButton?.(options);
-    }
+    };
 
-    signIn(options: SignInOptions): ReturnType<SignIn.SignIn> {
+    signIn = (options: SignInOptions): ReturnType<SignIn.SignIn> => {
         if (this.options?.debug) console.log('[frame host] sign in', options);
 
         throw new NotImplementedError();
-    }
+    };
 
     ethProviderRequest = noop as EthProviderRequest;
-    ethProviderRequestV2 = noop as RpcTransport;
 }

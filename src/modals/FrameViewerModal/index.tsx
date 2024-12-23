@@ -5,8 +5,7 @@ import FireflyLogo from '@/assets/firefly.logo.svg';
 import { CloseButton } from '@/components/IconButton.js';
 import { Modal } from '@/components/Modal.js';
 import { NotImplementedError } from '@/constants/error.js';
-import { IS_DEVELOPMENT, SITE_HOSTNAME } from '@/constants/index.js';
-import { bom } from '@/helpers/bom.js';
+import { IS_DEVELOPMENT } from '@/constants/index.js';
 import { createEIP1193Provider } from '@/helpers/createEIP1193Provider.js';
 import { parseUrl } from '@/helpers/parseUrl.js';
 import { useSingletonModal } from '@/hooks/useSingletonModal.js';
@@ -46,13 +45,13 @@ export const FrameViewerModal = forwardRef<SingletonModalRefCreator<FrameViewerM
                 iframe: frameRef.current,
                 sdk: props.frameHost,
                 ethProvider: createEIP1193Provider(),
-                frameOrigin: bom.window?.origin ?? SITE_HOSTNAME,
+                frameOrigin: '*',
             });
 
             return () => {
                 result?.cleanup();
             };
-        }, [props?.frameHost]);
+        }, [props]);
 
         if (!open || !props) return null;
 
@@ -89,8 +88,8 @@ export const FrameViewerModal = forwardRef<SingletonModalRefCreator<FrameViewerM
                         }}
                     />
                     {!props.ready ? (
-                        <div className="flex items-center justify-center bg-white dark:bg-black">
-                            <FireflyLogo width={40} height={40} />
+                        <div className="absolute inset-0 top-[60px] flex items-center justify-center bg-white dark:bg-black">
+                            <FireflyLogo width={80} height={80} />
                         </div>
                     ) : null}
                 </div>
