@@ -43,7 +43,12 @@ function InfoRow({ title, description, amount, asInfinite, value, extra }: InfoR
             {extra ? (
                 <div className="ml-auto">{extra}</div>
             ) : (
-                <div className="ml-auto font-inter text-medium font-bold text-main">
+                <div
+                    className={classNames(
+                        'ml-auto font-inter font-bold text-main',
+                        asInfinite ? 'text-2xl leading-[22.5px]' : 'text-medium',
+                    )}
+                >
                     {asInfinite ? '∞' : isNumber(value) ? `$${formatPrice(+value)}` : (formatPrice(amount) ?? '-')}
                 </div>
             )}
