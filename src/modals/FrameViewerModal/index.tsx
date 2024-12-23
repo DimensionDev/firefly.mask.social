@@ -1,5 +1,7 @@
 import { exposeToIframe, type FrameHost } from '@farcaster/frame-host';
+import { delay } from '@masknet/kit';
 import { forwardRef, useEffect, useRef, useState } from 'react';
+import { useAsyncFn } from 'react-use';
 
 import FireflyLogo from '@/assets/firefly.logo.svg';
 import { CloseButton } from '@/components/IconButton.js';
@@ -11,8 +13,6 @@ import { useSingletonModal } from '@/hooks/useSingletonModal.js';
 import type { SingletonModalRefCreator } from '@/libs/SingletonModal.js';
 import { MoreAction } from '@/modals/FrameViewerModal/MoreActionMenu.js';
 import type { FrameV2 } from '@/types/frame.js';
-import { useAsyncFn } from 'react-use';
-import { delay } from '@masknet/kit';
 
 export type FrameViewerModalOpenProps = {
     ready: boolean;
