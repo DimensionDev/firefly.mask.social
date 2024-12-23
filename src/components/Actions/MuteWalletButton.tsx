@@ -8,6 +8,7 @@ import MuteIcon from '@/assets/mute.svg';
 import UnmuteIcon from '@/assets/unmute.svg';
 import { MenuButton } from '@/components/Actions/MenuButton.js';
 import { type ClickableButtonProps } from '@/components/ClickableButton.js';
+import { enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { useIsLogin } from '@/hooks/useIsLogin.js';
 import { ConfirmModalRef, LoginModalRef } from '@/modals/controls.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
@@ -30,9 +31,11 @@ export const MuteWalletButton = forwardRef<HTMLButtonElement, Props>(function Mu
             if (isMuted) {
                 const result = await FireflyEndpointProvider.unblockWallet(address);
                 captureMuteEvent(EventId.UNMUTE_SUCCESS, address);
+                enqueueSuccessMessage(t`Muted ${handleOrEnsOrAddress}.`);
                 return result;
             } else {
                 const result = await FireflyEndpointProvider.blockWallet(address);
+                enqueueSuccessMessage(t`Unmuted ${handleOrEnsOrAddress}.`);
                 captureMuteEvent(EventId.MUTE_SUCCESS, address);
                 return result;
             }
