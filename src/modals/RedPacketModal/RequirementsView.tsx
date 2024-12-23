@@ -14,9 +14,9 @@ import { ActionButton } from '@/components/ActionButton.js';
 import { ClickableArea } from '@/components/ClickableArea.js';
 import { EMPTY_LIST } from '@/constants/index.js';
 import { Image } from '@/esm/Image.js';
-import { RequirementType } from '@/providers/red-packet/types.js';
 import { NonFungibleTokenCollectionSelectModalRef } from '@/modals/controls.js';
 import { RedPacketContext } from '@/modals/RedPacketModal/RedPacketContext.js';
+import { RequirementType } from '@/providers/red-packet/types.js';
 
 export const REQUIREMENT_ICON_MAP: Record<RequirementType, React.FunctionComponent<React.SVGAttributes<SVGElement>>> = {
     [RequirementType.Follow]: AddUser,

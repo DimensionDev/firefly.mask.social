@@ -27,7 +27,6 @@ import { useFungibleTokenPrice } from '@/hooks/useFungibleTokenPrice.js';
 import { useProfileStoreAll } from '@/hooks/useProfileStore.js';
 import { useSelectFiles } from '@/hooks/useSelectFiles.js';
 import { DEFAULT_THEME_ID } from '@/mask/plugins/red-packet/constants.js';
-import { RequirementType } from '@/providers/red-packet/types.js';
 import { ImageEditorRef } from '@/modals/controls.js';
 import {
     RedPacketContext,
@@ -37,7 +36,7 @@ import {
 import { REQUIREMENT_ICON_MAP } from '@/modals/RedPacketModal/RequirementsView.js';
 import { ShareAccountsPopover } from '@/modals/RedPacketModal/ShareAccountsPopover.js';
 import { FireflyRedPacket } from '@/providers/red-packet/index.js';
-import { FireflyRedPacketAPI } from '@/providers/red-packet/types.js';
+import { FireflyRedPacketAPI,RequirementType  } from '@/providers/red-packet/types.js';
 import { uploadToS3 } from '@/services/uploadToS3.js';
 
 interface ThemeVariant {

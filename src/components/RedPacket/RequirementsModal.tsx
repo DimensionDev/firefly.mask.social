@@ -16,13 +16,13 @@ import { ActionButton } from '@/components/ActionButton.js';
 import { CloseButton } from '@/components/IconButton.js';
 import { Loading } from '@/components/Loading.js';
 import { Modal } from '@/components/Modal.js';
+import { MentionLink } from '@/components/RedPacket/MentionLink.js';
 import { Link } from '@/esm/Link.js';
 import { classNames } from '@/helpers/classNames.js';
 import { resolveRedPacketPlatformType } from '@/helpers/resolveRedPacketPlatformType.js';
 import { EVMExplorerResolver, NFTScanNonFungibleTokenEVM } from '@/mask/bindings/index.js';
 import { FireflyRedPacketAPI } from '@/providers/red-packet/types.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
-import { MentionLink } from '@/components/RedPacket/MentionLink.js';
 
 interface NFTListProps {
     nfts: Array<{
