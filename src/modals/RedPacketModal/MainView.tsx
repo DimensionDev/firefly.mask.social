@@ -295,7 +295,7 @@ export function MainView() {
                         </label>
                         <div className="flex gap-x-1 text-[14px] font-bold leading-[18px] text-secondary">
                             <span>
-                                {formatBalance(gasFee, token.decimals)} {token.symbol}
+                                {formatBalance(gasFee, nativeToken.decimals)} {nativeToken.symbol}
                             </span>
                             <span>≈</span>
                             <span>${cost.toFixed(2)}</span>

@@ -133,11 +133,14 @@ export const RedPacketDetailItem = memo<Props>(function RedPacketDetailItem({
                                     })}
                                 >
                                     {create_time ? (
-                                        <Trans>{dayjs(create_time).format('M/d/yyyy HH:mm')} (UTC+8)</Trans>
+                                        <Trans>{dayjs(create_time * 1000).format('MM/DD/YYYY HH:mm')} (UTC+8)</Trans>
                                     ) : null}
                                     {received_time ? (
                                         <Trans>
-                                            {dayjs(Number.parseInt(received_time, 10)).format('M/d/yyyy HH:mm')} (UTC+8)
+                                            {dayjs(Number.parseInt(received_time, 10) * 1000).format(
+                                                'MM/DD/YYYY HH:mm',
+                                            )}{' '}
+                                            (UTC+8)
                                         </Trans>
                                     ) : null}
                                 </div>
@@ -197,9 +200,9 @@ export const RedPacketDetailItem = memo<Props>(function RedPacketDetailItem({
                                 <div className="flex items-center gap-x-[2px] text-[14px] text-lightTextMain">
                                     <Trans>
                                         <span className="text-lightSecond">Claimed: </span>
-                                        <span>
+                                        <span className="mr-[6px]">
                                             {claim_numbers}/{total_numbers}
-                                        </span>{' '}
+                                        </span>
                                         <span>
                                             {formatBalance(claim_amounts, token_decimal, {
                                                 significant: 2,
@@ -210,7 +213,7 @@ export const RedPacketDetailItem = memo<Props>(function RedPacketDetailItem({
                                                 significant: 2,
                                                 isPrecise: true,
                                             })}
-                                        </span>{' '}
+                                        </span>
                                         <span>{token_symbol}</span>
                                     </Trans>
                                 </div>

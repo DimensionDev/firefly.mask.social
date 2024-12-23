@@ -708,11 +708,17 @@ msgstr "日历"
 msgid "Watch"
 msgstr "关注"
 
+msgid "🤑 Check this #FireflyLuckyDrop 🧧💰✨ on {postUrl} from @{0}!"
+msgstr ""
+
 msgid "Suspected malicious address."
 msgstr "发现疑似恶意地址。"
 
 msgid "Honeypot related address found."
 msgstr "可能是钓鱼地址。"
+
+msgid "Your {0} account is now connected"
+msgstr ""
 
 msgid "Time Out"
 msgstr "过期"
@@ -1218,6 +1224,9 @@ msgstr "属于"
 msgid "Are you sure you want to report this post?"
 msgstr "您确定要举报这个帖子吗？"
 
+msgid "Oops... Something went wrong. Please try again"
+msgstr ""
+
 msgid "No fake KYC found."
 msgstr "不涉及虚假 KYC。"
 
@@ -1446,9 +1455,6 @@ msgstr "允许回复"
 msgid "No one likes this post yet."
 msgstr "还未有人点赞。"
 
-msgid "<0>Claimed: </0><1>{claim_numbers}/{total_numbers}</1> <2>{0}/{1}</2> <3>{token_symbol}</3>"
-msgstr "<0>已领取: </0><1>{claim_numbers}/{total_numbers}</1> <2>{0}/{1}</2> <3>{token_symbol}</3>"
-
 msgid "Your posts have published successfully on {0}."
 msgstr "您已在 {0} 发布成功。"
 
@@ -1506,6 +1512,9 @@ msgstr "帖子已被删除"
 msgid "Website"
 msgstr "网站"
 
+msgid "Your TG account is now connected"
+msgstr ""
+
 msgid "Failed to report @{0}."
 msgstr "举报 @{0} 失败。"
 
@@ -1547,6 +1556,9 @@ msgstr "文章已不存在"
 
 msgid "Report article"
 msgstr "举报文章"
+
+msgid "Scan the QR code with the <0>Firefly mobile app</0> or <1>Camera app</1> to log in instantly"
+msgstr ""
 
 msgid "Everyone"
 msgstr "任何人"
@@ -2051,9 +2063,6 @@ msgstr "分享"
 
 msgid "Transaction Simulation"
 msgstr "交易模拟"
-
-msgid "Scan the QR code with the <0>Firefly mobile app</0> or <1>Camera app</1> to log in instantly."
-msgstr "使用 <0>Firefly 移动应用</0> 或 <1>相机应用</1> 扫描二维码即可即时登录。"
 
 msgid "Remaining"
 msgstr "剩余"
@@ -2612,9 +2621,6 @@ msgstr "即将推出"
 
 msgid "{handleOrEnsOrAddress} unwatched"
 msgstr "{handleOrEnsOrAddress} 取消关注"
-
-msgid "🤑 Check this #FireflyLuckyDrop 🧧💰✨ on {postUrl} !"
-msgstr "🤑 在 {postUrl} 上快来看看这个 #FireflyLuckyDrop 🧧💰✨"
 
 msgid "Saved on {0} at {1}"
 msgstr "保存于 {1} {0}"
@@ -3263,6 +3269,9 @@ msgstr "合约所有者对交易冷却时间有限制。"
 
 msgid "Sign to enable signless"
 msgstr "签名以启用无签名功能"
+
+msgid "<0>Claimed: </0><1>{claim_numbers}/{total_numbers}</1><2>{0}/{1}</2><3>{token_symbol}</3>"
+msgstr ""
 
 msgid "Profiles"
 msgstr "个人信息"

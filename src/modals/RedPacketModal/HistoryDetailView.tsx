@@ -14,12 +14,12 @@ import { RedPacketDetailItem } from '@/modals/RedPacketModal/RedPacketDetailItem
 import { FireflyRedPacket } from '@/providers/red-packet/index.js';
 import type { FireflyRedPacketAPI } from '@/providers/red-packet/types.js';
 
-function ClaimHistoryItem({ data }: { data: FireflyRedPacketAPI.ClaimList }) {
+function ClaimHistoryItem({ data, chainId }: { data: FireflyRedPacketAPI.ClaimList; chainId?: number }) {
     const { data: ens } = useEnsName({ address: data.creator as Address });
 
     return (
         <div className="mt-3 flex items-center justify-between px-3 text-[14px] font-bold leading-[18px]">
-            <RedPacketAccountItem ens={ens ?? ''} address={data.creator} />
+            <RedPacketAccountItem ens={ens ?? ''} address={data.creator} chainId={chainId} />
             <div className="flex gap-1">
                 {formatBalance(data.token_amounts, data.token_decimal, {
                     significant: 6,
@@ -31,8 +31,8 @@ function ClaimHistoryItem({ data }: { data: FireflyRedPacketAPI.ClaimList }) {
     );
 }
 
-function getClaimHistoryListItem(data: FireflyRedPacketAPI.ClaimList) {
-    return <ClaimHistoryItem key={data.creator} data={data} />;
+function getClaimHistoryListItem(data: FireflyRedPacketAPI.ClaimList, chainId?: number) {
+    return <ClaimHistoryItem key={data.creator} data={data} chainId={chainId} />;
 }
 
 export function HistoryDetailView() {
@@ -79,7 +79,7 @@ export function HistoryDetailView() {
                     className="no-scrollbar box-border h-full min-h-0 flex-1"
                     listKey={`redpacket_${rpid}`}
                     computeItemKey={(index, item) => item.creator || 'Unknown User'}
-                    itemContent={(index, item) => getClaimHistoryListItem(item)}
+                    itemContent={(index, item) => getClaimHistoryListItem(item, claimInfo?.chain_id)}
                 />
             ) : (
                 <div />

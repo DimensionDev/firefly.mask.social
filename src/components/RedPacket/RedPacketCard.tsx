@@ -14,6 +14,7 @@ import type { Address } from 'viem';
 import HourGlassIcon from '@/assets/hourglass.svg';
 import RedPacketIcon from '@/assets/red-packet.svg';
 import { ClickableArea } from '@/components/ClickableArea.js';
+import { Loading } from '@/components/Loading.js';
 import { AmountProgressText } from '@/components/RedPacket/AmountProgressText.js';
 import { RedPacketCardFooter } from '@/components/RedPacket/RedPacketCardFooter.js';
 import { RequirementsModal } from '@/components/RedPacket/RequirementsModal.js';
@@ -57,7 +58,7 @@ function Timer({ endTime }: { endTime: number }) {
     );
     if (isExpired || !timeLeft) return null;
     return (
-        <div className="flex w-[150px] items-center justify-center gap-[6px] rounded-full bg-[#E8E8FF] px-[13px] py-[7px] opacity-75 backdrop-blur-[5px]">
+        <div className="flex items-center justify-center gap-[6px] text-nowrap rounded-full bg-[#E8E8FF] px-[13px] py-[7px] opacity-75 backdrop-blur-[5px]">
             <HourGlassIcon width={12} height={12} />
             <span className="flex-1 text-xs leading-4">
                 <Trans>
@@ -136,7 +137,7 @@ export function RedPacketCard({ payload, post }: Props) {
             type: 'compose',
             chars: [
                 !isClaimed
-                    ? t`🤑 Check this #FireflyLuckyDrop 🧧💰✨ on ${postUrl} !`
+                    ? t`🤑 Check this #FireflyLuckyDrop 🧧💰✨ on ${postUrl} from @${post.author.handle}!`
                     : t`🤑 Just claimed a #FireflyLuckyDrop 🧧💰✨ on ${postUrl} from @${post.author.handle}!`,
                 ' \n\n Grow your followers and engagement with Lucky Drop on Firefly!',
             ],
@@ -285,7 +286,9 @@ export function RedPacketCard({ payload, post }: Props) {
                         }}
                     />
                 </>
-            ) : null}
+            ) : (
+                <Loading className="!min-h-[338px]" />
+            )}
 
             {requirementOpen ? (
                 <RequirementsModal

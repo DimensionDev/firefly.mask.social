@@ -36,7 +36,7 @@ import {
 import { REQUIREMENT_ICON_MAP } from '@/modals/RedPacketModal/RequirementsView.js';
 import { ShareAccountsPopover } from '@/modals/RedPacketModal/ShareAccountsPopover.js';
 import { FireflyRedPacket } from '@/providers/red-packet/index.js';
-import { FireflyRedPacketAPI,RequirementType  } from '@/providers/red-packet/types.js';
+import { FireflyRedPacketAPI, RequirementType } from '@/providers/red-packet/types.js';
 import { uploadToS3 } from '@/services/uploadToS3.js';
 
 interface ThemeVariant {

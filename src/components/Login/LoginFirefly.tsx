@@ -8,6 +8,7 @@ import { ScannableQRCode } from '@/components/ScannableQRCode.js';
 import { IS_MOBILE_DEVICE } from '@/constants/bowser.js';
 import { AbortError, MalformedError, TimeoutError } from '@/constants/error.js';
 import { FIREFLY_SCAN_QR_CODE_COUNTDOWN } from '@/constants/index.js';
+import { Link } from '@/esm/Link.js';
 import { classNames } from '@/helpers/classNames.js';
 import { enqueueMessageFromError, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { getMobileDevice } from '@/helpers/getMobileDevice.js';
@@ -106,8 +107,15 @@ export function LoginFirefly(props: LoginFireflyProps) {
                 <div className="relative flex w-full flex-col items-center gap-3">
                     <div className="text-center text-[12px] leading-[16px] text-lightSecond">
                         <Trans>
-                            Scan the QR code with the <span className="font-bold">Firefly mobile app</span> or{' '}
-                            <span className="font-bold">Camera app</span> to log in instantly.
+                            Scan the QR code with the{' '}
+                            <Link
+                                href="https://firefly.social/#download"
+                                className="font-bold hover:underline"
+                                target="_blank"
+                            >
+                                Firefly mobile app
+                            </Link>{' '}
+                            or <span className="font-bold">Camera app</span> to log in instantly
                         </Trans>
                     </div>
                     {url ? (
