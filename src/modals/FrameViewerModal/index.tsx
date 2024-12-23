@@ -5,7 +5,7 @@ import FireflyLogo from '@/assets/firefly.logo.svg';
 import { CloseButton } from '@/components/IconButton.js';
 import { Modal } from '@/components/Modal.js';
 import { NotImplementedError } from '@/constants/error.js';
-import { SITE_HOSTNAME } from '@/constants/index.js';
+import { IS_DEVELOPMENT, SITE_HOSTNAME } from '@/constants/index.js';
 import { bom } from '@/helpers/bom.js';
 import { createEIP1193Provider } from '@/helpers/createEIP1193Provider.js';
 import { parseUrl } from '@/helpers/parseUrl.js';
@@ -42,6 +42,7 @@ export const FrameViewerModal = forwardRef<SingletonModalRefCreator<FrameViewerM
             if (!props?.frameHost) return;
 
             const result = exposeToIframe({
+                debug: IS_DEVELOPMENT,
                 iframe: frameRef.current,
                 sdk: props.frameHost,
                 ethProvider: createEIP1193Provider(),
@@ -51,7 +52,7 @@ export const FrameViewerModal = forwardRef<SingletonModalRefCreator<FrameViewerM
             return () => {
                 result?.cleanup();
             };
-        }, [frameRef.current, props?.frameHost]);
+        }, [props?.frameHost]);
 
         if (!open || !props) return null;
 
