@@ -5,11 +5,11 @@ import { Source } from '@/constants/enum.js';
 import { isSameEthereumAddress, isSameSolanaAddress } from '@/helpers/isSameAddress.js';
 import { resolveSourceFromUrl } from '@/helpers/resolveSource.js';
 import type { FireflyEndpoint } from '@/providers/firefly/Endpoint.js';
+import type { SnapshotActivity } from '@/providers/snapshot/type.js';
 import type { Article } from '@/providers/types/Article.js';
 import type { FireflyIdentity, PolymarketActivity, WalletProfile } from '@/providers/types/Firefly.js';
 import type { FollowingNFT, NFTFeed } from '@/providers/types/NFTs.js';
 import type { ClassType } from '@/types/index.js';
-import type { SnapshotActivity } from '@/providers/snapshot/type.js';
 
 type PagesData = { pages: Array<{ data: Article[] }> };
 interface NFTPagesData {
