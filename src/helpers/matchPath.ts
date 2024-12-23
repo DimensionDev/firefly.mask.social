@@ -5,7 +5,10 @@ type PathParams<T extends string> = T extends `${string}:${infer ParamName}/${in
       : {};
 
 export function matchPath<T extends string>(template: T, path: string, fuzzy: boolean = false): PathParams<T> | null {
-    const regexStr = template.replace(/:[a-zA-Z0-9_]+/g, '([a-zA-Z0-9_]+)').replace(/\//g, '\\/');
+    const regexStr = template
+        .replace(/\\/g, '\\\\')
+        .replace(/:[a-zA-Z0-9_]+/g, '([a-zA-Z0-9_]+)')
+        .replace(/\//g, '\\/');
 
     const regex = new RegExp(fuzzy ? `^${regexStr}` : `^${regexStr}$`);
     const match = path.match(regex);
