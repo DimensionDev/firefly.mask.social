@@ -145,7 +145,7 @@ Submit here ${shareUrl}
                         source={Source.Twitter}
                     >
                         <p className="pt-4 text-sm font-normal leading-6">
-                            <Trans>*Note: Each NFT can only be used once.</Trans>
+                            <Trans>*Note: Each NFT can only be submitted once.</Trans>
                         </p>
                     </ActivityPremiumConditionList>
                 </div>

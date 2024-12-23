@@ -2050,6 +2050,9 @@ msgstr ""
 msgid "Show more comments"
 msgstr ""
 
+msgid "*Note: Each NFT can only be submitted once."
+msgstr ""
+
 msgid "Failed to parse session."
 msgstr ""
 
@@ -3098,9 +3101,6 @@ msgid "Claim Requirements"
 msgstr ""
 
 msgid "Oversupply minting."
-msgstr ""
-
-msgid "*Note: Each NFT can only be used once."
 msgstr ""
 
 msgid "Followed <0>@{handle}</0> on {0}"
