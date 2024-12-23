@@ -417,6 +417,9 @@ msgstr "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} <4>点�
 msgid "Donald Trump"
 msgstr "唐纳德·特朗普"
 
+msgid "Mint"
+msgstr ""
+
 msgid "Our transaction simulation and security detection found no issues. However, it is always crucial to double-check and proceed with caution."
 msgstr "我们的交易模拟和安全检测未发现问题。不过，始终仔细检查并谨慎操作是至关重要的。"
 
@@ -1347,6 +1350,9 @@ msgstr "在帖子中分享"
 msgid "Search by name or symbol"
 msgstr "按名称或符号搜索"
 
+msgid "Collected by"
+msgstr ""
+
 msgid "Forbidden. Please check your permissions."
 msgstr "禁止！请检查您的权限。"
 
@@ -1797,6 +1803,9 @@ msgstr "不涉及网络犯罪。"
 msgid "Articles"
 msgstr "文章"
 
+msgid "{0} followings owned"
+msgstr ""
+
 msgid "Follow me"
 msgstr "关注我"
 
@@ -1997,6 +2006,9 @@ msgstr "Powered by Tenderly and GoPlus"
 
 msgid "Publications"
 msgstr "帖子"
+
+msgid "Download media"
+msgstr ""
 
 msgid "Unable to read image."
 msgstr "获取图片失败。"
@@ -2348,9 +2360,6 @@ msgstr "输入每个获胜者可以领取的金额"
 
 msgid "Failed to repost."
 msgstr "转帖失败。"
-
-msgid "Download image"
-msgstr "下载图片"
 
 msgid "Mirrored"
 msgstr "已转发"
@@ -3320,6 +3329,9 @@ msgstr "合约所有者对交易冷却时间有限制。"
 
 msgid "Sign to enable signless"
 msgstr "签名以启用无签名功能"
+
+msgid "View on website"
+msgstr ""
 
 msgid "Profiles"
 msgstr "个人信息"

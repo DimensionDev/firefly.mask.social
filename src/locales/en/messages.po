@@ -412,6 +412,9 @@ msgstr "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} <4>liked
 msgid "Donald Trump"
 msgstr "Donald Trump"
 
+msgid "Mint"
+msgstr "Mint"
+
 msgid "Our transaction simulation and security detection found no issues. However, it is always crucial to double-check and proceed with caution."
 msgstr "Our transaction simulation and security detection found no issues. However, it is always crucial to double-check and proceed with caution."
 
@@ -1342,6 +1345,9 @@ msgstr "Share in a Post"
 msgid "Search by name or symbol"
 msgstr "Search by name or symbol"
 
+msgid "Collected by"
+msgstr "Collected by"
+
 msgid "Forbidden. Please check your permissions."
 msgstr "Forbidden. Please check your permissions."
 
@@ -1792,6 +1798,9 @@ msgstr "No cybercrime found."
 msgid "Articles"
 msgstr "Articles"
 
+msgid "{0} followings owned"
+msgstr "{0} followings owned"
+
 msgid "Follow me"
 msgstr "Follow me"
 
@@ -1992,6 +2001,9 @@ msgstr "Powered by Tenderly and GoPlus"
 
 msgid "Publications"
 msgstr "Publications"
+
+msgid "Download media"
+msgstr "Download media"
 
 msgid "Unable to read image."
 msgstr "Unable to read image."
@@ -2343,9 +2355,6 @@ msgstr "Enter the amount that each winner can claim"
 
 msgid "Failed to repost."
 msgstr "Failed to repost."
-
-msgid "Download image"
-msgstr "Download image"
 
 msgid "Mirrored"
 msgstr "Mirrored"
@@ -3315,6 +3324,9 @@ msgstr "The contract owner has restrictions on trading cooldown."
 
 msgid "Sign to enable signless"
 msgstr "Sign to enable signless"
+
+msgid "View on website"
+msgstr "View on website"
 
 msgid "Profiles"
 msgstr "Profiles"

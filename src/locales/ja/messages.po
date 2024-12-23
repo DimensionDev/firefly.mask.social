@@ -417,6 +417,9 @@ msgstr ""
 msgid "Donald Trump"
 msgstr ""
 
+msgid "Mint"
+msgstr ""
+
 msgid "Our transaction simulation and security detection found no issues. However, it is always crucial to double-check and proceed with caution."
 msgstr ""
 
@@ -1347,6 +1350,9 @@ msgstr ""
 msgid "Search by name or symbol"
 msgstr ""
 
+msgid "Collected by"
+msgstr ""
+
 msgid "Forbidden. Please check your permissions."
 msgstr ""
 
@@ -1797,6 +1803,9 @@ msgstr ""
 msgid "Articles"
 msgstr ""
 
+msgid "{0} followings owned"
+msgstr ""
+
 msgid "Follow me"
 msgstr ""
 
@@ -1996,6 +2005,9 @@ msgid "Powered by Tenderly and GoPlus"
 msgstr ""
 
 msgid "Publications"
+msgstr ""
+
+msgid "Download media"
 msgstr ""
 
 msgid "Unable to read image."
@@ -2347,9 +2359,6 @@ msgid "Enter the amount that each winner can claim"
 msgstr ""
 
 msgid "Failed to repost."
-msgstr ""
-
-msgid "Download image"
 msgstr ""
 
 msgid "Mirrored"
@@ -3319,6 +3328,9 @@ msgid "The contract owner has restrictions on trading cooldown."
 msgstr ""
 
 msgid "Sign to enable signless"
+msgstr ""
+
+msgid "View on website"
 msgstr ""
 
 msgid "Profiles"
