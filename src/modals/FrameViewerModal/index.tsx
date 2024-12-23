@@ -51,7 +51,7 @@ export const FrameViewerModal = forwardRef<SingletonModalRefCreator<FrameViewerM
             return () => {
                 result?.cleanup();
             };
-        }, [frameRef.current]);
+        }, [frameRef.current, props?.frameHost]);
 
         if (!open || !props) return null;
 
