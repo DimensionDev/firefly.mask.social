@@ -14,6 +14,7 @@ import { MoreAction } from '@/modals/FrameViewerModal/MoreActionMenu.js';
 import type { FrameV2 } from '@/types/frame.js';
 
 export type FrameViewerModalOpenProps = {
+    ready: boolean;
     frame: FrameV2;
     frameHost: Omit<FrameHost, 'ethProviderRequestV2'>;
 };

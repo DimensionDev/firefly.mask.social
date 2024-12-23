@@ -16,18 +16,26 @@ interface CardProps {
 export const Card = memo<CardProps>(function Card({ post, frame }) {
     const [primaryButton, setPrimaryButton] = useState<Parameters<SetPrimaryButton>[0] | null>(null);
 
-    const [host] = useState(
+    const [frameHost] = useState(
         () =>
-            new FarcasterFrameHost(post, {
+            new FarcasterFrameHost(frame, post, {
+                ready: (options) => {
+                    FrameViewerModalRef.open({
+                        ready: true,
+                        frame,
+                        frameHost,
+                    });
+                },
+                close: () => FrameViewerModalRef.close(),
                 setPrimaryButton,
             }),
     );
 
     const onClick = () => {
         FrameViewerModalRef.open({
+            ready: false,
             frame,
-            // TODO
-            frameHost: null!,
+            frameHost,
         });
     };
 
