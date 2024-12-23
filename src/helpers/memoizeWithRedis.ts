@@ -13,6 +13,10 @@ interface MemoizedFunction {
     };
 }
 
+export function resolveRedisFieldKey(...args: any) {
+    return [...args].join('_');
+}
+
 export function memoizeWithRedis<T extends (...args: any) => Promise<any>>(
     func: T,
     {
@@ -29,7 +33,7 @@ export function memoizeWithRedis<T extends (...args: any) => Promise<any>>(
     },
 ): T & MemoizedFunction {
     const memoized = async (...args: any) => {
-        const fieldKey = resolver ? resolver.apply(null, args) : [...args].join('_');
+        const fieldKey = resolver ? resolver.apply(null, args) : resolveRedisFieldKey(...args);
 
         try {
             const fieldExists = await kv.hexists(key, fieldKey);
