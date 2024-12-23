@@ -11,6 +11,7 @@ import LoadingIcon from '@/assets/loading.svg';
 import TelegramIcon from '@/assets/telegram.svg';
 import { Source, SourceInURL, type ThirdPartySource } from '@/constants/enum.js';
 import { classNames } from '@/helpers/classNames.js';
+import { formatAccountFromConnections } from '@/helpers/formatAccountFromConnections.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { useCurrentProfileAll } from '@/hooks/useCurrentProfile.js';
@@ -114,13 +115,7 @@ export function ThirdPartAccounts() {
                 </span>
             </div>
             {platforms.map((x) => {
-                const connected = data?.[x.platform]?.connected || [];
-                const account = accounts.find((y) => {
-                    return (
-                        y.profile.profileSource === x.source &&
-                        connected.some((c) => c.id === y.profile.profileId && !!c.connected)
-                    );
-                });
+                const account = formatAccountFromConnections(x.platform, data);
                 return (
                     <ThirdPartItem
                         key={x.source}
