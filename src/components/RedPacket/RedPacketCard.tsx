@@ -150,14 +150,11 @@ export function RedPacketCard({ payload, post }: Props) {
         return fetch(cover.backgroundImageUrl);
     }, [cover?.backgroundImageUrl]);
 
-    const [{ isVerifying, isClaiming, claimStrategyStatus, recheckClaimStatus }, verifyAndClaim] = useVerifyAndClaim(
-        payload,
-        post.source,
-    );
+    const [{ isVerifying, isClaiming, claimStrategyStatus }, verifyAndClaim] = useVerifyAndClaim(payload, post.source);
 
     return (
         <div
-            className="my-2 min-h-[438px] rounded-2xl p-3 text-lightTextMain"
+            className="my-2 flex min-h-[398px] flex-col gap-3 rounded-2xl p-3 text-lightTextMain"
             style={{
                 background:
                     'linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.8) 100%), linear-gradient(90deg, rgba(28, 104, 243, 0.2) 0%, rgba(249, 55, 55, 0.2) 100%), #FFFFFF',
@@ -177,7 +174,7 @@ export function RedPacketCard({ payload, post }: Props) {
                 <>
                     <div
                         className={classNames(
-                            'relative my-3 flex w-full items-end justify-between rounded-[18px] px-[27px] pb-[22px]',
+                            'relative flex w-full items-end justify-between rounded-[18px] px-[27px] pb-[22px]',
                             HelveticaFont.className,
                         )}
                         style={

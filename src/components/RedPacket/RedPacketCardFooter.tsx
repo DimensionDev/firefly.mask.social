@@ -71,8 +71,8 @@ export const RedPacketCardFooter = memo<Props>(function RedPacketCardFooter({
         );
     }
 
-    if (isExpired && canRefund) {
-        return (
+    if (isExpired) {
+        return canRefund ? (
             <div className="light">
                 <ActionButton
                     className="flex w-full items-center justify-center"
@@ -82,7 +82,7 @@ export const RedPacketCardFooter = memo<Props>(function RedPacketCardFooter({
                     <Trans>Refund</Trans>
                 </ActionButton>
             </div>
-        );
+        ) : null;
     }
 
     if (isRefunded) return null;
