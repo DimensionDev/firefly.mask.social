@@ -65,6 +65,7 @@ export function formatSimpleHashNFT(nft: SimpleHash.NFT, skipScoreCheck = false)
         id: address,
         chainId,
         link: '',
+        externalUrl: nft.external_url,
         tokenId: nft.token_id,
         type: TokenType.NonFungible,
         address,

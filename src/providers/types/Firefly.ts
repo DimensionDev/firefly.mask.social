@@ -606,6 +606,7 @@ export type NFTCollectionsResponse = Response<{
 
 export type NFTAsset = NonFungibleAsset<number, number> & {
     hasBookmarked?: boolean;
+    externalUrl?: string;
 };
 
 export type TwitterFollowStatusResponse = Response<{
