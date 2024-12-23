@@ -1,5 +1,5 @@
 import { MenuItem } from '@headlessui/react';
-import { Trans } from '@lingui/macro';
+import { t, Trans } from '@lingui/macro';
 import { memo } from 'react';
 
 import MoreIcon from '@/assets/more.svg';
@@ -7,6 +7,7 @@ import ReloadIcon from '@/assets/reload.svg';
 import { MenuButton } from '@/components/Actions/MenuButton.js';
 import { MenuGroup } from '@/components/MenuGroup.js';
 import { MoreActionMenu } from '@/components/MoreActionMenu.js';
+import { Tooltip } from '@/components/Tooltip.js';
 
 interface MoreActionProps {
     disabled?: boolean;
@@ -26,7 +27,9 @@ export const MoreAction = memo(function MoreAction({ disabled = false, onReload 
                                 onReload?.();
                             }}
                         >
-                            <ReloadIcon width={18} height={18} />
+                            <Tooltip content={t`More`} placement="top">
+                                <ReloadIcon width={18} height={18} />
+                            </Tooltip>
                             <span className="font-bold leading-[22px] text-main">
                                 <Trans>Reload page</Trans>
                             </span>
