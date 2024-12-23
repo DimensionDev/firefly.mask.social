@@ -357,9 +357,6 @@ msgstr "已定时"
 msgid "Pay"
 msgstr "付款"
 
-msgid "🤑 Just claimed a #FireflyLuckyDrop 🧧💰✨ on {postUrl} from @{0}!"
-msgstr "🤑 刚刚通过 @{0} 在 {postUrl} 领取了一个 #FireflyLuckyDrop 🧧💰✨！"
-
 msgid "Followed @{handle} on {0}."
 msgstr "在 {0} 上关注 @{handle}。"
 
@@ -710,9 +707,6 @@ msgstr "日历"
 
 msgid "Watch"
 msgstr "关注"
-
-msgid "🤑 Check this #FireflyLuckyDrop 🧧💰✨ on {postUrl} from @{0}!"
-msgstr ""
 
 msgid "Suspected malicious address."
 msgstr "发现疑似恶意地址。"
@@ -1578,6 +1572,9 @@ msgstr "取消隐藏失败/{0}。"
 msgid "Please confirm the login with Warpcast."
 msgstr "请确认使用 Warpcast 登录。"
 
+msgid "🤑 Check this #FireflyLuckyDrop 🧧💰✨ on {postUrl} from @{0} !"
+msgstr ""
+
 msgid "Cover background"
 msgstr "封面背景"
 
@@ -2306,6 +2303,9 @@ msgstr "将在 {0} {1} 发送"
 
 msgid "Failed to like the post."
 msgstr "点赞失败。"
+
+msgid "🤑 Just claimed a #FireflyLuckyDrop 🧧💰✨ on {postUrl} from @{0} !"
+msgstr ""
 
 msgid "Failed to repost."
 msgstr "转帖失败。"
