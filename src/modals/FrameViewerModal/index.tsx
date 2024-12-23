@@ -1,6 +1,7 @@
 import { exposeToIframe, type FrameHost } from '@farcaster/frame-host';
 import { forwardRef, useEffect, useRef, useState } from 'react';
 
+import FireflyLogo from '@/assets/firefly.logo.svg';
 import { CloseButton } from '@/components/IconButton.js';
 import { Modal } from '@/components/Modal.js';
 import { NotImplementedError } from '@/constants/error.js';
@@ -86,6 +87,11 @@ export const FrameViewerModal = forwardRef<SingletonModalRefCreator<FrameViewerM
                             backgroundColor: frame.button.action.splashBackgroundColor,
                         }}
                     />
+                    {!props.ready ? (
+                        <div className="flex items-center justify-center">
+                            <FireflyLogo width={40} height={40} />
+                        </div>
+                    ) : null}
                 </div>
             </Modal>
         );

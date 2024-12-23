@@ -58,26 +58,33 @@ export class FarcasterFrameHost implements FrameHost {
     }
 
     async addFrame(): ReturnType<AddFrame> {
+        if (this.options?.debug) console.log('[frame host] add frame');
         throw new NotImplementedError();
     }
 
     close() {
+        if (this.options?.debug) console.log('[frame host] close');
         this.options?.close?.();
     }
 
     openUrl(url: string) {
+        if (this.options?.debug) console.log('[frame host] openUrl', url);
         openWindow(url);
     }
 
     ready(options?: Partial<ReadyOptions>) {
+        if (this.options?.debug) console.log('[frame host] ready', options);
         this.options?.ready?.(options);
     }
 
     setPrimaryButton(options: Parameters<SetPrimaryButton>[0]) {
+        if (this.options?.debug) console.log('[frame host] set primary button', options);
         this.options?.setPrimaryButton?.(options);
     }
 
     signIn(options: SignInOptions): ReturnType<SignIn.SignIn> {
+        if (this.options?.debug) console.log('[frame host] sign in', options);
+
         throw new NotImplementedError();
     }
 
