@@ -4,7 +4,6 @@ import { forwardRef, useEffect, useRef, useState } from 'react';
 import FireflyLogo from '@/assets/firefly.logo.svg';
 import { CloseButton } from '@/components/IconButton.js';
 import { Modal } from '@/components/Modal.js';
-import { NotImplementedError } from '@/constants/error.js';
 import { IS_DEVELOPMENT } from '@/constants/index.js';
 import { createEIP1193Provider } from '@/helpers/createEIP1193Provider.js';
 import { parseUrl } from '@/helpers/parseUrl.js';
@@ -12,6 +11,8 @@ import { useSingletonModal } from '@/hooks/useSingletonModal.js';
 import type { SingletonModalRefCreator } from '@/libs/SingletonModal.js';
 import { MoreAction } from '@/modals/FrameViewerModal/MoreActionMenu.js';
 import type { FrameV2 } from '@/types/frame.js';
+import { useAsyncFn } from 'react-use';
+import { delay } from '@masknet/kit';
 
 export type FrameViewerModalOpenProps = {
     ready: boolean;
@@ -53,6 +54,19 @@ export const FrameViewerModal = forwardRef<SingletonModalRefCreator<FrameViewerM
             };
         }, [props]);
 
+        const [{ loading }, onReload] = useAsyncFn(async () => {
+            if (!props) return;
+
+            const modalProps = props;
+
+            setProps(null);
+            await delay(1000);
+            setProps({
+                ...modalProps,
+                ready: false,
+            });
+        }, [props]);
+
         if (!open || !props) return null;
 
         const { frame } = props;
@@ -70,11 +84,7 @@ export const FrameViewerModal = forwardRef<SingletonModalRefCreator<FrameViewerM
                             {u ? <div className="text-faint text-xs">{u.host}</div> : null}
                         </div>
                         <div>
-                            <MoreAction
-                                onReload={() => {
-                                    throw new NotImplementedError();
-                                }}
-                            />
+                            <MoreAction disabled={loading} onReload={onReload} />
                         </div>
                     </div>
                     <iframe
