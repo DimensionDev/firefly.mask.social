@@ -20,9 +20,9 @@ import { Link } from '@/esm/Link.js';
 import { classNames } from '@/helpers/classNames.js';
 import { resolveRedPacketPlatformType } from '@/helpers/resolveRedPacketPlatformType.js';
 import { EVMExplorerResolver, NFTScanNonFungibleTokenEVM } from '@/mask/bindings/index.js';
-import { MentionLink } from '@/mask/plugins/red-packet/components/MentionLink.js';
 import { FireflyRedPacketAPI } from '@/providers/red-packet/types.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
+import { MentionLink } from '@/components/RedPacket/MentionLink.js';
 
 interface NFTListProps {
     nfts: Array<{

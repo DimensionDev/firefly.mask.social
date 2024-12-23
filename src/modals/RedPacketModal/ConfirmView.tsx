@@ -27,7 +27,7 @@ import { useFungibleTokenPrice } from '@/hooks/useFungibleTokenPrice.js';
 import { useProfileStoreAll } from '@/hooks/useProfileStore.js';
 import { useSelectFiles } from '@/hooks/useSelectFiles.js';
 import { DEFAULT_THEME_ID } from '@/mask/plugins/red-packet/constants.js';
-import { RequirementType } from '@/mask/plugins/red-packet/types.js';
+import { RequirementType } from '@/providers/red-packet/types.js';
 import { ImageEditorRef } from '@/modals/controls.js';
 import {
     RedPacketContext,
