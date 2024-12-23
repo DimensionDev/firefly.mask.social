@@ -32,12 +32,13 @@ export class FarcasterFrameHost implements Omit<FrameHost, 'ethProviderRequestV2
 
     context = resolveValue(() => {
         const profile = useFarcasterStateStore.getState().currentProfile;
+        if (!profile) throw new Error('Profile not found');
 
         return {
             user: {
-                fid: (profile?.profileId as unknown as number) ?? 0,
-                username: profile?.displayName,
-                pfpUrl: profile?.pfp,
+                fid: (profile.profileId as unknown as number) ?? 0,
+                username: profile.displayName,
+                pfpUrl: profile.pfp,
                 location: {
                     placeId: 'firefly',
                     description: SITE_NAME,
@@ -84,7 +85,6 @@ export class FarcasterFrameHost implements Omit<FrameHost, 'ethProviderRequestV2
 
     signIn = (options: SignInOptions): ReturnType<SignIn.SignIn> => {
         if (this.options?.debug) console.log('[frame host] sign in', options);
-
         throw new NotImplementedError();
     };
 
