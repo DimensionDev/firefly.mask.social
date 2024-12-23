@@ -2305,7 +2305,7 @@ msgid "Failed to like the post."
 msgstr "点赞失败。"
 
 msgid "🤑 Just claimed a #FireflyLuckyDrop 🧧💰✨ on {postUrl} from @{0} !"
-msgstr ""
+msgstr "🤑 刚刚通过 @{0} 在 {postUrl} 领取了一个 #FireflyLuckyDrop 🧧💰✨ ！"
 
 msgid "Failed to repost."
 msgstr "转帖失败。"
