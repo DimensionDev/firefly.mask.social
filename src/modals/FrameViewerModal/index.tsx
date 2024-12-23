@@ -88,7 +88,7 @@ export const FrameViewerModal = forwardRef<SingletonModalRefCreator<FrameViewerM
                         }}
                     />
                     {!props.ready ? (
-                        <div className="flex items-center justify-center">
+                        <div className="flex items-center justify-center bg-white dark:bg-black">
                             <FireflyLogo width={40} height={40} />
                         </div>
                     ) : null}
