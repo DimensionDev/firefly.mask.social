@@ -4,9 +4,9 @@ import { memo, useState } from 'react';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { Image } from '@/components/Image.js';
 import { FrameViewerModalRef } from '@/modals/controls.js';
+import { FarcasterFrameHost } from '@/providers/frame/Host.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 import type { FrameV2 } from '@/types/frame.js';
-import { FarcasterFrameHost } from '@/providers/frame/Host.js';
 
 interface CardProps {
     post: Post;
