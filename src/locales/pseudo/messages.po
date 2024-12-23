@@ -139,9 +139,6 @@ msgstr ""
 msgid "Followed @{0} on {sourceName}"
 msgstr ""
 
-msgid "Select a Token"
-msgstr ""
-
 msgid "{followerCount, plural, one {Follower} other {Followers}}"
 msgstr ""
 
@@ -220,9 +217,6 @@ msgstr ""
 msgid "Malicious mining activities found."
 msgstr ""
 
-msgid "No"
-msgstr ""
-
 msgid "Functions that can suspend trading"
 msgstr ""
 
@@ -233,9 +227,6 @@ msgid "This token is a gas abuser."
 msgstr ""
 
 msgid "Are you sure you want to leave /{0} ?"
-msgstr ""
-
-msgid "Follow <0/> on {platform}"
 msgstr ""
 
 msgid "Ended"
@@ -346,9 +337,6 @@ msgstr ""
 msgid "Scan the QR code with your phone’s <0>Camera</0> in {count}s.<1/> Approve the existing Farcaster signer to Firefly."
 msgstr ""
 
-msgid "Image Preview"
-msgstr ""
-
 msgid "Poll"
 msgstr ""
 
@@ -410,9 +398,6 @@ msgid "Our transaction simulation and security detection found no issues. Howeve
 msgstr ""
 
 msgid "Market Cap"
-msgstr ""
-
-msgid "Claimed: <0>{claim_numbers}/{total_numbers}</0> <1>{0}/{1}</1> <2>{token_symbol}</2>"
 msgstr ""
 
 msgid "Eligible for Premium Collectible?"
@@ -556,9 +541,6 @@ msgstr ""
 msgid "Failed to report @{0}"
 msgstr ""
 
-msgid "Plugin is loading..."
-msgstr ""
-
 msgid "Restricted approval."
 msgstr ""
 
@@ -685,9 +667,6 @@ msgstr ""
 msgid "No proxy contract."
 msgstr ""
 
-msgid "Identical"
-msgstr ""
-
 msgid "Search"
 msgstr ""
 
@@ -739,9 +718,6 @@ msgstr ""
 msgid "Failed to delete scheduled post."
 msgstr ""
 
-msgid "Confirm the Lucky Drop"
-msgstr ""
-
 msgid "The blacklist function is not included. If there is a blacklist, some addresses may not be able to trade normally (honeypot risk)."
 msgstr ""
 
@@ -776,9 +752,6 @@ msgid "{minutes, plural, one {1 minute left} other {{minutes} minutes left}}"
 msgstr ""
 
 msgid "No Airdrop Scam"
-msgstr ""
-
-msgid "Users must like, repost / quote tweet, or comment on your Lucky Drop post."
 msgstr ""
 
 msgid "Channel {id} could not be found."
@@ -1051,9 +1024,6 @@ msgstr ""
 msgid "Log out"
 msgstr ""
 
-msgid "Amount Each"
-msgstr ""
-
 msgid "Oops... Not all the requirements have been met"
 msgstr ""
 
@@ -1109,9 +1079,6 @@ msgid "Add Wallet"
 msgstr ""
 
 msgid "Followed by {0} and {1}"
-msgstr ""
-
-msgid "Insufficient {0} Balance"
 msgstr ""
 
 msgid "Try searching for something else."
@@ -1270,9 +1237,6 @@ msgstr ""
 msgid "Failed to create image payload."
 msgstr ""
 
-msgid "Random Amount"
-msgstr ""
-
 msgid "Network Fee"
 msgstr ""
 
@@ -1310,9 +1274,6 @@ msgid "No voting power"
 msgstr ""
 
 msgid "Your draft was saved."
-msgstr ""
-
-msgid "You can withdraw the rest of your balances back 24h later after sending them out."
 msgstr ""
 
 msgid "Verify and Claim"
@@ -1412,9 +1373,6 @@ msgid "Sold Out"
 msgstr ""
 
 msgid "Proxy contract"
-msgstr ""
-
-msgid "Choose your collection"
 msgstr ""
 
 msgid "Total amount shared among all winners"
@@ -1522,9 +1480,6 @@ msgstr ""
 msgid "Malformed session."
 msgstr ""
 
-msgid "Like / Repost / Comment"
-msgstr ""
-
 msgid "Upload"
 msgstr ""
 
@@ -1556,9 +1511,6 @@ msgid "Post with link"
 msgstr ""
 
 msgid "Your post has published successfully."
-msgstr ""
-
-msgid "Confirming"
 msgstr ""
 
 msgid "Login with Farcaster"
@@ -1613,9 +1565,6 @@ msgid "Verified"
 msgstr ""
 
 msgid "Redirecting..."
-msgstr ""
-
-msgid "Split Mode"
 msgstr ""
 
 msgid "Log in with recovery phrase"
@@ -1718,9 +1667,6 @@ msgid "NFT owner cant bypass the maximum amount of minting specified in the cont
 msgstr ""
 
 msgid "Grant access to your {0} for the Lucky Drop Smart contract. You only have to do this once per token."
-msgstr ""
-
-msgid "Enclose a Message"
 msgstr ""
 
 msgid "Failed to upvote post."
@@ -2071,9 +2017,6 @@ msgstr ""
 msgid "Show more comments"
 msgstr ""
 
-msgid "Equal Amount"
-msgstr ""
-
 msgid "Failed to parse session."
 msgstr ""
 
@@ -2122,16 +2065,10 @@ msgstr ""
 msgid "Top Collectors"
 msgstr ""
 
-msgid "Drop Type"
-msgstr ""
-
 msgid "Quote"
 msgstr ""
 
 msgid "View engagements"
-msgstr ""
-
-msgid "User must follow your account. Note: When you cross-post a Lucky Drop to multiple social networks, following you on any social allows users to claim."
 msgstr ""
 
 msgid "<0>worth ${0}</0><1>at Polymarket</1>"
@@ -2351,9 +2288,6 @@ msgid "will send on {0} at {1}"
 msgstr ""
 
 msgid "Failed to like the post."
-msgstr ""
-
-msgid "Enter the amount that each winner can claim"
 msgstr ""
 
 msgid "Failed to repost."
@@ -2593,12 +2527,6 @@ msgstr ""
 msgid "Enter Amount Each"
 msgstr ""
 
-msgid "Amount"
-msgstr ""
-
-msgid "Total cost"
-msgstr ""
-
 msgid "Submit a wallet to receive NFT"
 msgstr ""
 
@@ -2675,9 +2603,6 @@ msgid "The contract may contain additional issuance functions, which could maybe
 msgstr ""
 
 msgid "Upcoming"
-msgstr ""
-
-msgid "By clicking \"Next\", you acknowledge the risk associated with decentralized networks and beta products."
 msgstr ""
 
 msgid "{handleOrEnsOrAddress} unwatched"
@@ -2950,9 +2875,6 @@ msgstr ""
 msgid "Buy Tax: {0}%"
 msgstr ""
 
-msgid "Customize Lucky Drop sender. Select either Lens or Forecaster usernames, or use the currently connected wallet."
-msgstr ""
-
 msgid "Success!"
 msgstr ""
 
@@ -2974,13 +2896,7 @@ msgstr ""
 msgid "{type, select, comment {Comments} mirror {{0}} reaction {Likes} act {Collects} other {Other}}"
 msgstr ""
 
-msgid "Random"
-msgstr ""
-
 msgid "Unverified: Failed to simulate, <0>try again</0>"
-msgstr ""
-
-msgid "No claims yet for this Lucky Drop"
 msgstr ""
 
 msgid "You may lose your assets if giving approval to the website of this token."
@@ -2993,9 +2909,6 @@ msgid "You can set one or multiple rules to be eligible to win a Lucky Drop."
 msgstr ""
 
 msgid "Your {0} account is now connected."
-msgstr ""
-
-msgid "Use Lucky Drop quests to grow your followers and engagement. Each requirement must be completed to be eligible to claim."
 msgstr ""
 
 msgid "Not Found"
@@ -3137,9 +3050,6 @@ msgid "You can withdraw any unclaimed amount 24 hours after sending this lucky d
 msgstr ""
 
 msgid "your.email@example.org"
-msgstr ""
-
-msgid "Number of Winners"
 msgstr ""
 
 msgid "Unmute"
@@ -3373,9 +3283,6 @@ msgstr ""
 msgid "NFT contract can restrict the approval, resulting in NFT can not be traded on the NFT DEX."
 msgstr ""
 
-msgid "Amount per Share"
-msgstr ""
-
 msgid "<0>You</0> recasted"
 msgstr ""
 
@@ -3566,9 +3473,6 @@ msgid ""
 "Just claimed the \"Holiday Skates with $PENGU⛸️🐧⛸️\" collectible from {fireflyMention}\n"
 "Check your eligibility and claim here {shareUrl}\n"
 "#PENGU #FireflySocial"
-msgstr ""
-
-msgid "Users must hold one NFT from the collection you select."
 msgstr ""
 
 msgid "Are you sure you want to report this user?"
