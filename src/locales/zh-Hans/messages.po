@@ -1392,6 +1392,9 @@ msgstr "关于空投"
 msgid "No financial crime involved."
 msgstr "未识别到金融犯罪。"
 
+msgid "View on Website"
+msgstr ""
+
 msgid "Mint NFT"
 msgstr ""
 
@@ -1922,6 +1925,9 @@ msgstr "<0>当前市值与满足最大供应量时的市值之比。</0><1>Mkt C
 
 msgid "Minting Date"
 msgstr "铸造日期"
+
+msgid "Unsupported Chain"
+msgstr ""
 
 msgid "Failed to create red packet"
 msgstr "创建红包失败"

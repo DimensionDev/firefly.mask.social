@@ -1392,6 +1392,9 @@ msgstr ""
 msgid "No financial crime involved."
 msgstr ""
 
+msgid "View on Website"
+msgstr ""
+
 msgid "Mint NFT"
 msgstr ""
 
@@ -1921,6 +1924,9 @@ msgid "<0>The proportion of current market capitalization compares to market cap
 msgstr ""
 
 msgid "Minting Date"
+msgstr ""
+
+msgid "Unsupported Chain"
 msgstr ""
 
 msgid "Failed to create red packet"

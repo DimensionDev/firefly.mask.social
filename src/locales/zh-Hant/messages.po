@@ -1392,6 +1392,9 @@ msgstr ""
 msgid "No financial crime involved."
 msgstr ""
 
+msgid "View on Website"
+msgstr ""
+
 msgid "Mint NFT"
 msgstr ""
 
@@ -1922,6 +1925,9 @@ msgstr ""
 
 msgid "Minting Date"
 msgstr "鑄造日期"
+
+msgid "Unsupported Chain"
+msgstr ""
 
 msgid "Failed to create red packet"
 msgstr ""
