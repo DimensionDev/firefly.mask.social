@@ -1359,10 +1359,10 @@ msgstr ""
 msgid "Search by name or symbol"
 msgstr ""
 
-msgid "Collected by"
+msgid "Participation Blocked"
 msgstr ""
 
-msgid "Participation Blocked"
+msgid "Collected by"
 msgstr ""
 
 msgid "Forbidden. Please check your permissions."
@@ -3579,7 +3579,8 @@ msgstr ""
 msgid "Collectible"
 msgstr ""
 
-msgid "Just claimed the \"Holiday Skates with $PENGU⛸️🐧⛸️\" collectible from {fireflyMention}\n"
+msgid ""
+"Just claimed the \"Holiday Skates with $PENGU⛸️🐧⛸️\" collectible from {fireflyMention}\n"
 "Check your eligibility and claim here {shareUrl}\n"
 "#PENGU #FireflySocial"
 msgstr ""
@@ -3601,4 +3602,3 @@ msgstr ""
 
 msgid "Golden"
 msgstr ""
-

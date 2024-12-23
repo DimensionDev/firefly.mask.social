@@ -1359,11 +1359,11 @@ msgstr "在帖子中分享"
 msgid "Search by name or symbol"
 msgstr "按名称或符号搜索"
 
-msgid "Collected by"
-msgstr ""
-
 msgid "Participation Blocked"
 msgstr "禁止参与"
+
+msgid "Collected by"
+msgstr ""
 
 msgid "Forbidden. Please check your permissions."
 msgstr "禁止！请检查您的权限。"
@@ -3579,10 +3579,12 @@ msgstr "{0, plural, one {点赞} other {点赞}}"
 msgid "Collectible"
 msgstr "NFT"
 
-msgid "Just claimed the \"Holiday Skates with $PENGU⛸️🐧⛸️\" collectible from {fireflyMention}\n"
+msgid ""
+"Just claimed the \"Holiday Skates with $PENGU⛸️🐧⛸️\" collectible from {fireflyMention}\n"
 "Check your eligibility and claim here {shareUrl}\n"
 "#PENGU #FireflySocial"
-msgstr "刚刚从 {fireflyMention} 领取了“Holiday Skates with $PENGU⛸️🐧⛸️” NFT ！\n"
+msgstr ""
+"刚刚从 {fireflyMention} 领取了“Holiday Skates with $PENGU⛸️🐧⛸️” NFT ！\n"
 "查看您的资格并在此领取：{shareUrl}\n"
 "#PENGU #FireflySocial"
 
@@ -3603,4 +3605,3 @@ msgstr "Blink 验证器"
 
 msgid "Golden"
 msgstr "金色的"
-

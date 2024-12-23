@@ -1354,10 +1354,10 @@ msgstr ""
 msgid "Search by name or symbol"
 msgstr ""
 
-msgid "Collected by"
+msgid "Participation Blocked"
 msgstr ""
 
-msgid "Participation Blocked"
+msgid "Collected by"
 msgstr ""
 
 msgid "Forbidden. Please check your permissions."

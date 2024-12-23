@@ -1354,11 +1354,11 @@ msgstr "Share in a Post"
 msgid "Search by name or symbol"
 msgstr "Search by name or symbol"
 
-msgid "Collected by"
-msgstr "Collected by"
-
 msgid "Participation Blocked"
 msgstr "Participation Blocked"
+
+msgid "Collected by"
+msgstr "Collected by"
 
 msgid "Forbidden. Please check your permissions."
 msgstr "Forbidden. Please check your permissions."
