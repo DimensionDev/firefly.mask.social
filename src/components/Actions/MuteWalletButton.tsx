@@ -31,11 +31,11 @@ export const MuteWalletButton = forwardRef<HTMLButtonElement, Props>(function Mu
             if (isMuted) {
                 const result = await FireflyEndpointProvider.unblockWallet(address);
                 captureMuteEvent(EventId.UNMUTE_SUCCESS, address);
-                enqueueSuccessMessage(t`Muted ${handleOrEnsOrAddress}.`);
+                enqueueSuccessMessage(t`Unmuted ${handleOrEnsOrAddress}.`);
                 return result;
             } else {
                 const result = await FireflyEndpointProvider.blockWallet(address);
-                enqueueSuccessMessage(t`Unmuted ${handleOrEnsOrAddress}.`);
+                enqueueSuccessMessage(t`Muted ${handleOrEnsOrAddress}.`);
                 captureMuteEvent(EventId.MUTE_SUCCESS, address);
                 return result;
             }

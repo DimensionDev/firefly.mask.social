@@ -103,7 +103,7 @@ export default function Page({ searchParams }: PageProps) {
         }
     }, [searchParams]);
 
-    if (loading && searchParams.os === 'web') {
+    if (searchParams.os === 'web') {
         return (
             <div className="absolute inset-0 flex flex-col items-center gap-[178px] bg-white pt-20 dark:bg-black md:pt-[124px]">
                 <Loading />

@@ -23,6 +23,7 @@ export function useRefundCallback(id?: string, overrideChainContext?: ChainConte
             functionName: 'refund',
             address: redpacketContractAddress as Address,
             args: [id],
+            chainId,
         });
 
         await waitForEthereumTransaction(chainId, hash);
