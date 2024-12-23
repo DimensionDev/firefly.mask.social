@@ -19,7 +19,7 @@ export function useParseRedPacket(chainId: ChainId, source: SocialSource, image?
 
     const query = useQuery({
         enabled: !!image,
-        queryKey: ['red-packet', 'parse', source, image, account],
+        queryKey: ['red-packet', 'parse', source, image, account, currentProfile?.profileId],
         queryFn: async () => {
             if (!image) return;
             return FireflyRedPacket.parse({

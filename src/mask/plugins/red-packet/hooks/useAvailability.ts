@@ -31,6 +31,7 @@ export function useAvailability(
                 address: redpacketContractAddress as Address,
                 args: [id],
                 account: account as Address,
+                chainId,
             })) as [string, bigint, bigint, bigint, boolean, bigint];
 
             const [token_address, balance, total, claimed, expired, claimed_amount] = data;

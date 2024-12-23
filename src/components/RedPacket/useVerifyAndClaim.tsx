@@ -41,14 +41,19 @@ export function useVerifyAndClaim(payload: RedPacketJSONPayload, source: SocialS
                 payload.rpid,
                 currentClaimProfile.platform,
                 currentClaimProfile.profileId,
-                currentClaimProfile?.handle,
+                currentClaimProfile.handle,
                 hash,
             );
         }
 
-        await queryClient.refetchQueries({
-            queryKey: ['red-packet', 'claim', payload.rpid],
-        });
+        await Promise.allSettled([
+            queryClient.refetchQueries({
+                queryKey: ['red-packet', 'claim', payload.rpid],
+            }),
+            queryClient.refetchQueries({
+                queryKey: ['red-packet', 'parse', source],
+            }),
+        ]);
 
         const availability = (await readContract(config, {
             abi: HappyRedPacketV4ABI,
@@ -56,6 +61,7 @@ export function useVerifyAndClaim(payload: RedPacketJSONPayload, source: SocialS
             address: redpacketContractAddress as Address,
             args: [payload.rpid],
             account: account as Address,
+            chainId: payload.chainId,
         })) as [string, bigint, bigint, bigint, boolean, bigint];
 
         const claimed_amount = last(availability) as bigint;
@@ -93,8 +99,10 @@ export function useVerifyAndClaim(payload: RedPacketJSONPayload, source: SocialS
         payload.rpid,
         payload.token?.decimals,
         payload.token?.symbol,
+        payload.chainId,
         recheckClaimStatus,
         redpacketContractAddress,
+        source,
     ]);
 
     return [
