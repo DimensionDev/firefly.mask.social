@@ -14,6 +14,7 @@ import {
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
 import { FireflyRedPacketAPI } from '@/providers/red-packet/types.js';
 import { settings } from '@/settings/index.js';
+import { toFixed } from '@/maskbook/packages/web3-shared/base/src/index.js';
 
 const SITE_URL = bom.location?.origin ?? '';
 
@@ -52,7 +53,7 @@ export class FireflyRedPacket {
                 'theme-id': theme.tid,
                 usage: 'payload',
                 from,
-                amount,
+                amount: toFixed(amount),
                 type,
                 symbol,
                 decimals,
@@ -131,11 +132,11 @@ export class FireflyRedPacket {
                 symbol,
                 decimals,
                 shares,
-                amount,
+                amount: toFixed(amount),
                 from,
                 message,
-                'remaining-amount': remainingAmount,
-                'remaining-shares': remainingShares,
+                'remaining-amount': toFixed(remainingAmount),
+                'remaining-shares': toFixed(remainingShares),
             }),
         };
     }

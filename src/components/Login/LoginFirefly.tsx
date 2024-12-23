@@ -19,6 +19,7 @@ import { createAccountByGrantPermission } from '@/providers/firefly/createAccoun
 import type { Account } from '@/providers/types/Account.js';
 import { addAccount } from '@/services/account.js';
 import { DeviceType } from '@/types/device.js';
+import { Link } from '@/esm/Link.js';
 
 async function login(createAccount: () => Promise<Account>, options?: { signal?: AbortSignal }) {
     try {
@@ -106,8 +107,15 @@ export function LoginFirefly(props: LoginFireflyProps) {
                 <div className="relative flex w-full flex-col items-center gap-3">
                     <div className="text-center text-[12px] leading-[16px] text-lightSecond">
                         <Trans>
-                            Scan the QR code with the <span className="font-bold">Firefly mobile app</span> or{' '}
-                            <span className="font-bold">Camera app</span> to log in instantly.
+                            Scan the QR code with the{' '}
+                            <Link
+                                href="https://firefly.social/#download"
+                                className="font-bold hover:underline"
+                                target="_blank"
+                            >
+                                Firefly mobile app
+                            </Link>{' '}
+                            or <span className="font-bold">Camera app</span> to log in instantly
                         </Trans>
                     </div>
                     {url ? (

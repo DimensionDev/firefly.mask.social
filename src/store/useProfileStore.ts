@@ -1,3 +1,4 @@
+'use client';
 import { getSession } from 'next-auth/react';
 import { create } from 'zustand';
 import { persist, type PersistOptions } from 'zustand/middleware';
@@ -36,6 +37,8 @@ import type { ThirdPartySessionType } from '@/providers/types/ThirdParty.js';
 import { addAccount } from '@/services/account.js';
 import { bindOrRestoreFireflySession } from '@/services/bindFireflySession.js';
 import { restoreFireflySessionAll } from '@/services/restoreFireflySession.js';
+import { enqueueMessageFromError, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
+import { t } from '@lingui/macro';
 
 export interface ProfileState {
     // indicate the store is ready or not
@@ -359,7 +362,7 @@ const useThirdPartyStateBase = createState(
 
             try {
                 const session = (await getSession()) as unknown as ThirdPartySessionType;
-                if (!session.user || session.type === SessionType.Twitter) return;
+                if (!session?.user || session.type === SessionType.Twitter) return;
 
                 const thirdPartySession = session.user?.id
                     ? new ThirdPartySession(
@@ -410,7 +413,10 @@ const useThirdPartyStateBase = createState(
                         skipUploadFireflySession: !foundNewSessionFromServer,
                     },
                 );
+
+                enqueueSuccessMessage(t`Your ${session.type} account is now connected`);
             } catch (error) {
+                enqueueMessageFromError(error, t`Oops... Something went wrong. Please try again`);
                 if (error instanceof FetchError) return;
                 state.clear();
                 thirdPartySessionHolder.removeSession();

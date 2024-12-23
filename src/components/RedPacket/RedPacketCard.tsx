@@ -38,6 +38,7 @@ import { ComposeModalRef } from '@/modals/controls.js';
 import { type RedPacketJSONPayload, RedPacketStatus } from '@/providers/red-packet/types.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 import { TokenType } from '@/types/rp.js';
+import { Loading } from '@/components/Loading.js';
 
 // @ts-ignore
 export const HelveticaFont = localFont({
@@ -57,7 +58,7 @@ function Timer({ endTime }: { endTime: number }) {
     );
     if (isExpired || !timeLeft) return null;
     return (
-        <div className="flex w-[150px] items-center justify-center gap-[6px] rounded-full bg-[#E8E8FF] px-[13px] py-[7px] opacity-75 backdrop-blur-[5px]">
+        <div className="flex items-center justify-center gap-[6px] text-nowrap rounded-full bg-[#E8E8FF] px-[13px] py-[7px] opacity-75 backdrop-blur-[5px]">
             <HourGlassIcon width={12} height={12} />
             <span className="flex-1 text-xs leading-4">
                 <Trans>
@@ -136,7 +137,7 @@ export function RedPacketCard({ payload, post }: Props) {
             type: 'compose',
             chars: [
                 !isClaimed
-                    ? t`🤑 Check this #FireflyLuckyDrop 🧧💰✨ on ${postUrl} !`
+                    ? t`🤑 Check this #FireflyLuckyDrop 🧧💰✨ on ${postUrl} from @${post.author.handle}!`
                     : t`🤑 Just claimed a #FireflyLuckyDrop 🧧💰✨ on ${postUrl} from @${post.author.handle}!`,
                 ' \n\n Grow your followers and engagement with Lucky Drop on Firefly!',
             ],
@@ -285,7 +286,9 @@ export function RedPacketCard({ payload, post }: Props) {
                         }}
                     />
                 </>
-            ) : null}
+            ) : (
+                <Loading className="!min-h-[338px]" />
+            )}
 
             {requirementOpen ? (
                 <RequirementsModal

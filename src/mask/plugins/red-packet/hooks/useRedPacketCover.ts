@@ -6,6 +6,7 @@ import urlcat from 'urlcat';
 import { bom } from '@/helpers/bom.js';
 import { FireflyRedPacket } from '@/providers/red-packet/index.js';
 import type { FireflyRedPacketAPI, RedPacketJSONPayload } from '@/providers/red-packet/types.js';
+import { BigNumber } from 'bignumber.js';
 
 /** pass rpid or themeId */
 export interface RedPacketCoverOptions {
@@ -61,7 +62,7 @@ export function useRedPacketCover({
                     symbol: token?.symbol ?? '--',
                     decimals: token?.decimals ?? 1,
                     shares,
-                    amount: total,
+                    amount: toFixed(total),
                     from: [isValidAddress, isValidDomain, (n: string) => n.startsWith('@')].some((f) => f(name))
                         ? name
                         : `@${name}`,

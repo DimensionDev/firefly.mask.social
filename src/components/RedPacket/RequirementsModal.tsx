@@ -79,14 +79,6 @@ const IconMap: Record<
     collect: NFTHolder,
 };
 
-export const TitleMap = {
-    like: t`Like`,
-    repost: t`Repost`,
-    quote: t`Repost`,
-    comment: t`Comment`,
-    collect: t`NFT holder`,
-};
-
 interface RequirementsModalProps {
     open: boolean;
     post: Post;
@@ -107,6 +99,14 @@ export function RequirementsModal({
     onClose,
     onVerifyAndClaim,
 }: RequirementsModalProps) {
+    const TitleMap = {
+        like: t`Like`,
+        repost: t`Repost`,
+        quote: t`Repost`,
+        comment: t`Comment`,
+        collect: t`NFT holder`,
+    };
+
     const requirements = useMemo(() => {
         const orders = getEnumAsArray(FireflyRedPacketAPI.StrategyType).map((x) => x.value);
         return sortBy(claimStrategyStatus, (x) => orders.indexOf(x.type as FireflyRedPacketAPI.StrategyType));
