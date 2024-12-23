@@ -66,7 +66,6 @@ if [ -f "package.json" ]; then
   echo "Vercel ENV: $VERCEL_ENV" >> "$output_file"
   echo "Blink: $NEXT_PUBLIC_BLINK" >> "$output_file"
   echo "Frame: $NEXT_PUBLIC_FRAME" >> "$output_file"
-  echo "Mask Web Components: $NEXT_PUBLIC_MASK_WEB_COMPONENTS" >> "$output_file"
   echo "Build Time: $build_time" >> "$output_file"
   echo "Node.js Version: $node_version" >> "$output_file"
   echo "PNPM Version: $pnpm_version" >> "$output_file"

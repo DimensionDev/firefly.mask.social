@@ -90,9 +90,6 @@ export const PostBodyContent = forwardRef<HTMLDivElement, PostBodyContentProps>(
         // decode the image upon post viewing, to reduce unnecessary load of images
         if (!seen) return;
 
-        // mask web components are disabled
-        if (env.external.NEXT_PUBLIC_MASK_WEB_COMPONENTS === STATUS.Disabled) return;
-
         return {
             payloadFromText: getEncryptedPayloadFromText(postRawContent),
             payloadFromImageAttachment: await getEncryptedPayloadFromImageAttachment(attachments),
