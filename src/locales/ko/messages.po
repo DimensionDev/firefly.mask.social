@@ -546,9 +546,6 @@ msgstr ""
 msgid "Failed to report @{0}"
 msgstr ""
 
-msgid "Plugin is loading..."
-msgstr ""
-
 msgid "Restricted approval."
 msgstr ""
 

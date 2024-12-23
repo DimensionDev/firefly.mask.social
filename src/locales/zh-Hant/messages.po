@@ -546,9 +546,6 @@ msgstr "作者已經被您靜音"
 msgid "Failed to report @{0}"
 msgstr "檢舉 @{0} 失敗"
 
-msgid "Plugin is loading..."
-msgstr ""
-
 msgid "Restricted approval."
 msgstr ""
 

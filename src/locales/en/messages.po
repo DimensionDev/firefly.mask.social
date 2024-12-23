@@ -541,9 +541,6 @@ msgstr "The author is muted by you."
 msgid "Failed to report @{0}"
 msgstr "Failed to report @{0}"
 
-msgid "Plugin is loading..."
-msgstr "Plugin is loading..."
-
 msgid "Restricted approval."
 msgstr "Restricted approval."
 

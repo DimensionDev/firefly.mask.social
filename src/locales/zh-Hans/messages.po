@@ -546,9 +546,6 @@ msgstr "此作者已被隐藏。"
 msgid "Failed to report @{0}"
 msgstr "举报 @{0} 失败"
 
-msgid "Plugin is loading..."
-msgstr "插件加载中..."
-
 msgid "Restricted approval."
 msgstr "限制性批准。"
 
