@@ -6,7 +6,6 @@ import urlcat from 'urlcat';
 import { bom } from '@/helpers/bom.js';
 import { FireflyRedPacket } from '@/providers/red-packet/index.js';
 import type { FireflyRedPacketAPI, RedPacketJSONPayload } from '@/providers/red-packet/types.js';
-import { BigNumber } from 'bignumber.js';
 
 /** pass rpid or themeId */
 export interface RedPacketCoverOptions {

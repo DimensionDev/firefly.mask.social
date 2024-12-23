@@ -703,11 +703,17 @@ msgstr "Calendar"
 msgid "Watch"
 msgstr "Watch"
 
+msgid "🤑 Check this #FireflyLuckyDrop 🧧💰✨ on {postUrl} from @{0}!"
+msgstr "🤑 Check this #FireflyLuckyDrop 🧧💰✨ on {postUrl} from @{0}!"
+
 msgid "Suspected malicious address."
 msgstr "Suspected malicious address."
 
 msgid "Honeypot related address found."
 msgstr "Honeypot related address found."
+
+msgid "Your {0} account is now connected"
+msgstr "Your {0} account is now connected"
 
 msgid "Time Out"
 msgstr "Time Out"
@@ -1213,6 +1219,9 @@ msgstr "Owned By"
 msgid "Are you sure you want to report this post?"
 msgstr "Are you sure you want to report this post?"
 
+msgid "Oops... Something went wrong. Please try again"
+msgstr "Oops... Something went wrong. Please try again"
+
 msgid "No fake KYC found."
 msgstr "No fake KYC found."
 
@@ -1441,9 +1450,6 @@ msgstr "Allow replies from"
 msgid "No one likes this post yet."
 msgstr "No one likes this post yet."
 
-msgid "<0>Claimed: </0><1>{claim_numbers}/{total_numbers}</1> <2>{0}/{1}</2> <3>{token_symbol}</3>"
-msgstr "<0>Claimed: </0><1>{claim_numbers}/{total_numbers}</1> <2>{0}/{1}</2> <3>{token_symbol}</3>"
-
 msgid "Your posts have published successfully on {0}."
 msgstr "Your posts have published successfully on {0}."
 
@@ -1501,6 +1507,9 @@ msgstr "Post was deleted"
 msgid "Website"
 msgstr "Website"
 
+msgid "Your TG account is now connected"
+msgstr "Your TG account is now connected"
+
 msgid "Failed to report @{0}."
 msgstr "Failed to report @{0}."
 
@@ -1542,6 +1551,9 @@ msgstr "This article is no longer available"
 
 msgid "Report article"
 msgstr "Report article"
+
+msgid "Scan the QR code with the <0>Firefly mobile app</0> or <1>Camera app</1> to log in instantly"
+msgstr "Scan the QR code with the <0>Firefly mobile app</0> or <1>Camera app</1> to log in instantly"
 
 msgid "Everyone"
 msgstr "Everyone"
@@ -2046,9 +2058,6 @@ msgstr "Share"
 
 msgid "Transaction Simulation"
 msgstr "Transaction Simulation"
-
-msgid "Scan the QR code with the <0>Firefly mobile app</0> or <1>Camera app</1> to log in instantly."
-msgstr "Scan the QR code with the <0>Firefly mobile app</0> or <1>Camera app</1> to log in instantly."
 
 msgid "Remaining"
 msgstr "Remaining"
@@ -2607,9 +2616,6 @@ msgstr "Upcoming"
 
 msgid "{handleOrEnsOrAddress} unwatched"
 msgstr "{handleOrEnsOrAddress} unwatched"
-
-msgid "🤑 Check this #FireflyLuckyDrop 🧧💰✨ on {postUrl} !"
-msgstr "🤑 Check this #FireflyLuckyDrop 🧧💰✨ on {postUrl} !"
 
 msgid "Saved on {0} at {1}"
 msgstr "Saved on {0} at {1}"
@@ -3258,6 +3264,9 @@ msgstr "The contract owner has restrictions on trading cooldown."
 
 msgid "Sign to enable signless"
 msgstr "Sign to enable signless"
+
+msgid "<0>Claimed: </0><1>{claim_numbers}/{total_numbers}</1><2>{0}/{1}</2><3>{token_symbol}</3>"
+msgstr "<0>Claimed: </0><1>{claim_numbers}/{total_numbers}</1><2>{0}/{1}</2><3>{token_symbol}</3>"
 
 msgid "Profiles"
 msgstr "Profiles"

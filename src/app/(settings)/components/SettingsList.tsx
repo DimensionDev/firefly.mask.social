@@ -3,7 +3,7 @@
 import { Trans } from '@lingui/macro';
 
 import { TextLink } from '@/app/(settings)/components/TextLink.js';
-import { useIsLogin, useIsLoginFirefly } from '@/hooks/useIsLogin.js';
+import { useIsLoginFirefly } from '@/hooks/useIsLogin.js';
 import { useMuteMenuList } from '@/hooks/useMuteMenuList.js';
 
 export function SettingsList() {

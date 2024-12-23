@@ -1,6 +1,7 @@
 'use client';
 
 import { t, Trans } from '@lingui/macro';
+import { delay } from '@masknet/kit';
 import dayjs from 'dayjs';
 import { useRouter } from 'next/navigation.js';
 import { useMemo } from 'react';
@@ -10,6 +11,7 @@ import FullLogo from '@/assets/logo-full.svg';
 import { Loading } from '@/components/Loading.js';
 import { OpenFireflyAppButton } from '@/components/OpenFireflyAppButton.js';
 import { Source } from '@/constants/enum.js';
+import { enqueueMessageFromError, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { isSameSession } from '@/helpers/isSameSession.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 import { ThirdPartySession } from '@/providers/third-party/Session.js';
@@ -18,8 +20,6 @@ import { addAccount } from '@/services/account.js';
 import { bindOrRestoreFireflySession } from '@/services/bindFireflySession.js';
 import { useThirdPartyStateStore } from '@/store/useProfileStore.js';
 import { DeviceType } from '@/types/device.js';
-import { enqueueMessageFromError, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
-import { delay } from '@masknet/kit';
 
 interface PageProps {
     searchParams: { token?: string; os?: string };
