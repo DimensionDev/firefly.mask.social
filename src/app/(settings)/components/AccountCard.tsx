@@ -20,6 +20,7 @@ import { isSameProfile, toProfileId } from '@/helpers/isSameProfile.js';
 import { useConnectedAccounts } from '@/hooks/useConnectedAccounts.js';
 import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
 import { useProfileStoreAll } from '@/hooks/useProfileStore.js';
+import { isSameAddress } from '@/maskbook/packages/web3-shared/base/src/index.js';
 import { DisconnectFireflyAccountModalRef, LoginModalRef, LogoutModalRef } from '@/modals/controls.js';
 import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
 import type { Account } from '@/providers/types/Account.js';
@@ -99,7 +100,11 @@ export function AccountCard({ source }: AccountCardProps) {
             if (!profiles) return EMPTY_LIST;
             const { accounts } = getProfileState(Source.Lens);
             return profiles
-                .filter((x) => !accounts.some((y) => isSameProfile(x, y.profile)))
+                .filter((x) => {
+                    return (
+                        !accounts.some((y) => isSameProfile(x, y.profile)) && isSameAddress(x.address, account.address)
+                    );
+                })
                 .map((x) => ({ profile: x, session: null }));
         },
     });
