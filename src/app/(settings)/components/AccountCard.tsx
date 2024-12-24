@@ -24,6 +24,7 @@ import { DisconnectFireflyAccountModalRef, LoginModalRef, LogoutModalRef } from 
 import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
 import type { Account } from '@/providers/types/Account.js';
 import { switchAccount } from '@/services/account.js';
+import { isSameAddress } from '@/maskbook/packages/web3-shared/base/src/index.js';
 
 interface AccountCardProps {
     source: SocialSource;
@@ -99,7 +100,11 @@ export function AccountCard({ source }: AccountCardProps) {
             if (!profiles) return EMPTY_LIST;
             const { accounts } = getProfileState(Source.Lens);
             return profiles
-                .filter((x) => !accounts.some((y) => isSameProfile(x, y.profile)))
+                .filter((x) => {
+                    return (
+                        !accounts.some((y) => isSameProfile(x, y.profile)) && isSameAddress(x.address, account.address)
+                    );
+                })
                 .map((x) => ({ profile: x, session: null }));
         },
     });
