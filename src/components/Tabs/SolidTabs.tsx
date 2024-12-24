@@ -16,7 +16,7 @@ interface SolidTabsProps<T> {
 export function SolidTabs<T = unknown>({ data, link, isSelected, itemRender, onChange }: SolidTabsProps<T>) {
     return (
         <div>
-            <ul className="no-scrollbar relative inline-flex h-10 max-w-full items-center overflow-y-auto rounded-md border border-lightLineSecond bg-lightBottom px-[5px] py-1 dark:bg-darkBottom">
+            <ul className="no-scrollbar relative inline-flex h-10 max-w-full items-center overflow-y-auto rounded-md border border-secondaryLine bg-lightBottom px-[5px] py-1 dark:bg-darkBottom">
                 {data.map((value, index) => {
                     const isActive = isSelected(value);
                     const className = classNames(

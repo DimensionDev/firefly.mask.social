@@ -1353,6 +1353,9 @@ msgstr ""
 msgid "No financial crime involved."
 msgstr ""
 
+msgid "Club"
+msgstr ""
+
 msgid "Follow"
 msgstr ""
 
@@ -3268,6 +3271,9 @@ msgid "FREE"
 msgstr ""
 
 msgid "Unmuted {walletHandle}."
+msgstr ""
+
+msgid "Club {id} could not be found."
 msgstr ""
 
 msgid "Ignore the warnings to continue"
