@@ -14,9 +14,9 @@ import { SORTED_SOCIAL_SOURCES } from '@/constants/index.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { useAccountsAll } from '@/hooks/useAccounts.js';
 import { useCurrentProfileAll } from '@/hooks/useCurrentProfile.js';
+import { useIsLoginFirefly } from '@/hooks/useIsLogin.js';
 import { useNavigatorTitle } from '@/hooks/useNavigatorTitle.js';
 import { LoginModalRef, LogoutModalRef } from '@/modals/controls.js';
-import { useIsLoginFirefly } from '@/hooks/useIsLogin.js';
 
 export default function Connected() {
     const isLogin = useIsLoginFirefly();
