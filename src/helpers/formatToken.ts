@@ -2,8 +2,8 @@ import { type FungibleToken, TokenType } from '@masknet/web3-shared-base';
 import { type ChainId, SchemaType, ZERO_ADDRESS } from '@masknet/web3-shared-evm';
 import { isAddress } from 'viem';
 
-import type { Token } from '@/providers/types/Transfer.js';
 import { isNativeToken } from '@/providers/ethereum/isNativeToken.js';
+import type { Token } from '@/providers/types/Transfer.js';
 
 export function formatDebankTokenToFungibleToken(token: Token): FungibleToken<ChainId, SchemaType> {
     // it is not a valid address if its native token
