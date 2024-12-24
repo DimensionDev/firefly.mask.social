@@ -24,7 +24,7 @@ export function ActivityConnectCard({
                 'flex w-full flex-col space-y-2 rounded-2xl p-3 text-sm font-normal leading-6',
                 address ? 'bg-success/10 dark:bg-success/20' : 'bg-bg',
                 {
-                    'sm:flex-row sm:items-center sm:space-y-0': !address,
+                    'md:flex-row md:items-center md:space-y-0': !address,
                 },
             )}
         >
