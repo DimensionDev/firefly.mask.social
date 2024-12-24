@@ -2,7 +2,7 @@ import { useRedPacketConstants } from '@masknet/web3-shared-evm';
 import { produce } from 'immer';
 import { useAsyncFn } from 'react-use';
 import type { Address } from 'viem';
-import { writeContract } from 'wagmi/actions';
+import { getChainId, switchChain, writeContract } from 'wagmi/actions';
 
 import { queryClient } from '@/configs/queryClient.js';
 import { config } from '@/configs/wagmiClient.js';
@@ -17,6 +17,9 @@ export function useRefundCallback(id?: string, overrideChainContext?: ChainConte
 
     return useAsyncFn(async () => {
         if (!redpacketContractAddress || !id) return;
+
+        const globalChainId = getChainId(config);
+        if (globalChainId !== chainId) await switchChain(config, { chainId });
 
         const hash = await writeContract(config, {
             abi: HappyRedPacketV4ABI,

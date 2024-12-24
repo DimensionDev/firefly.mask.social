@@ -1497,6 +1497,9 @@ msgstr "登录失败。"
 msgid "Network"
 msgstr "网络"
 
+msgid "Claim on {0}:"
+msgstr ""
+
 msgid "Unlike"
 msgstr "取消点赞"
 
@@ -1781,6 +1784,9 @@ msgstr "设置"
 
 msgid "Font Color"
 msgstr "字体颜色"
+
+msgid "Grow your followers and engagement with Lucky Drop on Firefly!"
+msgstr ""
 
 msgid "Unsent posts"
 msgstr "未发送的帖子"

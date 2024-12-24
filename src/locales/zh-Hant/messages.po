@@ -1497,6 +1497,9 @@ msgstr "登入失敗."
 msgid "Network"
 msgstr ""
 
+msgid "Claim on {0}:"
+msgstr ""
+
 msgid "Unlike"
 msgstr "取消按讚"
 
@@ -1780,6 +1783,9 @@ msgid "Settings"
 msgstr "設定"
 
 msgid "Font Color"
+msgstr ""
+
+msgid "Grow your followers and engagement with Lucky Drop on Firefly!"
 msgstr ""
 
 msgid "Unsent posts"
