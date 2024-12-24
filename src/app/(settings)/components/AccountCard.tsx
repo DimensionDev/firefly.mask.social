@@ -20,11 +20,11 @@ import { isSameProfile, toProfileId } from '@/helpers/isSameProfile.js';
 import { useConnectedAccounts } from '@/hooks/useConnectedAccounts.js';
 import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
 import { useProfileStoreAll } from '@/hooks/useProfileStore.js';
+import { isSameAddress } from '@/maskbook/packages/web3-shared/base/src/index.js';
 import { DisconnectFireflyAccountModalRef, LoginModalRef, LogoutModalRef } from '@/modals/controls.js';
 import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
 import type { Account } from '@/providers/types/Account.js';
 import { switchAccount } from '@/services/account.js';
-import { isSameAddress } from '@/maskbook/packages/web3-shared/base/src/index.js';
 
 interface AccountCardProps {
     source: SocialSource;
