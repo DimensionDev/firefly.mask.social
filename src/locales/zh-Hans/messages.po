@@ -786,6 +786,9 @@ msgstr "图片或者视频上传失败。"
 msgid "{addressName} is already connected."
 msgstr "{addressName} 已经连接。"
 
+msgid "Unknow status"
+msgstr ""
+
 msgid "{minutes, plural, one {1 minute left} other {{minutes} minutes left}}"
 msgstr "{minutes, plural, one {1 分钟剩余} other {{minutes} 分钟剩余}}"
 
@@ -1551,6 +1554,9 @@ msgstr "登录失败。"
 msgid "Network"
 msgstr "网络"
 
+msgid "Failed to mint NFT."
+msgstr ""
+
 msgid "Unlike"
 msgstr "取消点赞"
 
@@ -1712,6 +1718,9 @@ msgstr "视频上传失败。"
 
 msgid "NFT contract cant restrict the approval, resulting in NFT can not be traded on the NFT DEX."
 msgstr "NFT 合约无法限制授权，导致NFT无法在NFT去中心化交易所（DEX）上交易。"
+
+msgid "NFT minted successfully!"
+msgstr ""
 
 msgid "<0>Collected</0> a POAP"
 msgstr "<0>已收集</0>一个 POAP"
@@ -2517,6 +2526,9 @@ msgstr "完整的"
 msgid "Powered by"
 msgstr "技术支持来自"
 
+msgid "So sorry, we are not able to mint this NFT at the moment."
+msgstr ""
+
 msgid "<0>{0}</0> mirrored"
 msgstr "<0>{0}</0> 已转发"
 
@@ -3306,6 +3318,9 @@ msgstr "下载应用"
 msgid "Failed to fetch the latest state after several attempts. Please try again later."
 msgstr "获取状态失败。请稍后重试。"
 
+msgid "So sorry, we cant mint this NFT with the current status: {0}"
+msgstr ""
+
 msgid "Profile"
 msgstr "个人信息"
 
@@ -3545,6 +3560,9 @@ msgstr "更新定时任务失败"
 
 msgid "Login"
 msgstr "登录"
+
+msgid "Mint failed"
+msgstr ""
 
 msgid "Replying to <0>@{0}</0> on {1}"
 msgstr "在 {1} 上回复 <0>@{0}</0>"

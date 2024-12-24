@@ -781,6 +781,9 @@ msgstr ""
 msgid "{addressName} is already connected."
 msgstr ""
 
+msgid "Unknow status"
+msgstr ""
+
 msgid "{minutes, plural, one {1 minute left} other {{minutes} minutes left}}"
 msgstr ""
 
@@ -1546,6 +1549,9 @@ msgstr ""
 msgid "Network"
 msgstr ""
 
+msgid "Failed to mint NFT."
+msgstr ""
+
 msgid "Unlike"
 msgstr ""
 
@@ -1706,6 +1712,9 @@ msgid "There are videos that were not uploaded successfully."
 msgstr ""
 
 msgid "NFT contract cant restrict the approval, resulting in NFT can not be traded on the NFT DEX."
+msgstr ""
+
+msgid "NFT minted successfully!"
 msgstr ""
 
 msgid "<0>Collected</0> a POAP"
@@ -2512,6 +2521,9 @@ msgstr ""
 msgid "Powered by"
 msgstr ""
 
+msgid "So sorry, we are not able to mint this NFT at the moment."
+msgstr ""
+
 msgid "<0>{0}</0> mirrored"
 msgstr ""
 
@@ -3301,6 +3313,9 @@ msgstr ""
 msgid "Failed to fetch the latest state after several attempts. Please try again later."
 msgstr ""
 
+msgid "So sorry, we cant mint this NFT with the current status: {0}"
+msgstr ""
+
 msgid "Profile"
 msgstr ""
 
@@ -3539,6 +3554,9 @@ msgid "Failed to update scheduled post."
 msgstr ""
 
 msgid "Login"
+msgstr ""
+
+msgid "Mint failed"
 msgstr ""
 
 msgid "Replying to <0>@{0}</0> on {1}"
