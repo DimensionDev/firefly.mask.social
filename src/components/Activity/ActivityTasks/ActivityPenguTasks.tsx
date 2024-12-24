@@ -18,6 +18,7 @@ import { useActivityPremiumList } from '@/components/Activity/hooks/useActivityP
 import { useActivityShareUrl } from '@/components/Activity/hooks/useActivityShareUrl.js';
 import { useIsFollowInActivity } from '@/components/Activity/hooks/useIsFollowInActivity.js';
 import { Link } from '@/components/Activity/Link.js';
+import { IS_ANDROID } from '@/constants/bowser.js';
 import { Source } from '@/constants/enum.js';
 import { FIREFLY_MENTION, FIREFLY_TWITTER_PROFILE, PUDGY_PENGUINS_TWITTER_PROFILE } from '@/constants/mentions.js';
 import { type Chars } from '@/helpers/chars.js';
@@ -150,7 +151,12 @@ Submit here ${shareUrl}
                     </ActivityPremiumConditionList>
                 </div>
             </div>
-            <div className="sticky bottom-0 mt-auto w-full bg-primaryBottom px-4 pt-1.5 pb-safe-or-4 sm:pb-safe-or-2">
+            <div
+                className={classNames(
+                    'sticky bottom-0 mt-auto w-full bg-primaryBottom px-4 pt-1.5',
+                    IS_ANDROID ? 'pb-safe-or-24 md:pb-safe-or-2' : 'pb-safe-or-4 md:pb-safe-or-2',
+                )}
+            >
                 <ActivityClaimButton
                     status={data.status}
                     shareContent={shareContent as Chars}
