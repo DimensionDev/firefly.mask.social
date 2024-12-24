@@ -111,6 +111,7 @@ export function useVerifyAndClaim(payload: RedPacketJSONPayload, source: SocialS
         enqueueSuccessMessage(t`Claimed lucky drop with ${amount} ${payload.token?.symbol} successfully`);
         return true;
     }, [
+        post,
         account,
         claimCallback,
         currentClaimProfile?.handle,
