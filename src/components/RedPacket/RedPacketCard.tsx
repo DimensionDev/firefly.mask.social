@@ -235,7 +235,7 @@ export function RedPacketCard({ payload, post }: Props) {
                             <div className="mb-2 line-clamp-2 max-w-[100%] text-[20px] font-bold">
                                 {payload.sender.message}
                             </div>
-                            <div className="text-[15px] opacity-80">@{payload.sender.name}</div>
+                            <div className="text-[15px] opacity-80">@{payload.sender.name.replace(/^@/, '')}</div>
                         </div>
 
                         {cover && payload.token && availability ? (
