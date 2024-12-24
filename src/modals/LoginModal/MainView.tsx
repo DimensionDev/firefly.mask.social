@@ -50,8 +50,6 @@ export function MainView() {
                 default:
                     safeUnreachable(source);
             }
-        } catch (error) {
-            throw error;
         } finally {
             setSelectedSource(undefined);
         }
