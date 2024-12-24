@@ -154,7 +154,7 @@ Submit here ${shareUrl}
             <div
                 className={classNames(
                     'sticky bottom-0 mt-auto w-full bg-primaryBottom px-4 pt-1.5',
-                    IS_ANDROID ? 'pb-safe-or-24 md:pb-safe-or-2' : 'pb-safe-or-4 md:pb-safe-or-2',
+                    IS_ANDROID ? 'pb-safe-or-12 md:pb-safe-or-2' : 'pb-safe-or-4 md:pb-safe-or-2',
                 )}
             >
                 <ActivityClaimButton
