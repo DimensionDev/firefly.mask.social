@@ -1353,6 +1353,9 @@ msgstr "关于空投"
 msgid "No financial crime involved."
 msgstr "未识别到金融犯罪。"
 
+msgid "Club"
+msgstr ""
+
 msgid "Follow"
 msgstr "关注"
 
@@ -3269,6 +3272,9 @@ msgstr "免费"
 
 msgid "Unmuted {walletHandle}."
 msgstr "取消屏蔽 {walletHandle}。"
+
+msgid "Club {id} could not be found."
+msgstr ""
 
 msgid "Ignore the warnings to continue"
 msgstr "忽略警告以继续"

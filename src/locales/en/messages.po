@@ -1348,6 +1348,9 @@ msgstr "About Airdrop"
 msgid "No financial crime involved."
 msgstr "No financial crime involved."
 
+msgid "Club"
+msgstr "Club"
+
 msgid "Follow"
 msgstr "Follow"
 
@@ -3264,6 +3267,9 @@ msgstr "FREE"
 
 msgid "Unmuted {walletHandle}."
 msgstr "Unmuted {walletHandle}."
+
+msgid "Club {id} could not be found."
+msgstr "Club {id} could not be found."
 
 msgid "Ignore the warnings to continue"
 msgstr "Ignore the warnings to continue"
