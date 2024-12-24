@@ -126,6 +126,7 @@ export function useCreateFTRedPacketCallback(
                 args: params,
                 value: BigInt(value),
                 account: account as Address,
+                chainId,
             });
             if (!result) return;
 
