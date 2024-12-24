@@ -1,19 +1,19 @@
 import { Trans } from '@lingui/macro';
 import { BigNumber } from 'bignumber.js';
 import { type HTMLProps, memo } from 'react';
-import { useEstimateFeesPerGas } from 'wagmi';
 
 import { ChainIcon } from '@/components/NFTDetail/ChainIcon.js';
 import { chains } from '@/configs/wagmiClient.js';
 import { classNames } from '@/helpers/classNames.js';
 import { formatPrice, renderShrankPrice } from '@/helpers/formatPrice.js';
-import { leftShift, multipliedBy, plus, ZERO } from '@/helpers/number.js';
-import { EVMChainResolver } from '@/mask/bindings/index.js';
-import type { MintMetadata, NFTAsset } from '@/providers/types/Firefly.js';
+import { leftShift, multipliedBy, plus } from '@/helpers/number.js';
+import type { MintMetadata } from '@/providers/types/Firefly.js';
 
 interface MintParamsPanelProps extends HTMLProps<HTMLUListElement> {
-    nft: NFTAsset;
     mintParams: MintMetadata;
+    mintCount: number;
+    isLoading?: boolean;
+    gasFee: BigNumber.Value;
 }
 
 function renderPrice(price: BigNumber.Value, decimals = 18, symbol?: string) {
@@ -25,27 +25,19 @@ function renderPrice(price: BigNumber.Value, decimals = 18, symbol?: string) {
     );
 }
 
-export const MintParamsPanel = memo<MintParamsPanelProps>(function MintParamsPanel({ nft, mintParams, className }) {
+export const MintParamsPanel = memo<MintParamsPanelProps>(function MintParamsPanel({
+    mintParams,
+    mintCount,
+    isLoading = false,
+    gasFee,
+    className,
+}) {
     const chain = chains.find((chain) => chain.id === mintParams.chainId);
     const { decimals, symbol } = chain?.nativeCurrency || {};
     const isFree = mintParams.gasStatus === true;
 
-    const isEIP1559 = EVMChainResolver.isFeatureSupported(mintParams.chainId, 'EIP1559');
-    const { data, isLoading } = useEstimateFeesPerGas({
-        chainId: mintParams.chainId,
-        type: isEIP1559 ? 'eip1559' : 'legacy',
-    });
-
-    const gasLimit = mintParams.txData.gasLimit || '0';
-    const gasFee = isEIP1559
-        ? !data?.maxFeePerGas
-            ? ZERO
-            : multipliedBy(data.maxFeePerGas.toString(), gasLimit)
-        : !data?.gasPrice
-          ? ZERO
-          : multipliedBy(data.gasPrice.toString(), gasLimit);
-
-    const totalCost = plus(mintParams.mintPrice || '0', mintParams.platformFee || '0').plus(gasFee);
+    const mintPrice = multipliedBy(mintParams.mintPrice || '0', mintCount);
+    const totalCost = plus(mintPrice, mintParams.platformFee || '0').plus(gasFee);
 
     return (
         <ul className={classNames('flex w-full flex-col gap-3 text-base text-main', className)}>
@@ -65,7 +57,7 @@ export const MintParamsPanel = memo<MintParamsPanelProps>(function MintParamsPan
                     <Trans>Mint price</Trans>
                 </span>
                 <span className="text-lightSecond">
-                    {isFree ? <Trans>FREE</Trans> : renderPrice(mintParams.mintPrice || '0', decimals, symbol)}
+                    {isFree ? <Trans>FREE</Trans> : renderPrice(mintPrice, decimals, symbol)}
                 </span>
             </li>
             <li className="flex w-full items-center justify-between">
@@ -78,12 +70,7 @@ export const MintParamsPanel = memo<MintParamsPanelProps>(function MintParamsPan
                 <span>
                     <Trans>Network cost</Trans>
                 </span>
-                <span
-                    className={classNames(
-                        'text-lightSecond',
-                        isLoading ? 'h-6 w-24 animate-pulse bg-primaryBottom' : '',
-                    )}
-                >
+                <span className={classNames('text-lightSecond', isLoading ? 'h-6 w-24 animate-pulse bg-third' : '')}>
                     {isLoading ? '' : renderPrice(gasFee, decimals, symbol)}
                 </span>
             </li>
@@ -95,7 +82,7 @@ export const MintParamsPanel = memo<MintParamsPanelProps>(function MintParamsPan
                     <span
                         className={classNames('text-lightSecond', {
                             'line-through': isFree,
-                            'h-6 w-24 animate-pulse bg-primaryBottom': isLoading,
+                            'h-6 w-24 animate-pulse bg-third': isLoading,
                         })}
                     >
                         {isLoading ? '' : renderPrice(totalCost, decimals, symbol)}

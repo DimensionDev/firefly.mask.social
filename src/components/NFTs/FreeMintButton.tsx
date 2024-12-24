@@ -1,7 +1,8 @@
 'use client';
 
-import { Trans } from '@lingui/macro';
-import { useCallback } from 'react';
+import { t, Trans } from '@lingui/macro';
+import { useCallback, useMemo } from 'react';
+import type { Address } from 'viem';
 import { useAccount } from 'wagmi';
 
 import LoadingIcon from '@/assets/loading.svg';
@@ -12,43 +13,66 @@ import { Link } from '@/esm/Link.js';
 import { classNames } from '@/helpers/classNames.js';
 import { useSponsorMintStatus } from '@/hooks/useSponsorMintStatus.js';
 import { ConnectModalRef, FreeMintModalRef } from '@/modals/controls.js';
-import type { NFTAsset } from '@/providers/types/Firefly.js';
 
 interface FreeMintButtonProps extends Omit<ClickableButtonProps, 'ref'> {
-    nft: NFTAsset;
+    showInDisabled?: boolean;
+    contractAddress: string;
+    tokenId: string;
+    chainId: number;
+    externalUrl?: string;
 }
 
-function getButtonText(connected: boolean, isSupportedChain: boolean, mintStatus?: number) {
+export function getMintButtonText(connected: boolean, isSupportedChain: boolean, mintStatus?: number) {
     if (!connected) {
-        return <Trans>Connect Wallet</Trans>;
+        return t`Connect Wallet`;
     }
     if (!isSupportedChain) {
-        return <Trans>Unsupported Chain</Trans>;
+        return t`Unsupported Chain`;
     }
 
     switch (mintStatus) {
         case 1:
-            return <Trans>Mint</Trans>;
+            return t`Mint`;
         case 2:
-            return <Trans>Mint Again</Trans>;
+            return t`Mint Again`;
         case 3:
-            return <Trans>Not Started</Trans>;
+            return t`Not Started`;
         case 4:
-            return <Trans>Mint Ended</Trans>;
+            return t`Mint Ended`;
         case 5:
-            return <Trans>Minted</Trans>;
+            return t`Minted`;
         case 6:
-            return <Trans>Sold Out</Trans>;
+            return t`Sold Out`;
         default:
-            return '';
+            return t`Unknow status`;
     }
 }
 
-export function FreeMintButton({ nft, className, ...rest }: FreeMintButtonProps) {
+export function FreeMintButton({
+    contractAddress,
+    tokenId,
+    chainId,
+    externalUrl,
+    showInDisabled = true,
+    className,
+    ...rest
+}: FreeMintButtonProps) {
     const account = useAccount();
-    const { isLoading, data } = useSponsorMintStatus(nft);
+
+    const mintTarget = useMemo(
+        () => ({
+            walletAddress: account.address || '',
+            contractAddress: contractAddress || '',
+            tokenId,
+            chainId,
+            buyCount: 1,
+        }),
+        [account.address, contractAddress, tokenId, chainId],
+    );
+    const { isLoading, isRefetching, data, refetch } = useSponsorMintStatus(mintTarget);
 
     const connected = !!account.address;
+    const loading = isLoading || isRefetching;
 
     const handleClick = useCallback(() => {
         if (!data) return;
@@ -56,15 +80,25 @@ export function FreeMintButton({ nft, className, ...rest }: FreeMintButtonProps)
             ConnectModalRef.open();
             return;
         }
-        FreeMintModalRef.open({ nft, mintParams: data });
-    }, [connected, nft, data]);
+        FreeMintModalRef.open({
+            mintTarget: {
+                ...mintTarget,
+                walletAddress: account.address as Address,
+            },
+            mintParams: data,
+            onSuccess: refetch,
+        });
+    }, [account.address, connected, mintTarget, data, refetch]);
 
     if (data?.mintStatus === 0) {
-        return nft.externalUrl ? (
+        return externalUrl ? (
             <Link
-                href={nft.externalUrl}
+                href={externalUrl}
                 target="_blank"
-                className="flex h-8 w-full items-center justify-center gap-1.5 rounded-full border border-main text-sm font-bold text-main"
+                className={classNames(
+                    'flex h-8 items-center justify-center gap-1.5 rounded-full border border-main text-sm font-bold text-main',
+                    className,
+                )}
             >
                 <WebsiteIcon width={20} height={20} />
                 <Trans>View on Website</Trans>
@@ -72,28 +106,27 @@ export function FreeMintButton({ nft, className, ...rest }: FreeMintButtonProps)
         ) : null;
     }
 
+    if (!showInDisabled && data?.mintStatus && ![1, 2].includes(data.mintStatus)) return null;
+
     const isSupportedChain = chains.some((chain) => chain.id === data?.chainId);
 
     return (
-        <div className="flex w-full items-center gap-3">
+        <div className={classNames('flex items-center gap-3', className)}>
             <ClickableButton
                 {...rest}
-                className={classNames(
-                    'flex h-8 flex-1 items-center justify-center rounded-full bg-main px-5 text-sm font-bold text-lightBottom',
-                    className,
-                )}
-                disabled={isLoading || (!!data && data?.mintStatus > 2) || !isSupportedChain}
+                className="flex h-8 flex-1 items-center justify-center rounded-full bg-main px-5 text-sm font-bold text-lightBottom"
+                disabled={loading || (!!data && data?.mintStatus > 2) || !isSupportedChain}
                 onClick={handleClick}
             >
-                {isLoading ? (
+                {loading ? (
                     <LoadingIcon width={20} height={20} className="animate-spin" />
                 ) : (
-                    getButtonText(connected, isSupportedChain, data?.mintStatus)
+                    getMintButtonText(connected, isSupportedChain, data?.mintStatus)
                 )}
             </ClickableButton>
-            {nft.externalUrl ? (
+            {externalUrl ? (
                 <Link
-                    href={nft.externalUrl}
+                    href={externalUrl}
                     target="_blank"
                     className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-main text-main"
                 >

@@ -1,25 +1,17 @@
 import { useQuery } from '@tanstack/react-query';
 import { useAccount } from 'wagmi';
 
-import { resolveNFTIdFromAsset } from '@/helpers/resolveNFTIdFromAsset.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
-import type { NFTAsset } from '@/providers/types/Firefly.js';
+import type { SponsorMintOptions } from '@/providers/types/Firefly.js';
 
-export function useSponsorMintStatus(nft: NFTAsset) {
+export function useSponsorMintStatus(options: SponsorMintOptions) {
     const account = useAccount();
 
     return useQuery({
-        queryKey: ['sponsor-mint-status', account.address, resolveNFTIdFromAsset(nft)],
+        queryKey: ['sponsor-mint-status', account.address, options.chainId, options.contractAddress, options.tokenId],
         enabled: !!account.address,
         queryFn: async () => {
-            return FireflyEndpointProvider.getSponsorMintStatus({
-                // platformType: '',
-                walletAddress: account.address || '',
-                contractAddress: nft.contract?.address || '',
-                tokenId: +nft.tokenId,
-                chainId: nft.chainId,
-                buyCount: 1,
-            });
+            return FireflyEndpointProvider.getSponsorMintStatus(options);
         },
     });
 }

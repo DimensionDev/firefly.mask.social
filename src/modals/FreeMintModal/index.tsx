@@ -6,13 +6,13 @@ import { CloseButton } from '@/components/CloseButton.js';
 import { Modal } from '@/components/Modal.js';
 import { useSingletonModal } from '@/hooks/useSingletonModal.js';
 import type { SingletonModalRefCreator } from '@/libs/SingletonModal.js';
-import { MintButton } from '@/modals/FreeMintModal/MintButton.js';
-import { MintParamsPanel } from '@/modals/FreeMintModal/MintParamsPanel.js';
-import type { MintMetadata, NFTAsset } from '@/providers/types/Firefly.js';
+import { MintModalContent } from '@/modals/FreeMintModal/MintModalContent.js';
+import type { MintMetadata, SponsorMintOptions } from '@/providers/types/Firefly.js';
 
 export interface FreeMintModalOpenProps {
-    nft: NFTAsset;
+    mintTarget: SponsorMintOptions;
     mintParams: MintMetadata;
+    onSuccess?: () => void;
 }
 
 export const FreeMintModal = forwardRef<SingletonModalRefCreator<FreeMintModalOpenProps>>(
@@ -24,6 +24,10 @@ export const FreeMintModal = forwardRef<SingletonModalRefCreator<FreeMintModalOp
             onClose: () => setProps(undefined),
         });
         const onClose = useCallback(() => dispatch?.close(), [dispatch]);
+        const onMinted = useCallback(() => {
+            onClose();
+            props?.onSuccess?.();
+        }, [props, onClose]);
 
         if (!props) return null;
 
@@ -36,8 +40,7 @@ export const FreeMintModal = forwardRef<SingletonModalRefCreator<FreeMintModalOp
                             <Trans>Mint NFT</Trans>
                         </span>
                     </DialogTitle>
-                    <MintParamsPanel className="mt-6" {...props} />
-                    <MintButton {...props} />
+                    <MintModalContent {...props} onSuccess={onMinted} />
                 </div>
             </Modal>
         );

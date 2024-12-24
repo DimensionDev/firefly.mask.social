@@ -63,7 +63,12 @@ export function NFTDetailPage({ chainId, address, tokenId }: { chainId: ChainId;
                     attendance={poapAttendeesCount}
                     tokenNameClassName={classNames({ '!line-clamp-3': isPoap })}
                 />
-                <FreeMintButton nft={data} />
+                <FreeMintButton
+                    contractAddress={data.contract?.address || ''}
+                    tokenId={data.tokenId}
+                    chainId={chainId}
+                    externalUrl={data.externalUrl}
+                />
                 {data.traits && data.traits.length > 0 ? <NFTProperties items={data.traits} /> : null}
                 <NFTOverflow
                     description={data.metadata.description ?? ''}

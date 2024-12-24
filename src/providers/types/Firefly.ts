@@ -1234,7 +1234,7 @@ export type SponsorMintOptions = {
     platformType?: string;
     walletAddress: string;
     contractAddress: string;
-    tokenId: number;
+    tokenId: string;
     chainId: number;
     buyCount: number;
     vectorId?: number;
