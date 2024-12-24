@@ -1497,6 +1497,9 @@ msgstr ""
 msgid "Network"
 msgstr ""
 
+msgid "Claim on {0}:"
+msgstr ""
+
 msgid "Unlike"
 msgstr ""
 
@@ -1780,6 +1783,9 @@ msgid "Settings"
 msgstr ""
 
 msgid "Font Color"
+msgstr ""
+
+msgid "Grow your followers and engagement with Lucky Drop on Firefly!"
 msgstr ""
 
 msgid "Unsent posts"

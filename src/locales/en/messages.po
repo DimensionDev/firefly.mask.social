@@ -1492,6 +1492,9 @@ msgstr "Failed to login."
 msgid "Network"
 msgstr "Network"
 
+msgid "Claim on {0}:"
+msgstr "Claim on {0}:"
+
 msgid "Unlike"
 msgstr "Unlike"
 
@@ -1776,6 +1779,9 @@ msgstr "Settings"
 
 msgid "Font Color"
 msgstr "Font Color"
+
+msgid "Grow your followers and engagement with Lucky Drop on Firefly!"
+msgstr "Grow your followers and engagement with Lucky Drop on Firefly!"
 
 msgid "Unsent posts"
 msgstr "Unsent posts"

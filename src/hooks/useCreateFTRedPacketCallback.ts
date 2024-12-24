@@ -70,7 +70,7 @@ export function useCreateFTRedPacketCallback(
                 'theme-id': theme?.tid ?? DEFAULT_THEME_ID,
                 usage: 'payload',
                 from: shareFromName,
-                amount: rightShift(totalAmount, token?.decimals).toString(),
+                amount: toFixed(rightShift(totalAmount, token?.decimals).toString()),
                 type: 'fungible',
                 symbol: token?.symbol,
                 decimals: token?.decimals,
