@@ -137,10 +137,11 @@ export function RedPacketCard({ payload, post }: Props) {
             type: 'compose',
             chars: [
                 !isClaimed
-                    ? t`🤑 Check this #FireflyLuckyDrop 🧧💰✨ on ${postUrl} from @${post.author.handle}!`
-                    : t`🤑 Just claimed a #FireflyLuckyDrop 🧧💰✨ on ${postUrl} from @${post.author.handle}!`,
+                    ? t`🤑 Check this #FireflyLuckyDrop 🧧💰✨ on ${postUrl} from @${post.author.handle} !`
+                    : t`🤑 Just claimed a #FireflyLuckyDrop 🧧💰✨ on ${postUrl} from @${post.author.handle} !`,
                 ' \n\n Grow your followers and engagement with Lucky Drop on Firefly!',
             ],
+            source: post.source,
         });
     }, [post, isClaimed]);
 
@@ -151,7 +152,10 @@ export function RedPacketCard({ payload, post }: Props) {
         return fetch(cover.backgroundImageUrl);
     }, [cover?.backgroundImageUrl]);
 
-    const [{ isVerifying, isClaiming, claimStrategyStatus }, verifyAndClaim] = useVerifyAndClaim(payload, post.source);
+    const [{ isVerifying, isClaiming, claimStrategyStatus }, verifyAndClaim] = useVerifyAndClaim(
+        { ...payload, chainId: parsedChainId },
+        post.source,
+    );
 
     return (
         <div

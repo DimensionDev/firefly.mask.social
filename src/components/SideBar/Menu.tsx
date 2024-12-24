@@ -48,7 +48,7 @@ export const Menu = memo(function Menu({ collapsed = false }: MenuProps) {
     const pathname = usePathname();
 
     return (
-        <nav className="relative flex flex-1 flex-col">
+        <nav className="relative flex min-h-[634px] flex-1 flex-col">
             <menu role="list" className="flex flex-1 flex-col gap-y-7">
                 <li className="flex overflow-hidden">
                     <menu role="list" className="w-full overflow-hidden">

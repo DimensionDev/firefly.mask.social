@@ -357,9 +357,6 @@ msgstr "已排程"
 msgid "Pay"
 msgstr ""
 
-msgid "🤑 Just claimed a #FireflyLuckyDrop 🧧💰✨ on {postUrl} from @{0}!"
-msgstr ""
-
 msgid "Followed @{handle} on {0}."
 msgstr ""
 
@@ -710,9 +707,6 @@ msgstr ""
 
 msgid "Watch"
 msgstr "觀察"
-
-msgid "🤑 Check this #FireflyLuckyDrop 🧧💰✨ on {postUrl} from @{0}!"
-msgstr ""
 
 msgid "Suspected malicious address."
 msgstr ""
@@ -1578,6 +1572,9 @@ msgstr "對 @{0} 的解除靜音失敗"
 msgid "Please confirm the login with Warpcast."
 msgstr "請至 Warpcast 確認登錄"
 
+msgid "🤑 Check this #FireflyLuckyDrop 🧧💰✨ on {postUrl} from @{0} !"
+msgstr ""
+
 msgid "Cover background"
 msgstr ""
 
@@ -2306,6 +2303,9 @@ msgstr ""
 
 msgid "Failed to like the post."
 msgstr "按讚評論失敗"
+
+msgid "🤑 Just claimed a #FireflyLuckyDrop 🧧💰✨ on {postUrl} from @{0} !"
+msgstr ""
 
 msgid "Failed to repost."
 msgstr ""

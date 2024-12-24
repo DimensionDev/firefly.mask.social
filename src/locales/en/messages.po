@@ -352,9 +352,6 @@ msgstr "Scheduled"
 msgid "Pay"
 msgstr "Pay"
 
-msgid "🤑 Just claimed a #FireflyLuckyDrop 🧧💰✨ on {postUrl} from @{0}!"
-msgstr "🤑 Just claimed a #FireflyLuckyDrop 🧧💰✨ on {postUrl} from @{0}!"
-
 msgid "Followed @{handle} on {0}."
 msgstr "Followed @{handle} on {0}."
 
@@ -705,9 +702,6 @@ msgstr "Calendar"
 
 msgid "Watch"
 msgstr "Watch"
-
-msgid "🤑 Check this #FireflyLuckyDrop 🧧💰✨ on {postUrl} from @{0}!"
-msgstr "🤑 Check this #FireflyLuckyDrop 🧧💰✨ on {postUrl} from @{0}!"
 
 msgid "Suspected malicious address."
 msgstr "Suspected malicious address."
@@ -1573,6 +1567,9 @@ msgstr "Failed to unmute /{0}."
 msgid "Please confirm the login with Warpcast."
 msgstr "Please confirm the login with Warpcast."
 
+msgid "🤑 Check this #FireflyLuckyDrop 🧧💰✨ on {postUrl} from @{0} !"
+msgstr "🤑 Check this #FireflyLuckyDrop 🧧💰✨ on {postUrl} from @{0} !"
+
 msgid "Cover background"
 msgstr "Cover background"
 
@@ -2301,6 +2298,9 @@ msgstr "will send on {0} at {1}"
 
 msgid "Failed to like the post."
 msgstr "Failed to like the post."
+
+msgid "🤑 Just claimed a #FireflyLuckyDrop 🧧💰✨ on {postUrl} from @{0} !"
+msgstr "🤑 Just claimed a #FireflyLuckyDrop 🧧💰✨ on {postUrl} from @{0} !"
 
 msgid "Failed to repost."
 msgstr "Failed to repost."
