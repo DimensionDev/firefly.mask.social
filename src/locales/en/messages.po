@@ -1843,6 +1843,9 @@ msgstr "Search..."
 msgid "Show more comments"
 msgstr "Show more comments"
 
+msgid "*Note: Each NFT can only be submitted once."
+msgstr "*Note: Each NFT can only be submitted once."
+
 msgid "Failed to parse session."
 msgstr "Failed to parse session."
 
@@ -2763,9 +2766,6 @@ msgstr "Firefly Bridge"
 
 msgid "Oversupply minting."
 msgstr "Oversupply minting."
-
-msgid "*Note: Each NFT can only be used once."
-msgstr "*Note: Each NFT can only be used once."
 
 msgid "Followed <0>@{handle}</0> on {0}"
 msgstr "Followed <0>@{handle}</0> on {0}"

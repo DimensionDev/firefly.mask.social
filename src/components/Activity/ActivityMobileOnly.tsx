@@ -5,9 +5,12 @@ import type { PropsWithChildren } from 'react';
 
 import { Link } from '@/components/Activity/Link.js';
 import { FIREFLY_APP_APP_STORE_URL, FIREFLY_APP_GOOGLE_PLAY_URL } from '@/constants/index.js';
+import { useMounted } from '@/hooks/useMounted.js';
 import { fireflyBridgeProvider } from '@/providers/firefly/Bridge.js';
 
 export function ActivityMobileOnly({ children, disabled = false }: PropsWithChildren<{ disabled?: boolean }>) {
+    const mounted = useMounted();
+    if (!mounted) return null;
     if (disabled || fireflyBridgeProvider.supported) return children;
     return (
         <div className="flex w-full flex-col px-6">
