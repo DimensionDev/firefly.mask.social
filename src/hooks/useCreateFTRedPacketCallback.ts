@@ -79,7 +79,7 @@ export function useCreateFTRedPacketCallback(
         [shareFromName, totalAmount, token?.decimals, token?.symbol, theme?.tid, message],
     );
 
-    const { chainId, account } = useChainContext();
+    const { chainId, account } = useChainContext({ chainId: token.chainId });
     const { HAPPY_RED_PACKET_ADDRESS_V4: redpacketContractAddress } = useRedPacketConstants(chainId);
     const { NATIVE_TOKEN_ADDRESS } = useTokenConstants(chainId);
 
@@ -133,6 +133,7 @@ export function useCreateFTRedPacketCallback(
             await waitForEthereumTransaction(chainId, result);
             const receipt = await getTransactionReceipt(config, {
                 hash: result,
+                chainId,
             });
 
             if (!receipt) return;

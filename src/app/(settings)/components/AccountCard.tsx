@@ -16,11 +16,11 @@ import { type SocialSource, Source } from '@/constants/enum.js';
 import { EMPTY_LIST } from '@/constants/index.js';
 import { enqueueErrorMessage, enqueueMessageFromError, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { getProfileState } from '@/helpers/getProfileState.js';
+import { isSameEthereumAddress } from '@/helpers/isSameAddress.js';
 import { isSameProfile, toProfileId } from '@/helpers/isSameProfile.js';
 import { useConnectedAccounts } from '@/hooks/useConnectedAccounts.js';
 import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
 import { useProfileStoreAll } from '@/hooks/useProfileStore.js';
-import { isSameAddress } from '@/maskbook/packages/web3-shared/base/src/index.js';
 import { DisconnectFireflyAccountModalRef, LoginModalRef, LogoutModalRef } from '@/modals/controls.js';
 import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
 import type { Account } from '@/providers/types/Account.js';
@@ -102,7 +102,8 @@ export function AccountCard({ source }: AccountCardProps) {
             return profiles
                 .filter((x) => {
                     return (
-                        !accounts.some((y) => isSameProfile(x, y.profile)) && isSameAddress(x.address, account.address)
+                        !accounts.some((y) => isSameProfile(x, y.profile)) &&
+                        isSameEthereumAddress(x.address, account.address)
                     );
                 })
                 .map((x) => ({ profile: x, session: null }));
