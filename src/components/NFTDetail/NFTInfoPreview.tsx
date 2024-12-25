@@ -93,7 +93,7 @@ export function NFTInfoPreview({
             {video ? (
                 <NFTVideo video={video} imageURL={imageURL} />
             ) : (
-                <NFTImage width={250} height={250} src={imageURL} alt={name} className="h-full w-full object-cover" />
+                <NFTImage width={230} height={230} src={imageURL} alt={name} className="h-full w-full object-cover" />
             )}
         </div>
     );

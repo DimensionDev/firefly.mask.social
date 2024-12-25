@@ -405,6 +405,9 @@ msgstr ""
 msgid "Donald Trump"
 msgstr ""
 
+msgid "Mint"
+msgstr ""
+
 msgid "Our transaction simulation and security detection found no issues. However, it is always crucial to double-check and proceed with caution."
 msgstr ""
 
@@ -1335,6 +1338,9 @@ msgstr ""
 msgid "Participation Blocked"
 msgstr ""
 
+msgid "Collected by"
+msgstr ""
+
 msgid "Forbidden. Please check your permissions."
 msgstr ""
 
@@ -1782,6 +1788,9 @@ msgstr ""
 msgid "Articles"
 msgstr ""
 
+msgid "{0} followings owned"
+msgstr ""
+
 msgid "Follow me"
 msgstr ""
 
@@ -1987,6 +1996,9 @@ msgid "Powered by Tenderly and GoPlus"
 msgstr ""
 
 msgid "Publications"
+msgstr ""
+
+msgid "Download media"
 msgstr ""
 
 msgid "Unable to read image."
@@ -2329,9 +2341,6 @@ msgid "🤑 Just claimed a #FireflyLuckyDrop 🧧💰✨ on {postUrl} from @{0} 
 msgstr ""
 
 msgid "Failed to repost."
-msgstr ""
-
-msgid "Download image"
 msgstr ""
 
 msgid "Mirrored"
@@ -3298,6 +3307,9 @@ msgid "Sign to enable signless"
 msgstr ""
 
 msgid "<0>Claimed: </0><1>{claim_numbers}/{total_numbers}</1><2>{0}/{1}</2><3>{token_symbol}</3>"
+msgstr ""
+
+msgid "View on website"
 msgstr ""
 
 msgid "Profiles"

@@ -405,6 +405,9 @@ msgstr ""
 msgid "Donald Trump"
 msgstr ""
 
+msgid "Mint"
+msgstr ""
+
 msgid "Our transaction simulation and security detection found no issues. However, it is always crucial to double-check and proceed with caution."
 msgstr ""
 
@@ -1335,6 +1338,9 @@ msgstr ""
 msgid "Participation Blocked"
 msgstr ""
 
+msgid "Collected by"
+msgstr ""
+
 msgid "Forbidden. Please check your permissions."
 msgstr "禁止。請檢查您的權限"
 
@@ -1782,6 +1788,9 @@ msgstr ""
 msgid "Articles"
 msgstr "文章"
 
+msgid "{0} followings owned"
+msgstr ""
+
 msgid "Follow me"
 msgstr ""
 
@@ -1988,6 +1997,9 @@ msgstr ""
 
 msgid "Publications"
 msgstr "發表"
+
+msgid "Download media"
+msgstr ""
 
 msgid "Unable to read image."
 msgstr ""
@@ -2330,9 +2342,6 @@ msgstr ""
 
 msgid "Failed to repost."
 msgstr ""
-
-msgid "Download image"
-msgstr "下載圖片"
 
 msgid "Mirrored"
 msgstr "已鏡像"
@@ -3298,6 +3307,9 @@ msgid "Sign to enable signless"
 msgstr ""
 
 msgid "<0>Claimed: </0><1>{claim_numbers}/{total_numbers}</1><2>{0}/{1}</2><3>{token_symbol}</3>"
+msgstr ""
+
+msgid "View on website"
 msgstr ""
 
 msgid "Profiles"
