@@ -28,9 +28,19 @@ interface Props {
     disabled?: boolean;
     source: SocialSource;
     buttonText?: ReactNode;
+    onSuccess?: (tx?: string) => void;
+    hasSuccessDialog?: boolean; // TODO: move success dialog to outside
 }
 
-export function ActivityClaimButton({ source, shareContent, status, claimApiExtraParams, ...rest }: Props) {
+export function ActivityClaimButton({
+    source,
+    shareContent,
+    status,
+    claimApiExtraParams,
+    hasSuccessDialog = true,
+    onSuccess,
+    ...rest
+}: Props) {
     const { address, name } = useContext(ActivityContext);
     const { data, refetch } = useActivityClaimCondition(source);
     const [hash, setHash] = useState<string | undefined>(undefined);
@@ -51,6 +61,7 @@ export function ActivityClaimButton({ source, shareContent, status, claimApiExtr
             await refetch();
             setHash(hash);
             setChainId(chainId);
+            onSuccess?.(hash);
             captureActivityEvent(isPremium ? EventId.EVENT_CLAIM_PREMIUM_SUCCESS : EventId.EVENT_CLAIM_BASIC_SUCCESS, {
                 wallet_address: address,
             });
@@ -59,7 +70,7 @@ export function ActivityClaimButton({ source, shareContent, status, claimApiExtr
             enqueueMessageFromError(error, t`Failed to claim token`);
             throw error;
         }
-    }, [disabled, address, isPremium]);
+    }, [disabled, address, isPremium, onSuccess]);
 
     const buttonText = (() => {
         switch (status) {
@@ -83,13 +94,15 @@ export function ActivityClaimButton({ source, shareContent, status, claimApiExtr
 
     return (
         <>
-            <ActivityMintSuccessDialog
-                shareContent={shareContent}
-                hash={hash}
-                open={!!hash}
-                chainId={chainId}
-                onClose={() => setHash(undefined)}
-            />
+            {hasSuccessDialog ? (
+                <ActivityMintSuccessDialog
+                    shareContent={shareContent}
+                    hash={hash}
+                    open={!!hash}
+                    chainId={chainId}
+                    onClose={() => setHash(undefined)}
+                />
+            ) : null}
             <button
                 className="leading-12 relative flex h-12 w-full items-center justify-center rounded-full bg-main text-center text-base font-bold text-primaryBottom disabled:opacity-60"
                 disabled={disabled || loading}
