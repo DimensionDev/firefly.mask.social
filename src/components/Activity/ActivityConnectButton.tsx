@@ -79,7 +79,7 @@ export function ActivityConnectButton({ source, chainId }: { source: SocialSourc
                 <Menu.Items
                     className={classNames(
                         'absolute bottom-[calc(100%+12px)] z-50 flex max-h-[200px] w-[200px] flex-col overflow-y-auto rounded-[12px] border border-line bg-primaryBottom shadow-lg',
-                        address ? 'right-0' : 'left-0 sm:left-[unset] sm:right-0',
+                        address ? 'right-0' : 'left-0 md:left-[unset] md:right-0',
                     )}
                 >
                     {addresses.map(({ address, ens }) => (
