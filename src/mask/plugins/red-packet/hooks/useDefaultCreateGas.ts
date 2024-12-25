@@ -77,6 +77,7 @@ export function useDefaultCreateGas(
 
         return result ? new BigNumber(result.toString()) : ZERO;
     }, [
+        chainId,
         JSON.stringify(redPacketSettings),
         account,
         redpacketContractAddress,

@@ -15,6 +15,7 @@ import { MoreActionMenu } from '@/components/MoreActionMenu.js';
 import { SearchType, Source } from '@/constants/enum.js';
 import { SORTED_SEARCHABLE_POST_BY_PROFILE_SOURCES } from '@/constants/index.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
+import { isCurrentProfile } from '@/helpers/isCurrentProfile.js';
 import { isSameFireflyIdentity } from '@/helpers/isSameFireflyIdentity.js';
 import { resolveFireflyProfileId } from '@/helpers/resolveFireflyProfileId.js';
 import { resolveSearchUrl } from '@/helpers/resolveSearchUrl.js';
@@ -79,7 +80,7 @@ export const ProfileMoreAction = memo<ProfileMoreActionProps>(function ProfileMo
                     </>
                 ) : null}
 
-                {SORTED_SEARCHABLE_POST_BY_PROFILE_SOURCES.includes(profile.source) ? (
+                {!isCurrentProfile(profile) && SORTED_SEARCHABLE_POST_BY_PROFILE_SOURCES.includes(profile.source) ? (
                     <MenuItem>
                         {({ close }) => (
                             <MenuButton

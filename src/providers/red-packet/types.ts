@@ -4,6 +4,14 @@ import type { ChainId, SchemaType } from '@masknet/web3-shared-evm';
 type WithoutChainId<T> = Omit<T, 'chain_id'>;
 type WithNumberChainId<T> = WithoutChainId<T> & { chain_id: number };
 
+export enum RequirementType {
+    Follow = 'Follow',
+    Like = 'Like',
+    Repost = 'Repost',
+    Comment = 'Comment',
+    NFTHolder = 'NFTHolder',
+}
+
 export enum RedPacketStatus {
     claimed = 'claimed',
     expired = 'expired',

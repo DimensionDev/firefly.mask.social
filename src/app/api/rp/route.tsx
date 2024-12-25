@@ -6,7 +6,7 @@ import { type NextRequest } from 'next/server.js';
 import { z } from 'zod';
 
 import { Locale } from '@/constants/enum.js';
-import { CACHE_AGE_INDEFINITE_ON_DISK } from '@/constants/index.js';
+import { CACHE_AGE_INDEFINITE_ON_DISK, IS_PREVIEW } from '@/constants/index.js';
 import { createRedPacketImage } from '@/services/createRedPacketImage.js';
 import { TokenType, UsageType } from '@/types/rp.js';
 
@@ -111,12 +111,17 @@ export async function GET(request: NextRequest) {
 
     try {
         const image = await createRedPacketImage(parsedParams.data, request.signal);
+        const headers = new Headers({
+            'Content-Type': 'image/svg+xml',
+            'Cache-Control': CACHE_AGE_INDEFINITE_ON_DISK,
+        });
+
+        if (IS_PREVIEW) {
+            headers.set('Access-Control-Allow-Origin', '*');
+        }
 
         return new Response(image, {
-            headers: {
-                'Content-Type': 'image/svg+xml',
-                'Cache-Control': CACHE_AGE_INDEFINITE_ON_DISK,
-            },
+            headers,
         });
     } catch (error) {
         return new Response(`Failed to create image: ${(error as Error).message}`, {

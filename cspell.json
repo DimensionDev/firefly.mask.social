@@ -231,7 +231,8 @@
         "Encryptable",
         "pengu",
         "Pudge",
-        "BARMSTRONG"
+        "BARMSTRONG",
+        "hdel"
     ],
     "flagWords": [],
     "ignorePaths": [
@@ -251,8 +252,7 @@
         "src/maskbook",
         "src/providers/hubble/proto",
         "src/assets/**",
-        "src/locales/**",
-        "src/mask/setup/locales/*"
+        "src/locales/**"
     ],
     "overrides": []
 }

@@ -3,11 +3,11 @@
 import { Trans } from '@lingui/macro';
 
 import { TextLink } from '@/app/(settings)/components/TextLink.js';
-import { useIsLogin } from '@/hooks/useIsLogin.js';
+import { useIsLoginFirefly } from '@/hooks/useIsLogin.js';
 import { useMuteMenuList } from '@/hooks/useMuteMenuList.js';
 
 export function SettingsList() {
-    const isLoggedIn = useIsLogin();
+    const isLoggedIn = useIsLoginFirefly();
     const muteMenuList = useMuteMenuList();
 
     return (

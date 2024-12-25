@@ -401,10 +401,11 @@ export class FireflySocialMedia implements Provider {
                 method: 'GET',
             });
             const { list, next_cursor } = resolveFireflyResponseData(response);
-            const data = list.map(formatFarcasterProfileFromFirefly);
+            const ids = list.map((x) => x.fid);
+            const profiles = ids.length ? await NeynarSocialMediaProvider.getProfilesByIds(ids) : EMPTY_LIST;
 
             return createPageable(
-                data,
+                profiles,
                 createIndicator(indicator),
                 next_cursor ? createNextIndicator(indicator, next_cursor) : undefined,
             );
@@ -423,10 +424,11 @@ export class FireflySocialMedia implements Provider {
                 method: 'GET',
             });
             const { list, next_cursor } = resolveFireflyResponseData(response);
-            const data = list.map(formatFarcasterProfileFromFirefly);
+            const ids = list.map((x) => x.fid);
+            const profiles = ids.length ? await NeynarSocialMediaProvider.getProfilesByIds(ids) : EMPTY_LIST;
 
             return createPageable(
-                data,
+                profiles,
                 createIndicator(indicator),
                 next_cursor ? createNextIndicator(indicator, next_cursor) : undefined,
             );

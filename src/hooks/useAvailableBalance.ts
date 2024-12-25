@@ -5,13 +5,18 @@ import { useBalance, useEstimateFeesPerGas } from 'wagmi';
 
 import { config } from '@/configs/wagmiClient.js';
 import { formatBalance } from '@/helpers/formatBalance.js';
-import { multipliedBy, ZERO } from '@/helpers/number.js';
+import { isGreaterThan, multipliedBy, ZERO } from '@/helpers/number.js';
 import { type ChainContextOverride, useChainContext } from '@/hooks/useChainContext.js';
 
 export function useAvailableBalance(address: `0x${string}`, gas: number, override?: ChainContextOverride) {
     const isNativeToken = isNativeTokenAddress(address);
     const { chainId, isEIP1559, account } = useChainContext(override);
 
+    const { data: nativeBalance } = useBalance({
+        address: account as `0x${string}`,
+        config,
+        chainId,
+    });
     const { data: balance } = useBalance({
         token: !isNativeToken ? address : undefined,
         address: account as `0x${string}`,
@@ -35,6 +40,7 @@ export function useAvailableBalance(address: `0x${string}`, gas: number, overrid
                 ...balance,
                 origin: balance,
                 gasFee,
+                insufficientGas: isGreaterThan(gasFee, nativeBalance?.value.toString() ?? 0),
             };
 
         const result = balance.value - BigInt(gasFee.toNumber());
@@ -44,6 +50,7 @@ export function useAvailableBalance(address: `0x${string}`, gas: number, overrid
             value: result < 0 ? 0 : result,
             gasFee,
             origin: balance,
+            insufficientGas: result < 0,
         };
-    }, [isNativeToken, balance, isEIP1559, gas, gasPrice, maxFeePerGas]);
+    }, [isNativeToken, balance, isEIP1559, gas, gasPrice, maxFeePerGas, nativeBalance?.value]);
 }

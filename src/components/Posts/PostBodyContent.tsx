@@ -19,8 +19,7 @@ import { PostLinks } from '@/components/Posts/PostLinks.js';
 import { Quote } from '@/components/Posts/Quote.js';
 import { RedPacketInspector } from '@/components/RedPacket/RedPacketInspector.js';
 import { IS_APPLE, IS_SAFARI } from '@/constants/bowser.js';
-import { PageRoute, Source, STATUS } from '@/constants/enum.js';
-import { env } from '@/constants/env.js';
+import { PageRoute, Source } from '@/constants/enum.js';
 import { EMPTY_LIST, RP_HASH_TAG } from '@/constants/index.js';
 import { Link } from '@/esm/Link.js';
 import { classNames } from '@/helpers/classNames.js';
@@ -89,9 +88,6 @@ export const PostBodyContent = forwardRef<HTMLDivElement, PostBodyContentProps>(
     const { value: payloads, loading: decodingImage } = useAsync(async () => {
         // decode the image upon post viewing, to reduce unnecessary load of images
         if (!seen) return;
-
-        // mask web components are disabled
-        if (env.external.NEXT_PUBLIC_MASK_WEB_COMPONENTS === STATUS.Disabled) return;
 
         return {
             payloadFromText: getEncryptedPayloadFromText(postRawContent),

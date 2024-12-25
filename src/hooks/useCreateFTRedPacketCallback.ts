@@ -1,7 +1,7 @@
 import { t } from '@lingui/macro';
 import { type FungibleToken, toFixed } from '@masknet/web3-shared-base';
 import { ChainId, SchemaType, useRedPacketConstants, useTokenConstants } from '@masknet/web3-shared-evm';
-import { first, omit } from 'lodash-es';
+import { first, omit, pick } from 'lodash-es';
 import { useContext, useMemo } from 'react';
 import { useAsyncFn } from 'react-use';
 import urlcat from 'urlcat';
@@ -23,7 +23,6 @@ import {
     RedPacketMetaKey,
 } from '@/mask/plugins/red-packet/constants.js';
 import { getTypedMessageRedPacket } from '@/mask/plugins/red-packet/helpers/getTypedMessage.js';
-import { reduceUselessPayloadInfo } from '@/mask/plugins/red-packet/helpers/reduceUselessPayloadInfo.js';
 import { getRpMetadata } from '@/mask/plugins/red-packet/helpers/rpPayload.js';
 import {
     checkParams,
@@ -32,9 +31,17 @@ import {
 } from '@/mask/plugins/red-packet/hooks/useCreateCallback.js';
 import { RedPacketModalRef } from '@/modals/controls.js';
 import { RedPacketContext } from '@/modals/RedPacketModal/RedPacketContext.js';
-import type { FireflyRedPacketAPI } from '@/providers/red-packet/types.js';
+import type { FireflyRedPacketAPI, RedPacketJSONPayload } from '@/providers/red-packet/types.js';
 import { captureLuckyDropEvent } from '@/providers/telemetry/captureLuckyDropEvent.js';
 import { useComposeStateStore } from '@/store/useComposeStore.js';
+
+function reduceUselessPayloadInfo(payload: RedPacketJSONPayload): RedPacketJSONPayload {
+    const token = pick(payload.token, ['decimals', 'symbol', 'address', 'chainId']) as FungibleToken<
+        ChainId,
+        SchemaType.Native | SchemaType.ERC20
+    >;
+    return { ...omit(payload, ['block_number']), token };
+}
 
 export function useCreateFTRedPacketCallback(
     shareFromName: string,
@@ -63,7 +70,7 @@ export function useCreateFTRedPacketCallback(
                 'theme-id': theme?.tid ?? DEFAULT_THEME_ID,
                 usage: 'payload',
                 from: shareFromName,
-                amount: rightShift(totalAmount, token?.decimals).toString(),
+                amount: toFixed(rightShift(totalAmount, token?.decimals).toString()),
                 type: 'fungible',
                 symbol: token?.symbol,
                 decimals: token?.decimals,
@@ -72,7 +79,7 @@ export function useCreateFTRedPacketCallback(
         [shareFromName, totalAmount, token?.decimals, token?.symbol, theme?.tid, message],
     );
 
-    const { chainId, account } = useChainContext();
+    const { chainId, account } = useChainContext({ chainId: token.chainId });
     const { HAPPY_RED_PACKET_ADDRESS_V4: redpacketContractAddress } = useRedPacketConstants(chainId);
     const { NATIVE_TOKEN_ADDRESS } = useTokenConstants(chainId);
 
@@ -119,12 +126,14 @@ export function useCreateFTRedPacketCallback(
                 args: params,
                 value: BigInt(value),
                 account: account as Address,
+                chainId,
             });
             if (!result) return;
 
             await waitForEthereumTransaction(chainId, result);
             const receipt = await getTransactionReceipt(config, {
                 hash: result,
+                chainId,
             });
 
             if (!receipt) return;

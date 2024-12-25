@@ -14,6 +14,7 @@ import type { Address } from 'viem';
 import HourGlassIcon from '@/assets/hourglass.svg';
 import RedPacketIcon from '@/assets/red-packet.svg';
 import { ClickableArea } from '@/components/ClickableArea.js';
+import { Loading } from '@/components/Loading.js';
 import { AmountProgressText } from '@/components/RedPacket/AmountProgressText.js';
 import { RedPacketCardFooter } from '@/components/RedPacket/RedPacketCardFooter.js';
 import { RequirementsModal } from '@/components/RedPacket/RequirementsModal.js';
@@ -57,7 +58,7 @@ function Timer({ endTime }: { endTime: number }) {
     );
     if (isExpired || !timeLeft) return null;
     return (
-        <div className="flex w-[150px] items-center justify-center gap-[6px] rounded-full bg-[#E8E8FF] px-[13px] py-[7px] opacity-75 backdrop-blur-[5px]">
+        <div className="flex items-center justify-center gap-[6px] text-nowrap rounded-full bg-[#E8E8FF] px-[13px] py-[7px] opacity-75 backdrop-blur-[5px]">
             <HourGlassIcon width={12} height={12} />
             <span className="flex-1 text-xs leading-4">
                 <Trans>
@@ -136,10 +137,12 @@ export function RedPacketCard({ payload, post }: Props) {
             type: 'compose',
             chars: [
                 !isClaimed
-                    ? t`🤑 Check this #FireflyLuckyDrop 🧧💰✨ on ${postUrl} !`
-                    : t`🤑 Just claimed a #FireflyLuckyDrop 🧧💰✨ on ${postUrl} from @${post.author.handle}!`,
-                ' \n\n Grow your followers and engagement with Lucky Drop on Firefly!',
+                    ? t`🤑 Check this #FireflyLuckyDrop 🧧💰✨ on ${postUrl} from @${post.author.fullHandle} !`
+                    : t`🤑 Just claimed a #FireflyLuckyDrop 🧧💰✨ on ${postUrl} from @${post.author.fullHandle} !`,
+                ' \n\n',
+                t`Grow your followers and engagement with Lucky Drop on Firefly!`,
             ],
+            source: post.source,
         });
     }, [post, isClaimed]);
 
@@ -150,14 +153,15 @@ export function RedPacketCard({ payload, post }: Props) {
         return fetch(cover.backgroundImageUrl);
     }, [cover?.backgroundImageUrl]);
 
-    const [{ isVerifying, isClaiming, claimStrategyStatus, recheckClaimStatus }, verifyAndClaim] = useVerifyAndClaim(
-        payload,
+    const [{ isVerifying, isClaiming, claimStrategyStatus }, verifyAndClaim] = useVerifyAndClaim(
+        { ...payload, chainId: parsedChainId },
         post.source,
+        post,
     );
 
     return (
         <div
-            className="my-2 min-h-[438px] rounded-2xl p-3 text-lightTextMain"
+            className="my-2 flex min-h-[398px] flex-col gap-3 rounded-2xl p-3 text-lightTextMain"
             style={{
                 background:
                     'linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.8) 100%), linear-gradient(90deg, rgba(28, 104, 243, 0.2) 0%, rgba(249, 55, 55, 0.2) 100%), #FFFFFF',
@@ -177,7 +181,7 @@ export function RedPacketCard({ payload, post }: Props) {
                 <>
                     <div
                         className={classNames(
-                            'relative my-3 flex w-full items-end justify-between rounded-[18px] px-[27px] pb-[22px]',
+                            'relative flex w-full items-end justify-between rounded-[18px] px-[27px] pb-[22px]',
                             HelveticaFont.className,
                         )}
                         style={
@@ -231,7 +235,7 @@ export function RedPacketCard({ payload, post }: Props) {
                             <div className="mb-2 line-clamp-2 max-w-[100%] text-[20px] font-bold">
                                 {payload.sender.message}
                             </div>
-                            <div className="text-[15px] opacity-80">@{payload.sender.name}</div>
+                            <div className="text-[15px] opacity-80">@{payload.sender.name.replace(/^@/, '')}</div>
                         </div>
 
                         {cover && payload.token && availability ? (
@@ -288,7 +292,9 @@ export function RedPacketCard({ payload, post }: Props) {
                         }}
                     />
                 </>
-            ) : null}
+            ) : (
+                <Loading className="!min-h-[338px]" />
+            )}
 
             {requirementOpen ? (
                 <RequirementsModal

@@ -2,6 +2,7 @@ import { t, Trans } from '@lingui/macro';
 import { useRedPacketConstants } from '@masknet/web3-shared-evm';
 import { last } from 'lodash-es';
 import { useCallback } from 'react';
+import urlcat from 'urlcat';
 import type { Address } from 'viem';
 import { useAccount } from 'wagmi';
 import { readContract } from 'wagmi/actions';
@@ -10,17 +11,20 @@ import CircleSuccessIcon from '@/assets/circle-success.svg';
 import { queryClient } from '@/configs/queryClient.js';
 import { config } from '@/configs/wagmiClient.js';
 import type { SocialSource } from '@/constants/enum.js';
+import { SITE_URL } from '@/constants/index.js';
 import { enqueueErrorMessage, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { formatBalance } from '@/helpers/formatBalance.js';
+import { getPostUrl } from '@/helpers/getPostUrl.js';
 import { HappyRedPacketV4ABI } from '@/mask/bindings/constants.js';
 import { useClaimCallback } from '@/mask/plugins/red-packet/hooks/useClaimCallback.js';
 import { useClaimStrategyStatus } from '@/mask/plugins/red-packet/hooks/useClaimStrategyStatus.js';
 import { useCurrentClaimProfile } from '@/mask/plugins/red-packet/hooks/useCurrentClaimProfile.js';
-import { ConfirmModalRef } from '@/modals/controls.js';
+import { ComposeModalRef, ConfirmModalRef } from '@/modals/controls.js';
 import { FireflyRedPacket } from '@/providers/red-packet/index.js';
 import type { RedPacketJSONPayload } from '@/providers/red-packet/types.js';
+import type { Post } from '@/providers/types/SocialMedia.js';
 
-export function useVerifyAndClaim(payload: RedPacketJSONPayload, source: SocialSource) {
+export function useVerifyAndClaim(payload: RedPacketJSONPayload, source: SocialSource, post: Post) {
     const account = useAccount().address;
     const { data, isFetching, refetch: recheckClaimStatus } = useClaimStrategyStatus(payload, source);
 
@@ -41,14 +45,19 @@ export function useVerifyAndClaim(payload: RedPacketJSONPayload, source: SocialS
                 payload.rpid,
                 currentClaimProfile.platform,
                 currentClaimProfile.profileId,
-                currentClaimProfile?.handle,
+                currentClaimProfile.handle,
                 hash,
             );
         }
 
-        await queryClient.refetchQueries({
-            queryKey: ['red-packet', 'claim', payload.rpid],
-        });
+        await Promise.allSettled([
+            queryClient.refetchQueries({
+                queryKey: ['red-packet', 'claim', payload.rpid],
+            }),
+            queryClient.refetchQueries({
+                queryKey: ['red-packet', 'parse', source],
+            }),
+        ]);
 
         const availability = (await readContract(config, {
             abi: HappyRedPacketV4ABI,
@@ -56,11 +65,15 @@ export function useVerifyAndClaim(payload: RedPacketJSONPayload, source: SocialS
             address: redpacketContractAddress as Address,
             args: [payload.rpid],
             account: account as Address,
+            chainId: payload.chainId,
         })) as [string, bigint, bigint, bigint, boolean, bigint];
 
         const claimed_amount = last(availability) as bigint;
 
         const amount = formatBalance(claimed_amount.toString(), payload.token?.decimals, { significant: 2 });
+
+        const postUrl = urlcat(SITE_URL, getPostUrl(post));
+
         ConfirmModalRef.open({
             title: t`Lucky Drop`,
             content: (
@@ -80,11 +93,25 @@ export function useVerifyAndClaim(payload: RedPacketJSONPayload, source: SocialS
             enableConfirmButton: true,
             variant: 'normal',
             confirmButtonText: t`Share`,
+            onConfirm: () => {
+                ComposeModalRef.open({
+                    type: 'compose',
+                    source,
+                    chars: [
+                        t`🤑 Just claimed a #FireflyLuckyDrop 🧧💰✨ on ${postUrl} from @${post.author.handle} !`,
+                        ' \n\n',
+                        t`Claim on ${post.source}:`,
+                        ' \n',
+                        postUrl,
+                    ],
+                });
+            },
         });
 
         enqueueSuccessMessage(t`Claimed lucky drop with ${amount} ${payload.token?.symbol} successfully`);
         return true;
     }, [
+        post,
         account,
         claimCallback,
         currentClaimProfile?.handle,
@@ -93,8 +120,10 @@ export function useVerifyAndClaim(payload: RedPacketJSONPayload, source: SocialS
         payload.rpid,
         payload.token?.decimals,
         payload.token?.symbol,
+        payload.chainId,
         recheckClaimStatus,
         redpacketContractAddress,
+        source,
     ]);
 
     return [

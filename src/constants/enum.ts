@@ -54,6 +54,11 @@ export enum PageRoute {
     PostDetail = '/post/:source/:id',
     Events = '/events',
     ConnectWallet = '/connect-wallet',
+    Token = '/token/:symbol',
+    Article = '/article/:id',
+    ProfileDetail = '/profile/:source/:id',
+    Channel = '/channel/:id/:type',
+    Event = '/event/:name',
 }
 
 export enum Source {

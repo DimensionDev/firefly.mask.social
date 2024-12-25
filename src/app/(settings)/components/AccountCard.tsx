@@ -16,6 +16,7 @@ import { type SocialSource, Source } from '@/constants/enum.js';
 import { EMPTY_LIST } from '@/constants/index.js';
 import { enqueueErrorMessage, enqueueMessageFromError, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { getProfileState } from '@/helpers/getProfileState.js';
+import { isSameEthereumAddress } from '@/helpers/isSameAddress.js';
 import { isSameProfile, toProfileId } from '@/helpers/isSameProfile.js';
 import { useConnectedAccounts } from '@/hooks/useConnectedAccounts.js';
 import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
@@ -99,7 +100,12 @@ export function AccountCard({ source }: AccountCardProps) {
             if (!profiles) return EMPTY_LIST;
             const { accounts } = getProfileState(Source.Lens);
             return profiles
-                .filter((x) => !accounts.some((y) => isSameProfile(x, y.profile)))
+                .filter((x) => {
+                    return (
+                        !accounts.some((y) => isSameProfile(x, y.profile)) &&
+                        isSameEthereumAddress(x.address, account.address)
+                    );
+                })
                 .map((x) => ({ profile: x, session: null }));
         },
     });

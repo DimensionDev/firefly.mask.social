@@ -17,6 +17,7 @@ export interface ProfileAvatarProps extends HTMLProps<HTMLElement> {
     linkable?: boolean;
     clickable?: boolean;
     enableSourceIcon?: boolean;
+    enableDefaultAvatar?: boolean;
     fallbackUrl?: string;
 }
 
@@ -28,6 +29,7 @@ export function ProfileAvatar({
     linkable = false,
     clickable = false,
     enableSourceIcon = true,
+    enableDefaultAvatar = false,
     ...props
 }: ProfileAvatarProps) {
     const isLarge = useIsLarge();
@@ -38,7 +40,11 @@ export function ProfileAvatar({
     const content = (
         <div className="relative z-0" style={style}>
             <div className="absolute left-0 top-0 rounded-full" style={style}>
-                <Avatar src={profile.pfp} size={size} alt={profile.displayName} fallbackUrl={fallbackUrl} />
+                {!profile.pfp && enableDefaultAvatar ? (
+                    <ProfileSourceIcon size={size} source={profile.profileSource} />
+                ) : (
+                    <Avatar src={profile.pfp} size={size} alt={profile.displayName} fallbackUrl={fallbackUrl} />
+                )}
             </div>
             {loading ? (
                 <div className="absolute left-0 top-0 z-10">
