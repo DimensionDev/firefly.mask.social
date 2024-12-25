@@ -4,7 +4,7 @@ import { Trans } from '@lingui/macro';
 
 import SuccessShieldIcon from '@/assets/success-shield.svg';
 import { useActivityCompose } from '@/components/Activity/hooks/useActivityCompose.js';
-import { CloseButton } from '@/components/CloseButton.js';
+import { CloseButton } from '@/components/IconButton.js';
 import { Modal } from '@/components/Modal.js';
 import { Popover } from '@/components/Popover.js';
 import type { Chars } from '@/helpers/chars.js';
