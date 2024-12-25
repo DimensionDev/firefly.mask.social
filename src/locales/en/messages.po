@@ -3304,11 +3304,11 @@ msgstr "The contract owner has restrictions on trading cooldown."
 msgid "Sign to enable signless"
 msgstr "Sign to enable signless"
 
-msgid "View on website"
-msgstr "View on website"
-
 msgid "<0>Claimed: </0><1>{claim_numbers}/{total_numbers}</1><2>{0}/{1}</2><3>{token_symbol}</3>"
 msgstr "<0>Claimed: </0><1>{claim_numbers}/{total_numbers}</1><2>{0}/{1}</2><3>{token_symbol}</3>"
+
+msgid "View on website"
+msgstr "View on website"
 
 msgid "Profiles"
 msgstr "Profiles"

@@ -3306,10 +3306,10 @@ msgstr "合约所有者对交易冷却时间有限制。"
 msgid "Sign to enable signless"
 msgstr "签名以启用无签名功能"
 
-msgid "View on website"
+msgid "<0>Claimed: </0><1>{claim_numbers}/{total_numbers}</1><2>{0}/{1}</2><3>{token_symbol}</3>"
 msgstr ""
 
-msgid "<0>Claimed: </0><1>{claim_numbers}/{total_numbers}</1><2>{0}/{1}</2><3>{token_symbol}</3>"
+msgid "View on website"
 msgstr ""
 
 msgid "Profiles"
@@ -3524,18 +3524,6 @@ msgstr "{0, plural, one {点赞} other {点赞}}"
 
 msgid "Collectible"
 msgstr "NFT"
-
-msgid ""
-"Just claimed the \"Holiday Skates with $PENGU⛸️🐧⛸️\" collectible from {fireflyMention}\n"
-"Check your eligibility and claim here {shareUrl}\n"
-"#PENGU #FireflySocial"
-msgstr ""
-"刚刚从 {fireflyMention} 领取了“Holiday Skates with $PENGU⛸️🐧⛸️” NFT ！\n"
-"查看您的资格并在此领取：{shareUrl}\n"
-"#PENGU #FireflySocial"
-
-msgid "Users must hold one NFT from the collection you select."
-msgstr "用户必须持有您选择的系列中的一枚 NFT。"
 
 msgid "Are you sure you want to report this user?"
 msgstr "您确定要举报这个用户么？"

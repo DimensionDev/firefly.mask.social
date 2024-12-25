@@ -3306,10 +3306,10 @@ msgstr ""
 msgid "Sign to enable signless"
 msgstr ""
 
-msgid "View on website"
+msgid "<0>Claimed: </0><1>{claim_numbers}/{total_numbers}</1><2>{0}/{1}</2><3>{token_symbol}</3>"
 msgstr ""
 
-msgid "<0>Claimed: </0><1>{claim_numbers}/{total_numbers}</1><2>{0}/{1}</2><3>{token_symbol}</3>"
+msgid "View on website"
 msgstr ""
 
 msgid "Profiles"
@@ -3523,15 +3523,6 @@ msgid "{0, plural, one {like} other {likes}}"
 msgstr ""
 
 msgid "Collectible"
-msgstr ""
-
-msgid ""
-"Just claimed the \"Holiday Skates with $PENGU⛸️🐧⛸️\" collectible from {fireflyMention}\n"
-"Check your eligibility and claim here {shareUrl}\n"
-"#PENGU #FireflySocial"
-msgstr ""
-
-msgid "Users must hold one NFT from the collection you select."
 msgstr ""
 
 msgid "Are you sure you want to report this user?"

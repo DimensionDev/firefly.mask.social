@@ -3301,10 +3301,10 @@ msgstr ""
 msgid "Sign to enable signless"
 msgstr ""
 
-msgid "View on website"
+msgid "<0>Claimed: </0><1>{claim_numbers}/{total_numbers}</1><2>{0}/{1}</2><3>{token_symbol}</3>"
 msgstr ""
 
-msgid "<0>Claimed: </0><1>{claim_numbers}/{total_numbers}</1><2>{0}/{1}</2><3>{token_symbol}</3>"
+msgid "View on website"
 msgstr ""
 
 msgid "Profiles"
