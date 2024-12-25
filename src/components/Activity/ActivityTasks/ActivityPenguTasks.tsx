@@ -1,12 +1,14 @@
 import { t, Trans } from '@lingui/macro';
+import { safeUnreachable } from '@masknet/kit';
 import { ChainId } from '@masknet/web3-shared-evm';
 import { ChainId as SolChainId } from '@masknet/web3-shared-solana';
-import { useContext } from 'react';
+import { useCallback, useContext, useState } from 'react';
 
 import { ActivityClaimButton } from '@/components/Activity/ActivityClaimButton.js';
 import { ActivityConnectCard } from '@/components/Activity/ActivityConnectCard.js';
 import { ActivityContext } from '@/components/Activity/ActivityContext.js';
 import { ActivityLoginButton } from '@/components/Activity/ActivityLoginButton.js';
+import { ActivityNormalSuccessDialog } from '@/components/Activity/ActivityNormalSuccessDialog.js';
 import { ActivityPremiumAddressVerifyCard } from '@/components/Activity/ActivityPremiumAddressVerifyCard.js';
 import { ActivityPremiumConditionList } from '@/components/Activity/ActivityPremiumConditionList.js';
 import { ActivityTaskFollowCard } from '@/components/Activity/ActivityTaskFollowCard.js';
@@ -24,7 +26,7 @@ import { classNames } from '@/helpers/classNames.js';
 import { replaceObjectInStringArray } from '@/helpers/replaceObjectInStringArray.js';
 import { resolveProfileUrl } from '@/helpers/resolveProfileUrl.js';
 import { runInSafe } from '@/helpers/runInSafe.js';
-import type { ActivityInfoResponse } from '@/providers/types/Firefly.js';
+import { type ActivityInfoResponse, ActivityStatus } from '@/providers/types/Firefly.js';
 
 export function ActivityPenguTasks({
     data,
@@ -49,9 +51,9 @@ export function ActivityPenguTasks({
     const shareContent = runInSafe(() => {
         const fireflyMention = 'FIREFLY_MENTION';
         return replaceObjectInStringArray(
-            t`Just claimed the "Holiday Skates with $PENGU⛸️🐧⛸️" collectible from ${fireflyMention}
+            t`Just submitted my wallet to receive my Christmas gift. Let's skate into the holiday season with $PENGU on ${fireflyMention}
 
-Check your eligibility and claim here ${shareUrl}
+Submit here ${shareUrl}
 
 #PENGU #FireflySocial`,
             {
@@ -59,6 +61,29 @@ Check your eligibility and claim here ${shareUrl}
             },
         );
     });
+
+    const disabled = !isFollowedFirefly;
+    const buttonText = runInSafe(() => {
+        const status = data.status;
+        switch (status) {
+            case ActivityStatus.Upcoming:
+                return <Trans>Not Started</Trans>;
+            case ActivityStatus.Ended:
+                return <Trans>Ended</Trans>;
+            case ActivityStatus.Active:
+                if (claimCondition?.participationBlocked) {
+                    return <Trans>Participation Blocked</Trans>;
+                }
+                if (claimCondition?.alreadyClaimed) {
+                    return <Trans>Participated</Trans>;
+                }
+                return <Trans>Participate Now</Trans>;
+            default:
+                safeUnreachable(status);
+                return null;
+        }
+    });
+    const [isSuccessParticipate, setIsSuccessParticipate] = useState(false);
 
     return (
         <>
@@ -136,13 +161,23 @@ Check your eligibility and claim here ${shareUrl}
                     status={data.status}
                     shareContent={shareContent as Chars}
                     claimType={isPremium ? 'premium' : 'base'}
-                    disabled={!isFollowedFirefly}
+                    disabled={disabled}
                     source={Source.Twitter}
-                    buttonText={claimCondition?.participationBlocked ? <Trans>Participation Blocked</Trans> : undefined}
+                    buttonText={buttonText}
                     claimApiExtraParams={{
                         evmWalletAddress: premiumAddress,
                         solanaWalletAddress: address,
                     }}
+                    onSuccess={useCallback(() => {
+                        setIsSuccessParticipate(true);
+                    }, [])}
+                    hasSuccessDialog={false}
+                />
+                <ActivityNormalSuccessDialog
+                    shareContent={shareContent as Chars}
+                    claimType={isPremium ? 'premium' : 'base'}
+                    open={isSuccessParticipate}
+                    onClose={() => setIsSuccessParticipate(false)}
                 />
             </div>
         </>

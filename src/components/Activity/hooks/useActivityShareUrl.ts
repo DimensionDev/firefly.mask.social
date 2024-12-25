@@ -26,6 +26,7 @@ export function useActivityShareUrl(name?: string) {
                       hlbl: Source.Twitter,
                       elex24: Source.Twitter,
                       frensgiving: Source.Farcaster,
+                      pengu: Source.Twitter,
                   } as Record<string, SocialSource>
               )[name]
             : undefined) ?? Source.Twitter;
