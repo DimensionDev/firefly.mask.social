@@ -1839,9 +1839,6 @@ msgstr ""
 msgid "Grow your followers and engagement with Lucky Drop on Firefly!"
 msgstr ""
 
-msgid "Not Supported"
-msgstr ""
-
 msgid "Unsent posts"
 msgstr ""
 

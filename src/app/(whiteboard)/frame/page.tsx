@@ -2,19 +2,18 @@
 
 import { exposeToIframe } from '@farcaster/frame-host';
 import { Trans } from '@lingui/macro';
-import { noop } from 'lodash-es';
 import { useEffect, useRef, useState } from 'react';
 import { useAsyncRetry } from 'react-use';
 
-import GhostHoleIcon from '@/assets/ghost.svg';
 import { FramePage, FramePageBody, FramePageTitle } from '@/app/(whiteboard)/components/FramePage.js';
 import FireflyLogo from '@/assets/firefly.logo.svg';
+import GhostHoleIcon from '@/assets/ghost.svg';
 import { IS_DEVELOPMENT } from '@/constants/index.js';
+import { bom } from '@/helpers/bom.js';
 import { createEIP1193Provider } from '@/helpers/createEIP1193Provider.js';
 import { fireflyBridgeProvider } from '@/providers/firefly/Bridge.js';
-import type { FrameV2, FrameV2Host } from '@/types/frame.js';
 import { SupportedMethod } from '@/types/bridge.js';
-import { bom } from '@/helpers/bom.js';
+import type { FrameV2, FrameV2Host } from '@/types/frame.js';
 
 interface PageProps {
     searchParams: {};

@@ -1837,9 +1837,6 @@ msgstr "Font Color"
 msgid "Grow your followers and engagement with Lucky Drop on Firefly!"
 msgstr "Grow your followers and engagement with Lucky Drop on Firefly!"
 
-msgid "Not Supported"
-msgstr "Not Supported"
-
 msgid "Unsent posts"
 msgstr "Unsent posts"
 

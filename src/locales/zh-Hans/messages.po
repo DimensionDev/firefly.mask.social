@@ -1839,9 +1839,6 @@ msgstr "字体颜色"
 msgid "Grow your followers and engagement with Lucky Drop on Firefly!"
 msgstr ""
 
-msgid "Not Supported"
-msgstr ""
-
 msgid "Unsent posts"
 msgstr "未发送的帖子"
 
