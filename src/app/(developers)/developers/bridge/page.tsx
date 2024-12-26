@@ -105,6 +105,30 @@ const items: Item[] = [
         title: 'Back',
         description: 'Close the current page.',
     },
+    {
+        type: 'method',
+        name: SupportedMethod.CLOSE,
+        title: 'Close',
+        description: 'Close the firefly app.',
+    },
+    {
+        type: 'method',
+        name: SupportedMethod.SET_PRIMARY_BUTTON,
+        title: 'Set Primary Button',
+        description: 'Set primary button.',
+    },
+    {
+        type: 'method',
+        name: SupportedMethod.REQUEST,
+        title: 'Request',
+        description: 'Send an EVM RPC request.',
+    },
+    {
+        type: 'method',
+        name: SupportedMethod.GET_FRAME_CONTEXT,
+        title: 'Get Frame Context',
+        description: 'Get frame context.',
+    },
 ];
 
 export default function Page() {

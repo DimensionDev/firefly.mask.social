@@ -1,3 +1,5 @@
+import type { FrameContext } from '@farcaster/frame-host';
+
 export enum Theme {
     Auto = 'auto',
     Light = 'light',
@@ -32,6 +34,10 @@ export enum SupportedMethod {
     SHARE = 'share',
     COMPOSE = 'compose',
     BACK = 'back',
+    CLOSE = 'close',
+    SET_PRIMARY_BUTTON = 'setPrimaryButton',
+    GET_FRAME_CONTEXT = 'getFrameContext',
+    REQUEST = 'request',
 }
 
 export interface MentionProfile {
@@ -88,6 +94,18 @@ export interface RequestArguments {
         mentions: Mention[];
     };
     [SupportedMethod.BACK]: {};
+    [SupportedMethod.CLOSE]: {};
+    [SupportedMethod.SET_PRIMARY_BUTTON]: {
+        text: string;
+        loading?: boolean;
+        disabled?: boolean;
+        hidden?: boolean;
+    };
+    [SupportedMethod.GET_FRAME_CONTEXT]: {};
+    [SupportedMethod.REQUEST]: {
+        method: string;
+        params: unknown[];
+    };
 }
 
 type StringifyBoolean = 'true' | 'false';
@@ -111,6 +129,12 @@ export interface RequestResult {
     [SupportedMethod.SHARE]: void;
     [SupportedMethod.COMPOSE]: void;
     [SupportedMethod.BACK]: void;
+    [SupportedMethod.CLOSE]: void;
+    [SupportedMethod.SET_PRIMARY_BUTTON]: void;
+    [SupportedMethod.GET_FRAME_CONTEXT]: FrameContext & {
+        frame: string;
+    };
+    [SupportedMethod.REQUEST]: unknown;
 }
 
 export type MethodItem<T extends SupportedMethod = SupportedMethod> = {

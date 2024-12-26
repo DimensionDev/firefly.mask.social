@@ -1,4 +1,4 @@
-import { exposeToIframe, type FrameHost } from '@farcaster/frame-host';
+import { exposeToIframe } from '@farcaster/frame-host';
 import { delay } from '@masknet/kit';
 import { forwardRef, useEffect, useRef, useState } from 'react';
 import { useAsyncFn } from 'react-use';
@@ -12,12 +12,12 @@ import { parseUrl } from '@/helpers/parseUrl.js';
 import { useSingletonModal } from '@/hooks/useSingletonModal.js';
 import type { SingletonModalRefCreator } from '@/libs/SingletonModal.js';
 import { MoreAction } from '@/modals/FrameViewerModal/MoreActionMenu.js';
-import type { FrameV2 } from '@/types/frame.js';
+import type { FrameV2, FrameV2Host } from '@/types/frame.js';
 
 export type FrameViewerModalOpenProps = {
     ready: boolean;
     frame: FrameV2;
-    frameHost: Omit<FrameHost, 'ethProviderRequestV2'>;
+    frameHost: FrameV2Host;
 };
 export type FrameViewerModalCloseProps = void;
 
