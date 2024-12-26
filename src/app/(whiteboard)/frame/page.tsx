@@ -10,10 +10,7 @@ import FireflyLogo from '@/assets/firefly.logo.svg';
 import GhostHoleIcon from '@/assets/ghost.svg';
 import { IS_DEVELOPMENT } from '@/constants/index.js';
 import { bom } from '@/helpers/bom.js';
-import {
-    createEIP1193ProviderFromRequest,
-    type RequestArguments,
-} from '@/helpers/createEIP1193Provider.js';
+import { createEIP1193ProviderFromRequest, type RequestArguments } from '@/helpers/createEIP1193Provider.js';
 import { parseJSON } from '@/helpers/parseJSON.js';
 import { fireflyBridgeProvider } from '@/providers/firefly/Bridge.js';
 import { FarcasterFrameHost } from '@/providers/frame/Host.js';
@@ -26,13 +23,13 @@ interface PageProps {
 
 export default function Page({ searchParams }: PageProps) {
     const [ready, setReady] = useState(false);
-    const { loading, retry, value } = useAsyncRetry(async () => {
+    const { loading, retry, error, value } = useAsyncRetry(async () => {
         if (!fireflyBridgeProvider.supported) return;
 
         const result = await fireflyBridgeProvider.request(SupportedMethod.GET_FRAME_CONTEXT, {});
 
         const frame = parseJSON<FrameV2>(result.frame);
-        if (!frame) return null;
+        if (!frame) throw new Error('Failed to parse frame payload.');
 
         const context = {
             user: result.user,
@@ -94,7 +91,7 @@ export default function Page({ searchParams }: PageProps) {
         else bom.window?.close();
     };
 
-    if (!fireflyBridgeProvider.supported) {
+    if (!fireflyBridgeProvider.supported || error) {
         return (
             <FramePage>
                 <FramePageTitle onClose={onClose} onReload={onReload}>
@@ -104,7 +101,7 @@ export default function Page({ searchParams }: PageProps) {
                     <div className="flex flex-col items-center">
                         <GhostHoleIcon width={200} height={143} className="text-third" />
                         <p className="mt-10 text-center text-sm">
-                            <Trans>Your browser does not support the Firefly Bridge.</Trans>
+                            {error?.message ?? <Trans>Your browser does not support the Firefly Bridge.</Trans>}
                         </p>
                     </div>
                 </FramePageBody>
