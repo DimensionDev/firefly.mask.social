@@ -1,4 +1,4 @@
-import { exposeToIframe, type FrameHost } from '@farcaster/frame-host';
+import { exposeToIframe } from '@farcaster/frame-host';
 import { delay } from '@masknet/kit';
 import { forwardRef, useEffect, useRef, useState } from 'react';
 import { useAsyncFn } from 'react-use';

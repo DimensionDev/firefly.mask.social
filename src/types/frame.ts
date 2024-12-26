@@ -1,8 +1,9 @@
 /* cspell:disable */
 
 // #region frame v1
-import type { FrameProtocol } from '@/constants/enum.js';
 import type { FrameHost } from '@farcaster/frame-host';
+
+import type { FrameProtocol } from '@/constants/enum.js';
 
 export type Index = 1 | 2 | 3 | 4;
 

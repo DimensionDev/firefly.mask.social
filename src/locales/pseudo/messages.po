@@ -2494,6 +2494,9 @@ msgstr ""
 msgid "Please try switching to {0}"
 msgstr ""
 
+msgid "Your browser does not support the Firefly Bridge."
+msgstr ""
+
 msgid "Mobile App"
 msgstr ""
 

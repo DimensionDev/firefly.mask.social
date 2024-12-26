@@ -1,12 +1,16 @@
 'use client';
 
+import { exposeToIframe } from '@farcaster/frame-host';
+import { Trans } from '@lingui/macro';
+import { useEffect, useRef, useState } from 'react';
+import { useAsyncRetry } from 'react-use';
+
+import FireflyLogo from '@/assets/firefly.logo.svg';
+import GhostHoleIcon from '@/assets/ghost.svg';
 import { IS_DEVELOPMENT } from '@/constants/index.js';
 import { createEIP1193Provider } from '@/helpers/createEIP1193Provider.js';
-import type { Frame, FrameV2, FrameV2Host } from '@/types/frame.js';
-import { exposeToIframe, type FrameHost } from '@farcaster/frame-host';
-import { forwardRef, useEffect, useRef, useState } from 'react';
-import { useAsyncRetry, useAsyncFn } from 'react-use';
-import FireflyLogo from '@/assets/firefly.logo.svg';
+import { fireflyBridgeProvider } from '@/providers/firefly/Bridge.js';
+import type { FrameV2, FrameV2Host } from '@/types/frame.js';
 
 interface PageProps {
     searchParams: {};
@@ -15,6 +19,8 @@ interface PageProps {
 export default function Page({ searchParams }: PageProps) {
     const [ready, setReady] = useState(false);
     const { loading, retry, value } = useAsyncRetry(async () => {
+        if (!fireflyBridgeProvider.supported) return;
+
         return Promise.resolve<{
             frame: FrameV2;
             frameHost: FrameV2Host;
@@ -25,6 +31,7 @@ export default function Page({ searchParams }: PageProps) {
     const { frame, frameHost } = value ?? {};
 
     useEffect(() => {
+        if (!fireflyBridgeProvider.supported) return;
         if (!frameRef.current) return;
         if (!frameHost) return;
 
@@ -39,10 +46,23 @@ export default function Page({ searchParams }: PageProps) {
         return () => {
             result?.cleanup();
         };
-    }, [value]);
+    }, [frame, frameHost]);
+
+    if (!fireflyBridgeProvider.supported) {
+        return (
+            <div className="absolute inset-0 flex items-center justify-center bg-white dark:bg-black">
+                <div>
+                    <GhostHoleIcon width={200} height={143} className="text-third" />
+                    <p className="mt-10 text-sm">
+                        <Trans>Your browser does not support the Firefly Bridge.</Trans>
+                    </p>
+                </div>
+            </div>
+        );
+    }
 
     return (
-        <div className=" ">
+        <div className="absolute inset-0 bg-white dark:bg-black">
             {frame ? (
                 <iframe
                     className="scrollbar-hide h-full w-full opacity-100"
