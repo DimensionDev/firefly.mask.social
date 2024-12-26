@@ -62,7 +62,7 @@ export default function Page({ searchParams }: PageProps) {
     }
 
     return (
-        <div className="absolute inset-0 bg-white dark:bg-black">
+        <div className="absolute inset-0 items-center justify-center bg-white dark:bg-black">
             {frame ? (
                 <iframe
                     className="scrollbar-hide h-full w-full opacity-100"
