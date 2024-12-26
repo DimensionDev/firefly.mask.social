@@ -12,14 +12,13 @@ import { IS_DEVELOPMENT } from '@/constants/index.js';
 import { bom } from '@/helpers/bom.js';
 import {
     createEIP1193ProviderFromRequest,
-    createEIP1193ProviderFromWagmi,
     type RequestArguments,
 } from '@/helpers/createEIP1193Provider.js';
+import { parseJSON } from '@/helpers/parseJSON.js';
 import { fireflyBridgeProvider } from '@/providers/firefly/Bridge.js';
+import { FarcasterFrameHost } from '@/providers/frame/Host.js';
 import { SupportedMethod } from '@/types/bridge.js';
 import type { FrameV2, FrameV2Host } from '@/types/frame.js';
-import { parseJSON } from '@/helpers/parseJSON.js';
-import { FarcasterFrameHost } from '@/providers/frame/Host.js';
 
 interface PageProps {
     searchParams: {};

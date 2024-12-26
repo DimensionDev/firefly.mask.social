@@ -4,13 +4,13 @@ import { memo, useState } from 'react';
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { Image } from '@/components/Image.js';
 import { Source } from '@/constants/enum.js';
+import { SITE_NAME } from '@/constants/index.js';
 import { getCurrentProfile } from '@/helpers/getCurrentProfile.js';
 import { FrameViewerModalRef, LoginModalRef } from '@/modals/controls.js';
 import { FarcasterFrameHost } from '@/providers/frame/Host.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
-import type { FrameV2 } from '@/types/frame.js';
-import { SITE_NAME } from '@/constants/index.js';
 import { useFarcasterStateStore } from '@/store/useProfileStore.js';
+import type { FrameV2 } from '@/types/frame.js';
 
 interface CardProps {
     post: Post;

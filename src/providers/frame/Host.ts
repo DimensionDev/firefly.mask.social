@@ -11,12 +11,7 @@ import type {
 import { noop } from 'lodash-es';
 
 import { NotImplementedError } from '@/constants/error.js';
-import { SITE_NAME } from '@/constants/index.js';
 import { openWindow } from '@/helpers/openWindow.js';
-import { resolveValue } from '@/helpers/resolveValue.js';
-import type { Post } from '@/providers/types/SocialMedia.js';
-import { useFarcasterStateStore } from '@/store/useProfileStore.js';
-import type { FrameV2 } from '@/types/frame.js';
 
 export class FarcasterFrameHost implements Omit<FrameHost, 'ethProviderRequestV2'> {
     constructor(
