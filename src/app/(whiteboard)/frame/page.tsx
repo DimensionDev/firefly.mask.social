@@ -56,7 +56,7 @@ export default function Page({ searchParams }: PageProps) {
                     <Trans>Not Available</Trans>
                 </FramePageTitle>
                 <FramePageBody>
-                    <p className="mt-10 text-sm">
+                    <p className="text-center text-sm">
                         <Trans>Your browser does not support the Firefly Bridge.</Trans>
                     </p>
                 </FramePageBody>

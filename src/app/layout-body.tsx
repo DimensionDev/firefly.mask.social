@@ -22,9 +22,11 @@ export function LayoutBody({ children }: { children: React.ReactNode }) {
                             <SideBar />
                         </IfPathname>
                     </IfHostname>
-                    <NoSSR>
-                        <mask-page-inspector />
-                    </NoSSR>
+                    <IfPathname isNotOneOf={['/frame']}>
+                        <NoSSR>
+                            <mask-page-inspector />
+                        </NoSSR>
+                    </IfPathname>
                 </div>
 
                 <Modals />
