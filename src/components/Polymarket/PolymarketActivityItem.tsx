@@ -74,16 +74,6 @@ export const PolymarketActivityItem = memo<PolymarketActivityProps>(function Pol
                         className="mt-1.5 block flex-1"
                         href={`https://polymarket.com/event/${activity.eventSlug}`}
                     >
-                        {/* <div className="text-medium leading-6 text-lightMain"> */}
-                        {/*     <span className="inline-block rounded-lg border border-lightMain px-2"> */}
-                        {/*         {<TypeIcon className="mr-1 inline-block align-baseline" width={12} height={12} />} */}
-                        {/*         {typeText} */}
-                        {/*     </span> */}
-                        {/*     <Trans> */}
-                        {/*         <span className="ml-1">worth ${formatAmount(activity.usdcSize)}</span> */}
-                        {/*         <span className="ml-1">at Polymarket</span> */}
-                        {/*     </Trans> */}
-                        {/* </div> */}
                         <ActivityCellPolymarketAction type={activity.side} usdcSize={activity.usdcSize} />
                         <div className="mt-1.5 rounded-xl border border-line bg-lightBg p-3">
                             <div className="flex gap-x-2">
