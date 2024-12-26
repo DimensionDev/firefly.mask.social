@@ -14,6 +14,7 @@ import { createEIP1193Provider } from '@/helpers/createEIP1193Provider.js';
 import { fireflyBridgeProvider } from '@/providers/firefly/Bridge.js';
 import type { FrameV2, FrameV2Host } from '@/types/frame.js';
 import { SupportedMethod } from '@/types/bridge.js';
+import { bom } from '@/helpers/bom.js';
 
 interface PageProps {
     searchParams: {};
@@ -51,14 +52,20 @@ export default function Page({ searchParams }: PageProps) {
         };
     }, [frame, frameHost]);
 
+    const onReload = () => {
+        if (fireflyBridgeProvider.supported) retry();
+        else bom.location?.reload();
+    };
+
     const onClose = () => {
-        fireflyBridgeProvider.request(SupportedMethod.CLOSE, {});
+        if (fireflyBridgeProvider.supported) fireflyBridgeProvider.request(SupportedMethod.CLOSE, {});
+        else bom.window?.close();
     };
 
     if (!fireflyBridgeProvider.supported) {
         return (
             <FramePage>
-                <FramePageTitle onClose={onClose} onReload={retry}>
+                <FramePageTitle onClose={onClose} onReload={onReload}>
                     <Trans>Not Supported</Trans>
                 </FramePageTitle>
                 <FramePageBody>
@@ -75,7 +82,7 @@ export default function Page({ searchParams }: PageProps) {
 
     return (
         <FramePage>
-            <FramePageTitle onClose={onClose} onReload={retry}>
+            <FramePageTitle onClose={onClose} onReload={onReload}>
                 {frame ? frame.button.action.name : null}
             </FramePageTitle>
             <FramePageBody>
