@@ -4,6 +4,7 @@ import {
     type ApprovedAllowanceAmountResultFragment,
     CommentRankingFilterType,
     CustomFiltersType,
+    ExploreProfilesOrderByType,
     ExplorePublicationsOrderByType,
     FeedEventItemType,
     type FeeFollowModuleSettingsFragment,
@@ -112,6 +113,10 @@ import type { ResponseJSON } from '@/types/index.js';
 
 const MOMOKA_ERROR_MSG = 'momoka publication is not allowed';
 
+function ensureCursor(indicator?: PageIndicator) {
+    return indicator?.id && !isZero(indicator.id) ? indicator.id : undefined;
+}
+
 @SetQueryDataForLikePost(Source.Lens)
 @SetQueryDataForBookmarkPost(Source.Lens)
 @SetQueryDataForMirrorPost(Source.Lens)
@@ -160,7 +165,7 @@ export class LensSocialMedia implements Provider {
 
     async getPostsByChannelId(channelId: string, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
         const result = await lensSessionHolder.sdk.publication.fetchAll({
-            cursor: indicator?.id && !isZero(indicator.id) ? indicator.id : undefined,
+            cursor: ensureCursor(indicator),
             limit: LimitType.TwentyFive,
             where: { metadata: { tags: { oneOf: [`${ORB_CLUB_TAG_PREFIX}${channelId}`] } } },
         });
@@ -730,7 +735,7 @@ export class LensSocialMedia implements Provider {
                 customFilters: hasFilter ? [CustomFiltersType.Gardeners] : undefined,
             },
             limit: LimitType.TwentyFive,
-            cursor: indicator?.id && !isZero(indicator.id) ? indicator.id : undefined,
+            cursor: ensureCursor(indicator),
         });
 
         if (!result) throw new Error(t`No comments found`);
@@ -762,7 +767,7 @@ export class LensSocialMedia implements Provider {
     async discoverPosts(indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
         const result = await lensSessionHolder.sdk.explore.publications({
             orderBy: ExplorePublicationsOrderByType.LensCurated,
-            cursor: indicator?.id && !isZero(indicator.id) ? indicator.id : undefined,
+            cursor: ensureCursor(indicator),
             limit: LimitType.TwentyFive,
         });
 
@@ -779,7 +784,7 @@ export class LensSocialMedia implements Provider {
                 for: profileId,
                 feedEventItemTypes: [FeedEventItemType.Post, FeedEventItemType.Comment, FeedEventItemType.Mirror],
             },
-            cursor: indicator?.id && !isZero(indicator.id) ? indicator.id : undefined,
+            cursor: ensureCursor(indicator),
         });
 
         if (data.isFailure()) throw new Error(`Some thing went wrong ${JSON.stringify(data.isFailure())}`);
@@ -802,7 +807,7 @@ export class LensSocialMedia implements Provider {
                 actedBy: profileId,
                 publicationTypes: [PublicationType.Post, PublicationType.Comment, PublicationType.Mirror],
             },
-            cursor: indicator?.id && !isZero(indicator.id) ? indicator.id : undefined,
+            cursor: ensureCursor(indicator),
         });
 
         return createPageable(
@@ -819,7 +824,7 @@ export class LensSocialMedia implements Provider {
                 metadata: null,
                 publicationTypes: [PublicationType.Post, PublicationType.Mirror, PublicationType.Quote],
             },
-            cursor: indicator?.id && !isZero(indicator.id) ? indicator.id : undefined,
+            cursor: ensureCursor(indicator),
         });
 
         return createPageable(
@@ -839,7 +844,7 @@ export class LensSocialMedia implements Provider {
                 metadata: null,
                 publicationTypes: [PublicationType.Comment],
             },
-            cursor: indicator?.id && !isZero(indicator.id) ? indicator.id : undefined,
+            cursor: ensureCursor(indicator),
         });
 
         return createPageable(
@@ -870,7 +875,7 @@ export class LensSocialMedia implements Provider {
                     PublicationType.Comment,
                 ],
             },
-            cursor: indicator?.id && !isZero(indicator.id) ? indicator.id : undefined,
+            cursor: ensureCursor(indicator),
         });
 
         return createPageable(
@@ -1110,7 +1115,7 @@ export class LensSocialMedia implements Provider {
     async getFollowers(profileId: string, indicator?: PageIndicator): Promise<Pageable<Profile>> {
         const result = await lensSessionHolder.sdk.profile.followers({
             of: profileId,
-            cursor: indicator?.id && !isZero(indicator.id) ? indicator.id : undefined,
+            cursor: ensureCursor(indicator),
         });
 
         return createPageable(
@@ -1123,7 +1128,7 @@ export class LensSocialMedia implements Provider {
     async getFollowings(profileId: string, indicator?: PageIndicator): Promise<Pageable<Profile>> {
         const result = await lensSessionHolder.sdk.profile.following({
             for: profileId,
-            cursor: indicator?.id && !isZero(indicator.id) ? indicator.id : undefined,
+            cursor: ensureCursor(indicator),
         });
 
         return createPageable(
@@ -1139,7 +1144,7 @@ export class LensSocialMedia implements Provider {
         const result = await lensSessionHolder.sdk.profile.mutualFollowers({
             observer,
             viewing: profileId,
-            cursor: indicator?.id && !isZero(indicator.id) ? indicator.id : undefined,
+            cursor: ensureCursor(indicator),
         });
 
         return createPageable(
@@ -1174,7 +1179,7 @@ export class LensSocialMedia implements Provider {
                 customFilters: [CustomFiltersType.Gardeners],
                 highSignalFilter,
             },
-            cursor: indicator?.id && !isZero(indicator.id) ? indicator.id : undefined,
+            cursor: ensureCursor(indicator),
         });
 
         const result = response.unwrap();
@@ -1328,21 +1333,30 @@ export class LensSocialMedia implements Provider {
     }
 
     async getSuggestedFollows(indicator?: PageIndicator): Promise<Pageable<Profile>> {
-        const response = await FireflyEndpointProvider.getLensSuggestFollows(indicator);
-        const result = await lensSessionHolder.sdk.profile.fetchAll({
-            where: {
-                profileIds: response.data.map((profile) => profile.profileId),
-            },
-        });
-        if (!result) return createPageable(EMPTY_LIST, createIndicator(indicator));
-        response.data = result.items.map(formatLensProfile);
-        return response;
+        const profile = getCurrentProfile(Source.Lens);
+
+        const pagination = { cursor: ensureCursor(indicator), limit: LimitType.TwentyFive };
+        const result = profile?.profileId
+            ? await lensSessionHolder.sdk.profile.recommendations({
+                  for: profile.profileId,
+                  ...pagination,
+              })
+            : await lensSessionHolder.sdk.explore.profiles({
+                  orderBy: ExploreProfilesOrderByType.MostFollowers,
+                  ...pagination,
+              });
+
+        return createPageable(
+            result.items.map(formatLensProfile),
+            createIndicator(indicator),
+            result.pageInfo.next ? createNextIndicator(indicator, result.pageInfo.next) : undefined,
+        );
     }
 
     async searchProfiles(q: string, indicator?: PageIndicator): Promise<Pageable<Profile, PageIndicator>> {
         const result = await lensSessionHolder.sdk.search.profiles({
             query: q,
-            cursor: indicator?.id,
+            cursor: ensureCursor(indicator),
             limit: LimitType.TwentyFive,
             where: {
                 // hey.xyz passes such filters for its searching as well
@@ -1494,7 +1508,7 @@ export class LensSocialMedia implements Provider {
                 },
                 customFilters: [CustomFiltersType.Gardeners],
             },
-            cursor: indicator?.id && !isZero(indicator.id) ? indicator.id : undefined,
+            cursor: ensureCursor(indicator),
         });
 
         if (!result) throw new Error(t`No comments found`);
