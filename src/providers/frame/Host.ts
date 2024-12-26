@@ -35,7 +35,7 @@ export class FarcasterFrameHost implements Omit<FrameHost, 'ethProviderRequestV2
 
         return {
             user: {
-                fid: (profile?.profileId as unknown as number) ?? 0,
+                fid: (profile?.profileId as unknown as number | undefined) ?? 0,
                 username: profile?.displayName,
                 pfpUrl: profile?.pfp,
                 location: {
