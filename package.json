@@ -58,6 +58,7 @@
         "@reown/appkit": "^1.1.3",
         "@reown/appkit-adapter-wagmi": "^1.1.3",
         "@sentry/browser": "^7.112.2",
+        "@sentry/nextjs": "^8.47.0",
         "@servie/events": "^3.0.0",
         "@solana/buffer-layout": "^4.0.1",
         "@solana/spl-token": "^0.4.9",
