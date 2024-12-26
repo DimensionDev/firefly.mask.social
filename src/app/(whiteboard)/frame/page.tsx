@@ -75,7 +75,7 @@ export default function Page({ searchParams }: PageProps) {
                     }}
                 />
             ) : null}
-            {!ready || loading ? (
+            {!ready || loading || !frame ? (
                 <div className="absolute inset-0 top-[60px] flex items-center justify-center bg-white dark:bg-black">
                     <FireflyLogo width={80} height={80} />
                 </div>
