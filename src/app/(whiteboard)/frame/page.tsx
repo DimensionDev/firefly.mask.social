@@ -66,7 +66,7 @@ export default function Page({ searchParams }: PageProps) {
         return (
             <FramePage>
                 <FramePageTitle onClose={onClose} onReload={onReload}>
-                    <Trans>Not Supported</Trans>
+                    Firefly
                 </FramePageTitle>
                 <FramePageBody>
                     <div className="flex flex-col items-center">
