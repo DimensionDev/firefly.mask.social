@@ -139,6 +139,25 @@ export function BridgeMethodButton({ item }: Props) {
                 case SupportedMethod.BACK:
                     fireflyBridgeProvider.request(SupportedMethod.BACK, {});
                     break;
+                case SupportedMethod.CLOSE:
+                    fireflyBridgeProvider.request(SupportedMethod.CLOSE, {});
+                    break;
+                case SupportedMethod.SET_PRIMARY_BUTTON:
+                    fireflyBridgeProvider.request(SupportedMethod.SET_PRIMARY_BUTTON, { text: 'Primary Button' });
+                    break;
+                case SupportedMethod.REQUEST: {
+                    const balance = await fireflyBridgeProvider.request(SupportedMethod.REQUEST, {
+                        method: 'eth_getBalance',
+                        params: ['0x934b510d4c9103e6a87aef13b816fb080286d649', 'latest'],
+                    });
+                    enqueueInfoMessage(`Balance: ${balance}`);
+                    break;
+                }
+                case SupportedMethod.GET_FRAME_CONTEXT: {
+                    const context = await fireflyBridgeProvider.request(SupportedMethod.GET_FRAME_CONTEXT, {});
+                    enqueueInfoMessage(JSON.stringify(context, null, 2));
+                    break;
+                }
                 default:
                     safeUnreachable(item.name);
                     break;
