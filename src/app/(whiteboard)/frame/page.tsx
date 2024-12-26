@@ -6,6 +6,7 @@ import { noop } from 'lodash-es';
 import { useEffect, useRef, useState } from 'react';
 import { useAsyncRetry } from 'react-use';
 
+import GhostHoleIcon from '@/assets/ghost.svg';
 import { FramePage, FramePageBody, FramePageTitle } from '@/app/(whiteboard)/components/FramePage.js';
 import FireflyLogo from '@/assets/firefly.logo.svg';
 import { IS_DEVELOPMENT } from '@/constants/index.js';
@@ -53,9 +54,10 @@ export default function Page({ searchParams }: PageProps) {
         return (
             <FramePage>
                 <FramePageTitle onClose={noop} onReload={noop}>
-                    <Trans>Not Available</Trans>
+                    <Trans>Not Supported</Trans>
                 </FramePageTitle>
                 <FramePageBody>
+                    <GhostHoleIcon width={200} height={143} className="text-third" />
                     <p className="text-center text-sm">
                         <Trans>Your browser does not support the Firefly Bridge.</Trans>
                     </p>
