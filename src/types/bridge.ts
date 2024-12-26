@@ -1,5 +1,7 @@
 import type { FrameContext } from '@farcaster/frame-host';
 
+import type { PartialWith } from '@/types/index.js';
+
 export enum Theme {
     Auto = 'auto',
     Light = 'light',
@@ -131,7 +133,7 @@ export interface RequestResult {
     [SupportedMethod.BACK]: void;
     [SupportedMethod.CLOSE]: void;
     [SupportedMethod.SET_PRIMARY_BUTTON]: void;
-    [SupportedMethod.GET_FRAME_CONTEXT]: FrameContext & {
+    [SupportedMethod.GET_FRAME_CONTEXT]: PartialWith<FrameContext, 'client'> & {
         frame: string;
     };
     [SupportedMethod.REQUEST]: unknown;
