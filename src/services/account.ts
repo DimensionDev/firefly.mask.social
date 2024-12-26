@@ -49,7 +49,10 @@ function getFireflySession(account: Account) {
 }
 
 function hasFireflySession() {
-    return SORTED_SOCIAL_SOURCES.some((x) => !!getProfileState(x).currentProfile);
+    return (
+        SORTED_SOCIAL_SOURCES.some((x) => !!getProfileState(x).currentProfile) &&
+        useThirdPartyStateStore.getState().currentProfile
+    );
 }
 
 async function updateState(accounts: Account[], overwrite = false) {
