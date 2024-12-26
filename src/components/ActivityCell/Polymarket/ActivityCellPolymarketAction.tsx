@@ -20,10 +20,8 @@ export function ActivityCellPolymarketAction({
         case PolymarketBetType.Buy:
             return (
                 <ActivityCellAction>
-                    <ActivityCellActionTag icon={<BuyIcon />}>
-                        <Trans>Placed a bet</Trans>
-                    </ActivityCellActionTag>
                     <Trans>
+                        <ActivityCellActionTag icon={<BuyIcon />}>Placed a bet</ActivityCellActionTag>
                         <span>worth ${formatAmount(usdcSize)} at Polymarket</span>
                     </Trans>
                     {children}
@@ -32,10 +30,8 @@ export function ActivityCellPolymarketAction({
         case PolymarketBetType.Sell:
             return (
                 <ActivityCellAction>
-                    <ActivityCellActionTag icon={<SellIcon />}>
-                        <Trans>Sold a bet</Trans>
-                    </ActivityCellActionTag>
                     <Trans>
+                        <ActivityCellActionTag icon={<SellIcon />}>Sold a bet</ActivityCellActionTag>
                         <span>worth ${formatAmount(usdcSize)} at Polymarket</span>
                     </Trans>
                     {children}
