@@ -16,6 +16,9 @@ msgstr ""
 msgid "The gas abuse function is included. The project owner may have the ability to control the contract."
 msgstr "The gas abuse function is included. The project owner may have the ability to control the contract."
 
+msgid "Projects"
+msgstr "Projects"
+
 msgid "{days, plural, one {1 day left} other {{days} days left}}"
 msgstr "{days, plural, one {1 day left} other {{days} days left}}"
 
@@ -1269,9 +1272,6 @@ msgstr "Network Fee"
 
 msgid "Contract address found."
 msgstr "Contract address found."
-
-msgid "Top Profiles"
-msgstr "Top Profiles"
 
 msgid "NFT added to your Bookmarks"
 msgstr "NFT added to your Bookmarks"
@@ -2694,9 +2694,6 @@ msgstr "You've hit rock bottom."
 
 msgid "View"
 msgstr "View"
-
-msgid "Crypto Trends"
-msgstr "Crypto Trends"
 
 msgid "<0>Acquired</0><1/>"
 msgstr "<0>Acquired</0><1/>"

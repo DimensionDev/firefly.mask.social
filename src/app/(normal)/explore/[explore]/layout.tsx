@@ -27,9 +27,10 @@ export default function Layout({
     setupLocaleForSSR();
 
     const labels: Record<ExploreType, React.ReactNode> = {
-        [ExploreType.TopProfiles]: <Trans>Top Profiles</Trans>,
-        [ExploreType.CryptoTrends]: <Trans>Crypto Trends</Trans>,
-        [ExploreType.TopChannels]: <Trans>Trending Channels</Trans>,
+        [ExploreType.TopProfiles]: <Trans>Users</Trans>,
+        [ExploreType.Projects]: <Trans>Projects</Trans>,
+        [ExploreType.CryptoTrends]: <Trans>Tokens</Trans>,
+        [ExploreType.TopChannels]: <Trans>Channels</Trans>,
     };
 
     return (
