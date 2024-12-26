@@ -5,6 +5,7 @@ import { sendTransaction, waitForTransactionReceipt } from 'wagmi/actions';
 
 import { getMintButtonText } from '@/components/NFTs/FreeMintButton.js';
 import { config } from '@/configs/wagmiClient.js';
+import { MintStatus } from '@/constants/enum.js';
 import { enqueueMessageFromError, enqueueSuccessMessage, enqueueWarningMessage } from '@/helpers/enqueueMessage.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 import type { SponsorMintOptions } from '@/providers/types/Firefly.js';
@@ -21,11 +22,11 @@ export function useSponsorMintNFT(mintTarget: SponsorMintOptions, mintCount: num
             };
             const latestParams = await FireflyEndpointProvider.getSponsorMintStatus(options);
             const mintStatus = latestParams.mintStatus;
-            if (mintStatus === 0) {
+            if (mintStatus === MintStatus.NotSupportted) {
                 enqueueWarningMessage(t`So sorry, we are not able to mint this NFT at the moment.`);
                 return;
             }
-            if (![1, 2].includes(mintStatus)) {
+            if (![MintStatus.Mintable, MintStatus.MintAgain].includes(mintStatus)) {
                 enqueueWarningMessage(
                     t`So sorry, we cant mint this NFT with the current status: ${getMintButtonText(true, true, mintStatus)}`,
                 );

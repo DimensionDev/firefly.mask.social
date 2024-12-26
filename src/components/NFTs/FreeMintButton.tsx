@@ -10,20 +10,20 @@ import LoadingIcon from '@/assets/loading.svg';
 import WebsiteIcon from '@/assets/website-circle.svg';
 import { ClickableButton, type ClickableButtonProps } from '@/components/ClickableButton.js';
 import { chains } from '@/configs/wagmiClient.js';
+import { MintStatus } from '@/constants/enum.js';
 import { Link } from '@/esm/Link.js';
 import { classNames } from '@/helpers/classNames.js';
 import { useSponsorMintStatus } from '@/hooks/useSponsorMintStatus.js';
 import { ConnectModalRef, FreeMintModalRef } from '@/modals/controls.js';
 
 interface FreeMintButtonProps extends Omit<ClickableButtonProps, 'ref'> {
-    showInDisabled?: boolean;
     contractAddress: string;
     tokenId: string;
     chainId: number;
     externalUrl?: string;
 }
 
-export function getMintButtonText(connected: boolean, isSupportedChain: boolean, mintStatus?: number) {
+export function getMintButtonText(connected: boolean, isSupportedChain: boolean, mintStatus?: MintStatus) {
     if (!connected) {
         return t`Connect Wallet`;
     }
@@ -32,17 +32,17 @@ export function getMintButtonText(connected: boolean, isSupportedChain: boolean,
     }
 
     switch (mintStatus) {
-        case 1:
+        case MintStatus.Mintable:
             return t`Mint`;
-        case 2:
+        case MintStatus.MintAgain:
             return t`Mint Again`;
-        case 3:
+        case MintStatus.NotStarted:
             return t`Not Started`;
-        case 4:
+        case MintStatus.Ended:
             return t`Mint Ended`;
-        case 5:
+        case MintStatus.Minted:
             return t`Minted`;
-        case 6:
+        case MintStatus.SoldOut:
             return t`Sold Out`;
         default:
             return t`Unknown status`;
@@ -54,7 +54,6 @@ export function FreeMintButton({
     tokenId,
     chainId,
     externalUrl,
-    showInDisabled = true,
     className,
     ...rest
 }: FreeMintButtonProps) {
@@ -94,7 +93,7 @@ export function FreeMintButton({
         });
     }, [account.address, connected, mintTarget, data, currentChainId, refetch, switchChainAsync]);
 
-    if (data?.mintStatus === 0) {
+    if (data?.mintStatus === MintStatus.NotSupportted) {
         return externalUrl ? (
             <Link
                 href={externalUrl}
@@ -109,8 +108,6 @@ export function FreeMintButton({
             </Link>
         ) : null;
     }
-
-    if (!showInDisabled && data?.mintStatus && ![1, 2].includes(data.mintStatus)) return null;
 
     const isSupportedChain = chains.some((chain) => chain.id === data?.chainId);
     const loading = isLoading || isRefetching || handlerLoading;

@@ -4,6 +4,7 @@ import type { Address, Hex } from 'viem';
 import {
     BookmarkType,
     FireflyPlatform,
+    MintStatus,
     NetworkType,
     PolymarketBetType,
     S3ConvertStatus,
@@ -1269,7 +1270,7 @@ export type SponsorMintOptions = {
 };
 
 export type MintMetadata = {
-    mintStatus: number;
+    mintStatus: MintStatus;
     mintPrice: string;
     platformFee: string;
     txData: {
