@@ -131,6 +131,7 @@ export type LoginFallbackSource = SocialSource | Source.Article | Source.DAOs | 
 
 export enum ExploreType {
     CryptoTrends = 'crypto-trends',
+    Projects = 'project',
     TopProfiles = 'top-profiles',
     TopChannels = 'top-channels',
 }
