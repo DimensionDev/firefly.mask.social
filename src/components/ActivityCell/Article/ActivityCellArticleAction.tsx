@@ -45,7 +45,7 @@ export function ActivityCellArticleAction({ type, platform }: Props) {
         case ArticleType.Post:
             action = (
                 <Trans>
-                    <ActivityCellActionTag icon={<PostedIcon />}>Post</ActivityCellActionTag>
+                    <ActivityCellActionTag icon={<PostedIcon />}>Posted</ActivityCellActionTag>
                     <span>
                         an article on <ArticlePlatformName platform={platform} />
                     </span>
