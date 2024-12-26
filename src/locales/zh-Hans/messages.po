@@ -21,6 +21,9 @@ msgstr ""
 msgid "The gas abuse function is included. The project owner may have the ability to control the contract."
 msgstr "包含燃气滥用功能。项目所有者可能有能力控制合约。"
 
+msgid "Projects"
+msgstr ""
+
 msgid "{days, plural, one {1 day left} other {{days} days left}}"
 msgstr "{days, plural, one {1 天剩余} other {{days} 天剩余}}"
 
@@ -1265,9 +1268,6 @@ msgstr "网络费"
 
 msgid "Contract address found."
 msgstr "识别为合约地址。"
-
-msgid "Top Profiles"
-msgstr "热门用户"
 
 msgid "NFT added to your Bookmarks"
 msgstr "NFT 已经添加到您的收藏中"
@@ -2681,9 +2681,6 @@ msgstr "你已经滑到底部啦～"
 
 msgid "View"
 msgstr "查看"
-
-msgid "Crypto Trends"
-msgstr "加密货币趋势"
 
 msgid "<0>Acquired</0><1/>"
 msgstr "<0>获得</0><1/>"

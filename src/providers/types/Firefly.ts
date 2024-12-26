@@ -1159,6 +1159,17 @@ export type SearchableNFT = {
     website?: string;
 };
 
+export type Project = {
+    eval: number;
+    project_id: number;
+    one_liner: string;
+    logo: string;
+    rank: number;
+    token_symbol: string;
+    project_name: string;
+    tags: string[];
+};
+
 export type SearchNFTResponse = Response<{
     list: SearchableNFT[];
 }>;
@@ -1244,6 +1255,8 @@ export type LinkDigestResponse = Response<{
     twitterXQT?: unknown;
     farcasterFrames?: unknown;
 }>;
+
+export type ProjectResponse = Response<Project[]>;
 
 export type GetBookmarksResponse = Response<{
     list: Array<{
