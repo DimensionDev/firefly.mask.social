@@ -35,14 +35,14 @@ function toggleBlock(id: string, status: boolean) {
             });
         }),
     );
-    queryClient.setQueriesData<PageData<NFTAsset>>(
-        { queryKey: ['poap-list'] },
-        createUpdater<NFTAsset>((item) => {
-            if (resolveNFTIdFromAsset(item) === id) {
-                item.hasBookmarked = status;
-            }
-        }),
-    );
+
+    const patcher = createUpdater<NFTAsset>((item) => {
+        if (resolveNFTIdFromAsset(item) === id) {
+            item.hasBookmarked = status;
+        }
+    });
+    queryClient.setQueriesData<PageData<NFTAsset>>({ queryKey: ['poap-list'] }, patcher);
+    queryClient.setQueriesData<PageData<NFTAsset>>({ queryKey: ['nft-list'] }, patcher);
     queryClient.setQueryData(['has-bookmarked', FireflyPlatform.NFTs, id], status);
 }
 

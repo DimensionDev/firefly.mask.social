@@ -2398,9 +2398,6 @@ msgstr "Recast or Quote"
 msgid "Sorry, we are not able to find a wallet for {0}."
 msgstr "Sorry, we are not able to find a wallet for {0}."
 
-msgid "Remove from bookmark"
-msgstr "Remove from bookmark"
-
 msgid "Unwatch"
 msgstr "Unwatch"
 
