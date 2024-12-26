@@ -160,6 +160,9 @@ msgstr ""
 msgid "Mute @{0}"
 msgstr ""
 
+msgid "<0>worth ${0} at Polymarket</0>"
+msgstr ""
+
 msgid "Failed to upload. Video size exceeds {0}"
 msgstr ""
 
@@ -727,6 +730,9 @@ msgstr ""
 msgid "24 Hour Trading Vol"
 msgstr ""
 
+msgid "Placed a bet"
+msgstr ""
+
 msgid "Failed to delete scheduled post."
 msgstr ""
 
@@ -989,9 +995,6 @@ msgid "Failed to follow @{0} on Lens"
 msgstr ""
 
 msgid "Check Eligibility"
-msgstr ""
-
-msgid "<0>Post</0><1>an article on <2/></1>"
 msgstr ""
 
 msgid "You might like"
@@ -1517,6 +1520,9 @@ msgid "Unlike"
 msgstr ""
 
 msgid "No blacklist"
+msgstr ""
+
+msgid "<0>Collected</0><1/>"
 msgstr ""
 
 msgid "Post was deleted"
@@ -2111,9 +2117,6 @@ msgid "Quote"
 msgstr ""
 
 msgid "View engagements"
-msgstr ""
-
-msgid "<0>worth ${0}</0><1>at Polymarket</1>"
 msgstr ""
 
 msgid "The contract owner has restrictions on selling."
@@ -2824,6 +2827,9 @@ msgstr ""
 msgid "No money laundering involved."
 msgstr ""
 
+msgid "<0>Posted</0><1>an article on <2/></1>"
+msgstr ""
+
 msgid "Claims"
 msgstr ""
 
@@ -3154,9 +3160,6 @@ msgstr ""
 msgid "The scheduled time has passed."
 msgstr ""
 
-msgid "Place a bet"
-msgstr ""
-
 msgid "The connection has timed out. Please try again later."
 msgstr ""
 
@@ -3365,9 +3368,6 @@ msgid "Followed @{0} on Lens"
 msgstr ""
 
 msgid "Claim Now"
-msgstr ""
-
-msgid "<0>Collect</0><1/>"
 msgstr ""
 
 msgid "Collect for {0} {1}"

@@ -1,11 +1,9 @@
-import { Trans } from '@lingui/macro';
 import { first } from 'lodash-es';
 import { memo } from 'react';
 import type { Address } from 'viem';
 
-import BuyIcon from '@/assets/bet-buy.svg';
-import SellIcon from '@/assets/bet-sell.svg';
 import PolymarketIcon from '@/assets/polymarket.svg';
+import { ActivityCellPolymarketAction } from '@/components/ActivityCell/Polymarket/ActivityCellPolymarketAction.js';
 import { Avatar } from '@/components/Avatar.js';
 import { FeedFollowSource } from '@/components/FeedFollowSource.js';
 import { Image } from '@/components/Image.js';
@@ -13,7 +11,7 @@ import { PolymarketActivityRate } from '@/components/Polymarket/PolymarketActivi
 import { PolymarketActivityResult } from '@/components/Polymarket/PolymarketActivityResult.js';
 import { TimestampFormatter } from '@/components/TimeStampFormatter.js';
 import { WalletBaseMoreAction } from '@/components/WalletBaseMoreAction.js';
-import { PolymarketBetType, Source } from '@/constants/enum.js';
+import { Source } from '@/constants/enum.js';
 import { Link } from '@/esm/Link.js';
 import { classNames } from '@/helpers/classNames.js';
 import { formatAddress } from '@/helpers/formatAddress.js';
@@ -36,9 +34,6 @@ export const PolymarketActivityItem = memo<PolymarketActivityProps>(function Pol
     const addressName = formatAddress(activity.wallet, 4);
     const profileUrl = resolveProfileUrl(Source.Wallet, activity.wallet);
 
-    const isSell = activity.side === PolymarketBetType.Sell;
-    const TypeIcon = isSell ? SellIcon : BuyIcon;
-    const typeText = isSell ? <Trans>Sold a bet</Trans> : <Trans>Place a bet</Trans>;
     const isLeft = activity.outcomeIndex === 0;
     const outcome = activity.conditionOutcomes[activity.outcomeIndex] || activity.outcome;
 
@@ -79,16 +74,17 @@ export const PolymarketActivityItem = memo<PolymarketActivityProps>(function Pol
                         className="mt-1.5 block flex-1"
                         href={`https://polymarket.com/event/${activity.eventSlug}`}
                     >
-                        <div className="text-medium leading-6 text-lightMain">
-                            <span className="inline-block rounded-lg border border-lightMain px-2">
-                                {<TypeIcon className="mr-1 inline-block align-baseline" width={12} height={12} />}
-                                {typeText}
-                            </span>
-                            <Trans>
-                                <span className="ml-1">worth ${formatAmount(activity.usdcSize)}</span>
-                                <span className="ml-1">at Polymarket</span>
-                            </Trans>
-                        </div>
+                        {/* <div className="text-medium leading-6 text-lightMain"> */}
+                        {/*     <span className="inline-block rounded-lg border border-lightMain px-2"> */}
+                        {/*         {<TypeIcon className="mr-1 inline-block align-baseline" width={12} height={12} />} */}
+                        {/*         {typeText} */}
+                        {/*     </span> */}
+                        {/*     <Trans> */}
+                        {/*         <span className="ml-1">worth ${formatAmount(activity.usdcSize)}</span> */}
+                        {/*         <span className="ml-1">at Polymarket</span> */}
+                        {/*     </Trans> */}
+                        {/* </div> */}
+                        <ActivityCellPolymarketAction type={activity.side} usdcSize={activity.usdcSize} />
                         <div className="mt-1.5 rounded-xl border border-line bg-lightBg p-3">
                             <div className="flex gap-x-2">
                                 <Image
