@@ -10,10 +10,16 @@ import FireflyLogo from '@/assets/firefly.logo.svg';
 import GhostHoleIcon from '@/assets/ghost.svg';
 import { IS_DEVELOPMENT } from '@/constants/index.js';
 import { bom } from '@/helpers/bom.js';
-import { createEIP1193Provider } from '@/helpers/createEIP1193Provider.js';
+import {
+    createEIP1193ProviderFromRequest,
+    createEIP1193ProviderFromWagmi,
+    type RequestArguments,
+} from '@/helpers/createEIP1193Provider.js';
 import { fireflyBridgeProvider } from '@/providers/firefly/Bridge.js';
 import { SupportedMethod } from '@/types/bridge.js';
 import type { FrameV2, FrameV2Host } from '@/types/frame.js';
+import { parseJSON } from '@/helpers/parseJSON.js';
+import { FarcasterFrameHost } from '@/providers/frame/Host.js';
 
 interface PageProps {
     searchParams: {};
@@ -24,10 +30,33 @@ export default function Page({ searchParams }: PageProps) {
     const { loading, retry, value } = useAsyncRetry(async () => {
         if (!fireflyBridgeProvider.supported) return;
 
-        return Promise.resolve<{
+        const result = await fireflyBridgeProvider.request(SupportedMethod.GET_FRAME_CONTEXT, {});
+
+        const frame = parseJSON<FrameV2>(result.frame);
+        if (!frame) return null;
+
+        const context = {
+            user: result.user,
+            location: result.location,
+            client: {
+                clientFid: 0,
+                added: false,
+                ...result.client,
+            },
+        };
+
+        return {
+            frame,
+            frameHost: new FarcasterFrameHost(context, {
+                ready: () => setReady(true),
+                close: () => fireflyBridgeProvider.request(SupportedMethod.CLOSE, {}),
+                setPrimaryButton: (options) =>
+                    fireflyBridgeProvider.request(SupportedMethod.SET_PRIMARY_BUTTON, options),
+            }),
+        } satisfies {
             frame: FrameV2;
             frameHost: FrameV2Host;
-        }>(null!);
+        };
     }, [setReady]);
 
     const frameRef = useRef<HTMLIFrameElement | null>(null);
@@ -42,7 +71,12 @@ export default function Page({ searchParams }: PageProps) {
             debug: IS_DEVELOPMENT,
             iframe: frameRef.current,
             sdk: frameHost,
-            ethProvider: createEIP1193Provider(),
+            ethProvider: createEIP1193ProviderFromRequest(async function request<T>(
+                requestArguments: RequestArguments,
+            ) {
+                const result = await fireflyBridgeProvider.request(SupportedMethod.REQUEST, requestArguments);
+                return result as T;
+            }),
             frameOrigin: '*',
         });
 

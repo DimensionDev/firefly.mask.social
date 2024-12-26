@@ -7,7 +7,7 @@ import FireflyLogo from '@/assets/firefly.logo.svg';
 import { CloseButton } from '@/components/IconButton.js';
 import { Modal } from '@/components/Modal.js';
 import { IS_DEVELOPMENT } from '@/constants/index.js';
-import { createEIP1193Provider } from '@/helpers/createEIP1193Provider.js';
+import { createEIP1193ProviderFromWagmi } from '@/helpers/createEIP1193Provider.js';
 import { parseUrl } from '@/helpers/parseUrl.js';
 import { useSingletonModal } from '@/hooks/useSingletonModal.js';
 import type { SingletonModalRefCreator } from '@/libs/SingletonModal.js';
@@ -45,7 +45,7 @@ export const FrameViewerModal = forwardRef<SingletonModalRefCreator<FrameViewerM
                 debug: IS_DEVELOPMENT,
                 iframe: frameRef.current,
                 sdk: props.frameHost,
-                ethProvider: createEIP1193Provider(),
+                ethProvider: createEIP1193ProviderFromWagmi(),
                 frameOrigin: '*',
             });
 
