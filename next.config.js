@@ -26,8 +26,8 @@ const sentryWebpackPluginOptions = {
     cleanArtifacts: true,
     environment: process.env.NODE_ENV,
     sourcemaps: {
-        deleteSourcemapsAfterUpload: true
-    }
+        deleteSourcemapsAfterUpload: true,
+    },
 };
 
 /** @type {import('next').NextConfig} */
