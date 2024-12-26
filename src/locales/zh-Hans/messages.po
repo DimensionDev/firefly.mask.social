@@ -276,6 +276,9 @@ msgstr "税率可以被修改"
 msgid "<0>Burned</0><1/>"
 msgstr "<0>已销毁</0><1/>"
 
+msgid "🤑 Just claimed a #FireflyLuckyDrop 🧧💰✨ on {postUrl} !"
+msgstr ""
+
 msgid "Join our Discord"
 msgstr "加入我们的 Discord"
 
@@ -1599,9 +1602,6 @@ msgstr "取消隐藏失败/{0}。"
 msgid "Please confirm the login with Warpcast."
 msgstr "请确认使用 Warpcast 登录。"
 
-msgid "🤑 Check this #FireflyLuckyDrop 🧧💰✨ on {postUrl} from @{0} !"
-msgstr ""
-
 msgid "Cover background"
 msgstr "封面背景"
 
@@ -2660,6 +2660,9 @@ msgstr "即将推出"
 
 msgid "{handleOrEnsOrAddress} unwatched"
 msgstr "{handleOrEnsOrAddress} 取消关注"
+
+msgid "🤑 Check this #FireflyLuckyDrop 🧧💰✨ on {postUrl} !"
+msgstr ""
 
 msgid "Saved on {0} at {1}"
 msgstr "保存于 {1} {0}"

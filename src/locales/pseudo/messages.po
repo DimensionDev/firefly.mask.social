@@ -271,6 +271,9 @@ msgstr ""
 msgid "<0>Burned</0><1/>"
 msgstr ""
 
+msgid "🤑 Just claimed a #FireflyLuckyDrop 🧧💰✨ on {postUrl} !"
+msgstr ""
+
 msgid "Join our Discord"
 msgstr ""
 
@@ -1594,9 +1597,6 @@ msgstr ""
 msgid "Please confirm the login with Warpcast."
 msgstr ""
 
-msgid "🤑 Check this #FireflyLuckyDrop 🧧💰✨ on {postUrl} from @{0} !"
-msgstr ""
-
 msgid "Cover background"
 msgstr ""
 
@@ -2654,6 +2654,9 @@ msgid "Upcoming"
 msgstr ""
 
 msgid "{handleOrEnsOrAddress} unwatched"
+msgstr ""
+
+msgid "🤑 Check this #FireflyLuckyDrop 🧧💰✨ on {postUrl} !"
 msgstr ""
 
 msgid "Saved on {0} at {1}"
