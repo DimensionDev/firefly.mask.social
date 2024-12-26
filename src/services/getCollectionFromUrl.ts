@@ -1,22 +1,20 @@
 import { ChainId as ChainIdEVM } from '@masknet/web3-shared-evm';
 import { ChainId as ChainIdSolana, isValidChainId as isSolanaChainId } from '@masknet/web3-shared-solana';
 
-import { NetworkType, NFTMarketplace } from '@/constants/enum.js';
+import { NFTMarketplace } from '@/constants/enum.js';
 import { parseUrl } from '@/helpers/parseUrl.js';
 import { SimpleHashProvider } from '@/providers/simplehash/index.js';
 
 const rules: Array<{
     hosts: string[];
     pathname: RegExp;
-    network: NetworkType;
-    chainId: number;
+    chainId: number | ((path: string) => number);
     provider: NFTMarketplace;
 }> = [
     // https://opensea.io/collection/lens-protocol-profiles
     {
         hosts: ['opensea.io'],
-        pathname: /^\/collection\/([^/]+)$/,
-        network: NetworkType.Ethereum,
+        pathname: /^\/collection\/([^/]+)(?:\/[^/]+)?$/,
         chainId: ChainIdEVM.Mainnet,
         provider: NFTMarketplace.Opensea,
     },
@@ -24,16 +22,18 @@ const rules: Array<{
     {
         hosts: ['magiceden.io', 'magiceden.us'],
         pathname: /^\/marketplace\/([^/]+)$/,
-        network: NetworkType.Solana,
         chainId: ChainIdSolana.Mainnet,
         provider: NFTMarketplace.Magiceden,
     },
     // https://blur.io/collection/azuki
     {
         hosts: ['blur.io'],
-        pathname: /^\/collection\/([^/]+)$/,
-        network: NetworkType.Ethereum,
-        chainId: ChainIdEVM.Mainnet,
+        pathname: /^(?:\/[^/]+)?\/collection\/([^/]+)$/,
+        chainId: (path) => {
+            const matched = path.match(/\/([^/]+)\/collection/);
+            if (matched?.[1] === 'solana') return ChainIdSolana.Mainnet;
+            return ChainIdEVM.Mainnet;
+        },
         provider: NFTMarketplace.Opensea,
     },
 ];
@@ -65,10 +65,10 @@ function resolveMarketplaceData(url: string) {
         const matched = rule.pathname && pathname.match(rule.pathname);
 
         if (isHostMatched && matched) {
+            const chainId = typeof rule.chainId === 'function' ? rule.chainId(pathname) : rule.chainId;
             return {
-                chainId: rule.chainId,
+                chainId,
                 provider: rule.provider,
-                network: rule.network,
                 slug: matched[1],
             };
         }

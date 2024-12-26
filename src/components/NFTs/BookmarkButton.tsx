@@ -41,7 +41,7 @@ export const BookmarkButton = forwardRef<HTMLButtonElement, BookmarkButtonProps>
             onClick={async () => {
                 const confirmed = hasBookmarked
                     ? await ConfirmModalRef.openAndWaitForClose({
-                          title: t`Remove from bookmark`,
+                          title: t`Remove from Bookmarks`,
                           content: (
                               <div className="text-main">
                                   <Trans>Are you sure you want to remove this NFT from your bookmark?</Trans>
@@ -89,7 +89,7 @@ export const BookmarkInIcon = memo(function BookmarkInIcon({ ...rest }: Bookmark
                             fill={bookmarked ? 'rgb(var(--color-warn))' : 'none'}
                             width={20}
                             height={20}
-                            className="size-5"
+                            className={classNames('size-5', bookmarked ? 'text-warn' : '')}
                         />
                     )}
                 </span>
