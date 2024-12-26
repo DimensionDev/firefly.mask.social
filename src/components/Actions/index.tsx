@@ -87,11 +87,9 @@ export const PostActionsWithGrid = memo<PostActionsWithGridProps>(function PostA
                 />
             </div>
         ) : null,
-        post.source !== Source.Twitter ? (
-            <div key="like">
-                <Like isComment={isComment} post={post} disabled={disabled} hiddenCount />
-            </div>
-        ) : null,
+        <div key="like">
+            <Like isComment={isComment} post={post} disabled={disabled} hiddenCount />
+        </div>,
         identity.id ? (
             <Tips key="tips" post={post} identity={identity} disabled={disabled} handle={post.author.handle} />
         ) : null,
@@ -168,9 +166,7 @@ export const PostActions = memo<PostActionsProps>(function PostActions({
                         post={post}
                         hiddenCount
                     />
-                    {post.source !== Source.Twitter ? (
-                        <Like isComment={isComment} post={post} disabled={disabled} hiddenCount />
-                    ) : null}
+                    <Like isComment={isComment} post={post} disabled={disabled} hiddenCount />
                 </div>
                 <div className="flex translate-x-1.5 items-center space-x-2">
                     {post.source !== Source.Farcaster && post.canAct ? (
