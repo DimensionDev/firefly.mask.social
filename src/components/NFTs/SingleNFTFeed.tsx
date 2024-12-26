@@ -77,11 +77,12 @@ export const SingleNFTFeed = memo(function SingleNFTFeed({
                 </Link>
                 <article className="min-w-0 flex-grow">
                     <NFTFeedHeader
+                        className="mb-2"
                         address={ownerAddress}
                         contractAddress={contractAddress}
                         tokenId={token.id}
                         chainId={chainId}
-                        displayInfo={displayInfo}
+                        displayName={displayInfo.ensHandle}
                         time={time}
                     />
                     <NFTsActivityCellAction

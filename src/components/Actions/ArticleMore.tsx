@@ -10,6 +10,7 @@ import { ReportArticleButton } from '@/components/Actions/ReportArticleButton.js
 import { WatchWalletButton } from '@/components/Actions/WatchWalletButton.js';
 import { MenuGroup } from '@/components/MenuGroup.js';
 import { MoreActionMenu } from '@/components/MoreActionMenu.js';
+import { Tips } from '@/components/Tips/index.js';
 import { Tooltip } from '@/components/Tooltip.js';
 import { Source } from '@/constants/enum.js';
 import { formatAddress } from '@/helpers/formatAddress.js';
@@ -67,6 +68,19 @@ export const ArticleMoreAction = memo<MoreProps>(function ArticleMoreAction({ ar
                                     isMuted={author.isMuted}
                                     address={author.id}
                                     onClick={close}
+                                />
+                            )}
+                        </MenuItem>
+                        <MenuItem>
+                            {({ close }) => (
+                                <Tips
+                                    className="px-3 py-1 !text-main hover:bg-bg"
+                                    identity={identity}
+                                    handle={ens}
+                                    tooltipDisabled
+                                    label={t`Send a tip`}
+                                    onClick={close}
+                                    pureWallet
                                 />
                             )}
                         </MenuItem>
