@@ -772,9 +772,6 @@ msgstr "There are images or videos that were not uploaded successfully."
 msgid "{addressName} is already connected."
 msgstr "{addressName} is already connected."
 
-msgid "Unknow status"
-msgstr "Unknow status"
-
 msgid "{minutes, plural, one {1 minute left} other {{minutes} minutes left}}"
 msgstr "{minutes, plural, one {1 minute left} other {{minutes} minutes left}}"
 
@@ -1387,11 +1384,11 @@ msgstr "No financial crime involved."
 msgid "View on Website"
 msgstr "View on Website"
 
-msgid "Mint NFT"
-msgstr "Mint NFT"
-
 msgid "Club"
 msgstr "Club"
+
+msgid "Mint NFT"
+msgstr "Mint NFT"
 
 msgid "Follow"
 msgstr "Follow"
@@ -1537,11 +1534,11 @@ msgstr "Failed to login."
 msgid "Network"
 msgstr "Network"
 
-msgid "Failed to mint NFT."
-msgstr "Failed to mint NFT."
-
 msgid "Claim on {0}:"
 msgstr "Claim on {0}:"
+
+msgid "Failed to mint NFT."
+msgstr "Failed to mint NFT."
 
 msgid "Unlike"
 msgstr "Unlike"
@@ -2751,6 +2748,9 @@ msgstr "Pinned"
 
 msgid "The contract owner may contain the authority to modify the transaction tax. If the transaction tax is increased to more than 49%, the tokens will not be able to be traded (honeypot risk)."
 msgstr "The contract owner may contain the authority to modify the transaction tax. If the transaction tax is increased to more than 49%, the tokens will not be able to be traded (honeypot risk)."
+
+msgid "Unknown status"
+msgstr "Unknown status"
 
 msgid "<0>Minted</0> an NFT for free"
 msgstr "<0>Minted</0> an NFT for free"

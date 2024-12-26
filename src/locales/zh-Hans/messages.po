@@ -774,9 +774,6 @@ msgstr "图片或者视频上传失败。"
 msgid "{addressName} is already connected."
 msgstr "{addressName} 已经连接。"
 
-msgid "Unknow status"
-msgstr ""
-
 msgid "{minutes, plural, one {1 minute left} other {{minutes} minutes left}}"
 msgstr "{minutes, plural, one {1 分钟剩余} other {{minutes} 分钟剩余}}"
 
@@ -1389,10 +1386,10 @@ msgstr "未识别到金融犯罪。"
 msgid "View on Website"
 msgstr ""
 
-msgid "Mint NFT"
+msgid "Club"
 msgstr ""
 
-msgid "Club"
+msgid "Mint NFT"
 msgstr ""
 
 msgid "Follow"
@@ -1539,10 +1536,10 @@ msgstr "登录失败。"
 msgid "Network"
 msgstr "网络"
 
-msgid "Failed to mint NFT."
+msgid "Claim on {0}:"
 msgstr ""
 
-msgid "Claim on {0}:"
+msgid "Failed to mint NFT."
 msgstr ""
 
 msgid "Unlike"
@@ -2753,6 +2750,9 @@ msgstr "已置顶"
 
 msgid "The contract owner may contain the authority to modify the transaction tax. If the transaction tax is increased to more than 49%, the tokens will not be able to be traded (honeypot risk)."
 msgstr "合约所有人也许拥有修改交易费用的权力。如果交易费用增加到超过49%，通证将无法交易（欺诈风险）。"
+
+msgid "Unknown status"
+msgstr ""
 
 msgid "<0>Minted</0> an NFT for free"
 msgstr "免费<0>铸造</0> 了一个 NFT"
