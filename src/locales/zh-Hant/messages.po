@@ -1206,6 +1206,9 @@ msgstr ""
 msgid "Confirm you want to mute /{0}?"
 msgstr "確認對 @{0} 的靜音？"
 
+msgid "{0}"
+msgstr ""
+
 msgid "Refund"
 msgstr ""
 
@@ -3337,6 +3340,9 @@ msgid "Posted by {0} via Firefly"
 msgstr ""
 
 msgid "NFT contract can restrict the approval, resulting in NFT can not be traded on the NFT DEX."
+msgstr ""
+
+msgid "Not Available"
 msgstr ""
 
 msgid "<0>You</0> recasted"

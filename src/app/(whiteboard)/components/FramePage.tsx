@@ -1,4 +1,5 @@
-import { memo, type ComponentType, type FC, type ReactNode } from 'react';
+import { memo, type ReactNode } from 'react';
+
 import { CloseButton } from '@/components/IconButton.js';
 import { MoreAction } from '@/modals/FrameViewerModal/MoreActionMenu.js';
 

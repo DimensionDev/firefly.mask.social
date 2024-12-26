@@ -1206,6 +1206,9 @@ msgstr "添加一个已有的账号"
 msgid "Confirm you want to mute /{0}?"
 msgstr "您确定要隐藏 /{0} 吗？"
 
+msgid "{0}"
+msgstr ""
+
 msgid "Refund"
 msgstr "退款"
 
@@ -3338,6 +3341,9 @@ msgstr "由 {0} 使用 Firefly 发送"
 
 msgid "NFT contract can restrict the approval, resulting in NFT can not be traded on the NFT DEX."
 msgstr "NFT 合约可以限制授权，导致NFT无法在NFT去中心化交易所（DEX）上交易。"
+
+msgid "Not Available"
+msgstr ""
 
 msgid "<0>You</0> recasted"
 msgstr "<0>你</0> 已转帖"

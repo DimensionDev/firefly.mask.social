@@ -2,17 +2,16 @@
 
 import { exposeToIframe } from '@farcaster/frame-host';
 import { Trans } from '@lingui/macro';
+import { noop } from 'lodash-es';
 import { useEffect, useRef, useState } from 'react';
 import { useAsyncRetry } from 'react-use';
 
+import { FramePage, FramePageBody, FramePageTitle } from '@/app/(whiteboard)/components/FramePage.js';
 import FireflyLogo from '@/assets/firefly.logo.svg';
-import GhostHoleIcon from '@/assets/ghost.svg';
 import { IS_DEVELOPMENT } from '@/constants/index.js';
 import { createEIP1193Provider } from '@/helpers/createEIP1193Provider.js';
 import { fireflyBridgeProvider } from '@/providers/firefly/Bridge.js';
 import type { FrameV2, FrameV2Host } from '@/types/frame.js';
-import { FramePage, FramePageBody, FramePageTitle } from '@/app/(whiteboard)/components/FramePage.js';
-import { noop } from 'lodash-es';
 
 interface PageProps {
     searchParams: {};
@@ -68,7 +67,7 @@ export default function Page({ searchParams }: PageProps) {
     return (
         <FramePage>
             <FramePageTitle onClose={noop} onReload={noop}>
-                {frame ? <Trans>{frame.button.action.name}</Trans> : null}
+                {frame ? frame.button.action.name : null}
             </FramePageTitle>
             <FramePageBody>
                 {frame ? (
