@@ -294,6 +294,9 @@ msgstr "ArweaveTxId 为空。"
 msgid "{followerCount, plural, one {Member} other {Members}}"
 msgstr "{followerCount, plural, one {成员} other {成员}}"
 
+msgid "Mint Ended"
+msgstr ""
+
 msgid "<0>You</0> and {0} others recasted"
 msgstr "<0> 你 </0> 和 {0} 人都转发了"
 
@@ -521,6 +524,9 @@ msgstr "验证不成功"
 
 msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} {1, select, Lens {mirrored your} Farcaster {recasted your} other {mirrored your}} <4>{2, select, Post {post} Comment {comment} Quote {quote} Mirror {mirror} other {post}}</4>"
 msgstr "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} {1, select, Lens {转帖了你的} Farcaster {转帖了你的} other {转帖了你的}} <4>{2, select, Post {帖子} Comment {评论} Quote {引用} Mirror {转帖} other {帖子}}</4>"
+
+msgid "Total"
+msgstr ""
 
 msgid "Signer key not found. Please approve a new one for us in Warpcast."
 msgstr "未找到签名密钥。请在 Warpcast 中为我们批准一个新的密钥。"
@@ -1176,6 +1182,9 @@ msgstr "<0>购买</0><1/>"
 msgid "The current connected wallet does not match, Please switch to {0}"
 msgstr "当前连接的钱包不匹配，请切换到 {0}。"
 
+msgid "Mint price"
+msgstr ""
+
 msgid "Cost"
 msgstr "成本"
 
@@ -1220,6 +1229,9 @@ msgstr "正在连接…"
 
 msgid "Enter amount"
 msgstr "输入金额"
+
+msgid "Platform fee"
+msgstr ""
 
 msgid "<0>Sold</0> an NFT worth {costEl}"
 msgstr "<0>出售了</0> 一个 NFT 价值 {costEl}"
@@ -1374,7 +1386,13 @@ msgstr "关于空投"
 msgid "No financial crime involved."
 msgstr "未识别到金融犯罪。"
 
+msgid "View on Website"
+msgstr ""
+
 msgid "Club"
+msgstr ""
+
+msgid "Mint NFT"
 msgstr ""
 
 msgid "Follow"
@@ -1522,6 +1540,9 @@ msgid "Network"
 msgstr "网络"
 
 msgid "Claim on {0}:"
+msgstr ""
+
+msgid "Failed to mint NFT."
 msgstr ""
 
 msgid "Unlike"
@@ -1688,6 +1709,9 @@ msgstr "视频上传失败。"
 
 msgid "NFT contract cant restrict the approval, resulting in NFT can not be traded on the NFT DEX."
 msgstr "NFT 合约无法限制授权，导致NFT无法在NFT去中心化交易所（DEX）上交易。"
+
+msgid "NFT minted successfully!"
+msgstr ""
 
 msgid "<0>Collected</0> a POAP"
 msgstr "<0>已收集</0>一个 POAP"
@@ -1907,6 +1931,9 @@ msgstr "<0>当前市值与满足最大供应量时的市值之比。</0><1>Mkt C
 
 msgid "Minting Date"
 msgstr "铸造日期"
+
+msgid "Unsupported Chain"
+msgstr ""
 
 msgid "Failed to create red packet"
 msgstr "创建红包失败"
@@ -2490,6 +2517,9 @@ msgstr "完整的"
 msgid "Powered by"
 msgstr "技术支持来自"
 
+msgid "So sorry, we are not able to mint this NFT at the moment."
+msgstr ""
+
 msgid "<0>{0}</0> mirrored"
 msgstr "<0>{0}</0> 已转发"
 
@@ -2724,6 +2754,9 @@ msgstr "已置顶"
 msgid "The contract owner may contain the authority to modify the transaction tax. If the transaction tax is increased to more than 49%, the tokens will not be able to be traded (honeypot risk)."
 msgstr "合约所有人也许拥有修改交易费用的权力。如果交易费用增加到超过49%，通证将无法交易（欺诈风险）。"
 
+msgid "Unknown status"
+msgstr ""
+
 msgid "<0>Minted</0> an NFT for free"
 msgstr "免费<0>铸造</0> 了一个 NFT"
 
@@ -2855,6 +2888,9 @@ msgstr "确认登出这些账户？"
 
 msgid "Failed to join /{0} on {sourceName}."
 msgstr "未能在 {sourceName} 上加入 @{0}。"
+
+msgid "Mint Again"
+msgstr ""
 
 msgid "Repost"
 msgstr "转帖"
@@ -3261,6 +3297,9 @@ msgstr "下载应用"
 msgid "Failed to fetch the latest state after several attempts. Please try again later."
 msgstr "获取状态失败。请稍后重试。"
 
+msgid "So sorry, we cant mint this NFT with the current status: {0}"
+msgstr ""
+
 msgid "Profile"
 msgstr "个人信息"
 
@@ -3510,6 +3549,9 @@ msgstr "更新定时任务失败"
 msgid "Login"
 msgstr "登录"
 
+msgid "Mint failed"
+msgstr ""
+
 msgid "Replying to <0>@{0}</0> on {1}"
 msgstr "在 {1} 上回复 <0>@{0}</0>"
 
@@ -3536,6 +3578,9 @@ msgstr "× {0}"
 
 msgid "Blink Validator"
 msgstr "Blink 验证器"
+
+msgid "Minted"
+msgstr ""
 
 msgid "Golden"
 msgstr "金色的"

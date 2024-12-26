@@ -396,3 +396,13 @@ export enum NFTMarketplace {
     Tensor = 'tensor',
     Trove = 'trove',
 }
+
+export enum MintStatus {
+    NotSupported = 0,
+    Mintable = 1,
+    MintAgain = 2,
+    NotStarted = 3,
+    Ended = 4,
+    Minted = 5,
+    SoldOut = 6,
+}

@@ -4,6 +4,7 @@ import type { Address, Hex } from 'viem';
 import {
     BookmarkType,
     FireflyPlatform,
+    MintStatus,
     NetworkType,
     PolymarketBetType,
     S3ConvertStatus,
@@ -608,6 +609,7 @@ export type NFTCollectionsResponse = Response<{
 
 export type NFTAsset = NonFungibleAsset<number, number> & {
     hasBookmarked?: boolean;
+    externalUrl?: string;
 };
 
 export type TwitterFollowStatusResponse = Response<{
@@ -1266,6 +1268,45 @@ export type GetBookmarksResponse = Response<{
         post_id: string;
         post_type: BookmarkType;
     }>;
+}>;
+
+export type SponsorMintOptions = {
+    platformType?: string;
+    walletAddress: string;
+    contractAddress: string;
+    tokenId: string;
+    chainId: number;
+    buyCount: number;
+    vectorId?: number;
+    color?: string;
+    contractExt?: unknown;
+};
+
+export type MintMetadata = {
+    mintStatus: MintStatus;
+    mintPrice: string;
+    platformFee: string;
+    txData: {
+        gasLimit: string;
+        inputData: string;
+        to: string;
+        value: string;
+    };
+    mintCount: number;
+    perLimitCount: number;
+    chainId: number;
+    gasStatus: boolean;
+    tokenPrice: unknown;
+    nativePrice: number;
+};
+
+export type GetSponsorMintStatusResponse = Response<MintMetadata>;
+
+export type MintBySponsorResponse = Response<{
+    status: boolean;
+    hash: string;
+    errormessage: string;
+    gasStatus: boolean;
 }>;
 
 export interface GetFollowingCountByNFTParams {
