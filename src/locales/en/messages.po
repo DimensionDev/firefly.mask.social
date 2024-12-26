@@ -163,6 +163,9 @@ msgstr "You can sign in to Farcaster with the following options."
 msgid "Mute @{0}"
 msgstr "Mute @{0}"
 
+msgid "<0>worth ${0} at Polymarket</0>"
+msgstr "<0>worth ${0} at Polymarket</0>"
+
 msgid "Failed to upload. Video size exceeds {0}"
 msgstr "Failed to upload. Video size exceeds {0}"
 
@@ -727,6 +730,9 @@ msgstr "Time Out"
 msgid "24 Hour Trading Vol"
 msgstr "24 Hour Trading Vol"
 
+msgid "Placed a bet"
+msgstr "Placed a bet"
+
 msgid "Failed to delete scheduled post."
 msgstr "Failed to delete scheduled post."
 
@@ -990,9 +996,6 @@ msgstr "Failed to follow @{0} on Lens"
 
 msgid "Check Eligibility"
 msgstr "Check Eligibility"
-
-msgid "<0>Post</0><1>an article on <2/></1>"
-msgstr "<0>Post</0><1>an article on <2/></1>"
 
 msgid "You might like"
 msgstr "You might like"
@@ -1515,6 +1518,9 @@ msgstr "Unlike"
 
 msgid "No blacklist"
 msgstr "No blacklist"
+
+msgid "<0>Collected</0><1/>"
+msgstr "<0>Collected</0><1/>"
 
 msgid "Post was deleted"
 msgstr "Post was deleted"
@@ -2106,9 +2112,6 @@ msgstr "Quote"
 
 msgid "View engagements"
 msgstr "View engagements"
-
-msgid "<0>worth ${0}</0><1>at Polymarket</1>"
-msgstr "<0>worth ${0}</0><1>at Polymarket</1>"
 
 msgid "The contract owner has restrictions on selling."
 msgstr "The contract owner has restrictions on selling."
@@ -2821,6 +2824,9 @@ msgstr "Post details"
 msgid "No money laundering involved."
 msgstr "No money laundering involved."
 
+msgid "<0>Posted</0><1>an article on <2/></1>"
+msgstr "<0>Posted</0><1>an article on <2/></1>"
+
 msgid "Claims"
 msgstr "Claims"
 
@@ -3148,9 +3154,6 @@ msgstr "Cancel Recast"
 msgid "The scheduled time has passed."
 msgstr "The scheduled time has passed."
 
-msgid "Place a bet"
-msgstr "Place a bet"
-
 msgid "The connection has timed out. Please try again later."
 msgstr "The connection has timed out. Please try again later."
 
@@ -3357,9 +3360,6 @@ msgstr "Followed @{0} on Lens"
 
 msgid "Claim Now"
 msgstr "Claim Now"
-
-msgid "<0>Collect</0><1/>"
-msgstr "<0>Collect</0><1/>"
 
 msgid "Collect for {0} {1}"
 msgstr "Collect for {0} {1}"

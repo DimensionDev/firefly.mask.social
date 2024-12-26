@@ -165,6 +165,9 @@ msgstr "您可以使用以下方式登录 Farcaster。"
 msgid "Mute @{0}"
 msgstr "隐藏 @{0}"
 
+msgid "<0>worth ${0} at Polymarket</0>"
+msgstr ""
+
 msgid "Failed to upload. Video size exceeds {0}"
 msgstr "上传失败。视频超过最大限制 {0}"
 
@@ -729,6 +732,9 @@ msgstr "过期"
 msgid "24 Hour Trading Vol"
 msgstr "24h 交易总额"
 
+msgid "Placed a bet"
+msgstr ""
+
 msgid "Failed to delete scheduled post."
 msgstr "删除定时任务失败。"
 
@@ -992,9 +998,6 @@ msgstr "在 Lens 上关注 @{0} 失败"
 
 msgid "Check Eligibility"
 msgstr "领取资格"
-
-msgid "<0>Post</0><1>an article on <2/></1>"
-msgstr "<0>发布了</0><1>一篇文章于 <2/></1>"
 
 msgid "You might like"
 msgstr "你也许感兴趣"
@@ -1517,6 +1520,9 @@ msgstr "取消点赞"
 
 msgid "No blacklist"
 msgstr "无黑名单"
+
+msgid "<0>Collected</0><1/>"
+msgstr ""
 
 msgid "Post was deleted"
 msgstr "帖子已被删除"
@@ -2108,9 +2114,6 @@ msgstr "引用"
 
 msgid "View engagements"
 msgstr "查看互动"
-
-msgid "<0>worth ${0}</0><1>at Polymarket</1>"
-msgstr "<1>在 Polymarket</1><0>价值 ${0}</0>"
 
 msgid "The contract owner has restrictions on selling."
 msgstr "合约所有者对销售有限制。"
@@ -2823,6 +2826,9 @@ msgstr "帖子明细"
 msgid "No money laundering involved."
 msgstr "不涉及洗钱。"
 
+msgid "<0>Posted</0><1>an article on <2/></1>"
+msgstr ""
+
 msgid "Claims"
 msgstr "领取"
 
@@ -3150,9 +3156,6 @@ msgstr "取消转帖"
 msgid "The scheduled time has passed."
 msgstr "定时任务的时间已过期。"
 
-msgid "Place a bet"
-msgstr "下注"
-
 msgid "The connection has timed out. Please try again later."
 msgstr "连接已经超时。请稍后重试。"
 
@@ -3359,9 +3362,6 @@ msgstr "在 Lens 上关注了 @{0}"
 
 msgid "Claim Now"
 msgstr "立即领取"
-
-msgid "<0>Collect</0><1/>"
-msgstr "<0>收藏</0><1/>"
 
 msgid "Collect for {0} {1}"
 msgstr "收集 {0} {1}"
