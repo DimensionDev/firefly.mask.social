@@ -18,12 +18,12 @@ interface FramePageBodyProps {
 }
 
 export const FramePage = memo(function FramePage({ children }: FramePageProps) {
-    return <div className="flex h-screen flex-col bg-gray-50">{children}</div>;
+    return <div className="fixed inset-0 z-10 flex h-screen flex-col bg-gray-50">{children}</div>;
 });
 
 export const FramePageTitle = memo(function FramePageTitle({ children, onClose, onReload }: FramePageTitleProps) {
     return (
-        <div className="flex items-center justify-between bg-white px-4 py-2 shadow-md">
+        <div className="flex items-center justify-between bg-white px-4 py-2 shadow-md dark:bg-black">
             <CloseButton onClick={onClose} />
             <div className="flex-1 text-center">
                 <h1 className="text-lg font-medium text-gray-900">{children}</h1>

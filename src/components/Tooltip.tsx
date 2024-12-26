@@ -5,6 +5,7 @@ import { memo, type ReactNode } from 'react';
 
 import { Tippy } from '@/esm/Tippy.js';
 import { classNames } from '@/helpers/classNames.js';
+import { IS_MOBILE_DEVICE } from '@/constants/bowser.js';
 
 interface TooltipProps extends TippyProps {
     content: ReactNode;
@@ -18,6 +19,9 @@ export const Tooltip = memo<TooltipProps>(function Tooltip({
     withDelay = false,
     ...props
 }) {
+    // disable tooltips on mobile devices
+    if (IS_MOBILE_DEVICE) return children;
+
     return (
         <Tippy
             placement={placement}
