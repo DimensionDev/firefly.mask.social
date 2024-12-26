@@ -1263,3 +1263,14 @@ export interface GetFollowingCountByNFTParams {
 export type GetFollowingCountByNFTResponse = Response<{
     count: number;
 }>;
+
+export type GetCollectStatusResponse = Response<{
+    mintStatus: number;
+}>;
+
+export type CollectArticleResponse = Response<{
+    status: boolean;
+    hash: string;
+    errormessage: string;
+    gasStatus: boolean;
+}>;
