@@ -397,7 +397,7 @@ export enum NFTMarketplace {
 }
 
 export enum MintStatus {
-    NotSupportted = 0,
+    NotSupported = 0,
     Mintable = 1,
     MintAgain = 2,
     NotStarted = 3,

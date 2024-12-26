@@ -22,7 +22,7 @@ export function useSponsorMintNFT(mintTarget: SponsorMintOptions, mintCount: num
             };
             const latestParams = await FireflyEndpointProvider.getSponsorMintStatus(options);
             const mintStatus = latestParams.mintStatus;
-            if (mintStatus === MintStatus.NotSupportted) {
+            if (mintStatus === MintStatus.NotSupported) {
                 enqueueWarningMessage(t`So sorry, we are not able to mint this NFT at the moment.`);
                 return;
             }
