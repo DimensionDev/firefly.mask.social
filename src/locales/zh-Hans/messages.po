@@ -1815,6 +1815,9 @@ msgstr "字体颜色"
 msgid "Grow your followers and engagement with Lucky Drop on Firefly!"
 msgstr ""
 
+msgid "Not Supported"
+msgstr ""
+
 msgid "Unsent posts"
 msgstr "未发送的帖子"
 
@@ -3338,9 +3341,6 @@ msgstr "由 {0} 使用 Firefly 发送"
 
 msgid "NFT contract can restrict the approval, resulting in NFT can not be traded on the NFT DEX."
 msgstr "NFT 合约可以限制授权，导致NFT无法在NFT去中心化交易所（DEX）上交易。"
-
-msgid "Not Available"
-msgstr ""
 
 msgid "<0>You</0> recasted"
 msgstr "<0>你</0> 已转帖"

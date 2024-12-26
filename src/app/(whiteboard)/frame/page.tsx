@@ -13,6 +13,7 @@ import { IS_DEVELOPMENT } from '@/constants/index.js';
 import { createEIP1193Provider } from '@/helpers/createEIP1193Provider.js';
 import { fireflyBridgeProvider } from '@/providers/firefly/Bridge.js';
 import type { FrameV2, FrameV2Host } from '@/types/frame.js';
+import { SupportedMethod } from '@/types/bridge.js';
 
 interface PageProps {
     searchParams: {};
@@ -50,17 +51,23 @@ export default function Page({ searchParams }: PageProps) {
         };
     }, [frame, frameHost]);
 
+    const onClose = () => {
+        fireflyBridgeProvider.request(SupportedMethod.CLOSE, {});
+    };
+
     if (!fireflyBridgeProvider.supported) {
         return (
             <FramePage>
-                <FramePageTitle onClose={noop} onReload={noop}>
+                <FramePageTitle onClose={onClose} onReload={retry}>
                     <Trans>Not Supported</Trans>
                 </FramePageTitle>
                 <FramePageBody>
-                    <GhostHoleIcon width={200} height={143} className="text-third" />
-                    <p className="text-center text-sm">
-                        <Trans>Your browser does not support the Firefly Bridge.</Trans>
-                    </p>
+                    <div className="flex flex-col items-center">
+                        <GhostHoleIcon width={200} height={143} className="text-third" />
+                        <p className="mt-10 text-center text-sm">
+                            <Trans>Your browser does not support the Firefly Bridge.</Trans>
+                        </p>
+                    </div>
                 </FramePageBody>
             </FramePage>
         );
@@ -68,7 +75,7 @@ export default function Page({ searchParams }: PageProps) {
 
     return (
         <FramePage>
-            <FramePageTitle onClose={noop} onReload={noop}>
+            <FramePageTitle onClose={onClose} onReload={retry}>
                 {frame ? frame.button.action.name : null}
             </FramePageTitle>
             <FramePageBody>
