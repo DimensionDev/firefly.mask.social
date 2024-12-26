@@ -1,5 +1,6 @@
 import { t, Trans } from '@lingui/macro';
 import { rootRouteId, useMatch } from '@tanstack/react-router';
+import { uniqBy } from 'lodash-es';
 import { useMemo } from 'react';
 
 import { ClickableButton } from '@/components/ClickableButton.js';
@@ -52,7 +53,7 @@ export function TipSuccess() {
                     tag: CHAR_TAG.MENTION,
                     visible: true,
                     content: `@${handle}`,
-                    profiles: socialProfiles,
+                    profiles: uniqBy(socialProfiles, 'platform'),
                 },
                 ' ! Try it now on ',
                 ' https://firefly.social/ .',
