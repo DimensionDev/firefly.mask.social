@@ -2434,9 +2434,6 @@ msgstr ""
 msgid "Sorry, we are not able to find a wallet for {0}."
 msgstr ""
 
-msgid "Remove from bookmark"
-msgstr ""
-
 msgid "Unwatch"
 msgstr ""
 

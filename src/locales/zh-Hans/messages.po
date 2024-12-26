@@ -2439,9 +2439,6 @@ msgstr "转发或者引用"
 msgid "Sorry, we are not able to find a wallet for {0}."
 msgstr "对不起，我们未找到相关钱包 {0}."
 
-msgid "Remove from bookmark"
-msgstr "取消收藏"
-
 msgid "Unwatch"
 msgstr "取消关注"
 
