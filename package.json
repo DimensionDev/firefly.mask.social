@@ -57,7 +57,7 @@
         "@particle-network/authkit": "^2.0.16",
         "@reown/appkit": "^1.1.3",
         "@reown/appkit-adapter-wagmi": "^1.1.3",
-        "@sentry/browser": "^7.112.2",
+        "@sentry/browser": "^8.47.0",
         "@sentry/nextjs": "^8.47.0",
         "@servie/events": "^3.0.0",
         "@solana/buffer-layout": "^4.0.1",

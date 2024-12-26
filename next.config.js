@@ -25,6 +25,9 @@ const sentryWebpackPluginOptions = {
     ignore: ['node_modules'],
     cleanArtifacts: true,
     environment: process.env.NODE_ENV,
+    sourcemaps: {
+        deleteSourcemapsAfterUpload: true
+    }
 };
 
 /** @type {import('next').NextConfig} */
@@ -52,14 +55,6 @@ const nextConfig = {
         serverActions: {
             bodySizeLimit: '80mb',
         },
-    },
-    sentry: {
-        hideSourceMaps: true,
-        url: 'https://sentry.firefly.land',
-        disableServerWebpackPlugin: false,
-        disableClientWebpackPlugin: false,
-        widenClientFileUpload: true,
-        environment: process.env.NODE_ENV,
     },
     images: {
         dangerouslyAllowSVG: false,
