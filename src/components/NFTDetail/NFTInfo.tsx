@@ -14,12 +14,12 @@ import LocationIcon from '@/assets/location.svg';
 import PoapIcon from '@/assets/poap.svg';
 import WebsiteIcon from '@/assets/website-circle.svg';
 import { NFTDetailsMore } from '@/components/Actions/NFTDetailsMore.js';
-import { ClickableButton } from '@/components/ClickableButton.js';
 import { Image } from '@/components/Image.js';
 import { ChainIcon } from '@/components/NFTDetail/ChainIcon.js';
 import { NFTInfoPreview } from '@/components/NFTDetail/NFTInfoPreview.js';
 import { PoapTrait } from '@/components/NFTDetail/PoapTrait.js';
 import { BookmarkInIcon } from '@/components/NFTs/BookmarkButton.js';
+import { FreeMintButton } from '@/components/NFTs/FreeMintButton.js';
 import { TextOverflowTooltip } from '@/components/TextOverflowTooltip.js';
 import { Source } from '@/constants/enum.js';
 import { Link } from '@/esm/Link.js';
@@ -54,7 +54,7 @@ interface NFTInfoProps {
         properties: SimpleHash.VideoProperties;
         url: string;
     };
-    link?: string;
+    externalUrl?: string;
     traits: NonFungibleTokenTrait[];
 }
 
@@ -75,7 +75,7 @@ export function NFTInfo(props: NFTInfoProps) {
         attendance,
         isPoap = false,
         video,
-        link,
+        externalUrl,
         traits,
     } = props;
     const isMedium = useIsMedium();
@@ -120,20 +120,23 @@ export function NFTInfo(props: NFTInfoProps) {
     }, [traits]);
 
     const action = isPoap ? null : (
-        <div className="flex w-full gap-3">
-            <ClickableButton className="h-8 flex-1 rounded-full bg-main text-center text-sm font-bold leading-8 text-lightBottom">
-                <Trans>Mint</Trans>
-            </ClickableButton>
-            {link ? (
-                <Link
-                    href={link}
-                    target="_blank"
-                    className="flex h-8 w-8 items-center justify-center rounded-full border border-main"
-                >
-                    <WebsiteIcon width={20} height={20} className="text-main" />
-                </Link>
-            ) : null}
-        </div>
+        <FreeMintButton
+            contractAddress={contractAddress || ''}
+            chainId={chainId}
+            tokenId={tokenId}
+            externalUrl={externalUrl}
+        />
+    );
+
+    const ownerContent = (
+        <>
+            <span className="leading-4 text-lightSecond">
+                {isPoap ? <Trans>Collected by</Trans> : <Trans>Owned By</Trans>}
+            </span>
+            <span className="block truncate font-bold text-main">
+                {!ownerAddress ? '-' : ensName ? ensName : formatAddress(ownerAddress, 4)}
+            </span>
+        </>
     );
 
     return (
@@ -222,29 +225,28 @@ export function NFTInfo(props: NFTInfoProps) {
                                 target="_blank"
                                 className="h-[68px] flex-1 space-y-1.5 rounded-lg bg-lightBg p-2.5 text-base"
                             >
-                                <span className="leading-4 text-lightSecond">
-                                    {isPoap ? <Trans>Collected by</Trans> : <Trans>Owned By</Trans>}
-                                </span>
-                                <span className="block truncate font-bold text-main">
-                                    {ensName ? ensName : formatAddress(ownerAddress, 4)}
-                                </span>
+                                {ownerContent}
                             </Link>
-                        ) : null}
-                        {floorPrice && !isPoap ? (
+                        ) : (
+                            <div className="h-[68px] flex-1 space-y-1.5 rounded-lg bg-lightBg p-2.5 text-base">
+                                {ownerContent}
+                            </div>
+                        )}
+                        {!isPoap ? (
                             <div className="h-[68px] flex-1 space-y-1.5 rounded-lg bg-lightBg p-2.5 text-base">
                                 <span className="leading-4 text-lightSecond">
                                     <Trans>Floor Price</Trans>
                                 </span>
-                                <span className="block truncate font-bold text-main">{floorPrice}</span>
+                                <span className="block truncate font-bold text-main">{floorPrice || '-'}</span>
                             </div>
                         ) : null}
-                        {isPoap && attendance ? (
+                        {isPoap ? (
                             <div className="h-[68px] flex-1 space-y-1.5 rounded-lg bg-lightBg p-2.5 text-base">
                                 <span className="leading-4 text-lightSecond">
                                     <Trans>Attendance</Trans>
                                 </span>
                                 <span className="block truncate font-bold text-main">
-                                    {attendance.toLocaleString()}
+                                    {attendance ? attendance.toLocaleString() : '-'}
                                 </span>
                             </div>
                         ) : null}

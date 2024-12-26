@@ -59,7 +59,7 @@ export function NFTDetailPage({ chainId, address, tokenId }: { chainId: ChainId;
                     floorPrice={getFloorPrice(data?.collection?.floorPrices)}
                     chainId={chainId}
                     attendance={poapAttendeesCount}
-                    link={data.link}
+                    externalUrl={data.externalUrl}
                     traits={data.traits ?? []}
                 />
                 {!isPoap && data.traits?.length ? <NFTProperties items={data.traits} /> : null}
