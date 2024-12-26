@@ -165,9 +165,6 @@ msgstr ""
 msgid "Mute @{0}"
 msgstr "將 @{0} 靜音"
 
-msgid "<0>worth ${0} at Polymarket</0>"
-msgstr ""
-
 msgid "Failed to upload. Video size exceeds {0}"
 msgstr ""
 
@@ -380,6 +377,9 @@ msgstr ""
 
 msgid "Your account is now connected."
 msgstr "您的帳戶現已連接。"
+
+msgid "<0>Sold a bet</0><1>worth ${0} at Polymarket</1>"
+msgstr ""
 
 msgid "Report submitted on {0}"
 msgstr "檢舉已於{0} 提交"
@@ -732,9 +732,6 @@ msgstr ""
 msgid "24 Hour Trading Vol"
 msgstr "24 小時交易量"
 
-msgid "Placed a bet"
-msgstr ""
-
 msgid "Failed to delete scheduled post."
 msgstr ""
 
@@ -826,6 +823,9 @@ msgid "Info"
 msgstr "資訊"
 
 msgid "Failed to bookmark article."
+msgstr ""
+
+msgid "<0>Placed a bet</0><1>worth ${0} at Polymarket</1>"
 msgstr ""
 
 msgid "The event has ended, but you can explore others in Exclusive Events."
@@ -3208,9 +3208,6 @@ msgid "Suspended account"
 msgstr ""
 
 msgid "No blackmail activities involved."
-msgstr ""
-
-msgid "Sold a bet"
 msgstr ""
 
 msgid "We encountered an error when try to decrypt this message: {0}"
