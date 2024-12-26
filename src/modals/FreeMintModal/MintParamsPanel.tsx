@@ -1,4 +1,5 @@
 import { Trans } from '@lingui/macro';
+import { useQuery } from '@tanstack/react-query';
 import { BigNumber } from 'bignumber.js';
 import { type HTMLProps, memo } from 'react';
 
@@ -6,7 +7,9 @@ import { ChainIcon } from '@/components/NFTDetail/ChainIcon.js';
 import { chains } from '@/configs/wagmiClient.js';
 import { classNames } from '@/helpers/classNames.js';
 import { formatPrice, renderShrankPrice } from '@/helpers/formatPrice.js';
-import { leftShift, multipliedBy, plus } from '@/helpers/number.js';
+import { isZero, leftShift, multipliedBy, plus } from '@/helpers/number.js';
+import { EVMChainResolver } from '@/mask/bindings/index.js';
+import { CoinGecko } from '@/providers/coingecko/index.js';
 import type { MintMetadata } from '@/providers/types/Firefly.js';
 
 interface MintParamsPanelProps extends HTMLProps<HTMLUListElement> {
@@ -32,12 +35,29 @@ export const MintParamsPanel = memo<MintParamsPanelProps>(function MintParamsPan
     gasFee,
     className,
 }) {
-    const chain = chains.find((chain) => chain.id === mintParams.chainId);
+    const { chainId, platformFee, gasStatus, mintPrice } = mintParams;
+    const chain = chains.find((chain) => chain.id === chainId);
     const { decimals, symbol } = chain?.nativeCurrency || {};
-    const isFree = mintParams.gasStatus === true;
+    const isFree = gasStatus === true;
 
-    const mintPrice = multipliedBy(mintParams.mintPrice || '0', mintCount);
-    const totalCost = plus(mintPrice, mintParams.platformFee || '0').plus(gasFee);
+    const mintPrices = multipliedBy(mintPrice || '0', mintCount);
+    const totalCost = plus(mintPrices, platformFee || '0').plus(gasFee);
+
+    const { data: totalCostInUsd } = useQuery({
+        queryKey: ['token-cost', chainId, totalCost.toString()],
+        staleTime: 1000 * 60 * 1,
+        queryFn: async () => {
+            try {
+                const nativeToken = EVMChainResolver.nativeCurrency(chainId);
+                if (!nativeToken) return;
+
+                const usdPrice = await CoinGecko.getFungibleTokenPrice(chainId, nativeToken.address);
+                return formatPrice(multipliedBy(usdPrice || 0, leftShift(totalCost, nativeToken.decimals)).toString());
+            } catch {
+                return;
+            }
+        },
+    });
 
     return (
         <ul className={classNames('flex w-full flex-col gap-3 text-base text-main', className)}>
@@ -47,7 +67,7 @@ export const MintParamsPanel = memo<MintParamsPanelProps>(function MintParamsPan
                         <Trans>Chain</Trans>
                     </span>
                     <span className="flex items-center gap-2">
-                        <ChainIcon size={16} chainId={mintParams.chainId} />
+                        <ChainIcon size={16} chainId={chainId} />
                         <span className="text-sm">{chain.name}</span>
                     </span>
                 </li>
@@ -57,14 +77,14 @@ export const MintParamsPanel = memo<MintParamsPanelProps>(function MintParamsPan
                     <Trans>Mint price</Trans>
                 </span>
                 <span className="text-lightSecond">
-                    {isFree ? <Trans>FREE</Trans> : renderPrice(mintPrice, decimals, symbol)}
+                    {isFree || isZero(mintPrice) ? <Trans>FREE</Trans> : renderPrice(mintPrices, decimals, symbol)}
                 </span>
             </li>
             <li className="flex w-full items-center justify-between">
                 <span>
                     <Trans>Platform fee</Trans>
                 </span>
-                <span className="text-lightSecond">{renderPrice(mintParams.platformFee || '0', decimals, symbol)}</span>
+                <span className="text-lightSecond">{renderPrice(platformFee || '0', decimals, symbol)}</span>
             </li>
             <li className="flex w-full items-center justify-between">
                 <span>
@@ -86,6 +106,7 @@ export const MintParamsPanel = memo<MintParamsPanelProps>(function MintParamsPan
                         })}
                     >
                         {isLoading ? '' : renderPrice(totalCost, decimals, symbol)}
+                        {totalCostInUsd && !isLoading ? `($${totalCostInUsd})` : ''}
                     </span>
                     {isFree ? (
                         <span className="rounded bg-[#E8E8FF] px-2 py-1 text-sm text-highlight">

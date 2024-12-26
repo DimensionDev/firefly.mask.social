@@ -44,7 +44,7 @@ export function getMintButtonText(connected: boolean, isSupportedChain: boolean,
         case 6:
             return t`Sold Out`;
         default:
-            return t`Unknow status`;
+            return t`Unknown status`;
     }
 }
 
@@ -114,7 +114,7 @@ export function FreeMintButton({
         <div className={classNames('flex items-center gap-3', className)}>
             <ClickableButton
                 {...rest}
-                className="flex h-8 flex-1 items-center justify-center rounded-full bg-main px-5 text-sm font-bold text-lightBottom"
+                className="flex h-8 flex-1 items-center justify-center rounded-full bg-main px-5 text-sm font-bold text-lightBottom dark:text-darkBottom"
                 disabled={loading || (!!data && data?.mintStatus > 2) || !isSupportedChain}
                 onClick={handleClick}
             >
