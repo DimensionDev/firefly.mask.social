@@ -1,10 +1,10 @@
 /* cspell:disable */
 
-// #region frame v1
 import type { FrameHost } from '@farcaster/frame-host';
 
 import type { FrameProtocol } from '@/constants/enum.js';
 
+// #region frame v1
 export type Index = 1 | 2 | 3 | 4;
 
 export enum ActionType {
