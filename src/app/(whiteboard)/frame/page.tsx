@@ -5,11 +5,14 @@ import { Trans } from '@lingui/macro';
 import { useEffect, useRef, useState } from 'react';
 import { useAsyncRetry } from 'react-use';
 
+import { FramePage, FramePageBody, FramePageTitle } from '@/app/(whiteboard)/components/FramePage.js';
 import FireflyLogo from '@/assets/firefly.logo.svg';
 import GhostHoleIcon from '@/assets/ghost.svg';
 import { IS_DEVELOPMENT } from '@/constants/index.js';
+import { bom } from '@/helpers/bom.js';
 import { createEIP1193Provider } from '@/helpers/createEIP1193Provider.js';
 import { fireflyBridgeProvider } from '@/providers/firefly/Bridge.js';
+import { SupportedMethod } from '@/types/bridge.js';
 import type { FrameV2, FrameV2Host } from '@/types/frame.js';
 
 interface PageProps {
@@ -48,38 +51,58 @@ export default function Page({ searchParams }: PageProps) {
         };
     }, [frame, frameHost]);
 
+    const onReload = () => {
+        if (fireflyBridgeProvider.supported) retry();
+        else bom.location?.reload();
+    };
+
+    const onClose = () => {
+        if (fireflyBridgeProvider.supported) fireflyBridgeProvider.request(SupportedMethod.CLOSE, {});
+        else bom.window?.close();
+    };
+
     if (!fireflyBridgeProvider.supported) {
         return (
-            <div className="absolute inset-0 flex items-center justify-center bg-white dark:bg-black">
-                <div>
-                    <GhostHoleIcon width={200} height={143} className="text-third" />
-                    <p className="mt-10 text-sm">
-                        <Trans>Your browser does not support the Firefly Bridge.</Trans>
-                    </p>
-                </div>
-            </div>
+            <FramePage>
+                <FramePageTitle onClose={onClose} onReload={onReload}>
+                    Firefly
+                </FramePageTitle>
+                <FramePageBody>
+                    <div className="flex flex-col items-center">
+                        <GhostHoleIcon width={200} height={143} className="text-third" />
+                        <p className="mt-10 text-center text-sm">
+                            <Trans>Your browser does not support the Firefly Bridge.</Trans>
+                        </p>
+                    </div>
+                </FramePageBody>
+            </FramePage>
         );
     }
 
     return (
-        <div className="absolute inset-0 items-center justify-center bg-white dark:bg-black">
-            {frame ? (
-                <iframe
-                    className="scrollbar-hide h-full w-full opacity-100"
-                    ref={frameRef}
-                    src={frame.button.action.url}
-                    allow="clipboard-write 'src'"
-                    sandbox="allow-forms allow-scripts allow-same-origin"
-                    style={{
-                        backgroundColor: frame.button.action.splashBackgroundColor,
-                    }}
-                />
-            ) : null}
-            {!ready || loading || !frame ? (
-                <div className="absolute inset-0 top-[60px] flex items-center justify-center bg-white dark:bg-black">
-                    <FireflyLogo width={80} height={80} />
-                </div>
-            ) : null}
-        </div>
+        <FramePage>
+            <FramePageTitle onClose={onClose} onReload={onReload}>
+                {frame ? frame.button.action.name : null}
+            </FramePageTitle>
+            <FramePageBody>
+                {frame ? (
+                    <iframe
+                        className="scrollbar-hide h-full w-full opacity-100"
+                        ref={frameRef}
+                        src={frame.button.action.url}
+                        allow="clipboard-write 'src'"
+                        sandbox="allow-forms allow-scripts allow-same-origin"
+                        style={{
+                            backgroundColor: frame.button.action.splashBackgroundColor,
+                        }}
+                    />
+                ) : null}
+                {!ready || loading || !frame ? (
+                    <div className="absolute inset-0 top-[60px] flex items-center justify-center bg-white dark:bg-black">
+                        <FireflyLogo width={80} height={80} />
+                    </div>
+                ) : null}
+            </FramePageBody>
+        </FramePage>
     );
 }
