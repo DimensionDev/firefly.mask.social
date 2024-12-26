@@ -378,6 +378,9 @@ msgstr ""
 msgid "Your account is now connected."
 msgstr "您的帳戶現已連接。"
 
+msgid "<0>Sold a bet</0><1>worth ${0} at Polymarket</1>"
+msgstr ""
+
 msgid "Report submitted on {0}"
 msgstr "檢舉已於{0} 提交"
 
@@ -822,6 +825,9 @@ msgstr "資訊"
 msgid "Failed to bookmark article."
 msgstr ""
 
+msgid "<0>Placed a bet</0><1>worth ${0} at Polymarket</1>"
+msgstr ""
+
 msgid "The event has ended, but you can explore others in Exclusive Events."
 msgstr ""
 
@@ -992,9 +998,6 @@ msgstr ""
 
 msgid "Check Eligibility"
 msgstr "領取資格"
-
-msgid "<0>Post</0><1>an article on <2/></1>"
-msgstr ""
 
 msgid "You might like"
 msgstr "你也許會喜歡"
@@ -1517,6 +1520,9 @@ msgstr "取消按讚"
 
 msgid "No blacklist"
 msgstr "無黑名單"
+
+msgid "<0>Collected</0><1/>"
+msgstr ""
 
 msgid "Post was deleted"
 msgstr "貼文被刪除"
@@ -2108,9 +2114,6 @@ msgstr "引用"
 
 msgid "View engagements"
 msgstr "查看互動數據"
-
-msgid "<0>worth ${0}</0><1>at Polymarket</1>"
-msgstr ""
 
 msgid "The contract owner has restrictions on selling."
 msgstr ""
@@ -2823,6 +2826,9 @@ msgstr ""
 msgid "No money laundering involved."
 msgstr ""
 
+msgid "<0>Posted</0><1>an article on <2/></1>"
+msgstr ""
+
 msgid "Claims"
 msgstr ""
 
@@ -3150,9 +3156,6 @@ msgstr ""
 msgid "The scheduled time has passed."
 msgstr ""
 
-msgid "Place a bet"
-msgstr ""
-
 msgid "The connection has timed out. Please try again later."
 msgstr "連結已超時。請稍候重試"
 
@@ -3205,9 +3208,6 @@ msgid "Suspended account"
 msgstr ""
 
 msgid "No blackmail activities involved."
-msgstr ""
-
-msgid "Sold a bet"
 msgstr ""
 
 msgid "We encountered an error when try to decrypt this message: {0}"
@@ -3358,9 +3358,6 @@ msgid "Followed @{0} on Lens"
 msgstr ""
 
 msgid "Claim Now"
-msgstr ""
-
-msgid "<0>Collect</0><1/>"
 msgstr ""
 
 msgid "Collect for {0} {1}"

@@ -373,6 +373,9 @@ msgstr ""
 msgid "Your account is now connected."
 msgstr ""
 
+msgid "<0>Sold a bet</0><1>worth ${0} at Polymarket</1>"
+msgstr ""
+
 msgid "Report submitted on {0}"
 msgstr ""
 
@@ -817,6 +820,9 @@ msgstr ""
 msgid "Failed to bookmark article."
 msgstr ""
 
+msgid "<0>Placed a bet</0><1>worth ${0} at Polymarket</1>"
+msgstr ""
+
 msgid "The event has ended, but you can explore others in Exclusive Events."
 msgstr ""
 
@@ -986,9 +992,6 @@ msgid "Failed to follow @{0} on Lens"
 msgstr ""
 
 msgid "Check Eligibility"
-msgstr ""
-
-msgid "<0>Post</0><1>an article on <2/></1>"
 msgstr ""
 
 msgid "You might like"
@@ -1511,6 +1514,9 @@ msgid "Unlike"
 msgstr ""
 
 msgid "No blacklist"
+msgstr ""
+
+msgid "<0>Collected</0><1/>"
 msgstr ""
 
 msgid "Post was deleted"
@@ -2102,9 +2108,6 @@ msgid "Quote"
 msgstr ""
 
 msgid "View engagements"
-msgstr ""
-
-msgid "<0>worth ${0}</0><1>at Polymarket</1>"
 msgstr ""
 
 msgid "The contract owner has restrictions on selling."
@@ -2818,6 +2821,9 @@ msgstr ""
 msgid "No money laundering involved."
 msgstr ""
 
+msgid "<0>Posted</0><1>an article on <2/></1>"
+msgstr ""
+
 msgid "Claims"
 msgstr ""
 
@@ -3145,9 +3151,6 @@ msgstr ""
 msgid "The scheduled time has passed."
 msgstr ""
 
-msgid "Place a bet"
-msgstr ""
-
 msgid "The connection has timed out. Please try again later."
 msgstr ""
 
@@ -3200,9 +3203,6 @@ msgid "Suspended account"
 msgstr ""
 
 msgid "No blackmail activities involved."
-msgstr ""
-
-msgid "Sold a bet"
 msgstr ""
 
 msgid "We encountered an error when try to decrypt this message: {0}"
@@ -3353,9 +3353,6 @@ msgid "Followed @{0} on Lens"
 msgstr ""
 
 msgid "Claim Now"
-msgstr ""
-
-msgid "<0>Collect</0><1/>"
 msgstr ""
 
 msgid "Collect for {0} {1}"

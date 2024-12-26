@@ -376,6 +376,9 @@ msgstr "Casts"
 msgid "Your account is now connected."
 msgstr "Your account is now connected."
 
+msgid "<0>Sold a bet</0><1>worth ${0} at Polymarket</1>"
+msgstr "<0>Sold a bet</0><1>worth ${0} at Polymarket</1>"
+
 msgid "Report submitted on {0}"
 msgstr "Report submitted on {0}"
 
@@ -820,6 +823,9 @@ msgstr "Info"
 msgid "Failed to bookmark article."
 msgstr "Failed to bookmark article."
 
+msgid "<0>Placed a bet</0><1>worth ${0} at Polymarket</1>"
+msgstr "<0>Placed a bet</0><1>worth ${0} at Polymarket</1>"
+
 msgid "The event has ended, but you can explore others in Exclusive Events."
 msgstr "The event has ended, but you can explore others in Exclusive Events."
 
@@ -990,9 +996,6 @@ msgstr "Failed to follow @{0} on Lens"
 
 msgid "Check Eligibility"
 msgstr "Check Eligibility"
-
-msgid "<0>Post</0><1>an article on <2/></1>"
-msgstr "<0>Post</0><1>an article on <2/></1>"
 
 msgid "You might like"
 msgstr "You might like"
@@ -1515,6 +1518,9 @@ msgstr "Unlike"
 
 msgid "No blacklist"
 msgstr "No blacklist"
+
+msgid "<0>Collected</0><1/>"
+msgstr "<0>Collected</0><1/>"
 
 msgid "Post was deleted"
 msgstr "Post was deleted"
@@ -2106,9 +2112,6 @@ msgstr "Quote"
 
 msgid "View engagements"
 msgstr "View engagements"
-
-msgid "<0>worth ${0}</0><1>at Polymarket</1>"
-msgstr "<0>worth ${0}</0><1>at Polymarket</1>"
 
 msgid "The contract owner has restrictions on selling."
 msgstr "The contract owner has restrictions on selling."
@@ -2821,6 +2824,9 @@ msgstr "Post details"
 msgid "No money laundering involved."
 msgstr "No money laundering involved."
 
+msgid "<0>Posted</0><1>an article on <2/></1>"
+msgstr "<0>Posted</0><1>an article on <2/></1>"
+
 msgid "Claims"
 msgstr "Claims"
 
@@ -3148,9 +3154,6 @@ msgstr "Cancel Recast"
 msgid "The scheduled time has passed."
 msgstr "The scheduled time has passed."
 
-msgid "Place a bet"
-msgstr "Place a bet"
-
 msgid "The connection has timed out. Please try again later."
 msgstr "The connection has timed out. Please try again later."
 
@@ -3204,9 +3207,6 @@ msgstr "Suspended account"
 
 msgid "No blackmail activities involved."
 msgstr "No blackmail activities involved."
-
-msgid "Sold a bet"
-msgstr "Sold a bet"
 
 msgid "We encountered an error when try to decrypt this message: {0}"
 msgstr "We encountered an error when try to decrypt this message: {0}"
@@ -3357,9 +3357,6 @@ msgstr "Followed @{0} on Lens"
 
 msgid "Claim Now"
 msgstr "Claim Now"
-
-msgid "<0>Collect</0><1/>"
-msgstr "<0>Collect</0><1/>"
 
 msgid "Collect for {0} {1}"
 msgstr "Collect for {0} {1}"
