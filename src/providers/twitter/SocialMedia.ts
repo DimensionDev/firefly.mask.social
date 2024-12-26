@@ -14,6 +14,7 @@ import urlcat from 'urlcat';
 import { FireflyPlatform, Source, SourceInURL } from '@/constants/enum.js';
 import { NotImplementedError } from '@/constants/error.js';
 import { EMPTY_LIST } from '@/constants/index.js';
+import { AddLikeStatusToTwitterPosts } from '@/decorators/AddLikeStatusToTwitterPosts.js';
 import { SetQueryDataForActPost } from '@/decorators/SetQueryDataForActPost.js';
 import { SetQueryDataForBlockProfile } from '@/decorators/SetQueryDataForBlockProfile.js';
 import { SetQueryDataForBookmarkPost } from '@/decorators/SetQueryDataForBookmarkPost.js';
@@ -48,6 +49,7 @@ import {
     type Provider,
     SessionType,
 } from '@/providers/types/SocialMedia.js';
+import { useTwitterLikeStore } from '@/store/useTwitterLikeStore.js';
 import type { ResponseJSON } from '@/types/index.js';
 
 @SetQueryDataForLikePost(Source.Twitter)
@@ -58,6 +60,7 @@ import type { ResponseJSON } from '@/types/index.js';
 @SetQueryDataForFollowProfile(Source.Twitter)
 @SetQueryDataForBlockProfile(Source.Twitter)
 @SetQueryDataForActPost(Source.Twitter)
+@AddLikeStatusToTwitterPosts()
 class TwitterSocialMedia implements Provider {
     get type() {
         return SessionType.Twitter;
@@ -407,6 +410,10 @@ class TwitterSocialMedia implements Provider {
             method: 'POST',
         });
         if (!response.success) throw new Error(response.error.message);
+        const session = twitterSessionHolder.session;
+        if (session?.profileId) {
+            useTwitterLikeStore.getState().like(session.profileId, postId);
+        }
     }
 
     async unvotePost(postId: string): Promise<void> {
@@ -414,6 +421,10 @@ class TwitterSocialMedia implements Provider {
             method: 'POST',
         });
         if (!response.success) throw new Error(response.error.message);
+        const session = twitterSessionHolder.session;
+        if (session?.profileId) {
+            useTwitterLikeStore.getState().unlike(session.profileId, postId);
+        }
     }
 
     async searchPosts(q: string, indicator?: PageIndicator): Promise<Pageable<Post, PageIndicator>> {
