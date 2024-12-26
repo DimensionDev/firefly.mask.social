@@ -163,9 +163,6 @@ msgstr "You can sign in to Farcaster with the following options."
 msgid "Mute @{0}"
 msgstr "Mute @{0}"
 
-msgid "<0>worth ${0} at Polymarket</0>"
-msgstr "<0>worth ${0} at Polymarket</0>"
-
 msgid "Failed to upload. Video size exceeds {0}"
 msgstr "Failed to upload. Video size exceeds {0}"
 
@@ -378,6 +375,9 @@ msgstr "Casts"
 
 msgid "Your account is now connected."
 msgstr "Your account is now connected."
+
+msgid "<0>Sold a bet</0><1>worth ${0} at Polymarket</1>"
+msgstr "<0>Sold a bet</0><1>worth ${0} at Polymarket</1>"
 
 msgid "Report submitted on {0}"
 msgstr "Report submitted on {0}"
@@ -733,9 +733,6 @@ msgstr "Time Out"
 msgid "24 Hour Trading Vol"
 msgstr "24 Hour Trading Vol"
 
-msgid "Placed a bet"
-msgstr "Placed a bet"
-
 msgid "Failed to delete scheduled post."
 msgstr "Failed to delete scheduled post."
 
@@ -828,6 +825,9 @@ msgstr "Info"
 
 msgid "Failed to bookmark article."
 msgstr "Failed to bookmark article."
+
+msgid "<0>Placed a bet</0><1>worth ${0} at Polymarket</1>"
+msgstr "<0>Placed a bet</0><1>worth ${0} at Polymarket</1>"
 
 msgid "The event has ended, but you can explore others in Exclusive Events."
 msgstr "The event has ended, but you can explore others in Exclusive Events."
@@ -3216,9 +3216,6 @@ msgstr "Suspended account"
 
 msgid "No blackmail activities involved."
 msgstr "No blackmail activities involved."
-
-msgid "Sold a bet"
-msgstr "Sold a bet"
 
 msgid "We encountered an error when try to decrypt this message: {0}"
 msgstr "We encountered an error when try to decrypt this message: {0}"
