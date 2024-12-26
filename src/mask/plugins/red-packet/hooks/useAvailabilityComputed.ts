@@ -66,9 +66,9 @@ export function useAvailabilityComputed(payload: RedPacketJSONPayload, post: Pos
     if (!availability || (!payload.password && !data))
         return {
             parsedChainId,
-            isEmpty: false,
-            isClaimed: false,
-            isExpired: false,
+            isEmpty: !!parsed?.redpacket?.isEmpty,
+            isClaimed: !!parsed?.redpacket?.isClaimed,
+            isExpired: !!parsed?.redpacket?.isExpired,
             isSponsorable,
             availability,
             checkAvailability,

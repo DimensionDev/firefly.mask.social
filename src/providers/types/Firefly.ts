@@ -457,16 +457,18 @@ export interface FollowingSource {
     walletAddress?: Address;
 }
 
+interface VerifiedSource {
+    source: RelatedWalletSource;
+    provider: string;
+    verifiedText: string;
+}
+
 export interface WalletProfile {
     address: Address;
     ens?: string[];
     blockchain: NetworkType;
     is_connected: boolean;
-    verifiedSources: Array<{
-        source: RelatedWalletSource;
-        provider: string;
-        verifiedText: string;
-    }>;
+    verifiedSources: VerifiedSource[];
     avatar?: string;
     primary_ens?: string | null;
     blocked?: boolean;
@@ -775,6 +777,27 @@ export type FireflyWalletConnection = WalletConnection & {
     identities: FireflyIdentity[];
 };
 
+interface GoogleConnection {
+    connected?: boolean;
+    email: string;
+    id: string;
+    name: string;
+    platform: string;
+}
+
+type AppleConnection = GoogleConnection;
+
+interface TelegramConnection {
+    connected?: boolean;
+    handle: string;
+    id: string;
+    name: string;
+    platform: string;
+    provider: string;
+    source: string;
+    sources: VerifiedSource[];
+}
+
 export type AllConnections = {
     account: Array<{
         account_id: { high: number; low: number };
@@ -798,6 +821,9 @@ export type AllConnections = {
         }>
     >;
     wallet: Record<'connected' | 'unconnected', WalletConnection[]>;
+    google: Record<'connected' | 'unconnected', GoogleConnection[]>;
+    telegram: Record<'connected' | 'unconnected', TelegramConnection[]>;
+    apple: Record<'connected' | 'unconnected', AppleConnection[]>;
 };
 
 export type GetAllConnectionsResponse = Response<AllConnections>;
@@ -1267,4 +1293,13 @@ export type MintBySponsorResponse = Response<{
     hash: string;
     errormessage: string;
     gasStatus: boolean;
+}>;
+
+export interface GetFollowingCountByNFTParams {
+    collectionAddress: string;
+    chainName: string;
+}
+
+export type GetFollowingCountByNFTResponse = Response<{
+    count: number;
 }>;

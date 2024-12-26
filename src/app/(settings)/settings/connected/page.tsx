@@ -14,10 +14,12 @@ import { SORTED_SOCIAL_SOURCES } from '@/constants/index.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 import { useAccountsAll } from '@/hooks/useAccounts.js';
 import { useCurrentProfileAll } from '@/hooks/useCurrentProfile.js';
+import { useIsLoginFirefly } from '@/hooks/useIsLogin.js';
 import { useNavigatorTitle } from '@/hooks/useNavigatorTitle.js';
 import { LoginModalRef, LogoutModalRef } from '@/modals/controls.js';
 
 export default function Connected() {
+    const isLogin = useIsLoginFirefly();
     const accountsAll = useAccountsAll();
     const currentProfileAll = useCurrentProfileAll();
 
@@ -58,7 +60,7 @@ export default function Connected() {
                     </div>
                 </ClickableButton>
 
-                {SORTED_SOCIAL_SOURCES.flatMap((x) => accountsAll[x]).length ? (
+                {isLogin ? (
                     <ClickableButton
                         className="inline-flex h-10 w-full flex-col items-start justify-start md:w-[200px]"
                         onClick={() => {

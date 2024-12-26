@@ -53,6 +53,8 @@ import {
     type GenerateFarcasterSignatureResponse,
     type GetAllConnectionsResponse,
     type GetFarcasterSuggestedFollowUserResponse,
+    type GetFollowingCountByNFTParams,
+    type GetFollowingCountByNFTResponse,
     type GetLensSuggestedFollowUserResponse,
     type GetSponsorMintStatusResponse,
     type HexResponse,
@@ -847,6 +849,12 @@ export class FireflyEndpoint {
         if (!data.status) throw new Error(data.errormessage || 'Failed to mint');
 
         return data;
+    }
+
+    async getFollowingCountByNFT(options: GetFollowingCountByNFTParams) {
+        const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/asset/ownersInFriends/count', options);
+        const response = await fireflySessionHolder.fetch<GetFollowingCountByNFTResponse>(url, { method: 'GET' });
+        return resolveFireflyResponseData(response);
     }
 }
 

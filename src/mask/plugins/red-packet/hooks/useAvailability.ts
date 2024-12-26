@@ -22,7 +22,7 @@ export function useAvailability(
     const { HAPPY_RED_PACKET_ADDRESS_V4: redpacketContractAddress } = useRedPacketConstants(chainId);
 
     return useQuery({
-        queryKey: ['red-packet', 'check-availability', chainId, version, id, account],
+        queryKey: ['red-packet', 'check-availability', chainId, version, id, account, redpacketContractAddress],
         queryFn: async () => {
             if (!id || !redpacketContractAddress) return null;
             const data = (await readContract(config, {
@@ -31,6 +31,7 @@ export function useAvailability(
                 address: redpacketContractAddress as Address,
                 args: [id],
                 account: account as Address,
+                chainId,
             })) as [string, bigint, bigint, bigint, boolean, bigint];
 
             const [token_address, balance, total, claimed, expired, claimed_amount] = data;

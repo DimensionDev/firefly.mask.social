@@ -15,7 +15,7 @@ import type { NFTAsset } from '@/providers/types/Firefly.js';
 
 export const SPAM_SCORE = 50;
 
-export function getAssetFullName(contract_address: string, contractName = '', name?: string, tokenId?: string) {
+function getAssetFullName(contract_address: string, contractName = '', name?: string, tokenId?: string) {
     if (!name)
         return tokenId && contractName
             ? `${contractName} #${tokenId}`

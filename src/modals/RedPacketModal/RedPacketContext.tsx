@@ -11,9 +11,10 @@ import {
     useMemo,
     useState,
 } from 'react';
+import { mainnet } from 'viem/chains';
 import { useAccount, useEnsName } from 'wagmi';
 
-import WalletIcon from '@/assets/wallet.svg';
+import WalletIcon from '@/assets/wallet2.svg';
 import { SocialSourceIcon } from '@/components/SocialSourceIcon.js';
 import { EMPTY_LIST, SORTED_SOCIAL_SOURCES } from '@/constants/index.js';
 import { useChainContext } from '@/hooks/useChainContext.js';
@@ -21,8 +22,8 @@ import { useProfileStoreAll } from '@/hooks/useProfileStore.js';
 import { useRedPacketThemes } from '@/hooks/useRedPacketThemes.js';
 import { EVMChainResolver } from '@/mask/bindings/index.js';
 import { RED_PACKET_DEFAULT_SHARES } from '@/mask/plugins/red-packet/constants.js';
-import { RequirementType } from '@/mask/plugins/red-packet/types.js';
 import type { FireflyRedPacketAPI } from '@/maskbook/packages/web3-providers/src/entry-types.js';
+import { RequirementType } from '@/providers/red-packet/types.js';
 
 export const redPacketRandomTabs = [
     {
@@ -124,7 +125,7 @@ export const RedPacketContext = createContext<RedPacketContextValue>(initialRedP
 
 export function RedPacketProvider({ children }: PropsWithChildren) {
     const account = useAccount();
-    const { data: ensName } = useEnsName({ address: account.address });
+    const { data: ensName } = useEnsName({ address: account.address, chainId: mainnet.id });
     const allProfile = useProfileStoreAll();
     const [message, setMessage] = useState('');
     const [shares, setShares] = useState<number>(RED_PACKET_DEFAULT_SHARES);
@@ -160,7 +161,7 @@ export function RedPacketProvider({ children }: PropsWithChildren) {
                         if (!profile) return EMPTY_LIST;
 
                         return [
-                            { icon: <SocialSourceIcon source={source} size={24} />, name: profile.displayName },
+                            { icon: <SocialSourceIcon source={source} size={24} />, name: profile.handle },
                             profile.ownedBy
                                 ? {
                                       icon: <WalletIcon width={24} height={24} />,

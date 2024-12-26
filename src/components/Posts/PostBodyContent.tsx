@@ -19,9 +19,8 @@ import { PostLinks } from '@/components/Posts/PostLinks.js';
 import { Quote } from '@/components/Posts/Quote.js';
 import { RedPacketInspector } from '@/components/RedPacket/RedPacketInspector.js';
 import { IS_APPLE, IS_SAFARI } from '@/constants/bowser.js';
-import { PageRoute, Source, STATUS } from '@/constants/enum.js';
-import { env } from '@/constants/env.js';
-import { EMPTY_LIST } from '@/constants/index.js';
+import { PageRoute, Source } from '@/constants/enum.js';
+import { EMPTY_LIST, RP_HASH_TAG } from '@/constants/index.js';
 import { Link } from '@/esm/Link.js';
 import { classNames } from '@/helpers/classNames.js';
 import { formatUrl } from '@/helpers/formatUrl.js';
@@ -56,6 +55,12 @@ const overrideComponents = {
     },
 };
 
+function canSkipWaitingForPayload(post: Post) {
+    const content = post.metadata.content?.content;
+
+    return !(content?.includes(RP_HASH_TAG) || !!getEncryptedPayloadFromText(content));
+}
+
 export const PostBodyContent = forwardRef<HTMLDivElement, PostBodyContentProps>(function PostBodyContent(props, ref) {
     const {
         post,
@@ -84,9 +89,6 @@ export const PostBodyContent = forwardRef<HTMLDivElement, PostBodyContentProps>(
         // decode the image upon post viewing, to reduce unnecessary load of images
         if (!seen) return;
 
-        // mask web components are disabled
-        if (env.external.NEXT_PUBLIC_MASK_WEB_COMPONENTS === STATUS.Disabled) return;
-
         return {
             payloadFromText: getEncryptedPayloadFromText(postRawContent),
             payloadFromImageAttachment: await getEncryptedPayloadFromImageAttachment(attachments),
@@ -110,7 +112,9 @@ export const PostBodyContent = forwardRef<HTMLDivElement, PostBodyContentProps>(
         return attachments.filter((x) => x.uri !== payloadImageUrl);
     }, [attachments, payloadImageUrl]);
 
-    const showAttachments = (availableAttachments.length > 0 || !!metadata.content?.asset) && !decodingImage;
+    const showAttachments =
+        (availableAttachments.length > 0 || !!metadata.content?.asset) &&
+        (!decodingImage || canSkipWaitingForPayload(post));
 
     const noLeftPadding = isDetail || isSmall || disablePadding;
 

@@ -60,8 +60,8 @@ export const GET = compose(
                     style={{
                         width: '100%',
                         height: '100%',
-                        backgroundColor: '#F9F9F9',
-                        padding: '30px',
+                        padding: '130px',
+                        backgroundColor: '#F5F5F9',
                         display: 'flex',
                         flexDirection: 'column',
                         color: '#181818',
@@ -136,8 +136,8 @@ export const GET = compose(
                 </div>
             ),
             {
-                width: 1200,
-                height: 600,
+                width: 1400,
+                height: 800,
                 headers: {
                     'Cache-Control': CACHE_AGE_INDEFINITE_ON_DISK,
                 },

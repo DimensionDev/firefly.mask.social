@@ -2,11 +2,10 @@ import { MenuItem, type MenuProps } from '@headlessui/react';
 import { Trans } from '@lingui/macro';
 import { useRouter } from 'next/navigation.js';
 import { memo } from 'react';
-import urlcat from 'urlcat';
 
 import MoreCircleIcon from '@/assets/more-circle.svg';
 import SearchIcon from '@/assets/search.svg';
-import LinkIcon from '@/assets/small-link.svg';
+import { CopyLinkButton } from '@/components/Actions/CopyLinkButton.js';
 import { MenuButton } from '@/components/Actions/MenuButton.js';
 import { MuteAllByProfile } from '@/components/Actions/MuteAllProfile.js';
 import { MuteProfileButton } from '@/components/Actions/MuteProfileButton.js';
@@ -16,10 +15,10 @@ import { MoreActionMenu } from '@/components/MoreActionMenu.js';
 import { SearchType, Source } from '@/constants/enum.js';
 import { SORTED_SEARCHABLE_POST_BY_PROFILE_SOURCES } from '@/constants/index.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
+import { isCurrentProfile } from '@/helpers/isCurrentProfile.js';
 import { isSameFireflyIdentity } from '@/helpers/isSameFireflyIdentity.js';
 import { resolveFireflyProfileId } from '@/helpers/resolveFireflyProfileId.js';
 import { resolveSearchUrl } from '@/helpers/resolveSearchUrl.js';
-import { useCopyText } from '@/hooks/useCopyText.js';
 import { useCurrentFireflyProfilesAll } from '@/hooks/useCurrentFireflyProfiles.js';
 import { useCurrentProfile } from '@/hooks/useCurrentProfile.js';
 import { useReportProfile } from '@/hooks/useReportProfile.js';
@@ -36,7 +35,6 @@ export const ProfileMoreAction = memo<ProfileMoreActionProps>(function ProfileMo
     const profiles = useCurrentFireflyProfilesAll();
     const [, reportProfile] = useReportProfile();
     const [, toggleMutedProfile] = useToggleMutedProfile(currentProfile);
-    const [, handleCopy] = useCopyText(urlcat(location.origin, getProfileUrl(profile)));
     const router = useRouter();
 
     const isRelatedProfile = profiles.some((x) => {
@@ -58,17 +56,9 @@ export const ProfileMoreAction = memo<ProfileMoreActionProps>(function ProfileMo
             <MenuGroup>
                 <MenuItem>
                     {({ close }) => (
-                        <MenuButton
-                            onClick={() => {
-                                close();
-                                handleCopy();
-                            }}
-                        >
-                            <LinkIcon width={18} height={18} />
-                            <span className="font-bold leading-[22px] text-main">
-                                <Trans>Copy link to profile</Trans>
-                            </span>
-                        </MenuButton>
+                        <CopyLinkButton link={getProfileUrl(profile)} onClick={close}>
+                            <Trans>Copy link to profile</Trans>
+                        </CopyLinkButton>
                     )}
                 </MenuItem>
 
@@ -90,7 +80,7 @@ export const ProfileMoreAction = memo<ProfileMoreActionProps>(function ProfileMo
                     </>
                 ) : null}
 
-                {SORTED_SEARCHABLE_POST_BY_PROFILE_SOURCES.includes(profile.source) ? (
+                {!isCurrentProfile(profile) && SORTED_SEARCHABLE_POST_BY_PROFILE_SOURCES.includes(profile.source) ? (
                     <MenuItem>
                         {({ close }) => (
                             <MenuButton

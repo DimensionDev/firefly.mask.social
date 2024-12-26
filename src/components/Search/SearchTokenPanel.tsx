@@ -59,7 +59,9 @@ export const SearchTokenPanel = memo<SearchTokenPanelProps>(function SearchToken
     const filteredTokens = useMemo(() => {
         const result = tokens.filter(
             (token) =>
-                [token.name, token.symbol].some((value) => value.toLowerCase().includes(keyword.toLowerCase())) &&
+                [token.name, token.symbol, token.id].some((value) =>
+                    value.toLowerCase().includes(keyword.toLowerCase()),
+                ) &&
                 (!chainId || token.chainId === chainId),
         );
         const canExpand =

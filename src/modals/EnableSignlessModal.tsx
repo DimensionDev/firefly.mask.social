@@ -5,7 +5,7 @@ import { polygon } from 'viem/chains';
 import { useAccount } from 'wagmi';
 
 import { ChainGuardButton } from '@/components/ChainGuardButton.js';
-import { CloseButton } from '@/components/CloseButton.js';
+import { CloseButton } from '@/components/IconButton.js';
 import { Modal } from '@/components/Modal.js';
 import { enqueueInfoMessage, enqueueMessageFromError } from '@/helpers/enqueueMessage.js';
 import { isSameEthereumAddress } from '@/helpers/isSameAddress.js';

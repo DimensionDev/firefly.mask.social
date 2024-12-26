@@ -28,6 +28,7 @@ import {
     profile as createProfileMetadata,
 } from '@lens-protocol/metadata';
 import { t } from '@lingui/macro';
+import { isServer } from '@tanstack/react-query';
 import { compact, first, flatMap, omit, uniq, uniqWith } from 'lodash-es';
 import urlcat from 'urlcat';
 import { v4 as uuid } from 'uuid';
@@ -133,10 +134,9 @@ export class LensSocialMedia implements Provider {
     }
 
     async getChannelById(channelId: string): Promise<Channel> {
-        const profile = getCurrentProfile(Source.Lens);
         const response = await OrbClubProvider.fetchClubs({
             club_handle: channelId,
-            profile_id: profile?.profileId,
+            profile_id: isServer ? undefined : getCurrentProfile(Source.Lens)?.profileId,
         });
 
         if (response?.items.length) {

@@ -5,6 +5,7 @@ import { Source } from '@/constants/enum.js';
 import { isSameEthereumAddress, isSameSolanaAddress } from '@/helpers/isSameAddress.js';
 import { resolveSourceFromUrl } from '@/helpers/resolveSource.js';
 import type { FireflyEndpoint } from '@/providers/firefly/Endpoint.js';
+import type { SnapshotActivity } from '@/providers/snapshot/type.js';
 import type { Article } from '@/providers/types/Article.js';
 import type { FireflyIdentity, PolymarketActivity, WalletProfile } from '@/providers/types/Firefly.js';
 import type { FollowingNFT, NFTFeed } from '@/providers/types/NFTs.js';
@@ -21,6 +22,10 @@ interface WalletProfilePagesData {
 
 interface PolymarketPagesData {
     pages: Array<{ data: PolymarketActivity[] }>;
+}
+
+interface DAOPagesData {
+    pages: Array<{ data: SnapshotActivity[] }>;
 }
 
 function toggleBlock(address: string, status: boolean) {
@@ -96,6 +101,25 @@ function toggleBlock(address: string, status: boolean) {
         });
     };
     queryClient.setQueriesData<PolymarketPagesData>({ queryKey: ['polymarket', 'following'] }, polymarketPatcher);
+
+    queryClient.setQueriesData<DAOPagesData>({ queryKey: ['snapshots'] }, (old) => {
+        if (!old) return old;
+
+        return produce(old, (draft) => {
+            for (const page of draft.pages) {
+                if (!page) continue;
+                for (const activity of page.data) {
+                    if (
+                        !isSameEthereumAddress(activity.author.id, address) &&
+                        !isSameSolanaAddress(activity.author.id, address)
+                    )
+                        continue;
+
+                    activity.author.isMuted = status;
+                }
+            }
+        });
+    });
 }
 
 const METHODS_BE_OVERRIDDEN = ['blockWallet', 'unblockWallet'] as const;

@@ -12,11 +12,11 @@ import NFTHolder from '@/assets/nft-holder.svg';
 import Repost from '@/assets/repost.svg';
 import { ActionButton } from '@/components/ActionButton.js';
 import { ClickableArea } from '@/components/ClickableArea.js';
+import { Image } from '@/components/Image.js';
 import { EMPTY_LIST } from '@/constants/index.js';
-import { Image } from '@/esm/Image.js';
-import { RequirementType } from '@/mask/plugins/red-packet/types.js';
 import { NonFungibleTokenCollectionSelectModalRef } from '@/modals/controls.js';
 import { RedPacketContext } from '@/modals/RedPacketModal/RedPacketContext.js';
+import { RequirementType } from '@/providers/red-packet/types.js';
 
 export const REQUIREMENT_ICON_MAP: Record<RequirementType, React.FunctionComponent<React.SVGAttributes<SVGElement>>> = {
     [RequirementType.Follow]: AddUser,
@@ -26,15 +26,15 @@ export const REQUIREMENT_ICON_MAP: Record<RequirementType, React.FunctionCompone
     [RequirementType.NFTHolder]: NFTHolder,
 };
 
-export const REQUIREMENT_TITLE_MAP: Record<RequirementType, React.ReactNode> = {
-    [RequirementType.Follow]: t`Follow me`,
-    [RequirementType.Like]: t`Like`,
-    [RequirementType.Repost]: t`Repost`,
-    [RequirementType.Comment]: t`Comment`,
-    [RequirementType.NFTHolder]: t`NFT holder`,
-};
-
 export function RequirementsView() {
+    const REQUIREMENT_TITLE_MAP: Record<RequirementType, React.ReactNode> = {
+        [RequirementType.Follow]: t`Follow me`,
+        [RequirementType.Like]: t`Like`,
+        [RequirementType.Repost]: t`Repost`,
+        [RequirementType.Comment]: t`Comment`,
+        [RequirementType.NFTHolder]: t`NFT holder`,
+    };
+
     const { history } = useRouter();
     const { rules, setRules, requireCollection, setRequireCollection } = useContext(RedPacketContext);
 

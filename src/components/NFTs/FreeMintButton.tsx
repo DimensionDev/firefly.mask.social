@@ -1,12 +1,13 @@
 'use client';
 
 import { t, Trans } from '@lingui/macro';
-import { useCallback, useMemo } from 'react';
+import { useMemo } from 'react';
+import { useAsyncFn } from 'react-use';
 import type { Address } from 'viem';
-import { useAccount } from 'wagmi';
+import { useAccount, useChainId, useSwitchChain } from 'wagmi';
 
 import LoadingIcon from '@/assets/loading.svg';
-import WebsiteIcon from '@/assets/website.svg';
+import WebsiteIcon from '@/assets/website-circle.svg';
 import { ClickableButton, type ClickableButtonProps } from '@/components/ClickableButton.js';
 import { chains } from '@/configs/wagmiClient.js';
 import { Link } from '@/esm/Link.js';
@@ -58,6 +59,8 @@ export function FreeMintButton({
     ...rest
 }: FreeMintButtonProps) {
     const account = useAccount();
+    const currentChainId = useChainId();
+    const { switchChainAsync } = useSwitchChain();
 
     const mintTarget = useMemo(
         () => ({
@@ -72,13 +75,14 @@ export function FreeMintButton({
     const { isLoading, isRefetching, data, refetch } = useSponsorMintStatus(mintTarget);
 
     const connected = !!account.address;
-    const loading = isLoading || isRefetching;
-
-    const handleClick = useCallback(() => {
+    const [{ loading: handlerLoading }, handleClick] = useAsyncFn(async () => {
         if (!data) return;
         if (!connected) {
             ConnectModalRef.open();
             return;
+        }
+        if (currentChainId !== data.chainId) {
+            await switchChainAsync({ chainId: data.chainId });
         }
         FreeMintModalRef.open({
             mintTarget: {
@@ -88,7 +92,7 @@ export function FreeMintButton({
             mintParams: data,
             onSuccess: refetch,
         });
-    }, [account.address, connected, mintTarget, data, refetch]);
+    }, [account.address, connected, mintTarget, data, currentChainId, refetch, switchChainAsync]);
 
     if (data?.mintStatus === 0) {
         return externalUrl ? (
@@ -109,6 +113,7 @@ export function FreeMintButton({
     if (!showInDisabled && data?.mintStatus && ![1, 2].includes(data.mintStatus)) return null;
 
     const isSupportedChain = chains.some((chain) => chain.id === data?.chainId);
+    const loading = isLoading || isRefetching || handlerLoading;
 
     return (
         <div className={classNames('flex items-center gap-3', className)}>

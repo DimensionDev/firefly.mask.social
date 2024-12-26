@@ -2,7 +2,7 @@ import { DialogTitle } from '@headlessui/react';
 import { Trans } from '@lingui/macro';
 import { forwardRef, useCallback, useState } from 'react';
 
-import { CloseButton } from '@/components/CloseButton.js';
+import { CloseButton } from '@/components/IconButton.js';
 import { Modal } from '@/components/Modal.js';
 import { useSingletonModal } from '@/hooks/useSingletonModal.js';
 import type { SingletonModalRefCreator } from '@/libs/SingletonModal.js';

@@ -2,6 +2,7 @@ import { type FungibleToken, TokenType } from '@masknet/web3-shared-base';
 import { type ChainId, SchemaType, ZERO_ADDRESS } from '@masknet/web3-shared-evm';
 import { isAddress } from 'viem';
 
+import { isNativeToken } from '@/providers/ethereum/isNativeToken.js';
 import type { Token } from '@/providers/types/Transfer.js';
 
 export function formatDebankTokenToFungibleToken(token: Token): FungibleToken<ChainId, SchemaType> {
@@ -16,7 +17,7 @@ export function formatDebankTokenToFungibleToken(token: Token): FungibleToken<Ch
         id: address,
         chainId: token.chainId,
         type: TokenType.Fungible,
-        schema: SchemaType.ERC20,
+        schema: isNativeToken(token) ? SchemaType.Native : SchemaType.ERC20,
         address,
     } as FungibleToken<ChainId, SchemaType>;
 }

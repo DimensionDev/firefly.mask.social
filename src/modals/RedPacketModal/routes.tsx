@@ -18,7 +18,7 @@ const mainRoute = createRoute({
     path: '/main',
     beforeLoad: () => {
         return {
-            title: <Trans>Lucky drop</Trans>,
+            title: <Trans>Lucky Drop</Trans>,
         };
     },
 });
@@ -29,7 +29,7 @@ const confirmRoute = createRoute({
     path: '/confirm',
     beforeLoad: () => {
         return {
-            title: <Trans>Confirm Lucky drop</Trans>,
+            title: <Trans>Confirm Lucky Drop</Trans>,
         };
     },
 });

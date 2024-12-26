@@ -29,6 +29,7 @@ export function NFTCollection({ collection, ...rest }: NFTCollectionProps) {
                 floorPrice={getFloorPrice(collection?.floor_prices)}
                 chainId={chainId}
                 collectionId={collection.collection_id}
+                externalUrl={collection.external_url}
             />
             <CollectionTabs
                 collectionId={collection.collection_id}

@@ -27,6 +27,7 @@ import { useAvailableBalance } from '@/hooks/useAvailableBalance.js';
 import { useChainContext } from '@/hooks/useChainContext.js';
 import { useERC20TokenAllowance } from '@/hooks/useERC20Allowance.js';
 import { useNativeTokenPrice } from '@/hooks/useNativeTokenPrice.js';
+import { EVMChainResolver } from '@/mask/bindings/index.js';
 import {
     RED_PACKET_CONTRACT_VERSION,
     RED_PACKET_DURATION,
@@ -54,7 +55,7 @@ export function MainView() {
 
     const { chainId: contextChainId } = useChainContext();
     const chainId = token?.chainId || contextChainId;
-
+    const nativeToken = useMemo(() => EVMChainResolver.nativeCurrency(chainId), [chainId]);
     const { data: nativeTokenPrice = 0, isLoading: priceLoading } = useNativeTokenPrice({ chainId });
     const { HAPPY_RED_PACKET_ADDRESS_V4: redpacketContractAddress } = useRedPacketConstants(chainId);
 
@@ -79,7 +80,7 @@ export function MainView() {
     );
 
     const balanceResult = useAvailableBalance(token.address as `0x${string}`, defaultGas.toNumber(), { chainId });
-    const { gasFee, value: balance = ZERO, origin: originBalance } = balanceResult ?? {};
+    const { gasFee, value: balance = ZERO, origin: originBalance, insufficientGas } = balanceResult ?? {};
 
     const amount = rightShift(rawAmount || '0', token?.decimals);
     const rawTotalAmount = useMemo(
@@ -123,20 +124,17 @@ export function MainView() {
         chainId,
     });
 
-    const cost = gasFee ? leftShift(gasFee, token.decimals).multipliedBy(nativeTokenPrice) : ZERO;
+    const cost = gasFee ? leftShift(gasFee, nativeToken.decimals).multipliedBy(nativeTokenPrice) : ZERO;
 
     // #region validation
     const noShares = shares === 0;
     const isGteMaxShares = shares > 255;
-    const isInSufficientBalance =
+    const insufficientBalance =
         isGreaterThan(minTotalAmount, balance.toString()) || isGreaterThan(totalAmount, balance.toString());
     const noAmount = isZero(amount);
-    const isInSufficientBalanceForGas =
-        gasFee && !isZero(gasFee) && originBalance && isGreaterThan(gasFee.toString(), originBalance.value.toString());
     const isNotEnoughAllowance = !isUndefined(allowance) && !isGreaterThan(allowance.toString(), totalAmount);
 
-    const disabled =
-        noShares || isGteMaxShares || isInSufficientBalance || noAmount || !isDivisible || isInSufficientBalanceForGas;
+    const disabled = noShares || isGteMaxShares || insufficientBalance || noAmount || !isDivisible || insufficientGas;
 
     const loading = priceLoading || gasLoading || allowanceLoading;
     // #endregion
@@ -145,7 +143,7 @@ export function MainView() {
     const buttonText = useMemo(() => {
         if (noShares) return <Trans>Enter Number of Winners</Trans>;
         if (isGteMaxShares) return <Trans>At most 255 recipients</Trans>;
-        if (isInSufficientBalance) return <Trans>Insufficient Balance</Trans>;
+        if (insufficientBalance) return <Trans>Insufficient Balance</Trans>;
         if (noAmount) {
             return isRandom ? <Trans>Enter Total Amount</Trans> : <Trans>Enter Amount Each</Trans>;
         }
@@ -176,7 +174,7 @@ export function MainView() {
             );
         }
 
-        if (isInSufficientBalanceForGas) {
+        if (insufficientGas) {
             return <Trans>Insufficient Balance for Gas Fee</Trans>;
         }
 
@@ -184,12 +182,12 @@ export function MainView() {
     }, [
         noShares,
         isGteMaxShares,
-        isInSufficientBalance,
+        insufficientBalance,
         noAmount,
         isDivisible,
         token.decimals,
         token.symbol,
-        isInSufficientBalanceForGas,
+        insufficientGas,
         isNotEnoughAllowance,
         isRandom,
     ]);
@@ -294,7 +292,7 @@ export function MainView() {
                         </label>
                         <div className="flex gap-x-1 text-[14px] font-bold leading-[18px] text-secondary">
                             <span>
-                                {formatBalance(gasFee, token.decimals)} {token.symbol}
+                                {formatBalance(gasFee, nativeToken.decimals)} {nativeToken.symbol}
                             </span>
                             <span>≈</span>
                             <span>${cost.toFixed(2)}</span>

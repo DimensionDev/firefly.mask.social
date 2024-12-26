@@ -1,6 +1,7 @@
 'use client';
 
-import { Trans } from '@lingui/macro';
+import { t, Trans } from '@lingui/macro';
+import { delay } from '@masknet/kit';
 import dayjs from 'dayjs';
 import { useRouter } from 'next/navigation.js';
 import { useMemo } from 'react';
@@ -10,6 +11,7 @@ import FullLogo from '@/assets/logo-full.svg';
 import { Loading } from '@/components/Loading.js';
 import { OpenFireflyAppButton } from '@/components/OpenFireflyAppButton.js';
 import { Source } from '@/constants/enum.js';
+import { enqueueMessageFromError, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { isSameSession } from '@/helpers/isSameSession.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 import { ThirdPartySession } from '@/providers/third-party/Session.js';
@@ -39,61 +41,69 @@ export default function Page({ searchParams }: PageProps) {
         const token = searchParams.token;
 
         if (os === 'web' && token) {
-            const data = await FireflyEndpointProvider.loginTelegram(token);
-            if (!data) return;
+            try {
+                const data = await FireflyEndpointProvider.loginTelegram(token);
+                if (!data) return;
 
-            const thirdPartySession = new ThirdPartySession(
-                SessionType.Telegram,
-                data.telegram_user_id,
-                token,
-                Date.now(),
-                dayjs(Date.now()).add(1, 'y').unix(),
-                {
-                    accountId: data.accountId,
-                    isNew: data.isNew,
-                    accessToken: data.accessToken,
-                },
-            );
-
-            const accounts = useThirdPartyStateStore.getState().accounts;
-            const foundNewSessionFromServer = !!(
-                thirdPartySession &&
-                !accounts.some((x) => isSameSession(thirdPartySession, x.session as ThirdPartySession))
-            );
-
-            await addAccount(
-                {
-                    profile: {
-                        profileId: data.telegram_user_id,
-                        displayName: data.telegram_username,
-                        handle: data.telegram_username,
-                        fullHandle: data.telegram_username,
-                        pfp: '',
-                        followerCount: 0,
-                        followingCount: 0,
-                        status: ProfileStatus.Active,
-                        source: Source.Farcaster,
-                        profileSource: Source.Telegram,
-                        verified: true,
+                const thirdPartySession = new ThirdPartySession(
+                    SessionType.Telegram,
+                    data.telegram_user_id,
+                    token,
+                    Date.now(),
+                    dayjs(Date.now()).add(1, 'y').unix(),
+                    {
+                        accountId: data.accountId,
+                        isNew: data.isNew,
+                        accessToken: data.accessToken,
                     },
-                    session: thirdPartySession,
-                    fireflySession: foundNewSessionFromServer
-                        ? await bindOrRestoreFireflySession(thirdPartySession)
-                        : undefined,
-                },
-                {
-                    skipBelongsToCheck: !foundNewSessionFromServer,
-                    skipResumeFireflyAccounts: !foundNewSessionFromServer,
-                    skipResumeFireflySession: !foundNewSessionFromServer,
-                    skipUploadFireflySession: !foundNewSessionFromServer,
-                },
-            );
+                );
 
-            router.replace('/');
+                const accounts = useThirdPartyStateStore.getState().accounts;
+                const foundNewSessionFromServer = !!(
+                    thirdPartySession &&
+                    !accounts.some((x) => isSameSession(thirdPartySession, x.session as ThirdPartySession))
+                );
+
+                await addAccount(
+                    {
+                        profile: {
+                            profileId: data.telegram_user_id,
+                            displayName: data.telegram_username,
+                            handle: data.telegram_username,
+                            fullHandle: data.telegram_username,
+                            pfp: '',
+                            followerCount: 0,
+                            followingCount: 0,
+                            status: ProfileStatus.Active,
+                            source: Source.Farcaster,
+                            profileSource: Source.Telegram,
+                            verified: true,
+                        },
+                        session: thirdPartySession,
+                        fireflySession: foundNewSessionFromServer
+                            ? await bindOrRestoreFireflySession(thirdPartySession)
+                            : undefined,
+                    },
+                    {
+                        skipBelongsToCheck: !foundNewSessionFromServer,
+                        skipResumeFireflyAccounts: !foundNewSessionFromServer,
+                        skipResumeFireflySession: !foundNewSessionFromServer,
+                        skipUploadFireflySession: !foundNewSessionFromServer,
+                    },
+                );
+
+                enqueueSuccessMessage(t`Your TG account is now connected`);
+
+                await delay(1000);
+
+                router.replace('/');
+            } catch (error) {
+                enqueueMessageFromError(error, t`Oops... Something went wrong. Please try again`);
+            }
         }
     }, [searchParams]);
 
-    if (loading && searchParams.os === 'web') {
+    if (searchParams.os === 'web') {
         return (
             <div className="absolute inset-0 flex flex-col items-center gap-[178px] bg-white pt-20 dark:bg-black md:pt-[124px]">
                 <Loading />

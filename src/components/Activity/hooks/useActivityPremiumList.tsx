@@ -1,4 +1,6 @@
+// cSpell:disable
 import { Trans } from '@lingui/macro';
+import { ChainId } from '@masknet/web3-shared-evm';
 import { useContext } from 'react';
 
 import { ActivityContext } from '@/components/Activity/ActivityContext.js';
@@ -6,6 +8,13 @@ import { useActivityElex24Involved } from '@/components/Activity/ActivityElex24/
 import { useActivityClaimCondition } from '@/components/Activity/hooks/useActivityClaimCondition.js';
 import { Link } from '@/components/Activity/Link.js';
 import type { SocialSource } from '@/constants/enum.js';
+import {
+    LIL_PUDGY_NFT_ADDRESS,
+    PENGU_PINS_NFT_ADDRESS,
+    PUDGY_PENGUINS_NFT_ADDRESS,
+    TRUE_PENGU_NFT_ADDRESS,
+} from '@/constants/index.js';
+import { resolveNftUrl } from '@/helpers/resolveNftUrl.js';
 import { Level } from '@/providers/types/CZ.js';
 
 export function useActivityPremiumList(source: SocialSource) {
@@ -68,9 +77,56 @@ export function useActivityPremiumList(source: SocialSource) {
                     label: <Trans>You have been detected as a loyal Farcaster user</Trans>,
                     verified: data?.farcaster.isSupercast || (data && parseInt(data.farcaster.fid, 10) <= 10000),
                 },
+            ];
+        case 'pengu':
+            return [
                 {
-                    label: <Trans>Your assets on $DEGEN or $ANON exceed US$10,000</Trans>,
-                    verified: data?.assets.valid,
+                    label: (
+                        <p>
+                            <Trans>
+                                You are holder of{' '}
+                                <Link
+                                    href={resolveNftUrl(ChainId.Mainnet, PUDGY_PENGUINS_NFT_ADDRESS)}
+                                    className="inline text-highlight"
+                                >
+                                    Pudgy Penguins
+                                </Link>{' '}
+                                or{' '}
+                                <Link
+                                    href={resolveNftUrl(ChainId.Mainnet, LIL_PUDGY_NFT_ADDRESS)}
+                                    className="inline text-highlight"
+                                >
+                                    Lil Pudgy
+                                </Link>{' '}
+                                NFTs
+                            </Trans>
+                        </p>
+                    ),
+                    verified: data?.nft?.ownPudgy || data?.nft?.ownLil,
+                },
+                {
+                    label: (
+                        <p>
+                            <Trans>
+                                You are holder of{' '}
+                                <Link
+                                    href={resolveNftUrl(ChainId.Mainnet, TRUE_PENGU_NFT_ADDRESS)}
+                                    className="inline text-highlight"
+                                >
+                                    truePengu
+                                </Link>{' '}
+                                or{' '}
+                                <Link
+                                    href={resolveNftUrl(ChainId.Mainnet, PENGU_PINS_NFT_ADDRESS)}
+                                    className="inline text-highlight"
+                                >
+                                    penguPins
+                                </Link>{' '}
+                                Soulbound NFTs
+                            </Trans>
+                        </p>
+                    ),
+                    verified: data?.nft?.ownPudgy || data?.nft?.ownPenguPins,
                 },
             ];
         default:

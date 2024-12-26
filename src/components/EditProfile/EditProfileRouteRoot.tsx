@@ -4,7 +4,7 @@ import { Outlet, rootRouteId, useRouteContext, useRouter } from '@tanstack/react
 import { FormProvider, useForm } from 'react-hook-form';
 
 import LeftArrowIcon from '@/assets/left-arrow.svg';
-import { CloseButton } from '@/components/CloseButton.js';
+import { CloseButton } from '@/components/IconButton.js';
 import type { Profile, ProfileEditable } from '@/providers/types/SocialMedia.js';
 
 export interface ProfileFormValues extends Omit<ProfileEditable, 'pfp'> {

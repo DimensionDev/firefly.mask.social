@@ -228,7 +228,11 @@
         "WNATIVE",
         "CRYPTOPUNKS",
         "looksrare",
-        "Encryptable"
+        "Encryptable",
+        "pengu",
+        "Pudge",
+        "BARMSTRONG",
+        "hdel"
     ],
     "flagWords": [],
     "ignorePaths": [
@@ -248,8 +252,7 @@
         "src/maskbook",
         "src/providers/hubble/proto",
         "src/assets/**",
-        "src/locales/**",
-        "src/mask/setup/locales/*"
+        "src/locales/**"
     ],
     "overrides": []
 }

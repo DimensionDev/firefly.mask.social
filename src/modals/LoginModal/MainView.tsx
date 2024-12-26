@@ -2,6 +2,7 @@ import { Trans } from '@lingui/macro';
 import { safeUnreachable } from '@masknet/kit';
 import { useRouter } from '@tanstack/react-router';
 import { signIn } from 'next-auth/react';
+import { useState } from 'react';
 import { useAsyncFn } from 'react-use';
 import urlcat from 'urlcat';
 
@@ -18,6 +19,7 @@ export function MainView() {
     const router = useRouter();
     const { history } = router;
     const isMedium = useIsMedium();
+    const [selectedSource, setSelectedSource] = useState<ThirdPartySource>();
 
     const onClick = (source: SocialSource) => {
         const signType = source === Source.Farcaster && isMedium ? FarcasterSignType.RelayService : undefined;
@@ -31,18 +33,25 @@ export function MainView() {
     };
 
     const [{ loading }, onAuthClick] = useAsyncFn(async (source: ThirdPartySource) => {
-        switch (source) {
-            case Source.Telegram:
-                const url = await FireflyEndpointProvider.getTelegramLoginUrl();
-                if (!url) return;
-                window.location.href = url;
-                break;
-            case Source.Apple:
-            case Source.Google:
-                await signIn(resolveSourceInUrl(source));
-                break;
-            default:
-                safeUnreachable(source);
+        try {
+            setSelectedSource(source);
+            switch (source) {
+                case Source.Telegram:
+                    const url = await FireflyEndpointProvider.getTelegramLoginUrl();
+                    if (!url) return;
+                    window.location.href = url;
+
+                    break;
+                case Source.Apple:
+                case Source.Google:
+                    await signIn(resolveSourceInUrl(source));
+
+                    break;
+                default:
+                    safeUnreachable(source);
+            }
+        } finally {
+            setSelectedSource(undefined);
         }
     }, []);
 
@@ -53,7 +62,7 @@ export function MainView() {
                     <>
                         <LoginFirefly />
                         <p className="text-center text-xs leading-4 text-second">
-                            <Trans>Or login with any social account</Trans>
+                            <Trans>Or login in with other platforms</Trans>
                         </p>
                     </>
                 ) : null}
@@ -66,7 +75,7 @@ export function MainView() {
                               <LoginButton
                                   key={source}
                                   source={source}
-                                  loading={loading}
+                                  loading={selectedSource === source && loading}
                                   onClick={() => onAuthClick(source)}
                               />
                           ))

@@ -61,7 +61,7 @@ export function useRedPacketCover({
                     symbol: token?.symbol ?? '--',
                     decimals: token?.decimals ?? 1,
                     shares,
-                    amount: total,
+                    amount: toFixed(total),
                     from: [isValidAddress, isValidDomain, (n: string) => n.startsWith('@')].some((f) => f(name))
                         ? name
                         : `@${name}`,

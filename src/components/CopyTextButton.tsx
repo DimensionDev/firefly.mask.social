@@ -11,9 +11,10 @@ import { useCopyText } from '@/hooks/useCopyText.js';
 interface Props extends HTMLProps<HTMLButtonElement> {
     text: string;
     tooltipProps?: Partial<TippyProps>;
+    size?: number;
 }
 
-export function CopyTextButton({ text, tooltipProps, onClick, ...rest }: Props) {
+export function CopyTextButton({ text, tooltipProps, size = 12, onClick, ...rest }: Props) {
     const [copied, handleCopy] = useCopyText(text, { enqueueSuccessMessage: false });
 
     return (
@@ -25,7 +26,7 @@ export function CopyTextButton({ text, tooltipProps, onClick, ...rest }: Props) 
             {...tooltipProps}
         >
             <button {...rest} type="button" onClick={handleCopy}>
-                <CopyIcon className="ml-1 h-3 w-3" />
+                <CopyIcon width={size} height={size} className="ml-1" />
             </button>
         </Tooltip>
     );

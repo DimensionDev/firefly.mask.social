@@ -17,6 +17,7 @@ import {
     MAX_PROFILE_DISPLAY_NAME_SIZE,
     MAX_PROFILE_LOCATION_SIZE,
     MAX_PROFILE_WEBSITE_SIZE,
+    MIN_PROFILE_BIO_SIZE,
 } from '@/constants/limitation.js';
 import { URL_INPUT_REGEX } from '@/constants/regexp.js';
 import { enqueueMessageFromError, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
@@ -53,6 +54,7 @@ export function EditProfileForm() {
     const maxLocationSize = MAX_PROFILE_LOCATION_SIZE[profile.source] ?? 0;
     const maxWebsiteSize = MAX_PROFILE_WEBSITE_SIZE[profile.source] ?? 0;
     const maxBioSize = MAX_PROFILE_BIO_SIZE[profile.source] ?? 0;
+    const minBioSize = MIN_PROFILE_BIO_SIZE[profile.source] ?? 0;
 
     return (
         <form onSubmit={handleSubmit(onSubmit)} className="flex w-full flex-1 flex-col text-left">
@@ -168,7 +170,11 @@ export function EditProfileForm() {
                                 className="no-scrollbar h-[100px] resize-none"
                                 options={{
                                     validate(value: string) {
-                                        if (resolveLengthCalculatorFn(value) > maxBioSize) {
+                                        const length = resolveLengthCalculatorFn(value);
+                                        if (length < minBioSize) {
+                                            return t`Bio should be at least ${minBioSize} characters`;
+                                        }
+                                        if (length > maxBioSize) {
                                             return t`Bio should not exceed ${maxBioSize} characters`;
                                         }
                                         return true;
