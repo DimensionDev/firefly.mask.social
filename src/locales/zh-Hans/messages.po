@@ -243,9 +243,6 @@ msgstr "<0>加密货币生命周期存在的最大发行数量。它与股票市
 msgid "This token is a gas abuser."
 msgstr "该通证是一个燃料滥用者。"
 
-msgid "Are you sure you want to leave /{0} ?"
-msgstr "您确定要离开 /{0} 吗?"
-
 msgid "Ended"
 msgstr "已结束"
 
@@ -1785,6 +1782,9 @@ msgstr "标准"
 msgid "No darkweb transactions found."
 msgstr "未发现暗网交易。"
 
+msgid "Joined /{0} on {sourceName}."
+msgstr ""
+
 msgid "You need to connect your {0} account to use this feature."
 msgstr "您需要连接您的 {0} 账户来使用此功能。"
 
@@ -2024,9 +2024,6 @@ msgstr "此操作无法撤销，您将丢失您的草稿。"
 
 msgid "Article removed from your Bookmarks"
 msgstr "文章已经从您的收藏中移除"
-
-msgid "Leave /{0} on {sourceName}."
-msgstr "在 {sourceName} 上离开 @{0}"
 
 msgid "Powered by Tenderly and GoPlus"
 msgstr "Powered by Tenderly and GoPlus"
@@ -2303,6 +2300,9 @@ msgstr "在 X 上关注 @thefireflyapp"
 
 msgid "Wallets retrieved from public verifiable data registries or our entity algorithm can be reported for disconnection."
 msgstr "从公开可验证数据注册表中或我们的实体算法中检索到的钱包可以被举报从而断开连接。"
+
+msgid "Left /{0} on {sourceName}."
+msgstr ""
 
 msgid "Step 2 Connect Wallet"
 msgstr "第 2 步 连接钱包"
@@ -3383,9 +3383,6 @@ msgstr "投票已经从您的收藏中移除"
 
 msgid "Max Supply"
 msgstr "最大供应量"
-
-msgid "Join /{0} on {sourceName}."
-msgstr "在 {sourceName} 上加入 /{0}"
 
 msgid "Posted by {0} via Firefly"
 msgstr "由 {0} 使用 Firefly 发送"

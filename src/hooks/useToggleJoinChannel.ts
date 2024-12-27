@@ -33,7 +33,7 @@ export function useToggleJoinChannel(channel: Channel) {
                 }
 
                 enqueueSuccessMessage(
-                    joined ? t`Leave /${channel.id} on ${sourceName}.` : t`Join /${channel.id} on ${sourceName}.`,
+                    joined ? t`Left /${channel.id} on ${sourceName}.` : t`Joined /${channel.id} on ${sourceName}.`,
                 );
                 return result;
             } catch (error) {
