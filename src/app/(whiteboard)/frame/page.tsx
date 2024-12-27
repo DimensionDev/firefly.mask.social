@@ -15,6 +15,7 @@ import { fireflyBridgeProvider } from '@/providers/firefly/Bridge.js';
 import { FarcasterFrameHost } from '@/providers/frame/Host.js';
 import { SupportedMethod } from '@/types/bridge.js';
 import type { FrameV2, FrameV2Host } from '@/types/frame.js';
+import { useFireflyBridgeSupported } from '@/hooks/useFireflyBridgeSupported.js';
 
 interface PageProps {
     searchParams: {};
@@ -22,8 +23,11 @@ interface PageProps {
 
 export default function Page({ searchParams }: PageProps) {
     const [ready, setReady] = useState(false);
+
+    const { loading: loadingSupported, value: supported = false } = useFireflyBridgeSupported();
+
     const { loading, retry, error, value } = useAsyncRetry(async () => {
-        if (!fireflyBridgeProvider.supported) return;
+        if (!supported) return;
 
         const result = await fireflyBridgeProvider.request(SupportedMethod.GET_FRAME_CONTEXT, {});
         const context = {
@@ -50,13 +54,13 @@ export default function Page({ searchParams }: PageProps) {
             frame: FrameV2;
             frameHost: FrameV2Host;
         };
-    }, [setReady]);
+    }, [supported]);
 
     const frameRef = useRef<HTMLIFrameElement | null>(null);
     const { frame, frameHost } = value ?? {};
 
     useEffect(() => {
-        if (!fireflyBridgeProvider.supported) return;
+        if (!supported) return;
         if (!frameRef.current) return;
         if (!frameHost) return;
 
@@ -76,19 +80,19 @@ export default function Page({ searchParams }: PageProps) {
         return () => {
             result?.cleanup();
         };
-    }, [frame, frameHost]);
+    }, [supported, frame, frameHost]);
 
     const onReload = () => {
-        if (fireflyBridgeProvider.supported) retry();
+        if (supported) retry();
         else bom.location?.reload();
     };
 
     const onClose = () => {
-        if (fireflyBridgeProvider.supported) fireflyBridgeProvider.request(SupportedMethod.CLOSE, {});
+        if (supported) fireflyBridgeProvider.request(SupportedMethod.CLOSE, {});
         else bom.window?.close();
     };
 
-    if (!fireflyBridgeProvider.supported || error) {
+    if ((!loadingSupported && !supported) || error) {
         return (
             <FramePage>
                 <FramePageTitle onClose={onClose} onReload={onReload}>
@@ -109,7 +113,7 @@ export default function Page({ searchParams }: PageProps) {
     return (
         <FramePage>
             <FramePageTitle onClose={onClose} onReload={onReload}>
-                {frame ? frame.button.action.name : 'Firefly'}
+                {frame ? frame.button.action.name : <Trans>Loading...</Trans>}
             </FramePageTitle>
             <FramePageBody>
                 {frame ? (
@@ -124,7 +128,7 @@ export default function Page({ searchParams }: PageProps) {
                         }}
                     />
                 ) : null}
-                {!ready || loading || !frame ? (
+                {!ready || loading || loadingSupported || !frame ? (
                     <div className="flex h-full w-full items-center justify-center bg-white dark:bg-black">
                         <FireflyLogo width={80} height={80} />
                     </div>

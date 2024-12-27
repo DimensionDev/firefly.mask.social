@@ -18,7 +18,7 @@ interface FramePageBodyProps {
 }
 
 export const FramePage = memo(function FramePage({ children }: FramePageProps) {
-    return <div className="fixed inset-0 z-10 flex h-screen flex-col bg-white dark:bg-primaryBottom">{children}</div>;
+    return <div className="fixed inset-0 z-10 flex h-screen flex-col bg-white dark:bg-black">{children}</div>;
 });
 
 export const FramePageTitle = memo(function FramePageTitle({ children, onClose, onReload }: FramePageTitleProps) {

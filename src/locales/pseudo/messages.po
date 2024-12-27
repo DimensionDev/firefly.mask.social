@@ -2104,6 +2104,9 @@ msgstr ""
 msgid "GIFs"
 msgstr ""
 
+msgid "Loading..."
+msgstr ""
+
 msgid "%Of supply owned"
 msgstr ""
 
