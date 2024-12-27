@@ -1,7 +1,7 @@
 import type { FrameContext } from '@farcaster/frame-host';
 
-import type { PartialWith } from '@/types/index.js';
 import type { FrameV2 } from '@/types/frame.js';
+import type { PartialWith } from '@/types/index.js';
 
 export enum Theme {
     Auto = 'auto',

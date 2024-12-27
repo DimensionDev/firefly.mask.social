@@ -11,7 +11,6 @@ import GhostHoleIcon from '@/assets/ghost.svg';
 import { IS_DEVELOPMENT } from '@/constants/index.js';
 import { bom } from '@/helpers/bom.js';
 import { createEIP1193ProviderFromRequest, type RequestArguments } from '@/helpers/createEIP1193Provider.js';
-import { parseJSON } from '@/helpers/parseJSON.js';
 import { fireflyBridgeProvider } from '@/providers/firefly/Bridge.js';
 import { FarcasterFrameHost } from '@/providers/frame/Host.js';
 import { SupportedMethod } from '@/types/bridge.js';
