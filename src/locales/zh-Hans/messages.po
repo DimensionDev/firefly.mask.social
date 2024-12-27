@@ -1536,9 +1536,6 @@ msgstr "上传"
 msgid "Failed to login."
 msgstr "登录失败。"
 
-msgid "Network"
-msgstr "网络"
-
 msgid "Claim on {0}:"
 msgstr ""
 
@@ -2147,6 +2144,9 @@ msgstr "热门收藏者"
 
 msgid "Quote"
 msgstr "引用"
+
+msgid "Collect Price"
+msgstr ""
 
 msgid "View engagements"
 msgstr "查看互动"
@@ -2894,6 +2894,9 @@ msgstr ""
 
 msgid "Repost"
 msgstr "转帖"
+
+msgid "Collect for {0} {nativeSymbol}"
+msgstr ""
 
 msgid "Please input the blink url to be revalidated. <0>URL Scheme</0>"
 msgstr "请输入 blink 链接来验证。 <0>URL格式</0>"

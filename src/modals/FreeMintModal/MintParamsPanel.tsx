@@ -1,7 +1,7 @@
 import { Trans } from '@lingui/macro';
 import { useQuery } from '@tanstack/react-query';
 import { BigNumber } from 'bignumber.js';
-import { type HTMLProps, memo } from 'react';
+import React, { type HTMLProps, memo } from 'react';
 
 import { ChainIcon } from '@/components/NFTDetail/ChainIcon.js';
 import { chains } from '@/configs/wagmiClient.js';
@@ -15,8 +15,9 @@ import type { MintMetadata } from '@/providers/types/Firefly.js';
 interface MintParamsPanelProps extends HTMLProps<HTMLUListElement> {
     mintParams: MintMetadata;
     mintCount: number;
-    isLoading?: boolean;
     gasFee: BigNumber.Value;
+    isLoading?: boolean;
+    priceLabel?: React.ReactNode;
 }
 
 function renderPrice(price: BigNumber.Value, decimals = 18, symbol?: string) {
@@ -31,8 +32,9 @@ function renderPrice(price: BigNumber.Value, decimals = 18, symbol?: string) {
 export const MintParamsPanel = memo<MintParamsPanelProps>(function MintParamsPanel({
     mintParams,
     mintCount,
-    isLoading = false,
     gasFee,
+    isLoading = false,
+    priceLabel,
     className,
 }) {
     const { chainId, platformFee, gasStatus, mintPrice } = mintParams;
@@ -73,9 +75,7 @@ export const MintParamsPanel = memo<MintParamsPanelProps>(function MintParamsPan
                 </li>
             ) : null}
             <li className="flex w-full items-center justify-between">
-                <span>
-                    <Trans>Mint price</Trans>
-                </span>
+                <span>{priceLabel || <Trans>Mint price</Trans>}</span>
                 <span className="text-lightSecond">
                     {isFree || isZero(mintPrice) ? <Trans>FREE</Trans> : renderPrice(mintPrices, decimals, symbol)}
                 </span>
