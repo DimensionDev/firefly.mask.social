@@ -4,6 +4,7 @@ import { ChainId, SchemaType } from '@masknet/web3-shared-evm';
 
 import LinkIcon from '@/assets/link-square.svg';
 import { ClickableButton } from '@/components/ClickableButton.js';
+import { Image } from '@/components/Image.js';
 import { EVMExplorerResolver } from '@/mask/bindings/index.js';
 
 interface CollectionProps {
@@ -17,8 +18,7 @@ export function CollectionItem({ collection }: CollectionProps) {
             enablePropagate
         >
             <div className="flex items-center gap-x-2.5">
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
+                <Image
                     alt={collection.name}
                     src={collection.iconURL!}
                     className="h-8 w-8 rounded-full object-cover"

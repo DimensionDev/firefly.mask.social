@@ -1168,10 +1168,6 @@ export type Project = {
     token_symbol: string;
     project_name: string;
     tags: string[];
-};
-
-export type ProjectDetail = {
-    project_id: number;
     rootdataurl: string;
 };
 
@@ -1262,8 +1258,6 @@ export type LinkDigestResponse = Response<{
 }>;
 
 export type ProjectResponse = Response<Project[]>;
-
-export type ProjectDetailResponse = Response<ProjectDetail>;
 
 export type GetBookmarksResponse = Response<{
     list: Array<{

@@ -1,6 +1,6 @@
 'use client';
 import { t } from '@lingui/macro';
-import { getSession } from 'next-auth/react';
+import { getSession, signOut } from 'next-auth/react';
 import { create } from 'zustand';
 import { persist, type PersistOptions } from 'zustand/middleware';
 import { immer } from 'zustand/middleware/immer';
@@ -418,8 +418,12 @@ const useThirdPartyStateBase = createState(
 
                 enqueueSuccessMessage(t`Your ${session.type} account is now connected`);
             } catch (error) {
+                if (error instanceof Error && error.message.includes('This apple already bound to the other account'))
+                    return;
+
                 enqueueMessageFromError(error, t`Oops... Something went wrong. Please try again`);
                 state.clear();
+                signOut({ redirect: false });
                 thirdPartySessionHolder.removeSession();
             } finally {
                 state.__setStatus__(AsyncStatus.Idle);
