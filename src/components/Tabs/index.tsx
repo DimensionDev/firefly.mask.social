@@ -70,8 +70,8 @@ export function Tab({ children, value, className, disabled, ...props }: TabProps
             currentTab === value ? 'border-farcasterPrimary text-main' : 'border-transparent text-third',
         ),
         solid: classNames(
-            'h-8 rounded-[4px] px-[12px] py-[6px]',
-            currentTab === value ? 'bg-bg text-lightHighlight dark:text-white' : 'cursor-pointer text-secondary',
+            'h-8 rounded-[4px] px-[12px] py-[6px] transition-colors hover:text-highlight',
+            currentTab === value ? 'bg-bg text-highlight' : 'cursor-pointer text-lightSecond',
         ),
     }[variant];
 

@@ -7,6 +7,7 @@ import {
     NotAllowedError,
     UnreachableError,
 } from '@/constants/error.js';
+import { enqueueWarningMessage } from '@/helpers/enqueueMessage.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
 import { resolveFireflyResponseData } from '@/helpers/resolveFireflyResponseData.js';
 import { FAKE_SIGNER_REQUEST_TOKEN, FarcasterSession } from '@/providers/farcaster/Session.js';
@@ -203,6 +204,11 @@ export async function bindOrRestoreFireflySession(session: Session, signal?: Abo
 
         // enqueue error message later
         if (error instanceof FarcasterAlreadyBoundError) {
+            throw error;
+        }
+
+        if (error instanceof Error && error.message.includes('This apple already bound to the other account')) {
+            enqueueWarningMessage('This Apple account is already linked to another Firefly account.');
             throw error;
         }
 
