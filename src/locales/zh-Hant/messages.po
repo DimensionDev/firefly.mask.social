@@ -54,6 +54,9 @@ msgstr "已靜音"
 msgid "Disconnect"
 msgstr "斷開連接"
 
+msgid "No frame found."
+msgstr ""
+
 msgid "Undo mirror"
 msgstr ""
 
