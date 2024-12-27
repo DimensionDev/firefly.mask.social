@@ -27,10 +27,6 @@ export default function Page({ searchParams }: PageProps) {
         if (!fireflyBridgeProvider.supported) return;
 
         const result = await fireflyBridgeProvider.request(SupportedMethod.GET_FRAME_CONTEXT, {});
-
-        const frame = parseJSON<FrameV2>(result.frame);
-        if (!frame) throw new Error('Failed to parse frame payload.');
-
         const context = {
             user: result.user,
             location: result.location,
@@ -42,7 +38,8 @@ export default function Page({ searchParams }: PageProps) {
         };
 
         return {
-            frame,
+            url: result.frame.originalUrl,
+            frame: result.frame.content,
             frameHost: new FarcasterFrameHost(context, {
                 ready: () => setReady(true),
                 close: () => fireflyBridgeProvider.request(SupportedMethod.CLOSE, {}),
@@ -50,6 +47,7 @@ export default function Page({ searchParams }: PageProps) {
                     fireflyBridgeProvider.request(SupportedMethod.SET_PRIMARY_BUTTON, options),
             }),
         } satisfies {
+            url: string;
             frame: FrameV2;
             frameHost: FrameV2Host;
         };
