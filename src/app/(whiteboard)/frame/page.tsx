@@ -120,12 +120,12 @@ export default function Page({ searchParams }: PageProps) {
                         allow="clipboard-write 'src'"
                         sandbox="allow-forms allow-scripts allow-same-origin"
                         style={{
-                            backgroundColor: frame.button.action.splashBackgroundColor,
+                            backgroundColor: frame?.button.action.splashBackgroundColor,
                         }}
                     />
                 ) : null}
                 {!ready || loading || !frame ? (
-                    <div className="absolute inset-0 top-[60px] flex items-center justify-center bg-white dark:bg-black">
+                    <div className="absolute inset-0 top-[48px] flex items-center justify-center bg-white dark:bg-black">
                         <FireflyLogo width={80} height={80} />
                     </div>
                 ) : null}

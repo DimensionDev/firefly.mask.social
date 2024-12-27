@@ -34,5 +34,5 @@ export const FramePageTitle = memo(function FramePageTitle({ children, onClose, 
 });
 
 export const FramePageBody = memo(function FramePageBody({ children }: FramePageBodyProps) {
-    return <div className="flex flex-1 items-center justify-center overflow-auto p-4">{children}</div>;
+    return <div className="flex flex-1 items-center justify-center overflow-auto">{children}</div>;
 });
