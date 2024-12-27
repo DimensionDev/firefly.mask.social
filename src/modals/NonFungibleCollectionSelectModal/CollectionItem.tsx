@@ -21,7 +21,7 @@ export function CollectionItem({ collection }: CollectionProps) {
                 <img
                     alt={collection.name}
                     src={collection.iconURL!}
-                    className="h-8 w-8 rounded-full object-contain"
+                    className="h-8 w-8 rounded-full object-cover"
                     height={24}
                     width={24}
                 />
