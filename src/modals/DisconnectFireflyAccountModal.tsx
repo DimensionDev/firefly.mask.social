@@ -31,7 +31,6 @@ export const DisconnectFireflyAccountModal = forwardRef<SingletonModalRefCreator
         const account = props?.account;
         const [open, dispatch] = useSingletonModal(ref, {
             onOpen: (props) => setProps(props),
-            onClose: () => setProps(undefined),
         });
 
         const [{ loading }, confirm] = useAsyncFn(async () => {
