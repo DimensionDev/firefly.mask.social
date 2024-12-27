@@ -120,7 +120,7 @@ export default function Page({ searchParams }: PageProps) {
                         allow="clipboard-write 'src'"
                         sandbox="allow-forms allow-scripts allow-same-origin"
                         style={{
-                            backgroundColor: frame?.button.action.splashBackgroundColor,
+                            backgroundColor: frame.button.action.splashBackgroundColor,
                         }}
                     />
                 ) : null}
