@@ -1,15 +1,13 @@
 'use client';
 
 import { Trans } from '@lingui/macro';
-import type { PropsWithChildren } from 'react';
+import { type PropsWithChildren, useMemo } from 'react';
 
-import ComeBack from '@/assets/comeback.svg';
+import { Comeback } from '@/components/Comeback.js';
+import { SecondTabs } from '@/components/Tabs/SecondTabs.js';
 import { EngagementType, type SocialSource } from '@/constants/enum.js';
 import { SORTED_ENGAGEMENT_TAB_TYPE } from '@/constants/index.js';
-import { Link } from '@/esm/Link.js';
-import { classNames } from '@/helpers/classNames.js';
 import { resolveEngagementUrl } from '@/helpers/resolveEngagementUrl.js';
-import { useComeBack } from '@/hooks/useComeback.js';
 
 export function EngagementLayout({
     id,
@@ -21,51 +19,41 @@ export function EngagementLayout({
     type: EngagementType;
     source: SocialSource;
 }>) {
-    const comeback = useComeBack();
+    const tabs = useMemo(
+        () =>
+            [
+                {
+                    value: EngagementType.Mirrors,
+                    title: <Trans>Mirrors</Trans>,
+                    link: resolveEngagementUrl(id, source, EngagementType.Mirrors),
+                },
+                {
+                    value: EngagementType.Recasts,
+                    title: <Trans>Recasts</Trans>,
+                    link: resolveEngagementUrl(id, source, EngagementType.Recasts),
+                },
+                {
+                    value: EngagementType.Quotes,
+                    title: <Trans>Quotes</Trans>,
+                    link: resolveEngagementUrl(id, source, EngagementType.Quotes),
+                },
+                {
+                    value: EngagementType.Likes,
+                    title: <Trans>Likes</Trans>,
+                    link: resolveEngagementUrl(id, source, EngagementType.Likes),
+                },
+            ].filter((x) => SORTED_ENGAGEMENT_TAB_TYPE[source].includes(x.value)),
+        [source, id],
+    );
     return (
         <>
-            <div className="sticky top-0 z-20 flex items-center gap-5 border-b border-lightLineSecond bg-primaryBottom px-5 dark:border-line">
-                <ComeBack width={24} height={24} className="mr-2 cursor-pointer" onClick={comeback} />
-                {[
-                    {
-                        type: EngagementType.Mirrors,
-                        title: <Trans>Mirrors</Trans>,
-                    },
-                    {
-                        type: EngagementType.Recasts,
-                        title: <Trans>Recasts</Trans>,
-                    },
-                    {
-                        type: EngagementType.Quotes,
-                        title: <Trans>Quotes</Trans>,
-                    },
-                    {
-                        type: EngagementType.Likes,
-                        title: <Trans>Likes</Trans>,
-                    },
-                ]
-                    .filter((x) => SORTED_ENGAGEMENT_TAB_TYPE[source].includes(x.type))
-                    .map(({ type, title }) => (
-                        <div key={type} className="flex flex-col">
-                            <Link
-                                replace
-                                className={classNames(
-                                    'flex h-[46px] items-center px-[14px] font-extrabold transition-all',
-                                    engagementType === type ? 'text-main' : 'text-third hover:text-main',
-                                )}
-                                href={resolveEngagementUrl(id, source, type)}
-                            >
-                                {title}
-                            </Link>
-                            <span
-                                className={classNames(
-                                    'h-1 w-full rounded-full bg-fireflyBrand transition-all',
-                                    engagementType !== type ? 'hidden' : '',
-                                )}
-                            />
-                        </div>
-                    ))}
+            <div className="sticky top-0 z-40 flex items-center bg-primaryBottom px-4 py-[18px]">
+                <Comeback className="mr-[30px]" />
+                <h2 className="text-xl font-black leading-6">
+                    <Trans>Post engagements</Trans>
+                </h2>
             </div>
+            <SecondTabs<EngagementType> items={tabs} current={engagementType} />
             {children}
         </>
     );
