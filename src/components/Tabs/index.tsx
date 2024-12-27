@@ -71,7 +71,7 @@ export function Tab({ children, value, className, disabled, ...props }: TabProps
         ),
         solid: classNames(
             'h-8 rounded-[4px] px-[12px] py-[6px] transition-colors hover:text-highlight',
-            currentTab === value ? 'bg-bg text-highlight' : 'cursor-pointer text-secondary',
+            currentTab === value ? 'bg-bg text-highlight' : 'cursor-pointer text-lightSecond',
         ),
     }[variant];
 

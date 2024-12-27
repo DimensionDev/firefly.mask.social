@@ -1,7 +1,7 @@
 'use client';
 
 import { t, Trans } from '@lingui/macro';
-import { type FungibleToken } from '@masknet/web3-shared-base';
+import { type FungibleToken,isLessThan } from '@masknet/web3-shared-base';
 import { type ChainId, SchemaType, useRedPacketConstants } from '@masknet/web3-shared-evm';
 import { useRouter } from '@tanstack/react-router';
 import { BigNumber } from 'bignumber.js';
@@ -228,7 +228,7 @@ export function MainView() {
                     ))}
                 </Tabs>
 
-                <div className="flex items-center rounded-xl border border-transparent bg-bg pr-3 focus-within:border-lightHighlight focus-within:bg-bottom">
+                <div className="flex items-center rounded-xl border border-transparent bg-bg pr-3 focus-within:border-highlight focus-within:bg-bottom">
                     <form className="w-full flex-1">
                         <label className="flex w-full flex-1 items-center">
                             <input
@@ -270,7 +270,7 @@ export function MainView() {
                     <Trans>Message</Trans>
                 </label>
 
-                <div className="flex items-center rounded-xl border border-transparent bg-bg pr-3 focus-within:border-lightHighlight focus-within:bg-bottom">
+                <div className="flex items-center rounded-xl border border-transparent bg-bg pr-3 focus-within:border-highlight focus-within:bg-bottom">
                     <form className="w-full flex-1">
                         <label className="flex w-full flex-1 items-center">
                             <input
@@ -295,7 +295,7 @@ export function MainView() {
                                 {formatBalance(gasFee, nativeToken.decimals)} {nativeToken.symbol}
                             </span>
                             <span>≈</span>
-                            <span>${cost.toFixed(2)}</span>
+                            <span>{isLessThan(cost, 0.01) ? '< $0.01' : cost.toFixed(2)}</span>
                         </div>
                     </div>
                 ) : null}

@@ -1062,9 +1062,6 @@ msgstr ""
 msgid "You are holder of <0>Pudgy Penguins</0> or <1>Lil Pudgy</1> NFTs"
 msgstr ""
 
-msgid "{0}d: {1}h: {2}m: {3}s"
-msgstr ""
-
 msgid "No restricted approval."
 msgstr ""
 
@@ -1535,9 +1532,6 @@ msgstr "上傳"
 
 msgid "Failed to login."
 msgstr "登入失敗."
-
-msgid "Network"
-msgstr ""
 
 msgid "Claim on {0}:"
 msgstr ""
@@ -2147,6 +2141,9 @@ msgstr ""
 
 msgid "Quote"
 msgstr "引用"
+
+msgid "Collect Price"
+msgstr ""
 
 msgid "View engagements"
 msgstr "查看互動數據"
@@ -2895,6 +2892,9 @@ msgstr ""
 msgid "Repost"
 msgstr ""
 
+msgid "Collect for {0} {nativeSymbol}"
+msgstr ""
+
 msgid "Please input the blink url to be revalidated. <0>URL Scheme</0>"
 msgstr ""
 
@@ -3289,6 +3289,9 @@ msgid "Failed to collect post."
 msgstr ""
 
 msgid "<0>Burned</0> an NFT"
+msgstr ""
+
+msgid "{0}h: {1}m: {2}s"
 msgstr ""
 
 msgid "Download App"

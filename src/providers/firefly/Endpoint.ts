@@ -37,7 +37,7 @@ import { resolveSourceInUrl } from '@/helpers/resolveSourceInUrl.js';
 import { resolveValue } from '@/helpers/resolveValue.js';
 import type { FarcasterSession } from '@/providers/farcaster/Session.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
-import type { Article } from '@/providers/types/Article.js';
+import type { Article, ArticlePlatform } from '@/providers/types/Article.js';
 import type { Token as DebankToken } from '@/providers/types/Debank.js';
 import {
     type BindWalletResponse,
@@ -45,6 +45,7 @@ import {
     type BlockFields,
     type BlockRelationResponse,
     type BlockUserResponse,
+    type CollectArticleResponse,
     type DebankTokensResponse,
     type EmptyResponse,
     type FireflyIdentity,
@@ -52,6 +53,7 @@ import {
     type FireflyWalletConnection,
     type GenerateFarcasterSignatureResponse,
     type GetAllConnectionsResponse,
+    type GetCollectStatusResponse,
     type GetFarcasterSuggestedFollowUserResponse,
     type GetFollowingCountByNFTParams,
     type GetFollowingCountByNFTResponse,
@@ -856,6 +858,37 @@ export class FireflyEndpoint {
         const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/asset/ownersInFriends/count', options);
         const response = await fireflySessionHolder.fetch<GetFollowingCountByNFTResponse>(url, { method: 'GET' });
         return resolveFireflyResponseData(response);
+    }
+
+    async getArticleCollectStatus(articleId: string, address: string, type: ArticlePlatform) {
+        const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/wallet_transaction/article/mint/status');
+        const response = await fireflySessionHolder.fetch<GetCollectStatusResponse>(url, {
+            method: 'POST',
+            body: JSON.stringify({
+                articleType: type,
+                walletAddress: address,
+                originalId: articleId,
+            }),
+        });
+
+        return resolveFireflyResponseData(response);
+    }
+
+    async freeCollectArticle(articleId: string, address: string, type: ArticlePlatform) {
+        const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/wallet_transaction/mint/article');
+        const response = await fireflySessionHolder.fetch<CollectArticleResponse>(url, {
+            method: 'POST',
+            body: JSON.stringify({
+                articleType: type,
+                walletAddress: address,
+                originalId: articleId,
+            }),
+        });
+
+        const data = resolveFireflyResponseData(response);
+        if (!data.status) throw new Error(data.errormessage || 'Failed to collect article');
+
+        return data;
     }
 
     async getTopProjects(locale: Locale) {

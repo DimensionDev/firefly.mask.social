@@ -35,7 +35,7 @@ export const CollectArticleModal = forwardRef<SingletonModalRefCreator<CollectAr
                     className="relative w-[432px] max-w-[90vw] rounded-xl bg-lightBottom shadow-popover transition-all dark:bg-darkBottom dark:text-gray-950"
                     onClick={stopEvent}
                 >
-                    <div className="inline-flex h-14 w-full items-center justify-center gap-2 rounded-t-[12px] p-4">
+                    <div className="inline-flex w-full items-center justify-center gap-2 rounded-t-[12px] p-6">
                         <CloseButton
                             onClick={() => {
                                 dispatch?.close();

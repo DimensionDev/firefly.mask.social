@@ -1060,9 +1060,6 @@ msgstr "Oops... Not all the requirements have been met"
 msgid "You are holder of <0>Pudgy Penguins</0> or <1>Lil Pudgy</1> NFTs"
 msgstr "You are holder of <0>Pudgy Penguins</0> or <1>Lil Pudgy</1> NFTs"
 
-msgid "{0}d: {1}h: {2}m: {3}s"
-msgstr "{0}d: {1}h: {2}m: {3}s"
-
 msgid "No restricted approval."
 msgstr "No restricted approval."
 
@@ -1533,9 +1530,6 @@ msgstr "Upload"
 
 msgid "Failed to login."
 msgstr "Failed to login."
-
-msgid "Network"
-msgstr "Network"
 
 msgid "Claim on {0}:"
 msgstr "Claim on {0}:"
@@ -2145,6 +2139,9 @@ msgstr "Top Collectors"
 
 msgid "Quote"
 msgstr "Quote"
+
+msgid "Collect Price"
+msgstr "Collect Price"
 
 msgid "View engagements"
 msgstr "View engagements"
@@ -2893,6 +2890,9 @@ msgstr "Mint Again"
 msgid "Repost"
 msgstr "Repost"
 
+msgid "Collect for {0} {nativeSymbol}"
+msgstr "Collect for {0} {nativeSymbol}"
+
 msgid "Please input the blink url to be revalidated. <0>URL Scheme</0>"
 msgstr "Please input the blink url to be revalidated. <0>URL Scheme</0>"
 
@@ -3288,6 +3288,9 @@ msgstr "Failed to collect post."
 
 msgid "<0>Burned</0> an NFT"
 msgstr "<0>Burned</0> an NFT"
+
+msgid "{0}h: {1}m: {2}s"
+msgstr "{0}h: {1}m: {2}s"
 
 msgid "Download App"
 msgstr "Download App"
