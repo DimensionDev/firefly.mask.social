@@ -22,7 +22,7 @@ msgid "The gas abuse function is included. The project owner may have the abilit
 msgstr "包含燃气滥用功能。项目所有者可能有能力控制合约。"
 
 msgid "Projects"
-msgstr ""
+msgstr "项目"
 
 msgid "{days, plural, one {1 day left} other {{days} days left}}"
 msgstr "{days, plural, one {1 天剩余} other {{days} 天剩余}}"

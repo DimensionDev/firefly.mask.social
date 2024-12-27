@@ -1,7 +1,7 @@
 'use client';
 
 import { useActionsRegistryInterval } from '@dialectlabs/blinks';
-import { useLingui } from '@lingui/react';
+import { isServer } from '@tanstack/react-query';
 import { usePathname } from 'next/navigation.js';
 import { SnackbarProvider } from 'notistack';
 import { memo, useEffect, useLayoutEffect, useRef } from 'react';
@@ -23,7 +23,6 @@ export const InitialProviders = memo(function Providers(props: { children: React
     const isDarkMode = useIsDarkMode();
     const isMedium = useIsMedium();
     useActionsRegistryInterval();
-    const lingui = useLingui();
 
     const entryPathname = useRef('');
     const pathname = usePathname();
@@ -37,7 +36,7 @@ export const InitialProviders = memo(function Providers(props: { children: React
         const meta = document.querySelector('meta[name="theme-color"]');
         meta?.setAttribute('content', isDarkMode ? '#030303' : '#ffffff');
 
-        recordUserThemeMode(isDarkMode ? 'dark' : themeMode === 'light' ? 'light' : '');
+        if (!isServer) recordUserThemeMode(isDarkMode ? 'dark' : 'light');
     }, [isDarkMode, themeMode]);
 
     useEffect(() => {
