@@ -28,7 +28,7 @@ export const ChainGuardButton = memo<ChainGuardButtonProps>(function ChainBounda
 
             return onClick?.(event);
         },
-        [targetChainId, onClick],
+        [targetChainId, account.chainId, onClick],
     );
 
     if (!account.isConnected || !account.address) {

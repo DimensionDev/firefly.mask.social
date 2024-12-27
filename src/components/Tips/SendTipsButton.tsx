@@ -91,7 +91,7 @@ const SendTipsButton = memo<SendTipsButtonProps>(function SendTipsButton({ conne
         } finally {
             update((prev) => ({ ...prev, isSending: false }));
         }
-    }, [connected, recipient, token, amount, onConnect]);
+    }, [connected, onConnect, recipient, token, update, amount, identity]);
 
     return (
         <ClickableButton

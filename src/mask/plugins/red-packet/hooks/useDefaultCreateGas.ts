@@ -76,8 +76,10 @@ export function useDefaultCreateGas(
         });
 
         return result ? new BigNumber(result.toString()) : ZERO;
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [
         chainId,
+        // eslint-disable-next-line react-hooks/exhaustive-deps
         JSON.stringify(redPacketSettings),
         account,
         redpacketContractAddress,

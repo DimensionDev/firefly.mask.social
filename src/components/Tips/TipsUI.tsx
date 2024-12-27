@@ -48,7 +48,7 @@ export const TipsUI = memo(function TipsUI() {
             amount,
         });
         update((prev) => ({ ...prev, amount: balance }));
-    }, []);
+    }, [amount, recipient, token, update]);
 
     const tipTitle = recipient
         ? pureWallet

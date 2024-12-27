@@ -23,5 +23,5 @@ export function useActivityFollowProfile(source: SocialSource, profileId: string
 
             throw error;
         }
-    }, [profileId, handle, source, farcasterProfileId]);
+    }, [source, profileId, farcasterProfileId, refetch, handle]);
 }

@@ -2,7 +2,7 @@
 
 import { Trans } from '@lingui/macro';
 import { ChainId } from '@masknet/web3-shared-evm';
-import { useContext } from 'react';
+import { useContext, useMemo } from 'react';
 import urlcat from 'urlcat';
 
 import { ActivityClaimButton } from '@/components/Activity/ActivityClaimButton.js';
@@ -55,6 +55,7 @@ export function ActivityElex24Tasks({ data }: { data: Pick<Required<ActivityInfo
           }[vote]
         : '';
 
+    const claimApiExtraParams = useMemo(() => ({ vote }), [vote]);
     return (
         <>
             <div className="mb-4 w-full space-y-4 px-6 py-4">
@@ -102,7 +103,7 @@ export function ActivityElex24Tasks({ data }: { data: Pick<Required<ActivityInfo
             <div className="sticky bottom-0 mt-auto w-full bg-primaryBottom px-4 pt-1.5 pb-safe-or-4 sm:pb-safe-or-2">
                 <ActivityClaimButton
                     status={data.status}
-                    claimApiExtraParams={{ vote }}
+                    claimApiExtraParams={claimApiExtraParams}
                     shareContent={shareContent as Chars}
                     claimType={vote}
                     disabled={!vote || !isFollowedFirefly}

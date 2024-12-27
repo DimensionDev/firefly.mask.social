@@ -88,7 +88,7 @@ export function LoginFirefly(props: LoginFireflyProps) {
             enqueueMessageFromError(error, t`Failed to login.`);
             throw error;
         }
-    }, [resetCountdown, startCountdown]);
+    }, [controller, resetCountdown, startCountdown]);
 
     useMount(() => {
         onLoginByGrantPermission();

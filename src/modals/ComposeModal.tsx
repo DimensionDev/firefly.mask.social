@@ -255,8 +255,7 @@ export const ComposeModalUI = forwardRef<SingletonModalRefCreator<ComposeModalOp
                     SteganographyPreset.Preset2023_Firefly,
                 );
 
-                // eslint-disable-next-line no-irregular-whitespace
-                const promoteMessage = t`Check out my LuckyDrop 🧧💰✨ on Firefly mobile app or desktop ${promoteLink} !`;
+                const promoteMessage = t`Check out my LuckyDrop 🧧💰✨ on Firefly mobile app or desktop ${promoteLink} !`;
 
                 const chars: Chars = [
                     {
@@ -285,7 +284,16 @@ export const ComposeModalUI = forwardRef<SingletonModalRefCreator<ComposeModalOp
                 throw error;
             }
             // each time the typedMessage changes, we need to check if it has a red packet payload
-        }, [typedMessage, rpPayload, id, currentProfileAll, promoteLink]);
+        }, [
+            typedMessage,
+            rpPayload?.payloadImage,
+            profile?.handle,
+            promoteLink,
+            updateChars,
+            setEditorContent,
+            insertImage,
+            updateTypedMessage,
+        ]);
 
         useUpdateEffect(() => {
             if (!contentRef.current || !posts.length) return;

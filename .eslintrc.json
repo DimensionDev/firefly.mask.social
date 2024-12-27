@@ -163,6 +163,12 @@
                 "prefix": "@",
                 "rootDir": "src"
             }
+        ],
+        "react-hooks/exhaustive-deps": [
+            "warn",
+            {
+                "additionalHooks": "(useAsync|useAsyncFn)\\b"
+            }
         ]
     },
     "parser": "@typescript-eslint/parser",

@@ -25,7 +25,6 @@ export function useClaimCallback(
     source: SocialSource,
 ) {
     const payloadChainId = payload.token?.chainId;
-    const version = payload.contract_version;
     const rpid = payload.rpid;
     const { chainId: contextChainId } = useChainContext({ chainId: payloadChainId });
     const chainIdByName = EVMChainResolver.chainId('network' in payload ? payload.network! : '');
@@ -69,5 +68,5 @@ export function useClaimCallback(
 
         await waitForEthereumTransaction(chainId, hash);
         return hash;
-    }, [rpid, account, chainId, redpacketContractAddress, version, refetch, me, source]);
+    }, [chainId, redpacketContractAddress, rpid, refetch, payload.rpid, account, me, source]);
 }

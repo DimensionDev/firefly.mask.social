@@ -234,7 +234,7 @@ export function ConfirmView() {
             }
             return true;
         },
-        [setCustomThemes, setFontColor],
+        [setCustomThemes, setFontColor, setTheme],
     );
 
     const handleTabChange = useCallback(

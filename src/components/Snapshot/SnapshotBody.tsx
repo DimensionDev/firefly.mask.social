@@ -171,7 +171,9 @@ export function SnapshotBody({ snapshot, link, postId, activity }: Props) {
                     queryKey: ['post-embed', link, postId],
                 });
             }
-            queryClient.setQueriesData<{ pages: Array<{ data: SnapshotActivity[] }> }>(
+            queryClient.setQueriesData<{
+                pages: Array<{ data: SnapshotActivity[] }>;
+            }>(
                 {
                     queryKey: ['snapshots', account.address],
                 },
@@ -193,7 +195,22 @@ export function SnapshotBody({ snapshot, link, postId, activity }: Props) {
             enqueueMessageFromError(error, t`Failed to vote.`);
             throw error;
         }
-    }, [snapshot, selectedChoices, disabled, link, postId]);
+    }, [
+        account.address,
+        disabled,
+        selectedChoices,
+        snapshot.space.id,
+        snapshot.id,
+        snapshot.type,
+        snapshot.privacy,
+        snapshot.title,
+        snapshot.link,
+        link,
+        postId,
+        type,
+        choices,
+        activity?.proposal_id,
+    ]);
 
     const handleChange = useCallback((value?: SnapshotChoice) => {
         if (!isUndefined(value)) {

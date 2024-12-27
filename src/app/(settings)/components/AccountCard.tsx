@@ -50,7 +50,7 @@ function DisconnectButton({ account }: { account: Account }) {
         await DisconnectFireflyAccountModalRef.openAndWaitForClose({
             account,
         });
-    }, [all]);
+    }, [account, all]);
 
     return (
         <Tooltip placement="top" content={<Trans>Disconnect</Trans>}>

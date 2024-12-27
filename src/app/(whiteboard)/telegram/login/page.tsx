@@ -27,19 +27,16 @@ interface PageProps {
 
 export default function Page({ searchParams }: PageProps) {
     const router = useRouter();
+    const { os, token } = searchParams;
     const schemes = useMemo(() => {
-        const token = searchParams.token;
         if (!token) return;
         return {
             [DeviceType.IOS]: `firefly://authentication/telegram/callback?token=${token}`,
             [DeviceType.Android]: `firefly://authentication/telegram/callback?token=${token}`,
         };
-    }, [searchParams]);
+    }, [token]);
 
-    const { loading } = useAsync(async () => {
-        const os = searchParams.os;
-        const token = searchParams.token;
-
+    useAsync(async () => {
         if (os === 'web' && token) {
             try {
                 const data = await FireflyEndpointProvider.loginTelegram(token);
@@ -108,9 +105,9 @@ export default function Page({ searchParams }: PageProps) {
                 enqueueMessageFromError(error, t`Oops... Something went wrong. Please try again`);
             }
         }
-    }, [searchParams]);
+    }, [os, router, token]);
 
-    if (searchParams.os === 'web') {
+    if (os === 'web') {
         return (
             <div className="absolute inset-0 flex flex-col items-center gap-[178px] bg-white pt-20 dark:bg-black md:pt-[124px]">
                 <Loading />
