@@ -133,7 +133,7 @@ export const Menu = memo(function Menu({ collapsed = false }: MenuProps) {
                                         <Link
                                             href={item.href}
                                             className={classNames(
-                                                'flex w-full flex-grow-0 items-center gap-x-3 rounded-lg px-2 py-2.5 text-xl leading-6 outline-none hover:bg-bg md:w-auto md:px-4 md:py-3',
+                                                'flex w-full flex-grow-0 items-center gap-x-3 rounded-lg px-2 py-2 text-lg leading-6 outline-none hover:bg-bg md:w-auto md:px-4',
                                                 { 'font-bold': isSelected },
                                             )}
                                         >
@@ -152,10 +152,10 @@ export const Menu = memo(function Menu({ collapsed = false }: MenuProps) {
                             );
                         })}
 
-                        <li className="md: hidden">
-                            <OpenFireflyAppButton className="flex w-full items-center gap-x-3 px-2 py-2.5 text-fireflyBrand">
+                        <li className="md:hidden">
+                            <OpenFireflyAppButton className="flex w-full items-center gap-x-3 p-2 text-fireflyBrand">
                                 <CircleShareIcon width={20} height={20} />
-                                <span className="text-xl font-bold leading-6">
+                                <span className="text-lg font-bold leading-6">
                                     <Trans>Mobile App</Trans>
                                 </span>
                             </OpenFireflyAppButton>
