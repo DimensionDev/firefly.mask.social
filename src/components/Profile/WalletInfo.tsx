@@ -3,8 +3,8 @@
 import { t } from '@lingui/macro';
 import { ChainId } from '@masknet/web3-shared-evm';
 
-import MiniEnsIcon from '@/assets/ens-16.svg';
 import EnsIcon from '@/assets/ens.svg';
+import MiniEnsIcon from '@/assets/ens-16.svg';
 import FireflyLogo from '@/assets/firefly.round.svg';
 import LinkIcon from '@/assets/link-square.svg';
 import { Avatar } from '@/components/Avatar.js';

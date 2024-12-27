@@ -6,9 +6,9 @@ import { DisconnectButton } from '@/app/(settings)/components/DisconnectButton.j
 import { ReportButton } from '@/app/(settings)/components/ReportButton.js';
 import FireflyLogo from '@/assets/firefly.round.svg';
 import LinkIcon from '@/assets/link-square.svg';
+import WalletIcon from '@/assets/wallet-circle.svg';
 import VerifiedDarkIcon from '@/assets/wallet-circle-verified.dark.svg';
 import VerifiedLightIcon from '@/assets/wallet-circle-verified.light.svg';
-import WalletIcon from '@/assets/wallet-circle.svg';
 import { CopyTextButton } from '@/components/CopyTextButton.js';
 import { Image } from '@/components/Image.js';
 import { Link } from '@/components/Link.js';
