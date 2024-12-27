@@ -5,8 +5,8 @@ import { Trans } from '@lingui/macro';
 import { useEffect, useRef, useState } from 'react';
 import { useAsyncRetry } from 'react-use';
 
-import { GhostError } from '@/app/(whiteboard)/components/GhostError.js';
 import { FramePage, FramePageBody, FramePageTitle } from '@/app/(whiteboard)/components/FramePage.js';
+import { GhostError } from '@/app/(whiteboard)/components/GhostError.js';
 import FireflyLogo from '@/assets/firefly.logo.svg';
 import { IS_DEVELOPMENT } from '@/constants/index.js';
 import { bom } from '@/helpers/bom.js';
