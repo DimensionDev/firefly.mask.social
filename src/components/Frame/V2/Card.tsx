@@ -25,7 +25,7 @@ export const Card = memo<CardProps>(function Card({ post, frame }) {
         const fid = (profile?.profileId as unknown as number | undefined) ?? 0;
         const context = {
             user: {
-                fid: fid,
+                fid,
                 username: profile?.displayName,
                 pfpUrl: profile?.pfp,
                 location: {
