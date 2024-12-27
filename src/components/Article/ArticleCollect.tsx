@@ -119,7 +119,7 @@ export function ArticleCollect({ article }: ArticleCollectProps) {
 
     const loading = collectLoading || queryDetailLoading || paramsLoading || isRefetching;
     const disabled = isSoldOut || (account.isConnected && insufficientBalance) || modalSessionCollected || loading;
-    const pannelData = canCollect ? collectParams : result?.mintMetadata;
+    const panelData = canCollect ? collectParams : result?.mintMetadata;
 
     return (
         <div className="overflow-x-hidden px-6 pb-6 max-md:px-0 max-md:pb-4">
@@ -155,9 +155,9 @@ export function ArticleCollect({ article }: ArticleCollectProps) {
                 </div>
             </div>
 
-            {pannelData ? (
+            {panelData ? (
                 <MintParamsPanel
-                    mintParams={pannelData}
+                    mintParams={panelData}
                     className="mt-6"
                     isLoading={false}
                     gasFee={result?.gasFee || '0'}
