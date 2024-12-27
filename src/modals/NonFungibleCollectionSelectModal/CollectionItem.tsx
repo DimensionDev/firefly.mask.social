@@ -28,7 +28,9 @@ export function CollectionItem({ collection }: CollectionProps) {
                 <div className="text-left">
                     <span>{collection.name}</span>
                     <br />
-                    <span className="text-[13px] text-lightSecond">{t`${collection.balance} items`}</span>
+                    {collection.ownersTotal ? (
+                        <span className="text-[13px] text-lightSecond">{t`${collection.ownersTotal} items`}</span>
+                    ) : null}
                 </div>
             </div>
             <a href={link} target="_blank" className="ml-1 inline-block" onClick={(e) => e.stopPropagation()}>

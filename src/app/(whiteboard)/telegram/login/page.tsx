@@ -64,7 +64,9 @@ export default function Page({ searchParams }: PageProps) {
                     !accounts.some((x) => isSameSession(thirdPartySession, x.session as ThirdPartySession))
                 );
 
-                await addAccount(
+                if (!foundNewSessionFromServer) return;
+
+                const result = await addAccount(
                     {
                         profile: {
                             profileId: data.telegram_user_id,
@@ -91,6 +93,11 @@ export default function Page({ searchParams }: PageProps) {
                         skipUploadFireflySession: !foundNewSessionFromServer,
                     },
                 );
+
+                if (!result) {
+                    router.replace('/');
+                    return;
+                }
 
                 enqueueSuccessMessage(t`Your TG account is now connected`);
 

@@ -75,7 +75,7 @@ export function RequirementsView() {
                                 <input
                                     type="checkbox"
                                     checked={checked}
-                                    className="h-5 w-5 cursor-pointer rounded-[4px] text-lightHighlight"
+                                    className="h-5 w-5 cursor-pointer rounded-[4px] text-highlight"
                                     onChange={(event) => {
                                         if (!checked && value === RequirementType.NFTHolder) {
                                             setRequireCollection(undefined);
@@ -125,7 +125,7 @@ export function RequirementsView() {
                 ) : null}
                 <div className="flex justify-end">
                     <div
-                        className="cursor-pointer text-base font-bold leading-[20px] text-lightHighlight"
+                        className="cursor-pointer text-base font-bold leading-[20px] text-highlight"
                         onClick={() => {
                             setRules(EMPTY_LIST);
                         }}

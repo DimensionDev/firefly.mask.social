@@ -388,7 +388,7 @@ const useThirdPartyStateBase = createState(
 
                 state.__setStatus__(AsyncStatus.Pending);
 
-                await addAccount(
+                const result = await addAccount(
                     {
                         profile: {
                             profileId: session.user?.id ?? '',
@@ -416,10 +416,11 @@ const useThirdPartyStateBase = createState(
                     },
                 );
 
+                if (!result) return;
+
                 enqueueSuccessMessage(t`Your ${session.type} account is now connected`);
             } catch (error) {
                 enqueueMessageFromError(error, t`Oops... Something went wrong. Please try again`);
-                if (error instanceof FetchError) return;
                 state.clear();
                 thirdPartySessionHolder.removeSession();
             } finally {

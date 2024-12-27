@@ -20,6 +20,7 @@ import { SessionType } from '@/providers/types/SocialMedia.js';
 import { restoreFireflySession } from '@/services/restoreFireflySession.js';
 import { settings } from '@/settings/index.js';
 import type { ResponseJSON } from '@/types/index.js';
+import { enqueueWarningMessage } from '@/helpers/enqueueMessage.js';
 
 async function bindLensToFirefly(session: LensSession, signal?: AbortSignal) {
     const response = await fireflySessionHolder.fetch<BindResponse>(
@@ -203,6 +204,11 @@ export async function bindOrRestoreFireflySession(session: Session, signal?: Abo
 
         // enqueue error message later
         if (error instanceof FarcasterAlreadyBoundError) {
+            throw error;
+        }
+
+        if (error instanceof Error && error.message.includes('This apple already bound to the other account')) {
+            enqueueWarningMessage('This Apple account is already linked to another Firefly account.');
             throw error;
         }
 
