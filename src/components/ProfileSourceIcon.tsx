@@ -4,6 +4,7 @@ import type { SVGProps } from 'react';
 
 import AppleIcon from '@/assets/apple.svg';
 import GoogleIcon from '@/assets/google.svg';
+import GoogleSmallIcon from '@/assets/google-small.svg';
 import FireflyIcon from '@/assets/logo.svg';
 import TelegramIcon from '@/assets/telegram.svg';
 import { SocialSourceIcon } from '@/components/SocialSourceIcon.js';
@@ -36,6 +37,7 @@ export function ProfileSourceIcon({ source, size = 20, ...props }: ProfileSource
                 />
             );
         case Source.Google:
+            if (size < 48) return <GoogleSmallIcon {...props} style={style} width={size} height={size} />;
             return <GoogleIcon {...props} style={style} width={size} height={size} />;
         case Source.Apple:
             return <AppleIcon {...props} style={style} width={size} height={size} />;
