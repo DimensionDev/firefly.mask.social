@@ -86,7 +86,7 @@ export const Card = memo<CardProps>(function Card({ post, frame }) {
             />
             {primaryButton?.hidden ? null : (
                 <ClickableButton
-                    className="bg-fireflyBrand px-1 py-3 font-bold text-white"
+                    className="bg-lightBg px-1 py-3 font-bold text-lightHighlight dark:bg-fireflyBrand dark:text-white"
                     disabled={primaryButton?.loading || primaryButton?.disabled}
                     onClick={onClick}
                 >

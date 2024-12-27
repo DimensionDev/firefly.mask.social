@@ -109,7 +109,7 @@ export default function Page({ searchParams }: PageProps) {
     return (
         <FramePage>
             <FramePageTitle onClose={onClose} onReload={onReload}>
-                {frame ? frame.button.action.name : null}
+                {frame ? frame.button.action.name : 'Firefly'}
             </FramePageTitle>
             <FramePageBody>
                 {frame ? (
