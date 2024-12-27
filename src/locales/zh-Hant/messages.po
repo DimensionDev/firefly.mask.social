@@ -1536,9 +1536,6 @@ msgstr "上傳"
 msgid "Failed to login."
 msgstr "登入失敗."
 
-msgid "Network"
-msgstr ""
-
 msgid "Claim on {0}:"
 msgstr ""
 
@@ -2147,6 +2144,9 @@ msgstr ""
 
 msgid "Quote"
 msgstr "引用"
+
+msgid "Collect Price"
+msgstr ""
 
 msgid "View engagements"
 msgstr "查看互動數據"
@@ -2893,6 +2893,9 @@ msgid "Mint Again"
 msgstr ""
 
 msgid "Repost"
+msgstr ""
+
+msgid "Collect for {0} {nativeSymbol}"
 msgstr ""
 
 msgid "Please input the blink url to be revalidated. <0>URL Scheme</0>"

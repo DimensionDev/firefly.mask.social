@@ -1534,9 +1534,6 @@ msgstr "Upload"
 msgid "Failed to login."
 msgstr "Failed to login."
 
-msgid "Network"
-msgstr "Network"
-
 msgid "Claim on {0}:"
 msgstr "Claim on {0}:"
 
@@ -2145,6 +2142,9 @@ msgstr "Top Collectors"
 
 msgid "Quote"
 msgstr "Quote"
+
+msgid "Collect Price"
+msgstr "Collect Price"
 
 msgid "View engagements"
 msgstr "View engagements"
@@ -2892,6 +2892,9 @@ msgstr "Mint Again"
 
 msgid "Repost"
 msgstr "Repost"
+
+msgid "Collect for {0} {nativeSymbol}"
+msgstr "Collect for {0} {nativeSymbol}"
 
 msgid "Please input the blink url to be revalidated. <0>URL Scheme</0>"
 msgstr "Please input the blink url to be revalidated. <0>URL Scheme</0>"
