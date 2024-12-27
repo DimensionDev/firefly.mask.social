@@ -49,6 +49,9 @@ msgstr "Muted"
 msgid "Disconnect"
 msgstr "Disconnect"
 
+msgid "No frame found."
+msgstr "No frame found."
+
 msgid "Undo mirror"
 msgstr "Undo mirror"
 

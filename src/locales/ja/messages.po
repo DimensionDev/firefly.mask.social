@@ -54,6 +54,9 @@ msgstr ""
 msgid "Disconnect"
 msgstr ""
 
+msgid "No frame found."
+msgstr ""
+
 msgid "Undo mirror"
 msgstr ""
 
