@@ -22,9 +22,10 @@ export const Card = memo<CardProps>(function Card({ post, frame }) {
 
     const [frameHost] = useState(() => {
         const profile = useFarcasterStateStore.getState().currentProfile;
+        const fid = (profile?.profileId as unknown as number | undefined) ?? 0;
         const context = {
             user: {
-                fid: (profile?.profileId as unknown as number | undefined) ?? 0,
+                fid,
                 username: profile?.displayName,
                 pfpUrl: profile?.pfp,
                 location: {
@@ -41,7 +42,7 @@ export const Card = memo<CardProps>(function Card({ post, frame }) {
             },
             client: {
                 added: false,
-                clientFid: 0,
+                clientFid: fid,
             },
         } satisfies FrameContext;
 
@@ -86,7 +87,7 @@ export const Card = memo<CardProps>(function Card({ post, frame }) {
             />
             {primaryButton?.hidden ? null : (
                 <ClickableButton
-                    className="bg-fireflyBrand px-1 py-3 font-bold text-white"
+                    className="bg-lightBg px-1 py-3 font-bold text-lightHighlight dark:bg-fireflyBrand dark:text-white"
                     disabled={primaryButton?.loading || primaryButton?.disabled}
                     onClick={onClick}
                 >

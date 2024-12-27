@@ -23,7 +23,7 @@ export const FramePage = memo(function FramePage({ children }: FramePageProps) {
 
 export const FramePageTitle = memo(function FramePageTitle({ children, onClose, onReload }: FramePageTitleProps) {
     return (
-        <div className="flex items-center justify-between bg-white px-4 py-2 shadow-md dark:bg-black">
+        <div className="flex items-center justify-between bg-lightBg px-4 py-3 text-black shadow-md dark:bg-fireflyBrand dark:text-white">
             <CloseButton onClick={onClose} />
             <div className="flex-1 text-center">
                 <h1 className="text-lg font-medium">{children}</h1>

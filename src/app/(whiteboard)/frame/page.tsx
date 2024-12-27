@@ -30,7 +30,7 @@ export default function Page({ searchParams }: PageProps) {
             user: result.user,
             location: result.location,
             client: {
-                clientFid: 0,
+                clientFid: result.user.fid,
                 added: false,
                 ...result.client,
             },
@@ -109,7 +109,7 @@ export default function Page({ searchParams }: PageProps) {
     return (
         <FramePage>
             <FramePageTitle onClose={onClose} onReload={onReload}>
-                {frame ? frame.button.action.name : null}
+                {frame ? frame.button.action.name : 'Firefly'}
             </FramePageTitle>
             <FramePageBody>
                 {frame ? (
@@ -125,7 +125,7 @@ export default function Page({ searchParams }: PageProps) {
                     />
                 ) : null}
                 {!ready || loading || !frame ? (
-                    <div className="absolute inset-0 top-[48px] flex items-center justify-center bg-white dark:bg-black">
+                    <div className="flex h-full w-full items-center justify-center bg-white dark:bg-black">
                         <FireflyLogo width={80} height={80} />
                     </div>
                 ) : null}
