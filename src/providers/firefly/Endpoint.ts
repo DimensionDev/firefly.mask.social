@@ -901,16 +901,6 @@ export class FireflyEndpoint {
 
         return resolveFireflyResponseData(response);
     }
-
-    async getProjectDetail(project_id: number) {
-        const url = urlcat(settings.FIREFLY_ROOT_URL, '/v2/search/project/detail');
-        const response = await fetchJSON<ProjectDetailResponse>(url, {
-            method: 'POST',
-            body: JSON.stringify({ project_id }),
-        });
-
-        return resolveFireflyResponseData(response);
-    }
 }
 
 export const FireflyEndpointProvider = new FireflyEndpoint();
