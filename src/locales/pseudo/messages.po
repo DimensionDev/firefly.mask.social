@@ -235,9 +235,6 @@ msgstr ""
 msgid "This token is a gas abuser."
 msgstr ""
 
-msgid "Are you sure you want to leave /{0} ?"
-msgstr ""
-
 msgid "Ended"
 msgstr ""
 
@@ -1747,6 +1744,9 @@ msgstr ""
 msgid "No darkweb transactions found."
 msgstr ""
 
+msgid "Joined /{0} on {sourceName}."
+msgstr ""
+
 msgid "You need to connect your {0} account to use this feature."
 msgstr ""
 
@@ -1979,9 +1979,6 @@ msgid "This can’t be undone and you’ll lose your draft."
 msgstr ""
 
 msgid "Article removed from your Bookmarks"
-msgstr ""
-
-msgid "Leave /{0} on {sourceName}."
 msgstr ""
 
 msgid "Powered by Tenderly and GoPlus"
@@ -2252,6 +2249,9 @@ msgid "Follow @thefireflyapp on X"
 msgstr ""
 
 msgid "Wallets retrieved from public verifiable data registries or our entity algorithm can be reported for disconnection."
+msgstr ""
+
+msgid "Left /{0} on {sourceName}."
 msgstr ""
 
 msgid "Step 2 Connect Wallet"
@@ -3305,9 +3305,6 @@ msgid "Snapshot removed from your Bookmarks"
 msgstr ""
 
 msgid "Max Supply"
-msgstr ""
-
-msgid "Join /{0} on {sourceName}."
 msgstr ""
 
 msgid "Posted by {0} via Firefly"
