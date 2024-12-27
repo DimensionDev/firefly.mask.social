@@ -1300,14 +1300,16 @@ export type MintMetadata = {
     nativePrice: number;
 };
 
-export type GetSponsorMintStatusResponse = Response<MintMetadata>;
-
-export type MintBySponsorResponse = Response<{
+type FreeMintResult = {
     status: boolean;
     hash: string;
     errormessage: string;
     gasStatus: boolean;
-}>;
+};
+
+export type GetSponsorMintStatusResponse = Response<MintMetadata>;
+
+export type MintBySponsorResponse = Response<FreeMintResult>;
 
 export interface GetFollowingCountByNFTParams {
     collectionAddress: string;
@@ -1318,13 +1320,6 @@ export type GetFollowingCountByNFTResponse = Response<{
     count: number;
 }>;
 
-export type GetCollectStatusResponse = Response<{
-    mintStatus: number;
-}>;
+export type GetCollectStatusResponse = Response<MintMetadata>;
 
-export type CollectArticleResponse = Response<{
-    status: boolean;
-    hash: string;
-    errormessage: string;
-    gasStatus: boolean;
-}>;
+export type CollectArticleResponse = Response<FreeMintResult>;

@@ -3,11 +3,34 @@ import { useAccount } from 'wagmi';
 import { estimateFeesPerGas, getBalance } from 'wagmi/actions';
 
 import { config } from '@/configs/wagmiClient.js';
+import { MintStatus } from '@/constants/enum.js';
 import { getArticleDigest } from '@/helpers/getArticleDigest.js';
 import { multipliedBy, rightShift, ZERO } from '@/helpers/number.js';
 import { resolveArticleCollectProvider } from '@/helpers/resolveArticleCollectProvider.js';
 import { EVMChainResolver } from '@/mask/bindings/index.js';
+import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 import { type Article } from '@/providers/types/Article.js';
+import type { MintMetadata } from '@/providers/types/Firefly.js';
+
+function createDefaultMintData(mintPrice: string, platformFee: string, chainId: number): MintMetadata {
+    return {
+        mintStatus: MintStatus.MintAgain,
+        mintPrice,
+        platformFee,
+        txData: {
+            gasLimit: '',
+            inputData: '',
+            to: '',
+            value: '',
+        },
+        mintCount: 1,
+        perLimitCount: 1,
+        chainId,
+        gasStatus: false,
+        tokenPrice: '',
+        nativePrice: 0,
+    };
+}
 
 export function useArticleCollectable(article: Article, queryKey: Array<string | undefined>) {
     const account = useAccount();
@@ -58,6 +81,7 @@ export function useArticleCollectable(article: Article, queryKey: Array<string |
                     isFree: true,
                     gasFee: gasFee.toString(),
                     totalCost: cost.toString(),
+                    mintMetadata: createDefaultMintData(price.toString(), data.fee.toString() || '0', data.chainId),
                     insufficientBalance: cost > balance.value,
                 };
             } catch {
@@ -66,8 +90,25 @@ export function useArticleCollectable(article: Article, queryKey: Array<string |
                     isFree: true,
                     gasFee: '',
                     totalCost: '',
+                    mintMetadata: createDefaultMintData('', '', data.chainId),
                     insufficientBalance: true,
                 };
+            }
+        },
+    });
+}
+
+export function useArticleCollectStatus(article: Article) {
+    const account = useAccount();
+
+    return useQuery({
+        queryKey: ['article-collect-status', article.platform, article.id],
+        queryFn: async () => {
+            try {
+                if (!account.address) return;
+                return FireflyEndpointProvider.getArticleCollectStatus(article.id, account.address, article.platform);
+            } catch {
+                return;
             }
         },
     });

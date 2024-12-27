@@ -884,7 +884,11 @@ export class FireflyEndpoint {
                 originalId: articleId,
             }),
         });
-        return resolveFireflyResponseData(response);
+
+        const data = resolveFireflyResponseData(response);
+        if (!data.status) throw new Error(data.errormessage || 'Failed to collect article');
+
+        return data;
     }
 
     async getTopProjects(locale: Locale) {

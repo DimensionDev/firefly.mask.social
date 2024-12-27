@@ -9,31 +9,22 @@ import LinkIcon from '@/assets/link-square.svg';
 import LoadingIcon from '@/assets/loading.svg';
 import { Avatar } from '@/components/Avatar.js';
 import { ChainGuardButton } from '@/components/ChainGuardButton.js';
-import { ChainIcon } from '@/components/NFTDetail/ChainIcon.js';
 import { queryClient } from '@/configs/queryClient.js';
+import { MintStatus } from '@/constants/enum.js';
 import { classNames } from '@/helpers/classNames.js';
 import { enqueueMessageFromError, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { formatEthereumAddress } from '@/helpers/formatAddress.js';
 import { nFormatter } from '@/helpers/formatCommentCounts.js';
-import { formatPrice, renderShrankPrice } from '@/helpers/formatPrice.js';
-import { isZero, leftShift } from '@/helpers/number.js';
 import { openWindow } from '@/helpers/openWindow.js';
 import { resolveArticleCollectProvider } from '@/helpers/resolveArticleCollectProvider.js';
 import { resolveExplorerLink } from '@/helpers/resolveExplorerLink.js';
-import { useArticleCollectable } from '@/hooks/useArticleCollectable.js';
+import { useArticleCollectable, useArticleCollectStatus } from '@/hooks/useArticleCollectable.js';
+import { MintParamsPanel } from '@/modals/FreeMintModal/MintParamsPanel.js';
+import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 import { type Article, ArticlePlatform } from '@/providers/types/Article.js';
 
 export interface ArticleCollectProps {
     article: Article;
-}
-
-function renderPrice(price: string, decimals?: number, symbol?: string) {
-    return (
-        <>
-            {renderShrankPrice(formatPrice(leftShift(price, decimals).toString()) || '-')}
-            {symbol ? ` ${symbol}` : ''}
-        </>
-    );
 }
 
 export function ArticleCollect({ article }: ArticleCollectProps) {
@@ -47,8 +38,12 @@ export function ArticleCollect({ article }: ArticleCollectProps) {
     queryKeyRef.current = queryKey;
 
     const { data: result, isLoading: queryDetailLoading } = useArticleCollectable(article, queryKey);
+    const { data: collectParams, isLoading: paramsLoading, isRefetching } = useArticleCollectStatus(article);
 
     const { data, insufficientBalance } = result ?? {};
+    const canCollect = [MintStatus.Mintable, MintStatus.MintAgain].includes(
+        collectParams?.mintStatus || MintStatus.NotSupported,
+    );
 
     // User can collect again by reopen the modal
     const [modalSessionCollected, setModalSessionCollected] = useState(false);
@@ -59,10 +54,21 @@ export function ArticleCollect({ article }: ArticleCollectProps) {
         const provider = resolveArticleCollectProvider(platform);
         if (!provider) return;
         try {
-            const confirmation = await provider.collect(data);
-            if (!confirmation) return;
+            let hash = '';
+            if (canCollect && collectParams?.gasStatus) {
+                const result = await FireflyEndpointProvider.freeCollectArticle(
+                    article.id,
+                    account.address || '',
+                    platform,
+                );
+                hash = result.hash;
+            } else {
+                const confirmation = await provider.collect(data);
+                if (!confirmation) return;
+                hash = confirmation.transactionHash;
+            }
             setModalSessionCollected(true);
-            const url = resolveExplorerLink(data.chainId, confirmation.transactionHash, 'tx');
+            const url = resolveExplorerLink(data.chainId, hash, 'tx');
             if (url) {
                 setTxUrl(url);
                 openWindow(url);
@@ -79,11 +85,10 @@ export function ArticleCollect({ article }: ArticleCollectProps) {
             enqueueMessageFromError(error, t`Failed to collect article.`);
             throw error;
         }
-    }, [account, data, platform]);
+    }, [account.address, data, platform, collectParams?.gasStatus, canCollect, article.id]);
 
     const chain = chains.find((x) => x.id === data?.chainId);
     const nativeSymbol = chain?.nativeCurrency.symbol.toUpperCase() || '';
-    const nativeDecimals = chain?.nativeCurrency.decimals;
     const isSoldOut = !!data?.quantity && data.soldCount >= data.quantity;
 
     const buttonText = useMemo(() => {
@@ -112,7 +117,9 @@ export function ArticleCollect({ article }: ArticleCollectProps) {
         );
     }
 
-    const disabled = isSoldOut || (account.isConnected && insufficientBalance) || modalSessionCollected;
+    const loading = collectLoading || queryDetailLoading || paramsLoading || isRefetching;
+    const disabled = isSoldOut || (account.isConnected && insufficientBalance) || modalSessionCollected || loading;
+    const pannelData = canCollect ? collectParams : result?.mintMetadata;
 
     return (
         <div className="overflow-x-hidden px-6 pb-6 max-md:px-0 max-md:pb-4">
@@ -148,62 +155,16 @@ export function ArticleCollect({ article }: ArticleCollectProps) {
                 </div>
             </div>
 
-            <ul className="mt-6 space-y-2 text-base text-main">
-                <li className="flex items-center justify-between">
-                    <span>
-                        <Trans>Chain</Trans>
-                    </span>
-                    <div className="flex items-center gap-2">
-                        {chain ? (
-                            <>
-                                <ChainIcon chainId={chain.id} size={16} />
-                                <span className="text-[14px]">{chain.name}</span>
-                            </>
-                        ) : (
-                            '-'
-                        )}
-                    </div>
-                </li>
-                <li className="flex items-center justify-between">
-                    <span>
-                        <Trans>Collect Price</Trans>
-                    </span>
-                    <span className="text-second">
-                        {isZero(data?.price ?? 0) ? <Trans>Free</Trans> : `${data?.price ?? '-'} ${nativeSymbol}`}
-                    </span>
-                </li>
-                <li className="flex items-center justify-between">
-                    <span>
-                        <Trans>Platform fee</Trans>
-                    </span>
-                    <span className="text-second">
-                        {renderPrice(data?.fee.toString() || '0', nativeDecimals, nativeSymbol)}
-                    </span>
-                </li>
-                <li className="flex items-center justify-between">
-                    <span>
-                        <Trans>Network cost</Trans>
-                    </span>
-                    <span className="text-second">
-                        {renderPrice(result?.gasFee || '0', nativeDecimals, nativeSymbol)}
-                    </span>
-                </li>
-                <li className="flex items-center justify-between">
-                    <span>
-                        <Trans>Total</Trans>
-                    </span>
-                    <span className="flex items-center gap-3 text-second">
-                        <span className={classNames(result?.isFree ? 'line-through' : '')}>
-                            {renderPrice(result?.totalCost || '0', nativeDecimals, nativeSymbol)}
-                        </span>
-                        {result?.isFree ? (
-                            <span className="rounded bg-[#E8E8FF] px-2 py-1 text-sm text-highlight">
-                                <Trans>Free</Trans>
-                            </span>
-                        ) : null}
-                    </span>
-                </li>
-            </ul>
+            {pannelData ? (
+                <MintParamsPanel
+                    mintParams={pannelData}
+                    className="mt-6"
+                    isLoading={false}
+                    gasFee={result?.gasFee || '0'}
+                    mintCount={1}
+                    priceLabel={<Trans>Collect Price</Trans>}
+                />
+            ) : null}
 
             <ChainGuardButton
                 targetChainId={data?.chainId}
@@ -211,7 +172,7 @@ export function ArticleCollect({ article }: ArticleCollectProps) {
                     'mt-6 inline-flex w-full gap-1 max-md:mt-4',
                     disabled ? 'cursor-not-allowed opacity-50' : '',
                 )}
-                loading={collectLoading || queryDetailLoading}
+                loading={loading}
                 onClick={disabled ? undefined : handleCollect}
             >
                 {buttonText}
