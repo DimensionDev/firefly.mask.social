@@ -1,7 +1,7 @@
 'use client';
 
 import { useActionsRegistryInterval } from '@dialectlabs/blinks';
-import { useLingui } from '@lingui/react';
+import { isServer } from '@tanstack/react-query';
 import { usePathname } from 'next/navigation.js';
 import { SnackbarProvider } from 'notistack';
 import { memo, useEffect, useLayoutEffect, useRef } from 'react';
@@ -18,7 +18,6 @@ import { recordUserThemeMode } from '@/services/recordUserThemeMode.js';
 import { useGlobalState } from '@/store/useGlobalStore.js';
 import { useLeafwatchPersistStore } from '@/store/useLeafwatchPersistStore.js';
 import { useThemeModeStore } from '@/store/useThemeModeStore.js';
-import { isServer } from '@tanstack/react-query';
 
 export const InitialProviders = memo(function Providers(props: { children: React.ReactNode }) {
     const isDarkMode = useIsDarkMode();
