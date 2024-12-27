@@ -35,7 +35,7 @@ export const NonFungibleCollectionSelectPanel = memo<FungibleTokenSelectPanelPro
             account: account.address,
         });
         const collections = useMemo(
-            () => allCollections.filter((x) => x.chainId === chainId),
+            () => (chainId ? allCollections.filter((x) => x.chainId === chainId) : allCollections),
             [allCollections, chainId],
         );
         const chainIds = useMemo(() => {
