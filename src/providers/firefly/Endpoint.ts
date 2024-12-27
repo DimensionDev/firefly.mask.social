@@ -4,7 +4,7 @@ import { type Address, type Hex, isAddress } from 'viem';
 
 import { queryClient } from '@/configs/queryClient.js';
 import { DEBANK_CHAIN_TO_CHAIN_ID_MAP, DEBANK_CHAINS } from '@/constants/chain.js';
-import { FireflyPlatform, NetworkType, type SocialSource, Source, SourceInURL } from '@/constants/enum.js';
+import { FireflyPlatform, Locale, NetworkType, type SocialSource, Source, SourceInURL } from '@/constants/enum.js';
 import { EMPTY_LIST } from '@/constants/index.js';
 import { SetQueryDataForAddWallet } from '@/decorators/SetQueryDataForAddWallet.js';
 import { SetQueryDataForMuteAllProfiles } from '@/decorators/SetQueryDataForBlockProfile.js';
@@ -58,18 +58,22 @@ import {
     type GetFollowingCountByNFTParams,
     type GetFollowingCountByNFTResponse,
     type GetLensSuggestedFollowUserResponse,
+    type GetSponsorMintStatusResponse,
     type HexResponse,
     type IsMutedAllResponse,
     type LinkDigestResponse,
+    type MintBySponsorResponse,
     type MuteAllResponse,
     type NFTCollectionsResponse,
     type PlatformIdentityKey,
     type PolymarketActivityTimeline,
+    type ProjectResponse,
     type RelationResponse,
     type Response,
     type SearchNFTResponse,
     type SearchProfileResponse,
     type SearchTokenResponse,
+    type SponsorMintOptions,
     type TelegramLoginBotResponse,
     type TelegramLoginResponse,
     type TwitterUserInfoResponse,
@@ -827,6 +831,29 @@ export class FireflyEndpoint {
         return data;
     }
 
+    async getSponsorMintStatus(options: SponsorMintOptions) {
+        const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/wallet_transaction/platform/mint/status');
+        const response = await fireflySessionHolder.fetch<GetSponsorMintStatusResponse>(url, {
+            method: 'POST',
+            body: JSON.stringify(options),
+        });
+
+        return resolveFireflyResponseData(response);
+    }
+
+    async mintNFTBySponsor(options: SponsorMintOptions) {
+        const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/wallet_transaction/mint/platform');
+        const response = await fireflySessionHolder.fetch<MintBySponsorResponse>(url, {
+            method: 'POST',
+            body: JSON.stringify(options),
+        });
+
+        const data = resolveFireflyResponseData(response);
+        if (!data.status) throw new Error(data.errormessage || 'Failed to mint');
+
+        return data;
+    }
+
     async getFollowingCountByNFT(options: GetFollowingCountByNFTParams) {
         const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/asset/ownersInFriends/count', options);
         const response = await fireflySessionHolder.fetch<GetFollowingCountByNFTResponse>(url, { method: 'GET' });
@@ -857,6 +884,15 @@ export class FireflyEndpoint {
                 originalId: articleId,
             }),
         });
+        return resolveFireflyResponseData(response);
+    }
+
+    async getTopProjects(locale: Locale) {
+        const url = urlcat(settings.FIREFLY_ROOT_URL, '/v2/search/project/top100', {
+            days: 1,
+            language: locale === Locale.en ? 'en' : 'cn',
+        });
+        const response = await fetchJSON<ProjectResponse>(url, { method: 'GET' });
 
         return resolveFireflyResponseData(response);
     }

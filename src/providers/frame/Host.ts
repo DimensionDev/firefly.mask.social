@@ -11,17 +11,11 @@ import type {
 import { noop } from 'lodash-es';
 
 import { NotImplementedError } from '@/constants/error.js';
-import { SITE_NAME } from '@/constants/index.js';
 import { openWindow } from '@/helpers/openWindow.js';
-import { resolveValue } from '@/helpers/resolveValue.js';
-import type { Post } from '@/providers/types/SocialMedia.js';
-import { useFarcasterStateStore } from '@/store/useProfileStore.js';
-import type { FrameV2 } from '@/types/frame.js';
 
 export class FarcasterFrameHost implements Omit<FrameHost, 'ethProviderRequestV2'> {
     constructor(
-        private frame: FrameV2,
-        private post: Post,
+        public context: FrameContext,
         private options?: {
             debug?: boolean;
             ready?: (options?: Partial<ReadyOptions>) => void;
@@ -29,33 +23,6 @@ export class FarcasterFrameHost implements Omit<FrameHost, 'ethProviderRequestV2
             setPrimaryButton?: SetPrimaryButton;
         },
     ) {}
-
-    context = resolveValue(() => {
-        const profile = useFarcasterStateStore.getState().currentProfile;
-
-        return {
-            user: {
-                fid: (profile?.profileId as unknown as number | undefined) ?? 0,
-                username: profile?.displayName,
-                pfpUrl: profile?.pfp,
-                location: {
-                    placeId: 'firefly',
-                    description: SITE_NAME,
-                },
-            },
-            location: {
-                type: 'cast_embed',
-                cast: {
-                    fid: this.post.author.profileId as unknown as number,
-                    hash: this.post.postId,
-                },
-            },
-            client: {
-                added: false,
-                clientFid: 0,
-            },
-        } satisfies FrameContext;
-    });
 
     addFrame = (): ReturnType<AddFrame> => {
         if (this.options?.debug) console.log('[frame host] add frame');

@@ -1,13 +1,15 @@
-import type { SetPrimaryButton } from '@farcaster/frame-host';
+import type { FrameContext, SetPrimaryButton } from '@farcaster/frame-host';
 import { memo, useState } from 'react';
 
 import { ClickableButton } from '@/components/ClickableButton.js';
 import { Image } from '@/components/Image.js';
 import { Source } from '@/constants/enum.js';
+import { SITE_NAME } from '@/constants/index.js';
 import { getCurrentProfile } from '@/helpers/getCurrentProfile.js';
 import { FrameViewerModalRef, LoginModalRef } from '@/modals/controls.js';
 import { FarcasterFrameHost } from '@/providers/frame/Host.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
+import { useFarcasterStateStore } from '@/store/useProfileStore.js';
 import type { FrameV2 } from '@/types/frame.js';
 
 interface CardProps {
@@ -18,20 +20,43 @@ interface CardProps {
 export const Card = memo<CardProps>(function Card({ post, frame }) {
     const [primaryButton, setPrimaryButton] = useState<Parameters<SetPrimaryButton>[0] | null>(null);
 
-    const [frameHost] = useState(
-        () =>
-            new FarcasterFrameHost(frame, post, {
-                ready: (options) => {
-                    FrameViewerModalRef.open({
-                        ready: true,
-                        frame,
-                        frameHost,
-                    });
+    const [frameHost] = useState(() => {
+        const profile = useFarcasterStateStore.getState().currentProfile;
+        const context = {
+            user: {
+                fid: (profile?.profileId as unknown as number | undefined) ?? 0,
+                username: profile?.displayName,
+                pfpUrl: profile?.pfp,
+                location: {
+                    placeId: 'firefly',
+                    description: SITE_NAME,
                 },
-                close: () => FrameViewerModalRef.close(),
-                setPrimaryButton,
-            }),
-    );
+            },
+            location: {
+                type: 'cast_embed',
+                cast: {
+                    fid: post.author.profileId as unknown as number,
+                    hash: post.postId,
+                },
+            },
+            client: {
+                added: false,
+                clientFid: 0,
+            },
+        } satisfies FrameContext;
+
+        return new FarcasterFrameHost(context, {
+            ready: (options) => {
+                FrameViewerModalRef.open({
+                    ready: true,
+                    frame,
+                    frameHost,
+                });
+            },
+            close: () => FrameViewerModalRef.close(),
+            setPrimaryButton,
+        });
+    });
 
     const onClick = () => {
         const profile = getCurrentProfile(Source.Farcaster);

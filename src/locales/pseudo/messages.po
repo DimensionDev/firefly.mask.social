@@ -16,6 +16,9 @@ msgstr ""
 msgid "The gas abuse function is included. The project owner may have the ability to control the contract."
 msgstr ""
 
+msgid "Projects"
+msgstr ""
+
 msgid "{days, plural, one {1 day left} other {{days} days left}}"
 msgstr ""
 
@@ -271,6 +274,9 @@ msgstr ""
 msgid "<0>Burned</0><1/>"
 msgstr ""
 
+msgid "🤑 Just claimed a #FireflyLuckyDrop 🧧💰✨ on {postUrl} !"
+msgstr ""
+
 msgid "Join our Discord"
 msgstr ""
 
@@ -281,6 +287,9 @@ msgid "Found arweaveTxId is empty."
 msgstr ""
 
 msgid "{followerCount, plural, one {Member} other {Members}}"
+msgstr ""
+
+msgid "Mint Ended"
 msgstr ""
 
 msgid "<0>You</0> and {0} others recasted"
@@ -509,6 +518,9 @@ msgid "Verification unsuccessful"
 msgstr ""
 
 msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} {1, select, Lens {mirrored your} Farcaster {recasted your} other {mirrored your}} <4>{2, select, Post {post} Comment {comment} Quote {quote} Mirror {mirror} other {post}}</4>"
+msgstr ""
+
+msgid "Total"
 msgstr ""
 
 msgid "Signer key not found. Please approve a new one for us in Warpcast."
@@ -1165,6 +1177,9 @@ msgstr ""
 msgid "The current connected wallet does not match, Please switch to {0}"
 msgstr ""
 
+msgid "Mint price"
+msgstr ""
+
 msgid "Cost"
 msgstr ""
 
@@ -1208,6 +1223,9 @@ msgid "Connecting..."
 msgstr ""
 
 msgid "Enter amount"
+msgstr ""
+
+msgid "Platform fee"
 msgstr ""
 
 msgid "<0>Sold</0> an NFT worth {costEl}"
@@ -1262,9 +1280,6 @@ msgid "Network Fee"
 msgstr ""
 
 msgid "Contract address found."
-msgstr ""
-
-msgid "Top Profiles"
 msgstr ""
 
 msgid "NFT added to your Bookmarks"
@@ -1366,7 +1381,13 @@ msgstr ""
 msgid "No financial crime involved."
 msgstr ""
 
+msgid "View on Website"
+msgstr ""
+
 msgid "Club"
+msgstr ""
+
+msgid "Mint NFT"
 msgstr ""
 
 msgid "Follow"
@@ -1516,6 +1537,9 @@ msgstr ""
 msgid "Claim on {0}:"
 msgstr ""
 
+msgid "Failed to mint NFT."
+msgstr ""
+
 msgid "Unlike"
 msgstr ""
 
@@ -1592,9 +1616,6 @@ msgid "Failed to unmute /{0}."
 msgstr ""
 
 msgid "Please confirm the login with Warpcast."
-msgstr ""
-
-msgid "🤑 Check this #FireflyLuckyDrop 🧧💰✨ on {postUrl} from @{0} !"
 msgstr ""
 
 msgid "Cover background"
@@ -1682,6 +1703,9 @@ msgid "There are videos that were not uploaded successfully."
 msgstr ""
 
 msgid "NFT contract cant restrict the approval, resulting in NFT can not be traded on the NFT DEX."
+msgstr ""
+
+msgid "NFT minted successfully!"
 msgstr ""
 
 msgid "<0>Collected</0> a POAP"
@@ -1901,6 +1925,9 @@ msgid "<0>The proportion of current market capitalization compares to market cap
 msgstr ""
 
 msgid "Minting Date"
+msgstr ""
+
+msgid "Unsupported Chain"
 msgstr ""
 
 msgid "Failed to create red packet"
@@ -2485,6 +2512,9 @@ msgstr ""
 msgid "Powered by"
 msgstr ""
 
+msgid "So sorry, we are not able to mint this NFT at the moment."
+msgstr ""
+
 msgid "<0>{0}</0> mirrored"
 msgstr ""
 
@@ -2656,6 +2686,9 @@ msgstr ""
 msgid "{handleOrEnsOrAddress} unwatched"
 msgstr ""
 
+msgid "🤑 Check this #FireflyLuckyDrop 🧧💰✨ on {postUrl} !"
+msgstr ""
+
 msgid "Saved on {0} at {1}"
 msgstr ""
 
@@ -2689,9 +2722,6 @@ msgstr ""
 msgid "View"
 msgstr ""
 
-msgid "Crypto Trends"
-msgstr ""
-
 msgid "<0>Acquired</0><1/>"
 msgstr ""
 
@@ -2717,6 +2747,9 @@ msgid "Pinned"
 msgstr ""
 
 msgid "The contract owner may contain the authority to modify the transaction tax. If the transaction tax is increased to more than 49%, the tokens will not be able to be traded (honeypot risk)."
+msgstr ""
+
+msgid "Unknown status"
 msgstr ""
 
 msgid "<0>Minted</0> an NFT for free"
@@ -2849,6 +2882,9 @@ msgid "Confirm to log out all accounts?"
 msgstr ""
 
 msgid "Failed to join /{0} on {sourceName}."
+msgstr ""
+
+msgid "Mint Again"
 msgstr ""
 
 msgid "Repost"
@@ -3256,6 +3292,9 @@ msgstr ""
 msgid "Failed to fetch the latest state after several attempts. Please try again later."
 msgstr ""
 
+msgid "So sorry, we cant mint this NFT with the current status: {0}"
+msgstr ""
+
 msgid "Profile"
 msgstr ""
 
@@ -3505,6 +3544,9 @@ msgstr ""
 msgid "Login"
 msgstr ""
 
+msgid "Mint failed"
+msgstr ""
+
 msgid "Replying to <0>@{0}</0> on {1}"
 msgstr ""
 
@@ -3530,6 +3572,9 @@ msgid "× {0}"
 msgstr ""
 
 msgid "Blink Validator"
+msgstr ""
+
+msgid "Minted"
 msgstr ""
 
 msgid "Golden"

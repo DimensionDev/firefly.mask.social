@@ -384,7 +384,9 @@ const useThirdPartyStateBase = createState(
                     !state.accounts.some((x) => isSameSession(thirdPartySession, x.session as ThirdPartySession))
                 );
 
-                if (foundNewSessionFromServer) state.__setStatus__(AsyncStatus.Pending);
+                if (!foundNewSessionFromServer) return;
+
+                state.__setStatus__(AsyncStatus.Pending);
 
                 await addAccount(
                     {

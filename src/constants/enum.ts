@@ -131,6 +131,7 @@ export type LoginFallbackSource = SocialSource | Source.Article | Source.DAOs | 
 
 export enum ExploreType {
     CryptoTrends = 'crypto-trends',
+    Projects = 'project',
     TopProfiles = 'top-profiles',
     TopChannels = 'top-channels',
 }
@@ -394,4 +395,14 @@ export enum NFTMarketplace {
     Magiceden = 'magiceden',
     Tensor = 'tensor',
     Trove = 'trove',
+}
+
+export enum MintStatus {
+    NotSupported = 0,
+    Mintable = 1,
+    MintAgain = 2,
+    NotStarted = 3,
+    Ended = 4,
+    Minted = 5,
+    SoldOut = 6,
 }

@@ -165,6 +165,7 @@ export const DEFAULT_EXPLORE_TYPE = ExploreType.TopProfiles;
 
 export const EXPLORE_TYPES: ExploreType[] = [
     ExploreType.TopProfiles,
+    ExploreType.Projects,
     ExploreType.CryptoTrends,
     ExploreType.TopChannels,
 ];
@@ -179,8 +180,9 @@ export const EXPLORE_SOURCES: Partial<Record<ExploreType, ExploreSource[]>> = {
     ],
 };
 
-export const EXPLORE_DEFAULT_SOURCE: Record<ExploreType, ExploreSource> = {
+export const EXPLORE_DEFAULT_SOURCE: Record<ExploreType, ExploreSource | undefined> = {
     [ExploreType.TopProfiles]: Source.Farcaster,
+    [ExploreType.Projects]: undefined,
     [ExploreType.CryptoTrends]: TrendingType.Trending,
     [ExploreType.TopChannels]: Source.Farcaster,
 };

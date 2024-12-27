@@ -24,6 +24,8 @@ export function ExplorePage({ source, type }: Props) {
             return source === Source.Farcaster ? <ChannelList source={source} /> : null;
         case ExploreType.CryptoTrends:
             return <TokenTrendingList type={source as TrendingType} />;
+        case ExploreType.Projects:
+            return null;
         default:
             safeUnreachable(type);
             return null;

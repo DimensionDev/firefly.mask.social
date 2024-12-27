@@ -13,8 +13,9 @@ export function resolveExploreUrl(explore: ExploreType, source?: ExploreSource) 
     }
 
     const target = EXPLORE_DEFAULT_SOURCE[explore];
+    if (!target) return urlcat('/explore/:explore', { explore });
     return urlcat(`/explore/:explore/:source`, {
         explore,
-        source: target ? resolveExploreSourceInURL(target) : undefined,
+        source: resolveExploreSourceInURL(target),
     });
 }
