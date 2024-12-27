@@ -4,9 +4,9 @@ import { Trans } from '@lingui/macro';
 import { usePathname } from 'next/navigation.js';
 import { memo, useMemo } from 'react';
 
+import { Link } from '@/components/Link.js';
 import { SearchType, type SocialSource, Source } from '@/constants/enum.js';
 import { SORTED_SEARCH_TYPE, SORTED_SOCIAL_SOURCES } from '@/constants/index.js';
-import { Link } from '@/esm/Link.js';
 import { classNames } from '@/helpers/classNames.js';
 import { isRoutePathname } from '@/helpers/isRoutePathname.js';
 import { resolveSearchUrl } from '@/helpers/resolveSearchUrl.js';

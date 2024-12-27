@@ -3,8 +3,8 @@ import { rootRouteId, useMatch } from '@tanstack/react-router';
 import { useMemo } from 'react';
 
 import { ClickableButton } from '@/components/ClickableButton.js';
+import { Link } from '@/components/Link.js';
 import { TipsModalHeader } from '@/components/Tips/TipsModalHeader.js';
-import { Link } from '@/esm/Link.js';
 import { CHAR_TAG } from '@/helpers/chars.js';
 import { formatEthereumAddress } from '@/helpers/formatAddress.js';
 import { getCurrentAvailableSources } from '@/helpers/getCurrentAvailableSources.js';

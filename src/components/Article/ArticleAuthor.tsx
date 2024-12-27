@@ -2,10 +2,10 @@ import urlcat from 'urlcat';
 import { useEnsName } from 'wagmi';
 
 import { Avatar } from '@/components/Avatar.js';
+import { Link } from '@/components/Link.js';
 import { Time } from '@/components/Semantic/Time.js';
 import { TimestampFormatter } from '@/components/TimeStampFormatter.js';
 import { SourceInURL } from '@/constants/enum.js';
-import { Link } from '@/esm/Link.js';
 import { formatEthereumAddress } from '@/helpers/formatAddress.js';
 import { resolveArticlePlatformIcon } from '@/helpers/resolveArticlePlatformIcon.js';
 import { stopPropagation } from '@/helpers/stopEvent.js';

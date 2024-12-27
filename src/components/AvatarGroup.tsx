@@ -1,8 +1,8 @@
 import type { HTMLProps } from 'react';
 
 import { Avatar, type AvatarProps } from '@/components/Avatar.js';
+import { Link } from '@/components/Link.js';
 import { ProfileTippy } from '@/components/Profile/ProfileTippy.js';
-import { Link } from '@/esm/Link.js';
 import { classNames } from '@/helpers/classNames.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { resolveFireflyIdentity } from '@/helpers/resolveFireflyProfileId.js';

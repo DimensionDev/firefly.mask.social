@@ -4,8 +4,8 @@ import { Trans } from '@lingui/macro';
 import { compact } from 'lodash-es';
 import type { PropsWithChildren } from 'react';
 
+import { Link } from '@/components/Link.js';
 import { FollowCategory } from '@/constants/enum.js';
-import { Link } from '@/esm/Link.js';
 import { classNames } from '@/helpers/classNames.js';
 import { isSameProfile } from '@/helpers/isSameProfile.js';
 import { narrowToSocialSource } from '@/helpers/narrowToSocialSource.js';

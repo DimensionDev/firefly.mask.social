@@ -3,6 +3,7 @@
 import { Trans } from '@lingui/macro';
 import { type ReactNode, useMemo } from 'react';
 
+import { Link } from '@/components/Link.js';
 import {
     NetworkType,
     type ProfilePageSource,
@@ -12,7 +13,6 @@ import {
     WalletProfileCategory,
 } from '@/constants/enum.js';
 import { SORTED_PROFILE_TAB_TYPE, WALLET_PROFILE_TAB_TYPES } from '@/constants/index.js';
-import { Link } from '@/esm/Link.js';
 import { classNames } from '@/helpers/classNames.js';
 import { getAddressType } from '@/helpers/getAddressType.js';
 import { resolveProfileUrl } from '@/helpers/resolveProfileUrl.js';

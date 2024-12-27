@@ -4,7 +4,7 @@ import { Trans } from '@lingui/macro';
 import { usePathname } from 'next/navigation.js';
 
 import RightArrowIcon from '@/assets/right-arrow.svg';
-import { Link } from '@/esm/Link.js';
+import { Link } from '@/components/Link.js';
 import { isRoutePathname } from '@/helpers/isRoutePathname.js';
 
 export function ToolkitList() {

@@ -9,13 +9,13 @@ import { useEnsName } from 'wagmi';
 
 import LinkIcon from '@/assets/link-square.svg';
 import { Image } from '@/components/Image.js';
+import { Link } from '@/components/Link.js';
 import { ListInPage } from '@/components/ListInPage.js';
 import { WatchButton } from '@/components/Profile/WatchButton.js';
 import { TextOverflowTooltip } from '@/components/TextOverflowTooltip.js';
 import { Tooltip } from '@/components/Tooltip.js';
 import { ScrollListKey, Source } from '@/constants/enum.js';
 import { EMPTY_LIST } from '@/constants/index.js';
-import { Link } from '@/esm/Link.js';
 import { formatEthereumAddress } from '@/helpers/formatAddress.js';
 import { getStampAvatarByProfileId } from '@/helpers/getStampAvatarByProfileId.js';
 import { createIndicator } from '@/helpers/pageable.js';

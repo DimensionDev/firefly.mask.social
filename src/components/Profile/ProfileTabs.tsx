@@ -3,10 +3,10 @@
 import { startTransition } from 'react';
 
 import FireflyLogo from '@/assets/firefly.round.svg';
+import { Link } from '@/components/Link.js';
 import { SourceTabs } from '@/components/SourceTabs/index.js';
 import { SquareSourceIcon } from '@/components/SquareSourceIcon.js';
 import { Source } from '@/constants/enum.js';
-import { Link } from '@/esm/Link.js';
 import { classNames } from '@/helpers/classNames.js';
 import { createLookupTableResolver } from '@/helpers/createLookupTableResolver.js';
 import { isMPCWallet } from '@/helpers/isMPCWallet.js';

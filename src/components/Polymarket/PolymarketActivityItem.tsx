@@ -7,12 +7,12 @@ import { ActivityCellPolymarketAction } from '@/components/ActivityCell/Polymark
 import { Avatar } from '@/components/Avatar.js';
 import { FeedFollowSource } from '@/components/FeedFollowSource.js';
 import { Image } from '@/components/Image.js';
+import { Link } from '@/components/Link.js';
 import { PolymarketActivityRate } from '@/components/Polymarket/PolymarketActivityRate.js';
 import { PolymarketActivityResult } from '@/components/Polymarket/PolymarketActivityResult.js';
 import { TimestampFormatter } from '@/components/TimeStampFormatter.js';
 import { WalletBaseMoreAction } from '@/components/WalletBaseMoreAction.js';
 import { Source } from '@/constants/enum.js';
-import { Link } from '@/esm/Link.js';
 import { classNames } from '@/helpers/classNames.js';
 import { formatAddress } from '@/helpers/formatAddress.js';
 import { formatAmount } from '@/helpers/polymarket.js';

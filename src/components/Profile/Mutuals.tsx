@@ -4,9 +4,9 @@ import { Trans } from '@lingui/macro';
 import { useInfiniteQuery } from '@tanstack/react-query';
 
 import { AvatarGroup } from '@/components/AvatarGroup.js';
+import { Link } from '@/components/Link.js';
 import { FollowCategory } from '@/constants/enum.js';
 import { EMPTY_LIST } from '@/constants/index.js';
-import { Link } from '@/esm/Link.js';
 import { isSameProfile } from '@/helpers/isSameProfile.js';
 import { narrowToSocialSource } from '@/helpers/narrowToSocialSource.js';
 import { resolveProfileUrl } from '@/helpers/resolveProfileUrl.js';

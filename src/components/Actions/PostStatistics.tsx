@@ -7,10 +7,10 @@ import { usePathname } from 'next/navigation.js';
 import { Fragment, type HTMLProps, memo, type ReactNode, useMemo } from 'react';
 
 import FireflyMonochromeIcon from '@/assets/firefly-monochrome.svg';
+import { Link } from '@/components/Link.js';
 import { ChannelAnchor } from '@/components/Posts/ChannelAnchor.js';
 import { Time } from '@/components/Semantic/Time.js';
 import { EngagementType, PageRoute, Source } from '@/constants/enum.js';
-import { Link } from '@/esm/Link.js';
 import { classNames } from '@/helpers/classNames.js';
 import { getPollTimeLeft } from '@/helpers/getPollTimeLeft.js';
 import { isRoutePathname } from '@/helpers/isRoutePathname.js';

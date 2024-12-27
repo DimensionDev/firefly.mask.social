@@ -4,7 +4,7 @@ import urlcat from 'urlcat';
 import Rank from '@/assets/project-rank.svg';
 import Star from '@/assets/project-star.svg';
 import { Image } from '@/components/Image.js';
-import { Link } from '@/esm/Link.js';
+import { Link } from '@/components/Link.js';
 import { nFormatter } from '@/helpers/formatCommentCounts.js';
 import type { Project } from '@/providers/types/Firefly.js';
 

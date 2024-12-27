@@ -3,10 +3,10 @@
 import { Trans } from '@lingui/macro';
 import { memo } from 'react';
 
+import { Link } from '@/components/Link.js';
 import { RadioButton } from '@/components/RadioButton.js';
 import { SearchType } from '@/constants/enum.js';
 import { SORTED_SEARCH_TYPE } from '@/constants/index.js';
-import { Link } from '@/esm/Link.js';
 import { narrowToSocialSource } from '@/helpers/narrowToSocialSource.js';
 import { resolveSearchUrl } from '@/helpers/resolveSearchUrl.js';
 import { DraggablePopoverRef } from '@/modals/controls.js';

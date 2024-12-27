@@ -1,10 +1,10 @@
 import { memo } from 'react';
 
 import { ToggleMutedProfileButton } from '@/components/Actions/ToggleMutedProfileButton.js';
+import { Link } from '@/components/Link.js';
 import { ProfileAvatar } from '@/components/ProfileAvatar.js';
 import { SocialSourceIcon } from '@/components/SocialSourceIcon.js';
 import { Source } from '@/constants/enum.js';
-import { Link } from '@/esm/Link.js';
 import { classNames } from '@/helpers/classNames.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';

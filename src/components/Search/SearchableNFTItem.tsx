@@ -2,8 +2,8 @@ import { Trans } from '@lingui/macro';
 import { ChainId } from '@masknet/web3-shared-evm';
 
 import { Image } from '@/components/Image.js';
+import { Link } from '@/components/Link.js';
 import { ChainIcon } from '@/components/NFTDetail/ChainIcon.js';
-import { Link } from '@/esm/Link.js';
 import { nFormatter } from '@/helpers/formatCommentCounts.js';
 import { resolveNftUrl } from '@/helpers/resolveNftUrl.js';
 import type { SearchableNFT } from '@/providers/types/Firefly.js';

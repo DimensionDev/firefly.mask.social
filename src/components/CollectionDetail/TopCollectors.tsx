@@ -4,12 +4,12 @@ import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
 
 import LinkIcon from '@/assets/link-square.svg';
 import { Image } from '@/components/Image.js';
+import { Link } from '@/components/Link.js';
 import { TableListInPage } from '@/components/TableListInPage.js';
 import { TextOverflowTooltip } from '@/components/TextOverflowTooltip.js';
 import { Tooltip } from '@/components/Tooltip.js';
 import { ScrollListKey, Source } from '@/constants/enum.js';
 import { EMPTY_LIST } from '@/constants/index.js';
-import { Link } from '@/esm/Link.js';
 import { classNames } from '@/helpers/classNames.js';
 import { formatAddress } from '@/helpers/formatAddress.js';
 import { nFormatter } from '@/helpers/formatCommentCounts.js';

@@ -1,10 +1,10 @@
 import { useQuery } from '@tanstack/react-query';
 
+import { Link } from '@/components/Link.js';
 import { RelationPlatformIcon } from '@/components/RelationPlatformIcon.js';
 import { Tooltip } from '@/components/Tooltip.js';
 import { Source } from '@/constants/enum.js';
 import { EMPTY_LIST } from '@/constants/index.js';
-import { Link } from '@/esm/Link.js';
 import { getRelationPlatformUrl } from '@/helpers/getRelationPlatformUrl.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 import type { FireflyIdentity } from '@/providers/types/Firefly.js';

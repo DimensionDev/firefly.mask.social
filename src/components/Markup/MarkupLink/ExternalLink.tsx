@@ -3,7 +3,7 @@
 import type { LinkProps } from 'next/link.js';
 import { memo } from 'react';
 
-import { Link } from '@/esm/Link.js';
+import { Link } from '@/components/Link.js';
 import { classNames } from '@/helpers/classNames.js';
 import { formatUrl } from '@/helpers/formatUrl.js';
 import { isSelfReference } from '@/helpers/isLinkMatchingHost.js';

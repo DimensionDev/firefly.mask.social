@@ -16,8 +16,8 @@ import { ActivityCellAction } from '@/components/ActivityCell/ActivityCellAction
 import { ActivityCellActionTag } from '@/components/ActivityCell/ActivityCellActionTag.js';
 import { ClickableArea } from '@/components/ClickableArea.js';
 import { Image } from '@/components/Image.js';
+import { Link } from '@/components/Link.js';
 import { Source } from '@/constants/enum.js';
-import { Link } from '@/esm/Link.js';
 import { formatEthereumAddress } from '@/helpers/formatAddress.js';
 import { isSameEthereumAddress } from '@/helpers/isSameAddress.js';
 import { resolveNftUrl } from '@/helpers/resolveNftUrl.js';

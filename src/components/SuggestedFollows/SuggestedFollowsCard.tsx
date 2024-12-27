@@ -10,9 +10,9 @@ import { Autoplay, EffectCoverflow } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
 import { AsideTitle } from '@/components/AsideTitle.js';
+import { Link } from '@/components/Link.js';
 import { ProfileSlide } from '@/components/SuggestedFollows/ProfileSlide.js';
 import { ExploreType, Source } from '@/constants/enum.js';
-import { Link } from '@/esm/Link.js';
 import { isSocialDiscoverSource } from '@/helpers/isDiscoverSource.js';
 import { resolveExploreUrl } from '@/helpers/resolveExploreUrl.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';

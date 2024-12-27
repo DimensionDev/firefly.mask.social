@@ -9,11 +9,11 @@ import type { GridItemProps, GridListProps } from 'react-virtuoso';
 
 import { GridListInPage } from '@/components/GridListInPage.js';
 import { Image } from '@/components/Image.js';
+import { Link } from '@/components/Link.js';
 import { ChainIcon } from '@/components/NFTDetail/ChainIcon.js';
 import { NotLoginFallback } from '@/components/NotLoginFallback.js';
 import { Source } from '@/constants/enum.js';
 import { SORTED_SOCIAL_SOURCES } from '@/constants/index.js';
-import { Link } from '@/esm/Link.js';
 import { classNames } from '@/helpers/classNames.js';
 import { enqueueMessageFromError } from '@/helpers/enqueueMessage.js';
 import { createIndicator } from '@/helpers/pageable.js';

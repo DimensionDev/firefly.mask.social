@@ -5,10 +5,10 @@ import { compact } from 'lodash-es';
 import { useRef } from 'react';
 import { useMount } from 'react-use';
 
+import { Link } from '@/components/Link.js';
 import { feedback } from '@/configs/sentryClient.js';
 import { STATUS } from '@/constants/enum.js';
 import { env } from '@/constants/env.js';
-import { Link } from '@/esm/Link.js';
 
 export function LinkCloud() {
     const feedbackEl = useRef<HTMLSpanElement>(null);

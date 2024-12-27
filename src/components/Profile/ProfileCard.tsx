@@ -4,12 +4,12 @@ import { memo } from 'react';
 
 import { Avatar } from '@/components/Avatar.js';
 import { ClickableArea } from '@/components/ClickableArea.js';
+import { Link } from '@/components/Link.js';
 import { BioMarkup } from '@/components/Markup/BioMarkup.js';
 import { FollowButton } from '@/components/Profile/FollowButton.js';
 import { FollowersLink } from '@/components/Profile/FollowersLink.js';
 import { SocialSourceIcon } from '@/components/SocialSourceIcon.js';
 import { FollowCategory, Source } from '@/constants/enum.js';
-import { Link } from '@/esm/Link.js';
 import { classNames } from '@/helpers/classNames.js';
 import { nFormatter } from '@/helpers/formatCommentCounts.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';

@@ -6,13 +6,13 @@ import { compact, first } from 'lodash-es';
 import { useMemo } from 'react';
 
 import { GridListInPage } from '@/components/GridListInPage.js';
+import { Link } from '@/components/Link.js';
 import { ChainIcon } from '@/components/NFTDetail/ChainIcon.js';
 import { NFTImage } from '@/components/NFTImage.js';
 import { BookmarkInIcon } from '@/components/NFTs/BookmarkButton.js';
 import { POAPGridListComponent } from '@/components/Profile/POAPList.js';
 import { FireflyPlatform } from '@/constants/enum.js';
 import { EMPTY_LIST } from '@/constants/index.js';
-import { Link } from '@/esm/Link.js';
 import { classNames } from '@/helpers/classNames.js';
 import { isValidSolanaAddress } from '@/helpers/isValidSolanaAddress.js';
 import { createIndicator } from '@/helpers/pageable.js';

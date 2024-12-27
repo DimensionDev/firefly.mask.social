@@ -10,12 +10,12 @@ import { useEnsName } from 'wagmi';
 
 import PoapIcon from '@/assets/poap.svg';
 import { GridListInPage } from '@/components/GridListInPage.js';
+import { Link } from '@/components/Link.js';
 import { ChainIcon } from '@/components/NFTDetail/ChainIcon.js';
 import { NFTImage } from '@/components/NFTImage.js';
 import { BookmarkInIcon } from '@/components/NFTs/BookmarkButton.js';
 import { Source } from '@/constants/enum.js';
 import { EMPTY_LIST, POAP_CONTRACT_ADDRESS } from '@/constants/index.js';
-import { Link } from '@/esm/Link.js';
 import { classNames } from '@/helpers/classNames.js';
 import { formatEthereumAddress } from '@/helpers/formatAddress.js';
 import { nFormatter } from '@/helpers/formatCommentCounts.js';

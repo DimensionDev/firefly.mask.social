@@ -4,9 +4,9 @@ import { Trans } from '@lingui/macro';
 import type { PropsWithChildren } from 'react';
 
 import ComeBack from '@/assets/comeback.svg';
+import { Link } from '@/components/Link.js';
 import { EngagementType, type SocialSource } from '@/constants/enum.js';
 import { SORTED_ENGAGEMENT_TAB_TYPE } from '@/constants/index.js';
-import { Link } from '@/esm/Link.js';
 import { classNames } from '@/helpers/classNames.js';
 import { resolveEngagementUrl } from '@/helpers/resolveEngagementUrl.js';
 import { useComeBack } from '@/hooks/useComeback.js';

@@ -5,10 +5,10 @@ import { ToggleMutedChannelButton } from '@/components/Actions/ToggleMutedChanne
 import { Avatar } from '@/components/Avatar.js';
 import { ChannelTippy } from '@/components/Channel/ChannelTippy.js';
 import { FollowButton } from '@/components/Channel/FollowButton.js';
+import { Link } from '@/components/Link.js';
 import { BioMarkup } from '@/components/Markup/BioMarkup.js';
 import { PlainParagraph, VoidLineBreak } from '@/components/Markup/overrides.js';
 import { SocialSourceIcon } from '@/components/SocialSourceIcon.js';
-import { Link } from '@/esm/Link.js';
 import { classNames } from '@/helpers/classNames.js';
 import { nFormatter } from '@/helpers/formatCommentCounts.js';
 import { getChannelUrl } from '@/helpers/getChannelUrl.js';

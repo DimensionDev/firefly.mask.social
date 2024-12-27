@@ -11,8 +11,8 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 
 import { ClickableArea } from '@/components/ClickableArea.js';
 import { Image } from '@/components/Image.js';
+import { Link } from '@/components/Link.js';
 import { AdFunctionType, AdvertisementType } from '@/constants/enum.js';
-import { Link } from '@/esm/Link.js';
 import { LoginModalRef } from '@/modals/controls.js';
 import type { Advertisement } from '@/types/advertisement.js';
 

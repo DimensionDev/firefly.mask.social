@@ -3,20 +3,20 @@
 import { t } from '@lingui/macro';
 import { ChainId } from '@masknet/web3-shared-evm';
 
-import EnsIcon from '@/assets/ens.svg';
 import MiniEnsIcon from '@/assets/ens-16.svg';
+import EnsIcon from '@/assets/ens.svg';
 import FireflyLogo from '@/assets/firefly.round.svg';
 import LinkIcon from '@/assets/link-square.svg';
 import { Avatar } from '@/components/Avatar.js';
 import { CopyTextButton } from '@/components/CopyTextButton.js';
 import { Image } from '@/components/Image.js';
 import { InteractiveTippy } from '@/components/InteractiveTippy.js';
+import { Link } from '@/components/Link.js';
 import { WalletActions } from '@/components/Profile/WalletActions.js';
 import { RelatedSourceIcon } from '@/components/RelatedSourceIcon.js';
 import { RelationPlatformIcon } from '@/components/RelationPlatformIcon.js';
 import { Tooltip } from '@/components/Tooltip.js';
 import { NetworkType, Source } from '@/constants/enum.js';
-import { Link } from '@/esm/Link.js';
 import { formatAddress } from '@/helpers/formatAddress.js';
 import { getAddressType } from '@/helpers/getAddressType.js';
 import { getRelationPlatformUrl } from '@/helpers/getRelationPlatformUrl.js';
