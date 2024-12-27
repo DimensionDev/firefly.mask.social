@@ -4,8 +4,8 @@ import { ChainId, SchemaType } from '@masknet/web3-shared-evm';
 
 import LinkIcon from '@/assets/link-square.svg';
 import { ClickableButton } from '@/components/ClickableButton.js';
-import { EVMExplorerResolver } from '@/mask/bindings/index.js';
 import { Image } from '@/components/Image.js';
+import { EVMExplorerResolver } from '@/mask/bindings/index.js';
 
 interface CollectionProps {
     collection: NonFungibleCollection<ChainId, SchemaType>;

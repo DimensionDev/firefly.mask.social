@@ -67,7 +67,6 @@ import {
     type NFTCollectionsResponse,
     type PlatformIdentityKey,
     type PolymarketActivityTimeline,
-    type ProjectDetailResponse,
     type ProjectResponse,
     type RelationResponse,
     type Response,
