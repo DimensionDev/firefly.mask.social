@@ -47,20 +47,24 @@ function FilterPopover<F>({
         }
     }, [selected, data, isSelected, onSelected]);
 
-    const optionRenderer = (item: F, index: number, onClose: () => void) => (
-        <div
-            key={index}
-            onClick={() => {
-                onSelected(index === -1 ? undefined : item);
-                onClose();
-            }}
-            className={classNames('cursor-pointer px-3 py-1 text-left text-xs text-main hover:bg-lightBg', {
-                'opacity-50': selected ? (isSelected?.(item, selected) ?? false) : index === -1,
-            })}
-        >
-            {index === -1 ? placeholder : itemRenderer(item)}
-        </div>
-    );
+    const optionRenderer = (item: F, index: number, onClose: () => void) => {
+        const option = index === -1 ? placeholder : itemRenderer(item);
+        if (!option) return null;
+        return (
+            <div
+                key={index}
+                onClick={() => {
+                    onSelected(index === -1 ? undefined : item);
+                    onClose();
+                }}
+                className={classNames('cursor-pointer px-3 py-1 text-left text-xs text-main hover:bg-lightBg', {
+                    'opacity-50': selected ? (isSelected?.(item, selected) ?? false) : index === -1,
+                })}
+            >
+                {option}
+            </div>
+        );
+    };
 
     return (
         <Popover as="div" className="relative">
