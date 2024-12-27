@@ -130,7 +130,7 @@ export default function Page({ searchParams }: PageProps) {
                         }}
                     />
                 ) : (
-                    <GhostError fallback={<Trans>No frame found.</Trans>} />
+                    <GhostError error={error} fallback={<Trans>No frame found.</Trans>} />
                 )}
             </FramePageBody>
         </FramePage>
