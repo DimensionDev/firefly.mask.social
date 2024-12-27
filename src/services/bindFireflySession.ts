@@ -7,6 +7,7 @@ import {
     NotAllowedError,
     UnreachableError,
 } from '@/constants/error.js';
+import { enqueueWarningMessage } from '@/helpers/enqueueMessage.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
 import { resolveFireflyResponseData } from '@/helpers/resolveFireflyResponseData.js';
 import { FAKE_SIGNER_REQUEST_TOKEN, FarcasterSession } from '@/providers/farcaster/Session.js';
@@ -20,7 +21,6 @@ import { SessionType } from '@/providers/types/SocialMedia.js';
 import { restoreFireflySession } from '@/services/restoreFireflySession.js';
 import { settings } from '@/settings/index.js';
 import type { ResponseJSON } from '@/types/index.js';
-import { enqueueWarningMessage } from '@/helpers/enqueueMessage.js';
 
 async function bindLensToFirefly(session: LensSession, signal?: AbortSignal) {
     const response = await fireflySessionHolder.fetch<BindResponse>(

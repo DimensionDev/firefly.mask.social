@@ -1,7 +1,7 @@
 'use client';
 
 import { t, Trans } from '@lingui/macro';
-import { isLessThan, type FungibleToken } from '@masknet/web3-shared-base';
+import { type FungibleToken,isLessThan } from '@masknet/web3-shared-base';
 import { type ChainId, SchemaType, useRedPacketConstants } from '@masknet/web3-shared-evm';
 import { useRouter } from '@tanstack/react-router';
 import { BigNumber } from 'bignumber.js';
