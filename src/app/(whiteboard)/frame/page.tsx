@@ -11,7 +11,6 @@ import GhostHoleIcon from '@/assets/ghost.svg';
 import { IS_DEVELOPMENT } from '@/constants/index.js';
 import { bom } from '@/helpers/bom.js';
 import { createEIP1193ProviderFromRequest, type RequestArguments } from '@/helpers/createEIP1193Provider.js';
-import { parseJSON } from '@/helpers/parseJSON.js';
 import { fireflyBridgeProvider } from '@/providers/firefly/Bridge.js';
 import { FarcasterFrameHost } from '@/providers/frame/Host.js';
 import { SupportedMethod } from '@/types/bridge.js';
@@ -27,10 +26,6 @@ export default function Page({ searchParams }: PageProps) {
         if (!fireflyBridgeProvider.supported) return;
 
         const result = await fireflyBridgeProvider.request(SupportedMethod.GET_FRAME_CONTEXT, {});
-
-        const frame = parseJSON<FrameV2>(result.frame);
-        if (!frame) throw new Error('Failed to parse frame payload.');
-
         const context = {
             user: result.user,
             location: result.location,
@@ -42,7 +37,8 @@ export default function Page({ searchParams }: PageProps) {
         };
 
         return {
-            frame,
+            url: result.frame.originalUrl,
+            frame: result.frame.content,
             frameHost: new FarcasterFrameHost(context, {
                 ready: () => setReady(true),
                 close: () => fireflyBridgeProvider.request(SupportedMethod.CLOSE, {}),
@@ -50,6 +46,7 @@ export default function Page({ searchParams }: PageProps) {
                     fireflyBridgeProvider.request(SupportedMethod.SET_PRIMARY_BUTTON, options),
             }),
         } satisfies {
+            url: string;
             frame: FrameV2;
             frameHost: FrameV2Host;
         };
@@ -128,7 +125,7 @@ export default function Page({ searchParams }: PageProps) {
                     />
                 ) : null}
                 {!ready || loading || !frame ? (
-                    <div className="absolute inset-0 top-[60px] flex items-center justify-center bg-white dark:bg-black">
+                    <div className="absolute inset-0 top-[48px] flex items-center justify-center bg-white dark:bg-black">
                         <FireflyLogo width={80} height={80} />
                     </div>
                 ) : null}
