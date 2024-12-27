@@ -116,7 +116,11 @@ export default function Page({ searchParams }: PageProps) {
                 {frame ? frame.button.action.name : <Trans>Loading...</Trans>}
             </FramePageTitle>
             <FramePageBody>
-                {frame ? (
+                {!ready || loading || loadingSupported || !frame ? (
+                    <div className="flex h-full w-full items-center justify-center bg-white dark:bg-black">
+                        <FireflyLogo width={80} height={80} />
+                    </div>
+                ) : frame ? (
                     <iframe
                         className="scrollbar-hide h-full w-full opacity-100"
                         ref={frameRef}
@@ -127,11 +131,6 @@ export default function Page({ searchParams }: PageProps) {
                             backgroundColor: frame.button.action.splashBackgroundColor,
                         }}
                     />
-                ) : null}
-                {!ready || loading || loadingSupported || !frame ? (
-                    <div className="flex h-full w-full items-center justify-center bg-white dark:bg-black">
-                        <FireflyLogo width={80} height={80} />
-                    </div>
                 ) : null}
             </FramePageBody>
         </FramePage>
