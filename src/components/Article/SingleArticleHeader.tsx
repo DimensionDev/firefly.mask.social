@@ -12,7 +12,7 @@ import { Link } from '@/esm/Link.js';
 import { classNames } from '@/helpers/classNames.js';
 import { resolveArticlePlatformIcon } from '@/helpers/resolveArticlePlatformIcon.js';
 import { stopPropagation } from '@/helpers/stopEvent.js';
-import { type Article, ArticlePlatform } from '@/providers/types/Article.js';
+import { type Article } from '@/providers/types/Article.js';
 
 interface SingleArticleHeaderProps {
     article: Article;
@@ -31,7 +31,6 @@ export const SingleArticleHeader = memo<SingleArticleHeaderProps>(function Singl
     });
 
     const Icon = !isBookmark ? resolveArticlePlatformIcon(article.platform) : null;
-    const size = article.platform === ArticlePlatform.Limo ? 15 : 20;
     const { data: ens } = useEnsName({ address: article.author.id, query: { enabled: !article.author.handle } });
 
     return (
@@ -50,7 +49,7 @@ export const SingleArticleHeader = memo<SingleArticleHeaderProps>(function Singl
                 address={article.author.id}
                 displayName={article.author.handle || ens}
                 time={!isBookmark ? article.timestamp : undefined}
-                icon={Icon ? <Icon width={size} height={size} /> : null}
+                icon={Icon ? <Icon width={15} height={15} /> : null}
             >
                 {!isBookmark ? <ArticleMoreAction article={article} /> : null}
             </ActivityCellHeader>
