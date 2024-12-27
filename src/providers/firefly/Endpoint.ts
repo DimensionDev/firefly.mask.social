@@ -67,7 +67,6 @@ import {
     type NFTCollectionsResponse,
     type PlatformIdentityKey,
     type PolymarketActivityTimeline,
-    type ProjectDetailResponse,
     type ProjectResponse,
     type RelationResponse,
     type Response,
@@ -898,16 +897,6 @@ export class FireflyEndpoint {
             language: locale === Locale.en ? 'en' : 'cn',
         });
         const response = await fetchJSON<ProjectResponse>(url, { method: 'GET' });
-
-        return resolveFireflyResponseData(response);
-    }
-
-    async getProjectDetail(project_id: number) {
-        const url = urlcat(settings.FIREFLY_ROOT_URL, '/v2/search/project/detail');
-        const response = await fetchJSON<ProjectDetailResponse>(url, {
-            method: 'POST',
-            body: JSON.stringify({ project_id }),
-        });
 
         return resolveFireflyResponseData(response);
     }
