@@ -22,9 +22,10 @@ export const Card = memo<CardProps>(function Card({ post, frame }) {
 
     const [frameHost] = useState(() => {
         const profile = useFarcasterStateStore.getState().currentProfile;
+        const fid = (profile?.profileId as unknown as number | undefined) ?? 0;
         const context = {
             user: {
-                fid: (profile?.profileId as unknown as number | undefined) ?? 0,
+                fid: fid,
                 username: profile?.displayName,
                 pfpUrl: profile?.pfp,
                 location: {
@@ -41,7 +42,7 @@ export const Card = memo<CardProps>(function Card({ post, frame }) {
             },
             client: {
                 added: false,
-                clientFid: 0,
+                clientFid: fid,
             },
         } satisfies FrameContext;
 

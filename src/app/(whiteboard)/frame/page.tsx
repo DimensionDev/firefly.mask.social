@@ -30,7 +30,7 @@ export default function Page({ searchParams }: PageProps) {
             user: result.user,
             location: result.location,
             client: {
-                clientFid: 0,
+                clientFid: result.user.fid,
                 added: false,
                 ...result.client,
             },
