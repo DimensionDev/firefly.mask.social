@@ -2331,9 +2331,6 @@ msgstr "免费收集"
 msgid "Delete"
 msgstr "删除"
 
-msgid "Check out my LuckyDrop 🧧💰✨ on Firefly mobile app or desktop {promoteLink} !"
-msgstr "在 Firefly 移动端或者 {promoteLink} 打开我的红包🧧💰✨ ！"
-
 msgid "The content of this account is currently unavailable"
 msgstr "无法获取这个账户的内容"
 
@@ -3167,6 +3164,9 @@ msgstr "领取条件"
 
 msgid "Oversupply minting."
 msgstr "超出最大铸造数量。"
+
+msgid "Check out my LuckyDrop 🧧💰✨ on Firefly mobile app or desktop {promoteLink} !"
+msgstr ""
 
 msgid "*Note: Each NFT can only be used once."
 msgstr "*注意：每个NFT只能使用一次。"
