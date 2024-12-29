@@ -2,28 +2,28 @@ import urlcat from 'urlcat';
 
 import { type SocialSource } from '@/constants/enum.js';
 import { getCurrentProfile } from '@/helpers/getCurrentProfile.js';
-import { getLocaleFromCookies } from '@/helpers/getFromCookies.js';
+import { getLocaleFromCookiesAsync } from '@/helpers/getFromCookies.js';
 import { getMeaningfulThemeMode } from '@/helpers/getMeaningfulThemeMode.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { parseUrl } from '@/helpers/parseUrl.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 import { settings } from '@/settings/index.js';
 
-const getPollFrameSearchParams = (source: SocialSource) => {
+const getPollFrameSearchParams = async (source: SocialSource) => {
     const profile = getCurrentProfile(source);
     return {
         source: source.toLowerCase(),
         profileId: profile?.profileId ?? null,
         theme: getMeaningfulThemeMode(),
-        locale: getLocaleFromCookies(),
+        locale: await getLocaleFromCookiesAsync(),
         date: Date.now(), // force refresh poll frame
     };
 };
 
-export const composePollFrameUrl = (url: string, source: SocialSource) => {
+export const composePollFrameUrl = async (url: string, source: SocialSource) => {
     const parsed = parseUrl(url);
     if (!parsed) return url;
-    Object.entries(getPollFrameSearchParams(source)).forEach(([key, value]) => {
+    Object.entries(await getPollFrameSearchParams(source)).forEach(([key, value]) => {
         if (value) parsed.searchParams.set(key, `${value}`);
     });
     return parsed.toString();

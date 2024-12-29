@@ -6,10 +6,11 @@ import { resolveDiscoverUrl } from '@/helpers/resolveDiscoverUrl.js';
 import { trimify } from '@/helpers/trimify.js';
 
 interface Props {
-    searchParams: ShareLinkProps;
+    searchParams: Promise<ShareLinkProps>;
 }
 
-export default function Page({ searchParams }: Props) {
+export default async function Page(props: Props) {
+    const searchParams = await props.searchParams;
     if (!trimify(searchParams.text || '')) {
         redirect(resolveDiscoverUrl(DEFAULT_SOCIAL_SOURCE), RedirectType.replace);
     }

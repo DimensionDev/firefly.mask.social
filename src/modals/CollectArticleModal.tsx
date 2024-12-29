@@ -16,7 +16,7 @@ export interface CollectArticleModalOpenProps {
 export const CollectArticleModal = forwardRef<SingletonModalRefCreator<CollectArticleModalOpenProps>>(
     function CollectArticleModal(_, ref) {
         const [props, setProps] = useState<CollectArticleModalOpenProps>();
-        const timerRef = useRef<NodeJS.Timeout>();
+        const timerRef = useRef<NodeJS.Timeout>(undefined);
         const [open, dispatch] = useSingletonModal(ref, {
             onOpen: (props) => {
                 clearTimeout(timerRef.current);

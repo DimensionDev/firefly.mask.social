@@ -5,12 +5,15 @@ import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { getTokenFromCoinGecko } from '@/services/getTokenFromCoinGecko.js';
 
 interface Props {
-    params: {
+    params: Promise<{
         symbol: string;
-    };
+    }>;
 }
 
-export default async function TokenPageLayout({ params, children }: PropsWithChildren<Props>) {
+export default async function TokenPageLayout(props: PropsWithChildren<Props>) {
+    const params = await props.params;
+    const { children } = props;
+
     const symbol = decodeURIComponent(params.symbol);
     const token = await runInSafeAsync(() => getTokenFromCoinGecko(symbol));
 

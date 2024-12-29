@@ -286,7 +286,7 @@ export class FireflySocialMedia implements Provider {
             const posts = data.casts.map((x) => formatFarcasterPostFromFirefly(x));
 
             return createPageable(
-                posts,
+                await Promise.all(posts),
                 createIndicator(indicator),
                 data.cursor ? createNextIndicator(indicator, data.cursor) : undefined,
             );
@@ -330,7 +330,7 @@ export class FireflySocialMedia implements Provider {
             const posts = data.casts.map((x) => formatFarcasterPostFromFirefly(x));
 
             return createPageable(
-                posts,
+                await Promise.all(posts),
                 createIndicator(indicator),
                 data.cursor ? createNextIndicator(indicator, `${data.cursor}`) : undefined,
             );
@@ -363,7 +363,7 @@ export class FireflySocialMedia implements Provider {
             const posts = data.casts.map((x) => formatFarcasterPostFromFirefly(x));
 
             return createPageable(
-                posts,
+                await Promise.all(posts),
                 createIndicator(indicator),
                 data.cursor ? createNextIndicator(indicator, data.cursor) : undefined,
             );
@@ -381,7 +381,7 @@ export class FireflySocialMedia implements Provider {
                 method: 'GET',
             });
 
-            const post = cast ? formatFarcasterPostFromFirefly(cast) : null;
+            const post = cast ? await formatFarcasterPostFromFirefly(cast) : null;
             if (!post) throw new NotFoundError('Post not found');
             return post;
         });
@@ -484,7 +484,7 @@ export class FireflySocialMedia implements Provider {
             const { comments, cursor } = resolveFireflyResponseData(response);
 
             return createPageable(
-                comments.map((item) => formatFarcasterPostFromFirefly(item)),
+                await Promise.all(comments.map((item) => formatFarcasterPostFromFirefly(item))),
                 createIndicator(indicator),
                 cursor ? createNextIndicator(indicator, cursor) : undefined,
             );
@@ -506,7 +506,7 @@ export class FireflySocialMedia implements Provider {
             const { comments, cursor } = resolveFireflyResponseData(response);
 
             return createPageable(
-                comments.map((item) => formatFarcasterPostFromFirefly(item)),
+                await Promise.all(comments.map((item) => formatFarcasterPostFromFirefly(item))),
                 createIndicator(indicator),
                 cursor ? createNextIndicator(indicator, cursor) : undefined,
             );
@@ -529,7 +529,7 @@ export class FireflySocialMedia implements Provider {
             const data = casts.map((cast) => formatFarcasterPostFromFirefly(cast));
 
             return createPageable(
-                data,
+                await Promise.all(data),
                 createIndicator(indicator),
                 cursor ? createNextIndicator(indicator, cursor) : undefined,
             );
@@ -552,7 +552,7 @@ export class FireflySocialMedia implements Provider {
             const data = casts.map((cast) => formatFarcasterPostFromFirefly(cast));
 
             return createPageable(
-                data,
+                await Promise.all(data),
                 createIndicator(indicator),
                 cursor ? createNextIndicator(indicator, cursor) : undefined,
             );
@@ -578,7 +578,7 @@ export class FireflySocialMedia implements Provider {
             const data = casts.map((cast) => formatFarcasterPostFromFirefly(cast));
 
             return createPageable(
-                data,
+                await Promise.all(data),
                 createIndicator(indicator),
                 cursor ? createNextIndicator(indicator, cursor) : undefined,
             );
@@ -594,12 +594,12 @@ export class FireflySocialMedia implements Provider {
         });
         const response = await fireflySessionHolder.fetch<NotificationResponse>(url, { method: 'GET' });
         const data = resolveFireflyResponseData(response);
-        const result = data.notifications.map<Notification | undefined>((notification) => {
+        const result = data.notifications.map<Promise<Notification | undefined>>(async (notification) => {
             const notificationId = `${profileId}_${notification.timestamp}_${notification.notificationType}`;
             const users =
                 notification.users?.map(formatFarcasterProfileFromFirefly) ??
                 (notification.user ? [formatFarcasterProfileFromFirefly(notification.user)] : EMPTY_LIST);
-            const post = notification.cast ? formatFarcasterPostFromFirefly(notification.cast) : undefined;
+            const post = notification.cast ? await formatFarcasterPostFromFirefly(notification.cast) : undefined;
             const timestamp = notification.timestamp ? new Date(notification.timestamp).getTime() : undefined;
             if (notification.notificationType === FireflyNotificationType.CastBeLiked) {
                 return {
@@ -621,7 +621,7 @@ export class FireflySocialMedia implements Provider {
                 };
             } else if (notification.notificationType === FireflyNotificationType.CastBeReplied) {
                 const commentOn = notification.cast?.parentCast
-                    ? formatFarcasterPostFromFirefly(notification.cast.parentCast)
+                    ? await formatFarcasterPostFromFirefly(notification.cast.parentCast)
                     : undefined;
                 return {
                     source: Source.Farcaster,
@@ -655,7 +655,7 @@ export class FireflySocialMedia implements Provider {
             return;
         });
         return createPageable(
-            compact(result),
+            compact(await Promise.all(result)),
             createIndicator(indicator),
             data.cursor ? createNextIndicator(indicator, data.cursor) : undefined,
         );
@@ -677,7 +677,7 @@ export class FireflySocialMedia implements Provider {
             const data = casts.map((x) => formatFarcasterPostFromFirefly(x));
 
             return createPageable(
-                data,
+                await Promise.all(data),
                 createIndicator(indicator),
                 cursor ? createNextIndicator(indicator, cursor) : undefined,
             );
@@ -759,7 +759,7 @@ export class FireflySocialMedia implements Provider {
             const response = await fireflySessionHolder.fetch<SearchCastsResponse>(url);
             const casts = resolveFireflyResponseData(response);
             const data = casts.map((cast) => formatFarcasterPostFromFirefly(cast));
-            return createPageable(data, createIndicator(indicator), undefined);
+            return createPageable(await Promise.all(data), createIndicator(indicator), undefined);
         });
     }
 
@@ -794,7 +794,7 @@ export class FireflySocialMedia implements Provider {
                 },
             );
             const data = resolveFireflyResponseData(response);
-            return [post, ...data.threads.map((x) => formatFarcasterPostFromFirefly(x))];
+            return [post, ...(await Promise.all(data.threads.map((x) => formatFarcasterPostFromFirefly(x))))];
         });
     }
 
@@ -856,7 +856,7 @@ export class FireflySocialMedia implements Provider {
         const posts = data.quotes.map((x) => formatFarcasterPostFromFirefly(x));
 
         return createPageable(
-            posts,
+            await Promise.all(posts),
             createIndicator(indicator),
             data.cursor ? createNextIndicator(indicator, data.cursor) : undefined,
         );
@@ -906,15 +906,17 @@ export class FireflySocialMedia implements Provider {
             const response = await fireflySessionHolder.fetch<BookmarkResponse<Cast>>(url);
 
             const posts = compact(
-                response.data?.list.map((x) => {
-                    if (!x.post_content) return null;
-                    const formatted = formatFarcasterPostFromFirefly(x.post_content);
-                    if (!formatted) return null;
-                    return {
-                        ...formatted,
-                        hasBookmarked: true,
-                    };
-                }),
+                await Promise.all(
+                    response.data?.list.map(async (x) => {
+                        if (!x.post_content) return null;
+                        const formatted = await formatFarcasterPostFromFirefly(x.post_content);
+                        if (!formatted) return null;
+                        return {
+                            ...formatted,
+                            hasBookmarked: true,
+                        };
+                    }) || [],
+                ),
             );
 
             return createPageable(

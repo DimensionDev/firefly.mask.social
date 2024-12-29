@@ -1,6 +1,6 @@
 'use client';
 
-import { t, Trans } from '@lingui/macro';
+import { Trans, useLingui } from '@lingui/react/macro';
 import { useMemo, useState } from 'react';
 
 import { Headline } from '@/app/(settings)/components/Headline.js';
@@ -9,11 +9,9 @@ import { Blink } from '@/components/Blink/index.js';
 import { Link } from '@/components/Link.js';
 import { Source } from '@/constants/enum.js';
 import { createDummyPost } from '@/helpers/createDummyPost.js';
-import { getI18n } from '@/i18n/index.js';
 
 export default function Page() {
-    const i18n = getI18n();
-
+    const { t } = useLingui();
     const [url, setUrl] = useState('');
     const post = useMemo(() => createDummyPost(Source.Farcaster, url, url, [url]), [url]);
 
@@ -42,7 +40,7 @@ export default function Page() {
                     type="text"
                     autoComplete="off"
                     spellCheck="false"
-                    placeholder={t(i18n)`Your Blink URL`}
+                    placeholder={t`Your Blink URL`}
                     onChange={(e) => setUrl(e.target.value)}
                 />
             </div>

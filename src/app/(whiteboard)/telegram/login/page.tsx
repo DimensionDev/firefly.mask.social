@@ -4,7 +4,7 @@ import { t, Trans } from '@lingui/macro';
 import { delay } from '@masknet/kit';
 import dayjs from 'dayjs';
 import { useRouter } from 'next/navigation.js';
-import { useMemo } from 'react';
+import { useMemo, use } from 'react';
 import { useAsync } from 'react-use';
 
 import FullLogo from '@/assets/logo-full.svg';
@@ -22,10 +22,11 @@ import { useThirdPartyStateStore } from '@/store/useProfileStore.js';
 import { DeviceType } from '@/types/device.js';
 
 interface PageProps {
-    searchParams: { token?: string; os?: string };
+    searchParams: Promise<{ token?: string; os?: string }>;
 }
 
-export default function Page({ searchParams }: PageProps) {
+export default function Page(props: PageProps) {
+    const searchParams = use(props.searchParams);
     const router = useRouter();
     const { os, token } = searchParams;
     const schemes = useMemo(() => {

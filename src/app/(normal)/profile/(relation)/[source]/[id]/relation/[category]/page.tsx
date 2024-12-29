@@ -7,15 +7,14 @@ import { FollowCategory, type ProfileCategory, SourceInURL } from '@/constants/e
 import { narrowToSocialSource } from '@/helpers/narrowToSocialSource.js';
 import { resolveSourceFromUrl } from '@/helpers/resolveSource.js';
 
-export default function Page({
-    params,
-}: {
-    params: {
+export default async function Page(props: {
+    params: Promise<{
         id: string;
         category: ProfileCategory;
         source: SourceInURL;
-    };
+    }>;
 }) {
+    const params = await props.params;
     const source = resolveSourceFromUrl(params.source);
     const identity = { source, id: params.id };
     if (!params.category || !identity) return null;

@@ -1,7 +1,7 @@
 'use client';
 
 import { safeUnreachable } from '@masknet/kit';
-import { memo, Suspense } from 'react';
+import { memo, Suspense, use } from 'react';
 
 import { LikeList } from '@/components/Engagement/LikeList.js';
 import { QuoteList } from '@/components/Engagement/QuoteList.js';
@@ -12,7 +12,7 @@ import { resolveSocialSource } from '@/helpers/resolveSource.js';
 
 interface ContentListProps {
     postId: string;
-    type: Props['params']['type'];
+    type: Awaited<Props['params']>['type'];
     source: SocialSource;
 }
 const ContentList = memo(function ContentList(props: ContentListProps) {
@@ -31,16 +31,17 @@ const ContentList = memo(function ContentList(props: ContentListProps) {
 });
 
 interface Props {
-    params: {
+    params: Promise<{
         id: string;
         type: EngagementType;
         source: SocialSourceInURL;
-    };
+    }>;
 }
 
 export default function Page(props: Props) {
-    const { type: engagementType, id } = props.params;
-    const sourceInURL = props.params.source;
+    const params = use(props.params);
+    const { type: engagementType, id } = params;
+    const sourceInURL = params.source;
     const source = resolveSocialSource(sourceInURL);
 
     return (

@@ -155,22 +155,27 @@ function getAttachments(attachments?: PublicationMetadataMediaFragment[] | null)
     );
 }
 
-function getOembedUrls(metadata: LinkMetadataV3Fragment | TextOnlyMetadataV3Fragment, author: Profile): string[] {
-    return getEmbedUrls(
-        metadata.content,
-        metadata.attributes?.reduce<string[]>((acc, attr) => {
-            if (attr.key === LensMetadataAttributeKey.Poll) {
-                acc.push(getPollFrameUrl(attr.value, undefined, author));
-            }
-            return acc;
-        }, []) ?? [],
-    ).map((url) => {
-        if (isValidPollFrameUrl(url)) return composePollFrameUrl(url, Source.Lens);
-        return url;
-    });
+async function getOembedUrls(
+    metadata: LinkMetadataV3Fragment | TextOnlyMetadataV3Fragment,
+    author: Profile,
+): Promise<string[]> {
+    return Promise.all(
+        getEmbedUrls(
+            metadata.content,
+            metadata.attributes?.reduce<string[]>((acc, attr) => {
+                if (attr.key === LensMetadataAttributeKey.Poll) {
+                    acc.push(getPollFrameUrl(attr.value, undefined, author));
+                }
+                return acc;
+            }, []) ?? [],
+        ).map((url) => {
+            if (isValidPollFrameUrl(url)) return composePollFrameUrl(url, Source.Lens);
+            return url;
+        }),
+    );
 }
 
-function formatContent(metadata: PublicationMetadataFragment, author: Profile) {
+async function formatContent(metadata: PublicationMetadataFragment, author: Profile) {
     const type = metadata.__typename;
     switch (type) {
         case 'ArticleMetadataV3':
@@ -181,7 +186,7 @@ function formatContent(metadata: PublicationMetadataFragment, author: Profile) {
         case 'TextOnlyMetadataV3':
             return {
                 content: metadata.content,
-                oembedUrls: getOembedUrls(metadata, author),
+                oembedUrls: await getOembedUrls(metadata, author),
             };
         case 'LinkMetadataV3':
             const parsedLink = parseUrl(metadata.sharingLink);
@@ -191,7 +196,7 @@ function formatContent(metadata: PublicationMetadataFragment, author: Profile) {
                     metadata.content,
                     parsedLink
                         ? isValidPollFrameUrl(parsedLink.toString())
-                            ? [composePollFrameUrl(parsedLink.toString(), Source.Lens)]
+                            ? [await composePollFrameUrl(parsedLink.toString(), Source.Lens)]
                             : [parsedLink.toString()]
                         : [],
                 ),
@@ -316,7 +321,9 @@ function formatOrbClub(metadata: LensMetadata) {
     } as unknown as Channel;
 }
 
-export function formatLensQuoteOrComment(result: CommentBaseFragment | PostFragment | QuoteBaseFragment): Post {
+export async function formatLensQuoteOrComment(
+    result: CommentBaseFragment | PostFragment | QuoteBaseFragment,
+): Promise<Post> {
     const profile = formatLensProfile(result.by);
     const timestamp = new Date(result.createdAt).getTime();
 
@@ -346,7 +353,7 @@ export function formatLensQuoteOrComment(result: CommentBaseFragment | PostFragm
         isEncrypted: !!result.metadata.encryptedWith,
         metadata: {
             locale: result.metadata.locale,
-            content: formatContent(result.metadata, profile),
+            content: await formatContent(result.metadata, profile),
             contentURI: result.metadata.rawURI,
         },
         canComment: result.operations.canComment === 'YES',
@@ -375,14 +382,14 @@ export function filterFeeds<T extends { by: ProfileFragment }>(posts: T[]): T[] 
     return posts.filter((x) => !x.by.operations.isBlockedByMe.value);
 }
 
-export function formatLensPost(result: AnyPublicationFragment): Post {
+export async function formatLensPost(result: AnyPublicationFragment): Promise<Post> {
     const profile = formatLensProfile(result.by);
     const timestamp = new Date(result.createdAt).getTime();
 
     if (result.__typename === 'Mirror') {
         const mediaObjects = getMediaObjects(result.mirrorOn.metadata);
         const mirrorOnProfile = formatLensProfile(result.mirrorOn.by);
-        const content = formatContent(result.mirrorOn.metadata, mirrorOnProfile);
+        const content = await formatContent(result.mirrorOn.metadata, mirrorOnProfile);
         const oembedUrls = getEmbedUrls(content?.content ?? '', []);
 
         const canAct =
@@ -445,7 +452,7 @@ export function formatLensPost(result: AnyPublicationFragment): Post {
     if (result.metadata.__typename === 'EventMetadataV3') throw new Error('Event not supported');
     const mediaObjects = getMediaObjects(result.metadata);
 
-    const content = formatContent(result.metadata, profile);
+    const content = await formatContent(result.metadata, profile);
 
     const oembedUrl = last(content?.oembedUrls || content?.content.match(URL_REGEX) || []);
 
@@ -492,7 +499,7 @@ export function formatLensPost(result: AnyPublicationFragment): Post {
             hasActed: result.operations.hasActed.value,
             hasLiked: result.operations.hasUpvoted,
             hasBookmarked: result.operations.hasBookmarked,
-            quoteOn: formatLensQuoteOrComment(result.quoteOn),
+            quoteOn: await formatLensQuoteOrComment(result.quoteOn),
             mentions: result.profilesMentioned.map((x) => formatLensProfileByHandleInfo(x.snapshotHandleMentioned)),
             canAct,
             collectModule: canAct
@@ -535,7 +542,7 @@ export function formatLensPost(result: AnyPublicationFragment): Post {
                 countOpenActions: result.stats.countOpenActions,
             },
             __original__: result,
-            commentOn: formatLensQuoteOrComment(result.commentOn),
+            commentOn: await formatLensQuoteOrComment(result.commentOn),
             canComment: result.operations.canComment === 'YES',
             canMirror: result.operations.canMirror === 'YES',
             canDecrypt,
@@ -544,11 +551,11 @@ export function formatLensPost(result: AnyPublicationFragment): Post {
             hasActed: result.operations.hasActed.value,
             hasLiked: result.operations.hasUpvoted,
             hasBookmarked: result.operations.hasBookmarked,
-            firstComment: result.firstComment ? formatLensQuoteOrComment(result.firstComment) : undefined,
+            firstComment: result.firstComment ? await formatLensQuoteOrComment(result.firstComment) : undefined,
             mentions: result.profilesMentioned.map((x) => formatLensProfileByHandleInfo(x.snapshotHandleMentioned)),
             root:
                 result.root && !isEmpty(result.root) && (result.root as PostFragment).id !== result.commentOn.id
-                    ? formatLensPost(result.root as PostFragment)
+                    ? await formatLensPost(result.root as PostFragment)
                     : undefined,
             canAct,
             collectModule: canAct
@@ -616,24 +623,24 @@ export function formatLensPost(result: AnyPublicationFragment): Post {
     }
 }
 
-export function formatLensPostByFeed(result: FeedItemFragment): Post | null {
+export async function formatLensPostByFeed(result: FeedItemFragment): Promise<Post | null> {
     const firstComment = result.comments.length ? first(result.comments) : undefined;
     const basePost = firstComment || result.root;
     if (basePost.by.operations.isBlockedByMe.value) return null;
-    const post = formatLensPost(basePost);
+    const post = await formatLensPost(basePost);
     const mirrors = result.mirrors.map((x) => formatLensProfile(x.by));
     const reactions = result.reactions.map((x) => formatLensProfile(x.by));
-    const comments = filterFeeds(result.comments).map((x) => formatLensPost(x));
+    const comments = await Promise.all(filterFeeds(result.comments).map((x) => formatLensPost(x)));
 
     return {
         ...post,
         comments,
         mirrors,
         reactions,
-        commentOn: firstComment ? formatLensPost(result.root) : undefined,
+        commentOn: firstComment ? await formatLensPost(result.root) : undefined,
         root:
             firstComment && result.root.__typename === 'Comment'
-                ? formatLensQuoteOrComment(result.root.commentOn)
+                ? await formatLensQuoteOrComment(result.root.commentOn)
                 : undefined,
     };
 }

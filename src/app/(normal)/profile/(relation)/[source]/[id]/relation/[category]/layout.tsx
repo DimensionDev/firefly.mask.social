@@ -10,16 +10,18 @@ import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider
 import { resolveSourceFromUrlNoFallback } from '@/helpers/resolveSource.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
 
-export default async function Layout({
-    children,
-    params,
-}: PropsWithChildren<{
-    params: {
-        id: string;
-        category: ProfileCategory;
-        source: SourceInURL;
-    };
-}>) {
+export default async function Layout(
+    props: PropsWithChildren<{
+        params: Promise<{
+            id: string;
+            category: ProfileCategory;
+            source: SourceInURL;
+        }>;
+    }>,
+) {
+    const params = await props.params;
+    const { children } = props;
+
     if (!isFollowCategory(params.category)) notFound();
     const id = params.id;
     const source = resolveSourceFromUrlNoFallback(params.source);

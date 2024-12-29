@@ -14,28 +14,32 @@ const createPageMetadata = memoizeWithRedis(createMetadataChannelById, {
 });
 
 interface Props {
-    params: {
+    params: Promise<{
         id: string;
         source: SocialSourceInURL;
-    };
-    searchParams: {
+    }>;
+    searchParams: Promise<{
         source: SocialSourceInURL;
         channel_tab?: ChannelTabType;
-    };
+    }>;
 }
 
 function isChannelTabType(value?: string): value is ChannelTabType {
     return Object.values(ChannelTabType).includes(value as ChannelTabType);
 }
 
-export async function generateMetadata({ params, searchParams }: Props): Promise<Metadata> {
+export async function generateMetadata(props: Props): Promise<Metadata> {
+    const searchParams = await props.searchParams;
+    const params = await props.params;
     const source = isChannelTabType(params.id) ? searchParams.source : params.source;
     const id = isChannelTabType(params.id) ? searchParams.source : params.id;
     return createPageMetadata(source || SourceInURL.Farcaster, id);
 }
 
-export default function Page({ params, searchParams }: Props) {
-    if (isBotRequest()) return null;
+export default async function Page(props: Props) {
+    const searchParams = await props.searchParams;
+    const params = await props.params;
+    if (await isBotRequest()) return null;
 
     const sourceFromQuery = isSocialSourceInUrl(searchParams.source)
         ? resolveSocialSource(searchParams.source)

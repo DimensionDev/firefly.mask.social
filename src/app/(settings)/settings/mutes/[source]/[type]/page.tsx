@@ -1,4 +1,5 @@
 'use client';
+import { use } from 'react';
 
 import { MutedListPage } from '@/app/(settings)/settings/mutes/[source]/[type]/pages/MutedListPage.js';
 import type { MuteType, SourceInURL } from '@/constants/enum.js';
@@ -6,13 +7,16 @@ import { resolveSourceInUrl } from '@/helpers/resolveSourceInUrl.js';
 import { useMuteMenuList } from '@/hooks/useMuteMenuList.js';
 
 interface PageProps {
-    params: {
+    params: Promise<{
         source: SourceInURL;
         type: MuteType;
-    };
+    }>;
 }
 
-export default function Page({ params: { source, type } }: PageProps) {
+export default function Page(props: PageProps) {
+    const params = use(props.params);
+    const { source, type } = params;
+
     const muteMenuList = useMuteMenuList();
     const currentMenu = muteMenuList.find((menu) => menu.type === type && resolveSourceInUrl(menu.source) === source);
 

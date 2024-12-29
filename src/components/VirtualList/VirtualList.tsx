@@ -6,7 +6,7 @@ import { Virtuoso, type VirtuosoHandle, type VirtuosoProps } from 'react-virtuos
 
 export interface VirtualListProps<ItemData = unknown, Context = unknown> extends VirtuosoProps<ItemData, Context> {
     listKey?: string;
-    virtuosoRef?: React.RefObject<VirtuosoHandle>;
+    virtuosoRef?: React.RefObject<VirtuosoHandle | null>;
 }
 
 export function VirtualList<ItemData = unknown, Context = unknown>({

@@ -14,12 +14,12 @@ import { setupLocaleForSSR } from '@/i18n/index.js';
 
 export async function generateMetadata() {
     return createSiteMetadata({
-        title: createPageTitleSSR(t`Page not found`),
+        title: await createPageTitleSSR(t`Page not found`),
     });
 }
 
-export default function NotFound() {
-    setupLocaleForSSR();
+export default async function NotFound() {
+    await setupLocaleForSSR();
 
     return (
         <>

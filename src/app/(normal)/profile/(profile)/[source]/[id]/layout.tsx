@@ -15,16 +15,18 @@ import { setupLocaleForSSR } from '@/i18n/index.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 import { twitterSessionHolder } from '@/providers/twitter/SessionHolder.js';
 
-export default async function Layout({
-    children,
-    params,
-}: PropsWithChildren<{
-    params: {
-        id: string;
-        source: SourceInURL;
-    };
-}>) {
-    setupLocaleForSSR();
+export default async function Layout(
+    props: PropsWithChildren<{
+        params: Promise<{
+            id: string;
+            source: SourceInURL;
+        }>;
+    }>,
+) {
+    const params = await props.params;
+    const { children } = props;
+
+    await setupLocaleForSSR();
     await setupTwitterSession();
     const id = params.id;
     const source = resolveSourceFromUrlNoFallback(params.source);

@@ -1,8 +1,7 @@
 'use client';
 
-import { RedirectType } from 'next/dist/client/components/redirect.js';
-import { notFound, redirect } from 'next/navigation.js';
-import { type PropsWithChildren, useEffect } from 'react';
+import { notFound, redirect, RedirectType } from 'next/navigation.js';
+import { type PropsWithChildren, useEffect, use } from 'react';
 
 import { Link } from '@/components/Link.js';
 import { NotLoginFallback } from '@/components/NotLoginFallback.js';
@@ -18,15 +17,16 @@ import { useCurrentProfileAll } from '@/hooks/useCurrentProfile.js';
 import { useFireflyIdentityState } from '@/store/useFireflyIdentityStore.js';
 import { usePreferencesState } from '@/store/usePreferenceStore.js';
 
-export default function Page({
-    params,
-}: PropsWithChildren<{
-    params: {
-        id: string;
-        category: ProfileCategory;
-        source: SourceInURL;
-    };
-}>) {
+export default function Page(
+    props: PropsWithChildren<{
+        params: Promise<{
+            id: string;
+            category: ProfileCategory;
+            source: SourceInURL;
+        }>;
+    }>,
+) {
+    const params = use(props.params);
     const source = resolveSourceFromUrl(params.source);
     if (!isSocialSource(source)) notFound();
 

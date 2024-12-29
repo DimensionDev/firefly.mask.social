@@ -1,4 +1,4 @@
-import { t } from '@lingui/macro';
+import { t } from '@lingui/core/macro';
 import { compact } from 'lodash-es';
 import urlcat from 'urlcat';
 
@@ -9,10 +9,11 @@ import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
 import { getPostUrl } from '@/helpers/getPostUrl.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { resolveSocialSource } from '@/helpers/resolveSource.js';
-import { getI18n } from '@/i18n/index.js';
+import { getI18nInstance } from '@/i18n/index.js';
+import { getLocaleFromCookiesAsync } from '@/helpers/getFromCookies.js';
 
 export async function createMetadataPostById(source: SocialSourceInURL, postId: string) {
-    const i18n = getI18n();
+    const i18n = getI18nInstance(await getLocaleFromCookiesAsync());
     const provider = resolveSocialMediaProvider(resolveSocialSource(source));
     const post = await provider.getPostById(postId).catch(() => null);
     if (!post) return createSiteMetadata();
@@ -36,7 +37,7 @@ export async function createMetadataPostById(source: SocialSourceInURL, postId: 
     });
 
     const title = post?.author.displayName
-        ? createPageTitleSSR(t(i18n)`Posted by ${post.author.displayName} via Firefly`)
+        ? await createPageTitleSSR(t(i18n)`Posted by ${post.author.displayName} via Firefly`)
         : SITE_NAME;
 
     return createSiteMetadata({

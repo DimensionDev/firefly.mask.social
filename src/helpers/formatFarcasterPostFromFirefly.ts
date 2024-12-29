@@ -29,24 +29,26 @@ function getCoverUriFromUrl(url: string) {
     return '';
 }
 
-function formatContent(cast: Cast): Post['metadata']['content'] {
+async function formatContent(cast: Cast): Promise<Post['metadata']['content']> {
     const embedUrls: Array<{ url: string; type?: EmbedMediaType }> = cast.embed_urls?.length
         ? cast.embed_urls
         : cast.embeds;
 
-    const oembedUrls = getEmbedUrls(
-        cast.text,
-        compact(
-            embedUrls
-                ?.filter((x) => (x.type ? [EmbedMediaType.TEXT, EmbedMediaType.FRAME].includes(x.type) : true))
-                .map((x) => x.url),
-        ),
-    )
-        .map((x) => {
-            if (isValidPollFrameUrl(x)) return composePollFrameUrl(x, Source.Farcaster);
-            return x;
-        })
-        .filter((x) => isTopLevelDomain(x));
+    const oembedUrls = (
+        await Promise.all(
+            getEmbedUrls(
+                cast.text,
+                compact(
+                    embedUrls
+                        ?.filter((x) => (x.type ? [EmbedMediaType.TEXT, EmbedMediaType.FRAME].includes(x.type) : true))
+                        .map((x) => x.url),
+                ),
+            ).map((x) => {
+                if (isValidPollFrameUrl(x)) return composePollFrameUrl(x, Source.Farcaster);
+                return x;
+            }),
+        )
+    ).filter((x) => isTopLevelDomain(x));
 
     const defaultContent = { content: cast.text, oembedUrl: last(oembedUrls), oembedUrls };
 
@@ -100,7 +102,7 @@ function getPostTypeByCast(cast: Cast) {
 /**
  * Return null if cast is detected
  */
-export function formatFarcasterPostFromFirefly(cast: Cast, type?: PostType): Post {
+export async function formatFarcasterPostFromFirefly(cast: Cast, type?: PostType): Promise<Post> {
     const postType = type ?? getPostTypeByCast(cast);
     return {
         publicationId: cast.hash,
@@ -113,7 +115,7 @@ export function formatFarcasterPostFromFirefly(cast: Cast, type?: PostType): Pos
         isHidden: !!cast.deleted_at,
         metadata: {
             locale: '',
-            content: formatContent(cast),
+            content: await formatContent(cast),
         },
         stats: {
             comments: Number(cast.replyCount),
@@ -142,11 +144,11 @@ export function formatFarcasterPostFromFirefly(cast: Cast, type?: PostType): Pos
         hasBookmarked: cast.bookmarked,
         source: Source.Farcaster,
         canComment: true,
-        commentOn: cast.parentCast ? formatFarcasterPostFromFirefly(cast.parentCast) : undefined,
-        root: cast.rootParentCast ? formatFarcasterPostFromFirefly(cast.rootParentCast) : undefined,
-        threads: compact(cast.threads?.map((x) => formatFarcasterPostFromFirefly(x, 'Comment'))),
+        commentOn: cast.parentCast ? await formatFarcasterPostFromFirefly(cast.parentCast) : undefined,
+        root: cast.rootParentCast ? await formatFarcasterPostFromFirefly(cast.rootParentCast) : undefined,
+        threads: await Promise.all(compact(cast.threads?.map((x) => formatFarcasterPostFromFirefly(x, 'Comment')))),
         channel: cast.channel ? formatChannelFromFirefly(cast.channel) : undefined,
-        quoteOn: cast.quotedCast ? formatFarcasterPostFromFirefly(cast.quotedCast) : undefined,
+        quoteOn: cast.quotedCast ? await formatFarcasterPostFromFirefly(cast.quotedCast) : undefined,
         sendFrom: {
             displayName: cast.sendFrom?.display_name ?? cast.sendFrom?.name,
             name: cast.sendFrom?.name,

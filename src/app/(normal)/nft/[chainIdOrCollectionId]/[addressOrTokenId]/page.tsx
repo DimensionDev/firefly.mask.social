@@ -13,10 +13,10 @@ import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { SimpleHashProvider } from '@/providers/simplehash/index.js';
 
 interface Props {
-    params: {
+    params: Promise<{
         addressOrTokenId: string;
         chainIdOrCollectionId: string;
-    };
+    }>;
 }
 
 function isNFTDetailPage(chainIdOrCollectionId: string, addressOrTokenId: string) {
@@ -26,7 +26,10 @@ function isNFTDetailPage(chainIdOrCollectionId: string, addressOrTokenId: string
     return !isChainId && !isAddress;
 }
 
-export async function generateMetadata({ params: { addressOrTokenId, chainIdOrCollectionId } }: Props) {
+export async function generateMetadata(props: Props) {
+    const params = await props.params;
+    const { addressOrTokenId, chainIdOrCollectionId } = params;
+
     if (isNFTDetailPage(chainIdOrCollectionId, addressOrTokenId)) {
         const collection = await runInSafeAsync(() => SimpleHashProvider.getCollectionById(chainIdOrCollectionId));
         if (collection) {
@@ -39,7 +42,10 @@ export async function generateMetadata({ params: { addressOrTokenId, chainIdOrCo
     return createSiteMetadata();
 }
 
-export default async function Page({ params: { addressOrTokenId, chainIdOrCollectionId } }: Props) {
+export default async function Page(props: Props) {
+    const params = await props.params;
+    const { addressOrTokenId, chainIdOrCollectionId } = params;
+
     if (chainIdOrCollectionId === 'solana') {
         redirect(resolveNftUrl(ChainId.Mainnet, addressOrTokenId, '0'));
     }

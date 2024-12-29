@@ -24,13 +24,16 @@ function checkSlug(slug: string[]) {
 }
 
 type Props = PropsWithChildren<{
-    params: { slug: string[] };
+    params: Promise<{ slug: string[] }>;
 }>;
 
-export async function generateMetadata({ params: { slug } }: Props) {
+export async function generateMetadata(props: Props) {
+    const params = await props.params;
+    const { slug } = params;
+
     if (!checkSlug(slug)) {
         return createSiteMetadata({
-            title: createPageTitleSSR(t`Search`),
+            title: await createPageTitleSSR(t`Search`),
         });
     }
 
@@ -43,11 +46,14 @@ export async function generateMetadata({ params: { slug } }: Props) {
     }[last(slug) as SearchType];
 
     return createSiteMetadata({
-        title: createPageTitleSSR(searchTypeTitle || t`Search`),
+        title: await createPageTitleSSR(searchTypeTitle || t`Search`),
     });
 }
 
-export default function SearchLayout({ params, children }: Props) {
+export default async function SearchLayout(props: Props) {
+    const params = await props.params;
+    const { children } = props;
+
     if (!checkSlug(params.slug)) notFound();
 
     return (

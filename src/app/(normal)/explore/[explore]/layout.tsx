@@ -12,19 +12,15 @@ import { setupLocaleForSSR } from '@/i18n/index.js';
 
 export async function generateMetadata() {
     return createSiteMetadata({
-        title: createPageTitleSSR(t`Explore`),
+        title: await createPageTitleSSR(t`Explore`),
     });
 }
 
-export default function Layout({
-    params,
-    children,
-}: PropsWithChildren<{
-    params: {
-        explore: ExploreType;
-    };
-}>) {
-    setupLocaleForSSR();
+export default async function Layout(props: PropsWithChildren<{ params: Promise<{ explore: ExploreType }> }>) {
+    const params = await props.params;
+    const { children } = props;
+
+    await setupLocaleForSSR();
 
     const labels: Record<ExploreType, React.ReactNode> = {
         [ExploreType.TopProfiles]: <Trans>Users</Trans>,

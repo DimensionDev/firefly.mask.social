@@ -55,7 +55,9 @@ export function ImageEditor({ image, onSave, AvatarEditorProps = EMPTY_OBJECT, .
                             <AvatarEditor
                                 className="!h-auto !w-full rounded-lg"
                                 {...AvatarEditorProps}
-                                ref={(e) => setEditor(e)}
+                                ref={(e) => {
+                                    setEditor(e);
+                                }}
                                 image={image}
                                 scale={AvatarEditorProps.scale ?? scale}
                                 rotate={AvatarEditorProps.scale ?? 0}

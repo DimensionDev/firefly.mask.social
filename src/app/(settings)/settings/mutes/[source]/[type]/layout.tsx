@@ -6,13 +6,16 @@ import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 
 interface PageProps {
-    params: {
+    params: Promise<{
         source: SourceInURL;
         type: MuteType;
-    };
+    }>;
 }
 
-export async function generateMetadata({ params: { source, type } }: PageProps) {
+export async function generateMetadata(props: PageProps) {
+    const params = await props.params;
+    const { source, type } = params;
+
     const menuNameMap: Record<string, string> = {
         [`${SourceInURL.Farcaster}_${MuteType.Profile}`]: t`${resolveSourceName(Source.Farcaster)} Users`,
         [`${SourceInURL.Farcaster}_${MuteType.Channel}`]: t`${resolveSourceName(Source.Farcaster)} Channels`,
@@ -21,7 +24,7 @@ export async function generateMetadata({ params: { source, type } }: PageProps) 
         [`${SourceInURL.Firefly}_${MuteType.Wallet}`]: t`Wallets`,
     };
     return createSiteMetadata({
-        title: createPageTitleSSR(menuNameMap[`${source}_${type}`]),
+        title: await createPageTitleSSR(menuNameMap[`${source}_${type}`]),
     });
 }
 

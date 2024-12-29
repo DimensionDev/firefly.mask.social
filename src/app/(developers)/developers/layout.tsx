@@ -7,7 +7,7 @@ import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
 
 export async function generateMetadata() {
     return createSiteMetadata({
-        title: createPageTitleSSR(t`Developers`),
+        title: await createPageTitleSSR(t`Developers`),
     });
 }
 

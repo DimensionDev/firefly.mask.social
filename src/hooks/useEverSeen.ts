@@ -1,7 +1,9 @@
 import { type RefObject, useEffect, useRef, useState } from 'react';
 import { useIntersection } from 'react-use';
 
-export function useEverSeen<E = HTMLDivElement>(options: IntersectionObserverInit = {}): [boolean, RefObject<E>] {
+export function useEverSeen<E = HTMLDivElement>(
+    options: IntersectionObserverInit = {},
+): [boolean, RefObject<E | null>] {
     const ref = useRef(null);
     const [seen, setSeen] = useState(false);
     const nullRef = useRef(null);

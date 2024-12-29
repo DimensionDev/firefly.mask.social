@@ -11,6 +11,13 @@ import { CZ_ACTIVITY_HOSTNAME } from '@/constants/index.js';
 import { Script } from '@/esm/Script.js';
 import { Modals } from '@/modals/index.js';
 
+declare module 'react' {
+    namespace JSX {
+        interface IntrinsicElements {
+            'mask-page-inspector': any;
+        }
+    }
+}
 export function LayoutBody({ children }: { children: React.ReactNode }) {
     return (
         <>

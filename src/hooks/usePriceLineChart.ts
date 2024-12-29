@@ -6,7 +6,7 @@ import { formatPrice } from '@/helpers/formatPrice.js';
 import { type Dimension, useLineChart } from '@/hooks/useLineChart.js';
 
 export function usePriceLineChart(
-    svgRef: RefObject<SVGSVGElement>,
+    svgRef: RefObject<SVGSVGElement | null>,
     data: Array<{
         date: Date;
         value: number;

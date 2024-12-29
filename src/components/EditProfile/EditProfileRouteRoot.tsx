@@ -6,6 +6,7 @@ import { FormProvider, useForm } from 'react-hook-form';
 import LeftArrowIcon from '@/assets/left-arrow.svg';
 import { CloseButton } from '@/components/IconButton.js';
 import type { Profile, ProfileEditable } from '@/providers/types/SocialMedia.js';
+import type { JSX } from 'react';
 
 export interface ProfileFormValues extends Omit<ProfileEditable, 'pfp'> {
     pfp?: File;

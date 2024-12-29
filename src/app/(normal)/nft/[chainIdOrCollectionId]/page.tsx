@@ -2,15 +2,19 @@ import { NFTCollectionPageById } from '@/app/(normal)/nft/pages/NFTCollectionPag
 import { createMetadataNFTCollectionById } from '@/helpers/createMetadataNFT.js';
 
 interface Props {
-    params: {
+    params: Promise<{
         chainIdOrCollectionId: string;
-    };
+    }>;
 }
 
-export async function generateMetadata({ params: { chainIdOrCollectionId } }: Props) {
+export async function generateMetadata(props: Props) {
+    const params = await props.params;
+    const { chainIdOrCollectionId } = params;
+
     return createMetadataNFTCollectionById(chainIdOrCollectionId);
 }
 
-export default function Page({ params }: Props) {
+export default async function Page(props: Props) {
+    const params = await props.params;
     return <NFTCollectionPageById collectionId={params.chainIdOrCollectionId} />;
 }

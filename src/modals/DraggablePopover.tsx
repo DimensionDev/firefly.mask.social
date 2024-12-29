@@ -16,7 +16,7 @@ export interface DraggablePopoverProps {
 export const DraggablePopover = forwardRef<SingletonModalRefCreator<DraggablePopoverProps>>(
     function DraggablePopover(_, ref) {
         const [props, setProps] = useState<DraggablePopoverProps>();
-        const timerRef = useRef<NodeJS.Timeout>();
+        const timerRef = useRef<NodeJS.Timeout>(undefined);
 
         const [open, dispatch] = useSingletonModal(ref, {
             onOpen(props) {

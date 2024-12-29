@@ -14,19 +14,15 @@ import { setupLocaleForSSR } from '@/i18n/index.js';
 
 export async function generateMetadata() {
     return createSiteMetadata({
-        title: createPageTitleSSR(t`Bookmarks`),
+        title: await createPageTitleSSR(t`Bookmarks`),
     });
 }
 
-export default function Layout({
-    children,
-    params,
-}: PropsWithChildren<{
-    params: {
-        source: string;
-    };
-}>) {
-    setupLocaleForSSR();
+export default async function Layout(props: PropsWithChildren<{ params: Promise<{ source: string }> }>) {
+    const params = await props.params;
+    const { children } = props;
+
+    await setupLocaleForSSR();
 
     const source = resolveSourceFromUrlNoFallback(params.source);
     if (!source || !isBookmarkSource(source)) notFound();

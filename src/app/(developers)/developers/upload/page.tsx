@@ -1,6 +1,6 @@
 'use client';
 
-import { t, Trans } from '@lingui/macro';
+import { Trans, useLingui } from '@lingui/react/macro';
 import { useRef, useState } from 'react';
 import { useAsyncFn } from 'react-use';
 
@@ -13,11 +13,10 @@ import { Link } from '@/components/Link.js';
 import { IS_PRODUCTION } from '@/constants/index.js';
 import { Image } from '@/esm/Image.js';
 import { enqueueMessageFromError } from '@/helpers/enqueueMessage.js';
-import { getI18n } from '@/i18n/index.js';
 import { uploadToDirectory } from '@/services/uploadToS3.js';
 
 export default function Page() {
-    const i18n = getI18n();
+    const { t } = useLingui();
 
     const fileInputRef = useRef<HTMLInputElement>(null);
     const [directory, setDirectory] = useState('');
@@ -59,13 +58,13 @@ export default function Page() {
                 value={directory}
                 onChange={(e) => setDirectory(e.target.value)}
                 className="h-10 w-full rounded-xl bg-bgModal"
-                placeholder={t(i18n)`Directory`}
+                placeholder={t`Directory`}
             />
             <input
                 value={name}
                 onChange={(e) => setName(e.target.value)}
                 className="h-10 w-full rounded-xl bg-bgModal"
-                placeholder={t(i18n)`Name`}
+                placeholder={t`Name`}
             />
             <ClickableButton
                 className="mt-6 flex w-full items-center justify-center rounded-2xl bg-main p-2 text-xl font-bold leading-6 text-primaryBottom"

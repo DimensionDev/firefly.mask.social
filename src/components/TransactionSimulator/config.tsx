@@ -1,6 +1,6 @@
 import { t, Trans } from '@lingui/macro';
 import { CHAIN_DESCRIPTORS } from '@masknet/web3-shared-evm';
-import type { FunctionComponent, SVGAttributes } from 'react';
+import type { FunctionComponent, SVGAttributes, JSX } from 'react';
 import { fromHex, isHex } from 'viem';
 import { getAccount } from 'wagmi/actions';
 

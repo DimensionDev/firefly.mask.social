@@ -17,10 +17,10 @@ export async function changeLocale(formData: FormData) {
     const isValidLocale = getEnumAsArray(Locale).some(({ value }) => value === localeValue);
 
     if (isValidLocale) {
-        cookies().set('locale', localeValue);
+        (await cookies()).set('locale', localeValue);
         redirect('/');
     } else {
-        cookies().set('locale', defaultLocale);
+        (await cookies()).set('locale', defaultLocale);
         redirect('/');
     }
 }

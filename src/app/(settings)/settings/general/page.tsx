@@ -11,7 +11,7 @@ import { OptionButton } from '@/app/(settings)/components/OptionButton.js';
 import { Section } from '@/app/(settings)/components/Section.js';
 import { Subtitle } from '@/app/(settings)/components/Subtitle.js';
 import { Locale, type ThemeMode } from '@/constants/enum.js';
-import { getFromCookies } from '@/helpers/getFromCookies.js';
+import { useCookie } from '@/helpers/getFromCookies.js';
 import { useNavigatorTitle } from '@/hooks/useNavigatorTitle.js';
 import { setLocale, supportedLocales } from '@/i18n/index.js';
 import { useLocale } from '@/store/useLocale.js';
@@ -22,7 +22,7 @@ export default function General() {
     const mode = useThemeModeStore.use.themeMode();
     const isDarkOS = useMediaQuery('(prefers-color-scheme: dark)');
     const locale = useLocale();
-    const rootClass = getFromCookies('firefly_root_class');
+    const rootClass = useCookie('firefly_root_class');
 
     useNavigatorTitle(t`General`);
 

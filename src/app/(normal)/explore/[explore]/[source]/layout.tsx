@@ -7,15 +7,17 @@ import { resolveExploreUrl } from '@/helpers/resolveExploreUrl.js';
 import { resolveExploreSource } from '@/helpers/resolveSourceInUrl.js';
 import { resolveExploreSourceName } from '@/helpers/resolveSourceName.js';
 
-export default function Layout({
-    params,
-    children,
-}: PropsWithChildren<{
-    params: {
-        explore: ExploreType;
-        source: ExploreSourceInURL;
-    };
-}>) {
+export default async function Layout(
+    props: PropsWithChildren<{
+        params: Promise<{
+            explore: ExploreType;
+            source: ExploreSourceInURL;
+        }>;
+    }>,
+) {
+    const params = await props.params;
+    const { children } = props;
+
     const { source, explore } = params;
     const sources = EXPLORE_SOURCES[explore];
 

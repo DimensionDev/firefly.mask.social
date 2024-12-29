@@ -37,6 +37,7 @@ msgstr ""
 msgid "Failed to mute all wallets and accounts."
 msgstr ""
 
+#. placeholder {0}: dayjs(space.scheduled_start).format('HH:mm')
 msgid "Tomorrow at {0}"
 msgstr ""
 
@@ -64,9 +65,6 @@ msgstr ""
 msgid "Allow Collect Module"
 msgstr ""
 
-msgid "Replying to <0>@{0}</0>,<1>@{1}</1> and <2>{2} others</2> on {3}"
-msgstr ""
-
 msgid "New connect with Warpcast"
 msgstr ""
 
@@ -79,9 +77,11 @@ msgstr ""
 msgid "Failed to upload. File type is not supported on X."
 msgstr ""
 
+#. placeholder {0}: profile.handle
 msgid "Report @{0}"
 msgstr ""
 
+#. placeholder {0}: percentageToNumber(info.sell_tax)
 msgid "Sell Tax: {0}%"
 msgstr ""
 
@@ -103,12 +103,6 @@ msgstr ""
 msgid "Simulating"
 msgstr ""
 
-msgid ""
-"Just submitted my wallet to receive my Christmas gift. Let's skate into the holiday season with $PENGU on {fireflyMention}\n"
-"Submit here {shareUrl}\n"
-"#PENGU #FireflySocial"
-msgstr ""
-
 msgid "Your frame URL"
 msgstr ""
 
@@ -118,6 +112,8 @@ msgstr ""
 msgid "Send a tip"
 msgstr ""
 
+#. placeholder {0}: channel.name
+#. placeholder {0}: channel.id
 msgid "Mute /{0}"
 msgstr ""
 
@@ -151,6 +147,7 @@ msgstr ""
 msgid "Equal Split"
 msgstr ""
 
+#. placeholder {0}: profile.handle
 msgid "Followed @{0} on {sourceName}"
 msgstr ""
 
@@ -166,9 +163,11 @@ msgstr ""
 msgid "You can sign in to Farcaster with the following options."
 msgstr ""
 
+#. placeholder {0}: profile.handle
 msgid "Mute @{0}"
 msgstr ""
 
+#. placeholder {0}: formatFileSize(maxVideoSize)
 msgid "Failed to upload. Video size exceeds {0}"
 msgstr ""
 
@@ -208,6 +207,7 @@ msgstr ""
 msgid "Confirm to sync accounts"
 msgstr ""
 
+#. placeholder {0}: error.status
 msgid "Failed to fetch: {0}. Please try again later."
 msgstr ""
 
@@ -217,9 +217,12 @@ msgstr ""
 msgid "Watching"
 msgstr ""
 
+#. placeholder {0}: space.participant_count?.toLocaleString()
 msgid "{0} listening"
 msgstr ""
 
+#. placeholder {0}: token.rank
+#. placeholder {0}: token.market_cap_rank
 msgid "Rank #{0}"
 msgstr ""
 
@@ -239,7 +242,7 @@ msgid "<0>The maximum number of coins coded to exist in the lifetime of the cryp
 msgstr ""
 
 msgid "This token is a gas abuser."
-msgstr ""
+msgstr "<<<<<<< HEAD======="
 
 msgid "Ended"
 msgstr ""
@@ -295,6 +298,7 @@ msgstr ""
 msgid "Mint Ended"
 msgstr ""
 
+#. placeholder {0}: post.mirrors.length - 1
 msgid "<0>You</0> and {0} others recasted"
 msgstr ""
 
@@ -334,6 +338,7 @@ msgstr ""
 msgid "Trending"
 msgstr ""
 
+#. placeholder {0}: currentProfile.handle
 msgid "Log out @{0}"
 msgstr ""
 
@@ -376,6 +381,7 @@ msgstr ""
 msgid "Pay"
 msgstr ""
 
+#. placeholder {0}: resolveSourceName(source)
 msgid "Followed @{handle} on {0}."
 msgstr ""
 
@@ -391,15 +397,20 @@ msgstr ""
 msgid "Your account is now connected."
 msgstr ""
 
+#. placeholder {0}: formatAmount(usdcSize)
 msgid "<0>Sold a bet</0><1>worth ${0} at Polymarket</1>"
 msgstr ""
 
+#. placeholder {0}: profile.source
+#. placeholder {0}: post.source
 msgid "Report submitted on {0}"
 msgstr ""
 
 msgid "Failed to create custom theme."
 msgstr ""
 
+#. placeholder {0}: formatBalance(1, token.decimals)
+#. placeholder {1}: token.symbol
 msgid "The minimum amount for each share is {0} {1}"
 msgstr ""
 
@@ -415,6 +426,8 @@ msgstr ""
 msgid "Adding..."
 msgstr ""
 
+#. placeholder {0}: notification.reactors.length
+#. placeholder {1}: notification.post.type
 msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} <4>liked your </4><5>{1, select, Post {post} Comment {comment} Quote {quote} Mirror {mirror} other {post}}</5>"
 msgstr ""
 
@@ -448,12 +461,15 @@ msgstr ""
 msgid "NFT Standard"
 msgstr ""
 
+#. placeholder {0}: formatSnapshotChoice(selectedChoices, type, choices)
+#. placeholder {1}: snapshot.title
 msgid "🙌  Just voted “{0}” on “{1}”"
 msgstr ""
 
 msgid "Stealing attack."
 msgstr ""
 
+#. placeholder {0}: payload.token?.symbol
 msgid "Claimed lucky drop with {amount} {0} successfully"
 msgstr ""
 
@@ -469,6 +485,7 @@ msgstr ""
 msgid "No malicious mining activities found."
 msgstr ""
 
+#. placeholder {0}: SORTED_POLL_SOURCES.map(resolveSourceName).join(', ')
 msgid "Poll is currently only supported on {0}"
 msgstr ""
 
@@ -478,6 +495,7 @@ msgstr ""
 msgid "Username is required."
 msgstr ""
 
+#. placeholder {0}: channel.id
 msgid "Failed to leave /{0} on {sourceName}."
 msgstr ""
 
@@ -517,6 +535,7 @@ msgstr ""
 msgid "Show less"
 msgstr ""
 
+#. placeholder {0}: resolveSourceName(source)
 msgid "Follow <0>@{handle}</0> on {0}"
 msgstr ""
 
@@ -526,6 +545,9 @@ msgstr ""
 msgid "Verification unsuccessful"
 msgstr ""
 
+#. placeholder {0}: mirrors.length
+#. placeholder {1}: notification.source
+#. placeholder {2}: notification.post.type
 msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} {1, select, Lens {mirrored your} Farcaster {recasted your} other {mirrored your}} <4>{2, select, Post {post} Comment {comment} Quote {quote} Mirror {mirror} other {post}}</4>"
 msgstr ""
 
@@ -541,18 +563,23 @@ msgstr ""
 msgid "Event Ended!"
 msgstr ""
 
+#. placeholder {0}: post.reporter.displayName
 msgid "<0>{0}</0><1>mirrored</1>"
 msgstr ""
 
 msgid "True Token"
 msgstr ""
 
+#. placeholder {0}: resolveSourceName(source)
 msgid "Failed to follow @{handle} on {0}."
 msgstr ""
 
 msgid "Bookmarks"
 msgstr ""
 
+#. placeholder {0}: mutuals[0].displayName
+#. placeholder {1}: mutuals[1].displayName
+#. placeholder {2}: mutualCount - 2
 msgid "Followed by {0} , {1}, and {2} others you follow"
 msgstr ""
 
@@ -562,6 +589,7 @@ msgstr ""
 msgid "Confirm"
 msgstr ""
 
+#. placeholder {0}: resolveSourceName(Source.Farcaster)
 msgid "{0} muted channels"
 msgstr ""
 
@@ -571,6 +599,7 @@ msgstr ""
 msgid "The author is muted by you."
 msgstr ""
 
+#. placeholder {0}: profile.handle
 msgid "Failed to report @{0}"
 msgstr ""
 
@@ -586,21 +615,25 @@ msgstr ""
 msgid "Switch to the development API version for testing new features."
 msgstr ""
 
+#. placeholder {0}: post.stats.quotes
 msgid "{0, plural, one {quote} other {quotes}}"
 msgstr ""
 
 msgid "No hidden owner."
 msgstr ""
 
+#. placeholder {0}: channel.followerCount
 msgid "{0, plural, one {Member} other {Members}}"
 msgstr ""
 
 msgid "Blockchain"
 msgstr ""
 
+#. placeholder {0}: notification.followers.length
 msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}}<4> followed you</4>"
 msgstr ""
 
+#. placeholder {0}: profile.followerCount
 msgid "{0, plural, one {Follower} other {Followers}}"
 msgstr ""
 
@@ -649,6 +682,7 @@ msgstr ""
 msgid "Token ID"
 msgstr ""
 
+#. placeholder {0}: post.stats.mirrors
 msgid "{0, plural, one {mirror} other {mirrors}}"
 msgstr ""
 
@@ -673,9 +707,11 @@ msgstr ""
 msgid "This message is a e2e encrypted message. You can only decrypt this message when it is encrypted to you and decrypt it with Mask Network extension."
 msgstr ""
 
+#. placeholder {0}: post.metadata.content.asset.type
 msgid "{0, select, Image {[Image]} Video {[Video]} Audio {[Audio]} Poll {[Poll]} other {}}"
 msgstr ""
 
+#. placeholder {0}: profile.handle
 msgid "Failed to follow @{0} on {sourceName}."
 msgstr ""
 
@@ -688,6 +724,8 @@ msgstr ""
 msgid "Connected accounts"
 msgstr ""
 
+#. placeholder {0}: space.name
+#. placeholder {1}: ensHandle.data || formatEthereumAddress(snapshot.author, 4)
 msgid "<0>{0}</0> by <1>{1}</1>"
 msgstr ""
 
@@ -706,9 +744,11 @@ msgstr ""
 msgid "Perhaps the token is a honeypot."
 msgstr ""
 
+#. placeholder {0}: mutuals[0].displayName
 msgid "Followed by {0}"
 msgstr ""
 
+#. placeholder {0}: profile.handle
 msgid "Failed to unfollow @{0} on {sourceName}."
 msgstr ""
 
@@ -742,6 +782,7 @@ msgstr ""
 msgid "Honeypot related address found."
 msgstr ""
 
+#. placeholder {0}: session.type
 msgid "Your {0} account is now connected"
 msgstr ""
 
@@ -763,6 +804,7 @@ msgstr ""
 msgid "The blacklist function is included. Some addresses may not be able to trade normally (honeypot risk)."
 msgstr ""
 
+#. placeholder {0}: x.source
 msgid "Verified by {0}"
 msgstr ""
 
@@ -796,9 +838,11 @@ msgstr ""
 msgid "Reposted"
 msgstr ""
 
+#. placeholder {0}: resolveSourceName(source)
 msgid "Login {0} successfully."
 msgstr ""
 
+#. placeholder {0}: dayjs(space.scheduled_start).format('HH:mm')
 msgid "Today at {0}"
 msgstr ""
 
@@ -844,6 +888,7 @@ msgstr ""
 msgid "Failed to bookmark article."
 msgstr ""
 
+#. placeholder {0}: formatAmount(usdcSize)
 msgid "<0>Placed a bet</0><1>worth ${0} at Polymarket</1>"
 msgstr ""
 
@@ -889,13 +934,11 @@ msgstr ""
 msgid "Connect Wallet"
 msgstr ""
 
+#. placeholder {0}: error.url
 msgid "Not Found. Please check your URL[{0}]."
 msgstr ""
 
 msgid "Closed"
-msgstr ""
-
-msgid "Replying to <0>@{0}</0>,<1>@{1}</1> and <2>@{2}</2> on {3}"
 msgstr ""
 
 msgid "Non-sanctioned address found."
@@ -910,6 +953,7 @@ msgstr ""
 msgid "Failed to upload. Not a valid image type"
 msgstr ""
 
+#. placeholder {0}: formatFileSize(maxImageSize)
 msgid "Failed to upload. Image size exceeds {0}"
 msgstr ""
 
@@ -943,9 +987,13 @@ msgstr ""
 msgid "Profile details"
 msgstr ""
 
+#. placeholder {0}: dayjs(create_time * 1000).format('MM/DD/YYYY HH:mm')
+#. placeholder {0}: dayjs(Number.parseInt(received_time, 10) * 1000).format( 'MM/DD/YYYY HH:mm', )
 msgid "{0} (UTC+8)"
 msgstr ""
 
+#. placeholder {0}: channel.id
+#. placeholder {0}: channel.name
 msgid "Failed to mute /{0}."
 msgstr ""
 
@@ -958,6 +1006,7 @@ msgstr ""
 msgid "[Photo]"
 msgstr ""
 
+#. placeholder {0}: resolveSourceName(source)
 msgid "Follow more friends to continue exploring on {0}."
 msgstr ""
 
@@ -979,6 +1028,7 @@ msgstr ""
 msgid "Priority Access: Holders get early access to future projects, beta tests, and airdrops. And they will also have a first look at the latest features and content."
 msgstr ""
 
+#. placeholder {0}: channel.id
 msgid "Join /{0}"
 msgstr ""
 
@@ -1015,6 +1065,7 @@ msgstr ""
 msgid "Domain"
 msgstr ""
 
+#. placeholder {0}: profile.handle
 msgid "Failed to follow @{0} on Lens"
 msgstr ""
 
@@ -1039,6 +1090,7 @@ msgstr ""
 msgid "Join our Telegram"
 msgstr ""
 
+#. placeholder {0}: channel.id
 msgid "Leave /{0}"
 msgstr ""
 
@@ -1051,6 +1103,7 @@ msgstr ""
 msgid "Anti_whale(Limited number of transactions)"
 msgstr ""
 
+#. placeholder {0}: handle || recipient.displayName
 msgid "Send a tip to {0}"
 msgstr ""
 
@@ -1075,6 +1128,7 @@ msgstr ""
 msgid "Unmuting..."
 msgstr ""
 
+#. placeholder {0}: failedPlatforms.length
 msgid "{0, plural, one {Your post failed to publish on {firstPlatform} due to an error. Click 'Retry' to attempt posting again.} two {Your post failed to publish on {firstPlatform} and {secondPlatform} due to an error. Click 'Retry' to attempt posting again.} other {Your post failed to publish due to an error. Click 'Retry' to attempt posting again.}}"
 msgstr ""
 
@@ -1099,6 +1153,7 @@ msgstr ""
 msgid "Winners"
 msgstr ""
 
+#. placeholder {0}: post?.author.handle
 msgid "REPLY to<0><1>@{0}</1></0>"
 msgstr ""
 
@@ -1117,15 +1172,19 @@ msgstr ""
 msgid "Add Wallet"
 msgstr ""
 
+#. placeholder {0}: mutuals[0].displayName
+#. placeholder {1}: mutuals[1].displayName
 msgid "Followed by {0} and {1}"
 msgstr ""
 
 msgid "Try searching for something else."
 msgstr ""
 
+#. placeholder {0}: channel.id
 msgid "Unmute /{0}"
 msgstr ""
 
+#. placeholder {0}: resolveSourceName(Source.Farcaster)
 msgid "{0} Channels"
 msgstr ""
 
@@ -1138,15 +1197,19 @@ msgstr ""
 msgid "You are not eligible to decrypt this post, try again with eligible {sourceName} account."
 msgstr ""
 
+#. placeholder {0}: post.source
 msgid "Failed to submit report on {0}"
 msgstr ""
 
+#. placeholder {0}: profile.handle
 msgid "Failed to mute @{0} on {sourceName}."
 msgstr ""
 
 msgid "View Source"
 msgstr ""
 
+#. placeholder {0}: author.handle
+#. placeholder {1}: resolveSourceName(source)
 msgid "You cannot reply to @{0} on {1}."
 msgstr ""
 
@@ -1171,18 +1234,21 @@ msgstr ""
 msgid "Days"
 msgstr ""
 
+#. placeholder {0}: formatEthereumAddress(fromAddress, 4)
 msgid "<0>Acquired</0><1/><2>from</2><3><4>{0}</4></3>"
 msgstr ""
 
 msgid "Submit a wallet to receive NFT and $ANON"
 msgstr ""
 
+#. placeholder {0}: notification.post.type
 msgid "<0/> mentioned you in a <1>{0, select, Post {post} Comment {comment} Quote {quote} Mirror {mirror} other {post}}</1>"
 msgstr ""
 
 msgid "<0>Bought</0><1/>"
 msgstr ""
 
+#. placeholder {0}: formatEthereumAddress(currentProfile.ownedBy.address, 4)
 msgid "The current connected wallet does not match, Please switch to {0}"
 msgstr ""
 
@@ -1222,6 +1288,7 @@ msgstr ""
 msgid "Add an existing account"
 msgstr ""
 
+#. placeholder {0}: channel.name
 msgid "Confirm you want to mute /{0}?"
 msgstr ""
 
@@ -1270,6 +1337,8 @@ msgstr ""
 msgid "Send"
 msgstr ""
 
+#. placeholder {0}: renderShrankPrice(formatPrice(price) ?? '-')
+#. placeholder {1}: market?.price_change_percentage_24h_in_currency !== undefined ? ( <span className={isUp ? 'text-success' : 'text-fail'}> {market.price_change_percentage_24h_in_currency.toFixed(2)}% </span> ) : null
 msgid "<0>Price</0><1>${0}</1><2/>{1}"
 msgstr ""
 
@@ -1306,6 +1375,7 @@ msgstr ""
 msgid "Failed to unvote post."
 msgstr ""
 
+#. placeholder {0}: index + 1
 msgid "Choice {0}"
 msgstr ""
 
@@ -1409,8 +1479,9 @@ msgid "This token contract is open source. You can check the contract code for d
 msgstr ""
 
 msgid "Darkweb transactions found."
-msgstr ""
+msgstr "<<<<<<< HEAD======="
 
+#. placeholder {0}: humanize(count)
 msgid "{0} Comments"
 msgstr ""
 
@@ -1438,6 +1509,7 @@ msgstr ""
 msgid "The contract owner has the authority to modify the balance of tokens at other addresses, which may result in a loss of assets."
 msgstr ""
 
+#. placeholder {0}: profile.handle
 msgid "Failed to unmute @{0} on {sourceName}."
 msgstr ""
 
@@ -1468,9 +1540,13 @@ msgstr ""
 msgid "Only people you mention"
 msgstr ""
 
+#. placeholder {0}: space.participant_count?.toLocaleString()
 msgid "{0} turned in"
 msgstr ""
 
+#. placeholder {0}: '$'
+#. placeholder {1}: token?.symbol
+#. placeholder {2}: handle || recipient?.displayName
 msgid "You successfully sent <0>{amount} {0}{1}</0> tips to <1>{2}</1>!"
 msgstr ""
 
@@ -1498,6 +1574,7 @@ msgstr ""
 msgid "No one likes this post yet."
 msgstr ""
 
+#. placeholder {0}: resolveSourceName(x)
 msgid "Your posts have published successfully on {0}."
 msgstr ""
 
@@ -1513,6 +1590,7 @@ msgstr ""
 msgid "Muted wallets"
 msgstr ""
 
+#. placeholder {0}: payload.token?.symbol
 msgid "Your claimed {amount} {0}."
 msgstr ""
 
@@ -1540,6 +1618,7 @@ msgstr ""
 msgid "Failed to login."
 msgstr ""
 
+#. placeholder {0}: post.source
 msgid "Claim on {0}:"
 msgstr ""
 
@@ -1564,7 +1643,17 @@ msgstr ""
 msgid "Your TG account is now connected"
 msgstr ""
 
+#. placeholder {0}: article.title
+#. placeholder {0}: profile.handle
 msgid "Failed to report @{0}."
+msgstr ""
+
+msgid ""
+"Just submitted my wallet to receive my Christmas gift. Let's skate into the holiday season with $PENGU on {fireflyMention}\n"
+"\n"
+"Submit here {shareUrl}\n"
+"\n"
+"#PENGU #FireflySocial"
 msgstr ""
 
 msgid "Enable logging telemetry events"
@@ -1618,6 +1707,8 @@ msgstr ""
 msgid "Search ${symbol}"
 msgstr ""
 
+#. placeholder {0}: channel.id
+#. placeholder {0}: channel.name
 msgid "Failed to unmute /{0}."
 msgstr ""
 
@@ -1642,12 +1733,14 @@ msgstr ""
 msgid "Edit Profile"
 msgstr ""
 
+#. placeholder {0}: profile.handle
 msgid "Confirm you want to mute @{0}?"
 msgstr ""
 
 msgid "Compose"
 msgstr ""
 
+#. placeholder {0}: first(post.reactions)?.displayName
 msgid "<0>{0}</0> liked"
 msgstr ""
 
@@ -1726,6 +1819,13 @@ msgstr ""
 msgid "Failed to fetch bookmarks."
 msgstr ""
 
+#. placeholder {0}: filteredProfiles[0].handle
+#. placeholder {1}: filteredProfiles[1].handle
+#. placeholder {2}: filteredProfiles[2].handle
+#. placeholder {3}: resolveSourceName(post.source)
+msgid "Replying to <0>@{0}</0> ,<1>@{1}</1> and <2>@{2}</2> on {3}"
+msgstr ""
+
 msgid "Follow Back"
 msgstr ""
 
@@ -1735,6 +1835,7 @@ msgstr ""
 msgid "NFT owner cant bypass the maximum amount of minting specified in the contract, and continue to mint NFTs beyond this limit."
 msgstr ""
 
+#. placeholder {0}: token.symbol
 msgid "Grant access to your {0} for the Lucky Drop Smart contract. You only have to do this once per token."
 msgstr ""
 
@@ -1753,9 +1854,11 @@ msgstr ""
 msgid "Owner can set a different tax rate for every assigned address."
 msgstr ""
 
+#. placeholder {0}: handle || recipient?.displayName
 msgid "Tag {0} in a post to let them know you’ve sent an onchain tip to their wallet."
 msgstr ""
 
+#. placeholder {0}: nFormatter(nft.items_total || 0)
 msgid "{0}<0> Items</0>"
 msgstr ""
 
@@ -1781,11 +1884,13 @@ msgid "Standard"
 msgstr ""
 
 msgid "No darkweb transactions found."
-msgstr ""
+msgstr "<<<<<<< HEAD"
 
+#. placeholder {0}: channel.id
 msgid "Joined /{0} on {sourceName}."
-msgstr ""
+msgstr "======="
 
+#. placeholder {0}: resolveSourceName(source)
 msgid "You need to connect your {0} account to use this feature."
 msgstr ""
 
@@ -1822,12 +1927,15 @@ msgstr ""
 msgid "Articles"
 msgstr ""
 
+#. placeholder {0}: nFormatter(data.count)
 msgid "{0} followings owned"
 msgstr ""
 
 msgid "Follow me"
 msgstr ""
 
+#. placeholder {0}: resolveSourceName(source)
+#. placeholder {0}: resolveSourceName(post.source)
 msgid "Connect to {0}"
 msgstr ""
 
@@ -1900,6 +2008,8 @@ msgstr ""
 msgid "Unwatch {handleOrEnsOrAddress}"
 msgstr ""
 
+#. placeholder {0}: market?.market_cap !== undefined ? `$${formatMarketCap(market.market_cap)}` : '-'
+#. placeholder {1}: token.rank
 msgid "<0>Market Cap</0><1>{0}</1><2>Rank #{1}</2>"
 msgstr ""
 
@@ -1918,6 +2028,7 @@ msgstr ""
 msgid "Follow for {feeAmount} ${feeSymbol}"
 msgstr ""
 
+#. placeholder {0}: profile.handle
 msgid "Posts from @{0} will now be hidden in your home timeline"
 msgstr ""
 
@@ -1954,6 +2065,7 @@ msgstr ""
 msgid "No matching channel"
 msgstr ""
 
+#. placeholder {0}: failedPlatforms.length
 msgid "{0, plural, one {Your posts failed to publish on {firstPlatform} due to an error. Click 'Retry' to attempt posting again.} two {Your posts failed to publish on {firstPlatform} and {secondPlatform} due to an error. Click 'Retry' to attempt posting again.} other {Your posts failed to publish due to an error. Click 'Retry' to attempt posting again.}}"
 msgstr ""
 
@@ -1978,6 +2090,7 @@ msgstr ""
 msgid "Contract Address"
 msgstr ""
 
+#. placeholder {0}: handle || recipient.displayName
 msgid "Send a tip to @{0}"
 msgstr ""
 
@@ -2027,7 +2140,7 @@ msgid "This can’t be undone and you’ll lose your draft."
 msgstr ""
 
 msgid "Article removed from your Bookmarks"
-msgstr ""
+msgstr "<<<<<<< HEAD======="
 
 msgid "Powered by Tenderly and GoPlus"
 msgstr ""
@@ -2083,6 +2196,7 @@ msgstr ""
 msgid "Voting Rights: Participate in key decisions and shape the platform’s development through community governance."
 msgstr ""
 
+#. placeholder {0}: formatEthereumAddress(address, 4)
 msgid "Please switch to {0}"
 msgstr ""
 
@@ -2176,6 +2290,9 @@ msgstr ""
 msgid "Failed to bookmark post."
 msgstr ""
 
+#. placeholder {0}: resolveSourceName(Source.Farcaster)
+#. placeholder {0}: resolveSourceName(Source.Lens)
+#. placeholder {0}: resolveSourceName(Source.Twitter)
 msgid "{0} muted users"
 msgstr ""
 
@@ -2188,6 +2305,7 @@ msgstr ""
 msgid "Remove Poll"
 msgstr ""
 
+#. placeholder {0}: posts.length
 msgid "{0, plural, one {Post} other {Post All}}"
 msgstr ""
 
@@ -2230,6 +2348,7 @@ msgstr ""
 msgid "We were unable to simulate the transaction or complete all security detection. Please proceed with caution."
 msgstr ""
 
+#. placeholder {0}: author.handle
 msgid "Unfollow @{0}"
 msgstr ""
 
@@ -2269,12 +2388,15 @@ msgstr ""
 msgid "Mute {handleOrEnsOrAddress}"
 msgstr ""
 
+#. placeholder {0}: post.poll ? t`Ask a question` : index === 0 ? t`What's happening...` : t`Add another post...`
+#. placeholder {1}: index === 0 ? t`What's happening...` : t`Add another post...`
 msgid "{type, select, compose {{0}} quote {Add a comment} reply {Post your reply} other {{1}}}"
 msgstr ""
 
 msgid "Unknown transaction method: {method}."
 msgstr ""
 
+#. placeholder {0}: resolveSourceName(source)
 msgid "Please sign in with {0} to continue"
 msgstr ""
 
@@ -2305,6 +2427,7 @@ msgstr ""
 msgid "Wallets retrieved from public verifiable data registries or our entity algorithm can be reported for disconnection."
 msgstr ""
 
+#. placeholder {0}: channel.id
 msgid "Left /{0} on {sourceName}."
 msgstr ""
 
@@ -2314,10 +2437,18 @@ msgstr ""
 msgid "Light Mode"
 msgstr ""
 
+#. placeholder {0}: post.source
 msgid "Failed to submit report on {0}."
 msgstr ""
 
 msgid "Insufficient funds"
+msgstr ""
+
+#. placeholder {0}: filteredProfiles[0].handle
+#. placeholder {1}: filteredProfiles[1].handle
+#. placeholder {2}: filteredProfiles.length - 2
+#. placeholder {3}: resolveSourceName(post.source)
+msgid "Replying to <0>@{0}</0> ,<1>@{1}</1> and <2>{2} others</2> on {3}"
 msgstr ""
 
 msgid "No phishing site."
@@ -2326,6 +2457,9 @@ msgstr ""
 msgid "Followed <0>@{handle}</0> on X before Oct 12,2024, or followed <1>@{farcasterHandle}</1> on Farcaster before Oct 20, 2024"
 msgstr ""
 
+#. placeholder {0}: filteredProfiles[0].handle
+#. placeholder {1}: filteredProfiles[1].handle
+#. placeholder {2}: resolveSourceName(post.source)
 msgid "Replying to <0>@{0}</0> and <1>@{1}</1> on {2}"
 msgstr ""
 
@@ -2374,12 +2508,15 @@ msgstr ""
 msgid "Failed to un-bookmark snapshot."
 msgstr ""
 
+#. placeholder {0}: dayjs(task.publish_timestamp).format('ddd, MMM DD, YYYY')
+#. placeholder {1}: dayjs(task.publish_timestamp).format('hh:mm A')
 msgid "will send on {0} at {1}"
 msgstr ""
 
 msgid "Failed to like the post."
 msgstr ""
 
+#. placeholder {0}: post.author.handle
 msgid "🤑 Just claimed a #FireflyLuckyDrop 🧧💰✨ on {postUrl} from @{0} !"
 msgstr ""
 
@@ -2398,6 +2535,7 @@ msgstr ""
 msgid "The amount of coins that are circulating in the market and are tradeable by the public. It is comparable to looking at shares readily available in the market (not held & locked by insiders, governments)."
 msgstr ""
 
+#. placeholder {0}: post.stats.mirrors
 msgid "{0, plural, one {repost} other {reposts}}"
 msgstr ""
 
@@ -2419,6 +2557,7 @@ msgstr ""
 msgid "Voted successfully."
 msgstr ""
 
+#. placeholder {0}: profile.handle
 msgid "Muted @{0} on {sourceName}."
 msgstr ""
 
@@ -2431,9 +2570,13 @@ msgstr ""
 msgid "The user rejected the request."
 msgstr ""
 
+#. placeholder {0}: nft.floor_price
+#. placeholder {1}: nft.price_symbol
 msgid "{0}{1}<0> Floor</0>"
 msgstr ""
 
+#. placeholder {0}: notification.actions.length
+#. placeholder {1}: notification.post.type
 msgid "{0, plural, offset:1 =1 {<0/>} =2 {<1/> and <2/>} other {<3/>}} <4>collected your </4><5>{1, select, Post {post} Comment {comment} Quote {quote} Mirror {mirror} other {post}}</5>"
 msgstr ""
 
@@ -2443,6 +2586,7 @@ msgstr ""
 msgid "Recast or Quote"
 msgstr ""
 
+#. placeholder {0}: handle ? '@' + handle : identity.id
 msgid "Sorry, we are not able to find a wallet for {0}."
 msgstr ""
 
@@ -2473,6 +2617,7 @@ msgstr ""
 msgid "Upload to change"
 msgstr ""
 
+#. placeholder {0}: collection.ownersTotal
 msgid "{0} items"
 msgstr ""
 
@@ -2530,12 +2675,14 @@ msgstr ""
 msgid "So sorry, we are not able to mint this NFT at the moment."
 msgstr ""
 
+#. placeholder {0}: first(post.mirrors)?.displayName
 msgid "<0>{0}</0> mirrored"
 msgstr ""
 
 msgid "All notifications"
 msgstr ""
 
+#. placeholder {0}: formatSolanaAddress(connection.address)
 msgid "Please try switching to {0}"
 msgstr ""
 
@@ -2623,6 +2770,7 @@ msgstr ""
 msgid "Submit a wallet to receive NFT"
 msgstr ""
 
+#. placeholder {0}: outcome.toUpperCase()
 msgid "Settled as {0}"
 msgstr ""
 
@@ -2635,6 +2783,7 @@ msgstr ""
 msgid "No cryptocurrency mixer involved."
 msgstr ""
 
+#. placeholder {0}: post.reporter.displayName
 msgid "<0>{0}</0><1>reposted</1>"
 msgstr ""
 
@@ -2707,6 +2856,8 @@ msgstr ""
 msgid "🤑 Check this #FireflyLuckyDrop 🧧💰✨ on {postUrl} !"
 msgstr ""
 
+#. placeholder {0}: dayjs(task.created_at).format('ddd, MMM DD, YYYY')
+#. placeholder {1}: dayjs(task.created_at).format('hh:mm A')
 msgid "Saved on {0} at {1}"
 msgstr ""
 
@@ -2716,6 +2867,8 @@ msgstr ""
 msgid "Invoke"
 msgstr ""
 
+#. placeholder {0}: dayjs(scheduleTime).format('DD MMM, YYYY')
+#. placeholder {1}: dayjs(scheduleTime).format('hh:mm A')
 msgid "Your post will be sent on {0} at {1} <0>View</0>"
 msgstr ""
 
@@ -2758,6 +2911,8 @@ msgstr ""
 msgid "Muting..."
 msgstr ""
 
+#. placeholder {0}: post.stats.comments
+#. placeholder {0}: post.stats.countOpenActions
 msgid "{0, plural, one {comment} other {comments}}"
 msgstr ""
 
@@ -2776,6 +2931,8 @@ msgstr ""
 msgid "<0>Minted</0> an NFT for free"
 msgstr ""
 
+#. placeholder {0}: dayjs(scheduleTime).format('ddd, MMM DD, YYYY')
+#. placeholder {1}: dayjs(scheduleTime).format('hh:mm A')
 msgid "Will send on <0>{0} at <1>{1}</1></0>"
 msgstr ""
 
@@ -2794,6 +2951,7 @@ msgstr ""
 msgid "Failed to set schedule time."
 msgstr ""
 
+#. placeholder {0}: post.stats.mirrors
 msgid "{0, plural, one {recast} other {recasts}}"
 msgstr ""
 
@@ -2812,12 +2970,16 @@ msgstr ""
 msgid "NFT holder"
 msgstr ""
 
+#. placeholder {0}: mutuals[0].displayName
+#. placeholder {1}: mutuals[1].displayName
+#. placeholder {2}: mutuals[2].displayName
 msgid "Followed by {0} , {1}, and {2}"
 msgstr ""
 
 msgid "Vote"
 msgstr ""
 
+#. placeholder {0}: dayjs(space.ended_at).format('MMM DD')
 msgid "Ended on {0}"
 msgstr ""
 
@@ -2827,6 +2989,7 @@ msgstr ""
 msgid "Firefly Wallets"
 msgstr ""
 
+#. placeholder {0}: formatEthereumAddress(toAddress, 4)
 msgid "<0>Sent</0><1/><2>to</2><3><4>{0}</4></3>"
 msgstr ""
 
@@ -2854,12 +3017,14 @@ msgstr ""
 msgid "Enter Number of Winners"
 msgstr ""
 
+#. placeholder {0}: channel.id
 msgid "Post from /{0} will be hidden in your home timeline"
 msgstr ""
 
 msgid "Add"
 msgstr ""
 
+#. placeholder {0}: formatFileSize(maxGifSize)
 msgid "Failed to upload. Gif size exceeds {0}"
 msgstr ""
 
@@ -2875,6 +3040,7 @@ msgstr ""
 msgid "LuckyDrop"
 msgstr ""
 
+#. placeholder {0}: firstProfile.displayName
 msgid "{0} and others"
 msgstr ""
 
@@ -2896,12 +3062,14 @@ msgstr ""
 msgid "Date"
 msgstr ""
 
+#. placeholder {0}: response.error_description
 msgid "Failed to vote. {0}"
 msgstr ""
 
 msgid "Confirm to log out all accounts?"
 msgstr ""
 
+#. placeholder {0}: channel.id
 msgid "Failed to join /{0} on {sourceName}."
 msgstr ""
 
@@ -2911,6 +3079,7 @@ msgstr ""
 msgid "Repost"
 msgstr ""
 
+#. placeholder {0}: data.price
 msgid "Collect for {0} {nativeSymbol}"
 msgstr ""
 
@@ -2944,9 +3113,11 @@ msgstr ""
 msgid "The account you are trying to log in with is already linked to a different Firefly account."
 msgstr ""
 
+#. placeholder {0}: tokenCount && tokenCount > 1 ? <div className={tagClassName}>× {tokenCount}</div> : null
 msgid "<0>Minted</0><1/>{0}"
 msgstr ""
 
+#. placeholder {0}: dayjs(draft.createdAt).format('ddd, MMM DD, YYYY [at] h:mm A')
 msgid "Saved on {0}"
 msgstr ""
 
@@ -2980,12 +3151,14 @@ msgstr ""
 msgid "Failed to bind address."
 msgstr ""
 
+#. placeholder {0}: percentageToNumber(info.buy_tax)
 msgid "Buy Tax: {0}%"
 msgstr ""
 
 msgid "Success!"
 msgstr ""
 
+#. placeholder {0}: post.mirrors.find((profile) => !isSameProfile(profile, currentProfile)) ?.displayName
 msgid "<0>You</0> and {0} recasted"
 msgstr ""
 
@@ -3001,6 +3174,7 @@ msgstr ""
 msgid "Create a Post"
 msgstr ""
 
+#. placeholder {0}: source === Source.Lens ? t`Mirrors` : t`Recasts`
 msgid "{type, select, comment {Comments} mirror {{0}} reaction {Likes} act {Collects} other {Other}}"
 msgstr ""
 
@@ -3016,12 +3190,16 @@ msgstr ""
 msgid "You can set one or multiple rules to be eligible to win a Lucky Drop."
 msgstr ""
 
+#. placeholder {0}: resolveSourceName(Source.Lens)
+#. placeholder {0}: resolveSourceName(Source.Farcaster)
+#. placeholder {0}: resolveSourceName(account.profile.source)
 msgid "Your {0} account is now connected."
 msgstr ""
 
 msgid "Not Found"
 msgstr ""
 
+#. placeholder {0}: isSendFromFirefly(post) ? ( <FireflyMonochromeIcon fontSize={15} width={15} height={15} className="inline" /> ) : null
 msgid "Posted via {0} <0>{sendFrom}</0>"
 msgstr ""
 
@@ -3031,6 +3209,7 @@ msgstr ""
 msgid "Number of winners"
 msgstr ""
 
+#. placeholder {0}: profile.handle
 msgid "Unmuted @{0} on {sourceName}."
 msgstr ""
 
@@ -3043,6 +3222,7 @@ msgstr ""
 msgid "Display Name should not exceed {maxDisplayNameSize} characters"
 msgstr ""
 
+#. placeholder {0}: notification.quote.quoteOn.type
 msgid "<0/> quoted your <1>{0, select, Post {post} Comment {comment} Quote {quote} Mirror {mirror} other {post}}</1>"
 msgstr ""
 
@@ -3061,6 +3241,7 @@ msgstr ""
 msgid "Signature Request"
 msgstr ""
 
+#. placeholder {0}: followPenguTwitterProfile.handle
 msgid "Followed <0>@{0}</0> on X before Dec 16, 2024"
 msgstr ""
 
@@ -3076,6 +3257,7 @@ msgstr ""
 msgid "No tax changes found for personal addresses."
 msgstr ""
 
+#. placeholder {0}: token.symbol
 msgid "Unlock {0}"
 msgstr ""
 
@@ -3130,6 +3312,7 @@ msgstr ""
 msgid "Post collected successfully!"
 msgstr ""
 
+#. placeholder {0}: resolveSourceName(x)
 msgid "Your post have published successfully on {0}."
 msgstr ""
 
@@ -3184,6 +3367,7 @@ msgstr ""
 msgid "*Note: Each NFT can only be used once."
 msgstr ""
 
+#. placeholder {0}: resolveSourceName(source)
 msgid "Followed <0>@{handle}</0> on {0}"
 msgstr ""
 
@@ -3193,6 +3377,7 @@ msgstr ""
 msgid "Already logged in?<0/>Approve the <1>existing Farcaster signer</1> to Firefly or <2>sync</2> through the app"
 msgstr ""
 
+#. placeholder {0}: profile.handle
 msgid "Unmute @{0}"
 msgstr ""
 
@@ -3205,18 +3390,21 @@ msgstr ""
 msgid "Mask Network"
 msgstr ""
 
+#. placeholder {0}: formatEthereumAddress(fromAddress, 4)
 msgid "<0>Acquired</0> an NFT from <1>{0}</1>"
 msgstr ""
 
 msgid "Sanctioned address found."
 msgstr ""
 
+#. placeholder {0}: profile.handle
 msgid "Unfollowed @{0} on {sourceName}"
 msgstr ""
 
 msgid "Remove"
 msgstr ""
 
+#. placeholder {0}: author.handle
 msgid "Follow @{0}"
 msgstr ""
 
@@ -3253,9 +3441,11 @@ msgstr ""
 msgid "Save"
 msgstr ""
 
+#. placeholder {0}: profiles.length - 1
 msgid "<0/> and <1>{0} others</1>"
 msgstr ""
 
+#. placeholder {0}: dayjs(channel.timestamp).format('MMM DD, YYYY')
 msgid "<0>since </0> <1>{0}</1>"
 msgstr ""
 
@@ -3265,9 +3455,13 @@ msgstr ""
 msgid "Events"
 msgstr ""
 
+#. placeholder {0}: resolveSourceName(Source.Farcaster)
+#. placeholder {0}: resolveSourceName(Source.Lens)
+#. placeholder {0}: resolveSourceName(Source.Twitter)
 msgid "{0} Users"
 msgstr ""
 
+#. placeholder {0}: notification.comment.commentOn.type
 msgid "<0/> commented on your <1>{0, select, Post {post} Comment {comment} Quote {quote} Mirror {mirror} other {post}}</1>"
 msgstr ""
 
@@ -3280,6 +3474,7 @@ msgstr ""
 msgid "No blackmail activities involved."
 msgstr ""
 
+#. placeholder {0}: error.message
 msgid "We encountered an error when try to decrypt this message: {0}"
 msgstr ""
 
@@ -3313,6 +3508,9 @@ msgstr ""
 msgid "<0>Burned</0> an NFT"
 msgstr ""
 
+#. placeholder {0}: timeLeft.hours
+#. placeholder {1}: timeLeft.minutes
+#. placeholder {2}: timeLeft.seconds
 msgid "{0}h: {1}m: {2}s"
 msgstr ""
 
@@ -3322,6 +3520,7 @@ msgstr ""
 msgid "Failed to fetch the latest state after several attempts. Please try again later."
 msgstr ""
 
+#. placeholder {0}: getMintButtonText(true, true, mintStatus)
 msgid "So sorry, we cant mint this NFT with the current status: {0}"
 msgstr ""
 
@@ -3373,6 +3572,8 @@ msgstr ""
 msgid "Sign to enable signless"
 msgstr ""
 
+#. placeholder {0}: formatBalance(claim_amounts, token_decimal, { significant: 2, isPrecise: true, })
+#. placeholder {1}: formatBalance(total_amounts, token_decimal ?? 18, { significant: 2, isPrecise: true, })
 msgid "<0>Claimed: </0><1>{claim_numbers}/{total_numbers}</1><2>{0}/{1}</2><3>{token_symbol}</3>"
 msgstr ""
 
@@ -3392,8 +3593,9 @@ msgid "Snapshot removed from your Bookmarks"
 msgstr ""
 
 msgid "Max Supply"
-msgstr ""
+msgstr "<<<<<<< HEAD======="
 
+#. placeholder {0}: post.author.displayName
 msgid "Posted by {0} via Firefly"
 msgstr ""
 
@@ -3430,12 +3632,15 @@ msgstr ""
 msgid "Ethereum JSON RPC"
 msgstr ""
 
+#. placeholder {0}: profile.handle
 msgid "Followed @{0} on Lens"
 msgstr ""
 
 msgid "Claim Now"
 msgstr ""
 
+#. placeholder {0}: collectModule.amount
+#. placeholder {1}: collectModule.currency
 msgid "Collect for {0} {1}"
 msgstr ""
 
@@ -3481,6 +3686,7 @@ msgstr ""
 msgid "Cybercrime."
 msgstr ""
 
+#. placeholder {0}: formatEthereumAddress(toAddress, 4)
 msgid "<0>Sent</0> an NFT to <1>{0}</1>"
 msgstr ""
 
@@ -3562,6 +3768,7 @@ msgstr ""
 msgid "Failed to create schedule post."
 msgstr ""
 
+#. placeholder {0}: first(post.mirrors)?.displayName
 msgid "<0>{0}</0> recasted"
 msgstr ""
 
@@ -3572,8 +3779,10 @@ msgid "Failed to update scheduled post."
 msgstr ""
 
 msgid "Login"
-msgstr ""
+msgstr "<<<<<<< HEAD======="
 
+#. placeholder {0}: post.author.handle
+#. placeholder {1}: resolveSourceName(post.source)
 msgid "Replying to <0>@{0}</0> on {1}"
 msgstr ""
 
@@ -3583,6 +3792,7 @@ msgstr ""
 msgid "A thread must have at least two posts."
 msgstr ""
 
+#. placeholder {0}: post.stats.reactions
 msgid "{0, plural, one {like} other {likes}}"
 msgstr ""
 
@@ -3595,6 +3805,7 @@ msgstr ""
 msgid "Likes"
 msgstr ""
 
+#. placeholder {0}: nFormatter(props.ownerCount)
 msgid "× {0}"
 msgstr ""
 

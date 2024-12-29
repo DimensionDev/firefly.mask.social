@@ -36,7 +36,12 @@ export function Popover({
                         leaveFrom="opacity-100"
                         leaveTo="opacity-0"
                     >
-                        <div className="fixed inset-0 z-40 bg-main/25 bg-opacity-30" ref={(ref) => setRef(ref)} />
+                        <div
+                            className="fixed inset-0 z-40 bg-main/25 bg-opacity-30"
+                            ref={(ref) => {
+                                setRef(ref);
+                            }}
+                        />
                     </Transition.Child>
                 ) : null}
                 <Transition.Child

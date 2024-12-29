@@ -1,4 +1,5 @@
 'use client';
+import { use } from 'react';
 
 import { useSuspenseQuery } from '@tanstack/react-query';
 import { notFound } from 'next/navigation.js';
@@ -11,13 +12,14 @@ import { ActivityTasks } from '@/components/Activity/ActivityTasks/index.js';
 import { FireflyActivityProvider } from '@/providers/firefly/Activity.js';
 import { ActivityStatus } from '@/providers/types/Firefly.js';
 
-export default function Page({
-    params: { name },
-}: {
-    params: {
+export default function Page(props: {
+    params: Promise<{
         name: string;
-    };
+    }>;
 }) {
+    const params = use(props.params);
+    const { name } = params;
+
     const { data } = useSuspenseQuery({
         queryKey: ['activity-info', name],
         async queryFn() {

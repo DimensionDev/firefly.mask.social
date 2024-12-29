@@ -9,14 +9,10 @@ import { resolveDiscoverUrl } from '@/helpers/resolveDiscoverUrl.js';
 import { resolveSourceFromUrlNoFallback } from '@/helpers/resolveSource.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 
-export default function Layout({
-    params,
-    children,
-}: PropsWithChildren<{
-    params: {
-        source: string;
-    };
-}>) {
+export default async function Layout(props: PropsWithChildren<{ params: Promise<{ source: string }> }>) {
+    const params = await props.params;
+    const { children } = props;
+
     const source = resolveSourceFromUrlNoFallback(params.source);
 
     if (!source || !isDiscoverSource(source)) {

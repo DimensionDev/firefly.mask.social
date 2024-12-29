@@ -1,7 +1,7 @@
 'use client';
 
 import { ArrowPathRoundedSquareIcon } from '@heroicons/react/24/outline';
-import { t, Trans } from '@lingui/macro';
+import { Trans, useLingui } from '@lingui/react/macro';
 import { useState } from 'react';
 import { useAsyncFn } from 'react-use';
 
@@ -11,12 +11,11 @@ import { ClickableButton } from '@/components/ClickableButton.js';
 import { CollectionPreviewer, NFTPreviewer } from '@/components/NFTs/NFTPreview.js';
 import { classNames } from '@/helpers/classNames.js';
 import { isValidUrl } from '@/helpers/isValidUrl.js';
-import { getI18n } from '@/i18n/index.js';
 import { getCollectionFromUrl } from '@/services/getCollectionFromUrl.js';
 import { getNFTFromUrl } from '@/services/getNFTFromUrl.js';
 
 export default function Page() {
-    const i18n = getI18n();
+    const { t } = useLingui();
 
     const [url, setUrl] = useState('');
 
@@ -48,7 +47,7 @@ export default function Page() {
                     type="text"
                     autoComplete="off"
                     spellCheck="false"
-                    placeholder={t(i18n)`Your URL`}
+                    placeholder={t`Your URL`}
                     onChange={(e) => setUrl(e.target.value)}
                 />
                 <ClickableButton

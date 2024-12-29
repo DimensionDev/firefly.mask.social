@@ -6,23 +6,26 @@ import { createMetadataArticleById } from '@/helpers/createMetadataArticleById.j
 import { isBotRequest } from '@/helpers/isBotRequest.js';
 import { memoizeWithRedis } from '@/helpers/memoizeWithRedis.js';
 import { setupLocaleForSSR } from '@/i18n/index.js';
+import { use } from 'react';
 
 const createPageMetadata = memoizeWithRedis(createMetadataArticleById, {
     key: KeyType.CreateMetadataArticleById,
 });
 
 interface Props {
-    params: {
+    params: Promise<{
         id: string;
-    };
+    }>;
 }
 
-export async function generateMetadata({ params }: Props): Promise<Metadata> {
+export async function generateMetadata(props: Props): Promise<Metadata> {
+    const params = await props.params;
     return createPageMetadata(params.id);
 }
 
-export default function Page(props: Props) {
-    if (isBotRequest()) return null;
-    setupLocaleForSSR();
-    return <ArticleDetailPage {...props} />;
+export default async function Page(props: Props) {
+    if (await isBotRequest()) return null;
+    await setupLocaleForSSR();
+    const param = use(props.params);
+    return <ArticleDetailPage id={param.id} />;
 }

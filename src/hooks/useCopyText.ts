@@ -10,7 +10,7 @@ export function useCopyText(
     text: string,
     options: { enqueueSuccessMessage?: boolean } = { enqueueSuccessMessage: true },
 ) {
-    const timerRef = useRef<ReturnType<typeof setTimeout>>();
+    const timerRef = useRef<ReturnType<typeof setTimeout>>(undefined);
 
     const [copied, setCopied] = useState(false);
     const [, copyToClipboard] = useCopyToClipboard();
