@@ -107,7 +107,7 @@ export function LoginFarcaster({ signType }: LoginFarcasterProps) {
             enqueueMessageFromError(error, t`Failed to login.`);
             throw error;
         }
-    }, [resetCountdown, startCountdown]);
+    }, [controller, resetCountdown, startCountdown]);
 
     const [, onLoginByRelayService] = useAsyncFn(async () => {
         controller.current.renew();
@@ -142,7 +142,7 @@ export function LoginFarcaster({ signType }: LoginFarcasterProps) {
             enqueueMessageFromError(error, t`Failed to login.`);
             throw error;
         }
-    }, [resetCountdown, startCountdown]);
+    }, [controller, history, resetCountdown, startCountdown]);
 
     const [, onLoginByFireflySponsorship] = useAsyncFn(async () => {
         controller.current.renew();
@@ -163,7 +163,7 @@ export function LoginFarcaster({ signType }: LoginFarcasterProps) {
             enqueueMessageFromError(error, t`Failed to login.`);
             throw error;
         }
-    }, [resetCountdown, startCountdown]);
+    }, [controller, resetCountdown, startCountdown]);
 
     const onClick = (signType: FarcasterSignType | null) => {
         if (!signType) return;

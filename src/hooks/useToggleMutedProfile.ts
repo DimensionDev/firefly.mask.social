@@ -47,6 +47,6 @@ export function useToggleMutedProfile(operator: Profile | null) {
                 throw error;
             }
         },
-        [isLogin, operator],
+        [isLogin],
     );
 }

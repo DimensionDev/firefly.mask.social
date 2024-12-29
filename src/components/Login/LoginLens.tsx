@@ -73,7 +73,7 @@ export function LoginLens({ profiles, currentAccount }: LoginLensProps) {
                 throw error;
             }
         },
-        [profiles, currentProfile],
+        [profiles.length, currentProfile, controller],
     );
 
     useEffect(() => {

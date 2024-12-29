@@ -43,7 +43,7 @@ export const ContentTranslator = memo<ContentWithTranslatorProps>(function Conte
             original: originalLanguage,
             target: getTargetLanguage(originalLanguage),
         });
-    }, []);
+    }, [content]);
 
     const [{ value: data, loading, error }, handleTranslate] = useAsyncFn(async () => {
         const { translations } = await translateLanguage(translationConfig.target!, content);

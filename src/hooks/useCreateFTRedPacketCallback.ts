@@ -221,5 +221,14 @@ export function useCreateFTRedPacketCallback(
                 enqueueMessageFromError(error, t`Failed to create red packet`);
             }
         }
-    }, [redPacketSettings, chainId, redpacketContractAddress, NATIVE_TOKEN_ADDRESS, publicKey, redPacketSettings]);
+    }, [
+        redPacketSettings,
+        redpacketContractAddress,
+        NATIVE_TOKEN_ADDRESS,
+        publicKey,
+        account,
+        chainId,
+        coverImage,
+        claimRequirements,
+    ]);
 }

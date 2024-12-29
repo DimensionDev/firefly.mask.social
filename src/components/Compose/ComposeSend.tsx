@@ -51,12 +51,13 @@ export function ComposeSend(props: ComposeSendProps) {
     const hasThread = (post.images.length > 0 || usedLength) && type === 'compose';
 
     const [percentage, setPercentage] = useState(0);
+    const hasPosts = posts.length > 1;
     const [{ loading }, handlePost] = useAsyncFn(
         async (isRetry = false) => {
             if (checkPostMedias()) return;
             try {
                 controller.current.renew();
-                if (posts.length > 1) {
+                if (hasPosts) {
                     scheduleTime
                         ? await crossPostScheduleThread(scheduleTime, controller.current.signal)
                         : await crossPostThread({
@@ -81,7 +82,7 @@ export function ComposeSend(props: ComposeSendProps) {
                 throw error;
             }
         },
-        [type, post, posts.length > 1, checkPostMedias, currentDraftId, removeDraft, scheduleTime],
+        [checkPostMedias, controller, hasPosts, currentDraftId, removeDraft, scheduleTime, type, post],
     );
 
     const hasError = useMemo(() => {

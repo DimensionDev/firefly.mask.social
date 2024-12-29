@@ -69,7 +69,7 @@ export function ConnectMPCWalletButton({ connection }: ConnectMPCWalletButtonPro
                 throw error;
             }
         },
-        [connection, isFireflyWallet, wallet.connected, connection.address, wallet.disconnect],
+        [connection.platform, connection.address, wallet, isFireflyWallet, connectModalSolana],
     );
 
     if (env.external.NEXT_PUBLIC_PARTICLE !== STATUS.Enabled) return null;

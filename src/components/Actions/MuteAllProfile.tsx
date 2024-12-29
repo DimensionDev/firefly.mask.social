@@ -55,7 +55,7 @@ function MuteAllProfileBase({ handleOrEnsOrAddress, identity, onClose }: MuteAll
             enqueueMessageFromError(error, t`Failed to mute all wallets and accounts.`);
             throw error;
         }
-    }, [identity, onClose]);
+    }, [handleOrEnsOrAddress, identity, onClose]);
 
     if (isLoading || isMutedAll === true) return null;
 

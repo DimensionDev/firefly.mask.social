@@ -214,7 +214,15 @@ export function MainView() {
         }
 
         history.push('/requirements');
-    }, [chainId, isNotEnoughAllowance, redpacketContractAddress, originBalance, token.address]);
+    }, [
+        originBalance,
+        chainId,
+        isNotEnoughAllowance,
+        history,
+        token.address,
+        redpacketContractAddress,
+        refetchAllowance,
+    ]);
     // #endregion
 
     return (
@@ -277,9 +285,7 @@ export function MainView() {
                                 value={message}
                                 onChange={(e) => setMessage(e.target.value)}
                                 placeholder={t`Best Wishes!`}
-                                className={
-                                    'w-full border-0 bg-transparent py-2 placeholder-secondary focus:border-0 focus:outline-0 focus:ring-0'
-                                }
+                                className="w-full border-0 bg-transparent py-2 placeholder-secondary focus:border-0 focus:outline-0 focus:ring-0"
                             />
                         </label>
                     </form>

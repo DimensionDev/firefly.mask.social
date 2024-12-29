@@ -58,7 +58,7 @@ export const DisconnectFireflyAccountModal = forwardRef<SingletonModalRefCreator
                 }
                 throw error;
             }
-        }, [dispatch?.close, account]);
+        }, [account, dispatch]);
 
         const isThirdPartyAccount =
             !!account?.profile &&

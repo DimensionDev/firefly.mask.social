@@ -34,6 +34,6 @@ export function useDeletePost(source: SocialSource) {
                 throw error;
             }
         },
-        [source, router, pathname, navBack],
+        [source, pathname, navBack],
     );
 }

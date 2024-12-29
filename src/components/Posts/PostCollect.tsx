@@ -141,7 +141,7 @@ export function PostCollect({ post, onClose }: PostCollectProps) {
         );
 
         await refetchAllowanceData();
-    }, [post, allowanceData, refetchAllowanceData]);
+    }, [post.source, allowanceData, collectModule?.assetAddress, refetchAllowanceData]);
 
     const [{ loading: collectLoading }, handleCollect] = useAsyncFn(async () => {
         try {
@@ -158,7 +158,7 @@ export function PostCollect({ post, onClose }: PostCollectProps) {
             enqueueMessageFromError(error, t`Failed to collect post.`);
             throw error;
         }
-    }, [post, onClose]);
+    }, [collectModule, post.postId, onClose]);
 
     const [{ loading: mirrorLoading }, handleMirror] = useMirror(post);
 
@@ -287,16 +287,18 @@ export function PostCollect({ post, onClose }: PostCollectProps) {
 
         handleCollect();
     }, [
-        isSuperFollow,
-        profile,
-        currentProfile,
         isLogin,
-        allowed,
-        post.source,
-        handleCollect,
-        handleApprove,
-        toggleFollow,
+        currentProfile,
         account.address,
+        collectModule?.followerOnly,
+        profile,
+        allowed,
+        handleCollect,
+        post.source,
+        isSuperFollow,
+        toggleFollow,
+        isMedium,
+        handleApprove,
     ]);
 
     const loading =
