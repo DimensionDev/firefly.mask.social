@@ -25,7 +25,7 @@ export const WalletProfileContentList = memo(function WalletProfileContentList({
             return <NFTs address={address} />;
         case WalletProfileCategory.Activities:
             return <FollowingNFTList walletAddress={address} />;
-        case WalletProfileCategory.DAO:
+        case WalletProfileCategory.DAOs:
             return <FollowingSnapshotList walletAddress={address} />;
         case WalletProfileCategory.Polymarket:
             return <PolymarketTimeLine address={address} isFollowing={false} />;
