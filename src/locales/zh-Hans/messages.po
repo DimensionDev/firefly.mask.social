@@ -330,6 +330,9 @@ msgstr "趋势"
 msgid "Log out @{0}"
 msgstr "登出 @{0}"
 
+msgid "DAOs"
+msgstr ""
+
 msgid "MAX"
 msgstr "最大"
 
@@ -1376,9 +1379,6 @@ msgstr "此通证合约是开源代码。您可以检查合约代码了解详情
 
 msgid "Darkweb transactions found."
 msgstr "发现暗网交易。"
-
-msgid "DAO"
-msgstr "DAO"
 
 msgid "{0} Comments"
 msgstr "{0} 评论"
