@@ -182,7 +182,7 @@ export enum WalletProfileCategory {
     POAPs = 'poaps',
     NFTs = 'nfts',
     Activities = 'activities',
-    DAO = 'DAO',
+    DAOs = 'DAOs',
     Polymarket = 'polymarket',
 }
 
