@@ -160,6 +160,7 @@
         "rabby",
         "rarible",
         "redpacket",
+        "rootdata",
         "rpid",
         "scenechange",
         "servie",
@@ -232,7 +233,8 @@
         "pengu",
         "Pudge",
         "BARMSTRONG",
-        "hdel"
+        "hdel",
+        "rootdataurl"
     ],
     "flagWords": [],
     "ignorePaths": [

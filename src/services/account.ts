@@ -49,7 +49,10 @@ function getFireflySession(account: Account) {
 }
 
 function hasFireflySession() {
-    return SORTED_SOCIAL_SOURCES.some((x) => !!getProfileState(x).currentProfile);
+    return (
+        SORTED_SOCIAL_SOURCES.some((x) => !!getProfileState(x).currentProfile) ||
+        useThirdPartyStateStore.getState().currentProfile
+    );
 }
 
 async function updateState(accounts: Account[], overwrite = false) {
@@ -205,6 +208,7 @@ export async function addAccount(account: Account, options?: AccountOptions) {
             const state = getProfileState(x.profile.profileSource);
             return !state.accounts.find((y) => isSameAccount(x, y)) && !isSameAccount(x, account);
         });
+
         const accounts = (
             belongsTo ? accountsFiltered : uniqBy([account, ...accountsFiltered], (x) => toProfileId(x.profile))
         ).filter((y) => y.session.type !== SessionType.Firefly);

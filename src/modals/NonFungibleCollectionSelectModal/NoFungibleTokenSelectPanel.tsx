@@ -30,27 +30,29 @@ export const NonFungibleCollectionSelectPanel = memo<FungibleTokenSelectPanelPro
         const [chainId, setChainId] = useState<number>();
         const account = useAccount();
 
-        const { data: collections = EMPTY_LIST, isLoading } = useNonFungibleCollections(NetworkPluginID.PLUGIN_EVM, {
-            chainId,
+        const { data: allCollections = EMPTY_LIST, isLoading } = useNonFungibleCollections(NetworkPluginID.PLUGIN_EVM, {
             schemaType: SchemaType.ERC721,
             account: account.address,
         });
-        const chainIds = useMemo(() => uniq(collections.map((collection) => collection.chainId)), [collections]);
+        const collections = useMemo(
+            () => (chainId ? allCollections.filter((x) => x.chainId === chainId) : allCollections),
+            [allCollections, chainId],
+        );
+        const chainIds = useMemo(() => {
+            return uniq(allCollections.map((collection) => collection.chainId)).filter((chainId) =>
+                chains.some((x) => x.id === chainId),
+            );
+        }, [allCollections]);
 
         const getChainItem = useCallback(
             (chainId: number, isTag?: boolean) => {
                 const chain = chains.find((chain) => chain.id === chainId);
+                if (!chain) return null;
 
                 return (
                     <div className="flex items-center gap-2">
-                        {chain ? (
-                            <>
-                                <ChainIcon chainId={chainId} size={15} />
-                                {isMedium && isTag ? null : <span>{chain.name}</span>}
-                            </>
-                        ) : (
-                            `${chainId}`
-                        )}
+                        <ChainIcon chainId={chainId} size={15} />
+                        {isMedium && isTag ? null : <span>{chain.name}</span>}
                     </div>
                 );
             },

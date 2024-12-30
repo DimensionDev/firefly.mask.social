@@ -16,6 +16,9 @@ msgstr ""
 msgid "The gas abuse function is included. The project owner may have the ability to control the contract."
 msgstr "The gas abuse function is included. The project owner may have the ability to control the contract."
 
+msgid "Projects"
+msgstr "Projects"
+
 msgid "{days, plural, one {1 day left} other {{days} days left}}"
 msgstr "{days, plural, one {1 day left} other {{days} days left}}"
 
@@ -235,9 +238,6 @@ msgstr "<0>The maximum number of coins coded to exist in the lifetime of the cry
 msgid "This token is a gas abuser."
 msgstr "This token is a gas abuser."
 
-msgid "Are you sure you want to leave /{0} ?"
-msgstr "Are you sure you want to leave /{0} ?"
-
 msgid "Ended"
 msgstr "Ended"
 
@@ -273,6 +273,9 @@ msgstr "Tax can be modified"
 
 msgid "<0>Burned</0><1/>"
 msgstr "<0>Burned</0><1/>"
+
+msgid "🤑 Just claimed a #FireflyLuckyDrop 🧧💰✨ on {postUrl} !"
+msgstr "🤑 Just claimed a #FireflyLuckyDrop 🧧💰✨ on {postUrl} !"
 
 msgid "Join our Discord"
 msgstr "Join our Discord"
@@ -325,6 +328,9 @@ msgstr "Trending"
 msgid "Log out @{0}"
 msgstr "Log out @{0}"
 
+msgid "DAOs"
+msgstr "DAOs"
+
 msgid "MAX"
 msgstr "MAX"
 
@@ -375,6 +381,9 @@ msgstr "Casts"
 
 msgid "Your account is now connected."
 msgstr "Your account is now connected."
+
+msgid "<0>Sold a bet</0><1>worth ${0} at Polymarket</1>"
+msgstr "<0>Sold a bet</0><1>worth ${0} at Polymarket</1>"
 
 msgid "Report submitted on {0}"
 msgstr "Report submitted on {0}"
@@ -820,6 +829,9 @@ msgstr "Info"
 msgid "Failed to bookmark article."
 msgstr "Failed to bookmark article."
 
+msgid "<0>Placed a bet</0><1>worth ${0} at Polymarket</1>"
+msgstr "<0>Placed a bet</0><1>worth ${0} at Polymarket</1>"
+
 msgid "The event has ended, but you can explore others in Exclusive Events."
 msgstr "The event has ended, but you can explore others in Exclusive Events."
 
@@ -991,9 +1003,6 @@ msgstr "Failed to follow @{0} on Lens"
 msgid "Check Eligibility"
 msgstr "Check Eligibility"
 
-msgid "<0>Post</0><1>an article on <2/></1>"
-msgstr "<0>Post</0><1>an article on <2/></1>"
-
 msgid "You might like"
 msgstr "You might like"
 
@@ -1041,9 +1050,6 @@ msgstr "Oops... Not all the requirements have been met"
 
 msgid "You are holder of <0>Pudgy Penguins</0> or <1>Lil Pudgy</1> NFTs"
 msgstr "You are holder of <0>Pudgy Penguins</0> or <1>Lil Pudgy</1> NFTs"
-
-msgid "{0}d: {1}h: {2}m: {3}s"
-msgstr "{0}d: {1}h: {2}m: {3}s"
 
 msgid "No restricted approval."
 msgstr "No restricted approval."
@@ -1261,9 +1267,6 @@ msgstr "Network Fee"
 msgid "Contract address found."
 msgstr "Contract address found."
 
-msgid "Top Profiles"
-msgstr "Top Profiles"
-
 msgid "NFT added to your Bookmarks"
 msgstr "NFT added to your Bookmarks"
 
@@ -1374,9 +1377,6 @@ msgstr "This token contract is open source. You can check the contract code for 
 
 msgid "Darkweb transactions found."
 msgstr "Darkweb transactions found."
-
-msgid "DAO"
-msgstr "DAO"
 
 msgid "{0} Comments"
 msgstr "{0} Comments"
@@ -1516,6 +1516,9 @@ msgstr "Unlike"
 msgid "No blacklist"
 msgstr "No blacklist"
 
+msgid "<0>Collected</0><1/>"
+msgstr "<0>Collected</0><1/>"
+
 msgid "Post was deleted"
 msgstr "Post was deleted"
 
@@ -1584,9 +1587,6 @@ msgstr "Failed to unmute /{0}."
 
 msgid "Please confirm the login with Warpcast."
 msgstr "Please confirm the login with Warpcast."
-
-msgid "🤑 Check this #FireflyLuckyDrop 🧧💰✨ on {postUrl} from @{0} !"
-msgstr "🤑 Check this #FireflyLuckyDrop 🧧💰✨ on {postUrl} from @{0} !"
 
 msgid "Cover background"
 msgstr "Cover background"
@@ -1743,6 +1743,9 @@ msgstr "Standard"
 
 msgid "No darkweb transactions found."
 msgstr "No darkweb transactions found."
+
+msgid "Joined /{0} on {sourceName}."
+msgstr "Joined /{0} on {sourceName}."
 
 msgid "You need to connect your {0} account to use this feature."
 msgstr "You need to connect your {0} account to use this feature."
@@ -1978,9 +1981,6 @@ msgstr "This can’t be undone and you’ll lose your draft."
 msgid "Article removed from your Bookmarks"
 msgstr "Article removed from your Bookmarks"
 
-msgid "Leave /{0} on {sourceName}."
-msgstr "Leave /{0} on {sourceName}."
-
 msgid "Powered by Tenderly and GoPlus"
 msgstr "Powered by Tenderly and GoPlus"
 
@@ -2106,9 +2106,6 @@ msgstr "Quote"
 
 msgid "View engagements"
 msgstr "View engagements"
-
-msgid "<0>worth ${0}</0><1>at Polymarket</1>"
-msgstr "<0>worth ${0}</0><1>at Polymarket</1>"
 
 msgid "The contract owner has restrictions on selling."
 msgstr "The contract owner has restrictions on selling."
@@ -2254,6 +2251,9 @@ msgstr "Follow @thefireflyapp on X"
 msgid "Wallets retrieved from public verifiable data registries or our entity algorithm can be reported for disconnection."
 msgstr "Wallets retrieved from public verifiable data registries or our entity algorithm can be reported for disconnection."
 
+msgid "Left /{0} on {sourceName}."
+msgstr "Left /{0} on {sourceName}."
+
 msgid "Step 2 Connect Wallet"
 msgstr "Step 2 Connect Wallet"
 
@@ -2394,9 +2394,6 @@ msgstr "Recast or Quote"
 
 msgid "Sorry, we are not able to find a wallet for {0}."
 msgstr "Sorry, we are not able to find a wallet for {0}."
-
-msgid "Remove from bookmark"
-msgstr "Remove from bookmark"
 
 msgid "Unwatch"
 msgstr "Unwatch"
@@ -2647,6 +2644,9 @@ msgstr "Upcoming"
 msgid "{handleOrEnsOrAddress} unwatched"
 msgstr "{handleOrEnsOrAddress} unwatched"
 
+msgid "🤑 Check this #FireflyLuckyDrop 🧧💰✨ on {postUrl} !"
+msgstr "🤑 Check this #FireflyLuckyDrop 🧧💰✨ on {postUrl} !"
+
 msgid "Saved on {0} at {1}"
 msgstr "Saved on {0} at {1}"
 
@@ -2679,9 +2679,6 @@ msgstr "You've hit rock bottom."
 
 msgid "View"
 msgstr "View"
-
-msgid "Crypto Trends"
-msgstr "Crypto Trends"
 
 msgid "<0>Acquired</0><1/>"
 msgstr "<0>Acquired</0><1/>"
@@ -2821,6 +2818,9 @@ msgstr "Post details"
 msgid "No money laundering involved."
 msgstr "No money laundering involved."
 
+msgid "<0>Posted</0><1>an article on <2/></1>"
+msgstr "<0>Posted</0><1>an article on <2/></1>"
+
 msgid "Claims"
 msgstr "Claims"
 
@@ -2958,6 +2958,9 @@ msgstr "The contract owner has no restrictions on personal slippage."
 
 msgid "Number of winners"
 msgstr "Number of winners"
+
+msgid "Top 40 Projects power by Rootdata"
+msgstr "Top 40 Projects power by Rootdata"
 
 msgid "Unmuted @{0} on {sourceName}."
 msgstr "Unmuted @{0} on {sourceName}."
@@ -3148,9 +3151,6 @@ msgstr "Cancel Recast"
 msgid "The scheduled time has passed."
 msgstr "The scheduled time has passed."
 
-msgid "Place a bet"
-msgstr "Place a bet"
-
 msgid "The connection has timed out. Please try again later."
 msgstr "The connection has timed out. Please try again later."
 
@@ -3205,9 +3205,6 @@ msgstr "Suspended account"
 msgid "No blackmail activities involved."
 msgstr "No blackmail activities involved."
 
-msgid "Sold a bet"
-msgstr "Sold a bet"
-
 msgid "We encountered an error when try to decrypt this message: {0}"
 msgstr "We encountered an error when try to decrypt this message: {0}"
 
@@ -3240,6 +3237,9 @@ msgstr "Failed to collect post."
 
 msgid "<0>Burned</0> an NFT"
 msgstr "<0>Burned</0> an NFT"
+
+msgid "{0}h: {1}m: {2}s"
+msgstr "{0}h: {1}m: {2}s"
 
 msgid "Download App"
 msgstr "Download App"
@@ -3313,9 +3313,6 @@ msgstr "Snapshot removed from your Bookmarks"
 msgid "Max Supply"
 msgstr "Max Supply"
 
-msgid "Join /{0} on {sourceName}."
-msgstr "Join /{0} on {sourceName}."
-
 msgid "Posted by {0} via Firefly"
 msgstr "Posted by {0} via Firefly"
 
@@ -3357,9 +3354,6 @@ msgstr "Followed @{0} on Lens"
 
 msgid "Claim Now"
 msgstr "Claim Now"
-
-msgid "<0>Collect</0><1/>"
-msgstr "<0>Collect</0><1/>"
 
 msgid "Collect for {0} {1}"
 msgstr "Collect for {0} {1}"

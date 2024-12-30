@@ -19,6 +19,7 @@ class ThirdPartySessionHolder extends SessionHolder<ThirdPartySession> {
     }
 
     override removeSession(): void {
+        this.session?.destroy();
         super.removeSession();
         if (!isServer) ThirdPartyAuthProvider.logout();
     }

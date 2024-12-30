@@ -263,13 +263,14 @@ export type BlockedUsersResponse = Response<{
     blocks: Relationship[];
 }>;
 
-export type BlockedChannelsResponse = Response<
-    Array<{
+export type BlockedChannelsResponse = Response<{
+    blocks: Array<{
         channel_id: string;
         channel_url: string;
         create_at: string;
-    }>
->;
+    }>;
+    hasMore: boolean;
+}>;
 
 export type UserResponse = Response<User>;
 
@@ -1159,6 +1160,18 @@ export type SearchableNFT = {
     website?: string;
 };
 
+export type Project = {
+    eval: number;
+    project_id: number;
+    one_liner: string;
+    logo: string;
+    rank: number;
+    token_symbol: string;
+    project_name: string;
+    tags: string[];
+    rootdataurl: string;
+};
+
 export type SearchNFTResponse = Response<{
     list: SearchableNFT[];
 }>;
@@ -1244,6 +1257,8 @@ export type LinkDigestResponse = Response<{
     twitterXQT?: unknown;
     farcasterFrames?: unknown;
 }>;
+
+export type ProjectResponse = Response<Project[]>;
 
 export type GetBookmarksResponse = Response<{
     list: Array<{

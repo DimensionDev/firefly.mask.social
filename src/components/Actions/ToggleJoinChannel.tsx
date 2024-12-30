@@ -1,4 +1,4 @@
-import { t, Trans } from '@lingui/macro';
+import { t } from '@lingui/macro';
 import { forwardRef } from 'react';
 
 import FollowUserIcon from '@/assets/follow-user.svg';
@@ -7,7 +7,6 @@ import UnFollowUserIcon from '@/assets/unfollow-user.svg';
 import { MenuButton } from '@/components/Actions/MenuButton.js';
 import type { ClickableButtonProps } from '@/components/ClickableButton.js';
 import { useToggleJoinChannel } from '@/hooks/useToggleJoinChannel.js';
-import { ConfirmModalRef } from '@/modals/controls.js';
 import type { Channel } from '@/providers/types/SocialMedia.js';
 
 interface Props extends Omit<ClickableButtonProps, 'children'> {
@@ -28,19 +27,6 @@ export const ToggleJoinChannel = forwardRef<HTMLButtonElement, Props>(function T
             {...rest}
             disabled={isMutating}
             onClick={async () => {
-                const confirmed = joined
-                    ? await ConfirmModalRef.openAndWaitForClose({
-                          title: t`Leave /${channel.id}`,
-                          content: (
-                              <div className="text-main">
-                                  <Trans>Are you sure you want to leave {`/${channel.id}`} ?</Trans>
-                              </div>
-                          ),
-                          variant: 'normal',
-                      })
-                    : true;
-
-                if (!confirmed) return;
                 await mutation.mutateAsync();
                 onClick?.();
             }}

@@ -46,7 +46,13 @@ function NFTsActivityCellActionCollectionName({
     if (!asset?.collection) return null;
 
     return (
-        <Link href={resolveNftUrl(chainId, address)} className={tagClassName}>
+        <Link
+            href={resolveNftUrl(chainId, address)}
+            className={tagClassName}
+            onClick={(e) => {
+                e.stopPropagation();
+            }}
+        >
             {asset.collection.iconURL ? (
                 <Image
                     src={asset.collection.iconURL}
@@ -92,7 +98,7 @@ export function NFTsActivityCellAction(props: Props) {
                     <Trans>
                         <ActivityCellActionTag icon={<MintIcon />}>Minted</ActivityCellActionTag>
                         <NFTsActivityCellActionCollectionName asset={data} {...pick(props, 'chainId', 'address')} />
-                        {tokenCount ? <div className={tagClassName}>× {tokenCount}</div> : null}
+                        {tokenCount && tokenCount > 1 ? <div className={tagClassName}>× {tokenCount}</div> : null}
                     </Trans>
                 </ActivityCellAction>
             );
@@ -187,7 +193,7 @@ export function NFTsActivityCellAction(props: Props) {
             return (
                 <ActivityCellAction>
                     <Trans>
-                        <ActivityCellActionTag icon={<MintIcon />}>Collect</ActivityCellActionTag>
+                        <ActivityCellActionTag icon={<MintIcon />}>Collected</ActivityCellActionTag>
                         <NFTsActivityCellActionPoapName asset={data} {...pick(props, 'chainId', 'address')} />
                     </Trans>
                 </ActivityCellAction>

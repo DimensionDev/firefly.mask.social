@@ -16,6 +16,9 @@ msgstr ""
 msgid "The gas abuse function is included. The project owner may have the ability to control the contract."
 msgstr ""
 
+msgid "Projects"
+msgstr ""
+
 msgid "{days, plural, one {1 day left} other {{days} days left}}"
 msgstr ""
 
@@ -232,9 +235,6 @@ msgstr ""
 msgid "This token is a gas abuser."
 msgstr ""
 
-msgid "Are you sure you want to leave /{0} ?"
-msgstr ""
-
 msgid "Ended"
 msgstr ""
 
@@ -269,6 +269,9 @@ msgid "Tax can be modified"
 msgstr ""
 
 msgid "<0>Burned</0><1/>"
+msgstr ""
+
+msgid "🤑 Just claimed a #FireflyLuckyDrop 🧧💰✨ on {postUrl} !"
 msgstr ""
 
 msgid "Join our Discord"
@@ -322,6 +325,9 @@ msgstr ""
 msgid "Log out @{0}"
 msgstr ""
 
+msgid "DAOs"
+msgstr ""
+
 msgid "MAX"
 msgstr ""
 
@@ -371,6 +377,9 @@ msgid "Casts"
 msgstr ""
 
 msgid "Your account is now connected."
+msgstr ""
+
+msgid "<0>Sold a bet</0><1>worth ${0} at Polymarket</1>"
 msgstr ""
 
 msgid "Report submitted on {0}"
@@ -817,6 +826,9 @@ msgstr ""
 msgid "Failed to bookmark article."
 msgstr ""
 
+msgid "<0>Placed a bet</0><1>worth ${0} at Polymarket</1>"
+msgstr ""
+
 msgid "The event has ended, but you can explore others in Exclusive Events."
 msgstr ""
 
@@ -988,9 +1000,6 @@ msgstr ""
 msgid "Check Eligibility"
 msgstr ""
 
-msgid "<0>Post</0><1>an article on <2/></1>"
-msgstr ""
-
 msgid "You might like"
 msgstr ""
 
@@ -1037,9 +1046,6 @@ msgid "Oops... Not all the requirements have been met"
 msgstr ""
 
 msgid "You are holder of <0>Pudgy Penguins</0> or <1>Lil Pudgy</1> NFTs"
-msgstr ""
-
-msgid "{0}d: {1}h: {2}m: {3}s"
 msgstr ""
 
 msgid "No restricted approval."
@@ -1258,9 +1264,6 @@ msgstr ""
 msgid "Contract address found."
 msgstr ""
 
-msgid "Top Profiles"
-msgstr ""
-
 msgid "NFT added to your Bookmarks"
 msgstr ""
 
@@ -1370,9 +1373,6 @@ msgid "This token contract is open source. You can check the contract code for d
 msgstr ""
 
 msgid "Darkweb transactions found."
-msgstr ""
-
-msgid "DAO"
 msgstr ""
 
 msgid "{0} Comments"
@@ -1513,6 +1513,9 @@ msgstr ""
 msgid "No blacklist"
 msgstr ""
 
+msgid "<0>Collected</0><1/>"
+msgstr ""
+
 msgid "Post was deleted"
 msgstr ""
 
@@ -1580,9 +1583,6 @@ msgid "Failed to unmute /{0}."
 msgstr ""
 
 msgid "Please confirm the login with Warpcast."
-msgstr ""
-
-msgid "🤑 Check this #FireflyLuckyDrop 🧧💰✨ on {postUrl} from @{0} !"
 msgstr ""
 
 msgid "Cover background"
@@ -1739,6 +1739,9 @@ msgid "Standard"
 msgstr ""
 
 msgid "No darkweb transactions found."
+msgstr ""
+
+msgid "Joined /{0} on {sourceName}."
 msgstr ""
 
 msgid "You need to connect your {0} account to use this feature."
@@ -1975,9 +1978,6 @@ msgstr ""
 msgid "Article removed from your Bookmarks"
 msgstr ""
 
-msgid "Leave /{0} on {sourceName}."
-msgstr ""
-
 msgid "Powered by Tenderly and GoPlus"
 msgstr ""
 
@@ -2102,9 +2102,6 @@ msgid "Quote"
 msgstr ""
 
 msgid "View engagements"
-msgstr ""
-
-msgid "<0>worth ${0}</0><1>at Polymarket</1>"
 msgstr ""
 
 msgid "The contract owner has restrictions on selling."
@@ -2251,6 +2248,9 @@ msgstr ""
 msgid "Wallets retrieved from public verifiable data registries or our entity algorithm can be reported for disconnection."
 msgstr ""
 
+msgid "Left /{0} on {sourceName}."
+msgstr ""
+
 msgid "Step 2 Connect Wallet"
 msgstr ""
 
@@ -2390,9 +2390,6 @@ msgid "Recast or Quote"
 msgstr ""
 
 msgid "Sorry, we are not able to find a wallet for {0}."
-msgstr ""
-
-msgid "Remove from bookmark"
 msgstr ""
 
 msgid "Unwatch"
@@ -2644,6 +2641,9 @@ msgstr ""
 msgid "{handleOrEnsOrAddress} unwatched"
 msgstr ""
 
+msgid "🤑 Check this #FireflyLuckyDrop 🧧💰✨ on {postUrl} !"
+msgstr ""
+
 msgid "Saved on {0} at {1}"
 msgstr ""
 
@@ -2675,9 +2675,6 @@ msgid "You've hit rock bottom."
 msgstr ""
 
 msgid "View"
-msgstr ""
-
-msgid "Crypto Trends"
 msgstr ""
 
 msgid "<0>Acquired</0><1/>"
@@ -2818,6 +2815,9 @@ msgstr ""
 msgid "No money laundering involved."
 msgstr ""
 
+msgid "<0>Posted</0><1>an article on <2/></1>"
+msgstr ""
+
 msgid "Claims"
 msgstr ""
 
@@ -2954,6 +2954,9 @@ msgid "The contract owner has no restrictions on personal slippage."
 msgstr ""
 
 msgid "Number of winners"
+msgstr ""
+
+msgid "Top 40 Projects power by Rootdata"
 msgstr ""
 
 msgid "Unmuted @{0} on {sourceName}."
@@ -3145,9 +3148,6 @@ msgstr ""
 msgid "The scheduled time has passed."
 msgstr ""
 
-msgid "Place a bet"
-msgstr ""
-
 msgid "The connection has timed out. Please try again later."
 msgstr ""
 
@@ -3202,9 +3202,6 @@ msgstr ""
 msgid "No blackmail activities involved."
 msgstr ""
 
-msgid "Sold a bet"
-msgstr ""
-
 msgid "We encountered an error when try to decrypt this message: {0}"
 msgstr ""
 
@@ -3236,6 +3233,9 @@ msgid "Failed to collect post."
 msgstr ""
 
 msgid "<0>Burned</0> an NFT"
+msgstr ""
+
+msgid "{0}h: {1}m: {2}s"
 msgstr ""
 
 msgid "Download App"
@@ -3310,9 +3310,6 @@ msgstr ""
 msgid "Max Supply"
 msgstr ""
 
-msgid "Join /{0} on {sourceName}."
-msgstr ""
-
 msgid "Posted by {0} via Firefly"
 msgstr ""
 
@@ -3353,9 +3350,6 @@ msgid "Followed @{0} on Lens"
 msgstr ""
 
 msgid "Claim Now"
-msgstr ""
-
-msgid "<0>Collect</0><1/>"
 msgstr ""
 
 msgid "Collect for {0} {1}"

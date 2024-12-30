@@ -21,6 +21,9 @@ msgstr ""
 msgid "The gas abuse function is included. The project owner may have the ability to control the contract."
 msgstr "包含燃气滥用功能。项目所有者可能有能力控制合约。"
 
+msgid "Projects"
+msgstr "项目"
+
 msgid "{days, plural, one {1 day left} other {{days} days left}}"
 msgstr "{days, plural, one {1 天剩余} other {{days} 天剩余}}"
 
@@ -237,9 +240,6 @@ msgstr "<0>加密货币生命周期存在的最大发行数量。它与股票市
 msgid "This token is a gas abuser."
 msgstr "该通证是一个燃料滥用者。"
 
-msgid "Are you sure you want to leave /{0} ?"
-msgstr "您确定要离开 /{0} 吗?"
-
 msgid "Ended"
 msgstr "已结束"
 
@@ -275,6 +275,9 @@ msgstr "税率可以被修改"
 
 msgid "<0>Burned</0><1/>"
 msgstr "<0>已销毁</0><1/>"
+
+msgid "🤑 Just claimed a #FireflyLuckyDrop 🧧💰✨ on {postUrl} !"
+msgstr ""
 
 msgid "Join our Discord"
 msgstr "加入我们的 Discord"
@@ -327,6 +330,9 @@ msgstr "趋势"
 msgid "Log out @{0}"
 msgstr "登出 @{0}"
 
+msgid "DAOs"
+msgstr ""
+
 msgid "MAX"
 msgstr "最大"
 
@@ -377,6 +383,9 @@ msgstr "帖子"
 
 msgid "Your account is now connected."
 msgstr "您的账户已连接。"
+
+msgid "<0>Sold a bet</0><1>worth ${0} at Polymarket</1>"
+msgstr ""
 
 msgid "Report submitted on {0}"
 msgstr "举报已提交 {0}"
@@ -822,6 +831,9 @@ msgstr "信息"
 msgid "Failed to bookmark article."
 msgstr "收藏文章失败。"
 
+msgid "<0>Placed a bet</0><1>worth ${0} at Polymarket</1>"
+msgstr ""
+
 msgid "The event has ended, but you can explore others in Exclusive Events."
 msgstr "活动已结束，但您可以在独家活动中探索其他活动。"
 
@@ -993,9 +1005,6 @@ msgstr "在 Lens 上关注 @{0} 失败"
 msgid "Check Eligibility"
 msgstr "领取资格"
 
-msgid "<0>Post</0><1>an article on <2/></1>"
-msgstr "<0>发布了</0><1>一篇文章于 <2/></1>"
-
 msgid "You might like"
 msgstr "你也许感兴趣"
 
@@ -1043,9 +1052,6 @@ msgstr "哎呀... 并未满足所有要求"
 
 msgid "You are holder of <0>Pudgy Penguins</0> or <1>Lil Pudgy</1> NFTs"
 msgstr "您是 <0>Pudgy Penguins</0> 或 <1>Lil Pudgy</1> NFT 系列的持有者"
-
-msgid "{0}d: {1}h: {2}m: {3}s"
-msgstr "{0}天: {1}时: {2}分: {3}秒"
 
 msgid "No restricted approval."
 msgstr "没有限制性批准。"
@@ -1263,9 +1269,6 @@ msgstr "网络费"
 msgid "Contract address found."
 msgstr "识别为合约地址。"
 
-msgid "Top Profiles"
-msgstr "热门用户"
-
 msgid "NFT added to your Bookmarks"
 msgstr "NFT 已经添加到您的收藏中"
 
@@ -1376,9 +1379,6 @@ msgstr "此通证合约是开源代码。您可以检查合约代码了解详情
 
 msgid "Darkweb transactions found."
 msgstr "发现暗网交易。"
-
-msgid "DAO"
-msgstr "DAO"
 
 msgid "{0} Comments"
 msgstr "{0} 评论"
@@ -1518,6 +1518,9 @@ msgstr "取消点赞"
 msgid "No blacklist"
 msgstr "无黑名单"
 
+msgid "<0>Collected</0><1/>"
+msgstr ""
+
 msgid "Post was deleted"
 msgstr "帖子已被删除"
 
@@ -1586,9 +1589,6 @@ msgstr "取消隐藏失败/{0}。"
 
 msgid "Please confirm the login with Warpcast."
 msgstr "请确认使用 Warpcast 登录。"
-
-msgid "🤑 Check this #FireflyLuckyDrop 🧧💰✨ on {postUrl} from @{0} !"
-msgstr ""
 
 msgid "Cover background"
 msgstr "封面背景"
@@ -1745,6 +1745,9 @@ msgstr "标准"
 
 msgid "No darkweb transactions found."
 msgstr "未发现暗网交易。"
+
+msgid "Joined /{0} on {sourceName}."
+msgstr ""
 
 msgid "You need to connect your {0} account to use this feature."
 msgstr "您需要连接您的 {0} 账户来使用此功能。"
@@ -1980,9 +1983,6 @@ msgstr "此操作无法撤销，您将丢失您的草稿。"
 msgid "Article removed from your Bookmarks"
 msgstr "文章已经从您的收藏中移除"
 
-msgid "Leave /{0} on {sourceName}."
-msgstr "在 {sourceName} 上离开 @{0}"
-
 msgid "Powered by Tenderly and GoPlus"
 msgstr "Powered by Tenderly and GoPlus"
 
@@ -2108,9 +2108,6 @@ msgstr "引用"
 
 msgid "View engagements"
 msgstr "查看互动"
-
-msgid "<0>worth ${0}</0><1>at Polymarket</1>"
-msgstr "<1>在 Polymarket</1><0>价值 ${0}</0>"
 
 msgid "The contract owner has restrictions on selling."
 msgstr "合约所有者对销售有限制。"
@@ -2256,6 +2253,9 @@ msgstr "在 X 上关注 @thefireflyapp"
 msgid "Wallets retrieved from public verifiable data registries or our entity algorithm can be reported for disconnection."
 msgstr "从公开可验证数据注册表中或我们的实体算法中检索到的钱包可以被举报从而断开连接。"
 
+msgid "Left /{0} on {sourceName}."
+msgstr ""
+
 msgid "Step 2 Connect Wallet"
 msgstr "第 2 步 连接钱包"
 
@@ -2396,9 +2396,6 @@ msgstr "转发或者引用"
 
 msgid "Sorry, we are not able to find a wallet for {0}."
 msgstr "对不起，我们未找到相关钱包 {0}."
-
-msgid "Remove from bookmark"
-msgstr "取消收藏"
 
 msgid "Unwatch"
 msgstr "取消关注"
@@ -2649,6 +2646,9 @@ msgstr "即将推出"
 msgid "{handleOrEnsOrAddress} unwatched"
 msgstr "{handleOrEnsOrAddress} 取消关注"
 
+msgid "🤑 Check this #FireflyLuckyDrop 🧧💰✨ on {postUrl} !"
+msgstr ""
+
 msgid "Saved on {0} at {1}"
 msgstr "保存于 {1} {0}"
 
@@ -2681,9 +2681,6 @@ msgstr "你已经滑到底部啦～"
 
 msgid "View"
 msgstr "查看"
-
-msgid "Crypto Trends"
-msgstr "加密货币趋势"
 
 msgid "<0>Acquired</0><1/>"
 msgstr "<0>获得</0><1/>"
@@ -2823,6 +2820,9 @@ msgstr "帖子明细"
 msgid "No money laundering involved."
 msgstr "不涉及洗钱。"
 
+msgid "<0>Posted</0><1>an article on <2/></1>"
+msgstr ""
+
 msgid "Claims"
 msgstr "领取"
 
@@ -2960,6 +2960,9 @@ msgstr "合约所有者对个人滑点没有限制。"
 
 msgid "Number of winners"
 msgstr "获奖人数"
+
+msgid "Top 40 Projects power by Rootdata"
+msgstr ""
 
 msgid "Unmuted @{0} on {sourceName}."
 msgstr "在 {sourceName} 上已取消对 @{0} 的隐藏。"
@@ -3150,9 +3153,6 @@ msgstr "取消转帖"
 msgid "The scheduled time has passed."
 msgstr "定时任务的时间已过期。"
 
-msgid "Place a bet"
-msgstr "下注"
-
 msgid "The connection has timed out. Please try again later."
 msgstr "连接已经超时。请稍后重试。"
 
@@ -3207,9 +3207,6 @@ msgstr "被冻结账户"
 msgid "No blackmail activities involved."
 msgstr "未发现勒索行为。"
 
-msgid "Sold a bet"
-msgstr "出售赌注"
-
 msgid "We encountered an error when try to decrypt this message: {0}"
 msgstr "我们在尝试解密此消息时遇到了一个错误：{0}"
 
@@ -3242,6 +3239,9 @@ msgstr "删除帖子失败。"
 
 msgid "<0>Burned</0> an NFT"
 msgstr "<0>销毁</0> 一个 NFT"
+
+msgid "{0}h: {1}m: {2}s"
+msgstr ""
 
 msgid "Download App"
 msgstr "下载应用"
@@ -3315,9 +3315,6 @@ msgstr "投票已经从您的收藏中移除"
 msgid "Max Supply"
 msgstr "最大供应量"
 
-msgid "Join /{0} on {sourceName}."
-msgstr "在 {sourceName} 上加入 /{0}"
-
 msgid "Posted by {0} via Firefly"
 msgstr "由 {0} 使用 Firefly 发送"
 
@@ -3359,9 +3356,6 @@ msgstr "在 Lens 上关注了 @{0}"
 
 msgid "Claim Now"
 msgstr "立即领取"
-
-msgid "<0>Collect</0><1/>"
-msgstr "<0>收藏</0><1/>"
 
 msgid "Collect for {0} {1}"
 msgstr "收集 {0} {1}"

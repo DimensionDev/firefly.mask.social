@@ -21,6 +21,9 @@ msgstr ""
 msgid "The gas abuse function is included. The project owner may have the ability to control the contract."
 msgstr ""
 
+msgid "Projects"
+msgstr ""
+
 msgid "{days, plural, one {1 day left} other {{days} days left}}"
 msgstr ""
 
@@ -237,9 +240,6 @@ msgstr ""
 msgid "This token is a gas abuser."
 msgstr ""
 
-msgid "Are you sure you want to leave /{0} ?"
-msgstr ""
-
 msgid "Ended"
 msgstr ""
 
@@ -274,6 +274,9 @@ msgid "Tax can be modified"
 msgstr ""
 
 msgid "<0>Burned</0><1/>"
+msgstr ""
+
+msgid "🤑 Just claimed a #FireflyLuckyDrop 🧧💰✨ on {postUrl} !"
 msgstr ""
 
 msgid "Join our Discord"
@@ -327,6 +330,9 @@ msgstr "流行趨勢"
 msgid "Log out @{0}"
 msgstr "退出 @{0} 的登錄"
 
+msgid "DAOs"
+msgstr ""
+
 msgid "MAX"
 msgstr ""
 
@@ -377,6 +383,9 @@ msgstr ""
 
 msgid "Your account is now connected."
 msgstr "您的帳戶現已連接。"
+
+msgid "<0>Sold a bet</0><1>worth ${0} at Polymarket</1>"
+msgstr ""
 
 msgid "Report submitted on {0}"
 msgstr "檢舉已於{0} 提交"
@@ -822,6 +831,9 @@ msgstr "資訊"
 msgid "Failed to bookmark article."
 msgstr ""
 
+msgid "<0>Placed a bet</0><1>worth ${0} at Polymarket</1>"
+msgstr ""
+
 msgid "The event has ended, but you can explore others in Exclusive Events."
 msgstr ""
 
@@ -993,9 +1005,6 @@ msgstr ""
 msgid "Check Eligibility"
 msgstr "領取資格"
 
-msgid "<0>Post</0><1>an article on <2/></1>"
-msgstr ""
-
 msgid "You might like"
 msgstr "你也許會喜歡"
 
@@ -1042,9 +1051,6 @@ msgid "Oops... Not all the requirements have been met"
 msgstr ""
 
 msgid "You are holder of <0>Pudgy Penguins</0> or <1>Lil Pudgy</1> NFTs"
-msgstr ""
-
-msgid "{0}d: {1}h: {2}m: {3}s"
 msgstr ""
 
 msgid "No restricted approval."
@@ -1263,9 +1269,6 @@ msgstr ""
 msgid "Contract address found."
 msgstr ""
 
-msgid "Top Profiles"
-msgstr ""
-
 msgid "NFT added to your Bookmarks"
 msgstr ""
 
@@ -1375,9 +1378,6 @@ msgid "This token contract is open source. You can check the contract code for d
 msgstr ""
 
 msgid "Darkweb transactions found."
-msgstr ""
-
-msgid "DAO"
 msgstr ""
 
 msgid "{0} Comments"
@@ -1518,6 +1518,9 @@ msgstr "取消按讚"
 msgid "No blacklist"
 msgstr "無黑名單"
 
+msgid "<0>Collected</0><1/>"
+msgstr ""
+
 msgid "Post was deleted"
 msgstr "貼文被刪除"
 
@@ -1586,9 +1589,6 @@ msgstr "對 @{0} 的解除靜音失敗"
 
 msgid "Please confirm the login with Warpcast."
 msgstr "請至 Warpcast 確認登錄"
-
-msgid "🤑 Check this #FireflyLuckyDrop 🧧💰✨ on {postUrl} from @{0} !"
-msgstr ""
 
 msgid "Cover background"
 msgstr ""
@@ -1744,6 +1744,9 @@ msgid "Standard"
 msgstr ""
 
 msgid "No darkweb transactions found."
+msgstr ""
+
+msgid "Joined /{0} on {sourceName}."
 msgstr ""
 
 msgid "You need to connect your {0} account to use this feature."
@@ -1980,9 +1983,6 @@ msgstr "該行為無法撤銷，您會失去這份草稿"
 msgid "Article removed from your Bookmarks"
 msgstr "文章已從你的書籤中移除"
 
-msgid "Leave /{0} on {sourceName}."
-msgstr ""
-
 msgid "Powered by Tenderly and GoPlus"
 msgstr ""
 
@@ -2108,9 +2108,6 @@ msgstr "引用"
 
 msgid "View engagements"
 msgstr "查看互動數據"
-
-msgid "<0>worth ${0}</0><1>at Polymarket</1>"
-msgstr ""
 
 msgid "The contract owner has restrictions on selling."
 msgstr ""
@@ -2256,6 +2253,9 @@ msgstr "在 X 上追蹤@thefireflyapp"
 msgid "Wallets retrieved from public verifiable data registries or our entity algorithm can be reported for disconnection."
 msgstr ""
 
+msgid "Left /{0} on {sourceName}."
+msgstr ""
+
 msgid "Step 2 Connect Wallet"
 msgstr ""
 
@@ -2395,9 +2395,6 @@ msgid "Recast or Quote"
 msgstr "引用"
 
 msgid "Sorry, we are not able to find a wallet for {0}."
-msgstr ""
-
-msgid "Remove from bookmark"
 msgstr ""
 
 msgid "Unwatch"
@@ -2649,6 +2646,9 @@ msgstr ""
 msgid "{handleOrEnsOrAddress} unwatched"
 msgstr ""
 
+msgid "🤑 Check this #FireflyLuckyDrop 🧧💰✨ on {postUrl} !"
+msgstr ""
+
 msgid "Saved on {0} at {1}"
 msgstr ""
 
@@ -2680,9 +2680,6 @@ msgid "You've hit rock bottom."
 msgstr "你已經到頁面最底部"
 
 msgid "View"
-msgstr ""
-
-msgid "Crypto Trends"
 msgstr ""
 
 msgid "<0>Acquired</0><1/>"
@@ -2823,6 +2820,9 @@ msgstr ""
 msgid "No money laundering involved."
 msgstr ""
 
+msgid "<0>Posted</0><1>an article on <2/></1>"
+msgstr ""
+
 msgid "Claims"
 msgstr ""
 
@@ -2959,6 +2959,9 @@ msgid "The contract owner has no restrictions on personal slippage."
 msgstr ""
 
 msgid "Number of winners"
+msgstr ""
+
+msgid "Top 40 Projects power by Rootdata"
 msgstr ""
 
 msgid "Unmuted @{0} on {sourceName}."
@@ -3150,9 +3153,6 @@ msgstr ""
 msgid "The scheduled time has passed."
 msgstr ""
 
-msgid "Place a bet"
-msgstr ""
-
 msgid "The connection has timed out. Please try again later."
 msgstr "連結已超時。請稍候重試"
 
@@ -3207,9 +3207,6 @@ msgstr ""
 msgid "No blackmail activities involved."
 msgstr ""
 
-msgid "Sold a bet"
-msgstr ""
-
 msgid "We encountered an error when try to decrypt this message: {0}"
 msgstr ""
 
@@ -3241,6 +3238,9 @@ msgid "Failed to collect post."
 msgstr ""
 
 msgid "<0>Burned</0> an NFT"
+msgstr ""
+
+msgid "{0}h: {1}m: {2}s"
 msgstr ""
 
 msgid "Download App"
@@ -3315,9 +3315,6 @@ msgstr ""
 msgid "Max Supply"
 msgstr ""
 
-msgid "Join /{0} on {sourceName}."
-msgstr ""
-
 msgid "Posted by {0} via Firefly"
 msgstr ""
 
@@ -3358,9 +3355,6 @@ msgid "Followed @{0} on Lens"
 msgstr ""
 
 msgid "Claim Now"
-msgstr ""
-
-msgid "<0>Collect</0><1/>"
 msgstr ""
 
 msgid "Collect for {0} {1}"

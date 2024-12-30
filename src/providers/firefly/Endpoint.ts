@@ -4,7 +4,7 @@ import { type Address, type Hex, isAddress } from 'viem';
 
 import { queryClient } from '@/configs/queryClient.js';
 import { DEBANK_CHAIN_TO_CHAIN_ID_MAP, DEBANK_CHAINS } from '@/constants/chain.js';
-import { FireflyPlatform, NetworkType, type SocialSource, Source, SourceInURL } from '@/constants/enum.js';
+import { FireflyPlatform, Locale, NetworkType, type SocialSource, Source, SourceInURL } from '@/constants/enum.js';
 import { EMPTY_LIST } from '@/constants/index.js';
 import { SetQueryDataForAddWallet } from '@/decorators/SetQueryDataForAddWallet.js';
 import { SetQueryDataForMuteAllProfiles } from '@/decorators/SetQueryDataForBlockProfile.js';
@@ -61,6 +61,7 @@ import {
     type NFTCollectionsResponse,
     type PlatformIdentityKey,
     type PolymarketActivityTimeline,
+    type ProjectResponse,
     type RelationResponse,
     type Response,
     type SearchNFTResponse,
@@ -821,6 +822,15 @@ export class FireflyEndpoint {
         const data = resolveFireflyResponseData(response);
 
         return data;
+    }
+    async getTopProjects(locale: Locale) {
+        const url = urlcat(settings.FIREFLY_ROOT_URL, '/v2/search/project/top100', {
+            days: 1,
+            language: locale === Locale.en ? 'en' : 'cn',
+        });
+        const response = await fetchJSON<ProjectResponse>(url, { method: 'GET' });
+
+        return resolveFireflyResponseData(response);
     }
 }
 

@@ -140,7 +140,7 @@ export const NFTPreviewer = memo(function NFTPreview({ nft }: NFTPreviewProps) {
             footer={
                 nft.collection?.collection_id
                     ? {
-                          image: nft.collection.image_url,
+                          image: isPoap ? undefined : nft.collection.image_url,
                           name: isPoap ? nft.name : nft.collection.name,
                           link: isPoap ? undefined : collectionId ? resolveNftUrlByCollection(collectionId) : undefined,
                       }
@@ -156,7 +156,7 @@ export const NFTPreviewer = memo(function NFTPreview({ nft }: NFTPreviewProps) {
                               </>
                           ) : null,
                       ])
-                    : [`#${nft.name}`]
+                    : [nft.name]
             }
             bookmarkProps={{ nftId: nft.nft_id, ownerAddress: first(nft.owners)?.owner_address }}
         />
