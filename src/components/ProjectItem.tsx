@@ -25,10 +25,6 @@ export const ProjectItem = memo<{ project: Project }>(function ProjectItem({
                 </div>
                 <div className="flex items-center gap-x-1">
                     <div className="flex items-center gap-x-1 rounded-lg bg-lightBg p-1">
-                        <Star width={16} height={16} />
-                        <span className="text-xs text-highlight">{nFormatter(evalNumber)}</span>
-                    </div>
-                    <div className="flex items-center gap-x-1 rounded-lg bg-lightBg p-1">
                         <Rank width={16} height={16} />
                         <span className="text-xs text-highlight">{rank}</span>
                     </div>
