@@ -6,6 +6,6 @@ export function isWalletProfileCategory(category: string): category is WalletPro
         WalletProfileCategory.NFTs,
         WalletProfileCategory.POAPs,
         WalletProfileCategory.Articles,
-        WalletProfileCategory.DAO,
+        WalletProfileCategory.DAOs,
     ].includes(category as WalletProfileCategory);
 }
