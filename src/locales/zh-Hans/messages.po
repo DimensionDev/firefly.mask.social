@@ -960,9 +960,6 @@ msgstr "上传头像失败。"
 msgid "Frame Validator"
 msgstr "Frame 验证器"
 
-msgid "Top 100 Projects power by RootData"
-msgstr ""
-
 msgid "Priority Access: Holders get early access to future projects, beta tests, and airdrops. And they will also have a first look at the latest features and content."
 msgstr "优先访问：持有者将获得对未来项目、测试版和空投的提前访问权。同时，他们还将优先体验最新功能和内容。"
 
@@ -2751,9 +2748,6 @@ msgstr "接收"
 msgid "NFT holder"
 msgstr "NFT 持有者"
 
-msgid "Power by rootdata"
-msgstr ""
-
 msgid "Followed by {0} , {1}, and {2}"
 msgstr "被 {0} 和 {1} 和 {2} 关注"
 
@@ -2966,6 +2960,9 @@ msgstr "合约所有者对个人滑点没有限制。"
 
 msgid "Number of winners"
 msgstr "获奖人数"
+
+msgid "Top 40 Projects power by Rootdata"
+msgstr ""
 
 msgid "Unmuted @{0} on {sourceName}."
 msgstr "在 {sourceName} 上已取消对 @{0} 的隐藏。"

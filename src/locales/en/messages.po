@@ -958,9 +958,6 @@ msgstr "Failed to avatar."
 msgid "Frame Validator"
 msgstr "Frame Validator"
 
-msgid "Top 100 Projects power by RootData"
-msgstr "Top 100 Projects power by RootData"
-
 msgid "Priority Access: Holders get early access to future projects, beta tests, and airdrops. And they will also have a first look at the latest features and content."
 msgstr "Priority Access: Holders get early access to future projects, beta tests, and airdrops. And they will also have a first look at the latest features and content."
 
@@ -2749,9 +2746,6 @@ msgstr "Receive"
 msgid "NFT holder"
 msgstr "NFT holder"
 
-msgid "Power by rootdata"
-msgstr "Power by rootdata"
-
 msgid "Followed by {0} , {1}, and {2}"
 msgstr "Followed by {0} , {1}, and {2}"
 
@@ -2964,6 +2958,9 @@ msgstr "The contract owner has no restrictions on personal slippage."
 
 msgid "Number of winners"
 msgstr "Number of winners"
+
+msgid "Top 40 Projects power by Rootdata"
+msgstr "Top 40 Projects power by Rootdata"
 
 msgid "Unmuted @{0} on {sourceName}."
 msgstr "Unmuted @{0} on {sourceName}."
