@@ -823,7 +823,7 @@ export class FireflySocialMedia implements Provider {
                 account_id: session.profileId,
             });
             const response = await fireflySessionHolder.fetch<BlockedChannelsResponse>(url);
-            const channelIds = response.data?.map((x) => x.channel_id);
+            const channelIds = response.data?.blocks.map((x) => x.channel_id);
             const channels = channelIds?.length
                 ? await NeynarSocialMediaProvider.getChannelsByIds(channelIds)
                 : EMPTY_LIST;

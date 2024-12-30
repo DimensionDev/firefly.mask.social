@@ -264,13 +264,14 @@ export type BlockedUsersResponse = Response<{
     blocks: Relationship[];
 }>;
 
-export type BlockedChannelsResponse = Response<
-    Array<{
+export type BlockedChannelsResponse = Response<{
+    blocks: Array<{
         channel_id: string;
         channel_url: string;
         create_at: string;
-    }>
->;
+    }>;
+    hasMore: boolean;
+}>;
 
 export type UserResponse = Response<User>;
 
