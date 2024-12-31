@@ -6,8 +6,8 @@ import { ClickableButton } from '@/components/ClickableButton.js';
 import { Tooltip } from '@/components/Tooltip.js';
 import { SORTED_POLL_SOURCES } from '@/constants/index.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
-import { useCompositePost } from '@/hooks/useCompositePost.js';
 import { hasRpPayload } from '@/helpers/rpPayload.js';
+import { useCompositePost } from '@/hooks/useCompositePost.js';
 import { useComposeStateStore } from '@/store/useComposeStore.js';
 
 export const PollButton = memo(function PollButton() {

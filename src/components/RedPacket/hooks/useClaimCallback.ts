@@ -3,6 +3,8 @@ import { useAsyncFn } from 'react-use';
 import { type Address } from 'viem';
 import { getChainId, switchChain, writeContract } from 'wagmi/actions';
 
+import { useCurrentClaimProfile } from '@/components/RedPacket/hooks/useCurrentClaimProfile.js';
+import { useSignedMessage } from '@/components/RedPacket/hooks/useSignedMessage.js';
 import { config } from '@/configs/wagmiClient.js';
 import type { SocialSource } from '@/constants/enum.js';
 import { resolveRedPacketPlatformType } from '@/helpers/resolveRedPacketPlatformType.js';
@@ -11,8 +13,6 @@ import { waitForEthereumTransaction } from '@/helpers/waitForEthereumTransaction
 import { useChainContext } from '@/hooks/useChainContext.js';
 import { HappyRedPacketV4ABI } from '@/mask/constants.js';
 import { EVMChainResolver } from '@/mask/index.js';
-import { useCurrentClaimProfile } from '@/components/RedPacket/hooks/useCurrentClaimProfile.js';
-import { useSignedMessage } from '@/components/RedPacket/hooks/useSignedMessage.js';
 import { FireflyRedPacket } from '@/providers/red-packet/index.js';
 import type { RedPacketJSONPayload } from '@/providers/red-packet/types.js';
 

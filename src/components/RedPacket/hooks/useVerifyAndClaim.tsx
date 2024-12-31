@@ -8,6 +8,9 @@ import { useAccount } from 'wagmi';
 import { readContract } from 'wagmi/actions';
 
 import CircleSuccessIcon from '@/assets/circle-success.svg';
+import { useClaimCallback } from '@/components/RedPacket/hooks/useClaimCallback.js';
+import { useClaimStrategyStatus } from '@/components/RedPacket/hooks/useClaimStrategyStatus.js';
+import { useCurrentClaimProfile } from '@/components/RedPacket/hooks/useCurrentClaimProfile.js';
 import { queryClient } from '@/configs/queryClient.js';
 import { config } from '@/configs/wagmiClient.js';
 import type { SocialSource } from '@/constants/enum.js';
@@ -16,9 +19,6 @@ import { enqueueErrorMessage, enqueueSuccessMessage } from '@/helpers/enqueueMes
 import { formatBalance } from '@/helpers/formatBalance.js';
 import { getPostUrl } from '@/helpers/getPostUrl.js';
 import { HappyRedPacketV4ABI } from '@/mask/constants.js';
-import { useClaimCallback } from '@/components/RedPacket/hooks/useClaimCallback.js';
-import { useClaimStrategyStatus } from '@/components/RedPacket/hooks/useClaimStrategyStatus.js';
-import { useCurrentClaimProfile } from '@/components/RedPacket/hooks/useCurrentClaimProfile.js';
 import { ComposeModalRef, ConfirmModalRef } from '@/modals/controls.js';
 import { FireflyRedPacket } from '@/providers/red-packet/index.js';
 import type { RedPacketJSONPayload } from '@/providers/red-packet/types.js';

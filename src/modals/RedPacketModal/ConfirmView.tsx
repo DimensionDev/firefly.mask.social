@@ -14,19 +14,19 @@ import InfoIcon from '@/assets/info.svg';
 import LoadingIcon from '@/assets/loading.svg';
 import QuestionIcon from '@/assets/question.svg';
 import { ActionButton } from '@/components/ActionButton.js';
+import { useCreateFTRedPacketCallback } from '@/components/RedPacket/hooks/useCreateFTRedPacketCallback.js';
 import { RedPacketEnvelope } from '@/components/RedPacket/RedPacketEnvelope.js';
 import { Tab, Tabs } from '@/components/Tabs/index.js';
 import { Tooltip } from '@/components/Tooltip.js';
 import { ALLOWED_COVER_MIMES, EMPTY_LIST } from '@/constants/index.js';
+import { DEFAULT_THEME_ID } from '@/constants/rp.js';
 import { classNames } from '@/helpers/classNames.js';
 import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
 import { formatAddress } from '@/helpers/formatAddress.js';
 import { useChainContext } from '@/hooks/useChainContext.js';
-import { useCreateFTRedPacketCallback } from '@/components/RedPacket/hooks/useCreateFTRedPacketCallback.js';
 import { useFungibleTokenPrice } from '@/hooks/useFungibleTokenPrice.js';
 import { useProfileStoreAll } from '@/hooks/useProfileStore.js';
 import { useSelectFiles } from '@/hooks/useSelectFiles.js';
-import { DEFAULT_THEME_ID } from '@/constants/rp.js';
 import { ImageEditorRef } from '@/modals/controls.js';
 import {
     RedPacketContext,

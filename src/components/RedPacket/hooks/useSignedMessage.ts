@@ -1,8 +1,8 @@
 import { signMessage } from '@masknet/web3-shared-evm';
 import { useQuery } from '@tanstack/react-query';
 
-import { type SocialSource } from '@/constants/enum.js';
 import { useCurrentClaimProfile } from '@/components/RedPacket/hooks/useCurrentClaimProfile.js';
+import { type SocialSource } from '@/constants/enum.js';
 import { FireflyRedPacket } from '@/providers/red-packet/index.js';
 import type { RedPacketJSONPayload } from '@/providers/red-packet/types.js';
 
