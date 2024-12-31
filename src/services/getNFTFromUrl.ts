@@ -27,7 +27,7 @@ const rules: Array<{
     },
     // https://collectors.poap.xyz/token/6329208
     {
-        hosts: ['collectors.poap.xyz'],
+        hosts: ['collectors.poap.xyz', 'app.poap.xyz'],
         pathname: /^\/token\/(\d+)$/,
         network: NetworkType.Ethereum,
         chainId: EVMChainId.Mainnet,

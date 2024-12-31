@@ -101,7 +101,7 @@ export namespace SimpleHash {
         recipients: Recipient[];
     }
 
-    interface Attribute {
+    export interface Attribute {
         trait_type: string;
         value: string;
         display_type?: string;
