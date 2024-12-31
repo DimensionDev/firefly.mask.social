@@ -4,7 +4,7 @@ import { estimateFeesPerGas, estimateGas } from 'wagmi/actions';
 
 import { config } from '@/configs/wagmiClient.js';
 import { multipliedBy, ZERO } from '@/helpers/number.js';
-import { EVMChainResolver } from '@/mask/bindings/index.js';
+import { EVMChainResolver } from '@/mask/index.js';
 import { isNativeToken } from '@/providers/ethereum/isNativeToken.js';
 import { EthereumNetwork } from '@/providers/ethereum/Network.js';
 import type { TransactionOptions } from '@/providers/types/Transfer.js';

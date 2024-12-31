@@ -8,7 +8,7 @@ import { chains } from '@/configs/wagmiClient.js';
 import { classNames } from '@/helpers/classNames.js';
 import { formatPrice, renderShrankPrice } from '@/helpers/formatPrice.js';
 import { isZero, leftShift, multipliedBy, plus } from '@/helpers/number.js';
-import { EVMChainResolver } from '@/mask/bindings/index.js';
+import { EVMChainResolver } from '@/mask/index.js';
 import { CoinGecko } from '@/providers/coingecko/index.js';
 import type { MintMetadata } from '@/providers/types/Firefly.js';
 

@@ -1,8 +1,8 @@
 import { isTypedMessageText, makeTypedMessageText } from '@masknet/typed-message';
 import { editTypedMessageMeta } from '@masknet/typed-message-react';
 
-import { RedPacketMetaKey } from '@/mask/plugins/red-packet/constants.js';
-import { hasRpPayload } from '@/mask/plugins/red-packet/helpers/rpPayload.js';
+import { RedPacketMetaKey } from '@/constants/rp.js';
+import { hasRpPayload } from '@/helpers/rpPayload.js';
 
 export function getTypedMessageText(metas?: Record<string, unknown>) {
     const message = metas

@@ -5,7 +5,7 @@ import { readContract } from 'wagmi/actions';
 
 import { config } from '@/configs/wagmiClient.js';
 import { useChainContext } from '@/hooks/useChainContext.js';
-import { HappyRedPacketV4ABI } from '@/mask/bindings/constants.js';
+import { HappyRedPacketV4ABI } from '@/mask/constants.js';
 
 export function useAvailability(
     id: string,

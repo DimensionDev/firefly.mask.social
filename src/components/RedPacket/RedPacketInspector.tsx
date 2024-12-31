@@ -6,7 +6,7 @@ import { useAsyncRetry } from 'react-use';
 
 import { RedPacketCard } from '@/components/RedPacket/RedPacketCard.js';
 import type { EncryptedPayload } from '@/helpers/getEncryptedPayload.js';
-import { RedPacketMetadataReader } from '@/mask/plugins/red-packet/helpers/renderWithRedPacketMetadata.js';
+import { RedPacketMetadataReader } from '@/helpers/renderWithRedPacketMetadata.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 import { decryptPayload } from '@/services/decryptPayload.js';
 

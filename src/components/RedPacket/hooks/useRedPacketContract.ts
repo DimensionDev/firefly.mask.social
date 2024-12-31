@@ -9,8 +9,8 @@ import {
     HappyRedPacketV3ABI,
     type HappyRedPacketV4,
     HappyRedPacketV4ABI,
-} from '@/mask/bindings/constants.js';
-import { useContract } from '@/mask/bindings/hooks.js';
+} from '@/mask/constants.js';
+import { useContract } from '@/mask/hooks.js';
 
 export function useRedPacketContract(chainId: ChainId, version: number) {
     const {

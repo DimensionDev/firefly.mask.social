@@ -2,7 +2,7 @@ import { useMemo, useState } from 'react';
 import { useEstimateFeesPerGas } from 'wagmi';
 
 import { multipliedBy, ZERO } from '@/helpers/number.js';
-import { EVMChainResolver } from '@/mask/bindings/index.js';
+import { EVMChainResolver } from '@/mask/index.js';
 import { MintButton } from '@/modals/FreeMintModal/MintButton.js';
 import { MintParamsPanel } from '@/modals/FreeMintModal/MintParamsPanel.js';
 import type { MintMetadata, SponsorMintOptions } from '@/providers/types/Firefly.js';
