@@ -1282,6 +1282,7 @@ export type SponsorMintOptions = {
     vectorId?: number;
     color?: string;
     contractExt?: unknown;
+    collectionId?: string;
 };
 
 export type MintMetadata = {

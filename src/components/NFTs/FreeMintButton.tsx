@@ -21,6 +21,7 @@ interface FreeMintButtonProps extends Omit<ClickableButtonProps, 'ref'> {
     tokenId: string;
     chainId: number;
     externalUrl?: string;
+    collectionId?: string;
 }
 
 export function getMintButtonText(connected: boolean, isSupportedChain: boolean, mintStatus?: MintStatus) {
@@ -53,6 +54,7 @@ export function FreeMintButton({
     contractAddress,
     tokenId,
     chainId,
+    collectionId,
     externalUrl,
     className,
     ...rest
@@ -86,12 +88,13 @@ export function FreeMintButton({
         FreeMintModalRef.open({
             mintTarget: {
                 ...mintTarget,
+                collectionId,
                 walletAddress: account.address as Address,
             },
             mintParams: data,
             onSuccess: refetch,
         });
-    }, [account.address, connected, mintTarget, data, currentChainId, refetch, switchChainAsync]);
+    }, [account.address, connected, mintTarget, data, currentChainId, collectionId, refetch, switchChainAsync]);
 
     if (data?.mintStatus === MintStatus.NotSupported) {
         return externalUrl ? (

@@ -125,6 +125,7 @@ export function NFTInfo(props: NFTInfoProps) {
             chainId={chainId}
             tokenId={tokenId}
             externalUrl={externalUrl}
+            collectionId={collection?.id}
         />
     );
 
