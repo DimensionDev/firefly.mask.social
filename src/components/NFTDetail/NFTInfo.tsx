@@ -4,7 +4,6 @@ import { t, Trans } from '@lingui/macro';
 import type { NonFungibleTokenTrait } from '@masknet/web3-shared-base';
 import { ChainId } from '@masknet/web3-shared-evm';
 import { useQuery } from '@tanstack/react-query';
-import dayjs from 'dayjs';
 import { type ReactNode, useMemo } from 'react';
 import type { Hex } from 'viem';
 import { useEnsName } from 'wagmi';
@@ -26,12 +25,12 @@ import { Link } from '@/esm/Link.js';
 import { classNames } from '@/helpers/classNames.js';
 import { formatAddress } from '@/helpers/formatAddress.js';
 import { nFormatter } from '@/helpers/formatCommentCounts.js';
-import { parseUrl } from '@/helpers/parseUrl.js';
 import { resolveNFTId } from '@/helpers/resolveNFTIdFromAsset.js';
 import { resolveNftUrl, resolveNftUrlByCollection } from '@/helpers/resolveNftUrl.js';
 import { resolveProfileUrl } from '@/helpers/resolveProfileUrl.js';
 import { resolveSimpleHashChain } from '@/helpers/resolveSimpleHashChain.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
+import { usePoapTraits } from '@/hooks/usePoapTraits.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 import type { SimpleHash } from '@/providers/simplehash/type.js';
 
@@ -104,20 +103,7 @@ export function NFTInfo(props: NFTInfoProps) {
               : '';
     }, [collection?.id, contractAddress, chainId]);
 
-    const poapTraits = useMemo(() => {
-        const startDate = findTraitValue(traits, 'startDate');
-        const endDate = findTraitValue(traits, 'endDate');
-        const eventURL = findTraitValue(traits, 'eventURL');
-        const location = findTraitValue(traits, 'location');
-        const s = startDate ? dayjs(startDate).format('MMM D, YYYY') : '';
-        const e = endDate ? dayjs(endDate).format('MMM D, YYYY') : '';
-
-        return {
-            date: s && e ? `${s} - ${e}` : s || e,
-            eventURL: parseUrl(eventURL || '') || undefined,
-            location,
-        };
-    }, [traits]);
+    const poapTraits = usePoapTraits(traits);
 
     const action = isPoap ? null : (
         <FreeMintButton
@@ -214,7 +200,7 @@ export function NFTInfo(props: NFTInfoProps) {
                     </div>
                     {isPoap ? (
                         <ul className="w-full space-y-1 text-medium text-lightSecond">
-                            <PoapTrait value={poapTraits.location} icon={LocationIcon} />
+                            <PoapTrait value={poapTraits.position} icon={LocationIcon} />
                             <PoapTrait value={poapTraits.date} icon={CalendarIcon} />
                             <PoapTrait url={poapTraits.eventURL} icon={WebsiteIcon} />
                         </ul>

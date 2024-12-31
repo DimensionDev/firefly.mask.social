@@ -1,13 +1,14 @@
 import { t } from '@lingui/macro';
 import { isValidChainId as isValidSolanaChainId } from '@masknet/web3-shared-solana';
-import dayjs from 'dayjs';
 import { compact, first } from 'lodash-es';
-import { memo, type ReactNode } from 'react';
+import React, { memo, type ReactNode } from 'react';
 
 import CalendarIcon from '@/assets/calendar-small.svg';
+import LocationIcon from '@/assets/location.svg';
 import PoapIcon from '@/assets/poap.svg';
 import { Image } from '@/components/Image.js';
 import { ChainIcon } from '@/components/NFTDetail/ChainIcon.js';
+import { PoapTrait } from '@/components/NFTDetail/PoapTrait.js';
 import { BookmarkInIcon } from '@/components/NFTs/BookmarkButton.js';
 import { POAP_CONTRACT_ADDRESS } from '@/constants/index.js';
 import { Link } from '@/esm/Link.js';
@@ -16,6 +17,7 @@ import { resolveNFTImageUrl } from '@/helpers/resolveNFTImageUrl.js';
 import { resolveNftUrl, resolveNftUrlByCollection } from '@/helpers/resolveNftUrl.js';
 import { resolveSimpleHashChainId } from '@/helpers/resolveSimpleHashChain.js';
 import { stopPropagation } from '@/helpers/stopEvent.js';
+import { usePoapTraits } from '@/hooks/usePoapTraits.js';
 import type { SimpleHash } from '@/providers/simplehash/type.js';
 
 interface NFTPreviewProps {
@@ -36,10 +38,6 @@ interface BasePreviewContentProps {
         nftId: string;
         ownerAddress?: string;
     };
-}
-
-function formatDate(date: string) {
-    return dayjs(date).format('MMM D, YYYY');
 }
 
 function BasePreviewContent(props: BasePreviewContentProps) {
@@ -73,14 +71,14 @@ function BasePreviewContent(props: BasePreviewContentProps) {
                     </span>
                 ) : null}
                 {props.tags.length ? (
-                    <div className="absolute inset-x-3.5 bottom-2.5">
+                    <div className="absolute inset-x-3.5 bottom-2.5 space-y-1">
                         {props.tags.map((tag, index) => (
-                            <span
-                                key={index}
-                                className="inline-block rounded-md bg-black/25 p-1.5 text-xs font-bold text-white backdrop-blur-[3px]"
-                            >
-                                {tag}
-                            </span>
+                            <React.Fragment key={index}>
+                                <span className="inline-block rounded-md bg-black/25 p-1.5 text-xs font-bold text-white backdrop-blur-[3px]">
+                                    {tag}
+                                </span>
+                                <br />
+                            </React.Fragment>
                         ))}
                     </div>
                 ) : null}
@@ -117,12 +115,7 @@ export const NFTPreviewer = memo(function NFTPreview({ nft }: NFTPreviewProps) {
     const isSolanaChain = isValidSolanaChainId(chainId);
 
     const isPoap = isSameEthereumAddress(nft.contract_address, POAP_CONTRACT_ADDRESS);
-    const startDate = isPoap
-        ? nft.extra_metadata?.attributes?.find((attr) => attr.trait_type === 'startDate')?.value
-        : undefined;
-    const endDate = isPoap
-        ? nft.extra_metadata?.attributes?.find((attr) => attr.trait_type === 'endDate')?.value
-        : undefined;
+    const { date, position } = usePoapTraits(nft.extra_metadata.attributes);
 
     return (
         <BasePreviewContent
@@ -149,12 +142,8 @@ export const NFTPreviewer = memo(function NFTPreview({ nft }: NFTPreviewProps) {
             tags={
                 isPoap
                     ? compact([
-                          startDate && endDate ? (
-                              <>
-                                  <CalendarIcon className="mr-1 inline-block align-sub" width={15} height={15} />
-                                  {formatDate(startDate)} - {formatDate(endDate)}
-                              </>
-                          ) : null,
+                          <PoapTrait noWrap icon={LocationIcon} value={position} key="position" />,
+                          <PoapTrait noWrap icon={CalendarIcon} value={date} key="date" />,
                       ])
                     : [nft.name]
             }
