@@ -142,6 +142,10 @@ export enum EventId {
     EVENT_CHANGE_WALLET_SUCCESS = 'event_change_wallet_success',
     EVENT_CLAIM_BASIC_SUCCESS = 'event_claim_basic_success',
     EVENT_CLAIM_PREMIUM_SUCCESS = 'event_claim_premium_success',
+
+    // mint
+    MINT_NFT_SUCCESS = 'mint_NFT_success',
+    COLLECT_ARTICLE_SUCCESS = 'collect_article_success',
 }
 
 export enum ExceptionId {}
@@ -757,6 +761,24 @@ export interface Events extends Record<EventId, Event> {
             firefly_account_id: string;
             wallet_address: string;
             activity: string;
+        };
+    };
+    [EventId.MINT_NFT_SUCCESS]: {
+        type: EventType.Interact;
+        parameters: {
+            firefly_account_id: string;
+            wallet_address: string;
+            NFT_id: string;
+            free_mint: boolean;
+        };
+    };
+    [EventId.COLLECT_ARTICLE_SUCCESS]: {
+        type: EventType.Interact;
+        parameters: {
+            firefly_account_id: string;
+            wallet_address: string;
+            Article_id: string;
+            free_mint: boolean;
         };
     };
 }

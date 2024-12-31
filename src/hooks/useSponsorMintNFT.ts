@@ -8,6 +8,7 @@ import { config } from '@/configs/wagmiClient.js';
 import { MintStatus } from '@/constants/enum.js';
 import { enqueueMessageFromError, enqueueSuccessMessage, enqueueWarningMessage } from '@/helpers/enqueueMessage.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
+import { captureMintNFTEvent } from '@/providers/telemetry/captureMintEvent.js';
 import type { SponsorMintOptions } from '@/providers/types/Firefly.js';
 
 export function useSponsorMintNFT(mintTarget: SponsorMintOptions, mintCount: number, onSuccess?: () => void) {
@@ -33,11 +34,13 @@ export function useSponsorMintNFT(mintTarget: SponsorMintOptions, mintCount: num
                 return;
             }
 
+            const eventOptions = {
+                wallet_address: options.walletAddress.toLowerCase(),
+                NFT_id: mintTarget.collectionId || '',
+            };
             if (latestParams.gasStatus) {
-                const result = await FireflyEndpointProvider.mintNFTBySponsor(options);
-                if (!result.status) {
-                    throw new Error(t`Mint failed`);
-                }
+                await FireflyEndpointProvider.mintNFTBySponsor(options);
+                captureMintNFTEvent({ ...eventOptions, free_mint: true });
             } else {
                 const hash = await sendTransaction(config, {
                     data: latestParams.txData.inputData as Hex,
@@ -45,6 +48,7 @@ export function useSponsorMintNFT(mintTarget: SponsorMintOptions, mintCount: num
                     value: BigInt(latestParams.txData.value),
                 });
                 await waitForTransactionReceipt(config, { hash });
+                captureMintNFTEvent({ ...eventOptions, free_mint: false });
             }
 
             enqueueSuccessMessage(t`NFT minted successfully!`);
@@ -58,6 +62,7 @@ export function useSponsorMintNFT(mintTarget: SponsorMintOptions, mintCount: num
         mintTarget.contractAddress,
         mintTarget.tokenId,
         mintTarget.chainId,
+        mintTarget.collectionId,
         mintCount,
         onSuccess,
     ]);

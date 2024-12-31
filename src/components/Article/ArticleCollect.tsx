@@ -21,6 +21,7 @@ import { resolveExplorerLink } from '@/helpers/resolveExplorerLink.js';
 import { useArticleCollectable, useArticleCollectStatus } from '@/hooks/useArticleCollectable.js';
 import { MintParamsPanel } from '@/modals/FreeMintModal/MintParamsPanel.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
+import { captureCollectArticleEvent } from '@/providers/telemetry/captureMintEvent.js';
 import { type Article, ArticlePlatform } from '@/providers/types/Article.js';
 
 export interface ArticleCollectProps {
@@ -55,6 +56,10 @@ export function ArticleCollect({ article }: ArticleCollectProps) {
         if (!provider) return;
         try {
             let hash = '';
+            const eventOptions = {
+                wallet_address: account.address?.toLowerCase() || '',
+                Article_id: article.id,
+            };
             if (canCollect && collectParams?.gasStatus) {
                 const result = await FireflyEndpointProvider.freeCollectArticle(
                     article.id,
@@ -62,10 +67,12 @@ export function ArticleCollect({ article }: ArticleCollectProps) {
                     platform,
                 );
                 hash = result.hash;
+                captureCollectArticleEvent({ ...eventOptions, free_mint: true });
             } else {
                 const confirmation = await provider.collect(data);
                 if (!confirmation) return;
                 hash = confirmation.transactionHash;
+                captureCollectArticleEvent({ ...eventOptions, free_mint: false });
             }
             setModalSessionCollected(true);
             const url = resolveExplorerLink(data.chainId, hash, 'tx');
