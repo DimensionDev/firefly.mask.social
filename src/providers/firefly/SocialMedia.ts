@@ -26,6 +26,7 @@ import {
 import { resolveFireflyResponseData } from '@/helpers/resolveFireflyResponseData.js';
 import { resolveSearchKeyword } from '@/helpers/resolveSearchKeyword.js';
 import { resolveSourceInUrl } from '@/helpers/resolveSourceInUrl.js';
+import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { farcasterSessionHolder } from '@/providers/farcaster/SessionHolder.js';
 import { fireflySessionHolder } from '@/providers/firefly/SessionHolder.js';
 import { NeynarSocialMediaProvider } from '@/providers/neynar/SocialMedia.js';
@@ -61,6 +62,7 @@ import {
     type SearchProfileResponse,
     type SetNotificationPushSwitchParams,
     type ThreadResponse,
+    type User,
     type UserResponse,
     type UsersResponse,
 } from '@/providers/types/Firefly.js';
@@ -78,6 +80,22 @@ import {
 } from '@/providers/types/SocialMedia.js';
 import { getProfilesByIds } from '@/services/getProfilesByIds.js';
 import { settings } from '@/settings/index.js';
+
+async function ensureFollowersIsNotEmpty(users: User[]) {
+    const ids = users.map((x) => x.fid);
+    const profiles = ids.length
+        ? await runInSafeAsync(() => NeynarSocialMediaProvider.getProfilesByIds(ids))
+        : EMPTY_LIST;
+
+    return users.map((user) => {
+        const profile = profiles?.find((p) => p.profileId === user.fid.toString());
+        return formatFarcasterProfileFromFirefly({
+            ...user,
+            followers: profile?.followerCount ?? user.followers,
+            following: profile?.followingCount ?? user.following,
+        });
+    });
+}
 
 @SetQueryDataForBookmarkNFT()
 export class FireflySocialMedia implements Provider {
@@ -401,11 +419,9 @@ export class FireflySocialMedia implements Provider {
                 method: 'GET',
             });
             const { list, next_cursor } = resolveFireflyResponseData(response);
-            const ids = list.map((x) => x.fid);
-            const profiles = ids.length ? await NeynarSocialMediaProvider.getProfilesByIds(ids) : EMPTY_LIST;
 
             return createPageable(
-                profiles,
+                await ensureFollowersIsNotEmpty(list),
                 createIndicator(indicator),
                 next_cursor ? createNextIndicator(indicator, next_cursor) : undefined,
             );
@@ -424,11 +440,9 @@ export class FireflySocialMedia implements Provider {
                 method: 'GET',
             });
             const { list, next_cursor } = resolveFireflyResponseData(response);
-            const ids = list.map((x) => x.fid);
-            const profiles = ids.length ? await NeynarSocialMediaProvider.getProfilesByIds(ids) : EMPTY_LIST;
 
             return createPageable(
-                profiles,
+                await ensureFollowersIsNotEmpty(list),
                 createIndicator(indicator),
                 next_cursor ? createNextIndicator(indicator, next_cursor) : undefined,
             );
@@ -446,10 +460,9 @@ export class FireflySocialMedia implements Provider {
                 method: 'GET',
             });
             const { list, next_cursor } = resolveFireflyResponseData(response);
-            const data = list.map(formatFarcasterProfileFromFirefly);
 
             return createPageable(
-                data,
+                await ensureFollowersIsNotEmpty(list),
                 createIndicator(indicator),
                 next_cursor ? createNextIndicator(indicator, next_cursor) : undefined,
             );
@@ -684,9 +697,8 @@ export class FireflySocialMedia implements Provider {
             });
             const { items, nextCursor } = resolveFireflyResponseData(response);
 
-            const data = items.map(formatFarcasterProfileFromFirefly);
             return createPageable(
-                data,
+                await ensureFollowersIsNotEmpty(items),
                 createIndicator(indicator),
                 nextCursor ? createNextIndicator(indicator, nextCursor) : undefined,
             );
@@ -706,9 +718,8 @@ export class FireflySocialMedia implements Provider {
             });
             const { items, nextCursor } = resolveFireflyResponseData(response);
 
-            const data = items.map(formatFarcasterProfileFromFirefly);
             return createPageable(
-                data,
+                await ensureFollowersIsNotEmpty(items),
                 createIndicator(indicator),
                 nextCursor ? createNextIndicator(indicator, nextCursor) : undefined,
             );
