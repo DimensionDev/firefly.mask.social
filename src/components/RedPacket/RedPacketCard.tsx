@@ -15,7 +15,7 @@ import { Loading } from '@/components/Loading.js';
 import { AmountProgressText } from '@/components/RedPacket/AmountProgressText.js';
 import { useAvailabilityComputed } from '@/components/RedPacket/hooks/useAvailabilityComputed.js';
 import { useRedPacketCover } from '@/components/RedPacket/hooks/useRedPacketCover.js';
-import { useVerifyAndClaim } from '@/components/RedPacket/hooks/useVerifyAndClaim.jsx';
+import { useVerifyAndClaim } from '@/components/RedPacket/hooks/useVerifyAndClaim.js';
 import { RedPacketCardFooter } from '@/components/RedPacket/RedPacketCardFooter.js';
 import { RequirementsModal } from '@/components/RedPacket/RequirementsModal.js';
 import { Timer } from '@/components/RedPacket/Timer.js';
