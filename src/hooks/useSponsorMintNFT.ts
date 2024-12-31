@@ -19,6 +19,7 @@ export function useSponsorMintNFT(mintTarget: SponsorMintOptions, mintCount: num
                 contractAddress: mintTarget.contractAddress,
                 tokenId: mintTarget.tokenId,
                 chainId: mintTarget.chainId,
+                contractExt: mintTarget.contractExt,
                 buyCount: mintCount,
             };
             const latestParams = await FireflyEndpointProvider.getSponsorMintStatus(options);
@@ -63,6 +64,7 @@ export function useSponsorMintNFT(mintTarget: SponsorMintOptions, mintCount: num
         mintTarget.tokenId,
         mintTarget.chainId,
         mintTarget.collectionId,
+        mintTarget.contractExt,
         mintCount,
         onSuccess,
     ]);
