@@ -1,13 +1,13 @@
 'use client';
 
+import { Trans } from '@lingui/macro';
 import { useSuspenseQuery } from '@tanstack/react-query';
 
+import { Image } from '@/components/Image.js';
 import { NoResultsFallback } from '@/components/NoResultsFallback.js';
 import { ProjectItem } from '@/components/ProjectItem.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 import { useLocale } from '@/store/useLocale.js';
-import { Trans } from '@lingui/macro';
-import { Image } from '@/components/Image.js';
 
 export function ProjectTrendingList() {
     const locale = useLocale();
