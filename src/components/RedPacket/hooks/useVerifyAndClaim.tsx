@@ -15,7 +15,7 @@ import { SITE_URL } from '@/constants/index.js';
 import { enqueueErrorMessage, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { formatBalance } from '@/helpers/formatBalance.js';
 import { getPostUrl } from '@/helpers/getPostUrl.js';
-import { HappyRedPacketV4ABI } from '@/mask/bindings/constants.js';
+import { HappyRedPacketV4ABI } from '@/mask/constants.js';
 import { useClaimCallback } from '@/components/RedPacket/hooks/useClaimCallback.js';
 import { useClaimStrategyStatus } from '@/components/RedPacket/hooks/useClaimStrategyStatus.js';
 import { useCurrentClaimProfile } from '@/components/RedPacket/hooks/useCurrentClaimProfile.js';

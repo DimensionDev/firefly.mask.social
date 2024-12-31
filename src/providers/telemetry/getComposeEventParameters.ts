@@ -1,7 +1,7 @@
 import { compact } from 'lodash-es';
 
 import { Source } from '@/constants/enum.js';
-import { getRpMetadata } from '@/mask/plugins/red-packet/helpers/rpPayload.js';
+import { getRpMetadata } from '@/helpers/rpPayload.js';
 import type { ComposeEventParameters } from '@/providers/types/Telemetry.js';
 import { useComposeScheduleStateStore } from '@/store/useComposeScheduleStore.js';
 import type { CompositePost } from '@/store/useComposeStore.js';

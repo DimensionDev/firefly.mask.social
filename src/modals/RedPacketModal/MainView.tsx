@@ -27,13 +27,13 @@ import { useAvailableBalance } from '@/hooks/useAvailableBalance.js';
 import { useChainContext } from '@/hooks/useChainContext.js';
 import { useERC20TokenAllowance } from '@/hooks/useERC20Allowance.js';
 import { useNativeTokenPrice } from '@/hooks/useNativeTokenPrice.js';
-import { EVMChainResolver } from '@/mask/bindings/index.js';
+import { EVMChainResolver } from '@/mask/index.js';
 import {
     RED_PACKET_CONTRACT_VERSION,
     RED_PACKET_DURATION,
     RED_PACKET_MAX_SHARES,
     RED_PACKET_MIN_SHARES,
-} from '@/mask/plugins/red-packet/constants.js';
+} from '@/constants/rp.js';
 import { useDefaultCreateGas } from '@/components/RedPacket/hooks/useDefaultCreateGas.js';
 import { RedPacketContext, redPacketRandomTabs } from '@/modals/RedPacketModal/RedPacketContext.js';
 

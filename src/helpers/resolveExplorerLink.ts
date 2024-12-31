@@ -1,6 +1,6 @@
 import urlcat from 'urlcat';
 
-import { EVMExplorerResolver } from '@/mask/bindings/index.js';
+import { EVMExplorerResolver } from '@/mask/index.js';
 
 const EXPLORER_CONFIG: Record<number, string> = {
     [84532]: 'https://sepolia.basescan.org',

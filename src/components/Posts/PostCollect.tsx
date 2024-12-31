@@ -34,7 +34,7 @@ import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import { useMirror } from '@/hooks/useMirror.js';
 import { useSuperFollowModule } from '@/hooks/useSuperFollow.js';
 import { useToggleFollow } from '@/hooks/useToggleFollow.js';
-import { EVMExplorerResolver } from '@/mask/bindings/index.js';
+import { EVMExplorerResolver } from '@/mask/index.js';
 import { DraggablePopoverRef, LoginModalRef, SuperFollowModalRef } from '@/modals/controls.js';
 import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
 import type { Post } from '@/providers/types/SocialMedia.js';

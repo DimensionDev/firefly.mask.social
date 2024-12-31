@@ -2,9 +2,9 @@ import { createRenderWithMetadata, createTypedMessageMetadataReader } from '@mas
 import { ChainId } from '@masknet/web3-shared-evm';
 import { Ok, type Result } from 'ts-results-es';
 
-import { EVMChainResolver } from '@/mask/bindings/index.js';
-import { RedPacketMetaKey } from '@/mask/plugins/red-packet/constants.js';
-import Schema from '@/mask/plugins/red-packet/schema.json' with { type: 'json' };
+import { EVMChainResolver } from '@/mask/index.js';
+import { RedPacketMetaKey } from '@/constants/rp.js';
+import Schema from '@/schemas/rp.json' with { type: 'json' };
 import type { RedPacketJSONPayload } from '@/providers/red-packet/types.js';
 
 const reader = createTypedMessageMetadataReader<RedPacketJSONPayload>(RedPacketMetaKey, Schema);

@@ -15,8 +15,8 @@ import type { AsyncFnReturn } from 'react-use/lib/useAsyncFn.js';
 import { type Hex, keccak256 } from 'viem';
 
 import { useChainContext } from '@/hooks/useChainContext.js';
-import type { HappyRedPacketV4 } from '@/mask/bindings/constants.js';
-import { EVMWeb3 } from '@/mask/bindings/index.js';
+import type { HappyRedPacketV4 } from '@/mask/constants.js';
+import { EVMWeb3 } from '@/mask/index.js';
 import { useRedPacketContract } from '@/components/RedPacket/hooks/useRedPacketContract.js';
 
 export interface RedPacketSettings {

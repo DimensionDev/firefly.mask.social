@@ -1,7 +1,7 @@
 import { ChainId } from '@masknet/web3-shared-evm';
 import { useAccount, useChainId } from 'wagmi';
 
-import { EVMChainResolver } from '@/mask/bindings/index.js';
+import { EVMChainResolver } from '@/mask/index.js';
 
 export interface ChainContextOverride {
     chainId?: number;

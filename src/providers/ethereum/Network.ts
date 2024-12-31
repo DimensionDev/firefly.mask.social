@@ -4,7 +4,7 @@ import { getAccount, getChainId } from 'wagmi/actions';
 
 import { config } from '@/configs/wagmiClient.js';
 import { NotImplementedError } from '@/constants/error.js';
-import { EVMExplorerResolver } from '@/mask/bindings/index.js';
+import { EVMExplorerResolver } from '@/mask/index.js';
 import { BlockScanExplorerResolver } from '@/providers/ethereum/ExplorerResolver.js';
 import type { NetworkProvider } from '@/providers/types/Network.js';
 

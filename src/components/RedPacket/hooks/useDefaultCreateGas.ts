@@ -9,7 +9,7 @@ import { createPublicViemClient } from '@/helpers/createPublicViemClient.js';
 import { ZERO } from '@/helpers/number.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { type ChainContextOverride, useChainContext } from '@/hooks/useChainContext.js';
-import { HappyRedPacketV4ABI } from '@/mask/bindings/constants.js';
+import { HappyRedPacketV4ABI } from '@/mask/constants.js';
 import {
     checkParams,
     type MethodParameters,

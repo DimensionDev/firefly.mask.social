@@ -6,7 +6,7 @@ import LinkOut from '@/assets/link.svg';
 import { classNames } from '@/helpers/classNames.js';
 import { formatAddress } from '@/helpers/formatAddress.js';
 import { openWindow } from '@/helpers/openWindow.js';
-import { EVMExplorerResolver } from '@/mask/bindings/index.js';
+import { EVMExplorerResolver } from '@/mask/index.js';
 
 interface Props {
     address: string;

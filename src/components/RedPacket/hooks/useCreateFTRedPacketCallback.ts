@@ -14,16 +14,16 @@ import { enqueueMessageFromError, enqueueSuccessMessage } from '@/helpers/enqueu
 import { rightShift } from '@/helpers/number.js';
 import { waitForEthereumTransaction } from '@/helpers/waitForEthereumTransaction.js';
 import { useChainContext } from '@/hooks/useChainContext.js';
-import { HappyRedPacketV4ABI } from '@/mask/bindings/constants.js';
-import { EVMChainResolver } from '@/mask/bindings/index.js';
+import { HappyRedPacketV4ABI } from '@/mask/constants.js';
+import { EVMChainResolver } from '@/mask/index.js';
 import {
     DEFAULT_THEME_ID,
     RED_PACKET_CONTRACT_VERSION,
     RED_PACKET_DURATION,
     RedPacketMetaKey,
-} from '@/mask/plugins/red-packet/constants.js';
-import { getTypedMessageRedPacket } from '@/mask/plugins/red-packet/helpers/getTypedMessage.js';
-import { getRpMetadata } from '@/mask/plugins/red-packet/helpers/rpPayload.js';
+} from '@/constants/rp.js';
+import { getTypedMessageRedPacket } from '@/helpers/getTypedMessage.js';
+import { getRpMetadata } from '@/helpers/rpPayload.js';
 import {
     checkParams,
     type MethodParameters,

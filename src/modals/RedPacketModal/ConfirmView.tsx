@@ -22,11 +22,11 @@ import { classNames } from '@/helpers/classNames.js';
 import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';
 import { formatAddress } from '@/helpers/formatAddress.js';
 import { useChainContext } from '@/hooks/useChainContext.js';
-import { useCreateFTRedPacketCallback } from '@/hooks/useCreateFTRedPacketCallback.js';
+import { useCreateFTRedPacketCallback } from '@/components/RedPacket/hooks/useCreateFTRedPacketCallback.js';
 import { useFungibleTokenPrice } from '@/hooks/useFungibleTokenPrice.js';
 import { useProfileStoreAll } from '@/hooks/useProfileStore.js';
 import { useSelectFiles } from '@/hooks/useSelectFiles.js';
-import { DEFAULT_THEME_ID } from '@/mask/plugins/red-packet/constants.js';
+import { DEFAULT_THEME_ID } from '@/constants/rp.js';
 import { ImageEditorRef } from '@/modals/controls.js';
 import {
     RedPacketContext,

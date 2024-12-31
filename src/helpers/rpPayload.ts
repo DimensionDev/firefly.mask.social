@@ -1,6 +1,6 @@
 import type { TypedMessage } from '@masknet/typed-message';
 
-import { RedPacketEncryptedKey, RedPacketMetaKey } from '@/mask/plugins/red-packet/constants.js';
+import { RedPacketEncryptedKey, RedPacketMetaKey } from '@/constants/rp.js';
 import type { RedPacketMetadata } from '@/types/rp.js';
 
 export function hasRpPayload(message: TypedMessage | null) {

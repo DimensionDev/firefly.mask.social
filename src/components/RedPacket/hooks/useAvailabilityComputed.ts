@@ -6,7 +6,7 @@ import { useCallback } from 'react';
 import { EMPTY_LIST } from '@/constants/index.js';
 import { isSameEthereumAddress } from '@/helpers/isSameAddress.js';
 import { useChainContext } from '@/hooks/useChainContext.js';
-import { EVMNetworkResolver } from '@/mask/bindings/index.js';
+import { EVMNetworkResolver } from '@/mask/index.js';
 import { useAvailability } from '@/components/RedPacket/hooks/useAvailability.js';
 import { useCheckSponsorableGasFee } from '@/components/RedPacket/hooks/useCheckSponsorableGasFee.js';
 import { useClaimStrategyStatus } from '@/components/RedPacket/hooks/useClaimStrategyStatus.js';
