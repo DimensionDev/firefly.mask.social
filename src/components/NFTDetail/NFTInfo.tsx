@@ -55,10 +55,7 @@ interface NFTInfoProps {
     };
     externalUrl?: string;
     traits: NonFungibleTokenTrait[];
-}
-
-function findTraitValue(traits: NonFungibleTokenTrait[], type: string) {
-    return traits.find((trait) => trait.type === type)?.value;
+    contract?: SimpleHash.NFTContract;
 }
 
 export function NFTInfo(props: NFTInfoProps) {
@@ -76,6 +73,7 @@ export function NFTInfo(props: NFTInfoProps) {
         video,
         externalUrl,
         traits,
+        contract,
     } = props;
     const isMedium = useIsMedium();
     const { data: ensName } = useEnsName({
@@ -112,6 +110,7 @@ export function NFTInfo(props: NFTInfoProps) {
             tokenId={tokenId}
             externalUrl={externalUrl}
             collectionId={collection?.id}
+            contract={contract}
         />
     );
 

@@ -129,5 +129,6 @@ export function formatSimpleHashNFT(nft: SimpleHash.NFT, skipScoreCheck = false)
                 displayType: x.display_type,
             })) || [],
         tokenCount: nft.token_count,
+        __origin__: nft,
     };
 }

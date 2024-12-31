@@ -611,6 +611,7 @@ export type NFTCollectionsResponse = Response<{
 export type NFTAsset = NonFungibleAsset<number, number> & {
     hasBookmarked?: boolean;
     externalUrl?: string;
+    __origin__?: SimpleHash.NFT;
 };
 
 export type TwitterFollowStatusResponse = Response<{
@@ -1281,7 +1282,7 @@ export type SponsorMintOptions = {
     buyCount: number;
     vectorId?: number;
     color?: string;
-    contractExt?: unknown;
+    contractExt?: SimpleHash.NFTContract;
     collectionId?: string;
 };
 

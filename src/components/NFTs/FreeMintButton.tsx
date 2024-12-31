@@ -15,6 +15,7 @@ import { Link } from '@/esm/Link.js';
 import { classNames } from '@/helpers/classNames.js';
 import { useSponsorMintStatus } from '@/hooks/useSponsorMintStatus.js';
 import { ConnectModalRef, FreeMintModalRef } from '@/modals/controls.js';
+import type { SimpleHash } from '@/providers/simplehash/type.js';
 
 interface FreeMintButtonProps extends Omit<ClickableButtonProps, 'ref'> {
     contractAddress: string;
@@ -22,6 +23,7 @@ interface FreeMintButtonProps extends Omit<ClickableButtonProps, 'ref'> {
     chainId: number;
     externalUrl?: string;
     collectionId?: string;
+    contract?: SimpleHash.NFTContract;
 }
 
 export function getMintButtonText(connected: boolean, isSupportedChain: boolean, mintStatus?: MintStatus) {
@@ -56,6 +58,7 @@ export function FreeMintButton({
     chainId,
     collectionId,
     externalUrl,
+    contract,
     className,
     ...rest
 }: FreeMintButtonProps) {
@@ -70,18 +73,19 @@ export function FreeMintButton({
             tokenId,
             chainId,
             buyCount: 1,
+            contractExt: contract,
         }),
-        [account.address, contractAddress, tokenId, chainId],
+        [account.address, contractAddress, tokenId, chainId, contract],
     );
     const { isLoading, isRefetching, data, refetch } = useSponsorMintStatus(mintTarget);
 
     const connected = !!account.address;
     const [{ loading: handlerLoading }, handleClick] = useAsyncFn(async () => {
-        if (!data) return;
         if (!connected) {
             ConnectModalRef.open();
             return;
         }
+        if (!data) return;
         if (currentChainId !== data.chainId) {
             await switchChainAsync({ chainId: data.chainId });
         }
@@ -114,13 +118,14 @@ export function FreeMintButton({
 
     const isSupportedChain = chains.some((chain) => chain.id === data?.chainId);
     const loading = isLoading || isRefetching || handlerLoading;
+    const disabled = connected && (loading || (!!data && data?.mintStatus > 2) || !isSupportedChain);
 
     return (
         <div className={classNames('flex items-center gap-3', className)}>
             <ClickableButton
                 {...rest}
                 className="flex h-8 flex-1 items-center justify-center rounded-full bg-main px-5 text-sm font-bold text-lightBottom dark:text-darkBottom"
-                disabled={loading || (!!data && data?.mintStatus > 2) || !isSupportedChain}
+                disabled={disabled}
                 onClick={handleClick}
             >
                 {loading ? (
