@@ -1,5 +1,5 @@
 import { Trans } from '@lingui/macro';
-import type { HTMLProps } from 'react';
+import { forwardRef, type HTMLProps } from 'react';
 import urlcat from 'urlcat';
 
 import LinkIcon from '@/assets/small-link.svg';
@@ -11,12 +11,16 @@ interface CopyLinkButtonProps extends HTMLProps<HTMLButtonElement> {
     onClick?: () => void;
 }
 
-export function CopyLinkButton({ link, children, onClick }: CopyLinkButtonProps) {
+export const CopyLinkButton = forwardRef<HTMLButtonElement, CopyLinkButtonProps>(function CopyLinkButton(
+    { link, children, onClick },
+    ref,
+) {
     const url = link.startsWith('http') ? link : urlcat(location.origin, link);
     const [, handleCopy] = useCopyText(url);
 
     return (
         <MenuButton
+            ref={ref}
             onClick={() => {
                 handleCopy();
                 onClick?.();
@@ -26,4 +30,4 @@ export function CopyLinkButton({ link, children, onClick }: CopyLinkButtonProps)
             <span className="font-bold leading-[22px] text-main">{children || <Trans>Copy link</Trans>}</span>
         </MenuButton>
     );
-}
+});
