@@ -1,6 +1,6 @@
 'use client';
 
-import { useRef, useState } from 'react';
+import { type HTMLProps, useRef, useState } from 'react';
 
 import PauseIcon from '@/assets/pause.svg';
 import PlayIcon from '@/assets/play.svg';
@@ -14,13 +14,14 @@ const iconClassName = 'size-4 text-primaryBottom';
 export function NFTVideo({
     imageURL,
     video,
+    ...props
 }: {
     imageURL: string;
     video: {
         properties: SimpleHash.VideoProperties;
         url: string;
     };
-}) {
+} & Pick<HTMLProps<'video'>, 'className' | 'autoPlay'>) {
     const [isStarted, setIsStarted] = useState(false);
     const [isPlaying, setIsPlaying] = useState(false);
     const ref = useRef<HTMLVideoElement | null>(null);
@@ -49,13 +50,13 @@ export function NFTVideo({
                 </ClickableButton>
             ) : null}
             <video
-                ref={ref}
                 playsInline
                 src={video.url}
                 poster={imageURL}
                 loop
-                autoPlay
                 className="h-full w-full cursor-pointer"
+                {...props}
+                ref={ref}
                 onClick={() => {
                     if (ref.current?.paused) {
                         ref.current?.play();
@@ -91,7 +92,7 @@ export function NFTInfoPreview({
     return (
         <div className="relative h-full w-full max-w-[250px] overflow-hidden rounded-[20px] object-cover shadow-lightS3">
             {video ? (
-                <NFTVideo video={video} imageURL={imageURL} />
+                <NFTVideo video={video} imageURL={imageURL} autoPlay />
             ) : (
                 <NFTImage width={230} height={230} src={imageURL} alt={name} className="h-full w-full object-cover" />
             )}

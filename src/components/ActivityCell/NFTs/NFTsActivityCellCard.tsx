@@ -9,7 +9,9 @@ import { memo } from 'react';
 import CalendarIcon from '@/assets/calendar.svg';
 import LocationIcon from '@/assets/location.svg';
 import PoapIcon from '@/assets/poap.svg';
+import { ClickableArea } from '@/components/ClickableArea.js';
 import { ChainIcon } from '@/components/NFTDetail/ChainIcon.js';
+import { NFTVideo } from '@/components/NFTDetail/NFTInfoPreview.js';
 import { NFTImage } from '@/components/NFTImage.js';
 import { BookmarkInIcon } from '@/components/NFTs/BookmarkButton.js';
 import { TokenPrice } from '@/components/TokenPrice.js';
@@ -65,25 +67,45 @@ export function NFTsActivityCellCard(props: Props) {
     const { data, isLoading } = useNFTDetail(address, tokenId, chainId);
     const metadata = data?.metadata;
     const imageURL = metadata?.previewImageURL || metadata?.imageURL || '';
+
     const isPoap = action === NFTFeedTransAction.Poap && !isUndefined(data?.metadata?.eventId);
 
     return (
         <div className="relative">
-            <Link href={resolveNftUrl(chainId, address, tokenId)} className="relative flex w-auto shrink-0 flex-col">
+            <Link
+                href={resolveNftUrl(chainId, address, tokenId)}
+                className="relative flex w-auto shrink-0 flex-col"
+                data-disable-nprogress={!!data?.metadata?.video}
+            >
                 <div className="relative">
-                    <NFTImage
-                        src={imageURL}
-                        className={classNames(
-                            'h-auto max-h-[500px] min-h-[150px] w-[250px] min-w-[150px] rounded-t-xl bg-lightBg object-cover dark:bg-bg md:w-[300px]',
-                            {
-                                'rounded-b-xl': !data?.collection?.floorPrices?.length,
-                            },
-                        )}
-                        alt="nft-card"
-                        fallbackClassName=""
-                        width={200}
-                        height={200}
-                    />
+                    {data?.metadata?.video ? (
+                        <ClickableArea>
+                            <NFTVideo
+                                className={classNames(
+                                    'h-auto max-h-[500px] min-h-[150px] w-[250px] min-w-[150px] cursor-pointer rounded-t-xl bg-lightBg object-cover dark:bg-bg md:w-[300px]',
+                                    {
+                                        'rounded-b-xl': !data?.collection?.floorPrices?.length,
+                                    },
+                                )}
+                                video={data?.metadata?.video}
+                                imageURL={imageURL}
+                            />
+                        </ClickableArea>
+                    ) : (
+                        <NFTImage
+                            src={imageURL}
+                            className={classNames(
+                                'h-auto max-h-[500px] min-h-[150px] w-[250px] min-w-[150px] rounded-t-xl bg-lightBg object-cover dark:bg-bg md:w-[300px]',
+                                {
+                                    'rounded-b-xl': !data?.collection?.floorPrices?.length,
+                                },
+                            )}
+                            alt="nft-card"
+                            fallbackClassName=""
+                            width={200}
+                            height={200}
+                        />
+                    )}
                     <div className="absolute bottom-0 left-0 flex max-w-[100%] flex-col space-y-1 px-[15px] pb-3">
                         {isPoap ? (
                             <PoapTags asset={data} />
