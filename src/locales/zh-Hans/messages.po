@@ -2655,6 +2655,9 @@ msgstr "已连接账户"
 msgid "Failed to claim token"
 msgstr "领取通证失败"
 
+msgid "Top 40 Projects powered by Rootdata"
+msgstr ""
+
 msgid "Notifications"
 msgstr "通知"
 
@@ -3014,9 +3017,6 @@ msgstr "合约所有者对个人滑点没有限制。"
 
 msgid "Number of winners"
 msgstr "获奖人数"
-
-msgid "Top 40 Projects power by Rootdata"
-msgstr ""
 
 msgid "Unmuted @{0} on {sourceName}."
 msgstr "在 {sourceName} 上已取消对 @{0} 的隐藏。"
