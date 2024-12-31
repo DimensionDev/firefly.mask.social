@@ -1,5 +1,5 @@
 import { StatusCodes } from 'http-status-codes';
-import React, { type PropsWithChildren } from 'react';
+import { type PropsWithChildren } from 'react';
 
 import { NoSSR } from '@/components/NoSSR.js';
 import { Info } from '@/components/Profile/Info.js';
@@ -15,6 +15,7 @@ import { Source } from '@/constants/enum.js';
 import { FetchError } from '@/constants/error.js';
 import { narrowToSocialSource } from '@/helpers/narrowToSocialSource.js';
 import { resolveFireflyProfiles } from '@/helpers/resolveFireflyProfiles.js';
+import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import type { FireflyIdentity, FireflyProfile } from '@/providers/types/Firefly.js';
 import { getProfileById } from '@/services/getProfileById.js';
 
@@ -28,7 +29,9 @@ export async function ProfilePageLayout({
 
     try {
         const profile =
-            identity.id && identity.source !== Source.Wallet ? await getProfileById(resolvedSource, identity.id) : null;
+            identity.id && identity.source !== Source.Wallet
+                ? await runInSafeAsync(() => getProfileById(resolvedSource, identity.id))
+                : null;
         const profileMissing = !profile && !walletProfile && !profiles.length;
 
         if (profileMissing) return <ProfileNotFound />;
@@ -41,10 +44,12 @@ export async function ProfilePageLayout({
                     <WalletInfo profile={walletProfile} />
                 ) : profile ? (
                     <Info profile={profile} />
+                ) : profiles.length ? (
+                    <SuspendedAccountInfo source={resolvedSource} />
                 ) : null}
                 <ProfileTabs profiles={profiles} identity={identity} />
                 <NoSSR>{children}</NoSSR>
-                <ProfileDetailEffect profile={profile} identity={identity} />
+                {profile ? <ProfileDetailEffect profile={profile} identity={identity} /> : null}
             </>
         );
     } catch (error) {

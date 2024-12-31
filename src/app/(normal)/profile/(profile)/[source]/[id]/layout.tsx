@@ -5,6 +5,7 @@ import { ProfilePageLayout } from '@/app/(normal)/profile/pages/ProfilePageLayou
 import { NotLoginFallback } from '@/components/NotLoginFallback.js';
 import { ProfileSourceTabs } from '@/components/Profile/ProfileSourceTabs.js';
 import { Source, SourceInURL } from '@/constants/enum.js';
+import { EMPTY_LIST } from '@/constants/index.js';
 import { isProfilePageSource } from '@/helpers/isProfilePageSource.js';
 import { resolveSourceFromUrlNoFallback } from '@/helpers/resolveSource.js';
 import { resolveSpecialProfileIdentity } from '@/helpers/resolveSpecialProfileIdentity.js';
@@ -30,11 +31,9 @@ export default async function Layout({
     if (!source || !isProfilePageSource(source)) notFound();
     const identity = resolveSpecialProfileIdentity({ source, id });
 
-    const profiles = await runInSafeAsync(() =>
-        FireflyEndpointProvider.getAllPlatformProfileByIdentity(identity, false),
-    );
-
-    if (!profiles?.length) notFound();
+    const profiles =
+        (await runInSafeAsync(() => FireflyEndpointProvider.getAllPlatformProfileByIdentity(identity, false))) ??
+        EMPTY_LIST;
 
     if (source === Source.Twitter && !twitterSessionHolder.session) {
         return (
