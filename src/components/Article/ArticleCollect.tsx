@@ -60,6 +60,9 @@ export function ArticleCollect({ article }: ArticleCollectProps) {
                 wallet_address: account.address?.toLowerCase() || '',
                 Article_id: article.id,
             };
+
+            setModalSessionCollected(true);
+
             if (canCollect && collectParams?.gasStatus) {
                 const result = await FireflyEndpointProvider.freeCollectArticle(
                     article.id,
@@ -74,7 +77,7 @@ export function ArticleCollect({ article }: ArticleCollectProps) {
                 hash = confirmation.transactionHash;
                 captureCollectArticleEvent({ ...eventOptions, free_mint: false });
             }
-            setModalSessionCollected(true);
+
             const url = resolveExplorerLink(data.chainId, hash, 'tx');
             if (url) {
                 setTxUrl(url);
@@ -89,6 +92,7 @@ export function ArticleCollect({ article }: ArticleCollectProps) {
             });
             enqueueSuccessMessage(t`Article collected successfully!`);
         } catch (error) {
+            setModalSessionCollected(false);
             enqueueMessageFromError(error, t`Failed to collect article.`);
             throw error;
         }

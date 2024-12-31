@@ -30,7 +30,7 @@ export function ProjectTrendingList() {
 
             <div className="flex items-center justify-center gap-x-2 p-6 text-base text-secondary">
                 <Image width={80} height={24} alt="rootdata" src="/image/rootdata.png" />
-                <Trans>Top 40 Projects power by Rootdata</Trans>
+                <Trans>Top 40 Projects powered by Rootdata</Trans>
             </div>
         </div>
     );
