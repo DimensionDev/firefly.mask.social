@@ -7,11 +7,11 @@ import { EMPTY_LIST } from '@/constants/index.js';
 import { isSameEthereumAddress } from '@/helpers/isSameAddress.js';
 import { useChainContext } from '@/hooks/useChainContext.js';
 import { EVMNetworkResolver } from '@/mask/bindings/index.js';
-import { useAvailability } from '@/mask/plugins/red-packet/hooks/useAvailability.js';
-import { useCheckSponsorableGasFee } from '@/mask/plugins/red-packet/hooks/useCheckSponsorableGasFee.js';
-import { useClaimStrategyStatus } from '@/mask/plugins/red-packet/hooks/useClaimStrategyStatus.js';
-import { useParseRedPacket } from '@/mask/plugins/red-packet/hooks/useParseRedPacket.js';
-import { useSignedMessage } from '@/mask/plugins/red-packet/hooks/useSignedMessage.js';
+import { useAvailability } from '@/components/RedPacket/hooks/useAvailability.js';
+import { useCheckSponsorableGasFee } from '@/components/RedPacket/hooks/useCheckSponsorableGasFee.js';
+import { useClaimStrategyStatus } from '@/components/RedPacket/hooks/useClaimStrategyStatus.js';
+import { useParseRedPacket } from '@/components/RedPacket/hooks/useParseRedPacket.js';
+import { useSignedMessage } from '@/components/RedPacket/hooks/useSignedMessage.js';
 import { type RedPacketJSONPayload, RedPacketStatus } from '@/providers/red-packet/types.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 

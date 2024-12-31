@@ -4,7 +4,7 @@ import { useAsyncFn } from 'react-use';
 
 import { useChainContext } from '@/hooks/useChainContext.js';
 import { EVMWeb3 } from '@/mask/bindings/index.js';
-import { useRedPacketContract } from '@/mask/plugins/red-packet/hooks/useRedPacketContract.js';
+import { useRedPacketContract } from '@/components/RedPacket/hooks/useRedPacketContract.js';
 
 export function useRefundCallback(version: number, from: string, id?: string, expectedChainId?: ChainId) {
     const { chainId } = useChainContext({ chainId: expectedChainId });

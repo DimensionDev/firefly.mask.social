@@ -334,6 +334,9 @@ msgstr ""
 msgid "Log out @{0}"
 msgstr ""
 
+msgid "DAOs"
+msgstr ""
+
 msgid "MAX"
 msgstr ""
 
@@ -1400,9 +1403,6 @@ msgid "This token contract is open source. You can check the contract code for d
 msgstr ""
 
 msgid "Darkweb transactions found."
-msgstr ""
-
-msgid "DAO"
 msgstr ""
 
 msgid "{0} Comments"

@@ -34,7 +34,7 @@ import {
     RED_PACKET_MAX_SHARES,
     RED_PACKET_MIN_SHARES,
 } from '@/mask/plugins/red-packet/constants.js';
-import { useDefaultCreateGas } from '@/mask/plugins/red-packet/hooks/useDefaultCreateGas.js';
+import { useDefaultCreateGas } from '@/components/RedPacket/hooks/useDefaultCreateGas.js';
 import { RedPacketContext, redPacketRandomTabs } from '@/modals/RedPacketModal/RedPacketContext.js';
 
 export function MainView() {

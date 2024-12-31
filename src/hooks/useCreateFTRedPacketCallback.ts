@@ -28,7 +28,7 @@ import {
     checkParams,
     type MethodParameters,
     type ParamsObjType,
-} from '@/mask/plugins/red-packet/hooks/useCreateCallback.js';
+} from '@/components/RedPacket/hooks/useCreateCallback.js';
 import { RedPacketModalRef } from '@/modals/controls.js';
 import { RedPacketContext } from '@/modals/RedPacketModal/RedPacketContext.js';
 import type { FireflyRedPacketAPI, RedPacketJSONPayload } from '@/providers/red-packet/types.js';

@@ -11,8 +11,8 @@ import { waitForEthereumTransaction } from '@/helpers/waitForEthereumTransaction
 import { useChainContext } from '@/hooks/useChainContext.js';
 import { HappyRedPacketV4ABI } from '@/mask/bindings/constants.js';
 import { EVMChainResolver } from '@/mask/bindings/index.js';
-import { useCurrentClaimProfile } from '@/mask/plugins/red-packet/hooks/useCurrentClaimProfile.js';
-import { useSignedMessage } from '@/mask/plugins/red-packet/hooks/useSignedMessage.js';
+import { useCurrentClaimProfile } from '@/components/RedPacket/hooks/useCurrentClaimProfile.js';
+import { useSignedMessage } from '@/components/RedPacket/hooks/useSignedMessage.js';
 import { FireflyRedPacket } from '@/providers/red-packet/index.js';
 import type { RedPacketJSONPayload } from '@/providers/red-packet/types.js';
 

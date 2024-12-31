@@ -3,28 +3,25 @@
 import { t, Trans } from '@lingui/macro';
 import { useRedPacketConstants } from '@masknet/web3-shared-evm';
 import { BigNumber } from 'bignumber.js';
-import dayjs from 'dayjs';
 import localFont from 'next/font/local';
 import { useCallback, useMemo, useState } from 'react';
 import { useAsync } from 'react-use';
 import urlcat from 'urlcat';
-import { useInterval } from 'usehooks-ts';
 import type { Address } from 'viem';
 
-import HourGlassIcon from '@/assets/hourglass.svg';
 import RedPacketIcon from '@/assets/red-packet.svg';
 import { ClickableArea } from '@/components/ClickableArea.js';
 import { Loading } from '@/components/Loading.js';
 import { AmountProgressText } from '@/components/RedPacket/AmountProgressText.js';
 import { RedPacketCardFooter } from '@/components/RedPacket/RedPacketCardFooter.js';
 import { RequirementsModal } from '@/components/RedPacket/RequirementsModal.js';
-import { useVerifyAndClaim } from '@/components/RedPacket/useVerifyAndClaim.js';
+import { Timer } from '@/components/RedPacket/Timer.js';
+import { useVerifyAndClaim } from '@/components/RedPacket/hooks/useVerifyAndClaim.jsx';
 import { SITE_URL } from '@/constants/index.js';
 import { Image } from '@/esm/Image.js';
 import { classNames } from '@/helpers/classNames.js';
 import { createPublicViemClient } from '@/helpers/createPublicViemClient.js';
 import { fetch } from '@/helpers/fetch.js';
-import { getTimeLeft } from '@/helpers/formatTimestamp.js';
 import { getPostUrl } from '@/helpers/getPostUrl.js';
 import { minus, ZERO } from '@/helpers/number.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
@@ -33,13 +30,12 @@ import { useChainContext } from '@/hooks/useChainContext.js';
 import { useRefundCallback } from '@/hooks/useRefundCallback.js';
 import { HappyRedPacketV4ABI } from '@/mask/bindings/constants.js';
 import { EVMChainResolver } from '@/mask/bindings/index.js';
-import { useAvailabilityComputed } from '@/mask/plugins/red-packet/hooks/useAvailabilityComputed.js';
-import { useRedPacketCover } from '@/mask/plugins/red-packet/hooks/useRedPacketCover.js';
+import { useAvailabilityComputed } from '@/components/RedPacket/hooks/useAvailabilityComputed.js';
+import { useRedPacketCover } from '@/components/RedPacket/hooks/useRedPacketCover.js';
 import { ComposeModalRef } from '@/modals/controls.js';
 import { type RedPacketJSONPayload, RedPacketStatus } from '@/providers/red-packet/types.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 import { TokenType } from '@/types/rp.js';
-import { Timer } from '@/components/RedPacket/Timer.js';
 
 // @ts-ignore
 const HelveticaFont = localFont({

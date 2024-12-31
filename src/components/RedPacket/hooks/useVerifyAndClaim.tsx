@@ -16,9 +16,9 @@ import { enqueueErrorMessage, enqueueSuccessMessage } from '@/helpers/enqueueMes
 import { formatBalance } from '@/helpers/formatBalance.js';
 import { getPostUrl } from '@/helpers/getPostUrl.js';
 import { HappyRedPacketV4ABI } from '@/mask/bindings/constants.js';
-import { useClaimCallback } from '@/mask/plugins/red-packet/hooks/useClaimCallback.js';
-import { useClaimStrategyStatus } from '@/mask/plugins/red-packet/hooks/useClaimStrategyStatus.js';
-import { useCurrentClaimProfile } from '@/mask/plugins/red-packet/hooks/useCurrentClaimProfile.js';
+import { useClaimCallback } from '@/components/RedPacket/hooks/useClaimCallback.js';
+import { useClaimStrategyStatus } from '@/components/RedPacket/hooks/useClaimStrategyStatus.js';
+import { useCurrentClaimProfile } from '@/components/RedPacket/hooks/useCurrentClaimProfile.js';
 import { ComposeModalRef, ConfirmModalRef } from '@/modals/controls.js';
 import { FireflyRedPacket } from '@/providers/red-packet/index.js';
 import type { RedPacketJSONPayload } from '@/providers/red-packet/types.js';
