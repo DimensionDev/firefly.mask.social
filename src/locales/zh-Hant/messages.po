@@ -339,6 +339,9 @@ msgstr "流行趨勢"
 msgid "Log out @{0}"
 msgstr "退出 @{0} 的登錄"
 
+msgid "DAOs"
+msgstr ""
+
 msgid "MAX"
 msgstr ""
 
@@ -1405,9 +1408,6 @@ msgid "This token contract is open source. You can check the contract code for d
 msgstr ""
 
 msgid "Darkweb transactions found."
-msgstr ""
-
-msgid "DAO"
 msgstr ""
 
 msgid "{0} Comments"
