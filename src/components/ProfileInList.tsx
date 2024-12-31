@@ -98,7 +98,7 @@ export function ProfileInList({ profile, noFollowButton, listKey, index }: Profi
                         <FollowButton
                             profile={profile}
                             variant={isMedium ? 'icon' : 'text'}
-                            className={isMedium ? 'w-[50px] max-w-[50px]' : 'w-[88px] !min-w-0 max-w-[88px]'}
+                            className={isMedium ? 'w-[50px] max-w-[50px]' : 'w-auto !min-w-0'}
                         />
                     ) : null}
                 </div>
