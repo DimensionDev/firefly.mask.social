@@ -254,7 +254,10 @@
         "src/maskbook",
         "src/providers/hubble/proto",
         "src/assets/**",
-        "src/locales/**"
+        "src/locales/**",
+        "src/abis",
+        "src/idls",
+        "src/types/sol-rp.ts"
     ],
     "overrides": []
 }
