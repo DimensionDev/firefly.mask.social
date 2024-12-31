@@ -5,7 +5,6 @@ import { ChainId } from '@masknet/web3-shared-evm';
 
 import LinkIcon from '@/assets/link-square.svg';
 import { CollectionMore } from '@/components/Actions/CollectionMore.js';
-import { ClickableButton } from '@/components/ClickableButton.js';
 import { CopyTextButton } from '@/components/CopyTextButton.js';
 import { Image } from '@/components/Image.js';
 import { ChainIcon } from '@/components/NFTDetail/ChainIcon.js';
@@ -65,9 +64,6 @@ export function CollectionInfo(props: CollectionInfoProps) {
                         <TextOverflowTooltip content={name}>
                             <div className="line-clamp-2 w-full">{name}</div>
                         </TextOverflowTooltip>
-                        <ClickableButton className="-mt-1 h-8 rounded-full bg-main px-5 text-sm font-bold leading-8 text-lightBottom">
-                            <Trans>Mint</Trans>
-                        </ClickableButton>
                         <CollectionMore collectionId={collectionId} externalUrl={externalUrl} />
                     </div>
                     {address ? (
