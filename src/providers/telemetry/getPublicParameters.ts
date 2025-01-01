@@ -4,7 +4,7 @@ import { getAccount } from 'wagmi/actions';
 import { config } from '@/configs/wagmiClient.js';
 import { bom } from '@/helpers/bom.js';
 import { runInSafe } from '@/helpers/runInSafe.js';
-import { resolveWalletAdapter } from '@/providers/solana/resolveWalletAdapter.js';
+import { getWalletAdapter } from '@/providers/solana/getWalletAdapter.js';
 import { useDeveloperSettingsState } from '@/store/useDeveloperSettingsStore.js';
 import {
     useFarcasterStateStore,
@@ -15,7 +15,7 @@ import {
 
 export function getPublicParameters(eventId: string, previousEventId: string | null) {
     const evmAccount = runInSafe(() => getAccount(config));
-    const solanaAdaptor = runInSafe(() => resolveWalletAdapter());
+    const solanaAdaptor = runInSafe(() => getWalletAdapter());
     const fireflyAccountId = useFireflyStateStore.getState().currentProfileSession?.profileId;
 
     return {
