@@ -13,6 +13,7 @@ import { withTwitterRequestErrorHandler } from '@/helpers/withTwitterRequestErro
 const TweetSchema = z.object({
     text: z.string(),
     replySettings: z.enum(['following', 'mentionedUsers']).optional(),
+    excludeReplyProfileIds: z.array(z.string()).optional(),
     quoteTwitterId: z.string().optional(),
     inReplyToTweetId: z.string().optional(),
     mediaIds: z.array(z.string()).optional(),
@@ -54,6 +55,7 @@ async function composeTweet(rawTweet: unknown) {
     if (tweet.inReplyToTweetId) {
         composedTweet.reply = {
             in_reply_to_tweet_id: tweet.inReplyToTweetId,
+            exclude_reply_user_ids: tweet.excludeReplyProfileIds,
         };
     }
 

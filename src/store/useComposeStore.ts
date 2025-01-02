@@ -68,6 +68,8 @@ export interface CompositePost {
     openGraphs: OpenGraph[];
     // parsed solana blinks from url in chars
     actions: Action[];
+
+    excludeReplyProfileIds?: string[];
 }
 
 export interface ComposeBaseState {
@@ -127,6 +129,7 @@ interface ComposeState extends ComposeBaseState {
     updatePoll: (poll: CompositePoll | null, cursor?: Cursor) => void;
     updatePollId: (pollId: string, cursor?: Cursor) => void;
     updateTwitterPollId: (pollId: string, cursor?: Cursor) => void;
+    updateExcludeReplyProfileIds: (ids?: string[], cursor?: Cursor) => void;
 
     // reset the editor
     apply: (state: ComposeBaseState) => void;
@@ -596,6 +599,19 @@ const useComposeStateBase = create<ComposeState, [['zustand/immer', unknown]]>(
                     cursor,
                 ),
             ),
+        updateExcludeReplyProfileIds: (excludeReplyProfileIds, cursor) =>
+            set((state) => {
+                return next(
+                    state,
+                    (post) => {
+                        return {
+                            ...post,
+                            excludeReplyProfileIds,
+                        };
+                    },
+                    cursor,
+                );
+            }),
         apply: (nextState) =>
             set((state) => {
                 Object.assign(state, nextState);

@@ -69,6 +69,9 @@ msgstr ""
 msgid "Allow Collect Module"
 msgstr ""
 
+msgid "Replying to <0>@{0}</0>,<1>@{1}</1> and <2>{2} others</2> on {3}"
+msgstr ""
+
 msgid "New connect with Warpcast"
 msgstr ""
 
@@ -897,6 +900,9 @@ msgstr ""
 msgid "Closed"
 msgstr ""
 
+msgid "Replying to <0>@{0}</0>,<1>@{1}</1> and <2>@{2}</2> on {3}"
+msgstr ""
+
 msgid "Non-sanctioned address found."
 msgstr ""
 
@@ -1443,6 +1449,9 @@ msgstr ""
 msgid "Failed to unmute @{0} on {sourceName}."
 msgstr ""
 
+msgid "Others in the conversation"
+msgstr ""
+
 msgid "Insufficient Balance"
 msgstr ""
 
@@ -1917,6 +1926,9 @@ msgstr ""
 msgid "Posts from @{0} will now be hidden in your home timeline"
 msgstr ""
 
+msgid "Replying to"
+msgstr ""
+
 msgid "commented"
 msgstr ""
 
@@ -2317,6 +2329,9 @@ msgid "No phishing site."
 msgstr ""
 
 msgid "Followed <0>@{handle}</0> on X before Oct 12,2024, or followed <1>@{farcasterHandle}</1> on Farcaster before Oct 20, 2024"
+msgstr ""
+
+msgid "Replying to <0>@{0}</0> and <1>@{1}</1> on {2}"
 msgstr ""
 
 msgid "Connect your wallet to follow"
@@ -2749,6 +2764,9 @@ msgid "Muting..."
 msgstr ""
 
 msgid "{0, plural, one {comment} other {comments}}"
+msgstr ""
+
+msgid "<0/> Loading"
 msgstr ""
 
 msgid "Pinned"
