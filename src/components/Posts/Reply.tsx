@@ -77,7 +77,7 @@ export const Reply = memo<ReplyProps>(function Reply({ post, compositePost }) {
                 Replying to <span className="text-link">@{post.author.handle}</span> on {resolveSourceName(post.source)}
             </Trans>
         );
-    }, [profiles]);
+    }, [excludeReplyProfileIds, post.author.handle, post.source, profiles]);
 
     return (
         <>
