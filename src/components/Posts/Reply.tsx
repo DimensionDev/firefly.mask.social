@@ -90,7 +90,7 @@ export const Reply = memo<ReplyProps>(function Reply({ post, compositePost }) {
                     <div className="w-full text-left">
                         <PostBody post={post} isReply disablePadding={post.isHidden || post.isEncrypted} />
                         {isLoading ? (
-                            <p className="mt-3 flex h-5 items-center text-medium text-placeholder">
+                            <p className="mt-3 flex min-h-[20px] items-center text-medium text-placeholder">
                                 <Trans>
                                     <LoadingIcon className="mr-1 flex-shrink-0 animate-spin" width={16} height={16} />{' '}
                                     Loading
@@ -111,7 +111,10 @@ export const Reply = memo<ReplyProps>(function Reply({ post, compositePost }) {
                                     );
                                 }}
                             >
-                                <div className="mt-3 h-5 text-medium text-placeholder" onClick={() => setOpen(true)}>
+                                <div
+                                    className="mt-3 min-h-[20px] cursor-pointer text-medium text-placeholder"
+                                    onClick={() => setOpen(true)}
+                                >
                                     {replyingProfilesContent}
                                 </div>
                             </ExcludeReplyUserListModal>

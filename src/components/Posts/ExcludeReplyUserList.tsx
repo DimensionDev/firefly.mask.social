@@ -1,8 +1,8 @@
 'use client';
 
-import { Popover, Transition } from '@headlessui/react';
+import { Popover } from '@headlessui/react';
 import { Trans } from '@lingui/macro';
-import { Fragment, type PropsWithChildren } from 'react';
+import { type PropsWithChildren } from 'react';
 
 import { Avatar } from '@/components/Avatar.js';
 import { CircleCheckboxIcon } from '@/components/CircleCheckboxIcon.js';
@@ -36,11 +36,11 @@ function ExcludeReplyUserListItem({
             }}
         >
             <Avatar src={profile.pfp} size={20} alt={profile.profileId} />
-            <span className="ml-2">{profile.displayName}</span>
-            <span className="ml-1 mr-auto text-second">@{profile.handle}</span>
+            <span className="ml-2 min-w-0 truncate">{profile.displayName}</span>
+            <span className="ml-1 mr-auto min-w-0 truncate text-second">@{profile.handle}</span>
             <CircleCheckboxIcon
                 checked={checked}
-                className={classNames({
+                className={classNames('ml-1 shrink-0', {
                     'opacity-40': disabled,
                 })}
             />
@@ -66,7 +66,7 @@ export function ExcludeReplyUserList({ post, profiles, excluded = [], onClickPro
                 <Trans>Others in the conversation</Trans>
             </h4>
             {profiles
-                .filter((profile) => isSameProfile(profile, post.author))
+                .filter((profile) => !isSameProfile(profile, post.author))
                 .map((profile: Profile) => {
                     return (
                         <ExcludeReplyUserListItem
@@ -94,31 +94,19 @@ export function ExcludeReplyUserListModal({
 
     if (isMedium) {
         return (
-            <Popover as="div" className="fixed">
-                {() => (
-                    <>
-                        <Popover.Button className="flex cursor-pointer gap-1 text-main focus:outline-none">
-                            {children}
-                        </Popover.Button>
-
-                        <Transition
-                            as={Fragment}
-                            enter="transition ease-out duration-200"
-                            enterFrom="opacity-0 translate-y-1"
-                            enterTo="opacity-100"
-                            leave="transition ease-in duration-150"
-                            leaveFrom="opacity-100"
-                            leaveTo="opacity-0 translate-y-1"
-                        >
-                            <Popover.Panel
-                                static
-                                className="absolute bottom-full left-0 z-50 w-[280px] -translate-y-3 rounded-lg bg-lightBottom px-3 py-3 text-main shadow-popover dark:border dark:border-line dark:bg-darkBottom dark:shadow-none"
-                            >
-                                <ExcludeReplyUserList {...props} />
-                            </Popover.Panel>
-                        </Transition>
-                    </>
-                )}
+            <Popover>
+                <Popover.Button className="flex cursor-pointer gap-1 text-main focus:outline-none">
+                    {children}
+                </Popover.Button>
+                <Popover.Panel
+                    transition
+                    anchor="bottom start"
+                    className="fixed bottom-full left-0 z-50 translate-y-1 transition duration-200 ease-in-out data-[closed]:-translate-y-1 data-[closed]:opacity-0"
+                >
+                    <div className="w-[280px] rounded-lg bg-lightBottom px-3 py-3 text-main shadow-popover dark:border dark:border-line dark:bg-darkBottom dark:shadow-none">
+                        <ExcludeReplyUserList {...props} />
+                    </div>
+                </Popover.Panel>
             </Popover>
         );
     }
