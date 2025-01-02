@@ -1,6 +1,6 @@
 'use client';
 
-import { exposeToIframe } from '@farcaster/frame-host';
+import { exposeToIframe, type ReadyOptions } from '@farcaster/frame-host';
 import { Trans } from '@lingui/macro';
 import { useEffect, useRef, useState } from 'react';
 import { useAsyncRetry } from 'react-use';
@@ -44,7 +44,12 @@ export default function Page({ searchParams }: PageProps) {
             url: result.frame.originalUrl,
             frame: result.frame.content,
             frameHost: new FarcasterFrameHost(context, {
-                ready: () => setReady(true),
+                ready: (options?: Partial<ReadyOptions>) => {
+                    if (options) {
+                        fireflyBridgeProvider.request(SupportedMethod.SET_FRAME_READY_OPTIONS, options);
+                    }
+                    setReady(true);
+                },
                 close: () => fireflyBridgeProvider.request(SupportedMethod.CLOSE, {}),
                 setPrimaryButton: (options) =>
                     fireflyBridgeProvider.request(SupportedMethod.SET_PRIMARY_BUTTON, options),

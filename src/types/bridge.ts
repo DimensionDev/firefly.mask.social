@@ -105,7 +105,7 @@ export interface RequestArguments {
         disabled?: boolean;
         hidden?: boolean;
     };
-    [SupportedMethod.SET_FRAME_READY_OPTIONS]: ReadyOptions;
+    [SupportedMethod.SET_FRAME_READY_OPTIONS]: Partial<ReadyOptions>;
     [SupportedMethod.GET_FRAME_CONTEXT]: {};
     [SupportedMethod.REQUEST]: {
         method: string;
