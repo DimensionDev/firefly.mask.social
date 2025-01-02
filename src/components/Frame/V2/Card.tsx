@@ -22,7 +22,7 @@ export const Card = memo<CardProps>(function Card({ post, frame }) {
 
     const [frameHost] = useState(() => {
         const profile = useFarcasterStateStore.getState().currentProfile;
-        const fid = (profile?.profileId as unknown as number | undefined) ?? 0;
+        const fid = Number.parseInt(profile?.profileId ?? '0', 10);
         const context = {
             user: {
                 fid,
@@ -36,7 +36,7 @@ export const Card = memo<CardProps>(function Card({ post, frame }) {
             location: {
                 type: 'cast_embed',
                 cast: {
-                    fid: post.author.profileId as unknown as number,
+                    fid: Number.parseInt(post.author.profileId, 10),
                     hash: post.postId,
                 },
             },

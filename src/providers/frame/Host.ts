@@ -22,7 +22,9 @@ export class FarcasterFrameHost implements Omit<FrameHost, 'ethProviderRequestV2
             close?: () => void;
             setPrimaryButton?: SetPrimaryButton;
         },
-    ) {}
+    ) {
+        if (this.options?.debug) console.log('[frame host] init', context);
+    }
 
     addFrame = (): ReturnType<AddFrame> => {
         if (this.options?.debug) console.log('[frame host] add frame');
