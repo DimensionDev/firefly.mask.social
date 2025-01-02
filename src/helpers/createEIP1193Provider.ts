@@ -13,7 +13,8 @@ async function hanldeRequest(parameters: RequestArguments) {
         case EthereumMethodType.ETH_REQUEST_ACCOUNTS:
             return [client.account.address];
         case EthereumMethodType.WALLET_SWITCH_ETHEREUM_CHAIN:
-            const chainId = Number.parseInt(params[0] as string, 16);
+            const chain = params[0] as { chainId: string };
+            const chainId = Number.parseInt(chain.chainId, 16);
             await switchEthereumChain(chainId);
             return;
         default:
