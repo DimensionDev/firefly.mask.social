@@ -1,9 +1,9 @@
+import { EthereumMethodType } from '@masknet/web3-shared-evm';
 import { noop } from 'lodash-es';
 
 import { config } from '@/configs/wagmiClient.js';
-import { EthereumMethodType } from '@masknet/web3-shared-evm';
-import { switchEthereumChain } from '@/helpers/switchEthereumChain.js';
 import { getWalletClientRequired } from '@/helpers/getWalletClientRequired.js';
+import { switchEthereumChain } from '@/helpers/switchEthereumChain.js';
 
 async function handleRequest(parameters: RequestArguments) {
     const { method, params } = parameters;

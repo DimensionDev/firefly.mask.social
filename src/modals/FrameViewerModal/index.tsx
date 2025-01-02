@@ -4,6 +4,7 @@ import { forwardRef, useEffect, useRef, useState } from 'react';
 import { useAsyncFn } from 'react-use';
 
 import { CloseButton } from '@/components/IconButton.js';
+import { Image } from '@/components/Image.js';
 import { Modal } from '@/components/Modal.js';
 import { IS_DEVELOPMENT } from '@/constants/index.js';
 import { createEIP1193ProviderFromWagmi } from '@/helpers/createEIP1193Provider.js';
@@ -12,7 +13,6 @@ import { useSingletonModal } from '@/hooks/useSingletonModal.js';
 import type { SingletonModalRefCreator } from '@/libs/SingletonModal.js';
 import { MoreAction } from '@/modals/FrameViewerModal/MoreActionMenu.js';
 import type { FrameV2, FrameV2Host } from '@/types/frame.js';
-import { Image } from '@/components/Image.js';
 
 export type FrameViewerModalOpenProps = {
     ready: boolean;
