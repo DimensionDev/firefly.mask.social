@@ -9,6 +9,7 @@ import { ExcludeReplyUserListModal } from '@/components/Posts/ExcludeReplyUserLi
 import { PostBody } from '@/components/Posts/PostBody.js';
 import { ProfileAvatar } from '@/components/ProfileAvatar.js';
 import { Source } from '@/constants/enum.js';
+import { EMPTY_LIST } from '@/constants/index.js';
 import { getLennyUrl } from '@/helpers/getLennyUrl.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { resolveSourceName } from '@/helpers/resolveSourceName.js';
@@ -24,9 +25,11 @@ interface ReplyProps {
 
 export const Reply = memo<ReplyProps>(function Reply({ post, compositePost }) {
     const currentProfile = useCurrentAvailableProfile(post.source);
+
     const [open, setOpen] = useState(false);
-    const { excludeReplyProfileIds = [] } = useCompositePost();
+    const { excludeReplyProfileIds = EMPTY_LIST } = useCompositePost();
     const updateExcludeReplyProfileIds = useComposeStateStore().updateExcludeReplyProfileIds;
+
     const avatarFallbackUrl = post.source === Source.Lens ? getLennyUrl(post.author.handle) : undefined;
 
     const { data, isLoading } = useQuery({
