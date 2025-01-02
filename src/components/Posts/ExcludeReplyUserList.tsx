@@ -28,6 +28,7 @@ function ExcludeReplyUserListItem({
             className={classNames('flex w-full cursor-pointer items-center py-1 text-sm leading-5', {
                 'cursor-not-allowed': disabled,
             })}
+            disabled={disabled}
             onClick={() => {
                 if (disabled) return;
                 onClickProfile?.(profile, !checked);
