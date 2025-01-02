@@ -3034,9 +3034,6 @@ msgstr "The contract owner has no restrictions on personal slippage."
 msgid "Number of winners"
 msgstr "Number of winners"
 
-msgid "Top 40 Projects power by Rootdata"
-msgstr "Top 40 Projects power by Rootdata"
-
 msgid "Unmuted @{0} on {sourceName}."
 msgstr "Unmuted @{0} on {sourceName}."
 
