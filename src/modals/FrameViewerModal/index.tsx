@@ -84,7 +84,7 @@ export const FrameViewerModal = forwardRef<SingletonModalRefCreator<FrameViewerM
                             {u ? <div className="text-faint text-xs">{u.host}</div> : null}
                         </div>
                         <div>
-                            <MoreAction disabled={loading} onReload={onReload} />
+                            <MoreAction frame={frame} disabled={loading} onReload={onReload} />
                         </div>
                     </div>
                     <iframe
