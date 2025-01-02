@@ -35,7 +35,7 @@ function isTrustedUrl(href: LinkProps['href']) {
         : true;
 }
 
-export const Link: LinkComponent = forwardRef(function Link({ href, ...rest }, ref) {
+export const Link: LinkComponent = forwardRef(function Link({ href, onClick, ...rest }, ref) {
     const { data: internalLink } = useQuery({
         queryKey: ['link-transform', href],
         staleTime: Infinity,
@@ -51,6 +51,7 @@ export const Link: LinkComponent = forwardRef(function Link({ href, ...rest }, r
 
     const onLinkClick = useCallback(
         async (event: React.MouseEvent<HTMLAnchorElement>) => {
+            onClick?.(event);
             const isTrusted = isTrustedUrl(href);
             if (!isTrusted && !internalLink && typeof href === 'string') {
                 event.preventDefault();
@@ -63,7 +64,7 @@ export const Link: LinkComponent = forwardRef(function Link({ href, ...rest }, r
                 }
             }
         },
-        [internalLink, href],
+        [internalLink, href, onClick],
     );
 
     return <OriginalLink {...rest} href={internalLink || href} ref={ref} onClick={onLinkClick} />;
