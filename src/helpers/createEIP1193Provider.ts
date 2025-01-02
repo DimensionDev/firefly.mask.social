@@ -5,7 +5,7 @@ import { EthereumMethodType } from '@masknet/web3-shared-evm';
 import { switchEthereumChain } from '@/helpers/switchEthereumChain.js';
 import { getWalletClientRequired } from '@/helpers/getWalletClientRequired.js';
 
-async function hanldeRequest(parameters: RequestArguments) {
+async function handleRequest(parameters: RequestArguments) {
     const { method, params } = parameters;
     const client = await getWalletClientRequired(config);
 
@@ -32,7 +32,7 @@ export function createEIP1193ProviderFromWagmi() {
         async request<T>(parameters: unknown): Promise<T> {
             console.log('DEBUG: createEIP1193ProviderFromWagmi -> parameters', parameters);
 
-            const result = await hanldeRequest(parameters as RequestArguments);
+            const result = await handleRequest(parameters as RequestArguments);
 
             console.log('DEBUG: createEIP1193ProviderFromWagmi -> result', result);
 

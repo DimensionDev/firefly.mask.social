@@ -5,6 +5,8 @@ import { chains, config } from '@/configs/wagmiClient.js';
 
 export async function switchEthereumChain(chainId: ChainId) {
     const chain = chains.find((chain) => chain.id === chainId);
+    if (!chain) throw new Error(`Chain ${chainId} not found`);
+
     await switchChain(config, {
         chainId,
         addEthereumChainParameter: chain
