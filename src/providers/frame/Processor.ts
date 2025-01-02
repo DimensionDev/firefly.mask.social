@@ -50,6 +50,7 @@ class Processor {
         };
 
         const frame: FrameV1 = {
+            x_version: 1,
             url,
             title: getTitle(document) ?? 'Untitled Frame',
             version: 'vNext',
@@ -91,6 +92,7 @@ class Processor {
 
         const frame: FrameV2 = {
             x_url: url,
+            x_version: 2,
             ...parsed.data,
         };
         return frame;

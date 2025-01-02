@@ -38,6 +38,8 @@ export interface FrameImage {
 }
 
 export interface FrameV1 {
+    x_version: 1;
+    // frame URL
     url: string;
     // frame title
     title: string;
@@ -190,6 +192,7 @@ export interface FarcasterManifest {
  */
 export interface FrameV2 {
     x_url: string;
+    x_version: 2;
     x_manifest?: FarcasterManifest;
 
     // Frame spec version. Required.
