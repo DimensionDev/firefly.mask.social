@@ -3,8 +3,8 @@ import { delay } from '@masknet/kit';
 import { forwardRef, useEffect, useRef, useState } from 'react';
 import { useAsyncFn } from 'react-use';
 
-import FireflyLogo from '@/assets/firefly.logo.svg';
 import { CloseButton } from '@/components/IconButton.js';
+import { Image } from '@/components/Image.js';
 import { Modal } from '@/components/Modal.js';
 import { IS_DEVELOPMENT } from '@/constants/index.js';
 import { createEIP1193ProviderFromWagmi } from '@/helpers/createEIP1193Provider.js';
@@ -74,8 +74,8 @@ export const FrameViewerModal = forwardRef<SingletonModalRefCreator<FrameViewerM
 
         return (
             <Modal disableDialogClose open={open} onClose={() => dispatch?.close()}>
-                <div className="relative h-[695px] w-[424px] overflow-hidden rounded-xl">
-                    <div className="flex h-[60px] items-center justify-between bg-lightBg px-4 py-3 text-black dark:bg-fireflyBrand dark:text-white">
+                <div className="relative flex h-[695px] w-[424px] flex-col overflow-hidden rounded-xl">
+                    <div className="flex h-[60px] flex-1 items-center justify-between bg-lightBg px-4 py-3 text-black dark:bg-fireflyBrand dark:text-white">
                         <div className="cursor-pointer">
                             <CloseButton onClick={() => dispatch?.close()} />
                         </div>
@@ -84,7 +84,7 @@ export const FrameViewerModal = forwardRef<SingletonModalRefCreator<FrameViewerM
                             {u ? <div className="text-faint text-xs">{u.host}</div> : null}
                         </div>
                         <div>
-                            <MoreAction disabled={loading} onReload={onReload} />
+                            <MoreAction frame={frame} disabled={loading} onReload={onReload} />
                         </div>
                     </div>
                     <iframe
@@ -98,8 +98,18 @@ export const FrameViewerModal = forwardRef<SingletonModalRefCreator<FrameViewerM
                         }}
                     />
                     {!props.ready ? (
-                        <div className="absolute inset-0 top-[60px] flex items-center justify-center bg-white dark:bg-black">
-                            <FireflyLogo width={80} height={80} />
+                        <div
+                            className="absolute inset-0 top-[60px] flex items-center justify-center"
+                            style={{
+                                backgroundColor: frame.button.action.splashBackgroundColor,
+                            }}
+                        >
+                            <Image
+                                alt={frame.button.title}
+                                width={80}
+                                height={80}
+                                src={frame.button.action.splashImageUrl}
+                            />
                         </div>
                     ) : null}
                 </div>

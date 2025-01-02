@@ -3480,6 +3480,9 @@ msgstr "信息"
 msgid "Continue"
 msgstr "继续"
 
+msgid "Copy frame URL"
+msgstr ""
+
 msgid "Cybercrime."
 msgstr "网络犯罪。"
 

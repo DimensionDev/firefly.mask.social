@@ -153,7 +153,7 @@ export enum SearchType {
 
 export enum KeyType {
     DigestOpenGraphLink = '/v2/digestOpenGraphLink',
-    DigestFrameLink = '/v2/digestFrameLink',
+    DigestFrameLink = '/v3/digestFrameLink',
     GetLensThreadByPostId = '/v2/getLensThreadByPostId',
     RefreshLensThreadLock = '/v2/RefreshLensThreadLock',
     GetFollowings = '/v2/getFollowings',
