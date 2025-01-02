@@ -100,7 +100,7 @@ export default function Page({ searchParams }: PageProps) {
     if ((!loadingSupported && !supported) || error) {
         return (
             <FramePage>
-                <FramePageTitle onClose={onClose} onReload={onReload}>
+                <FramePageTitle frame={frame} onClose={onClose} onReload={onReload}>
                     Firefly
                 </FramePageTitle>
                 <FramePageBody>
@@ -115,7 +115,7 @@ export default function Page({ searchParams }: PageProps) {
 
     return (
         <FramePage>
-            <FramePageTitle onClose={onClose} onReload={onReload}>
+            <FramePageTitle frame={frame} onClose={onClose} onReload={onReload}>
                 {frame ? frame.button.action.name : <Trans>Loading...</Trans>}
             </FramePageTitle>
             <FramePageBody>

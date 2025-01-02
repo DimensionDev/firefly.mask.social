@@ -11,27 +11,35 @@ import { useCopyText } from '@/hooks/useCopyText.js';
 import type { FrameV2 } from '@/types/frame.js';
 
 interface MoreActionProps {
-    frame: FrameV2;
+    frame?: FrameV2;
     disabled?: boolean;
     onReload?: () => void;
 }
 
 export const MoreAction = memo(function MoreAction({ frame, disabled = false, onReload }: MoreActionProps) {
-    const [, handleCopy] = useCopyText(frame.x_url, { enqueueSuccessMessage: true });
+    const [, handleCopy] = useCopyText(frame?.x_url ?? '', { enqueueSuccessMessage: true });
 
     return (
         <MoreActionMenu loginRequired={false} button={<MoreIcon width={24} height={24} className="text-main" />}>
             <MenuGroup>
-                <MenuItem>
-                    {({ close }) => (
-                        <MenuButton disabled={disabled} onClick={handleCopy}>
-                            <ReloadIcon width={18} height={18} />
-                            <span className="font-bold leading-[22px] text-main">
-                                <Trans>Copy frame URL</Trans>
-                            </span>
-                        </MenuButton>
-                    )}
-                </MenuItem>
+                {frame?.x_url ? (
+                    <MenuItem>
+                        {({ close }) => (
+                            <MenuButton
+                                disabled={disabled}
+                                onClick={() => {
+                                    close();
+                                    handleCopy();
+                                }}
+                            >
+                                <ReloadIcon width={18} height={18} />
+                                <span className="font-bold leading-[22px] text-main">
+                                    <Trans>Copy frame URL</Trans>
+                                </span>
+                            </MenuButton>
+                        )}
+                    </MenuItem>
+                ) : null}
                 <MenuItem>
                     {({ close }) => (
                         <MenuButton
