@@ -3036,9 +3036,6 @@ msgstr ""
 msgid "Number of winners"
 msgstr ""
 
-msgid "Top 40 Projects power by Rootdata"
-msgstr ""
-
 msgid "Unmuted @{0} on {sourceName}."
 msgstr ""
 
