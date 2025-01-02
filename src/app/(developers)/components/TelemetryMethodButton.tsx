@@ -23,7 +23,7 @@ export function TelemetryMethodButton({ item }: Props) {
                 provider_filter: item.providerFilter,
             },
         );
-    }, []);
+    }, [item.providerFilter]);
 
     return (
         <ClickableButton

@@ -17,11 +17,11 @@ import { useAccount, useEnsName } from 'wagmi';
 import WalletIcon from '@/assets/wallet2.svg';
 import { SocialSourceIcon } from '@/components/SocialSourceIcon.js';
 import { EMPTY_LIST, SORTED_SOCIAL_SOURCES } from '@/constants/index.js';
+import { RED_PACKET_DEFAULT_SHARES } from '@/constants/rp.js';
 import { useChainContext } from '@/hooks/useChainContext.js';
 import { useProfileStoreAll } from '@/hooks/useProfileStore.js';
 import { useRedPacketThemes } from '@/hooks/useRedPacketThemes.js';
-import { EVMChainResolver } from '@/mask/bindings/index.js';
-import { RED_PACKET_DEFAULT_SHARES } from '@/mask/plugins/red-packet/constants.js';
+import { EVMChainResolver } from '@/mask/index.js';
 import type { FireflyRedPacketAPI } from '@/maskbook/packages/web3-providers/src/entry-types.js';
 import { RequirementType } from '@/providers/red-packet/types.js';
 

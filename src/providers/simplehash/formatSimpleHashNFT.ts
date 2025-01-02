@@ -9,7 +9,7 @@ import { first, isEmpty } from 'lodash-es';
 
 import { resolveNFTImageUrl } from '@/helpers/resolveNFTImageUrl.js';
 import { resolveSimpleHashChainId } from '@/helpers/resolveSimpleHashChain.js';
-import { EVMChainResolver } from '@/mask/bindings/index.js';
+import { EVMChainResolver } from '@/mask/index.js';
 import type { SimpleHash } from '@/providers/simplehash/type.js';
 import type { NFTAsset } from '@/providers/types/Firefly.js';
 
@@ -129,5 +129,6 @@ export function formatSimpleHashNFT(nft: SimpleHash.NFT, skipScoreCheck = false)
                 displayType: x.display_type,
             })) || [],
         tokenCount: nft.token_count,
+        __origin__: nft,
     };
 }

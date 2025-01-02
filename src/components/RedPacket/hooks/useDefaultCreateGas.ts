@@ -5,17 +5,17 @@ import { omit } from 'lodash-es';
 import { useAsync } from 'react-use';
 import { type Address, type Hex, keccak256 } from 'viem';
 
-import { createPublicViemClient } from '@/helpers/createPublicViemClient.js';
-import { ZERO } from '@/helpers/number.js';
-import { runInSafeAsync } from '@/helpers/runInSafe.js';
-import { type ChainContextOverride, useChainContext } from '@/hooks/useChainContext.js';
-import { HappyRedPacketV4ABI } from '@/mask/bindings/constants.js';
 import {
     checkParams,
     type MethodParameters,
     type ParamsObjType,
     type RedPacketSettings,
-} from '@/mask/plugins/red-packet/hooks/useCreateCallback.js';
+} from '@/components/RedPacket/hooks/useCreateCallback.js';
+import { createPublicViemClient } from '@/helpers/createPublicViemClient.js';
+import { ZERO } from '@/helpers/number.js';
+import { runInSafeAsync } from '@/helpers/runInSafe.js';
+import { type ChainContextOverride, useChainContext } from '@/hooks/useChainContext.js';
+import { HappyRedPacketV4ABI } from '@/mask/constants.js';
 
 export function useDefaultCreateGas(
     redPacketSettings: RedPacketSettings | undefined,
@@ -76,8 +76,10 @@ export function useDefaultCreateGas(
         });
 
         return result ? new BigNumber(result.toString()) : ZERO;
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [
         chainId,
+        // eslint-disable-next-line react-hooks/exhaustive-deps
         JSON.stringify(redPacketSettings),
         account,
         redpacketContractAddress,

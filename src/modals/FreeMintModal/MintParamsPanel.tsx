@@ -8,7 +8,7 @@ import { chains } from '@/configs/wagmiClient.js';
 import { classNames } from '@/helpers/classNames.js';
 import { formatPrice, renderShrankPrice } from '@/helpers/formatPrice.js';
 import { isZero, leftShift, multipliedBy, plus } from '@/helpers/number.js';
-import { EVMChainResolver } from '@/mask/bindings/index.js';
+import { EVMChainResolver } from '@/mask/index.js';
 import { CoinGecko } from '@/providers/coingecko/index.js';
 import type { MintMetadata } from '@/providers/types/Firefly.js';
 
@@ -42,8 +42,7 @@ export const MintParamsPanel = memo<MintParamsPanelProps>(function MintParamsPan
     const { decimals, symbol } = chain?.nativeCurrency || {};
     const isFree = gasStatus === true;
 
-    const mintPrices = multipliedBy(mintPrice || '0', mintCount);
-    const totalCost = plus(mintPrices, platformFee || '0').plus(gasFee);
+    const totalCost = plus(multipliedBy(mintPrice || '0', mintCount), platformFee || '0').plus(gasFee);
 
     const { data: totalCostInUsd } = useQuery({
         queryKey: ['token-cost', chainId, totalCost.toString()],
@@ -77,7 +76,7 @@ export const MintParamsPanel = memo<MintParamsPanelProps>(function MintParamsPan
             <li className="flex w-full items-center justify-between">
                 <span>{priceLabel || <Trans>Mint price</Trans>}</span>
                 <span className="text-lightSecond">
-                    {isFree || isZero(mintPrice) ? <Trans>FREE</Trans> : renderPrice(mintPrices, decimals, symbol)}
+                    {isFree || isZero(mintPrice) ? <Trans>FREE</Trans> : renderPrice(mintPrice, decimals, symbol)}
                 </span>
             </li>
             <li className="flex w-full items-center justify-between">

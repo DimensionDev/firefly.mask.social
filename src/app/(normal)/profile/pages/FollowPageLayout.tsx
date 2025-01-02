@@ -2,11 +2,10 @@
 
 import { Trans } from '@lingui/macro';
 import { compact } from 'lodash-es';
-import type { PropsWithChildren } from 'react';
+import { type PropsWithChildren, useMemo } from 'react';
 
-import { Link } from '@/components/Link.js';
+import { SecondTabs } from '@/components/Tabs/SecondTabs.js';
 import { FollowCategory } from '@/constants/enum.js';
-import { classNames } from '@/helpers/classNames.js';
 import { isSameProfile } from '@/helpers/isSameProfile.js';
 import { narrowToSocialSource } from '@/helpers/narrowToSocialSource.js';
 import { resolveProfileUrl } from '@/helpers/resolveProfileUrl.js';
@@ -24,51 +23,33 @@ export function FollowPageLayout({
     const source = narrowToSocialSource(identity.source);
     const myProfile = useCurrentProfile(source);
 
-    const tabs = compact([
-        !isSameProfile(myProfile, profile || { source, profileId: id })
-            ? {
-                  label: <Trans>Followers you know</Trans>,
-                  category: FollowCategory.Mutuals,
-              }
-            : null,
-        {
-            label: <Trans>Following</Trans>,
-            category: FollowCategory.Following,
-        },
-        {
-            label: <Trans>Followers</Trans>,
-            category: FollowCategory.Followers,
-        },
-    ]);
+    const tabs = useMemo(
+        () =>
+            compact([
+                !isSameProfile(myProfile, profile || { source, profileId: id })
+                    ? {
+                          title: <Trans>Followers you know</Trans>,
+                          value: FollowCategory.Mutuals,
+                          link: resolveProfileUrl(source, id, FollowCategory.Mutuals),
+                      }
+                    : null,
+                {
+                    title: <Trans>Following</Trans>,
+                    value: FollowCategory.Following,
+                    link: resolveProfileUrl(source, id, FollowCategory.Following),
+                },
+                {
+                    title: <Trans>Followers</Trans>,
+                    value: FollowCategory.Followers,
+                    link: resolveProfileUrl(source, id, FollowCategory.Followers),
+                },
+            ]),
+        [myProfile, profile, source, id],
+    );
 
     return (
         <>
-            <nav className="border-b border-line bg-primaryBottom px-4">
-                <menu className="scrollable-tab -mb-px flex space-x-4" aria-label="Tabs">
-                    {tabs.map((tab) => {
-                        return (
-                            <li
-                                key={tab.category}
-                                className="flex flex-1 list-none justify-center lg:flex-initial lg:justify-start"
-                            >
-                                <Link
-                                    replace
-                                    href={resolveProfileUrl(source, id, tab.category)}
-                                    className={classNames(
-                                        category === tab.category
-                                            ? 'border-b-2 border-fireflyBrand text-main'
-                                            : 'text-third',
-                                        'h-[43px] px-4 text-center text-xl font-bold leading-[43px] hover:cursor-pointer hover:text-main',
-                                        'md:h-[60px] md:py-[18px] md:leading-6',
-                                    )}
-                                >
-                                    {tab.label}
-                                </Link>
-                            </li>
-                        );
-                    })}
-                </menu>
-            </nav>
+            <SecondTabs<FollowCategory> items={tabs} current={category} />
             {children}
         </>
     );

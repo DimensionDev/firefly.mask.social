@@ -63,7 +63,10 @@ export const AddWalletModal = forwardRef<SingletonModalRefCreator<AddWalletModal
                 return;
             }
             const message = await FireflyEndpointProvider.getMessageToSignForBindWallet(address.toLowerCase());
-            const signature = await walletClient.signMessage({ message: { raw: message }, account: address });
+            const signature = await walletClient.signMessage({
+                message: { raw: message },
+                account: address,
+            });
             return await FireflyEndpointProvider.verifyAndBindWallet(message, signature);
         }, [connections]);
         const onBindSolanaAddress = useCallback(async () => {
@@ -124,7 +127,7 @@ export const AddWalletModal = forwardRef<SingletonModalRefCreator<AddWalletModal
                     throw error;
                 }
             },
-            [onBindEvmAddress, onBindSolanaAddress],
+            [onBindEvmAddress, onBindSolanaAddress, onClose, qc],
         );
 
         if (platform) return null;

@@ -32,14 +32,14 @@ import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { isEmptyPost } from '@/helpers/isEmptyPost.js';
 import { narrowToSocialSource } from '@/helpers/narrowToSocialSource.js';
 import { createLocalMediaObject } from '@/helpers/resolveMediaObjectUrl.js';
+import { hasRpPayload, isRpEncrypted, updateRpEncrypted } from '@/helpers/rpPayload.js';
 import { useCompositePost } from '@/hooks/useCompositePost.js';
 import { useCurrentProfile, useCurrentProfileAll } from '@/hooks/useCurrentProfile.js';
 import { useIsSmall } from '@/hooks/useMediaQuery.js';
 import { useSetEditorContent } from '@/hooks/useSetEditorContent.js';
 import { useSingletonModal } from '@/hooks/useSingletonModal.js';
 import type { SingletonModalRefCreator } from '@/libs/SingletonModal.js';
-import { ProfileIdentifier } from '@/mask/bindings/index.js';
-import { hasRpPayload, isRpEncrypted, updateRpEncrypted } from '@/mask/plugins/red-packet/helpers/rpPayload.js';
+import { ProfileIdentifier } from '@/mask/index.js';
 import { ComposeModalRef, ConfirmModalRef } from '@/modals/controls.js';
 import { captureComposeDraftPostEvent } from '@/providers/telemetry/captureComposeEvent.js';
 import type { Channel, Post } from '@/providers/types/SocialMedia.js';
@@ -255,8 +255,7 @@ export const ComposeModalUI = forwardRef<SingletonModalRefCreator<ComposeModalOp
                     SteganographyPreset.Preset2023_Firefly,
                 );
 
-                // eslint-disable-next-line no-irregular-whitespace
-                const promoteMessage = t`Check out my LuckyDrop 🧧💰✨ on Firefly mobile app or desktop ${promoteLink} !`;
+                const promoteMessage = t`Check out my LuckyDrop 🧧💰✨ on Firefly mobile app or desktop ${promoteLink} !`;
 
                 const chars: Chars = [
                     {
@@ -285,7 +284,16 @@ export const ComposeModalUI = forwardRef<SingletonModalRefCreator<ComposeModalOp
                 throw error;
             }
             // each time the typedMessage changes, we need to check if it has a red packet payload
-        }, [typedMessage, rpPayload, id, currentProfileAll, promoteLink]);
+        }, [
+            typedMessage,
+            rpPayload?.payloadImage,
+            profile?.handle,
+            promoteLink,
+            updateChars,
+            setEditorContent,
+            insertImage,
+            updateTypedMessage,
+        ]);
 
         useUpdateEffect(() => {
             if (!contentRef.current || !posts.length) return;

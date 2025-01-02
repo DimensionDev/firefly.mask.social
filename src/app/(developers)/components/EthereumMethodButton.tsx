@@ -46,24 +46,28 @@ export function EthereumMethodButton({ item }: Props) {
                     break;
                 }
                 case EthereumMethodType.ETH_SIGN:
-                    const signed = await signMessage(config, {
-                        message: SITE_DESCRIPTION,
-                    });
-                    enqueueInfoMessage(signed);
+                    {
+                        const signed = await signMessage(config, {
+                            message: SITE_DESCRIPTION,
+                        });
+                        enqueueInfoMessage(signed);
+                    }
                     break;
                 case EthereumMethodType.ETH_SEND_TRANSACTION:
-                    const hash = await sendTransaction(config, {
-                        to: address,
-                        value: 0n,
-                    });
-                    enqueueInfoMessage(hash);
+                    {
+                        const hash = await sendTransaction(config, {
+                            to: address,
+                            value: 0n,
+                        });
+                        enqueueInfoMessage(hash);
+                    }
                     break;
             }
         } catch (error) {
             enqueueMessageFromError(error, 'Failed to execute method');
             throw error;
         }
-    }, []);
+    }, [item.method]);
 
     return (
         <ClickableButton

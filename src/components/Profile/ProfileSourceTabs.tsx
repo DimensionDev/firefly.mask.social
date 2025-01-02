@@ -1,5 +1,7 @@
 'use client';
 
+import { useMemo } from 'react';
+
 import { SourceTabs } from '@/components/SourceTabs/index.js';
 import { SourceTab } from '@/components/SourceTabs/SourceTab.js';
 import type { ProfilePageSource } from '@/constants/enum.js';
@@ -27,11 +29,19 @@ export function ProfileSourceTabs({
         return resolveProfileUrl(x, profile?.identity.id ?? identity.id);
     };
 
+    const currentSources = useMemo(() => {
+        return SORTED_PROFILE_SOURCES.filter((value) => {
+            if (profiles.length) {
+                return profiles.find((profile) => profile.identity.source === value);
+            }
+
+            return value === identity.source;
+        });
+    }, [profiles, identity.source]);
+
     return (
         <SourceTabs>
-            {SORTED_PROFILE_SOURCES.filter((value) => {
-                return profiles.find((profile) => profile.identity.source === value);
-            }).map((x) => (
+            {currentSources.map((x) => (
                 <SourceTab key={x} href={resolveUrl(x)} isActive={x === identity.source}>
                     {resolveSourceName(x)}
                 </SourceTab>

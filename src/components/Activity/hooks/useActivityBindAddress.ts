@@ -53,5 +53,5 @@ export function useActivityBindAddress(source: SocialSource, chainId: number) {
             });
             throw error;
         }
-    }, [chainId, connected]);
+    }, [chainId, connected, onChangeAddress, refetch, refetchActivityClaimCondition]);
 }

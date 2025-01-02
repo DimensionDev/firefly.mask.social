@@ -7,7 +7,7 @@ import { MintStatus } from '@/constants/enum.js';
 import { getArticleDigest } from '@/helpers/getArticleDigest.js';
 import { multipliedBy, rightShift, ZERO } from '@/helpers/number.js';
 import { resolveArticleCollectProvider } from '@/helpers/resolveArticleCollectProvider.js';
-import { EVMChainResolver } from '@/mask/bindings/index.js';
+import { EVMChainResolver } from '@/mask/index.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 import { type Article } from '@/providers/types/Article.js';
 import type { MintMetadata } from '@/providers/types/Firefly.js';

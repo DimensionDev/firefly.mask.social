@@ -21,6 +21,6 @@ export const GET = compose<(request: NextRequest, context?: NextRequestContext) 
         const { data, includes, errors } = await getThreadTweets(client, tweetId);
         if (errors?.length) console.error('[twitter] v2.tweets', errors);
 
-        return createSuccessResponseJSON(data.map((tweet) => tweetV2ToPost(tweet, includes)));
+        return createSuccessResponseJSON(data.reverse().map((tweet) => tweetV2ToPost(tweet, includes)));
     },
 );

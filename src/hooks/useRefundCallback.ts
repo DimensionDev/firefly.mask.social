@@ -8,7 +8,7 @@ import { queryClient } from '@/configs/queryClient.js';
 import { config } from '@/configs/wagmiClient.js';
 import { waitForEthereumTransaction } from '@/helpers/waitForEthereumTransaction.js';
 import { type ChainContextOverride, useChainContext } from '@/hooks/useChainContext.js';
-import { HappyRedPacketV4ABI } from '@/mask/bindings/constants.js';
+import { HappyRedPacketV4ABI } from '@/mask/constants.js';
 import { FireflyRedPacketAPI } from '@/providers/red-packet/types.js';
 
 export function useRefundCallback(id?: string, overrideChainContext?: ChainContextOverride) {
@@ -65,5 +65,5 @@ export function useRefundCallback(id?: string, overrideChainContext?: ChainConte
         queryClient.refetchQueries({
             queryKey: ['red-packet', 'check-availability', chainId, 4, id, account],
         });
-    }, [chainId, redpacketContractAddress, id]);
+    }, [redpacketContractAddress, id, chainId, account]);
 }

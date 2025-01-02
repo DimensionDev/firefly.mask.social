@@ -2,7 +2,7 @@ import { safeUnreachable } from '@masknet/kit';
 import { useQuery } from '@tanstack/react-query';
 
 import { Link } from '@/components/Link.js';
-import { LoadingBase } from '@/mask/bindings/components.js';
+import { LoadingBase } from '@/mask/components.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
 import { FireflyRedPacketAPI } from '@/providers/red-packet/types.js';
 

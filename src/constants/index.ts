@@ -96,7 +96,7 @@ export const WALLET_PROFILE_TAB_TYPES: Record<NetworkType, WalletProfileCategory
         WalletProfileCategory.POAPs,
         WalletProfileCategory.NFTs,
         WalletProfileCategory.Articles,
-        WalletProfileCategory.DAO,
+        WalletProfileCategory.DAOs,
     ],
     [NetworkType.Solana]: [WalletProfileCategory.NFTs],
 };

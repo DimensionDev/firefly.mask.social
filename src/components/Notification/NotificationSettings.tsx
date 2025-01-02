@@ -34,7 +34,7 @@ export function NotificationSettings({ source }: { source: SocialSource }) {
             });
             await refetch();
         },
-        [source],
+        [refetch, source],
     );
 
     if (source === Source.Twitter) return null;

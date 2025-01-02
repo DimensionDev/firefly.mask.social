@@ -84,7 +84,7 @@ export const MintButton = memo<MintButtonProps>(function MintButton({
 
     return (
         <div className="mt-6 flex items-center gap-4">
-            {maxCount > 1 && mintParams.gasStatus ? (
+            {maxCount > 1 ? (
                 <div className="flex gap-2">
                     <ClickableButton
                         disabled={minusDisabled}
@@ -95,7 +95,7 @@ export const MintButton = memo<MintButtonProps>(function MintButton({
                     </ClickableButton>
                     <input
                         readOnly={inputDisabled}
-                        className="h-8 w-[62px] rounded-full border border-lightSecond text-center text-primaryBottom focus:border-highlight"
+                        className="h-8 w-[62px] rounded-full border border-lightSecond text-center text-main focus:border-highlight"
                         value={count}
                         onChange={(e) => changeMintCount(e.target.value)}
                         onBlur={onInputBlur}

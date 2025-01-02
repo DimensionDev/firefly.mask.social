@@ -70,7 +70,7 @@ export function ActivityClaimButton({
             enqueueMessageFromError(error, t`Failed to claim token`);
             throw error;
         }
-    }, [disabled, address, isPremium, onSuccess]);
+    }, [disabled, address, name, claimApiExtraParams, refetch, onSuccess, isPremium]);
 
     const buttonText = (() => {
         switch (status) {

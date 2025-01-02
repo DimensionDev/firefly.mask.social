@@ -56,7 +56,7 @@ export function ComposeActions(props: ComposeActionsProps) {
 
         // TODO: get redpacket data
         RedPacketModalRef.open();
-    }, [account.isConnected, currentProfileAll]);
+    }, [account.isConnected]);
 
     const maxImageCount = getCurrentPostImageLimits(type, availableSources);
     const mediaDisabled = !!video || images.length >= maxImageCount || !!poll;

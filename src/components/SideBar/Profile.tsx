@@ -41,7 +41,7 @@ export function Profile({ collapsed: sideBarCollapsed = false }: ProfileProps) {
         <Link
             href={href}
             className={classNames(
-                'flex w-full flex-grow-0 items-center gap-x-3 rounded-lg px-2 py-2.5 text-xl leading-6 outline-none hover:bg-bg md:w-auto md:px-4 md:py-3',
+                'flex w-full flex-grow-0 items-center gap-x-3 rounded-lg px-2 py-2 text-lg leading-6 outline-none hover:bg-bg md:w-auto md:px-4',
                 { 'font-bold': isSelected },
             )}
         >

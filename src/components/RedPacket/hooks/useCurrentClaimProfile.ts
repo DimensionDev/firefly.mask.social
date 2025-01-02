@@ -4,7 +4,7 @@ import { type SocialSource, Source } from '@/constants/enum.js';
 import { SITE_HOSTNAME } from '@/constants/index.js';
 import { resolveRedPacketPlatformType } from '@/helpers/resolveRedPacketPlatformType.js';
 import { useProfileStore } from '@/hooks/useProfileStore.js';
-import { ProfileIdentifier } from '@/mask/bindings/index.js';
+import { ProfileIdentifier } from '@/mask/index.js';
 import { farcasterSessionHolder } from '@/providers/farcaster/SessionHolder.js';
 import { lensSessionHolder } from '@/providers/lens/SessionHolder.js';
 import type { FireflyRedPacketAPI } from '@/providers/red-packet/types.js';

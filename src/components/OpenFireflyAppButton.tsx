@@ -19,7 +19,7 @@ export function OpenFireflyAppButton({ schemes, ref, ...props }: OpenAppButtonPr
                 [DeviceType.IOS]: env.external.NEXT_PUBLIC_FIREFLY_IOS_HOME,
             },
         );
-    }, []);
+    }, [schemes]);
 
     return <ClickableButton {...props} onClick={tryOpenApp} disabled={loading} />;
 }

@@ -14,10 +14,17 @@ import QuestionIcon from '@/assets/question.svg';
 import RedPacketIcon from '@/assets/red-packet.svg';
 import { ChainGuardButton } from '@/components/ChainGuardButton.js';
 import { FungibleTokenInput } from '@/components/FungibleTokenInput.js';
+import { useDefaultCreateGas } from '@/components/RedPacket/hooks/useDefaultCreateGas.js';
 import { Tab, Tabs } from '@/components/Tabs/index.js';
 import { TokenValue } from '@/components/TokenValue.js';
 import { Tooltip } from '@/components/Tooltip.js';
 import { config } from '@/configs/wagmiClient.js';
+import {
+    RED_PACKET_CONTRACT_VERSION,
+    RED_PACKET_DURATION,
+    RED_PACKET_MAX_SHARES,
+    RED_PACKET_MIN_SHARES,
+} from '@/constants/rp.js';
 import { createAccount } from '@/helpers/createAccount.js';
 import { formatBalance } from '@/helpers/formatBalance.js';
 import { getTokenAbiForWagmi } from '@/helpers/getTokenAbiForWagmi.js';
@@ -27,14 +34,7 @@ import { useAvailableBalance } from '@/hooks/useAvailableBalance.js';
 import { useChainContext } from '@/hooks/useChainContext.js';
 import { useERC20TokenAllowance } from '@/hooks/useERC20Allowance.js';
 import { useNativeTokenPrice } from '@/hooks/useNativeTokenPrice.js';
-import { EVMChainResolver } from '@/mask/bindings/index.js';
-import {
-    RED_PACKET_CONTRACT_VERSION,
-    RED_PACKET_DURATION,
-    RED_PACKET_MAX_SHARES,
-    RED_PACKET_MIN_SHARES,
-} from '@/mask/plugins/red-packet/constants.js';
-import { useDefaultCreateGas } from '@/mask/plugins/red-packet/hooks/useDefaultCreateGas.js';
+import { EVMChainResolver } from '@/mask/index.js';
 import { RedPacketContext, redPacketRandomTabs } from '@/modals/RedPacketModal/RedPacketContext.js';
 
 export function MainView() {
@@ -214,7 +214,15 @@ export function MainView() {
         }
 
         history.push('/requirements');
-    }, [chainId, isNotEnoughAllowance, redpacketContractAddress, originBalance, token.address]);
+    }, [
+        originBalance,
+        chainId,
+        isNotEnoughAllowance,
+        history,
+        token.address,
+        redpacketContractAddress,
+        refetchAllowance,
+    ]);
     // #endregion
 
     return (
@@ -277,9 +285,7 @@ export function MainView() {
                                 value={message}
                                 onChange={(e) => setMessage(e.target.value)}
                                 placeholder={t`Best Wishes!`}
-                                className={
-                                    'w-full border-0 bg-transparent py-2 placeholder-secondary focus:border-0 focus:outline-0 focus:ring-0'
-                                }
+                                className="w-full border-0 bg-transparent py-2 placeholder-secondary focus:border-0 focus:outline-0 focus:ring-0"
                             />
                         </label>
                     </form>

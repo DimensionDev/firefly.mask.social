@@ -8,27 +8,27 @@ import urlcat from 'urlcat';
 import { type Address, decodeEventLog, type Hex, keccak256, parseEventLogs } from 'viem';
 import { getTransactionReceipt, writeContract } from 'wagmi/actions';
 
+import {
+    checkParams,
+    type MethodParameters,
+    type ParamsObjType,
+} from '@/components/RedPacket/hooks/useCreateCallback.js';
 import { config } from '@/configs/wagmiClient.js';
 import { EMPTY_LIST, SITE_URL } from '@/constants/index.js';
-import { enqueueMessageFromError, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
-import { rightShift } from '@/helpers/number.js';
-import { waitForEthereumTransaction } from '@/helpers/waitForEthereumTransaction.js';
-import { useChainContext } from '@/hooks/useChainContext.js';
-import { HappyRedPacketV4ABI } from '@/mask/bindings/constants.js';
-import { EVMChainResolver } from '@/mask/bindings/index.js';
 import {
     DEFAULT_THEME_ID,
     RED_PACKET_CONTRACT_VERSION,
     RED_PACKET_DURATION,
     RedPacketMetaKey,
-} from '@/mask/plugins/red-packet/constants.js';
-import { getTypedMessageRedPacket } from '@/mask/plugins/red-packet/helpers/getTypedMessage.js';
-import { getRpMetadata } from '@/mask/plugins/red-packet/helpers/rpPayload.js';
-import {
-    checkParams,
-    type MethodParameters,
-    type ParamsObjType,
-} from '@/mask/plugins/red-packet/hooks/useCreateCallback.js';
+} from '@/constants/rp.js';
+import { enqueueMessageFromError, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
+import { getTypedMessageRedPacket } from '@/helpers/getTypedMessage.js';
+import { rightShift } from '@/helpers/number.js';
+import { getRpMetadata } from '@/helpers/rpPayload.js';
+import { waitForEthereumTransaction } from '@/helpers/waitForEthereumTransaction.js';
+import { useChainContext } from '@/hooks/useChainContext.js';
+import { HappyRedPacketV4ABI } from '@/mask/constants.js';
+import { EVMChainResolver } from '@/mask/index.js';
 import { RedPacketModalRef } from '@/modals/controls.js';
 import { RedPacketContext } from '@/modals/RedPacketModal/RedPacketContext.js';
 import type { FireflyRedPacketAPI, RedPacketJSONPayload } from '@/providers/red-packet/types.js';
@@ -221,5 +221,14 @@ export function useCreateFTRedPacketCallback(
                 enqueueMessageFromError(error, t`Failed to create red packet`);
             }
         }
-    }, [redPacketSettings, chainId, redpacketContractAddress, NATIVE_TOKEN_ADDRESS, publicKey, redPacketSettings]);
+    }, [
+        redPacketSettings,
+        redpacketContractAddress,
+        NATIVE_TOKEN_ADDRESS,
+        publicKey,
+        account,
+        chainId,
+        coverImage,
+        claimRequirements,
+    ]);
 }

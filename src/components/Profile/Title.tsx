@@ -73,7 +73,7 @@ export function Title({ profiles = EMPTY_LIST, sticky, keepVisible, disableActio
 
     return (
         <div
-            className={classNames('sticky top-0 z-30 h-0 w-full', { hidden }, className)}
+            className={classNames('sticky top-0 z-40 h-0 w-full', { hidden }, className)}
             {...rest}
             aria-hidden={hidden}
         >

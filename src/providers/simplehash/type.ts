@@ -23,7 +23,7 @@ export namespace SimpleHash {
         last_acquired_date: string;
     }
 
-    interface Contract {
+    export interface NFTContract {
         type: string;
         name?: string;
         symbol?: string;
@@ -101,7 +101,7 @@ export namespace SimpleHash {
         recipients: Recipient[];
     }
 
-    interface Attribute {
+    export interface Attribute {
         trait_type: string;
         value: string;
         display_type?: string;
@@ -168,7 +168,7 @@ export namespace SimpleHash {
         token_count: number;
         owner_count: number;
         owners: Owner[];
-        contract: Contract;
+        contract: NFTContract;
         collection: Collection;
         last_sale?: LastSale;
         first_created: FirstCreated;

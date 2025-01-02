@@ -7,7 +7,7 @@ import { EMPTY_LIST, SIMPLE_HASH_URL } from '@/constants/index.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
 import { createIndicator, createNextIndicator, createPageable, type PageIndicator } from '@/helpers/pageable.js';
 import { resolveSimpleHashChain } from '@/helpers/resolveSimpleHashChain.js';
-import type { BaseHubOptions } from '@/mask/bindings/index.js';
+import type { BaseHubOptions } from '@/mask/index.js';
 import { formatSimpleHashNFT } from '@/providers/simplehash/formatSimpleHashNFT.js';
 import type { SimpleHash } from '@/providers/simplehash/type.js';
 import type { NFTAsset } from '@/providers/types/Firefly.js';

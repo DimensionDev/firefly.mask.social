@@ -61,6 +61,7 @@ export function NFTDetailPage({ chainId, address, tokenId }: { chainId: ChainId;
                     attendance={poapAttendeesCount}
                     externalUrl={data.externalUrl}
                     traits={data.traits ?? []}
+                    contract={data.__origin__?.contract}
                 />
                 {!isPoap && data.traits?.length ? <NFTProperties items={data.traits} /> : null}
                 <NFTOverflow

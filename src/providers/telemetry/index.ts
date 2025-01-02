@@ -41,7 +41,9 @@ class Telemetry extends Provider<Events, never> {
 
     override async captureEvent<T extends keyof Events>(
         name: T,
-        parameters: Omit<Events[T]['parameters'], keyof ReturnType<typeof getPublicParameters>>,
+        parameters: Omit<Events[T]['parameters'], keyof ReturnType<typeof getPublicParameters>> & {
+            firefly_account_id?: string;
+        },
         {
             version_filter = VersionFilter.Latest,
             provider_filter = ProviderFilter.All,

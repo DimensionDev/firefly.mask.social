@@ -1,7 +1,7 @@
 import { ChainId } from '@masknet/web3-shared-solana';
 import { WalletNotConnectedError } from '@solana/wallet-adapter-base';
 
-import { SolanaExplorerResolver } from '@/mask/bindings/index.js';
+import { SolanaExplorerResolver } from '@/mask/index.js';
 import { resolveWalletAdapter } from '@/providers/solana/resolveWalletAdapter.js';
 import type { NetworkProvider as NetworkProvider } from '@/providers/types/Network.js';
 

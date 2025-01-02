@@ -76,16 +76,7 @@ export const SuperFollow = memo<SuperFollowProps>(function SuperFollow({ profile
             enqueueMessageFromError(error, t`Failed to follow @${profile.handle} on Lens`);
             throw error;
         }
-    }, [
-        followModule,
-        allowanceModule,
-        isConnected,
-        hasAllowance,
-        profile.profileId,
-        profile.handle,
-        profile.source,
-        onClose,
-    ]);
+    }, [followModule, allowanceModule, isConnected, hasAllowance, profile.profileId, profile.handle, onClose]);
 
     const disabled =
         loading || isFollowing || (isConnected && (!followModule || !allowanceModule || !hasAmount || wrongAddress));

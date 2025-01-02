@@ -2,12 +2,12 @@ import { Trans } from '@lingui/macro';
 import { useCallback, useState } from 'react';
 
 import { NoResultsFallback } from '@/components/NoResultsFallback.js';
+import { useRedPacketHistory } from '@/components/RedPacket/hooks/useRedPacketHistory.js';
 import { Tab, Tabs } from '@/components/Tabs/index.js';
 import { VirtualList } from '@/components/VirtualList/VirtualList.js';
 import { VirtualListFooter } from '@/components/VirtualList/VirtualListFooter.js';
 import { ScrollListKey } from '@/constants/enum.js';
 import { useChainContext } from '@/hooks/useChainContext.js';
-import { useRedPacketHistory } from '@/mask/plugins/red-packet/hooks/useRedPacketHistory.js';
 import { RedPacketDetailItem } from '@/modals/RedPacketModal/RedPacketDetailItem.js';
 import { FireflyRedPacketAPI } from '@/providers/red-packet/types.js';
 

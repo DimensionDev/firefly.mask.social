@@ -264,13 +264,14 @@ export type BlockedUsersResponse = Response<{
     blocks: Relationship[];
 }>;
 
-export type BlockedChannelsResponse = Response<
-    Array<{
+export type BlockedChannelsResponse = Response<{
+    blocks: Array<{
         channel_id: string;
         channel_url: string;
         create_at: string;
-    }>
->;
+    }>;
+    hasMore: boolean;
+}>;
 
 export type UserResponse = Response<User>;
 
@@ -610,6 +611,7 @@ export type NFTCollectionsResponse = Response<{
 export type NFTAsset = NonFungibleAsset<number, number> & {
     hasBookmarked?: boolean;
     externalUrl?: string;
+    __origin__?: SimpleHash.NFT;
 };
 
 export type TwitterFollowStatusResponse = Response<{
@@ -1170,6 +1172,7 @@ export type Project = {
     token_symbol: string;
     project_name: string;
     tags: string[];
+    rootdataurl: string;
 };
 
 export type SearchNFTResponse = Response<{
@@ -1279,7 +1282,8 @@ export type SponsorMintOptions = {
     buyCount: number;
     vectorId?: number;
     color?: string;
-    contractExt?: unknown;
+    contractExt?: SimpleHash.NFTContract;
+    collectionId?: string;
 };
 
 export type MintMetadata = {

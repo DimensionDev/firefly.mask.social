@@ -58,7 +58,7 @@ export function Tab({ children, value, className, disabled, ...props }: TabProps
     const liVariantClassName = {
         default: 'flex-1 text-sm sm:text-xl',
         second: 'flex-1 text-sm sm:text-base',
-        solid: 'text-[14px] leading-[20px]',
+        solid: 'text-[14px] leading-[20px] font-medium',
     }[variant];
     const variantClassName = {
         default: classNames(

@@ -8,11 +8,12 @@ import { createPageTitleOG } from '@/helpers/createPageTitle.js';
 import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';
 import { getStampAvatarByProfileId } from '@/helpers/getStampAvatarByProfileId.js';
+import { runInSafeAsync } from '@/helpers/runInSafe.js';
 import { getProfileById } from '@/services/getProfileById.js';
 
 export async function createMetadataProfileById(source: ProfilePageSource, profileId: string) {
     if (source === Source.Wallet) return createMetadataWalletProfile(profileId);
-    const profile = await getProfileById(source, profileId).catch(() => null);
+    const profile = await runInSafeAsync(() => getProfileById(source, profileId));
 
     if (!profile) return createSiteMetadata();
 

@@ -39,7 +39,7 @@ export function VoteButton({ option, post, frameUrl }: VoteButtonProps) {
             enqueueMessageFromError(error, t`Failed to vote.`);
             throw error;
         }
-    }, [post.source, pollId, frameUrl, isLogin]);
+    }, [isLogin, pollId, post.source, post.postId, frameUrl, option]);
 
     return (
         <div className="mt-3">

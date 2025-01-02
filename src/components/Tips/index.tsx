@@ -52,12 +52,18 @@ export const Tips = forwardRef<HTMLButtonElement, TipsProps>(function Tips(
                 throw new Error('No available profiles');
             }
             onClick?.();
-            TipsModalRef.open({ identity, handle, pureWallet, profiles: relatedProfiles, post });
+            TipsModalRef.open({
+                identity,
+                handle,
+                pureWallet,
+                profiles: relatedProfiles,
+                post,
+            });
         } catch (error) {
             enqueueInfoMessage(t`Sorry, we are not able to find a wallet for ${handle ? '@' + handle : identity.id}.`);
             throw error;
         }
-    }, [identity, handle, pureWallet, onClick]);
+    }, [identity, onClick, handle, pureWallet, post]);
 
     if (
         env.external.NEXT_PUBLIC_TIPS !== STATUS.Enabled ||

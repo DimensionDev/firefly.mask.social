@@ -20,7 +20,7 @@ import { Modal } from '@/components/Modal.js';
 import { MentionLink } from '@/components/RedPacket/MentionLink.js';
 import { classNames } from '@/helpers/classNames.js';
 import { resolveRedPacketPlatformType } from '@/helpers/resolveRedPacketPlatformType.js';
-import { EVMExplorerResolver, NFTScanNonFungibleTokenEVM } from '@/mask/bindings/index.js';
+import { EVMExplorerResolver, NFTScanNonFungibleTokenEVM } from '@/mask/index.js';
 import { FireflyRedPacketAPI } from '@/providers/red-packet/types.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 

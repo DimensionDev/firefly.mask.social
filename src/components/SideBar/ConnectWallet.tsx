@@ -43,7 +43,7 @@ export function ConnectWallet({ collapsed: sideBarCollapsed = false }: ConnectWa
 
     return (
         <div
-            className={classNames('w-full space-y-3 rounded-md px-2 py-2.5 leading-6 hover:bg-bg md:px-4 md:py-3', {
+            className={classNames('w-full space-y-3 rounded-md px-2 py-2 leading-6 hover:bg-bg md:px-4', {
                 'bg-lightBg': collapsed,
             })}
             onClick={(e) => {
@@ -52,7 +52,7 @@ export function ConnectWallet({ collapsed: sideBarCollapsed = false }: ConnectWa
         >
             <div
                 className={classNames(
-                    'relative flex w-full cursor-pointer select-none items-center gap-x-3 overflow-hidden rounded-full text-xl',
+                    'relative flex w-full cursor-pointer select-none items-center gap-x-3 overflow-hidden rounded-full text-lg',
                 )}
                 onClick={() => {
                     if (activeConnection) {
@@ -110,7 +110,7 @@ export function ConnectWallet({ collapsed: sideBarCollapsed = false }: ConnectWa
                                         }
                                         connection.onOpenConnectModal();
                                     }}
-                                    className="flex w-full flex-row items-center gap-3 text-xl font-bold leading-6"
+                                    className="flex w-full flex-row items-center gap-3 text-lg font-bold leading-6"
                                 >
                                     {connection.isLoading ? (
                                         <LoadingIcon className="animate-spin" width={20} height={20} />

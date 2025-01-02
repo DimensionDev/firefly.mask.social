@@ -10,7 +10,7 @@ import { CopyTextButton } from '@/components/CopyTextButton.js';
 import { Link } from '@/components/Link.js';
 import { ChainIcon } from '@/components/NFTDetail/ChainIcon.js';
 import { resolveSimpleHashChain } from '@/helpers/resolveSimpleHashChain.js';
-import { EVMExplorerResolver, SolanaExplorerResolver } from '@/mask/bindings/index.js';
+import { EVMExplorerResolver, SolanaExplorerResolver } from '@/mask/index.js';
 import { BlockScanExplorerResolver } from '@/providers/ethereum/ExplorerResolver.js';
 
 function DetailsGroup(props: { field: ReactNode; value: ReactNode }) {

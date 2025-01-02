@@ -12,7 +12,7 @@ import { Modal } from '@/components/Modal.js';
 import type { ThirdPartySource } from '@/constants/enum.js';
 import { SORTED_THIRD_PARTY_SOURCES } from '@/constants/index.js';
 import { classNames } from '@/helpers/classNames.js';
-import { enqueueMessageFromError, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
+import { enqueueErrorMessage, enqueueMessageFromError, enqueueSuccessMessage } from '@/helpers/enqueueMessage.js';
 import { stopEvent } from '@/helpers/stopEvent.js';
 import { useSingletonModal } from '@/hooks/useSingletonModal.js';
 import type { SingletonModalRefCreator } from '@/libs/SingletonModal.js';
@@ -31,7 +31,6 @@ export const DisconnectFireflyAccountModal = forwardRef<SingletonModalRefCreator
         const account = props?.account;
         const [open, dispatch] = useSingletonModal(ref, {
             onOpen: (props) => setProps(props),
-            onClose: () => setProps(undefined),
         });
 
         const [{ loading }, confirm] = useAsyncFn(async () => {
@@ -48,10 +47,17 @@ export const DisconnectFireflyAccountModal = forwardRef<SingletonModalRefCreator
 
                 dispatch?.close();
             } catch (error) {
-                enqueueMessageFromError(error, t`Failed to disconnect.`);
+                if (error instanceof Error && error.message.includes('Please leave at least 1 account')) {
+                    enqueueErrorMessage(
+                        t`Failed to disconnect. Please leave at least 1 account or wallet address connected to keep your immersive experience in Firefly.`,
+                        { error },
+                    );
+                } else {
+                    enqueueMessageFromError(error, t`Failed to disconnect.`);
+                }
                 throw error;
             }
-        }, [dispatch?.close, account]);
+        }, [account, dispatch]);
 
         const isThirdPartyAccount =
             !!account?.profile &&

@@ -49,6 +49,9 @@ msgstr "Muted"
 msgid "Disconnect"
 msgstr "Disconnect"
 
+msgid "No frame found."
+msgstr "No frame found."
+
 msgid "Undo mirror"
 msgstr "Undo mirror"
 
@@ -60,6 +63,9 @@ msgstr "Confirm to disconnect this wallet and related accounts from Firefly’s 
 
 msgid "Allow Collect Module"
 msgstr "Allow Collect Module"
+
+msgid "Replying to <0>@{0}</0>,<1>@{1}</1> and <2>{2} others</2> on {3}"
+msgstr "Replying to <0>@{0}</0>,<1>@{1}</1> and <2>{2} others</2> on {3}"
 
 msgid "New connect with Warpcast"
 msgstr "New connect with Warpcast"
@@ -238,9 +244,6 @@ msgstr "<0>The maximum number of coins coded to exist in the lifetime of the cry
 msgid "This token is a gas abuser."
 msgstr "This token is a gas abuser."
 
-msgid "Are you sure you want to leave /{0} ?"
-msgstr "Are you sure you want to leave /{0} ?"
-
 msgid "Ended"
 msgstr "Ended"
 
@@ -319,6 +322,9 @@ msgstr "Enable telemetry debug mode"
 msgid "FAILED POST"
 msgstr "FAILED POST"
 
+msgid "Post engagements"
+msgstr "Post engagements"
+
 msgid "No financial crime found."
 msgstr "No financial crime found."
 
@@ -333,6 +339,9 @@ msgstr "Trending"
 
 msgid "Log out @{0}"
 msgstr "Log out @{0}"
+
+msgid "DAOs"
+msgstr "DAOs"
 
 msgid "MAX"
 msgstr "MAX"
@@ -889,6 +898,9 @@ msgstr "Not Found. Please check your URL[{0}]."
 msgid "Closed"
 msgstr "Closed"
 
+msgid "Replying to <0>@{0}</0>,<1>@{1}</1> and <2>@{2}</2> on {3}"
+msgstr "Replying to <0>@{0}</0>,<1>@{1}</1> and <2>@{2}</2> on {3}"
+
 msgid "Non-sanctioned address found."
 msgstr "Non-sanctioned address found."
 
@@ -1402,9 +1414,6 @@ msgstr "This token contract is open source. You can check the contract code for 
 msgid "Darkweb transactions found."
 msgstr "Darkweb transactions found."
 
-msgid "DAO"
-msgstr "DAO"
-
 msgid "{0} Comments"
 msgstr "{0} Comments"
 
@@ -1434,6 +1443,9 @@ msgstr "The contract owner has the authority to modify the balance of tokens at 
 
 msgid "Failed to unmute @{0} on {sourceName}."
 msgstr "Failed to unmute @{0} on {sourceName}."
+
+msgid "Others in the conversation"
+msgstr "Others in the conversation"
 
 msgid "Insufficient Balance"
 msgstr "Insufficient Balance"
@@ -1774,6 +1786,9 @@ msgstr "Standard"
 msgid "No darkweb transactions found."
 msgstr "No darkweb transactions found."
 
+msgid "Joined /{0} on {sourceName}."
+msgstr "Joined /{0} on {sourceName}."
+
 msgid "You need to connect your {0} account to use this feature."
 msgstr "You need to connect your {0} account to use this feature."
 
@@ -1909,6 +1924,9 @@ msgstr "Follow for {feeAmount} ${feeSymbol}"
 msgid "Posts from @{0} will now be hidden in your home timeline"
 msgstr "Posts from @{0} will now be hidden in your home timeline"
 
+msgid "Replying to"
+msgstr "Replying to"
+
 msgid "commented"
 msgstr "commented"
 
@@ -2014,9 +2032,6 @@ msgstr "This can’t be undone and you’ll lose your draft."
 msgid "Article removed from your Bookmarks"
 msgstr "Article removed from your Bookmarks"
 
-msgid "Leave /{0} on {sourceName}."
-msgstr "Leave /{0} on {sourceName}."
-
 msgid "Powered by Tenderly and GoPlus"
 msgstr "Powered by Tenderly and GoPlus"
 
@@ -2106,6 +2121,9 @@ msgstr "Your serialized session"
 
 msgid "GIFs"
 msgstr "GIFs"
+
+msgid "Loading..."
+msgstr "Loading..."
 
 msgid "%Of supply owned"
 msgstr "%Of supply owned"
@@ -2290,6 +2308,9 @@ msgstr "Follow @thefireflyapp on X"
 msgid "Wallets retrieved from public verifiable data registries or our entity algorithm can be reported for disconnection."
 msgstr "Wallets retrieved from public verifiable data registries or our entity algorithm can be reported for disconnection."
 
+msgid "Left /{0} on {sourceName}."
+msgstr "Left /{0} on {sourceName}."
+
 msgid "Step 2 Connect Wallet"
 msgstr "Step 2 Connect Wallet"
 
@@ -2308,6 +2329,9 @@ msgstr "No phishing site."
 msgid "Followed <0>@{handle}</0> on X before Oct 12,2024, or followed <1>@{farcasterHandle}</1> on Farcaster before Oct 20, 2024"
 msgstr "Followed <0>@{handle}</0> on X before Oct 12,2024, or followed <1>@{farcasterHandle}</1> on Farcaster before Oct 20, 2024"
 
+msgid "Replying to <0>@{0}</0> and <1>@{1}</1> on {2}"
+msgstr "Replying to <0>@{0}</0> and <1>@{1}</1> on {2}"
+
 msgid "Connect your wallet to follow"
 msgstr "Connect your wallet to follow"
 
@@ -2319,9 +2343,6 @@ msgstr "Free Collect"
 
 msgid "Delete"
 msgstr "Delete"
-
-msgid "Check out my LuckyDrop 🧧💰✨ on Firefly mobile app or desktop {promoteLink} !"
-msgstr "Check out my LuckyDrop 🧧💰✨ on Firefly mobile app or desktop {promoteLink} !"
 
 msgid "The content of this account is currently unavailable"
 msgstr "The content of this account is currently unavailable"
@@ -2427,9 +2448,6 @@ msgstr "Recast or Quote"
 
 msgid "Sorry, we are not able to find a wallet for {0}."
 msgstr "Sorry, we are not able to find a wallet for {0}."
-
-msgid "Remove from bookmark"
-msgstr "Remove from bookmark"
 
 msgid "Unwatch"
 msgstr "Unwatch"
@@ -2650,6 +2668,9 @@ msgstr "Accounts Connected"
 msgid "Failed to claim token"
 msgstr "Failed to claim token"
 
+msgid "Top 40 Projects powered by Rootdata"
+msgstr "Top 40 Projects powered by Rootdata"
+
 msgid "Notifications"
 msgstr "Notifications"
 
@@ -2742,6 +2763,9 @@ msgstr "Muting..."
 
 msgid "{0, plural, one {comment} other {comments}}"
 msgstr "{0, plural, one {comment} other {comments}}"
+
+msgid "<0/> Loading"
+msgstr "<0/> Loading"
 
 msgid "Pinned"
 msgstr "Pinned"
@@ -3010,6 +3034,9 @@ msgstr "The contract owner has no restrictions on personal slippage."
 msgid "Number of winners"
 msgstr "Number of winners"
 
+msgid "Top 40 Projects power by Rootdata"
+msgstr "Top 40 Projects power by Rootdata"
+
 msgid "Unmuted @{0} on {sourceName}."
 msgstr "Unmuted @{0} on {sourceName}."
 
@@ -3156,6 +3183,9 @@ msgstr "Claim Requirements"
 
 msgid "Oversupply minting."
 msgstr "Oversupply minting."
+
+msgid "Check out my LuckyDrop 🧧💰✨ on Firefly mobile app or desktop {promoteLink} !"
+msgstr "Check out my LuckyDrop 🧧💰✨ on Firefly mobile app or desktop {promoteLink} !"
 
 msgid "*Note: Each NFT can only be used once."
 msgstr "*Note: Each NFT can only be used once."
@@ -3370,9 +3400,6 @@ msgstr "Snapshot removed from your Bookmarks"
 msgid "Max Supply"
 msgstr "Max Supply"
 
-msgid "Join /{0} on {sourceName}."
-msgstr "Join /{0} on {sourceName}."
-
 msgid "Posted by {0} via Firefly"
 msgstr "Posted by {0} via Firefly"
 
@@ -3549,9 +3576,6 @@ msgstr "Failed to update scheduled post."
 
 msgid "Login"
 msgstr "Login"
-
-msgid "Mint failed"
-msgstr "Mint failed"
 
 msgid "Replying to <0>@{0}</0> on {1}"
 msgstr "Replying to <0>@{0}</0> on {1}"

@@ -232,7 +232,9 @@
         "pengu",
         "Pudge",
         "BARMSTRONG",
-        "hdel"
+        "hdel",
+        "rootdataurl",
+        "rootdata"
     ],
     "flagWords": [],
     "ignorePaths": [

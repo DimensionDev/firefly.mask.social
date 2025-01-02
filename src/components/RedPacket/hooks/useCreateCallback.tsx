@@ -10,14 +10,14 @@ import {
 } from '@masknet/web3-shared-evm';
 import { omit } from 'lodash-es';
 import { useCallback } from 'react';
-import { useAsync, useAsyncFn } from 'react-use';
+import { useAsyncFn } from 'react-use';
 import type { AsyncFnReturn } from 'react-use/lib/useAsyncFn.js';
 import { type Hex, keccak256 } from 'viem';
 
+import { useRedPacketContract } from '@/components/RedPacket/hooks/useRedPacketContract.js';
 import { useChainContext } from '@/hooks/useChainContext.js';
-import type { HappyRedPacketV4 } from '@/mask/bindings/constants.js';
-import { EVMWeb3 } from '@/mask/bindings/index.js';
-import { useRedPacketContract } from '@/mask/plugins/red-packet/hooks/useRedPacketContract.js';
+import type { HappyRedPacketV4 } from '@/mask/constants.js';
+import { EVMWeb3 } from '@/mask/index.js';
 
 export interface RedPacketSettings {
     shares: number;
@@ -120,20 +120,15 @@ function useCreateParamsCallback(
                 gasError = error;
             });
 
-        return { gas: gas ? toFixed(gas) : undefined, params, paramsObj, gasError };
+        return {
+            gas: gas ? toFixed(gas) : undefined,
+            params,
+            paramsObj,
+            gasError,
+        };
     }, [redPacketSettings, account, redPacketContract, NATIVE_TOKEN_ADDRESS, publicKey]);
 
     return getCreateParams;
-}
-
-export function useCreateParams(
-    expectedChainId: ChainId,
-    redPacketSettings: RedPacketSettings,
-    version: number,
-    publicKey: string,
-) {
-    const getCreateParams = useCreateParamsCallback(expectedChainId, redPacketSettings, version, publicKey);
-    return useAsync(() => getCreateParams(), [JSON.stringify(redPacketSettings), version, publicKey]);
 }
 
 interface CreateResult {
@@ -195,8 +190,7 @@ export function useCreateCallback(
                 receipt,
                 events,
             } as CreateResult;
-        } else {
-            return { hash, receipt } as CreateResult;
         }
-    }, [account, redPacketContract, redPacketSettings, gasOption, chainId]);
+        return { hash, receipt } as CreateResult;
+    }, [redPacketSettings, getCreateParams, redPacketContract, account, chainId, gasOption]);
 }

@@ -62,7 +62,7 @@ export const WalletItem = memo<WalletItemProps>(function WalletItem({
         await mutation.mutateAsync();
 
         enqueueSuccessMessage(isMuted ? t`Unmuted ${walletHandle}.` : t`Muted ${walletHandle}.`);
-    }, [isLogin, isMuted, walletHandle, mutation.mutateAsync]);
+    }, [isLogin, isMuted, mutation, walletHandle]);
 
     const isLoading = mutation.isPending || loading;
 

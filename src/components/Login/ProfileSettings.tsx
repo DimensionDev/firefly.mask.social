@@ -49,28 +49,37 @@ export function ProfileSettings({ source, onClose }: ProfileSettingsProps) {
         getProfileState(source).refreshAccounts();
     });
 
-    const [{ loading }, onSwitchAccount] = useAsyncFn(async (account: Account) => {
-        if (!account.session) {
-            onClose?.();
-            await delay(300);
-            LoginModalRef.open({
-                source,
-                options: { expectedProfile: account.profile.profileId },
-            });
-            return;
-        }
-        await switchAccount({ ...account, session: account.session });
-        if (isMyProfilePage && identity.source === source && identity.id !== resolveFireflyProfileId(account.profile)) {
-            updateParams(
-                new URLSearchParams({
-                    source: resolveSourceInUrl(account.profile.source),
-                }),
-                isPureProfilePage
-                    ? undefined
-                    : urlcat('/profile/:id', { id: resolveFireflyProfileId(account.profile) }),
-            );
-        }
-    }, []);
+    const [{ loading }, onSwitchAccount] = useAsyncFn(
+        async (account: Account) => {
+            if (!account.session) {
+                onClose?.();
+                await delay(300);
+                LoginModalRef.open({
+                    source,
+                    options: { expectedProfile: account.profile.profileId },
+                });
+                return;
+            }
+            await switchAccount({ ...account, session: account.session });
+            if (
+                isMyProfilePage &&
+                identity.source === source &&
+                identity.id !== resolveFireflyProfileId(account.profile)
+            ) {
+                updateParams(
+                    new URLSearchParams({
+                        source: resolveSourceInUrl(account.profile.source),
+                    }),
+                    isPureProfilePage
+                        ? undefined
+                        : urlcat('/profile/:id', {
+                              id: resolveFireflyProfileId(account.profile),
+                          }),
+                );
+            }
+        },
+        [identity.id, identity.source, isMyProfilePage, isPureProfilePage, onClose, source, updateParams],
+    );
 
     if (!currentProfile) return null;
 

@@ -6,11 +6,12 @@ import { useEffect, useRef, useState } from 'react';
 import { useAsyncRetry } from 'react-use';
 
 import { FramePage, FramePageBody, FramePageTitle } from '@/app/(whiteboard)/components/FramePage.js';
+import { GhostError } from '@/app/(whiteboard)/components/GhostError.js';
 import FireflyLogo from '@/assets/firefly.logo.svg';
-import GhostHoleIcon from '@/assets/ghost.svg';
 import { IS_DEVELOPMENT } from '@/constants/index.js';
 import { bom } from '@/helpers/bom.js';
 import { createEIP1193ProviderFromRequest, type RequestArguments } from '@/helpers/createEIP1193Provider.js';
+import { useFireflyBridgeSupported } from '@/hooks/useFireflyBridgeSupported.js';
 import { fireflyBridgeProvider } from '@/providers/firefly/Bridge.js';
 import { FarcasterFrameHost } from '@/providers/frame/Host.js';
 import { SupportedMethod } from '@/types/bridge.js';
@@ -22,8 +23,11 @@ interface PageProps {
 
 export default function Page({ searchParams }: PageProps) {
     const [ready, setReady] = useState(false);
+
+    const { loading: loadingSupported, value: supported = false } = useFireflyBridgeSupported();
+
     const { loading, retry, error, value } = useAsyncRetry(async () => {
-        if (!fireflyBridgeProvider.supported) return;
+        if (!supported) return;
 
         const result = await fireflyBridgeProvider.request(SupportedMethod.GET_FRAME_CONTEXT, {});
         const context = {
@@ -50,13 +54,13 @@ export default function Page({ searchParams }: PageProps) {
             frame: FrameV2;
             frameHost: FrameV2Host;
         };
-    }, [setReady]);
+    }, [supported]);
 
     const frameRef = useRef<HTMLIFrameElement | null>(null);
     const { frame, frameHost } = value ?? {};
 
     useEffect(() => {
-        if (!fireflyBridgeProvider.supported) return;
+        if (!supported) return;
         if (!frameRef.current) return;
         if (!frameHost) return;
 
@@ -76,31 +80,29 @@ export default function Page({ searchParams }: PageProps) {
         return () => {
             result?.cleanup();
         };
-    }, [frame, frameHost]);
+    }, [supported, frame, frameHost]);
 
     const onReload = () => {
-        if (fireflyBridgeProvider.supported) retry();
+        if (supported) retry();
         else bom.location?.reload();
     };
 
     const onClose = () => {
-        if (fireflyBridgeProvider.supported) fireflyBridgeProvider.request(SupportedMethod.CLOSE, {});
+        if (supported) fireflyBridgeProvider.request(SupportedMethod.CLOSE, {});
         else bom.window?.close();
     };
 
-    if (!fireflyBridgeProvider.supported || error) {
+    if ((!loadingSupported && !supported) || error) {
         return (
             <FramePage>
                 <FramePageTitle onClose={onClose} onReload={onReload}>
                     Firefly
                 </FramePageTitle>
                 <FramePageBody>
-                    <div className="flex flex-col items-center">
-                        <GhostHoleIcon width={200} height={143} className="text-third" />
-                        <p className="mt-10 text-center text-sm">
-                            {error?.message ?? <Trans>Your browser does not support the Firefly Bridge.</Trans>}
-                        </p>
-                    </div>
+                    <GhostError
+                        error={error}
+                        fallback={<Trans>Your browser does not support the Firefly Bridge.</Trans>}
+                    />
                 </FramePageBody>
             </FramePage>
         );
@@ -109,10 +111,14 @@ export default function Page({ searchParams }: PageProps) {
     return (
         <FramePage>
             <FramePageTitle onClose={onClose} onReload={onReload}>
-                {frame ? frame.button.action.name : 'Firefly'}
+                {frame ? frame.button.action.name : <Trans>Loading...</Trans>}
             </FramePageTitle>
             <FramePageBody>
-                {frame ? (
+                {!ready || loading || loadingSupported ? (
+                    <div className="flex h-full w-full items-center justify-center bg-white dark:bg-black">
+                        <FireflyLogo width={80} height={80} />
+                    </div>
+                ) : frame ? (
                     <iframe
                         className="scrollbar-hide h-full w-full opacity-100"
                         ref={frameRef}
@@ -123,12 +129,9 @@ export default function Page({ searchParams }: PageProps) {
                             backgroundColor: frame.button.action.splashBackgroundColor,
                         }}
                     />
-                ) : null}
-                {!ready || loading || !frame ? (
-                    <div className="flex h-full w-full items-center justify-center bg-white dark:bg-black">
-                        <FireflyLogo width={80} height={80} />
-                    </div>
-                ) : null}
+                ) : (
+                    <GhostError error={error} fallback={<Trans>No frame found.</Trans>} />
+                )}
             </FramePageBody>
         </FramePage>
     );

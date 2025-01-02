@@ -73,6 +73,6 @@ export function useMirror(post: Post) {
                 throw error;
             }
         },
-        [postId, source, hasMirrored, post.author.profileId],
+        [postId, source, hasMirrored, post],
     );
 }

@@ -4,7 +4,8 @@ import { ChainId, SchemaType } from '@masknet/web3-shared-evm';
 
 import LinkIcon from '@/assets/link-square.svg';
 import { ClickableButton } from '@/components/ClickableButton.js';
-import { EVMExplorerResolver } from '@/mask/bindings/index.js';
+import { Image } from '@/components/Image.js';
+import { EVMExplorerResolver } from '@/mask/index.js';
 
 interface CollectionProps {
     collection: NonFungibleCollection<ChainId, SchemaType>;
@@ -17,11 +18,10 @@ export function CollectionItem({ collection }: CollectionProps) {
             enablePropagate
         >
             <div className="flex items-center gap-x-2.5">
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
+                <Image
                     alt={collection.name}
                     src={collection.iconURL!}
-                    className="h-8 w-8 rounded-full object-contain"
+                    className="h-8 w-8 rounded-full object-cover"
                     height={24}
                     width={24}
                 />

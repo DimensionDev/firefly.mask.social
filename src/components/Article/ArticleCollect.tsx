@@ -21,6 +21,7 @@ import { resolveExplorerLink } from '@/helpers/resolveExplorerLink.js';
 import { useArticleCollectable, useArticleCollectStatus } from '@/hooks/useArticleCollectable.js';
 import { MintParamsPanel } from '@/modals/FreeMintModal/MintParamsPanel.js';
 import { FireflyEndpointProvider } from '@/providers/firefly/Endpoint.js';
+import { captureCollectArticleEvent } from '@/providers/telemetry/captureMintEvent.js';
 import { type Article, ArticlePlatform } from '@/providers/types/Article.js';
 
 export interface ArticleCollectProps {
@@ -44,6 +45,7 @@ export function ArticleCollect({ article }: ArticleCollectProps) {
     const canCollect = [MintStatus.Mintable, MintStatus.MintAgain].includes(
         collectParams?.mintStatus || MintStatus.NotSupported,
     );
+    const isFree = canCollect && !!collectParams?.gasStatus;
 
     // User can collect again by reopen the modal
     const [modalSessionCollected, setModalSessionCollected] = useState(false);
@@ -55,19 +57,28 @@ export function ArticleCollect({ article }: ArticleCollectProps) {
         if (!provider) return;
         try {
             let hash = '';
-            if (canCollect && collectParams?.gasStatus) {
+            const eventOptions = {
+                wallet_address: account.address?.toLowerCase() || '',
+                Article_id: article.id,
+            };
+
+            setModalSessionCollected(true);
+
+            if (isFree) {
                 const result = await FireflyEndpointProvider.freeCollectArticle(
                     article.id,
                     account.address || '',
                     platform,
                 );
                 hash = result.hash;
+                captureCollectArticleEvent({ ...eventOptions, free_mint: true });
             } else {
                 const confirmation = await provider.collect(data);
                 if (!confirmation) return;
                 hash = confirmation.transactionHash;
+                captureCollectArticleEvent({ ...eventOptions, free_mint: false });
             }
-            setModalSessionCollected(true);
+
             const url = resolveExplorerLink(data.chainId, hash, 'tx');
             if (url) {
                 setTxUrl(url);
@@ -82,10 +93,11 @@ export function ArticleCollect({ article }: ArticleCollectProps) {
             });
             enqueueSuccessMessage(t`Article collected successfully!`);
         } catch (error) {
+            setModalSessionCollected(false);
             enqueueMessageFromError(error, t`Failed to collect article.`);
             throw error;
         }
-    }, [account.address, data, platform, collectParams?.gasStatus, canCollect, article.id]);
+    }, [account.address, data, platform, isFree, article.id]);
 
     const chain = chains.find((x) => x.id === data?.chainId);
     const nativeSymbol = chain?.nativeCurrency.symbol.toUpperCase() || '';
@@ -94,10 +106,11 @@ export function ArticleCollect({ article }: ArticleCollectProps) {
     const buttonText = useMemo(() => {
         if (isSoldOut) return t`Sold Out`;
         if ((data?.isCollected && platform !== ArticlePlatform.Paragraph) || modalSessionCollected) return t`Collected`;
+        if (isFree) return t`Collect`;
         if (insufficientBalance) return t`Insufficient Balance`;
-        if (!data?.price) return t`Free Collect`;
+        if (!data?.price) return t`Collect`;
         return t`Collect for ${data.price} ${nativeSymbol}`;
-    }, [data, nativeSymbol, isSoldOut, insufficientBalance, platform, modalSessionCollected]);
+    }, [data, nativeSymbol, isSoldOut, insufficientBalance, platform, modalSessionCollected, isFree]);
 
     if (!queryDetailLoading && !data) {
         return (
@@ -118,7 +131,8 @@ export function ArticleCollect({ article }: ArticleCollectProps) {
     }
 
     const loading = collectLoading || queryDetailLoading || paramsLoading || isRefetching;
-    const disabled = isSoldOut || (account.isConnected && insufficientBalance) || modalSessionCollected || loading;
+    const disabled =
+        isSoldOut || (account.isConnected && insufficientBalance && !isFree) || modalSessionCollected || loading;
     const panelData = canCollect ? collectParams : result?.mintMetadata;
 
     return (

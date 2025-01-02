@@ -18,7 +18,7 @@ import { useTwitterStateStore } from '@/store/useProfileStore.js';
 import { type ComposeType, type MediaObject } from '@/types/compose.js';
 
 export async function postToTwitter(type: ComposeType, compositePost: CompositePost, signal?: AbortSignal) {
-    const { chars, images, video, postId, parentPost, restriction, poll } = compositePost;
+    const { chars, images, video, postId, parentPost, restriction, poll, excludeReplyProfileIds } = compositePost;
 
     const twitterPostId = postId.Twitter;
     const twitterParentPost = parentPost.Twitter;
@@ -85,7 +85,9 @@ export async function postToTwitter(type: ComposeType, compositePost: CompositeP
             TwitterSocialMediaProvider.publishPost(composeDraft('Post', images, videos, polls)),
         reply: (images, videos, polls) => {
             if (!twitterParentPost?.postId) throw new Error(t`No parent post found.`);
-            return TwitterSocialMediaProvider.publishPost(composeDraft('Comment', images, videos, polls));
+            return TwitterSocialMediaProvider.publishPost(composeDraft('Comment', images, videos, polls), {
+                excludeReplyProfileIds,
+            });
         },
         quote: (images, videos) => {
             if (!twitterParentPost?.postId) throw new Error(t`No parent post found.`);

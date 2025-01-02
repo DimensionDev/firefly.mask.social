@@ -2,7 +2,7 @@ import { useQuery } from '@tanstack/react-query';
 import { useMemo } from 'react';
 
 import { type ChainContextOverride, useChainContext } from '@/hooks/useChainContext.js';
-import { EVMChainResolver } from '@/mask/bindings/index.js';
+import { EVMChainResolver } from '@/mask/index.js';
 import { CoinGecko } from '@/providers/coingecko/index.js';
 
 export function useNativeTokenPrice(override?: ChainContextOverride) {

@@ -469,7 +469,12 @@ class TwitterSocialMedia implements Provider {
         return response.data.id;
     }
 
-    async publishPost(post: Post): Promise<string> {
+    async publishPost(
+        post: Post,
+        options: {
+            excludeReplyProfileIds?: string[];
+        } = {},
+    ): Promise<string> {
         const response = await twitterSessionHolder.fetch<
             ResponseJSON<{
                 id: string;
@@ -480,6 +485,7 @@ class TwitterSocialMedia implements Provider {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify({
+                ...options,
                 inReplyToTweetId: post.parentPostId,
                 replySettings: post.restriction ? resolveTwitterReplyRestriction(post.restriction) : undefined,
                 text: post.metadata.content?.content ?? '',
