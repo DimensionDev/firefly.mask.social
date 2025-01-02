@@ -47,13 +47,12 @@ export const Card = memo<CardProps>(function Card({ post, frame }) {
         } satisfies FrameContext;
 
         return new FarcasterFrameHost(context, {
-            ready: (options) => {
+            ready: (options) =>
                 FrameViewerModalRef.open({
                     ready: true,
                     frame,
                     frameHost,
-                });
-            },
+                }),
             close: () => FrameViewerModalRef.close(),
             setPrimaryButton,
         });

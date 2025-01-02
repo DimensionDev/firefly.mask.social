@@ -3,7 +3,6 @@ import { delay } from '@masknet/kit';
 import { forwardRef, useEffect, useRef, useState } from 'react';
 import { useAsyncFn } from 'react-use';
 
-import FireflyLogo from '@/assets/firefly.logo.svg';
 import { CloseButton } from '@/components/IconButton.js';
 import { Modal } from '@/components/Modal.js';
 import { IS_DEVELOPMENT } from '@/constants/index.js';
