@@ -26,7 +26,8 @@ export const Card = memo<CardProps>(function Card({ post, frame }) {
         const context = {
             user: {
                 fid,
-                username: profile?.displayName,
+                username: profile?.handle,
+                displayName: profile?.displayName,
                 pfpUrl: profile?.pfp,
                 location: {
                     placeId: 'firefly',
