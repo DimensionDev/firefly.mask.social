@@ -8,8 +8,9 @@ import {
     UnmuteIcon,
 } from '@livepeer/react/assets';
 import { getSrc } from '@livepeer/react/external';
+import type { PlayerProps } from '@livepeer/react/player';
 import * as Player from '@livepeer/react/player';
-import { type HTMLProps, memo } from 'react';
+import { type HTMLProps, memo, useMemo } from 'react';
 
 import { ClickableArea } from '@/components/ClickableArea.js';
 
@@ -26,10 +27,14 @@ export const Video = memo<VideoProps>(function Video({
     forceNoToken,
     children,
 }) {
+    const videoSrc = useMemo(() => {
+        return getSrc(src) || ([{ src, type: 'video' }] as unknown as PlayerProps['src']);
+    }, [src]);
+
     return (
         <ClickableArea className={className}>
             {/* Autoplay will not work in many modern browsers without setting mute to 0. */}
-            <Player.Root src={getSrc(src)} volume={autoPlay ? 0 : 1} autoPlay={autoPlay} forceNoToken={forceNoToken}>
+            <Player.Root src={videoSrc} volume={autoPlay ? 0 : 1} autoPlay={autoPlay} forceNoToken={forceNoToken}>
                 <Player.Container className="bg-black text-white">
                     <Player.Video
                         loop={loop}
