@@ -1,7 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
 
+import { Link } from '@/components/Link.js';
 import { TWEET_REGEX } from '@/constants/regexp.js';
-import { Link } from '@/esm/Link.js';
 import { resolveTCOLink } from '@/helpers/resolveTCOLink.js';
 import { stopPropagation } from '@/helpers/stopEvent.js';
 import type { Post } from '@/providers/types/SocialMedia.js';

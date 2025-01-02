@@ -5,10 +5,10 @@ import { compact, first, orderBy, values } from 'lodash-es';
 import { memo, useCallback, useMemo } from 'react';
 
 import Trash from '@/assets/trash2.svg';
+import { Link } from '@/components/Link.js';
 import { NoResultsFallback } from '@/components/NoResultsFallback.js';
 import { SocialSourceIcon } from '@/components/SocialSourceIcon.js';
 import type { SocialSource } from '@/constants/enum.js';
-import { Link } from '@/esm/Link.js';
 import { readChars } from '@/helpers/chars.js';
 import { classNames } from '@/helpers/classNames.js';
 import { enqueueErrorMessage } from '@/helpers/enqueueMessage.js';

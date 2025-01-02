@@ -7,8 +7,8 @@ import SnapshotIcon from '@/assets/snapshot.svg';
 import { SnapshotMoreAction } from '@/components/Actions/SnapshotMore.js';
 import { ActivityCellHeader } from '@/components/ActivityCell/ActivityCellHeader.js';
 import { Avatar } from '@/components/Avatar.js';
+import { Link } from '@/components/Link.js';
 import { SourceInURL } from '@/constants/enum.js';
-import { Link } from '@/esm/Link.js';
 import { classNames } from '@/helpers/classNames.js';
 import type { SnapshotActivity } from '@/providers/snapshot/type.js';
 

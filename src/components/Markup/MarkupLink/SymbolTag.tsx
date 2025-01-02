@@ -3,10 +3,10 @@
 import { memo, useState } from 'react';
 
 import { InteractiveTippy } from '@/components/InteractiveTippy.js';
+import { Link } from '@/components/Link.js';
 import type { MarkupLinkProps } from '@/components/Markup/MarkupLink/index.js';
 import { useTippyContext } from '@/components/TippyContext/index.js';
 import { TokenProfile } from '@/components/TokenProfile/TokenProfile.js';
-import { Link } from '@/esm/Link.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
 
 export const SymbolTag = memo<Omit<MarkupLinkProps, 'post'>>(function SymbolTag({ title }) {

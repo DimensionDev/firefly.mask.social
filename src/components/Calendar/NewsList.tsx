@@ -5,9 +5,9 @@ import { EmptyStatus } from '@/components/Calendar/EmptyStatus.js';
 import { useNewsList } from '@/components/Calendar/hooks/useEventList.js';
 import { ElementAnchor } from '@/components/ElementAnchor.js';
 import { Image } from '@/components/Image.js';
+import { Link } from '@/components/Link.js';
 import { Loading } from '@/components/Loading.js';
 import { EMPTY_LIST } from '@/constants/index.js';
-import { Link } from '@/esm/Link.js';
 import type { ParsedEvent } from '@/types/calendar.js';
 
 interface NewsListProps {

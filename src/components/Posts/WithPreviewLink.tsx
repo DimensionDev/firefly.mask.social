@@ -1,7 +1,7 @@
 import { usePathname } from 'next/navigation.js';
 
+import { Link } from '@/components/Link.js';
 import { PageRoute } from '@/constants/enum.js';
-import { Link } from '@/esm/Link.js';
 import { getPostImageUrl } from '@/helpers/getPostImageUrl.js';
 import { isRoutePathname } from '@/helpers/isRoutePathname.js';
 import { stopPropagation } from '@/helpers/stopEvent.js';
