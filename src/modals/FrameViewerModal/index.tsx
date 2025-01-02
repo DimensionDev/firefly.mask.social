@@ -13,6 +13,7 @@ import { useSingletonModal } from '@/hooks/useSingletonModal.js';
 import type { SingletonModalRefCreator } from '@/libs/SingletonModal.js';
 import { MoreAction } from '@/modals/FrameViewerModal/MoreActionMenu.js';
 import type { FrameV2, FrameV2Host } from '@/types/frame.js';
+import { Image } from '@/components/Image.js';
 
 export type FrameViewerModalOpenProps = {
     ready: boolean;
@@ -98,8 +99,18 @@ export const FrameViewerModal = forwardRef<SingletonModalRefCreator<FrameViewerM
                         }}
                     />
                     {!props.ready ? (
-                        <div className="absolute inset-0 top-[60px] flex items-center justify-center bg-white dark:bg-black">
-                            <FireflyLogo width={80} height={80} />
+                        <div
+                            className="absolute inset-0 top-[60px] flex items-center justify-center"
+                            style={{
+                                backgroundColor: frame.button.action.splashBackgroundColor,
+                            }}
+                        >
+                            <Image
+                                alt={frame.button.title}
+                                width={80}
+                                height={80}
+                                src={frame.button.action.splashImageUrl}
+                            />
                         </div>
                     ) : null}
                 </div>
