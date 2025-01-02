@@ -120,12 +120,13 @@ export default function Page({ searchParams }: PageProps) {
             </FramePageTitle>
             <FramePageBody>
                 {!ready || loading || loadingSupported ? (
-                    <div className="flex h-full w-full items-center justify-center bg-white dark:bg-black">
+                    <div className="absolute inset-0 z-10 flex h-full w-full items-center justify-center bg-white dark:bg-black">
                         <FireflyLogo width={80} height={80} />
                     </div>
-                ) : frame ? (
+                ) : null}
+                {frame ? (
                     <iframe
-                        className="scrollbar-hide h-full w-full opacity-100"
+                        className="scrollbar-hide absolute inset-0 z-0 h-full w-full opacity-100"
                         ref={frameRef}
                         src={frame.button.action.url}
                         allow="clipboard-write 'src'"
