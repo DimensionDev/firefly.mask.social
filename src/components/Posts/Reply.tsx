@@ -37,9 +37,7 @@ export const Reply = memo<ReplyProps>(function Reply({ post, compositePost }) {
         },
     });
 
-    const profiles = useMemo(() => {
-        return uniqBy(data?.map((x) => x.author) ?? [], (x) => x.profileId);
-    }, [data, excludeReplyProfileIds]);
+    const profiles = useMemo(() => uniqBy(data?.map((x) => x.author) ?? [], (x) => x.profileId), [data]);
     const replyingProfilesContent = useMemo(() => {
         const filteredProfiles = profiles.filter((profile) => !excludeReplyProfileIds.includes(profile.profileId));
         if (filteredProfiles.length === 2) {

@@ -9,6 +9,7 @@ import { CircleCheckboxIcon } from '@/components/CircleCheckboxIcon.js';
 import { ClickableArea } from '@/components/ClickableArea.js';
 import { Popover as PopoverModal } from '@/components/Popover.js';
 import { classNames } from '@/helpers/classNames.js';
+import { isSameProfile } from '@/helpers/isSameProfile.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import type { Post, Profile } from '@/providers/types/SocialMedia.js';
 
@@ -65,7 +66,7 @@ export function ExcludeReplyUserList({ post, profiles, excluded = [], onClickPro
                 <Trans>Others in the conversation</Trans>
             </h4>
             {profiles
-                .filter((profile) => profile.profileId !== post.author.profileId)
+                .filter((profile) => isSameProfile(profile, post.author))
                 .map((profile: Profile) => {
                     return (
                         <ExcludeReplyUserListItem
