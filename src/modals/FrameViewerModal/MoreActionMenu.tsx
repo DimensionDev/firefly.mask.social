@@ -3,6 +3,7 @@ import { Trans } from '@lingui/macro';
 import { memo } from 'react';
 
 import MoreIcon from '@/assets/more.svg';
+import CopyIcon from '@/assets/copy.svg';
 import ReloadIcon from '@/assets/reload.svg';
 import { MenuButton } from '@/components/Actions/MenuButton.js';
 import { MenuGroup } from '@/components/MenuGroup.js';
@@ -32,7 +33,7 @@ export const MoreAction = memo(function MoreAction({ frame, disabled = false, on
                                     handleCopy();
                                 }}
                             >
-                                <ReloadIcon width={18} height={18} />
+                                <CopyIcon width={18} height={18} />
                                 <span className="font-bold leading-[22px] text-main">
                                     <Trans>Copy frame URL</Trans>
                                 </span>
