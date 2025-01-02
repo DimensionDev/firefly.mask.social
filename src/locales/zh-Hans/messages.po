@@ -69,6 +69,9 @@ msgstr "确认从 Firefly 的社交图谱中断链这个钱包和相关账户？
 msgid "Allow Collect Module"
 msgstr "允许收藏"
 
+msgid "Replying to <0>@{0}</0>,<1>@{1}</1> and <2>{2} others</2> on {3}"
+msgstr ""
+
 msgid "New connect with Warpcast"
 msgstr "使用 Warpcast 连接"
 
@@ -897,6 +900,9 @@ msgstr "未找到。请检查你的 URL [{0}]。"
 msgid "Closed"
 msgstr "已关闭"
 
+msgid "Replying to <0>@{0}</0>,<1>@{1}</1> and <2>@{2}</2> on {3}"
+msgstr ""
+
 msgid "Non-sanctioned address found."
 msgstr "非黑名单地址。"
 
@@ -1440,6 +1446,9 @@ msgstr "合约所有人有权修改其他地址的通证通证余额，这可能
 msgid "Failed to unmute @{0} on {sourceName}."
 msgstr "在 {sourceName} 上取消隐藏 @{0} 失败。"
 
+msgid "Others in the conversation"
+msgstr ""
+
 msgid "Insufficient Balance"
 msgstr "余额不足"
 
@@ -1917,6 +1926,9 @@ msgstr "关注需付出 {feeAmount} ${feeSymbol}"
 msgid "Posts from @{0} will now be hidden in your home timeline"
 msgstr "@{0} 的帖子会从您的时间线中隐藏"
 
+msgid "Replying to"
+msgstr ""
+
 msgid "commented"
 msgstr "已回复"
 
@@ -2318,6 +2330,9 @@ msgstr "未发现钓鱼网站。"
 
 msgid "Followed <0>@{handle}</0> on X before Oct 12,2024, or followed <1>@{farcasterHandle}</1> on Farcaster before Oct 20, 2024"
 msgstr "在 2024 年 10 月 12 日之前在 X 上关注了 <0>@{handle}</0>，或在 2024 年 10 月 20 日之前在 Farcaster 上关注了 <1>@{farcasterHandle}</1>"
+
+msgid "Replying to <0>@{0}</0> and <1>@{1}</1> on {2}"
+msgstr ""
 
 msgid "Connect your wallet to follow"
 msgstr "连接钱包并关注"
@@ -2751,6 +2766,9 @@ msgstr "隐藏中..."
 msgid "{0, plural, one {comment} other {comments}}"
 msgstr "{0, plural, one {评论} other {评论}}"
 
+msgid "<0/> Loading"
+msgstr ""
+
 msgid "Pinned"
 msgstr "已置顶"
 
@@ -3017,6 +3035,9 @@ msgstr "合约所有者对个人滑点没有限制。"
 
 msgid "Number of winners"
 msgstr "获奖人数"
+
+msgid "Top 40 Projects power by Rootdata"
+msgstr ""
 
 msgid "Unmuted @{0} on {sourceName}."
 msgstr "在 {sourceName} 上已取消对 @{0} 的隐藏。"

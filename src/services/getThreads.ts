@@ -8,6 +8,7 @@ import { isSameProfile } from '@/helpers/isSameProfile.js';
 import { createIndicator, createPageable } from '@/helpers/pageable.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { LensSocialMediaProvider } from '@/providers/lens/SocialMedia.js';
+import { TwitterSocialMediaProvider } from '@/providers/twitter/SocialMedia.js';
 import type { Post } from '@/providers/types/SocialMedia.js';
 
 function refreshThreadByPostId(postId: string) {
@@ -21,7 +22,13 @@ function refreshThreadByPostId(postId: string) {
     );
 }
 
+async function getTwitterThreads(post: Post) {
+    const posts = await TwitterSocialMediaProvider.getThreadByPostId(post.postId);
+    return createPageable(posts, undefined);
+}
+
 export async function getThreads(post: Post, source: SocialSource) {
+    if (source === Source.Twitter) return getTwitterThreads(post);
     const root = post.root ? post.root : post.commentOn ? post.commentOn : post;
     if (!root?.stats?.comments) return createPageable<Post>(EMPTY_LIST, createIndicator());
 

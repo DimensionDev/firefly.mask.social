@@ -64,6 +64,9 @@ msgstr "Confirm to disconnect this wallet and related accounts from Firefly’s 
 msgid "Allow Collect Module"
 msgstr "Allow Collect Module"
 
+msgid "Replying to <0>@{0}</0>,<1>@{1}</1> and <2>{2} others</2> on {3}"
+msgstr "Replying to <0>@{0}</0>,<1>@{1}</1> and <2>{2} others</2> on {3}"
+
 msgid "New connect with Warpcast"
 msgstr "New connect with Warpcast"
 
@@ -895,6 +898,9 @@ msgstr "Not Found. Please check your URL[{0}]."
 msgid "Closed"
 msgstr "Closed"
 
+msgid "Replying to <0>@{0}</0>,<1>@{1}</1> and <2>@{2}</2> on {3}"
+msgstr "Replying to <0>@{0}</0>,<1>@{1}</1> and <2>@{2}</2> on {3}"
+
 msgid "Non-sanctioned address found."
 msgstr "Non-sanctioned address found."
 
@@ -1438,6 +1444,9 @@ msgstr "The contract owner has the authority to modify the balance of tokens at 
 msgid "Failed to unmute @{0} on {sourceName}."
 msgstr "Failed to unmute @{0} on {sourceName}."
 
+msgid "Others in the conversation"
+msgstr "Others in the conversation"
+
 msgid "Insufficient Balance"
 msgstr "Insufficient Balance"
 
@@ -1915,6 +1924,9 @@ msgstr "Follow for {feeAmount} ${feeSymbol}"
 msgid "Posts from @{0} will now be hidden in your home timeline"
 msgstr "Posts from @{0} will now be hidden in your home timeline"
 
+msgid "Replying to"
+msgstr "Replying to"
+
 msgid "commented"
 msgstr "commented"
 
@@ -2316,6 +2328,9 @@ msgstr "No phishing site."
 
 msgid "Followed <0>@{handle}</0> on X before Oct 12,2024, or followed <1>@{farcasterHandle}</1> on Farcaster before Oct 20, 2024"
 msgstr "Followed <0>@{handle}</0> on X before Oct 12,2024, or followed <1>@{farcasterHandle}</1> on Farcaster before Oct 20, 2024"
+
+msgid "Replying to <0>@{0}</0> and <1>@{1}</1> on {2}"
+msgstr "Replying to <0>@{0}</0> and <1>@{1}</1> on {2}"
 
 msgid "Connect your wallet to follow"
 msgstr "Connect your wallet to follow"
@@ -2749,6 +2764,9 @@ msgstr "Muting..."
 msgid "{0, plural, one {comment} other {comments}}"
 msgstr "{0, plural, one {comment} other {comments}}"
 
+msgid "<0/> Loading"
+msgstr "<0/> Loading"
+
 msgid "Pinned"
 msgstr "Pinned"
 
@@ -3015,6 +3033,9 @@ msgstr "The contract owner has no restrictions on personal slippage."
 
 msgid "Number of winners"
 msgstr "Number of winners"
+
+msgid "Top 40 Projects power by Rootdata"
+msgstr "Top 40 Projects power by Rootdata"
 
 msgid "Unmuted @{0} on {sourceName}."
 msgstr "Unmuted @{0} on {sourceName}."
