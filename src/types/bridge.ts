@@ -1,4 +1,4 @@
-import type { FrameContext } from '@farcaster/frame-host';
+import type { FrameContext, ReadyOptions } from '@farcaster/frame-host';
 
 import type { FrameV2 } from '@/types/frame.js';
 import type { PartialWith } from '@/types/index.js';
@@ -40,6 +40,7 @@ export enum SupportedMethod {
     CLOSE = 'close',
     SET_PRIMARY_BUTTON = 'setPrimaryButton',
     GET_FRAME_CONTEXT = 'getFrameContext',
+    SET_FRAME_READY_OPTIONS = 'setFrameReadyOptions',
     REQUEST = 'request',
 }
 
@@ -104,6 +105,7 @@ export interface RequestArguments {
         disabled?: boolean;
         hidden?: boolean;
     };
+    [SupportedMethod.SET_FRAME_READY_OPTIONS]: Partial<ReadyOptions>;
     [SupportedMethod.GET_FRAME_CONTEXT]: {};
     [SupportedMethod.REQUEST]: {
         method: string;
@@ -134,6 +136,7 @@ export interface RequestResult {
     [SupportedMethod.BACK]: void;
     [SupportedMethod.CLOSE]: void;
     [SupportedMethod.SET_PRIMARY_BUTTON]: void;
+    [SupportedMethod.SET_FRAME_READY_OPTIONS]: void;
     [SupportedMethod.GET_FRAME_CONTEXT]: PartialWith<FrameContext, 'client'> & {
         frame: {
             content: FrameV2;

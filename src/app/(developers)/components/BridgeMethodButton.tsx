@@ -145,6 +145,11 @@ export function BridgeMethodButton({ item }: Props) {
                 case SupportedMethod.SET_PRIMARY_BUTTON:
                     fireflyBridgeProvider.request(SupportedMethod.SET_PRIMARY_BUTTON, { text: 'Primary Button' });
                     break;
+                case SupportedMethod.SET_FRAME_READY_OPTIONS:
+                    fireflyBridgeProvider.request(SupportedMethod.SET_FRAME_READY_OPTIONS, {
+                        disableNativeGestures: true,
+                    });
+                    break;
                 case SupportedMethod.REQUEST: {
                     const balance = await fireflyBridgeProvider.request(SupportedMethod.REQUEST, {
                         method: 'eth_getBalance',
