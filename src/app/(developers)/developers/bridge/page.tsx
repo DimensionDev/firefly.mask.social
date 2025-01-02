@@ -119,6 +119,12 @@ const items: Item[] = [
     },
     {
         type: 'method',
+        name: SupportedMethod.SET_FRAME_READY_OPTIONS,
+        title: 'Set Frame Ready Options',
+        description: 'Set frame ready options.',
+    },
+    {
+        type: 'method',
         name: SupportedMethod.REQUEST,
         title: 'Request',
         description: 'Send an EVM RPC request.',
