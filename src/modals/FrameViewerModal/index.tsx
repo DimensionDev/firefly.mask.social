@@ -74,8 +74,8 @@ export const FrameViewerModal = forwardRef<SingletonModalRefCreator<FrameViewerM
 
         return (
             <Modal disableDialogClose open={open} onClose={() => dispatch?.close()}>
-                <div className="relative h-[695px] w-[424px] overflow-hidden rounded-xl">
-                    <div className="flex h-[60px] items-center justify-between bg-lightBg px-4 py-3 text-black dark:bg-fireflyBrand dark:text-white">
+                <div className="relative flex h-[695px] w-[424px] flex-col overflow-hidden rounded-xl">
+                    <div className="flex h-[60px] flex-1 items-center justify-between bg-lightBg px-4 py-3 text-black dark:bg-fireflyBrand dark:text-white">
                         <div className="cursor-pointer">
                             <CloseButton onClick={() => dispatch?.close()} />
                         </div>
