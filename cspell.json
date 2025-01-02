@@ -233,7 +233,8 @@
         "Pudge",
         "BARMSTRONG",
         "hdel",
-        "rootdataurl"
+        "rootdataurl",
+        "rootdata"
     ],
     "flagWords": [],
     "ignorePaths": [
