@@ -90,7 +90,7 @@ export const Card = memo<CardProps>(function Card({ post, frame }) {
                     disabled={primaryButton?.loading || primaryButton?.disabled}
                     onClick={onClick}
                 >
-                    {primaryButton?.text ?? frame.button.action.name}
+                    {primaryButton?.text || frame.button.title || frame.button.action.name}
                 </ClickableButton>
             )}
         </div>
