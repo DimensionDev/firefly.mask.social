@@ -3478,6 +3478,9 @@ msgstr "Message"
 msgid "Continue"
 msgstr "Continue"
 
+msgid "Copy frame URL"
+msgstr "Copy frame URL"
+
 msgid "Cybercrime."
 msgstr "Cybercrime."
 
