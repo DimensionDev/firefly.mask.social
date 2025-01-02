@@ -7,6 +7,7 @@ import LeftArrowIcon from '@/assets/left-arrow.svg';
 import { ComposeSend } from '@/components/Compose/ComposeSend.js';
 import { CloseButton } from '@/components/IconButton.js';
 import { Tooltip } from '@/components/Tooltip.js';
+import { useKeyboardHeight } from '@/hooks/useKeyboardHeight.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import { captureDraftClickEvent } from '@/providers/telemetry/captureClickEvent.js';
 
@@ -14,6 +15,7 @@ export function ComposeRouteRoot() {
     const isMedium = useIsMedium();
     const { history, state } = useRouter();
     const { context } = useMatch({ from: rootRouteId });
+    const keyboardHeight = useKeyboardHeight();
 
     const pathname = history.location.pathname;
 
@@ -39,6 +41,7 @@ export function ComposeRouteRoot() {
 
                 <span className="flex h-full w-full items-center justify-center gap-x-1 text-lg font-bold capitalize text-fourMain">
                     {modalTitle ?? <Trans>Compose</Trans>}
+                    {`（${keyboardHeight}px）`}
                     {!isMedium && !isDraft && !isGif ? (
                         <DraftIcon
                             width={18}
