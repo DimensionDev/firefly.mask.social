@@ -12,7 +12,7 @@ function parseSiteType(url: string) {
     return Object.values(ExternalSiteDomain).find((domain) => isDomainOrSubdomainOf(url, domain));
 }
 
-function formatExternalUrl(url: string) {
+export function getUrlSiteType(url: string) {
     const siteType = parseSiteType(url);
     if (!siteType) return null;
 
@@ -48,12 +48,16 @@ async function formatWarpcastUrl(parsedURL: URL) {
 }
 
 export async function interceptExternalUrl(url: string) {
-    const { siteType, parsedURL } = formatExternalUrl(url) ?? {};
+    const { siteType, parsedURL } = getUrlSiteType(url) ?? {};
     if (!siteType || !parsedURL) return false;
 
     switch (siteType) {
         case ExternalSiteDomain.Warpcast:
             return await formatWarpcastUrl(parsedURL);
+        case ExternalSiteDomain.Twitter:
+        case ExternalSiteDomain.X:
+        case ExternalSiteDomain.Hey:
+            return false;
         default:
             safeUnreachable(siteType);
             return false;

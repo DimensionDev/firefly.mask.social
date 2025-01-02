@@ -10,11 +10,11 @@ import { useRouter } from 'next/navigation.js';
 
 import { ArticleHeader } from '@/components/Article/ArticleHeader.js';
 import { Comeback } from '@/components/Comeback.js';
+import { Link } from '@/components/Link.js';
 import { ArticleMarkup } from '@/components/Markup/ArticleMarkup.js';
 import { CollapsedContent } from '@/components/Posts/CollapsedContent.js';
 import { ImageAsset } from '@/components/Posts/ImageAsset.js';
 import { Source } from '@/constants/enum.js';
-import { Link } from '@/esm/Link.js';
 import { classNames } from '@/helpers/classNames.js';
 import { openWindow } from '@/helpers/openWindow.js';
 import { resolveSearchUrl } from '@/helpers/resolveSearchUrl.js';

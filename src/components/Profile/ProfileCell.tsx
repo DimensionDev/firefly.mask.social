@@ -1,11 +1,11 @@
 import type { HTMLProps } from 'react';
 
 import { Avatar } from '@/components/Avatar.js';
+import { Link } from '@/components/Link.js';
 import { FollowButton } from '@/components/Profile/FollowButton.js';
 import { ProfileTippy } from '@/components/Profile/ProfileTippy.js';
 import { SocialSourceIcon } from '@/components/SocialSourceIcon.js';
 import { type SocialSource, Source } from '@/constants/enum.js';
-import { Link } from '@/esm/Link.js';
 import { classNames } from '@/helpers/classNames.js';
 import { resolveFireflyIdentity } from '@/helpers/resolveFireflyProfileId.js';
 import { resolveProfileUrl } from '@/helpers/resolveProfileUrl.js';

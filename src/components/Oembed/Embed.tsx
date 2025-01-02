@@ -1,7 +1,7 @@
 import { LinkIcon } from '@heroicons/react/24/outline';
 
+import { Link } from '@/components/Link.js';
 import { Image } from '@/esm/Image.js';
-import { Link } from '@/esm/Link.js';
 import { classNames } from '@/helpers/classNames.js';
 import { isSelfReference } from '@/helpers/isLinkMatchingHost.js';
 import { parseUrl } from '@/helpers/parseUrl.js';

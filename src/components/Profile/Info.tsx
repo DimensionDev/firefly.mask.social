@@ -3,6 +3,7 @@
 import { Plural, Trans } from '@lingui/macro';
 
 import { Avatar } from '@/components/Avatar.js';
+import { Link } from '@/components/Link.js';
 import { BioMarkup } from '@/components/Markup/BioMarkup.js';
 import { NoSSR } from '@/components/NoSSR.js';
 import { Mutuals } from '@/components/Profile/Mutuals.js';
@@ -11,7 +12,6 @@ import { ProfileVerifyBadge } from '@/components/ProfileVerifyBadge/index.js';
 import { SocialSourceIcon } from '@/components/SocialSourceIcon.js';
 import { TextOverflowTooltip } from '@/components/TextOverflowTooltip.js';
 import { FollowCategory, Source } from '@/constants/enum.js';
-import { Link } from '@/esm/Link.js';
 import { classNames } from '@/helpers/classNames.js';
 import { nFormatter } from '@/helpers/formatCommentCounts.js';
 import { getLargeTwitterAvatar } from '@/helpers/getLargeTwitterAvatar.js';

@@ -2,9 +2,9 @@ import { memo } from 'react';
 
 import WalletIcon from '@/assets/wallet-circle.svg';
 import { Avatar } from '@/components/Avatar.js';
+import { Link } from '@/components/Link.js';
 import { SocialSourceIcon } from '@/components/SocialSourceIcon.js';
 import { FireflyPlatform, Source } from '@/constants/enum.js';
-import { Link } from '@/esm/Link.js';
 import { getStampAvatarByProfileId } from '@/helpers/getStampAvatarByProfileId.js';
 import { narrowToSocialSource } from '@/helpers/narrowToSocialSource.js';
 import { resolveProfileUrl } from '@/helpers/resolveProfileUrl.js';

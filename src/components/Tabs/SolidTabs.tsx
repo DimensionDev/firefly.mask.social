@@ -2,7 +2,7 @@
 
 import type { ReactNode } from 'react';
 
-import { Link } from '@/esm/Link.js';
+import { Link } from '@/components/Link.js';
 import { classNames } from '@/helpers/classNames.js';
 
 interface SolidTabsProps<T> {

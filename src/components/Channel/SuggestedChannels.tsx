@@ -5,9 +5,9 @@ import { useQuery } from '@tanstack/react-query';
 
 import { AsideTitle } from '@/components/AsideTitle.js';
 import { ChannelInList } from '@/components/ChannelInList.js';
+import { Link } from '@/components/Link.js';
 import { ExploreType, type SocialSource } from '@/constants/enum.js';
 import { EMPTY_LIST } from '@/constants/index.js';
-import { Link } from '@/esm/Link.js';
 import { resolveExploreUrl } from '@/helpers/resolveExploreUrl.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 

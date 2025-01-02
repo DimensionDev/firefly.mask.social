@@ -1,10 +1,10 @@
 import type { HTMLProps, ReactNode } from 'react';
 import type { Address } from 'viem';
 
+import { Link } from '@/components/Link.js';
 import { Time } from '@/components/Semantic/Time.js';
 import { TimestampFormatter } from '@/components/TimeStampFormatter.js';
 import { Source } from '@/constants/enum.js';
-import { Link } from '@/esm/Link.js';
 import { classNames } from '@/helpers/classNames.js';
 import { formatEthereumAddress } from '@/helpers/formatAddress.js';
 import { resolveProfileUrl } from '@/helpers/resolveProfileUrl.js';

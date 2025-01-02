@@ -8,6 +8,7 @@ import { forwardRef, type HTMLProps, useMemo, useState } from 'react';
 import { useAsync } from 'react-use';
 
 import { TwitterArticleBody } from '@/components/Article/TwitterArticleBody.js';
+import { Link } from '@/components/Link.js';
 import { NakedMarkup } from '@/components/Markup/NakedMarkup.js';
 import { PostMarkup } from '@/components/Markup/PostMarkup.js';
 import { FramePoll } from '@/components/Poll/FramePoll.js';
@@ -21,7 +22,6 @@ import { RedPacketInspector } from '@/components/RedPacket/RedPacketInspector.js
 import { IS_APPLE, IS_SAFARI } from '@/constants/bowser.js';
 import { PageRoute, Source } from '@/constants/enum.js';
 import { EMPTY_LIST, RP_HASH_TAG } from '@/constants/index.js';
-import { Link } from '@/esm/Link.js';
 import { classNames } from '@/helpers/classNames.js';
 import { formatUrl } from '@/helpers/formatUrl.js';
 import { getEncryptedPayloadFromImageAttachment, getEncryptedPayloadFromText } from '@/helpers/getEncryptedPayload.js';

@@ -2,9 +2,9 @@ import { t } from '@lingui/macro';
 import { useMemo } from 'react';
 
 import LinkIcon from '@/assets/link-square.svg';
+import { Link } from '@/components/Link.js';
 import { Tooltip } from '@/components/Tooltip.js';
 import type { NetworkType } from '@/constants/enum.js';
-import { Link } from '@/esm/Link.js';
 import { resolveNetworkProvider } from '@/helpers/resolveTokenTransfer.js';
 
 interface AddressLinkProps {

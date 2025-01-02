@@ -5,8 +5,8 @@ import { usePathname } from 'next/navigation.js';
 import { useRef } from 'react';
 import { useHover } from 'usehooks-ts';
 
+import { Link } from '@/components/Link.js';
 import { PageRoute } from '@/constants/enum.js';
-import { Link } from '@/esm/Link.js';
 import { classNames } from '@/helpers/classNames.js';
 import { isRoutePathname } from '@/helpers/isRoutePathname.js';
 import { useIsDarkMode } from '@/hooks/useIsDarkMode.js';

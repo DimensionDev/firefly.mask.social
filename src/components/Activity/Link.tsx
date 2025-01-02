@@ -2,7 +2,7 @@ import type { LinkProps } from 'next/link.js';
 import { forwardRef, type HTMLProps, type PropsWithChildren } from 'react';
 import urlcat from 'urlcat';
 
-import { Link as RawLink } from '@/esm/Link.js';
+import { Link as RawLink } from '@/components/Link.js';
 import { fireflyBridgeProvider } from '@/providers/firefly/Bridge.js';
 import { SupportedMethod } from '@/types/bridge.js';
 

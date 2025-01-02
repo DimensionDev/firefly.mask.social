@@ -2,7 +2,7 @@ import { Trans } from '@lingui/macro';
 
 import PriceArrow from '@/assets/price-arrow.svg';
 import { Image } from '@/components/Image.js';
-import { Link } from '@/esm/Link.js';
+import { Link } from '@/components/Link.js';
 import { classNames } from '@/helpers/classNames.js';
 import { formatPrice, renderShrankPrice } from '@/helpers/formatPrice.js';
 import { resolveTokenPageUrl } from '@/helpers/resolveTokenPageUrl.js';

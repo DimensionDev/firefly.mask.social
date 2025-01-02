@@ -6,8 +6,8 @@ import { useMemo, useState } from 'react';
 import { Headline } from '@/app/(settings)/components/Headline.js';
 import { Section } from '@/app/(settings)/components/Section.js';
 import { Blink } from '@/components/Blink/index.js';
+import { Link } from '@/components/Link.js';
 import { Source } from '@/constants/enum.js';
-import { Link } from '@/esm/Link.js';
 import { createDummyPost } from '@/helpers/createDummyPost.js';
 import { getI18n } from '@/i18n/index.js';
 

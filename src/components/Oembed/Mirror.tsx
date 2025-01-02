@@ -7,9 +7,9 @@ import { mainnet } from 'wagmi/chains';
 
 import MirrorIon from '@/assets/mirror.xyz.svg';
 import { Avatar } from '@/components/Avatar.js';
+import { Link } from '@/components/Link.js';
 import { NakedMarkup } from '@/components/Markup/NakedMarkup.js';
 import { TimestampFormatter } from '@/components/TimeStampFormatter.js';
-import { Link } from '@/esm/Link.js';
 import { formatEthereumAddress } from '@/helpers/formatAddress.js';
 import { isSelfReference } from '@/helpers/isLinkMatchingHost.js';
 import { stopPropagation } from '@/helpers/stopEvent.js';

@@ -1,7 +1,7 @@
 import type { FunctionComponent, ReactNode, SVGAttributes } from 'react';
 
 import LinkIcon from '@/assets/link.svg';
-import { Link } from '@/esm/Link.js';
+import { Link } from '@/components/Link.js';
 
 interface LinkCardProps {
     title: ReactNode;

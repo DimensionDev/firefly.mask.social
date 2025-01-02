@@ -5,6 +5,7 @@ import { useQuery } from '@tanstack/react-query';
 import { memo } from 'react';
 import urlcat from 'urlcat';
 
+import { Link } from '@/components/Link.js';
 import { ChannelTag } from '@/components/Markup/MarkupLink/ChannelTag.js';
 import { ExternalLink } from '@/components/Markup/MarkupLink/ExternalLink.js';
 import { Hashtag } from '@/components/Markup/MarkupLink/Hashtag.js';
@@ -17,7 +18,6 @@ import { ProfileTippy } from '@/components/Profile/ProfileTippy.js';
 import { type SocialSource, Source } from '@/constants/enum.js';
 import { SITE_URL } from '@/constants/index.js';
 import { BIO_TWITTER_PROFILE_REGEX, EMAIL_REGEX, LENS_HANDLE_REGEXP } from '@/constants/regexp.js';
-import { Link } from '@/esm/Link.js';
 import { createDummyProfileFromLensHandle } from '@/helpers/createDummyProfile.js';
 import { getLensHandleFromMentionTitle } from '@/helpers/getLensHandleFromMentionTitle.js';
 import { getProfileUrl } from '@/helpers/getProfileUrl.js';

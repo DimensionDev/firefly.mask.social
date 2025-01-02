@@ -1,8 +1,8 @@
 import { plural } from '@lingui/macro';
 import { type HTMLProps, memo } from 'react';
 
+import { Link } from '@/components/Link.js';
 import { FollowCategory, Source } from '@/constants/enum.js';
-import { Link } from '@/esm/Link.js';
 import { classNames } from '@/helpers/classNames.js';
 import { nFormatter } from '@/helpers/formatCommentCounts.js';
 import { resolveProfileUrl } from '@/helpers/resolveProfileUrl.js';

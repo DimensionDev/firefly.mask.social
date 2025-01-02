@@ -3,7 +3,7 @@
 import type { LinkProps } from 'next/link.js';
 import { memo, type PropsWithChildren, useLayoutEffect, useRef } from 'react';
 
-import { Link } from '@/esm/Link.js';
+import { Link } from '@/components/Link.js';
 import { classNames } from '@/helpers/classNames.js';
 
 interface SourceTabProps extends PropsWithChildren<LinkProps> {

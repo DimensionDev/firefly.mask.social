@@ -2,8 +2,8 @@ import type { ReactNode } from 'react';
 
 import GhostHoleIcon from '@/assets/ghost.svg';
 import { Comeback } from '@/components/Comeback.js';
+import { Link } from '@/components/Link.js';
 import { SearchType, Source } from '@/constants/enum.js';
-import { Link } from '@/esm/Link.js';
 import { resolveSearchUrl } from '@/helpers/resolveSearchUrl.js';
 
 interface NotFoundProps {

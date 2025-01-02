@@ -1,4 +1,4 @@
-import { Link } from '@/esm/Link.js';
+import { Link } from '@/components/Link.js';
 import { classNames } from '@/helpers/classNames.js';
 
 type SourceNavProps<T> = {

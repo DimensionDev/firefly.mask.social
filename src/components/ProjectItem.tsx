@@ -2,7 +2,7 @@ import { memo } from 'react';
 
 import Rank from '@/assets/project-rank.svg';
 import { Image } from '@/components/Image.js';
-import { Link } from '@/esm/Link.js';
+import { Link } from '@/components/Link.js';
 import type { Project } from '@/providers/types/Firefly.js';
 
 export const ProjectItem = memo<{ project: Project }>(function ProjectItem({

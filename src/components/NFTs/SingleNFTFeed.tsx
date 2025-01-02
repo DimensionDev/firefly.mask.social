@@ -9,10 +9,10 @@ import { NFTsActivityCellAction } from '@/components/ActivityCell/NFTs/NFTsActiv
 import { NFTsActivityCellCard } from '@/components/ActivityCell/NFTs/NFTsActivityCellCard.js';
 import { Avatar } from '@/components/Avatar.js';
 import { FeedFollowSource } from '@/components/FeedFollowSource.js';
+import { Link } from '@/components/Link.js';
 import { type NFTFeedBodyProps } from '@/components/NFTs/NFTFeedBody.js';
 import { NFTFeedHeader } from '@/components/NFTs/NFTFeedHeader.js';
 import { Source } from '@/constants/enum.js';
-import { Link } from '@/esm/Link.js';
 import { resolveNftUrl } from '@/helpers/resolveNftUrl.js';
 import { resolveProfileUrl } from '@/helpers/resolveProfileUrl.js';
 import { stopPropagation } from '@/helpers/stopEvent.js';

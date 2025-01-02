@@ -1,8 +1,8 @@
 import type { FunctionComponent, SVGAttributes } from 'react';
 import React from 'react';
 
+import { Link } from '@/components/Link.js';
 import { Tooltip } from '@/components/Tooltip.js';
-import { Link } from '@/esm/Link.js';
 
 interface PoapTraitProps {
     value?: string;

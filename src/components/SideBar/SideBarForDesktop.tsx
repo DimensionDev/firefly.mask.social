@@ -1,9 +1,9 @@
 import { memo } from 'react';
 
+import { Link } from '@/components/Link.js';
 import { Menu } from '@/components/SideBar/Menu.js';
 import { SideBarLogo } from '@/components/SideBar/SidebarLogo.js';
 import { PageRoute } from '@/constants/enum.js';
-import { Link } from '@/esm/Link.js';
 
 export const SideBarForDesktop = memo(function SideBarForDesktop() {
     return (

@@ -4,10 +4,10 @@ import { RedirectType } from 'next/dist/client/components/redirect.js';
 import { notFound, redirect } from 'next/navigation.js';
 import { type PropsWithChildren, useEffect } from 'react';
 
+import { Link } from '@/components/Link.js';
 import { NotLoginFallback } from '@/components/NotLoginFallback.js';
 import { type ProfileCategory, Source, SourceInURL } from '@/constants/enum.js';
 import { SORTED_PROFILE_SOURCES } from '@/constants/index.js';
-import { Link } from '@/esm/Link.js';
 import { classNames } from '@/helpers/classNames.js';
 import { isSocialSource } from '@/helpers/isSocialSource.js';
 import { resolveFireflyIdentity } from '@/helpers/resolveFireflyProfileId.js';

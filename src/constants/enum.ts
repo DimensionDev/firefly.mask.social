@@ -362,6 +362,9 @@ export enum SimulateType {
 
 export enum ExternalSiteDomain {
     Warpcast = 'warpcast.com',
+    Hey = 'hey.xyz',
+    Twitter = 'twitter.com',
+    X = 'x.com',
 }
 
 export enum SnapshotState {

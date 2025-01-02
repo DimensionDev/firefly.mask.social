@@ -6,12 +6,12 @@ import type { Hex } from 'viem';
 import { useEnsName } from 'wagmi';
 
 import { Avatar } from '@/components/Avatar.js';
+import { Link } from '@/components/Link.js';
 import { NoResultsFallback } from '@/components/NoResultsFallback.js';
 import { TextOverflowTooltip } from '@/components/TextOverflowTooltip.js';
 import { VirtualList } from '@/components/VirtualList/VirtualList.js';
 import { VirtualListFooter } from '@/components/VirtualList/VirtualListFooter.js';
 import { ScrollListKey, Source, SourceInURL } from '@/constants/enum.js';
-import { Link } from '@/esm/Link.js';
 import { classNames } from '@/helpers/classNames.js';
 import { formatEthereumAddress } from '@/helpers/formatAddress.js';
 import { humanize, nFormatter } from '@/helpers/formatCommentCounts.js';
