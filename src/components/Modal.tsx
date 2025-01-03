@@ -18,6 +18,7 @@ export interface ModalProps {
     disableDialogClose?: boolean;
     disableBackdropClose?: boolean;
     BackdropProps?: HTMLProps<HTMLDivElement>;
+    DialogProps?: Partial<DialogProps>;
 }
 
 export function Modal({
@@ -29,6 +30,7 @@ export function Modal({
     disableDialogClose = false,
     disableBackdropClose = false,
     BackdropProps,
+    DialogProps,
 }: ModalProps) {
     const ref = useRef<HTMLDivElement>(null);
 
@@ -36,7 +38,7 @@ export function Modal({
         <Transition appear show={open} as={Fragment}>
             <Dialog
                 initialFocus={ref}
-                className="relative z-40"
+                className={classNames('relative z-40', DialogProps?.className as string)}
                 onClose={disableDialogClose ? noop : onClose}
                 disableScrollLock={disableScrollLock}
             >
