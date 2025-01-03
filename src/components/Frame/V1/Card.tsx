@@ -7,6 +7,7 @@ import { Link } from '@/components/Link.js';
 import { type SocialSource } from '@/constants/enum.js';
 import { getCurrentProfile } from '@/helpers/getCurrentProfile.js';
 import { parseUrl } from '@/helpers/parseUrl.js';
+import { stopPropagation } from '@/helpers/stopEvent.js';
 import { LoginModalRef } from '@/modals/controls.js';
 import { ActionType, type FrameButton, type FrameV1 } from '@/types/frame.js';
 
@@ -84,6 +85,7 @@ export function Card({ frame, source, readonly = false, loading = false, onButto
                 <Link
                     href={frame.url}
                     target="_blank"
+                    onClick={stopPropagation}
                     className="ml-auto mt-1 flex justify-end text-sm text-secondary hover:underline"
                 >
                     {hostname}
