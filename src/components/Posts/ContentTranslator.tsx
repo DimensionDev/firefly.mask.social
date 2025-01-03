@@ -65,8 +65,8 @@ export const ContentTranslator = memo<ContentWithTranslatorProps>(function Conte
 
     if (collapsed) {
         return (
-            <div className="my-1.5 text-sm text-link">
-                <ClickableButton className="text-sm text-highlight" onClick={() => setCollapsed(false)}>
+            <div className="my-1.5 text-sm">
+                <ClickableButton className="text-highlight" onClick={() => setCollapsed(false)}>
                     <Trans>Translate post</Trans>
                 </ClickableButton>
             </div>
@@ -75,7 +75,7 @@ export const ContentTranslator = memo<ContentWithTranslatorProps>(function Conte
 
     return (
         <>
-            <div className="my-1.5 text-sm text-link">
+            <div className="my-1.5 text-sm text-highlight">
                 {translatedText ? (
                     <ClickableButton onClick={() => setCollapsed(true)}>
                         {contentLanguage ? <Trans>Translated from {contentLanguage}</Trans> : <Trans>Translated</Trans>}

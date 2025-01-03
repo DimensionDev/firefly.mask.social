@@ -8,6 +8,7 @@ import { isFollowCategory } from '@/helpers/isFollowCategory.js';
 import { isSocialSource } from '@/helpers/isSocialSource.js';
 import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider.js';
 import { resolveSourceFromUrlNoFallback } from '@/helpers/resolveSource.js';
+import { runInSafeAsync } from '@/helpers/runInSafe.js';
 
 export default async function Layout({
     children,
@@ -24,13 +25,20 @@ export default async function Layout({
     const source = resolveSourceFromUrlNoFallback(params.source);
     if (!source || !isSocialSource(source) || source === Source.Twitter) notFound();
     const identity = { source, id };
-    const profile = await resolveSocialMediaProvider(source).getProfileById(id);
+    const profile = await runInSafeAsync(() => resolveSocialMediaProvider(source).getProfileById(id));
 
     if (!profile) notFound();
 
     return (
         <>
-            <Title profile={profile} sticky keepVisible disableActions className="border-b border-line" />
+            <Title
+                profile={profile}
+                fallbackIdentity={identity}
+                sticky
+                keepVisible
+                disableActions
+                className="border-b border-line"
+            />
             <div className="h-12" />
             <FollowPageLayout profile={profile} identity={identity} category={params.category}>
                 {children}
