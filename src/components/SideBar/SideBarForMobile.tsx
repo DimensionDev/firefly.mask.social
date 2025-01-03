@@ -1,8 +1,7 @@
 'use client';
 
 import { Dialog, Transition } from '@headlessui/react';
-import { Fragment, memo, useRef } from 'react';
-import { useOnClickOutside } from 'usehooks-ts';
+import { Fragment, memo } from 'react';
 
 import DarkLogo from '@/assets/logo.dark.svg';
 import LightLogo from '@/assets/logo.light.svg';
@@ -17,12 +16,6 @@ export const SideBarForMobile = memo(function SideBarForMobile() {
     const isDarkMode = useIsDarkMode();
 
     const { sidebarOpen, updateSidebarOpen } = useNavigatorState();
-
-    const rootRef = useRef(null);
-
-    useOnClickOutside(rootRef, () => {
-        updateSidebarOpen(false);
-    });
 
     return (
         <Transition.Root show={sidebarOpen} as={Fragment}>

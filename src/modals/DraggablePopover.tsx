@@ -40,7 +40,7 @@ export const DraggablePopover = forwardRef<SingletonModalRefCreator<DraggablePop
         return (
             <Popover
                 open={open}
-                backdrop={props.backdrop}
+                enableBackdrop={props.backdrop}
                 onClose={() => dispatch?.close()}
                 enableOverflow={props.enableOverflow}
             >
