@@ -76,7 +76,7 @@ import {
     type WalletsFollowStatusResponse,
     WatchType,
 } from '@/providers/types/Firefly.js';
-import type { DiscoverNFTResponse, GetFollowingNFTResponse } from '@/providers/types/NFTs.js';
+import type { DiscoverNFTResponseV2, GetFollowingNFTResponse } from '@/providers/types/NFTs.js';
 import { getWalletProfileByAddressOrEns } from '@/services/getWalletProfileByAddressOrEns.js';
 import { settings } from '@/settings/index.js';
 
@@ -480,18 +480,19 @@ export class FireflyEndpoint {
         indicator?: PageIndicator;
         limit?: number;
     } = {}) {
-        const page = Number.parseInt(indicator?.id || '0', 10);
-        const url = urlcat(settings.FIREFLY_ROOT_URL, '/v1/discover/feeds', {
+        const url = urlcat(settings.FIREFLY_ROOT_URL, '/v2/discover/nft', {
             size: limit,
-            offset: page * limit,
+            cursor: indicator?.id,
         });
-        const response = await fireflySessionHolder.fetch<DiscoverNFTResponse>(url, {
+        const response = await fireflySessionHolder.fetch<DiscoverNFTResponseV2>(url, {
             method: 'GET',
         });
+        const data = resolveFireflyResponseData(response);
+
         return createPageable(
-            response.data.feeds,
+            data.nfts,
             indicator,
-            response.data.hasMore ? createIndicator(undefined, `${page + 1}`) : undefined,
+            data.hasMore && data.cursor ? createIndicator(undefined, data.cursor) : undefined,
         );
     }
 
