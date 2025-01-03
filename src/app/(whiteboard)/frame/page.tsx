@@ -15,8 +15,8 @@ import { useFireflyBridgeSupported } from '@/hooks/useFireflyBridgeSupported.js'
 import { fireflyBridgeProvider } from '@/providers/firefly/Bridge.js';
 import { FarcasterFrameHost } from '@/providers/frame/Host.js';
 import { SupportedMethod } from '@/types/bridge.js';
-import type { FrameV2, FrameV2Host } from '@/types/frame.js';
 import type { RequestArguments } from '@/types/ethereum.js';
+import type { FrameV2, FrameV2Host } from '@/types/frame.js';
 
 interface PageProps {
     searchParams: {};
