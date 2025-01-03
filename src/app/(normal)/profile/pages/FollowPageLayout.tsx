@@ -59,7 +59,7 @@ export function FollowPageLayout({
                                             ? 'border-b-2 border-fireflyBrand text-main'
                                             : 'text-third',
                                         'h-[43px] px-4 text-center text-xl font-bold leading-[43px] hover:cursor-pointer hover:text-main',
-                                        'md:h-[60px] md:py-[18px] md:leading-6',
+                                        'whitespace-nowrap md:h-[60px] md:py-[18px] md:leading-6',
                                     )}
                                 >
                                     {tab.label}
