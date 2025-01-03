@@ -5,10 +5,10 @@ import React, { Fragment, useRef, type HTMLProps } from 'react';
 import { classNames } from '@/helpers/classNames.js';
 
 export interface ModalProps {
-    backdrop?: boolean;
     open: boolean;
     onClose: () => void;
     children?: React.ReactNode;
+    enableBackdrop?: boolean;
     disableScrollLock?: boolean;
     /**
      * Close the `onClose` of the dialog.
@@ -21,10 +21,10 @@ export interface ModalProps {
 }
 
 export function Modal({
-    backdrop = true,
     open,
     onClose,
     children,
+    enableBackdrop = true,
     disableScrollLock = true,
     disableDialogClose = false,
     disableBackdropClose = false,
@@ -47,7 +47,7 @@ export function Modal({
                         )}
                         ref={ref}
                     >
-                        {backdrop ? (
+                        {enableBackdrop ? (
                             <Transition.Child
                                 as={Fragment}
                                 enter="ease-out duration-300"
