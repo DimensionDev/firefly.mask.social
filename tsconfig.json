@@ -69,7 +69,7 @@
             "@masknet/web3-shared-solana": ["./src/maskbook/packages/web3-shared/solana/src/index.ts"]
         }
     },
-    "include": ["csp.js", "globals.d.ts", "next-auth.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
+    "include": ["csp.js", "globals.d.ts", "next-auth.d.ts", "**/*.ts", "**/*.tsx"],
     "exclude": [
         "node_modules",
         "src/service-workers",
