@@ -12,7 +12,13 @@ export function EditProfileDialog({
     open: boolean;
 }) {
     return (
-        <Modal open={open} onClose={onClose} className="flex-col" disableScrollLock={false} disableDialogClose>
+        <Modal
+            open={open}
+            onClose={onClose}
+            disableScrollLock={false}
+            disableDialogClose
+            DialogProps={{ className: 'flex-col' }}
+        >
             <div className="relative flex w-[100vw] flex-grow flex-col overflow-auto bg-lightBottom shadow-popover transition-all dark:bg-darkBottom dark:text-gray-950 md:h-auto md:max-h-[800px] md:w-[600px] md:rounded-xl lg:flex-grow-0">
                 <EditProfileRouter onClose={onClose} profile={profile} />
             </div>

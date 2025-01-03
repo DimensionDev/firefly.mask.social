@@ -1,4 +1,4 @@
-import { Dialog, type DialogProps, Transition } from '@headlessui/react';
+import { Dialog, type DialogPanelProps, type DialogProps, Transition } from '@headlessui/react';
 import { noop } from 'lodash-es';
 import React, { Fragment, useRef } from 'react';
 
@@ -18,6 +18,7 @@ export interface ModalProps {
     disableDialogClose?: boolean;
     disableBackdropClose?: boolean;
     DialogProps?: Partial<DialogProps>;
+    DialogPanelProps?: Partial<DialogPanelProps>;
 }
 
 export function Modal({
@@ -29,18 +30,23 @@ export function Modal({
     disableDialogClose = false,
     disableBackdropClose = false,
     DialogProps,
+    DialogPanelProps,
 }: ModalProps) {
     const ref = useRef<HTMLDivElement>(null);
 
     return (
         <Transition appear show={open} as={Fragment}>
             <Dialog
+                {...DialogProps}
                 initialFocus={ref}
                 className={classNames('relative z-40', DialogProps?.className as string)}
                 onClose={disableDialogClose ? noop : onClose}
                 disableScrollLock={disableScrollLock}
             >
-                <Dialog.Panel className="fixed inset-0 overflow-y-auto">
+                <Dialog.Panel
+                    {...DialogPanelProps}
+                    className={classNames('fixed inset-0 overflow-y-auto', DialogPanelProps?.className as string)}
+                >
                     <div
                         className={classNames(
                             'flex min-h-full items-center justify-center overflow-auto p-0 text-center md:p-4',
