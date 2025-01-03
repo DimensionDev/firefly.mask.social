@@ -4,7 +4,7 @@ import { Fragment } from 'react';
 import { classNames } from '@/helpers/classNames.js';
 import { useDisableScrollPassive } from '@/hooks/useDisableScrollPassive.js';
 
-export interface PopoverProps {
+interface PopoverProps {
     open: boolean;
     children?: React.ReactNode;
     onClose?: () => void;
