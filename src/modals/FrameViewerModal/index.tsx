@@ -7,14 +7,18 @@ import { CloseButton } from '@/components/IconButton.js';
 import { Image } from '@/components/Image.js';
 import { Modal } from '@/components/Modal.js';
 import { IS_DEVELOPMENT } from '@/constants/index.js';
-import { createEIP1193ProviderFromWagmi } from '@/helpers/createEIP1193Provider.js';
 import { parseUrl } from '@/helpers/parseUrl.js';
 import { useSingletonModal } from '@/hooks/useSingletonModal.js';
 import type { SingletonModalRefCreator } from '@/libs/SingletonModal.js';
-import { ReviewTransactionPopoverRef } from '@/modals/FrameViewerModal/controls.js';
-import { Modals } from '@/modals/FrameViewerModal/modals.js';
 import { MoreAction } from '@/modals/FrameViewerModal/MoreActionMenu.js';
 import type { FrameV2, FrameV2Host } from '@/types/frame.js';
+import { Modals } from '@/modals/FrameViewerModal/modals.js';
+import { ReviewTransactionPopoverRef } from '@/modals/FrameViewerModal/controls.js';
+import { getWalletClientRequired } from '@/helpers/getWalletClientRequired.js';
+import { EthereumMethodType } from '@masknet/web3-shared-evm';
+import { config } from '@/configs/wagmiClient.js';
+import { switchEthereumChain } from '@/helpers/switchEthereumChain.js';
+import { createEIP1193Provider } from '@/helpers/createEIP1193Provider.js';
 
 export type FrameViewerModalOpenProps = {
     ready: boolean;
@@ -33,7 +37,6 @@ export const FrameViewerModal = forwardRef<SingletonModalRefCreator<FrameViewerM
                 setProps(p);
             },
             onClose() {
-                console.log('DEBUG: close');
                 setProps(null);
             },
         });
@@ -48,7 +51,31 @@ export const FrameViewerModal = forwardRef<SingletonModalRefCreator<FrameViewerM
                 debug: IS_DEVELOPMENT,
                 iframe: frameRef.current,
                 sdk: props.frameHost,
-                ethProvider: createEIP1193ProviderFromWagmi(),
+                ethProvider: createEIP1193Provider(async (parameters) => {
+                    const { method, params } = parameters;
+                    const client = await getWalletClientRequired(config);
+
+                    switch (method) {
+                        case EthereumMethodType.ETH_REQUEST_ACCOUNTS:
+                            return [client.account.address];
+                        case EthereumMethodType.WALLET_SWITCH_ETHEREUM_CHAIN:
+                            const chain = params[0] as { chainId: string };
+                            const chainId = Number.parseInt(chain.chainId, 16);
+                            await switchEthereumChain(chainId);
+                            return;
+                        case EthereumMethodType.ETH_SEND_TRANSACTION: {
+                            const confirmed = await ReviewTransactionPopoverRef.openAndWaitForClose({
+                                frame,
+                                content: 'Hello World!',
+                            });
+                            if (!confirmed) throw new Error('Transaction rejected');
+
+                            return client.request(parameters as Parameters<typeof client.request>[0]);
+                        }
+                        default:
+                            return client.request(parameters as Parameters<typeof client.request>[0]);
+                    }
+                }),
                 frameOrigin: '*',
             });
 
@@ -56,21 +83,6 @@ export const FrameViewerModal = forwardRef<SingletonModalRefCreator<FrameViewerM
                 result?.cleanup();
             };
         }, [props]);
-
-        useEffect(() => {
-            if (!props?.frame) return;
-
-            const timer = setTimeout(() => {
-                ReviewTransactionPopoverRef.open({
-                    frame: props?.frame,
-                    content: 'Hello World!',
-                });
-            }, 5000);
-
-            return () => {
-                clearTimeout(timer);
-            };
-        }, [props?.frame]);
 
         const [{ loading }, onReload] = useAsyncFn(async () => {
             if (!props) return;
@@ -87,25 +99,12 @@ export const FrameViewerModal = forwardRef<SingletonModalRefCreator<FrameViewerM
 
         if (!open || !props) return null;
 
-        console.log('DEBUG: viewer');
-        console.log({
-            open,
-            props,
-        });
-
         const { frame } = props;
         const u = parseUrl(frame.button.action.url);
 
         return (
             <>
-                <Modal
-                    disableDialogClose
-                    open={open}
-                    onClose={() => {
-                        console.log('DEBUG: modal close');
-                        dispatch?.close();
-                    }}
-                >
+                <Modal disableDialogClose open={open} onClose={() => dispatch?.close()}>
                     <div className="relative flex h-[755px] w-[424px] flex-col overflow-hidden rounded-xl">
                         <div className="flex h-[60px] flex-1 items-center justify-between bg-lightBg px-4 py-3 text-black dark:bg-fireflyBrand dark:text-white">
                             <div className="cursor-pointer">

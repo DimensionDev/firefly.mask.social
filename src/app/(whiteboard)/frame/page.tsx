@@ -10,7 +10,7 @@ import { GhostError } from '@/app/(whiteboard)/components/GhostError.js';
 import FireflyLogo from '@/assets/firefly.logo.svg';
 import { IS_DEVELOPMENT } from '@/constants/index.js';
 import { bom } from '@/helpers/bom.js';
-import { createEIP1193ProviderFromRequest, type RequestArguments } from '@/helpers/createEIP1193Provider.js';
+import { createEIP1193Provider, type RequestArguments } from '@/helpers/createEIP1193Provider.js';
 import { useFireflyBridgeSupported } from '@/hooks/useFireflyBridgeSupported.js';
 import { fireflyBridgeProvider } from '@/providers/firefly/Bridge.js';
 import { FarcasterFrameHost } from '@/providers/frame/Host.js';
@@ -73,9 +73,7 @@ export default function Page({ searchParams }: PageProps) {
             debug: IS_DEVELOPMENT,
             iframe: frameRef.current,
             sdk: frameHost,
-            ethProvider: createEIP1193ProviderFromRequest(async function request<T>(
-                requestArguments: RequestArguments,
-            ) {
+            ethProvider: createEIP1193Provider(async function request<T>(requestArguments: RequestArguments) {
                 const result = await fireflyBridgeProvider.request(SupportedMethod.REQUEST, requestArguments);
                 return result as T;
             }),
