@@ -48,7 +48,7 @@ export function PreviewMedia({ post, source, medias, index, open, showAction = t
     }, [post, medias]);
 
     return (
-        <Modal open={open} backdrop={false} onClose={onClose}>
+        <Modal open={open} enableBackdrop={false} onClose={onClose}>
             <div
                 className="preview-actions fixed inset-0 flex transform-none flex-col items-center justify-center bg-black/90 bg-opacity-90 outline-none transition-all"
                 onClick={isMedium ? onClose : undefined}

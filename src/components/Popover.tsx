@@ -6,31 +6,27 @@ import { useDisableScrollPassive } from '@/hooks/useDisableScrollPassive.js';
 
 interface PopoverProps {
     open: boolean;
-    backdrop?: boolean;
     children?: React.ReactNode;
     onClose?: () => void;
+    enableBackdrop?: boolean;
     enableOverflow?: boolean;
     DialogPanelProps?: DialogPanelProps;
-    backdropClassName?: string;
-    controlClassName?: string;
 }
 
 export function Popover({
     open,
-    backdrop = true,
     children,
     onClose,
+    enableBackdrop = true,
     enableOverflow = true,
     DialogPanelProps,
-    backdropClassName,
-    controlClassName,
 }: PopoverProps) {
     const { setRef } = useDisableScrollPassive();
 
     return (
         <Transition appear show={open} as={Fragment}>
             <Dialog as="div" onClose={() => onClose?.()} disableScrollLock>
-                {backdrop ? (
+                {enableBackdrop ? (
                     <Transition.Child
                         as={Fragment}
                         enter="ease-out duration-300"
@@ -40,10 +36,7 @@ export function Popover({
                         leaveFrom="opacity-100"
                         leaveTo="opacity-0"
                     >
-                        <div
-                            className={classNames('fixed inset-0 z-40 bg-main/25 bg-opacity-30', backdropClassName)}
-                            ref={(ref) => setRef(ref)}
-                        />
+                        <div className="fixed inset-0 z-40 bg-main/25 bg-opacity-30" ref={(ref) => setRef(ref)} />
                     </Transition.Child>
                 ) : null}
                 <Transition.Child
@@ -64,7 +57,7 @@ export function Popover({
                         style={{ overflow: !enableOverflow ? 'unset' : 'hidden', ...DialogPanelProps?.style }}
                     >
                         <div className="absolute inset-x-0 top-0.5 z-10 m-auto flex w-20 cursor-pointer justify-center p-2">
-                            <div className={classNames('h-1 w-12 rounded-full bg-main', controlClassName)} />
+                            <div className="h-1 w-12 rounded-full bg-main" />
                         </div>
                         <div
                             className="no-scrollbar flex max-h-[50vh] w-full flex-shrink-0 flex-col overflow-y-auto"

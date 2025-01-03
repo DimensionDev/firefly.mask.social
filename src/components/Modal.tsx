@@ -5,11 +5,11 @@ import React, { Fragment, useRef } from 'react';
 import { classNames } from '@/helpers/classNames.js';
 
 export interface ModalProps {
-    backdrop?: boolean;
     open: boolean;
     onClose: () => void;
     children?: React.ReactNode;
     className?: string;
+    enableBackdrop?: boolean;
     disableScrollLock?: boolean;
     /**
      * Close the `onClose` of the dialog.
@@ -18,20 +18,18 @@ export interface ModalProps {
      */
     disableDialogClose?: boolean;
     disableBackdropClose?: boolean;
-    backdropClassName?: string;
     modalClassName?: string;
 }
 
 export function Modal({
-    backdrop = true,
     open,
     onClose,
     children,
     className,
+    enableBackdrop = true,
     disableScrollLock = true,
     disableDialogClose = false,
     disableBackdropClose = false,
-    backdropClassName,
     modalClassName,
 }: ModalProps) {
     const ref = useRef<HTMLDivElement>(null);
@@ -52,7 +50,7 @@ export function Modal({
                         )}
                         ref={ref}
                     >
-                        {backdrop ? (
+                        {enableBackdrop ? (
                             <Transition.Child
                                 as={Fragment}
                                 enter="ease-out duration-300"
@@ -63,7 +61,7 @@ export function Modal({
                                 leaveTo="opacity-0"
                             >
                                 <div
-                                    className={classNames('fixed inset-0 bg-main/25 bg-opacity-30', backdropClassName)}
+                                    className="fixed inset-0 bg-main/25 bg-opacity-30"
                                     onClick={(ev) => {
                                         ev.preventDefault();
                                         ev.stopPropagation();
