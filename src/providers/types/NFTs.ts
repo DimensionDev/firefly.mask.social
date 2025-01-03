@@ -8,9 +8,10 @@ export interface Response<T> {
     error?: string[];
 }
 
-export type DiscoverNFTResponse = Response<{
-    feeds: NFTFeed[];
+export type DiscoverNFTResponseV2 = Response<{
+    nfts: NFTFeed[];
     hasMore: boolean;
+    cursor?: string;
 }>;
 
 export enum NFTFeedTransAction {
