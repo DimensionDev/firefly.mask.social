@@ -10,12 +10,13 @@ import { GhostError } from '@/app/(whiteboard)/components/GhostError.js';
 import FireflyLogo from '@/assets/firefly.logo.svg';
 import { IS_DEVELOPMENT } from '@/constants/index.js';
 import { bom } from '@/helpers/bom.js';
-import { createEIP1193Provider, type RequestArguments } from '@/helpers/createEIP1193Provider.js';
+import { createEIP1193Provider } from '@/helpers/createEIP1193Provider.js';
 import { useFireflyBridgeSupported } from '@/hooks/useFireflyBridgeSupported.js';
 import { fireflyBridgeProvider } from '@/providers/firefly/Bridge.js';
 import { FarcasterFrameHost } from '@/providers/frame/Host.js';
 import { SupportedMethod } from '@/types/bridge.js';
 import type { FrameV2, FrameV2Host } from '@/types/frame.js';
+import type { RequestArguments } from '@/types/ethereum.js';
 
 interface PageProps {
     searchParams: {};

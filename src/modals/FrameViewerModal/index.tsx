@@ -1,24 +1,24 @@
 import { exposeToIframe } from '@farcaster/frame-host';
 import { delay } from '@masknet/kit';
+import { EthereumMethodType } from '@masknet/web3-shared-evm';
 import { forwardRef, useEffect, useRef, useState } from 'react';
 import { useAsyncFn } from 'react-use';
 
 import { CloseButton } from '@/components/IconButton.js';
 import { Image } from '@/components/Image.js';
 import { Modal } from '@/components/Modal.js';
+import { config } from '@/configs/wagmiClient.js';
 import { IS_DEVELOPMENT } from '@/constants/index.js';
+import { createEIP1193Provider } from '@/helpers/createEIP1193Provider.js';
+import { getWalletClientRequired } from '@/helpers/getWalletClientRequired.js';
 import { parseUrl } from '@/helpers/parseUrl.js';
+import { switchEthereumChain } from '@/helpers/switchEthereumChain.js';
 import { useSingletonModal } from '@/hooks/useSingletonModal.js';
 import type { SingletonModalRefCreator } from '@/libs/SingletonModal.js';
+import { TransactionSimulationPopoverRef } from '@/modals/FrameViewerModal/controls.js';
+import { Modals } from '@/modals/FrameViewerModal/modals.js';
 import { MoreAction } from '@/modals/FrameViewerModal/MoreActionMenu.js';
 import type { FrameV2, FrameV2Host } from '@/types/frame.js';
-import { Modals } from '@/modals/FrameViewerModal/modals.js';
-import { ReviewTransactionPopoverRef } from '@/modals/FrameViewerModal/controls.js';
-import { getWalletClientRequired } from '@/helpers/getWalletClientRequired.js';
-import { EthereumMethodType } from '@masknet/web3-shared-evm';
-import { config } from '@/configs/wagmiClient.js';
-import { switchEthereumChain } from '@/helpers/switchEthereumChain.js';
-import { createEIP1193Provider } from '@/helpers/createEIP1193Provider.js';
 
 export type FrameViewerModalOpenProps = {
     ready: boolean;
@@ -64,7 +64,7 @@ export const FrameViewerModal = forwardRef<SingletonModalRefCreator<FrameViewerM
                             await switchEthereumChain(chainId);
                             return;
                         case EthereumMethodType.ETH_SEND_TRANSACTION: {
-                            const confirmed = await ReviewTransactionPopoverRef.openAndWaitForClose({
+                            const confirmed = await TransactionSimulationPopoverRef.openAndWaitForClose({
                                 frame,
                                 content: 'Hello World!',
                             });

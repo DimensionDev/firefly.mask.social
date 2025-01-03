@@ -1,4 +1,4 @@
 import { SingletonModal } from '@/libs/SingletonModal.js';
-import type { ReviewTransactionPopoverProps } from '@/modals/FrameViewerModal/ReviewTransactionPopover.js';
+import type { TransactionSimulationPopoverProps } from '@/modals/FrameViewerModal/TransactionSimulationPopover.js';
 
-export const ReviewTransactionPopoverRef = new SingletonModal<ReviewTransactionPopoverProps, boolean>();
+export const TransactionSimulationPopoverRef = new SingletonModal<TransactionSimulationPopoverProps, boolean>();
