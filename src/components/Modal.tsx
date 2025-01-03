@@ -1,6 +1,6 @@
-import { Dialog, Transition } from '@headlessui/react';
+import { Dialog, Transition, type DialogProps } from '@headlessui/react';
 import { noop } from 'lodash-es';
-import React, { Fragment, useRef } from 'react';
+import React, { Fragment, useRef, type HTMLProps } from 'react';
 
 import { classNames } from '@/helpers/classNames.js';
 
@@ -9,7 +9,6 @@ export interface ModalProps {
     open: boolean;
     onClose: () => void;
     children?: React.ReactNode;
-    className?: string;
     disableScrollLock?: boolean;
     /**
      * Close the `onClose` of the dialog.
@@ -18,8 +17,7 @@ export interface ModalProps {
      */
     disableDialogClose?: boolean;
     disableBackdropClose?: boolean;
-    backdropClassName?: string;
-    modalClassName?: string;
+    BackdropProps?: HTMLProps<HTMLDivElement>;
 }
 
 export function Modal({
@@ -27,12 +25,10 @@ export function Modal({
     open,
     onClose,
     children,
-    className,
     disableScrollLock = true,
     disableDialogClose = false,
     disableBackdropClose = false,
-    backdropClassName,
-    modalClassName,
+    BackdropProps,
 }: ModalProps) {
     const ref = useRef<HTMLDivElement>(null);
 
@@ -40,7 +36,7 @@ export function Modal({
         <Transition appear show={open} as={Fragment}>
             <Dialog
                 initialFocus={ref}
-                className={classNames('relative z-40', modalClassName)}
+                className="relative z-40"
                 onClose={disableDialogClose ? noop : onClose}
                 disableScrollLock={disableScrollLock}
             >
@@ -48,7 +44,6 @@ export function Modal({
                     <div
                         className={classNames(
                             'flex min-h-full items-center justify-center overflow-auto p-0 text-center md:p-4',
-                            className,
                         )}
                         ref={ref}
                     >
@@ -63,7 +58,11 @@ export function Modal({
                                 leaveTo="opacity-0"
                             >
                                 <div
-                                    className={classNames('fixed inset-0 bg-main/25 bg-opacity-30', backdropClassName)}
+                                    {...BackdropProps}
+                                    className={classNames(
+                                        'fixed inset-0 bg-main/25 bg-opacity-30',
+                                        BackdropProps?.className,
+                                    )}
                                     onClick={(ev) => {
                                         ev.preventDefault();
                                         ev.stopPropagation();

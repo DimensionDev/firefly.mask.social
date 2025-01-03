@@ -13,6 +13,8 @@ import { useSingletonModal } from '@/hooks/useSingletonModal.js';
 import type { SingletonModalRefCreator } from '@/libs/SingletonModal.js';
 import { MoreAction } from '@/modals/FrameViewerModal/MoreActionMenu.js';
 import type { FrameV2, FrameV2Host } from '@/types/frame.js';
+import { Modals } from '@/modals/FrameViewerModal/modals.js';
+import { MessagePopoverRef } from '@/modals/FrameViewerModal/controls.js';
 
 export type FrameViewerModalOpenProps = {
     ready: boolean;
@@ -74,7 +76,7 @@ export const FrameViewerModal = forwardRef<SingletonModalRefCreator<FrameViewerM
 
         return (
             <Modal disableDialogClose open={open} onClose={() => dispatch?.close()}>
-                <div className="relative flex h-[755px] w-[424px] flex-col overflow-hidden rounded-xl">
+                <div className="relative flex h-[755px] w-[424px] flex-col overflow-hidden rounded-xl" ref={portalRef}>
                     <div className="flex h-[60px] flex-1 items-center justify-between bg-lightBg px-4 py-3 text-black dark:bg-fireflyBrand dark:text-white">
                         <div className="cursor-pointer">
                             <CloseButton onClick={() => dispatch?.close()} />
@@ -112,6 +114,8 @@ export const FrameViewerModal = forwardRef<SingletonModalRefCreator<FrameViewerM
                             />
                         </div>
                     ) : null}
+
+                    <Modals />
                 </div>
             </Modal>
         );

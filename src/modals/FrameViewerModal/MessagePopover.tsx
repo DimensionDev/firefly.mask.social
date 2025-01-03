@@ -2,30 +2,25 @@
 
 import { forwardRef, useRef, useState } from 'react';
 
-import { Popover } from '@/components/Popover.js';
 import { useSingletonModal } from '@/hooks/useSingletonModal.js';
 import type { SingletonModalRefCreator } from '@/libs/SingletonModal.js';
+import { Popover } from '@/modals/FrameViewerModal/Popover.js';
 
-export interface DraggablePopoverProps {
-    backdrop?: boolean;
+export interface MessagePopoverProps {
+    type: 'success' | 'error' | 'warning' | 'info';
     content?: React.ReactNode;
-    enableOverflow?: boolean;
     onClose?: () => void;
 }
 
-export const DraggablePopover = forwardRef<SingletonModalRefCreator<DraggablePopoverProps>>(
-    function DraggablePopover(_, ref) {
-        const [props, setProps] = useState<DraggablePopoverProps>();
+export const MessagePopover = forwardRef<SingletonModalRefCreator<MessagePopoverProps>>(
+    function MessagePopover(_, ref) {
+        const [props, setProps] = useState<MessagePopoverProps>();
         const timerRef = useRef<NodeJS.Timeout>();
 
         const [open, dispatch] = useSingletonModal(ref, {
             onOpen(props) {
                 clearTimeout(timerRef.current);
-                setProps({
-                    ...props,
-                    backdrop: props.backdrop ?? true,
-                    enableOverflow: props.enableOverflow ?? true,
-                });
+                setProps(props);
             },
             onClose() {
                 props?.onClose?.();
@@ -38,12 +33,7 @@ export const DraggablePopover = forwardRef<SingletonModalRefCreator<DraggablePop
         if (!props) return null;
 
         return (
-            <Popover
-                open={open}
-                enableBackdrop={props.backdrop}
-                onClose={() => dispatch?.close()}
-                enableOverflow={props.enableOverflow}
-            >
+            <Popover open={open} onClose={() => dispatch?.close()}>
                 {props.content}
             </Popover>
         );
