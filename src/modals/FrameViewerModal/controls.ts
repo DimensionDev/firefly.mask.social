@@ -1,4 +1,4 @@
 import { SingletonModal } from '@/libs/SingletonModal.js';
-import type { MessagePopoverProps } from '@/modals/FrameViewerModal/MessagePopover.jsx';
+import type { ReviewTransactionPopoverProps } from '@/modals/FrameViewerModal/ReviewTransactionPopover.js';
 
-export const MessagePopoverRef = new SingletonModal<MessagePopoverProps>();
+export const ReviewTransactionPopoverRef = new SingletonModal<ReviewTransactionPopoverProps>();

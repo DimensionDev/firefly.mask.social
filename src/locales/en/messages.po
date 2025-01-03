@@ -265,6 +265,9 @@ msgstr "Searching users"
 msgid "Fake KYC."
 msgstr "Fake KYC."
 
+msgid "Requested from <0>{0}</0>"
+msgstr "Requested from <0>{0}</0>"
+
 msgid "Airdrop Scam"
 msgstr "Airdrop Scam"
 
@@ -891,6 +894,9 @@ msgstr "The contract owner has no restrictions on trading cooldown."
 
 msgid "Connect Wallet"
 msgstr "Connect Wallet"
+
+msgid "Review Transaction"
+msgstr "Review Transaction"
 
 msgid "Not Found. Please check your URL[{0}]."
 msgstr "Not Found. Please check your URL[{0}]."

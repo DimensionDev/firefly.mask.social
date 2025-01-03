@@ -11,9 +11,10 @@ import { createEIP1193ProviderFromWagmi } from '@/helpers/createEIP1193Provider.
 import { parseUrl } from '@/helpers/parseUrl.js';
 import { useSingletonModal } from '@/hooks/useSingletonModal.js';
 import type { SingletonModalRefCreator } from '@/libs/SingletonModal.js';
-import { Modals } from '@/modals/FrameViewerModal/modals.js';
 import { MoreAction } from '@/modals/FrameViewerModal/MoreActionMenu.js';
 import type { FrameV2, FrameV2Host } from '@/types/frame.js';
+import { Modals } from '@/modals/FrameViewerModal/modals.js';
+import { ReviewTransactionPopoverRef } from '@/modals/FrameViewerModal/controls.js';
 
 export type FrameViewerModalOpenProps = {
     ready: boolean;
@@ -32,6 +33,7 @@ export const FrameViewerModal = forwardRef<SingletonModalRefCreator<FrameViewerM
                 setProps(p);
             },
             onClose() {
+                console.log('DEBUG: close');
                 setProps(null);
             },
         });
@@ -55,6 +57,21 @@ export const FrameViewerModal = forwardRef<SingletonModalRefCreator<FrameViewerM
             };
         }, [props]);
 
+        useEffect(() => {
+            if (!props?.frame) return;
+
+            const timer = setTimeout(() => {
+                ReviewTransactionPopoverRef.open({
+                    frame: props?.frame,
+                    content: 'Hello World!',
+                });
+            }, 5000);
+
+            return () => {
+                clearTimeout(timer);
+            };
+        }, [props?.frame]);
+
         const [{ loading }, onReload] = useAsyncFn(async () => {
             if (!props) return;
 
@@ -70,53 +87,68 @@ export const FrameViewerModal = forwardRef<SingletonModalRefCreator<FrameViewerM
 
         if (!open || !props) return null;
 
+        console.log('DEBUG: viewer');
+        console.log({
+            open,
+            props,
+        });
+
         const { frame } = props;
         const u = parseUrl(frame.button.action.url);
 
         return (
-            <Modal disableDialogClose open={open} onClose={() => dispatch?.close()}>
-                <div className="relative flex h-[755px] w-[424px] flex-col overflow-hidden rounded-xl">
-                    <div className="flex h-[60px] flex-1 items-center justify-between bg-lightBg px-4 py-3 text-black dark:bg-fireflyBrand dark:text-white">
-                        <div className="cursor-pointer">
-                            <CloseButton onClick={() => dispatch?.close()} />
+            <>
+                <Modal
+                    disableDialogClose
+                    open={open}
+                    onClose={() => {
+                        console.log('DEBUG: modal close');
+                        dispatch?.close();
+                    }}
+                >
+                    <div className="relative flex h-[755px] w-[424px] flex-col overflow-hidden rounded-xl">
+                        <div className="flex h-[60px] flex-1 items-center justify-between bg-lightBg px-4 py-3 text-black dark:bg-fireflyBrand dark:text-white">
+                            <div className="cursor-pointer">
+                                <CloseButton onClick={() => dispatch?.close()} />
+                            </div>
+                            <div className="mx-4 max-w-[280px] flex-1 text-center">
+                                <div className="font-bold">{frame.button.action.name}</div>
+                                {u ? <div className="text-faint text-xs">{u.host}</div> : null}
+                            </div>
+                            <div>
+                                <MoreAction frame={frame} disabled={loading} onReload={onReload} />
+                            </div>
                         </div>
-                        <div className="mx-4 max-w-[280px] flex-1 text-center">
-                            <div className="font-bold">{frame.button.action.name}</div>
-                            {u ? <div className="text-faint text-xs">{u.host}</div> : null}
-                        </div>
-                        <div>
-                            <MoreAction frame={frame} disabled={loading} onReload={onReload} />
-                        </div>
-                    </div>
-                    <iframe
-                        className="scrollbar-hide h-full w-full opacity-100"
-                        ref={frameRef}
-                        src={frame.button.action.url}
-                        allow="clipboard-write 'src'"
-                        sandbox="allow-forms allow-scripts allow-same-origin"
-                        style={{
-                            backgroundColor: frame.button.action.splashBackgroundColor,
-                        }}
-                    />
-                    {!props.ready ? (
-                        <div
-                            className="absolute inset-0 top-[60px] flex items-center justify-center"
+                        <iframe
+                            className="scrollbar-hide h-full w-full opacity-100"
+                            ref={frameRef}
+                            src={frame.button.action.url}
+                            allow="clipboard-write 'src'"
+                            sandbox="allow-forms allow-scripts allow-same-origin"
                             style={{
                                 backgroundColor: frame.button.action.splashBackgroundColor,
                             }}
-                        >
-                            <Image
-                                alt={frame.button.title}
-                                width={80}
-                                height={80}
-                                src={frame.button.action.splashImageUrl}
-                            />
-                        </div>
-                    ) : null}
+                        />
+                        {!props.ready ? (
+                            <div
+                                className="absolute inset-0 top-[60px] flex items-center justify-center"
+                                style={{
+                                    backgroundColor: frame.button.action.splashBackgroundColor,
+                                }}
+                            >
+                                <Image
+                                    alt={frame.button.title}
+                                    width={80}
+                                    height={80}
+                                    src={frame.button.action.splashImageUrl}
+                                />
+                            </div>
+                        ) : null}
 
-                    <Modals />
-                </div>
-            </Modal>
+                        <Modals />
+                    </div>
+                </Modal>
+            </>
         );
     },
 );

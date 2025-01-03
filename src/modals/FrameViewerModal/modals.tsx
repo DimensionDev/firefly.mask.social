@@ -1,12 +1,12 @@
 import { memo } from 'react';
 
 import * as controls from '@/modals/FrameViewerModal/controls.js';
-import { MessagePopover } from '@/modals/FrameViewerModal/MessagePopover.js';
+import { ReviewTransactionPopover } from '@/modals/FrameViewerModal/ReviewTransactionPopover.js';
 
 export const Modals = memo(function Modals() {
     return (
         <>
-            <MessagePopover ref={controls.MessagePopoverRef.register} />
+            <ReviewTransactionPopover ref={controls.ReviewTransactionPopoverRef.register} />
         </>
     );
 });

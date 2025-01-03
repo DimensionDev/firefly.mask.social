@@ -5,16 +5,18 @@ import { forwardRef, useRef, useState } from 'react';
 import { useSingletonModal } from '@/hooks/useSingletonModal.js';
 import type { SingletonModalRefCreator } from '@/libs/SingletonModal.js';
 import { Popover } from '@/modals/FrameViewerModal/Popover.js';
+import type { FrameV2 } from '@/types/frame.js';
+import { Trans } from '@lingui/macro';
 
-export interface MessagePopoverProps {
-    type: 'success' | 'error' | 'warning' | 'info';
+export interface ReviewTransactionPopoverProps {
+    frame?: FrameV2;
     content?: React.ReactNode;
     onClose?: () => void;
 }
 
-export const MessagePopover = forwardRef<SingletonModalRefCreator<MessagePopoverProps>>(
-    function MessagePopover(_, ref) {
-        const [props, setProps] = useState<MessagePopoverProps>();
+export const ReviewTransactionPopover = forwardRef<SingletonModalRefCreator<ReviewTransactionPopoverProps>>(
+    function ReviewTransactionPopover(_, ref) {
+        const [props, setProps] = useState<ReviewTransactionPopoverProps>();
         const timerRef = useRef<NodeJS.Timeout>();
 
         const [open, dispatch] = useSingletonModal(ref, {
@@ -30,12 +32,14 @@ export const MessagePopover = forwardRef<SingletonModalRefCreator<MessagePopover
             },
         });
 
-        if (!props) return null;
-
         return (
-            <Popover open={open} onClose={() => dispatch?.close()}>
-                {props.content}
-            </Popover>
+            <Popover
+                title={<Trans>Review Transaction</Trans>}
+                content={props?.content}
+                frame={props?.frame}
+                open={open}
+                onClose={() => dispatch?.close()}
+            />
         );
     },
 );
