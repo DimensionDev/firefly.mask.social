@@ -1,7 +1,5 @@
 import { Transition } from '@headlessui/react';
-import React, { Fragment, memo, useRef } from 'react';
-
-import { classNames } from '@/helpers/classNames.js';
+import React, { memo, useRef } from 'react';
 
 interface PopoverProps {
     open: boolean;
@@ -16,12 +14,9 @@ export const Popover = memo(function Popover({ open, onClose, children, disableB
     if (!open) return null;
 
     return (
-        <div
-            className={classNames('flex min-h-full items-center justify-center overflow-auto p-0 text-center md:p-4')}
-            ref={ref}
-        >
+        <div className="absolute inset-0 flex min-h-full flex-col items-center justify-end overflow-auto" ref={ref}>
             <Transition.Child
-                as={Fragment}
+                as="div"
                 enter="ease-out duration-300"
                 enterFrom="opacity-0"
                 enterTo="opacity-100"
@@ -30,7 +25,7 @@ export const Popover = memo(function Popover({ open, onClose, children, disableB
                 leaveTo="opacity-0"
             >
                 <div
-                    className="fixed inset-0 bg-main/25 bg-opacity-30"
+                    className="absolute inset-0 top-[60px] bg-main/25 bg-opacity-30"
                     onClick={(ev) => {
                         ev.preventDefault();
                         ev.stopPropagation();
@@ -40,7 +35,7 @@ export const Popover = memo(function Popover({ open, onClose, children, disableB
                 />
             </Transition.Child>
             <Transition.Child
-                as={Fragment}
+                as="div"
                 enter="ease-out duration-300"
                 enterFrom="opacity-0"
                 enterTo="opacity-100"
@@ -48,7 +43,7 @@ export const Popover = memo(function Popover({ open, onClose, children, disableB
                 leaveFrom="opacity-100"
                 leaveTo="opacity-0"
             >
-                {children}
+                <div className="max-h-[400xp] rounded-tl-xl rounded-tr-xl bg-bg">{children}</div>
             </Transition.Child>
         </div>
     );

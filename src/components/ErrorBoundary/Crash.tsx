@@ -1,7 +1,7 @@
 'use client';
 
-import { Link } from '@/components/Link.js';
 import { env } from '@/constants/env.js';
+import { Link } from '@/esm/Link.js';
 import { resolveValue } from '@/helpers/resolveValue.js';
 import { useDeveloperSettingsState } from '@/store/useDeveloperSettingsStore.js';
 
