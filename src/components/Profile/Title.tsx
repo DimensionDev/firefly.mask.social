@@ -17,7 +17,7 @@ import { useComeBack } from '@/hooks/useComeback.js';
 import { useCurrentFireflyProfiles } from '@/hooks/useCurrentFireflyProfiles.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import { useRefreshedProfile } from '@/hooks/useRefreshedProfile.js';
-import type { FireflyProfile } from '@/providers/types/Firefly.js';
+import type { FireflyIdentity, FireflyProfile } from '@/providers/types/Firefly.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 import { useFireflyIdentityState } from '@/store/useFireflyIdentityStore.js';
 
@@ -28,9 +28,18 @@ interface TitleProps extends HTMLProps<HTMLDivElement> {
     sticky?: boolean;
     keepVisible?: boolean;
     disableActions?: boolean;
+    fallbackIdentity?: FireflyIdentity;
 }
 
-export function Title({ profiles = EMPTY_LIST, sticky, keepVisible, disableActions, className, ...rest }: TitleProps) {
+export function Title({
+    profiles = EMPTY_LIST,
+    sticky,
+    keepVisible,
+    disableActions,
+    fallbackIdentity,
+    className,
+    ...rest
+}: TitleProps) {
     const isMedium = useIsMedium();
     const currentProfiles = useCurrentFireflyProfiles();
 
@@ -43,7 +52,9 @@ export function Title({ profiles = EMPTY_LIST, sticky, keepVisible, disableActio
     });
 
     const comeback = useComeBack();
-    const { identity: identity } = useFireflyIdentityState();
+    const { identity: cachedIdentity } = useFireflyIdentityState();
+    const identity = cachedIdentity.id ? cachedIdentity : fallbackIdentity || cachedIdentity;
+
     const isOthersProfile = !currentProfiles.some((x) => isSameFireflyIdentity(x.identity, identity));
 
     const { walletProfile } = resolveFireflyProfiles(identity, profiles);

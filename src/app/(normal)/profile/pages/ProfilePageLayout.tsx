@@ -39,7 +39,9 @@ export async function ProfilePageLayout({
         return (
             <>
                 <ProfileSourceTabs profiles={profiles} identity={identity} />
-                {profile || walletProfile ? <Title profile={profile} profiles={profiles} /> : null}
+                {profile || walletProfile ? (
+                    <Title profile={profile} profiles={profiles} fallbackIdentity={identity} />
+                ) : null}
                 {identity.source === Source.Wallet && walletProfile ? (
                     <WalletInfo profile={walletProfile} />
                 ) : profile ? (
