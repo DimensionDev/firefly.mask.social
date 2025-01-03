@@ -94,8 +94,6 @@ export const ProfileCard = memo<ProfileCardProps>(function ProfileCard({ identit
                     </Link>
 
                     <div className="flex gap-3 text-medium">
-                        <FollowersLink profile={profile} className="leading-[22px]" />
-
                         <Link
                             href={resolveProfileUrl(profile.source, profile.profileId, FollowCategory.Following)}
                             className={classNames('gap-1 leading-[22px] hover:underline', {
@@ -110,6 +108,7 @@ export const ProfileCard = memo<ProfileCardProps>(function ProfileCard({ identit
                                 </span>
                             </data>
                         </Link>
+                        <FollowersLink profile={profile} className="leading-[22px]" />
                     </div>
                 </div>
             </div>
