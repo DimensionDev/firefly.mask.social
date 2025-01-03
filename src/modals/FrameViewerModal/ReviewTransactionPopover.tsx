@@ -1,12 +1,12 @@
 'use client';
 
+import { Trans } from '@lingui/macro';
 import { forwardRef, useRef, useState } from 'react';
 
 import { useSingletonModal } from '@/hooks/useSingletonModal.js';
 import type { SingletonModalRefCreator } from '@/libs/SingletonModal.js';
 import { Popover } from '@/modals/FrameViewerModal/Popover.js';
 import type { FrameV2 } from '@/types/frame.js';
-import { Trans } from '@lingui/macro';
 
 export interface ReviewTransactionPopoverProps {
     frame?: FrameV2;

@@ -1,10 +1,11 @@
+import { Transition } from '@headlessui/react';
+import { Trans } from '@lingui/macro';
+import React, { Fragment, memo } from 'react';
+
 import { Image } from '@/components/Image.js';
 import { Link } from '@/components/Link.js';
 import { parseUrl } from '@/helpers/parseUrl.js';
 import type { FrameV2 } from '@/types/frame.js';
-import { Transition } from '@headlessui/react';
-import { Trans } from '@lingui/macro';
-import React, { Fragment, memo } from 'react';
 
 interface PopoverProps {
     open: boolean;
