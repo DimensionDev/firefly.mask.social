@@ -1,6 +1,6 @@
-import { Dialog, Transition, type DialogProps } from '@headlessui/react';
+import { Dialog, type DialogProps, Transition } from '@headlessui/react';
 import { noop } from 'lodash-es';
-import React, { Fragment, useRef, type HTMLProps } from 'react';
+import React, { Fragment, useRef } from 'react';
 
 import { classNames } from '@/helpers/classNames.js';
 

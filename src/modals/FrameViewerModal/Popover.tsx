@@ -1,10 +1,7 @@
+import { Transition } from '@headlessui/react';
+import React, { Fragment, memo, useRef } from 'react';
+
 import { classNames } from '@/helpers/classNames.js';
-
-import { Dialog, Transition, type DialogProps } from '@headlessui/react';
-import { noop } from 'lodash-es';
-import React, { Fragment, useRef, type HTMLProps } from 'react';
-
-import { memo } from 'react';
 
 interface PopoverProps {
     open: boolean;

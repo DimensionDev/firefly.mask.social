@@ -11,10 +11,9 @@ import { createEIP1193ProviderFromWagmi } from '@/helpers/createEIP1193Provider.
 import { parseUrl } from '@/helpers/parseUrl.js';
 import { useSingletonModal } from '@/hooks/useSingletonModal.js';
 import type { SingletonModalRefCreator } from '@/libs/SingletonModal.js';
+import { Modals } from '@/modals/FrameViewerModal/modals.js';
 import { MoreAction } from '@/modals/FrameViewerModal/MoreActionMenu.js';
 import type { FrameV2, FrameV2Host } from '@/types/frame.js';
-import { Modals } from '@/modals/FrameViewerModal/modals.js';
-import { MessagePopoverRef } from '@/modals/FrameViewerModal/controls.js';
 
 export type FrameViewerModalOpenProps = {
     ready: boolean;
