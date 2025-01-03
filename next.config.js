@@ -5,6 +5,7 @@ import CopyPlugin from 'copy-webpack-plugin';
 import { createRequire } from 'module';
 import { dirname, join } from 'path';
 import { fileURLToPath } from 'url';
+import { withSentryConfig } from '@sentry/nextjs';
 
 import { POLICY_SETTINGS } from './csp.js';
 
@@ -13,9 +14,25 @@ const __dirname = fileURLToPath(dirname(import.meta.url));
 const outputPath = fileURLToPath(new URL('./public', import.meta.url));
 const polyfillsFolderPath = join(outputPath, './js/polyfills');
 
+/** @type {import('@sentry/nextjs').SentryBuildOptions} */
+const sentryWebpackPluginOptions = {
+    org: 'dimension',
+    project: 'firefly-mask-social',
+    authToken: process.env.SENTRY_AUTH_TOKEN,
+    silent: true,
+    uploadSourceMaps: true,
+    include: '.next',
+    ignore: ['node_modules'],
+    cleanArtifacts: true,
+    environment: process.env.NODE_ENV,
+    sourcemaps: {
+        deleteSourcemapsAfterUpload: true,
+    },
+};
+
 /** @type {import('next').NextConfig} */
-export default {
-    productionBrowserSourceMaps: false,
+const nextConfig = {
+    productionBrowserSourceMaps: true,
 
     // Note: we run tsc and eslint in other places
     typescript: {
@@ -32,9 +49,9 @@ export default {
     experimental: {
         esmExternals: true,
         scrollRestoration: true,
-        serverSourceMaps: false,
         webpackBuildWorker: true,
         swcPlugins: [['@lingui/swc-plugin', {}]],
+        serverSourceMaps: true,
         serverActions: {
             bodySizeLimit: '80mb',
         },
@@ -236,3 +253,5 @@ export default {
         return config;
     },
 };
+
+export default withSentryConfig(nextConfig, sentryWebpackPluginOptions);
