@@ -267,6 +267,9 @@ msgstr "查找用户中"
 msgid "Fake KYC."
 msgstr "虚假 KYC。"
 
+msgid "Requested from <0>{0}</0>"
+msgstr ""
+
 msgid "Airdrop Scam"
 msgstr "空投骗局"
 
@@ -893,6 +896,9 @@ msgstr "合约拥有者在交易冷却期上没有限制。"
 
 msgid "Connect Wallet"
 msgstr "连接钱包"
+
+msgid "Review Transaction"
+msgstr ""
 
 msgid "Not Found. Please check your URL[{0}]."
 msgstr "未找到。请检查你的 URL [{0}]。"

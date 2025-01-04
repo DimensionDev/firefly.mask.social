@@ -267,6 +267,9 @@ msgstr "搜尋用戶"
 msgid "Fake KYC."
 msgstr ""
 
+msgid "Requested from <0>{0}</0>"
+msgstr ""
+
 msgid "Airdrop Scam"
 msgstr "空投騙局"
 
@@ -893,6 +896,9 @@ msgstr ""
 
 msgid "Connect Wallet"
 msgstr "連接錢包"
+
+msgid "Review Transaction"
+msgstr ""
 
 msgid "Not Found. Please check your URL[{0}]."
 msgstr "未找到。請檢查您的 URL [{0}]"

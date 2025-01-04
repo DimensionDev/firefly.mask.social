@@ -1,16 +1,22 @@
 import { exposeToIframe } from '@farcaster/frame-host';
 import { delay } from '@masknet/kit';
+import { EthereumMethodType } from '@masknet/web3-shared-evm';
 import { forwardRef, useEffect, useRef, useState } from 'react';
 import { useAsyncFn } from 'react-use';
 
 import { CloseButton } from '@/components/IconButton.js';
 import { Image } from '@/components/Image.js';
 import { Modal } from '@/components/Modal.js';
+import { config } from '@/configs/wagmiClient.js';
 import { IS_DEVELOPMENT } from '@/constants/index.js';
-import { createEIP1193ProviderFromWagmi } from '@/helpers/createEIP1193Provider.js';
+import { createEIP1193Provider } from '@/helpers/createEIP1193Provider.js';
+import { getWalletClientRequired } from '@/helpers/getWalletClientRequired.js';
 import { parseUrl } from '@/helpers/parseUrl.js';
+import { switchEthereumChain } from '@/helpers/switchEthereumChain.js';
 import { useSingletonModal } from '@/hooks/useSingletonModal.js';
 import type { SingletonModalRefCreator } from '@/libs/SingletonModal.js';
+import { TransactionSimulationPopoverRef } from '@/modals/FrameViewerModal/controls.js';
+import { Modals } from '@/modals/FrameViewerModal/modals.js';
 import { MoreAction } from '@/modals/FrameViewerModal/MoreActionMenu.js';
 import type { FrameV2, FrameV2Host } from '@/types/frame.js';
 
@@ -45,7 +51,31 @@ export const FrameViewerModal = forwardRef<SingletonModalRefCreator<FrameViewerM
                 debug: IS_DEVELOPMENT,
                 iframe: frameRef.current,
                 sdk: props.frameHost,
-                ethProvider: createEIP1193ProviderFromWagmi(),
+                ethProvider: createEIP1193Provider(async (parameters) => {
+                    const { method, params } = parameters;
+                    const client = await getWalletClientRequired(config);
+
+                    switch (method) {
+                        case EthereumMethodType.ETH_REQUEST_ACCOUNTS:
+                            return [client.account.address];
+                        case EthereumMethodType.WALLET_SWITCH_ETHEREUM_CHAIN:
+                            const chain = params[0] as { chainId: string };
+                            const chainId = Number.parseInt(chain.chainId, 16);
+                            await switchEthereumChain(chainId);
+                            return;
+                        case EthereumMethodType.ETH_SEND_TRANSACTION: {
+                            const confirmed = await TransactionSimulationPopoverRef.openAndWaitForClose({
+                                frame,
+                                content: 'Hello World!',
+                            });
+                            if (!confirmed) throw new Error('Transaction rejected');
+
+                            return client.request(parameters as Parameters<typeof client.request>[0]);
+                        }
+                        default:
+                            return client.request(parameters as Parameters<typeof client.request>[0]);
+                    }
+                }),
                 frameOrigin: '*',
             });
 
@@ -73,47 +103,51 @@ export const FrameViewerModal = forwardRef<SingletonModalRefCreator<FrameViewerM
         const u = parseUrl(frame.button.action.url);
 
         return (
-            <Modal disableDialogClose open={open} onClose={() => dispatch?.close()}>
-                <div className="relative flex h-[695px] w-[424px] flex-col overflow-hidden rounded-xl">
-                    <div className="flex h-[60px] flex-1 items-center justify-between bg-lightBg px-4 py-3 text-black dark:bg-fireflyBrand dark:text-white">
-                        <div className="cursor-pointer">
-                            <CloseButton onClick={() => dispatch?.close()} />
+            <>
+                <Modal disableDialogClose open={open} onClose={() => dispatch?.close()}>
+                    <div className="relative flex h-[755px] w-[424px] flex-col overflow-hidden rounded-xl">
+                        <div className="flex h-[60px] flex-1 items-center justify-between bg-lightBg px-4 py-3 text-black dark:bg-fireflyBrand dark:text-white">
+                            <div className="cursor-pointer">
+                                <CloseButton onClick={() => dispatch?.close()} />
+                            </div>
+                            <div className="mx-4 max-w-[280px] flex-1 text-center">
+                                <div className="font-bold">{frame.button.action.name}</div>
+                                {u ? <div className="text-faint text-xs">{u.host}</div> : null}
+                            </div>
+                            <div>
+                                <MoreAction frame={frame} disabled={loading} onReload={onReload} />
+                            </div>
                         </div>
-                        <div className="mx-4 max-w-[280px] flex-1 text-center">
-                            <div className="font-bold">{frame.button.action.name}</div>
-                            {u ? <div className="text-faint text-xs">{u.host}</div> : null}
-                        </div>
-                        <div>
-                            <MoreAction frame={frame} disabled={loading} onReload={onReload} />
-                        </div>
-                    </div>
-                    <iframe
-                        className="scrollbar-hide h-full w-full opacity-100"
-                        ref={frameRef}
-                        src={frame.button.action.url}
-                        allow="clipboard-write 'src'"
-                        sandbox="allow-forms allow-scripts allow-same-origin"
-                        style={{
-                            backgroundColor: frame.button.action.splashBackgroundColor,
-                        }}
-                    />
-                    {!props.ready ? (
-                        <div
-                            className="absolute inset-0 top-[60px] flex items-center justify-center"
+                        <iframe
+                            className="scrollbar-hide h-full w-full opacity-100"
+                            ref={frameRef}
+                            src={frame.button.action.url}
+                            allow="clipboard-write 'src'"
+                            sandbox="allow-forms allow-scripts allow-same-origin"
                             style={{
                                 backgroundColor: frame.button.action.splashBackgroundColor,
                             }}
-                        >
-                            <Image
-                                alt={frame.button.title}
-                                width={80}
-                                height={80}
-                                src={frame.button.action.splashImageUrl}
-                            />
-                        </div>
-                    ) : null}
-                </div>
-            </Modal>
+                        />
+                        {!props.ready ? (
+                            <div
+                                className="absolute inset-0 top-[60px] flex items-center justify-center"
+                                style={{
+                                    backgroundColor: frame.button.action.splashBackgroundColor,
+                                }}
+                            >
+                                <Image
+                                    alt={frame.button.title}
+                                    width={80}
+                                    height={80}
+                                    src={frame.button.action.splashImageUrl}
+                                />
+                            </div>
+                        ) : null}
+
+                        <Modals />
+                    </div>
+                </Modal>
+            </>
         );
     },
 );
