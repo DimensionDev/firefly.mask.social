@@ -116,7 +116,7 @@ const TipsModalUI = forwardRef<SingletonModalRefCreator<TipsModalOpenProps, Tips
         }
 
         return (
-            <Popover open={open} onClose={onClose} DialogPanelProps={{ className: '!p-0 !pt-6' }}>
+            <Popover open={open} onClose={onClose} dialogPanelClassName="!p-0 !pt-6">
                 <div className="px-3 pb-6 text-medium text-lightMain">
                     <RouterProvider router={router} context={{ onClose }} />
                 </div>

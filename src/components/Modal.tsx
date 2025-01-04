@@ -8,7 +8,6 @@ export interface ModalProps {
     open: boolean;
     onClose: () => void;
     children?: React.ReactNode;
-    className?: string;
     enableBackdrop?: boolean;
     disableScrollLock?: boolean;
     /**
@@ -18,19 +17,20 @@ export interface ModalProps {
      */
     disableDialogClose?: boolean;
     disableBackdropClose?: boolean;
-    modalClassName?: string;
+    dialogClassName?: string;
+    dialogPanelClassName?: string;
 }
 
 export function Modal({
     open,
     onClose,
     children,
-    className,
     enableBackdrop = true,
     disableScrollLock = true,
     disableDialogClose = false,
     disableBackdropClose = false,
-    modalClassName,
+    dialogClassName,
+    dialogPanelClassName,
 }: ModalProps) {
     const ref = useRef<HTMLDivElement>(null);
 
@@ -38,7 +38,7 @@ export function Modal({
         <Transition appear show={open} as={Fragment}>
             <Dialog
                 initialFocus={ref}
-                className={classNames('relative z-40', modalClassName)}
+                className={classNames('relative z-40', dialogClassName)}
                 onClose={disableDialogClose ? noop : onClose}
                 disableScrollLock={disableScrollLock}
             >
@@ -46,7 +46,7 @@ export function Modal({
                     <div
                         className={classNames(
                             'flex min-h-full items-center justify-center overflow-auto p-0 text-center md:p-4',
-                            className,
+                            dialogPanelClassName,
                         )}
                         ref={ref}
                     >

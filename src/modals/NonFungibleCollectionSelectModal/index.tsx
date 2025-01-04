@@ -38,7 +38,7 @@ export const NonFungibleCollectionSelectModal = forwardRef<
     if (!props) return null;
 
     return (
-        <Modal open={open} onClose={() => dispatch?.close(null)} modalClassName="z-50">
+        <Modal open={open} onClose={() => dispatch?.close(null)} dialogClassName="z-50">
             <div className="z-50 flex h-[70vh] w-4/5 flex-col rounded-md bg-lightBottom p-4 pt-0 text-medium text-lightMain shadow-popover transition-all dark:bg-darkBottom md:h-[620px] md:w-[600px] md:rounded-xl">
                 <DialogTitle as="h3" className="relative h-14 shrink-0 pt-safe">
                     <LeftArrowIcon

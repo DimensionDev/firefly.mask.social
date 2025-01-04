@@ -68,7 +68,7 @@ export const LoginModal = forwardRef<SingletonModalRefCreator<LoginModalOpenProp
     }
 
     return (
-        <Popover open={open} onClose={() => dispatch?.close()} DialogPanelProps={{ className: '!p-0 !pt-6' }}>
+        <Popover open={open} onClose={() => dispatch?.close()} dialogPanelClassName="!p-0 !pt-6">
             {Router}
         </Popover>
     );
