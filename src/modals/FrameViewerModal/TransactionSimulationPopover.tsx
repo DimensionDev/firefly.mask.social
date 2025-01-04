@@ -3,7 +3,7 @@
 import { Trans } from '@lingui/macro';
 import { forwardRef, useState } from 'react';
 
-import { TransactionSimulator } from '@/components/TransactionSimulator/SimulatorContent.jsx';
+import { TransactionSimulator } from '@/components/TransactionSimulator/SimulatorContent.js';
 import { useSingletonModal } from '@/hooks/useSingletonModal.js';
 import type { SingletonModalRefCreator } from '@/libs/SingletonModal.js';
 import { Popover } from '@/modals/FrameViewerModal/Popover.js';

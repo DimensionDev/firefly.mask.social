@@ -304,9 +304,9 @@ export const ComposeModalUI = forwardRef<SingletonModalRefCreator<ComposeModalOp
             <Modal
                 open={open}
                 onClose={onClose}
+                dialogPanelClassName="flex-col"
                 disableScrollLock={false}
                 disableDialogClose
-                dialogPanelClassName="flex-col"
             >
                 <div className="relative flex h-[100vh] w-[100vw] flex-col overflow-auto bg-lightBottom shadow-popover transition-all dark:bg-darkBottom dark:text-gray-950 md:h-[620px] md:w-[600px] md:rounded-xl lg:flex-grow-0">
                     {/* Loading */}
