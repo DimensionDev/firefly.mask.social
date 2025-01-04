@@ -1,4 +1,4 @@
-import { Dialog, type DialogPanelProps, Transition } from '@headlessui/react';
+import { Dialog, Transition } from '@headlessui/react';
 import { Fragment } from 'react';
 
 import { classNames } from '@/helpers/classNames.js';
