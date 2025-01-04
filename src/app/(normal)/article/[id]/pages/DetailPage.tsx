@@ -8,12 +8,10 @@ import { FireflyArticleProvider } from '@/providers/firefly/Article.js';
 import { getArticleCover } from '@/services/getArticleCover.js';
 
 interface PageProps {
-    params: {
-        id: string;
-    };
+    id: string;
 }
 
-export async function ArticleDetailPage({ params: { id: articleId } }: PageProps) {
+export async function ArticleDetailPage({ id: articleId }: PageProps) {
     if (!articleId) notFound();
 
     const article = await FireflyArticleProvider.getArticleById(articleId);

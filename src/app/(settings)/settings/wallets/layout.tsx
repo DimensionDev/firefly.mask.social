@@ -5,7 +5,7 @@ import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
 
 export async function generateMetadata() {
     return createSiteMetadata({
-        title: createPageTitleSSR(t`Associated wallets`),
+        title: await createPageTitleSSR(t`Associated wallets`),
     });
 }
 

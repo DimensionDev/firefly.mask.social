@@ -3,13 +3,14 @@ import { ChannelTabType } from '@/constants/enum.js';
 import { isBotRequest } from '@/helpers/isBotRequest.js';
 
 interface Props {
-    params: {
+    params: Promise<{
         id: string;
         type: ChannelTabType;
-    };
+    }>;
 }
 
-export default function Page({ params }: Props) {
-    if (isBotRequest()) return null;
+export default async function Page(props: Props) {
+    const params = await props.params;
+    if (await isBotRequest()) return null;
     return <ChannelContentListPage type={params.type} />;
 }

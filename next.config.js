@@ -125,9 +125,10 @@ export default {
             },
         ];
     },
-    webpack: (config, context) => {
+    webpack: (/** @type {import('webpack').Configuration} */ config, context) => {
         if (!config.plugins) config.plugins = [];
         if (!config.module.rules) config.module.rules = [];
+        config.output.environment = { asyncFunction: true };
 
         config.plugins.push(
             ...[

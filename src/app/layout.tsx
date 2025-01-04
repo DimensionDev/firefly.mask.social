@@ -10,7 +10,8 @@ import { LayoutBody } from '@/app/layout-body.js';
 import { ErrorBoundary } from '@/components/ErrorBoundary/index.js';
 import { Script } from '@/esm/Script.js';
 import { createSiteMetadata } from '@/helpers/createSiteMetadata.js';
-import { getFromCookies } from '@/helpers/getFromCookies.js';
+import { prepareSettingsForSSR } from '@/settings/index.js';
+import { cookies } from 'next/headers.js';
 
 const inter = Inter({
     subsets: ['latin'],
@@ -27,11 +28,11 @@ export const viewport = {
     userScalable: false,
 };
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
-    const rootClass = getFromCookies('firefly_root_class');
+export default async function RootLayout({ children }: { children: React.ReactNode }) {
+    const [_cookies] = await Promise.all([cookies(), prepareSettingsForSSR()]);
 
     return (
-        <html className={rootClass}>
+        <html className={_cookies.get('firefly_root_class')?.value}>
             <head>
                 <Script src="/js/polyfills/base.js" strategy="beforeInteractive" />
                 <Script src="/js/polyfills/dom.js" strategy="beforeInteractive" />

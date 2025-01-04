@@ -4,13 +4,18 @@ import urlcat from 'urlcat';
 import type { SocialSourceInURL } from '@/constants/enum.js';
 
 interface Props {
-    params: {
+    params: Promise<{
         id: string;
         index: string;
-    };
-    searchParams: { source: SocialSourceInURL };
+    }>;
+    searchParams: Promise<{ source: SocialSourceInURL }>;
 }
 
-export default function Photo({ params: { id: postId }, searchParams: { source } }: Props) {
+export default async function Photo(props: Props) {
+    const searchParams = await props.searchParams;
+    const { source } = searchParams;
+    const params = await props.params;
+    const { id: postId } = params;
+
     redirect(urlcat('/post/:source/:id', { id: postId, source }));
 }

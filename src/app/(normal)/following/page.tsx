@@ -9,7 +9,7 @@ import { resolveFollowingUrl } from '@/helpers/resolveFollowingUrl.js';
 
 export async function generateMetadata() {
     return createSiteMetadata({
-        title: createPageTitleSSR(t`Following`),
+        title: await createPageTitleSSR(t`Following`),
     });
 }
 

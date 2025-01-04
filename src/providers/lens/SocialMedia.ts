@@ -171,7 +171,7 @@ export class LensSocialMedia implements Provider {
         });
 
         return createPageable(
-            filterFeeds(result.items).map(formatLensPost),
+            await Promise.all(filterFeeds(result.items).map(formatLensPost)),
             createIndicator(indicator),
             result.pageInfo.next ? createNextIndicator(indicator, result.pageInfo.next) : undefined,
         );
@@ -741,7 +741,7 @@ export class LensSocialMedia implements Provider {
         if (!result) throw new Error(t`No comments found`);
 
         return createPageable(
-            result.items.map(formatLensPost),
+            await Promise.all(result.items.map(formatLensPost)),
             createIndicator(indicator),
             result.pageInfo.next ? createNextIndicator(indicator, result.pageInfo.next) : undefined,
         );
@@ -758,7 +758,7 @@ export class LensSocialMedia implements Provider {
         if (!result) throw new Error(t`No comments found`);
 
         return createPageable(
-            result.items.map(formatLensPost),
+            await Promise.all(result.items.map(formatLensPost)),
             createIndicator(indicator),
             result.pageInfo.next ? createNextIndicator(indicator, result.pageInfo.next) : undefined,
         );
@@ -772,7 +772,7 @@ export class LensSocialMedia implements Provider {
         });
 
         return createPageable(
-            filterFeeds(result.items).map(formatLensPost),
+            await Promise.all(filterFeeds(result.items).map(formatLensPost)),
             createIndicator(indicator),
             result.pageInfo.next ? createNextIndicator(indicator, result.pageInfo.next) : undefined,
         );
@@ -792,7 +792,7 @@ export class LensSocialMedia implements Provider {
         const result = data.unwrap();
 
         return createPageable(
-            compact(result.items.map(formatLensPostByFeed)),
+            compact(await Promise.all(result.items.map(formatLensPostByFeed))),
             createIndicator(indicator),
             result.pageInfo.next ? createNextIndicator(indicator, result.pageInfo.next) : undefined,
         );
@@ -811,7 +811,7 @@ export class LensSocialMedia implements Provider {
         });
 
         return createPageable(
-            uniqWith(result.items.map(formatLensPost), isSamePost),
+            uniqWith(await Promise.all(result.items.map(formatLensPost)), isSamePost),
             createIndicator(indicator),
             result.pageInfo.next ? createNextIndicator(indicator, result.pageInfo.next) : undefined,
         );
@@ -828,7 +828,7 @@ export class LensSocialMedia implements Provider {
         });
 
         return createPageable(
-            result.items.map(formatLensPost),
+            await Promise.all(result.items.map(formatLensPost)),
             createIndicator(indicator),
             result.pageInfo.next ? createNextIndicator(indicator, result.pageInfo.next) : undefined,
         );
@@ -848,7 +848,7 @@ export class LensSocialMedia implements Provider {
         });
 
         return createPageable(
-            result.items.map(formatLensPost),
+            await Promise.all(result.items.map(formatLensPost)),
             createIndicator(indicator),
             result.pageInfo.next ? createNextIndicator(indicator, result.pageInfo.next) : undefined,
         );
@@ -879,7 +879,7 @@ export class LensSocialMedia implements Provider {
         });
 
         return createPageable(
-            result.items.map(formatLensPost),
+            await Promise.all(result.items.map(formatLensPost)),
             createIndicator(indicator),
             result.pageInfo.next ? createNextIndicator(indicator, result.pageInfo.next) : undefined,
         );
@@ -894,7 +894,7 @@ export class LensSocialMedia implements Provider {
         });
 
         return createPageable(
-            result.items.map(formatLensPost),
+            await Promise.all(result.items.map(formatLensPost)),
             createIndicator(indicator),
             result.pageInfo.next ? createNextIndicator(indicator, result.pageInfo.next) : undefined,
         );
@@ -909,7 +909,7 @@ export class LensSocialMedia implements Provider {
         });
 
         return createPageable(
-            result.items.map(formatLensPost),
+            await Promise.all(result.items.map(formatLensPost)),
             createIndicator(indicator),
             result.pageInfo.next ? createNextIndicator(indicator, result.pageInfo.next) : undefined,
         );
@@ -925,7 +925,7 @@ export class LensSocialMedia implements Provider {
         });
 
         return createPageable(
-            result.items.map(formatLensPost),
+            await Promise.all(result.items.map(formatLensPost)),
             createIndicator(indicator),
             result.pageInfo.next ? createNextIndicator(indicator, result.pageInfo.next) : undefined,
         );
@@ -942,7 +942,7 @@ export class LensSocialMedia implements Provider {
         });
 
         return createPageable(
-            result.items.map(formatLensPost),
+            await Promise.all(result.items.map(formatLensPost)),
             createIndicator(indicator),
             result.pageInfo.next ? createNextIndicator(indicator, result.pageInfo.next) : undefined,
         );
@@ -1184,95 +1184,97 @@ export class LensSocialMedia implements Provider {
 
         const result = response.unwrap();
 
-        const data = result.items.map<Notification | null>((item) => {
-            if (item.__typename === 'MirrorNotification') {
-                if (item.mirrors.length === 0) throw new Error('No mirror found');
+        const data = await Promise.all(
+            result.items.map<Promise<Notification | null>>(async (item) => {
+                if (item.__typename === 'MirrorNotification') {
+                    if (item.mirrors.length === 0) throw new Error('No mirror found');
 
-                const time = first(item.mirrors)?.mirroredAt;
-                return {
-                    source: Source.Lens,
-                    notificationId: item.id,
-                    type: NotificationType.Mirror,
-                    mirrors: item.mirrors.map((x) => formatLensProfile(x.profile)),
-                    post: formatLensPost(item.publication),
-                    timestamp: time ? new Date(time).getTime() : undefined,
-                };
-            }
+                    const time = first(item.mirrors)?.mirroredAt;
+                    return {
+                        source: Source.Lens,
+                        notificationId: item.id,
+                        type: NotificationType.Mirror,
+                        mirrors: item.mirrors.map((x) => formatLensProfile(x.profile)),
+                        post: await formatLensPost(item.publication),
+                        timestamp: time ? new Date(time).getTime() : undefined,
+                    };
+                }
 
-            if (item.__typename === 'QuoteNotification') {
-                const time = item.quote.createdAt;
-                return {
-                    source: Source.Lens,
-                    notificationId: item.id,
-                    type: NotificationType.Quote,
-                    quote: formatLensPost(item.quote),
-                    post: formatLensQuoteOrComment(item.quote.quoteOn),
-                    timestamp: time ? new Date(time).getTime() : undefined,
-                };
-            }
+                if (item.__typename === 'QuoteNotification') {
+                    const time = item.quote.createdAt;
+                    return {
+                        source: Source.Lens,
+                        notificationId: item.id,
+                        type: NotificationType.Quote,
+                        quote: await formatLensPost(item.quote),
+                        post: await formatLensQuoteOrComment(item.quote.quoteOn),
+                        timestamp: time ? new Date(time).getTime() : undefined,
+                    };
+                }
 
-            if (item.__typename === 'ReactionNotification') {
-                if (item.reactions.length === 0) throw new Error('No reaction found');
-                const time = first(flatMap(item.reactions.map((x) => x.reactions)))?.reactedAt;
-                return {
-                    source: Source.Lens,
-                    notificationId: item.id,
-                    type: NotificationType.Reaction,
-                    reaction: ReactionType.Upvote,
-                    reactors: item.reactions.map((x) => formatLensProfile(x.profile)),
-                    post: formatLensPost(item.publication),
-                    timestamp: time ? new Date(time).getTime() : undefined,
-                };
-            }
+                if (item.__typename === 'ReactionNotification') {
+                    if (item.reactions.length === 0) throw new Error('No reaction found');
+                    const time = first(flatMap(item.reactions.map((x) => x.reactions)))?.reactedAt;
+                    return {
+                        source: Source.Lens,
+                        notificationId: item.id,
+                        type: NotificationType.Reaction,
+                        reaction: ReactionType.Upvote,
+                        reactors: item.reactions.map((x) => formatLensProfile(x.profile)),
+                        post: await formatLensPost(item.publication),
+                        timestamp: time ? new Date(time).getTime() : undefined,
+                    };
+                }
 
-            if (item.__typename === 'CommentNotification') {
-                return {
-                    source: Source.Lens,
-                    notificationId: item.id,
-                    type: NotificationType.Comment,
-                    comment: formatLensPost(item.comment),
-                    post: formatLensQuoteOrComment(item.comment.commentOn),
-                    timestamp: new Date(item.comment.createdAt).getTime(),
-                };
-            }
+                if (item.__typename === 'CommentNotification') {
+                    return {
+                        source: Source.Lens,
+                        notificationId: item.id,
+                        type: NotificationType.Comment,
+                        comment: await formatLensPost(item.comment),
+                        post: await formatLensQuoteOrComment(item.comment.commentOn),
+                        timestamp: new Date(item.comment.createdAt).getTime(),
+                    };
+                }
 
-            if (item.__typename === 'FollowNotification') {
-                if (item.followers.length === 0) throw new Error('No follower found');
+                if (item.__typename === 'FollowNotification') {
+                    if (item.followers.length === 0) throw new Error('No follower found');
 
-                return {
-                    source: Source.Lens,
-                    notificationId: item.id,
-                    type: NotificationType.Follow,
-                    followers: item.followers.map(formatLensProfile),
-                };
-            }
+                    return {
+                        source: Source.Lens,
+                        notificationId: item.id,
+                        type: NotificationType.Follow,
+                        followers: item.followers.map(formatLensProfile),
+                    };
+                }
 
-            if (item.__typename === 'MentionNotification') {
-                const post = formatLensPost(item.publication);
+                if (item.__typename === 'MentionNotification') {
+                    const post = await formatLensPost(item.publication);
 
-                return {
-                    source: Source.Lens,
-                    notificationId: item.id,
-                    type: NotificationType.Mention,
-                    post,
-                    timestamp: new Date(item.publication.createdAt).getTime(),
-                };
-            }
+                    return {
+                        source: Source.Lens,
+                        notificationId: item.id,
+                        type: NotificationType.Mention,
+                        post,
+                        timestamp: new Date(item.publication.createdAt).getTime(),
+                    };
+                }
 
-            if (item.__typename === 'ActedNotification') {
-                const time = first(item.actions)?.actedAt;
-                return {
-                    source: Source.Lens,
-                    notificationId: item.id,
-                    type: NotificationType.Act,
-                    post: formatLensPost(item.publication),
-                    actions: item.actions.map((x) => formatLensProfile(x.by)),
-                    timestamp: time ? new Date(time).getTime() : undefined,
-                };
-            }
+                if (item.__typename === 'ActedNotification') {
+                    const time = first(item.actions)?.actedAt;
+                    return {
+                        source: Source.Lens,
+                        notificationId: item.id,
+                        type: NotificationType.Act,
+                        post: await formatLensPost(item.publication),
+                        actions: item.actions.map((x) => formatLensProfile(x.by)),
+                        timestamp: time ? new Date(time).getTime() : undefined,
+                    };
+                }
 
-            return null;
-        });
+                return null;
+            }),
+        );
 
         // filter muted/blocked items
         const profileIds = compact(
@@ -1377,7 +1379,7 @@ export class LensSocialMedia implements Provider {
             limit: LimitType.TwentyFive,
         });
         return createPageable(
-            result.items.map(formatLensPost),
+            await Promise.all(result.items.map(formatLensPost)),
             createIndicator(indicator),
             result.pageInfo.next ? createNextIndicator(indicator, result.pageInfo.next) : undefined,
         );
@@ -1393,7 +1395,7 @@ export class LensSocialMedia implements Provider {
             },
         });
 
-        return posts.items.map(formatLensPost);
+        return Promise.all(posts.items.map(formatLensPost));
     }
 
     async blockProfile(profileId: string) {
@@ -1463,7 +1465,7 @@ export class LensSocialMedia implements Provider {
         if (!result) throw new Error(t`No one likes this post yet.`);
         const posts = result.items.map(formatLensPost);
         return createPageable(
-            posts,
+            await Promise.all(posts),
             createIndicator(indicator),
             result.pageInfo.next ? createNextIndicator(indicator, result.pageInfo.next) : undefined,
         );
@@ -1484,10 +1486,9 @@ export class LensSocialMedia implements Provider {
         });
         if (result.isSuccess()) {
             const value = result.value;
-            value.items.map(formatLensPost);
             const profiles = value.items.map(formatLensPost);
             return createPageable(
-                profiles,
+                await Promise.all(profiles),
                 createIndicator(indicator),
                 value.pageInfo.next ? createNextIndicator(indicator, value.pageInfo.next) : undefined,
             );
@@ -1514,7 +1515,7 @@ export class LensSocialMedia implements Provider {
         if (!result) throw new Error(t`No comments found`);
 
         return createPageable(
-            result.items.map(formatLensPost),
+            await Promise.all(result.items.map(formatLensPost)),
             createIndicator(indicator),
             result.pageInfo.next ? createNextIndicator(indicator, result.pageInfo.next) : undefined,
         );
@@ -1569,7 +1570,7 @@ export class LensSocialMedia implements Provider {
         if (!result) createPageable(EMPTY_LIST, undefined);
 
         return createPageable(
-            result.items.map(formatLensPost),
+            await Promise.all(result.items.map(formatLensPost)),
             createIndicator(indicator),
             createNextIndicator(indicator, `${offset + limit}`),
         );
@@ -1678,7 +1679,7 @@ export class LensSocialMedia implements Provider {
                 throw result.error;
             }
 
-            const decryptedPost = formatLensPost({
+            const decryptedPost = await formatLensPost({
                 ...originalPost,
                 metadata: result.value,
             } as AnyPublicationFragment);

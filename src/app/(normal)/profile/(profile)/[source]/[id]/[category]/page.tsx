@@ -2,7 +2,7 @@
 
 import { useQuery } from '@tanstack/react-query';
 import { notFound } from 'next/navigation.js';
-import { Suspense, useMemo } from 'react';
+import { Suspense, useMemo, use } from 'react';
 
 import { Loading } from '@/components/Loading.js';
 import { LoginRequiredGuard } from '@/components/LoginRequiredGuard.js';
@@ -13,16 +13,17 @@ import { resolveSourceFromUrl } from '@/helpers/resolveSource.js';
 import { getProfileById } from '@/services/getProfileById.js';
 
 interface Props {
-    params: {
+    params: Promise<{
         id: string;
         category: ProfileCategory;
         source: SourceInURL;
-    };
+    }>;
 }
 
 const REQUIRE_LOGIN_SOURCES = [Source.Twitter];
 
-export default function Page({ params }: Props) {
+export default function Page(props: Props) {
+    const params = use(props.params);
     const source = resolveSourceFromUrl(params.source);
     if (!isProfilePageSource(source)) notFound();
 

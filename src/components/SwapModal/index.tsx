@@ -40,7 +40,7 @@ export function SwapModal({ chainId, chainIds, address, ...rest }: Props) {
 
     const locale = useLocale();
     const mode = useThemeModeStore.use.themeMode();
-    const instanceRef = useRef<OkxSwapWidgetHandler | undefined>();
+    const instanceRef = useRef<OkxSwapWidgetHandler | undefined>(undefined);
 
     const isDark = useMediaQuery('(prefers-color-scheme: dark)');
     const theme = isDark || mode === 'dark' ? THEME.DARK : THEME.LIGHT;

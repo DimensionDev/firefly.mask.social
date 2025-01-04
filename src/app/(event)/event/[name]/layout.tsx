@@ -11,17 +11,21 @@ const createPageMetadata = memoizeWithRedis(createMetadataEventDetailPage, {
 });
 
 interface Props {
-    params: {
+    params: Promise<{
         name: string;
-    };
+    }>;
     children: ReactNode;
 }
 
-export async function generateMetadata({ params }: Props) {
+export async function generateMetadata(props: Props) {
+    const params = await props.params;
     return createPageMetadata(params.name);
 }
 
-export default function Layout({ children, params }: Props) {
-    setupLocaleForSSR();
+export default async function Layout(props: Props) {
+    const params = await props.params;
+    const { children } = props;
+
+    await setupLocaleForSSR();
     return <ActivityProvider name={params.name}>{children}</ActivityProvider>;
 }

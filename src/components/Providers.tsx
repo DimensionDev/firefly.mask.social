@@ -13,12 +13,12 @@ type ProviderProps = PropsWithChildren<{
     enableParticle?: boolean;
 }>;
 
-export const Providers = memo(function RootProviders({
+export const Providers = memo(async function RootProviders({
     enableInsights = false,
     enableParticle = true,
     ...props
 }: ProviderProps) {
-    setupLocaleForSSR();
+    await setupLocaleForSSR();
 
     const children = (
         <SolanaWalletAdapterProvider enableInsights={enableInsights}>

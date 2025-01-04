@@ -137,8 +137,8 @@ const items: Item[] = [
     },
 ];
 
-export default function Page() {
-    setupLocaleForSSR();
+export default async function Page() {
+    await setupLocaleForSSR();
 
     const renderItem = (item: (typeof items)[0]) => {
         const type = item.type;

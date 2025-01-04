@@ -8,7 +8,7 @@ import { resolveProfileUrl } from '@/helpers/resolveProfileUrl.js';
 
 export async function generateMetadata() {
     return createSiteMetadata({
-        title: createPageTitleSSR(t`Profile`),
+        title: await createPageTitleSSR(t`Profile`),
     });
 }
 

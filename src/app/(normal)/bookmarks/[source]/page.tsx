@@ -1,7 +1,7 @@
 'use client';
 
 import { safeUnreachable } from '@masknet/kit';
-import { Suspense } from 'react';
+import { Suspense, use } from 'react';
 
 import { ArticleBookmarkList } from '@/app/(normal)/bookmarks/ArticleBookmarkList.js';
 import { BookmarkList } from '@/app/(normal)/bookmarks/BookmarkList.js';
@@ -29,7 +29,8 @@ function BookmarkListContent({ source }: { source: BookmarkSource }) {
     }
 }
 
-export default function Page({ params }: { params: { source: SourceInURL } }) {
+export default function Page(props: { params: Promise<{ source: SourceInURL }> }) {
+    const params = use(props.params);
     const mounted = useMounted();
     const source = resolveSource(params.source) as BookmarkSource;
 

@@ -6,7 +6,8 @@ import { FollowingSnapshotList } from '@/components/Snapshot/FollowingSnapshotLi
 import { type FollowingSource, Source, SourceInURL } from '@/constants/enum.js';
 import { resolveSource } from '@/helpers/resolveSource.js';
 
-export default function Page({ params }: { params: { source: SourceInURL } }) {
+export default async function Page(props: { params: Promise<{ source: SourceInURL }> }) {
+    const params = await props.params;
     const source = resolveSource(params.source) as FollowingSource;
     if (source === Source.DAOs) {
         return <FollowingSnapshotList />;

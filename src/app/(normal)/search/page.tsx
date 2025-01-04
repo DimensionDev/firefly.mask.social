@@ -8,17 +8,18 @@ import { resolveSearchUrl } from '@/helpers/resolveSearchUrl.js';
 
 export async function generateMetadata() {
     return createSiteMetadata({
-        title: createPageTitleSSR(t`Search`),
+        title: await createPageTitleSSR(t`Search`),
     });
 }
 
 interface SearchPageProps {
-    searchParams: {
+    searchParams: Promise<{
         type: SearchType;
         q: string;
-    };
+    }>;
 }
 
-export default function Page({ searchParams }: SearchPageProps) {
+export default async function Page(props: SearchPageProps) {
+    const searchParams = await props.searchParams;
     redirect(resolveSearchUrl(searchParams.q, searchParams.type));
 }

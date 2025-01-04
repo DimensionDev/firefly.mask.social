@@ -1,4 +1,5 @@
 'use client';
+import { use } from 'react';
 import 'swiper/css';
 import 'swiper/css/keyboard';
 import 'swiper/css/navigation';
@@ -12,14 +13,17 @@ import { resolveSocialMediaProvider } from '@/helpers/resolveSocialMediaProvider
 import { resolveSocialSource } from '@/helpers/resolveSource.js';
 
 interface Props {
-    params: {
+    params: Promise<{
         id: string;
         index: string;
         source: SocialSourceInURL;
-    };
+    }>;
 }
 
-export default function PreviewPhotoModal({ params: { id: postId, index, source } }: Props) {
+export default function PreviewPhotoModal(props: Props) {
+    const params = use(props.params);
+    const { id: postId, index, source } = params;
+
     const router = useRouter();
 
     const currentSource = resolveSocialSource(source);

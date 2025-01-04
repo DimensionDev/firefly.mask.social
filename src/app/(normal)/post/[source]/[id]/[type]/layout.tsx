@@ -6,16 +6,18 @@ import type { EngagementType } from '@/constants/enum.js';
 import { isSocialSource } from '@/helpers/isSocialSource.js';
 import { resolveSourceFromUrlNoFallback } from '@/helpers/resolveSource.js';
 
-export default function Layout({
-    params,
-    children,
-}: PropsWithChildren<{
-    params: {
-        source: string;
-        id: string;
-        type: EngagementType;
-    };
-}>) {
+export default async function Layout(
+    props: PropsWithChildren<{
+        params: Promise<{
+            source: string;
+            id: string;
+            type: EngagementType;
+        }>;
+    }>,
+) {
+    const params = await props.params;
+    const { children } = props;
+
     const source = resolveSourceFromUrlNoFallback(params.source);
     if (!source || !isSocialSource(source)) notFound();
     return (

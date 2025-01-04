@@ -1,4 +1,4 @@
-import { Trans } from '@lingui/macro';
+import { Trans } from '@lingui/react/macro';
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation.js';
 import type React from 'react';
@@ -24,13 +24,14 @@ const createPageMetadata = memoizeWithRedis(createMetadataPostById, {
 });
 
 interface Props {
-    params: {
+    params: Promise<{
         id: string;
         source: SocialSourceInURL;
-    };
+    }>;
 }
 
-export async function generateMetadata({ params }: Props): Promise<Metadata> {
+export async function generateMetadata(props: Props): Promise<Metadata> {
+    const params = await props.params;
     if (isSocialSourceInUrl(params.source)) {
         return createPageMetadata(params.source, params.id);
     }
@@ -38,12 +39,12 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 }
 
 export default async function Page(props: Props) {
-    setupLocaleForSSR();
+    await setupLocaleForSSR();
     await setupTwitterSession();
 
-    if (isBotRequest()) return null;
+    if (await isBotRequest()) return null;
 
-    const { params } = props;
+    const params = await props.params;
     if (!isSocialSourceInUrl(params.source)) notFound();
 
     const source = resolveSocialSource(params.source);

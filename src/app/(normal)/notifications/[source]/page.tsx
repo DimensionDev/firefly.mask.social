@@ -3,7 +3,7 @@
 import { t } from '@lingui/macro';
 import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
 import { compact } from 'lodash-es';
-import { type Dispatch, type SetStateAction, useCallback, useState } from 'react';
+import { type Dispatch, type SetStateAction, useCallback, useState, use } from 'react';
 
 import { ListInPage } from '@/components/ListInPage.js';
 import { NotificationFilter } from '@/components/Notification/NotificationFilter.js';
@@ -44,7 +44,8 @@ const getNotificationItemContent = (index: number, notification: NotificationObj
     return <NotificationItem key={notification.notificationId} notification={notification} />;
 };
 
-export default function Notification({ params }: { params: { source: SourceInURL } }) {
+export default function Notification(props: { params: Promise<{ source: SourceInURL }> }) {
+    const params = use(props.params);
     const source = resolveSource(params.source) as SocialDiscoverSource;
     const profile = useCurrentProfile(source);
     const isLogin = useIsLogin(source);

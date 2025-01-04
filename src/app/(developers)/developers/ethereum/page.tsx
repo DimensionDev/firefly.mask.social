@@ -37,12 +37,8 @@ const items: Item[] = [
     },
 ];
 
-export default function Page() {
-    setupLocaleForSSR();
-
-    const renderItem = (item: Item) => {
-        return <EthereumMethodButton item={item} />;
-    };
+export default async function Page() {
+    await setupLocaleForSSR();
 
     return (
         <Section className="h-screen">
@@ -69,7 +65,9 @@ export default function Page() {
                                     </h2>
                                     <p className="text-sm text-secondary">{x.description}</p>
                                 </div>
-                                <div className="max-w-[50%]">{renderItem(x)}</div>
+                                <div className="max-w-[50%]">
+                                    <EthereumMethodButton item={x} />
+                                </div>
                             </ClickableArea>
                         );
                     })}

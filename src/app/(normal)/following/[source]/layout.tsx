@@ -14,18 +14,14 @@ import { resolveSourceName } from '@/helpers/resolveSourceName.js';
 
 export async function generateMetadata() {
     return createSiteMetadata({
-        title: createPageTitleSSR(t`Following`),
+        title: await createPageTitleSSR(t`Following`),
     });
 }
 
-export default function Layout({
-    params,
-    children,
-}: PropsWithChildren<{
-    params: {
-        source: string;
-    };
-}>) {
+export default async function Layout(props: PropsWithChildren<{ params: Promise<{ source: string }> }>) {
+    const params = await props.params;
+    const { children } = props;
+
     const source = resolveSourceFromUrlNoFallback(params.source);
     if (!source || !FOLLOWING_SOURCES.includes(source as FollowingSource)) notFound();
     return (

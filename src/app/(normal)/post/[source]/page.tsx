@@ -16,18 +16,22 @@ const createPageMetadata = memoizeWithRedis(createMetadataPostById, {
 });
 
 interface Props {
-    params: {
+    params: Promise<{
         source: SocialSourceInURL;
-    };
-    searchParams: { source: SocialSourceInURL };
+    }>;
+    searchParams: Promise<{ source: SocialSourceInURL }>;
 }
 
-export async function generateMetadata({ params, searchParams }: Props): Promise<Metadata> {
+export async function generateMetadata(props: Props): Promise<Metadata> {
+    const searchParams = await props.searchParams;
+    const params = await props.params;
     if (isSocialSourceInUrl(searchParams.source)) return createPageMetadata(searchParams.source, params.source);
     return createSiteMetadata();
 }
 
-export default function Page({ params, searchParams }: Props) {
+export default async function Page(props: Props) {
+    const searchParams = await props.searchParams;
+    const params = await props.params;
     if (!searchParams.source) notFound();
     if (!isSocialSourceInUrl(params.source)) {
         redirect(resolvePostUrl(resolveSocialSource(searchParams.source), params.source));

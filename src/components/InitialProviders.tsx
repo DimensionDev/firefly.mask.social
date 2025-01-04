@@ -10,7 +10,7 @@ import { v4 as uuid } from 'uuid';
 
 import { sentryClient } from '@/configs/sentryClient.js';
 import { classNames } from '@/helpers/classNames.js';
-import { getLocaleFromCookies } from '@/helpers/getFromCookies.js';
+import { useLocale } from '@/helpers/getFromCookies.js';
 import { useIsDarkMode } from '@/hooks/useIsDarkMode.js';
 import { useIsMedium } from '@/hooks/useMediaQuery.js';
 import { setLocale } from '@/i18n/index.js';
@@ -39,11 +39,11 @@ export const InitialProviders = memo(function Providers(props: { children: React
         if (!isServer) recordUserThemeMode(isDarkMode ? 'dark' : 'light');
     }, [isDarkMode, themeMode]);
 
+    const locale = useLocale();
     useEffect(() => {
-        const locale = getLocaleFromCookies();
         console.info('[i18n] set locale =', locale);
         setLocale(locale);
-    }, []);
+    }, [locale]);
 
     const viewerId = useLeafwatchPersistStore.use.viewerId();
     const setViewerId = useLeafwatchPersistStore.use.setViewerId();

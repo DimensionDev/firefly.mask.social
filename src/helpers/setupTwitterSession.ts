@@ -12,10 +12,10 @@ import { twitterSessionHolder } from '@/providers/twitter/SessionHolder.js';
 export async function setupTwitterSession() {
     if (!isServer) return;
 
-    const cookies = NextCookies();
+    const cookies = await NextCookies();
 
     const req = {
-        headers: Object.fromEntries(headers()),
+        headers: Object.fromEntries(await headers()),
         cookies: Object.fromEntries(cookies.getAll().map((c) => [c.name, c.value])),
     } as unknown as NextRequest;
 

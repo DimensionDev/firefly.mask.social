@@ -41,7 +41,7 @@ export const ContentTranslator = memo<ContentWithTranslatorProps>(function Conte
         const originalLanguage = await detectLanguage(content);
         setTranslationConfig({
             original: originalLanguage,
-            target: getTargetLanguage(originalLanguage),
+            target: await getTargetLanguage(originalLanguage),
         });
     }, [content]);
 

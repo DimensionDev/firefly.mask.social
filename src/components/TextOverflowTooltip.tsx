@@ -11,7 +11,7 @@ interface TextOverflowTooltipProps extends Omit<TippyProps, 'ref' | 'title' | 'c
     withDelay?: boolean;
     content: ReactNode;
     // eslint-disable-next-line
-    children: ReactElement;
+    children: ReactElement<any>;
 }
 
 export const TextOverflowTooltip = memo(function TextOverflowTooltip({

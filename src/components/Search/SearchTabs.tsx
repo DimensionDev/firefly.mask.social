@@ -2,7 +2,7 @@
 
 import { Trans } from '@lingui/macro';
 import { usePathname } from 'next/navigation.js';
-import { memo, useMemo } from 'react';
+import { memo, useMemo, type JSX } from 'react';
 
 import { Link } from '@/components/Link.js';
 import { SearchType, type SocialSource, Source } from '@/constants/enum.js';

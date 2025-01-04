@@ -37,7 +37,12 @@ export const SideBarForMobile = memo(function SideBarForMobile() {
                     <div className="fixed inset-0 bg-main/25 bg-opacity-30" />
                 </Transition.Child>
 
-                <div className="fixed inset-0 flex" ref={(ref) => setRef(ref)}>
+                <div
+                    className="fixed inset-0 flex"
+                    ref={(ref) => {
+                        setRef(ref);
+                    }}
+                >
                     <Transition.Child
                         as={Fragment}
                         enter="transition ease-in-out duration-300 transform"

@@ -6,7 +6,7 @@ import { classNames } from '@/helpers/classNames.js';
 
 interface Props extends HTMLProps<'div'> {
     // eslint-disable-next-line
-    icon: ReactElement;
+    icon: ReactElement<any>;
 }
 
 export function ActivityCellActionTag({ icon, className, children }: PropsWithChildren<Props>) {

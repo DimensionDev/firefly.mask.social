@@ -32,7 +32,7 @@ export function fixOverPosition(
 
 const defaultFormatTooltip = (value: number) => formatPrice(value)!;
 export function useLineChart(
-    svgRef: RefObject<SVGSVGElement>,
+    svgRef: RefObject<SVGSVGElement | null>,
     data: Array<{
         date: Date;
         value: number;

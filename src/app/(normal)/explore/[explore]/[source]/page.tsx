@@ -3,13 +3,14 @@ import { type ExploreSource, ExploreType, type SourceInURL, type TrendingType } 
 import { resolveSourceFromUrl } from '@/helpers/resolveSource.js';
 
 interface Props {
-    params: {
+    params: Promise<{
         source: SourceInURL | TrendingType;
         explore: ExploreType;
-    };
+    }>;
 }
 
-export default function Page({ params }: Props) {
+export default async function Page(props: Props) {
+    const params = await props.params;
     return (
         <ExplorePage
             source={

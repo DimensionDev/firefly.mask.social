@@ -5,12 +5,13 @@ import { ExploreType } from '@/constants/enum.js';
 import { resolveExploreUrl } from '@/helpers/resolveExploreUrl.js';
 
 interface Props {
-    params: {
+    params: Promise<{
         explore: ExploreType;
-    };
+    }>;
 }
 
-export default function Page({ params }: Props) {
+export default async function Page(props: Props) {
+    const params = await props.params;
     if (params.explore === ExploreType.Projects) return <ProjectTrendingList />;
     redirect(resolveExploreUrl(params.explore), RedirectType.replace);
 }

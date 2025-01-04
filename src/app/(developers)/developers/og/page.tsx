@@ -1,7 +1,7 @@
 'use client';
 
 import { ArrowPathRoundedSquareIcon } from '@heroicons/react/24/outline';
-import { t, Trans } from '@lingui/macro';
+import { Trans, useLingui } from '@lingui/react/macro';
 import { useMemo, useState } from 'react';
 import { useAsyncFn } from 'react-use';
 import urlcat from 'urlcat';
@@ -16,10 +16,9 @@ import { createDummyPost } from '@/helpers/createDummyPost.js';
 import { fetchJSON } from '@/helpers/fetchJSON.js';
 import { isValidUrl } from '@/helpers/isValidUrl.js';
 import { runInSafeAsync } from '@/helpers/runInSafe.js';
-import { getI18n } from '@/i18n/index.js';
 
 export default function Page() {
-    const i18n = getI18n();
+    const { t } = useLingui();
 
     const [url, setUrl] = useState('');
     const post = useMemo(() => createDummyPost(Source.Farcaster, '', url, [url]), [url]);
@@ -64,7 +63,7 @@ export default function Page() {
                     type="text"
                     autoComplete="off"
                     spellCheck="false"
-                    placeholder={t(i18n)`Your website URL`}
+                    placeholder={t`Your website URL`}
                     onChange={(e) => setUrl(e.target.value)}
                 />
                 <ClickableButton

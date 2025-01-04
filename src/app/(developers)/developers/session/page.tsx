@@ -1,7 +1,7 @@
 'use client';
 
 import { ArrowPathRoundedSquareIcon } from '@heroicons/react/24/outline';
-import { t, Trans } from '@lingui/macro';
+import { Trans, useLingui } from '@lingui/react/macro';
 import { useState } from 'react';
 import { useAsyncFn } from 'react-use';
 
@@ -12,12 +12,11 @@ import { ProfileAvatar } from '@/components/ProfileAvatar.js';
 import { ProfileName } from '@/components/ProfileName.js';
 import { classNames } from '@/helpers/classNames.js';
 import { getProfileBySession } from '@/helpers/getProfileBySession.js';
-import { getI18n } from '@/i18n/index.js';
 import { SessionFactory } from '@/providers/base/SessionFactory.js';
 import type { Profile } from '@/providers/types/SocialMedia.js';
 
 export default function Page() {
-    const i18n = getI18n();
+    const { t } = useLingui();
 
     const [serializedSession, setSerializedSession] = useState('');
     const [profile, setProfile] = useState<Profile | null>(null);
@@ -49,7 +48,7 @@ export default function Page() {
                     type="text"
                     autoComplete="off"
                     spellCheck="false"
-                    placeholder={t(i18n)`Your serialized session`}
+                    placeholder={t`Your serialized session`}
                     onChange={(e) => setSerializedSession(e.target.value)}
                 />
                 <ClickableButton

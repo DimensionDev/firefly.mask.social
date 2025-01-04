@@ -22,20 +22,24 @@ import { setupLocaleForSSR } from '@/i18n/index.js';
 export const revalidate = 60; // revalidate every 60 seconds
 
 type Props = PropsWithChildren<{
-    params: {
+    params: Promise<{
         id: string;
         type: ChannelTabType;
         source: SocialSourceInURL;
-    };
+    }>;
 }>;
 
-export async function generateMetadata({ params }: Props) {
+export async function generateMetadata(props: Props) {
+    const params = await props.params;
     return createMetadataChannel(params.source, params.id);
 }
 
-export default async function Layout({ params, children }: Props) {
-    setupLocaleForSSR();
-    if (isBotRequest()) return null;
+export default async function Layout(props: Props) {
+    const params = await props.params;
+    const { children } = props;
+
+    await setupLocaleForSSR();
+    if (await isBotRequest()) return null;
 
     if (!isSocialSourceInUrl(params.source)) notFound();
 

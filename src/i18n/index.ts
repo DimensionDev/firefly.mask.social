@@ -3,7 +3,7 @@ import { setI18n } from '@lingui/react/server';
 import dayjs from 'dayjs';
 
 import { Locale } from '@/constants/enum.js';
-import { getLocaleFromCookies } from '@/helpers/getFromCookies.js';
+import { getLocaleFromCookiesAsync } from '@/helpers/getFromCookies.js';
 // @ts-ignore
 import { messages as en } from '@/locales/en/messages.mjs';
 // @ts-ignore
@@ -26,7 +26,7 @@ const allLocales = Object.fromEntries(
             locale,
             locales,
             messages,
-        }) as unknown as Parameters<typeof setI18n>[0],
+        }),
     ]),
 );
 
@@ -38,13 +38,12 @@ export const supportedLocales: Record<Locale, string> = {
 
 export const defaultLocale = Locale.en;
 
-export function setupLocaleForSSR() {
-    const i18n = allLocales[getLocaleFromCookies()];
-    setI18n(i18n);
+export async function setupLocaleForSSR() {
+    const i18n = allLocales[await getLocaleFromCookiesAsync()];
+    setI18n(i18n as any);
 }
 
-export function getI18n() {
-    const locale = getLocaleFromCookies();
+export function getI18nInstance(locale: Locale) {
     return allLocales[locale];
 }
 

@@ -8,16 +8,18 @@ const createPageMetadata = memoizeWithRedis(createMetadataToken, {
 });
 
 interface Props {
-    params: {
+    params: Promise<{
         symbol: string;
-    };
+    }>;
 }
 
-export async function generateMetadata({ params }: Props) {
+export async function generateMetadata(props: Props) {
+    const params = await props.params;
     return createPageMetadata(params.symbol);
 }
 
-export default function TokenPage({ params }: Props) {
+export default async function TokenPage(props: Props) {
+    const params = await props.params;
     const { symbol } = params;
     return <TokenDetail symbol={symbol} />;
 }

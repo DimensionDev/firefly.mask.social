@@ -1,7 +1,7 @@
 'use client';
 
 import { Trans } from '@lingui/macro';
-import { useMemo } from 'react';
+import { useMemo, use } from 'react';
 
 import FullLogo from '@/assets/logo-full.svg';
 import { OpenFireflyAppButton } from '@/components/OpenFireflyAppButton.js';
@@ -9,10 +9,11 @@ import { bom } from '@/helpers/bom.js';
 import { DeviceType } from '@/types/device.js';
 
 interface PageProps {
-    searchParams: { session?: string };
+    searchParams: Promise<{ session?: string }>;
 }
 
-export default function Page({ searchParams }: PageProps) {
+export default function Page(props: PageProps) {
+    const searchParams = use(props.searchParams);
     const href = bom.location?.href;
     const schemes = useMemo(() => {
         const sessionId = searchParams.session;

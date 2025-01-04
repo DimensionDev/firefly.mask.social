@@ -9,7 +9,7 @@ interface Props {
     level: SecurityMessageLevel;
     security: TokenContractSecurity;
     // eslint-disable-next-line @typescript-eslint/ban-types
-    children: ReactElement;
+    children: ReactElement<any>;
 }
 
 export function TokenSecurityTippy({ children, level, security }: Props) {
