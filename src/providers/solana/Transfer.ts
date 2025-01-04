@@ -6,8 +6,8 @@ import { isGreaterThan, rightShift } from '@/helpers/number.js';
 import { createTransferInstruction } from '@/providers/solana/createTransferInstruction.js';
 import { getOrCreateAssociatedTokenAccount } from '@/providers/solana/getOrCreateAssociatedTokenAccount.js';
 import { getNativeTokenBalance, getTokenBalance } from '@/providers/solana/getTokenBalance.js';
+import { getWalletAdapter } from '@/providers/solana/getWalletAdapter.js';
 import { SolanaNetwork } from '@/providers/solana/Network.js';
-import { resolveWalletAdapter } from '@/providers/solana/resolveWalletAdapter.js';
 import type { Token, TransactionOptions, TransferProvider } from '@/providers/types/Transfer.js';
 
 class Provider implements TransferProvider<ChainId> {
@@ -56,7 +56,7 @@ class Provider implements TransferProvider<ChainId> {
     }
 
     private async transferNative(options: TransactionOptions<ChainId>): Promise<string> {
-        const adapter = resolveWalletAdapter();
+        const adapter = getWalletAdapter();
         const account = await SolanaNetwork.getAccount();
 
         const transaction = await this.getNativeTransferTransaction(options);
@@ -71,7 +71,7 @@ class Provider implements TransferProvider<ChainId> {
     }
 
     private async transferContract(options: TransactionOptions<ChainId>): Promise<string> {
-        const adapter = resolveWalletAdapter();
+        const adapter = getWalletAdapter();
         const account = await SolanaNetwork.getAccount();
 
         const transaction = await this.getSplTransferTransaction(options);
@@ -96,7 +96,7 @@ class Provider implements TransferProvider<ChainId> {
     }
 
     private async getSplTransferTransaction(options: TransactionOptions<ChainId>) {
-        const adapter = resolveWalletAdapter();
+        const adapter = getWalletAdapter();
         const accountPublicKey = new PublicKey(await SolanaNetwork.getAccount());
 
         const recipientPubkey = new PublicKey(options.to);

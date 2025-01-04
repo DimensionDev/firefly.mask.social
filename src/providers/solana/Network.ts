@@ -1,24 +1,19 @@
 import { ChainId } from '@masknet/web3-shared-solana';
-import { WalletNotConnectedError } from '@solana/wallet-adapter-base';
 
 import { SolanaExplorerResolver } from '@/mask/index.js';
-import { resolveWalletAdapter } from '@/providers/solana/resolveWalletAdapter.js';
+import { getWalletAdapter, getWalletAdaptorConnected } from '@/providers/solana/getWalletAdapter.js';
 import type { NetworkProvider as NetworkProvider } from '@/providers/types/Network.js';
 
 class Provider implements NetworkProvider<ChainId> {
     async connect() {
-        const adapter = resolveWalletAdapter();
-        if (!adapter.connected) {
-            await adapter.connect();
-        }
+        const adapter = getWalletAdapter();
+        if (!adapter.connected) await adapter.connect();
     }
 
     async getAccount(): Promise<string> {
         await this.connect();
 
-        const adapter = resolveWalletAdapter();
-        if (!adapter.publicKey) throw new WalletNotConnectedError();
-
+        const adapter = getWalletAdaptorConnected();
         return adapter.publicKey.toBase58();
     }
 
